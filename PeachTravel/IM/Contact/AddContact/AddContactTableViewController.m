@@ -136,15 +136,12 @@
             [_searchBar resignFirstResponder];
               
             //如果已经是好友了，进入好友详情界面
-            for (Contact *contact in accountManager.account.contacts) {
-                if ([contact.userId integerValue] == userId) {
-//                    ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
-                    OtherUserInfoViewController *contactDetailCtl = [[OtherUserInfoViewController alloc]init];
-                    contactDetailCtl.userId = contact.userId;
-                    _nextViewController = contactDetailCtl;
-                    [self performSelector:@selector(jumpToNextCtl) withObject:nil afterDelay:0.3];
-                    return;
-                }
+            if ([accountManager frendIsMyContact:userId]) {
+                OtherUserInfoViewController *contactDetailCtl = [[OtherUserInfoViewController alloc]init];
+                contactDetailCtl.userId = [NSNumber numberWithInt:userId];
+                _nextViewController = contactDetailCtl;
+                [self performSelector:@selector(jumpToNextCtl) withObject:nil afterDelay:0.3];
+                return;
             }
             OtherUserInfoViewController *otherCtl = [[OtherUserInfoViewController alloc]init];
             otherCtl.userId = [NSNumber numberWithInteger:userId];

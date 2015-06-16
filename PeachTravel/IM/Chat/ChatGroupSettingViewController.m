@@ -390,27 +390,27 @@
 
 - (void)showUserInfoWithContactInfo:(Contact *)contact
 {
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    
-    if ([accountManager isMyFrend:contact.userId]) {
-//        ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
-        OtherUserInfoViewController *contactDetailCtl = [[OtherUserInfoViewController alloc]init];
-        contactDetailCtl.userId = contact.userId;
-//        contactDetailCtl.goBackToChatViewWhenClickTalk = NO;
-        [self.navigationController pushViewController:contactDetailCtl animated:YES];
-        
-    } else {
-//        SearchUserInfoViewController *searchUserInfoCtl = [[SearchUserInfoViewController alloc] init];
-//        searchUserInfoCtl.userInfo = @{@"userId":contact.userId,
-//                                       @"avatar":contact.avatar,
-//                                       @"nickName":contact.nickName,
-//                                       @"signature":contact.signature,
-//                                       @"easemobUser":contact.easemobUser
-//                                       };
-        OtherUserInfoViewController *searchUserInfoCtl = [[OtherUserInfoViewController alloc]init];
-        searchUserInfoCtl.userId = contact.userId;
-        [self.navigationController pushViewController:searchUserInfoCtl animated:YES];
-    }
+//    AccountManager *accountManager = [AccountManager shareAccountManager];
+//    
+//    if ([accountManager frendIsMyContact:contact.userId]) {
+////        ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
+//        OtherUserInfoViewController *contactDetailCtl = [[OtherUserInfoViewController alloc]init];
+//        contactDetailCtl.userId = contact.userId;
+////        contactDetailCtl.goBackToChatViewWhenClickTalk = NO;
+//        [self.navigationController pushViewController:contactDetailCtl animated:YES];
+//        
+//    } else {
+////        SearchUserInfoViewController *searchUserInfoCtl = [[SearchUserInfoViewController alloc] init];
+////        searchUserInfoCtl.userInfo = @{@"userId":contact.userId,
+////                                       @"avatar":contact.avatar,
+////                                       @"nickName":contact.nickName,
+////                                       @"signature":contact.signature,
+////                                       @"easemobUser":contact.easemobUser
+////                                       };
+//        OtherUserInfoViewController *searchUserInfoCtl = [[OtherUserInfoViewController alloc]init];
+//        searchUserInfoCtl.userId = contact.userId;
+//        [self.navigationController pushViewController:searchUserInfoCtl animated:YES];
+//    }
 }
 
 

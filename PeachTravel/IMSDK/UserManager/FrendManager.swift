@@ -18,7 +18,6 @@ private let API_FREND = "\(BASE_URL)users/contacts"
     :param: requestContent 请求的信息
     */
     optional func requestAddFrend(requestContent: NSDictionary)
-
 }
 
 private let frendManager = FrendManager()
@@ -65,6 +64,7 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
         daoHelper.addFrend2DB(frend)
     }
     
+    
     /**
     获取所有的好友列表
     :returns:
@@ -89,6 +89,13 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
     func frendIsExitInDB(userId: Int) -> Bool {
         var daoHelper = DaoHelper.shareInstance()
         return daoHelper.frendIsExitInDB(userId)
+    }
+    
+    /**
+    *  更新好友备注
+    */
+    func updateContactMemo(momo: String, userId: Int) {
+        
     }
     
     /**

@@ -63,7 +63,7 @@
             }
         };
         NSMutableArray *tempArray = [[NSMutableArray alloc] init];
-        for (id request in self.accountManager.account.frendrequestlist) {
+        for (id request in self.accountManager.account.frendRequest) {
             [tempArray addObject:request];
         }
         _dataSource = [[tempArray sortedArrayUsingComparator:cmptr] mutableCopy];
@@ -92,7 +92,7 @@
         }
     };
     NSMutableArray *tempArray = [[NSMutableArray alloc] init];
-    for (id request in self.accountManager.account.frendrequestlist) {
+    for (id request in self.accountManager.account.frendRequest) {
         [tempArray addObject:request];
     }
     _dataSource = [[tempArray sortedArrayUsingComparator:cmptr] mutableCopy];
@@ -100,53 +100,53 @@
 
 - (void)addContactWithFrendRequest:(FrendRequest *)frendRequest
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", self.accountManager.account.userId] forHTTPHeaderField:@"UserId"];
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-
-    [params setObject:frendRequest.userId forKey:@"userId"];
-    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    __weak FrendRequestTableViewController *weakSelf = self;
-    [hud showHUDInViewController:weakSelf.navigationController];
-    
-    //同意添加好友
-    [manager POST:API_ADD_CONTACT parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [hud hideTZHUD];
-        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-        if (code == 0) {
-            [self.accountManager agreeFrendRequest:frendRequest];
-            [self.accountManager addContact:frendRequest];
-            [self.tableView reloadData];
-            
-//            [SVProgressHUD showHint:@"已添加"];
-            for (Contact *contact in self.accountManager.account.contacts) {
-                if ([((FrendRequest *)frendRequest).userId longValue] == [contact.userId longValue]) {
-//                    ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
-                    OtherUserInfoViewController *contactDetailCtl = [[OtherUserInfoViewController alloc]init];
-                    
-                    contactDetailCtl.userId = contact.userId;
-                    [self.navigationController pushViewController:contactDetailCtl animated:YES];
-                    break;
-                }
-            }
-           
-            
-        } else {
-            [SVProgressHUD showHint:@"添加失败"];
-
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [hud hideTZHUD];
-        if (self.isShowing) {
-            [SVProgressHUD showHint:@"呃～好像没找到网络"];
-        }
-    }];
+//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//    AppUtils *utils = [[AppUtils alloc] init];
+//    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+//    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+//    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+//    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+//    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+//    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", self.accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+//    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+//
+//    [params setObject:frendRequest.userId forKey:@"userId"];
+//    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+//    __weak FrendRequestTableViewController *weakSelf = self;
+//    [hud showHUDInViewController:weakSelf.navigationController];
+//    
+//    //同意添加好友
+//    [manager POST:API_ADD_CONTACT parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        [hud hideTZHUD];
+//        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+//        if (code == 0) {
+//            [self.accountManager agreeFrendRequest:frendRequest];
+//            [self.accountManager addContact:frendRequest];
+//            [self.tableView reloadData];
+//            
+////            [SVProgressHUD showHint:@"已添加"];
+//            for (Contact *contact in self.accountManager.account.contacts) {
+//                if ([((FrendRequest *)frendRequest).userId longValue] == [contact.userId longValue]) {
+////                    ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
+//                    OtherUserInfoViewController *contactDetailCtl = [[OtherUserInfoViewController alloc]init];
+//                    
+//                    contactDetailCtl.userId = contact.userId;
+//                    [self.navigationController pushViewController:contactDetailCtl animated:YES];
+//                    break;
+//                }
+//            }
+//           
+//            
+//        } else {
+//            [SVProgressHUD showHint:@"添加失败"];
+//
+//        }
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        [hud hideTZHUD];
+//        if (self.isShowing) {
+//            [SVProgressHUD showHint:@"呃～好像没找到网络"];
+//        }
+//    }];
 }
 
 #pragma mark - IBAction Methods
@@ -179,7 +179,7 @@
     FrendRequest *request = [_dataSource objectAtIndex:indexPath.row];
     cell.nickNameLabel.text = request.nickName;
     cell.attachMsgLabel.text = request.attachMsg;
-    [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:request.avatarSmall] placeholderImage:[UIImage imageNamed:@"person_disabled"]];
+    [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:request.avatar] placeholderImage:[UIImage imageNamed:@"person_disabled"]];
     cell.requestBtn.tag = indexPath.row;
     if ([request.status integerValue] == TZFrendAgree) {
         [cell.requestBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];

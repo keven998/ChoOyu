@@ -37,7 +37,7 @@
     _albumArray = [NSMutableArray array];
     AccountManager *accountManager = [AccountManager shareAccountManager];
 
-    _isMyFriend = [accountManager isMyFrend: _userId];
+    _isMyFriend = [accountManager frendIsMyContact:_userId.integerValue];
     
     if (_isMyFriend) {
         UIButton *moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
@@ -197,7 +197,7 @@
     toolBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     [self.view addSubview:toolBar];
     AccountManager *accountManager = [AccountManager shareAccountManager];
-    if ([accountManager isMyFrend:_userId]) {
+    if ([accountManager frendIsMyContact:_userId.integerValue]) {
         UIButton *addFriend = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 49)];
         [addFriend setTitle:@"开始聊天" forState:UIControlStateNormal];
         [addFriend setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];

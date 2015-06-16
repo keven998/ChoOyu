@@ -117,7 +117,6 @@ class FrendModel: NSObject {
         }
     }
     
-    
     var footprintDescription :NSString {
         get {
             return "\(self.tracks.count)国 \(count)城市"

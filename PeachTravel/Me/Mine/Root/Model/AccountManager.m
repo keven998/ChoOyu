@@ -155,7 +155,6 @@
     _account = [NSEntityDescription insertNewObjectForEntityForName:@"Account" inManagedObjectContext:self.context];
     [self loadUserInfo:userInfo];
     
-    [self addPaipaiContact];
     [self save];
     IMClientManager *manager = [IMClientManager shareInstance];
     [manager userDidLogin];
@@ -196,19 +195,6 @@
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
     }];
-}
-
-/**
- *  默认添加 paipai 好友
- */
-- (void)addPaipaiContact
-{
-    Contact *contact = [NSEntityDescription insertNewObjectForEntityForName:@"Contact" inManagedObjectContext:self.context];
-    contact.userId = [NSNumber numberWithInt:10000];
-    contact.nickName = @"派派";
-    contact.easemobUser = @"gcounhhq0ckfjwotgp02c39vq40ewhxt";
-    contact.pinyin = @"paipai";
-    [self.account addContactsObject:contact];
 }
 
 #pragma mark - 修改用户信息相关接口
@@ -523,70 +509,9 @@
     _account.tel = [json objectForKey:@"tel"];
     _account.secToken = [json objectForKey:@"secToken"];
     _account.signature = [json objectForKey:@"signature"];
-    _account.easemobUser = [json objectForKey:@"easemobUser"];
-    _account.easemobPwd = [json objectForKey:@"easemobPwd"];
 }
 
 #pragma mark - **********好友相关操作********
-
-/**
- *  通过环信 id 取得用户的旅行派信息
- *
- *  @param easemobUser 环信 id
- *
- *  @return
- */
-- (Contact *)TZContactByEasemobUser:(NSString *)easemobUser
-{
-    for (Contact *contact in self.account.contacts) {
-        if ([contact.easemobUser isEqualToString:easemobUser]) {
-            return contact;
-        }
-    }
-    return nil;
-}
-
-- (Contact *)TZContactByUserId:(NSNumber *)userId
-{
-    for (Contact *contact in self.account.contacts) {
-        if (contact.userId.integerValue == userId.integerValue) {
-            return contact;
-        }
-    }
-    return nil;
-}
-
-
-- (BOOL)isMyFrend:(NSNumber *)userId
-{
-    for (Contact *contact in self.account.contacts) {
-        if (contact.userId.integerValue == userId.integerValue) {
-            return YES;
-        }
-    }
-    return NO;
-}
-
-- (Contact *)contactWithUserId:(NSNumber *)userId
-{
-    for (Contact *contact in self.account.contacts) {
-        if (contact.userId.integerValue == userId.integerValue) {
-            return contact;
-        }
-    }
-    return nil;
-}
-
-- (Contact *)contactWithEaseMobUserId:(NSString *)userId
-{
-    for (Contact *contact in self.account.contacts) {
-        if ([contact.easemobUser isEqualToString:userId]) {
-            return contact;
-        }
-    }
-    return nil;
-    
-}
 
 //从服务器上获取好友列表
 - (void)loadContactsFromServer
@@ -617,131 +542,148 @@
 }
 
 
+/**
+ 通过数据库里的数据判断用户是否是我的好友
+ 
+ :param: userId
+ 
+ :returns:
+ */
+- (BOOL)frendIsMyContact:(NSInteger)userId
+{
+    for (FrendModel *frend in _account.contacts) {
+        if (frend.userId == userId) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
 - (void)addContact:(id)contactDic
 {
-    NSLog(@"收到添加联系人，联系人的内容为：%@", contactDic);
-    
-       Contact *newContact = [NSEntityDescription insertNewObjectForEntityForName:@"Contact" inManagedObjectContext:self.context];
-    
-    if ([contactDic isKindOfClass:[FrendRequest class]]) {
-        //如果已经是我的好友了，那我就没必要添加了。。
-
-        if ([self isMyFrend:((FrendRequest *)contactDic).userId]) {
-            return;
-        }
-        newContact.userId = ((FrendRequest *)contactDic).userId;
-        newContact.nickName = ((FrendRequest *)contactDic).nickName;
-        newContact.gender = ((FrendRequest *)contactDic).gender;
-        newContact.memo = @"";
-        newContact.easemobUser = ((FrendRequest *)contactDic).easemobUser;
-        newContact.avatar = ((FrendRequest *)contactDic).avatar;
-        newContact.avatarSmall = ((FrendRequest *)contactDic).avatarSmall;
-        newContact.pinyin = [ConvertMethods chineseToPinyin:newContact.nickName];
-        
-    } else {
-        //如果已经是我的好友了，那我就没必要添加了。。
-        if ([self isMyFrend:[contactDic objectForKey:@"userId"]]) {
-            return;
-        }
-
-        newContact.userId = [contactDic objectForKey:@"userId"];
-        newContact.nickName = [contactDic objectForKey:@"nickName"];
-        newContact.gender = [contactDic objectForKey:@"gender"];
-        newContact.memo = [contactDic objectForKey:@"memo"];
-        newContact.easemobUser = [contactDic objectForKey:@"easemobUser"];
-        newContact.avatar = [contactDic objectForKey:@"avatar"];
-        newContact.avatarSmall = [contactDic objectForKey:@"avatarSmall"];
-        newContact.signature = [contactDic objectForKey:@"signature"];
-        newContact.pinyin = [ConvertMethods chineseToPinyin:[contactDic objectForKey:@"nickName"]];
-    }
-    [self.account addContactsObject:newContact];
-    [self save];
-    [[NSNotificationCenter defaultCenter] postNotificationName:contactListNeedUpdateNoti object:nil];
+//    NSLog(@"收到添加联系人，联系人的内容为：%@", contactDic);
+//    
+//       Contact *newContact = [NSEntityDescription insertNewObjectForEntityForName:@"Contact" inManagedObjectContext:self.context];
+//    
+//    if ([contactDic isKindOfClass:[FrendRequest class]]) {
+//        //如果已经是我的好友了，那我就没必要添加了。。
+//
+//        if ([self isMyFrend:((FrendRequest *)contactDic).userId]) {
+//            return;
+//        }
+//        newContact.userId = ((FrendRequest *)contactDic).userId;
+//        newContact.nickName = ((FrendRequest *)contactDic).nickName;
+//        newContact.gender = ((FrendRequest *)contactDic).gender;
+//        newContact.memo = @"";
+//        newContact.easemobUser = ((FrendRequest *)contactDic).easemobUser;
+//        newContact.avatar = ((FrendRequest *)contactDic).avatar;
+//        newContact.avatarSmall = ((FrendRequest *)contactDic).avatarSmall;
+//        newContact.pinyin = [ConvertMethods chineseToPinyin:newContact.nickName];
+//        
+//    } else {
+//        //如果已经是我的好友了，那我就没必要添加了。。
+//        if ([self isMyFrend:[contactDic objectForKey:@"userId"]]) {
+//            return;
+//        }
+//
+//        newContact.userId = [contactDic objectForKey:@"userId"];
+//        newContact.nickName = [contactDic objectForKey:@"nickName"];
+//        newContact.gender = [contactDic objectForKey:@"gender"];
+//        newContact.memo = [contactDic objectForKey:@"memo"];
+//        newContact.easemobUser = [contactDic objectForKey:@"easemobUser"];
+//        newContact.avatar = [contactDic objectForKey:@"avatar"];
+//        newContact.avatarSmall = [contactDic objectForKey:@"avatarSmall"];
+//        newContact.signature = [contactDic objectForKey:@"signature"];
+//        newContact.pinyin = [ConvertMethods chineseToPinyin:[contactDic objectForKey:@"nickName"]];
+//    }
+//    [self.account addContactsObject:newContact];
+//    [self save];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:contactListNeedUpdateNoti object:nil];
 
 }
 
 //解析好友列表，然后存到数据库里
 - (void)analysisAndSaveContacts:(NSArray *)contactList
 {
-    NSLog(@"开始解析联系人");
-    NSMutableSet *contacts = [[NSMutableSet alloc] init];
-    NSMutableSet *oldContacts = [[NSMutableSet alloc] init];
-    //删除数据库已存在的联系人
-    for (id oldContact in self.account.contacts) {
-        [oldContacts addObject:oldContact];
-    }
-    
-    [self.account removeContacts:oldContacts];
-    for (id contactDic in contactList) {
-        Contact *newContact = [NSEntityDescription insertNewObjectForEntityForName:@"Contact" inManagedObjectContext:self.context];
-        newContact.userId = [contactDic objectForKey:@"userId"];
-        newContact.nickName = [contactDic objectForKey:@"nickName"];
-        newContact.gender = [contactDic objectForKey:@"gender"];
-        newContact.memo = [contactDic objectForKey:@"memo"];
-        newContact.easemobUser = [contactDic objectForKey:@"easemobUser"];
-        newContact.avatar = [contactDic objectForKey:@"avatar"];
-        newContact.avatarSmall = [contactDic objectForKey:@"avatarSmall"];
-        newContact.pinyin = [ConvertMethods chineseToPinyin:[contactDic objectForKey:@"nickName"]];
-        newContact.signature = [contactDic objectForKey:@"signature"];
-        [contacts addObject:newContact];
-    }
-    [self.account addContacts:contacts];
-    [self save];
-    
-    [self.accountDetail.frendList removeAllObjects];
-    FrendManager *frendManager = [[FrendManager alloc] init];
-    [frendManager deleteAllContacts];
-    for (id contactDic in contactList) {
-        FrendModel *newContact = [[FrendModel alloc] init];
-        newContact.userId = [[contactDic objectForKey:@"userId"] integerValue];
-        newContact.nickName = [contactDic objectForKey:@"nickName"];
-        newContact.memo = [contactDic objectForKey:@"memo"];
-        newContact.avatar = [contactDic objectForKey:@"avatar"];
-        newContact.avatarSmall = [contactDic objectForKey:@"avatarSmall"];
-        newContact.signature = [contactDic objectForKey:@"signature"];
-        newContact.fullPY = [ConvertMethods chineseToPinyin:[contactDic objectForKey:@"nickName"]];
-        newContact.type = IMFrendTypeFrend;
-        [frendManager addFrend2DB:newContact];
-        [self.accountDetail.frendList addObject:newContact];
-    }
-
-    NSLog(@"成功解析联系人");
+//    NSLog(@"开始解析联系人");
+//    NSMutableSet *contacts = [[NSMutableSet alloc] init];
+//    NSMutableSet *oldContacts = [[NSMutableSet alloc] init];
+//    //删除数据库已存在的联系人
+//    for (id oldContact in self.account.contacts) {
+//        [oldContacts addObject:oldContact];
+//    }
+//    
+//    [self.account removeContacts:oldContacts];
+//    for (id contactDic in contactList) {
+//        Contact *newContact = [NSEntityDescription insertNewObjectForEntityForName:@"Contact" inManagedObjectContext:self.context];
+//        newContact.userId = [contactDic objectForKey:@"userId"];
+//        newContact.nickName = [contactDic objectForKey:@"nickName"];
+//        newContact.gender = [contactDic objectForKey:@"gender"];
+//        newContact.memo = [contactDic objectForKey:@"memo"];
+//        newContact.easemobUser = [contactDic objectForKey:@"easemobUser"];
+//        newContact.avatar = [contactDic objectForKey:@"avatar"];
+//        newContact.avatarSmall = [contactDic objectForKey:@"avatarSmall"];
+//        newContact.pinyin = [ConvertMethods chineseToPinyin:[contactDic objectForKey:@"nickName"]];
+//        newContact.signature = [contactDic objectForKey:@"signature"];
+//        [contacts addObject:newContact];
+//    }
+//    [self.account addContacts:contacts];
+//    [self save];
+//    
+//    [self.accountDetail.frendList removeAllObjects];
+//    FrendManager *frendManager = [[FrendManager alloc] init];
+//    [frendManager deleteAllContacts];
+//    for (id contactDic in contactList) {
+//        FrendModel *newContact = [[FrendModel alloc] init];
+//        newContact.userId = [[contactDic objectForKey:@"userId"] integerValue];
+//        newContact.nickName = [contactDic objectForKey:@"nickName"];
+//        newContact.memo = [contactDic objectForKey:@"memo"];
+//        newContact.avatar = [contactDic objectForKey:@"avatar"];
+//        newContact.avatarSmall = [contactDic objectForKey:@"avatarSmall"];
+//        newContact.signature = [contactDic objectForKey:@"signature"];
+//        newContact.fullPY = [ConvertMethods chineseToPinyin:[contactDic objectForKey:@"nickName"]];
+//        newContact.type = IMFrendTypeFrend;
+//        [frendManager addFrend2DB:newContact];
+//        [self.accountDetail.frendList addObject:newContact];
+//    }
+//
+//    NSLog(@"成功解析联系人");
 }
 
 - (void)analysisAndSaveFrendRequest:(id)frendRequestDic
 {
-    NSLog(@"开始解析好友请求");
-    
-    FrendRequest *frendRequest = [NSEntityDescription insertNewObjectForEntityForName:@"FrendRequest" inManagedObjectContext:self.context];
-
-    if ([frendRequestDic isKindOfClass:[NSDictionary class]]) {
-        frendRequest.userId = [frendRequestDic objectForKey:@"userId"];
-        frendRequest.nickName = [frendRequestDic objectForKey:@"nickName"];
-        frendRequest.avatar = [frendRequestDic objectForKey:@"avatar"];
-        frendRequest.avatarSmall = [frendRequestDic objectForKey:@"avatarSmall"];
-        frendRequest.status = TZFrendDefault;
-        frendRequest.gender = [frendRequestDic objectForKey:@"gender"];
-        frendRequest.easemobUser = [frendRequestDic objectForKey:@"easemobUser"];
-        frendRequest.attachMsg = [frendRequestDic objectForKey:@"attachMsg"];
-        frendRequest.requestDate = [NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]];
-    }
-    
-    for (FrendRequest *request in self.account.frendrequestlist) {
-        if ([request.userId integerValue] == [frendRequest.userId integerValue]) {
-            [self.account removeFrendrequestlistObject:request];
-            NSLog(@"这个好友请求信息数据库里已经存在了,已经将数据库里旧的数据删除了,\n之前的 id 是%@，新 ID 是%@",request.userId, frendRequest.userId);
-            break;
-        }
-    }
-    [self.account addFrendrequestlistObject:frendRequest];
-    NSLog(@"收到好友请求，请求信息为：%@", frendRequest);
-    [[NSNotificationCenter defaultCenter] postNotificationName:frendRequestListNeedUpdateNoti object:nil];
-    [self save];
+//    NSLog(@"开始解析好友请求");
+//    
+//    FrendRequest *frendRequest = [NSEntityDescription insertNewObjectForEntityForName:@"FrendRequest" inManagedObjectContext:self.context];
+//
+//    if ([frendRequestDic isKindOfClass:[NSDictionary class]]) {
+//        frendRequest.userId = [frendRequestDic objectForKey:@"userId"];
+//        frendRequest.nickName = [frendRequestDic objectForKey:@"nickName"];
+//        frendRequest.avatar = [frendRequestDic objectForKey:@"avatar"];
+//        frendRequest.avatarSmall = [frendRequestDic objectForKey:@"avatarSmall"];
+//        frendRequest.status = TZFrendDefault;
+//        frendRequest.gender = [frendRequestDic objectForKey:@"gender"];
+//        frendRequest.easemobUser = [frendRequestDic objectForKey:@"easemobUser"];
+//        frendRequest.attachMsg = [frendRequestDic objectForKey:@"attachMsg"];
+//        frendRequest.requestDate = [NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]];
+//    }
+//    
+//    for (FrendRequest *request in self.account.frendrequestlist) {
+//        if ([request.userId integerValue] == [frendRequest.userId integerValue]) {
+//            [self.account removeFrendrequestlistObject:request];
+//            NSLog(@"这个好友请求信息数据库里已经存在了,已经将数据库里旧的数据删除了,\n之前的 id 是%@，新 ID 是%@",request.userId, frendRequest.userId);
+//            break;
+//        }
+//    }
+//    [self.account addFrendrequestlistObject:frendRequest];
+//    NSLog(@"收到好友请求，请求信息为：%@", frendRequest);
+//    [[NSNotificationCenter defaultCenter] postNotificationName:frendRequestListNeedUpdateNoti object:nil];
+//    [self save];
 }
 
 - (void)removeFrendRequest:(FrendRequest *)frendRequest
 {
-    [self.account removeFrendrequestlistObject:frendRequest];
+    [self.account removeFrendRequestObject:frendRequest];
     [self save];
     [[NSNotificationCenter defaultCenter] postNotificationName:frendRequestListNeedUpdateNoti object:nil];
 
@@ -756,17 +698,6 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:frendRequestListNeedUpdateNoti object:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:contactListNeedUpdateNoti object:nil];
    
-}
-
-- (void)removeContact:(NSNumber *)userId
-{
-    for (Contact *contact in self.account.contacts) {
-        if ([contact.userId integerValue] == [userId integerValue]) {
-            [self.account removeContactsObject:contact];
-            [self save];
-            break;
-        }
-    }
 }
 
 #pragma mark - ********修改用户好友信息
@@ -792,7 +723,8 @@
         NSLog(@"result = %@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            [self updateContactMemo:remark andUserId:userId];
+            FrendManager *frendManager = [FrendManager shareInstance];
+            [frendManager updateContactMemo:remark userId:userId.integerValue];
             completion(YES);
         } else {
             completion(NO);
@@ -803,120 +735,10 @@
 
 }
 
-/**
- *  更新好友备注
- */
-- (void)updateContactMemo:(NSString *)memo andUserId:(NSNumber *)userId
-{
-    Contact *contact = [self TZContactByUserId:userId];
-    if (contact) {
-        contact.memo = memo;
-        NSError *error;
-        [self.context save:&error];
-    }
-}
-
-#pragma mark - ********群组相关操作******
-
-- (Group *)groupWithGroupId:(NSString *)groupId
-{
-    for (Group *group in self.account.groupList) {
-        if ([group.groupId isEqualToString:groupId]) {
-            return group;
-        }
-    }
-    return nil;
-}
-
-- (Group *)createGroupWithGroupId:(NSString *)groupId
-                            owner:(NSString *)owner
-                  groupSubject:(NSString *)subject
-                     groupInfo:(NSString *)groupDescription
-                       numbers:(NSSet *)numbers
-{
-    Group *group = [NSEntityDescription insertNewObjectForEntityForName:@"Group" inManagedObjectContext:self.context];
-    group.owner = owner;
-    group.numbers = numbers;
-    group.groupId = groupId;
-    group.groupSubject = subject;
-    group.groupDescription = groupDescription;
-    [self.account addGroupListObject:group];
-    [self save];
-    return group;
-}
-
-- (Group *)updateGroup:(NSString *)groupId withGroupOwner:(NSString *)owner groupSubject:(NSString *)subject groupInfo:(NSString *)groupDescription numbers:(id)numbersDic
-{
-    NSMutableSet *numbers = [[NSMutableSet alloc] init];
-    for (id contactDic in numbersDic) {
-        Contact *contact = [NSEntityDescription insertNewObjectForEntityForName:@"Contact" inManagedObjectContext:self.context];
-        contact.userId = [contactDic objectForKey:@"userId"];
-        contact.avatar = [contactDic objectForKey:@"avatar"];
-        contact.avatarSmall = [contactDic objectForKey:@"avatarSmall"];
-        contact.nickName = [contactDic objectForKey:@"nickName"];
-        contact.signature= [contactDic objectForKey:@"signature"];
-        contact.easemobUser = [contactDic objectForKey:@"easemobUser"];
-        contact.gender = [contactDic objectForKey:@"gender"];
-        contact.memo = [contactDic objectForKey:@"memo"];
-        [numbers addObject:contact];
-    }
-    
-    Group *tempGroup = [self groupWithGroupId:groupId];
-    if (!tempGroup) {
-        tempGroup = [self createGroupWithGroupId:groupId owner:owner groupSubject:subject groupInfo:groupDescription numbers:numbers];
-    } else {
-        tempGroup.groupId = groupId;
-        tempGroup.groupSubject= subject;
-        tempGroup.groupDescription = groupDescription;
-        tempGroup.numbers = numbers;
-        tempGroup.owner = owner;
-    }
-    [self save];
-    return tempGroup;
-}
-
-
-- (Group *)updateGroup:(NSString *)groupId withGroupOwner:(NSString *)owner groupSubject:(NSString *)subject groupInfo:(NSString *)groupDescription
-{
-    Group *tempGroup = [self groupWithGroupId:groupId];
-    if (!tempGroup) {
-        tempGroup = [self createGroupWithGroupId:groupId owner:owner groupSubject:subject groupInfo:groupDescription numbers:nil];
-    } else {
-        tempGroup.groupId = groupId;
-        tempGroup.groupSubject= subject;
-        tempGroup.groupDescription = groupDescription;
-        tempGroup.owner = owner;
-    }
-    [self save];
-    return tempGroup;
-}
-
-
-- (void)addNumberToGroup:(NSString *)groupId
-                 numbers:(NSSet *)numbers
-{
-    for (Group *group in self.account.groupList) {
-        if ([group.groupId isEqualToString:groupId]) {
-            [group addNumbers:numbers];
-            [self save];
-        }
-    }
-}
-
-- (void)removeNumberToGroup:(NSString *)groupId numbers:(NSSet *)numbers
-{
-    for (Group *group in self.account.groupList) {
-        if ([group.groupId isEqualToString:groupId]) {
-            [group removeNumbers:numbers];
-            [self save];
-        }
-    }
-}
-
 - (NSUInteger)numberOfUnReadFrendRequest
 {
     NSUInteger ret = 0;
-    for (FrendRequest *request in self.account.frendrequestlist) {
+    for (FrendRequest *request in self.account.frendRequest) {
         if (request.status == 0) {
             ret++;
         }

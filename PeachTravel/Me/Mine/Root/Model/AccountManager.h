@@ -143,7 +143,7 @@
  *
  *  @return
  */
-- (BOOL)isMyFrend:(NSNumber *)userId;
+- (BOOL)frendIsMyContact:(NSInteger)userId;
 
 /**
  *  通过 userid 获取好友信息

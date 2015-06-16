@@ -22,10 +22,20 @@
 
 @interface AccountModel : NSObject
 
+@property (nonatomic, strong) NSString * avatar;
+@property (nonatomic, strong) NSString * avatarSmall;
+@property (nonatomic, strong) NSString * gender;
+@property (nonatomic, strong) NSString * nickName;
+@property (nonatomic, strong) NSString * secToken;
+@property (nonatomic, strong) NSString * signature;
+@property (nonatomic, strong) NSString * tel;
+@property (nonatomic) NSInteger userId;
+@property (nonatomic, strong) NSMutableArray *frendRequest;
+
 /**
  *  存在数据库里的用户基本信息,因此，从网上获取到用户新的数据后必须先更新数据库在读取
  */
-@property (nonatomic, strong) Account *basicUserInfo;
+//@property (nonatomic, strong) Account *basicUserInfo;
 
 /**
  *  好友列表
