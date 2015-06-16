@@ -297,9 +297,9 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 {
     self.tabBar.translucent = NO;
     self.delegate = self;
-    self.tabBar.backgroundImage = [[UIImage imageNamed:@"tababr.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:5];
-    
-    self.tabBar.selectedImageTintColor = UIColorFromRGB(0x21b67f);
+//    self.tabBar.backgroundImage = [[UIImage imageNamed:@"tababr.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:5];
+//    self.tabBar.shadowImage = [UIImage new];
+    self.tabBar.selectedImageTintColor = APP_THEME_COLOR;
     
     _chatListCtl = [[ChatListViewController alloc] init];
     _chatListCtl.delegate = self;

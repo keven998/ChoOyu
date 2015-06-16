@@ -242,17 +242,17 @@
     switch (_IMState) {
         case IM_CONNECTING: {
             self.navigationItem.titleView = titleView;
-            titleLabel.text = @"旅行圈(连接中...)";
+            titleLabel.text = @"连接中...";
             NSLog(@"连接中");
         }
             break;
             
         case IM_DISCONNECTED: {
             UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(55, 0, 105, 44)];
-            titleLabel.textColor = [UIColor redColor];
+            titleLabel.textColor = [UIColor whiteColor];
             titleLabel.textAlignment = NSTextAlignmentCenter;
             titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
-            titleLabel.text = @"旅行圈(未连接)";
+            titleLabel.text = @"消息(未连接)";
             self.navigationItem.titleView = titleLabel;
             NSLog(@"未连接");
         }
@@ -260,7 +260,7 @@
             
         case IM_RECEIVING: {
             self.navigationItem.titleView = titleView;
-            titleLabel.text = @"旅行圈(收取中...)";
+            titleLabel.text = @"收取中...";
             NSLog(@"收取中");
             self.navigationItem.titleView = titleView;
         }
@@ -268,10 +268,10 @@
             
         case IM_RECEIVED: {
             UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 105, 44)];
-            titleLabel.textColor = [UIColor blackColor];
+            titleLabel.textColor = [UIColor whiteColor];
             titleLabel.textAlignment = NSTextAlignmentCenter;
             titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
-            titleLabel.text = @"旅行圈";
+            titleLabel.text = @"消息";
             self.navigationItem.titleView = titleLabel;
             NSLog(@"IM_RECEIVED");
         }
@@ -279,10 +279,10 @@
             
         case IM_CONNECTED: {
             UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 105, 44)];
-            titleLabel.textColor = [UIColor blackColor];
+            titleLabel.textColor = [UIColor whiteColor];
             titleLabel.textAlignment = NSTextAlignmentCenter;
             titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
-            titleLabel.text = @"旅行圈";
+            titleLabel.text = @"消息";
             self.navigationItem.titleView = titleLabel;
             NSLog(@"IM_CONNECTED");
         }
@@ -290,10 +290,10 @@
             
         default: {
             UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 105, 44)];
-            titleLabel.textColor = [UIColor blackColor];
+            titleLabel.textColor = [UIColor whiteColor];
             titleLabel.textAlignment = NSTextAlignmentCenter;
             titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
-            titleLabel.text = @"旅行圈";
+            titleLabel.text = @"消息";
             self.navigationItem.titleView = titleLabel;
         }
             break;
