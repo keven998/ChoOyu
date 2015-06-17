@@ -348,11 +348,8 @@
     else if (indexPath.section == 1) {
         
         OtherUserBasicInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"basicInfoCell" forIndexPath:indexPath];
-//        NSString *str = [NSString stringWithFormat:@"%@个",_model.guideCnt];
-//        cell.information.text = str;
         cell.information.font = [UIFont systemFontOfSize:14];
         cell.basicLabel.font = [UIFont systemFontOfSize:15];
-//        cell.basicLabel.textColor = TEXT_COLOR_TITLE;
         cell.basicLabel.text = @"TA的旅行计划";
         
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -364,10 +361,10 @@
         cell.nameLabel.text = @"TA的足迹";
         cell.footPrint.textColor = TEXT_COLOR_TITLE;
         NSInteger cityNumber = 0;
-        NSMutableString *cityDesc = nil;
+        NSMutableString *cityDesc = [[NSMutableString alloc] init];
         for (AreaDestination *area in _userInfo.tracks) {
             for (CityDestinationPoi *poi in area.cities) {
-                [cityDesc appendString:poi.enName];
+                [cityDesc appendString:[NSString stringWithFormat:@"%@ ", poi.zhName]];
                 cityNumber++;
             }
         }
