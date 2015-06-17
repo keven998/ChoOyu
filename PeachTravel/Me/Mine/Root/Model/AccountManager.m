@@ -33,14 +33,6 @@
 
 #pragma mark - setter & getter
 
-- (AccountModel *)account
-{
-    if (!_account) {
-        _account = [[AccountModel alloc] init];
-    }
-    return _account;
-}
-
 - (NSString *)userChatAudioPath
 {
     if (!_userChatAudioPath) {
@@ -474,6 +466,9 @@
 //解析从服务器上下载的用户信息
 - (void)loadUserInfo:(id)json
 {
+    if (!_account) {
+        _account = [[AccountModel alloc] init];
+    }
     _account.userId = [[json objectForKey:@"userId"] integerValue];
     _account.nickName = [json objectForKey:@"nickName"];
     _account.avatar = [json objectForKey:@"avatar"];

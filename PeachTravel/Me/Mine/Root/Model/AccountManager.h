@@ -218,56 +218,6 @@
 - (Contact *)TZContactByEasemobUser:(NSString *)easemobUser;
 
 
-#pragma mark *******群组相关信息******
-
-/**
- *  通过群组 id 得到去租信息
- *
- *  @param groupId
- *
- *  @return
- */
-- (Group *)groupWithGroupId:(NSString *)groupId;
-
-- (Group *)updateGroup:(NSString *)groupId
-        withGroupOwner:(NSString *)owner
-          groupSubject:(NSString *)subject
-             groupInfo:(NSString *)groupDescription
-               numbers:(id)numbersDic;
-
-/**
- *  更新群组信息,如果未存在则创建一个群组
- *
- *  @param groupId          群组 id
- *  @param owner            群组所有人
- *  @param subject          群组标题
- *  @param groupDescription 群组介绍
- *
- *  @return 更新后的群组
- */
-- (Group *)updateGroup:(NSString *)groupId
-        withGroupOwner:(NSString *)owner
-          groupSubject:(NSString *)subject
-             groupInfo:(NSString *)groupDescription;
-
-/**
- *  添加一个成员到群组里
- *
- *  @param groupId
- *  @param numbers
- */
-- (void)addNumberToGroup:(NSString *)groupId
-                 numbers:(NSSet *)numbers;
-
-/**
- *  从移除一个成员
- *
- *  @param groupId
- *  @param numbers
- */
-- (void)removeNumberToGroup:(NSString *)groupId
-                 numbers:(NSSet *)numbers;
-
 
 #pragma mark *****其他操作******
 
