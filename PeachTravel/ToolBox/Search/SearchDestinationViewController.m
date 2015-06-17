@@ -42,16 +42,17 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     
     _searchBar = [[UISearchBar alloc]init];
     _searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-//    _searchBar.searchBarStyle = UISearchBarStyleProminent;
+    //    _searchBar.searchBarStyle = UISearchBarStyleProminent;
     _searchBar.delegate = self;
     [_searchBar setPlaceholder:@"城市、景点、美食、购物"];
     _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
-//    _searchBar.showsCancelButton = YES;
-    [_searchBar setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor redColor]] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+    //    _searchBar.showsCancelButton = YES;
+    [_searchBar setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+    [_searchBar setBackgroundColor:APP_THEME_COLOR];
     _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.navigationItem.titleView = _searchBar;
     
-//    [self.view addSubview:_searchBar];
+    //    [self.view addSubview:_searchBar];
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 30, CGRectGetWidth(self.view.bounds), 50)];
     label.font = [UIFont systemFontOfSize:13.0];
@@ -75,14 +76,11 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 {
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_search_destination"];
-    [self.navigationController.navigationBar setBackgroundImage:[ConvertMethods createImageWithColor:APP_PAGE_COLOR] forBarMetrics:UIBarMetricsDefault];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"page_search_destination"];
-    [self.navigationController.navigationBar setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forBarMetrics:UIBarMetricsDefault];
-
     [_searchBar endEditing:YES];
 }
 
@@ -92,13 +90,13 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds)+60)];
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _tableView.backgroundColor = APP_PAGE_COLOR;
-
+        
         [_tableView registerNib:[UINib nibWithNibName:@"SearchResultTableViewCell" bundle:nil]forCellReuseIdentifier:reusableCellIdentifier];
         _tableView.contentInset = UIEdgeInsetsMake(0, 0, 10, 0);
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.dataSource = self;
         _tableView.delegate = self;
-
+        
         UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.bounds.size.width, 41)];
         footerView.backgroundColor = APP_PAGE_COLOR;
         _tableView.tableFooterView = footerView;
@@ -117,7 +115,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 - (void)tapTouch
 {
     [self.searchBar endEditing:YES];
-//    [self.tableView removeGestureRecognizer:_tap];
+    //    [self.tableView removeGestureRecognizer:_tap];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -153,8 +151,8 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [params setObject:[NSNumber numberWithBool:YES] forKey:@"hotel"];
     [params setObject:[NSNumber numberWithBool:YES] forKey:@"shopping"];
     [params setObject:[NSNumber numberWithInt:5] forKey:@"pageSize"];
-
-     __weak typeof(SearchDestinationViewController *)weakSelf = self;
+    
+    __weak typeof(SearchDestinationViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf];
     
@@ -165,17 +163,17 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         if (code == 0) {
             [self analysisData:[responseObject objectForKey:@"result"]];
         } else {
-//             if (self.isShowing) {
-//                [SVProgressHUD showHint:@"请求也是失败了"];
-//            }
+            //             if (self.isShowing) {
+            //                [SVProgressHUD showHint:@"请求也是失败了"];
+            //            }
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [hud hideTZHUD];
-//        if (self.isShowing) {
-//            [SVProgressHUD showHint:@"呃～好像没找到网络"];
-//        }
+        //        if (self.isShowing) {
+        //            [SVProgressHUD showHint:@"呃～好像没找到网络"];
+        //        }
     }];
-
+    
 }
 
 - (void)analysisData:(id)json
@@ -195,7 +193,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         [cityDic setObject:[NSNumber numberWithInt:kCityPoi] forKey:@"type"];
     }
     NSMutableDictionary *spotDic = [[NSMutableDictionary alloc] init];
-
+    
     [spotDic setObject:@"景点" forKey:@"typeDesc"];
     NSMutableArray *spots = [[NSMutableArray alloc] init];
     for (id dic in [json objectForKey:@"vs"]) {
@@ -205,12 +203,12 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     if (spots.count > 0) {
         [spotDic setObject:spots forKey:@"content"];
         [spotDic setObject:[NSNumber numberWithInt:kSpotPoi] forKey:@"type"];
-
+        
         [self.dataSource addObject:spotDic];
     }
     
     NSMutableDictionary *restaurantDic = [[NSMutableDictionary alloc] init];
-
+    
     [restaurantDic setObject:@"美食" forKey:@"typeDesc"];
     NSMutableArray *restaurants = [[NSMutableArray alloc] init];
     for (id dic in [json objectForKey:@"restaurant"]) {
@@ -224,7 +222,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     }
     
     NSMutableDictionary *shoppingDic = [[NSMutableDictionary alloc] init];
-
+    
     [shoppingDic setObject:@"购物" forKey:@"typeDesc"];
     NSMutableArray *shoppingArray = [[NSMutableArray alloc] init];
     for (id dic in [json objectForKey:@"shopping"]) {
@@ -234,12 +232,12 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     if (shoppingArray.count > 0) {
         [shoppingDic setObject:shoppingArray forKey:@"content"];
         [shoppingDic setObject:[NSNumber numberWithInt:kShoppingPoi] forKey:@"type"];
-
+        
         [self.dataSource addObject:shoppingDic];
     }
     
     NSMutableDictionary *hotelDic = [[NSMutableDictionary alloc] init];
-
+    
     [hotelDic setObject:@"酒店" forKey:@"typeDesc"];
     NSMutableArray *hotels = [[NSMutableArray alloc] init];
     for (id dic in [json objectForKey:@"hotel"]) {
@@ -249,7 +247,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     if (hotels.count > 0) {
         [hotelDic setObject:hotels forKey:@"content"];
         [hotelDic setObject:[NSNumber numberWithInt:kHotelPoi] forKey:@"type"];
-
+        
         [self.dataSource addObject:hotelDic];
     }
     if (self.dataSource.count>0) {
@@ -431,7 +429,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 {
     SuperPoi *poi = [[[self.dataSource objectAtIndex:indexPath.section] objectForKey:@"content"] objectAtIndex:indexPath.row];
     SearchResultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reusableCellIdentifier];
-
+    
     if (poi.poiType == kRestaurantPoi || poi.poiType == kShoppingPoi || poi.poiType == kHotelPoi || poi.poiType == kSpotPoi) {
         if ([poi.address isBlankString]||poi.address.length == 0) {
             poi.address = poi.zhName;
@@ -447,7 +445,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         cell.detailLabel.text = @"";
     }
     cell.isCanSend = _isCanSend;
-
+    
     if (_isCanSend) {
         [cell.sendBtn addTarget:self action:@selector(sendPoi:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -460,7 +458,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [MobClick event:@"event_click_search_result_item"];
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     SuperPoi *poi = [[[self.dataSource objectAtIndex:indexPath.section] objectForKey:@"content"] objectAtIndex:indexPath.row];
-
+    
     if (poi.poiType == kSpotPoi) {
         SpotDetailViewController *ctl = [[SpotDetailViewController alloc] init];
         ctl.spotId = poi.poiId;
