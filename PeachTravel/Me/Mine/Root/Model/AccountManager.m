@@ -538,49 +538,25 @@
 //解析好友列表，然后存到数据库里
 - (void)analysisAndSaveContacts:(NSArray *)contactList
 {
-//    NSLog(@"开始解析联系人");
-//    NSMutableSet *contacts = [[NSMutableSet alloc] init];
-//    NSMutableSet *oldContacts = [[NSMutableSet alloc] init];
-//    //删除数据库已存在的联系人
-//    for (id oldContact in self.account.contacts) {
-//        [oldContacts addObject:oldContact];
-//    }
-//    
-//    [self.account removeContacts:oldContacts];
-//    for (id contactDic in contactList) {
-//        Contact *newContact = [NSEntityDescription insertNewObjectForEntityForName:@"Contact" inManagedObjectContext:self.context];
-//        newContact.userId = [contactDic objectForKey:@"userId"];
-//        newContact.nickName = [contactDic objectForKey:@"nickName"];
-//        newContact.gender = [contactDic objectForKey:@"gender"];
-//        newContact.memo = [contactDic objectForKey:@"memo"];
-//        newContact.easemobUser = [contactDic objectForKey:@"easemobUser"];
-//        newContact.avatar = [contactDic objectForKey:@"avatar"];
-//        newContact.avatarSmall = [contactDic objectForKey:@"avatarSmall"];
-//        newContact.pinyin = [ConvertMethods chineseToPinyin:[contactDic objectForKey:@"nickName"]];
-//        newContact.signature = [contactDic objectForKey:@"signature"];
-//        [contacts addObject:newContact];
-//    }
-//    [self.account addContacts:contacts];
-//    [self save];
-//    
-//    [self.account.frendList removeAllObjects];
-//    FrendManager *frendManager = [[FrendManager alloc] init];
-//    [frendManager deleteAllContacts];
-//    for (id contactDic in contactList) {
-//        FrendModel *newContact = [[FrendModel alloc] init];
-//        newContact.userId = [[contactDic objectForKey:@"userId"] integerValue];
-//        newContact.nickName = [contactDic objectForKey:@"nickName"];
-//        newContact.memo = [contactDic objectForKey:@"memo"];
-//        newContact.avatar = [contactDic objectForKey:@"avatar"];
-//        newContact.avatarSmall = [contactDic objectForKey:@"avatarSmall"];
-//        newContact.signature = [contactDic objectForKey:@"signature"];
-//        newContact.fullPY = [ConvertMethods chineseToPinyin:[contactDic objectForKey:@"nickName"]];
-//        newContact.type = IMFrendTypeFrend;
-//        [frendManager addFrend2DB:newContact];
-//        [self.account.frendList addObject:newContact];
-//    }
-//
-//    NSLog(@"成功解析联系人");
+    NSLog(@"开始解析联系人");
+    [self.account.frendList removeAllObjects];
+    FrendManager *frendManager = [[FrendManager alloc] init];
+    [frendManager deleteAllContacts];
+    for (id contactDic in contactList) {
+        FrendModel *newContact = [[FrendModel alloc] init];
+        newContact.userId = [[contactDic objectForKey:@"userId"] integerValue];
+        newContact.nickName = [contactDic objectForKey:@"nickName"];
+        newContact.memo = [contactDic objectForKey:@"memo"];
+        newContact.avatar = [contactDic objectForKey:@"avatar"];
+        newContact.avatarSmall = [contactDic objectForKey:@"avatarSmall"];
+        newContact.signature = [contactDic objectForKey:@"signature"];
+        newContact.fullPY = [ConvertMethods chineseToPinyin:[contactDic objectForKey:@"nickName"]];
+        newContact.type = IMFrendTypeFrend;
+        [frendManager addFrend2DB:newContact];
+        [self.account.frendList addObject:newContact];
+    }
+
+    NSLog(@"成功解析联系人");
 }
 
 - (void)analysisAndSaveFrendRequest:(id)frendRequestDic
