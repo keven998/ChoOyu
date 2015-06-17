@@ -274,7 +274,7 @@
     AccountManager *accountManager = [AccountManager shareAccountManager];
     
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     
     NSString *urlStr = [NSString stringWithFormat:@"%@/%@", API_DELETE_CONTACTS, self.contact.userId];
     

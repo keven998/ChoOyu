@@ -153,7 +153,7 @@
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", self.account.userId] forHTTPHeaderField:@"UserId"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", self.account.userId] forHTTPHeaderField:@"UserId"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     
@@ -214,7 +214,7 @@
 {
     [self asyncUpdateUserInfoToServer:residence andUserInfoType:ChangeOtherInfo andKeyWord:@"residence" completion:^(BOOL isSuccess, NSString *errStr) {
         if (isSuccess) {
-            self.accountDetail.residence =  residence;
+            self.account.residence =  residence;
             completion(YES, nil);
         } else {
             completion(NO, errStr);
@@ -226,7 +226,7 @@
 {
     [self asyncUpdateUserInfoToServer:birthday andUserInfoType:ChangeOtherInfo andKeyWord:@"birthday" completion:^(BOOL isSuccess, NSString *errStr) {
     if (isSuccess) {
-        self.accountDetail.birthday =  birthday;
+        self.account.birthday =  birthday;
         completion(YES, nil);
     } else {
         completion(NO, errStr);
@@ -262,17 +262,17 @@
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
     
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", self.account.userId] forHTTPHeaderField:@"UserId"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)self.account.userId] forHTTPHeaderField:@"UserId"];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@%@/albums/%@", API_USERINFO, self.account.userId, albumImage.imageId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@%ld/albums/%@", API_USERINFO, (long)self.account.userId, albumImage.imageId];
     
     [manager DELETE:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [SVProgressHUD showHint:@"修改成功"];
-            NSMutableArray *albums = [self.accountDetail.userAlbum mutableCopy];
+            NSMutableArray *albums = [self.account.userAlbum mutableCopy];
             [albums removeObject:albumImage];
-            self.accountDetail.userAlbum = albums;
+            self.account.userAlbum = albums;
             completion(YES, nil);
             [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
             
@@ -303,13 +303,13 @@
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", self.account.userId] forHTTPHeaderField:@"UserId"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)self.account.userId] forHTTPHeaderField:@"UserId"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     
     [params setObject:userInfo forKey:keyWord];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@%@", API_USERINFO, self.account.userId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@%ld", API_USERINFO, (long)self.account.userId];
     
     [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
@@ -337,12 +337,12 @@
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", self.account.userId] forHTTPHeaderField:@"UserId"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)self.account.userId] forHTTPHeaderField:@"UserId"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:newGender forKey:@"gender"];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@%@", API_USERINFO, self.account.userId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@%ld", API_USERINFO, (long)self.account.userId];
     
     [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
 
@@ -369,12 +369,12 @@
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", self.account.userId] forHTTPHeaderField:@"UserId"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)self.account.userId] forHTTPHeaderField:@"UserId"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:newStatus forKey:@"travelStatus"];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@%@", API_USERINFO, self.account.userId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@%ld", API_USERINFO, (long)self.account.userId];
     
     [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
@@ -474,7 +474,7 @@
 //解析从服务器上下载的用户信息
 - (void)loadUserInfo:(id)json
 {
-    _account.userId = [NSNumber numberWithInteger:[[json objectForKey:@"userId"] integerValue]];
+    _account.userId = [[json objectForKey:@"userId"] integerValue];
     _account.nickName = [json objectForKey:@"nickName"];
     _account.avatar = [json objectForKey:@"avatar"];
     _account.avatarSmall = [json objectForKey:@"avatarSmall"];
@@ -500,7 +500,7 @@
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", self.account.userId] forHTTPHeaderField:@"UserId"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)self.account.userId] forHTTPHeaderField:@"UserId"];
     
     [manager GET:API_GET_CONTACTS parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
@@ -606,7 +606,7 @@
 //    [self.account addContacts:contacts];
 //    [self save];
 //    
-//    [self.accountDetail.frendList removeAllObjects];
+//    [self.account.frendList removeAllObjects];
 //    FrendManager *frendManager = [[FrendManager alloc] init];
 //    [frendManager deleteAllContacts];
 //    for (id contactDic in contactList) {
@@ -620,7 +620,7 @@
 //        newContact.fullPY = [ConvertMethods chineseToPinyin:[contactDic objectForKey:@"nickName"]];
 //        newContact.type = IMFrendTypeFrend;
 //        [frendManager addFrend2DB:newContact];
-//        [self.accountDetail.frendList addObject:newContact];
+//        [self.account.frendList addObject:newContact];
 //    }
 //
 //    NSLog(@"成功解析联系人");
@@ -688,7 +688,7 @@
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", self.account.userId] forHTTPHeaderField:@"UserId"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)self.account.userId] forHTTPHeaderField:@"UserId"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:remark forKey:@"memo"];
@@ -726,7 +726,7 @@
 - (NSDictionary *)contactsByPinyin
 {
     NSMutableArray *chineseStringsArray = [[NSMutableArray alloc] init];
-    for (id tempContact in self.accountDetail.frendList) {
+    for (id tempContact in self.account.frendList) {
         [chineseStringsArray addObject:tempContact];
     }
     NSMutableArray *sectionHeadsKeys = [[NSMutableArray alloc] init];
