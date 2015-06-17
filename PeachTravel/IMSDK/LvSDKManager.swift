@@ -64,6 +64,10 @@ class IMClientManager: NSObject {
 
     }
     
+    func userDidLogout() {
+        MessageManager.shareInsatance().stopTimer()
+    }
+    
     
 //MARK: ConnectionManager
     func connectionSetup(isSuccess: Bool, errorCode: Int) {
