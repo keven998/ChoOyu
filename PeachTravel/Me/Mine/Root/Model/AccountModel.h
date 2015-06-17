@@ -21,6 +21,7 @@
 
 @interface AccountModel : NSObject
 
+@property (nonatomic) NSInteger userId;
 @property (nonatomic, strong) NSString * avatar;
 @property (nonatomic, strong) NSString * avatarSmall;
 @property (nonatomic, strong) NSString * gender;
@@ -28,7 +29,6 @@
 @property (nonatomic, strong) NSString * secToken;
 @property (nonatomic, strong) NSString * signature;
 @property (nonatomic, strong) NSString * tel;
-@property (nonatomic) NSInteger userId;
 @property (nonatomic, strong) NSMutableArray *frendRequest;
 
 /**
@@ -55,6 +55,8 @@
  *  用户的图集
  */
 @property (nonatomic, strong) NSArray *userAlbum;
+
+- (id)initWithJson: (id)json;
 
 - (void)loadUserInfoFromServer:(void (^)(bool isSuccess))completion;
 

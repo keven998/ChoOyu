@@ -14,8 +14,6 @@
 
 @interface AccountManager ()
 
-@property (nonatomic, strong) NSManagedObjectContext *context;
-
 @end
 
 @implementation AccountManager
@@ -32,6 +30,14 @@
 }
 
 #pragma mark - setter & getter
+
+- (AccountModel *)account {
+    if (!_account) {
+        AccountDaoHelper *accountDaoHelper = [AccountDaoHelper shareInstance];
+        return [accountDaoHelper selectCurrentAccount];
+    }
+    return _account;
+}
 
 - (NSString *)userChatAudioPath
 {
@@ -94,21 +100,7 @@
     return !([self.account.tel isEqualToString:@""] || self.account.tel == nil);
 }
 
-- (NSManagedObjectContext *)context
-{
-    if (!_context) {
-        _context = [((AppDelegate *)[[UIApplication sharedApplication] delegate]) managedObjectContext];
-    }
-    return _context;
-}
-
 #pragma mark - Private Methods
-
-- (void)save
-{
-    NSError *error = nil;
-    [self.context save:&error];
-}
 
 //用户退出登录
 - (void)asyncLogout:(void (^)(BOOL))completion
@@ -121,9 +113,9 @@
 //用户旅行派系统登录成功
 - (void)userDidLoginWithUserInfo:(id)userInfo
 {
-    [self loadUserInfo:userInfo];
-    
-    [self save];
+    _account =[[AccountModel alloc] initWithJson:userInfo];
+    AccountDaoHelper *accountDaoHelper = [AccountDaoHelper shareInstance];
+    [accountDaoHelper addAccount2DB:_account];
     IMClientManager *manager = [IMClientManager shareInstance];
     [manager userDidLogin];
     [self bindRegisterID2UserId];
@@ -385,16 +377,6 @@
 }
 
 /**
- *  更新用户信息
- *
- *  @param changeContent 信息内容
- */
-- (void)updateUserInfo:(id)userInfo
-{
-    [self loadUserInfo:userInfo];
-}
-
-/**
  *  修改用户信息
  *
  *  @param changeContent 信息内容
@@ -430,7 +412,6 @@
         default:
             break;
     }
-    [self save];
 }
 
 /**
@@ -461,25 +442,6 @@
         }
     }
     return NoError;
-}
-
-//解析从服务器上下载的用户信息
-- (void)loadUserInfo:(id)json
-{
-    if (!_account) {
-        _account = [[AccountModel alloc] init];
-    }
-    _account.userId = [[json objectForKey:@"userId"] integerValue];
-    _account.nickName = [json objectForKey:@"nickName"];
-    _account.avatar = [json objectForKey:@"avatar"];
-    _account.avatarSmall = [json objectForKey:@"avatarSmall"];
-    _account.gender = [json objectForKey:@"gender"];
-    if (!_account.gender) {
-        _account.gender = @"U";
-    }
-    _account.tel = [json objectForKey:@"tel"];
-    _account.secToken = [json objectForKey:@"secToken"];
-    _account.signature = [json objectForKey:@"signature"];
 }
 
 #pragma mark - **********好友相关操作********
@@ -654,7 +616,6 @@
 
 - (void)removeFrendRequest:(FrendRequest *)frendRequest
 {
-    [self save];
     [[NSNotificationCenter defaultCenter] postNotificationName:frendRequestListNeedUpdateNoti object:nil];
 
 }
@@ -664,7 +625,6 @@
     //更新时间戳，
     frendRequest.requestDate = [[NSDate date] timeIntervalSince1970];
     frendRequest.status = TZFrendAgree;
-    [self save];
     [[NSNotificationCenter defaultCenter] postNotificationName:frendRequestListNeedUpdateNoti object:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:contactListNeedUpdateNoti object:nil];
    

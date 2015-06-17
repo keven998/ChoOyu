@@ -117,7 +117,6 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
-    [self saveContext];
 }
 
 - (void)onResp:(BaseResp *)resp

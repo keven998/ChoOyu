@@ -15,6 +15,7 @@
 - (id)initWithJson: (id)json
 {
     if (self = [super init]) {
+       
         _imageId = [json objectForKey:@"id"];
         _image = [[TaoziImage alloc] initWithJson:[[json objectForKey:@"image"] firstObject]];
         _createTime = [[json objectForKey:@"cTime"] longValue];
@@ -25,6 +26,45 @@
 @end
 
 @implementation AccountModel
+
+- (id)initWithJson: (id)json
+{
+    if (self = [super init]) {
+        _userId = [[json objectForKey:@"userId"] integerValue];
+        _nickName = [json objectForKey:@"nickName"];
+        if ([json objectForKey:@"avatar"]) {
+            _avatar = [json objectForKey:@"avatar"];
+        } else {
+            _avatar = @"";
+        }
+        if ([json objectForKey:@"avatarSmall"]) {
+            _avatarSmall = [json objectForKey:@"avatarSmall"];
+        } else {
+            _avatarSmall = @"";
+        }
+        if ([json objectForKey:@"tel"]) {
+            _tel = [json objectForKey:@"tel"];
+        } else {
+            _tel = @"";
+        }
+        if ([json objectForKey:@"secToken"]) {
+            _secToken = [json objectForKey:@"secToken"];
+        } else {
+            _secToken = @"";
+        }
+        if ([json objectForKey:@"signature"]) {
+            _signature = [json objectForKey:@"signature"];
+        } else {
+            _signature = @"";
+        }
+        _gender = [json objectForKey:@"gender"];
+        if (!_gender) {
+            _gender = @"U";
+        }
+    
+    }
+    return self;
+}
 
 - (NSMutableArray *)frendList
 {
@@ -73,8 +113,6 @@
 
 - (void)loadUserInfoFromServer:(void (^)(bool isSuccess))completion
 {
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AppUtils *utils = [[AppUtils alloc] init];
     [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
@@ -83,15 +121,14 @@
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
-    NSString *url = [NSString stringWithFormat:@"%@%ld", API_USERINFO, accountManager.account.userId];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", self.userId] forHTTPHeaderField:@"UserId"];
+    NSString *url = [NSString stringWithFormat:@"%@%ld", API_USERINFO, self.userId];
     
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [self updateUserInfo:[responseObject objectForKey:@"result"]];
-            [accountManager updateUserInfo:[responseObject objectForKey:@"result"]];
             completion(YES);
         } else {
             completion(NO);

@@ -58,14 +58,6 @@
  */
 - (void)updateUserInfo:(NSString *)changeContent withChangeType:(UserInfoChangeType)changeType;
 
-
-/**
- *  更新用户信息
- *
- *  @param changeContent 信息内容
- */
-- (void)updateUserInfo:(id)userInfo;
-
 /**
  *  修改用户名字
  *
