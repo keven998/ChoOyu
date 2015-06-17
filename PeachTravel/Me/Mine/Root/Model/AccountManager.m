@@ -7,7 +7,7 @@
 //
 
 #import "AccountManager.h"
-#import "AppDelegate.h"
+#import "PeachTravel-swift.h"
 
 #define ACCOUNT_KEY  @"taozi_account"
 
@@ -493,11 +493,16 @@
     return NO;
 }
 
-- (void)removeContact:(NSInteger)userId
+- (void)removeContact:(FrendModel *)frend
 {
     for (FrendModel *model in self.account.frendList) {
-        if (model.userId == userId) {
+        if (model.userId == frend.userId) {
             [self.account.frendList removeObject:model];
+            if ([FrendModel typeIsCorrect:frend.type typeWeight:IMFrendWeightTypeFrend]) {
+                int typeValue = frend.type = IMFrendWeightTypeFrend;
+                frend.type = typeValue;
+            }
+            [[DaoHelper shareInstance] updateFrendTypeWithUserId:frend.userId frendType:frend.type];
             return;
         }
     }

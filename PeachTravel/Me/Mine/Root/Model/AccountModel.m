@@ -8,7 +8,7 @@
 
 #import "AccountModel.h"
 #import "AppDelegate.h"
-
+#import "PeachTravel-swift.h"
 
 @implementation AlbumImage
 

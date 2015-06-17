@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PeachTravel-swift.h"
 
 @interface ChatViewController : TZViewController
 

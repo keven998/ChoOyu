@@ -11,6 +11,7 @@
   */
 
 #import "DXMessageToolBar.h"
+#import "PeachTravel-swift.h"
 
 #define CHAT_PANEL_VIEW_HEIGHT 188
 

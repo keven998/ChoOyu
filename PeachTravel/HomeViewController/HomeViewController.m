@@ -20,6 +20,7 @@
 #import "ChatListViewController.h"
 #import "RegisterViewController.h"
 #import "PrepareViewController.h"
+#import "PeachTravel-swift.h"
 
 #define kBackGroundImage    @"backGroundImage"
 

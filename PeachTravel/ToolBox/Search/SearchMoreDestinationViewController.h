@@ -8,6 +8,7 @@
 
 #import "TZViewController.h"
 #import "TripDetail.h"
+#import "PeachTravel-swift.h"
 
 @interface SearchMoreDestinationViewController : TZViewController
 

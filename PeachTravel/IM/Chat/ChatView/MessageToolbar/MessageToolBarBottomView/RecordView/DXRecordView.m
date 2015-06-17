@@ -11,6 +11,7 @@
   */
 
 #import "DXRecordView.h"
+#import "PeachTravel-swift.h"
 
 @interface DXRecordView ()
 {

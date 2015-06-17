@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "FrendRequest.h"
 #import "AccountModel.h"
+@class FrendModel;
 
 @interface AccountManager : NSObject
 
@@ -178,7 +179,7 @@
  *
  *  @param userId
  */
-- (void)removeContact:(NSInteger)userId;
+- (void)removeContact:(FrendModel *)userId;
 
 
 #pragma mark *****其他操作******

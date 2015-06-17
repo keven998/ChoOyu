@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "ChatViewController.h"
-#import "PeachTravel-swift.h"
 
 @protocol TaoziMessageSendDelegate <NSObject>
 

@@ -12,9 +12,6 @@
 
 #import "MessageModel.h"
 
-
-
-
 @implementation MessageModel
 
 - (instancetype)initWithBaseMessage:(BaseMessage *)message

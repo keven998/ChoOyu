@@ -163,12 +163,6 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
         manager.DELETE(url, parameters: nil, success:
             { (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
                 if (responseObject.objectForKey("code") as! Int) == 0 {
-                    if FrendModel.typeIsCorrect(frend.type, typeWeight: IMFrendWeightType.Frend) {
-                        var typeValue = frend.type.rawValue - IMFrendType.Frend.rawValue
-                        frend.type = IMFrendType(rawValue: typeValue)!
-                    }
-                    let daoHelper = DaoHelper.shareInstance()
-                    daoHelper.updateFrendType(userId: frend.userId, frendType: frend.type)
                     completion(isSuccess: true, errorCode: 0)
                 } else {
                     completion(isSuccess: false, errorCode: 0)

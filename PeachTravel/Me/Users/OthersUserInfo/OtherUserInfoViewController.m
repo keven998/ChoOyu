@@ -289,7 +289,7 @@
         [hud hideTZHUD];
 
         if (isSuccess) {
-            [accountManager removeContact:_userId];
+            [accountManager removeContact:_userInfo];
             [SVProgressHUD showHint:@"已删除～"];
             [[NSNotificationCenter defaultCenter] postNotificationName:contactListNeedUpdateNoti object:nil];
             [self performSelector:@selector(goBack) withObject:nil afterDelay:0.4];

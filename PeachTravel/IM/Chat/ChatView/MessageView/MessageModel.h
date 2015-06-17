@@ -11,6 +11,7 @@
   */
 
 #import <Foundation/Foundation.h>
+#import "PeachTravel-swift.h"
 
 #define KFIRETIME 20
 

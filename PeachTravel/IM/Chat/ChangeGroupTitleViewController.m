@@ -7,6 +7,7 @@
 //
 
 #import "ChangeGroupTitleViewController.h"
+#import "PeachTravel-swift.h"
 
 @interface ChangeGroupTitleViewController ()
 

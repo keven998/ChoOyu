@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "TZSelectView.h"
 #import "SelectContactUnitView.h"
+#import "PeachTravel-swift.h"
 
 @interface SelectContactScrollView : TZSelectView
 

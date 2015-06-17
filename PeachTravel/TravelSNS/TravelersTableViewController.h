@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "TZTBViewController.h"
+#import "PeachTravel-swift.h"
+
 
 @interface TravelersTableViewController : TZTBViewController
 //- (void)screeningTravelers:(NSArray *)destination;
