@@ -9,7 +9,6 @@
 import UIKit
 
 let frendTableName = "Frend"
-let accountTableName = "Account"
 
 protocol FrendDaoProtocol {
     

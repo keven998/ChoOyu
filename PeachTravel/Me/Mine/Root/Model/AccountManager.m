@@ -106,6 +106,8 @@
 - (void)asyncLogout:(void (^)(BOOL))completion
 {
     _account = nil;
+    AccountDaoHelper *daoHelper = [AccountDaoHelper shareInstance];
+    [daoHelper deleteAccountInfoInDB];
     [[NSNotificationCenter defaultCenter] postNotificationName:userDidLogoutNoti object:nil];
     completion(YES);
 }

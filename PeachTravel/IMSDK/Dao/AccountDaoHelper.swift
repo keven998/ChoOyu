@@ -48,7 +48,7 @@ class AccountDaoHelper: NSObject {
     func selectCurrentAccount() -> AccountModel? {
         var account: AccountModel?
         dbQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
-            var sql = "select * from \(accountTableName)"
+            var sql = "select * from \(AccountTableName)"
             var rs = dataBase.executeQuery(sql, withArgumentsInArray: nil)
             if (rs != nil) {
                 while rs.next() {
@@ -98,6 +98,18 @@ class AccountDaoHelper: NSObject {
             var array = [account.userId, account.nickName, account.avatar, account.avatarSmall, account.signature, account.gender, account.tel, account.secToken]
             dataBase.executeUpdate(sql, withArgumentsInArray: array as [AnyObject])
         }
+    }
+    
+    /**
+    删除 account 表中的用户记录
+    */
+    func deleteAccountInfoInDB() {
+        dbQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
+            var sql = "delete from \(AccountTableName)"
+            println("执行 sql 语句：\(sql)")
+            dataBase.executeUpdate(sql, withArgumentsInArray: nil)
+        }
+
     }
     
     //MARK: private methods
