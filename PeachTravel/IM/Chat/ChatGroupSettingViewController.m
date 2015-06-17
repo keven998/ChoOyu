@@ -10,7 +10,6 @@
 #import "AccountManager.h"
 #import "ChangeGroupTitleViewController.h"
 #import "Group.h"
-#import "ContactDetailViewController.h"
 #import "OtherUserInfoViewController.h"
 #import "CreateConversationViewController.h"
 #import "SearchUserInfoViewController.h"

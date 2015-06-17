@@ -10,7 +10,6 @@
 #import "FrendRequestTableViewCell.h"
 #import "FrendRequest.h"
 #import "AccountManager.h"
-#import "ContactDetailViewController.h"
 #import "OtherUserInfoViewController.h"
 
 #define requestCell      @"requestCell"

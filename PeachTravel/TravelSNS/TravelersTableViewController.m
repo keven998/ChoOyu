@@ -8,7 +8,6 @@
 
 #import "TravelersTableViewController.h"
 #import "TravelerTableViewCell.h"
-#import "ContactDetailViewController.h"
 #import "DistributionViewController.h"
 #import "UserProfile.h"
 #import "ScreeningViewController.h"

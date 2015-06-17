@@ -37,7 +37,7 @@
     _albumArray = [NSMutableArray array];
     AccountManager *accountManager = [AccountManager shareAccountManager];
 
-    _isMyFriend = [accountManager frendIsMyContact:_userId.integerValue];
+    _isMyFriend = [accountManager frendIsMyContact:_userId];
     
     if (_isMyFriend) {
         UIButton *moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
@@ -197,7 +197,7 @@
     toolBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     [self.view addSubview:toolBar];
     AccountManager *accountManager = [AccountManager shareAccountManager];
-    if ([accountManager frendIsMyContact:_userId.integerValue]) {
+    if ([accountManager frendIsMyContact:_userId]) {
         UIButton *addFriend = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 49)];
         [addFriend setTitle:@"开始聊天" forState:UIControlStateNormal];
         [addFriend setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
@@ -476,7 +476,7 @@
     __weak typeof(OtherUserInfoViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf content:64];
-    [frendManager asyncRequestAddContactWithUserId:_userId.integerValue helloStr:helloStr completion:^(BOOL isSuccess, NSInteger errorCode) {
+    [frendManager asyncRequestAddContactWithUserId:_userId helloStr:helloStr completion:^(BOOL isSuccess, NSInteger errorCode) {
         [hud hideTZHUD];
         if (isSuccess) {
             [SVProgressHUD showHint:@"请求已发送，等待对方验证"];
@@ -488,10 +488,10 @@
     }];
 }
 
-- (void)loadUserProfile:(NSNumber *)userId {
+- (void)loadUserProfile:(NSInteger)userId {
     
     FrendManager *frendManager = [[FrendManager alloc] init];
-    [frendManager asyncGetFrendInfoFromServer:userId.integerValue completion:^(BOOL isSuccess, NSInteger errorCode, FrendModel * __nonnull frend) {
+    [frendManager asyncGetFrendInfoFromServer:userId completion:^(BOOL isSuccess, NSInteger errorCode, FrendModel * __nonnull frend) {
         if (isSuccess) {
             _userInfo = frend;
             [self createHeader];
@@ -516,7 +516,7 @@
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", account.account.userId] forHTTPHeaderField:@"UserId"];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@%@/albums", API_USERINFO, _userId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@%ld/albums", API_USERINFO, (long)_userId];
     
     [manager GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];

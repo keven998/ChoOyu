@@ -461,7 +461,6 @@
 		D9A800631A80DD0C005AD701 /* AddressBookTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A800451A80DD0C005AD701 /* AddressBookTableViewController.xib */; };
 		D9A800641A80DD0C005AD701 /* SearchUserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A800471A80DD0C005AD701 /* SearchUserInfoViewController.m */; };
 		D9A800651A80DD0C005AD701 /* SearchUserInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A800481A80DD0C005AD701 /* SearchUserInfoViewController.xib */; };
-		D9A800661A80DD0C005AD701 /* ContactDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8004B1A80DD0C005AD701 /* ContactDetailViewController.m */; };
 		D9A800671A80DD0C005AD701 /* ContactListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8004E1A80DD0C005AD701 /* ContactListViewController.m */; };
 		D9A800681A80DD0C005AD701 /* ContactListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A8004F1A80DD0C005AD701 /* ContactListViewController.xib */; };
 		D9A800691A80DD0C005AD701 /* ContactListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A800521A80DD0C005AD701 /* ContactListTableViewCell.m */; };
@@ -1580,8 +1579,6 @@
 		D9A800461A80DD0C005AD701 /* SearchUserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchUserInfoViewController.h; sourceTree = "<group>"; };
 		D9A800471A80DD0C005AD701 /* SearchUserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchUserInfoViewController.m; sourceTree = "<group>"; };
 		D9A800481A80DD0C005AD701 /* SearchUserInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchUserInfoViewController.xib; sourceTree = "<group>"; };
-		D9A8004A1A80DD0C005AD701 /* ContactDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactDetailViewController.h; sourceTree = "<group>"; };
-		D9A8004B1A80DD0C005AD701 /* ContactDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactDetailViewController.m; sourceTree = "<group>"; };
 		D9A8004D1A80DD0C005AD701 /* ContactListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactListViewController.h; sourceTree = "<group>"; };
 		D9A8004E1A80DD0C005AD701 /* ContactListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactListViewController.m; sourceTree = "<group>"; };
 		D9A8004F1A80DD0C005AD701 /* ContactListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactListViewController.xib; sourceTree = "<group>"; };
@@ -3919,8 +3916,6 @@
 		D9A800491A80DD0C005AD701 /* ContactDetail */ = {
 			isa = PBXGroup;
 			children = (
-				D9A8004A1A80DD0C005AD701 /* ContactDetailViewController.h */,
-				D9A8004B1A80DD0C005AD701 /* ContactDetailViewController.m */,
 			);
 			path = ContactDetail;
 			sourceTree = "<group>";
@@ -6564,7 +6559,6 @@
 				D9A802311A80E036005AD701 /* TBXML.m in Sources */,
 				D993C25B1B12DF0C0088D568 /* MetadataManager.swift in Sources */,
 				D9A8002E1A80D52F005AD701 /* DestinationsView.m in Sources */,
-				D9A800661A80DD0C005AD701 /* ContactDetailViewController.m in Sources */,
 				D9A8015D1A80DD23005AD701 /* EMChooseViewController.m in Sources */,
 				D993C2631B12DF0C0088D568 /* IMPoiModel.swift in Sources */,
 				D9A8FF191A80CC2B005AD701 /* RegisterViewController.m in Sources */,

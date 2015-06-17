@@ -13,7 +13,6 @@
 #import "AccountManager.h"
 #import "SearchUserInfoViewController.h"
 #import "ConvertMethods.h"
-#import "ContactDetailViewController.h"
 #import "OtherUserInfoViewController.h"
 
 #define searchCell          @"searchContactCell"
@@ -138,13 +137,13 @@
             //如果已经是好友了，进入好友详情界面
             if ([accountManager frendIsMyContact:userId]) {
                 OtherUserInfoViewController *contactDetailCtl = [[OtherUserInfoViewController alloc]init];
-                contactDetailCtl.userId = [NSNumber numberWithInt:userId];
+                contactDetailCtl.userId = userId;
                 _nextViewController = contactDetailCtl;
                 [self performSelector:@selector(jumpToNextCtl) withObject:nil afterDelay:0.3];
                 return;
             }
             OtherUserInfoViewController *otherCtl = [[OtherUserInfoViewController alloc]init];
-            otherCtl.userId = [NSNumber numberWithInteger:userId];
+            otherCtl.userId = userId;
             _nextViewController = otherCtl;
             [self performSelector:@selector(jumpToNextCtl) withObject:nil afterDelay:0.3];
         }

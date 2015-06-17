@@ -13,7 +13,6 @@
 #import "AFgzipRequestSerializer.h"
 #import "AccountManager.h"
 #import "AddressBookTableViewCell.h"
-#import "ContactDetailViewController.h"
 #import "SearchUserInfoViewController.h"
 
 #import "OtherUserInfoViewController.h"
@@ -227,7 +226,7 @@
 //            [self.navigationController pushViewController:searchUserInfoCtl animated:YES];
             OtherUserInfoViewController *otherCtl = [[OtherUserInfoViewController alloc]init];
             NSDictionary *userInfo = [responseObject objectForKey:@"result"];
-            otherCtl.userId = [userInfo objectForKey:@"userId"];
+            otherCtl.userId = [[userInfo objectForKey:@"userId"] integerValue];
             [self.navigationController pushViewController:otherCtl animated:YES];
         } else {
             

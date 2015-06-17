@@ -30,7 +30,6 @@
 #import "ChatSettingViewController.h"
 #import "AccountManager.h"
 #import "Group.h"
-#import "ContactDetailViewController.h"
 #import "SearchUserInfoViewController.h"
 #import "CreateConversationViewController.h"
 #import "SpotDetailViewController.h"

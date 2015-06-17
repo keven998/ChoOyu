@@ -206,7 +206,7 @@
  *
  *  @param userId
  */
-- (void)removeContact:(NSNumber *)userId;
+- (void)removeContact:(NSInteger)userId;
 
 /**
  *  通过环信 id 获取旅行派用户信息

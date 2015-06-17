@@ -668,7 +668,7 @@
 {
     //更新时间戳，
     frendRequest.requestDate = [[NSDate date] timeIntervalSince1970];
-    frendRequest.status = [NSNumber numberWithInteger:TZFrendAgree];
+    frendRequest.status = TZFrendAgree;
     [self save];
     [[NSNotificationCenter defaultCenter] postNotificationName:frendRequestListNeedUpdateNoti object:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:contactListNeedUpdateNoti object:nil];

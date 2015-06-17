@@ -10,7 +10,6 @@
 #import "AccountManager.h"
 #import "ChatViewController.h"
 #import "FrendRequestTableViewController.h"
-#import "ContactDetailViewController.h"
 #import "ContactListTableViewCell.h"
 #import "OptionOfFASKTableViewCell.h"
 #import "AddContactTableViewController.h"
@@ -370,7 +369,7 @@
 //        ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
         OtherUserInfoViewController *contactDetailCtl = [[OtherUserInfoViewController alloc]init];
         
-        contactDetailCtl.userId = [NSNumber numberWithInteger:contact.userId];
+        contactDetailCtl.userId = contact.userId;
         [self.navigationController pushViewController:contactDetailCtl animated:YES];
     }
     
