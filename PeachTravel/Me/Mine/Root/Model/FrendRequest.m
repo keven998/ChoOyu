@@ -7,18 +7,8 @@
 //
 
 #import "FrendRequest.h"
-#import "Account.h"
 
 
 @implementation FrendRequest
-
-@dynamic attachMsg;
-@dynamic avatar;
-@dynamic gender;
-@dynamic nickName;
-@dynamic requestDate;
-@dynamic status;
-@dynamic userId;
-@dynamic relationship;
 
 @end

@@ -9,17 +9,14 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Account;
+@interface FrendRequest : NSObject
 
-@interface FrendRequest : NSManagedObject
-
-@property (nonatomic, retain) NSString * attachMsg;
-@property (nonatomic, retain) NSString * avatar;
-@property (nonatomic, retain) NSString * gender;
-@property (nonatomic, retain) NSString * nickName;
-@property (nonatomic, retain) NSNumber * requestDate;
-@property (nonatomic, retain) NSNumber * status;
-@property (nonatomic, retain) NSNumber * userId;
-@property (nonatomic, retain) Account *relationship;
+@property (nonatomic, copy) NSString * attachMsg;
+@property (nonatomic, copy) NSString * avatar;
+@property (nonatomic, copy) NSString * gender;
+@property (nonatomic, copy) NSString * nickName;
+@property (nonatomic) long requestDate;
+@property (nonatomic) TZFrendRequest status;
+@property (nonatomic) NSInteger userId;
 
 @end
