@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Contact.h"
 #import "FrendRequest.h"
 #import "AccountModel.h"
 
@@ -123,7 +122,7 @@
 
 #pragma mark - 修改用户的好友信息
 
-- (void)asyncChangeRemark:(NSString *)remark withUserId:(NSNumber *)userId completion:(void (^)(BOOL isSuccess))completion;
+- (void)asyncChangeRemark:(NSString *)remark withUserId:(NSInteger)userId completion:(void (^)(BOOL isSuccess))completion;
 
 /**
  *  判读是不是我的好友
@@ -133,25 +132,6 @@
  *  @return
  */
 - (BOOL)frendIsMyContact:(NSInteger)userId;
-
-/**
- *  通过 userid 获取好友信息
- *
- *  @param userId
- *
- *  @return 
- */
-- (Contact *)contactWithUserId:(NSNumber *)userId;
-
-/**
- *  通过环信 id 获取好友
- *
- *  @param userId
- *
- *  @return
- */
-- (Contact *)contactWithEaseMobUserId:(NSString *)userId;
-
 
 /**
  *  将好友加入到数据库当中
@@ -199,16 +179,6 @@
  *  @param userId
  */
 - (void)removeContact:(NSInteger)userId;
-
-/**
- *  通过环信 id 获取旅行派用户信息
- *
- *  @param easemobUser
- *
- *  @return
- */
-- (Contact *)TZContactByEasemobUser:(NSString *)easemobUser;
-
 
 
 #pragma mark *****其他操作******

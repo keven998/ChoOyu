@@ -8,7 +8,6 @@
 
 #import "AccountManager.h"
 #import "AppDelegate.h"
-#import "Group.h"
 
 #define ACCOUNT_KEY  @"taozi_account"
 
@@ -610,7 +609,7 @@
 
 #pragma mark - ********修改用户好友信息
 
-- (void)asyncChangeRemark:(NSString *)remark withUserId:(NSNumber *)userId completion:(void (^)(BOOL))completion
+- (void)asyncChangeRemark:(NSString *)remark withUserId:(NSInteger)userId completion:(void (^)(BOOL))completion
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AppUtils *utils = [[AppUtils alloc] init];
@@ -625,14 +624,14 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:remark forKey:@"memo"];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@%@/memo", API_USERINFO, userId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@%ld/memo", API_USERINFO, userId];
     
     [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"result = %@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             FrendManager *frendManager = [FrendManager shareInstance];
-            [frendManager updateContactMemo:remark userId:userId.integerValue];
+            [frendManager updateContactMemo:remark userId:userId];
             completion(YES);
         } else {
             completion(NO);

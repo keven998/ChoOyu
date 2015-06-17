@@ -230,7 +230,7 @@
 }
 
 #pragma mark - http method
-- (void)confirmChange:(NSString *)text withContacts:(Contact *)contact success:(saveComplteBlock)completed
+- (void)confirmChange:(NSString *)text withContacts:(FrendModel *)contact success:(saveComplteBlock)completed
 {
     AccountManager *accountManager = [AccountManager shareAccountManager];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
@@ -254,7 +254,7 @@
         case 0:
         {
             NSIndexPath *indexPath = [_contactTableView indexPathForCell:cell];
-            Contact *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
+            FrendModel *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
             
             //bug 需要返回备注昵称
             BaseTextSettingViewController *bsvc = [[BaseTextSettingViewController alloc] init];

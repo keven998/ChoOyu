@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Group.h"
 
 @protocol CreateConversationDelegate <NSObject>
 

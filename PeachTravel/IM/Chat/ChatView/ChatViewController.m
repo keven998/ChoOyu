@@ -29,7 +29,6 @@
 #import "ChatGroupSettingViewController.h"
 #import "ChatSettingViewController.h"
 #import "AccountManager.h"
-#import "Group.h"
 #import "SearchUserInfoViewController.h"
 #import "CreateConversationViewController.h"
 #import "SpotDetailViewController.h"
@@ -283,7 +282,7 @@
     //    }
 }
 
-- (void)showUserInfoWithContactInfo:(Contact *)contact
+- (void)showUserInfoWithContactInfo:(FrendModel *)contact
 {
     //    if ([self.accountManager isMyFrend:contact.userId]) {
     //        ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];

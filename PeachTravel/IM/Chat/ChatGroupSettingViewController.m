@@ -9,7 +9,6 @@
 #import "ChatGroupSettingViewController.h"
 #import "AccountManager.h"
 #import "ChangeGroupTitleViewController.h"
-#import "Group.h"
 #import "OtherUserInfoViewController.h"
 #import "CreateConversationViewController.h"
 #import "SearchUserInfoViewController.h"
@@ -172,8 +171,8 @@
         [cell setRightUtilityButtons:[self rightButtons] WithButtonWidth:60];
         cell.delegate = self;
         NSInteger i = indexPath.row - 4;
-        cell.nameLabel.text = ((Contact *)self.groupModel.numbers[i]).nickName;
-        [cell.headerImage sd_setImageWithURL:[NSURL URLWithString:((Contact *)self.groupModel.numbers[i]).avatarSmall] placeholderImage:[UIImage imageNamed:@"person_disabled"]];
+        cell.nameLabel.text = ((FrendModel *)self.groupModel.numbers[i]).nickName;
+        [cell.headerImage sd_setImageWithURL:[NSURL URLWithString:((FrendModel *)self.groupModel.numbers[i]).avatarSmall] placeholderImage:[UIImage imageNamed:@"person_disabled"]];
         return cell;
     }
     return 0;
@@ -209,7 +208,7 @@
         [self addGroupNumber:nil];
         
     }else if (indexPath.row >3 && indexPath.row < _groupModel.numbers.count +4) {
-        Contact *selectPerson = self.groupModel.numbers[indexPath.row - 4];
+        FrendModel *selectPerson = self.groupModel.numbers[indexPath.row - 4];
         [self  showUserInfoWithContactInfo:selectPerson];
         
     }
@@ -306,7 +305,7 @@
 
 }
 
-- (void)showUserInfoWithContactInfo:(Contact *)contact
+- (void)showUserInfoWithContactInfo:(FrendModel *)contact
 {
 //    AccountManager *accountManager = [AccountManager shareAccountManager];
 //    
