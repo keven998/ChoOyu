@@ -659,7 +659,6 @@
 
 - (void)removeFrendRequest:(FrendRequest *)frendRequest
 {
-    [self.account removeFrendRequestObject:frendRequest];
     [self save];
     [[NSNotificationCenter defaultCenter] postNotificationName:frendRequestListNeedUpdateNoti object:nil];
 
@@ -668,7 +667,7 @@
 - (void)agreeFrendRequest:(FrendRequest *)frendRequest
 {
     //更新时间戳，
-    frendRequest.requestDate = [NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]];
+    frendRequest.requestDate = [[NSDate date] timeIntervalSince1970];
     frendRequest.status = [NSNumber numberWithInteger:TZFrendAgree];
     [self save];
     [[NSNotificationCenter defaultCenter] postNotificationName:frendRequestListNeedUpdateNoti object:nil];

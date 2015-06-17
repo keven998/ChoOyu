@@ -15,7 +15,7 @@
 @property (nonatomic, copy) NSString * avatar;
 @property (nonatomic, copy) NSString * gender;
 @property (nonatomic, copy) NSString * nickName;
-@property (nonatomic) long requestDate;
+@property (nonatomic) double requestDate;
 @property (nonatomic) TZFrendRequest status;
 @property (nonatomic) NSInteger userId;
 

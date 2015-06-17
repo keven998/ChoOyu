@@ -56,7 +56,7 @@
 {
     if (!_dataSource) {
         NSComparator cmptr = ^(FrendRequest *obj1, FrendRequest *obj2) {
-            if ([obj1.requestDate doubleValue] < [obj2.requestDate doubleValue]) {
+            if (obj1.requestDate < obj2.requestDate) {
                 return NSOrderedDescending;
             } else {
                 return NSOrderedAscending;
@@ -85,7 +85,7 @@
 {
     [self.dataSource removeAllObjects];
     NSComparator cmptr = ^(FrendRequest *obj1, FrendRequest *obj2) {
-        if ([obj1.requestDate doubleValue] < [obj2.requestDate doubleValue]) {
+        if (obj1.requestDate < obj2.requestDate) {
             return NSOrderedDescending;
         } else {
             return NSOrderedAscending;
@@ -181,11 +181,11 @@
     cell.attachMsgLabel.text = request.attachMsg;
     [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:request.avatar] placeholderImage:[UIImage imageNamed:@"person_disabled"]];
     cell.requestBtn.tag = indexPath.row;
-    if ([request.status integerValue] == TZFrendAgree) {
+    if (request.status == TZFrendAgree) {
         [cell.requestBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
         [cell.requestBtn setTitle:@"已添加" forState:UIControlStateNormal];
         cell.requestBtn.userInteractionEnabled = NO;
-    } else if ([request.status integerValue] == TZFrendDefault) {
+    } else if (request.status == TZFrendDefault) {
         [cell.requestBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
         [cell.requestBtn setTitleColor:[APP_THEME_COLOR colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
         [cell.requestBtn setTitle:@"同意" forState:UIControlStateNormal];

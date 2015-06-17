@@ -253,7 +253,7 @@
     if ([amgr isLogin]) {
         [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:amgr.account.avatarSmall] placeholderImage:[UIImage imageNamed:@"person_disabled"]];
         _nameLabel.text = amgr.account.nickName;
-        _idLabel.text = [NSString stringWithFormat:@"ID：%@", amgr.account.userId];
+        _idLabel.text = [NSString stringWithFormat:@"ID：%ld", (long)amgr.account.userId];
         
 //        if ([amgr.account.gender isEqualToString:@"M"]) {
 //            _avatarBg.image = [UIImage imageNamed:@"ic_home_avatar_border_boy.png"];

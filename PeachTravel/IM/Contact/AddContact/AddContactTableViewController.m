@@ -130,7 +130,7 @@
     AccountManager *accountManager = [AccountManager shareAccountManager];
     if ([searchResult count] > 0) {
         NSInteger userId = [[[searchResult firstObject] objectForKey:@"userId"] integerValue];
-        if (userId == [accountManager.account.userId integerValue]) {
+        if (userId == accountManager.account.userId) {
             [SVProgressHUD showHint:@"不能添加自己到通讯录"];
         } else {
             [_searchBar resignFirstResponder];

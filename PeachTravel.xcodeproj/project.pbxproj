@@ -895,7 +895,6 @@
 		D9F46DD01AC92B9200972AE8 /* TZSideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F46DCF1AC92B9200972AE8 /* TZSideViewController.m */; };
 		D9F6ABEB1AA882A800BE8263 /* ic_group_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9F6ABEA1AA882A800BE8263 /* ic_group_icon@2x.png */; };
 		D9F70C911B304B1200BDACA1 /* UserInfo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D9F70C8F1B304B1200BDACA1 /* UserInfo.xcdatamodeld */; };
-		D9F70CA61B304E1700BDACA1 /* Account.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F70CA51B304E1700BDACA1 /* Account.m */; };
 		D9F70CA91B304E1800BDACA1 /* FrendRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F70CA81B304E1800BDACA1 /* FrendRequest.m */; };
 		D9FCE7DE1B134B4B0039F896 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FCE7DD1B134B4B0039F896 /* ChatViewController.m */; };
 		D9FCE7E91B135C820039F896 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FCE7E81B135C820039F896 /* Reachability.m */; };
@@ -2269,8 +2268,6 @@
 		D9F46DCF1AC92B9200972AE8 /* TZSideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZSideViewController.m; sourceTree = "<group>"; };
 		D9F6ABEA1AA882A800BE8263 /* ic_group_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_group_icon@2x.png"; sourceTree = "<group>"; };
 		D9F70C901B304B1200BDACA1 /* UserInfo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UserInfo.xcdatamodel; sourceTree = "<group>"; };
-		D9F70CA41B304E1700BDACA1 /* Account.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Account.h; sourceTree = "<group>"; };
-		D9F70CA51B304E1700BDACA1 /* Account.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Account.m; sourceTree = "<group>"; };
 		D9F70CA71B304E1800BDACA1 /* FrendRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrendRequest.h; sourceTree = "<group>"; };
 		D9F70CA81B304E1800BDACA1 /* FrendRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FrendRequest.m; sourceTree = "<group>"; };
 		D9FCE7DC1B134B4B0039F896 /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
@@ -5692,8 +5689,6 @@
 				D9A8FEB71A80C818005AD701 /* Group.m */,
 				D9F70CA71B304E1800BDACA1 /* FrendRequest.h */,
 				D9F70CA81B304E1800BDACA1 /* FrendRequest.m */,
-				D9F70CA41B304E1700BDACA1 /* Account.h */,
-				D9F70CA51B304E1700BDACA1 /* Account.m */,
 			);
 			name = "Managed Objects";
 			sourceTree = "<group>";
@@ -6478,7 +6473,6 @@
 				D9E7EC0C1ACB932800D30A5A /* AccountModel.m in Sources */,
 				D993C2441B12DF0C0088D568 /* ChatMessageDaoHelper.swift in Sources */,
 				D9A8FEC71A80C818005AD701 /* MyGuideListTableViewController.m in Sources */,
-				D9F70CA61B304E1700BDACA1 /* Account.m in Sources */,
 				D9A802161A80E036005AD701 /* JGProgressHUDPieIndicatorView.m in Sources */,
 				D9A801411A80DD23005AD701 /* EMChatLocationBubbleView.m in Sources */,
 				D92CA1321AD8BEB400F244FF /* MWGridCell.m in Sources */,

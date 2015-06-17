@@ -7,7 +7,6 @@
 //
 
 #import "Contact.h"
-#import "Account.h"
 #import "Group.h"
 
 

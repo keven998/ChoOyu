@@ -8,7 +8,6 @@
 //******用来保存从网络上加载的用户信息，只是临时存放的,不写入数据库的信息******/
 
 #import <Foundation/Foundation.h>
-#import "Account.h"
 
 @interface AlbumImage : NSObject
 

@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Account.h"
 #import "Contact.h"
 #import "FrendRequest.h"
 #import "AccountModel.h"

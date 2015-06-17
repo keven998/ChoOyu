@@ -368,13 +368,13 @@
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", account.account.userId] forHTTPHeaderField:@"UserId"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)account.account.userId] forHTTPHeaderField:@"UserId"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:action forKey:@"action"];
     [params safeSetObject:tracks forKey:@"tracks"];
     NSLog(@"%@",tracks);
-    NSString *urlStr = [NSString stringWithFormat:@"%@users/%@/tracks", BASE_URL, account.account.userId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@users/%ld/tracks", BASE_URL, (long)account.account.userId];
     
     [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
