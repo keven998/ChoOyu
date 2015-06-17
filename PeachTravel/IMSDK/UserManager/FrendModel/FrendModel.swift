@@ -119,10 +119,14 @@ class FrendModel: NSObject {
     
     var footprintDescription :NSString {
         get {
+            var count = 0
+            for area in self.tracks {
+                count += area.cities.count
+            }
             return "\(self.tracks.count)国 \(count)城市"
         }
     }
-    
+
     init(json: NSDictionary) {
         userId = json.objectForKey("userId") as! Int
         nickName = json.objectForKey("nickName") as! String
@@ -139,7 +143,7 @@ class FrendModel: NSObject {
         }
         level = json.objectForKey("level") as! Int
         travelStatus = json.objectForKey("travelStatus") as! String
-        if let roles = json.objectForKey("toles") as? NSArray {
+        if let roles = json.objectForKey("roles") as? NSArray {
             if let role = roles.firstObject as? String {
                 if role == "expert" {
                     type = IMFrendType.Expert
