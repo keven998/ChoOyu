@@ -493,6 +493,16 @@
     return NO;
 }
 
+- (void)removeContact:(NSInteger)userId
+{
+    for (FrendModel *model in self.account.frendList) {
+        if (model.userId == userId) {
+            [self.account.frendList removeObject:model];
+            return;
+        }
+    }
+}
+
 - (void)addContact:(id)contactDic
 {
 //    NSLog(@"收到添加联系人，联系人的内容为：%@", contactDic);
