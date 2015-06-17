@@ -63,7 +63,7 @@ class MessageSendManager: NSObject {
         
         var daoHelper = DaoHelper.shareInstance()
         var accountManager = AccountManager.shareAccountManager()
-        NetworkTransportAPI.asyncSendMessage(MessageManager.prepareMessage2Send(receiverId: receiver, senderId: accountManager.account.userId.integerValue, conversationId: conversationId, chatType: chatType, message: message), completionBlock: { (isSuccess: Bool, errorCode: Int, retMessage: NSDictionary?) -> () in
+        NetworkTransportAPI.asyncSendMessage(MessageManager.prepareMessage2Send(receiverId: receiver, senderId: accountManager.account.userId, conversationId: conversationId, chatType: chatType, message: message), completionBlock: { (isSuccess: Bool, errorCode: Int, retMessage: NSDictionary?) -> () in
             self.sendingMessageList.removeObject(message)
             if isSuccess {
                 message.status = IMMessageStatus.IMMessageSuccessful

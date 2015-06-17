@@ -33,27 +33,12 @@
 
 #pragma mark - setter & getter
 
-- (Account *)account
+- (AccountModel *)account
 {
     if (!_account) {
-        NSError *error = nil;
-        NSFetchRequest *request = [[NSFetchRequest alloc] init];
-        request.entity = [NSEntityDescription entityForName:@"Account" inManagedObjectContext:self.context];
-        NSArray *objs = [self.context executeFetchRequest:request error:&error];
-        if (error) {
-            [NSException raise:@"查询错误" format:@"%@", [error localizedDescription]];
-        }
-        _account = [objs firstObject];
+        _account = [[AccountModel alloc] init];
     }
     return _account;
-}
-
-- (AccountModel *)accountDetail
-{
-    if (!_accountDetail) {
-        _accountDetail = [[AccountModel alloc] init];
-    }
-    return _accountDetail;
 }
 
 - (NSString *)userChatAudioPath
@@ -63,7 +48,7 @@
         NSString *documentPath = [paths objectAtIndex:0];
         
         NSFileManager *fileManager =  [[NSFileManager alloc] init];
-        NSString *audioPath = [documentPath stringByAppendingPathComponent:[NSString stringWithFormat: @"%@/ChatAudio/", [AccountManager shareAccountManager].account.userId]];
+        NSString *audioPath = [documentPath stringByAppendingPathComponent:[NSString stringWithFormat: @"%ld/ChatAudio/", self.account.userId]];
         if (![fileManager fileExistsAtPath: audioPath]) {
             [fileManager createDirectoryAtPath:audioPath withIntermediateDirectories:YES attributes:nil error:nil];
         }
@@ -79,7 +64,7 @@
         NSString *documentPath = [paths objectAtIndex:0];
         
         NSFileManager *fileManager =  [[NSFileManager alloc] init];
-        NSString *imagePath = [documentPath stringByAppendingPathComponent:[NSString stringWithFormat: @"%@/ChatImage/", [AccountManager shareAccountManager].account.userId]];
+        NSString *imagePath = [documentPath stringByAppendingPathComponent:[NSString stringWithFormat: @"%ld/ChatImage/", self.account.userId]];
 
         if (![fileManager fileExistsAtPath: imagePath]) {
             [fileManager createDirectoryAtPath:imagePath withIntermediateDirectories:YES attributes:nil error:nil];
@@ -95,7 +80,7 @@
         NSString *tempPath = NSTemporaryDirectory();
         
         NSFileManager *fileManager =  [[NSFileManager alloc] init];
-        NSString *retPath = [tempPath stringByAppendingPathComponent:[NSString stringWithFormat: @"%@/tempFile/", [AccountManager shareAccountManager].account.userId]];
+        NSString *retPath = [tempPath stringByAppendingPathComponent:[NSString stringWithFormat: @"%ld/tempFile/", self.account.userId]];
 
         if (![fileManager fileExistsAtPath: retPath]) {
             [fileManager createDirectoryAtPath:retPath withIntermediateDirectories:YES attributes:nil error:nil];
@@ -136,8 +121,6 @@
 //用户退出登录
 - (void)asyncLogout:(void (^)(BOOL))completion
 {
-    [self.context deleteObject:self.account];
-    [self save];
     _account = nil;
     [[NSNotificationCenter defaultCenter] postNotificationName:userDidLogoutNoti object:nil];
     completion(YES);
@@ -146,12 +129,6 @@
 //用户旅行派系统登录成功
 - (void)userDidLoginWithUserInfo:(id)userInfo
 {
-    if (self.account) {
-        [self.context deleteObject:self.account];
-        [self save];
-        _account = nil;
-    }
-    _account = [NSEntityDescription insertNewObjectForEntityForName:@"Account" inManagedObjectContext:self.context];
     [self loadUserInfo:userInfo];
     
     [self save];
@@ -180,7 +157,7 @@
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     
-    [params setObject:self.account.userId forKey:@"userId"];
+    [params setObject:[NSNumber numberWithInteger: self.account.userId] forKey:@"userId"];
     [params setObject:[ConnectionManager shareInstance].registionId forKey:@"regId"];
     
     NSString *loginUrl = @"http://hedy.zephyre.me/users/login";
@@ -404,7 +381,7 @@
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
 //            [self updateUserInfo:newStatus withChangeType:ChangeGender];
-            self.accountDetail.travelStatus = newStatus;
+            self.account.travelStatus = newStatus;
             [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
             completion(YES, nil);
         } else {
@@ -550,7 +527,7 @@
  */
 - (BOOL)frendIsMyContact:(NSInteger)userId
 {
-    for (FrendModel *frend in _account.contacts) {
+    for (FrendModel *frend in _account.frendRequest) {
         if (frend.userId == userId) {
             return YES;
         }

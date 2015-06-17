@@ -121,7 +121,7 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:_oldPasswordLabel.text forKey:@"oldPwd"];
     [params safeSetObject:_presentPasswordLabel.text forKey:@"newPwd"];
-    [params safeSetObject:accountManager.account.userId forKey:@"userId"];
+    [params safeSetObject:[NSNumber numberWithInteger: accountManager.account.userId] forKey:@"userId"];
     
     __weak typeof(ChangePasswordViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];

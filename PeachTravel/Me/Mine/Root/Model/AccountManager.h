@@ -14,9 +14,7 @@
 
 @interface AccountManager : NSObject
 
-@property (nonatomic, strong) Account *account;
-
-@property (strong, nonatomic) AccountModel *accountDetail;
+@property (nonatomic, strong) AccountModel *account;
 
 + (AccountManager *)shareAccountManager;
 

@@ -31,7 +31,7 @@ public class DaoHelper:NSObject {
     override init() {
         var userId = -1
         if let account = AccountManager.shareAccountManager().account {
-            userId = AccountManager.shareAccountManager().account.userId.integerValue
+            userId = AccountManager.shareAccountManager().account.userId
         }
         
         var dbPath: String = documentPath.stringByAppendingPathComponent("\(userId)/user.sqlite")
@@ -70,7 +70,7 @@ public class DaoHelper:NSObject {
     func fillDatabase() {
         var userId = -1
         if let account = AccountManager.shareAccountManager().account {
-            userId = AccountManager.shareAccountManager().account.userId.integerValue
+            userId = AccountManager.shareAccountManager().account.userId
         }
         
         var dbPath: String = documentPath.stringByAppendingPathComponent("\(userId)/user.sqlite")

@@ -116,7 +116,7 @@
 {
     _destinations = [[Destinations alloc] init];
     AccountManager *amgr = self.accountManager;
-    NSMutableDictionary *country = [NSMutableDictionary dictionaryWithDictionary:amgr.accountDetail.tracks];
+    NSMutableDictionary *country = [NSMutableDictionary dictionaryWithDictionary:amgr.account.tracks];
     
     NSArray *keys = [country allKeys];
     NSInteger countryNumber = keys.count;
@@ -164,7 +164,7 @@
 
 - (void)loadUserInfo
 {
-    [self.accountManager.accountDetail loadUserInfoFromServer:^(bool isSuccess) {
+    [self.accountManager.account loadUserInfoFromServer:^(bool isSuccess) {
         if (isSuccess) {
             [self updateTracksDesc];
             [self updateDestinations];
@@ -175,7 +175,7 @@
 
 - (void)updateTracksDesc
 {
-    NSMutableDictionary *country = [NSMutableDictionary dictionaryWithDictionary:[AccountManager shareAccountManager].accountDetail.tracks];
+    NSMutableDictionary *country = [NSMutableDictionary dictionaryWithDictionary:[AccountManager shareAccountManager].account.tracks];
     NSInteger cityNumber = 0;
     NSMutableString *cityDesc = nil;
     NSArray *keys = [country allKeys];
@@ -242,7 +242,7 @@
         [array addObject:[[AlbumImage alloc] initWithJson:album]];
     }
     AccountManager *accountManager = [AccountManager shareAccountManager];
-    accountManager.accountDetail.userAlbum = array;
+    accountManager.account.userAlbum = array;
     NSLog(@"%@",array);
 }
 
@@ -276,7 +276,7 @@
  */
 - (void)showDatePicker
 {
-    NSDate *birthday = [ConvertMethods stringToDate:self.accountManager.accountDetail.birthday withFormat:@"yyyy-MM-dd" withTimeZone:[NSTimeZone systemTimeZone]];
+    NSDate *birthday = [ConvertMethods stringToDate:self.accountManager.account.birthday withFormat:@"yyyy-MM-dd" withTimeZone:[NSTimeZone systemTimeZone]];
     __weak UserInfoTableViewController *weakSelf = self;
     AIDatePickerController *datePickerViewController = [AIDatePickerController pickerWithDate:birthday selectedBlock:^(NSDate *selectedDate) {
         __strong UserInfoTableViewController *strongSelf = weakSelf;
@@ -384,9 +384,9 @@
                   AlbumImage *image = [[AlbumImage alloc] init];
                   image.imageId = [resp objectForKey:@"id"];
                   image.image.imageUrl = [resp objectForKey:@"url"];
-                  NSMutableArray *mutableArray = [self.accountManager.accountDetail.userAlbum mutableCopy];
+                  NSMutableArray *mutableArray = [self.accountManager.account.userAlbum mutableCopy];
                   [mutableArray addObject:image];
-                  self.accountManager.accountDetail.userAlbum = mutableArray;
+                  self.accountManager.account.userAlbum = mutableArray;
                   [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
                   
               } option:opt];
@@ -498,7 +498,7 @@
     
     if (indexPath.section == 0 && indexPath.row == 0) {
         HeaderPictureCell *cell = [tableView dequeueReusableCellWithIdentifier:@"header" forIndexPath:indexPath];
-        cell.headerPicArray = amgr.accountDetail.userAlbum;
+        cell.headerPicArray = amgr.account.userAlbum;
         NSLog(@"%@",cell.headerPicArray);
         cell.delegate = self;
         return cell;
@@ -519,7 +519,7 @@
         HeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"zuji" forIndexPath:indexPath];
         cell.nameLabel.text = @"签名";
         cell.trajectory.textColor = TEXT_COLOR_TITLE_DESC;
-        if([self.accountManager.account.signature isBlankString]||self.accountManager.accountDetail.signature.length == 0) {
+        if([self.accountManager.account.signature isBlankString]||self.accountManager.account.signature.length == 0) {
             cell.footPrint.text = @"未设置签名";
         }else {
             cell.footPrint.text = self.accountManager.account.signature;
@@ -534,7 +534,7 @@
                 
                 cell.cellDetail.text = amgr.account.nickName;
             } else if (indexPath.row == 2) {
-                cell.cellDetail.text = amgr.accountDetail.travelStatus;
+                cell.cellDetail.text = amgr.account.travelStatus;
             }
             
         } else if (indexPath.section == 3) {
@@ -553,18 +553,18 @@
                 }
                 
             } else if (indexPath.row == 1) {
-                if (amgr.accountDetail.birthday.length == 0 || amgr.accountDetail.birthday == nil) {
+                if (amgr.account.birthday.length == 0 || amgr.account.birthday == nil) {
                     cell.cellDetail.text = @"未设置";
                 } else {
-                cell.cellDetail.text = amgr.accountDetail.birthday;
+                cell.cellDetail.text = amgr.account.birthday;
                 }
                 
             } else if (indexPath.row == 2) {
-                if (amgr.accountDetail.residence.length == 0) {
+                if (amgr.account.residence.length == 0) {
                     cell.cellDetail.text = @"未设置";
                     
                 } else {
-                cell.cellDetail.text = amgr.accountDetail.residence;
+                cell.cellDetail.text = amgr.account.residence;
                 }
             }
         }
@@ -763,7 +763,7 @@
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
 //    [hud showHUDInView:self.view];
     [hud showHUDInViewController:self.navigationController content:64];
-    AlbumImage *image = [self.accountManager.accountDetail.userAlbum objectAtIndex:index];
+    AlbumImage *image = [self.accountManager.account.userAlbum objectAtIndex:index];
     [self.accountManager asyncChangeUserAvatar:image completion:^(BOOL isSuccess, NSString *error) {
         [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
         [hud hideTZHUD];
@@ -779,7 +779,7 @@
 {
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInView:self.view];
-    AlbumImage *image = [self.accountManager.accountDetail.userAlbum objectAtIndex:index];
+    AlbumImage *image = [self.accountManager.account.userAlbum objectAtIndex:index];
     [self.accountManager asyncDelegateUserAlbumImage:image completion:^(BOOL isSuccess, NSString *error) {
         [hud hideTZHUD];
     }];
@@ -789,7 +789,7 @@
 {
     SignatureViewController *bsvc = [[SignatureViewController alloc]init];
     bsvc.navTitle = @"个性签名";
-    bsvc.content = self.accountManager.accountDetail.signature;
+    bsvc.content = self.accountManager.account.signature;
     bsvc.acceptEmptyContent = YES;
     bsvc.saveEdition = ^(NSString *editText, saveComplteBlock(completed)) {
         [self updateUserInfo:ChangeSignature withNewContent:editText success:completed];
@@ -880,12 +880,12 @@
 -(void)showImageDetail:(NSInteger)index
 {
     AccountManager *amgr = self.accountManager;
-    NSInteger count = amgr.accountDetail.userAlbum.count;
+    NSInteger count = amgr.account.userAlbum.count;
     // 1.封装图片数据
     NSMutableArray *photos = [NSMutableArray arrayWithCapacity:count];
     for (NSInteger i = 0; i<count; i++) {
         // 替换为中等尺寸图片
-        AlbumImage *albumImage = amgr.accountDetail.userAlbum[i];
+        AlbumImage *albumImage = amgr.account.userAlbum[i];
         MJPhoto *photo = [[MJPhoto alloc] init];
         photo.url = [NSURL URLWithString:albumImage.image.imageUrl]; // 图片路径
 //        photo.srcImageView = (UIImageView *)[swipeView itemViewAtIndex:index]; // 来源于哪个UIImageView

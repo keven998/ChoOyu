@@ -239,7 +239,7 @@
 
 - (void) talkToFriend {
     AccountManager *accountManager = [AccountManager shareAccountManager];
-    ChatViewController *chatCtl = [[ChatViewController alloc]initWithChatter:accountManager.account.userId.integerValue chatType:IMChatTypeIMChatSingleType];
+    ChatViewController *chatCtl = [[ChatViewController alloc]initWithChatter:accountManager.account.userId chatType:IMChatTypeIMChatSingleType];
     chatCtl.title = accountManager.account.nickName;
    
     UIViewController *menuViewController = [[ChatSettingViewController alloc] init];
