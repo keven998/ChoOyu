@@ -1,14 +1,14 @@
 /************************************************************
-  *  * EaseMob CONFIDENTIAL 
-  * __________________ 
-  * Copyright (C) 2013-2014 EaseMob Technologies. All rights reserved. 
-  *  
-  * NOTICE: All information contained herein is, and remains 
-  * the property of EaseMob Technologies.
-  * Dissemination of this information or reproduction of this material 
-  * is strictly forbidden unless prior written permission is obtained
-  * from EaseMob Technologies.
-  */
+ *  * EaseMob CONFIDENTIAL
+ * __________________
+ * Copyright (C) 2013-2014 EaseMob Technologies. All rights reserved.
+ *
+ * NOTICE: All information contained herein is, and remains
+ * the property of EaseMob Technologies.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from EaseMob Technologies.
+ */
 
 
 #import "ChatListCell.h"
@@ -38,7 +38,7 @@
         self.imageView.backgroundColor = APP_IMAGEVIEW_COLOR;
         
         _timeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _timeLabel.font = [UIFont systemFontOfSize:12];
+        _timeLabel.font = [UIFont systemFontOfSize:14];
         _timeLabel.textColor = COLOR_TEXT_III;
         _timeLabel.textAlignment = NSTextAlignmentRight;
         [self.contentView addSubview:_timeLabel];
@@ -75,6 +75,11 @@
         self.textLabel.font = [UIFont systemFontOfSize:21];
         self.textLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         self.textLabel.textColor = COLOR_TEXT_I;
+        
+//        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), 76)];
+//        view.backgroundColor = COLOR_ALERT;
+//        view.layer.cornerRadius = 10.0f;
+//        self.selectedBackgroundView = view;
     }
     return self;
 }
@@ -99,13 +104,12 @@
     
     CGFloat contentOffsetX = CGRectGetMaxX(self.imageView.frame) + 10;
     
-    //image offset x = 56 + 10 + 10margin = 76
     self.textLabel.text = _name;
-    self.textLabel.frame = CGRectMake(contentOffsetX, 14, width - contentOffsetX - 85, 24);
+    self.textLabel.frame = CGRectMake(contentOffsetX, 15, width - contentOffsetX - 85, 24);
     
-    _timeLabel.frame = CGRectMake(width - 80.0, 14.0, 70.0, 18.0);
+    _timeLabel.frame = CGRectMake(width - 80.0, 15, 70.0, 24);
     _detailLabel.text = _detailMsg;
-
+    
     CGFloat offsetX = 0;
     if (_sendStatus == MSGSending) {
         offsetX = 18;
@@ -147,11 +151,11 @@
         CGRect tf = self.textLabel.frame;
         CGFloat maxw = tf.size.width - lf.size.width - 5;
         CGSize labelSize = [_name boundingRectWithSize:CGSizeMake(maxw, tf.size.height)
-                                                                       options:NSStringDrawingUsesLineFragmentOrigin
-                                                                    attributes:@{
-                                                                                 NSFontAttributeName : [UIFont systemFontOfSize:16]
-                                                                                 }
-                                                                       context:nil].size;
+                                               options:NSStringDrawingUsesLineFragmentOrigin
+                                            attributes:@{
+                                                         NSFontAttributeName : [UIFont systemFontOfSize:16]
+                                                         }
+                                               context:nil].size;
         
         tf.size.width = labelSize.width;
         self.textLabel.frame = tf;
@@ -162,7 +166,7 @@
     }
     
     spaceView.frame = CGRectMake(10, self.contentView.frame.size.height-0.5, width - 10, 0.5);
-//    self.selectedBackgroundView.frame = self.bounds;
+    //    self.selectedBackgroundView.frame = self.bounds;
 }
 
 -(void)setName:(NSString *)name{
@@ -178,11 +182,6 @@
     } else {
         [self.imageView setImage:[UIImage imageNamed:_imageName]];
     }
-}
-
-+ (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 76;
 }
 
 @end

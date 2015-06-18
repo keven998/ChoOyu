@@ -65,7 +65,7 @@
     
     self.imClientManager.conversationManager.delegate = self;
     _dataSource = [[self.imClientManager.conversationManager getConversationList] mutableCopy];
-
+    
     UIButton *addBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [addBtn setImage:[UIImage imageNamed:@"ic_navigationbar_menu_add.png"] forState:UIControlStateNormal];
     [addBtn addTarget:self action:@selector(addAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -88,7 +88,7 @@
     }
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:contactListBtn];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogin) name:userDidLoginNoti object:nil];
-
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -171,18 +171,18 @@
 - (IBAction)addAction:(UIButton *)sender
 {
     PXAlertView *alertView = [PXAlertView showAlertWithTitle:nil
-                                    message:nil
-                                cancelTitle:@"取消"
-                                otherTitles:@[ @"新建聊天", @"添加好友"]
-                                 completion:^(BOOL cancelled, NSInteger buttonIndex) {
-                                     if (buttonIndex == 1) {
-                                         [self addConversation:nil];
-                                         [MobClick event:@"event_create_new_talk"];
-                                     } else if (buttonIndex == 2) {
-                                         [self addUserContact:nil];
-                                         [MobClick event:@"event_add_new_friend"];
-                                     }
-                                 }];
+                                                     message:nil
+                                                 cancelTitle:@"取消"
+                                                 otherTitles:@[ @"新建聊天", @"添加好友"]
+                                                  completion:^(BOOL cancelled, NSInteger buttonIndex) {
+                                                      if (buttonIndex == 1) {
+                                                          [self addConversation:nil];
+                                                          [MobClick event:@"event_create_new_talk"];
+                                                      } else if (buttonIndex == 2) {
+                                                          [self addUserContact:nil];
+                                                          [MobClick event:@"event_add_new_friend"];
+                                                      }
+                                                  }];
     [alertView setTitleFont:[UIFont systemFontOfSize:16]];
     [alertView useDefaultIOS7Style];
 }
@@ -302,7 +302,7 @@
         }
             break;
     }
-
+    
 }
 
 - (IBAction)addConversation:(id)sender
@@ -358,7 +358,7 @@
                     
                 case IMMessageTypeTextMessageType: {
                     
-                                        // 表情映射。
+                    // 表情映射。
                     NSString *didReceiveText = [ConvertToCommonEmoticonsHelper
                                                 convertToSystemEmoticons:lastMessage.message];
                     ret = [NSString stringWithFormat:@"%@: %@",nickName, didReceiveText];
@@ -367,23 +367,23 @@
                     
                 case IMMessageTypeGuideMessageType:
                     ret = [NSString stringWithFormat:@"%@:[链接] %@", nickName, ((IMGuideMessage *)lastMessage).guideName];
-
+                    
                     break;
                 case IMMessageTypeTravelNoteMessageType:
                     ret = [NSString stringWithFormat:@"%@:[链接] %@", nickName, ((IMTravelNoteMessage *)lastMessage).name];
-
+                    
                     break;
                 case IMMessageTypeSpotMessageType:
                     ret = [NSString stringWithFormat:@"%@:[链接] %@", nickName, ((IMSpotMessage *)lastMessage).spotName];
-
+                    
                     break;
                 case IMMessageTypeCityPoiMessageType:
                     ret = [NSString stringWithFormat:@"%@:[链接] %@", nickName, ((IMCityMessage *)lastMessage).poiName];
-
+                    
                     break;
                 case IMMessageTypeRestaurantMessageType:
                     ret = [NSString stringWithFormat:@"%@:[链接] %@", nickName, ((IMRestaurantMessage *)lastMessage).poiName];
-
+                    
                     break;
                 case IMMessageTypeHotelMessageType:
                     ret = [NSString stringWithFormat:@"%@:[链接] %@", nickName, ((IMHotelMessage *)lastMessage).poiName];
@@ -396,22 +396,22 @@
                     
                 case IMMessageTypeAudioMessageType:{
                     ret = [NSString stringWithFormat:@"%@:[语音]", nickName];
-
+                    
                 }
                     break;
                     
                 case IMMessageTypeLocationMessageType: {
                     ret = [NSString stringWithFormat:@"%@:[位置]", nickName];
-
+                    
                 }
                     break;
                     
                 default: {
                     ret = [NSString stringWithFormat:@"%@:升级新版本才可以查看这条神秘消息哦", nickName];
-
+                    
                 } break;
             }
-
+            
         } else {
             
             switch (lastMessage.messageType) {
@@ -456,7 +456,7 @@
                     ret = [NSString stringWithFormat:@"[链接] %@", ((IMShoppingMessage *)lastMessage).poiName];
                 }
                     break;
-
+                    
                     
                     
                 case IMMessageTypeAudioMessageType:{
@@ -476,7 +476,7 @@
                     
                 } break;
             }
-
+            
         }
     }
     return ret;
@@ -498,7 +498,7 @@
 - (void)pushChatViewControllerWithConversation: (ChatConversation *)conversation
 {
     ChatViewController *chatController = [[ChatViewController alloc] initWithConversation:conversation];
-
+    
     UIViewController *menuViewController = nil;
     if (conversation.chatType == IMChatTypeIMChatGroupType || conversation.chatType == IMChatTypeIMChatDiscussionGroupType) {
         menuViewController = [[ChatGroupSettingViewController alloc] init];
@@ -525,9 +525,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *identify = @"chatListCell";
     ChatListCell *cell = [tableView dequeueReusableCellWithIdentifier:identify forIndexPath:indexPath];
-
+    
     ChatConversation *tzConversation = [self.dataSource objectAtIndex:indexPath.row];
-
+    
     if (tzConversation.chatType == IMChatTypeIMChatSingleType) {
         cell.name = tzConversation.chatterName;
         [cell.imageView sd_setImageWithURL:[NSURL URLWithString:tzConversation.chatterAvatar] placeholderImage:[UIImage imageNamed:@"ic_home_default_avatar.png"]];
@@ -537,7 +537,7 @@
     }
     
     BaseMessage *message = tzConversation.lastLocalMessage;
-
+    
     BOOL isSender = message.sendType == IMMessageSendTypeMessageSendMine ? YES : NO;
     
     if (isSender) {
@@ -564,7 +564,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return [ChatListCell tableView:tableView heightForRowAtIndexPath:indexPath];
+    return 76;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
