@@ -72,10 +72,10 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>aizou.PeachTravel</string>
+			<string>com.xuejian.client.lxp</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>taozi0601</string>
+				<string>Lvxingpai</string>
 			</array>
 		</dict>
 	</array>
