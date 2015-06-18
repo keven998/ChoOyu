@@ -42,3 +42,5 @@ PeachTravel/libs/UMSocial_Sdk_Extra_Frameworks
 Fastfile
 fastlane
 *.mobileprovision
+*.zip
+*.ipa
