@@ -7,7 +7,7 @@
 //
 
 #import "OtherUserInfoViewController.h"
-#import "MyGuideListTableViewController.h"
+#import "PlansListTableViewController.h"
 #import "HeaderCell.h"
 #import "OtherUserBasicInfoCell.h"
 #import "OthersAlbumCell.h"
@@ -435,9 +435,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 1) {
-        MyGuideListTableViewController *listCtl = [[MyGuideListTableViewController alloc]init];
-        listCtl.isExpert = YES;
-        listCtl.userId = _userInfo.userId;
+        PlansListTableViewController *listCtl = [[PlansListTableViewController alloc]initWithUserId:_userInfo.userId];
         [self.navigationController pushViewController:listCtl animated:YES];
         
     } else if (indexPath.section == 2){

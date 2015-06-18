@@ -32,7 +32,7 @@
 #import "SearchUserInfoViewController.h"
 #import "CreateConversationViewController.h"
 #import "SpotDetailViewController.h"
-#import "MyGuideListTableViewController.h"
+#import "PlansListTableViewController.h"
 #import "FavoriteViewController.h"
 #import "CityDetailTableViewController.h"
 #import "SearchDestinationViewController.h"
@@ -734,7 +734,7 @@
 - (void)moreViewMyStrategyAction:(DXChatBarMoreView *)moreView
 {
     [MobClick event:@"event_share_plan_extra"];
-    MyGuideListTableViewController *myGuideListTableCtl = [[MyGuideListTableViewController alloc] init];
+    PlansListTableViewController *myGuideListTableCtl = [[PlansListTableViewController alloc] initWithUserId:_accountManager.account.userId];
     myGuideListTableCtl.chatterId = _chatter;
     myGuideListTableCtl.selectToSend = YES;
     myGuideListTableCtl.chatType = _chatType;

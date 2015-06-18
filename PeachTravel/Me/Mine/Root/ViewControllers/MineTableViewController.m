@@ -19,7 +19,7 @@
 #import "SuperWebViewController.h"
 #import "FeedbackViewController.h"
 #import "FootPrintViewController.h"
-#import "MyGuideListTableViewController.h"
+#import "PlansListTableViewController.h"
 #import "ContactListViewController.h"
 
 #define cellDataSource           @[@[@"邀请好友", @"意见反馈"], @[@"关于我们", @"应用设置"]]
@@ -165,8 +165,8 @@
     UILabel *friendNumber = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, unitWidth - 20, 20)];
     friendNumber.textColor = COLOR_TEXT_I;
     friendNumber.textAlignment = NSTextAlignmentCenter;
-    friendNumber.font = [UIFont systemFontOfSize:16];
-    friendNumber.text = @"99";
+    friendNumber.font = [UIFont systemFontOfSize:15];
+    friendNumber.text = @"99人";
     friendNumber.lineBreakMode = NSLineBreakByTruncatingTail;
     _friendCount = friendNumber;
     [friendEntry addSubview:friendNumber];
@@ -183,8 +183,8 @@
     UILabel *planNumber = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, unitWidth - 20, 20)];
     planNumber.textColor = COLOR_TEXT_I;
     planNumber.textAlignment = NSTextAlignmentCenter;
-    planNumber.font = [UIFont systemFontOfSize:16];
-    planNumber.text = @"99";
+    planNumber.font = [UIFont systemFontOfSize:15];
+    planNumber.text = @"99条";
     _planCount = planNumber;
     planNumber.lineBreakMode = NSLineBreakByTruncatingTail;
     [planEntry addSubview:planNumber];
@@ -201,9 +201,9 @@
     UILabel *trackNumber = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, unitWidth - 20, 20)];
     trackNumber.textColor = COLOR_TEXT_I;
     trackNumber.textAlignment = NSTextAlignmentCenter;
-    trackNumber.font = [UIFont systemFontOfSize:16];
+    trackNumber.font = [UIFont systemFontOfSize:15];
     trackNumber.lineBreakMode = NSLineBreakByTruncatingTail;
-    trackNumber.text = @"5国17城";
+    trackNumber.text = @"5国17城市";
     _trackCount = trackNumber;
     [trackEntry addSubview:trackNumber];
     UILabel *tl = [[UILabel alloc] initWithFrame:CGRectMake(10, 30, unitWidth - 20, 20)];
@@ -360,7 +360,7 @@
 
 - (IBAction)myPlan:(id)sender
 {
-    MyGuideListTableViewController *myGuidesCtl = [[MyGuideListTableViewController alloc] init];
+    PlansListTableViewController *myGuidesCtl = [[PlansListTableViewController alloc] initWithUserId:_accountManager.account.userId];
     myGuidesCtl.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:myGuidesCtl animated:YES];
 }

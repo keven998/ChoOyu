@@ -8,7 +8,7 @@
 
 #import "ToolsHomeViewController.h"
 #import "TravelersTableViewController.h"
-#import "MyGuideListTableViewController.h"
+#import "PlansListTableViewController.h"
 #import "LoginViewController.h"
 #import "SearchDestinationViewController.h"
 
@@ -97,7 +97,7 @@
     AccountManager *accountManager = [AccountManager shareAccountManager];
     if (!accountManager.isLogin) {
         LoginViewController *loginCtl = [[LoginViewController alloc] initWithCompletion:^(BOOL completed) {
-            MyGuideListTableViewController *myGuidesCtl = [[MyGuideListTableViewController alloc] init];
+            PlansListTableViewController *myGuidesCtl = [[PlansListTableViewController alloc] initWithUserId:accountManager.account.userId];
             myGuidesCtl.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:myGuidesCtl animated:YES];
         }];
@@ -105,7 +105,7 @@
         loginCtl.isPushed = NO;
         [self.navigationController presentViewController:nctl animated:YES completion:nil];
     } else {
-        MyGuideListTableViewController *myGuidesCtl = [[MyGuideListTableViewController alloc] init];
+        PlansListTableViewController *myGuidesCtl = [[PlansListTableViewController alloc] initWithUserId:accountManager.account.userId];
         myGuidesCtl.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:myGuidesCtl animated:YES];
     }
@@ -121,13 +121,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end
