@@ -44,7 +44,7 @@
         [self.contentView addSubview:_timeLabel];
         
         _detailLabel = [[UILabel alloc] init];
-        _detailLabel.font = [UIFont systemFontOfSize:13];
+        _detailLabel.font = [UIFont systemFontOfSize:14];
         _detailLabel.textColor = COLOR_TEXT_III;
         _detailLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         _detailLabel.lineBreakMode = NSLineBreakByTruncatingTail;
@@ -72,7 +72,7 @@
         spaceView.backgroundColor = COLOR_LINE;
         [self.contentView addSubview:spaceView];
         
-        self.textLabel.font = [UIFont systemFontOfSize:18];
+        self.textLabel.font = [UIFont systemFontOfSize:21];
         self.textLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         self.textLabel.textColor = COLOR_TEXT_I;
     }
@@ -92,17 +92,18 @@
     [super layoutSubviews];
     
     CGFloat width = CGRectGetWidth(self.bounds);
-    self.imageView.frame = CGRectMake(10, 10, 56, 56);
+    self.imageView.frame = CGRectMake(12, 10, 56, 56);
     self.imageView.contentMode = UIViewContentModeScaleAspectFill;
     self.imageView.layer.cornerRadius = 28;
     self.imageView.clipsToBounds = YES;
     
+    CGFloat contentOffsetX = CGRectGetMaxX(self.imageView.frame) + 10;
+    
     //image offset x = 56 + 10 + 10margin = 76
     self.textLabel.text = _name;
-    self.textLabel.frame = CGRectMake(76, 14, width - 76 - 85, 24);
+    self.textLabel.frame = CGRectMake(contentOffsetX, 14, width - contentOffsetX - 85, 24);
     
     _timeLabel.frame = CGRectMake(width - 80.0, 14.0, 70.0, 18.0);
-    
     _detailLabel.text = _detailMsg;
 
     CGFloat offsetX = 0;
@@ -110,7 +111,6 @@
         offsetX = 18;
         sendFailedImageView.hidden = YES;
         activityView.hidden = NO;
-        
     } else if (_sendStatus == MSGSended) {
         sendFailedImageView.hidden = YES;
         activityView.hidden = YES;
@@ -125,9 +125,9 @@
         activityView.hidden = YES;
     }
     
-    sendFailedImageView.frame = CGRectMake(76, 45, 12, 12);
-    activityView.frame = CGRectMake(76, 45, 13, 12);
-    _detailLabel.frame = CGRectMake(76+offsetX, 38, width - 85.0-76, 25);
+    sendFailedImageView.frame = CGRectMake(contentOffsetX, 45, 12, 12);
+    activityView.frame = CGRectMake(contentOffsetX, 45, 13, 12);
+    _detailLabel.frame = CGRectMake(contentOffsetX+offsetX, 50, width - 85.0-contentOffsetX, 16);
     
     _timeLabel.text = _time;
     

@@ -23,7 +23,6 @@
 #import "UIViewController+HUD.h"
 #import "NSDate+Category.h"
 #import "DXMessageToolBar.h"
-#import "DXChatBarMoreView.h"
 #import "CallViewController.h"
 #import "ZYQAssetPickerController.h"
 #import "ChatGroupSettingViewController.h"
@@ -492,6 +491,10 @@
 }
 
 #pragma mark - scrollView delegate
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [self keyBoardHidden];
+}
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
@@ -643,7 +646,6 @@
             shoppingCtl.title = model.poiModel.poiName;
             shoppingCtl.poiId = model.poiModel.poiId;
             [self.navigationController pushViewController:shoppingCtl animated:YES];
-            NSLog(@"asda");
         }
             break;
             
