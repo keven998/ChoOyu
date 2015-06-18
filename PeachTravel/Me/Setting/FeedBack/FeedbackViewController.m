@@ -38,29 +38,37 @@
     self.view.backgroundColor = APP_PAGE_COLOR;
     self.navigationItem.title = @"意见反馈";
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"提交" style:UIBarButtonItemStylePlain target:self action:@selector(sendFeedback:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"发送" style:UIBarButtonItemStylePlain target:self action:@selector(sendFeedback:)];
     
     CGFloat width = self.view.frame.size.width;
     
-    UILabel *desc1 = [[UILabel alloc]initWithFrame:CGRectMake(15.0, 20.0, width-30, 20.0)];
+    UILabel *desc1 = [[UILabel alloc]initWithFrame:CGRectMake(5, 20.0, width-10, 20.0)];
     desc1.font = [UIFont systemFontOfSize:13.0];
-    desc1.textColor = UIColorFromRGB(0x5a5a5a);
-    desc1.textAlignment = NSTextAlignmentCenter;
-    desc1.text = @"你的意见和需求，是我们改进的动力";
+    desc1.textColor = COLOR_TEXT_II;
+    desc1.textAlignment = NSTextAlignmentLeft;
+    desc1.text = @"你的意见和建议，是我们改进的动力";
     desc1.backgroundColor = [UIColor clearColor];
     [self.view addSubview:desc1];
     
-    UIView *eborder = [[UIView alloc] initWithFrame:CGRectMake(0., 45, width, 86.0)];
+    UIView *eborder = [[UIView alloc] initWithFrame:CGRectMake(5, 45, width - 10, 86.0)];
     eborder.backgroundColor = [UIColor whiteColor];
+    eborder.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    eborder.layer.borderColor = COLOR_LINE.CGColor;
+    eborder.layer.borderWidth = 1.0;
+    eborder.layer.cornerRadius = 3.0;
     [self.view addSubview:eborder];
     
-    UITextView *suggestion = [[UITextView alloc] initWithFrame:CGRectMake(5.0, 5.0, width - 10.0, 76.0)];
+    UITextView *suggestion = [[UITextView alloc] initWithFrame:CGRectMake(5.0, 4.0, width - 10.0, 78.0)];
     suggestion.backgroundColor = [UIColor clearColor];
-    suggestion.textColor = TEXT_COLOR_TITLE;
+    suggestion.textColor = COLOR_TEXT_I;
+    suggestion.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     suggestion.font = [UIFont systemFontOfSize:14.0];
     suggestion.scrollEnabled = YES;
     [eborder addSubview:suggestion];
     contentEditor = suggestion;
+}
+
+- (void) showkeyboard {
     [contentEditor becomeFirstResponder];
 }
 
@@ -96,7 +104,7 @@
     __weak typeof(FeedbackController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf content:64];
-
+    
     
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                    trimText, @"body",
@@ -112,20 +120,20 @@
     if ([accountManager isLogin]) {
         [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     }
-
+    
     [manager POST:API_FEEDBACK parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [hud hideTZHUD];
         if ([[responseObject objectForKey:@"code"] integerValue] == 0) {
-            [SVProgressHUD showHint:@"谢谢反馈，我们在努力做到更好"];
+            [SVProgressHUD showHint:@"意见已收到，非常感谢"];
             [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.3];
         } else {
-             if (self.isShowing) {
-                [SVProgressHUD showHint:@"请求也是失败了"];
-             }
+            if (self.isShowing) {
+                [SVProgressHUD showHint:@"请求失败了"];
+            }
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [hud hideTZHUD];
-        [SVProgressHUD showHint:@"呃～网络也是醉了"];
+        [SVProgressHUD showHint:@"呃～网络没找到"];
     }];
 }
 

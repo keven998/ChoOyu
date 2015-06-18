@@ -34,7 +34,7 @@
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UILabel *idLabel;
 @property (nonatomic, strong) UIImageView *avatarBg;
-@property (nonatomic, strong) UIImageView *genderView;
+@property (nonatomic, strong) UIImageView *constellationView;
 @property (nonatomic, strong) UILabel *levelLabel;
 @property (nonatomic, strong) UILabel *friendCount;
 @property (nonatomic, strong) UILabel *planCount;
@@ -50,8 +50,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    self.edgesForExtendedLayout = UIRectEdgeNone;
-//    self.extendedLayoutIncludesOpaqueBars = NO;
+    //    self.edgesForExtendedLayout = UIRectEdgeNone;
+    //    self.extendedLayoutIncludesOpaqueBars = NO;
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
@@ -106,9 +106,8 @@
 
 - (void) setupTableHeaderView {
     CGFloat width = CGRectGetWidth(self.view.bounds);
-    CGFloat height = 890 * CGRectGetHeight(self.view.bounds) / 2208;
     
-    UIView *headerBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, height)];
+    UIView *headerBgView = [[UIView alloc] init];
     headerBgView.backgroundColor = [UIColor whiteColor];
     headerBgView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     headerBgView.clipsToBounds = YES;
@@ -118,52 +117,52 @@
     [headerBgView addGestureRecognizer:tap];
     [self.view addSubview:headerBgView];
     
-    UIImageView *flagHeaderIV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, width, 0.6*height)];
+    UIImageView *flagHeaderIV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, width, 140)];
     flagHeaderIV.contentMode = UIViewContentModeScaleAspectFill;
     flagHeaderIV.clipsToBounds = YES;
     flagHeaderIV.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [headerBgView addSubview:flagHeaderIV];
     _flagHeaderIV = flagHeaderIV;
     
-    UIImageView *avatarBg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 185, 185)];
-    avatarBg.center = CGPointMake(width/2.0, 100);
-    avatarBg.contentMode = UIViewContentModeScaleToFill;
-    avatarBg.clipsToBounds = YES;
-    avatarBg.backgroundColor = [UIColor grayColor];
-    [headerBgView addSubview:avatarBg];
-    _avatarBg = avatarBg;
-    
-    CGFloat avatarW = 130;
+    CGFloat avatarW = 136;
     UIImageView *avatar = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, avatarW, avatarW)];
     avatar.clipsToBounds = YES;
     avatar.layer.cornerRadius = avatarW/2.0;
-    avatar.center = avatarBg.center;
+    avatar.center = CGPointMake(width/2.0, 100);
     avatar.contentMode = UIViewContentModeScaleAspectFill;
     [headerBgView addSubview:avatar];
     _avatarImageView = avatar;
     
+    UIImageView *avatarBg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 150, 150)];
+    avatarBg.center = avatar.center;
+    avatarBg.contentMode = UIViewContentModeScaleToFill;
+    avatarBg.clipsToBounds = YES;
+    [headerBgView addSubview:avatarBg];
+    _avatarBg = avatarBg;
+    
     UIImageView *levelBg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 64, 20)];
-    levelBg.center = CGPointMake(width/2.0 + 12, CGRectGetMaxY(avatarBg.frame));
+    levelBg.center = CGPointMake(width/2.0 + 10, CGRectGetMaxY(avatarBg.frame) - 5);
     levelBg.contentMode = UIViewContentModeScaleAspectFit;
     [headerBgView addSubview:levelBg];
     _levelBg = levelBg;
-    UILabel *levelLabel = [[UILabel alloc] initWithFrame:levelBg.frame];
+    UILabel *levelLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64, 18)];
     levelLabel.textColor = [UIColor whiteColor];
-    levelLabel.font = [UIFont systemFontOfSize:11];
+    levelLabel.font = [UIFont systemFontOfSize:9];
     levelLabel.textAlignment = NSTextAlignmentCenter;
     [levelBg addSubview:levelLabel];
     _levelLabel = levelLabel;
     
-    UIImageView *gender = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
-    gender.center = CGPointMake(width/2.0 - 16, CGRectGetMaxY(avatarBg.frame));
-    gender.contentMode = UIViewContentModeScaleAspectFit;
-    [headerBgView addSubview:gender];
-    _genderView = gender;
+    UIImageView *constellationView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
+    constellationView.center = CGPointMake(width/2.0 - 18, CGRectGetMaxY(avatarBg.frame) - 5);
+    constellationView.contentMode = UIViewContentModeScaleAspectFit;
+    [headerBgView addSubview:constellationView];
+    _constellationView = constellationView;
     
     CGFloat unitWidth = width/3.0;
     CGFloat offsetY = CGRectGetMaxY(levelBg.frame);
-    UIButton *friendEntry = [[UIButton alloc] initWithFrame:CGRectMake(0, offsetY, unitWidth, height - offsetY)];
-    UILabel *friendNumber = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, unitWidth - 20, 18)];
+    
+    UIButton *friendEntry = [[UIButton alloc] initWithFrame:CGRectMake(0, offsetY, unitWidth, 60)];
+    UILabel *friendNumber = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, unitWidth - 20, 20)];
     friendNumber.textColor = COLOR_TEXT_I;
     friendNumber.textAlignment = NSTextAlignmentCenter;
     friendNumber.font = [UIFont systemFontOfSize:16];
@@ -171,7 +170,7 @@
     friendNumber.lineBreakMode = NSLineBreakByTruncatingTail;
     _friendCount = friendNumber;
     [friendEntry addSubview:friendNumber];
-    UILabel *fl = [[UILabel alloc] initWithFrame:CGRectMake(10, 28, unitWidth - 20, 20)];
+    UILabel *fl = [[UILabel alloc] initWithFrame:CGRectMake(10, 30, unitWidth - 20, 20)];
     fl.textColor = COLOR_TEXT_III;
     fl.text = @"好友";
     fl.textAlignment = NSTextAlignmentCenter;
@@ -180,8 +179,8 @@
     [friendEntry addTarget:self action:@selector(showContactList:) forControlEvents:UIControlEventTouchUpInside];
     [headerBgView addSubview:friendEntry];
     
-    UIButton *planEntry = [[UIButton alloc] initWithFrame:CGRectMake(unitWidth, offsetY, unitWidth, height - offsetY)];
-    UILabel *planNumber = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, unitWidth - 20, 18)];
+    UIButton *planEntry = [[UIButton alloc] initWithFrame:CGRectMake(unitWidth, offsetY, unitWidth, 60)];
+    UILabel *planNumber = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, unitWidth - 20, 20)];
     planNumber.textColor = COLOR_TEXT_I;
     planNumber.textAlignment = NSTextAlignmentCenter;
     planNumber.font = [UIFont systemFontOfSize:16];
@@ -189,7 +188,7 @@
     _planCount = planNumber;
     planNumber.lineBreakMode = NSLineBreakByTruncatingTail;
     [planEntry addSubview:planNumber];
-    UILabel *pl = [[UILabel alloc] initWithFrame:CGRectMake(10, 28, unitWidth - 20, 20)];
+    UILabel *pl = [[UILabel alloc] initWithFrame:CGRectMake(10, 30, unitWidth - 20, 20)];
     pl.textColor = COLOR_TEXT_III;
     pl.text = @"计划";
     pl.textAlignment = NSTextAlignmentCenter;
@@ -198,8 +197,8 @@
     [planEntry addTarget:self action:@selector(myPlan:) forControlEvents:UIControlEventTouchUpInside];
     [headerBgView addSubview:planEntry];
     
-    UIButton *trackEntry = [[UIButton alloc] initWithFrame:CGRectMake(2*unitWidth, offsetY, unitWidth, height - offsetY)];
-    UILabel *trackNumber = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, unitWidth - 20, 18)];
+    UIButton *trackEntry = [[UIButton alloc] initWithFrame:CGRectMake(2*unitWidth, offsetY, unitWidth, 60)];
+    UILabel *trackNumber = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, unitWidth - 20, 20)];
     trackNumber.textColor = COLOR_TEXT_I;
     trackNumber.textAlignment = NSTextAlignmentCenter;
     trackNumber.font = [UIFont systemFontOfSize:16];
@@ -207,7 +206,7 @@
     trackNumber.text = @"5国17城";
     _trackCount = trackNumber;
     [trackEntry addSubview:trackNumber];
-    UILabel *tl = [[UILabel alloc] initWithFrame:CGRectMake(10, 28, unitWidth - 20, 20)];
+    UILabel *tl = [[UILabel alloc] initWithFrame:CGRectMake(10, 30, unitWidth - 20, 20)];
     tl.textColor = COLOR_TEXT_III;
     tl.text = @"足迹";
     tl.textAlignment = NSTextAlignmentCenter;
@@ -215,8 +214,18 @@
     [trackEntry addSubview:tl];
     [trackEntry addTarget:self action:@selector(myTrack:) forControlEvents:UIControlEventTouchUpInside];
     [headerBgView addSubview:trackEntry];
+    
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(unitWidth, offsetY + 14, 0.5, 32)];
+    lineView.backgroundColor = COLOR_LINE;
+    [headerBgView addSubview:lineView];
+    
+    UIView *lineView2 = [[UIView alloc] initWithFrame:CGRectMake(2*unitWidth, offsetY + 14, 0.5, 32)];
+    lineView2.backgroundColor = COLOR_LINE;
+    [headerBgView addSubview:lineView2];
+    
+    headerBgView.frame = CGRectMake(0, 0, width, offsetY + 60);
 
-    self.tableView.contentInset = UIEdgeInsetsMake(height, 0, 0, 0);
+    self.tableView.contentInset = UIEdgeInsetsMake(CGRectGetMaxY(headerBgView.frame), 0, 0, 0);
     
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width/2, 44)];
     UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 6, width/2, 18)];
@@ -251,31 +260,27 @@
 - (void) updateAccountInfo {
     AccountManager *amgr = self.accountManager;
     if ([amgr isLogin]) {
-        [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:amgr.account.avatarSmall] placeholderImage:[UIImage imageNamed:@"person_disabled"]];
+        [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:amgr.account.avatarSmall] placeholderImage:[UIImage imageNamed:@"ic_home_avatar_unknown.png"]];
         _nameLabel.text = amgr.account.nickName;
         _idLabel.text = [NSString stringWithFormat:@"ID：%ld", (long)amgr.account.userId];
-        
-//        if ([amgr.account.gender isEqualToString:@"M"]) {
-//            _avatarBg.image = [UIImage imageNamed:@"ic_home_avatar_border_boy.png"];
-//            _genderView.image = [UIImage imageNamed:@"ic_home_user_gender_boy.png"];
-//        _levelBg.image = [UIImage imageNamed:@"ic_home_level_bg_boy.png"];
-//        _flagHeaderIV.image = [UIImage imageNamed:@"ic_home_header_boy.png"];
-//        } else if ([amgr.account.gender isEqualToString:@"F"]) {
-//            _avatarBg.image = [UIImage imageNamed:@"ic_home_avatar_border_girl.png"];
-//        _genderView.image = [UIImage imageNamed:@"ic_home_user_gender_girl.png"];
-//        _levelBg.image = [UIImage imageNamed:@"ic_home_level_bg_girl.png"];
-//        _flagHeaderIV.image = [UIImage imageNamed:@"ic_home_header_girl.png"];
-//        } else if ([amgr.account.gender isEqualToString:@"U"]) {
-//            _avatarBg.image = nil;
-//        _flagHeaderIV.image = [UIImage imageNamed:@"ic_home_header_unlogin.png"];
-//        _genderView.image = [UIImage imageNamed:@"ic_home_gender_unknown.png"];
-//        _levelBg.image = [UIImage imageNamed:@"ic_home_level_bg_unknown.png"];
-//        }
-        _avatarBg.image = [UIImage imageNamed:@"ic_home_avatar_border_boy.png"];
-        _genderView.image = [UIImage imageNamed:@"ic_home_user_gender_boy.png"];
+        _constellationView.image = [UIImage imageNamed:@"ic_home_user_constellation_shooter.png"];
+        _levelLabel.text = @"LV12";
+        if ([amgr.account.gender isEqualToString:@"M"]) {
+            _avatarBg.image = [UIImage imageNamed:@"ic_home_avatar_border_boy.png"];
+            _levelBg.image = [UIImage imageNamed:@"ic_home_level_bg_boy.png"];
+            _flagHeaderIV.image = [UIImage imageNamed:@"ic_home_header_boy.png"];
+        } else if ([amgr.account.gender isEqualToString:@"F"]) {
+            _avatarBg.image = [UIImage imageNamed:@"ic_home_avatar_border_girl.png"];
+            _levelBg.image = [UIImage imageNamed:@"ic_home_level_bg_girl.png"];
+            _flagHeaderIV.image = [UIImage imageNamed:@"ic_home_header_girl.png"];
+        } else {
+            _avatarBg.image = [UIImage imageNamed:@"ic_home_avatar_border_unknown.png"];
+            _flagHeaderIV.image = [UIImage imageNamed:@"ic_home_header_unlogin.png"];
+            _levelBg.image = [UIImage imageNamed:@"ic_home_level_bg_unknown.png"];
+        }
     } else {
         [_avatarImageView setImage:[UIImage imageNamed:@"ic_home_userentry_unlogin.png"]];
-        _genderView.image = [UIImage imageNamed:@"ic_home_gender_unknown.png"];
+        _constellationView.image = [UIImage imageNamed:@"ic_home_gender_unknown.png"];
         _levelBg.image = [UIImage imageNamed:@"ic_home_level_bg_unknown.png"];
         _flagHeaderIV.image = [UIImage imageNamed:@"ic_home_header_unlogin.png"];
         _levelLabel.text = @"LV0";
@@ -305,13 +310,13 @@
     [UMSocialData defaultData].extConfig.wechatSessionData.title = @"推荐\"旅行派\"给你。";
     
     [UMSocialData defaultData].extConfig.wechatSessionData.url = @"http://a.app.qq.com/o/simple.jsp?pkgname=com.aizou.peachtravel";
-
+    
     UIImage *shareImage = [UIImage imageNamed:@"ic_taozi_share.png"];
     
     [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:@"能和达人交流、朋友互动的旅行工具" image:shareImage location:nil urlResource:nil presentedController:self completion:^(UMSocialResponseEntity *response) {
-//        if (response.responseCode == UMSResponseCodeSuccess) {
-//            NSLog(@"分享成功！");
-//        }
+        //        if (response.responseCode == UMSResponseCodeSuccess) {
+        //            NSLog(@"分享成功！");
+        //        }
     }];
 }
 
@@ -363,8 +368,8 @@
 - (IBAction)myTrack:(id)sender
 {
     FootPrintViewController *footCtl = [[FootPrintViewController alloc] init];
-//    footCtl.destinations = self.destinations;
-//    footCtl.delegate = self;
+    //    footCtl.destinations = self.destinations;
+    //    footCtl.delegate = self;
     footCtl.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:footCtl animated:YES];
 }
