@@ -400,7 +400,7 @@ static NSString *reusableCell = @"myGuidesCell";
             }
             _currentPage = pageIndex;
             [self bindDataToView:responseObject];
-            if (_isOwner && (_contentType == ALL) && (pageIndex == 0 || self.dataSource.count < 2*PAGE_COUNT)) {
+            if (pageIndex == 0 || self.dataSource.count < 2*PAGE_COUNT) {
                 dispatch_async(dispatch_get_global_queue(0, 0), ^{
                     [self cacheFirstPage:responseObject];
                 });
@@ -422,13 +422,15 @@ static NSString *reusableCell = @"myGuidesCell";
 
 
 - (void) cacheFirstPage:(id)responseObject {
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    NSInteger count = _dataSource.count;
-    if (count > 0) {
-        NSArray *cd = [_dataSource subarrayWithRange:NSMakeRange(0, count > PAGE_COUNT ? PAGE_COUNT : count)];
-        [[TMCache sharedCache] setObject:cd forKey:[NSString stringWithFormat:@"%ld_plans", (long)accountManager.account.userId]];
-    } else {
-        [[TMCache sharedCache] removeObjectForKey:[NSString stringWithFormat:@"%ld_plans", (long)accountManager.account.userId]];
+    if (_isOwner && (_contentType == ALL)) {
+        AccountManager *accountManager = [AccountManager shareAccountManager];
+        NSInteger count = _dataSource.count;
+        if (count > 0) {
+            NSArray *cd = [_dataSource subarrayWithRange:NSMakeRange(0, count > PAGE_COUNT ? PAGE_COUNT : count)];
+            [[TMCache sharedCache] setObject:cd forKey:[NSString stringWithFormat:@"%ld_plans", (long)accountManager.account.userId]];
+        } else {
+            [[TMCache sharedCache] removeObjectForKey:[NSString stringWithFormat:@"%ld_plans", (long)accountManager.account.userId]];
+        }
     }
 }
 
