@@ -264,6 +264,7 @@
     if (_chattingPeople.count > 0) {
         [self setupListView];
     }
+    [self.tableView reloadData];
     NSLog(@"结束加载正在聊天的人");
 
 }
@@ -608,7 +609,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *identify = @"chatListCell";
     ChatListCell *cell = [tableView dequeueReusableCellWithIdentifier:identify forIndexPath:indexPath];
-
+    
     TZConversation *tzConversation = [self.chattingPeople objectAtIndex:indexPath.row];
     
     if (!tzConversation.conversation.isGroup) {
