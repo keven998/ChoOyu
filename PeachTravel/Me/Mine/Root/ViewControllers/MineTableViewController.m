@@ -118,7 +118,7 @@
     [headerBgView addGestureRecognizer:tap];
     [self.view addSubview:headerBgView];
     
-    CGFloat hh = 275*height/1242;
+    CGFloat hh = 177*height/736;
     
     UIImageView *flagHeaderIV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, width, hh)];
     flagHeaderIV.contentMode = UIViewContentModeScaleAspectFill;
@@ -127,7 +127,7 @@
     [headerBgView addSubview:flagHeaderIV];
     _flagHeaderIV = flagHeaderIV;
     
-    CGFloat ah = 300*height/1242;
+    CGFloat ah = 200*height/736;
     
     CGFloat avatarW = ah - 12;
     UIImageView *avatar = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, avatarW, avatarW)];
@@ -166,7 +166,7 @@
     CGFloat unitWidth = width/3.0;
     CGFloat offsetY = CGRectGetMaxY(levelBg.frame);
     
-    CGFloat bh = 126*height/1242;
+    CGFloat bh = 84*height/736;
     
     UIButton *friendEntry = [[UIButton alloc] initWithFrame:CGRectMake(0, offsetY, unitWidth, bh)];
     UILabel *friendNumber = [[UILabel alloc] initWithFrame:CGRectMake(10, bh/2 - 20, unitWidth - 20, 20)];
@@ -222,11 +222,11 @@
     [trackEntry addTarget:self action:@selector(myTrack:) forControlEvents:UIControlEventTouchUpInside];
     [headerBgView addSubview:trackEntry];
     
-    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(unitWidth, offsetY + 14, 0.5, 32)];
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(unitWidth, offsetY + 14, 0.6, 32)];
     lineView.backgroundColor = COLOR_LINE;
     [headerBgView addSubview:lineView];
     
-    UIView *lineView2 = [[UIView alloc] initWithFrame:CGRectMake(2*unitWidth, offsetY + 14, 0.5, 32)];
+    UIView *lineView2 = [[UIView alloc] initWithFrame:CGRectMake(2*unitWidth, offsetY + 14, 0.6, 32)];
     lineView2.backgroundColor = COLOR_LINE;
     [headerBgView addSubview:lineView2];
     
@@ -397,7 +397,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 52;
+    return 64*kWindowHeight/736;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {

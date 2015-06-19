@@ -20,7 +20,7 @@
     
     _titleView.textColor = COLOR_TEXT_II;
     
-    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(10, 51.5, CGRectGetWidth(self.bounds) - 10, 0.5)];
+    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(10, 64*kWindowHeight/736 - 0.6, CGRectGetWidth(self.bounds) - 10, 0.6)];
     line.backgroundColor = COLOR_LINE;
     line.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [self.contentView addSubview:line];

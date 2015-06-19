@@ -25,7 +25,7 @@
     
     // Do any additional setup after loading the view.
     CGFloat width = CGRectGetWidth(self.view.bounds);
-    CGFloat height = (width-20)*0.67;
+    CGFloat height = 280*CGRectGetHeight(self.view.bounds)/736;
     
     UIButton *cardbg = [[UIButton alloc] initWithFrame:CGRectMake(10, 0, width - 20, height)];
     cardbg.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -56,11 +56,12 @@
     searchText.center = CGPointMake((width-20)/2.0, height/2.0 - 20);
     [cardbg addSubview:searchText];
     
-    CGFloat mxh = CGRectGetMaxY(lxpSearchBg.frame) + 10;
+    CGFloat mxh = CGRectGetMaxY(lxpSearchBg.frame) + 6;
     CGFloat w = (width - 30) / 2;
-    UIButton *lxpHelper = [[UIButton alloc] initWithFrame:CGRectMake(10, mxh, w, w*1.45)];
+    CGFloat h = 280*CGRectGetHeight(self.view.bounds)/736;
+    UIButton *lxpHelper = [[UIButton alloc] initWithFrame:CGRectMake(10, mxh, w, h)];
     UIImageView *flag = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"lxp_expert_helper.png"]];
-    flag.center = CGPointMake(w/2.0, w*1.45/2.0 - 14);
+    flag.center = CGPointMake(w/2.0, h/2.0 - 14);
     [lxpHelper addSubview:flag];
     [lxpHelper setBackgroundImage:[UIImage imageNamed:@"tools_home_card_bg_normal.png"] forState:UIControlStateNormal];
     [lxpHelper setBackgroundImage:[UIImage imageNamed:@"tools_home_card_bg_highlight.png"] forState:UIControlStateHighlighted];
@@ -71,9 +72,9 @@
     [lxpHelper addTarget:self action:@selector(goLxpHelper) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:lxpHelper];
     
-    UIButton *planHelper = [[UIButton alloc] initWithFrame:CGRectMake(w+20, mxh, w, w*1.45)];
+    UIButton *planHelper = [[UIButton alloc] initWithFrame:CGRectMake(w+20, mxh, w, h)];
     flag = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"lxp_plan_helper.png"]];
-    flag.center = CGPointMake(w/2.0, w*1.45/2.0 - 14);
+    flag.center = CGPointMake(w/2.0, h/2.0 - 14);
     [planHelper addSubview:flag];
     [planHelper setBackgroundImage:[UIImage imageNamed:@"tools_home_card_bg_normal.png"] forState:UIControlStateNormal];
     [planHelper setBackgroundImage:[UIImage imageNamed:@"tools_home_card_bg_highlight.png"] forState:UIControlStateHighlighted];
