@@ -159,6 +159,25 @@
 - (BOOL)isMyFrend:(NSNumber *)userId;
 
 /**
+ *  通过 userid 获取好友信息
+ *
+ *  @param userId
+ *
+ *  @return 
+ */
+- (Contact *)contactWithUserId:(NSNumber *)userId;
+
+/**
+ *  通过环信 id 获取好友
+ *
+ *  @param userId
+ *
+ *  @return
+ */
+- (Contact *)contactWithEaseMobUserId:(NSString *)userId;
+
+
+/**
  *  将好友加入到数据库当中
  *
  *  @param userInfo
