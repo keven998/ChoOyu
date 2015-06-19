@@ -72,7 +72,7 @@
         spaceView.backgroundColor = COLOR_LINE;
         [self.contentView addSubview:spaceView];
         
-        self.textLabel.font = [UIFont systemFontOfSize:21];
+        self.textLabel.font = [UIFont systemFontOfSize:18];
         self.textLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         self.textLabel.textColor = COLOR_TEXT_I;
         
@@ -105,9 +105,9 @@
     CGFloat contentOffsetX = CGRectGetMaxX(self.imageView.frame) + 10;
     
     self.textLabel.text = _name;
-    self.textLabel.frame = CGRectMake(contentOffsetX, 15, width - contentOffsetX - 85, 24);
+    self.textLabel.frame = CGRectMake(contentOffsetX, 15, width - contentOffsetX - 85, 22);
     
-    _timeLabel.frame = CGRectMake(width - 80.0, 15, 70.0, 24);
+    _timeLabel.frame = CGRectMake(width - 80.0, 15, 70.0, 22);
     _detailLabel.text = _detailMsg;
     
     CGFloat offsetX = 0;
@@ -131,7 +131,7 @@
     
     sendFailedImageView.frame = CGRectMake(contentOffsetX, 45, 12, 12);
     activityView.frame = CGRectMake(contentOffsetX, 45, 13, 12);
-    _detailLabel.frame = CGRectMake(contentOffsetX+offsetX, 50, width - 85.0-contentOffsetX, 16);
+    _detailLabel.frame = CGRectMake(contentOffsetX+offsetX, 46, width - 85.0-contentOffsetX, 16);
     
     _timeLabel.text = _time;
     

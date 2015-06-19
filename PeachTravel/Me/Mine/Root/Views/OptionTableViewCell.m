@@ -20,6 +20,10 @@
     
     _titleView.textColor = COLOR_TEXT_II;
     
+    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(10, 51.5, CGRectGetWidth(self.bounds) - 10, 0.5)];
+    line.backgroundColor = COLOR_LINE;
+    line.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    [self.contentView addSubview:line];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -27,9 +31,5 @@
 
     // Configure the view for the selected state
 }
-
-//- (void)layoutSubviews {
-//    self.selectedBackgroundView.frame = CGRectMake(10.0, 0, self.frame.size.width - 20.0, 44.0);
-//}
 
 @end

@@ -39,17 +39,17 @@
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_add_friend"] style:UIBarButtonItemStylePlain target:self action:@selector(addContact)];
+    //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_add_friend"] style:UIBarButtonItemStylePlain target:self action:@selector(addContact)];
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithIcon:@"ic_add_friend" highIcon:@"ic_add_friend" target:self action:@selector(addContact)];
     self.navigationItem.title = @"联系人";
-
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContactList) name:contactListNeedUpdateNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateNumberOfUnreadFrendRequest) name:frendRequestListNeedUpdateNoti object:nil];
-
-
+    
+    
     [self.view addSubview:self.contactTableView];
     [self.accountManager loadContactsFromServer];
-//    [self handleEmptyView];
+    //    [self handleEmptyView];
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -208,7 +208,7 @@
     CGPoint point = [sender convertPoint:CGPointZero toView:self.contactTableView];
     NSIndexPath *indexPath = [self.contactTableView indexPathForRowAtPoint:point];
     FrendModel *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
-
+    
     IMClientManager *manager = [IMClientManager shareInstance];
     ChatConversation *conversation = [manager.conversationManager getConversationWithChatterId:contact.userId chatType:IMChatTypeIMChatSingleType];
     [manager.conversationManager addConversation: conversation];
@@ -331,16 +331,15 @@
         ContactListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:contactCell forIndexPath:indexPath];
         [cell setRightUtilityButtons:[self rightButtons] WithButtonWidth:60];
         cell.delegate = self;
-
+        
         [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:contact.avatarSmall] placeholderImage:[UIImage imageNamed:@"person_disabled"]];
-//        NSString *detailStr;
-//        if (![contact.memo isBlankString]) {
-//            detailStr = [NSString stringWithFormat:@"%@ (%@)", contact.memo, contact.nickName];
-//        } else {
-//            detailStr = contact.nickName;
-//        }
+        //        NSString *detailStr;
+        //        if (![contact.memo isBlankString]) {
+        //            detailStr = [NSString stringWithFormat:@"%@ (%@)", contact.memo, contact.nickName];
+        //        } else {
+        //            detailStr = contact.nickName;
+        //        }
         cell.nickNameLabel.text = contact.nickName;
-        [cell.chatBtn addTarget:self action:@selector(chat:) forControlEvents:UIControlEventTouchUpInside];
         return cell;
     }
 }
@@ -366,7 +365,7 @@
         [self.navigationController pushViewController:frendRequestCtl animated:YES];
     } else {
         FrendModel *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
-//        ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
+        //        ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
         OtherUserInfoViewController *contactDetailCtl = [[OtherUserInfoViewController alloc]init];
         
         contactDetailCtl.userId = contact.userId;

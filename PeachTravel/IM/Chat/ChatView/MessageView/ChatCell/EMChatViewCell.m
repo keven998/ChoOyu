@@ -25,6 +25,7 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
     if (self) {
         self.headImageView.clipsToBounds = YES;
         self.headImageView.layer.cornerRadius = 10;
+        self.headImageView.contentMode = UIViewContentModeScaleAspectFill;
         if (model.isChatGroup) {
             _showNickName = YES;
         } else {
