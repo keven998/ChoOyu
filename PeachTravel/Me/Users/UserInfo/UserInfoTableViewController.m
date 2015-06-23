@@ -30,6 +30,7 @@
 #import "ForeignViewController.h"
 #import "MJPhoto.h"
 #import "MJPhotoBrowser.h"
+#import "PicCell.h"
 
 #define accountDetailHeaderCell          @"headerCell"
 #define otherUserInfoCell           @"otherCell"
@@ -888,7 +889,14 @@
         AlbumImage *albumImage = amgr.account.userAlbum[i];
         MJPhoto *photo = [[MJPhoto alloc] init];
         photo.url = [NSURL URLWithString:albumImage.image.imageUrl]; // 图片路径
-//        photo.srcImageView = (UIImageView *)[swipeView itemViewAtIndex:index]; // 来源于哪个UIImageView
+        
+        
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+        HeaderPictureCell *cell = (HeaderPictureCell *)[_tableView cellForRowAtIndexPath:indexPath];
+        NSIndexPath *picIndexPath = [NSIndexPath indexPathForRow:index inSection:0];
+        PicCell *picCell = (PicCell *)[cell.collectionView cellForItemAtIndexPath:picIndexPath];
+        photo.srcImageView = picCell.picImage;
+//        photo.srcImageView = (UIImageView *)[cell.collectionView cellForItemAtIndexPath:picIndexPath];
         [photos addObject:photo];
     }
     
