@@ -142,8 +142,12 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
         
     }
     
+    /**
+    修改讨论组title
     
-    
+    :param: groupId
+    :param: title
+    */
     func asyncChangeDiscussionGroupTitle(#group: IMDiscussionGroup, title: String, completion:(isSuccess: Bool, errorCode: Int) -> ()) {
         var params = NSMutableDictionary()
         params.setObject(title, forKey: "name")
@@ -218,9 +222,17 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
         }
     }
     
-    func asyncChangeDiscussionGroupSubject(#group: IMDiscussionGroup, subjectName: String,completion: (isSuccess: Bool, errorCode: Int) -> ())
+    /**
+    修改讨论组状态(免打扰)
+    
+    :param: groupId
+    :param: groupState
+    
+    */
+    func asyncChangeDiscussionGroupState(#group: IMDiscussionGroup, groupState: Bool,completion: (isSuccess: Bool, errorCode: Int) -> ())
     {
-            }
+        
+    }
 
     
  //MARK: private function
