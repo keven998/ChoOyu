@@ -19,6 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidRegisted:) name:userDidRegistedNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(skip:) name:userDidLoginNoti object:nil];
 
     UIImageView *backgroundImg = [[UIImageView alloc]initWithFrame:self.view.bounds];
@@ -97,6 +98,18 @@
     [self.view removeFromSuperview];
     [self removeFromParentViewController];
 }
+
+- (void)userDidRegisted:(NSNotification *)noti {
+    UIViewController *ctl = [noti.userInfo objectForKey:@"poster"];
+    [ctl.navigationController dismissViewControllerAnimated:YES completion:^{
+        HomeViewController *hvc = (HomeViewController *)_rootViewController;
+        [hvc setSelectedIndex:1];
+        [self willMoveToParentViewController:nil];
+        [self.view removeFromSuperview];
+        [self removeFromParentViewController];
+    }];
+}
+
 
 
 @end

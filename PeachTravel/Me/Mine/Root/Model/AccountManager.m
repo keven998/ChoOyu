@@ -676,9 +676,6 @@
     for (id tempContact in self.account.frendList) {
         [chineseStringsArray addObject:tempContact];
     }
-    if (chineseStringsArray.count < 4) {
-        NSLog(@"oops");
-    }
     NSMutableArray *sectionHeadsKeys = [[NSMutableArray alloc] init];
     //sort the ChineseStringArr by pinYin
     NSArray *sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"fullPY" ascending:YES]];
