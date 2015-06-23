@@ -30,7 +30,7 @@
     _searchBar = [[UISearchBar alloc]init];
     _searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _searchBar.delegate = self;
-    [_searchBar setPlaceholder:@"城市、景点、美食、购物"];
+    [_searchBar setPlaceholder:@"城市/景点/美食/购物"];
     _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
     _searchBar.showsCancelButton = YES;
     _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
