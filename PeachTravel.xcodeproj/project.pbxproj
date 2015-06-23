@@ -5164,11 +5164,6 @@
 							};
 						};
 					};
-					D99D8EDD19C8600C0021C25B = {
-						CreatedOnToolsVersion = 6.0;
-						DevelopmentTeam = 8DEY49A633;
-						TestTargetID = D99D8EC419C8600C0021C25B;
-					};
 				};
 			};
 			buildConfigurationList = D99D8EC019C8600C0021C25B /* Build configuration list for PBXProject "PeachTravel" */;
@@ -6173,7 +6168,7 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "70d3132a-945e-4c40-a8fb-570278fc12f4";
+				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Debug;
@@ -6206,7 +6201,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "e2dba3ac-508c-4e6c-984a-80004f8b7b27";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Release;
