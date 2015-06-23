@@ -33,9 +33,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.navigationController.title = @"选择";
+    self.navigationItem.title = @"选择好友";
     self.view.backgroundColor = APP_PAGE_COLOR;
+    
     [self.view addSubview:self.selectContactView];
     [self.view addSubview:self.contactTableView];
     
@@ -59,7 +59,7 @@
     self.indexView.dataSource = self;
     self.indexView.maxItemDeflection = 60;
     self.indexView.rangeOfDeflection = 1;
-
+    
     [self.indexView setFrame:CGRectMake(0, 0, kWindowWidth-5, kWindowHeight)];
     [self.indexView refreshIndexItems];
     [self.view addSubview:self.indexView];
@@ -68,7 +68,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-//    self.navigationController.navigationBarHidden = YES;
+    //    self.navigationController.navigationBarHidden = YES;
     [MobClick beginLogPageView:@"page_choose_talk_to"];
 }
 
@@ -81,9 +81,9 @@
 
 - (void)dealloc
 {
-     if (!_isPushed) {
-         [[NSNotificationCenter defaultCenter] removeObserver:self];
-     }
+    if (!_isPushed) {
+        [[NSNotificationCenter defaultCenter] removeObserver:self];
+    }
 }
 
 #pragma mark - setter & getter
@@ -144,7 +144,7 @@
 {
     if (_group) {         //如果是向已有的群组里添加新的成员
         [self didAddNumberToGroup];
-
+        
     } else {
         if (self.selectedContacts.count == 0) {
             [SVProgressHUD showErrorWithStatus:@"请选择一个以上好友"];
@@ -171,7 +171,7 @@
                     [self hideHud];
                     [SVProgressHUD showHint:@"创建失败"];
                 }
-               
+                
             }];
         }
     }
@@ -209,12 +209,12 @@
 
 - (void)didAddNumberToGroup
 {
-     __weak typeof(CreateConversationViewController *)weakSelf = self;
+    __weak typeof(CreateConversationViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf];
-
+    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-       
+        
         IMDiscussionGroupManager *discussionGroupManager = [IMDiscussionGroupManager shareInstance];
         [discussionGroupManager asyncAddNumbersWithGroup:_group numbers: self.selectedContacts completion:^(BOOL isSuccess, NSInteger errorCode) {
             [hud hideTZHUD];
@@ -359,7 +359,7 @@
 - (void)sectionForSectionMJNIndexTitle:(NSString *)title atIndex:(NSInteger)index
 {
     [self.contactTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:index] atScrollPosition: UITableViewScrollPositionTop animated:YES];
-
+    
 }
 
 

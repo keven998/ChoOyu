@@ -457,8 +457,6 @@
                 }
                     break;
                     
-                    
-                    
                 case IMMessageTypeAudioMessageType:{
                     ret = [NSString stringWithFormat:@"[语音]"];
                     

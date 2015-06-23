@@ -129,20 +129,46 @@ class FrendModel: NSObject {
 
     init(json: NSDictionary) {
         userId = json.objectForKey("userId") as! Int
-        nickName = json.objectForKey("nickName") as! String
-        avatar = json.objectForKey("avatar") as! String
-        avatarSmall = json.objectForKey("avatarSmall") as! String
-        signature = json.objectForKey("signature") as! String
+        
+        if let str =  json.objectForKey("nickName") as? String {
+            nickName = str
+        }
+        
+        if let str =  json.objectForKey("avatar") as? String {
+            avatar = str
+        }
+        
+        if let avatarSmallStr =  json.objectForKey("avatarSmall") as? String {
+            avatarSmall = avatarSmallStr
+        }
+        
+        if let sig = json.objectForKey("signature") as? String {
+            signature = sig
+        }
         if let memoStr =  json.objectForKey("memo") as? String {
             memo = memoStr
         }
-        sex = json.objectForKey("gender") as! String
-        residence = json.objectForKey("residence") as! String
+        
+        if let str =  json.objectForKey("gender") as? String {
+            sex = str
+        }
+
+        if let str =  json.objectForKey("residence") as? String {
+            residence = str
+        }
+    
         if let day =  json.objectForKey("birthday") as? String {
             birthday = day
         }
-        level = json.objectForKey("level") as! Int
-        travelStatus = json.objectForKey("travelStatus") as! String
+        
+        if let value =  json.objectForKey("level") as? Int {
+            level = value
+        }
+        
+        if let str =  json.objectForKey("travelStatus") as? String {
+            travelStatus = str
+        }
+    
         if let roles = json.objectForKey("roles") as? NSArray {
             if let role = roles.firstObject as? String {
                 if role == "expert" {

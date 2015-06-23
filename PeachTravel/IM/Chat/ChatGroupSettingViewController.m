@@ -54,13 +54,30 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         IMDiscussionGroupManager *groupManager = [IMDiscussionGroupManager shareInstance];
         _groupModel = [groupManager getFullDiscussionGroupInfoFromDBWithGroupId:_groupId];
-       dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
            [_tableView reloadData];
-       });
+        });
     });
-   }
+    [self updateGroupInfoFromServer];
+}
 
--(void)createTableView
+- (void)updateGroupInfoFromServer
+{
+    IMDiscussionGroupManager *groupManager = [IMDiscussionGroupManager shareInstance];
+    [groupManager asyncGetDiscussionGroupInfoFromServer:_groupId completion:^(BOOL isSuccess, NSInteger errorCode, IMDiscussionGroup * group) {
+        if (isSuccess) {
+            _groupModel = group;
+            [groupManager asyncGetNumbersInDiscussionGroupInfoFromServer:group completion:^(BOOL isSuccess, NSInteger errorCode, IMDiscussionGroup * group) {
+                if (isSuccess) {
+                    _groupModel = group;
+                }
+                [_tableView reloadData];
+            }];
+        }
+    }];
+}
+
+- (void)createTableView
 {
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     _tableView.dataSource = self;
@@ -74,7 +91,6 @@
     [_tableView registerNib:[UINib nibWithNibName:@"AddMemberCell" bundle:nil] forCellReuseIdentifier:@"addCell"];
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
-    
     UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 30)];
     _tableView.tableHeaderView = headerView;
     [self createFooterView];
@@ -82,7 +98,7 @@
     [self.view addSubview:_tableView];
     
 }
--(void)createFooterView
+- (void)createFooterView
 {
     UIView *footerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH*4/5, 50)];
     footerView.backgroundColor = [UIColor whiteColor];
@@ -124,7 +140,7 @@
     }
     return 49;
 }
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 0) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
@@ -177,7 +193,7 @@
     }
     return 0;
 }
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 0) {
         ChangeGroupTitleViewController *changeCtl = [[ChangeGroupTitleViewController alloc] init];
@@ -426,7 +442,7 @@
 }
 
 #pragma mark - CreateConversationDelegate
--(void)reloadData
+- (void)reloadData
 {
     [self updateView];
 }
