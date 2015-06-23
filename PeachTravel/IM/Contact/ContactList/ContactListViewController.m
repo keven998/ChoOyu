@@ -42,10 +42,8 @@
     //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_add_friend"] style:UIBarButtonItemStylePlain target:self action:@selector(addContact)];
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithIcon:@"ic_add_friend" highIcon:@"ic_add_friend" target:self action:@selector(addContact)];
     self.navigationItem.title = @"联系人";
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContactList) name:contactListNeedUpdateNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateNumberOfUnreadFrendRequest) name:frendRequestListNeedUpdateNoti object:nil];
-    
     
     [self.view addSubview:self.contactTableView];
     [self.accountManager loadContactsFromServer];
@@ -82,14 +80,14 @@
     }
 }
 
-- (void) addContact {
+- (void)addContact {
     AddContactTableViewController *addContactCtl = [[AddContactTableViewController alloc] init];
     [self.navigationController pushViewController:addContactCtl animated:YES];
 }
 
 #pragma mark - private method
 
-- (void) handleEmptyView {
+- (void)handleEmptyView {
     if ([[self.dataSource objectForKey:@"headerKeys"] count] <= 0) {
         if (self.emptyView == nil) {
             [self setupEmptyView];
@@ -99,7 +97,7 @@
     }
 }
 
-- (void) setupEmptyView {
+- (void)setupEmptyView {
     CGFloat width = CGRectGetWidth(self.contactTableView.frame);
     
     self.emptyView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, width, 192.0)];
@@ -141,7 +139,7 @@
     [self.contactTableView addSubview:self.emptyView];
 }
 
-- (void) removeEmptyView {
+- (void)removeEmptyView {
     [self.emptyView removeFromSuperview];
     self.emptyView = nil;
 }
@@ -247,6 +245,7 @@
 }
 
 #pragma mark - SWTableViewCellDelegate
+
 - (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index
 {
     [cell hideUtilityButtonsAnimated:YES];
