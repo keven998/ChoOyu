@@ -139,6 +139,7 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
     :param: completion
     */
     func asyncLeaveDiscussionGroup(completion:(isSuccess: Bool, errorCode: Int) -> ()) {
+        
     }
     
     
@@ -146,10 +147,11 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
     func asyncChangeDiscussionGroupTitle(#group: IMDiscussionGroup, title: String, completion:(isSuccess: Bool, errorCode: Int) -> ()) {
         var params = NSMutableDictionary()
         params.setObject(title, forKey: "name")
-        
+        params.setObject(group.groupId, forKey: "groupId")
         let changeDiscussionGroupSubjectUrl = "\(groupUrl)/\(group.groupId)"
-        NetworkTransportAPI.asyncPUT(requestUrl: changeDiscussionGroupSubjectUrl, parameters: params) { (isSuccess, errorCode, retMessage) -> () in
+        NetworkTransportAPI.asyncPUT(requstUrl: changeDiscussionGroupSubjectUrl, parameters: params) { (isSuccess, errorCode, retMessage) -> () in
             if isSuccess {
+                group.subject = title
                 self.updateGroupInfoInDB(group)
                 completion(isSuccess: true, errorCode: 0)
             }

@@ -86,7 +86,7 @@ class NetworkTransportAPI: NSObject {
     }
     
     /**
-    发送一个 post 请求
+    发送一个 GET 请求
     
     :param: url             请求的 url
     :param: parameters      post 参数
@@ -124,7 +124,7 @@ class NetworkTransportAPI: NSObject {
     :param: parameters      post 参数
     :param: completionBlock 请求的回掉
     */
-    class func asyncPUT(#requestUrl: String, parameters: NSDictionary?, completionBlock: (isSuccess: Bool, errorCode: Int, retMessage: AnyObject?) -> ()) {
+    class func asyncPUT(#requstUrl: String, parameters: NSDictionary, completionBlock: (isSuccess: Bool, errorCode: Int, retMessage: NSDictionary?) -> ()) {
         let manager = AFHTTPRequestOperationManager()
         let requestSerializer = AFJSONRequestSerializer()
         manager.requestSerializer = requestSerializer
@@ -133,13 +133,17 @@ class NetworkTransportAPI: NSObject {
         manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept")
         manager.requestSerializer.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         
-        println("开始网络请求: \(requestUrl)")
-        
-        manager.PUT(requestUrl, parameters: parameters, success:
+        manager.PUT(requstUrl, parameters: parameters, success:
             {
                 (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
-                if let reslutDic: AnyObject = responseObject.objectForKey("result") {
-                    completionBlock(isSuccess: true, errorCode: 0, retMessage: reslutDic)
+                
+                println("responseObject: \(responseObject)")
+                if let code = responseObject.objectForKey("code") as? Int {
+                    if code == 0 {
+                        completionBlock(isSuccess: true, errorCode: 0, retMessage: responseObject.objectForKey("result") as? NSDictionary)
+                    } else {
+                        completionBlock(isSuccess: false, errorCode: 0, retMessage: nil)
+                    }
                 }
             })
             {
