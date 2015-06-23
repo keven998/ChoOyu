@@ -118,6 +118,38 @@ class NetworkTransportAPI: NSObject {
     }
     
     /**
+    发送一个 PUT 请求
+    
+    :param: url             请求的 url
+    :param: parameters      post 参数
+    :param: completionBlock 请求的回掉
+    */
+    class func asyncPUT(#requestUrl: String, parameters: NSDictionary?, completionBlock: (isSuccess: Bool, errorCode: Int, retMessage: AnyObject?) -> ()) {
+        let manager = AFHTTPRequestOperationManager()
+        let requestSerializer = AFJSONRequestSerializer()
+        manager.requestSerializer = requestSerializer
+        var accountManager = AccountManager.shareAccountManager()
+        manager.requestSerializer.setValue("\(accountManager.account.userId)", forHTTPHeaderField: "UserId")
+        manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept")
+        manager.requestSerializer.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        
+        println("开始网络请求: \(requestUrl)")
+        
+        manager.PUT(requestUrl, parameters: parameters, success:
+            {
+                (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
+                if let reslutDic: AnyObject = responseObject.objectForKey("result") {
+                    completionBlock(isSuccess: true, errorCode: 0, retMessage: reslutDic)
+                }
+            })
+            {
+                (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+                print(error)
+                completionBlock(isSuccess: false, errorCode: 0, retMessage: nil)
+        }
+    }
+    
+    /**
     fetch 消息
     
     :param: userId          fetch谁的消息

@@ -141,7 +141,22 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
     func asyncLeaveDiscussionGroup(completion:(isSuccess: Bool, errorCode: Int) -> ()) {
     }
     
-    func asyncChangeDiscussionGroupTitle(#groupId: Int, title: String, completion:(isSuccess: Bool, errorCode: Int) -> ()) {
+    
+    
+    func asyncChangeDiscussionGroupTitle(#group: IMDiscussionGroup, title: String, completion:(isSuccess: Bool, errorCode: Int) -> ()) {
+        var params = NSMutableDictionary()
+        params.setObject(title, forKey: "name")
+        
+        let changeDiscussionGroupSubjectUrl = "\(groupUrl)/\(group.groupId)"
+        NetworkTransportAPI.asyncPUT(requestUrl: changeDiscussionGroupSubjectUrl, parameters: params) { (isSuccess, errorCode, retMessage) -> () in
+            if isSuccess {
+                self.updateGroupInfoInDB(group)
+                completion(isSuccess: true, errorCode: 0)
+            }
+            else {
+                completion(isSuccess: false, errorCode: 0)
+            }
+        }
 
     }
     
@@ -200,7 +215,10 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
             }
         }
     }
-
+    
+    func asyncChangeDiscussionGroupSubject(#group: IMDiscussionGroup, subjectName: String,completion: (isSuccess: Bool, errorCode: Int) -> ())
+    {
+            }
 
     
  //MARK: private function
