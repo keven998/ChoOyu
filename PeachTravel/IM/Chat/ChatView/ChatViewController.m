@@ -440,7 +440,6 @@
             }
             timeCell.time = (NSString *)obj;
             return timeCell;
-            
         } else if ([obj isKindOfClass:[MessageModel class]]) {
             MessageModel *model = (MessageModel *)obj;
             if (model.type == IMMessageTypeTipsMessageType) {

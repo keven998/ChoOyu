@@ -19,7 +19,7 @@
 
 #define HEAD_SIZE 40 // 头像大小
 #define HEAD_PADDING 10 // 头像到cell的内间距和头像到bubble的间距
-#define CELLPADDING 5 // Cell之间间距
+#define CELLPADDING 7 // Cell之间间距
 
 #define NAME_LABEL_WIDTH 180 // nameLabel宽度
 #define NAME_LABEL_HEIGHT 12 // nameLabel 高度
