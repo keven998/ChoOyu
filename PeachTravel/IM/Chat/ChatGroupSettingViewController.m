@@ -66,12 +66,11 @@
     IMDiscussionGroupManager *groupManager = [IMDiscussionGroupManager shareInstance];
     [groupManager asyncGetDiscussionGroupInfoFromServer:_groupId completion:^(BOOL isSuccess, NSInteger errorCode, IMDiscussionGroup * group) {
         if (isSuccess) {
-            _groupModel = group;
             [groupManager asyncGetNumbersInDiscussionGroupInfoFromServer:group completion:^(BOOL isSuccess, NSInteger errorCode, IMDiscussionGroup * group) {
                 if (isSuccess) {
                     _groupModel = group;
+                    [_tableView reloadData];
                 }
-                [_tableView reloadData];
             }];
         }
     }];
@@ -182,17 +181,25 @@
         
         return cell;
         
-    } else if(indexPath.row >3&&indexPath.row < _groupModel.numbers.count+4) {
+    } else {
         ChatGroupCell *cell = [tableView dequeueReusableCellWithIdentifier:@"chatCell" forIndexPath:indexPath];
         [cell setRightUtilityButtons:[self rightButtons] WithButtonWidth:60];
         cell.delegate = self;
         NSInteger i = indexPath.row - 4;
+        
+        NSLog(@"%@", ((FrendModel *)self.groupModel.numbers[i]).avatar);
         cell.nameLabel.text = ((FrendModel *)self.groupModel.numbers[i]).nickName;
-        [cell.headerImage sd_setImageWithURL:[NSURL URLWithString:((FrendModel *)self.groupModel.numbers[i]).avatarSmall] placeholderImage:[UIImage imageNamed:@"person_disabled"]];
+        NSString *avatarStr = nil;
+        if (![((FrendModel *)self.groupModel.numbers[i]).avatarSmall isBlankString]) {
+            avatarStr = ((FrendModel *)self.groupModel.numbers[i]).avatarSmall;
+        } else {
+            avatarStr = ((FrendModel *)self.groupModel.numbers[i]).avatar;
+        }
+        [cell.headerImage sd_setImageWithURL:[NSURL URLWithString: avatarStr] placeholderImage:[UIImage imageNamed:@"person_disabled"]];
         return cell;
     }
-    return 0;
 }
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 0) {
@@ -203,7 +210,6 @@
     
     }
     else if (indexPath.row == 1) {
-        
         [self changeMsgStatus:_selectedBtn];
         
     }
@@ -226,10 +232,9 @@
         
     }
     
-    
-    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
+
 - (NSArray *)rightButtons
 {
     NSMutableArray *rightUtilityButtons = [NSMutableArray new];
@@ -320,28 +325,9 @@
 
 - (void)showUserInfoWithContactInfo:(FrendModel *)contact
 {
-//    AccountManager *accountManager = [AccountManager shareAccountManager];
-//    
-//    if ([accountManager frendIsMyContact:contact.userId]) {
-////        ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
-//        OtherUserInfoViewController *contactDetailCtl = [[OtherUserInfoViewController alloc]init];
-//        contactDetailCtl.userId = contact.userId;
-////        contactDetailCtl.goBackToChatViewWhenClickTalk = NO;
-//        [self.navigationController pushViewController:contactDetailCtl animated:YES];
-//        
-//    } else {
-////        SearchUserInfoViewController *searchUserInfoCtl = [[SearchUserInfoViewController alloc] init];
-////        searchUserInfoCtl.userInfo = @{@"userId":contact.userId,
-////                                       @"avatar":contact.avatar,
-////                                       @"nickName":contact.nickName,
-////                                       @"signature":contact.signature,
-////                                       @"easemobUser":contact.easemobUser
-////                                       };
-//        OtherUserInfoViewController *searchUserInfoCtl = [[OtherUserInfoViewController alloc]init];
-//        searchUserInfoCtl.userId = contact.userId;
-//        [self.navigationController pushViewController:searchUserInfoCtl animated:YES];
-//    }
-}
+    OtherUserInfoViewController *contactDetailCtl = [[OtherUserInfoViewController alloc]init];
+    contactDetailCtl.userId = contact.userId;
+    [self.navigationController pushViewController:contactDetailCtl animated:YES];}
 
 
 
