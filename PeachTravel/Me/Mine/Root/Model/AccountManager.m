@@ -33,7 +33,7 @@
 - (AccountModel *)account {
     if (!_account) {
         AccountDaoHelper *accountDaoHelper = [AccountDaoHelper shareInstance];
-        return [accountDaoHelper selectCurrentAccount];
+        _account = [accountDaoHelper selectCurrentAccount];
     }
     return _account;
 }
@@ -569,6 +569,7 @@
         newContact.fullPY = [ConvertMethods chineseToPinyin:[contactDic objectForKey:@"nickName"]];
         newContact.type = IMFrendTypeFrend;
         [frendManager addFrend2DB:newContact];
+        NSLog(@"往数据库里添加好友 %@", newContact.nickName);
         [self.account.frendList addObject:newContact];
     }
 
@@ -674,6 +675,9 @@
     NSMutableArray *chineseStringsArray = [[NSMutableArray alloc] init];
     for (id tempContact in self.account.frendList) {
         [chineseStringsArray addObject:tempContact];
+    }
+    if (chineseStringsArray.count < 4) {
+        NSLog(@"oops");
     }
     NSMutableArray *sectionHeadsKeys = [[NSMutableArray alloc] init];
     //sort the ChineseStringArr by pinYin
