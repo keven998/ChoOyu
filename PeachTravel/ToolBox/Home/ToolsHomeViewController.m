@@ -53,7 +53,7 @@
     searchText.font = [UIFont systemFontOfSize:16];
     searchText.text = @"~旅行·搜搜~";
     searchText.textAlignment = NSTextAlignmentCenter;
-    searchText.center = CGPointMake((width-20)/2.0, height/2.0 - 20);
+    searchText.center = CGPointMake((width-20)/2.0, height/2.0 - 18);
     [cardbg addSubview:searchText];
     
     CGFloat mxh = CGRectGetMaxY(lxpSearchBg.frame) + 6;

@@ -29,6 +29,8 @@
     self.navigationItem.rightBarButtonItem = finishBtn;
     self.navigationItem.leftBarButtonItem = cancelBtn;
     
+    self.view.backgroundColor = [UIColor whiteColor];
+    
     _cityArray = [NSMutableArray array];
     
     _tableView = [[FMMoveTableView alloc] initWithFrame:self.view.bounds];
@@ -84,6 +86,7 @@
     
     UILabel *headerTitle = [[UILabel alloc] initWithFrame:CGRectMake(37, 25, width-80, 24)];
     headerTitle.textColor = COLOR_TEXT_I;
+    headerTitle.userInteractionEnabled = NO;
     headerTitle.font = [UIFont systemFontOfSize:15.0];
     headerTitle.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     headerTitle.lineBreakMode = NSLineBreakByTruncatingTail;

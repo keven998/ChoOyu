@@ -271,7 +271,7 @@
         _nameLabel.text = amgr.account.nickName;
         _idLabel.text = [NSString stringWithFormat:@"ID：%ld", (long)amgr.account.userId];
         _constellationView.image = [UIImage imageNamed:@"ic_home_user_constellation_shooter.png"];
-        _levelLabel.text = @"LV12";
+        _levelLabel.text = @"Lv12";
         if ([amgr.account.gender isEqualToString:@"M"]) {
             _avatarBg.image = [UIImage imageNamed:@"ic_home_avatar_border_boy.png"];
             _levelBg.image = [UIImage imageNamed:@"ic_home_level_bg_boy.png"];
