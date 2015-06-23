@@ -42,6 +42,8 @@ import UIKit
     case ConversationTop = 64
     case BlackList = 128
     case DiscussionGroup = 256
+    case BlockMessage = 512
+
 }
 
 class FrendModel: NSObject {
