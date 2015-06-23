@@ -1057,22 +1057,22 @@
     }
 }
 
- - (void)showRoomContact:(id)sender
- {
-     [self.view endEditing:YES];
-     [self keyBoardHidden];
-     if (_chatType == IMChatTypeIMChatDiscussionGroupType) {
-         ChatGroupSettingViewController *chatSettingCtl = [[ChatGroupSettingViewController alloc] init];
-         
-         TZSideViewController *sideCtl = [[TZSideViewController alloc] initWithDetailViewFrame:CGRectMake(50, 20, 270, 460)];
-         sideCtl.detailViewController = chatSettingCtl;
-         [sideCtl showSideDetailView];
-     } else {
- //        ChatSettingViewController *chatSettingCtl = [[ChatSettingViewController alloc] init];
- //        chatSettingCtl.chatter = _conversation.chatter;
- //        [self.navigationController pushViewController:chatSettingCtl animated:YES];
-     }
- }
+- (void)showRoomContact:(id)sender
+{
+    [self.view endEditing:YES];
+    [self keyBoardHidden];
+    if (_chatType == IMChatTypeIMChatDiscussionGroupType) {
+        ChatGroupSettingViewController *chatSettingCtl = [[ChatGroupSettingViewController alloc] init];
+        
+        TZSideViewController *sideCtl = [[TZSideViewController alloc] initWithDetailViewFrame:CGRectMake(50, 20, 270, 460)];
+        sideCtl.detailViewController = chatSettingCtl;
+        [sideCtl showSideDetailView];
+    } else {
+        //        ChatSettingViewController *chatSettingCtl = [[ChatSettingViewController alloc] init];
+        //        chatSettingCtl.chatter = _conversation.chatter;
+        //        [self.navigationController pushViewController:chatSettingCtl animated:YES];
+    }
+}
 
 - (void)removeAllMessages:(id)sender
 {

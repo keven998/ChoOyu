@@ -37,8 +37,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"添加";
+    self.navigationItem.title = @"添加好友";
     [self.searchTableViewController.searchResultsTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:searchCell];
+    [_searchBar setBackgroundColor:APP_THEME_COLOR];
+    [_searchBar setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -133,7 +135,7 @@
             [SVProgressHUD showHint:@"不能添加自己到通讯录"];
         } else {
             [_searchBar resignFirstResponder];
-              
+            
             //如果已经是好友了，进入好友详情界面
             if ([accountManager frendIsMyContact:userId]) {
                 OtherUserInfoViewController *contactDetailCtl = [[OtherUserInfoViewController alloc]init];
@@ -248,7 +250,7 @@
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
-      
+    
 }
 
 @end
