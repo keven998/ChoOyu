@@ -64,7 +64,6 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
         daoHelper.addFrend2DB(frend)
     }
     
-    
     /**
     获取所有的好友列表
     :returns:
