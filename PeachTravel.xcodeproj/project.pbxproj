@@ -5831,11 +5831,6 @@
 							};
 						};
 					};
-					D99D8EDD19C8600C0021C25B = {
-						CreatedOnToolsVersion = 6.0;
-						DevelopmentTeam = 8DEY49A633;
-						TestTargetID = D99D8EC419C8600C0021C25B;
-					};
 				};
 			};
 			buildConfigurationList = D99D8EC019C8600C0021C25B /* Build configuration list for PBXProject "PeachTravel" */;
@@ -6935,7 +6930,7 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "08bcfa7b-e7c8-4656-840c-d52edf396045";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "PeachTravel/PeachTravel-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				VALID_ARCHS = "arm64 armv7 armv7s";
@@ -6974,7 +6969,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "08bcfa7b-e7c8-4656-840c-d52edf396045";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "PeachTravel/PeachTravel-Bridging-Header.h";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
