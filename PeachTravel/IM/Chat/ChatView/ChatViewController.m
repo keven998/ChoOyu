@@ -120,6 +120,8 @@
 {
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    
     _conversation.isCurrentConversation = YES;
     _conversation.delegate = self;
     [_conversation resetConvsersationUnreadMessageCount];
@@ -152,7 +154,7 @@
 
 - (UIView *)headerView {
     if (!_headerView) {
-        _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.bounds), 44.0)];
+        _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 44.0)];
         _headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         
         UIActivityIndicatorView *indicatroView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 32.0, 32.0)];
@@ -364,7 +366,6 @@
         _tableView.backgroundColor = APP_PAGE_COLOR;
         _tableView.tableFooterView = [[UIView alloc] init];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        
         UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
         lpgr.minimumPressDuration = .5;
         [_tableView addGestureRecognizer:lpgr];
