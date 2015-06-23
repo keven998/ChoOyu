@@ -1057,7 +1057,7 @@
     }
 }
 
- - (void)showRoomContact:(id)sender
+- (void)showRoomContact:(id)sender
  {
      [self.view endEditing:YES];
      [self keyBoardHidden];

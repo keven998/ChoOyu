@@ -57,7 +57,7 @@
         hud = [[TZProgressHUD alloc] init];
         [hud showHUDInViewController:weakSelf content:64];
         IMDiscussionGroupManager *manager = [IMDiscussionGroupManager shareInstance];
-        [manager asyncChangeDiscussionGroupTitleWithGroupId:_groupId title:title completion:^(BOOL isSuccess, NSInteger errorCode) {
+        [manager asyncChangeDiscussionGroupTitleWithGroup:_group title:title completion:^(BOOL isSuccess, NSInteger errorCode) {
             [hud hideTZHUD];
             if (isSuccess) {
                 [SVProgressHUD showHint:@"修改成功"];

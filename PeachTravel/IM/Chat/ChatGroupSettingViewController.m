@@ -180,14 +180,11 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 0) {
-//        if ([_group.owner isEqualToString: [AccountManager shareAccountManager].account.easemobUser]) {
-//            ChangeGroupTitleViewController *changeCtl = [[ChangeGroupTitleViewController alloc] init];
-//            changeCtl.groupId = _group.groupId;
-//            changeCtl.oldTitle = _group.groupSubject;
-//            [self.navigationController pushViewController:changeCtl animated:YES];
-//        } else {
-//            [SVProgressHUD showHint:@"不是群主，无法修改"];
-//        }
+        ChangeGroupTitleViewController *changeCtl = [[ChangeGroupTitleViewController alloc] init];
+        changeCtl.group = _groupModel;
+        changeCtl.oldTitle = _groupModel.subject;
+        [self.navigationController pushViewController:changeCtl animated:YES];
+    
     }
     else if (indexPath.row == 1) {
         
