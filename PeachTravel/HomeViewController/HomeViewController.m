@@ -1,4 +1,4 @@
-    //
+//
 //  HomeViewController.m
 //  PeachTravel
 //
@@ -65,7 +65,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     
     IMClientManager *imclientManager = [IMClientManager shareInstance];
     [imclientManager.messageReceiveManager addMessageReceiveListener:self withRoutingKey:MessageReceiveDelegateRoutingKeynormal];
-
+    
     if (![[AccountManager shareAccountManager] isLogin]) {
         [self setupLoginPage];
     }
@@ -85,13 +85,13 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [prepareCtl willMoveToParentViewController:self];
     
     [self setupConverView];
-//    [self beginIntroduce];
+    //    [self beginIntroduce];
 }
 
 - (void) setupConverView {
     if (!shouldSkipIntroduce && kShouldShowIntroduceWhenFirstLaunch) {
-//        [self beginIntroduce];
-//        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:[[AppUtils alloc] init].appVersion];
+        //        [self beginIntroduce];
+        //        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:[[AppUtils alloc] init].appVersion];
     } else {
         _coverView = [[UIImageView alloc] initWithFrame:self.view.bounds];
         _coverView.userInteractionEnabled = YES;
@@ -211,7 +211,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
                 [self updateBackgroundData:[[responseObject objectForKey:@"result"] objectForKey:@"image"]];
             }
         } else {
-
+            
         }
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -298,26 +298,26 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 {
     self.tabBar.translucent = NO;
     self.delegate = self;
-//    self.tabBar.backgroundImage = [UIImage imageNamed:@"tababr.png"];
-//    self.tabBar.shadowImage = [UIImage new];
+    //    self.tabBar.backgroundImage = [UIImage imageNamed:@"tababr.png"];
+    //    self.tabBar.shadowImage = [UIImage new];
     self.tabBar.selectedImageTintColor = APP_THEME_COLOR;
-//    self.tabBar.opaque = YES;
-//    self.tabBar.backgroundColor = [UIColor clearColor];
+    //    self.tabBar.opaque = YES;
+    //    self.tabBar.backgroundColor = [UIColor clearColor];
     
     _chatListCtl = [[ChatListViewController alloc] init];
     _chatListCtl.delegate = self;
     TZNavigationViewController *firstNavigationController = [[TZNavigationViewController alloc]
-                                                          initWithRootViewController:self.chatListCtl];
+                                                             initWithRootViewController:self.chatListCtl];
     
     _toolBoxCtl = [[ToolsHomeViewController alloc] init];
     TZNavigationViewController *secondNavigationController = [[TZNavigationViewController alloc]
-                                                         initWithRootViewController:_toolBoxCtl];
+                                                              initWithRootViewController:_toolBoxCtl];
     
     _mineCtl = [[MineTableViewController alloc] init];
     TZNavigationViewController *FourthNavigationController = [[TZNavigationViewController alloc]
-                                                         initWithRootViewController:_mineCtl];
-
-
+                                                              initWithRootViewController:_mineCtl];
+    
+    
     [self setViewControllers:@[firstNavigationController, secondNavigationController,
                                FourthNavigationController]];
     [self customizeTabBarForController];
@@ -327,11 +327,11 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 {
     
     NSArray *tabBarItemImages = @[@"ic_home", @"ic_loc", @"ic_person"];
-//    NSArray *titles = @[@"消息", @"旅行", @"我"];
+    //    NSArray *titles = @[@"消息", @"旅行", @"我"];
     NSInteger index = 0;
     
     for (UITabBarItem *item in self.tabBar.items) {
-//        item.title = titles[index];
+        //        item.title = titles[index];
         item.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@_normal", [tabBarItemImages objectAtIndex:index]]];
         item.selectedImage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_selected", [tabBarItemImages objectAtIndex:index]]];
         item.imageInsets = UIEdgeInsetsMake(7, 0, -7, 0);

@@ -42,24 +42,20 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     
     _searchBar = [[UISearchBar alloc]init];
     _searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    //    _searchBar.searchBarStyle = UISearchBarStyleProminent;
     _searchBar.delegate = self;
     [_searchBar setPlaceholder:@"城市、景点、美食、购物"];
     _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
-    //    _searchBar.showsCancelButton = YES;
     [_searchBar setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
     [_searchBar setBackgroundColor:APP_THEME_COLOR];
     _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.navigationItem.titleView = _searchBar;
     
-    //    [self.view addSubview:_searchBar];
-    
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 30, CGRectGetWidth(self.view.bounds), 50)];
-    label.font = [UIFont systemFontOfSize:13.0];
-    label.textColor = TEXT_COLOR_TITLE_PH;
+    label.font = [UIFont systemFontOfSize:12.0];
+    label.textColor = COLOR_TEXT_V;
     label.textAlignment = NSTextAlignmentCenter;
     label.numberOfLines = 2;
-    label.text = @"旅行搜搜\n搜索旅行中的城市、景点、美食、购物";
+    label.text = @"旅行搜搜\n搜索旅相关的城市、景点、美食、购物";
     [self.view addSubview:label];
     
     [self.view addSubview:self.tableView];

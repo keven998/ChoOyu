@@ -23,7 +23,6 @@
 #import "UIViewController+HUD.h"
 #import "NSDate+Category.h"
 #import "DXMessageToolBar.h"
-#import "DXChatBarMoreView.h"
 #import "CallViewController.h"
 #import "ZYQAssetPickerController.h"
 #import "ChatGroupSettingViewController.h"
@@ -32,7 +31,7 @@
 #import "SearchUserInfoViewController.h"
 #import "CreateConversationViewController.h"
 #import "SpotDetailViewController.h"
-#import "MyGuideListTableViewController.h"
+#import "PlansListTableViewController.h"
 #import "FavoriteViewController.h"
 #import "CityDetailTableViewController.h"
 #import "SearchDestinationViewController.h"
@@ -492,6 +491,10 @@
 }
 
 #pragma mark - scrollView delegate
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [self keyBoardHidden];
+}
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
@@ -643,7 +646,6 @@
             shoppingCtl.title = model.poiModel.poiName;
             shoppingCtl.poiId = model.poiModel.poiId;
             [self.navigationController pushViewController:shoppingCtl animated:YES];
-            NSLog(@"asda");
         }
             break;
             
@@ -734,7 +736,7 @@
 - (void)moreViewMyStrategyAction:(DXChatBarMoreView *)moreView
 {
     [MobClick event:@"event_share_plan_extra"];
-    MyGuideListTableViewController *myGuideListTableCtl = [[MyGuideListTableViewController alloc] init];
+    PlansListTableViewController *myGuideListTableCtl = [[PlansListTableViewController alloc] initWithUserId:_accountManager.account.userId];
     myGuideListTableCtl.chatterId = _chatter;
     myGuideListTableCtl.selectToSend = YES;
     myGuideListTableCtl.chatType = _chatType;

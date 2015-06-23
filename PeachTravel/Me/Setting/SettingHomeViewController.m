@@ -13,7 +13,7 @@
 #import "iRate.h"
 
 #define cellIdentifier   @"settingCell"
-#define settingItems       @[@"清理缓存", @"意见和需求", @"给我们好评", @"消息和提醒"]
+#define SET_ITEMS       @[@"清理缓存", @"应用评分", @"消息和提醒"]
 
 @interface SettingHomeViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -30,7 +30,7 @@
     
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     self.tableView.backgroundColor = APP_PAGE_COLOR;
-    self.tableView.separatorColor = APP_DIVIDER_COLOR;
+    self.tableView.separatorColor = COLOR_LINE;
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -90,22 +90,16 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return CGFLOAT_MIN;
+    return 10;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 44.0;
 }
-
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-//    UIView *view = [[UIView alloc] init];
-//    view.backgroundColor = APP_PAGE_COLOR;
-//    return view;
-//}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     //    return [dataSource count]/2;
@@ -118,7 +112,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     OptionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
-    cell.titleView.text = [settingItems objectAtIndex:(indexPath.section * 2 + indexPath.row)];
+    cell.titleView.text = [SET_ITEMS objectAtIndex:(indexPath.section * 2 + indexPath.row)];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
@@ -127,7 +121,7 @@
             cell.cacheLabel.text = str;
             cell.cacheLabel.tag = 101;
         } else if (indexPath.row == 1) {
-            cell.flagView.image = [UIImage imageNamed:@"ic_feedback.png"];
+            cell.flagView.image = [UIImage imageNamed:@"ic_good.png"];
         }
     } else if (indexPath.section == 1) {
         if (indexPath.row == 0) {
@@ -144,24 +138,15 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSInteger index = indexPath.section*2 + indexPath.row;
     switch (index) {
-        case 0: {
+        case 0:
             [self clearMemo];
-            
-        }
             break;
             
-        case 1: {
-            [MobClick event:@"event_feedback"];
-            FeedbackController *feedbackCtl = [[FeedbackController alloc] init];
-            [self.navigationController pushViewController:feedbackCtl animated:YES];
-        }
-            break;
-            
-        case 2:
+        case 1:
             [self mark];
             break;
             
-        case 3: {
+        case 2: {
             PushSettingViewController *ctl = [[PushSettingViewController alloc] init];
             [self.navigationController pushViewController:ctl animated:YES];
         }
@@ -176,13 +161,13 @@
 
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

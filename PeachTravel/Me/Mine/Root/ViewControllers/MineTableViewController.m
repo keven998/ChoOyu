@@ -19,7 +19,7 @@
 #import "SuperWebViewController.h"
 #import "FeedbackViewController.h"
 #import "FootPrintViewController.h"
-#import "MyGuideListTableViewController.h"
+#import "PlansListTableViewController.h"
 #import "ContactListViewController.h"
 
 #define cellDataSource           @[@[@"邀请好友", @"意见反馈"], @[@"关于我们", @"应用设置"]]
@@ -59,7 +59,7 @@
     self.tableView.delegate = self;
     [self.view addSubview:self.tableView];
     self.tableView.backgroundColor = APP_PAGE_COLOR;
-    self.tableView.separatorColor = COLOR_LINE;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.tableView registerNib:[UINib nibWithNibName:@"OptionTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:secondCell];
     
@@ -106,6 +106,7 @@
 
 - (void) setupTableHeaderView {
     CGFloat width = CGRectGetWidth(self.view.bounds);
+    CGFloat height = CGRectGetHeight(self.view.frame);
     
     UIView *headerBgView = [[UIView alloc] init];
     headerBgView.backgroundColor = [UIColor whiteColor];
@@ -117,23 +118,27 @@
     [headerBgView addGestureRecognizer:tap];
     [self.view addSubview:headerBgView];
     
-    UIImageView *flagHeaderIV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, width, 140)];
+    CGFloat hh = 177*height/736;
+    
+    UIImageView *flagHeaderIV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, width, hh)];
     flagHeaderIV.contentMode = UIViewContentModeScaleAspectFill;
     flagHeaderIV.clipsToBounds = YES;
     flagHeaderIV.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [headerBgView addSubview:flagHeaderIV];
     _flagHeaderIV = flagHeaderIV;
     
-    CGFloat avatarW = 136;
+    CGFloat ah = 200*height/736;
+    
+    CGFloat avatarW = ah - 12;
     UIImageView *avatar = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, avatarW, avatarW)];
     avatar.clipsToBounds = YES;
     avatar.layer.cornerRadius = avatarW/2.0;
-    avatar.center = CGPointMake(width/2.0, 100);
+    avatar.center = CGPointMake(width/2.0, 10 + ah/2.0);
     avatar.contentMode = UIViewContentModeScaleAspectFill;
     [headerBgView addSubview:avatar];
     _avatarImageView = avatar;
     
-    UIImageView *avatarBg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 150, 150)];
+    UIImageView *avatarBg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ah, ah)];
     avatarBg.center = avatar.center;
     avatarBg.contentMode = UIViewContentModeScaleToFill;
     avatarBg.clipsToBounds = YES;
@@ -161,16 +166,18 @@
     CGFloat unitWidth = width/3.0;
     CGFloat offsetY = CGRectGetMaxY(levelBg.frame);
     
-    UIButton *friendEntry = [[UIButton alloc] initWithFrame:CGRectMake(0, offsetY, unitWidth, 60)];
-    UILabel *friendNumber = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, unitWidth - 20, 20)];
+    CGFloat bh = 84*height/736;
+    
+    UIButton *friendEntry = [[UIButton alloc] initWithFrame:CGRectMake(0, offsetY, unitWidth, bh)];
+    UILabel *friendNumber = [[UILabel alloc] initWithFrame:CGRectMake(10, bh/2 - 20, unitWidth - 20, 20)];
     friendNumber.textColor = COLOR_TEXT_I;
     friendNumber.textAlignment = NSTextAlignmentCenter;
-    friendNumber.font = [UIFont systemFontOfSize:16];
-    friendNumber.text = @"99";
+    friendNumber.font = [UIFont systemFontOfSize:15];
+    friendNumber.text = @"99人";
     friendNumber.lineBreakMode = NSLineBreakByTruncatingTail;
     _friendCount = friendNumber;
     [friendEntry addSubview:friendNumber];
-    UILabel *fl = [[UILabel alloc] initWithFrame:CGRectMake(10, 30, unitWidth - 20, 20)];
+    UILabel *fl = [[UILabel alloc] initWithFrame:CGRectMake(10, bh/2, unitWidth - 20, 20)];
     fl.textColor = COLOR_TEXT_III;
     fl.text = @"好友";
     fl.textAlignment = NSTextAlignmentCenter;
@@ -179,16 +186,16 @@
     [friendEntry addTarget:self action:@selector(showContactList:) forControlEvents:UIControlEventTouchUpInside];
     [headerBgView addSubview:friendEntry];
     
-    UIButton *planEntry = [[UIButton alloc] initWithFrame:CGRectMake(unitWidth, offsetY, unitWidth, 60)];
-    UILabel *planNumber = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, unitWidth - 20, 20)];
+    UIButton *planEntry = [[UIButton alloc] initWithFrame:CGRectMake(unitWidth, offsetY, unitWidth, bh)];
+    UILabel *planNumber = [[UILabel alloc] initWithFrame:CGRectMake(10, bh/2 - 20, unitWidth - 20, 20)];
     planNumber.textColor = COLOR_TEXT_I;
     planNumber.textAlignment = NSTextAlignmentCenter;
-    planNumber.font = [UIFont systemFontOfSize:16];
-    planNumber.text = @"99";
+    planNumber.font = [UIFont systemFontOfSize:15];
+    planNumber.text = @"99条";
     _planCount = planNumber;
     planNumber.lineBreakMode = NSLineBreakByTruncatingTail;
     [planEntry addSubview:planNumber];
-    UILabel *pl = [[UILabel alloc] initWithFrame:CGRectMake(10, 30, unitWidth - 20, 20)];
+    UILabel *pl = [[UILabel alloc] initWithFrame:CGRectMake(10, bh/2, unitWidth - 20, 20)];
     pl.textColor = COLOR_TEXT_III;
     pl.text = @"计划";
     pl.textAlignment = NSTextAlignmentCenter;
@@ -197,16 +204,16 @@
     [planEntry addTarget:self action:@selector(myPlan:) forControlEvents:UIControlEventTouchUpInside];
     [headerBgView addSubview:planEntry];
     
-    UIButton *trackEntry = [[UIButton alloc] initWithFrame:CGRectMake(2*unitWidth, offsetY, unitWidth, 60)];
-    UILabel *trackNumber = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, unitWidth - 20, 20)];
+    UIButton *trackEntry = [[UIButton alloc] initWithFrame:CGRectMake(2*unitWidth, offsetY, unitWidth, bh)];
+    UILabel *trackNumber = [[UILabel alloc] initWithFrame:CGRectMake(10, bh/2 - 20, unitWidth - 20, 20)];
     trackNumber.textColor = COLOR_TEXT_I;
     trackNumber.textAlignment = NSTextAlignmentCenter;
-    trackNumber.font = [UIFont systemFontOfSize:16];
+    trackNumber.font = [UIFont systemFontOfSize:15];
     trackNumber.lineBreakMode = NSLineBreakByTruncatingTail;
-    trackNumber.text = @"5国17城";
+    trackNumber.text = @"5国17城市";
     _trackCount = trackNumber;
     [trackEntry addSubview:trackNumber];
-    UILabel *tl = [[UILabel alloc] initWithFrame:CGRectMake(10, 30, unitWidth - 20, 20)];
+    UILabel *tl = [[UILabel alloc] initWithFrame:CGRectMake(10, bh/2, unitWidth - 20, 20)];
     tl.textColor = COLOR_TEXT_III;
     tl.text = @"足迹";
     tl.textAlignment = NSTextAlignmentCenter;
@@ -215,15 +222,15 @@
     [trackEntry addTarget:self action:@selector(myTrack:) forControlEvents:UIControlEventTouchUpInside];
     [headerBgView addSubview:trackEntry];
     
-    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(unitWidth, offsetY + 14, 0.5, 32)];
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(unitWidth, offsetY + 14, 0.6, 32)];
     lineView.backgroundColor = COLOR_LINE;
     [headerBgView addSubview:lineView];
     
-    UIView *lineView2 = [[UIView alloc] initWithFrame:CGRectMake(2*unitWidth, offsetY + 14, 0.5, 32)];
+    UIView *lineView2 = [[UIView alloc] initWithFrame:CGRectMake(2*unitWidth, offsetY + 14, 0.6, 32)];
     lineView2.backgroundColor = COLOR_LINE;
     [headerBgView addSubview:lineView2];
     
-    headerBgView.frame = CGRectMake(0, 0, width, offsetY + 60);
+    headerBgView.frame = CGRectMake(0, 0, width, offsetY + bh);
 
     self.tableView.contentInset = UIEdgeInsetsMake(CGRectGetMaxY(headerBgView.frame), 0, 0, 0);
     
@@ -360,7 +367,7 @@
 
 - (IBAction)myPlan:(id)sender
 {
-    MyGuideListTableViewController *myGuidesCtl = [[MyGuideListTableViewController alloc] init];
+    PlansListTableViewController *myGuidesCtl = [[PlansListTableViewController alloc] initWithUserId:_accountManager.account.userId];
     myGuidesCtl.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:myGuidesCtl animated:YES];
 }
@@ -382,7 +389,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 10;
+    return 8;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -390,7 +397,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 44.0;
+    return 64*kWindowHeight/736;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {

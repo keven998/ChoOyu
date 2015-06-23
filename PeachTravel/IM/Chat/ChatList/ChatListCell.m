@@ -1,14 +1,14 @@
 /************************************************************
-  *  * EaseMob CONFIDENTIAL 
-  * __________________ 
-  * Copyright (C) 2013-2014 EaseMob Technologies. All rights reserved. 
-  *  
-  * NOTICE: All information contained herein is, and remains 
-  * the property of EaseMob Technologies.
-  * Dissemination of this information or reproduction of this material 
-  * is strictly forbidden unless prior written permission is obtained
-  * from EaseMob Technologies.
-  */
+ *  * EaseMob CONFIDENTIAL
+ * __________________
+ * Copyright (C) 2013-2014 EaseMob Technologies. All rights reserved.
+ *
+ * NOTICE: All information contained herein is, and remains
+ * the property of EaseMob Technologies.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from EaseMob Technologies.
+ */
 
 
 #import "ChatListCell.h"
@@ -38,13 +38,13 @@
         self.imageView.backgroundColor = APP_IMAGEVIEW_COLOR;
         
         _timeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _timeLabel.font = [UIFont systemFontOfSize:12];
+        _timeLabel.font = [UIFont systemFontOfSize:14];
         _timeLabel.textColor = COLOR_TEXT_III;
         _timeLabel.textAlignment = NSTextAlignmentRight;
         [self.contentView addSubview:_timeLabel];
         
         _detailLabel = [[UILabel alloc] init];
-        _detailLabel.font = [UIFont systemFontOfSize:13];
+        _detailLabel.font = [UIFont systemFontOfSize:14];
         _detailLabel.textColor = COLOR_TEXT_III;
         _detailLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         _detailLabel.lineBreakMode = NSLineBreakByTruncatingTail;
@@ -75,6 +75,11 @@
         self.textLabel.font = [UIFont systemFontOfSize:18];
         self.textLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         self.textLabel.textColor = COLOR_TEXT_I;
+        
+//        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), 76)];
+//        view.backgroundColor = COLOR_ALERT;
+//        view.layer.cornerRadius = 10.0f;
+//        self.selectedBackgroundView = view;
     }
     return self;
 }
@@ -92,25 +97,24 @@
     [super layoutSubviews];
     
     CGFloat width = CGRectGetWidth(self.bounds);
-    self.imageView.frame = CGRectMake(10, 10, 56, 56);
+    self.imageView.frame = CGRectMake(12, 10, 56, 56);
     self.imageView.contentMode = UIViewContentModeScaleAspectFill;
     self.imageView.layer.cornerRadius = 28;
     self.imageView.clipsToBounds = YES;
     
-    //image offset x = 56 + 10 + 10margin = 76
+    CGFloat contentOffsetX = CGRectGetMaxX(self.imageView.frame) + 10;
+    
     self.textLabel.text = _name;
-    self.textLabel.frame = CGRectMake(76, 14, width - 76 - 85, 24);
+    self.textLabel.frame = CGRectMake(contentOffsetX, 15, width - contentOffsetX - 85, 22);
     
-    _timeLabel.frame = CGRectMake(width - 80.0, 14.0, 70.0, 18.0);
-    
+    _timeLabel.frame = CGRectMake(width - 80.0, 15, 70.0, 22);
     _detailLabel.text = _detailMsg;
-
+    
     CGFloat offsetX = 0;
     if (_sendStatus == MSGSending) {
         offsetX = 18;
         sendFailedImageView.hidden = YES;
         activityView.hidden = NO;
-        
     } else if (_sendStatus == MSGSended) {
         sendFailedImageView.hidden = YES;
         activityView.hidden = YES;
@@ -125,9 +129,9 @@
         activityView.hidden = YES;
     }
     
-    sendFailedImageView.frame = CGRectMake(76, 45, 12, 12);
-    activityView.frame = CGRectMake(76, 45, 13, 12);
-    _detailLabel.frame = CGRectMake(76+offsetX, 38, width - 85.0-76, 25);
+    sendFailedImageView.frame = CGRectMake(contentOffsetX, 45, 12, 12);
+    activityView.frame = CGRectMake(contentOffsetX, 45, 13, 12);
+    _detailLabel.frame = CGRectMake(contentOffsetX+offsetX, 46, width - 85.0-contentOffsetX, 16);
     
     _timeLabel.text = _time;
     
@@ -147,11 +151,11 @@
         CGRect tf = self.textLabel.frame;
         CGFloat maxw = tf.size.width - lf.size.width - 5;
         CGSize labelSize = [_name boundingRectWithSize:CGSizeMake(maxw, tf.size.height)
-                                                                       options:NSStringDrawingUsesLineFragmentOrigin
-                                                                    attributes:@{
-                                                                                 NSFontAttributeName : [UIFont systemFontOfSize:16]
-                                                                                 }
-                                                                       context:nil].size;
+                                               options:NSStringDrawingUsesLineFragmentOrigin
+                                            attributes:@{
+                                                         NSFontAttributeName : [UIFont systemFontOfSize:16]
+                                                         }
+                                               context:nil].size;
         
         tf.size.width = labelSize.width;
         self.textLabel.frame = tf;
@@ -162,7 +166,7 @@
     }
     
     spaceView.frame = CGRectMake(10, self.contentView.frame.size.height-0.5, width - 10, 0.5);
-//    self.selectedBackgroundView.frame = self.bounds;
+    //    self.selectedBackgroundView.frame = self.bounds;
 }
 
 -(void)setName:(NSString *)name{
@@ -178,11 +182,6 @@
     } else {
         [self.imageView setImage:[UIImage imageNamed:_imageName]];
     }
-}
-
-+ (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 76;
 }
 
 @end
