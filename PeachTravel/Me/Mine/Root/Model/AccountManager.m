@@ -485,7 +485,7 @@
  */
 - (BOOL)frendIsMyContact:(NSInteger)userId
 {
-    for (FrendModel *frend in _account.frendRequest) {
+    for (FrendModel *frend in _account.frendList) {
         if (frend.userId == userId) {
             return YES;
         }
