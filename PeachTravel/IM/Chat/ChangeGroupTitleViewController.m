@@ -70,10 +70,12 @@
     
   
 }
+
 -(void)viewWillAppear:(BOOL)animated
 {
     self.navigationController.navigationBarHidden = NO;
 }
+
 - (void)updateSuccess
 {
     
