@@ -230,11 +230,15 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
     func asyncChangeDiscussionGroupState(#group: IMDiscussionGroup, completion: (isSuccess: Bool, errorCode: Int) -> ())
     {
         var groupTypeValue = group.type.rawValue
+        let imClientManager = IMClientManager.shareInstance()
+        
         if FrendModel.typeIsCorrect(group.type, typeWeight: IMFrendWeightType.BlockMessage) {
             groupTypeValue = group.type.rawValue - IMFrendWeightType.BlockMessage.rawValue
+            imClientManager.conversationManager.updateConversationStatus(false, chatterId: group.groupId)
             
         } else {
             groupTypeValue = group.type.rawValue + IMFrendWeightType.BlockMessage.rawValue
+            imClientManager.conversationManager.updateConversationStatus(true, chatterId: group.groupId)
         }
         if let type = IMFrendType(rawValue: groupTypeValue) {
             group.type = type
