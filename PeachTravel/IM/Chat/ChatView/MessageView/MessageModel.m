@@ -23,16 +23,15 @@
         _status = message.status;
         _timestamp = message.createTime;
         _content = message.message;
-        if (message.chatType == IMChatTypeIMChatSingleType) {
-            _isChatGroup = NO;
-        } else {
-            _isChatGroup = YES;
-        }
+        _chatType = message.chatType;
+       
         if (message.sendType == IMMessageSendTypeMessageSendMine) {
             _isSender = YES;
         } else {
             _isSender = NO;
         }
+        
+        _senderId = message.senderId;
         
         switch (message.messageType) {
             case IMMessageTypeAudioMessageType:

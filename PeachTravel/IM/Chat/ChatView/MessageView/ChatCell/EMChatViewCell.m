@@ -26,7 +26,7 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
         self.headImageView.clipsToBounds = YES;
         self.headImageView.layer.cornerRadius = HEAD_SIZE/2.0;
         self.headImageView.contentMode = UIViewContentModeScaleAspectFill;
-        if (model.isChatGroup) {
+        if (model.chatType != IMChatTypeIMChatSingleType) {
             _showNickName = YES;
         } else {
             _showNickName = NO;
@@ -129,7 +129,7 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
 {
     [super setMessageModel:model];
     
-    if (model.isChatGroup) {
+    if (model.chatType != IMChatTypeIMChatSingleType) {
         _nameLabel.text = model.nickName;
         _nameLabel.hidden = model.isSender;
     }
@@ -224,7 +224,7 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
 + (CGFloat)bubbleViewHeightForMessageModel:(MessageModel *)messageModel
 {
     CGFloat nickNameHeight = 0;
-    if (messageModel.isChatGroup) {
+    if (messageModel.chatType != IMChatTypeIMChatSingleType) {
         nickNameHeight = 20;
     }
     switch (messageModel.type) {
@@ -274,7 +274,7 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
 {
     NSInteger bubbleHeight = [self bubbleViewHeightForMessageModel:model];
     NSInteger headHeight = HEAD_SIZE;
-    if (model.isChatGroup && !model.isSender) {
+    if ((model.chatType != IMChatTypeIMChatSingleType) && !model.isSender) {
         headHeight += NAME_LABEL_HEIGHT;
     }
     return MAX(headHeight, bubbleHeight) + 2*CELLPADDING;

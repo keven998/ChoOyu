@@ -62,8 +62,6 @@
     
     NSInteger _recordingCount;
     
-    dispatch_queue_t _messageQueue;
-    dispatch_queue_t loadChatPeopleQueue;
     BOOL _isScrollToBottom;
     UINavigationItem *_navTitle;
 }
@@ -72,7 +70,7 @@
 @property (nonatomic) NSInteger chatter;
 
 @property (strong, nonatomic) NSMutableArray *dataSource;//tableView数据源
-@property (strong, nonatomic) IMGroupModel *group;   //保存群组的人员信息
+@property (strong, nonatomic) NSArray *groupNumbers;   //保存群组的人员信息
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) DXMessageToolBar *chatToolBar;
@@ -122,7 +120,9 @@
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
     self.automaticallyAdjustsScrollViewInsets = NO;
-    
+    if (_chatType == IMChatTypeIMChatDiscussionGroupType) {
+        _groupNumbers = [[IMDiscussionGroupManager shareInstance] getFullDiscussionGroupInfoFromDBWithGroupId: _conversation.chatterId].numbers;
+    }
     _conversation.isCurrentConversation = YES;
     _conversation.delegate = self;
     [_conversation getDefaultChatMessageInConversation:10];
@@ -133,7 +133,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground) name:@"applicationDidEnterBackground" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateChatView:) name:updateChateViewNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateChatTitle:) name:updateChateGroupTitleNoti object:nil];
-    _messageQueue = dispatch_queue_create("messageQueue.com", NULL);
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     
@@ -151,6 +150,7 @@
 
 - (void)sortDataSource
 {
+    [self.dataSource removeAllObjects];
     for (BaseMessage *message in _conversation.chatMessageList) {
         NSDate *createDate = [NSDate dateWithTimeIntervalInMilliSecondSince1970:(NSTimeInterval)message.createTime*1000];
         NSTimeInterval tempDate = [createDate timeIntervalSinceDate:self.chatTagDate];
@@ -158,7 +158,11 @@
             [self.dataSource addObject:[createDate formattedTime]];
             self.chatTagDate = createDate;
         }
-        [self.dataSource addObject:[[MessageModel alloc] initWithBaseMessage:(message)]];
+        
+        message.chatType = _chatType;
+        MessageModel *model = [[MessageModel alloc] initWithBaseMessage:(message)];
+        [self fillMessageModel:model];
+        [self.dataSource addObject: model];
     }
 }
 
@@ -262,74 +266,13 @@
     if (model.isSender) {
         return;
     }
-    
-    //    Contact *contact = [self.accountManager TZContactByEasemobUser:model.username];
-    //    if (!contact) {
-    //        for (Contact *tempContact in self.peopleInGroup) {
-    //            if ([tempContact.easemobUser isEqualToString:model.username]) {
-    //                [self  showUserInfoWithContactInfo:tempContact];
-    //                return;
-    //            }
-    //        }
-    //        if (!contact) {
-    //             __weak typeof(ChatViewController *)weakSelf = self;
-    //            TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    //            [hud showHUDInViewController:weakSelf];
-    //            [self asyncLoadGroupFromEasemobServerWithCompletion:^(BOOL isSuccess) {
-    //                [hud hideTZHUD];
-    //                if (isSuccess) {
-    //                    for (Contact *tempContact in self.peopleInGroup) {
-    //                        if ([tempContact.easemobUser isEqualToString:model.username]) {
-    //                            [self  showUserInfoWithContactInfo:tempContact];
-    //                            break;
-    //                        }
-    //                    }
-    //                }
-    //            }];
-    //        }
-    //    } else {
-    //        [self  showUserInfoWithContactInfo:contact];
-    //    }
 }
 
 - (void)showUserInfoWithContactInfo:(FrendModel *)contact
 {
-    //    if ([self.accountManager isMyFrend:contact.userId]) {
-    //        ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
-    //        contactDetailCtl.contact = contact;
-    //        if (_isChatGroup) {
-    //            contactDetailCtl.goBackToChatViewWhenClickTalk = NO;
-    //        } else {
-    //            contactDetailCtl.goBackToChatViewWhenClickTalk = YES;
-    //        }
-    //        [self.navigationController pushViewController:contactDetailCtl animated:YES];
-    //
-    //    } else {
-    //        SearchUserInfoViewController *searchUserInfoCtl = [[SearchUserInfoViewController alloc] init];
-    //        searchUserInfoCtl.userInfo = @{@"userId":contact.userId,
-    //                                       @"avatar":contact.avatar,
-    //                                       @"nickName":contact.nickName,
-    //                                       @"signature":contact.signature,
-    //                                       @"easemobUser":contact.easemobUser
-    //                                       };
-    //        [self.navigationController pushViewController:searchUserInfoCtl animated:YES];
-    //    }
-    
 }
 
 #pragma mark - private Methods
-
-- (NSArray *)loadContactsFromDB
-{
-    NSMutableArray *contacts = [[NSMutableArray alloc] init];
-    //    _group = [self.accountManager groupWithGroupId:_chatter];
-    //    if (_group) {
-    //        for (id item in _group.numbers) {
-    //            [contacts addObject:item];
-    //        }
-    //    }
-    return contacts;
-}
 
 /**
  *  在别的页面发送消息，本页面需要将发送的消息插入到 datasource 里
@@ -463,15 +406,15 @@
                 return tipsCell;
                 
             }  else{
-                if (model.isChatGroup) {
-                } else {
-                    model.nickName = _conversation.chatterName;
-                    if (model.isSender) {
-                        model.headImageURL = [NSURL URLWithString:self.accountManager.account.avatarSmall];
-                    } else {
-                        model.headImageURL = [NSURL URLWithString:_conversation.chatterAvatar];
-                    }
-                }
+//                if (model.isChatGroup) {
+//                } else {
+//                    model.nickName = _conversation.chatterName;
+//                    if (model.isSender) {
+//                        model.headImageURL = [NSURL URLWithString:self.accountManager.account.avatarSmall];
+//                    } else {
+//                        model.headImageURL = [NSURL URLWithString:_conversation.chatterAvatar];
+//                    }
+//                }
                 NSString *cellIdentifier = [EMChatViewCell cellIdentifierForMessageModel:model];
                 EMChatViewCell *cell = (EMChatViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
                 if (cell == nil) {
@@ -1019,10 +962,6 @@
     NSInteger currentCount = self.dataSource.count;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         if ([[weakSelf.conversation getMoreChatMessageInConversation:10] count] > 0) {
-            [self.dataSource removeAllObjects];
-            for (BaseMessage *message in _conversation.chatMessageList) {
-                [self.dataSource addObject:[[MessageModel alloc] initWithBaseMessage:(message)]];
-            }
             [self sortDataSource];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [weakSelf.tableView reloadData];
@@ -1049,14 +988,36 @@
         self.chatTagDate = createDate;
         [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.dataSource.count-1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
     }
-    
+    message.chatType = _chatType;
     MessageModel *model = [[MessageModel alloc] initWithBaseMessage:message];
+    [self fillMessageModel:model];
     [self.dataSource addObject:model];
     
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.dataSource.count-1 inSection:0];
     [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-    
+}
+
+- (void)fillMessageModel:(MessageModel *)message
+{
+    if (_chatType == IMChatTypeIMChatSingleType) {
+        message.nickName = _conversation.chatterName;
+        message.headImageURL = [NSURL URLWithString:_conversation.chatterAvatar];
+        
+    } else {
+        for (FrendModel *model in _groupNumbers) {
+            if (model.userId == message.senderId) {
+                message.nickName = model.nickName;
+                if ([model.avatarSmall isBlankString]) {
+                    message.headImageURL = [NSURL URLWithString:model.avatar];
+                } else {
+                    message.headImageURL = [NSURL URLWithString:model.avatarSmall];
+                }
+                break;
+            }
+        }
+    }
+    NSLog(@"nickName: %@", message.nickName);
 }
 
 - (void)scrollViewToBottom:(BOOL)animated
@@ -1065,23 +1026,6 @@
     {
         CGPoint offset = CGPointMake(0, self.tableView.contentSize.height - self.tableView.frame.size.height);
         [self.tableView setContentOffset:offset animated:animated];
-    }
-}
-
-- (void)showRoomContact:(id)sender
-{
-    [self.view endEditing:YES];
-    [self keyBoardHidden];
-    if (_chatType == IMChatTypeIMChatDiscussionGroupType) {
-        ChatGroupSettingViewController *chatSettingCtl = [[ChatGroupSettingViewController alloc] init];
-        
-        TZSideViewController *sideCtl = [[TZSideViewController alloc] initWithDetailViewFrame:CGRectMake(50, 20, 270, 460)];
-        sideCtl.detailViewController = chatSettingCtl;
-        [sideCtl showSideDetailView];
-    } else {
-        //        ChatSettingViewController *chatSettingCtl = [[ChatSettingViewController alloc] init];
-        //        chatSettingCtl.chatter = _conversation.chatter;
-        //        [self.navigationController pushViewController:chatSettingCtl animated:YES];
     }
 }
 
