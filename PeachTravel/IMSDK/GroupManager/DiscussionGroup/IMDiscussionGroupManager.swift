@@ -243,6 +243,11 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
         if let type = IMFrendType(rawValue: groupTypeValue) {
             group.type = type
         }
+        
+
+        completion(isSuccess: true, errorCode: 0)
+        
+        
         let daoHelper = DaoHelper.shareInstance()
         daoHelper.updateFrendType(userId: group.groupId, frendType: group.type)
     }
