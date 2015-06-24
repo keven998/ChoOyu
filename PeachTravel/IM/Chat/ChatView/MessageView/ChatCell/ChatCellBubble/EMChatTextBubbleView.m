@@ -50,16 +50,16 @@ NSString *const kRouterEventTextURLTapEventName = @"kRouterEventTextURLTapEventN
     
     CGRect frame = self.bounds;
     frame.size.width -= BUBBLE_ARROW_WIDTH;
-    frame = CGRectInset(frame, BUBBLE_VIEW_PADDING, BUBBLE_VIEW_PADDING);
+    frame = CGRectInset(frame, BUBBLE_VIEW_PADDING, BUBBLE_VIEW_TOP_PADDING);
     if (self.model.isSender) {
         frame.origin.x = BUBBLE_VIEW_WIDTH_PADDING;
         _textLabel.textColor = [UIColor whiteColor];
     }else{
         frame.origin.x = BUBBLE_VIEW_WIDTH_PADDING + BUBBLE_ARROW_WIDTH;
-        _textLabel.textColor = TEXT_COLOR_TITLE;
+        _textLabel.textColor = COLOR_TEXT_I;
     }
     
-    frame.origin.y = BUBBLE_VIEW_PADDING;
+    frame.origin.y = BUBBLE_VIEW_TOP_PADDING;
     [self.textLabel setFrame:frame];
 }
 
@@ -68,7 +68,7 @@ NSString *const kRouterEventTextURLTapEventName = @"kRouterEventTextURLTapEventN
     CGSize textBlockMinSize = {TEXTLABEL_MAX_WIDTH, CGFLOAT_MAX};
     CGSize retSize = [self.model.content boundingRectWithSize:textBlockMinSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[[self class] textLabelFont]} context:nil].size;
     
-    CGFloat height = 50;
+    CGFloat height = 42;
     if (2*BUBBLE_VIEW_TOP_PADDING + retSize.height > height) {
         height = 2*BUBBLE_VIEW_TOP_PADDING + retSize.height;
     }

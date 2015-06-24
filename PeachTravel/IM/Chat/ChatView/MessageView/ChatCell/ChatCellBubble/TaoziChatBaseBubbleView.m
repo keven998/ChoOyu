@@ -146,7 +146,7 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
     NSString *imageName = isReceiver ? @"chat_receiver_bg" : @"messages_bg_self.png";
     NSInteger leftCapWidth = isReceiver ? BUBBLE_LEFT_LEFT_CAP_WIDTH : BUBBLE_RIGHT_LEFT_CAP_WIDTH;
     NSInteger topCapHeight = 25;
-//    self.backImageView.image = [[UIImage imageNamed:imageName] stretchableImageWithLeftCapWidth:leftCapWidth topCapHeight:topCapHeight];
+    //    self.backImageView.image = [[UIImage imageNamed:imageName] stretchableImageWithLeftCapWidth:leftCapWidth topCapHeight:topCapHeight];
     self.backImageView.image = [[UIImage imageNamed:imageName] resizableImageWithCapInsets:UIEdgeInsetsMake(leftCapWidth, leftCapWidth, topCapHeight, 2*leftCapWidth)];
     
     if (model.poiModel) {
