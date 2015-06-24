@@ -156,7 +156,11 @@
         [_selectedBtn setImage:[UIImage imageNamed:@"ic_button_normal"] forState:UIControlStateNormal];
         [_selectedBtn addTarget:self action:@selector(changeMsgStatus:) forControlEvents:UIControlEventTouchUpInside];
         [_selectedBtn setImage:[UIImage imageNamed:@"ic_button_selected"] forState:UIControlStateSelected];
-//        _selectedBtn.selected = !_group.isPushNotificationEnabled;
+        
+        IMClientManager *clientManager = [IMClientManager shareInstance];
+        
+        ChatConversation *conversation = [clientManager.conversationManager getExistConversationInConversationList:_groupModel.groupId];
+        _selectedBtn.selected = [conversation isBlockMessag];
         [cell addSubview:_selectedBtn];
         cell.textLabel.text = @"免打扰";
         cell.imageView.image = [UIImage imageNamed:@"ic_chat_ce_wurao"];
@@ -328,7 +332,8 @@
 {
     OtherUserInfoViewController *contactDetailCtl = [[OtherUserInfoViewController alloc]init];
     contactDetailCtl.userId = contact.userId;
-    [self.navigationController pushViewController:contactDetailCtl animated:YES];}
+    [self.navigationController pushViewController:contactDetailCtl animated:YES];
+}
 
 
 
@@ -353,7 +358,13 @@
  *  @param sender
  */
 - (IBAction)changeMsgStatus:(UIButton *)sender {
-    
+    IMDiscussionGroupManager *manager = [IMDiscussionGroupManager shareInstance];
+    [manager asyncChangeDiscussionGroupStateWithGroup:_groupModel completion:^(BOOL isSuccess, NSInteger errorCode) {
+        if (isSuccess) {
+            _selectedBtn.selected = !_selectedBtn.selected;
+        }
+    }];
+
 }
 
 - (IBAction)changeGroupTitle:(UIButton *)sender {

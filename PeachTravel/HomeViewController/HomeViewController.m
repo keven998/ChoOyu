@@ -355,7 +355,12 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)receiveNewMessage:(BaseMessage * __nonnull)message
 {
-    BOOL needShowNotification = (message.chatType == IMChatTypeIMChatSingleType) ? YES : NO;
+//    BOOL needShowNotification = (message.chatType == IMChatTypeIMChatSingleType) ? YES : NO;
+    BOOL needShowNotification;
+    IMClientManager *clientManager = [IMClientManager shareInstance];
+
+    ChatConversation *conversation = [clientManager.conversationManager getExistConversationInConversationList:message.chatterId];
+    needShowNotification = ![conversation isBlockMessag];
     if (needShowNotification) {
 #if !TARGET_IPHONE_SIMULATOR
         [self playSoundAndVibration];
