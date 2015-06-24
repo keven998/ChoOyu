@@ -406,15 +406,6 @@
                 return tipsCell;
                 
             }  else{
-//                if (model.isChatGroup) {
-//                } else {
-//                    model.nickName = _conversation.chatterName;
-//                    if (model.isSender) {
-//                        model.headImageURL = [NSURL URLWithString:self.accountManager.account.avatarSmall];
-//                    } else {
-//                        model.headImageURL = [NSURL URLWithString:_conversation.chatterAvatar];
-//                    }
-//                }
                 NSString *cellIdentifier = [EMChatViewCell cellIdentifierForMessageModel:model];
                 EMChatViewCell *cell = (EMChatViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
                 if (cell == nil) {
