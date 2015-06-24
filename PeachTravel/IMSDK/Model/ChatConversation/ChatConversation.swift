@@ -167,7 +167,7 @@ class ChatConversation: NSObject {
         }
         var moreMessages = daoHelper.selectChatMessageList(chatterId, untilLocalId: localId, messageCount: messageCount)
         
-        for var i = moreMessages.count-1; i>0; i-- {
+        for var i = moreMessages.count-1; i>=0; i-- {
             var message = moreMessages[i]
             chatMessageList.insert(message, atIndex: 0)
         }

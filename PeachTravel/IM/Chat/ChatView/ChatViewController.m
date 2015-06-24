@@ -126,10 +126,7 @@
     _conversation.delegate = self;
     [_conversation resetConvsersationUnreadMessageCount];
     [_conversation getDefaultChatMessageInConversation:10];
-    
-    for (BaseMessage *message in _conversation.chatMessageList) {
-        [self.dataSource addObject:[[MessageModel alloc] initWithBaseMessage:(message)]];
-    }
+    [self sortDataSource];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeAllMessages:) name:@"RemoveAllMessages" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(exitGroup) name:@"ExitGroup" object:nil];
@@ -150,6 +147,20 @@
     _isScrollToBottom = YES;
     
     [self setupBarButtonItem];
+}
+
+- (void)sortDataSource
+{
+    for (BaseMessage *message in _conversation.chatMessageList) {
+        NSDate *createDate = [NSDate dateWithTimeIntervalInMilliSecondSince1970:(NSTimeInterval)message.createTime*1000];
+        NSLog(@"%ld", message.createTime);
+        NSTimeInterval tempDate = [createDate timeIntervalSinceDate:self.chatTagDate];
+        if (tempDate > 60 || tempDate < -60 || (self.chatTagDate == nil)) {
+            [self.dataSource addObject:[createDate formattedTime]];
+            self.chatTagDate = createDate;
+        }
+        [self.dataSource addObject:[[MessageModel alloc] initWithBaseMessage:(message)]];
+    }
 }
 
 - (UIView *)headerView {
@@ -1014,6 +1025,7 @@
             for (BaseMessage *message in _conversation.chatMessageList) {
                 [self.dataSource addObject:[[MessageModel alloc] initWithBaseMessage:(message)]];
             }
+            [self sortDataSource];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [weakSelf.tableView reloadData];
                 [weakSelf.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:(weakSelf.dataSource.count-currentCount - 1) inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
