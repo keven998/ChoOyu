@@ -125,7 +125,6 @@
     
     _conversation.isCurrentConversation = YES;
     _conversation.delegate = self;
-    [_conversation resetConvsersationUnreadMessageCount];
     [_conversation getDefaultChatMessageInConversation:10];
     [self sortDataSource];
     

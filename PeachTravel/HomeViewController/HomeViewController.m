@@ -407,6 +407,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     UIApplication *application = [UIApplication sharedApplication];
     application.applicationIconBadgeNumber += 1;
 }
+
 - (void)showNotificationWithMessage
 {
     //发送本地推送
@@ -422,6 +423,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     UIApplication *application = [UIApplication sharedApplication];
     application.applicationIconBadgeNumber = badgeNum;
 }
+
 #pragma mark - UITabbarViewControllerDelegate
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController

@@ -570,6 +570,8 @@
     ChatConversation *tzConversation = [self.dataSource objectAtIndex:indexPath.row];
     [self pushChatViewControllerWithConversation:tzConversation];
     tzConversation.unReadMessageCount = 0;
+    [tzConversation resetConvsersationUnreadMessageCount];
+    [_delegate unreadMessageCountHasChange:self.imClientManager.conversationManager.totalMessageUnreadCount];
 }
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -580,6 +582,7 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         ChatConversation *conversation = [self.dataSource objectAtIndex:indexPath.row];
         [self.imClientManager.conversationManager removeConversationWithChatterId: conversation.chatterId];
+       
         [MobClick event:@"event_delete_talk_item"];
     }
 }
