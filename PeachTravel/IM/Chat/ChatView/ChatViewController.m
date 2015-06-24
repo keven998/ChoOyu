@@ -154,7 +154,6 @@
 {
     for (BaseMessage *message in _conversation.chatMessageList) {
         NSDate *createDate = [NSDate dateWithTimeIntervalInMilliSecondSince1970:(NSTimeInterval)message.createTime*1000];
-        NSLog(@"%ld", message.createTime);
         NSTimeInterval tempDate = [createDate timeIntervalSinceDate:self.chatTagDate];
         if (tempDate > 60 || tempDate < -60 || (self.chatTagDate == nil)) {
             [self.dataSource addObject:[createDate formattedTime]];
@@ -390,7 +389,7 @@
     if (!_chatToolBar) {
         _chatToolBar = [[DXMessageToolBar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - [DXMessageToolBar defaultHeight], self.view.frame.size.width, [DXMessageToolBar defaultHeight])];
         _chatToolBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
-        _chatToolBar.backgroundColor = APP_PAGE_COLOR;
+        _chatToolBar.backgroundColor = [UIColor whiteColor];
         _chatToolBar.delegate = self;
         _chatToolBar.rootCtl = self;
     }

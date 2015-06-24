@@ -419,7 +419,7 @@
             }
         }else {
             cell.basicLabel.font = [UIFont systemFontOfSize:14];
-            cell.basicLabel.text = @"   居住在";
+            cell.basicLabel.text = @"   现住地";
             if (_userInfo.residence.length == 0 || [_userInfo.residence isBlankString] || _userInfo.residence == nil) {
                 cell.information.text = @"未设置";
             }else {

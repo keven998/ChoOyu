@@ -170,11 +170,11 @@
             [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:mapBtn]];
         }
         
-        _editBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 44)];
-        [_editBtn setImage:[UIImage imageNamed:@"ic_trip_edit.png"] forState:UIControlStateNormal];
-        [_editBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-        [_editBtn addTarget:self action:@selector(editTrip:) forControlEvents:UIControlEventTouchUpInside];
-        [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_editBtn]];
+//        _editBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 44)];
+//        [_editBtn setImage:[UIImage imageNamed:@"ic_trip_edit.png"] forState:UIControlStateNormal];
+//        [_editBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+//        [_editBtn addTarget:self action:@selector(editTrip:) forControlEvents:UIControlEventTouchUpInside];
+//        [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_editBtn]];
         
         _navgationBarItem.rightBarButtonItems = barItems;
         

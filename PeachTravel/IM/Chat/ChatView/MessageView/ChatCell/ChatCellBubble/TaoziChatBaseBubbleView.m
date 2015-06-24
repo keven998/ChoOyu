@@ -54,7 +54,7 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
         _pictureImageBkgView.layer.cornerRadius = 2.0;
         _pictureImageBkgView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
         _pictureImageView.clipsToBounds = YES;
-
+        
         _propertyBtn = [[UIButton alloc] init];
         [_propertyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _propertyBtn.titleLabel.font = [UIFont systemFontOfSize:10.0];
@@ -116,7 +116,7 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
     }
     
     [_titleBtn setFrame:CGRectMake(_pictureImageView.frame.origin.x + 70, 10, titleWidth, 20)];
-
+    
     CGFloat offsetY;
     if (_model.type ==  IMMessageTypeTravelNoteMessageType
         || _model.type == IMMessageTypeCityPoiMessageType) {
@@ -128,7 +128,7 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
         _propertyBtn.frame = CGRectMake(_titleBtn.frame.origin.x, 30, titleWidth, 15);
         offsetY = 40;
     }
-
+    
     [_descLabel setFrame:CGRectMake(_titleBtn.frame.origin.x, offsetY+4, titleWidth, TaoziBubbleHeight-offsetY-10)];
     
 }
@@ -143,10 +143,11 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
     _model = model;
     
     BOOL isReceiver = !_model.isSender;
-    NSString *imageName = isReceiver ? @"chat_receiver_bg" : @"chat_sender_bg";
-    NSInteger leftCapWidth = isReceiver?BUBBLE_LEFT_LEFT_CAP_WIDTH:BUBBLE_RIGHT_LEFT_CAP_WIDTH;
-    NSInteger topCapHeight =  39;
-    self.backImageView.image = [[UIImage imageNamed:imageName] stretchableImageWithLeftCapWidth:leftCapWidth topCapHeight:topCapHeight];
+    NSString *imageName = isReceiver ? @"chat_receiver_bg" : @"messages_bg_self.png";
+    NSInteger leftCapWidth = isReceiver ? BUBBLE_LEFT_LEFT_CAP_WIDTH : BUBBLE_RIGHT_LEFT_CAP_WIDTH;
+    NSInteger topCapHeight = 25;
+//    self.backImageView.image = [[UIImage imageNamed:imageName] stretchableImageWithLeftCapWidth:leftCapWidth topCapHeight:topCapHeight];
+    self.backImageView.image = [[UIImage imageNamed:imageName] resizableImageWithCapInsets:UIEdgeInsetsMake(leftCapWidth, leftCapWidth, topCapHeight, 2*leftCapWidth)];
     
     if (model.poiModel) {
         [_titleBtn setTitle:model.poiModel.poiName forState:UIControlStateNormal];
@@ -214,7 +215,7 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
                 _propertyBtn.hidden = YES;
                 _descLabel.text = model.poiModel.desc;
                 break;
-
+                
             case IMMessageTypeCityPoiMessageType:
                 _typeLabel.text = @"城市";
                 _propertyBtn.hidden = YES;
@@ -224,7 +225,7 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
             default:
                 break;
         }
-
+        
     }
 }
 

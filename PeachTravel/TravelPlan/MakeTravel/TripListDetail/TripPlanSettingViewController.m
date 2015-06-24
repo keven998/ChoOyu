@@ -19,6 +19,7 @@
 #import "MakePlanViewController.h"
 #import "ForeignViewController.h"
 #import "DomesticViewController.h"
+#import "ScheduleEditorViewController.h"
 
 #define WIDTH self.view.bounds.size.width
 #define HEIGHT self.view.bounds.size.height
@@ -39,12 +40,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     self.view.backgroundColor = [UIColor whiteColor];
     
     _dataArray = [NSMutableArray array];
     [_dataArray addObject:_tripDetail.destinations];
-
+    
     [self createTableView];
     [_tableView registerNib:[UINib nibWithNibName:@"TripPlanSettingCell" bundle:nil] forCellReuseIdentifier:@"settingCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"CityNameCell" bundle:nil] forCellReuseIdentifier:@"cityNameCell"];
@@ -52,7 +53,7 @@
 }
 
 - (void)setTripDetail:(TripDetail *)tripDetail {
-    _tripDetail = tripDetail;                  
+    _tripDetail = tripDetail;
 }
 
 
@@ -134,7 +135,7 @@
             str = [NSString stringWithFormat:@"%@....计划",str];
             return  str;
         } else {
-        return _tripDetail.tripTitle;
+            return _tripDetail.tripTitle;
         }
     }
     else
@@ -153,19 +154,20 @@
 {
     return 44;
 }
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
+    
     if (indexPath.section == 0)
     {
         TripPlanSettingCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingCell" forIndexPath:indexPath];
         if (indexPath.row == 0) {
-            cell.image.image = [UIImage imageNamed:@"share"];
-            cell.cellLabel.text = @"发给好友";
+            cell.image.image = [UIImage imageNamed:@"diliver"];
+            cell.cellLabel.text = @"修改行程";
         }
         else if (indexPath.row == 1){
-            cell.image.image = [UIImage imageNamed:@"diliver"];
-            cell.cellLabel.text = @"转发到其他平台";
+            cell.image.image = [UIImage imageNamed:@"share"];
+            cell.cellLabel.text = @"发给好友";
         }
         return cell;
     }
@@ -185,22 +187,25 @@
 {
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            [self shareOnTaozi];
-        }else if (indexPath.row == 1){
-            [self share:nil];
+            ScheduleEditorViewController *sevc = [[ScheduleEditorViewController alloc] init];
+            sevc.tripDetail = _tripDetail;
+            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:sevc] animated:YES completion:nil];
+        } else if (indexPath.row == 1){
+            //            [self share:nil];
+            [self sendToFriends];
         }
         
     } else if (indexPath.section == 1) {
-            CityDetailTableViewController *cityCtl = [[CityDetailTableViewController alloc]init];
-            CityDestinationPoi *model = _tripDetail.destinations[indexPath.row];
-            cityCtl.cityId = model.cityId;
-            [self.navigationController pushViewController:cityCtl animated:YES];
+        CityDetailTableViewController *cityCtl = [[CityDetailTableViewController alloc]init];
+        CityDestinationPoi *model = _tripDetail.destinations[indexPath.row];
+        cityCtl.cityId = model.cityId;
+        [self.navigationController pushViewController:cityCtl animated:YES];
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES ];
     
 }
 
--(void)shareOnTaozi
+-(void)sendToFriends
 {
     _chatRecordListCtl = [[ChatRecoredListTableViewController alloc] init];
     _chatRecordListCtl.delegate = self;
@@ -216,10 +221,9 @@
     ShareActivity *shareActivity = [[ShareActivity alloc] initWithTitle:@"转发至" delegate:self cancelButtonTitle:@"取消" ShareButtonTitles:shareButtonTitleArray withShareButtonImagesName:shareButtonimageArray];
     [shareActivity showInView:self.navigationController.view];
 }
+
 #pragma mark - CreateConversationDelegate
 - (void)createConversationSuccessWithChatter:(NSInteger)chatterId chatType:(IMChatType)chatType chatTitle:(NSString *)chatTitle
-
-
 {
     TaoziChatMessageBaseViewController *taoziMessageCtl = [[TaoziChatMessageBaseViewController alloc] init];
     [self setChatMessageModel:taoziMessageCtl];
