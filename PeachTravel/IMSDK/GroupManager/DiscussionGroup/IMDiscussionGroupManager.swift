@@ -258,7 +258,9 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
     :param: group
     */
     func updateGroupNumbersInDB(group: IMDiscussionGroup) {
-        
+        var frend = self.convertDiscussionGroupModel2FrendModel(group)
+        var frendManager = FrendManager.shareInstance()
+        frendManager.updateExtDataInDB(frend.extData as String, userId: frend.userId)
     }
 
     /**
@@ -269,7 +271,7 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
     func updateGroupInfoInDB(group: IMDiscussionGroup) {
         var frend = self.convertDiscussionGroupModel2FrendModel(group)
         var frendManager = FrendManager.shareInstance()
-        frendManager.updateFrendInfoInDB(frend)
+        frendManager.addFrend2DB(frend)
     }
     
     /**
@@ -350,7 +352,7 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
                 group.numbers.append(frend)
             }
         }
-        self.updateGroupInfoInDB(group)
+        self.updateGroupNumbersInDB(group)
     }
     
     /**
@@ -370,7 +372,7 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
             }
         }
         group.numbers = leftNumbers
-        self.updateGroupInfoInDB(group)
+        self.updateGroupNumbersInDB(group)
     }
 
     private func dispatchCMDMessage(message: IMCMDMessage) {

@@ -98,9 +98,8 @@ extension IMDiscussionGroupManager {
             if (responseObject.objectForKey("code") as! Int) == 0 {
                 if let result = responseObject.objectForKey("result") as? Array<NSDictionary> {
                     group.updateNumbersInGroup(result)
-                    self.updateGroupInfoInDB(group)
+                    self.updateGroupNumbersInDB(group)
                 }
-
                 completion(isSuccess: true, errorCode: 0, discussionGroup: group)
             } else {
                 completion(isSuccess: false, errorCode: 0, discussionGroup: nil)

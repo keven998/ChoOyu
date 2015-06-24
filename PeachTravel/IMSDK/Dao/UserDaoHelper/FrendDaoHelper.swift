@@ -80,6 +80,9 @@ protocol FrendDaoProtocol {
     func updateNickNameInDB(name: String, userId: Int)
     
     func updateAvatarInDB(avatar: String, userId: Int)
+    
+    func updateExtDataInDB(extData: String, userId: Int)
+
 }
 
 class FrendDaoHelper: BaseDaoHelper, FrendDaoProtocol {
@@ -160,6 +163,15 @@ class FrendDaoHelper: BaseDaoHelper, FrendDaoProtocol {
             println("执行 sql 语句：\(sql)")
             dataBase.executeUpdate(sql, withArgumentsInArray: nil)
         }
+    }
+    
+    func updateExtDataInDB(extData: String, userId: Int) {
+        databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
+            var sql = "update \(frendTableName) set ExtData = \(extData) where UserId = \(userId)"
+            println("执行 sql 语句：\(sql)")
+            dataBase.executeUpdate(sql, withArgumentsInArray: nil)
+        }
+
     }
     
     func selectFrend(#userId: Int) -> FrendModel? {
