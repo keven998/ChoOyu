@@ -1,14 +1,14 @@
 /************************************************************
-  *  * EaseMob CONFIDENTIAL 
-  * __________________ 
-  * Copyright (C) 2013-2014 EaseMob Technologies. All rights reserved. 
-  *  
-  * NOTICE: All information contained herein is, and remains 
-  * the property of EaseMob Technologies.
-  * Dissemination of this information or reproduction of this material 
-  * is strictly forbidden unless prior written permission is obtained
-  * from EaseMob Technologies.
-  */
+ *  * EaseMob CONFIDENTIAL
+ * __________________
+ * Copyright (C) 2013-2014 EaseMob Technologies. All rights reserved.
+ *
+ * NOTICE: All information contained herein is, and remains
+ * the property of EaseMob Technologies.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from EaseMob Technologies.
+ */
 
 #import "EMChatViewBaseCell.h"
 #import <SDWebImage/UIImageView+WebCache.h>
@@ -31,12 +31,11 @@ NSString *const kRouterEventChatHeadImageTapEventName = @"kRouterEventChatHeadIm
         [_headImageView addGestureRecognizer:tap];
         _headImageView.userInteractionEnabled = YES;
         _headImageView.multipleTouchEnabled = YES;
-        _headImageView.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:_headImageView];
         
         _nameLabel = [[UILabel alloc] init];
         _nameLabel.backgroundColor = [UIColor clearColor];
-        _nameLabel.textColor = TEXT_COLOR_TITLE_DESC;
+        _nameLabel.textColor = COLOR_TEXT_II;
         _nameLabel.textAlignment = NSTextAlignmentLeft;
         _nameLabel.font = [UIFont systemFontOfSize:11];
         [self.contentView addSubview:_nameLabel];
@@ -72,8 +71,7 @@ NSString *const kRouterEventChatHeadImageTapEventName = @"kRouterEventChatHeadIm
     
     _nameLabel.hidden = !messageModel.isChatGroup;
     
-    UIImage *placeholderImage = [UIImage imageNamed:@"person_disabled"];
-    [self.headImageView sd_setImageWithURL:_messageModel.headImageURL placeholderImage:placeholderImage];
+    [self.headImageView sd_setImageWithURL:_messageModel.headImageURL placeholderImage:[UIImage imageNamed:@"ic_home_default_avatar.png"]];
 }
 
 #pragma mark - private
@@ -126,7 +124,7 @@ NSString *const kRouterEventChatHeadImageTapEventName = @"kRouterEventChatHeadIm
             identifier = [identifier stringByAppendingString:@"Audio"];
         }
             break;
-                    
+            
         case IMMessageTypeCityPoiMessageType: {
             identifier = [identifier stringByAppendingString:@"city"];
         }
@@ -142,7 +140,7 @@ NSString *const kRouterEventChatHeadImageTapEventName = @"kRouterEventChatHeadIm
         }
             break;
             
-
+            
         default: {
             model.content = @"升级新版本才可以查看这条神秘消息哦";
             identifier = [identifier stringByAppendingString:@"Text"];
