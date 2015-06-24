@@ -131,6 +131,7 @@
 #define contactListNeedUpdateNoti               @ "updatecontactList"           //更新好友列表
 #define updateDestinationsSelectedNoti          @ "updateDestinationsSelected"           //更新目的地列表
 #define updateChateViewNoti                     @ "updateChatView"               //更新聊天界面
+#define updateChateGroupTitleNoti               @ "updateChateGroupTitle"               //更新聊天界面title
 
 #define updateFavoriteListNoti                  @"updateFavoriteListView"    //更新收藏列表
 #define updateGuideListNoti                     @"updateFavoriteListView"    //更新我的攻略列表

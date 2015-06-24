@@ -65,6 +65,7 @@
     dispatch_queue_t _messageQueue;
     dispatch_queue_t loadChatPeopleQueue;
     BOOL _isScrollToBottom;
+    UINavigationItem *_navTitle;
 }
 
 @property (nonatomic) IMChatType chatType;
@@ -135,7 +136,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(exitGroup) name:@"ExitGroup" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground) name:@"applicationDidEnterBackground" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateChatView:) name:updateChateViewNoti object:nil];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateChatTitle:) name:updateChateGroupTitleNoti object:nil];
     _messageQueue = dispatch_queue_create("messageQueue.com", NULL);
     
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -169,23 +170,22 @@
 - (void)setupBarButtonItem
 {
     UINavigationBar *bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
-    UINavigationItem *navTitle = [[UINavigationItem alloc] initWithTitle:self.conversation.chatterName];
-    
+    _navTitle = [[UINavigationItem alloc] initWithTitle:self.conversation.chatterName];
     if (_chatType == IMChatTypeIMChatGroupType || _chatType == IMChatTypeIMChatDiscussionGroupType) {
         UIButton *menu = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
         [menu setImage:[UIImage imageNamed:@"ic_menu_navigationbar.png"] forState:UIControlStateNormal];
         [menu addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
         [menu setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-        navTitle.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:menu];
+        _navTitle.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:menu];
     }
     
     UIButton *back = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
     [back setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
     [back addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
     [back setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-    navTitle.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:back];
+    _navTitle.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:back];
     
-    [bar pushNavigationItem:navTitle animated:YES];
+    [bar pushNavigationItem:_navTitle animated:YES];
     [self.view addSubview:bar];
 }
 
@@ -1216,5 +1216,9 @@
     }
 }
 
-
+- (void)updateChatTitle:(NSNotification *)Noti
+{
+    _navTitle.title = Noti.object;
+    
+}
 @end

@@ -38,6 +38,7 @@
 
 - (void)goBack
 {
+    [self.delegate changeTitleDelegate];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -61,6 +62,8 @@
             [hud hideTZHUD];
             if (isSuccess) {
                 [SVProgressHUD showHint:@"修改成功"];
+                NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+                [center postNotificationName:updateChateGroupTitleNoti object:title];
                 [self performSelector:@selector(goBack) withObject:nil afterDelay:0.4];
             }
         }];

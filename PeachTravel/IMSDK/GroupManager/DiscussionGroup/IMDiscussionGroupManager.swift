@@ -229,9 +229,19 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
     :param: groupState
     
     */
-    func asyncChangeDiscussionGroupState(#group: IMDiscussionGroup, groupState: Bool,completion: (isSuccess: Bool, errorCode: Int) -> ())
+    func asyncChangeDiscussionGroupState(#group: IMDiscussionGroup, completion: (isSuccess: Bool, errorCode: Int) -> ())
     {
-        
+        var groupTypeValue = group.type.rawValue
+        if FrendModel.typeIsCorrect(group.type, typeWeight: IMFrendWeightType.BlockMessage) {
+            groupTypeValue = group.type.rawValue - IMFrendWeightType.BlockMessage.rawValue
+            
+        } else {
+            groupTypeValue = group.type.rawValue + IMFrendWeightType.BlockMessage.rawValue
+            //TODO: 更新数据库
+        }
+        if let type = IMFrendType(rawValue: groupTypeValue) {
+            group.type = type
+        }
     }
 
     

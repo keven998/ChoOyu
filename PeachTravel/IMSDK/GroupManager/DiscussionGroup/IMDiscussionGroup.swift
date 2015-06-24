@@ -12,6 +12,7 @@ class IMDiscussionGroup: NSObject {
     
     var groupId: Int = -1
     var subject: String!
+    var type: IMFrendType = .DiscussionGroup
     var numbers: Array<FrendModel> = Array()
     
     init(jsonData: NSDictionary) {
