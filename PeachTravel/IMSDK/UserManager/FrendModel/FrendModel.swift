@@ -30,6 +30,7 @@ import UIKit
     case Black_Frend = 129
     case Black_Business = 144
     case Black_Expert = 130
+    case Block_Discussion = 768
 }
 
 //类型的权重值
