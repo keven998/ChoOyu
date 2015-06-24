@@ -64,6 +64,8 @@
                 [SVProgressHUD showHint:@"修改成功"];
                 NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
                 [center postNotificationName:updateChateGroupTitleNoti object:title];
+                IMClientManager *client = [IMClientManager shareInstance];
+                [client.conversationManager updateConversationName:title chatterId:_group.groupId];
                 [self performSelector:@selector(goBack) withObject:nil afterDelay:0.4];
             }
         }];
@@ -71,10 +73,12 @@
     
   
 }
+
 -(void)viewWillAppear:(BOOL)animated
 {
     self.navigationController.navigationBarHidden = NO;
 }
+
 - (void)updateSuccess
 {
     

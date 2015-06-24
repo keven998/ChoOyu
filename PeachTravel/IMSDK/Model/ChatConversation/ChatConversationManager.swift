@@ -124,6 +124,22 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
     func createNewConversation(#message: BaseMessage) -> ChatConversation {
         return self.createNewConversation(chatterId: message.chatterId, chatType: message.chatType)
     }
+    
+    /**
+    在已存在的会话列表中取出一条会话
+    
+    :param: chatterId
+    
+    :returns: 
+    */
+    func getExistConversationInConversationList(chatterId: Int) -> ChatConversation? {
+        for exitConversation in conversationList {
+            if exitConversation.chatterId == chatterId {
+                return exitConversation
+            }
+        }
+        return nil
+    }
 
     /**
     通过 chatterid 获取一个 conversation，如果已经存在那么返回一个已存在的，如果不存在新建一个新的

@@ -352,7 +352,6 @@
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
 {
-    
     return [self.dataSource objectForKey:@"headerKeys"];
 }
 

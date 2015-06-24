@@ -109,7 +109,7 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
                     var group = IMDiscussionGroup(jsonData: groupData as! NSDictionary)
                     groupList.append(group)
                     var frendManager = FrendManager.shareInstance()
-                    frendManager.addFrend2DB(self.convertDiscussionGroupModel2FrendModel(group))
+                    frendManager.updateFrendInfoInDB(self.convertDiscussionGroupModel2FrendModel(group))
                 }
             }
             completionBlock(isSuccess: isSuccess, errorCode: errorCode, groupList: groupList)
@@ -244,6 +244,73 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
         }
     }
 
+    /**
+    更新数据库里相关群组的信息
+    
+    :param: group
+    */
+    func updateGroupInfoInDB(group: IMDiscussionGroup) {
+        var frend = self.convertDiscussionGroupModel2FrendModel(group)
+        var frendManager = FrendManager.shareInstance()
+        frendManager.updateFrendInfoInDB(frend)
+    }
+    
+    /**
+    将一个群组转换成一个frendmodel
+    
+    :param: group
+    
+    :returns:
+    */
+    func convertDiscussionGroupModel2FrendModel(group: IMDiscussionGroup) -> FrendModel {
+        var frendModel = FrendModel()
+        frendModel.userId = group.groupId
+        frendModel.nickName = group.subject
+        frendModel.type = IMFrendType.DiscussionGroup
+        if group.numbers.count > 0 {
+            var numberDic = NSMutableDictionary()
+            var array = Array<NSDictionary>()
+            for frend in group.numbers {
+                let dic = ["userId": frend.userId, "nickName": frend.nickName, "avatar": frend.avatar]
+                array.append(dic)
+
+            }
+            numberDic.setObject(array, forKey: "numbers")
+            frendModel.extData = JSONConvertMethod.contentsStrWithJsonObjc(numberDic)!
+        }
+        
+        return frendModel
+    }
+    
+    /**
+    将一个 frendmodel 类型转换为IMDiscussionGroup类型
+    
+    :param: frendModel
+    
+    :returns:
+    */
+    func getFullDiscussionGroupInfo(#frendModel: FrendModel) -> IMDiscussionGroup {
+        var discussionGroup = IMDiscussionGroup()
+        discussionGroup.groupId = frendModel.userId
+        discussionGroup.subject = frendModel.nickName
+        var extData = JSONConvertMethod.jsonObjcWithString(frendModel.extData as String)
+        
+        if let numbersData = extData.objectForKey("numbers") as? Array<NSDictionary> {
+            for userDic in numbersData {
+                let frend = FrendModel(json: userDic)
+                discussionGroup.numbers.append(frend)
+            }
+        }
+        return discussionGroup
+    }
+    
+    func getBasicDiscussionGroupInfo(#frendModel: FrendModel) -> IMDiscussionGroup {
+        var discussionGroup = IMDiscussionGroup()
+        discussionGroup.groupId = frendModel.userId
+        discussionGroup.subject = frendModel.nickName
+        return discussionGroup
+    }
+    
     
  //MARK: private function
     
@@ -289,17 +356,6 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
         self.updateGroupInfoInDB(group)
     }
 
-    /**
-    更新数据库里相关群组的信息
-    
-    :param: group
-    */
-    func updateGroupInfoInDB(group: IMDiscussionGroup) {
-        var frend = self.convertDiscussionGroupModel2FrendModel(group)
-        var frendManager = FrendManager.shareInstance()
-        frendManager.addFrend2DB(frend)
-    }
-    
     private func dispatchCMDMessage(message: IMCMDMessage) {
         switch message.actionCode! {
         case .D_INVITE :
@@ -344,68 +400,6 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
             frendManager.addFrend2DB(frendModel)
         }
     }
-    
-    /**
-    将一个群组转换成一个frendmodel
-    
-    :param: group
-    
-    :returns:
-    */
-    func convertDiscussionGroupModel2FrendModel(group: IMDiscussionGroup) -> FrendModel {
-        var frendModel = FrendModel()
-        frendModel.userId = group.groupId
-        frendModel.nickName = group.subject
-        frendModel.type = IMFrendType.DiscussionGroup
-        if group.numbers.count > 0 {
-            var numberDic = NSMutableDictionary()
-            var array = Array<Int>()
-            
-            for frend in group.numbers {
-                array.append(frend.userId)
-            }
-            numberDic.setObject(array, forKey: "numbers")
-            frendModel.extData = JSONConvertMethod.contentsStrWithJsonObjc(numberDic)!
-        }
-
-        return frendModel
-    }
-    
-    /**
-    将一个 frendmodel 类型转换为IMDiscussionGroup类型
-    
-    :param: frendModel 
-    
-    :returns:
-    */
-    func getFullDiscussionGroupInfo(#frendModel: FrendModel) -> IMDiscussionGroup {
-        var discussionGroup = IMDiscussionGroup()
-        discussionGroup.groupId = frendModel.userId
-        discussionGroup.subject = frendModel.nickName
-        var extData = JSONConvertMethod.jsonObjcWithString(frendModel.extData as String)
-        
-        if let numbersId = extData.objectForKey("numbers") as? Array<Int> {
-            var daohelper = DaoHelper.shareInstance()
-            for userId in numbersId {
-                if let frend = daohelper.selectFrend(userId: userId) {
-                    discussionGroup.numbers.append(frend)
-                } else {
-                    var frendModel = FrendModel()
-                    frendModel.userId = userId
-                    discussionGroup.numbers.append(frendModel)
-                }
-            }
-        }
-        return discussionGroup
-    }
-    
-    func getBasicDiscussionGroupInfo(#frendModel: FrendModel) -> IMDiscussionGroup {
-        var discussionGroup = IMDiscussionGroup()
-        discussionGroup.groupId = frendModel.userId
-        discussionGroup.subject = frendModel.nickName
-        return discussionGroup
-    }
-    
     
     //MARK: CMDMessageManagerDelegate
     

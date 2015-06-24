@@ -226,6 +226,36 @@ public class DaoHelper:NSObject {
         })
     }
     
+    func updateFrendInfoInDB(frend: FrendModel) {
+        dispatch_async(databaseWriteQueue, { () -> Void in
+            self.frendDaoHelper.updateFrendInfoInDB(frend)
+        })
+    }
+    
+    /**
+    更新
+    
+    :param: name
+    :param: userId
+    */
+    func updateNickNameInDB(name: String, userId: Int) {
+        dispatch_async(databaseWriteQueue, { () -> Void in
+            self.frendDaoHelper.updateNickNameInDB(name, userId: userId)
+        })
+    }
+    
+    /**
+    更新
+    
+    :param: name
+    :param: userId
+    */
+    func updateAvatarInDB(avatar: String, userId: Int) {
+        dispatch_async(databaseWriteQueue, { () -> Void in
+            self.frendDaoHelper.updateAvatarInDB(avatar, userId: userId)
+        })
+    }
+    
     func selectFrend(#userId: Int) -> FrendModel? {
         return self.frendDaoHelper.selectFrend(userId: userId)
     }

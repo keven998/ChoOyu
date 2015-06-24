@@ -64,6 +64,33 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
         daoHelper.addFrend2DB(frend)
     }
     
+    func updateFrendInfoInDB(frend: FrendModel) {
+        var daoHelper = DaoHelper.shareInstance()
+        daoHelper.updateFrendInfoInDB(frend)
+    }
+    
+    /**
+    更新
+    
+    :param: name
+    :param: userId
+    */
+    func updateNickNameInDB(name: String, userId: Int) {
+        var daoHelper = DaoHelper.shareInstance()
+        daoHelper.updateNickNameInDB(name, userId: userId)
+
+    }
+    
+    /**
+    更新
+    
+    :param: avatar
+    :param: userId
+    */
+    func updateAvatarInDB(avatar: String, userId: Int) {
+        var daoHelper = DaoHelper.shareInstance()
+        daoHelper.updateAvatarInDB(avatar, userId: userId)
+    }
     
     /**
     获取所有的好友列表

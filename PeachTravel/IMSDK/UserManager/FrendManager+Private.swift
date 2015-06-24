@@ -28,7 +28,7 @@ extension FrendManager {
                 if (responseObject.objectForKey("code") as! Int) == 0 {
                     let resultDic = responseObject.objectForKey("result") as! NSDictionary
                     var frend = FrendModel(json: resultDic)
-                    self.addFrend2DB(frend);
+                    self.updateFrendInfoInDB(frend);
                     completion(isSuccess: true, errorCode: 0, frendInfo: frend)
                 } else {
                     completion(isSuccess: false, errorCode: 0, frendInfo: nil)
