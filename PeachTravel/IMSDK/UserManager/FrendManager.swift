@@ -92,6 +92,11 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
         daoHelper.updateAvatarInDB(avatar, userId: userId)
     }
     
+    func updateExtDataInDB(extData: String, userId: Int) {
+        var daoHelper = DaoHelper.shareInstance()
+        daoHelper.updateExtDataInDB(extData, userId: userId)
+    }
+    
     /**
     获取所有的好友列表
     :returns:

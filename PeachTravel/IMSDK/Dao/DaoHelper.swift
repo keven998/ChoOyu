@@ -256,6 +256,13 @@ public class DaoHelper:NSObject {
         })
     }
     
+    func updateExtDataInDB(extData: String, userId: Int) {
+        dispatch_async(databaseWriteQueue, { () -> Void in
+            self.frendDaoHelper.updateExtDataInDB(extData, userId: userId)
+        })
+    }
+
+    
     func selectFrend(#userId: Int) -> FrendModel? {
         return self.frendDaoHelper.selectFrend(userId: userId)
     }

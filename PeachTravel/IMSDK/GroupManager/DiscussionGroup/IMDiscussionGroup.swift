@@ -24,7 +24,7 @@ class IMDiscussionGroup: NSObject {
         for frendDic in jsonData {
             let frend = FrendModel(json: frendDic)
             let frendManager = FrendManager.shareInstance()
-            frendManager.updateFrendInfoInDB(frend)
+            frendManager.addFrend2DB(frend)
             numbers.append(frend)
         }
     }

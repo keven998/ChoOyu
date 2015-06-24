@@ -33,8 +33,9 @@ class ChatConversation: NSObject {
     var lastUpdateTime: Int = 0
     var chatMessageList: Array<BaseMessage>
     var chatType: IMChatType = IMChatType.IMChatSingleType     //聊天类型，默认是单聊
-    var isCurrentConversation: Bool = false        //是否是当前显示的会话，默认为 false
-    var isTopConversation: Bool = false            //是否置顶
+    var isCurrentConversation: Bool = false                    //是否是当前显示的会话，默认为 false
+    var isTopConversation: Bool = false                        //是否置顶
+    var isBlockMessag: Bool = false                            //是否设置为免打扰
     var unReadMessageCount: Int {
         willSet {
             ChatConversation.updateUnreadMessageCountInDB(newValue, chatterId: chatterId)
@@ -71,6 +72,7 @@ class ChatConversation: NSObject {
         } else if FrendModel.typeIsCorrect(frendType, typeWeight: IMFrendWeightType.DiscussionGroup) {
             chatType = IMChatType.IMChatDiscussionGroupType
         }
+        isBlockMessag = FrendModel.typeIsCorrect(frendType, typeWeight: IMFrendWeightType.BlockMessage)
     }
     
 //MARK: private function
