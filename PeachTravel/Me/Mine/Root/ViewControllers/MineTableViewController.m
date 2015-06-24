@@ -183,7 +183,7 @@
     friendNumber.textColor = COLOR_TEXT_I;
     friendNumber.textAlignment = NSTextAlignmentCenter;
     friendNumber.font = [UIFont systemFontOfSize:15];
-    NSString *friendCount = [NSString stringWithFormat:@"%lu",_accountManager.account.frendList.count];
+    NSString *friendCount = [NSString stringWithFormat:@"%lu位",_accountManager.account.frendList.count];
     friendNumber.text = friendCount;
     friendNumber.lineBreakMode = NSLineBreakByTruncatingTail;
     _friendCount = friendNumber;
@@ -202,7 +202,7 @@
     planNumber.textColor = COLOR_TEXT_I;
     planNumber.textAlignment = NSTextAlignmentCenter;
     planNumber.font = [UIFont systemFontOfSize:15];
-    NSString *planCount = [NSString stringWithFormat:@"%lu",_accountManager.account.guideCnt];
+    NSString *planCount = [NSString stringWithFormat:@"%lu条",_accountManager.account.guideCnt];
     planNumber.text = planCount;
     _planCount = planNumber;
     planNumber.lineBreakMode = NSLineBreakByTruncatingTail;
