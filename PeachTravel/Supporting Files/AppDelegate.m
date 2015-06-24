@@ -21,6 +21,7 @@
 
 @property (assign, nonatomic) int lastPayloadIndex;
 @property (retain, nonatomic) NSString *payloadId;
+@property (nonatomic, strong) HomeViewController *homeViewController;
 
 @end
 
@@ -52,9 +53,9 @@
 //    if (message) {
 //        _homeViewController.shouldJumpToChatListWhenAppLaunch = YES;
 //    }
-    self.window.rootViewController = [[HomeViewController alloc] init];
+    _homeViewController = [[HomeViewController alloc] init];
+    self.window.rootViewController = _homeViewController;
     [self.window makeKeyAndVisible];
-    
     
     /** 设置友盟分享**/
     [UMSocialData openLog:NO];
@@ -113,6 +114,7 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     [self lvApplicationDidBecomeActive:application];
+    [_homeViewController updateViewWithUnreadMessageCount];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
