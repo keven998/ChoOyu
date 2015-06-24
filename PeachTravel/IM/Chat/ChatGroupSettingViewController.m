@@ -16,7 +16,7 @@
 #import "AddMemberCell.h"
 #import "SWTableViewCell.h"
 
-@interface ChatGroupSettingViewController () <UITableViewDataSource,UITableViewDelegate,CreateConversationDelegate,SWTableViewCellDelegate>
+@interface ChatGroupSettingViewController () <UITableViewDataSource,UITableViewDelegate,CreateConversationDelegate,SWTableViewCellDelegate,changeTitle>
 {
     UITableView *_tableView;
     UIButton *_selectedBtn;
@@ -206,6 +206,7 @@
         ChangeGroupTitleViewController *changeCtl = [[ChangeGroupTitleViewController alloc] init];
         changeCtl.group = _groupModel;
         changeCtl.oldTitle = _groupModel.subject;
+        changeCtl.delegate = self;
         [self.navigationController pushViewController:changeCtl animated:YES];
     
     }
@@ -433,4 +434,9 @@
     [self updateView];
 }
 
+#pragma mark - changeTitle
+- (void)changeTitleDelegate
+{
+    [self updateView];
+}
 @end

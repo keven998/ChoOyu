@@ -141,6 +141,12 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
         
     }
     
+    /**
+    修改讨论组title
+    
+    :param: groupId
+    :param: title
+    */
     func asyncChangeDiscussionGroupTitle(#group: IMDiscussionGroup, title: String, completion:(isSuccess: Bool, errorCode: Int) -> ()) {
         var params = NSMutableDictionary()
         params.setObject(title, forKey: "name")
@@ -214,8 +220,26 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
         }
     }
     
-    func asyncChangeDiscussionGroupSubject(#group: IMDiscussionGroup, subjectName: String,completion: (isSuccess: Bool, errorCode: Int) -> ())
+    /**
+    修改讨论组状态(免打扰)
+    
+    :param: groupId
+    :param: groupState
+    
+    */
+    func asyncChangeDiscussionGroupState(#group: IMDiscussionGroup, completion: (isSuccess: Bool, errorCode: Int) -> ())
     {
+        var groupTypeValue = group.type.rawValue
+        if FrendModel.typeIsCorrect(group.type, typeWeight: IMFrendWeightType.BlockMessage) {
+            groupTypeValue = group.type.rawValue - IMFrendWeightType.BlockMessage.rawValue
+            
+        } else {
+            groupTypeValue = group.type.rawValue + IMFrendWeightType.BlockMessage.rawValue
+            //TODO: 更新数据库
+        }
+        if let type = IMFrendType(rawValue: groupTypeValue) {
+            group.type = type
+        }
         
     }
     
