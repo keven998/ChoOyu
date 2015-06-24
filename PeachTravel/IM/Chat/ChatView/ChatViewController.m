@@ -1037,16 +1037,23 @@
     //
     //    if ([sender isKindOfClass:[NSNotification class]]) {
     //        NSString *chatter = (NSString *)[(NSNotification *)sender object];
-    //        if (_isChatGroup && [chatter isEqualToString:_conversation.chatter]) {
+//            if (_isChatGroup && [chatter isEqualToString:_conversation.chatter]) {
     //            [_conversation removeAllMessages];
     //            [_dataSource removeAllObjects];
     //            [_tableView reloadData];
-    //        } else if (!_isChatGroup && [chatter isEqualToString:_conversation.chatter]) {
+//            } else if (!_isChatGroup && [chatter isEqualToString:_conversation.chatter]) {
     //            [_conversation removeAllMessages];
     //            [_dataSource removeAllObjects];
     //            [_tableView reloadData];
     //        }
     //    }
+    if (_dataSource.count == 0) {
+        return;
+    }
+    
+    [_dataSource removeAllObjects];
+    [_conversation deleteAllMessage];
+    [_tableView reloadData];
 }
 
 - (void)showMenuViewController:(UIView *)showInView andIndexPath:(NSIndexPath *)indexPath messageType:(IMMessageType)messageType

@@ -223,7 +223,11 @@
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"确认删除聊天记录？" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
             if (buttonIndex == 1) {
-//                [[NSNotificationCenter defaultCenter] postNotificationName:@"RemoveAllMessages" object:_groupModel.groupId];
+                
+//                NSDictionary *group = [NSDictionary dictionary];
+//                NSNumber *chatNum = [NSNumber numberWithInteger:_groupModel.groupId];
+//                [group setValue:chatNum forKeyPath:@"groupId"];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"RemoveAllMessages" object:nil userInfo:nil];
             }
         }];
     }
