@@ -341,21 +341,32 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     }
 }
 
-#pragma mark - UnreadMessageCountChangeDelegate
-
-- (void)unreadMessageCountHasChange:(NSInteger)unreadCount
+- (void)updateViewWithUnreadMessageCount
 {
+    NSInteger unreadCount = [IMClientManager shareInstance].conversationManager.totalMessageUnreadCount;
     UITabBarItem *item = [self.tabBar.items firstObject];
     if (unreadCount == 0) {
         item.badgeValue = nil;
         badgeNum = 0;
-        [self showNotificationWithMessage];
+        UIApplication *application = [UIApplication sharedApplication];
+        application.applicationIconBadgeNumber = badgeNum;
+        
     } else {
         item.badgeValue = [NSString stringWithFormat:@"%ld", unreadCount];
         badgeNum = unreadCount;
-        [self showNotificationWithMessage];
+        UIApplication *application = [UIApplication sharedApplication];
+        application.applicationIconBadgeNumber = badgeNum;
     }
+
 }
+
+#pragma mark - UnreadMessageCountChangeDelegate
+
+- (void)unreadMessageCountHasChange
+{
+    [self updateViewWithUnreadMessageCount];
+}
+
 
 #pragma mark - MessageReceiveManagerDelegate
 
@@ -363,16 +374,24 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 {
     BOOL needShowNotification;
     IMClientManager *clientManager = [IMClientManager shareInstance];
-
+    
     ChatConversation *conversation = [clientManager.conversationManager getExistConversationInConversationList:message.chatterId];
     needShowNotification = ![conversation isBlockMessag];
     if (needShowNotification) {
+        if (!conversation.isCurrentConversation) {
+            [self updateViewWithUnreadMessageCount];
+        }
 #if !TARGET_IPHONE_SIMULATOR
         [self playSoundAndVibration];
         
         BOOL isAppActivity = [[UIApplication sharedApplication] applicationState] == UIApplicationStateActive;
         if (!isAppActivity) {
             [self showNotificationWithMessage:message];
+            if (conversation.isCurrentConversation) {
+                UIApplication *application = [UIApplication sharedApplication];
+                NSInteger value = application.applicationIconBadgeNumber;
+                application.applicationIconBadgeNumber = ++value;
+            }
         }
 #endif
     }
@@ -404,24 +423,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     notification.timeZone = [NSTimeZone defaultTimeZone];
     //发送通知
     [[UIApplication sharedApplication] scheduleLocalNotification:notification];
-    UIApplication *application = [UIApplication sharedApplication];
-    application.applicationIconBadgeNumber += 1;
-}
-
-- (void)showNotificationWithMessage
-{
-    //发送本地推送
-    UILocalNotification *notification = [[UILocalNotification alloc] init];
-    notification.fireDate = [NSDate date]; //触发通知的时间
-    
-    notification.alertBody = @"您有一条新消息";
-    
-    notification.alertAction = @"打开";
-    notification.timeZone = [NSTimeZone defaultTimeZone];
-    //发送通知
-    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
-    UIApplication *application = [UIApplication sharedApplication];
-    application.applicationIconBadgeNumber = badgeNum;
 }
 
 #pragma mark - UITabbarViewControllerDelegate

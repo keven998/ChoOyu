@@ -97,6 +97,7 @@
     [MobClick beginLogPageView:@"page_talk_lists"];
     [self refreshDataSource];
     [self updateNavigationTitleViewStatus];
+    [_delegate unreadMessageCountHasChange];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
@@ -134,7 +135,6 @@
 {
     _dataSource = [[self.imClientManager.conversationManager getConversationList] mutableCopy];
     [self.tableView reloadData];
-    [_delegate unreadMessageCountHasChange:self.imClientManager.conversationManager.totalMessageUnreadCount];
     for (ChatConversation *tzConversation in _dataSource) {
         if ([tzConversation.chatterName isBlankString]) {
             [self.imClientManager.conversationManager asyncGetConversationInfoFromServer:tzConversation completion:^(ChatConversation * conversation) {
@@ -571,7 +571,7 @@
     [self pushChatViewControllerWithConversation:tzConversation];
     tzConversation.unReadMessageCount = 0;
     [tzConversation resetConvsersationUnreadMessageCount];
-    [_delegate unreadMessageCountHasChange:self.imClientManager.conversationManager.totalMessageUnreadCount];
+    [_delegate unreadMessageCountHasChange];
 }
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -590,7 +590,7 @@
 #pragma mark - ChatConversationManagerDelegate
 - (void)conversationsHaveAdded:(NSArray * __nonnull)conversationList
 {
-    NSLog(@"ChatConversationManagerDelegate - conversationListNeedUpdate");
+    [_delegate unreadMessageCountHasChange];
     [self refreshDataSource];
 }
 
@@ -602,6 +602,7 @@
                 NSInteger row = [_dataSource indexOfObject:conversation];
                 [_dataSource removeObject:conversation];
                 [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:row inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+                [_delegate unreadMessageCountHasChange];
                 break;
             }
         }

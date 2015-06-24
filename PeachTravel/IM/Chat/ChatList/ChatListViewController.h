@@ -15,7 +15,7 @@
  *
  *  @param unreadCount 
  */
-- (void)unreadMessageCountHasChange:(NSInteger)unreadCount;
+- (void)unreadMessageCountHasChange;
 
 @end
 
