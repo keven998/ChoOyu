@@ -81,6 +81,7 @@
 		27F7EA6F1B0DB0A700148A66 /* TaoziSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F7EA6E1B0DB0A700148A66 /* TaoziSearchBar.m */; };
 		27FC91541AF205030083F052 /* HeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FC91521AF205030083F052 /* HeaderCell.m */; };
 		27FC91551AF205030083F052 /* HeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27FC91531AF205030083F052 /* HeaderCell.xib */; };
+		27FD63B01B3A9D2C00BC8170 /* messages_bg_friend@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27FD63AF1B3A9D2C00BC8170 /* messages_bg_friend@3x.png */; };
 		27FF1A3C1B04B91F00643D77 /* AIDatePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FF1A3B1B04B91F00643D77 /* AIDatePickerController.m */; };
 		27FF1A3D1B04B93C00643D77 /* AIDatePickerController.h in Sources */ = {isa = PBXBuildFile; fileRef = 27FF1A3A1B04B91F00643D77 /* AIDatePickerController.h */; };
 		27FF1A721B04BE0E00643D77 /* SignatureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FF1A711B04BE0E00643D77 /* SignatureViewController.m */; };
@@ -1002,6 +1003,7 @@
 		27FC91511AF205030083F052 /* HeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderCell.h; sourceTree = "<group>"; };
 		27FC91521AF205030083F052 /* HeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderCell.m; sourceTree = "<group>"; };
 		27FC91531AF205030083F052 /* HeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeaderCell.xib; sourceTree = "<group>"; };
+		27FD63AF1B3A9D2C00BC8170 /* messages_bg_friend@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "messages_bg_friend@3x.png"; sourceTree = "<group>"; };
 		27FF1A3A1B04B91F00643D77 /* AIDatePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIDatePickerController.h; sourceTree = "<group>"; };
 		27FF1A3B1B04B91F00643D77 /* AIDatePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIDatePickerController.m; sourceTree = "<group>"; };
 		27FF1A701B04BE0E00643D77 /* SignatureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignatureViewController.h; sourceTree = "<group>"; };
@@ -2567,6 +2569,7 @@
 			isa = PBXGroup;
 			children = (
 				C63FFCBE1B3A6CFB0026758F /* messages_bg_self@3x.png */,
+				27FD63AF1B3A9D2C00BC8170 /* messages_bg_friend@3x.png */,
 				C63FFCBF1B3A6CFB0026758F /* messages_icon_audio_default@3x.png */,
 				C63FFCC01B3A6CFB0026758F /* messages_icon_keyboard_default@3x.png */,
 				C63FFCC11B3A6CFB0026758F /* messages_icon_plus_default@3x.png */,
@@ -6174,6 +6177,7 @@
 				C63FFCC91B3A6CFB0026758F /* messages_icon_plus_default@3x.png in Resources */,
 				D9A804E31A80E738005AD701 /* ic_gray_complete@2x.png in Resources */,
 				D9A805361A80E738005AD701 /* ic_city_shopping@2x.png in Resources */,
+				27FD63B01B3A9D2C00BC8170 /* messages_bg_friend@3x.png in Resources */,
 				D917DA9B1A8B1D3D0039720A /* ic_star_gray_small@2x.png in Resources */,
 				27FF1AFD1B0B139300643D77 /* ic_xingchengdan_queding@2x.png in Resources */,
 				27FF1A961B05D4D000643D77 /* ic_trip_new_3@2x.png in Resources */,
