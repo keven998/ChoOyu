@@ -25,7 +25,6 @@ import UIKit
     */
     optional func someoneQuiteDiscussionGroup(content: NSDictionary)
 
-    
 }
 
 let discussionGroupManager = IMDiscussionGroupManager()
@@ -142,8 +141,6 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
         
     }
     
-    
-    
     func asyncChangeDiscussionGroupTitle(#group: IMDiscussionGroup, title: String, completion:(isSuccess: Bool, errorCode: Int) -> ()) {
         var params = NSMutableDictionary()
         params.setObject(title, forKey: "name")
@@ -159,7 +156,6 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
                 completion(isSuccess: false, errorCode: 0)
             }
         }
-
     }
     
     /**
@@ -220,7 +216,17 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
     
     func asyncChangeDiscussionGroupSubject(#group: IMDiscussionGroup, subjectName: String,completion: (isSuccess: Bool, errorCode: Int) -> ())
     {
-            }
+        
+    }
+    
+    /**
+    更新数据库里群组信息
+    
+    :param: group
+    */
+    func updateGroupNumbersInDB(group: IMDiscussionGroup) {
+        
+    }
 
     /**
     更新数据库里相关群组的信息
@@ -342,7 +348,6 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
         default :
             break
         }
-       
     }
     
     /**
