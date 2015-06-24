@@ -31,6 +31,15 @@ protocol FrendDaoProtocol {
     */
     func addFrend2DB(frend: FrendModel)
     
+    
+    /**
+    更新一个frend 信息，如果数据库里不存在则插入一个
+    :param: frend
+    :returns:
+    */
+    func updateFrendInfoInDB(frend: FrendModel)
+    
+    
     /**
     获取所有的是我的好友的列表
     :returns:
@@ -67,6 +76,10 @@ protocol FrendDaoProtocol {
     :param: type
     */
     func updateFrendType(#userId: Int, type: IMFrendType)
+    
+    func updateNickNameInDB(name: String, userId: Int)
+    
+    func updateAvatarInDB(avatar: String, userId: Int)
 }
 
 class FrendDaoHelper: BaseDaoHelper, FrendDaoProtocol {
@@ -112,10 +125,40 @@ class FrendDaoHelper: BaseDaoHelper, FrendDaoProtocol {
         }
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
 
+            var sql = "insert into \(frendTableName) (UserId, NickName, Avatar, AvatarSmall, ShortPY, FullPY, Signature, Memo, Sex, Type, ExtData) values (?,?,?,?,?,?,?,?,?,?,?)"
+            println("执行 sql 语句：\(sql)")
+            var array = [frend.userId, frend.nickName, frend.avatar, frend.avatarSmall, frend.shortPY, frend.fullPY, frend.signature, frend.memo, frend.sex, frend.type.rawValue, frend.extData]
+            dataBase.executeUpdate(sql, withArgumentsInArray: array as [AnyObject])
+        }
+    }
+    
+    func updateFrendInfoInDB(frend: FrendModel) {
+        if !super.tableIsExit(frendTableName) {
+            createFrendTable()
+        }
+        databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
+            
             var sql = "insert or replace into \(frendTableName) (UserId, NickName, Avatar, AvatarSmall, ShortPY, FullPY, Signature, Memo, Sex, Type, ExtData) values (?,?,?,?,?,?,?,?,?,?,?)"
             println("执行 sql 语句：\(sql)")
             var array = [frend.userId, frend.nickName, frend.avatar, frend.avatarSmall, frend.shortPY, frend.fullPY, frend.signature, frend.memo, frend.sex, frend.type.rawValue, frend.extData]
             dataBase.executeUpdate(sql, withArgumentsInArray: array as [AnyObject])
+        }
+    }
+
+    
+    func updateAvatarInDB(avatar: String, userId: Int) {
+        databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
+            var sql = "update \(frendTableName) set Avatar = \(avatar) where UserId = \(userId)"
+            println("执行 sql 语句：\(sql)")
+            dataBase.executeUpdate(sql, withArgumentsInArray: nil)
+        }
+    }
+    
+    func updateNickNameInDB(name: String, userId: Int) {
+        databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
+            var sql = "update \(frendTableName) set NickName = \(name) where UserId = \(userId)"
+            println("执行 sql 语句：\(sql)")
+            dataBase.executeUpdate(sql, withArgumentsInArray: nil)
         }
     }
     

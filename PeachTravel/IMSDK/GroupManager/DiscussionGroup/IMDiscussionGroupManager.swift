@@ -109,7 +109,7 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
                     var group = IMDiscussionGroup(jsonData: groupData as! NSDictionary)
                     groupList.append(group)
                     var frendManager = FrendManager.shareInstance()
-                    frendManager.addFrend2DB(self.convertDiscussionGroupModel2FrendModel(group))
+                    frendManager.updateFrendInfoInDB(self.convertDiscussionGroupModel2FrendModel(group))
                 }
             }
             completionBlock(isSuccess: isSuccess, errorCode: errorCode, groupList: groupList)
@@ -230,7 +230,7 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
     func updateGroupInfoInDB(group: IMDiscussionGroup) {
         var frend = self.convertDiscussionGroupModel2FrendModel(group)
         var frendManager = FrendManager.shareInstance()
-        frendManager.addFrend2DB(frend)
+        frendManager.updateFrendInfoInDB(frend)
     }
     
     /**
