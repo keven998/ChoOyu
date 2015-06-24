@@ -16,6 +16,8 @@ protocol ChatMessageDaoHelperProtocol{
     
     func deleteChatMessage(tableName: String, localId: Int)
     
+    func deleteAllMessage(tableName: String)
+    
     func insertChatMessageList(messageList: Array<BaseMessage>)
     
     func updateMessageInDB(tableName: String, message:BaseMessage)
@@ -93,6 +95,17 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
         
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
             var sql = "create table '\(tableName)' (LocalId INTEGER PRIMARY KEY AUTOINCREMENT  NOT NULL, ServerId INTEGER, Status int(4), Type int(4), Message TEXT, CreateTime INTEGER, SendType int, SenderId int)"
+            if (dataBase.executeUpdate(sql, withArgumentsInArray: nil)) {
+                println("success 执行 sql 语句：\(sql)")
+            } else {
+                println("error 执行 sql 语句：\(sql)")
+            }
+        }
+    }
+    
+    func deleteAllMessage(tableName: String) {
+        databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
+            var sql = "delete from '\(tableName)'"
             if (dataBase.executeUpdate(sql, withArgumentsInArray: nil)) {
                 println("success 执行 sql 语句：\(sql)")
             } else {

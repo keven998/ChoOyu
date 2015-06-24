@@ -44,7 +44,6 @@ class ChatConversation: NSObject {
     
     weak var delegate: ChatConversationDelegate?
     
-    
     override init() {
         chatterId = 0
         chatMessageList = Array()
@@ -122,6 +121,14 @@ class ChatConversation: NSObject {
         }
         var daoHelper = DaoHelper.shareInstance()
         daoHelper.deleteChatMessage("chat_\(chatterId)", localId: localId)
+    }
+    
+    /**
+    删除会话中所有的信息
+    */
+    func deleteAllMessage() {
+        var daoHelper = DaoHelper.shareInstance()
+        daoHelper.delteAllMessageInDB("chat_\(chatterId)")
     }
     
     /**

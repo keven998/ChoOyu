@@ -121,6 +121,12 @@ public class DaoHelper:NSObject {
         })
     }
     
+    func delteAllMessageInDB(tableName: String) {
+        dispatch_async(databaseWriteQueue, { () -> Void in
+            self.chatMessageDaoHelper.deleteAllMessage(tableName)
+        })
+    }
+    
     func insertChatMessage(tableName: String, message:BaseMessage) {
         dispatch_async(databaseWriteQueue, { () -> Void in
             self.chatMessageDaoHelper.insertChatMessage(tableName, message:message)
