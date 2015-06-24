@@ -99,7 +99,7 @@
     CGFloat width = CGRectGetWidth(self.bounds);
     self.imageView.frame = CGRectMake(12, 10, 56, 56);
     self.imageView.contentMode = UIViewContentModeScaleAspectFill;
-    self.imageView.layer.cornerRadius = 28;
+//    self.imageView.layer.cornerRadius = 28;
     self.imageView.clipsToBounds = YES;
     
     CGFloat contentOffsetX = CGRectGetMaxX(self.imageView.frame) + 10;
@@ -161,7 +161,7 @@
         self.textLabel.frame = tf;
         lf.origin.x = tf.origin.x + tf.size.width + 5;
         _unreadLabel.frame = lf;
-    }else{
+    } else{
         [_unreadLabel setHidden:YES];
     }
     
