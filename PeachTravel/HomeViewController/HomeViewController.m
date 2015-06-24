@@ -351,11 +351,17 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         UIApplication *application = [UIApplication sharedApplication];
         application.applicationIconBadgeNumber = badgeNum;
         
-    } else {
+    } else if (unreadCount > 0 && unreadCount < 100){
         item.badgeValue = [NSString stringWithFormat:@"%ld", unreadCount];
         badgeNum = unreadCount;
         UIApplication *application = [UIApplication sharedApplication];
         application.applicationIconBadgeNumber = badgeNum;
+    } else {
+        item.badgeValue = [NSString stringWithFormat:@"99+"];
+        badgeNum = unreadCount;
+        UIApplication *application = [UIApplication sharedApplication];
+        application.applicationIconBadgeNumber = badgeNum;
+
     }
 
 }

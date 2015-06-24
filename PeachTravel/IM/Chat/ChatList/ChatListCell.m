@@ -139,14 +139,17 @@
         CGRect lf = _unreadLabel.frame;
         if (_unreadCount < 9) {
             lf.size.width = 21;
+            _unreadLabel.text = [NSString stringWithFormat:@"%ld",(long)_unreadCount];
         } else if (_unreadCount > 9 && _unreadCount < 99){
             lf.size.width = 29;
+            _unreadLabel.text = [NSString stringWithFormat:@"%ld",(long)_unreadCount];
         } else {
             lf.size.width = 33;
+            _unreadLabel.text = [NSString stringWithFormat:@"99+"];
         }
         [_unreadLabel setHidden:NO];
         [self.contentView bringSubviewToFront:_unreadLabel];
-        _unreadLabel.text = [NSString stringWithFormat:@"%ld",(long)_unreadCount];
+        
         
         CGRect tf = self.textLabel.frame;
         CGFloat maxw = tf.size.width - lf.size.width - 5;
@@ -164,7 +167,7 @@
     } else{
         [_unreadLabel setHidden:YES];
     }
-    
+    _unreadLabel.center = CGPointMake(68, 12);
     spaceView.frame = CGRectMake(10, self.contentView.frame.size.height-0.5, width - 10, 0.5);
     //    self.selectedBackgroundView.frame = self.bounds;
 }
