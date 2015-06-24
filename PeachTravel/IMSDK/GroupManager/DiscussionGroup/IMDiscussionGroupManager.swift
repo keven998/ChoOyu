@@ -235,12 +235,12 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
             
         } else {
             groupTypeValue = group.type.rawValue + IMFrendWeightType.BlockMessage.rawValue
-            //TODO: 更新数据库
         }
         if let type = IMFrendType(rawValue: groupTypeValue) {
             group.type = type
         }
-        
+        let daoHelper = DaoHelper.shareInstance()
+        daoHelper.updateFrendType(userId: group.groupId, frendType: group.type)
     }
     
     /**
