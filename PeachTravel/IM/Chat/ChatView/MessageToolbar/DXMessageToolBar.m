@@ -109,7 +109,6 @@
 {
     if (_toolbarView == nil) {
         _toolbarView = [[UIView alloc] init];
-        _toolbarView.backgroundColor = APP_PAGE_COLOR;
         _toolbarView.userInteractionEnabled = YES;
     }
     
@@ -285,16 +284,14 @@
     
     self.activityButtomView = nil;
     self.isShowButtomView = NO;
-//    self.backgroundImageView.image = [[UIImage imageNamed:@"messageToolbarBg"] stretchableImageWithLeftCapWidth:0.5 topCapHeight:10];
-//    [self addSubview:self.backgroundImageView];
     
     self.toolbarView.frame = CGRectMake(0, 0, CGRectGetWidth(self.bounds), kVerticalPadding * 2 + kInputTextViewMinHeight);
     UIView *shadowImg = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), 0.5)];
     shadowImg.backgroundColor = [UIColor lightGrayColor];
     [self.toolbarView addSubview:shadowImg];
     
-    UIView *shadowImgBottom = [[UIView alloc] initWithFrame:CGRectMake(0, self.toolbarView.frame.size.height - 0.5, CGRectGetWidth(self.bounds), 0.5)];
-    shadowImgBottom.backgroundColor = GRAY_COLOR;
+    UIView *shadowImgBottom = [[UIView alloc] initWithFrame:CGRectMake(0, self.toolbarView.frame.size.height - 0.6, CGRectGetWidth(self.bounds), 0.6)];
+    shadowImgBottom.backgroundColor = COLOR_LINE;
     [self.toolbarView addSubview:shadowImgBottom];
     
     [self addSubview:self.toolbarView];
@@ -317,8 +314,8 @@
     //转变输入样式
     self.styleChangeButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 46, _toolbarView.frame.size.height)];
     self.styleChangeButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    [self.styleChangeButton setImage:[UIImage imageNamed:@"chatBar_record"] forState:UIControlStateNormal];
-    [self.styleChangeButton setImage:[UIImage imageNamed:@"ic_keyboard"] forState:UIControlStateSelected];
+    [self.styleChangeButton setImage:[UIImage imageNamed:@"messages_icon_audio_default.png"] forState:UIControlStateNormal];
+    [self.styleChangeButton setImage:[UIImage imageNamed:@"messages_icon_keyboard_default.png"] forState:UIControlStateSelected];
     [self.styleChangeButton addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
     self.styleChangeButton.tag = 0;
     allButtonWidth += CGRectGetWidth(self.styleChangeButton.frame);
@@ -326,9 +323,9 @@
     //更多
     self.moreButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.bounds) - 46, 0, 46, _toolbarView.frame.size.height)];
     self.moreButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    [self.moreButton setImage:[UIImage imageNamed:@"chatBar_more"] forState:UIControlStateNormal];
+    [self.moreButton setImage:[UIImage imageNamed:@"messages_icon_plus_default.png"] forState:UIControlStateNormal];
 //    [self.moreButton setImage:[UIImage imageNamed:@"chatBar_moreSelected"] forState:UIControlStateHighlighted];
-    [self.moreButton setImage:[UIImage imageNamed:@"ic_keyboard"] forState:UIControlStateSelected];
+    [self.moreButton setImage:[UIImage imageNamed:@"messages_icon_keyboard_default.png"] forState:UIControlStateSelected];
     [self.moreButton addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
     self.moreButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0.5*kHorizontalPadding);
     self.moreButton.tag = 2;
@@ -337,9 +334,9 @@
     //表情
     self.faceButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.bounds) - 86, 0, 40, _toolbarView.frame.size.height)];
     self.faceButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin;
-    [self.faceButton setImage:[UIImage imageNamed:@"chatBar_face"] forState:UIControlStateNormal];
+    [self.faceButton setImage:[UIImage imageNamed:@"messages_icon_smile_default.png"] forState:UIControlStateNormal];
 //    [self.faceButton setImage:[UIImage imageNamed:@"chatBar_faceSelected"] forState:UIControlStateHighlighted];
-    [self.faceButton setImage:[UIImage imageNamed:@"ic_keyboard"] forState:UIControlStateSelected];
+    [self.faceButton setImage:[UIImage imageNamed:@"messages_icon_keyboard_default.png"] forState:UIControlStateSelected];
     [self.faceButton addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
     self.faceButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
     self.faceButton.tag = 1;
@@ -354,10 +351,10 @@
     self.inputTextView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.inputTextView.minNumberOfLines = 1;
     self.inputTextView.maxNumberOfLines = 6;
-    self.inputTextView.textColor = TEXT_COLOR_TITLE;
+    self.inputTextView.textColor = COLOR_TEXT_I;
     _inputTextView.layer.borderWidth = 0.65f;
     _inputTextView.layer.cornerRadius = 4.0f;
-    _inputTextView.layer.borderColor = APP_DIVIDER_COLOR.CGColor;
+    _inputTextView.layer.borderColor = COLOR_LINE.CGColor;
     self.inputTextView.returnKeyType = UIReturnKeySend; //just as an example
     self.inputTextView.font = [UIFont systemFontOfSize:14];
     self.inputTextView.delegate = self;

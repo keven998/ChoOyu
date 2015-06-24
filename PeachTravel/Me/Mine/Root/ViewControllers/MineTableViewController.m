@@ -173,7 +173,7 @@
     friendNumber.textColor = COLOR_TEXT_I;
     friendNumber.textAlignment = NSTextAlignmentCenter;
     friendNumber.font = [UIFont systemFontOfSize:15];
-    friendNumber.text = @"99人";
+    friendNumber.text = @"99位";
     friendNumber.lineBreakMode = NSLineBreakByTruncatingTail;
     _friendCount = friendNumber;
     [friendEntry addSubview:friendNumber];

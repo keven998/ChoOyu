@@ -1,14 +1,14 @@
 /************************************************************
-  *  * EaseMob CONFIDENTIAL 
-  * __________________ 
-  * Copyright (C) 2013-2014 EaseMob Technologies. All rights reserved. 
-  *  
-  * NOTICE: All information contained herein is, and remains 
-  * the property of EaseMob Technologies.
-  * Dissemination of this information or reproduction of this material 
-  * is strictly forbidden unless prior written permission is obtained
-  * from EaseMob Technologies.
-  */
+ *  * EaseMob CONFIDENTIAL
+ * __________________
+ * Copyright (C) 2013-2014 EaseMob Technologies. All rights reserved.
+ *
+ * NOTICE: All information contained herein is, and remains
+ * the property of EaseMob Technologies.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from EaseMob Technologies.
+ */
 
 #import "EMChatViewCell.h"
 #import "EMChatVideoBubbleView.h"
@@ -86,7 +86,7 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
         if (_showNickName) {
             bubbleFrame.origin.y = self.headImageView.frame.origin.y + 20;
         }
-
+        
         bubbleFrame.origin.x = HEAD_PADDING * 2 + HEAD_SIZE;
         _bubbleView.frame = bubbleFrame;
     }
@@ -122,7 +122,7 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
         default:
             break;
     }
-
+    
 }
 
 - (void)setMessageModel:(MessageModel *)model
@@ -189,7 +189,7 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
     switch (messageModel.type) {
         case IMMessageTypeTextMessageType:
             return [[EMChatTextBubbleView alloc] init];
-        
+            
         case IMMessageTypeImageMessageType:
             return [[EMChatImageBubbleView alloc] init];
             
@@ -203,7 +203,7 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
             return [[TaoziChatBaseBubbleView alloc] init];
         }
             break;
-        
+            
         default: {
             messageModel.content = @"升级新版本才可以查看这条神秘消息哦";
             return [[EMChatTextBubbleView alloc] init];
@@ -244,10 +244,10 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
         }
             break;
             
-                    
+            
         case IMMessageTypeCityPoiMessageType: {
             return [TaoziChatCityBubbleView heightForBubbleWithObject:messageModel] + nickNameHeight;
-
+            
         }
             break;
             
@@ -258,7 +258,7 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
             return [TaoziChatBaseBubbleView heightForBubbleWithObject:messageModel] + nickNameHeight;
         }
             break;
-    
+            
         default: {
             return [EMChatTextBubbleView heightForBubbleWithObject:messageModel] + nickNameHeight;
         }
@@ -273,11 +273,11 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
 + (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath withObject:(MessageModel *)model
 {
     NSInteger bubbleHeight = [self bubbleViewHeightForMessageModel:model];
-    NSInteger headHeight = HEAD_PADDING * 2 + HEAD_SIZE;
+    NSInteger headHeight = HEAD_SIZE;
     if (model.isChatGroup && !model.isSender) {
         headHeight += NAME_LABEL_HEIGHT;
     }
-    return MAX(headHeight, bubbleHeight) + CELLPADDING;
+    return MAX(headHeight, bubbleHeight) + 2*CELLPADDING;
 }
 
 
