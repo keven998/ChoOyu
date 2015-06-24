@@ -154,7 +154,6 @@
 {
     for (BaseMessage *message in _conversation.chatMessageList) {
         NSDate *createDate = [NSDate dateWithTimeIntervalInMilliSecondSince1970:(NSTimeInterval)message.createTime*1000];
-        NSLog(@"%ld", message.createTime);
         NSTimeInterval tempDate = [createDate timeIntervalSinceDate:self.chatTagDate];
         if (tempDate > 60 || tempDate < -60 || (self.chatTagDate == nil)) {
             [self.dataSource addObject:[createDate formattedTime]];
