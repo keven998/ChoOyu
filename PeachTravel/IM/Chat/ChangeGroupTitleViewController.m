@@ -61,6 +61,8 @@
             [hud hideTZHUD];
             if (isSuccess) {
                 [SVProgressHUD showHint:@"修改成功"];
+                IMClientManager *client = [IMClientManager shareInstance];
+                [client.conversationManager updateConversationName:title chatterId:_group.groupId];
                 [self performSelector:@selector(goBack) withObject:nil afterDelay:0.4];
             }
         }];
