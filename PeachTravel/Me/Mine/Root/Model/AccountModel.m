@@ -47,6 +47,7 @@
         } else {
             _tel = @"";
         }
+        
         if ([json objectForKey:@"secToken"]) {
             _secToken = [json objectForKey:@"secToken"];
         } else {
@@ -86,6 +87,11 @@
         _residence = @"";
     } else {
         _residence = [json objectForKey:@"residence"];
+    }
+    if ([json objectForKey:@"guideCnt"] == [NSNull null]) {
+        _guideCnt = 0;
+    } else {
+        _guideCnt = [[json objectForKey:@"guideCnt"] integerValue];
     }
     if ([json objectForKey:@"zodiac"] == [NSNull null]) {
         _zodiac = @"";

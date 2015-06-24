@@ -53,6 +53,7 @@
     //    self.edgesForExtendedLayout = UIRectEdgeNone;
     //    self.extendedLayoutIncludesOpaqueBars = NO;
     self.automaticallyAdjustsScrollViewInsets = NO;
+    [self loadUserInfo];
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
     self.tableView.dataSource = self;
@@ -63,8 +64,7 @@
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.tableView registerNib:[UINib nibWithNibName:@"OptionTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:secondCell];
     
-    [self setupTableHeaderView];
-    [self updateAccountInfo];
+    
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userAccountHasChage) name:userDidLoginNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userAccountHasChage) name:userDidLogoutNoti object:nil];
@@ -104,7 +104,17 @@
     [super didReceiveMemoryWarning];
 }
 
+- (void)loadUserInfo
+{
+    [self.accountManager.account loadUserInfoFromServer:^(bool isSuccess) {
+        if (isSuccess) {
+            [self setupTableHeaderView];
+            [self updateAccountInfo];
+        }
+    }];
+}
 - (void) setupTableHeaderView {
+    
     CGFloat width = CGRectGetWidth(self.view.bounds);
     CGFloat height = CGRectGetHeight(self.view.frame);
     
@@ -173,7 +183,8 @@
     friendNumber.textColor = COLOR_TEXT_I;
     friendNumber.textAlignment = NSTextAlignmentCenter;
     friendNumber.font = [UIFont systemFontOfSize:15];
-    friendNumber.text = @"99位";
+    NSString *friendCount = [NSString stringWithFormat:@"%lu",_accountManager.account.frendList.count];
+    friendNumber.text = friendCount;
     friendNumber.lineBreakMode = NSLineBreakByTruncatingTail;
     _friendCount = friendNumber;
     [friendEntry addSubview:friendNumber];
@@ -191,7 +202,8 @@
     planNumber.textColor = COLOR_TEXT_I;
     planNumber.textAlignment = NSTextAlignmentCenter;
     planNumber.font = [UIFont systemFontOfSize:15];
-    planNumber.text = @"99条";
+    NSString *planCount = [NSString stringWithFormat:@"%lu",_accountManager.account.guideCnt];
+    planNumber.text = planCount;
     _planCount = planNumber;
     planNumber.lineBreakMode = NSLineBreakByTruncatingTail;
     [planEntry addSubview:planNumber];
@@ -210,7 +222,28 @@
     trackNumber.textAlignment = NSTextAlignmentCenter;
     trackNumber.font = [UIFont systemFontOfSize:15];
     trackNumber.lineBreakMode = NSLineBreakByTruncatingTail;
-    trackNumber.text = @"5国17城市";
+    
+    NSMutableDictionary *country = [NSMutableDictionary dictionaryWithDictionary:self.accountManager.account.tracks];
+    NSInteger cityNumber = 0;
+    NSMutableString *cityDesc = nil;
+    NSArray *keys = [country allKeys];
+    NSInteger countryNumber = keys.count;
+    for (int i = 0; i < countryNumber; ++i) {
+        NSArray *citys = [country objectForKey:[keys objectAtIndex:i]];
+        NSLog(@"%@",citys);
+        cityNumber += citys.count;
+        
+        for (id city in citys) {
+            CityDestinationPoi *poi = [[CityDestinationPoi alloc] initWithJson:city];
+            if (cityDesc == nil) {
+                cityDesc = [[NSMutableString alloc] initWithString:poi.zhName];
+            } else {
+                [cityDesc appendFormat:@" %@", poi.zhName];
+            }
+        }
+    }
+    trackNumber.text = [NSString stringWithFormat:@"%ld国 %ld个城市", (long)countryNumber, (long)cityNumber];
+
     _trackCount = trackNumber;
     [trackEntry addSubview:trackNumber];
     UILabel *tl = [[UILabel alloc] initWithFrame:CGRectMake(10, bh/2, unitWidth - 20, 20)];

@@ -45,7 +45,7 @@
  *  用户居住地
  */
 @property (nonatomic, copy) NSString *residence;
-
+@property (nonatomic) NSInteger guideCnt;
 @property (nonatomic, copy) NSString *birthday;
 @property (nonatomic, copy) NSString *zodiac;
 @property (nonatomic, copy) NSString *travelStatus;
