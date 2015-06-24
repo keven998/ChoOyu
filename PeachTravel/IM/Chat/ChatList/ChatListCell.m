@@ -137,10 +137,10 @@
     
     if (_unreadCount > 0) {
         CGRect lf = _unreadLabel.frame;
-        if (_unreadCount < 9) {
+        if (_unreadCount < 10) {
             lf.size.width = 21;
             _unreadLabel.text = [NSString stringWithFormat:@"%ld",(long)_unreadCount];
-        } else if (_unreadCount > 9 && _unreadCount < 99){
+        } else if (_unreadCount > 9 && _unreadCount < 100){
             lf.size.width = 29;
             _unreadLabel.text = [NSString stringWithFormat:@"%ld",(long)_unreadCount];
         } else {
