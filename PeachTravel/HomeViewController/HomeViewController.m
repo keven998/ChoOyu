@@ -28,7 +28,9 @@
 static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 @interface HomeViewController ()<UIGestureRecognizerDelegate, EAIntroDelegate, UITabBarControllerDelegate, UnreadMessageCountChangeDelegate, MessageReceiveManagerDelegate>
-
+{
+    NSInteger badgeNum;
+}
 @property (nonatomic, strong) UIImageView *coverView;
 
 @property (strong, nonatomic) NSDate *lastPlaySoundDate;
@@ -346,8 +348,12 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     UITabBarItem *item = [self.tabBar.items firstObject];
     if (unreadCount == 0) {
         item.badgeValue = nil;
+        badgeNum = 0;
+        [self showNotificationWithMessage];
     } else {
         item.badgeValue = [NSString stringWithFormat:@"%ld", unreadCount];
+        badgeNum = unreadCount;
+        [self showNotificationWithMessage];
     }
 }
 
@@ -355,7 +361,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)receiveNewMessage:(BaseMessage * __nonnull)message
 {
-//    BOOL needShowNotification = (message.chatType == IMChatTypeIMChatSingleType) ? YES : NO;
     BOOL needShowNotification;
     IMClientManager *clientManager = [IMClientManager shareInstance];
 
@@ -402,7 +407,21 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     UIApplication *application = [UIApplication sharedApplication];
     application.applicationIconBadgeNumber += 1;
 }
-
+- (void)showNotificationWithMessage
+{
+    //发送本地推送
+    UILocalNotification *notification = [[UILocalNotification alloc] init];
+    notification.fireDate = [NSDate date]; //触发通知的时间
+    
+    notification.alertBody = @"您有一条新消息";
+    
+    notification.alertAction = @"打开";
+    notification.timeZone = [NSTimeZone defaultTimeZone];
+    //发送通知
+    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+    UIApplication *application = [UIApplication sharedApplication];
+    application.applicationIconBadgeNumber = badgeNum;
+}
 #pragma mark - UITabbarViewControllerDelegate
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
