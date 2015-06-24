@@ -167,9 +167,12 @@ class FrendDaoHelper: BaseDaoHelper, FrendDaoProtocol {
     
     func updateExtDataInDB(extData: String, userId: Int) {
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
-            var sql = "update \(frendTableName) set ExtData = \(extData) where UserId = \(userId)"
-            println("执行 sql 语句：\(sql)")
-            dataBase.executeUpdate(sql, withArgumentsInArray: nil)
+            var sql = "update \(frendTableName) set ExtData = ? where UserId = ?"
+            if dataBase.executeUpdate(sql, withArgumentsInArray: [extData, userId]) {
+                println("成功 执行 sql 语句：\(sql)")
+            } else {
+                println("失败 执行 sql 语句：\(sql)")
+            }
         }
 
     }

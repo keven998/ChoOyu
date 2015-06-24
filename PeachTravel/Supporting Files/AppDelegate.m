@@ -74,7 +74,6 @@
     [MobClick setCrashReportEnabled:YES];
 #endif
     
-    
     [iRate sharedInstance].promptAtLaunch = NO;
 
     return YES;

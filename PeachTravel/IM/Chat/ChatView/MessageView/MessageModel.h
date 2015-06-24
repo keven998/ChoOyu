@@ -22,17 +22,15 @@
 
 @property (nonatomic) IMMessageType type;
 @property (nonatomic) IMMessageStatus status;
+@property (nonatomic) NSInteger senderId; //消息的发送者
 
 @property (nonatomic) BOOL isSender;    //是否是发送者
 @property (nonatomic) BOOL isRead;      //是否已读
 @property (nonatomic) IMChatType chatType;  //聊天类型
 
-@property (nonatomic) BOOL isChatGroup;
-
 @property (nonatomic, strong) NSString *messageId;
 @property (nonatomic, strong) NSURL *headImageURL;
 @property (nonatomic, strong) NSString *nickName;
-@property (nonatomic, strong) NSString *username;
 /*!
  @property
  @brief 消息发送或接收的时间
