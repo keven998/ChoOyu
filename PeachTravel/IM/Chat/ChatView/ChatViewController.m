@@ -952,9 +952,16 @@
         if ([moreMessages count] > 0) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self addChatMessageList2Top:moreMessages];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.75 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    // 拿到当前的下拉刷新控件，结束刷新状态
+                    [self.tableView.header endRefreshing];
+                });
             });
         } else {
-            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.75 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                // 拿到当前的下拉刷新控件，结束刷新状态
+                [self.tableView.header endRefreshing];
+            });
         }
     });
     
@@ -1010,16 +1017,9 @@
         [indexPath2Insert addObject:path];
         i++;
     }
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         // 刷新表格
         [self.tableView reloadData];
         [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
-
-        
-        // 拿到当前的下拉刷新控件，结束刷新状态
-        [self.tableView.header endRefreshing];
-    });
-
   
 }
 
