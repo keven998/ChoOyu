@@ -282,7 +282,6 @@ class FrendDaoHelper: BaseDaoHelper, FrendDaoProtocol {
     
     func updateFrendType(#userId: Int, type: IMFrendType) {
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
-            
             var sql = "update \(frendTableName) set Type = ? where UserId = ?"
             println("执行 sql 语句：\(sql)")
             var array = [type.rawValue, userId]
@@ -291,8 +290,6 @@ class FrendDaoHelper: BaseDaoHelper, FrendDaoProtocol {
     }
 
 }
-
-
 
 
 

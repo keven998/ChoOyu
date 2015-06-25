@@ -22,18 +22,23 @@ private let pushSDKManager = PushSDKManager()
 class PushSDKManager: NSObject, GexinSdkDelegate {
     
     private var gexinSdk: GexinSdk?
+    private var pushSdkIsConnected: Bool = false
+    
     private var listenerQueue: NSMutableArray = NSMutableArray()
     
     weak var pushConnectionDelegate: PushConnectionDelegate?
     
     var timer: NSTimer?
-    var anotherTimer: NSTimer?
-
     
     var allMessage = NSMutableArray()
 
     class func shareInstance() -> PushSDKManager {
         return pushSDKManager
+    }
+    
+    override init() {
+        super.init()
+        timer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: Selector("checkoutSDKStatus"), userInfo: nil, repeats: true)
     }
     
     deinit {
@@ -42,6 +47,17 @@ class PushSDKManager: NSObject, GexinSdkDelegate {
     
     func registerDeviceToken(token: String) {
         gexinSdk?.registerDeviceToken(token)
+    }
+    
+    /**
+    检查 push sdk 长链接的状态
+    */
+    func checkoutSDKStatus() {
+        if !pushSdkIsConnected {
+            println("***** 个推 sdk 长链接未建立， 尝试重新建立中。******")
+            gexinSdk?.destroy()
+            self.createPushConnection()
+        }
     }
     
     /**
@@ -74,10 +90,9 @@ class PushSDKManager: NSObject, GexinSdkDelegate {
     
     /**
     登录
-    :param: userId   用户名
-    :param: password 密码
     */
     func createPushConnection() {
+        println("正在建立 push 长链接。。。。。")
         gexinSdk = GetuiPush.login()
     }
     
@@ -87,8 +102,8 @@ class PushSDKManager: NSObject, GexinSdkDelegate {
     :param: error
     */
     func GexinSdkDidOccurError(error: NSError!) {
+        pushSdkIsConnected = false
         println("*****  GexinSdkDidOccurError  ******")
-
     }
     
     /**
@@ -139,11 +154,14 @@ class PushSDKManager: NSObject, GexinSdkDelegate {
     :param: clientId 注册成功后的 id
     */
     func GexinSdkDidRegisterClient(clientId: String!) {
+        println("push 长链接建立成功")
+        pushSdkIsConnected = true
         pushConnectionDelegate?.getuiDidConnection(clientId)
     }
 }
 
 class GetuiPush: GexinSdk {
+    
     class func login() -> GexinSdk {
         let kAppKey = "O2ooToqPrsAGJYy3iZ54d7"
         let kAppId = "aGqQz4HiLg70iOUXheRSZ3"
