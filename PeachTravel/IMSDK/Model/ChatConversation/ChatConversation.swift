@@ -127,6 +127,7 @@ class ChatConversation: NSObject {
     删除会话中所有的信息
     */
     func deleteAllMessage() {
+        self.chatMessageList.removeAll(keepCapacity: false)
         var daoHelper = DaoHelper.shareInstance()
         daoHelper.delteAllMessageInDB("chat_\(chatterId)")
     }

@@ -1008,7 +1008,6 @@
             }
         }
     }
-    NSLog(@"nickName: %@", message.nickName);
 }
 
 - (void)scrollViewToBottom:(BOOL)animated
@@ -1022,22 +1021,6 @@
 
 - (void)removeAllMessages:(id)sender
 {
-    //    if (_dataSource.count == 0) {
-    //        return;
-    //    }
-    //
-    //    if ([sender isKindOfClass:[NSNotification class]]) {
-    //        NSString *chatter = (NSString *)[(NSNotification *)sender object];
-//            if (_isChatGroup && [chatter isEqualToString:_conversation.chatter]) {
-    //            [_conversation removeAllMessages];
-    //            [_dataSource removeAllObjects];
-    //            [_tableView reloadData];
-//            } else if (!_isChatGroup && [chatter isEqualToString:_conversation.chatter]) {
-    //            [_conversation removeAllMessages];
-    //            [_dataSource removeAllObjects];
-    //            [_tableView reloadData];
-    //        }
-    //    }
     if (_dataSource.count == 0) {
         return;
     }
