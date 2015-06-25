@@ -53,10 +53,8 @@
 {
     [super layoutSubviews];
     CGSize contentSize = [_time sizeWithAttributes:@{NSFontAttributeName : _timeLabel.font}];
-    NSLog(@"time: %@, contentSize: %lf", _time, contentSize.width);
     _timeLabel.frame = CGRectMake(0, 0, contentSize.width+8, contentSize.height+4);
     _timeLabel.center = CGPointMake(CGRectGetWidth(self.bounds)/2.0, CGRectGetHeight(self.bounds)/2.0);
-    NSLog(@"width: %lf", self.bounds.size.width);
     _timeLabel.text = _time;
 }
 

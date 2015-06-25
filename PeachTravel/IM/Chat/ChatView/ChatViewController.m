@@ -65,7 +65,6 @@
     NSInteger _recordingCount;
     
     BOOL _isScrollToBottom;
-    UINavigationItem *_navTitle;
 }
 
 @property (nonatomic) IMChatType chatType;
@@ -120,8 +119,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.navigationItem.title = _conversation.chatterName;
     self.view.backgroundColor = APP_PAGE_COLOR;
-    self.automaticallyAdjustsScrollViewInsets = NO;
+    
     if (_chatType == IMChatTypeIMChatDiscussionGroupType) {
         _groupNumbers = [[IMDiscussionGroupManager shareInstance] getFullDiscussionGroupInfoFromDBWithGroupId: _conversation.chatterId].numbers;
     }
@@ -140,8 +140,6 @@
     
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.chatToolBar];
-    
-    self.tableView.tableHeaderView = self.headerView;
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyBoardHidden)];
     [self.view addGestureRecognizer:tap];
@@ -184,24 +182,19 @@
 
 - (void)setupBarButtonItem
 {
-    UINavigationBar *bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
-    _navTitle = [[UINavigationItem alloc] initWithTitle:self.conversation.chatterName];
     if (_chatType == IMChatTypeIMChatGroupType || _chatType == IMChatTypeIMChatDiscussionGroupType) {
         UIButton *menu = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
         [menu setImage:[UIImage imageNamed:@"ic_menu_navigationbar.png"] forState:UIControlStateNormal];
         [menu addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
         [menu setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-        _navTitle.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:menu];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:menu];
     }
     
     UIButton *back = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
     [back setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
     [back addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
     [back setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-    _navTitle.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:back];
-    
-    [bar pushNavigationItem:_navTitle animated:YES];
-    [self.view addSubview:bar];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:back];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -313,8 +306,7 @@
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 44, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - self.chatToolBar.frame.size.height - 44) style:UITableViewStylePlain];
-        _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - [DXMessageToolBar defaultHeight] - 64)];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.backgroundColor = APP_PAGE_COLOR;
@@ -332,11 +324,11 @@
 - (DXMessageToolBar *)chatToolBar
 {
     if (!_chatToolBar) {
-        _chatToolBar = [[DXMessageToolBar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - [DXMessageToolBar defaultHeight], self.view.frame.size.width, [DXMessageToolBar defaultHeight])];
-        _chatToolBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
+        _chatToolBar = [[DXMessageToolBar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - [DXMessageToolBar defaultHeight] - 64, self.view.frame.size.width, [DXMessageToolBar defaultHeight])];
         _chatToolBar.backgroundColor = [UIColor whiteColor];
         _chatToolBar.delegate = self;
-        _chatToolBar.rootCtl = self;
+        _chatToolBar.rootCtl = self;        
+     
     }
     
     return _chatToolBar;
@@ -448,21 +440,7 @@
     if (_didEndScroll) {
         if (scrollView.contentOffset.y < 40) {
             _didEndScroll = NO;
-//            [self loadMoreMessages];
-            RefreshHeader *header = [RefreshHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadMoreMessages)];
-            
-            // 隐藏时间
-            header.lastUpdatedTimeLabel.hidden = YES;
-            
-            // 隐藏状态
-            header.stateLabel.hidden = YES;
-            
-            // 马上进入刷新状态
-            [header beginRefreshing];
-            
-            // 设置header
-            self.tableView.header = header;
-
+            [self loadMoreMessages];
         }
     }
 }
@@ -655,7 +633,7 @@
             frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
             frostedViewController.liveBlur = YES;
             frostedViewController.limitMenuViewSize = YES;
-            frostedViewController.resumeNavigationBar = NO;
+//            frostedViewController.resumeNavigationBar = NO;
             [self.navigationController pushViewController:frostedViewController animated:YES];
         }
             break;
@@ -824,8 +802,7 @@
 {
     [UIView animateWithDuration:0.25 animations:^{
         CGRect rect = self.tableView.frame;
-        rect.origin.y = 65;
-        rect.size.height = self.view.frame.size.height - toHeight - 65;
+        rect.size.height = self.view.frame.size.height - toHeight;
         self.tableView.frame = rect;
     }];
     [self scrollViewToBottom:YES];
@@ -1172,7 +1149,7 @@
 
 - (void)updateChatTitle:(NSNotification *)Noti
 {
-    _navTitle.title = Noti.object;
+    self.navigationItem.title = Noti.object;
     
 }
 @end

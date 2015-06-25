@@ -501,7 +501,8 @@
 - (void)pushChatViewControllerWithConversation: (ChatConversation *)conversation
 {
     ChatViewController *chatController = [[ChatViewController alloc] initWithConversation:conversation];
-    
+    UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:chatController];
+
     UIViewController *menuViewController = nil;
     if (conversation.chatType == IMChatTypeIMChatGroupType || conversation.chatType == IMChatTypeIMChatDiscussionGroupType) {
         menuViewController = [[ChatGroupSettingViewController alloc] init];
@@ -511,7 +512,7 @@
         ((ChatSettingViewController *)menuViewController).chatterId = conversation.chatterId;
     }
     
-    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:chatController menuViewController:menuViewController];
+    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:navi menuViewController:menuViewController];
     frostedViewController.hidesBottomBarWhenPushed = YES;
     frostedViewController.direction = REFrostedViewControllerDirectionRight;
     frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
