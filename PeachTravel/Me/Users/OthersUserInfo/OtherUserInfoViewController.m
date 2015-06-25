@@ -17,6 +17,7 @@
 #import "AccountModel.h"
 #import "UIBarButtonItem+MJ.h"
 #import "REFrostedViewController.h"
+#import "ChatGroupSettingViewController.h"
 
 @interface OtherUserInfoViewController ()<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate>
 {
@@ -238,22 +239,19 @@
 }
 
 - (void)talkToFriend {
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    ChatViewController *chatCtl = [[ChatViewController alloc]initWithChatter:_userId chatType:IMChatTypeIMChatSingleType];
-    chatCtl.title = accountManager.account.nickName;
-   
-    UIViewController *menuViewController = [[ChatSettingViewController alloc] init];
-    
-//    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:chatCtl menuViewController:menuViewController];
-//    frostedViewController.direction = REFrostedViewControllerDirectionRight;
-//    frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
-//    frostedViewController.liveBlur = YES;
-//    frostedViewController.resumeNavigationBar = NO;
-//    frostedViewController.limitMenuViewSize = YES;
-//    self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan=NO;
-//    [self.navigationController pushViewController:frostedViewController animated:YES];
-    ChatViewController *chatController = [[ChatViewController alloc] init];
+    [self pushChatViewController];
+}
+
+- (void)pushChatViewController
+{
+    ChatViewController *chatController = [[ChatViewController alloc] initWithChatter:_userId chatType:IMChatTypeIMChatSingleType];
     UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:chatController];
+    
+    UIViewController *menuViewController = nil;
+   
+    menuViewController = [[ChatSettingViewController alloc] init];
+    ((ChatSettingViewController *)menuViewController).chatterId = _userId;
+    
     REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:navi menuViewController:menuViewController];
     frostedViewController.hidesBottomBarWhenPushed = YES;
     frostedViewController.direction = REFrostedViewControllerDirectionRight;
@@ -263,6 +261,7 @@
     frostedViewController.resumeNavigationBar = NO;
     self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan = NO;
     [self.navigationController pushViewController:frostedViewController animated:YES];
+    frostedViewController.navigationItem.title = _userInfo.nickName;
 }
 
 - (IBAction)moreAction:(UIButton *)sender

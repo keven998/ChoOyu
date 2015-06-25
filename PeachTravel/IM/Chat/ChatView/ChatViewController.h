@@ -12,7 +12,6 @@
 @interface ChatViewController : TZViewController
 
 - (instancetype)initWithChatter:(NSInteger)chatter chatType:(IMChatType)chatType;
-
 - (instancetype)initWithConversation:(ChatConversation *)conversation;
 
 @end
