@@ -25,8 +25,10 @@
 #define cellDataSource           @[@[@"邀请好友", @"意见反馈"], @[@"关于我们", @"应用设置"]]
 #define secondCell               @"secondCell"
 
-@interface MineTableViewController () <UITableViewDataSource, UITableViewDelegate>
-
+@interface MineTableViewController () <UITableViewDataSource, UITableViewDelegate,updataTracksDelegate>
+{
+    UILabel *_trackNumber;
+}
 @property (strong, nonatomic) AccountManager *accountManager;
 @property (strong, nonatomic) UITableView *tableView;
 
@@ -216,11 +218,11 @@
     [headerBgView addSubview:planEntry];
     
     UIButton *trackEntry = [[UIButton alloc] initWithFrame:CGRectMake(2*unitWidth, offsetY, unitWidth, bh)];
-    UILabel *trackNumber = [[UILabel alloc] initWithFrame:CGRectMake(10, bh/2 - 20, unitWidth - 20, 20)];
-    trackNumber.textColor = COLOR_TEXT_I;
-    trackNumber.textAlignment = NSTextAlignmentCenter;
-    trackNumber.font = [UIFont systemFontOfSize:15];
-    trackNumber.lineBreakMode = NSLineBreakByTruncatingTail;
+    _trackNumber = [[UILabel alloc] initWithFrame:CGRectMake(10, bh/2 - 20, unitWidth - 20, 20)];
+    _trackNumber.textColor = COLOR_TEXT_I;
+    _trackNumber.textAlignment = NSTextAlignmentCenter;
+    _trackNumber.font = [UIFont systemFontOfSize:15];
+    _trackNumber.lineBreakMode = NSLineBreakByTruncatingTail;
     
     NSMutableDictionary *country = [NSMutableDictionary dictionaryWithDictionary:self.accountManager.account.tracks];
     NSInteger cityNumber = 0;
@@ -241,10 +243,10 @@
             }
         }
     }
-    trackNumber.text = [NSString stringWithFormat:@"%ld国 %ld个城市", (long)countryNumber, (long)cityNumber];
+    _trackNumber.text = [NSString stringWithFormat:@"%ld国 %ld个城市", (long)countryNumber, (long)cityNumber];
 
-    _trackCount = trackNumber;
-    [trackEntry addSubview:trackNumber];
+    _trackCount = _trackNumber;
+    [trackEntry addSubview:_trackNumber];
     UILabel *tl = [[UILabel alloc] initWithFrame:CGRectMake(10, bh/2, unitWidth - 20, 20)];
     tl.textColor = COLOR_TEXT_III;
     tl.text = @"足迹";
@@ -424,6 +426,7 @@
 
     footCtl.hidesBottomBarWhenPushed = YES;
     footCtl.destinations = destinations;
+    footCtl.delegate = self;
     [self presentViewController:footCtl animated:YES completion:nil];
 }
 
@@ -513,6 +516,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+
 #pragma mark - ScrollViewDelegate
 - (void) scrollViewDidScroll:(UIScrollView *)scrollView {
     if (_tableView != nil) {
@@ -530,7 +534,10 @@
         }
     }
 }
-
+- (void)updataTracks:(NSInteger)country citys:(NSInteger)city trackStr:(NSString *)track
+{
+    _trackNumber.text = [NSString stringWithFormat:@"%ld国 %ld个城市",country,city];
+}
 @end
 
 
