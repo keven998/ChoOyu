@@ -35,8 +35,8 @@
         [[UINavigationBar appearance] setTranslucent:NO];
     }
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-    [[UINavigationBar appearance] setBackIndicatorImage:[UIImage imageNamed:@"ic_navigation_back.png"]];
-    [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:[UIImage imageNamed:@"ic_navigation_back.png"]];
+    [[UINavigationBar appearance] setBackIndicatorImage:[UIImage imageNamed:@"common_icon_navigaiton_back"]];
+    [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:[UIImage imageNamed:@"common_icon_navigaiton_back"]];
     [[UINavigationBar appearance] setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR]
                                        forBarMetrics:UIBarMetricsDefault];
     [[UINavigationBar appearance] setTitleTextAttributes:

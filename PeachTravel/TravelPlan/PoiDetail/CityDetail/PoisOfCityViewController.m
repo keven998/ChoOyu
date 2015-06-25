@@ -68,7 +68,7 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
         self.navigationItem.leftBarButtonItem = lbtn;
     } else {
         UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:@"common_icon_navigaiton_back"] forState:UIControlStateNormal];
         [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
         [button setFrame:CGRectMake(0, 0, 48, 30)];
         button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;

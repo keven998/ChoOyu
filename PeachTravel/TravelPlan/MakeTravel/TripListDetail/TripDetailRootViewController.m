@@ -134,7 +134,7 @@
         
         UIButton *bbtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
         [bbtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-        [bbtn setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
+        [bbtn setImage:[UIImage imageNamed:@"common_icon_navigaiton_back"] forState:UIControlStateNormal];
         [bbtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
         _navgationBarItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:bbtn];
         UIBarButtonItem * addBtn = [[UIBarButtonItem alloc]initWithCustomView:_forkBtn];
@@ -159,7 +159,7 @@
     } else {
         NSMutableArray *barItems = [[NSMutableArray alloc] init];
         _moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
-        [_moreBtn setImage:[UIImage imageNamed:@"ic_menu_navigationbar.png"] forState:UIControlStateNormal];
+        [_moreBtn setImage:[UIImage imageNamed:@"common_icon_navigaiton_menu"] forState:UIControlStateNormal];
         [_moreBtn addTarget:self action:@selector(showMoreAction:) forControlEvents:UIControlEventTouchUpInside];
         [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_moreBtn]];
         
@@ -180,7 +180,7 @@
         
         UIButton *bbtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
         [bbtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-        [bbtn setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
+        [bbtn setImage:[UIImage imageNamed:@"common_icon_navigaiton_back"] forState:UIControlStateNormal];
         [bbtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
         _navgationBarItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:bbtn];
     }
