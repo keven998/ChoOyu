@@ -268,10 +268,9 @@
     if (model.isSender) {
         return;
     }
-}
-
-- (void)showUserInfoWithContactInfo:(FrendModel *)contact
-{
+    OtherUserInfoViewController *OtherUser = [[OtherUserInfoViewController alloc]init];
+    OtherUser.userId = model.senderId;
+    [self.navigationController pushViewController:OtherUser animated:YES];
 }
 
 #pragma mark - private Methods
