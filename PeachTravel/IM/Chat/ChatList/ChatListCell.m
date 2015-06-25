@@ -160,14 +160,14 @@
                                                          }
                                                context:nil].size;
         
-        tf.size.width = labelSize.width;
+        tf.size.width = labelSize.width+ 6;
         self.textLabel.frame = tf;
         lf.origin.x = tf.origin.x + tf.size.width + 5;
         _unreadLabel.frame = lf;
     } else{
         [_unreadLabel setHidden:YES];
     }
-    _unreadLabel.center = CGPointMake(68, 12);
+    _unreadLabel.center = CGPointMake(65, 12);
     spaceView.frame = CGRectMake(10, self.contentView.frame.size.height-0.5, width - 10, 0.5);
     //    self.selectedBackgroundView.frame = self.bounds;
 }
