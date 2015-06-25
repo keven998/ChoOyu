@@ -186,13 +186,13 @@
 {
     UINavigationBar *bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
     _navTitle = [[UINavigationItem alloc] initWithTitle:self.conversation.chatterName];
-    if (_chatType == IMChatTypeIMChatGroupType || _chatType == IMChatTypeIMChatDiscussionGroupType) {
+//    if (_chatType == IMChatTypeIMChatGroupType || _chatType == IMChatTypeIMChatDiscussionGroupType) {
         UIButton *menu = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
         [menu setImage:[UIImage imageNamed:@"ic_menu_navigationbar.png"] forState:UIControlStateNormal];
         [menu addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
         [menu setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
         _navTitle.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:menu];
-    }
+//    }
     
     UIButton *back = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
     [back setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
