@@ -245,13 +245,13 @@
  */
 - (void)goBack
 {
-    [self.frostedViewController dismissViewControllerAnimated:YES completion:nil];
+//    [self.frostedViewController dismissViewControllerAnimated:YES completion:nil];
     [self.frostedViewController.navigationController popToRootViewControllerAnimated:YES];
 }
 
 /**
  *  点击聊天的头像进入联系人信息
- *
+ *  
  *  @param sender
  */
 - (void)showUserInfoWithModel:(MessageModel *)model

@@ -244,13 +244,24 @@
    
     UIViewController *menuViewController = [[ChatSettingViewController alloc] init];
     
-    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:chatCtl menuViewController:menuViewController];
+//    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:chatCtl menuViewController:menuViewController];
+//    frostedViewController.direction = REFrostedViewControllerDirectionRight;
+//    frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
+//    frostedViewController.liveBlur = YES;
+//    frostedViewController.resumeNavigationBar = NO;
+//    frostedViewController.limitMenuViewSize = YES;
+//    self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan=NO;
+//    [self.navigationController pushViewController:frostedViewController animated:YES];
+    ChatViewController *chatController = [[ChatViewController alloc] init];
+    UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:chatController];
+    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:navi menuViewController:menuViewController];
+    frostedViewController.hidesBottomBarWhenPushed = YES;
     frostedViewController.direction = REFrostedViewControllerDirectionRight;
     frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
     frostedViewController.liveBlur = YES;
-    frostedViewController.resumeNavigationBar = NO;
     frostedViewController.limitMenuViewSize = YES;
-    self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan=NO;
+    frostedViewController.resumeNavigationBar = NO;
+    self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan = NO;
     [self.navigationController pushViewController:frostedViewController animated:YES];
 }
 
