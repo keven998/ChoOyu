@@ -182,7 +182,6 @@
 
 - (void)setupBarButtonItem
 {
-
     UIButton *menu = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
     [menu setImage:[UIImage imageNamed:@"common_icon_navigaiton_menu"] forState:UIControlStateNormal];
     [menu addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
@@ -277,7 +276,7 @@
     BaseMessage *message = [noti.userInfo objectForKey:@"message"];
     //如果是发送的消息是属于当前页面的
     if (message.chatterId == _chatter) {
-        [self addChatMessage2DataSource:[noti.userInfo objectForKey:@"message"]];
+        [self addChatMessage2Buttom:[noti.userInfo objectForKey:@"message"]];
     }
 }
 
@@ -942,14 +941,11 @@
 - (void)loadMoreMessages
 {
     ChatViewController *weakSelf = self;
-    NSInteger currentCount = self.dataSource.count;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        if ([[weakSelf.conversation getMoreChatMessageInConversation:10] count] > 0) {
-            [self sortDataSource];
+        NSArray *moreMessages = [weakSelf.conversation getMoreChatMessageInConversation:10];
+        if ([moreMessages count] > 0) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [weakSelf.tableView reloadData];
-                [weakSelf.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:(weakSelf.dataSource.count-currentCount - 1) inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
-                [self.tableView.header endRefreshing];
+                [self addChatMessageList2Top:moreMessages];
             });
         }
     });
@@ -960,7 +956,7 @@
  *
  *  @param message
  */
-- (void)addChatMessage2DataSource:(BaseMessage *) message
+- (void)addChatMessage2Buttom:(BaseMessage *) message
 {
     if (!message) {
         return;
@@ -980,6 +976,39 @@
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.dataSource.count-1 inSection:0];
     [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+}
+
+- (void)addChatMessageList2Top:(NSArray *)messageList
+{
+    if (!messageList.count) {
+        return;
+    }
+
+    NSMutableArray *indexPath2Insert = [[NSMutableArray alloc] init];
+    int i = 0;
+    for (BaseMessage *message in messageList) {
+        NSDate *createDate = [NSDate dateWithTimeIntervalInMilliSecondSince1970:(NSTimeInterval)message.createTime];
+        NSTimeInterval tempDate = [createDate timeIntervalSinceDate:self.chatTagDate];
+        if (tempDate > 60 || tempDate < -60 || (self.chatTagDate == nil)) {
+            [self.dataSource insertObject:[createDate formattedTime] atIndex:0];
+            self.chatTagDate = createDate;
+            NSIndexPath *path = [NSIndexPath indexPathForRow:i inSection:0];
+
+            [indexPath2Insert addObject:path];
+            i++;
+        }
+        message.chatType = _chatType;
+        MessageModel *model = [[MessageModel alloc] initWithBaseMessage:message];
+        [self fillMessageModel:model];
+        [self.dataSource insertObject:model atIndex:0];
+        NSIndexPath *path = [NSIndexPath indexPathForRow:i inSection:0];
+        [indexPath2Insert addObject:path];
+        i++;
+    }
+    
+    [self.tableView reloadData];
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+
 }
 
 - (void)fillMessageModel:(MessageModel *)message
@@ -1064,7 +1093,7 @@
     IMClientManager *imClientManager = [IMClientManager shareInstance];
     
     BaseMessage *message = [imClientManager.messageSendManager sendTextMessage:messageStr receiver:_conversation.chatterId chatType:_conversation.chatType conversationId:_conversation.conversationId];
-    [self addChatMessage2DataSource:message];
+    [self addChatMessage2Buttom:message];
 }
 
 - (void)sendLocation:(double)lat lng:(double) lng  address:(NSString *)address{
@@ -1076,7 +1105,7 @@
     
     BaseMessage *message = [imClientManager.messageSendManager sendLocationMessage:model receiver:_conversation.chatterId chatType:_conversation.chatType conversationId:_conversation.conversationId];
     
-    [self addChatMessage2DataSource:message];
+    [self addChatMessage2Buttom:message];
 }
 
 - (void)sendAudioMessage:(NSString *)audioPath
@@ -1086,7 +1115,7 @@
         
     }];
     
-    [self addChatMessage2DataSource:audioMessage];
+    [self addChatMessage2Buttom:audioMessage];
 }
 
 - (void)sendImageMessage:(UIImage *)image
@@ -1095,7 +1124,7 @@
     BaseMessage *imageMessage = [imClientManager.messageSendManager sendImageMessage:_conversation.chatterId conversationId:_conversation.conversationId image:image chatType:_conversation.chatType progress:^(float progressValue) {
         
     }];
-    [self addChatMessage2DataSource:imageMessage];
+    [self addChatMessage2Buttom:imageMessage];
     
 }
 
@@ -1103,7 +1132,7 @@
 #pragma mark - MessageManagerDelegate
 - (void)receiverMessage:(BaseMessage* __nonnull)message
 {
-    [self addChatMessage2DataSource:message];
+    [self addChatMessage2Buttom:message];
 }
 
 - (void)didSendMessage:(BaseMessage * __nonnull)message

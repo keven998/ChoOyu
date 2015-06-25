@@ -161,7 +161,11 @@ class ChatConversation: NSObject {
     }
     
     /**
-    获取更多的聊天记录
+    获取更多的消息
+    
+    :param: messageCount 目标数量
+    
+    :returns: 消息的增量
     */
     func getMoreChatMessageInConversation(messageCount: Int) -> Array<BaseMessage> {
         
