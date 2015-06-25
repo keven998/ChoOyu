@@ -298,18 +298,18 @@
 }
 
 - (void) updateAccountInfo {
-    AccountManager *amgr = self.accountManager;
-    if ([amgr isLogin]) {
-        [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:amgr.account.avatarSmall] placeholderImage:[UIImage imageNamed:@"ic_home_avatar_unknown.png"]];
-        _nameLabel.text = amgr.account.nickName;
-        _idLabel.text = [NSString stringWithFormat:@"ID：%ld", (long)amgr.account.userId];
+//    AccountManager *amgr = self.accountManager;
+    if ([_accountManager isLogin]) {
+        [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:_accountManager.account.avatarSmall] placeholderImage:[UIImage imageNamed:@"ic_home_avatar_unknown.png"]];
+        _nameLabel.text = _accountManager.account.nickName;
+        _idLabel.text = [NSString stringWithFormat:@"ID：%ld", (long)_accountManager.account.userId];
         _constellationView.image = [UIImage imageNamed:@"ic_home_user_constellation_shooter.png"];
         _levelLabel.text = @"Lv12";
-        if ([amgr.account.gender isEqualToString:@"M"]) {
+        if (_accountManager.account.gender == Male) {
             _avatarBg.image = [UIImage imageNamed:@"ic_home_avatar_border_boy.png"];
             _levelBg.image = [UIImage imageNamed:@"ic_home_level_bg_boy.png"];
             _flagHeaderIV.image = [UIImage imageNamed:@"ic_home_header_boy.png"];
-        } else if ([amgr.account.gender isEqualToString:@"F"]) {
+        } else if (_accountManager.account.gender == Female) {
             _avatarBg.image = [UIImage imageNamed:@"ic_home_avatar_border_girl.png"];
             _levelBg.image = [UIImage imageNamed:@"ic_home_level_bg_girl.png"];
             _flagHeaderIV.image = [UIImage imageNamed:@"ic_home_header_girl.png"];

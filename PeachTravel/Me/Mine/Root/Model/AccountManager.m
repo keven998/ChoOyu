@@ -399,7 +399,15 @@
             break;
             
         case ChangeGender:
-            self.account.gender = changeContent;
+            if ([changeContent isEqualToString:@"F"]) {
+                self.account.gender = Female;
+            } else if ([changeContent isEqualToString:@"M"]) {
+                self.account.gender = Male;
+            } else if ([changeContent isEqualToString:@"S"]) {
+                self.account.gender = Secret;
+            } else if ([changeContent isEqualToString:@"U"]) {
+                self.account.gender = Unknown;
+            }
             break;
             
         case ChangeAvatar:

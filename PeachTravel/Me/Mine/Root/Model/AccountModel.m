@@ -58,9 +58,16 @@
         } else {
             _signature = @"";
         }
-        _gender = [json objectForKey:@"gender"];
+        NSString *genderStr = [json objectForKey:@"gender"];
+        if ([genderStr isEqualToString:@"M"]) {
+            _gender = Male;
+        } else if ([genderStr isEqualToString:@"F"]) {
+            _gender = Female;
+        } else if ([genderStr isEqualToString:@"S"]) {
+            _gender = Secret;
+        }
         if (!_gender) {
-            _gender = @"U";
+            _gender = Unknown;
         }
     
     }
@@ -114,6 +121,17 @@
         _travelStatus = @"";
     } else {
         _travelStatus = [json objectForKey:@"travelStatus"];
+    }
+    
+    NSString *genderStr = [json objectForKey:@"gender"];
+    if ([genderStr isEqualToString:@"F"]) {
+        _gender = Female;
+    } else if ([genderStr isEqualToString:@"M"]) {
+        _gender = Male;
+    } else if ([genderStr isEqualToString:@"S"]) {
+        _gender = Secret;
+    } else if ([genderStr isEqualToString:@"U"]) {
+        _gender = Unknown;
     }
 }
 

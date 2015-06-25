@@ -95,7 +95,7 @@ class AccountDaoHelper: NSObject {
         dbQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
             var sql = "insert or replace into \(AccountTableName) (UserId, NickName, Avatar, AvatarSmall, Signature, Sex, tel, secToke) values (?,?,?,?,?,?,?,?)"
             println("执行 sql 语句：\(sql)")
-            var array = [account.userId, account.nickName, account.avatar, account.avatarSmall, account.signature, account.gender, account.tel, account.secToken]
+            var array = [account.userId, account.nickName, account.avatar, account.avatarSmall, account.signature, account.gender.rawValue, account.tel, account.secToken]
             dataBase.executeUpdate(sql, withArgumentsInArray: array as [AnyObject])
         }
     }
@@ -120,7 +120,7 @@ class AccountDaoHelper: NSObject {
         account.avatar = rs.stringForColumn("Avatar")
         account.avatarSmall = rs.stringForColumn("AvatarSmall")
         account.signature = rs.stringForColumn("Signature")
-        account.gender = String(rs.intForColumn("Sex"))
+        account.gender = UserGender(rawValue: Int(rs.intForColumn("Sex")))!
         return account
     }
 

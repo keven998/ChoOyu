@@ -424,17 +424,17 @@
  *
  *  @param gender 用户性别信息
  */
-- (void)updateUserGender:(NSString *)gender
+- (void)updateUserGender:(NSInteger )gender
 {
     AccountManager *accountManager = [AccountManager shareAccountManager];
-    if ([gender isEqualToString:accountManager.account.gender]) {
+    if (gender == accountManager.account.gender) {
         return;
     }
     __weak typeof(UserInfoTableViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf content:64];
-    
-    [accountManager asyncChangeGender:gender completion:^(BOOL isSuccess, NSString *errStr) {
+    NSString *genderStr = [NSString stringWithFormat:@"%lu",gender];
+    [accountManager asyncChangeGender:genderStr completion:^(BOOL isSuccess, NSString *errStr) {
         [hud hideTZHUD];
         if (isSuccess) {
             NSIndexPath *ip = [NSIndexPath indexPathForItem:0 inSection:1];
@@ -540,13 +540,13 @@
             
         } else if (indexPath.section == 3) {
             if (indexPath.row == 0){
-                if ([amgr.account.gender isEqualToString:@"F"]) {
+                if (amgr.account.gender ==Female) {
                     cell.cellDetail.text = @"美女";
                 }
-                else if ([amgr.account.gender isEqualToString:@"M"]) {
+                else if (amgr.account.gender == Male) {
                     cell.cellDetail.text = @"帅锅";
                 }
-                else if ([amgr.account.gender isEqualToString:@"U"]) {
+                else if (amgr.account.gender == Unknown) {
                     cell.cellDetail.text = @"一言难尽";
                 }
                 else {
