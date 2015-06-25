@@ -87,7 +87,6 @@ class PushSDKManager: NSObject, GexinSdkDelegate {
     :param: error
     */
     func GexinSdkDidOccurError(error: NSError!) {
-        
         println("*****  GexinSdkDidOccurError  ******")
 
     }
@@ -145,7 +144,6 @@ class PushSDKManager: NSObject, GexinSdkDelegate {
 }
 
 class GetuiPush: GexinSdk {
-    
     class func login() -> GexinSdk {
         let kAppKey = "O2ooToqPrsAGJYy3iZ54d7"
         let kAppId = "aGqQz4HiLg70iOUXheRSZ3"

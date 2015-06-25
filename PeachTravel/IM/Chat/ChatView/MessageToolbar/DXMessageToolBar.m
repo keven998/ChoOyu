@@ -290,10 +290,6 @@
     shadowImg.backgroundColor = [UIColor lightGrayColor];
     [self.toolbarView addSubview:shadowImg];
     
-    UIView *shadowImgBottom = [[UIView alloc] initWithFrame:CGRectMake(0, self.toolbarView.frame.size.height - 0.6, CGRectGetWidth(self.bounds), 0.6)];
-    shadowImgBottom.backgroundColor = COLOR_LINE;
-    [self.toolbarView addSubview:shadowImgBottom];
-    
     [self addSubview:self.toolbarView];
 }
 

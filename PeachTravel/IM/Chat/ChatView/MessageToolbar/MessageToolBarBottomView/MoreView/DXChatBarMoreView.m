@@ -23,6 +23,9 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = APP_PAGE_COLOR;
+        UIView *shadowImg = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), 0.6)];
+        shadowImg.backgroundColor = COLOR_LINE;
+        [self addSubview:shadowImg];
         [self setupSubviewsForType:type];
     }
     return self;

@@ -66,6 +66,39 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
         }
     }
     
+    /**
+    fetch 消息
+    
+    :param: receivedMessages 已经收到的消息
+    */
+    func ACKMessageWithReceivedMessages(receivedMessages: NSArray?) {
+        var accountManager = AccountManager.shareAccountManager()
+        
+        println("fetchOmitMessageWithReceivedMessages queue: \(NSThread.currentThread())")
+        
+        //储存需要额外处理的消息
+        var messagesNeed2Deal = NSMutableArray()
+        
+        NetworkTransportAPI.asyncACKMessage(accountManager.account.userId, shouldACKMessageList:messageManager.messagesShouldACK, completionBlock: { (isSuccess: Bool, errorCode: Int, retMessage: NSArray?) -> () in
+            
+            println("fetch Result 一共是：\(retMessage?.count): \(retMessage)")
+            
+            if (isSuccess) {
+                self.messageManager.clearAllMessageWhenACKSuccess()
+                if let retMessageArray = retMessage {
+                    dispatch_async(self.messageReceiveQueue, { () -> Void in
+                        self.dealwithFetchResult(receivedMessages, fetchMessages: retMessageArray)
+                        
+                    })
+                }
+            } else {
+                dispatch_async(self.messageReceiveQueue, { () -> Void in
+                    self.dealwithFetchResult(receivedMessages, fetchMessages: nil)
+                })
+            }
+        })
+    }
+    
 //MARK: private method
     
     /**
@@ -124,40 +157,6 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
         }
         var array = messagePrepate2Distribute as AnyObject as! [BaseMessage]
         distributionMessage(array)
-    }
-    
-    
-    /**
-    fetch 消息
-    
-    :param: receivedMessages 已经收到的消息
-    */
-    func ACKMessageWithReceivedMessages(receivedMessages: NSArray?) {
-        var accountManager = AccountManager.shareAccountManager()
-        
-        println("fetchOmitMessageWithReceivedMessages queue: \(NSThread.currentThread())")
-        
-        //储存需要额外处理的消息
-        var messagesNeed2Deal = NSMutableArray()
-
-        NetworkTransportAPI.asyncACKMessage(accountManager.account.userId, shouldACKMessageList:messageManager.messagesShouldACK, completionBlock: { (isSuccess: Bool, errorCode: Int, retMessage: NSArray?) -> () in
-            
-            println("fetch Result 一共是：\(retMessage?.count): \(retMessage)")
-
-            if (isSuccess) {
-                self.messageManager.clearAllMessageWhenACKSuccess()
-                if let retMessageArray = retMessage {
-                    dispatch_async(self.messageReceiveQueue, { () -> Void in
-                        self.dealwithFetchResult(receivedMessages, fetchMessages: retMessageArray)
-
-                    })
-                }
-            } else {
-                dispatch_async(self.messageReceiveQueue, { () -> Void in
-                    self.dealwithFetchResult(receivedMessages, fetchMessages: nil)
-                })
-            }
-        })
     }
     
     /**
