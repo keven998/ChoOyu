@@ -16,7 +16,6 @@
  */
 - (void)jumpToWebViewCtl;
 
-@property (nonatomic) IM_CONNECT_STATE IMState;
 
 - (void)updateViewWithUnreadMessageCount;
 

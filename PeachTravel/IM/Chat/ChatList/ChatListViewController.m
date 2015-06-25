@@ -88,7 +88,7 @@
     }
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:contactListBtn];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogin) name:userDidLoginNoti object:nil];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkChanged:) name:networkConnectionStatusChangeNoti object:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -96,9 +96,9 @@
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_talk_lists"];
     [self refreshDataSource];
-    [self updateNavigationTitleViewStatus];
     [_delegate unreadMessageCountHasChange];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [self updateIMStatusWithNetworkStatus:self.imClientManager.netWorkReachability.hostReachability.currentReachabilityStatus];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -124,6 +124,11 @@
 {
     NSDictionary *userInfo = noti.userInfo;
     NetworkStatus status = [[userInfo objectForKey:@"status"] integerValue];
+    [self updateIMStatusWithNetworkStatus: status];
+}
+
+- (void)updateIMStatusWithNetworkStatus:(NetworkStatus) status
+{
     if (status == NotReachable) {
         [self setIMState:IM_DISCONNECTED];
     } else {

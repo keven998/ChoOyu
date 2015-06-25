@@ -107,14 +107,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [super didReceiveMemoryWarning];
 }
 
-#pragma mark - setter & getter
-
-- (void)setIMState:(IM_CONNECT_STATE)IMState
-{
-    _IMState = IMState;
-    self.chatListCtl.IMState = _IMState;
-}
-
 #pragma mark - IBActions
 
 - (void)dismiss:(id)sender

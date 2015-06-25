@@ -7,13 +7,11 @@
 //
 
 #import "NetworkReachability.h"
-#import "Reachability.h"
 
 @interface NetworkReachability ()
 
-@property (nonatomic) Reachability *hostReachability;
-@property (nonatomic) Reachability *internetReachability;
-@property (nonatomic) Reachability *wifiReachability;
+//@property (nonatomic) Reachability *internetReachability;
+//@property (nonatomic) Reachability *wifiReachability;
 
 @end
 
@@ -33,22 +31,22 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
     
     //Change the host name here to change the server you want to monitor.
-    NSString *remoteHostName = @"www.apple.com";
+    NSString *remoteHostName = @"www.baidu.com";
     
     self.hostReachability = [Reachability reachabilityWithHostName:remoteHostName];
     [self.hostReachability startNotifier];
     [self updateInterfaceWithReachability:self.hostReachability];
     
-    self.internetReachability = [Reachability reachabilityForInternetConnection];
-    [self.internetReachability startNotifier];
-    [self updateInterfaceWithReachability:self.internetReachability];
-    
-    self.wifiReachability = [Reachability reachabilityForLocalWiFi];
-    [self.wifiReachability startNotifier];
-    [self updateInterfaceWithReachability:self.wifiReachability];
+//    self.internetReachability = [Reachability reachabilityForInternetConnection];
+//    [self.internetReachability startNotifier];
+//    [self updateInterfaceWithReachability:self.internetReachability];
+//    
+//    self.wifiReachability = [Reachability reachabilityForLocalWiFi];
+//    [self.wifiReachability startNotifier];
+//    [self updateInterfaceWithReachability:self.wifiReachability];
 }
 
-- (void) reachabilityChanged:(NSNotification *)note
+- (void)reachabilityChanged:(NSNotification *)note
 {
     Reachability* curReach = [note object];
     NSParameterAssert([curReach isKindOfClass:[Reachability class]]);
@@ -65,13 +63,13 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:networkConnectionStatusChangeNoti object:nil userInfo:dic];
     }
     
-    if (reachability == self.internetReachability)
-    {
-    }
-    
-    if (reachability == self.wifiReachability)
-    {
-    }
+//    if (reachability == self.internetReachability)
+//    {
+//    }
+//    
+//    if (reachability == self.wifiReachability)
+//    {
+//    }
 }
 
 

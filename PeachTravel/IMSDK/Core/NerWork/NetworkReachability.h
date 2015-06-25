@@ -7,7 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Reachability.h"
 
 @interface NetworkReachability : NSObject
+
+@property (nonatomic) Reachability *hostReachability;
 
 @end
