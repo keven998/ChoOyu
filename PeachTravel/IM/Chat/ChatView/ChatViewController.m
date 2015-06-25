@@ -1025,20 +1025,26 @@
 
 - (void)fillMessageModel:(MessageModel *)message
 {
-    if (_chatType == IMChatTypeIMChatSingleType) {
-        message.nickName = _conversation.chatterName;
-        message.headImageURL = [NSURL URLWithString:_conversation.chatterAvatar];
+    if (message.isSender) {
+        message.nickName = self.accountManager.account.nickName;
+        message.headImageURL = [NSURL URLWithString: self.accountManager.account.avatarSmall];
         
     } else {
-        for (FrendModel *model in _groupNumbers) {
-            if (model.userId == message.senderId) {
-                message.nickName = model.nickName;
-                if ([model.avatarSmall isBlankString]) {
-                    message.headImageURL = [NSURL URLWithString:model.avatar];
-                } else {
-                    message.headImageURL = [NSURL URLWithString:model.avatarSmall];
+        if (_chatType == IMChatTypeIMChatSingleType) {
+            message.nickName = _conversation.chatterName;
+            message.headImageURL = [NSURL URLWithString:_conversation.chatterAvatar];
+            
+        } else {
+            for (FrendModel *model in _groupNumbers) {
+                if (model.userId == message.senderId) {
+                    message.nickName = model.nickName;
+                    if ([model.avatarSmall isBlankString]) {
+                        message.headImageURL = [NSURL URLWithString:model.avatar];
+                    } else {
+                        message.headImageURL = [NSURL URLWithString:model.avatarSmall];
+                    }
+                    break;
                 }
-                break;
             }
         }
     }

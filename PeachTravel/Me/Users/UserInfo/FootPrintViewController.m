@@ -32,6 +32,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if (!_destinations) {
+        _destinations = [[Destinations alloc] init];
+    }
     _countryCount = 0;
     _countryName = [NSMutableArray array];
     self.view.backgroundColor = APP_PAGE_COLOR;
@@ -52,7 +55,6 @@
         float a = cityPoi.lat;
         float b = cityPoi.lng;
         CLLocation *location = [[CLLocation alloc] initWithLatitude:a longitude:b];
-        
         [self addFootprint:location];
         
     }

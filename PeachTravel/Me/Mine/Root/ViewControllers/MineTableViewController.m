@@ -50,8 +50,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //    self.edgesForExtendedLayout = UIRectEdgeNone;
-    //    self.extendedLayoutIncludesOpaqueBars = NO;
+    
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self loadUserInfo];
     
@@ -408,10 +407,23 @@
 - (IBAction)myTrack:(id)sender
 {
     FootPrintViewController *footCtl = [[FootPrintViewController alloc] init];
-    //    footCtl.destinations = self.destinations;
-    //    footCtl.delegate = self;
+    Destinations *destinations = [[Destinations alloc] init];
+    AccountManager *amgr = self.accountManager;
+    NSMutableDictionary *country = [NSMutableDictionary dictionaryWithDictionary:amgr.account.tracks];
+    
+    NSArray *keys = [country allKeys];
+    NSInteger countryNumber = keys.count;
+    for (int i = 0; i < countryNumber; ++i) {
+        NSArray *citys = [country objectForKey:[keys objectAtIndex:i]];
+        NSLog(@"%@",citys);
+        for (id city in citys) {
+            CityDestinationPoi *poi = [[CityDestinationPoi alloc] initWithJson:city];
+            [destinations.destinationsSelected addObject:poi];
+        }
+    }
+
     footCtl.hidesBottomBarWhenPushed = YES;
-//    [self.navigationController pushViewController:footCtl animated:YES];
+    footCtl.destinations = destinations;
     [self presentViewController:footCtl animated:YES completion:nil];
 }
 
