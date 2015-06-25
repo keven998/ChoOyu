@@ -51,6 +51,8 @@
 #import <AVFoundation/AVFoundation.h>
 #import "PeachTravel-swift.h"
 
+#import "MJRefresh.h"
+#import "RefreshHeader.h"
 #define KPageCount 20
 
 @interface ChatViewController ()<UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, DXChatBarMoreViewDelegate, DXMessageToolBarDelegate, LocationViewDelegate, ZYQAssetPickerControllerDelegate, ChatConversationDelegate, ChatManagerAudioDelegate>
@@ -321,6 +323,7 @@
         UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
         lpgr.minimumPressDuration = .5;
         [_tableView addGestureRecognizer:lpgr];
+        
     }
     
     return _tableView;
@@ -445,7 +448,21 @@
     if (_didEndScroll) {
         if (scrollView.contentOffset.y < 40) {
             _didEndScroll = NO;
-            [self loadMoreMessages];
+//            [self loadMoreMessages];
+            RefreshHeader *header = [RefreshHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadMoreMessages)];
+            
+            // 隐藏时间
+            header.lastUpdatedTimeLabel.hidden = YES;
+            
+            // 隐藏状态
+            header.stateLabel.hidden = YES;
+            
+            // 马上进入刷新状态
+            [header beginRefreshing];
+            
+            // 设置header
+            self.tableView.header = header;
+
         }
     }
 }
@@ -957,6 +974,7 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 [weakSelf.tableView reloadData];
                 [weakSelf.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:(weakSelf.dataSource.count-currentCount - 1) inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+                [self.tableView.header endRefreshing];
             });
         }
     });
