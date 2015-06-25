@@ -65,6 +65,7 @@
     NSInteger _recordingCount;
     
     BOOL _isScrollToBottom;
+    
 }
 
 @property (nonatomic) IMChatType chatType;
@@ -170,7 +171,6 @@
     if (!_headerView) {
         _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 44.0)];
         _headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        
         UIActivityIndicatorView *indicatroView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 32.0, 32.0)];
         [indicatroView setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
         [indicatroView setCenter:CGPointMake(CGRectGetWidth(self.tableView.bounds)/2.0, 44.0/2.0)];
@@ -312,6 +312,18 @@
         UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
         lpgr.minimumPressDuration = .5;
         [_tableView addGestureRecognizer:lpgr];
+        MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadMoreMessages)];
+        
+        // 隐藏时间
+        header.lastUpdatedTimeLabel.hidden = YES;
+        
+        // 隐藏状态
+        header.stateLabel.hidden = YES;
+        
+        
+        
+        // 设置header
+        self.tableView.header = header;
         
     }
     
@@ -432,15 +444,6 @@
     [self keyBoardHidden];
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    if (_didEndScroll) {
-        if (scrollView.contentOffset.y < 40) {
-            _didEndScroll = NO;
-            [self loadMoreMessages];
-        }
-    }
-}
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
@@ -940,6 +943,9 @@
  */
 - (void)loadMoreMessages
 {
+    // 马上进入刷新状态
+    [_tableView.header beginRefreshing];
+
     ChatViewController *weakSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         NSArray *moreMessages = [weakSelf.conversation getMoreChatMessageInConversation:10];
@@ -947,8 +953,11 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self addChatMessageList2Top:moreMessages];
             });
+        } else {
+            
         }
     });
+    
 }
 
 /**
@@ -980,10 +989,6 @@
 
 - (void)addChatMessageList2Top:(NSArray *)messageList
 {
-    if (!messageList.count) {
-        return;
-    }
-
     NSMutableArray *indexPath2Insert = [[NSMutableArray alloc] init];
     int i = 0;
     for (BaseMessage *message in messageList) {
@@ -1005,10 +1010,17 @@
         [indexPath2Insert addObject:path];
         i++;
     }
-    
-    [self.tableView reloadData];
-    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        // 刷新表格
+        [self.tableView reloadData];
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
 
+        
+        // 拿到当前的下拉刷新控件，结束刷新状态
+        [self.tableView.header endRefreshing];
+    });
+
+  
 }
 
 - (void)fillMessageModel:(MessageModel *)message
