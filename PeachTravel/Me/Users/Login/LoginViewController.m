@@ -53,14 +53,14 @@
     }
 //    if (!self.isPushed) {
 //        UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
-//        [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
+//        [button setImage:[UIImage imageNamed:@"common_icon_navigaiton_back"] forState:UIControlStateNormal];
 //        [button addTarget:self action:@selector(dismissCtl)forControlEvents:UIControlEventTouchUpInside];
 //        [button setFrame:CGRectMake(0, 0, 48, 30)];
 //        button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
 //        UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismissCtl)];
 //    UIButton *rightBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 44, 44)];
-//    [rightBtn setImage:[UIImage imageNamed:@"ic_navigation_back"] forState:UIControlStateNormal];
+//    [rightBtn setImage:[UIImage imageNamed:@"common_icon_navigaiton_back"] forState:UIControlStateNormal];
 //    [rightBtn setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateHighlighted];
 //    [rightBtn setTitle:@"取消" forState:UIControlStateNormal];
 //    [rightBtn addTarget:self action:@selector(dismissCtl) forControlEvents:UIControlEventTouchUpInside];

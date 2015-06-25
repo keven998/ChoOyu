@@ -99,7 +99,7 @@
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
     } else {
         UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:@"common_icon_navigaiton_back"] forState:UIControlStateNormal];
         [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
         [button setFrame:CGRectMake(0, 0, 48, 30)];
         button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
