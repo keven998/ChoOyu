@@ -90,7 +90,7 @@
 @property (nonatomic) BOOL isPlayingAudio;
 @property (nonatomic, strong) AccountManager *accountManager;
 
-@property (nonatomic, assign) BOOL didEndScroll;
+@property (nonatomic) BOOL loadMessageOver;
 
 @end
 
@@ -104,7 +104,7 @@
         _chatter = conversation.chatterId;
         _chatType = conversation.chatType;
         _conversation = conversation;
-        _didEndScroll = NO;
+        _loadMessageOver = NO;
     }
     
     return self;
@@ -320,6 +320,7 @@
         // 隐藏状态
         header.stateLabel.hidden = YES;
         
+        header.arrowView.hidden = YES;
         
         // 设置header
         self.tableView.header = header;
@@ -446,12 +447,11 @@
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    _didEndScroll = YES;
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if (scrollView.contentOffset.y < 40) {
+    if (scrollView.contentOffset.y < 40 && !_loadMessageOver) {
         if (![_tableView.header isRefreshing]) {
             [_tableView.header beginRefreshing];
         }
@@ -965,6 +965,7 @@
                 [self.tableView.header endRefreshing];
             });
         } else {
+            _loadMessageOver = YES;
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 // 拿到当前的下拉刷新控件，结束刷新状态
                 [self.tableView.header endRefreshing];
