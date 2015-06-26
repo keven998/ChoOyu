@@ -12,9 +12,6 @@
 #import "UIImage+BoxBlur.h"
 
 @interface CommonPoiDetailViewController ()
-{
-    UIButton *_favoriteBtn;
-}
 @property (nonatomic, strong) UIImageView *backGroundImageView;
 
 
@@ -27,44 +24,12 @@
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    NSMutableArray *barItems = [[NSMutableArray alloc] init];
-    
     UIButton *talkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 44)];
     [talkBtn setImage:[UIImage imageNamed:@"ic_home_normal"] forState:UIControlStateNormal];
     [talkBtn addTarget:self action:@selector(shareToTalk) forControlEvents:UIControlEventTouchUpInside];
-    [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:talkBtn]];
-    
-    _favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 44)];
-    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_travelnote_favorite.png"] forState:UIControlStateNormal];
-    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_navgation_favorite_seleted.png"] forState:UIControlStateSelected];
-    [_favoriteBtn addTarget:self action:@selector(favorite:) forControlEvents:UIControlEventTouchUpInside];
-    [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_favoriteBtn]];
-    
-    self.navigationItem.rightBarButtonItems = barItems;
-    
-   
-
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:talkBtn];
 }
-- (IBAction)favorite:(UIButton *)sender
-{
-    
-    if (_poiType == kRestaurantPoi) {
-        [MobClick event:@"event_favorite_delicacy"];
-    } else if (_poiType == kShoppingPoi) {
-        [MobClick event:@"event_favorite_shopping"];
-    } else if (_poiType == kHotelPoi) {
-        [MobClick event:@"event_favorite_hotel"];
-    }
 
-    [super asyncFavoritePoiWithCompletion:^(BOOL isSuccess) {
-
-        if (isSuccess) {
-            _favoriteBtn.selected = !_favoriteBtn.selected;
-        }
-    }];
-    
-    
-}
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -151,7 +116,6 @@
         } else {
             [self dismissCtlWithHint:@"无法获取数据"];
         }
-        _favoriteBtn.selected=self.poi.isMyFavorite;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [hud hideTZHUD];
         [self dismissCtlWithHint:@"呃～好像没找到网络"];
