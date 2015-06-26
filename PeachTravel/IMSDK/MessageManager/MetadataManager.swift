@@ -48,7 +48,7 @@ class MetadataUploadManager: NSObject {
     
     :param: completionBlock 获取完后的回调
     */
-    class func asyncRequestUploadToken2SendMessage(actionCode: QiniuGetTokeAction, completionBlock: (isSuccess: Bool, key: String?, token: String?) -> ()) {
+    class func asyncRequestUploadToken2SendMessage(messageType: IMMessageType, completionBlock: (isSuccess: Bool, key: String?, token: String?) -> ()) {
         let manager = AFHTTPRequestOperationManager()
         
         let requestSerializer = AFJSONRequestSerializer()
@@ -58,7 +58,7 @@ class MetadataUploadManager: NSObject {
         manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept")
         manager.requestSerializer.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         
-        manager.POST(requestQiniuTokenToUploadMetadata, parameters: ["action": actionCode.rawValue], success:
+        manager.POST(requestQiniuTokenToUploadMetadata, parameters: ["msgType": messageType.rawValue], success:
             {
                 (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
                 if let reslutDic = responseObject.objectForKey("result") as? NSDictionary {

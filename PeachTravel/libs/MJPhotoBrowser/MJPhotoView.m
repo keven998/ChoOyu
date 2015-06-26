@@ -67,15 +67,21 @@
     if (_photo.firstShow) { // 首次显示
         _imageView.image = nil; // 占位图片
         
-        if (![_photo.url.absoluteString hasSuffix:@"gif"]) {
+        if (![_photo.url hasSuffix:@"gif"]) {
             __unsafe_unretained MJPhotoView *photoView = self;
             __unsafe_unretained MJPhoto *photo = _photo;
+            if (![_photo.url hasPrefix:@"/var"] || [_photo.url hasPrefix:@"http"]) {
+                [_imageView sd_setImageWithURL:[NSURL URLWithString:_photo.url] placeholderImage:_photo.placeholder completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                    photo.image = image;
+                    // 调整frame参数
+                    [photoView adjustFrame];
+                }];
+            } else {
+                _photo.image = [UIImage imageWithContentsOfFile:_photo.url];
+                _imageView.image = _photo.image;
+            }
             
-            [_imageView sd_setImageWithURL:_photo.url placeholderImage:_photo.placeholder completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                photo.image = image;
-                // 调整frame参数
-                [photoView adjustFrame];
-            }];
+           
         }
     } else {
         [self photoStartLoad];
@@ -100,7 +106,7 @@
         __unsafe_unretained MJPhotoView *photoView = self;
         __unsafe_unretained MJPhotoLoadingView *loading = _photoLoadingView;
         
-        [_imageView sd_setImageWithURL:_photo.url placeholderImage:nil options:SDWebImageRetryFailed|SDWebImageLowPriority progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [_imageView sd_setImageWithURL:[NSURL URLWithString: _photo.url] placeholderImage:nil options:SDWebImageRetryFailed|SDWebImageLowPriority progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             if (receivedSize > kMinProgress) {
                 if (loading != nil) {
                     loading.progress = (float)receivedSize/expectedSize;

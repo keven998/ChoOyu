@@ -370,7 +370,7 @@ class MessageSendManager: NSObject {
     */
     private func sendMetadataMessage(metadataMessage: BaseMessage, metadata: NSData, chatType: IMChatType, conversationId: String?, completionBlock:(isSuccess: Bool)->()) {
         sendingMessageList.addObject(metadataMessage)
-        MetadataUploadManager.asyncRequestUploadToken2SendMessage(QiniuGetTokeAction.uploadChatMetadata, completionBlock: { (isSuccess, key, token) -> () in
+        MetadataUploadManager.asyncRequestUploadToken2SendMessage(metadataMessage.messageType, completionBlock: { (isSuccess, key, token) -> () in
             if isSuccess {
                 MetadataUploadManager.uploadMetadata2Qiniu(metadataMessage, token: token!, key: key!, metadata: metadata, chatType:chatType, conversationId:conversationId, progress: { (progressValue) -> () in
                     println("上传了: \(progressValue)")

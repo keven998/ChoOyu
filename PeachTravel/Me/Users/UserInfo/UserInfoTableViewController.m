@@ -888,7 +888,7 @@
         // 替换为中等尺寸图片
         AlbumImage *albumImage = amgr.account.userAlbum[i];
         MJPhoto *photo = [[MJPhoto alloc] init];
-        photo.url = [NSURL URLWithString:albumImage.image.imageUrl]; // 图片路径
+        photo.url = albumImage.image.imageUrl; // 图片路径
         
         
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
