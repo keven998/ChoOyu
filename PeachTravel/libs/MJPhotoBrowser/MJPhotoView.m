@@ -66,9 +66,7 @@
 {
     if (_photo.firstShow) { // 首次显示
         _imageView.image = nil; // 占位图片
-//        _photo.srcImageView.image = nil;
         
-        // 不是gif，就马上开始下载
         if (![_photo.url.absoluteString hasSuffix:@"gif"]) {
             __unsafe_unretained MJPhotoView *photoView = self;
             __unsafe_unretained MJPhoto *photo = _photo;
