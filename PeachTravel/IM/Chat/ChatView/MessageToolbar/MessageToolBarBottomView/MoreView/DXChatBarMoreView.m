@@ -13,6 +13,8 @@
 #import "DXChatBarMoreView.h"
 
 #define CHAT_BUTTON_SIZE 80
+#define CHAT_BUTTON_HEIGHT 187/2
+
 #define CHAT_LABEL_HEIGHT 20
 #define INSETS 40
 
@@ -38,28 +40,29 @@
     CGFloat spaceWidth = (self.bounds.size.width - 3 * CHAT_BUTTON_SIZE-80) / 2;
     
     _myStrategyButton = [TZButton buttonWithType:UIButtonTypeCustom];
-    [_myStrategyButton setFrame:CGRectMake(INSETS, 0, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
-    _myStrategyButton.topSpaceHight = 13;
+    [_myStrategyButton setFrame:CGRectMake(INSETS, 0, CHAT_BUTTON_SIZE , CHAT_BUTTON_HEIGHT)];
+    _myStrategyButton.topSpaceHight = 12;
     _myStrategyButton.spaceHight = 5;
-    [_myStrategyButton setImage:[UIImage imageNamed:@"journey_list_normal"] forState:UIControlStateNormal];
-    [_myStrategyButton setImage:[UIImage imageNamed:@"journey_list_selected"] forState:UIControlStateHighlighted];
+    [_myStrategyButton setImage:[UIImage imageNamed:@"messages_plus_plan_default"] forState:UIControlStateNormal];
+    [_myStrategyButton setImage:[UIImage imageNamed:@"messages_plus_plan_selected"] forState:UIControlStateHighlighted];
     [_myStrategyButton addTarget:self action:@selector(myStrategyAction) forControlEvents:UIControlEventTouchUpInside];
     _myStrategyButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [_myStrategyButton setTitle:@"旅行计划" forState:UIControlStateNormal];
+//    [_myStrategyButton setTitle:@"计划" forState:UIControlStateNormal];
     [_myStrategyButton setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     _myStrategyButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
     _myStrategyButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     _myStrategyButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    _myFavoriteButton.titleLabel.backgroundColor = [UIColor redColor];
     [self addSubview:_myStrategyButton];
     
     _myFavoriteButton = [TZButton buttonWithType:UIButtonTypeCustom];
-    _myFavoriteButton.topSpaceHight = 13;
+    _myFavoriteButton.topSpaceHight = 10;
     _myFavoriteButton.spaceHight = 5;
     [_myFavoriteButton setFrame:CGRectMake(spaceWidth + CHAT_BUTTON_SIZE+INSETS, 0, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
-    [_myFavoriteButton setImage:[UIImage imageNamed:@"ic_surch_normal"] forState:UIControlStateNormal];
-    [_myFavoriteButton setImage:[UIImage imageNamed:@"ic_surch_selectd"] forState:UIControlStateHighlighted];
+    [_myFavoriteButton setImage:[UIImage imageNamed:@"messages_plus_search_default"] forState:UIControlStateNormal];
+    [_myFavoriteButton setImage:[UIImage imageNamed:@"messages_plus_search_selected"] forState:UIControlStateHighlighted];
     [_myFavoriteButton addTarget:self action:@selector(destinationAction) forControlEvents:UIControlEventTouchUpInside];
-    [_myFavoriteButton setTitle:@"旅行搜搜" forState:UIControlStateNormal];
+//    [_myFavoriteButton setTitle:@"搜搜" forState:UIControlStateNormal];
     [_myFavoriteButton setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     _myFavoriteButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
     _myFavoriteButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -69,13 +72,13 @@
     
     
     _destinationButton = [TZButton buttonWithType:UIButtonTypeCustom];
-    _destinationButton.topSpaceHight = 13;
+    _destinationButton.topSpaceHight = 12;
     _destinationButton.spaceHight = 5;
     [_destinationButton setFrame:CGRectMake(INSETS + 2*(CHAT_BUTTON_SIZE+spaceWidth), 0, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
-    [_destinationButton setImage:[UIImage imageNamed:@"ic_here_normal"] forState:UIControlStateNormal];
-    [_destinationButton setImage:[UIImage imageNamed:@"ic_here_selected"] forState:UIControlStateHighlighted];
+    [_destinationButton setImage:[UIImage imageNamed:@"messages_plus_pin_default"] forState:UIControlStateNormal];
+    [_destinationButton setImage:[UIImage imageNamed:@"messages_plus_pin_selected"] forState:UIControlStateHighlighted];
     [_destinationButton addTarget:self action:@selector(locationAction) forControlEvents:UIControlEventTouchUpInside];
-    [_destinationButton setTitle:@"位置" forState:UIControlStateNormal];
+//    [_destinationButton setTitle:@"位置" forState:UIControlStateNormal];
     [_destinationButton setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     _destinationButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
     _destinationButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -99,13 +102,13 @@
 //    [self addSubview:_travelNoteButton];
     
     _photoButton = [TZButton buttonWithType:UIButtonTypeCustom];
-    _photoButton.topSpaceHight = 10;
+    _photoButton.topSpaceHight = 12;
     _photoButton.spaceHight = 5;
     [_photoButton setFrame:CGRectMake(INSETS, CHAT_BUTTON_SIZE + 10.0, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
-    [_photoButton setImage:[UIImage imageNamed:@"ic_picture_normal"] forState:UIControlStateNormal];
-    [_photoButton setImage:[UIImage imageNamed:@"ic_picture_selected"] forState:UIControlStateHighlighted];
+    [_photoButton setImage:[UIImage imageNamed:@"messages_plus_picture_default"] forState:UIControlStateNormal];
+    [_photoButton setImage:[UIImage imageNamed:@"messages_plus_picture_selected"] forState:UIControlStateHighlighted];
     [_photoButton addTarget:self action:@selector(photoAction) forControlEvents:UIControlEventTouchUpInside];
-    [_photoButton setTitle:@"相册" forState:UIControlStateNormal];
+//    [_photoButton setTitle:@"图片" forState:UIControlStateNormal];
     [_photoButton setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     _photoButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
     _photoButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -114,13 +117,13 @@
     [self addSubview:_photoButton];
     
     _takePicButton = [TZButton buttonWithType:UIButtonTypeCustom];
-    _takePicButton.topSpaceHight = 10;
+    _takePicButton.topSpaceHight = 12;
     _takePicButton.spaceHight = 5;
     [_takePicButton setFrame:CGRectMake(INSETS + CHAT_BUTTON_SIZE + spaceWidth, CHAT_BUTTON_SIZE + 10.0, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
-    [_takePicButton setImage:[UIImage imageNamed:@"ic_camieor_normal"] forState:UIControlStateNormal];
-    [_takePicButton setImage:[UIImage imageNamed:@"ic_camieor_selected"] forState:UIControlStateHighlighted];
+    [_takePicButton setImage:[UIImage imageNamed:@"messages_plus_camera_default"] forState:UIControlStateNormal];
+    [_takePicButton setImage:[UIImage imageNamed:@"messages_plus_camera_selected"] forState:UIControlStateHighlighted];
     [_takePicButton addTarget:self action:@selector(takePicAction) forControlEvents:UIControlEventTouchUpInside];
-    [_takePicButton setTitle:@"拍照" forState:UIControlStateNormal];
+//    [_takePicButton setTitle:@"拍照" forState:UIControlStateNormal];
     [_takePicButton setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     _takePicButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
     _takePicButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -128,6 +131,55 @@
     _takePicButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     [self addSubview:_takePicButton];
     
+    
+    
+    CGFloat w = SCREEN_WIDTH/6;
+    CGFloat bloderW = SCREEN_WIDTH/15;
+    
+    _myStrategyButton.frame = CGRectMake(bloderW, 0, w, w);
+    UILabel *planLabel = [[UILabel alloc]initWithFrame:CGRectMake(bloderW, w+13, w, 20)];
+    planLabel.text = @"计划";
+    planLabel.textAlignment = NSTextAlignmentCenter;
+    planLabel.font = [UIFont systemFontOfSize:12];
+    planLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+    [self addSubview:planLabel];
+    
+    
+    
+    _photoButton.frame = CGRectMake(bloderW + w + bloderW, 0, w, w);
+    UILabel *photoLabel = [[UILabel alloc]initWithFrame:CGRectMake(bloderW + w + bloderW, w+13, w, 20)];
+    photoLabel.text = @"图片";
+    photoLabel.textAlignment = NSTextAlignmentCenter;
+    photoLabel.font = [UIFont systemFontOfSize:12];
+    photoLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+    [self addSubview:photoLabel];
+    
+    
+    _takePicButton.frame = CGRectMake(bloderW * 3+ 2 * w , 0, w, w);
+    UILabel *caremaLabel = [[UILabel alloc]initWithFrame:CGRectMake(bloderW * 3+ 2 * w, w+13, w, 20)];
+    caremaLabel.text = @"拍照";
+    caremaLabel.textAlignment = NSTextAlignmentCenter;
+    caremaLabel.font = [UIFont systemFontOfSize:12];
+    caremaLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+    [self addSubview:caremaLabel];
+    
+    
+    _destinationButton.frame = CGRectMake(bloderW * 4 + 3 * w, 0, w, w);
+    UILabel *positionLabel = [[UILabel alloc]initWithFrame:CGRectMake(bloderW * 4 + 3 * w, w+13, w, 20)];
+    positionLabel.text = @"位置";
+    positionLabel.textAlignment = NSTextAlignmentCenter;
+    positionLabel.font = [UIFont systemFontOfSize:12];
+    positionLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+    [self addSubview:positionLabel];
+
+    _myFavoriteButton.frame = CGRectMake(bloderW, self.bounds.size.height/2-1, w, w);
+    UILabel *sousouLabel = [[UILabel alloc]initWithFrame:CGRectMake(bloderW, self.bounds.size.height/2+w+9, w, 20)];
+    sousouLabel.text = @"搜搜";
+    sousouLabel.textAlignment = NSTextAlignmentCenter;
+    sousouLabel.font = [UIFont systemFontOfSize:12];
+    sousouLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+    [self addSubview:sousouLabel];
+
 //    _locationButton =[UIButton buttonWithType:UIButtonTypeCustom];
 //    [_locationButton setFrame:CGRectMake(INSETS * 3 + CHAT_BUTTON_SIZE*2, 10 * 2+CHAT_BUTTON_SIZE+CHAT_LABEL_HEIGHT, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
 //    [_locationButton setImage:[UIImage imageNamed:@"chatBar_colorMore_location"] forState:UIControlStateNormal];
