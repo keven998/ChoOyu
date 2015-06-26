@@ -28,6 +28,8 @@
 @interface MineTableViewController () <UITableViewDataSource, UITableViewDelegate,updataTracksDelegate>
 {
     UILabel *_trackNumber;
+    UILabel *_friendNumber;
+    UILabel *_planNumber;
 }
 @property (strong, nonatomic) AccountManager *accountManager;
 @property (strong, nonatomic) UITableView *tableView;
@@ -54,7 +56,7 @@
     [super viewDidLoad];
     
     self.automaticallyAdjustsScrollViewInsets = NO;
-    [self loadUserInfo];
+//    [self loadUserInfo];
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
     self.tableView.dataSource = self;
@@ -65,6 +67,8 @@
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.tableView registerNib:[UINib nibWithNibName:@"OptionTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:secondCell];
     
+    [self setupTableHeaderView];
+    [self loadUserInfo];
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userAccountHasChage) name:userDidLoginNoti object:nil];
@@ -109,7 +113,6 @@
 {
     [self.accountManager.account loadUserInfoFromServer:^(bool isSuccess) {
         if (isSuccess) {
-            [self setupTableHeaderView];
             [self updateAccountInfo];
         }
     }];
@@ -180,15 +183,14 @@
     CGFloat bh = 84*height/736;
     
     UIButton *friendEntry = [[UIButton alloc] initWithFrame:CGRectMake(0, offsetY, unitWidth, bh)];
-    UILabel *friendNumber = [[UILabel alloc] initWithFrame:CGRectMake(10, bh/2 - 20, unitWidth - 20, 20)];
-    friendNumber.textColor = COLOR_TEXT_I;
-    friendNumber.textAlignment = NSTextAlignmentCenter;
-    friendNumber.font = [UIFont systemFontOfSize:15];
-    NSString *friendCount = [NSString stringWithFormat:@"%lu位",_accountManager.account.frendList.count];
-    friendNumber.text = friendCount;
-    friendNumber.lineBreakMode = NSLineBreakByTruncatingTail;
-    _friendCount = friendNumber;
-    [friendEntry addSubview:friendNumber];
+    _friendNumber = [[UILabel alloc] initWithFrame:CGRectMake(10, bh/2 - 20, unitWidth - 20, 20)];
+    _friendNumber.textColor = COLOR_TEXT_I;
+    _friendNumber.textAlignment = NSTextAlignmentCenter;
+    _friendNumber.font = [UIFont systemFontOfSize:15];
+    _friendNumber.text = @"0位";
+    _friendNumber.lineBreakMode = NSLineBreakByTruncatingTail;
+    _friendCount = _friendNumber;
+    [friendEntry addSubview:_friendNumber];
     UILabel *fl = [[UILabel alloc] initWithFrame:CGRectMake(10, bh/2, unitWidth - 20, 20)];
     fl.textColor = COLOR_TEXT_III;
     fl.text = @"好友";
@@ -199,15 +201,14 @@
     [headerBgView addSubview:friendEntry];
     
     UIButton *planEntry = [[UIButton alloc] initWithFrame:CGRectMake(unitWidth, offsetY, unitWidth, bh)];
-    UILabel *planNumber = [[UILabel alloc] initWithFrame:CGRectMake(10, bh/2 - 20, unitWidth - 20, 20)];
-    planNumber.textColor = COLOR_TEXT_I;
-    planNumber.textAlignment = NSTextAlignmentCenter;
-    planNumber.font = [UIFont systemFontOfSize:15];
-    NSString *planCount = [NSString stringWithFormat:@"%lu条",_accountManager.account.guideCnt];
-    planNumber.text = planCount;
-    _planCount = planNumber;
-    planNumber.lineBreakMode = NSLineBreakByTruncatingTail;
-    [planEntry addSubview:planNumber];
+    _planNumber = [[UILabel alloc] initWithFrame:CGRectMake(10, bh/2 - 20, unitWidth - 20, 20)];
+    _planNumber.textColor = COLOR_TEXT_I;
+    _planNumber.textAlignment = NSTextAlignmentCenter;
+    _planNumber.font = [UIFont systemFontOfSize:15];
+    _planNumber.text = @"0条";
+    _planCount = _planNumber;
+    _planNumber.lineBreakMode = NSLineBreakByTruncatingTail;
+    [planEntry addSubview:_planNumber];
     UILabel *pl = [[UILabel alloc] initWithFrame:CGRectMake(10, bh/2, unitWidth - 20, 20)];
     pl.textColor = COLOR_TEXT_III;
     pl.text = @"计划";
@@ -243,7 +244,7 @@
             }
         }
     }
-    _trackNumber.text = [NSString stringWithFormat:@"%ld国 %ld个城市", (long)countryNumber, (long)cityNumber];
+    _trackNumber.text = [NSString stringWithFormat:@"0国 0个城市"];
 
     _trackCount = _trackNumber;
     [trackEntry addSubview:_trackNumber];
@@ -299,18 +300,43 @@
 }
 
 - (void) updateAccountInfo {
-//    AccountManager *amgr = self.accountManager;
-    if ([_accountManager isLogin]) {
-        [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:_accountManager.account.avatarSmall] placeholderImage:[UIImage imageNamed:@"ic_home_avatar_unknown.png"]];
-        _nameLabel.text = _accountManager.account.nickName;
-        _idLabel.text = [NSString stringWithFormat:@"ID：%ld", (long)_accountManager.account.userId];
+    AccountManager *amgr = self.accountManager;
+    if ([amgr isLogin]) {
+        [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:amgr.account.avatarSmall] placeholderImage:[UIImage imageNamed:@"ic_home_avatar_unknown.png"]];
+        
+        NSMutableDictionary *country = [NSMutableDictionary dictionaryWithDictionary:amgr.account.tracks];
+        NSInteger cityNumber = 0;
+        NSMutableString *cityDesc = nil;
+        NSArray *keys = [country allKeys];
+        NSInteger countryNumber = keys.count;
+        for (int i = 0; i < countryNumber; ++i) {
+            NSArray *citys = [country objectForKey:[keys objectAtIndex:i]];
+            NSLog(@"%@",citys);
+            cityNumber += citys.count;
+            
+            for (id city in citys) {
+                CityDestinationPoi *poi = [[CityDestinationPoi alloc] initWithJson:city];
+                if (cityDesc == nil) {
+                    cityDesc = [[NSMutableString alloc] initWithString:poi.zhName];
+                } else {
+                    [cityDesc appendFormat:@" %@", poi.zhName];
+                }
+            }
+        }
+        _trackNumber.text = [NSString stringWithFormat:@"%ld国 %ld个城市", (long)countryNumber, (long)cityNumber];
+        
+        _friendNumber.text = [NSString stringWithFormat:@"%lu位",_accountManager.account.frendList.count];
+        
+        _planNumber.text = [NSString stringWithFormat:@"%lu条",_accountManager.account.guideCnt];
+        _nameLabel.text = amgr.account.nickName;
+        _idLabel.text = [NSString stringWithFormat:@"ID：%ld", (long)amgr.account.userId];
         _constellationView.image = [UIImage imageNamed:@"ic_home_user_constellation_shooter.png"];
         _levelLabel.text = @"Lv12";
-        if (_accountManager.account.gender == Male) {
+        if (amgr.account.gender == Male) {
             _avatarBg.image = [UIImage imageNamed:@"ic_home_avatar_border_boy.png"];
             _levelBg.image = [UIImage imageNamed:@"ic_home_level_bg_boy.png"];
             _flagHeaderIV.image = [UIImage imageNamed:@"ic_home_header_boy.png"];
-        } else if (_accountManager.account.gender == Female) {
+        } else if (amgr.account.gender == Female) {
             _avatarBg.image = [UIImage imageNamed:@"ic_home_avatar_border_girl.png"];
             _levelBg.image = [UIImage imageNamed:@"ic_home_level_bg_girl.png"];
             _flagHeaderIV.image = [UIImage imageNamed:@"ic_home_header_girl.png"];
