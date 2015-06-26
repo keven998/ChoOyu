@@ -321,7 +321,6 @@
         header.stateLabel.hidden = YES;
         
         
-        
         // 设置header
         self.tableView.header = header;
         
@@ -448,6 +447,15 @@
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
     _didEndScroll = YES;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (scrollView.contentOffset.y < 40) {
+        if (![_tableView.header isRefreshing]) {
+            [_tableView.header beginRefreshing];
+        }
+    }
 }
 
 #pragma mark - GestureRecognizer
@@ -950,15 +958,14 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         NSArray *moreMessages = [weakSelf.conversation getMoreChatMessageInConversation:10];
         if ([moreMessages count] > 0) {
-            dispatch_async(dispatch_get_main_queue(), ^{
+
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [self addChatMessageList2Top:moreMessages];
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.75 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    // 拿到当前的下拉刷新控件，结束刷新状态
-                    [self.tableView.header endRefreshing];
-                });
+                // 拿到当前的下拉刷新控件，结束刷新状态
+                [self.tableView.header endRefreshing];
             });
         } else {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.75 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 // 拿到当前的下拉刷新控件，结束刷新状态
                 [self.tableView.header endRefreshing];
             });
