@@ -438,6 +438,12 @@ class MessageSendManager: NSObject {
                 self.sendMetadataMessage(message, metadata: imageData, chatType: chatType, conversationId: conversationId, completionBlock: { (isSuccess) -> () in
                 })
             }
+            
+        } else if message.messageType == IMMessageType.LocationMessageType {
+            if let imageData = NSData(contentsOfFile: (message as! LocationMessage).localPath!) {
+                self.sendMetadataMessage(message, metadata: imageData, chatType: chatType, conversationId: conversationId, completionBlock: { (isSuccess) -> () in
+                })
+            }
         } else {
             self.sendMessage(message, receiver: receiver, chatType: chatType, conversationId: conversationId)
         }
