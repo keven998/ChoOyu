@@ -49,6 +49,17 @@ class ImageMessage: BaseMessage {
         var imageDic: NSMutableDictionary = JSONConvertMethod.jsonObjcWithString(message).mutableCopy() as! NSMutableDictionary
         if let metadataId = metadataId {
             imageDic.setObject(metadataId, forKey: "metadataId")
+            if let url = fullUrl {
+                imageDic.setObject(url, forKey: "full")
+            }
+            if let url = originUrl {
+                imageDic.setObject(url, forKey: "origin")
+            }
+            if let url = thumbUrl {
+                imageDic.setObject(url, forKey: "thumb")
+            }
+            imageDic.setObject(metadataId, forKey: "metadataId")
+
             if let content = JSONConvertMethod.contentsStrWithJsonObjc(imageDic) {
                 message = content as String
             }
