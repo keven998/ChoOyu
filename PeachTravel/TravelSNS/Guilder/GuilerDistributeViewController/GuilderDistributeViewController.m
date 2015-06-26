@@ -19,6 +19,8 @@
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"派派达人";
     self.view.backgroundColor = APP_PAGE_COLOR;
+
+    
 }
 
 - (void)didReceiveMemoryWarning {

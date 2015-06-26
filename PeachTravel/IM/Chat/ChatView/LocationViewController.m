@@ -55,8 +55,8 @@ static LocationViewController *defaultLocation = nil;
     if (self) {
         _isSendLocation = NO;
         _currentLocationCoordinate = locationCoordinate;
-        locModel.latitude = _currentLocationCoordinate.latitude;
-        locModel.longitude = _currentLocationCoordinate.longitude;
+        
+
     }
     
     return self;
@@ -135,6 +135,8 @@ static LocationViewController *defaultLocation = nil;
             CLPlacemark *placemark = [array objectAtIndex:0];
             weakSelf.addressString = placemark.name;
             locModel.address = placemark.name;
+            locModel.latitude = userLocation.coordinate.latitude;
+            locModel.longitude = userLocation.coordinate.longitude;
             [self removeToLocation:userLocation.coordinate];
         }
     }];
@@ -181,7 +183,6 @@ static LocationViewController *defaultLocation = nil;
 - (void)removeToLocation:(CLLocationCoordinate2D)locationCoordinate
 {
     [self hideHud];
-    
     _currentLocationCoordinate = locationCoordinate;
     float zoomLevel = 0.01;
     MKCoordinateRegion region = MKCoordinateRegionMake(_currentLocationCoordinate, MKCoordinateSpanMake(zoomLevel, zoomLevel));
@@ -194,23 +195,28 @@ static LocationViewController *defaultLocation = nil;
     [self createAnnotationWithCoords:_currentLocationCoordinate];
 }
 
-- (UIImage *)screenShotWithView:(UIView *)view
+- (UIImage *)screenShotWithView
 {
-    UIGraphicsBeginImageContext(view.bounds.size);
-    [view.layer renderInContext:UIGraphicsGetCurrentContext()];
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsBeginImageContext(self.view.bounds.size) ;
+    [[self.view layer] renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    NSData *imageData = UIImageJPEGRepresentation(image, 0.5);
-    image = [UIImage imageWithData:imageData];
-    return image;
+    CGImageRef imageRef = viewImage.CGImage;
+    CGRect rect = CGRectMake(0, SCREEN_HEIGHT/4, SCREEN_WIDTH, SCREEN_HEIGHT*3/4);
+    CGImageRef imageRefRect =CGImageCreateWithImageInRect(imageRef, rect);
+    UIImage *sendImage = [[UIImage alloc] initWithCGImage:imageRefRect];
+    NSData *imageData = UIImageJPEGRepresentation(sendImage, 0.5);
+    sendImage = [UIImage imageWithData:imageData];
+    
+    return sendImage;
 }
 
 - (void)sendLocation
 {
+    [self removeToLocation:_currentLocationCoordinate];
     if (_delegate && [_delegate respondsToSelector:@selector(sendLocation:locImage:)]) {
-        [_delegate sendLocation:locModel locImage:[self screenShotWithView:self.view]];
+        [_delegate sendLocation:locModel locImage:[self screenShotWithView]];
     }
-    
     [self performSelector:@selector(dismiss) withObject:nil afterDelay:0.3];
 }
 
