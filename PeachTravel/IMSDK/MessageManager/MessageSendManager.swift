@@ -137,8 +137,9 @@ class MessageSendManager: NSObject {
     
     :returns: 发送前的消息
     */
-    func sendLocationMessage(location: LocationModel, receiver: Int, chatType:IMChatType, conversationId: String?) -> BaseMessage {
+    func sendLocationMessage(location: LocationModel, receiver: Int, chatType: IMChatType, conversationId: String?) -> BaseMessage {
         var locationMessage = LocationMessage()
+        locationMessage.createTime = Int(NSDate().timeIntervalSince1970)
         locationMessage.latitude = location.latitude
         locationMessage.longitude = location.longitude
         locationMessage.address = location.address
@@ -157,6 +158,51 @@ class MessageSendManager: NSObject {
 
         return locationMessage
     }
+    
+    /**
+    发送一条位置信息
+    
+    :param: location       位置 model，包括 lat，lng，address
+    :param: receiver       接收者
+    :param: chatType       聊天类型
+    :param: conversationId
+    
+    :returns: 发送前的消息
+    */
+    func sendLocationMessage(location: LocationModel, receiver: Int, mapImage: UIImage, chatType: IMChatType, conversationId: String?) -> BaseMessage {
+        var locationMessage = LocationMessage()
+        locationMessage.createTime = Int(NSDate().timeIntervalSince1970)
+        locationMessage.latitude = location.latitude
+        locationMessage.longitude = location.longitude
+        locationMessage.address = location.address
+        locationMessage.chatterId = receiver
+        locationMessage.status = .IMMessageSending
+        var metadataId = NSUUID().UUIDString
+        var imageData = UIImageJPEGRepresentation(mapImage, 1)
+
+        let path = AccountManager.shareAccountManager().userChatImagePath.stringByAppendingPathComponent("\(metadataId).jpeg")
+        locationMessage.localPath = path
+        MetaDataManager.moveMetadata2Path(imageData, toPath: path)
+
+        locationMessage.sendType = IMMessageSendType.MessageSendMine
+        locationMessage.conversationId = conversationId
+        var locationDic = ["lat": location.latitude, "lng": location.longitude, "name": location.address, "metadataId": metadataId];
+        locationMessage.message = JSONConvertMethod.contentsStrWithJsonObjc(locationDic) as! String
+        
+        var daoHelper = DaoHelper.shareInstance()
+        daoHelper.insertChatMessage("chat_\(receiver)", message: locationMessage)
+        for messageManagerDelegate in self.sendDelegateList {
+            messageManagerDelegate.sendNewMessage?(locationMessage)
+        }
+
+        self.sendMetadataMessage(locationMessage, metadata: imageData, chatType: chatType, conversationId: conversationId) { (isSuccess) -> () in
+            
+        }
+        
+        return locationMessage
+    }
+
+
     
     /**
     发送 poi 信息

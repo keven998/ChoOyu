@@ -668,14 +668,11 @@
     
     if (model.type == IMMessageTypeImageMessageType) {
         NSString *imageUrl = ((ImageMessage *)model.baseMessage).fullUrl;
-        NSString *imageUrl2 = ((ImageMessage *)model.baseMessage).originUrl;
-
         if (imageUrl) {
             [weakSelf.messageReadManager showBrowserWithImages:@[[NSURL URLWithString:imageUrl]] andImageView:imageView];
         }
     }
 }
-
 
 #pragma mark - EMChatBarMoreViewDelegate
 
@@ -800,10 +797,7 @@
 
 #pragma mark - LocationViewDelegate
 
-//- (void)sendLocationLatitude:(double)latitude longitude:(double)longitude andAddress:(NSString *)address
-//{
-//    [self sendLocation:latitude lng:longitude address:address];
-//}
+
 - (void)sendLocation:(LocationModel *)locModel locImage:(UIImage *)locImage
 {
     [self sendLocation:locModel Image:locImage];
@@ -1131,9 +1125,8 @@
 
 - (void)sendLocation:(LocationModel *)model Image:(UIImage *)locImage {
     IMClientManager *imClientManager = [IMClientManager shareInstance];
-
     
-    BaseMessage *message = [imClientManager.messageSendManager sendLocationMessage:model receiver:_conversation.chatterId chatType:_conversation.chatType conversationId:_conversation.conversationId];
+    BaseMessage *message = [imClientManager.messageSendManager sendLocationMessage:model receiver:_conversation.chatterId  mapImage:locImage chatType:_conversation.chatType conversationId:_conversation.conversationId];
     
     [self addChatMessage2Buttom:message];
 }

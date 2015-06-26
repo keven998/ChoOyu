@@ -52,9 +52,11 @@
                 break;
                 
             case IMMessageTypeLocationMessageType:
+                _localPath = ((LocationMessage *)message).localPath;
                 _address = ((LocationMessage *)message).address;
                 _latitude = ((LocationMessage *)message).latitude;
                 _longitude = ((LocationMessage *)message).longitude;
+                _image = [UIImage imageWithContentsOfFile:((ImageMessage*)message).localPath];
                 break;
                 
             case IMMessageTypeTravelNoteMessageType:

@@ -76,7 +76,6 @@ class MetadataUploadManager: NSObject {
                 completionBlock(isSuccess: false, key: nil, token: nil)
                 print(error)
         }
-    
     }
    
     /**
@@ -104,6 +103,12 @@ class MetadataUploadManager: NSObject {
             
         } else {
             params.setValue("group", forKey: "x:chatType")
+        }
+        
+        if metadataMessage.messageType == IMMessageType.LocationMessageType {
+            params.setValue("\((metadataMessage as! LocationMessage).address)", forKey: "x:address")
+            params.setValue("\((metadataMessage as! LocationMessage).latitude)", forKey: "x:latitude")
+            params.setValue("\((metadataMessage as! LocationMessage).longitude)", forKey: "x:longitude")
         }
         
         var opt = QNUploadOption(mime: "text/plain", progressHandler: { (key: String!, progressValue: Float) -> Void in

@@ -9,7 +9,6 @@
 import UIKit
 
 class IMShoppingMessage: BaseMessage {
-    
     var shoppingId: String!
     var poiName: String?
     var image: String?
