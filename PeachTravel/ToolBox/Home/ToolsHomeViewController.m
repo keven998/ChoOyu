@@ -95,6 +95,7 @@
 - (void) goLxpHelper {
     GuilderDistributeViewController *gdvc = [[GuilderDistributeViewController alloc] init];
     gdvc.hidesBottomBarWhenPushed = YES;
+
     [self.navigationController pushViewController:gdvc animated:YES];
 }
 
