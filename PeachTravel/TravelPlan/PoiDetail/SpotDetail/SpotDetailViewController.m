@@ -90,7 +90,6 @@
     }
     
     [_spotDetailView.closeBtn addTarget:self action:@selector(dismissCtl) forControlEvents:UIControlEventTouchUpInside];
-    [_spotDetailView.favoriteBtn addTarget:self action:@selector(favorite:) forControlEvents:UIControlEventTouchUpInside];
     [_spotDetailView.addressBtn addTarget:self action:@selector(jumpToMap) forControlEvents:UIControlEventTouchUpInside];
     
     [_spotDetailView.shareBtn addTarget:self action:@selector(chat:) forControlEvents:UIControlEventTouchUpInside];
@@ -269,23 +268,6 @@
     sheet.cancelButtonIndex = sheet.numberOfButtons-1;
     [sheet showInView:self.view];
 }
-
-//- (IBAction)favorite:(id)sender
-//{
-//    //先将收藏的状态改变
-//    [MobClick event:@"event_spot_favorite"];
-//    _spotDetailView.favoriteBtn.selected = !_spotDetailView.favoriteBtn.selected;
-//    _spotDetailView.favoriteBtn.userInteractionEnabled = NO;
-//    
-//    [super asyncFavoritePoiWithCompletion:^(BOOL isSuccess) {
-//        _spotDetailView.favoriteBtn.userInteractionEnabled = YES;
-//        if (isSuccess) {
-//        } else {      //如果失败了，再把状态改回来
-//            _spotDetailView.favoriteBtn.selected = !_spotDetailView.favoriteBtn.selected;
-//        }
-//    }];
-//
-//}
 
 -(void)jumpToMap
 {

@@ -108,17 +108,13 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     return _dataSource;
 }
 
-- (void)tapTouch
-{
-    [self.searchBar endEditing:YES];
-    //    [self.tableView removeGestureRecognizer:_tap];
-}
-
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     [self.view endEditing:YES];
     [self.searchBar endEditing:YES];
     [super touchesEnded:touches withEvent:event];
-    [self goBack];
+    if (self.dataSource.count == 0) {
+        [self goBack];
+    }
 }
 
 /**
