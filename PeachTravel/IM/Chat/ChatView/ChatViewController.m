@@ -796,11 +796,14 @@
 
 #pragma mark - LocationViewDelegate
 
-- (void)sendLocationLatitude:(double)latitude longitude:(double)longitude andAddress:(NSString *)address
+//- (void)sendLocationLatitude:(double)latitude longitude:(double)longitude andAddress:(NSString *)address
+//{
+//    [self sendLocation:latitude lng:longitude address:address];
+//}
+- (void)sendLocation:(LocationModel *)locModel locImage:(UIImage *)locImage
 {
-    [self sendLocation:latitude lng:longitude address:address];
+    [self sendLocation:locModel Image:locImage];
 }
-
 #pragma mark - DXMessageToolBarDelegate
 - (void)inputTextViewWillBeginEditing:(HPGrowingTextView *)messageInputTextView{
     [_menuController setMenuItems:nil];
@@ -1122,12 +1125,9 @@
     [self addChatMessage2Buttom:message];
 }
 
-- (void)sendLocation:(double)lat lng:(double) lng  address:(NSString *)address{
+- (void)sendLocation:(LocationModel *)model Image:(UIImage *)locImage {
     IMClientManager *imClientManager = [IMClientManager shareInstance];
-    LocationModel *model = [[LocationModel alloc] init];
-    model.longitude = lng;
-    model.latitude = lat;
-    model.address = address;
+
     
     BaseMessage *message = [imClientManager.messageSendManager sendLocationMessage:model receiver:_conversation.chatterId chatType:_conversation.chatType conversationId:_conversation.conversationId];
     

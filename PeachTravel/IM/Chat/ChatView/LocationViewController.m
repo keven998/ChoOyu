@@ -27,6 +27,7 @@ static LocationViewController *defaultLocation = nil;
     BOOL _isSendLocation;
     
     CLLocationManager* location;
+    LocationModel *locModel;
 
 }
 
@@ -54,6 +55,8 @@ static LocationViewController *defaultLocation = nil;
     if (self) {
         _isSendLocation = NO;
         _currentLocationCoordinate = locationCoordinate;
+        locModel.latitude = _currentLocationCoordinate.latitude;
+        locModel.longitude = _currentLocationCoordinate.longitude;
     }
     
     return self;
@@ -64,7 +67,7 @@ static LocationViewController *defaultLocation = nil;
     [super viewDidLoad];
     
     self.title = @"位置信息";
-    
+    locModel = [[LocationModel alloc]init];
     UIBarButtonItem *backBtn = [[UIBarButtonItem alloc] initWithTitle:@" 取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
     self.navigationItem.leftBarButtonItem = backBtn;
     
@@ -131,7 +134,7 @@ static LocationViewController *defaultLocation = nil;
         if (!error && array.count > 0) {
             CLPlacemark *placemark = [array objectAtIndex:0];
             weakSelf.addressString = placemark.name;
-            
+            locModel.address = placemark.name;
             [self removeToLocation:userLocation.coordinate];
         }
     }];
@@ -191,10 +194,21 @@ static LocationViewController *defaultLocation = nil;
     [self createAnnotationWithCoords:_currentLocationCoordinate];
 }
 
+- (UIImage *)screenShotWithView:(UIView *)view
+{
+    UIGraphicsBeginImageContext(view.bounds.size);
+    [view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    NSData *imageData = UIImageJPEGRepresentation(image, 0.5);
+    image = [UIImage imageWithData:imageData];
+    return image;
+}
+
 - (void)sendLocation
 {
-    if (_delegate && [_delegate respondsToSelector:@selector(sendLocationLatitude:longitude:andAddress:)]) {
-        [_delegate sendLocationLatitude:_currentLocationCoordinate.latitude longitude:_currentLocationCoordinate.longitude andAddress:_addressString];
+    if (_delegate && [_delegate respondsToSelector:@selector(sendLocation:locImage:)]) {
+        [_delegate sendLocation:locModel locImage:[self screenShotWithView:self.view]];
     }
     
     [self performSelector:@selector(dismiss) withObject:nil afterDelay:0.3];
