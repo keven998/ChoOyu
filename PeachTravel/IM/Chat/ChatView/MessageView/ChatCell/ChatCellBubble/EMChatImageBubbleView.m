@@ -26,8 +26,8 @@ NSString *const kRouterEventImageBubbleTapEventName = @"kRouterEventImageBubbleT
 {
     if (self = [super initWithFrame:frame]) {
         _imageView = [[UIImageView alloc] init];
-        _imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        _imageView.contentMode = UIViewContentModeScaleAspectFit;
+//        _imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+//        _imageView.contentMode = UIViewContentModeScaleAspectFit;
         [self addSubview:_imageView];
     }
     
@@ -77,7 +77,7 @@ NSString *const kRouterEventImageBubbleTapEventName = @"kRouterEventImageBubbleT
     _model = model;
     
     UIImage *image = _model.isSender ? _model.image : _model.thumbnailImage;
-    NSString *maskImageName = _model.isSender ? @"SenderImageNodeBorder_back.png" : @"ReceiverImageNodeBorder_back.png";
+    NSString *maskImageName = _model.isSender ? @"SenderImageNodeBorder_black.png" : @"ReceiverImageNodeBorder_black.png";
     if (!image) {
         image = _model.image;
         if (!image) {
@@ -102,13 +102,13 @@ NSString *const kRouterEventImageBubbleTapEventName = @"kRouterEventImageBubbleT
     NSInteger leftCapWidth = isReceiver?BUBBLE_LEFT_LEFT_CAP_WIDTH:BUBBLE_RIGHT_LEFT_CAP_WIDTH;
     NSInteger rightCapWidth = isReceiver?BUBBLE_RIGHT_LEFT_CAP_WIDTH:BUBBLE_LEFT_LEFT_CAP_WIDTH;
     
-    NSInteger topCapHeight =  39;
+    NSInteger topCapHeight =  28;
     UIImage *resizableMaskImage = [UIImage imageNamed:maskImageName];
     resizableMaskImage= [resizableMaskImage resizableImageWithCapInsets:UIEdgeInsetsMake(topCapHeight, leftCapWidth, 10, rightCapWidth)];
     
     UIGraphicsBeginImageContextWithOptions(retSize, NO, 0.0);
     CGContextSetShouldAntialias(UIGraphicsGetCurrentContext(), NO);
-    [resizableMaskImage drawInRect:CGRectMake(0, 0, retSize.width, retSize.height)];
+    [resizableMaskImage drawInRect:CGRectMake(0.5, 0.5, retSize.width, retSize.height)];
     UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
