@@ -160,7 +160,7 @@
                                                          }
                                                context:nil].size;
         
-        tf.size.width = labelSize.width+ 6;
+        tf.size.width = labelSize.width+ 10;
         self.textLabel.frame = tf;
         lf.origin.x = tf.origin.x + tf.size.width + 5;
         _unreadLabel.frame = lf;
