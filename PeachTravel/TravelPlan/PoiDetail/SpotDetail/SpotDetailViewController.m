@@ -14,9 +14,6 @@
 #import "UIImage+BoxBlur.h"
 
 @interface SpotDetailViewController () <UIActionSheetDelegate>
-{
-    UIButton *_favoriteBtn;
-}
 @property (nonatomic, strong) SpotDetailView *spotDetailView;
 @property (nonatomic, strong) UIImageView *backGroundImageView;
 
@@ -38,12 +35,6 @@
     
     [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:talkBtn]];
     
-    _favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 44)];
-    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_ztl_sc_2"] forState:UIControlStateNormal];
-    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_ztl_sc_1"] forState:UIControlStateSelected];
-    [_favoriteBtn addTarget:self action:@selector(favorite:) forControlEvents:UIControlEventTouchUpInside];
-    [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_favoriteBtn]];
-    
     self.navigationItem.rightBarButtonItems = barItems;
     
     [self loadData];
@@ -62,26 +53,6 @@
     [MobClick endLogPageView:@"page_spot_detail"];
 }
 
-- (IBAction)favorite:(UIButton *)sender
-{
-    [MobClick event:@"event_city_favorite"];
-    //先将收藏的状态改变
-    //    _cityHeaderView.favoriteBtn.selected = !self.poi.isMyFavorite;
-    //    _cityHeaderView.favoriteBtn.userInteractionEnabled = NO;
-    
-    [super asyncFavoritePoiWithCompletion:^(BOOL isSuccess) {
-        //        _cityHeaderView.favoriteBtn.userInteractionEnabled = YES;
-        //        if (!isSuccess) {
-        //            _cityHeaderView.favoriteBtn.selected = !_cityHeaderView.favoriteBtn.selected;
-        //
-        //        }
-        if (isSuccess) {
-            _favoriteBtn.selected = !_favoriteBtn.selected;
-        }
-    }];
-    
-    
-}
 - (void)updateView
 {
 //    _spotDetailView = [[SpotDetailView alloc] initWithFrame:CGRectMake(15, 40, self.view.bounds.size.width-30, self.view.bounds.size.height-60)];
@@ -179,7 +150,6 @@
             [self updateView];
         } else {
         }
-        _favoriteBtn.selected=self.poi.isMyFavorite;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [hud hideTZHUD];
     }];

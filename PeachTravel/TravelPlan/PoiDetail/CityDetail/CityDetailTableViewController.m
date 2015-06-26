@@ -23,9 +23,7 @@
 #import "CityDescDetailViewController.h"
 
 @interface CityDetailTableViewController () <UITableViewDataSource, UITableViewDelegate, CityHeaderViewDelegate, UIActionSheetDelegate>
-{
-    UIButton *_favoriteBtn;
-}
+
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) CityHeaderView *cityHeaderView;
 @property (nonatomic, strong) TZProgressHUD *hud;
@@ -58,14 +56,6 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [talkBtn addTarget:self action:@selector(shareToTalk) forControlEvents:UIControlEventTouchUpInside];
     [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:talkBtn]];
     
-    _favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 42, 44)];
-    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_ztl_sc_2"] forState:UIControlStateNormal];
-    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_ztl_sc_1"] forState:UIControlStateHighlighted];
-    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_ztl_sc_1"] forState:UIControlStateSelected];
-    
-    
-    [_favoriteBtn addTarget:self action:@selector(favorite:) forControlEvents:UIControlEventTouchUpInside];
-    [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_favoriteBtn]];
     
     self.navigationItem.rightBarButtonItems = barItems;
     
@@ -131,9 +121,6 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
         NSString *url = taoziImage.imageUrl;
         [_cityPicture sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"spot_detail_default.png"]];
     }
-    _favoriteBtn.selected=self.poi.isMyFavorite;
-//    UILabel *title = (UILabel *)[_customNavigationBar viewWithTag:123];
-//    title.text = self.poi.zhName;
 }
 
 - (void)updateTableView
@@ -270,27 +257,6 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 }
 
 #pragma mark - IBAction Methods
-
-- (IBAction)favorite:(UIButton *)sender
-{
-    [MobClick event:@"event_city_favorite"];
-    //先将收藏的状态改变
-//    _cityHeaderView.favoriteBtn.selected = !self.poi.isMyFavorite;
-//    _cityHeaderView.favoriteBtn.userInteractionEnabled = NO;
-    
-    [super asyncFavoritePoiWithCompletion:^(BOOL isSuccess) {
-//        _cityHeaderView.favoriteBtn.userInteractionEnabled = YES;
-//        if (!isSuccess) {
-//            _cityHeaderView.favoriteBtn.selected = !_cityHeaderView.favoriteBtn.selected;
-//
-//        }
-        if (isSuccess) {
-            _favoriteBtn.selected = !_favoriteBtn.selected;
-        }
-    }];
-    
-    
-}
 
 - (IBAction)viewSpots:(id)sender
 {
