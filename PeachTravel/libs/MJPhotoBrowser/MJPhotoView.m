@@ -106,7 +106,7 @@
         __unsafe_unretained MJPhotoView *photoView = self;
         __unsafe_unretained MJPhotoLoadingView *loading = _photoLoadingView;
         
-        [_imageView sd_setImageWithURL:[NSURL URLWithString: _photo.url] placeholderImage:nil options:SDWebImageRetryFailed|SDWebImageLowPriority progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [_imageView sd_setImageWithURL:[NSURL URLWithString: _photo.url] placeholderImage:_photo.placeholder options:SDWebImageRetryFailed|SDWebImageLowPriority progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             if (receivedSize > kMinProgress) {
                 if (loading != nil) {
                     loading.progress = (float)receivedSize/expectedSize;
@@ -189,6 +189,7 @@
             _photo.srcImageView.image = _photo.placeholder;
             [self photoStartLoad];
         }];
+        
     } else {
         _imageView.frame = imageFrame;
     }
