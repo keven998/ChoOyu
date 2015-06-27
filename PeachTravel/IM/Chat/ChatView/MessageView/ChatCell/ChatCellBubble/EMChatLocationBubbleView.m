@@ -21,6 +21,7 @@ NSString *const kRouterEventLocationBubbleTapEventName = @"kRouterEventLocationB
 @interface EMChatLocationBubbleView ()
 
 @property (nonatomic, strong) UIImageView *locationImageView;
+@property (nonatomic, strong) UIView *addressBkgView;
 @property (nonatomic, strong) UILabel *addressLabel;
 
 @end
@@ -32,15 +33,17 @@ NSString *const kRouterEventLocationBubbleTapEventName = @"kRouterEventLocationB
     if (self = [super initWithFrame:frame]) {
         _locationImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
         [self addSubview:_locationImageView];
-        
+        _addressBkgView = [[UIView alloc] init];
+        _addressBkgView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
         _addressLabel = [[UILabel alloc] init];
+        [_locationImageView addSubview:_addressBkgView];
+
         _addressLabel.font = [UIFont systemFontOfSize:LOCATION_ADDRESS_LABEL_FONT_SIZE];
         _addressLabel.textColor = [UIColor whiteColor];
-        _addressLabel.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
         _addressLabel.numberOfLines = 0;
         _locationImageView.layer.cornerRadius = 5.0;
         _locationImageView.clipsToBounds = YES;
-        [_locationImageView addSubview:_addressLabel];
+        [_addressBkgView addSubview:_addressLabel];
     }
     return self;
 }
@@ -69,7 +72,14 @@ NSString *const kRouterEventLocationBubbleTapEventName = @"kRouterEventLocationB
     frame.origin.y = 0;
     [self.locationImageView setFrame:frame];
 
-    _addressLabel.frame = CGRectMake(0, self.locationImageView.frame.size.height - 30, self.locationImageView.frame.size.width, 30);
+    _addressBkgView.frame = CGRectMake(0, self.locationImageView.frame.size.height - 30, self.locationImageView.frame.size.width, 30);
+    if (self.model.isSender) {
+        _addressLabel.frame = CGRectMake(2, 0, self.locationImageView.frame.size.width-4-BUBBLE_ARROW_WIDTH, 30);
+        
+    } else {
+        _addressLabel.frame = CGRectMake(2+BUBBLE_ARROW_WIDTH, 0, self.locationImageView.frame.size.width-4-BUBBLE_ARROW_WIDTH, 30);
+
+    }
     
     UIImage *image = _model.image;
     NSString *maskImageName = _model.isSender ? @"SenderImageNodeBorder_black.png" : @"ReceiverImageNodeBorder_black.png";
