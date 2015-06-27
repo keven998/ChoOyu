@@ -180,7 +180,7 @@ class MessageSendManager: NSObject {
         var metadataId = NSUUID().UUIDString
         var imageData = UIImageJPEGRepresentation(mapImage, 1)
 
-        let path = AccountManager.shareAccountManager().userChatImagePath.stringByAppendingPathComponent("\(metadataId).jpeg")
+        let path = AccountManager.shareAccountManager().userChatImagePath.stringByAppendingPathComponent("\(metadataId)")
         locationMessage.localPath = path
         MetaDataManager.moveMetadata2Path(imageData, toPath: path)
 
@@ -268,7 +268,7 @@ class MessageSendManager: NSObject {
         println("imageDataLength: \(imageData.length)")
         
         var metadataId = NSUUID().UUIDString
-        var imagePath = AccountManager.shareAccountManager().userChatImagePath.stringByAppendingPathComponent("\(metadataId).jpeg")
+        var imagePath = AccountManager.shareAccountManager().userChatImagePath.stringByAppendingPathComponent("\(metadataId)")
         MetaDataManager.moveMetadata2Path(imageData, toPath: imagePath)
         
         imageMessage.localPath = imagePath

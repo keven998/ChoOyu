@@ -295,7 +295,7 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
     private func downloadPreviewImageAndDistribution(imageMessage: ImageMessage) {
         MetadataDownloadManager.asyncDownloadThumbImage(imageMessage.thumbUrl!, completion: { (isSuccess: Bool, metadata: NSData?) -> () in
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
-                var imagePath = AccountManager.shareAccountManager().userChatImagePath.stringByAppendingPathComponent("\(imageMessage.metadataId!).jpeg")
+                var imagePath = AccountManager.shareAccountManager().userChatImagePath.stringByAppendingPathComponent("\(imageMessage.metadataId!)")
                 
                 if let imageData = metadata {
                     var fileManager =  NSFileManager()
@@ -325,7 +325,7 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
     private func downloadSnapshotImageAndDistribution(message: LocationMessage) {
         MetadataDownloadManager.asyncDownloadThumbImage(message.mapImageUrl!, completion: { (isSuccess: Bool, metadata: NSData?) -> () in
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
-                var imagePath = AccountManager.shareAccountManager().userChatImagePath.stringByAppendingPathComponent("\(message.metadataId!).jpeg")
+                var imagePath = AccountManager.shareAccountManager().userChatImagePath.stringByAppendingPathComponent("\(message.metadataId!)")
                 
                 if let imageData = metadata {
                     var fileManager =  NSFileManager()
