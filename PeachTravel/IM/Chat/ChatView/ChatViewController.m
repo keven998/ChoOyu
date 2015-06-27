@@ -873,10 +873,15 @@
 {
     [picker dismissViewControllerAnimated:YES completion:nil];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+
         for (int i=0; i<assets.count; i++) {
             ALAsset *asset=assets[i];
             UIImage *tempImg=[UIImage imageWithCGImage:asset.defaultRepresentation.fullScreenImage];
-            [self sendImageMessage:tempImg];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self sendImageMessage:tempImg];
+            });
+            [NSThread sleepForTimeInterval:0.3];
+
         }
     });
 }
@@ -1157,7 +1162,6 @@
 {
     IMClientManager *imClientManager = [IMClientManager shareInstance];
     BaseMessage *imageMessage = [imClientManager.messageSendManager sendImageMessage:_conversation.chatterId conversationId:_conversation.conversationId image:image chatType:_conversation.chatType progress:^(float progressValue) {
-        
     }];
     [self addChatMessage2Buttom:imageMessage];
     
