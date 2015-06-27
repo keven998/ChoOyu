@@ -63,6 +63,7 @@ class FrendModel: NSObject {
     var level: Int = 0
     var birthday: NSString = ""
     var travelStatus: NSString = ""
+    var guideCount:Int = 0
     var rolesDescription: NSString {
         if FrendModel.typeIsCorrect(self.type, typeWeight: IMFrendWeightType.Expert) {
             return "达"
@@ -171,7 +172,8 @@ class FrendModel: NSObject {
         if let str =  json.objectForKey("travelStatus") as? String {
             travelStatus = str
         }
-    
+        guideCount = json.objectForKey("guideCnt") as! Int
+        
         if let roles = json.objectForKey("roles") as? NSArray {
             if let role = roles.firstObject as? String {
                 if role == "expert" {

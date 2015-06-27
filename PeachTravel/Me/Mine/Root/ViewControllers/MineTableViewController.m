@@ -117,6 +117,7 @@
         }
     }];
 }
+
 - (void) setupTableHeaderView {
     
     CGFloat width = CGRectGetWidth(self.view.bounds);

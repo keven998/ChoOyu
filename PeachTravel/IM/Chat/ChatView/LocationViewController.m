@@ -213,7 +213,6 @@ static LocationViewController *defaultLocation = nil;
 
 - (void)sendLocation
 {
-    [self removeToLocation:_currentLocationCoordinate];
     if (_delegate && [_delegate respondsToSelector:@selector(sendLocation:locImage:)]) {
         [_delegate sendLocation:locModel locImage:[self screenShotWithView]];
     }
