@@ -48,7 +48,7 @@ class MetadataUploadManager: NSObject {
     
     :param: completionBlock 获取完后的回调
     */
-    class func asyncRequestUploadToken2SendMessage(actionCode: QiniuGetTokeAction, completionBlock: (isSuccess: Bool, key: String?, token: String?) -> ()) {
+    class func asyncRequestUploadToken2SendMessage(messageType: IMMessageType, completionBlock: (isSuccess: Bool, key: String?, token: String?) -> ()) {
         let manager = AFHTTPRequestOperationManager()
         
         let requestSerializer = AFJSONRequestSerializer()
@@ -58,7 +58,7 @@ class MetadataUploadManager: NSObject {
         manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept")
         manager.requestSerializer.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         
-        manager.POST(requestQiniuTokenToUploadMetadata, parameters: ["action": actionCode.rawValue], success:
+        manager.POST(requestQiniuTokenToUploadMetadata, parameters: ["msgType": messageType.rawValue], success:
             {
                 (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
                 if let reslutDic = responseObject.objectForKey("result") as? NSDictionary {
@@ -107,8 +107,8 @@ class MetadataUploadManager: NSObject {
         
         if metadataMessage.messageType == IMMessageType.LocationMessageType {
             params.setValue("\((metadataMessage as! LocationMessage).address)", forKey: "x:address")
-            params.setValue("\((metadataMessage as! LocationMessage).latitude)", forKey: "x:latitude")
-            params.setValue("\((metadataMessage as! LocationMessage).longitude)", forKey: "x:longitude")
+            params.setValue("\((metadataMessage as! LocationMessage).latitude)", forKey: "x:lat")
+            params.setValue("\((metadataMessage as! LocationMessage).longitude)", forKey: "x:lng")
         }
         
         var opt = QNUploadOption(mime: "text/plain", progressHandler: { (key: String!, progressValue: Float) -> Void in
@@ -134,44 +134,28 @@ class MetadataDownloadManager:NSObject{
     :param: url        图片的 url
     :param: completion 下载的回掉
     */
-    class func asyncDownloadThumbImage(imageMessage: ImageMessage, completion:(isSuccess:Bool, retMessage:ImageMessage) -> ()) {
+    class func asyncDownloadThumbImage(imageUrl: String, completion:(isSuccess:Bool, metadata:NSData?) -> ()) {
         
         println("开始下载图片缩略图")
         var currentSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
-        if imageMessage.thumbUrl == nil {
-            return
-        }
-        if let url = NSURL(string: imageMessage.thumbUrl!) {
+       
+        if let url = NSURL(string: imageUrl) {
             var request = NSURLRequest(URL: url, cachePolicy: NSURLRequestCachePolicy.UseProtocolCachePolicy, timeoutInterval: 30)
             
             var downloadTask = currentSession.dataTaskWithRequest(request, completionHandler: { (data: NSData!, response: NSURLResponse!, error: NSError!) -> Void in
                 if error != nil {
                     NSLog("下载图片预览图失败 失败原因是: \(error)")
-                    completion(isSuccess: false, retMessage: imageMessage)
+                    completion(isSuccess: false, metadata: nil)
                 } else {
                     
-                    dispatch_async(metadataOperationQueue, { () -> Void in
-                        
-                        var imagePath = AccountManager.shareAccountManager().userChatImagePath.stringByAppendingPathComponent("\(imageMessage.metadataId!).jpeg")
-                        
-                        if let imageData = data {
-                            var fileManager =  NSFileManager()
-                            fileManager.createFileAtPath(imagePath, contents: imageData, attributes: nil)
-                            NSLog("下载图片预览图成功 保存后的地址为: \(imagePath)")
-                            imageMessage.localPath = imagePath
-                            imageMessage.updateMessageContent()
-                            var daoHelper = DaoHelper.shareInstance()
-                            daoHelper.updateMessageContents("chat_\(imageMessage.chatterId)", message: imageMessage)
-                        }
-                        completion(isSuccess: true, retMessage: imageMessage)
-                    })
+                    completion(isSuccess: true, metadata: data)
                 }
             })
             
             downloadTask.resume()
             
         } else {
-            completion(isSuccess: false, retMessage: imageMessage)
+            completion(isSuccess: false, metadata: nil)
         }
     }
     

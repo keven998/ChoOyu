@@ -261,6 +261,9 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
                 if message.messageType == .ImageMessageType {
                     self.downloadPreviewImageAndDistribution(message as! ImageMessage)
                     
+                } else  if message.messageType == .LocationMessageType {
+                    self.downloadSnapshotImageAndDistribution(message as! LocationMessage)
+                    
                 } else if message.messageType == .AudioMessageType {
                     self.downloadAudioDataAndDistribution(message as! AudioMessage)
                     
@@ -289,14 +292,57 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
     在通知用户之前先将图片的二进制文件下载下来
     :param: message
     */
-    private func downloadPreviewImageAndDistribution(message: ImageMessage) {
-        MetadataDownloadManager.asyncDownloadThumbImage(message, completion: { (isSuccess: Bool, retMessage: ImageMessage) -> () in
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                for delegateDic in self.receiveDelegateList {
-                    if let delegate = delegateDic[MessageReceiveDelegateRoutingKey.normal] {
-                        delegate.receiveNewMessage?(retMessage)
-                    }
+    private func downloadPreviewImageAndDistribution(imageMessage: ImageMessage) {
+        MetadataDownloadManager.asyncDownloadThumbImage(imageMessage.thumbUrl!, completion: { (isSuccess: Bool, metadata: NSData?) -> () in
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
+                var imagePath = AccountManager.shareAccountManager().userChatImagePath.stringByAppendingPathComponent("\(imageMessage.metadataId!).jpeg")
+                
+                if let imageData = metadata {
+                    var fileManager =  NSFileManager()
+                    fileManager.createFileAtPath(imagePath, contents: imageData, attributes: nil)
+                    NSLog("下载图片预览图成功 保存后的地址为: \(imagePath)")
+                    imageMessage.localPath = imagePath
+                    imageMessage.updateMessageContent()
+                    var daoHelper = DaoHelper.shareInstance()
+                    daoHelper.updateMessageContents("chat_\(imageMessage.chatterId)", message: imageMessage)
                 }
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    for delegateDic in self.receiveDelegateList {
+                        if let delegate = delegateDic[MessageReceiveDelegateRoutingKey.normal] {
+                            delegate.receiveNewMessage?(imageMessage)
+                        }
+                    }
+                })
+            })
+        })
+    }
+    
+    /**
+    将位置信息的预览图下载下载
+    
+    :param: message
+    */
+    private func downloadSnapshotImageAndDistribution(message: LocationMessage) {
+        MetadataDownloadManager.asyncDownloadThumbImage(message.mapImageUrl!, completion: { (isSuccess: Bool, metadata: NSData?) -> () in
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
+                var imagePath = AccountManager.shareAccountManager().userChatImagePath.stringByAppendingPathComponent("\(message.metadataId!).jpeg")
+                
+                if let imageData = metadata {
+                    var fileManager =  NSFileManager()
+                    fileManager.createFileAtPath(imagePath, contents: imageData, attributes: nil)
+                    NSLog("下载图片预览图成功 保存后的地址为: \(imagePath)")
+                    message.localPath = imagePath
+                    message.updateMessageContent()
+                    var daoHelper = DaoHelper.shareInstance()
+                    daoHelper.updateMessageContents("chat_\(message.chatterId)", message: message)
+                }
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    for delegateDic in self.receiveDelegateList {
+                        if let delegate = delegateDic[MessageReceiveDelegateRoutingKey.normal] {
+                            delegate.receiveNewMessage?(message)
+                        }
+                    }
+                })
             })
         })
     }

@@ -281,6 +281,7 @@ class MessageManager: NSObject {
 
                 case .LocationMessageType:
                     messageModel = LocationMessage()
+                    messageModel?.metadataId = NSUUID().UUIDString
                     
                 case .CityPoiMessageType:
                     messageModel = IMCityMessage()

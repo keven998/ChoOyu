@@ -667,9 +667,17 @@
     __weak ChatViewController *weakSelf = self;
     
     if (model.type == IMMessageTypeImageMessageType) {
-        NSString *imageUrl = ((ImageMessage *)model.baseMessage).fullUrl;
-        if (imageUrl) {
-            [weakSelf.messageReadManager showBrowserWithImages:@[[NSURL URLWithString:imageUrl]] andImageView:imageView];
+        if (!model.isSender) {
+            NSString *imageUrl = ((ImageMessage *)model.baseMessage).fullUrl;
+            if (imageUrl) {
+                [weakSelf.messageReadManager showBrowserWithImages:@[imageUrl] andImageView:imageView];
+                
+            } else {
+
+            }
+        } else {
+            [weakSelf.messageReadManager showBrowserWithImages:@[((ImageMessage *)model.baseMessage).localPath] andImageView:imageView];
+
         }
     }
 }

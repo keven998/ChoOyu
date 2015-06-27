@@ -80,7 +80,7 @@ NSString *const kRouterEventLocationBubbleTapEventName = @"kRouterEventLocationB
     
     _addressLabel.text = [NSString stringWithFormat:@" %@ ", _model.address];
     
-    UIImage *image = _model.isSender ? _model.image : _model.thumbnailImage;
+    UIImage *image = _model.image;
     NSString *maskImageName = _model.isSender ? @"SenderImageNodeBorder_black.png" : @"ReceiverImageNodeBorder_black.png";
     if (!image) {
         image = _model.image;

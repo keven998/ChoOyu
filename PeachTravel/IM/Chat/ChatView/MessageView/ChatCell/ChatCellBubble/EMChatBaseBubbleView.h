@@ -29,7 +29,7 @@ extern NSString *const kRouterEventChatCellBubbleTapEventName;
 #define BUBBLE_RIGHT_LEFT_CAP_WIDTH 10 // 文字在右侧时,bubble用于拉伸点的X坐标
 #define BUBBLE_RIGHT_TOP_CAP_HEIGHT 25 // 文字在右侧时,bubble用于拉伸点的Y坐标
 
-#define BUBBLE_LEFT_LEFT_CAP_WIDTH 10 // 文字在左侧时,bubble用于拉伸点的X坐标
+#define BUBBLE_LEFT_LEFT_CAP_WIDTH 15 // 文字在左侧时,bubble用于拉伸点的X坐标
 #define BUBBLE_LEFT_TOP_CAP_HEIGHT 25 // 文字在左侧时,bubble用于拉伸点的Y坐标
 
 #define BUBBLE_PROGRESSVIEW_HEIGHT 10 // progressView 高度

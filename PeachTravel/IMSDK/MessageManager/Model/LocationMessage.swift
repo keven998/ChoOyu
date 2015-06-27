@@ -36,10 +36,10 @@ class LocationMessage: BaseMessage {
         if let lat = contentsDic.objectForKey("lat") as? Double {
             latitude = lat
         }
-        if let name = contentsDic.objectForKey("name") as? String {
-            address = name
+        if let addr = contentsDic.objectForKey("address") as? String {
+            address = addr
         }
-        if let url = contentsDic.objectForKey("imageUrl") as? String {
+        if let url = contentsDic.objectForKey("snapshot") as? String {
             mapImageUrl = url
         }
     }
@@ -52,7 +52,7 @@ class LocationMessage: BaseMessage {
         if let metadataId = metadataId {
             imageDic.setObject(metadataId, forKey: "metadataId")
             if let url = mapImageUrl {
-                imageDic.setObject(url, forKey: "imageUrl")
+                imageDic.setObject(url, forKey: "snapshot")
             }
             imageDic.setObject(metadataId, forKey: "metadataId")
             

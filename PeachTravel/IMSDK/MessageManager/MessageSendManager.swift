@@ -186,7 +186,7 @@ class MessageSendManager: NSObject {
 
         locationMessage.sendType = IMMessageSendType.MessageSendMine
         locationMessage.conversationId = conversationId
-        var locationDic = ["lat": location.latitude, "lng": location.longitude, "name": location.address, "metadataId": metadataId];
+        var locationDic = ["lat": location.latitude, "lng": location.longitude, "address": location.address, "metadataId": metadataId];
         locationMessage.message = JSONConvertMethod.contentsStrWithJsonObjc(locationDic) as! String
         
         var daoHelper = DaoHelper.shareInstance()
@@ -370,7 +370,7 @@ class MessageSendManager: NSObject {
     */
     private func sendMetadataMessage(metadataMessage: BaseMessage, metadata: NSData, chatType: IMChatType, conversationId: String?, completionBlock:(isSuccess: Bool)->()) {
         sendingMessageList.addObject(metadataMessage)
-        MetadataUploadManager.asyncRequestUploadToken2SendMessage(QiniuGetTokeAction.uploadChatMetadata, completionBlock: { (isSuccess, key, token) -> () in
+        MetadataUploadManager.asyncRequestUploadToken2SendMessage(metadataMessage.messageType, completionBlock: { (isSuccess, key, token) -> () in
             if isSuccess {
                 MetadataUploadManager.uploadMetadata2Qiniu(metadataMessage, token: token!, key: key!, metadata: metadata, chatType:chatType, conversationId:conversationId, progress: { (progressValue) -> () in
                     println("上传了: \(progressValue)")
@@ -435,6 +435,12 @@ class MessageSendManager: NSObject {
             
         } else if message.messageType == IMMessageType.ImageMessageType {
             if let imageData = NSData(contentsOfFile: (message as! ImageMessage).localPath!) {
+                self.sendMetadataMessage(message, metadata: imageData, chatType: chatType, conversationId: conversationId, completionBlock: { (isSuccess) -> () in
+                })
+            }
+            
+        } else if message.messageType == IMMessageType.LocationMessageType {
+            if let imageData = NSData(contentsOfFile: (message as! LocationMessage).localPath!) {
                 self.sendMetadataMessage(message, metadata: imageData, chatType: chatType, conversationId: conversationId, completionBlock: { (isSuccess) -> () in
                 })
             }

@@ -108,7 +108,7 @@ NSString *const kRouterEventImageBubbleTapEventName = @"kRouterEventImageBubbleT
     
     UIGraphicsBeginImageContextWithOptions(retSize, NO, 0.0);
     CGContextSetShouldAntialias(UIGraphicsGetCurrentContext(), NO);
-    [resizableMaskImage drawInRect:CGRectMake(0.5, 0.5, retSize.width, retSize.height)];
+    [resizableMaskImage drawInRect:CGRectMake(0.5, 0.5, retSize.width-1, retSize.height)];
     UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
