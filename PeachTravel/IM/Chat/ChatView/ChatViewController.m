@@ -873,15 +873,15 @@
 {
     [picker dismissViewControllerAnimated:YES completion:nil];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-
         for (int i=0; i<assets.count; i++) {
             ALAsset *asset=assets[i];
             UIImage *tempImg=[UIImage imageWithCGImage:asset.defaultRepresentation.fullScreenImage];
+            NSData *imageData = UIImageJPEGRepresentation(tempImg, 0.3);
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self sendImageMessage:tempImg];
+                [self sendImageMessage:imageData];
+
             });
             [NSThread sleepForTimeInterval:0.3];
-
         }
     });
 }
@@ -890,9 +890,11 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
+    NSLog(@"imagePickerController: %@", info);
     UIImage *orgImage = info[UIImagePickerControllerOriginalImage];
     [picker dismissViewControllerAnimated:YES completion:nil];
-    [self sendImageMessage:orgImage];
+    NSData *imageData = UIImageJPEGRepresentation(orgImage, 0.3);
+    [self sendImageMessage:imageData];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
@@ -1158,10 +1160,10 @@
     [self addChatMessage2Buttom:audioMessage];
 }
 
-- (void)sendImageMessage:(UIImage *)image
+- (void)sendImageMessage:(NSData *)imageData
 {
     IMClientManager *imClientManager = [IMClientManager shareInstance];
-    BaseMessage *imageMessage = [imClientManager.messageSendManager sendImageMessage:_conversation.chatterId conversationId:_conversation.conversationId image:image chatType:_conversation.chatType progress:^(float progressValue) {
+    BaseMessage *imageMessage = [imClientManager.messageSendManager sendImageMessage:_conversation.chatterId conversationId:_conversation.conversationId imageData:imageData chatType:_conversation.chatType progress:^(float progressValue) {
     }];
     [self addChatMessage2Buttom:imageMessage];
     

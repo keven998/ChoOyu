@@ -257,14 +257,15 @@ class MessageSendManager: NSObject {
     :param: image   发送的图片，必选
     :returns:
     */
-    func sendImageMessage(chatterId: Int, conversationId: String?, image: UIImage, chatType: IMChatType, progress:(progressValue: Float) -> ()) -> BaseMessage {
+    func sendImageMessage(chatterId: Int, conversationId: String?, imageData: NSData, chatType: IMChatType, progress:(progressValue: Float) -> ()) -> BaseMessage {
         var imageMessage = ImageMessage()
         imageMessage.chatterId = chatterId
         imageMessage.sendType = IMMessageSendType.MessageSendMine
         imageMessage.createTime = Int(NSDate().timeIntervalSince1970)
         imageMessage.status = IMMessageStatus.IMMessageSending
 
-        var imageData = UIImageJPEGRepresentation(image, 1)
+//        var imageData = UIImageJPEGRepresentation(image, 1)
+        println("imageDataLength: \(imageData.length)")
         
         var metadataId = NSUUID().UUIDString
         var imagePath = AccountManager.shareAccountManager().userChatImagePath.stringByAppendingPathComponent("\(metadataId).jpeg")
@@ -274,15 +275,10 @@ class MessageSendManager: NSObject {
         
         var imageContentDic = NSMutableDictionary()
         imageContentDic.setObject(metadataId, forKey: "metadataId")
-        imageContentDic.setObject(image.size.height, forKey: "height");
-        imageContentDic.setObject(image.size.width, forKey: "width");
-        imageMessage.imageWidth = Int(image.size.width);
-        imageMessage.imageHeight = Int(image.size.height);
         imageMessage.message = JSONConvertMethod.contentsStrWithJsonObjc(imageContentDic) as! String
         
         var daoHelper = DaoHelper.shareInstance()
         daoHelper.insertChatMessage("chat_\(chatterId)", message: imageMessage)
-        NSLog("开始上传  图像为\(image)")
         
         for messageManagerDelegate in self.sendDelegateList {
             messageManagerDelegate.sendNewMessage?(imageMessage)
