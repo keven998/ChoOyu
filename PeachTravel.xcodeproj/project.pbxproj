@@ -16,6 +16,7 @@
 		270C555E1AFB3B9300A35F69 /* ic_little notes@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 270C55511AFB3B9300A35F69 /* ic_little notes@2x.png */; };
 		270C555F1AFB3B9300A35F69 /* ic_spots experience@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 270C55521AFB3B9300A35F69 /* ic_spots experience@2x.png */; };
 		270C55601AFB3B9300A35F69 /* ic_travel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 270C55531AFB3B9300A35F69 /* ic_travel@2x.png */; };
+		271C40BC1B3E93A3007BF285 /* UIImage+resized.m in Sources */ = {isa = PBXBuildFile; fileRef = 271C40BB1B3E93A3007BF285 /* UIImage+resized.m */; };
 		27329DB41B0E030700F0A4FA /* ChatGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 27329DB21B0E030600F0A4FA /* ChatGroupCell.m */; };
 		27329DB51B0E030700F0A4FA /* ChatGroupCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27329DB31B0E030600F0A4FA /* ChatGroupCell.xib */; };
 		27329DB71B0E0AF500F0A4FA /* chatBar_add_talk@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27329DB61B0E0AF500F0A4FA /* chatBar_add_talk@2x.png */; };
@@ -939,6 +940,8 @@
 		270C55511AFB3B9300A35F69 /* ic_little notes@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_little notes@2x.png"; sourceTree = "<group>"; };
 		270C55521AFB3B9300A35F69 /* ic_spots experience@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_spots experience@2x.png"; sourceTree = "<group>"; };
 		270C55531AFB3B9300A35F69 /* ic_travel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_travel@2x.png"; sourceTree = "<group>"; };
+		271C40BA1B3E93A3007BF285 /* UIImage+resized.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+resized.h"; sourceTree = "<group>"; };
+		271C40BB1B3E93A3007BF285 /* UIImage+resized.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+resized.m"; sourceTree = "<group>"; };
 		27329DB11B0E030600F0A4FA /* ChatGroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatGroupCell.h; sourceTree = "<group>"; };
 		27329DB21B0E030600F0A4FA /* ChatGroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatGroupCell.m; sourceTree = "<group>"; };
 		27329DB31B0E030600F0A4FA /* ChatGroupCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatGroupCell.xib; sourceTree = "<group>"; };
@@ -4281,6 +4284,8 @@
 				27089ABC1AE9178F000FAD56 /* UIBarButtonItem+MJ.m */,
 				270C16581B00CF6A0048C85D /* UITableView+FDTemplateLayoutCell.h */,
 				270C16591B00CF6A0048C85D /* UITableView+FDTemplateLayoutCell.m */,
+				271C40BA1B3E93A3007BF285 /* UIImage+resized.h */,
+				271C40BB1B3E93A3007BF285 /* UIImage+resized.m */,
 				D9A8023E1A80E3D3005AD701 /* ANBlurredImageView.h */,
 				D9A8023F1A80E3D3005AD701 /* ANBlurredImageView.m */,
 				D9A802401A80E3D3005AD701 /* NSDate+Category.h */,
@@ -6486,6 +6491,7 @@
 				D9A8001A1A80D52F005AD701 /* Destinations.m in Sources */,
 				D9A8021C1A80E036005AD701 /* MJPhoto.m in Sources */,
 				D9A8014C1A80DD23005AD701 /* MessageModel.m in Sources */,
+				271C40BC1B3E93A3007BF285 /* UIImage+resized.m in Sources */,
 				D9A8013F1A80DD23005AD701 /* EMChatBaseBubbleView.m in Sources */,
 				D993C24D1B12DF0C0088D568 /* FMResultSet.m in Sources */,
 				D9A801231A80DD23005AD701 /* CallViewController.m in Sources */,
