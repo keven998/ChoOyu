@@ -70,15 +70,6 @@ NSString *const kRouterEventLocationBubbleTapEventName = @"kRouterEventLocationB
     [self.locationImageView setFrame:frame];
 
     _addressLabel.frame = CGRectMake(0, self.locationImageView.frame.size.height - 30, self.locationImageView.frame.size.width, 30);
-}
-
-#pragma mark - setter
-
-- (void)setModel:(MessageModel *)model
-{
-    _model = model;
-    
-    _addressLabel.text = [NSString stringWithFormat:@" %@ ", _model.address];
     
     UIImage *image = _model.image;
     NSString *maskImageName = _model.isSender ? @"SenderImageNodeBorder_black.png" : @"ReceiverImageNodeBorder_black.png";
@@ -88,27 +79,30 @@ NSString *const kRouterEventLocationBubbleTapEventName = @"kRouterEventLocationB
             image = [UIImage imageNamed:LOCATION_IMAGE];
         }
     }
-    CGSize retSize = CGSizeMake(bubbleWidth, bubbleHeight);
-    BOOL isReceiver = !_model.isSender;
-    NSInteger leftCapWidth = isReceiver?BUBBLE_LEFT_LEFT_CAP_WIDTH:BUBBLE_RIGHT_LEFT_CAP_WIDTH;
-    NSInteger rightCapWidth = isReceiver?BUBBLE_RIGHT_LEFT_CAP_WIDTH:BUBBLE_LEFT_LEFT_CAP_WIDTH;
+    CAShapeLayer *maskLayer = [CAShapeLayer layer];
+    maskLayer.fillColor = [UIColor blackColor].CGColor;
+    maskLayer.strokeColor = [UIColor redColor].CGColor;
+    maskLayer.frame = _locationImageView.bounds;
+    maskLayer.contents = (id)[UIImage imageNamed:maskImageName].CGImage;
+    maskLayer.contentsCenter = CGRectMake(0.5, 0.8, 0.1, 0.1);
+    maskLayer.contentsScale = [UIScreen mainScreen].scale;
     
-    NSInteger topCapHeight =  28;
-    UIImage *resizableMaskImage = [UIImage imageNamed:maskImageName];
-    resizableMaskImage= [resizableMaskImage resizableImageWithCapInsets:UIEdgeInsetsMake(topCapHeight, leftCapWidth, 10, rightCapWidth)];
-    
-    UIGraphicsBeginImageContextWithOptions(retSize, NO, 0.0);
-    CGContextSetShouldAntialias(UIGraphicsGetCurrentContext(), NO);
-    [resizableMaskImage drawInRect:CGRectMake(0.5, 0.5, retSize.width, retSize.height)];
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    CALayer *mask = [CALayer layer];
-    mask.contents = (id)[newImage CGImage];
-    mask.frame = CGRectMake(0, 0, retSize.width, retSize.height);
-    self.locationImageView.layer.mask = mask;
-    self.locationImageView.layer.masksToBounds = YES;
+    CALayer *shapedLayer = [CALayer layer];
+    shapedLayer.mask = maskLayer;
+    shapedLayer.contents = (id)image.CGImage;
+    shapedLayer.frame = _locationImageView.frame;
+    _locationImageView.layer.mask = maskLayer;
+    _locationImageView.layer.masksToBounds = YES;
     self.locationImageView.image = image;
+}
+
+#pragma mark - setter
+
+- (void)setModel:(MessageModel *)model
+{
+    _model = model;
+    
+    _addressLabel.text = [NSString stringWithFormat:@" %@ ", _model.address];
 }
 
 #pragma mark - public
