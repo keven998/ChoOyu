@@ -202,7 +202,7 @@ static LocationViewController *defaultLocation = nil;
     UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     CGImageRef imageRef = viewImage.CGImage;
-    CGRect rect = CGRectMake(0, SCREEN_HEIGHT/4, SCREEN_WIDTH, SCREEN_HEIGHT*3/4);
+    CGRect rect = CGRectMake(SCREEN_WIDTH/4, SCREEN_HEIGHT/8 * 3, SCREEN_WIDTH/2, SCREEN_HEIGHT/4);
     CGImageRef imageRefRect =CGImageCreateWithImageInRect(imageRef, rect);
     UIImage *sendImage = [[UIImage alloc] initWithCGImage:imageRefRect];
     NSData *imageData = UIImageJPEGRepresentation(sendImage, 0.5);
@@ -213,7 +213,6 @@ static LocationViewController *defaultLocation = nil;
 
 - (void)sendLocation
 {
-    [self removeToLocation:_currentLocationCoordinate];
     if (_delegate && [_delegate respondsToSelector:@selector(sendLocation:locImage:)]) {
         [_delegate sendLocation:locModel locImage:[self screenShotWithView]];
     }
