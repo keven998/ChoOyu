@@ -10,7 +10,6 @@
 #import "FrendRequestTableViewCell.h"
 #import "FrendRequest.h"
 #import "AccountManager.h"
-#import "ContactDetailViewController.h"
 #import "OtherUserInfoViewController.h"
 
 #define requestCell      @"requestCell"
@@ -56,14 +55,14 @@
 {
     if (!_dataSource) {
         NSComparator cmptr = ^(FrendRequest *obj1, FrendRequest *obj2) {
-            if ([obj1.requestDate doubleValue] < [obj2.requestDate doubleValue]) {
+            if (obj1.requestDate < obj2.requestDate) {
                 return NSOrderedDescending;
             } else {
                 return NSOrderedAscending;
             }
         };
         NSMutableArray *tempArray = [[NSMutableArray alloc] init];
-        for (id request in self.accountManager.account.frendrequestlist) {
+        for (id request in self.accountManager.account.frendRequest) {
             [tempArray addObject:request];
         }
         _dataSource = [[tempArray sortedArrayUsingComparator:cmptr] mutableCopy];
@@ -81,47 +80,18 @@
 
 #pragma mark - Private Methods
 
-- (void)insertMsgToEasemobDB:(FrendRequest *)frendRequest
-{
-    id  chatManager = [[EaseMob sharedInstance] chatManager];
-    NSDictionary *loginInfo = [chatManager loginInfo];
-    NSString *account = [loginInfo objectForKey:kSDKUsername];
-    EMChatText *chatText = [[EMChatText alloc] initWithText:@""];
-    EMTextMessageBody *textBody = [[EMTextMessageBody alloc] initWithChatObject:chatText];
-    EMMessage *message = [[EMMessage alloc] initWithReceiver:frendRequest.easemobUser bodies:@[textBody]];
-    
-    NSString *str = [NSString stringWithFormat:@"你已添加%@为好友",frendRequest.nickName];
-    message.ext = @{
-                    @"tzType":[NSNumber numberWithInt:TZTipsMsg],
-                    @"content":str
-                    };
-    [message setIsGroup:NO];
-    [message setIsReadAcked:NO];
-    [message setTo:account];
-    [message setFrom:frendRequest.easemobUser];
-    [message setIsGroup:NO];
-    message.conversationChatter = frendRequest.easemobUser;
-    
-    NSTimeInterval interval = [[NSDate date] timeIntervalSince1970];
-    NSString *messageID = [NSString stringWithFormat:@"%.0f", interval];
-    [message setMessageId:messageID];
-    
-    [chatManager importMessage:message
-                   append2Chat:YES];
-}
-
 - (void)updateDataSource
 {
     [self.dataSource removeAllObjects];
     NSComparator cmptr = ^(FrendRequest *obj1, FrendRequest *obj2) {
-        if ([obj1.requestDate doubleValue] < [obj2.requestDate doubleValue]) {
+        if (obj1.requestDate < obj2.requestDate) {
             return NSOrderedDescending;
         } else {
             return NSOrderedAscending;
         }
     };
     NSMutableArray *tempArray = [[NSMutableArray alloc] init];
-    for (id request in self.accountManager.account.frendrequestlist) {
+    for (id request in self.accountManager.account.frendRequest) {
         [tempArray addObject:request];
     }
     _dataSource = [[tempArray sortedArrayUsingComparator:cmptr] mutableCopy];
@@ -129,54 +99,53 @@
 
 - (void)addContactWithFrendRequest:(FrendRequest *)frendRequest
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", self.accountManager.account.userId] forHTTPHeaderField:@"UserId"];
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-
-    [params setObject:frendRequest.userId forKey:@"userId"];
-    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    __weak FrendRequestTableViewController *weakSelf = self;
-    [hud showHUDInViewController:weakSelf.navigationController];
-    
-    //同意添加好友
-    [manager POST:API_ADD_CONTACT parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [hud hideTZHUD];
-        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-        if (code == 0) {
-            [self.accountManager agreeFrendRequest:frendRequest];
-            [self.accountManager addContact:frendRequest];
-            [self.tableView reloadData];
-            [self insertMsgToEasemobDB:frendRequest];
-            
-//            [SVProgressHUD showHint:@"已添加"];
-            for (Contact *contact in self.accountManager.account.contacts) {
-                if ([((FrendRequest *)frendRequest).userId longValue] == [contact.userId longValue]) {
-//                    ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
-                    OtherUserInfoViewController *contactDetailCtl = [[OtherUserInfoViewController alloc]init];
-                    
-                    contactDetailCtl.userId = contact.userId;
-                    [self.navigationController pushViewController:contactDetailCtl animated:YES];
-                    break;
-                }
-            }
-           
-            
-        } else {
-            [SVProgressHUD showHint:@"添加失败"];
-
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [hud hideTZHUD];
-        if (self.isShowing) {
-            [SVProgressHUD showHint:@"呃～好像没找到网络"];
-        }
-    }];
+//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//    AppUtils *utils = [[AppUtils alloc] init];
+//    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+//    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+//    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+//    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+//    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+//    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", self.accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+//    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+//
+//    [params setObject:frendRequest.userId forKey:@"userId"];
+//    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+//    __weak FrendRequestTableViewController *weakSelf = self;
+//    [hud showHUDInViewController:weakSelf.navigationController];
+//    
+//    //同意添加好友
+//    [manager POST:API_ADD_CONTACT parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        [hud hideTZHUD];
+//        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+//        if (code == 0) {
+//            [self.accountManager agreeFrendRequest:frendRequest];
+//            [self.accountManager addContact:frendRequest];
+//            [self.tableView reloadData];
+//            
+////            [SVProgressHUD showHint:@"已添加"];
+//            for (Contact *contact in self.accountManager.account.contacts) {
+//                if ([((FrendRequest *)frendRequest).userId longValue] == [contact.userId longValue]) {
+////                    ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
+//                    OtherUserInfoViewController *contactDetailCtl = [[OtherUserInfoViewController alloc]init];
+//                    
+//                    contactDetailCtl.userId = contact.userId;
+//                    [self.navigationController pushViewController:contactDetailCtl animated:YES];
+//                    break;
+//                }
+//            }
+//           
+//            
+//        } else {
+//            [SVProgressHUD showHint:@"添加失败"];
+//
+//        }
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        [hud hideTZHUD];
+//        if (self.isShowing) {
+//            [SVProgressHUD showHint:@"呃～好像没找到网络"];
+//        }
+//    }];
 }
 
 #pragma mark - IBAction Methods
@@ -209,13 +178,13 @@
     FrendRequest *request = [_dataSource objectAtIndex:indexPath.row];
     cell.nickNameLabel.text = request.nickName;
     cell.attachMsgLabel.text = request.attachMsg;
-    [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:request.avatarSmall] placeholderImage:[UIImage imageNamed:@"person_disabled"]];
+    [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:request.avatar] placeholderImage:[UIImage imageNamed:@"person_disabled"]];
     cell.requestBtn.tag = indexPath.row;
-    if ([request.status integerValue] == TZFrendAgree) {
+    if (request.status == TZFrendAgree) {
         [cell.requestBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
         [cell.requestBtn setTitle:@"已添加" forState:UIControlStateNormal];
         cell.requestBtn.userInteractionEnabled = NO;
-    } else if ([request.status integerValue] == TZFrendDefault) {
+    } else if (request.status == TZFrendDefault) {
         [cell.requestBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
         [cell.requestBtn setTitleColor:[APP_THEME_COLOR colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
         [cell.requestBtn setTitle:@"同意" forState:UIControlStateNormal];

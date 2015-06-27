@@ -1,14 +1,14 @@
 /************************************************************
-  *  * EaseMob CONFIDENTIAL 
-  * __________________ 
-  * Copyright (C) 2013-2014 EaseMob Technologies. All rights reserved. 
-  *  
-  * NOTICE: All information contained herein is, and remains 
-  * the property of EaseMob Technologies.
-  * Dissemination of this information or reproduction of this material 
-  * is strictly forbidden unless prior written permission is obtained
-  * from EaseMob Technologies.
-  */
+ *  * EaseMob CONFIDENTIAL
+ * __________________
+ * Copyright (C) 2013-2014 EaseMob Technologies. All rights reserved.
+ *
+ * NOTICE: All information contained herein is, and remains
+ * the property of EaseMob Technologies.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from EaseMob Technologies.
+ */
 
 #import "EMChatViewCell.h"
 #import "EMChatVideoBubbleView.h"
@@ -24,8 +24,9 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
     self = [super initWithMessageModel:model reuseIdentifier:reuseIdentifier];
     if (self) {
         self.headImageView.clipsToBounds = YES;
-        self.headImageView.layer.cornerRadius = 10;
-        if (model.isChatGroup) {
+        self.headImageView.layer.cornerRadius = HEAD_SIZE/2.0;
+        self.headImageView.contentMode = UIViewContentModeScaleAspectFill;
+        if (model.chatType != IMChatTypeIMChatSingleType) {
             _showNickName = YES;
         } else {
             _showNickName = NO;
@@ -49,7 +50,7 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
     if (self.messageModel.isSender) {
         // 菊花状态 （因不确定菊花具体位置，要在子类中实现位置的修改）
         switch (self.messageModel.status) {
-            case eMessageDeliveryState_Delivering:
+            case IMMessageStatusIMMessageSending:
             {
                 [_activityView setHidden:NO];
                 [_retryButton setHidden:YES];
@@ -57,13 +58,13 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
                 [_activtiy startAnimating];
             }
                 break;
-            case eMessageDeliveryState_Delivered:
+            case IMMessageStatusIMMessageSuccessful:
             {
                 [_activtiy stopAnimating];
                 [_activityView setHidden:YES];
             }
                 break;
-            case eMessageDeliveryState_Failure:
+            case IMMessageStatusIMMessageFailed:
             {
                 [_activityView setHidden:NO];
                 [_activtiy stopAnimating];
@@ -85,7 +86,7 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
         if (_showNickName) {
             bubbleFrame.origin.y = self.headImageView.frame.origin.y + 20;
         }
-
+        
         bubbleFrame.origin.x = HEAD_PADDING * 2 + HEAD_SIZE;
         _bubbleView.frame = bubbleFrame;
     }
@@ -95,7 +96,7 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
 {
     // 菊花状态 （因不确定菊花具体位置，要在子类中实现位置的修改）
     switch (self.messageModel.status) {
-        case eMessageDeliveryState_Delivering:
+        case IMMessageStatusIMMessageSending:
         {
             [_activityView setHidden:NO];
             [_retryButton setHidden:YES];
@@ -103,14 +104,14 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
             [_activtiy startAnimating];
         }
             break;
-        case eMessageDeliveryState_Delivered:
+        case IMMessageStatusIMMessageSuccessful:
         {
             [_activtiy stopAnimating];
             [_activityView setHidden:YES];
             
         }
             break;
-        case eMessageDeliveryState_Failure:
+        case IMMessageStatusIMMessageFailed:
         {
             [_activityView setHidden:NO];
             [_activtiy stopAnimating];
@@ -121,14 +122,14 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
         default:
             break;
     }
-
+    
 }
 
 - (void)setMessageModel:(MessageModel *)model
 {
     [super setMessageModel:model];
     
-    if (model.isChatGroup) {
+    if (model.chatType != IMChatTypeIMChatSingleType) {
         _nameLabel.text = model.nickName;
         _nameLabel.hidden = model.isSender;
     }
@@ -186,45 +187,20 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
 - (EMChatBaseBubbleView *)bubbleViewForMessageModel:(MessageModel *)messageModel
 {
     switch (messageModel.type) {
-        case eMessageBodyType_Text:
-        {
+        case IMMessageTypeTextMessageType:
             return [[EMChatTextBubbleView alloc] init];
-        }
-            break;
-        case eMessageBodyType_Image:
-        {
-            return [[EMChatImageBubbleView alloc] init];
-        }
-            break;
-        case eMessageBodyType_Voice:
-        {
-            return [[EMChatAudioBubbleView alloc] init];
-        }
-            break;
             
-        case eMessageBodyType_Location:
-        {
+        case IMMessageTypeImageMessageType:
+            return [[EMChatImageBubbleView alloc] init];
+            
+        case IMMessageTypeAudioMessageType:
+            return [[EMChatAudioBubbleView alloc] init];
+            
+        case IMMessageTypeLocationMessageType:
             return [[EMChatLocationBubbleView alloc] init];
-        }
-            break;
-        case eMessageBodyType_Taozi:
-        {
-            switch ([[messageModel.taoziMessage objectForKey:@"tzType"] integerValue]) {
-                    
-                /**
-                 *  一下几类显示效果是一样的
-                 */
-                case TZChatTypeCity: case TZChatTypeStrategy: case TZChatTypeSpot: case TZChatTypeTravelNote: case TZChatTypeFood: case TZChatTypeHotel: case TZChatTypeShopping: {
-                    return [[TaoziChatBaseBubbleView alloc] init];
-                }
-                    break;
-                    
-                default: {
-                    messageModel.content = @"升级新版本才可以查看这条神秘消息哦";
-                    return [[EMChatTextBubbleView alloc] init];
-                }
-                    break;
-            }
+            
+        case IMMessageTypeCityPoiMessageType: case IMMessageTypeGuideMessageType: case IMMessageTypeSpotMessageType: case IMMessageTypeTravelNoteMessageType: case IMMessageTypeRestaurantMessageType: case IMMessageTypeHotelMessageType: case IMMessageTypeShoppingMessageType: {
+            return [[TaoziChatBaseBubbleView alloc] init];
         }
             break;
             
@@ -248,52 +224,38 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
 + (CGFloat)bubbleViewHeightForMessageModel:(MessageModel *)messageModel
 {
     CGFloat nickNameHeight = 0;
-    if (messageModel.isChatGroup) {
+    if (messageModel.chatType != IMChatTypeIMChatSingleType) {
         nickNameHeight = 20;
     }
     switch (messageModel.type) {
-        case eMessageBodyType_Text:
+        case IMMessageTypeTextMessageType:
         {
             return [EMChatTextBubbleView heightForBubbleWithObject:messageModel] + nickNameHeight;
         }
             break;
-        case eMessageBodyType_Image:
+        case IMMessageTypeImageMessageType:
         {
             return [EMChatImageBubbleView heightForBubbleWithObject:messageModel] + nickNameHeight;
         }
             break;
-        case eMessageBodyType_Voice:
+        case IMMessageTypeAudioMessageType:
         {
             return [EMChatAudioBubbleView heightForBubbleWithObject:messageModel] + nickNameHeight;
         }
             break;
             
-        case eMessageBodyType_Location:
-        {
-            return [EMChatLocationBubbleView heightForBubbleWithObject:messageModel] + nickNameHeight;
+            
+        case IMMessageTypeCityPoiMessageType: {
+            return [TaoziChatCityBubbleView heightForBubbleWithObject:messageModel] + nickNameHeight;
+            
         }
             break;
-                
-        case eMessageBodyType_Taozi:
-        {
-            switch ([[messageModel.taoziMessage objectForKey:@"tzType"] integerValue]) {
-                    
-                case TZChatTypeCity: {
-                    return [TaoziChatCityBubbleView heightForBubbleWithObject:messageModel] + nickNameHeight;
-
-                }
-                    break;
-                    
-                case TZChatTypeStrategy: case TZChatTypeSpot: case TZChatTypeFood: case TZChatTypeHotel: case TZChatTypeShopping: case TZChatTypeTravelNote: {
-                    return [TaoziChatBaseBubbleView heightForBubbleWithObject:messageModel] + nickNameHeight;
-                }
-                    break;
             
-                default: {
-                    return [EMChatTextBubbleView heightForBubbleWithObject:messageModel] + nickNameHeight;
-                }
-                    break;
-            }
+        case IMMessageTypeLocationMessageType:
+            return [EMChatLocationBubbleView heightForBubbleWithObject:messageModel] + nickNameHeight;
+            
+        case IMMessageTypeGuideMessageType: case IMMessageTypeSpotMessageType: case IMMessageTypeRestaurantMessageType: case IMMessageTypeHotelMessageType: case IMMessageTypeShoppingMessageType: case IMMessageTypeTravelNoteMessageType: {
+            return [TaoziChatBaseBubbleView heightForBubbleWithObject:messageModel] + nickNameHeight;
         }
             break;
             
@@ -311,11 +273,11 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
 + (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath withObject:(MessageModel *)model
 {
     NSInteger bubbleHeight = [self bubbleViewHeightForMessageModel:model];
-    NSInteger headHeight = HEAD_PADDING * 2 + HEAD_SIZE;
-    if (model.isChatGroup && !model.isSender) {
+    NSInteger headHeight = HEAD_SIZE;
+    if ((model.chatType != IMChatTypeIMChatSingleType) && !model.isSender) {
         headHeight += NAME_LABEL_HEIGHT;
     }
-    return MAX(headHeight, bubbleHeight) + CELLPADDING;
+    return MAX(headHeight, bubbleHeight) + 2*CELLPADDING;
 }
 
 

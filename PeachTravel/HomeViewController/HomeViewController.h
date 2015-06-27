@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Constants.h"
 
 @interface HomeViewController : UITabBarController
 
@@ -15,6 +16,7 @@
  */
 - (void)jumpToWebViewCtl;
 
-@property (nonatomic) IM_CONNECT_STATE IMState;
+
+- (void)updateViewWithUnreadMessageCount;
 
 @end

@@ -14,21 +14,20 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FDg-U2-dQN">
-                        <rect key="frame" x="12" y="11" width="22" height="22"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FDg-U2-dQN">
+                        <rect key="frame" x="12" y="6" width="32" height="32"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="22" id="1Yx-R4-JAk"/>
-                            <constraint firstAttribute="height" constant="22" id="U5l-Cv-Dyv"/>
+                            <constraint firstAttribute="width" constant="32" id="1Yx-R4-JAk"/>
+                            <constraint firstAttribute="height" constant="32" id="U5l-Cv-Dyv"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ID-ja-dxp">
-                        <rect key="frame" x="46" y="11" width="229" height="22"/>
+                        <rect key="frame" x="52" y="11" width="229" height="22"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="229" id="5cx-rO-rbA"/>
                             <constraint firstAttribute="height" constant="22" id="Pny-p9-B9r"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wYB-SB-q5H">
@@ -49,7 +48,7 @@
                     <constraint firstAttribute="centerY" secondItem="wYB-SB-q5H" secondAttribute="centerY" id="SQr-kz-MG8"/>
                     <constraint firstAttribute="centerY" secondItem="7ID-ja-dxp" secondAttribute="centerY" id="Yvw-KU-YmD"/>
                     <constraint firstAttribute="trailing" secondItem="wYB-SB-q5H" secondAttribute="trailing" id="azD-tJ-URI"/>
-                    <constraint firstItem="7ID-ja-dxp" firstAttribute="leading" secondItem="FDg-U2-dQN" secondAttribute="trailing" constant="12" id="fEA-Qj-n6D"/>
+                    <constraint firstItem="7ID-ja-dxp" firstAttribute="leading" secondItem="FDg-U2-dQN" secondAttribute="trailing" constant="8" id="fEA-Qj-n6D"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

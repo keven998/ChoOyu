@@ -7,6 +7,7 @@
 //
 
 #import "ChangeGroupTitleViewController.h"
+#import "PeachTravel-swift.h"
 
 @interface ChangeGroupTitleViewController ()
 
@@ -37,6 +38,7 @@
 
 - (void)goBack
 {
+    [self.delegate changeTitleDelegate];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -55,20 +57,28 @@
         __weak typeof(ChangeGroupTitleViewController *)weakSelf = self;
         hud = [[TZProgressHUD alloc] init];
         [hud showHUDInViewController:weakSelf content:64];
-        [[EaseMob sharedInstance].chatManager asyncChangeGroupSubject:_titleLable.text
-                                                             forGroup:_groupId];
+        IMDiscussionGroupManager *manager = [IMDiscussionGroupManager shareInstance];
+        [manager asyncChangeDiscussionGroupTitleWithGroup:_group title:title completion:^(BOOL isSuccess, NSInteger errorCode) {
+            [hud hideTZHUD];
+            if (isSuccess) {
+                [SVProgressHUD showHint:@"修改成功"];
+                NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+                [center postNotificationName:updateChateGroupTitleNoti object:title];
+                IMClientManager *client = [IMClientManager shareInstance];
+                [client.conversationManager updateConversationName:title chatterId:_group.groupId];
+                [self performSelector:@selector(goBack) withObject:nil afterDelay:0.4];
+            }
+        }];
     }
     
-    [[EaseMob sharedInstance].chatManager asyncChangeGroupSubject:_titleLable.text forGroup:_groupId completion:^(EMGroup *group, EMError *error) {
-        [hud hideTZHUD];
-        [SVProgressHUD showHint:@"修改成功"];
-        [self performSelector:@selector(goBack) withObject:nil afterDelay:0.4];
-    } onQueue:nil];
+  
 }
+
 -(void)viewWillAppear:(BOOL)animated
 {
     self.navigationController.navigationBarHidden = NO;
 }
+
 - (void)updateSuccess
 {
     

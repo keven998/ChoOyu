@@ -26,8 +26,8 @@ NSString *const kRouterEventImageBubbleTapEventName = @"kRouterEventImageBubbleT
 {
     if (self = [super initWithFrame:frame]) {
         _imageView = [[UIImageView alloc] init];
-        _imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        _imageView.contentMode = UIViewContentModeScaleAspectFit;
+//        _imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+//        _imageView.contentMode = UIViewContentModeScaleAspectFit;
         [self addSubview:_imageView];
     }
     
@@ -68,6 +68,32 @@ NSString *const kRouterEventImageBubbleTapEventName = @"kRouterEventImageBubbleT
     }
     
     [self.imageView setFrame:frame];
+    
+    UIImage *image = _model.isSender ? _model.image : _model.thumbnailImage;
+    NSString *maskImageName = _model.isSender ? @"SenderImageNodeBorder_black.png" : @"ReceiverImageNodeBorder_black.png";
+    if (!image) {
+        image = _model.image;
+        if (!image) {
+            image = [UIImage imageNamed:@"imageDownloadFail.png"];
+        }
+    }
+    
+    CAShapeLayer *maskLayer = [CAShapeLayer layer];
+    maskLayer.fillColor = [UIColor blackColor].CGColor;
+    maskLayer.strokeColor = [UIColor redColor].CGColor;
+    maskLayer.frame = _imageView.bounds;
+    maskLayer.contents = (id)[UIImage imageNamed:maskImageName].CGImage;
+    maskLayer.contentsCenter = CGRectMake(0.5, 0.8, 0.1, 0.1);
+    maskLayer.contentsScale = [UIScreen mainScreen].scale;
+    
+    CALayer *shapedLayer = [CALayer layer];
+    shapedLayer.mask = maskLayer;
+    shapedLayer.contents = (id)image.CGImage;
+    shapedLayer.frame = _imageView.frame;
+    _imageView.layer.mask = maskLayer;
+    _imageView.layer.masksToBounds = YES;
+    self.imageView.image = image;
+
 }
 
 #pragma mark - setter
@@ -75,49 +101,8 @@ NSString *const kRouterEventImageBubbleTapEventName = @"kRouterEventImageBubbleT
 - (void)setModel:(MessageModel *)model
 {
     _model = model;
-    
-    UIImage *image = _model.isSender ? _model.image : _model.thumbnailImage;
-    NSString *maskImageName = _model.isSender ? @"SenderImageNodeBorder_back.png" : @"ReceiverImageNodeBorder_back.png";
-    if (!image) {
-        image = _model.image;
-        if (!image) {
-            image = [UIImage imageNamed:@"imageDownloadFail.png"];
-        }
-    }
-    CGSize retSize = model.size;
-    if (retSize.width == 0 || retSize.height == 0) {
-        retSize.width = MAX_SIZE;
-        retSize.height = MAX_SIZE;
-    } else if (retSize.width > retSize.height) {
-        CGFloat height =  MAX_SIZE / retSize.width  *  retSize.height;
-        retSize.height = height;
-        retSize.width = MAX_SIZE;
-    } else {
-        CGFloat width = MAX_SIZE / retSize.height * retSize.width;
-        retSize.width = width;
-        retSize.height = MAX_SIZE;
-    }
-    
-    BOOL isReceiver = !_model.isSender;
-    NSInteger leftCapWidth = isReceiver?BUBBLE_LEFT_LEFT_CAP_WIDTH:BUBBLE_RIGHT_LEFT_CAP_WIDTH;
-    NSInteger rightCapWidth = isReceiver?BUBBLE_RIGHT_LEFT_CAP_WIDTH:BUBBLE_LEFT_LEFT_CAP_WIDTH;
-    
-    NSInteger topCapHeight =  39;
-    UIImage *resizableMaskImage = [UIImage imageNamed:maskImageName];
-    resizableMaskImage= [resizableMaskImage resizableImageWithCapInsets:UIEdgeInsetsMake(topCapHeight, leftCapWidth, 10, rightCapWidth)];
-    
-    UIGraphicsBeginImageContextWithOptions(retSize, NO, 0.0);
-    CGContextSetShouldAntialias(UIGraphicsGetCurrentContext(), NO);
-    [resizableMaskImage drawInRect:CGRectMake(0, 0, retSize.width, retSize.height)];
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    CALayer *mask = [CALayer layer];
-    mask.contents = (id)[newImage CGImage];
-    mask.frame = CGRectMake(0, 0, retSize.width, retSize.height);
-    self.imageView.layer.mask = mask;
-    self.imageView.layer.masksToBounds = YES;
-    self.imageView.image = image;
+    [self setNeedsLayout];
+
 }
 
 #pragma mark - public

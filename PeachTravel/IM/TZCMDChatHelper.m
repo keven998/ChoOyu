@@ -7,11 +7,11 @@
 //
 
 #import "TZCMDChatHelper.h"
-#import "ChatSendHelper.h"
 #import "AccountManager.h"
 
 @implementation TZCMDChatHelper
 
+/*
 + (EMMessage *)addContact:(NSString *)userName
      withAttachMsg:(NSString *)attachMsg
 {
@@ -117,6 +117,6 @@
     }
 }
 
-
+*/
 
 @end

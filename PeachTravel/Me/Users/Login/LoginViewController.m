@@ -12,8 +12,6 @@
 #import "AccountManager.h"
 #import "WXApi.h"
 
-#import "EMPushNotificationOptions.h"
-
 @interface LoginViewController ()<UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *userNameTextField;
@@ -55,21 +53,22 @@
     }
 //    if (!self.isPushed) {
 //        UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
-//        [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
+//        [button setImage:[UIImage imageNamed:@"common_icon_navigaiton_back"] forState:UIControlStateNormal];
 //        [button addTarget:self action:@selector(dismissCtl)forControlEvents:UIControlEventTouchUpInside];
 //        [button setFrame:CGRectMake(0, 0, 48, 30)];
 //        button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
 //        UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
-//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismissCtl)];
-    UIButton *rightBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 44, 44)];
-    [rightBtn setImage:[UIImage imageNamed:@"ic_navigation_back"] forState:UIControlStateNormal];
-    [rightBtn setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateHighlighted];
-    [rightBtn addTarget:self action:@selector(dismissCtl) forControlEvents:UIControlEventTouchUpInside];
-    [rightBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-    UIBarButtonItem *left = [[UIBarButtonItem alloc]initWithCustomView:rightBtn];
-    self.navigationItem.leftBarButtonItem = left;
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismissCtl)];
+//    UIButton *rightBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 44, 44)];
+//    [rightBtn setImage:[UIImage imageNamed:@"common_icon_navigaiton_back"] forState:UIControlStateNormal];
+//    [rightBtn setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateHighlighted];
+//    [rightBtn setTitle:@"取消" forState:UIControlStateNormal];
+//    [rightBtn addTarget:self action:@selector(dismissCtl) forControlEvents:UIControlEventTouchUpInside];
+//    [rightBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+//    UIBarButtonItem *left = [[UIBarButtonItem alloc]initWithCustomView:rightBtn];
+//    self.navigationItem.leftBarButtonItem = left;
     
-    self.view.backgroundColor = UIColorFromRGB(0Xf2f2f2);
+    self.view.backgroundColor = APP_PAGE_COLOR;
     
     
 //    UIView *spaceView6 = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/5, 150/3, SCREEN_WIDTH/2, 1)];
@@ -108,8 +107,8 @@
     [_supportLoginButton setImage:[UIImage imageNamed:@"ic_login_weixin.png"] forState:UIControlStateNormal];
     [_supportLoginButton setImage:[UIImage imageNamed:@"ic_login_weixin_highlight.png"] forState:UIControlStateHighlighted];
     
-    UIBarButtonItem * registerBtn = [[UIBarButtonItem alloc]initWithTitle:@"注册 " style:UIBarButtonItemStylePlain target:self action:@selector(userRegister:)];
-    registerBtn.tintColor = APP_THEME_COLOR;
+    UIBarButtonItem * registerBtn = [[UIBarButtonItem alloc]initWithTitle:@"新用户" style:UIBarButtonItemStylePlain target:self action:@selector(userRegister:)];
+    registerBtn.tintColor = [UIColor whiteColor];
     self.navigationItem.rightBarButtonItem = registerBtn;
 
     [[TMCache sharedCache] objectForKey:@"last_account" block:^(TMCache *cache, NSString *key, id object)  {
@@ -207,18 +206,11 @@
         if (code == 0) {
             AccountManager *accountManager = [AccountManager shareAccountManager];
             [accountManager userDidLoginWithUserInfo:[responseObject objectForKey:@"result"]];
-            [accountManager loginEaseMobServer:^(BOOL isSuccess) {
-                [hud hideTZHUD];
-                if (isSuccess) {
-                    [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.3];
-                    [[TMCache sharedCache] setObject:_userNameTextField.text forKey:@"last_account"];
-                    if (self.completion) {
-                        self.completion(YES);
-                    }
-                } else {
-                    [SVProgressHUD showHint:@"登录失败"];
-                }
-            }];
+            [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.3];
+            [[TMCache sharedCache] setObject:_userNameTextField.text forKey:@"last_account"];
+            if (self.completion) {
+                self.completion(YES);
+            }
         } else {
             [hud hideTZHUD];
             if (self.isShowing) {
@@ -271,7 +263,7 @@
 - (void)weixinDidLogin:(NSNotification *)noti
 {
     NSString *code = [noti.userInfo objectForKey:@"code"];
-        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AppUtils *utils = [[AppUtils alloc] init];
     [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
@@ -295,17 +287,10 @@
             NSLog(@"%@", responseObject);
             AccountManager *accountManager = [AccountManager shareAccountManager];
             [accountManager userDidLoginWithUserInfo:[responseObject objectForKey:@"result"]];
-            [accountManager loginEaseMobServer:^(BOOL isSuccess) {
-                [hud hideTZHUD];
-                if (isSuccess) {
-                    [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.3];
-                    if (self.completion) {
-                        self.completion(YES);
-                    }
-                } else {
-                    [SVProgressHUD showHint:@"登录失败"];
-                }
-            }];
+            [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.3];
+            if (self.completion) {
+                self.completion(YES);
+            }
             
         } else {
             [hud hideTZHUD];
@@ -335,7 +320,6 @@
     } else {
         [self dismissViewControllerAnimated:YES completion:nil];
     }
-    
 }
 
 @end

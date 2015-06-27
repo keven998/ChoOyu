@@ -33,4 +33,15 @@
     return self;
 }
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _cities = [[NSArray alloc] init];
+        _images = [[NSArray alloc] init];
+    }
+    return self;
+}
+
+
 @end

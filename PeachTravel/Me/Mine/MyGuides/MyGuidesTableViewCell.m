@@ -35,7 +35,7 @@
 {
     _guideSummary = guideSummary;
     _countBtn.text = [NSString stringWithFormat:@"%ld", (long)_guideSummary.dayCount];
-    _descLabel.text = _guideSummary.summary;
+    _descLabel.text = [NSString stringWithFormat:@"目的地：%@", _guideSummary.summary];
     TaoziImage *image = [_guideSummary.images firstObject];
     [_headerImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
     [_timeBtn setTitle:[NSString stringWithFormat:@"%@", _guideSummary.updateTimeStr] forState:UIControlStateNormal];

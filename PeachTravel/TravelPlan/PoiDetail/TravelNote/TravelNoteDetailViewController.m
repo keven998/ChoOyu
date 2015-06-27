@@ -10,6 +10,7 @@
 #import "NJKWebViewProgress.h"
 #import "NJKWebViewProgressView.h"
 #import "LoginViewController.h"
+#import "PeachTravel-swift.h"
 #import "UIBarButtonItem+MJ.h"
 
 @interface TravelNoteDetailViewController () <UIWebViewDelegate, NJKWebViewProgressDelegate, CreateConversationDelegate, TaoziMessageSendDelegate> {
@@ -31,20 +32,12 @@
     [super viewDidLoad];
     self.navigationItem.title = _titleStr;
     
-    UIButton *talkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    [talkBtn setImage:[UIImage imageNamed:@"ic_ztl_sc_2"] forState:UIControlStateNormal];
-    [talkBtn setImage:[UIImage imageNamed:@"ic_ztl_sc_1"] forState:UIControlStateSelected];
-    [talkBtn addTarget:self action:@selector(doFavorite:) forControlEvents:UIControlEventTouchUpInside];
-    talkBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-    UIBarButtonItem *moreBarItem = [[UIBarButtonItem alloc] initWithCustomView:talkBtn];
-    
     UIButton *cb = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [cb setImage:[UIImage imageNamed:@"ic_ztl_lt"] forState:UIControlStateNormal];
     [cb addTarget:self action:@selector(chat) forControlEvents:UIControlEventTouchUpInside];
     cb.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     UIBarButtonItem *chatItem = [[UIBarButtonItem alloc] initWithCustomView:cb];
-    
-    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:chatItem, moreBarItem, nil];
+    self.navigationItem.rightBarButtonItem = chatItem;
     
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithIcon:@"ic_back_trip_ios" highIcon:@"nav_back" target:self action:@selector(gooBack)];
     
@@ -66,7 +59,7 @@
     [_webView loadRequest:request];
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 25, self.view.bounds.size.width, 32)];
-    label.text = @"旅行派\n你最好的旅行助手";
+    label.text = @"旅行派\n可以跟达人求助的旅行工具";
     label.textColor = TEXT_COLOR_TITLE_HINT;
     label.font = [UIFont systemFontOfSize:11.0];
     label.textAlignment = NSTextAlignmentCenter;
@@ -100,18 +93,6 @@
     _progressView = nil;
 }
 
-- (IBAction)doFavorite:(id)sender {
-    UIButton *bi = sender;
-    bi.selected = !bi.selected;
-    [self.travelNote asyncFavorite:_travelNote.travelNoteId poiType:@"travelNote" isFavorite:bi.selected completion:^(BOOL isSuccess) {
-        if (!isSuccess) {
-            bi.selected = !bi.selected;
-        } else {
-//            bi.selected = !bi.selected;
-        }
-    }];
-}
-
 - (void)chat {
     if (![[AccountManager shareAccountManager] isLogin]) {
         [SVProgressHUD showHint:@"请先登录"];
@@ -126,14 +107,15 @@
 
 #pragma mark - CreateConversationDelegate
 
-- (void)createConversationSuccessWithChatter:(NSString *)chatter isGroup:(BOOL)isGroup chatTitle:(NSString *)chatTitle
+- (void)createConversationSuccessWithChatter:(NSInteger)chatterId chatType:(IMChatType)chatType chatTitle:(NSString *)chatTitle
+
 {
     TaoziChatMessageBaseViewController *taoziMessageCtl = [[TaoziChatMessageBaseViewController alloc] init];
     [self setChatMessageModel:taoziMessageCtl];
     taoziMessageCtl.delegate = self;
     taoziMessageCtl.chatTitle = chatTitle;
-    taoziMessageCtl.chatter = chatter;
-    taoziMessageCtl.isGroup = isGroup;
+    taoziMessageCtl.chatterId = chatterId;
+    taoziMessageCtl.chatType = chatType;
     
     [self.chatRecordListCtl dismissViewControllerAnimated:YES completion:^{
         [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:nil];
@@ -148,7 +130,7 @@
     taoziMessageCtl.messageDesc = _travelNote.summary;
     taoziMessageCtl.messageName = _travelNote.title;
     taoziMessageCtl.messageDetailUrl = _travelNote.detailUrl;
-    taoziMessageCtl.chatType = TZChatTypeTravelNote;
+    taoziMessageCtl.chatType = IMMessageTypeTravelNoteMessageType;
 }
 
 - (void)login

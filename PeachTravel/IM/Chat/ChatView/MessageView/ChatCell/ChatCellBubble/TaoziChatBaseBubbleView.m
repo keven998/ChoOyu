@@ -54,7 +54,7 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
         _pictureImageBkgView.layer.cornerRadius = 2.0;
         _pictureImageBkgView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
         _pictureImageView.clipsToBounds = YES;
-
+        
         _propertyBtn = [[UIButton alloc] init];
         [_propertyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _propertyBtn.titleLabel.font = [UIFont systemFontOfSize:10.0];
@@ -116,10 +116,10 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
     }
     
     [_titleBtn setFrame:CGRectMake(_pictureImageView.frame.origin.x + 70, 10, titleWidth, 20)];
-
+    
     CGFloat offsetY;
-    if ([[_model.taoziMessage objectForKey:@"tzType"] integerValue] == TZChatTypeTravelNote
-        || [[_model.taoziMessage objectForKey:@"tzType"] integerValue] == TZChatTypeCity) {
+    if (_model.type ==  IMMessageTypeTravelNoteMessageType
+        || _model.type == IMMessageTypeCityPoiMessageType) {
         _propertyBtn.hidden = YES;
         _propertyBtn.frame = CGRectZero;
         offsetY = 25;
@@ -128,7 +128,7 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
         _propertyBtn.frame = CGRectMake(_titleBtn.frame.origin.x, 30, titleWidth, 15);
         offsetY = 40;
     }
-
+    
     [_descLabel setFrame:CGRectMake(_titleBtn.frame.origin.x, offsetY+4, titleWidth, TaoziBubbleHeight-offsetY-10)];
     
 }
@@ -143,89 +143,89 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
     _model = model;
     
     BOOL isReceiver = !_model.isSender;
-    NSString *imageName = isReceiver ? @"chat_receiver_bg" : @"chat_sender_bg";
-    NSInteger leftCapWidth = isReceiver?BUBBLE_LEFT_LEFT_CAP_WIDTH:BUBBLE_RIGHT_LEFT_CAP_WIDTH;
-    NSInteger topCapHeight =  39;
-    self.backImageView.image = [[UIImage imageNamed:imageName] stretchableImageWithLeftCapWidth:leftCapWidth topCapHeight:topCapHeight];
+    NSString *imageName = isReceiver ? @"chat_receiver_bg" : @"messages_bg_self.png";
+    NSInteger leftCapWidth = isReceiver ? BUBBLE_LEFT_LEFT_CAP_WIDTH : BUBBLE_RIGHT_LEFT_CAP_WIDTH;
+    NSInteger topCapHeight = 25;
+    //    self.backImageView.image = [[UIImage imageNamed:imageName] stretchableImageWithLeftCapWidth:leftCapWidth topCapHeight:topCapHeight];
+    self.backImageView.image = [[UIImage imageNamed:imageName] resizableImageWithCapInsets:UIEdgeInsetsMake(leftCapWidth, leftCapWidth, topCapHeight, 2*leftCapWidth)];
     
-    if (model.taoziMessage) {
-        NSDictionary *content = [model.taoziMessage objectForKey:@"content"];
-        [_titleBtn setTitle:[content objectForKey:@"name"] forState:UIControlStateNormal];
-        [_pictureImageView sd_setImageWithURL:[NSURL URLWithString:[content objectForKey:@"image"]] placeholderImage:nil];
+    if (model.poiModel) {
+        [_titleBtn setTitle:model.poiModel.poiName forState:UIControlStateNormal];
+        [_pictureImageView sd_setImageWithURL:[NSURL URLWithString:model.poiModel.image] placeholderImage:nil];
         /**
          *  默认标题一行，但是游记的话是两行
          */
         _titleBtn.titleLabel.numberOfLines = 1;
-        switch ([[model.taoziMessage objectForKey:@"tzType"] integerValue]) {
-            case TZChatTypeSpot:
+        switch (model.type) {
+            case IMMessageTypeSpotMessageType:
                 _typeLabel.text = @"景点";
-                [_propertyBtn setTitle:[content objectForKey:@"timeCost"] forState:UIControlStateNormal];
+                [_propertyBtn setTitle:model.poiModel.timeCost forState:UIControlStateNormal];
                 [_propertyBtn setImage:nil forState:UIControlStateNormal];
-                _descLabel.text = [content objectForKey:@"desc"];
+                _descLabel.text = model.poiModel.desc;
                 break;
                 
-            case TZChatTypeFood: {
+            case IMMessageTypeRestaurantMessageType: {
                 _typeLabel.text = @"美食";
-                NSString *protertyStr = [NSString stringWithFormat:@"%@  %@", [content objectForKey:@"rating"], [content objectForKey:@"price"]];
+                NSString *protertyStr = [NSString stringWithFormat:@"%@  %@", model.poiModel.rating, model.poiModel.price];
                 if (_model.isSender) {
                     [_propertyBtn setImage:[UIImage imageNamed:@"ic_star_gray_small.png"] forState:UIControlStateNormal];
                 } else {
                     [_propertyBtn setImage:[UIImage imageNamed:@"ic_star_yellow_small.png"] forState:UIControlStateNormal];
                 }
                 [_propertyBtn setTitle:protertyStr forState:UIControlStateNormal];
-                _descLabel.text = [content objectForKey:@"address"];
+                _descLabel.text = model.poiModel.address;
             }
                 break;
                 
-            case TZChatTypeHotel: {
+            case IMMessageTypeHotelMessageType: {
                 _typeLabel.text = @"酒店";
                 if (_model.isSender) {
                     [_propertyBtn setImage:[UIImage imageNamed:@"ic_star_gray_small.png"] forState:UIControlStateNormal];
                 } else {
                     [_propertyBtn setImage:[UIImage imageNamed:@"ic_star_yellow_small.png"] forState:UIControlStateNormal];
                 }
-                NSString *protertyStr = [NSString stringWithFormat:@"%@  %@", [content objectForKey:@"rating"], [content objectForKey:@"price"]];
+                NSString *protertyStr = [NSString stringWithFormat:@"%@  %@", model.poiModel.rating, model.poiModel.price];
                 [_propertyBtn setTitle:protertyStr forState:UIControlStateNormal];
-                _descLabel.text = [content objectForKey:@"address"];
+                _descLabel.text = model.poiModel.address;
             }
                 
                 break;
                 
-            case TZChatTypeShopping:
+            case IMMessageTypeShoppingMessageType:
                 _typeLabel.text = @"购物";
                 if (_model.isSender) {
                     [_propertyBtn setImage:[UIImage imageNamed:@"ic_star_gray_small.png"] forState:UIControlStateNormal];
                 } else {
                     [_propertyBtn setImage:[UIImage imageNamed:@"ic_star_yellow_small.png"] forState:UIControlStateNormal];
                 }
-                [_propertyBtn setTitle:[content objectForKey:@"rating"] forState:UIControlStateNormal];
-                _descLabel.text = [content objectForKey:@"address"];
+                [_propertyBtn setTitle:model.poiModel.rating forState:UIControlStateNormal];
+                _descLabel.text = model.poiModel.address;
                 
                 break;
                 
-            case TZChatTypeStrategy:
+            case IMMessageTypeGuideMessageType:
                 _typeLabel.text = @"计划";
                 [_propertyBtn setImage:nil forState:UIControlStateNormal];
-                [_propertyBtn setTitle:[content objectForKey:@"timeCost"] forState:UIControlStateNormal];
-                _descLabel.text = [content objectForKey:@"desc"];
+                [_propertyBtn setTitle:model.poiModel.timeCost forState:UIControlStateNormal];
+                _descLabel.text = model.poiModel.desc;
                 break;
                 
-            case TZChatTypeTravelNote:
+            case IMMessageTypeTravelNoteMessageType:
                 _typeLabel.text = @"游记";
                 _propertyBtn.hidden = YES;
-                _descLabel.text = [content objectForKey:@"desc"];
+                _descLabel.text = model.poiModel.desc;
                 break;
-
-            case TZChatTypeCity:
+                
+            case IMMessageTypeCityPoiMessageType:
                 _typeLabel.text = @"城市";
                 _propertyBtn.hidden = YES;
-                _descLabel.text = [content objectForKey:@"desc"];
+                _descLabel.text = model.poiModel.desc;
                 break;
                 
             default:
                 break;
         }
-
+        
     }
 }
 

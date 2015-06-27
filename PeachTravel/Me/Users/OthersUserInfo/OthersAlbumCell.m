@@ -81,7 +81,14 @@
         // 替换为中等尺寸图片
         AlbumImage *albumImage = _headerPicArray[i];
         MJPhoto *photo = [[MJPhoto alloc] init];
-        photo.url = [NSURL URLWithString:albumImage.image.imageUrl]; // 图片路径
+        photo.url = albumImage.image.imageUrl; // 图片路径
+        
+        
+
+        NSIndexPath *picIndexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:0];
+        PicCell *picCell = (PicCell *)[_collectionView cellForItemAtIndexPath:picIndexPath];
+        photo.srcImageView = picCell.picImage;
+
         //        photo.srcImageView = (UIImageView *)[swipeView itemViewAtIndex:index]; // 来源于哪个UIImageView
         [photos addObject:photo];
     }

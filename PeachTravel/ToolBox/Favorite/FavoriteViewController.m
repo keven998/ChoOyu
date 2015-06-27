@@ -99,7 +99,7 @@
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
     } else {
         UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:@"common_icon_navigaiton_back"] forState:UIControlStateNormal];
         [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
         [button setFrame:CGRectMake(0, 0, 48, 30)];
         button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
@@ -140,7 +140,7 @@
 
 - (void) initDataFromCache {
     AccountManager *accountManager = [AccountManager shareAccountManager];
-    [[TMCache sharedCache] objectForKey:[NSString stringWithFormat:@"%@_favorites", accountManager.account.userId] block:^(TMCache *cache, NSString *key, id object)  {
+    [[TMCache sharedCache] objectForKey:[NSString stringWithFormat:@"%ld_favorites", (long)accountManager.account.userId] block:^(TMCache *cache, NSString *key, id object)  {
         if (object != nil) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.dataSource addObjectsFromArray:object];
@@ -232,7 +232,7 @@
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     AccountManager *accountManager = [AccountManager shareAccountManager];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSNumber *imageWidth = [NSNumber numberWithInt:300];
@@ -291,7 +291,7 @@
     
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     AccountManager *accountManager = [AccountManager shareAccountManager];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     
     NSString *urlStr = [NSString stringWithFormat:@"%@/%@", API_UNFAVORITE, favorite.itemId];
     
@@ -337,9 +337,9 @@
     NSInteger count = _dataSource.count;
     if (count > 0) {
         NSArray *cd = [_dataSource subarrayWithRange:NSMakeRange(0, count > PAGE_COUNT ? PAGE_COUNT : count)];
-        [[TMCache sharedCache] setObject:cd forKey:[NSString stringWithFormat:@"%@_favorites", accountManager.account.userId]];
+        [[TMCache sharedCache] setObject:cd forKey:[NSString stringWithFormat:@"%ld_favorites", (long)accountManager.account.userId]];
     } else {
-        [[TMCache sharedCache] removeObjectForKey:[NSString stringWithFormat:@"%@_favorites", accountManager.account.userId]];
+        [[TMCache sharedCache] removeObjectForKey:[NSString stringWithFormat:@"%ld_favorites", (long)accountManager.account.userId]];
     }
 }
 
@@ -380,29 +380,29 @@
     taoziMessageCtl.messageImage = ((TaoziImage *)[item.images firstObject]).imageUrl;
     taoziMessageCtl.messageDesc = item.desc;
     taoziMessageCtl.messageName = item.zhName;
-    taoziMessageCtl.chatter = self.chatter;
-    taoziMessageCtl.isGroup = self.isChatGroup;
+    taoziMessageCtl.chatterId = self.chatterId;
+    taoziMessageCtl.chatType = self.chatType;
     //        taoziMessageCtl.messageTimeCost = item.timeCostStr;
     taoziMessageCtl.descLabel.text = item.desc;
     if (item.type == kSpotPoi) {
-        taoziMessageCtl.chatType = TZChatTypeSpot;
+        taoziMessageCtl.messageType = IMMessageTypeSpotMessageType;
         taoziMessageCtl.messageTimeCost = item.timeCostDesc;
     } else if (item.type == kHotelPoi) {
-        taoziMessageCtl.chatType = TZChatTypeHotel;
+        taoziMessageCtl.messageType = IMMessageTypeHotelMessageType;
         taoziMessageCtl.messageRating = item.rating;
         taoziMessageCtl.messagePrice = item.priceDesc;
     } else if (item.type == kRestaurantPoi) {
-        taoziMessageCtl.chatType = TZChatTypeFood;
+        taoziMessageCtl.messageType = IMMessageTypeRestaurantMessageType;
         taoziMessageCtl.messageRating = item.rating;
         taoziMessageCtl.messagePrice = item.priceDesc;
     } else if (item.type == kShoppingPoi) {
-        taoziMessageCtl.chatType = TZChatTypeShopping;
+        taoziMessageCtl.messageType = IMMessageTypeShoppingMessageType;
         taoziMessageCtl.messageRating = item.rating;
     } else if (item.type == kTravelNotePoi) {
-        taoziMessageCtl.chatType = TZChatTypeTravelNote;
+        taoziMessageCtl.messageType = IMMessageTypeTravelNoteMessageType;
         taoziMessageCtl.messageDetailUrl = item.detailUrl;
     } else {
-        taoziMessageCtl.chatType = TZChatTypeCity;
+        taoziMessageCtl.messageType = IMMessageTypeCityPoiMessageType;
         taoziMessageCtl.messageTimeCost = item.timeCostDesc;
     }
     

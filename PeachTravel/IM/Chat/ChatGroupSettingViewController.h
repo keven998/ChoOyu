@@ -10,6 +10,6 @@
 
 @interface ChatGroupSettingViewController : UIViewController
 
-@property (nonatomic, strong) EMGroup *group;
+@property (nonatomic) NSInteger groupId;
 
 @end

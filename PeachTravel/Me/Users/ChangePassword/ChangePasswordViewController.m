@@ -116,12 +116,12 @@
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     AccountManager *accountManager = [AccountManager shareAccountManager];
     if ([accountManager isLogin]) {
-        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     }
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:_oldPasswordLabel.text forKey:@"oldPwd"];
     [params safeSetObject:_presentPasswordLabel.text forKey:@"newPwd"];
-    [params safeSetObject:accountManager.account.userId forKey:@"userId"];
+    [params safeSetObject:[NSNumber numberWithInteger: accountManager.account.userId] forKey:@"userId"];
     
     __weak typeof(ChangePasswordViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];

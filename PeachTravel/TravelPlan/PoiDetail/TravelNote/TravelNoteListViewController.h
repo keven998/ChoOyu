@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "TZTBViewController.h"
+#import "PeachTravel-swift.h"
 
 @interface TravelNoteListViewController : TZTBViewController
 
@@ -19,7 +20,7 @@
 @property (nonatomic, copy) NSString *cityId;
 @property (nonatomic, copy) NSString *cityName;
 
-@property (nonatomic, copy) NSString *chatter;
-@property (nonatomic) BOOL isChatGroup;
+@property (nonatomic) NSInteger chatterId;
+@property (nonatomic) IMChatType chatType;
 
 @end

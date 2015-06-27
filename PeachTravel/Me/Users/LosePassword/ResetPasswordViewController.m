@@ -76,7 +76,7 @@
     
     if (_verifyCaptchaType == UserBindTel) {
         AccountManager *accountManager = [AccountManager shareAccountManager];
-        [params setObject:accountManager.account.userId forKey:@"userId"];
+        [params setObject:[NSNumber numberWithInteger: accountManager.account.userId] forKey:@"userId"];
         urlStr = API_BINDTEL;
     } else {
         urlStr = API_RESET_PWD;

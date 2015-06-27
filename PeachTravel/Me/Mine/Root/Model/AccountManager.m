@@ -7,14 +7,11 @@
 //
 
 #import "AccountManager.h"
-#import "AppDelegate.h"
-#import "Group.h"
+#import "PeachTravel-swift.h"
 
 #define ACCOUNT_KEY  @"taozi_account"
 
 @interface AccountManager ()
-
-@property (nonatomic, strong) NSManagedObjectContext *context;
 
 @end
 
@@ -33,28 +30,61 @@
 
 #pragma mark - setter & getter
 
-- (Account *)account
-{
+- (AccountModel *)account {
     if (!_account) {
-        NSError *error = nil;
-        NSFetchRequest *request = [[NSFetchRequest alloc] init];
-        request.entity = [NSEntityDescription entityForName:@"Account" inManagedObjectContext:self.context];
-        NSArray *objs = [self.context executeFetchRequest:request error:&error];
-        if (error) {
-            [NSException raise:@"查询错误" format:@"%@", [error localizedDescription]];
-        }
-        _account = [objs firstObject];
+        AccountDaoHelper *accountDaoHelper = [AccountDaoHelper shareInstance];
+        _account = [accountDaoHelper selectCurrentAccount];
     }
     return _account;
 }
 
-- (AccountModel *)accountDetail
+- (NSString *)userChatAudioPath
 {
-    if (!_accountDetail) {
-        _accountDetail = [[AccountModel alloc] init];
-        _accountDetail.basicUserInfo = self.account;
+    if (!_userChatAudioPath) {
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentPath = [paths objectAtIndex:0];
+        
+        NSFileManager *fileManager =  [[NSFileManager alloc] init];
+        NSString *audioPath = [documentPath stringByAppendingPathComponent:[NSString stringWithFormat: @"%ld/ChatAudio/", self.account.userId]];
+        if (![fileManager fileExistsAtPath: audioPath]) {
+            [fileManager createDirectoryAtPath:audioPath withIntermediateDirectories:YES attributes:nil error:nil];
+        }
+        _userChatAudioPath = audioPath;
     }
-    return _accountDetail;
+    return _userChatAudioPath;
+}
+
+- (NSString *)userChatImagePath
+{
+    if (!_userChatImagePath) {
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentPath = [paths objectAtIndex:0];
+        
+        NSFileManager *fileManager =  [[NSFileManager alloc] init];
+        NSString *imagePath = [documentPath stringByAppendingPathComponent:[NSString stringWithFormat: @"%ld/ChatImage/", self.account.userId]];
+
+        if (![fileManager fileExistsAtPath: imagePath]) {
+            [fileManager createDirectoryAtPath:imagePath withIntermediateDirectories:YES attributes:nil error:nil];
+        }
+        _userChatImagePath = imagePath;
+    }
+    return _userChatImagePath;
+}
+
+- (NSString *)userTempPath
+{
+    if (!_userTempPath) {
+        NSString *tempPath = NSTemporaryDirectory();
+        
+        NSFileManager *fileManager =  [[NSFileManager alloc] init];
+        NSString *retPath = [tempPath stringByAppendingPathComponent:[NSString stringWithFormat: @"%ld/tempFile/", self.account.userId]];
+
+        if (![fileManager fileExistsAtPath: retPath]) {
+            [fileManager createDirectoryAtPath:retPath withIntermediateDirectories:YES attributes:nil error:nil];
+        }
+        _userTempPath = retPath;
+    }
+    return _userTempPath;
 }
 
 //用户是否登录
@@ -69,133 +99,63 @@
     return !([self.account.tel isEqualToString:@""] || self.account.tel == nil);
 }
 
-- (NSManagedObjectContext *)context
-{
-    if (!_context) {
-        _context = [((AppDelegate *)[[UIApplication sharedApplication] delegate]) managedObjectContext];
-    }
-    return _context;
-}
-
 #pragma mark - Private Methods
-
-- (void)save
-{
-    NSError *error = nil;
-    [self.context save:&error];
-}
 
 //用户退出登录
 - (void)asyncLogout:(void (^)(BOOL))completion
 {
-    __weak typeof(self) weakSelf = self;
-
-    [[EaseMob sharedInstance].chatManager asyncLogoffWithUnbindDeviceToken:YES completion:^(NSDictionary *info, EMError *error) {
-        NSLog(@"%@", [[EaseMob sharedInstance].chatManager loginInfo]);
-        
-        if (error && (error.errorCode != EMErrorServerNotLogin)) {
-            NSLog(@"%@", error.description);
-            completion(NO);
-            return;
-        }
-        [weakSelf.context deleteObject:self.account];
-        [weakSelf save];
-        _account = nil;
-        [[NSNotificationCenter defaultCenter] postNotificationName:userDidLogoutNoti object:nil];
-        completion(YES);
-//        NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
-//        [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
-    } onQueue:nil];
+    _account = nil;
+    AccountDaoHelper *daoHelper = [AccountDaoHelper shareInstance];
+    [daoHelper deleteAccountInfoInDB];
+    [[NSNotificationCenter defaultCenter] postNotificationName:userDidLogoutNoti object:nil];
+    completion(YES);
 }
 
 //用户旅行派系统登录成功
 - (void)userDidLoginWithUserInfo:(id)userInfo
 {
-    if (self.account) {
-        [self.context deleteObject:self.account];
-        [self save];
-        _account = nil;
+    _account =[[AccountModel alloc] initWithJson:userInfo];
+    AccountDaoHelper *accountDaoHelper = [AccountDaoHelper shareInstance];
+    [accountDaoHelper addAccount2DB:_account];
+    IMClientManager *manager = [IMClientManager shareInstance];
+    [manager userDidLogin];
+    [self bindRegisterID2UserId];
+    [[NSNotificationCenter defaultCenter] postNotificationName:userDidLoginNoti object:nil];
+
+}
+
+- (void)bindRegisterID2UserId
+{
+    ConnectionManager *connectionManager = [ConnectionManager shareInstance];
+    if (!connectionManager.registionId) {
+        return;
     }
-    _account = [NSEntityDescription insertNewObjectForEntityForName:@"Account" inManagedObjectContext:self.context];
-    [self loadUserInfo:userInfo];
-}
-
-//环信系统也登录成功，这时候才是真正的登录成功
-- (void)easeMobDidLogin
-{
-    [self addPaipaiContact];
-    [self save];
-    [self loadContactsFromServer];
-}
-
-/**
- *  默认添加 paipai 好友
- */
-- (void)addPaipaiContact
-{
-    Contact *contact = [NSEntityDescription insertNewObjectForEntityForName:@"Contact" inManagedObjectContext:self.context];
-    contact.userId = [NSNumber numberWithInt:10000];
-    contact.nickName = @"派派";
-    contact.easemobUser = @"gcounhhq0ckfjwotgp02c39vq40ewhxt";
-    contact.pinyin = @"paipai";
-    [self.account addContactsObject:contact];
-}
-
-//环信系统登录失败
-- (void)easeMobUnlogin
-{
-    if (self.account) {
-        [self.context deleteObject:self.account];
-        [self save];
-    }
-    _account = nil;
-}
-
-- (void)loginEaseMobServer
-{
-    [self loginEaseMobServer:nil];
-}
-
-- (void)loginEaseMobServer:(void (^)(BOOL isSuccess))completion
-{
-    [self loginEaseMobServerWithUserName:self.account.easemobUser withPassword:self.account.easemobPwd withCompletion:completion];
-}
-
-/**
- *  使用用户名密码登录环信聊天系统,只有环信系统也登录成功才算登录成功
- *
- *  @param userName
- *  @param password
- */
-- (void)loginEaseMobServerWithUserName:(NSString *)userName withPassword:(NSString *)password withCompletion:(void(^)(BOOL))completion
-{
-    if ([EaseMob sharedInstance].chatManager.isLoggedIn) {
-        [[EaseMob sharedInstance].chatManager logoffWithUnbindDeviceToken:YES error:nil];
-    }
-    [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:userName
-                                                        password:password
-                                                      completion:
-     ^(NSDictionary *loginInfo, EMError *error) {
-         if (loginInfo && !error) {
-             [self easeMobDidLogin];
-             [[NSNotificationCenter defaultCenter] postNotificationName:userDidLoginNoti object:nil];
-
-             EMPushNotificationOptions *options = [[EMPushNotificationOptions alloc] init];
-             options.displayStyle = ePushNotificationDisplayStyle_simpleBanner;
-             [[EaseMob sharedInstance].chatManager asyncUpdatePushOptions:options];
-             //设置环信自动登录
-             [[EaseMob sharedInstance].chatManager setIsAutoLoginEnabled:YES];
-             [[EaseMob sharedInstance].chatManager asyncFetchMyGroupsList];
-             if (completion) {
-                 completion(YES);
-             }
-         } else {
-             [self easeMobUnlogin];
-             if (completion) {
-                 completion(NO);
-             }
-         }
-     } onQueue:nil];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", self.account.userId] forHTTPHeaderField:@"UserId"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    
+    [params setObject:[NSNumber numberWithInteger: self.account.userId] forKey:@"userId"];
+    [params setObject:[ConnectionManager shareInstance].registionId forKey:@"regId"];
+    
+    NSString *loginUrl = @"http://hedy.zephyre.me/users/login";
+    
+    
+    [manager POST:loginUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            
+        } else {
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    }];
 }
 
 #pragma mark - 修改用户信息相关接口
@@ -239,7 +199,7 @@
 {
     [self asyncUpdateUserInfoToServer:residence andUserInfoType:ChangeOtherInfo andKeyWord:@"residence" completion:^(BOOL isSuccess, NSString *errStr) {
         if (isSuccess) {
-            self.accountDetail.residence =  residence;
+            self.account.residence =  residence;
             completion(YES, nil);
         } else {
             completion(NO, errStr);
@@ -251,7 +211,7 @@
 {
     [self asyncUpdateUserInfoToServer:birthday andUserInfoType:ChangeOtherInfo andKeyWord:@"birthday" completion:^(BOOL isSuccess, NSString *errStr) {
     if (isSuccess) {
-        self.accountDetail.birthday =  birthday;
+        self.account.birthday =  birthday;
         completion(YES, nil);
     } else {
         completion(NO, errStr);
@@ -287,17 +247,17 @@
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
     
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", self.account.userId] forHTTPHeaderField:@"UserId"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)self.account.userId] forHTTPHeaderField:@"UserId"];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@%@/albums/%@", API_USERINFO, self.account.userId, albumImage.imageId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@%ld/albums/%@", API_USERINFO, (long)self.account.userId, albumImage.imageId];
     
     [manager DELETE:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [SVProgressHUD showHint:@"修改成功"];
-            NSMutableArray *albums = [self.accountDetail.userAlbum mutableCopy];
+            NSMutableArray *albums = [self.account.userAlbum mutableCopy];
             [albums removeObject:albumImage];
-            self.accountDetail.userAlbum = albums;
+            self.account.userAlbum = albums;
             completion(YES, nil);
             [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
             
@@ -328,22 +288,19 @@
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", self.account.userId] forHTTPHeaderField:@"UserId"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)self.account.userId] forHTTPHeaderField:@"UserId"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     
     [params setObject:userInfo forKey:keyWord];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@%@", API_USERINFO, self.account.userId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@%ld", API_USERINFO, (long)self.account.userId];
     
     [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [SVProgressHUD showHint:@"修改成功"];
             [self updateUserInfo:userInfo withChangeType:userInfoType];
-            if (userInfoType == ChangeName) {
-                [[EaseMob sharedInstance].chatManager setApnsNickname:userInfo];
-            }
             completion(YES, nil);
             [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
 
@@ -353,7 +310,6 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         completion(NO, nil);
     }];
-
 }
 
 - (void)asyncChangeGender:(NSString *)newGender completion:(void (^)(BOOL, NSString *))completion
@@ -366,12 +322,12 @@
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", self.account.userId] forHTTPHeaderField:@"UserId"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)self.account.userId] forHTTPHeaderField:@"UserId"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:newGender forKey:@"gender"];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@%@", API_USERINFO, self.account.userId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@%ld", API_USERINFO, (long)self.account.userId];
     
     [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
 
@@ -398,19 +354,19 @@
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", self.account.userId] forHTTPHeaderField:@"UserId"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)self.account.userId] forHTTPHeaderField:@"UserId"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:newStatus forKey:@"travelStatus"];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@%@", API_USERINFO, self.account.userId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@%ld", API_USERINFO, (long)self.account.userId];
     
     [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
 //            [self updateUserInfo:newStatus withChangeType:ChangeGender];
-            self.accountDetail.travelStatus = newStatus;
+            self.account.travelStatus = newStatus;
             [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
             completion(YES, nil);
         } else {
@@ -419,16 +375,6 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         completion(NO, nil);
     }];
-}
-
-/**
- *  更新用户信息
- *
- *  @param changeContent 信息内容
- */
-- (void)updateUserInfo:(id)userInfo
-{
-    [self loadUserInfo:userInfo];
 }
 
 /**
@@ -453,7 +399,15 @@
             break;
             
         case ChangeGender:
-            self.account.gender = changeContent;
+            if ([changeContent isEqualToString:@"F"]) {
+                self.account.gender = Female;
+            } else if ([changeContent isEqualToString:@"M"]) {
+                self.account.gender = Male;
+            } else if ([changeContent isEqualToString:@"S"]) {
+                self.account.gender = Secret;
+            } else if ([changeContent isEqualToString:@"U"]) {
+                self.account.gender = Unknown;
+            }
             break;
             
         case ChangeAvatar:
@@ -467,7 +421,6 @@
         default:
             break;
     }
-    [self save];
 }
 
 /**
@@ -500,84 +453,7 @@
     return NoError;
 }
 
-//解析从服务器上下载的用户信息
-- (void)loadUserInfo:(id)json
-{
-    _account.userId = [NSNumber numberWithInteger:[[json objectForKey:@"userId"] integerValue]];
-    _account.nickName = [json objectForKey:@"nickName"];
-    _account.avatar = [json objectForKey:@"avatar"];
-    _account.avatarSmall = [json objectForKey:@"avatarSmall"];
-    _account.gender = [json objectForKey:@"gender"];
-    if (!_account.gender) {
-        _account.gender = @"U";
-    }
-    _account.tel = [json objectForKey:@"tel"];
-    _account.secToken = [json objectForKey:@"secToken"];
-    _account.signature = [json objectForKey:@"signature"];
-    _account.easemobUser = [json objectForKey:@"easemobUser"];
-    _account.easemobPwd = [json objectForKey:@"easemobPwd"];
-}
-
 #pragma mark - **********好友相关操作********
-
-/**
- *  通过环信 id 取得用户的旅行派信息
- *
- *  @param easemobUser 环信 id
- *
- *  @return
- */
-- (Contact *)TZContactByEasemobUser:(NSString *)easemobUser
-{
-    for (Contact *contact in self.account.contacts) {
-        if ([contact.easemobUser isEqualToString:easemobUser]) {
-            return contact;
-        }
-    }
-    return nil;
-}
-
-- (Contact *)TZContactByUserId:(NSNumber *)userId
-{
-    for (Contact *contact in self.account.contacts) {
-        if (contact.userId.integerValue == userId.integerValue) {
-            return contact;
-        }
-    }
-    return nil;
-}
-
-
-- (BOOL)isMyFrend:(NSNumber *)userId
-{
-    for (Contact *contact in self.account.contacts) {
-        if (contact.userId.integerValue == userId.integerValue) {
-            return YES;
-        }
-    }
-    return NO;
-}
-
-- (Contact *)contactWithUserId:(NSNumber *)userId
-{
-    for (Contact *contact in self.account.contacts) {
-        if (contact.userId.integerValue == userId.integerValue) {
-            return contact;
-        }
-    }
-    return nil;
-}
-
-- (Contact *)contactWithEaseMobUserId:(NSString *)userId
-{
-    for (Contact *contact in self.account.contacts) {
-        if ([contact.easemobUser isEqualToString:userId]) {
-            return contact;
-        }
-    }
-    return nil;
-    
-}
 
 //从服务器上获取好友列表
 - (void)loadContactsFromServer
@@ -590,7 +466,7 @@
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", self.account.userId] forHTTPHeaderField:@"UserId"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)self.account.userId] forHTTPHeaderField:@"UserId"];
     
     [manager GET:API_GET_CONTACTS parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
@@ -608,46 +484,78 @@
 }
 
 
+/**
+ 通过数据库里的数据判断用户是否是我的好友
+ 
+ :param: userId
+ 
+ :returns:
+ */
+- (BOOL)frendIsMyContact:(NSInteger)userId
+{
+    for (FrendModel *frend in _account.frendList) {
+        if (frend.userId == userId) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+- (void)removeContact:(FrendModel *)frend
+{
+    for (FrendModel *model in self.account.frendList) {
+        if (model.userId == frend.userId) {
+            [self.account.frendList removeObject:model];
+            if ([FrendModel typeIsCorrect:frend.type typeWeight:IMFrendWeightTypeFrend]) {
+                int typeValue = frend.type = IMFrendWeightTypeFrend;
+                frend.type = typeValue;
+            }
+            [[DaoHelper shareInstance] updateFrendTypeWithUserId:frend.userId frendType:frend.type];
+            return;
+        }
+    }
+}
+
 - (void)addContact:(id)contactDic
 {
-    NSLog(@"收到添加联系人，联系人的内容为：%@", contactDic);
-    
-       Contact *newContact = [NSEntityDescription insertNewObjectForEntityForName:@"Contact" inManagedObjectContext:self.context];
-    
-    if ([contactDic isKindOfClass:[FrendRequest class]]) {
-        //如果已经是我的好友了，那我就没必要添加了。。
-
-        if ([self isMyFrend:((FrendRequest *)contactDic).userId]) {
-            return;
-        }
-        newContact.userId = ((FrendRequest *)contactDic).userId;
-        newContact.nickName = ((FrendRequest *)contactDic).nickName;
-        newContact.gender = ((FrendRequest *)contactDic).gender;
-        newContact.memo = @"";
-        newContact.easemobUser = ((FrendRequest *)contactDic).easemobUser;
-        newContact.avatar = ((FrendRequest *)contactDic).avatar;
-        newContact.avatarSmall = ((FrendRequest *)contactDic).avatarSmall;
-        newContact.pinyin = [ConvertMethods chineseToPinyin:newContact.nickName];
-        
-    } else {
-        //如果已经是我的好友了，那我就没必要添加了。。
-        if ([self isMyFrend:[contactDic objectForKey:@"userId"]]) {
-            return;
-        }
-
-        newContact.userId = [contactDic objectForKey:@"userId"];
-        newContact.nickName = [contactDic objectForKey:@"nickName"];
-        newContact.gender = [contactDic objectForKey:@"gender"];
-        newContact.memo = [contactDic objectForKey:@"memo"];
-        newContact.easemobUser = [contactDic objectForKey:@"easemobUser"];
-        newContact.avatar = [contactDic objectForKey:@"avatar"];
-        newContact.avatarSmall = [contactDic objectForKey:@"avatarSmall"];
-        newContact.signature = [contactDic objectForKey:@"signature"];
-        newContact.pinyin = [ConvertMethods chineseToPinyin:[contactDic objectForKey:@"nickName"]];
-    }
-    [self.account addContactsObject:newContact];
-    [self save];
-    [[NSNotificationCenter defaultCenter] postNotificationName:contactListNeedUpdateNoti object:nil];
+//    NSLog(@"收到添加联系人，联系人的内容为：%@", contactDic);
+//    
+//       Contact *newContact = [NSEntityDescription insertNewObjectForEntityForName:@"Contact" inManagedObjectContext:self.context];
+//    
+//    if ([contactDic isKindOfClass:[FrendRequest class]]) {
+//        //如果已经是我的好友了，那我就没必要添加了。。
+//
+//        if ([self isMyFrend:((FrendRequest *)contactDic).userId]) {
+//            return;
+//        }
+//        newContact.userId = ((FrendRequest *)contactDic).userId;
+//        newContact.nickName = ((FrendRequest *)contactDic).nickName;
+//        newContact.gender = ((FrendRequest *)contactDic).gender;
+//        newContact.memo = @"";
+//        newContact.easemobUser = ((FrendRequest *)contactDic).easemobUser;
+//        newContact.avatar = ((FrendRequest *)contactDic).avatar;
+//        newContact.avatarSmall = ((FrendRequest *)contactDic).avatarSmall;
+//        newContact.pinyin = [ConvertMethods chineseToPinyin:newContact.nickName];
+//        
+//    } else {
+//        //如果已经是我的好友了，那我就没必要添加了。。
+//        if ([self isMyFrend:[contactDic objectForKey:@"userId"]]) {
+//            return;
+//        }
+//
+//        newContact.userId = [contactDic objectForKey:@"userId"];
+//        newContact.nickName = [contactDic objectForKey:@"nickName"];
+//        newContact.gender = [contactDic objectForKey:@"gender"];
+//        newContact.memo = [contactDic objectForKey:@"memo"];
+//        newContact.easemobUser = [contactDic objectForKey:@"easemobUser"];
+//        newContact.avatar = [contactDic objectForKey:@"avatar"];
+//        newContact.avatarSmall = [contactDic objectForKey:@"avatarSmall"];
+//        newContact.signature = [contactDic objectForKey:@"signature"];
+//        newContact.pinyin = [ConvertMethods chineseToPinyin:[contactDic objectForKey:@"nickName"]];
+//    }
+//    [self.account addContactsObject:newContact];
+//    [self save];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:contactListNeedUpdateNoti object:nil];
 
 }
 
@@ -655,71 +563,60 @@
 - (void)analysisAndSaveContacts:(NSArray *)contactList
 {
     NSLog(@"开始解析联系人");
-    NSMutableSet *contacts = [[NSMutableSet alloc] init];
-    NSMutableSet *oldContacts = [[NSMutableSet alloc] init];
-    //删除数据库已存在的联系人
-    for (id oldContact in self.account.contacts) {
-        [oldContacts addObject:oldContact];
-    }
-    
-    [self.account removeContacts:oldContacts];
+    [self.account.frendList removeAllObjects];
+    FrendManager *frendManager = [[FrendManager alloc] init];
+    [frendManager deleteAllContacts];
     for (id contactDic in contactList) {
-        Contact *newContact = [NSEntityDescription insertNewObjectForEntityForName:@"Contact" inManagedObjectContext:self.context];
-        newContact.userId = [contactDic objectForKey:@"userId"];
+        FrendModel *newContact = [[FrendModel alloc] init];
+        newContact.userId = [[contactDic objectForKey:@"userId"] integerValue];
         newContact.nickName = [contactDic objectForKey:@"nickName"];
-        newContact.gender = [contactDic objectForKey:@"gender"];
         newContact.memo = [contactDic objectForKey:@"memo"];
-        newContact.easemobUser = [contactDic objectForKey:@"easemobUser"];
         newContact.avatar = [contactDic objectForKey:@"avatar"];
         newContact.avatarSmall = [contactDic objectForKey:@"avatarSmall"];
-        newContact.pinyin = [ConvertMethods chineseToPinyin:[contactDic objectForKey:@"nickName"]];
         newContact.signature = [contactDic objectForKey:@"signature"];
-        [contacts addObject:newContact];
+        newContact.fullPY = [ConvertMethods chineseToPinyin:[contactDic objectForKey:@"nickName"]];
+        newContact.type = IMFrendTypeFrend;
+        [frendManager updateFrendInfoInDB:newContact];
+        NSLog(@"往数据库里添加好友 %@", newContact.nickName);
+        [self.account.frendList addObject:newContact];
     }
-    [self.account addContacts:contacts];
-    [self save];
+
     NSLog(@"成功解析联系人");
 }
 
 - (void)analysisAndSaveFrendRequest:(id)frendRequestDic
 {
-    NSLog(@"开始解析好友请求");
-    
-    FrendRequest *frendRequest = [NSEntityDescription insertNewObjectForEntityForName:@"FrendRequest" inManagedObjectContext:self.context];
-
-    if ([frendRequestDic isKindOfClass:[NSDictionary class]]) {
-        frendRequest.userId = [frendRequestDic objectForKey:@"userId"];
-        frendRequest.nickName = [frendRequestDic objectForKey:@"nickName"];
-        frendRequest.avatar = [frendRequestDic objectForKey:@"avatar"];
-        frendRequest.avatarSmall = [frendRequestDic objectForKey:@"avatarSmall"];
-        frendRequest.status = TZFrendDefault;
-        frendRequest.gender = [frendRequestDic objectForKey:@"gender"];
-        frendRequest.easemobUser = [frendRequestDic objectForKey:@"easemobUser"];
-        frendRequest.attachMsg = [frendRequestDic objectForKey:@"attachMsg"];
-        frendRequest.requestDate = [NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]];
-    }
-    
-    for (FrendRequest *request in self.account.frendrequestlist) {
-        if ([request.userId integerValue] == [frendRequest.userId integerValue]) {
-            [self.account removeFrendrequestlistObject:request];
-            NSLog(@"这个好友请求信息数据库里已经存在了,已经将数据库里旧的数据删除了,\n之前的 id 是%@，新 ID 是%@",request.userId, frendRequest.userId);
-            break;
-        }
-    }
-    [self.account addFrendrequestlistObject:frendRequest];
-    NSLog(@"收到好友请求，请求信息为：%@", frendRequest);
-    [[NSNotificationCenter defaultCenter] postNotificationName:frendRequestListNeedUpdateNoti object:nil];
-    [self save];
-    // 收到消息时，播放音频
-    [[EaseMob sharedInstance].deviceManager asyncPlayNewMessageSound];
-    // 收到消息时，震动
-    [[EaseMob sharedInstance].deviceManager asyncPlayVibration];
+//    NSLog(@"开始解析好友请求");
+//    
+//    FrendRequest *frendRequest = [NSEntityDescription insertNewObjectForEntityForName:@"FrendRequest" inManagedObjectContext:self.context];
+//
+//    if ([frendRequestDic isKindOfClass:[NSDictionary class]]) {
+//        frendRequest.userId = [frendRequestDic objectForKey:@"userId"];
+//        frendRequest.nickName = [frendRequestDic objectForKey:@"nickName"];
+//        frendRequest.avatar = [frendRequestDic objectForKey:@"avatar"];
+//        frendRequest.avatarSmall = [frendRequestDic objectForKey:@"avatarSmall"];
+//        frendRequest.status = TZFrendDefault;
+//        frendRequest.gender = [frendRequestDic objectForKey:@"gender"];
+//        frendRequest.easemobUser = [frendRequestDic objectForKey:@"easemobUser"];
+//        frendRequest.attachMsg = [frendRequestDic objectForKey:@"attachMsg"];
+//        frendRequest.requestDate = [NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]];
+//    }
+//    
+//    for (FrendRequest *request in self.account.frendrequestlist) {
+//        if ([request.userId integerValue] == [frendRequest.userId integerValue]) {
+//            [self.account removeFrendrequestlistObject:request];
+//            NSLog(@"这个好友请求信息数据库里已经存在了,已经将数据库里旧的数据删除了,\n之前的 id 是%@，新 ID 是%@",request.userId, frendRequest.userId);
+//            break;
+//        }
+//    }
+//    [self.account addFrendrequestlistObject:frendRequest];
+//    NSLog(@"收到好友请求，请求信息为：%@", frendRequest);
+//    [[NSNotificationCenter defaultCenter] postNotificationName:frendRequestListNeedUpdateNoti object:nil];
+//    [self save];
 }
 
 - (void)removeFrendRequest:(FrendRequest *)frendRequest
 {
-    [self.account removeFrendrequestlistObject:frendRequest];
-    [self save];
     [[NSNotificationCenter defaultCenter] postNotificationName:frendRequestListNeedUpdateNoti object:nil];
 
 }
@@ -727,28 +624,16 @@
 - (void)agreeFrendRequest:(FrendRequest *)frendRequest
 {
     //更新时间戳，
-    frendRequest.requestDate = [NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]];
-    frendRequest.status = [NSNumber numberWithInteger:TZFrendAgree];
-    [self save];
+    frendRequest.requestDate = [[NSDate date] timeIntervalSince1970];
+    frendRequest.status = TZFrendAgree;
     [[NSNotificationCenter defaultCenter] postNotificationName:frendRequestListNeedUpdateNoti object:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:contactListNeedUpdateNoti object:nil];
    
 }
 
-- (void)removeContact:(NSNumber *)userId
-{
-    for (Contact *contact in self.account.contacts) {
-        if ([contact.userId integerValue] == [userId integerValue]) {
-            [self.account removeContactsObject:contact];
-            [self save];
-            break;
-        }
-    }
-}
-
 #pragma mark - ********修改用户好友信息
 
-- (void)asyncChangeRemark:(NSString *)remark withUserId:(NSNumber *)userId completion:(void (^)(BOOL))completion
+- (void)asyncChangeRemark:(NSString *)remark withUserId:(NSInteger)userId completion:(void (^)(BOOL))completion
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AppUtils *utils = [[AppUtils alloc] init];
@@ -758,18 +643,19 @@
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", self.account.userId] forHTTPHeaderField:@"UserId"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)self.account.userId] forHTTPHeaderField:@"UserId"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:remark forKey:@"memo"];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@%@/memo", API_USERINFO, userId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@%ld/memo", API_USERINFO, userId];
     
     [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"result = %@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            [self updateContactMemo:remark andUserId:userId];
+            FrendManager *frendManager = [FrendManager shareInstance];
+            [frendManager updateContactMemo:remark userId:userId];
             completion(YES);
         } else {
             completion(NO);
@@ -780,120 +666,10 @@
 
 }
 
-/**
- *  更新好友备注
- */
-- (void)updateContactMemo:(NSString *)memo andUserId:(NSNumber *)userId
-{
-    Contact *contact = [self TZContactByUserId:userId];
-    if (contact) {
-        contact.memo = memo;
-        NSError *error;
-        [self.context save:&error];
-    }
-}
-
-#pragma mark - ********群组相关操作******
-
-- (Group *)groupWithGroupId:(NSString *)groupId
-{
-    for (Group *group in self.account.groupList) {
-        if ([group.groupId isEqualToString:groupId]) {
-            return group;
-        }
-    }
-    return nil;
-}
-
-- (Group *)createGroupWithGroupId:(NSString *)groupId
-                            owner:(NSString *)owner
-                  groupSubject:(NSString *)subject
-                     groupInfo:(NSString *)groupDescription
-                       numbers:(NSSet *)numbers
-{
-    Group *group = [NSEntityDescription insertNewObjectForEntityForName:@"Group" inManagedObjectContext:self.context];
-    group.owner = owner;
-    group.numbers = numbers;
-    group.groupId = groupId;
-    group.groupSubject = subject;
-    group.groupDescription = groupDescription;
-    [self.account addGroupListObject:group];
-    [self save];
-    return group;
-}
-
-- (Group *)updateGroup:(NSString *)groupId withGroupOwner:(NSString *)owner groupSubject:(NSString *)subject groupInfo:(NSString *)groupDescription numbers:(id)numbersDic
-{
-    NSMutableSet *numbers = [[NSMutableSet alloc] init];
-    for (id contactDic in numbersDic) {
-        Contact *contact = [NSEntityDescription insertNewObjectForEntityForName:@"Contact" inManagedObjectContext:self.context];
-        contact.userId = [contactDic objectForKey:@"userId"];
-        contact.avatar = [contactDic objectForKey:@"avatar"];
-        contact.avatarSmall = [contactDic objectForKey:@"avatarSmall"];
-        contact.nickName = [contactDic objectForKey:@"nickName"];
-        contact.signature= [contactDic objectForKey:@"signature"];
-        contact.easemobUser = [contactDic objectForKey:@"easemobUser"];
-        contact.gender = [contactDic objectForKey:@"gender"];
-        contact.memo = [contactDic objectForKey:@"memo"];
-        [numbers addObject:contact];
-    }
-    
-    Group *tempGroup = [self groupWithGroupId:groupId];
-    if (!tempGroup) {
-        tempGroup = [self createGroupWithGroupId:groupId owner:owner groupSubject:subject groupInfo:groupDescription numbers:numbers];
-    } else {
-        tempGroup.groupId = groupId;
-        tempGroup.groupSubject= subject;
-        tempGroup.groupDescription = groupDescription;
-        tempGroup.numbers = numbers;
-        tempGroup.owner = owner;
-    }
-    [self save];
-    return tempGroup;
-}
-
-
-- (Group *)updateGroup:(NSString *)groupId withGroupOwner:(NSString *)owner groupSubject:(NSString *)subject groupInfo:(NSString *)groupDescription
-{
-    Group *tempGroup = [self groupWithGroupId:groupId];
-    if (!tempGroup) {
-        tempGroup = [self createGroupWithGroupId:groupId owner:owner groupSubject:subject groupInfo:groupDescription numbers:nil];
-    } else {
-        tempGroup.groupId = groupId;
-        tempGroup.groupSubject= subject;
-        tempGroup.groupDescription = groupDescription;
-        tempGroup.owner = owner;
-    }
-    [self save];
-    return tempGroup;
-}
-
-
-- (void)addNumberToGroup:(NSString *)groupId
-                 numbers:(NSSet *)numbers
-{
-    for (Group *group in self.account.groupList) {
-        if ([group.groupId isEqualToString:groupId]) {
-            [group addNumbers:numbers];
-            [self save];
-        }
-    }
-}
-
-- (void)removeNumberToGroup:(NSString *)groupId numbers:(NSSet *)numbers
-{
-    for (Group *group in self.account.groupList) {
-        if ([group.groupId isEqualToString:groupId]) {
-            [group removeNumbers:numbers];
-            [self save];
-        }
-    }
-}
-
 - (NSUInteger)numberOfUnReadFrendRequest
 {
     NSUInteger ret = 0;
-    for (FrendRequest *request in self.account.frendrequestlist) {
+    for (FrendRequest *request in self.account.frendRequest) {
         if (request.status == 0) {
             ret++;
         }
@@ -905,12 +681,12 @@
 - (NSDictionary *)contactsByPinyin
 {
     NSMutableArray *chineseStringsArray = [[NSMutableArray alloc] init];
-    for (id tempContact in self.account.contacts) {
+    for (id tempContact in self.account.frendList) {
         [chineseStringsArray addObject:tempContact];
     }
     NSMutableArray *sectionHeadsKeys = [[NSMutableArray alloc] init];
     //sort the ChineseStringArr by pinYin
-    NSArray *sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"pinyin" ascending:YES]];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"fullPY" ascending:YES]];
     [chineseStringsArray sortUsingDescriptors:sortDescriptors];
     
     NSMutableArray *arrayForArrays = [[NSMutableArray alloc] init];
@@ -919,11 +695,10 @@
     
     for(int index = 0; index < [chineseStringsArray count]; index++)
     {
-        Contact *contact = (Contact *)[chineseStringsArray objectAtIndex:index];
-        NSMutableString *strchar= [NSMutableString stringWithString:contact.pinyin];
+        FrendModel *contact = (FrendModel *)[chineseStringsArray objectAtIndex:index];
+        NSMutableString *strchar= [NSMutableString stringWithString:contact.fullPY];
         NSString *sr= [strchar substringToIndex:1];
-        if(![sectionHeadsKeys containsObject:[sr uppercaseString]])//here I'm checking whether the character already in the selection header keys or not
-        {
+        if(![sectionHeadsKeys containsObject:[sr uppercaseString]]) {
             [sectionHeadsKeys addObject:[sr uppercaseString]];
             TempArrForGrouping = [[NSMutableArray alloc] initWithObjects:nil];
             checkValueAtIndex = NO;

@@ -7,7 +7,6 @@
 //
 
 #import "ChatScrollView.h"
-#import "Contact.h"
 
 #define gap      10.0
 

@@ -129,23 +129,12 @@
     [manager POST:API_SIGNUP parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
+            __weak SMSVerifyViewController *weakSelf = self;
+            [[NSNotificationCenter defaultCenter] postNotificationName:userDidRegistedNoti object:nil userInfo:@{@"poster":weakSelf}];
             AccountManager *accountManager = [AccountManager shareAccountManager];
             [accountManager userDidLoginWithUserInfo:[responseObject objectForKey:@"result"]];
-            __weak SMSVerifyViewController *weakSelf = self;
-            //注册完成后要登录环信
-            hud.status = @"正在登录...";
-            [accountManager loginEaseMobServer:^(BOOL isSuccess) {
-                if (isSuccess) {
-                    [hud hideTZHUD];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:userDidRegistedNoti object:nil userInfo:@{@"poster":weakSelf}];
-                    [[EaseMob sharedInstance].chatManager setApnsNickname:[[responseObject objectForKey:@"result"] objectForKey:@"nickName"]];
-                } else {
-                    [hud hideTZHUD];
-                    [accountManager easeMobUnlogin];
-                    [SVProgressHUD showHint:@"登录失败"];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:userDidRegistedNoti object:nil userInfo:@{@"poster":weakSelf}];
-                }
-            }];
+            [hud hideTZHUD];
+
         } else {
             [hud hideTZHUD];
             [SVProgressHUD showHint:[NSString stringWithFormat:@"%@", [[responseObject objectForKey:@"err"] objectForKey:@"message"]]];

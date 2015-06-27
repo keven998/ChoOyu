@@ -7,11 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UserProfile.h"
 
 @interface OtherUserInfoViewController : TZViewController
 
-@property (nonatomic,strong) UserProfile *model;
-@property (nonatomic,strong) NSNumber *userId;
+@property (nonatomic) NSInteger userId;
 
 @end

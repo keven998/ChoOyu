@@ -10,13 +10,11 @@
 #import "AccountManager.h"
 #import "ChatViewController.h"
 #import "FrendRequestTableViewController.h"
-#import "ContactDetailViewController.h"
 #import "ContactListTableViewCell.h"
 #import "OptionOfFASKTableViewCell.h"
 #import "AddContactTableViewController.h"
 #import "ConvertMethods.h"
 #import "BaseTextSettingViewController.h"
-#import "TZConversation.h"
 #import "REFrostedViewController.h"
 #import "ChatSettingViewController.h"
 #import "OtherUserInfoViewController.h"
@@ -41,18 +39,15 @@
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_add_friend"] style:UIBarButtonItemStylePlain target:self action:@selector(addContact)];
+    //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_add_friend"] style:UIBarButtonItemStylePlain target:self action:@selector(addContact)];
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithIcon:@"ic_add_friend" highIcon:@"ic_add_friend" target:self action:@selector(addContact)];
     self.navigationItem.title = @"联系人";
-
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContactList) name:contactListNeedUpdateNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateNumberOfUnreadFrendRequest) name:frendRequestListNeedUpdateNoti object:nil];
-
-
+    
     [self.view addSubview:self.contactTableView];
-   
     [self.accountManager loadContactsFromServer];
-//    [self handleEmptyView];
+    //    [self handleEmptyView];
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -85,14 +80,14 @@
     }
 }
 
-- (void) addContact {
+- (void)addContact {
     AddContactTableViewController *addContactCtl = [[AddContactTableViewController alloc] init];
     [self.navigationController pushViewController:addContactCtl animated:YES];
 }
 
 #pragma mark - private method
 
-- (void) handleEmptyView {
+- (void)handleEmptyView {
     if ([[self.dataSource objectForKey:@"headerKeys"] count] <= 0) {
         if (self.emptyView == nil) {
             [self setupEmptyView];
@@ -102,7 +97,7 @@
     }
 }
 
-- (void) setupEmptyView {
+- (void)setupEmptyView {
     CGFloat width = CGRectGetWidth(self.contactTableView.frame);
     
     self.emptyView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, width, 192.0)];
@@ -144,7 +139,7 @@
     [self.contactTableView addSubview:self.emptyView];
 }
 
-- (void) removeEmptyView {
+- (void)removeEmptyView {
     [self.emptyView removeFromSuperview];
     self.emptyView = nil;
 }
@@ -177,8 +172,6 @@
 {
     if (!_contactTableView) {
         _contactTableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
-//        _contactTableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 27)];
-//        _contactTableView.contentInset = UIEdgeInsetsMake(27, 0, 0, 0);
         _contactTableView.dataSource = self;
         _contactTableView.delegate = self;
         _contactTableView.backgroundColor = APP_PAGE_COLOR;
@@ -212,17 +205,15 @@
 {
     CGPoint point = [sender convertPoint:CGPointZero toView:self.contactTableView];
     NSIndexPath *indexPath = [self.contactTableView indexPathForRowAtPoint:point];
-    Contact *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
-
-    ChatViewController *chatCtl = [[ChatViewController alloc] initWithChatter:contact.easemobUser isGroup:NO];
+    FrendModel *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
+    
+    IMClientManager *manager = [IMClientManager shareInstance];
+    ChatConversation *conversation = [manager.conversationManager getConversationWithChatterId:contact.userId chatType:IMChatTypeIMChatSingleType];
+    [manager.conversationManager addConversation: conversation];
+    conversation.chatterId = contact.userId;
+    
+    ChatViewController *chatCtl = [[ChatViewController alloc] initWithConversation:conversation];
     chatCtl.title = contact.nickName;
-    NSArray *conversations = [[EaseMob sharedInstance].chatManager conversations];
-    for (EMConversation *conversation in conversations) {
-        if ([conversation.chatter isEqualToString:contact.easemobUser]) {
-            [conversation markAllMessagesAsRead:YES];
-            break;
-        }
-    }
     
     UIViewController *menuViewController = [[ChatSettingViewController alloc] init];
     
@@ -237,7 +228,7 @@
 }
 
 #pragma mark - http method
-- (void)confirmChange:(NSString *)text withContacts:(Contact *)contact success:(saveComplteBlock)completed
+- (void)confirmChange:(NSString *)text withContacts:(FrendModel *)contact success:(saveComplteBlock)completed
 {
     AccountManager *accountManager = [AccountManager shareAccountManager];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
@@ -254,6 +245,7 @@
 }
 
 #pragma mark - SWTableViewCellDelegate
+
 - (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index
 {
     [cell hideUtilityButtonsAnimated:YES];
@@ -261,7 +253,7 @@
         case 0:
         {
             NSIndexPath *indexPath = [_contactTableView indexPathForCell:cell];
-            Contact *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
+            FrendModel *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
             
             //bug 需要返回备注昵称
             BaseTextSettingViewController *bsvc = [[BaseTextSettingViewController alloc] init];
@@ -334,20 +326,19 @@
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         return cell;
     } else {
-        Contact *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
+        FrendModel *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
         ContactListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:contactCell forIndexPath:indexPath];
         [cell setRightUtilityButtons:[self rightButtons] WithButtonWidth:60];
         cell.delegate = self;
-
+        
         [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:contact.avatarSmall] placeholderImage:[UIImage imageNamed:@"person_disabled"]];
-//        NSString *detailStr;
-//        if (![contact.memo isBlankString]) {
-//            detailStr = [NSString stringWithFormat:@"%@ (%@)", contact.memo, contact.nickName];
-//        } else {
-//            detailStr = contact.nickName;
-//        }
+        //        NSString *detailStr;
+        //        if (![contact.memo isBlankString]) {
+        //            detailStr = [NSString stringWithFormat:@"%@ (%@)", contact.memo, contact.nickName];
+        //        } else {
+        //            detailStr = contact.nickName;
+        //        }
         cell.nickNameLabel.text = contact.nickName;
-        [cell.chatBtn addTarget:self action:@selector(chat:) forControlEvents:UIControlEventTouchUpInside];
         return cell;
     }
 }
@@ -361,7 +352,6 @@
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
 {
-    
     return [self.dataSource objectForKey:@"headerKeys"];
 }
 
@@ -369,18 +359,21 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
+        
         FrendRequestTableViewController *frendRequestCtl = [[FrendRequestTableViewController alloc] init];
         [self.navigationController pushViewController:frendRequestCtl animated:YES];
-    } else {
-        Contact *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
-//        ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
-        OtherUserInfoViewController *contactDetailCtl = [[OtherUserInfoViewController alloc]init];
         
+    } else {
+        
+        FrendModel *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
+        OtherUserInfoViewController *contactDetailCtl = [[OtherUserInfoViewController alloc]init];
         contactDetailCtl.userId = contact.userId;
         [self.navigationController pushViewController:contactDetailCtl animated:YES];
+        
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
+
 
 @end

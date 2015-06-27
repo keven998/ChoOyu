@@ -24,6 +24,11 @@ extern const int kQNNetworkError;
 extern const int kQNInvalidArgument;
 
 /**
+ *    错误token状态码
+ */
+extern const int kQNInvalidToken;
+
+/**
  *    读取文件错误状态码
  */
 extern const int kQNFileError;
@@ -74,6 +79,16 @@ extern const int kQNFileError;
 @property (nonatomic, readonly) NSString *serverIp;
 
 /**
+ *    客户端id
+ */
+@property (nonatomic, readonly) NSString *id;
+
+/**
+ *    时间戳
+ */
+@property (readonly) UInt64 timeStamp;
+
+/**
  *    网络类型
  */
 //@property (nonatomic, readonly) NSString *networkType;
@@ -103,6 +118,10 @@ extern const int kQNFileError;
  */
 @property (nonatomic, readonly) BOOL needSwitchServer;
 
+/**
+ *    是否为 七牛响应
+ */
+@property (nonatomic, readonly, getter = isNotQiniu) BOOL notQiniu;
 
 /**
  *    工厂函数，内部使用
@@ -119,6 +138,15 @@ extern const int kQNFileError;
  *    @return 错误参数实例
  */
 + (instancetype)responseInfoWithInvalidArgument:(NSString *)desc;
+
+/**
+ *    工厂函数，内部使用
+ *
+ *    @param desc 错误token描述
+ *
+ *    @return 错误token实例
+ */
++ (instancetype)responseInfoWithInvalidToken:(NSString *)desc;
 
 /**
  *    工厂函数，内部使用
@@ -159,6 +187,7 @@ extern const int kQNFileError;
             withXLog:(NSString *)xlog
             withXVia:(NSString *)xvia
             withHost:(NSString *)host
+              withIp:(NSString *)ip
         withDuration:(double)duration
             withBody:(NSData *)body;
 

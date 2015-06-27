@@ -20,6 +20,7 @@
 @property (strong, nonatomic) NSMutableArray *dataSource;
 @property (strong, nonatomic) NSMutableArray *chattingPeople;       //保存正在聊天的联系人的旅行派信息，显示界面的时候需要用到
 @property (nonatomic, strong) AccountManager *accountManager;
+@property (nonatomic, strong) IMClientManager *imClientManager;
 
 
 @end
@@ -45,28 +46,13 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
     
     UIBarButtonItem *backBtn = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismissCtl:)];
     self.navigationItem.leftBarButtonItem = backBtn;
-    
-//    UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
-//    [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
-//    [button addTarget:self action:@selector(dismissCtl:)forControlEvents:UIControlEventTouchUpInside];
-//    [button setFrame:CGRectMake(0, 0, 48, 30)];
-//    [button setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-//    [button setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
-//    button.titleLabel.font = [UIFont systemFontOfSize:17.0];
-//    button.titleEdgeInsets = UIEdgeInsetsMake(2, 1, 0, 0);
-//    button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-//    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
-//    self.navigationItem.leftBarButtonItem = barButton;
+    _dataSource = [[self.imClientManager.conversationManager getConversationList] mutableCopy];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ChatRecordListTableViewCell" bundle:nil] forCellReuseIdentifier:reusableChatRecordCell];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:reusableCreateConversationCell];
     
     self.tableView.backgroundColor = APP_PAGE_COLOR;
     self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
-
-    _dataSource = [NSMutableArray array];
-    _dataSource = [self loadDataSource];
-    [self loadChattingPeople];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismissCtl:) name:userDidLogoutNoti object:nil];
 }
@@ -86,6 +72,16 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
     return _accountManager;
 }
 
+- (IMClientManager *)imClientManager
+{
+    if (!_imClientManager) {
+        _imClientManager = [IMClientManager shareInstance];
+    }
+    return _imClientManager;
+}
+
+
+
 #pragma mark - Private Methods
 
 - (IBAction)dismissCtl:(id)sender
@@ -93,58 +89,13 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (NSMutableArray *)loadDataSource
-{
-    NSMutableArray *ret = nil;
-    NSArray *conversations = [[EaseMob sharedInstance].chatManager conversations];
-    NSArray* sorte = [conversations sortedArrayUsingComparator:
-                      ^(EMConversation *obj1, EMConversation* obj2){
-                          EMMessage *message1 = [obj1 latestMessage];
-                          EMMessage *message2 = [obj2 latestMessage];
-                          if(message1.timestamp > message2.timestamp) {
-                              return(NSComparisonResult)NSOrderedAscending;
-                          }else {
-                              return(NSComparisonResult)NSOrderedDescending;
-                          }
-                      }];
-    ret = [[NSMutableArray alloc] initWithArray:sorte];
-    return ret;
-}
-
-- (void)loadChattingPeople
-{
-    if (!_chattingPeople) {
-        _chattingPeople = [[NSMutableArray alloc] init];
-    } else {
-        [_chattingPeople removeAllObjects];
-    }
-    BOOL neeUpdate = NO;
-    for (EMConversation *conversation in self.dataSource) {
-        if (!conversation.isGroup) {
-            if ([self.accountManager TZContactByEasemobUser:conversation.chatter]) {
-                [_chattingPeople addObject:[self.accountManager TZContactByEasemobUser:conversation.chatter]];
-            } else {
-                [[EaseMob sharedInstance].chatManager removeConversationByChatter:conversation.chatter deleteMessages:YES append2Chat:YES];
-
-                neeUpdate = YES;
-            }
-        } else {
-            [_chattingPeople addObject:conversation.chatter];
-        }
-    }
-    if (neeUpdate) {
-        self.dataSource = [self loadDataSource];
-    }
-    [self.tableView reloadData];
-
-}
-
 #pragma mark - CreateConversationDelegate
 
-- (void)createConversationSuccessWithChatter:(NSString *)chatter isGroup:(BOOL)isGroup chatTitle:(NSString *)chatTitle
+- (void)createConversationSuccessWithChatter:(NSInteger)chatterId chatType:(IMChatType)chatType chatTitle:(NSString *)chatTitle
+
 {
-    if (_delegate && [_delegate respondsToSelector:@selector(createConversationSuccessWithChatter:isGroup:chatTitle:)]) {
-        [_delegate createConversationSuccessWithChatter:chatter isGroup:isGroup chatTitle:chatTitle];
+    if (_delegate && [_delegate respondsToSelector:@selector(createConversationSuccessWithChatter:chatType:chatTitle:)]) {
+        [_delegate createConversationSuccessWithChatter:chatterId chatType:chatType chatTitle:chatTitle];
     }
 }
 
@@ -181,7 +132,7 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
     if (indexPath.section == 0) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reusableCreateConversationCell forIndexPath:indexPath];
         cell.textLabel.text = @"创建新聊天";
-        cell.textLabel.textColor = TEXT_COLOR_TITLE;
+        cell.textLabel.textColor = COLOR_TEXT_I;
         cell.backgroundColor = [UIColor whiteColor];
         cell.textLabel.font = [UIFont boldSystemFontOfSize:17.0];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -189,20 +140,14 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
         
     } else {
         ChatRecordListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reusableChatRecordCell forIndexPath:indexPath];
-        EMConversation *conversation = [self.dataSource objectAtIndex:indexPath.row];
-        Contact *chatPeople = [self.chattingPeople objectAtIndex:indexPath.row];
-        if (!conversation.isGroup) {
-            cell.titleLabel.text = chatPeople.nickName;
-            [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:chatPeople.avatar] placeholderImage:[UIImage imageNamed:@"person_disabled"]];
+        ChatConversation *tzConversation = [self.dataSource objectAtIndex:indexPath.row];
+
+        if (tzConversation.chatType == IMChatTypeIMChatSingleType) {
+            cell.titleLabel.text = tzConversation.chatterName;
+            [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:tzConversation.chatterAvatar] placeholderImage:[UIImage imageNamed:@"person_disabled"]];
         } else{
-            NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
-            for (EMGroup *group in groupArray) {
-                if ([group.groupId isEqualToString:conversation.chatter]) {
-                    [cell.headerImageView setImage:[UIImage imageNamed:@"ic_group_icon.png"]];
-                    cell.titleLabel.text = group.groupSubject;
-                    break;
-                }
-            }
+            [cell.headerImageView setImage:[UIImage imageNamed:@"ic_group_icon.png"]];
+            cell.titleLabel.text = tzConversation.chatterName;
         }
         return cell;
     }
@@ -218,7 +163,7 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
         label.font = [UIFont systemFontOfSize:13.0];
         label.backgroundColor = [UIColor whiteColor];
         sectionView.backgroundColor = APP_PAGE_COLOR;
-        label.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+        label.textColor = COLOR_TEXT_II;
         [sectionView addSubview:label];
         return sectionView;
     }
@@ -233,19 +178,8 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
         createConversationCtl.isPushed = YES;
         [self.navigationController pushViewController:createConversationCtl animated:YES];
     } else {
-        EMConversation *conversation = [self.dataSource objectAtIndex:indexPath.row];
-        Contact *chatPeople = [self.chattingPeople objectAtIndex:indexPath.row];
-        if (!conversation.isGroup) {
-            [_delegate createConversationSuccessWithChatter:chatPeople.easemobUser isGroup:NO chatTitle:chatPeople.nickName];
-        } else{
-            NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
-            for (EMGroup *group in groupArray) {
-                if ([group.groupId isEqualToString:conversation.chatter]) {
-                    [_delegate createConversationSuccessWithChatter:group.groupId isGroup:YES chatTitle:group.groupSubject];
-                    break;
-                }
-            }
-        }
+        ChatConversation *conversation = [self.dataSource objectAtIndex:indexPath.row];
+        [_delegate createConversationSuccessWithChatter:conversation.chatterId chatType:conversation.chatType chatTitle:conversation.chatterName];
     }
 }
 

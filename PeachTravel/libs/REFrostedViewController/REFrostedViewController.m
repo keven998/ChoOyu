@@ -97,6 +97,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor blackColor];
     [self re_displayController:self.contentViewController frame:self.view.bounds];
 }
 

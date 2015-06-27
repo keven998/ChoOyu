@@ -15,6 +15,4 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *nickNameLabel;
 
-@property (weak, nonatomic) IBOutlet UIButton *chatBtn;
-
 @end

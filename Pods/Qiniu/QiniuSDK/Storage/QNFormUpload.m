@@ -9,7 +9,7 @@
 #import "QNFormUpload.h"
 #import "QNUploadManager.h"
 #import "QNUrlSafeBase64.h"
-#import "QNConfig.h"
+#import "QNConfiguration.h"
 #import "QNResponseInfo.h"
 #import "QNHttpManager.h"
 #import "QNUploadOption+Private.h"
@@ -22,10 +22,10 @@
 @property (nonatomic, strong) id <QNHttpDelegate> httpManager;
 @property (nonatomic) int retryTimes;
 @property (nonatomic, strong) NSString *key;
-@property (nonatomic, strong) NSString *token;
+@property (nonatomic, strong) QNUpToken *token;
 @property (nonatomic, strong) QNUploadOption *option;
 @property (nonatomic, strong) QNUpCompletionHandler complete;
-
+@property (nonatomic, strong) QNConfiguration *config;
 
 @end
 
@@ -33,10 +33,11 @@
 
 - (instancetype)initWithData:(NSData *)data
                      withKey:(NSString *)key
-                   withToken:(NSString *)token
+                   withToken:(QNUpToken *)token
        withCompletionHandler:(QNUpCompletionHandler)block
                   withOption:(QNUploadOption *)option
-             withHttpManager:(id <QNHttpDelegate> )http {
+             withHttpManager:(id <QNHttpDelegate> )http
+           withConfiguration:(QNConfiguration *)config {
 	if (self = [super init]) {
 		_data = data;
 		_key = key;
@@ -44,6 +45,7 @@
 		_option = option != nil ? option : [QNUploadOption defaultOptions];
 		_complete = block;
 		_httpManager = http;
+		_config = config;
 	}
 	return self;
 }
@@ -58,7 +60,7 @@
 		fileName = @"?";
 	}
 
-	parameters[@"token"] = _token;
+	parameters[@"token"] = _token.token;
 
 	[parameters addEntriesFromDictionary:_option.params];
 
@@ -84,9 +86,18 @@
 			_complete(info, _key, resp);
 			return;
 		}
-		NSString *nextHost = kQNUpHost;
+		if (_option.cancellationSignal()) {
+			_complete([QNResponseInfo cancel], _key, nil);
+			return;
+		}
+		NSString *nextHost = _config.upHost;
 		if (info.isConnectionBroken || info.needSwitchServer) {
-			nextHost = kQNUpHostBackup;
+			nextHost = _config.upHostBackup;
+		}
+
+		BOOL forceIp = NO;
+		if (info.isNotQiniu) {
+			forceIp = YES;
 		}
 
 		QNCompleteBlock retriedComplete = ^(QNResponseInfo *info, NSDictionary *resp) {
@@ -96,24 +107,26 @@
 			_complete(info, _key, resp);
 		};
 
-		[_httpManager multipartPost:[NSString stringWithFormat:@"http://%@", nextHost]
+		[_httpManager multipartPost:[NSString stringWithFormat:@"http://%@:%u/", nextHost, (unsigned int)_config.upPort]
 		                   withData:_data
 		                 withParams:parameters
 		               withFileName:fileName
 		               withMimeType:_option.mimeType
 		          withCompleteBlock:retriedComplete
 		          withProgressBlock:p
-		            withCancelBlock:nil];
+		            withCancelBlock:_option.cancellationSignal
+		                    forceIp:forceIp];
 	};
 
-	[_httpManager multipartPost:[NSString stringWithFormat:@"http://%@", kQNUpHost]
+	[_httpManager multipartPost:[NSString stringWithFormat:@"http://%@:%u/", _config.upHost, (unsigned int)_config.upPort]
 	                   withData:_data
 	                 withParams:parameters
 	               withFileName:fileName
 	               withMimeType:_option.mimeType
 	          withCompleteBlock:complete
 	          withProgressBlock:p
-	            withCancelBlock:nil];
+	            withCancelBlock:_option.cancellationSignal
+	                    forceIp:NO];
 }
 
 @end

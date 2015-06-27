@@ -7,7 +7,7 @@
 //
 
 #import "TripDetailRootViewController.h"
-#import "SpotsListViewController.h"
+#import "PlanScheduleViewController.h"
 #import "RestaurantsListViewController.h"
 #import "ShoppingListViewController.h"
 #import "CityDestinationPoi.h"
@@ -26,9 +26,11 @@
 #import "DomesticViewController.h"
 #import "PXAlertView+Customization.h"
 #import "TripPlanSettingViewController.h"
+#import "PlansListTableViewController.h"
+
 @interface TripDetailRootViewController () <ActivityDelegate, TaoziMessageSendDelegate, ChatRecordListDelegate, CreateConversationDelegate, UIActionSheetDelegate>
 
-@property (nonatomic, strong) SpotsListViewController *spotsListCtl;
+@property (nonatomic, strong) PlanScheduleViewController *spotsListCtl;
 @property (nonatomic, strong) RestaurantsListViewController *restaurantListCtl;
 @property (nonatomic, strong) ShoppingListViewController *shoppingListCtl;
 @property (nonatomic, strong) ChatRecoredListTableViewController *chatRecordListCtl;
@@ -46,7 +48,6 @@
  *  点击目的地显示目的地界面
  */
 @property (nonatomic, strong) UIView *destinationBkgView;
-@property (nonatomic, strong) DestinationsView *destinationView;
 
 //完成按钮。。。uinavigationbar的返回按钮
 //@property (nonatomic, strong) UIButton *finishBtn;
@@ -135,7 +136,7 @@
         
         UIButton *bbtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
         [bbtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-        [bbtn setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
+        [bbtn setImage:[UIImage imageNamed:@"common_icon_navigaiton_back"] forState:UIControlStateNormal];
         [bbtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
         _navgationBarItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:bbtn];
         UIBarButtonItem * addBtn = [[UIBarButtonItem alloc]initWithCustomView:_forkBtn];
@@ -160,28 +161,28 @@
     } else {
         NSMutableArray *barItems = [[NSMutableArray alloc] init];
         _moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
-        [_moreBtn setImage:[UIImage imageNamed:@"ic_menu_navigationbar.png"] forState:UIControlStateNormal];
+        [_moreBtn setImage:[UIImage imageNamed:@"common_icon_navigaiton_menu"] forState:UIControlStateNormal];
         [_moreBtn addTarget:self action:@selector(showMoreAction:) forControlEvents:UIControlEventTouchUpInside];
         [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_moreBtn]];
         
-        if ([_currentViewController isKindOfClass:[SpotsListViewController class]]) {
+        if ([_currentViewController isKindOfClass:[PlanScheduleViewController class]]) {
             UIButton *mapBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 44)];
             [mapBtn setImage:[UIImage imageNamed:@"ic_trip_mapview_ios"] forState:UIControlStateNormal];
             [mapBtn addTarget:self action:@selector(mapView) forControlEvents:UIControlEventTouchUpInside];
             [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:mapBtn]];
         }
         
-        _editBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 44)];
-        [_editBtn setImage:[UIImage imageNamed:@"ic_trip_edit.png"] forState:UIControlStateNormal];
-        [_editBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-        [_editBtn addTarget:self action:@selector(editTrip:) forControlEvents:UIControlEventTouchUpInside];
-        [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_editBtn]];
+//        _editBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 44)];
+//        [_editBtn setImage:[UIImage imageNamed:@"ic_trip_edit.png"] forState:UIControlStateNormal];
+//        [_editBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+//        [_editBtn addTarget:self action:@selector(editTrip:) forControlEvents:UIControlEventTouchUpInside];
+//        [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_editBtn]];
         
         _navgationBarItem.rightBarButtonItems = barItems;
         
         UIButton *bbtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
         [bbtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-        [bbtn setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
+        [bbtn setImage:[UIImage imageNamed:@"common_icon_navigaiton_back"] forState:UIControlStateNormal];
         [bbtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
         _navgationBarItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:bbtn];
     }
@@ -244,8 +245,8 @@
             [hud hideTZHUD];
         }
         if (isSuccesss) {
-            if ([_currentViewController isKindOfClass:[SpotsListViewController class]]) {
-                _spotsListCtl.shouldEdit = NO;
+            if ([_currentViewController isKindOfClass:[PlanScheduleViewController class]]) {
+//                _spotsListCtl.shouldEdit = NO;
             } else if ([_currentViewController isKindOfClass:[ShoppingListViewController class]]) {
                 _shoppingListCtl.shouldEdit = NO;
             } else if ([_currentViewController isKindOfClass:[RestaurantsListViewController class]]) {
@@ -259,8 +260,8 @@
 }
 
 - (void)mapView {
-    if ([_currentViewController isKindOfClass:[SpotsListViewController class]]) {
-        [_spotsListCtl mapView];
+    if ([_currentViewController isKindOfClass:[PlanScheduleViewController class]]) {
+//        [_spotsListCtl mapView];
     } else if ([_currentViewController isKindOfClass:[ShoppingListViewController class]]) {
         [_shoppingListCtl mapView];
     } else if ([_currentViewController isKindOfClass:[RestaurantsListViewController class]]) {
@@ -327,7 +328,7 @@
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     AccountManager *accountManager = [AccountManager shareAccountManager];
     if ([accountManager isLogin]) {
-        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     }
     
     NSMutableArray *cityIds = [[NSMutableArray alloc] init];
@@ -359,7 +360,7 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:updateGuideListNoti object:nil];
             if (isNeedRecommend) {
 //                [SVProgressHUD showHint:[NSString stringWithFormat:@"已为你创建%lu行程", (unsigned long)_tripDetail.itineraryList.count]];
-                [self performSelector:@selector(hintBuildRoutes) withObject:nil afterDelay:0.25];
+                [self performSelector:@selector(hintBuildRoutes) withObject:nil afterDelay:0.5];
             }
         } else {
             if (self.isShowing) {
@@ -376,7 +377,7 @@
 
 - (void)hintBuildRoutes {
     PXAlertView *alertView = [PXAlertView showAlertWithTitle:@"提示"
-                            message:[NSString stringWithFormat:@"根据网友们经验为你推荐了%lu天旅程，可自由调整", (unsigned long)_tripDetail.itineraryList.count]
+                            message:[NSString stringWithFormat:@"为你推荐了%lu天旅程，可自由调整", (unsigned long)_tripDetail.itineraryList.count]
                         cancelTitle:@"确定"
                          completion:nil];
     [alertView useDefaultIOS7Style];
@@ -387,7 +388,7 @@
 - (void)setCanEdit:(BOOL)canEdit
 {
     _canEdit = canEdit;
-    _spotsListCtl.canEdit = _canEdit;
+//    _spotsListCtl.canEdit = _canEdit;
     _restaurantListCtl.canEdit = _canEdit;
     _shoppingListCtl.canEdit = _canEdit;
 }
@@ -407,7 +408,7 @@
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     AccountManager *accountManager = [AccountManager shareAccountManager];
     if ([accountManager isLogin]) {
-        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     }
     
     NSString *urlStr = [NSString stringWithFormat:@"%@%@/all", API_GET_GUIDE, _tripId];
@@ -566,8 +567,8 @@
     }
     BOOL status = sender.selected;
     if (!status) {
-        if ([_currentViewController isKindOfClass:[SpotsListViewController class]]) {
-            _spotsListCtl.shouldEdit = YES;
+        if ([_currentViewController isKindOfClass:[PlanScheduleViewController class]]) {
+//            _spotsListCtl.shouldEdit = YES;
         } else if ([_currentViewController isKindOfClass:[ShoppingListViewController class]]) {
             _shoppingListCtl.shouldEdit = YES;
         } else if ([_currentViewController isKindOfClass:[RestaurantsListViewController class]]) {
@@ -603,7 +604,7 @@
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     AccountManager *accountManager = [AccountManager shareAccountManager];
     if ([accountManager isLogin]) {
-        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     }
     
     NSString *urlStr = [NSString stringWithFormat:@"%@%@", API_FORK_TRIP, _tripDetail.tripId];
@@ -620,10 +621,14 @@
         [hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            _tripDetail.tripId = [[responseObject objectForKey:@"result"] objectForKey:@"id"];
-            self.canEdit = YES;
-            [[NSNotificationCenter defaultCenter] postNotificationName:updateGuideListNoti object:nil];
-            [SVProgressHUD showHint:@"已保存到我的旅行计划"];
+//            _tripDetail.tripId = [[responseObject objectForKey:@"result"] objectForKey:@"id"];
+//            self.canEdit = YES;
+//            [[NSNotificationCenter defaultCenter] postNotificationName:updateGuideListNoti object:nil];
+//            [SVProgressHUD showHint:@"已保存到我的旅行计划"];
+            PlansListTableViewController *myGuidesCtl = [[PlansListTableViewController alloc] initWithUserId:accountManager.account.userId];
+            NSMutableArray *clts = [NSMutableArray arrayWithArray:[self.navigationController childViewControllers]];
+            [clts replaceObjectAtIndex:(clts.count-1) withObject:myGuidesCtl];
+            [self.navigationController setViewControllers:clts animated:YES];
         } else {
             if (self.isShowing) {
                 [SVProgressHUD showHint:@"请求也是失败了"];
@@ -647,7 +652,7 @@
     _spotsListCtl.tripDetail = _tripDetail;
     _restaurantListCtl.tripDetail = _tripDetail;
     _shoppingListCtl.tripDetail = _tripDetail;
-    _spotsListCtl.canEdit = _canEdit;
+//    _spotsListCtl.canEdit = _canEdit;
     _restaurantListCtl.canEdit = _canEdit;
     _shoppingListCtl.canEdit = _canEdit;
     ((TripPlanSettingViewController *)self.container.menuViewController).tripDetail = self.tripDetail;
@@ -657,8 +662,8 @@
 - (void)setupViewControllers
 {
     NSMutableArray *array = [[NSMutableArray alloc] init];
-    _spotsListCtl = [[SpotsListViewController alloc] init];
-    _spotsListCtl.rootViewController = self;
+    _spotsListCtl = [[PlanScheduleViewController alloc] init];
+//    _spotsListCtl.rootViewController = self;
     
     _restaurantListCtl = [[RestaurantsListViewController alloc] init];
     _restaurantListCtl.rootViewController = self;
@@ -887,14 +892,16 @@
 
 #pragma mark - CreateConversationDelegate
 
-- (void)createConversationSuccessWithChatter:(NSString *)chatter isGroup:(BOOL)isGroup chatTitle:(NSString *)chatTitle
+- (void)createConversationSuccessWithChatter:(NSInteger)chatterId chatType:(IMChatType)chatType chatTitle:(NSString *)chatTitle
+
+
 {
     TaoziChatMessageBaseViewController *taoziMessageCtl = [[TaoziChatMessageBaseViewController alloc] init];
     [self setChatMessageModel:taoziMessageCtl];
     taoziMessageCtl.delegate = self;
     taoziMessageCtl.chatTitle = chatTitle;
-    taoziMessageCtl.chatter = chatter;
-    taoziMessageCtl.isGroup = isGroup;
+    taoziMessageCtl.chatterId = chatterId;
+    taoziMessageCtl.chatType = chatType;
     
     [self.chatRecordListCtl dismissViewControllerAnimated:YES completion:^{
         [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:nil];
@@ -904,7 +911,7 @@
 - (void)setChatMessageModel:(TaoziChatMessageBaseViewController *)taoziMessageCtl
 {
     taoziMessageCtl.delegate = self;
-    taoziMessageCtl.chatType = TZChatTypeStrategy;
+    taoziMessageCtl.messageType = IMMessageTypeGuideMessageType;
     taoziMessageCtl.messageId = self.tripDetail.tripId;
     
     NSMutableString *summary;

@@ -11,12 +11,14 @@
   */
 
 #import <UIKit/UIKit.h>
-
+#import "PeachTravel-Swift.h"
 @protocol LocationViewDelegate <NSObject>
 
--(void)sendLocationLatitude:(double)latitude
-                  longitude:(double)longitude
-                 andAddress:(NSString *)address;
+//-(void)sendLocationLatitude:(double)latitude
+//                  longitude:(double)longitude
+//                 andAddress:(NSString *)address;
+- (void)sendLocation:(LocationModel *)locModel
+            locImage:(UIImage *)locImage;
 @end
 
 @interface LocationViewController : UIViewController

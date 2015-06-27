@@ -7,18 +7,20 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Account.h"
-#import "Contact.h"
 #import "FrendRequest.h"
 #import "AccountModel.h"
+@class FrendModel;
 
 @interface AccountManager : NSObject
 
-@property (nonatomic, strong) Account *account;
-
-@property (strong, nonatomic) AccountModel *accountDetail;
+@property (nonatomic, strong) AccountModel *account;
 
 + (AccountManager *)shareAccountManager;
+
+@property (nonatomic, copy) NSString *userChatImagePath;
+@property (nonatomic, copy) NSString *userChatAudioPath;
+@property (nonatomic, copy) NSString *userTempPath;
+
 
 /**
  *  用户是否登录
@@ -35,16 +37,6 @@
 - (void)userDidLoginWithUserInfo:(id)userInfo;
 
 /**
- *  环信系统已经登录成功
- */
-- (void)easeMobDidLogin;
-
-/**
- *  环信系统登录失败
- */
-- (void)easeMobUnlogin;
-
-/**
  *  异步退出登录
  */
 - (void)asyncLogout:(void(^)(BOOL isSuccess))completion;
@@ -56,14 +48,6 @@
  */
 - (BOOL)accountIsBindTel;
 
-/**
- *  登录环信服务器
- */
-- (void)loginEaseMobServer;
-
-- (void)loginEaseMobServer:(void (^)(BOOL isSuccess))completion;
-
-
 /*******用户信息相关接口********/
 
 /**
@@ -73,14 +57,6 @@
  *  @param changeType    信息类型，电话，签名等
  */
 - (void)updateUserInfo:(NSString *)changeContent withChangeType:(UserInfoChangeType)changeType;
-
-
-/**
- *  更新用户信息
- *
- *  @param changeContent 信息内容
- */
-- (void)updateUserInfo:(id)userInfo;
 
 /**
  *  修改用户名字
@@ -147,7 +123,7 @@
 
 #pragma mark - 修改用户的好友信息
 
-- (void)asyncChangeRemark:(NSString *)remark withUserId:(NSNumber *)userId completion:(void (^)(BOOL isSuccess))completion;
+- (void)asyncChangeRemark:(NSString *)remark withUserId:(NSInteger)userId completion:(void (^)(BOOL isSuccess))completion;
 
 /**
  *  判读是不是我的好友
@@ -156,26 +132,7 @@
  *
  *  @return
  */
-- (BOOL)isMyFrend:(NSNumber *)userId;
-
-/**
- *  通过 userid 获取好友信息
- *
- *  @param userId
- *
- *  @return 
- */
-- (Contact *)contactWithUserId:(NSNumber *)userId;
-
-/**
- *  通过环信 id 获取好友
- *
- *  @param userId
- *
- *  @return
- */
-- (Contact *)contactWithEaseMobUserId:(NSString *)userId;
-
+- (BOOL)frendIsMyContact:(NSInteger)userId;
 
 /**
  *  将好友加入到数据库当中
@@ -222,67 +179,7 @@
  *
  *  @param userId
  */
-- (void)removeContact:(NSNumber *)userId;
-
-/**
- *  通过环信 id 获取旅行派用户信息
- *
- *  @param easemobUser
- *
- *  @return
- */
-- (Contact *)TZContactByEasemobUser:(NSString *)easemobUser;
-
-
-#pragma mark *******群组相关信息******
-
-/**
- *  通过群组 id 得到去租信息
- *
- *  @param groupId
- *
- *  @return
- */
-- (Group *)groupWithGroupId:(NSString *)groupId;
-
-- (Group *)updateGroup:(NSString *)groupId
-        withGroupOwner:(NSString *)owner
-          groupSubject:(NSString *)subject
-             groupInfo:(NSString *)groupDescription
-               numbers:(id)numbersDic;
-
-/**
- *  更新群组信息,如果未存在则创建一个群组
- *
- *  @param groupId          群组 id
- *  @param owner            群组所有人
- *  @param subject          群组标题
- *  @param groupDescription 群组介绍
- *
- *  @return 更新后的群组
- */
-- (Group *)updateGroup:(NSString *)groupId
-        withGroupOwner:(NSString *)owner
-          groupSubject:(NSString *)subject
-             groupInfo:(NSString *)groupDescription;
-
-/**
- *  添加一个成员到群组里
- *
- *  @param groupId
- *  @param numbers
- */
-- (void)addNumberToGroup:(NSString *)groupId
-                 numbers:(NSSet *)numbers;
-
-/**
- *  从移除一个成员
- *
- *  @param groupId
- *  @param numbers
- */
-- (void)removeNumberToGroup:(NSString *)groupId
-                 numbers:(NSSet *)numbers;
+- (void)removeContact:(FrendModel *)userId;
 
 
 #pragma mark *****其他操作******

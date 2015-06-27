@@ -13,7 +13,6 @@
 #import "AFgzipRequestSerializer.h"
 #import "AccountManager.h"
 #import "AddressBookTableViewCell.h"
-#import "ContactDetailViewController.h"
 #import "SearchUserInfoViewController.h"
 
 #import "OtherUserInfoViewController.h"
@@ -136,7 +135,7 @@
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     AccountManager *accountManager = [AccountManager shareAccountManager];
     if ([accountManager isLogin]) {
-        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     }
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
@@ -217,7 +216,7 @@
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     NSString *urlStr = [NSString stringWithFormat:@"%@%@", API_USERINFO, userId];
     [manager GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
@@ -227,7 +226,7 @@
 //            [self.navigationController pushViewController:searchUserInfoCtl animated:YES];
             OtherUserInfoViewController *otherCtl = [[OtherUserInfoViewController alloc]init];
             NSDictionary *userInfo = [responseObject objectForKey:@"result"];
-            otherCtl.userId = [userInfo objectForKey:@"userId"];
+            otherCtl.userId = [[userInfo objectForKey:@"userId"] integerValue];
             [self.navigationController pushViewController:otherCtl animated:YES];
         } else {
             

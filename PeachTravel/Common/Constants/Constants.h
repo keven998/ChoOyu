@@ -131,10 +131,12 @@
 #define contactListNeedUpdateNoti               @ "updatecontactList"           //更新好友列表
 #define updateDestinationsSelectedNoti          @ "updateDestinationsSelected"           //更新目的地列表
 #define updateChateViewNoti                     @ "updateChatView"               //更新聊天界面
+#define updateChateGroupTitleNoti               @ "updateChateGroupTitle"               //更新聊天界面title
 
 #define updateFavoriteListNoti                  @"updateFavoriteListView"    //更新收藏列表
 #define updateGuideListNoti                     @"updateFavoriteListView"    //更新我的攻略列表
 
+#define networkConnectionStatusChangeNoti       @"networkConnectionStatusChange"    //网络状态发生变化
 
 #pragma mark - ***********各种枚举信息*************
 
@@ -192,20 +194,6 @@ typedef NS_ENUM(NSUInteger, UserInfoChangeType) {
     ChangeOtherInfo = 100
 };
 
-///***** 旅行派自定义消息枚举信息****/
-typedef NS_ENUM(NSUInteger, TZChatType) {
-    TZChatNormalText = 0,                  //普通文字信息
-    TZChatTypeStrategy = 1,         //我的攻略
-    TZChatTypeCity,                 //城市
-    TZChatTypeTravelNote,           //游记
-    TZChatTypeSpot,                 //景点
-    TZChatTypeFood,                 //美食
-    TZChatTypeShopping,             //购物
-    TZChatTypeHotel,                //酒店
-    
-    TZTipsMsg    =  100             //自定义的提示信息， 如：我加入了旅行派群组
-};
-
 /***** 旅行派好友请求枚举信息****/
 typedef NS_ENUM(NSUInteger, TZFrendRequest) {
     TZFrendDefault = 0,      //未处理
@@ -237,27 +225,40 @@ typedef NS_ENUM(NSUInteger, TZCMDChatType) {
 
 
 #define IS_IOS8 ([[[UIDevice currentDevice] systemVersion] floatValue]>=8)
-
-
 #define RGBACOLOR(r,g,b,a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:(a)]
-
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
-#define APP_PAGE_COLOR                  UIColorFromRGB(0xf2f2f2)
-#define APP_THEME_COLOR                 UIColorFromRGB(0x1cc091)
-#define APP_THEME_COLOR_HIGHLIGHT       UIColorFromRGB(0x00a071)
+
+#define APP_PAGE_COLOR                  UIColorFromRGB(0xf7faf7)
+
+#define APP_THEME_COLOR                 UIColorFromRGB(0x99cc66)
+#define APP_THEME_COLOR_HIGHLIGHT       UIColorFromRGB(0xb9dc96)
+
+#define COLOR_CHECKED                   UIColorFromRGB(0xfa5064)
+#define COLOR_ALERT                     UIColorFromRGB(0xff9600)
+#define COLOR_ENTER                     UIColorFromRGB(0x4bd228)
+#define COLOR_LINKED                    UIColorFromRGB(0x469bff)
+#define COLOR_DISABLE                   UIColorFromRGB(0xe2e2e2)
+#define COLOR_LINE                      UIColorFromRGB(0xe2e2e2)
+
+#define COLOR_TEXT_I                    UIColorFromRGB(0x323232)
+#define COLOR_TEXT_II                   UIColorFromRGB(0x646464)
+#define COLOR_TEXT_III                  UIColorFromRGB(0x969696)
+#define COLOR_TEXT_IV                   UIColorFromRGB(0xc8c8c8)
+#define COLOR_TEXT_V                    UIColorFromRGB(0xcdcdcd)
+
+//pre-design
+#define TEXT_COLOR_TITLE                UIColorFromRGB(0x323232)
+#define TEXT_COLOR_TITLE_SUBTITLE       UIColorFromRGB(0x626262)
+#define TEXT_COLOR_TITLE_DESC           UIColorFromRGB(0x999999)
+#define TEXT_COLOR_TITLE_HINT           UIColorFromRGB(0xa6a6a6)
+#define TEXT_COLOR_TITLE_PH             UIColorFromRGB(0xcdcdcd)
 #define APP_HIGNLIGHT_COLOR             UIColorFromRGB(0xff5d38)
 #define APP_SUB_THEME_COLOR             UIColorFromRGB(0x6ed8dc)
 #define APP_SUB_THEME_COLOR_HIGHLIGHT   UIColorFromRGB(0x279095)
 #define APP_BORDER_COLOR                UIColorFromRGB(0xe4e4e4)
 #define APP_IMAGEVIEW_COLOR             UIColorFromRGB(0xf8f8f8)
-
 #define APP_DIVIDER_COLOR               UIColorFromRGB(0xe5e5e5)
-#define TEXT_COLOR_TITLE                UIColorFromRGB(0x2e2727)
-#define TEXT_COLOR_TITLE_SUBTITLE       UIColorFromRGB(0x62626)
-#define TEXT_COLOR_TITLE_DESC           UIColorFromRGB(0x999999)
-#define TEXT_COLOR_TITLE_HINT           UIColorFromRGB(0xa6a6a6)
-#define TEXT_COLOR_TITLE_PH             UIColorFromRGB(0xcdcdcd)
 #define GRAY_COLOR                      UIColorFromRGB(0xdddddd)
 
 

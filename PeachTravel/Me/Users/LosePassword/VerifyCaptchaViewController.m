@@ -153,7 +153,7 @@
     if (_verifyCaptchaType == UserBindTel) {
         [params setObject:kUserBindTel forKey:@"actionCode"];
         AccountManager *accountManager = [AccountManager shareAccountManager];
-        [params setObject:accountManager.account.userId forKey:@"userId"];
+        [params setObject:[NSNumber numberWithInteger: accountManager.account.userId] forKey:@"userId"];
     } else {
         [params setObject:kUserLosePassword forKey:@"actionCode"];
     }
@@ -203,7 +203,7 @@
     if (_verifyCaptchaType == UserBindTel) {
         [params setObject:kUserBindTel forKey:@"actionCode"];
         AccountManager *accountManager = [AccountManager shareAccountManager];
-        [params setObject:accountManager.account.userId forKey:@"userId"];
+        [params setObject:[NSNumber numberWithInteger: accountManager.account.userId] forKey:@"userId"];
     } else {
         [params setObject:kUserLosePassword forKey:@"actionCode"];
     }
@@ -222,7 +222,7 @@
             
             if (_verifyCaptchaType == UserBindTel) {
                 AccountManager *accountManager = [AccountManager shareAccountManager];
-                resetPasswordCtl.userId = [accountManager.account.userId integerValue];
+                resetPasswordCtl.userId = accountManager.account.userId;
                 //如果用户不是首次绑定手机号,则不进入下一个界面进行设置密码。而是直接退出次界面
                 if (!_shouldSetPasswordWhenBindTel) {
                     [self bindTelwithToken:[[responseObject objectForKey:@"result"] objectForKey:@"token"]];
@@ -259,7 +259,7 @@
     [params setObject:_phoneLabel.text forKey:@"tel"];
     [params setObject:token forKey:@"token"];
     AccountManager *accountManager = [AccountManager shareAccountManager];
-    [params setObject:accountManager.account.userId forKey:@"userId"];
+    [params setObject:[NSNumber numberWithInteger: accountManager.account.userId] forKey:@"userId"];
     
      __weak typeof(VerifyCaptchaViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];

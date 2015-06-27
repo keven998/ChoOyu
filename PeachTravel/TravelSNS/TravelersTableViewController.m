@@ -8,9 +8,7 @@
 
 #import "TravelersTableViewController.h"
 #import "TravelerTableViewCell.h"
-#import "ContactDetailViewController.h"
 #import "DistributionViewController.h"
-#import "UserProfile.h"
 #import "ScreeningViewController.h"
 #import "ForeignScreeningViewController.h"
 #import "OtherUserInfoViewController.h"
@@ -93,9 +91,9 @@
     if (_travelers == nil) {
         _travelers = [[NSMutableArray alloc] initWithCapacity:count];
     }
-    UserProfile *user;
+    FrendModel *user;
     for (int i = 0; i < count; ++i) {
-        user = [[UserProfile alloc] initWithJsonObject:[searchResult objectAtIndex:i]];
+        user = [[FrendModel alloc] initWithJson:[searchResult objectAtIndex:i]];
         [_travelers addObject:user];
     }
     [self.tableView reloadData];
@@ -136,12 +134,12 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TravelerTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"travel_user_cell" forIndexPath:indexPath];
-    UserProfile *up = [_travelers objectAtIndex:indexPath.row];
+    FrendModel *up = [_travelers objectAtIndex:indexPath.row];
     [cell.avatarView sd_setImageWithURL:[NSURL URLWithString:up.avatarSmall] placeholderImage:[UIImage imageNamed:@"ic_chat_avatar_placeholder"]];
-    cell.nameLabel.text = up.name;
-    cell.footprintsLabel.text = [NSString stringWithFormat:@"足迹: %@", [up getFootprintDescription]];
+    cell.nameLabel.text = up.nickName;
+    cell.footprintsLabel.text = [NSString stringWithFormat:@"足迹: %@", [up footprintDescription]];
     cell.signatureLabel.text = up.signature;
-    cell.statusLable.text = [up getRolesDescription];
+    cell.statusLable.text = up.rolesDescription;
     cell.levelLabel.text = [NSString stringWithFormat:@"V%ld", up.level];
     cell.resideLabel.text = up.residence;
     return cell;
@@ -150,7 +148,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     OtherUserInfoViewController *otherInfoCtl = [[OtherUserInfoViewController alloc]init];
     
-    UserProfile *model = _travelers[indexPath.row];
+    FrendModel *model = _travelers[indexPath.row];
 //    otherInfoCtl.model = model;
     otherInfoCtl.userId = model.userId;
     [self.navigationController pushViewController:otherInfoCtl animated:YES] ;

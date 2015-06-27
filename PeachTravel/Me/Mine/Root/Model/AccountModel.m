@@ -8,13 +8,14 @@
 
 #import "AccountModel.h"
 #import "AppDelegate.h"
-
+#import "PeachTravel-swift.h"
 
 @implementation AlbumImage
 
 - (id)initWithJson: (id)json
 {
     if (self = [super init]) {
+       
         _imageId = [json objectForKey:@"id"];
         _image = [[TaoziImage alloc] initWithJson:[[json objectForKey:@"image"] firstObject]];
         _createTime = [[json objectForKey:@"cTime"] longValue];
@@ -26,20 +27,60 @@
 
 @implementation AccountModel
 
-- (Account *)basicUserInfo
+- (id)initWithJson: (id)json
 {
-    if (!_basicUserInfo) {
-        NSError *error = nil;
-        NSFetchRequest *request = [[NSFetchRequest alloc] init];
-        NSManagedObjectContext *context = [((AppDelegate *)[[UIApplication sharedApplication] delegate]) managedObjectContext];
-        request.entity = [NSEntityDescription entityForName:@"Account" inManagedObjectContext:context];
-        NSArray *objes = [context executeFetchRequest:request error:&error];
-        if (error) {
-            [NSException raise:@"查询错误" format:@"%@", [error localizedDescription]];
+    if (self = [super init]) {
+        _userId = [[json objectForKey:@"userId"] integerValue];
+        _nickName = [json objectForKey:@"nickName"];
+        if ([json objectForKey:@"avatar"]) {
+            _avatar = [json objectForKey:@"avatar"];
+        } else {
+            _avatar = @"";
         }
-        _basicUserInfo = [objes firstObject];
+        if ([json objectForKey:@"avatarSmall"]) {
+            _avatarSmall = [json objectForKey:@"avatarSmall"];
+        } else {
+            _avatarSmall = @"";
+        }
+        if ([json objectForKey:@"tel"]) {
+            _tel = [json objectForKey:@"tel"];
+        } else {
+            _tel = @"";
+        }
+        
+        if ([json objectForKey:@"secToken"]) {
+            _secToken = [json objectForKey:@"secToken"];
+        } else {
+            _secToken = @"";
+        }
+        if ([json objectForKey:@"signature"]) {
+            _signature = [json objectForKey:@"signature"];
+        } else {
+            _signature = @"";
+        }
+        NSString *genderStr = [json objectForKey:@"gender"];
+        if ([genderStr isEqualToString:@"M"]) {
+            _gender = Male;
+        } else if ([genderStr isEqualToString:@"F"]) {
+            _gender = Female;
+        } else if ([genderStr isEqualToString:@"S"]) {
+            _gender = Secret;
+        }
+        if (!_gender) {
+            _gender = Unknown;
+        }
+    
     }
-    return _basicUserInfo;
+    return self;
+}
+
+- (NSMutableArray *)frendList
+{
+    if (!_frendList) {
+        FrendManager *frendManager = [[FrendManager alloc] init];
+        _frendList = [[frendManager getAllMyContacts] mutableCopy];
+    }
+    return _frendList;
 }
 
 /**
@@ -53,6 +94,11 @@
         _residence = @"";
     } else {
         _residence = [json objectForKey:@"residence"];
+    }
+    if ([json objectForKey:@"guideCnt"] == [NSNull null]) {
+        _guideCnt = 0;
+    } else {
+        _guideCnt = [[json objectForKey:@"guideCnt"] integerValue];
     }
     if ([json objectForKey:@"zodiac"] == [NSNull null]) {
         _zodiac = @"";
@@ -76,12 +122,21 @@
     } else {
         _travelStatus = [json objectForKey:@"travelStatus"];
     }
+    
+    NSString *genderStr = [json objectForKey:@"gender"];
+    if ([genderStr isEqualToString:@"F"]) {
+        _gender = Female;
+    } else if ([genderStr isEqualToString:@"M"]) {
+        _gender = Male;
+    } else if ([genderStr isEqualToString:@"S"]) {
+        _gender = Secret;
+    } else if ([genderStr isEqualToString:@"U"]) {
+        _gender = Unknown;
+    }
 }
 
 - (void)loadUserInfoFromServer:(void (^)(bool isSuccess))completion
 {
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AppUtils *utils = [[AppUtils alloc] init];
     [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
@@ -90,15 +145,14 @@
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
-    NSString *url = [NSString stringWithFormat:@"%@%@", API_USERINFO, accountManager.account.userId];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", self.userId] forHTTPHeaderField:@"UserId"];
+    NSString *url = [NSString stringWithFormat:@"%@%ld", API_USERINFO, self.userId];
     
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [self updateUserInfo:[responseObject objectForKey:@"result"]];
-            [accountManager updateUserInfo:[responseObject objectForKey:@"result"]];
             completion(YES);
         } else {
             completion(NO);

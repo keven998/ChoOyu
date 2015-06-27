@@ -11,6 +11,7 @@
   */
 
 #import <Foundation/Foundation.h>
+#import "PeachTravel-swift.h"
 
 #define KFIRETIME 20
 
@@ -19,17 +20,17 @@
     BOOL _isPlaying;
 }
 
-@property (nonatomic) MessageBodyType type;
-@property (nonatomic) MessageDeliveryState status;
+@property (nonatomic) IMMessageType type;
+@property (nonatomic) IMMessageStatus status;
+@property (nonatomic) NSInteger senderId; //消息的发送者
 
 @property (nonatomic) BOOL isSender;    //是否是发送者
 @property (nonatomic) BOOL isRead;      //是否已读
-@property (nonatomic) BOOL isChatGroup;  //是否是群聊
+@property (nonatomic) IMChatType chatType;  //聊天类型
 
 @property (nonatomic, strong) NSString *messageId;
 @property (nonatomic, strong) NSURL *headImageURL;
 @property (nonatomic, strong) NSString *nickName;
-@property (nonatomic, strong) NSString *username;
 /*!
  @property
  @brief 消息发送或接收的时间
@@ -41,7 +42,7 @@
 @property (nonatomic, strong) NSString *content;
 
 //旅行派自有的消息内容
-@property (nonatomic, strong) NSDictionary *taoziMessage;
+@property (nonatomic, strong) IMPoiModel *poiModel;
 
 //image
 @property (nonatomic) CGSize size;
@@ -55,7 +56,6 @@
 @property (nonatomic, strong) NSString *localPath;
 @property (nonatomic, strong) NSString *remotePath;
 @property (nonatomic) NSInteger time;
-@property (nonatomic, strong) EMChatVoice *chatVoice;
 @property (nonatomic) BOOL isPlaying;
 @property (nonatomic) BOOL isPlayed;
 
@@ -64,8 +64,9 @@
 @property (nonatomic) double latitude;
 @property (nonatomic) double longitude;
 
-@property (nonatomic, strong)id<IEMMessageBody> messageBody;
-@property (nonatomic, strong)EMMessage *message;
+@property (nonatomic, strong) BaseMessage *baseMessage;
+
+- (instancetype)initWithBaseMessage:(BaseMessage *)message;
 
 @end
 

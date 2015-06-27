@@ -1,20 +1,22 @@
 /************************************************************
-  *  * EaseMob CONFIDENTIAL 
-  * __________________ 
-  * Copyright (C) 2013-2014 EaseMob Technologies. All rights reserved. 
-  *  
-  * NOTICE: All information contained herein is, and remains 
-  * the property of EaseMob Technologies.
-  * Dissemination of this information or reproduction of this material 
-  * is strictly forbidden unless prior written permission is obtained
-  * from EaseMob Technologies.
-  */
+ *  * EaseMob CONFIDENTIAL
+ * __________________
+ * Copyright (C) 2013-2014 EaseMob Technologies. All rights reserved.
+ *
+ * NOTICE: All information contained herein is, and remains
+ * the property of EaseMob Technologies.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from EaseMob Technologies.
+ */
 
 #import "DXChatBarMoreView.h"
 
-#define CHAT_BUTTON_SIZE 80
-#define CHAT_LABEL_HEIGHT 20
-#define INSETS 40
+#define CHAT_BUTTON_SIZE (200 - 36)/2
+#define CHAT_BUTTON_HEIGHT (CHAT_BUTTON_SIZE + 18) //panel height: 200
+
+#define CHAT_LABEL_HEIGHT 18
+#define INSETS 5
 
 @implementation DXChatBarMoreView
 
@@ -23,6 +25,9 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = APP_PAGE_COLOR;
+        UIView *shadowImg = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), 0.6)];
+        shadowImg.backgroundColor = COLOR_LINE;
+        [self addSubview:shadowImg];
         [self setupSubviewsForType:type];
     }
     return self;
@@ -32,145 +37,117 @@
 //top-margin: 10
 - (void)setupSubviewsForType:(ChatMoreType)type
 {
-    CGFloat spaceWidth = (self.bounds.size.width - 3 * CHAT_BUTTON_SIZE-80) / 2;
+    CGFloat screentWidth = CGRectGetWidth(self.frame);
+    CGFloat caculateItemWidth = screentWidth/4.0; //left+righmargin = 10;
+    CGFloat itemWidth = (caculateItemWidth < CHAT_BUTTON_SIZE ? caculateItemWidth : CHAT_BUTTON_SIZE);
+    CGFloat itemHeight = (itemWidth + CHAT_LABEL_HEIGHT);
+    CGFloat topMagin = (200 - itemHeight*2)/2.0;
+    CGFloat itemMargin = (screentWidth - 4*itemWidth)/5.0;
+    CGFloat innerMargin = 5;
+    itemWidth -= 2*innerMargin;
+    itemHeight -= 2*innerMargin;
     
-    _myStrategyButton = [TZButton buttonWithType:UIButtonTypeCustom];
-    [_myStrategyButton setFrame:CGRectMake(INSETS, 0, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
-    _myStrategyButton.topSpaceHight = 13;
-    _myStrategyButton.spaceHight = 5;
-    [_myStrategyButton setImage:[UIImage imageNamed:@"journey_list_normal"] forState:UIControlStateNormal];
-    [_myStrategyButton setImage:[UIImage imageNamed:@"journey_list_selected"] forState:UIControlStateHighlighted];
+    _myStrategyButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_myStrategyButton setFrame:CGRectMake(itemMargin+innerMargin, topMagin + 2*innerMargin, itemWidth , itemWidth)];
+    [_myStrategyButton setImage:[UIImage imageNamed:@"messages_plus_plan_default"] forState:UIControlStateNormal];
+    [_myStrategyButton setImage:[UIImage imageNamed:@"messages_plus_plan_selected"] forState:UIControlStateHighlighted];
     [_myStrategyButton addTarget:self action:@selector(myStrategyAction) forControlEvents:UIControlEventTouchUpInside];
-    _myStrategyButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [_myStrategyButton setTitle:@"旅行计划" forState:UIControlStateNormal];
-    [_myStrategyButton setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-    _myStrategyButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
-    _myStrategyButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+    _myStrategyButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     _myStrategyButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     [self addSubview:_myStrategyButton];
+    UILabel *planLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMinX(_myStrategyButton.frame), CGRectGetMaxY(_myStrategyButton.frame), itemWidth, CHAT_LABEL_HEIGHT)];
+    planLabel.text = @"计划";
+    planLabel.textAlignment = NSTextAlignmentCenter;
+    planLabel.font = [UIFont systemFontOfSize:11];
+    planLabel.textColor = COLOR_TEXT_II;
+    [self addSubview:planLabel];
     
-    _myFavoriteButton = [TZButton buttonWithType:UIButtonTypeCustom];
-    _myFavoriteButton.topSpaceHight = 13;
-    _myFavoriteButton.spaceHight = 5;
-    [_myFavoriteButton setFrame:CGRectMake(spaceWidth + CHAT_BUTTON_SIZE+INSETS, 0, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
-    [_myFavoriteButton setImage:[UIImage imageNamed:@"ic_surch_normal"] forState:UIControlStateNormal];
-    [_myFavoriteButton setImage:[UIImage imageNamed:@"ic_surch_selectd"] forState:UIControlStateHighlighted];
+    _myFavoriteButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_myFavoriteButton setFrame:CGRectMake(CGRectGetMaxX(_myStrategyButton.frame) + 2*innerMargin + itemMargin, topMagin + 2*innerMargin, itemWidth , itemWidth)];
+    [_myFavoriteButton setImage:[UIImage imageNamed:@"messages_plus_search_default"] forState:UIControlStateNormal];
+    [_myFavoriteButton setImage:[UIImage imageNamed:@"messages_plus_search_selected"] forState:UIControlStateHighlighted];
     [_myFavoriteButton addTarget:self action:@selector(destinationAction) forControlEvents:UIControlEventTouchUpInside];
-    [_myFavoriteButton setTitle:@"旅行搜搜" forState:UIControlStateNormal];
-    [_myFavoriteButton setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-    _myFavoriteButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
-    _myFavoriteButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    _myFavoriteButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+    _myFavoriteButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     _myFavoriteButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     [self addSubview:_myFavoriteButton];
+    UILabel *lxpsearchLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMinX(_myFavoriteButton.frame), CGRectGetMaxY(_myFavoriteButton.frame), itemWidth, CHAT_LABEL_HEIGHT)];
+    lxpsearchLabel.text = @"搜搜";
+    lxpsearchLabel.textAlignment = NSTextAlignmentCenter;
+    lxpsearchLabel.font = [UIFont systemFontOfSize:11];
+    lxpsearchLabel.textColor = COLOR_TEXT_II;
+    [self addSubview:lxpsearchLabel];
     
     
-    _destinationButton = [TZButton buttonWithType:UIButtonTypeCustom];
-    _destinationButton.topSpaceHight = 13;
-    _destinationButton.spaceHight = 5;
-    [_destinationButton setFrame:CGRectMake(INSETS + 2*(CHAT_BUTTON_SIZE+spaceWidth), 0, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
-    [_destinationButton setImage:[UIImage imageNamed:@"ic_here_normal"] forState:UIControlStateNormal];
-    [_destinationButton setImage:[UIImage imageNamed:@"ic_here_selected"] forState:UIControlStateHighlighted];
+    _destinationButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_destinationButton setFrame:CGRectMake(CGRectGetMaxX(_myFavoriteButton.frame) + 2*innerMargin + itemMargin, topMagin + 2*innerMargin, itemWidth , itemWidth)];
+    [_destinationButton setImage:[UIImage imageNamed:@"messages_plus_pin_default"] forState:UIControlStateNormal];
+    [_destinationButton setImage:[UIImage imageNamed:@"messages_plus_pin_selected"] forState:UIControlStateHighlighted];
     [_destinationButton addTarget:self action:@selector(locationAction) forControlEvents:UIControlEventTouchUpInside];
-    [_destinationButton setTitle:@"位置" forState:UIControlStateNormal];
-    [_destinationButton setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-    _destinationButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
-    _destinationButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    _destinationButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+    _destinationButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     _destinationButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-//    _destinationButton.titleEdgeInsets = UIEdgeInsetsMake(56.0, -40.5, -10.0, 0.0);
-//    _destinationButton.imageEdgeInsets = UIEdgeInsetsMake(10.0, 20.0, 20.0, 0.0);
     [self addSubview:_destinationButton];
+    UILabel *localLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMinX(_destinationButton.frame), CGRectGetMaxY(_destinationButton.frame), itemWidth, CHAT_LABEL_HEIGHT)];
+    localLabel.text = @"位置";
+    localLabel.textAlignment = NSTextAlignmentCenter;
+    localLabel.font = [UIFont systemFontOfSize:11];
+    localLabel.textColor = COLOR_TEXT_II;
+    [self addSubview:localLabel];
     
-    _travelNoteButton = [TZButton buttonWithType:UIButtonTypeCustom];
-    _travelNoteButton.topSpaceHight = 10;
-    _travelNoteButton.spaceHight = 5;
-    [_travelNoteButton setFrame:CGRectMake(INSETS, CHAT_BUTTON_SIZE + 10.0, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
-    [_travelNoteButton setImage:[UIImage imageNamed:@"ic_love_normal"] forState:UIControlStateNormal];
-    [_travelNoteButton setImage:[UIImage imageNamed:@"ic_love_selected"] forState:UIControlStateHighlighted];
-    [_travelNoteButton addTarget:self action:@selector(myFavoriteAction) forControlEvents:UIControlEventTouchUpInside];
-    [_travelNoteButton setTitle:@"收藏夹" forState:UIControlStateNormal];
-    [_travelNoteButton setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-    _travelNoteButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
-    _travelNoteButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    _travelNoteButton.titleLabel.adjustsFontSizeToFitWidth = YES;
-    _travelNoteButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    //    _travelNoteButton.titleEdgeInsets = UIEdgeInsetsMake(56.0, -40.5, -10.0, 0.0);
-    //    _travelNoteButton.imageEdgeInsets = UIEdgeInsetsMake(10.0, 20.0, 20.0, 0.0);
-    [self addSubview:_travelNoteButton];
-    
-    _photoButton = [TZButton buttonWithType:UIButtonTypeCustom];
-    _photoButton.topSpaceHight = 10;
-    _photoButton.spaceHight = 5;
-//    [_photoButton setFrame:CGRectMake(INSETS + CHAT_BUTTON_SIZE + spaceWidth, CHAT_BUTTON_SIZE + 10.0, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
-    [_photoButton setFrame:CGRectMake(INSETS + CHAT_BUTTON_SIZE + spaceWidth, CHAT_BUTTON_SIZE + 10.0, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
-    [_photoButton setImage:[UIImage imageNamed:@"ic_picture_normal"] forState:UIControlStateNormal];
-    [_photoButton setImage:[UIImage imageNamed:@"ic_picture_selected"] forState:UIControlStateHighlighted];
+    _photoButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_photoButton setFrame:CGRectMake(CGRectGetMaxX(_destinationButton.frame) + 2*innerMargin + itemMargin, topMagin + 2*innerMargin, itemWidth , itemWidth)];
+    [_photoButton setImage:[UIImage imageNamed:@"messages_plus_picture_default"] forState:UIControlStateNormal];
+    [_photoButton setImage:[UIImage imageNamed:@"messages_plus_picture_selected"] forState:UIControlStateHighlighted];
     [_photoButton addTarget:self action:@selector(photoAction) forControlEvents:UIControlEventTouchUpInside];
-    [_photoButton setTitle:@"相册" forState:UIControlStateNormal];
-    [_photoButton setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-    _photoButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
-    _photoButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    _photoButton.titleLabel.adjustsFontSizeToFitWidth = YES;
-    _photoButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-//    _photoButton.titleEdgeInsets = UIEdgeInsetsMake(56.0, -40.5, -10.0, 0.0);
-//    _photoButton.imageEdgeInsets = UIEdgeInsetsMake(0.0, 20.0, 20.0, 0.0);
+    _photoButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     [self addSubview:_photoButton];
+    UILabel *pLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMinX(_photoButton.frame), CGRectGetMaxY(_photoButton.frame), itemWidth, CHAT_LABEL_HEIGHT)];
+    pLabel.text = @"相册";
+    pLabel.textAlignment = NSTextAlignmentCenter;
+    pLabel.font = [UIFont systemFontOfSize:11];
+    pLabel.textColor = COLOR_TEXT_II;
+    [self addSubview:pLabel];
     
-    _takePicButton = [TZButton buttonWithType:UIButtonTypeCustom];
-    _takePicButton.topSpaceHight = 10;
-    _takePicButton.spaceHight = 5;
-    [_takePicButton setFrame:CGRectMake(INSETS + 2*(CHAT_BUTTON_SIZE+spaceWidth), CHAT_BUTTON_SIZE + 10.0, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
-    [_takePicButton setImage:[UIImage imageNamed:@"ic_camieor_normal"] forState:UIControlStateNormal];
-    [_takePicButton setImage:[UIImage imageNamed:@"ic_camieor_selected"] forState:UIControlStateHighlighted];
+    _takePicButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_takePicButton setFrame:CGRectMake(itemMargin+innerMargin, topMagin + 3*innerMargin+itemHeight, itemWidth , itemWidth)];
+    [_takePicButton setImage:[UIImage imageNamed:@"messages_plus_camera_default"] forState:UIControlStateNormal];
+    [_takePicButton setImage:[UIImage imageNamed:@"messages_plus_camera_selected"] forState:UIControlStateHighlighted];
     [_takePicButton addTarget:self action:@selector(takePicAction) forControlEvents:UIControlEventTouchUpInside];
-    [_takePicButton setTitle:@"相机" forState:UIControlStateNormal];
-    [_takePicButton setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-    _takePicButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
-    _takePicButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    _takePicButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+    _takePicButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     _takePicButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-//    _takePicButton.titleEdgeInsets = UIEdgeInsetsMake(56.0, -40.5, -10.0, 0.0);
-//    _takePicButton.imageEdgeInsets = UIEdgeInsetsMake(0.0, 20.0, 20.0, 0.0);
     [self addSubview:_takePicButton];
+    UILabel *tpLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMinX(_takePicButton.frame), CGRectGetMaxY(_takePicButton.frame), itemWidth , CHAT_LABEL_HEIGHT)];
+    tpLabel.text = @"拍照";
+    tpLabel.textAlignment = NSTextAlignmentCenter;
+    tpLabel.font = [UIFont systemFontOfSize:11];
+    tpLabel.textColor = COLOR_TEXT_II;
+    [self addSubview:tpLabel];
     
-//    _locationButton =[UIButton buttonWithType:UIButtonTypeCustom];
-//    [_locationButton setFrame:CGRectMake(INSETS * 3 + CHAT_BUTTON_SIZE*2, 10 * 2+CHAT_BUTTON_SIZE+CHAT_LABEL_HEIGHT, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
-//    [_locationButton setImage:[UIImage imageNamed:@"chatBar_colorMore_location"] forState:UIControlStateNormal];
-//    [_locationButton setImage:[UIImage imageNamed:@"chatBar_colorMore_locationSelected"] forState:UIControlStateHighlighted];
-//    [_locationButton addTarget:self action:@selector(locationAction) forControlEvents:UIControlEventTouchUpInside];
-//    _locationLabel = [[UILabel alloc] initWithFrame:CGRectMake(INSETS * 3 + CHAT_BUTTON_SIZE*2, 10 * 2+CHAT_BUTTON_SIZE*2+CHAT_LABEL_HEIGHT, CHAT_BUTTON_SIZE, CHAT_LABEL_HEIGHT)];
-//    _locationLabel.text = @"我的位置";
-//    _locationLabel.textAlignment = NSTextAlignmentCenter;
-//    _locationLabel.font = [UIFont systemFontOfSize:12.0];
-//    [self addSubview:_locationLabel];
-//    [self addSubview:_locationButton];
     
     /******暂时屏蔽掉发送视频功能*****/
     /*
-    _videoButton =[UIButton buttonWithType:UIButtonTypeCustom];
-    [_videoButton setFrame:CGRectMake(INSETS * 4 + CHAT_BUTTON_SIZE * 3, 10, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
-    [_videoButton setImage:[UIImage imageNamed:@"chatBar_colorMore_video"] forState:UIControlStateNormal];
-    [_videoButton setImage:[UIImage imageNamed:@"chatBar_colorMore_videoSelected"] forState:UIControlStateHighlighted];
-    [_videoButton addTarget:self action:@selector(takeVideoAction) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:_videoButton];
-    
-    CGRect frame = self.frame;
-    if (type == ChatMoreTypeChat) {
-        frame.size.height = 190;
-        
-        _audioCallButton =[UIButton buttonWithType:UIButtonTypeCustom];
-        [_audioCallButton setFrame:CGRectMake(INSETS, 10 * 2 + CHAT_BUTTON_SIZE, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
-        [_audioCallButton setImage:[UIImage imageNamed:@"chatBar_colorMore_video"] forState:UIControlStateNormal];
-        [_audioCallButton setImage:[UIImage imageNamed:@"chatBar_colorMore_videoSelected"] forState:UIControlStateHighlighted];
-        [_audioCallButton addTarget:self action:@selector(takeAudioCallAction) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:_audioCallButton];
-    }
-    else if (type == ChatMoreTypeGroupChat)
-    {
-        frame.size.height = 120;
-    }
-    self.frame = frame;
+     _videoButton =[UIButton buttonWithType:UIButtonTypeCustom];
+     [_videoButton setFrame:CGRectMake(INSETS * 4 + CHAT_BUTTON_SIZE * 3, 10, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
+     [_videoButton setImage:[UIImage imageNamed:@"chatBar_colorMore_video"] forState:UIControlStateNormal];
+     [_videoButton setImage:[UIImage imageNamed:@"chatBar_colorMore_videoSelected"] forState:UIControlStateHighlighted];
+     [_videoButton addTarget:self action:@selector(takeVideoAction) forControlEvents:UIControlEventTouchUpInside];
+     [self addSubview:_videoButton];
+     
+     CGRect frame = self.frame;
+     if (type == ChatMoreTypeChat) {
+     frame.size.height = 190;
+     
+     _audioCallButton =[UIButton buttonWithType:UIButtonTypeCustom];
+     [_audioCallButton setFrame:CGRectMake(INSETS, 10 * 2 + CHAT_BUTTON_SIZE, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
+     [_audioCallButton setImage:[UIImage imageNamed:@"chatBar_colorMore_video"] forState:UIControlStateNormal];
+     [_audioCallButton setImage:[UIImage imageNamed:@"chatBar_colorMore_videoSelected"] forState:UIControlStateHighlighted];
+     [_audioCallButton addTarget:self action:@selector(takeAudioCallAction) forControlEvents:UIControlEventTouchUpInside];
+     [self addSubview:_audioCallButton];
+     }
+     else if (type == ChatMoreTypeGroupChat)
+     {
+     frame.size.height = 120;
+     }
+     self.frame = frame;
      */
 }
 
@@ -227,16 +204,16 @@
 
 /*******屏蔽掉发送即使语音和视频功能*******/
 /*
-- (void)takeVideoAction{
-    if (_delegate && [_delegate respondsToSelector:@selector(moreViewLocationAction:)]) {
-        [_delegate moreViewVideoAction:self];
-    }
-}
-- (void)takeAudioCallAction
-{
-    if (_delegate && [_delegate respondsToSelector:@selector(moreViewAudioCallAction:)]) {
-        [_delegate moreViewAudioCallAction:self];
-    }
-}
-*/
+ - (void)takeVideoAction{
+ if (_delegate && [_delegate respondsToSelector:@selector(moreViewLocationAction:)]) {
+ [_delegate moreViewVideoAction:self];
+ }
+ }
+ - (void)takeAudioCallAction
+ {
+ if (_delegate && [_delegate respondsToSelector:@selector(moreViewAudioCallAction:)]) {
+ [_delegate moreViewAudioCallAction:self];
+ }
+ }
+ */
 @end

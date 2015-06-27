@@ -12,9 +12,6 @@
 #import "UIImage+BoxBlur.h"
 
 @interface CommonPoiDetailViewController ()
-{
-    UIButton *_favoriteBtn;
-}
 @property (nonatomic, strong) UIImageView *backGroundImageView;
 
 
@@ -27,44 +24,12 @@
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    NSMutableArray *barItems = [[NSMutableArray alloc] init];
-    
     UIButton *talkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 44)];
     [talkBtn setImage:[UIImage imageNamed:@"ic_home_normal"] forState:UIControlStateNormal];
     [talkBtn addTarget:self action:@selector(shareToTalk) forControlEvents:UIControlEventTouchUpInside];
-    [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:talkBtn]];
-    
-    _favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 44)];
-    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_travelnote_favorite.png"] forState:UIControlStateNormal];
-    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_navgation_favorite_seleted.png"] forState:UIControlStateSelected];
-    [_favoriteBtn addTarget:self action:@selector(favorite:) forControlEvents:UIControlEventTouchUpInside];
-    [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_favoriteBtn]];
-    
-    self.navigationItem.rightBarButtonItems = barItems;
-    
-   
-
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:talkBtn];
 }
-- (IBAction)favorite:(UIButton *)sender
-{
-    
-    if (_poiType == kRestaurantPoi) {
-        [MobClick event:@"event_favorite_delicacy"];
-    } else if (_poiType == kShoppingPoi) {
-        [MobClick event:@"event_favorite_shopping"];
-    } else if (_poiType == kHotelPoi) {
-        [MobClick event:@"event_favorite_hotel"];
-    }
 
-    [super asyncFavoritePoiWithCompletion:^(BOOL isSuccess) {
-
-        if (isSuccess) {
-            _favoriteBtn.selected = !_favoriteBtn.selected;
-        }
-    }];
-    
-    
-}
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -132,7 +97,7 @@
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
     AccountManager *accountManager = [AccountManager shareAccountManager];
     if ([accountManager isLogin]) {
-        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     }
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSNumber *imageWidth = [NSNumber numberWithInt:(kWindowWidth-22)*2];
@@ -145,19 +110,16 @@
     [manager GET:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [hud hideTZHUD];
         NSInteger result = [[responseObject objectForKey:@"code"] integerValue];
-//        NSLog(@"/***获取poi详情数据****\n%@", responseObject);
         if (result == 0) {
             self.poi = [PoiFactory poiWithPoiType:_poiType andJson:[responseObject objectForKey:@"result"]];
             [self updateView];
         } else {
             [self dismissCtlWithHint:@"无法获取数据"];
         }
-        _favoriteBtn.selected=self.poi.isMyFavorite;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [hud hideTZHUD];
         [self dismissCtlWithHint:@"呃～好像没找到网络"];
     }];
-//    self.title = self.poi.zhName;
     
 }
 
@@ -169,19 +131,19 @@
     taoziMessageCtl.messageDesc = self.poi.desc;
     taoziMessageCtl.messageName = self.poi.zhName;
     taoziMessageCtl.messageRating = self.poi.rating;
-    taoziMessageCtl.chatType = TZChatTypeFood;
+    taoziMessageCtl.chatType = IMMessageTypeHotelMessageType;
     if (_poiType == kHotelPoi) {
-        taoziMessageCtl.chatType = TZChatTypeHotel;
+        taoziMessageCtl.chatType = IMMessageTypeHotelMessageType;
         taoziMessageCtl.messagePrice = ((HotelPoi *)self.poi).priceDesc;
         taoziMessageCtl.messageRating = self.poi.rating;
         self.title = @"酒店详情";
     } else if (_poiType == kRestaurantPoi) {
-        taoziMessageCtl.chatType = TZChatTypeFood;
+        taoziMessageCtl.chatType = IMMessageTypeHotelMessageType;
         taoziMessageCtl.messageRating = self.poi.rating;
         taoziMessageCtl.messagePrice = ((RestaurantPoi *)self.poi).priceDesc;
-        self.title = @"没事详情";
+        self.title = @"美食详情";
     } else if (_poiType == kShoppingPoi) {
-        taoziMessageCtl.chatType = TZChatTypeShopping;
+        taoziMessageCtl.chatType = IMMessageTypeShoppingMessageType;
         taoziMessageCtl.messageRating = self.poi.rating;
         self.title = @"购物详情";
     } 

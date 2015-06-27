@@ -27,9 +27,9 @@
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
         self.navigationItem.leftBarButtonItem = nil;
     } else {
-//        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_navigation_back.png"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
+//        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"common_icon_navigaiton_back"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
         UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:@"common_icon_navigaiton_back"] forState:UIControlStateNormal];
         [button setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateHighlighted];
         [button addTarget:self action:@selector(dismiss)forControlEvents:UIControlEventTouchUpInside];
         [button setFrame:CGRectMake(0, 0, 48, 30)];

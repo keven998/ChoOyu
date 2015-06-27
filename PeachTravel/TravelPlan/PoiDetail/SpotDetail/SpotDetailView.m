@@ -516,7 +516,7 @@
         // 替换为中等尺寸图片
         TaoziImage *image = [_spot.images objectAtIndex:i];
         MJPhoto *photo = [[MJPhoto alloc] init];
-        photo.url = [NSURL URLWithString:image.imageUrl]; // 图片路径
+        photo.url = image.imageUrl; // 图片路径
         photo.srcImageView = (UIImageView *)[swipeView itemViewAtIndex:index]; // 来源于哪个UIImageView
         [photos addObject:photo];
     }

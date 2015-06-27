@@ -32,6 +32,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if (!_destinations) {
+        _destinations = [[Destinations alloc] init];
+    }
     _countryCount = 0;
     _countryName = [NSMutableArray array];
     self.view.backgroundColor = APP_PAGE_COLOR;
@@ -44,7 +47,7 @@
     [_footprintMapCtl didMoveToParentViewController:self];
     
     UIButton *backBtn = [[UIButton alloc]initWithFrame:CGRectMake(3, 15, 44, 44)];
-    [backBtn setImage:[UIImage imageNamed:@"ic_navigation_back"] forState:UIControlStateNormal];
+    [backBtn setImage:[UIImage imageNamed:@"common_icon_navigaiton_back"] forState:UIControlStateNormal];
     [backBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:backBtn];
     
@@ -52,7 +55,6 @@
         float a = cityPoi.lat;
         float b = cityPoi.lng;
         CLLocation *location = [[CLLocation alloc] initWithLatitude:a longitude:b];
-        
         [self addFootprint:location];
         
     }
@@ -368,13 +370,13 @@
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", account.account.userId] forHTTPHeaderField:@"UserId"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)account.account.userId] forHTTPHeaderField:@"UserId"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:action forKey:@"action"];
     [params safeSetObject:tracks forKey:@"tracks"];
     NSLog(@"%@",tracks);
-    NSString *urlStr = [NSString stringWithFormat:@"%@users/%@/tracks", BASE_URL, account.account.userId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@users/%ld/tracks", BASE_URL, (long)account.account.userId];
     
     [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         

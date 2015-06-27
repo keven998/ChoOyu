@@ -27,6 +27,7 @@ static LocationViewController *defaultLocation = nil;
     BOOL _isSendLocation;
     
     CLLocationManager* location;
+    LocationModel *locModel;
 
 }
 
@@ -54,6 +55,8 @@ static LocationViewController *defaultLocation = nil;
     if (self) {
         _isSendLocation = NO;
         _currentLocationCoordinate = locationCoordinate;
+        
+
     }
     
     return self;
@@ -64,28 +67,9 @@ static LocationViewController *defaultLocation = nil;
     [super viewDidLoad];
     
     self.title = @"位置信息";
-    
-//    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
-//    [backButton setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
-//    [backButton addTarget:self.navigationController action:@selector(popViewControllerAnimated) forControlEvents:UIControlEventTouchUpInside];
-//    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-//    [self.navigationItem setLeftBarButtonItem:backItem];
-    
+    locModel = [[LocationModel alloc]init];
     UIBarButtonItem *backBtn = [[UIBarButtonItem alloc] initWithTitle:@" 取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
     self.navigationItem.leftBarButtonItem = backBtn;
-    
-//    UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
-//    [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
-//    [button addTarget:self action:@selector(popViewControllerAnimated)forControlEvents:UIControlEventTouchUpInside];
-//    [button setFrame:CGRectMake(0, 0, 48, 30)];
-//    //[button setTitle:@"返回" forState:UIControlStateNormal];
-//    [button setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-//    [button setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
-//    button.titleLabel.font = [UIFont systemFontOfSize:17.0];
-//    button.titleEdgeInsets = UIEdgeInsetsMake(2, 1, 0, 0);
-//    button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-//    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
-//    self.navigationItem.leftBarButtonItem = barButton;
     
     _mapView = [[MKMapView alloc] initWithFrame:self.view.bounds];
     _mapView.delegate = self;
@@ -95,14 +79,6 @@ static LocationViewController *defaultLocation = nil;
     
     if (_isSendLocation) {
         _mapView.showsUserLocation = YES;//显示当前位置
-        
-//        UIButton *sendButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
-//        [sendButton setTitle:@"发送" forState:UIControlStateNormal];
-//        [sendButton setTitleColor:[UIColor colorWithRed:32 / 255.0 green:134 / 255.0 blue:158 / 255.0 alpha:1.0] forState:UIControlStateNormal];
-//        [sendButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
-//        [sendButton addTarget:self action:@selector(sendLocation) forControlEvents:UIControlEventTouchUpInside];
-//        [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:sendButton]];
-//        self.navigationItem.rightBarButtonItem.enabled = NO;
         
         UIBarButtonItem * sendButton = [[UIBarButtonItem alloc]initWithTitle:@"发送 " style:UIBarButtonItemStylePlain target:self action:@selector(sendLocation)];
         sendButton.tintColor = APP_THEME_COLOR;
@@ -158,7 +134,9 @@ static LocationViewController *defaultLocation = nil;
         if (!error && array.count > 0) {
             CLPlacemark *placemark = [array objectAtIndex:0];
             weakSelf.addressString = placemark.name;
-            
+            locModel.address = placemark.name;
+            locModel.latitude = userLocation.coordinate.latitude;
+            locModel.longitude = userLocation.coordinate.longitude;
             [self removeToLocation:userLocation.coordinate];
         }
     }];
@@ -166,7 +144,7 @@ static LocationViewController *defaultLocation = nil;
 
 - (void)mapView:(MKMapView *)mapView didFailToLocateUserWithError:(NSError *)error
 {
-
+    [self showHint:@"定位失败"];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
@@ -205,7 +183,6 @@ static LocationViewController *defaultLocation = nil;
 - (void)removeToLocation:(CLLocationCoordinate2D)locationCoordinate
 {
     [self hideHud];
-    
     _currentLocationCoordinate = locationCoordinate;
     float zoomLevel = 0.01;
     MKCoordinateRegion region = MKCoordinateRegionMake(_currentLocationCoordinate, MKCoordinateSpanMake(zoomLevel, zoomLevel));
@@ -218,18 +195,35 @@ static LocationViewController *defaultLocation = nil;
     [self createAnnotationWithCoords:_currentLocationCoordinate];
 }
 
+- (UIImage *)screenShotWithView
+{
+    UIGraphicsBeginImageContext(self.view.bounds.size) ;
+    [[self.view layer] renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    CGImageRef imageRef = viewImage.CGImage;
+    CGFloat y = ((self.view.bounds.size.height-64)-SCREEN_WIDTH*2/3)/2+64;
+    CGRect rect = CGRectMake(0, y, SCREEN_WIDTH, SCREEN_WIDTH*2/3);
+    CGImageRef imageRefRect =CGImageCreateWithImageInRect(imageRef, rect);
+    UIImage *sendImage = [[UIImage alloc] initWithCGImage:imageRefRect];
+//    NSData *imageData = UIImagePNGRepresentation(sendImage);
+//    sendImage = [UIImage imageWithData:imageData];
+    
+    return sendImage;
+}
+
 - (void)sendLocation
 {
-    if (_delegate && [_delegate respondsToSelector:@selector(sendLocationLatitude:longitude:andAddress:)]) {
-        [_delegate sendLocationLatitude:_currentLocationCoordinate.latitude longitude:_currentLocationCoordinate.longitude andAddress:_addressString];
+    if (_delegate && [_delegate respondsToSelector:@selector(sendLocation:locImage:)]) {
+        [_delegate sendLocation:locModel locImage:[self screenShotWithView]];
     }
-    
-    [self dismiss];
+    [self performSelector:@selector(dismiss) withObject:nil afterDelay:0.3];
 }
 
 - (void) dismiss {
     if (self.navigationController.viewControllers.count > 1) {
         [self.navigationController popViewControllerAnimated:YES];
+
     } else {
         [self dismissViewControllerAnimated:YES completion:nil];
     }
