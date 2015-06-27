@@ -101,7 +101,8 @@ NSString *const kRouterEventLocationBubbleTapEventName = @"kRouterEventLocationB
 - (void)setModel:(MessageModel *)model
 {
     _model = model;
-    
+    [self setNeedsLayout];
+
     _addressLabel.text = [NSString stringWithFormat:@" %@ ", _model.address];
 }
 

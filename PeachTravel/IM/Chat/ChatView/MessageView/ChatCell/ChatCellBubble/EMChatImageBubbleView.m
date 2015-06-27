@@ -101,6 +101,7 @@ NSString *const kRouterEventImageBubbleTapEventName = @"kRouterEventImageBubbleT
 - (void)setModel:(MessageModel *)model
 {
     _model = model;
+    [self setNeedsLayout];
 
 }
 
