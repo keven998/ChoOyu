@@ -288,6 +288,13 @@
     _idLabel = idLabel;
     
     self.navigationItem.titleView = view;
+    [_avatarImageView setImage:[UIImage imageNamed:@"ic_home_userentry_unlogin.png"]];
+    _constellationView.image = [UIImage imageNamed:@"ic_home_gender_unknown.png"];
+    _levelBg.image = [UIImage imageNamed:@"ic_home_level_bg_unknown.png"];
+    _flagHeaderIV.image = [UIImage imageNamed:@"ic_home_header_unlogin.png"];
+    _levelLabel.text = @"LV0";
+    _nameLabel.text = @"旅行派";
+    _idLabel.text = @"未登录";
 }
 
 #pragma mark - setter & getter
