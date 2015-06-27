@@ -317,21 +317,36 @@
     [self.view addSubview:toolBar];
     AccountManager *accountManager = [AccountManager shareAccountManager];
     if ([accountManager frendIsMyContact:_userId]) {
-        UIButton *addFriend = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 49)];
-        [addFriend setTitle:@"开始聊天" forState:UIControlStateNormal];
-        [addFriend setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+        UIButton *beginTalk = [[UIButton alloc]initWithFrame:CGRectMake(1, 0, CGRectGetWidth(self.view.bounds)/2-1, 45)];
+        [beginTalk setTitle:@"开始聊天" forState:UIControlStateNormal];
+        [beginTalk setBackgroundImage:[UIImage imageNamed:@"account_bg_button_normal"] forState:UIControlStateNormal];
+        [beginTalk setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
+        [beginTalk setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
+        [beginTalk setImage:[UIImage imageNamed:@"ic_home_normal"] forState:UIControlStateNormal];
+        beginTalk.titleLabel.font = [UIFont systemFontOfSize:16];
+        [beginTalk addTarget:self action:@selector(talkToFriend) forControlEvents:UIControlEventTouchUpInside];
+        [toolBar addSubview:beginTalk];
+        UIButton *addFriend = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetWidth(self.view.bounds)/2+1, 0, CGRectGetWidth(self.view.bounds)/2-1, 45)];
+        [addFriend setTitle:@"举报" forState:UIControlStateNormal];
+        addFriend.titleLabel.font = [UIFont systemFontOfSize:16];
+        [addFriend setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
         [addFriend setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
-        [addFriend addTarget:self action:@selector(talkToFriend) forControlEvents:UIControlEventTouchUpInside];
+        [addFriend setBackgroundImage:[UIImage imageNamed:@"account_bg_button_normal"] forState:UIControlStateNormal];
+        [addFriend setImage:[UIImage imageNamed:@"account_labbar_icon_follow_selected"] forState:UIControlStateNormal];
+//        [addFriend addTarget:self action:@selector(addToFriend) forControlEvents:UIControlEventTouchUpInside];
         [toolBar addSubview:addFriend];
 
     } else {
-        UIButton *addFriend = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 49)];
+        UIButton *addFriend = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetWidth(self.view.bounds)/2+1, 0, CGRectGetWidth(self.view.bounds)/2-1, 45)];
         [addFriend setTitle:@"加为好友" forState:UIControlStateNormal];
-        [addFriend setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+        [addFriend setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
         [addFriend setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
+        addFriend.titleLabel.font = [UIFont systemFontOfSize:16];
+        [addFriend setBackgroundImage:[UIImage imageNamed:@"account_bg_button_normal"] forState:UIControlStateNormal];
+        [addFriend setImage:[UIImage imageNamed:@"account_labbar_icon_follow_selected"] forState:UIControlStateNormal];
         [addFriend addTarget:self action:@selector(addToFriend) forControlEvents:UIControlEventTouchUpInside];
         [toolBar addSubview:addFriend];
-    }
+            }
     
 
 }
