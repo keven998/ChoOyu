@@ -18,28 +18,12 @@
 
 @interface ChatGroupSettingViewController () <UITableViewDataSource,UITableViewDelegate,CreateConversationDelegate,SWTableViewCellDelegate,changeTitle>
 {
-    UITableView *_tableView;
     UIButton *_selectedBtn;
 }
-@property (weak, nonatomic) IBOutlet UIView *contactsView;
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (weak, nonatomic) IBOutlet UIButton *disturbBtn;
-@property (weak, nonatomic) IBOutlet UIButton *groupTitle;
-@property (weak, nonatomic) IBOutlet UIButton *quitBtn;
+
 @property (nonatomic, strong) IMDiscussionGroup *groupModel;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
-@property (strong, nonatomic) NSMutableArray *numberBtns;   //群组的时候存放群组头像的 btn
-@property (strong, nonatomic) NSMutableArray *numberDeleteBtns; //群组的时候存放群组头像上的删除按钮的 btn
-
-/**
- *
- */
-//@property (weak, nonatomic) IBOutlet UIImageView *groupMsgStatusImageView;
-@property (weak, nonatomic) IBOutlet UIImageView *accessoryImageView;
-
-//@property (nonatomic) BOOL isPushNotificationEnable;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *contactsViewHight;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *spaceHight;
 
 @end
 
@@ -48,7 +32,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationController.navigationBarHidden = YES;
     
     [self createTableView];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
@@ -78,10 +61,8 @@
 
 - (void)createTableView
 {
-    _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     _tableView.dataSource = self;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    //    _tableView.backgroundColor = APP_PAGE_COLOR;
     _tableView.backgroundColor = [UIColor whiteColor];
     _tableView.separatorColor = APP_DIVIDER_COLOR;
     _tableView.delegate = self;
@@ -92,22 +73,16 @@
     
     UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 30)];
     _tableView.tableHeaderView = headerView;
-    [self createFooterView];
-    
-    [self.view addSubview:_tableView];
+   _tableView.tableFooterView = [self createFooterView];
     
 }
-- (void)createFooterView
+
+- (UIView *)createFooterView
 {
-    UIView *footerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH*4/5, 50)];
+    UIView *footerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH*4/5, 150)];
     footerView.backgroundColor = [UIColor whiteColor];
     UIButton *footerBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 100, 30)];
-//    AccountManager *accountManager = [AccountManager shareAccountManager];
-//    if ([_group.owner isEqualToString: accountManager.account.easemobUser]) {
-        [footerBtn setTitle:@"解散该群" forState:UIControlStateNormal];
-//    } else {
-//        [footerBtn setTitle:@"退出该群" forState:UIControlStateNormal];
-//    }
+    [footerBtn setTitle:@"解散该群" forState:UIControlStateNormal];
     [footerBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
     footerBtn.titleLabel.font = [UIFont systemFontOfSize:14];
     footerBtn.layer.borderWidth = 1;
@@ -115,9 +90,9 @@
     footerBtn.center = footerView.center;
     [footerView addSubview:footerBtn];
     [footerBtn addTarget:self action:@selector(quitGroup:) forControlEvents:UIControlEventTouchUpInside];
-    _tableView.tableFooterView = footerView;
-    
+    return footerView;
 }
+
 #pragma mark - Table view data source
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return CGFLOAT_MIN;
@@ -288,20 +263,9 @@
         lineCnt = 1;
     }
     contactViewHight = 10 + 90*lineCnt;
-    _contactsViewHight.constant = contactViewHight+20;
     
-    for (UIView *view in _contactsView.subviews) {
-        [view removeFromSuperview];
-    }
     [_tableView reloadData];
     //    [self createContactsScrollView];
-}
-
-- (IBAction)willDeleteNumber:(id)sender
-{
-    for (UIButton *deleteBtn in _numberDeleteBtns) {
-        deleteBtn.hidden = !deleteBtn.hidden;
-    }
 }
 
 //增加群组成员

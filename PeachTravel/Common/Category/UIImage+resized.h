@@ -2,7 +2,7 @@
 //  UIImage+resized.h
 //  PeachTravel
 //
-//  Created by dapiao on 15/5/26.
+//  Created by dapiao on 15/6/27.
 //  Copyright (c) 2015年 com.aizou.www. All rights reserved.
 //
 
