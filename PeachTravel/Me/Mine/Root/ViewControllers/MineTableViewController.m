@@ -56,7 +56,6 @@
     [super viewDidLoad];
     
     self.automaticallyAdjustsScrollViewInsets = NO;
-//    [self loadUserInfo];
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
     self.tableView.dataSource = self;
@@ -68,6 +67,7 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"OptionTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:secondCell];
     
     [self setupTableHeaderView];
+    [self updateAccountInfo];
     [self loadUserInfo];
     
     
@@ -84,6 +84,9 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    if (!_accountManager.account.guideCnt) {
+        [self loadUserInfo];
+    }
     [MobClick beginLogPageView:@"page_home_me"];
 }
 

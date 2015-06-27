@@ -89,6 +89,7 @@
     _avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(107*width/414, 144/3*height/736, avatarW, avatarW)];
     _avatarImageView.clipsToBounds = YES;
     _avatarImageView.layer.cornerRadius = avatarW/2.0;
+    _avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
     [_avatarImageView setImage:[UIImage imageNamed:@"ic_home_userentry_unlogin.png"]];
     [_headerBgView addSubview:_avatarImageView];
     
@@ -336,7 +337,8 @@
     [addFriend setImage:[UIImage imageNamed:@"account_labbar_icon_follow_selected"] forState:UIControlStateNormal];
     [toolBar addSubview:addFriend];
     if ([accountManager frendIsMyContact:_userId]) {
-        [addFriend setTitle:@"举报" forState:UIControlStateNormal];
+        [addFriend setTitle:@"备注" forState:UIControlStateNormal];
+        [addFriend addTarget:self action:@selector(remarkFriend) forControlEvents:UIControlEventTouchUpInside];
     } else {
         [addFriend setTitle:@"加为好友" forState:UIControlStateNormal];
         [addFriend addTarget:self action:@selector(addToFriend) forControlEvents:UIControlEventTouchUpInside];
@@ -360,7 +362,13 @@
         }
     }];
 }
-
+- (void)remarkFriend
+{
+//    AccountManager *manager = [AccountManager shareAccountManager];
+//    [manager asyncChangeRemark:<#(NSString *)#> withUserId:_userInfo._userId completion:^(BOOL isSuccess) {
+//        
+//    }];
+}
 - (void)talkToFriend {
     [self pushChatViewController];
 }
