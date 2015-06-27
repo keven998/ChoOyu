@@ -26,6 +26,8 @@
 #import "DomesticViewController.h"
 #import "PXAlertView+Customization.h"
 #import "TripPlanSettingViewController.h"
+#import "PlansListTableViewController.h"
+
 @interface TripDetailRootViewController () <ActivityDelegate, TaoziMessageSendDelegate, ChatRecordListDelegate, CreateConversationDelegate, UIActionSheetDelegate>
 
 @property (nonatomic, strong) PlanScheduleViewController *spotsListCtl;
@@ -619,10 +621,14 @@
         [hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            _tripDetail.tripId = [[responseObject objectForKey:@"result"] objectForKey:@"id"];
-            self.canEdit = YES;
-            [[NSNotificationCenter defaultCenter] postNotificationName:updateGuideListNoti object:nil];
-            [SVProgressHUD showHint:@"已保存到我的旅行计划"];
+//            _tripDetail.tripId = [[responseObject objectForKey:@"result"] objectForKey:@"id"];
+//            self.canEdit = YES;
+//            [[NSNotificationCenter defaultCenter] postNotificationName:updateGuideListNoti object:nil];
+//            [SVProgressHUD showHint:@"已保存到我的旅行计划"];
+            PlansListTableViewController *myGuidesCtl = [[PlansListTableViewController alloc] initWithUserId:accountManager.account.userId];
+            NSMutableArray *clts = [NSMutableArray arrayWithArray:[self.navigationController childViewControllers]];
+            [clts replaceObjectAtIndex:(clts.count-1) withObject:myGuidesCtl];
+            [self.navigationController setViewControllers:clts animated:YES];
         } else {
             if (self.isShowing) {
                 [SVProgressHUD showHint:@"请求也是失败了"];

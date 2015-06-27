@@ -129,8 +129,8 @@
         activityView.hidden = YES;
     }
     
-    sendFailedImageView.frame = CGRectMake(contentOffsetX, 45, 12, 12);
-    activityView.frame = CGRectMake(contentOffsetX, 45, 13, 12);
+    sendFailedImageView.frame = CGRectMake(contentOffsetX, 48.5, 12, 12);
+    activityView.frame = CGRectMake(contentOffsetX, 48.5, 13, 12);
     _detailLabel.frame = CGRectMake(contentOffsetX+offsetX, 46, width - 85.0-contentOffsetX, 16);
     
     _timeLabel.text = _time;

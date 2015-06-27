@@ -245,8 +245,12 @@
  */
 - (void)goBack
 {
-//    [self.frostedViewController dismissViewControllerAnimated:YES completion:nil];
-    [self.frostedViewController.navigationController popToRootViewControllerAnimated:YES];
+    if (self.frostedViewController.navigationController.viewControllers.count > 1) {
+        [self.frostedViewController.navigationController popToRootViewControllerAnimated:YES];
+    } else {
+        [self.frostedViewController dismissViewControllerAnimated:YES completion:nil];
+    }
+
 }
 
 /**
