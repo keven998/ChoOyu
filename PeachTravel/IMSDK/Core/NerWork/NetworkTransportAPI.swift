@@ -8,13 +8,13 @@
 
 import UIKit
 
-let loginUrl = "http://hedy.zephyre.me/users/login"
+let loginUrl = "http://hedy-dev.lvxingpai.com/users/login"
 
-let sendMessageURL = "http://hedy.zephyre.me/chats"
+let sendMessageURL = "http://hedy-dev.lvxingpai.com/chats"
 
-let ACKUrl = "http://hedy.zephyre.me/chats/"
+let ACKUrl = "http://hedy-dev.lvxingpai.com/chats/"
 
-let requestQiniuTokenToUploadMetadata = "http://hedy.zephyre.me/upload/token-generator"
+let requestQiniuTokenToUploadMetadata = "http://hedy-dev.lvxingpai.com/upload/token-generator"
 
 
 class NetworkTransportAPI: NSObject {

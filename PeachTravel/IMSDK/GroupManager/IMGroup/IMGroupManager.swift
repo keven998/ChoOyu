@@ -8,7 +8,7 @@
 
 import UIKit
 
-let groupUrl = "http://hedy.zephyre.me/groups"
+let groupUrl = "http://hedy-dev.lvxingpai.com/groups"
 
 let groupManager = IMGroupManager()
 
