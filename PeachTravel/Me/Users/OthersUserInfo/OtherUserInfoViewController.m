@@ -183,15 +183,16 @@
     [planeBtn addTarget:self action:@selector(seeOthersPlan) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:planeBtn];
     
-    CGFloat YY = 165/3 * height/736;
+//    CGFloat YY = 165/3 * height/736;
+    CGFloat YY = btnHeight/2 - 20 - 5;
     
     _planeLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, YY, btnWidth, 20)];
-    _planeLabel.font = [UIFont systemFontOfSize:20];
+    _planeLabel.font = [UIFont systemFontOfSize:20* height/736];
     _planeLabel.textColor = TEXT_COLOR_TITLE;
     _planeLabel.textAlignment = NSTextAlignmentCenter;
     [planeBtn addSubview:_planeLabel];
-    UILabel *planeLabel2 = [[UILabel alloc]initWithFrame:CGRectMake(0, YY+31, btnWidth, 20)];
-    planeLabel2.font = [UIFont systemFontOfSize:16];
+    UILabel *planeLabel2 = [[UILabel alloc]initWithFrame:CGRectMake(0, YY+31* height/736, btnWidth, 20)];
+    planeLabel2.font = [UIFont systemFontOfSize:16* height/736];
     planeLabel2.textColor = TEXT_COLOR_TITLE_SUBTITLE;
     planeLabel2.textAlignment = NSTextAlignmentCenter;
     planeLabel2.text = @"计划";
@@ -205,12 +206,12 @@
     [self.view addSubview:trackBtn];
     
     _trackLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, YY, btnWidth, 20)];
-    _trackLabel.font = [UIFont systemFontOfSize:20];
+    _trackLabel.font = [UIFont systemFontOfSize:20* height/736];
     _trackLabel.textColor = TEXT_COLOR_TITLE;
     _trackLabel.textAlignment = NSTextAlignmentCenter;
     [trackBtn addSubview:_trackLabel];
-    UILabel *trackLabel2 = [[UILabel alloc]initWithFrame:CGRectMake(0, YY+31, btnWidth, 20)];
-    trackLabel2.font = [UIFont systemFontOfSize:16];
+    UILabel *trackLabel2 = [[UILabel alloc]initWithFrame:CGRectMake(0, YY+31* height/736, btnWidth, 20)];
+    trackLabel2.font = [UIFont systemFontOfSize:16* height/736];
     trackLabel2.textColor = TEXT_COLOR_TITLE_SUBTITLE;
     trackLabel2.textAlignment = NSTextAlignmentCenter;
     trackLabel2.text = @"足迹";
@@ -223,13 +224,13 @@
     [self.view addSubview:albumBtn];
     
     _albumLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, YY, btnWidth, 20)];
-    _albumLabel.font = [UIFont systemFontOfSize:20];
+    _albumLabel.font = [UIFont systemFontOfSize:20* height/736];
     _albumLabel.textColor = TEXT_COLOR_TITLE;
     _albumLabel.textAlignment = NSTextAlignmentCenter;
     _albumLabel.text = [NSString stringWithFormat:@"%lu",_albumArray.count];
     [albumBtn addSubview:_albumLabel];
-    UILabel *albumLabel2 = [[UILabel alloc]initWithFrame:CGRectMake(0, YY+31, btnWidth, 20)];
-    albumLabel2.font = [UIFont systemFontOfSize:16];
+    UILabel *albumLabel2 = [[UILabel alloc]initWithFrame:CGRectMake(0, YY+31* height/736, btnWidth, 20)];
+    albumLabel2.font = [UIFont systemFontOfSize:16* height/736];
     albumLabel2.textColor = TEXT_COLOR_TITLE_SUBTITLE;
     albumLabel2.textAlignment = NSTextAlignmentCenter;
     albumLabel2.text = @"相册";
@@ -242,12 +243,12 @@
     [self.view addSubview:travelNote];
     
     UILabel *travelNoteLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, YY, btnWidth, 20)];
-    travelNoteLabel.font = [UIFont systemFontOfSize:20];
+    travelNoteLabel.font = [UIFont systemFontOfSize:20* height/736];
     travelNoteLabel.textColor = TEXT_COLOR_TITLE;
     travelNoteLabel.textAlignment = NSTextAlignmentCenter;
     [travelNote addSubview:travelNoteLabel];
-    UILabel *travelNoteLabel2 = [[UILabel alloc]initWithFrame:CGRectMake(0, YY+31, btnWidth, 20)];
-    travelNoteLabel2.font = [UIFont systemFontOfSize:16];
+    UILabel *travelNoteLabel2 = [[UILabel alloc]initWithFrame:CGRectMake(0, YY+31* height/736, btnWidth, 20)];
+    travelNoteLabel2.font = [UIFont systemFontOfSize:16* height/736];
     travelNoteLabel2.textColor = TEXT_COLOR_TITLE_SUBTITLE;
     travelNoteLabel2.textAlignment = NSTextAlignmentCenter;
     travelNoteLabel2.text = @"游记";
