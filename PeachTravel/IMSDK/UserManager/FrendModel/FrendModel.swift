@@ -172,7 +172,9 @@ class FrendModel: NSObject {
         if let str =  json.objectForKey("travelStatus") as? String {
             travelStatus = str
         }
-        guideCount = json.objectForKey("guideCnt") as! Int
+        if let int =  json.objectForKey("guideCnt") as? Int {
+            guideCount = int
+        }
         
         if let roles = json.objectForKey("roles") as? NSArray {
             if let role = roles.firstObject as? String {

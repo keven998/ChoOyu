@@ -272,8 +272,11 @@
     }else {
         _age.text = [NSString stringWithFormat:@"%d",age];
     }
-    
-    _recidence.text = _userInfo.residence;
+    if (_userInfo.residence == nil||[_userInfo.residence isBlankString] || _userInfo.residence.length == 0) {
+        _recidence.text = @"未设置";
+    }else {
+        _recidence.text = _userInfo.residence;
+    }
     
     NSInteger cityNumber = 0;
     NSMutableString *cityDesc = [[NSMutableString alloc] init];
