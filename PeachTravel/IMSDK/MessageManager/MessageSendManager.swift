@@ -186,7 +186,7 @@ class MessageSendManager: NSObject {
 
         locationMessage.sendType = IMMessageSendType.MessageSendMine
         locationMessage.conversationId = conversationId
-        var locationDic = ["lat": location.latitude, "lng": location.longitude, "name": location.address, "metadataId": metadataId];
+        var locationDic = ["lat": location.latitude, "lng": location.longitude, "address": location.address, "metadataId": metadataId];
         locationMessage.message = JSONConvertMethod.contentsStrWithJsonObjc(locationDic) as! String
         
         var daoHelper = DaoHelper.shareInstance()
