@@ -202,11 +202,12 @@ static LocationViewController *defaultLocation = nil;
     UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     CGImageRef imageRef = viewImage.CGImage;
-    CGRect rect = CGRectMake(SCREEN_WIDTH/4, SCREEN_HEIGHT/8 * 3, SCREEN_WIDTH/2, SCREEN_HEIGHT/4);
+    CGFloat y = ((self.view.bounds.size.height-64)-SCREEN_WIDTH*2/3)/2+64;
+    CGRect rect = CGRectMake(0, y, SCREEN_WIDTH, SCREEN_WIDTH*2/3);
     CGImageRef imageRefRect =CGImageCreateWithImageInRect(imageRef, rect);
     UIImage *sendImage = [[UIImage alloc] initWithCGImage:imageRefRect];
-    NSData *imageData = UIImageJPEGRepresentation(sendImage, 0.5);
-    sendImage = [UIImage imageWithData:imageData];
+//    NSData *imageData = UIImagePNGRepresentation(sendImage);
+//    sendImage = [UIImage imageWithData:imageData];
     
     return sendImage;
 }
