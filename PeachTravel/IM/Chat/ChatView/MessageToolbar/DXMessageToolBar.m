@@ -13,7 +13,7 @@
 #import "DXMessageToolBar.h"
 #import "PeachTravel-swift.h"
 
-#define CHAT_PANEL_VIEW_HEIGHT 188
+#define CHAT_PANEL_VIEW_HEIGHT 200
 
 @interface DXMessageToolBar()<HPGrowingTextViewDelegate, DXFaceDelegate, ChatManagerAudioDelegate>
 {
