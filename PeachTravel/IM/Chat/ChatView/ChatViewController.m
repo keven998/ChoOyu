@@ -881,7 +881,7 @@
                 [self sendImageMessage:tempImg];
             });
             [NSThread sleepForTimeInterval:0.3];
-
+            
         }
     });
 }
