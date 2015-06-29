@@ -332,6 +332,7 @@
 {
     UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-45, CGRectGetWidth(self.view.bounds), 45)];
     toolBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    toolBar setba
     [self.view addSubview:toolBar];
     AccountManager *accountManager = [AccountManager shareAccountManager];
     
