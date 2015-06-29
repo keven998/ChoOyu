@@ -71,7 +71,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"我";
+    self.navigationItem.title = @"编辑资料";
     
     [self updateTracksDesc];
     [self updateDestinations];
@@ -214,6 +214,12 @@
     [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:_accountManager.account.avatarSmall] placeholderImage:[UIImage imageNamed:@"ic_home_avatar_unknown.png"]];
     _avatarImageView.center = _headerBgView.center;
     [_headerBgView addSubview:_avatarImageView];
+    _avatarImageView.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(presentImagePicker)];
+    tap.numberOfTapsRequired = 1;
+    tap.numberOfTouchesRequired = 1;
+    [_avatarImageView addGestureRecognizer:tap];
+
     
     _avatarBg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ah, ah)];
     _avatarBg.center = _avatarImageView.center;
