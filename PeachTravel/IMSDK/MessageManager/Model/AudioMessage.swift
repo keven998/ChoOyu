@@ -45,7 +45,7 @@ class AudioMessage: BaseMessage {
         
         if let audioId = contentsDic.objectForKey("metadataId") as? String {
             metadataId = audioId
-            localPath = AccountManager.shareAccountManager().userChatAudioPath.stringByAppendingPathComponent("\(audioId).wav")
+            localPath = IMClientManager.shareInstance().userChatAudioPath.stringByAppendingPathComponent("\(audioId).wav")
         }
         
         if let audioStatusValue = contentsDic.objectForKey("audioStatus") as? Int {

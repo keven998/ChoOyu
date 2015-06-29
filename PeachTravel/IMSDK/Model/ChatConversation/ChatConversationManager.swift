@@ -104,7 +104,15 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
         
         var frendManager = FrendManager(userId: AccountManager.shareAccountManager().account.userId)
         
-        if let frend = frendManager.getFrendInfoFromDB(userId: chatterId) {
+        var type: IMFrendWeightType?
+        if chatType == IMChatType.IMChatDiscussionGroupType {
+            type = IMFrendWeightType.DiscussionGroup
+        }
+        if chatType == IMChatType.IMChatGroupType {
+            type = IMFrendWeightType.Group
+        }
+    
+        if let frend = frendManager.getFrendInfoFromDB(userId: chatterId, frendType: type) {
             self.fillConversationWithFrendData(conversation, frendModel: frend)
             addConversation(conversation)
             

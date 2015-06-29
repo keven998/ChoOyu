@@ -15,14 +15,7 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
     
     let accountId: Int
     
-    var frendDaoHelper :FrendDaoHelper {
-        get {
-            var dbPath: String = documentPath.stringByAppendingPathComponent("\(accountId)/user.sqlite")
-            let db = FMDatabase(path: dbPath)
-            let dbQueue = FMDatabaseQueue(path: dbPath)
-            return FrendDaoHelper(db: db, dbQueue: dbQueue)
-        }
-    }
+    var frendDaoHelper :FrendDaoHelper
     
     /**
     初始化
@@ -33,6 +26,10 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
     */
     init(userId: Int) {
         accountId = userId
+        var dbPath: String = documentPath.stringByAppendingPathComponent("\(accountId)/user.sqlite")
+        let db = FMDatabase(path: dbPath)
+        let dbQueue = FMDatabaseQueue(path: dbPath)
+        frendDaoHelper = FrendDaoHelper(db: db, dbQueue: dbQueue)
         super.init()
     }
     
@@ -56,7 +53,6 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
     */
     func updateNickNameInDB(name: String, userId: Int) {
         self.frendDaoHelper.updateNickNameInDB(name, userId: userId)
-
     }
     
     /**
@@ -83,6 +79,10 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
         return retArray
     }
     
+    func selectAllGroup() -> Array<IMGroupModel> {
+        return frendDaoHelper.selectAllGroup()
+    }
+    
     func deleteAllContacts() {
         self.frendDaoHelper.deleteAllContactsFromDB()
     }
@@ -94,6 +94,10 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
     */
     func frendIsExitInDB(userId: Int) -> Bool {
         return self.frendDaoHelper.frendIsExitInDB(userId)
+    }
+    
+    func updateFrendType(#userId: Int, frendType: IMFrendType) {
+        self.frendDaoHelper.updateFrendType(userId: userId, type: frendType)
     }
     
     /**
@@ -119,8 +123,8 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
     
     :returns:
     */
-    func getFrendInfoFromDB(#userId: Int) -> FrendModel? {
-        return self.frendDaoHelper.selectFrend(userId: userId)
+    func getFrendInfoFromDB(#userId: Int, frendType: IMFrendWeightType?) -> FrendModel? {
+        return self.frendDaoHelper.selectFrend(userId: userId, frendType: frendType)
     }
     
     /**

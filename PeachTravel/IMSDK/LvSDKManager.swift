@@ -18,31 +18,77 @@ private let iMClientManager = IMClientManager()
 
 class IMClientManager: NSObject {
     
-    let messageReceiveManager: MessageReceiveManager
-    let messageSendManager: MessageSendManager
-    let conversationManager: ChatConversationManager
-    let cmdMessageManager: CMDMessageManager
-    let netWorkReachability: NetworkReachability
+    var accountId: Int = -1;
+    var messageReceiveManager: MessageReceiveManager!
+    var messageSendManager: MessageSendManager!
+    var conversationManager: ChatConversationManager!
+    var cmdMessageManager: CMDMessageManager!
+    var netWorkReachability: NetworkReachability!
+    
+    var userChatImagePath: String {
+        get {
+            let locationStr = documentPath.stringByAppendingPathComponent("\(accountId)/ChatImage/")
+            let fileManager = NSFileManager()
+
+            if !fileManager.fileExistsAtPath(locationStr) {
+                fileManager.createDirectoryAtPath(locationStr, withIntermediateDirectories: true, attributes: nil, error: nil)
+            }
+            return locationStr
+        }
+    }
+    
+    var userChatAudioPath: String {
+        get {
+            let locationStr = documentPath.stringByAppendingPathComponent("\(accountId)/ChatAudio/")
+            let fileManager = NSFileManager()
+            
+            if !fileManager.fileExistsAtPath(locationStr) {
+                fileManager.createDirectoryAtPath(locationStr, withIntermediateDirectories: true, attributes: nil, error: nil)
+            }
+            return locationStr
+        }
+    }
+    
+    var userChatTempPath: String {
+        get {
+            let locationStr = documentPath.stringByAppendingPathComponent("\(accountId)/ChatTemp/")
+            let fileManager = NSFileManager()
+            
+            if !fileManager.fileExistsAtPath(locationStr) {
+                fileManager.createDirectoryAtPath(locationStr, withIntermediateDirectories: true, attributes: nil, error: nil)
+            }
+            return locationStr
+        }
+    }
     
     weak var delegate: IMClientDelegate?
     
     override init() {
+        super.init()
+        netWorkReachability = NetworkReachability()
+    }
+    
+    private func setUpSDKWhenLogin() {
         messageReceiveManager = MessageReceiveManager()
         messageSendManager = MessageSendManager()
         conversationManager = ChatConversationManager()
         messageSendManager.addMessageSendDelegate(conversationManager)
         cmdMessageManager = CMDMessageManager()
         cmdMessageManager.addCMDMessageListener(IMDiscussionGroupManager.shareInstance(), withRoutingKey: CMDMessageRoutingKey.DiscussionGroup_CMD)
-//        cmdMessageManager.addCMDMessageListener(FrendManager(userId: AccountManager.shareAccountManager().account.userId), withRoutingKey: CMDMessageRoutingKey.Frend_CMD)
-
-        netWorkReachability = NetworkReachability()
+        cmdMessageManager.addCMDMessageListener(FrendManager(userId: AccountManager.shareAccountManager().account.userId), withRoutingKey: CMDMessageRoutingKey.Frend_CMD)
+        
         messageReceiveManager.addMessageReceiveListener(cmdMessageManager, withRoutingKey: MessageReceiveDelegateRoutingKey.cmd)
         messageReceiveManager.addMessageReceiveListener(conversationManager, withRoutingKey: MessageReceiveDelegateRoutingKey.normal)
         if AccountManager.shareAccountManager().isLogin() {
             messageReceiveManager.ACKMessageWithReceivedMessages(nil)
         }
-        super.init()
-       
+    }
+    
+    private func setUpSDKWhenLogout() {
+        messageReceiveManager = nil
+        messageSendManager = nil
+        conversationManager = nil
+        cmdMessageManager = nil
     }
     
     deinit {
@@ -56,26 +102,33 @@ class IMClientManager: NSObject {
     /**
     用户登录成功
     */
-    func userDidLogin() {
+    func userDidLogin(userId: Int) {
+        accountId = userId
+        self.setUpSDKWhenLogin()
         self.connectionSetup(true, errorCode: 0)
         let daoHelper = DaoHelper.shareInstance()
         daoHelper.userDidLogin()
         MessageManager.shareInsatance().startTimer2ACK()
-
     }
     
     func userDidLogout() {
+        self.setUpSDKWhenLogout()
         MessageManager.shareInsatance().stopTimer()
     }
-    
     
 //MARK: ConnectionManager
     func connectionSetup(isSuccess: Bool, errorCode: Int) {
         if isSuccess {
           
-                   }
+        }
         delegate?.userDidLogin(isSuccess, errorCode: errorCode)
     }
-
-
 }
+
+
+
+
+
+
+
+

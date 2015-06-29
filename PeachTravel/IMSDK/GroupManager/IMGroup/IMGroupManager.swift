@@ -85,8 +85,8 @@ class IMGroupManager: NSObject {
     }
     
     func loadAllMyGroupsFromDB() -> Array<IMGroupModel> {
-        var daoHelper = DaoHelper()
-        return daoHelper.selectAllGroup()
+        let frendManager = FrendManager(userId: AccountManager.shareAccountManager().account.userId)
+        return frendManager.selectAllGroup()
     }
     
     func asyncCreateGroup(#subject: NSString, description: String?, isPublic: Bool, invitees: Array<Int>, welcomeMessage: String?, completionBlock: (isSuccess: Bool, errorCode: Int, retGroup: IMGroupModel?) -> ()) {

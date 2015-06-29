@@ -90,7 +90,7 @@ class MetadataUploadManager: NSObject {
         var uploadManager = QNUploadManager()
         
         var params = NSMutableDictionary()
-        params.setObject("\(AccountManager.shareAccountManager().account.userId)", forKey: "x:sender")
+        params.setObject("\(IMClientManager.shareInstance().accountId)", forKey: "x:sender")
         params.setObject("\(metadataMessage.messageType.rawValue)", forKey: "x:msgType")
         
         if let conversationId = conversationId {
@@ -182,9 +182,9 @@ class MetadataDownloadManager:NSObject{
                 } else {
                     
                     dispatch_async(metadataOperationQueue, { () -> Void in
-                        var audioWavPath = AccountManager.shareAccountManager().userChatAudioPath.stringByAppendingPathComponent("\(audioMessage.metadataId!).wav")
+                        var audioWavPath = IMClientManager.shareInstance().userChatAudioPath.stringByAppendingPathComponent("\(audioMessage.metadataId!).wav")
                         
-                        var tempAmrPath = AccountManager.shareAccountManager().userTempPath.stringByAppendingPathComponent("\(audioMessage.metadataId!).amr")
+                        var tempAmrPath = IMClientManager.shareInstance().userChatTempPath.stringByAppendingPathComponent("\(audioMessage.metadataId!).amr")
                         
                         if let audioData = data {
                             var fileManager =  NSFileManager()

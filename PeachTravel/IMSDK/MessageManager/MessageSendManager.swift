@@ -180,7 +180,7 @@ class MessageSendManager: NSObject {
         var metadataId = NSUUID().UUIDString
         var imageData = UIImageJPEGRepresentation(mapImage, 1)
 
-        let path = AccountManager.shareAccountManager().userChatImagePath.stringByAppendingPathComponent("\(metadataId)")
+        let path = IMClientManager.shareInstance().userChatImagePath.stringByAppendingPathComponent("\(metadataId)")
         locationMessage.localPath = path
         MetaDataManager.moveMetadata2Path(imageData, toPath: path)
 
@@ -268,7 +268,7 @@ class MessageSendManager: NSObject {
         println("imageDataLength: \(imageData.length)")
         
         var metadataId = NSUUID().UUIDString
-        var imagePath = AccountManager.shareAccountManager().userChatImagePath.stringByAppendingPathComponent("\(metadataId)")
+        var imagePath = IMClientManager.shareInstance().userChatImagePath.stringByAppendingPathComponent("\(metadataId)")
         MetaDataManager.moveMetadata2Path(imageData, toPath: imagePath)
         
         imageMessage.localPath = imagePath
@@ -307,9 +307,9 @@ class MessageSendManager: NSObject {
         
         var metadataId = NSUUID().UUIDString
         
-        var tempAmrPath = AccountManager.shareAccountManager().userTempPath.stringByAppendingPathComponent("\(metadataId).amr")
+        var tempAmrPath = IMClientManager.shareInstance().userChatTempPath.stringByAppendingPathComponent("\(metadataId).amr")
 
-        var audioWavPath = AccountManager.shareAccountManager().userChatAudioPath.stringByAppendingPathComponent("\(metadataId).wav")
+        var audioWavPath = IMClientManager.shareInstance().userChatAudioPath.stringByAppendingPathComponent("\(metadataId).wav")
         MetaDataManager.moveMetadataFromOnePath2AnotherPath(wavAudioPath, toPath: audioWavPath)
         
         VoiceConverter.wavToAmr(wavAudioPath, amrSavePath: tempAmrPath)
@@ -422,7 +422,7 @@ class MessageSendManager: NSObject {
         let daoHelper = DaoHelper.shareInstance()
         daoHelper.updateMessageInDB("chat_\(message.chatterId)", message: message)
         if message.messageType == IMMessageType.AudioMessageType {
-            var tempAmrPath = AccountManager.shareAccountManager().userTempPath.stringByAppendingPathComponent("\((message as! AudioMessage).metadataId).amr")
+            var tempAmrPath = IMClientManager.shareInstance().userChatTempPath.stringByAppendingPathComponent("\((message as! AudioMessage).metadataId).amr")
             VoiceConverter.wavToAmr((message as! AudioMessage).localPath, amrSavePath: tempAmrPath)
             if let audioData = NSData(contentsOfFile: tempAmrPath) {
                 self.sendMetadataMessage(message, metadata: audioData, chatType: chatType, conversationId: conversationId, completionBlock: { (isSuccess) -> () in
