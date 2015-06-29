@@ -264,7 +264,7 @@
     signatureLabel.text = _userInfo.signature;
     signatureLabel.textAlignment = NSTextAlignmentCenter;
     signatureLabel.textColor = APP_THEME_COLOR;
-    [_headerBgView addSubview:signatureLabel];
+//    [_headerBgView addSubview:signatureLabel];
     
     NSDateFormatter *format2=[[NSDateFormatter alloc]init];
     [format2 setDateFormat:@"yyyy/MM/dd"];
