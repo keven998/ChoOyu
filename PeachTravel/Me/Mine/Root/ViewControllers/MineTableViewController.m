@@ -148,7 +148,7 @@
     
     CGFloat ah = 200*height/736;
     
-    CGFloat avatarW = ah - 12;
+    CGFloat avatarW = ah - 19 * height/736;
     UIImageView *avatar = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, avatarW, avatarW)];
     avatar.clipsToBounds = YES;
     avatar.layer.cornerRadius = avatarW/2.0;
@@ -187,7 +187,7 @@
     
     CGFloat bh = 84*height/736;
     
-    UIButton *friendEntry = [[UIButton alloc] initWithFrame:CGRectMake(unitWidth, offsetY, unitWidth, bh)];
+    UIButton *friendEntry = [[UIButton alloc] initWithFrame:CGRectMake(2*unitWidth, offsetY, unitWidth, bh)];
     _pictureNumber = [[UILabel alloc] initWithFrame:CGRectMake(10, bh/2 - 20, unitWidth - 20, 20)];
     _pictureNumber.textColor = COLOR_TEXT_I;
     _pictureNumber.textAlignment = NSTextAlignmentCenter;
@@ -223,7 +223,7 @@
     [planEntry addTarget:self action:@selector(myPlan:) forControlEvents:UIControlEventTouchUpInside];
     [headerBgView addSubview:planEntry];
     
-    UIButton *trackEntry = [[UIButton alloc] initWithFrame:CGRectMake(2*unitWidth, offsetY, unitWidth, bh)];
+    UIButton *trackEntry = [[UIButton alloc] initWithFrame:CGRectMake(unitWidth, offsetY, unitWidth, bh)];
     _trackNumber = [[UILabel alloc] initWithFrame:CGRectMake(10, bh/2 - 20, unitWidth - 20, 20)];
     _trackNumber.textColor = COLOR_TEXT_I;
     _trackNumber.adjustsFontSizeToFitWidth = YES;
@@ -360,6 +360,7 @@
         }
     } else {
         [_avatarImageView setImage:[UIImage imageNamed:@"ic_home_userentry_unlogin.png"]];
+        _avatarBg.image = [UIImage imageNamed:@"ic_home_userentry_unlogin.png"];
         _constellationView.image = [UIImage imageNamed:@"ic_home_gender_unknown.png"];
         _levelBg.image = [UIImage imageNamed:@"ic_home_level_bg_unknown.png"];
         _flagHeaderIV.image = [UIImage imageNamed:@"ic_home_header_unlogin.png"];
