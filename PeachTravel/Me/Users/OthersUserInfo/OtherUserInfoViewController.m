@@ -44,7 +44,7 @@
     UILabel *_planeLabel;
     FrendModel *_userInfo;
 }
-
+@property (nonatomic,strong) UIScrollView *scrollView;
 @property (nonatomic, strong) FrendModel *userInfo;
 
 @end
@@ -53,6 +53,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height - 45)];
+    _scrollView.showsHorizontalScrollIndicator = NO;
+    _scrollView.showsVerticalScrollIndicator = NO;
+    [self.view addSubview:_scrollView];
     _albumArray = [NSMutableArray array];
     AccountManager *accountManager = [AccountManager shareAccountManager];
     
@@ -82,7 +86,7 @@
     CGFloat width = SCREEN_WIDTH;
     CGFloat height = SCREEN_HEIGHT;
     
-    _headerBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 924/3*height/736)];
+    _headerBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 831/3*height/736)];
     _headerBgView.backgroundColor = APP_PAGE_COLOR;
     _headerBgView.clipsToBounds = YES;
     
@@ -90,7 +94,8 @@
     CGFloat ah = 200*height/736;
     
     CGFloat avatarW = ah - 19 * height/736;
-    _avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(107*width/414, 144/3*height/736, avatarW, avatarW)];
+    _avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake( 0, 0, avatarW, avatarW)];
+    _avatarImageView.center = CGPointMake(_headerBgView.center.x, _headerBgView.center.y + 9 * height/736);
     _avatarImageView.clipsToBounds = YES;
     _avatarImageView.layer.cornerRadius = avatarW/2.0;
     _avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -152,40 +157,46 @@
     recidenceLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
     [_headerBgView addSubview:recidenceLabel];
     
-    UIImageView *devideImage = [[UIImageView alloc]initWithFrame:CGRectMake((318/3*width/414 - 80)/2, (584+54)/3*height/736, 80, 1)];
+    UIImageView *devideImage = [[UIImageView alloc]initWithFrame:CGRectMake(54/3*width/414, (584+54)/3*height/736+3, 80*width/414, 1)];
     devideImage.image = [UIImage imageNamed:@"account_line_default"];
     [_headerBgView addSubview:devideImage];
     
     
-    _age = [[UILabel alloc]initWithFrame:CGRectMake(922/3*width/414, 584/3*height/736, 318/3*width/414, 15)];
+    _age = [[UILabel alloc]initWithFrame:CGRectMake(990/3*width/414, 584/3*height/736, 50, 15)];
     _age.textColor = TEXT_COLOR_TITLE;
     _age.textAlignment = NSTextAlignmentCenter;
     _age.font = [UIFont systemFontOfSize:12];
     [_headerBgView addSubview:_age];
     
-    UILabel *ageLabel = [[UILabel alloc]initWithFrame:CGRectMake(922/3*width/414, (584+78)/3*height/736, 318/3*width/414, 15)];
+    UILabel *ageLabel = [[UILabel alloc]initWithFrame:CGRectMake(1032/3*width/414, (584+78)/3*height/736, 30, 15)];
     ageLabel.text = @"年龄";
     ageLabel.textAlignment = NSTextAlignmentCenter;
     ageLabel.font = [UIFont systemFontOfSize:11];
     ageLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
     [_headerBgView addSubview:ageLabel];
     
-    UIImageView *devideImage2 = [[UIImageView alloc]initWithFrame:CGRectMake(922/3*width/414 + 7, (584+54)/3*height/736, 80, 1)];
+    UIImageView *devideImage2 = [[UIImageView alloc]initWithFrame:CGRectMake(942/3*width/414 , (584+54)/3*height/736+3, 80*width/414, 1)];
     devideImage2.image = [UIImage imageNamed:@"account_line_default"];
     [_headerBgView addSubview:devideImage2];
     
     
-    [self.view addSubview:_headerBgView];
+    [_scrollView addSubview:_headerBgView];
     
     self.navigationItem.titleView = view;
     CGFloat btnWidth = width/2-1;
-    CGFloat btnHeight = (height - 64 - _headerBgView.bounds.size.height - 45)/2 ;
-    UIButton *planeBtn = [[UIButton alloc]initWithFrame:CGRectMake(1, 924/3*height/736, btnWidth, btnHeight)];
+    CGFloat btnHeight;
+//    if (SCREEN_HEIGHT == 480) {
+//        btnHeight = (height - 64 - _headerBgView.bounds.size.height - 45)/2 ;
+//    } else {
+        btnHeight = btnWidth * 471/615;
+//    }
+
+    UIButton *planeBtn = [[UIButton alloc]initWithFrame:CGRectMake(1, 831/3*height/736, btnWidth, btnHeight)];
     [planeBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     [planeBtn setBackgroundImage:[UIImage resizedImageWithName:@"account_bg_button_normal"] forState:UIControlStateNormal];
     [planeBtn setBackgroundImage:[UIImage resizedImageWithName:@"account_bg_button_selected"] forState:UIControlStateHighlighted];
     [planeBtn addTarget:self action:@selector(seeOthersPlan) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:planeBtn];
+    [_scrollView addSubview:planeBtn];
     
     //    CGFloat YY = 165/3 * height/736;
     CGFloat YY = btnHeight/2 - 20 - 5;
@@ -202,12 +213,12 @@
     planeLabel2.text = @"计划";
     [planeBtn addSubview:planeLabel2];
     
-    UIButton *trackBtn = [[UIButton alloc]initWithFrame:CGRectMake(width/2 + 2, 924/3*height/736, width/2-1, btnHeight)];
+    UIButton *trackBtn = [[UIButton alloc]initWithFrame:CGRectMake(width/2 + 2, 831/3*height/736, width/2-1, btnHeight)];
     [trackBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     [trackBtn setBackgroundImage:[UIImage resizedImageWithName:@"account_bg_button_normal"] forState:UIControlStateNormal];
     [trackBtn setBackgroundImage:[UIImage resizedImageWithName:@"account_bg_button_selected"] forState:UIControlStateHighlighted];
     [trackBtn addTarget:self action:@selector(visitTracks) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:trackBtn];
+    [_scrollView addSubview:trackBtn];
     
     _trackLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, YY, btnWidth, 20)];
     _trackLabel.font = [UIFont systemFontOfSize:20* height/736];
@@ -221,17 +232,17 @@
     trackLabel2.text = @"足迹";
     [trackBtn addSubview:trackLabel2];
     
-    UIButton *albumBtn = [[UIButton alloc]initWithFrame:CGRectMake(1, 924/3*height/736 + btnHeight, width/2-1, btnHeight)];
+    UIButton *albumBtn = [[UIButton alloc]initWithFrame:CGRectMake(1, 831/3*height/736 + btnHeight, width/2-1, btnHeight)];
     [albumBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     [albumBtn setBackgroundImage:[UIImage resizedImageWithName:@"account_bg_button_normal"] forState:UIControlStateNormal];
     [albumBtn setBackgroundImage:[UIImage resizedImageWithName:@"account_bg_button_selected"] forState:UIControlStateHighlighted];
-    [self.view addSubview:albumBtn];
+    [_scrollView addSubview:albumBtn];
     
     _albumLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, YY, btnWidth, 20)];
     _albumLabel.font = [UIFont systemFontOfSize:20* height/736];
     _albumLabel.textColor = TEXT_COLOR_TITLE;
     _albumLabel.textAlignment = NSTextAlignmentCenter;
-    _albumLabel.text = [NSString stringWithFormat:@"%lu",_albumArray.count];
+    _albumLabel.text = [NSString stringWithFormat:@"%zd",_albumArray.count];
     [albumBtn addSubview:_albumLabel];
     UILabel *albumLabel2 = [[UILabel alloc]initWithFrame:CGRectMake(0, YY+31* height/736, btnWidth, 20)];
     albumLabel2.font = [UIFont systemFontOfSize:16* height/736];
@@ -240,11 +251,11 @@
     albumLabel2.text = @"相册";
     [albumBtn addSubview:albumLabel2];
     
-    UIButton *travelNote = [[UIButton alloc]initWithFrame:CGRectMake(width/2+2, 924/3*height/736 + btnHeight, width/2-1, btnHeight)];
+    UIButton *travelNote = [[UIButton alloc]initWithFrame:CGRectMake(width/2+2, 831/3*height/736 + btnHeight, width/2-1, btnHeight)];
     [travelNote setBackgroundImage:[UIImage resizedImageWithName:@"account_bg_button_normal"] forState:UIControlStateNormal];
     [travelNote setBackgroundImage:[UIImage resizedImageWithName:@"account_bg_button_selected"] forState:UIControlStateHighlighted];
     [travelNote setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-    [self.view addSubview:travelNote];
+    [_scrollView addSubview:travelNote];
     
     UILabel *travelNoteLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, YY, btnWidth, 20)];
     travelNoteLabel.font = [UIFont systemFontOfSize:20* height/736];
@@ -257,6 +268,7 @@
     travelNoteLabel2.textAlignment = NSTextAlignmentCenter;
     travelNoteLabel2.text = @"游记";
     [travelNote addSubview:travelNoteLabel2];
+    _scrollView.contentSize = CGSizeMake(width, btnWidth * 2 + _headerBgView.bounds.size.height);
 }
 - (void)updateUserInfo
 {
@@ -293,12 +305,12 @@
         }
     }
     _trackLabel.text = [NSString stringWithFormat:@"%ld国 %ld城", (long)_userInfo.tracks.count, (long)cityNumber];
-    NSString *guideCtn = [NSString stringWithFormat:@"%lu",_userInfo.guideCount];
+    NSString *guideCtn = [NSString stringWithFormat:@"%zd",_userInfo.guideCount];
     _planeLabel.text = guideCtn;
     
     [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:_userInfo.avatarSmall] placeholderImage:[UIImage imageNamed:@"ic_home_avatar_unknown.png"]];
     _nameLabel.text = _userInfo.nickName;
-    NSString *userIdStr = [NSString stringWithFormat:@"%lu",_userInfo.userId];
+    NSString *userIdStr = [NSString stringWithFormat:@"%zd",_userInfo.userId];
     _idLabel.text = userIdStr;
     if ([_userInfo.sex isEqualToString:@"M" ]) {
         _avatarBg.image = [UIImage imageNamed:@"ic_home_avatar_border_boy.png"];
