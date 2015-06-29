@@ -22,7 +22,7 @@
 #define contactCell      @"contactCell"
 #define requestCell      @"requestCell"
 
-@interface ContactListViewController ()<UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, SWTableViewCellDelegate>
+@interface ContactListViewController ()<UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) UITableView *contactTableView;
 @property (strong, nonatomic) NSDictionary *dataSource;
@@ -242,32 +242,6 @@
         }
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
-}
-
-#pragma mark - SWTableViewCellDelegate
-
-- (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index
-{
-    [cell hideUtilityButtonsAnimated:YES];
-    switch (index) {
-        case 0:
-        {
-            NSIndexPath *indexPath = [_contactTableView indexPathForCell:cell];
-            FrendModel *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
-            
-            //bug 需要返回备注昵称
-            BaseTextSettingViewController *bsvc = [[BaseTextSettingViewController alloc] init];
-            bsvc.navTitle = @"修改备注";
-            bsvc.content = contact.nickName;
-            bsvc.acceptEmptyContent = NO;
-            bsvc.saveEdition = ^(NSString *editText, saveComplteBlock(completed)) {
-                [self confirmChange:editText withContacts:contact success:completed];
-            };
-            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:bsvc] animated:YES completion:nil];
-        }
-        default:
-            break;
-    }
 }
 
 #pragma mark - UITableVeiwDataSource & delegate
