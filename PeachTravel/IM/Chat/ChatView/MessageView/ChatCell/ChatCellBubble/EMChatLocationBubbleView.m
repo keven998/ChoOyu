@@ -68,8 +68,12 @@ NSString *const kRouterEventLocationBubbleTapEventName = @"kRouterEventLocationB
     
     frame.origin.y = 0;
     [self.locationImageView setFrame:frame];
-
-    _addressLabel.frame = CGRectMake(0, self.locationImageView.frame.size.height - 30, self.locationImageView.frame.size.width, 30);
+    if (_model.isSender) {
+        _addressLabel.frame = CGRectMake(0, self.locationImageView.frame.size.height - 30, self.locationImageView.frame.size.width, 30);
+    } else {
+        _addressLabel.frame = CGRectMake(5, self.locationImageView.frame.size.height - 30, self.locationImageView.frame.size.width, 30);
+    }
+    
     
     UIImage *image = _model.image;
     NSString *maskImageName = _model.isSender ? @"SenderImageNodeBorder_black.png" : @"ReceiverImageNodeBorder_black.png";
