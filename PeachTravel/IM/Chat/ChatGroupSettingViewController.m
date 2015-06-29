@@ -166,7 +166,6 @@
         cell.delegate = self;
         NSInteger i = indexPath.row - 4;
         
-        NSLog(@"%@", ((FrendModel *)self.groupModel.numbers[i]).avatar);
         cell.nameLabel.text = ((FrendModel *)self.groupModel.numbers[i]).nickName;
         NSString *avatarStr = nil;
         if (![((FrendModel *)self.groupModel.numbers[i]).avatarSmall isBlankString]) {
@@ -243,11 +242,11 @@
     //    self.navigationController.navigationBarHidden = NO;
     [MobClick endLogPageView:@"page_talk_setting"];
 }
+
 -(void)viewDidDisappear:(BOOL)animated
 {
     self.navigationController.navigationBarHidden = NO;
 }
-
 
 - (void)updateView
 {

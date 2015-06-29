@@ -212,7 +212,7 @@
     [_collectionView reloadItemsAtIndexPaths:@[indexPath]];
 }
 
--(void)back
+- (void)back
 {
     BOOL find = NO;
     [_countryName removeAllObjects];
