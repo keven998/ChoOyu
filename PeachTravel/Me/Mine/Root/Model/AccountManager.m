@@ -424,10 +424,83 @@
             break;
     }
 }
-- (void)updataUserTracks:(NSString *)action withtracks:(NSMutableDictionary *)tracks
+
+/**
+ *  修改用户足迹
+ *
+ *  @param action        add:添加   del:删除
+ *  @param tracks        足迹 CityDestinationPoi
+ *  @param areaName      poi 所属的地区
+ */
+- (void)updataUserServerTracks:(NSString *)action withTrack:(CityDestinationPoi *)poi areaName:(NSString *)areaName
 {
-    self.account.tracks = tracks;
+    AccountManager *account = [AccountManager shareAccountManager];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)account.account.userId] forHTTPHeaderField:@"UserId"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params safeSetObject:action forKey:@"action"];
+    [params safeSetObject:@[poi.cityId] forKey:@"tracks"];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@users/%ld/tracks", BASE_URL, (long)account.account.userId];
+    [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            [self updataUserLocalTracks:action withTrack:poi areaName:areaName];
+        } else {
+            
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+    }];
 }
+
+/**
+ *  更新 account 里的 track 数据
+ *
+ *  @param action        add:添加   del:删除
+ *  @param tracks
+ */
+- (void)updataUserLocalTracks:(NSString *)action withTrack:(CityDestinationPoi *)poi areaName:(NSString *)areaName;
+{
+    NSLog(@"%@", _account.tracks);
+    NSMutableArray *citysInArea = [[_account.tracks objectForKey:areaName] mutableCopy];
+    if (!citysInArea) {
+        citysInArea = [[NSMutableArray alloc] init];
+    }
+    if ([action isEqualToString:@"del"]) {
+        for (NSDictionary *poiDic in citysInArea) {
+            if ([poi.cityId isEqualToString:[poiDic objectForKey:@"id"]]) {
+                [citysInArea removeObject:poiDic];
+                break;
+            }
+        }
+    } else {
+        NSMutableDictionary *poiDic = [[NSMutableDictionary alloc] init];
+        [poiDic setObject:poi.cityId forKey:@"id"];
+        [poiDic setObject:poi.zhName forKey:@"zhName"];
+        NSMutableArray *coordinatesArray = [[NSMutableArray alloc] init];
+        [coordinatesArray addObject:[NSNumber numberWithDouble:poi.lng]];
+        [coordinatesArray addObject:[NSNumber numberWithDouble:poi.lat]];
+        [poiDic safeSetObject:@{@"coordinates":coordinatesArray} forKey:@"location"];
+        [citysInArea addObject:poiDic];
+    }
+    
+    NSLog(@"%@", _account.tracks);
+    
+    if (citysInArea.count > 0) {
+        [_account.tracks setObject:citysInArea forKey:areaName];
+    } else {
+        [_account.tracks removeObjectForKey:areaName];
+    }
+}
+
 /**
  *  检测输入的用户信息是否合法
  *
@@ -487,7 +560,6 @@
         NSLog(@"%@", error);
     }];
 }
-
 
 /**
  通过数据库里的数据判断用户是否是我的好友

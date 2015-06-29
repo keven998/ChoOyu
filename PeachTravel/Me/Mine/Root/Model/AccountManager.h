@@ -9,7 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "FrendRequest.h"
 #import "AccountModel.h"
+
 @class FrendModel;
+@class CityDestinationPoi;
 
 @interface AccountManager : NSObject
 
@@ -61,10 +63,10 @@
 /**
  *  修改用户足迹
  *
- *  @param action        删除，增加
- *  @param tracks        足迹的字典
+ *  @param action        add:添加   del:删除
+ *  @param tracks        足迹 @[CityDestinationPoi]
  */
-- (void)updataUserTracks:(NSString *)action withtracks:(NSMutableDictionary *)tracks;
+- (void)updataUserServerTracks:(NSString *)action withTrack:(CityDestinationPoi *)poi areaName:(NSString *)areaName;
 
 /**
  *  修改用户名字
@@ -188,7 +190,6 @@
  *  @param userId
  */
 - (void)removeContact:(FrendModel *)userId;
-
 
 #pragma mark *****其他操作******
 
