@@ -422,7 +422,10 @@
             break;
     }
 }
-
+- (void)updataUserTracks:(NSString *)action withtracks:(NSDictionary *)tracks
+{
+    self.account.tracks = [NSMutableDictionary dictionaryWithDictionary:tracks];
+}
 /**
  *  检测输入的用户信息是否合法
  *

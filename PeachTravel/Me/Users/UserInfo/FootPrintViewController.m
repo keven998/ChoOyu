@@ -204,9 +204,9 @@
     }
     [_collectionView reloadItemsAtIndexPaths:@[indexPath]];
 }
+
 - (IBAction)addFootprint:(CLLocation *)location
 {
-    
     [_footprintMapCtl addPoint:location];
     
 }
@@ -219,6 +219,7 @@
     [_footprintMapCtl addPoint:location];
     
 }
+
 - (void)deleteFootprint:(CLLocation *)location track:(NSString *)areaId
 {
     NSMutableArray *tracks = [NSMutableArray array];

@@ -59,6 +59,14 @@
 - (void)updateUserInfo:(NSString *)changeContent withChangeType:(UserInfoChangeType)changeType;
 
 /**
+ *  修改用户足迹
+ *
+ *  @param action        删除，增加
+ *  @param tracks        足迹的字典
+ */
+- (void)updataUserTracks:(NSString *)action withtracks:(NSDictionary *)tracks;
+
+/**
  *  修改用户名字
  *
  *  @param newUsername 新的用户昵称
