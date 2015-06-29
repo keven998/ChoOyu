@@ -1456,7 +1456,7 @@
 		D993C1F01B12DF0C0088D568 /* ChatMessageDaoHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessageDaoHelper.swift; sourceTree = "<group>"; };
 		D993C1F11B12DF0C0088D568 /* MetaDataDaoHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetaDataDaoHelper.swift; sourceTree = "<group>"; };
 		D993C1F31B12DF0C0088D568 /* ConversationDaoHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationDaoHelper.swift; sourceTree = "<group>"; };
-		D993C1F41B12DF0C0088D568 /* FrendDaoHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrendDaoHelper.swift; sourceTree = "<group>"; };
+		D993C1F41B12DF0C0088D568 /* FrendDaoHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FrendDaoHelper.swift; path = ../Dao/UserDaoHelper/FrendDaoHelper.swift; sourceTree = "<group>"; };
 		D993C1F71B12DF0C0088D568 /* GexinSdk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GexinSdk.h; sourceTree = "<group>"; };
 		D993C1F81B12DF0C0088D568 /* GXSdkError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXSdkError.h; sourceTree = "<group>"; };
 		D993C1F91B12DF0C0088D568 /* libGexinSdk-1.1.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libGexinSdk-1.1.1.a"; sourceTree = "<group>"; };
@@ -2913,6 +2913,14 @@
 			name = IM;
 			sourceTree = "<group>";
 		};
+		D91FED6C1B4125DC0073AD77 /* Dao */ = {
+			isa = PBXGroup;
+			children = (
+				D993C1F41B12DF0C0088D568 /* FrendDaoHelper.swift */,
+			);
+			name = Dao;
+			sourceTree = "<group>";
+		};
 		D92CA0B01AD8BDD400F244FF /* DACircularProgress */ = {
 			isa = PBXGroup;
 			children = (
@@ -3180,7 +3188,7 @@
 				D993C2101B12DF0C0088D568 /* MessageManager */,
 				D993C2291B12DF0C0088D568 /* Model */,
 				D993C22D1B12DF0C0088D568 /* PushSDK.swift */,
-				D993C22F1B12DF0C0088D568 /* UserManager */,
+				D993C22F1B12DF0C0088D568 /* FrendManager */,
 			);
 			path = IMSDK;
 			sourceTree = "<group>";
@@ -3306,7 +3314,7 @@
 				D993C1ED1B12DF0C0088D568 /* DaoHelper.swift */,
 				D993C1EE1B12DF0C0088D568 /* GroupDaoHelper */,
 				D993C1EF1B12DF0C0088D568 /* MessageDao */,
-				D993C1F21B12DF0C0088D568 /* UserDaoHelper */,
+				D993C1F21B12DF0C0088D568 /* ConversationDaoHelper */,
 			);
 			path = Dao;
 			sourceTree = "<group>";
@@ -3327,12 +3335,12 @@
 			path = MessageDao;
 			sourceTree = "<group>";
 		};
-		D993C1F21B12DF0C0088D568 /* UserDaoHelper */ = {
+		D993C1F21B12DF0C0088D568 /* ConversationDaoHelper */ = {
 			isa = PBXGroup;
 			children = (
 				D993C1F31B12DF0C0088D568 /* ConversationDaoHelper.swift */,
-				D993C1F41B12DF0C0088D568 /* FrendDaoHelper.swift */,
 			);
+			name = ConversationDaoHelper;
 			path = UserDaoHelper;
 			sourceTree = "<group>";
 		};
@@ -3463,13 +3471,15 @@
 			path = ChatConversation;
 			sourceTree = "<group>";
 		};
-		D993C22F1B12DF0C0088D568 /* UserManager */ = {
+		D993C22F1B12DF0C0088D568 /* FrendManager */ = {
 			isa = PBXGroup;
 			children = (
+				D91FED6C1B4125DC0073AD77 /* Dao */,
 				D993C2301B12DF0C0088D568 /* FrendManager.swift */,
 				D993C2311B12DF0C0088D568 /* FrendModel */,
 				D90042C91B144275006F6B63 /* FrendManager+Private.swift */,
 			);
+			name = FrendManager;
 			path = UserManager;
 			sourceTree = "<group>";
 		};

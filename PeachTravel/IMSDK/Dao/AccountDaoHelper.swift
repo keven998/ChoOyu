@@ -11,9 +11,6 @@ import UIKit
 let AccountDB = "AccountDB"
 let AccountTableName = "Account"
 
-
-//let acountDBPath: String = "\(NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as! String)/\(AccountDB).sqlite"
-
 let accountDaoHelper = AccountDaoHelper()
 
 class AccountDaoHelper: NSObject {
@@ -22,11 +19,6 @@ class AccountDaoHelper: NSObject {
     private let dbQueue: FMDatabaseQueue!
     
     override init() {
-//        var fileManager =  NSFileManager()
-//        
-//        if !fileManager.fileExistsAtPath(acountDBPath) {
-//            fileManager.createDirectoryAtPath(acountDBPath, withIntermediateDirectories: true, attributes: nil, error: nil)
-//        }
         var dbPath: String = documentPath.stringByAppendingPathComponent("\(AccountTableName).sqlite")
         db = FMDatabase(path: dbPath)
         dbQueue = FMDatabaseQueue(path: dbPath)

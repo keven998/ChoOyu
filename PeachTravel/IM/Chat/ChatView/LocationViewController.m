@@ -184,7 +184,7 @@ static LocationViewController *defaultLocation = nil;
 {
     [self hideHud];
     _currentLocationCoordinate = locationCoordinate;
-    float zoomLevel = 0.01;
+    float zoomLevel = 0.005;
     MKCoordinateRegion region = MKCoordinateRegionMake(_currentLocationCoordinate, MKCoordinateSpanMake(zoomLevel, zoomLevel));
     [_mapView setRegion:[_mapView regionThatFits:region] animated:YES];
     

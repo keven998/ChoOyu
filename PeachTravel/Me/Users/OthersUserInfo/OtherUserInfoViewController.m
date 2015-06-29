@@ -40,9 +40,11 @@
     UILabel *_age;
     UILabel *_recidence;
     UILabel *_planeLabel;
+    FrendModel *_userInfo;
 }
 
 @property (nonatomic, strong) FrendModel *userInfo;
+
 @end
 
 @implementation OtherUserInfoViewController
@@ -422,7 +424,7 @@
 {
     AccountManager *accountManager = [AccountManager shareAccountManager];
     
-    FrendManager *frendManager = [FrendManager shareInstance];
+    FrendManager *frendManager = [[FrendManager alloc] initWithUserId:[AccountManager shareAccountManager].account.userId];
     __weak typeof(OtherUserInfoViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf];
@@ -606,7 +608,7 @@
 {
     AccountManager *accountManager = [AccountManager shareAccountManager];
     
-    FrendManager *frendManager = [FrendManager shareInstance];
+    FrendManager *frendManager = [[FrendManager alloc] initWithUserId:accountManager.account.userId];
     if ([helloStr stringByReplacingOccurrencesOfString:@" " withString:@""].length == 0) {
         helloStr = [NSString stringWithFormat:@"Hi, 我是%@", accountManager.account.nickName];
     }
@@ -621,18 +623,15 @@
         } else {
             [SVProgressHUD showHint:@"添加失败"];
         }
-        
     }];
 }
 
 - (void)loadUserProfile:(NSInteger)userId {
     
-    FrendManager *frendManager = [[FrendManager alloc] init];
+    FrendManager *frendManager = [[FrendManager alloc] initWithUserId:[AccountManager shareAccountManager].account.userId];
     [frendManager asyncGetFrendInfoFromServer:userId completion:^(BOOL isSuccess, NSInteger errorCode, FrendModel * __nonnull frend) {
         if (isSuccess) {
             _userInfo = frend;
-            //            [self createHeader];
-            //            [self createFooterBar];
             [self loadUserAlbum];
             [self updateUserInfo];
         } else {
