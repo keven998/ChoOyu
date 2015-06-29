@@ -19,11 +19,6 @@
 
 + (AccountManager *)shareAccountManager;
 
-@property (nonatomic, copy) NSString *userChatImagePath;
-@property (nonatomic, copy) NSString *userChatAudioPath;
-@property (nonatomic, copy) NSString *userTempPath;
-
-
 /**
  *  用户是否登录
  *

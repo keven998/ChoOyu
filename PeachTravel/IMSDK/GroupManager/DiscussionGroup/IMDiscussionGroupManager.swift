@@ -68,24 +68,19 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
     异步创建一个讨论组
     :returns:
     */
-    func asyncCreateDiscussionGroup(invitees: Array<FrendModel>, completionBlock: (isSuccess: Bool, errorCode: Int, discussionGroup: IMDiscussionGroup?) -> ()) {
+    func asyncCreateDiscussionGroup(subject: String, invitees: Array<FrendModel>, completionBlock: (isSuccess: Bool, errorCode: Int, discussionGroup: IMDiscussionGroup?) -> ()) {
         
         var array = Array<Int>()
-        var groupName = AccountManager.shareAccountManager().account.nickName as String
-        for frend in invitees {
-            array.append(frend.userId)
-            groupName += ", \(frend.nickName)"
-        }
         var params = NSMutableDictionary()
         params.setObject(array, forKey: "participants")
-        params.setObject(groupName, forKey: "name")
+        params.setObject(subject, forKey: "name")
         
         NetworkTransportAPI.asyncPOST(requstUrl: groupUrl, parameters: params) { (isSuccess, errorCode, retMessage) -> () in
             if isSuccess {
                 var group = IMDiscussionGroup(jsonData: retMessage!)
-                group.subject = groupName
+                group.subject = subject
                 group.numbers = invitees
-                var frendManager = FrendManager(userId: AccountManager.shareAccountManager().account.userId)
+                var frendManager = FrendManager(userId: IMClientManager.shareInstance().accountId)
                 frendManager.addFrend2DB(self.convertDiscussionGroupModel2FrendModel(group))
                 completionBlock(isSuccess: true, errorCode: errorCode, discussionGroup: group)
             } else {
@@ -100,14 +95,14 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
     :param: completionBlock 
     */
     func asyncLoadAllMyDiscussionGroupsFromServer(completionBlock: (isSuccess: Bool, errorCode: Int, groupList: Array<IMDiscussionGroup>) -> ()) {
-        let groupListUrl = "\(userUrl)/\(AccountManager.shareAccountManager().account.userId)/groups"
+        let groupListUrl = "\(userUrl)/\(IMClientManager.shareInstance().accountId)/groups"
         NetworkTransportAPI.asyncGET(requestUrl: groupListUrl, parameters: nil) { (isSuccess, errorCode, retMessage) -> () in
             var groupList = Array<IMDiscussionGroup>()
             if let retData = retMessage as? NSArray {
                 for groupData in retData  {
                     var group = IMDiscussionGroup(jsonData: groupData as! NSDictionary)
                     groupList.append(group)
-                    var frendManager = FrendManager(userId: AccountManager.shareAccountManager().account.userId)
+                    var frendManager = FrendManager(userId: IMClientManager.shareInstance().accountId)
                     frendManager.updateFrendInfoInDB(self.convertDiscussionGroupModel2FrendModel(group))
                 }
             }
@@ -247,7 +242,7 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
 
         completion(isSuccess: true, errorCode: 0)
         
-        let manager = FrendManager(userId: AccountManager.shareAccountManager().account.userId)
+        let manager = FrendManager(userId: IMClientManager.shareInstance().accountId)
         manager.updateFrendType(userId: group.groupId, frendType: group.type)
     }
     
@@ -258,7 +253,7 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
     */
     func updateGroupNumbersInDB(group: IMDiscussionGroup) {
         var frend = self.convertDiscussionGroupModel2FrendModel(group)
-        var frendManager = FrendManager(userId: AccountManager.shareAccountManager().account.userId)
+        var frendManager = FrendManager(userId: IMClientManager.shareInstance().accountId)
         frendManager.updateExtDataInDB(frend.extData as String, userId: frend.userId)
     }
 
@@ -269,7 +264,7 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
     */
     func updateGroupInfoInDB(group: IMDiscussionGroup) {
         var frend = self.convertDiscussionGroupModel2FrendModel(group)
-        var frendManager = FrendManager(userId: AccountManager.shareAccountManager().account.userId)
+        var frendManager = FrendManager(userId: IMClientManager.shareInstance().accountId)
         frendManager.addFrend2DB(frend)
     }
     
@@ -413,7 +408,7 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
             }
             frendModel.fullPY = ConvertMethods.chineseToPinyin(frendModel.nickName)
             frendModel.type = IMFrendType.DiscussionGroup
-            var frendManager = FrendManager(userId: AccountManager.shareAccountManager().account.userId)
+            var frendManager = FrendManager(userId: IMClientManager.shareInstance().accountId)
             frendManager.addFrend2DB(frendModel)
         }
     }

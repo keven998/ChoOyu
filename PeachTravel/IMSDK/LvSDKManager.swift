@@ -25,6 +25,42 @@ class IMClientManager: NSObject {
     var cmdMessageManager: CMDMessageManager!
     var netWorkReachability: NetworkReachability!
     
+    var userChatImagePath: String {
+        get {
+            let locationStr = documentPath.stringByAppendingPathComponent("\(accountId)/ChatImage/")
+            let fileManager = NSFileManager()
+
+            if !fileManager.fileExistsAtPath(locationStr) {
+                fileManager.createDirectoryAtPath(locationStr, withIntermediateDirectories: true, attributes: nil, error: nil)
+            }
+            return locationStr
+        }
+    }
+    
+    var userChatAudioPath: String {
+        get {
+            let locationStr = documentPath.stringByAppendingPathComponent("\(accountId)/ChatAudio/")
+            let fileManager = NSFileManager()
+            
+            if !fileManager.fileExistsAtPath(locationStr) {
+                fileManager.createDirectoryAtPath(locationStr, withIntermediateDirectories: true, attributes: nil, error: nil)
+            }
+            return locationStr
+        }
+    }
+    
+    var userChatTempPath: String {
+        get {
+            let locationStr = documentPath.stringByAppendingPathComponent("\(accountId)/ChatTemp/")
+            let fileManager = NSFileManager()
+            
+            if !fileManager.fileExistsAtPath(locationStr) {
+                fileManager.createDirectoryAtPath(locationStr, withIntermediateDirectories: true, attributes: nil, error: nil)
+            }
+            return locationStr
+        }
+    }
+    
     weak var delegate: IMClientDelegate?
     
     override init() {

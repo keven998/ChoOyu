@@ -28,7 +28,7 @@ class LocationMessage: BaseMessage {
     
     override func fillContentWithContentDic(contentsDic: NSDictionary) {
         if let imageId = contentsDic.objectForKey("metadataId") as? String {
-            localPath = AccountManager.shareAccountManager().userChatImagePath.stringByAppendingPathComponent("\(imageId).jpeg")
+            localPath = IMClientManager.shareInstance().userChatImagePath.stringByAppendingPathComponent("\(imageId).jpeg")
         }
         if let lng = contentsDic.objectForKey("lng") as? Double {
             longitude = lng

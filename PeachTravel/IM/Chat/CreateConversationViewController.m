@@ -159,7 +159,7 @@
             [self showHudInView:self.view hint:@"创建群组..."];
             
             IMDiscussionGroupManager *discussionGroupManager = [IMDiscussionGroupManager shareInstance];
-            [discussionGroupManager asyncCreateDiscussionGroup: self.selectedContacts completionBlock:^(BOOL isSuccess, NSInteger errCode, IMDiscussionGroup * __nullable discussionGroup) {
+            [discussionGroupManager asyncCreateDiscussionGroup:@"测试群组" invitees: self.selectedContacts completionBlock:^(BOOL isSuccess, NSInteger errCode, IMDiscussionGroup * __nullable discussionGroup) {
                 if (isSuccess) {
                     FrendModel *model = self.selectedContacts.firstObject;
                     NSString *groupSubjct = [NSString stringWithFormat:@"测试群组: %@", model.nickName];
