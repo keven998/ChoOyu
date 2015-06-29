@@ -66,7 +66,6 @@ class IMClientManager: NSObject {
     override init() {
         super.init()
         netWorkReachability = NetworkReachability()
-       
     }
     
     private func setUpSDKWhenLogin() {

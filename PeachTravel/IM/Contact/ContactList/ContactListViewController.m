@@ -228,6 +228,7 @@
 }
 
 #pragma mark - http method
+
 - (void)confirmChange:(NSString *)text withContacts:(FrendModel *)contact success:(saveComplteBlock)completed
 {
     AccountManager *accountManager = [AccountManager shareAccountManager];

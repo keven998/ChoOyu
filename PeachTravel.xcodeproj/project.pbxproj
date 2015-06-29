@@ -2920,6 +2920,7 @@
 		D90F356819F6321B00E26FA9 /* IM */ = {
 			isa = PBXGroup;
 			children = (
+				D993C22F1B12DF0C0088D568 /* FrendManager */,
 				D993C1C51B12DF0C0088D568 /* IMSDK */,
 				D9A801671A80DD37005AD701 /* TZCMDChatHelper.h */,
 				D9A801681A80DD37005AD701 /* TZCMDChatHelper.m */,
@@ -3195,8 +3196,6 @@
 				D993C1C91B12DF0C0088D568 /* ConnectionManager */,
 				D993C1CB1B12DF0C0088D568 /* Core */,
 				D993C1EB1B12DF0C0088D568 /* Dao */,
-				D993C1F51B12DF0C0088D568 /* dist */,
-				D993C1FA1B12DF0C0088D568 /* fmdb */,
 				D993C2061B12DF0C0088D568 /* GroupManager */,
 				D993C20D1B12DF0C0088D568 /* IMConstants.swift */,
 				D993C20E1B12DF0C0088D568 /* LvAppDelegate.swift */,
@@ -3205,7 +3204,6 @@
 				D993C2101B12DF0C0088D568 /* MessageManager */,
 				D993C2291B12DF0C0088D568 /* Model */,
 				D993C22D1B12DF0C0088D568 /* PushSDK.swift */,
-				D993C22F1B12DF0C0088D568 /* FrendManager */,
 			);
 			path = IMSDK;
 			sourceTree = "<group>";
@@ -3230,6 +3228,8 @@
 		D993C1CB1B12DF0C0088D568 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				D993C1F51B12DF0C0088D568 /* dist */,
+				D993C1FA1B12DF0C0088D568 /* fmdb */,
 				D993C1CC1B12DF0C0088D568 /* AES */,
 				D993C1D51B12DF0C0088D568 /* AudioDeviceManager */,
 				D993C1D71B12DF0C0088D568 /* NerWork */,
@@ -3367,7 +3367,8 @@
 				D993C1F61B12DF0C0088D568 /* include */,
 				D993C1F91B12DF0C0088D568 /* libGexinSdk-1.1.1.a */,
 			);
-			path = dist;
+			name = dist;
+			path = ../dist;
 			sourceTree = "<group>";
 		};
 		D993C1F61B12DF0C0088D568 /* include */ = {
@@ -3394,7 +3395,8 @@
 				D993C2041B12DF0C0088D568 /* FMResultSet.h */,
 				D993C2051B12DF0C0088D568 /* FMResultSet.m */,
 			);
-			path = fmdb;
+			name = fmdb;
+			path = ../fmdb;
 			sourceTree = "<group>";
 		};
 		D993C2061B12DF0C0088D568 /* GroupManager */ = {
@@ -3497,7 +3499,7 @@
 				D90042C91B144275006F6B63 /* FrendManager+Private.swift */,
 			);
 			name = FrendManager;
-			path = UserManager;
+			path = IMSDK/UserManager;
 			sourceTree = "<group>";
 		};
 		D993C2311B12DF0C0088D568 /* FrendModel */ = {
