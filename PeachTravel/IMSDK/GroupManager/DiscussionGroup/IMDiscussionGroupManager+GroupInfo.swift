@@ -18,7 +18,7 @@ extension IMDiscussionGroupManager {
     :returns:
     */
     func getBasicDiscussionGroupInfoFromDB(#groupId: Int) -> IMDiscussionGroup? {
-        let frendManager = FrendManager.shareInstance()
+        let frendManager = FrendManager(userId: AccountManager.shareAccountManager().account.userId)
         var frendModel = frendManager.getFrendInfoFromDB(userId: groupId)
         var retGroup: IMDiscussionGroup?
         
@@ -36,7 +36,7 @@ extension IMDiscussionGroupManager {
     :returns:
     */
     func getFullDiscussionGroupInfoFromDB(#groupId: Int) -> IMDiscussionGroup? {
-        let frendManager = FrendManager.shareInstance()
+        let frendManager = FrendManager(userId: AccountManager.shareAccountManager().account.userId)
         var frendModel = frendManager.getFrendInfoFromDB(userId: groupId)
         var retGroup: IMDiscussionGroup?
         

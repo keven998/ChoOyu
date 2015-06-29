@@ -34,6 +34,8 @@
     if (!_account) {
         AccountDaoHelper *accountDaoHelper = [AccountDaoHelper shareInstance];
         _account = [accountDaoHelper selectCurrentAccount];
+        FrendManager *manager = [[FrendManager alloc] initWithUserId:_account.userId];
+        [manager getAllMyContacts];
     }
     return _account;
 }
@@ -567,7 +569,7 @@
 {
     NSLog(@"开始解析联系人");
     [self.account.frendList removeAllObjects];
-    FrendManager *frendManager = [[FrendManager alloc] init];
+    FrendManager *frendManager = [[FrendManager alloc] initWithUserId:_account.userId];
     [frendManager deleteAllContacts];
     for (id contactDic in contactList) {
         FrendModel *newContact = [[FrendModel alloc] init];
@@ -657,8 +659,8 @@
         NSLog(@"result = %@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            FrendManager *frendManager = [FrendManager shareInstance];
-            [frendManager updateContactMemo:remark userId:userId];
+            FrendManager *frendManager = [[FrendManager alloc] initWithUserId:_account.userId];
+            [frendManager updateContactMemoInDB:remark userId:userId];
             completion(YES);
         } else {
             completion(NO);

@@ -19,7 +19,7 @@ extension FrendManager {
         manager.requestSerializer = requestSerializer
         manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept")
         manager.requestSerializer.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-        manager.requestSerializer.setValue("\(AccountManager.shareAccountManager().account.userId)", forHTTPHeaderField: "UserId")
+        manager.requestSerializer.setValue("\(self.accountId)", forHTTPHeaderField: "UserId")
 
         var url = "\(API_USERINFO)\(userId)"
         manager.GET(url, parameters: nil, success:

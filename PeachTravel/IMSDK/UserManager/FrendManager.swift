@@ -11,48 +11,29 @@ import UIKit
 private let API_REQUEST_ADD_CONTACT = "\(BASE_URL)users/request-contacts"  //请求添加好友
 private let API_FREND = "\(BASE_URL)users/contacts"
 
-@objc protocol FrendManagerDelegate {
-    /**
-    请求添加好友
-    
-    :param: requestContent 请求的信息
-    */
-    optional func requestAddFrend(requestContent: NSDictionary)
-}
-
-private let frendManager = FrendManager()
-
 class FrendManager: NSObject, CMDMessageManagerDelegate {
     
-    private var delegateQueue: Array<FrendManagerDelegate> = Array()
+    let accountId: Int
     
-    class func shareInstance() -> FrendManager {
-        return frendManager
-    }
-    
-    override init() {
-        super.init()
-    }
-    
-    /**
-    添加一个frend的 delegate
-    :param: delegate
-    */
-    func addDelegate(delegate: FrendManagerDelegate) {
-        delegateQueue.append(delegate)
-    }
-    
-    /**
-    删除一个frend的 delegate
-    :param: delegate
-    */
-    func removeDelegate(delegate: FrendManagerDelegate) {
-        for (index, value) in enumerate(delegateQueue) {
-            if value === delegate {
-                delegateQueue.removeAtIndex(index)
-                return
-            }
+    var frendDaoHelper :FrendDaoHelper {
+        get {
+            var dbPath: String = documentPath.stringByAppendingPathComponent("\(accountId)/user.sqlite")
+            let db = FMDatabase(path: dbPath)
+            let dbQueue = FMDatabaseQueue(path: dbPath)
+            return FrendDaoHelper(db: db, dbQueue: dbQueue)
         }
+    }
+    
+    /**
+    初始化
+    
+    :param: userId 系统中当前登录的账户的 userId
+    
+    :returns:
+    */
+    init(userId: Int) {
+        accountId = userId
+        super.init()
     }
     
     /**
@@ -60,13 +41,11 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
     :param: frend
     */
     func addFrend2DB(frend: FrendModel) {
-        var daoHelper = DaoHelper.shareInstance()
-        daoHelper.addFrend2DB(frend)
+        self.frendDaoHelper.addFrend2DB(frend)
     }
     
     func updateFrendInfoInDB(frend: FrendModel) {
-        var daoHelper = DaoHelper.shareInstance()
-        daoHelper.updateFrendInfoInDB(frend)
+        self.frendDaoHelper.updateFrendInfoInDB(frend)
     }
     
     /**
@@ -76,8 +55,7 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
     :param: userId
     */
     func updateNickNameInDB(name: String, userId: Int) {
-        var daoHelper = DaoHelper.shareInstance()
-        daoHelper.updateNickNameInDB(name, userId: userId)
+        self.frendDaoHelper.updateNickNameInDB(name, userId: userId)
 
     }
     
@@ -88,13 +66,11 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
     :param: userId
     */
     func updateAvatarInDB(avatar: String, userId: Int) {
-        var daoHelper = DaoHelper.shareInstance()
-        daoHelper.updateAvatarInDB(avatar, userId: userId)
+        self.frendDaoHelper.updateAvatarInDB(avatar, userId: userId)
     }
     
     func updateExtDataInDB(extData: String, userId: Int) {
-        var daoHelper = DaoHelper.shareInstance()
-        daoHelper.updateExtDataInDB(extData, userId: userId)
+        self.frendDaoHelper.updateExtDataInDB(extData, userId: userId)
     }
     
     /**
@@ -103,14 +79,12 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
     */
     func getAllMyContacts() -> NSArray {
         var retArray = NSArray()
-        var daoHelper = DaoHelper.shareInstance()
-        retArray = daoHelper.selectAllContacts()
+        retArray = self.frendDaoHelper.selectAllContacts()
         return retArray
     }
     
     func deleteAllContacts() {
-        var daoHelper = DaoHelper.shareInstance()
-        daoHelper.deleteAllContactsFromDB()
+        self.frendDaoHelper.deleteAllContactsFromDB()
     }
     
     /**
@@ -119,16 +93,14 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
     :returns:
     */
     func frendIsExitInDB(userId: Int) -> Bool {
-        var daoHelper = DaoHelper.shareInstance()
-        return daoHelper.frendIsExitInDB(userId)
+        return self.frendDaoHelper.frendIsExitInDB(userId)
     }
     
     /**
     *  更新好友备注
     */
     func updateContactMemoInDB(momo: String, userId: Int) {
-        var daoHelper = DaoHelper.shareInstance()
-        daoHelper.updateContactMemoInDB(userId, memo: momo)
+        self.frendDaoHelper.updateMemoInDB(momo, userId: userId)
     }
     
     /**
@@ -148,8 +120,7 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
     :returns:
     */
     func getFrendInfoFromDB(#userId: Int) -> FrendModel? {
-        var daoHelper = DaoHelper.shareInstance()
-        return daoHelper.selectFrend(userId: userId)
+        return self.frendDaoHelper.selectFrend(userId: userId)
     }
     
     /**
@@ -191,7 +162,7 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
         let manager = AFHTTPRequestOperationManager()
         let requestSerializer = AFJSONRequestSerializer()
         manager.requestSerializer = requestSerializer
-        manager.requestSerializer.setValue("\(AccountManager.shareAccountManager().account.userId)", forHTTPHeaderField: "UserId")
+        manager.requestSerializer.setValue("\(accountId)", forHTTPHeaderField: "UserId")
         let url = "\(API_FREND)/\(frend.userId)"
         manager.DELETE(url, parameters: nil, success:
             { (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in

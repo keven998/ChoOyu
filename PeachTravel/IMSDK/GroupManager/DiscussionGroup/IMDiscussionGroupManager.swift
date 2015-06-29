@@ -85,7 +85,7 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
                 var group = IMDiscussionGroup(jsonData: retMessage!)
                 group.subject = groupName
                 group.numbers = invitees
-                var frendManager = FrendManager.shareInstance()
+                var frendManager = FrendManager(userId: AccountManager.shareAccountManager().account.userId)
                 frendManager.addFrend2DB(self.convertDiscussionGroupModel2FrendModel(group))
                 completionBlock(isSuccess: true, errorCode: errorCode, discussionGroup: group)
             } else {
@@ -107,7 +107,7 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
                 for groupData in retData  {
                     var group = IMDiscussionGroup(jsonData: groupData as! NSDictionary)
                     groupList.append(group)
-                    var frendManager = FrendManager.shareInstance()
+                    var frendManager = FrendManager(userId: AccountManager.shareAccountManager().account.userId)
                     frendManager.updateFrendInfoInDB(self.convertDiscussionGroupModel2FrendModel(group))
                 }
             }
@@ -259,7 +259,7 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
     */
     func updateGroupNumbersInDB(group: IMDiscussionGroup) {
         var frend = self.convertDiscussionGroupModel2FrendModel(group)
-        var frendManager = FrendManager.shareInstance()
+        var frendManager = FrendManager(userId: AccountManager.shareAccountManager().account.userId)
         frendManager.updateExtDataInDB(frend.extData as String, userId: frend.userId)
     }
 
@@ -270,7 +270,7 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
     */
     func updateGroupInfoInDB(group: IMDiscussionGroup) {
         var frend = self.convertDiscussionGroupModel2FrendModel(group)
-        var frendManager = FrendManager.shareInstance()
+        var frendManager = FrendManager(userId: AccountManager.shareAccountManager().account.userId)
         frendManager.addFrend2DB(frend)
     }
     
@@ -414,7 +414,7 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
             }
             frendModel.fullPY = ConvertMethods.chineseToPinyin(frendModel.nickName)
             frendModel.type = IMFrendType.DiscussionGroup
-            var frendManager = FrendManager.shareInstance()
+            var frendManager = FrendManager(userId: AccountManager.shareAccountManager().account.userId)
             frendManager.addFrend2DB(frendModel)
         }
     }
