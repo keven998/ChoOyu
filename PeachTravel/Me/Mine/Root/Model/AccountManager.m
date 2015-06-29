@@ -34,8 +34,10 @@
     if (!_account) {
         AccountDaoHelper *accountDaoHelper = [AccountDaoHelper shareInstance];
         _account = [accountDaoHelper selectCurrentAccount];
-        FrendManager *manager = [[FrendManager alloc] initWithUserId:_account.userId];
-        [manager getAllMyContacts];
+        if (_account) {
+            FrendManager *manager = [[FrendManager alloc] initWithUserId:_account.userId];
+            [manager getAllMyContacts];
+        }
     }
     return _account;
 }
