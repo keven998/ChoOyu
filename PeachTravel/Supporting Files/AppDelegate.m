@@ -42,17 +42,10 @@
     [[UINavigationBar appearance] setTitleTextAttributes:
         [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName]];
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-
-//    [[UINavigationBar appearance] setShadowImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR]];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = APP_PAGE_COLOR;
     
-    //目前只有环信的推送。因此暂时
-//    NSDictionary* message = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-//    if (message) {
-//        _homeViewController.shouldJumpToChatListWhenAppLaunch = YES;
-//    }
     _homeViewController = [[HomeViewController alloc] init];
     self.window.rootViewController = _homeViewController;
     [self.window makeKeyAndVisible];
@@ -75,6 +68,11 @@
 #endif
     
     [iRate sharedInstance].promptAtLaunch = NO;
+    
+    if ([AccountManager shareAccountManager].isLogin) {
+        IMClientManager *manager = [IMClientManager shareInstance];
+        [manager userDidLogin:[AccountManager shareAccountManager].account.userId];
+    }
 
     return YES;
 }

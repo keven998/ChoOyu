@@ -69,8 +69,6 @@ class CMDMessageManager: NSObject, MessageReceiveManagerDelegate {
         return nil
     }
     
-    
-    
     //MARK: MessageTransferManagerDelegate
     
     func receiveNewMessage(message: BaseMessage) {
@@ -81,7 +79,6 @@ class CMDMessageManager: NSObject, MessageReceiveManagerDelegate {
     
     /**
     分发 cmd 消息
-    
     :param: message
     */
     private func dispatchCMDMessage(message: IMCMDMessage) {
@@ -97,6 +94,9 @@ class CMDMessageManager: NSObject, MessageReceiveManagerDelegate {
                 if let delegate = self.getDelegateWithRoutingKey(CMDMessageRoutingKey.Group_CMD) {
                     delegate.receiveDiscussiongGroupCMDMessage?(message)
                 }
+                
+            case .F_ADD:
+                let frendManager = FrendManager(userId: AccountManager.shareAccountManager().account.userId)
                 
             default:
                 break
