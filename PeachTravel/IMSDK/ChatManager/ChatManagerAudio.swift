@@ -45,12 +45,16 @@ protocol ChatManagerAudioProtocol {
     func stopPlayAudio()
 }
 
-@objc protocol ChatManagerAudioDelegate {
+@objc protocol ChatManagerAudioRecordDelegate {
     
     optional func audioRecordEnd(audioPath: String)
+
+}
+
+@objc protocol ChatManagerAudioPlayDelegate {
     
     optional func playAudioEnded(messageId: Int)
-
+    
 }
 
 private let audioManager = ChatManagerAudio()
@@ -67,7 +71,9 @@ class ChatManagerAudio: NSObject, ChatManagerAudioProtocol, AudioManagerDelegate
     
     private var audioPlayer: AVAudioPlayer!
     
-    weak var delegate: ChatManagerAudioDelegate?
+    weak var chatManagerAudioRecordDelegate: ChatManagerAudioRecordDelegate?
+    weak var chatManagerAudioPlayDelegate: ChatManagerAudioPlayDelegate?
+
     
     var timer: NSTimer!
     
@@ -130,7 +136,7 @@ class ChatManagerAudio: NSObject, ChatManagerAudioProtocol, AudioManagerDelegate
     
     func playAudio(audioPath: String, messageLocalId: Int) {
         if currentMessageId != 0 && currentMessageId != messageLocalId {
-            delegate?.playAudioEnded?(currentMessageId)
+            chatManagerAudioPlayDelegate?.playAudioEnded?(currentMessageId)
         }
         if let audioData = NSData.dataWithContentsOfMappedFile(audioPath) as? NSData {
             self.audioPlayer = AVAudioPlayer(data: audioData, error: nil)
@@ -160,7 +166,7 @@ class ChatManagerAudio: NSObject, ChatManagerAudioProtocol, AudioManagerDelegate
         timeCounter = 0
         stopTimer()
         if audioIsValid {
-            delegate?.audioRecordEnd?(audioPath)
+            chatManagerAudioRecordDelegate?.audioRecordEnd?(audioPath)
         } else {
             // TODO: 删除录音文件
         }
@@ -182,13 +188,13 @@ class ChatManagerAudio: NSObject, ChatManagerAudioProtocol, AudioManagerDelegate
     func audioPlayerDidFinishPlaying(player: AVAudioPlayer!, successfully flag: Bool) {
         NSLog("播放完毕");
         audioPlayer = nil;
-        delegate?.playAudioEnded?(currentMessageId)
+        chatManagerAudioPlayDelegate?.playAudioEnded?(currentMessageId)
     }
     
     func audioPlayerEndInterruption(player: AVAudioPlayer!) {
         NSLog("播放被打断");
         audioPlayer = nil
-        delegate?.playAudioEnded?(currentMessageId)
+        chatManagerAudioPlayDelegate?.playAudioEnded?(currentMessageId)
 
     }
 }

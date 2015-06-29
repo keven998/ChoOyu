@@ -15,7 +15,7 @@
 
 #define CHAT_PANEL_VIEW_HEIGHT 200
 
-@interface DXMessageToolBar()<HPGrowingTextViewDelegate, DXFaceDelegate, ChatManagerAudioDelegate>
+@interface DXMessageToolBar()<HPGrowingTextViewDelegate, DXFaceDelegate, ChatManagerAudioRecordDelegate>
 {
     CGFloat _previousTextViewContentHeight;//上一次inputTextView的contentSize.height
 }
@@ -144,7 +144,7 @@
 {
     if (!_audioManager) {
         _audioManager = [ChatManagerAudio shareInstance];
-        _audioManager.delegate = self;
+        _audioManager.chatManagerAudioRecordDelegate = self;
     }
     return _audioManager;
 }
@@ -636,7 +636,6 @@
 
 - (void)recordDragInside
 {
-    NSLog(@"recordDragInside-----");
     if ([self.recordView isKindOfClass:[DXRecordView class]]) {
         [(DXRecordView *)self.recordView recordButtonDragInside];
     }
