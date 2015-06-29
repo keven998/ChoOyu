@@ -28,7 +28,7 @@
 @interface MineTableViewController () <UITableViewDataSource, UITableViewDelegate,updataTracksDelegate>
 {
     UILabel *_trackNumber;
-    UILabel *_friendNumber;
+    UILabel *_pictureNumber;
     UILabel *_planNumber;
 }
 @property (strong, nonatomic) AccountManager *accountManager;
@@ -186,25 +186,25 @@
     
     CGFloat bh = 84*height/736;
     
-    UIButton *friendEntry = [[UIButton alloc] initWithFrame:CGRectMake(0, offsetY, unitWidth, bh)];
-    _friendNumber = [[UILabel alloc] initWithFrame:CGRectMake(10, bh/2 - 20, unitWidth - 20, 20)];
-    _friendNumber.textColor = COLOR_TEXT_I;
-    _friendNumber.textAlignment = NSTextAlignmentCenter;
-    _friendNumber.font = [UIFont systemFontOfSize:15];
-    _friendNumber.text = @"0位";
-    _friendNumber.lineBreakMode = NSLineBreakByTruncatingTail;
-    _friendCount = _friendNumber;
-    [friendEntry addSubview:_friendNumber];
+    UIButton *friendEntry = [[UIButton alloc] initWithFrame:CGRectMake(unitWidth, offsetY, unitWidth, bh)];
+    _pictureNumber = [[UILabel alloc] initWithFrame:CGRectMake(10, bh/2 - 20, unitWidth - 20, 20)];
+    _pictureNumber.textColor = COLOR_TEXT_I;
+    _pictureNumber.textAlignment = NSTextAlignmentCenter;
+    _pictureNumber.font = [UIFont systemFontOfSize:15];
+    _pictureNumber.text = @"0图";
+    _pictureNumber.lineBreakMode = NSLineBreakByTruncatingTail;
+    _friendCount = _pictureNumber;
+    [friendEntry addSubview:_pictureNumber];
     UILabel *fl = [[UILabel alloc] initWithFrame:CGRectMake(10, bh/2, unitWidth - 20, 20)];
     fl.textColor = COLOR_TEXT_III;
-    fl.text = @"好友";
+    fl.text = @"相册";
     fl.textAlignment = NSTextAlignmentCenter;
     fl.font = [UIFont systemFontOfSize:12];
     [friendEntry addSubview:fl];
-    [friendEntry addTarget:self action:@selector(showContactList:) forControlEvents:UIControlEventTouchUpInside];
+    [friendEntry addTarget:self action:@selector(showPictureGrid:) forControlEvents:UIControlEventTouchUpInside];
     [headerBgView addSubview:friendEntry];
     
-    UIButton *planEntry = [[UIButton alloc] initWithFrame:CGRectMake(unitWidth, offsetY, unitWidth, bh)];
+    UIButton *planEntry = [[UIButton alloc] initWithFrame:CGRectMake(0, offsetY, unitWidth, bh)];
     _planNumber = [[UILabel alloc] initWithFrame:CGRectMake(10, bh/2 - 20, unitWidth - 20, 20)];
     _planNumber.textColor = COLOR_TEXT_I;
     _planNumber.textAlignment = NSTextAlignmentCenter;
@@ -336,7 +336,7 @@
         }
         _trackNumber.text = [NSString stringWithFormat:@"%ld国 %ld个城市", (long)countryNumber, (long)cityNumber];
         
-        _friendNumber.text = [NSString stringWithFormat:@"%lu位",_accountManager.account.frendList.count];
+//        _pictureNumber.text = [NSString stringWithFormat:@"%lu图", _accountManager.account.frendList.count];
         
         _planNumber.text = [NSString stringWithFormat:@"%lu条",_accountManager.account.guideCnt];
         _nameLabel.text = amgr.account.nickName;
@@ -429,11 +429,11 @@
     }
 }
 
-- (IBAction)showContactList:(id)sender
+- (IBAction)showPictureGrid:(id)sender
 {
-    ContactListViewController *contactListCtl = [[ContactListViewController alloc] init];
-    contactListCtl.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:contactListCtl animated:YES];
+//    ContactListViewController *contactListCtl = [[ContactListViewController alloc] init];
+//    contactListCtl.hidesBottomBarWhenPushed = YES;
+//    [self.navigationController pushViewController:contactListCtl animated:YES];
 }
 
 - (IBAction)myPlan:(id)sender
