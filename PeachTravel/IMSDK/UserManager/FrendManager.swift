@@ -126,8 +126,9 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
     /**
     *  更新好友备注
     */
-    func updateContactMemo(momo: String, userId: Int) {
-        
+    func updateContactMemoInDB(momo: String, userId: Int) {
+        var daoHelper = DaoHelper.shareInstance()
+        daoHelper.updateContactMemoInDB(userId, memo: momo)
     }
     
     /**

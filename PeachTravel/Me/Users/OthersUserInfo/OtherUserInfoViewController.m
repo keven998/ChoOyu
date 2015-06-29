@@ -40,9 +40,11 @@
     UILabel *_age;
     UILabel *_recidence;
     UILabel *_planeLabel;
+    FrendModel *_userInfo;
 }
 
 @property (nonatomic, strong) FrendModel *userInfo;
+
 @end
 
 @implementation OtherUserInfoViewController
