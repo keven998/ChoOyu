@@ -12,7 +12,6 @@
 #import "AppDelegate.h"
 #import "Constants.h"
 #import "AppUtils.h"
-#import "HomeViewController.h"
 #import "WXApi.h"
 #import "TaoziImage.h"
 #import "AccountManager.h"

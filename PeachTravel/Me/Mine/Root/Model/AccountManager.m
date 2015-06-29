@@ -42,55 +42,6 @@
     return _account;
 }
 
-- (NSString *)userChatAudioPath
-{
-    if (!_userChatAudioPath) {
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *documentPath = [paths objectAtIndex:0];
-        
-        NSFileManager *fileManager =  [[NSFileManager alloc] init];
-        NSString *audioPath = [documentPath stringByAppendingPathComponent:[NSString stringWithFormat: @"%ld/ChatAudio/", self.account.userId]];
-        if (![fileManager fileExistsAtPath: audioPath]) {
-            [fileManager createDirectoryAtPath:audioPath withIntermediateDirectories:YES attributes:nil error:nil];
-        }
-        _userChatAudioPath = audioPath;
-    }
-    return _userChatAudioPath;
-}
-
-- (NSString *)userChatImagePath
-{
-    if (!_userChatImagePath) {
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *documentPath = [paths objectAtIndex:0];
-        
-        NSFileManager *fileManager =  [[NSFileManager alloc] init];
-        NSString *imagePath = [documentPath stringByAppendingPathComponent:[NSString stringWithFormat: @"%ld/ChatImage/", self.account.userId]];
-
-        if (![fileManager fileExistsAtPath: imagePath]) {
-            [fileManager createDirectoryAtPath:imagePath withIntermediateDirectories:YES attributes:nil error:nil];
-        }
-        _userChatImagePath = imagePath;
-    }
-    return _userChatImagePath;
-}
-
-- (NSString *)userTempPath
-{
-    if (!_userTempPath) {
-        NSString *tempPath = NSTemporaryDirectory();
-        
-        NSFileManager *fileManager =  [[NSFileManager alloc] init];
-        NSString *retPath = [tempPath stringByAppendingPathComponent:[NSString stringWithFormat: @"%ld/tempFile/", self.account.userId]];
-
-        if (![fileManager fileExistsAtPath: retPath]) {
-            [fileManager createDirectoryAtPath:retPath withIntermediateDirectories:YES attributes:nil error:nil];
-        }
-        _userTempPath = retPath;
-    }
-    return _userTempPath;
-}
-
 //用户是否登录
 - (BOOL)isLogin
 {
@@ -591,7 +542,8 @@
                 int typeValue = frend.type = IMFrendWeightTypeFrend;
                 frend.type = typeValue;
             }
-            [[DaoHelper shareInstance] updateFrendTypeWithUserId:frend.userId frendType:frend.type];
+            FrendManager *manager = [[FrendManager alloc] initWithUserId:_account.userId];
+            [manager updateFrendTypeWithUserId:frend.userId frendType:frend.type];
             return;
         }
     }
@@ -709,7 +661,6 @@
     frendRequest.status = TZFrendAgree;
     [[NSNotificationCenter defaultCenter] postNotificationName:frendRequestListNeedUpdateNoti object:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:contactListNeedUpdateNoti object:nil];
-   
 }
 
 #pragma mark - ********修改用户好友信息

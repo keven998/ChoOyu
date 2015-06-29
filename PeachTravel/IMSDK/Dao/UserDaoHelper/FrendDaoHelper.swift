@@ -67,7 +67,7 @@ protocol FrendDaoProtocol {
     
     :returns:
     */
-    func selectFrend(#userId: Int) -> FrendModel?
+    func selectFrend(#userId: Int, frendType: IMFrendWeightType?) -> FrendModel?
     
     /**
     更新好友类型
@@ -93,7 +93,6 @@ class FrendDaoHelper: BaseDaoHelper, FrendDaoProtocol {
     创建 frend 表，frend 表存的是所有好友和非好友的人。利用 type 来区分类型
     :returns:
     */
-    
     class func createFrendTable(DB: FMDatabase) -> Bool {
         
         var sql = "create table '\(frendTableName)' (UserId INTEGER PRIMARY KEY NOT NULL, NickName TEXT, Avatar Text, AvatarSmall Text, ShortPY Text, FullPY Text, Signature Text, Memo Text, Sex INTEGER, Type INTEGER, ExtData Text)"
@@ -189,15 +188,19 @@ class FrendDaoHelper: BaseDaoHelper, FrendDaoProtocol {
         }
     }
     
-    
-    func selectFrend(#userId: Int) -> FrendModel? {
+    func selectFrend(#userId: Int, frendType: IMFrendWeightType?) -> FrendModel? {
         var frend: FrendModel?
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
             var sql = "select * from \(frendTableName) where UserId = ?"
             var rs = dataBase.executeQuery(sql, withArgumentsInArray: [userId])
             if (rs != nil) {
                 while rs.next() {
-                    frend = self.fillFrendModelWithFMResultSet(rs)
+                    let tempFrend = self.fillFrendModelWithFMResultSet(rs)
+                    if let type = frendType {
+                        if FrendModel.typeIsCorrect(tempFrend.type, typeWeight: type) {
+                            frend = tempFrend
+                        }
+                    }
                 }
             }
         }

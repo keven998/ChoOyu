@@ -72,14 +72,13 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
     :param: receivedMessages 已经收到的消息
     */
     func ACKMessageWithReceivedMessages(receivedMessages: NSArray?) {
-        var accountManager = AccountManager.shareAccountManager()
         
         println("fetchOmitMessageWithReceivedMessages queue: \(NSThread.currentThread())")
         
         //储存需要额外处理的消息
         var messagesNeed2Deal = NSMutableArray()
         
-        NetworkTransportAPI.asyncACKMessage(accountManager.account.userId, shouldACKMessageList:messageManager.messagesShouldACK, completionBlock: { (isSuccess: Bool, errorCode: Int, retMessage: NSArray?) -> () in
+        NetworkTransportAPI.asyncACKMessage(IMClientManager.shareInstance().accountId, shouldACKMessageList:messageManager.messagesShouldACK, completionBlock: { (isSuccess: Bool, errorCode: Int, retMessage: NSArray?) -> () in
             
             println("fetch Result 一共是：\(retMessage?.count): \(retMessage)")
             
@@ -295,7 +294,7 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
     private func downloadPreviewImageAndDistribution(imageMessage: ImageMessage) {
         MetadataDownloadManager.asyncDownloadThumbImage(imageMessage.thumbUrl!, completion: { (isSuccess: Bool, metadata: NSData?) -> () in
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
-                var imagePath = AccountManager.shareAccountManager().userChatImagePath.stringByAppendingPathComponent("\(imageMessage.metadataId!)")
+                var imagePath = IMClientManager.shareInstance().userChatImagePath.stringByAppendingPathComponent("\(imageMessage.metadataId!)")
                 
                 if let imageData = metadata {
                     var fileManager =  NSFileManager()
@@ -325,7 +324,7 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
     private func downloadSnapshotImageAndDistribution(message: LocationMessage) {
         MetadataDownloadManager.asyncDownloadThumbImage(message.mapImageUrl!, completion: { (isSuccess: Bool, metadata: NSData?) -> () in
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
-                var imagePath = AccountManager.shareAccountManager().userChatImagePath.stringByAppendingPathComponent("\(message.metadataId!)")
+                var imagePath = IMClientManager.shareInstance().userChatImagePath.stringByAppendingPathComponent("\(message.metadataId!)")
                 
                 if let imageData = metadata {
                     var fileManager =  NSFileManager()
