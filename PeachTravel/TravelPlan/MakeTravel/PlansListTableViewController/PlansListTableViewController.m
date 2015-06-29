@@ -81,6 +81,7 @@ static NSString *reusableCell = @"myGuidesCell";
     
     if (!_selectToSend) {
         self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithIcon:@"common_icon_navigaiton_back" highIcon:nil target:self action:@selector(goBack)];
+        self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithIcon:@"common_icon_navigaiton_back_highlight" highIcon:nil target:self action:@selector(goBack)];
     } else {
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
     }
