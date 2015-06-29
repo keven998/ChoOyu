@@ -109,6 +109,8 @@
 - (void)asyncLogout:(void (^)(BOOL))completion
 {
     _account = nil;
+    IMClientManager *manager = [IMClientManager shareInstance];
+    [manager userDidLogout];
     AccountDaoHelper *daoHelper = [AccountDaoHelper shareInstance];
     [daoHelper deleteAccountInfoInDB];
     [[NSNotificationCenter defaultCenter] postNotificationName:userDidLogoutNoti object:nil];
@@ -122,7 +124,7 @@
     AccountDaoHelper *accountDaoHelper = [AccountDaoHelper shareInstance];
     [accountDaoHelper addAccount2DB:_account];
     IMClientManager *manager = [IMClientManager shareInstance];
-    [manager userDidLogin];
+    [manager userDidLogin:_account.userId];
     [self bindRegisterID2UserId];
     [[NSNotificationCenter defaultCenter] postNotificationName:userDidLoginNoti object:nil];
 
