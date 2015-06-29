@@ -114,7 +114,7 @@
     if ([json objectForKey:@"tracks"] == [NSNull null]) {
         _tracks = [[NSMutableDictionary alloc] init];
     } else {
-        _tracks = [json objectForKey:@"tracks"];
+        _tracks = [[json objectForKey:@"tracks"] mutableCopy];
     }
     
     if ([json objectForKey:@"travelStatus"] == [NSNull null]) {

@@ -55,10 +55,8 @@
         float a = cityPoi.lat;
         float b = cityPoi.lng;
         CLLocation *location = [[CLLocation alloc] initWithLatitude:a longitude:b];
-        [self addFootprint:location];
-        
+        [_footprintMapCtl addPoint:location];
     }
-    
     
     UISegmentedControl *segControl = [[UISegmentedControl alloc] initWithItems:@[@"国内",@"国外"]];
     segControl.tintColor = APP_THEME_COLOR;
@@ -72,6 +70,7 @@
     [self createCollectionView];
     
 }
+
 -(void)selectedPage:(UISegmentedControl *)segment {
     if (segment.selectedSegmentIndex == 0) {
         _dataArray = _destinations.domesticCities;
@@ -176,6 +175,7 @@
     cell.backgroundColor = [UIColor whiteColor];
     return  cell;
 }
+
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     [MobClick event:@"event_select_city"];
@@ -190,44 +190,26 @@
             NSInteger index = [_destinations.destinationsSelected indexOfObject:cityPoi];
             [_destinations.destinationsSelected removeObjectAtIndex:index];
             [_countryName addObject:area.zhName];
-            [self deleteFootprint:location track:city.cityId];
-            [self deleteUserTrack:city areaName:area.zhName];
+            [_footprintMapCtl removePoint:location];
+            if (_segmentControl.selectedSegmentIndex == 0) {
+                [self changTracks:@"del" city:city areaName:@"中国"];
+            } else {
+                [self changTracks:@"del" city:city areaName:area.zhName];
+            }
             find = YES;
             break;
         }
     }
     if (!find) {
-        if (_destinations.destinationsSelected.count == 0) {
-            
-        }
         [_destinations.destinationsSelected addObject:city];
-        [self addFootprint:location track:city.cityId];
-        [self addUserTrack:city areaName:area.zhName];
+        [_footprintMapCtl addPoint:location];
+        if (_segmentControl.selectedSegmentIndex == 0) {
+            [self changTracks:@"add" city:city areaName:@"中国"];
+        } else {
+            [self changTracks:@"add" city:city areaName:area.zhName];
+        }
     }
     [_collectionView reloadItemsAtIndexPaths:@[indexPath]];
-}
-
-- (IBAction)addFootprint:(CLLocation *)location
-{
-    [_footprintMapCtl addPoint:location];
-}
-
-- (IBAction)addFootprint:(CLLocation *)location track:(NSString *)areaId
-{
-    NSMutableArray *tracks = [NSMutableArray array];
-    [tracks addObject:areaId];
-    [self changTracks:@"add" tracks:tracks];
-    [_footprintMapCtl addPoint:location];
-}
-
-- (void)deleteFootprint:(CLLocation *)location track:(NSString *)areaId
-{
-    NSMutableArray *tracks = [NSMutableArray array];
-    [tracks addObject:areaId];
-    
-    [self changTracks:@"del" tracks:tracks];
-    [_footprintMapCtl removePoint:location];
-    
 }
 
 -(void)back
@@ -269,8 +251,6 @@
         }
     }
     NSMutableString *cityDesc = nil;
-    
-
 
     for (CityDestinationPoi *cityPoi in _destinations.destinationsSelected) {
         if (cityDesc == nil) {
@@ -286,8 +266,8 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-
 #pragma mark - http method
+
 -(void)downloadDomesticData:(NSString *)modifiedTime url:(NSString *)url
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -325,6 +305,7 @@
     }];
     
 }
+
 -(void)downloadForeignData:(NSString *)modifiedTime url:(NSString *)url
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -353,77 +334,20 @@
             
         } else {
             
-            
         }
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-    }];
-    
-}
-- (void)changTracks:(NSString *)action tracks:(NSArray *)tracks
-{
-    AccountManager *account = [AccountManager shareAccountManager];
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)account.account.userId] forHTTPHeaderField:@"UserId"];
-    
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params safeSetObject:action forKey:@"action"];
-    [params safeSetObject:tracks forKey:@"tracks"];
-    NSLog(@"%@",tracks);
-    NSString *urlStr = [NSString stringWithFormat:@"%@users/%ld/tracks", BASE_URL, (long)account.account.userId];
-    
-    [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-        if (code == 0) {
-            
-        } else {
-            
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
     }];
 }
 
-- (void)addUserTrack:(CityDestinationPoi *)city
-            areaName:(NSString *)areaName
+- (void)changTracks:(NSString *)action city:(CityDestinationPoi *)track areaName:(NSString *)areaName
 {
     AccountManager *manager = [AccountManager shareAccountManager];
-    
-    NSMutableDictionary *country = [NSMutableDictionary dictionaryWithDictionary:manager.account.tracks];
-    NSArray *areaArray = [country allKeys];
-    for (NSString *arer in areaArray) {
-        if ([arer isEqualToString:areaName]) {
-            NSDictionary *dict = [NSDictionary dictionary];
-            [dict setValue:city.cityId forKey:@"id"];
-            [dict setValue:city.zhName forKey:@"zhName"];
-            CLLocation *location = [[CLLocation alloc] initWithLatitude:city.lat longitude:city.lng];
-            [dict setValue:location forKey:@"location"];
-            NSMutableArray *city = [country objectForKey:arer];
-            [city addObject:dict];
-            [country setObject:areaName forKey:city];
-            
-        }
-    }
-    [manager updataUserTracks:nil withtracks:country];
-    
+    [manager updataUserServerTracks:action withTrack:track areaName:areaName];
 }
-- (void)deleteUserTrack:(CityDestinationPoi *)city
-               areaName:(NSString *)areaName
-{
-    AccountManager *manager = [AccountManager shareAccountManager];
-    
-    NSMutableDictionary *country = [NSMutableDictionary dictionaryWithDictionary:manager.account.tracks];
-    NSArray *countryArray = [country allKeys];
-}
+
 @end
 
 
