@@ -191,6 +191,7 @@
             [_destinations.destinationsSelected removeObjectAtIndex:index];
             [_countryName addObject:area.zhName];
             [self deleteFootprint:location track:city.cityId];
+            [self deleteUserTrack:city areaName:area.zhName];
             find = YES;
             break;
         }
@@ -201,6 +202,7 @@
         }
         [_destinations.destinationsSelected addObject:city];
         [self addFootprint:location track:city.cityId];
+        [self addUserTrack:city areaName:area.zhName];
     }
     [_collectionView reloadItemsAtIndexPaths:@[indexPath]];
 }
@@ -208,7 +210,6 @@
 - (IBAction)addFootprint:(CLLocation *)location
 {
     [_footprintMapCtl addPoint:location];
-    
 }
 
 - (IBAction)addFootprint:(CLLocation *)location track:(NSString *)areaId
@@ -217,7 +218,6 @@
     [tracks addObject:areaId];
     [self changTracks:@"add" tracks:tracks];
     [_footprintMapCtl addPoint:location];
-    
 }
 
 - (void)deleteFootprint:(CLLocation *)location track:(NSString *)areaId
@@ -384,7 +384,7 @@
         
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            [self updateUserTrack];
+            
         } else {
             
         }
@@ -392,19 +392,37 @@
         
     }];
 }
-- (void)updateUserTrack
+
+- (void)addUserTrack:(CityDestinationPoi *)city
+            areaName:(NSString *)areaName
 {
     AccountManager *manager = [AccountManager shareAccountManager];
     
     NSMutableDictionary *country = [NSMutableDictionary dictionaryWithDictionary:manager.account.tracks];
-//    country
-    
-    
-    
-    
-    
-    
+    NSArray *areaArray = [country allKeys];
+    for (NSString *arer in areaArray) {
+        if ([arer isEqualToString:areaName]) {
+            NSDictionary *dict = [NSDictionary dictionary];
+            [dict setValue:city.cityId forKey:@"id"];
+            [dict setValue:city.zhName forKey:@"zhName"];
+            CLLocation *location = [[CLLocation alloc] initWithLatitude:city.lat longitude:city.lng];
+            [dict setValue:location forKey:@"location"];
+            NSMutableArray *city = [country objectForKey:arer];
+            [city addObject:dict];
+            [country setObject:areaName forKey:city];
+            
+        }
+    }
     [manager updataUserTracks:nil withtracks:country];
+    
+}
+- (void)deleteUserTrack:(CityDestinationPoi *)city
+               areaName:(NSString *)areaName
+{
+    AccountManager *manager = [AccountManager shareAccountManager];
+    
+    NSMutableDictionary *country = [NSMutableDictionary dictionaryWithDictionary:manager.account.tracks];
+    NSArray *countryArray = [country allKeys];
 }
 @end
 
