@@ -62,6 +62,7 @@
     self.tableView.delegate = self;
     [self.view addSubview:self.tableView];
     self.tableView.backgroundColor = APP_PAGE_COLOR;
+    self.tableView.showsVerticalScrollIndicator = NO;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.tableView registerNib:[UINib nibWithNibName:@"OptionTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:secondCell];
@@ -190,7 +191,7 @@
     _pictureNumber = [[UILabel alloc] initWithFrame:CGRectMake(10, bh/2 - 20, unitWidth - 20, 20)];
     _pictureNumber.textColor = COLOR_TEXT_I;
     _pictureNumber.textAlignment = NSTextAlignmentCenter;
-    _pictureNumber.font = [UIFont systemFontOfSize:15];
+    _pictureNumber.font = [UIFont systemFontOfSize:16];
     _pictureNumber.text = @"0图";
     _pictureNumber.lineBreakMode = NSLineBreakByTruncatingTail;
     _friendCount = _pictureNumber;
@@ -199,7 +200,7 @@
     fl.textColor = COLOR_TEXT_III;
     fl.text = @"相册";
     fl.textAlignment = NSTextAlignmentCenter;
-    fl.font = [UIFont systemFontOfSize:12];
+    fl.font = [UIFont systemFontOfSize:13];
     [friendEntry addSubview:fl];
     [friendEntry addTarget:self action:@selector(showPictureGrid:) forControlEvents:UIControlEventTouchUpInside];
     [headerBgView addSubview:friendEntry];
@@ -208,7 +209,7 @@
     _planNumber = [[UILabel alloc] initWithFrame:CGRectMake(10, bh/2 - 20, unitWidth - 20, 20)];
     _planNumber.textColor = COLOR_TEXT_I;
     _planNumber.textAlignment = NSTextAlignmentCenter;
-    _planNumber.font = [UIFont systemFontOfSize:15];
+    _planNumber.font = [UIFont systemFontOfSize:16];
     _planNumber.text = @"0条";
     _planCount = _planNumber;
     _planNumber.lineBreakMode = NSLineBreakByTruncatingTail;
@@ -217,7 +218,7 @@
     pl.textColor = COLOR_TEXT_III;
     pl.text = @"计划";
     pl.textAlignment = NSTextAlignmentCenter;
-    pl.font = [UIFont systemFontOfSize:12];
+    pl.font = [UIFont systemFontOfSize:13];
     [planEntry addSubview:pl];
     [planEntry addTarget:self action:@selector(myPlan:) forControlEvents:UIControlEventTouchUpInside];
     [headerBgView addSubview:planEntry];
@@ -225,8 +226,9 @@
     UIButton *trackEntry = [[UIButton alloc] initWithFrame:CGRectMake(2*unitWidth, offsetY, unitWidth, bh)];
     _trackNumber = [[UILabel alloc] initWithFrame:CGRectMake(10, bh/2 - 20, unitWidth - 20, 20)];
     _trackNumber.textColor = COLOR_TEXT_I;
+    _trackNumber.adjustsFontSizeToFitWidth = YES;
     _trackNumber.textAlignment = NSTextAlignmentCenter;
-    _trackNumber.font = [UIFont systemFontOfSize:15];
+    _trackNumber.font = [UIFont systemFontOfSize:16];
     _trackNumber.lineBreakMode = NSLineBreakByTruncatingTail;
     
     NSMutableDictionary *country = [NSMutableDictionary dictionaryWithDictionary:self.accountManager.account.tracks];
@@ -248,7 +250,7 @@
             }
         }
     }
-    _trackNumber.text = [NSString stringWithFormat:@"0国 0个城市"];
+    _trackNumber.text = [NSString stringWithFormat:@"0国0城"];
 
     _trackCount = _trackNumber;
     [trackEntry addSubview:_trackNumber];
@@ -256,7 +258,7 @@
     tl.textColor = COLOR_TEXT_III;
     tl.text = @"足迹";
     tl.textAlignment = NSTextAlignmentCenter;
-    tl.font = [UIFont systemFontOfSize:12];
+    tl.font = [UIFont systemFontOfSize:13];
     [trackEntry addSubview:tl];
     [trackEntry addTarget:self action:@selector(myTrack:) forControlEvents:UIControlEventTouchUpInside];
     [headerBgView addSubview:trackEntry];
@@ -334,7 +336,7 @@
                 }
             }
         }
-        _trackNumber.text = [NSString stringWithFormat:@"%ld国 %ld个城市", (long)countryNumber, (long)cityNumber];
+        _trackNumber.text = [NSString stringWithFormat:@"%ld国%ld城", (long)countryNumber, (long)cityNumber];
         
 //        _pictureNumber.text = [NSString stringWithFormat:@"%lu图", _accountManager.account.frendList.count];
         
@@ -534,6 +536,7 @@
         } else if (indexPath.row == 1) {
             [MobClick event:@"event_feedback"];
             FeedbackController *feedbackCtl = [[FeedbackController alloc] init];
+            feedbackCtl.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:feedbackCtl animated:YES];
         }
     } else if (indexPath.section == 1) {
@@ -573,7 +576,7 @@
 }
 - (void)updataTracks:(NSInteger)country citys:(NSInteger)city trackStr:(NSString *)track
 {
-    _trackNumber.text = [NSString stringWithFormat:@"%ld国 %ld个城市",country,city];
+    _trackNumber.text = [NSString stringWithFormat:@"%ld国%ld城",country,city];
 }
 @end
 

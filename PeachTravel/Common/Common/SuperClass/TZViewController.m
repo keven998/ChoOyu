@@ -17,13 +17,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setImage:[UIImage imageNamed:@"common_icon_navigaiton_back"] forState:UIControlStateNormal];
-    [button setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateHighlighted];
+    [button setImage:[UIImage imageNamed:@"common_icon_navigaiton_back.png"] forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:@"common_icon_navigaiton_back_highlight.png"] forState:UIControlStateHighlighted];
     [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
     [button setFrame:CGRectMake(0, 0, 48, 30)];
     button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
-    self.navigationItem.leftBarButtonItem = barButton;
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
 }
 
 - (void)viewWillAppear:(BOOL)animated

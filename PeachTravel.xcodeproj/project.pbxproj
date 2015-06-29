@@ -206,6 +206,9 @@
 		C6682AD51B41343300100EBA /* chat_sender_audio_playing_003@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6682ACA1B41343300100EBA /* chat_sender_audio_playing_003@3x.png */; };
 		C6682AD61B41343300100EBA /* chat_sender_audio_playing_full@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6682ACB1B41343300100EBA /* chat_sender_audio_playing_full@3x.png */; };
 		C6682AD71B41343300100EBA /* MessageSendFail@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6682ACC1B41343300100EBA /* MessageSendFail@3x.png */; };
+		C6682ADB1B41385E00100EBA /* ic_setting_apprise@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6682AD91B41385E00100EBA /* ic_setting_apprise@3x.png */; };
+		C6682ADC1B41385E00100EBA /* ic_setting_cache_clean@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6682ADA1B41385E00100EBA /* ic_setting_cache_clean@3x.png */; };
+		C6682ADE1B41391F00100EBA /* common_icon_navigaiton_back_highlight@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6682ADD1B41391F00100EBA /* common_icon_navigaiton_back_highlight@3x.png */; };
 		C673B5591ADCEC7100D40262 /* TripPlanSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C673B5581ADCEC7100D40262 /* TripPlanSettingViewController.m */; };
 		C679D30D1ACD64E3007680D9 /* RECommonFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = C679D3021ACD64E3007680D9 /* RECommonFunctions.m */; };
 		C679D30E1ACD64E3007680D9 /* REFrostedContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C679D3041ACD64E3007680D9 /* REFrostedContainerViewController.m */; };
@@ -1165,6 +1168,9 @@
 		C6682ACA1B41343300100EBA /* chat_sender_audio_playing_003@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_sender_audio_playing_003@3x.png"; sourceTree = "<group>"; };
 		C6682ACB1B41343300100EBA /* chat_sender_audio_playing_full@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_sender_audio_playing_full@3x.png"; sourceTree = "<group>"; };
 		C6682ACC1B41343300100EBA /* MessageSendFail@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MessageSendFail@3x.png"; sourceTree = "<group>"; };
+		C6682AD91B41385E00100EBA /* ic_setting_apprise@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_setting_apprise@3x.png"; sourceTree = "<group>"; };
+		C6682ADA1B41385E00100EBA /* ic_setting_cache_clean@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_setting_cache_clean@3x.png"; sourceTree = "<group>"; };
+		C6682ADD1B41391F00100EBA /* common_icon_navigaiton_back_highlight@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "common_icon_navigaiton_back_highlight@3x.png"; sourceTree = "<group>"; };
 		C673B5571ADCEC7100D40262 /* TripPlanSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripPlanSettingViewController.h; sourceTree = "<group>"; };
 		C673B5581ADCEC7100D40262 /* TripPlanSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripPlanSettingViewController.m; sourceTree = "<group>"; };
 		C679D3011ACD64E3007680D9 /* RECommonFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RECommonFunctions.h; sourceTree = "<group>"; };
@@ -2570,6 +2576,7 @@
 		C63FFCC31B3A6CFB0026758F /* CommonImages */ = {
 			isa = PBXGroup;
 			children = (
+				C6682ADD1B41391F00100EBA /* common_icon_navigaiton_back_highlight@3x.png */,
 				C63FFCC41B3A6CFB0026758F /* common_icon_navigaiton_back@3x.png */,
 				C63FFCC51B3A6CFB0026758F /* common_icon_navigaiton_menu@3x.png */,
 			);
@@ -2640,6 +2647,7 @@
 		C6631CE51B300C4E00BE4ADC /* 3x */ = {
 			isa = PBXGroup;
 			children = (
+				C6682AD81B41385E00100EBA /* 设置页 */,
 				2786AAEA1B3D908400881697 /* account */,
 				C63FFCBD1B3A6CFB0026758F /* 聊天页 */,
 				C63FFCC31B3A6CFB0026758F /* CommonImages */,
@@ -2688,6 +2696,15 @@
 				C6631CF81B300C4E00BE4ADC /* ic_navigationbar_menu_friendlist@3x.png */,
 			);
 			path = "聊天列表首页";
+			sourceTree = "<group>";
+		};
+		C6682AD81B41385E00100EBA /* 设置页 */ = {
+			isa = PBXGroup;
+			children = (
+				C6682AD91B41385E00100EBA /* ic_setting_apprise@3x.png */,
+				C6682ADA1B41385E00100EBA /* ic_setting_cache_clean@3x.png */,
+			);
+			path = "设置页";
 			sourceTree = "<group>";
 		};
 		C679D3001ACD64E3007680D9 /* REFrostedViewController */ = {
@@ -5850,6 +5867,7 @@
 				275B692F1B17F610002FE764 /* ic_chat_ce_rubbish@2x.png in Resources */,
 				D9A804871A80E738005AD701 /* cell_accessory_gray@2x.png in Resources */,
 				D9A806CB1A80F597005AD701 /* UMSCommentInputController.xib in Resources */,
+				C6682ADB1B41385E00100EBA /* ic_setting_apprise@3x.png in Resources */,
 				C6C5AFD61B0F1688005D6A0F /* ic_shaixuan_@2x.png in Resources */,
 				C63FFCCC1B3A6CFB0026758F /* common_icon_navigaiton_menu@3x.png in Resources */,
 				D9A801211A80DD23005AD701 /* call_silence_h.png in Resources */,
@@ -5885,6 +5903,7 @@
 				D917DA9B1A8B1D3D0039720A /* ic_star_gray_small@2x.png in Resources */,
 				27FF1AFD1B0B139300643D77 /* ic_xingchengdan_queding@2x.png in Resources */,
 				27FF1A961B05D4D000643D77 /* ic_trip_new_3@2x.png in Resources */,
+				C6682ADE1B41391F00100EBA /* common_icon_navigaiton_back_highlight@3x.png in Resources */,
 				D9A804E01A80E738005AD701 /* ic_frendRequest@2x.png in Resources */,
 				C67C078A1A81BFC100E0F30B /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				D9A805351A80E738005AD701 /* ic_city_restaurant@2x.png in Resources */,
@@ -6009,6 +6028,7 @@
 				D91FED431B3D2E0D0073AD77 /* ReceiverImageNodeBorder_black@3x.png in Resources */,
 				D9A801361A80DD23005AD701 /* messageToolbarBg@2x.png in Resources */,
 				D9A8050C1A80E738005AD701 /* ic_sns_weixin@2x.png in Resources */,
+				C6682ADC1B41385E00100EBA /* ic_setting_cache_clean@3x.png in Resources */,
 				D9008D661A89F864000A237D /* ic_tel@2x.png in Resources */,
 				D9A805031A80E738005AD701 /* ic_share_high@2x.png in Resources */,
 				D9A8011B1A80DD23005AD701 /* call_out.png in Resources */,

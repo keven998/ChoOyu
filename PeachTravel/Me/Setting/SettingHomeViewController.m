@@ -28,7 +28,7 @@
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"设置";
     
-    _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+    _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     self.tableView.backgroundColor = APP_PAGE_COLOR;
 //    self.tableView.separatorColor = COLOR_LINE;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -95,7 +95,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 10;
+    return 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -117,12 +117,12 @@
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            cell.flagView.image = [UIImage imageNamed:@"ic_clear_cache.png"];
+            cell.flagView.image = [UIImage imageNamed:@"ic_setting_cache_clean.png"];
             NSString *str = [NSString stringWithFormat:@"%.2fM",(float)[[SDImageCache sharedImageCache] getSize]/(1024*1024)];
             cell.cacheLabel.text = str;
             cell.cacheLabel.tag = 101;
         } else if (indexPath.row == 1) {
-            cell.flagView.image = [UIImage imageNamed:@"ic_good.png"];
+            cell.flagView.image = [UIImage imageNamed:@"ic_setting_apprise.png"];
         }
     } else if (indexPath.section == 1) {
         if (indexPath.row == 0) {
