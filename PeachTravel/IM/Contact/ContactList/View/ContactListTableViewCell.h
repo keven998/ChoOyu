@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SWTableViewCell.h"
 
-@interface ContactListTableViewCell : UITableViewCell
+@interface ContactListTableViewCell : SWTableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
 

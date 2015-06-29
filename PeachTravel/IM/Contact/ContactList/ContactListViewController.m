@@ -47,7 +47,6 @@
     
     [self.view addSubview:self.contactTableView];
     [self.accountManager loadContactsFromServer];
-    //    [self handleEmptyView];
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -86,58 +85,6 @@
 }
 
 #pragma mark - private method
-
-- (void)handleEmptyView {
-    if ([[self.dataSource objectForKey:@"headerKeys"] count] <= 0) {
-        if (self.emptyView == nil) {
-            [self setupEmptyView];
-        }
-    } else {
-        [self removeEmptyView];
-    }
-}
-
-- (void)setupEmptyView {
-    CGFloat width = CGRectGetWidth(self.contactTableView.frame);
-    
-    self.emptyView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, width, 192.0)];
-    self.emptyView.userInteractionEnabled = YES;
-    self.emptyView.center = CGPointMake(self.view.frame.size.width/2.0, 160.0);
-    
-    UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(20.0, 20.0, width - 50.0, 16.0)];
-    label1.font = [UIFont systemFontOfSize:14.0];
-    label1.textColor = APP_THEME_COLOR;
-    label1.textAlignment = NSTextAlignmentCenter;
-    label1.textAlignment = NSTextAlignmentLeft;
-    label1.text = @"蜜蜜新圈子";
-    [self.emptyView addSubview:label1];
-    
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20.0, 40.0, width - 50.0, 16.0)];
-    label.font = [UIFont systemFontOfSize:13.0];
-    label.textColor = TEXT_COLOR_TITLE_SUBTITLE;
-    label.textAlignment = NSTextAlignmentCenter;
-    label.textAlignment = NSTextAlignmentLeft;
-    label.text = @"爱旅行的蜜蜜们之间的专属小天地~";
-    [self.emptyView addSubview:label];
-    
-    UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_indicator.png"]];
-    imgView.center = CGPointMake(width*0.33, 75.0);
-    [self.emptyView addSubview:imgView];
-    
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(0.0, 0.0, 108.0, 32.0);
-    [btn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
-    btn.titleLabel.font = [UIFont systemFontOfSize:13.0];
-    [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [btn setTitle:@"加好友" forState:UIControlStateNormal];
-    btn.center = CGPointMake(width/2.0, 114.0);
-    btn.layer.cornerRadius = 2.0;
-    btn.clipsToBounds = YES;
-    [btn addTarget:self action:@selector(addUserContact:) forControlEvents:UIControlEventTouchUpInside];
-    [self.emptyView addSubview:btn];
-    
-    [self.contactTableView addSubview:self.emptyView];
-}
 
 - (void)removeEmptyView {
     [self.emptyView removeFromSuperview];
