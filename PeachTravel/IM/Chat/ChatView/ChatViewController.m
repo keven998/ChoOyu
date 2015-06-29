@@ -55,7 +55,7 @@
 #import "RefreshHeader.h"
 #define KPageCount 20
 
-@interface ChatViewController ()<UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, DXChatBarMoreViewDelegate, DXMessageToolBarDelegate, LocationViewDelegate, ZYQAssetPickerControllerDelegate, ChatConversationDelegate, ChatManagerAudioDelegate>
+@interface ChatViewController ()<UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, DXChatBarMoreViewDelegate, DXMessageToolBarDelegate, LocationViewDelegate, ZYQAssetPickerControllerDelegate, ChatConversationDelegate, ChatManagerAudioPlayDelegate>
 {
     UIMenuController *_menuController;
     UIMenuItem *_copyMenuItem;
@@ -551,7 +551,7 @@
 - (void)chatAudioCellBubblePressed:(MessageModel *)model
 {
     ChatManagerAudio *audioManager = [ChatManagerAudio shareInstance];
-    audioManager.delegate = self;
+    audioManager.chatManagerAudioPlayDelegate = self;
     model.isPlayed = YES;
     ((AudioMessage *)model.baseMessage).audioStatus = IMAudioStatusReaded;
     if (!model.isPlaying) {
