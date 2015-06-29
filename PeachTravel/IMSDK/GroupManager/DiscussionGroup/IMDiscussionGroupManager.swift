@@ -247,9 +247,8 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
 
         completion(isSuccess: true, errorCode: 0)
         
-        
-        let daoHelper = DaoHelper.shareInstance()
-        daoHelper.updateFrendType(userId: group.groupId, frendType: group.type)
+        let manager = FrendManager(userId: AccountManager.shareAccountManager().account.userId)
+        manager.updateFrendType(userId: group.groupId, frendType: group.type)
     }
     
     /**

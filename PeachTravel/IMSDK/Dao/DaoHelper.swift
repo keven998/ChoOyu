@@ -19,7 +19,6 @@ public class DaoHelper:NSObject {
     private var db: FMDatabase
     private var chatMessageDaoHelper: ChatMessageDaoHelper
     private var metaDataDaoHelper: MetaDataDaoHelper
-    private var frendDaoHelper: FrendDaoHelper
 
     private var conversationHelper: ConversationDaoHelper
     private var dbQueue: FMDatabaseQueue
@@ -50,7 +49,6 @@ public class DaoHelper:NSObject {
         
         chatMessageDaoHelper = ChatMessageDaoHelper(db: db, dbQueue: dbQueue)
         metaDataDaoHelper = MetaDataDaoHelper(db: db)
-        frendDaoHelper = FrendDaoHelper(db: db, dbQueue: dbQueue)
         conversationHelper = ConversationDaoHelper(db: db, dbQueue: dbQueue)
 
         super.init()
@@ -89,7 +87,6 @@ public class DaoHelper:NSObject {
         
         chatMessageDaoHelper = ChatMessageDaoHelper(db: db, dbQueue: dbQueue)
         metaDataDaoHelper = MetaDataDaoHelper(db: db)
-        frendDaoHelper = FrendDaoHelper(db: db, dbQueue: dbQueue)
         conversationHelper = ConversationDaoHelper(db: db, dbQueue: dbQueue)
     }
     
@@ -208,108 +205,6 @@ public class DaoHelper:NSObject {
         })
     }
 
-    //MARK:UserDaoProtocol
-    func createFrendTable() {
-        dispatch_async(databaseWriteQueue, { () -> Void in
-            self.openDB()
-            self.frendDaoHelper.createFrendTable()
-            self.closeDB()
-        })
-    }
-    
-    func deleteFrendTable() {
-        dispatch_async(databaseWriteQueue, { () -> Void in
-            self.openDB()
-            self.frendDaoHelper.deleteFrendTable()
-            self.closeDB()
-        })
-       
-    }
-    
-    func addFrend2DB(frend: FrendModel) {
-        dispatch_async(databaseWriteQueue, { () -> Void in
-            self.frendDaoHelper.addFrend2DB(frend)
-        })
-    }
-    
-    func updateFrendInfoInDB(frend: FrendModel) {
-        dispatch_async(databaseWriteQueue, { () -> Void in
-            self.frendDaoHelper.updateFrendInfoInDB(frend)
-        })
-    }
-    
-    /**
-    更新
-    
-    :param: name
-    :param: userId
-    */
-    func updateNickNameInDB(name: String, userId: Int) {
-        dispatch_async(databaseWriteQueue, { () -> Void in
-            self.frendDaoHelper.updateNickNameInDB(name, userId: userId)
-        })
-    }
-    
-    /**
-    更新
-    
-    :param: name
-    :param: userId
-    */
-    func updateAvatarInDB(avatar: String, userId: Int) {
-        dispatch_async(databaseWriteQueue, { () -> Void in
-            self.frendDaoHelper.updateAvatarInDB(avatar, userId: userId)
-        })
-    }
-    
-    func updateExtDataInDB(extData: String, userId: Int) {
-        dispatch_async(databaseWriteQueue, { () -> Void in
-            self.frendDaoHelper.updateExtDataInDB(extData, userId: userId)
-        })
-    }
-    
-    func updateContactMemoInDB(userId: Int, memo: String) {
-        if self.openDB() {
-            frendDaoHelper.updateMemoInDB(memo, userId: userId)
-            self.closeDB()
-        }
-    }
-    
-    func selectFrend(#userId: Int) -> FrendModel? {
-        return self.frendDaoHelper.selectFrend(userId: userId)
-    }
-    
-    func updateFrendType(#userId: Int, frendType: IMFrendType) {
-        self.frendDaoHelper.updateFrendType(userId: userId, type: frendType)
-    }
-    
-    /**
-    获取我的所有联系人
-    :returns:
-    */
-    func selectAllContacts() -> Array<FrendModel> {
-        var result = frendDaoHelper.selectAllContacts()
-        return result
-    }
-    
-    func deleteAllContactsFromDB() {
-        frendDaoHelper.deleteAllContactsFromDB()
-    }
-    
-    func frendIsExitInDB(userId: Int) -> Bool {
-        if self.openDB() {
-            var result = frendDaoHelper.frendIsExitInDB(userId)
-            self.closeDB()
-            return result
-        } else {
-            return false
-        }
-    }
-    
-    func selectAllGroup() -> Array<IMGroupModel> {
-        return frendDaoHelper.selectAllGroup()
-    }
-    
     //MARK: ConversationDaoProtocol 
     func createConversationsTable() {
         dispatch_async(databaseWriteQueue, { () -> Void in

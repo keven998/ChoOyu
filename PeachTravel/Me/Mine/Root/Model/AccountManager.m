@@ -591,7 +591,8 @@
                 int typeValue = frend.type = IMFrendWeightTypeFrend;
                 frend.type = typeValue;
             }
-            [[DaoHelper shareInstance] updateFrendTypeWithUserId:frend.userId frendType:frend.type];
+            FrendManager *manager = [[FrendManager alloc] initWithUserId:_account.userId];
+            [manager updateFrendTypeWithUserId:frend.userId frendType:frend.type];
             return;
         }
     }
