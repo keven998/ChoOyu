@@ -51,7 +51,7 @@
     [super viewDidLoad];
     _albumArray = [NSMutableArray array];
     AccountManager *accountManager = [AccountManager shareAccountManager];
-
+    
     _isMyFriend = [accountManager frendIsMyContact:_userId];
     
     if (_isMyFriend) {
@@ -81,8 +81,8 @@
     _headerBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 924/3*height/736)];
     _headerBgView.backgroundColor = APP_PAGE_COLOR;
     _headerBgView.clipsToBounds = YES;
-
-
+    
+    
     CGFloat ah = 200*height/736;
     
     CGFloat avatarW = ah - 19 * height/736;
@@ -169,7 +169,7 @@
     UIImageView *devideImage2 = [[UIImageView alloc]initWithFrame:CGRectMake(922/3*width/414 + 7, (584+54)/3*height/736, 80, 1)];
     devideImage2.image = [UIImage imageNamed:@"account_line_default"];
     [_headerBgView addSubview:devideImage2];
-
+    
     
     [self.view addSubview:_headerBgView];
     
@@ -183,7 +183,7 @@
     [planeBtn addTarget:self action:@selector(seeOthersPlan) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:planeBtn];
     
-//    CGFloat YY = 165/3 * height/736;
+    //    CGFloat YY = 165/3 * height/736;
     CGFloat YY = btnHeight/2 - 20 - 5;
     
     _planeLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, YY, btnWidth, 20)];
@@ -309,7 +309,7 @@
         _flagHeaderIV.image = [UIImage imageNamed:@"ic_home_header_unlogin.png"];
         _levelBg.image = [UIImage imageNamed:@"ic_home_level_bg_unknown.png"];
     }
-
+    
 }
 
 -(void)createFooterBar
@@ -343,10 +343,10 @@
     } else {
         [addFriend setTitle:@"加为好友" forState:UIControlStateNormal];
         [addFriend addTarget:self action:@selector(addToFriend) forControlEvents:UIControlEventTouchUpInside];
-
+        
     }
     
-
+    
 }
 
 #pragma mark - IBAction
@@ -365,10 +365,10 @@
 }
 - (void)remarkFriend
 {
-//    AccountManager *manager = [AccountManager shareAccountManager];
-//    [manager asyncChangeRemark:<#(NSString *)#> withUserId:_userInfo._userId completion:^(BOOL isSuccess) {
-//        
-//    }];
+    //    AccountManager *manager = [AccountManager shareAccountManager];
+    //    [manager asyncChangeRemark:<#(NSString *)#> withUserId:_userInfo._userId completion:^(BOOL isSuccess) {
+    //
+    //    }];
 }
 - (void)talkToFriend {
     [self pushChatViewController];
@@ -380,7 +380,7 @@
     UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:chatController];
     
     UIViewController *menuViewController = nil;
-   
+    
     menuViewController = [[ChatSettingViewController alloc] init];
     ((ChatSettingViewController *)menuViewController).chatterId = _userId;
     
@@ -421,15 +421,15 @@
 - (void)removeContact
 {
     AccountManager *accountManager = [AccountManager shareAccountManager];
-
+    
     FrendManager *frendManager = [FrendManager shareInstance];
     __weak typeof(OtherUserInfoViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf];
-
+    
     [frendManager asyncRemoveContactWithFrend:_userInfo completion:^(BOOL isSuccess, NSInteger errorCode) {
         [hud hideTZHUD];
-
+        
         if (isSuccess) {
             [accountManager removeContact:_userInfo];
             [SVProgressHUD showHint:@"已删除～"];
@@ -442,7 +442,7 @@
             }
         }
     }];
-
+    
 }
 
 
@@ -465,7 +465,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 2||indexPath.section == 3) {
-
+        
         return 90;
     }else if  ( indexPath.section == 0) {
         if (_albumArray.count == 0) {
@@ -557,7 +557,7 @@
             if (_userInfo.birthday == nil||[_userInfo.birthday isBlankString] || _userInfo.birthday.length == 0) {
                 cell.information.text = @"未设置";
             }else {
-            cell.information.text = [NSString stringWithFormat:@"%d",age];
+                cell.information.text = [NSString stringWithFormat:@"%d",age];
             }
         }else {
             cell.basicLabel.font = [UIFont systemFontOfSize:14];
@@ -565,13 +565,13 @@
             if (_userInfo.residence.length == 0 || [_userInfo.residence isBlankString] || _userInfo.residence == nil) {
                 cell.information.text = @"未设置";
             }else {
-            cell.information.text = _userInfo.residence;
+                cell.information.text = _userInfo.residence;
             }
             cell.information.font = [UIFont systemFontOfSize:14];
         }
         return cell;
     }
-
+    
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -605,7 +605,7 @@
 - (void)requestAddContactWithHello:(NSString *)helloStr
 {
     AccountManager *accountManager = [AccountManager shareAccountManager];
-
+    
     FrendManager *frendManager = [FrendManager shareInstance];
     if ([helloStr stringByReplacingOccurrencesOfString:@" " withString:@""].length == 0) {
         helloStr = [NSString stringWithFormat:@"Hi, 我是%@", accountManager.account.nickName];
@@ -631,8 +631,8 @@
     [frendManager asyncGetFrendInfoFromServer:userId completion:^(BOOL isSuccess, NSInteger errorCode, FrendModel * __nonnull frend) {
         if (isSuccess) {
             _userInfo = frend;
-//            [self createHeader];
-//            [self createFooterBar];
+            //            [self createHeader];
+            //            [self createFooterBar];
             [self loadUserAlbum];
             [self updateUserInfo];
         } else {
@@ -659,12 +659,12 @@
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [self paraseUserAlbum:[responseObject objectForKey:@"result"]];
-//            [_tableView reloadData];
+            //            [_tableView reloadData];
         } else {
-//            [_tableView reloadData];
+            //            [_tableView reloadData];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        [_tableView reloadData];
+        //        [_tableView reloadData];
     }];
 }
 
@@ -689,7 +689,7 @@
     }
     ctl.citys = tracks;
     [self.navigationController pushViewController:ctl animated:YES];
-
+    
 }
 - (void)seeOthersPlan
 {
