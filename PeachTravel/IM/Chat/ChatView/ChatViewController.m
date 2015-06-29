@@ -234,6 +234,7 @@
 
 - (void)showMenu
 {
+    [self keyBoardHidden];
     [self.view endEditing:YES];
     [self.frostedViewController.view endEditing:YES];
     
