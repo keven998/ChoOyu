@@ -64,7 +64,7 @@
  *  @param action        删除，增加
  *  @param tracks        足迹的字典
  */
-- (void)updataUserTracks:(NSString *)action withtracks:(NSDictionary *)tracks;
+- (void)updataUserTracks:(NSString *)action withtracks:(NSMutableDictionary *)tracks;
 
 /**
  *  修改用户名字

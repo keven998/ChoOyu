@@ -353,6 +353,7 @@
             
         } else {
             
+            
         }
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -383,7 +384,7 @@
         
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            
+            [self updateUserTrack];
         } else {
             
         }
@@ -391,5 +392,25 @@
         
     }];
 }
-
+- (void)updateUserTrack
+{
+    AccountManager *manager = [AccountManager shareAccountManager];
+    
+    NSMutableDictionary *country = [NSMutableDictionary dictionaryWithDictionary:manager.account.tracks];
+//    country
+    
+    
+    
+    
+    
+    
+    [manager updataUserTracks:nil withtracks:country];
+}
 @end
+
+
+
+
+
+
+
