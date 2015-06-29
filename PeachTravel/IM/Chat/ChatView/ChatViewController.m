@@ -247,12 +247,16 @@
  */
 - (void)goBack
 {
-    if (self.frostedViewController.navigationController.viewControllers.count > 1) {
-        [self.frostedViewController.navigationController popToRootViewControllerAnimated:YES];
+    if (self.backBlock) {
+        self.backBlock();
     } else {
-        [self.frostedViewController dismissViewControllerAnimated:YES completion:nil];
+        if (self.frostedViewController.navigationController.viewControllers.count > 1) {
+            [self.frostedViewController.navigationController popToRootViewControllerAnimated:YES];
+            
+        } else {
+            [self.frostedViewController dismissViewControllerAnimated:YES completion:nil];
+        }
     }
-
 }
 
 /**

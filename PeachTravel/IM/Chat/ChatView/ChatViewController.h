@@ -11,7 +11,14 @@
 
 @interface ChatViewController : TZViewController
 
+typedef void(^BackBlock)();
+
 - (instancetype)initWithChatter:(NSInteger)chatter chatType:(IMChatType)chatType;
 - (instancetype)initWithConversation:(ChatConversation *)conversation;
+
+/**
+ *  点击返回按钮需要执行的操作
+ */
+@property (nonatomic, copy) BackBlock backBlock;
 
 @end

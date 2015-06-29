@@ -19,6 +19,8 @@
 #import "REFrostedViewController.h"
 #import "ChatGroupSettingViewController.h"
 #import "UIImage+resized.h"
+#import "ChatListViewController.h"
+
 @interface OtherUserInfoViewController ()<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate>
 {
     UITableView *_tableView;
@@ -367,10 +369,7 @@
 }
 - (void)remarkFriend
 {
-    //    AccountManager *manager = [AccountManager shareAccountManager];
-    //    [manager asyncChangeRemark:<#(NSString *)#> withUserId:_userInfo._userId completion:^(BOOL isSuccess) {
-    //
-    //    }];
+
 }
 - (void)talkToFriend {
     [self pushChatViewController];
@@ -379,6 +378,7 @@
 - (void)pushChatViewController
 {
     ChatViewController *chatController = [[ChatViewController alloc] initWithChatter:_userId chatType:IMChatTypeIMChatSingleType];
+    __weak ChatViewController *viewController = chatController;
     UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:chatController];
     
     UIViewController *menuViewController = nil;
@@ -387,7 +387,6 @@
     ((ChatSettingViewController *)menuViewController).chatterId = _userId;
     
     REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:navi menuViewController:menuViewController];
-    frostedViewController.hidesBottomBarWhenPushed = YES;
     frostedViewController.direction = REFrostedViewControllerDirectionRight;
     frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
     frostedViewController.liveBlur = YES;
@@ -396,6 +395,14 @@
     self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan = NO;
     [self.navigationController pushViewController:frostedViewController animated:YES];
     frostedViewController.navigationItem.title = _userInfo.nickName;
+    
+    if (![self.navigationController.viewControllers.firstObject isKindOfClass:[ChatListViewController class]]) {
+        chatController.backBlock = ^(){
+            [viewController.frostedViewController.navigationController popViewControllerAnimated:YES];
+        };
+        
+    }
+
 }
 
 - (IBAction)moreAction:(UIButton *)sender
