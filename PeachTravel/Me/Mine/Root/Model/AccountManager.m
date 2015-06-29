@@ -145,7 +145,7 @@
     [params setObject:[NSNumber numberWithInteger: self.account.userId] forKey:@"userId"];
     [params setObject:[ConnectionManager shareInstance].registionId forKey:@"regId"];
     
-    NSString *loginUrl = @"http://hedy.zephyre.me/users/login";
+    NSString *loginUrl = @"http://hedy-dev.lvxingpai.com/users/login";
     
     
     [manager POST:loginUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
