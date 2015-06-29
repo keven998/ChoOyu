@@ -267,7 +267,13 @@ public class DaoHelper:NSObject {
             self.frendDaoHelper.updateExtDataInDB(extData, userId: userId)
         })
     }
-
+    
+    func updateContactMemoInDB(userId: Int, memo: String) {
+        if self.openDB() {
+            frendDaoHelper.updateMemoInDB(memo, userId: userId)
+            self.closeDB()
+        }
+    }
     
     func selectFrend(#userId: Int) -> FrendModel? {
         return self.frendDaoHelper.selectFrend(userId: userId)
