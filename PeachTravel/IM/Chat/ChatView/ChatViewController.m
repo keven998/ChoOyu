@@ -55,7 +55,7 @@
 #import "RefreshHeader.h"
 #define KPageCount 20
 
-@interface ChatViewController ()<UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, DXChatBarMoreViewDelegate, DXMessageToolBarDelegate, LocationViewDelegate, ZYQAssetPickerControllerDelegate, ChatConversationDelegate, ChatManagerAudioDelegate>
+@interface ChatViewController ()<UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, DXChatBarMoreViewDelegate, DXMessageToolBarDelegate, LocationViewDelegate, ZYQAssetPickerControllerDelegate, ChatConversationDelegate, ChatManagerAudioPlayDelegate>
 {
     UIMenuController *_menuController;
     UIMenuItem *_copyMenuItem;
@@ -503,6 +503,7 @@
         [self chatTextCellUrlPressed:[userInfo objectForKey:@"url"]];
         
     } else if ([eventName isEqualToString:kRouterEventAudioBubbleTapEventName]) {
+        [self handleNotification:YES];
         [self chatAudioCellBubblePressed:model];
         
     } else if ([eventName isEqualToString:kRouterEventImageBubbleTapEventName]){
@@ -551,7 +552,7 @@
 - (void)chatAudioCellBubblePressed:(MessageModel *)model
 {
     ChatManagerAudio *audioManager = [ChatManagerAudio shareInstance];
-    audioManager.delegate = self;
+    audioManager.chatManagerAudioPlayDelegate = self;
     model.isPlayed = YES;
     ((AudioMessage *)model.baseMessage).audioStatus = IMAudioStatusReaded;
     if (!model.isPlaying) {
@@ -1220,8 +1221,35 @@
             }
         }
     }
+    [self handleNotification:NO];
 }
-
+#pragma mark - 监听听筒or扬声器
+- (void) handleNotification:(BOOL)state
+{
+    [[UIDevice currentDevice] setProximityMonitoringEnabled:state]; //建议在播放之前设置yes，播放结束设置NO，这个功能是开启红外感应
+    
+    if(state)//添加监听
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(sensorStateChange:) name:@"UIDeviceProximityStateDidChangeNotification"
+                                                   object:nil];
+    else//移除监听
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UIDeviceProximityStateDidChangeNotification" object:nil];
+}
+//处理监听触发事件
+-(void)sensorStateChange:(NSNotificationCenter *)notification;
+{
+    //如果此时手机靠近面部放在耳朵旁，那么声音将通过听筒输出，并将屏幕变暗（省电啊）
+    if ([[UIDevice currentDevice] proximityState] == YES)
+    {
+        NSLog(@"Device is close to user");
+        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+    }
+    else
+    {
+        NSLog(@"Device is not close to user");
+        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
+    }
+}
 - (void)updateChatTitle:(NSNotification *)Noti
 {
     self.navigationItem.title = Noti.object;
