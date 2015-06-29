@@ -636,7 +636,6 @@
 
 - (void)recordDragInside
 {
-    NSLog(@"recordDragInside-----");
     if ([self.recordView isKindOfClass:[DXRecordView class]]) {
         [(DXRecordView *)self.recordView recordButtonDragInside];
     }

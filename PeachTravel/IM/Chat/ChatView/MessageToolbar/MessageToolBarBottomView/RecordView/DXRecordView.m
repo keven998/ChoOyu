@@ -31,14 +31,16 @@
     self = [super initWithFrame:frame];
     if (self) {
         _recordAnimationView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 0, self.bounds.size.width - 20, self.bounds.size.height - 10)];
-        _recordAnimationView.image = [UIImage imageNamed:@"speaking-motion01"];
+        _recordAnimationView.image = [UIImage imageNamed:@"speaking-motion1"];
+        _recordAnimationView.contentMode = UIViewContentModeCenter;
+        _recordAnimationView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.67];
+        _recordAnimationView.layer.cornerRadius = 5.0;
         [self addSubview:_recordAnimationView];
         
         _textLabel = [[UILabel alloc] initWithFrame:CGRectMake(10,
                                                                self.bounds.size.height - 35,
                                                                self.bounds.size.width - 20,
                                                                25)];
-        
         _textLabel.textAlignment = NSTextAlignmentCenter;
         _textLabel.backgroundColor = [UIColor clearColor];
         _textLabel.text = @" 手指上滑，取消发送 ";
@@ -46,7 +48,7 @@
         _textLabel.font = [UIFont systemFontOfSize:10];
         _textLabel.textColor = [UIColor whiteColor];
         _textLabel.layer.cornerRadius = 5;
-        _textLabel.layer.borderColor = [[UIColor redColor] colorWithAlphaComponent:0.5].CGColor;
+        _textLabel.layer.borderColor = [COLOR_ALERT colorWithAlphaComponent:0.5].CGColor;
         _textLabel.layer.masksToBounds = YES;
     }
     return self;
@@ -86,11 +88,11 @@
 -(void)recordButtonDragOutside
 {
     _textLabel.text = @" 松开手指，取消发送 ";
-    _textLabel.backgroundColor = [UIColor redColor];
+    _textLabel.backgroundColor = COLOR_ALERT;
 }
 
 -(void)setVoiceImage {
-    _recordAnimationView.image = [UIImage imageNamed:@"speaking-motion01"];
+    _recordAnimationView.image = [UIImage imageNamed:@"speaking-motion1"];
     float voiceSound = 0;
     voiceSound = ([ChatManagerAudio shareInstance].averagePower + 60)/50;
     if (0 < voiceSound <= 0.05) {
