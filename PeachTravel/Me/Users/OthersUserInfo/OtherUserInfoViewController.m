@@ -215,7 +215,6 @@
     UIButton *trackBtn = [[UIButton alloc]initWithFrame:CGRectMake(btnWidth+2, 831/3*height/736, btnWidth-2, btnHeight - 4)];
     [trackBtn setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
     [trackBtn setBackgroundImage:[ConvertMethods createImageWithColor:COLOR_DISABLE] forState:UIControlStateHighlighted];
-    [trackBtn addTarget:self action:@selector(seeOthersPlan) forControlEvents:UIControlEventTouchUpInside];
     trackBtn.layer.shadowColor = COLOR_LINE.CGColor;
     trackBtn.layer.shadowOffset = CGSizeMake(-1, 1);
     trackBtn.layer.shadowRadius = 2;
@@ -258,7 +257,6 @@
     UIButton *travelNote = [[UIButton alloc]initWithFrame:CGRectMake(btnWidth+2, 831/3*height/736 + btnHeight, btnWidth-2, btnHeight-4)];
     [travelNote setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
     [travelNote setBackgroundImage:[ConvertMethods createImageWithColor:COLOR_DISABLE] forState:UIControlStateHighlighted];
-    [travelNote addTarget:self action:@selector(seeOthersPlan) forControlEvents:UIControlEventTouchUpInside];
     travelNote.layer.shadowColor = COLOR_LINE.CGColor;
     travelNote.layer.shadowOffset = CGSizeMake(-1, -1);
     travelNote.layer.shadowRadius = 2;
