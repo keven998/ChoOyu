@@ -24,6 +24,7 @@
     self.backgroundColor = [UIColor whiteColor];
     _travelNoteImageView.clipsToBounds = YES;
     _sendBtn.layer.cornerRadius = 4.0;
+    _travelNoteImageView.layer.cornerRadius = 20.0;
     
     _travelNoteImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
     /**
@@ -39,10 +40,6 @@
     
     _propertyLabel.font = [UIFont systemFontOfSize:12];
     _propertyLabel.textColor = TEXT_COLOR_TITLE_PH;
-    
-    UIView *divider = [[UIView alloc] initWithFrame:CGRectMake(13, 0, CGRectGetWidth(self.bounds) - 26, 0.5)];
-    divider.backgroundColor = APP_DIVIDER_COLOR;
-    [self addSubview:divider];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -67,13 +64,6 @@
 - (void)setDesc:(NSString *)desc
 {
     _desc = desc;
-    
-//    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:desc];
-//    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
-//    style.lineSpacing = 1.5;
-//    style.lineBreakMode = NSLineBreakByTruncatingTail;
-//    [attrStr addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, desc.length)];
-//    _descLabel.attributedText = attrStr;
     _descLabel.text = desc;
 }
 

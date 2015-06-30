@@ -9,25 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "CityPoi.h"
 
-@protocol CityHeaderViewDelegate <NSObject>
-
-- (void)updateCityHeaderView;
-
-@end
-
 @interface CityHeaderView : UIView
 
-@property (nonatomic, strong) TZButton *showTipsBtn;
-@property (nonatomic, strong) TZButton *showSpotsBtn;
-@property (nonatomic, strong) TZButton *showRestaurantsBtn;
-@property (nonatomic, strong) TZButton *showShoppingBtn;
+@property (nonatomic, strong) UIButton *showTipsBtn;
+@property (nonatomic, strong) UIButton *showSpotsBtn;
+@property (nonatomic, strong) UIButton *showRestaurantsBtn;
+@property (nonatomic, strong) UIButton *showShoppingBtn;
 @property (nonatomic, strong) UILabel *cityDesc;
 
-- (CGFloat)headerViewHightWithCityData:(CityPoi *)poi;
-
 @property (nonatomic, strong) CityPoi *cityPoi;
-
-@property (nonatomic, weak) id <CityHeaderViewDelegate>delegate;
 
 
 
