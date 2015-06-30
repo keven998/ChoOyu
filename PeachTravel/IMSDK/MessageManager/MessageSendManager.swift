@@ -198,12 +198,9 @@ class MessageSendManager: NSObject {
         self.sendMetadataMessage(locationMessage, metadata: imageData, chatType: chatType, conversationId: conversationId) { (isSuccess) -> () in
             
         }
-        
         return locationMessage
     }
 
-
-    
     /**
     发送 poi 信息
     
