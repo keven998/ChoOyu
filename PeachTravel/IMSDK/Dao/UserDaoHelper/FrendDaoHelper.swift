@@ -31,14 +31,12 @@ protocol FrendDaoProtocol {
     */
     func addFrend2DB(frend: FrendModel)
     
-    
     /**
     更新一个frend 信息，如果数据库里不存在则插入一个
     :param: frend
     :returns:
     */
     func updateFrendInfoInDB(frend: FrendModel)
-    
     
     /**
     获取所有的是我的好友的列表

@@ -190,13 +190,11 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
     func receiveFrendCMDMessage(cmdMessage: IMCMDMessage) {
         switch cmdMessage.actionCode! {
         case CMDActionCode.F_REQUEST:
-            let frendRequest = FrendRequestManager()
-            frendRequest.addFrendRequest(cmdMessage.actionContent)
+            let frendRequestManager = FrendRequestManager(userId: accountId)
+
             
         case CMDActionCode.F_AGREE:
-            let frendRequestManager = FrendRequestManager()
-            let request = FrendRequest(json: cmdMessage.actionContent)
-            frendRequestManager.changeStatus(request.userId, status: TZFrendRequest.Agree)
+            let frendRequestManager = FrendRequestManager(userId: accountId)
             
         default:
             break

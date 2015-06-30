@@ -178,6 +178,14 @@ typedef NS_ENUM(NSUInteger, VerifyCaptchaType) {
     UserBindTel                 //绑定手机号的时候
 };
 
+/***** 用户性别枚举 *****/
+typedef NS_ENUM(NSInteger, UserGender) {
+    Secret = 1,
+    Male,
+    Female,
+    Unknown
+};
+
 /***** 请求验证码和验证验证码时候向服务器发送的指令类型 *****/
 #define    kUserRegister         @"1"        //用户注册时候进入时天下短信验证码
 #define    kUserLosePassword     @"2"        //用户忘记密码
@@ -197,7 +205,7 @@ typedef NS_ENUM(NSUInteger, UserInfoChangeType) {
 };
 
 /***** 旅行派好友请求枚举信息****/
-typedef NS_ENUM(NSUInteger, TZFrendRequest) {
+typedef NS_ENUM(NSInteger, TZFrendRequest) {
     TZFrendDefault = 0,      //未处理
     TZFrendAgree,            //同意
     TZFrendReject,          //拒绝
