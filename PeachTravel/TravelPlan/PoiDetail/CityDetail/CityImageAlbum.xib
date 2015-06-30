@@ -107,6 +107,12 @@
             <connections>
                 <outlet property="TitleLabel" destination="Oj9-LY-eDQ" id="3iB-dB-jrw"/>
                 <outlet property="timeCostLabel" destination="mqU-gj-2Ki" id="Cly-LS-0GM"/>
+                <outletCollection property="imageContents" destination="KFv-aM-49M" id="Elb-rT-5p8"/>
+                <outletCollection property="imageContents" destination="iyS-lW-FGn" id="ZCL-Xc-06u"/>
+                <outletCollection property="imageContents" destination="I6m-Qq-9V6" id="jb7-cV-1Xc"/>
+                <outletCollection property="imageContents" destination="gmU-c8-3hF" id="dlc-qI-0AI"/>
+                <outletCollection property="imageContents" destination="j2H-92-83P" id="ExE-gY-hKS"/>
+                <outletCollection property="imageContents" destination="4Mk-yj-c03" id="99i-Ab-ZMU"/>
             </connections>
             <point key="canvasLocation" x="124" y="-265"/>
         </view>

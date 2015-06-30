@@ -29,12 +29,13 @@
 {
     _images = images;
     for (int i = 0; i < self.imageContents.count; i++) {
-        UIButton *btn = self.imageContents[i];
+        UIImageView *imageView = self.imageContents[i];
         if (_images.count >= i+1) {
             TaoziImage *image= _images[i];
-            btn.layer.cornerRadius = 7.0;
-            btn.clipsToBounds = YES;
-            [btn sd_setBackgroundImageWithURL:[NSURL URLWithString:image.imageUrl] forState:UIControlStateNormal];
+            imageView.layer.cornerRadius = 7.0;
+            imageView.clipsToBounds = YES;
+            
+            [imageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
         } else {
             break;
         }
