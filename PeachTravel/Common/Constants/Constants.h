@@ -250,6 +250,7 @@ typedef NS_ENUM(NSUInteger, TZCMDChatType) {
 #define COLOR_TEXT_V                    UIColorFromRGB(0xcdcdcd)
 
 //pre-design
+#pragma mark - unuse
 #define TEXT_COLOR_TITLE                UIColorFromRGB(0x323232)
 #define TEXT_COLOR_TITLE_SUBTITLE       UIColorFromRGB(0x626262)
 #define TEXT_COLOR_TITLE_DESC           UIColorFromRGB(0x999999)
