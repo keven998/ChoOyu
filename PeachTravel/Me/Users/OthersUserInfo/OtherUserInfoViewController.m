@@ -21,9 +21,8 @@
 #import "UIImage+resized.h"
 #import "ChatListViewController.h"
 
-@interface OtherUserInfoViewController ()<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate>
+@interface OtherUserInfoViewController ()<UIActionSheetDelegate>
 {
-    UITableView *_tableView;
     NSMutableArray *_dataArray;
     UIImageView *_headerView;
     BOOL _isMyFriend;
@@ -73,8 +72,6 @@
     [self createFooterBar];
     [self loadUserProfile:_userId];
     self.view.backgroundColor = APP_PAGE_COLOR;
-    [self.view addSubview:_tableView];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -141,130 +138,139 @@
     _idLabel.textColor = [UIColor whiteColor];
     _idLabel.font = [UIFont boldSystemFontOfSize:10];
     _idLabel.textAlignment = NSTextAlignmentCenter;
-    _idLabel.text = @"";
+    _idLabel.text = @"ID：";
     [view addSubview:_idLabel];
     
-    _recidence = [[UILabel alloc]initWithFrame:CGRectMake(0, 584/3*height/736, 318/3*width/414, 15)];
-    _recidence.textColor = TEXT_COLOR_TITLE;
+    UILabel *recidenceLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, CGRectGetMaxY(_constellationView.frame) - 32, CGRectGetMinX(_avatarBg.frame) - 15, 14)];
+    recidenceLabel.text = @"现居地";
+    recidenceLabel.textAlignment = NSTextAlignmentCenter;
+    recidenceLabel.font = [UIFont systemFontOfSize:10];
+    recidenceLabel.textColor = COLOR_TEXT_III;
+    [_headerBgView addSubview:recidenceLabel];
+    
+    UIImageView *devideImage = [[UIImageView alloc]initWithFrame:CGRectMake(CGRectGetMinX(recidenceLabel.frame), CGRectGetMinY(recidenceLabel.frame)-2, CGRectGetWidth(recidenceLabel.frame), 1)];
+    devideImage.contentMode = UIViewContentModeScaleToFill;
+    devideImage.image = [UIImage imageNamed:@"account_line_default"];
+    [_headerBgView addSubview:devideImage];
+    
+    _recidence = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMinX(recidenceLabel.frame), CGRectGetMinY(recidenceLabel.frame)-19, CGRectGetWidth(recidenceLabel.frame), 16)];
+    _recidence.textColor = COLOR_TEXT_I;
     _recidence.textAlignment = NSTextAlignmentCenter;
     _recidence.font = [UIFont systemFontOfSize:12];
     [_headerBgView addSubview:_recidence];
     
-    UILabel *recidenceLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, (584+78)/3*height/736, 318/3*width/414, 15)];
-    recidenceLabel.text = @"地区";
-    recidenceLabel.textAlignment = NSTextAlignmentCenter;
-    recidenceLabel.font = [UIFont systemFontOfSize:11];
-    recidenceLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
-    [_headerBgView addSubview:recidenceLabel];
     
-    UIImageView *devideImage = [[UIImageView alloc]initWithFrame:CGRectMake(54/3*width/414, (584+54)/3*height/736+3, 80*width/414, 1)];
-    devideImage.image = [UIImage imageNamed:@"account_line_default"];
-    [_headerBgView addSubview:devideImage];
+    UILabel *ageLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(_avatarBg.frame), CGRectGetMaxY(_constellationView.frame) - 32, width - CGRectGetMaxX(_avatarBg.frame) - 15, 14)];
+    ageLabel.text = @"Age";
+    ageLabel.textAlignment = NSTextAlignmentCenter;
+    ageLabel.font = [UIFont systemFontOfSize:10];
+    ageLabel.textColor = COLOR_TEXT_III;
+    [_headerBgView addSubview:ageLabel];
     
+    UIImageView *devideImage2 = [[UIImageView alloc]initWithFrame:CGRectMake(CGRectGetMinX(ageLabel.frame), CGRectGetMinY(ageLabel.frame)-2, CGRectGetWidth(ageLabel.frame), 1)];
+    devideImage2.contentMode = UIViewContentModeScaleToFill;
+    devideImage2.image = [UIImage imageNamed:@"account_line_default"];
+    [_headerBgView addSubview:devideImage2];
     
-    _age = [[UILabel alloc]initWithFrame:CGRectMake(990/3*width/414, 584/3*height/736, 50, 15)];
-    _age.textColor = TEXT_COLOR_TITLE;
+    _age = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMinX(ageLabel.frame), CGRectGetMinY(ageLabel.frame)-19, CGRectGetWidth(ageLabel.frame), 16)];
+    _age.textColor = COLOR_TEXT_I;
     _age.textAlignment = NSTextAlignmentCenter;
     _age.font = [UIFont systemFontOfSize:12];
     [_headerBgView addSubview:_age];
-    
-    UILabel *ageLabel = [[UILabel alloc]initWithFrame:CGRectMake(1032/3*width/414, (584+78)/3*height/736, 30, 15)];
-    ageLabel.text = @"年龄";
-    ageLabel.textAlignment = NSTextAlignmentCenter;
-    ageLabel.font = [UIFont systemFontOfSize:11];
-    ageLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
-    [_headerBgView addSubview:ageLabel];
-    
-    UIImageView *devideImage2 = [[UIImageView alloc]initWithFrame:CGRectMake(942/3*width/414 , (584+54)/3*height/736+3, 80*width/414, 1)];
-    devideImage2.image = [UIImage imageNamed:@"account_line_default"];
-    [_headerBgView addSubview:devideImage2];
     
     
     [_scrollView addSubview:_headerBgView];
     
     self.navigationItem.titleView = view;
-    CGFloat btnWidth = width/2-1;
+    CGFloat btnWidth = width/2;
     CGFloat btnHeight;
-//    if (SCREEN_HEIGHT == 480) {
-//        btnHeight = (height - 64 - _headerBgView.bounds.size.height - 45)/2 ;
-//    } else {
-        btnHeight = btnWidth * 471/615;
-//    }
-
-    UIButton *planeBtn = [[UIButton alloc]initWithFrame:CGRectMake(1, 831/3*height/736, btnWidth, btnHeight)];
-    [planeBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-    [planeBtn setBackgroundImage:[UIImage resizedImageWithName:@"account_bg_button_normal"] forState:UIControlStateNormal];
-    [planeBtn setBackgroundImage:[UIImage resizedImageWithName:@"account_bg_button_selected"] forState:UIControlStateHighlighted];
+    //    if (SCREEN_HEIGHT == 480) {
+    //        btnHeight = (height - 64 - _headerBgView.bounds.size.height - 45)/2 ;
+    //    } else {
+    btnHeight = btnWidth * 471/615;
+    //    }
+    
+    UIButton *planeBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 831/3*height/736, btnWidth-2, btnHeight-4)];
+    [planeBtn setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+    [planeBtn setBackgroundImage:[ConvertMethods createImageWithColor:COLOR_DISABLE] forState:UIControlStateHighlighted];
     [planeBtn addTarget:self action:@selector(seeOthersPlan) forControlEvents:UIControlEventTouchUpInside];
+    planeBtn.layer.shadowColor = COLOR_LINE.CGColor;
+    planeBtn.layer.shadowOffset = CGSizeMake(1, 1);
+    planeBtn.layer.shadowRadius = 2;
+    planeBtn.layer.shadowOpacity = 1;
     [_scrollView addSubview:planeBtn];
-    
-    //    CGFloat YY = 165/3 * height/736;
     CGFloat YY = btnHeight/2 - 20 - 5;
-    
     _planeLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, YY, btnWidth, 20)];
-    _planeLabel.font = [UIFont systemFontOfSize:20* height/736];
-    _planeLabel.textColor = TEXT_COLOR_TITLE;
+    _planeLabel.font = [UIFont systemFontOfSize:16];
+    _planeLabel.textColor = COLOR_TEXT_I;
     _planeLabel.textAlignment = NSTextAlignmentCenter;
     [planeBtn addSubview:_planeLabel];
     UILabel *planeLabel2 = [[UILabel alloc]initWithFrame:CGRectMake(0, YY+31* height/736, btnWidth, 20)];
-    planeLabel2.font = [UIFont systemFontOfSize:16* height/736];
-    planeLabel2.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+    planeLabel2.font = [UIFont systemFontOfSize:13];
+    planeLabel2.textColor = COLOR_TEXT_II;
     planeLabel2.textAlignment = NSTextAlignmentCenter;
     planeLabel2.text = @"计划";
     [planeBtn addSubview:planeLabel2];
     
-    UIButton *trackBtn = [[UIButton alloc]initWithFrame:CGRectMake(width/2 + 2, 831/3*height/736, width/2-1, btnHeight)];
-    [trackBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-    [trackBtn setBackgroundImage:[UIImage resizedImageWithName:@"account_bg_button_normal"] forState:UIControlStateNormal];
-    [trackBtn setBackgroundImage:[UIImage resizedImageWithName:@"account_bg_button_selected"] forState:UIControlStateHighlighted];
+    UIButton *trackBtn = [[UIButton alloc]initWithFrame:CGRectMake(btnWidth+2, 831/3*height/736, btnWidth-2, btnHeight - 4)];
+    [trackBtn setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+    [trackBtn setBackgroundImage:[ConvertMethods createImageWithColor:COLOR_DISABLE] forState:UIControlStateHighlighted];
+    trackBtn.layer.shadowColor = COLOR_LINE.CGColor;
+    trackBtn.layer.shadowOffset = CGSizeMake(-1, 1);
+    trackBtn.layer.shadowRadius = 2;
+    trackBtn.layer.shadowOpacity = 1;
     [trackBtn addTarget:self action:@selector(visitTracks) forControlEvents:UIControlEventTouchUpInside];
     [_scrollView addSubview:trackBtn];
-    
     _trackLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, YY, btnWidth, 20)];
-    _trackLabel.font = [UIFont systemFontOfSize:20* height/736];
-    _trackLabel.textColor = TEXT_COLOR_TITLE;
+    _trackLabel.font = [UIFont systemFontOfSize:16];
+    _trackLabel.textColor = COLOR_TEXT_I;
     _trackLabel.textAlignment = NSTextAlignmentCenter;
     [trackBtn addSubview:_trackLabel];
     UILabel *trackLabel2 = [[UILabel alloc]initWithFrame:CGRectMake(0, YY+31* height/736, btnWidth, 20)];
-    trackLabel2.font = [UIFont systemFontOfSize:16* height/736];
-    trackLabel2.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+    trackLabel2.font = [UIFont systemFontOfSize:13];
+    trackLabel2.textColor = COLOR_TEXT_II;
     trackLabel2.textAlignment = NSTextAlignmentCenter;
     trackLabel2.text = @"足迹";
     [trackBtn addSubview:trackLabel2];
     
-    UIButton *albumBtn = [[UIButton alloc]initWithFrame:CGRectMake(1, 831/3*height/736 + btnHeight, width/2-1, btnHeight)];
-    [albumBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-    [albumBtn setBackgroundImage:[UIImage resizedImageWithName:@"account_bg_button_normal"] forState:UIControlStateNormal];
-    [albumBtn setBackgroundImage:[UIImage resizedImageWithName:@"account_bg_button_selected"] forState:UIControlStateHighlighted];
+    UIButton *albumBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 831/3*height/736 + btnHeight, btnWidth-2, btnHeight-4)];
+    [albumBtn setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+    [albumBtn setBackgroundImage:[ConvertMethods createImageWithColor:COLOR_DISABLE] forState:UIControlStateHighlighted];
+    albumBtn.layer.shadowColor = COLOR_LINE.CGColor;
+    albumBtn.layer.shadowOffset = CGSizeMake(1, -1);
+    albumBtn.layer.shadowRadius = 2;
+    albumBtn.layer.shadowOpacity = 1;
     [_scrollView addSubview:albumBtn];
-    
     _albumLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, YY, btnWidth, 20)];
-    _albumLabel.font = [UIFont systemFontOfSize:20* height/736];
-    _albumLabel.textColor = TEXT_COLOR_TITLE;
+    _albumLabel.font = [UIFont systemFontOfSize:16];
+    _albumLabel.textColor = COLOR_TEXT_I;
     _albumLabel.textAlignment = NSTextAlignmentCenter;
-    _albumLabel.text = [NSString stringWithFormat:@"%zd",_albumArray.count];
+    _albumLabel.text = [NSString stringWithFormat:@"%zd图",_albumArray.count];
     [albumBtn addSubview:_albumLabel];
     UILabel *albumLabel2 = [[UILabel alloc]initWithFrame:CGRectMake(0, YY+31* height/736, btnWidth, 20)];
-    albumLabel2.font = [UIFont systemFontOfSize:16* height/736];
-    albumLabel2.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+    albumLabel2.font = [UIFont systemFontOfSize:13];
+    albumLabel2.textColor = COLOR_TEXT_II;
     albumLabel2.textAlignment = NSTextAlignmentCenter;
     albumLabel2.text = @"相册";
     [albumBtn addSubview:albumLabel2];
     
-    UIButton *travelNote = [[UIButton alloc]initWithFrame:CGRectMake(width/2+2, 831/3*height/736 + btnHeight, width/2-1, btnHeight)];
-    [travelNote setBackgroundImage:[UIImage resizedImageWithName:@"account_bg_button_normal"] forState:UIControlStateNormal];
-    [travelNote setBackgroundImage:[UIImage resizedImageWithName:@"account_bg_button_selected"] forState:UIControlStateHighlighted];
-    [travelNote setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
+    UIButton *travelNote = [[UIButton alloc]initWithFrame:CGRectMake(btnWidth+2, 831/3*height/736 + btnHeight, btnWidth-2, btnHeight-4)];
+    [travelNote setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+    [travelNote setBackgroundImage:[ConvertMethods createImageWithColor:COLOR_DISABLE] forState:UIControlStateHighlighted];
+    travelNote.layer.shadowColor = COLOR_LINE.CGColor;
+    travelNote.layer.shadowOffset = CGSizeMake(-1, -1);
+    travelNote.layer.shadowRadius = 2;
+    travelNote.layer.shadowOpacity = 1;
+    [travelNote setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
     [_scrollView addSubview:travelNote];
-    
     UILabel *travelNoteLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, YY, btnWidth, 20)];
     travelNoteLabel.font = [UIFont systemFontOfSize:20* height/736];
-    travelNoteLabel.textColor = TEXT_COLOR_TITLE;
+    travelNoteLabel.textColor = COLOR_TEXT_I;
     travelNoteLabel.textAlignment = NSTextAlignmentCenter;
     [travelNote addSubview:travelNoteLabel];
     UILabel *travelNoteLabel2 = [[UILabel alloc]initWithFrame:CGRectMake(0, YY+31* height/736, btnWidth, 20)];
     travelNoteLabel2.font = [UIFont systemFontOfSize:16* height/736];
-    travelNoteLabel2.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+    travelNoteLabel2.textColor = COLOR_TEXT_II;
     travelNoteLabel2.textAlignment = NSTextAlignmentCenter;
     travelNoteLabel2.text = @"游记";
     [travelNote addSubview:travelNoteLabel2];
@@ -276,7 +282,7 @@
     signatureLabel.text = _userInfo.signature;
     signatureLabel.textAlignment = NSTextAlignmentCenter;
     signatureLabel.textColor = APP_THEME_COLOR;
-//    [_headerBgView addSubview:signatureLabel];
+    //    [_headerBgView addSubview:signatureLabel];
     
     NSDateFormatter *format2=[[NSDateFormatter alloc]init];
     [format2 setDateFormat:@"yyyy/MM/dd"];
@@ -305,12 +311,12 @@
         }
     }
     _trackLabel.text = [NSString stringWithFormat:@"%ld国 %ld城", (long)_userInfo.tracks.count, (long)cityNumber];
-    NSString *guideCtn = [NSString stringWithFormat:@"%zd",_userInfo.guideCount];
+    NSString *guideCtn = [NSString stringWithFormat:@"%zd条",_userInfo.guideCount];
     _planeLabel.text = guideCtn;
     
     [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:_userInfo.avatarSmall] placeholderImage:[UIImage imageNamed:@"ic_home_avatar_unknown.png"]];
     _nameLabel.text = _userInfo.nickName;
-    NSString *userIdStr = [NSString stringWithFormat:@"%zd",_userInfo.userId];
+    NSString *userIdStr = [NSString stringWithFormat:@"ID：%zd",_userInfo.userId];
     _idLabel.text = userIdStr;
     if ([_userInfo.sex isEqualToString:@"M" ]) {
         _avatarBg.image = [UIImage imageNamed:@"ic_home_avatar_border_boy.png"];
@@ -325,33 +331,41 @@
         _flagHeaderIV.image = [UIImage imageNamed:@"ic_home_header_unlogin.png"];
         _levelBg.image = [UIImage imageNamed:@"ic_home_level_bg_unknown.png"];
     }
+    
 }
 
 -(void)createFooterBar
 {
-    UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-45, CGRectGetWidth(self.view.bounds), 45)];
-    toolBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-    [self.view addSubview:toolBar];
+    UIImageView *barView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-49, CGRectGetWidth(self.view.bounds), 49)];
+    barView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    [barView setImage:[UIImage imageNamed:@"account_button_default.png"]];
+    barView.contentMode = UIViewContentModeScaleToFill;
+    barView.userInteractionEnabled = YES;
+    [self.view addSubview:barView];
+    
     AccountManager *accountManager = [AccountManager shareAccountManager];
     
-    UIButton *beginTalk = [[UIButton alloc]initWithFrame:CGRectMake(1, 0, CGRectGetWidth(self.view.bounds)/2-1, 45)];
+    UIButton *beginTalk = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds)/2, 48)];
     [beginTalk setTitle:@"开始聊天" forState:UIControlStateNormal];
-    [beginTalk setBackgroundImage:[UIImage imageNamed:@"account_bg_button_normal"] forState:UIControlStateNormal];
-    [beginTalk setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-    [beginTalk setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
-    [beginTalk setImage:[UIImage imageNamed:@"ic_home_normal"] forState:UIControlStateNormal];
-    beginTalk.titleLabel.font = [UIFont systemFontOfSize:16];
+    [beginTalk setBackgroundImage:[UIImage new] forState:UIControlStateNormal];
+    [beginTalk setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
+    [beginTalk setImage:[UIImage imageNamed:@"ic_home_normal.png"] forState:UIControlStateNormal];
+    [beginTalk setBackgroundImage:[UIImage imageNamed:@"account_button_selected.png"] forState:UIControlStateHighlighted];
+    beginTalk.titleLabel.font = [UIFont systemFontOfSize:13];
+    [beginTalk setImageEdgeInsets:UIEdgeInsetsMake(3, -5, 0, 0)];
+    [beginTalk setTitleEdgeInsets:UIEdgeInsetsMake(4, 0, 0, -5)];
     [beginTalk addTarget:self action:@selector(talkToFriend) forControlEvents:UIControlEventTouchUpInside];
-    [toolBar addSubview:beginTalk];
-    UIButton *addFriend = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetWidth(self.view.bounds)/2+1, 0, CGRectGetWidth(self.view.bounds)/2-1, 45)];
+    [barView addSubview:beginTalk];
+    UIButton *addFriend = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetWidth(self.view.bounds)/2, 0, CGRectGetWidth(self.view.bounds)/2, 48)];
     
-    addFriend.titleLabel.font = [UIFont systemFontOfSize:16];
-    [addFriend setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-    [addFriend setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
-    [addFriend setBackgroundImage:[UIImage imageNamed:@"account_bg_button_normal"] forState:UIControlStateNormal];
-    [addFriend setBackgroundImage:[UIImage imageNamed:@"account_bg_button_selected"] forState:UIControlStateHighlighted];
-    [addFriend setImage:[UIImage imageNamed:@"account_labbar_icon_follow_selected"] forState:UIControlStateNormal];
-    [toolBar addSubview:addFriend];
+    addFriend.titleLabel.font = [UIFont systemFontOfSize:13];
+    [addFriend setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
+    [addFriend setImage:[UIImage imageNamed:@"account_labbar_icon_follow_default.png"] forState:UIControlStateNormal];
+    [addFriend setBackgroundImage:[UIImage new] forState:UIControlStateHighlighted];
+    [addFriend setBackgroundImage:[UIImage imageNamed:@"account_button_selected.png"] forState:UIControlStateHighlighted];
+    [addFriend setImageEdgeInsets:UIEdgeInsetsMake(3, -5, 0, 0)];
+    [addFriend setTitleEdgeInsets:UIEdgeInsetsMake(4, 0, 0, -5)];
+    [barView addSubview:addFriend];
     if ([accountManager frendIsMyContact:_userId]) {
         [addFriend setTitle:@"备注" forState:UIControlStateNormal];
         [addFriend addTarget:self action:@selector(remarkFriend) forControlEvents:UIControlEventTouchUpInside];
@@ -360,6 +374,7 @@
         [addFriend addTarget:self action:@selector(addToFriend) forControlEvents:UIControlEventTouchUpInside];
         
     }
+    
 }
 
 #pragma mark - IBAction
@@ -378,7 +393,7 @@
 }
 - (void)remarkFriend
 {
-
+    
 }
 - (void)talkToFriend {
     [self pushChatViewController];
@@ -411,7 +426,7 @@
         };
         
     }
-
+    
 }
 
 - (IBAction)moreAction:(UIButton *)sender
@@ -420,14 +435,14 @@
                                                        delegate:self
                                               cancelButtonTitle:@"取消"
                                          destructiveButtonTitle:nil
-                                              otherButtonTitles:@"删除", nil];
+                                              otherButtonTitles:@"删除好友", nil];
     [sheet showInView:self.view];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 0) {
         [MobClick event:@"event_delete_it"];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"确认删除好友？" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"确认删除好友" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
         [alert showAlertViewWithBlock:^(NSInteger buttonIndex) {
             if (buttonIndex == 1) {
                 [self removeContact];
@@ -440,7 +455,7 @@
 {
     AccountManager *accountManager = [AccountManager shareAccountManager];
     
-    FrendManager *frendManager = [IMClientManager shareInstance].frendManager;
+    FrendManager *frendManager = [[FrendManager alloc] initWithUserId:[AccountManager shareAccountManager].account.userId];
     __weak typeof(OtherUserInfoViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf];
@@ -624,7 +639,7 @@
 {
     AccountManager *accountManager = [AccountManager shareAccountManager];
     
-    FrendManager *frendManager = [IMClientManager shareInstance].frendManager;
+    FrendManager *frendManager = [[FrendManager alloc] initWithUserId:accountManager.account.userId];
     if ([helloStr stringByReplacingOccurrencesOfString:@" " withString:@""].length == 0) {
         helloStr = [NSString stringWithFormat:@"Hi, 我是%@", accountManager.account.nickName];
     }
@@ -644,7 +659,7 @@
 
 - (void)loadUserProfile:(NSInteger)userId {
     
-    FrendManager *frendManager = [IMClientManager shareInstance].frendManager;
+    FrendManager *frendManager = [[FrendManager alloc] initWithUserId:[AccountManager shareAccountManager].account.userId];
     [frendManager asyncGetFrendInfoFromServer:userId completion:^(BOOL isSuccess, NSInteger errorCode, FrendModel * __nonnull frend) {
         if (isSuccess) {
             _userInfo = frend;
