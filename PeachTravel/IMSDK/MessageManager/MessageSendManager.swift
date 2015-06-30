@@ -216,7 +216,9 @@ class MessageSendManager: NSObject {
     */
     func sendPoiMessage(poiModel: IMPoiModel, receiver: Int, chatType: IMChatType, conversationId: String?) -> BaseMessage {
         let message = MessageManager.messageModelWithPoiModel(poiModel)
+        message.createTime = Int(NSDate().timeIntervalSince1970)
         message.chatterId = receiver
+        message.status = .IMMessageSending
         message.sendType = IMMessageSendType.MessageSendMine
         message.conversationId = conversationId
         switch poiModel.poiType {
