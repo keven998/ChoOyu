@@ -10,7 +10,7 @@ import UIKit
 
 enum CMDActionCode: String {
     
-    case F_ADD      =   "F_ADD"          //添加好友
+    case F_REQUEST  =   "F_REQUEST"          //添加好友
     case F_AGREE    =   "F_AGREE"        //同意添加好友
 
     

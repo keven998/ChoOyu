@@ -22,6 +22,7 @@ class IMClientManager: NSObject {
     var messageReceiveManager: MessageReceiveManager!
     var messageSendManager: MessageSendManager!
     var conversationManager: ChatConversationManager!
+    var frendManager: FrendManager!
     var cmdMessageManager: CMDMessageManager!
     var netWorkReachability: NetworkReachability!
     
@@ -72,10 +73,11 @@ class IMClientManager: NSObject {
         messageReceiveManager = MessageReceiveManager()
         messageSendManager = MessageSendManager()
         conversationManager = ChatConversationManager()
+        frendManager = FrendManager(userId: accountId)
         messageSendManager.addMessageSendDelegate(conversationManager)
         cmdMessageManager = CMDMessageManager()
         cmdMessageManager.addCMDMessageListener(IMDiscussionGroupManager.shareInstance(), withRoutingKey: CMDMessageRoutingKey.DiscussionGroup_CMD)
-        cmdMessageManager.addCMDMessageListener(FrendManager(userId: AccountManager.shareAccountManager().account.userId), withRoutingKey: CMDMessageRoutingKey.Frend_CMD)
+        cmdMessageManager.addCMDMessageListener(IMClientManager.shareInstance().frendManager, withRoutingKey: CMDMessageRoutingKey.Frend_CMD)
         messageReceiveManager.addMessageReceiveListener(cmdMessageManager, withRoutingKey: MessageReceiveDelegateRoutingKey.cmd)
         messageReceiveManager.addMessageReceiveListener(conversationManager, withRoutingKey: MessageReceiveDelegateRoutingKey.normal)
         messageReceiveManager.ACKMessageWithReceivedMessages(nil)
@@ -86,6 +88,7 @@ class IMClientManager: NSObject {
         messageSendManager = nil
         conversationManager = nil
         cmdMessageManager = nil
+        frendManager = nil
     }
     
     deinit {

@@ -101,8 +101,7 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
         var timeInt: Int = Int(round(time))
         conversation.lastUpdateTime = timeInt
         conversation.chatType = chatType
-        
-        var frendManager = FrendManager(userId: AccountManager.shareAccountManager().account.userId)
+        var frendManager = IMClientManager.shareInstance().frendManager
         
         var type: IMFrendWeightType?
         if chatType == IMChatType.IMChatDiscussionGroupType {
@@ -224,7 +223,7 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
     */
     func asyncGetConversationInfoFromServer(conversation: ChatConversation, completion:(fullConversation: ChatConversation?) -> ()) {
         if conversation.chatType == IMChatType.IMChatSingleType {
-            let frendManager = FrendManager(userId: AccountManager.shareAccountManager().account.userId)
+            let frendManager = IMClientManager.shareInstance().frendManager
             frendManager.asyncGetFrendInfoFromServer(conversation.chatterId, completion: { (isSuccess, errorCode, frendInfo) -> () in
                 if let frend = frendInfo {
                     self.fillConversationWithFrendData(conversation, frendModel: frend)
@@ -273,7 +272,7 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
         //如果在所有的已有会话里找不到这条消息的会话，那么新建一个会话并加入到会话列表里
 
         var conversation = createNewConversation(message: message)
-        var frendManager = FrendManager(userId: AccountManager.shareAccountManager().account.userId)
+        var frendManager = IMClientManager.shareInstance().frendManager
         conversation.addReceiveMessage(message)
         conversation.unReadMessageCount = 1
     }

@@ -18,4 +18,6 @@
 @property (nonatomic) TZFrendRequest status;
 @property (nonatomic) NSInteger userId;
 
+- (id)initWithJson:(id)json;
+
 @end
