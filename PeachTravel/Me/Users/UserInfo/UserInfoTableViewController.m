@@ -47,8 +47,6 @@
 
 // 我的足迹的描述
 @property (nonatomic, copy) NSString *tracksDesc;
-//我的足迹所有城市的罗列
-@property (nonatomic, copy) NSString *tracksCityDesc;
 
 @property (nonatomic, strong) JGProgressHUD *HUD;
 
@@ -172,15 +170,15 @@
 
 - (void)loadUserInfo
 {
-//    [self.accountManager.account loadUserInfoFromServer:^(bool isSuccess) {
-//        if (isSuccess) {
+    //    [self.accountManager.account loadUserInfoFromServer:^(bool isSuccess) {
+    //        if (isSuccess) {
     
-            [self updateTracksDesc];
-            [self updateDestinations];
-//            [self loadUserAlbum];
+    [self updateTracksDesc];
+    [self updateDestinations];
+    //            [self loadUserAlbum];
     
-//        }
-//    }];
+    //        }
+    //    }];
 }
 - (void) setupTableHeaderView {
     CGFloat width = SCREEN_WIDTH;
@@ -202,7 +200,7 @@
     
     flagHeaderIV.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [_headerBgView addSubview:flagHeaderIV];
-
+    
     
     CGFloat ah = 200*height/736;
     
@@ -219,7 +217,7 @@
     tap.numberOfTapsRequired = 1;
     tap.numberOfTouchesRequired = 1;
     [_avatarImageView addGestureRecognizer:tap];
-
+    
     
     _avatarBg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ah, ah)];
     _avatarBg.center = _avatarImageView.center;
@@ -228,32 +226,33 @@
     _avatarBg.image = [UIImage imageNamed:@"ic_home_avatar_border_unknown.png"];
     [_headerBgView addSubview:_avatarBg];
     
-
+    
 }
 
 - (void)updateTracksDesc
 {
     NSMutableDictionary *country = [NSMutableDictionary dictionaryWithDictionary:[AccountManager shareAccountManager].account.tracks];
+    if (country == nil || [country count] == 0) {
+        _tracksDesc = @"";
+    }
     NSInteger cityNumber = 0;
-    NSMutableString *cityDesc = nil;
+    //    NSMutableString *cityDesc = nil;
     NSArray *keys = [country allKeys];
     NSInteger countryNumber = keys.count;
     for (int i = 0; i < countryNumber; ++i) {
         NSArray *citys = [country objectForKey:[keys objectAtIndex:i]];
-        NSLog(@"%@",citys);
         cityNumber += citys.count;
         
-        for (id city in citys) {
-            CityDestinationPoi *poi = [[CityDestinationPoi alloc] initWithJson:city];
-            if (cityDesc == nil) {
-                cityDesc = [[NSMutableString alloc] initWithString:poi.zhName];
-            } else {
-                [cityDesc appendFormat:@" %@", poi.zhName];
-            }
-        }
+        //        for (id city in citys) {
+        //            CityDestinationPoi *poi = [[CityDestinationPoi alloc] initWithJson:city];
+        //            if (cityDesc == nil) {
+        //                cityDesc = [[NSMutableString alloc] initWithString:poi.zhName];
+        //            } else {
+        //                [cityDesc appendFormat:@" %@", poi.zhName];
+        //            }
+        //        }
     }
     _tracksDesc = [NSString stringWithFormat:@"%ld国 %ld个城市", (long)countryNumber, (long)cityNumber];
-    _tracksCityDesc = cityDesc;
 }
 
 /**
@@ -410,7 +409,7 @@
         if (self.isShowing) {
             [SVProgressHUD showHint:@"呃～好像没找到网络"];
         }
-    }];    
+    }];
 }
 
 /**
@@ -542,67 +541,66 @@
     AccountManager *amgr = self.accountManager;
     UserOtherTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:otherUserInfoCell forIndexPath:indexPath];
     cell.cellTitle.text = cellDataSource[indexPath.section][indexPath.row];
-        if (indexPath.section == 0) {
-            if (indexPath.row == 0) {
-                cell.cellDetail.text = amgr.account.nickName;
-                
-            } else if (indexPath.row == 1) {
-                if (amgr.account.gender ==Female) {
-                    cell.cellDetail.text = @"美女";
-                }
-                else if (amgr.account.gender == Male) {
-                    cell.cellDetail.text = @"帅锅";
-                }
-                else if (amgr.account.gender == Unknown) {
-                    cell.cellDetail.text = @"一言难尽";
-                }
-                else {
-                    cell.cellDetail.text = @"保密";
-                }
-                
-            } else if (indexPath.row == 2) {
-                if (amgr.account.birthday.length == 0 || amgr.account.birthday == nil) {
-                    cell.cellDetail.text = @"未设置";
-                } else {
-                    cell.cellDetail.text = amgr.account.birthday;
-                }
-                
-            } else if (indexPath.row == 3) {
-                if (amgr.account.residence.length == 0) {
-                    cell.cellDetail.text = @"未设置";
-                } else {
-                    cell.cellDetail.text = amgr.account.residence;
-                }
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            cell.cellDetail.text = amgr.account.nickName;
+            
+        } else if (indexPath.row == 1) {
+            if (amgr.account.gender ==Female) {
+                cell.cellDetail.text = @"美女";
             }
-        }
-        else if (indexPath.section == 1) {
-            if (indexPath.row == 0) {
-                cell.cellDetail.text = @"";
-                
-            } else if (indexPath.row == 1) {
-                if (_tracksCityDesc) {
-                    cell.cellDetail.text = _tracksDesc;
-                } else {
-                    cell.cellDetail.text = @"未设置足迹";
-                }
-                
-            } else if (indexPath.row == 2) {
-                cell.cellDetail.text = @"";
+            else if (amgr.account.gender == Male) {
+                cell.cellDetail.text = @"帅锅";
             }
-        }
-        else {
-            if (indexPath.row == 0) {
-                if (amgr.accountIsBindTel) {
-                    cell.cellDetail.text = @"已安全绑定";
-                    
-                } else {
-                    cell.cellDetail.text = @"未设置";
-                }
-
+            else if (amgr.account.gender == Unknown) {
+                cell.cellDetail.text = @"一言难尽";
+            }
+            else {
+                cell.cellDetail.text = @"保密";
+            }
+            
+        } else if (indexPath.row == 2) {
+            if (amgr.account.birthday.length == 0 || amgr.account.birthday == nil) {
+                cell.cellDetail.text = @"未设置";
             } else {
-                cell.cellDetail.text = @"";
+                cell.cellDetail.text = amgr.account.birthday;
+            }
+            
+        } else if (indexPath.row == 3) {
+            if (amgr.account.residence == nil || amgr.account.residence.length == 0) {
+                cell.cellDetail.text = @"未设置";
+            } else {
+                cell.cellDetail.text = amgr.account.residence;
             }
         }
+    }
+    else if (indexPath.section == 1) {
+        if (indexPath.row == 0) {
+            cell.cellDetail.text = @"0条";
+        } else if (indexPath.row == 1) {
+            if (_tracksDesc) {
+                cell.cellDetail.text = _tracksDesc;
+            } else {
+                cell.cellDetail.text = @"未设置";
+            }
+            
+        } else if (indexPath.row == 2) {
+            cell.cellDetail.text = @"0图";
+        }
+    }
+    else {
+        if (indexPath.row == 0) {
+            if (amgr.accountIsBindTel) {
+                cell.cellDetail.text = @"已安全绑定";
+                
+            } else {
+                cell.cellDetail.text = @"未设置";
+            }
+            
+        } else {
+            cell.cellDetail.text = @"";
+        }
+    }
     
     return cell;
 }
@@ -779,7 +777,7 @@
 - (void)changeAvatar:(NSInteger)index
 {
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-//    [hud showHUDInView:self.view];
+    //    [hud showHUDInView:self.view];
     [hud showHUDInViewController:self.navigationController content:64];
     AlbumImage *image = [self.accountManager.account.userAlbum objectAtIndex:index];
     [self.accountManager asyncChangeUserAvatar:image completion:^(BOOL isSuccess, NSString *error) {
@@ -791,7 +789,7 @@
 /**
  *  删除用户头像
  *
- *  @param index 
+ *  @param index
  */
 - (void)deleteUserAvatar:(NSInteger)index
 {
@@ -893,8 +891,7 @@
     [alertView setTitleFont:[UIFont systemFontOfSize:16]];
     [alertView useDefaultIOS7Style];
 }
-//      AlbumImage *albumImage = _headerPicArray[indexPath.row];
-//      [cell.picImage sd_setImageWithURL:[NSURL URLWithString: albumImage.image.imageUrl]];
+
 -(void)showImageDetail:(NSInteger)index
 {
     AccountManager *amgr = self.accountManager;
@@ -913,7 +910,7 @@
         NSIndexPath *picIndexPath = [NSIndexPath indexPathForRow:index inSection:0];
         PicCell *picCell = (PicCell *)[cell.collectionView cellForItemAtIndexPath:picIndexPath];
         photo.srcImageView = picCell.picImage;
-//        photo.srcImageView = (UIImageView *)[cell.collectionView cellForItemAtIndexPath:picIndexPath];
+        //        photo.srcImageView = (UIImageView *)[cell.collectionView cellForItemAtIndexPath:picIndexPath];
         [photos addObject:photo];
     }
     
@@ -922,13 +919,12 @@
     browser.currentPhotoIndex = index; // 弹出相册时显示的第一张图片是？
     browser.photos = photos; // 设置所有的图片
     [browser show];
-
+    
 }
 
 - (void)updataTracks:(NSInteger)country citys:(NSInteger)city trackStr:(NSString *)track
 {
     _tracksDesc = [NSString stringWithFormat:@"%ld国 %ld个城市",country,city];
-    _tracksCityDesc = track;
     [self.tableView reloadData];
 }
 @end
