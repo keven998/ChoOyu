@@ -16,8 +16,6 @@
 
 @property (nonatomic, strong) UIScrollView *galleryPageView; //unuse
 
-@property (nonatomic, strong) UIView *detailView;
-
 @property (nonatomic, strong) NSMutableArray *imageViews;
 @property (nonatomic, strong) UIButton *showMoreDescContentBtn;
 @property (nonatomic, strong) UIButton *showMoreInfoContentBtn;
@@ -39,14 +37,14 @@
 {
     self.backgroundColor = APP_PAGE_COLOR;
     CGFloat width = self.frame.size.width;
-    CGFloat oy = 15;
+    CGFloat oy = 13;
     
     CityAlbumView *albumView = [[[NSBundle mainBundle] loadNibNamed:@"CityImageAlbum"
                                   owner:self
                                 options:nil] lastObject];
     albumView.delegate = self;
-    CGFloat albumHeight = [CityAlbumView heightOfCityAlbumViewWithWidth:width-30];
-    [albumView setFrame:CGRectMake(15, 15, width-30, albumHeight)];
+    CGFloat albumHeight = [CityAlbumView heightOfCityAlbumViewWithWidth:width-36];
+    [albumView setFrame:CGRectMake(15, oy, width-36, albumHeight)];
     albumView.title = _cityPoi.zhName;
     albumView.subTitle = [NSString stringWithFormat:@"~参考游玩时间 %@", _cityPoi.timeCostDesc];
     albumView.images = _cityPoi.images;
@@ -60,21 +58,21 @@
     CGSize timeCostLabelSize = [_cityPoi.travelMonth boundingRectWithSize:CGSizeMake(width-20, MAXFLOAT)
                                                                    options:NSStringDrawingUsesLineFragmentOrigin
                                                                 attributes:@{
-                                                                             NSFontAttributeName : [UIFont systemFontOfSize:13.0],
+                                                                             NSFontAttributeName : [UIFont systemFontOfSize:11.0],
                                                                              }
                                                                    context:nil].size;
     CGFloat travelMotn = timeCostLabelSize.height + 4;
-    _travelMonthBtn.frame = CGRectMake(15, oy, width - 30, travelMotn);
-    [_travelMonthBtn setAttributedTitle:[[NSString stringWithFormat:@"最佳游玩时节: %@", _cityPoi.travelMonth] stringByAddLineSpacingAndTextColor:TEXT_COLOR_TITLE_SUBTITLE] forState:UIControlStateNormal];
-    _travelMonthBtn.titleLabel.font = [UIFont systemFontOfSize:13.0];
+    _travelMonthBtn.frame = CGRectMake(18, oy, width - 36, travelMotn);
+    [_travelMonthBtn setAttributedTitle:[[NSString stringWithFormat:@"最佳游玩时节: %@", _cityPoi.travelMonth] stringByAddLineSpacingAndTextColor:COLOR_TEXT_II] forState:UIControlStateNormal];
+    _travelMonthBtn.titleLabel.font = [UIFont systemFontOfSize:11.0];
     _travelMonthBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
     [_travelMonthBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
     [self addSubview:_travelMonthBtn];
     
-    oy += (_travelMonthBtn.frame.size.height+20);
+    oy += (_travelMonthBtn.frame.size.height+10);
 
-    _cityDesc = [[UILabel alloc] initWithFrame:CGRectMake(15, oy, width-30, 40)];
-    _cityDesc.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+    _cityDesc = [[UILabel alloc] initWithFrame:CGRectMake(18, oy, width-36, 40)];
+    _cityDesc.textColor = COLOR_TEXT_I;
     _cityDesc.numberOfLines = 2;
     _cityDesc.userInteractionEnabled = YES;
     NSMutableParagraphStyle *ps = [[NSMutableParagraphStyle alloc] init];
@@ -88,39 +86,35 @@
     oy += 60;
     
     CGSize btnItemSize = CGSizeMake(80, 80);
-    CGFloat spaceWidth = ((CGRectGetWidth(self.bounds) - btnItemSize.width*4)/5);
-    _showTipsBtn  = [[UIButton alloc] initWithFrame:CGRectMake(spaceWidth, oy, btnItemSize.width, btnItemSize.height)];
+    CGFloat spaceWidth = ((CGRectGetWidth(self.bounds) - 36 - btnItemSize.width*4)/3);
+    _showTipsBtn  = [[UIButton alloc] initWithFrame:CGRectMake(18, oy, btnItemSize.width, btnItemSize.height)];
     [_showTipsBtn setImage:[UIImage imageNamed:@"city_button_guide_default.png"] forState:UIControlStateNormal];
     [_showTipsBtn setImage:[UIImage imageNamed:@"city_button_guide_selected.png"] forState:UIControlStateHighlighted];
 
     [self addSubview:_showTipsBtn];
     
-    _showSpotsBtn = [[UIButton alloc] initWithFrame:CGRectMake(spaceWidth * 2 + btnItemSize.width, oy, btnItemSize.width, btnItemSize.height)];
+    _showSpotsBtn = [[UIButton alloc] initWithFrame:CGRectMake(18 + spaceWidth + btnItemSize.width, oy, btnItemSize.width, btnItemSize.height)];
     [_showSpotsBtn setImage:[UIImage imageNamed:@"city_button_spot_default.png"] forState:UIControlStateNormal];
     [_showSpotsBtn setImage:[UIImage imageNamed:@"city_button_spot_selected.png"] forState:UIControlStateHighlighted];
     [self addSubview:_showSpotsBtn];
     
-    _showRestaurantsBtn = [[UIButton alloc] initWithFrame:CGRectMake(spaceWidth * 3 + 2*btnItemSize.width, oy, btnItemSize.width, btnItemSize.height)];
+    _showRestaurantsBtn = [[UIButton alloc] initWithFrame:CGRectMake(18 + spaceWidth * 2 + 2*btnItemSize.width, oy, btnItemSize.width, btnItemSize.height)];
     [_showRestaurantsBtn setImage:[UIImage imageNamed:@"city_button_food_default.png"] forState:UIControlStateNormal];
     [_showRestaurantsBtn setImage:[UIImage imageNamed:@"city_button_food_selected.png"] forState:UIControlStateHighlighted];
 
     [self addSubview:_showRestaurantsBtn];
     
-    _showShoppingBtn = [[UIButton alloc] initWithFrame:CGRectMake(spaceWidth * 4 + 3*btnItemSize.width, oy, btnItemSize.width, btnItemSize.height)];
+    _showShoppingBtn = [[UIButton alloc] initWithFrame:CGRectMake(18 + spaceWidth * 3 + 3*btnItemSize.width, oy, btnItemSize.width, btnItemSize.height)];
     [_showShoppingBtn setImage:[UIImage imageNamed:@"city_button_shopping_default.png"] forState:UIControlStateNormal];
     [_showShoppingBtn setImage:[UIImage imageNamed:@"city_button_shopping_selected.png"] forState:UIControlStateNormal];
 
     [self addSubview:_showShoppingBtn];
     
 
-    oy += btnItemSize.height + 5;
-    
-    CGRect frame = _detailView.frame;
-    frame.size.height = oy;
-    _detailView.frame = frame;
+    oy += btnItemSize.height + 12;
     
     CGRect frame1 = self.frame;
-    frame1.size.height = oy + _detailView.frame.origin.y;
+    frame1.size.height = oy;
     frame1.size.width = width;
     self.frame = frame1;
     

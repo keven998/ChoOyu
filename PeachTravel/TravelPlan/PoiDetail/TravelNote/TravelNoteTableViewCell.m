@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *descLabel;
 @property (weak, nonatomic) IBOutlet UILabel *propertyLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
 
 
 @end
@@ -22,9 +23,11 @@
 
 - (void)awakeFromNib {
     self.backgroundColor = [UIColor whiteColor];
+    [_backgroundImageView setImage:[[UIImage imageNamed:@"city_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)]];
+
     _travelNoteImageView.clipsToBounds = YES;
     _sendBtn.layer.cornerRadius = 4.0;
-    _travelNoteImageView.layer.cornerRadius = 20.0;
+    _travelNoteImageView.layer.cornerRadius = 23.5;
     
     _travelNoteImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
     /**

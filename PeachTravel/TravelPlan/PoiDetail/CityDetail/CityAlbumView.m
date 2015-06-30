@@ -12,6 +12,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *TitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeCostLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *backgroudImageView;
 
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *imageBtns;
 
@@ -19,12 +20,17 @@
 
 @implementation CityAlbumView
 
+- (void)awakeFromNib {
+    [_backgroudImageView setImage:[[UIImage imageNamed:@"city_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)]];
+
+}
+
 - (IBAction)viewImage:(UIButton *)sender {
     if (self.delegate) {
         [self.delegate viewImage:sender.tag];
     }
 }
-
+ 
 - (void)setImages:(NSArray *)images
 {
     _images = images;
@@ -32,6 +38,8 @@
         UIButton *btn = self.imageBtns[i];
         if (_images.count >= i+1) {
             TaoziImage *image= _images[i];
+            btn.layer.cornerRadius = 7.0;
+            btn.clipsToBounds = YES;
             [btn sd_setBackgroundImageWithURL:[NSURL URLWithString:image.imageUrl] forState:UIControlStateNormal];
         } else {
             break;
