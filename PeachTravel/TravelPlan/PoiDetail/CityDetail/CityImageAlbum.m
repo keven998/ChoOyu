@@ -6,22 +6,22 @@
 //  Copyright (c) 2015 com.aizou.www. All rights reserved.
 //
 
-#import "CityAlbumView.h"
+#import "CityImageAlbum.h"
 
-@interface CityAlbumView ()
+@interface CityImageAlbum ()
 
 @property (weak, nonatomic) IBOutlet UILabel *TitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeCostLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *backgroudImageView;
+@property (weak, nonatomic) IBOutlet UIButton *backgroundCard;
 
-@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *imageBtns;
+@property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *imageContents;
 
 @end
 
-@implementation CityAlbumView
+@implementation CityImageAlbum
 
 - (void)awakeFromNib {
-    [_backgroudImageView setImage:[[UIImage imageNamed:@"city_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)]];
+    [_backgroundCard setBackgroundImage:[[UIImage imageNamed:@"city_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)] forState:UIControlStateNormal];
 
 }
 
@@ -34,8 +34,8 @@
 - (void)setImages:(NSArray *)images
 {
     _images = images;
-    for (int i = 0; i < self.imageBtns.count; i++) {
-        UIButton *btn = self.imageBtns[i];
+    for (int i = 0; i < self.imageContents.count; i++) {
+        UIButton *btn = self.imageContents[i];
         if (_images.count >= i+1) {
             TaoziImage *image= _images[i];
             btn.layer.cornerRadius = 7.0;

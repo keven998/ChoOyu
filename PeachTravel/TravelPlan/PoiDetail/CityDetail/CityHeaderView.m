@@ -10,7 +10,7 @@
 #import "ResizableView.h"
 #import "MWPhotoBrowser.h"
 #import "CityDetailTableViewController.h"
-#import "CityAlbumView.h"
+#import "CityImageAlbum.h"
 
 @interface CityHeaderView () <UIScrollViewDelegate, CityAlbumViewDelegate>
 
@@ -39,11 +39,11 @@
     CGFloat width = self.frame.size.width;
     CGFloat oy = 13;
     
-    CityAlbumView *albumView = [[[NSBundle mainBundle] loadNibNamed:@"CityImageAlbum"
+    CityImageAlbum *albumView = [[[NSBundle mainBundle] loadNibNamed:@"CityImageAlbum"
                                   owner:self
                                 options:nil] lastObject];
     albumView.delegate = self;
-    CGFloat albumHeight = [CityAlbumView heightOfCityAlbumViewWithWidth:width-36];
+    CGFloat albumHeight = [CityImageAlbum heightOfCityAlbumViewWithWidth:width-36];
     [albumView setFrame:CGRectMake(15, oy, width-36, albumHeight)];
     albumView.title = _cityPoi.zhName;
     albumView.subTitle = [NSString stringWithFormat:@"~参考游玩时间 %@", _cityPoi.timeCostDesc];

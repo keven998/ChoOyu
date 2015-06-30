@@ -35,7 +35,7 @@
 #define accountDetailHeaderCell          @"headerCell"
 #define otherUserInfoCell           @"otherCell"
 
-#define cellDataSource              @[@[@"名字", @"性别", @"生日", @"地区"], @[@"计划", @"足迹", @"相册"],@[@"安全绑定", @"安全绑定"]]
+#define cellDataSource              @[@[@"名字", @"性别", @"生日", @"现住地"], @[@"计划", @"足迹", @"相册"],@[@"安全设置", @"修改密码"]]
 
 @interface UserInfoTableViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource, SelectDelegate, ChangJobDelegate, HeaderPictureDelegate,updataTracksDelegate>
 {
