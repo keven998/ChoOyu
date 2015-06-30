@@ -95,8 +95,8 @@ class CMDMessageManager: NSObject, MessageReceiveManagerDelegate {
                     delegate.receiveDiscussiongGroupCMDMessage?(message)
                 }
                 
-            case .F_ADD:
-                let frendManager = FrendManager(userId: AccountManager.shareAccountManager().account.userId)
+            case .F_REQUEST:
+                let frendManager = IMClientManager.shareInstance().frendManager
                 
             default:
                 break

@@ -325,7 +325,6 @@
         _flagHeaderIV.image = [UIImage imageNamed:@"ic_home_header_unlogin.png"];
         _levelBg.image = [UIImage imageNamed:@"ic_home_level_bg_unknown.png"];
     }
-    
 }
 
 -(void)createFooterBar
@@ -361,8 +360,6 @@
         [addFriend addTarget:self action:@selector(addToFriend) forControlEvents:UIControlEventTouchUpInside];
         
     }
-    
-    
 }
 
 #pragma mark - IBAction
@@ -443,7 +440,7 @@
 {
     AccountManager *accountManager = [AccountManager shareAccountManager];
     
-    FrendManager *frendManager = [[FrendManager alloc] initWithUserId:[AccountManager shareAccountManager].account.userId];
+    FrendManager *frendManager = [IMClientManager shareInstance].frendManager;
     __weak typeof(OtherUserInfoViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf];
@@ -627,7 +624,7 @@
 {
     AccountManager *accountManager = [AccountManager shareAccountManager];
     
-    FrendManager *frendManager = [[FrendManager alloc] initWithUserId:accountManager.account.userId];
+    FrendManager *frendManager = [IMClientManager shareInstance].frendManager;
     if ([helloStr stringByReplacingOccurrencesOfString:@" " withString:@""].length == 0) {
         helloStr = [NSString stringWithFormat:@"Hi, 我是%@", accountManager.account.nickName];
     }
@@ -647,7 +644,7 @@
 
 - (void)loadUserProfile:(NSInteger)userId {
     
-    FrendManager *frendManager = [[FrendManager alloc] initWithUserId:[AccountManager shareAccountManager].account.userId];
+    FrendManager *frendManager = [IMClientManager shareInstance].frendManager;
     [frendManager asyncGetFrendInfoFromServer:userId completion:^(BOOL isSuccess, NSInteger errorCode, FrendModel * __nonnull frend) {
         if (isSuccess) {
             _userInfo = frend;

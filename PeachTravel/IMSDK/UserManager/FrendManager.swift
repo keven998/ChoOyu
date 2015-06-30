@@ -11,6 +11,10 @@ import UIKit
 private let API_REQUEST_ADD_CONTACT = "\(BASE_URL)users/request-contacts"  //请求添加好友
 private let API_FREND = "\(BASE_URL)users/contacts"
 
+@objc protocol FrendManagerManagerDelegate {
+    
+}
+
 class FrendManager: NSObject, CMDMessageManagerDelegate {
     
     let accountId: Int
@@ -184,6 +188,19 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
     
     //MARK: CMDMessageManagerDelegate
     func receiveFrendCMDMessage(cmdMessage: IMCMDMessage) {
+        switch cmdMessage.actionCode! {
+        case CMDActionCode.F_REQUEST:
+            let frendRequest = FrendRequestManager()
+            frendRequest.addFrendRequest(cmdMessage.actionContent)
+            
+        case CMDActionCode.F_AGREE:
+            let frendRequestManager = FrendRequestManager()
+            let request = FrendRequest(json: cmdMessage.actionContent)
+            frendRequestManager.changeStatus(request.userId, status: TZFrendRequest.Agree)
+            
+        default:
+            break
+        }
         
     }
     

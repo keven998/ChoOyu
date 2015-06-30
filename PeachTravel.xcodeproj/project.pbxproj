@@ -331,6 +331,7 @@
 		D91FED451B3D2E140073AD77 /* SenderImageNodeBorder_black@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D91FED441B3D2E140073AD77 /* SenderImageNodeBorder_black@3x.png */; };
 		D91FED6A1B3E75740073AD77 /* ReceiverImageNodeBorder_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D91FED681B3E75740073AD77 /* ReceiverImageNodeBorder_black@2x.png */; };
 		D91FED6B1B3E75740073AD77 /* SenderImageNodeBorder_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D91FED691B3E75740073AD77 /* SenderImageNodeBorder_black@2x.png */; };
+		D91FED6F1B4232AD0073AD77 /* FrendRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91FED6E1B4232AD0073AD77 /* FrendRequestManager.swift */; };
 		D920A4131B15A40E00AD81B7 /* IMDiscussionGroupManager+GroupInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D920A4121B15A40E00AD81B7 /* IMDiscussionGroupManager+GroupInfo.swift */; };
 		D920A4151B15AB3800AD81B7 /* JSONConvertMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = D920A4141B15AB3800AD81B7 /* JSONConvertMethod.swift */; };
 		D9245DC91A8C7D65004571AD /* ic_filter_box@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9245DC81A8C7D65004571AD /* ic_filter_box@2x.png */; };
@@ -1327,6 +1328,7 @@
 		D91FED441B3D2E140073AD77 /* SenderImageNodeBorder_black@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SenderImageNodeBorder_black@3x.png"; sourceTree = "<group>"; };
 		D91FED681B3E75740073AD77 /* ReceiverImageNodeBorder_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ReceiverImageNodeBorder_black@2x.png"; sourceTree = "<group>"; };
 		D91FED691B3E75740073AD77 /* SenderImageNodeBorder_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SenderImageNodeBorder_black@2x.png"; sourceTree = "<group>"; };
+		D91FED6E1B4232AD0073AD77 /* FrendRequestManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrendRequestManager.swift; sourceTree = "<group>"; };
 		D920A4121B15A40E00AD81B7 /* IMDiscussionGroupManager+GroupInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IMDiscussionGroupManager+GroupInfo.swift"; sourceTree = "<group>"; };
 		D920A4141B15AB3800AD81B7 /* JSONConvertMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONConvertMethod.swift; sourceTree = "<group>"; };
 		D9245DC81A8C7D65004571AD /* ic_filter_box@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_filter_box@2x.png"; sourceTree = "<group>"; };
@@ -2212,8 +2214,8 @@
 		D9F46DCE1AC92B9200972AE8 /* TZSideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZSideViewController.h; sourceTree = "<group>"; };
 		D9F46DCF1AC92B9200972AE8 /* TZSideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZSideViewController.m; sourceTree = "<group>"; };
 		D9F6ABEA1AA882A800BE8263 /* ic_group_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_group_icon@2x.png"; sourceTree = "<group>"; };
-		D9F70CA71B304E1800BDACA1 /* FrendRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrendRequest.h; sourceTree = "<group>"; };
-		D9F70CA81B304E1800BDACA1 /* FrendRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FrendRequest.m; sourceTree = "<group>"; };
+		D9F70CA71B304E1800BDACA1 /* FrendRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FrendRequest.h; path = ../../Me/Mine/Root/Model/FrendRequest.h; sourceTree = "<group>"; };
+		D9F70CA81B304E1800BDACA1 /* FrendRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FrendRequest.m; path = ../../Me/Mine/Root/Model/FrendRequest.m; sourceTree = "<group>"; };
 		D9F70CAC1B31523C00BDACA1 /* AccountDaoHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountDaoHelper.swift; sourceTree = "<group>"; };
 		D9FCE7DC1B134B4B0039F896 /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
 		D9FCE7DD1B134B4B0039F896 /* ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
@@ -2940,7 +2942,6 @@
 		D90F356819F6321B00E26FA9 /* IM */ = {
 			isa = PBXGroup;
 			children = (
-				D993C22F1B12DF0C0088D568 /* FrendManager */,
 				D993C1C51B12DF0C0088D568 /* IMSDK */,
 				D9A801671A80DD37005AD701 /* TZCMDChatHelper.h */,
 				D9A801681A80DD37005AD701 /* TZCMDChatHelper.m */,
@@ -2957,6 +2958,16 @@
 				D993C1F41B12DF0C0088D568 /* FrendDaoHelper.swift */,
 			);
 			name = Dao;
+			sourceTree = "<group>";
+		};
+		D91FED6D1B4232970073AD77 /* FrendRequest */ = {
+			isa = PBXGroup;
+			children = (
+				D9F70CA71B304E1800BDACA1 /* FrendRequest.h */,
+				D9F70CA81B304E1800BDACA1 /* FrendRequest.m */,
+				D91FED6E1B4232AD0073AD77 /* FrendRequestManager.swift */,
+			);
+			name = FrendRequest;
 			sourceTree = "<group>";
 		};
 		D92CA0B01AD8BDD400F244FF /* DACircularProgress */ = {
@@ -3212,6 +3223,7 @@
 		D993C1C51B12DF0C0088D568 /* IMSDK */ = {
 			isa = PBXGroup;
 			children = (
+				D993C22F1B12DF0C0088D568 /* UserManager */,
 				D993C1C61B12DF0C0088D568 /* ChatManager */,
 				D993C1C91B12DF0C0088D568 /* ConnectionManager */,
 				D993C1CB1B12DF0C0088D568 /* Core */,
@@ -3509,16 +3521,17 @@
 			path = ChatConversation;
 			sourceTree = "<group>";
 		};
-		D993C22F1B12DF0C0088D568 /* FrendManager */ = {
+		D993C22F1B12DF0C0088D568 /* UserManager */ = {
 			isa = PBXGroup;
 			children = (
+				D9A8FEAD1A80C818005AD701 /* Account */,
+				D91FED6D1B4232970073AD77 /* FrendRequest */,
 				D91FED6C1B4125DC0073AD77 /* Dao */,
 				D993C2301B12DF0C0088D568 /* FrendManager.swift */,
 				D993C2311B12DF0C0088D568 /* FrendModel */,
 				D90042C91B144275006F6B63 /* FrendManager+Private.swift */,
 			);
-			name = FrendManager;
-			path = IMSDK/UserManager;
+			path = UserManager;
 			sourceTree = "<group>";
 		};
 		D993C2311B12DF0C0088D568 /* FrendModel */ = {
@@ -4959,24 +4972,22 @@
 		D9A8FEAC1A80C818005AD701 /* Root */ = {
 			isa = PBXGroup;
 			children = (
-				D9A8FEAD1A80C818005AD701 /* Model */,
 				D9A8FEB81A80C818005AD701 /* ViewControllers */,
 				D9A8FEBB1A80C818005AD701 /* Views */,
 			);
 			path = Root;
 			sourceTree = "<group>";
 		};
-		D9A8FEAD1A80C818005AD701 /* Model */ = {
+		D9A8FEAD1A80C818005AD701 /* Account */ = {
 			isa = PBXGroup;
 			children = (
 				D9A8FEB01A80C818005AD701 /* AccountManager.h */,
 				D9A8FEB11A80C818005AD701 /* AccountManager.m */,
 				D9E7EC0A1ACB932800D30A5A /* AccountModel.h */,
 				D9E7EC0B1ACB932800D30A5A /* AccountModel.m */,
-				D9F70CA71B304E1800BDACA1 /* FrendRequest.h */,
-				D9F70CA81B304E1800BDACA1 /* FrendRequest.m */,
 			);
-			path = Model;
+			name = Account;
+			path = ../../Me/Mine/Root/Model;
 			sourceTree = "<group>";
 		};
 		D9A8FEB81A80C818005AD701 /* ViewControllers */ = {
@@ -6224,6 +6235,7 @@
 				D9A802081A80E036005AD701 /* Emoji.m in Sources */,
 				C6D26C131B2C25730019AFA8 /* PoiOnEditorTableViewCell.m in Sources */,
 				D92CA1071AD8BDF900F244FF /* PSTGridLayoutItem.m in Sources */,
+				D91FED6F1B4232AD0073AD77 /* FrendRequestManager.swift in Sources */,
 				27329DB41B0E030700F0A4FA /* ChatGroupCell.m in Sources */,
 				D9E7EC0C1ACB932800D30A5A /* AccountModel.m in Sources */,
 				D993C2441B12DF0C0088D568 /* ChatMessageDaoHelper.swift in Sources */,

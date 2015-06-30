@@ -76,7 +76,7 @@ class IMGroupManager: NSObject {
                 for groupData in retData  {
                     var group = IMGroupModel(jsonData: groupData as! NSDictionary)
                     groupList.append(group)
-                    var frendManager = FrendManager(userId: AccountManager.shareAccountManager().account.userId)
+                    var frendManager = IMClientManager.shareInstance().frendManager
                     frendManager.addFrend2DB(self.convertGroupModel2FrendModel(group))
                 }
             }
@@ -85,7 +85,7 @@ class IMGroupManager: NSObject {
     }
     
     func loadAllMyGroupsFromDB() -> Array<IMGroupModel> {
-        let frendManager = FrendManager(userId: AccountManager.shareAccountManager().account.userId)
+        let frendManager = IMClientManager.shareInstance().frendManager
         return frendManager.selectAllGroup()
     }
     
@@ -99,7 +99,7 @@ class IMGroupManager: NSObject {
         NetworkTransportAPI.asyncPOST(requstUrl: groupUrl, parameters: params) { (isSuccess, errorCode, retMessage) -> () in
             if isSuccess {
                 var group = IMGroupModel(jsonData: retMessage!)
-                var frendManager = FrendManager(userId: AccountManager.shareAccountManager().account.userId)
+                var frendManager = IMClientManager.shareInstance().frendManager
                 frendManager.addFrend2DB(self.convertGroupModel2FrendModel(group))
                 completionBlock(isSuccess: isSuccess, errorCode: errorCode, retGroup: group)
             } else {
