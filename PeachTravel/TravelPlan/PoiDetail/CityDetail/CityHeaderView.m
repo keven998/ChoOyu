@@ -40,7 +40,7 @@
     CGFloat oy = 13;
     
     CityImageAlbum *albumView = [[[NSBundle mainBundle] loadNibNamed:@"CityImageAlbum"
-                                  owner:self
+                                  owner:nil
                                 options:nil] lastObject];
     albumView.delegate = self;
     CGFloat albumHeight = [CityImageAlbum heightOfCityAlbumViewWithWidth:width-36];

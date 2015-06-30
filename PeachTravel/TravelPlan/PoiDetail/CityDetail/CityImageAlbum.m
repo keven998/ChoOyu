@@ -24,12 +24,6 @@
     [_backgroundCard setBackgroundImage:[[UIImage imageNamed:@"city_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)] forState:UIControlStateNormal];
 
 }
-
-- (IBAction)viewImage:(UIButton *)sender {
-    if (self.delegate) {
-        [self.delegate viewImage:sender.tag];
-    }
-}
  
 - (void)setImages:(NSArray *)images
 {
