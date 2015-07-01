@@ -13,6 +13,17 @@ class FrendRequestManager: NSObject {
     var frendRequestList: Array<FrendRequest> = Array()
     let frendRequestDaoHelper: FrendRequestDaoHelper
     let accountId: Int
+    var unReadFrendRequestCount: Int {
+        get {
+            var count = 0
+            for frendRequest in self.frendRequestList {
+                if frendRequest.status == TZFrendRequest.Default {
+                    count++
+                }
+            }
+            return count
+        }
+    }
     
     init(userId: Int) {
         accountId = userId

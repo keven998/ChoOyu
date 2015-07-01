@@ -209,9 +209,12 @@ class ConversationDaoHelper: BaseDaoHelper, ConversationDaoProtocol {
     
     func removeConversationfromDB(chatterId: Int) {
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
-
-            var sql = "delete from \(conversationTableName) where userId = ?"
-            dataBase.executeUpdate(sql, withArgumentsInArray: [chatterId])
+            var sql = "delete from \(conversationTableName) where ChatterId = ?"
+            if dataBase.executeUpdate(sql, withArgumentsInArray: [chatterId]) {
+                println("success 执行 sql 语句：\(sql)")
+            } else {
+                println("error 执行 sql 语句：\(sql)")
+            }
         }
     }
     

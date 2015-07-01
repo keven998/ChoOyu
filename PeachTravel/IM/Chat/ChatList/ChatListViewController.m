@@ -81,7 +81,7 @@
     _frendRequestUnreadCountLabel.layer.cornerRadius = 4;
     _frendRequestUnreadCountLabel.clipsToBounds = YES;
     [contactListBtn addSubview:_frendRequestUnreadCountLabel];
-    if (self.accountManager.numberOfUnReadFrendRequest > 0) {
+    if ([IMClientManager shareInstance].frendRequestManager.unReadFrendRequestCount > 0) {
         _frendRequestUnreadCountLabel.hidden = NO;
     } else {
         _frendRequestUnreadCountLabel.hidden = YES;
@@ -589,7 +589,6 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         ChatConversation *conversation = [self.dataSource objectAtIndex:indexPath.row];
         [self.imClientManager.conversationManager removeConversationWithChatterId: conversation.chatterId];
-       
         [MobClick event:@"event_delete_talk_item"];
     }
 }

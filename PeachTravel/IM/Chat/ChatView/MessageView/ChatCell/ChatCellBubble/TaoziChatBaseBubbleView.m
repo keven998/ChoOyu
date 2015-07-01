@@ -144,11 +144,8 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
     
     BOOL isReceiver = !_model.isSender;
     NSString *imageName = isReceiver ? @"messages_bg_friend.png" : @"messages_bg_self.png";
-    NSInteger leftCapWidth = isReceiver ? BUBBLE_LEFT_LEFT_CAP_WIDTH : BUBBLE_RIGHT_LEFT_CAP_WIDTH;
-    NSInteger topCapHeight = 25;
-    //    self.backImageView.image = [[UIImage imageNamed:imageName] stretchableImageWithLeftCapWidth:leftCapWidth topCapHeight:topCapHeight];
-    self.backImageView.image = [[UIImage imageNamed:imageName] resizableImageWithCapInsets:UIEdgeInsetsMake(leftCapWidth, leftCapWidth, topCapHeight, 2*leftCapWidth)];
-    
+    self.backImageView.image = [[UIImage imageNamed:imageName] resizableImageWithCapInsets:UIEdgeInsetsMake(28, 18, 18, 10)];
+
     if (model.poiModel) {
         [_titleBtn setTitle:model.poiModel.poiName forState:UIControlStateNormal];
         [_pictureImageView sd_setImageWithURL:[NSURL URLWithString:model.poiModel.image] placeholderImage:nil];

@@ -71,6 +71,9 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
     func asyncCreateDiscussionGroup(subject: String, invitees: Array<FrendModel>, completionBlock: (isSuccess: Bool, errorCode: Int, discussionGroup: IMDiscussionGroup?) -> ()) {
         
         var array = Array<Int>()
+        for frendModel in invitees {
+            array.append(frendModel.userId)
+        }
         var params = NSMutableDictionary()
         params.setObject(array, forKey: "participants")
         params.setObject(subject, forKey: "name")
