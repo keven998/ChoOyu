@@ -166,34 +166,11 @@
 - (void)analysisAndSaveFrendRequest:(NSDictionary *)frendRequestDic;
 
 /**
- *  移除好友申请
- *
- *  @param frendRequest
- */
-- (void)removeFrendRequest:(FrendRequest *)frendRequest;
-
-/**
- *  同意好友申请
- *
- *  @param frendRequest
- */
-- (void)agreeFrendRequest:(FrendRequest *)frendRequest;
-
-/**
- *  通过环信 id 删除好友
+ *  删除好友
  *
  *  @param userId
  */
 - (void)removeContact:(FrendModel *)userId;
-
-#pragma mark *****其他操作******
-
-/**
- *  返回未读的好友请求的数量
- *
- *  @return 
- */
-- (NSUInteger)numberOfUnReadFrendRequest;
 
 
 @end

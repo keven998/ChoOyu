@@ -11,6 +11,7 @@
 #import "FrendRequest.h"
 #import "AccountManager.h"
 #import "OtherUserInfoViewController.h"
+#import "PeachTravel-swift.h"
 
 #define requestCell      @"requestCell"
 
@@ -29,7 +30,6 @@
     [super viewDidLoad];
     self.navigationItem.title = @"好友请求";
     [self.tableView registerNib:[UINib nibWithNibName:@"FrendRequestTableViewCell" bundle:nil] forCellReuseIdentifier:requestCell];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateDataSource) name:frendRequestListNeedUpdateNoti object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -46,7 +46,6 @@
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - setter & getter
@@ -198,7 +197,8 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         FrendRequest *frendRequest = [self.dataSource objectAtIndex:indexPath.row];
-        [self.accountManager removeFrendRequest:frendRequest];
+        IMClientManager *clientManager = [IMClientManager shareInstance];
+        [clientManager.frendRequestManager removeFrendRequest:frendRequest.userId];
         [self.dataSource removeObject:frendRequest];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }

@@ -332,6 +332,7 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         completion(NO, nil);
     }];
+    
 }
 
 /**
@@ -646,21 +647,6 @@
 //    NSLog(@"收到好友请求，请求信息为：%@", frendRequest);
 //    [[NSNotificationCenter defaultCenter] postNotificationName:frendRequestListNeedUpdateNoti object:nil];
 //    [self save];
-}
-
-- (void)removeFrendRequest:(FrendRequest *)frendRequest
-{
-    [[NSNotificationCenter defaultCenter] postNotificationName:frendRequestListNeedUpdateNoti object:nil];
-
-}
-
-- (void)agreeFrendRequest:(FrendRequest *)frendRequest
-{
-    //更新时间戳，
-    frendRequest.requestDate = [[NSDate date] timeIntervalSince1970];
-    frendRequest.status = TZFrendAgree;
-    [[NSNotificationCenter defaultCenter] postNotificationName:frendRequestListNeedUpdateNoti object:nil];
-    [[NSNotificationCenter defaultCenter] postNotificationName:contactListNeedUpdateNoti object:nil];
 }
 
 #pragma mark - ********修改用户好友信息
