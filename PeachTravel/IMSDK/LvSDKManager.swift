@@ -107,10 +107,10 @@ class IMClientManager: NSObject {
     */
     func userDidLogin(userId: Int) {
         accountId = userId
-        self.setUpSDKWhenLogin()
         self.connectionSetup(true, errorCode: 0)
         let daoHelper = DaoHelper.shareInstance()
         daoHelper.userDidLogin()
+        self.setUpSDKWhenLogin()
         MessageManager.shareInsatance().startTimer2ACK()
     }
     
