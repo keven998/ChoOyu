@@ -589,7 +589,6 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         ChatConversation *conversation = [self.dataSource objectAtIndex:indexPath.row];
         [self.imClientManager.conversationManager removeConversationWithChatterId: conversation.chatterId];
-       
         [MobClick event:@"event_delete_talk_item"];
     }
 }
