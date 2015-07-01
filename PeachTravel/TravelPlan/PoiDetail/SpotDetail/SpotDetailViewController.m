@@ -169,7 +169,7 @@
     taoziMessageCtl.messageName = self.poi.zhName;
     taoziMessageCtl.messageTimeCost = ((SpotPoi *)self.poi).timeCostStr;
     taoziMessageCtl.descLabel.text = self.poi.desc;
-    taoziMessageCtl.chatType = IMMessageTypeSpotMessageType;
+    taoziMessageCtl.messageType = IMMessageTypeSpotMessageType;
 }
 
 /**

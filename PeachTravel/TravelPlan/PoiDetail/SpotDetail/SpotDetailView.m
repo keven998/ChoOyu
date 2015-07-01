@@ -21,7 +21,6 @@
 @property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong) UIView *detailView;
 
-@property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) EDStarRating *ratingView;
 @property (nonatomic, strong) UIButton *travelMonthBtn;
@@ -61,7 +60,7 @@
 - (void)setupSubView{
     CGFloat offsetY = 0;
     
-    SwipeView *swipeView = [[SwipeView alloc] initWithFrame:CGRectMake(0, offsetY, CGRectGetWidth(self.bounds), 368/2)];
+    SwipeView *swipeView = [[SwipeView alloc] initWithFrame:CGRectMake(0, offsetY, CGRectGetWidth(self.bounds), 350)];
     swipeView.dataSource = self;
     swipeView.delegate = self;
     swipeView.bounces = NO;
@@ -72,27 +71,22 @@
     [_scrollView addSubview:swipeView];
     
     _pageControl = [[UIPageControl alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), 20)];
-    _pageControl.center = CGPointMake(CGRectGetWidth(self.bounds)/2, 368/2-20);
+    _pageControl.center = CGPointMake(CGRectGetWidth(self.bounds)/2, 350-20);
     _pageControl.numberOfPages = _spot.images.count;
     _pageControl.currentPageIndicatorTintColor = APP_THEME_COLOR;
     _pageControl.pageIndicatorTintColor = [UIColor whiteColor];
     _pageControl.hidesForSinglePage = YES;
     [_scrollView addSubview:_pageControl];
     
-    offsetY += swipeView.frame.size.height+14;
+    offsetY += swipeView.frame.size.height;
     
-    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, offsetY, swipeView.bounds.size.width-50, 30)];
-    _titleLabel.textColor = TEXT_COLOR_TITLE;
-    _titleLabel.text = _spot.zhName;
-    _titleLabel.textAlignment = NSTextAlignmentCenter;
-    _titleLabel.font = [UIFont boldSystemFontOfSize:20];
+    UIButton *tagBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.bounds.size.width-132, offsetY + 10, 116, 40)];
+    [tagBtn setTitle:@"高等学府" forState:UIControlStateNormal];
+    [tagBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    tagBtn.userInteractionEnabled = NO;
+    [_scrollView addSubview:tagBtn];
     
-    [_scrollView addSubview:_titleLabel];
-    
-    offsetY += 30 + 12;
-    
-    _ratingView = [[EDStarRating alloc] initWithFrame:CGRectMake(0, 0, 105, 15)];
-    _ratingView.center = CGPointMake(swipeView.bounds.size.width/2, offsetY);
+    _ratingView = [[EDStarRating alloc] initWithFrame:CGRectMake(20, offsetY+18, 105, 15)];
     _ratingView.starImage = [UIImage imageNamed:@"star_biankuang"];
     _ratingView.starHighlightedImage = [UIImage imageNamed:@"star_couler"];
     _ratingView.maxRating = 5.0;
@@ -101,9 +95,57 @@
     _ratingView.displayMode = EDStarRatingDisplayAccurate;
     _ratingView.rating = _spot.rating;
     [_scrollView addSubview:_ratingView];
-
     
-    offsetY += 17;
+    offsetY += 60;
+   
+    _descDetailBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, offsetY, _scrollView.bounds.size.width, 114)];
+    _descDetailBtn.backgroundColor = [UIColor whiteColor];
+    [_descDetailBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
+    [_descDetailBtn setTitleColor:TEXT_COLOR_TITLE_DESC forState:UIControlStateHighlighted];
+    _descDetailBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+    _descDetailBtn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    [_descDetailBtn setTitle:_spot.desc forState:UIControlStateNormal];
+    _descDetailBtn.titleLabel.numberOfLines = 3;
+    [_descDetailBtn setContentEdgeInsets:UIEdgeInsetsMake(0, 14, 0, 14)];
+    _descDetailBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [_scrollView addSubview:_descDetailBtn];
+    
+    offsetY += 114;
+        
+    UIView *spaceView5 = [[UIView alloc] initWithFrame:CGRectMake(20, offsetY, _scrollView.bounds.size.width, 1)];
+    spaceView5.backgroundColor = APP_DIVIDER_COLOR;
+    [_scrollView addSubview:spaceView5];
+    
+    offsetY += 10;
+    
+    _addressBtn = [[TZButton alloc] initWithFrame:CGRectMake(0, offsetY, _scrollView.bounds.size.width, 66)];
+    _addressBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
+    [_addressBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
+    [_addressBtn setTitleColor:TEXT_COLOR_TITLE_DESC forState:UIControlStateHighlighted];
+    _addressBtn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    _addressBtn.titleLabel.numberOfLines = 2;
+    _addressBtn.layer.cornerRadius = 4.0;
+    _addressBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    //    [_addressBtn setContentEdgeInsets:UIEdgeInsetsMake(2, 10, 0, 10)];
+    //    _addressBtn.layer.borderColor = APP_DIVIDER_COLOR.CGColor;
+    //    _addressBtn.layer.borderWidth = 0.5;
+    _addressBtn.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    
+    if ([_spot.address isBlankString] || !_spot.address) {
+        [_addressBtn setTitle:_spot.zhName forState:UIControlStateNormal];
+    } else {
+        [_addressBtn setTitle:_spot.address forState:UIControlStateNormal];
+    }
+    [_scrollView addSubview:_addressBtn];
+    UIImageView *addressImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 23, 18, 18)];
+    addressImageView.image = [UIImage imageNamed:@"map"];
+    [_addressBtn addSubview:addressImageView];
+    
+    UILabel *address = [[UILabel   alloc]initWithFrame:CGRectMake(50, 0, 100, _travelBtn.bounds.size.height)];
+    address.font = [UIFont systemFontOfSize:14];
+    address.textColor = TEXT_COLOR_TITLE;
+    address.text = @"地图";
+    [_addressBtn addSubview:address];
     
     _bookBtn = [[UIButton alloc] initWithFrame:CGRectMake(_scrollView.bounds.size.width-100, offsetY+20, 80, 30)];
     [_bookBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
@@ -237,37 +279,6 @@
     }
     
     
-    
-    _addressBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, offsetY-7, width-5, 65)];
-    _addressBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
-    [_addressBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
-    [_addressBtn setTitleColor:TEXT_COLOR_TITLE_DESC forState:UIControlStateHighlighted];
-    _addressBtn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-    _addressBtn.titleLabel.numberOfLines = 2;
-    _addressBtn.layer.cornerRadius = 4.0;
-    _addressBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    _addressBtn.contentEdgeInsets = UIEdgeInsetsMake(0, width/2.5, 0, 0);
-//    [_addressBtn setContentEdgeInsets:UIEdgeInsetsMake(2, 10, 0, 10)];
-//    _addressBtn.layer.borderColor = APP_DIVIDER_COLOR.CGColor;
-//    _addressBtn.layer.borderWidth = 0.5;
-    _addressBtn.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    
-    if ([_spot.address isBlankString] || !_spot.address) {
-        [_addressBtn setTitle:_spot.zhName forState:UIControlStateNormal];
-    } else {
-        [_addressBtn setTitle:_spot.address forState:UIControlStateNormal];
-    }
-    [_scrollView addSubview:_addressBtn];
-    UIImageView *addressImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 23, 18, 18)];
-    addressImageView.image = [UIImage imageNamed:@"map"];
-    [_addressBtn addSubview:addressImageView];
-    
-    UILabel *address = [[UILabel   alloc]initWithFrame:CGRectMake(50, 0, 100, _travelBtn.bounds.size.height)];
-    address.font = [UIFont systemFontOfSize:14];
-    address.textColor = TEXT_COLOR_TITLE;
-    address.text = @"地图";
-    [_addressBtn addSubview:address];
-    
     offsetY += 44;
 
     
@@ -275,39 +286,6 @@
     spaceView4.backgroundColor = APP_DIVIDER_COLOR;
     [_scrollView addSubview:spaceView4];
     
-    if ([_spot.desc isBlankString]||_spot.desc == nil)
-    {
-        
-    }
-    else
-    {
-        _descDetailBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, offsetY, width-8, 65)];
-        [_descDetailBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
-        [_descDetailBtn setTitleColor:TEXT_COLOR_TITLE_DESC forState:UIControlStateHighlighted];
-        _descDetailBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-        _descDetailBtn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-        [_descDetailBtn setTitle:_spot.desc forState:UIControlStateNormal];
-        _descDetailBtn.titleLabel.numberOfLines = 3;
-        [_descDetailBtn setContentEdgeInsets:UIEdgeInsetsMake(0, width/2.5, 0, 0)];
-        _descDetailBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        [_scrollView addSubview:_descDetailBtn];
-        
-        
-        UILabel *introduction = [[UILabel   alloc]initWithFrame:CGRectMake(50, 0, 100, _travelBtn.bounds.size.height)];
-        introduction.font = [UIFont systemFontOfSize:14];
-        introduction.textColor = TEXT_COLOR_TITLE;
-        introduction.text = @"景点简介";
-        [_descDetailBtn addSubview:introduction];
-        UIImageView *descImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 23, 18, 18)];
-        descImageView.image = [UIImage imageNamed:@"spot introduction"];
-        [_descDetailBtn addSubview:descImageView];
-        
-        offsetY += 65;
-        
-        UIView *spaceView5 = [[UIView alloc] initWithFrame:CGRectMake(20, offsetY, width, 1)];
-        spaceView5.backgroundColor = APP_DIVIDER_COLOR;
-        [_scrollView addSubview:spaceView5];
-    }
     
     UIView *btnBackView = [[UIView alloc] initWithFrame:CGRectMake(0, offsetY, _scrollView.bounds.size.width, 75)];
     btnBackView.autoresizingMask = UIViewAutoresizingFlexibleWidth;

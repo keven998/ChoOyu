@@ -20,7 +20,6 @@
 -(void)layoutSubviews {
     [super layoutSubviews];
 
-    
     if (_imagePosition == IMAGE_AT_TOP) {
         [self topImageView];
     } else if (_imagePosition == IMAGE_AT_RIGHT) {
