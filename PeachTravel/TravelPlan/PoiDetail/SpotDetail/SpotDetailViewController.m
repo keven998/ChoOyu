@@ -11,12 +11,13 @@
 #import "SpotPoi.h"
 #import "AccountManager.h"
 #import "SuperWebViewController.h"
+#import "SpotDetailCell.h"
 #import "UIImage+BoxBlur.h"
 
-@interface SpotDetailViewController () <UIActionSheetDelegate>
+@interface SpotDetailViewController () <UIActionSheetDelegate,UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong) SpotDetailView *spotDetailView;
 @property (nonatomic, strong) UIImageView *backGroundImageView;
-
+@property (nonatomic, strong) UITableView *tableView;
 @end
 
 @implementation SpotDetailViewController
@@ -32,10 +33,10 @@
     UIButton *talkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 44)];
     [talkBtn setImage:[UIImage imageNamed:@"ic_home_normal"] forState:UIControlStateNormal];
     [talkBtn addTarget:self action:@selector(shareToTalk) forControlEvents:UIControlEventTouchUpInside];
-    
     [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:talkBtn]];
-    
     self.navigationItem.rightBarButtonItems = barItems;
+    [self.view addSubview:self.tableView];
+    [self.tableView registerNib:[UINib nibWithNibName:@"SpotDetailCell" bundle:nil] forCellReuseIdentifier:@"detailCell"];
     
     [self loadData];
 }
@@ -53,19 +54,85 @@
     [MobClick endLogPageView:@"page_spot_detail"];
 }
 
+- (UITableView *)tableView
+{
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
+        _tableView.backgroundColor = APP_PAGE_COLOR;
+        _tableView.separatorColor = APP_DIVIDER_COLOR;
+        _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        _tableView.tableHeaderView = self.spotDetailView;
+    }
+    return _tableView;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.poi.comments.count + 5;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row < 4) {
+        return 67 * SCREEN_HEIGHT/736;
+    } else if (indexPath.row == 4) {
+        return  372/3 * SCREEN_HEIGHT/736;
+    } else {
+        return 100;
+    }
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    SpotDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"detailCell" forIndexPath:indexPath];
+    if (indexPath.row < 4) {
+        if (indexPath.row == 0) {
+            cell.categoryLabel.text = @"地址";
+            cell.infomationLabel.text = self.poi.address;
+            cell.image.image = [UIImage imageNamed:@"poi_icon_add"];
+        } else if (indexPath.row == 1) {
+            cell.categoryLabel.text = @"电话";
+            cell.infomationLabel.text = ((SpotPoi *)self.poi).telephone;
+            cell.image.image = [UIImage imageNamed:@"poi_icon_phone"];
+        } else if (indexPath.row == 2) {
+            cell.categoryLabel.text = @"时间";
+            cell.infomationLabel.text = ((SpotPoi *)self.poi).openTime;
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        } else {
+            cell.categoryLabel.text = @"票价";
+            cell.infomationLabel.text = ((SpotPoi *)self.poi).priceDesc;
+            cell.image.image = [UIImage imageNamed:@"poi_icon_ticket_default"];
+        }
+        return cell;
+    }
+    return cell;
+}
+
+#pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+
+
 - (void)updateView
 {
 //    _spotDetailView = [[SpotDetailView alloc] initWithFrame:CGRectMake(15, 40, self.view.bounds.size.width-30, self.view.bounds.size.height-60)];
 //    self.automaticallyAdjustsScrollViewInsets = NO;
     _spotDetailView = [[SpotDetailView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
 //    _spotDetailView.contentSize = CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height+150) ;
-    _spotDetailView.showsHorizontalScrollIndicator = NO;
-    _spotDetailView.showsVerticalScrollIndicator = NO;
+//    _spotDetailView.showsHorizontalScrollIndicator = NO;
+//    _spotDetailView.showsVerticalScrollIndicator = NO;
     _spotDetailView.spot = (SpotPoi *)self.poi;
     _spotDetailView.rootCtl = self;
 //    self.navigationItem.title = self.poi.zhName;
     _spotDetailView.layer.cornerRadius = 4.0;
-    [self.view addSubview:_spotDetailView];
+    self.tableView.tableHeaderView = _spotDetailView;
 
 //    _spotDetailView.transform = CGAffineTransformMakeScale(0.01, 0.01);
 //

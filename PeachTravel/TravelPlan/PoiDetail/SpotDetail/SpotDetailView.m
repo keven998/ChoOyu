@@ -21,13 +21,13 @@
 @property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong) UIView *detailView;
 
-@property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, strong) UIView *scrollView;
 @property (nonatomic, strong) EDStarRating *ratingView;
 @property (nonatomic, strong) UIButton *travelMonthBtn;
 @property (nonatomic, strong) UIButton *openTimeBtn;
 @property (nonatomic, strong) UIButton *timeCostBtn;
 //@property (nonatomic, strong) UIButton *phoneButton;
-
+@property (nonatomic, strong) UIButton *readAllBtn;
 @property (nonatomic, strong) UIPageControl *pageControl;
 
 @end
@@ -42,8 +42,8 @@
         self.backgroundColor = APP_PAGE_COLOR;
         _scrollView = [[UIScrollView alloc] init];
         _scrollView.frame = self.bounds;
-        _scrollView.showsHorizontalScrollIndicator = NO;
-        _scrollView.showsVerticalScrollIndicator = NO;
+//        _scrollView.showsHorizontalScrollIndicator = NO;
+//        _scrollView.showsVerticalScrollIndicator = NO;
         [self addSubview:_scrollView];
 
     }
@@ -110,6 +110,12 @@
     _descDetailBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [_scrollView addSubview:_descDetailBtn];
     
+    _readAllBtn = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 269/3 * SCREEN_WIDTH/414, _descDetailBtn.bounds.size.height- 126/3, 269/3 * SCREEN_WIDTH/414, 19 * SCREEN_WIDTH / 414)];
+    [_readAllBtn setTitle:@"全文" forState:UIControlStateNormal];
+    [_readAllBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+    _readAllBtn.titleLabel.font = [UIFont systemFontOfSize:18 * 736/SCREEN_HEIGHT];
+    [_descDetailBtn addSubview:_readAllBtn];
+    
     offsetY += 114;
         
     UIView *spaceView5 = [[UIView alloc] initWithFrame:CGRectMake(20, offsetY, _scrollView.bounds.size.width, 1)];
@@ -118,29 +124,31 @@
     
     offsetY += 10;
     
-    _addressBtn = [[TZButton alloc] initWithFrame:CGRectMake(0, offsetY, _scrollView.bounds.size.width, 66)];
-    _addressBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
-    [_addressBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
-    [_addressBtn setTitleColor:TEXT_COLOR_TITLE_DESC forState:UIControlStateHighlighted];
-    _addressBtn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-    _addressBtn.titleLabel.numberOfLines = 2;
-    _addressBtn.layer.cornerRadius = 4.0;
-    _addressBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    //    [_addressBtn setContentEdgeInsets:UIEdgeInsetsMake(2, 10, 0, 10)];
-    //    _addressBtn.layer.borderColor = APP_DIVIDER_COLOR.CGColor;
-    //    _addressBtn.layer.borderWidth = 0.5;
-    _addressBtn.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+//    _addressBtn = [[TZButton alloc] initWithFrame:CGRectMake(0, offsetY, _scrollView.bounds.size.width, 66)];
+//    _addressBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
+//    [_addressBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
+//    [_addressBtn setTitleColor:TEXT_COLOR_TITLE_DESC forState:UIControlStateHighlighted];
+//    _addressBtn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+//    _addressBtn.titleLabel.numberOfLines = 2;
+//    _addressBtn.layer.cornerRadius = 4.0;
+//    _addressBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+//    //    [_addressBtn setContentEdgeInsets:UIEdgeInsetsMake(2, 10, 0, 10)];
+//    //    _addressBtn.layer.borderColor = APP_DIVIDER_COLOR.CGColor;
+//    //    _addressBtn.layer.borderWidth = 0.5;
+//    _addressBtn.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+//    
+//    if ([_spot.address isBlankString] || !_spot.address) {
+//        [_addressBtn setTitle:_spot.zhName forState:UIControlStateNormal];
+//    } else {
+//        [_addressBtn setTitle:_spot.address forState:UIControlStateNormal];
+//    }
+//    [_scrollView addSubview:_addressBtn];
+//    UIImageView *addressImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 23, 18, 18)];
+//    addressImageView.image = [UIImage imageNamed:@"map"];
+//    [_addressBtn addSubview:addressImageView];
     
-    if ([_spot.address isBlankString] || !_spot.address) {
-        [_addressBtn setTitle:_spot.zhName forState:UIControlStateNormal];
-    } else {
-        [_addressBtn setTitle:_spot.address forState:UIControlStateNormal];
-    }
-    [_scrollView addSubview:_addressBtn];
-    UIImageView *addressImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 23, 18, 18)];
-    addressImageView.image = [UIImage imageNamed:@"map"];
-    [_addressBtn addSubview:addressImageView];
     
+    /*
     UILabel *address = [[UILabel   alloc]initWithFrame:CGRectMake(50, 0, 100, _travelBtn.bounds.size.height)];
     address.font = [UIFont systemFontOfSize:14];
     address.textColor = TEXT_COLOR_TITLE;
@@ -446,10 +454,10 @@
     
     
     offsetY += 50;
-
+*/
     
-    
-    [_scrollView setContentSize:CGSizeMake(_scrollView.bounds.size.width, offsetY+75)];
+    _scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, offsetY + 75);
+//    [_scrollView setContentSize:CGSizeMake(_scrollView.bounds.size.width, offsetY+75)];
     
 }
 

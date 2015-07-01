@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SpotPoi.h"
 
-@interface SpotDetailView : UIScrollView <UIScrollViewDelegate>
+@interface SpotDetailView : UIView
 
 @property (nonatomic, strong) SpotPoi *spot;
 
