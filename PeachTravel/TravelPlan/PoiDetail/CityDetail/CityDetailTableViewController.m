@@ -39,13 +39,12 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"城市";
     
     NSMutableArray *barItems = [[NSMutableArray alloc] init];
     
     UIButton *planBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 38, 44)];
     [planBtn setImage:[UIImage imageNamed:@"ic_add_city.png"] forState:UIControlStateNormal];
-    [planBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    planBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [planBtn addTarget:self action:@selector(makePlan) forControlEvents:UIControlEventTouchUpInside];
     
     UIButton *talkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 42, 44)];
@@ -81,6 +80,8 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 
 - (void)updateView
 {
+    self.navigationItem.title = self.poi.zhName;
+    
     _cityHeaderView = [[CityHeaderView alloc] init];
     [_cityHeaderView setFrame:CGRectMake(0, 0, self.view.frame.size.width, 0)];
     _cityHeaderView.cityPoi = (CityPoi *)self.poi;
@@ -95,8 +96,19 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(dealtap:)];
     
     [_cityHeaderView.cityDesc addGestureRecognizer:tap];
-    
     _tableView.tableHeaderView = _cityHeaderView;
+    
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(_tableView.frame), 64)];
+    view.backgroundColor = [UIColor clearColor];
+    view.userInteractionEnabled = YES;
+    UIButton *footerView = [[UIButton alloc] initWithFrame:CGRectMake(20, 0, CGRectGetWidth(_tableView.frame) - 40, 44)];
+    [footerView setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+    [footerView setBackgroundImage:[ConvertMethods createImageWithColor:COLOR_DISABLE] forState:UIControlStateHighlighted];
+    [footerView setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateNormal];
+    [footerView setTitle:@"~阅读更多 · 达人游记~" forState:UIControlStateNormal];
+    footerView.titleLabel.font = [UIFont systemFontOfSize:12];
+    [view addSubview:footerView];
+    _tableView.tableFooterView = view;
     
 }
 
@@ -105,6 +117,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height-64)];
         _tableView.backgroundColor = APP_PAGE_COLOR;
+        _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.delegate = self;
         _tableView.dataSource = self;
@@ -139,10 +152,10 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSNumber *imageWidth = [NSNumber numberWithInt:kWindowWidth*2];
     [params setObject:imageWidth forKey:@"imgWidth"];
-   
+    
     //获取城市信息
     [manager GET:requsetUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        NSLog(@"%@", responseObject);
+        //        NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             self.poi = [[CityPoi alloc] initWithJson:[responseObject objectForKey:@"result"]];
@@ -207,7 +220,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     }];
 }
 
-/** 
+/**
  *  实现父类的发送 poi 到消息的值传递
  *
  *  @param taoziMessageCtl
@@ -291,7 +304,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 - (IBAction)showMoreTravelNote:(id)sender
 {
     [MobClick event:@"event_more_city_travel_notes"];
-
+    
     TravelNoteListViewController *travelListCtl = [[TravelNoteListViewController alloc] init];
     travelListCtl.isSearch = NO;
     travelListCtl.cityId = ((CityPoi *)self.poi).poiId;
@@ -307,7 +320,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 125;
+    return 135;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

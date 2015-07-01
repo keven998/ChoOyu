@@ -22,23 +22,19 @@
 
 - (void)awakeFromNib {
     [_backgroundCard setBackgroundImage:[[UIImage imageNamed:@"city_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)] forState:UIControlStateNormal];
-
+    [_backgroundCard setBackgroundImage:[[UIImage imageNamed:@"city_bg_album_selected.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)] forState:UIControlStateHighlighted];
 }
  
 - (void)setImages:(NSArray *)images
 {
     _images = images;
-    for (int i = 0; i < self.imageContents.count; i++) {
+    NSInteger linkCount = self.imageContents.count;
+    NSInteger viewCount = images.count;
+    for (int i = 0; i < linkCount && i < viewCount; i++) {
         UIImageView *imageView = self.imageContents[i];
-        if (_images.count >= i+1) {
-            TaoziImage *image= _images[i];
-            imageView.layer.cornerRadius = 7.0;
-            imageView.clipsToBounds = YES;
-            
-            [imageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
-        } else {
-            break;
-        }
+        TaoziImage *image= _images[i];
+        imageView.layer.cornerRadius = 5.0;
+        [imageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:[UIImage imageNamed:@"city_bg_photo_default.png"]];
     }
 }
 

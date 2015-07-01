@@ -160,6 +160,8 @@
 		C63FFCCB1B3A6CFB0026758F /* common_icon_navigaiton_back@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C63FFCC41B3A6CFB0026758F /* common_icon_navigaiton_back@3x.png */; };
 		C63FFCCC1B3A6CFB0026758F /* common_icon_navigaiton_menu@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C63FFCC51B3A6CFB0026758F /* common_icon_navigaiton_menu@3x.png */; };
 		C640640F1B42B9FF00613367 /* CityImageAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = C640640E1B42B9FF00613367 /* CityImageAlbum.m */; };
+		C64064121B43883E00613367 /* city_bg_album_selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C64064101B43883E00613367 /* city_bg_album_selected@3x.png */; };
+		C64064131B43883E00613367 /* city_bg_photo_default@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C64064111B43883E00613367 /* city_bg_photo_default@3x.png */; };
 		C64BB5861B326CA400D11D9D /* ic_home_avatar_border_unknown@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C64BB5841B326CA400D11D9D /* ic_home_avatar_border_unknown@3x.png */; };
 		C64BB5871B326CA400D11D9D /* ic_home_avatar_unknown@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C64BB5851B326CA400D11D9D /* ic_home_avatar_unknown@3x.png */; };
 		C64BB5891B3270A300D11D9D /* ic_home_user_constellation_shooter@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C64BB5881B3270A300D11D9D /* ic_home_user_constellation_shooter@3x.png */; };
@@ -1122,6 +1124,8 @@
 		C63FFCC51B3A6CFB0026758F /* common_icon_navigaiton_menu@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "common_icon_navigaiton_menu@3x.png"; sourceTree = "<group>"; };
 		C640640D1B42B9FF00613367 /* CityImageAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityImageAlbum.h; sourceTree = "<group>"; };
 		C640640E1B42B9FF00613367 /* CityImageAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityImageAlbum.m; sourceTree = "<group>"; };
+		C64064101B43883E00613367 /* city_bg_album_selected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "city_bg_album_selected@3x.png"; sourceTree = "<group>"; };
+		C64064111B43883E00613367 /* city_bg_photo_default@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "city_bg_photo_default@3x.png"; sourceTree = "<group>"; };
 		C64BB5841B326CA400D11D9D /* ic_home_avatar_border_unknown@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_home_avatar_border_unknown@3x.png"; sourceTree = "<group>"; };
 		C64BB5851B326CA400D11D9D /* ic_home_avatar_unknown@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_home_avatar_unknown@3x.png"; sourceTree = "<group>"; };
 		C64BB5881B3270A300D11D9D /* ic_home_user_constellation_shooter@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_home_user_constellation_shooter@3x.png"; sourceTree = "<group>"; };
@@ -3015,6 +3019,8 @@
 		D91FED801B4285110073AD77 /* 城市详情 */ = {
 			isa = PBXGroup;
 			children = (
+				C64064101B43883E00613367 /* city_bg_album_selected@3x.png */,
+				C64064111B43883E00613367 /* city_bg_photo_default@3x.png */,
 				D91FED941B42A9890073AD77 /* city_bg@3x.png */,
 				D91FED821B42851A0073AD77 /* city_button_food_default@3x.png */,
 				D91FED831B42851A0073AD77 /* city_button_food_selected@3x.png */,
@@ -5745,6 +5751,7 @@
 				D9A804D71A80E738005AD701 /* ic_chatlist_selected@2x.png in Resources */,
 				D917DADB1A8B4B370039720A /* ic_guide_title_2@2x.png in Resources */,
 				D9A804BD1A80E738005AD701 /* ic_dotted_line@2x.png in Resources */,
+				C64064131B43883E00613367 /* city_bg_photo_default@3x.png in Resources */,
 				D91FED931B428D840073AD77 /* city_icon_mt_userpic@3x.png in Resources */,
 				C6528F001B4178A7008889EF /* speaking-motion12@3x.png in Resources */,
 				27FF1AB81B06F1F000643D77 /* ic_here_selected@2x.png in Resources */,
@@ -5948,6 +5955,7 @@
 				D9A804871A80E738005AD701 /* cell_accessory_gray@2x.png in Resources */,
 				D9A806CB1A80F597005AD701 /* UMSCommentInputController.xib in Resources */,
 				C6682ADB1B41385E00100EBA /* ic_setting_apprise@3x.png in Resources */,
+				C64064121B43883E00613367 /* city_bg_album_selected@3x.png in Resources */,
 				C6C5AFD61B0F1688005D6A0F /* ic_shaixuan_@2x.png in Resources */,
 				C63FFCCC1B3A6CFB0026758F /* common_icon_navigaiton_menu@3x.png in Resources */,
 				D9A801211A80DD23005AD701 /* call_silence_h.png in Resources */,
