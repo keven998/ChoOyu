@@ -195,7 +195,7 @@ class MessageSendManager: NSObject {
             messageManagerDelegate.sendNewMessage?(locationMessage)
         }
 
-        self.sendMetadataMessage(locationMessage, metadata: imageData, chatType: chatType, conversationId: conversationId) { (isSuccess) -> () in
+        self.sendMetadataMessage(locationMessage, metadata: imageData, chatType: chatType, conversationId: conversationId, progress: nil) { (isSuccess) -> () in
             
         }
         return locationMessage
@@ -283,7 +283,10 @@ class MessageSendManager: NSObject {
             messageManagerDelegate.sendNewMessage?(imageMessage)
         }
         
-        self.sendMetadataMessage(imageMessage, metadata: imageData, chatType: chatType, conversationId: conversationId) { (isSuccess) -> () in
+        self.sendMetadataMessage(imageMessage, metadata: imageData, chatType: chatType, conversationId: conversationId, progress: { (progressValue) -> () in
+            progress(progressValue: progressValue)
+            
+        }) { (isSuccess) -> () in
             
         }
         return imageMessage
@@ -342,7 +345,7 @@ class MessageSendManager: NSObject {
         var audioData = NSData(contentsOfFile: tempAmrPath)
         
         if let audioData = audioData {
-            self.sendMetadataMessage(audioMessage, metadata: audioData, chatType: chatType, conversationId: conversationId, completionBlock: { (isSuccess) -> () in
+            self.sendMetadataMessage(audioMessage, metadata: audioData, chatType: chatType, conversationId: conversationId, progress: progress, completionBlock: { (isSuccess) -> () in
                 var fileManager =  NSFileManager()
                 var error: NSError?
                 fileManager.removeItemAtPath(tempAmrPath, error: &error)
@@ -363,12 +366,14 @@ class MessageSendManager: NSObject {
     :param: conversationId
     :param: completionBlock
     */
-    private func sendMetadataMessage(metadataMessage: BaseMessage, metadata: NSData, chatType: IMChatType, conversationId: String?, completionBlock:(isSuccess: Bool)->()) {
+    private func sendMetadataMessage(metadataMessage: BaseMessage, metadata: NSData, chatType: IMChatType, conversationId: String?, progress:((progressValue: Float) -> ())?, completionBlock:(isSuccess: Bool)->()) {
         sendingMessageList.addObject(metadataMessage)
         MetadataUploadManager.asyncRequestUploadToken2SendMessage(metadataMessage.messageType, completionBlock: { (isSuccess, key, token) -> () in
             if isSuccess {
                 MetadataUploadManager.uploadMetadata2Qiniu(metadataMessage, token: token!, key: key!, metadata: metadata, chatType:chatType, conversationId:conversationId, progress: { (progressValue) -> () in
-                    println("上传了: \(progressValue)")
+                        if let progressBlock = progress {
+                            progressBlock(progressValue: progressValue)
+                        }
                     })
                     { (isSuccess: Bool, errorCode: Int, retMessage: NSDictionary?) -> () in
                         completionBlock(isSuccess: isSuccess)
@@ -424,19 +429,22 @@ class MessageSendManager: NSObject {
             var tempAmrPath = IMClientManager.shareInstance().userChatTempPath.stringByAppendingPathComponent("\((message as! AudioMessage).metadataId).amr")
             VoiceConverter.wavToAmr((message as! AudioMessage).localPath, amrSavePath: tempAmrPath)
             if let audioData = NSData(contentsOfFile: tempAmrPath) {
-                self.sendMetadataMessage(message, metadata: audioData, chatType: chatType, conversationId: conversationId, completionBlock: { (isSuccess) -> () in
+                self.sendMetadataMessage(message, metadata: audioData, chatType: chatType, conversationId: conversationId, progress: nil, completionBlock: { (isSuccess) -> () in
+                    
                 })
             }
             
         } else if message.messageType == IMMessageType.ImageMessageType {
             if let imageData = NSData(contentsOfFile: (message as! ImageMessage).localPath!) {
-                self.sendMetadataMessage(message, metadata: imageData, chatType: chatType, conversationId: conversationId, completionBlock: { (isSuccess) -> () in
+                self.sendMetadataMessage(message, metadata: imageData, chatType: chatType, conversationId: conversationId, progress: nil, completionBlock: { (isSuccess) -> () in
+                    
                 })
             }
             
         } else if message.messageType == IMMessageType.LocationMessageType {
             if let imageData = NSData(contentsOfFile: (message as! LocationMessage).localPath!) {
-                self.sendMetadataMessage(message, metadata: imageData, chatType: chatType, conversationId: conversationId, completionBlock: { (isSuccess) -> () in
+                self.sendMetadataMessage(message, metadata: imageData, chatType: chatType, conversationId: conversationId, progress: nil, completionBlock: { (isSuccess) -> () in
+                    
                 })
             }
         } else {

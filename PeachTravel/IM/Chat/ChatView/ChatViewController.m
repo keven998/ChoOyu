@@ -1172,6 +1172,7 @@
 {
     IMClientManager *imClientManager = [IMClientManager shareInstance];
     BaseMessage *imageMessage = [imClientManager.messageSendManager sendImageMessage:_conversation.chatterId conversationId:_conversation.conversationId imageData:imageData chatType:_conversation.chatType progress:^(float progressValue) {
+        NSLog(@"发送了: %lf", progressValue);
     }];
     [self addChatMessage2Buttom:imageMessage];
     

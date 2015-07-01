@@ -74,6 +74,7 @@
     taoziMessageCtl.chatTitle = chatTitle;
     taoziMessageCtl.chatterId = chatterId;
     taoziMessageCtl.chatType = chatType;
+
     
     [self.chatRecordListCtl dismissViewControllerAnimated:YES completion:^{
         [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:nil];
