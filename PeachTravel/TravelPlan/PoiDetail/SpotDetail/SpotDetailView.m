@@ -14,6 +14,7 @@
 #import "CommentDetail.h"
 #import "SuperWebViewController.h"
 #import "SwipeView.h"
+#import "CommentTableViewCell.h"
 
 @interface SpotDetailView ()<SwipeViewDataSource, SwipeViewDelegate>
 
@@ -398,29 +399,32 @@
     [_scrollView addSubview:moreCommentBtn];
     }
     offsetY += 40;
-        if (_spot.comments.count >= 1) {
-        
-        UIImageView *dotImageViewLeft = [[UIImageView alloc] initWithFrame:CGRectMake(10, offsetY-10, 20, 17)];
-        dotImageViewLeft.image = [UIImage imageNamed:@"ic_quotation_l.png"];
-        dotImageViewLeft.contentMode = UIViewContentModeScaleAspectFit;
-        [_scrollView addSubview:dotImageViewLeft];
-        
-        CommentDetail *comment = [_spot.comments objectAtIndex:0];
-        UILabel *commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(40, offsetY, _scrollView.bounds.size.width-80, 40)];
-        commentLabel.numberOfLines = 3.0;
-        commentLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
-        commentLabel.font = [UIFont systemFontOfSize:12];
-        commentLabel.text = comment.commentDetails;
-        [_scrollView addSubview:commentLabel];
-        offsetY += 40;
-        UILabel *commentSubLabel = [[UILabel alloc] initWithFrame:CGRectMake(40, offsetY, _scrollView.bounds.size.width-80, 15)];
-        commentSubLabel.textColor = TEXT_COLOR_TITLE_PH;
-        commentSubLabel.font = [UIFont systemFontOfSize:10];
-        commentSubLabel.textAlignment = NSTextAlignmentRight;
-        NSString *s = [NSString stringWithFormat:@"%@  %@", comment.nickName, comment.commentTime];
-        commentSubLabel.text = s;
-        [_scrollView addSubview:commentSubLabel];
-        offsetY += 15;
+    
+
+    
+    if (_spot.comments.count >= 1) {
+    
+    UIImageView *dotImageViewLeft = [[UIImageView alloc] initWithFrame:CGRectMake(10, offsetY-10, 20, 17)];
+    dotImageViewLeft.image = [UIImage imageNamed:@"ic_quotation_l.png"];
+    dotImageViewLeft.contentMode = UIViewContentModeScaleAspectFit;
+    [_scrollView addSubview:dotImageViewLeft];
+    
+    CommentDetail *comment = [_spot.comments objectAtIndex:0];
+    UILabel *commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(40, offsetY, _scrollView.bounds.size.width-80, 40)];
+    commentLabel.numberOfLines = 3.0;
+    commentLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+    commentLabel.font = [UIFont systemFontOfSize:12];
+    commentLabel.text = comment.commentDetails;
+    [_scrollView addSubview:commentLabel];
+    offsetY += 40;
+    UILabel *commentSubLabel = [[UILabel alloc] initWithFrame:CGRectMake(40, offsetY, _scrollView.bounds.size.width-80, 15)];
+    commentSubLabel.textColor = TEXT_COLOR_TITLE_PH;
+    commentSubLabel.font = [UIFont systemFontOfSize:10];
+    commentSubLabel.textAlignment = NSTextAlignmentRight;
+    NSString *s = [NSString stringWithFormat:@"%@  %@", comment.nickName, comment.commentTime];
+    commentSubLabel.text = s;
+    [_scrollView addSubview:commentSubLabel];
+    offsetY += 15;
     }
 
     offsetY += 10;

@@ -185,7 +185,6 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
                 [_propertyBtn setTitle:protertyStr forState:UIControlStateNormal];
                 _descLabel.text = model.poiModel.address;
             }
-                
                 break;
                 
             case IMMessageTypeShoppingMessageType:
@@ -197,7 +196,6 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
                 }
                 [_propertyBtn setTitle:model.poiModel.rating forState:UIControlStateNormal];
                 _descLabel.text = model.poiModel.address;
-                
                 break;
                 
             case IMMessageTypeGuideMessageType:
