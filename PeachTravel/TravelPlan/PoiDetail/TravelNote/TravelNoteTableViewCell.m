@@ -28,7 +28,6 @@
     _travelNoteImageView.clipsToBounds = YES;
     _sendBtn.layer.cornerRadius = 4.0;
     _travelNoteImageView.layer.cornerRadius = 23.5;
-    
     _travelNoteImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
     /**
      *  发送按钮默认隐藏，是否显示需要设置 canSelecte
@@ -36,13 +35,14 @@
     _sendBtn.hidden = NO;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     _titleLabel.font = [UIFont systemFontOfSize:16];
-    _titleLabel.textColor = TEXT_COLOR_TITLE;
-    _descLabel.font = [UIFont systemFontOfSize:13];
-    _descLabel.numberOfLines = 3;
-    _descLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+    _titleLabel.textColor = COLOR_TEXT_I;
+    
+    _descLabel.font = [UIFont systemFontOfSize:12];
+    _descLabel.numberOfLines = 2;
+    _descLabel.textColor = COLOR_TEXT_II;
     
     _propertyLabel.font = [UIFont systemFontOfSize:12];
-    _propertyLabel.textColor = TEXT_COLOR_TITLE_PH;
+    _propertyLabel.textColor = COLOR_TEXT_III;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -55,7 +55,7 @@
     if ([_travelNoteImage isEqual: [NSNull null]]) {
         return;
     }
-    [_travelNoteImageView sd_setImageWithURL:[NSURL URLWithString:_travelNoteImage] placeholderImage:nil];
+    [_travelNoteImageView sd_setImageWithURL:[NSURL URLWithString:_travelNoteImage] placeholderImage:[UIImage imageNamed:@"ic_home_default_avatar.png"]];
 }
 
 - (void)setTitle:(NSString *)title

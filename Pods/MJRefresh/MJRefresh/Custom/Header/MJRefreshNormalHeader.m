@@ -20,7 +20,7 @@
 - (UIImageView *)arrowView
 {
     if (!_arrowView) {
-        UIImageView *arrowView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:MJRefreshSrcName(@"arrow.png")]];
+        UIImageView *arrowView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:MJRefreshSrcName(@"")]];
         [self addSubview:_arrowView = arrowView];
     }
     return _arrowView;

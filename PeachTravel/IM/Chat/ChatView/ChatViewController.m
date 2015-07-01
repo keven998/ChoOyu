@@ -77,7 +77,6 @@
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) DXMessageToolBar *chatToolBar;
 
-@property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong) UIActivityIndicatorView *headerLoading;
 
 @property (strong, nonatomic) UIImagePickerController *imagePicker;
@@ -165,19 +164,6 @@
         [self fillMessageModel:model];
         [self.dataSource addObject: model];
     }
-}
-
-- (UIView *)headerView {
-    if (!_headerView) {
-        _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 44.0)];
-        _headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        UIActivityIndicatorView *indicatroView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 32.0, 32.0)];
-        [indicatroView setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
-        [indicatroView setCenter:CGPointMake(CGRectGetWidth(self.tableView.bounds)/2.0, 44.0/2.0)];
-        [_headerView addSubview:indicatroView];
-        _headerLoading = indicatroView;
-    }
-    return _headerView;
 }
 
 - (void)setupBarButtonItem
@@ -326,15 +312,10 @@
         
         // 隐藏时间
         header.lastUpdatedTimeLabel.hidden = YES;
-        
         // 隐藏状态
         header.stateLabel.hidden = YES;
-        
-        header.arrowView.hidden = YES;
-        
         // 设置header
         self.tableView.header = header;
-        
     }
     
     return _tableView;
@@ -349,7 +330,6 @@
         _chatToolBar.rootCtl = self;        
      
     }
-    
     return _chatToolBar;
 }
 
@@ -461,7 +441,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if (scrollView.contentOffset.y < 40 && !_loadMessageOver) {
+    if (scrollView.contentOffset.y < 40 && !_loadMessageOver && _dataSource.count >= 10) {
         if (![_tableView.header isRefreshing]) {
             [_tableView.header beginRefreshing];
         }
