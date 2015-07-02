@@ -608,15 +608,12 @@
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0)
-    {
-        if (indexPath.row == 0)
-        {
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
             [self changeUserName];
             
         }
-        else if (indexPath.row == 1)
-        {
+        else if (indexPath.row == 1) {
             [MobClick event:@"event_update_gender"];
             SelectionTableViewController *ctl = [[SelectionTableViewController alloc] init];
             ctl.contentItems = @[@"美女", @"帅锅", @"一言难尽", @"保密"];
@@ -629,8 +626,7 @@
             [self presentViewController:nav animated:YES completion:nil];
             
         }
-        else if (indexPath.row == 2)
-        {
+        else if (indexPath.row == 2) {
             [self showDatePicker];
             
         }
@@ -645,23 +641,17 @@
             
         }
     }
-    else if (indexPath.section == 1)
-    {
+    else if (indexPath.section == 1) {
         if (indexPath.row == 0) {
             
-            
         }
-        else if (indexPath.row == 1)
-        {
+        else if (indexPath.row == 1) {
             FootPrintViewController *footCtl = [[FootPrintViewController alloc] init];
             footCtl.destinations = self.destinations;
             footCtl.delegate = self;
             [self presentViewController:footCtl animated:YES completion:nil];
-            
-            
         }
-        else if (indexPath.row == 2)
-        {
+        else if (indexPath.row == 2) {
             
         }
     }
@@ -712,7 +702,7 @@
     [self.tableView reloadData];
 }
 
-- (void) updateGender:(NSIndexPath *)selectIndex
+- (void)updateGender:(NSIndexPath *)selectIndex
 {
     NSString *str = [[NSString alloc]init];
     if (selectIndex.row == 0) {

@@ -46,8 +46,11 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"select_cell" forIndexPath:indexPath];
-    cell.textLabel.text = [_contentItems objectAtIndex:indexPath.row];
+    cell.textLabel.text = [NSString stringWithFormat:@" %@", [_contentItems objectAtIndex:indexPath.row]];
+    cell.textLabel.font = [UIFont systemFontOfSize:18.0];
+    cell.textLabel.textColor = COLOR_TEXT_I;
     if (_selectItemIndex == indexPath.row) {
+        cell.tintColor = APP_THEME_COLOR;
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     } else {
         cell.accessoryType = UITableViewCellAccessoryNone;
@@ -61,7 +64,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 44.0;
+    return 64*kWindowHeight/736;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

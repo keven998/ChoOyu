@@ -9,7 +9,6 @@
 #import "ForeignScreeningViewController.h"
 #import "TaoziCollectionLayout.h"
 #import "ScreeningModel.h"
-//#import "ScreeningCell.h"
 #import "ScreenningViewCell.h"
 #import "DomesticDestinationCell.h"
 @interface ForeignScreeningViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,TaoziLayoutDelegate,UICollectionViewDelegateFlowLayout>
@@ -47,7 +46,6 @@
         NSDictionary *domestic = dataDict[@"中国"];
         
         for (NSDictionary *dicdic in domestic) {
-            
             ScreeningModel *model = [[ScreeningModel alloc]init];
             model.zhName = dicdic[@"zhName"];
             model.userId = dicdic[@"id"];

@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UITextField *phoneLabel;
 @property (weak, nonatomic) IBOutlet UITextField *captchaLabel;
+@property (weak, nonatomic) IBOutlet UILabel *tipsLabel;
 @property (weak, nonatomic) IBOutlet UIButton *captchaBtn;
 @property (nonatomic) BOOL shouldSetPasswordWhenBindTel;   //标记当验证成功手机号后是否需要跳转到下一个页面设置密码
 @property (nonatomic, strong) UIButton *registerBtn;
@@ -76,7 +77,14 @@
     [_captchaBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateDisabled];
     [_captchaBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
     [_captchaBtn setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor lightGrayColor]] forState:UIControlStateDisabled];
+}
 
+- (void)viewDidLayoutSubviews
+{
+    _phoneLabel.frame = CGRectMake(0, 30, self.view.bounds.size.width, 64*kWindowHeight/736);
+    _captchaBtn.center = CGPointMake(self.view.bounds.size.width-20-_captchaBtn.bounds.size.width/2, _phoneLabel.center.y);
+    _captchaLabel.frame = CGRectMake(0, 30+64*kWindowHeight/736+1, self.view.bounds.size.width, 64*kWindowHeight/736);
+    _tipsLabel.frame = CGRectMake(20, 30+64*kWindowHeight/736*2+15, self.view.bounds.size.width-40, 20);
 }
 
 - (void)viewWillAppear:(BOOL)animated

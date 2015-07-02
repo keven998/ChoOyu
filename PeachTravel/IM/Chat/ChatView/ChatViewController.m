@@ -1158,8 +1158,8 @@
     
 }
 
-
 #pragma mark - MessageManagerDelegate
+
 - (void)receiverMessage:(BaseMessage* __nonnull)message
 {
     [self addChatMessage2Buttom:message];

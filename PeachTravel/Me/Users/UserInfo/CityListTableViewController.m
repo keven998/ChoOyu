@@ -26,8 +26,8 @@
     if (self.navigationController.childViewControllers.count == 1) {
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
         self.navigationItem.leftBarButtonItem = nil;
+        
     } else {
-//        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"common_icon_navigaiton_back"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
         UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
         [button setImage:[UIImage imageNamed:@"common_icon_navigaiton_back"] forState:UIControlStateNormal];
         [button setImage:[UIImage imageNamed:@"common_icon_navigaiton_back_highlight"] forState:UIControlStateHighlighted];
@@ -44,6 +44,7 @@
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _tableView.delegate = self;
     _tableView.dataSource = self;
+    _tableView.rowHeight = 60;
     [self.view addSubview:_tableView];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cityCell"];
     
