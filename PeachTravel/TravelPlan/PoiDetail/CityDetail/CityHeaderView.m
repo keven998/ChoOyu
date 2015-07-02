@@ -63,7 +63,7 @@
                                                                   context:nil].size;
     
     if (timeCostLabelSize.height > 16) {
-        NSAttributedString *more = [[NSAttributedString alloc] initWithString:@"更多" attributes:@{NSForegroundColorAttributeName : APP_THEME_COLOR_HIGHLIGHT, NSFontAttributeName: [UIFont systemFontOfSize:12]}];
+        NSAttributedString *more = [[NSAttributedString alloc] initWithString:@"全文" attributes:@{NSForegroundColorAttributeName : APP_THEME_COLOR_HIGHLIGHT, NSFontAttributeName: [UIFont systemFontOfSize:12]}];
         NSMutableAttributedString *attrstr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@... ", [tm substringToIndex:20]] attributes:nil];
         [attrstr appendAttributedString:more];
         _travelMonth.attributedText = attrstr;
@@ -98,7 +98,7 @@
     NSDictionary *attribs = @{NSFontAttributeName: [UIFont systemFontOfSize:13], NSParagraphStyleAttributeName:ps};
     truncateStr = [NSString stringWithFormat:@"%@... ", truncateStr];
     NSMutableAttributedString *attrstr = [[NSMutableAttributedString alloc] initWithString:truncateStr attributes:attribs];
-    NSAttributedString *more1 = [[NSAttributedString alloc] initWithString:@"更多" attributes:@{NSForegroundColorAttributeName : APP_THEME_COLOR_HIGHLIGHT, NSFontAttributeName: [UIFont systemFontOfSize:13]}];
+    NSAttributedString *more1 = [[NSAttributedString alloc] initWithString:@"全文" attributes:@{NSForegroundColorAttributeName : APP_THEME_COLOR_HIGHLIGHT, NSFontAttributeName: [UIFont systemFontOfSize:13]}];
     [attrstr appendAttributedString:more1];
     _cityDesc.attributedText = attrstr;
     [self addSubview:_cityDesc];
