@@ -12,6 +12,7 @@
 #import "AccountManager.h"
 #import "SuperWebViewController.h"
 #import "SpotDetailCell.h"
+#import "SpecialPoiCell.h"
 #import "UIImage+BoxBlur.h"
 
 @interface SpotDetailViewController () <UIActionSheetDelegate,UITableViewDataSource,UITableViewDelegate>
@@ -35,10 +36,11 @@
     [talkBtn addTarget:self action:@selector(shareToTalk) forControlEvents:UIControlEventTouchUpInside];
     [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:talkBtn]];
     self.navigationItem.rightBarButtonItems = barItems;
+
+    [self loadData];
     [self.view addSubview:self.tableView];
     [self.tableView registerNib:[UINib nibWithNibName:@"SpotDetailCell" bundle:nil] forCellReuseIdentifier:@"detailCell"];
-    
-    [self loadData];
+    [self.tableView registerNib:[UINib nibWithNibName:@"SpecialPoiCell" bundle:nil] forCellReuseIdentifier:@"specialCell"];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -73,6 +75,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
     return self.poi.comments.count + 5;
 }
 
@@ -80,41 +83,82 @@
     if (indexPath.row < 4) {
         return 67 * SCREEN_HEIGHT/736;
     } else if (indexPath.row == 4) {
-        return  372/3 * SCREEN_HEIGHT/736;
+        return  372/3;
     } else {
         return 100;
     }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    SpotDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"detailCell" forIndexPath:indexPath];
     if (indexPath.row < 4) {
+        SpotDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"detailCell" forIndexPath:indexPath];
         if (indexPath.row == 0) {
             cell.categoryLabel.text = @"地址";
             cell.infomationLabel.text = self.poi.address;
             cell.image.image = [UIImage imageNamed:@"poi_icon_add"];
+            cell.accessoryType = UITableViewCellAccessoryNone;
         } else if (indexPath.row == 1) {
             cell.categoryLabel.text = @"电话";
             cell.infomationLabel.text = ((SpotPoi *)self.poi).telephone;
             cell.image.image = [UIImage imageNamed:@"poi_icon_phone"];
+            cell.accessoryType = UITableViewCellAccessoryNone;
         } else if (indexPath.row == 2) {
             cell.categoryLabel.text = @"时间";
             cell.infomationLabel.text = ((SpotPoi *)self.poi).openTime;
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell.image.image = [UIImage imageNamed:@"icon_arrow"];
+//            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         } else {
             cell.categoryLabel.text = @"票价";
             cell.infomationLabel.text = ((SpotPoi *)self.poi).priceDesc;
             cell.image.image = [UIImage imageNamed:@"poi_icon_ticket_default"];
+            cell.accessoryType = UITableViewCellAccessoryNone;
         }
         return cell;
+    } else if (indexPath.row == 4) {
+        SpecialPoiCell *cell = [tableView dequeueReusableCellWithIdentifier:@"specialCell" forIndexPath:indexPath];
+        cell.userInteractionEnabled = YES;
+        if (((SpotPoi *)self.poi).guideUrl == nil || [((SpotPoi *)self.poi).guideUrl isBlankString]) {
+            cell.planBtn.enabled = NO;
+        } else {
+            [cell.planBtn addTarget:self action:@selector(travelGuide:) forControlEvents:UIControlEventTouchUpInside];
+        }
+        
+        if (((SpotPoi *)self.poi).tipsUrl == nil || [((SpotPoi *)self.poi).tipsUrl isBlankString]) {
+            cell.tipsBtn.enabled = NO;
+        } else {
+            [cell.tipsBtn addTarget:self action:@selector(kengdie:) forControlEvents:UIControlEventTouchUpInside];
+        }
+    
+        
+        if (((SpotPoi *)self.poi).trafficInfoUrl == nil || [((SpotPoi *)self.poi).trafficInfoUrl isBlankString]) {
+            cell.trafficBtn.enabled = NO;
+        } else {
+            [cell.trafficBtn addTarget:self action:@selector(trafficGuide:) forControlEvents:UIControlEventTouchUpInside];
+        }
+        
+        return cell;
+    } else {
+        SpotDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"detailCell" forIndexPath:indexPath];
+        return cell;
     }
-    return cell;
 }
 
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row < 4) {
+        if (indexPath.row == 0) {
+            [self jumpToMap];
+        } else if (indexPath.row == 1) {
+            [self showSpotDetail:nil];
+        } else if (indexPath.row == 2) {
+            [self showSpotDetail:nil];
+        } else {
+            [self showSpotDetail:nil];
+        }
+    }
 
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
@@ -122,23 +166,13 @@
 
 - (void)updateView
 {
-//    _spotDetailView = [[SpotDetailView alloc] initWithFrame:CGRectMake(15, 40, self.view.bounds.size.width-30, self.view.bounds.size.height-60)];
-//    self.automaticallyAdjustsScrollViewInsets = NO;
-    _spotDetailView = [[SpotDetailView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
-//    _spotDetailView.contentSize = CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height+150) ;
-//    _spotDetailView.showsHorizontalScrollIndicator = NO;
-//    _spotDetailView.showsVerticalScrollIndicator = NO;
+    _spotDetailView = [[SpotDetailView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 410 + 342/3 * SCREEN_HEIGHT / 736)];
+//    _spotDetailView = [[SpotDetailView alloc]init];
     _spotDetailView.spot = (SpotPoi *)self.poi;
     _spotDetailView.rootCtl = self;
-//    self.navigationItem.title = self.poi.zhName;
     _spotDetailView.layer.cornerRadius = 4.0;
     self.tableView.tableHeaderView = _spotDetailView;
-
-//    _spotDetailView.transform = CGAffineTransformMakeScale(0.01, 0.01);
-//
-//    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-//        _spotDetailView.transform = CGAffineTransformMakeScale(1, 1);
-//    } completion:nil];
+    
     
     if (((SpotPoi *)self.poi).trafficInfoUrl == nil || [((SpotPoi *)self.poi).trafficInfoUrl isBlankString]) {
         _spotDetailView.trafficGuideBtn.enabled = NO;
@@ -164,6 +198,11 @@
     [_spotDetailView.phoneButton addTarget:self action:@selector(showSpotDetail:) forControlEvents:UIControlEventTouchUpInside];
     [_spotDetailView.ticketBtn addTarget:self action:@selector(showSpotDetail:) forControlEvents:UIControlEventTouchUpInside];
     [_spotDetailView.descDetailBtn addTarget:self action:@selector(showSpotDetail:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showSpotDetail:)];
+    
+    [_spotDetailView.poisDesc addGestureRecognizer:tap];
+    
     [_spotDetailView.bookBtn addTarget:self action:@selector(book:) forControlEvents:UIControlEventTouchUpInside];
 }
 
@@ -346,7 +385,9 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == actionSheet.cancelButtonIndex) {
+        
         return;
+        
     }
     if (actionSheet.tag != kASShare) {
         NSArray *platformArray = [ConvertMethods mapPlatformInPhone];

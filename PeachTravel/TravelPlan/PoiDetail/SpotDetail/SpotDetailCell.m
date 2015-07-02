@@ -14,9 +14,9 @@
     // Initialization code
     self.categoryLabel.font = [UIFont systemFontOfSize:14];
     self.categoryLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
-    self.infomationLabel.font = [UIFont systemFontOfSize:18];
+    self.infomationLabel.font = [UIFont systemFontOfSize:18*SCREEN_HEIGHT/736];
     self.infomationLabel.textColor = TEXT_COLOR_TITLE;
-    self.image.contentMode = UIViewContentModeScaleAspectFill;
+//    self.image.contentMode = UIViewContentModeScaleAspectFill;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
