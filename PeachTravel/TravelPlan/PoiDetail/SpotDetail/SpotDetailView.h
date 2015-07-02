@@ -27,4 +27,5 @@
 @property (nonatomic, strong) UIButton *phoneButton;
 
 @property (nonatomic, weak) UIViewController *rootCtl;
+@property (nonatomic, strong) UILabel *poisDesc;
 @end

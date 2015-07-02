@@ -31,6 +31,7 @@
 @property (nonatomic, strong) UIButton *readAllBtn;
 @property (nonatomic, strong) UIPageControl *pageControl;
 
+
 @end
 
 @implementation SpotDetailView
@@ -84,12 +85,15 @@
     UIButton *tagBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.bounds.size.width-132, offsetY + 10, 116, 40)];
     [tagBtn setTitle:@"高等学府" forState:UIControlStateNormal];
     [tagBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    tagBtn.titleLabel.font = [UIFont boldSystemFontOfSize:15];
+    [tagBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 20, 0, 0)];
+    [tagBtn setBackgroundImage:[UIImage imageNamed:@"poi_bg_sort"] forState:UIControlStateNormal];
     tagBtn.userInteractionEnabled = NO;
     [_scrollView addSubview:tagBtn];
     
-    _ratingView = [[EDStarRating alloc] initWithFrame:CGRectMake(20, offsetY+18, 105, 15)];
-    _ratingView.starImage = [UIImage imageNamed:@"star_biankuang"];
-    _ratingView.starHighlightedImage = [UIImage imageNamed:@"star_couler"];
+    _ratingView = [[EDStarRating alloc] initWithFrame:CGRectMake(15, offsetY+18, 110, 22)];
+    _ratingView.starImage = [UIImage imageNamed:@"poi_bottom_star_default"];
+    _ratingView.starHighlightedImage = [UIImage imageNamed:@"poi_bottom_star_selected"];
     _ratingView.maxRating = 5.0;
     _ratingView.editable = NO;
     _ratingView.horizontalMargin = 3;
@@ -99,25 +103,62 @@
     
     offsetY += 60;
    
-    _descDetailBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, offsetY, _scrollView.bounds.size.width, 114)];
-    _descDetailBtn.backgroundColor = [UIColor whiteColor];
-    [_descDetailBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
-    [_descDetailBtn setTitleColor:TEXT_COLOR_TITLE_DESC forState:UIControlStateHighlighted];
-    _descDetailBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-    _descDetailBtn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-    [_descDetailBtn setTitle:_spot.desc forState:UIControlStateNormal];
-    _descDetailBtn.titleLabel.numberOfLines = 3;
-    [_descDetailBtn setContentEdgeInsets:UIEdgeInsetsMake(0, 14, 0, 14)];
-    _descDetailBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    [_scrollView addSubview:_descDetailBtn];
+//    _descDetailBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, offsetY, _scrollView.bounds.size.width, 342/3 * SCREEN_HEIGHT / 736)];
+//    _descDetailBtn.backgroundColor = [UIColor whiteColor];
+//    [_descDetailBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
+//    [_descDetailBtn setTitleColor:TEXT_COLOR_TITLE_DESC forState:UIControlStateHighlighted];
+//    _descDetailBtn.titleLabel.font = [UIFont systemFontOfSize:16 * SCREEN_HEIGHT/736];
+//    _descDetailBtn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+//    [_descDetailBtn setTitle:_spot.desc forState:UIControlStateNormal];
+//    _descDetailBtn.titleLabel.numberOfLines = 3;
+//    [_descDetailBtn setContentEdgeInsets:UIEdgeInsetsMake(0, 14, 0, 14)];
+//    _descDetailBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+//    [_scrollView addSubview:_descDetailBtn];
+//    
+//    _readAllBtn = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 269/3 * SCREEN_WIDTH/414, _descDetailBtn.bounds.size.height- 126/3, 269/3 * SCREEN_WIDTH/414, 19 * SCREEN_WIDTH / 414)];
+//    [_readAllBtn setTitle:@"全文" forState:UIControlStateNormal];
+//    [_readAllBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+//    _readAllBtn.titleLabel.font = [UIFont systemFontOfSize:18 * SCREEN_HEIGHT/736];
+//    [_descDetailBtn addSubview:_readAllBtn];
     
-    _readAllBtn = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 269/3 * SCREEN_WIDTH/414, _descDetailBtn.bounds.size.height- 126/3, 269/3 * SCREEN_WIDTH/414, 19 * SCREEN_WIDTH / 414)];
-    [_readAllBtn setTitle:@"全文" forState:UIControlStateNormal];
-    [_readAllBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-    _readAllBtn.titleLabel.font = [UIFont systemFontOfSize:18 * 736/SCREEN_HEIGHT];
-    [_descDetailBtn addSubview:_readAllBtn];
+    CGFloat width = SCREEN_WIDTH;
     
-    offsetY += 114;
+    UIView *bgView = [[UIView alloc]initWithFrame:CGRectMake(0, offsetY, width, 342/3)];
+    bgView.backgroundColor = [UIColor whiteColor];
+    bgView.userInteractionEnabled = YES;
+    [_scrollView addSubview:bgView];
+    
+    _poisDesc = [[UILabel alloc] initWithFrame:CGRectMake(18, offsetY, width-36, 342/3)];
+    _poisDesc.textColor = COLOR_TEXT_I;
+    _poisDesc.numberOfLines = 3;
+    _poisDesc.userInteractionEnabled = YES;
+    NSString *string = _spot.desc;
+    CGRect minRect = [string boundingRectWithSize:CGSizeMake(width-36, 18)
+                                          options:NSStringDrawingUsesLineFragmentOrigin
+                                       attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:15]}
+                                          context:nil];
+    CGRect maxRect = [string boundingRectWithSize:CGSizeMake(width-36, CGFLOAT_MAX)
+                                          options:NSStringDrawingUsesLineFragmentOrigin
+                                       attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:15]}
+                                          context:nil];
+    NSInteger totalLine = ceilf(maxRect.size.height / minRect.size.height);
+    NSInteger ccount = string.length;
+    NSInteger count = ccount * 3/totalLine;
+    NSString *truncateStr = [string substringWithRange:NSMakeRange(0, count - 3)];
+    
+    NSMutableParagraphStyle *ps = [[NSMutableParagraphStyle alloc] init];
+    ps.lineSpacing = 4.0;
+    NSDictionary *attribs = @{NSFontAttributeName: [UIFont systemFontOfSize:16], NSParagraphStyleAttributeName:ps};
+    truncateStr = [NSString stringWithFormat:@"%@... ", truncateStr];
+    NSMutableAttributedString *attrstr = [[NSMutableAttributedString alloc] initWithString:truncateStr attributes:attribs];
+    NSAttributedString *more1 = [[NSAttributedString alloc] initWithString:@"更多" attributes:@{NSForegroundColorAttributeName : APP_THEME_COLOR_HIGHLIGHT, NSFontAttributeName: [UIFont systemFontOfSize:16]}];
+    [attrstr appendAttributedString:more1];
+    _poisDesc.attributedText = attrstr;
+    _poisDesc.backgroundColor = [UIColor whiteColor];
+    [_scrollView addSubview:_poisDesc];
+    
+    
+    offsetY += 342/3;
         
     UIView *spaceView5 = [[UIView alloc] initWithFrame:CGRectMake(20, offsetY, _scrollView.bounds.size.width, 1)];
     spaceView5.backgroundColor = APP_DIVIDER_COLOR;
@@ -460,7 +501,7 @@
     offsetY += 50;
 */
     
-    _scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, offsetY + 75);
+    _scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, offsetY);
 //    [_scrollView setContentSize:CGSizeMake(_scrollView.bounds.size.width, offsetY+75)];
     
 }

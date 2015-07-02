@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -14,8 +15,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="O1x-n9-vaH">
-                        <rect key="frame" x="277" y="39" width="27" height="27"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_arrow@3x.png" translatesAutoresizingMaskIntoConstraints="NO" id="O1x-n9-vaH">
+                        <rect key="frame" x="280" y="39" width="27" height="27"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="27" id="Mcd-SK-edN"/>
                             <constraint firstAttribute="width" constant="27" id="nol-bb-F13"/>
@@ -42,13 +43,13 @@
                     </label>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailingMargin" secondItem="O1x-n9-vaH" secondAttribute="trailing" constant="5" id="1vp-h3-tJE"/>
                     <constraint firstAttribute="centerY" secondItem="O1x-n9-vaH" secondAttribute="centerY" id="8vR-9K-kgq"/>
                     <constraint firstAttribute="centerY" secondItem="q2f-bd-hEq" secondAttribute="centerY" id="IWT-jZ-Quc"/>
                     <constraint firstItem="q2f-bd-hEq" firstAttribute="leading" secondItem="y7M-4J-xkm" secondAttribute="trailing" constant="23" id="P7f-sE-G96"/>
-                    <constraint firstAttribute="trailing" secondItem="O1x-n9-vaH" secondAttribute="trailing" constant="16" id="aee-mS-bhv"/>
                     <constraint firstAttribute="centerY" secondItem="y7M-4J-xkm" secondAttribute="centerY" id="iBb-lZ-miz"/>
                     <constraint firstItem="y7M-4J-xkm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="17" id="jd7-F9-BTl"/>
-                    <constraint firstItem="O1x-n9-vaH" firstAttribute="leading" secondItem="q2f-bd-hEq" secondAttribute="trailing" constant="13" id="vpR-Zr-xh6"/>
+                    <constraint firstItem="O1x-n9-vaH" firstAttribute="leading" secondItem="q2f-bd-hEq" secondAttribute="trailing" constant="16" id="vpR-Zr-xh6"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
@@ -59,4 +60,7 @@
             <point key="canvasLocation" x="192" y="281"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="icon_arrow@3x.png" width="39" height="66"/>
+    </resources>
 </document>
