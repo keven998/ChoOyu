@@ -399,6 +399,7 @@
         [hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
+            
             [self uploadPhotoToQINIUServer:image withToken:[[responseObject objectForKey:@"result"] objectForKey:@"uploadToken"] andKey:[[responseObject objectForKey:@"result"] objectForKey:@"key"]];
             
         } else {
@@ -441,8 +442,10 @@
               complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
                   
                   AlbumImage *image = [[AlbumImage alloc] init];
+                  TaoziImage * tzImage = [[TaoziImage alloc] init];
                   image.imageId = [resp objectForKey:@"id"];
-                  image.image.imageUrl = [resp objectForKey:@"url"];
+                  tzImage.imageUrl = [resp objectForKey:@"url"];
+                  image.image = tzImage;
                   NSMutableArray *mutableArray = [self.accountManager.account.userAlbum mutableCopy];
                   [mutableArray addObject:image];
                   self.accountManager.account.userAlbum = mutableArray;
@@ -773,7 +776,6 @@
 - (void)changeAvatar:(NSInteger)index
 {
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    //    [hud showHUDInView:self.view];
     [hud showHUDInViewController:self.navigationController content:64];
     AlbumImage *image = [self.accountManager.account.userAlbum objectAtIndex:index];
     [self.accountManager asyncChangeUserAvatar:image completion:^(BOOL isSuccess, NSString *error) {

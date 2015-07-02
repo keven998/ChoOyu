@@ -27,7 +27,6 @@
 @property (nonatomic, strong) UIButton *travelMonthBtn;
 @property (nonatomic, strong) UIButton *openTimeBtn;
 @property (nonatomic, strong) UIButton *timeCostBtn;
-//@property (nonatomic, strong) UIButton *phoneButton;
 @property (nonatomic, strong) UIButton *readAllBtn;
 @property (nonatomic, strong) UIPageControl *pageControl;
 

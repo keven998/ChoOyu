@@ -83,6 +83,14 @@
     return _frendList;
 }
 
+- (NSArray *)userAlbum
+{
+    if (!_userAlbum) {
+        _userAlbum = [NSArray array];
+    }
+    return _userAlbum;
+}
+
 /**
  *  更新用户信息
  *
