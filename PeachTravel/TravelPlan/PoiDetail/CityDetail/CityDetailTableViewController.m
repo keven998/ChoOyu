@@ -107,6 +107,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [footerView setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateNormal];
     [footerView setTitle:@"~阅读更多 · 达人游记~" forState:UIControlStateNormal];
     footerView.titleLabel.font = [UIFont systemFontOfSize:12];
+    [footerView addTarget:self action:@selector(showMoreTravelNote:) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:footerView];
     _tableView.tableFooterView = view;
     

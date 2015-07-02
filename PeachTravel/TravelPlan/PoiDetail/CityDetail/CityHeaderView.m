@@ -221,9 +221,5 @@
     }];
 }
 
--(void)dealtap:(UITapGestureRecognizer *)tap
-{
-    
-}
 
 @end
