@@ -74,7 +74,7 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="XAJ-wE-WPv" secondAttribute="trailing" constant="12" id="9Lk-p3-kQe"/>
                             <constraint firstItem="XAJ-wE-WPv" firstAttribute="top" secondItem="AxZ-ld-PWP" secondAttribute="bottom" constant="18" id="D2q-eQ-TXP">
-                                <variation key="widthClass=compact" constant="20"/>
+                                <variation key="widthClass=compact" constant="23"/>
                             </constraint>
                             <constraint firstAttribute="bottom" secondItem="XAJ-wE-WPv" secondAttribute="bottom" constant="8" id="ERJ-y8-gB6">
                                 <variation key="widthClass=compact" constant="6"/>
