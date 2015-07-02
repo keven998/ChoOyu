@@ -59,63 +59,50 @@
         return;
     }
     
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params safeSetObject:_phoneNumber forKey:@"tel"];
-    [params safeSetObject:_passwordLabel.text forKey:@"pwd"];
-    [params safeSetObject:_token forKey:@"token"];
-    NSString *urlStr;
-    
-    if (_verifyCaptchaType == UserBindTel) {
-        AccountManager *accountManager = [AccountManager shareAccountManager];
-        [params setObject:[NSNumber numberWithInteger: accountManager.account.userId] forKey:@"userId"];
-        urlStr = API_BINDTEL;
-    } else {
-        urlStr = API_RESET_PWD;
-    }
-    
-     __weak typeof(ResetPasswordViewController *)weakSelf = self;
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    __weak typeof(ResetPasswordViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf content:64];
-
-    //完成修改
-    [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-        [hud hideTZHUD];
-        if (code == 0) {
-            if (_verifyCaptchaType == UserBindTel) {     //如果是绑定手机号过程中的设置密码
-                [SVProgressHUD showHint:@"OK~成功设置"];
-                AccountManager *accountManager = [AccountManager shareAccountManager];
-                [accountManager updateUserInfo:_phoneNumber withChangeType:ChangeTel];
-                [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
-                [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.3];
-            } else {
-                [SVProgressHUD showHint:@"OK~成功修改"];
-                AccountManager *accountManager = [AccountManager shareAccountManager];
-                [accountManager userDidLoginWithUserInfo:[responseObject objectForKey:@"result"]];
-                [[NSNotificationCenter defaultCenter] postNotificationName:userDidLoginNoti object:nil];
-                [[NSNotificationCenter defaultCenter] postNotificationName:userDidResetPWDNoti object:nil];
-            }
-        } else {
-            [SVProgressHUD showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
-        }
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%@", error);
-        [hud hideTZHUD];
-        if (self.isShowing) {
-            [SVProgressHUD showHint:@"呃～好像没找到网络"];
-        }
-    }];
     
+    if (_verifyCaptchaType == UserBindTel) {
+        [[AccountManager shareAccountManager] asyncBindTelephone:_phoneNumber token:_token completion:^(BOOL isSuccess, NSString *errorStr) {
+            if (isSuccess) {
+                [SVProgressHUD showHint:@"OK!已成功修改"];
+                [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.4];
+                
+            } else {
+                [hud hideTZHUD];
+                if (errorStr) {
+                    [SVProgressHUD showHint:errorStr];
+                } else {
+                    
+                    if (self.isShowing) {
+                        [SVProgressHUD showHint:@"呃～好像没找到网络"];
+                    }
+                }
+            }
+        }];
+        
+    } else {
+        [accountManager asyncResetPassword:_passwordLabel.text toke:_token completion:^(BOOL isSuccess, NSString *errorStr) {
+            if (isSuccess) {
+                [SVProgressHUD showHint:@"OK!已成功修改"];
+                [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.4];
+                
+            } else {
+                [hud hideTZHUD];
+                if (errorStr) {
+                    [SVProgressHUD showHint:errorStr];
+                } else {
+                    
+                    if (self.isShowing) {
+                        [SVProgressHUD showHint:@"呃～好像没找到网络"];
+                    }
+                }
+            }
+        }];
+    }
+   
     _passwordLabel.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
     _passwordLabel.layer.borderWidth = 1.0;
 

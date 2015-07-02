@@ -114,42 +114,22 @@
 
 - (void)changePassword
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    if ([accountManager isLogin]) {
-        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
-    }
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params safeSetObject:_oldPasswordLabel.text forKey:@"oldPwd"];
-    [params safeSetObject:_presentPasswordLabel.text forKey:@"newPwd"];
-    [params safeSetObject:[NSNumber numberWithInteger: accountManager.account.userId] forKey:@"userId"];
-    
     __weak typeof(ChangePasswordViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf content:64];
-    
-    [manager POST:API_CHANGE_PWD parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [hud hideTZHUD];
-        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-        if (code == 0) {
+    [[AccountManager shareAccountManager] asyncChangePassword:_presentPasswordLabel.text oldPassword:_oldPasswordLabel.text completion:^(BOOL isSuccess, NSString *errorStr) {
+        if (isSuccess) {
             [self showHint:@"修改成功"];
             [self performSelector:@selector(goBack) withObject:nil afterDelay:0.4];
         } else {
-            [SVProgressHUD showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [hud hideTZHUD];
-        if (self.isShowing) {
-            [SVProgressHUD showHint:@"呃～好像没找到网络"];
+            [hud hideTZHUD];
+            if (errorStr) {
+                [SVProgressHUD showHint:errorStr];
+            } else {
+                [SVProgressHUD showHint:@"呃～好像没找到网络"];
+            }
         }
     }];
-
 }
 
 #pragma mark - IBActiong Methods

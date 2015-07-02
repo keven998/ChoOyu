@@ -145,7 +145,7 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
         manager.requestSerializer.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         manager.requestSerializer.setValue("\(AccountManager.shareAccountManager().account.userId)", forHTTPHeaderField: "UserId")
         let params = ["userId": userId, "message": helloStr]
-        var url = "\(API_USERINFO)\(userId)"
+        var url = "\(API_USERS)\(userId)"
         manager.POST(API_REQUEST_ADD_CONTACT, parameters: params, success:
             { (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
                 if (responseObject.objectForKey("code") as! Int) == 0 {
