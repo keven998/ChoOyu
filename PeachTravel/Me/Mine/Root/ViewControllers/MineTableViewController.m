@@ -21,6 +21,7 @@
 #import "FootPrintViewController.h"
 #import "PlansListTableViewController.h"
 #import "ContactListViewController.h"
+#import "MWPhotoBrowser.h"
 
 #define cellDataSource           @[@[@"邀请好友", @"意见反馈"], @[@"关于我们", @"应用设置"]]
 #define secondCell               @"secondCell"
@@ -434,9 +435,18 @@
 
 - (IBAction)showPictureGrid:(id)sender
 {
-//    ContactListViewController *contactListCtl = [[ContactListViewController alloc] init];
-//    contactListCtl.hidesBottomBarWhenPushed = YES;
-//    [self.navigationController pushViewController:contactListCtl animated:YES];
+    MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] init];
+    [browser setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+    UINavigationController *navc = [[UINavigationController alloc] initWithRootViewController:browser];
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    for (AlbumImage *album in self.accountManager.account.userAlbum) {
+        MWPhoto *photo = [[MWPhoto alloc] initWithURL:[NSURL URLWithString:album.image.imageUrl]];
+        [array addObject:photo];
+    }
+    browser.imageList = array;
+    browser.titleStr = @"相册";
+    
+    [self presentViewController:navc animated:YES completion:nil];
 }
 
 - (IBAction)myPlan:(id)sender
