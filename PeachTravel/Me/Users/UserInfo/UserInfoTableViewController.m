@@ -31,6 +31,8 @@
 #import "MJPhoto.h"
 #import "MJPhotoBrowser.h"
 #import "PicCell.h"
+#import "PlansListTableViewController.h"
+#import "MWPhotoBrowser.h"
 
 #define accountDetailHeaderCell          @"headerCell"
 #define otherUserInfoCell           @"otherCell"
@@ -576,7 +578,7 @@
     }
     else if (indexPath.section == 1) {
         if (indexPath.row == 0) {
-            cell.cellDetail.text = @"0条";
+            cell.cellDetail.text = [NSString stringWithFormat:@"%ld 条", amgr.account.guideCnt];
         } else if (indexPath.row == 1) {
             if (_tracksDesc) {
                 cell.cellDetail.text = _tracksDesc;
@@ -643,7 +645,10 @@
     }
     else if (indexPath.section == 1) {
         if (indexPath.row == 0) {
-            
+            PlansListTableViewController *myGuidesCtl = [[PlansListTableViewController alloc] initWithUserId:_accountManager.account.userId];
+            myGuidesCtl.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:myGuidesCtl animated:YES];
+
         }
         else if (indexPath.row == 1) {
             FootPrintViewController *footCtl = [[FootPrintViewController alloc] init];
@@ -652,7 +657,7 @@
             [self presentViewController:footCtl animated:YES completion:nil];
         }
         else if (indexPath.row == 2) {
-            
+            [self viewUserPhotoAlbum];
         }
     }
     else {
@@ -727,6 +732,7 @@
     }];
 }
 
+
 #pragma mark - UIImagePickerControllerDelegate
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
@@ -776,6 +782,20 @@
     }];
 }
 
+- (void)viewUserPhotoAlbum
+{
+    MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] init];
+    [browser setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+    UINavigationController *navc = [[UINavigationController alloc] initWithRootViewController:browser];
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    for (AlbumImage *album in self.accountManager.account.userAlbum) {
+        [array addObject:album.image.imageUrl];
+    }
+    browser.imageList = array;
+    browser.titleStr = @"相册";
+
+    [self presentViewController:navc animated:YES completion:nil];
+}
 /**
  *  删除用户头像
  *
