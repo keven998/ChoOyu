@@ -112,24 +112,39 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section;
 {
-    return 30;
+    if (section == 0) {
+        return 50;
+    }
+    return 20;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 30)];
-    label.font = [UIFont systemFontOfSize:14.0];
-    label.backgroundColor = APP_PAGE_COLOR;
-    if (_needUserLocation) {
-        if (section == 0) {
+    if (section == 0) {
+        UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 50)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, tableView.bounds.size.width, 30)];
+        label.font = [UIFont systemFontOfSize:14.0];
+        label.backgroundColor = APP_PAGE_COLOR;
+        if (_needUserLocation) {
             label.text = @"   定位获取的位置";
         } else {
             label.text = @"   国内全部城市";
         }
+        [headerView addSubview:label];
+        return headerView;
+        
     } else {
-        label.text = @"   国内全部城市";
+        
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 30)];
+        label.font = [UIFont systemFontOfSize:14.0];
+        label.backgroundColor = APP_PAGE_COLOR;
+        if (_needUserLocation) {
+            label.text = @"   国内全部城市";
+        } else {
+            label.text = @"   国内全部城市";
+        }
+        return label;
     }
-    return label;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
