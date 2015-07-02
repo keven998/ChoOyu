@@ -206,7 +206,7 @@
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)self.account.userId] forHTTPHeaderField:@"UserId"];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@%ld/albums/%@", API_USERINFO, (long)self.account.userId, albumImage.imageId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@%ld/albums/%@", API_USERS, (long)self.account.userId, albumImage.imageId];
     
     [manager DELETE:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
@@ -251,7 +251,7 @@
     
     [params setObject:userInfo forKey:keyWord];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@%ld", API_USERINFO, (long)self.account.userId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@%ld", API_USERS, (long)self.account.userId];
     
     [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
@@ -284,7 +284,7 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:newGender forKey:@"gender"];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@%ld", API_USERINFO, (long)self.account.userId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@%ld", API_USERS, (long)self.account.userId];
     
     [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
 
@@ -299,6 +299,114 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         completion(NO, nil);
     }];
+}
+
+- (void)asyncBindTelephone:(NSString *)tel token:(NSString *)token completion:(void (^)(BOOL, NSString *))completion
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:tel forKey:@"tel"];
+    [params setObject:token forKey:@"token"];
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    [params setObject:[NSNumber numberWithInteger: accountManager.account.userId] forKey:@"userId"];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@%ld/tel", API_USERS, accountManager.account.userId];
+    //修改手机号
+    [manager PUT:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            [self updateUserInfo:tel withChangeType:ChangeTel];
+            [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
+            completion(YES, nil);
+        } else {
+            NSString *errorStr = [[responseObject objectForKey:@"err"] objectForKey:@"message"];
+            completion(NO, [responseObject objectForKey:errorStr]);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completion(NO, nil);
+    }];
+
+}
+
+- (void)asyncResetPassword:(NSString *)newPassword toke:(NSString *)token completion:(void (^)(BOOL, NSString *))completion
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params safeSetObject:newPassword forKey:@"pwd"];
+    [params safeSetObject:token forKey:@"token"];
+    NSString *urlStr = [NSString stringWithFormat:@"%@%ld/password", API_USERS, self.account.userId];
+
+    //完成修改
+    [manager PUT:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            [self userDidLoginWithUserInfo:[responseObject objectForKey:@"result"]];
+            [[NSNotificationCenter defaultCenter] postNotificationName:userDidLoginNoti object:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:userDidResetPWDNoti object:nil];
+            completion(YES, nil);
+        } else {
+            NSString *errorStr;
+           
+            errorStr = [[responseObject objectForKey:@"err"] objectForKey:@"message"];
+            completion(NO, errorStr);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completion(NO, nil);
+    }];
+
+
+}
+
+- (void)asyncChangePassword:(NSString *)newPassword oldPassword:(NSString *)oldPassword completion:(void (^)(BOOL, NSString *))completion
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)self.account.userId] forHTTPHeaderField:@"UserId"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params safeSetObject:newPassword forKey:@"newPassword"];
+    [params safeSetObject:oldPassword forKey:@"oldPassword"];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@%ld/password", API_USERS, (long)self.account.userId];
+    
+    [manager PUT:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            completion(YES, nil);
+        } else {
+            NSString *errorStr = [[responseObject objectForKey:@"err"] objectForKey:@"message"];
+            completion(NO, [responseObject objectForKey:errorStr]);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completion(NO, nil);
+    }];
+
 }
 
 - (void)asyncChangeStatus:(NSString *)newStatus completion:(void (^)(BOOL, NSString *))completion
@@ -316,7 +424,7 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:newStatus forKey:@"travelStatus"];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@%ld", API_USERINFO, (long)self.account.userId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@%ld", API_USERS, (long)self.account.userId];
     
     [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
@@ -665,7 +773,7 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:remark forKey:@"memo"];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@%ld/memo", API_USERINFO, userId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@%ld/memo", API_USERS, userId];
     
     [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"result = %@", responseObject);

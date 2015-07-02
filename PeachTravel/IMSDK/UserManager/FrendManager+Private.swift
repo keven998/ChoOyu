@@ -8,7 +8,7 @@
 
 import Foundation
 
-let API_USERINFO = "\(BASE_URL)users/"
+let API_USERS = "\(BASE_URL)users/"
 
 
 extension FrendManager {
@@ -21,7 +21,7 @@ extension FrendManager {
         manager.requestSerializer.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         manager.requestSerializer.setValue("\(self.accountId)", forHTTPHeaderField: "UserId")
 
-        var url = "\(API_USERINFO)\(userId)"
+        var url = "\(API_USERS)\(userId)"
         manager.GET(url, parameters: nil, success:
             { (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
                 

@@ -187,8 +187,6 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [hud hideTZHUD];
         _captchaBtn.enabled = YES;
-
-        
         if (self.isShowing) {
             [SVProgressHUD showHint:@"呃～好像没找到网络"];
         }
@@ -254,50 +252,28 @@
 //修改手机号
 - (void)bindTelwithToken:(NSString *)token
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params setObject:_phoneLabel.text forKey:@"tel"];
-    [params setObject:token forKey:@"token"];
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    [params setObject:[NSNumber numberWithInteger: accountManager.account.userId] forKey:@"userId"];
-    
-     __weak typeof(VerifyCaptchaViewController *)weakSelf = self;
+    __weak typeof(VerifyCaptchaViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf content:64];
 
-    //修改手机号
-    [manager POST:API_BINDTEL parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@", responseObject);
-        [hud hideTZHUD];
-        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-        if (code == 0) {
+    [[AccountManager shareAccountManager] asyncBindTelephone:_phoneLabel.text token:token completion:^(BOOL isSuccess, NSString *errorStr) {
+        if (isSuccess) {
             [SVProgressHUD showHint:@"OK!已成功修改"];
-            AccountManager *accountManager = [AccountManager shareAccountManager];
-            [accountManager updateUserInfo:_phoneLabel.text withChangeType:ChangeTel];
-            [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
-            [self.navigationController popViewControllerAnimated:YES];
+            [self performSelector:@selector(goBack) withObject:nil afterDelay:0.4];
+            
         } else {
-            [SVProgressHUD showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [hud hideTZHUD];
-        NSLog(@"%@", error);
-//        _captchaBtn.userInteractionEnabled = YES;
-        _captchaBtn.enabled = YES;
-
-        if (self.isShowing) {
-            [SVProgressHUD showHint:@"呃～好像没找到网络"];
+            [hud hideTZHUD];
+            if (errorStr) {
+                [SVProgressHUD showHint:errorStr];
+            } else {
+                _captchaBtn.enabled = YES;
+                
+                if (self.isShowing) {
+                    [SVProgressHUD showHint:@"呃～好像没找到网络"];
+                }
+            }
         }
     }];
-    
 }
 
 #pragma mark - IBAction Methods
