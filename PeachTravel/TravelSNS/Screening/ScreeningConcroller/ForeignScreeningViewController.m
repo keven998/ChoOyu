@@ -63,17 +63,18 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [hud hideTZHUD];
     }];
-    
 }
+
 -(void)createCollectionView
 {
     TaoziCollectionLayout *layout = [[TaoziCollectionLayout alloc] init];
     layout.delegate = self;
-    
-    _collectionView=[[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
+    layout.showDecorationView = NO;
+    CGRect frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 64);
+    _collectionView=[[UICollectionView alloc] initWithFrame:frame collectionViewLayout:layout];
     _collectionView.dataSource=self;
     _collectionView.delegate=self;
-    [_collectionView setBackgroundColor:[UIColor clearColor]];
+    [_collectionView setBackgroundColor:[UIColor whiteColor]];
     
     //注册Cell，必须要有
 //    [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"UICollectionViewCell"];

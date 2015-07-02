@@ -263,7 +263,6 @@ class MessageSendManager: NSObject {
         imageMessage.createTime = Int(NSDate().timeIntervalSince1970)
         imageMessage.status = IMMessageStatus.IMMessageSending
 
-//        var imageData = UIImageJPEGRepresentation(image, 1)
         println("imageDataLength: \(imageData.length)")
         
         var metadataId = NSUUID().UUIDString
@@ -321,7 +320,6 @@ class MessageSendManager: NSObject {
 
         if let url = NSURL(string: tempAmrPath) {
             if let play = AVAudioPlayer(contentsOfURL: url, error: nil) {
-            
                 audioContentDic.setObject(play.duration, forKey: "duration")
                 audioMessage.audioLength = Float(play.duration)
                 

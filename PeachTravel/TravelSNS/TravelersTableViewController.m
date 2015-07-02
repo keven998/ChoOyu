@@ -83,8 +83,6 @@
     }];
 }
 
-
-
 - (void)parseSearchResult:(id)searchResult
 {
     NSInteger count = [searchResult count];
