@@ -131,8 +131,8 @@
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString * CellIdentifier = @"cell";
-    ScreenningViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+    static NSString *CellIdentifier = @"cell";
+    ScreenningViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
     ScreeningModel *model = _dataArray[indexPath.row];
     cell.tag = 100 + indexPath.row;
     cell.nameLabel.text = model.zhName;
@@ -140,7 +140,6 @@
     cell.backgroundColor = [UIColor whiteColor];
 
     return cell;
-
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
