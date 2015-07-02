@@ -31,6 +31,8 @@
 #import "MJPhoto.h"
 #import "MJPhotoBrowser.h"
 #import "PicCell.h"
+#import "PlansListTableViewController.h"
+#import "MWPhotoBrowser.h"
 
 #define accountDetailHeaderCell          @"headerCell"
 #define otherUserInfoCell           @"otherCell"
@@ -576,7 +578,7 @@
     }
     else if (indexPath.section == 1) {
         if (indexPath.row == 0) {
-            cell.cellDetail.text = @"0条";
+            cell.cellDetail.text = [NSString stringWithFormat:@"%ld 条", amgr.account.guideCnt];
         } else if (indexPath.row == 1) {
             if (_tracksDesc) {
                 cell.cellDetail.text = _tracksDesc;
@@ -608,15 +610,12 @@
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0)
-    {
-        if (indexPath.row == 0)
-        {
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
             [self changeUserName];
             
         }
-        else if (indexPath.row == 1)
-        {
+        else if (indexPath.row == 1) {
             [MobClick event:@"event_update_gender"];
             SelectionTableViewController *ctl = [[SelectionTableViewController alloc] init];
             ctl.contentItems = @[@"美女", @"帅锅", @"一言难尽", @"保密"];
@@ -629,8 +628,7 @@
             [self presentViewController:nav animated:YES completion:nil];
             
         }
-        else if (indexPath.row == 2)
-        {
+        else if (indexPath.row == 2) {
             [self showDatePicker];
             
         }
@@ -645,24 +643,21 @@
             
         }
     }
-    else if (indexPath.section == 1)
-    {
+    else if (indexPath.section == 1) {
         if (indexPath.row == 0) {
-            
-            
+            PlansListTableViewController *myGuidesCtl = [[PlansListTableViewController alloc] initWithUserId:_accountManager.account.userId];
+            myGuidesCtl.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:myGuidesCtl animated:YES];
+
         }
-        else if (indexPath.row == 1)
-        {
+        else if (indexPath.row == 1) {
             FootPrintViewController *footCtl = [[FootPrintViewController alloc] init];
             footCtl.destinations = self.destinations;
             footCtl.delegate = self;
             [self presentViewController:footCtl animated:YES completion:nil];
-            
-            
         }
-        else if (indexPath.row == 2)
-        {
-            
+        else if (indexPath.row == 2) {
+            [self viewUserPhotoAlbum];
         }
     }
     else {
@@ -712,7 +707,7 @@
     [self.tableView reloadData];
 }
 
-- (void) updateGender:(NSIndexPath *)selectIndex
+- (void)updateGender:(NSIndexPath *)selectIndex
 {
     NSString *str = [[NSString alloc]init];
     if (selectIndex.row == 0) {
@@ -736,6 +731,7 @@
         [hud hideTZHUD];
     }];
 }
+
 
 #pragma mark - UIImagePickerControllerDelegate
 
@@ -786,6 +782,20 @@
     }];
 }
 
+- (void)viewUserPhotoAlbum
+{
+    MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] init];
+    [browser setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+    UINavigationController *navc = [[UINavigationController alloc] initWithRootViewController:browser];
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    for (AlbumImage *album in self.accountManager.account.userAlbum) {
+        [array addObject:album.image.imageUrl];
+    }
+    browser.imageList = array;
+    browser.titleStr = @"相册";
+
+    [self presentViewController:navc animated:YES completion:nil];
+}
 /**
  *  删除用户头像
  *

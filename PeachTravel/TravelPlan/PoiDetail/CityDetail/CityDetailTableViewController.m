@@ -39,22 +39,20 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = APP_PAGE_COLOR;
     
     NSMutableArray *barItems = [[NSMutableArray alloc] init];
-    
-    UIButton *planBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 38, 44)];
+    UIButton *planBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 32, 44)];
     [planBtn setImage:[UIImage imageNamed:@"ic_add_city.png"] forState:UIControlStateNormal];
-    planBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    planBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     [planBtn addTarget:self action:@selector(makePlan) forControlEvents:UIControlEventTouchUpInside];
-    
+    [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:planBtn]];
     UIButton *talkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 42, 44)];
     [talkBtn setImage:[UIImage imageNamed:@"ic_ztl_lt"] forState:UIControlStateNormal];
     [talkBtn addTarget:self action:@selector(shareToTalk) forControlEvents:UIControlEventTouchUpInside];
+    talkBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:talkBtn]];
-    
     self.navigationItem.rightBarButtonItems = barItems;
-    
-    self.view.backgroundColor = APP_PAGE_COLOR;
     
     [self.tableView registerNib:[UINib nibWithNibName:@"TravelNoteTableViewCell" bundle:nil] forCellReuseIdentifier:reuseIdentifier];
     [self loadCityData];
@@ -107,9 +105,9 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [footerView setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateNormal];
     [footerView setTitle:@"~阅读更多 · 达人游记~" forState:UIControlStateNormal];
     footerView.titleLabel.font = [UIFont systemFontOfSize:12];
+    [footerView addTarget:self action:@selector(showMoreTravelNote:) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:footerView];
     _tableView.tableFooterView = view;
-    
 }
 
 - (UITableView *)tableView
@@ -320,7 +318,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 135;
+    return 128;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -335,7 +333,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     cell.title = travelNote.title;
     cell.desc = travelNote.summary;
     
-    cell.property = [NSString stringWithFormat:@"%@  %@  %@", travelNote.authorName, travelNote.source, travelNote.publishDateStr];
+    cell.property = [NSString stringWithFormat:@"%@    %@", travelNote.authorName, travelNote.publishDateStr];
     cell.canSelect = NO;
     return cell;
 }

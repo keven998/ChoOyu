@@ -38,9 +38,18 @@
     _contentTextField.leftView = sv;
     _contentTextField.leftViewMode = UITextFieldViewModeAlways;
     [_contentTextField becomeFirstResponder];
-    _contentTextField.font = [UIFont systemFontOfSize:14.0];
     _contentTextField.text = _content;
     [_contentTextField addTarget:self action:@selector(textChanged:) forControlEvents:UIControlEventEditingChanged];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear: animated];
+}
+
+- (void)viewDidLayoutSubviews
+{
+    _contentTextField.frame = CGRectMake(0, 30, self.view.frame.size.width, 64*kWindowHeight/736);
 }
 
 /**

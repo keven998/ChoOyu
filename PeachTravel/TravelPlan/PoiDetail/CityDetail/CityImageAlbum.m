@@ -23,6 +23,7 @@
 - (void)awakeFromNib {
     [_backgroundCard setBackgroundImage:[[UIImage imageNamed:@"city_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)] forState:UIControlStateNormal];
     [_backgroundCard setBackgroundImage:[[UIImage imageNamed:@"city_bg_album_selected.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)] forState:UIControlStateHighlighted];
+    [_backgroundCard addTarget:self action:@selector(viewImage:) forControlEvents:UIControlEventTouchUpInside];
 }
  
 - (void)setImages:(NSArray *)images
@@ -48,6 +49,13 @@
 {
     _subTitle = subTitle;
     _timeCostLabel.text = _subTitle;
+}
+
+- (void)viewImage:(NSInteger)index
+{
+    if (self.delegate) {
+        [self.delegate viewImage:index];
+    }
 }
 
 + (CGFloat)heightOfCityAlbumViewWithWidth:(CGFloat)width
