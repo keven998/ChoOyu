@@ -13,6 +13,7 @@
 #import "SuperWebViewController.h"
 #import "SpotDetailCell.h"
 #import "SpecialPoiCell.h"
+#import "CommentTableViewCell.h"
 #import "UIImage+BoxBlur.h"
 
 @interface SpotDetailViewController () <UIActionSheetDelegate,UITableViewDataSource,UITableViewDelegate>
@@ -37,10 +38,12 @@
     [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:talkBtn]];
     self.navigationItem.rightBarButtonItems = barItems;
 
+    
+    
+//    _spotDetailView = [[SpotDetailView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 410 + 342/3 * SCREEN_HEIGHT / 736)];
+//    self.tableView.tableHeaderView = _spotDetailView;
     [self loadData];
-    [self.view addSubview:self.tableView];
-    [self.tableView registerNib:[UINib nibWithNibName:@"SpotDetailCell" bundle:nil] forCellReuseIdentifier:@"detailCell"];
-    [self.tableView registerNib:[UINib nibWithNibName:@"SpecialPoiCell" bundle:nil] forCellReuseIdentifier:@"specialCell"];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -66,6 +69,9 @@
         _tableView.separatorColor = APP_DIVIDER_COLOR;
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _tableView.tableHeaderView = self.spotDetailView;
+        [self.tableView registerNib:[UINib nibWithNibName:@"SpotDetailCell" bundle:nil] forCellReuseIdentifier:@"detailCell"];
+        [self.tableView registerNib:[UINib nibWithNibName:@"SpecialPoiCell" bundle:nil] forCellReuseIdentifier:@"specialCell"];
+        [self.tableView registerNib:[UINib nibWithNibName:@"CommentTableViewCell" bundle:nil] forCellReuseIdentifier:@"commentCell"];
     }
     return _tableView;
 }
@@ -138,7 +144,8 @@
         
         return cell;
     } else {
-        SpotDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"detailCell" forIndexPath:indexPath];
+        CommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"commentCell" forIndexPath:indexPath];
+        cell.commentDetail =[self.poi.comments objectAtIndex:1];
         return cell;
     }
 }
@@ -166,8 +173,7 @@
 
 - (void)updateView
 {
-    _spotDetailView = [[SpotDetailView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 410 + 342/3 * SCREEN_HEIGHT / 736)];
-//    _spotDetailView = [[SpotDetailView alloc]init];
+    _spotDetailView = [[SpotDetailView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 410 + 342/3 +14* SCREEN_HEIGHT / 736)];
     _spotDetailView.spot = (SpotPoi *)self.poi;
     _spotDetailView.rootCtl = self;
     _spotDetailView.layer.cornerRadius = 4.0;
@@ -204,6 +210,8 @@
     [_spotDetailView.poisDesc addGestureRecognizer:tap];
     
     [_spotDetailView.bookBtn addTarget:self action:@selector(book:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:self.tableView];
 }
 
 
@@ -229,7 +237,7 @@
 
 #pragma mark - Private Methods
 
-- (void) loadData
+- (void)loadData
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AppUtils *utils = [[AppUtils alloc] init];
@@ -243,14 +251,13 @@
     NSNumber *imageWidth = [NSNumber numberWithInt:(kWindowWidth-22)*2];
     [params setObject:imageWidth forKey:@"imgWidth"];
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    __weak typeof(self)weakSelf = self;
-    [hud showHUDInViewController:weakSelf];
+    __weak typeof(SpotDetailViewController *)weakSelf = self;
+    [hud showHUDInViewController:weakSelf content:64];
     NSString *url = [NSString stringWithFormat:@"%@%@", API_GET_SPOT_DETAIL, _spotId];
     [manager GET:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [hud hideTZHUD];
         NSInteger result = [[responseObject objectForKey:@"code"] integerValue];
         if (result == 0) {
-            [SVProgressHUD dismiss];
             self.poi = [[SpotPoi alloc] initWithJson:[responseObject objectForKey:@"result"]];
             [self updateView];
         } else {

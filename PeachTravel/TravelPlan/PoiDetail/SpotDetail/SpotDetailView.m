@@ -135,17 +135,21 @@
     NSString *string = _spot.desc;
     CGRect minRect = [string boundingRectWithSize:CGSizeMake(width-36, 18)
                                           options:NSStringDrawingUsesLineFragmentOrigin
-                                       attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:15]}
+                                       attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14]}
                                           context:nil];
     CGRect maxRect = [string boundingRectWithSize:CGSizeMake(width-36, CGFLOAT_MAX)
                                           options:NSStringDrawingUsesLineFragmentOrigin
-                                       attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:15]}
+                                       attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14]}
                                           context:nil];
     NSInteger totalLine = ceilf(maxRect.size.height / minRect.size.height);
     NSInteger ccount = string.length;
     NSInteger count = ccount * 3/totalLine;
-    NSString *truncateStr = [string substringWithRange:NSMakeRange(0, count - 3)];
-    
+    NSString *truncateStr = [[NSString alloc]init];
+    if (string.length <= count - 3) {
+        truncateStr = string ;
+    } else {
+        truncateStr = [string substringWithRange:NSMakeRange(0, count - 3)];
+    }
     NSMutableParagraphStyle *ps = [[NSMutableParagraphStyle alloc] init];
     ps.lineSpacing = 4.0;
     NSDictionary *attribs = @{NSFontAttributeName: [UIFont systemFontOfSize:16], NSParagraphStyleAttributeName:ps};
