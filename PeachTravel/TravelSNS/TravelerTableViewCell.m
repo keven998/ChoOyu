@@ -22,6 +22,7 @@
         [self.contentView addSubview:divider];
         
         _avatarView = [[UIImageView alloc] initWithFrame:CGRectMake(12, 11, 67, 67)];
+        _avatarView.contentMode = UIViewContentModeScaleAspectFill;
         _avatarView.clipsToBounds = YES;
         _avatarView.backgroundColor = APP_IMAGEVIEW_COLOR;
         _avatarView.layer.cornerRadius = 10;
