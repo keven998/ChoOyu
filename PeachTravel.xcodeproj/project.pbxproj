@@ -42,6 +42,11 @@
 		271C418F1B44E126007BF285 /* icon_arrow@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 271C418E1B44E126007BF285 /* icon_arrow@3x.png */; };
 		271C41921B44E3DB007BF285 /* poi_bottom_star_default@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 271C41901B44E3DB007BF285 /* poi_bottom_star_default@3x.png */; };
 		271C41931B44E3DB007BF285 /* poi_bottom_star_selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 271C41911B44E3DB007BF285 /* poi_bottom_star_selected@3x.png */; };
+		271C41951B455B6A007BF285 /* icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 271C41941B455B6A007BF285 /* icon@3x.png */; };
+		271C419B1B45607C007BF285 /* login_back_defaut@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 271C41971B45607C007BF285 /* login_back_defaut@3x.png */; };
+		271C419C1B45607C007BF285 /* login_button_jion@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 271C41981B45607C007BF285 /* login_button_jion@3x.png */; };
+		271C419D1B45607C007BF285 /* login_button_next@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 271C41991B45607C007BF285 /* login_button_next@3x.png */; };
+		271C419E1B45607C007BF285 /* login_textfield.png in Resources */ = {isa = PBXBuildFile; fileRef = 271C419A1B45607C007BF285 /* login_textfield.png */; };
 		27329DB41B0E030700F0A4FA /* ChatGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 27329DB21B0E030600F0A4FA /* ChatGroupCell.m */; };
 		27329DB51B0E030700F0A4FA /* ChatGroupCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27329DB31B0E030600F0A4FA /* ChatGroupCell.xib */; };
 		27329DB71B0E0AF500F0A4FA /* chatBar_add_talk@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27329DB61B0E0AF500F0A4FA /* chatBar_add_talk@2x.png */; };
@@ -114,7 +119,6 @@
 		27F7E6931B03101E0049EC08 /* options@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27F7E6911B03101E0049EC08 /* options@2x.png */; };
 		27F7E6951B0312650049EC08 /* nav_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27F7E6941B0312650049EC08 /* nav_back@2x.png */; };
 		27F7E6971B0312700049EC08 /* titleImageBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27F7E6961B0312700049EC08 /* titleImageBackground@2x.png */; };
-		27F7E69B1B032FBF0049EC08 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27F7E69A1B032FBF0049EC08 /* LoginViewController.xib */; };
 		27F7E69D1B033C700049EC08 /* weichat_login@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27F7E69C1B033C700049EC08 /* weichat_login@2x.png */; };
 		27F7EA601B0C879800148A66 /* PoisSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F7EA5F1B0C879800148A66 /* PoisSearchViewController.m */; };
 		27F7EA6F1B0DB0A700148A66 /* TaoziSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F7EA6E1B0DB0A700148A66 /* TaoziSearchBar.m */; };
@@ -851,7 +855,6 @@
 		D9A8FF171A80CC2B005AD701 /* VerifyCaptchaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FEFA1A80CC2B005AD701 /* VerifyCaptchaViewController.m */; };
 		D9A8FF181A80CC2B005AD701 /* VerifyCaptchaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A8FEFB1A80CC2B005AD701 /* VerifyCaptchaViewController.xib */; };
 		D9A8FF191A80CC2B005AD701 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FEFE1A80CC2B005AD701 /* RegisterViewController.m */; };
-		D9A8FF1A1A80CC2B005AD701 /* RegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A8FEFF1A80CC2B005AD701 /* RegisterViewController.xib */; };
 		D9A8FF1B1A80CC2B005AD701 /* SMSVerifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FF021A80CC2B005AD701 /* SMSVerifyViewController.m */; };
 		D9A8FF1C1A80CC2B005AD701 /* SMSVerifyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A8FF031A80CC2B005AD701 /* SMSVerifyViewController.xib */; };
 		D9A8FF1D1A80CC2B005AD701 /* UserHeaderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FF061A80CC2B005AD701 /* UserHeaderTableViewCell.m */; };
@@ -1008,6 +1011,11 @@
 		271C418E1B44E126007BF285 /* icon_arrow@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_arrow@3x.png"; sourceTree = "<group>"; };
 		271C41901B44E3DB007BF285 /* poi_bottom_star_default@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "poi_bottom_star_default@3x.png"; sourceTree = "<group>"; };
 		271C41911B44E3DB007BF285 /* poi_bottom_star_selected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "poi_bottom_star_selected@3x.png"; sourceTree = "<group>"; };
+		271C41941B455B6A007BF285 /* icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@3x.png"; sourceTree = "<group>"; };
+		271C41971B45607C007BF285 /* login_back_defaut@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_back_defaut@3x.png"; sourceTree = "<group>"; };
+		271C41981B45607C007BF285 /* login_button_jion@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_button_jion@3x.png"; sourceTree = "<group>"; };
+		271C41991B45607C007BF285 /* login_button_next@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_button_next@3x.png"; sourceTree = "<group>"; };
+		271C419A1B45607C007BF285 /* login_textfield.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_textfield.png; sourceTree = "<group>"; };
 		27329DB11B0E030600F0A4FA /* ChatGroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatGroupCell.h; sourceTree = "<group>"; };
 		27329DB21B0E030600F0A4FA /* ChatGroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatGroupCell.m; sourceTree = "<group>"; };
 		27329DB31B0E030600F0A4FA /* ChatGroupCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatGroupCell.xib; sourceTree = "<group>"; };
@@ -1092,7 +1100,6 @@
 		27F7E6911B03101E0049EC08 /* options@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "options@2x.png"; sourceTree = "<group>"; };
 		27F7E6941B0312650049EC08 /* nav_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_back@2x.png"; sourceTree = "<group>"; };
 		27F7E6961B0312700049EC08 /* titleImageBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "titleImageBackground@2x.png"; sourceTree = "<group>"; };
-		27F7E69A1B032FBF0049EC08 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		27F7E69C1B033C700049EC08 /* weichat_login@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "weichat_login@2x.png"; path = "../weichat_login@2x.png"; sourceTree = "<group>"; };
 		27F7EA5E1B0C879800148A66 /* PoisSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoisSearchViewController.h; sourceTree = "<group>"; };
 		27F7EA5F1B0C879800148A66 /* PoisSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoisSearchViewController.m; sourceTree = "<group>"; };
@@ -2102,7 +2109,6 @@
 		D9A8FEFB1A80CC2B005AD701 /* VerifyCaptchaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VerifyCaptchaViewController.xib; sourceTree = "<group>"; };
 		D9A8FEFD1A80CC2B005AD701 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
 		D9A8FEFE1A80CC2B005AD701 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
-		D9A8FEFF1A80CC2B005AD701 /* RegisterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegisterViewController.xib; sourceTree = "<group>"; };
 		D9A8FF011A80CC2B005AD701 /* SMSVerifyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMSVerifyViewController.h; sourceTree = "<group>"; };
 		D9A8FF021A80CC2B005AD701 /* SMSVerifyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMSVerifyViewController.m; sourceTree = "<group>"; };
 		D9A8FF031A80CC2B005AD701 /* SMSVerifyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMSVerifyViewController.xib; sourceTree = "<group>"; };
@@ -2411,6 +2417,17 @@
 			path = "poi详情";
 			sourceTree = "<group>";
 		};
+		271C41961B45607C007BF285 /* 登陆 */ = {
+			isa = PBXGroup;
+			children = (
+				271C41971B45607C007BF285 /* login_back_defaut@3x.png */,
+				271C41981B45607C007BF285 /* login_button_jion@3x.png */,
+				271C41991B45607C007BF285 /* login_button_next@3x.png */,
+				271C419A1B45607C007BF285 /* login_textfield.png */,
+			);
+			path = "登陆";
+			sourceTree = "<group>";
+		};
 		27329DC71B0F69B000F0A4FA /* 桃子旅游home页 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2683,6 +2700,7 @@
 			children = (
 				C6682ADD1B41391F00100EBA /* common_icon_navigaiton_back_highlight@3x.png */,
 				C63FFCC41B3A6CFB0026758F /* common_icon_navigaiton_back@3x.png */,
+				271C41941B455B6A007BF285 /* icon@3x.png */,
 				271C418C1B44DF65007BF285 /* common_icon_right@3x.png */,
 				271C418E1B44E126007BF285 /* icon_arrow@3x.png */,
 				C63FFCC51B3A6CFB0026758F /* common_icon_navigaiton_menu@3x.png */,
@@ -2775,6 +2793,7 @@
 		C6631CE51B300C4E00BE4ADC /* 3x */ = {
 			isa = PBXGroup;
 			children = (
+				271C41961B45607C007BF285 /* 登陆 */,
 				D91FED7E1B4285110073AD77 /* Poi详情 */,
 				C6682AD81B41385E00100EBA /* 设置页 */,
 				2786AAEA1B3D908400881697 /* account */,
@@ -5206,7 +5225,6 @@
 			children = (
 				D9A8FEF21A80CC2B005AD701 /* LoginViewController.h */,
 				D9A8FEF31A80CC2B005AD701 /* LoginViewController.m */,
-				27F7E69A1B032FBF0049EC08 /* LoginViewController.xib */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -5229,7 +5247,6 @@
 			children = (
 				D9A8FEFD1A80CC2B005AD701 /* RegisterViewController.h */,
 				D9A8FEFE1A80CC2B005AD701 /* RegisterViewController.m */,
-				D9A8FEFF1A80CC2B005AD701 /* RegisterViewController.xib */,
 			);
 			path = Register;
 			sourceTree = "<group>";
@@ -5881,6 +5898,7 @@
 				C6528F091B4178A7008889EF /* speaking-motion6@3x.png in Resources */,
 				C60C0D701A299389006033C9 /* PushSettingTableViewCell.xib in Resources */,
 				27FF1A8E1B05A25200643D77 /* share@2x.png in Resources */,
+				271C419B1B45607C007BF285 /* login_back_defaut@3x.png in Resources */,
 				D9F46DBB1AC52D8600972AE8 /* SVWebViewControllerActivityChrome-iPad@2x.png in Resources */,
 				D9A805771A80E738005AD701 /* fog@2x.png in Resources */,
 				D9E803AF1AB19703009B8598 /* ic_sns_talk@2x.png in Resources */,
@@ -5914,6 +5932,7 @@
 				27FF1ABC1B06F1F000643D77 /* ic_menu_navigationbar@2x.png in Resources */,
 				D9A804B11A80E738005AD701 /* remove_contact@2x.png in Resources */,
 				271C418B1B44D5CD007BF285 /* SpecialPoiCell.xib in Resources */,
+				271C41951B455B6A007BF285 /* icon@3x.png in Resources */,
 				D917DAD11A8B4A320039720A /* ic_guide3_talk2@2x.png in Resources */,
 				D9A804E21A80E738005AD701 /* ic_gender_man@2x.png in Resources */,
 				D917DABE1A8B49AF0039720A /* ic_guide2_8_select@2x.png in Resources */,
@@ -5995,7 +6014,6 @@
 				C68CBDA61B30316100D95F50 /* ic_home_aboutus@3x.png in Resources */,
 				27FF1AF61B0A203E00643D77 /* person@2x.png in Resources */,
 				27FC91551AF205030083F052 /* HeaderCell.xib in Resources */,
-				D9A8FF1A1A80CC2B005AD701 /* RegisterViewController.xib in Resources */,
 				D9E94BF51AAD35AE00ED6921 /* ic_IM_selected@2x.png in Resources */,
 				D9A805061A80E738005AD701 /* ic_sns_douban@2x.png in Resources */,
 				D917DAC81A8B49AF0039720A /* ic_guide2_5_select@2x.png in Resources */,
@@ -6078,7 +6096,6 @@
 				D9687CA31AC4095500B1C88E /* FootprintMapViewController.xib in Resources */,
 				D9722F311A82446900D8A8CC /* Loading_Animation_final4@2x.png in Resources */,
 				27F7E6921B03101E0049EC08 /* delete@2x.png in Resources */,
-				27F7E69B1B032FBF0049EC08 /* LoginViewController.xib in Resources */,
 				D9A8021D1A80E036005AD701 /* MJPhotoBrowser.bundle in Resources */,
 				D9A805291A80E738005AD701 /* ic_cell_item_unchoose@2x.png in Resources */,
 				D9A8FF0E1A80CC2B005AD701 /* BindTelephoneViewController.xib in Resources */,
@@ -6147,6 +6164,7 @@
 				D9A805371A80E738005AD701 /* ic_city_tra_down@2x.png in Resources */,
 				C6F5D4801B2AB2D9009163E3 /* PlanScheduleTableViewCell.xib in Resources */,
 				D9A804BC1A80E738005AD701 /* home_navigation_title@2x.png in Resources */,
+				271C419E1B45607C007BF285 /* login_textfield.png in Resources */,
 				D9A8FFB41A80D1C3005AD701 /* RecommendCollectionViewCell.xib in Resources */,
 				D917DABC1A8B49AF0039720A /* ic_guide2_7_select@2x.png in Resources */,
 				D9A8FF541A80CF19005AD701 /* FavoriteTableViewCell.xib in Resources */,
@@ -6232,6 +6250,7 @@
 				D9A805481A80E738005AD701 /* ic_guide_edit@2x.png in Resources */,
 				D9A805391A80E738005AD701 /* ic_city_travel@2x.png in Resources */,
 				D91FED6A1B3E75740073AD77 /* ReceiverImageNodeBorder_black@2x.png in Resources */,
+				271C419C1B45607C007BF285 /* login_button_jion@3x.png in Resources */,
 				D91FED431B3D2E0D0073AD77 /* ReceiverImageNodeBorder_black@3x.png in Resources */,
 				D9A801361A80DD23005AD701 /* messageToolbarBg@2x.png in Resources */,
 				271C41781B43E75B007BF285 /* poi_button_traffic_selected@3x.png in Resources */,
@@ -6267,6 +6286,7 @@
 				D9245DDB1A8CA224004571AD /* ic_chat@2x.png in Resources */,
 				279CAF6B1B131DE500A52465 /* ic_good@2x.png in Resources */,
 				D9A8006A1A80DD0C005AD701 /* ContactListTableViewCell.xib in Resources */,
+				271C419D1B45607C007BF285 /* login_button_next@3x.png in Resources */,
 				D917DAD21A8B4A320039720A /* ic_guide3_talk3_1@2x.png in Resources */,
 				D917DAC01A8B49AF0039720A /* ic_guide2_1_select@2x.png in Resources */,
 				C6528F021B4178A7008889EF /* speaking-motion14@3x.png in Resources */,

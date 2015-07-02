@@ -11,20 +11,24 @@
 #import "VerifyCaptchaViewController.h"
 #import "AccountManager.h"
 #import "WXApi.h"
+#import "UIImage+resized.h"
+#define Width SCREEN_WIDTH
+#define Height SCREEN_HEIGHT
 
 @interface LoginViewController ()<UITextFieldDelegate>
 
-@property (weak, nonatomic) IBOutlet UITextField *userNameTextField;
-@property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
-@property (weak, nonatomic) IBOutlet UIButton *loginBtn;
-@property (weak, nonatomic) IBOutlet UIButton *losePassworkBtn;
-@property (weak, nonatomic) IBOutlet UIView *backView;
-@property (weak, nonatomic) IBOutlet UIButton *supportLoginButton;
-@property (weak, nonatomic) IBOutlet UILabel *wechatLabel;
+@property (strong, nonatomic) IBOutlet UITextField *userNameTextField;
+@property (strong, nonatomic) IBOutlet UITextField *passwordTextField;
+@property (strong, nonatomic) IBOutlet UIButton *loginBtn;
+@property (strong, nonatomic) IBOutlet UIButton *supportLoginButton;
+@property (strong, nonatomic) IBOutlet UIButton *losePassworkBtn;
+@property (strong, nonatomic) IBOutlet UIButton *weiChatBtn;
+@property (strong, nonatomic) IBOutlet UIView *backView;
+@property (strong, nonatomic) IBOutlet UILabel *wechatLabel;
+@property (strong, nonatomic) UIButton *registerBtn;
+@property (strong, nonatomic) UIImageView *iconImageView;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *wechatBtnConstraint;
 
-@property (weak, nonatomic) IBOutlet UIButton *weiChatBtn;
 @property (nonatomic, copy) void (^completion)(BOOL completed);
 
 @end
@@ -45,64 +49,27 @@
     
     self.navigationItem.title = @"登录";
     
+    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    backBtn.frame = CGRectMake(13, 34, 15, 15);
+    [backBtn setImage:[UIImage imageNamed:@"common_icon_navigaiton_back"] forState:UIControlStateNormal];
+    [backBtn setImage:[UIImage imageNamed:@"common_icon_navigaiton_back_highlight"] forState:UIControlStateHighlighted];
+    [self.view addSubview:backBtn];
+    [backBtn addTarget:self action:@selector(dismissCtl) forControlEvents:UIControlEventTouchUpInside];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidRegisted) name:userDidRegistedNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidRegisted) name:userDidResetPWDNoti object:nil];
-    
-    if (IS_IPHONE_4) {
-        _wechatBtnConstraint.constant = 20;
-    }
-//    if (!self.isPushed) {
-//        UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
-//        [button setImage:[UIImage imageNamed:@"common_icon_navigaiton_back"] forState:UIControlStateNormal];
-//        [button addTarget:self action:@selector(dismissCtl)forControlEvents:UIControlEventTouchUpInside];
-//        [button setFrame:CGRectMake(0, 0, 48, 30)];
-//        button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-//        UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
+
+
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismissCtl)];
-//    UIButton *rightBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 44, 44)];
-//    [rightBtn setImage:[UIImage imageNamed:@"common_icon_navigaiton_back"] forState:UIControlStateNormal];
-//    [rightBtn setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateHighlighted];
-//    [rightBtn setTitle:@"取消" forState:UIControlStateNormal];
-//    [rightBtn addTarget:self action:@selector(dismissCtl) forControlEvents:UIControlEventTouchUpInside];
-//    [rightBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-//    UIBarButtonItem *left = [[UIBarButtonItem alloc]initWithCustomView:rightBtn];
-//    self.navigationItem.leftBarButtonItem = left;
+
+    self.view.backgroundColor = APP_THEME_COLOR;
     
-    self.view.backgroundColor = APP_PAGE_COLOR;
+    [self createUI];
     
-    
-//    UIView *spaceView6 = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/5, 150/3, SCREEN_WIDTH/2, 1)];
-//    spaceView6.backgroundColor = APP_PAGE_COLOR;
-//    [_backView addSubview:spaceView6];
-//    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/5, 105, SCREEN_WIDTH*3/5, 1)];
-//    spaceView.backgroundColor = APP_PAGE_COLOR;
-//    [_backView addSubview:spaceView];
-    
+   
     [_weiChatBtn addTarget:self action:@selector(weixinLogin:) forControlEvents:UIControlEventTouchUpInside];
     
-    _userNameTextField.delegate = self;
-    _passwordTextField.delegate = self;
     
-    UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _userNameTextField.bounds.size.height - 16.0)];
-    ul.text = @" 账户:";
-    ul.textColor = TEXT_COLOR_TITLE;
-    ul.font = [UIFont systemFontOfSize:14.0];
-    ul.textAlignment = NSTextAlignmentCenter;
-    _userNameTextField.leftView = ul;
-    _userNameTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
-    _userNameTextField.leftViewMode = UITextFieldViewModeAlways;
-    
-    UILabel *pl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _userNameTextField.bounds.size.height - 16.0)];
-    pl.text = @" 密码:";
-    pl.textColor = TEXT_COLOR_TITLE;
-    pl.font = [UIFont systemFontOfSize:14.0];
-    pl.textAlignment = NSTextAlignmentCenter;
-    _passwordTextField.leftView = pl;
-    _passwordTextField.leftViewMode = UITextFieldViewModeAlways;
-    
-    _loginBtn.layer.cornerRadius = 4.0;
-    _loginBtn.clipsToBounds = YES;
-    [_loginBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
     
     [_supportLoginButton setImage:[UIImage imageNamed:@"ic_login_weixin.png"] forState:UIControlStateNormal];
     [_supportLoginButton setImage:[UIImage imageNamed:@"ic_login_weixin_highlight.png"] forState:UIControlStateHighlighted];
@@ -117,7 +84,72 @@
         }
     }];
 }
-
+- (void)createUI
+{
+    _iconImageView = [[UIImageView alloc]initWithFrame:CGRectMake((Width - 483/3 *Height/736)/2, 282/3 * Height/736, 483/3 *Height/736 , 483/3 *Height/736)];
+    _iconImageView.image = [UIImage imageNamed:@"icon"];
+    [self.view addSubview:_iconImageView];
+    
+    UIImageView *textFieldBg = [[UIImageView alloc]initWithFrame:CGRectMake(13, 986/3 * Height / 736, Width - 26, 122 * Height / 736)];
+    
+    textFieldBg.image = [[UIImage imageNamed:@"login_textfield"]resizableImageWithCapInsets:UIEdgeInsetsMake(20, 20, 20, 20)];
+//    textFieldBg.image = [UIImage resizedImageWithName:@"login_textfield"];
+    textFieldBg.userInteractionEnabled = YES;
+    [self.view addSubview:textFieldBg];
+    
+    _userNameTextField.delegate = self;
+    _passwordTextField.delegate = self;
+    _userNameTextField = [[UITextField alloc]initWithFrame:CGRectMake(12, 0* Height / 736, Width-25, 66*Height/736)];
+    UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _userNameTextField.bounds.size.height - 16.0)];
+    ul.text = @" 账户:";
+    ul.textColor = TEXT_COLOR_TITLE;
+    ul.font = [UIFont systemFontOfSize:14.0];
+    ul.textAlignment = NSTextAlignmentCenter;
+    _userNameTextField.leftView = ul;
+    _userNameTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+    _userNameTextField.leftViewMode = UITextFieldViewModeUnlessEditing;
+    [textFieldBg addSubview:_userNameTextField];
+    
+    
+    _passwordTextField = [[UITextField alloc]initWithFrame:CGRectMake(12, 60 * Height / 736, Width-25, 66*Height/736)];
+    UILabel *pl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _userNameTextField.bounds.size.height - 16.0)];
+    pl.text = @" 密码:";
+    pl.textColor = TEXT_COLOR_TITLE;
+    pl.font = [UIFont systemFontOfSize:14.0];
+    pl.textAlignment = NSTextAlignmentCenter;
+    _passwordTextField.leftView = pl;
+    _passwordTextField.leftViewMode = UITextFieldViewModeAlways;
+    [textFieldBg addSubview:_passwordTextField];
+    
+    _loginBtn = [[UIButton alloc]initWithFrame:CGRectMake(13, 1370/3 * Height / 736, Width - 26, 62 * Height/736)];
+    _loginBtn.backgroundColor = [UIColor whiteColor];
+    _loginBtn.layer.cornerRadius = 5;
+    [_loginBtn setTitle:@"登陆" forState:UIControlStateNormal];
+    [_loginBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
+    [_loginBtn addTarget:self action:@selector(login:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_loginBtn];
+    
+    _losePassworkBtn = [[UIButton alloc]initWithFrame:CGRectMake(12, 1629/3 *Height/736, 70, 30)];
+    [_losePassworkBtn setTitle:@"忘记密码" forState:UIControlStateNormal];
+    _losePassworkBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+    [_losePassworkBtn addTarget:self action:@selector(losePassword:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_losePassworkBtn];
+    
+    _registerBtn = [[UIButton alloc]initWithFrame:CGRectMake(941/3 * Width/414, 1629/3 *Height/736, 70, 30)];
+    [_registerBtn setTitle:@"注册新用户" forState:UIControlStateNormal];
+    _registerBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+    [_registerBtn addTarget:self action:@selector(userRegister:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_registerBtn];
+    
+    _weiChatBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    _weiChatBtn.frame = CGRectMake(0, 0, 100, 25);
+    _weiChatBtn.center = CGPointMake(Width/2, 1927/3 * Height/736);
+    [_weiChatBtn setTitle:@"微信登陆" forState:UIControlStateNormal];
+    [_weiChatBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.view addSubview:_weiChatBtn];
+    [_weiChatBtn addTarget:self action:@selector(weixinLogin:) forControlEvents:UIControlEventTouchUpInside];
+    
+}
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -129,9 +161,10 @@
         _supportLoginButton.hidden = YES;
     } else {
         _wechatLabel.hidden = NO;
-
         _supportLoginButton.hidden = NO;
     }
+    
+    self.navigationController.navigationBarHidden = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -139,6 +172,7 @@
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"page_login"];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:weixinDidLoginNoti object:nil];
+    self.navigationController.navigationBarHidden = NO;
 }
 
 - (void)dealloc
@@ -247,11 +281,13 @@
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    
     if (textField == _userNameTextField) {
         [_passwordTextField becomeFirstResponder];
     } else if (textField == _passwordTextField) {
         [textField resignFirstResponder];
     }
+    
     return YES;
 }
 

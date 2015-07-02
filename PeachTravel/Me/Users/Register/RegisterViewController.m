@@ -14,9 +14,9 @@ typedef void(^loginCompletion)(BOOL completed);
 
 @interface RegisterViewController ()<UITextFieldDelegate>
 
-@property (weak, nonatomic) IBOutlet UITextField *phoneLabel;
-@property (weak, nonatomic) IBOutlet UITextField *passwordLabel;
-@property (weak, nonatomic) IBOutlet UIButton *registerBtn;
+@property (strong, nonatomic) IBOutlet UITextField *phoneLabel;
+@property (strong, nonatomic) IBOutlet UITextField *passwordLabel;
+@property (strong, nonatomic) IBOutlet UIButton *registerBtn;
 
 @end
 
