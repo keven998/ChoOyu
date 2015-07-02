@@ -20,6 +20,7 @@
 #import "ChatGroupSettingViewController.h"
 #import "UIImage+resized.h"
 #import "ChatListViewController.h"
+#import "MWPhotoBrowser.h"
 
 @interface OtherUserInfoViewController ()<UIActionSheetDelegate>
 {
@@ -236,6 +237,7 @@
     UIButton *albumBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 831/3*height/736 + btnHeight, btnWidth-2, btnHeight-4)];
     [albumBtn setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
     [albumBtn setBackgroundImage:[ConvertMethods createImageWithColor:COLOR_DISABLE] forState:UIControlStateHighlighted];
+    [albumBtn addTarget:self action:@selector(viewUserPhotoAlbum) forControlEvents:UIControlEventTouchUpInside];
     albumBtn.layer.shadowColor = COLOR_LINE.CGColor;
     albumBtn.layer.shadowOffset = CGSizeMake(1, -1);
     albumBtn.layer.shadowRadius = 2;
@@ -374,7 +376,6 @@
         [addFriend addTarget:self action:@selector(addToFriend) forControlEvents:UIControlEventTouchUpInside];
         
     }
-    
 }
 
 #pragma mark - IBAction
@@ -391,6 +392,23 @@
         }
     }];
 }
+
+- (void)viewUserPhotoAlbum
+{
+    MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] init];
+    [browser setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+    UINavigationController *navc = [[UINavigationController alloc] initWithRootViewController:browser];
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    for (AlbumImage *album in self.userInfo.userAlbum) {
+        MWPhoto *photo = [[MWPhoto alloc] initWithURL:[NSURL URLWithString:album.image.imageUrl]];
+        [array addObject:photo];
+    }
+    browser.imageList = array;
+    browser.titleStr = @"相册";
+    
+    [self presentViewController:navc animated:YES completion:nil];
+}
+
 - (void)remarkFriend
 {
     
@@ -510,12 +528,11 @@
     
     return 44;
 }
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
         OthersAlbumCell *cell = [tableView dequeueReusableCellWithIdentifier:@"albumCell" forIndexPath:indexPath];
-        
-        
         cell.headerPicArray = _albumArray;
         NSLog(@"%@",cell.headerPicArray);
         return cell;
