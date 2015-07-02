@@ -21,6 +21,7 @@
 #import "UIImage+resized.h"
 #import "ChatListViewController.h"
 #import "MWPhotoBrowser.h"
+#import "UserAlbumViewController.h"
 
 @interface OtherUserInfoViewController ()<UIActionSheetDelegate>
 {
@@ -395,18 +396,9 @@
 
 - (void)viewUserPhotoAlbum
 {
-    MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] init];
-    [browser setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
-    UINavigationController *navc = [[UINavigationController alloc] initWithRootViewController:browser];
-    NSMutableArray *array = [[NSMutableArray alloc] init];
-    for (AlbumImage *album in self.userInfo.userAlbum) {
-        MWPhoto *photo = [[MWPhoto alloc] initWithURL:[NSURL URLWithString:album.image.imageUrl]];
-        [array addObject:photo];
-    }
-    browser.imageList = array;
-    browser.titleStr = @"相册";
-    
-    [self presentViewController:navc animated:YES completion:nil];
+    UserAlbumViewController *ctl = [[UserAlbumViewController alloc] initWithNibName:@"UserAlbumViewController" bundle:nil];
+    ctl.albumArray = self.userInfo.userAlbum;
+    [self.navigationController pushViewController:ctl animated:YES];
 }
 
 - (void)remarkFriend
@@ -667,7 +659,6 @@
         [hud hideTZHUD];
         if (isSuccess) {
             [SVProgressHUD showHint:@"请求已发送，等待对方验证"];
-            [self performSelector:@selector(goBack) withObject:nil afterDelay:0.2];
         } else {
             [SVProgressHUD showHint:@"添加失败"];
         }
