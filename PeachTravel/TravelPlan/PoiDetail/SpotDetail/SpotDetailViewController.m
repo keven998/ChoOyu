@@ -131,12 +131,10 @@
     if (indexPath.row < 4) {
         if (indexPath.row == 0) {
             [super jumpToMap];
-        } else if (indexPath.row == 1) {
-            [self showPoidetail:nil];
-        } else if (indexPath.row == 2) {
+        } else if (indexPath.row > 0 && indexPath.row < 4) {
             [self showPoidetail:nil];
         } else {
-            [self showPoidetail:nil];
+            
         }
     }
 
