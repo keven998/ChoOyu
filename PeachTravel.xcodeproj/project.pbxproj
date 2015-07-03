@@ -857,7 +857,6 @@
 		D9A8FF181A80CC2B005AD701 /* VerifyCaptchaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A8FEFB1A80CC2B005AD701 /* VerifyCaptchaViewController.xib */; };
 		D9A8FF191A80CC2B005AD701 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FEFE1A80CC2B005AD701 /* RegisterViewController.m */; };
 		D9A8FF1B1A80CC2B005AD701 /* SMSVerifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FF021A80CC2B005AD701 /* SMSVerifyViewController.m */; };
-		D9A8FF1C1A80CC2B005AD701 /* SMSVerifyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A8FF031A80CC2B005AD701 /* SMSVerifyViewController.xib */; };
 		D9A8FF1D1A80CC2B005AD701 /* UserHeaderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FF061A80CC2B005AD701 /* UserHeaderTableViewCell.m */; };
 		D9A8FF1E1A80CC2B005AD701 /* UserHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A8FF071A80CC2B005AD701 /* UserHeaderTableViewCell.xib */; };
 		D9A8FF1F1A80CC2B005AD701 /* UserInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FF091A80CC2B005AD701 /* UserInfoTableViewController.m */; };
@@ -2113,7 +2112,6 @@
 		D9A8FEFE1A80CC2B005AD701 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		D9A8FF011A80CC2B005AD701 /* SMSVerifyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMSVerifyViewController.h; sourceTree = "<group>"; };
 		D9A8FF021A80CC2B005AD701 /* SMSVerifyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMSVerifyViewController.m; sourceTree = "<group>"; };
-		D9A8FF031A80CC2B005AD701 /* SMSVerifyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMSVerifyViewController.xib; sourceTree = "<group>"; };
 		D9A8FF051A80CC2B005AD701 /* UserHeaderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserHeaderTableViewCell.h; sourceTree = "<group>"; };
 		D9A8FF061A80CC2B005AD701 /* UserHeaderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserHeaderTableViewCell.m; sourceTree = "<group>"; };
 		D9A8FF071A80CC2B005AD701 /* UserHeaderTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserHeaderTableViewCell.xib; sourceTree = "<group>"; };
@@ -5259,7 +5257,6 @@
 			children = (
 				D9A8FF011A80CC2B005AD701 /* SMSVerifyViewController.h */,
 				D9A8FF021A80CC2B005AD701 /* SMSVerifyViewController.m */,
-				D9A8FF031A80CC2B005AD701 /* SMSVerifyViewController.xib */,
 			);
 			path = SMS;
 			sourceTree = "<group>";
@@ -6218,7 +6215,6 @@
 				271C41751B43E75B007BF285 /* poi_button_tip_default@3x.png in Resources */,
 				D917DACB1A8B49AF0039720A /* ic_mountain@2x.png in Resources */,
 				D9A8049D1A80E738005AD701 /* chat_time@2x.png in Resources */,
-				D9A8FF1C1A80CC2B005AD701 /* SMSVerifyViewController.xib in Resources */,
 				D9A8005F1A80DD0C005AD701 /* AddContactTableViewController.xib in Resources */,
 				D9A8056A1A80E738005AD701 /* more_btn@2x.png in Resources */,
 				D9F46DBF1AC52D8600972AE8 /* SVWebViewControllerActivitySafari-iPad@2x.png in Resources */,
