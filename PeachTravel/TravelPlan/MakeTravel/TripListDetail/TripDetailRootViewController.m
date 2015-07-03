@@ -34,13 +34,10 @@
 @property (nonatomic, strong) RestaurantsListViewController *restaurantListCtl;
 @property (nonatomic, strong) ShoppingListViewController *shoppingListCtl;
 @property (nonatomic, strong) ChatRecoredListTableViewController *chatRecordListCtl;
+@property (nonatomic, strong) UISegmentedControl *segmentedControl;
 
-@property (nonatomic, strong) NSArray *tabbarButtonArray;
 @property (nonatomic, strong) NSArray *tabbarPageControllerArray;
 @property (nonatomic, strong) UIViewController *currentViewController;
-@property (nonatomic, strong) UIView *tabBarView;
-
-@property (nonatomic, strong) UINavigationItem *navgationBarItem;
 
 @property (nonatomic) CGPoint initialDraggingPoint;
 
@@ -76,6 +73,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = APP_PAGE_COLOR;
+    [self.view addSubview:self.segmentedControl];
     [self setupViewControllers];
     [self setNavigationItems];
     
@@ -114,12 +113,6 @@
 
 - (void)setNavigationItems
 {
-    UINavigationBar *bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
-    UINavigationItem *navTitle = [[UINavigationItem alloc] init];
-    [bar pushNavigationItem:navTitle animated:YES];
-    [self.view addSubview:bar];
-    _navgationBarItem = navTitle;
-
     if (_canEdit) {
         [self setupNavigationRightItems:NO];
         
@@ -139,15 +132,15 @@
         [bbtn setImage:[UIImage imageNamed:@"common_icon_navigaiton_back"] forState:UIControlStateNormal];
         [bbtn setImage:[UIImage imageNamed:@"common_icon_navigaiton_back_highlight"] forState:UIControlStateHighlighted];
         [bbtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
-        _navgationBarItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:bbtn];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:bbtn];
         UIBarButtonItem * addBtn = [[UIBarButtonItem alloc]initWithCustomView:_forkBtn];
-        _navgationBarItem.rightBarButtonItem = addBtn;
+        self.navigationItem.rightBarButtonItem = addBtn;
     }
 }
 
 - (void) setupNavigationRightItems:(BOOL)isEditing {
     
-    _navgationBarItem.rightBarButtonItems = nil;
+    self.navigationItem.rightBarButtonItems = nil;
     if (isEditing) {
         _editBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
         [_editBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
@@ -156,8 +149,8 @@
         [_editBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
         [_editBtn addTarget:self action:@selector(editTrip:) forControlEvents:UIControlEventTouchUpInside];
         _editBtn.selected = YES;
-        _navgationBarItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_editBtn];
-        _navgationBarItem.leftBarButtonItems = nil;
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_editBtn];
+        self.navigationItem.leftBarButtonItems = nil;
 
     } else {
         NSMutableArray *barItems = [[NSMutableArray alloc] init];
@@ -173,20 +166,14 @@
             [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:mapBtn]];
         }
         
-//        _editBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 44)];
-//        [_editBtn setImage:[UIImage imageNamed:@"ic_trip_edit.png"] forState:UIControlStateNormal];
-//        [_editBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-//        [_editBtn addTarget:self action:@selector(editTrip:) forControlEvents:UIControlEventTouchUpInside];
-//        [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_editBtn]];
-        
-        _navgationBarItem.rightBarButtonItems = barItems;
+        self.navigationItem.rightBarButtonItems = barItems;
         
         UIButton *bbtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
         [bbtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
         [bbtn setImage:[UIImage imageNamed:@"common_icon_navigaiton_back"] forState:UIControlStateNormal];
         [bbtn setImage:[UIImage imageNamed:@"common_icon_navigaiton_back_highlight"] forState:UIControlStateHighlighted];
         [bbtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
-        _navgationBarItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:bbtn];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:bbtn];
     }
 }
 
@@ -203,33 +190,16 @@
     _chatRecordListCtl = nil;
 }
 
-- (void)pan:(UIPanGestureRecognizer *)reconizer
+- (UISegmentedControl *)segmentedControl
 {
-    if (reconizer.state == UIGestureRecognizerStateBegan) {
-        _initialDraggingPoint = [reconizer translationInView:self.view];
-    } else if (reconizer.state == UIGestureRecognizerStateEnded || reconizer.state == UIGestureRecognizerStateCancelled) {
-        CGPoint lastPoint = [reconizer translationInView:self.view];
-        if ((lastPoint.x - _initialDraggingPoint.x) > 100) {
-            if ([_currentViewController isEqual:[_tabbarPageControllerArray firstObject]]) {
-                UIButton *btn = [_tabbarButtonArray lastObject];
-                [btn sendActionsForControlEvents:UIControlEventTouchUpInside];
-            } else {
-                NSInteger index = [_tabbarPageControllerArray indexOfObject:_currentViewController];
-                UIButton *btn = [_tabbarButtonArray objectAtIndex:index-1];
-                [btn sendActionsForControlEvents:UIControlEventTouchUpInside];
-            }
-            
-        } else if ((lastPoint.x - _initialDraggingPoint.x) < -100) {
-            if ([_currentViewController isEqual:[_tabbarPageControllerArray lastObject]]) {
-                UIButton *btn = [_tabbarButtonArray firstObject];
-                [btn sendActionsForControlEvents:UIControlEventTouchUpInside];
-            } else {
-                NSInteger index = [_tabbarPageControllerArray indexOfObject:_currentViewController];
-                UIButton *btn = [_tabbarButtonArray objectAtIndex:index+1];
-                [btn sendActionsForControlEvents:UIControlEventTouchUpInside];
-            }
-        }
+    if (!_segmentedControl) {
+        _segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"计划", @"收藏"]];
+        _segmentedControl.selectedSegmentIndex = 0;
+        _segmentedControl.frame = CGRectMake(self.view.bounds.size.width/2-100, 7, 200, 30);
+        [_segmentedControl addTarget:self action:@selector(changePage:) forControlEvents:UIControlEventValueChanged];
+        _segmentedControl.tintColor = APP_THEME_COLOR;
     }
+    return _segmentedControl;
 }
 
 #pragma mark - IBAction
@@ -303,11 +273,7 @@
 
 - (void)dismissCtl
 {
-    if (self.navigationController.childViewControllers.count > 1) {
-        [self.navigationController popViewControllerAnimated:YES];
-    } else {
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }
+    [self.container.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)userDidLogout
@@ -390,7 +356,6 @@
 - (void)setCanEdit:(BOOL)canEdit
 {
     _canEdit = canEdit;
-//    _spotsListCtl.canEdit = _canEdit;
     _restaurantListCtl.canEdit = _canEdit;
     _shoppingListCtl.canEdit = _canEdit;
 }
@@ -677,94 +642,19 @@
     [self.view addSubview:_spotsListCtl.view];
     
     
-    [_spotsListCtl.view setFrame:CGRectMake(0, 65, self.view.bounds.size.width, self.view.bounds.size.height - 65)];
-    [_restaurantListCtl.view setFrame:CGRectMake(0, 65, self.view.bounds.size.width, self.view.bounds.size.height - 65)];
-    [_shoppingListCtl.view setFrame:CGRectMake(0, 65, self.view.bounds.size.width, self.view.bounds.size.height - 65)];
+    [_spotsListCtl.view setFrame:CGRectMake(0, 44, self.view.bounds.size.width, self.view.bounds.size.height-44)];
+    [_restaurantListCtl.view setFrame:CGRectMake(0, 44, self.view.bounds.size.width, self.view.bounds.size.height-44)];
     
     [array addObject:_spotsListCtl];
     [array addObject:_restaurantListCtl];
-    [array addObject:_shoppingListCtl];
     _tabbarPageControllerArray = array;
     
-    [self customizeTabBarForController];
     _currentViewController = _spotsListCtl;
-    UIButton *btn = [_tabbarButtonArray firstObject];
-    btn.selected = YES;
 }
 
-- (void)customizeTabBarForController
+- (void)changePage:(UISegmentedControl *)sender
 {
-    _tabBarView = [[UIView alloc] initWithFrame:CGRectMake(19, self.view.frame.size.height-49-5-64, self.view.frame.size.width-38, 49)];
-    _tabBarView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-    _tabBarView.backgroundColor = APP_PAGE_COLOR;
-    _tabBarView.alpha = 0.9;
-    CALayer *layer = _tabBarView.layer;
-    layer.borderWidth = 1;
-    layer.borderColor = APP_BORDER_COLOR.CGColor;
-    layer.shadowColor = APP_BORDER_COLOR.CGColor;
-    layer.shadowOffset = CGSizeMake(0, -0.5);
-    layer.shadowRadius = 0.5;
-    layer.shadowOpacity = 1.0;
-    layer.cornerRadius = 1;
-//    UIView *divide = [[UIView alloc]initWithFrame:CGRectMake(0.5, 0, _tabBarView.frame.size.width - 1, 1)];
-//    divide.backgroundColor = APP_PAGE_COLOR;
-//    [_tabBarView addSubview:divide];
-//    _tabBarView.layer.cornerRadius = 3;
-//    _tabBarView.layer.shadowColor = APP_DIVIDER_COLOR.CGColor;
-//    _tabBarView.layer.shadowColor = APP_THEME_COLOR.CGColor;
-//    _tabBarView.layer.shadowOffset = CGSizeMake(0, 0);
-//    _tabBarView.layer.shadowOpacity = 0;
-//    _tabBarView.layer.shadowRadius = 4;
-//    _tabBarView.clipsToBounds = YES;
-    [self.view addSubview:_tabBarView];
-    
-    NSArray *tabBarItemTitles = @[@"行程计划", @"美食清单", @"购物清单"];
-    NSMutableArray *array = [[NSMutableArray alloc] init];
-    CGFloat width = _tabBarView.frame.size.width;
-    
-    for (int i = 0; i < 3; i++) {
-        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(width/3*i, 0, width/3, 50)];
-        [button setTitle:tabBarItemTitles[i] forState:UIControlStateNormal];
-        button.backgroundColor = [UIColor clearColor];
-        
-        [button setTitleEdgeInsets:UIEdgeInsetsMake(28, 0, 0, 0)];
-        [array addObject:button];
-        [button setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
-        [_tabBarView addSubview:button];
-        button.tag = i;
-        button.titleLabel.font = [UIFont systemFontOfSize:9.0];
-        [button addTarget:self action:@selector(changePage:) forControlEvents:UIControlEventTouchUpInside];
-        
-        UIButton *showBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-        showBtn.userInteractionEnabled = NO;
-//        showBtn.backgroundColor = UIColorFromRGB(0xd74353);
-//        showBtn.layer.cornerRadius = 15.0;
-        NSString *imageName = [NSString stringWithFormat: @"ic_trip_new_%d",i+1];
-        [showBtn setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
-        showBtn.center = CGPointMake(button.bounds.size.width/2, button.bounds.size.height/2-6);
-        [button addSubview:showBtn];
-    }
-    
-    UIView *divider1 = [[UIView alloc]initWithFrame:CGRectMake(width/3.0-0.5, 7, 1, 35)];
-    divider1.backgroundColor = APP_DIVIDER_COLOR;
-    [_tabBarView addSubview:divider1];
-    
-    UIView *divider2 = [[UIView alloc]initWithFrame:CGRectMake(width*2.0/3.0-0.5, 7, 1, 35)];
-    divider2.backgroundColor = APP_DIVIDER_COLOR;
-    [_tabBarView addSubview:divider2];
-//    [_tabBarView addSubview:_tabBarSelectedView];
-    _tabbarButtonArray = array;
-}
-
-- (void)changePage:(UIButton *)sender
-{
-    UIViewController *newController = [_tabbarPageControllerArray objectAtIndex:sender.tag];
-    
-    if ([newController isEqual:_currentViewController]) {
-        return;
-    }
-//    NSString *imageName = [NSString stringWithFormat: @"ic_trip_selected_%ld",(long)sender.tag+1];
-//    [_tabBarSelectedView setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
+    UIViewController *newController = [_tabbarPageControllerArray objectAtIndex:sender.selectedSegmentIndex];
     [self replaceController:_currentViewController newController:newController];
 }
 
@@ -773,25 +663,15 @@
     [self addChildViewController:newController];
     [self transitionFromViewController:oldController toViewController:newController duration:0.1 options:UIViewAnimationOptionTransitionCrossDissolve animations:nil completion:^(BOOL finished) {
         if (finished) {
-            [newController didMoveToParentViewController:self];
-            [oldController willMoveToParentViewController:nil];
             [oldController removeFromParentViewController];
             self.currentViewController = newController;
-            
-            NSInteger newIndex = [_tabbarPageControllerArray indexOfObject:newController];
-            for (UIButton *btn in _tabbarButtonArray) {
-                if ([_tabbarButtonArray indexOfObject:btn] == newIndex) {
-                    btn.selected = YES;
-                } else {
-                    btn.selected = NO;
-                }
-            }
+            [self.view bringSubviewToFront:_segmentedControl];
+
         } else {
             self.currentViewController = oldController;
         }
         [self setNavigationItems];
     }];
-    [self.view bringSubviewToFront:_tabBarView];
 }
 
 #pragma mark - AvtivityDelegate

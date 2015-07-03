@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface PlanScheduleTableViewCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *dayScheduleSummary;
+@property (weak, nonatomic) IBOutlet UIImageView *headerImageView;
+@property (weak, nonatomic) IBOutlet UILabel *dayLabel;
 @end

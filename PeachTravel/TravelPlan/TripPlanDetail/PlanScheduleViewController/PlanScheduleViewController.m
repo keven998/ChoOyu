@@ -21,7 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    _tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
+    _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _tableView.backgroundColor = APP_PAGE_COLOR;
     _tableView.dataSource = self;
@@ -46,7 +46,12 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 128;
+    return 66;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 1;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -64,24 +69,42 @@
     PlanScheduleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"schedule_summary_cell" forIndexPath:indexPath];
     NSArray *ds = _tripDetail.itineraryList[indexPath.row];
     NSMutableString *dstr = [[NSMutableString alloc] init];
+    NSMutableString *title = [[NSMutableString alloc] init];
+    NSMutableArray *titleArray = [[NSMutableArray alloc] init];
     NSInteger count = [ds count];
     for (int i = 0; i < count; ++i) {
         SuperPoi *sp = [ds objectAtIndex:i];
         if (i == 0) {
-            [dstr appendString:[NSString stringWithFormat:@"1.%@", sp.zhName]];
+            [titleArray addObject:sp.locality.zhName];
+            [title appendString:sp.locality.zhName];
+            [dstr appendString:[NSString stringWithFormat:@"%@", sp.zhName]];
         } else {
-            [dstr appendString:[NSString stringWithFormat:@" → %d.%@", (i+1), sp.zhName]];
+            BOOL find = NO;
+            for (NSString *str in titleArray) {
+                if ([str isEqualToString:sp.locality.zhName]) {
+                    find = YES;
+                    break;
+                }
+            }
+            if (!find && sp.locality && sp.locality.zhName) {
+                [title appendString:[NSString stringWithFormat:@" > %@", sp.locality.zhName]];
+                [titleArray addObject:sp.locality.zhName];
+            }
+            [dstr appendString:[NSString stringWithFormat:@" > %@", sp.zhName]];
         }
     }
+    
     NSMutableParagraphStyle *ps = [[NSMutableParagraphStyle alloc] init];
     ps.lineSpacing = 8.0;
     NSDictionary *attribs = @{NSFontAttributeName: [UIFont systemFontOfSize:15], NSParagraphStyleAttributeName:ps};
     NSAttributedString *attrstr = [[NSAttributedString alloc] initWithString:dstr attributes:attribs];
     cell.dayScheduleSummary.attributedText = attrstr;
+    cell.titleLabel.text = title;
     CGRect frame = cell.dayScheduleSummary.frame;
     CGRect rect = [attrstr boundingRectWithSize:(CGSize){CGRectGetWidth(frame), CGFLOAT_MAX} options:NSStringDrawingUsesLineFragmentOrigin context:nil];
     frame.size.height = ceilf(rect.size.height) + 1;
     cell.dayScheduleSummary.frame = frame;
+    cell.dayLabel.text = [NSString stringWithFormat:@"0%ld.\nDay", indexPath.row+1];
 
     return cell;
 }

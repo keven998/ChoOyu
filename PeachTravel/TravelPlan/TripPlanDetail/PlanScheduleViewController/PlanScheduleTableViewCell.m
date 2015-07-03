@@ -11,13 +11,12 @@
 @implementation PlanScheduleTableViewCell
 
 - (void)awakeFromNib {
-    // Initialization code
+    _headerImageView.backgroundColor = APP_THEME_COLOR;
+    _headerImageView.layer.cornerRadius = 3.0;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
 @end

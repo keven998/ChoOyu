@@ -10,6 +10,7 @@
 #import "POICell.h"
 #import "SpotDetailViewController.h"
 #import "ScheduleEditorViewController.h"
+#import "TripPoiListTableViewCell.h"
 
 @interface DayAgendaViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -17,6 +18,7 @@
 
 @end
 
+static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
 
 @implementation DayAgendaViewController
 
@@ -34,12 +36,12 @@
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"日程详情";
     
-    _tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
+    _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _tableView.backgroundColor = APP_PAGE_COLOR;
     _tableView.dataSource = self;
     _tableView.delegate = self;
-    [_tableView registerNib:[UINib nibWithNibName:@"POICell" bundle:nil] forCellReuseIdentifier:@"poi_cell"];
+    [_tableView registerNib:[UINib nibWithNibName:@"TripPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:tripPoiListReusableIdentifier];
     [self.view addSubview:_tableView];
     
     UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 44, CGRectGetWidth(self.view.bounds), 44)];
@@ -67,11 +69,15 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 64;
+    return 66;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    return 1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 1;
 }
 
@@ -82,9 +88,9 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    POICell *cell = [tableView dequeueReusableCellWithIdentifier:@"poi_cell" forIndexPath:indexPath];
-    SuperPoi *poi = _tripDetail.itineraryList[_currentDay][indexPath.row];
-    cell.poiName.text = [NSString stringWithFormat:@"%ld.%@", (indexPath.row + 1), poi.zhName];
+    SuperPoi *tripPoi = _tripDetail.itineraryList[indexPath.section][indexPath.row];
+    TripPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:tripPoiListReusableIdentifier forIndexPath:indexPath];
+    cell.tripPoi = tripPoi;
     return cell;
 }
 

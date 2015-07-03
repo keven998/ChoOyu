@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "TripDetail.h"
 
-@interface DayAgendaViewController : UIViewController
+@interface DayAgendaViewController : TZViewController
 
 - (id)initWithDay:(NSInteger)day;
 
