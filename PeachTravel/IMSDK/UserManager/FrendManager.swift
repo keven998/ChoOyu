@@ -8,8 +8,6 @@
 
 import UIKit
 
-private let API_FREND = "\(BASE_URL)users/contacts"
-
 @objc protocol FrendManagerManagerDelegate {
     
 }
@@ -161,6 +159,7 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
                 print(error)
         }
     }
+    
     /**
      请求添加好友
     
@@ -204,7 +203,7 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
         let requestSerializer = AFJSONRequestSerializer()
         manager.requestSerializer = requestSerializer
         manager.requestSerializer.setValue("\(accountId)", forHTTPHeaderField: "UserId")
-        let url = "\(API_FREND)/\(frend.userId)"
+        let url = "\(API_USERS)\(accountId)/contacts/\(frend.userId)"
         manager.DELETE(url, parameters: nil, success:
             { (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
                 if (responseObject.objectForKey("code") as! Int) == 0 {
@@ -225,7 +224,6 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
         case CMDActionCode.F_REQUEST:
             let frendRequestManager = FrendRequestManager(userId: accountId)
 
-            
         case CMDActionCode.F_AGREE:
             let frendRequestManager = FrendRequestManager(userId: accountId)
             

@@ -59,7 +59,7 @@ class FrendRequestManager: NSObject {
     */
     func addFrendRequestList(request: FrendRequest) {
         for tempRequest in frendRequestList {
-            if tempRequest.userId == (request).userId {
+            if tempRequest.requestId == (request).requestId {
                 return
             }
         }
@@ -70,28 +70,36 @@ class FrendRequestManager: NSObject {
     /**
     移除一个好友请求
     
-    :param: userId
+    :param: requestId
     */
-    func removeFrendRequest(userId: Int) {
-        frendRequestList.filter({$0.userId != userId}
+    func removeFrendRequest(requestId: String) {
+        frendRequestList.filter({$0.requestId != requestId}
         )
-        frendRequestDaoHelper.removeFrendRequest(userId)
+        frendRequestDaoHelper.removeFrendRequest(requestId)
     }
     
     /**
     修改好友请求的状态
     
-    :param: userId
+    :param: requestId
     :param: status
     */
-    func changeStatus(userId: Int, status: TZFrendRequest) {
+    func changeStatus(requestId: String, status: TZFrendRequest) {
         frendRequestList.map({(var request) -> FrendRequest in
-            if request.userId == userId {
+            if request.requestId == requestId {
                 request.status = status 
             }
             return request
         })
-        frendRequestDaoHelper.changeFrendRequestStatus(userId, status: status)
+        frendRequestDaoHelper.changeFrendRequestStatus(requestId, status: status)
     }
-   
 }
+
+
+
+
+
+
+
+
+
