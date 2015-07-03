@@ -21,6 +21,8 @@
         _priceDesc = [json objectForKey:@"priceDesc"];
         _openTime = [json objectForKey:@"openTime"];
         _address = [json objectForKey:@"address"];
+        _descUrl = [json objectForKey:@"descUrl"];
+
         if ([[json objectForKey:@"type"] isEqualToString:@"vs"]) {
             _poiType = kSpotPoi;
         }

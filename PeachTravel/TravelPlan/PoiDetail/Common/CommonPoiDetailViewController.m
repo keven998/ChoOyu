@@ -168,8 +168,15 @@
  *
  *  @param sender
  */
-- (IBAction)showPoidetail:(id)sender
+- (void)showPoidetail:(id)sender
 {
+    [MobClick event:@"event_spot_information"];
+    SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
+    webCtl.titleStr = self.poi.zhName;
+    webCtl.urlStr = self.poi.descUrl;
+    webCtl.hideToolBar = YES;
+    [self.navigationController pushViewController:webCtl animated:YES];
+
 }
 
 - (UIImage *)screenShotWithView:(UIView *)view

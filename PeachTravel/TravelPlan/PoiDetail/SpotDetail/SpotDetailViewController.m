@@ -173,22 +173,6 @@
 }
 
 /**
- *  进入景点的详细介绍的 h5
- *
- *  @param sender
- */
-- (IBAction)showPoidetail:(id)sender
-{
-    [MobClick event:@"event_spot_information"];
-    SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
-    webCtl.titleStr = self.poi.zhName;
-    webCtl.urlStr = ((SpotPoi *)self.poi).descUrl;
-    webCtl.hideToolBar = YES;
-    [self.navigationController pushViewController:webCtl animated:YES];
-}
-
-
-/**
  *  在线预订
  *
  *  @param sender
