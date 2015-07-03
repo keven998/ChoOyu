@@ -41,11 +41,14 @@ class FrendRequestManager: NSObject {
     */
     func addFrendRequest(request: AnyObject) {
         if request.isKindOfClass(FrendRequest) {
-            self.addFrendRequest(request as! FrendRequest)
+            self.frendRequestDaoHelper.addFrendRequestion2DB(request as! FrendRequest)
+            self.frendRequestList.append(request as! FrendRequest)
             
         } else {
             let frendReuqest = FrendRequest(json: request)
-            self.addFrendRequest(frendReuqest)
+            self.frendRequestDaoHelper.addFrendRequestion2DB(request as! FrendRequest)
+            self.frendRequestList.append(request as! FrendRequest)
+
         }
     }
     

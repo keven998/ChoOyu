@@ -8,7 +8,6 @@
 
 import UIKit
 
-private let API_REQUEST_ADD_CONTACT = "\(BASE_URL)users/request-contacts"  //请求添加好友
 private let API_FREND = "\(BASE_URL)users/contacts"
 
 @objc protocol FrendManagerManagerDelegate {
@@ -132,6 +131,37 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
     }
     
     /**
+    同意添加好友
+    
+    :param: frendRequest
+    :param: completion
+    :param: errorCode
+    */
+    func asyncAgreeAddContact(#requestId: String, completion: (isSuccess: Bool, errorCode: Int) -> ()) {
+        
+        let manager = AFHTTPRequestOperationManager()
+        let requestSerializer = AFJSONRequestSerializer()
+        manager.requestSerializer = requestSerializer
+        manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept")
+        manager.requestSerializer.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        manager.requestSerializer.setValue("\(AccountManager.shareAccountManager().account.userId)", forHTTPHeaderField: "UserId")
+        let params = ["action": 1];
+        var url = "\(API_USERS)\(accountId)/contact-requests/\(requestId)"
+        
+        manager.PATCH(url, parameters: params, success:
+            { (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
+                if (responseObject.objectForKey("code") as! Int) == 0 {
+                    completion(isSuccess: true, errorCode: 0)
+                } else {
+                    completion(isSuccess: false, errorCode: 0)
+                }
+            }){
+                (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+                completion(isSuccess: false, errorCode: 0)
+                print(error)
+        }
+    }
+    /**
      请求添加好友
     
     :param: userId
@@ -145,10 +175,13 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
         manager.requestSerializer.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         manager.requestSerializer.setValue("\(AccountManager.shareAccountManager().account.userId)", forHTTPHeaderField: "UserId")
         let params = ["userId": userId, "message": helloStr]
-        var url = "\(API_USERS)\(userId)"
-        manager.POST(API_REQUEST_ADD_CONTACT, parameters: params, success:
+        var url = "\(API_USERS)\(userId)/contact-requests"
+        manager.POST(url, parameters: params, success:
             { (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
                 if (responseObject.objectForKey("code") as! Int) == 0 {
+                    let frendRequest = FrendRequest(json: responseObject.objectForKey("result"))
+                    IMClientManager.shareInstance().frendRequestManager.addFrendRequest(frendRequest);
+                    
                     completion(isSuccess: true, errorCode: 0)
                 } else {
                     completion(isSuccess: false, errorCode: 0)

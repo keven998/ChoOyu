@@ -5780,7 +5780,7 @@
 		D99D8EBD19C8600C0021C25B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = com.aizou.www;
 				TargetAttributes = {
 					D99D8EC419C8600C0021C25B = {
@@ -6940,13 +6940,11 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/PeachTravel",
-					"$(PROJECT_DIR)/PeachTravel/EaseMobSDK/lib",
 					"$(PROJECT_DIR)/PeachTravel/libs/UMSocial_Sdk_4.2.1",
 					"$(PROJECT_DIR)/PeachTravel/libs/UMSocial_Sdk_Extra_Frameworks/Sina",
 					"$(PROJECT_DIR)/PeachTravel/libs/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 					"$(PROJECT_DIR)/PeachTravel/libs/UMSocial_Sdk_Extra_Frameworks/Wechat",
 					"$(PROJECT_DIR)/PeachTravel/IMSDK/dist",
-					"$(PROJECT_DIR)/PeachTravel/IMSDK/VoiceConvert/lib",
 					"$(PROJECT_DIR)/PeachTravel/IMSDK/Core/VoiceConvert/lib",
 				);
 				ONLY_ACTIVE_ARCH = YES;
@@ -6979,13 +6977,11 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/PeachTravel",
-					"$(PROJECT_DIR)/PeachTravel/EaseMobSDK/lib",
 					"$(PROJECT_DIR)/PeachTravel/libs/UMSocial_Sdk_4.2.1",
 					"$(PROJECT_DIR)/PeachTravel/libs/UMSocial_Sdk_Extra_Frameworks/Sina",
 					"$(PROJECT_DIR)/PeachTravel/libs/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 					"$(PROJECT_DIR)/PeachTravel/libs/UMSocial_Sdk_Extra_Frameworks/Wechat",
 					"$(PROJECT_DIR)/PeachTravel/IMSDK/dist",
-					"$(PROJECT_DIR)/PeachTravel/IMSDK/VoiceConvert/lib",
 					"$(PROJECT_DIR)/PeachTravel/IMSDK/Core/VoiceConvert/lib",
 				);
 				ONLY_ACTIVE_ARCH = NO;
