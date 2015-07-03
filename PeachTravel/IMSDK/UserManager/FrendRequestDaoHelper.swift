@@ -14,7 +14,7 @@ class FrendRequestDaoHelper: BaseDaoHelper {
     
     func createFrendTable() {
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
-            var sql = "create table '\(frendRequestTableName)' (UserId INTEGER PRIMARY KEY NOT NULL, NickName TEXT, Avatar Text, Status INTEGER, Sex INTEGER, Date Double, Message: Text)"
+            var sql = "create table '\(frendRequestTableName)' (RequestId TEXT PRIMARY KEY NOT NULL, UserId INTEGER, NickName TEXT, Avatar Text, Status INTEGER, Sex INTEGER, Date Double, Message: Text)"
             if (dataBase.executeUpdate(sql, withArgumentsInArray: nil)) {
                 println("success 执行 sql 语句：\(sql)")
                 
@@ -43,17 +43,17 @@ class FrendRequestDaoHelper: BaseDaoHelper {
             createFrendTable()
         }
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
-            var sql = "insert into \(frendTableName) (UserId, NickName, Avatar, Status, Sex, Date, Message) values (?,?,?,?,?,?,?)"
+            var sql = "insert into \(frendTableName) (RequestId, UserId, NickName, Avatar, Status, Sex, Date, Message) values (?,?,?,?,?,?,?,?)"
             println("执行 sql 语句：\(sql)")
-            var array = [request.userId, request.nickName, request.status.rawValue, request.avatar, request.gender.rawValue, request.requestDate, request.attachMsg]
+            var array = [request.requestId, request.userId, request.nickName, request.status.rawValue, request.avatar, request.gender.rawValue, request.requestDate, request.attachMsg]
             dataBase.executeUpdate(sql, withArgumentsInArray: array as [AnyObject])
         }
     }
     
-    func removeFrendRequest(userId: Int) {
+    func removeFrendRequest(requestId: String) {
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
-            var sql = "delete from \(frendRequestTableName) where UserId = ?"
-            if dataBase.executeUpdate(sql, withArgumentsInArray: [userId]) {
+            var sql = "delete from \(frendRequestTableName) where RequestId = ?"
+            if dataBase.executeUpdate(sql, withArgumentsInArray: [requestId]) {
                 println("执行 deleteAllContactsFromDB 语句 成功")
             } else {
                 println("执行 deleteAllContactsFromDB 语句 失败")
@@ -62,11 +62,11 @@ class FrendRequestDaoHelper: BaseDaoHelper {
         }
     }
     
-    func changeFrendRequestStatus(userId: Int, status: TZFrendRequest) {
+    func changeFrendRequestStatus(requestId: String, status: TZFrendRequest) {
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
-            var sql = "update \(frendRequestTableName) set Status = ? where UserId = ?"
+            var sql = "update \(frendRequestTableName) set Status = ? where RequestId = ?"
             println("执行 sql 语句：\(sql)")
-            var array = [status.rawValue, userId]
+            var array = [status.rawValue, requestId]
             dataBase.executeUpdate(sql, withArgumentsInArray: array as [AnyObject])
         }
     }
@@ -74,6 +74,7 @@ class FrendRequestDaoHelper: BaseDaoHelper {
     //MARK: private methods
     private func fillFrendRequestModelWithFMResultSet(rs: FMResultSet) -> FrendRequest {
         var frend = FrendRequest()
+        frend.requestId = rs.stringForColumn("RequestId")
         frend.userId = Int(rs.intForColumn("UserId"))
         frend.nickName = rs.stringForColumn("NickName")
         frend.avatar = rs.stringForColumn("Avatar")

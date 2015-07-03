@@ -98,6 +98,13 @@
 
 - (void)addContactWithFrendRequest:(FrendRequest *)frendRequest
 {
+    [[IMClientManager shareInstance].frendManager asyncAgreeAddContactWithRequestId:frendRequest.requestId completion:^(BOOL isSuccess, NSInteger errorCode) {
+        if (isSuccess) {
+            [SVProgressHUD showHint:@"已添加"];
+        } else {
+            [SVProgressHUD showHint:@"添加失败"];
+        }
+    }];
 //    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
 //    AppUtils *utils = [[AppUtils alloc] init];
 //    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
@@ -198,7 +205,7 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         FrendRequest *frendRequest = [self.dataSource objectAtIndex:indexPath.row];
         IMClientManager *clientManager = [IMClientManager shareInstance];
-        [clientManager.frendRequestManager removeFrendRequest:frendRequest.userId];
+        [clientManager.frendRequestManager removeFrendRequest:frendRequest.requestId];
         [self.dataSource removeObject:frendRequest];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }

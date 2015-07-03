@@ -119,7 +119,7 @@
         _birthday = [json objectForKey:@"birthday"];
     }
     
-    if ([json objectForKey:@"tracks"] == [NSNull null]) {
+    if ([json objectForKey:@"tracks"] == [NSNull null] || ![[json objectForKey:@"tracks"] isKindOfClass:[NSDictionary class]]) {
         _tracks = [[NSMutableDictionary alloc] init];
     } else {
         _tracks = [[json objectForKey:@"tracks"] mutableCopy];
