@@ -694,7 +694,7 @@
 
 - (void)customizeTabBarForController
 {
-    _tabBarView = [[UIView alloc] initWithFrame:CGRectMake(19, self.view.frame.size.height-49-5, self.view.frame.size.width-38, 49)];
+    _tabBarView = [[UIView alloc] initWithFrame:CGRectMake(19, self.view.frame.size.height-49-5-64, self.view.frame.size.width-38, 49)];
     _tabBarView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     _tabBarView.backgroundColor = APP_PAGE_COLOR;
     _tabBarView.alpha = 0.9;
@@ -895,8 +895,6 @@
 #pragma mark - CreateConversationDelegate
 
 - (void)createConversationSuccessWithChatter:(NSInteger)chatterId chatType:(IMChatType)chatType chatTitle:(NSString *)chatTitle
-
-
 {
     TaoziChatMessageBaseViewController *taoziMessageCtl = [[TaoziChatMessageBaseViewController alloc] init];
     [self setChatMessageModel:taoziMessageCtl];

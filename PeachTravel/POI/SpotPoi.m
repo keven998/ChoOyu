@@ -16,9 +16,7 @@
         self.poiType = kSpotPoi;
         self.typeDesc = @"vs";
         self.poiTypeName = @"景点";
-        _priceDesc = [json objectForKey:@"priceDesc"];
         _bookUrl = [json objectForKey:@"lyPoiUrl"];
-        _openTime = [json objectForKey:@"openTime"];
         _timeCostStr = [json objectForKey:@"timeCostDesc"];
         _trafficInfoUrl = [json objectForKey:@"trafficInfoUrl"];
         _guideUrl = [json objectForKey:@"visitGuideUrl"];
@@ -34,8 +32,8 @@
 {
     NSMutableDictionary *retDic = [[super enCodeAllDataToDictionary] mutableCopy];
     [retDic safeSetObject:_timeCostStr forKey:@"timeCostDesc"];
-    [retDic safeSetObject:_priceDesc forKey:@"priceDesc"];
-    
+    [retDic safeSetObject:super.priceDesc forKey:@"priceDesc"];
+
     return retDic;
 
 }

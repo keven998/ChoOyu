@@ -17,7 +17,6 @@
         self.poiType = kRestaurantPoi;
         self.typeDesc = @"restaurant";
         self.poiTypeName = @"美食";
-        _priceDesc = [json objectForKey:@"priceDesc"];
         _telephone = [json objectForKey:@"telephone"];
     }
     return self;
@@ -27,7 +26,7 @@
 {
     NSMutableDictionary *retDic = [[super enCodeAllDataToDictionary] mutableCopy];
     [retDic safeSetObject:_telephone forKey:@"timeCostDesc"];
-    [retDic safeSetObject:_priceDesc forKey:@"priceDesc"];
+    [retDic safeSetObject:super.priceDesc forKey:@"priceDesc"];
     
     return retDic;
     

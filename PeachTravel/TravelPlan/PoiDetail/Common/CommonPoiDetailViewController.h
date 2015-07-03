@@ -23,4 +23,6 @@
 @property (nonatomic,weak) id <FavoriteDelegate> delegate;
 - (void) loadDataWithUrl:(NSString *)url;
 
+- (void)jumpToMap;
+
 @end

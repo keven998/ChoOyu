@@ -16,16 +16,15 @@
 #import "CommentTableViewCell.h"
 #import "UIImage+BoxBlur.h"
 
-@interface SpotDetailViewController () <UIActionSheetDelegate,UITableViewDataSource,UITableViewDelegate>
-@property (nonatomic, strong) SpotDetailView *spotDetailView;
-@property (nonatomic, strong) UIImageView *backGroundImageView;
-@property (nonatomic, strong) UITableView *tableView;
+@interface SpotDetailViewController () <UIActionSheetDelegate>
+
 @end
 
 @implementation SpotDetailViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    super.poiType = kSpotPoi;
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.navigationItem.title = @"详情";
     
@@ -37,11 +36,6 @@
     [talkBtn addTarget:self action:@selector(shareToTalk) forControlEvents:UIControlEventTouchUpInside];
     [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:talkBtn]];
     self.navigationItem.rightBarButtonItems = barItems;
-
-    
-    
-//    _spotDetailView = [[SpotDetailView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 410 + 342/3 * SCREEN_HEIGHT / 736)];
-//    self.tableView.tableHeaderView = _spotDetailView;
     [self loadData];
 
 }
@@ -59,27 +53,6 @@
     [MobClick endLogPageView:@"page_spot_detail"];
 }
 
-- (UITableView *)tableView
-{
-    if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
-        _tableView.dataSource = self;
-        _tableView.delegate = self;
-        _tableView.backgroundColor = APP_PAGE_COLOR;
-        _tableView.separatorColor = APP_DIVIDER_COLOR;
-        _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        _tableView.tableHeaderView = self.spotDetailView;
-        [self.tableView registerNib:[UINib nibWithNibName:@"SpotDetailCell" bundle:nil] forCellReuseIdentifier:@"detailCell"];
-        [self.tableView registerNib:[UINib nibWithNibName:@"SpecialPoiCell" bundle:nil] forCellReuseIdentifier:@"specialCell"];
-        [self.tableView registerNib:[UINib nibWithNibName:@"CommentTableViewCell" bundle:nil] forCellReuseIdentifier:@"commentCell"];
-    }
-    return _tableView;
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     return self.poi.comments.count + 5;
@@ -94,6 +67,8 @@
         return 100;
     }
 }
+
+#pragma mark - Table view delegate
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row < 4) {
@@ -155,83 +130,21 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row < 4) {
         if (indexPath.row == 0) {
-            [self jumpToMap];
+            [super jumpToMap];
         } else if (indexPath.row == 1) {
-            [self showSpotDetail:nil];
+            [self showPoidetail:nil];
         } else if (indexPath.row == 2) {
-            [self showSpotDetail:nil];
+            [self showPoidetail:nil];
         } else {
-            [self showSpotDetail:nil];
+            [self showPoidetail:nil];
         }
     }
 
-    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
-
-
-
-- (void)updateView
-{
-    _spotDetailView = [[SpotDetailView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 410 + 342/3 +14* SCREEN_HEIGHT / 736)];
-    _spotDetailView.spot = (SpotPoi *)self.poi;
-    _spotDetailView.rootCtl = self;
-    _spotDetailView.layer.cornerRadius = 4.0;
-    self.tableView.tableHeaderView = _spotDetailView;
-    
-    
-    if (((SpotPoi *)self.poi).trafficInfoUrl == nil || [((SpotPoi *)self.poi).trafficInfoUrl isBlankString]) {
-        _spotDetailView.trafficGuideBtn.enabled = NO;
-    } else {
-        [_spotDetailView.trafficGuideBtn addTarget:self action:@selector(trafficGuide:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    if (((SpotPoi *)self.poi).guideUrl == nil || [((SpotPoi *)self.poi).guideUrl isBlankString]) {
-        _spotDetailView.travelGuideBtn.enabled = NO;
-    } else {
-        [_spotDetailView.travelGuideBtn addTarget:self action:@selector(travelGuide:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    if (((SpotPoi *)self.poi).tipsUrl == nil || [((SpotPoi *)self.poi).tipsUrl isBlankString]) {
-        _spotDetailView.kendieBtn.enabled = NO;
-    } else {
-        [_spotDetailView.kendieBtn addTarget:self action:@selector(kengdie:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    
-    [_spotDetailView.closeBtn addTarget:self action:@selector(dismissCtl) forControlEvents:UIControlEventTouchUpInside];
-    [_spotDetailView.addressBtn addTarget:self action:@selector(jumpToMap) forControlEvents:UIControlEventTouchUpInside];
-    
-    [_spotDetailView.shareBtn addTarget:self action:@selector(chat:) forControlEvents:UIControlEventTouchUpInside];
-    [_spotDetailView.travelBtn addTarget:self action:@selector(showSpotDetail:) forControlEvents:UIControlEventTouchUpInside];
-    [_spotDetailView.phoneButton addTarget:self action:@selector(showSpotDetail:) forControlEvents:UIControlEventTouchUpInside];
-    [_spotDetailView.ticketBtn addTarget:self action:@selector(showSpotDetail:) forControlEvents:UIControlEventTouchUpInside];
-    [_spotDetailView.descDetailBtn addTarget:self action:@selector(showSpotDetail:) forControlEvents:UIControlEventTouchUpInside];
-    
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showSpotDetail:)];
-    
-    [_spotDetailView.poisDesc addGestureRecognizer:tap];
-    
-    [_spotDetailView.bookBtn addTarget:self action:@selector(book:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [self.view addSubview:self.tableView];
-}
-
-
-- (void)dismissCtl
-{
-    [SVProgressHUD dismiss];
-    [UIView animateWithDuration:0.0 animations:^{
-        self.view.alpha = 0;
-    } completion:^(BOOL finished) {
-        [self willMoveToParentViewController:nil];
-        [self.view removeFromSuperview];
-        [self removeFromParentViewController];
-    }];
-    
 }
 
 - (void)dealloc
 {
-    NSLog(@"citydetailCtl dealloc");
-    _spotDetailView = nil;
 }
 
 
@@ -239,34 +152,8 @@
 
 - (void)loadData
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    if (accountManager.isLogin) {
-        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
-    }
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSNumber *imageWidth = [NSNumber numberWithInt:(kWindowWidth-22)*2];
-    [params setObject:imageWidth forKey:@"imgWidth"];
-    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    __weak typeof(SpotDetailViewController *)weakSelf = self;
-    [hud showHUDInViewController:weakSelf content:64];
     NSString *url = [NSString stringWithFormat:@"%@%@", API_GET_SPOT_DETAIL, _spotId];
-    [manager GET:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [hud hideTZHUD];
-        NSInteger result = [[responseObject objectForKey:@"code"] integerValue];
-        if (result == 0) {
-            self.poi = [[SpotPoi alloc] initWithJson:[responseObject objectForKey:@"result"]];
-            [self updateView];
-        } else {
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [hud hideTZHUD];
-    }];
-
-    
+    [super loadDataWithUrl:url]; 
 }
 
 /**
@@ -290,7 +177,7 @@
  *
  *  @param sender
  */
-- (IBAction)showSpotDetail:(id)sender
+- (IBAction)showPoidetail:(id)sender
 {
     [MobClick event:@"event_spot_information"];
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
@@ -380,11 +267,6 @@
     [sheet addButtonWithTitle:@"取消"];
     sheet.cancelButtonIndex = sheet.numberOfButtons-1;
     [sheet showInView:self.view];
-}
-
--(void)jumpToMap
-{
-    [ConvertMethods jumpAppleMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
 }
 
 #pragma mark - UIActionSheetDelegate

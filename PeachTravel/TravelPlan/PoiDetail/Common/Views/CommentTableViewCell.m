@@ -13,7 +13,7 @@
 
 @property (weak, nonatomic) IBOutlet EDStarRating *ratingView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *bubbleView;
+@property (strong, nonatomic) UIImageView *bubbleView;
 @property (weak, nonatomic) IBOutlet UIImageView *headerImageView;
 @property (nonatomic, strong) UILabel *descLabel;
 
@@ -22,10 +22,40 @@
 @implementation CommentTableViewCell
 
 - (void)awakeFromNib {
+    _bubbleView = [[UIImageView alloc] init];
+    [self addSubview:_bubbleView];
     _descLabel = [[UILabel alloc] init];
     _descLabel.numberOfLines = 0;
     _descLabel.font = [UIFont systemFontOfSize:11.0];
     [_bubbleView addSubview:_descLabel];
+}
+
+- (void)layoutSubviews
+{
+    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+    style.lineSpacing = 1.0;
+    
+    CGSize labelSize = [_commentDetail.commentDetails boundingRectWithSize:CGSizeMake(self.bounds.size.width-100-24, MAXFLOAT)
+                                                                   options:NSStringDrawingUsesLineFragmentOrigin
+                                                                attributes:@{
+                                                                             NSFontAttributeName : [UIFont systemFontOfSize:11.0],
+                                                                             NSParagraphStyleAttributeName : style
+                                                                             }
+                                                                   context:nil].size;
+    
+    
+    _descLabel.frame = CGRectMake(15, 13, labelSize.width, labelSize.height);
+    
+    [_bubbleView setFrame:CGRectMake(80, 30, labelSize.width+25, labelSize.height+26)];
+    _bubbleView.image = [[UIImage imageNamed:@"messages_bg_friend.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(28, 15, 10, 10)];
+    
+    
+    _ratingView.starImage = [UIImage imageNamed:@"ic_star_gray.png"];
+    _ratingView.starHighlightedImage = [UIImage imageNamed:@"ic_star_yellow.png"];
+    _ratingView.maxRating = 5.0;
+    _ratingView.editable = NO;
+    _ratingView.displayMode = EDStarRatingDisplayAccurate;
+    [_ratingView setRating:_commentDetail.rating];
 }
 
 - (void)setCommentDetail:(CommentDetail *)commentDetail
@@ -34,32 +64,7 @@
     _descLabel.text = _commentDetail.commentDetails;
     [_headerImageView sd_setImageWithURL:[NSURL URLWithString:_commentDetail.avatar] placeholderImage:nil];
     _titleLabel.text = commentDetail.nickName;
-    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
-    style.lineSpacing = 1.0;
-    
-    CGSize labelSize = [_commentDetail.commentDetails boundingRectWithSize:CGSizeMake(self.bounds.size.width-100-24, MAXFLOAT)
-                                                   options:NSStringDrawingUsesLineFragmentOrigin
-                                                attributes:@{
-                                                             NSFontAttributeName : [UIFont systemFontOfSize:11.0],
-                                                             NSParagraphStyleAttributeName : style
-                                                             }
-                                                   context:nil].size;
-    
-//    [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y
-//                              , self.frame.size.width, labelSize.height)];
-    
-    _descLabel.frame = CGRectMake(15, 13, labelSize.width, labelSize.height);
-    
-    [_bubbleView setFrame:CGRectMake(80, 30, labelSize.width+25, labelSize.height+26)];
-    _bubbleView.image = [[UIImage imageNamed:@"messages_bg_friend.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(28, 15, 10, 10)];
-
-    
-    _ratingView.starImage = [UIImage imageNamed:@"ic_star_gray.png"];
-    _ratingView.starHighlightedImage = [UIImage imageNamed:@"ic_star_yellow.png"];
-    _ratingView.maxRating = 5.0;
-    _ratingView.editable = NO;
-    _ratingView.displayMode = EDStarRatingDisplayAccurate;
-    [_ratingView setRating:commentDetail.rating];
+    [self setNeedsLayout];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

@@ -17,7 +17,6 @@
         self.poiTypeName = @"购物";
         self.typeDesc = @"shopping";
         _telephone = [json objectForKey:@"telephone"];
-        _priceDesc = [json objectForKey:@"priceDesc"];
     }
     return self;
 }
@@ -26,7 +25,7 @@
 {
     NSMutableDictionary *retDic = [[super enCodeAllDataToDictionary] mutableCopy];
     [retDic safeSetObject:_telephone forKey:@"timeCostDesc"];
-    [retDic safeSetObject:_priceDesc forKey:@"priceDesc"];
+    [retDic safeSetObject:super.priceDesc forKey:@"priceDesc"];
     return retDic;
 }
 
