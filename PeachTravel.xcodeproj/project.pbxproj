@@ -882,7 +882,6 @@
 		D9A8FFA61A80D1C3005AD701 /* RecommendsOfCity.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FF6F1A80D1C3005AD701 /* RecommendsOfCity.m */; };
 		D9A8FFA71A80D1C3005AD701 /* CommonPoiDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FF721A80D1C3005AD701 /* CommonPoiDetailViewController.m */; };
 		D9A8FFA81A80D1C3005AD701 /* CommentDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FF751A80D1C3005AD701 /* CommentDetail.m */; };
-		D9A8FFA91A80D1C3005AD701 /* PoiSummary.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FF771A80D1C3005AD701 /* PoiSummary.m */; };
 		D9A8FFAA1A80D1C3005AD701 /* RecommendDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FF791A80D1C3005AD701 /* RecommendDetail.m */; };
 		D9A8FFAB1A80D1C3005AD701 /* PoiDetailSuperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FF7B1A80D1C3005AD701 /* PoiDetailSuperViewController.m */; };
 		D9A8FFAC1A80D1C3005AD701 /* CommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FF7E1A80D1C3005AD701 /* CommentTableViewCell.m */; };
@@ -2157,8 +2156,6 @@
 		D9A8FF721A80D1C3005AD701 /* CommonPoiDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonPoiDetailViewController.m; sourceTree = "<group>"; };
 		D9A8FF741A80D1C3005AD701 /* CommentDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommentDetail.h; path = Model/CommentDetail.h; sourceTree = "<group>"; };
 		D9A8FF751A80D1C3005AD701 /* CommentDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommentDetail.m; path = Model/CommentDetail.m; sourceTree = "<group>"; };
-		D9A8FF761A80D1C3005AD701 /* PoiSummary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PoiSummary.h; path = Model/PoiSummary.h; sourceTree = "<group>"; };
-		D9A8FF771A80D1C3005AD701 /* PoiSummary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PoiSummary.m; path = Model/PoiSummary.m; sourceTree = "<group>"; };
 		D9A8FF781A80D1C3005AD701 /* RecommendDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RecommendDetail.h; path = Model/RecommendDetail.h; sourceTree = "<group>"; };
 		D9A8FF791A80D1C3005AD701 /* RecommendDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RecommendDetail.m; path = Model/RecommendDetail.m; sourceTree = "<group>"; };
 		D9A8FF7A1A80D1C3005AD701 /* PoiDetailSuperViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoiDetailSuperViewController.h; sourceTree = "<group>"; };
@@ -5406,8 +5403,6 @@
 				D9A8FF721A80D1C3005AD701 /* CommonPoiDetailViewController.m */,
 				D9A8FF741A80D1C3005AD701 /* CommentDetail.h */,
 				D9A8FF751A80D1C3005AD701 /* CommentDetail.m */,
-				D9A8FF761A80D1C3005AD701 /* PoiSummary.h */,
-				D9A8FF771A80D1C3005AD701 /* PoiSummary.m */,
 				D9A8FF781A80D1C3005AD701 /* RecommendDetail.h */,
 				D9A8FF791A80D1C3005AD701 /* RecommendDetail.m */,
 				D9A8FF7A1A80D1C3005AD701 /* PoiDetailSuperViewController.h */,
@@ -6765,7 +6760,6 @@
 				D9A8FF551A80CF19005AD701 /* FavoriteViewController.m in Sources */,
 				C6261BB01B2AFDA400DFADEF /* DayAgendaViewController.m in Sources */,
 				27F411E21AEF5CA1009D6C2B /* ScreeningViewController.m in Sources */,
-				D9A8FFA91A80D1C3005AD701 /* PoiSummary.m in Sources */,
 				D9EE34621AB958D70076933B /* PoiDetailViewControllerFactory.m in Sources */,
 				D9A8020C1A80E036005AD701 /* NSData+Godzippa.m in Sources */,
 				D993C2451B12DF0C0088D568 /* MetaDataDaoHelper.swift in Sources */,

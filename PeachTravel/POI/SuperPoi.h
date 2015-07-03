@@ -17,7 +17,10 @@
 @property (nonatomic, copy) NSString *enName;
 @property (nonatomic, copy) NSString *desc;
 @property (nonatomic, copy) NSString *typeDesc;
+@property (nonatomic, copy) NSString *descUrl;
 @property (nonatomic) TZPoiType poiType;
+@property (nonatomic, copy) NSString *priceDesc;
+@property (nonatomic, copy) NSString *openTime;
 @property (nonatomic, strong) NSArray *images;
 @property (nonatomic, strong) NSArray *comments;
 @property (nonatomic, copy) NSString *moreCommentsUrl;

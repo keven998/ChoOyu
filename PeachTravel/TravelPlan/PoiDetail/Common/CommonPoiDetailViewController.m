@@ -10,9 +10,20 @@
 #import "CommonPoiDetailView.h"
 #import "AccountManager.h"
 #import "UIImage+BoxBlur.h"
+#import "SpotDetailView.h"
+#import "SpotPoi.h"
+#import "AccountManager.h"
+#import "SuperWebViewController.h"
+#import "SpotDetailCell.h"
+#import "SpecialPoiCell.h"
+#import "CommentTableViewCell.h"
+#import "UIImage+BoxBlur.h"
 
-@interface CommonPoiDetailViewController ()
+
+@interface CommonPoiDetailViewController () <UITableViewDataSource, UITableViewDelegate>
+@property (nonatomic, strong) SpotDetailView *spotDetailView;
 @property (nonatomic, strong) UIImageView *backGroundImageView;
+@property (nonatomic, strong) UITableView *tableView;
 
 
 @end
@@ -23,7 +34,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    
     UIButton *talkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 44)];
     [talkBtn setImage:[UIImage imageNamed:@"ic_home_normal"] forState:UIControlStateNormal];
     [talkBtn addTarget:self action:@selector(shareToTalk) forControlEvents:UIControlEventTouchUpInside];
@@ -33,32 +43,112 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-//    self.navigationController.navigationBar.hidden = YES;
-//    self.navigationController.navigationBarHidden= YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-//    self.navigationController.navigationBar.hidden = NO;
-//    self.navigationController.navigationBarHidden = NO;
+}
+
+- (UITableView *)tableView
+{
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
+        _tableView.backgroundColor = APP_PAGE_COLOR;
+        _tableView.separatorColor = APP_DIVIDER_COLOR;
+        _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        _tableView.tableHeaderView = self.spotDetailView;
+        [self.tableView registerNib:[UINib nibWithNibName:@"SpotDetailCell" bundle:nil] forCellReuseIdentifier:@"detailCell"];
+        [self.tableView registerNib:[UINib nibWithNibName:@"SpecialPoiCell" bundle:nil] forCellReuseIdentifier:@"specialCell"];
+        [self.tableView registerNib:[UINib nibWithNibName:@"CommentTableViewCell" bundle:nil] forCellReuseIdentifier:@"commentCell"];
+    }
+    return _tableView;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    return self.poi.comments.count + 4;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row < 4) {
+        return 67 * SCREEN_HEIGHT/736;
+    } else {
+        CommentDetail *commonDetail = [self.poi.comments objectAtIndex:indexPath.row-4];
+        return [CommentTableViewCell heightForCommentCellWithComment:commonDetail.commentDetails];
+    }
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row < 4) {
+        SpotDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"detailCell" forIndexPath:indexPath];
+        if (indexPath.row == 0) {
+            cell.categoryLabel.text = @"地址";
+            cell.infomationLabel.text = self.poi.address;
+            cell.image.image = [UIImage imageNamed:@"poi_icon_add"];
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        } else if (indexPath.row == 1) {
+            cell.categoryLabel.text = @"电话";
+            cell.infomationLabel.text = ((SpotPoi *)self.poi).telephone;
+            cell.image.image = [UIImage imageNamed:@"poi_icon_phone"];
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        } else if (indexPath.row == 2) {
+            cell.categoryLabel.text = @"时间";
+            cell.infomationLabel.text = self.poi.openTime;
+            cell.image.image = [UIImage imageNamed:@"icon_arrow"];
+            //            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        } else {
+            cell.categoryLabel.text = @"票价";
+            cell.infomationLabel.text = self.poi.priceDesc;
+            cell.image.image = [UIImage imageNamed:@"poi_icon_ticket_default"];
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        }
+        return cell;
+        
+    } else {
+        CommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"commentCell" forIndexPath:indexPath];
+        cell.commentDetail = [self.poi.comments objectAtIndex:indexPath.row-4];
+        return cell;
+    }
+}
+
+#pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
+    if (indexPath.row < 4) {
+        if (indexPath.row == 0) {
+            [self jumpToMap];
+        } else if (indexPath.row == 1) {
+            [self showPoidetail:nil];
+        } else if (indexPath.row == 2) {
+            [self showPoidetail:nil];
+        } else {
+            [self showPoidetail:nil];
+        }
+    }
 }
 
 - (void)updateView
 {
-
-    CommonPoiDetailView *commonPoiDetailView = [[CommonPoiDetailView alloc] initWithFrame:self.view.bounds];
-    commonPoiDetailView.contentSize = CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height+1);
-    commonPoiDetailView.showsHorizontalScrollIndicator = NO;
-    commonPoiDetailView.showsVerticalScrollIndicator = NO;
-    commonPoiDetailView.rootCtl = self;
-    commonPoiDetailView.poiType = _poiType;
-    commonPoiDetailView.poi = self.poi;
-    commonPoiDetailView.layer.cornerRadius = 4.0;
-    [self.view addSubview:commonPoiDetailView];
- 
+    [self.view addSubview:self.tableView];
+    _spotDetailView = [[SpotDetailView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 410 + 342/3 +14* SCREEN_HEIGHT / 736)];
+    _spotDetailView.spot = self.poi;
+    _spotDetailView.layer.cornerRadius = 4.0;
+    self.tableView.tableHeaderView = _spotDetailView;
 }
 
+- (void)jumpToMap
+{
+    [ConvertMethods jumpAppleMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
+}
 
 - (void)dismissCtlWithHint:(NSString *)hint {
     [SVProgressHUD showHint:hint];
@@ -71,12 +161,23 @@
     }];
 }
 
-- (void)dealloc
-{
-//    NSLog(@"RestaurantDetialViewController dealloc");
-}
-
 #pragma mark - Private Methods
+
+/**
+ *  进入详细介绍的 html 界面，由子类实现
+ *
+ *  @param sender
+ */
+- (void)showPoidetail:(id)sender
+{
+    [MobClick event:@"event_spot_information"];
+    SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
+    webCtl.titleStr = self.poi.zhName;
+    webCtl.urlStr = self.poi.descUrl;
+    webCtl.hideToolBar = YES;
+    [self.navigationController pushViewController:webCtl animated:YES];
+
+}
 
 - (UIImage *)screenShotWithView:(UIView *)view
 {

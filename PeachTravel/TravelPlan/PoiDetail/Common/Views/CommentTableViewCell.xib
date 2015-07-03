@@ -41,9 +41,6 @@
                                     <constraint firstAttribute="width" constant="64" id="fSa-h7-RWt"/>
                                 </constraints>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ahT-w4-F4t">
-                                <rect key="frame" x="82" y="40" width="160" height="32"/>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.96862745098039216" green="0.98039215686274506" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -71,12 +68,11 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="bubbleView" destination="ahT-w4-F4t" id="yEK-HS-Eos"/>
                 <outlet property="headerImageView" destination="9nj-eT-Pfb" id="gqu-95-vOJ"/>
                 <outlet property="ratingView" destination="KId-Ux-9gg" id="uek-78-bI2"/>
                 <outlet property="titleLabel" destination="e78-w1-5T1" id="y1O-yV-qNC"/>
             </connections>
-            <point key="canvasLocation" x="100" y="171"/>
+            <point key="canvasLocation" x="-133" y="161"/>
         </tableViewCell>
     </objects>
 </document>
