@@ -14,9 +14,9 @@ typedef void(^loginCompletion)(BOOL completed);
 
 @interface RegisterViewController ()<UITextFieldDelegate>
 
-@property (strong, nonatomic) IBOutlet UITextField *phoneLabel;
-@property (strong, nonatomic) IBOutlet UITextField *passwordLabel;
-@property (strong, nonatomic) IBOutlet UIButton *registerBtn;
+@property (strong, nonatomic)  UITextField *phoneLabel;
+@property (strong, nonatomic)  UITextField *passwordLabel;
+@property (strong, nonatomic)  UIButton *registerBtn;
 
 @end
 
@@ -26,19 +26,41 @@ typedef void(^loginCompletion)(BOOL completed);
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    self.view.backgroundColor = [UIColor whiteColor];
+    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    backBtn.frame = CGRectMake(13, 34, 15, 15);
+    [backBtn setImage:[UIImage imageNamed:@"login_back_defaut"] forState:UIControlStateNormal];
+    [backBtn setImage:[UIImage imageNamed:@"common_icon_navigaiton_back_highlight"] forState:UIControlStateHighlighted];
+    [self.view addSubview:backBtn];
+    [backBtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
     
-//    UIBarButtonItem *navBack = [[UIBarButtonItem alloc]initWithTitle:@" 取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
-//    navBack.tintColor = APP_THEME_COLOR;
-//    self.navigationItem.leftBarButtonItem = navBack;
+    [self createUI];
+}
+
+- (void)createUI
+{
+    UIImageView *iconImage = [[UIImageView alloc]initWithFrame:CGRectMake(489/3 * SCREEN_WIDTH/414, 216/3 *SCREEN_HEIGHT/736, 87*SCREEN_HEIGHT/736, 87*SCREEN_HEIGHT/736)];
+    iconImage.image = [UIImage imageNamed:@"icon_little"];
+    [self.view addSubview:iconImage];
     
-    UIBarButtonItem *registerBtn = [[UIBarButtonItem alloc]initWithTitle:@"提交 " style:UIBarButtonItemStylePlain target:self action:@selector(confirmRegister:)];
-    registerBtn.tintColor = APP_THEME_COLOR;
-    self.navigationItem.rightBarButtonItem = registerBtn;
     
-    self.navigationItem.title = @"新用户注册";
+    UIView *textFieldBg = [[UIView alloc]initWithFrame:CGRectMake(13, 720/3 * SCREEN_HEIGHT/736, SCREEN_WIDTH - 26, 121 * SCREEN_HEIGHT/736)];
+    textFieldBg.layer.borderColor = APP_THEME_COLOR.CGColor;
+    textFieldBg.layer.borderWidth = 1;
+    textFieldBg.layer.cornerRadius = 5;
+    [self.view addSubview:textFieldBg];
     
-    _passwordLabel.delegate = self;
+    UIView *devide = [[UIView alloc]initWithFrame:CGRectMake(0, 60 *SCREEN_HEIGHT/736 , SCREEN_WIDTH - 26, 1)];
+    devide.backgroundColor = APP_THEME_COLOR;
+    [textFieldBg addSubview:devide];
     
+//    UIView *devide2 = [[UIView alloc]initWithFrame:CGRectMake(772/3 *SCREEN_WIDTH/414, 60 *SCREEN_HEIGHT / 736, 1, 60 * SCREEN_HEIGHT/736)];
+//    devide2.backgroundColor = APP_THEME_COLOR;
+//    [textFieldBg addSubview:devide2];
+    
+    
+    _phoneLabel = [[UITextField alloc]initWithFrame:CGRectMake(10, 0, SCREEN_WIDTH - 50, 60 * SCREEN_HEIGHT / 736)];
     UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _phoneLabel.bounds.size.height - 16.0)];
     ul.text = @"手机:";
     ul.textColor = TEXT_COLOR_TITLE;
@@ -47,6 +69,10 @@ typedef void(^loginCompletion)(BOOL completed);
     _phoneLabel.leftView = ul;
     _phoneLabel.leftViewMode = UITextFieldViewModeAlways;
     _phoneLabel.text = _defaultPhone;
+    _phoneLabel.delegate = self;
+    [textFieldBg addSubview:_phoneLabel];
+    
+    _passwordLabel = [[UITextField alloc]initWithFrame:CGRectMake(10, 60 * SCREEN_HEIGHT / 736, SCREEN_WIDTH - 50, 60 * SCREEN_HEIGHT / 736)];
     
     UILabel *pl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _passwordLabel.bounds.size.height - 16.0)];
     pl.text = @"密码:";
@@ -56,22 +82,34 @@ typedef void(^loginCompletion)(BOOL completed);
     _passwordLabel.leftView = pl;
     _passwordLabel.leftViewMode = UITextFieldViewModeAlways;
     _passwordLabel.text = _defaultPassword;
-
+    _passwordLabel.delegate = self;
+    [textFieldBg addSubview:_passwordLabel];
+    
+    
+    _registerBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    _registerBtn.frame = CGRectMake(13, 1107/3 * SCREEN_HEIGHT/736, SCREEN_WIDTH - 26, 62 * SCREEN_HEIGHT/736);
+    [_registerBtn setTitle:@"下一步" forState:UIControlStateNormal];
     _registerBtn.layer.cornerRadius = 4.0;
     _registerBtn.clipsToBounds = YES;
+    [_registerBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_registerBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
+    [self.view addSubview:_registerBtn];
+    [_registerBtn addTarget:self action:@selector(confirmRegister:) forControlEvents:UIControlEventTouchUpInside];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_register"];
+    self.navigationController.navigationBarHidden = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"page_register"];
+    self.navigationController.navigationBarHidden = NO;
 }
 
 - (void)goBack {

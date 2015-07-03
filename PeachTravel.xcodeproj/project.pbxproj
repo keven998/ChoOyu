@@ -47,6 +47,7 @@
 		271C419C1B45607C007BF285 /* login_button_jion@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 271C41981B45607C007BF285 /* login_button_jion@3x.png */; };
 		271C419D1B45607C007BF285 /* login_button_next@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 271C41991B45607C007BF285 /* login_button_next@3x.png */; };
 		271C419E1B45607C007BF285 /* login_textfield.png in Resources */ = {isa = PBXBuildFile; fileRef = 271C419A1B45607C007BF285 /* login_textfield.png */; };
+		271C41A01B463435007BF285 /* icon_little@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 271C419F1B463435007BF285 /* icon_little@3x.png */; };
 		27329DB41B0E030700F0A4FA /* ChatGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 27329DB21B0E030600F0A4FA /* ChatGroupCell.m */; };
 		27329DB51B0E030700F0A4FA /* ChatGroupCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27329DB31B0E030600F0A4FA /* ChatGroupCell.xib */; };
 		27329DB71B0E0AF500F0A4FA /* chatBar_add_talk@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27329DB61B0E0AF500F0A4FA /* chatBar_add_talk@2x.png */; };
@@ -1015,6 +1016,7 @@
 		271C41981B45607C007BF285 /* login_button_jion@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_button_jion@3x.png"; sourceTree = "<group>"; };
 		271C41991B45607C007BF285 /* login_button_next@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_button_next@3x.png"; sourceTree = "<group>"; };
 		271C419A1B45607C007BF285 /* login_textfield.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_textfield.png; sourceTree = "<group>"; };
+		271C419F1B463435007BF285 /* icon_little@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_little@3x.png"; sourceTree = "<group>"; };
 		27329DB11B0E030600F0A4FA /* ChatGroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatGroupCell.h; sourceTree = "<group>"; };
 		27329DB21B0E030600F0A4FA /* ChatGroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatGroupCell.m; sourceTree = "<group>"; };
 		27329DB31B0E030600F0A4FA /* ChatGroupCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatGroupCell.xib; sourceTree = "<group>"; };
@@ -2697,6 +2699,7 @@
 			children = (
 				C6682ADD1B41391F00100EBA /* common_icon_navigaiton_back_highlight@3x.png */,
 				C63FFCC41B3A6CFB0026758F /* common_icon_navigaiton_back@3x.png */,
+				271C419F1B463435007BF285 /* icon_little@3x.png */,
 				271C41941B455B6A007BF285 /* icon@3x.png */,
 				271C418C1B44DF65007BF285 /* common_icon_right@3x.png */,
 				271C418E1B44E126007BF285 /* icon_arrow@3x.png */,
@@ -5829,6 +5832,7 @@
 				D9A805891A80E738005AD701 /* sns_icon_qq@2x.png in Resources */,
 				27FF1A7A1B059AFA00643D77 /* TripPlanSettingCell.xib in Resources */,
 				27F273D51B198F0F00AC1ABE /* Default@2x.png in Resources */,
+				271C41A01B463435007BF285 /* icon_little@3x.png in Resources */,
 				D9A804D61A80E738005AD701 /* ic_chatlist_normal@2x.png in Resources */,
 				C6631D161B3014A800BE4ADC /* tools_home_card_bg_normal@3x.png in Resources */,
 				D9A805071A80E738005AD701 /* ic_sns_pengyouquan@2x.png in Resources */,

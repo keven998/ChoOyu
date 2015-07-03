@@ -17,17 +17,17 @@
 
 @interface LoginViewController ()<UITextFieldDelegate>
 
-@property (strong, nonatomic) IBOutlet UITextField *userNameTextField;
-@property (strong, nonatomic) IBOutlet UITextField *passwordTextField;
-@property (strong, nonatomic) IBOutlet UIButton *loginBtn;
-@property (strong, nonatomic) IBOutlet UIButton *supportLoginButton;
-@property (strong, nonatomic) IBOutlet UIButton *losePassworkBtn;
-@property (strong, nonatomic) IBOutlet UIButton *weiChatBtn;
-@property (strong, nonatomic) IBOutlet UIView *backView;
-@property (strong, nonatomic) IBOutlet UILabel *wechatLabel;
+@property (strong, nonatomic) UITextField *userNameTextField;
+@property (strong, nonatomic) UITextField *passwordTextField;
+@property (strong, nonatomic) UIButton *loginBtn;
+@property (strong, nonatomic) UIButton *supportLoginButton;
+@property (strong, nonatomic) UIButton *losePassworkBtn;
+@property (strong, nonatomic) UIButton *weiChatBtn;
+@property (strong, nonatomic) UIView *backView;
+@property (strong, nonatomic) UILabel *wechatLabel;
 @property (strong, nonatomic) UIButton *registerBtn;
 @property (strong, nonatomic) UIImageView *iconImageView;
-
+@property (strong, nonatomic) UIView *textFieldBg;
 
 @property (nonatomic, copy) void (^completion)(BOOL completed);
 
@@ -90,15 +90,15 @@
     _iconImageView.image = [UIImage imageNamed:@"icon"];
     [self.view addSubview:_iconImageView];
     
-    UIImageView *textFieldBg = [[UIImageView alloc]initWithFrame:CGRectMake(13, 986/3 * Height / 736, Width - 26, 122 * Height / 736)];
+    _textFieldBg = [[UIView alloc]initWithFrame:CGRectMake(13, 986/3 * Height / 736, Width - 26, 122 * Height / 736)];
+    _textFieldBg.backgroundColor = [UIColor whiteColor];
+    _textFieldBg.layer.cornerRadius = 5;
+    _textFieldBg.userInteractionEnabled = YES;
+    [self.view addSubview:_textFieldBg];
+    UIView *textFieldDevide = [[UIView alloc]initWithFrame:CGRectMake(0, 60 * Height/736, Width - 26, 2)];
+    textFieldDevide.backgroundColor = APP_THEME_COLOR;
+    [_textFieldBg addSubview:textFieldDevide];
     
-    textFieldBg.image = [[UIImage imageNamed:@"login_textfield"]resizableImageWithCapInsets:UIEdgeInsetsMake(20, 20, 20, 20)];
-//    textFieldBg.image = [UIImage resizedImageWithName:@"login_textfield"];
-    textFieldBg.userInteractionEnabled = YES;
-    [self.view addSubview:textFieldBg];
-    
-    _userNameTextField.delegate = self;
-    _passwordTextField.delegate = self;
     _userNameTextField = [[UITextField alloc]initWithFrame:CGRectMake(12, 0* Height / 736, Width-25, 66*Height/736)];
     UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _userNameTextField.bounds.size.height - 16.0)];
     ul.text = @" 账户:";
@@ -107,8 +107,9 @@
     ul.textAlignment = NSTextAlignmentCenter;
     _userNameTextField.leftView = ul;
     _userNameTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
-    _userNameTextField.leftViewMode = UITextFieldViewModeUnlessEditing;
-    [textFieldBg addSubview:_userNameTextField];
+    _userNameTextField.leftViewMode = UITextFieldViewModeAlways;
+    _userNameTextField.delegate = self;
+    [_textFieldBg addSubview:_userNameTextField];
     
     
     _passwordTextField = [[UITextField alloc]initWithFrame:CGRectMake(12, 60 * Height / 736, Width-25, 66*Height/736)];
@@ -119,7 +120,8 @@
     pl.textAlignment = NSTextAlignmentCenter;
     _passwordTextField.leftView = pl;
     _passwordTextField.leftViewMode = UITextFieldViewModeAlways;
-    [textFieldBg addSubview:_passwordTextField];
+    _passwordTextField.delegate = self;
+    [_textFieldBg addSubview:_passwordTextField];
     
     _loginBtn = [[UIButton alloc]initWithFrame:CGRectMake(13, 1370/3 * Height / 736, Width - 26, 62 * Height/736)];
     _loginBtn.backgroundColor = [UIColor whiteColor];
@@ -290,8 +292,25 @@
     
     return YES;
 }
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    [UIView animateWithDuration:0.2 animations:^{
+        _iconImageView.frame = CGRectMake((Width - 483/3 *Height/736)/2, 282/3 * Height/736 - 88 *Height / 736, 483/3 *Height/736 , 483/3 *Height/736);
+        _textFieldBg.frame = CGRectMake(13, 986/3 * Height/736 - 88 * Height/736, Width - 26, 122 * Height / 736);
+        _loginBtn.frame = CGRectMake(13, 1370/3 * Height / 736 - 88 * Height/736, Width - 26, 62 * Height/736);
 
+    }];
+    
+}
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        _iconImageView.frame = CGRectMake((Width - 483/3 *Height/736)/2, 282/3 * Height/736, 483/3 *Height/736 , 483/3 *Height/736);
+        _textFieldBg.frame = CGRectMake(13, 986/3 * Height/736, Width - 26, 122 * Height / 736);
+        _loginBtn.frame = CGRectMake(13, 1370/3 * Height / 736, Width - 26, 62 * Height/736);
+    }];
+    
+
     [self.view endEditing:YES];
     [super touchesEnded:touches withEvent:event];
 }
@@ -313,7 +332,7 @@
     
      __weak typeof(LoginViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf content:64];
+    [hud showHUDInViewController:weakSelf];
 
     //微信登录
     [manager POST:API_WEIXIN_LOGIN parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
