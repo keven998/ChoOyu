@@ -8,15 +8,48 @@
 
 #import "PlanScheduleTableViewCell.h"
 
+@interface PlanScheduleTableViewCell ()
+
+@property (weak, nonatomic) IBOutlet UILabel *dayScheduleSummary;
+
+@end
+
 @implementation PlanScheduleTableViewCell
 
 - (void)awakeFromNib {
-    _headerImageView.backgroundColor = APP_THEME_COLOR;
-    _headerImageView.layer.cornerRadius = 3.0;
+    _headerImageView.clipsToBounds = YES;
+}
+
+- (void)setContent:(NSString *)content
+{
+    _content = content;
+    _dayScheduleSummary.numberOfLines = 0;
+    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+    style.lineSpacing = 1.0;
+    NSAttributedString *attrStr = [[NSAttributedString alloc] initWithString:_content attributes:@{
+                                                                                                   NSFontAttributeName : [UIFont systemFontOfSize:11.0],
+                                                                                                   NSParagraphStyleAttributeName : style
+                                                                                                   }];
+    _dayScheduleSummary.attributedText = attrStr;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
+}
+
++ (CGFloat)heightOfCellWithContent:(NSString *)content {
+    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+    style.lineSpacing = 1.0;
+    
+    CGSize labelSize = [content boundingRectWithSize:CGSizeMake(kWindowWidth-100-24, MAXFLOAT)
+                                                   options:NSStringDrawingUsesLineFragmentOrigin
+                                                attributes:@{
+                                                             NSFontAttributeName : [UIFont systemFontOfSize:11.0],
+                                                             NSParagraphStyleAttributeName : style
+                                                             }
+                                                   context:nil].size;
+    return labelSize.height+55;
+
 }
 
 @end

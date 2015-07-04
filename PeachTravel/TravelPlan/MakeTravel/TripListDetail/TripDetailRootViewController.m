@@ -139,13 +139,11 @@
 }
 
 - (void) setupNavigationRightItems:(BOOL)isEditing {
-    
     self.navigationItem.rightBarButtonItems = nil;
     if (isEditing) {
         _editBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
         [_editBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
         [_editBtn setTitle:@"确定" forState:UIControlStateNormal];
-//        [_editBtn setImage:[UIImage imageNamed:@"ic_xingchengdan_queding"] forState:UIControlStateNormal];
         [_editBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
         [_editBtn addTarget:self action:@selector(editTrip:) forControlEvents:UIControlEventTouchUpInside];
         _editBtn.selected = YES;
@@ -154,14 +152,14 @@
 
     } else {
         NSMutableArray *barItems = [[NSMutableArray alloc] init];
-        _moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
-        [_moreBtn setImage:[UIImage imageNamed:@"common_icon_navigaiton_menu"] forState:UIControlStateNormal];
+        _moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 44)];
+        [_moreBtn setImage:[UIImage imageNamed:@"plan_02_dashboard_drawer.png"] forState:UIControlStateNormal];
         [_moreBtn addTarget:self action:@selector(showMoreAction:) forControlEvents:UIControlEventTouchUpInside];
         [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_moreBtn]];
         
         if ([_currentViewController isKindOfClass:[PlanScheduleViewController class]]) {
-            UIButton *mapBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 44)];
-            [mapBtn setImage:[UIImage imageNamed:@"ic_trip_mapview_ios"] forState:UIControlStateNormal];
+            UIButton *mapBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 44)];
+            [mapBtn setImage:[UIImage imageNamed:@"plan_02_dashboard_map.png"] forState:UIControlStateNormal];
             [mapBtn addTarget:self action:@selector(mapView) forControlEvents:UIControlEventTouchUpInside];
             [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:mapBtn]];
         }
@@ -588,10 +586,6 @@
         [hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-//            _tripDetail.tripId = [[responseObject objectForKey:@"result"] objectForKey:@"id"];
-//            self.canEdit = YES;
-//            [[NSNotificationCenter defaultCenter] postNotificationName:updateGuideListNoti object:nil];
-//            [SVProgressHUD showHint:@"已保存到我的旅行计划"];
             PlansListTableViewController *myGuidesCtl = [[PlansListTableViewController alloc] initWithUserId:accountManager.account.userId];
             NSMutableArray *clts = [NSMutableArray arrayWithArray:[self.navigationController childViewControllers]];
             [clts replaceObjectAtIndex:(clts.count-1) withObject:myGuidesCtl];

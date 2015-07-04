@@ -10,8 +10,11 @@
 
 @interface PlanScheduleTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-
-@property (weak, nonatomic) IBOutlet UILabel *dayScheduleSummary;
+@property (nonatomic, copy) NSString *content;
 @property (weak, nonatomic) IBOutlet UIImageView *headerImageView;
 @property (weak, nonatomic) IBOutlet UILabel *dayLabel;
+
++ (CGFloat)heightOfCellWithContent:(NSString *)content;
+
 @end
+

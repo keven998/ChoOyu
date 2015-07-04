@@ -475,6 +475,11 @@
 		D97C8B4D1A526B9F00476C9C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D97C8B4C1A526B9F00476C9C /* Images.xcassets */; };
 		D980FD651A88EFAB00313582 /* ic_msg_sending@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D980FD641A88EFAB00313582 /* ic_msg_sending@2x.png */; };
 		D9823E841B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9823E831B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m */; };
+		D9871DAD1B479B8C00BFDFAF /* plan_bottom_flower@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9871DAC1B479B8C00BFDFAF /* plan_bottom_flower@3x.png */; };
+		D9871DAF1B479BC200BFDFAF /* plan_02_bg_day@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9871DAE1B479BC200BFDFAF /* plan_02_bg_day@3x.png */; };
+		D9871DB31B479BD600BFDFAF /* plan_02_dashboard_drawer@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9871DB01B479BD600BFDFAF /* plan_02_dashboard_drawer@3x.png */; };
+		D9871DB41B479BD600BFDFAF /* plan_02_dashboard_map@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9871DB11B479BD600BFDFAF /* plan_02_dashboard_map@3x.png */; };
+		D9871DB51B479BD600BFDFAF /* plan_bottom_hotel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9871DB21B479BD600BFDFAF /* plan_bottom_hotel@3x.png */; };
 		D98CC6431A1993BE00FA5A76 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D902AD1F1A149FAB00E36A93 /* CFNetwork.framework */; };
 		D993C2331B12DF0C0088D568 /* ChatManagerAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = D993C1C71B12DF0C0088D568 /* ChatManagerAudio.swift */; };
 		D993C2351B12DF0C0088D568 /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D993C1CA1B12DF0C0088D568 /* ConnectionManager.swift */; };
@@ -563,7 +568,6 @@
 		D9A8002F1A80D52F005AD701 /* RestaurantsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A800021A80D52F005AD701 /* RestaurantsListViewController.m */; };
 		D9A800301A80D52F005AD701 /* ShareActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A800051A80D52F005AD701 /* ShareActivity.m */; };
 		D9A800311A80D52F005AD701 /* ShoppingListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A800081A80D52F005AD701 /* ShoppingListViewController.m */; };
-		D9A800321A80D52F005AD701 /* SpotsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8000B1A80D52F005AD701 /* SpotsListViewController.m */; };
 		D9A800331A80D52F005AD701 /* TripPoiListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8000D1A80D52F005AD701 /* TripPoiListTableViewCell.m */; };
 		D9A800341A80D52F005AD701 /* TripPoiListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A8000E1A80D52F005AD701 /* TripPoiListTableViewCell.xib */; };
 		D9A800351A80D52F005AD701 /* TripDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A800101A80D52F005AD701 /* TripDetail.m */; };
@@ -1576,6 +1580,11 @@
 		D980FD641A88EFAB00313582 /* ic_msg_sending@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_msg_sending@2x.png"; sourceTree = "<group>"; };
 		D9823E821B19AA0200A1AE35 /* SuggestionDestinationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuggestionDestinationTableViewController.h; sourceTree = "<group>"; };
 		D9823E831B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuggestionDestinationTableViewController.m; sourceTree = "<group>"; };
+		D9871DAC1B479B8C00BFDFAF /* plan_bottom_flower@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plan_bottom_flower@3x.png"; sourceTree = "<group>"; };
+		D9871DAE1B479BC200BFDFAF /* plan_02_bg_day@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plan_02_bg_day@3x.png"; sourceTree = "<group>"; };
+		D9871DB01B479BD600BFDFAF /* plan_02_dashboard_drawer@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plan_02_dashboard_drawer@3x.png"; sourceTree = "<group>"; };
+		D9871DB11B479BD600BFDFAF /* plan_02_dashboard_map@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plan_02_dashboard_map@3x.png"; sourceTree = "<group>"; };
+		D9871DB21B479BD600BFDFAF /* plan_bottom_hotel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plan_bottom_hotel@3x.png"; sourceTree = "<group>"; };
 		D993C1C71B12DF0C0088D568 /* ChatManagerAudio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatManagerAudio.swift; sourceTree = "<group>"; };
 		D993C1CA1B12DF0C0088D568 /* ConnectionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionManager.swift; sourceTree = "<group>"; };
 		D993C1CD1B12DF0C0088D568 /* AESCrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AESCrypt.h; sourceTree = "<group>"; };
@@ -1675,11 +1684,9 @@
 		D9A800051A80D52F005AD701 /* ShareActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareActivity.m; sourceTree = "<group>"; };
 		D9A800071A80D52F005AD701 /* ShoppingListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingListViewController.h; sourceTree = "<group>"; };
 		D9A800081A80D52F005AD701 /* ShoppingListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingListViewController.m; sourceTree = "<group>"; };
-		D9A8000A1A80D52F005AD701 /* SpotsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotsListViewController.h; sourceTree = "<group>"; };
-		D9A8000B1A80D52F005AD701 /* SpotsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpotsListViewController.m; sourceTree = "<group>"; };
-		D9A8000C1A80D52F005AD701 /* TripPoiListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripPoiListTableViewCell.h; sourceTree = "<group>"; };
-		D9A8000D1A80D52F005AD701 /* TripPoiListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripPoiListTableViewCell.m; sourceTree = "<group>"; };
-		D9A8000E1A80D52F005AD701 /* TripPoiListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TripPoiListTableViewCell.xib; sourceTree = "<group>"; };
+		D9A8000C1A80D52F005AD701 /* TripPoiListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TripPoiListTableViewCell.h; path = ../MakeTravel/TripListDetail/SpotList/TripPoiListTableViewCell.h; sourceTree = "<group>"; };
+		D9A8000D1A80D52F005AD701 /* TripPoiListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TripPoiListTableViewCell.m; path = ../MakeTravel/TripListDetail/SpotList/TripPoiListTableViewCell.m; sourceTree = "<group>"; };
+		D9A8000E1A80D52F005AD701 /* TripPoiListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TripPoiListTableViewCell.xib; path = ../MakeTravel/TripListDetail/SpotList/TripPoiListTableViewCell.xib; sourceTree = "<group>"; };
 		D9A8000F1A80D52F005AD701 /* TripDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripDetail.h; sourceTree = "<group>"; };
 		D9A800101A80D52F005AD701 /* TripDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripDetail.m; sourceTree = "<group>"; };
 		D9A800111A80D52F005AD701 /* TripDetailRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripDetailRootViewController.h; sourceTree = "<group>"; };
@@ -2827,6 +2834,7 @@
 		C6631CE51B300C4E00BE4ADC /* 3x */ = {
 			isa = PBXGroup;
 			children = (
+				D9871DAB1B479B8300BFDFAF /* 制作攻略 */,
 				271C41A11B468611007BF285 /* plane */,
 				271C41961B45607C007BF285 /* 登陆 */,
 				D91FED7E1B4285110073AD77 /* Poi详情 */,
@@ -3008,6 +3016,7 @@
 		C6F5D4761B2AB183009163E3 /* TripPlanDetail */ = {
 			isa = PBXGroup;
 			children = (
+				D9871DB61B47AC6800BFDFAF /* TripPoiListTableViewCell */,
 				C6D26C0C1B2C1C9D0019AFA8 /* ScheduleEditorViewController */,
 				C6261BAD1B2AFD7800DFADEF /* DayAgendaViewController */,
 				C6F5D4771B2AB183009163E3 /* PlanFavoritesViewController */,
@@ -3473,6 +3482,28 @@
 				D9722F281A82446900D8A8CC /* Loading_Animation_final9@2x.png */,
 			);
 			path = loading_animation;
+			sourceTree = "<group>";
+		};
+		D9871DAB1B479B8300BFDFAF /* 制作攻略 */ = {
+			isa = PBXGroup;
+			children = (
+				D9871DB01B479BD600BFDFAF /* plan_02_dashboard_drawer@3x.png */,
+				D9871DB11B479BD600BFDFAF /* plan_02_dashboard_map@3x.png */,
+				D9871DB21B479BD600BFDFAF /* plan_bottom_hotel@3x.png */,
+				D9871DAE1B479BC200BFDFAF /* plan_02_bg_day@3x.png */,
+				D9871DAC1B479B8C00BFDFAF /* plan_bottom_flower@3x.png */,
+			);
+			path = "制作攻略";
+			sourceTree = "<group>";
+		};
+		D9871DB61B47AC6800BFDFAF /* TripPoiListTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				D9A8000C1A80D52F005AD701 /* TripPoiListTableViewCell.h */,
+				D9A8000D1A80D52F005AD701 /* TripPoiListTableViewCell.m */,
+				D9A8000E1A80D52F005AD701 /* TripPoiListTableViewCell.xib */,
+			);
+			name = TripPoiListTableViewCell;
 			sourceTree = "<group>";
 		};
 		D993C1C51B12DF0C0088D568 /* IMSDK */ = {
@@ -3942,18 +3973,6 @@
 				D9A800081A80D52F005AD701 /* ShoppingListViewController.m */,
 			);
 			path = ShoppingList;
-			sourceTree = "<group>";
-		};
-		D9A800091A80D52F005AD701 /* SpotList */ = {
-			isa = PBXGroup;
-			children = (
-				D9A8000A1A80D52F005AD701 /* SpotsListViewController.h */,
-				D9A8000B1A80D52F005AD701 /* SpotsListViewController.m */,
-				D9A8000C1A80D52F005AD701 /* TripPoiListTableViewCell.h */,
-				D9A8000D1A80D52F005AD701 /* TripPoiListTableViewCell.m */,
-				D9A8000E1A80D52F005AD701 /* TripPoiListTableViewCell.xib */,
-			);
-			path = SpotList;
 			sourceTree = "<group>";
 		};
 		D9A800131A80D52F005AD701 /* TripListCommon */ = {
@@ -5597,14 +5616,13 @@
 		D9A8FFFA1A80D52F005AD701 /* TripListDetail */ = {
 			isa = PBXGroup;
 			children = (
+				D9A800131A80D52F005AD701 /* TripListCommon */,
 				D9A8FFFB1A80D52F005AD701 /* AddPoi */,
 				D9A8FFFE1A80D52F005AD701 /* DestinationsView.h */,
 				D9A8FFFF1A80D52F005AD701 /* DestinationsView.m */,
 				D9A800001A80D52F005AD701 /* RestaurantsList */,
 				D9A800031A80D52F005AD701 /* Share */,
 				D9A800061A80D52F005AD701 /* ShoppingList */,
-				D9A800091A80D52F005AD701 /* SpotList */,
-				D9A800131A80D52F005AD701 /* TripListCommon */,
 				D9A8000F1A80D52F005AD701 /* TripDetail.h */,
 				D9A800101A80D52F005AD701 /* TripDetail.m */,
 				D9A800111A80D52F005AD701 /* TripDetailRootViewController.h */,
@@ -5864,6 +5882,7 @@
 				D9A802371A80E036005AD701 /* read_me.txt in Resources */,
 				D9A805891A80E738005AD701 /* sns_icon_qq@2x.png in Resources */,
 				27FF1A7A1B059AFA00643D77 /* TripPlanSettingCell.xib in Resources */,
+				D9871DB41B479BD600BFDFAF /* plan_02_dashboard_map@3x.png in Resources */,
 				27F273D51B198F0F00AC1ABE /* Default@2x.png in Resources */,
 				271C41A01B463435007BF285 /* icon_little@3x.png in Resources */,
 				D9A804D61A80E738005AD701 /* ic_chatlist_normal@2x.png in Resources */,
@@ -6039,6 +6058,7 @@
 				C6682AD31B41343300100EBA /* chat_sender_audio_playing_001@3x.png in Resources */,
 				D9A802EA1A80E3D3005AD701 /* ic_filter_cancel@2x.png in Resources */,
 				D917DAD01A8B4A320039720A /* ic_guide3_talk1@2x.png in Resources */,
+				D9871DAD1B479B8C00BFDFAF /* plan_bottom_flower@3x.png in Resources */,
 				D91FED6B1B3E75740073AD77 /* SenderImageNodeBorder_black@2x.png in Resources */,
 				27329DD91B13172400F0A4FA /* person_disabled@2x.png in Resources */,
 				D9A805871A80E738005AD701 /* sns_icon_imessage@2x.png in Resources */,
@@ -6064,6 +6084,7 @@
 				27FF1AC51B0709C600643D77 /* chatbar_text_background@2x.png in Resources */,
 				27329DCF1B12F72C00F0A4FA /* ic_trip_mapview_ios@2x.png in Resources */,
 				D917DAD31A8B4A320039720A /* ic_guide3_talk3@2x.png in Resources */,
+				D9871DB51B479BD600BFDFAF /* plan_bottom_hotel@3x.png in Resources */,
 				D9722F291A82446900D8A8CC /* Loading_Animation_final1@2x.png in Resources */,
 				C64BB5871B326CA400D11D9D /* ic_home_avatar_unknown@3x.png in Resources */,
 				274DB40C1B3D20DA00E426DE /* messages_plus_picture_default@3x.png in Resources */,
@@ -6086,6 +6107,7 @@
 				C60C1B551A83562A00C83164 /* ic_new_plan@2x.png in Resources */,
 				D9A8FF161A80CC2B005AD701 /* ResetPasswordViewController.xib in Resources */,
 				D9A804A01A80E738005AD701 /* chat_location_detail_disclosure.png in Resources */,
+				D9871DAF1B479BC200BFDFAF /* plan_02_bg_day@3x.png in Resources */,
 				D9F46DBE1AC52D8600972AE8 /* SVWebViewControllerActivitySafari-iPad.png in Resources */,
 				C68CBDBC1B303C8300D95F50 /* ic_home_level_bg_unknown@3x.png in Resources */,
 				C6631D061B300C4E00BE4ADC /* ic_avatar_lxp_search@3x.png in Resources */,
@@ -6154,6 +6176,7 @@
 				D9A804E31A80E738005AD701 /* ic_gray_complete@2x.png in Resources */,
 				D9A805361A80E738005AD701 /* ic_city_shopping@2x.png in Resources */,
 				C6528F0B1B4178A7008889EF /* speaking-motion8@3x.png in Resources */,
+				D9871DB31B479BD600BFDFAF /* plan_02_dashboard_drawer@3x.png in Resources */,
 				27FD63B01B3A9D2C00BC8170 /* messages_bg_friend@3x.png in Resources */,
 				D917DA9B1A8B1D3D0039720A /* ic_star_gray_small@2x.png in Resources */,
 				27FF1AFD1B0B139300643D77 /* ic_xingchengdan_queding@2x.png in Resources */,
@@ -6746,7 +6769,6 @@
 				D9A802B61A80E3D3005AD701 /* UIImage+BoxBlur.m in Sources */,
 				C6C5C3C91ADE65570047C058 /* AutoSlideScrollView.m in Sources */,
 				D993C23D1B12DF0C0088D568 /* amrFileCodec.mm in Sources */,
-				D9A800321A80D52F005AD701 /* SpotsListViewController.m in Sources */,
 				D920A4131B15A40E00AD81B7 /* IMDiscussionGroupManager+GroupInfo.swift in Sources */,
 				D9A8FED01A80C818005AD701 /* MineTableViewController.m in Sources */,
 				D92CA1361AD8BEB400F244FF /* MWTapDetectingImageView.m in Sources */,

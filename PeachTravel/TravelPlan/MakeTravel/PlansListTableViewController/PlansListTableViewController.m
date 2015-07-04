@@ -282,7 +282,11 @@ static NSString *reusableCell = @"myGuidesCell";
     CGPoint point = [sender convertPoint:CGPointZero toView:self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
     MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:indexPath.section];
-    [self mark:guideSummary as:@"traveled"];
+    if ([guideSummary.status isEqualToString:@"traveled"]) {
+        [self mark:guideSummary as:@"planned"];
+    } else {
+        [self mark:guideSummary as:@"traveled"];
+    }
 }
 #pragma mark - Private Methods
 
@@ -824,6 +828,19 @@ static NSString *reusableCell = @"myGuidesCell";
             //            } else {
             //                [self hintPlanStatusChanged:[NSString stringWithFormat:@"\"%@\"已保存为去过，成为了你的旅历足迹", guideSummary.title]];
             //            }
+            if ([guideSummary.status isEqualToString:@"traveled"]) {
+                NSInteger index = [self.dataSource indexOfObject:guideSummary];
+                MyGuideSummary *guide = self.dataSource [index];
+                guide.status = @"planned";
+            } else {
+                NSInteger index = [self.dataSource indexOfObject:guideSummary];
+                MyGuideSummary *guide = self.dataSource [index];
+                guide.status = @"traveled";
+            
+            }
+            
+            
+            [self.tableView reloadData];
         } else {
             [self showHint:@"请求也是失败了"];
         }

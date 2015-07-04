@@ -33,8 +33,6 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    self.navigationItem.title = @"日程详情";
     
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -44,19 +42,37 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
     [_tableView registerNib:[UINib nibWithNibName:@"TripPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:tripPoiListReusableIdentifier];
     [self.view addSubview:_tableView];
     
-    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 44, CGRectGetWidth(self.view.bounds), 44)];
+    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 44)];
     btn.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     [btn setTitle:@"编辑" forState:UIControlStateNormal];
-    [btn setBackgroundColor:COLOR_ENTER];
+    btn.titleLabel.font = [UIFont systemFontOfSize:16.0];
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(editSchedule) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btn];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     [super viewWillAppear:animated];
+}
+
+- (void)setTitleStr:(NSString *)titleStr {
+    _titleStr = titleStr;
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width-150, 40)];
+    titleLabel.numberOfLines = 2.0;
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.textColor = [UIColor whiteColor];
+    NSString *dayStr = [NSString stringWithFormat:@"第%d天", _currentDay+1];
+    NSString *totalStr = [NSString stringWithFormat:@"第%d天\n%@", _currentDay+1, _titleStr];
+    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString: totalStr];
+    
+    [attrStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:16] range:NSMakeRange(0, dayStr.length)];
+    [attrStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:11] range:NSMakeRange(dayStr.length+1, totalStr.length-dayStr.length-1)];
+    
+    titleLabel.attributedText = attrStr;
+    self.navigationItem.titleView = titleLabel;
+
 }
 
 
