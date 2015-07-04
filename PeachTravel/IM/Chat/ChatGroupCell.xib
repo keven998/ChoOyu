@@ -16,50 +16,41 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qNE-SF-THI">
-                        <rect key="frame" x="35" y="15" width="31" height="31"/>
+                        <rect key="frame" x="23" y="55" width="40" height="40"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="31" id="Ogn-ui-xNY"/>
-                            <constraint firstAttribute="width" constant="31" id="QeD-Kj-D3y"/>
+                            <constraint firstAttribute="width" constant="40" id="SuL-pj-y5m"/>
+                            <constraint firstAttribute="height" constant="40" id="t83-rG-tOx"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vxM-B4-sYl">
-                        <rect key="frame" x="73" y="25" width="126" height="21"/>
+                        <rect key="frame" x="80" y="64" width="126" height="21"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="21" id="Sye-aD-lIV"/>
-                            <constraint firstAttribute="width" constant="126" id="xA6-pw-YSs"/>
+                            <constraint firstAttribute="height" constant="21" id="CKP-f3-VXh"/>
+                            <constraint firstAttribute="width" constant="126" id="jma-n9-e7T"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lQQ-Eo-Tjd">
-                        <rect key="frame" x="220" y="25" width="82" height="21"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="21" id="RME-cV-KiM"/>
-                            <constraint firstAttribute="width" constant="82" id="aVK-70-20y"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZBr-Qo-uN9">
-                        <rect key="frame" x="35" y="48" width="999" height="1"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                    </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="qNE-SF-THI" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="4CV-aT-GHM"/>
-                    <constraint firstItem="lQQ-Eo-Tjd" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="17" id="9AN-SP-WfB"/>
-                    <constraint firstItem="vxM-B4-sYl" firstAttribute="leading" secondItem="qNE-SF-THI" secondAttribute="trailing" constant="7" id="C9Q-Kv-7Mq"/>
-                    <constraint firstItem="vxM-B4-sYl" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="17" id="UOW-Rz-c5I"/>
-                    <constraint firstItem="qNE-SF-THI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="35" id="uaw-5N-4Hy"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="lQQ-Eo-Tjd" secondAttribute="trailing" constant="10" id="yMm-Fc-H6l"/>
+                    <constraint firstItem="qNE-SF-THI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="20" id="Vfc-zk-Jwg"/>
+                    <constraint firstAttribute="centerY" secondItem="vxM-B4-sYl" secondAttribute="centerY" id="YOI-Kc-TML"/>
+                    <constraint firstItem="vxM-B4-sYl" firstAttribute="leading" secondItem="qNE-SF-THI" secondAttribute="trailing" constant="17" id="YrC-gf-Hfc"/>
+                    <constraint firstAttribute="centerY" secondItem="qNE-SF-THI" secondAttribute="centerY" id="bpB-vV-XM1"/>
+                    <constraint firstItem="qNE-SF-THI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="15" id="hdo-DY-slR"/>
+                    <constraint firstItem="qNE-SF-THI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="uaw-5N-4Hy"/>
                 </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="Vfc-zk-Jwg"/>
+                        <exclude reference="uaw-5N-4Hy"/>
+                    </mask>
+                </variation>
             </tableViewCellContentView>
             <connections>
                 <outlet property="headerImage" destination="qNE-SF-THI" id="lGc-0v-NO3"/>
                 <outlet property="nameLabel" destination="vxM-B4-sYl" id="tiE-ZS-ziQ"/>
-                <outlet property="ownerLabel" destination="lQQ-Eo-Tjd" id="ICr-nu-LYC"/>
             </connections>
             <point key="canvasLocation" x="337" y="313"/>
         </tableViewCell>
