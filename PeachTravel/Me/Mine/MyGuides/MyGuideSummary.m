@@ -25,6 +25,7 @@
         }
         _images = imagesArray;
         _dayCount = [[json objectForKey:@"dayCnt"] integerValue];
+        _status = [json objectForKey:@"status"];
     }
     return self;
 }
@@ -39,6 +40,7 @@
         _updateTimeStr = [aDecoder decodeObjectForKey:@"updateTimeStr"];
         _images = [aDecoder decodeObjectForKey:@"images"];
         _dayCount = [aDecoder decodeIntForKey:@"dayCnt"];
+        _status = [aDecoder decodeObjectForKey:@"status"];
     }
     return self;
 }
@@ -50,6 +52,7 @@
     [aCoder encodeObject:_summary forKey:@"summary"];
     [aCoder encodeObject:_updateTimeStr forKey:@"updateTimeStr"];
     [aCoder encodeObject:_images forKey:@"images"];
+    [aCoder encodeObject:_status forKey:@"status"];
     [aCoder encodeInteger:_dayCount forKey:@"dayCnt"];
 }
 

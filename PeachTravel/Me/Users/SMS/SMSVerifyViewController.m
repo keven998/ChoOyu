@@ -7,6 +7,7 @@
 //
 
 #import "SMSVerifyViewController.h"
+#import "UserInfoTableViewController.h"
 #import "AccountManager.h"
 
 @interface SMSVerifyViewController () {

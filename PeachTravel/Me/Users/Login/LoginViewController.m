@@ -120,6 +120,7 @@
     pl.textAlignment = NSTextAlignmentCenter;
     _passwordTextField.leftView = pl;
     _passwordTextField.leftViewMode = UITextFieldViewModeAlways;
+    _passwordTextField.secureTextEntry = YES;
     _passwordTextField.delegate = self;
     [_textFieldBg addSubview:_passwordTextField];
     
