@@ -57,6 +57,7 @@
         _tableView.delegate = self;
         _tableView.backgroundColor = APP_PAGE_COLOR;
         _tableView.separatorColor = COLOR_LINE;
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _tableView.tableHeaderView = self.spotDetailView;
         [self.tableView registerNib:[UINib nibWithNibName:@"SpotDetailCell" bundle:nil] forCellReuseIdentifier:@"detailCell"];
@@ -92,18 +93,34 @@
             cell.categoryLabel.text = @"地址";
             cell.infomationLabel.text = self.poi.address;
             cell.image.image = [UIImage imageNamed:@"poi_icon_add"];
+            UIView *divide = [[UIView alloc]initWithFrame:CGRectMake(18, 66 * SCREEN_HEIGHT / 736, SCREEN_WIDTH, 1)];
+            divide.backgroundColor = APP_DIVIDER_COLOR;
+            [cell addSubview:divide];
+
         } else if (indexPath.row == 1) {
             cell.categoryLabel.text = @"时间";
             cell.infomationLabel.text = self.poi.openTime;
             cell.image.image = [UIImage imageNamed:@"icon_arrow"];
+            UIView *divide = [[UIView alloc]initWithFrame:CGRectMake(18, 66 * SCREEN_HEIGHT / 736, SCREEN_WIDTH, 1)];
+            divide.backgroundColor = APP_DIVIDER_COLOR;
+            [cell addSubview:divide];
+
         } else if(indexPath.row == 2) {
             cell.categoryLabel.text = @"费用";
             cell.infomationLabel.text = self.poi.priceDesc;
             cell.image.image = [UIImage imageNamed:@"poi_icon_ticket_default"];
+            UIView *divide = [[UIView alloc]initWithFrame:CGRectMake(18, 66 * SCREEN_HEIGHT / 736, SCREEN_WIDTH, 1)];
+            divide.backgroundColor = APP_DIVIDER_COLOR;
+            [cell addSubview:divide];
+
         }  else {
             cell.categoryLabel.text = @"电话";
             cell.infomationLabel.text = ((SpotPoi *)self.poi).telephone;
             cell.image.image = [UIImage imageNamed:@"poi_icon_phone"];
+            UIView *divide = [[UIView alloc]initWithFrame:CGRectMake(18, 66 * SCREEN_HEIGHT / 736, SCREEN_WIDTH, 1)];
+            divide.backgroundColor = APP_DIVIDER_COLOR;
+            [cell addSubview:divide];
+
         }
         return cell;
         
