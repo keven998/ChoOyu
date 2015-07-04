@@ -26,14 +26,17 @@ typedef void(^loginCompletion)(BOOL completed);
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.view.backgroundColor = APP_PAGE_COLOR;
+    
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backBtn.frame = CGRectMake(13, 34, 15, 15);
+    backBtn.frame = CGRectMake(0, 0, 64, 64);
     [backBtn setImage:[UIImage imageNamed:@"login_back_defaut"] forState:UIControlStateNormal];
     [backBtn setImage:[UIImage imageNamed:@"common_icon_navigaiton_back_highlight"] forState:UIControlStateHighlighted];
-    [self.view addSubview:backBtn];
     [backBtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
+    backBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
+    backBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [backBtn setImageEdgeInsets:UIEdgeInsetsMake(34, 14, 0, 0)];
+    [self.view addSubview:backBtn];
     
     [self createUI];
 }
@@ -51,7 +54,7 @@ typedef void(^loginCompletion)(BOOL completed);
     [self.view addSubview:iconImage];
     
     
-    UIView *textFieldBg = [[UIView alloc]initWithFrame:CGRectMake(13, 720/3 * SCREEN_HEIGHT/736, SCREEN_WIDTH - 26, 121 * SCREEN_HEIGHT/736)];
+    UIView *textFieldBg = [[UIView alloc]initWithFrame:CGRectMake(13, CGRectGetMaxY(iconImage.frame) + 40, SCREEN_WIDTH - 26, 121 * SCREEN_HEIGHT/736)];
     textFieldBg.layer.borderColor = APP_THEME_COLOR.CGColor;
     textFieldBg.layer.borderWidth = 1;
     textFieldBg.layer.cornerRadius = 5;
