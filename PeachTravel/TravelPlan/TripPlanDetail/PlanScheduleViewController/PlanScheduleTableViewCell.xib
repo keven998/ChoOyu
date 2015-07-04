@@ -17,10 +17,12 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="219" translatesAutoresizingMaskIntoConstraints="NO" id="dRo-8X-87Z">
                         <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="27.5" id="c7n-Ip-Vt3"/>
+                            <constraint firstAttribute="height" constant="27.5" id="c7n-Ip-Vt3">
+                                <variation key="widthClass=compact" constant="19"/>
+                            </constraint>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <color key="textColor" red="0.58823529411764708" green="0.58823529411764708" blue="0.58823529411764708" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                         <variation key="default">
                             <mask key="constraints">
@@ -33,7 +35,7 @@
                             </mask>
                         </variation>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Q9G-KQ-zhd">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plan_02_bg_day@3x.png" translatesAutoresizingMaskIntoConstraints="NO" id="Q9G-KQ-zhd">
                         <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="40" id="BsN-eO-QLh"/>
@@ -57,8 +59,8 @@
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="E4C-fW-0fB"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                        <color key="textColor" red="0.39215686274509803" green="0.39215686274509803" blue="0.39215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                         <variation key="default">
                             <mask key="constraints">
@@ -77,7 +79,7 @@
                             <constraint firstAttribute="height" constant="40" id="4wl-k3-Dgt"/>
                             <constraint firstAttribute="width" constant="40" id="gJV-9X-5X6"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                         <variation key="default">
@@ -95,14 +97,18 @@
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="dRo-8X-87Z" secondAttribute="bottom" constant="8" id="36S-u4-srk"/>
+                    <constraint firstAttribute="bottom" secondItem="dRo-8X-87Z" secondAttribute="bottom" constant="8" id="36S-u4-srk">
+                        <variation key="widthClass=compact" constant="8"/>
+                    </constraint>
                     <constraint firstItem="dRo-8X-87Z" firstAttribute="leading" secondItem="Q9G-KQ-zhd" secondAttribute="trailing" constant="8" id="7Cg-9o-wj1"/>
                     <constraint firstItem="Hgg-FZ-U4J" firstAttribute="leading" secondItem="Q9G-KQ-zhd" secondAttribute="trailing" constant="8" id="Frv-sR-hK3"/>
                     <constraint firstAttribute="trailing" secondItem="Hgg-FZ-U4J" secondAttribute="trailing" id="RsN-Af-lHS">
                         <variation key="widthClass=compact" constant="8"/>
                     </constraint>
                     <constraint firstItem="itI-Ae-LOM" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="13" id="YEL-ib-M1b"/>
-                    <constraint firstItem="itI-Ae-LOM" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="18" id="YwP-DO-Lq5"/>
+                    <constraint firstItem="itI-Ae-LOM" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="18" id="YwP-DO-Lq5">
+                        <variation key="widthClass=compact" constant="16"/>
+                    </constraint>
                     <constraint firstAttribute="trailing" secondItem="dRo-8X-87Z" secondAttribute="trailing" constant="8" id="glr-Pr-xKC"/>
                     <constraint firstItem="Hgg-FZ-U4J" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="13" id="i5S-Df-Iqq"/>
                     <constraint firstItem="Q9G-KQ-zhd" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="13" id="lx3-Pg-7zf"/>
@@ -116,16 +122,16 @@
                         <exclude reference="itI-Ae-LOM"/>
                     </mask>
                     <mask key="constraints">
-                        <exclude reference="lx3-Pg-7zf"/>
-                        <exclude reference="tX1-Jq-JOr"/>
-                        <exclude reference="YEL-ib-M1b"/>
-                        <exclude reference="YwP-DO-Lq5"/>
                         <exclude reference="Frv-sR-hK3"/>
                         <exclude reference="RsN-Af-lHS"/>
                         <exclude reference="i5S-Df-Iqq"/>
                         <exclude reference="36S-u4-srk"/>
                         <exclude reference="7Cg-9o-wj1"/>
                         <exclude reference="glr-Pr-xKC"/>
+                        <exclude reference="YEL-ib-M1b"/>
+                        <exclude reference="YwP-DO-Lq5"/>
+                        <exclude reference="lx3-Pg-7zf"/>
+                        <exclude reference="tX1-Jq-JOr"/>
                     </mask>
                 </variation>
                 <variation key="widthClass=compact">
@@ -136,16 +142,16 @@
                         <include reference="itI-Ae-LOM"/>
                     </mask>
                     <mask key="constraints">
-                        <include reference="lx3-Pg-7zf"/>
-                        <include reference="tX1-Jq-JOr"/>
-                        <include reference="YEL-ib-M1b"/>
-                        <include reference="YwP-DO-Lq5"/>
                         <include reference="Frv-sR-hK3"/>
                         <include reference="RsN-Af-lHS"/>
                         <include reference="i5S-Df-Iqq"/>
                         <include reference="36S-u4-srk"/>
                         <include reference="7Cg-9o-wj1"/>
                         <include reference="glr-Pr-xKC"/>
+                        <include reference="YEL-ib-M1b"/>
+                        <include reference="YwP-DO-Lq5"/>
+                        <include reference="lx3-Pg-7zf"/>
+                        <include reference="tX1-Jq-JOr"/>
                     </mask>
                 </variation>
             </tableViewCellContentView>
@@ -155,7 +161,10 @@
                 <outlet property="headerImageView" destination="Q9G-KQ-zhd" id="S0Q-tw-kXh"/>
                 <outlet property="titleLabel" destination="Hgg-FZ-U4J" id="8oX-bs-ukm"/>
             </connections>
-            <point key="canvasLocation" x="-567" y="74"/>
+            <point key="canvasLocation" x="-640" y="65"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="plan_02_bg_day@3x.png" width="132" height="132"/>
+    </resources>
 </document>

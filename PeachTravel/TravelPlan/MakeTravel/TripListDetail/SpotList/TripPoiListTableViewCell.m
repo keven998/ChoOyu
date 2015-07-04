@@ -35,7 +35,7 @@
         rankStr = [NSString stringWithFormat:@"%d", _tripPoi.rank];
 
     } else {
-        rankStr = @">500";
+        rankStr = @"大于500";
     }
     
     if (_tripPoi.poiType == kSpotPoi) {
@@ -43,13 +43,17 @@
             
         }else{
             NSString *timeStr = [NSString stringWithFormat:@"建议游玩%@", ((SpotPoi *)tripPoi).timeCostStr];
-            property = [NSString stringWithFormat:@"%@ %@", rankStr, timeStr];
+            property = [NSString stringWithFormat:@"%@  %@", rankStr, timeStr];
         }
         
     } else {
         
     }
-    [_propertyBtn setTitle:property forState:UIControlStateNormal];
+    [_propertyBtn setImage:[UIImage imageNamed:@"plan_bottom_flower.png"] forState:UIControlStateNormal];
+    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:property];
+
+    [string addAttributes:@{NSForegroundColorAttributeName : COLOR_TEXT_III} range:NSMakeRange(rankStr.length+1, property.length-rankStr.length-1)];
+    [_propertyBtn setAttributedTitle:string forState:UIControlStateNormal];
 }
 
 @end

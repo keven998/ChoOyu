@@ -203,7 +203,7 @@
                 <outlet property="titleLabel" destination="c1R-gu-Mnw" id="VyG-nd-Aas"/>
                 <outlet property="valueLabel" destination="MIo-wF-Ql7" id="RT8-nT-63r"/>
             </connections>
-            <point key="canvasLocation" x="-807" y="59"/>
+            <point key="canvasLocation" x="-840" y="154.5"/>
         </tableViewCell>
     </objects>
 </document>
