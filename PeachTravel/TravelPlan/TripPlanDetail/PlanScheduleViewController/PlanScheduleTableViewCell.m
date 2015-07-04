@@ -11,8 +11,7 @@
 @implementation PlanScheduleTableViewCell
 
 - (void)awakeFromNib {
-    _headerImageView.backgroundColor = APP_THEME_COLOR;
-    _headerImageView.layer.cornerRadius = 3.0;
+    _headerImageView.clipsToBounds = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

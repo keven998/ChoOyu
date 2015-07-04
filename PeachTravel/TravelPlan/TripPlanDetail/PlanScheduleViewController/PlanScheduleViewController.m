@@ -111,8 +111,33 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSArray *ds = _tripDetail.itineraryList[indexPath.row];
+    NSMutableString *title = [[NSMutableString alloc] init];
+    NSMutableArray *titleArray = [[NSMutableArray alloc] init];
+    NSInteger count = [ds count];
+    for (int i = 0; i < count; ++i) {
+        SuperPoi *sp = [ds objectAtIndex:i];
+        if (i == 0) {
+            [titleArray addObject:sp.locality.zhName];
+            [title appendString:sp.locality.zhName];
+        } else {
+            BOOL find = NO;
+            for (NSString *str in titleArray) {
+                if ([str isEqualToString:sp.locality.zhName]) {
+                    find = YES;
+                    break;
+                }
+            }
+            if (!find && sp.locality && sp.locality.zhName) {
+                [title appendString:[NSString stringWithFormat:@" > %@", sp.locality.zhName]];
+                [titleArray addObject:sp.locality.zhName];
+            }
+        }
+    }
+
     DayAgendaViewController *davc = [[DayAgendaViewController alloc] initWithDay:indexPath.row];
     davc.tripDetail = _tripDetail;
+    davc.titleStr = title;
     [self.navigationController pushViewController:davc animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
