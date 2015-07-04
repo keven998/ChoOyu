@@ -46,7 +46,20 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 66;
+    NSArray *ds = _tripDetail.itineraryList[indexPath.row];
+    NSMutableString *dstr = [[NSMutableString alloc] init];
+    NSInteger count = [ds count];
+    for (int i = 0; i < count; ++i) {
+        SuperPoi *sp = [ds objectAtIndex:i];
+        if (i == 0) {
+            [dstr appendString:[NSString stringWithFormat:@"%@", sp.zhName]];
+        } else {
+            [dstr appendString:[NSString stringWithFormat:@" > %@", sp.zhName]];
+            [dstr appendString:[NSString stringWithFormat:@" > %@", sp.zhName]];
+
+        }
+    }
+    return [PlanScheduleTableViewCell heightOfCellWithContent:dstr];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -96,19 +109,13 @@
                 [titleArray addObject:sp.locality.zhName];
             }
             [dstr appendString:[NSString stringWithFormat:@" > %@", sp.zhName]];
+            [dstr appendString:[NSString stringWithFormat:@" > %@", sp.zhName]];
+
         }
     }
     
-    NSMutableParagraphStyle *ps = [[NSMutableParagraphStyle alloc] init];
-    ps.lineSpacing = 8.0;
-    NSDictionary *attribs = @{NSFontAttributeName: [UIFont systemFontOfSize:15], NSParagraphStyleAttributeName:ps};
-    NSAttributedString *attrstr = [[NSAttributedString alloc] initWithString:dstr attributes:attribs];
-    cell.dayScheduleSummary.attributedText = attrstr;
+    cell.content = dstr;
     cell.titleLabel.text = title;
-    CGRect frame = cell.dayScheduleSummary.frame;
-    CGRect rect = [attrstr boundingRectWithSize:(CGSize){CGRectGetWidth(frame), CGFLOAT_MAX} options:NSStringDrawingUsesLineFragmentOrigin context:nil];
-    frame.size.height = ceilf(rect.size.height) + 1;
-    cell.dayScheduleSummary.frame = frame;
     cell.dayLabel.text = [NSString stringWithFormat:@"0%ld.\nDay", indexPath.row+1];
 
     return cell;

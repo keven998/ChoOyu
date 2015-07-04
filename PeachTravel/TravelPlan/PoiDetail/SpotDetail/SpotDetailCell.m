@@ -12,11 +12,10 @@
 
 - (void)awakeFromNib {
     // Initialization code
-    self.categoryLabel.font = [UIFont systemFontOfSize:14];
-    self.categoryLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
-    self.infomationLabel.font = [UIFont systemFontOfSize:18*SCREEN_HEIGHT/736];
-    self.infomationLabel.textColor = TEXT_COLOR_TITLE;
-//    self.image.contentMode = UIViewContentModeScaleAspectFill;
+    self.categoryLabel.font = [UIFont systemFontOfSize:13];
+    self.categoryLabel.textColor = COLOR_TEXT_III;
+    self.infomationLabel.font = [UIFont systemFontOfSize:16];
+    self.infomationLabel.textColor = COLOR_TEXT_I;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

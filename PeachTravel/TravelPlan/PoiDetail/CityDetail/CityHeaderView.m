@@ -79,29 +79,34 @@
     _cityDesc.textColor = COLOR_TEXT_I;
     _cityDesc.numberOfLines = 2;
     _cityDesc.userInteractionEnabled = YES;
-    NSString *string = _cityPoi.desc;
-    CGRect minRect = [string boundingRectWithSize:CGSizeMake(width-36, 18)
+    NSString *descStr = _cityPoi.desc;
+    CGRect minRect = [descStr boundingRectWithSize:CGSizeMake(width-36, 18)
                                        options:NSStringDrawingUsesLineFragmentOrigin
                                     attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:13]}
                                        context:nil];
-    CGRect maxRect = [string boundingRectWithSize:CGSizeMake(width-36, CGFLOAT_MAX)
+    CGRect maxRect = [descStr boundingRectWithSize:CGSizeMake(width-36, CGFLOAT_MAX)
                                               options:NSStringDrawingUsesLineFragmentOrigin
                                            attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:13]}
                                               context:nil];
     NSInteger totalLine = ceilf(maxRect.size.height / minRect.size.height);
-    NSInteger ccount = string.length;
+    NSInteger ccount = descStr.length;
     NSInteger count = ccount * 2/totalLine;
-    NSString *truncateStr = [string substringWithRange:NSMakeRange(0, count - 3)];
+    if (count < ccount) {
+        NSString *truncateStr = [descStr substringWithRange:NSMakeRange(0, count - 3)];
+        
+        NSMutableParagraphStyle *ps = [[NSMutableParagraphStyle alloc] init];
+        ps.lineSpacing = 4.0;
+        NSDictionary *attribs = @{NSFontAttributeName: [UIFont systemFontOfSize:13], NSParagraphStyleAttributeName:ps};
+        truncateStr = [NSString stringWithFormat:@"%@... ", truncateStr];
+        NSMutableAttributedString *attrstr = [[NSMutableAttributedString alloc] initWithString:truncateStr attributes:attribs];
+        NSAttributedString *more1 = [[NSAttributedString alloc] initWithString:@"全文" attributes:@{NSForegroundColorAttributeName : APP_THEME_COLOR_HIGHLIGHT, NSFontAttributeName: [UIFont systemFontOfSize:13]}];
+        [attrstr appendAttributedString:more1];
+        _cityDesc.attributedText = attrstr;
+        [self addSubview:_cityDesc];
+    } else {
+        _cityDesc.text = descStr;
+    }
     
-    NSMutableParagraphStyle *ps = [[NSMutableParagraphStyle alloc] init];
-    ps.lineSpacing = 4.0;
-    NSDictionary *attribs = @{NSFontAttributeName: [UIFont systemFontOfSize:13], NSParagraphStyleAttributeName:ps};
-    truncateStr = [NSString stringWithFormat:@"%@... ", truncateStr];
-    NSMutableAttributedString *attrstr = [[NSMutableAttributedString alloc] initWithString:truncateStr attributes:attribs];
-    NSAttributedString *more1 = [[NSAttributedString alloc] initWithString:@"全文" attributes:@{NSForegroundColorAttributeName : APP_THEME_COLOR_HIGHLIGHT, NSFontAttributeName: [UIFont systemFontOfSize:13]}];
-    [attrstr appendAttributedString:more1];
-    _cityDesc.attributedText = attrstr;
-    [self addSubview:_cityDesc];
     
     oy += 56;
     

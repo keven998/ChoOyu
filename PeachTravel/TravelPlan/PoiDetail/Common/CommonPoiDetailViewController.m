@@ -7,7 +7,6 @@
 //
 
 #import "CommonPoiDetailViewController.h"
-#import "CommonPoiDetailView.h"
 #import "AccountManager.h"
 #import "UIImage+BoxBlur.h"
 #import "SpotDetailView.h"
@@ -24,8 +23,6 @@
 @property (nonatomic, strong) SpotDetailView *spotDetailView;
 @property (nonatomic, strong) UIImageView *backGroundImageView;
 @property (nonatomic, strong) UITableView *tableView;
-
-
 @end
 
 @implementation CommonPoiDetailViewController
@@ -34,9 +31,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
+    
     UIButton *talkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 44)];
     [talkBtn setImage:[UIImage imageNamed:@"ic_home_normal"] forState:UIControlStateNormal];
     [talkBtn addTarget:self action:@selector(shareToTalk) forControlEvents:UIControlEventTouchUpInside];
+    talkBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:talkBtn];
 }
 
@@ -57,7 +56,7 @@
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.backgroundColor = APP_PAGE_COLOR;
-        _tableView.separatorColor = APP_DIVIDER_COLOR;
+        _tableView.separatorColor = COLOR_LINE;
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _tableView.tableHeaderView = self.spotDetailView;
         [self.tableView registerNib:[UINib nibWithNibName:@"SpotDetailCell" bundle:nil] forCellReuseIdentifier:@"detailCell"];
@@ -88,26 +87,23 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row < 4) {
         SpotDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"detailCell" forIndexPath:indexPath];
+        cell.accessoryType = UITableViewCellAccessoryNone;
         if (indexPath.row == 0) {
             cell.categoryLabel.text = @"地址";
             cell.infomationLabel.text = self.poi.address;
             cell.image.image = [UIImage imageNamed:@"poi_icon_add"];
-            cell.accessoryType = UITableViewCellAccessoryNone;
         } else if (indexPath.row == 1) {
-            cell.categoryLabel.text = @"电话";
-            cell.infomationLabel.text = ((SpotPoi *)self.poi).telephone;
-            cell.image.image = [UIImage imageNamed:@"poi_icon_phone"];
-            cell.accessoryType = UITableViewCellAccessoryNone;
-        } else if (indexPath.row == 2) {
             cell.categoryLabel.text = @"时间";
             cell.infomationLabel.text = self.poi.openTime;
             cell.image.image = [UIImage imageNamed:@"icon_arrow"];
-            //            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        } else {
-            cell.categoryLabel.text = @"票价";
+        } else if(indexPath.row == 2) {
+            cell.categoryLabel.text = @"费用";
             cell.infomationLabel.text = self.poi.priceDesc;
             cell.image.image = [UIImage imageNamed:@"poi_icon_ticket_default"];
-            cell.accessoryType = UITableViewCellAccessoryNone;
+        }  else {
+            cell.categoryLabel.text = @"电话";
+            cell.infomationLabel.text = ((SpotPoi *)self.poi).telephone;
+            cell.image.image = [UIImage imageNamed:@"poi_icon_phone"];
         }
         return cell;
         
@@ -122,7 +118,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-
+    
     if (indexPath.row < 4) {
         if (indexPath.row == 0) {
             [self jumpToMap];
@@ -138,10 +134,10 @@
 
 - (void)updateView
 {
+    self.navigationItem.title = self.poi.zhName;
     [self.view addSubview:self.tableView];
-    _spotDetailView = [[SpotDetailView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 410 + 342/3 +14* SCREEN_HEIGHT / 736)];
+    _spotDetailView = [[SpotDetailView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 0)];
     _spotDetailView.spot = self.poi;
-    _spotDetailView.layer.cornerRadius = 4.0;
     self.tableView.tableHeaderView = _spotDetailView;
 }
 
@@ -176,7 +172,7 @@
     webCtl.urlStr = self.poi.descUrl;
     webCtl.hideToolBar = YES;
     [self.navigationController pushViewController:webCtl animated:YES];
-
+    
 }
 
 - (UIImage *)screenShotWithView:(UIView *)view
@@ -221,7 +217,6 @@
         [hud hideTZHUD];
         [self dismissCtlWithHint:@"呃～好像没找到网络"];
     }];
-    
 }
 
 
@@ -247,8 +242,8 @@
         taoziMessageCtl.chatType = IMMessageTypeShoppingMessageType;
         taoziMessageCtl.messageRating = self.poi.rating;
         self.title = @"购物详情";
-    } 
-
+    }
+    
     taoziMessageCtl.messageAddress = self.poi.address;
 }
 
