@@ -26,8 +26,8 @@ typedef void(^loginCompletion)(BOOL completed);
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    self.view.backgroundColor = [UIColor whiteColor];
+    
+    self.view.backgroundColor = APP_PAGE_COLOR;
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     backBtn.frame = CGRectMake(13, 34, 15, 15);
     [backBtn setImage:[UIImage imageNamed:@"login_back_defaut"] forState:UIControlStateNormal];
@@ -36,6 +36,12 @@ typedef void(^loginCompletion)(BOOL completed);
     [backBtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
     
     [self createUI];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
 }
 
 - (void)createUI
@@ -55,9 +61,9 @@ typedef void(^loginCompletion)(BOOL completed);
     devide.backgroundColor = APP_THEME_COLOR;
     [textFieldBg addSubview:devide];
     
-//    UIView *devide2 = [[UIView alloc]initWithFrame:CGRectMake(772/3 *SCREEN_WIDTH/414, 60 *SCREEN_HEIGHT / 736, 1, 60 * SCREEN_HEIGHT/736)];
-//    devide2.backgroundColor = APP_THEME_COLOR;
-//    [textFieldBg addSubview:devide2];
+    //    UIView *devide2 = [[UIView alloc]initWithFrame:CGRectMake(772/3 *SCREEN_WIDTH/414, 60 *SCREEN_HEIGHT / 736, 1, 60 * SCREEN_HEIGHT/736)];
+    //    devide2.backgroundColor = APP_THEME_COLOR;
+    //    [textFieldBg addSubview:devide2];
     
     
     _phoneLabel = [[UITextField alloc]initWithFrame:CGRectMake(10, 0, SCREEN_WIDTH - 50, 60 * SCREEN_HEIGHT / 736)];
@@ -95,21 +101,22 @@ typedef void(^loginCompletion)(BOOL completed);
     [_registerBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
     [self.view addSubview:_registerBtn];
     [_registerBtn addTarget:self action:@selector(confirmRegister:) forControlEvents:UIControlEventTouchUpInside];
-
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_register"];
-    self.navigationController.navigationBarHidden = YES;
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"page_register"];
-    self.navigationController.navigationBarHidden = NO;
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
 }
 
 - (void)goBack {
@@ -173,7 +180,7 @@ typedef void(^loginCompletion)(BOOL completed);
     if (![pred evaluateWithObject:_passwordLabel.text]) {
         return PasswordError;
     }
-
+    
     return NoError;
 }
 
@@ -191,10 +198,10 @@ typedef void(^loginCompletion)(BOOL completed);
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:_phoneLabel.text forKey:@"tel"];
     [params setObject:kUserRegister forKey:@"actionCode"];
-     __weak typeof(RegisterViewController *)weakSelf = self;
+    __weak typeof(RegisterViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf];
-
+    
     //获取注册码
     [manager POST:API_GET_CAPTCHA parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [hud hideTZHUD];

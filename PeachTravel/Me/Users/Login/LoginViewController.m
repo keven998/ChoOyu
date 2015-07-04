@@ -163,7 +163,7 @@
         _wechatLabel.hidden = NO;
     }
     
-    self.navigationController.navigationBarHidden = YES;
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -171,7 +171,7 @@
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"page_login"];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:weixinDidLoginNoti object:nil];
-    self.navigationController.navigationBarHidden = NO;
+[self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 - (void)dealloc
