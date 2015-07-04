@@ -20,14 +20,13 @@
 
 @property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong) UIView *detailView;
-@property (nonatomic, strong) UIView *backgroundView;
 @property (nonatomic, strong) EDStarRating *ratingView;
 @property (nonatomic, strong) UIButton *travelMonthBtn;
 @property (nonatomic, strong) UIButton *openTimeBtn;
 @property (nonatomic, strong) UIButton *timeCostBtn;
 @property (nonatomic, strong) UIButton *readAllBtn;
 @property (nonatomic, strong) UIPageControl *pageControl;
-@property (nonatomic, strong) UILabel *poisDesc;
+@property (nonatomic, strong) UIButton *poisDesc;
 
 @end
 
@@ -38,10 +37,6 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = APP_PAGE_COLOR;
-        _backgroundView = [[UIView alloc] init];
-        _backgroundView.frame = self.bounds;
-        [self addSubview:_backgroundView];
-
     }
     return self;
 }
@@ -54,98 +49,96 @@
 
 - (void)setupSubView{
     CGFloat offsetY = 0;
+    CGFloat width = CGRectGetWidth(self.bounds);
     
-    SwipeView *swipeView = [[SwipeView alloc] initWithFrame:CGRectMake(0, offsetY, CGRectGetWidth(self.bounds), 350)];
+    CGFloat galleryHeight = width * 1047/1242;
+    SwipeView *swipeView = [[SwipeView alloc] initWithFrame:CGRectMake(0, offsetY, width, galleryHeight)];
     swipeView.dataSource = self;
     swipeView.delegate = self;
     swipeView.bounces = NO;
-    swipeView.backgroundColor = APP_BORDER_COLOR;
+    swipeView.backgroundColor = COLOR_DISABLE;
     swipeView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;
     swipeView.pagingEnabled = YES;
     swipeView.itemsPerPage = 1;
-    [_backgroundView addSubview:swipeView];
+    [self addSubview:swipeView];
     
     _pageControl = [[UIPageControl alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), 20)];
-    _pageControl.center = CGPointMake(CGRectGetWidth(self.bounds)/2, 350-20);
+    _pageControl.center = CGPointMake(width/2, CGRectGetMaxY(swipeView.frame)-20);
     _pageControl.numberOfPages = _spot.images.count;
     _pageControl.currentPageIndicatorTintColor = APP_THEME_COLOR;
-    _pageControl.pageIndicatorTintColor = [UIColor whiteColor];
+    _pageControl.pageIndicatorTintColor = COLOR_DISABLE;
     _pageControl.hidesForSinglePage = YES;
-    [_backgroundView addSubview:_pageControl];
+    [self addSubview:_pageControl];
     
-    offsetY += swipeView.frame.size.height;
+    offsetY += galleryHeight;
     
-    UIButton *tagBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.bounds.size.width-132, offsetY + 10, 116, 40)];
-    [tagBtn setTitle:@"高等学府" forState:UIControlStateNormal];
-    [tagBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    tagBtn.titleLabel.font = [UIFont boldSystemFontOfSize:15];
-    [tagBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 20, 0, 0)];
-    [tagBtn setBackgroundImage:[UIImage imageNamed:@"poi_bg_sort"] forState:UIControlStateNormal];
-    tagBtn.userInteractionEnabled = NO;
-    [_backgroundView addSubview:tagBtn];
-    
-    _ratingView = [[EDStarRating alloc] initWithFrame:CGRectMake(15, offsetY+18, 110, 22)];
+    _ratingView = [[EDStarRating alloc] initWithFrame:CGRectMake(14, offsetY+18, 115, 21)];
     _ratingView.starImage = [UIImage imageNamed:@"poi_bottom_star_default"];
     _ratingView.starHighlightedImage = [UIImage imageNamed:@"poi_bottom_star_selected"];
     _ratingView.maxRating = 5.0;
     _ratingView.editable = NO;
-    _ratingView.horizontalMargin = 3;
+    _ratingView.horizontalMargin = 2;
     _ratingView.displayMode = EDStarRatingDisplayAccurate;
     _ratingView.rating = _spot.rating;
-    [_backgroundView addSubview:_ratingView];
+    [self addSubview:_ratingView];
     
-    offsetY += 60;
+    UIButton *tagBtn = [[UIButton alloc] initWithFrame:CGRectMake(width-131, offsetY + 8.5, 116, 40)];
+    [tagBtn setTitle:@"高等学府" forState:UIControlStateNormal];
+    [tagBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    tagBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+    [tagBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 20, 0, 0)];
+    [tagBtn setBackgroundImage:[UIImage imageNamed:@"poi_bg_sort"] forState:UIControlStateNormal];
+    tagBtn.userInteractionEnabled = NO;
+    [self addSubview:tagBtn];
     
-    CGFloat width = SCREEN_WIDTH;
+    offsetY += 57;
     
-    UIView *bgView = [[UIView alloc]initWithFrame:CGRectMake(0, offsetY, width, 342/3)];
-    bgView.backgroundColor = [UIColor whiteColor];
-    bgView.userInteractionEnabled = YES;
-    [_backgroundView addSubview:bgView];
-    
-    _poisDesc = [[UILabel alloc] initWithFrame:CGRectMake(18, offsetY, width-36, 342/3)];
-    _poisDesc.textColor = COLOR_TEXT_I;
-    _poisDesc.numberOfLines = 3;
-    _poisDesc.userInteractionEnabled = YES;
-    NSString *string = _spot.desc;
-    CGRect minRect = [string boundingRectWithSize:CGSizeMake(width-36, 18)
-                                          options:NSStringDrawingUsesLineFragmentOrigin
-                                       attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14]}
-                                          context:nil];
-    CGRect maxRect = [string boundingRectWithSize:CGSizeMake(width-36, CGFLOAT_MAX)
-                                          options:NSStringDrawingUsesLineFragmentOrigin
-                                       attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14]}
-                                          context:nil];
-    NSInteger totalLine = ceilf(maxRect.size.height / minRect.size.height);
-    NSInteger ccount = string.length;
-    NSInteger count = ccount * 3/totalLine;
-    NSString *truncateStr = [[NSString alloc]init];
-    if (string.length <= count - 3) {
-        truncateStr = string ;
-    } else {
-        truncateStr = [string substringWithRange:NSMakeRange(0, count - 3)];
-    }
-    NSMutableParagraphStyle *ps = [[NSMutableParagraphStyle alloc] init];
-    ps.lineSpacing = 4.0;
-    NSDictionary *attribs = @{NSFontAttributeName: [UIFont systemFontOfSize:16], NSParagraphStyleAttributeName:ps};
-    truncateStr = [NSString stringWithFormat:@"%@... ", truncateStr];
-    NSMutableAttributedString *attrstr = [[NSMutableAttributedString alloc] initWithString:truncateStr attributes:attribs];
-    NSAttributedString *more1 = [[NSAttributedString alloc] initWithString:@"更多" attributes:@{NSForegroundColorAttributeName : APP_THEME_COLOR_HIGHLIGHT, NSFontAttributeName: [UIFont systemFontOfSize:16]}];
-    [attrstr appendAttributedString:more1];
-    _poisDesc.attributedText = attrstr;
-    _poisDesc.backgroundColor = [UIColor whiteColor];
-    [_backgroundView addSubview:_poisDesc];
-    
-    
-    offsetY += 342/3;
+    NSString *descStr = _spot.desc;
+    if (descStr != nil && ([descStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length > 0)) {
+        UIButton *poiSummary = [[UIButton alloc]initWithFrame:CGRectMake(0, offsetY, width, 114)];
+        [poiSummary setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+        [poiSummary setBackgroundImage:[ConvertMethods createImageWithColor:APP_PAGE_COLOR] forState:UIControlStateHighlighted];
+        [self addSubview:poiSummary];
+        _poisDesc = poiSummary;
+        [poiSummary setTitleColor:COLOR_TEXT_I forState:UIControlStateNormal];
+        poiSummary.titleLabel.numberOfLines = 3;
+        poiSummary.titleLabel.font = [UIFont systemFontOfSize:16];
+        [poiSummary setTitleEdgeInsets:UIEdgeInsetsMake(10, 18, 10, 18)];
+        CGRect minRect = [descStr boundingRectWithSize:CGSizeMake(width-36, 22)
+                                               options:NSStringDrawingUsesLineFragmentOrigin
+                                            attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:16]}
+                                               context:nil];
+        CGRect maxRect = [descStr boundingRectWithSize:CGSizeMake(width-36, CGFLOAT_MAX)
+                                               options:NSStringDrawingUsesLineFragmentOrigin
+                                            attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:16]}
+                                               context:nil];
+        NSInteger totalLine = ceilf(maxRect.size.height / minRect.size.height);
+        NSInteger ccount = descStr.length;
+        NSInteger count = ccount * 3/totalLine;
+        if (count < ccount) {
+            NSString *truncateStr = [descStr substringWithRange:NSMakeRange(0, count - 3)];
+            NSMutableParagraphStyle *ps = [[NSMutableParagraphStyle alloc] init];
+            ps.lineSpacing = 4.0;
+            NSDictionary *attribs = @{NSFontAttributeName: [UIFont systemFontOfSize:16], NSParagraphStyleAttributeName:ps};
+            truncateStr = [NSString stringWithFormat:@"%@... ", truncateStr];
+            NSMutableAttributedString *attrstr = [[NSMutableAttributedString alloc] initWithString:truncateStr attributes:attribs];
+            NSAttributedString *more1 = [[NSAttributedString alloc] initWithString:@"全文" attributes:@{NSForegroundColorAttributeName : APP_THEME_COLOR_HIGHLIGHT, NSFontAttributeName: [UIFont systemFontOfSize:16]}];
+            [attrstr appendAttributedString:more1];
+            [poiSummary setAttributedTitle:attrstr forState:UIControlStateNormal];
+        } else {
+            poiSummary.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+            poiSummary.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
+            [poiSummary setTitle:descStr forState:UIControlStateNormal];
+        }
         
-    UIView *spaceView5 = [[UIView alloc] initWithFrame:CGRectMake(20, offsetY, _backgroundView.bounds.size.width, 1)];
-    spaceView5.backgroundColor = APP_DIVIDER_COLOR;
-    [_backgroundView addSubview:spaceView5];
+        offsetY = CGRectGetMaxY(poiSummary.frame);
+        
+        UIView *spaceView5 = [[UIView alloc] initWithFrame:CGRectMake(18, offsetY-0.5, self.bounds.size.width - 18, 0.5)];
+        spaceView5.backgroundColor = COLOR_LINE;
+        [self addSubview:spaceView5];
+    }
     
-    offsetY += 10;
-    _backgroundView.frame = CGRectMake(0, 0, SCREEN_WIDTH, offsetY);
-    
+    self.frame = CGRectMake(0, 0, width, offsetY + 10);
 }
 
 #pragma mark - SwipeViewDataSource

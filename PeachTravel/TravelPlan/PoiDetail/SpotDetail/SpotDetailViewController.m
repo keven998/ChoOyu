@@ -24,20 +24,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    super.poiType = kSpotPoi;
+    self.view.backgroundColor = APP_PAGE_COLOR;
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.navigationItem.title = @"详情";
-    
-    self.view.backgroundColor = [UIColor whiteColor];
-    NSMutableArray *barItems = [[NSMutableArray alloc] init];
     
     UIButton *talkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 44)];
     [talkBtn setImage:[UIImage imageNamed:@"ic_home_normal"] forState:UIControlStateNormal];
     [talkBtn addTarget:self action:@selector(shareToTalk) forControlEvents:UIControlEventTouchUpInside];
-    [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:talkBtn]];
-    self.navigationItem.rightBarButtonItems = barItems;
-    [self loadData];
+    talkBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:talkBtn];
 
+    super.poiType = kSpotPoi;
+    
+    [self loadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -45,7 +43,6 @@
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_spot_detail"];
-    
 }
 - (void)viewWillDisappear:(BOOL)animated
 {
@@ -73,31 +70,29 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row < 4) {
         SpotDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"detailCell" forIndexPath:indexPath];
+        cell.accessoryType = UITableViewCellAccessoryNone;
         if (indexPath.row == 0) {
             cell.categoryLabel.text = @"地址";
             cell.infomationLabel.text = self.poi.address;
             cell.image.image = [UIImage imageNamed:@"poi_icon_add"];
-            cell.accessoryType = UITableViewCellAccessoryNone;
         } else if (indexPath.row == 1) {
-            cell.categoryLabel.text = @"电话";
-            cell.infomationLabel.text = ((SpotPoi *)self.poi).telephone;
-            cell.image.image = [UIImage imageNamed:@"poi_icon_phone"];
-            cell.accessoryType = UITableViewCellAccessoryNone;
-        } else if (indexPath.row == 2) {
             cell.categoryLabel.text = @"时间";
             cell.infomationLabel.text = ((SpotPoi *)self.poi).openTime;
             cell.image.image = [UIImage imageNamed:@"icon_arrow"];
-//            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        } else {
+        } else if (indexPath.row == 2) {
             cell.categoryLabel.text = @"票价";
             cell.infomationLabel.text = ((SpotPoi *)self.poi).priceDesc;
             cell.image.image = [UIImage imageNamed:@"poi_icon_ticket_default"];
-            cell.accessoryType = UITableViewCellAccessoryNone;
+        }  else  {
+            cell.categoryLabel.text = @"电话";
+            cell.infomationLabel.text = ((SpotPoi *)self.poi).telephone;
+            cell.image.image = [UIImage imageNamed:@"poi_icon_phone"];
         }
         return cell;
     } else if (indexPath.row == 4) {
         SpecialPoiCell *cell = [tableView dequeueReusableCellWithIdentifier:@"specialCell" forIndexPath:indexPath];
-        cell.userInteractionEnabled = YES;
+        cell.backgroundColor = APP_PAGE_COLOR;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         if (((SpotPoi *)self.poi).guideUrl == nil || [((SpotPoi *)self.poi).guideUrl isBlankString]) {
             cell.planBtn.enabled = NO;
         } else {
@@ -109,7 +104,7 @@
         } else {
             [cell.tipsBtn addTarget:self action:@selector(kengdie:) forControlEvents:UIControlEventTouchUpInside];
         }
-    
+        
         
         if (((SpotPoi *)self.poi).trafficInfoUrl == nil || [((SpotPoi *)self.poi).trafficInfoUrl isBlankString]) {
             cell.trafficBtn.enabled = NO;
@@ -137,7 +132,7 @@
             
         }
     }
-
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
@@ -151,13 +146,13 @@
 - (void)loadData
 {
     NSString *url = [NSString stringWithFormat:@"%@%@", API_GET_SPOT_DETAIL, _spotId];
-    [super loadDataWithUrl:url]; 
+    [super loadDataWithUrl:url];
 }
 
 /**
  *  实现父类的发送 poi 到旅行派 的值传递
  *
- *  @param taoziMessageCtl 
+ *  @param taoziMessageCtl
  */
 - (void)setChatMessageModel:(TaoziChatMessageBaseViewController *)taoziMessageCtl
 {
@@ -178,10 +173,10 @@
 - (IBAction)book:(id)sender
 {
     [MobClick event:@"event_book_ticket"];
-
+    
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] initWithURL:[NSURL URLWithString:((SpotPoi *)self.poi).bookUrl]];
     webCtl.titleStr = @"在线预订";
-//    webCtl.urlStr = ((SpotPoi *)self.poi).bookUrl;
+    //    webCtl.urlStr = ((SpotPoi *)self.poi).bookUrl;
     [self.navigationController pushViewController:webCtl animated:YES];
 }
 
@@ -193,7 +188,7 @@
 - (IBAction)travelGuide:(id)sender
 {
     [MobClick event:@"event_spot_travel_experience"];
-
+    
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
     webCtl.titleStr = @"景点体验";
     webCtl.urlStr = ((SpotPoi *)self.poi).guideUrl;
@@ -208,7 +203,7 @@
 - (IBAction)kengdie:(id)sender
 {
     [MobClick event:@"event_spot_travel_tips"];
-
+    
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
     webCtl.titleStr = @"游玩小贴士";
     webCtl.urlStr = ((SpotPoi *)self.poi).tipsUrl;
@@ -223,7 +218,7 @@
 - (IBAction)trafficGuide:(id)sender
 {
     [MobClick event:@"event_spot_traffic_summary"];
-
+    
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
     webCtl.titleStr = @"景点交通";
     webCtl.urlStr = ((SpotPoi *)self.poi).trafficInfoUrl;
@@ -238,10 +233,10 @@
 - (IBAction)jumpToMapview:(id)sender
 {
     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"其他软件导航"
-                                                     delegate:self
-                                            cancelButtonTitle:nil
-                                       destructiveButtonTitle:nil
-                                            otherButtonTitles:nil];
+                                                       delegate:self
+                                              cancelButtonTitle:nil
+                                         destructiveButtonTitle:nil
+                                              otherButtonTitles:nil];
     NSArray *platformArray = [ConvertMethods mapPlatformInPhone];
     for (NSDictionary *dic in platformArray) {
         [sheet addButtonWithTitle:[dic objectForKey:@"platform"]];
@@ -328,7 +323,7 @@
             default:
                 break;
         }
-
+        
     } else {
         [MobClick event:@"event_spot_share_to_talk"];
         [self shareToTalk];

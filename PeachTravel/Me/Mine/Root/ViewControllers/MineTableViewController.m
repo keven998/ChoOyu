@@ -252,7 +252,7 @@
         }
     }
     _trackNumber.text = [NSString stringWithFormat:@"0国0城"];
-
+    
     _trackCount = _trackNumber;
     [trackEntry addSubview:_trackNumber];
     UILabel *tl = [[UILabel alloc] initWithFrame:CGRectMake(10, bh/2, unitWidth - 20, 20)];
@@ -273,7 +273,7 @@
     [headerBgView addSubview:lineView2];
     
     headerBgView.frame = CGRectMake(0, 0, width, offsetY + bh);
-
+    
     self.tableView.contentInset = UIEdgeInsetsMake(CGRectGetMaxY(headerBgView.frame), 0, 0, 0);
     
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width/2, 44)];
@@ -339,7 +339,7 @@
         }
         _trackNumber.text = [NSString stringWithFormat:@"%ld国%ld城", (long)countryNumber, (long)cityNumber];
         
-//        _pictureNumber.text = [NSString stringWithFormat:@"%lu图", _accountManager.account.frendList.count];
+        //        _pictureNumber.text = [NSString stringWithFormat:@"%lu图", _accountManager.account.frendList.count];
         
         _planNumber.text = [NSString stringWithFormat:@"%lu条",_accountManager.account.guideCnt];
         _nameLabel.text = amgr.account.nickName;
@@ -473,7 +473,7 @@
             [destinations.destinationsSelected addObject:poi];
         }
     }
-
+    
     footCtl.hidesBottomBarWhenPushed = YES;
     footCtl.destinations = destinations;
     footCtl.delegate = self;
