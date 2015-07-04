@@ -12,7 +12,7 @@
 
 - (void)awakeFromNib {
     // Initialization code
-    _headerImage.layer.cornerRadius = 8;
+    _headerImage.layer.cornerRadius = 20;
     _headerImage.clipsToBounds = YES;
     _nameLabel.textColor = UIColorFromRGB(0x969696);
 }

@@ -15,6 +15,7 @@
 #import "ChatGroupCell.h"
 #import "AddMemberCell.h"
 #import "SWTableViewCell.h"
+#import "UserOtherTableViewCell.h"
 
 @interface ChatGroupSettingViewController () <UITableViewDataSource,UITableViewDelegate,CreateConversationDelegate,SWTableViewCellDelegate,changeTitle>
 {
@@ -23,7 +24,7 @@
 
 @property (nonatomic, strong) IMDiscussionGroup *groupModel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
+@property (strong, nonatomic) UISwitch *disturbSwitch;
 
 @end
 
@@ -69,6 +70,7 @@
     [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     [_tableView registerNib:[UINib nibWithNibName:@"ChatGroupCell" bundle:nil] forCellReuseIdentifier:@"chatCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"AddMemberCell" bundle:nil] forCellReuseIdentifier:@"addCell"];
+    [_tableView registerNib:[UINib nibWithNibName:@"UserOtherTableViewCell" bundle:nil] forCellReuseIdentifier:@"otherCell"];
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
     UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 30)];
@@ -79,9 +81,10 @@
 
 - (UIView *)createFooterView
 {
-    UIView *footerBg = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 375 * SCREEN_WIDTH/414, 338/3 * SCREEN_HEIGHT/736)];
+    UIView *footerBg = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH * 4.3/5, 338/3 * SCREEN_HEIGHT/736)];
     
-    UIButton *footerBtn = [[UIButton alloc]initWithFrame:CGRectMake(20*SCREEN_WIDTH/414, 0, 335*SCREEN_WIDTH/414, 177/3 * SCREEN_HEIGHT/736)];
+    UIButton *footerBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH * 3.8/5, 177/3 * SCREEN_HEIGHT/736)];
+    footerBtn.center = footerBg.center;
     footerBtn.backgroundColor = UIColorFromRGB(0xF75368);
     [footerBtn setTitle:@"退出聊天" forState:UIControlStateNormal];
     [footerBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -99,72 +102,86 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _groupModel.numbers.count + 4;
+    if (section == 0) {
+        return 3;
+    } else  {
+        return _groupModel.numbers.count + 1;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == 0) {
-        return 49;
-    }else if (indexPath.row == 3){
-        return 65;
-    }
-    return 49;
+        return 68 * SCREEN_HEIGHT / 736;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 0) {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-        cell.textLabel.text = _groupModel.subject;
-        cell.imageView.image = [UIImage imageNamed:@"ic_chat_ce_groupsetting"];
-        UIView *divide = [[UIView alloc]initWithFrame:CGRectMake(18, 48, SCREEN_WIDTH, 1)];
-        divide.backgroundColor = APP_DIVIDER_COLOR;
-        [cell addSubview:divide];
-        return cell;
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            UserOtherTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"otherCell" forIndexPath:indexPath];
+            cell.cellTitle.text = @"群聊名称";
+            cell.cellTitle.font = [UIFont systemFontOfSize:16];
+            cell.cellDetail.text = _groupModel.subject;
+            UIView *divide = [[UIView alloc]initWithFrame:CGRectMake(18, 67 * SCREEN_HEIGHT / 736, SCREEN_WIDTH, 1)];
+            divide.backgroundColor = APP_DIVIDER_COLOR;
+            [cell addSubview:divide];
+            return cell;
+            
+        } else if (indexPath.row == 1) {
+            UserOtherTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"otherCell" forIndexPath:indexPath];
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            cell.cellTitle.text = @"免打扰";
+            cell.cellTitle.font = [UIFont systemFontOfSize:16];
+            cell.cellDetail.text = nil;
+            
+            IMClientManager *clientManager = [IMClientManager shareInstance];
+            
+            ChatConversation *conversation = [clientManager.conversationManager getExistConversationInConversationList:_groupModel.groupId];
+            _disturbSwitch = [[UISwitch alloc]initWithFrame:CGRectMake(374/2, 29/3 * SCREEN_HEIGHT/736, 50* SCREEN_HEIGHT/736, 30* SCREEN_HEIGHT/736)];
+            [_disturbSwitch addTarget:self action:@selector(changeMsgStatus:) forControlEvents:UIControlEventValueChanged];
+            _disturbSwitch.on = [conversation isBlockMessag];
+            [cell addSubview:_disturbSwitch];
+            
+            cell.tag = 101;
+            
+            UIView *divide = [[UIView alloc]initWithFrame:CGRectMake(18, 68 * SCREEN_HEIGHT / 736, SCREEN_WIDTH, 1)];
+            divide.backgroundColor = APP_DIVIDER_COLOR;
+            [cell addSubview:divide];
+            
+            return cell;
+            
+        } else if (indexPath.row == 2) {
+            UserOtherTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"otherCell" forIndexPath:indexPath];
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            cell.cellTitle.text = @"清记录";
+            cell.cellTitle.font = [UIFont systemFontOfSize:16];
+            cell.cellDetail.text = nil;
+            UIView *divide = [[UIView alloc]initWithFrame:CGRectMake(18, 68 * SCREEN_HEIGHT / 736, SCREEN_WIDTH, 1)];
+            divide.backgroundColor = APP_DIVIDER_COLOR;
+            [cell addSubview:divide];
+            return cell;
+            
+        }
+    }
+    
+    else {
+         ChatGroupCell *cell = [tableView dequeueReusableCellWithIdentifier:@"chatCell" forIndexPath:indexPath];
+        if (indexPath.row == _groupModel.numbers.count) {
+            cell.headerImage.image = [UIImage imageNamed:@"chat_drawer_add"];
+            cell.nameLabel.text = @"邀成员";
+            cell.nameLabel.textColor = APP_THEME_COLOR;
+            
+            UIView *divide = [[UIView alloc]initWithFrame:CGRectMake(18, 68 * SCREEN_HEIGHT / 736, SCREEN_WIDTH, 1)];
+            divide.backgroundColor = APP_DIVIDER_COLOR;
+            [cell addSubview:divide];
+            return cell;
+        }
         
-    } else if (indexPath.row == 1) {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-        _selectedBtn = [[UIButton alloc]initWithFrame:CGRectMake(374/2, 29/2, 20, 20)];
-        [_selectedBtn setImage:[UIImage imageNamed:@"ic_button_normal"] forState:UIControlStateNormal];
-        [_selectedBtn addTarget:self action:@selector(changeMsgStatus:) forControlEvents:UIControlEventTouchUpInside];
-        [_selectedBtn setImage:[UIImage imageNamed:@"ic_button_selected"] forState:UIControlStateSelected];
-        
-        IMClientManager *clientManager = [IMClientManager shareInstance];
-        
-        ChatConversation *conversation = [clientManager.conversationManager getExistConversationInConversationList:_groupModel.groupId];
-        _selectedBtn.selected = [conversation isBlockMessag];
-        [cell addSubview:_selectedBtn];
-        cell.textLabel.text = @"免打扰";
-        cell.imageView.image = [UIImage imageNamed:@"ic_chat_ce_wurao"];
-        cell.tag = 101;
-        UIView *divide = [[UIView alloc]initWithFrame:CGRectMake(18, 48, SCREEN_WIDTH, 1)];
-        divide.backgroundColor = APP_DIVIDER_COLOR;
-        [cell addSubview:divide];
-        
-        return cell;
-        
-    } else if (indexPath.row == 2) {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-        UIView *divide = [[UIView alloc]initWithFrame:CGRectMake(18, 48, SCREEN_WIDTH, 1)];
-        divide.backgroundColor = APP_DIVIDER_COLOR;
-        [cell addSubview:divide];
-        cell.textLabel.text = @"清空聊天记录";
-        cell.imageView.image = [UIImage imageNamed:@"ic_chat_ce_rubbish"];
-        return cell;
-        
-    } else if (indexPath.row == 3) {
-        AddMemberCell *cell = [tableView dequeueReusableCellWithIdentifier:@"addCell" forIndexPath:indexPath];
-        
-        return cell;
-        
-    } else {
-        ChatGroupCell *cell = [tableView dequeueReusableCellWithIdentifier:@"chatCell" forIndexPath:indexPath];
         [cell setRightUtilityButtons:[self rightButtons] WithButtonWidth:60];
         cell.delegate = self;
-        NSInteger i = indexPath.row - 4;
+        NSInteger i = indexPath.row ;
         
         cell.nameLabel.text = ((FrendModel *)self.groupModel.numbers[i]).nickName;
         NSString *avatarStr = nil;
@@ -174,47 +191,58 @@
             avatarStr = ((FrendModel *)self.groupModel.numbers[i]).avatar;
         }
         [cell.headerImage sd_setImageWithURL:[NSURL URLWithString: avatarStr] placeholderImage:[UIImage imageNamed:@"person_disabled"]];
+        UIView *divide = [[UIView alloc]initWithFrame:CGRectMake(18, 68 * SCREEN_HEIGHT / 736, SCREEN_WIDTH, 1)];
+        divide.backgroundColor = APP_DIVIDER_COLOR;
+        [cell addSubview:divide];
         return cell;
+        
     }
+    ChatGroupCell *cell = [tableView dequeueReusableCellWithIdentifier:@"chatCell" forIndexPath:indexPath];
+    return cell;
 }
+
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 0) {
-        ChangeGroupTitleViewController *changeCtl = [[ChangeGroupTitleViewController alloc] init];
-        changeCtl.group = _groupModel;
-        changeCtl.oldTitle = _groupModel.subject;
-        changeCtl.delegate = self;
-        [self.navigationController pushViewController:changeCtl animated:YES];
-    
-    }
-    else if (indexPath.row == 1) {
-        [self changeMsgStatus:_selectedBtn];
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            ChangeGroupTitleViewController *changeCtl = [[ChangeGroupTitleViewController alloc] init];
+            changeCtl.group = _groupModel;
+            changeCtl.oldTitle = _groupModel.subject;
+            changeCtl.delegate = self;
+            [self.navigationController pushViewController:changeCtl animated:YES];
+            
+        }
+        else if (indexPath.row == 1) {
+            [self changeMsgStatus:_selectedBtn];
+            
+        }
         
+        else if (indexPath.row == 2) {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"确认删除聊天记录？" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
+                if (buttonIndex == 1) {
+                    
+                    //                NSDictionary *group = [NSDictionary dictionary];
+                    //                NSNumber *chatNum = [NSNumber numberWithInteger:_groupModel.groupId];
+                    //                [group setValue:chatNum forKeyPath:@"groupId"];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"RemoveAllMessages" object:nil userInfo:nil];
+                }
+            }];
+        }
+
     }
-    
-    else if (indexPath.row == 2) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"确认删除聊天记录？" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-        [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
-            if (buttonIndex == 1) {
-                
-//                NSDictionary *group = [NSDictionary dictionary];
-//                NSNumber *chatNum = [NSNumber numberWithInteger:_groupModel.groupId];
-//                [group setValue:chatNum forKeyPath:@"groupId"];
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"RemoveAllMessages" object:nil userInfo:nil];
+    if (indexPath.section == 1) {
+        if (indexPath.row == _groupModel.numbers.count) {
+            [self addGroupNumber:nil];
+        } else {
+            FrendModel *selectPerson = self.groupModel.numbers[indexPath.row ];
+            AccountManager *maneger = [AccountManager shareAccountManager];
+            if (maneger.account.userId != selectPerson.userId) {
+                [self  showUserInfoWithContactInfo:selectPerson];
             }
-        }];
+        }
     }
-    
-    else if (indexPath.row == 3) {
-        [self addGroupNumber:nil];
-        
-    }else if (indexPath.row >3 && indexPath.row < _groupModel.numbers.count +4) {
-        FrendModel *selectPerson = self.groupModel.numbers[indexPath.row - 4];
-        [self  showUserInfoWithContactInfo:selectPerson];
-        
-    }
-    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
@@ -328,7 +356,7 @@
     IMDiscussionGroupManager *manager = [IMDiscussionGroupManager shareInstance];
     [manager asyncChangeDiscussionGroupStateWithGroup:_groupModel completion:^(BOOL isSuccess, NSInteger errorCode) {
         if (isSuccess) {
-            _selectedBtn.selected = !_selectedBtn.selected;
+            
         }
     }];
 
