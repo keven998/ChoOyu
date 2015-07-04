@@ -10,7 +10,7 @@
 #import "LoginViewController.h"
 #import "RegisterViewController.h"
 #import "HomeViewController.h"
-
+#import "UserInfoTableViewController.h"
 @interface PrepareViewController ()
 
 @end
@@ -106,9 +106,15 @@
         [self willMoveToParentViewController:nil];
         [self.view removeFromSuperview];
         [self removeFromParentViewController];
+        [self performSelector:@selector(pushToUserInfo) withObject:nil afterDelay:0.2];
     }];
 }
+- (void)pushToUserInfo
+{
+    UserInfoTableViewController *userInfo = [[UserInfoTableViewController alloc]init];
+    [self.navigationController pushViewController:userInfo animated:YES];
 
+}
 
 
 @end
