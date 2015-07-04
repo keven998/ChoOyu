@@ -79,18 +79,18 @@
 
 - (UIView *)createFooterView
 {
-    UIView *footerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH*4/5, 150)];
-    footerView.backgroundColor = [UIColor whiteColor];
-    UIButton *footerBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 100, 30)];
-    [footerBtn setTitle:@"解散该群" forState:UIControlStateNormal];
-    [footerBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
-    footerBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-    footerBtn.layer.borderWidth = 1;
+    UIView *footerBg = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 375 * SCREEN_WIDTH/414, 338/3 * SCREEN_HEIGHT/736)];
+    
+    UIButton *footerBtn = [[UIButton alloc]initWithFrame:CGRectMake(20*SCREEN_WIDTH/414, 0, 335*SCREEN_WIDTH/414, 177/3 * SCREEN_HEIGHT/736)];
+    footerBtn.backgroundColor = UIColorFromRGB(0xF75368);
+    [footerBtn setTitle:@"退出聊天" forState:UIControlStateNormal];
+    [footerBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    footerBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14];
     footerBtn.layer.cornerRadius = 8;
-    footerBtn.center = footerView.center;
-    [footerView addSubview:footerBtn];
     [footerBtn addTarget:self action:@selector(quitGroup:) forControlEvents:UIControlEventTouchUpInside];
-    return footerView;
+    
+    [footerBg addSubview:footerBtn];
+    return footerBg;
 }
 
 #pragma mark - Table view data source
