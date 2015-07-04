@@ -87,26 +87,23 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row < 4) {
         SpotDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"detailCell" forIndexPath:indexPath];
+        cell.accessoryType = UITableViewCellAccessoryNone;
         if (indexPath.row == 0) {
             cell.categoryLabel.text = @"地址";
             cell.infomationLabel.text = self.poi.address;
             cell.image.image = [UIImage imageNamed:@"poi_icon_add"];
-            cell.accessoryType = UITableViewCellAccessoryNone;
         } else if (indexPath.row == 1) {
-            cell.categoryLabel.text = @"电话";
-            cell.infomationLabel.text = ((SpotPoi *)self.poi).telephone;
-            cell.image.image = [UIImage imageNamed:@"poi_icon_phone"];
-            cell.accessoryType = UITableViewCellAccessoryNone;
-        } else if (indexPath.row == 2) {
             cell.categoryLabel.text = @"时间";
             cell.infomationLabel.text = self.poi.openTime;
             cell.image.image = [UIImage imageNamed:@"icon_arrow"];
-            //            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        } else {
-            cell.categoryLabel.text = @"票价";
+        } else if(indexPath.row == 2) {
+            cell.categoryLabel.text = @"费用";
             cell.infomationLabel.text = self.poi.priceDesc;
             cell.image.image = [UIImage imageNamed:@"poi_icon_ticket_default"];
-            cell.accessoryType = UITableViewCellAccessoryNone;
+        }  else {
+            cell.categoryLabel.text = @"电话";
+            cell.infomationLabel.text = ((SpotPoi *)self.poi).telephone;
+            cell.image.image = [UIImage imageNamed:@"poi_icon_phone"];
         }
         return cell;
         

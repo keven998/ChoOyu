@@ -51,7 +51,7 @@
     CGFloat offsetY = 0;
     CGFloat width = CGRectGetWidth(self.bounds);
     
-    CGFloat galleryHeight = width * 1047/1242;
+    CGFloat galleryHeight = width * 1038/1242;
     SwipeView *swipeView = [[SwipeView alloc] initWithFrame:CGRectMake(0, offsetY, width, galleryHeight)];
     swipeView.dataSource = self;
     swipeView.delegate = self;
