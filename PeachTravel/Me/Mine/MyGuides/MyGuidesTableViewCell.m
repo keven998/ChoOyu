@@ -31,7 +31,8 @@
     [_headerImageView addSubview:moonImage];
     
     [_deleteBtn setImage:[UIImage imageNamed:@"plan_10_dashboard_eidt"] forState:UIControlStateNormal];
-    [_playedBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+    [_playedBtn setImage:[UIImage imageNamed:@"plan_10_dashboard_copy"] forState:UIControlStateNormal];
+    [_changBtn setImage:[UIImage imageNamed:@"plan_10_dashboard_share"] forState:UIControlStateNormal];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -43,10 +44,7 @@
     _guideSummary = guideSummary;
     _countBtn.text = [NSString stringWithFormat:@"%ld天", (long)_guideSummary.dayCount];
     _descLabel.text = [NSString stringWithFormat:@"目的地：%@", _guideSummary.summary];
-    [_deleteBtn setImage:[UIImage imageNamed:@"plan_10_dashboard_copy"] forState:UIControlStateNormal];
-    [_playedBtn setImage:[UIImage imageNamed:@"plan_10_dashboard_copy"] forState:UIControlStateNormal];
-    [_changBtn setImage:[UIImage imageNamed:@"plan_10_dashboard_copy"] forState:UIControlStateNormal];
-    
+    _titleBtn.text = guideSummary.title;
     UIImage *image = [[UIImage imageNamed:@"plan_bg_page_default"]resizableImageWithCapInsets:UIEdgeInsetsMake(20, 15, 70, 15)];
     if ([_guideSummary.status isEqualToString:@"planned"]) {
         _headerImageView.image = image;
