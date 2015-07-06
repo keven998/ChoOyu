@@ -55,7 +55,7 @@
 //audio
 @property (nonatomic, strong) NSString *localPath;
 @property (nonatomic, strong) NSString *remotePath;
-@property (nonatomic) NSInteger time;
+@property (nonatomic) float time;
 @property (nonatomic) BOOL isPlaying;
 @property (nonatomic) BOOL isPlayed;
 

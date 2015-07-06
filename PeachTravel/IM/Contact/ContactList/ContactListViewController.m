@@ -161,7 +161,7 @@
     frostedViewController.liveBlur = YES;
     frostedViewController.resumeNavigationBar = NO;
     frostedViewController.limitMenuViewSize = YES;
-    self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan=NO;
+    self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan = NO;
     [self.navigationController pushViewController:frostedViewController animated:YES];
 }
 
