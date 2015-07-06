@@ -124,7 +124,6 @@
 {
     if (count == 0) {
         [self stopTimer];
-//        _verifyCodeBtn.userInteractionEnabled = YES;
         _verifyCodeBtn.enabled = YES;
         [_verifyCodeBtn setTitle:@"重新获取" forState:UIControlStateNormal];
     } else {
