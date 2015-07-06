@@ -21,6 +21,7 @@
     [super viewDidLoad];
     [self createTableView];
 }
+
 -(void)createTableView
 {
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
@@ -28,12 +29,14 @@
     _tableView.backgroundColor = APP_PAGE_COLOR;
     _tableView.separatorColor = APP_DIVIDER_COLOR;
     _tableView.delegate = self;
+    _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 64)];
     [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     [_tableView registerNib:[UINib nibWithNibName:@"HeaderCell" bundle:nil] forCellReuseIdentifier:@"zuji"];
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 //    [self createHeaderView];
     [self.view addSubview:_tableView];
 }
+
 -(void)createHeaderView
 {
     _headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, (98+76+31)/2)];
