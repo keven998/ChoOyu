@@ -108,19 +108,19 @@
     _avatarBg.image = [UIImage imageNamed:@"ic_home_avatar_border_unknown.png"];
     [_headerBgView addSubview:_avatarBg];
     
-    _constellationView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
-    _constellationView.center = CGPointMake(width/2.0 - 18, CGRectGetMaxY(_avatarBg.frame) - 5);
-    _constellationView.contentMode = UIViewContentModeScaleAspectFit;
-    _constellationView.image = [UIImage imageNamed:@"ic_home_user_constellation_shooter.png"];
-    [_headerBgView addSubview:_constellationView];
-    
     _levelBg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 64, 20)];
     _levelBg.center = CGPointMake(width/2.0 + 10, CGRectGetMaxY(_avatarBg.frame) - 5);
     _levelBg.contentMode = UIViewContentModeScaleAspectFit;
     _levelBg.image = [UIImage imageNamed:@"ic_home_level_bg_unknown.png"];
     [_headerBgView addSubview:_levelBg];
     
-    _levelLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64, 18)];
+    _constellationView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
+    _constellationView.center = CGPointMake(width/2.0 - 18, CGRectGetMaxY(_avatarBg.frame) - 5);
+    _constellationView.contentMode = UIViewContentModeScaleAspectFit;
+    _constellationView.image = [UIImage imageNamed:@"ic_home_user_constellation_shooter.png"];
+    [_headerBgView addSubview:_constellationView];
+    
+        _levelLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64, 18)];
     _levelLabel.textColor = [UIColor whiteColor];
     _levelLabel.font = [UIFont systemFontOfSize:9];
     _levelLabel.text = @"LV0";

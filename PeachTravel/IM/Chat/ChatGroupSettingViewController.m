@@ -73,8 +73,6 @@
     [_tableView registerNib:[UINib nibWithNibName:@"UserOtherTableViewCell" bundle:nil] forCellReuseIdentifier:@"otherCell"];
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
-    UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 30)];
-    _tableView.tableHeaderView = headerView;
    _tableView.tableFooterView = [self createFooterView];
     
 }
@@ -98,7 +96,47 @@
 
 #pragma mark - Table view data source
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return CGFLOAT_MIN;
+    if (section == 0) {
+        return 0;
+    }
+    else {
+        return 60;
+    }
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    
+    if (section == 1) {
+        UIView *sectionHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
+        sectionHeaderView.backgroundColor = APP_PAGE_COLOR;
+        UIImageView *greenPointImageView = [[UIImageView alloc]initWithFrame:CGRectMake(19, 34, 10, 10)];
+        greenPointImageView.image = [UIImage imageNamed:@"chat_drawer_poit"];
+        [sectionHeaderView addSubview:greenPointImageView];
+        
+        UILabel *strLabel = [[UILabel alloc]initWithFrame:CGRectMake(34, 34, 200, 13)];
+        strLabel.font = [UIFont systemFontOfSize:12];
+        strLabel.text = @"群成员";
+        [sectionHeaderView addSubview:strLabel];
+        
+        
+        
+        TZButton *addMemberBtn = [[TZButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH * 4/5 - 282/3, 15, 282/3, 40)];
+        addMemberBtn.imagePosition = IMAGE_AT_RIGHT;
+        [addMemberBtn setTitle:@"邀成员" forState:UIControlStateNormal];
+        [addMemberBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+        [addMemberBtn setImage:[UIImage imageNamed:@"chat_drawer_add"] forState:UIControlStateNormal];
+        addMemberBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+        
+        
+        [addMemberBtn addTarget:self action:@selector(addGroupNumber:) forControlEvents:UIControlEventTouchUpInside];
+        [sectionHeaderView addSubview:addMemberBtn];
+        
+        
+        return sectionHeaderView;
+        
+    }
+    return nil;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -109,13 +147,14 @@
     if (section == 0) {
         return 3;
     } else  {
-        return _groupModel.numbers.count + 1;
+        return _groupModel.numbers.count;
     }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-        return 68 * SCREEN_HEIGHT / 736;
+    return 68 * SCREEN_HEIGHT / 736;
 }
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
@@ -168,16 +207,16 @@
     
     else {
          ChatGroupCell *cell = [tableView dequeueReusableCellWithIdentifier:@"chatCell" forIndexPath:indexPath];
-        if (indexPath.row == _groupModel.numbers.count) {
-            cell.headerImage.image = [UIImage imageNamed:@"chat_drawer_add"];
-            cell.nameLabel.text = @"邀成员";
-            cell.nameLabel.textColor = APP_THEME_COLOR;
-            
-            UIView *divide = [[UIView alloc]initWithFrame:CGRectMake(18, 68 * SCREEN_HEIGHT / 736, SCREEN_WIDTH, 1)];
-            divide.backgroundColor = APP_DIVIDER_COLOR;
-            [cell addSubview:divide];
-            return cell;
-        }
+//        if (indexPath.row == _groupModel.numbers.count) {
+//            cell.headerImage.image = [UIImage imageNamed:@"chat_drawer_add"];
+//            cell.nameLabel.text = @"邀成员";
+//            cell.nameLabel.textColor = APP_THEME_COLOR;
+//            
+//            UIView *divide = [[UIView alloc]initWithFrame:CGRectMake(18, 68 * SCREEN_HEIGHT / 736, SCREEN_WIDTH, 1)];
+//            divide.backgroundColor = APP_DIVIDER_COLOR;
+//            [cell addSubview:divide];
+//            return cell;
+//        }
         
         [cell setRightUtilityButtons:[self rightButtons] WithButtonWidth:60];
         cell.delegate = self;

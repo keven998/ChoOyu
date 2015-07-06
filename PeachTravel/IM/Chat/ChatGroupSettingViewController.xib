@@ -23,10 +23,12 @@
             </subviews>
             <color key="backgroundColor" red="0.95686274509803926" green="0.95686274509803926" blue="0.95686274509803926" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="qee-ej-nnL" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="hcS-0L-LWP"/>
-                <constraint firstAttribute="trailing" secondItem="qee-ej-nnL" secondAttribute="trailing" id="rMS-rO-Mo1"/>
-                <constraint firstItem="qee-ej-nnL" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="v1E-QI-UlA"/>
-                <constraint firstAttribute="bottom" secondItem="qee-ej-nnL" secondAttribute="bottom" id="zKX-Ov-JoH"/>
+                <constraint firstAttribute="bottom" secondItem="qee-ej-nnL" secondAttribute="bottom" id="Hm3-iG-2Rm">
+                    <variation key="widthClass=compact" constant="46"/>
+                </constraint>
+                <constraint firstItem="qee-ej-nnL" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="VTw-NQ-i7a"/>
+                <constraint firstAttribute="trailing" secondItem="qee-ej-nnL" secondAttribute="trailing" id="Zff-0N-YQV"/>
+                <constraint firstItem="qee-ej-nnL" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="nck-Ap-9uG"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <variation key="default">
@@ -34,10 +36,10 @@
                     <exclude reference="qee-ej-nnL"/>
                 </mask>
                 <mask key="constraints">
-                    <exclude reference="hcS-0L-LWP"/>
-                    <exclude reference="rMS-rO-Mo1"/>
-                    <exclude reference="v1E-QI-UlA"/>
-                    <exclude reference="zKX-Ov-JoH"/>
+                    <exclude reference="Hm3-iG-2Rm"/>
+                    <exclude reference="VTw-NQ-i7a"/>
+                    <exclude reference="Zff-0N-YQV"/>
+                    <exclude reference="nck-Ap-9uG"/>
                 </mask>
             </variation>
             <variation key="widthClass=compact">
@@ -45,10 +47,10 @@
                     <include reference="qee-ej-nnL"/>
                 </mask>
                 <mask key="constraints">
-                    <include reference="hcS-0L-LWP"/>
-                    <include reference="rMS-rO-Mo1"/>
-                    <include reference="v1E-QI-UlA"/>
-                    <include reference="zKX-Ov-JoH"/>
+                    <include reference="Hm3-iG-2Rm"/>
+                    <include reference="VTw-NQ-i7a"/>
+                    <include reference="Zff-0N-YQV"/>
+                    <include reference="nck-Ap-9uG"/>
                 </mask>
             </variation>
             <point key="canvasLocation" x="-152" y="38"/>
