@@ -75,6 +75,7 @@
     
     [self updateTracksDesc];
     [self updateDestinations];
+    [self loadUserAlbum];
     [self setupTableHeaderView];
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     self.tableView.dataSource = self;
@@ -177,7 +178,7 @@
     
     [self updateTracksDesc];
     [self updateDestinations];
-    //            [self loadUserAlbum];
+    
     
     //        }
     //    }];
@@ -289,7 +290,7 @@
     }];
 }
 
-/**
+/*
  *  解析用户头像列表
  *
  *  @param albumArray
@@ -590,7 +591,12 @@
             }
             
         } else if (indexPath.row == 2) {
-            cell.cellDetail.text = @"0图";
+            if (amgr.account.userAlbum.count) {
+                cell.cellDetail.text = [NSString stringWithFormat:@"%zd图",amgr.account.userAlbum.count];
+            } else {
+                cell.cellDetail.text = @"0图";
+            }
+            
         }
     }
     else {
@@ -791,11 +797,12 @@
     UINavigationController *navc = [[UINavigationController alloc] initWithRootViewController:browser];
     NSMutableArray *array = [[NSMutableArray alloc] init];
     for (AlbumImage *album in self.accountManager.account.userAlbum) {
-        [array addObject:album.image.imageUrl];
+        MWPhoto *photo = [[MWPhoto alloc] initWithURL:[NSURL URLWithString:album.image.imageUrl]];
+        [array addObject:photo];
     }
     browser.imageList = array;
     browser.titleStr = @"相册";
-
+    
     [self presentViewController:navc animated:YES completion:nil];
 }
 /**
