@@ -483,6 +483,8 @@
 		D9871DB31B479BD600BFDFAF /* plan_02_dashboard_drawer@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9871DB01B479BD600BFDFAF /* plan_02_dashboard_drawer@3x.png */; };
 		D9871DB41B479BD600BFDFAF /* plan_02_dashboard_map@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9871DB11B479BD600BFDFAF /* plan_02_dashboard_map@3x.png */; };
 		D9871DB51B479BD600BFDFAF /* plan_bottom_hotel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9871DB21B479BD600BFDFAF /* plan_bottom_hotel@3x.png */; };
+		D9871DBA1B47D31E00BFDFAF /* ScheduleDayEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9871DB81B47D31E00BFDFAF /* ScheduleDayEditViewController.m */; };
+		D9871DBB1B47D31E00BFDFAF /* ScheduleDayEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9871DB91B47D31E00BFDFAF /* ScheduleDayEditViewController.xib */; };
 		D98CC6431A1993BE00FA5A76 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D902AD1F1A149FAB00E36A93 /* CFNetwork.framework */; };
 		D993C2331B12DF0C0088D568 /* ChatManagerAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = D993C1C71B12DF0C0088D568 /* ChatManagerAudio.swift */; };
 		D993C2351B12DF0C0088D568 /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D993C1CA1B12DF0C0088D568 /* ConnectionManager.swift */; };
@@ -1593,6 +1595,9 @@
 		D9871DB01B479BD600BFDFAF /* plan_02_dashboard_drawer@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plan_02_dashboard_drawer@3x.png"; sourceTree = "<group>"; };
 		D9871DB11B479BD600BFDFAF /* plan_02_dashboard_map@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plan_02_dashboard_map@3x.png"; sourceTree = "<group>"; };
 		D9871DB21B479BD600BFDFAF /* plan_bottom_hotel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plan_bottom_hotel@3x.png"; sourceTree = "<group>"; };
+		D9871DB71B47D31E00BFDFAF /* ScheduleDayEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleDayEditViewController.h; sourceTree = "<group>"; };
+		D9871DB81B47D31E00BFDFAF /* ScheduleDayEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleDayEditViewController.m; sourceTree = "<group>"; };
+		D9871DB91B47D31E00BFDFAF /* ScheduleDayEditViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScheduleDayEditViewController.xib; sourceTree = "<group>"; };
 		D993C1C71B12DF0C0088D568 /* ChatManagerAudio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatManagerAudio.swift; sourceTree = "<group>"; };
 		D993C1CA1B12DF0C0088D568 /* ConnectionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionManager.swift; sourceTree = "<group>"; };
 		D993C1CD1B12DF0C0088D568 /* AESCrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AESCrypt.h; sourceTree = "<group>"; };
@@ -3042,6 +3047,7 @@
 				C6261BAD1B2AFD7800DFADEF /* DayAgendaViewController */,
 				C6F5D4771B2AB183009163E3 /* PlanFavoritesViewController */,
 				C6F5D4781B2AB183009163E3 /* PlanScheduleViewController */,
+				D9871DBC1B47D32800BFDFAF /* ScheduleDayEditViewController */,
 			);
 			name = TripPlanDetail;
 			path = TravelPlan/TripPlanDetail;
@@ -3525,6 +3531,16 @@
 				D9A8000E1A80D52F005AD701 /* TripPoiListTableViewCell.xib */,
 			);
 			name = TripPoiListTableViewCell;
+			sourceTree = "<group>";
+		};
+		D9871DBC1B47D32800BFDFAF /* ScheduleDayEditViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D9871DB71B47D31E00BFDFAF /* ScheduleDayEditViewController.h */,
+				D9871DB81B47D31E00BFDFAF /* ScheduleDayEditViewController.m */,
+				D9871DB91B47D31E00BFDFAF /* ScheduleDayEditViewController.xib */,
+			);
+			name = ScheduleDayEditViewController;
 			sourceTree = "<group>";
 		};
 		D993C1C51B12DF0C0088D568 /* IMSDK */ = {
@@ -6184,6 +6200,7 @@
 				271C41AE1B468611007BF285 /* plan_10_dashboard_eidt@3x.png in Resources */,
 				C68CBDA81B30316100D95F50 /* ic_home_avatar_border_boy@3x.png in Resources */,
 				D917DABF1A8B49AF0039720A /* ic_guide2_1_normal@2x.png in Resources */,
+				D9871DBB1B47D31E00BFDFAF /* ScheduleDayEditViewController.xib in Resources */,
 				D9A8FFAD1A80D1C3005AD701 /* CommentTableViewCell.xib in Resources */,
 				27FF1AB71B06F1F000643D77 /* ic_here_normal@2x.png in Resources */,
 				D9A801531A80DD23005AD701 /* CreateConversationTableViewCell.xib in Resources */,
@@ -6845,6 +6862,7 @@
 				D9A802101A80E036005AD701 /* JGProgressHUDAnimation.m in Sources */,
 				C679D3101ACD64E3007680D9 /* UIImage+REFrostedViewController.m in Sources */,
 				D9A8014E1A80DD23005AD701 /* MessageReadManager.m in Sources */,
+				D9871DBA1B47D31E00BFDFAF /* ScheduleDayEditViewController.m in Sources */,
 				D993C24A1B12DF0C0088D568 /* FMDatabaseAdditions.m in Sources */,
 				270C165A1B00CF6A0048C85D /* UITableView+FDTemplateLayoutCell.m in Sources */,
 				D993C2651B12DF0C0088D568 /* IMShoppingMessage.swift in Sources */,

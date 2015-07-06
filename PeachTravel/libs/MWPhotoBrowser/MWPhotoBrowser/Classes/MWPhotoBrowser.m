@@ -1460,7 +1460,7 @@
     }
     
 //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"MWPhotoBrowser.bundle/images/%@.png", @"UIBarButtonItemGrid"]] style:UIBarButtonItemStylePlain target:self action:@selector(showGridAnimated)];
-    self.navigationController.navigationBarHidden = YES;
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 #pragma mark - Misc

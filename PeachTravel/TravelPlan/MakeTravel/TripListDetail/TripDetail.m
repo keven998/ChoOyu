@@ -44,10 +44,7 @@
 
 - (TripDetail *)backUpTrip
 {
-    if (!_backUpTrip) {
-        _backUpTrip = [[TripDetail alloc] initWithJson:self.backUpJson];
-    }
-    return _backUpTrip;
+    return [[TripDetail alloc] initWithJson:self.backUpJson];
 }
 
 
@@ -229,7 +226,6 @@
     NSMutableDictionary *tempDic = [_backUpJson mutableCopy];
     [tempDic setObject:destinations forKey:@"localities"];
     _backUpJson = tempDic;
-    _backUpTrip = [[TripDetail alloc] initWithJson:self.backUpJson];
 }
 
 
@@ -252,7 +248,6 @@
         [tempDic setObject:[uploadDic objectForKey:@"shopping"] forKey:@"shopping"];
     }
     _backUpJson = tempDic;
-    _backUpTrip = [[TripDetail alloc] initWithJson:self.backUpJson];
 }
 
 - (NSMutableArray *)analysisItineraryData:(id)json

@@ -15,14 +15,13 @@
 }
 
 @property (nonatomic, strong) FMMoveTableView *tableView;
-
+@property (nonatomic, strong) TripDetail *backupTrip;
 @end
 
 @implementation ScheduleEditorViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     self.navigationItem.title = @"修改行程";
     UIBarButtonItem *finishBtn = [[UIBarButtonItem alloc]initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(onScheduleChanged:)];
     UIBarButtonItem *cancelBtn = [[UIBarButtonItem alloc]initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(cancel:)];
@@ -40,11 +39,31 @@
     _tableView.delegate = self;
     [_tableView registerNib:[UINib nibWithNibName:@"PoiOnEditorTableViewCell" bundle:nil] forCellReuseIdentifier:@"poi_cell_of_edit"];
     [self.view addSubview:_tableView];
+    
+    UIButton *editBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-150, 100, 25)];
+    editBtn.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.9];
+    [editBtn setTitle:@"编辑天数" forState:UIControlStateNormal];
+    [editBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    editBtn.layer.cornerRadius = 4.0;
+    [editBtn addTarget:self action:@selector(editDay:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:editBtn];
+}
+
+- (void)setTripDetail:(TripDetail *)tripDetail
+{
+    _tripDetail = tripDetail;
+    _backupTrip = [_tripDetail backUpTrip];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+- (void)editDay:(id)sender
+{
+    [self.frostedViewController presentMenuViewController];
 }
 
 #pragma mark - UITableViewDataSource & Delegate
@@ -61,12 +80,12 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return _tripDetail.itineraryList.count;
+    return _backupTrip.itineraryList.count;
 }
 
 - (NSInteger)tableView:(FMMoveTableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSInteger numberOfRows = [[_tripDetail.itineraryList objectAtIndex:section] count];
+    NSInteger numberOfRows = [[_backupTrip.itineraryList objectAtIndex:section] count];
     if (tableView.movingIndexPath && tableView.movingIndexPath.section != tableView.initialIndexPathForMovingRow.section)
     {
         if (section == tableView.movingIndexPath.section) {
@@ -92,7 +111,7 @@
     headerTitle.lineBreakMode = NSLineBreakByTruncatingTail;
     NSString *titleStr = [NSString stringWithFormat:@"DAY%ld ",(long)section+1];
     NSMutableOrderedSet *set = [[NSMutableOrderedSet alloc] init];
-    for (SuperPoi *tripPoi in [_tripDetail.itineraryList objectAtIndex:section]) {
+    for (SuperPoi *tripPoi in [_backupTrip.itineraryList objectAtIndex:section]) {
         if (tripPoi.locality.zhName) {
             [set addObject:tripPoi.locality.zhName];
             [_cityArray addObject:tripPoi.locality.cityId];
@@ -133,7 +152,7 @@
         if (tableView.movingIndexPath != nil) {
             indexPath = [tableView adaptedIndexPathForRowAtIndexPath:indexPath];
         }
-        SuperPoi *tripPoi = _tripDetail.itineraryList[indexPath.section][indexPath.row];
+        SuperPoi *tripPoi = _backupTrip.itineraryList[indexPath.section][indexPath.row];
         cell.poiNameLabel.text = tripPoi.zhName;
         cell.shouldIndentWhileEditing = NO;
         cell.showsReorderControl = NO;
@@ -172,41 +191,51 @@
 
 - (NSIndexPath *)moveTableView:(FMMoveTableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath
 {
-    //	Uncomment these lines to enable moving a row just within it's current section
-    //	if ([sourceIndexPath section] != [proposedDestinationIndexPath section]) {
-    //		proposedDestinationIndexPath = sourceIndexPath;
-    //	}
-    
     return proposedDestinationIndexPath;
 }
 
 
 - (void)moveTableView:(FMMoveTableView *)tableView moveRowFromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
-    NSArray *movie = [[_tripDetail.itineraryList objectAtIndex:fromIndexPath.section] objectAtIndex:fromIndexPath.row];
-    [[_tripDetail.itineraryList objectAtIndex:fromIndexPath.section] removeObjectAtIndex:fromIndexPath.row];
-    [[_tripDetail.itineraryList objectAtIndex:toIndexPath.section] insertObject:movie atIndex:toIndexPath.row];
+    NSArray *movie = [[_backupTrip.itineraryList objectAtIndex:fromIndexPath.section] objectAtIndex:fromIndexPath.row];
+    [[_backupTrip.itineraryList objectAtIndex:fromIndexPath.section] removeObjectAtIndex:fromIndexPath.row];
+    [[_backupTrip.itineraryList objectAtIndex:toIndexPath.section] insertObject:movie atIndex:toIndexPath.row];
 }
 
 #pragma mark - IBAction
 
 - (IBAction)onScheduleChanged:(id)sender
 {
-    
+    [_backupTrip saveTrip:^(BOOL isSuccesss) {
+        if (isSuccesss) {
+            [SVProgressHUD showHint:@"保存成功"];
+            _tripDetail.itineraryList = _backupTrip.itineraryList;
+        } else {
+            [SVProgressHUD showHint:@"保存失败"];
+        }
+    }];
 }
 
 - (IBAction)cancel:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if (_backupTrip.tripIsChange) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"计划发生修改是否忽略？" message:nil delegate:self cancelButtonTitle:@"忽略" otherButtonTitles:@"取消", nil];
+        [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
+            if (buttonIndex == 0) {
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }
+        }];
+    } else {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+    
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
+
+
+
+
+
+

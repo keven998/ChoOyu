@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "TripDetail.h"
+#import "REFrostedViewController.h"
 
 @interface DayAgendaViewController : TZViewController
 

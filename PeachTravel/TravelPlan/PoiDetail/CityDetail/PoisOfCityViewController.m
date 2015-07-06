@@ -159,7 +159,7 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.navigationController.navigationBarHidden = NO;
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
     if (_shouldEdit) {
         [MobClick beginLogPageView:@"page_add_agenda"];
     } else {

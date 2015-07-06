@@ -33,7 +33,7 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [self.tableView reloadData];
 }
 
 - (void)setTripDetail:(TripDetail *)tripDetail
@@ -54,7 +54,6 @@
         if (i == 0) {
             [dstr appendString:[NSString stringWithFormat:@"%@", sp.zhName]];
         } else {
-            [dstr appendString:[NSString stringWithFormat:@" > %@", sp.zhName]];
             [dstr appendString:[NSString stringWithFormat:@" > %@", sp.zhName]];
 
         }
@@ -106,7 +105,6 @@
                 [title appendString:[NSString stringWithFormat:@" > %@", sp.locality.zhName]];
                 [titleArray addObject:sp.locality.zhName];
             }
-            [dstr appendString:[NSString stringWithFormat:@" > %@", sp.zhName]];
             [dstr appendString:[NSString stringWithFormat:@" > %@", sp.zhName]];
 
         }
