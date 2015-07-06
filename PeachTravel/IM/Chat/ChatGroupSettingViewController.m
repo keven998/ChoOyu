@@ -233,7 +233,6 @@
         divide.backgroundColor = APP_DIVIDER_COLOR;
         [cell addSubview:divide];
         return cell;
-        
     }
     ChatGroupCell *cell = [tableView dequeueReusableCellWithIdentifier:@"chatCell" forIndexPath:indexPath];
     return cell;
@@ -268,7 +267,6 @@
                 }
             }];
         }
-
     }
     if (indexPath.section == 1) {
         if (indexPath.row == _groupModel.numbers.count) {

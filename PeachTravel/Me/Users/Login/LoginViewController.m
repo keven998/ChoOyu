@@ -207,6 +207,12 @@
 
 //帐号密码登录
 - (IBAction)login:(UIButton *)sender {
+    [UIView animateWithDuration:0.2 animations:^{
+        _iconImageView.frame = CGRectMake((Width - 483/3 *Height/736)/2, 282/3 * Height/736, 483/3 *Height/736 , 483/3 *Height/736);
+        _textFieldBg.frame = CGRectMake(13, CGRectGetMaxY(_iconImageView.frame) + 40, Width - 26, 122 * Height / 736);
+        _loginBtn.frame = CGRectMake(13, CGRectGetMaxY(_textFieldBg.frame) + 5, Width - 26, 62 * Height/736);
+    }];
+
     [self.view endEditing:YES];
     if (!(([_userNameTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""].length!=0) && ([_passwordTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""].length != 0)) ) {
         //        [self showHint:@"不输帐号或密码，是没法登录滴"];
