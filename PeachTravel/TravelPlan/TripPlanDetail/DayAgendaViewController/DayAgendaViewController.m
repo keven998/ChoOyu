@@ -16,7 +16,7 @@
 @interface DayAgendaViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
-
+@property (nonatomic, strong) NSMutableArray *dataSource;
 @end
 
 static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
@@ -43,6 +43,8 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
     [_tableView registerNib:[UINib nibWithNibName:@"TripPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:tripPoiListReusableIdentifier];
     [self.view addSubview:_tableView];
     
+    _dataSource = [_tripDetail.itineraryList objectAtIndex:_currentDay];
+
     UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 44)];
     btn.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     [btn setTitle:@"编辑" forState:UIControlStateNormal];
@@ -54,9 +56,11 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
-    [_tableView reloadData];
     [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    if (_dataSource) {
+        [_tableView reloadData];
+    }
 }
 
 - (void)setTitleStr:(NSString *)titleStr {
@@ -79,7 +83,6 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - UITableViewDataSource & Delegate
@@ -100,12 +103,12 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [_tripDetail.itineraryList[_currentDay] count];
+    return [_dataSource count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SuperPoi *tripPoi = _tripDetail.itineraryList[_currentDay][indexPath.row];
+    SuperPoi *tripPoi = _dataSource[indexPath.row];
     TripPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:tripPoiListReusableIdentifier forIndexPath:indexPath];
     cell.tripPoi = tripPoi;
     return cell;
@@ -114,7 +117,7 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SpotDetailViewController *spotDetailCtl = [[SpotDetailViewController alloc] init];
-    SuperPoi *poi = _tripDetail.itineraryList[_currentDay][indexPath.row];
+    SuperPoi *poi = _dataSource[indexPath.row];
     spotDetailCtl.spotId = poi.poiId;
     [self.navigationController pushViewController:spotDetailCtl animated:YES];
 
@@ -144,6 +147,7 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
 #pragma IBAction - editSchedule
 - (void) editSchedule {
     ScheduleEditorViewController *sevc = [[ScheduleEditorViewController alloc] init];
+    sevc.rootCtl = self;
     ScheduleDayEditViewController *menuCtl = [[ScheduleDayEditViewController alloc] init];
     sevc.tripDetail = _tripDetail;
     REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:[[UINavigationController alloc] initWithRootViewController:sevc] menuViewController:menuCtl];

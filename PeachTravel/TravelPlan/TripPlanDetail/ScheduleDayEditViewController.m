@@ -74,7 +74,6 @@
                 [titleArray addObject:sp.locality.zhName];
                 [title appendString:[NSString stringWithFormat:@" > %@", sp.locality.zhName]];
             }
-            
         }
     }
 
@@ -82,8 +81,8 @@
 
     if ([tableView indexPathIsMovingIndexPath:indexPath]) {
         [cell prepareForMove];
-    } else
-    {
+        
+    } else {
         if (tableView.movingIndexPath != nil) {
             indexPath = [tableView adaptedIndexPathForRowAtIndexPath:indexPath];
         }
@@ -108,8 +107,13 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [_tripDetail.itineraryList removeObjectAtIndex:indexPath.row];
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"确认删除这一天的所有安排?" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+        [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
+            if (buttonIndex == 1) {
+                [_tripDetail.itineraryList removeObjectAtIndex:indexPath.row];
+                [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            }
+        }];
     }
 }
 
@@ -118,3 +122,8 @@
 
 
 @end
+
+
+
+
+

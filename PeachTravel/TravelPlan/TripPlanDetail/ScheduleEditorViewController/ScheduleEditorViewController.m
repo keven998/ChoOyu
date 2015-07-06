@@ -10,6 +10,7 @@
 #import "PoiOnEditorTableViewCell.h"
 #import "FMMoveTableView.h"
 #import "ScheduleDayEditViewController.h"
+#import "DayAgendaViewController.h"
 
 @interface ScheduleEditorViewController ()<FMMoveTableViewDataSource, FMMoveTableViewDelegate, REFrostedViewControllerDelegate> {
     NSMutableArray *_cityArray;
@@ -213,6 +214,13 @@
         if (isSuccesss) {
             _backupTrip = [_tripDetail backUpTrip];
             [SVProgressHUD showHint:@"保存成功"];
+            if ([self.rootCtl isKindOfClass:[DayAgendaViewController class]]) {
+                [self dismissViewControllerAnimated:YES completion:nil];
+                [self.rootCtl.navigationController popViewControllerAnimated:YES];
+                
+            } else {
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }
         } else {
             _tripDetail.itineraryList = backItineraryList;
             [SVProgressHUD showHint:@"保存失败"];
