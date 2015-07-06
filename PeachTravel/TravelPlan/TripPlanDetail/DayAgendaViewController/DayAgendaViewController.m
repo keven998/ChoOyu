@@ -105,7 +105,7 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SuperPoi *tripPoi = _tripDetail.itineraryList[indexPath.section][indexPath.row];
+    SuperPoi *tripPoi = _tripDetail.itineraryList[_currentDay][indexPath.row];
     TripPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:tripPoiListReusableIdentifier forIndexPath:indexPath];
     cell.tripPoi = tripPoi;
     return cell;
@@ -144,9 +144,8 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
 #pragma IBAction - editSchedule
 - (void) editSchedule {
     ScheduleEditorViewController *sevc = [[ScheduleEditorViewController alloc] init];
-    sevc.tripDetail = _tripDetail;
     ScheduleDayEditViewController *menuCtl = [[ScheduleDayEditViewController alloc] init];
-    menuCtl.tripDetail = _tripDetail;
+    sevc.tripDetail = _tripDetail;
     REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:[[UINavigationController alloc] initWithRootViewController:sevc] menuViewController:menuCtl];
     frostedViewController.hidesBottomBarWhenPushed = YES;
     frostedViewController.direction = REFrostedViewControllerDirectionLeft;

@@ -9,8 +9,9 @@
 #import "ScheduleEditorViewController.h"
 #import "PoiOnEditorTableViewCell.h"
 #import "FMMoveTableView.h"
+#import "ScheduleDayEditViewController.h"
 
-@interface ScheduleEditorViewController ()<FMMoveTableViewDataSource, FMMoveTableViewDelegate> {
+@interface ScheduleEditorViewController ()<FMMoveTableViewDataSource, FMMoveTableViewDelegate, REFrostedViewControllerDelegate> {
     NSMutableArray *_cityArray;
 }
 
@@ -23,12 +24,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"修改行程";
-    UIBarButtonItem *finishBtn = [[UIBarButtonItem alloc]initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(onScheduleChanged:)];
+    UIBarButtonItem *finishBtn = [[UIBarButtonItem alloc]initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(saveTripChange:)];
     UIBarButtonItem *cancelBtn = [[UIBarButtonItem alloc]initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(cancel:)];
     self.navigationItem.rightBarButtonItem = finishBtn;
     self.navigationItem.leftBarButtonItem = cancelBtn;
     
     self.view.backgroundColor = [UIColor whiteColor];
+    self.frostedViewController.delegate = self;
     
     _cityArray = [NSMutableArray array];
     
@@ -63,6 +65,7 @@
 
 - (void)editDay:(id)sender
 {
+    ((ScheduleDayEditViewController *)self.frostedViewController.menuViewController).tripDetail = _backupTrip;
     [self.frostedViewController presentMenuViewController];
 }
 
@@ -143,12 +146,10 @@
 - (UITableViewCell *)tableView:(FMMoveTableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     PoiOnEditorTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"poi_cell_of_edit" forIndexPath:indexPath];
-    if ([tableView indexPathIsMovingIndexPath:indexPath])
-    {
+    if ([tableView indexPathIsMovingIndexPath:indexPath]) {
         [cell prepareForMove];
     }
-    else 
-    {
+    else {
         if (tableView.movingIndexPath != nil) {
             indexPath = [tableView adaptedIndexPathForRowAtIndexPath:indexPath];
         }
@@ -204,13 +205,16 @@
 
 #pragma mark - IBAction
 
-- (IBAction)onScheduleChanged:(id)sender
+- (IBAction)saveTripChange:(id)sender
 {
-    [_backupTrip saveTrip:^(BOOL isSuccesss) {
+    NSMutableArray *backItineraryList = _tripDetail.itineraryList;
+    _tripDetail.itineraryList = _backupTrip.itineraryList;
+    [_tripDetail saveTrip:^(BOOL isSuccesss) {
         if (isSuccesss) {
+            _backupTrip = [_tripDetail backUpTrip];
             [SVProgressHUD showHint:@"保存成功"];
-            _tripDetail.itineraryList = _backupTrip.itineraryList;
         } else {
+            _tripDetail.itineraryList = backItineraryList;
             [SVProgressHUD showHint:@"保存失败"];
         }
     }];
@@ -227,7 +231,11 @@
     } else {
         [self dismissViewControllerAnimated:YES completion:nil];
     }
-    
+}
+
+- (void)frostedViewController:(REFrostedViewController *)frostedViewController willHideMenuViewController:(UIViewController *)menuViewController
+{
+    [self.tableView reloadData];
 }
 
 

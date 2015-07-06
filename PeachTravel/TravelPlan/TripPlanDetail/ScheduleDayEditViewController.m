@@ -14,8 +14,6 @@
 
 @property (weak, nonatomic) IBOutlet FMMoveTableView *tableView;
 
-@property (nonatomic, strong) TripDetail *backupTrip;
-
 @end
 
 @implementation ScheduleDayEditViewController
@@ -36,12 +34,11 @@
 - (void)setTripDetail:(TripDetail *)tripDetail
 {
     _tripDetail = tripDetail;
-    _backupTrip = [_tripDetail backUpTrip];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _backupTrip.itineraryList.count;
+    return _tripDetail.itineraryList.count;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -52,7 +49,7 @@
 - (UITableViewCell *)tableView:(FMMoveTableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     FMMoveTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    cell.textLabel.text = [NSString stringWithFormat:@"DAY%ld", indexPath.row];
+    cell.textLabel.text = [NSString stringWithFormat:@"DAY%ld", indexPath.row+1];
     
     if ([tableView indexPathIsMovingIndexPath:indexPath]) {
         [cell prepareForMove];
@@ -69,7 +66,10 @@
 
 - (void)moveTableView:(FMMoveTableView *)tableView moveRowFromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
-//    [_tableView reloadData];
+    id data = [_tripDetail.itineraryList objectAtIndex:fromIndexPath.row];
+    [_tripDetail.itineraryList removeObjectAtIndex:fromIndexPath.row];
+    [_tripDetail.itineraryList insertObject:data atIndex:toIndexPath.row];
+    [_tableView reloadData];
 }
 
 - (void)moveTableView:(FMMoveTableView *)tableView willMoveRowAtIndexPath:(NSIndexPath *)indexPath
