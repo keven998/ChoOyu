@@ -39,6 +39,8 @@
 #import "HotelPoi.h"
 #import "ShoppingPoi.h"
 #import "CityPoi.h"
+#import "PXAlertView.h"
+#import "PXAlertView+Customization.h"
 #import "TZNavigationViewController.h"
 #import <AVFoundation/AVFoundation.h>
 

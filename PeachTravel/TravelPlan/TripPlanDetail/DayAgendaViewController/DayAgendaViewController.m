@@ -11,6 +11,7 @@
 #import "SpotDetailViewController.h"
 #import "ScheduleEditorViewController.h"
 #import "TripPoiListTableViewCell.h"
+#import "ScheduleDayEditViewController.h"
 
 @interface DayAgendaViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -54,6 +55,7 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
 - (void)viewWillAppear:(BOOL)animated
 {
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [_tableView reloadData];
     [super viewWillAppear:animated];
 }
 
@@ -72,7 +74,6 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
     
     titleLabel.attributedText = attrStr;
     self.navigationItem.titleView = titleLabel;
-
 }
 
 
@@ -144,8 +145,21 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
 - (void) editSchedule {
     ScheduleEditorViewController *sevc = [[ScheduleEditorViewController alloc] init];
     sevc.tripDetail = _tripDetail;
-    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:sevc] animated:YES completion:nil];
+    ScheduleDayEditViewController *menuCtl = [[ScheduleDayEditViewController alloc] init];
+    menuCtl.tripDetail = _tripDetail;
+    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:[[UINavigationController alloc] initWithRootViewController:sevc] menuViewController:menuCtl];
+    frostedViewController.hidesBottomBarWhenPushed = YES;
+    frostedViewController.direction = REFrostedViewControllerDirectionLeft;
+    frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
+    frostedViewController.liveBlur = YES;
+    frostedViewController.limitMenuViewSize = YES;
+    frostedViewController.resumeNavigationBar = NO;
+    self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan = NO;
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:frostedViewController] animated:YES completion:nil];
 }
+
+
+#pragma mark - ScheduleUpdateDelegate
 
 /*
 #pragma mark - Navigation
