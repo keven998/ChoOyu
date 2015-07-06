@@ -59,8 +59,8 @@ static CallViewController *shareController = nil;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.navigationController.navigationBarHidden = YES;
-    self.view.backgroundColor = [UIColor whiteColor];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    self.view.backgroundColor = APP_PAGE_COLOR;
     
     _bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, self.view.frame.size.height)];
     _bgImageView.contentMode = UIViewContentModeScaleToFill;
