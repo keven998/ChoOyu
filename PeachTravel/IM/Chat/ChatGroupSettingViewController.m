@@ -76,16 +76,16 @@
 - (void)createTableView
 {
     _tableView.dataSource = self;
+    _tableView.delegate = self;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.backgroundColor = APP_PAGE_COLOR;
     _tableView.separatorColor = APP_DIVIDER_COLOR;
-    _tableView.delegate = self;
     [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     [_tableView registerNib:[UINib nibWithNibName:@"ChatGroupCell" bundle:nil] forCellReuseIdentifier:@"chatCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"AddMemberCell" bundle:nil] forCellReuseIdentifier:@"addCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"UserOtherTableViewCell" bundle:nil] forCellReuseIdentifier:@"otherCell"];
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    
+    _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.bounds.size.width, 64)];
    _tableView.tableFooterView = [self createFooterView];
     
 }
@@ -121,30 +121,29 @@
 {
     
     if (section == 1) {
-        UIView *sectionHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
+        UIView *sectionHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 60)];
         sectionHeaderView.backgroundColor = APP_PAGE_COLOR;
-        UIImageView *greenPointImageView = [[UIImageView alloc]initWithFrame:CGRectMake(19, 34, 10, 10)];
-        greenPointImageView.image = [UIImage imageNamed:@"chat_drawer_poit"];
-        [sectionHeaderView addSubview:greenPointImageView];
         
-        UILabel *strLabel = [[UILabel alloc]initWithFrame:CGRectMake(34, 34, 200, 13)];
-        strLabel.font = [UIFont systemFontOfSize:12];
-        strLabel.text = @"群成员";
-        [sectionHeaderView addSubview:strLabel];
-        
-        
-        TZButton *addMemberBtn = [[TZButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH * 4/5 - 282/3, 15, 282/3, 40)];
-        addMemberBtn.imagePosition = IMAGE_AT_RIGHT;
-        [addMemberBtn setTitle:@"邀成员" forState:UIControlStateNormal];
+        UIButton *addMemberBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, sectionHeaderView.bounds.size.width/2, 60)];
+        [addMemberBtn setTitle:@"邀成朋友" forState:UIControlStateNormal];
         [addMemberBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-        [addMemberBtn setImage:[UIImage imageNamed:@"chat_drawer_add"] forState:UIControlStateNormal];
         addMemberBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-        
-        
         [addMemberBtn addTarget:self action:@selector(addGroupNumber:) forControlEvents:UIControlEventTouchUpInside];
         [sectionHeaderView addSubview:addMemberBtn];
-        
-        
+
+        if (_groupModel.owner != [AccountManager shareAccountManager].account.userId) {
+            UIButton *editGroup = [[UIButton alloc]initWithFrame:CGRectMake(sectionHeaderView.bounds.size.width/2+1, 0, sectionHeaderView.bounds.size.width/2-1, 60)];
+            [editGroup setTitle:@"管理成员" forState:UIControlStateNormal];
+            [editGroup setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+            editGroup.titleLabel.font = [UIFont systemFontOfSize:15];
+            [editGroup addTarget:self action:@selector(editGroup:) forControlEvents:UIControlEventTouchUpInside];
+            [sectionHeaderView addSubview:editGroup];
+            
+            UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0.5, 60)];
+            spaceView.backgroundColor = COLOR_LINE;
+            [editGroup addSubview:spaceView];
+        }
+    
         return sectionHeaderView;
         
     }
@@ -251,6 +250,13 @@
     return cell;
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 1) {
+        return YES;
+    }
+    return NO;
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -329,6 +335,11 @@
     CreateConversationViewController *createConversationCtl = [[CreateConversationViewController alloc] init];
     createConversationCtl.group = _groupModel;
     [_containerCtl.navigationController pushViewController:createConversationCtl animated:YES];
+}
+
+- (IBAction)editGroup:(id)sender
+{
+    [_tableView setEditing:YES animated:YES];
 }
 
 /**
