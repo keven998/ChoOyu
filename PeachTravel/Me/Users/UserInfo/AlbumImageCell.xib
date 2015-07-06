@@ -16,6 +16,12 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="glL-AN-eRE">
                         <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
                     </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ueV-EK-ghT">
+                        <rect key="frame" x="8" y="8" width="20" height="20"/>
+                        <state key="normal">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
@@ -27,6 +33,7 @@
             </constraints>
             <size key="customSize" width="177" height="185"/>
             <connections>
+                <outlet property="editBtn" destination="ueV-EK-ghT" id="G1B-rP-jcH"/>
                 <outlet property="imageView" destination="glL-AN-eRE" id="Ki7-RJ-5Je"/>
             </connections>
             <point key="canvasLocation" x="174" y="293"/>

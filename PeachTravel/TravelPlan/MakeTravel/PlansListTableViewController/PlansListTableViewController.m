@@ -76,7 +76,7 @@ static NSString *reusableCell = @"myGuidesCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"旅行计划";
-    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:TEXT_COLOR_TITLE_SUBTITLE,NSForegroundColorAttributeName,nil]];
+    
     
     UIButton *categoryBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
     [categoryBtn addTarget:self action:@selector(filtTrip) forControlEvents:UIControlEventTouchUpInside];
@@ -165,6 +165,7 @@ static NSString *reusableCell = @"myGuidesCell";
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES]; //侧滑navigation bar 补丁
     [MobClick beginLogPageView:@"page_my_trip_plans"];
+    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:TEXT_COLOR_TITLE_SUBTITLE,NSForegroundColorAttributeName,nil]];
     [self.navigationController.navigationBar setBackgroundImage:[ConvertMethods createImageWithColor:APP_PAGE_COLOR] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];
     _isShowing = YES;
