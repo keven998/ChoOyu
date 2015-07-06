@@ -72,38 +72,57 @@ typedef void(^loginCompletion)(BOOL completed);
     _phoneLabel = [[UITextField alloc]initWithFrame:CGRectMake(10, 0, SCREEN_WIDTH - 50, 60 * SCREEN_HEIGHT / 736)];
     UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _phoneLabel.bounds.size.height - 16.0)];
     ul.text = @"手机:";
-    ul.textColor = TEXT_COLOR_TITLE;
-    ul.font = [UIFont systemFontOfSize:14.0];
+    ul.textColor = COLOR_TEXT_I;
+    ul.font = [UIFont systemFontOfSize:13.0];
     ul.textAlignment = NSTextAlignmentCenter;
     _phoneLabel.leftView = ul;
+    _phoneLabel.placeholder = @"手机号";
     _phoneLabel.leftViewMode = UITextFieldViewModeAlways;
     _phoneLabel.text = _defaultPhone;
+    _phoneLabel.textColor = COLOR_TEXT_I;
+    _phoneLabel.font = [UIFont systemFontOfSize:15.0];
     _phoneLabel.delegate = self;
+    _phoneLabel.keyboardType = UIKeyboardTypePhonePad;
     [textFieldBg addSubview:_phoneLabel];
     
     _passwordLabel = [[UITextField alloc]initWithFrame:CGRectMake(10, 60 * SCREEN_HEIGHT / 736, SCREEN_WIDTH - 50, 60 * SCREEN_HEIGHT / 736)];
     
     UILabel *pl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _passwordLabel.bounds.size.height - 16.0)];
     pl.text = @"密码:";
-    pl.textColor = TEXT_COLOR_TITLE;
-    pl.font = [UIFont systemFontOfSize:14.0];
+    pl.textColor = COLOR_TEXT_I;
+    pl.font = [UIFont systemFontOfSize:13.0];
     pl.textAlignment = NSTextAlignmentCenter;
     _passwordLabel.leftView = pl;
+    _passwordLabel.placeholder = @"设置密码";
     _passwordLabel.leftViewMode = UITextFieldViewModeAlways;
     _passwordLabel.text = _defaultPassword;
+    _passwordLabel.font = [UIFont systemFontOfSize:15.0];
     _passwordLabel.delegate = self;
+    _passwordLabel.textColor = COLOR_TEXT_I;
+    _passwordLabel.secureTextEntry = YES;
     [textFieldBg addSubview:_passwordLabel];
     
-    
     _registerBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    _registerBtn.frame = CGRectMake(13, 1107/3 * SCREEN_HEIGHT/736, SCREEN_WIDTH - 26, 62 * SCREEN_HEIGHT/736);
+    _registerBtn.frame = CGRectMake(13, CGRectGetMaxY(textFieldBg.frame) + 5, SCREEN_WIDTH - 26, 56 * SCREEN_HEIGHT/736);
     [_registerBtn setTitle:@"下一步" forState:UIControlStateNormal];
-    _registerBtn.layer.cornerRadius = 4.0;
+    _registerBtn.layer.cornerRadius = 5.0;
     _registerBtn.clipsToBounds = YES;
+    _registerBtn.titleLabel.font = [UIFont systemFontOfSize:16.0];
     [_registerBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_registerBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateHighlighted];
     [_registerBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
     [self.view addSubview:_registerBtn];
     [_registerBtn addTarget:self action:@selector(confirmRegister:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *label = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 100, 32)];
+    label.titleLabel.font = [UIFont systemFontOfSize:13.0];
+    [label setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+    [label setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
+    label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;\
+    [label setTitle:@"注册协议" forState:UIControlStateNormal];
+    [label addTarget:self action:@selector(goProtocolWebView:) forControlEvents:UIControlEventTouchUpInside];
+    label.center = CGPointMake(CGRectGetWidth(self.view.bounds)/2.0, CGRectGetHeight(self.view.bounds) - 44);
+    [self.view addSubview:label];
     
 }
 
@@ -232,6 +251,7 @@ typedef void(^loginCompletion)(BOOL completed);
         }
     }];
 }
+
 - (IBAction)goProtocolWebView:(UIButton *)sender {
     SuperWebViewController *webViewCtl = [[SuperWebViewController alloc] init];
     webViewCtl.urlStr = APP_AGREEMENT;
