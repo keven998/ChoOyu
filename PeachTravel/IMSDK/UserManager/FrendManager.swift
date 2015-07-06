@@ -136,7 +136,6 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
     :param: errorCode
     */
     func asyncAgreeAddContact(#requestId: String, completion: (isSuccess: Bool, errorCode: Int) -> ()) {
-        
         let manager = AFHTTPRequestOperationManager()
         let requestSerializer = AFJSONRequestSerializer()
         manager.requestSerializer = requestSerializer

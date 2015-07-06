@@ -45,7 +45,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContactList) name:contactListNeedUpdateNoti object:nil];
     
     [self.view addSubview:self.contactTableView];
-    [self.accountManager loadContactsFromServer];
+//    [self.accountManager loadContactsFromServer];
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -172,6 +172,7 @@
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [accountManager asyncChangeRemark:text withUserId:contact.userId completion:^(BOOL isSuccess) {
         if (isSuccess) {
+            contact.memo = text;
             [[NSNotificationCenter defaultCenter] postNotificationName:contactListNeedUpdateNoti object:nil];
             completed(YES);
         } else {
@@ -196,7 +197,11 @@
             //bug 需要返回备注昵称
             BaseTextSettingViewController *bsvc = [[BaseTextSettingViewController alloc] init];
             bsvc.navTitle = @"修改备注";
-            bsvc.content = contact.nickName;
+            if (contact.memo) {
+                bsvc.content = contact.memo;
+            } else {
+                bsvc.content = contact.nickName;
+            }
             bsvc.acceptEmptyContent = NO;
             bsvc.saveEdition = ^(NSString *editText, saveComplteBlock(completed)) {
                 [self confirmChange:editText withContacts:contact success:completed];
@@ -276,7 +281,11 @@
         //        } else {
         //            detailStr = contact.nickName;
         //        }
-        cell.nickNameLabel.text = contact.nickName;
+        if (contact.memo) {
+            cell.nickNameLabel.text = contact.memo;
+        } else {
+            cell.nickNameLabel.text = contact.nickName;
+        }
         return cell;
     }
 }

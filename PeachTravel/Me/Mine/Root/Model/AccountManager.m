@@ -100,7 +100,7 @@
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:userId forKey:@"loginName"];
-    [params setObject:password forKey:@"pwd"];
+    [params setObject:password forKey:@"password"];
     
     //普通登录
     [manager POST:API_SIGNIN parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -675,11 +675,11 @@
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)self.account.userId] forHTTPHeaderField:@"UserId"];
     
-    [manager GET:API_GET_CONTACTS parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSString *url = [NSString stringWithFormat:@"%@%ld/contacts", API_USERS, self.account.userId];
+    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             NSLog(@"已经完成从服务器上加载好友列表");
-            
             [self analysisAndSaveContacts:[[responseObject objectForKey:@"result"] objectForKey:@"contacts"]];
             [[NSNotificationCenter defaultCenter] postNotificationName:contactListNeedUpdateNoti object:nil];
         } else {
@@ -837,7 +837,7 @@
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:remark forKey:@"memo"];
-    
+
     NSString *urlStr = [NSString stringWithFormat:@"%@%ld/memo", API_USERS, userId];
     
     [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
