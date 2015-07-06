@@ -64,7 +64,7 @@
 {
     _tableView.dataSource = self;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    _tableView.backgroundColor = [UIColor whiteColor];
+    _tableView.backgroundColor = APP_PAGE_COLOR;
     _tableView.separatorColor = APP_DIVIDER_COLOR;
     _tableView.delegate = self;
     [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
@@ -118,7 +118,6 @@
         strLabel.font = [UIFont systemFontOfSize:12];
         strLabel.text = @"群成员";
         [sectionHeaderView addSubview:strLabel];
-        
         
         
         TZButton *addMemberBtn = [[TZButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH * 4/5 - 282/3, 15, 282/3, 40)];
@@ -234,7 +233,6 @@
         divide.backgroundColor = APP_DIVIDER_COLOR;
         [cell addSubview:divide];
         return cell;
-        
     }
     ChatGroupCell *cell = [tableView dequeueReusableCellWithIdentifier:@"chatCell" forIndexPath:indexPath];
     return cell;
@@ -269,7 +267,6 @@
                 }
             }];
         }
-
     }
     if (indexPath.section == 1) {
         if (indexPath.row == _groupModel.numbers.count) {
@@ -331,7 +328,7 @@
     contactViewHight = 10 + 90*lineCnt;
     
     [_tableView reloadData];
-    //    [self createContactsScrollView];
+//    [self createContactsScrollView];
 }
 
 //增加群组成员

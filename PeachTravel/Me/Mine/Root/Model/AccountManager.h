@@ -31,12 +31,22 @@
  *
  *  @param userInfo
  */
-- (void)userDidLoginWithUserInfo:(id)userInfo;
+- (void)asyncLogin:(NSString *)userId password:(NSString *)password completion:(void(^)(BOOL isSuccess, NSString *errorStr))completion;
+
+/**
+ *  微信登录
+ *
+ *  @param code
+ *  @param completion 
+ */
+- (void)asyncLoginWithWeChat:(NSString *)code completion:(void(^)(BOOL isSuccess, NSString *errorStr))completion;
 
 /**
  *  异步退出登录
  */
 - (void)asyncLogout:(void(^)(BOOL isSuccess))completion;
+
+- (void)userDidLoginWithUserInfo:(id)userInfo;
 
 /**
  *  账户是否绑定了手机号，返回 yes 是绑定了
