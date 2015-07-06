@@ -12,4 +12,6 @@
 
 @property (nonatomic) NSInteger groupId;
 
+@property (nonatomic, weak) UIViewController *containerCtl;
+
 @end

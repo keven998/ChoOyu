@@ -45,6 +45,19 @@
     [self updateGroupInfoFromServer];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    [MobClick beginLogPageView:@"page_talk_setting"];
+    [self updateView];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:YES];
+    [MobClick endLogPageView:@"page_talk_setting"];
+}
+
 - (void)updateGroupInfoFromServer
 {
     IMDiscussionGroupManager *groupManager = [IMDiscussionGroupManager shareInstance];
@@ -98,8 +111,8 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if (section == 0) {
         return 0;
-    }
-    else {
+        
+    } else {
         return 60;
     }
 }
@@ -247,7 +260,7 @@
             changeCtl.group = _groupModel;
             changeCtl.oldTitle = _groupModel.subject;
             changeCtl.delegate = self;
-            [self.navigationController pushViewController:changeCtl animated:YES];
+            [_containerCtl.navigationController pushViewController:changeCtl animated:YES];
             
         }
         else if (indexPath.row == 1) {
@@ -291,27 +304,6 @@
     return rightUtilityButtons;
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"page_talk_setting"];
-    [self updateView];
-   
-    //    [_groupTitle setTitle:_group.groupSubject forState:UIControlStateNormal];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    //    self.navigationController.navigationBarHidden = NO;
-    [MobClick endLogPageView:@"page_talk_setting"];
-}
-
--(void)viewDidDisappear:(BOOL)animated
-{
-    self.navigationController.navigationBarHidden = NO;
-}
-
 - (void)updateView
 {
     CGFloat contactViewHight = 0;
@@ -336,8 +328,7 @@
 {
     CreateConversationViewController *createConversationCtl = [[CreateConversationViewController alloc] init];
     createConversationCtl.group = _groupModel;
-    TZNavigationViewController *nCtl = [[TZNavigationViewController alloc] initWithRootViewController:createConversationCtl];
-    [self presentViewController:nCtl animated:YES completion:nil];
+    [_containerCtl.navigationController pushViewController:createConversationCtl animated:YES];
 }
 
 /**

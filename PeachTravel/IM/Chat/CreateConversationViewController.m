@@ -44,7 +44,7 @@
     self.navigationItem.rightBarButtonItem = confirm;
     self.navigationItem.rightBarButtonItem.enabled = NO;
     
-    if (!_isPushed) {
+    if (!self.navigationController.viewControllers.count == 1) {
         UIBarButtonItem *backBtn = [[UIBarButtonItem alloc]initWithTitle:@" 取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismissCtl:)];
         backBtn.tintColor = TEXT_COLOR_TITLE_SUBTITLE;
         self.navigationItem.leftBarButtonItem = backBtn;
@@ -68,22 +68,20 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    //    self.navigationController.navigationBarHidden = YES;
     [MobClick beginLogPageView:@"page_choose_talk_to"];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
     [MobClick endLogPageView:@"page_choose_talk_to"];
 }
 
 - (void)dealloc
 {
-    if (!_isPushed) {
-        [[NSNotificationCenter defaultCenter] removeObserver:self];
-    }
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - setter & getter

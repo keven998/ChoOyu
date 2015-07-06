@@ -21,7 +21,6 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
 
 @property (nonatomic, strong) UILabel *typeLabel;
 @property (nonatomic, strong) UIImageView *pictureImageView;
-@property (nonatomic, strong) UIView *pictureImageBkgView;
 
 @property (nonatomic, strong) UIButton *titleBtn;
 @property (nonatomic, strong) UIButton *propertyBtn;
@@ -34,9 +33,10 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
 {
     if (self = [super initWithFrame:frame]) {
         _typeLabel = [[UILabel alloc] init];
-        _typeLabel.font = [UIFont boldSystemFontOfSize:25.0];
+        _typeLabel.font = [UIFont boldSystemFontOfSize:16.0];
+        _typeLabel.textAlignment = NSTextAlignmentCenter;
+        _typeLabel.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
         _typeLabel.textColor = [UIColor whiteColor];
-        _typeLabel.backgroundColor = [UIColor clearColor];
         
         _titleBtn = [[UIButton alloc] init];
         _titleBtn.titleLabel.font = [UIFont boldSystemFontOfSize:15.0];
@@ -48,11 +48,6 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
         _pictureImageView = [[UIImageView alloc] init];
         _pictureImageView.layer.cornerRadius = 2.0;
         _pictureImageView.contentMode = UIViewContentModeScaleAspectFill;
-        _pictureImageView.clipsToBounds = YES;
-        
-        _pictureImageBkgView = [[UIView alloc] init];
-        _pictureImageBkgView.layer.cornerRadius = 2.0;
-        _pictureImageBkgView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
         _pictureImageView.clipsToBounds = YES;
         
         _propertyBtn = [[UIButton alloc] init];
@@ -71,9 +66,8 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
         [self addSubview:_titleBtn];
         [self addSubview:_propertyBtn];
         [self addSubview:_pictureImageView];
-        [self addSubview:_pictureImageBkgView];
         [self addSubview:_descLabel];
-        [self addSubview:_typeLabel];
+        [_pictureImageView addSubview:_typeLabel];
     }
     return self;
 }
@@ -81,13 +75,7 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    if (_model.isSender) {
-        [_typeLabel setFrame:CGRectMake(12.5, 40, 60, 30)];
-    } else {
-        [_typeLabel setFrame:CGRectMake(20, 40, 60, 30)];
-    }
     _titleBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
-    _typeLabel.textAlignment = NSTextAlignmentRight;
     _titleBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     _propertyBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     _descLabel.textAlignment = NSTextAlignmentLeft;
@@ -106,14 +94,11 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
     }
     if (_model.isSender) {
         [_pictureImageView setFrame:CGRectMake(12.5, 10, 60, 60)];
-        [_pictureImageBkgView setFrame:CGRectMake(12.5,
-                                                  
-                                                  
-                                                  10, 60, 60)];
     } else {
         [_pictureImageView setFrame:CGRectMake(20, 10, 60, 60)];
-        [_pictureImageBkgView setFrame:CGRectMake(20, 10, 60, 60)];
     }
+    
+    [_typeLabel setFrame:CGRectMake(0, _pictureImageView.bounds.size.height-24, _pictureImageView.bounds.size.width, 24)];
     
     [_titleBtn setFrame:CGRectMake(_pictureImageView.frame.origin.x + 70, 10, titleWidth, 20)];
     
@@ -220,7 +205,6 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
             default:
                 break;
         }
-        
     }
 }
 
