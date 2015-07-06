@@ -49,8 +49,37 @@
 - (UITableViewCell *)tableView:(FMMoveTableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     FMMoveTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    cell.textLabel.text = [NSString stringWithFormat:@"DAY%ld", indexPath.row+1];
     
+    NSArray *ds = _tripDetail.itineraryList[indexPath.row];
+    NSMutableString *title = [[NSMutableString alloc] init];
+    NSMutableArray *titleArray = [[NSMutableArray alloc] init];
+    NSInteger count = [ds count];
+    for (int i = 0; i < count; ++i) {
+        SuperPoi *sp = [ds objectAtIndex:i];
+        if (i == 0) {
+            if (sp.locality && sp.locality.zhName) {
+                [titleArray addObject:sp.locality.zhName];
+                [title appendString:sp.locality.zhName];
+            }
+            
+        } else {
+            BOOL find = NO;
+            for (NSString *str in titleArray) {
+                if ([str isEqualToString:sp.locality.zhName]) {
+                    find = YES;
+                    break;
+                }
+            }
+            if (!find && sp.locality && sp.locality.zhName) {
+                [titleArray addObject:sp.locality.zhName];
+                [title appendString:[NSString stringWithFormat:@" > %@", sp.locality.zhName]];
+            }
+            
+        }
+    }
+
+    cell.textLabel.text = [NSString stringWithFormat:@"DAY%ld %@", indexPath.row+1, title];
+
     if ([tableView indexPathIsMovingIndexPath:indexPath]) {
         [cell prepareForMove];
     } else
