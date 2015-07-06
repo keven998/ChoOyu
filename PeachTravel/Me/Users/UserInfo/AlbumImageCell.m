@@ -11,7 +11,38 @@
 @implementation AlbumImageCell
 
 - (void)awakeFromNib {
-    // Initialization code
+    
+    _editBtn.backgroundColor = [UIColor redColor];
+//    [_editBtn setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+    
+    CGFloat t =2.0;
+    
+    CGAffineTransform leftQuake  =CGAffineTransformTranslate(CGAffineTransformIdentity, t,-t);
+    CGAffineTransform rightQuake =CGAffineTransformTranslate(CGAffineTransformIdentity,-t, t);
+    
+    _editBtn.transform = leftQuake;  // starting point
+    
+    [UIView beginAnimations:@"earthquake" context:(__bridge void *)(_editBtn)];
+    [UIView setAnimationRepeatAutoreverses:YES];// important
+    [UIView setAnimationRepeatCount:1000000];
+    [UIView setAnimationDuration:0.07];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(earthquakeEnded:finished:context:)];
+    
+    _editBtn.transform = rightQuake;// end here & auto-reverse
+    
+    [UIView commitAnimations];
+    _editBtn.hidden = YES;
 }
 
+- (void)earthquakeEnded:(NSString*)animationID finished:(NSNumber*)finished context:(void*)context
+{
+    
+    if([finished boolValue])
+    {
+        UIView* item =(__bridge UIView*)context;
+        item.transform =CGAffineTransformIdentity;
+    }
+    
+}
 @end

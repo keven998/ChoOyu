@@ -22,6 +22,7 @@
 #import "PlansListTableViewController.h"
 #import "ContactListViewController.h"
 #import "MWPhotoBrowser.h"
+#import "UserAlbumViewController.h"
 
 #define cellDataSource           @[@[@"邀请好友", @"意见反馈"], @[@"关于我们", @"应用设置"]]
 #define secondCell               @"secondCell"
@@ -437,18 +438,14 @@
 
 - (IBAction)showPictureGrid:(id)sender
 {
-    MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] init];
-    [browser setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
-    UINavigationController *navc = [[UINavigationController alloc] initWithRootViewController:browser];
-    NSMutableArray *array = [[NSMutableArray alloc] init];
-    for (AlbumImage *album in self.accountManager.account.userAlbum) {
-        MWPhoto *photo = [[MWPhoto alloc] initWithURL:[NSURL URLWithString:album.image.imageUrl]];
-        [array addObject:photo];
-    }
-    browser.imageList = array;
-    browser.titleStr = @"相册";
+
+    UserAlbumViewController *ctl = [[UserAlbumViewController alloc] initWithNibName:@"UserAlbumViewController" bundle:nil];
     
-    [self presentViewController:navc animated:YES completion:nil];
+    ctl.albumArray = self.accountManager.account.userAlbum;
+    ctl.isMyself = YES;
+    ctl.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:ctl animated:YES];
+
 }
 
 - (IBAction)myPlan:(id)sender
