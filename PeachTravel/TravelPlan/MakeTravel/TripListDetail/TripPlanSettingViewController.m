@@ -49,7 +49,7 @@
     [self createTableView];
     [_tableView registerNib:[UINib nibWithNibName:@"TripPlanSettingCell" bundle:nil] forCellReuseIdentifier:@"settingCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"CityNameCell" bundle:nil] forCellReuseIdentifier:@"cityNameCell"];
-    
+    [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
 }
 
 - (void)setTripDetail:(TripDetail *)tripDetail {
@@ -61,7 +61,7 @@
 {
     
     _tableView = ({
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 30, WIDTH, HEIGHT-30) style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT) style:UITableViewStyleGrouped];
         
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;
         _tableView.delegate = self;
@@ -127,25 +127,35 @@
     }
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
+    UIView *sectionHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
+    sectionHeaderView.backgroundColor = APP_PAGE_COLOR;
+    UIImageView *greenPointImageView = [[UIImageView alloc]initWithFrame:CGRectMake(19, 34, 10, 10)];
+    greenPointImageView.image = [UIImage imageNamed:@"chat_drawer_poit"];
+    [sectionHeaderView addSubview:greenPointImageView];
+    
+    UILabel *strLabel = [[UILabel alloc]initWithFrame:CGRectMake(34, 34, 200, 13)];
+    strLabel.font = [UIFont systemFontOfSize:12];
+    [sectionHeaderView addSubview:strLabel];
+    
     if (section == 0) {
-        if (_tripDetail.tripTitle.length > 50) {
-            NSString *str = [_tripDetail.tripTitle substringToIndex:23];
-            str = [NSString stringWithFormat:@"%@....计划",str];
-            return  str;
-        } else {
-            return _tripDetail.tripTitle;
-        }
+        strLabel.text = _tripDetail.tripTitle;
     }
-    else
-        return @"已选目的地";
+    else {
+        strLabel.text = @"目的城市";
+    
+    }
+    return sectionHeaderView;
 }
-
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 50;
+    return 60;
 }
-
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 0;
+}
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 2;
 }
@@ -160,22 +170,21 @@
     
     if (indexPath.section == 0)
     {
-        TripPlanSettingCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingCell" forIndexPath:indexPath];
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         if (indexPath.row == 0) {
-            cell.image.image = [UIImage imageNamed:@"diliver"];
-            cell.cellLabel.text = @"修改行程";
+            cell.textLabel.text = @"修改行程";
         }
         else if (indexPath.row == 1){
-            cell.image.image = [UIImage imageNamed:@"share"];
-            cell.cellLabel.text = @"发给好友";
+            cell.textLabel.text = @"发给好友";
         }
         return cell;
     }
     if (indexPath.section == 1)
     {
-        CityNameCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cityNameCell" forIndexPath:indexPath];
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
         CityDestinationPoi *model = _tripDetail.destinations[indexPath.row];
-        cell.cityName.text = model.zhName;
+        cell.textLabel.text = model.zhName;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.selectionStyle=UITableViewCellSelectionStyleDefault;
         return cell;

@@ -90,8 +90,6 @@
         if (i == 0) {
             if (sp.locality && sp.locality.zhName) {
                 [titleArray addObject:sp.locality.zhName];
-            }
-            if (sp.locality.zhName && sp.locality) {
                 [title appendString:sp.locality.zhName];
             }
             
@@ -130,8 +128,10 @@
     for (int i = 0; i < count; ++i) {
         SuperPoi *sp = [ds objectAtIndex:i];
         if (i == 0) {
-            [titleArray addObject:sp.locality.zhName];
-            [title appendString:sp.locality.zhName];
+            if (sp.locality && sp.locality.zhName) {
+                [titleArray addObject:sp.locality.zhName];
+                [title appendString:sp.locality.zhName];
+            }
         } else {
             BOOL find = NO;
             for (NSString *str in titleArray) {
