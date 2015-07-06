@@ -77,6 +77,7 @@
     [_captchaBtn setTitleColor:COLOR_TEXT_III forState:UIControlStateDisabled];
     _captchaBtn.titleLabel.font = [UIFont systemFontOfSize:11.0];
     [_captchaBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
+    [_captchaBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR_HIGHLIGHT] forState:UIControlStateHighlighted];
     [_captchaBtn setBackgroundImage:[ConvertMethods createImageWithColor:COLOR_DISABLE] forState:UIControlStateDisabled];
     _captchaBtn.enabled = YES;
 }
