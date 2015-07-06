@@ -93,6 +93,7 @@
     _verifyCodeTextField.font = [UIFont systemFontOfSize:16.0];
     _verifyCodeTextField.textColor = COLOR_TEXT_I;
     _verifyCodeTextField.placeholder = @"短信验证码";
+    _verifyCodeTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     [textFieldBg addSubview:_verifyCodeBtn];
     [textFieldBg addSubview:_verifyCodeTextField];
     
@@ -140,6 +141,9 @@
 
 - (void)startTimer
 {
+    if (timer != nil) {
+        [self stopTimer];
+    }
     timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(calculateTime) userInfo:nil repeats:YES];
 }
 
@@ -201,15 +205,13 @@
     //确定注册
     [manager POST:API_SIGNUP parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        [hud hideTZHUD];
         if (code == 0) {
             __weak SMSVerifyViewController *weakSelf = self;
             [[NSNotificationCenter defaultCenter] postNotificationName:userDidRegistedNoti object:nil userInfo:@{@"poster":weakSelf}];
             AccountManager *accountManager = [AccountManager shareAccountManager];
             [accountManager userDidLoginWithUserInfo:[responseObject objectForKey:@"result"]];
-            [hud hideTZHUD];
-            
         } else {
-            [hud hideTZHUD];
             [SVProgressHUD showHint:[NSString stringWithFormat:@"%@", [[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
         }
         
@@ -256,7 +258,7 @@
             _statusLabel.text = [NSString stringWithFormat:@"验证码已发至:%@\n网络有延迟，请稍候", _phoneNumber];
         } else {
             [SVProgressHUD showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
-            _statusLabel.text = [NSString stringWithFormat:@"验证码已发至:%@\n网络有延迟，请稍候", _phoneNumber];
+            _statusLabel.text = @"验证码发送失败，请重试";
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -264,7 +266,7 @@
         if (self.isShowing) {
             [SVProgressHUD showHint:@"呃～好像没找到网络"];
         }
-        _statusLabel.text = [NSString stringWithFormat:@"验证码已发至:%@\n网络有延迟，请稍候", _phoneNumber];
+        _statusLabel.text = @"验证码发送失败，请重试";
     }];
 }
 

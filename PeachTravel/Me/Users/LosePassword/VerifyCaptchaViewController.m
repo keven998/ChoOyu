@@ -32,7 +32,7 @@
     [super viewDidLoad];
 
     UIBarButtonItem *addBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStylePlain target:self action:@selector(nextStep:)];
-    addBtn.tintColor = APP_THEME_COLOR;
+    addBtn.tintColor = [UIColor whiteColor];
     self.navigationItem.rightBarButtonItem = addBtn;
     AccountManager *accountManager = [AccountManager shareAccountManager];
     _shouldSetPasswordWhenBindTel = !accountManager.accountIsBindTel;    //如果之前账户已经有手机号了那么不需要进入下一页面设置密码了
@@ -47,7 +47,7 @@
         }
        
     } else {
-        self.navigationItem.title = @"验证";
+        self.navigationItem.title = @"用户验证";
         _phoneLabel.placeholder = @"请输入手机号";
     }
     
@@ -56,36 +56,38 @@
     
     UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _phoneLabel.bounds.size.height - 16.0)];
     ul.text = @"手机号:";
-    ul.textColor = TEXT_COLOR_TITLE;
-    ul.font = [UIFont systemFontOfSize:14.0];
+    ul.textColor = COLOR_TEXT_I;
+    ul.font = [UIFont systemFontOfSize:13.0];
     ul.textAlignment = NSTextAlignmentCenter;
     _phoneLabel.leftView = ul;
     _phoneLabel.leftViewMode = UITextFieldViewModeAlways;
     
     UILabel *pl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _captchaLabel.bounds.size.height - 16.0)];
     pl.text = @"验证码:";
-    pl.textColor = TEXT_COLOR_TITLE;
-    pl.font = [UIFont systemFontOfSize:14.0];
+    pl.textColor = COLOR_TEXT_I;
+    pl.font = [UIFont systemFontOfSize:13.0];
     pl.textAlignment = NSTextAlignmentCenter;
     _captchaLabel.leftView = pl;
     _captchaLabel.leftViewMode = UITextFieldViewModeAlways;
     [_captchaLabel addTarget:self action:@selector(textChanged:) forControlEvents:UIControlEventEditingChanged];
     
-    _captchaBtn.layer.cornerRadius = 5.0;
+    _captchaBtn.layer.cornerRadius = 4.0;
     _captchaBtn.clipsToBounds = YES;
     [_captchaBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [_captchaBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateDisabled];
+    [_captchaBtn setTitleColor:COLOR_TEXT_III forState:UIControlStateDisabled];
+    _captchaBtn.titleLabel.font = [UIFont systemFontOfSize:11.0];
     [_captchaBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
-    [_captchaBtn setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor lightGrayColor]] forState:UIControlStateDisabled];
+    [_captchaBtn setBackgroundImage:[ConvertMethods createImageWithColor:COLOR_DISABLE] forState:UIControlStateDisabled];
+    _captchaBtn.enabled = YES;
 }
 
-- (void)viewDidLayoutSubviews
-{
-    _phoneLabel.frame = CGRectMake(0, 30, self.view.bounds.size.width, 64*kWindowHeight/736);
-    _captchaBtn.center = CGPointMake(self.view.bounds.size.width-20-_captchaBtn.bounds.size.width/2, _phoneLabel.center.y);
-    _captchaLabel.frame = CGRectMake(0, 30+64*kWindowHeight/736+1, self.view.bounds.size.width, 64*kWindowHeight/736);
-    _tipsLabel.frame = CGRectMake(20, 30+64*kWindowHeight/736*2+15, self.view.bounds.size.width-40, 20);
-}
+//- (void)viewDidLayoutSubviews
+//{
+//    _phoneLabel.frame = CGRectMake(0, 30, self.view.bounds.size.width, 64*kWindowHeight/736);
+//    _captchaBtn.center = CGPointMake(self.view.bounds.size.width-20-_captchaBtn.bounds.size.width/2, _phoneLabel.center.y);
+//    _captchaLabel.frame = CGRectMake(0, 30+64*kWindowHeight/736+1, self.view.bounds.size.width, 64*kWindowHeight/736);
+//    _tipsLabel.frame = CGRectMake(20, 30+64*kWindowHeight/736*2+15, self.view.bounds.size.width-40, 20);
+//}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -114,7 +116,13 @@
 
 - (void)startTimer
 {
-    timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(calculateTime) userInfo:nil repeats:YES];
+    _captchaBtn.enabled = NO;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (timer != nil) {
+            [self stopTimer];
+        }
+        timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(calculateTime) userInfo:nil repeats:YES];
+    });
 }
 
 - (void)stopTimer
@@ -125,19 +133,18 @@
             timer = nil;
         }
     }
+    _captchaBtn.enabled = YES;
 }
 
 - (void)calculateTime
 {
-    if (count == 0) {
+    if (count <= 1) {
         [self stopTimer];
         _captchaBtn.enabled = YES;
         [_captchaBtn setTitle:@"重新获取" forState:UIControlStateNormal];
     } else {
         count--;
-        _captchaBtn.titleLabel.text = [NSString stringWithFormat:@"%lds",(long)count];
-        [_captchaBtn setTitle:[NSString stringWithFormat:@"%lds",(long)count] forState:UIControlStateNormal];
-        [_captchaBtn setTitle:[NSString stringWithFormat:@"%lds",(long)count] forState:UIControlStateDisabled];
+        [_captchaBtn setTitle:[NSString stringWithFormat:@"%lds后重发",(long)count] forState:UIControlStateDisabled];
 
     }
 }
@@ -177,7 +184,7 @@
         if (code == 0) {
             count = [[[responseObject objectForKey:@"result"] objectForKey:@"coolDown"] integerValue];
             [self startTimer];
-            [SVProgressHUD showHint:@"已发送验证码,请稍候"];
+            [SVProgressHUD showHint:@"已发送验证码，请稍候"];
         } else {
             _captchaBtn.enabled = YES;
 
@@ -258,16 +265,13 @@
 
     [[AccountManager shareAccountManager] asyncBindTelephone:_phoneLabel.text token:token completion:^(BOOL isSuccess, NSString *errorStr) {
         if (isSuccess) {
-            [SVProgressHUD showHint:@"OK!已成功修改"];
             [self performSelector:@selector(goBack) withObject:nil afterDelay:0.4];
-            
         } else {
             [hud hideTZHUD];
             if (errorStr) {
                 [SVProgressHUD showHint:errorStr];
             } else {
                 _captchaBtn.enabled = YES;
-                
                 if (self.isShowing) {
                     [SVProgressHUD showHint:@"呃～好像没找到网络"];
                 }
