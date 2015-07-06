@@ -87,27 +87,32 @@
     textFieldDevide.backgroundColor = APP_THEME_COLOR;
     [_textFieldBg addSubview:textFieldDevide];
     
-    _userNameTextField = [[UITextField alloc]initWithFrame:CGRectMake(12, 0* Height / 736, Width-25, 66*Height/736)];
+    _userNameTextField = [[UITextField alloc]initWithFrame:CGRectMake(12, 0* Height / 736, Width-25, CGRectGetHeight(_textFieldBg.frame)/2)];
     UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _userNameTextField.bounds.size.height - 16.0)];
     ul.text = @" 账号:";
-    ul.textColor = TEXT_COLOR_TITLE;
-    ul.font = [UIFont systemFontOfSize:14.0];
+    ul.textColor = COLOR_TEXT_I;
+    ul.font = [UIFont systemFontOfSize:13.0];
     ul.textAlignment = NSTextAlignmentCenter;
     _userNameTextField.placeholder = @"手机/名字/ID";
     _userNameTextField.leftView = ul;
+    _userNameTextField.textColor = COLOR_TEXT_I;
     _userNameTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+    _userNameTextField.font = [UIFont systemFontOfSize:15.0];
     _userNameTextField.leftViewMode = UITextFieldViewModeAlways;
     _userNameTextField.delegate = self;
     [_textFieldBg addSubview:_userNameTextField];
     
-    _passwordTextField = [[UITextField alloc]initWithFrame:CGRectMake(12, 60 * Height / 736, Width-25, 66*Height/736)];
+    _passwordTextField = [[UITextField alloc]initWithFrame:CGRectMake(12, 60 * Height / 736, Width-25, CGRectGetHeight(_textFieldBg.frame)/2)];
     UILabel *pl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _userNameTextField.bounds.size.height - 16.0)];
     pl.text = @" 密码:";
-    pl.textColor = TEXT_COLOR_TITLE;
-    pl.font = [UIFont systemFontOfSize:14.0];
+    pl.textColor = COLOR_TEXT_I;
+    pl.font = [UIFont systemFontOfSize:13.0];
     pl.textAlignment = NSTextAlignmentCenter;
     _passwordTextField.leftView = pl;
+    _passwordTextField.placeholder = @"请输入密码";
     _passwordTextField.leftViewMode = UITextFieldViewModeAlways;
+    _passwordTextField.textColor = COLOR_TEXT_I;
+    _passwordTextField.font = [UIFont systemFontOfSize:15.0];
     _passwordTextField.secureTextEntry = YES;
     _passwordTextField.delegate = self;
     [_textFieldBg addSubview:_passwordTextField];
@@ -117,6 +122,7 @@
     [_loginBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_PAGE_COLOR] forState:UIControlStateHighlighted];
     _loginBtn.layer.cornerRadius = 5;
     _loginBtn.clipsToBounds = YES;
+    _loginBtn.titleLabel.font = [UIFont systemFontOfSize:16.0];
     [_loginBtn setTitle:@"登录" forState:UIControlStateNormal];
     [_loginBtn setTitleColor:COLOR_TEXT_I forState:UIControlStateNormal];
     [_loginBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateHighlighted];

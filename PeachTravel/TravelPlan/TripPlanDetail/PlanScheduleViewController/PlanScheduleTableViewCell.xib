@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -106,10 +106,6 @@
                         <exclude reference="itI-Ae-LOM"/>
                     </mask>
                     <mask key="constraints">
-                        <exclude reference="YEL-ib-M1b"/>
-                        <exclude reference="YwP-DO-Lq5"/>
-                        <exclude reference="lx3-Pg-7zf"/>
-                        <exclude reference="tX1-Jq-JOr"/>
                         <exclude reference="Frv-sR-hK3"/>
                         <exclude reference="RsN-Af-lHS"/>
                         <exclude reference="i5S-Df-Iqq"/>
@@ -117,6 +113,10 @@
                         <exclude reference="hAB-4e-bWt"/>
                         <exclude reference="sch-A8-AzU"/>
                         <exclude reference="yYA-ij-qEj"/>
+                        <exclude reference="YEL-ib-M1b"/>
+                        <exclude reference="YwP-DO-Lq5"/>
+                        <exclude reference="lx3-Pg-7zf"/>
+                        <exclude reference="tX1-Jq-JOr"/>
                     </mask>
                 </variation>
                 <variation key="widthClass=compact">
@@ -127,10 +127,6 @@
                         <include reference="itI-Ae-LOM"/>
                     </mask>
                     <mask key="constraints">
-                        <include reference="YEL-ib-M1b"/>
-                        <include reference="YwP-DO-Lq5"/>
-                        <include reference="lx3-Pg-7zf"/>
-                        <include reference="tX1-Jq-JOr"/>
                         <include reference="Frv-sR-hK3"/>
                         <include reference="RsN-Af-lHS"/>
                         <include reference="i5S-Df-Iqq"/>
@@ -138,6 +134,10 @@
                         <include reference="hAB-4e-bWt"/>
                         <include reference="sch-A8-AzU"/>
                         <include reference="yYA-ij-qEj"/>
+                        <include reference="YEL-ib-M1b"/>
+                        <include reference="YwP-DO-Lq5"/>
+                        <include reference="lx3-Pg-7zf"/>
+                        <include reference="tX1-Jq-JOr"/>
                     </mask>
                 </variation>
             </tableViewCellContentView>
