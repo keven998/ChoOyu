@@ -7045,7 +7045,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/PeachTravel/libs/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
-					"$(PROJECT_DIR)/PeachTravel/libs/UMSocial_Sdk_Extra_Frameworks(1)/TencentOpenAPI",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = PeachTravel/PrefixHeader.pch;
@@ -7055,12 +7054,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/PeachTravel",
-					"$(PROJECT_DIR)/PeachTravel/libs/UMSocial_Sdk_4.2.1",
 					"$(PROJECT_DIR)/PeachTravel/IMSDK/dist",
 					"$(PROJECT_DIR)/PeachTravel/IMSDK/Core/VoiceConvert/lib",
-					"$(PROJECT_DIR)/PeachTravel/libs/UMSocial_Sdk_Extra_Frameworks(1)/Sina",
-					"$(PROJECT_DIR)/PeachTravel/libs/UMSocial_Sdk_Extra_Frameworks(1)/TencentOpenAPI",
-					"$(PROJECT_DIR)/PeachTravel/libs/UMSocial_Sdk_Extra_Frameworks(1)/Wechat",
 					"$(PROJECT_DIR)/PeachTravel/libs/UMSocial_Sdk_4.2.3",
 					"$(PROJECT_DIR)/PeachTravel/libs/UMSocial_Sdk_Extra_Frameworks/Sina",
 					"$(PROJECT_DIR)/PeachTravel/libs/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
@@ -7087,7 +7082,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/PeachTravel/libs/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
-					"$(PROJECT_DIR)/PeachTravel/libs/UMSocial_Sdk_Extra_Frameworks(1)/TencentOpenAPI",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = PeachTravel/PrefixHeader.pch;
@@ -7097,12 +7091,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/PeachTravel",
-					"$(PROJECT_DIR)/PeachTravel/libs/UMSocial_Sdk_4.2.1",
 					"$(PROJECT_DIR)/PeachTravel/IMSDK/dist",
 					"$(PROJECT_DIR)/PeachTravel/IMSDK/Core/VoiceConvert/lib",
-					"$(PROJECT_DIR)/PeachTravel/libs/UMSocial_Sdk_Extra_Frameworks(1)/Sina",
-					"$(PROJECT_DIR)/PeachTravel/libs/UMSocial_Sdk_Extra_Frameworks(1)/TencentOpenAPI",
-					"$(PROJECT_DIR)/PeachTravel/libs/UMSocial_Sdk_Extra_Frameworks(1)/Wechat",
 					"$(PROJECT_DIR)/PeachTravel/libs/UMSocial_Sdk_4.2.3",
 					"$(PROJECT_DIR)/PeachTravel/libs/UMSocial_Sdk_Extra_Frameworks/Sina",
 					"$(PROJECT_DIR)/PeachTravel/libs/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",

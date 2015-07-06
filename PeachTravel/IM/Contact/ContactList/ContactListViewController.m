@@ -166,6 +166,7 @@
 }
 
 #pragma mark - http method
+
 - (void)confirmChange:(NSString *)text withContacts:(FrendModel *)contact success:(saveComplteBlock)completed
 {
     AccountManager *accountManager = [AccountManager shareAccountManager];
@@ -173,6 +174,7 @@
     [accountManager asyncChangeRemark:text withUserId:contact.userId completion:^(BOOL isSuccess) {
         if (isSuccess) {
             contact.memo = text;
+            [self.contactTableView reloadData];
             [[NSNotificationCenter defaultCenter] postNotificationName:contactListNeedUpdateNoti object:nil];
             completed(YES);
         } else {
@@ -194,7 +196,6 @@
             NSIndexPath *indexPath = [_contactTableView indexPathForCell:cell];
             FrendModel *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
             
-            //bug 需要返回备注昵称
             BaseTextSettingViewController *bsvc = [[BaseTextSettingViewController alloc] init];
             bsvc.navTitle = @"修改备注";
             if (contact.memo) {
