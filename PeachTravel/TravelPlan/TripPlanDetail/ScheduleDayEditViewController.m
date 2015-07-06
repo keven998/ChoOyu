@@ -14,8 +14,6 @@
 
 @property (weak, nonatomic) IBOutlet FMMoveTableView *tableView;
 
-@property (nonatomic, strong) TripDetail *backupTrip;
-
 @end
 
 @implementation ScheduleDayEditViewController
@@ -36,12 +34,11 @@
 - (void)setTripDetail:(TripDetail *)tripDetail
 {
     _tripDetail = tripDetail;
-    _backupTrip = [_tripDetail backUpTrip];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _backupTrip.itineraryList.count;
+    return _tripDetail.itineraryList.count;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -52,12 +49,40 @@
 - (UITableViewCell *)tableView:(FMMoveTableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     FMMoveTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    cell.textLabel.text = [NSString stringWithFormat:@"DAY%ld", indexPath.row];
     
+    NSArray *ds = _tripDetail.itineraryList[indexPath.row];
+    NSMutableString *title = [[NSMutableString alloc] init];
+    NSMutableArray *titleArray = [[NSMutableArray alloc] init];
+    NSInteger count = [ds count];
+    for (int i = 0; i < count; ++i) {
+        SuperPoi *sp = [ds objectAtIndex:i];
+        if (i == 0) {
+            if (sp.locality && sp.locality.zhName) {
+                [titleArray addObject:sp.locality.zhName];
+                [title appendString:sp.locality.zhName];
+            }
+            
+        } else {
+            BOOL find = NO;
+            for (NSString *str in titleArray) {
+                if ([str isEqualToString:sp.locality.zhName]) {
+                    find = YES;
+                    break;
+                }
+            }
+            if (!find && sp.locality && sp.locality.zhName) {
+                [titleArray addObject:sp.locality.zhName];
+                [title appendString:[NSString stringWithFormat:@" > %@", sp.locality.zhName]];
+            }
+        }
+    }
+
+    cell.textLabel.text = [NSString stringWithFormat:@"DAY%ld %@", indexPath.row+1, title];
+
     if ([tableView indexPathIsMovingIndexPath:indexPath]) {
         [cell prepareForMove];
-    } else
-    {
+        
+    } else {
         if (tableView.movingIndexPath != nil) {
             indexPath = [tableView adaptedIndexPathForRowAtIndexPath:indexPath];
         }
@@ -69,7 +94,10 @@
 
 - (void)moveTableView:(FMMoveTableView *)tableView moveRowFromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
-//    [_tableView reloadData];
+    id data = [_tripDetail.itineraryList objectAtIndex:fromIndexPath.row];
+    [_tripDetail.itineraryList removeObjectAtIndex:fromIndexPath.row];
+    [_tripDetail.itineraryList insertObject:data atIndex:toIndexPath.row];
+    [_tableView reloadData];
 }
 
 - (void)moveTableView:(FMMoveTableView *)tableView willMoveRowAtIndexPath:(NSIndexPath *)indexPath
@@ -77,9 +105,25 @@
     
 }
 
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"确认删除这一天的所有安排?" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+        [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
+            if (buttonIndex == 1) {
+                [_tripDetail.itineraryList removeObjectAtIndex:indexPath.row];
+                [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            }
+        }];
+    }
+}
 
 
 
 
 
 @end
+
+
+
+
+

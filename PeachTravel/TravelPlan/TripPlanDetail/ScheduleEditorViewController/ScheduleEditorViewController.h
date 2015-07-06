@@ -19,6 +19,8 @@
 
 @property (nonatomic, strong) TripDetail *tripDetail;
 
+@property (nonatomic, weak) UIViewController *rootCtl;
+
 @property (nonatomic, weak) id<ScheduleUpdateDelegate> delegate;
 
 @end
