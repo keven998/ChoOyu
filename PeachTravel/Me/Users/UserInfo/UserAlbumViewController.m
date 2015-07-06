@@ -25,15 +25,15 @@ static NSString * const reuseIdentifier = @"albumImageCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.manager = [AccountManager shareAccountManager];
-    
-    UIButton *editBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    editBtn.frame = CGRectMake(0, 0, 40, 40);
-    [editBtn setTitle:@"编辑" forState:UIControlStateNormal];
-    [editBtn setTitle:@"完成" forState:UIControlStateSelected];
-    [editBtn addTarget:self action:@selector(edit:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithCustomView:editBtn];
-    self.navigationItem.rightBarButtonItem = right;
-    
+    if (_isMyself){
+        UIButton *editBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        editBtn.frame = CGRectMake(0, 0, 40, 40);
+        [editBtn setTitle:@"编辑" forState:UIControlStateNormal];
+        [editBtn setTitle:@"完成" forState:UIControlStateSelected];
+        [editBtn addTarget:self action:@selector(edit:) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithCustomView:editBtn];
+        self.navigationItem.rightBarButtonItem = right;
+    }
     UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionViewLayout;
     layout.itemSize = CGSizeMake(self.view.bounds.size.width/4, (self.view.bounds.size.width/4));
     layout.minimumLineSpacing = 0;
