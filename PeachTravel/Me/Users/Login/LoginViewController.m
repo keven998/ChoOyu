@@ -226,48 +226,24 @@
         [self showHint:@"手机号输错了"];
         return;
     }
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params setObject:_userNameTextField.text forKey:@"loginName"];
-    [params setObject:_passwordTextField.text forKey:@"pwd"];
-    
     __weak typeof(LoginViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf content:64];
-    
-    //普通登录
-    [manager POST:API_SIGNIN parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@", responseObject);
-        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-        if (code == 0) {
-            AccountManager *accountManager = [AccountManager shareAccountManager];
-            [accountManager userDidLoginWithUserInfo:[responseObject objectForKey:@"result"]];
+    [[AccountManager shareAccountManager] asyncLogin:_userNameTextField.text password:_passwordTextField.text completion:^(BOOL isSuccess, NSString *errorStr) {
+        if (isSuccess) {
             [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.3];
-            [[TMCache sharedCache] setObject:_userNameTextField.text forKey:@"last_account"];
             if (self.completion) {
                 self.completion(YES);
             }
         } else {
             [hud hideTZHUD];
             if (self.isShowing) {
-                [SVProgressHUD showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+                if (errorStr) {
+                    [SVProgressHUD showHint:errorStr];
+                } else {
+                    [SVProgressHUD showHint:@"呃～好像没找到网络"];
+                }
             }
-        }
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%@", error);
-        [hud hideTZHUD];
-        if (self.isShowing) {
-            [SVProgressHUD showHint:@"呃～好像没找到网络"];
         }
     }];
 }
@@ -275,7 +251,6 @@
 //微信登录
 - (IBAction)weixinLogin:(UIButton *)sender {
     [MobClick event:@"event_login_with_weichat_account"];
-    
     [self sendAuthRequest];
 }
 
@@ -326,43 +301,25 @@
 - (void)weixinDidLogin:(NSNotification *)noti
 {
     NSString *code = [noti.userInfo objectForKey:@"code"];
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params setObject:code forKey:@"code"];
-    
     __weak typeof(LoginViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf];
+    [hud showHUDInViewController:weakSelf content:64];
     
-    //微信登录
-    [manager POST:API_WEIXIN_LOGIN parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@", responseObject);
-        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-        if (code == 0) {
-            AccountManager *accountManager = [AccountManager shareAccountManager];
-            [accountManager userDidLoginWithUserInfo:[responseObject objectForKey:@"result"]];
+    [[AccountManager shareAccountManager] asyncLoginWithWeChat:code completion:^(BOOL isSuccess, NSString *errorStr) {
+        if (isSuccess) {
             [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.3];
             if (self.completion) {
                 self.completion(YES);
             }
-            
         } else {
             [hud hideTZHUD];
-            [self showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
-        }
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (self.isShowing) {
-            [hud hideTZHUD];
-            [SVProgressHUD showHint:@"呃～好像没找到网络"];
+            if (self.isShowing) {
+                if (errorStr) {
+                    [SVProgressHUD showHint:errorStr];
+                } else {
+                    [SVProgressHUD showHint:@"呃～好像没找到网络"];
+                }
+            }
         }
     }];
 }
