@@ -11,11 +11,12 @@
 #import "DestinationCollectionHeaderView.h"
 #import "Destinations.h"
 #import "DomesticDestinationCell.h"
+#import "DomesticCell.h"
 #import "MakePlanViewController.h"
 #import "TMCache.h"
 #import "AreaDestination.h"
 
-@interface DomesticViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, TaoziLayoutDelegate>
+@interface DomesticViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *domesticCollectionView;
 
@@ -30,7 +31,10 @@ static NSString *cacheName = @"destination_demostic_group";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [_domesticCollectionView registerNib:[UINib nibWithNibName:@"DomesticDestinationCell" bundle:nil] forCellWithReuseIdentifier:reusableIdentifier];
+//    UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)_domesticCollectionView.collectionViewLayout;
+//    layout
+//    [_domesticCollectionView registerNib:[UINib nibWithNibName:@"DomesticDestinationCell" bundle:nil] forCellWithReuseIdentifier:reusableIdentifier];
+    [_domesticCollectionView registerNib:[UINib nibWithNibName:@"DomesticCell" bundle:nil] forCellWithReuseIdentifier:@"domesticCell"];
     [_domesticCollectionView registerNib:[UINib nibWithNibName:@"DestinationCollectionHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:reusableHeaderIdentifier];
     _domesticCollectionView.dataSource = self;
     _domesticCollectionView.delegate = self;
@@ -39,13 +43,6 @@ static NSString *cacheName = @"destination_demostic_group";
     _domesticCollectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _domesticCollectionView.backgroundColor = APP_PAGE_COLOR;
     
-    
-    TaoziCollectionLayout *layout = (TaoziCollectionLayout *)_domesticCollectionView.collectionViewLayout;
-    layout.delegate = self;
-    layout.showDecorationView = YES;
-    layout.margin = 10;
-    layout.spacePerItem = 10;
-    layout.spacePerLine = 10;
     
     if (_destinations.destinationsSelected.count == 0) {
         [self.makePlanCtl hideDestinationBar];
@@ -178,7 +175,7 @@ static NSString *cacheName = @"destination_demostic_group";
 }
 
 #pragma mark -  TaoziLayoutDelegate
-
+/*
 - (NSInteger)tzcollectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     AreaDestination *area = [self.destinations.domesticCities objectAtIndex:section];
@@ -197,15 +194,31 @@ static NSString *cacheName = @"destination_demostic_group";
 
 - (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    AreaDestination *area = [self.destinations.domesticCities objectAtIndex:indexPath.section];
-    CityDestinationPoi *city = [area.cities objectAtIndex:indexPath.row];
-    CGSize size = [city.zhName sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:15.0]}];
-    return CGSizeMake(size.width + 25 + 28, 28); //left-right margin + status image size
+    return CGSizeMake(SCREEN_WIDTH/4, SCREEN_WIDTH/4); //left-right margin + status image size
 }
 
 - (CGSize)collectionview:(UICollectionView *)collectionView sizeForHeaderView:(NSIndexPath *)indexPath
 {
     return CGSizeMake(self.domesticCollectionView.frame.size.width, 38);
+}
+*/
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath;
+{
+    return CGSizeMake(SCREEN_WIDTH/4, SCREEN_WIDTH/4);
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section;
+{
+    return CGSizeMake(self.domesticCollectionView.frame.size.width, 38);
+}
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section;
+{
+    return 0;
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section;
+{
+    return 0;
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -234,7 +247,7 @@ static NSString *cacheName = @"destination_demostic_group";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    DomesticDestinationCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reusableIdentifier forIndexPath:indexPath];
+    DomesticCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"domesticCell" forIndexPath:indexPath];
     AreaDestination *area = [self.destinations.domesticCities objectAtIndex:indexPath.section];
     CityDestinationPoi *city = [area.cities objectAtIndex:indexPath.row];
     cell.tiltleLabel.text = city.zhName;

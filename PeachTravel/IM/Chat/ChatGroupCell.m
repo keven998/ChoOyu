@@ -13,6 +13,7 @@
 - (void)awakeFromNib {
     // Initialization code
     _headerImage.layer.cornerRadius = 20;
+    _headerImage.contentMode = UIViewContentModeScaleAspectFill;
     _headerImage.clipsToBounds = YES;
     _nameLabel.textColor = UIColorFromRGB(0x969696);
 }
