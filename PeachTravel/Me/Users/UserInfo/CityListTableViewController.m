@@ -24,8 +24,8 @@
     self.navigationItem.title = @"选择现住地";
     
     if (self.navigationController.childViewControllers.count == 1) {
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
-        self.navigationItem.leftBarButtonItem = nil;
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
+        self.navigationItem.rightBarButtonItem = nil;
         
     } else {
         UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];

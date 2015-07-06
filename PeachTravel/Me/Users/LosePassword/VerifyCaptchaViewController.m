@@ -40,10 +40,10 @@
     if (_verifyCaptchaType == UserBindTel) {
         if (_shouldSetPasswordWhenBindTel) {
             self.navigationItem.title = @"安全设置";
-            _titleLabel.text = @"为了账户安全和使用方便,强烈建议你绑定手机号";
+            _titleLabel.text = @"为了账户安全和使用方便，强烈建议您绑定手机号";
         } else {
             self.navigationItem.title = @"绑定设置";
-            _titleLabel.text = [NSString stringWithFormat:@"已安全绑定手机号 %@", accountManager.account.tel];
+            _titleLabel.text = [NSString stringWithFormat:@"已绑定手机号：%@", accountManager.account.tel];
         }
        
     } else {
@@ -77,6 +77,7 @@
     [_captchaBtn setTitleColor:COLOR_TEXT_III forState:UIControlStateDisabled];
     _captchaBtn.titleLabel.font = [UIFont systemFontOfSize:11.0];
     [_captchaBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
+    [_captchaBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR_HIGHLIGHT] forState:UIControlStateHighlighted];
     [_captchaBtn setBackgroundImage:[ConvertMethods createImageWithColor:COLOR_DISABLE] forState:UIControlStateDisabled];
     _captchaBtn.enabled = YES;
 }

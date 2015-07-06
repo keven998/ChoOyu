@@ -30,27 +30,27 @@
     _confirmPasswordLabel.delegate = self;
     
     UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 90, _oldPasswordLabel.bounds.size.height - 16.0)];
-    ul.text = @"  旧密码:";
-    ul.textColor = TEXT_COLOR_TITLE;
-    ul.font = [UIFont systemFontOfSize:18.0];
-    ul.textAlignment = NSTextAlignmentLeft;
+    ul.text = @"当前密码:";
+    ul.textColor = COLOR_TEXT_I;
+    ul.font = [UIFont systemFontOfSize:13.0];
+    ul.textAlignment = NSTextAlignmentCenter;
     _oldPasswordLabel.leftView = ul;
     _oldPasswordLabel.leftViewMode = UITextFieldViewModeAlways;
     
     UILabel *pl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 90, _presentPasswordLabel.bounds.size.height - 16.0)];
-    pl.text = @"  新密码:";
-    pl.textColor = TEXT_COLOR_TITLE;
-    pl.font = [UIFont systemFontOfSize:18.0];
-    pl.textAlignment = NSTextAlignmentLeft;
+    pl.text = @"新的密码:";
+    pl.textColor = COLOR_TEXT_I;
+    pl.font = [UIFont systemFontOfSize:13.0];
+    pl.textAlignment = NSTextAlignmentCenter;
     _presentPasswordLabel.leftView = pl;
     _presentPasswordLabel.leftViewMode = UITextFieldViewModeAlways;
     [_presentPasswordLabel addTarget:self action:@selector(textChanged:) forControlEvents:UIControlEventEditingChanged];
     
     UILabel *npl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 90, _presentPasswordLabel.bounds.size.height - 16.0)];
-    npl.text = @"  重复密码:";
-    npl.textColor = TEXT_COLOR_TITLE;
-    npl.font = [UIFont systemFontOfSize:18.0];
-    npl.textAlignment = NSTextAlignmentLeft;
+    npl.text = @"再次输入:";
+    npl.textColor = COLOR_TEXT_I;
+    npl.font = [UIFont systemFontOfSize:13.0];
+    npl.textAlignment = NSTextAlignmentCenter;
     _confirmPasswordLabel.leftView = npl;
     _confirmPasswordLabel.leftViewMode = UITextFieldViewModeAlways;
     [_confirmPasswordLabel addTarget:self action:@selector(textChanged:) forControlEvents:UIControlEventEditingChanged];
@@ -62,13 +62,6 @@
     registerBtn.tintColor = [UIColor whiteColor];
     self.navigationItem.rightBarButtonItem = registerBtn;
     self.navigationItem.rightBarButtonItem.enabled = NO;
-}
-
-- (void)viewDidLayoutSubviews
-{
-    _oldPasswordLabel.frame = CGRectMake(0, 30, self.view.bounds.size.width, 64*kWindowHeight/736);
-    _presentPasswordLabel.frame = CGRectMake(0, 30+64*kWindowHeight/736+1, self.view.bounds.size.width, 64*kWindowHeight/736);
-    _confirmPasswordLabel.frame = CGRectMake(0, 30+64*kWindowHeight/736*2+2, self.view.bounds.size.width, 64*kWindowHeight/736);
 }
 
 #pragma mark - UITextFieldDelegate

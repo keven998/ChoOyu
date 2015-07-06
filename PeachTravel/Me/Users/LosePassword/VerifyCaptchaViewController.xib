@@ -60,7 +60,7 @@
                         </mask>
                     </variation>
                 </textField>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c4s-dx-Vc4">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c4s-dx-Vc4">
                     <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="28" id="Cee-1b-SnP"/>
@@ -78,6 +78,7 @@
                         </mask>
                     </variation>
                     <variation key="widthClass=compact">
+                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
                         <mask key="constraints">
                             <include reference="Cee-1b-SnP"/>
                             <include reference="eBf-lI-gXu"/>
@@ -110,7 +111,7 @@
             <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="u3R-qM-t3B" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="49" id="4oB-zW-hYy">
-                    <variation key="widthClass=compact" constant="29"/>
+                    <variation key="widthClass=compact" constant="20"/>
                 </constraint>
                 <constraint firstItem="Ah4-Ne-V7B" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="8IK-HG-6Kz"/>
                 <constraint firstItem="Ah4-Ne-V7B" firstAttribute="top" secondItem="VtS-KD-ZnZ" secondAttribute="bottom" constant="15" id="AFg-hl-8gZ"/>
