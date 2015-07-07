@@ -31,7 +31,7 @@
     if (_tripPoi.poiType == kSpotPoi) {
         if ([((SpotPoi *)tripPoi).timeCostStr isBlankString]) {
             
-        }else{
+        } else {
             NSString *timeStr = [NSString stringWithFormat:@"建议游玩%@", ((SpotPoi *)tripPoi).timeCostStr];
             property = [NSString stringWithFormat:@"%@  %@", rankStr, timeStr];
         }
@@ -41,7 +41,6 @@
     }
     [_propertyBtn setImage:[UIImage imageNamed:@"plan_bottom_flower.png"] forState:UIControlStateNormal];
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:property];
-    
     [string addAttributes:@{NSForegroundColorAttributeName : COLOR_TEXT_III} range:NSMakeRange(rankStr.length+1, property.length-rankStr.length-1)];
     [_propertyBtn setAttributedTitle:string forState:UIControlStateNormal];
 }
