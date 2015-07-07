@@ -73,10 +73,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = APP_PAGE_COLOR;
+    self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.segmentedControl];
     [self setupViewControllers];
     [self setNavigationItems];
+    
+    UIView *spd = [[UIView alloc] initWithFrame:CGRectMake(0, 44/*content offset*/, CGRectGetWidth(self.view.bounds), 0.6)];
+    spd.backgroundColor = COLOR_LINE;
+    spd.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    [self.view addSubview:spd];
     
     if (!_isMakeNewTrip) {
         [[TMCache sharedCache] objectForKey:@"last_tripdetail" block:^(TMCache *cache, NSString *key, id object)  {
@@ -155,12 +160,10 @@
         [_moreBtn addTarget:self action:@selector(showMoreAction:) forControlEvents:UIControlEventTouchUpInside];
         [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_moreBtn]];
         
-        if ([_currentViewController isKindOfClass:[PlanScheduleViewController class]]) {
-            UIButton *mapBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 44)];
-            [mapBtn setImage:[UIImage imageNamed:@"plan_02_dashboard_map.png"] forState:UIControlStateNormal];
-            [mapBtn addTarget:self action:@selector(mapView) forControlEvents:UIControlEventTouchUpInside];
-            [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:mapBtn]];
-        }
+        UIButton *mapBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 44)];
+        [mapBtn setImage:[UIImage imageNamed:@"plan_02_dashboard_map.png"] forState:UIControlStateNormal];
+        [mapBtn addTarget:self action:@selector(mapView) forControlEvents:UIControlEventTouchUpInside];
+        [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:mapBtn]];
         
         self.navigationItem.rightBarButtonItems = barItems;
         
@@ -421,7 +424,7 @@
     [MobClick event:@"event_go_city_detail"];
     CityDetailTableViewController *cityDetailCtl = [[CityDetailTableViewController alloc] init];
     cityDetailCtl.cityId = cityId;
-    [self.navigationController pushViewController:cityDetailCtl animated:YES];
+    [self.frostedViewController.navigationController pushViewController:cityDetailCtl animated:YES];
 }
 
 /**
@@ -762,7 +765,7 @@
     CityDestinationPoi *poi =  [_tripDetail.destinations objectAtIndex:selectedIndex];
     CityDetailTableViewController *cityDetailCtl = [[CityDetailTableViewController alloc] init];
     cityDetailCtl.cityId = poi.cityId;
-    [self.navigationController pushViewController:cityDetailCtl animated:YES];
+    [self.frostedViewController.navigationController pushViewController:cityDetailCtl animated:YES];
 }
 
 #pragma mark - CreateConversationDelegate
