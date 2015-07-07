@@ -24,6 +24,7 @@
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _tableView.backgroundColor = APP_PAGE_COLOR;
+    _tableView.separatorColor = COLOR_LINE;
     _tableView.dataSource = self;
     _tableView.delegate = self;
     [_tableView registerNib:[UINib nibWithNibName:@"PlanScheduleTableViewCell" bundle:nil] forCellReuseIdentifier:@"schedule_summary_cell"];
@@ -57,11 +58,10 @@
     NSInteger count = [ds count];
     for (int i = 0; i < count; ++i) {
         SuperPoi *sp = [ds objectAtIndex:i];
-        if (i == 0) {
+        if ([dstr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length == 0) {
             [dstr appendString:[NSString stringWithFormat:@"%@", sp.zhName]];
         } else {
             [dstr appendString:[NSString stringWithFormat:@" > %@", sp.zhName]];
-
         }
     }
     return [PlanScheduleTableViewCell heightOfCellWithContent:dstr];
@@ -92,7 +92,7 @@
     NSInteger count = [ds count];
     for (int i = 0; i < count; ++i) {
         SuperPoi *sp = [ds objectAtIndex:i];
-        if (i == 0) {
+        if ([dstr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length == 0) {
             if (sp.locality && sp.locality.zhName) {
                 [titleArray addObject:sp.locality.zhName];
                 [title appendString:sp.locality.zhName];
@@ -118,8 +118,7 @@
     
     cell.content = dstr;
     cell.titleLabel.text = title;
-    cell.dayLabel.text = [NSString stringWithFormat:@"0%ld.\nDay", indexPath.row+1];
-
+    cell.day = [NSString stringWithFormat:@"0%ld.", indexPath.row+1];
     return cell;
 }
 
@@ -131,7 +130,7 @@
     NSInteger count = [ds count];
     for (int i = 0; i < count; ++i) {
         SuperPoi *sp = [ds objectAtIndex:i];
-        if (i == 0) {
+        if ([title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length == 0) {
             if (sp.locality && sp.locality.zhName) {
                 [titleArray addObject:sp.locality.zhName];
                 [title appendString:sp.locality.zhName];

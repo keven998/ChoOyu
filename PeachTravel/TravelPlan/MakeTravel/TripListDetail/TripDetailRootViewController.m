@@ -115,7 +115,6 @@
 {
     if (_canEdit) {
         [self setupNavigationRightItems:NO];
-        
     } else {
         _forkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 20)];
         _forkBtn.layer.cornerRadius = 2.0;
@@ -149,7 +148,6 @@
         _editBtn.selected = YES;
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_editBtn];
         self.navigationItem.leftBarButtonItems = nil;
-
     } else {
         NSMutableArray *barItems = [[NSMutableArray alloc] init];
         _moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 44)];
@@ -216,7 +214,7 @@
         }
         if (isSuccesss) {
             if ([_currentViewController isKindOfClass:[PlanScheduleViewController class]]) {
-//                _spotsListCtl.shouldEdit = NO;
+                //                _spotsListCtl.shouldEdit = NO;
             } else if ([_currentViewController isKindOfClass:[ShoppingListViewController class]]) {
                 _shoppingListCtl.shouldEdit = NO;
             } else if ([_currentViewController isKindOfClass:[RestaurantsListViewController class]]) {
@@ -231,7 +229,7 @@
 
 - (void)mapView {
     if ([_currentViewController isKindOfClass:[PlanScheduleViewController class]]) {
-//        [_spotsListCtl mapView];
+        //        [_spotsListCtl mapView];
     } else if ([_currentViewController isKindOfClass:[ShoppingListViewController class]]) {
         [_shoppingListCtl mapView];
     } else if ([_currentViewController isKindOfClass:[RestaurantsListViewController class]]) {
@@ -325,7 +323,7 @@
             [self reloadTripData];
             [[NSNotificationCenter defaultCenter] postNotificationName:updateGuideListNoti object:nil];
             if (isNeedRecommend) {
-//                [SVProgressHUD showHint:[NSString stringWithFormat:@"已为你创建%lu行程", (unsigned long)_tripDetail.itineraryList.count]];
+                //                [SVProgressHUD showHint:[NSString stringWithFormat:@"已为你创建%lu行程", (unsigned long)_tripDetail.itineraryList.count]];
                 [self performSelector:@selector(hintBuildRoutes) withObject:nil afterDelay:0.5];
             }
         } else {
@@ -343,9 +341,9 @@
 
 - (void)hintBuildRoutes {
     PXAlertView *alertView = [PXAlertView showAlertWithTitle:@"提示"
-                            message:[NSString stringWithFormat:@"为你推荐了%lu天旅程，可自由调整", (unsigned long)_tripDetail.itineraryList.count]
-                        cancelTitle:@"确定"
-                         completion:nil];
+                                                     message:[NSString stringWithFormat:@"为你推荐了%lu天旅程，可自由调整", (unsigned long)_tripDetail.itineraryList.count]
+                                                 cancelTitle:@"确定"
+                                                  completion:nil];
     [alertView useDefaultIOS7Style];
     [alertView setTitleFont:[UIFont systemFontOfSize:17]];
     [alertView setMessageColor:TEXT_COLOR_TITLE_SUBTITLE];
@@ -447,7 +445,7 @@
 - (IBAction)showMoreAction:(id)sender
 {
     if (!_tripDetail) {
-//        [SVProgressHUD showHint:@"呃～好像没找到网络"];
+        //        [SVProgressHUD showHint:@"呃～好像没找到网络"];
         return;
     }
     
@@ -533,7 +531,7 @@
     BOOL status = sender.selected;
     if (!status) {
         if ([_currentViewController isKindOfClass:[PlanScheduleViewController class]]) {
-//            _spotsListCtl.shouldEdit = YES;
+            //            _spotsListCtl.shouldEdit = YES;
         } else if ([_currentViewController isKindOfClass:[ShoppingListViewController class]]) {
             _shoppingListCtl.shouldEdit = YES;
         } else if ([_currentViewController isKindOfClass:[RestaurantsListViewController class]]) {
@@ -614,18 +612,19 @@
     _spotsListCtl.tripDetail = _tripDetail;
     _restaurantListCtl.tripDetail = _tripDetail;
     _shoppingListCtl.tripDetail = _tripDetail;
-//    _spotsListCtl.canEdit = _canEdit;
+    //    _spotsListCtl.canEdit = _canEdit;
     _restaurantListCtl.canEdit = _canEdit;
     _shoppingListCtl.canEdit = _canEdit;
     ((TripPlanSettingViewController *)self.container.menuViewController).tripDetail = self.tripDetail;
     
+    self.navigationItem.title = _tripDetail.tripTitle;
 }
 
 - (void)setupViewControllers
 {
     NSMutableArray *array = [[NSMutableArray alloc] init];
     _spotsListCtl = [[PlanScheduleViewController alloc] init];
-//    _spotsListCtl.rootViewController = self;
+    //    _spotsListCtl.rootViewController = self;
     
     _restaurantListCtl = [[RestaurantsListViewController alloc] init];
     _restaurantListCtl.rootViewController = self;
@@ -661,11 +660,10 @@
             [oldController removeFromParentViewController];
             self.currentViewController = newController;
             [self.view bringSubviewToFront:_segmentedControl];
-
+            
         } else {
             self.currentViewController = oldController;
         }
-        [self setNavigationItems];
     }];
 }
 
