@@ -535,6 +535,7 @@
     ChatConversation *tzConversation = [self.dataSource objectAtIndex:indexPath.row];
     
     if (tzConversation.chatType == IMChatTypeIMChatSingleType) {
+        
         cell.name = tzConversation.chatterName;
         [cell.imageView sd_setImageWithURL:[NSURL URLWithString:tzConversation.chatterAvatar] placeholderImage:[UIImage imageNamed:@"ic_home_default_avatar.png"]];
         cell.imageView.layer.cornerRadius = 28;
