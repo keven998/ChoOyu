@@ -67,10 +67,10 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     
     if (![[AccountManager shareAccountManager] isLogin]) {
         [self setupLoginPage];
+        
     } else {
         IMClientManager *imclientManager = [IMClientManager shareInstance];
         [imclientManager.messageReceiveManager addMessageReceiveListener:self withRoutingKey:MessageReceiveDelegateRoutingKeynormal];
-
     }
 }
 

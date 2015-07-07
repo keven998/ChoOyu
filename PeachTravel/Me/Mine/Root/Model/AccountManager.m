@@ -34,9 +34,6 @@
     if (!_account) {
         AccountDaoHelper *accountDaoHelper = [AccountDaoHelper shareInstance];
         _account = [accountDaoHelper selectCurrentAccount];
-        if (_account) {
-            [[IMClientManager shareInstance] userDidLogin:_account.userId];
-        }
     }
     return _account;
 }

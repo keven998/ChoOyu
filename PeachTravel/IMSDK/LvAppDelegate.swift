@@ -14,6 +14,10 @@ extension AppDelegate {
     
     
     func lvApplication(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
+        if (AccountManager.shareAccountManager().isLogin()) {
+            IMClientManager.shareInstance().userDidLogin(AccountManager.shareAccountManager().account.userId);
+        }
         if isiOS8 {
             var userType = UIUserNotificationType.Badge | UIUserNotificationType.Alert | UIUserNotificationType.Sound
             var uns = UIUserNotificationSettings(forTypes: userType, categories: nil)

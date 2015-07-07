@@ -7,11 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PeachTravel-swift.h"
 
 @interface ChatGroupSettingViewController : UIViewController
 
 @property (nonatomic) NSInteger groupId;
 
 @property (nonatomic, weak) UIViewController *containerCtl;
+
+@property (nonatomic, strong) ChatConversation *conversation;
 
 @end
