@@ -588,6 +588,7 @@
         if (code == 0) {
             PlansListTableViewController *myGuidesCtl = [[PlansListTableViewController alloc] initWithUserId:accountManager.account.userId];
             NSMutableArray *clts = [NSMutableArray arrayWithArray:[self.navigationController childViewControllers]];
+            myGuidesCtl.userName = accountManager.account.nickName;
             [clts replaceObjectAtIndex:(clts.count-1) withObject:myGuidesCtl];
             [self.navigationController setViewControllers:clts animated:YES];
         } else {

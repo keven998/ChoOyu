@@ -42,7 +42,6 @@ enum CONTENT_TYPE {
 @property (nonatomic, assign) BOOL didEndScroll;
 @property (nonatomic, assign) BOOL enableLoadMore;
 
-@property (nonatomic, strong) UIButton *addBtn;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 
@@ -65,8 +64,7 @@ static NSString *reusableCell = @"myGuidesCell";
         _isLoadingMore = YES;
         _didEndScroll = YES;
         _enableLoadMore = NO;
-        AccountManager *accountManager = [AccountManager shareAccountManager];
-        _isOwner = (accountManager.account.userId == userId);
+        _isOwner = ([AccountManager shareAccountManager].account.userId == userId);
         _userId = userId;
         _contentType = ALL;
     }
@@ -75,31 +73,27 @@ static NSString *reusableCell = @"myGuidesCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"旅行计划";
-    
+    self.view.backgroundColor = APP_PAGE_COLOR;
+    self.navigationItem.title = [NSString stringWithFormat:@"%@的计划", _userName];
     
     UIButton *categoryBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
     [categoryBtn addTarget:self action:@selector(filtTrip) forControlEvents:UIControlEventTouchUpInside];
-    [categoryBtn setBackgroundImage:[UIImage imageNamed:@"plan_10_dashboard_sift"] forState:UIControlStateNormal];
+    [categoryBtn setImage:[UIImage imageNamed:@"plan_10_dashboard_sift"] forState:UIControlStateNormal];
     
     if (_isOwner) {
         UIButton *editBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
-        [editBtn setBackgroundImage:[UIImage imageNamed:@"plan_10_dashboard_add"] forState:UIControlStateNormal];
+        [editBtn setImage:[UIImage imageNamed:@"plan_10_dashboard_add"] forState:UIControlStateNormal];
         [editBtn addTarget:self action:@selector(makePlan) forControlEvents:UIControlEventTouchUpInside];
-        _addBtn = editBtn;
-        UIBarButtonItem *cbtn = [[UIBarButtonItem alloc] initWithCustomView:_addBtn];
+        UIBarButtonItem *cbtn = [[UIBarButtonItem alloc] initWithCustomView:editBtn];
         UIBarButtonItem *sbtn = [[UIBarButtonItem alloc] initWithCustomView:categoryBtn];
-        self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:cbtn,sbtn, nil];
+        self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:cbtn, sbtn, nil];
     } else {
-    
         UIBarButtonItem *sbtn = [[UIBarButtonItem alloc] initWithCustomView:categoryBtn];
         self.navigationItem.rightBarButtonItem = sbtn;
     }
     
-
-    
     if (!_selectToSend) {
-        self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithIcon:@"common_icon_navigaiton_back_highlight" highIcon:@"common_icon_navigaiton_back_highlight" target:self action:@selector(goBack)];
+        self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithIcon:@"common_icon_navigaiton_back_theme_style" highIcon:@"common_icon_navigaiton_back_highlight" target:self action:@selector(goBack)];
     } else {
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
     }
@@ -107,9 +101,8 @@ static NSString *reusableCell = @"myGuidesCell";
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    [self.view addSubview:self.tableView];
     self.tableView.backgroundColor = APP_PAGE_COLOR;
-    
+    [self.view addSubview:self.tableView];
     
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -171,6 +164,11 @@ static NSString *reusableCell = @"myGuidesCell";
     _isShowing = YES;
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+}
+
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"page_my_trip_plans"];
@@ -181,6 +179,7 @@ static NSString *reusableCell = @"myGuidesCell";
     }
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,nil]];
     [self.navigationController.navigationBar setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forBarMetrics:UIBarMetricsDefault];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
 }
 
 - (void)dealloc
@@ -195,14 +194,6 @@ static NSString *reusableCell = @"myGuidesCell";
 #pragma mark - navigation action
 
 - (void) filtTrip {
-    //    MyGuideListTableViewController *gltvc = [[MyGuideListTableViewController alloc] init];
-    //    gltvc.isExpert = _isExpert;
-    //    gltvc.userId = self.userId;
-    //    gltvc.chatterId = _chatterId;
-    //    gltvc.selectToSend = _selectToSend;
-    //    gltvc.chatType = _chatType;
-    //    [self.navigationController pushViewController:gltvc animated:YES];
-    
     SelectionTableViewController *ctl = [[SelectionTableViewController alloc] init];
     ctl.contentItems = @[@"全部", @"只看计划", @"只看去过"];
     ctl.titleTxt = @"筛选";
@@ -393,6 +384,7 @@ static NSString *reusableCell = @"myGuidesCell";
         completed(NO);
     }];
 }
+
 - (void)loadData:(int)type WithPageIndex:(NSInteger)pageIndex
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -603,7 +595,7 @@ static NSString *reusableCell = @"myGuidesCell";
         cell.playedBtn.hidden = NO;
         cell.changBtn.hidden = NO;
         cell.deleteBtn.hidden = NO;
-
+        
     }
     else {
         cell.playedBtn.hidden = YES;
@@ -818,8 +810,8 @@ static NSString *reusableCell = @"myGuidesCell";
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     
-//    NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
-//    MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:cellIndexPath.section];
+    //    NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
+    //    MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:cellIndexPath.section];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:status forKey:@"status"];
     [params setObject:guideSummary.guideId forKey:@"id"];
@@ -847,7 +839,7 @@ static NSString *reusableCell = @"myGuidesCell";
                 NSInteger index = [self.dataSource indexOfObject:guideSummary];
                 MyGuideSummary *guide = self.dataSource [index];
                 guide.status = @"traveled";
-            
+                
             }
             
             
