@@ -158,15 +158,11 @@ static NSString *reusableCell = @"myGuidesCell";
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES]; //侧滑navigation bar 补丁
     [MobClick beginLogPageView:@"page_my_trip_plans"];
-    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:TEXT_COLOR_TITLE_SUBTITLE,NSForegroundColorAttributeName,nil]];
+    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:COLOR_TEXT_I, NSForegroundColorAttributeName, nil]];
     [self.navigationController.navigationBar setBackgroundImage:[ConvertMethods createImageWithColor:APP_PAGE_COLOR] forBarMetrics:UIBarMetricsDefault];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];
     _isShowing = YES;
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -576,7 +572,7 @@ static NSString *reusableCell = @"myGuidesCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 158;
+    return 154;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section

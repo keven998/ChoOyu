@@ -14,11 +14,11 @@
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.backgroundColor = APP_PAGE_COLOR;
     _headerImageView = [[UIImageView alloc]initWithFrame:CGRectMake(18, 0, SCREEN_WIDTH-36, 158)];
-//    _headerImageView.backgroundColor = [UIColor redColor];
+    //    _headerImageView.backgroundColor = [UIColor redColor];
     _headerImageView.clipsToBounds = YES;
     [self.contentView addSubview:_headerImageView];
-    _titleBtn.font = [UIFont systemFontOfSize:14.0];
-    _descLabel.font = [UIFont systemFontOfSize:12.0];
+    _titleBtn.font = [UIFont systemFontOfSize:11.0];
+    _descLabel.font = [UIFont boldSystemFontOfSize:13.0];
     _sendBtn.layer.cornerRadius = 2.0;
     _sendBtn.backgroundColor = APP_THEME_COLOR;
     _playedImage = [[UIImageView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 36 - 410/3, 144/3, 420/3, 396/3)];
@@ -46,7 +46,7 @@
 {
     _guideSummary = guideSummary;
     _countBtn.text = [NSString stringWithFormat:@"%ld天", (long)_guideSummary.dayCount];
-    _descLabel.text = [NSString stringWithFormat:@"目的地：%@", _guideSummary.summary];
+    _descLabel.text = _guideSummary.summary;
     _titleBtn.text = guideSummary.title;
     UIImage *image = [[UIImage imageNamed:@"plan_bg_page_default"]resizableImageWithCapInsets:UIEdgeInsetsMake(20, 15, 70, 15)];
     if ([_guideSummary.status isEqualToString:@"planned"]) {
@@ -57,7 +57,7 @@
         _playedImage.hidden = NO;
     }
     
-    _timeLabel.text = _guideSummary.updateTimeStr;
+    _timeLabel.text = [NSString stringWithFormat:@"创建：%@", _guideSummary.updateTimeStr];
 }
 
 - (void)setIsCanSend:(BOOL)isCanSend
