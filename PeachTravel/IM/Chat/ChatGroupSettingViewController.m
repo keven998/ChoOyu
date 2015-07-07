@@ -131,9 +131,10 @@
         [addMemberBtn addTarget:self action:@selector(addGroupNumber:) forControlEvents:UIControlEventTouchUpInside];
         [sectionHeaderView addSubview:addMemberBtn];
 
-        if (_groupModel.owner != [AccountManager shareAccountManager].account.userId) {
+        if (_groupModel.owner == [AccountManager shareAccountManager].account.userId) {
             UIButton *editGroup = [[UIButton alloc]initWithFrame:CGRectMake(sectionHeaderView.bounds.size.width/2+1, 0, sectionHeaderView.bounds.size.width/2-1, 60)];
             [editGroup setTitle:@"管理成员" forState:UIControlStateNormal];
+            [editGroup setTitle:@"完成" forState:UIControlStateSelected];
             [editGroup setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
             editGroup.titleLabel.font = [UIFont systemFontOfSize:15];
             [editGroup addTarget:self action:@selector(editGroup:) forControlEvents:UIControlEventTouchUpInside];
@@ -218,19 +219,7 @@
     
     else {
          ChatGroupCell *cell = [tableView dequeueReusableCellWithIdentifier:@"chatCell" forIndexPath:indexPath];
-//        if (indexPath.row == _groupModel.numbers.count) {
-//            cell.headerImage.image = [UIImage imageNamed:@"chat_drawer_add"];
-//            cell.nameLabel.text = @"邀成员";
-//            cell.nameLabel.textColor = APP_THEME_COLOR;
-//            
-//            UIView *divide = [[UIView alloc]initWithFrame:CGRectMake(18, 68 * SCREEN_HEIGHT / 736, SCREEN_WIDTH, 1)];
-//            divide.backgroundColor = APP_DIVIDER_COLOR;
-//            [cell addSubview:divide];
-//            return cell;
-//        }
         
-        [cell setRightUtilityButtons:[self rightButtons] WithButtonWidth:60];
-        cell.delegate = self;
         NSInteger i = indexPath.row ;
         
         cell.nameLabel.text = ((FrendModel *)self.groupModel.numbers[i]).nickName;
@@ -252,10 +241,24 @@
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 1) {
+    
+    if (indexPath.section == 1 && ((FrendModel *)self.groupModel.numbers[indexPath.row]).userId != [AccountManager shareAccountManager].account.userId) {
         return YES;
     }
     return NO;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        IMDiscussionGroupManager *groupManager = [IMDiscussionGroupManager shareInstance];
+        [groupManager asyncDeleteNumbersWithGroup:_groupModel numbers:@[_groupModel.numbers[indexPath.row]] completion:^(BOOL isSuccess, NSInteger errorCode) {
+            if (isSuccess) {
+                [SVProgressHUD showHint:@"删除成功"];
+                [_tableView reloadData];
+            }
+        }];
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -337,9 +340,10 @@
     [_containerCtl.navigationController pushViewController:createConversationCtl animated:YES];
 }
 
-- (IBAction)editGroup:(id)sender
+- (IBAction)editGroup:(UIButton *)sender
 {
-    [_tableView setEditing:YES animated:YES];
+    sender.selected = !sender.selected;
+    [_tableView setEditing:sender.selected animated:YES];
 }
 
 /**
@@ -456,20 +460,6 @@
  *  @param sender
  */
 - (IBAction)upChatList:(UIButton *)sender {
-}
-
-#pragma mark - SWTableViewCellDelegate
-- (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index
-{
-    [cell hideUtilityButtonsAnimated:YES];
-    IMDiscussionGroupManager *groupManager = [IMDiscussionGroupManager shareInstance];
-    
-    [groupManager asyncDeleteNumbersWithGroup:_groupModel numbers:@[_groupModel.numbers[index]] completion:^(BOOL isSuccess, NSInteger errorCode) {
-        if (isSuccess) {
-            [SVProgressHUD showHint:@"删除成功"];
-            [_tableView reloadData];
-        }
-    }];
 }
 
 #pragma mark - CreateConversationDelegate
