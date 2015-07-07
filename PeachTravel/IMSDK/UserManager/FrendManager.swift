@@ -74,7 +74,7 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
     获取所有的好友列表
     :returns:
     */
-    func getAllMyContacts() -> NSArray {
+    func getAllMyContactsInDB() -> NSArray {
         var retArray = NSArray()
         retArray = self.frendDaoHelper.selectAllContacts()
         return retArray
