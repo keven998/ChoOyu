@@ -54,15 +54,8 @@ public class DaoHelper:NSObject {
         super.init()
     }
     
-    func userDidLogin() {
+    func setupDatabase() {
         self.fillDatabase()
-    }
-    
-    /**
-    测试的时候获取 database
-    */
-    func getDB4Test()-> FMDatabase {
-        return db
     }
     
     func fillDatabase() {
