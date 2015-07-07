@@ -597,15 +597,24 @@ static NSString *reusableCell = @"myGuidesCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MyGuidesTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reusableCell forIndexPath:indexPath];
     if (_isOwner) {
-        [cell setRightUtilityButtons:[self rightButtons] WithButtonWidth:60];
+        [cell.playedBtn addTarget:self action:@selector(played:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.changBtn addTarget:self action:@selector(changeTitle:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.deleteBtn addTarget:self action:@selector(deletePlane:) forControlEvents:UIControlEventTouchUpInside];
+        cell.playedBtn.hidden = NO;
+        cell.changBtn.hidden = NO;
+        cell.deleteBtn.hidden = NO;
+
+    }
+    else {
+        cell.playedBtn.hidden = YES;
+        cell.changBtn.hidden = YES;
+        cell.deleteBtn.hidden = YES;
+        
     }
     cell.guideSummary = [self.dataSource objectAtIndex:indexPath.section];
-    cell.delegate = self;
     cell.isCanSend = _selectToSend;
     [cell.sendBtn addTarget:self action:@selector(sendPoi:) forControlEvents:UIControlEventTouchUpInside];
-    [cell.playedBtn addTarget:self action:@selector(played:) forControlEvents:UIControlEventTouchUpInside];
-    [cell.changBtn addTarget:self action:@selector(changeTitle:) forControlEvents:UIControlEventTouchUpInside];
-    [cell.deleteBtn addTarget:self action:@selector(deletePlane:) forControlEvents:UIControlEventTouchUpInside];
+    
     if ([cell.guideSummary.status isEqualToString:@"traveled"]) {
         
         cell.playedImage.image = [UIImage imageNamed:@"plan_bg_page_qian"];
