@@ -118,7 +118,11 @@
     
     cell.content = dstr;
     cell.titleLabel.text = title;
-    cell.day = [NSString stringWithFormat:@"0%ld.", indexPath.row+1];
+    if (indexPath.row < 9) {
+        cell.day = [NSString stringWithFormat:@"0%ld.", indexPath.row+1];
+    } else {
+        cell.day = [NSString stringWithFormat:@"%ld.", indexPath.row+1];
+    }
     return cell;
 }
 

@@ -36,7 +36,7 @@
 
 - (void) setDay:(NSString *)dayIndex {
     NSAttributedString *unitAStr = [[NSAttributedString alloc] initWithString:@"\nDay" attributes:@{
-                                                                                                   NSFontAttributeName : [UIFont boldSystemFontOfSize:10.0],
+                                                                                                   NSFontAttributeName : [UIFont systemFontOfSize:10.0],
                                                                                                    }];
     NSMutableAttributedString *attrstr = [[NSMutableAttributedString alloc] initWithString:dayIndex attributes:nil];
     [attrstr appendAttributedString:unitAStr];
