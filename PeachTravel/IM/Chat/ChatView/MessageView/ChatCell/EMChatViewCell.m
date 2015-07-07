@@ -13,6 +13,7 @@
 #import "EMChatViewCell.h"
 #import "EMChatVideoBubbleView.h"
 #import "UIResponder+Router.h"
+#import "TipsChatTableViewCell.h"
 
 NSString *const kResendButtonTapEventName = @"kResendButtonTapEventName";
 NSString *const kShouldResendCell = @"kShouldResendCell";
@@ -258,6 +259,10 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
             return [TaoziChatBaseBubbleView heightForBubbleWithObject:messageModel] + nickNameHeight;
         }
             break;
+            
+        case IMMessageTypeTipsMessageType: {
+            return [TipsChatTableViewCell heightForBubbleWithObject:messageModel];
+        }
             
         default: {
             return [EMChatTextBubbleView heightForBubbleWithObject:messageModel] + nickNameHeight;

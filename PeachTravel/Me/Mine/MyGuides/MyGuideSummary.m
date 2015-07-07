@@ -18,7 +18,7 @@
         _updateTime = [[json objectForKey:@"updateTime"] longLongValue]/1000;
         _summary = [json objectForKey:@"summary"];
         NSMutableArray *imagesArray = [[NSMutableArray alloc] init];
-        _updateTimeStr = [ConvertMethods timeIntervalToString:_updateTime withFormat:@"yyyy-MM-dd HH:mm:ss" withTimeZone:[NSTimeZone systemTimeZone]];
+        _updateTimeStr = [ConvertMethods timeIntervalToString:_updateTime withFormat:@"yyyy-MM-dd" withTimeZone:[NSTimeZone systemTimeZone]];
         for (id imageDic in [json objectForKey:@"images"]) {
             TaoziImage *image = [[TaoziImage alloc] initWithJson:imageDic];
             [imagesArray addObject:image];

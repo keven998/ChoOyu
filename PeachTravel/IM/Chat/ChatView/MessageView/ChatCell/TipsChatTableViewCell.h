@@ -10,8 +10,14 @@
  */
 #import <UIKit/UIKit.h>
 
+@class MessageModel;
+
 @interface TipsChatTableViewCell : UITableViewCell
 
+@property (nonatomic, copy) NSString *content;
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
+
++ (CGFloat)heightForBubbleWithObject:(MessageModel *)model;
 
 @end

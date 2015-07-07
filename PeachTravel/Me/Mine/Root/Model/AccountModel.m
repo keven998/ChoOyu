@@ -78,7 +78,7 @@
 {
     if (!_frendList) {
         FrendManager *frendManager = [IMClientManager shareInstance].frendManager;
-        _frendList = [[frendManager getAllMyContacts] mutableCopy];
+        _frendList = [[frendManager getAllMyContactsInDB] mutableCopy];
     }
     return _frendList;
 }
