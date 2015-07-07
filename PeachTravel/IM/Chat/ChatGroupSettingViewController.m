@@ -16,6 +16,7 @@
 #import "AddMemberCell.h"
 #import "SWTableViewCell.h"
 #import "UserOtherTableViewCell.h"
+#import "ChatGroupSettingCell.h"
 
 @interface ChatGroupSettingViewController () <UITableViewDataSource,UITableViewDelegate,CreateConversationDelegate,SWTableViewCellDelegate,changeTitle>
 {
@@ -24,7 +25,6 @@
 
 @property (nonatomic, strong) IMDiscussionGroup *groupModel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) UISwitch *disturbSwitch;
 
 @end
 
@@ -77,12 +77,13 @@
 {
     _tableView.dataSource = self;
     _tableView.delegate = self;
-    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.backgroundColor = APP_PAGE_COLOR;
     _tableView.separatorColor = APP_DIVIDER_COLOR;
     [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     [_tableView registerNib:[UINib nibWithNibName:@"ChatGroupCell" bundle:nil] forCellReuseIdentifier:@"chatCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"AddMemberCell" bundle:nil] forCellReuseIdentifier:@"addCell"];
+    [_tableView registerNib:[UINib nibWithNibName:@"ChatGroupSettingCell" bundle:nil] forCellReuseIdentifier:@"chatGroupSettingCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"UserOtherTableViewCell" bundle:nil] forCellReuseIdentifier:@"otherCell"];
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.bounds.size.width, 64)];
@@ -175,31 +176,19 @@
             cell.cellTitle.text = @"群聊名称";
             cell.cellTitle.font = [UIFont systemFontOfSize:16];
             cell.cellDetail.text = _groupModel.subject;
-            UIView *divide = [[UIView alloc]initWithFrame:CGRectMake(18, 67 * SCREEN_HEIGHT / 736, SCREEN_WIDTH, 1)];
-            divide.backgroundColor = APP_DIVIDER_COLOR;
-            [cell addSubview:divide];
             return cell;
             
         } else if (indexPath.row == 1) {
-            UserOtherTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"otherCell" forIndexPath:indexPath];
+            ChatGroupSettingCell *cell = [tableView dequeueReusableCellWithIdentifier:@"chatGroupSettingCell" forIndexPath:indexPath];
             cell.accessoryType = UITableViewCellAccessoryNone;
-            cell.cellTitle.text = @"免打扰";
-            cell.cellTitle.font = [UIFont systemFontOfSize:16];
-            cell.cellDetail.text = nil;
             
             IMClientManager *clientManager = [IMClientManager shareInstance];
             
             ChatConversation *conversation = [clientManager.conversationManager getExistConversationInConversationList:_groupModel.groupId];
-            _disturbSwitch = [[UISwitch alloc]initWithFrame:CGRectMake(374/2, 29/3 * SCREEN_HEIGHT/736, 50* SCREEN_HEIGHT/736, 30* SCREEN_HEIGHT/736)];
-            [_disturbSwitch addTarget:self action:@selector(changeMsgStatus:) forControlEvents:UIControlEventValueChanged];
-            _disturbSwitch.on = [conversation isBlockMessag];
-            [cell addSubview:_disturbSwitch];
-            
+            [cell.switchBtn addTarget:self action:@selector(changeMsgStatus:) forControlEvents:UIControlEventValueChanged];
+            cell.switchBtn.on = [conversation isBlockMessag];
+            NSLog(@"cell.subviews.count: %ld", cell.subviews.count);
             cell.tag = 101;
-            
-            UIView *divide = [[UIView alloc]initWithFrame:CGRectMake(18, 68 * SCREEN_HEIGHT / 736, SCREEN_WIDTH, 1)];
-            divide.backgroundColor = APP_DIVIDER_COLOR;
-            [cell addSubview:divide];
             
             return cell;
             
@@ -209,16 +198,13 @@
             cell.cellTitle.text = @"清记录";
             cell.cellTitle.font = [UIFont systemFontOfSize:16];
             cell.cellDetail.text = nil;
-            UIView *divide = [[UIView alloc]initWithFrame:CGRectMake(18, 68 * SCREEN_HEIGHT / 736, SCREEN_WIDTH, 1)];
-            divide.backgroundColor = APP_DIVIDER_COLOR;
-            [cell addSubview:divide];
             return cell;
             
         }
     }
     
     else {
-         ChatGroupCell *cell = [tableView dequeueReusableCellWithIdentifier:@"chatCell" forIndexPath:indexPath];
+        ChatGroupCell *cell = [tableView dequeueReusableCellWithIdentifier:@"chatCell" forIndexPath:indexPath];
         
         NSInteger i = indexPath.row ;
         
@@ -230,9 +216,6 @@
             avatarStr = ((FrendModel *)self.groupModel.numbers[i]).avatar;
         }
         [cell.headerImage sd_setImageWithURL:[NSURL URLWithString: avatarStr] placeholderImage:[UIImage imageNamed:@"person_disabled"]];
-        UIView *divide = [[UIView alloc]initWithFrame:CGRectMake(18, 68 * SCREEN_HEIGHT / 736, SCREEN_WIDTH, 1)];
-        divide.backgroundColor = APP_DIVIDER_COLOR;
-        [cell addSubview:divide];
         return cell;
     }
     ChatGroupCell *cell = [tableView dequeueReusableCellWithIdentifier:@"chatCell" forIndexPath:indexPath];
