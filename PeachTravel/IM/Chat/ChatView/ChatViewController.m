@@ -1205,6 +1205,7 @@
     }
     [self handleNotification:NO];
 }
+
 #pragma mark - 监听听筒or扬声器
 - (void) handleNotification:(BOOL)state
 {

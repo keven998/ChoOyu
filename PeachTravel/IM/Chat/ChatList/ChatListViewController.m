@@ -620,6 +620,7 @@
 
 - (void)conversationStatusHasChanged:(ChatConversation * __nonnull)conversation
 {
+    [_delegate unreadMessageCountHasChange];
     [self refreshDataSource];
 }
 
