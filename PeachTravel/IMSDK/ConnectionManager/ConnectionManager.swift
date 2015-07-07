@@ -30,6 +30,9 @@ class ConnectionManager: NSObject, PushConnectionDelegate {
     
     override init() {
         super.init()
+        if let cacheId = NSUserDefaults.standardUserDefaults().objectForKey("registionId") as? String {
+            registionId = cacheId;
+        }
         pushSDKManager.pushConnectionDelegate = self
     }
     
@@ -45,6 +48,7 @@ class ConnectionManager: NSObject, PushConnectionDelegate {
     //MARK:PushConnectionDelegate
     func getuiDidConnection(clientId: String) {
         registionId = clientId
+        NSUserDefaults.standardUserDefaults().setObject(registionId, forKey: "registionId")
         NSNotificationCenter.defaultCenter().postNotificationName(getuiDidConnectionNoti, object: nil)
     }
 }
