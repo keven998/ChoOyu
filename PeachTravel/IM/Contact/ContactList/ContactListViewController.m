@@ -171,15 +171,12 @@
 {
     AccountManager *accountManager = [AccountManager shareAccountManager];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    contact.memo = text;
+    [self.contactTableView reloadData];
+    completed(YES);
     [accountManager asyncChangeRemark:text withUserId:contact.userId completion:^(BOOL isSuccess) {
         if (isSuccess) {
-            contact.memo = text;
-            [self.contactTableView reloadData];
-            [[NSNotificationCenter defaultCenter] postNotificationName:contactListNeedUpdateNoti object:nil];
-            completed(YES);
         } else {
-            [SVProgressHUD showHint:@"请求失败"];
-            completed(NO);
         }
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
@@ -198,7 +195,7 @@
             
             BaseTextSettingViewController *bsvc = [[BaseTextSettingViewController alloc] init];
             bsvc.navTitle = @"修改备注";
-            if (contact.memo) {
+            if (contact.memo.length > 0) {
                 bsvc.content = contact.memo;
             } else {
                 bsvc.content = contact.nickName;
@@ -276,13 +273,8 @@
         cell.delegate = self;
         
         [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:contact.avatarSmall] placeholderImage:[UIImage imageNamed:@"person_disabled"]];
-        //        NSString *detailStr;
-        //        if (![contact.memo isBlankString]) {
-        //            detailStr = [NSString stringWithFormat:@"%@ (%@)", contact.memo, contact.nickName];
-        //        } else {
-        //            detailStr = contact.nickName;
-        //        }
-        if (contact.memo) {
+    
+        if (contact.memo.length > 0) {
             cell.nickNameLabel.text = contact.memo;
         } else {
             cell.nickNameLabel.text = contact.nickName;
