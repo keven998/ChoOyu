@@ -230,23 +230,31 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
         var groupTypeValue = group.type.rawValue
         let imClientManager = IMClientManager.shareInstance()
         
+        let conversationManager = IMClientManager.shareInstance().conversationManager;
+       
         if FrendModel.typeIsCorrect(group.type, typeWeight: IMFrendWeightType.BlockMessage) {
             groupTypeValue = group.type.rawValue - IMFrendWeightType.BlockMessage.rawValue
             imClientManager.conversationManager.updateConversationStatus(false, chatterId: group.groupId)
+            if let conversation = conversationManager.getExistConversationInConversationList(group.groupId) {
+                conversation.isBlockMessag = true;
+            }
             
         } else {
             groupTypeValue = group.type.rawValue + IMFrendWeightType.BlockMessage.rawValue
             imClientManager.conversationManager.updateConversationStatus(true, chatterId: group.groupId)
+            if let conversation = conversationManager.getExistConversationInConversationList(group.groupId) {
+                conversation.isBlockMessag = false;
+            }
         }
         if let type = IMFrendType(rawValue: groupTypeValue) {
             group.type = type
         }
-        
+        let manager = IMClientManager.shareInstance().frendManager
+        manager.updateFrendType(userId: group.groupId, frendType: group.type)
+       
 
         completion(isSuccess: true, errorCode: 0)
         
-        let manager = IMClientManager.shareInstance().frendManager
-        manager.updateFrendType(userId: group.groupId, frendType: group.type)
     }
     
     /**

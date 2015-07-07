@@ -22,6 +22,7 @@
 #import "ChatListViewController.h"
 #import "MWPhotoBrowser.h"
 #import "UserAlbumViewController.h"
+#import "BaseTextSettingViewController.h"
 
 @interface OtherUserInfoViewController ()<UIActionSheetDelegate>
 {
@@ -403,8 +404,34 @@
 
 - (void)remarkFriend
 {
-    
+    BaseTextSettingViewController *bsvc = [[BaseTextSettingViewController alloc] init];
+    bsvc.navTitle = @"修改备注";
+    if (_userInfo.memo.length > 0) {
+        bsvc.content = _userInfo.memo;
+    } else {
+        bsvc.content = _userInfo.nickName;
+    }
+    bsvc.acceptEmptyContent = NO;
+    bsvc.saveEdition = ^(NSString *editText, saveComplteBlock(completed)) {
+        [self confirmChange:editText withContacts:_userInfo success:completed];
+    };
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:bsvc] animated:YES completion:nil];
 }
+
+- (void)confirmChange:(NSString *)text withContacts:(FrendModel *)contact success:(saveComplteBlock)completed
+{
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    contact.memo = text;
+    completed(YES);
+    [accountManager asyncChangeRemark:text withUserId:contact.userId completion:^(BOOL isSuccess) {
+        if (isSuccess) {
+        } else {
+        }
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    }];
+}
+
 - (void)talkToFriend {
     [self pushChatViewController];
 }
