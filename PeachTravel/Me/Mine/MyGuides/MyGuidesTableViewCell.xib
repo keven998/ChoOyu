@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -20,7 +20,9 @@
                         <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="DrH-Mr-ojI"/>
-                            <constraint firstAttribute="width" constant="185" id="dvt-xc-lqO"/>
+                            <constraint firstAttribute="width" constant="185" id="dvt-xc-lqO">
+                                <variation key="widthClass=compact" constant="227"/>
+                            </constraint>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -40,7 +42,6 @@
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6vZ-p7-189">
                         <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                        <color key="backgroundColor" red="0.99215686270000003" green="0.33725490200000002" blue="0.40784313729999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="44" id="fxd-3V-1Ux"/>
                             <constraint firstAttribute="height" constant="25" id="h7C-wV-0cg"/>
@@ -69,7 +70,7 @@
                             <constraint firstAttribute="height" constant="30" id="Tss-7S-uYq"/>
                             <constraint firstAttribute="width" constant="105" id="y1v-iF-BDU"/>
                         </constraints>
-                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="30"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="28"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                         <variation key="default">
@@ -88,10 +89,12 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sTG-fZ-1py">
                         <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="165" id="p1z-Gb-dZN"/>
+                            <constraint firstAttribute="width" constant="165" id="p1z-Gb-dZN">
+                                <variation key="widthClass=compact" constant="214"/>
+                            </constraint>
                             <constraint firstAttribute="height" constant="21" id="ptz-MX-tgg"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                         <variation key="default">
@@ -114,10 +117,11 @@
                                 <variation key="widthClass=compact" constant="30"/>
                             </constraint>
                             <constraint firstAttribute="height" constant="15" id="VFg-rT-GgF">
-                                <variation key="widthClass=compact" constant="30"/>
+                                <variation key="widthClass=compact" constant="49"/>
                             </constraint>
                         </constraints>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="10" maxX="0.0" maxY="0.0"/>
                         <state key="normal">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
@@ -138,13 +142,14 @@
                         <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="15" id="7VT-lU-yhH">
-                                <variation key="widthClass=compact" constant="30"/>
+                                <variation key="widthClass=compact" constant="49"/>
                             </constraint>
                             <constraint firstAttribute="width" constant="15" id="DNA-Rs-JxW">
-                                <variation key="widthClass=compact" constant="30"/>
+                                <variation key="widthClass=compact" constant="48"/>
                             </constraint>
                         </constraints>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <inset key="imageEdgeInsets" minX="10" minY="10" maxX="0.0" maxY="0.0"/>
                         <state key="normal">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
@@ -164,10 +169,12 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1br-w7-Gyw">
                         <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="129" id="BZT-jW-BjH"/>
+                            <constraint firstAttribute="width" constant="129" id="BZT-jW-BjH">
+                                <variation key="widthClass=compact" constant="175"/>
+                            </constraint>
                             <constraint firstAttribute="height" constant="15" id="uha-cb-g2y"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                         <variation key="default">
@@ -187,13 +194,14 @@
                         <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="15" id="W1S-zD-eVb">
-                                <variation key="widthClass=compact" constant="30"/>
+                                <variation key="widthClass=compact" constant="49"/>
                             </constraint>
                             <constraint firstAttribute="width" constant="15" id="o69-BW-huC">
-                                <variation key="widthClass=compact" constant="30"/>
+                                <variation key="widthClass=compact" constant="42"/>
                             </constraint>
                         </constraints>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="10" maxX="5" maxY="0.0"/>
                         <state key="normal">
                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -222,29 +230,35 @@
                     </constraint>
                     <constraint firstItem="1br-w7-Gyw" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="18" id="5v9-VM-LWE"/>
                     <constraint firstItem="RaY-qb-zpq" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="29" id="68d-tA-kSa">
-                        <variation key="widthClass=compact" constant="19"/>
+                        <variation key="widthClass=compact" constant="0.0"/>
                     </constraint>
                     <constraint firstItem="Rtr-c5-dr5" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="18" id="Ii5-iF-Agb"/>
                     <constraint firstItem="Rtr-c5-dr5" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="21" id="XCV-Zq-9mW">
                         <variation key="widthClass=compact" constant="19"/>
                     </constraint>
                     <constraint firstAttribute="trailingMargin" secondItem="cOd-yp-SWw" secondAttribute="trailing" constant="18" id="Xye-7C-sa0">
-                        <variation key="widthClass=compact" constant="12"/>
+                        <variation key="widthClass=compact" constant="0.0"/>
                     </constraint>
                     <constraint firstItem="sTG-fZ-1py" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="18" id="cr9-kJ-51x"/>
                     <constraint firstItem="3Tz-7G-gLC" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="29" id="e2r-VD-hk3">
-                        <variation key="widthClass=compact" constant="19"/>
+                        <variation key="widthClass=compact" constant="0.0"/>
                     </constraint>
                     <constraint firstItem="FX5-5D-sXI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="18" id="kfT-Wq-FyR"/>
-                    <constraint firstItem="FX5-5D-sXI" firstAttribute="top" secondItem="sTG-fZ-1py" secondAttribute="bottom" constant="17" id="lif-pm-9xX"/>
+                    <constraint firstItem="FX5-5D-sXI" firstAttribute="top" secondItem="sTG-fZ-1py" secondAttribute="bottom" constant="17" id="lif-pm-9xX">
+                        <variation key="widthClass=compact" constant="21"/>
+                    </constraint>
                     <constraint firstAttribute="centerY" secondItem="6vZ-p7-189" secondAttribute="centerY" id="moX-vv-dO1">
                         <variation key="widthClass=compact" constant="10.25"/>
                     </constraint>
                     <constraint firstItem="cOd-yp-SWw" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="29" id="odw-Ej-VVJ">
-                        <variation key="widthClass=compact" constant="19"/>
+                        <variation key="widthClass=compact" constant="0.0"/>
                     </constraint>
-                    <constraint firstItem="sTG-fZ-1py" firstAttribute="top" secondItem="Rtr-c5-dr5" secondAttribute="bottom" constant="3" id="wxQ-8a-tfL"/>
-                    <constraint firstItem="1br-w7-Gyw" firstAttribute="top" secondItem="FX5-5D-sXI" secondAttribute="bottom" constant="4" id="wzn-5L-sMl"/>
+                    <constraint firstItem="sTG-fZ-1py" firstAttribute="top" secondItem="Rtr-c5-dr5" secondAttribute="bottom" constant="3" id="wxQ-8a-tfL">
+                        <variation key="widthClass=compact" constant="-1"/>
+                    </constraint>
+                    <constraint firstItem="1br-w7-Gyw" firstAttribute="top" secondItem="FX5-5D-sXI" secondAttribute="bottom" constant="4" id="wzn-5L-sMl">
+                        <variation key="widthClass=compact" constant="-2"/>
+                    </constraint>
                 </constraints>
                 <variation key="default">
                     <mask key="subviews">
