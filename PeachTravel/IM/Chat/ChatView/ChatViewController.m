@@ -396,7 +396,7 @@
                     tipsCell.backgroundColor = [UIColor clearColor];
                     tipsCell.selectionStyle = UITableViewCellSelectionStyleNone;
                 }
-                tipsCell.textLabel.text = @"测试 TIPS 消息";
+                tipsCell.content = model.content;
                 return tipsCell;
                 
             }  else{
