@@ -50,13 +50,18 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.navigationItem.titleView = _searchBar;
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 30, CGRectGetWidth(self.view.bounds), 50)];
-    label.font = [UIFont systemFontOfSize:12.0];
-    label.textColor = COLOR_TEXT_V;
-    label.textAlignment = NSTextAlignmentCenter;
-    label.numberOfLines = 2;
-    label.text = @"旅行搜搜\n搜索旅行的城市/景点/美食/购物/酒店等";
-    [self.view addSubview:label];
+//    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 30, CGRectGetWidth(self.view.bounds), 50)];
+//    label.font = [UIFont systemFontOfSize:12.0];
+//    label.textColor = COLOR_TEXT_V;
+//    label.textAlignment = NSTextAlignmentCenter;
+//    label.numberOfLines = 2;
+//    label.text = @"旅行搜搜\n搜索旅行的城市/景点/美食/购物/酒店等";
+//    [self.view addSubview:label];
+    UIImageView *imageBg = [[UIImageView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 210)/2, 68, 210, 130)];
+    
+    imageBg.image = [UIImage imageNamed:@"search_default_background"];
+    [self.view addSubview:imageBg];
+    
     
     [self.view addSubview:self.tableView];
     self.tableView.hidden = YES;
@@ -355,65 +360,47 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 54.0;
+    return 66 * SCREEN_HEIGHT/736;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 28.0;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-{
-    NSArray *content = [[self.dataSource objectAtIndex:section] objectForKey:@"content"];
-    if (content.count < 5) {
-        return 10;
-    } else {
-        return 50;
-    }
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
-{
-    UIView *footerView;
-    NSArray *content = [[self.dataSource objectAtIndex:section] objectForKey:@"content"];
-    if (content.count < 5) {
-        footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 10)];
-        footerView.backgroundColor = APP_PAGE_COLOR;
-    } else {
-        footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 50)];
-        footerView.backgroundColor = APP_PAGE_COLOR;
-        UIButton *showMoreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 40)];
-        [showMoreBtn setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
-        [showMoreBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_BORDER_COLOR] forState:UIControlStateHighlighted];
-        [showMoreBtn setTitleColor:APP_SUB_THEME_COLOR forState:UIControlStateNormal];
-        [showMoreBtn setTitleColor:APP_SUB_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
-        [showMoreBtn setTitle:@"查看全部结果" forState:UIControlStateNormal];
-        showMoreBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
-        showMoreBtn.tag = section;
-        [showMoreBtn setContentEdgeInsets:UIEdgeInsetsMake(0, 11, 0, 0)];
-        [showMoreBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
-        showMoreBtn.layer.borderColor = APP_PAGE_COLOR.CGColor;
-        showMoreBtn.layer.borderWidth = 0.5;
-        [showMoreBtn addTarget:self action:@selector(showMore:) forControlEvents:UIControlEventTouchUpInside];
-        [showMoreBtn setImage:[UIImage imageNamed:@"ic_search.png"] forState:UIControlStateNormal];
-        showMoreBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        [footerView addSubview:showMoreBtn];
-    }
-    return footerView;
+    return 44 * SCREEN_HEIGHT/736;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
+    UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 44 * SCREEN_HEIGHT/736)];
+    headerView.backgroundColor = UIColorFromRGB(0xF9FAF9);
     NSString *typeDesc = [[self.dataSource objectAtIndex:section] objectForKey:@"typeDesc"];
-    UILabel *headerView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 28)];
-    headerView.textColor = TEXT_COLOR_TITLE_SUBTITLE;
-    headerView.text = [NSString stringWithFormat:@"   %@", typeDesc];
-    headerView.backgroundColor = [UIColor whiteColor];
-    headerView.font = [UIFont systemFontOfSize:12.0];
-    headerView.layer.cornerRadius = 2.0;
-    headerView.layer.borderColor = APP_PAGE_COLOR.CGColor;
-    headerView.layer.borderWidth = 0.5;
+    UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 44* SCREEN_HEIGHT/736)];
+    headerLabel.textColor = [UIColor blackColor];
+    headerLabel.text = [NSString stringWithFormat:@"   %@", typeDesc];
+    headerLabel.font = [UIFont systemFontOfSize:14.0];
+    headerLabel.layer.cornerRadius = 2.0;
+    
+    NSArray *content = [[self.dataSource objectAtIndex:section] objectForKey:@"content"];
+    if (content.count < 5) {
+        
+    } else {
+        UIButton *showMoreBtn = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.view.bounds) - 100, 0, 100, 40)];
+        NSAttributedString *str = [[NSAttributedString alloc] initWithString:@"查看全部 " attributes:@{NSForegroundColorAttributeName : TEXT_COLOR_TITLE_SUBTITLE, NSFontAttributeName: [UIFont systemFontOfSize:12]}];
+        NSMutableAttributedString *showMoreStr = [[NSMutableAttributedString alloc]initWithAttributedString:str];
+        
+        showMoreBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
+        showMoreBtn.tag = section;
+        [showMoreBtn addTarget:self action:@selector(showMore:) forControlEvents:UIControlEventTouchUpInside];
+        showMoreBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        NSAttributedString *more1 = [[NSAttributedString alloc] initWithString:typeDesc attributes:@{NSForegroundColorAttributeName : APP_THEME_COLOR, NSFontAttributeName: [UIFont systemFontOfSize:12]}];
+        [showMoreStr appendAttributedString:more1];
+        NSAttributedString *sstr = [[NSAttributedString alloc]initWithString:@" >"];
+        [showMoreStr appendAttributedString:sstr];
+        [showMoreBtn setAttributedTitle:showMoreStr forState:UIControlStateNormal];
+        [headerView addSubview:showMoreBtn];
+        
+    }
+    
+    [headerView addSubview:headerLabel];
     return headerView;
 }
 
