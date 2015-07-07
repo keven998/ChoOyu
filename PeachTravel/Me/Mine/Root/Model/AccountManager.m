@@ -838,15 +838,16 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:remark forKey:@"memo"];
 
+    FrendManager *frendManager = [IMClientManager shareInstance].frendManager;
+    [frendManager updateContactMemoInDB:remark userId:userId];
+
     NSString *urlStr = [NSString stringWithFormat:@"%@%ld/memo", API_USERS, userId];
     
     [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"result = %@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            FrendManager *frendManager = [IMClientManager shareInstance].frendManager;
-            [frendManager updateContactMemoInDB:remark userId:userId];
-            completion(YES);
+                       completion(YES);
         } else {
             completion(NO);
         }
