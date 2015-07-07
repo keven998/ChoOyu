@@ -22,13 +22,10 @@ static LocationViewController *defaultLocation = nil;
 {
     MKMapView *_mapView;
     MKPointAnnotation *_annotation;
-    
     CLLocationCoordinate2D _currentLocationCoordinate;
     BOOL _isSendLocation;
-    
     CLLocationManager* location;
     LocationModel *locModel;
-
 }
 
 @property (strong, nonatomic) NSString *addressString;

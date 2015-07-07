@@ -87,7 +87,10 @@ class ConversationDaoHelper: BaseDaoHelper, ConversationDaoProtocol {
                     var conversation = ChatConversation()
                     conversation.chatterId = Int(rs.intForColumn("ChatterId"))
                     conversation.lastUpdateTime = Int(rs.longForColumn("LastUpdateTime"))
-                    if let chatterName = rs.stringForColumn("NickName") {
+                    if let memoStr = rs.stringForColumn("Memo") {
+                        conversation.chatterName = memoStr
+                        
+                    } else if let chatterName = rs.stringForColumn("NickName") {
                         conversation.chatterName = chatterName
                     }
                     if let avatarSmall = rs.stringForColumn("AvatarSmall") {
@@ -123,7 +126,7 @@ class ConversationDaoHelper: BaseDaoHelper, ConversationDaoProtocol {
                 println("success 执行 sql 语句：\(sql)")
             } else {
                 println("error 执行 sql 语句：\(sql)")
-
+                
             }
         }
     }
@@ -186,7 +189,6 @@ class ConversationDaoHelper: BaseDaoHelper, ConversationDaoProtocol {
             var array = [timeStamp, userId]
             if dataBase.executeUpdate(sql, withArgumentsInArray:array as [AnyObject]) {
                 println("success 执行 sql 语句：\(sql)")
-                
             } else {
                 println("error 执行 sql 语句：\(sql)")
             }
