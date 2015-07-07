@@ -10,7 +10,7 @@
 #import "SWTableViewCell.h"
 #import "MyGuideSummary.h"
 
-@interface MyGuidesTableViewCell : SWTableViewCell
+@interface MyGuidesTableViewCell : UITableViewCell
 
 @property (strong, nonatomic) UIImageView *headerImageView;
 

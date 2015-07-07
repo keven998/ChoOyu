@@ -33,6 +33,8 @@
     
     [UIView commitAnimations];
     _editBtn.hidden = YES;
+    
+    _imageView.contentMode = UIViewContentModeScaleAspectFill;
 }
 
 - (void)earthquakeEnded:(NSString*)animationID finished:(NSNumber*)finished context:(void*)context

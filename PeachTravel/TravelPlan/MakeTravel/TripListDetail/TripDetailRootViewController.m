@@ -313,7 +313,7 @@
     
     __weak typeof(TripDetailRootViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf];
+    [hud showHUDInViewController:weakSelf content:64];
     
     //获取路线模板数据,新制作路线的情况下
     [manager POST:API_CREATE_GUIDE parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -381,7 +381,7 @@
     if (_tripDetail == nil) {
         __weak typeof(TripDetailRootViewController *)weakSelf = self;
         hud = [[TZProgressHUD alloc] init];
-        [hud showHUDInViewController:weakSelf];
+        [hud showHUDInViewController:weakSelf content:64];
     }
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSNumber *imageWidth = [NSNumber numberWithInt:200];
@@ -575,7 +575,7 @@
     NSString *urlStr = [NSString stringWithFormat:@"%@%@", API_FORK_TRIP, _tripDetail.tripId];
     __weak typeof(TripDetailRootViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf];
+    [hud showHUDInViewController:weakSelf content:64];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSNumber *imageWidth = [NSNumber numberWithInt:150];
