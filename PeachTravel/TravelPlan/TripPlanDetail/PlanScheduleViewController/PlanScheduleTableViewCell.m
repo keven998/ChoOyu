@@ -18,6 +18,7 @@
 
 - (void)awakeFromNib {
     _headerImageView.clipsToBounds = YES;
+    _dayLabel.textAlignment = NSTextAlignmentCenter;
 }
 
 - (void)setContent:(NSString *)content
@@ -31,6 +32,15 @@
                                                                                                    NSParagraphStyleAttributeName : style
                                                                                                    }];
     _dayScheduleSummary.attributedText = attrStr;
+}
+
+- (void) setDay:(NSString *)dayIndex {
+    NSAttributedString *unitAStr = [[NSAttributedString alloc] initWithString:@"\nDay" attributes:@{
+                                                                                                   NSFontAttributeName : [UIFont boldSystemFontOfSize:10.0],
+                                                                                                   }];
+    NSMutableAttributedString *attrstr = [[NSMutableAttributedString alloc] initWithString:dayIndex attributes:nil];
+    [attrstr appendAttributedString:unitAStr];
+    _dayLabel.attributedText = attrstr;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
