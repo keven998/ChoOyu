@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -133,15 +133,15 @@
                     <exclude reference="Ah4-Ne-V7B"/>
                 </mask>
                 <mask key="constraints">
-                    <exclude reference="4oB-zW-hYy"/>
-                    <exclude reference="Mqf-Q5-4IZ"/>
-                    <exclude reference="eNQ-lV-XsO"/>
-                    <exclude reference="CIi-rW-Lto"/>
-                    <exclude reference="KaO-1b-0GX"/>
-                    <exclude reference="YiQ-I5-Idw"/>
                     <exclude reference="8IK-HG-6Kz"/>
                     <exclude reference="AFg-hl-8gZ"/>
                     <exclude reference="SN5-Nh-oon"/>
+                    <exclude reference="CIi-rW-Lto"/>
+                    <exclude reference="KaO-1b-0GX"/>
+                    <exclude reference="YiQ-I5-Idw"/>
+                    <exclude reference="4oB-zW-hYy"/>
+                    <exclude reference="Mqf-Q5-4IZ"/>
+                    <exclude reference="eNQ-lV-XsO"/>
                     <exclude reference="Pgs-1p-QGE"/>
                     <exclude reference="yTf-mu-WlW"/>
                 </mask>
@@ -154,15 +154,15 @@
                     <include reference="Ah4-Ne-V7B"/>
                 </mask>
                 <mask key="constraints">
-                    <include reference="4oB-zW-hYy"/>
-                    <include reference="Mqf-Q5-4IZ"/>
-                    <include reference="eNQ-lV-XsO"/>
-                    <include reference="CIi-rW-Lto"/>
-                    <include reference="KaO-1b-0GX"/>
-                    <include reference="YiQ-I5-Idw"/>
                     <include reference="8IK-HG-6Kz"/>
                     <include reference="AFg-hl-8gZ"/>
                     <include reference="SN5-Nh-oon"/>
+                    <include reference="CIi-rW-Lto"/>
+                    <include reference="KaO-1b-0GX"/>
+                    <include reference="YiQ-I5-Idw"/>
+                    <include reference="4oB-zW-hYy"/>
+                    <include reference="Mqf-Q5-4IZ"/>
+                    <include reference="eNQ-lV-XsO"/>
                     <include reference="Pgs-1p-QGE"/>
                     <include reference="yTf-mu-WlW"/>
                 </mask>

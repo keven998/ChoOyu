@@ -27,6 +27,7 @@ class IMClientManager: NSObject {
     var cmdMessageManager: CMDMessageManager!
     var netWorkReachability: NetworkReachability!
     
+    /// 保存聊天图片文件的目录
     var userChatImagePath: String {
         get {
             let locationStr = documentPath.stringByAppendingPathComponent("\(accountId)/ChatImage/")
@@ -39,6 +40,7 @@ class IMClientManager: NSObject {
         }
     }
     
+    /// 保存聊天语音文件的目录
     var userChatAudioPath: String {
         get {
             let locationStr = documentPath.stringByAppendingPathComponent("\(accountId)/ChatAudio/")
@@ -51,6 +53,7 @@ class IMClientManager: NSObject {
         }
     }
     
+    /// 保存聊天临时文件的目录
     var userChatTempPath: String {
         get {
             let locationStr = documentPath.stringByAppendingPathComponent("\(accountId)/ChatTemp/")
@@ -109,7 +112,7 @@ class IMClientManager: NSObject {
         accountId = userId
         self.connectionSetup(true, errorCode: 0)
         let daoHelper = DaoHelper.shareInstance()
-        daoHelper.userDidLogin()
+        daoHelper.setupDatabase()
         self.setUpSDKWhenLogin()
         MessageManager.shareInsatance().startTimer2ACK()
     }

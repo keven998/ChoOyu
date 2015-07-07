@@ -109,6 +109,7 @@
         LoginViewController *loginCtl = [[LoginViewController alloc] initWithCompletion:^(BOOL completed) {
             PlansListTableViewController *myGuidesCtl = [[PlansListTableViewController alloc] initWithUserId:accountManager.account.userId];
             myGuidesCtl.hidesBottomBarWhenPushed = YES;
+            myGuidesCtl.userName = accountManager.account.nickName;
             [self.navigationController pushViewController:myGuidesCtl animated:YES];
         }];
         TZNavigationViewController *nctl = [[TZNavigationViewController alloc] initWithRootViewController:loginCtl];
@@ -117,6 +118,7 @@
     } else {
         PlansListTableViewController *myGuidesCtl = [[PlansListTableViewController alloc] initWithUserId:accountManager.account.userId];
         myGuidesCtl.hidesBottomBarWhenPushed = YES;
+        myGuidesCtl.userName = accountManager.account.nickName;
         [self.navigationController pushViewController:myGuidesCtl animated:YES];
     }
 }

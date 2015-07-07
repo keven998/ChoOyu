@@ -687,6 +687,7 @@
     myGuideListTableCtl.chatterId = _chatter;
     myGuideListTableCtl.selectToSend = YES;
     myGuideListTableCtl.chatType = _chatType;
+    myGuideListTableCtl.userName = _accountManager.account.nickName;
     UINavigationController *ctl = [[UINavigationController alloc] initWithRootViewController:myGuideListTableCtl];
     [self presentViewController:ctl animated:YES completion:^ {
         //        [self keyBoardHidden];

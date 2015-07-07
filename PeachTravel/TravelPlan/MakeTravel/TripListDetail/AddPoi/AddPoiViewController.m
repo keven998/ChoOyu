@@ -120,8 +120,6 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
     
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 45)];
     _searchBar.delegate = self;
-    //    self.tableView.tableHeaderView = _searchBar;
-    //    self.navigationItem.titleView = _searchBar;
     UIImage *img = [[UIImage imageNamed:@"ic_searchBar_background"] stretchableImageWithLeftCapWidth:1 topCapHeight:0];
     [_searchBar setBackgroundImage:img];
     self.searchController = [[UISearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
@@ -141,7 +139,6 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
         _requestUrl = [NSString stringWithFormat:@"%@%@", API_GET_SPOTLIST_CITY ,_cityId];
     }
     
-    NSLog(@"%@",_requestUrl);
     [_tableView setContentOffset:CGPointMake(0, 45)];
     _tableView.contentInset = UIEdgeInsetsMake(0, 0, 20, 0);
     

@@ -452,6 +452,7 @@
 {
     PlansListTableViewController *myGuidesCtl = [[PlansListTableViewController alloc] initWithUserId:_accountManager.account.userId];
     myGuidesCtl.hidesBottomBarWhenPushed = YES;
+    myGuidesCtl.userName = _accountManager.account.nickName;
     [self.navigationController pushViewController:myGuidesCtl animated:YES];
 }
 

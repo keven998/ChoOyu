@@ -620,6 +620,7 @@
 {
     if (indexPath.section == 1) {
         PlansListTableViewController *listCtl = [[PlansListTableViewController alloc]initWithUserId:_userInfo.userId];
+        listCtl.userName = _userInfo.nickName;
         [self.navigationController pushViewController:listCtl animated:YES];
         
     } else if (indexPath.section == 2){
@@ -732,6 +733,7 @@
 - (void)seeOthersPlan
 {
     PlansListTableViewController *listCtl = [[PlansListTableViewController alloc]initWithUserId:_userInfo.userId];
+    listCtl.userName = _userInfo.nickName;
     [self.navigationController pushViewController:listCtl animated:YES];
 }
 @end
