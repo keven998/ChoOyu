@@ -77,7 +77,6 @@
 {
     _tableView.dataSource = self;
     _tableView.delegate = self;
-//    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.backgroundColor = APP_PAGE_COLOR;
     _tableView.separatorColor = APP_DIVIDER_COLOR;
     [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
@@ -87,14 +86,13 @@
     [_tableView registerNib:[UINib nibWithNibName:@"UserOtherTableViewCell" bundle:nil] forCellReuseIdentifier:@"otherCell"];
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.bounds.size.width, 64)];
-   _tableView.tableFooterView = [self createFooterView];
+    _tableView.tableFooterView = [self createFooterView];
     
 }
 
 - (UIView *)createFooterView
 {
     UIView *footerBg = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH * 4.3/5, 338/3 * SCREEN_HEIGHT/736)];
-    
     UIButton *footerBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH * 3.8/5, 177/3 * SCREEN_HEIGHT/736)];
     footerBtn.center = footerBg.center;
     footerBtn.backgroundColor = UIColorFromRGB(0xF75368);
@@ -120,7 +118,6 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    
     if (section == 1) {
         UIView *sectionHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 60)];
         sectionHeaderView.backgroundColor = APP_PAGE_COLOR;
@@ -145,7 +142,6 @@
             spaceView.backgroundColor = COLOR_LINE;
             [editGroup addSubview:spaceView];
         }
-    
         return sectionHeaderView;
         
     }
@@ -224,7 +220,6 @@
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     if (indexPath.section == 1 && ((FrendModel *)self.groupModel.numbers[indexPath.row]).userId != [AccountManager shareAccountManager].account.userId) {
         return YES;
     }

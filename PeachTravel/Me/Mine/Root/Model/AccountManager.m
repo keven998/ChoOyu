@@ -34,10 +34,6 @@
     if (!_account) {
         AccountDaoHelper *accountDaoHelper = [AccountDaoHelper shareInstance];
         _account = [accountDaoHelper selectCurrentAccount];
-        if (_account) {
-            FrendManager *manager = [IMClientManager shareInstance].frendManager;
-            [manager getAllMyContacts];
-        }
     }
     return _account;
 }
