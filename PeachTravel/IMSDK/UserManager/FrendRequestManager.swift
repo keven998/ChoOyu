@@ -15,19 +15,13 @@ class FrendRequestManager: NSObject {
     let accountId: Int
     var unReadFrendRequestCount: Int {
         get {
-            var count = 0
-            for frendRequest in self.frendRequestList {
-                if frendRequest.status == TZFrendRequest.Default {
-                    count++
-                }
-            }
-            return count
+            return self.frendRequestList.filter({$0.status == TZFrendRequest.Default}).count
         }
     }
     
     init(userId: Int) {
         accountId = userId
-        var dbPath: String = documentPath.stringByAppendingPathComponent("\(accountId)/user.sqlite")
+        let dbPath: String = documentPath.stringByAppendingPathComponent("\(accountId)/user.sqlite")
         let db = FMDatabase(path: dbPath)
         let dbQueue = FMDatabaseQueue(path: dbPath)
         frendRequestDaoHelper = FrendRequestDaoHelper(db: db, dbQueue: dbQueue)
@@ -40,31 +34,20 @@ class FrendRequestManager: NSObject {
     :param: request
     */
     func addFrendRequest(request: AnyObject) {
+        let frendRequest: FrendRequest
         if request.isKindOfClass(FrendRequest) {
-            self.frendRequestDaoHelper.addFrendRequestion2DB(request as! FrendRequest)
-            self.frendRequestList.append(request as! FrendRequest)
-            
+            frendRequest = request as! FrendRequest
         } else {
-            let frendReuqest = FrendRequest(json: request)
-            self.frendRequestDaoHelper.addFrendRequestion2DB(request as! FrendRequest)
-            self.frendRequestList.append(request as! FrendRequest)
-
+            frendRequest = FrendRequest(json: request)
         }
-    }
-    
-    /**
-    添加一个好友请求
-    
-    :param: request
-    */
-    func addFrendRequestList(request: FrendRequest) {
-        for tempRequest in frendRequestList {
-            if tempRequest.requestId == (request).requestId {
+        
+        for temp in self.frendRequestList {
+            if temp.requestId == frendRequest.requestId {
                 return
             }
         }
-        frendRequestList.append(request)
-        frendRequestDaoHelper.addFrendRequestion2DB(request)
+        self.frendRequestDaoHelper.addFrendRequestion2DB(request as! FrendRequest)
+        self.frendRequestList.append(request as! FrendRequest)
     }
     
     /**
@@ -73,7 +56,7 @@ class FrendRequestManager: NSObject {
     :param: requestId
     */
     func removeFrendRequest(requestId: String) {
-        frendRequestList.filter({$0.requestId != requestId}
+        frendRequestList = frendRequestList.filter({$0.requestId != requestId}
         )
         frendRequestDaoHelper.removeFrendRequest(requestId)
     }

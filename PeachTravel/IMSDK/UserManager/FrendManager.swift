@@ -148,6 +148,7 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
         manager.PATCH(url, parameters: params, success:
             { (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
                 if (responseObject.objectForKey("code") as! Int) == 0 {
+                    IMClientManager.shareInstance().frendRequestManager.changeStatus(requestId, status: TZFrendRequest.Agree)
                     completion(isSuccess: true, errorCode: 0)
                 } else {
                     completion(isSuccess: false, errorCode: 0)
@@ -222,7 +223,8 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
         switch cmdMessage.actionCode! {
         case CMDActionCode.F_REQUEST:
             let frendRequestManager = FrendRequestManager(userId: accountId)
-
+            let frendRequest = FrendRequest(json: cmdMessage.message)
+            frendRequestManager.addFrendRequest(frendRequest)
         case CMDActionCode.F_AGREE:
             let frendRequestManager = FrendRequestManager(userId: accountId)
             
