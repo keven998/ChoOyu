@@ -46,11 +46,11 @@
 }
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return 5;
 }
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
+    return 2;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -62,9 +62,15 @@
     view.backgroundColor = [UIColor whiteColor];
     UILabel *sectionLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 44)];
     if (section == 0) {
-        sectionLabel.text = @"圣多美和普林西比民主共和国";
+        sectionLabel.text = @"美国";
     } else if (section == 1) {
-        sectionLabel.text = @"波斯尼亚和黑塞哥维那共和国";
+        sectionLabel.text = @"中国";
+    } else if (section == 2) {
+        sectionLabel.text = @"澳大利亚";
+    } else if (section == 3) {
+        sectionLabel.text = @"加拿大";
+    } else if (section == 4) {
+        sectionLabel.text = @"赤道几内亚";
     }
     
     sectionLabel.textAlignment = NSTextAlignmentCenter;
@@ -88,8 +94,25 @@
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat sectionHeaderHeight = 44;
+    CGPoint point;
+    NSIndexPath *indexPath;
+    point = scrollView.contentOffset;
+    indexPath = [_tableView indexPathForRowAtPoint:point];
+    if (indexPath.section == 0) {
+        self.title = @"美国";
+    } else if (indexPath.section == 1) {
+        self.title = @"中国";
+    } else if (indexPath.section == 2) {
+        self.title = @"澳大利亚";
+    } else if (indexPath.section == 3) {
+        self.title = @"加拿大";
+    } else if (indexPath.section == 4) {
+        self.title = @"赤道几内亚";
+    }
+    
     if (scrollView.contentOffset.y<=sectionHeaderHeight&&scrollView.contentOffset.y>=0) {
         scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
+        
     }
     else if (scrollView.contentOffset.y>=sectionHeaderHeight) {
         scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
