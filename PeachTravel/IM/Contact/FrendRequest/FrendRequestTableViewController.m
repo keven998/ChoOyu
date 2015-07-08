@@ -11,6 +11,7 @@
 #import "FrendRequest.h"
 #import "AccountManager.h"
 #import "OtherUserInfoViewController.h"
+#import "PeachTravel-swift.h"
 
 #define requestCell      @"requestCell"
 
@@ -29,7 +30,6 @@
     [super viewDidLoad];
     self.navigationItem.title = @"好友请求";
     [self.tableView registerNib:[UINib nibWithNibName:@"FrendRequestTableViewCell" bundle:nil] forCellReuseIdentifier:requestCell];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateDataSource) name:frendRequestListNeedUpdateNoti object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -46,7 +46,6 @@
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - setter & getter
@@ -62,7 +61,7 @@
             }
         };
         NSMutableArray *tempArray = [[NSMutableArray alloc] init];
-        for (id request in self.accountManager.account.frendRequest) {
+        for (id request in [IMClientManager shareInstance].frendRequestManager.frendRequestList) {
             [tempArray addObject:request];
         }
         _dataSource = [[tempArray sortedArrayUsingComparator:cmptr] mutableCopy];
@@ -99,6 +98,14 @@
 
 - (void)addContactWithFrendRequest:(FrendRequest *)frendRequest
 {
+    [[IMClientManager shareInstance].frendManager asyncAgreeAddContactWithRequestId:frendRequest.requestId completion:^(BOOL isSuccess, NSInteger errorCode) {
+        if (isSuccess) {
+            [self.tableView reloadData];
+            [SVProgressHUD showHint:@"已添加"];
+        } else {
+            [SVProgressHUD showHint:@"添加失败"];
+        }
+    }];
 //    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
 //    AppUtils *utils = [[AppUtils alloc] init];
 //    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
@@ -198,7 +205,8 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         FrendRequest *frendRequest = [self.dataSource objectAtIndex:indexPath.row];
-        [self.accountManager removeFrendRequest:frendRequest];
+        IMClientManager *clientManager = [IMClientManager shareInstance];
+        [clientManager.frendRequestManager removeFrendRequest:frendRequest.requestId];
         [self.dataSource removeObject:frendRequest];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }

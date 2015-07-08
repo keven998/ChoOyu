@@ -8,16 +8,22 @@
 
 #import <UIKit/UIKit.h>
 #import "TripDetail.h"
-
-@protocol ScheduleUpdateDelegate;
-@interface ScheduleEditorViewController : UIViewController
-
-@property (nonatomic, strong) TripDetail *tripDetail;
-
-@end
+#import "DayAgendaViewController.h"
 
 @protocol ScheduleUpdateDelegate <NSObject>
 
 - (void) updateSchedule:(TripDetail *)newTrip;
+@end
+
+@interface ScheduleEditorViewController : UIViewController
+
+@property (nonatomic, strong) TripDetail *tripDetail;
+
+@property (nonatomic, weak) UIViewController *rootCtl;
+
+@property (nonatomic, weak) id<ScheduleUpdateDelegate> delegate;
 
 @end
+
+
+

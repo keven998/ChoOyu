@@ -9,22 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "SpotPoi.h"
 
-@interface SpotDetailView : UIScrollView <UIScrollViewDelegate>
+@interface SpotDetailView : UIView
 
-@property (nonatomic, strong) SpotPoi *spot;
+@property (nonatomic, strong) SuperPoi *spot;
 
-@property (nonatomic, strong) UIButton *travelGuideBtn;
-@property (nonatomic, strong) UIButton *kendieBtn;
-@property (nonatomic, strong) UIButton *trafficGuideBtn;
-@property (nonatomic, strong) UIButton *descDetailBtn;
-@property (nonatomic, strong) UIButton *travelBtn;
-@property (nonatomic, strong) UIButton *ticketBtn;
-
-@property (nonatomic, strong) UIButton *shareBtn;
-@property (nonatomic, strong) UIButton *addressBtn;
-@property (nonatomic, strong) UIButton *closeBtn;
-@property (nonatomic, strong) UIButton *bookBtn;
-@property (nonatomic, strong) UIButton *phoneButton;
-
-@property (nonatomic, weak) UIViewController *rootCtl;
 @end

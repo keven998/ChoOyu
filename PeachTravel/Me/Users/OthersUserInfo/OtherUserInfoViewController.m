@@ -20,6 +20,9 @@
 #import "ChatGroupSettingViewController.h"
 #import "UIImage+resized.h"
 #import "ChatListViewController.h"
+#import "MWPhotoBrowser.h"
+#import "UserAlbumViewController.h"
+#import "BaseTextSettingViewController.h"
 
 @interface OtherUserInfoViewController ()<UIActionSheetDelegate>
 {
@@ -106,19 +109,19 @@
     _avatarBg.image = [UIImage imageNamed:@"ic_home_avatar_border_unknown.png"];
     [_headerBgView addSubview:_avatarBg];
     
-    _constellationView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
-    _constellationView.center = CGPointMake(width/2.0 - 18, CGRectGetMaxY(_avatarBg.frame) - 5);
-    _constellationView.contentMode = UIViewContentModeScaleAspectFit;
-    _constellationView.image = [UIImage imageNamed:@"ic_home_user_constellation_shooter.png"];
-    [_headerBgView addSubview:_constellationView];
-    
     _levelBg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 64, 20)];
     _levelBg.center = CGPointMake(width/2.0 + 10, CGRectGetMaxY(_avatarBg.frame) - 5);
     _levelBg.contentMode = UIViewContentModeScaleAspectFit;
     _levelBg.image = [UIImage imageNamed:@"ic_home_level_bg_unknown.png"];
     [_headerBgView addSubview:_levelBg];
     
-    _levelLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64, 18)];
+    _constellationView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
+    _constellationView.center = CGPointMake(width/2.0 - 18, CGRectGetMaxY(_avatarBg.frame) - 5);
+    _constellationView.contentMode = UIViewContentModeScaleAspectFit;
+    _constellationView.image = [UIImage imageNamed:@"ic_home_user_constellation_shooter.png"];
+    [_headerBgView addSubview:_constellationView];
+    
+        _levelLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64, 18)];
     _levelLabel.textColor = [UIColor whiteColor];
     _levelLabel.font = [UIFont systemFontOfSize:9];
     _levelLabel.text = @"LV0";
@@ -236,6 +239,7 @@
     UIButton *albumBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 831/3*height/736 + btnHeight, btnWidth-2, btnHeight-4)];
     [albumBtn setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
     [albumBtn setBackgroundImage:[ConvertMethods createImageWithColor:COLOR_DISABLE] forState:UIControlStateHighlighted];
+    [albumBtn addTarget:self action:@selector(viewUserPhotoAlbum) forControlEvents:UIControlEventTouchUpInside];
     albumBtn.layer.shadowColor = COLOR_LINE.CGColor;
     albumBtn.layer.shadowOffset = CGSizeMake(1, -1);
     albumBtn.layer.shadowRadius = 2;
@@ -374,7 +378,6 @@
         [addFriend addTarget:self action:@selector(addToFriend) forControlEvents:UIControlEventTouchUpInside];
         
     }
-    
 }
 
 #pragma mark - IBAction
@@ -391,10 +394,44 @@
         }
     }];
 }
+
+- (void)viewUserPhotoAlbum
+{
+    UserAlbumViewController *ctl = [[UserAlbumViewController alloc] initWithNibName:@"UserAlbumViewController" bundle:nil];
+    ctl.albumArray = self.userInfo.userAlbum;
+    [self.navigationController pushViewController:ctl animated:YES];
+}
+
 - (void)remarkFriend
 {
-    
+    BaseTextSettingViewController *bsvc = [[BaseTextSettingViewController alloc] init];
+    bsvc.navTitle = @"修改备注";
+    if (_userInfo.memo.length > 0) {
+        bsvc.content = _userInfo.memo;
+    } else {
+        bsvc.content = _userInfo.nickName;
+    }
+    bsvc.acceptEmptyContent = NO;
+    bsvc.saveEdition = ^(NSString *editText, saveComplteBlock(completed)) {
+        [self confirmChange:editText withContacts:_userInfo success:completed];
+    };
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:bsvc] animated:YES completion:nil];
 }
+
+- (void)confirmChange:(NSString *)text withContacts:(FrendModel *)contact success:(saveComplteBlock)completed
+{
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    contact.memo = text;
+    completed(YES);
+    [accountManager asyncChangeRemark:text withUserId:contact.userId completion:^(BOOL isSuccess) {
+        if (isSuccess) {
+        } else {
+        }
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    }];
+}
+
 - (void)talkToFriend {
     [self pushChatViewController];
 }
@@ -455,12 +492,12 @@
 {
     AccountManager *accountManager = [AccountManager shareAccountManager];
     
-    FrendManager *frendManager = [[FrendManager alloc] initWithUserId:[AccountManager shareAccountManager].account.userId];
+    FrendManager *frendManager = [IMClientManager shareInstance].frendManager;
     __weak typeof(OtherUserInfoViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf];
     
-    [frendManager asyncRemoveContactWithFrend:_userInfo completion:^(BOOL isSuccess, NSInteger errorCode) {
+    [frendManager asyncRemoveContactWithUserId:_userId completion:^(BOOL isSuccess, NSInteger errorCode) {
         [hud hideTZHUD];
         
         if (isSuccess) {
@@ -510,12 +547,11 @@
     
     return 44;
 }
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
         OthersAlbumCell *cell = [tableView dequeueReusableCellWithIdentifier:@"albumCell" forIndexPath:indexPath];
-        
-        
         cell.headerPicArray = _albumArray;
         NSLog(@"%@",cell.headerPicArray);
         return cell;
@@ -611,6 +647,7 @@
 {
     if (indexPath.section == 1) {
         PlansListTableViewController *listCtl = [[PlansListTableViewController alloc]initWithUserId:_userInfo.userId];
+        listCtl.userName = _userInfo.nickName;
         [self.navigationController pushViewController:listCtl animated:YES];
         
     } else if (indexPath.section == 2){
@@ -639,7 +676,7 @@
 {
     AccountManager *accountManager = [AccountManager shareAccountManager];
     
-    FrendManager *frendManager = [[FrendManager alloc] initWithUserId:accountManager.account.userId];
+    FrendManager *frendManager = [IMClientManager shareInstance].frendManager;
     if ([helloStr stringByReplacingOccurrencesOfString:@" " withString:@""].length == 0) {
         helloStr = [NSString stringWithFormat:@"Hi, 我是%@", accountManager.account.nickName];
     }
@@ -650,7 +687,6 @@
         [hud hideTZHUD];
         if (isSuccess) {
             [SVProgressHUD showHint:@"请求已发送，等待对方验证"];
-            [self performSelector:@selector(goBack) withObject:nil afterDelay:0.2];
         } else {
             [SVProgressHUD showHint:@"添加失败"];
         }
@@ -659,7 +695,7 @@
 
 - (void)loadUserProfile:(NSInteger)userId {
     
-    FrendManager *frendManager = [[FrendManager alloc] initWithUserId:[AccountManager shareAccountManager].account.userId];
+    FrendManager *frendManager = [IMClientManager shareInstance].frendManager;
     [frendManager asyncGetFrendInfoFromServer:userId completion:^(BOOL isSuccess, NSInteger errorCode, FrendModel * __nonnull frend) {
         if (isSuccess) {
             _userInfo = frend;
@@ -683,7 +719,7 @@
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", account.account.userId] forHTTPHeaderField:@"UserId"];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@%ld/albums", API_USERINFO, (long)_userId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@%ld/albums", API_USERS, (long)_userId];
     
     [manager GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
@@ -724,6 +760,7 @@
 - (void)seeOthersPlan
 {
     PlansListTableViewController *listCtl = [[PlansListTableViewController alloc]initWithUserId:_userInfo.userId];
+    listCtl.userName = _userInfo.nickName;
     [self.navigationController pushViewController:listCtl animated:YES];
 }
 @end

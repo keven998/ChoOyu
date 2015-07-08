@@ -35,6 +35,5 @@
 
 @property (nonatomic, weak) id <CreateConversationDelegate> delegate;
 
-@property (nonatomic) BOOL isPushed;
 
 @end

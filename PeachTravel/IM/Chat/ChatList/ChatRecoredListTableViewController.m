@@ -175,7 +175,6 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
     if (indexPath.section == 0) {
         CreateConversationViewController *createConversationCtl = [[CreateConversationViewController alloc] init];
         createConversationCtl.delegate = self;
-        createConversationCtl.isPushed = YES;
         [self.navigationController pushViewController:createConversationCtl animated:YES];
     } else {
         ChatConversation *conversation = [self.dataSource objectAtIndex:indexPath.row];

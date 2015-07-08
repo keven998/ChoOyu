@@ -10,7 +10,6 @@
 
 @interface RestaurantPoi : SuperPoi
 
-@property (nonatomic, copy) NSString *priceDesc;
 @property (nonatomic, strong) NSArray *recommends;
 @property (nonatomic, copy) NSString *telephone;
 

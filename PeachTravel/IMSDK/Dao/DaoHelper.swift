@@ -54,15 +54,8 @@ public class DaoHelper:NSObject {
         super.init()
     }
     
-    func userDidLogin() {
+    func setupDatabase() {
         self.fillDatabase()
-    }
-    
-    /**
-    测试的时候获取 database
-    */
-    func getDB4Test()-> FMDatabase {
-        return db
     }
     
     func fillDatabase() {
@@ -121,6 +114,12 @@ public class DaoHelper:NSObject {
     func delteAllMessageInDB(tableName: String) {
         dispatch_async(databaseWriteQueue, { () -> Void in
             self.chatMessageDaoHelper.deleteAllMessage(tableName)
+        })
+    }
+    
+    func dropMessageTable(tableName: String) {
+        dispatch_async(databaseWriteQueue, { () -> Void in
+            self.chatMessageDaoHelper.dropChatTable(tableName)
         })
     }
     

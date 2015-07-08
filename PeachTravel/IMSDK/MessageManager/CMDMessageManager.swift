@@ -96,7 +96,14 @@ class CMDMessageManager: NSObject, MessageReceiveManagerDelegate {
                 }
                 
             case .F_REQUEST:
-                let frendManager = IMClientManager.shareInstance().frendManager
+                if let delegate = self.getDelegateWithRoutingKey(CMDMessageRoutingKey.Frend_CMD) {
+                    delegate.receiveFrendCMDMessage?(message)
+                }
+                
+            case .F_AGREE:
+                if let delegate = self.getDelegateWithRoutingKey(CMDMessageRoutingKey.Frend_CMD) {
+                    delegate.receiveFrendCMDMessage?(message)
+                }
                 
             default:
                 break

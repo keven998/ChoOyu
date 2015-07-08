@@ -31,14 +31,17 @@
 #import "MJPhoto.h"
 #import "MJPhotoBrowser.h"
 #import "PicCell.h"
+#import "PlansListTableViewController.h"
+#import "MWPhotoBrowser.h"
 
 #define accountDetailHeaderCell          @"headerCell"
 #define otherUserInfoCell           @"otherCell"
 
-#define cellDataSource              @[@[@"名字", @"性别", @"生日", @"地区"], @[@"计划", @"足迹", @"相册"],@[@"安全绑定", @"安全绑定"]]
+#define cellDataSource              @[@[@"名字", @"性别", @"生日", @"现住地"], @[@"计划", @"足迹", @"相册"],@[@"安全设置", @"修改密码"]]
 
 @interface UserInfoTableViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource, SelectDelegate, ChangJobDelegate, HeaderPictureDelegate,updataTracksDelegate>
 {
+    
 }
 @property (strong, nonatomic) UIView *footerView;
 @property (strong, nonatomic) AccountManager *accountManager;
@@ -73,6 +76,7 @@
     
     [self updateTracksDesc];
     [self updateDestinations];
+    [self loadUserAlbum];
     [self setupTableHeaderView];
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     self.tableView.dataSource = self;
@@ -175,7 +179,7 @@
     
     [self updateTracksDesc];
     [self updateDestinations];
-    //            [self loadUserAlbum];
+    
     
     //        }
     //    }];
@@ -271,7 +275,7 @@
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
-    NSString *url = [NSString stringWithFormat:@"%@%ld/albums", API_USERINFO, accountManager.account.userId];
+    NSString *url = [NSString stringWithFormat:@"%@%ld/albums", API_USERS, accountManager.account.userId];
     
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
@@ -287,7 +291,7 @@
     }];
 }
 
-/**
+/*
  *  解析用户头像列表
  *
  *  @param albumArray
@@ -397,6 +401,7 @@
         [hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
+            
             [self uploadPhotoToQINIUServer:image withToken:[[responseObject objectForKey:@"result"] objectForKey:@"uploadToken"] andKey:[[responseObject objectForKey:@"result"] objectForKey:@"key"]];
             
         } else {
@@ -439,8 +444,10 @@
               complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
                   
                   AlbumImage *image = [[AlbumImage alloc] init];
+                  TaoziImage * tzImage = [[TaoziImage alloc] init];
                   image.imageId = [resp objectForKey:@"id"];
-                  image.image.imageUrl = [resp objectForKey:@"url"];
+                  tzImage.imageUrl = [resp objectForKey:@"url"];
+                  image.image = tzImage;
                   NSMutableArray *mutableArray = [self.accountManager.account.userAlbum mutableCopy];
                   [mutableArray addObject:image];
                   self.accountManager.account.userAlbum = mutableArray;
@@ -576,7 +583,7 @@
     }
     else if (indexPath.section == 1) {
         if (indexPath.row == 0) {
-            cell.cellDetail.text = @"0条";
+            cell.cellDetail.text = [NSString stringWithFormat:@"%ld 条", amgr.account.guideCnt];
         } else if (indexPath.row == 1) {
             if (_tracksDesc) {
                 cell.cellDetail.text = _tracksDesc;
@@ -585,7 +592,12 @@
             }
             
         } else if (indexPath.row == 2) {
-            cell.cellDetail.text = @"0图";
+            if (amgr.account.userAlbum.count) {
+                cell.cellDetail.text = [NSString stringWithFormat:@"%zd图",amgr.account.userAlbum.count];
+            } else {
+                cell.cellDetail.text = @"0图";
+            }
+            
         }
     }
     else {
@@ -608,15 +620,12 @@
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0)
-    {
-        if (indexPath.row == 0)
-        {
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
             [self changeUserName];
             
         }
-        else if (indexPath.row == 1)
-        {
+        else if (indexPath.row == 1) {
             [MobClick event:@"event_update_gender"];
             SelectionTableViewController *ctl = [[SelectionTableViewController alloc] init];
             ctl.contentItems = @[@"美女", @"帅锅", @"一言难尽", @"保密"];
@@ -629,8 +638,7 @@
             [self presentViewController:nav animated:YES completion:nil];
             
         }
-        else if (indexPath.row == 2)
-        {
+        else if (indexPath.row == 2) {
             [self showDatePicker];
             
         }
@@ -645,24 +653,22 @@
             
         }
     }
-    else if (indexPath.section == 1)
-    {
+    else if (indexPath.section == 1) {
         if (indexPath.row == 0) {
-            
-            
+            PlansListTableViewController *myGuidesCtl = [[PlansListTableViewController alloc] initWithUserId:_accountManager.account.userId];
+            myGuidesCtl.hidesBottomBarWhenPushed = YES;
+            myGuidesCtl.userName = _accountManager.account.nickName;
+            [self.navigationController pushViewController:myGuidesCtl animated:YES];
+
         }
-        else if (indexPath.row == 1)
-        {
+        else if (indexPath.row == 1) {
             FootPrintViewController *footCtl = [[FootPrintViewController alloc] init];
             footCtl.destinations = self.destinations;
             footCtl.delegate = self;
             [self presentViewController:footCtl animated:YES completion:nil];
-            
-            
         }
-        else if (indexPath.row == 2)
-        {
-            
+        else if (indexPath.row == 2) {
+            [self viewUserPhotoAlbum];
         }
     }
     else {
@@ -712,7 +718,7 @@
     [self.tableView reloadData];
 }
 
-- (void) updateGender:(NSIndexPath *)selectIndex
+- (void)updateGender:(NSIndexPath *)selectIndex
 {
     NSString *str = [[NSString alloc]init];
     if (selectIndex.row == 0) {
@@ -736,6 +742,7 @@
         [hud hideTZHUD];
     }];
 }
+
 
 #pragma mark - UIImagePickerControllerDelegate
 
@@ -777,7 +784,6 @@
 - (void)changeAvatar:(NSInteger)index
 {
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    //    [hud showHUDInView:self.view];
     [hud showHUDInViewController:self.navigationController content:64];
     AlbumImage *image = [self.accountManager.account.userAlbum objectAtIndex:index];
     [self.accountManager asyncChangeUserAvatar:image completion:^(BOOL isSuccess, NSString *error) {
@@ -786,6 +792,21 @@
     }];
 }
 
+- (void)viewUserPhotoAlbum
+{
+    MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] init];
+    [browser setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+    UINavigationController *navc = [[UINavigationController alloc] initWithRootViewController:browser];
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    for (AlbumImage *album in self.accountManager.account.userAlbum) {
+        MWPhoto *photo = [[MWPhoto alloc] initWithURL:[NSURL URLWithString:album.image.imageUrl]];
+        [array addObject:photo];
+    }
+    browser.imageList = array;
+    browser.titleStr = @"相册";
+    
+    [self presentViewController:navc animated:YES completion:nil];
+}
 /**
  *  删除用户头像
  *

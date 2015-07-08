@@ -21,6 +21,7 @@
 @property (nonatomic) IMChatType chatType;
 
 @property (nonatomic) NSInteger userId;
+@property (nonatomic, strong) NSString *userName;
 
 
 @end

@@ -103,6 +103,17 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
         }
     }
     
+    func dropChatTable(tableName: String) {
+        databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
+            var sql = "drop table '\(tableName)'"
+            if (dataBase.executeUpdate(sql, withArgumentsInArray: nil)) {
+                println("success 执行 sql 语句：\(sql)")
+            } else {
+                println("error 执行 sql 语句：\(sql)")
+            }
+        }
+    }
+    
     func deleteAllMessage(tableName: String) {
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
             var sql = "delete from '\(tableName)'"
@@ -344,6 +355,12 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
                 
             case .HotelMessageType:
                 retMessage = IMHotelMessage()
+                
+            case .CMDMessageType:
+                retMessage = IMCMDMessage()
+                
+            case .TipsMessageType:
+                retMessage = TipsMessage()
 
             
             default:

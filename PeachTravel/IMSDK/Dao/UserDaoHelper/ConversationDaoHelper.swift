@@ -87,11 +87,25 @@ class ConversationDaoHelper: BaseDaoHelper, ConversationDaoProtocol {
                     var conversation = ChatConversation()
                     conversation.chatterId = Int(rs.intForColumn("ChatterId"))
                     conversation.lastUpdateTime = Int(rs.longForColumn("LastUpdateTime"))
-                    if let chatterName = rs.stringForColumn("NickName") {
+                    if let memoStr = rs.stringForColumn("Memo") {
+                        if memoStr != "" {
+                            conversation.chatterName = memoStr
+                        } else {
+                            if let chatterName = rs.stringForColumn("NickName") {
+                                conversation.chatterName = chatterName
+                            }
+                        }
+                        
+                    } else if let chatterName = rs.stringForColumn("NickName") {
                         conversation.chatterName = chatterName
                     }
                     if let avatarSmall = rs.stringForColumn("AvatarSmall") {
-                        conversation.chatterAvatar = avatarSmall
+                        if avatarSmall != "" {
+                            conversation.chatterAvatar = avatarSmall
+                            
+                        } else {
+                            conversation.chatterAvatar = rs.stringForColumn("Avatar")
+                        }
                     } else {
                         conversation.chatterAvatar = rs.stringForColumn("Avatar")
                     }
@@ -123,7 +137,7 @@ class ConversationDaoHelper: BaseDaoHelper, ConversationDaoProtocol {
                 println("success 执行 sql 语句：\(sql)")
             } else {
                 println("error 执行 sql 语句：\(sql)")
-
+                
             }
         }
     }
@@ -186,7 +200,6 @@ class ConversationDaoHelper: BaseDaoHelper, ConversationDaoProtocol {
             var array = [timeStamp, userId]
             if dataBase.executeUpdate(sql, withArgumentsInArray:array as [AnyObject]) {
                 println("success 执行 sql 语句：\(sql)")
-                
             } else {
                 println("error 执行 sql 语句：\(sql)")
             }
@@ -209,9 +222,12 @@ class ConversationDaoHelper: BaseDaoHelper, ConversationDaoProtocol {
     
     func removeConversationfromDB(chatterId: Int) {
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
-
-            var sql = "delete from \(conversationTableName) where userId = ?"
-            dataBase.executeUpdate(sql, withArgumentsInArray: [chatterId])
+            var sql = "delete from \(conversationTableName) where ChatterId = ?"
+            if dataBase.executeUpdate(sql, withArgumentsInArray: [chatterId]) {
+                println("success 执行 sql 语句：\(sql)")
+            } else {
+                println("error 执行 sql 语句：\(sql)")
+            }
         }
     }
     

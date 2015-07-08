@@ -77,7 +77,6 @@
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) DXMessageToolBar *chatToolBar;
 
-@property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong) UIActivityIndicatorView *headerLoading;
 
 @property (strong, nonatomic) UIImagePickerController *imagePicker;
@@ -167,19 +166,6 @@
     }
 }
 
-- (UIView *)headerView {
-    if (!_headerView) {
-        _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 44.0)];
-        _headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        UIActivityIndicatorView *indicatroView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 32.0, 32.0)];
-        [indicatroView setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
-        [indicatroView setCenter:CGPointMake(CGRectGetWidth(self.tableView.bounds)/2.0, 44.0/2.0)];
-        [_headerView addSubview:indicatroView];
-        _headerLoading = indicatroView;
-    }
-    return _headerView;
-}
-
 - (void)setupBarButtonItem
 {
     UIButton *menu = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
@@ -187,7 +173,7 @@
     [menu addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
     [menu setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:menu];
-
+    
     UIButton *back = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
     [back setImage:[UIImage imageNamed:@"common_icon_navigaiton_back"] forState:UIControlStateNormal];
     [back setImage:[UIImage imageNamed:@"common_icon_navigaiton_back_highlight"] forState:UIControlStateHighlighted];
@@ -261,7 +247,7 @@
 
 /**
  *  点击聊天的头像进入联系人信息
- *  
+ *
  *  @param sender
  */
 - (void)showUserInfoWithModel:(MessageModel *)model
@@ -326,15 +312,10 @@
         
         // 隐藏时间
         header.lastUpdatedTimeLabel.hidden = YES;
-        
         // 隐藏状态
         header.stateLabel.hidden = YES;
-        
-        header.arrowView.hidden = YES;
-        
         // 设置header
         self.tableView.header = header;
-        
     }
     
     return _tableView;
@@ -346,10 +327,9 @@
         _chatToolBar = [[DXMessageToolBar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - [DXMessageToolBar defaultHeight] - 64, self.view.frame.size.width, [DXMessageToolBar defaultHeight])];
         _chatToolBar.backgroundColor = [UIColor whiteColor];
         _chatToolBar.delegate = self;
-        _chatToolBar.rootCtl = self;        
-     
+        _chatToolBar.rootCtl = self;
+        
     }
-    
     return _chatToolBar;
 }
 
@@ -416,7 +396,7 @@
                     tipsCell.backgroundColor = [UIColor clearColor];
                     tipsCell.selectionStyle = UITableViewCellSelectionStyleNone;
                 }
-                tipsCell.textLabel.text = @"测试 TIPS 消息";
+                tipsCell.content = model.content;
                 return tipsCell;
                 
             }  else{
@@ -461,7 +441,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if (scrollView.contentOffset.y < 40 && !_loadMessageOver) {
+    if (scrollView.contentOffset.y < 40 && !_loadMessageOver && _dataSource.count >= 10) {
         if (![_tableView.header isRefreshing]) {
             [_tableView.header beginRefreshing];
         }
@@ -652,7 +632,7 @@
             frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
             frostedViewController.liveBlur = YES;
             frostedViewController.limitMenuViewSize = YES;
-//            frostedViewController.resumeNavigationBar = NO;
+            //            frostedViewController.resumeNavigationBar = NO;
             [self.navigationController pushViewController:frostedViewController animated:YES];
         }
             break;
@@ -684,11 +664,11 @@
                 [weakSelf.messageReadManager showBrowserWithImages:@[imageUrl] andImageView:imageView];
                 
             } else {
-
+                
             }
         } else {
             [weakSelf.messageReadManager showBrowserWithImages:@[((ImageMessage *)model.baseMessage).localPath] andImageView:imageView];
-
+            
         }
     }
 }
@@ -707,6 +687,7 @@
     myGuideListTableCtl.chatterId = _chatter;
     myGuideListTableCtl.selectToSend = YES;
     myGuideListTableCtl.chatType = _chatType;
+    myGuideListTableCtl.userName = _accountManager.account.nickName;
     UINavigationController *ctl = [[UINavigationController alloc] initWithRootViewController:myGuideListTableCtl];
     [self presentViewController:ctl animated:YES completion:^ {
         //        [self keyBoardHidden];
@@ -886,10 +867,10 @@
             NSData *imageData = UIImageJPEGRepresentation(tempImg, 0.3);
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self sendImageMessage:imageData];
-
+                
             });
             [NSThread sleepForTimeInterval:0.3];
-
+            
         }
     });
 }
@@ -981,12 +962,12 @@
 {
     // 马上进入刷新状态
     [_tableView.header beginRefreshing];
-
+    
     ChatViewController *weakSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         NSArray *moreMessages = [weakSelf.conversation getMoreChatMessageInConversation:10];
         if ([moreMessages count] > 0) {
-
+            
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [self addChatMessageList2Top:moreMessages];
                 // 拿到当前的下拉刷新控件，结束刷新状态
@@ -997,6 +978,7 @@
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 // 拿到当前的下拉刷新控件，结束刷新状态
                 [self.tableView.header endRefreshing];
+                self.tableView.header.state = MJRefreshStateNoMoreData;
             });
         }
     });
@@ -1041,7 +1023,7 @@
             [self.dataSource insertObject:[createDate formattedTime] atIndex:0];
             self.chatTagDate = createDate;
             NSIndexPath *path = [NSIndexPath indexPathForRow:i inSection:0];
-
+            
             [indexPath2Insert addObject:path];
             i++;
         }
@@ -1056,7 +1038,7 @@
     // 刷新表格
     [self.tableView reloadData];
     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
-  
+    
 }
 
 - (void)fillMessageModel:(MessageModel *)message
@@ -1172,13 +1154,14 @@
 {
     IMClientManager *imClientManager = [IMClientManager shareInstance];
     BaseMessage *imageMessage = [imClientManager.messageSendManager sendImageMessage:_conversation.chatterId conversationId:_conversation.conversationId imageData:imageData chatType:_conversation.chatType progress:^(float progressValue) {
+        NSLog(@"发送了: %lf", progressValue);
     }];
     [self addChatMessage2Buttom:imageMessage];
     
 }
 
-
 #pragma mark - MessageManagerDelegate
+
 - (void)receiverMessage:(BaseMessage* __nonnull)message
 {
     [self addChatMessage2Buttom:message];
@@ -1223,6 +1206,7 @@
     }
     [self handleNotification:NO];
 }
+
 #pragma mark - 监听听筒or扬声器
 - (void) handleNotification:(BOOL)state
 {

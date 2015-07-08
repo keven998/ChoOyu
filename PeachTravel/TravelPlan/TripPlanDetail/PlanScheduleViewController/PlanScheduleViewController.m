@@ -20,20 +20,29 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = APP_PAGE_COLOR;
+    
     // Do any additional setup after loading the view.
-    _tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
+    _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    _tableView.backgroundColor = APP_PAGE_COLOR;
+    _tableView.separatorColor = COLOR_LINE;
     _tableView.dataSource = self;
     _tableView.delegate = self;
+    _tableView.contentInset = UIEdgeInsetsMake(2, 0, 2, 0);
     [_tableView registerNib:[UINib nibWithNibName:@"PlanScheduleTableViewCell" bundle:nil] forCellReuseIdentifier:@"schedule_summary_cell"];
     [self.view addSubview:_tableView];
     
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.tableView reloadData];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [self.tableView reloadData];
 }
 
 - (void)setTripDetail:(TripDetail *)tripDetail
@@ -46,7 +55,23 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 128;
+    NSArray *ds = _tripDetail.itineraryList[indexPath.row];
+    NSMutableString *dstr = [[NSMutableString alloc] init];
+    NSInteger count = [ds count];
+    for (int i = 0; i < count; ++i) {
+        SuperPoi *sp = [ds objectAtIndex:i];
+        if ([dstr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length == 0) {
+            [dstr appendString:[NSString stringWithFormat:@"%@", sp.zhName]];
+        } else {
+            [dstr appendString:[NSString stringWithFormat:@" > %@", sp.zhName]];
+        }
+    }
+    return [PlanScheduleTableViewCell heightOfCellWithContent:dstr];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 1;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -64,33 +89,77 @@
     PlanScheduleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"schedule_summary_cell" forIndexPath:indexPath];
     NSArray *ds = _tripDetail.itineraryList[indexPath.row];
     NSMutableString *dstr = [[NSMutableString alloc] init];
+    NSMutableString *title = [[NSMutableString alloc] init];
+    NSMutableArray *titleArray = [[NSMutableArray alloc] init];
     NSInteger count = [ds count];
     for (int i = 0; i < count; ++i) {
         SuperPoi *sp = [ds objectAtIndex:i];
-        if (i == 0) {
-            [dstr appendString:[NSString stringWithFormat:@"1.%@", sp.zhName]];
+        if ([dstr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length == 0) {
+            if (sp.locality && sp.locality.zhName) {
+                [titleArray addObject:sp.locality.zhName];
+                [title appendString:sp.locality.zhName];
+            }
+            
+            [dstr appendString:[NSString stringWithFormat:@"%@", sp.zhName]];
         } else {
-            [dstr appendString:[NSString stringWithFormat:@" → %d.%@", (i+1), sp.zhName]];
+            BOOL find = NO;
+            for (NSString *str in titleArray) {
+                if ([str isEqualToString:sp.locality.zhName]) {
+                    find = YES;
+                    break;
+                }
+            }
+            if (!find && sp.locality && sp.locality.zhName) {
+                [title appendString:[NSString stringWithFormat:@" > %@", sp.locality.zhName]];
+                [titleArray addObject:sp.locality.zhName];
+            }
+            [dstr appendString:[NSString stringWithFormat:@" > %@", sp.zhName]];
+
         }
     }
-    NSMutableParagraphStyle *ps = [[NSMutableParagraphStyle alloc] init];
-    ps.lineSpacing = 8.0;
-    NSDictionary *attribs = @{NSFontAttributeName: [UIFont systemFontOfSize:15], NSParagraphStyleAttributeName:ps};
-    NSAttributedString *attrstr = [[NSAttributedString alloc] initWithString:dstr attributes:attribs];
-    cell.dayScheduleSummary.attributedText = attrstr;
-    CGRect frame = cell.dayScheduleSummary.frame;
-    CGRect rect = [attrstr boundingRectWithSize:(CGSize){CGRectGetWidth(frame), CGFLOAT_MAX} options:NSStringDrawingUsesLineFragmentOrigin context:nil];
-    frame.size.height = ceilf(rect.size.height) + 1;
-    cell.dayScheduleSummary.frame = frame;
-
+    
+    cell.content = dstr;
+    cell.titleLabel.text = title;
+    if (indexPath.row < 9) {
+        cell.day = [NSString stringWithFormat:@"0%ld.", indexPath.row+1];
+    } else {
+        cell.day = [NSString stringWithFormat:@"%ld.", indexPath.row+1];
+    }
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSArray *ds = _tripDetail.itineraryList[indexPath.row];
+    NSMutableString *title = [[NSMutableString alloc] init];
+    NSMutableArray *titleArray = [[NSMutableArray alloc] init];
+    NSInteger count = [ds count];
+    for (int i = 0; i < count; ++i) {
+        SuperPoi *sp = [ds objectAtIndex:i];
+        if ([title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length == 0) {
+            if (sp.locality && sp.locality.zhName) {
+                [titleArray addObject:sp.locality.zhName];
+                [title appendString:sp.locality.zhName];
+            }
+        } else {
+            BOOL find = NO;
+            for (NSString *str in titleArray) {
+                if ([str isEqualToString:sp.locality.zhName]) {
+                    find = YES;
+                    break;
+                }
+            }
+            if (!find && sp.locality && sp.locality.zhName) {
+                [title appendString:[NSString stringWithFormat:@" > %@", sp.locality.zhName]];
+                [titleArray addObject:sp.locality.zhName];
+            }
+        }
+    }
+
     DayAgendaViewController *davc = [[DayAgendaViewController alloc] initWithDay:indexPath.row];
     davc.tripDetail = _tripDetail;
-    [self.navigationController pushViewController:davc animated:YES];
+    davc.titleStr = title;
+    [self.frostedViewController.navigationController pushViewController:davc animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 

@@ -39,11 +39,9 @@
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
-    //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_add_friend"] style:UIBarButtonItemStylePlain target:self action:@selector(addContact)];
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithIcon:@"ic_add_friend" highIcon:@"ic_add_friend" target:self action:@selector(addContact)];
     self.navigationItem.title = @"联系人";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContactList) name:contactListNeedUpdateNoti object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateNumberOfUnreadFrendRequest) name:frendRequestListNeedUpdateNoti object:nil];
     
     [self.view addSubview:self.contactTableView];
     [self.accountManager loadContactsFromServer];
@@ -53,7 +51,6 @@
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_friends_lists"];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-    [self updateNumberOfUnreadFrendRequest];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -106,13 +103,6 @@
         _accountManager = [AccountManager shareAccountManager];
     }
     return _accountManager;
-}
-
-- (void)updateNumberOfUnreadFrendRequest{
-    _numberOfUnreadFrendRequest = self.accountManager.numberOfUnReadFrendRequest;
-    if (_contactTableView) {
-        [_contactTableView reloadData];
-    }
 }
 
 - (UITableView *)contactTableView
@@ -170,22 +160,22 @@
     frostedViewController.liveBlur = YES;
     frostedViewController.resumeNavigationBar = NO;
     frostedViewController.limitMenuViewSize = YES;
-    self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan=NO;
+    self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan = NO;
     [self.navigationController pushViewController:frostedViewController animated:YES];
 }
 
 #pragma mark - http method
+
 - (void)confirmChange:(NSString *)text withContacts:(FrendModel *)contact success:(saveComplteBlock)completed
 {
     AccountManager *accountManager = [AccountManager shareAccountManager];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    contact.memo = text;
+    [self.contactTableView reloadData];
+    completed(YES);
     [accountManager asyncChangeRemark:text withUserId:contact.userId completion:^(BOOL isSuccess) {
         if (isSuccess) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:contactListNeedUpdateNoti object:nil];
-            completed(YES);
         } else {
-            [SVProgressHUD showHint:@"请求失败"];
-            completed(NO);
         }
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
@@ -202,10 +192,13 @@
             NSIndexPath *indexPath = [_contactTableView indexPathForCell:cell];
             FrendModel *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
             
-            //bug 需要返回备注昵称
             BaseTextSettingViewController *bsvc = [[BaseTextSettingViewController alloc] init];
             bsvc.navTitle = @"修改备注";
-            bsvc.content = contact.nickName;
+            if (contact.memo.length > 0) {
+                bsvc.content = contact.memo;
+            } else {
+                bsvc.content = contact.nickName;
+            }
             bsvc.acceptEmptyContent = NO;
             bsvc.saveEdition = ^(NSString *editText, saveComplteBlock(completed)) {
                 [self confirmChange:editText withContacts:contact success:completed];
@@ -278,14 +271,17 @@
         [cell setRightUtilityButtons:[self rightButtons] WithButtonWidth:60];
         cell.delegate = self;
         
-        [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:contact.avatarSmall] placeholderImage:[UIImage imageNamed:@"person_disabled"]];
-        //        NSString *detailStr;
-        //        if (![contact.memo isBlankString]) {
-        //            detailStr = [NSString stringWithFormat:@"%@ (%@)", contact.memo, contact.nickName];
-        //        } else {
-        //            detailStr = contact.nickName;
-        //        }
-        cell.nickNameLabel.text = contact.nickName;
+        if (![contact.avatarSmall isBlankString]) {
+            [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:contact.avatarSmall] placeholderImage:[UIImage imageNamed:@"person_disabled"]];
+        } else {
+            [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:contact.avatar] placeholderImage:[UIImage imageNamed:@"person_disabled"]];
+        }
+    
+        if (contact.memo.length > 0) {
+            cell.nickNameLabel.text = contact.memo;
+        } else {
+            cell.nickNameLabel.text = contact.nickName;
+        }
         return cell;
     }
 }

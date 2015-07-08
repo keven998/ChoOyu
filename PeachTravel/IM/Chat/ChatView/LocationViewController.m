@@ -22,13 +22,10 @@ static LocationViewController *defaultLocation = nil;
 {
     MKMapView *_mapView;
     MKPointAnnotation *_annotation;
-    
     CLLocationCoordinate2D _currentLocationCoordinate;
     BOOL _isSendLocation;
-    
     CLLocationManager* location;
     LocationModel *locModel;
-
 }
 
 @property (strong, nonatomic) NSString *addressString;
@@ -104,7 +101,7 @@ static LocationViewController *defaultLocation = nil;
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.navigationController.navigationBarHidden = NO;
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 -(void)viewWillDisappear:(BOOL)animated

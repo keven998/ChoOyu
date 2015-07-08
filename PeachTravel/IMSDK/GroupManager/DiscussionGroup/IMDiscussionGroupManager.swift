@@ -71,6 +71,9 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
     func asyncCreateDiscussionGroup(subject: String, invitees: Array<FrendModel>, completionBlock: (isSuccess: Bool, errorCode: Int, discussionGroup: IMDiscussionGroup?) -> ()) {
         
         var array = Array<Int>()
+        for frendModel in invitees {
+            array.append(frendModel.userId)
+        }
         var params = NSMutableDictionary()
         params.setObject(array, forKey: "participants")
         params.setObject(subject, forKey: "name")
@@ -103,7 +106,7 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
                     var group = IMDiscussionGroup(jsonData: groupData as! NSDictionary)
                     groupList.append(group)
                     var frendManager = IMClientManager.shareInstance().frendManager
-                    frendManager.updateFrendInfoInDB(self.convertDiscussionGroupModel2FrendModel(group))
+                    frendManager.insertOrUpdateFrendInfoInDB(self.convertDiscussionGroupModel2FrendModel(group))
                 }
             }
             completionBlock(isSuccess: isSuccess, errorCode: errorCode, groupList: groupList)
@@ -227,23 +230,31 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
         var groupTypeValue = group.type.rawValue
         let imClientManager = IMClientManager.shareInstance()
         
+        let conversationManager = IMClientManager.shareInstance().conversationManager;
+       
         if FrendModel.typeIsCorrect(group.type, typeWeight: IMFrendWeightType.BlockMessage) {
             groupTypeValue = group.type.rawValue - IMFrendWeightType.BlockMessage.rawValue
             imClientManager.conversationManager.updateConversationStatus(false, chatterId: group.groupId)
+            if let conversation = conversationManager.getExistConversationInConversationList(group.groupId) {
+                conversation.isBlockMessag = true;
+            }
             
         } else {
             groupTypeValue = group.type.rawValue + IMFrendWeightType.BlockMessage.rawValue
             imClientManager.conversationManager.updateConversationStatus(true, chatterId: group.groupId)
+            if let conversation = conversationManager.getExistConversationInConversationList(group.groupId) {
+                conversation.isBlockMessag = false;
+            }
         }
         if let type = IMFrendType(rawValue: groupTypeValue) {
             group.type = type
         }
-        
+        let manager = IMClientManager.shareInstance().frendManager
+        manager.updateFrendType(userId: group.groupId, frendType: group.type)
+       
 
         completion(isSuccess: true, errorCode: 0)
         
-        let manager = IMClientManager.shareInstance().frendManager
-        manager.updateFrendType(userId: group.groupId, frendType: group.type)
     }
     
     /**

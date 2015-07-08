@@ -201,7 +201,7 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
     :param: chatterId
     :Bool: 是否成功
     */
-    func removeConversation(#chatterId: Int) -> Bool {
+    func removeConversation(#chatterId: Int, deleteMessage: Bool) {
         var daoHelper = DaoHelper.shareInstance()
         daoHelper.removeConversationfromDB(chatterId)
         for i in 0 ..< conversationList.count {
@@ -209,10 +209,12 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
             if conversation.chatterId == chatterId {
                 conversationList.removeAtIndex(i)
                 delegate?.conversationsHaveRemoved([conversation])
-                return true
+                break
             }
         }
-        return false
+        if deleteMessage {
+            daoHelper.dropMessageTable("chat_\(chatterId)")
+        }
     }
     
     /**
@@ -255,10 +257,11 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
     private func handleReceiveMessage(message: BaseMessage) {
         if let conversation = self.getConversationWithMessage(message) {
             conversation.addReceiveMessage(message)
+            println("conversation: \(conversation.chatterName)")
             if !conversation.isCurrentConversation {
                 conversation.unReadMessageCount++
             }
-            if conversation.conversationId == nil {
+            if (conversation.conversationId == nil && message.conversationId != nil) {
                 conversation.conversationId = message.conversationId
                 var daoHelper = DaoHelper.shareInstance()
                 daoHelper.updateConversationIdInConversation(conversation.conversationId!, userId: conversation.chatterId)
@@ -285,7 +288,11 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
     */
     private func fillConversationWithFrendData(conversation: ChatConversation, frendModel: FrendModel) {
         conversation.fillConversationType(frendType: frendModel.type)
-        conversation.chatterName = frendModel.nickName
+        if frendModel.memo != "" {
+            conversation.chatterName = frendModel.memo
+        } else {
+            conversation.chatterName = frendModel.nickName
+        }
         if frendModel.avatarSmall != "" {
             conversation.chatterAvatar = frendModel.avatarSmall
         } else {

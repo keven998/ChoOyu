@@ -35,13 +35,14 @@ xcuserdata
 .DS_Store
 *.swp
 profile
-PeachTravel/EaseMobSDK
+Lvxingpai/EaseMobSDK
 *.ttf
-PeachTravel/libs/UMSocial_Sdk_4.2.1
-PeachTravel/libs/UMSocial_Sdk_Extra_Frameworks
+Lvxingpai/libs/UMSocial_Sdk_4.2.1
+Lvxingpai/libs/UMSocial_Sdk_Extra_Frameworks
 Fastfile
 fastlane
 *.mobileprovision
 *.zip
 *.ipa
 PeachTravel/libs/UMSocial_Sdk_4.2.3
+PeachTravel/libs/UMSocial_Sdk_Extra_Frameworks

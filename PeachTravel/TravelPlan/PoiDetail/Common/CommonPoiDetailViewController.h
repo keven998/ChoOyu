@@ -21,6 +21,9 @@
 
 @property (nonatomic) TZPoiType poiType;
 @property (nonatomic,weak) id <FavoriteDelegate> delegate;
+
 - (void) loadDataWithUrl:(NSString *)url;
+- (void)showPoidetail:(id)sender;
+- (void)jumpToMap;
 
 @end

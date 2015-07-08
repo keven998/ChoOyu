@@ -10,13 +10,16 @@
 #import "POICell.h"
 #import "SpotDetailViewController.h"
 #import "ScheduleEditorViewController.h"
+#import "TripPoiListTableViewCell.h"
+#import "ScheduleDayEditViewController.h"
 
 @interface DayAgendaViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
-
+@property (nonatomic, strong) NSMutableArray *dataSource;
 @end
 
+static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
 
 @implementation DayAgendaViewController
 
@@ -31,43 +34,62 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    self.navigationItem.title = @"日程详情";
+    self.view.backgroundColor = APP_PAGE_COLOR;
     
-    _tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
+    _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    _tableView.backgroundColor = APP_PAGE_COLOR;
     _tableView.dataSource = self;
     _tableView.delegate = self;
-    [_tableView registerNib:[UINib nibWithNibName:@"POICell" bundle:nil] forCellReuseIdentifier:@"poi_cell"];
+    [_tableView registerNib:[UINib nibWithNibName:@"TripPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:tripPoiListReusableIdentifier];
     [self.view addSubview:_tableView];
     
-    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 44, CGRectGetWidth(self.view.bounds), 44)];
-    btn.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-    [btn setTitle:@"编辑" forState:UIControlStateNormal];
-    [btn setBackgroundColor:COLOR_ENTER];
+    _dataSource = [_tripDetail.itineraryList objectAtIndex:_currentDay];
+    
+    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 44)];
+    [btn setTitle:@"修改" forState:UIControlStateNormal];
+    btn.titleLabel.font = [UIFont systemFontOfSize:17.0];
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [btn setTitleColor:COLOR_DISABLE forState:UIControlStateHighlighted];
     [btn addTarget:self action:@selector(editSchedule) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btn];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
     [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    if (_dataSource) {
+        [_tableView reloadData];
+    }
+}
+
+- (void)setTitleStr:(NSString *)titleStr {
+    _titleStr = titleStr;
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds)-150, 40)];
+    titleLabel.numberOfLines = 2.0;
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.textColor = [UIColor whiteColor];
+    NSString *dayStr = [NSString stringWithFormat:@"第%d天", _currentDay+1];
+    NSString *totalStr = [NSString stringWithFormat:@"第%d天\n%@", _currentDay+1, _titleStr];
+    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString: totalStr];
+    
+    [attrStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:16] range:NSMakeRange(0, dayStr.length)];
+    [attrStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:11] range:NSMakeRange(dayStr.length+1, totalStr.length-dayStr.length-1)];
+    
+    titleLabel.attributedText = attrStr;
+    self.navigationItem.titleView = titleLabel;
 }
 
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - UITableViewDataSource & Delegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 64;
+    return 66;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -75,26 +97,30 @@
     return 1;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 1;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [_tripDetail.itineraryList[_currentDay] count];
+    return [_dataSource count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    POICell *cell = [tableView dequeueReusableCellWithIdentifier:@"poi_cell" forIndexPath:indexPath];
-    SuperPoi *poi = _tripDetail.itineraryList[_currentDay][indexPath.row];
-    cell.poiName.text = [NSString stringWithFormat:@"%ld.%@", (indexPath.row + 1), poi.zhName];
+    SuperPoi *tripPoi = _dataSource[indexPath.row];
+    TripPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:tripPoiListReusableIdentifier forIndexPath:indexPath];
+    cell.tripPoi = tripPoi;
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SpotDetailViewController *spotDetailCtl = [[SpotDetailViewController alloc] init];
-    SuperPoi *poi = _tripDetail.itineraryList[_currentDay][indexPath.row];
+    SuperPoi *poi = _dataSource[indexPath.row];
     spotDetailCtl.spotId = poi.poiId;
     [self.navigationController pushViewController:spotDetailCtl animated:YES];
-
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
@@ -121,18 +147,31 @@
 #pragma IBAction - editSchedule
 - (void) editSchedule {
     ScheduleEditorViewController *sevc = [[ScheduleEditorViewController alloc] init];
+    sevc.rootCtl = self;
+    ScheduleDayEditViewController *menuCtl = [[ScheduleDayEditViewController alloc] init];
     sevc.tripDetail = _tripDetail;
-    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:sevc] animated:YES completion:nil];
+    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:[[UINavigationController alloc] initWithRootViewController:sevc] menuViewController:menuCtl];
+    frostedViewController.hidesBottomBarWhenPushed = YES;
+    frostedViewController.direction = REFrostedViewControllerDirectionLeft;
+    frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
+    frostedViewController.liveBlur = YES;
+    frostedViewController.limitMenuViewSize = YES;
+    frostedViewController.resumeNavigationBar = NO;
+    self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan = NO;
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:frostedViewController] animated:YES completion:nil];
 }
+
+
+#pragma mark - ScheduleUpdateDelegate
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

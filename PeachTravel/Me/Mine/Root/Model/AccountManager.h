@@ -31,12 +31,22 @@
  *
  *  @param userInfo
  */
-- (void)userDidLoginWithUserInfo:(id)userInfo;
+- (void)asyncLogin:(NSString *)userId password:(NSString *)password completion:(void(^)(BOOL isSuccess, NSString *errorStr))completion;
+
+/**
+ *  微信登录
+ *
+ *  @param code
+ *  @param completion 
+ */
+- (void)asyncLoginWithWeChat:(NSString *)code completion:(void(^)(BOOL isSuccess, NSString *errorStr))completion;
 
 /**
  *  异步退出登录
  */
 - (void)asyncLogout:(void(^)(BOOL isSuccess))completion;
+
+- (void)userDidLoginWithUserInfo:(id)userInfo;
 
 /**
  *  账户是否绑定了手机号，返回 yes 是绑定了
@@ -46,6 +56,12 @@
 - (BOOL)accountIsBindTel;
 
 /*******用户信息相关接口********/
+
+- (void)asyncChangePassword:(NSString *)newPassword oldPassword:(NSString *)oldPassword completion:(void (^)(BOOL, NSString *))completion;
+
+- (void)asyncBindTelephone:(NSString *)tel token:(NSString *)token completion:(void (^)(BOOL, NSString *))completion;
+
+- (void)asyncResetPassword:(NSString *)newPassword toke:(NSString *)token completion:(void (^)(BOOL, NSString *))completion;
 
 /**
  *  修改用户信息
@@ -166,34 +182,11 @@
 - (void)analysisAndSaveFrendRequest:(NSDictionary *)frendRequestDic;
 
 /**
- *  移除好友申请
- *
- *  @param frendRequest
- */
-- (void)removeFrendRequest:(FrendRequest *)frendRequest;
-
-/**
- *  同意好友申请
- *
- *  @param frendRequest
- */
-- (void)agreeFrendRequest:(FrendRequest *)frendRequest;
-
-/**
- *  通过环信 id 删除好友
+ *  删除好友
  *
  *  @param userId
  */
 - (void)removeContact:(FrendModel *)userId;
-
-#pragma mark *****其他操作******
-
-/**
- *  返回未读的好友请求的数量
- *
- *  @return 
- */
-- (NSUInteger)numberOfUnReadFrendRequest;
 
 
 @end

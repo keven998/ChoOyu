@@ -42,7 +42,6 @@ enum CONTENT_TYPE {
 @property (nonatomic, assign) BOOL didEndScroll;
 @property (nonatomic, assign) BOOL enableLoadMore;
 
-@property (nonatomic, strong) UIButton *addBtn;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 
@@ -65,8 +64,7 @@ static NSString *reusableCell = @"myGuidesCell";
         _isLoadingMore = YES;
         _didEndScroll = YES;
         _enableLoadMore = NO;
-        AccountManager *accountManager = [AccountManager shareAccountManager];
-        _isOwner = (accountManager.account.userId == userId);
+        _isOwner = ([AccountManager shareAccountManager].account.userId == userId);
         _userId = userId;
         _contentType = ALL;
     }
@@ -75,12 +73,27 @@ static NSString *reusableCell = @"myGuidesCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"旅行计划";
-    UIBarButtonItem *rbtn = [[UIBarButtonItem alloc] initWithTitle:@"筛选" style:UIBarButtonItemStylePlain target:self action:@selector(filtTrip)];
-    self.navigationItem.rightBarButtonItem = rbtn;
+    self.view.backgroundColor = APP_PAGE_COLOR;
+    self.navigationItem.title = [NSString stringWithFormat:@"%@的计划", _userName];
+    
+    UIButton *categoryBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
+    [categoryBtn addTarget:self action:@selector(filtTrip) forControlEvents:UIControlEventTouchUpInside];
+    [categoryBtn setImage:[UIImage imageNamed:@"plan_10_dashboard_sift"] forState:UIControlStateNormal];
+    
+    if (_isOwner) {
+        UIButton *editBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
+        [editBtn setImage:[UIImage imageNamed:@"plan_10_dashboard_add"] forState:UIControlStateNormal];
+        [editBtn addTarget:self action:@selector(makePlan) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem *cbtn = [[UIBarButtonItem alloc] initWithCustomView:editBtn];
+        UIBarButtonItem *sbtn = [[UIBarButtonItem alloc] initWithCustomView:categoryBtn];
+        self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:cbtn, sbtn, nil];
+    } else {
+        UIBarButtonItem *sbtn = [[UIBarButtonItem alloc] initWithCustomView:categoryBtn];
+        self.navigationItem.rightBarButtonItem = sbtn;
+    }
     
     if (!_selectToSend) {
-        self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithIcon:@"common_icon_navigaiton_back" highIcon:@"common_icon_navigaiton_back_highlight" target:self action:@selector(goBack)];
+        self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithIcon:@"common_icon_navigaiton_back_theme_style" highIcon:@"common_icon_navigaiton_back_highlight" target:self action:@selector(goBack)];
     } else {
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
     }
@@ -88,17 +101,9 @@ static NSString *reusableCell = @"myGuidesCell";
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    [self.view addSubview:self.tableView];
     self.tableView.backgroundColor = APP_PAGE_COLOR;
+    [self.view addSubview:self.tableView];
     
-    if (_isOwner) {
-        UIButton *editBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 64, 64)];
-        [editBtn setBackgroundImage:[UIImage imageNamed:@"btn_new_plan.png"] forState:UIControlStateNormal];
-        [editBtn addTarget:self action:@selector(makePlan) forControlEvents:UIControlEventTouchUpInside];
-        editBtn.center = CGPointMake(CGRectGetWidth(self.view.bounds)/2, CGRectGetHeight(self.view.bounds) - 120);
-        _addBtn = editBtn;
-        [self.view addSubview:_addBtn];
-    }
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerNib:[UINib nibWithNibName:@"MyGuidesTableViewCell" bundle:nil] forCellReuseIdentifier:reusableCell];
@@ -153,6 +158,10 @@ static NSString *reusableCell = @"myGuidesCell";
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES]; //侧滑navigation bar 补丁
     [MobClick beginLogPageView:@"page_my_trip_plans"];
+    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:COLOR_TEXT_I, NSForegroundColorAttributeName, nil]];
+    [self.navigationController.navigationBar setBackgroundImage:[ConvertMethods createImageWithColor:APP_PAGE_COLOR] forBarMetrics:UIBarMetricsDefault];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+    self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];
     _isShowing = YES;
 }
 
@@ -164,6 +173,9 @@ static NSString *reusableCell = @"myGuidesCell";
         [_swipCell hideUtilityButtonsAnimated:YES];
         _swipCell = nil;
     }
+    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,nil]];
+    [self.navigationController.navigationBar setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forBarMetrics:UIBarMetricsDefault];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
 }
 
 - (void)dealloc
@@ -178,14 +190,6 @@ static NSString *reusableCell = @"myGuidesCell";
 #pragma mark - navigation action
 
 - (void) filtTrip {
-    //    MyGuideListTableViewController *gltvc = [[MyGuideListTableViewController alloc] init];
-    //    gltvc.isExpert = _isExpert;
-    //    gltvc.userId = self.userId;
-    //    gltvc.chatterId = _chatterId;
-    //    gltvc.selectToSend = _selectToSend;
-    //    gltvc.chatType = _chatType;
-    //    [self.navigationController pushViewController:gltvc animated:YES];
-    
     SelectionTableViewController *ctl = [[SelectionTableViewController alloc] init];
     ctl.contentItems = @[@"全部", @"只看计划", @"只看去过"];
     ctl.titleTxt = @"筛选";
@@ -262,6 +266,17 @@ static NSString *reusableCell = @"myGuidesCell";
     }];
 }
 
+- (void)played:(UIButton *)sender
+{
+    CGPoint point = [sender convertPoint:CGPointZero toView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
+    MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:indexPath.section];
+    if ([guideSummary.status isEqualToString:@"traveled"]) {
+        [self mark:guideSummary as:@"planned"];
+    } else {
+        [self mark:guideSummary as:@"traveled"];
+    }
+}
 #pragma mark - Private Methods
 
 /**
@@ -284,7 +299,7 @@ static NSString *reusableCell = @"myGuidesCell";
     
     __weak typeof(PlansListTableViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf];
+    [hud showHUDInViewController:weakSelf content:64];
     
     [manager DELETE:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
@@ -365,6 +380,7 @@ static NSString *reusableCell = @"myGuidesCell";
         completed(NO);
     }];
 }
+
 - (void)loadData:(int)type WithPageIndex:(NSInteger)pageIndex
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -480,7 +496,34 @@ static NSString *reusableCell = @"myGuidesCell";
     
     [self.navigationController presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:nil];
 }
-
+- (void)changeTitle:(UIButton *)sender
+{
+    CGPoint point = [sender convertPoint:CGPointZero toView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
+    MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:indexPath.section];
+    BaseTextSettingViewController *bsvc = [[BaseTextSettingViewController alloc] init];
+    bsvc.navTitle = @"修改标题";
+    bsvc.content = guideSummary.title;
+    bsvc.acceptEmptyContent = NO;
+    bsvc.saveEdition = ^(NSString *editText, saveComplteBlock(completed)) {
+        [self editGuideTitle:guideSummary andTitle:editText atIndex:indexPath.section success:completed];
+    };
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:bsvc] animated:YES completion:nil];
+}
+- (void)deletePlane:(UIButton *)sender
+{
+    CGPoint point = [sender convertPoint:CGPointZero toView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
+    MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:indexPath.section];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"删除确认" message:[NSString stringWithFormat:@"删除\"%@\"", guideSummary.title] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+    [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
+        if (buttonIndex == 1) {
+            NSInteger index = indexPath.section;
+            MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:index];
+            [self deleteUserGuide:guideSummary];
+        }
+    }];
+}
 #pragma mark - TaoziMessageSendDelegate
 
 //用户确定发送poi给朋友
@@ -512,7 +555,6 @@ static NSString *reusableCell = @"myGuidesCell";
     }
 }
 
-
 #pragma mark - Table view data source
 
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -530,12 +572,12 @@ static NSString *reusableCell = @"myGuidesCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 92;
+    return 154;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 10)];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 17)];
     view.backgroundColor = [UIColor clearColor];
     return view;
 }
@@ -543,12 +585,30 @@ static NSString *reusableCell = @"myGuidesCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MyGuidesTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reusableCell forIndexPath:indexPath];
     if (_isOwner) {
-        [cell setRightUtilityButtons:[self rightButtons] WithButtonWidth:60];
+        [cell.playedBtn addTarget:self action:@selector(played:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.changBtn addTarget:self action:@selector(changeTitle:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.deleteBtn addTarget:self action:@selector(deletePlane:) forControlEvents:UIControlEventTouchUpInside];
+        cell.playedBtn.hidden = NO;
+        cell.changBtn.hidden = NO;
+        cell.deleteBtn.hidden = NO;
+        
+    }
+    else {
+        cell.playedBtn.hidden = YES;
+        cell.changBtn.hidden = YES;
+        cell.deleteBtn.hidden = YES;
+        
     }
     cell.guideSummary = [self.dataSource objectAtIndex:indexPath.section];
-    cell.delegate = self;
     cell.isCanSend = _selectToSend;
     [cell.sendBtn addTarget:self action:@selector(sendPoi:) forControlEvents:UIControlEventTouchUpInside];
+    
+    if ([cell.guideSummary.status isEqualToString:@"traveled"]) {
+        
+        cell.playedImage.image = [UIImage imageNamed:@"plan_bg_page_qian"];
+    } else {
+        
+    }
     return cell;
 }
 
@@ -568,7 +628,7 @@ static NSString *reusableCell = @"myGuidesCell";
     
     TripPlanSettingViewController *tpvc = [[TripPlanSettingViewController alloc] init];
     
-    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:tripDetailRootCtl menuViewController:tpvc];
+    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:[[UINavigationController alloc] initWithRootViewController:tripDetailRootCtl] menuViewController:tpvc];
     tripDetailRootCtl.container = frostedViewController;
     tpvc.rootViewController = tripDetailRootCtl;
     frostedViewController.direction = REFrostedViewControllerDirectionRight;
@@ -671,7 +731,7 @@ static NSString *reusableCell = @"myGuidesCell";
                                                       } else if (buttonIndex == 2) {
                                                           [self reorderToFirst:cell];
                                                       } else if (buttonIndex == 0) {
-                                                          [self mark:cell as:@"traveled"];
+                                                          [self mark:guideSummary as:@"traveled"];
                                                       }
                                                   }];
     [alertView useDefaultIOS7Style];
@@ -698,7 +758,7 @@ static NSString *reusableCell = @"myGuidesCell";
                                                           };
                                                           [self presentViewController:[[UINavigationController alloc] initWithRootViewController:bsvc] animated:YES completion:nil];
                                                       } else if (buttonIndex == 0) {
-                                                          [self mark:cell as:@"planned"];
+                                                          [self mark:guideSummary as:@"planned"];
                                                       }
                                                   }];
     [alertView useDefaultIOS7Style];
@@ -730,7 +790,7 @@ static NSString *reusableCell = @"myGuidesCell";
 }
 
 #pragma mark - HTTP REQUEST
-- (void) mark:(SWTableViewCell *)cell as:(NSString *)status  {
+- (void) mark:(MyGuideSummary *)guideSummary as:(NSString *)status  {
     AccountManager *accountManager = [AccountManager shareAccountManager];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -739,15 +799,15 @@ static NSString *reusableCell = @"myGuidesCell";
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
     __weak typeof(PlansListTableViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf];
+    [hud showHUDInViewController:weakSelf content:64];
     
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     
-    NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
-    MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:cellIndexPath.section];
+    //    NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
+    //    MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:cellIndexPath.section];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:status forKey:@"status"];
     [params setObject:guideSummary.guideId forKey:@"id"];
@@ -767,6 +827,19 @@ static NSString *reusableCell = @"myGuidesCell";
             //            } else {
             //                [self hintPlanStatusChanged:[NSString stringWithFormat:@"\"%@\"已保存为去过，成为了你的旅历足迹", guideSummary.title]];
             //            }
+            if ([guideSummary.status isEqualToString:@"traveled"]) {
+                NSInteger index = [self.dataSource indexOfObject:guideSummary];
+                MyGuideSummary *guide = self.dataSource [index];
+                guide.status = @"planned";
+            } else {
+                NSInteger index = [self.dataSource indexOfObject:guideSummary];
+                MyGuideSummary *guide = self.dataSource [index];
+                guide.status = @"traveled";
+                
+            }
+            
+            
+            [self.tableView reloadData];
         } else {
             [self showHint:@"请求也是失败了"];
         }
@@ -797,7 +870,7 @@ static NSString *reusableCell = @"myGuidesCell";
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
     __weak typeof(PlansListTableViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf];
+    [hud showHUDInViewController:weakSelf content:64];
     
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];

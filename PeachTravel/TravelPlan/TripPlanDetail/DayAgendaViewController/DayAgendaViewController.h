@@ -8,12 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "TripDetail.h"
+#import "REFrostedViewController.h"
 
-@interface DayAgendaViewController : UIViewController
+@interface DayAgendaViewController : TZViewController
 
 - (id)initWithDay:(NSInteger)day;
 
 @property (nonatomic, assign) int currentDay;
+@property (nonatomic, copy) NSString *titleStr;
 @property (nonatomic, strong) TripDetail *tripDetail;
 
 @end

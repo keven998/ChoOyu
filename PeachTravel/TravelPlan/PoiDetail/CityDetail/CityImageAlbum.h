@@ -15,7 +15,7 @@
 
 @end
 
-@interface CityAlbumView : UIView
+@interface CityImageAlbum : UIView
 
 @property (nonatomic, strong) NSArray *images;
 @property (nonatomic, copy) NSString *title;

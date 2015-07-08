@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "SWTableViewCell.h"
-@interface ChatGroupCell : SWTableViewCell
+@interface ChatGroupCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *ownerLabel;
 

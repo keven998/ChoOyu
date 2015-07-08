@@ -8,15 +8,26 @@
 
 import UIKit
 
+@objc protocol FriendRequestManagerDelegate {
+    optional func friendRequestNumberNeedUpdate()
+}
+
+
 class FrendRequestManager: NSObject {
     
     var frendRequestList: Array<FrendRequest> = Array()
     let frendRequestDaoHelper: FrendRequestDaoHelper
     let accountId: Int
+    var delegate: FriendRequestManagerDelegate?
+    var unReadFrendRequestCount: Int {
+        get {
+            return self.frendRequestList.filter({$0.status == TZFrendRequest.Default}).count
+        }
+    }
     
     init(userId: Int) {
         accountId = userId
-        var dbPath: String = documentPath.stringByAppendingPathComponent("\(accountId)/user.sqlite")
+        let dbPath: String = documentPath.stringByAppendingPathComponent("\(accountId)/user.sqlite")
         let db = FMDatabase(path: dbPath)
         let dbQueue = FMDatabaseQueue(path: dbPath)
         frendRequestDaoHelper = FrendRequestDaoHelper(db: db, dbQueue: dbQueue)
@@ -29,55 +40,59 @@ class FrendRequestManager: NSObject {
     :param: request
     */
     func addFrendRequest(request: AnyObject) {
+        let frendRequest: FrendRequest
         if request.isKindOfClass(FrendRequest) {
-            self.addFrendRequest(request as! FrendRequest)
-            
+            frendRequest = request as! FrendRequest
         } else {
-            let frendReuqest = FrendRequest(json: request)
-            self.addFrendRequest(frendReuqest)
+            frendRequest = FrendRequest(json: request)
         }
-    }
-    
-    /**
-    添加一个好友请求
-    
-    :param: request
-    */
-    func addFrendRequestList(request: FrendRequest) {
-        for tempRequest in frendRequestList {
-            if tempRequest.userId == (request).userId {
+        
+        for temp in self.frendRequestList {
+            if temp.requestId == frendRequest.requestId {
+                println("已经有相同的好友请求了，不需要再次添加了")
                 return
             }
         }
-        frendRequestList.append(request)
-        frendRequestDaoHelper.addFrendRequestion2DB(request)
+        self.frendRequestDaoHelper.addFrendRequestion2DB(request as! FrendRequest)
+        self.frendRequestList.append(request as! FrendRequest)
+        self.delegate?.friendRequestNumberNeedUpdate?()
     }
     
     /**
     移除一个好友请求
     
-    :param: userId
+    :param: requestId
     */
-    func removeFrendRequest(userId: Int) {
-        frendRequestList.filter({$0.userId != userId}
+    func removeFrendRequest(requestId: String) {
+        frendRequestList = frendRequestList.filter({$0.requestId != requestId}
         )
-        frendRequestDaoHelper.removeFrendRequest(userId)
+        frendRequestDaoHelper.removeFrendRequest(requestId)
+        self.delegate?.friendRequestNumberNeedUpdate?()
     }
     
     /**
     修改好友请求的状态
     
-    :param: userId
+    :param: requestId
     :param: status
     */
-    func changeStatus(userId: Int, status: TZFrendRequest) {
+    func changeStatus(requestId: String, status: TZFrendRequest) {
         frendRequestList.map({(var request) -> FrendRequest in
-            if request.userId == userId {
+            if request.requestId == requestId {
                 request.status = status 
             }
             return request
         })
-        frendRequestDaoHelper.changeFrendRequestStatus(userId, status: status)
+        frendRequestDaoHelper.changeFrendRequestStatus(requestId, status: status)
+        self.delegate?.friendRequestNumberNeedUpdate?()
     }
-   
 }
+
+
+
+
+
+
+
+
+

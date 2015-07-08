@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UITextField *phoneLabel;
 @property (weak, nonatomic) IBOutlet UITextField *captchaLabel;
+@property (weak, nonatomic) IBOutlet UILabel *tipsLabel;
 @property (weak, nonatomic) IBOutlet UIButton *captchaBtn;
 @property (nonatomic) BOOL shouldSetPasswordWhenBindTel;   //标记当验证成功手机号后是否需要跳转到下一个页面设置密码
 @property (nonatomic, strong) UIButton *registerBtn;
@@ -31,7 +32,7 @@
     [super viewDidLoad];
 
     UIBarButtonItem *addBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStylePlain target:self action:@selector(nextStep:)];
-    addBtn.tintColor = APP_THEME_COLOR;
+    addBtn.tintColor = [UIColor whiteColor];
     self.navigationItem.rightBarButtonItem = addBtn;
     AccountManager *accountManager = [AccountManager shareAccountManager];
     _shouldSetPasswordWhenBindTel = !accountManager.accountIsBindTel;    //如果之前账户已经有手机号了那么不需要进入下一页面设置密码了
@@ -39,14 +40,14 @@
     if (_verifyCaptchaType == UserBindTel) {
         if (_shouldSetPasswordWhenBindTel) {
             self.navigationItem.title = @"安全设置";
-            _titleLabel.text = @"为了账户安全和使用方便,强烈建议你绑定手机号";
+            _titleLabel.text = @"为了账户安全和使用方便，强烈建议您绑定手机号";
         } else {
             self.navigationItem.title = @"绑定设置";
-            _titleLabel.text = [NSString stringWithFormat:@"已安全绑定手机号 %@", accountManager.account.tel];
+            _titleLabel.text = [NSString stringWithFormat:@"已绑定手机号：%@", accountManager.account.tel];
         }
        
     } else {
-        self.navigationItem.title = @"验证";
+        self.navigationItem.title = @"用户验证";
         _phoneLabel.placeholder = @"请输入手机号";
     }
     
@@ -55,29 +56,39 @@
     
     UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _phoneLabel.bounds.size.height - 16.0)];
     ul.text = @"手机号:";
-    ul.textColor = TEXT_COLOR_TITLE;
-    ul.font = [UIFont systemFontOfSize:14.0];
+    ul.textColor = COLOR_TEXT_I;
+    ul.font = [UIFont systemFontOfSize:13.0];
     ul.textAlignment = NSTextAlignmentCenter;
     _phoneLabel.leftView = ul;
     _phoneLabel.leftViewMode = UITextFieldViewModeAlways;
     
     UILabel *pl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _captchaLabel.bounds.size.height - 16.0)];
     pl.text = @"验证码:";
-    pl.textColor = TEXT_COLOR_TITLE;
-    pl.font = [UIFont systemFontOfSize:14.0];
+    pl.textColor = COLOR_TEXT_I;
+    pl.font = [UIFont systemFontOfSize:13.0];
     pl.textAlignment = NSTextAlignmentCenter;
     _captchaLabel.leftView = pl;
     _captchaLabel.leftViewMode = UITextFieldViewModeAlways;
     [_captchaLabel addTarget:self action:@selector(textChanged:) forControlEvents:UIControlEventEditingChanged];
     
-    _captchaBtn.layer.cornerRadius = 5.0;
+    _captchaBtn.layer.cornerRadius = 4.0;
     _captchaBtn.clipsToBounds = YES;
     [_captchaBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [_captchaBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateDisabled];
+    [_captchaBtn setTitleColor:COLOR_TEXT_III forState:UIControlStateDisabled];
+    _captchaBtn.titleLabel.font = [UIFont systemFontOfSize:11.0];
     [_captchaBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
-    [_captchaBtn setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor lightGrayColor]] forState:UIControlStateDisabled];
-
+    [_captchaBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR_HIGHLIGHT] forState:UIControlStateHighlighted];
+    [_captchaBtn setBackgroundImage:[ConvertMethods createImageWithColor:COLOR_DISABLE] forState:UIControlStateDisabled];
+    _captchaBtn.enabled = YES;
 }
+
+//- (void)viewDidLayoutSubviews
+//{
+//    _phoneLabel.frame = CGRectMake(0, 30, self.view.bounds.size.width, 64*kWindowHeight/736);
+//    _captchaBtn.center = CGPointMake(self.view.bounds.size.width-20-_captchaBtn.bounds.size.width/2, _phoneLabel.center.y);
+//    _captchaLabel.frame = CGRectMake(0, 30+64*kWindowHeight/736+1, self.view.bounds.size.width, 64*kWindowHeight/736);
+//    _tipsLabel.frame = CGRectMake(20, 30+64*kWindowHeight/736*2+15, self.view.bounds.size.width-40, 20);
+//}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -106,7 +117,13 @@
 
 - (void)startTimer
 {
-    timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(calculateTime) userInfo:nil repeats:YES];
+    _captchaBtn.enabled = NO;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (timer != nil) {
+            [self stopTimer];
+        }
+        timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(calculateTime) userInfo:nil repeats:YES];
+    });
 }
 
 - (void)stopTimer
@@ -117,19 +134,18 @@
             timer = nil;
         }
     }
+    _captchaBtn.enabled = YES;
 }
 
 - (void)calculateTime
 {
-    if (count == 0) {
+    if (count <= 1) {
         [self stopTimer];
         _captchaBtn.enabled = YES;
         [_captchaBtn setTitle:@"重新获取" forState:UIControlStateNormal];
     } else {
         count--;
-        _captchaBtn.titleLabel.text = [NSString stringWithFormat:@"%lds",(long)count];
-        [_captchaBtn setTitle:[NSString stringWithFormat:@"%lds",(long)count] forState:UIControlStateNormal];
-        [_captchaBtn setTitle:[NSString stringWithFormat:@"%lds",(long)count] forState:UIControlStateDisabled];
+        [_captchaBtn setTitle:[NSString stringWithFormat:@"%lds后重发",(long)count] forState:UIControlStateDisabled];
 
     }
 }
@@ -169,7 +185,7 @@
         if (code == 0) {
             count = [[[responseObject objectForKey:@"result"] objectForKey:@"coolDown"] integerValue];
             [self startTimer];
-            [SVProgressHUD showHint:@"已发送验证码,请稍候"];
+            [SVProgressHUD showHint:@"已发送验证码，请稍候"];
         } else {
             _captchaBtn.enabled = YES;
 
@@ -179,8 +195,6 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [hud hideTZHUD];
         _captchaBtn.enabled = YES;
-
-        
         if (self.isShowing) {
             [SVProgressHUD showHint:@"呃～好像没找到网络"];
         }
@@ -246,50 +260,25 @@
 //修改手机号
 - (void)bindTelwithToken:(NSString *)token
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params setObject:_phoneLabel.text forKey:@"tel"];
-    [params setObject:token forKey:@"token"];
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    [params setObject:[NSNumber numberWithInteger: accountManager.account.userId] forKey:@"userId"];
-    
-     __weak typeof(VerifyCaptchaViewController *)weakSelf = self;
+    __weak typeof(VerifyCaptchaViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf content:64];
 
-    //修改手机号
-    [manager POST:API_BINDTEL parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@", responseObject);
-        [hud hideTZHUD];
-        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-        if (code == 0) {
-            [SVProgressHUD showHint:@"OK!已成功修改"];
-            AccountManager *accountManager = [AccountManager shareAccountManager];
-            [accountManager updateUserInfo:_phoneLabel.text withChangeType:ChangeTel];
-            [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
-            [self.navigationController popViewControllerAnimated:YES];
+    [[AccountManager shareAccountManager] asyncBindTelephone:_phoneLabel.text token:token completion:^(BOOL isSuccess, NSString *errorStr) {
+        if (isSuccess) {
+            [self performSelector:@selector(goBack) withObject:nil afterDelay:0.4];
         } else {
-            [SVProgressHUD showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [hud hideTZHUD];
-        NSLog(@"%@", error);
-//        _captchaBtn.userInteractionEnabled = YES;
-        _captchaBtn.enabled = YES;
-
-        if (self.isShowing) {
-            [SVProgressHUD showHint:@"呃～好像没找到网络"];
+            [hud hideTZHUD];
+            if (errorStr) {
+                [SVProgressHUD showHint:errorStr];
+            } else {
+                _captchaBtn.enabled = YES;
+                if (self.isShowing) {
+                    [SVProgressHUD showHint:@"呃～好像没找到网络"];
+                }
+            }
         }
     }];
-    
 }
 
 #pragma mark - IBAction Methods

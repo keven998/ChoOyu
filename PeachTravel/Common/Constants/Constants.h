@@ -85,20 +85,17 @@
 
 //用户相关接口
 #define API_WEIXIN_LOGIN                        (BASE_URL @"users/auth-signup")
-#define API_USERINFO                            (BASE_URL @"users/")
+#define API_USERS                               (BASE_URL @"users/")
 #define API_GET_CAPTCHA                         (BASE_URL @"users/send-validation")    //接收验证码
-#define API_VERIFY_CAPTCHA                      (BASE_URL @"users/check-validation")   //验证验证码
-#define API_RESET_PWD                           (BASE_URL @"users/reset-pwd")           //重新设置密码
+#define API_VERIFY_CAPTCHA                      (BASE_URL @"users/validation-codes")   //验证验证码
 #define API_SIGNUP                              (BASE_URL @"users/signup")        //用户注册
 #define API_SIGNIN                              (BASE_URL @"users/signin")
-#define API_BINDTEL                             (BASE_URL @"users/bind")        //绑定手机号
 #define API_SEARCH_USER                         (BASE_URL @"users/search")      //搜索好友
 #define API_SCREENING_EXPERT                    (BASE_URL @"users/expert/tracks/users")//筛选达人
 #define API_ADD_CONTACT                         (BASE_URL @"users/contacts")   //添加好友
 #define API_REQUEST_ADD_CONTACT                 (BASE_URL @"users/request-contacts")   //请求添加好友
 #define API_DELETE_CONTACTS                     (BASE_URL @"users/contacts")   //删除好友
 #define API_GET_USERINFO_WITHEASEMOB            (BASE_URL @"users/easemob")   //传一个环信 id 数组，得到一个FM用户信息数组
-#define API_CHANGE_PWD                          (BASE_URL @"users/pwd")   //传一个环信 id 数组，得到一个FM用户信息数组
 #define API_UPLOAD_ADDRESSBOOK                  (BASE_URL @"users/search-by-address-book")  //上传通讯录接口
 
 //IM相关接口
@@ -128,7 +125,6 @@
 #define userDidRegistedNoti                     @ "userDidRegisted"                //用户完成所有注册登录工作。
 #define userDidLogoutNoti                       @ "userDidLogout"               //用户完成所有退出登录工作。
 #define updateUserInfoNoti                      @ "updateUserInfo"              //用户信息有更改。
-#define frendRequestListNeedUpdateNoti          @ "updateFrendRequestList"      //更新好友请求列表
 
 #define contactListNeedUpdateNoti               @ "updatecontactList"           //更新好友列表
 #define updateDestinationsSelectedNoti          @ "updateDestinationsSelected"           //更新目的地列表

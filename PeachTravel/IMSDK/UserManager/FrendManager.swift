@@ -8,9 +8,6 @@
 
 import UIKit
 
-private let API_REQUEST_ADD_CONTACT = "\(BASE_URL)users/request-contacts"  //请求添加好友
-private let API_FREND = "\(BASE_URL)users/contacts"
-
 @objc protocol FrendManagerManagerDelegate {
     
 }
@@ -38,15 +35,20 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
     }
     
     /**
-    添加一个好友到数据库里
+    添加一个好友到数据库里,如果已经存在则不添加
     :param: frend
     */
     func addFrend2DB(frend: FrendModel) {
         self.frendDaoHelper.addFrend2DB(frend)
     }
     
-    func updateFrendInfoInDB(frend: FrendModel) {
-        self.frendDaoHelper.updateFrendInfoInDB(frend)
+    /**
+    添加一个好友到数据库，如果已经存在，则更新
+    
+    :param: frend
+    */
+    func insertOrUpdateFrendInfoInDB(frend: FrendModel) {
+        self.frendDaoHelper.insertOrUpdateFrendInfoInDB(frend)
     }
     
     /**
@@ -77,7 +79,7 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
     获取所有的好友列表
     :returns:
     */
-    func getAllMyContacts() -> NSArray {
+    func getAllMyContactsInDB() -> NSArray {
         var retArray = NSArray()
         retArray = self.frendDaoHelper.selectAllContacts()
         return retArray
@@ -132,6 +134,38 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
     }
     
     /**
+    同意添加好友
+    
+    :param: frendRequest
+    :param: completion
+    :param: errorCode
+    */
+    func asyncAgreeAddContact(#requestId: String, completion: (isSuccess: Bool, errorCode: Int) -> ()) {
+        let manager = AFHTTPRequestOperationManager()
+        let requestSerializer = AFJSONRequestSerializer()
+        manager.requestSerializer = requestSerializer
+        manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept")
+        manager.requestSerializer.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        manager.requestSerializer.setValue("\(AccountManager.shareAccountManager().account.userId)", forHTTPHeaderField: "UserId")
+        let params = ["action": 1];
+        var url = "\(API_USERS)\(accountId)/contact-requests/\(requestId)"
+        
+        manager.PATCH(url, parameters: params, success:
+            { (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
+                if (responseObject.objectForKey("code") as! Int) == 0 {
+                    IMClientManager.shareInstance().frendRequestManager.changeStatus(requestId, status: TZFrendRequest.Agree)
+                    completion(isSuccess: true, errorCode: 0)
+                } else {
+                    completion(isSuccess: false, errorCode: 0)
+                }
+            }){
+                (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+                completion(isSuccess: false, errorCode: 0)
+                print(error)
+        }
+    }
+    
+    /**
      请求添加好友
     
     :param: userId
@@ -145,10 +179,13 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
         manager.requestSerializer.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         manager.requestSerializer.setValue("\(AccountManager.shareAccountManager().account.userId)", forHTTPHeaderField: "UserId")
         let params = ["userId": userId, "message": helloStr]
-        var url = "\(API_USERINFO)\(userId)"
-        manager.POST(API_REQUEST_ADD_CONTACT, parameters: params, success:
+        var url = "\(API_USERS)\(userId)/contact-requests"
+        manager.POST(url, parameters: params, success:
             { (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
                 if (responseObject.objectForKey("code") as! Int) == 0 {
+                    let frendRequest = FrendRequest(json: responseObject.objectForKey("result"))
+                    IMClientManager.shareInstance().frendRequestManager.addFrendRequest(frendRequest);
+                    
                     completion(isSuccess: true, errorCode: 0)
                 } else {
                     completion(isSuccess: false, errorCode: 0)
@@ -166,15 +203,18 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
     :param: helloStr
     :param: completion
     */
-    func asyncRemoveContact(#frend: FrendModel, completion: (isSuccess: Bool, errorCode: Int) -> ()) {
+    func asyncRemoveContact(#userId: Int, completion: (isSuccess: Bool, errorCode: Int) -> ()) {
         let manager = AFHTTPRequestOperationManager()
         let requestSerializer = AFJSONRequestSerializer()
         manager.requestSerializer = requestSerializer
         manager.requestSerializer.setValue("\(accountId)", forHTTPHeaderField: "UserId")
-        let url = "\(API_FREND)/\(frend.userId)"
+        let url = "\(API_USERS)\(accountId)/contacts/\(userId)"
         manager.DELETE(url, parameters: nil, success:
             { (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
                 if (responseObject.objectForKey("code") as! Int) == 0 {
+                    self .updateFrendType(userId: userId, frendType: IMFrendType.Frend)
+                    let daoHelper = DaoHelper.shareInstance()
+                    IMClientManager.shareInstance().conversationManager.removeConversation(chatterId: userId, deleteMessage: true)
                     completion(isSuccess: true, errorCode: 0)
                 } else {
                     completion(isSuccess: false, errorCode: 0)
@@ -186,15 +226,32 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
         }
     }
     
+    private func insertMessageWhenFrendRequestAgreed(frend: FrendModel) {
+        let textMsg = TextMessage()
+        textMsg.senderId = frend.userId
+        textMsg.message = "我已经同意了你的好友请求，现在我们可以开始聊天了"
+        textMsg.createTime = Int(NSDate().timeIntervalSince1970)
+        textMsg.chatType = IMChatType.IMChatSingleType
+        textMsg.sendType = IMMessageSendType.MessageSendSomeoneElse
+        textMsg.senderName = frend.nickName
+        textMsg.chatterId = frend.userId
+
+        IMClientManager.shareInstance().messageReceiveManager.addMessage2Distribute(textMsg)
+    }
+    
     //MARK: CMDMessageManagerDelegate
     func receiveFrendCMDMessage(cmdMessage: IMCMDMessage) {
         switch cmdMessage.actionCode! {
         case CMDActionCode.F_REQUEST:
-            let frendRequestManager = FrendRequestManager(userId: accountId)
-
+            let frendRequest = FrendRequest(json: cmdMessage.message)
+            IMClientManager.shareInstance().frendRequestManager.addFrendRequest(frendRequest)
             
         case CMDActionCode.F_AGREE:
-            let frendRequestManager = FrendRequestManager(userId: accountId)
+            let contentDic = JSONConvertMethod.jsonObjcWithString(cmdMessage.message)
+            let frendModel = FrendModel(json: contentDic)
+            frendModel.type = IMFrendType.Frend
+            self.insertOrUpdateFrendInfoInDB(frendModel)
+            self.insertMessageWhenFrendRequestAgreed(frendModel)
             
         default:
             break

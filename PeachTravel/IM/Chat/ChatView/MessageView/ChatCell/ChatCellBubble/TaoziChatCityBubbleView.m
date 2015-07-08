@@ -50,13 +50,16 @@ NSString *const kRouterEventTaoziCityBubbleTapEventName = @"kRouterEventTaoziCit
         
         [_coverImageView setFrame:CGRectMake(0, 0, TaoziCityBubbleWidth-BUBBLE_ARROW_WIDTH, TaoziCityBubbleHeight)];
         _titleLabel.textAlignment = NSTextAlignmentRight;
-        _titleImageView.image = [[UIImage imageNamed:@"message_taozi_city_send.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:5];
+        
     } else {
         [_coverImageView setFrame:CGRectMake(BUBBLE_ARROW_WIDTH, 0, TaoziCityBubbleWidth-BUBBLE_ARROW_WIDTH, TaoziCityBubbleHeight)];
 
         _titleLabel.textAlignment = NSTextAlignmentLeft;
-        _titleImageView.image = [[UIImage imageNamed:@"message_taozi_city_receive.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:5];
     }
+    NSString *imageName = self.model.isSender ? @"messages_bg_self.png" : @"messages_bg_friend.png";
+
+    _titleImageView.image = [[UIImage imageNamed:imageName] resizableImageWithCapInsets:UIEdgeInsetsMake(28, 18, 18, 10)];
+
     
 }
 

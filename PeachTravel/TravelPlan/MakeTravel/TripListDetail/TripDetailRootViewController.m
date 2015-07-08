@@ -34,13 +34,10 @@
 @property (nonatomic, strong) RestaurantsListViewController *restaurantListCtl;
 @property (nonatomic, strong) ShoppingListViewController *shoppingListCtl;
 @property (nonatomic, strong) ChatRecoredListTableViewController *chatRecordListCtl;
+@property (nonatomic, strong) UISegmentedControl *segmentedControl;
 
-@property (nonatomic, strong) NSArray *tabbarButtonArray;
 @property (nonatomic, strong) NSArray *tabbarPageControllerArray;
 @property (nonatomic, strong) UIViewController *currentViewController;
-@property (nonatomic, strong) UIView *tabBarView;
-
-@property (nonatomic, strong) UINavigationItem *navgationBarItem;
 
 @property (nonatomic) CGPoint initialDraggingPoint;
 
@@ -76,8 +73,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:self.segmentedControl];
     [self setupViewControllers];
     [self setNavigationItems];
+    
+    UIView *spd = [[UIView alloc] initWithFrame:CGRectMake(0, 44/*content offset*/, CGRectGetWidth(self.view.bounds), 0.6)];
+    spd.backgroundColor = COLOR_LINE;
+    spd.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    [self.view addSubview:spd];
     
     if (!_isMakeNewTrip) {
         [[TMCache sharedCache] objectForKey:@"last_tripdetail" block:^(TMCache *cache, NSString *key, id object)  {
@@ -114,15 +118,8 @@
 
 - (void)setNavigationItems
 {
-    UINavigationBar *bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
-    UINavigationItem *navTitle = [[UINavigationItem alloc] init];
-    [bar pushNavigationItem:navTitle animated:YES];
-    [self.view addSubview:bar];
-    _navgationBarItem = navTitle;
-
     if (_canEdit) {
         [self setupNavigationRightItems:NO];
-        
     } else {
         _forkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 20)];
         _forkBtn.layer.cornerRadius = 2.0;
@@ -139,54 +136,43 @@
         [bbtn setImage:[UIImage imageNamed:@"common_icon_navigaiton_back"] forState:UIControlStateNormal];
         [bbtn setImage:[UIImage imageNamed:@"common_icon_navigaiton_back_highlight"] forState:UIControlStateHighlighted];
         [bbtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
-        _navgationBarItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:bbtn];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:bbtn];
         UIBarButtonItem * addBtn = [[UIBarButtonItem alloc]initWithCustomView:_forkBtn];
-        _navgationBarItem.rightBarButtonItem = addBtn;
+        self.navigationItem.rightBarButtonItem = addBtn;
     }
 }
 
 - (void) setupNavigationRightItems:(BOOL)isEditing {
-    
-    _navgationBarItem.rightBarButtonItems = nil;
+    self.navigationItem.rightBarButtonItems = nil;
     if (isEditing) {
         _editBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
         [_editBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
         [_editBtn setTitle:@"确定" forState:UIControlStateNormal];
-//        [_editBtn setImage:[UIImage imageNamed:@"ic_xingchengdan_queding"] forState:UIControlStateNormal];
         [_editBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
         [_editBtn addTarget:self action:@selector(editTrip:) forControlEvents:UIControlEventTouchUpInside];
         _editBtn.selected = YES;
-        _navgationBarItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_editBtn];
-        _navgationBarItem.leftBarButtonItems = nil;
-
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_editBtn];
+        self.navigationItem.leftBarButtonItems = nil;
     } else {
         NSMutableArray *barItems = [[NSMutableArray alloc] init];
-        _moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
-        [_moreBtn setImage:[UIImage imageNamed:@"common_icon_navigaiton_menu"] forState:UIControlStateNormal];
+        _moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 44)];
+        [_moreBtn setImage:[UIImage imageNamed:@"plan_02_dashboard_drawer.png"] forState:UIControlStateNormal];
         [_moreBtn addTarget:self action:@selector(showMoreAction:) forControlEvents:UIControlEventTouchUpInside];
         [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_moreBtn]];
         
-        if ([_currentViewController isKindOfClass:[PlanScheduleViewController class]]) {
-            UIButton *mapBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 44)];
-            [mapBtn setImage:[UIImage imageNamed:@"ic_trip_mapview_ios"] forState:UIControlStateNormal];
-            [mapBtn addTarget:self action:@selector(mapView) forControlEvents:UIControlEventTouchUpInside];
-            [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:mapBtn]];
-        }
+        UIButton *mapBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 44)];
+        [mapBtn setImage:[UIImage imageNamed:@"plan_02_dashboard_map.png"] forState:UIControlStateNormal];
+        [mapBtn addTarget:self action:@selector(mapView) forControlEvents:UIControlEventTouchUpInside];
+        [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:mapBtn]];
         
-//        _editBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 44)];
-//        [_editBtn setImage:[UIImage imageNamed:@"ic_trip_edit.png"] forState:UIControlStateNormal];
-//        [_editBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-//        [_editBtn addTarget:self action:@selector(editTrip:) forControlEvents:UIControlEventTouchUpInside];
-//        [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_editBtn]];
-        
-        _navgationBarItem.rightBarButtonItems = barItems;
+        self.navigationItem.rightBarButtonItems = barItems;
         
         UIButton *bbtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
         [bbtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
         [bbtn setImage:[UIImage imageNamed:@"common_icon_navigaiton_back"] forState:UIControlStateNormal];
         [bbtn setImage:[UIImage imageNamed:@"common_icon_navigaiton_back_highlight"] forState:UIControlStateHighlighted];
         [bbtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
-        _navgationBarItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:bbtn];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:bbtn];
     }
 }
 
@@ -203,33 +189,16 @@
     _chatRecordListCtl = nil;
 }
 
-- (void)pan:(UIPanGestureRecognizer *)reconizer
+- (UISegmentedControl *)segmentedControl
 {
-    if (reconizer.state == UIGestureRecognizerStateBegan) {
-        _initialDraggingPoint = [reconizer translationInView:self.view];
-    } else if (reconizer.state == UIGestureRecognizerStateEnded || reconizer.state == UIGestureRecognizerStateCancelled) {
-        CGPoint lastPoint = [reconizer translationInView:self.view];
-        if ((lastPoint.x - _initialDraggingPoint.x) > 100) {
-            if ([_currentViewController isEqual:[_tabbarPageControllerArray firstObject]]) {
-                UIButton *btn = [_tabbarButtonArray lastObject];
-                [btn sendActionsForControlEvents:UIControlEventTouchUpInside];
-            } else {
-                NSInteger index = [_tabbarPageControllerArray indexOfObject:_currentViewController];
-                UIButton *btn = [_tabbarButtonArray objectAtIndex:index-1];
-                [btn sendActionsForControlEvents:UIControlEventTouchUpInside];
-            }
-            
-        } else if ((lastPoint.x - _initialDraggingPoint.x) < -100) {
-            if ([_currentViewController isEqual:[_tabbarPageControllerArray lastObject]]) {
-                UIButton *btn = [_tabbarButtonArray firstObject];
-                [btn sendActionsForControlEvents:UIControlEventTouchUpInside];
-            } else {
-                NSInteger index = [_tabbarPageControllerArray indexOfObject:_currentViewController];
-                UIButton *btn = [_tabbarButtonArray objectAtIndex:index+1];
-                [btn sendActionsForControlEvents:UIControlEventTouchUpInside];
-            }
-        }
+    if (!_segmentedControl) {
+        _segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"计划", @"收藏"]];
+        _segmentedControl.selectedSegmentIndex = 0;
+        _segmentedControl.frame = CGRectMake(self.view.bounds.size.width/2-100, 7, 200, 30);
+        [_segmentedControl addTarget:self action:@selector(changePage:) forControlEvents:UIControlEventValueChanged];
+        _segmentedControl.tintColor = APP_THEME_COLOR;
     }
+    return _segmentedControl;
 }
 
 #pragma mark - IBAction
@@ -248,7 +217,7 @@
         }
         if (isSuccesss) {
             if ([_currentViewController isKindOfClass:[PlanScheduleViewController class]]) {
-//                _spotsListCtl.shouldEdit = NO;
+                //                _spotsListCtl.shouldEdit = NO;
             } else if ([_currentViewController isKindOfClass:[ShoppingListViewController class]]) {
                 _shoppingListCtl.shouldEdit = NO;
             } else if ([_currentViewController isKindOfClass:[RestaurantsListViewController class]]) {
@@ -263,7 +232,7 @@
 
 - (void)mapView {
     if ([_currentViewController isKindOfClass:[PlanScheduleViewController class]]) {
-//        [_spotsListCtl mapView];
+        //        [_spotsListCtl mapView];
     } else if ([_currentViewController isKindOfClass:[ShoppingListViewController class]]) {
         [_shoppingListCtl mapView];
     } else if ([_currentViewController isKindOfClass:[RestaurantsListViewController class]]) {
@@ -303,11 +272,7 @@
 
 - (void)dismissCtl
 {
-    if (self.navigationController.childViewControllers.count > 1) {
-        [self.navigationController popViewControllerAnimated:YES];
-    } else {
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }
+    [self.container.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)userDidLogout
@@ -349,7 +314,7 @@
     
     __weak typeof(TripDetailRootViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf];
+    [hud showHUDInViewController:weakSelf content:64];
     
     //获取路线模板数据,新制作路线的情况下
     [manager POST:API_CREATE_GUIDE parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -361,7 +326,7 @@
             [self reloadTripData];
             [[NSNotificationCenter defaultCenter] postNotificationName:updateGuideListNoti object:nil];
             if (isNeedRecommend) {
-//                [SVProgressHUD showHint:[NSString stringWithFormat:@"已为你创建%lu行程", (unsigned long)_tripDetail.itineraryList.count]];
+                //                [SVProgressHUD showHint:[NSString stringWithFormat:@"已为你创建%lu行程", (unsigned long)_tripDetail.itineraryList.count]];
                 [self performSelector:@selector(hintBuildRoutes) withObject:nil afterDelay:0.5];
             }
         } else {
@@ -379,9 +344,9 @@
 
 - (void)hintBuildRoutes {
     PXAlertView *alertView = [PXAlertView showAlertWithTitle:@"提示"
-                            message:[NSString stringWithFormat:@"为你推荐了%lu天旅程，可自由调整", (unsigned long)_tripDetail.itineraryList.count]
-                        cancelTitle:@"确定"
-                         completion:nil];
+                                                     message:[NSString stringWithFormat:@"为你推荐了%lu天旅程，可自由调整", (unsigned long)_tripDetail.itineraryList.count]
+                                                 cancelTitle:@"确定"
+                                                  completion:nil];
     [alertView useDefaultIOS7Style];
     [alertView setTitleFont:[UIFont systemFontOfSize:17]];
     [alertView setMessageColor:TEXT_COLOR_TITLE_SUBTITLE];
@@ -390,7 +355,6 @@
 - (void)setCanEdit:(BOOL)canEdit
 {
     _canEdit = canEdit;
-//    _spotsListCtl.canEdit = _canEdit;
     _restaurantListCtl.canEdit = _canEdit;
     _shoppingListCtl.canEdit = _canEdit;
 }
@@ -418,7 +382,7 @@
     if (_tripDetail == nil) {
         __weak typeof(TripDetailRootViewController *)weakSelf = self;
         hud = [[TZProgressHUD alloc] init];
-        [hud showHUDInViewController:weakSelf];
+        [hud showHUDInViewController:weakSelf content:64];
     }
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSNumber *imageWidth = [NSNumber numberWithInt:200];
@@ -460,7 +424,7 @@
     [MobClick event:@"event_go_city_detail"];
     CityDetailTableViewController *cityDetailCtl = [[CityDetailTableViewController alloc] init];
     cityDetailCtl.cityId = cityId;
-    [self.navigationController pushViewController:cityDetailCtl animated:YES];
+    [self.frostedViewController.navigationController pushViewController:cityDetailCtl animated:YES];
 }
 
 /**
@@ -484,7 +448,7 @@
 - (IBAction)showMoreAction:(id)sender
 {
     if (!_tripDetail) {
-//        [SVProgressHUD showHint:@"呃～好像没找到网络"];
+        //        [SVProgressHUD showHint:@"呃～好像没找到网络"];
         return;
     }
     
@@ -570,7 +534,7 @@
     BOOL status = sender.selected;
     if (!status) {
         if ([_currentViewController isKindOfClass:[PlanScheduleViewController class]]) {
-//            _spotsListCtl.shouldEdit = YES;
+            //            _spotsListCtl.shouldEdit = YES;
         } else if ([_currentViewController isKindOfClass:[ShoppingListViewController class]]) {
             _shoppingListCtl.shouldEdit = YES;
         } else if ([_currentViewController isKindOfClass:[RestaurantsListViewController class]]) {
@@ -612,7 +576,7 @@
     NSString *urlStr = [NSString stringWithFormat:@"%@%@", API_FORK_TRIP, _tripDetail.tripId];
     __weak typeof(TripDetailRootViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf];
+    [hud showHUDInViewController:weakSelf content:64];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSNumber *imageWidth = [NSNumber numberWithInt:150];
@@ -623,12 +587,9 @@
         [hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-//            _tripDetail.tripId = [[responseObject objectForKey:@"result"] objectForKey:@"id"];
-//            self.canEdit = YES;
-//            [[NSNotificationCenter defaultCenter] postNotificationName:updateGuideListNoti object:nil];
-//            [SVProgressHUD showHint:@"已保存到我的旅行计划"];
             PlansListTableViewController *myGuidesCtl = [[PlansListTableViewController alloc] initWithUserId:accountManager.account.userId];
             NSMutableArray *clts = [NSMutableArray arrayWithArray:[self.navigationController childViewControllers]];
+            myGuidesCtl.userName = accountManager.account.nickName;
             [clts replaceObjectAtIndex:(clts.count-1) withObject:myGuidesCtl];
             [self.navigationController setViewControllers:clts animated:YES];
         } else {
@@ -654,18 +615,19 @@
     _spotsListCtl.tripDetail = _tripDetail;
     _restaurantListCtl.tripDetail = _tripDetail;
     _shoppingListCtl.tripDetail = _tripDetail;
-//    _spotsListCtl.canEdit = _canEdit;
+    //    _spotsListCtl.canEdit = _canEdit;
     _restaurantListCtl.canEdit = _canEdit;
     _shoppingListCtl.canEdit = _canEdit;
     ((TripPlanSettingViewController *)self.container.menuViewController).tripDetail = self.tripDetail;
     
+    self.navigationItem.title = _tripDetail.tripTitle;
 }
 
 - (void)setupViewControllers
 {
     NSMutableArray *array = [[NSMutableArray alloc] init];
     _spotsListCtl = [[PlanScheduleViewController alloc] init];
-//    _spotsListCtl.rootViewController = self;
+    //    _spotsListCtl.rootViewController = self;
     
     _restaurantListCtl = [[RestaurantsListViewController alloc] init];
     _restaurantListCtl.rootViewController = self;
@@ -677,94 +639,19 @@
     [self.view addSubview:_spotsListCtl.view];
     
     
-    [_spotsListCtl.view setFrame:CGRectMake(0, 65, self.view.bounds.size.width, self.view.bounds.size.height - 65)];
-    [_restaurantListCtl.view setFrame:CGRectMake(0, 65, self.view.bounds.size.width, self.view.bounds.size.height - 65)];
-    [_shoppingListCtl.view setFrame:CGRectMake(0, 65, self.view.bounds.size.width, self.view.bounds.size.height - 65)];
+    [_spotsListCtl.view setFrame:CGRectMake(0, 44, self.view.bounds.size.width, self.view.bounds.size.height-44)];
+    [_restaurantListCtl.view setFrame:CGRectMake(0, 44, self.view.bounds.size.width, self.view.bounds.size.height-44)];
     
     [array addObject:_spotsListCtl];
     [array addObject:_restaurantListCtl];
-    [array addObject:_shoppingListCtl];
     _tabbarPageControllerArray = array;
     
-    [self customizeTabBarForController];
     _currentViewController = _spotsListCtl;
-    UIButton *btn = [_tabbarButtonArray firstObject];
-    btn.selected = YES;
 }
 
-- (void)customizeTabBarForController
+- (void)changePage:(UISegmentedControl *)sender
 {
-    _tabBarView = [[UIView alloc] initWithFrame:CGRectMake(19, self.view.frame.size.height-49-5, self.view.frame.size.width-38, 49)];
-    _tabBarView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-    _tabBarView.backgroundColor = APP_PAGE_COLOR;
-    _tabBarView.alpha = 0.9;
-    CALayer *layer = _tabBarView.layer;
-    layer.borderWidth = 1;
-    layer.borderColor = APP_BORDER_COLOR.CGColor;
-    layer.shadowColor = APP_BORDER_COLOR.CGColor;
-    layer.shadowOffset = CGSizeMake(0, -0.5);
-    layer.shadowRadius = 0.5;
-    layer.shadowOpacity = 1.0;
-    layer.cornerRadius = 1;
-//    UIView *divide = [[UIView alloc]initWithFrame:CGRectMake(0.5, 0, _tabBarView.frame.size.width - 1, 1)];
-//    divide.backgroundColor = APP_PAGE_COLOR;
-//    [_tabBarView addSubview:divide];
-//    _tabBarView.layer.cornerRadius = 3;
-//    _tabBarView.layer.shadowColor = APP_DIVIDER_COLOR.CGColor;
-//    _tabBarView.layer.shadowColor = APP_THEME_COLOR.CGColor;
-//    _tabBarView.layer.shadowOffset = CGSizeMake(0, 0);
-//    _tabBarView.layer.shadowOpacity = 0;
-//    _tabBarView.layer.shadowRadius = 4;
-//    _tabBarView.clipsToBounds = YES;
-    [self.view addSubview:_tabBarView];
-    
-    NSArray *tabBarItemTitles = @[@"行程计划", @"美食清单", @"购物清单"];
-    NSMutableArray *array = [[NSMutableArray alloc] init];
-    CGFloat width = _tabBarView.frame.size.width;
-    
-    for (int i = 0; i < 3; i++) {
-        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(width/3*i, 0, width/3, 50)];
-        [button setTitle:tabBarItemTitles[i] forState:UIControlStateNormal];
-        button.backgroundColor = [UIColor clearColor];
-        
-        [button setTitleEdgeInsets:UIEdgeInsetsMake(28, 0, 0, 0)];
-        [array addObject:button];
-        [button setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
-        [_tabBarView addSubview:button];
-        button.tag = i;
-        button.titleLabel.font = [UIFont systemFontOfSize:9.0];
-        [button addTarget:self action:@selector(changePage:) forControlEvents:UIControlEventTouchUpInside];
-        
-        UIButton *showBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-        showBtn.userInteractionEnabled = NO;
-//        showBtn.backgroundColor = UIColorFromRGB(0xd74353);
-//        showBtn.layer.cornerRadius = 15.0;
-        NSString *imageName = [NSString stringWithFormat: @"ic_trip_new_%d",i+1];
-        [showBtn setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
-        showBtn.center = CGPointMake(button.bounds.size.width/2, button.bounds.size.height/2-6);
-        [button addSubview:showBtn];
-    }
-    
-    UIView *divider1 = [[UIView alloc]initWithFrame:CGRectMake(width/3.0-0.5, 7, 1, 35)];
-    divider1.backgroundColor = APP_DIVIDER_COLOR;
-    [_tabBarView addSubview:divider1];
-    
-    UIView *divider2 = [[UIView alloc]initWithFrame:CGRectMake(width*2.0/3.0-0.5, 7, 1, 35)];
-    divider2.backgroundColor = APP_DIVIDER_COLOR;
-    [_tabBarView addSubview:divider2];
-//    [_tabBarView addSubview:_tabBarSelectedView];
-    _tabbarButtonArray = array;
-}
-
-- (void)changePage:(UIButton *)sender
-{
-    UIViewController *newController = [_tabbarPageControllerArray objectAtIndex:sender.tag];
-    
-    if ([newController isEqual:_currentViewController]) {
-        return;
-    }
-//    NSString *imageName = [NSString stringWithFormat: @"ic_trip_selected_%ld",(long)sender.tag+1];
-//    [_tabBarSelectedView setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
+    UIViewController *newController = [_tabbarPageControllerArray objectAtIndex:sender.selectedSegmentIndex];
     [self replaceController:_currentViewController newController:newController];
 }
 
@@ -773,25 +660,14 @@
     [self addChildViewController:newController];
     [self transitionFromViewController:oldController toViewController:newController duration:0.1 options:UIViewAnimationOptionTransitionCrossDissolve animations:nil completion:^(BOOL finished) {
         if (finished) {
-            [newController didMoveToParentViewController:self];
-            [oldController willMoveToParentViewController:nil];
             [oldController removeFromParentViewController];
             self.currentViewController = newController;
+            [self.view bringSubviewToFront:_segmentedControl];
             
-            NSInteger newIndex = [_tabbarPageControllerArray indexOfObject:newController];
-            for (UIButton *btn in _tabbarButtonArray) {
-                if ([_tabbarButtonArray indexOfObject:btn] == newIndex) {
-                    btn.selected = YES;
-                } else {
-                    btn.selected = NO;
-                }
-            }
         } else {
             self.currentViewController = oldController;
         }
-        [self setNavigationItems];
     }];
-    [self.view bringSubviewToFront:_tabBarView];
 }
 
 #pragma mark - AvtivityDelegate
@@ -889,14 +765,12 @@
     CityDestinationPoi *poi =  [_tripDetail.destinations objectAtIndex:selectedIndex];
     CityDetailTableViewController *cityDetailCtl = [[CityDetailTableViewController alloc] init];
     cityDetailCtl.cityId = poi.cityId;
-    [self.navigationController pushViewController:cityDetailCtl animated:YES];
+    [self.frostedViewController.navigationController pushViewController:cityDetailCtl animated:YES];
 }
 
 #pragma mark - CreateConversationDelegate
 
 - (void)createConversationSuccessWithChatter:(NSInteger)chatterId chatType:(IMChatType)chatType chatTitle:(NSString *)chatTitle
-
-
 {
     TaoziChatMessageBaseViewController *taoziMessageCtl = [[TaoziChatMessageBaseViewController alloc] init];
     [self setChatMessageModel:taoziMessageCtl];

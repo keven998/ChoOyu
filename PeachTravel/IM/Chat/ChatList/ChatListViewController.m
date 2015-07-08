@@ -16,13 +16,12 @@
 #import "CreateConversationViewController.h"
 #import "ContactListViewController.h"
 #import "AddContactTableViewController.h"
-#import "PXAlertView+Customization.h"
 #import "REFrostedViewController.h"
 #import "ChatGroupSettingViewController.h"
 #import "ChatSettingViewController.h"
 #import "PeachTravel-swift.h"
 
-@interface ChatListViewController ()<UITableViewDelegate, UITableViewDataSource, CreateConversationDelegate, ChatConversationManagerDelegate>
+@interface ChatListViewController ()<UITableViewDelegate, UITableViewDataSource, CreateConversationDelegate, ChatConversationManagerDelegate, FriendRequestManagerDelegate>
 
 @property (strong, nonatomic) UITableView           *tableView;
 @property (nonatomic, strong) AccountManager        *accountManager;
@@ -81,7 +80,8 @@
     _frendRequestUnreadCountLabel.layer.cornerRadius = 4;
     _frendRequestUnreadCountLabel.clipsToBounds = YES;
     [contactListBtn addSubview:_frendRequestUnreadCountLabel];
-    if (self.accountManager.numberOfUnReadFrendRequest > 0) {
+    [IMClientManager shareInstance].frendRequestManager.delegate = self;
+    if ([IMClientManager shareInstance].frendRequestManager.unReadFrendRequestCount > 0) {
         _frendRequestUnreadCountLabel.hidden = NO;
     } else {
         _frendRequestUnreadCountLabel.hidden = YES;
@@ -115,6 +115,7 @@
 
 - (void)userDidLogin
 {
+    self.imClientManager.conversationManager.delegate = self;
     [self.imClientManager.conversationManager updateConversationListFromDB];
     _dataSource = [[self.imClientManager.conversationManager getConversationList] mutableCopy];
     [self.tableView reloadData];
@@ -513,6 +514,9 @@
     }
     
     REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:navi menuViewController:menuViewController];
+    if (conversation.chatType == IMChatTypeIMChatGroupType || conversation.chatType == IMChatTypeIMChatDiscussionGroupType) {
+        ((ChatGroupSettingViewController *)menuViewController).containerCtl = frostedViewController;
+    }
     frostedViewController.hidesBottomBarWhenPushed = YES;
     frostedViewController.direction = REFrostedViewControllerDirectionRight;
     frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
@@ -533,6 +537,7 @@
     ChatConversation *tzConversation = [self.dataSource objectAtIndex:indexPath.row];
     
     if (tzConversation.chatType == IMChatTypeIMChatSingleType) {
+        
         cell.name = tzConversation.chatterName;
         [cell.imageView sd_setImageWithURL:[NSURL URLWithString:tzConversation.chatterAvatar] placeholderImage:[UIImage imageNamed:@"ic_home_default_avatar.png"]];
         cell.imageView.layer.cornerRadius = 28;
@@ -588,8 +593,7 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         ChatConversation *conversation = [self.dataSource objectAtIndex:indexPath.row];
-        [self.imClientManager.conversationManager removeConversationWithChatterId: conversation.chatterId];
-       
+        [self.imClientManager.conversationManager removeConversationWithChatterId: conversation.chatterId deleteMessage:NO];
         [MobClick event:@"event_delete_talk_item"];
     }
 }
@@ -618,7 +622,19 @@
 
 - (void)conversationStatusHasChanged:(ChatConversation * __nonnull)conversation
 {
+    [_delegate unreadMessageCountHasChange];
     [self refreshDataSource];
+}
+
+#pragma mark - FriendRequestManagerDelegate
+
+- (void)friendRequestNumberNeedUpdate
+{
+    if ([IMClientManager shareInstance].frendRequestManager.unReadFrendRequestCount > 0) {
+        _frendRequestUnreadCountLabel.hidden = NO;
+    } else {
+        _frendRequestUnreadCountLabel.hidden = YES;
+    }
 }
 
 #pragma mark - CreateConversationDelegate

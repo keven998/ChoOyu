@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface FrendRequest : NSObject
-
+@property (nonatomic, copy) NSString *requestId;
 @property (nonatomic, copy) NSString *attachMsg;
 @property (nonatomic, copy) NSString *avatar;
 @property (nonatomic) UserGender gender;

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ScheduleDayEditViewController">
+            <connections>
+                <outlet property="tableView" destination="1ab-7Q-w4p" id="SvE-FX-sBq"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="1ab-7Q-w4p" customClass="FMMoveTableView">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="1ab-7Q-w4p" secondAttribute="bottom" id="8aO-df-zXr"/>
+                <constraint firstItem="1ab-7Q-w4p" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Eld-Hu-Nae"/>
+                <constraint firstAttribute="trailing" secondItem="1ab-7Q-w4p" secondAttribute="trailing" id="SKV-cW-I2b"/>
+                <constraint firstItem="1ab-7Q-w4p" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="ep5-3p-aNF"/>
+            </constraints>
+            <variation key="default">
+                <mask key="subviews">
+                    <exclude reference="1ab-7Q-w4p"/>
+                </mask>
+                <mask key="constraints">
+                    <exclude reference="8aO-df-zXr"/>
+                    <exclude reference="Eld-Hu-Nae"/>
+                    <exclude reference="SKV-cW-I2b"/>
+                    <exclude reference="ep5-3p-aNF"/>
+                </mask>
+            </variation>
+            <variation key="widthClass=compact">
+                <mask key="subviews">
+                    <include reference="1ab-7Q-w4p"/>
+                </mask>
+                <mask key="constraints">
+                    <include reference="8aO-df-zXr"/>
+                    <include reference="Eld-Hu-Nae"/>
+                    <include reference="SKV-cW-I2b"/>
+                    <include reference="ep5-3p-aNF"/>
+                </mask>
+            </variation>
+        </view>
+    </objects>
+</document>

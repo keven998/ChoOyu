@@ -68,11 +68,6 @@
 #endif
     
     [iRate sharedInstance].promptAtLaunch = NO;
-    
-    if ([AccountManager shareAccountManager].isLogin) {
-        IMClientManager *manager = [IMClientManager shareInstance];
-        [manager userDidLogin:[AccountManager shareAccountManager].account.userId];
-    }
 
     return YES;
 }

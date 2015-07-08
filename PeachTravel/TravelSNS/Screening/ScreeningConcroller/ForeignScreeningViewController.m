@@ -9,14 +9,13 @@
 #import "ForeignScreeningViewController.h"
 #import "TaoziCollectionLayout.h"
 #import "ScreeningModel.h"
-//#import "ScreeningCell.h"
 #import "ScreenningViewCell.h"
 #import "DomesticDestinationCell.h"
 @interface ForeignScreeningViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,TaoziLayoutDelegate,UICollectionViewDelegateFlowLayout>
-{
-    NSMutableArray *_dataArray;
-    UICollectionView *_collectionView;
-}
+
+@property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic, strong) NSMutableArray *dataArray;
+
 @end
 
 @implementation ForeignScreeningViewController
@@ -24,16 +23,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _dataArray = [[NSMutableArray alloc]init];
-    
-    _collectionView.allowsMultipleSelection = YES;
-//    _collectionView.allowsMultipleSelection
-    
+    [self.view addSubview:self.collectionView];
     [self downloadData];
-    [self createCollectionView];
 }
+
 -(void)downloadData
 {
-    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AppUtils *utils = [[AppUtils alloc] init];
     [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
@@ -51,7 +46,6 @@
         NSDictionary *domestic = dataDict[@"中国"];
         
         for (NSDictionary *dicdic in domestic) {
-            
             ScreeningModel *model = [[ScreeningModel alloc]init];
             model.zhName = dicdic[@"zhName"];
             model.userId = dicdic[@"id"];
@@ -60,50 +54,47 @@
         
         [_collectionView reloadData];
         [hud hideTZHUD];
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [hud hideTZHUD];
     }];
-    
 }
--(void)createCollectionView
+
+
+-(UICollectionView *)collectionView
 {
-    TaoziCollectionLayout *layout = [[TaoziCollectionLayout alloc] init];
-    layout.delegate = self;
-    
-    _collectionView=[[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
-    _collectionView.dataSource=self;
-    _collectionView.delegate=self;
-    [_collectionView setBackgroundColor:[UIColor clearColor]];
-    
-    //注册Cell，必须要有
-//    [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"UICollectionViewCell"];
-//    [_collectionView registerNib:[UINib nibWithNibName:@"DomesticDestinationCell" bundle:nil]  forCellWithReuseIdentifier:@"cell"];
-    
-    [_collectionView registerNib:[UINib nibWithNibName:@"ScreenningViewCell" bundle:nil]  forCellWithReuseIdentifier:@"cell"];
-    
-    [self.view addSubview:_collectionView];
-    layout.delegate = self;
-    layout.showDecorationView = YES;
-    layout.margin = 10;
-    layout.spacePerItem = 10;
-    layout.spacePerLine = 10;
-//
-    _collectionView.delegate = self;
-    _collectionView.dataSource = self;
- 
+    if (!_collectionView) {
+        TaoziCollectionLayout *layout = [[TaoziCollectionLayout alloc] init];
+        layout.delegate = self;
+        layout.showDecorationView = NO;
+        layout.delegate = self;
+        layout.showDecorationView = YES;
+        layout.margin = 10;
+        layout.spacePerItem = 10;
+        layout.spacePerLine = 10;
+
+        CGRect frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 64);
+        _collectionView=[[UICollectionView alloc] initWithFrame:frame collectionViewLayout:layout];
+        _collectionView.dataSource=self;
+        _collectionView.delegate=self;
+        [_collectionView setBackgroundColor:[UIColor whiteColor]];
+        [_collectionView registerNib:[UINib nibWithNibName:@"ScreenningViewCell" bundle:nil]  forCellWithReuseIdentifier:@"cell"];
+             _collectionView.delegate = self;
+        _collectionView.dataSource = self;
+    }
+   
+    return _collectionView;
 }
 
 #pragma mark - TaoziLayoutDelegate
 
 - (CGSize)collectionview:(UICollectionView *)collectionView sizeForHeaderView:(NSIndexPath *)indexPath
 {
-//    return CGSizeMake(_collectionView.frame.size.width, 38);
     return CGSizeZero;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-//    AreaDestination *country = _destinations.foreignCountries[indexPath.section];
     ScreeningModel *city = _dataArray[indexPath.row];
     CGSize size = [city.zhName sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:15.0]}];
     return CGSizeMake(size.width + 25 + 28, 28);;
@@ -128,10 +119,7 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    //    if (section == _showCitiesIndex) {
     return _dataArray.count;
-    //    }
-    //    return 0;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -141,8 +129,8 @@
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString * CellIdentifier = @"cell";
-    ScreenningViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+    static NSString *CellIdentifier = @"cell";
+    ScreenningViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
     ScreeningModel *model = _dataArray[indexPath.row];
     cell.tag = 100 + indexPath.row;
     cell.nameLabel.text = model.zhName;
@@ -150,37 +138,10 @@
     cell.backgroundColor = [UIColor whiteColor];
 
     return cell;
-
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-//    ScreenningViewCell *cell = (ScreenningViewCell *)[self.view viewWithTag:(100+indexPath.row)];
-//    ScreeningModel *model = _dataArray[indexPath.row];
-//    BOOL find = NO;
-//
-//    for (ScreeningModel * city in _screeningVC.selectedCityArray) {
-//        if ([city isEqual:model]) {
-//            cell.nameLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
-//            cell.backgroundColor = [UIColor whiteColor];
-//            NSInteger index = [_screeningVC.selectedCityArray indexOfObject:city];
-//            [_screeningVC.selectedCityArray removeObjectAtIndex:index];
-//            
-//            find = YES;
-//            break;
-//        }
-//    }
-//    
-//    if (!find) {
-//        cell.nameLabel.textColor = [UIColor whiteColor];
-//        cell.backgroundColor = APP_THEME_COLOR;
-//        [_screeningVC.selectedCityArray addObject:model];
-//    }
-//    if (_screeningVC.selectedCityArray.count == 0) {
-//        _screeningVC.navigationItem.rightBarButtonItem.enabled = NO;
-//    } else {
-//        _screeningVC.navigationItem.rightBarButtonItem.enabled = YES;
-//    }
     ScreeningModel *model = _dataArray[indexPath.row];
     ScreenningViewCell *cell = (ScreenningViewCell *)[self.view viewWithTag:(100+indexPath.row)];
     cell.backgroundColor = APP_THEME_COLOR;

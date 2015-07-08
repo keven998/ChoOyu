@@ -38,7 +38,7 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
     [self.tableView registerNib:[UINib nibWithNibName:@"TravelNoteTableViewCell" bundle:nil] forCellReuseIdentifier:reusableCellIdentifier];
     _currentPage = 0;
     if (!_isSearch) {
-        self.navigationItem.title = _cityName;//[NSString stringWithFormat:@"%@精选游记", _cityName];
+        self.navigationItem.title = @"全部游记";//[NSString stringWithFormat:@"%@精选游记", _cityName];
         [self loadDataWithPageNo:_currentPage andKeyWork:nil];
     } else {
         self.tableView.tableHeaderView = self.searchBar;
@@ -212,7 +212,7 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 90;
+    return 126;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -224,7 +224,7 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
     cell.title = travelNote.title;
     cell.desc = travelNote.summary;
     
-    cell.property = [NSString stringWithFormat:@"%@  %@  %@", travelNote.authorName, travelNote.source, travelNote.publishDateStr];
+    cell.property = [NSString stringWithFormat:@"%@    %@", travelNote.authorName, travelNote.publishDateStr];
     cell.canSelect = NO;
 
     cell.canSelect = _isSearch;

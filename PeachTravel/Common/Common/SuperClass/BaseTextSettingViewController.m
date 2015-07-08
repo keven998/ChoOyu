@@ -23,14 +23,14 @@
     [super viewDidLoad];
     self.navigationItem.title = _navTitle;
     UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc]initWithTitle:@"保存 " style:UIBarButtonItemStylePlain target:self action:@selector(saveChange:)];
-    rightBtn.tintColor = APP_THEME_COLOR;
+    rightBtn.tintColor = [UIColor whiteColor];
     self.navigationItem.rightBarButtonItem = rightBtn;
     self.navigationItem.rightBarButtonItem.enabled = NO;
     
     UIBarButtonItem *leftBtn = [[UIBarButtonItem alloc]initWithTitle:@" 取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
     self.navigationItem.leftBarButtonItem = leftBtn;
     
-    _contentTextField.layer.borderColor = UIColorFromRGB(0xdcdcdc).CGColor;
+    _contentTextField.layer.borderColor = COLOR_LINE.CGColor;
     _contentTextField.layer.borderWidth = 0.5;
     _contentTextField.delegate = self;
     UIView *sv = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0, 20.0)];
@@ -38,9 +38,18 @@
     _contentTextField.leftView = sv;
     _contentTextField.leftViewMode = UITextFieldViewModeAlways;
     [_contentTextField becomeFirstResponder];
-    _contentTextField.font = [UIFont systemFontOfSize:14.0];
     _contentTextField.text = _content;
     [_contentTextField addTarget:self action:@selector(textChanged:) forControlEvents:UIControlEventEditingChanged];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear: animated];
+}
+
+- (void)viewDidLayoutSubviews
+{
+    _contentTextField.frame = CGRectMake(0, 30, self.view.frame.size.width, 64*kWindowHeight/736);
 }
 
 /**

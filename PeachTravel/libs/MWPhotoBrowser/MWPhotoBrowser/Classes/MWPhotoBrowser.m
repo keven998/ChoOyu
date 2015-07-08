@@ -237,23 +237,10 @@
     
 	// Super
     [super viewDidLoad];
-	
-}
-
-- (void)performLayout {
     
-    // Setup
-    _performingLayout = YES;
-    NSUInteger numberOfPhotos = [self numberOfPhotos];
-    
-	// Setup pages
-    [_visiblePages removeAllObjects];
-    [_recycledPages removeAllObjects];
-    
-    // Navigation buttons
     if ([self.navigationController.viewControllers objectAtIndex:0] == self) {
         // We're first on stack so show done button
-        _doneButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"确定", nil) style:UIBarButtonItemStylePlain target:self action:@selector(doneButtonPressed:)];
+        _doneButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"取消", nil) style:UIBarButtonItemStylePlain target:self action:@selector(doneButtonPressed:)];
         // Set appearance
         if ([UIBarButtonItem respondsToSelector:@selector(appearance)]) {
             [_doneButton setBackgroundImage:nil forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
@@ -263,7 +250,7 @@
             [_doneButton setTitleTextAttributes:[NSDictionary dictionary] forState:UIControlStateNormal];
             [_doneButton setTitleTextAttributes:[NSDictionary dictionary] forState:UIControlStateHighlighted];
         }
-        self.navigationItem.rightBarButtonItem = _doneButton;
+        self.navigationItem.leftBarButtonItem = _doneButton;
     } else {
         // We're not first so show back button
         UIViewController *previousViewController = [self.navigationController.viewControllers objectAtIndex:self.navigationController.viewControllers.count-2];
@@ -282,6 +269,19 @@
         previousViewController.navigationItem.backBarButtonItem = newBackButton;
     }
 
+	
+}
+
+- (void)performLayout {
+    
+    // Setup
+    _performingLayout = YES;
+    NSUInteger numberOfPhotos = [self numberOfPhotos];
+    
+	// Setup pages
+    [_visiblePages removeAllObjects];
+    [_recycledPages removeAllObjects];
+    
     // Toolbar items
     BOOL hasItems = NO;
     UIBarButtonItem *fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
@@ -1104,7 +1104,7 @@
         if (_gridController.selectionMode) {
             self.title = NSLocalizedString(@"Select Photos", nil);
         } else {
-            self.title = @"城市画册";
+            self.title = _titleStr;
         }
     } else if (numberOfPhotos > 1) {
         if ([_delegate respondsToSelector:@selector(photoBrowser:titleForPhotoAtIndex:)]) {
@@ -1295,7 +1295,7 @@
                 } completion:^(BOOL finished) {}];
                 
             }
-
+            
         } else {
             
             // iOS < 7
@@ -1460,7 +1460,7 @@
     }
     
 //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"MWPhotoBrowser.bundle/images/%@.png", @"UIBarButtonItemGrid"]] style:UIBarButtonItemStylePlain target:self action:@selector(showGridAnimated)];
-    self.navigationController.navigationBarHidden = YES;
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 #pragma mark - Misc

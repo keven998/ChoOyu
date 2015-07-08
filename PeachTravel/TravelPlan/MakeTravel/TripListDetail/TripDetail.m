@@ -44,10 +44,7 @@
 
 - (TripDetail *)backUpTrip
 {
-    if (!_backUpTrip) {
-        _backUpTrip = [[TripDetail alloc] initWithJson:self.backUpJson];
-    }
-    return _backUpTrip;
+    return [[TripDetail alloc] initWithJson:self.backUpJson];
 }
 
 
@@ -92,7 +89,7 @@
         }
         [uploadDicToSave safeSetObject:itineraryListToServer forKey:@"itinerary"];
         [uploadDicToUpdateBackUpTrip safeSetObject:itineraryListToUpdateBackUpTrip forKey:@"itinerary"];
-
+        _dayCount = _itineraryList.count;
         [uploadDicToSave safeSetObject:[NSNumber numberWithInteger:_dayCount] forKey:@"itineraryDays"];
         [uploadDicToUpdateBackUpTrip safeSetObject:[NSNumber numberWithInteger:_dayCount] forKey:@"itineraryDays"];
 
@@ -229,9 +226,7 @@
     NSMutableDictionary *tempDic = [_backUpJson mutableCopy];
     [tempDic setObject:destinations forKey:@"localities"];
     _backUpJson = tempDic;
-    _backUpTrip = [[TripDetail alloc] initWithJson:self.backUpJson];
 }
-
 
 /**
  *  当保存成功后将备份的路线更新
@@ -252,7 +247,6 @@
         [tempDic setObject:[uploadDic objectForKey:@"shopping"] forKey:@"shopping"];
     }
     _backUpJson = tempDic;
-    _backUpTrip = [[TripDetail alloc] initWithJson:self.backUpJson];
 }
 
 - (NSMutableArray *)analysisItineraryData:(id)json

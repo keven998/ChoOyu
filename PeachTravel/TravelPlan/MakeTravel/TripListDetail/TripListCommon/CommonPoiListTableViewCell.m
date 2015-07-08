@@ -51,11 +51,6 @@
     } else {
         _titleLabel.text = _tripPoi.zhName;
     }
-    //    NSMutableAttributedString *attributeString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@", title, city]];
-    //    NSRange makeRange = NSMakeRange(attributeString.length - city.length, city.length);
-    //    [attributeString addAttributes:@{NSForegroundColorAttributeName:TEXT_COLOR_TITLE_HINT} range:makeRange];
-    //    [attributeString addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12]} range:makeRange];
-    //    _titleLabel.attributedText = attributeString;
     
     TaoziImage *image = [tripPoi.images firstObject];
     [_headerImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];

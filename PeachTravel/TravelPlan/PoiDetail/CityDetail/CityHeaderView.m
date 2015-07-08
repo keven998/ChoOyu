@@ -10,7 +10,7 @@
 #import "ResizableView.h"
 #import "MWPhotoBrowser.h"
 #import "CityDetailTableViewController.h"
-#import "CityAlbumView.h"
+#import "CityImageAlbum.h"
 
 @interface CityHeaderView () <UIScrollViewDelegate, CityAlbumViewDelegate>
 
@@ -19,7 +19,7 @@
 @property (nonatomic, strong) NSMutableArray *imageViews;
 @property (nonatomic, strong) UIButton *showMoreDescContentBtn;
 @property (nonatomic, strong) UIButton *showMoreInfoContentBtn;
-@property (nonatomic, strong) UIButton *travelMonthBtn;
+@property (nonatomic, strong) UILabel *travelMonth;
 
 
 
@@ -39,79 +39,108 @@
     CGFloat width = self.frame.size.width;
     CGFloat oy = 13;
     
-    CityAlbumView *albumView = [[[NSBundle mainBundle] loadNibNamed:@"CityImageAlbum"
-                                  owner:self
-                                options:nil] lastObject];
+    CityImageAlbum *albumView = [[[NSBundle mainBundle] loadNibNamed:@"CityImageAlbum"
+                                                               owner:nil
+                                                             options:nil] lastObject];
     albumView.delegate = self;
-    CGFloat albumHeight = [CityAlbumView heightOfCityAlbumViewWithWidth:width-36];
-    [albumView setFrame:CGRectMake(15, oy, width-36, albumHeight)];
+    CGFloat albumHeight = [CityImageAlbum heightOfCityAlbumViewWithWidth:width-36];
+    [albumView setFrame:CGRectMake(18, oy, width-36, albumHeight)];
     albumView.title = _cityPoi.zhName;
-    albumView.subTitle = [NSString stringWithFormat:@"~参考游玩时间 %@", _cityPoi.timeCostDesc];
+    albumView.subTitle = [NSString stringWithFormat:@"~建议旅行 · %@~", _cityPoi.timeCostDesc];
     albumView.images = _cityPoi.images;
-
     [self addSubview:albumView];
     
-    oy += (albumHeight + 20);
+    NSString *tm = [NSString stringWithFormat:@"~最佳季节：%@", _cityPoi.travelMonth];
+    _travelMonth = [[UILabel alloc] initWithFrame:CGRectMake(18, CGRectGetMaxY(albumView.frame) + 20, width-36, 16)];
+    _travelMonth.textColor = COLOR_TEXT_II;
+    _travelMonth.font = [UIFont systemFontOfSize:12.0];
+    _travelMonth.numberOfLines = 1;
+    CGSize timeCostLabelSize = [tm boundingRectWithSize:CGSizeMake(width-116, MAXFLOAT)
+                                                                  options:NSStringDrawingUsesLineFragmentOrigin
+                                                               attributes:@{
+                                                                            NSFontAttributeName : _travelMonth.font,
+                                                                            }
+                                                                  context:nil].size;
     
-    _travelMonthBtn = [[UIButton alloc] init];
-    _travelMonthBtn.titleLabel.numberOfLines = 0;
-    CGSize timeCostLabelSize = [_cityPoi.travelMonth boundingRectWithSize:CGSizeMake(width-20, MAXFLOAT)
-                                                                   options:NSStringDrawingUsesLineFragmentOrigin
-                                                                attributes:@{
-                                                                             NSFontAttributeName : [UIFont systemFontOfSize:11.0],
-                                                                             }
-                                                                   context:nil].size;
-    CGFloat travelMotn = timeCostLabelSize.height + 4;
-    _travelMonthBtn.frame = CGRectMake(18, oy, width - 36, travelMotn);
-    [_travelMonthBtn setAttributedTitle:[[NSString stringWithFormat:@"最佳游玩时节: %@", _cityPoi.travelMonth] stringByAddLineSpacingAndTextColor:COLOR_TEXT_II] forState:UIControlStateNormal];
-    _travelMonthBtn.titleLabel.font = [UIFont systemFontOfSize:11.0];
-    _travelMonthBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
-    [_travelMonthBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-    [self addSubview:_travelMonthBtn];
+    if (timeCostLabelSize.height > 16) {
+        NSAttributedString *more = [[NSAttributedString alloc] initWithString:@"全文" attributes:@{NSForegroundColorAttributeName : APP_THEME_COLOR_HIGHLIGHT, NSFontAttributeName: [UIFont systemFontOfSize:12]}];
+        NSMutableAttributedString *attrstr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@... ", [tm substringToIndex:20]] attributes:nil];
+        [attrstr appendAttributedString:more];
+        _travelMonth.attributedText = attrstr;
+    } else {
+        _travelMonth.text = tm;
+    }
     
-    oy += (_travelMonthBtn.frame.size.height+10);
-
+    [self addSubview:_travelMonth];
+    
+    oy = CGRectGetMaxY(_travelMonth.frame) + 10;
+    
     _cityDesc = [[UILabel alloc] initWithFrame:CGRectMake(18, oy, width-36, 40)];
     _cityDesc.textColor = COLOR_TEXT_I;
     _cityDesc.numberOfLines = 2;
     _cityDesc.userInteractionEnabled = YES;
-    NSMutableParagraphStyle *ps = [[NSMutableParagraphStyle alloc] init];
-    ps.lineSpacing = 3.0;
-    ps.lineBreakMode = NSLineBreakByTruncatingTail;
-    NSDictionary *attribs = @{NSFontAttributeName: [UIFont systemFontOfSize:13], NSParagraphStyleAttributeName:ps};
-    NSAttributedString *attrstr = [[NSAttributedString alloc] initWithString:_cityPoi.desc attributes:attribs];
-    _cityDesc.attributedText = attrstr;
-    [self addSubview:_cityDesc];
+    NSString *descStr = _cityPoi.desc;
+    CGRect minRect = [descStr boundingRectWithSize:CGSizeMake(width-36, 18)
+                                       options:NSStringDrawingUsesLineFragmentOrigin
+                                    attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:13]}
+                                       context:nil];
+    CGRect maxRect = [descStr boundingRectWithSize:CGSizeMake(width-36, CGFLOAT_MAX)
+                                              options:NSStringDrawingUsesLineFragmentOrigin
+                                           attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:13]}
+                                              context:nil];
+    NSInteger totalLine = ceilf(maxRect.size.height / minRect.size.height);
+    NSInteger ccount = descStr.length;
+    NSInteger count = ccount * 2/totalLine;
+    if (count < ccount) {
+        NSString *truncateStr = [descStr substringWithRange:NSMakeRange(0, count - 3)];
+        
+        NSMutableParagraphStyle *ps = [[NSMutableParagraphStyle alloc] init];
+        ps.lineSpacing = 4.0;
+        NSDictionary *attribs = @{NSFontAttributeName: [UIFont systemFontOfSize:13], NSParagraphStyleAttributeName:ps};
+        truncateStr = [NSString stringWithFormat:@"%@... ", truncateStr];
+        NSMutableAttributedString *attrstr = [[NSMutableAttributedString alloc] initWithString:truncateStr attributes:attribs];
+        NSAttributedString *more1 = [[NSAttributedString alloc] initWithString:@"全文" attributes:@{NSForegroundColorAttributeName : APP_THEME_COLOR_HIGHLIGHT, NSFontAttributeName: [UIFont systemFontOfSize:13]}];
+        [attrstr appendAttributedString:more1];
+        _cityDesc.attributedText = attrstr;
+        [self addSubview:_cityDesc];
+    } else {
+        _cityDesc.text = descStr;
+    }
     
-    oy += 60;
     
-    CGSize btnItemSize = CGSizeMake(80, 80);
-    CGFloat spaceWidth = ((CGRectGetWidth(self.bounds) - 36 - btnItemSize.width*4)/3);
-    _showTipsBtn  = [[UIButton alloc] initWithFrame:CGRectMake(18, oy, btnItemSize.width, btnItemSize.height)];
+    oy += 56;
+    
+    CGFloat itemSpace = 18;
+    CGFloat itemSize = (width - 36 - itemSpace*3)/4.0;
+    if (itemSize < 64) {
+        itemSpace = 10.0;
+        itemSize = (width - 36 - itemSpace*3)/4.0;
+    }
+    _showTipsBtn  = [[UIButton alloc] initWithFrame:CGRectMake(18, oy, itemSize, itemSize)];
     [_showTipsBtn setImage:[UIImage imageNamed:@"city_button_guide_default.png"] forState:UIControlStateNormal];
     [_showTipsBtn setImage:[UIImage imageNamed:@"city_button_guide_selected.png"] forState:UIControlStateHighlighted];
-
+    
     [self addSubview:_showTipsBtn];
     
-    _showSpotsBtn = [[UIButton alloc] initWithFrame:CGRectMake(18 + spaceWidth + btnItemSize.width, oy, btnItemSize.width, btnItemSize.height)];
+    _showSpotsBtn = [[UIButton alloc] initWithFrame:CGRectMake(18 + itemSpace + itemSize, oy, itemSize, itemSize)];
     [_showSpotsBtn setImage:[UIImage imageNamed:@"city_button_spot_default.png"] forState:UIControlStateNormal];
     [_showSpotsBtn setImage:[UIImage imageNamed:@"city_button_spot_selected.png"] forState:UIControlStateHighlighted];
     [self addSubview:_showSpotsBtn];
     
-    _showRestaurantsBtn = [[UIButton alloc] initWithFrame:CGRectMake(18 + spaceWidth * 2 + 2*btnItemSize.width, oy, btnItemSize.width, btnItemSize.height)];
+    _showRestaurantsBtn = [[UIButton alloc] initWithFrame:CGRectMake(18 + itemSpace * 2 + 2*itemSize, oy, itemSize, itemSize)];
     [_showRestaurantsBtn setImage:[UIImage imageNamed:@"city_button_food_default.png"] forState:UIControlStateNormal];
     [_showRestaurantsBtn setImage:[UIImage imageNamed:@"city_button_food_selected.png"] forState:UIControlStateHighlighted];
-
+    
     [self addSubview:_showRestaurantsBtn];
     
-    _showShoppingBtn = [[UIButton alloc] initWithFrame:CGRectMake(18 + spaceWidth * 3 + 3*btnItemSize.width, oy, btnItemSize.width, btnItemSize.height)];
+    _showShoppingBtn = [[UIButton alloc] initWithFrame:CGRectMake(18 + itemSpace * 3 + 3*itemSize, oy, itemSize, itemSize)];
     [_showShoppingBtn setImage:[UIImage imageNamed:@"city_button_shopping_default.png"] forState:UIControlStateNormal];
-    [_showShoppingBtn setImage:[UIImage imageNamed:@"city_button_shopping_selected.png"] forState:UIControlStateNormal];
-
+    [_showShoppingBtn setImage:[UIImage imageNamed:@"city_button_shopping_selected.png"] forState:UIControlStateHighlighted];
+    
     [self addSubview:_showShoppingBtn];
     
-
-    oy += btnItemSize.height + 12;
+    
+    oy += itemSize + 16;
     
     CGRect frame1 = self.frame;
     frame1.size.height = oy;
@@ -124,6 +153,7 @@
 {
     [MobClick event:@"event_city_photoes"];
     MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] init];
+    browser.titleStr = @"城市相册";
     for (UIView* next = [self superview]; next; next = next.superview)
     {
         UIResponder* nextResponder = [next nextResponder];
@@ -197,9 +227,5 @@
     }];
 }
 
--(void)dealtap:(UITapGestureRecognizer *)tap
-{
-    
-}
 
 @end

@@ -9,6 +9,13 @@
 #import <UIKit/UIKit.h>
 
 @interface PlanScheduleTableViewCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (nonatomic, copy) NSString *content;
+@property (weak, nonatomic) IBOutlet UIImageView *headerImageView;
+@property (weak, nonatomic) IBOutlet UILabel *dayLabel;
+@property (nonatomic, copy) NSString *day;
 
-@property (weak, nonatomic) IBOutlet UILabel *dayScheduleSummary;
++ (CGFloat)heightOfCellWithContent:(NSString *)content;
+
 @end
+

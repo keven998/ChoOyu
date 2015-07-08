@@ -78,9 +78,17 @@
 {
     if (!_frendList) {
         FrendManager *frendManager = [IMClientManager shareInstance].frendManager;
-        _frendList = [[frendManager getAllMyContacts] mutableCopy];
+        _frendList = [[frendManager getAllMyContactsInDB] mutableCopy];
     }
     return _frendList;
+}
+
+- (NSArray *)userAlbum
+{
+    if (!_userAlbum) {
+        _userAlbum = [NSArray array];
+    }
+    return _userAlbum;
 }
 
 /**
@@ -111,7 +119,7 @@
         _birthday = [json objectForKey:@"birthday"];
     }
     
-    if ([json objectForKey:@"tracks"] == [NSNull null]) {
+    if ([json objectForKey:@"tracks"] == [NSNull null] || ![[json objectForKey:@"tracks"] isKindOfClass:[NSDictionary class]]) {
         _tracks = [[NSMutableDictionary alloc] init];
     } else {
         _tracks = [[json objectForKey:@"tracks"] mutableCopy];
@@ -146,7 +154,7 @@
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", self.userId] forHTTPHeaderField:@"UserId"];
-    NSString *url = [NSString stringWithFormat:@"%@%ld", API_USERINFO, self.userId];
+    NSString *url = [NSString stringWithFormat:@"%@%ld", API_USERS, self.userId];
     
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);

@@ -8,6 +8,7 @@
 
 #import "AccountManager.h"
 #import "PeachTravel-swift.h"
+#import "ConvertMethods.h"
 
 #define ACCOUNT_KEY  @"taozi_account"
 
@@ -34,10 +35,6 @@
     if (!_account) {
         AccountDaoHelper *accountDaoHelper = [AccountDaoHelper shareInstance];
         _account = [accountDaoHelper selectCurrentAccount];
-        if (_account) {
-            FrendManager *manager = [IMClientManager shareInstance].frendManager;
-            [manager getAllMyContacts];
-        }
     }
     return _account;
 }
@@ -54,7 +51,72 @@
     return !([self.account.tel isEqualToString:@""] || self.account.tel == nil);
 }
 
-#pragma mark - Private Methods
+- (void)asyncLoginWithWeChat:(NSString *)code completion:(void(^)(BOOL isSuccess, NSString *errorStr))completion
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:code forKey:@"code"];
+    
+    //微信登录
+    [manager POST:API_WEIXIN_LOGIN parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            AccountManager *accountManager = [AccountManager shareAccountManager];
+            [accountManager userDidLoginWithUserInfo:[responseObject objectForKey:@"result"]];
+            completion(YES, nil);
+        } else {
+            completion(NO, [NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completion(NO, nil);
+    }];
+}
+
+
+- (void)asyncLogin:(NSString *)userId password:(NSString *)password completion:(void(^)(BOOL isSuccess, NSString *errorStr))completion
+{
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:userId forKey:@"loginName"];
+    [params setObject:password forKey:@"password"];
+    
+    //普通登录
+    [manager POST:API_SIGNIN parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            AccountManager *accountManager = [AccountManager shareAccountManager];
+            [accountManager userDidLoginWithUserInfo:[responseObject objectForKey:@"result"]];
+            [[TMCache sharedCache] setObject:userId forKey:@"last_account"];
+            
+            completion(YES, nil);
+        } else {
+            completion(NO, [NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completion(NO, nil);
+    }];
+}
 
 //用户退出登录
 - (void)asyncLogout:(void (^)(BOOL))completion
@@ -206,7 +268,7 @@
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)self.account.userId] forHTTPHeaderField:@"UserId"];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@%ld/albums/%@", API_USERINFO, (long)self.account.userId, albumImage.imageId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@%ld/albums/%@", API_USERS, (long)self.account.userId, albumImage.imageId];
     
     [manager DELETE:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
@@ -251,7 +313,7 @@
     
     [params setObject:userInfo forKey:keyWord];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@%ld", API_USERINFO, (long)self.account.userId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@%ld", API_USERS, (long)self.account.userId];
     
     [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
@@ -284,7 +346,7 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:newGender forKey:@"gender"];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@%ld", API_USERINFO, (long)self.account.userId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@%ld", API_USERS, (long)self.account.userId];
     
     [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
 
@@ -299,6 +361,114 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         completion(NO, nil);
     }];
+}
+
+- (void)asyncBindTelephone:(NSString *)tel token:(NSString *)token completion:(void (^)(BOOL, NSString *))completion
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:tel forKey:@"tel"];
+    [params setObject:token forKey:@"token"];
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    [params setObject:[NSNumber numberWithInteger: accountManager.account.userId] forKey:@"userId"];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@%ld/tel", API_USERS, accountManager.account.userId];
+    //修改手机号
+    [manager PUT:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            [self updateUserInfo:tel withChangeType:ChangeTel];
+            [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
+            completion(YES, nil);
+        } else {
+            NSString *errorStr = [[responseObject objectForKey:@"err"] objectForKey:@"message"];
+            completion(NO, [responseObject objectForKey:errorStr]);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completion(NO, nil);
+    }];
+
+}
+
+- (void)asyncResetPassword:(NSString *)newPassword toke:(NSString *)token completion:(void (^)(BOOL, NSString *))completion
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params safeSetObject:newPassword forKey:@"pwd"];
+    [params safeSetObject:token forKey:@"token"];
+    NSString *urlStr = [NSString stringWithFormat:@"%@%ld/password", API_USERS, self.account.userId];
+
+    //完成修改
+    [manager PUT:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            [self userDidLoginWithUserInfo:[responseObject objectForKey:@"result"]];
+            [[NSNotificationCenter defaultCenter] postNotificationName:userDidLoginNoti object:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:userDidResetPWDNoti object:nil];
+            completion(YES, nil);
+        } else {
+            NSString *errorStr;
+           
+            errorStr = [[responseObject objectForKey:@"err"] objectForKey:@"message"];
+            completion(NO, errorStr);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completion(NO, nil);
+    }];
+
+
+}
+
+- (void)asyncChangePassword:(NSString *)newPassword oldPassword:(NSString *)oldPassword completion:(void (^)(BOOL, NSString *))completion
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)self.account.userId] forHTTPHeaderField:@"UserId"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params safeSetObject:newPassword forKey:@"newPassword"];
+    [params safeSetObject:oldPassword forKey:@"oldPassword"];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@%ld/password", API_USERS, (long)self.account.userId];
+    
+    [manager PUT:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            completion(YES, nil);
+        } else {
+            NSString *errorStr = [[responseObject objectForKey:@"err"] objectForKey:@"message"];
+            completion(NO, [responseObject objectForKey:errorStr]);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completion(NO, nil);
+    }];
+
 }
 
 - (void)asyncChangeStatus:(NSString *)newStatus completion:(void (^)(BOOL, NSString *))completion
@@ -316,7 +486,7 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:newStatus forKey:@"travelStatus"];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@%ld", API_USERINFO, (long)self.account.userId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@%ld", API_USERS, (long)self.account.userId];
     
     [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
@@ -332,6 +502,7 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         completion(NO, nil);
     }];
+    
 }
 
 /**
@@ -501,11 +672,11 @@
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)self.account.userId] forHTTPHeaderField:@"UserId"];
     
-    [manager GET:API_GET_CONTACTS parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSString *url = [NSString stringWithFormat:@"%@%ld/contacts", API_USERS, self.account.userId];
+    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             NSLog(@"已经完成从服务器上加载好友列表");
-            
             [self analysisAndSaveContacts:[[responseObject objectForKey:@"result"] objectForKey:@"contacts"]];
             [[NSNotificationCenter defaultCenter] postNotificationName:contactListNeedUpdateNoti object:nil];
         } else {
@@ -538,12 +709,6 @@
     for (FrendModel *model in self.account.frendList) {
         if (model.userId == frend.userId) {
             [self.account.frendList removeObject:model];
-            if ([FrendModel typeIsCorrect:frend.type typeWeight:IMFrendWeightTypeFrend]) {
-                int typeValue = frend.type = IMFrendWeightTypeFrend;
-                frend.type = typeValue;
-            }
-            FrendManager *manager = [IMClientManager shareInstance].frendManager;
-            [manager updateFrendTypeWithUserId:frend.userId frendType:frend.type];
             return;
         }
     }
@@ -609,7 +774,7 @@
         newContact.signature = [contactDic objectForKey:@"signature"];
         newContact.fullPY = [ConvertMethods chineseToPinyin:[contactDic objectForKey:@"nickName"]];
         newContact.type = IMFrendTypeFrend;
-        [frendManager updateFrendInfoInDB:newContact];
+        [frendManager insertOrUpdateFrendInfoInDB:newContact];
         NSLog(@"往数据库里添加好友 %@", newContact.nickName);
         [self.account.frendList addObject:newContact];
     }
@@ -648,21 +813,6 @@
 //    [self save];
 }
 
-- (void)removeFrendRequest:(FrendRequest *)frendRequest
-{
-    [[NSNotificationCenter defaultCenter] postNotificationName:frendRequestListNeedUpdateNoti object:nil];
-
-}
-
-- (void)agreeFrendRequest:(FrendRequest *)frendRequest
-{
-    //更新时间戳，
-    frendRequest.requestDate = [[NSDate date] timeIntervalSince1970];
-    frendRequest.status = TZFrendAgree;
-    [[NSNotificationCenter defaultCenter] postNotificationName:frendRequestListNeedUpdateNoti object:nil];
-    [[NSNotificationCenter defaultCenter] postNotificationName:contactListNeedUpdateNoti object:nil];
-}
-
 #pragma mark - ********修改用户好友信息
 
 - (void)asyncChangeRemark:(NSString *)remark withUserId:(NSInteger)userId completion:(void (^)(BOOL))completion
@@ -678,16 +828,17 @@
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:remark forKey:@"memo"];
-    
-    NSString *urlStr = [NSString stringWithFormat:@"%@%ld/memo", API_USERINFO, userId];
+
+    FrendManager *frendManager = [IMClientManager shareInstance].frendManager;
+    [frendManager updateContactMemoInDB:remark userId:userId];
+
+    NSString *urlStr = [NSString stringWithFormat:@"%@%ld/memo", API_USERS, userId];
     
     [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"result = %@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            FrendManager *frendManager = [IMClientManager shareInstance].frendManager;
-            [frendManager updateContactMemoInDB:remark userId:userId];
-            completion(YES);
+                       completion(YES);
         } else {
             completion(NO);
         }
@@ -727,7 +878,17 @@
     for(int index = 0; index < [chineseStringsArray count]; index++)
     {
         FrendModel *contact = (FrendModel *)[chineseStringsArray objectAtIndex:index];
-        NSMutableString *strchar= [NSMutableString stringWithString:contact.fullPY];
+        NSString *pingyin;
+        
+        if (contact.memo && ![contact.memo isEqualToString:@""]) {
+            pingyin = [ConvertMethods chineseToPinyin:contact.memo];
+            
+        } else if (!contact.fullPY || [contact.fullPY isEqualToString: @""]) {
+            pingyin = [ConvertMethods chineseToPinyin:contact.nickName];
+        } else {
+            pingyin = contact.fullPY;
+        }
+        NSMutableString *strchar= [NSMutableString stringWithString:pingyin];
         NSString *sr= [strchar substringToIndex:1];
         if(![sectionHeadsKeys containsObject:[sr uppercaseString]]) {
             [sectionHeadsKeys addObject:[sr uppercaseString]];

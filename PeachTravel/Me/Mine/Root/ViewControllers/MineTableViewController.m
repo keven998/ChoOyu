@@ -21,6 +21,8 @@
 #import "FootPrintViewController.h"
 #import "PlansListTableViewController.h"
 #import "ContactListViewController.h"
+#import "MWPhotoBrowser.h"
+#import "UserAlbumViewController.h"
 
 #define cellDataSource           @[@[@"邀请好友", @"意见反馈"], @[@"关于我们", @"应用设置"]]
 #define secondCell               @"secondCell"
@@ -71,7 +73,6 @@
     [self updateAccountInfo];
     [self loadUserInfo];
     
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userAccountHasChage) name:userDidLoginNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userAccountHasChage) name:userDidLogoutNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userAccountHasChage) name:updateUserInfoNoti object:nil];
@@ -117,6 +118,7 @@
 {
     [self.accountManager.account loadUserInfoFromServer:^(bool isSuccess) {
         if (isSuccess) {
+            [self loadUserAlbum];
             [self updateAccountInfo];
         }
     }];
@@ -251,7 +253,7 @@
         }
     }
     _trackNumber.text = [NSString stringWithFormat:@"0国0城"];
-
+    
     _trackCount = _trackNumber;
     [trackEntry addSubview:_trackNumber];
     UILabel *tl = [[UILabel alloc] initWithFrame:CGRectMake(10, bh/2, unitWidth - 20, 20)];
@@ -272,7 +274,7 @@
     [headerBgView addSubview:lineView2];
     
     headerBgView.frame = CGRectMake(0, 0, width, offsetY + bh);
-
+    
     self.tableView.contentInset = UIEdgeInsetsMake(CGRectGetMaxY(headerBgView.frame), 0, 0, 0);
     
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width/2, 44)];
@@ -338,7 +340,7 @@
         }
         _trackNumber.text = [NSString stringWithFormat:@"%ld国%ld城", (long)countryNumber, (long)cityNumber];
         
-//        _pictureNumber.text = [NSString stringWithFormat:@"%lu图", _accountManager.account.frendList.count];
+        _pictureNumber.text = [NSString stringWithFormat:@"%zd图",_accountManager.account.userAlbum.count];
         
         _planNumber.text = [NSString stringWithFormat:@"%lu条",_accountManager.account.guideCnt];
         _nameLabel.text = amgr.account.nickName;
@@ -434,15 +436,21 @@
 
 - (IBAction)showPictureGrid:(id)sender
 {
-//    ContactListViewController *contactListCtl = [[ContactListViewController alloc] init];
-//    contactListCtl.hidesBottomBarWhenPushed = YES;
-//    [self.navigationController pushViewController:contactListCtl animated:YES];
+
+    UserAlbumViewController *ctl = [[UserAlbumViewController alloc] initWithNibName:@"UserAlbumViewController" bundle:nil];
+    
+    ctl.albumArray = self.accountManager.account.userAlbum;
+    ctl.isMyself = YES;
+    ctl.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:ctl animated:YES];
+
 }
 
 - (IBAction)myPlan:(id)sender
 {
     PlansListTableViewController *myGuidesCtl = [[PlansListTableViewController alloc] initWithUserId:_accountManager.account.userId];
     myGuidesCtl.hidesBottomBarWhenPushed = YES;
+    myGuidesCtl.userName = _accountManager.account.nickName;
     [self.navigationController pushViewController:myGuidesCtl animated:YES];
 }
 
@@ -463,7 +471,7 @@
             [destinations.destinationsSelected addObject:poi];
         }
     }
-
+    
     footCtl.hidesBottomBarWhenPushed = YES;
     footCtl.destinations = destinations;
     footCtl.delegate = self;
@@ -557,6 +565,54 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+/**
+ *  下载用户头像列表
+ */
+- (void)loadUserAlbum
+{
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+    NSString *url = [NSString stringWithFormat:@"%@%ld/albums", API_USERS, accountManager.account.userId];
+    
+    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            [self paraseUserAlbum:[responseObject objectForKey:@"result"]];
+            [self.tableView reloadData];
+            
+        } else {
+            [self.tableView reloadData];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [self.tableView reloadData];
+    }];
+}
+/*
+ *  解析用户头像列表
+ *
+ *  @param albumArray
+ */
+- (void)paraseUserAlbum:(NSArray *)albumArray
+{
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    for (id album in albumArray) {
+        [array addObject:[[AlbumImage alloc] initWithJson:album]];
+    }
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    accountManager.account.userAlbum = array;
+    _pictureNumber.text = [NSString stringWithFormat:@"%zd图",array.count];
+    NSLog(@"%@",array);
+}
 
 #pragma mark - ScrollViewDelegate
 - (void) scrollViewDidScroll:(UIScrollView *)scrollView {

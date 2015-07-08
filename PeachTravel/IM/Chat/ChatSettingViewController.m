@@ -21,6 +21,19 @@
     [super viewDidLoad];
     [self createTableView];
 }
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+    [MobClick beginLogPageView:@"page_talk_setting"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+    [MobClick endLogPageView:@"page_talk_setting"];
+}
+
 -(void)createTableView
 {
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
@@ -28,12 +41,14 @@
     _tableView.backgroundColor = APP_PAGE_COLOR;
     _tableView.separatorColor = APP_DIVIDER_COLOR;
     _tableView.delegate = self;
+    _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 64)];
     [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     [_tableView registerNib:[UINib nibWithNibName:@"HeaderCell" bundle:nil] forCellReuseIdentifier:@"zuji"];
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-//    [self createHeaderView];
+    //    [self createHeaderView];
     [self.view addSubview:_tableView];
 }
+
 -(void)createHeaderView
 {
     _headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, (98+76+31)/2)];
@@ -48,6 +63,7 @@
     _tableView.tableHeaderView = _headerView;
     
 }
+
 #pragma mark - Table view data source
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return CGFLOAT_MIN;
@@ -64,12 +80,14 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 49;
 }
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     cell.textLabel.text = @"删除聊天记录";
     return cell;
 }
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"确认清空全部聊天记录" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
@@ -79,18 +97,7 @@
         }
     }];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-
-}
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"page_talk_setting"];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"page_talk_setting"];
+    
 }
 
 @end
