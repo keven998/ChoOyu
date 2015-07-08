@@ -201,7 +201,7 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
     :param: chatterId
     :Bool: 是否成功
     */
-    func removeConversation(#chatterId: Int) -> Bool {
+    func removeConversation(#chatterId: Int, deleteMessage: Bool) {
         var daoHelper = DaoHelper.shareInstance()
         daoHelper.removeConversationfromDB(chatterId)
         for i in 0 ..< conversationList.count {
@@ -209,10 +209,12 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
             if conversation.chatterId == chatterId {
                 conversationList.removeAtIndex(i)
                 delegate?.conversationsHaveRemoved([conversation])
-                return true
+                break
             }
         }
-        return false
+        if deleteMessage {
+            daoHelper.dropMessageTable("chat_\(chatterId)")
+        }
     }
     
     /**

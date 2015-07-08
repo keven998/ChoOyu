@@ -709,12 +709,6 @@
     for (FrendModel *model in self.account.frendList) {
         if (model.userId == frend.userId) {
             [self.account.frendList removeObject:model];
-            if ([FrendModel typeIsCorrect:frend.type typeWeight:IMFrendWeightTypeFrend]) {
-                int typeValue = frend.type = IMFrendWeightTypeFrend;
-                frend.type = typeValue;
-            }
-            FrendManager *manager = [IMClientManager shareInstance].frendManager;
-            [manager updateFrendTypeWithUserId:frend.userId frendType:frend.type];
             return;
         }
     }
@@ -889,8 +883,10 @@
         if (contact.memo && ![contact.memo isEqualToString:@""]) {
             pingyin = [ConvertMethods chineseToPinyin:contact.memo];
             
-        }else if (!contact.fullPY || [contact.fullPY isEqualToString: @""]) {
+        } else if (!contact.fullPY || [contact.fullPY isEqualToString: @""]) {
             pingyin = [ConvertMethods chineseToPinyin:contact.nickName];
+        } else {
+            pingyin = contact.fullPY;
         }
         NSMutableString *strchar= [NSMutableString stringWithString:pingyin];
         NSString *sr= [strchar substringToIndex:1];

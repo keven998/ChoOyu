@@ -67,6 +67,15 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
     }
     
     /**
+    添加一天消息（例如 同意好友请求的时候手动插一条消息）
+    
+    :param: message
+    */
+    func addMessage2Distribute(message: BaseMessage) {
+        self.distributionMessage([message])
+    }
+    
+    /**
     fetch 消息
     
     :param: receivedMessages 已经收到的消息
