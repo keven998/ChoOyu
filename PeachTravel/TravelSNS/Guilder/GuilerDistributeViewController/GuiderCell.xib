@@ -40,12 +40,12 @@
                 <constraints>
                     <constraint firstItem="NMN-ak-8wx" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="91" id="EUG-i3-7xO"/>
                     <constraint firstItem="bwB-cb-VUx" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-8" id="ExS-jp-ypZ"/>
-                    <constraint firstItem="vK8-y6-Tqr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-8" id="Gmc-Aw-Dde"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="vK8-y6-Tqr" secondAttribute="trailing" constant="-8" id="Ojz-Je-KyB"/>
+                    <constraint firstAttribute="trailing" secondItem="vK8-y6-Tqr" secondAttribute="trailing" id="FgO-TV-NEC"/>
+                    <constraint firstAttribute="bottom" secondItem="vK8-y6-Tqr" secondAttribute="bottom" id="Ojw-sK-vtM"/>
+                    <constraint firstItem="vK8-y6-Tqr" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="W9Z-Fh-QB0"/>
                     <constraint firstItem="NMN-ak-8wx" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-8" id="cQq-Tm-fYx"/>
+                    <constraint firstItem="vK8-y6-Tqr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="e6P-EH-3vr"/>
                     <constraint firstItem="bwB-cb-VUx" firstAttribute="top" secondItem="NMN-ak-8wx" secondAttribute="bottom" constant="15" id="eE3-0w-VnC"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="vK8-y6-Tqr" secondAttribute="bottom" constant="-8" id="fFC-wl-QMZ"/>
-                    <constraint firstItem="vK8-y6-Tqr" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="fWQ-OP-BdI"/>
                     <constraint firstAttribute="trailingMargin" secondItem="bwB-cb-VUx" secondAttribute="trailing" constant="-8" id="ieE-6Y-LcJ"/>
                     <constraint firstAttribute="trailingMargin" secondItem="NMN-ak-8wx" secondAttribute="trailing" constant="-8" id="ke9-Nd-58f"/>
                 </constraints>
