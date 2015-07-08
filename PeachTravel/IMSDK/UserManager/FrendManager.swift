@@ -231,7 +231,10 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
             IMClientManager.shareInstance().frendRequestManager.addFrendRequest(frendRequest)
             
         case CMDActionCode.F_AGREE:
-            let frendRequestManager = FrendRequestManager(userId: accountId)
+            let contentDic = JSONConvertMethod.jsonObjcWithString(cmdMessage.message)
+            let frendModel = FrendModel(json: contentDic)
+            frendModel.type = IMFrendType.Frend
+            self.insertOrUpdateFrendInfoInDB(frendModel)
             
         default:
             break

@@ -8,6 +8,7 @@
 
 #import "AccountManager.h"
 #import "PeachTravel-swift.h"
+#import "ConvertMethods.h"
 
 #define ACCOUNT_KEY  @"taozi_account"
 
@@ -883,7 +884,15 @@
     for(int index = 0; index < [chineseStringsArray count]; index++)
     {
         FrendModel *contact = (FrendModel *)[chineseStringsArray objectAtIndex:index];
-        NSMutableString *strchar= [NSMutableString stringWithString:contact.fullPY];
+        NSString *pingyin;
+        
+        if (contact.memo && ![contact.memo isEqualToString:@""]) {
+            pingyin = [ConvertMethods chineseToPinyin:contact.memo];
+            
+        }else if (!contact.fullPY || [contact.fullPY isEqualToString: @""]) {
+            pingyin = [ConvertMethods chineseToPinyin:contact.nickName];
+        }
+        NSMutableString *strchar= [NSMutableString stringWithString:pingyin];
         NSString *sr= [strchar substringToIndex:1];
         if(![sectionHeadsKeys containsObject:[sr uppercaseString]]) {
             [sectionHeadsKeys addObject:[sr uppercaseString]];
