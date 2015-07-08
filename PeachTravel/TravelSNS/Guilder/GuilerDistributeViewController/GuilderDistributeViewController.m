@@ -7,9 +7,9 @@
 //
 
 #import "GuilderDistributeViewController.h"
-
-@interface GuilderDistributeViewController ()
-
+#import "GuiderCell.h"
+@interface GuilderDistributeViewController ()<UITableViewDataSource,UITableViewDelegate>
+@property (nonatomic, strong) UITableView *tableView;
 @end
 
 @implementation GuilderDistributeViewController
@@ -19,23 +19,47 @@
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"派派达人";
     self.view.backgroundColor = APP_PAGE_COLOR;
-
     
+    [self.view addSubview:self.tableView];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (UITableView *)tableView
+{
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height-64)];
+        _tableView.backgroundColor = APP_PAGE_COLOR;
+        _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        [self.tableView registerNib:[UINib nibWithNibName:@"GuiderCell" bundle:nil]  forCellReuseIdentifier:@"GuiderCell"];
+        
+    }
+    return _tableView;
 }
 
-/*
-#pragma mark - Navigation
+#pragma mark - UITableViewDataSource & UITableViewDelegate
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 699/3;
 }
-*/
+
+- (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
+    return 2;
+}
+
+- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 5;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    GuiderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"GuiderCell" forIndexPath:indexPath];
+    
+    return cell;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
 
 @end
