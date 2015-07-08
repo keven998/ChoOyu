@@ -52,6 +52,16 @@
     [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+}
+
+- (void) viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+}
+
 - (void)setTripDetail:(TripDetail *)tripDetail {
     _tripDetail = tripDetail;
 }
@@ -144,7 +154,7 @@
     }
     else {
         strLabel.text = @"目的城市";
-    
+        
     }
     return sectionHeaderView;
 }

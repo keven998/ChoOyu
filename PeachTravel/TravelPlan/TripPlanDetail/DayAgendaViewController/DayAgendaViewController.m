@@ -34,22 +34,22 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = APP_PAGE_COLOR;
     
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    _tableView.backgroundColor = APP_PAGE_COLOR;
     _tableView.dataSource = self;
     _tableView.delegate = self;
     [_tableView registerNib:[UINib nibWithNibName:@"TripPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:tripPoiListReusableIdentifier];
     [self.view addSubview:_tableView];
     
     _dataSource = [_tripDetail.itineraryList objectAtIndex:_currentDay];
-
+    
     UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 44)];
-    btn.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-    [btn setTitle:@"编辑" forState:UIControlStateNormal];
-    btn.titleLabel.font = [UIFont systemFontOfSize:16.0];
+    [btn setTitle:@"修改" forState:UIControlStateNormal];
+    btn.titleLabel.font = [UIFont systemFontOfSize:17.0];
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [btn setTitleColor:COLOR_DISABLE forState:UIControlStateHighlighted];
     [btn addTarget:self action:@selector(editSchedule) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
 }
@@ -65,7 +65,7 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
 
 - (void)setTitleStr:(NSString *)titleStr {
     _titleStr = titleStr;
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width-150, 40)];
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds)-150, 40)];
     titleLabel.numberOfLines = 2.0;
     titleLabel.textAlignment = NSTextAlignmentCenter;
     titleLabel.textColor = [UIColor whiteColor];
@@ -120,7 +120,7 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
     SuperPoi *poi = _dataSource[indexPath.row];
     spotDetailCtl.spotId = poi.poiId;
     [self.navigationController pushViewController:spotDetailCtl animated:YES];
-
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
@@ -165,13 +165,13 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
 #pragma mark - ScheduleUpdateDelegate
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

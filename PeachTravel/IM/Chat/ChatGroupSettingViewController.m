@@ -32,7 +32,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = APP_PAGE_COLOR;
     
     [self createTableView];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
@@ -50,12 +50,14 @@
     [super viewWillAppear:YES];
     [MobClick beginLogPageView:@"page_talk_setting"];
     [self updateView];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:YES];
     [MobClick endLogPageView:@"page_talk_setting"];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
 }
 
 - (void)updateGroupInfoFromServer
@@ -77,8 +79,7 @@
 {
     _tableView.dataSource = self;
     _tableView.delegate = self;
-    _tableView.backgroundColor = APP_PAGE_COLOR;
-    _tableView.separatorColor = APP_DIVIDER_COLOR;
+    _tableView.separatorColor = COLOR_LINE;
     [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     [_tableView registerNib:[UINib nibWithNibName:@"ChatGroupCell" bundle:nil] forCellReuseIdentifier:@"chatCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"AddMemberCell" bundle:nil] forCellReuseIdentifier:@"addCell"];
