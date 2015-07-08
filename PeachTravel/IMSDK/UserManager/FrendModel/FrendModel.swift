@@ -136,6 +136,7 @@ class FrendModel: NSObject {
         
         if let str =  json.objectForKey("nickName") as? String {
             nickName = str
+            fullPY = ConvertMethods.chineseToPinyin(str)
         }
         
         if let str =  json.objectForKey("avatar") as? String {

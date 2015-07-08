@@ -36,7 +36,7 @@ protocol FrendDaoProtocol {
     :param: frend
     :returns:
     */
-    func updateFrendInfoInDB(frend: FrendModel)
+    func insertOrUpdateFrendInfoInDB(frend: FrendModel)
     
     /**
     获取所有的是我的好友的列表
@@ -134,7 +134,7 @@ class FrendDaoHelper: BaseDaoHelper, FrendDaoProtocol {
         }
     }
     
-    func updateFrendInfoInDB(frend: FrendModel) {
+    func insertOrUpdateFrendInfoInDB(frend: FrendModel) {
         if !super.tableIsExit(frendTableName) {
             createFrendTable()
         }

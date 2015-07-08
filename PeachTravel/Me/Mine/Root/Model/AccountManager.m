@@ -8,6 +8,7 @@
 
 #import "AccountManager.h"
 #import "PeachTravel-swift.h"
+#import "ConvertMethods.h"
 
 #define ACCOUNT_KEY  @"taozi_account"
 
@@ -708,12 +709,6 @@
     for (FrendModel *model in self.account.frendList) {
         if (model.userId == frend.userId) {
             [self.account.frendList removeObject:model];
-            if ([FrendModel typeIsCorrect:frend.type typeWeight:IMFrendWeightTypeFrend]) {
-                int typeValue = frend.type = IMFrendWeightTypeFrend;
-                frend.type = typeValue;
-            }
-            FrendManager *manager = [IMClientManager shareInstance].frendManager;
-            [manager updateFrendTypeWithUserId:frend.userId frendType:frend.type];
             return;
         }
     }
@@ -779,7 +774,7 @@
         newContact.signature = [contactDic objectForKey:@"signature"];
         newContact.fullPY = [ConvertMethods chineseToPinyin:[contactDic objectForKey:@"nickName"]];
         newContact.type = IMFrendTypeFrend;
-        [frendManager updateFrendInfoInDB:newContact];
+        [frendManager insertOrUpdateFrendInfoInDB:newContact];
         NSLog(@"往数据库里添加好友 %@", newContact.nickName);
         [self.account.frendList addObject:newContact];
     }
@@ -883,7 +878,17 @@
     for(int index = 0; index < [chineseStringsArray count]; index++)
     {
         FrendModel *contact = (FrendModel *)[chineseStringsArray objectAtIndex:index];
-        NSMutableString *strchar= [NSMutableString stringWithString:contact.fullPY];
+        NSString *pingyin;
+        
+        if (contact.memo && ![contact.memo isEqualToString:@""]) {
+            pingyin = [ConvertMethods chineseToPinyin:contact.memo];
+            
+        } else if (!contact.fullPY || [contact.fullPY isEqualToString: @""]) {
+            pingyin = [ConvertMethods chineseToPinyin:contact.nickName];
+        } else {
+            pingyin = contact.fullPY;
+        }
+        NSMutableString *strchar= [NSMutableString stringWithString:pingyin];
         NSString *sr= [strchar substringToIndex:1];
         if(![sectionHeadsKeys containsObject:[sr uppercaseString]]) {
             [sectionHeadsKeys addObject:[sr uppercaseString]];

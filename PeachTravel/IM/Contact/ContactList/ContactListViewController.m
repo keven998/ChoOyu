@@ -44,6 +44,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContactList) name:contactListNeedUpdateNoti object:nil];
     
     [self.view addSubview:self.contactTableView];
+    [self.accountManager loadContactsFromServer];
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -270,7 +271,11 @@
         [cell setRightUtilityButtons:[self rightButtons] WithButtonWidth:60];
         cell.delegate = self;
         
-        [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:contact.avatarSmall] placeholderImage:[UIImage imageNamed:@"person_disabled"]];
+        if (![contact.avatarSmall isBlankString]) {
+            [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:contact.avatarSmall] placeholderImage:[UIImage imageNamed:@"person_disabled"]];
+        } else {
+            [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:contact.avatar] placeholderImage:[UIImage imageNamed:@"person_disabled"]];
+        }
     
         if (contact.memo.length > 0) {
             cell.nickNameLabel.text = contact.memo;

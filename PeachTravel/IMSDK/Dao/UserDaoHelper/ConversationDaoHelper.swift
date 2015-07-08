@@ -88,13 +88,24 @@ class ConversationDaoHelper: BaseDaoHelper, ConversationDaoProtocol {
                     conversation.chatterId = Int(rs.intForColumn("ChatterId"))
                     conversation.lastUpdateTime = Int(rs.longForColumn("LastUpdateTime"))
                     if let memoStr = rs.stringForColumn("Memo") {
-                        conversation.chatterName = memoStr
+                        if memoStr != "" {
+                            conversation.chatterName = memoStr
+                        } else {
+                            if let chatterName = rs.stringForColumn("NickName") {
+                                conversation.chatterName = chatterName
+                            }
+                        }
                         
                     } else if let chatterName = rs.stringForColumn("NickName") {
                         conversation.chatterName = chatterName
                     }
                     if let avatarSmall = rs.stringForColumn("AvatarSmall") {
-                        conversation.chatterAvatar = avatarSmall
+                        if avatarSmall != "" {
+                            conversation.chatterAvatar = avatarSmall
+                            
+                        } else {
+                            conversation.chatterAvatar = rs.stringForColumn("Avatar")
+                        }
                     } else {
                         conversation.chatterAvatar = rs.stringForColumn("Avatar")
                     }

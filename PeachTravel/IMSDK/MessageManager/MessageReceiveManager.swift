@@ -36,7 +36,6 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
     
     override init() {
         super.init()
-        pushSDKManager.addPushMessageListener(self, withRoutingKey: "IM")
         messagePool.delegate = self
         messageManager.delegate = self
     }
@@ -67,6 +66,15 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
     }
     
     /**
+    添加一天消息（例如 同意好友请求的时候手动插一条消息）
+    
+    :param: message
+    */
+    func addMessage2Distribute(message: BaseMessage) {
+        self.distributionMessage([message])
+    }
+    
+    /**
     fetch 消息
     
     :param: receivedMessages 已经收到的消息
@@ -86,8 +94,9 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
                 self.messageManager.clearAllMessageWhenACKSuccess()
                 if let retMessageArray = retMessage {
                     dispatch_async(self.messageReceiveQueue, { () -> Void in
-                        self.dealwithFetchResult(receivedMessages, fetchMessages: retMessageArray)
-                        
+                        if (retMessageArray.count>0 || receivedMessages?.count>0) {
+                            self.dealwithFetchResult(receivedMessages, fetchMessages: retMessageArray)
+                        }
                     })
                 }
             } else {

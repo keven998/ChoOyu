@@ -115,6 +115,7 @@
 
 - (void)userDidLogin
 {
+    self.imClientManager.conversationManager.delegate = self;
     [self.imClientManager.conversationManager updateConversationListFromDB];
     _dataSource = [[self.imClientManager.conversationManager getConversationList] mutableCopy];
     [self.tableView reloadData];
@@ -592,7 +593,7 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         ChatConversation *conversation = [self.dataSource objectAtIndex:indexPath.row];
-        [self.imClientManager.conversationManager removeConversationWithChatterId: conversation.chatterId];
+        [self.imClientManager.conversationManager removeConversationWithChatterId: conversation.chatterId deleteMessage:NO];
         [MobClick event:@"event_delete_talk_item"];
     }
 }

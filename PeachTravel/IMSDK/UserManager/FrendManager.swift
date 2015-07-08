@@ -35,15 +35,20 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
     }
     
     /**
-    添加一个好友到数据库里
+    添加一个好友到数据库里,如果已经存在则不添加
     :param: frend
     */
     func addFrend2DB(frend: FrendModel) {
         self.frendDaoHelper.addFrend2DB(frend)
     }
     
-    func updateFrendInfoInDB(frend: FrendModel) {
-        self.frendDaoHelper.updateFrendInfoInDB(frend)
+    /**
+    添加一个好友到数据库，如果已经存在，则更新
+    
+    :param: frend
+    */
+    func insertOrUpdateFrendInfoInDB(frend: FrendModel) {
+        self.frendDaoHelper.insertOrUpdateFrendInfoInDB(frend)
     }
     
     /**
@@ -198,15 +203,18 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
     :param: helloStr
     :param: completion
     */
-    func asyncRemoveContact(#frend: FrendModel, completion: (isSuccess: Bool, errorCode: Int) -> ()) {
+    func asyncRemoveContact(#userId: Int, completion: (isSuccess: Bool, errorCode: Int) -> ()) {
         let manager = AFHTTPRequestOperationManager()
         let requestSerializer = AFJSONRequestSerializer()
         manager.requestSerializer = requestSerializer
         manager.requestSerializer.setValue("\(accountId)", forHTTPHeaderField: "UserId")
-        let url = "\(API_USERS)\(accountId)/contacts/\(frend.userId)"
+        let url = "\(API_USERS)\(accountId)/contacts/\(userId)"
         manager.DELETE(url, parameters: nil, success:
             { (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
                 if (responseObject.objectForKey("code") as! Int) == 0 {
+                    self .updateFrendType(userId: userId, frendType: IMFrendType.Frend)
+                    let daoHelper = DaoHelper.shareInstance()
+                    IMClientManager.shareInstance().conversationManager.removeConversation(chatterId: userId, deleteMessage: true)
                     completion(isSuccess: true, errorCode: 0)
                 } else {
                     completion(isSuccess: false, errorCode: 0)
@@ -218,6 +226,19 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
         }
     }
     
+    private func insertMessageWhenFrendRequestAgreed(frend: FrendModel) {
+        let textMsg = TextMessage()
+        textMsg.senderId = frend.userId
+        textMsg.message = "我已经同意了你的好友请求，现在我们可以开始聊天了"
+        textMsg.createTime = Int(NSDate().timeIntervalSince1970)
+        textMsg.chatType = IMChatType.IMChatSingleType
+        textMsg.sendType = IMMessageSendType.MessageSendSomeoneElse
+        textMsg.senderName = frend.nickName
+        textMsg.chatterId = frend.userId
+
+        IMClientManager.shareInstance().messageReceiveManager.addMessage2Distribute(textMsg)
+    }
+    
     //MARK: CMDMessageManagerDelegate
     func receiveFrendCMDMessage(cmdMessage: IMCMDMessage) {
         switch cmdMessage.actionCode! {
@@ -226,7 +247,11 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
             IMClientManager.shareInstance().frendRequestManager.addFrendRequest(frendRequest)
             
         case CMDActionCode.F_AGREE:
-            let frendRequestManager = FrendRequestManager(userId: accountId)
+            let contentDic = JSONConvertMethod.jsonObjcWithString(cmdMessage.message)
+            let frendModel = FrendModel(json: contentDic)
+            frendModel.type = IMFrendType.Frend
+            self.insertOrUpdateFrendInfoInDB(frendModel)
+            self.insertMessageWhenFrendRequestAgreed(frendModel)
             
         default:
             break
