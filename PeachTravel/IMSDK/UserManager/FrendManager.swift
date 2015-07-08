@@ -212,6 +212,13 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
         manager.DELETE(url, parameters: nil, success:
             { (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
                 if (responseObject.objectForKey("code") as! Int) == 0 {
+                    if FrendModel.typeIsCorrect(frend.type, typeWeight: IMFrendWeightType.Frend) {
+                        let typeValue = frend.type.rawValue - IMFrendWeightType.Frend.rawValue
+                        frend.type = IMFrendType(rawValue: typeValue)!
+                    }
+                    self .updateFrendType(userId: frend.userId, frendType: frend.type)
+                    let daoHelper = DaoHelper.shareInstance()
+                    IMClientManager.shareInstance().conversationManager.removeConversation(chatterId: frend.userId, deleteMessage: true)
                     completion(isSuccess: true, errorCode: 0)
                 } else {
                     completion(isSuccess: false, errorCode: 0)
@@ -221,6 +228,19 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
                 completion(isSuccess: false, errorCode: 0)
                 print(error)
         }
+    }
+    
+    private func insertMessageWhenFrendRequestAgreed(frend: FrendModel) {
+        let textMsg = TextMessage()
+        textMsg.senderId = frend.userId
+        textMsg.message = "我已经同意了你的好友请求，现在我们可以开始聊天了"
+        textMsg.createTime = Int(NSDate().timeIntervalSince1970)
+        textMsg.chatType = IMChatType.IMChatSingleType
+        textMsg.sendType = IMMessageSendType.MessageSendSomeoneElse
+        textMsg.senderName = frend.nickName
+        textMsg.chatterId = frend.userId
+
+        IMClientManager.shareInstance().messageReceiveManager.addMessage2Distribute(textMsg)
     }
     
     //MARK: CMDMessageManagerDelegate
@@ -235,6 +255,7 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
             let frendModel = FrendModel(json: contentDic)
             frendModel.type = IMFrendType.Frend
             self.insertOrUpdateFrendInfoInDB(frendModel)
+            self.insertMessageWhenFrendRequestAgreed(frendModel)
             
         default:
             break
