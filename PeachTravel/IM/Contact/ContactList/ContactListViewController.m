@@ -44,6 +44,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContactList) name:contactListNeedUpdateNoti object:nil];
     
     [self.view addSubview:self.contactTableView];
+    [self.accountManager loadContactsFromServer];
 }
 
 - (void) viewWillAppear:(BOOL)animated {

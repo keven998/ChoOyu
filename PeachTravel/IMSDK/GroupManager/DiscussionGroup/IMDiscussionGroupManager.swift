@@ -106,7 +106,7 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
                     var group = IMDiscussionGroup(jsonData: groupData as! NSDictionary)
                     groupList.append(group)
                     var frendManager = IMClientManager.shareInstance().frendManager
-                    frendManager.updateFrendInfoInDB(self.convertDiscussionGroupModel2FrendModel(group))
+                    frendManager.insertOrUpdateFrendInfoInDB(self.convertDiscussionGroupModel2FrendModel(group))
                 }
             }
             completionBlock(isSuccess: isSuccess, errorCode: errorCode, groupList: groupList)

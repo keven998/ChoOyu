@@ -35,15 +35,20 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
     }
     
     /**
-    添加一个好友到数据库里
+    添加一个好友到数据库里,如果已经存在则不添加
     :param: frend
     */
     func addFrend2DB(frend: FrendModel) {
         self.frendDaoHelper.addFrend2DB(frend)
     }
     
-    func updateFrendInfoInDB(frend: FrendModel) {
-        self.frendDaoHelper.updateFrendInfoInDB(frend)
+    /**
+    添加一个好友到数据库，如果已经存在，则更新
+    
+    :param: frend
+    */
+    func insertOrUpdateFrendInfoInDB(frend: FrendModel) {
+        self.frendDaoHelper.insertOrUpdateFrendInfoInDB(frend)
     }
     
     /**
