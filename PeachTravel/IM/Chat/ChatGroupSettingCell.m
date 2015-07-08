@@ -11,6 +11,7 @@
 @implementation ChatGroupSettingCell
 
 - (void)awakeFromNib {
+    _switchBtn.onTintColor = APP_THEME_COLOR;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

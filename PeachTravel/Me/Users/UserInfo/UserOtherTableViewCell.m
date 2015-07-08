@@ -14,9 +14,9 @@
 //    _cellTitle.font = [UIFont systemFontOfSize:16.0];
     _cellDetail.font = [UIFont systemFontOfSize:13.0];
     self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    self.cellTitle.font = [UIFont systemFontOfSize:16*SCREEN_HEIGHT/736];
+    self.cellTitle.font = [UIFont systemFontOfSize:16];
     self.cellTitle.textColor = TEXT_COLOR_TITLE_SUBTITLE;
-    self.cellDetail.font = [UIFont systemFontOfSize:17*SCREEN_HEIGHT/736];
+    self.cellDetail.font = [UIFont systemFontOfSize:17];
     self.cellDetail.textColor = TEXT_COLOR_TITLE;
 }
 
