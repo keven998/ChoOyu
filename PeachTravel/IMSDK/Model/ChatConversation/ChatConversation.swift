@@ -91,13 +91,13 @@ class ChatConversation: NSObject {
     */
     var lastLocalMessage: BaseMessage? {
         get {
-            var retMessage = chatMessageList.last
+            let retMessage = chatMessageList.last
             if retMessage != nil {
                 return retMessage
 
             } else {
-                var daoHelper = DaoHelper.shareInstance()
-                var tableName = "chat_\(chatterId)"
+                let daoHelper = DaoHelper.shareInstance()
+                let tableName = "chat_\(chatterId)"
                 return daoHelper.selectLastLocalMessageInChatTable(tableName)
             }
         }
@@ -109,13 +109,13 @@ class ChatConversation: NSObject {
     var lastServerMessage: BaseMessage? {
         get {
             for var i = chatMessageList.count-1; i>0; i-- {
-                var message = chatMessageList[i]
+                let message = chatMessageList[i]
                 if message.serverId >= 0 {
                     return message
                 }
             }
-            var daoHelper = DaoHelper.shareInstance()
-            var tableName = "chat_\(chatterId)"
+            let daoHelper = DaoHelper.shareInstance()
+            let tableName = "chat_\(chatterId)"
             return daoHelper.selectLastServerMessage(tableName)
         
         }

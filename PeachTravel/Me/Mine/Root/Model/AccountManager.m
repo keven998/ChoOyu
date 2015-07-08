@@ -779,7 +779,7 @@
         newContact.signature = [contactDic objectForKey:@"signature"];
         newContact.fullPY = [ConvertMethods chineseToPinyin:[contactDic objectForKey:@"nickName"]];
         newContact.type = IMFrendTypeFrend;
-        [frendManager updateFrendInfoInDB:newContact];
+        [frendManager insertOrUpdateFrendInfoInDB:newContact];
         NSLog(@"往数据库里添加好友 %@", newContact.nickName);
         [self.account.frendList addObject:newContact];
     }

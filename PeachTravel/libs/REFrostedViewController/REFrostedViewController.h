@@ -38,6 +38,8 @@ typedef NS_ENUM(NSInteger, REFrostedViewControllerLiveBackgroundStyle) {
     REFrostedViewControllerLiveBackgroundStyleDark
 };
 
+#define MENU_MAGIN 38.0f
+
 @protocol REFrostedViewControllerDelegate;
 
 @interface REFrostedViewController : UIViewController

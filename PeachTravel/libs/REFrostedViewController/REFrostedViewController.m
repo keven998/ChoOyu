@@ -70,7 +70,7 @@
     self.wantsFullScreenLayout = YES;
 #pragma clang diagnostic pop
     _panGestureEnabled = YES;
-    _animationDuration = 0.35f;
+    _animationDuration = 0.20f;
     _backgroundFadeAmount = 0.3f;
     _blurTintColor = REUIKitIsFlatMode() ? nil : [UIColor colorWithWhite:1 alpha:0.75f];
     _blurSaturationDeltaFactor = 1.8f;
@@ -194,10 +194,10 @@
     self.containerViewController.animateApperance = animateApperance;
     if (self.automaticSize) {
         if (self.direction == REFrostedViewControllerDirectionLeft || self.direction == REFrostedViewControllerDirectionRight)
-            self.calculatedMenuViewSize = CGSizeMake(self.contentViewController.view.frame.size.width - 50.0f, self.contentViewController.view.frame.size.height);
+            self.calculatedMenuViewSize = CGSizeMake(self.contentViewController.view.frame.size.width - MENU_MAGIN, self.contentViewController.view.frame.size.height);
         
         if (self.direction == REFrostedViewControllerDirectionTop || self.direction == REFrostedViewControllerDirectionBottom)
-            self.calculatedMenuViewSize = CGSizeMake(self.contentViewController.view.frame.size.width, self.contentViewController.view.frame.size.height - 50.0f);
+            self.calculatedMenuViewSize = CGSizeMake(self.contentViewController.view.frame.size.width, self.contentViewController.view.frame.size.height - MENU_MAGIN);
     } else {
         self.calculatedMenuViewSize = CGSizeMake(_menuViewSize.width > 0 ? _menuViewSize.width : self.contentViewController.view.frame.size.width,
                                                  _menuViewSize.height > 0 ? _menuViewSize.height : self.contentViewController.view.frame.size.height);
@@ -272,10 +272,10 @@
     if (self.visible) {
         if (self.automaticSize) {
             if (self.direction == REFrostedViewControllerDirectionLeft || self.direction == REFrostedViewControllerDirectionRight)
-                self.calculatedMenuViewSize = CGSizeMake(self.view.bounds.size.width - 50.0f, self.view.bounds.size.height);
+                self.calculatedMenuViewSize = CGSizeMake(self.view.bounds.size.width - MENU_MAGIN, self.view.bounds.size.height);
             
             if (self.direction == REFrostedViewControllerDirectionTop || self.direction == REFrostedViewControllerDirectionBottom)
-                self.calculatedMenuViewSize = CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height - 50.0f);
+                self.calculatedMenuViewSize = CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height - MENU_MAGIN);
         } else {
             self.calculatedMenuViewSize = CGSizeMake(_menuViewSize.width > 0 ? _menuViewSize.width : self.view.bounds.size.width,
                                                      _menuViewSize.height > 0 ? _menuViewSize.height : self.view.bounds.size.height);
