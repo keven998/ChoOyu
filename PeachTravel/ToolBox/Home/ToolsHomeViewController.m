@@ -94,10 +94,8 @@
 
 #pragma mark - IBAction
 - (void) goLxpHelper {
-//    GuilderDistributeViewController *gdvc = [[GuilderDistributeViewController alloc] init];
-    TravelersTableViewController *gdvc = [[TravelersTableViewController alloc]init];
+    GuilderDistributeViewController *gdvc = [[GuilderDistributeViewController alloc] init];
     gdvc.hidesBottomBarWhenPushed = YES;
-
     [self.navigationController pushViewController:gdvc animated:YES];
 }
 

@@ -29,26 +29,20 @@
     UITableView *_tableView;
     NSMutableArray *_dataArray;
     UIView *_headerView;
-    UIButton *_footerButton;
 }
 @property (nonatomic, strong) ChatRecoredListTableViewController *chatRecordListCtl;
-
-@property (strong,nonatomic) UIView *footerView;
 @end
 
 @implementation TripPlanSettingViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.view.backgroundColor = APP_PAGE_COLOR;
     
     _dataArray = [NSMutableArray array];
     [_dataArray addObject:_tripDetail.destinations];
     
     [self createTableView];
-    [_tableView registerNib:[UINib nibWithNibName:@"TripPlanSettingCell" bundle:nil] forCellReuseIdentifier:@"settingCell"];
-    [_tableView registerNib:[UINib nibWithNibName:@"CityNameCell" bundle:nil] forCellReuseIdentifier:@"cityNameCell"];
     [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
 }
 
@@ -69,39 +63,21 @@
 
 -(void)createTableView
 {
-    
     _tableView = ({
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT) style:UITableViewStyleGrouped];
-        
-        _tableView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;
+        _tableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+        _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.opaque = NO;
         _tableView.backgroundColor = [UIColor clearColor];
         _tableView.backgroundView = nil;
-        _tableView.bounces = NO;
+        _tableView.contentInset = UIEdgeInsetsMake(24, 0, 0, 0);
         _tableView;
     });
-    [self createFooterView];
-    _tableView.tableFooterView = _footerButton;
     [self.view addSubview:_tableView];
 }
 
-
--(void)createFooterView
-{
-    _footerButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 44)];
-    [_footerButton addTarget:self action:@selector(addPosition) forControlEvents:UIControlEventTouchUpInside];
-    UILabel *addLabel = [[UILabel alloc]initWithFrame:CGRectMake(38+20+13, 0, SCREEN_WIDTH, 44)];
-    addLabel.text = @"添加";
-    [_footerButton addSubview:addLabel];
-    UIImageView *addImage = [[UIImageView alloc]initWithFrame:CGRectMake(43, 16, 12, 12)];
-    addImage.image = [UIImage imageNamed:@"add_contact"];
-    [_footerButton addSubview:addImage];
-    
-}
-
--(void)addPosition
+-(void)editDestinationCity
 {
     Destinations *destinations = [[Destinations alloc] init];
     MakePlanViewController *makePlanCtl = [[MakePlanViewController alloc] init];
@@ -131,7 +107,7 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 0) {
-        return 2;
+        return 3;
     } else {
         return _tripDetail.destinations.count;
     }
@@ -139,28 +115,38 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UIView *sectionHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
+    UIView *sectionHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, WIDTH, 40.0)];
     sectionHeaderView.backgroundColor = APP_PAGE_COLOR;
-    UIImageView *greenPointImageView = [[UIImageView alloc]initWithFrame:CGRectMake(19, 34, 10, 10)];
+    sectionHeaderView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    
+    UIImageView *greenPointImageView = [[UIImageView alloc]initWithFrame:CGRectMake(12, 16, 10, 16)];
     greenPointImageView.image = [UIImage imageNamed:@"chat_drawer_poit"];
+    greenPointImageView.contentMode = UIViewContentModeCenter;
     [sectionHeaderView addSubview:greenPointImageView];
     
-    UILabel *strLabel = [[UILabel alloc]initWithFrame:CGRectMake(34, 34, 200, 13)];
-    strLabel.font = [UIFont systemFontOfSize:12];
+    UILabel *strLabel = [[UILabel alloc]initWithFrame:CGRectMake(26, 16, 100, 16)];
+    strLabel.font = [UIFont systemFontOfSize:13];
+    strLabel.textColor = COLOR_TEXT_I;
     [sectionHeaderView addSubview:strLabel];
     
     if (section == 0) {
-        strLabel.text = _tripDetail.tripTitle;
-    }
-    else {
-        strLabel.text = @"目的城市";
-        
+        strLabel.text = @"设置";
+    } else {
+        strLabel.text = @"目的地";
+        UIButton *editBtn = [[UIButton alloc] initWithFrame:CGRectMake(WIDTH - 80, 0, 80, 40)];
+        [editBtn setTitle:@"编辑" forState:UIControlStateNormal];
+        [editBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+        [editBtn setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
+        editBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
+        editBtn.titleEdgeInsets = UIEdgeInsetsMake(5, 10, -5, -10);
+        [editBtn addTarget:self action:@selector(editDestinationCity) forControlEvents:UIControlEventTouchUpInside];
+        [sectionHeaderView addSubview:editBtn];
     }
     return sectionHeaderView;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 60;
+    return 40.0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -174,31 +160,34 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 44;
+    return 64*kWindowHeight/736;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.textLabel.font = [UIFont systemFontOfSize:15.0];
+    cell.textLabel.textColor = COLOR_TEXT_II;
     
     if (indexPath.section == 0)
     {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         if (indexPath.row == 0) {
-            cell.textLabel.text = @"修改行程";
+            cell.textLabel.text = _tripDetail.tripTitle;
         }
-        else if (indexPath.row == 1){
+        else if (indexPath.row == 1) {
+            cell.textLabel.text = @"修改计划";
+        }
+        else if (indexPath.row == 2){
             cell.textLabel.text = @"发给好友";
         }
         return cell;
     }
-    if (indexPath.section == 1)
+    else if (indexPath.section == 1)
     {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
         CityDestinationPoi *model = _tripDetail.destinations[indexPath.row];
         cell.textLabel.text = model.zhName;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.selectionStyle=UITableViewCellSelectionStyleDefault;
         return cell;
     }
     return 0;
@@ -208,11 +197,12 @@
 {
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
+        
+        } else if (indexPath.row == 1) {
             ScheduleEditorViewController *sevc = [[ScheduleEditorViewController alloc] init];
             sevc.tripDetail = _tripDetail;
             [self presentViewController:[[UINavigationController alloc] initWithRootViewController:sevc] animated:YES completion:nil];
-        } else if (indexPath.row == 1){
-            //            [self share:nil];
+        } else if (indexPath.row == 2){
             [self sendToFriends];
         }
         
