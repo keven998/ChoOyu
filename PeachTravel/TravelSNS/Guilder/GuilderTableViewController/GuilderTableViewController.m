@@ -8,8 +8,8 @@
 
 #import "GuilderTableViewController.h"
 
-@interface GuilderTableViewController ()
-
+@interface GuilderTableViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
+@property (nonatomic,strong) UICollectionView *collectionView;
 @end
 
 @implementation GuilderTableViewController
@@ -17,15 +17,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor whiteColor];
-    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    label.text = @"我是达人详情,哈哈哈,哈哈哈,哈哈哈,哈哈哈,哈哈哈";
-    label.font = [UIFont systemFontOfSize:30];
-    label.numberOfLines = 0;
     
-    [self.view addSubview:label];
-    
+    [self.view addSubview:self.collectionView];
 }
+
+//- (UICollectionView *)collectionView
+//{
+//    
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
