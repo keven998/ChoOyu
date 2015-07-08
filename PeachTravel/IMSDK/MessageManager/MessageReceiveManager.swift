@@ -36,7 +36,6 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
     
     override init() {
         super.init()
-        pushSDKManager.addPushMessageListener(self, withRoutingKey: "IM")
         messagePool.delegate = self
         messageManager.delegate = self
     }
@@ -95,8 +94,9 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
                 self.messageManager.clearAllMessageWhenACKSuccess()
                 if let retMessageArray = retMessage {
                     dispatch_async(self.messageReceiveQueue, { () -> Void in
-                        self.dealwithFetchResult(receivedMessages, fetchMessages: retMessageArray)
-                        
+                        if (retMessageArray.count>0 || receivedMessages?.count>0) {
+                            self.dealwithFetchResult(receivedMessages, fetchMessages: retMessageArray)
+                        }
                     })
                 }
             } else {

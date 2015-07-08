@@ -115,6 +115,7 @@
 
 - (void)userDidLogin
 {
+    self.imClientManager.conversationManager.delegate = self;
     [self.imClientManager.conversationManager updateConversationListFromDB];
     _dataSource = [[self.imClientManager.conversationManager getConversationList] mutableCopy];
     [self.tableView reloadData];

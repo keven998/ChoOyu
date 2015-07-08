@@ -75,6 +75,9 @@ class IMClientManager: NSObject {
     
     private func setUpSDKWhenLogin() {
         messageReceiveManager = MessageReceiveManager()
+        let pushSDKManager = PushSDKManager.shareInstance()
+        pushSDKManager.addPushMessageListener(messageReceiveManager, withRoutingKey: "IM")
+
         messageSendManager = MessageSendManager()
         conversationManager = ChatConversationManager()
         frendManager = FrendManager(userId: accountId)
@@ -89,6 +92,9 @@ class IMClientManager: NSObject {
     }
     
     private func setUpSDKWhenLogout() {
+        
+        let pushSDKManager = PushSDKManager.shareInstance()
+        pushSDKManager.removePushMessageListener(messageReceiveManager, withRoutingKey: "IM")
         messageReceiveManager = nil
         messageSendManager = nil
         conversationManager = nil

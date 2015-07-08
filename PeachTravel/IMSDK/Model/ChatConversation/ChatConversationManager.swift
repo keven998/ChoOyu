@@ -261,7 +261,7 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
             if !conversation.isCurrentConversation {
                 conversation.unReadMessageCount++
             }
-            if conversation.conversationId == nil {
+            if (conversation.conversationId == nil && message.conversationId != nil) {
                 conversation.conversationId = message.conversationId
                 var daoHelper = DaoHelper.shareInstance()
                 daoHelper.updateConversationIdInConversation(conversation.conversationId!, userId: conversation.chatterId)

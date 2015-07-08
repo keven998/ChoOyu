@@ -94,11 +94,9 @@ class MessageReceivePool: NSObject {
         var count = 0
         for messageList in messagePrepare2Reorder.allValues {
             count++
-            println("*************第 \(count)组消息***********")
             for message in (messageList as! NSMutableArray) {
                 println("messageId: \((message as! BaseMessage).serverId)")
             }
-            println("*************第 \(count)组消息 OVER***********")
         }
         println("消息已经重组完成")
         

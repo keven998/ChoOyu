@@ -355,6 +355,12 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
                 
             case .HotelMessageType:
                 retMessage = IMHotelMessage()
+                
+            case .CMDMessageType:
+                retMessage = IMCMDMessage()
+                
+            case .TipsMessageType:
+                retMessage = TipsMessage()
 
             
             default:
