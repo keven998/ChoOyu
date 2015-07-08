@@ -100,7 +100,12 @@ class ConversationDaoHelper: BaseDaoHelper, ConversationDaoProtocol {
                         conversation.chatterName = chatterName
                     }
                     if let avatarSmall = rs.stringForColumn("AvatarSmall") {
-                        conversation.chatterAvatar = avatarSmall
+                        if avatarSmall != "" {
+                            conversation.chatterAvatar = avatarSmall
+                            
+                        } else {
+                            conversation.chatterAvatar = rs.stringForColumn("Avatar")
+                        }
                     } else {
                         conversation.chatterAvatar = rs.stringForColumn("Avatar")
                     }

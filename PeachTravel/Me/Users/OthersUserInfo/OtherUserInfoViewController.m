@@ -497,7 +497,7 @@
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf];
     
-    [frendManager asyncRemoveContactWithFrend:_userInfo completion:^(BOOL isSuccess, NSInteger errorCode) {
+    [frendManager asyncRemoveContactWithUserId:_userId completion:^(BOOL isSuccess, NSInteger errorCode) {
         [hud hideTZHUD];
         
         if (isSuccess) {
