@@ -222,9 +222,9 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
     func receiveFrendCMDMessage(cmdMessage: IMCMDMessage) {
         switch cmdMessage.actionCode! {
         case CMDActionCode.F_REQUEST:
-            let frendRequestManager = FrendRequestManager(userId: accountId)
             let frendRequest = FrendRequest(json: cmdMessage.message)
-            frendRequestManager.addFrendRequest(frendRequest)
+            IMClientManager.shareInstance().frendRequestManager.addFrendRequest(frendRequest)
+            
         case CMDActionCode.F_AGREE:
             let frendRequestManager = FrendRequestManager(userId: accountId)
             

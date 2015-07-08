@@ -8,11 +8,17 @@
 
 import UIKit
 
+@objc protocol FriendRequestManagerDelegate {
+    optional func friendRequestNumberNeedUpdate()
+}
+
+
 class FrendRequestManager: NSObject {
     
     var frendRequestList: Array<FrendRequest> = Array()
     let frendRequestDaoHelper: FrendRequestDaoHelper
     let accountId: Int
+    var delegate: FriendRequestManagerDelegate?
     var unReadFrendRequestCount: Int {
         get {
             return self.frendRequestList.filter({$0.status == TZFrendRequest.Default}).count
@@ -43,11 +49,13 @@ class FrendRequestManager: NSObject {
         
         for temp in self.frendRequestList {
             if temp.requestId == frendRequest.requestId {
+                println("已经有相同的好友请求了，不需要再次添加了")
                 return
             }
         }
         self.frendRequestDaoHelper.addFrendRequestion2DB(request as! FrendRequest)
         self.frendRequestList.append(request as! FrendRequest)
+        self.delegate?.friendRequestNumberNeedUpdate?()
     }
     
     /**
@@ -59,6 +67,7 @@ class FrendRequestManager: NSObject {
         frendRequestList = frendRequestList.filter({$0.requestId != requestId}
         )
         frendRequestDaoHelper.removeFrendRequest(requestId)
+        self.delegate?.friendRequestNumberNeedUpdate?()
     }
     
     /**
@@ -75,6 +84,7 @@ class FrendRequestManager: NSObject {
             return request
         })
         frendRequestDaoHelper.changeFrendRequestStatus(requestId, status: status)
+        self.delegate?.friendRequestNumberNeedUpdate?()
     }
 }
 
