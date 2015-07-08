@@ -20,13 +20,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = APP_PAGE_COLOR;
+    
     // Do any additional setup after loading the view.
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    _tableView.backgroundColor = APP_PAGE_COLOR;
     _tableView.separatorColor = COLOR_LINE;
     _tableView.dataSource = self;
     _tableView.delegate = self;
+    _tableView.contentInset = UIEdgeInsetsMake(2, 0, 2, 0);
     [_tableView registerNib:[UINib nibWithNibName:@"PlanScheduleTableViewCell" bundle:nil] forCellReuseIdentifier:@"schedule_summary_cell"];
     [self.view addSubview:_tableView];
     
@@ -118,7 +120,11 @@
     
     cell.content = dstr;
     cell.titleLabel.text = title;
-    cell.day = [NSString stringWithFormat:@"0%ld.", indexPath.row+1];
+    if (indexPath.row < 9) {
+        cell.day = [NSString stringWithFormat:@"0%ld.", indexPath.row+1];
+    } else {
+        cell.day = [NSString stringWithFormat:@"%ld.", indexPath.row+1];
+    }
     return cell;
 }
 
@@ -153,7 +159,7 @@
     DayAgendaViewController *davc = [[DayAgendaViewController alloc] initWithDay:indexPath.row];
     davc.tripDetail = _tripDetail;
     davc.titleStr = title;
-    [self.navigationController pushViewController:davc animated:YES];
+    [self.frostedViewController.navigationController pushViewController:davc animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 

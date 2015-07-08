@@ -173,7 +173,7 @@
     [menu addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
     [menu setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:menu];
-
+    
     UIButton *back = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
     [back setImage:[UIImage imageNamed:@"common_icon_navigaiton_back"] forState:UIControlStateNormal];
     [back setImage:[UIImage imageNamed:@"common_icon_navigaiton_back_highlight"] forState:UIControlStateHighlighted];
@@ -247,7 +247,7 @@
 
 /**
  *  点击聊天的头像进入联系人信息
- *  
+ *
  *  @param sender
  */
 - (void)showUserInfoWithModel:(MessageModel *)model
@@ -327,8 +327,8 @@
         _chatToolBar = [[DXMessageToolBar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - [DXMessageToolBar defaultHeight] - 64, self.view.frame.size.width, [DXMessageToolBar defaultHeight])];
         _chatToolBar.backgroundColor = [UIColor whiteColor];
         _chatToolBar.delegate = self;
-        _chatToolBar.rootCtl = self;        
-     
+        _chatToolBar.rootCtl = self;
+        
     }
     return _chatToolBar;
 }
@@ -632,7 +632,7 @@
             frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
             frostedViewController.liveBlur = YES;
             frostedViewController.limitMenuViewSize = YES;
-//            frostedViewController.resumeNavigationBar = NO;
+            //            frostedViewController.resumeNavigationBar = NO;
             [self.navigationController pushViewController:frostedViewController animated:YES];
         }
             break;
@@ -664,11 +664,11 @@
                 [weakSelf.messageReadManager showBrowserWithImages:@[imageUrl] andImageView:imageView];
                 
             } else {
-
+                
             }
         } else {
             [weakSelf.messageReadManager showBrowserWithImages:@[((ImageMessage *)model.baseMessage).localPath] andImageView:imageView];
-
+            
         }
     }
 }
@@ -867,10 +867,10 @@
             NSData *imageData = UIImageJPEGRepresentation(tempImg, 0.3);
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self sendImageMessage:imageData];
-
+                
             });
             [NSThread sleepForTimeInterval:0.3];
-
+            
         }
     });
 }
@@ -962,12 +962,12 @@
 {
     // 马上进入刷新状态
     [_tableView.header beginRefreshing];
-
+    
     ChatViewController *weakSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         NSArray *moreMessages = [weakSelf.conversation getMoreChatMessageInConversation:10];
         if ([moreMessages count] > 0) {
-
+            
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [self addChatMessageList2Top:moreMessages];
                 // 拿到当前的下拉刷新控件，结束刷新状态
@@ -1023,7 +1023,7 @@
             [self.dataSource insertObject:[createDate formattedTime] atIndex:0];
             self.chatTagDate = createDate;
             NSIndexPath *path = [NSIndexPath indexPathForRow:i inSection:0];
-
+            
             [indexPath2Insert addObject:path];
             i++;
         }
@@ -1038,7 +1038,7 @@
     // 刷新表格
     [self.tableView reloadData];
     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
-  
+    
 }
 
 - (void)fillMessageModel:(MessageModel *)message

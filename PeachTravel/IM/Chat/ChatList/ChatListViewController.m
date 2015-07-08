@@ -21,7 +21,7 @@
 #import "ChatSettingViewController.h"
 #import "PeachTravel-swift.h"
 
-@interface ChatListViewController ()<UITableViewDelegate, UITableViewDataSource, CreateConversationDelegate, ChatConversationManagerDelegate>
+@interface ChatListViewController ()<UITableViewDelegate, UITableViewDataSource, CreateConversationDelegate, ChatConversationManagerDelegate, FriendRequestManagerDelegate>
 
 @property (strong, nonatomic) UITableView           *tableView;
 @property (nonatomic, strong) AccountManager        *accountManager;
@@ -80,6 +80,7 @@
     _frendRequestUnreadCountLabel.layer.cornerRadius = 4;
     _frendRequestUnreadCountLabel.clipsToBounds = YES;
     [contactListBtn addSubview:_frendRequestUnreadCountLabel];
+    [IMClientManager shareInstance].frendRequestManager.delegate = self;
     if ([IMClientManager shareInstance].frendRequestManager.unReadFrendRequestCount > 0) {
         _frendRequestUnreadCountLabel.hidden = NO;
     } else {
@@ -622,6 +623,17 @@
 {
     [_delegate unreadMessageCountHasChange];
     [self refreshDataSource];
+}
+
+#pragma mark - FriendRequestManagerDelegate
+
+- (void)friendRequestNumberNeedUpdate
+{
+    if ([IMClientManager shareInstance].frendRequestManager.unReadFrendRequestCount > 0) {
+        _frendRequestUnreadCountLabel.hidden = NO;
+    } else {
+        _frendRequestUnreadCountLabel.hidden = YES;
+    }
 }
 
 #pragma mark - CreateConversationDelegate

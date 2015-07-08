@@ -12,15 +12,6 @@
 
 - (void)awakeFromNib {
     _headerImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
-    
-    UIView *dividerView = [[UIView alloc] initWithFrame:CGRectMake(36, 0, CGRectGetWidth(self.bounds) - 46, 1)];
-    dividerView.backgroundColor = APP_PAGE_COLOR;
-    dividerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    [self.contentView addSubview:dividerView];
-
-    _titleLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
-    
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 - (void)setTripPoi:(SuperPoi *)tripPoi
@@ -33,15 +24,14 @@
     NSString *rankStr = nil;
     if (_tripPoi.rank <= 500 && _tripPoi.rank > 0) {
         rankStr = [NSString stringWithFormat:@"%d", _tripPoi.rank];
-
     } else {
-        rankStr = @"大于500";
+        rankStr = @"500+";
     }
     
     if (_tripPoi.poiType == kSpotPoi) {
         if ([((SpotPoi *)tripPoi).timeCostStr isBlankString]) {
             
-        }else{
+        } else {
             NSString *timeStr = [NSString stringWithFormat:@"建议游玩%@", ((SpotPoi *)tripPoi).timeCostStr];
             property = [NSString stringWithFormat:@"%@  %@", rankStr, timeStr];
         }
@@ -51,7 +41,6 @@
     }
     [_propertyBtn setImage:[UIImage imageNamed:@"plan_bottom_flower.png"] forState:UIControlStateNormal];
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:property];
-
     [string addAttributes:@{NSForegroundColorAttributeName : COLOR_TEXT_III} range:NSMakeRange(rankStr.length+1, property.length-rankStr.length-1)];
     [_propertyBtn setAttributedTitle:string forState:UIControlStateNormal];
 }

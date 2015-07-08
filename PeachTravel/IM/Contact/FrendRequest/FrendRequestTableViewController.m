@@ -61,7 +61,7 @@
             }
         };
         NSMutableArray *tempArray = [[NSMutableArray alloc] init];
-        for (id request in self.accountManager.account.frendRequest) {
+        for (id request in [IMClientManager shareInstance].frendRequestManager.frendRequestList) {
             [tempArray addObject:request];
         }
         _dataSource = [[tempArray sortedArrayUsingComparator:cmptr] mutableCopy];
@@ -100,6 +100,7 @@
 {
     [[IMClientManager shareInstance].frendManager asyncAgreeAddContactWithRequestId:frendRequest.requestId completion:^(BOOL isSuccess, NSInteger errorCode) {
         if (isSuccess) {
+            [self.tableView reloadData];
             [SVProgressHUD showHint:@"已添加"];
         } else {
             [SVProgressHUD showHint:@"添加失败"];

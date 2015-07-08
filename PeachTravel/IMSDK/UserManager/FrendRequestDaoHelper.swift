@@ -12,9 +12,9 @@ let frendRequestTableName = "FrendRequest"
 
 class FrendRequestDaoHelper: BaseDaoHelper {
     
-    func createFrendTable() {
+    func createFrendRequestTable() {
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
-            var sql = "create table '\(frendRequestTableName)' (RequestId TEXT PRIMARY KEY NOT NULL, UserId INTEGER, NickName TEXT, Avatar Text, Status INTEGER, Sex INTEGER, Date Double, Message: Text)"
+            var sql = "create table '\(frendRequestTableName)' (RequestId TEXT PRIMARY KEY NOT NULL, UserId INTEGER, NickName TEXT, Avatar Text, Status INTEGER, Sex INTEGER, Date Double, Message Text)"
             if (dataBase.executeUpdate(sql, withArgumentsInArray: nil)) {
                 println("success 执行 sql 语句：\(sql)")
                 
@@ -40,10 +40,10 @@ class FrendRequestDaoHelper: BaseDaoHelper {
     
     func addFrendRequestion2DB(request: FrendRequest) {
         if !super.tableIsExit(frendRequestTableName) {
-            createFrendTable()
+            createFrendRequestTable()
         }
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
-            var sql = "insert into \(frendTableName) (RequestId, UserId, NickName, Avatar, Status, Sex, Date, Message) values (?,?,?,?,?,?,?,?)"
+            var sql = "insert into \(frendRequestTableName) (RequestId, UserId, NickName, Avatar, Status, Sex, Date, Message) values (?,?,?,?,?,?,?,?)"
             println("执行 sql 语句：\(sql)")
             var array = [request.requestId, request.userId, request.nickName, request.status.rawValue, request.avatar, request.gender.rawValue, request.requestDate, request.attachMsg]
             dataBase.executeUpdate(sql, withArgumentsInArray: array as [AnyObject])
