@@ -50,13 +50,6 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.navigationItem.titleView = _searchBar;
     
-//    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 30, CGRectGetWidth(self.view.bounds), 50)];
-//    label.font = [UIFont systemFontOfSize:12.0];
-//    label.textColor = COLOR_TEXT_V;
-//    label.textAlignment = NSTextAlignmentCenter;
-//    label.numberOfLines = 2;
-//    label.text = @"旅行搜搜\n搜索旅行的城市/景点/美食/购物/酒店等";
-//    [self.view addSubview:label];
     UIImageView *imageBg = [[UIImageView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 210)/2, 68, 210, 130)];
     
     imageBg.image = [UIImage imageNamed:@"search_default_background"];

@@ -67,7 +67,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-
 - (void)editDay:(id)sender
 {
     ((ScheduleDayEditViewController *)self.frostedViewController.menuViewController).tripDetail = _backupTrip;
