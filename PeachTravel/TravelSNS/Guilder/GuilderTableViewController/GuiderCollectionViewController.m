@@ -8,8 +8,12 @@
 
 #import "GuiderCollectionViewController.h"
 #import "GuiderCollectionCell.h"
+#import "PeachTravel-swift.h"
+#import "OtherUserInfoViewController.h"
 
 @interface GuiderCollectionViewController ()
+
+@property (nonatomic, strong) NSArray *dataSource;
 
 @end
 
@@ -19,6 +23,8 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self loadTravelers:0];
     
     self.collectionView.backgroundColor = APP_PAGE_COLOR;
     UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
@@ -52,6 +58,59 @@ static NSString * const reuseIdentifier = @"Cell";
     [super didReceiveMemoryWarning];
 }
 
+#pragma mark - http method
+- (void)loadTravelers:(NSInteger)number
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSNumber *imageWidth = [NSNumber numberWithInt:60];
+    [params setObject:imageWidth forKey:@"imgWidth"];
+    [params setObject:@"expert" forKey:@"keyword"];
+    [params setObject:@"roles" forKey:@"field"];
+    [params setObject:[NSNumber numberWithInt:10] forKey:@"pageSize"];
+    [params setObject:[NSNumber numberWithInt:0] forKey:@"page"];
+    
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    __weak typeof(GuiderCollectionViewController *)weakSelf = self;
+    [hud showHUDInViewController:weakSelf content:64];
+    //搜索达人
+    [manager GET:API_SEARCH_USER parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [hud hideTZHUD];
+        NSLog(@"%@",responseObject);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            [self parseSearchResult:[responseObject objectForKey:@"result"]];
+        } else {
+            [SVProgressHUD showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", error);
+        [hud hideTZHUD];
+    }];
+}
+
+- (void)parseSearchResult:(id)searchResult
+{
+    NSInteger count = [searchResult count];
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    FrendModel *user;
+    for (int i = 0; i < count; ++i) {
+        user = [[FrendModel alloc] initWithJson:[searchResult objectAtIndex:i]];
+        [array addObject:user];
+    }
+    _dataSource = array;
+    [self.collectionView reloadData];
+}
+
+
 #pragma mark <UICollectionViewDataSource>
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -60,7 +119,7 @@ static NSString * const reuseIdentifier = @"Cell";
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 10;
+    return _dataSource.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -70,6 +129,13 @@ static NSString * const reuseIdentifier = @"Cell";
 
 #pragma mark <UICollectionViewDelegate>
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    OtherUserInfoViewController *otherInfoCtl = [[OtherUserInfoViewController alloc]init];
+    FrendModel *model = _dataSource[indexPath.row];
+    //    otherInfoCtl.model = model;
+    otherInfoCtl.userId = model.userId;
+    [self.navigationController pushViewController:otherInfoCtl animated:YES] ;
+}
 /*
 // Uncomment this method to specify if the specified item should be highlighted during tracking
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
