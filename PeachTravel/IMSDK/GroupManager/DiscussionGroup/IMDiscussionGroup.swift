@@ -12,12 +12,12 @@ class IMDiscussionGroup: NSObject {
     
     var groupId: Int = -1
     var subject: String!
-    var owner: Int = -1
+    var owner: Int?
     var type: IMFrendType = .DiscussionGroup
     var numbers: Array<FrendModel> = Array()
     
     init(jsonData: NSDictionary) {
-        owner = jsonData.objectForKey("creator") as! Int
+        self.owner = jsonData.objectForKey("creator") as? Int ?? -1
         groupId = jsonData.objectForKey("groupId") as! Int
         subject = jsonData.objectForKey("name") as! String
     }

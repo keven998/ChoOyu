@@ -88,7 +88,6 @@ class IMClientManager: NSObject {
         cmdMessageManager.addCMDMessageListener(IMClientManager.shareInstance().frendManager, withRoutingKey: CMDMessageRoutingKey.Frend_CMD)
         messageReceiveManager.addMessageReceiveListener(cmdMessageManager, withRoutingKey: MessageReceiveDelegateRoutingKey.cmd)
         messageReceiveManager.addMessageReceiveListener(conversationManager, withRoutingKey: MessageReceiveDelegateRoutingKey.normal)
-        messageReceiveManager.ACKMessageWithReceivedMessages(nil)
     }
     
     private func setUpSDKWhenLogout() {

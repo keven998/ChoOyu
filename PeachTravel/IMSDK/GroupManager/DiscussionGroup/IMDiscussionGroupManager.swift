@@ -8,6 +8,8 @@
 
 import UIKit
 
+let discussionGroupUrl = "\(BASE_URL)chatgroups/"
+
 @objc protocol DiscusssionGroupManagerDelegate {
     
     

@@ -60,7 +60,7 @@ extension IMDiscussionGroupManager {
         manager.requestSerializer.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         manager.requestSerializer.setValue("\(AccountManager.shareAccountManager().account.userId)", forHTTPHeaderField: "UserId")
         
-        var url = "\(groupUrl)/\(groupId)"
+        var url = "\(discussionGroupUrl)\(groupId)"
         manager.GET(url, parameters: nil, success: {
             (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
             if (responseObject.objectForKey("code") as! Int) == 0 {

@@ -79,7 +79,7 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
     
     :param: receivedMessages 已经收到的消息
     */
-    func ACKMessageWithReceivedMessages(receivedMessages: NSArray?) {
+    func asyncACKMessageWithReceivedMessages(receivedMessages: NSArray?, completion: ((isSucess: Bool) -> ())?) {
         
         println("fetchOmitMessageWithReceivedMessages queue: \(NSThread.currentThread())")
         
@@ -89,7 +89,6 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
         NetworkTransportAPI.asyncACKMessage(IMClientManager.shareInstance().accountId, shouldACKMessageList:messageManager.messagesShouldACK, completionBlock: { (isSuccess: Bool, errorCode: Int, retMessage: NSArray?) -> () in
             
             println("fetch Result 一共是：\(retMessage?.count): \(retMessage)")
-            
             if (isSuccess) {
                 self.messageManager.clearAllMessageWhenACKSuccess()
                 if let retMessageArray = retMessage {
@@ -104,6 +103,7 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
                     self.dealwithFetchResult(receivedMessages, fetchMessages: nil)
                 })
             }
+            completion?(isSucess: isSuccess)
         })
     }
     
@@ -161,7 +161,7 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
         
         if needFetchMessage {
             println("存在不合法的消息, 需要 fetch")
-            ACKMessageWithReceivedMessages(messagePrepare2Fetch)
+            self.asyncACKMessageWithReceivedMessages(messagePrepare2Fetch, completion: nil)
         }
         var array = messagePrepate2Distribute as AnyObject as! [BaseMessage]
         distributionMessage(array)
@@ -397,7 +397,7 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
     
     // MARK: MessageManagerDelegate
     func shouldACK(messageList: Array<String>) {
-        self.ACKMessageWithReceivedMessages(nil)
+        self.asyncACKMessageWithReceivedMessages(nil, completion: nil)
     }
 }
 

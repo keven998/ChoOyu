@@ -89,6 +89,10 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:contactListBtn];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogin) name:userDidLoginNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkChanged:) name:networkConnectionStatusChangeNoti object:nil];
+    self.IMState = IM_RECEIVING;
+    [self.imClientManager.messageReceiveManager asyncACKMessageWithReceivedMessages:nil completion:^(BOOL isSuccess) {
+        self.IMState = IM_RECEIVED;
+    }];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -132,7 +136,8 @@
 {
     if (status == NotReachable) {
         [self setIMState:IM_DISCONNECTED];
-    } else {
+        
+    } else if (_IMState != IM_RECEIVING){
         [self setIMState:IM_CONNECTED];
     }
 }
@@ -240,7 +245,7 @@
 - (void)updateNavigationTitleViewStatus
 {
     UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 150, 44)];
-    UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     activityView.center = CGPointMake(35, 22);
     [titleView addSubview:activityView];
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(55, 0, 105, 44)];

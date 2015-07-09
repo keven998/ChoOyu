@@ -116,8 +116,8 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
             addConversation(conversation)
             
         } else {
-            self.asyncGetConversationInfoFromServer(conversation, completion: { (fullConversation) -> () in
-                self.addConversation(conversation)
+            self.asyncGetConversationInfoFromServer(conversation, completion: { (fullConversation: ChatConversation) -> () in
+                self.addConversation(fullConversation)
             })
         }
         return conversation
@@ -223,7 +223,7 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
     :param: conversation
     :param: completion
     */
-    func asyncGetConversationInfoFromServer(conversation: ChatConversation, completion:(fullConversation: ChatConversation?) -> ()) {
+    func asyncGetConversationInfoFromServer(conversation: ChatConversation, completion:(fullConversation: ChatConversation) -> ()) {
         if conversation.chatType == IMChatType.IMChatSingleType {
             let frendManager = IMClientManager.shareInstance().frendManager
             frendManager.asyncGetFrendInfoFromServer(conversation.chatterId, completion: { (isSuccess, errorCode, frendInfo) -> () in
