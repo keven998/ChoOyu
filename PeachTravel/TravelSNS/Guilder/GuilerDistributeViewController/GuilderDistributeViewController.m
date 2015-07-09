@@ -7,7 +7,7 @@
 //
 
 #import "GuilderDistributeViewController.h"
-#import "GuilderTableViewController.h"
+#import "GuiderCollectionViewController.h"
 #import "GuiderCell.h"
 
 @interface GuilderDistributeViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
@@ -87,7 +87,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    GuilderTableViewController *guider = [[GuilderTableViewController alloc]init];
+    GuiderCollectionViewController *guider = [[GuiderCollectionViewController alloc] initWithNibName:@"GuiderCollectionViewController" bundle:nil];
     [self.navigationController pushViewController:guider animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

@@ -50,7 +50,7 @@
                     <constraint firstAttribute="trailingMargin" secondItem="NMN-ak-8wx" secondAttribute="trailing" constant="-8" id="ke9-Nd-58f"/>
                 </constraints>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="73" y="419"/>
+            <point key="canvasLocation" x="130" y="282"/>
         </tableViewCell>
     </objects>
     <resources>

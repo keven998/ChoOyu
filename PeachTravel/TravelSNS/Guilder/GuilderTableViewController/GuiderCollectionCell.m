@@ -11,7 +11,8 @@
 @implementation GuiderCollectionCell
 
 - (void)awakeFromNib {
-    // Initialization code
+    _backGroundView.layer.cornerRadius = 4.0;
+    _backGroundView.clipsToBounds = YES;
 }
 
 @end
