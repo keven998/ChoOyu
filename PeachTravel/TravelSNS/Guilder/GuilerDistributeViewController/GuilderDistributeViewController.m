@@ -99,6 +99,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     GuiderCollectionViewController *guider = [[GuiderCollectionViewController alloc] initWithNibName:@"GuiderCollectionViewController" bundle:nil];
+    guider.distributionArea = @"";
     [self.navigationController pushViewController:guider animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
