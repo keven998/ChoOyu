@@ -349,7 +349,7 @@
 		C6FCC6001B47C43700C1DDF3 /* poi_comment_start_default@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6FCC5FE1B47C43600C1DDF3 /* poi_comment_start_default@3x.png */; };
 		C6FCC6011B47C43700C1DDF3 /* poi_comment_start_highlight@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6FCC5FF1B47C43700C1DDF3 /* poi_comment_start_highlight@3x.png */; };
 		D90042C81B140F63006F6B63 /* NetworkReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = D90042C71B140F63006F6B63 /* NetworkReachability.m */; };
-		D90042CA1B144275006F6B63 /* FrendManager+Private.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90042C91B144275006F6B63 /* FrendManager+Private.swift */; };
+		D90042CA1B144275006F6B63 /* FrendManager+ClassMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90042C91B144275006F6B63 /* FrendManager+ClassMethod.swift */; };
 		D9008D661A89F864000A237D /* ic_tel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9008D651A89F864000A237D /* ic_tel@2x.png */; };
 		D9008D681A89F943000A237D /* ic_map@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9008D671A89F943000A237D /* ic_map@2x.png */; };
 		D9008D6A1A89FCC9000A237D /* ic_comment_line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9008D691A89FCC9000A237D /* ic_comment_line@2x.png */; };
@@ -1436,7 +1436,7 @@
 		C6FCC5FF1B47C43700C1DDF3 /* poi_comment_start_highlight@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "poi_comment_start_highlight@3x.png"; sourceTree = "<group>"; };
 		D90042C61B140F63006F6B63 /* NetworkReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkReachability.h; sourceTree = "<group>"; };
 		D90042C71B140F63006F6B63 /* NetworkReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkReachability.m; sourceTree = "<group>"; };
-		D90042C91B144275006F6B63 /* FrendManager+Private.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FrendManager+Private.swift"; sourceTree = "<group>"; };
+		D90042C91B144275006F6B63 /* FrendManager+ClassMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FrendManager+ClassMethod.swift"; sourceTree = "<group>"; };
 		D9008D651A89F864000A237D /* ic_tel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_tel@2x.png"; sourceTree = "<group>"; };
 		D9008D671A89F943000A237D /* ic_map@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ic_map@2x.png"; path = "Common/ic_map@2x.png"; sourceTree = "<group>"; };
 		D9008D691A89FCC9000A237D /* ic_comment_line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_comment_line@2x.png"; sourceTree = "<group>"; };
@@ -3587,6 +3587,15 @@
 			name = ScheduleDayEditViewController;
 			sourceTree = "<group>";
 		};
+		D98CEE031B4D281C0019B902 /* FrendManager */ = {
+			isa = PBXGroup;
+			children = (
+				D993C2301B12DF0C0088D568 /* FrendManager.swift */,
+				D90042C91B144275006F6B63 /* FrendManager+ClassMethod.swift */,
+			);
+			name = FrendManager;
+			sourceTree = "<group>";
+		};
 		D993C1C51B12DF0C0088D568 /* IMSDK */ = {
 			isa = PBXGroup;
 			children = (
@@ -3894,9 +3903,8 @@
 				D9A8FEAD1A80C818005AD701 /* Account */,
 				D91FED6D1B4232970073AD77 /* FrendRequest */,
 				D91FED6C1B4125DC0073AD77 /* Dao */,
-				D993C2301B12DF0C0088D568 /* FrendManager.swift */,
+				D98CEE031B4D281C0019B902 /* FrendManager */,
 				D993C2311B12DF0C0088D568 /* FrendModel */,
-				D90042C91B144275006F6B63 /* FrendManager+Private.swift */,
 			);
 			path = UserManager;
 			sourceTree = "<group>";
@@ -6750,7 +6758,7 @@
 				D9A8FF2B1A80CCA5005AD701 /* AccountManagerViewController.m in Sources */,
 				D9A801611A80DD23005AD701 /* SelectContactScrollView.m in Sources */,
 				D993C26E1B12DF0C0088D568 /* FrendManager.swift in Sources */,
-				D90042CA1B144275006F6B63 /* FrendManager+Private.swift in Sources */,
+				D90042CA1B144275006F6B63 /* FrendManager+ClassMethod.swift in Sources */,
 				D92CA1151AD8BDF900F244FF /* SWUtilityButtonTapGestureRecognizer.m in Sources */,
 				D92CA1311AD8BEB400F244FF /* MWCaptionView.m in Sources */,
 				D9A8FF131A80CC2B005AD701 /* LoginViewController.m in Sources */,

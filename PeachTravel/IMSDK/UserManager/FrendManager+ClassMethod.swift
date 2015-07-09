@@ -10,16 +10,14 @@ import Foundation
 
 let API_USERS = "\(BASE_URL)users/"
 
-
 extension FrendManager {
     
-    func loadUserInfoFromServer(userId: Int, completion: (isSuccess: Bool, errorCode: Int, frendInfo: FrendModel?) -> ()) {
+    class func loadUserInfoFromServer(userId: Int, completion: (isSuccess: Bool, errorCode: Int, frendInfo: FrendModel?) -> ()) {
         let manager = AFHTTPRequestOperationManager()
         let requestSerializer = AFJSONRequestSerializer()
         manager.requestSerializer = requestSerializer
         manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept")
         manager.requestSerializer.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-        manager.requestSerializer.setValue("\(self.accountId)", forHTTPHeaderField: "UserId")
 
         var url = "\(API_USERS)\(userId)"
         manager.GET(url, parameters: nil, success:
@@ -27,8 +25,8 @@ extension FrendManager {
                 
                 if (responseObject.objectForKey("code") as! Int) == 0 {
                     let resultDic = responseObject.objectForKey("result") as! NSDictionary
+                    println("\(resultDic)");
                     var frend = FrendModel(json: resultDic)
-                    self.addFrend2DB(frend);
                     completion(isSuccess: true, errorCode: 0, frendInfo: frend)
                 } else {
                     completion(isSuccess: false, errorCode: 0, frendInfo: nil)

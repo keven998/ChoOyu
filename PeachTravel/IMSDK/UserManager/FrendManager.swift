@@ -119,7 +119,12 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
     :param: userId
     */
     func asyncGetFrendInfoFromServer(userId: Int, completion: (isSuccess: Bool, errorCode: Int, frendInfo: FrendModel?) -> ()) {
-        self.loadUserInfoFromServer(userId, completion: completion)
+        FrendManager.loadUserInfoFromServer(userId, completion: { (isSuccess: Bool, errorCode: Int, frendInfo: FrendModel?) -> () in
+            if isSuccess {
+                self.addFrend2DB(frendInfo!);
+            }
+            completion(isSuccess: isSuccess, errorCode: errorCode, frendInfo: frendInfo)
+        })
     }
     
     /**

@@ -86,7 +86,7 @@
 //用户相关接口
 #define API_WEIXIN_LOGIN                        (BASE_URL @"users/auth-signup")
 #define API_USERS                               (BASE_URL @"users/")
-#define API_GET_CAPTCHA                         (BASE_URL @"users/send-validation")    //接收验证码
+#define API_GET_CAPTCHA                         (BASE_URL @"users/validation-codes")    //接收验证码
 #define API_VERIFY_CAPTCHA                      (BASE_URL @"users/validation-codes")   //验证验证码
 #define API_SIGNUP                              (BASE_URL @"users/signup")        //用户注册
 #define API_SIGNIN                              (BASE_URL @"users/signin")
@@ -97,9 +97,6 @@
 #define API_DELETE_CONTACTS                     (BASE_URL @"users/contacts")   //删除好友
 #define API_GET_USERINFO_WITHEASEMOB            (BASE_URL @"users/easemob")   //传一个环信 id 数组，得到一个FM用户信息数组
 #define API_UPLOAD_ADDRESSBOOK                  (BASE_URL @"users/search-by-address-book")  //上传通讯录接口
-
-//IM相关接口
-#define API_GET_CONTACTS                        (BASE_URL @"users/contacts")   //获得联系人列表
 
 //其他一些乱七八糟的接口
 #define API_GET_COVER_STORIES                   (BASE_URL @"misc/cover-stories")  //获得封面故事接口

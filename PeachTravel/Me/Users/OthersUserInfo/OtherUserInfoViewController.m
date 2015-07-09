@@ -695,8 +695,7 @@
 
 - (void)loadUserProfile:(NSInteger)userId {
     
-    FrendManager *frendManager = [IMClientManager shareInstance].frendManager;
-    [frendManager asyncGetFrendInfoFromServer:userId completion:^(BOOL isSuccess, NSInteger errorCode, FrendModel * __nonnull frend) {
+    [FrendManager loadUserInfoFromServer:userId completion:^(BOOL isSuccess, NSInteger errorCode, FrendModel * __nonnull frend) {
         if (isSuccess) {
             _userInfo = frend;
             [self loadUserAlbum];
