@@ -969,6 +969,7 @@
 		D9EDC2671B4E1ED500599C4B /* master_no@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9EDC25D1B4E1ED500599C4B /* master_no@3x.png */; };
 		D9EDC2681B4E1ED500599C4B /* master_search@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9EDC25E1B4E1ED500599C4B /* master_search@3x.png */; };
 		D9EDC2691B4E1ED500599C4B /* master_star@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9EDC25F1B4E1ED500599C4B /* master_star@3x.png */; };
+		D9EDC26B1B4E533500599C4B /* add_poi@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9EDC26A1B4E533500599C4B /* add_poi@3x.png */; };
 		D9EE34421AB93CF10076933B /* RestaurantDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EE34401AB93CF10076933B /* RestaurantDetailViewController.m */; };
 		D9EE344F1AB93D500076933B /* ShoppingDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EE344D1AB93D500076933B /* ShoppingDetailViewController.m */; };
 		D9EE345F1AB93E3F0076933B /* HotelDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EE345D1AB93E3F0076933B /* HotelDetailViewController.m */; };
@@ -2342,6 +2343,7 @@
 		D9EDC25D1B4E1ED500599C4B /* master_no@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "master_no@3x.png"; sourceTree = "<group>"; };
 		D9EDC25E1B4E1ED500599C4B /* master_search@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "master_search@3x.png"; sourceTree = "<group>"; };
 		D9EDC25F1B4E1ED500599C4B /* master_star@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "master_star@3x.png"; sourceTree = "<group>"; };
+		D9EDC26A1B4E533500599C4B /* add_poi@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_poi@3x.png"; sourceTree = "<group>"; };
 		D9EE34341AB91DB40076933B /* PoiManagerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoiManagerProtocol.h; sourceTree = "<group>"; };
 		D9EE343F1AB93CF10076933B /* RestaurantDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantDetailViewController.h; sourceTree = "<group>"; };
 		D9EE34401AB93CF10076933B /* RestaurantDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantDetailViewController.m; sourceTree = "<group>"; };
@@ -3578,6 +3580,7 @@
 		D9871DAB1B479B8300BFDFAF /* 制作攻略 */ = {
 			isa = PBXGroup;
 			children = (
+				D9EDC26A1B4E533500599C4B /* add_poi@3x.png */,
 				D9871DB01B479BD600BFDFAF /* plan_02_dashboard_drawer@3x.png */,
 				D9871DB11B479BD600BFDFAF /* plan_02_dashboard_map@3x.png */,
 				D9871DB21B479BD600BFDFAF /* plan_bottom_hotel@3x.png */,
@@ -6229,6 +6232,7 @@
 				D9722F291A82446900D8A8CC /* Loading_Animation_final1@2x.png in Resources */,
 				C64BB5871B326CA400D11D9D /* ic_home_avatar_unknown@3x.png in Resources */,
 				274DB40C1B3D20DA00E426DE /* messages_plus_picture_default@3x.png in Resources */,
+				D9EDC26B1B4E533500599C4B /* add_poi@3x.png in Resources */,
 				27FF1AED1B09DEA000643D77 /* ic_zuji_flag@2x.png in Resources */,
 				C68CBDAC1B30316100D95F50 /* ic_home_shareapp2friend@3x.png in Resources */,
 				270C16511B0079BE0048C85D /* ic_spots_normal@2x.png in Resources */,
