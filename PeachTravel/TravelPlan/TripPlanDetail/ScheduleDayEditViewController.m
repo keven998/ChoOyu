@@ -9,6 +9,7 @@
 #import "ScheduleDayEditViewController.h"
 #import "FMMoveTableView.h"
 #import "FMMoveTableViewCell.h"
+#import "PlanScheduleTableViewCell.h"
 
 @interface ScheduleDayEditViewController () <FMMoveTableViewDataSource, FMMoveTableViewDelegate>
 
@@ -24,7 +25,7 @@
     _tableView.dataSource = self;
     _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 64)];
     [_tableView setEditing:YES];
-    [_tableView registerClass:[FMMoveTableViewCell class] forCellReuseIdentifier:@"cell"];
+    [_tableView registerNib:[UINib nibWithNibName:@"PlanScheduleTableViewCell" bundle:nil] forCellReuseIdentifier:@"schedule_summary_cell"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -46,22 +47,29 @@
     return 1;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 66;
+}
+
 - (UITableViewCell *)tableView:(FMMoveTableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    FMMoveTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    
+    PlanScheduleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"schedule_summary_cell" forIndexPath:indexPath];
     NSArray *ds = _tripDetail.itineraryList[indexPath.row];
+    NSMutableString *dstr = [[NSMutableString alloc] init];
     NSMutableString *title = [[NSMutableString alloc] init];
     NSMutableArray *titleArray = [[NSMutableArray alloc] init];
+    cell.dayScheduleSummary.numberOfLines = 1;
     NSInteger count = [ds count];
     for (int i = 0; i < count; ++i) {
         SuperPoi *sp = [ds objectAtIndex:i];
-        if (i == 0) {
+        if ([dstr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length == 0) {
             if (sp.locality && sp.locality.zhName) {
                 [titleArray addObject:sp.locality.zhName];
                 [title appendString:sp.locality.zhName];
             }
             
+            [dstr appendString:[NSString stringWithFormat:@"%@", sp.zhName]];
         } else {
             BOOL find = NO;
             for (NSString *str in titleArray) {
@@ -71,23 +79,20 @@
                 }
             }
             if (!find && sp.locality && sp.locality.zhName) {
-                [titleArray addObject:sp.locality.zhName];
                 [title appendString:[NSString stringWithFormat:@" > %@", sp.locality.zhName]];
+                [titleArray addObject:sp.locality.zhName];
             }
+            [dstr appendString:[NSString stringWithFormat:@" > %@", sp.zhName]];
+            
         }
     }
-
-    cell.textLabel.text = [NSString stringWithFormat:@"DAY%ld %@", indexPath.row+1, title];
-
-    if ([tableView indexPathIsMovingIndexPath:indexPath]) {
-        [cell prepareForMove];
-        
+    
+    cell.content = dstr;
+    cell.titleLabel.text = title;
+    if (indexPath.row < 9) {
+        cell.day = [NSString stringWithFormat:@"0%ld.", indexPath.row+1];
     } else {
-        if (tableView.movingIndexPath != nil) {
-            indexPath = [tableView adaptedIndexPathForRowAtIndexPath:indexPath];
-        }
-        cell.shouldIndentWhileEditing = NO;
-        cell.showsReorderControl = NO;
+        cell.day = [NSString stringWithFormat:@"%ld.", indexPath.row+1];
     }
     return cell;
 }

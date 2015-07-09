@@ -35,19 +35,22 @@
     
     _cityArray = [NSMutableArray array];
     
-    _tableView = [[FMMoveTableView alloc] initWithFrame:self.view.bounds];
+    _tableView = [[FMMoveTableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _tableView.backgroundColor = APP_PAGE_COLOR;
     _tableView.dataSource = self;
     _tableView.delegate = self;
     [_tableView registerNib:[UINib nibWithNibName:@"PoiOnEditorTableViewCell" bundle:nil] forCellReuseIdentifier:@"poi_cell_of_edit"];
+    _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.bounds.size.width, 50)];
     [self.view addSubview:_tableView];
     
-    UIButton *editBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-150, 100, 25)];
-    editBtn.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.9];
-    [editBtn setTitle:@"编辑天数" forState:UIControlStateNormal];
+    UIButton *editBtn = [[UIButton alloc] initWithFrame:CGRectMake(-4, self.view.bounds.size.height-300, 25, 70)];
+    editBtn.backgroundColor = APP_THEME_COLOR;
+    editBtn.titleLabel.numberOfLines = 0;
+    editBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
+    [editBtn setTitle:@"编\n辑\n天\n数" forState:UIControlStateNormal];
     [editBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    editBtn.layer.cornerRadius = 4.0;
+    editBtn.layer.cornerRadius = 5.0;
     [editBtn addTarget:self action:@selector(editDay:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:editBtn];
 }
@@ -74,13 +77,20 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 64;
+    return 66;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 49;
+    return 66;
 }
+
+
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -107,13 +117,40 @@
 {
     CGFloat width = tableView.frame.size.width;
     
-    UILabel *headerTitle = [[UILabel alloc] initWithFrame:CGRectMake(37, 25, width-80, 24)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 66)];
+    
+    UILabel *dayLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 11, 40, 40)];
+    dayLabel.font = [UIFont systemFontOfSize:14.0];
+    dayLabel.textAlignment = NSTextAlignmentCenter;
+    dayLabel.textColor = [UIColor whiteColor];
+    dayLabel.numberOfLines = 2.0;
+    dayLabel.layer.cornerRadius = 3.0;
+    dayLabel.clipsToBounds = YES;
+    dayLabel.backgroundColor = APP_THEME_COLOR;
+    dayLabel.layer.cornerRadius = 4.0;
+    
+    NSString *dayIndex;
+    if (section < 9) {
+        dayIndex = [NSString stringWithFormat:@"0%ld.", section+1];
+    } else {
+        dayIndex = [NSString stringWithFormat:@"%ld.", section+1];
+    }
+    
+    NSAttributedString *unitAStr = [[NSAttributedString alloc] initWithString:@"\nDay" attributes:@{
+                                                                                                    NSFontAttributeName : [UIFont systemFontOfSize:10.0],
+                                                                                                    }];
+    NSMutableAttributedString *attrstr = [[NSMutableAttributedString alloc] initWithString:dayIndex attributes:nil];
+    [attrstr appendAttributedString:unitAStr];
+    dayLabel.attributedText = attrstr;
+    [headerView addSubview:dayLabel];
+    
+    UILabel *headerTitle = [[UILabel alloc] initWithFrame:CGRectMake(70, 0, width-80, 66)];
     headerTitle.textColor = COLOR_TEXT_I;
     headerTitle.userInteractionEnabled = NO;
     headerTitle.font = [UIFont systemFontOfSize:15.0];
     headerTitle.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     headerTitle.lineBreakMode = NSLineBreakByTruncatingTail;
-    NSString *titleStr = [NSString stringWithFormat:@"DAY%ld ",(long)section+1];
+    
     NSMutableOrderedSet *set = [[NSMutableOrderedSet alloc] init];
     for (SuperPoi *tripPoi in [_backupTrip.itineraryList objectAtIndex:section]) {
         if (tripPoi.locality.zhName) {
@@ -136,12 +173,10 @@
     {
         [dest appendString:@""];
     }
-    NSMutableAttributedString *attributeString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@", titleStr, dest]];
-    [attributeString addAttributes:@{NSForegroundColorAttributeName:TEXT_COLOR_TITLE_SUBTITLE} range:NSMakeRange(titleStr.length, dest.length)];
-    [attributeString addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:11]} range:NSMakeRange(titleStr.length, dest.length)];
-    headerTitle.attributedText = attributeString;
-    
-    return headerTitle;
+   
+    headerTitle.text = dest;
+    [headerView addSubview:headerTitle];
+    return headerView;
 }
 
 - (UITableViewCell *)tableView:(FMMoveTableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

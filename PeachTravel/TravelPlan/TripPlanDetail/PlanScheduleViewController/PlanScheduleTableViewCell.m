@@ -10,8 +10,6 @@
 
 @interface PlanScheduleTableViewCell ()
 
-@property (weak, nonatomic) IBOutlet UILabel *dayScheduleSummary;
-
 @end
 
 @implementation PlanScheduleTableViewCell
@@ -19,12 +17,12 @@
 - (void)awakeFromNib {
     _headerImageView.clipsToBounds = YES;
     _dayLabel.textAlignment = NSTextAlignmentCenter;
+    _dayScheduleSummary.numberOfLines = 0;
 }
 
 - (void)setContent:(NSString *)content
 {
     _content = content;
-    _dayScheduleSummary.numberOfLines = 0;
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
     style.lineSpacing = 1.0;
     NSAttributedString *attrStr = [[NSAttributedString alloc] initWithString:_content attributes:@{
