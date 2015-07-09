@@ -233,7 +233,6 @@
 		C65763211AEB392C0069909D /* ic_trip_list@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C65763201AEB392C0069909D /* ic_trip_list@2x.png */; };
 		C65844DE1B09B8A700972CC6 /* ic_add_city@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C65844DD1B09B8A700972CC6 /* ic_add_city@2x.png */; };
 		C658BCF01B32B87700754A2D /* PlansListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C658BCEF1B32B87700754A2D /* PlansListTableViewController.m */; };
-		C659E9F11ADF794500A28095 /* DistributionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C659E9F01ADF794500A28095 /* DistributionViewController.m */; };
 		C65DB7B81AD37B8600F51443 /* SelectionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C65DB7B61AD37B8600F51443 /* SelectionTableViewController.m */; };
 		C65DB7B91AD37B8600F51443 /* SelectionTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C65DB7B71AD37B8600F51443 /* SelectionTableViewController.xib */; };
 		C65DB7C01AD4E44800F51443 /* TravelersTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C65DB7BF1AD4E44800F51443 /* TravelersTableViewController.m */; };
@@ -1278,8 +1277,6 @@
 		C65844DD1B09B8A700972CC6 /* ic_add_city@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_add_city@2x.png"; sourceTree = "<group>"; };
 		C658BCEE1B32B87700754A2D /* PlansListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlansListTableViewController.h; sourceTree = "<group>"; };
 		C658BCEF1B32B87700754A2D /* PlansListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlansListTableViewController.m; sourceTree = "<group>"; };
-		C659E9EF1ADF794500A28095 /* DistributionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DistributionViewController.h; sourceTree = "<group>"; };
-		C659E9F01ADF794500A28095 /* DistributionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DistributionViewController.m; sourceTree = "<group>"; };
 		C659E9F61AE0FF2100A28095 /* SNSDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SNSDefine.h; sourceTree = "<group>"; };
 		C65DB7B51AD37B8600F51443 /* SelectionTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectionTableViewController.h; sourceTree = "<group>"; };
 		C65DB7B61AD37B8600F51443 /* SelectionTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectionTableViewController.m; sourceTree = "<group>"; };
@@ -2916,8 +2913,6 @@
 				C65DB7BE1AD4E44800F51443 /* TravelersTableViewController.h */,
 				C65DB7BF1AD4E44800F51443 /* TravelersTableViewController.m */,
 				27F411D21AEF5CA1009D6C2B /* Screening 筛选 */,
-				C659E9F01ADF794500A28095 /* DistributionViewController.m */,
-				C659E9EF1ADF794500A28095 /* DistributionViewController.h */,
 				C6D038251AE52F85006DFD24 /* TravelerTableViewCell.h */,
 				C6D038261AE52F85006DFD24 /* TravelerTableViewCell.m */,
 			);
@@ -6661,7 +6656,6 @@
 				D92CA0FE1AD8BDF900F244FF /* PSTCollectionView.m in Sources */,
 				D9A8FFCF1A80D216005AD701 /* RecommendDataSource.m in Sources */,
 				D9F46DB91AC52D8600972AE8 /* SVWebViewController.m in Sources */,
-				C659E9F11ADF794500A28095 /* DistributionViewController.m in Sources */,
 				D9A800601A80DD0C005AD701 /* AddressBookTableViewCell.m in Sources */,
 				C6C5AFD41B0EDA73005D6A0F /* TraceViewController.m in Sources */,
 				D9A8FF291A80CCA5005AD701 /* AccountManagerTableViewCell.m in Sources */,

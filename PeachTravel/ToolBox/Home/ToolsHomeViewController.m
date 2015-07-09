@@ -66,7 +66,7 @@
     [lxpHelper addSubview:flag];
     [lxpHelper setBackgroundImage:[UIImage imageNamed:@"tools_home_card_bg_normal.png"] forState:UIControlStateNormal];
     [lxpHelper setBackgroundImage:[UIImage imageNamed:@"tools_home_card_bg_highlight.png"] forState:UIControlStateHighlighted];
-    [lxpHelper setTitle:@"达人咨询师" forState:UIControlStateNormal];
+    [lxpHelper setTitle:@"达人咨询" forState:UIControlStateNormal];
     [lxpHelper setTitleEdgeInsets:UIEdgeInsetsMake(flag.frame.size.height / 2.0, 0, -64, 0)];
     [lxpHelper setTitleColor:COLOR_TEXT_III forState:UIControlStateNormal];
     lxpHelper.titleLabel.font = [UIFont systemFontOfSize:16];
