@@ -11,8 +11,9 @@
 #import "FMMoveTableView.h"
 #import "ScheduleDayEditViewController.h"
 #import "DayAgendaViewController.h"
+#import "AddPoiViewController.h"
 
-@interface ScheduleEditorViewController ()<FMMoveTableViewDataSource, FMMoveTableViewDelegate, REFrostedViewControllerDelegate> {
+@interface ScheduleEditorViewController ()<FMMoveTableViewDataSource, FMMoveTableViewDelegate, REFrostedViewControllerDelegate, addPoiDelegate> {
     NSMutableArray *_cityArray;
 }
 
@@ -66,11 +67,27 @@
     // Dispose of any resources that can be recreated.
 }
 
-
 - (void)editDay:(id)sender
 {
     ((ScheduleDayEditViewController *)self.frostedViewController.menuViewController).tripDetail = _backupTrip;
     [self.frostedViewController presentMenuViewController];
+}
+
+- (void)addPoi:(UIButton *)sender
+{
+    AddPoiViewController *ctl = [[AddPoiViewController alloc] init];
+    ctl.currentDayIndex = sender.tag;
+    ctl.tripDetail = _backupTrip;
+    ctl.shouldEdit = YES;
+    ctl.delegate = self;
+    [self.navigationController pushViewController:ctl animated:YES];
+}
+
+#pragma mark - addPoiDelegate
+
+- (void)finishEdit
+{
+    [_tableView reloadData];
 }
 
 #pragma mark - UITableViewDataSource & Delegate
@@ -144,7 +161,7 @@
     dayLabel.attributedText = attrstr;
     [headerView addSubview:dayLabel];
     
-    UILabel *headerTitle = [[UILabel alloc] initWithFrame:CGRectMake(70, 0, width-80, 66)];
+    UILabel *headerTitle = [[UILabel alloc] initWithFrame:CGRectMake(70, 0, width-140, 66)];
     headerTitle.textColor = COLOR_TEXT_I;
     headerTitle.userInteractionEnabled = NO;
     headerTitle.font = [UIFont systemFontOfSize:15.0];
@@ -176,6 +193,14 @@
    
     headerTitle.text = dest;
     [headerView addSubview:headerTitle];
+    
+    UIButton *addPoiBtn = [[UIButton alloc] initWithFrame:CGRectMake(width-70, 0, 66, 66)];
+    [addPoiBtn setImage:[UIImage imageNamed:@"add_poi.png"] forState:UIControlStateNormal];
+    [addPoiBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
+    addPoiBtn.tag = section;
+    
+    [headerView addSubview:addPoiBtn];
+    
     return headerView;
 }
 
