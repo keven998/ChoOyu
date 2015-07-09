@@ -8,5 +8,5 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GuilderDistributeViewController : UIViewController
+@interface GuilderDistributeViewController : TZViewController
 @end
