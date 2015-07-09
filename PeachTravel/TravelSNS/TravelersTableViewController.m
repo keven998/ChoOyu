@@ -8,7 +8,6 @@
 
 #import "TravelersTableViewController.h"
 #import "TravelerTableViewCell.h"
-#import "DistributionViewController.h"
 #import "ScreeningViewController.h"
 #import "ForeignScreeningViewController.h"
 #import "OtherUserInfoViewController.h"
@@ -99,7 +98,6 @@
 
 #pragma mark - private method
 - (void) goSelect {
-//    DistributionViewController *dctl = [[DistributionViewController alloc] init];
     ScreeningViewController *screen = [[ScreeningViewController alloc]init];
     ForeignScreeningViewController *fcvc = [[ForeignScreeningViewController alloc]init];
     DomesticScreeningViewController *dsvc = [[DomesticScreeningViewController alloc]init];

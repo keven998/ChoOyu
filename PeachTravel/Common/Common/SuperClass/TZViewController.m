@@ -20,7 +20,7 @@
     [button setImage:[UIImage imageNamed:@"common_icon_navigaiton_back"] forState:UIControlStateNormal];
     [button setImage:[UIImage imageNamed:@"common_icon_navigaiton_back_highlight"] forState:UIControlStateHighlighted];
     [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
-    [button setFrame:CGRectMake(0, 0, 48, 30)];
+    [button setFrame:CGRectMake(0, 0, 30, 30)];
     button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.leftBarButtonItem = barButton;
