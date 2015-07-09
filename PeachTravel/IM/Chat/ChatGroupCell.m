@@ -14,7 +14,7 @@
     _headerImage.layer.cornerRadius = 20;
     _headerImage.contentMode = UIViewContentModeScaleAspectFill;
     _headerImage.clipsToBounds = YES;
-    _nameLabel.textColor = UIColorFromRGB(0x969696);
+    _nameLabel.textColor = COLOR_TEXT_I;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

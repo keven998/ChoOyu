@@ -19,9 +19,6 @@
 #import "ChatGroupSettingCell.h"
 
 @interface ChatGroupSettingViewController () <UITableViewDataSource,UITableViewDelegate,CreateConversationDelegate,SWTableViewCellDelegate,changeTitle>
-{
-    UIButton *_selectedBtn;
-}
 
 @property (nonatomic, strong) IMDiscussionGroup *groupModel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -39,7 +36,7 @@
         IMDiscussionGroupManager *groupManager = [IMDiscussionGroupManager shareInstance];
         _groupModel = [groupManager getFullDiscussionGroupInfoFromDBWithGroupId:_groupId];
         dispatch_async(dispatch_get_main_queue(), ^{
-           [_tableView reloadData];
+            [_tableView reloadData];
         });
     });
     [self updateGroupInfoFromServer];
@@ -80,29 +77,28 @@
     _tableView.dataSource = self;
     _tableView.delegate = self;
     _tableView.separatorColor = COLOR_LINE;
+    _tableView.backgroundColor = APP_PAGE_COLOR;
     [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     [_tableView registerNib:[UINib nibWithNibName:@"ChatGroupCell" bundle:nil] forCellReuseIdentifier:@"chatCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"AddMemberCell" bundle:nil] forCellReuseIdentifier:@"addCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"ChatGroupSettingCell" bundle:nil] forCellReuseIdentifier:@"chatGroupSettingCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"UserOtherTableViewCell" bundle:nil] forCellReuseIdentifier:@"otherCell"];
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.bounds.size.width, 64)];
     _tableView.tableFooterView = [self createFooterView];
     
 }
 
 - (UIView *)createFooterView
 {
-    UIView *footerBg = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH * 4.3/5, 338/3 * SCREEN_HEIGHT/736)];
-    UIButton *footerBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH * 3.8/5, 177/3 * SCREEN_HEIGHT/736)];
-    footerBtn.center = footerBg.center;
-    footerBtn.backgroundColor = UIColorFromRGB(0xF75368);
-    [footerBtn setTitle:@"退出聊天" forState:UIControlStateNormal];
+    UIView *footerBg = [[UIView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 124)];
+    footerBg.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    UIButton *footerBtn = [[UIButton alloc]initWithFrame:CGRectMake(10, 32, CGRectGetWidth(self.view.bounds) - 20, 58 * SCREEN_HEIGHT/736)];
+    [footerBtn setBackgroundImage:[[UIImage imageNamed:@"chat_drawer_leave.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(8, 8, 8, 8)] forState:UIControlStateNormal];
+    footerBtn.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    [footerBtn setTitle:@"退出该群" forState:UIControlStateNormal];
     [footerBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     footerBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14];
-    footerBtn.layer.cornerRadius = 8;
     [footerBtn addTarget:self action:@selector(quitGroup:) forControlEvents:UIControlEventTouchUpInside];
-    
     [footerBg addSubview:footerBtn];
     return footerBg;
 }
@@ -110,43 +106,80 @@
 #pragma mark - Table view data source
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if (section == 0) {
-        return 0;
-        
+        return 64.0;
     } else {
-        return 60;
+        return 95.0;
     }
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    if (section == 1) {
-        UIView *sectionHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 60)];
+    UIView *sectionHeaderView;
+    if (section == 0) {
+        CGFloat width = CGRectGetWidth(self.view.bounds);
+        sectionHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, width, 64.0)];
         sectionHeaderView.backgroundColor = APP_PAGE_COLOR;
+        sectionHeaderView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         
-        UIButton *addMemberBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, sectionHeaderView.bounds.size.width/2, 60)];
-        [addMemberBtn setTitle:@"邀成朋友" forState:UIControlStateNormal];
-        [addMemberBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-        addMemberBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-        [addMemberBtn addTarget:self action:@selector(addGroupNumber:) forControlEvents:UIControlEventTouchUpInside];
-        [sectionHeaderView addSubview:addMemberBtn];
-
-        if (_groupModel.owner == [AccountManager shareAccountManager].account.userId) {
-            UIButton *editGroup = [[UIButton alloc]initWithFrame:CGRectMake(sectionHeaderView.bounds.size.width/2+1, 0, sectionHeaderView.bounds.size.width/2-1, 60)];
-            [editGroup setTitle:@"管理成员" forState:UIControlStateNormal];
-            [editGroup setTitle:@"完成" forState:UIControlStateSelected];
-            [editGroup setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-            editGroup.titleLabel.font = [UIFont systemFontOfSize:15];
-            [editGroup addTarget:self action:@selector(editGroup:) forControlEvents:UIControlEventTouchUpInside];
-            [sectionHeaderView addSubview:editGroup];
-            
-            UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0.5, 60)];
-            spaceView.backgroundColor = COLOR_LINE;
-            [editGroup addSubview:spaceView];
-        }
-        return sectionHeaderView;
+        UIImageView *greenPointImageView = [[UIImageView alloc]initWithFrame:CGRectMake(12, 40, 10, 18)];
+        greenPointImageView.image = [UIImage imageNamed:@"chat_drawer_poit"];
+        greenPointImageView.contentMode = UIViewContentModeCenter;
+        [sectionHeaderView addSubview:greenPointImageView];
         
+        UILabel *strLabel = [[UILabel alloc]initWithFrame:CGRectMake(26, 40, 100, 18)];
+        strLabel.font = [UIFont systemFontOfSize:13];
+        strLabel.textColor = COLOR_TEXT_I;
+        [sectionHeaderView addSubview:strLabel];
+        strLabel.text = @"群设置";
+    } else {
+        CGFloat width = CGRectGetWidth(self.view.bounds);
+        sectionHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, width, 95.0)];
+        sectionHeaderView.backgroundColor = APP_PAGE_COLOR;
+        sectionHeaderView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        
+        UIImageView *greenPointImageView = [[UIImageView alloc]initWithFrame:CGRectMake(12, 24.0, 10, 18)];
+        greenPointImageView.image = [UIImage imageNamed:@"chat_drawer_poit"];
+        greenPointImageView.contentMode = UIViewContentModeCenter;
+        [sectionHeaderView addSubview:greenPointImageView];
+        
+        UILabel *strLabel = [[UILabel alloc]initWithFrame:CGRectMake(26, 24.0, 100, 18)];
+        strLabel.font = [UIFont systemFontOfSize:13];
+        strLabel.textColor = COLOR_TEXT_I;
+        [sectionHeaderView addSubview:strLabel];
+        strLabel.text = @"群成员";
+        
+        UIView *wp = [[UIView alloc] initWithFrame:CGRectMake(0, 48, width, 47)];
+        wp.backgroundColor = [UIColor whiteColor];
+        [sectionHeaderView addSubview:wp];
+        
+        UIButton *inviteBtn = [[UIButton alloc] initWithFrame:CGRectMake(13, 58, 48, 26)];
+        inviteBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+        [inviteBtn setTitle:@"邀请" forState:UIControlStateNormal];
+        [inviteBtn setTitleColor:COLOR_TEXT_III forState:UIControlStateNormal];
+        [inviteBtn setTitleColor:COLOR_TEXT_I forState:UIControlStateHighlighted];
+        inviteBtn.layer.cornerRadius = 4.0;
+        inviteBtn.layer.borderColor = COLOR_LINE.CGColor;
+        inviteBtn.layer.borderWidth = 1.0;
+        [inviteBtn addTarget:self action:@selector(addGroupNumber:) forControlEvents:UIControlEventTouchUpInside];
+        [sectionHeaderView addSubview:inviteBtn];
+        
+        UIButton *editBtn = [[UIButton alloc] initWithFrame:CGRectMake(width - 48 - 15, 58, 48, 26)];
+        editBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+        [editBtn setTitle:@"移除" forState:UIControlStateNormal];
+        [editBtn setTitle:@"完成" forState:UIControlStateSelected];
+        [editBtn setTitleColor:COLOR_TEXT_III forState:UIControlStateNormal];
+        [editBtn setTitleColor:COLOR_TEXT_I forState:UIControlStateHighlighted];
+        editBtn.layer.cornerRadius = 4.0;
+        editBtn.layer.borderColor = COLOR_LINE.CGColor;
+        editBtn.layer.borderWidth = 1.0;
+        [editBtn addTarget:self action:@selector(editGroup:) forControlEvents:UIControlEventTouchUpInside];
+        [sectionHeaderView addSubview:editBtn];
+        
+        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 46, width, 0.6)];
+        line.backgroundColor = COLOR_LINE;
+        [wp addSubview:line];
     }
-    return nil;
+    return sectionHeaderView;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -162,7 +195,11 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 68 * SCREEN_HEIGHT / 736;
+    if (indexPath.section == 0) {
+        return 68 * SCREEN_HEIGHT / 736;
+    } else {
+        return 72 * SCREEN_HEIGHT / 736;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -170,41 +207,35 @@
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             UserOtherTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"otherCell" forIndexPath:indexPath];
-            cell.cellTitle.text = @"群聊名称";
-            cell.cellTitle.font = [UIFont systemFontOfSize:16];
+            cell.cellTitle.text = @"群名称";
+            cell.cellTitle.font = [UIFont systemFontOfSize:13.0f];
             cell.cellDetail.text = _groupModel.subject;
+            cell.cellDetail.textColor = COLOR_TEXT_I;
+            cell.cellDetail.font = [UIFont systemFontOfSize:16.0f];
             return cell;
-            
         } else if (indexPath.row == 1) {
             ChatGroupSettingCell *cell = [tableView dequeueReusableCellWithIdentifier:@"chatGroupSettingCell" forIndexPath:indexPath];
             cell.accessoryType = UITableViewCellAccessoryNone;
-            
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             IMClientManager *clientManager = [IMClientManager shareInstance];
-            
             ChatConversation *conversation = [clientManager.conversationManager getExistConversationInConversationList:_groupModel.groupId];
             [cell.switchBtn addTarget:self action:@selector(changeMsgStatus:) forControlEvents:UIControlEventValueChanged];
             cell.switchBtn.on = [conversation isBlockMessag];
-            NSLog(@"cell.subviews.count: %ld", cell.subviews.count);
             cell.tag = 101;
-            
             return cell;
-            
         } else if (indexPath.row == 2) {
             UserOtherTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"otherCell" forIndexPath:indexPath];
             cell.accessoryType = UITableViewCellAccessoryNone;
-            cell.cellTitle.text = @"清记录";
-            cell.cellTitle.font = [UIFont systemFontOfSize:16];
+            cell.cellTitle.text = @"清空聊天记录";
+            cell.cellTitle.font = [UIFont systemFontOfSize:13.0f];
             cell.cellDetail.text = nil;
             return cell;
-            
         }
     }
     
     else {
         ChatGroupCell *cell = [tableView dequeueReusableCellWithIdentifier:@"chatCell" forIndexPath:indexPath];
-        
-        NSInteger i = indexPath.row ;
-        
+        NSInteger i = indexPath.row;
         cell.nameLabel.text = ((FrendModel *)self.groupModel.numbers[i]).nickName;
         NSString *avatarStr = nil;
         if (![((FrendModel *)self.groupModel.numbers[i]).avatarSmall isBlankString]) {
@@ -249,21 +280,10 @@
             changeCtl.oldTitle = _groupModel.subject;
             changeCtl.delegate = self;
             [_containerCtl.navigationController pushViewController:changeCtl animated:YES];
-            
-        }
-        else if (indexPath.row == 1) {
-            [self changeMsgStatus:_selectedBtn];
-            
-        }
-        
-        else if (indexPath.row == 2) {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"确认删除聊天记录？" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        } else if (indexPath.row == 2) {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"确认清空聊天记录" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
             [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
                 if (buttonIndex == 1) {
-                    
-                    //                NSDictionary *group = [NSDictionary dictionary];
-                    //                NSNumber *chatNum = [NSNumber numberWithInteger:_groupModel.groupId];
-                    //                [group setValue:chatNum forKeyPath:@"groupId"];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"RemoveAllMessages" object:nil userInfo:nil];
                 }
             }];
@@ -296,7 +316,7 @@
 {
     CGFloat contactViewHight = 0;
     NSInteger totalCtn = _groupModel.numbers.count;
-
+    
     totalCtn++;
     int lineCnt = (int)totalCtn/4;
     if (totalCtn%4 != 0) {
@@ -308,7 +328,7 @@
     contactViewHight = 10 + 90*lineCnt;
     
     [_tableView reloadData];
-//    [self createContactsScrollView];
+    //    [self createContactsScrollView];
 }
 
 //增加群组成员
@@ -341,7 +361,7 @@
  */
 - (IBAction)showUserInfo:(UIButton *)sender
 {
-
+    
 }
 
 - (void)showUserInfoWithContactInfo:(FrendModel *)contact
@@ -380,53 +400,53 @@
             
         }
     }];
-
+    
 }
 
 - (IBAction)changeGroupTitle:(UIButton *)sender {
 }
 
 - (IBAction)deleteMsg:(UIButton *)sender {
-//    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"确认删除聊天记录？" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-//    [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
-//        if (buttonIndex == 1) {
-//            [[NSNotificationCenter defaultCenter] postNotificationName:@"RemoveAllMessages" object:_groupModel.groupId];
-//            
-//        }
-//    }];
+    //    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"确认删除聊天记录？" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    //    [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
+    //        if (buttonIndex == 1) {
+    //            [[NSNotificationCenter defaultCenter] postNotificationName:@"RemoveAllMessages" object:_groupModel.groupId];
+    //
+    //        }
+    //    }];
 }
 
 - (IBAction)quitGroup:(UIButton *)sender {
-//    AccountManager *accountManager = [AccountManager shareAccountManager];
-//    __weak ChatGroupSettingViewController *weakSelf = self;
-//    if ([_group.owner isEqualToString: accountManager.account.easemobUser]) {
-//        [self showHudInView:self.view hint:@"删除群组"];
-//        [[EaseMob sharedInstance].chatManager asyncDestroyGroup:_group.groupId completion:^(EMGroup *group, EMGroupLeaveReason reason, EMError *error) {
-//            [weakSelf hideHud];
-//            if (error) {
-//                [weakSelf showHint:@"删除群组失败"];
-//            }
-//            else{
-//                [weakSelf showHint:@"删除群组成功"];
-//                [[NSNotificationCenter defaultCenter] postNotificationName:@"ExitGroup" object:nil];
-//                
-//            }
-//        } onQueue:nil];
-//        
-//    } else {
-//        [self showHudInView:self.view hint:@"退出群组"];
-//        [[EaseMob sharedInstance].chatManager asyncLeaveGroup:_group.groupId completion:^(EMGroup *group, EMGroupLeaveReason reason, EMError *error) {
-//            [weakSelf hideHud];
-//            if (error) {
-//                [weakSelf showHint:@"退出群组失败"];
-//            }
-//            else{
-//                [weakSelf showHint:@"退出群组成功"];
-//                [[NSNotificationCenter defaultCenter] postNotificationName:@"ExitGroup" object:nil];
-//            }
-//        } onQueue:nil];
-//        
-//    }
+    //    AccountManager *accountManager = [AccountManager shareAccountManager];
+    //    __weak ChatGroupSettingViewController *weakSelf = self;
+    //    if ([_group.owner isEqualToString: accountManager.account.easemobUser]) {
+    //        [self showHudInView:self.view hint:@"删除群组"];
+    //        [[EaseMob sharedInstance].chatManager asyncDestroyGroup:_group.groupId completion:^(EMGroup *group, EMGroupLeaveReason reason, EMError *error) {
+    //            [weakSelf hideHud];
+    //            if (error) {
+    //                [weakSelf showHint:@"删除群组失败"];
+    //            }
+    //            else{
+    //                [weakSelf showHint:@"删除群组成功"];
+    //                [[NSNotificationCenter defaultCenter] postNotificationName:@"ExitGroup" object:nil];
+    //
+    //            }
+    //        } onQueue:nil];
+    //
+    //    } else {
+    //        [self showHudInView:self.view hint:@"退出群组"];
+    //        [[EaseMob sharedInstance].chatManager asyncLeaveGroup:_group.groupId completion:^(EMGroup *group, EMGroupLeaveReason reason, EMError *error) {
+    //            [weakSelf hideHud];
+    //            if (error) {
+    //                [weakSelf showHint:@"退出群组失败"];
+    //            }
+    //            else{
+    //                [weakSelf showHint:@"退出群组成功"];
+    //                [[NSNotificationCenter defaultCenter] postNotificationName:@"ExitGroup" object:nil];
+    //            }
+    //        } onQueue:nil];
+    //
+    //    }
     
 }
 //-(void)viewWillDisappear:(BOOL)animated
