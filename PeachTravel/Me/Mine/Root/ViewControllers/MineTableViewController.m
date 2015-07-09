@@ -240,7 +240,6 @@
     NSInteger countryNumber = keys.count;
     for (int i = 0; i < countryNumber; ++i) {
         NSArray *citys = [country objectForKey:[keys objectAtIndex:i]];
-        NSLog(@"%@",citys);
         cityNumber += citys.count;
         
         for (id city in citys) {
@@ -465,7 +464,6 @@
     NSInteger countryNumber = keys.count;
     for (int i = 0; i < countryNumber; ++i) {
         NSArray *citys = [country objectForKey:[keys objectAtIndex:i]];
-        NSLog(@"%@",citys);
         for (id city in citys) {
             CityDestinationPoi *poi = [[CityDestinationPoi alloc] initWithJson:city];
             [destinations.destinationsSelected addObject:poi];

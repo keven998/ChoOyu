@@ -295,14 +295,14 @@
     NSTimeInterval dateDiff = [date timeIntervalSinceNow];
     int age=trunc(dateDiff/(60*60*24))/365;
     age = -age;
-    if (_userInfo.birthday == nil||[_userInfo.birthday isBlankString] || _userInfo.birthday.length == 0) {
+    if (_userInfo.birthday == nil||[_userInfo.birthday isBlankString]) {
         _age.text = @"未设置";
-    }else {
+    } else {
         _age.text = [NSString stringWithFormat:@"%d",age];
     }
-    if (_userInfo.residence == nil||[_userInfo.residence isBlankString] || _userInfo.residence.length == 0) {
+    if (_userInfo.residence == nil||[_userInfo.residence isBlankString]) {
         _recidence.text = @"未设置";
-    }else {
+    } else {
         _recidence.text = _userInfo.residence;
     }
     
@@ -694,7 +694,7 @@
 }
 
 - (void)loadUserProfile:(NSInteger)userId {
-    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [FrendManager loadUserInfoFromServer:userId completion:^(BOOL isSuccess, NSInteger errorCode, FrendModel * __nonnull frend) {
         if (isSuccess) {
             _userInfo = frend;
@@ -703,6 +703,7 @@
         } else {
             [SVProgressHUD showHint:@"请求失败"];
         }
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
 }
 

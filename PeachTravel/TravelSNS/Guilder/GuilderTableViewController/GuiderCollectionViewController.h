@@ -10,4 +10,6 @@
 
 @interface GuiderCollectionViewController : UICollectionViewController
 
+@property (nonatomic, copy) NSString *distributionArea;
+
 @end

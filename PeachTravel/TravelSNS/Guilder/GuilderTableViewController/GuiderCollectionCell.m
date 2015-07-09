@@ -13,6 +13,14 @@
 - (void)awakeFromNib {
     _backGroundView.layer.cornerRadius = 4.0;
     _backGroundView.clipsToBounds = YES;
+    
+    [_costellationBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_addressBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    _headerImageView.layer.cornerRadius = CGRectGetWidth(_headerImageView.frame)/2.0;
 }
 
 @end
