@@ -254,7 +254,6 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
         let manager = IMClientManager.shareInstance().frendManager
         manager.updateFrendType(userId: group.groupId, frendType: group.type)
        
-
         completion(isSuccess: true, errorCode: 0)
         
     }
@@ -278,7 +277,11 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
     func updateGroupInfoInDB(group: IMDiscussionGroup) {
         var frend = self.convertDiscussionGroupModel2FrendModel(group)
         var frendManager = IMClientManager.shareInstance().frendManager
-        frendManager.addFrend2DB(frend)
+        let exitFrend = frendManager.getFrendInfoFromDB(userId: frend.userId, frendType: IMFrendWeightType.DiscussionGroup)
+        if frend.extData == "" {
+            frend.extData = exitFrend?.extData ?? ""
+        }
+        frendManager.insertOrUpdateFrendInfoInDB(frend)
     }
     
     /**
@@ -291,7 +294,7 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
     func convertDiscussionGroupModel2FrendModel(group: IMDiscussionGroup) -> FrendModel {
         var frendModel = FrendModel()
         frendModel.userId = group.groupId
-        frendModel.nickName = group.subject
+        frendModel.nickName = group.subject ?? ""
         frendModel.type = IMFrendType.DiscussionGroup
         if group.numbers.count > 0 {
             var numberDic = NSMutableDictionary()

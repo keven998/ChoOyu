@@ -25,6 +25,9 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
     
     private let messageReceiveQueue = dispatch_queue_create("messageReceiveQueue", nil)
     
+    //是否正在fetch
+    var isFetching = false
+    
     /// 收到消息的监听队列，不同的消息有不同的监听者，由 routingkey 区分
     private var receiveDelegateList: Array<[MessageReceiveDelegateRoutingKey: MessageReceiveManagerDelegate]> = Array()
     
@@ -80,15 +83,13 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
     :param: receivedMessages 已经收到的消息
     */
     func asyncACKMessageWithReceivedMessages(receivedMessages: NSArray?, completion: ((isSucess: Bool) -> ())?) {
-        
-        println("fetchOmitMessageWithReceivedMessages queue: \(NSThread.currentThread())")
-        
         //储存需要额外处理的消息
         var messagesNeed2Deal = NSMutableArray()
+        isFetching = true
         
         NetworkTransportAPI.asyncACKMessage(IMClientManager.shareInstance().accountId, shouldACKMessageList:messageManager.messagesShouldACK, completionBlock: { (isSuccess: Bool, errorCode: Int, retMessage: NSArray?) -> () in
             
-            println("fetch Result 一共是：\(retMessage?.count): \(retMessage)")
+//            println("fetch Result 一共是：\(retMessage!.count ?? 0)")
             if (isSuccess) {
                 self.messageManager.clearAllMessageWhenACKSuccess()
                 if let retMessageArray = retMessage {
@@ -174,6 +175,7 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
     */
     private func dealwithFetchResult(receivedMessages: NSArray?, fetchMessages: NSArray?) {
         
+        NSLog("dealwithFetchResult*** currentThread   fetchMessagesCount %@, %d", NSThread.currentThread(), fetchMessages?.count ?? 0)
         var messagesPrepare2DistributeArray = NSMutableArray()
         
         var allLastMessageList = messageManager.allLastMessageList
@@ -193,30 +195,25 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
                     if let lastMessageServerId: AnyObject = allLastMessageList.objectForKey(message.chatterId) {
                         if (message.serverId - (lastMessageServerId as! Int)) >= 1 {
                             allLastMessageList.setObject(message.serverId, forKey: message.chatterId)
-                            println("消息合法: 带插入的 serverId: \(message.serverId)  最后一条的 serverId: \(lastMessageServerId)")
                             
                             var haveAdded = false
                             for var i = messagesPrepare2DistributeArray.count-1; i>=0; i-- {
                                 var oldMessage = messagesPrepare2DistributeArray.objectAtIndex(i) as! BaseMessage
                                 if (message.serverId == oldMessage.serverId && message.chatterId == oldMessage.chatterId) {
                                     haveAdded = true
-                                    println("equail....")
                                     break
                                     
                                 } else if (message.serverId < oldMessage.serverId && message.chatterId == oldMessage.chatterId) {
-                                    println("continue....message ServerID:\(message.serverId)  oldMessage.serverId: \(oldMessage.serverId)")
                                     continue
                                     
                                 } else if (message.serverId > oldMessage.serverId && message.chatterId == oldMessage.chatterId) {
                                     messagesPrepare2DistributeArray.insertObject(message, atIndex: i+1)
-                                    println("> and insert atIndex \(i+1)")
                                     haveAdded = true
                                     break
                                 }
                             }
                             if !haveAdded {
                                 messagesPrepare2DistributeArray.insertObject(message, atIndex: 0)
-                                println("not find and insert atIndex \(0)")
                             }
                             
                             
@@ -233,9 +230,9 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
                 }
             }
         }
-        println("共有\(messagesPrepare2DistributeArray.count)条消息是从 fetch 接口过来的，并且是合法的")
         var array = messagesPrepare2DistributeArray as AnyObject as! [BaseMessage]
         distributionMessage(array)
+        isFetching = false
     }
     
     /**
@@ -301,7 +298,7 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
     :param: message
     */
     private func downloadPreviewImageAndDistribution(imageMessage: ImageMessage) {
-        MetadataDownloadManager.asyncDownloadThumbImage(imageMessage.thumbUrl!, completion: { (isSuccess: Bool, metadata: NSData?) -> () in
+        MetadataDownloadManager.asyncDownloadThumbImage(imageMessage.thumbUrl ?? "", completion: { (isSuccess: Bool, metadata: NSData?) -> () in
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
                 var imagePath = IMClientManager.shareInstance().userChatImagePath.stringByAppendingPathComponent("\(imageMessage.metadataId!)")
                 
@@ -397,7 +394,9 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
     
     // MARK: MessageManagerDelegate
     func shouldACK(messageList: Array<String>) {
-        self.asyncACKMessageWithReceivedMessages(nil, completion: nil)
+        if !isFetching {
+            self.asyncACKMessageWithReceivedMessages(nil, completion: nil)
+        }
     }
 }
 

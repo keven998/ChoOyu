@@ -89,6 +89,10 @@
 
             case IMMessageTypeSpotMessageType:
                 _poiModel = ((IMSpotMessage *) message).poiModel;
+                break;
+                
+            case IMMessageTypeTipsMessageType:
+                _content = ((TipsMessage *) message).tipsContent;
 
                 break;
             default:

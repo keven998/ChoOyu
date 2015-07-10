@@ -238,6 +238,13 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
             discussionGroupManager.asyncGetDiscussionGroupInfoFromServer(conversation.chatterId, completion: { (isSuccess, errorCode, discussionGroup) -> () in
                 if let group = discussionGroup {
                     self.fillConversationWithIMDiscussionGroup(conversation, group: group)
+                    
+                } else {
+                    let group = IMDiscussionGroup()
+                    group.groupId = conversation.chatterId
+                    let groupManager = IMDiscussionGroupManager.shareInstance()
+                    groupManager.updateGroupInfoInDB(group)
+                    self.fillConversationWithIMDiscussionGroup(conversation, group: group)
                 }
                 completion(fullConversation: conversation)
             })
@@ -309,7 +316,7 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
     */
     private func fillConversationWithIMDiscussionGroup(conversation: ChatConversation, group: IMDiscussionGroup) {
         conversation.chatType = IMChatType.IMChatDiscussionGroupType
-        conversation.chatterName = group.subject
+        conversation.chatterName = group.subject ?? ""
         conversation.chatterId = group.groupId
     }
     

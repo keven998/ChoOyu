@@ -439,13 +439,10 @@
 - (void)pushChatViewController
 {
     ChatViewController *chatController = [[ChatViewController alloc] initWithChatter:_userId chatType:IMChatTypeIMChatSingleType];
-    __weak ChatViewController *viewController = chatController;
     UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:chatController];
     
-    UIViewController *menuViewController = nil;
-    
-    menuViewController = [[ChatSettingViewController alloc] init];
-    ((ChatSettingViewController *)menuViewController).chatterId = _userId;
+    ChatSettingViewController *menuViewController = [[ChatSettingViewController alloc] init];
+    menuViewController.chatterId = _userId;
     
     REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:navi menuViewController:menuViewController];
     frostedViewController.direction = REFrostedViewControllerDirectionRight;
@@ -456,15 +453,36 @@
     self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan = NO;
     [self.navigationController pushViewController:frostedViewController animated:YES];
     frostedViewController.navigationItem.title = _userInfo.nickName;
-    
+    __weak ChatViewController *viewController = chatController;
     if (![self.navigationController.viewControllers.firstObject isKindOfClass:[ChatListViewController class]]) {
         chatController.backBlock = ^(){
             [viewController.frostedViewController.navigationController popViewControllerAnimated:YES];
         };
         
     }
-    
 }
+
+
+//    ChatViewController *chatController = [[ChatViewController alloc] initWithChatter:_userId chatType:IMChatTypeIMChatSingleType];
+//    __weak ChatViewController *viewController = chatController;
+//    UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:chatController];
+//    
+//    UIViewController *menuViewController = nil;
+//    
+//    menuViewController = [[ChatSettingViewController alloc] init];
+//    ((ChatSettingViewController *)menuViewController).chatterId = _userId;
+//    
+//    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:navi menuViewController:menuViewController];
+//    frostedViewController.direction = REFrostedViewControllerDirectionRight;
+//    frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
+//    frostedViewController.liveBlur = YES;
+//    frostedViewController.limitMenuViewSize = YES;
+//    frostedViewController.resumeNavigationBar = NO;
+//    self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan = NO;
+//    [self.navigationController pushViewController:frostedViewController animated:YES];
+//    frostedViewController.navigationItem.title = _userInfo.nickName;
+//    
+//   }
 
 - (IBAction)moreAction:(UIButton *)sender
 {
