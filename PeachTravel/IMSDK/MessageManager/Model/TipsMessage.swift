@@ -29,7 +29,6 @@ class TipsMessage: BaseMessage {
     }
     
     override func fillContentWithContentDic(contentsDic: NSDictionary) {
-        NSLog("Tips contentsDic", contentsDic)
         if let typeValue = contentsDic.objectForKey("tipType") as? Int {
             tipsMessageType = TipsMessageType(rawValue: typeValue)
             tipsContent = self.getTipsContentWithMessage(contentsDic)
@@ -40,7 +39,13 @@ class TipsMessage: BaseMessage {
         var retString: String = ""
         switch tipsMessageType! {
         case .Add_GroupMember:
-            let operatorNickName: String = (content.objectForKey("operator")?.objectForKey("nickName") ?? "") as! String
+            let operatorNickName: String
+            let userId: Int = content.objectForKey("operator")?.objectForKey("userId") as! Int
+            if userId == IMClientManager.shareInstance().accountId {
+                operatorNickName = "我"
+            } else {
+                operatorNickName  = (content.objectForKey("operator")?.objectForKey("nickName") ?? "") as! String
+            }
             retString += "\(operatorNickName)邀请 "
             if let contenArray = content.objectForKey("targets") as? NSArray {
                 for userInfo in contenArray {
@@ -58,7 +63,23 @@ class TipsMessage: BaseMessage {
             break
             
         case .Remove_GroupMember:
+            let operatorNickName: String = (content.objectForKey("operator")?.objectForKey("nickName") ?? "") as! String
+            retString += "\(operatorNickName)把 "
+            if let contenArray = content.objectForKey("targets") as? NSArray {
+                for userInfo in contenArray {
+                    let userId: Int = userInfo.objectForKey("userId") as! Int
+                    if userId == IMClientManager.shareInstance().accountId {
+                        retString += "我, "
+                    } else {
+                        let nickName = userInfo.objectForKey("nickName") as! String
+                        retString += "\(nickName), "
+                    }
+                }
+            }
+            
+            retString += "移除群组"
             break
+
         case .Modify_GroupInfo:
             break
         }

@@ -12,7 +12,7 @@ let loginUrl = "http://hedy-dev.lvxingpai.com/users/login"
 
 let sendMessageURL = "http://hedy-dev.lvxingpai.com/chats"
 
-let ACKUrl = "http://hedy-dev.lvxingpai.com/chats/"
+let ACKUrl = "http://hedy-dev.lvxingpai.com/users/"
 
 let requestQiniuTokenToUploadMetadata = "http://hedy-dev.lvxingpai.com/upload/token-generator"
 
@@ -159,7 +159,7 @@ class NetworkTransportAPI: NSObject {
     :param: userId          fetch谁的消息
     :param: completionBlock fetch 后的回掉
     */
-    class func asyncACKMessage(userId: Int, shouldACKMessageList: Array<String>, completionBlock: (isSuccess: Bool, errorCode: Int, retMessage: NSArray?) -> ()) {
+    class func asyncACKMessage(userId: Int, lastFetchTime: Int?, completionBlock: (isSuccess: Bool, errorCode: Int, timestamp: Int?, retMessage: NSArray?) -> ()) {
         let manager = AFHTTPRequestOperationManager()
         println("开始执行 ACK 接口")
         let requestSerializer = AFJSONRequestSerializer()
@@ -167,27 +167,27 @@ class NetworkTransportAPI: NSObject {
         manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept")
         manager.requestSerializer.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         
-        var params = ["msgList": shouldACKMessageList]
+        var params = ["purgeBefore": lastFetchTime ?? 0]
         
         println("ACK接口,收取用户\(userId) 的未读消息")
         
-        var url = ACKUrl+"\(userId)"+"/ack"
+        var url = ACKUrl+"\(userId)"+"/messages"
         
         manager.POST(url, parameters: params, success:
         {
         (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
             if let reslutDic = responseObject.objectForKey("result") as? NSArray {
-                completionBlock(isSuccess: true, errorCode: 0, retMessage: reslutDic)
+                completionBlock(isSuccess: true, errorCode: 0, timestamp: responseObject.objectForKey("timestamp") as? Int, retMessage: reslutDic)
                 
             } else {
-                completionBlock(isSuccess: false, errorCode: 0, retMessage: nil)
+                completionBlock(isSuccess: false, errorCode: 0, timestamp: nil, retMessage: nil)
 
             }
         })
         {
         (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
         print(error)
-            completionBlock(isSuccess: false, errorCode: 0, retMessage: nil)
+            completionBlock(isSuccess: false, errorCode: 0, timestamp: nil, retMessage: nil)
         }
     }
 }

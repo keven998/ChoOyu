@@ -21,7 +21,7 @@ let CMDMessageChatterId = 0
 private let messageManger = MessageManager()
 
 @objc protocol MessageManagerDelegate {
-    func shouldACK(messageList: Array<String>)
+    func shouldACK()
     
 }
 
@@ -33,7 +33,7 @@ class MessageManager: NSObject {
     private var timer: NSTimer!
     
     /// 储存将要 ACK 的消息
-    var messagesShouldACK: Array<String> = Array()
+    var lastFetchTime: Int?
     
     class func shareInsatance() -> MessageManager {
         return messageManger
@@ -58,14 +58,6 @@ class MessageManager: NSObject {
         }
     }
     
-    func addChatMessage2ACK(message: BaseMessage) {
-        messagesShouldACK.append(message.messageId)
-        println("ACK消息队列里一共有\(messagesShouldACK.count)条数据")
-//        if messagesShouldACK.count > MaxACKCount {
-//            self.shouldACK()
-//        }
-    }
-    
     func ackMessageWhenTimeout() {
         if AccountManager.shareAccountManager().isLogin() {
             self.shouldACK()
@@ -85,16 +77,9 @@ class MessageManager: NSObject {
 
     }
     
-    /**
-    当 ack 成功后清除说有的 ack 数据
-    */
-    func clearAllMessageWhenACKSuccess() {
-        messagesShouldACK.removeAll(keepCapacity: false)
-    }
-    
     func shouldACK() {
         if AccountManager.shareAccountManager().isLogin() {
-            self.delegate?.shouldACK(messagesShouldACK)
+            self.delegate?.shouldACK()
         }
     }
    

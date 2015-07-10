@@ -248,7 +248,6 @@
     return @"删除";
 }
 
-
 -(void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
     NSMutableArray *sourcePois = _backupTrip.itineraryList[sourceIndexPath.section];
     NSMutableArray *destinationPois = _backupTrip.itineraryList[destinationIndexPath.section];

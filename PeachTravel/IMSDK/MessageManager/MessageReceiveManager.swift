@@ -87,11 +87,10 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
         var messagesNeed2Deal = NSMutableArray()
         isFetching = true
         
-        NetworkTransportAPI.asyncACKMessage(IMClientManager.shareInstance().accountId, shouldACKMessageList:messageManager.messagesShouldACK, completionBlock: { (isSuccess: Bool, errorCode: Int, retMessage: NSArray?) -> () in
-            
-//            println("fetch Result 一共是：\(retMessage!.count ?? 0)")
+        NetworkTransportAPI.asyncACKMessage(IMClientManager.shareInstance().accountId, lastFetchTime:messageManager.lastFetchTime, completionBlock: { (isSuccess: Bool, errorCode: Int, timestamp: Int?, retMessage: NSArray?) -> () in
+            self.isFetching = false
             if (isSuccess) {
-                self.messageManager.clearAllMessageWhenACKSuccess()
+                self.messageManager.lastFetchTime = timestamp
                 if let retMessageArray = retMessage {
                     dispatch_async(self.messageReceiveQueue, { () -> Void in
                         if (retMessageArray.count>0 || receivedMessages?.count>0) {
@@ -126,7 +125,6 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
 
         for message in (messageList as! NSMutableArray) {
             if let message = message as? BaseMessage {
-                messageManager.addChatMessage2ACK(message)
                 
                 if let lastMessageServerId: AnyObject = allLastMessageList.objectForKey(message.chatterId) {
                     if (message.serverId - (lastMessageServerId as! Int)) > 1 {
@@ -190,7 +188,6 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
             for messageDic in fetchMessages {
                 if let message = MessageManager.messageModelWithMessage(messageDic) {
                     message.sendType = IMMessageSendType.MessageSendSomeoneElse
-                    messageManager.addChatMessage2ACK(message)
                     
                     if let lastMessageServerId: AnyObject = allLastMessageList.objectForKey(message.chatterId) {
                         if (message.serverId - (lastMessageServerId as! Int)) >= 1 {
@@ -232,7 +229,6 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
         }
         var array = messagesPrepare2DistributeArray as AnyObject as! [BaseMessage]
         distributionMessage(array)
-        isFetching = false
     }
     
     /**
@@ -393,7 +389,7 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
     }
     
     // MARK: MessageManagerDelegate
-    func shouldACK(messageList: Array<String>) {
+    func shouldACK() {
         if !isFetching {
             self.asyncACKMessageWithReceivedMessages(nil, completion: nil)
         }
