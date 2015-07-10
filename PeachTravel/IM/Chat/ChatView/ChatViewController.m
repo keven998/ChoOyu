@@ -120,6 +120,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
     self.navigationItem.title = _conversation.chatterName;
     self.view.backgroundColor = APP_PAGE_COLOR;
     
@@ -140,7 +141,7 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     [self.view addSubview:self.tableView];
-    NSLog(@"%@", NSStringFromCGRect(self.view.frame));
+    NSLog(@"%@", NSStringFromCGRect(self.navigationController.view.frame));
 
     [self.view addSubview:self.chatToolBar];
     
@@ -815,7 +816,8 @@
 {
     [UIView animateWithDuration:0.25 animations:^{
         CGRect rect = self.tableView.frame;
-        rect.size.height = self.view.frame.size.height - toHeight;
+        NSLog(@"%f", self.view.frame.size.height - toHeight);
+        rect.size.height = kWindowHeight - toHeight - 64;
         self.tableView.frame = rect;
     }];
     [self scrollViewToBottom:YES];
