@@ -12,17 +12,10 @@
 
 - (void)awakeFromNib {
     // Initialization code
-    UIView *bgview = [[UIView alloc] initWithFrame:self.frame];
-    bgview.backgroundColor = [UIColor whiteColor];
-    self.selectedBackgroundView = bgview;
+//    UIView *bgview = [[UIView alloc] initWithFrame:self.frame];
+//    bgview.backgroundColor = [UIColor whiteColor];
+//    self.selectedBackgroundView = bgview;
     
-    _poiNameLabel.textColor = COLOR_TEXT_I;
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
     _poiNameLabel.textColor = COLOR_TEXT_I;
 }
 

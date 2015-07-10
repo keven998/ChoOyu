@@ -43,6 +43,7 @@
     _tableView.delegate = self;
     _tableView.separatorColor = COLOR_LINE;
     [_tableView registerNib:[UINib nibWithNibName:@"PoiOnEditorTableViewCell" bundle:nil] forCellReuseIdentifier:@"poi_cell_of_edit"];
+    _tableView.editing = YES;
     _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.bounds.size.width, 50)];
     [self.view addSubview:_tableView];
     
@@ -238,6 +239,39 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
     return @"删除";
+}
+
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+    SuperPoi *poi = [[_tripDetail.itineraryList objectAtIndex:sourceIndexPath.section] objectAtIndex:sourceIndexPath.row];
+    [[_tripDetail.itineraryList objectAtIndex:sourceIndexPath.section] removeObjectAtIndex:sourceIndexPath.section];
+    
+    [[_tripDetail.itineraryList objectAtIndex:destinationIndexPath.section] insertObject:poi atIndex:destinationIndexPath.row];
+    [self.tableView reloadData];
+}
+
+- (NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath {
+    if (proposedDestinationIndexPath.row > 0 && sourceIndexPath.section > proposedDestinationIndexPath.section) {
+        NSIndexPath *path = [NSIndexPath indexPathForItem:0 inSection:proposedDestinationIndexPath.section+1];
+        return path;
+    }
+    
+    if (sourceIndexPath.section < proposedDestinationIndexPath.section && proposedDestinationIndexPath.row == 0) {
+        NSIndexPath *path;
+        
+        if (proposedDestinationIndexPath.section == sourceIndexPath.section+1) {
+            path = [NSIndexPath indexPathForItem:0 inSection:proposedDestinationIndexPath.section-1];
+            
+        } else {
+            path = [NSIndexPath indexPathForItem:1 inSection:proposedDestinationIndexPath.section-1];
+            
+        }
+        return path;
+    }
+    return proposedDestinationIndexPath;
 }
 
 #pragma mark - IBAction

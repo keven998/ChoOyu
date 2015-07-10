@@ -15,15 +15,15 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9c2-qr-WY7">
-                        <rect key="frame" x="64" y="11" width="238" height="21"/>
+                        <rect key="frame" x="26" y="11" width="278" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="9c2-qr-WY7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="64" id="3WS-FF-dKs"/>
-                    <constraint firstAttribute="trailing" secondItem="9c2-qr-WY7" secondAttribute="trailing" constant="18" id="64U-aI-W88"/>
+                    <constraint firstItem="9c2-qr-WY7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="26" id="3WS-FF-dKs"/>
+                    <constraint firstAttribute="trailing" secondItem="9c2-qr-WY7" secondAttribute="trailing" constant="16" id="64U-aI-W88"/>
                     <constraint firstItem="9c2-qr-WY7" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="11" id="llk-Tb-dHM"/>
                     <constraint firstAttribute="bottom" secondItem="9c2-qr-WY7" secondAttribute="bottom" constant="11" id="o9e-iY-0sg"/>
                 </constraints>
