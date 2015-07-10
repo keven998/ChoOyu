@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -15,14 +15,14 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9c2-qr-WY7">
-                        <rect key="frame" x="37" y="11" width="265" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <rect key="frame" x="64" y="11" width="238" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="9c2-qr-WY7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="37" id="3WS-FF-dKs"/>
+                    <constraint firstItem="9c2-qr-WY7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="64" id="3WS-FF-dKs"/>
                     <constraint firstAttribute="trailing" secondItem="9c2-qr-WY7" secondAttribute="trailing" constant="18" id="64U-aI-W88"/>
                     <constraint firstItem="9c2-qr-WY7" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="11" id="llk-Tb-dHM"/>
                     <constraint firstAttribute="bottom" secondItem="9c2-qr-WY7" secondAttribute="bottom" constant="11" id="o9e-iY-0sg"/>

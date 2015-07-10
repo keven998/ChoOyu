@@ -16,18 +16,14 @@
     bgview.backgroundColor = [UIColor whiteColor];
     self.selectedBackgroundView = bgview;
     
-    _poiNameLabel.textColor = TEXT_COLOR_TITLE;
+    _poiNameLabel.textColor = COLOR_TEXT_I;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
-    _poiNameLabel.textColor = TEXT_COLOR_TITLE;
-}
-
-- (void)prepareForMove {
-    _poiNameLabel.text = @"";
+    _poiNameLabel.textColor = COLOR_TEXT_I;
 }
 
 @end

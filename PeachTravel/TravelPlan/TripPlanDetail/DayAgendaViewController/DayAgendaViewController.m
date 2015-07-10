@@ -40,13 +40,14 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _tableView.dataSource = self;
     _tableView.delegate = self;
+    _tableView.separatorColor = COLOR_LINE;
     [_tableView registerNib:[UINib nibWithNibName:@"TripPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:tripPoiListReusableIdentifier];
     [self.view addSubview:_tableView];
     
     _dataSource = [_tripDetail.itineraryList objectAtIndex:_currentDay];
     
     UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 44)];
-    [btn setTitle:@"修改" forState:UIControlStateNormal];
+    [btn setTitle:@"调整" forState:UIControlStateNormal];
     btn.titleLabel.font = [UIFont systemFontOfSize:17.0];
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [btn setTitleColor:COLOR_DISABLE forState:UIControlStateHighlighted];
