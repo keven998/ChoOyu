@@ -181,19 +181,19 @@ class ChatConversation: NSObject {
     func getMoreChatMessageInConversation(messageCount: Int) -> Array<BaseMessage> {
         
         NSLog("开始加载更多的聊天界面记录")
-        var daoHelper = DaoHelper.shareInstance()
-        var tableName = "chat_\(chatterId)"
-        var retArray = NSArray()
-        var localId: Int
+        let daoHelper = DaoHelper.shareInstance()
+        let tableName = "chat_\(chatterId)"
+        let retArray = NSArray()
+        let localId: Int
         if chatMessageList.count > 0 {
             localId = (chatMessageList.first)!.localId
         } else {
             localId = Int.max
         }
-        var moreMessages = daoHelper.selectChatMessageList(chatterId, untilLocalId: localId, messageCount: messageCount)
+        let moreMessages = daoHelper.selectChatMessageList(chatterId, untilLocalId: localId, messageCount: messageCount)
         
         for var i = moreMessages.count-1; i>=0; i-- {
-            var message = moreMessages[i]
+            let message = moreMessages[i]
             chatMessageList.insert(message, atIndex: 0)
         }
         

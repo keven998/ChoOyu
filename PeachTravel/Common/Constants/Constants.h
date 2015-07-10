@@ -35,8 +35,8 @@
 
 /***** API *****/
 
-//#define BASE_URL                                @ "http://api-dev.lvxingpai.com/app/"
-#define BASE_URL                                @ "http://api.lvxingpai.com/app/"
+#define BASE_URL                                @ "http://api-dev.lvxingpai.com/app/"
+//#define BASE_URL                                @ "http://api.lvxingpai.com/app/"
 
 //#define BASE_URL1                                 @ "http://182.92.150.243:9000/taozi/"
 
@@ -146,8 +146,8 @@ typedef NS_ENUM(NSUInteger, TZPoiType) {
 
 /***** app的状态，连接中。收取中。。等 *****/
 typedef NS_ENUM(NSUInteger, IM_CONNECT_STATE) {
-    IM_CONNECTING = 1,
     IM_CONNECTED,
+    IM_CONNECTING,
     IM_RECEIVING,
     IM_RECEIVED,
     IM_DISCONNECTED

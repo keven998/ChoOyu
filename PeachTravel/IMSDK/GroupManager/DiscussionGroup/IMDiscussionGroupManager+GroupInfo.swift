@@ -69,6 +69,7 @@ extension IMDiscussionGroupManager {
                 self.updateGroupInfoInDB(group)
                 completion(isSuccess: true, errorCode: 0, discussionGroup: group)
             } else {
+                
                 completion(isSuccess: false, errorCode: 0, discussionGroup: nil)
             }
         }) {
@@ -92,7 +93,7 @@ extension IMDiscussionGroupManager {
         manager.requestSerializer.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         manager.requestSerializer.setValue("\(AccountManager.shareAccountManager().account.userId)", forHTTPHeaderField: "UserId")
         
-        var url = "\(groupUrl)/\(group.groupId)/users"
+        var url = "\(discussionGroupUrl)\(group.groupId)/members"
         manager.GET(url, parameters: nil, success: {
             (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
             if (responseObject.objectForKey("code") as! Int) == 0 {

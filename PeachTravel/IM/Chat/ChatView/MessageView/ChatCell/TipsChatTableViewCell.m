@@ -25,7 +25,7 @@
         _contentLabel.numberOfLines = 0;
         _contentLabel.textColor = [UIColor whiteColor];
         _contentLabel.textAlignment = NSTextAlignmentCenter;
-        _contentLabel.font = [UIFont systemFontOfSize:10];
+        _contentLabel.font = [UIFont systemFontOfSize:11];
         _contentLabel.layer.backgroundColor = COLOR_DISABLE.CGColor;
         _contentLabel.layer.cornerRadius = 4.0;
         [self addSubview:_contentLabel];
@@ -47,19 +47,27 @@
 
 + (CGFloat)heightForBubbleWithObject:(MessageModel *)model
 {
+    if ([model.content isBlankString]) {
+        return 0;
+    }
     CGSize textMaxSize = CGSizeMake(kWindowWidth-20, CGFLOAT_MAX);
-    CGSize size = [model.content boundingRectWithSize:textMaxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:10]} context:nil].size;
+    CGSize size = [model.content boundingRectWithSize:textMaxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:11]} context:nil].size;
     return size.height+8;
 }
 
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    CGSize textMaxSize = CGSizeMake(self.bounds.size.width-20, CGFLOAT_MAX);
-    CGSize size = [_content boundingRectWithSize:textMaxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:10]} context:nil].size;
-    _contentLabel.frame = CGRectMake((self.bounds.size.width-size.width)/2, 0, size.width+8, size.height+8);
-    _contentLabel.center = CGPointMake(CGRectGetWidth(self.bounds)/2.0, CGRectGetHeight(self.bounds)/2.0);
-    _contentLabel.text = _content;
+    if ([_content isBlankString]) {
+        _contentLabel.frame = CGRectZero;
+        
+    } else {
+        CGSize textMaxSize = CGSizeMake(self.bounds.size.width-20, CGFLOAT_MAX);
+        CGSize size = [_content boundingRectWithSize:textMaxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:11]} context:nil].size;
+        _contentLabel.frame = CGRectMake((self.bounds.size.width-size.width)/2, 0, size.width+8, size.height+8);
+        _contentLabel.center = CGPointMake(CGRectGetWidth(self.bounds)/2.0, CGRectGetHeight(self.bounds)/2.0);
+        _contentLabel.text = _content;
+    }
 }
 
 @end

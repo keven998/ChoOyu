@@ -341,7 +341,7 @@
  *
  *  @return
  */
--(NSString *)lastMessageTimeByConversation:(ChatConversation *)conversation
+- (NSString *)lastMessageTimeByConversation:(ChatConversation *)conversation
 {
     NSString *ret = [NSDate formattedTimeFromTimeInterval:conversation.lastUpdateTime];
     return ret;
@@ -354,7 +354,7 @@
  *
  *  @return
  */
--(NSString *)subTitleMessageByConversation:(ChatConversation *)conversation
+- (NSString *)subTitleMessageByConversation:(ChatConversation *)conversation
 {
     NSString *ret = @"";
     BaseMessage *lastMessage = [conversation lastLocalMessage];
@@ -413,6 +413,12 @@
                     
                 case IMMessageTypeLocationMessageType: {
                     ret = [NSString stringWithFormat:@"%@:[位置]", nickName];
+                    
+                }
+                    break;
+                    
+                case IMMessageTypeTipsMessageType: {
+                    ret = ((TipsMessage *) lastMessage).tipsContent;
                     
                 }
                     break;
@@ -479,6 +485,13 @@
                     
                 }
                     break;
+                    
+                case IMMessageTypeTipsMessageType: {
+                    ret = ((TipsMessage *) lastMessage).tipsContent;
+                    
+                }
+                    break;
+
                     
                 default: {
                     ret = [NSString stringWithFormat:@"升级新版本才可以查看这条神秘消息哦"];

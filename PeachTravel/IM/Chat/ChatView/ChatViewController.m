@@ -53,6 +53,7 @@
 
 #import "MJRefresh.h"
 #import "RefreshHeader.h"
+
 #define KPageCount 20
 
 @interface ChatViewController ()<UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, DXChatBarMoreViewDelegate, DXMessageToolBarDelegate, LocationViewDelegate, ZYQAssetPickerControllerDelegate, ChatConversationDelegate, ChatManagerAudioPlayDelegate>
@@ -127,7 +128,7 @@
     }
     _conversation.isCurrentConversation = YES;
     _conversation.delegate = self;
-    [_conversation getDefaultChatMessageInConversation:10];
+    [_conversation getDefaultChatMessageInConversation:15];
     [self sortDataSource];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeAllMessages:) name:@"RemoveAllMessages" object:nil];
@@ -139,6 +140,8 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     [self.view addSubview:self.tableView];
+    NSLog(@"%@", NSStringFromCGRect(self.view.frame));
+
     [self.view addSubview:self.chatToolBar];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyBoardHidden)];
@@ -324,6 +327,7 @@
 - (DXMessageToolBar *)chatToolBar
 {
     if (!_chatToolBar) {
+        
         _chatToolBar = [[DXMessageToolBar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - [DXMessageToolBar defaultHeight] - 64, self.view.frame.size.width, [DXMessageToolBar defaultHeight])];
         _chatToolBar.backgroundColor = [UIColor whiteColor];
         _chatToolBar.delegate = self;
@@ -1016,7 +1020,8 @@
 {
     NSMutableArray *indexPath2Insert = [[NSMutableArray alloc] init];
     int i = 0;
-    for (BaseMessage *message in messageList) {
+    for (NSInteger j=messageList.count-1; j>0; j--) {
+        BaseMessage *message = messageList[j];
         NSDate *createDate = [NSDate dateWithTimeIntervalInMilliSecondSince1970:(NSTimeInterval)message.createTime];
         NSTimeInterval tempDate = [createDate timeIntervalSinceDate:self.chatTagDate];
         if (tempDate > 60 || tempDate < -60 || (self.chatTagDate == nil)) {

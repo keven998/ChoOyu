@@ -61,9 +61,9 @@ class MessageManager: NSObject {
     func addChatMessage2ACK(message: BaseMessage) {
         messagesShouldACK.append(message.messageId)
         println("ACK消息队列里一共有\(messagesShouldACK.count)条数据")
-        if messagesShouldACK.count > MaxACKCount {
-            self.shouldACK()
-        }
+//        if messagesShouldACK.count > MaxACKCount {
+//            self.shouldACK()
+//        }
     }
     
     func ackMessageWhenTimeout() {
@@ -306,6 +306,9 @@ class MessageManager: NSObject {
                     
                 case .CMDMessageType:
                     messageModel = IMCMDMessage()
+                    
+                case .TipsMessageType:
+                    messageModel = TipsMessage()
                     
                 default :
                     return nil

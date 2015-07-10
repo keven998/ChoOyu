@@ -44,8 +44,6 @@ extension AppDelegate {
     }
     
     func lvApplicationDidBecomeActive(application: UIApplication) {
-        var messageManager = MessageManager.shareInsatance()
-        messageManager.shouldACK()
     }
     
     func lvApplicationWillTerminate(application: UIApplication) {
