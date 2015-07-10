@@ -563,6 +563,7 @@
 		D993CB5A1AB6D6400075314E /* RestaurantPoi.m in Sources */ = {isa = PBXBuildFile; fileRef = D993CB591AB6D6400075314E /* RestaurantPoi.m */; };
 		D993CB5D1AB6D64B0075314E /* ShoppingPoi.m in Sources */ = {isa = PBXBuildFile; fileRef = D993CB5C1AB6D64B0075314E /* ShoppingPoi.m */; };
 		D993CB601AB6D6590075314E /* HotelPoi.m in Sources */ = {isa = PBXBuildFile; fileRef = D993CB5F1AB6D6590075314E /* HotelPoi.m */; };
+		D999D3811B4FC19400B4570C /* frend_request_icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D999D3801B4FC19400B4570C /* frend_request_icon@3x.png */; };
 		D99D8EE519C8600C0021C25B /* PeachTravelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D99D8EE419C8600C0021C25B /* PeachTravelTests.m */; };
 		D9A800171A80D52F005AD701 /* MakePlanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FFD31A80D52F005AD701 /* MakePlanViewController.m */; };
 		D9A8001A1A80D52F005AD701 /* Destinations.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FFDA1A80D52F005AD701 /* Destinations.m */; };
@@ -1725,6 +1726,7 @@
 		D993CB5C1AB6D64B0075314E /* ShoppingPoi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingPoi.m; sourceTree = "<group>"; };
 		D993CB5E1AB6D6590075314E /* HotelPoi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelPoi.h; sourceTree = "<group>"; };
 		D993CB5F1AB6D6590075314E /* HotelPoi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelPoi.m; sourceTree = "<group>"; };
+		D999D3801B4FC19400B4570C /* frend_request_icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "frend_request_icon@3x.png"; sourceTree = "<group>"; };
 		D99D8EC519C8600C0021C25B /* PeachTravel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PeachTravel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D99D8EDE19C8600C0021C25B /* PeachTravelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PeachTravelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D99D8EE319C8600C0021C25B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -2973,6 +2975,7 @@
 		C6631CF51B300C4E00BE4ADC /* 聊天列表首页 */ = {
 			isa = PBXGroup;
 			children = (
+				D999D3801B4FC19400B4570C /* frend_request_icon@3x.png */,
 				C68CBDBD1B30469700D95F50 /* ic_home_default_avatar@3x.png */,
 				C6631CF61B300C4E00BE4ADC /* ic_avatar_lxp_search@3x.png */,
 				C6631CF71B300C4E00BE4ADC /* ic_navigationbar_menu_add@3x.png */,
@@ -6183,6 +6186,7 @@
 				27FF1AFB1B0A203E00643D77 /* travel suggest@2x.png in Resources */,
 				C63FFCCA1B3A6CFB0026758F /* messages_icon_smile_default@3x.png in Resources */,
 				27329DD51B13063500F0A4FA /* star_couler@2x.png in Resources */,
+				D999D3811B4FC19400B4570C /* frend_request_icon@3x.png in Resources */,
 				D9EDC2661B4E1ED500599C4B /* master_no time@3x.png in Resources */,
 				C6C5C3B81ADE15BE0047C058 /* BaseTextSettingViewController.xib in Resources */,
 				D9B9EA171A88CC0F00966074 /* delete_contact@2x.png in Resources */,

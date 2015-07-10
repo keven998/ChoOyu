@@ -12,7 +12,8 @@
 
 - (void)awakeFromNib {
     _avatarImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
-    _avatarImageView.layer.cornerRadius = 8;
+    _avatarImageView.layer.cornerRadius = 20;
+    _avatarImageView.clipsToBounds = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
