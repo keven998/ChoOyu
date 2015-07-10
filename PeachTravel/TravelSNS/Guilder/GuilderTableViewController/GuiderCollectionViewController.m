@@ -207,6 +207,16 @@ static NSString * const reuseIdentifier = @"Cell";
     [self.navigationController pushViewController:otherInfoCtl animated:YES] ;
 }
 
+- (void)goBack
+{
+    if (self.navigationController.childViewControllers.count > 1) {
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+}
+
+
 /*
  // Uncomment this method to specify if the specified item should be highlighted during tracking
  - (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {

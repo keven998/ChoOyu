@@ -8,16 +8,15 @@
 
 #import "ScheduleEditorViewController.h"
 #import "PoiOnEditorTableViewCell.h"
-#import "FMMoveTableView.h"
 #import "ScheduleDayEditViewController.h"
 #import "DayAgendaViewController.h"
 #import "AddPoiViewController.h"
 
-@interface ScheduleEditorViewController ()<FMMoveTableViewDataSource, FMMoveTableViewDelegate, REFrostedViewControllerDelegate, addPoiDelegate> {
+@interface ScheduleEditorViewController ()<UITableViewDataSource, UITableViewDelegate, REFrostedViewControllerDelegate, addPoiDelegate> {
     NSMutableArray *_cityArray;
 }
 
-@property (nonatomic, strong) FMMoveTableView *tableView;
+@property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) TripDetail *backupTrip;
 @end
 
@@ -25,7 +24,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"修改行程";
+    self.navigationItem.title = @"调整";
+    
     UIBarButtonItem *finishBtn = [[UIBarButtonItem alloc]initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(saveTripChange:)];
     UIBarButtonItem *cancelBtn = [[UIBarButtonItem alloc]initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(cancel:)];
     self.navigationItem.rightBarButtonItem = finishBtn;
@@ -36,20 +36,30 @@
     
     _cityArray = [NSMutableArray array];
     
-    _tableView = [[FMMoveTableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+    _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _tableView.backgroundColor = APP_PAGE_COLOR;
     _tableView.dataSource = self;
     _tableView.delegate = self;
+    _tableView.separatorColor = COLOR_LINE;
     [_tableView registerNib:[UINib nibWithNibName:@"PoiOnEditorTableViewCell" bundle:nil] forCellReuseIdentifier:@"poi_cell_of_edit"];
     _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.bounds.size.width, 50)];
     [self.view addSubview:_tableView];
+    
+    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49 - 44, CGRectGetWidth(self.view.bounds), 49)];
+    btn.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
+    [btn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
+    [btn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR_HIGHLIGHT] forState:UIControlStateHighlighted];
+    [btn setTitle:@"增加一天" forState:UIControlStateNormal];
+    btn.titleLabel.font = [UIFont systemFontOfSize:16.0];
+    [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.view addSubview:btn];
     
     UIButton *editBtn = [[UIButton alloc] initWithFrame:CGRectMake(-4, self.view.bounds.size.height-300, 25, 70)];
     editBtn.backgroundColor = APP_THEME_COLOR;
     editBtn.titleLabel.numberOfLines = 0;
     editBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
-    [editBtn setTitle:@"编\n辑\n天\n数" forState:UIControlStateNormal];
+    [editBtn setTitle:@"按\n天\n调\n整" forState:UIControlStateNormal];
     [editBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     editBtn.layer.cornerRadius = 5.0;
     [editBtn addTarget:self action:@selector(editDay:) forControlEvents:UIControlEventTouchUpInside];
@@ -94,7 +104,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 66;
+    return 64*CGRectGetHeight(self.view.frame)/768;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -104,39 +114,28 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 66;
+    return 64*CGRectGetHeight(self.view.frame)/768;
 }
-
-
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return _backupTrip.itineraryList.count;
 }
 
-- (NSInteger)tableView:(FMMoveTableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     NSInteger numberOfRows = [[_backupTrip.itineraryList objectAtIndex:section] count];
-    if (tableView.movingIndexPath && tableView.movingIndexPath.section != tableView.initialIndexPathForMovingRow.section)
-    {
-        if (section == tableView.movingIndexPath.section) {
-            numberOfRows++;
-        }
-        else if (section == tableView.initialIndexPathForMovingRow.section) {
-            numberOfRows--;
-        }
-    }
-
     return numberOfRows;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     CGFloat width = tableView.frame.size.width;
+    CGFloat height = 60*CGRectGetHeight(self.view.frame)/768;
     
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 66)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, height)];
     
-    UILabel *dayLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 11, 40, 40)];
+    UILabel *dayLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, (height - 40)/2 + 1, 40, 40)];
     dayLabel.font = [UIFont systemFontOfSize:14.0];
     dayLabel.textAlignment = NSTextAlignmentCenter;
     dayLabel.textColor = [UIColor whiteColor];
@@ -161,10 +160,10 @@
     dayLabel.attributedText = attrstr;
     [headerView addSubview:dayLabel];
     
-    UILabel *headerTitle = [[UILabel alloc] initWithFrame:CGRectMake(70, 0, width-140, 66)];
-    headerTitle.textColor = COLOR_TEXT_I;
+    UILabel *headerTitle = [[UILabel alloc] initWithFrame:CGRectMake(64, 1, width-140, height-1)];
+    headerTitle.textColor = COLOR_TEXT_II;
     headerTitle.userInteractionEnabled = NO;
-    headerTitle.font = [UIFont systemFontOfSize:15.0];
+    headerTitle.font = [UIFont systemFontOfSize:14.0];
     headerTitle.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     headerTitle.lineBreakMode = NSLineBreakByTruncatingTail;
     
@@ -180,7 +179,7 @@
     if (set.count) {
         for (NSString *s in set) {
             if (dest.length > 0) {
-                [dest appendFormat:@"-%@", s];
+                [dest appendFormat:@" > %@", s];
             } else {
                 [dest appendString:s];
             }
@@ -194,7 +193,7 @@
     headerTitle.text = dest;
     [headerView addSubview:headerTitle];
     
-    UIButton *addPoiBtn = [[UIButton alloc] initWithFrame:CGRectMake(width-70, 0, 66, 66)];
+    UIButton *addPoiBtn = [[UIButton alloc] initWithFrame:CGRectMake(width-70, 1, 66, height-1)];
     [addPoiBtn setImage:[UIImage imageNamed:@"add_poi.png"] forState:UIControlStateNormal];
     [addPoiBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
     addPoiBtn.tag = section;
@@ -204,16 +203,11 @@
     return headerView;
 }
 
-- (UITableViewCell *)tableView:(FMMoveTableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     PoiOnEditorTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"poi_cell_of_edit" forIndexPath:indexPath];
-    if ([tableView indexPathIsMovingIndexPath:indexPath]) {
-        [cell prepareForMove];
-    }
-    else {
-        if (tableView.movingIndexPath != nil) {
-            indexPath = [tableView adaptedIndexPathForRowAtIndexPath:indexPath];
-        }
+    
+    if (_backupTrip.itineraryList[indexPath.section][indexPath.row] != [NSNull null]) {
         SuperPoi *tripPoi = _backupTrip.itineraryList[indexPath.section][indexPath.row];
         cell.poiNameLabel.text = tripPoi.zhName;
         cell.shouldIndentWhileEditing = NO;
@@ -244,24 +238,6 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
     return @"删除";
-}
-
-- (BOOL)moveTableView:(FMMoveTableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return YES;
-}
-
-- (NSIndexPath *)moveTableView:(FMMoveTableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath
-{
-    return proposedDestinationIndexPath;
-}
-
-
-- (void)moveTableView:(FMMoveTableView *)tableView moveRowFromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-    NSArray *movie = [[_backupTrip.itineraryList objectAtIndex:fromIndexPath.section] objectAtIndex:fromIndexPath.row];
-    [[_backupTrip.itineraryList objectAtIndex:fromIndexPath.section] removeObjectAtIndex:fromIndexPath.row];
-    [[_backupTrip.itineraryList objectAtIndex:toIndexPath.section] insertObject:movie atIndex:toIndexPath.row];
 }
 
 #pragma mark - IBAction

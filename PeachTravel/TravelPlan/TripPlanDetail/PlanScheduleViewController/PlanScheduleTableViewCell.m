@@ -8,7 +8,7 @@
 
 #import "PlanScheduleTableViewCell.h"
 
-@interface PlanScheduleTableViewCell ()
+@interface PlanScheduleTableViewCell () 
 
 @end
 
@@ -34,8 +34,8 @@
 
 - (void) setDay:(NSString *)dayIndex {
     NSAttributedString *unitAStr = [[NSAttributedString alloc] initWithString:@"\nDay" attributes:@{
-                                                                                                   NSFontAttributeName : [UIFont systemFontOfSize:10.0],
-                                                                                                   }];
+                                                                                                    NSFontAttributeName : [UIFont systemFontOfSize:10.0],
+                                                                                                    }];
     NSMutableAttributedString *attrstr = [[NSMutableAttributedString alloc] initWithString:dayIndex attributes:nil];
     [attrstr appendAttributedString:unitAStr];
     _dayLabel.attributedText = attrstr;
@@ -50,14 +50,14 @@
     style.lineSpacing = 1.0;
     
     CGSize labelSize = [content boundingRectWithSize:CGSizeMake(kWindowWidth-100-24, MAXFLOAT)
-                                                   options:NSStringDrawingUsesLineFragmentOrigin
-                                                attributes:@{
-                                                             NSFontAttributeName : [UIFont systemFontOfSize:11.0],
-                                                             NSParagraphStyleAttributeName : style
-                                                             }
-                                                   context:nil].size;
+                                             options:NSStringDrawingUsesLineFragmentOrigin
+                                          attributes:@{
+                                                       NSFontAttributeName : [UIFont systemFontOfSize:11.0],
+                                                       NSParagraphStyleAttributeName : style
+                                                       }
+                                             context:nil].size;
     return labelSize.height+55;
-
+    
 }
 
 @end
