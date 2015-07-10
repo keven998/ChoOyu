@@ -113,7 +113,7 @@
         _contactTableView.delegate = self;
         _contactTableView.backgroundColor = APP_PAGE_COLOR;
         _contactTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-        _contactTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//        _contactTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _contactTableView.showsVerticalScrollIndicator = NO;
         [_contactTableView registerNib:[UINib nibWithNibName:@"OptionOfFASKTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"friend_ask"];
         [_contactTableView registerNib:[UINib nibWithNibName:@"ContactListTableViewCell" bundle:nil] forCellReuseIdentifier:contactCell];
@@ -219,7 +219,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 45.0;
+    return 55.0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

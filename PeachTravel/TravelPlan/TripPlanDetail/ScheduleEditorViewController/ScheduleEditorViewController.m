@@ -41,9 +41,9 @@
     _tableView.backgroundColor = APP_PAGE_COLOR;
     _tableView.dataSource = self;
     _tableView.delegate = self;
+    [_tableView setEditing:YES animated:YES];
     _tableView.separatorColor = COLOR_LINE;
     [_tableView registerNib:[UINib nibWithNibName:@"PoiOnEditorTableViewCell" bundle:nil] forCellReuseIdentifier:@"poi_cell_of_edit"];
-    _tableView.editing = YES;
     _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.bounds.size.width, 50)];
     [self.view addSubview:_tableView];
     
@@ -224,11 +224,18 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        
+        NSMutableArray *poisOfDay = _backupTrip.itineraryList[indexPath.section];
+        [poisOfDay removeObjectAtIndex:indexPath.row];
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return YES;
 }
@@ -241,37 +248,13 @@
     return @"删除";
 }
 
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
-}
 
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
-    SuperPoi *poi = [[_tripDetail.itineraryList objectAtIndex:sourceIndexPath.section] objectAtIndex:sourceIndexPath.row];
-    [[_tripDetail.itineraryList objectAtIndex:sourceIndexPath.section] removeObjectAtIndex:sourceIndexPath.section];
-    
-    [[_tripDetail.itineraryList objectAtIndex:destinationIndexPath.section] insertObject:poi atIndex:destinationIndexPath.row];
-    [self.tableView reloadData];
-}
-
-- (NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath {
-    if (proposedDestinationIndexPath.row > 0 && sourceIndexPath.section > proposedDestinationIndexPath.section) {
-        NSIndexPath *path = [NSIndexPath indexPathForItem:0 inSection:proposedDestinationIndexPath.section+1];
-        return path;
-    }
-    
-    if (sourceIndexPath.section < proposedDestinationIndexPath.section && proposedDestinationIndexPath.row == 0) {
-        NSIndexPath *path;
-        
-        if (proposedDestinationIndexPath.section == sourceIndexPath.section+1) {
-            path = [NSIndexPath indexPathForItem:0 inSection:proposedDestinationIndexPath.section-1];
-            
-        } else {
-            path = [NSIndexPath indexPathForItem:1 inSection:proposedDestinationIndexPath.section-1];
-            
-        }
-        return path;
-    }
-    return proposedDestinationIndexPath;
+-(void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+    NSMutableArray *sourcePois = _backupTrip.itineraryList[sourceIndexPath.section];
+    NSMutableArray *destinationPois = _backupTrip.itineraryList[destinationIndexPath.section];
+    id poi = [sourcePois objectAtIndex:sourceIndexPath.row];
+    [sourcePois removeObjectAtIndex:sourceIndexPath.row];
+    [destinationPois insertObject:poi atIndex:destinationIndexPath.row];
 }
 
 #pragma mark - IBAction
