@@ -53,6 +53,7 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
     [btn setTitleColor:COLOR_DISABLE forState:UIControlStateHighlighted];
     [btn addTarget:self action:@selector(editSchedule) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -65,16 +66,25 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
 }
 
 - (void)setTitleStr:(NSString *)titleStr {
-    _titleStr = titleStr;
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds)-150, 40)];
     titleLabel.numberOfLines = 2.0;
     titleLabel.textAlignment = NSTextAlignmentCenter;
     titleLabel.textColor = [UIColor whiteColor];
-    NSString *dayStr = [NSString stringWithFormat:@"第%d天", _currentDay+1];
-    NSString *totalStr = [NSString stringWithFormat:@"第%d天\n%@", _currentDay+1, _titleStr];
+    
+    NSString *dayStr;
+    if (_currentDay < 9) {
+        dayStr = [NSString stringWithFormat:@"0%d.Day详情", _currentDay+1];
+    } else {
+        dayStr = [NSString stringWithFormat:@"%d.Day详情", _currentDay+1];
+    }
+    
+    if (titleStr == nil || [titleStr isBlankString]) {
+        titleStr = @"无安排";
+    }
+    NSString *totalStr = [NSString stringWithFormat:@"%@\n%@", dayStr, titleStr];
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString: totalStr];
     
-    [attrStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:16] range:NSMakeRange(0, dayStr.length)];
+    [attrStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:15] range:NSMakeRange(0, dayStr.length)];
     [attrStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:11] range:NSMakeRange(dayStr.length+1, totalStr.length-dayStr.length-1)];
     
     titleLabel.attributedText = attrStr;
