@@ -630,14 +630,16 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
 - (IBAction)finishAdd:(id)sender
 {
     [_backTripDetail saveTrip:^(BOOL isSuccesss) {
-//        if (isSuccesss) {
-//            if (_poiType =) {
-//
-//            }
-//            _tripDetail.restaurantsList = _backTripDetail.restaurantsList;
-//            [_delegate finishEdit];
-//            [self dismissViewControllerAnimated:YES completion:nil];
-//        }
+        if (isSuccesss) {
+            if (_poiType == kRestaurantPoi) {
+                _tripDetail.restaurantsList = _backTripDetail.restaurantsList;
+            } else if (_poiType == kShoppingPoi) {
+                _tripDetail.shoppingList = _backTripDetail.shoppingList;
+            }
+            _tripDetail.backUpJson = _backTripDetail.backUpJson;
+            [_delegate finishEdit];
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
     }];
 }
 

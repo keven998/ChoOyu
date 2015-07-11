@@ -210,9 +210,6 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
 
 - (void)finishEdit
 {
-//    if (!_shouldEdit) {
-//        [_rootViewController.editBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
-//    }
     [self.tableView reloadData];
 }
 

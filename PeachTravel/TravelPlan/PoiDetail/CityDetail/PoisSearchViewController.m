@@ -16,11 +16,11 @@
 #import "HotelDetailViewController.h"
 #import "SpotDetailViewController.h"
 
-@interface PoisSearchViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,UITextFieldDelegate>
+@interface PoisSearchViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,UISearchBarDelegate>
 {
     UITableView *_tableView;
     NSMutableArray *_dataArray;
-    TaoziSearchBar *_searchBar;
+    UISearchBar *_searchBar;
     NSInteger _currentPageSearch;
     NSMutableArray *_seletedArray;
 }
@@ -39,12 +39,17 @@
     _dataArray = [NSMutableArray array];
     _seletedArray = [NSMutableArray array];
     self.view.backgroundColor = [UIColor whiteColor];
-    _searchBar = [TaoziSearchBar searchBar];
-    _searchBar.delegate = self;
-    _searchBar.frame = CGRectMake(0, 0, SCREEN_WIDTH-50, 30);
-    [_searchBar becomeFirstResponder];
-    _currentPageSearch = 0;
+    _searchBar = [[UISearchBar alloc]init];
+    _searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    [_searchBar setPlaceholder:@"搜索"];
+    _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
+    [_searchBar setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+    [_searchBar setBackgroundColor:APP_THEME_COLOR];
+    _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.navigationItem.titleView = _searchBar;
+    _searchBar.delegate = self;
+    [_searchBar becomeFirstResponder];
+
     UIBarButtonItem *rightBarBtn = [[UIBarButtonItem alloc]initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goback)];
     self.navigationItem.rightBarButtonItem = rightBarBtn;
     
@@ -162,11 +167,12 @@
     _isLoadingMoreSearch = NO;
     _didEndScrollSearch = YES;
 }
-#pragma mark - UITextFieldDelegate
-- (BOOL)textFieldShouldReturn:(UITextField*)theTextField {
-    [theTextField resignFirstResponder];
+#pragma mark - UISearchBarDelegate
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    [searchBar resignFirstResponder];
     [self beginSearch:nil];
-    return YES;
 }
 
 #pragma mark - UIScrollViewDelegate
