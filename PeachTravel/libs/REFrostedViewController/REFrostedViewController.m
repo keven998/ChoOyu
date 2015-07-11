@@ -94,6 +94,21 @@
     return self;
 }
 
+- (void)setPanGestureEnabled:(BOOL)panGestureEnabled {
+    _panGestureEnabled = panGestureEnabled;
+    if (panGestureEnabled) {
+        if (_panGestureRecognizer == nil) {
+            _panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:_containerViewController action:@selector(panGestureRecognized:)];
+            [_containerViewController.view addGestureRecognizer:_panGestureRecognizer];
+        }
+    } else {
+        if (_panGestureRecognizer != nil) {
+            [_containerViewController.view removeGestureRecognizer:_panGestureRecognizer];
+            _panGestureRecognizer = nil;
+        }
+    }
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
