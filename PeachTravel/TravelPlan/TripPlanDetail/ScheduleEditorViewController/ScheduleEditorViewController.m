@@ -24,7 +24,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"调整";
+    self.navigationItem.title = @"计划调整";
     
     UIBarButtonItem *finishBtn = [[UIBarButtonItem alloc]initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(saveTripChange:)];
     UIBarButtonItem *cancelBtn = [[UIBarButtonItem alloc]initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(cancel:)];
@@ -49,15 +49,15 @@
     
     UIView *tabbarView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49 - 64, CGRectGetWidth(self.view.bounds), 49)];
     tabbarView.backgroundColor = [UIColor whiteColor];
-
+    
     [self.view addSubview:tabbarView];
-
+    
     UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(tabbarView.bounds.size.width-74, 10, 55, 25)];
     btn.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
     btn.layer.cornerRadius = 3.0;
     btn.layer.borderColor = COLOR_LINE.CGColor;
     btn.layer.borderWidth = 1.0;
-    [btn setTitle:@"增加一天" forState:UIControlStateNormal];
+    [btn setTitle:@"加一天" forState:UIControlStateNormal];
     btn.titleLabel.font = [UIFont systemFontOfSize:12.0];
     [btn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
     [tabbarView addSubview:btn];
@@ -67,7 +67,7 @@
     editBtn.layer.borderColor = COLOR_LINE.CGColor;
     editBtn.layer.borderWidth = 1.0;
     editBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
-    [editBtn setTitle:@"按天调整" forState:UIControlStateNormal];
+    [editBtn setTitle:@"按日调整" forState:UIControlStateNormal];
     [editBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
     [editBtn addTarget:self action:@selector(editDay:) forControlEvents:UIControlEventTouchUpInside];
     [tabbarView addSubview:editBtn];
@@ -116,12 +116,12 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 1;
+    return CGFLOAT_MIN;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 55;
+    return 66;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -146,6 +146,7 @@
     headerTitle.userInteractionEnabled = NO;
     headerTitle.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     headerTitle.lineBreakMode = NSLineBreakByTruncatingTail;
+    headerTitle.font = [UIFont systemFontOfSize:13.];
     
     NSString *dayIndex;
     if (section < 9) {
@@ -155,13 +156,10 @@
     }
     
     NSString *dayStr = [NSString stringWithFormat:@"%@Day ", dayIndex];
-    
     NSMutableAttributedString *attrstr = [[NSMutableAttributedString alloc] init];
-    
     NSAttributedString *unitAStr = [[NSAttributedString alloc] initWithString:dayStr attributes:@{
-                                                                                                    NSFontAttributeName : [UIFont systemFontOfSize:13.0],
-                                                                                                    NSForegroundColorAttributeName : APP_THEME_COLOR
-                                                                                                    }];
+                                                                                                  NSForegroundColorAttributeName : APP_THEME_COLOR
+                                                                                                  }];
     [attrstr appendAttributedString:unitAStr];
     
     NSMutableOrderedSet *set = [[NSMutableOrderedSet alloc] init];
@@ -186,11 +184,10 @@
     {
         [dest appendString:@""];
     }
-   
+    
     NSAttributedString *descString = [[NSAttributedString alloc] initWithString:dest attributes:@{
-                                                                                                    NSFontAttributeName : [UIFont systemFontOfSize:13.0],
-                                                                                                    NSForegroundColorAttributeName : COLOR_TEXT_I
-                                                                                                    }];
+                                                                                                  NSForegroundColorAttributeName : COLOR_TEXT_II
+                                                                                                  }];
     [attrstr appendAttributedString:descString];
     headerTitle.attributedText = attrstr;
     [headerView addSubview:headerTitle];

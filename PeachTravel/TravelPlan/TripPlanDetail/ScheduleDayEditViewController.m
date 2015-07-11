@@ -8,6 +8,7 @@
 
 #import "ScheduleDayEditViewController.h"
 #import "PlanScheduleTableViewCell.h"
+#import "REFrostedViewController.h"
 
 @interface ScheduleDayEditViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -31,6 +32,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+    self.frostedViewController.panGestureEnabled = NO;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -55,6 +57,11 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return CGFLOAT_MIN;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -119,6 +126,20 @@
     }
 }
 
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return @"删除";
+}
+
+-(void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+    NSArray *items = _tripDetail.itineraryList[sourceIndexPath.row];
+    [_tripDetail.itineraryList removeObjectAtIndex:sourceIndexPath.row];
+    [_tripDetail.itineraryList insertObject:items atIndex:destinationIndexPath.row];
+}
 
 @end
 
