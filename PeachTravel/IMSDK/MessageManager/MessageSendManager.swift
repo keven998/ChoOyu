@@ -54,7 +54,6 @@ class MessageSendManager: NSObject {
             }
         }
     }
-
     
 //MARK: private methods
     

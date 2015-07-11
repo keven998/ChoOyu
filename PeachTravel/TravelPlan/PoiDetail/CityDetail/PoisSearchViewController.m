@@ -53,10 +53,6 @@
     UIBarButtonItem *rightBarBtn = [[UIBarButtonItem alloc]initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goback)];
     self.navigationItem.rightBarButtonItem = rightBarBtn;
     
-    //    UIBarButtonItem *leftBarBtn = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(goback)];
-    //    self.navigationItem.leftBarButtonItem = leftBarBtn;
-    
-    
     if (_poiType == kRestaurantPoi) {
         _seletedArray = self.tripDetail.restaurantsList;
     } else if (_poiType == kShoppingPoi) {
@@ -190,7 +186,6 @@
 }
 - (void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    
     _didEndScrollSearch = YES;
     
 }
