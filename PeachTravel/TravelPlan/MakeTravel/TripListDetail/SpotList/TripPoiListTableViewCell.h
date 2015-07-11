@@ -17,4 +17,5 @@
 @property (weak, nonatomic) IBOutlet UIImageView *headerImageView;
 @property (weak, nonatomic) IBOutlet UIButton *propertyBtn;
 
+@property (weak, nonatomic) IBOutlet UIButton *actionBtn;
 @end

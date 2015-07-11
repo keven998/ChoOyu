@@ -7,7 +7,7 @@
 //
 
 #import "PoisOfCityViewController.h"
-#import "CommonPoiListTableViewCell.h"
+#import "TripPoiListTableViewCell.h"
 #import "TZFilterViewController.h"
 #import "CityDestinationPoi.h"
 #import "RecommendsOfCity.h"
@@ -28,6 +28,8 @@
 @property (nonatomic, strong) UIView *footerView;
 @property (nonatomic, strong) NSMutableArray *searchResultArray;
 @property (nonatomic, strong) TZFilterViewController *filterCtl;
+
+@property (nonatomic, strong) TripDetail *backTripDetail;
 
 //管理普通 tableview 的加载状态
 @property (nonatomic) NSUInteger currentPageNormal;
@@ -56,7 +58,7 @@
 
 @implementation PoisOfCityViewController
 
-static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
+static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -80,10 +82,11 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
     NSMutableArray *rbItems = [[NSMutableArray alloc] init];
     
     if (self.tripDetail) {
-        CityDestinationPoi *destination = [self.tripDetail.destinations firstObject];
+        _backTripDetail = [self.tripDetail backUpTrip];
+        CityDestinationPoi *destination = [self.backTripDetail.destinations firstObject];
         _zhName = destination.zhName;
         _cityId = destination.cityId;
-        if (self.tripDetail.destinations.count > 1) {
+        if (self.backTripDetail.destinations.count > 1) {
             TZButton *btn = [TZButton buttonWithType:UIButtonTypeCustom];
             btn.frame = CGRectMake(0, 0, 44, 44);
             [btn setTitle:@"城市" forState:UIControlStateNormal];
@@ -116,8 +119,8 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
     self.tableView.delegate = self;
     self.tableView.backgroundColor = APP_PAGE_COLOR;
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.tableView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:poisOfCityCellIdentifier];
+    self.tableView.separatorColor = COLOR_LINE;
+    [self.tableView registerNib:[UINib nibWithNibName:@"TripPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:poisOfCityCellIdentifier];
     [self.view addSubview:self.tableView];
     
 //    self.tableView.tableHeaderView = _searchBar;
@@ -142,9 +145,9 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
     [_hud showHUDInViewController:weakSelf];
     
     if (_poiType == kRestaurantPoi) {
-        _seletedArray = self.tripDetail.restaurantsList;
+        _seletedArray = self.backTripDetail.restaurantsList;
     } else if (_poiType == kShoppingPoi) {
-        _seletedArray = self.tripDetail.shoppingList;
+        _seletedArray = self.backTripDetail.shoppingList;
     }
 
     if (!_shouldEdit) {
@@ -268,7 +271,7 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
     if (!_filterCtl) {
         _filterCtl = [[TZFilterViewController alloc] init];
         NSMutableArray *titiles = [[NSMutableArray alloc] init];
-        for (CityDestinationPoi *poi in _tripDetail.destinations) {
+        for (CityDestinationPoi *poi in _backTripDetail.destinations) {
             [titiles addObject:poi.zhName];
         }
         _filterCtl.filterTitles = @[@"城市"];
@@ -545,21 +548,14 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
 
 - (void)filter:(id)sender
 {
-//    if (!self.filterCtl.filterViewIsShowing) {
-//        typeof(PoisOfCityViewController *)weakSelf = self;
-//        [self.filterCtl showFilterViewInViewController:weakSelf.navigationController];
-//    } else {
-//        [self.filterCtl hideFilterView];
-//    }
     NSMutableArray *array = [[NSMutableArray alloc] init];
     SelectionTableViewController *selectCtl = [[SelectionTableViewController alloc]init];
-    for (CityDestinationPoi *poi in _tripDetail.destinations) {
+    for (CityDestinationPoi *poi in _backTripDetail.destinations) {
         [array addObject:poi.zhName];
     }
     selectCtl.contentItems = [NSArray arrayWithArray:array];
     selectCtl.titleTxt = @"筛选";
     selectCtl.delegate = self;
-//    selectCtl.selectItemIndex = _currentCityIndex;
     selectCtl.selectItem = array[_currentCityIndex];
     TZNavigationViewController *nav = [[TZNavigationViewController alloc] initWithRootViewController:selectCtl];
     [self presentViewController:nav animated:YES completion:nil];
@@ -577,15 +573,15 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
 {
     CGPoint point;
     NSIndexPath *indexPath;
-    CommonPoiListTableViewCell *cell;
+    TripPoiListTableViewCell *cell;
     if (!self.searchController.isActive) {
         point = [sender convertPoint:CGPointZero toView:_tableView];
         indexPath = [_tableView indexPathForRowAtPoint:point];
-        cell = (CommonPoiListTableViewCell *)[_tableView cellForRowAtIndexPath:indexPath];
+        cell = (TripPoiListTableViewCell *)[_tableView cellForRowAtIndexPath:indexPath];
     } else {
         point = [sender convertPoint:CGPointZero toView:_searchController.searchResultsTableView];
         indexPath = [_searchController.searchResultsTableView indexPathForRowAtPoint:point];
-        cell = (CommonPoiListTableViewCell *)[_searchController.searchResultsTableView cellForRowAtIndexPath:indexPath];
+        cell = (TripPoiListTableViewCell *)[_searchController.searchResultsTableView cellForRowAtIndexPath:indexPath];
     }
     
     SuperPoi *poi;
@@ -595,7 +591,7 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
         poi = [_dataSource.recommendList objectAtIndex:sender.tag];
     }
    
-    if (!cell.cellAction.isSelected) {
+    if (!cell.actionBtn.isSelected) {
         [_seletedArray addObject:poi];
         
         NSIndexPath *lnp = [NSIndexPath indexPathForItem:_seletedArray.count - 1 inSection:0];
@@ -628,14 +624,21 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
         }
         
     }
-    cell.cellAction.selected = !cell.cellAction.selected;
+    cell.actionBtn.selected = !cell.actionBtn.selected;
 }
 
 - (IBAction)finishAdd:(id)sender
 {
-    [_delegate finishEdit];
-    [SVProgressHUD dismiss];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [_backTripDetail saveTrip:^(BOOL isSuccesss) {
+//        if (isSuccesss) {
+//            if (_poiType =) {
+//
+//            }
+//            _tripDetail.restaurantsList = _backTripDetail.restaurantsList;
+//            [_delegate finishEdit];
+//            [self dismissViewControllerAnimated:YES completion:nil];
+//        }
+    }];
 }
 
 
@@ -650,7 +653,7 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
 //    [_searchBar becomeFirstResponder];
     PoisSearchViewController *poiSearchCtl = [[PoisSearchViewController alloc]init];
     poiSearchCtl.poiType = _poiType;
-    poiSearchCtl.tripDetail = _tripDetail;
+    poiSearchCtl.tripDetail = _backTripDetail;
     poiSearchCtl.cityId = _cityId;
     poiSearchCtl.zhName = _zhName;
     poiSearchCtl.delegate = self;
@@ -756,7 +759,7 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
 #pragma mark - TZFilterViewDelegate
 -(void)didSelectedItems:(NSArray *)itemIndexPath
 {
-    CityDestinationPoi *destination = [self.tripDetail.destinations objectAtIndex:[[itemIndexPath firstObject] integerValue]];
+    CityDestinationPoi *destination = [self.backTripDetail.destinations objectAtIndex:[[itemIndexPath firstObject] integerValue]];
     _cityId = destination.cityId;
     _zhName = destination.zhName;
     
@@ -795,7 +798,7 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 90;
+    return 66;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -894,15 +897,12 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
     } else {
         poi = [_dataSource.recommendList objectAtIndex:indexPath.row];
     }
-    CommonPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:poisOfCityCellIdentifier forIndexPath:indexPath];
+    TripPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:poisOfCityCellIdentifier forIndexPath:indexPath];
     cell.tripPoi = poi;
-    //如果从攻略列表进来想要添加美食或酒店
+//    如果从攻略列表进来想要添加美食或酒店
     if (_shouldEdit) {
-        cell.cellAction.tag = indexPath.row;
-        cell.cellAction.hidden = NO;
-        [cell.cellAction setTitle:@"收集" forState:UIControlStateNormal];
-        [cell.cellAction setTitle:@"已收集" forState:UIControlStateSelected];
-        [cell.cellAction setBackgroundImage:[ConvertMethods createImageWithColor:TEXT_COLOR_TITLE_DESC] forState:UIControlStateSelected];
+        cell.actionBtn.tag = indexPath.row;
+        cell.actionBtn.hidden = NO;
         BOOL isAdded = NO;
         for (SuperPoi *tripPoi in _seletedArray) {
             if ([tripPoi.poiId isEqualToString:poi.poiId]) {
@@ -910,15 +910,10 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
                 break;
             }
         }
-        cell.cellAction.selected = isAdded;
-        [cell.cellAction removeTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
-        [cell.cellAction addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
+        cell.actionBtn.selected = isAdded;
+        [cell.actionBtn removeTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.actionBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
     }
-    else {
-        cell.labCons.constant = 8;
-        cell.valueCons.constant = 8;
-    }
-    
     return cell;
 }
 
@@ -1198,7 +1193,7 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
     _isLoadingMoreNormal = YES;
     _didEndScrollNormal = YES;
     _enableLoadMoreNormal = NO;
-    CityDestinationPoi *poi = [self.tripDetail.destinations objectAtIndex:cityindex];
+    CityDestinationPoi *poi = [self.backTripDetail.destinations objectAtIndex:cityindex];
     NSString *requsetUrl = [[NSString alloc]init];
     if (_poiType == kRestaurantPoi) {
         requsetUrl = [NSString stringWithFormat:@"%@%@", API_GET_RESTAURANTSLIST_CITY,poi.cityId];
