@@ -44,27 +44,33 @@
     [_tableView setEditing:YES animated:YES];
     _tableView.separatorColor = COLOR_LINE;
     [_tableView registerNib:[UINib nibWithNibName:@"PoiOnEditorTableViewCell" bundle:nil] forCellReuseIdentifier:@"poi_cell_of_edit"];
-    _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.bounds.size.width, 50)];
+    _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.bounds.size.width, 50+49)];
     [self.view addSubview:_tableView];
     
-    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49 - 44, CGRectGetWidth(self.view.bounds), 49)];
+    UIView *tabbarView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49 - 64, CGRectGetWidth(self.view.bounds), 49)];
+    tabbarView.backgroundColor = [UIColor whiteColor];
+
+    [self.view addSubview:tabbarView];
+
+    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(tabbarView.bounds.size.width-74, 10, 55, 25)];
     btn.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
-    [btn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
-    [btn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR_HIGHLIGHT] forState:UIControlStateHighlighted];
+    btn.layer.cornerRadius = 3.0;
+    btn.layer.borderColor = COLOR_LINE.CGColor;
+    btn.layer.borderWidth = 1.0;
     [btn setTitle:@"增加一天" forState:UIControlStateNormal];
-    btn.titleLabel.font = [UIFont systemFontOfSize:16.0];
-    [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [self.view addSubview:btn];
+    btn.titleLabel.font = [UIFont systemFontOfSize:12.0];
+    [btn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
+    [tabbarView addSubview:btn];
     
-    UIButton *editBtn = [[UIButton alloc] initWithFrame:CGRectMake(-4, self.view.bounds.size.height-300, 25, 70)];
-    editBtn.backgroundColor = APP_THEME_COLOR;
-    editBtn.titleLabel.numberOfLines = 0;
+    UIButton *editBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, 10, 55, 25)];
+    editBtn.layer.cornerRadius = 3.0;
+    editBtn.layer.borderColor = COLOR_LINE.CGColor;
+    editBtn.layer.borderWidth = 1.0;
     editBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
-    [editBtn setTitle:@"按\n天\n调\n整" forState:UIControlStateNormal];
-    [editBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    editBtn.layer.cornerRadius = 5.0;
+    [editBtn setTitle:@"按天调整" forState:UIControlStateNormal];
+    [editBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
     [editBtn addTarget:self action:@selector(editDay:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:editBtn];
+    [tabbarView addSubview:editBtn];
 }
 
 - (void)setTripDetail:(TripDetail *)tripDetail
@@ -105,7 +111,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 64*CGRectGetHeight(self.view.frame)/768;
+    return 45;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -115,7 +121,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 64*CGRectGetHeight(self.view.frame)/768;
+    return 55;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -132,19 +138,14 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     CGFloat width = tableView.frame.size.width;
-    CGFloat height = 60*CGRectGetHeight(self.view.frame)/768;
+    CGFloat height = 55;
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, height)];
     
-    UILabel *dayLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, (height - 40)/2 + 1, 40, 40)];
-    dayLabel.font = [UIFont systemFontOfSize:14.0];
-    dayLabel.textAlignment = NSTextAlignmentCenter;
-    dayLabel.textColor = [UIColor whiteColor];
-    dayLabel.numberOfLines = 2.0;
-    dayLabel.layer.cornerRadius = 3.0;
-    dayLabel.clipsToBounds = YES;
-    dayLabel.backgroundColor = APP_THEME_COLOR;
-    dayLabel.layer.cornerRadius = 4.0;
+    UILabel *headerTitle = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, width-70, height)];
+    headerTitle.userInteractionEnabled = NO;
+    headerTitle.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    headerTitle.lineBreakMode = NSLineBreakByTruncatingTail;
     
     NSString *dayIndex;
     if (section < 9) {
@@ -153,20 +154,15 @@
         dayIndex = [NSString stringWithFormat:@"%ld.", section+1];
     }
     
-    NSAttributedString *unitAStr = [[NSAttributedString alloc] initWithString:@"\nDay" attributes:@{
-                                                                                                    NSFontAttributeName : [UIFont systemFontOfSize:10.0],
-                                                                                                    }];
-    NSMutableAttributedString *attrstr = [[NSMutableAttributedString alloc] initWithString:dayIndex attributes:nil];
-    [attrstr appendAttributedString:unitAStr];
-    dayLabel.attributedText = attrstr;
-    [headerView addSubview:dayLabel];
+    NSString *dayStr = [NSString stringWithFormat:@"%@Day ", dayIndex];
     
-    UILabel *headerTitle = [[UILabel alloc] initWithFrame:CGRectMake(64, 1, width-140, height-1)];
-    headerTitle.textColor = COLOR_TEXT_II;
-    headerTitle.userInteractionEnabled = NO;
-    headerTitle.font = [UIFont systemFontOfSize:14.0];
-    headerTitle.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    headerTitle.lineBreakMode = NSLineBreakByTruncatingTail;
+    NSMutableAttributedString *attrstr = [[NSMutableAttributedString alloc] init];
+    
+    NSAttributedString *unitAStr = [[NSAttributedString alloc] initWithString:dayStr attributes:@{
+                                                                                                    NSFontAttributeName : [UIFont systemFontOfSize:13.0],
+                                                                                                    NSForegroundColorAttributeName : APP_THEME_COLOR
+                                                                                                    }];
+    [attrstr appendAttributedString:unitAStr];
     
     NSMutableOrderedSet *set = [[NSMutableOrderedSet alloc] init];
     for (SuperPoi *tripPoi in [_backupTrip.itineraryList objectAtIndex:section]) {
@@ -191,10 +187,15 @@
         [dest appendString:@""];
     }
    
-    headerTitle.text = dest;
+    NSAttributedString *descString = [[NSAttributedString alloc] initWithString:dest attributes:@{
+                                                                                                    NSFontAttributeName : [UIFont systemFontOfSize:13.0],
+                                                                                                    NSForegroundColorAttributeName : COLOR_TEXT_I
+                                                                                                    }];
+    [attrstr appendAttributedString:descString];
+    headerTitle.attributedText = attrstr;
     [headerView addSubview:headerTitle];
     
-    UIButton *addPoiBtn = [[UIButton alloc] initWithFrame:CGRectMake(width-70, 1, 66, height-1)];
+    UIButton *addPoiBtn = [[UIButton alloc] initWithFrame:CGRectMake(width-50, 1, 50, height-1)];
     [addPoiBtn setImage:[UIImage imageNamed:@"add_poi.png"] forState:UIControlStateNormal];
     [addPoiBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
     addPoiBtn.tag = section;
