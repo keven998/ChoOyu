@@ -71,6 +71,7 @@
         _tableView.opaque = NO;
         _tableView.backgroundColor = [UIColor clearColor];
         _tableView.backgroundView = nil;
+        _tableView.separatorColor = COLOR_LINE;
         _tableView.contentInset = UIEdgeInsetsMake(24, 0, 0, 0);
         _tableView;
     });
@@ -176,7 +177,7 @@
             cell.textLabel.text = _tripDetail.tripTitle;
         }
         else if (indexPath.row == 1) {
-            cell.textLabel.text = @"修改计划";
+            cell.textLabel.text = @"调整";
         }
         else if (indexPath.row == 2){
             cell.textLabel.text = @"发给好友";

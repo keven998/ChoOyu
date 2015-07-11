@@ -34,8 +34,8 @@
     _deleteBtn.hidden = YES;
     [_playedBtn setImage:[UIImage imageNamed:@"plan_10_dashboard_copy"] forState:UIControlStateNormal];
     _playedBtn.hidden = YES;
-    [_changBtn setImage:[UIImage imageNamed:@"plan_10_dashboard_share"] forState:UIControlStateNormal];
-    _changBtn.hidden = YES;
+//    [_changBtn setImage:[UIImage imageNamed:@"plan_10_dashboard_share"] forState:UIControlStateNormal];
+//    _changBtn.hidden = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

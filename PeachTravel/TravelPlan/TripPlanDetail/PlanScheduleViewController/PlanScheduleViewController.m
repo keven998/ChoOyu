@@ -119,7 +119,11 @@
     }
     
     cell.content = dstr;
-    cell.titleLabel.text = title;
+    if (title == nil || [title isBlankString]) {
+        cell.titleLabel.text = @"无安排";
+    } else {
+        cell.titleLabel.text = title;
+    }
     if (indexPath.row < 9) {
         cell.day = [NSString stringWithFormat:@"0%ld.", indexPath.row+1];
     } else {

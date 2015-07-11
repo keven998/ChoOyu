@@ -24,7 +24,7 @@
 @property (nonatomic) BOOL isCanSend;
 @property (weak, nonatomic) IBOutlet UIButton *deleteBtn;
 @property (weak, nonatomic) IBOutlet UIButton *playedBtn;
-@property (weak, nonatomic) IBOutlet UIButton *changBtn;
+//@property (weak, nonatomic) IBOutlet UIButton *changBtn;
 @property (strong, nonatomic) UIImageView *playedImage;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 

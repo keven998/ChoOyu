@@ -267,8 +267,7 @@ static NSString *reusableCell = @"myGuidesCell";
 }
 
 - (void)played:(UIButton *)sender
-{
-    CGPoint point = [sender convertPoint:CGPointZero toView:self.tableView];
+{   CGPoint point = [sender convertPoint:CGPointZero toView:self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
     MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:indexPath.section];
     if ([guideSummary.status isEqualToString:@"traveled"]) {
@@ -586,25 +585,19 @@ static NSString *reusableCell = @"myGuidesCell";
     MyGuidesTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reusableCell forIndexPath:indexPath];
     if (_isOwner) {
         [cell.playedBtn addTarget:self action:@selector(played:) forControlEvents:UIControlEventTouchUpInside];
-        [cell.changBtn addTarget:self action:@selector(changeTitle:) forControlEvents:UIControlEventTouchUpInside];
         [cell.deleteBtn addTarget:self action:@selector(deletePlane:) forControlEvents:UIControlEventTouchUpInside];
         cell.playedBtn.hidden = NO;
-        cell.changBtn.hidden = NO;
         cell.deleteBtn.hidden = NO;
-        
     }
     else {
         cell.playedBtn.hidden = YES;
-        cell.changBtn.hidden = YES;
         cell.deleteBtn.hidden = YES;
-        
     }
     cell.guideSummary = [self.dataSource objectAtIndex:indexPath.section];
     cell.isCanSend = _selectToSend;
     [cell.sendBtn addTarget:self action:@selector(sendPoi:) forControlEvents:UIControlEventTouchUpInside];
     
     if ([cell.guideSummary.status isEqualToString:@"traveled"]) {
-        
         cell.playedImage.image = [UIImage imageNamed:@"plan_bg_page_qian"];
     } else {
         
@@ -685,7 +678,6 @@ static NSString *reusableCell = @"myGuidesCell";
     switch (index) {
         case 0:
         {
-            [self setupPlanMenu:cell];
             break;
         }
         case 1:
@@ -710,62 +702,6 @@ static NSString *reusableCell = @"myGuidesCell";
         _swipCell = nil;
     }
 }
-
-- (void) setupPlanMenu:(SWTableViewCell *)cell {
-    NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
-    MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:cellIndexPath.section];
-    PXAlertView *alertView = [PXAlertView showAlertWithTitle:@"选项"
-                                                     message:[NSString stringWithFormat:@"\"%@\"", guideSummary.title]
-                                                 cancelTitle:@"签到"
-                                                 otherTitles:@[@"修改标题"]
-                                                  completion:^(BOOL cancelled, NSInteger buttonIndex) {
-                                                      if (buttonIndex == 1) {
-                                                          BaseTextSettingViewController *bsvc = [[BaseTextSettingViewController alloc] init];
-                                                          bsvc.navTitle = @"修改标题";
-                                                          bsvc.content = guideSummary.title;
-                                                          bsvc.acceptEmptyContent = NO;
-                                                          bsvc.saveEdition = ^(NSString *editText, saveComplteBlock(completed)) {
-                                                              [self editGuideTitle:guideSummary andTitle:editText atIndex:cellIndexPath.section success:completed];
-                                                          };
-                                                          [self presentViewController:[[UINavigationController alloc] initWithRootViewController:bsvc] animated:YES completion:nil];
-                                                      } else if (buttonIndex == 2) {
-                                                          [self reorderToFirst:cell];
-                                                      } else if (buttonIndex == 0) {
-                                                          [self mark:guideSummary as:@"traveled"];
-                                                      }
-                                                  }];
-    [alertView useDefaultIOS7Style];
-    [alertView setCancelFount:[UIFont systemFontOfSize:17]];
-    [alertView setMessageColor:TEXT_COLOR_TITLE_HINT];
-}
-
-- (void) setupTripMenu:(SWTableViewCell *)cell {
-    NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
-    MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:cellIndexPath.section];
-    PXAlertView *alertView = [PXAlertView showAlertWithTitle:@"更多"
-                                                     message:[NSString stringWithFormat:@"\"%@\"", guideSummary.title]
-                                                 cancelTitle:@"重置为\"计划\""
-                                                 otherTitles:@[@"修改标题"]
-                                                  completion:^(BOOL cancelled, NSInteger buttonIndex) {
-                                                      if (buttonIndex == 1) {
-                                                          BaseTextSettingViewController *bsvc = [[BaseTextSettingViewController alloc] init];
-                                                          bsvc.navTitle = @"修改标题";
-                                                          bsvc.content = guideSummary.title;
-                                                          bsvc.acceptEmptyContent = NO;
-                                                          bsvc.saveEdition = ^(NSString *editText, saveComplteBlock(completed)) {
-                                                              [self editGuideTitle:guideSummary andTitle:editText atIndex:cellIndexPath.section success:completed];
-                                                              
-                                                          };
-                                                          [self presentViewController:[[UINavigationController alloc] initWithRootViewController:bsvc] animated:YES completion:nil];
-                                                      } else if (buttonIndex == 0) {
-                                                          [self mark:guideSummary as:@"planned"];
-                                                      }
-                                                  }];
-    [alertView useDefaultIOS7Style];
-    [alertView setCancelFount:[UIFont systemFontOfSize:17]];
-    [alertView setMessageColor:TEXT_COLOR_TITLE_HINT];
-}
-
 #pragma mark - UIScrollViewDelegate
 
 - (void) scrollViewDidScroll:(UIScrollView *)scrollView
@@ -806,8 +742,6 @@ static NSString *reusableCell = @"myGuidesCell";
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     
-    //    NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
-    //    MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:cellIndexPath.section];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:status forKey:@"status"];
     [params setObject:guideSummary.guideId forKey:@"id"];
@@ -818,15 +752,6 @@ static NSString *reusableCell = @"myGuidesCell";
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            //            NSInteger index = [self.dataSource indexOfObject:guideSummary];
-            //            [self.dataSource removeObject:guideSummary];
-            //            NSIndexSet *set = [NSIndexSet indexSetWithIndex:index];
-            //            [self.tableView deleteSections:set withRowAnimation:UITableViewRowAnimationAutomatic];
-            //            if ([status isEqualToString:@"planned"]) {
-            //                [self hintPlanStatusChanged:[NSString stringWithFormat:@"已将\"%@\"重置到旅行计划", guideSummary.title]];
-            //            } else {
-            //                [self hintPlanStatusChanged:[NSString stringWithFormat:@"\"%@\"已保存为去过，成为了你的旅历足迹", guideSummary.title]];
-            //            }
             if ([guideSummary.status isEqualToString:@"traveled"]) {
                 NSInteger index = [self.dataSource indexOfObject:guideSummary];
                 MyGuideSummary *guide = self.dataSource [index];
@@ -836,8 +761,9 @@ static NSString *reusableCell = @"myGuidesCell";
                 MyGuideSummary *guide = self.dataSource [index];
                 guide.status = @"traveled";
                 
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"完成签到" message:@"旅历＋1" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alertView show];
             }
-            
             
             [self.tableView reloadData];
         } else {
