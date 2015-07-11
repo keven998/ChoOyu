@@ -12,7 +12,6 @@
 
 @interface RestaurantsListViewController : TZViewController
 
-@property (nonatomic, weak) TripDetailRootViewController *rootViewController;
 @property (nonatomic, strong) TripDetail *tripDetail;
 
 @property (nonatomic) BOOL canEdit;

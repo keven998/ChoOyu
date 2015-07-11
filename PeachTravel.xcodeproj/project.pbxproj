@@ -102,7 +102,6 @@
 		276DF7671B4A49F4001A98FB /* DomesticCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 276DF7651B4A49F4001A98FB /* DomesticCell.m */; };
 		276DF7681B4A49F4001A98FB /* DomesticCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 276DF7661B4A49F4001A98FB /* DomesticCell.xib */; };
 		276DF79E1B4BB953001A98FB /* search_default_background@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 276DF79D1B4BB953001A98FB /* search_default_background@3x.png */; };
-		276DF7A51B4BF27B001A98FB /* aaaaaaaaa@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 276DF7A41B4BF27B001A98FB /* aaaaaaaaa@3x.png */; };
 		276DF7A91B4CBFBB001A98FB /* GuiderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 276DF7A71B4CBFBB001A98FB /* GuiderCell.m */; };
 		276DF7AA1B4CBFBB001A98FB /* GuiderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 276DF7A81B4CBFBB001A98FB /* GuiderCell.xib */; };
 		2786AAF91B3D908400881697 /* account_button_default@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2786AAEF1B3D908400881697 /* account_button_default@3x.png */; };
@@ -1122,7 +1121,6 @@
 		276DF7651B4A49F4001A98FB /* DomesticCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DomesticCell.m; sourceTree = "<group>"; };
 		276DF7661B4A49F4001A98FB /* DomesticCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DomesticCell.xib; sourceTree = "<group>"; };
 		276DF79D1B4BB953001A98FB /* search_default_background@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search_default_background@3x.png"; sourceTree = "<group>"; };
-		276DF7A41B4BF27B001A98FB /* aaaaaaaaa@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "aaaaaaaaa@3x.png"; sourceTree = "<group>"; };
 		276DF7A61B4CBFBB001A98FB /* GuiderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuiderCell.h; sourceTree = "<group>"; };
 		276DF7A71B4CBFBB001A98FB /* GuiderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuiderCell.m; sourceTree = "<group>"; };
 		276DF7A81B4CBFBB001A98FB /* GuiderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GuiderCell.xib; sourceTree = "<group>"; };
@@ -5000,7 +4998,6 @@
 			children = (
 				C6631CE51B300C4E00BE4ADC /* 3x */,
 				D9B7BA451B171FB300891600 /* app_icon@2x.png */,
-				276DF7A41B4BF27B001A98FB /* aaaaaaaaa@3x.png */,
 				27FF1AD01B09932400643D77 /* 他的资料 */,
 				27FF1A9D1B06F1F000643D77 /* 聊天 */,
 				27FF1A801B05A25200643D77 /* 行程单 */,
@@ -6253,7 +6250,6 @@
 				D9EDC2621B4E1ED500599C4B /* master_busy@3x.png in Resources */,
 				C60C1B551A83562A00C83164 /* ic_new_plan@2x.png in Resources */,
 				D9A8FF161A80CC2B005AD701 /* ResetPasswordViewController.xib in Resources */,
-				276DF7A51B4BF27B001A98FB /* aaaaaaaaa@3x.png in Resources */,
 				D9A804A01A80E738005AD701 /* chat_location_detail_disclosure.png in Resources */,
 				D9871DAF1B479BC200BFDFAF /* plan_02_bg_day@3x.png in Resources */,
 				D9F46DBE1AC52D8600972AE8 /* SVWebViewControllerActivitySafari-iPad.png in Resources */,

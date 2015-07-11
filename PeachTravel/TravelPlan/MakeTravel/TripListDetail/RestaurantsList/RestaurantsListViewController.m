@@ -126,7 +126,7 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
     restaurantOfCityCtl.poiType = kRestaurantPoi;
     restaurantOfCityCtl.shouldEdit = YES;
     TZNavigationViewController *nctl = [[TZNavigationViewController alloc] initWithRootViewController:restaurantOfCityCtl];
-    [self.rootViewController presentViewController:nctl animated:YES completion:nil];
+    [self presentViewController:nctl animated:YES completion:nil];
 //    [self.navigationController pushViewController:restaurantOfCityCtl animated:YES];
 }
 
@@ -193,7 +193,7 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
     CityDestinationPoi *poi = [_tripDetail.destinations objectAtIndex:sender.tag];
     CityDetailTableViewController *cityDetailCtl = [[CityDetailTableViewController alloc] init];
     cityDetailCtl.cityId = poi.cityId;
-    [self.rootViewController.navigationController pushViewController:cityDetailCtl animated:YES];
+    [self.navigationController pushViewController:cityDetailCtl animated:YES];
 }
 
 - (IBAction)deletePoi:(UIButton *)sender
@@ -313,7 +313,6 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
     _tableView.delegate = nil;
     _tableView.dataSource = nil;
     _tableView = nil;
-    _rootViewController = nil;
     
 }
 
