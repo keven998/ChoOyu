@@ -12,5 +12,7 @@
 @interface TripFavoriteTableViewController : UITableViewController
 
 @property (nonatomic, strong) TripDetail *tripDetail;
+@property (nonatomic, weak) UIViewController *rootCtl;
+@property (nonatomic) BOOL canEdit;
 
 @end

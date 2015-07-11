@@ -8,8 +8,6 @@
 
 #import "TripDetailRootViewController.h"
 #import "PlanScheduleViewController.h"
-#import "RestaurantsListViewController.h"
-#import "ShoppingListViewController.h"
 #import "CityDestinationPoi.h"
 #import "AccountManager.h"
 #import "DestinationsView.h"
@@ -33,8 +31,6 @@
 
 @property (nonatomic, strong) PlanScheduleViewController *spotsListCtl;
 @property (nonatomic, strong) TripFavoriteTableViewController *tripFavoriteCtl;
-@property (nonatomic, strong) RestaurantsListViewController *restaurantListCtl;
-@property (nonatomic, strong) ShoppingListViewController *shoppingListCtl;
 @property (nonatomic, strong) ChatRecoredListTableViewController *chatRecordListCtl;
 @property (nonatomic, strong) UISegmentedControl *segmentedControl;
 
@@ -186,8 +182,7 @@
     }
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     _spotsListCtl = nil;
-    _restaurantListCtl = nil;
-    _shoppingListCtl = nil;
+    _tripFavoriteCtl = nil;
     _chatRecordListCtl = nil;
 }
 
@@ -220,10 +215,6 @@
         if (isSuccesss) {
             if ([_currentViewController isKindOfClass:[PlanScheduleViewController class]]) {
                 //                _spotsListCtl.shouldEdit = NO;
-            } else if ([_currentViewController isKindOfClass:[ShoppingListViewController class]]) {
-                _shoppingListCtl.shouldEdit = NO;
-            } else if ([_currentViewController isKindOfClass:[RestaurantsListViewController class]]) {
-                _restaurantListCtl.shouldEdit = NO;
             }
             _editBtn.selected = !_editBtn.selected;
         } else {
@@ -235,10 +226,6 @@
 - (void)mapView {
     if ([_currentViewController isKindOfClass:[PlanScheduleViewController class]]) {
         //        [_spotsListCtl mapView];
-    } else if ([_currentViewController isKindOfClass:[ShoppingListViewController class]]) {
-        [_shoppingListCtl mapView];
-    } else if ([_currentViewController isKindOfClass:[RestaurantsListViewController class]]) {
-        [_restaurantListCtl mapView];
     }
 }
 
@@ -357,8 +344,6 @@
 - (void)setCanEdit:(BOOL)canEdit
 {
     _canEdit = canEdit;
-    _restaurantListCtl.canEdit = _canEdit;
-    _shoppingListCtl.canEdit = _canEdit;
 }
 
 /**
@@ -537,10 +522,6 @@
     if (!status) {
         if ([_currentViewController isKindOfClass:[PlanScheduleViewController class]]) {
             //            _spotsListCtl.shouldEdit = YES;
-        } else if ([_currentViewController isKindOfClass:[ShoppingListViewController class]]) {
-            _shoppingListCtl.shouldEdit = YES;
-        } else if ([_currentViewController isKindOfClass:[RestaurantsListViewController class]]) {
-            _restaurantListCtl.shouldEdit = YES;
         }
         sender.selected = !status;
     } else {
@@ -616,9 +597,6 @@
 {
     _spotsListCtl.tripDetail = _tripDetail;
     _tripFavoriteCtl.tripDetail = _tripDetail;
-    //    _spotsListCtl.canEdit = _canEdit;
-    _restaurantListCtl.canEdit = _canEdit;
-    _shoppingListCtl.canEdit = _canEdit;
     ((TripPlanSettingViewController *)self.container.menuViewController).tripDetail = self.tripDetail;
     
     self.navigationItem.title = _tripDetail.tripTitle;
@@ -628,14 +606,12 @@
 {
     NSMutableArray *array = [[NSMutableArray alloc] init];
     _spotsListCtl = [[PlanScheduleViewController alloc] init];
-    //    _spotsListCtl.rootViewController = self;
     
     _tripFavoriteCtl = [[TripFavoriteTableViewController alloc] init];
-    
+    _tripFavoriteCtl.canEdit = _canEdit;
     [self addChildViewController:_spotsListCtl];
     [self.view addSubview:_spotsListCtl.view];
-    
-    
+    _tripFavoriteCtl.rootCtl = self;
     [_spotsListCtl.view setFrame:CGRectMake(0, 44, self.view.bounds.size.width, self.view.bounds.size.height-44)];
     [_tripFavoriteCtl.view setFrame:CGRectMake(0, 44, self.view.bounds.size.width, self.view.bounds.size.height-44)];
     

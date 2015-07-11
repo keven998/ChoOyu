@@ -72,13 +72,15 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == 0) {
         RestaurantsListViewController *ctl = [[RestaurantsListViewController alloc] init];
+        ctl.canEdit = _canEdit;
         ctl.tripDetail = _tripDetail;
-        [self.navigationController pushViewController:ctl animated:YES];
+        [self.rootCtl.navigationController pushViewController:ctl animated:YES];
         
     } else {
         ShoppingListViewController *ctl = [[ShoppingListViewController alloc] init];
         ctl.tripDetail = _tripDetail;
-        [self.navigationController pushViewController:ctl animated:YES];
+        ctl.canEdit = _canEdit;
+        [self.rootCtl.navigationController pushViewController:ctl animated:YES];
     }
     
 }
