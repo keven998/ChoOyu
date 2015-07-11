@@ -27,10 +27,12 @@
 #import "PXAlertView+Customization.h"
 #import "TripPlanSettingViewController.h"
 #import "PlansListTableViewController.h"
+#import "TripFavoriteTableViewController.h"
 
 @interface TripDetailRootViewController () <ActivityDelegate, TaoziMessageSendDelegate, ChatRecordListDelegate, CreateConversationDelegate, UIActionSheetDelegate>
 
 @property (nonatomic, strong) PlanScheduleViewController *spotsListCtl;
+@property (nonatomic, strong) TripFavoriteTableViewController *tripFavoriteCtl;
 @property (nonatomic, strong) RestaurantsListViewController *restaurantListCtl;
 @property (nonatomic, strong) ShoppingListViewController *shoppingListCtl;
 @property (nonatomic, strong) ChatRecoredListTableViewController *chatRecordListCtl;
@@ -613,8 +615,7 @@
 - (void)reloadTripData
 {
     _spotsListCtl.tripDetail = _tripDetail;
-    _restaurantListCtl.tripDetail = _tripDetail;
-    _shoppingListCtl.tripDetail = _tripDetail;
+    _tripFavoriteCtl.tripDetail = _tripDetail;
     //    _spotsListCtl.canEdit = _canEdit;
     _restaurantListCtl.canEdit = _canEdit;
     _shoppingListCtl.canEdit = _canEdit;
@@ -629,21 +630,17 @@
     _spotsListCtl = [[PlanScheduleViewController alloc] init];
     //    _spotsListCtl.rootViewController = self;
     
-    _restaurantListCtl = [[RestaurantsListViewController alloc] init];
-    _restaurantListCtl.rootViewController = self;
-    
-    _shoppingListCtl = [[ShoppingListViewController alloc] init];
-    _shoppingListCtl.rootViewController = self;
+    _tripFavoriteCtl = [[TripFavoriteTableViewController alloc] init];
     
     [self addChildViewController:_spotsListCtl];
     [self.view addSubview:_spotsListCtl.view];
     
     
     [_spotsListCtl.view setFrame:CGRectMake(0, 44, self.view.bounds.size.width, self.view.bounds.size.height-44)];
-    [_restaurantListCtl.view setFrame:CGRectMake(0, 44, self.view.bounds.size.width, self.view.bounds.size.height-44)];
+    [_tripFavoriteCtl.view setFrame:CGRectMake(0, 44, self.view.bounds.size.width, self.view.bounds.size.height-44)];
     
     [array addObject:_spotsListCtl];
-    [array addObject:_restaurantListCtl];
+    [array addObject:_tripFavoriteCtl];
     _tabbarPageControllerArray = array;
     
     _currentViewController = _spotsListCtl;

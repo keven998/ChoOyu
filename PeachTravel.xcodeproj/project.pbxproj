@@ -496,6 +496,10 @@
 		D98CC6431A1993BE00FA5A76 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D902AD1F1A149FAB00E36A93 /* CFNetwork.framework */; };
 		D98CEE0B1B4E17010019B902 /* GuiderCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D98CEE091B4E17010019B902 /* GuiderCollectionViewController.m */; };
 		D98CEE0C1B4E17010019B902 /* GuiderCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D98CEE0A1B4E17010019B902 /* GuiderCollectionViewController.xib */; };
+		D992C9601B50FD0C000C7E2D /* TripFavoriteTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D992C95E1B50FD0C000C7E2D /* TripFavoriteTableViewController.m */; };
+		D992C9611B50FD0C000C7E2D /* TripFavoriteTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D992C95F1B50FD0C000C7E2D /* TripFavoriteTableViewController.xib */; };
+		D992C9641B50FE5D000C7E2D /* collect_food@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D992C9621B50FE5D000C7E2D /* collect_food@3x.png */; };
+		D992C9651B50FE5D000C7E2D /* collect_shopping@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D992C9631B50FE5D000C7E2D /* collect_shopping@3x.png */; };
 		D993C2331B12DF0C0088D568 /* ChatManagerAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = D993C1C71B12DF0C0088D568 /* ChatManagerAudio.swift */; };
 		D993C2351B12DF0C0088D568 /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D993C1CA1B12DF0C0088D568 /* ConnectionManager.swift */; };
 		D993C2361B12DF0C0088D568 /* AESCrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = D993C1CE1B12DF0C0088D568 /* AESCrypt.m */; };
@@ -1631,6 +1635,11 @@
 		D98CEE081B4E17010019B902 /* GuiderCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuiderCollectionViewController.h; sourceTree = "<group>"; };
 		D98CEE091B4E17010019B902 /* GuiderCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuiderCollectionViewController.m; sourceTree = "<group>"; };
 		D98CEE0A1B4E17010019B902 /* GuiderCollectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GuiderCollectionViewController.xib; sourceTree = "<group>"; };
+		D992C95D1B50FD0C000C7E2D /* TripFavoriteTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripFavoriteTableViewController.h; sourceTree = "<group>"; };
+		D992C95E1B50FD0C000C7E2D /* TripFavoriteTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripFavoriteTableViewController.m; sourceTree = "<group>"; };
+		D992C95F1B50FD0C000C7E2D /* TripFavoriteTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TripFavoriteTableViewController.xib; sourceTree = "<group>"; };
+		D992C9621B50FE5D000C7E2D /* collect_food@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "collect_food@3x.png"; sourceTree = "<group>"; };
+		D992C9631B50FE5D000C7E2D /* collect_shopping@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "collect_shopping@3x.png"; sourceTree = "<group>"; };
 		D993C1C71B12DF0C0088D568 /* ChatManagerAudio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatManagerAudio.swift; sourceTree = "<group>"; };
 		D993C1CA1B12DF0C0088D568 /* ConnectionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionManager.swift; sourceTree = "<group>"; };
 		D993C1CD1B12DF0C0088D568 /* AESCrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AESCrypt.h; sourceTree = "<group>"; };
@@ -3100,6 +3109,9 @@
 				C6F5D4771B2AB183009163E3 /* PlanFavoritesViewController */,
 				C6F5D4781B2AB183009163E3 /* PlanScheduleViewController */,
 				D9871DBC1B47D32800BFDFAF /* ScheduleDayEditViewController */,
+				D992C95D1B50FD0C000C7E2D /* TripFavoriteTableViewController.h */,
+				D992C95E1B50FD0C000C7E2D /* TripFavoriteTableViewController.m */,
+				D992C95F1B50FD0C000C7E2D /* TripFavoriteTableViewController.xib */,
 			);
 			name = TripPlanDetail;
 			path = TravelPlan/TripPlanDetail;
@@ -3566,6 +3578,8 @@
 		D9871DAB1B479B8300BFDFAF /* 制作攻略 */ = {
 			isa = PBXGroup;
 			children = (
+				D992C9621B50FE5D000C7E2D /* collect_food@3x.png */,
+				D992C9631B50FE5D000C7E2D /* collect_shopping@3x.png */,
 				D9EDC26A1B4E533500599C4B /* add_poi@3x.png */,
 				D9871DB01B479BD600BFDFAF /* plan_02_dashboard_drawer@3x.png */,
 				D9871DB11B479BD600BFDFAF /* plan_02_dashboard_map@3x.png */,
@@ -6041,6 +6055,7 @@
 				275B69221B156CDC002FE764 /* ic_tiaoguo@2x.png in Resources */,
 				C6631D221B30231500BE4ADC /* ic_person_selected@3x.png in Resources */,
 				27FF1A951B05D4D000643D77 /* ic_trip_new_2@2x.png in Resources */,
+				D992C9611B50FD0C000C7E2D /* TripFavoriteTableViewController.xib in Resources */,
 				27B9FAB31AFB284300EEBF07 /* ic_nrq_shop@2x.png in Resources */,
 				27FF1ADC1B09A26500643D77 /* girl@2x.png in Resources */,
 				D9A804D71A80E738005AD701 /* ic_chatlist_selected@2x.png in Resources */,
@@ -6354,6 +6369,7 @@
 				271C41741B43E75B007BF285 /* poi_button_raid_selected@3x.png in Resources */,
 				27FF1AB51B06F1F000643D77 /* ic_camieor_normal@2x.png in Resources */,
 				D9A804D31A80E738005AD701 /* ic_begin_talk@2x.png in Resources */,
+				D992C9651B50FE5D000C7E2D /* collect_shopping@3x.png in Resources */,
 				27FF1AC21B06F1F000643D77 /* journey_list_normal@2x.png in Resources */,
 				C6FCC5F51B47A31500C1DDF3 /* UMShareEditViewControlleriPad.xib in Resources */,
 				271C41AC1B468611007BF285 /* plan_10_dashboard_add@3x.png in Resources */,
@@ -6411,6 +6427,7 @@
 				D9A8054B1A80E738005AD701 /* ic_more@2x.png in Resources */,
 				276DF75A1B47C9B6001A98FB /* chat_drawer_leave@3x.png in Resources */,
 				D917DAC61A8B49AF0039720A /* ic_guide2_4_select@2x.png in Resources */,
+				D992C9641B50FE5D000C7E2D /* collect_food@3x.png in Resources */,
 				D9A8057B1A80E738005AD701 /* m_rain@2x.png in Resources */,
 				D97C8B4D1A526B9F00476C9C /* Images.xcassets in Resources */,
 				D917DAC31A8B49AF0039720A /* ic_guide2_3_normal@2x.png in Resources */,
@@ -6642,6 +6659,7 @@
 				D9A802B21A80E3D3005AD701 /* NSMutableDictionary+MyDictionary.m in Sources */,
 				C6D26C0F1B2C1CB80019AFA8 /* ScheduleEditorViewController.m in Sources */,
 				D9A802B71A80E3D3005AD701 /* UIResponder+Router.m in Sources */,
+				D992C9601B50FD0C000C7E2D /* TripFavoriteTableViewController.m in Sources */,
 				D9A8021F1A80E036005AD701 /* MJPhotoLoadingView.m in Sources */,
 				D92CA0FE1AD8BDF900F244FF /* PSTCollectionView.m in Sources */,
 				D9A8FFCF1A80D216005AD701 /* RecommendDataSource.m in Sources */,
