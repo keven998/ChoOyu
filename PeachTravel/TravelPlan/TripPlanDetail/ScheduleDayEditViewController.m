@@ -24,7 +24,7 @@
     _tableView.dataSource = self;
     _tableView.backgroundColor = APP_PAGE_COLOR;
     _tableView.separatorColor = COLOR_LINE;
-    _tableView.contentInset = UIEdgeInsetsMake(44, 0, 10, 0);
+    _tableView.contentInset = UIEdgeInsetsMake(64, 0, 10, 0);
     [_tableView setEditing:YES];
     [_tableView registerNib:[UINib nibWithNibName:@"PlanScheduleTableViewCell" bundle:nil] forCellReuseIdentifier:@"schedule_summary_cell"];
 }
@@ -32,7 +32,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
-    self.frostedViewController.panGestureEnabled = NO;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -49,6 +48,7 @@
     _tripDetail = tripDetail;
 }
 
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return _tripDetail.itineraryList.count;
@@ -59,7 +59,7 @@
     return 1;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return CGFLOAT_MIN;
 }
@@ -131,6 +131,7 @@
     return YES;
 }
 
+
 - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
     return @"删除";
 }
@@ -139,6 +140,14 @@
     NSArray *items = _tripDetail.itineraryList[sourceIndexPath.row];
     [_tripDetail.itineraryList removeObjectAtIndex:sourceIndexPath.row];
     [_tripDetail.itineraryList insertObject:items atIndex:destinationIndexPath.row];
+}
+
+- (void)tableView:(UITableView *)tableView willBeginReorderingRowAtIndexPath:(NSIndexPath *)indexPath {
+    self.frostedViewController.panGestureEnabled = NO;
+}
+
+- (void)tableView:(UITableView *)tableView didEndReorderingRowAtIndexPath:(NSIndexPath *)indexPath {
+    self.frostedViewController.panGestureEnabled = YES;
 }
 
 @end
