@@ -19,6 +19,7 @@
 #import "MakePlanViewController.h"
 #import "ForeignViewController.h"
 #import "DomesticViewController.h"
+#import "ScheduleDayEditViewController.h"
 #import "ScheduleEditorViewController.h"
 
 #define WIDTH self.view.bounds.size.width
@@ -200,9 +201,20 @@
         if (indexPath.row == 0) {
         
         } else if (indexPath.row == 1) {
+//            ScheduleEditorViewController *sevc = [[ScheduleEditorViewController alloc] init];
+//            sevc.tripDetail = _tripDetail;
+//            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:sevc] animated:YES completion:nil];
             ScheduleEditorViewController *sevc = [[ScheduleEditorViewController alloc] init];
+            ScheduleDayEditViewController *menuCtl = [[ScheduleDayEditViewController alloc] init];
             sevc.tripDetail = _tripDetail;
-            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:sevc] animated:YES completion:nil];
+            REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:[[UINavigationController alloc] initWithRootViewController:sevc] menuViewController:menuCtl];
+            frostedViewController.direction = REFrostedViewControllerDirectionLeft;
+            frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
+            frostedViewController.liveBlur = YES;
+            frostedViewController.limitMenuViewSize = YES;
+            frostedViewController.resumeNavigationBar = NO;
+            self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan = NO;
+            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:frostedViewController] animated:YES completion:nil];
         } else if (indexPath.row == 2){
             [self sendToFriends];
         }
@@ -391,6 +403,13 @@
     }
 }
 
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    self.frostedViewController.panGestureEnabled = NO;
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    self.frostedViewController.panGestureEnabled = YES;
+}
 
 /**
  *      TripUpdateDelegate

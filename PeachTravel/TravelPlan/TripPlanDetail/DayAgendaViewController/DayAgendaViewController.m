@@ -162,7 +162,6 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
     ScheduleDayEditViewController *menuCtl = [[ScheduleDayEditViewController alloc] init];
     sevc.tripDetail = _tripDetail;
     REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:[[UINavigationController alloc] initWithRootViewController:sevc] menuViewController:menuCtl];
-    frostedViewController.hidesBottomBarWhenPushed = YES;
     frostedViewController.direction = REFrostedViewControllerDirectionLeft;
     frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
     frostedViewController.liveBlur = YES;
