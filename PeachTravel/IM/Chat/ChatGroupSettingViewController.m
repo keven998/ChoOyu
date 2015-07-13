@@ -17,6 +17,7 @@
 #import "SWTableViewCell.h"
 #import "UserOtherTableViewCell.h"
 #import "ChatGroupSettingCell.h"
+#import "REFrostedViewController.h"
 
 @interface ChatGroupSettingViewController () <UITableViewDataSource,UITableViewDelegate,CreateConversationDelegate,SWTableViewCellDelegate,changeTitle>
 
@@ -373,7 +374,13 @@
     [self.navigationController pushViewController:contactDetailCtl animated:YES];
 }
 
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    self.frostedViewController.panGestureEnabled = NO;
+}
 
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    self.frostedViewController.panGestureEnabled = YES;
+}
 
 /**
  *  当退出一个群组，向群里发送一条退出语句
