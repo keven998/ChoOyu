@@ -81,7 +81,7 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height) style:UITableViewStyleGrouped];
     _tableView.delegate  = self;
     _tableView.dataSource = self;
     
@@ -105,6 +105,7 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
         
         CityDestinationPoi *firstDestination = [_tripDetail.destinations firstObject];
         _cityName = firstDestination.zhName;
+        _cityId = firstDestination.cityId;
         
         self.navigationItem.title = @"添加行程";
         [self setupSelectPanel];
@@ -325,14 +326,14 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     
     CGPoint point;
     NSIndexPath *indexPath;
-    CommonPoiListTableViewCell *cell;
+    TripPoiListTableViewCell *cell;
     point = [sender convertPoint:CGPointZero toView:_tableView];
     indexPath = [_tableView indexPathForRowAtPoint:point];
-    cell = (CommonPoiListTableViewCell *)[_tableView cellForRowAtIndexPath:indexPath];
+    cell = (TripPoiListTableViewCell *)[_tableView cellForRowAtIndexPath:indexPath];
     
     NSMutableArray *oneDayArray = [self.tripDetail.itineraryList objectAtIndex:_currentDayIndex];
     SuperPoi *poi;
-    if (!cell.cellAction.selected) {
+    if (!cell.actionBtn.selected) {
         poi = [self.dataSource objectAtIndex:indexPath.row];
         [oneDayArray addObject:poi];
         
@@ -367,7 +368,7 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
         }
         
     }
-    cell.cellAction.selected = !cell.cellAction.selected;
+    cell.actionBtn.selected = !cell.actionBtn.selected;
     
 }
 
@@ -571,6 +572,14 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     return 66;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 0.5;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 0.5;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.dataSource.count;
 }
@@ -636,12 +645,6 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
 
 #pragma mark - SearchBarDelegate
 
-//- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
-//{
-////    [_searchBar resignFirstResponder];
-//    [self.searchResultArray removeAllObjects];
-//    _searchText = nil;
-//}
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
     PoisSearchViewController *searchCtl = [[PoisSearchViewController alloc] init];
     [searchCtl setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
@@ -657,41 +660,6 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     }];
     return NO;
 }
-//- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
-//{
-//    _currentPageSearch = 0;
-//    _searchText = searchBar.text;
-//    [self loadSearchDataWithPageNo:_currentPageSearch];
-//}
-//
-//- (void)searchDisplayController:(UISearchDisplayController *)controller willShowSearchResultsTableView:(UITableView *)tableView
-//{
-//    _isLoadingMoreSearch = YES;
-//    _didEndScrollSearch = YES;
-//    _enableLoadMoreSearch = NO;
-//}
-//
-//- (void)searchDisplayController:(UISearchDisplayController *)controller willHideSearchResultsTableView:(UITableView *)tableView
-//{
-//    [self.searchResultArray removeAllObjects];
-//    [self.searchController.searchResultsTableView reloadData];
-//    [self.tableView reloadData];
-//}
-//
-//-(BOOL)searchDisplayController:(UISearchDisplayController *)controlle shouldReloadTableForSearchString:(NSString *)searchString {
-//
-//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.001);
-//    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-//        for (UIView* v in _searchController.searchResultsTableView.subviews) {
-//            if ([v isKindOfClass: [UILabel class]] &&
-//                ([[(UILabel*)v text] isEqualToString:@"No Results"] || [[(UILabel*)v text] isEqualToString:@"无结果"]) ) {
-//                ((UILabel *)v).text = @"";
-//                break;
-//            }
-//        }
-//    });
-//    return YES;
-//}
 
 #pragma mark - UIScrollViewDelegate
 
@@ -862,27 +830,7 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
 
 #pragma mark - SelectDelegate
 - (void) selectItem:(NSString *)str atIndex:(NSIndexPath *)indexPath {
-    //    if (_filterType == FILTER_TYPE_CITY) {
-    //        if (_currentCityIndex == indexPath.row) {
-    //            return;
-    //        }
-    //        _cityName = str;
-    //        _currentCityIndex = indexPath.row;
-    //        [self resetContents];
-    //        [MobClick event:@"event_filter_city"];
-    //    } else if (_filterType == FILTER_TYPE_CATE) {
-    //        if (_currentListTypeIndex == indexPath.row) {
-    //            return;
-    //        }
-    //        _currentCategory = str;
-    //        _currentListTypeIndex = indexPath.row;
-    //        [MobClick event:@"event_filter_items"];
-    //        [self resetContents];
-    //    }
-    
-    //    _currentCityIndex = selectcityindex;
-    //    _currentListTypeIndex = selecttypeindex;
-    
+
     [self resetContents];
 }
 
@@ -898,6 +846,8 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     _didEndScrollNormal = YES;
     _enableLoadMoreNormal = NO;
     CityDestinationPoi *poi = [self.tripDetail.destinations objectAtIndex:_currentCityIndex];
+    _cityId = poi.cityId;
+    _cityName = poi.zhName;
     _requestUrl = [NSString stringWithFormat:@"%@%@", _urlArray[_currentListTypeIndex], poi.cityId];
     [self.dataSource removeAllObjects];
     [self.tableView reloadData];

@@ -123,9 +123,6 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     [self.tableView registerNib:[UINib nibWithNibName:@"TripPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:poisOfCityCellIdentifier];
     [self.view addSubview:self.tableView];
     
-//    self.tableView.tableHeaderView = _searchBar;
-//    self.tableView.tableFooterView = _footerView;
-    
     if (_poiType == kRestaurantPoi) {
         self.navigationItem.title = [NSString stringWithFormat:@"吃在%@", _zhName];
     } else if (_poiType == kShoppingPoi) {
@@ -299,8 +296,6 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
 
     if (_poiType == kRestaurantPoi) {
         requsetUrl = [NSString stringWithFormat:@"%@%@/restaurant", API_GET_GUIDE_CITY,_cityId];
-        
-//        requsetUrl = [NSString stringWithFormat:@"%@%@"]
     }
     if (_poiType == kShoppingPoi) {
         requsetUrl = [NSString stringWithFormat:@"%@%@/shopping", API_GET_GUIDE_CITY,_cityId];
