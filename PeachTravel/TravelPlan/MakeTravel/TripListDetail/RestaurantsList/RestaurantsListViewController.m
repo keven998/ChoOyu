@@ -72,9 +72,9 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+        _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+        _tableView.separatorColor = COLOR_LINE;
         _tableView.showsHorizontalScrollIndicator = NO;
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _tableView.backgroundColor = APP_PAGE_COLOR;
         _tableView.contentInset = UIEdgeInsetsMake(0, 0, 50, 0);
@@ -83,12 +83,6 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
         [_tableView registerNib:[UINib nibWithNibName:@"TripPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:restaurantListReusableIdentifier];
     }
     return _tableView;
-}
-
-- (void)setShouldEdit:(BOOL)shouldEdit
-{
-    _shouldEdit = shouldEdit;
-    [self editTrip:nil];
 }
 
 #pragma makr - IBAction Methods
@@ -178,8 +172,8 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
     [MobClick event:@"event_delete_select_item"];
     CGPoint point = [sender convertPoint:CGPointMake(20, 20) toView:self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
-    [_tripDetail.restaurantsList removeObjectAtIndex:indexPath.section];
-    NSIndexSet *set = [NSIndexSet indexSetWithIndex:indexPath.section];
+    [_tripDetail.restaurantsList removeObjectAtIndex:indexPath.row];
+    NSIndexSet *set = [NSIndexSet indexSetWithIndex:indexPath.row];
     [self.tableView deleteSections:set withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
@@ -193,14 +187,13 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
 
 #pragma mark - UITableViewDataSource & Delegate
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return self.tripDetail.restaurantsList.count;
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return CGFLOAT_MIN;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    return self.tripDetail.restaurantsList.count;
 
 }
 
@@ -217,12 +210,12 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
+    return NO;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return YES;
+    return NO;
 }
 
 - (UITableViewCellEditingStyle) tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -236,10 +229,10 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
     [MobClick event:@"event_reorder_items"];
-    SuperPoi *poi = [_tripDetail.restaurantsList objectAtIndex:sourceIndexPath.section];
-    [_tripDetail.restaurantsList removeObjectAtIndex:sourceIndexPath.section];
+    SuperPoi *poi = [_tripDetail.restaurantsList objectAtIndex:sourceIndexPath.row];
+    [_tripDetail.restaurantsList removeObjectAtIndex:sourceIndexPath.row];
    
-    [_tripDetail.restaurantsList insertObject:poi atIndex:destinationIndexPath.section];
+    [_tripDetail.restaurantsList insertObject:poi atIndex:destinationIndexPath.row];
     [self.tableView reloadData];
 }
 
@@ -268,14 +261,14 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [_tripDetail.restaurantsList removeObjectAtIndex:indexPath.section];
-        [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [_tripDetail.restaurantsList removeObjectAtIndex:indexPath.row];
+        [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.row] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SuperPoi *tripPoi = [_tripDetail.restaurantsList objectAtIndex:indexPath.section];
+    SuperPoi *tripPoi = [_tripDetail.restaurantsList objectAtIndex:indexPath.row];
 
     CommonPoiDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];
     restaurantDetailCtl.poiId = tripPoi.poiId;
