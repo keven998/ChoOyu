@@ -651,8 +651,6 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
  */
 - (IBAction)beginSearch:(id)sender
 {
-//    [self.searchController setActive:YES animated:YES];
-//    [_searchBar becomeFirstResponder];
     PoisSearchViewController *poiSearchCtl = [[PoisSearchViewController alloc]init];
     poiSearchCtl.poiType = _poiType;
     poiSearchCtl.tripDetail = _backTripDetail;

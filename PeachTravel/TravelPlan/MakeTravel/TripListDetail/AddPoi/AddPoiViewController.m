@@ -17,6 +17,7 @@
 #import "FilterViewController.h"
 #import "PoisOfCityViewController.h"
 #import "PoisSearchViewController.h"
+#import "TripPoiListTableViewCell.h"
 enum {
     FILTER_TYPE_CITY = 1,
     FILTER_TYPE_CATE
@@ -33,7 +34,6 @@ enum {
 
 @property (strong, nonatomic) UISearchBar *searchBar;
 
-@property (strong, nonatomic) UISearchDisplayController *searchController;
 @property (nonatomic, strong) UIActivityIndicatorView *indicatroView;
 @property (nonatomic, strong) UIView *footerView;
 
@@ -65,7 +65,7 @@ enum {
 
 @implementation AddPoiViewController
 
-static NSString *addPoiCellIndentifier = @"commonPoiListCell";
+static NSString *addPoiCellIndentifier = @"tripPoiListCell";
 
 - (id)init {
     if (self = [super init]) {
@@ -116,21 +116,14 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
     
     _urlArray = @[API_GET_SPOTLIST_CITY, API_GET_RESTAURANTSLIST_CITY, API_GET_SHOPPINGLIST_CITY, API_GET_HOTELLIST_CITY];
     
-    [self.tableView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:addPoiCellIndentifier];
+    [self.tableView registerNib:[UINib nibWithNibName:@"TripPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:addPoiCellIndentifier];
     
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 45)];
     _searchBar.delegate = self;
     UIImage *img = [[UIImage imageNamed:@"ic_searchBar_background"] stretchableImageWithLeftCapWidth:1 topCapHeight:0];
     [_searchBar setBackgroundImage:img];
-    self.searchController = [[UISearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
-    [self.searchController.searchResultsTableView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:addPoiCellIndentifier];
-    self.searchController.searchResultsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.searchController.searchResultsTableView.backgroundColor = APP_PAGE_COLOR;
-    self.searchController.searchResultsTableView.dataSource = self;
-    self.searchController.searchResultsTableView.delegate = self;
-    self.searchController.delegate = self;
     
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.separatorColor = COLOR_LINE;
     self.tableView.backgroundColor = APP_PAGE_COLOR;
     if (_tripDetail) {
         CityDestinationPoi *firstDestination = [_tripDetail.destinations firstObject];
@@ -250,9 +243,6 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
  */
 - (void) beginLoadingSearch
 {
-    if (self.searchController.searchResultsTableView.tableFooterView == nil) {
-        //        self.searchController.searchResultsTableView.tableFooterView = self.footerView;
-    }
     _isLoadingMoreSearch = YES;
     [_indicatroView startAnimating];
     //    [self loadSearchDataWithPageNo:(_currentPageSearch + 1)];
@@ -278,9 +268,8 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
     //    [_searchBar becomeFirstResponder];
     PoisSearchViewController *searchCtl = [[PoisSearchViewController alloc] init];
     [searchCtl setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
-    CityDestinationPoi *poi = [self.tripDetail.destinations objectAtIndex:_currentCityIndex];
     searchCtl.currentDayIndex = _currentDayIndex;
-    searchCtl.cityId = poi.cityId;
+    searchCtl.cityId = _cityId;
     searchCtl.tripDetail = _tripDetail;
     searchCtl.poiType = kSpotPoi;
     searchCtl.delegate = self;
@@ -337,25 +326,14 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
     CGPoint point;
     NSIndexPath *indexPath;
     CommonPoiListTableViewCell *cell;
-    if (!self.searchController.isActive) {
-        point = [sender convertPoint:CGPointZero toView:_tableView];
-        indexPath = [_tableView indexPathForRowAtPoint:point];
-        cell = (CommonPoiListTableViewCell *)[_tableView cellForRowAtIndexPath:indexPath];
-        
-    } else {
-        point = [sender convertPoint:CGPointZero toView:_searchController.searchResultsTableView];
-        indexPath = [_searchController.searchResultsTableView indexPathForRowAtPoint:point];
-        cell = (CommonPoiListTableViewCell *)[_searchController.searchResultsTableView cellForRowAtIndexPath:indexPath];
-    }
+    point = [sender convertPoint:CGPointZero toView:_tableView];
+    indexPath = [_tableView indexPathForRowAtPoint:point];
+    cell = (CommonPoiListTableViewCell *)[_tableView cellForRowAtIndexPath:indexPath];
     
     NSMutableArray *oneDayArray = [self.tripDetail.itineraryList objectAtIndex:_currentDayIndex];
     SuperPoi *poi;
     if (!cell.cellAction.selected) {
-        if (self.searchController.isActive) {
-            poi = [self.searchResultArray objectAtIndex:indexPath.row];
-        } else {
-            poi = [self.dataSource objectAtIndex:indexPath.row];
-        }
+        poi = [self.dataSource objectAtIndex:indexPath.row];
         [oneDayArray addObject:poi];
         
         NSIndexPath *lnp = [NSIndexPath indexPathForItem:oneDayArray.count - 1 inSection:0];
@@ -367,11 +345,7 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
         }];
     } else {
         SuperPoi *poi;
-        if (self.searchController.isActive) {
-            poi = [self.searchResultArray objectAtIndex:indexPath.row];
-        } else {
-            poi = [self.dataSource objectAtIndex:indexPath.row];
-        }
+        poi = [self.dataSource objectAtIndex:indexPath.row];
         NSMutableArray *oneDayArray = [self.tripDetail.itineraryList objectAtIndex:_currentDayIndex];
         int index = -1;
         NSInteger count = oneDayArray.count;
@@ -566,7 +540,6 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
                     SuperPoi *poi = [PoiFactory poiWithPoiTypeDesc:key andJson:poiDic];
                     [self.searchResultArray addObject:poi];
                 }
-                [self.searchController.searchResultsTableView reloadData];
                 _currentPageSearch = pageNo;
                 [self.tableView reloadData];
             } else {
@@ -595,16 +568,11 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 90;
+    return 66;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if ([tableView isEqual:self.tableView]) {
-        return self.dataSource.count;
-    } else if ([tableView isEqual:self.searchController.searchResultsTableView]) {
-        return self.searchResultArray.count;
-    }
-    return 0;
+    return self.dataSource.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -622,21 +590,18 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
         }
     }
     
-    CommonPoiListTableViewCell *poiCell = [tableView dequeueReusableCellWithIdentifier:addPoiCellIndentifier forIndexPath:indexPath];
+    TripPoiListTableViewCell *poiCell = [tableView dequeueReusableCellWithIdentifier:addPoiCellIndentifier forIndexPath:indexPath];
     poiCell.tripPoi = poi;
     
     if (_shouldEdit) {
-        poiCell.cellAction.hidden = NO;
-        poiCell.cellAction.tag = indexPath.row;
-        [poiCell.cellAction setTitle:@"添加" forState:UIControlStateNormal];
-        [poiCell.cellAction setTitle:@"已添加" forState:UIControlStateSelected];
-        [poiCell.cellAction setBackgroundImage:[ConvertMethods createImageWithColor:TEXT_COLOR_TITLE_DESC] forState:UIControlStateSelected];
-        poiCell.cellAction.selected = isAdded;
-        [poiCell.cellAction removeTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
-        [poiCell.cellAction addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
-    } else {
-        poiCell.labCons.constant = 8;
-        poiCell.valueCons.constant = 8;
+        poiCell.actionBtn.hidden = NO;
+        poiCell.actionBtn.tag = indexPath.row;
+        [poiCell.actionBtn setTitle:@"添加" forState:UIControlStateNormal];
+        [poiCell.actionBtn setTitle:@"已添加" forState:UIControlStateSelected];
+        [poiCell.actionBtn setBackgroundImage:[ConvertMethods createImageWithColor:TEXT_COLOR_TITLE_DESC] forState:UIControlStateSelected];
+        poiCell.actionBtn.selected = isAdded;
+        [poiCell.actionBtn removeTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
+        [poiCell.actionBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
     }
     return poiCell;
 }
@@ -740,15 +705,6 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
                 [self beginLoadingMoreNormal];
             }
         }
-    } else if ([scrollView isEqual:self.searchController.searchResultsTableView]) {
-        if (!_isLoadingMoreSearch && _didEndScrollSearch && _enableLoadMoreSearch) {
-            CGFloat scrollPosition = scrollView.contentSize.height - scrollView.frame.size.height - scrollView.contentOffset.y;
-            if (scrollPosition < 44.0) {
-                _didEndScrollSearch = NO;
-                [self beginLoadingSearch];
-            }
-        }
-        
     }
     
 }
@@ -757,10 +713,7 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
 {
     if ([scrollView isEqual:self.tableView]) {
         _didEndScrollNormal = YES;
-    } else if ([scrollView isEqual:self.searchController.searchResultsTableView]) {
-        _didEndScrollSearch = YES;
     }
-    
 }
 
 #pragma mark - UIActionSheetDelegate
@@ -771,11 +724,7 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
         return;
     }
     SuperPoi *poi;
-    if (_searchController.active) {
-        poi = [self.searchResultArray objectAtIndex:actionSheet.tag];
-    } else {
-        poi = [_dataSource objectAtIndex:actionSheet.tag];
-    }
+    poi = [_dataSource objectAtIndex:actionSheet.tag];
     NSArray *platformArray = [ConvertMethods mapPlatformInPhone];
     switch (buttonIndex) {
         case 0:
