@@ -261,22 +261,23 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     switch ([[dic objectForKey:@"type"] integerValue]) {
         case kCityPoi:
             poiTypeDesc = @"locality";
-            
+            searchMoreCtl.titleStr = @"全部相关城市";
             break;
         case kSpotPoi:
             poiTypeDesc = @"vs";
-            
+            searchMoreCtl.titleStr = @"全部相关景点";
             break;
         case kRestaurantPoi:
             poiTypeDesc = @"restaurant";
-            
+            searchMoreCtl.titleStr = @"全部相关美食";
             break;
         case kShoppingPoi:
             poiTypeDesc = @"shopping";
-            
+            searchMoreCtl.titleStr = @"全部相关购物";
             break;
         case kHotelPoi:
             poiTypeDesc = @"hotel";
+            searchMoreCtl.titleStr = @"全部相关酒店";
             break;
             
             

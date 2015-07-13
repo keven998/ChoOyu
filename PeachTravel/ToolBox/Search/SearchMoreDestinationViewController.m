@@ -40,17 +40,21 @@
 
 static NSString *reusableCellIdentifier = @"searchResultCell";
 
+- (id) init {
+    if (self = [super init]) {
+        _currentPage = 0;
+        _isLoadingMore = YES;
+        _didEndScroll = YES;
+        _enableLoadMore = YES;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _currentPage = 0;
-    _isLoadingMore = YES;
-    _didEndScroll = YES;
-    _enableLoadMore = YES;
-    
-    self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = APP_PAGE_COLOR;
-    self.navigationItem.title = @"更多结果";
+    self.navigationItem.title = _titleStr;
     
     if (_poiType == kHotelPoi || _poiType == kRestaurantPoi || _poiType == kShoppingPoi) {
         _positionBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 65, 25)];
