@@ -16,6 +16,7 @@
 #import "PoisOfCityViewController.h"
 #import "RestaurantDetailViewController.h"
 #import "ShoppingDetailViewController.h"
+#import "TripPoiListTableViewCell.h"
 
 @interface RestaurantsListViewController () <UITableViewDataSource, UITableViewDelegate, PoisOfCityDelegate, UIActionSheetDelegate>
 
@@ -26,7 +27,7 @@
 
 @implementation RestaurantsListViewController
 
-static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
+static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -61,13 +62,13 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
         _tableView.showsHorizontalScrollIndicator = NO;
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.separatorColor = COLOR_LINE;
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _tableView.backgroundColor = APP_PAGE_COLOR;
         _tableView.contentInset = UIEdgeInsetsMake(0, 0, 50, 0);
         _tableView.delegate = self;
         _tableView.dataSource = self;
-        [_tableView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:restaurantListReusableIdentifier];
+        [_tableView registerNib:[UINib nibWithNibName:@"TripPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:restaurantListReusableIdentifier];
 
         if (_canEdit) {
             _tableView.tableFooterView = self.tableViewFooterView;
@@ -221,16 +222,12 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 90;
+    return 66;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CommonPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:restaurantListReusableIdentifier forIndexPath:indexPath];
-    cell.cellAction.tag = indexPath.row;
-    [cell.cellAction removeTarget:self action:@selector(jumpMapView:) forControlEvents:UIControlEventTouchUpInside];
-    [cell.cellAction addTarget:self action:@selector(jumpMapView:) forControlEvents:UIControlEventTouchUpInside];
-//    [cell.deleteBtn addTarget:self action:@selector(deletePoi:) forControlEvents:UIControlEventTouchUpInside];
+    TripPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:restaurantListReusableIdentifier forIndexPath:indexPath];
     cell.tripPoi = [_tripDetail.restaurantsList objectAtIndex:indexPath.row];
     return cell;
 }

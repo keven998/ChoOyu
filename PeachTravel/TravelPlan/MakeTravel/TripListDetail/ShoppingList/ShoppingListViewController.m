@@ -15,6 +15,7 @@
 #import "CommonPoiDetailViewController.h"
 #import "PoisOfCityViewController.h"
 #import "ShoppingDetailViewController.h"
+#import "TripPoiListTableViewCell.h"
 @interface ShoppingListViewController () <UITableViewDataSource, UITableViewDelegate, PoisOfCityDelegate, UIActionSheetDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
@@ -24,7 +25,8 @@
 
 @implementation ShoppingListViewController
 
-static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
+static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -56,8 +58,8 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
 {
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
-        [_tableView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:shoppingListReusableIdentifier];
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        [_tableView registerNib:[UINib nibWithNibName:@"TripPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:shoppingListReusableIdentifier];
+        _tableView.separatorColor = COLOR_LINE;
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.backgroundColor = APP_PAGE_COLOR;
@@ -212,16 +214,12 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 90;
+    return 66;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CommonPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:shoppingListReusableIdentifier forIndexPath:indexPath];
-    cell.cellAction.tag = indexPath.section;
-    [cell.cellAction setTitle:@"导航" forState:UIControlStateNormal];
-    [cell.cellAction removeTarget:self action:@selector(jumpMapView:) forControlEvents:UIControlEventTouchUpInside];
-    [cell.cellAction addTarget:self action:@selector(jumpMapView:) forControlEvents:UIControlEventTouchUpInside];
+    TripPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:shoppingListReusableIdentifier forIndexPath:indexPath];
     cell.tripPoi = [_tripDetail.shoppingList objectAtIndex:indexPath.section];
     return cell;
 }
