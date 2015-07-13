@@ -163,17 +163,17 @@
     
     TripPlanSettingViewController *tpvc = [[TripPlanSettingViewController alloc] init];
     
-    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:tripDetailCtl menuViewController:tpvc];
-    frostedViewController.direction = REFrostedViewControllerDirectionRight;
-    frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
-    frostedViewController.liveBlur = YES;
-    frostedViewController.limitMenuViewSize = YES;
-    frostedViewController.resumeNavigationBar = NO;
-    tripDetailCtl.container = frostedViewController;
-    tpvc.rootViewController = tripDetailCtl;
-    NSMutableArray *array = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
-    [array replaceObjectAtIndex:(array.count - 1) withObject:frostedViewController];
-    [self.navigationController setViewControllers:array animated:YES];
+    
+     REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:[[UINavigationController alloc] initWithRootViewController:tripDetailCtl] menuViewController:tpvc];
+     tripDetailCtl.container = frostedViewController;
+     tpvc.rootViewController = tripDetailCtl;
+     frostedViewController.direction = REFrostedViewControllerDirectionRight;
+     frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
+     frostedViewController.liveBlur = YES;
+     frostedViewController.limitMenuViewSize = YES;
+     frostedViewController.resumeNavigationBar = NO;
+     [self.navigationController pushViewController:frostedViewController animated:YES];
+     
 }
 
 - (void)login
