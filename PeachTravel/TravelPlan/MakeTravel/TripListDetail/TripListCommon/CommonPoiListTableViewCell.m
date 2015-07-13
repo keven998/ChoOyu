@@ -46,7 +46,7 @@
 - (void)setTripPoi:(SuperPoi *)tripPoi
 {
     _tripPoi = tripPoi;
-    if ([_tripPoi.zhName isBlankString]||_tripPoi.zhName.length == 0 || _tripPoi.zhName == nil){
+    if ([_tripPoi.zhName isBlankString]||_tripPoi.zhName.length == 0 || _tripPoi.zhName == nil) {
         _titleLabel.text = @"  ";
     } else {
         _titleLabel.text = _tripPoi.zhName;
@@ -57,7 +57,7 @@
     
     _ratingView.rating = tripPoi.rating;
     
-    if (_tripPoi.rank <= 500 && _tripPoi.rank > 0) {
+    if (_tripPoi.rank <= 200 && _tripPoi.rank > 0) {
         _propertyLabel.text = [NSString stringWithFormat:@"%@ %@排名第%d", _tripPoi.locality.zhName, _tripPoi.poiTypeName, _tripPoi.rank];
     } else {
         if (_tripPoi.locality.zhName == nil || _tripPoi.locality.zhName.length == 0) {

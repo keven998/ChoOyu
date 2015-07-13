@@ -97,7 +97,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
             btn.imagePosition = IMAGE_AT_RIGHT;
             UIBarButtonItem *cbtn = [[UIBarButtonItem alloc] initWithCustomView:btn];
             [rbItems addObject:cbtn];
-
+            
         }
     }
     
@@ -146,7 +146,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     } else if (_poiType == kShoppingPoi) {
         _seletedArray = self.backTripDetail.shoppingList;
     }
-
+    
     if (!_shouldEdit) {
         [self loadIntroductionOfCity];
     } else {
@@ -293,7 +293,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     NSString *requsetUrl;
-
+    
     if (_poiType == kRestaurantPoi) {
         requsetUrl = [NSString stringWithFormat:@"%@%@/restaurant", API_GET_GUIDE_CITY,_cityId];
     }
@@ -333,7 +333,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-     NSString *requsetUrl;
+    NSString *requsetUrl;
     if (_poiType == kRestaurantPoi) {
         requsetUrl = [NSString stringWithFormat:@"%@%@", API_GET_RESTAURANTSLIST_CITY,_cityId];
         
@@ -399,13 +399,6 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-//    NSString *requsetUrl;
-//    if (_poiType == kRestaurantPoi) {
-//        requsetUrl = [NSString stringWithFormat:@"%@%@", API_GET_RESTAURANTSLIST_CITY,_cityId];
-//        
-//    } else if (_poiType == kShoppingPoi) {
-//        requsetUrl = [NSString stringWithFormat:@"%@%@", API_GET_SHOPPINGLIST_CITY,_cityId];
-//    }
     
     //加载之前备份一个城市的 id 与从网上取完数据后的 id 对比，如果不一致说明用户切换了城市
     NSString *backUpCityId = _cityId;
@@ -475,7 +468,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     [params setObject:[NSNumber numberWithInteger:pageNo] forKey:@"page"];
     [params setObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-
+    
     switch (_poiType) {
         case kRestaurantPoi:
             [params setObject:[NSNumber numberWithBool:YES] forKey:@"restaurant"];
@@ -520,9 +513,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
                 [self.searchController.searchResultsTableView reloadData];
                 _currentPageSearch = pageNo;
             } else {
-//                if (self.isShowing) {
-//                    [SVProgressHUD showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
-//                }
+                
             }
             [self loadMoreCompletedSearch];
         }
@@ -530,9 +521,6 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         [self loadMoreCompletedSearch];
-//        if (self.isShowing) {
-//            [SVProgressHUD showHint:@"呃～好像没找到网络"];
-//        }
     }];
 }
 
@@ -585,7 +573,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     } else {
         poi = [_dataSource.recommendList objectAtIndex:sender.tag];
     }
-   
+    
     if (!cell.actionBtn.isSelected) {
         [_seletedArray addObject:poi];
         
@@ -642,7 +630,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
 /**
  *  点击搜索按钮开始搜索
  *
- *  @param sender 
+ *  @param sender
  */
 - (IBAction)beginSearch:(id)sender
 {
@@ -658,7 +646,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     [self presentViewController:tznavc animated:YES completion:^{
         
     }];
-
+    
 }
 
 - (IBAction)jumpToMapView:(UIButton *)sender
@@ -688,7 +676,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     } else if (_poiType == kShoppingPoi) {
         webCtl.titleStr = @"购物攻略";
         [MobClick event:@"event_shopping_strategy"];
-
+        
     }
     webCtl.urlStr = _dataSource.detailUrl;
     webCtl.hideToolBar = YES;
@@ -769,7 +757,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     [self.tableView reloadData];
     [self loadDataPoisOfCity:_currentPageNormal];
     
-//    [_filterBtn setTitle:_zhName forState:UIControlStateNormal];
+    //    [_filterBtn setTitle:_zhName forState:UIControlStateNormal];
 }
 
 
@@ -839,7 +827,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
             
             UIImageView *tagBtn = [[UIImageView alloc] initWithFrame:CGRectMake(10, 18, 80, 80)];
             tagBtn.contentMode = UIViewContentModeCenter;
-//            [tagBtn setBackgroundImage:[UIImage imageNamed:@"ic_city_border.png"] forState:UIControlStateNormal];
+            //            [tagBtn setBackgroundImage:[UIImage imageNamed:@"ic_city_border.png"] forState:UIControlStateNormal];
             if (_poiType == kRestaurantPoi) {
                 [tagBtn setImage:[UIImage imageNamed:@"jingdian_food_eat"]];
             } else if (_poiType == kShoppingPoi) {
@@ -894,7 +882,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     }
     TripPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:poisOfCityCellIdentifier forIndexPath:indexPath];
     cell.tripPoi = poi;
-//    如果从攻略列表进来想要添加美食或酒店
+    //    如果从攻略列表进来想要添加美食或酒店
     if (_shouldEdit) {
         cell.actionBtn.tag = indexPath.row;
         cell.actionBtn.hidden = NO;
@@ -1151,13 +1139,13 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
         shoppingDetailCtl.poiId = tripPoi.poiId;
         [self.navigationController pushViewController:shoppingDetailCtl animated:YES];
     }
-
+    
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     SuperPoi *tripPoi = [_seletedArray objectAtIndex:indexPath.row];
-    NSString *txt = [NSString stringWithFormat:@"%ld %@", (indexPath.row + 1), tripPoi.zhName];
+    NSString *txt = [NSString stringWithFormat:@"%ld %@", (long)(indexPath.row + 1), tripPoi.zhName];
     CGSize size = [txt sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17]}];
     return CGSizeMake(size.width, 49);
 }
@@ -1176,9 +1164,9 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
 
 #pragma mark - SelectDelegate
 - (void) selectItem:(NSString *)str atIndex:(NSIndexPath *)indexPath {
-
     
- 
+    
+    
     _currentCityIndex = indexPath.row;
     [self resetContents:indexPath.row];
 }

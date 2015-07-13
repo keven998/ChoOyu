@@ -32,10 +32,12 @@
     _titleLabel.text = tripPoi.zhName;
     NSString *property = nil;
     NSString *rankStr = nil;
-    if (_tripPoi.rank <= 500 && _tripPoi.rank > 0) {
+    if (_tripPoi.rank <= 200 && _tripPoi.rank > 0) {
         rankStr = [NSString stringWithFormat:@"%d", _tripPoi.rank];
+    } else if (_tripPoi.rank > 200) {
+        rankStr = @"200+";
     } else {
-        rankStr = @"500+";
+        rankStr = @"  ";
     }
     
     if (_tripPoi.poiType == kSpotPoi) {
@@ -45,9 +47,8 @@
             NSString *timeStr = [NSString stringWithFormat:@"建议游玩%@", ((SpotPoi *)tripPoi).timeCostStr];
             property = [NSString stringWithFormat:@"%@  %@", rankStr, timeStr];
         }
-        
     } else {
-        
+        property = [NSString stringWithFormat:@"%@  %@", rankStr, @"小吃快餐"];
     }
     [_propertyBtn setImage:[UIImage imageNamed:@"plan_bottom_flower.png"] forState:UIControlStateNormal];
     if (property != nil && ![property isBlankString]) {
