@@ -75,7 +75,7 @@
                                 <variation key="widthClass=compact" constant="25"/>
                             </constraint>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <state key="normal" title="添加">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>

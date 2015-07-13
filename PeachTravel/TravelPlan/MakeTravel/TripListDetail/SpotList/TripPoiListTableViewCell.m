@@ -15,8 +15,8 @@
     
     [_actionBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_actionBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
-    [_actionBtn setBackgroundImage:[ConvertMethods createImageWithColor:TEXT_COLOR_TITLE_DESC] forState:UIControlStateSelected];
-    _actionBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+    [_actionBtn setBackgroundImage:[ConvertMethods createImageWithColor:COLOR_DISABLE] forState:UIControlStateSelected];
+    _actionBtn.titleLabel.font = [UIFont systemFontOfSize:13];
     _actionBtn.layer.cornerRadius = 5;
     _actionBtn.clipsToBounds = YES;
     [_actionBtn setTitle:@"添加" forState:UIControlStateNormal];

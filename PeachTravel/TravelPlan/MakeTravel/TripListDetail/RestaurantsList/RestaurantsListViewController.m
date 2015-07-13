@@ -31,15 +31,27 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationItem.title = @"美食收藏";
     
-    self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = APP_PAGE_COLOR;
     [self.view addSubview:self.tableView];
+    
+    if (_canEdit) {
+//        UIButton *toolBar = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49, CGRectGetWidth(self.view.bounds), 49)];
+//        toolBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+//        toolBar.backgroundColor = APP_THEME_COLOR;
+//        [toolBar setTitle:@"添加收藏" forState:UIControlStateNormal];
+//        toolBar.titleLabel.font = [UIFont systemFontOfSize:17.0];
+//        [toolBar setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//        [toolBar addTarget:self action:@selector(addWantTo:) forControlEvents:UIControlEventTouchUpInside];
+//        [self.view addSubview:toolBar];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
     [self.tableView reloadData];    
 }
 
@@ -62,43 +74,15 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
         _tableView.showsHorizontalScrollIndicator = NO;
-        _tableView.separatorColor = COLOR_LINE;
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _tableView.backgroundColor = APP_PAGE_COLOR;
         _tableView.contentInset = UIEdgeInsetsMake(0, 0, 50, 0);
         _tableView.delegate = self;
         _tableView.dataSource = self;
         [_tableView registerNib:[UINib nibWithNibName:@"TripPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:restaurantListReusableIdentifier];
-
-        if (_canEdit) {
-            _tableView.tableFooterView = self.tableViewFooterView;
-        }
     }
     return _tableView;
-}
-
-- (UIView *)tableViewFooterView
-{
-    if (!_tableViewFooterView) {
-        _tableViewFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 100)];
-        UIButton *addWantToBtn = [[UIButton alloc] initWithFrame:CGRectMake((_tableViewFooterView.bounds.size.width-185)/2, 5, 185.0, 33)];
-        
-        [addWantToBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        
-        [addWantToBtn setTitle:@"收集美食" forState:UIControlStateNormal];
-        [addWantToBtn setImage:[UIImage imageNamed:@"add_to_list.png"] forState:UIControlStateNormal];
-        [addWantToBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 60)];
-        [addWantToBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
-        
-        addWantToBtn.clipsToBounds = YES;
-        [addWantToBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_SUB_THEME_COLOR] forState:UIControlStateNormal];
-        [addWantToBtn addTarget:self action:@selector(addWantTo:) forControlEvents:UIControlEventTouchUpInside];
-        addWantToBtn.layer.cornerRadius = 16.5;
-        addWantToBtn.titleLabel.font = [UIFont boldSystemFontOfSize:15.0];
-        [_tableViewFooterView addSubview:addWantToBtn];
-    }
-    
-    return _tableViewFooterView;
 }
 
 - (void)setShouldEdit:(BOOL)shouldEdit
