@@ -39,6 +39,7 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self.tableView reloadData];    
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -46,7 +47,6 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
     [super viewWillDisappear:animated];
     NSLog(@"Rest willdisappear");
 }
-
 
 #pragma mark - setter & getter
 
@@ -61,40 +61,41 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
         _tableView.showsHorizontalScrollIndicator = NO;
-        [_tableView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:restaurantListReusableIdentifier];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _tableView.backgroundColor = APP_PAGE_COLOR;
-        _tableView.delegate = self;
         _tableView.contentInset = UIEdgeInsetsMake(0, 0, 50, 0);
+        _tableView.delegate = self;
         _tableView.dataSource = self;
+        [_tableView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:restaurantListReusableIdentifier];
+
         if (_canEdit) {
             _tableView.tableFooterView = self.tableViewFooterView;
         }
-//        _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 10)];
-
     }
     return _tableView;
 }
 
 - (UIView *)tableViewFooterView
 {
-    _tableViewFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 100)];
-    UIButton *addWantToBtn = [[UIButton alloc] initWithFrame:CGRectMake((_tableViewFooterView.bounds.size.width-185)/2, 5, 185.0, 33)];
-    
-    [addWantToBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-
-    [addWantToBtn setTitle:@"收集美食" forState:UIControlStateNormal];
-    [addWantToBtn setImage:[UIImage imageNamed:@"add_to_list.png"] forState:UIControlStateNormal];
-    [addWantToBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 60)];
-    [addWantToBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
-
-    addWantToBtn.clipsToBounds = YES;
-    [addWantToBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_SUB_THEME_COLOR] forState:UIControlStateNormal];
-    [addWantToBtn addTarget:self action:@selector(addWantTo:) forControlEvents:UIControlEventTouchUpInside];
-    addWantToBtn.layer.cornerRadius = 16.5;
-    addWantToBtn.titleLabel.font = [UIFont boldSystemFontOfSize:15.0];
-    [_tableViewFooterView addSubview:addWantToBtn];
+    if (!_tableViewFooterView) {
+        _tableViewFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 100)];
+        UIButton *addWantToBtn = [[UIButton alloc] initWithFrame:CGRectMake((_tableViewFooterView.bounds.size.width-185)/2, 5, 185.0, 33)];
+        
+        [addWantToBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        
+        [addWantToBtn setTitle:@"收集美食" forState:UIControlStateNormal];
+        [addWantToBtn setImage:[UIImage imageNamed:@"add_to_list.png"] forState:UIControlStateNormal];
+        [addWantToBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 60)];
+        [addWantToBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
+        
+        addWantToBtn.clipsToBounds = YES;
+        [addWantToBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_SUB_THEME_COLOR] forState:UIControlStateNormal];
+        [addWantToBtn addTarget:self action:@selector(addWantTo:) forControlEvents:UIControlEventTouchUpInside];
+        addWantToBtn.layer.cornerRadius = 16.5;
+        addWantToBtn.titleLabel.font = [UIFont boldSystemFontOfSize:15.0];
+        [_tableViewFooterView addSubview:addWantToBtn];
+    }
     
     return _tableViewFooterView;
 }
@@ -103,16 +104,6 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
 {
     _shouldEdit = shouldEdit;
     [self editTrip:nil];
-}
-
-- (void)setCanEdit:(BOOL)canEdit
-{
-    _canEdit = canEdit;
-    if (_canEdit) {
-        _tableView.tableFooterView = self.tableViewFooterView;
-    } else {
-        _tableView.tableFooterView = nil;
-    }
 }
 
 #pragma makr - IBAction Methods
@@ -127,6 +118,7 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
     restaurantOfCityCtl.shouldEdit = YES;
     TZNavigationViewController *nctl = [[TZNavigationViewController alloc] initWithRootViewController:restaurantOfCityCtl];
     [self presentViewController:nctl animated:YES completion:nil];
+
 //    [self.navigationController pushViewController:restaurantOfCityCtl animated:YES];
 }
 
@@ -211,6 +203,7 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
 - (void)finishEdit
 {
     [self.tableView reloadData];
+
 }
 
 #pragma mark - UITableViewDataSource & Delegate
@@ -223,6 +216,7 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return 1;
+
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -233,11 +227,11 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CommonPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:restaurantListReusableIdentifier forIndexPath:indexPath];
-    cell.cellAction.tag = indexPath.section;
+    cell.cellAction.tag = indexPath.row;
     [cell.cellAction removeTarget:self action:@selector(jumpMapView:) forControlEvents:UIControlEventTouchUpInside];
     [cell.cellAction addTarget:self action:@selector(jumpMapView:) forControlEvents:UIControlEventTouchUpInside];
 //    [cell.deleteBtn addTarget:self action:@selector(deletePoi:) forControlEvents:UIControlEventTouchUpInside];
-    cell.tripPoi = [_tripDetail.restaurantsList objectAtIndex:indexPath.section];
+    cell.tripPoi = [_tripDetail.restaurantsList objectAtIndex:indexPath.row];
     return cell;
 }
 
