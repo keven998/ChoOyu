@@ -95,7 +95,11 @@
                 }
             }
             if (!find && sp.locality && sp.locality.zhName) {
-                [title appendString:[NSString stringWithFormat:@" > %@", sp.locality.zhName]];
+                if ([title isBlankString]) {
+                    [title appendString:[NSString stringWithFormat:@"%@", sp.locality.zhName]];
+                } else {
+                    [title appendString:[NSString stringWithFormat:@" > %@", sp.locality.zhName]];
+                }
                 [titleArray addObject:sp.locality.zhName];
             }
             [dstr appendString:[NSString stringWithFormat:@" > %@", sp.zhName]];

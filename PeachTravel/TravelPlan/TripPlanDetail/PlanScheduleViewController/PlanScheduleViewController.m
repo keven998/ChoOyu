@@ -61,7 +61,11 @@
         if ([dstr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length == 0) {
             [dstr appendString:[NSString stringWithFormat:@"%@", sp.zhName]];
         } else {
-            [dstr appendString:[NSString stringWithFormat:@" > %@", sp.zhName]];
+            if ([dstr isBlankString]) {
+                [dstr appendString:[NSString stringWithFormat:@"%@", sp.zhName]];
+            } else {
+                [dstr appendString:[NSString stringWithFormat:@" > %@", sp.zhName]];
+            }
         }
     }
     return [PlanScheduleTableViewCell heightOfCellWithContent:dstr];
@@ -113,7 +117,12 @@
                 }
             }
             if (!find && sp.locality && sp.locality.zhName) {
-                [title appendString:[NSString stringWithFormat:@" > %@", sp.locality.zhName]];
+                if ([title isBlankString]) {
+                    [title appendString:[NSString stringWithFormat:@"%@", sp.locality.zhName]];
+
+                } else {
+                    [title appendString:[NSString stringWithFormat:@" > %@", sp.locality.zhName]];
+                }
                 [titleArray addObject:sp.locality.zhName];
             }
             [dstr appendString:[NSString stringWithFormat:@" > %@", sp.zhName]];
