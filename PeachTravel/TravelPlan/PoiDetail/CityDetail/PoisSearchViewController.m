@@ -150,7 +150,6 @@
 
 - (void) beginLoadingSearch
 {
-    
     _isLoadingMoreSearch = YES;
     [self loadSearchDataWithPageNo:(_currentPageSearch + 1)];
     
@@ -163,6 +162,7 @@
     _isLoadingMoreSearch = NO;
     _didEndScrollSearch = YES;
 }
+
 #pragma mark - UISearchBarDelegate
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
@@ -206,7 +206,7 @@
     
     return 90;
 }
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CommonPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"commonPoiListCell" forIndexPath:indexPath];
     SuperPoi *poi = _dataArray[indexPath.row];
@@ -272,14 +272,7 @@
         poi = [_dataArray objectAtIndex:indexPath.row];
         
         [oneDayArray addObject:poi];
-        
-        //        NSIndexPath *lnp = [NSIndexPath indexPathForItem:oneDayArray.count - 1 inSection:0];
-        //        [self.selectPanel performBatchUpdates:^{
-        //            [self.selectPanel insertItemsAtIndexPaths:[NSArray arrayWithObject:lnp]];
-        //        } completion:^(BOOL finished) {
-        //            [self.selectPanel scrollToItemAtIndexPath:lnp
-        //                                     atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
-        //        }];
+    
     } else {
         SuperPoi *poi;
         poi = [_dataArray objectAtIndex:indexPath.row];
@@ -296,12 +289,6 @@
             }
         }
         if (index != -1) {
-            //            NSIndexPath *lnp = [NSIndexPath indexPathForItem:index inSection:0];
-            //            [self.selectPanel performBatchUpdates:^{
-            //                [self.selectPanel deleteItemsAtIndexPaths:[NSArray arrayWithObject:lnp]];
-            //            } completion:^(BOOL finished) {
-            //                [self.selectPanel reloadData];
-            //            }];
         }
         
     }
@@ -329,13 +316,6 @@
     if (!cell.cellAction.isSelected) {
         [_seletedArray addObject:poi];
         
-        //        NSIndexPath *lnp = [NSIndexPath indexPathForItem:_seletedArray.count - 1 inSection:0];
-        //        [self.selectPanel performBatchUpdates:^{
-        //            [self.selectPanel insertItemsAtIndexPaths:[NSArray arrayWithObject:lnp]];
-        //        } completion:^(BOOL finished) {
-        //            [self.selectPanel scrollToItemAtIndexPath:lnp
-        //                                     atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
-        //        }];
         
     } else {
         int index = -1;
@@ -350,12 +330,6 @@
         }
         
         if (index != -1) {
-            //            NSIndexPath *lnp = [NSIndexPath indexPathForItem:index inSection:0];
-            //            [self.selectPanel performBatchUpdates:^{
-            //                [self.selectPanel deleteItemsAtIndexPaths:[NSArray arrayWithObject:lnp]];
-            //            } completion:^(BOOL finished) {
-            //                [self.selectPanel reloadData];
-            //            }];
         }
         
     }
