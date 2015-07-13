@@ -15,6 +15,7 @@
 #import "CommonPoiDetailViewController.h"
 #import "PoisOfCityViewController.h"
 #import "ShoppingDetailViewController.h"
+#import "TripPoiListTableViewCell.h"
 @interface ShoppingListViewController () <UITableViewDataSource, UITableViewDelegate, PoisOfCityDelegate, UIActionSheetDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
@@ -24,7 +25,8 @@
 
 @implementation ShoppingListViewController
 
-static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
+static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -56,8 +58,8 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
 {
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
-        [_tableView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:shoppingListReusableIdentifier];
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        [_tableView registerNib:[UINib nibWithNibName:@"TripPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:shoppingListReusableIdentifier];
+        _tableView.separatorColor = COLOR_LINE;
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.backgroundColor = APP_PAGE_COLOR;
@@ -73,21 +75,23 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
 
 - (UIView *)tableViewFooterView
 {
-    _tableViewFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 100)];
-    UIButton *addWantToBtn = [[UIButton alloc] initWithFrame:CGRectMake((_tableViewFooterView.bounds.size.width-185)/2, 5, 185.0, 33)];
-    
-    [addWantToBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [addWantToBtn setTitle:@"收集购物" forState:UIControlStateNormal];
-    [addWantToBtn setImage:[UIImage imageNamed:@"add_to_list.png"] forState:UIControlStateNormal];
-    [addWantToBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 60)];
-    [addWantToBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
-    
-    addWantToBtn.clipsToBounds = YES;
-    [addWantToBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_SUB_THEME_COLOR] forState:UIControlStateNormal];
-    [addWantToBtn addTarget:self action:@selector(addWantTo:) forControlEvents:UIControlEventTouchUpInside];
-    addWantToBtn.layer.cornerRadius = 16.5;
-    addWantToBtn.titleLabel.font = [UIFont boldSystemFontOfSize:15.0];
-    [_tableViewFooterView addSubview:addWantToBtn];
+    if (!_tableViewFooterView) {
+        _tableViewFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 100)];
+        UIButton *addWantToBtn = [[UIButton alloc] initWithFrame:CGRectMake((_tableViewFooterView.bounds.size.width-185)/2, 5, 185.0, 33)];
+        
+        [addWantToBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [addWantToBtn setTitle:@"收集购物" forState:UIControlStateNormal];
+        [addWantToBtn setImage:[UIImage imageNamed:@"add_to_list.png"] forState:UIControlStateNormal];
+        [addWantToBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 60)];
+        [addWantToBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
+        
+        addWantToBtn.clipsToBounds = YES;
+        [addWantToBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_SUB_THEME_COLOR] forState:UIControlStateNormal];
+        [addWantToBtn addTarget:self action:@selector(addWantTo:) forControlEvents:UIControlEventTouchUpInside];
+        addWantToBtn.layer.cornerRadius = 16.5;
+        addWantToBtn.titleLabel.font = [UIFont boldSystemFontOfSize:15.0];
+        [_tableViewFooterView addSubview:addWantToBtn];
+    }
     
     return _tableViewFooterView;
 }
@@ -97,17 +101,6 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
     _shouldEdit = shouldEdit;
     [self editTrip:nil];
 }
-
-- (void)setCanEdit:(BOOL)canEdit
-{
-    _canEdit = canEdit;
-    if (_canEdit) {
-        _tableView.tableFooterView = self.tableViewFooterView;
-    } else {
-        _tableView.tableFooterView = nil;
-    }
-}
-
 
 #pragma makr - IBAction Methods
 
@@ -204,9 +197,6 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
 
 - (void)finishEdit
 {
-//    if (!_shouldEdit) {
-//        [_rootViewController.editBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
-//    }
     [self.tableView reloadData];
 }
 
@@ -224,16 +214,12 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 90;
+    return 66;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CommonPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:shoppingListReusableIdentifier forIndexPath:indexPath];
-    cell.cellAction.tag = indexPath.section;
-    [cell.cellAction setTitle:@"导航" forState:UIControlStateNormal];
-    [cell.cellAction removeTarget:self action:@selector(jumpMapView:) forControlEvents:UIControlEventTouchUpInside];
-    [cell.cellAction addTarget:self action:@selector(jumpMapView:) forControlEvents:UIControlEventTouchUpInside];
+    TripPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:shoppingListReusableIdentifier forIndexPath:indexPath];
     cell.tripPoi = [_tripDetail.shoppingList objectAtIndex:indexPath.section];
     return cell;
 }

@@ -71,45 +71,49 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     PlanScheduleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"schedule_summary_cell" forIndexPath:indexPath];
-        NSArray *ds = _tripDetail.itineraryList[indexPath.row];
-        NSMutableString *dstr = [[NSMutableString alloc] init];
-        NSMutableString *title = [[NSMutableString alloc] init];
-        NSMutableArray *titleArray = [[NSMutableArray alloc] init];
-        cell.dayScheduleSummary.numberOfLines = 1;
-        NSInteger count = [ds count];
-        for (int i = 0; i < count; ++i) {
-            SuperPoi *sp = [ds objectAtIndex:i];
-            if ([dstr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length == 0) {
-                if (sp.locality && sp.locality.zhName) {
-                    [titleArray addObject:sp.locality.zhName];
-                    [title appendString:sp.locality.zhName];
-                }
-                
-                [dstr appendString:[NSString stringWithFormat:@"%@", sp.zhName]];
-            } else {
-                BOOL find = NO;
-                for (NSString *str in titleArray) {
-                    if ([str isEqualToString:sp.locality.zhName]) {
-                        find = YES;
-                        break;
-                    }
-                }
-                if (!find && sp.locality && sp.locality.zhName) {
-                    [title appendString:[NSString stringWithFormat:@" > %@", sp.locality.zhName]];
-                    [titleArray addObject:sp.locality.zhName];
-                }
-                [dstr appendString:[NSString stringWithFormat:@" > %@", sp.zhName]];
-                
+    NSArray *ds = _tripDetail.itineraryList[indexPath.row];
+    NSMutableString *dstr = [[NSMutableString alloc] init];
+    NSMutableString *title = [[NSMutableString alloc] init];
+    NSMutableArray *titleArray = [[NSMutableArray alloc] init];
+    cell.dayScheduleSummary.numberOfLines = 1;
+    NSInteger count = [ds count];
+    for (int i = 0; i < count; ++i) {
+        SuperPoi *sp = [ds objectAtIndex:i];
+        if ([dstr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length == 0) {
+            if (sp.locality && sp.locality.zhName) {
+                [titleArray addObject:sp.locality.zhName];
+                [title appendString:sp.locality.zhName];
             }
-        }
-        
-        cell.content = dstr;
-        cell.titleLabel.text = title;
-        if (indexPath.row < 9) {
-            cell.day = [NSString stringWithFormat:@"0%ld.", indexPath.row+1];
+            
+            [dstr appendString:[NSString stringWithFormat:@"%@", sp.zhName]];
         } else {
-            cell.day = [NSString stringWithFormat:@"%ld.", indexPath.row+1];
+            BOOL find = NO;
+            for (NSString *str in titleArray) {
+                if ([str isEqualToString:sp.locality.zhName]) {
+                    find = YES;
+                    break;
+                }
+            }
+            if (!find && sp.locality && sp.locality.zhName) {
+                if ([title isBlankString]) {
+                    [title appendString:[NSString stringWithFormat:@"%@", sp.locality.zhName]];
+                } else {
+                    [title appendString:[NSString stringWithFormat:@" > %@", sp.locality.zhName]];
+                }
+                [titleArray addObject:sp.locality.zhName];
+            }
+            [dstr appendString:[NSString stringWithFormat:@" > %@", sp.zhName]];
+            
         }
+    }
+    
+    cell.content = dstr;
+    cell.titleLabel.text = title;
+    if (indexPath.row < 9) {
+        cell.day = [NSString stringWithFormat:@"0%ld.", indexPath.row+1];
+    } else {
+        cell.day = [NSString stringWithFormat:@"%ld.", indexPath.row+1];
+    }
     return cell;
 }
 
