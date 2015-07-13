@@ -48,7 +48,6 @@
     _tripDetail = tripDetail;
 }
 
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return _tripDetail.itineraryList.count;
@@ -130,7 +129,6 @@
 {
     return YES;
 }
-
 
 - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
     return @"删除";
