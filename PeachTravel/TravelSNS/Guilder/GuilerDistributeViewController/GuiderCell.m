@@ -12,6 +12,10 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    self.contentView.backgroundColor = APP_PAGE_COLOR;
+    self.contentView.layer.borderWidth = 0.5;
+    self.contentView.layer.borderColor = COLOR_LINE.CGColor;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
