@@ -132,10 +132,9 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 - (IBAction)beginSearch:(id)sender
 {
     [MobClick event:@"event_filter_city"];
-    SuggestionDestinationTableViewController *ctl = [[SuggestionDestinationTableViewController alloc] init];
+    SuggestionDestinationTableViewController *ctl = [[SuggestionDestinationTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
     ctl.delegate = self;
-    TZNavigationViewController *navi = [[TZNavigationViewController alloc] initWithRootViewController:ctl];
-    navi.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:ctl];
     [self presentViewController:navi animated:YES completion:nil];
 }
 
