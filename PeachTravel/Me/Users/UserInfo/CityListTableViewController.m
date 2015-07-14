@@ -124,24 +124,20 @@
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, tableView.bounds.size.width, 30)];
         label.font = [UIFont systemFontOfSize:14.0];
         label.backgroundColor = APP_PAGE_COLOR;
+        label.textColor = COLOR_TEXT_II;
         if (_needUserLocation) {
-            label.text = @"   定位获取的位置";
+            label.text = @"   定位位置";
         } else {
-            label.text = @"   国内全部城市";
+            label.text = @"   全部城市";
         }
         [headerView addSubview:label];
         return headerView;
-        
     } else {
-        
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 30)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 20)];
         label.font = [UIFont systemFontOfSize:14.0];
         label.backgroundColor = APP_PAGE_COLOR;
-        if (_needUserLocation) {
-            label.text = @"   国内全部城市";
-        } else {
-            label.text = @"   国内全部城市";
-        }
+        label.text = @"   全部城市";
+        label.textColor = COLOR_TEXT_II;
         return label;
     }
 }

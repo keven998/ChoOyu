@@ -640,7 +640,6 @@
         }
         else if (indexPath.row == 2) {
             [self showDatePicker];
-            
         }
         else if (indexPath.row == 3) {
             NSString *url = [[NSBundle mainBundle] pathForResource:@"DomesticCityDataSource" ofType:@"plist"];
