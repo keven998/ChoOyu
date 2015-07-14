@@ -831,14 +831,14 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
             } else if (_poiType == kShoppingPoi) {
                 [tagBtn setImage:[UIImage imageNamed:@"jingdian_shopping"]];
             }
-            [btn addSubview:tagBtn];
+//            [btn addSubview:tagBtn];
             
             NSUInteger len = [_descDetail length];
             NSMutableAttributedString *desc = [[NSMutableAttributedString alloc] initWithString:_descDetail];
             [desc addAttribute:NSForegroundColorAttributeName value:TEXT_COLOR_TITLE_SUBTITLE  range:NSMakeRange(0, len)];
             NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
             style.lineBreakMode = NSLineBreakByTruncatingTail;
-            style.lineSpacing = 1;
+            style.lineSpacing = 5;
             [desc addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, len)];
             [btn setAttributedTitle:desc forState:UIControlStateNormal];
             
@@ -847,17 +847,17 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
             [btn setAttributedTitle:desc forState:UIControlStateHighlighted];
             [btn addTarget:self action:@selector(showIntruductionOfCity) forControlEvents:UIControlEventTouchUpInside];
             btn.titleLabel.font = [UIFont systemFontOfSize:12.0];
-            btn.titleLabel.numberOfLines = 4;
+            btn.titleLabel.numberOfLines = 2;
             
             UILabel *moreLabel = [[UILabel alloc] initWithFrame:CGRectMake(sectionheaderView.bounds.size.width-49, sectionheaderView.bounds.size.height-26, 30, 20)];
-            moreLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+            moreLabel.textColor = APP_SUB_THEME_COLOR_HIGHLIGHT;
             moreLabel.font = [UIFont systemFontOfSize:11.0];
-            moreLabel.text = @"详情";
+            moreLabel.text = @"攻略";
             
             UIImageView *moreImage = [[UIImageView alloc] initWithFrame:CGRectMake(sectionheaderView.bounds.size.width-20, sectionheaderView.bounds.size.height-22, 7, 11)];
             moreImage.image = [UIImage imageNamed:@"more_btn.png"];
             [sectionheaderView addSubview:moreLabel];
-            [sectionheaderView addSubview:moreImage];
+//            [sectionheaderView addSubview:moreImage];
             
             [sectionheaderView addSubview:btn];
             return sectionheaderView;
