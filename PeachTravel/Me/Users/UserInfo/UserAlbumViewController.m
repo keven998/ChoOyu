@@ -24,9 +24,18 @@ static NSString * const reuseIdentifier = @"albumImageCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setImage:[UIImage imageNamed:@"common_icon_navigaiton_back"] forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:@"common_icon_navigaiton_back_highlight"] forState:UIControlStateHighlighted];
+    [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
+    [button setFrame:CGRectMake(0, 0, 30, 30)];
+    button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
+    self.navigationItem.leftBarButtonItem = barButton;
+    
     self.manager = [AccountManager shareAccountManager];
     if (_isMyself){
-        UIButton *editBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        UIButton *editBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         editBtn.frame = CGRectMake(0, 0, 40, 40);
         [editBtn setTitle:@"编辑" forState:UIControlStateNormal];
         [editBtn setTitle:@"完成" forState:UIControlStateSelected];
@@ -201,11 +210,11 @@ static NSString * const reuseIdentifier = @"albumImageCell";
             [self uploadPhotoToQINIUServer:image withToken:[[responseObject objectForKey:@"result"] objectForKey:@"uploadToken"] andKey:[[responseObject objectForKey:@"result"] objectForKey:@"key"]];
             
         } else {
-
+            
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [hud hideTZHUD];
-
+        
     }];
 }
 
@@ -277,13 +286,13 @@ static NSString * const reuseIdentifier = @"albumImageCell";
 
 - (void)deletePhoto:(UIButton *)sender
 {
-
-        TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-        [hud showHUDInView:self.view];
-        AlbumImage *image = [self.manager.account.userAlbum objectAtIndex:sender.tag-101];
-        [self.manager asyncDelegateUserAlbumImage:image completion:^(BOOL isSuccess, NSString *error) {
-            [hud hideTZHUD];
-        }];
+    
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInView:self.view];
+    AlbumImage *image = [self.manager.account.userAlbum objectAtIndex:sender.tag-101];
+    [self.manager asyncDelegateUserAlbumImage:image completion:^(BOOL isSuccess, NSString *error) {
+        [hud hideTZHUD];
+    }];
     NSMutableArray *mutableArray = [_albumArray mutableCopy];
     [mutableArray removeObjectAtIndex:sender.tag - 101];
     _albumArray = mutableArray;
@@ -298,6 +307,16 @@ static NSString * const reuseIdentifier = @"albumImageCell";
     
     [self uploadPhotoImage:headerImage];
 }
+
+- (void)goBack
+{
+    if (self.navigationController.childViewControllers.count > 1) {
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+}
+
 @end
 
 

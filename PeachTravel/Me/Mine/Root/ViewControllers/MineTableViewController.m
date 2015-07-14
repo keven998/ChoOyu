@@ -189,7 +189,7 @@
     
     CGFloat bh = 84*height/736;
     
-    UIButton *friendEntry = [[UIButton alloc] initWithFrame:CGRectMake(2*unitWidth, offsetY, unitWidth, bh)];
+    UIButton *friendEntry = [[UIButton alloc] initWithFrame:CGRectMake(unitWidth, offsetY, unitWidth, bh)];
     _pictureNumber = [[UILabel alloc] initWithFrame:CGRectMake(10, bh/2 - 20, unitWidth - 20, 20)];
     _pictureNumber.textColor = COLOR_TEXT_I;
     _pictureNumber.textAlignment = NSTextAlignmentCenter;
@@ -225,14 +225,13 @@
     [planEntry addTarget:self action:@selector(myPlan:) forControlEvents:UIControlEventTouchUpInside];
     [headerBgView addSubview:planEntry];
     
-    UIButton *trackEntry = [[UIButton alloc] initWithFrame:CGRectMake(unitWidth, offsetY, unitWidth, bh)];
+    UIButton *trackEntry = [[UIButton alloc] initWithFrame:CGRectMake(2*unitWidth, offsetY, unitWidth, bh)];
     _trackNumber = [[UILabel alloc] initWithFrame:CGRectMake(10, bh/2 - 20, unitWidth - 20, 20)];
     _trackNumber.textColor = COLOR_TEXT_I;
     _trackNumber.adjustsFontSizeToFitWidth = YES;
     _trackNumber.textAlignment = NSTextAlignmentCenter;
     _trackNumber.font = [UIFont systemFontOfSize:16];
     _trackNumber.lineBreakMode = NSLineBreakByTruncatingTail;
-    
     NSMutableDictionary *country = [NSMutableDictionary dictionaryWithDictionary:self.accountManager.account.tracks];
     NSInteger cityNumber = 0;
     NSMutableString *cityDesc = nil;
