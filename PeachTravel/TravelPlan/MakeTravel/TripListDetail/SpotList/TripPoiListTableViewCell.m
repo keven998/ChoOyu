@@ -15,8 +15,8 @@
     
     [_actionBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_actionBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
-    [_actionBtn setBackgroundImage:[ConvertMethods createImageWithColor:TEXT_COLOR_TITLE_DESC] forState:UIControlStateSelected];
-    _actionBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+    [_actionBtn setBackgroundImage:[ConvertMethods createImageWithColor:COLOR_DISABLE] forState:UIControlStateSelected];
+    _actionBtn.titleLabel.font = [UIFont systemFontOfSize:13];
     _actionBtn.layer.cornerRadius = 5;
     _actionBtn.clipsToBounds = YES;
     [_actionBtn setTitle:@"添加" forState:UIControlStateNormal];
@@ -32,10 +32,12 @@
     _titleLabel.text = tripPoi.zhName;
     NSString *property = nil;
     NSString *rankStr = nil;
-    if (_tripPoi.rank <= 500 && _tripPoi.rank > 0) {
+    if (_tripPoi.rank <= 200 && _tripPoi.rank > 0) {
         rankStr = [NSString stringWithFormat:@"%d", _tripPoi.rank];
+    } else if (_tripPoi.rank > 200) {
+        rankStr = @"200+";
     } else {
-        rankStr = @"500+";
+        rankStr = @"  ";
     }
     
     if (_tripPoi.poiType == kSpotPoi) {
@@ -45,9 +47,8 @@
             NSString *timeStr = [NSString stringWithFormat:@"建议游玩%@", ((SpotPoi *)tripPoi).timeCostStr];
             property = [NSString stringWithFormat:@"%@  %@", rankStr, timeStr];
         }
-        
     } else {
-        
+        property = [NSString stringWithFormat:@"%@  %@", rankStr, @"小吃快餐"];
     }
     [_propertyBtn setImage:[UIImage imageNamed:@"plan_bottom_flower.png"] forState:UIControlStateNormal];
     if (property != nil && ![property isBlankString]) {

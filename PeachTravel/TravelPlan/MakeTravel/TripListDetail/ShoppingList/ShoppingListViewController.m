@@ -30,13 +30,27 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.navigationItem.title = @"购物收藏";
+    self.view.backgroundColor = APP_PAGE_COLOR;
+
     [self.view addSubview:self.tableView];
+    
+    if (_canEdit) {
+//        UIButton *toolBar = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49, CGRectGetWidth(self.view.bounds), 49)];
+//        toolBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+//        toolBar.backgroundColor = APP_THEME_COLOR;
+//        [toolBar setTitle:@"添加收藏" forState:UIControlStateNormal];
+//        toolBar.titleLabel.font = [UIFont systemFontOfSize:17.0];
+//        [toolBar setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//        [toolBar addTarget:self action:@selector(addWantTo:) forControlEvents:UIControlEventTouchUpInside];
+//        [self.view addSubview:toolBar];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -57,49 +71,17 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
-        [_tableView registerNib:[UINib nibWithNibName:@"TripPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:shoppingListReusableIdentifier];
+        _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
         _tableView.separatorColor = COLOR_LINE;
+        [_tableView registerNib:[UINib nibWithNibName:@"TripPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:shoppingListReusableIdentifier];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.backgroundColor = APP_PAGE_COLOR;
         _tableView.contentInset = UIEdgeInsetsMake(0, 0, 50, 0);
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        if (_canEdit) {
-            _tableView.tableFooterView = self.tableViewFooterView;
-        }
 //        _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 10)];
     }
     return _tableView;
-}
-
-- (UIView *)tableViewFooterView
-{
-    if (!_tableViewFooterView) {
-        _tableViewFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 100)];
-        UIButton *addWantToBtn = [[UIButton alloc] initWithFrame:CGRectMake((_tableViewFooterView.bounds.size.width-185)/2, 5, 185.0, 33)];
-        
-        [addWantToBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [addWantToBtn setTitle:@"收集购物" forState:UIControlStateNormal];
-        [addWantToBtn setImage:[UIImage imageNamed:@"add_to_list.png"] forState:UIControlStateNormal];
-        [addWantToBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 60)];
-        [addWantToBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
-        
-        addWantToBtn.clipsToBounds = YES;
-        [addWantToBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_SUB_THEME_COLOR] forState:UIControlStateNormal];
-        [addWantToBtn addTarget:self action:@selector(addWantTo:) forControlEvents:UIControlEventTouchUpInside];
-        addWantToBtn.layer.cornerRadius = 16.5;
-        addWantToBtn.titleLabel.font = [UIFont boldSystemFontOfSize:15.0];
-        [_tableViewFooterView addSubview:addWantToBtn];
-    }
-    
-    return _tableViewFooterView;
-}
-
-- (void)setShouldEdit:(BOOL)shouldEdit
-{
-    _shouldEdit = shouldEdit;
-    [self editTrip:nil];
 }
 
 #pragma makr - IBAction Methods
@@ -188,8 +170,8 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
 
     CGPoint point = [sender convertPoint:CGPointMake(20, 20) toView:self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
-    [_tripDetail.shoppingList removeObjectAtIndex:indexPath.section];
-    NSIndexSet *set = [NSIndexSet indexSetWithIndex:indexPath.section];
+    [_tripDetail.shoppingList removeObjectAtIndex:indexPath.row];
+    NSIndexSet *set = [NSIndexSet indexSetWithIndex:indexPath.row];
     [self.tableView deleteSections:set withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
@@ -202,14 +184,13 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
 
 #pragma mark - UITableViewDataSource & Delegate
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return self.tripDetail.shoppingList.count;
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return CGFLOAT_MIN;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    return self.tripDetail.shoppingList.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -220,17 +201,17 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     TripPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:shoppingListReusableIdentifier forIndexPath:indexPath];
-    cell.tripPoi = [_tripDetail.shoppingList objectAtIndex:indexPath.section];
+    cell.tripPoi = [_tripDetail.shoppingList objectAtIndex:indexPath.row];
     return cell;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
+    return NO;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return YES;
+    return NO;
 }
 
 - (UITableViewCellEditingStyle) tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -246,10 +227,10 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
     [MobClick event:@"event_reorder_items"];
     NSLog(@"from:%@ to:%@",sourceIndexPath, destinationIndexPath);
-    SuperPoi *poi = [_tripDetail.shoppingList objectAtIndex:sourceIndexPath.section];
-    [_tripDetail.shoppingList removeObjectAtIndex:sourceIndexPath.section];
+    SuperPoi *poi = [_tripDetail.shoppingList objectAtIndex:sourceIndexPath.row];
+    [_tripDetail.shoppingList removeObjectAtIndex:sourceIndexPath.row];
     
-    [_tripDetail.shoppingList insertObject:poi atIndex:destinationIndexPath.section];
+    [_tripDetail.shoppingList insertObject:poi atIndex:destinationIndexPath.row];
     [self.tableView reloadData];
 }
 
@@ -278,8 +259,8 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [_tripDetail.shoppingList removeObjectAtIndex:indexPath.section];
-        [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [_tripDetail.shoppingList removeObjectAtIndex:indexPath.row];
+        [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.row] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
 }
 
@@ -289,7 +270,7 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SuperPoi *tripPoi = [_tripDetail.shoppingList objectAtIndex:indexPath.section];
+    SuperPoi *tripPoi = [_tripDetail.shoppingList objectAtIndex:indexPath.row];
     CommonPoiDetailViewController *shoppingDetailCtl = [[ShoppingDetailViewController alloc] init];
     shoppingDetailCtl.poiId = tripPoi.poiId;
     shoppingDetailCtl.poiType = kShoppingPoi;

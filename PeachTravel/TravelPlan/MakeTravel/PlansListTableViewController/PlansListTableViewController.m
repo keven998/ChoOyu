@@ -74,7 +74,11 @@ static NSString *reusableCell = @"myGuidesCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
-    self.navigationItem.title = [NSString stringWithFormat:@"%@的计划", _userName];
+    if (!_isOwner) {
+        self.navigationItem.title = [NSString stringWithFormat:@"%@的计划", _userName];
+    } else {
+        self.navigationItem.title = @"我的计划";
+    }
     
     UIButton *categoryBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
     [categoryBtn addTarget:self action:@selector(filtTrip) forControlEvents:UIControlEventTouchUpInside];

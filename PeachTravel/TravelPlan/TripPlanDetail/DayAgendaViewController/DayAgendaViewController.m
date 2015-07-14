@@ -52,7 +52,7 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [btn setTitleColor:COLOR_DISABLE forState:UIControlStateHighlighted];
     [btn addTarget:self action:@selector(editSchedule) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];    //体验和复杂度
     
 }
 

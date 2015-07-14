@@ -58,7 +58,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
-                                       reuseIdentifier:@"Cell"];
+                                                   reuseIdentifier:@"Cell"];
     if (indexPath.row == 0) {
         cell.imageView.image = [UIImage imageNamed:@"collect_food.png"];
         cell.textLabel.text = @"美食";
@@ -78,13 +78,12 @@
         RestaurantsListViewController *ctl = [[RestaurantsListViewController alloc] init];
         ctl.canEdit = _canEdit;
         ctl.tripDetail = _tripDetail;
-        [self.rootCtl.navigationController pushViewController:ctl animated:YES];
-        
+        [self.frostedViewController.navigationController pushViewController:ctl animated:YES];
     } else {
         ShoppingListViewController *ctl = [[ShoppingListViewController alloc] init];
         ctl.tripDetail = _tripDetail;
         ctl.canEdit = _canEdit;
-        [self.rootCtl.navigationController pushViewController:ctl animated:YES];
+        [self.frostedViewController.navigationController pushViewController:ctl animated:YES];
     }
     
 }

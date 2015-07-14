@@ -30,8 +30,8 @@
     
     UIButton *cardbg = [[UIButton alloc] initWithFrame:CGRectMake(10, 0, width - 20, height)];
     cardbg.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    [cardbg setBackgroundImage:[[UIImage imageNamed:@"tools_home_card_bg_normal.png"]
-                               resizableImageWithCapInsets:UIEdgeInsetsMake(20,20,20,20)] forState:UIControlStateNormal];
+//    [cardbg setBackgroundImage:[[UIImage imageNamed:@"tools_home_card_bg_normal.png"]
+//                               resizableImageWithCapInsets:UIEdgeInsetsMake(20,20,20,20)] forState:UIControlStateNormal];
     [cardbg setBackgroundImage:[[UIImage imageNamed:@"tools_home_card_bg_highlight.png"]
                                 resizableImageWithCapInsets:UIEdgeInsetsMake(20,20,20,20)] forState:UIControlStateHighlighted];
     [cardbg addTarget:self action:@selector(lxpSearch:) forControlEvents:UIControlEventTouchUpInside];

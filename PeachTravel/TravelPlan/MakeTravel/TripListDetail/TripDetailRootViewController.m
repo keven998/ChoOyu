@@ -611,7 +611,6 @@
     _tripFavoriteCtl.canEdit = _canEdit;
     [self addChildViewController:_spotsListCtl];
     [self.view addSubview:_spotsListCtl.view];
-    _tripFavoriteCtl.rootCtl = self;
     [_spotsListCtl.view setFrame:CGRectMake(0, 44, self.view.bounds.size.width, self.view.bounds.size.height-44)];
     [_tripFavoriteCtl.view setFrame:CGRectMake(0, 44, self.view.bounds.size.width, self.view.bounds.size.height-44)];
     

@@ -75,7 +75,7 @@
                                 <variation key="widthClass=compact" constant="25"/>
                             </constraint>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <state key="normal" title="添加">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
@@ -131,17 +131,17 @@
                         <exclude reference="tnM-4F-Ut8"/>
                     </mask>
                     <mask key="constraints">
-                        <exclude reference="Blh-hr-id5"/>
-                        <exclude reference="dBG-uK-1te"/>
-                        <exclude reference="RfA-ue-0Pc"/>
-                        <exclude reference="b24-ZL-Til"/>
-                        <exclude reference="wSG-No-t4F"/>
                         <exclude reference="S2k-4l-Sxu"/>
                         <exclude reference="UAB-jR-Glq"/>
                         <exclude reference="nZk-jV-U18"/>
                         <exclude reference="osi-2L-7qS"/>
                         <exclude reference="Fcz-aD-WG7"/>
                         <exclude reference="b7d-Uz-HHc"/>
+                        <exclude reference="Blh-hr-id5"/>
+                        <exclude reference="dBG-uK-1te"/>
+                        <exclude reference="RfA-ue-0Pc"/>
+                        <exclude reference="b24-ZL-Til"/>
+                        <exclude reference="wSG-No-t4F"/>
                     </mask>
                 </variation>
                 <variation key="widthClass=compact">
@@ -150,17 +150,17 @@
                         <include reference="tnM-4F-Ut8"/>
                     </mask>
                     <mask key="constraints">
-                        <include reference="Blh-hr-id5"/>
-                        <include reference="dBG-uK-1te"/>
-                        <include reference="RfA-ue-0Pc"/>
-                        <include reference="b24-ZL-Til"/>
-                        <include reference="wSG-No-t4F"/>
                         <include reference="S2k-4l-Sxu"/>
                         <include reference="UAB-jR-Glq"/>
                         <include reference="nZk-jV-U18"/>
                         <include reference="osi-2L-7qS"/>
                         <include reference="Fcz-aD-WG7"/>
                         <include reference="b7d-Uz-HHc"/>
+                        <include reference="Blh-hr-id5"/>
+                        <include reference="dBG-uK-1te"/>
+                        <include reference="RfA-ue-0Pc"/>
+                        <include reference="b24-ZL-Til"/>
+                        <include reference="wSG-No-t4F"/>
                     </mask>
                 </variation>
             </tableViewCellContentView>

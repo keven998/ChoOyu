@@ -31,15 +31,27 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationItem.title = @"美食收藏";
     
-    self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = APP_PAGE_COLOR;
     [self.view addSubview:self.tableView];
+    
+    if (_canEdit) {
+//        UIButton *toolBar = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49, CGRectGetWidth(self.view.bounds), 49)];
+//        toolBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+//        toolBar.backgroundColor = APP_THEME_COLOR;
+//        [toolBar setTitle:@"添加收藏" forState:UIControlStateNormal];
+//        toolBar.titleLabel.font = [UIFont systemFontOfSize:17.0];
+//        [toolBar setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//        [toolBar addTarget:self action:@selector(addWantTo:) forControlEvents:UIControlEventTouchUpInside];
+//        [self.view addSubview:toolBar];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
     [self.tableView reloadData];    
 }
 
@@ -60,51 +72,17 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
-        _tableView.showsHorizontalScrollIndicator = NO;
+        _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
         _tableView.separatorColor = COLOR_LINE;
+        _tableView.showsHorizontalScrollIndicator = NO;
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _tableView.backgroundColor = APP_PAGE_COLOR;
         _tableView.contentInset = UIEdgeInsetsMake(0, 0, 50, 0);
         _tableView.delegate = self;
         _tableView.dataSource = self;
         [_tableView registerNib:[UINib nibWithNibName:@"TripPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:restaurantListReusableIdentifier];
-
-        if (_canEdit) {
-            _tableView.tableFooterView = self.tableViewFooterView;
-        }
     }
     return _tableView;
-}
-
-- (UIView *)tableViewFooterView
-{
-    if (!_tableViewFooterView) {
-        _tableViewFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 100)];
-        UIButton *addWantToBtn = [[UIButton alloc] initWithFrame:CGRectMake((_tableViewFooterView.bounds.size.width-185)/2, 5, 185.0, 33)];
-        
-        [addWantToBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        
-        [addWantToBtn setTitle:@"收集美食" forState:UIControlStateNormal];
-        [addWantToBtn setImage:[UIImage imageNamed:@"add_to_list.png"] forState:UIControlStateNormal];
-        [addWantToBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 60)];
-        [addWantToBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
-        
-        addWantToBtn.clipsToBounds = YES;
-        [addWantToBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_SUB_THEME_COLOR] forState:UIControlStateNormal];
-        [addWantToBtn addTarget:self action:@selector(addWantTo:) forControlEvents:UIControlEventTouchUpInside];
-        addWantToBtn.layer.cornerRadius = 16.5;
-        addWantToBtn.titleLabel.font = [UIFont boldSystemFontOfSize:15.0];
-        [_tableViewFooterView addSubview:addWantToBtn];
-    }
-    
-    return _tableViewFooterView;
-}
-
-- (void)setShouldEdit:(BOOL)shouldEdit
-{
-    _shouldEdit = shouldEdit;
-    [self editTrip:nil];
 }
 
 #pragma makr - IBAction Methods
@@ -194,8 +172,8 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
     [MobClick event:@"event_delete_select_item"];
     CGPoint point = [sender convertPoint:CGPointMake(20, 20) toView:self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
-    [_tripDetail.restaurantsList removeObjectAtIndex:indexPath.section];
-    NSIndexSet *set = [NSIndexSet indexSetWithIndex:indexPath.section];
+    [_tripDetail.restaurantsList removeObjectAtIndex:indexPath.row];
+    NSIndexSet *set = [NSIndexSet indexSetWithIndex:indexPath.row];
     [self.tableView deleteSections:set withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
@@ -209,14 +187,13 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
 
 #pragma mark - UITableViewDataSource & Delegate
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return self.tripDetail.restaurantsList.count;
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return CGFLOAT_MIN;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    return self.tripDetail.restaurantsList.count;
 
 }
 
@@ -233,12 +210,12 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
+    return NO;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return YES;
+    return NO;
 }
 
 - (UITableViewCellEditingStyle) tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -252,10 +229,10 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
     [MobClick event:@"event_reorder_items"];
-    SuperPoi *poi = [_tripDetail.restaurantsList objectAtIndex:sourceIndexPath.section];
-    [_tripDetail.restaurantsList removeObjectAtIndex:sourceIndexPath.section];
+    SuperPoi *poi = [_tripDetail.restaurantsList objectAtIndex:sourceIndexPath.row];
+    [_tripDetail.restaurantsList removeObjectAtIndex:sourceIndexPath.row];
    
-    [_tripDetail.restaurantsList insertObject:poi atIndex:destinationIndexPath.section];
+    [_tripDetail.restaurantsList insertObject:poi atIndex:destinationIndexPath.row];
     [self.tableView reloadData];
 }
 
@@ -284,14 +261,14 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [_tripDetail.restaurantsList removeObjectAtIndex:indexPath.section];
-        [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [_tripDetail.restaurantsList removeObjectAtIndex:indexPath.row];
+        [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.row] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SuperPoi *tripPoi = [_tripDetail.restaurantsList objectAtIndex:indexPath.section];
+    SuperPoi *tripPoi = [_tripDetail.restaurantsList objectAtIndex:indexPath.row];
 
     CommonPoiDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];
     restaurantDetailCtl.poiId = tripPoi.poiId;

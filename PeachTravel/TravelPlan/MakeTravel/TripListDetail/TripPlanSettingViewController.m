@@ -178,7 +178,7 @@
             cell.textLabel.text = _tripDetail.tripTitle;
         }
         else if (indexPath.row == 1) {
-            cell.textLabel.text = @"调整";
+            cell.textLabel.text = @"调整计划";
         }
         else if (indexPath.row == 2){
             cell.textLabel.text = @"发给好友";

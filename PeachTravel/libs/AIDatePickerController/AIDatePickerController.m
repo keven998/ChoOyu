@@ -87,7 +87,7 @@ static NSTimeInterval const AIAnimatedTransitionDuration = 0.4;
     // Date Picker Container
     _datePickerContainerView = [UIView new];
     _datePickerContainerView.translatesAutoresizingMaskIntoConstraints = NO;
-    _datePickerContainerView.backgroundColor = [UIColor whiteColor];
+    _datePickerContainerView.backgroundColor = APP_PAGE_COLOR;
     _datePickerContainerView.clipsToBounds = YES;
     _datePickerContainerView.layer.cornerRadius = 5.0;
     [self.view addSubview:_datePickerContainerView];
@@ -98,30 +98,30 @@ static NSTimeInterval const AIAnimatedTransitionDuration = 0.4;
     // Button Container View
     _buttonContainerView = [UIView new];
     _buttonContainerView.translatesAutoresizingMaskIntoConstraints = NO;
-    _buttonContainerView.backgroundColor =  [UIColor whiteColor];
+    _buttonContainerView.backgroundColor = APP_PAGE_COLOR;
     _buttonContainerView.layer.cornerRadius = 5.0;
     [self.view addSubview:_buttonContainerView];
     
     // Button Divider
     _buttonDivierView = [UIView new];
     _buttonDivierView.translatesAutoresizingMaskIntoConstraints = NO;
-    _buttonDivierView.backgroundColor =  [UIColor colorWithRed:205.0 / 255.0 green:205.0 / 255.0 blue:205.0 / 255.0 alpha:1.0];
+    _buttonDivierView.backgroundColor =  COLOR_LINE;
     [_buttonContainerView addSubview:_buttonDivierView];
     
     // Cancel Button
     _cancelButton = [UIButton buttonWithType:UIButtonTypeSystem];
     _cancelButton.translatesAutoresizingMaskIntoConstraints = NO;
     [_cancelButton setTitle:@"取消" forState:UIControlStateNormal];
-    _cancelButton.titleLabel.font = [UIFont systemFontOfSize:18];
-    [_cancelButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    _cancelButton.titleLabel.font = [UIFont systemFontOfSize:17];
+    [_cancelButton setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
     [_cancelButton addTarget:self action:@selector(didTouchCancelButton:) forControlEvents:UIControlEventTouchUpInside];
     [_buttonContainerView addSubview:_cancelButton];
     
     // Select Button
     _selectButton = [UIButton buttonWithType:UIButtonTypeSystem];
     _selectButton.translatesAutoresizingMaskIntoConstraints = NO;
-    _selectButton.titleLabel.font = [UIFont systemFontOfSize:18];
-    [_selectButton setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+    _selectButton.titleLabel.font = [UIFont systemFontOfSize:17];
+    [_selectButton setTitleColor:COLOR_ALERT forState:UIControlStateNormal];
     [_selectButton addTarget:self action:@selector(didTouchSelectButton:) forControlEvents:UIControlEventTouchUpInside];
     [_selectButton setTitle:@"确定" forState:UIControlStateNormal];
     
