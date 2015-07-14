@@ -306,9 +306,10 @@
 - (void)setupSubviews
 {
     CGFloat allButtonWidth = 0.0;
+    CGFloat th = CGRectGetHeight(_toolbarView.frame);
     
     //转变输入样式
-    self.styleChangeButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 46, _toolbarView.frame.size.height)];
+    self.styleChangeButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 46, th)];
     self.styleChangeButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     [self.styleChangeButton setImage:[UIImage imageNamed:@"messages_icon_audio_default.png"] forState:UIControlStateNormal];
     [self.styleChangeButton setImage:[UIImage imageNamed:@"messages_icon_keyboard_default.png"] forState:UIControlStateSelected];
@@ -317,7 +318,7 @@
     allButtonWidth += CGRectGetWidth(self.styleChangeButton.frame);
     
     //更多
-    self.moreButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.bounds) - 46, 0, 46, _toolbarView.frame.size.height)];
+    self.moreButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.bounds) - 40, 0, 40, th)];
     self.moreButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     [self.moreButton setImage:[UIImage imageNamed:@"messages_icon_plus_default.png"] forState:UIControlStateNormal];
 //    [self.moreButton setImage:[UIImage imageNamed:@"chatBar_moreSelected"] forState:UIControlStateHighlighted];
@@ -328,21 +329,23 @@
     allButtonWidth += CGRectGetWidth(self.moreButton.frame);
     
     //表情
-    self.faceButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.bounds) - 86, 0, 40, _toolbarView.frame.size.height)];
+    self.faceButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.bounds) - 80, 0, 40, th)];
     self.faceButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin;
     [self.faceButton setImage:[UIImage imageNamed:@"messages_icon_smile_default.png"] forState:UIControlStateNormal];
 //    [self.faceButton setImage:[UIImage imageNamed:@"chatBar_faceSelected"] forState:UIControlStateHighlighted];
+    self.faceButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     [self.faceButton setImage:[UIImage imageNamed:@"messages_icon_keyboard_default.png"] forState:UIControlStateSelected];
     [self.faceButton addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
-    self.faceButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+    self.faceButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 4);
     self.faceButton.tag = 1;
+    allButtonWidth += CGRectGetWidth(self.faceButton.frame);
     
     
     // 输入框的高度和宽度
 //    CGFloat width = CGRectGetWidth(self.bounds) - (allButtonWidth ? allButtonWidth : (textViewLeftMargin * 2))-kHorizontalPadding;
     CGFloat width = CGRectGetWidth(self.bounds) - allButtonWidth;
     
-    self.inputTextView = [[HPGrowingTextView alloc] initWithFrame:CGRectMake(0, 0, width, 34)];
+    self.inputTextView = [[HPGrowingTextView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.styleChangeButton.frame), (th - 34.0)/2.0, width, 34)];
     self.inputTextView.isScrollable = NO;
     self.inputTextView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.inputTextView.minNumberOfLines = 1;
@@ -354,10 +357,9 @@
     self.inputTextView.returnKeyType = UIReturnKeySend; //just as an example
     self.inputTextView.font = [UIFont systemFontOfSize:14];
     self.inputTextView.delegate = self;
-    self.inputTextView.contentInset = UIEdgeInsetsMake(0, 5, 0, 35);
+    self.inputTextView.contentInset = UIEdgeInsetsMake(0, 5, 0, 4);
     self.inputTextView.backgroundColor = [UIColor whiteColor];
     self.inputTextView.placeholder = @"输入新消息";
-    self.inputTextView.center = CGPointMake(CGRectGetWidth(self.toolbarView.frame)/2.0, CGRectGetHeight(self.toolbarView.frame)/2.0);
 
     //录制
     self.recordButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, width, 34)];
