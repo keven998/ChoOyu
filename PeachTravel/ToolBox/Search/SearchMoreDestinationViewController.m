@@ -57,21 +57,13 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     self.navigationItem.title = _titleStr;
     
     if (_poiType == kHotelPoi || _poiType == kRestaurantPoi || _poiType == kShoppingPoi || _poiType == kSpotPoi) {
-        _positionBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 65, 25)];
+        _positionBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 30)];
         _positionBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-        _positionBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 3, 0, 3);
-        [_positionBtn setBackgroundImage:[UIImage imageNamed:@"ic_filter_box.png"] forState:UIControlStateNormal];
-        [_positionBtn setTitle:@"城市筛选" forState:UIControlStateNormal];
-        [_positionBtn setTitleEdgeInsets:UIEdgeInsetsMake(2, 2, 0, 0)];
-        [_positionBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 2)];
-        [_positionBtn setImage:[UIImage imageNamed:@"ic_filter.png"] forState:UIControlStateNormal];
-        [_positionBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-        [_positionBtn setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
+        [_positionBtn setImage:[UIImage imageNamed:@"plan_10_dashboard_sift"] forState:UIControlStateNormal];
         _positionBtn.titleLabel.font = [UIFont systemFontOfSize:11.0];
         [_positionBtn addTarget:self action:@selector(beginSearch:) forControlEvents:UIControlEventTouchUpInside];
         
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_positionBtn];
-      
     }
     [self.view addSubview:self.tableView];
     [self loadDataWithPageIndex:_currentPage];
@@ -425,7 +417,6 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         
     } else {
         _localCity = cityPoi;
-        [_positionBtn setTitle:_localCity.zhName forState:UIControlStateNormal];
         [self.dataSource removeAllObjects];
         _currentPage = 0;
         _isLoadingMore = YES;

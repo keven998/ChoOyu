@@ -24,9 +24,9 @@
 {
     _content = content;
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
-    style.lineSpacing = 1.0;
+    style.lineSpacing = 3.0;
     NSAttributedString *attrStr = [[NSAttributedString alloc] initWithString:_content attributes:@{
-                                                                                                   NSFontAttributeName : [UIFont systemFontOfSize:11.0],
+                                                                                                   NSFontAttributeName : [UIFont systemFontOfSize:13.0],
                                                                                                    NSParagraphStyleAttributeName : style
                                                                                                    }];
     _dayScheduleSummary.attributedText = attrStr;
@@ -47,12 +47,12 @@
 
 + (CGFloat)heightOfCellWithContent:(NSString *)content {
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
-    style.lineSpacing = 1.0;
+    style.lineSpacing = 3.0;
     
     CGSize labelSize = [content boundingRectWithSize:CGSizeMake(kWindowWidth-100-24, MAXFLOAT)
                                              options:NSStringDrawingUsesLineFragmentOrigin
                                           attributes:@{
-                                                       NSFontAttributeName : [UIFont systemFontOfSize:11.0],
+                                                       NSFontAttributeName : [UIFont systemFontOfSize:13.0],
                                                        NSParagraphStyleAttributeName : style
                                                        }
                                              context:nil].size;

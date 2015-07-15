@@ -22,8 +22,6 @@
 
 @property (nonatomic, strong) UIButton *rightItemBtn;
 @property (nonatomic, strong) RecommendsOfCity *dataSource;
-@property (strong, nonatomic) UISearchBar *searchBar;
-@property (strong, nonatomic) UISearchDisplayController *searchController;
 @property (nonatomic, strong) UIActivityIndicatorView *indicatroView;
 @property (nonatomic, strong) UIView *footerView;
 @property (nonatomic, strong) NSMutableArray *searchResultArray;
@@ -101,17 +99,9 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
         }
     }
     
-    UIBarButtonItem *lbtn = [[UIBarButtonItem alloc] initWithTitle:@"搜索" style:UIBarButtonItemStylePlain target:self action:@selector(beginSearch:)];
+    UIBarButtonItem *lbtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"search.png"] style:UIBarButtonItemStylePlain target:self action:@selector(beginSearch:)];
     [rbItems addObject:lbtn];
     self.navigationItem.rightBarButtonItems = rbItems;
-    
-    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 44)];
-    if (_poiType == kRestaurantPoi) {
-        _searchBar.placeholder = @"搜索美食";
-    } else if (_poiType == kShoppingPoi) {
-        _searchBar.placeholder = @"搜索购物";
-    }
-    _searchBar.delegate = self;
     
     self.view.backgroundColor = APP_PAGE_COLOR;
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
@@ -124,9 +114,9 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     [self.view addSubview:self.tableView];
     
     if (_poiType == kRestaurantPoi) {
-        self.navigationItem.title = [NSString stringWithFormat:@"吃在%@", _zhName];
+        self.navigationItem.title = @"美食攻略";
     } else if (_poiType == kShoppingPoi) {
-        self.navigationItem.title = [NSString stringWithFormat:@"%@购物", _zhName];
+        self.navigationItem.title = @"购物攻略";
     }
     
     NSString *searchPlaceHolder;
@@ -218,21 +208,6 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
 }
 
 #pragma mark - setter & getter
-
-- (UISearchDisplayController *)searchController
-{
-    if (!_searchController) {
-        _searchController= [[UISearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
-        [_searchController.searchResultsTableView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:poisOfCityCellIdentifier];
-        _searchController.searchResultsTableView.backgroundColor = APP_PAGE_COLOR;
-        _searchController.searchResultsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _searchController.searchResultsTableView.backgroundColor = APP_PAGE_COLOR;
-        _searchController.searchResultsTableView.delegate = self;
-        _searchController.searchResultsTableView.dataSource = self;
-        _searchController.delegate = self;
-    }
-    return _searchController;
-}
 
 - (RecommendsOfCity *)dataSource
 {
@@ -445,85 +420,6 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     }];
 }
 
-/**
- *  加载搜索的数据
- *
- *  @param pageNo     第几页
- *  @param searchText 搜索关键字
- */
-- (void)loadSearchDataWithPageNo:(NSUInteger)pageNo
-{
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSNumber *imageWidth = [NSNumber numberWithInt:300];
-    [params setObject:imageWidth forKey:@"imgWidth"];
-    [params setObject:[NSNumber numberWithInteger:pageNo] forKey:@"page"];
-    [params setObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    
-    switch (_poiType) {
-        case kRestaurantPoi:
-            [params setObject:[NSNumber numberWithBool:YES] forKey:@"restaurant"];
-            break;
-        case kShoppingPoi:
-            [params setObject:[NSNumber numberWithBool:YES] forKey:@"shopping"];
-            break;
-        default:
-            break;
-    }
-    
-    [params setObject:_cityId forKey:@"locId"];
-    [params safeSetObject:_searchText forKey:@"keyword"];
-    
-    NSLog(@"searchController.searchResultsTableView frame :%@", NSStringFromCGRect(_searchController.searchResultsTableView.frame));
-    
-    //获取搜索列表信息
-    [manager GET:API_SEARCH parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        if (self.searchDisplayController.isActive) {
-            NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-            if (code == 0) {
-                NSString *key = nil;
-                switch (_poiType) {
-                    case kRestaurantPoi:
-                        key = @"restaurant";
-                        break;
-                    case kShoppingPoi:
-                        key = @"shopping";
-                        break;
-                        
-                    default:
-                        break;
-                }
-                NSArray *jsonDic = [[responseObject objectForKey:@"result"] objectForKey:key];
-                if (jsonDic.count == 15) {
-                    _enableLoadMoreSearch = YES;
-                }
-                for (id poiDic in jsonDic) {
-                    [self.searchResultArray addObject:[PoiFactory poiWithJson:poiDic]];
-                }
-                [self.searchController.searchResultsTableView reloadData];
-                _currentPageSearch = pageNo;
-            } else {
-                
-            }
-            [self loadMoreCompletedSearch];
-        }
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        [self loadMoreCompletedSearch];
-    }];
-}
-
 - (void)updateView
 {
     [self.tableView reloadData];
@@ -557,22 +453,12 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     CGPoint point;
     NSIndexPath *indexPath;
     TripPoiListTableViewCell *cell;
-    if (!self.searchController.isActive) {
-        point = [sender convertPoint:CGPointZero toView:_tableView];
-        indexPath = [_tableView indexPathForRowAtPoint:point];
-        cell = (TripPoiListTableViewCell *)[_tableView cellForRowAtIndexPath:indexPath];
-    } else {
-        point = [sender convertPoint:CGPointZero toView:_searchController.searchResultsTableView];
-        indexPath = [_searchController.searchResultsTableView indexPathForRowAtPoint:point];
-        cell = (TripPoiListTableViewCell *)[_searchController.searchResultsTableView cellForRowAtIndexPath:indexPath];
-    }
+    point = [sender convertPoint:CGPointZero toView:_tableView];
+    indexPath = [_tableView indexPathForRowAtPoint:point];
+    cell = (TripPoiListTableViewCell *)[_tableView cellForRowAtIndexPath:indexPath];
+
     
-    SuperPoi *poi;
-    if (self.searchController.isActive) {
-        poi = [_searchResultArray objectAtIndex:sender.tag];
-    } else {
-        poi = [_dataSource.recommendList objectAtIndex:sender.tag];
-    }
+    SuperPoi *poi = [_dataSource.recommendList objectAtIndex:sender.tag];
     
     if (!cell.actionBtn.isSelected) {
         [_seletedArray addObject:poi];
@@ -710,22 +596,6 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     [_indicatroView stopAnimating];
     _isLoadingMoreNormal = NO;
     _didEndScrollNormal = YES;
-}
-
-/**
- *  搜索状态下上拉加载更多
- */
-- (void) beginLoadingSearch
-{
-    if (self.searchController.searchResultsTableView.tableFooterView == nil) {
-        self.searchController.searchResultsTableView.tableFooterView = self.footerView;
-    }
-    _isLoadingMoreSearch = YES;
-    [_indicatroView startAnimating];
-    [self loadSearchDataWithPageNo:(_currentPageSearch + 1)];
-    
-    NSLog(@"我要加载到第%lu",(long)_currentPageSearch+1);
-    
 }
 
 /**
@@ -898,12 +768,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    SuperPoi *poi;
-    if (self.searchController.isActive) {
-        poi = [_searchResultArray objectAtIndex:indexPath.row];
-    } else {
-        poi = [_dataSource.recommendList objectAtIndex:indexPath.row];
-    }
+    SuperPoi *poi = [_dataSource.recommendList objectAtIndex:indexPath.row];
     
     if (_poiType == kRestaurantPoi) {
         CommonPoiDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];
@@ -920,60 +785,11 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
 
 #pragma mark - SearchBarDelegate
 
-
-//
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
-{
-    [self.searchController setActive:YES animated:YES];
-}
-
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
-{
-    [self.searchResultArray removeAllObjects];
-    _searchText = nil;
-}
-
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
-{
-    [self.searchResultArray removeAllObjects];
-    [self.searchController.searchResultsTableView reloadData];
-    _currentPageSearch = 0;
-    _searchText = searchBar.text;
-    [self loadSearchDataWithPageNo:_currentPageSearch];
-}
-
 - (void)searchDisplayController:(UISearchDisplayController *)controller willShowSearchResultsTableView:(UITableView *)tableView
 {
     _isLoadingMoreSearch = YES;
     _didEndScrollSearch = YES;
     _enableLoadMoreSearch = NO;
-}
-
-- (void) searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller
-{
-    
-}
-
--(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
-    
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.001);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        for (UIView* v in _searchController.searchResultsTableView.subviews) {
-            if ([v isKindOfClass: [UILabel class]] &&
-                ([[(UILabel*)v text] isEqualToString:@"No Results"] || [[(UILabel*)v text] isEqualToString:@"无结果"]) ) {
-                ((UILabel *)v).text = @"";
-                break;
-            }
-        }
-    });
-    return YES;
-}
-
-- (void)searchDisplayController:(UISearchDisplayController *)controller willHideSearchResultsTableView:(UITableView *)tableView
-{
-    [self.searchResultArray removeAllObjects];
-    [self.searchController.searchResultsTableView reloadData];
-    [self.tableView reloadData];
 }
 
 #pragma mark - UIScrollViewDelegate
@@ -988,14 +804,6 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
                 [self beginLoadingMoreNormal];
             }
         }
-    } else if ([scrollView isEqual:self.searchController.searchResultsTableView]) {
-        if (!_isLoadingMoreSearch && _didEndScrollSearch && _enableLoadMoreSearch) {
-            CGFloat scrollPosition = scrollView.contentSize.height - scrollView.frame.size.height - scrollView.contentOffset.y;
-            if (scrollPosition < 44.0) {
-                _didEndScrollSearch = NO;
-                [self beginLoadingSearch];
-            }
-        }
     }
 }
 
@@ -1003,8 +811,6 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
 {
     if ([scrollView isEqual:self.tableView]) {
         _didEndScrollNormal = YES;
-    } else if ([scrollView isEqual:self.searchController.searchResultsTableView]) {
-        _didEndScrollSearch = YES;
     }
     
 }
@@ -1016,15 +822,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     if (buttonIndex == actionSheet.cancelButtonIndex) {
         return;
     }
-    SuperPoi *poi;
-    if (_searchController.active)
-    {
-        poi = [self.searchResultArray objectAtIndex:actionSheet.tag];
-    }
-    else
-    {
-        poi = [_dataSource.recommendList objectAtIndex:actionSheet.tag];
-    }
+    SuperPoi *poi = [_dataSource.recommendList objectAtIndex:actionSheet.tag];
     NSArray *platformArray = [ConvertMethods mapPlatformInPhone];
     switch (buttonIndex) {
         case 0:
@@ -1158,11 +956,11 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
 }
 
 #pragma mark - SelectDelegate
+
 - (void) selectItem:(NSString *)str atIndex:(NSIndexPath *)indexPath {
     _currentCityIndex = indexPath.row;
     [self resetContents:indexPath.row];
 }
-
 
 - (void) resetContents:(NSInteger ) cityindex {
     _isLoadingMoreNormal = YES;

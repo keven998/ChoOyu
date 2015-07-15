@@ -47,7 +47,6 @@ typedef NS_ENUM(NSInteger, REFrostedViewControllerLiveBackgroundStyle) {
 @property (strong, readonly, nonatomic) UIPanGestureRecognizer *panGestureRecognizer;
 @property (assign, readwrite, nonatomic) BOOL panGestureEnabled;
 @property (assign, readwrite, nonatomic) REFrostedViewControllerDirection direction;
-@property (nonatomic) BOOL hideNavigationBarWhenBack;
 
 /**
  * The backgroundFadeAmount is how much the backgound view fades when the menu
