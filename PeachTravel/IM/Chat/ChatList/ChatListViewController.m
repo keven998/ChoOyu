@@ -535,6 +535,7 @@
     if (conversation.chatType == IMChatTypeIMChatGroupType || conversation.chatType == IMChatTypeIMChatDiscussionGroupType) {
         ((ChatGroupSettingViewController *)menuViewController).containerCtl = frostedViewController;
     }
+    chatController.containerCtl = frostedViewController;
     frostedViewController.hidesBottomBarWhenPushed = YES;
     frostedViewController.direction = REFrostedViewControllerDirectionRight;
     frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;

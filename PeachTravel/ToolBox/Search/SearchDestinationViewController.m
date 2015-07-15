@@ -27,7 +27,6 @@
 
 @property (nonatomic, copy) NSString *keyWord;
 
-
 @end
 
 @implementation SearchDestinationViewController
@@ -54,7 +53,6 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     
     imageBg.image = [UIImage imageNamed:@"search_default_background"];
     [self.view addSubview:imageBg];
-    
     
     [self.view addSubview:self.tableView];
     self.tableView.hidden = YES;
@@ -153,17 +151,12 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         if (code == 0) {
             [self analysisData:[responseObject objectForKey:@"result"]];
         } else {
-            //             if (self.isShowing) {
-            //                [SVProgressHUD showHint:@"请求也是失败了"];
-            //            }
+
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [hud hideTZHUD];
-        //        if (self.isShowing) {
-        //            [SVProgressHUD showHint:@"呃～好像没找到网络"];
-        //        }
+        
     }];
-    
 }
 
 - (void)analysisData:(id)json

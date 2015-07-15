@@ -56,7 +56,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     self.view.backgroundColor = APP_PAGE_COLOR;
     self.navigationItem.title = _titleStr;
     
-    if (_poiType == kHotelPoi || _poiType == kRestaurantPoi || _poiType == kShoppingPoi) {
+    if (_poiType == kHotelPoi || _poiType == kRestaurantPoi || _poiType == kShoppingPoi || _poiType == kSpotPoi) {
         _positionBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 65, 25)];
         _positionBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
         _positionBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 3, 0, 3);

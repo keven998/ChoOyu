@@ -41,7 +41,9 @@
     self.view.backgroundColor = APP_PAGE_COLOR;
     
     _dataArray = [NSMutableArray array];
-    [_dataArray addObject:_tripDetail.destinations];
+    if (_tripDetail.destinations) {
+        [_dataArray addObject:_tripDetail.destinations];
+    }
     
     [self createTableView];
     [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];

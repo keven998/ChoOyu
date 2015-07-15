@@ -572,7 +572,7 @@
             SpotDetailViewController *spotDetailCtl = [[SpotDetailViewController alloc] init];
             spotDetailCtl.title = model.poiModel.poiName;
             spotDetailCtl.spotId = model.poiModel.poiId;
-            [self.navigationController pushViewController:spotDetailCtl animated:YES];
+            [self.containerCtl.navigationController pushViewController:spotDetailCtl animated:YES];
         }
             break;
             
@@ -580,7 +580,7 @@
             CommonPoiDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];
             restaurantDetailCtl.title = model.poiModel.poiName;
             restaurantDetailCtl.poiId = model.poiModel.poiId;
-            [self.navigationController pushViewController:restaurantDetailCtl animated:YES];
+            [self.containerCtl.navigationController pushViewController:restaurantDetailCtl animated:YES];
         }
             break;
             
@@ -588,7 +588,7 @@
             CommonPoiDetailViewController *shoppingCtl = [[ShoppingDetailViewController alloc] init];
             shoppingCtl.title = model.poiModel.poiName;
             shoppingCtl.poiId = model.poiModel.poiId;
-            [self.navigationController pushViewController:shoppingCtl animated:YES];
+            [self.containerCtl.navigationController pushViewController:shoppingCtl animated:YES];
         }
             break;
             
@@ -596,7 +596,7 @@
             CommonPoiDetailViewController *hotelCtl = [[HotelDetailViewController alloc] init];
             hotelCtl.title = model.poiModel.poiName;
             hotelCtl.poiId = model.poiModel.poiId;
-            [self.navigationController pushViewController:hotelCtl animated:YES];
+            [self.containerCtl.navigationController pushViewController:hotelCtl animated:YES];
         }
             break;
             
@@ -616,7 +616,7 @@
             travelNote.travelNoteId = model.poiModel.poiId;
             travelNoteCtl.titleStr = @"游记详情";
             travelNoteCtl.travelNote = travelNote;
-            [self.navigationController pushViewController:travelNoteCtl animated:YES];
+            [self.containerCtl.navigationController pushViewController:travelNoteCtl animated:YES];
         }
             break;
             
@@ -632,13 +632,13 @@
             
             TripPlanSettingViewController *tpvc = [[TripPlanSettingViewController alloc] init];
             
-            REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:tripDetailCtl menuViewController:tpvc];
+            REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:[[UINavigationController alloc] initWithRootViewController:tripDetailCtl] menuViewController:tpvc];
             frostedViewController.direction = REFrostedViewControllerDirectionRight;
             frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
             frostedViewController.liveBlur = YES;
             frostedViewController.limitMenuViewSize = YES;
-            //            frostedViewController.resumeNavigationBar = NO;
-            [self.navigationController pushViewController:frostedViewController animated:YES];
+            tripDetailCtl.container = frostedViewController;
+            [self.containerCtl.navigationController pushViewController:frostedViewController animated:YES];
         }
             break;
             
@@ -647,7 +647,7 @@
             CityDetailTableViewController *cityCtl = [[CityDetailTableViewController alloc] init];
             cityCtl.title = model.poiModel.poiName;
             cityCtl.cityId = model.poiModel.poiId;
-            [self.navigationController pushViewController:cityCtl animated:YES];
+            [self.containerCtl.navigationController pushViewController:cityCtl animated:YES];
         }
             break;
             
@@ -688,7 +688,7 @@
 - (void)moreViewMyStrategyAction:(DXChatBarMoreView *)moreView
 {
     [MobClick event:@"event_share_plan_extra"];
-    PlansListTableViewController *myGuideListTableCtl = [[PlansListTableViewController alloc] initWithUserId:_accountManager.account.userId];
+    PlansListTableViewController *myGuideListTableCtl = [[PlansListTableViewController alloc] initWithUserId:self.accountManager.account.userId];
     myGuideListTableCtl.chatterId = _chatter;
     myGuideListTableCtl.selectToSend = YES;
     myGuideListTableCtl.chatType = _chatType;

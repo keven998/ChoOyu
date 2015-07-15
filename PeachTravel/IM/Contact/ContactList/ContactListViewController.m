@@ -160,6 +160,7 @@
     frostedViewController.liveBlur = YES;
     frostedViewController.resumeNavigationBar = NO;
     frostedViewController.limitMenuViewSize = YES;
+    chatCtl.containerCtl = frostedViewController;
     self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan = NO;
     [self.navigationController pushViewController:frostedViewController animated:YES];
 }
