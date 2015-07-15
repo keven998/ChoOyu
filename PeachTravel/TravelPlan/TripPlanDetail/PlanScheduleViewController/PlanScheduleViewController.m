@@ -64,7 +64,7 @@
             if ([dstr isBlankString]) {
                 [dstr appendString:[NSString stringWithFormat:@"%@", sp.zhName]];
             } else {
-                [dstr appendString:[NSString stringWithFormat:@" > %@", sp.zhName]];
+                [dstr appendString:[NSString stringWithFormat:@" → %@", sp.zhName]];
             }
         }
     }
@@ -125,7 +125,7 @@
                 }
                 [titleArray addObject:sp.locality.zhName];
             }
-            [dstr appendString:[NSString stringWithFormat:@" > %@", sp.zhName]];
+            [dstr appendString:[NSString stringWithFormat:@" → %@", sp.zhName]];
 
         }
     }
