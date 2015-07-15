@@ -302,6 +302,7 @@ calloutAccessoryControlTapped:(UIControl *)control{
     lineView.lineWidth = 2;
     return lineView;
 }
+
 @end
 
 @implementation SelectPoiCell
