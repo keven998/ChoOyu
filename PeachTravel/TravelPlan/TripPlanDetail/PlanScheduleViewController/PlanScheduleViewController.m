@@ -131,7 +131,7 @@
     }
     
     cell.content = dstr;
-    if (title == nil || [title isBlankString]) {
+    if (dstr == nil || [dstr isBlankString]) {
         cell.titleLabel.text = @"无安排";
     } else {
         cell.titleLabel.text = title;
