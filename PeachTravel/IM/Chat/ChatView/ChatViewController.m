@@ -121,7 +121,7 @@
 {
     [super viewDidLoad];
 
-    self.navigationItem.title = _conversation.chatterName;
+    self.navigationItem.title = _chatterName;
     self.view.backgroundColor = APP_PAGE_COLOR;
     
     if (_chatType == IMChatTypeIMChatDiscussionGroupType) {

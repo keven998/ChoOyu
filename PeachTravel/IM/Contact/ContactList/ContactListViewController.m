@@ -150,7 +150,7 @@
     conversation.chatterId = contact.userId;
     
     ChatViewController *chatCtl = [[ChatViewController alloc] initWithConversation:conversation];
-    chatCtl.title = contact.nickName;
+    chatCtl.chatterName = contact.nickName;
     
     UIViewController *menuViewController = [[ChatSettingViewController alloc] init];
     

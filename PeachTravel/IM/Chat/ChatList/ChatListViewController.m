@@ -521,7 +521,7 @@
 {
     ChatViewController *chatController = [[ChatViewController alloc] initWithConversation:conversation];
     UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:chatController];
-
+    chatController.chatterName = conversation.chatterName;
     UIViewController *menuViewController = nil;
     if (conversation.chatType == IMChatTypeIMChatGroupType || conversation.chatType == IMChatTypeIMChatDiscussionGroupType) {
         menuViewController = [[ChatGroupSettingViewController alloc] init];
@@ -543,7 +543,6 @@
     frostedViewController.resumeNavigationBar = NO;
     self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan = NO;
     [self.navigationController pushViewController:frostedViewController animated:YES];
-    frostedViewController.navigationItem.title = conversation.chatterName;
 }
 
 #pragma mark - TableViewDelegate & TableViewDatasource

@@ -11,6 +11,8 @@
 
 @interface ChatViewController : TZViewController
 
+@property (nonatomic, copy) NSString *chatterName;
+
 typedef void(^BackBlock)();
 
 - (instancetype)initWithChatter:(NSInteger)chatter chatType:(IMChatType)chatType;
