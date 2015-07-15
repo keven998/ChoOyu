@@ -1,14 +1,14 @@
 /************************************************************
-  *  * EaseMob CONFIDENTIAL 
-  * __________________ 
-  * Copyright (C) 2013-2014 EaseMob Technologies. All rights reserved. 
-  *  
-  * NOTICE: All information contained herein is, and remains 
-  * the property of EaseMob Technologies.
-  * Dissemination of this information or reproduction of this material 
-  * is strictly forbidden unless prior written permission is obtained
-  * from EaseMob Technologies.
-  */
+ *  * EaseMob CONFIDENTIAL
+ * __________________
+ * Copyright (C) 2013-2014 EaseMob Technologies. All rights reserved.
+ *
+ * NOTICE: All information contained herein is, and remains
+ * the property of EaseMob Technologies.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from EaseMob Technologies.
+ */
 
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
@@ -52,10 +52,7 @@ static LocationViewController *defaultLocation = nil;
     if (self) {
         _isSendLocation = NO;
         _currentLocationCoordinate = locationCoordinate;
-        
-
     }
-    
     return self;
 }
 
@@ -63,7 +60,7 @@ static LocationViewController *defaultLocation = nil;
 {
     [super viewDidLoad];
     
-    self.title = @"位置信息";
+    self.title = @"我的位置";
     locModel = [[LocationModel alloc]init];
     UIBarButtonItem *backBtn = [[UIBarButtonItem alloc] initWithTitle:@" 取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
     self.navigationItem.leftBarButtonItem = backBtn;
@@ -78,7 +75,7 @@ static LocationViewController *defaultLocation = nil;
         _mapView.showsUserLocation = YES;//显示当前位置
         
         UIBarButtonItem * sendButton = [[UIBarButtonItem alloc]initWithTitle:@"发送 " style:UIBarButtonItemStylePlain target:self action:@selector(sendLocation)];
-        sendButton.tintColor = APP_THEME_COLOR;
+        sendButton.tintColor = [UIColor whiteColor];
         self.navigationItem.rightBarButtonItem = sendButton;
         self.navigationItem.rightBarButtonItem.enabled = NO;
         
@@ -107,6 +104,15 @@ static LocationViewController *defaultLocation = nil;
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+}
+
+- (void)dealloc {
+    if (location != nil) {
+        [location stopUpdatingLocation];
+        location = nil;
+    }
+    _mapView = nil;
+    _annotation = nil;
 }
 
 #pragma mark - class methods
@@ -141,6 +147,7 @@ static LocationViewController *defaultLocation = nil;
 
 - (void)mapView:(MKMapView *)mapView didFailToLocateUserWithError:(NSError *)error
 {
+    [self hideHud];
     [self showHint:@"定位失败"];
 }
 
@@ -151,7 +158,7 @@ static LocationViewController *defaultLocation = nil;
             break;
         default:
             break;
-    } 
+    }
 }
 
 #pragma mark - public
@@ -203,8 +210,8 @@ static LocationViewController *defaultLocation = nil;
     CGRect rect = CGRectMake(0, y, SCREEN_WIDTH, SCREEN_WIDTH*2/3);
     CGImageRef imageRefRect =CGImageCreateWithImageInRect(imageRef, rect);
     UIImage *sendImage = [[UIImage alloc] initWithCGImage:imageRefRect];
-//    NSData *imageData = UIImagePNGRepresentation(sendImage);
-//    sendImage = [UIImage imageWithData:imageData];
+    //    NSData *imageData = UIImagePNGRepresentation(sendImage);
+    //    sendImage = [UIImage imageWithData:imageData];
     
     return sendImage;
 }
@@ -220,7 +227,7 @@ static LocationViewController *defaultLocation = nil;
 - (void) dismiss {
     if (self.navigationController.viewControllers.count > 1) {
         [self.navigationController popViewControllerAnimated:YES];
-
+        
     } else {
         [self dismissViewControllerAnimated:YES completion:nil];
     }
