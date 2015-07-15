@@ -11,16 +11,16 @@
 @implementation SearchResultTableViewCell
 
 - (void)awakeFromNib {
-    self.layer.borderColor = APP_PAGE_COLOR.CGColor;
-    self.layer.borderWidth = 0.5;
-    self.layer.cornerRadius = 2.0;
     self.headerImageView.layer.cornerRadius = 2.0;
     self.headerImageView.clipsToBounds = YES;
     
-//    _headerImageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
-//    _headerImageView.layer.borderWidth = 0.5;
     _headerImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
     _sendBtn.layer.cornerRadius = 2.0;
+    
+    UIView *divider = [[UIView alloc] initWithFrame:CGRectMake(15.0, CGRectGetHeight(self.frame) - 0.6, CGRectGetWidth(self.frame), 0.6)];
+    divider.backgroundColor = COLOR_LINE;
+    divider.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    [self.contentView addSubview:divider];
 }
 
 - (void)setIsCanSend:(BOOL)isCanSend
