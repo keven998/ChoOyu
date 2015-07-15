@@ -793,7 +793,7 @@
 - (void)moreViewLocationAction:(DXChatBarMoreView *)moreView
 {
     // 隐藏键盘
-    [self keyBoardHidden];
+//    [self keyBoardHidden];
     
     LocationViewController *locationController = [[LocationViewController alloc] init];
     locationController.delegate = self;

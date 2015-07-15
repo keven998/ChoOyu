@@ -99,6 +99,7 @@ static NSString *reusableCell = @"myGuidesCell";
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithIcon:@"common_icon_navigaiton_back_dark.png" highIcon:@"common_icon_navigaiton_back_highlight" target:self action:@selector(goBack)];
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
+    self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.backgroundColor = APP_PAGE_COLOR;

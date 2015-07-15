@@ -64,7 +64,7 @@
             if ([dstr isBlankString]) {
                 [dstr appendString:[NSString stringWithFormat:@"%@", sp.zhName]];
             } else {
-                [dstr appendString:[NSString stringWithFormat:@" > %@", sp.zhName]];
+                [dstr appendString:[NSString stringWithFormat:@" → %@", sp.zhName]];
             }
         }
     }
@@ -125,13 +125,13 @@
                 }
                 [titleArray addObject:sp.locality.zhName];
             }
-            [dstr appendString:[NSString stringWithFormat:@" > %@", sp.zhName]];
+            [dstr appendString:[NSString stringWithFormat:@" → %@", sp.zhName]];
 
         }
     }
     
     cell.content = dstr;
-    if (title == nil || [title isBlankString]) {
+    if (dstr == nil || [dstr isBlankString]) {
         cell.titleLabel.text = @"无安排";
     } else {
         cell.titleLabel.text = title;
