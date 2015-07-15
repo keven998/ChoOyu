@@ -40,13 +40,13 @@
     [self.view addSubview:self.contactTableView];
     
     UIBarButtonItem *confirm = [[UIBarButtonItem alloc]initWithTitle:@"确定 " style:UIBarButtonItemStylePlain target:self action:@selector(createConversation:)];
-    confirm.tintColor = APP_THEME_COLOR;
+    confirm.tintColor = [UIColor whiteColor];
     self.navigationItem.rightBarButtonItem = confirm;
     self.navigationItem.rightBarButtonItem.enabled = NO;
     
-    if (!self.navigationController.viewControllers.count == 1) {
+    if (self.navigationController.viewControllers.count == 1) {
         UIBarButtonItem *backBtn = [[UIBarButtonItem alloc]initWithTitle:@" 取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismissCtl:)];
-        backBtn.tintColor = TEXT_COLOR_TITLE_SUBTITLE;
+        backBtn.tintColor = [UIColor whiteColor];
         self.navigationItem.leftBarButtonItem = backBtn;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismissCtl:) name:userDidLogoutNoti object:nil];
     }
@@ -251,11 +251,11 @@
         } completion:^(BOOL finished) {
             self.selectContactView.alpha = 0;
         }];
-        self.navigationItem.rightBarButtonItem.tintColor = TEXT_COLOR_TITLE_SUBTITLE;
         self.navigationItem.rightBarButtonItem.title = @"确定 ";
         self.navigationItem.rightBarButtonItem.enabled = NO;
     } else {
         self.navigationItem.rightBarButtonItem.title = [NSString stringWithFormat:@"确定(%lu)", (unsigned long)self.selectedContacts.count];
+        self.navigationItem.rightBarButtonItem.enabled = YES;
     }
     [self.contactTableView reloadData];
 }
@@ -338,7 +338,6 @@
                 self.selectContactView.alpha = 1.0;
             }];
             
-            self.navigationItem.rightBarButtonItem.tintColor = APP_THEME_COLOR;
             self.navigationItem.rightBarButtonItem.enabled = YES;
         }
         [self.selectedContacts addObject:contact];
