@@ -99,7 +99,7 @@
 
         } else if (indexPath.row == 1) {
             if (self.poi.poiType == kSpotPoi) {
-                cell.categoryLabel.text = @"时间";
+                cell.categoryLabel.text = @"开放";
             } else {
                 cell.categoryLabel.text = @"类型";
             }
