@@ -12,7 +12,6 @@
 @interface ChatViewController : TZViewController
 
 @property (nonatomic, copy) NSString *chatterName;
-@property (nonatomic, weak) UIViewController *containerCtl;
 
 typedef void(^BackBlock)();
 

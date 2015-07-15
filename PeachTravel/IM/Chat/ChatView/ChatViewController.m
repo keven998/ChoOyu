@@ -572,7 +572,7 @@
             SpotDetailViewController *spotDetailCtl = [[SpotDetailViewController alloc] init];
             spotDetailCtl.title = model.poiModel.poiName;
             spotDetailCtl.spotId = model.poiModel.poiId;
-            [self.containerCtl.navigationController pushViewController:spotDetailCtl animated:YES];
+            [self.frostedViewController.navigationController pushViewController:spotDetailCtl animated:YES];
         }
             break;
             
@@ -580,7 +580,7 @@
             CommonPoiDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];
             restaurantDetailCtl.title = model.poiModel.poiName;
             restaurantDetailCtl.poiId = model.poiModel.poiId;
-            [self.containerCtl.navigationController pushViewController:restaurantDetailCtl animated:YES];
+            [self.frostedViewController.navigationController pushViewController:restaurantDetailCtl animated:YES];
         }
             break;
             
@@ -588,7 +588,7 @@
             CommonPoiDetailViewController *shoppingCtl = [[ShoppingDetailViewController alloc] init];
             shoppingCtl.title = model.poiModel.poiName;
             shoppingCtl.poiId = model.poiModel.poiId;
-            [self.containerCtl.navigationController pushViewController:shoppingCtl animated:YES];
+            [self.frostedViewController.navigationController pushViewController:shoppingCtl animated:YES];
         }
             break;
             
@@ -596,7 +596,7 @@
             CommonPoiDetailViewController *hotelCtl = [[HotelDetailViewController alloc] init];
             hotelCtl.title = model.poiModel.poiName;
             hotelCtl.poiId = model.poiModel.poiId;
-            [self.containerCtl.navigationController pushViewController:hotelCtl animated:YES];
+            [self.frostedViewController.navigationController pushViewController:hotelCtl animated:YES];
         }
             break;
             
@@ -616,7 +616,7 @@
             travelNote.travelNoteId = model.poiModel.poiId;
             travelNoteCtl.titleStr = @"游记详情";
             travelNoteCtl.travelNote = travelNote;
-            [self.containerCtl.navigationController pushViewController:travelNoteCtl animated:YES];
+            [self.frostedViewController.navigationController pushViewController:travelNoteCtl animated:YES];
         }
             break;
             
@@ -637,8 +637,9 @@
             frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
             frostedViewController.liveBlur = YES;
             frostedViewController.limitMenuViewSize = YES;
+            frostedViewController.resumeNavigationBar = NO;
             tripDetailCtl.container = frostedViewController;
-            [self.containerCtl.navigationController pushViewController:frostedViewController animated:YES];
+            [self.frostedViewController.navigationController pushViewController:frostedViewController animated:YES];
         }
             break;
             
@@ -647,7 +648,7 @@
             CityDetailTableViewController *cityCtl = [[CityDetailTableViewController alloc] init];
             cityCtl.title = model.poiModel.poiName;
             cityCtl.cityId = model.poiModel.poiId;
-            [self.containerCtl.navigationController pushViewController:cityCtl animated:YES];
+            [self.frostedViewController.navigationController pushViewController:cityCtl animated:YES];
         }
             break;
             
