@@ -54,7 +54,7 @@
         [self.bgImage sd_setImageWithURL:url];
     }
     self.expertUserCnt.text = [NSString stringWithFormat:@"%@位",guiderDistribute.expertUserCnt];
-    self.zhName.text = [NSString stringWithFormat:@"~派派.%@.达人~",guiderDistribute.zhName];
+    self.zhName.text = [NSString stringWithFormat:@"~派派·%@·达人~",guiderDistribute.zhName];
     
 }
 

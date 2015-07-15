@@ -26,32 +26,6 @@ static NSString * const reuseIdentifier = @"Cell";
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
     
-    UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setImage:[UIImage imageNamed:@"common_icon_navigaiton_back"] forState:UIControlStateNormal];
-    [button setImage:[UIImage imageNamed:@"common_icon_navigaiton_back_highlight"] forState:UIControlStateHighlighted];
-    [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
-    [button setFrame:CGRectMake(0, 0, 30, 30)];
-    button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
-    self.navigationItem.leftBarButtonItem = barButton;
-    
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 44)];
-    view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 6, 200, 18)];
-    nameLabel.textColor = [UIColor whiteColor];
-    nameLabel.font = [UIFont boldSystemFontOfSize:16];
-    nameLabel.textAlignment = NSTextAlignmentCenter;
-    nameLabel.lineBreakMode = NSLineBreakByTruncatingMiddle;
-    nameLabel.text = @"~派派·泰国·达人~";
-    [view addSubview:nameLabel];
-    UILabel *idLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 26, 200, 12)];
-    idLabel.textColor = [UIColor whiteColor];
-    idLabel.font = [UIFont boldSystemFontOfSize:10];
-    idLabel.textAlignment = NSTextAlignmentCenter;
-    idLabel.text = @"999位";
-    [view addSubview:idLabel];
-    self.navigationItem.titleView = view;
-    
     self.collectionView.backgroundColor = APP_PAGE_COLOR;
     
     UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
@@ -80,8 +54,39 @@ static NSString * const reuseIdentifier = @"Cell";
     [self loadTravelers:_distributionArea withPageNo:0];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
+// 传递模型的时候给导航栏标题赋值
+- (void)setGuiderDistribute:(GuilderDistribute *)guiderDistribute
+{
+    _guiderDistribute = guiderDistribute;
+    
+    UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setImage:[UIImage imageNamed:@"common_icon_navigaiton_back"] forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:@"common_icon_navigaiton_back_highlight"] forState:UIControlStateHighlighted];
+    [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
+    [button setFrame:CGRectMake(0, 0, 30, 30)];
+    button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
+    self.navigationItem.leftBarButtonItem = barButton;
+    
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 44)];
+    view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 6, 200, 18)];
+    nameLabel.textColor = [UIColor whiteColor];
+    nameLabel.font = [UIFont boldSystemFontOfSize:16];
+    nameLabel.textAlignment = NSTextAlignmentCenter;
+    nameLabel.lineBreakMode = NSLineBreakByTruncatingMiddle;
+//    nameLabel.text = @"~派派·泰国·达人~";
+    
+    nameLabel.text = [NSString stringWithFormat:@"~派派·%@·达人~",guiderDistribute.zhName];
+    [view addSubview:nameLabel];
+    UILabel *idLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 26, 200, 12)];
+    idLabel.textColor = [UIColor whiteColor];
+    idLabel.font = [UIFont boldSystemFontOfSize:10];
+    idLabel.textAlignment = NSTextAlignmentCenter;
+//    idLabel.text = @"999位";
+    idLabel.text = [NSString stringWithFormat:@"%@位",guiderDistribute.expertUserCnt];
+    [view addSubview:idLabel];
+    self.navigationItem.titleView = view;
 }
 
 #pragma mark - http method
@@ -101,16 +106,20 @@ static NSString * const reuseIdentifier = @"Cell";
     [params setObject:imageWidth forKey:@"imgWidth"];
     [params setObject:@"expert" forKey:@"keyword"];
     [params setObject:@"roles" forKey:@"field"];
-    //    [params setObject:areaId forKey:@"locId"];
+    [params setObject:areaId forKey:@"locId"];
     [params setObject:[NSNumber numberWithInt:16] forKey:@"pageSize"];
     [params setObject:[NSNumber numberWithInteger:page] forKey:@"page"];
     
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     __weak typeof(GuiderCollectionViewController *)weakSelf = self;
     [hud showHUDInViewController:weakSelf content:64];
+    
+    NSLog(@"%@",API_SEARCH_USER);
+    
     //搜索达人
     [manager GET:API_SEARCH_USER parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [hud hideTZHUD];
+        
         NSLog(@"%@",responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -134,6 +143,9 @@ static NSString * const reuseIdentifier = @"Cell";
         [array addObject:user];
     }
     _dataSource = array;
+    
+    NSLog(@"%@",self.dataSource);
+    
     [self.collectionView reloadData];
 }
 
@@ -150,8 +162,13 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    // 初始化cell并对cell赋值
     GuiderCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
-    FrendModel *up = [_dataSource objectAtIndex:indexPath.row];
+//    FrendModel *up = [_dataSource objectAtIndex:indexPath.row];
+    FrendModel * up = self.dataSource[indexPath.row];
+    NSLog(@"haha%ld",up.guideCount);
+
     cell.titleLabel.text = @"99个城市";
     cell.subtitleLabel.text = @"泰国足迹";
     if ([up.sex isEqualToString:@"M"]) {

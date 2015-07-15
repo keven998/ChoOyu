@@ -153,7 +153,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     GuiderCollectionViewController *guider = [[GuiderCollectionViewController alloc] initWithNibName:@"GuiderCollectionViewController" bundle:nil];
-    guider.distributionArea = @"";
+    GuilderDistribute * guilderDistribute = self.guiderArray[indexPath.row];
+    guider.distributionArea = guilderDistribute.zhName;
+    guider.guiderDistribute = self.guiderArray[indexPath.row];
     [self.navigationController pushViewController:guider animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
