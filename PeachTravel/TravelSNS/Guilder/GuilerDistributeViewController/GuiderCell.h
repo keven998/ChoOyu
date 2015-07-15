@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class GuilderDistribute;
 @interface GuiderCell : UITableViewCell
+
++ (id)guiderWithTableView:(UITableView *)tableView;
+
+@property (nonatomic, strong)GuilderDistribute * guiderDistribute;
 
 @end

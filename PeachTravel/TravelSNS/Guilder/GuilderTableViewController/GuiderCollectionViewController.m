@@ -10,7 +10,7 @@
 #import "GuiderCollectionCell.h"
 #import "PeachTravel-swift.h"
 #import "OtherUserInfoViewController.h"
-
+#import "GuilderDistribute.h"
 @interface GuiderCollectionViewController ()
 
 @property (nonatomic, strong) NSArray *dataSource;
