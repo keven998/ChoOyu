@@ -362,7 +362,7 @@
     self.inputTextView.placeholder = @"输入新消息";
 
     //录制
-    self.recordButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, width, 34)];
+    self.recordButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.styleChangeButton.frame), (th - 34.0)/2.0, width, 34)];
     self.recordButton.userInteractionEnabled = YES;
     self.recordButton.titleLabel.font = [UIFont systemFontOfSize:15.0];
     [self.recordButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
@@ -378,7 +378,6 @@
     [self.recordButton addTarget:self action:@selector(recordButtonTouchUpInside) forControlEvents:UIControlEventTouchUpInside];
     [self.recordButton addTarget:self action:@selector(recordDragOutside) forControlEvents:UIControlEventTouchDragExit];
     [self.recordButton addTarget:self action:@selector(recordDragInside) forControlEvents:UIControlEventTouchDragEnter];
-    self.recordButton.center = CGPointMake((CGRectGetWidth(self.toolbarView.frame))/2.0, CGRectGetHeight(self.toolbarView.frame)/2.0);
     
     if (!self.recordView) {
         self.recordView = [[DXRecordView alloc] initWithFrame:CGRectMake(90, 130, 140, 140)];
