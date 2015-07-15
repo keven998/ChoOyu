@@ -32,11 +32,10 @@
 #define kGeTuiAppKey            @"2aMWW4drb67bQFixAQ5cj"
 #define kGeTuiAppSecret         @"BmkFKzmOqI7YSrQhYbhAn3"
 
-
 /***** API *****/
 
-//#define BASE_URL                                @ "http://api-dev.lvxingpai.com/app/"
-#define BASE_URL                                @ "http://api.lvxingpai.com/app/"
+#define BASE_URL                                @ "http://api-dev.lvxingpai.com/app/"
+//#define BASE_URL                                @ "http://api.lvxingpai.com/app/"
 
 //#define BASE_URL1                                 @ "http://182.92.150.243:9000/taozi/"
 
