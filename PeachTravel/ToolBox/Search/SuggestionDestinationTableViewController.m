@@ -26,16 +26,22 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _searchBar = [[UISearchBar alloc]init];
+    self.navigationItem.title = @"确定所在城市";
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
+    
+    self.tableView.backgroundColor = APP_PAGE_COLOR;
+    self.tableView.separatorColor = COLOR_LINE;
+    
+    _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 44)];
     _searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _searchBar.delegate = self;
-    [_searchBar setPlaceholder:@"城市/景点/美食/购物"];
+    _searchBar.backgroundColor = [UIColor whiteColor];
+    [_searchBar setPlaceholder:@"输入城市名或拼音"];
     _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
-    _searchBar.showsCancelButton = YES;
+    _searchBar.showsCancelButton = NO;
     _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    [_searchBar becomeFirstResponder];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"suggestCell"];
-    self.navigationItem.titleView = _searchBar;
+    self.tableView.tableHeaderView = _searchBar;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -63,6 +69,10 @@
     return _searchResultArray;
 }
 
+- (void) cancel {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 /**
  *  搜索城市的时候联想查询
  */
@@ -83,17 +93,17 @@
     [params setObject:[NSNumber numberWithInt:0] forKey:@"page"];
     [params setObject:[NSNumber numberWithBool:YES] forKey:@"loc"];
     
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [manager GET:API_SUGGESTION parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [self analysisSearchData:[responseObject objectForKey:@"result"]];
             [self.tableView reloadData];
-        } else {
-           
         }
-        
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
     
 }
@@ -109,6 +119,10 @@
 
 #pragma mark - Table view data source
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return CGFLOAT_MIN;
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
@@ -120,6 +134,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     CityDestinationPoi *poi = [self.searchResultArray objectAtIndex:indexPath.row];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"suggestCell"];
+    cell.contentView.backgroundColor = [UIColor whiteColor];
     cell.textLabel.text = poi.zhName;
     return cell;
 }
@@ -131,11 +146,22 @@
     [self.delegate didSelectDestination:cityPoi];
 }
 
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [_searchBar endEditing:YES];
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    [super touchesEnded:touches withEvent:event];
+    [_searchBar endEditing:YES];
+}
+
 #pragma mark - UISearchBar Delegate
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
-    [self loadSuggestionData];
+    if (searchText != nil && ![searchText isBlankString]) {
+        [self loadSuggestionData];
+    }
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar

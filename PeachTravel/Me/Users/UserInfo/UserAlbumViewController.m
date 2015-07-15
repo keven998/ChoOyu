@@ -73,10 +73,8 @@ static NSString * const reuseIdentifier = @"albumImageCell";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     if (_isMyself) {
-        
         return _albumArray.count + 1;
     } else {
-        
         return _albumArray.count;
     }
 }
@@ -84,7 +82,6 @@ static NSString * const reuseIdentifier = @"albumImageCell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     AlbumImageCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     if (_isMyself) {
-        
         if (indexPath.row == 0) {
             cell.imageView.image = [UIImage imageNamed:@"ic_userInfo_add_avatar"];
             cell.editBtn.hidden = YES;

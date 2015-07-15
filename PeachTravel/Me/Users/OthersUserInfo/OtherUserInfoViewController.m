@@ -388,7 +388,7 @@
 #pragma mark - IBAction
 
 - (void)addToFriend {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"输入好友验证申请" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"好友验证" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     [alert setAlertViewStyle:UIAlertViewStylePlainTextInput];
     UITextField *nameTextField = [alert textFieldAtIndex:0];
     AccountManager *accountManager = [AccountManager shareAccountManager];

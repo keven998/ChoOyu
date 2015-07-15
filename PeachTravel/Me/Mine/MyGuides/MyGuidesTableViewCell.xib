@@ -228,20 +228,20 @@
                         <exclude reference="1br-w7-Gyw"/>
                     </mask>
                     <mask key="constraints">
+                        <exclude reference="5v9-VM-LWE"/>
+                        <exclude reference="wzn-5L-sMl"/>
+                        <exclude reference="kfT-Wq-FyR"/>
+                        <exclude reference="lif-pm-9xX"/>
                         <exclude reference="Ii5-iF-Agb"/>
                         <exclude reference="XCV-Zq-9mW"/>
                         <exclude reference="cr9-kJ-51x"/>
                         <exclude reference="wxQ-8a-tfL"/>
-                        <exclude reference="kfT-Wq-FyR"/>
-                        <exclude reference="lif-pm-9xX"/>
-                        <exclude reference="5v9-VM-LWE"/>
-                        <exclude reference="wzn-5L-sMl"/>
-                        <exclude reference="EpX-oN-aC9"/>
-                        <exclude reference="l3s-qa-uSU"/>
                         <exclude reference="Auj-yg-ycJ"/>
                         <exclude reference="aex-6S-FII"/>
                         <exclude reference="3qG-WT-SMS"/>
                         <exclude reference="moX-vv-dO1"/>
+                        <exclude reference="EpX-oN-aC9"/>
+                        <exclude reference="l3s-qa-uSU"/>
                     </mask>
                 </variation>
                 <variation key="widthClass=compact">
@@ -255,20 +255,20 @@
                         <include reference="1br-w7-Gyw"/>
                     </mask>
                     <mask key="constraints">
+                        <include reference="5v9-VM-LWE"/>
+                        <include reference="wzn-5L-sMl"/>
+                        <include reference="kfT-Wq-FyR"/>
+                        <include reference="lif-pm-9xX"/>
                         <include reference="Ii5-iF-Agb"/>
                         <include reference="XCV-Zq-9mW"/>
                         <include reference="cr9-kJ-51x"/>
                         <include reference="wxQ-8a-tfL"/>
-                        <include reference="kfT-Wq-FyR"/>
-                        <include reference="lif-pm-9xX"/>
-                        <include reference="5v9-VM-LWE"/>
-                        <include reference="wzn-5L-sMl"/>
-                        <include reference="EpX-oN-aC9"/>
-                        <include reference="l3s-qa-uSU"/>
                         <include reference="Auj-yg-ycJ"/>
                         <include reference="aex-6S-FII"/>
                         <include reference="3qG-WT-SMS"/>
                         <include reference="moX-vv-dO1"/>
+                        <include reference="EpX-oN-aC9"/>
+                        <include reference="l3s-qa-uSU"/>
                     </mask>
                 </variation>
             </tableViewCellContentView>

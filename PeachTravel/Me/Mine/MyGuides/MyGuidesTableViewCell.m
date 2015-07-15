@@ -13,8 +13,9 @@
 - (void)awakeFromNib {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.backgroundColor = APP_PAGE_COLOR;
-    _headerImageView = [[UIImageView alloc]initWithFrame:CGRectMake(18, 0, SCREEN_WIDTH-36, 158)];
-    //    _headerImageView.backgroundColor = [UIColor redColor];
+    
+    _headerImageView = [[UIImageView alloc]initWithFrame:CGRectMake(18, 0, CGRectGetWidth(self.frame)-36, 158)];
+    _headerImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _headerImageView.clipsToBounds = YES;
     [self.contentView addSubview:_headerImageView];
     _titleBtn.font = [UIFont systemFontOfSize:11.0];
@@ -34,8 +35,8 @@
     _deleteBtn.hidden = YES;
     [_playedBtn setImage:[UIImage imageNamed:@"plan_10_dashboard_copy"] forState:UIControlStateNormal];
     _playedBtn.hidden = YES;
-//    [_changBtn setImage:[UIImage imageNamed:@"plan_10_dashboard_share"] forState:UIControlStateNormal];
-//    _changBtn.hidden = YES;
+    //    [_changBtn setImage:[UIImage imageNamed:@"plan_10_dashboard_share"] forState:UIControlStateNormal];
+    //    _changBtn.hidden = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
