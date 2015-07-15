@@ -283,17 +283,25 @@ static NSString * const reuseIdentifier = @"albumImageCell";
 
 - (void)deletePhoto:(UIButton *)sender
 {
-    
-    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInView:self.view];
-    AlbumImage *image = [self.manager.account.userAlbum objectAtIndex:sender.tag-101];
-    [self.manager asyncDelegateUserAlbumImage:image completion:^(BOOL isSuccess, NSString *error) {
-        [hud hideTZHUD];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"确认删除？" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
+        if (buttonIndex == 0) {
+            
+        } else {
+            AlbumImage *image = [self.manager.account.userAlbum objectAtIndex:sender.tag-101];
+            [self.manager asyncDelegateUserAlbumImage:image completion:^(BOOL isSuccess, NSString *error) {
+                if (isSuccess) {
+                    NSMutableArray *mutableArray = [_albumArray mutableCopy];
+                    [mutableArray removeObjectAtIndex:sender.tag - 101];
+                    _albumArray = mutableArray;
+                    [self.collectionView reloadData];
+                } else {
+                    [SVProgressHUD showHint:@"删除失败"];
+                }
+            }];
+        }
     }];
-    NSMutableArray *mutableArray = [_albumArray mutableCopy];
-    [mutableArray removeObjectAtIndex:sender.tag - 101];
-    _albumArray = mutableArray;
-    [self.collectionView reloadData];
+   
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info

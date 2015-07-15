@@ -33,6 +33,7 @@
 #import "PicCell.h"
 #import "PlansListTableViewController.h"
 #import "MWPhotoBrowser.h"
+#import "UserAlbumViewController.h"
 
 #define accountDetailHeaderCell          @"headerCell"
 #define otherUserInfoCell           @"otherCell"
@@ -115,9 +116,7 @@
 
 - (void)dealloc
 {
-    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
 }
 
 #pragma mark - setter & getter
@@ -683,11 +682,7 @@
             ChangePasswordViewController *changePasswordCtl = [[ChangePasswordViewController alloc] init];
             [self presentViewController:[[UINavigationController alloc] initWithRootViewController:changePasswordCtl] animated:YES completion:nil];
         }
-        
-        
     }
-    
-    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
@@ -793,18 +788,11 @@
 
 - (void)viewUserPhotoAlbum
 {
-    MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] init];
-    [browser setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
-    UINavigationController *navc = [[UINavigationController alloc] initWithRootViewController:browser];
-    NSMutableArray *array = [[NSMutableArray alloc] init];
-    for (AlbumImage *album in self.accountManager.account.userAlbum) {
-        MWPhoto *photo = [[MWPhoto alloc] initWithURL:[NSURL URLWithString:album.image.imageUrl]];
-        [array addObject:photo];
-    }
-    browser.imageList = array;
-    browser.titleStr = @"相册";
-    
-    [self presentViewController:navc animated:YES completion:nil];
+    UserAlbumViewController *ctl = [[UserAlbumViewController alloc] initWithNibName:@"UserAlbumViewController" bundle:nil];
+    ctl.albumArray = self.accountManager.account.userAlbum;
+    ctl.isMyself = YES;
+    ctl.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:ctl animated:YES];
 }
 /**
  *  删除用户头像
@@ -923,7 +911,6 @@
         AlbumImage *albumImage = amgr.account.userAlbum[i];
         MJPhoto *photo = [[MJPhoto alloc] init];
         photo.url = albumImage.image.imageUrl; // 图片路径
-        
         
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
         HeaderPictureCell *cell = (HeaderPictureCell *)[_tableView cellForRowAtIndexPath:indexPath];

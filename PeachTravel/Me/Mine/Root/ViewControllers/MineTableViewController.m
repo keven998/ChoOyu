@@ -434,14 +434,11 @@
 
 - (IBAction)showPictureGrid:(id)sender
 {
-
     UserAlbumViewController *ctl = [[UserAlbumViewController alloc] initWithNibName:@"UserAlbumViewController" bundle:nil];
-    
     ctl.albumArray = self.accountManager.account.userAlbum;
     ctl.isMyself = YES;
     ctl.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:ctl animated:YES];
-
 }
 
 - (IBAction)myPlan:(id)sender
