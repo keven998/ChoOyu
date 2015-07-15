@@ -48,6 +48,7 @@
 }
 @property (nonatomic,strong) UIScrollView *scrollView;
 @property (nonatomic, strong) FrendModel *userInfo;
+@property (nonatomic, strong) UIButton *addFriendBtn;
 
 @end
 
@@ -121,7 +122,7 @@
     _constellationView.image = [UIImage imageNamed:@"ic_home_user_constellation_shooter.png"];
     [_headerBgView addSubview:_constellationView];
     
-        _levelLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64, 18)];
+    _levelLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64, 18)];
     _levelLabel.textColor = [UIColor whiteColor];
     _levelLabel.font = [UIFont systemFontOfSize:9];
     _levelLabel.text = @"LV0";
@@ -280,6 +281,7 @@
     [travelNote addSubview:travelNoteLabel2];
     _scrollView.contentSize = CGSizeMake(width, btnWidth * 2 + _headerBgView.bounds.size.height);
 }
+
 - (void)updateUserInfo
 {
     UILabel *signatureLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 924/3*SCREEN_HEIGHT/736 - 27, SCREEN_WIDTH, 13)];
@@ -319,7 +321,11 @@
     _planeLabel.text = guideCtn;
     
     [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:_userInfo.avatarSmall] placeholderImage:[UIImage imageNamed:@"ic_home_avatar_unknown.png"]];
-    _nameLabel.text = _userInfo.nickName;
+    if ([_userInfo.memo isBlankString]) {
+        _nameLabel.text = _userInfo.nickName;
+    } else {
+        _nameLabel.text = [NSString stringWithFormat:@"(%@)%@", _userInfo.memo, _userInfo.nickName];
+    }
     NSString *userIdStr = [NSString stringWithFormat:@"ID：%zd",_userInfo.userId];
     _idLabel.text = userIdStr;
     if ([_userInfo.sex isEqualToString:@"M" ]) {
@@ -335,7 +341,6 @@
         _flagHeaderIV.image = [UIImage imageNamed:@"ic_home_header_unlogin.png"];
         _levelBg.image = [UIImage imageNamed:@"ic_home_level_bg_unknown.png"];
     }
-    
 }
 
 -(void)createFooterBar
@@ -360,22 +365,22 @@
     [beginTalk setTitleEdgeInsets:UIEdgeInsetsMake(4, 0, 0, -5)];
     [beginTalk addTarget:self action:@selector(talkToFriend) forControlEvents:UIControlEventTouchUpInside];
     [barView addSubview:beginTalk];
-    UIButton *addFriend = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetWidth(self.view.bounds)/2, 0, CGRectGetWidth(self.view.bounds)/2, 48)];
+    _addFriendBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetWidth(self.view.bounds)/2, 0, CGRectGetWidth(self.view.bounds)/2, 48)];
     
-    addFriend.titleLabel.font = [UIFont systemFontOfSize:13];
-    [addFriend setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
-    [addFriend setImage:[UIImage imageNamed:@"account_labbar_icon_follow_default.png"] forState:UIControlStateNormal];
-    [addFriend setBackgroundImage:[UIImage new] forState:UIControlStateHighlighted];
-    [addFriend setBackgroundImage:[UIImage imageNamed:@"account_button_selected.png"] forState:UIControlStateHighlighted];
-    [addFriend setImageEdgeInsets:UIEdgeInsetsMake(3, -5, 0, 0)];
-    [addFriend setTitleEdgeInsets:UIEdgeInsetsMake(4, 0, 0, -5)];
-    [barView addSubview:addFriend];
+    _addFriendBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+    [_addFriendBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
+    [_addFriendBtn setImage:[UIImage imageNamed:@"account_labbar_icon_follow_default.png"] forState:UIControlStateNormal];
+    [_addFriendBtn setBackgroundImage:[UIImage new] forState:UIControlStateHighlighted];
+    [_addFriendBtn setBackgroundImage:[UIImage imageNamed:@"account_button_selected.png"] forState:UIControlStateHighlighted];
+    [_addFriendBtn setImageEdgeInsets:UIEdgeInsetsMake(3, -5, 0, 0)];
+    [_addFriendBtn setTitleEdgeInsets:UIEdgeInsetsMake(4, 0, 0, -5)];
+    [barView addSubview:_addFriendBtn];
     if ([accountManager frendIsMyContact:_userId]) {
-        [addFriend setTitle:@"备注" forState:UIControlStateNormal];
-        [addFriend addTarget:self action:@selector(remarkFriend) forControlEvents:UIControlEventTouchUpInside];
+        [_addFriendBtn setTitle:@"修改备注" forState:UIControlStateNormal];
+        [_addFriendBtn addTarget:self action:@selector(remarkFriend) forControlEvents:UIControlEventTouchUpInside];
     } else {
-        [addFriend setTitle:@"加为好友" forState:UIControlStateNormal];
-        [addFriend addTarget:self action:@selector(addToFriend) forControlEvents:UIControlEventTouchUpInside];
+        [_addFriendBtn setTitle:@"加为好友" forState:UIControlStateNormal];
+        [_addFriendBtn addTarget:self action:@selector(addToFriend) forControlEvents:UIControlEventTouchUpInside];
         
     }
 }
@@ -440,6 +445,7 @@
 {
     ChatViewController *chatController = [[ChatViewController alloc] initWithChatter:_userId chatType:IMChatTypeIMChatSingleType];
     UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:chatController];
+    chatController.chatterName = _userInfo.nickName;
     
     ChatSettingViewController *menuViewController = [[ChatSettingViewController alloc] init];
     menuViewController.chatterId = _userId;
@@ -452,7 +458,7 @@
     frostedViewController.resumeNavigationBar = NO;
     self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan = NO;
     [self.navigationController pushViewController:frostedViewController animated:YES];
-    frostedViewController.navigationItem.title = _userInfo.nickName;
+
     __weak ChatViewController *viewController = chatController;
     if (![self.navigationController.viewControllers.firstObject isKindOfClass:[ChatListViewController class]]) {
         chatController.backBlock = ^(){
@@ -461,28 +467,6 @@
         
     }
 }
-
-
-//    ChatViewController *chatController = [[ChatViewController alloc] initWithChatter:_userId chatType:IMChatTypeIMChatSingleType];
-//    __weak ChatViewController *viewController = chatController;
-//    UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:chatController];
-//    
-//    UIViewController *menuViewController = nil;
-//    
-//    menuViewController = [[ChatSettingViewController alloc] init];
-//    ((ChatSettingViewController *)menuViewController).chatterId = _userId;
-//    
-//    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:navi menuViewController:menuViewController];
-//    frostedViewController.direction = REFrostedViewControllerDirectionRight;
-//    frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
-//    frostedViewController.liveBlur = YES;
-//    frostedViewController.limitMenuViewSize = YES;
-//    frostedViewController.resumeNavigationBar = NO;
-//    self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan = NO;
-//    [self.navigationController pushViewController:frostedViewController animated:YES];
-//    frostedViewController.navigationItem.title = _userInfo.nickName;
-//    
-//   }
 
 - (IBAction)moreAction:(UIButton *)sender
 {
