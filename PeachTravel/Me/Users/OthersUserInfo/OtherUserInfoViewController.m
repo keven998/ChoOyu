@@ -464,7 +464,6 @@
         chatController.backBlock = ^(){
             [viewController.frostedViewController.navigationController popViewControllerAnimated:YES];
         };
-        
     }
 }
 

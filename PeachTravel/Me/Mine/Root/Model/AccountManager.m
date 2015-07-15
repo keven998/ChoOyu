@@ -273,7 +273,6 @@
     [manager DELETE:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            [SVProgressHUD showHint:@"修改成功"];
             NSMutableArray *albums = [self.account.userAlbum mutableCopy];
             [albums removeObject:albumImage];
             self.account.userAlbum = albums;
