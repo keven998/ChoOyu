@@ -102,7 +102,7 @@
                 }
                 [titleArray addObject:sp.locality.zhName];
             }
-            [dstr appendString:[NSString stringWithFormat:@" > %@", sp.zhName]];
+            [dstr appendString:[NSString stringWithFormat:@" → %@", sp.zhName]];
             
         }
     }

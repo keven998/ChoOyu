@@ -77,10 +77,7 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
     } else {
         dayStr = [NSString stringWithFormat:@"%d.Day详情", _currentDay+1];
     }
-    
-    if (titleStr == nil || [titleStr isBlankString]) {
-        titleStr = @"无安排";
-    }
+
     NSString *totalStr = [NSString stringWithFormat:@"%@\n%@", dayStr, titleStr];
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString: totalStr];
     
