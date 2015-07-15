@@ -106,12 +106,10 @@ static NSString *reusableCell = @"myGuidesCell";
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.backgroundColor = APP_PAGE_COLOR;
-    [self.view addSubview:self.tableView];
-    
-    
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerNib:[UINib nibWithNibName:@"MyGuidesTableViewCell" bundle:nil] forCellReuseIdentifier:reusableCell];
-    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 100, 0);
+    self.tableView.contentInset = UIEdgeInsetsMake(-5, 0, 5, 0);
+    [self.view addSubview:self.tableView];
     
     self.refreshControl = [[UIRefreshControl alloc] init];
     self.refreshControl.tintColor = APP_THEME_COLOR;
@@ -765,7 +763,7 @@ static NSString *reusableCell = @"myGuidesCell";
                 MyGuideSummary *guide = self.dataSource [index];
                 guide.status = @"traveled";
                 
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"完成签到" message:@"旅历＋1" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"完成签到" message:@"您的旅历+1" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
                 [alertView show];
             }
             
