@@ -332,53 +332,6 @@ static NSString *reusableCell = @"myGuidesCell";
     }];
 }
 
-/**
- *  修改攻略名称
- *
- *  @param guideSummary 被修改的攻略
- *  @param title        新的标题
- */
-- (void)editGuideTitle:(MyGuideSummary *)guideSummary andTitle:(NSString *)title atIndex:(NSInteger)index success:(saveComplteBlock)completed
-{
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
-    
-    NSString *requestUrl = [NSString stringWithFormat:@"%@%@",API_SAVE_TRIPINFO, guideSummary.guideId];
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params setObject:title forKey:@"title"];
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    [manager PUT:requestUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@", responseObject);
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-        if (code == 0) {
-            guideSummary.title = title;
-            NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:index];
-            [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
-            dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                [self cacheFirstPage:responseObject];
-            });
-            completed(YES);
-        } else {
-            [self showHint:@"请求失败"];
-            completed(NO);
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        [self showHint:@"没找到网络"];
-        completed(NO);
-    }];
-}
-
 - (void)loadData:(int)type WithPageIndex:(NSInteger)pageIndex
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -494,20 +447,7 @@ static NSString *reusableCell = @"myGuidesCell";
     
     [self.navigationController presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:nil];
 }
-- (void)changeTitle:(UIButton *)sender
-{
-    CGPoint point = [sender convertPoint:CGPointZero toView:self.tableView];
-    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
-    MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:indexPath.section];
-    BaseTextSettingViewController *bsvc = [[BaseTextSettingViewController alloc] init];
-    bsvc.navTitle = @"修改标题";
-    bsvc.content = guideSummary.title;
-    bsvc.acceptEmptyContent = NO;
-    bsvc.saveEdition = ^(NSString *editText, saveComplteBlock(completed)) {
-        [self editGuideTitle:guideSummary andTitle:editText atIndex:indexPath.section success:completed];
-    };
-    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:bsvc] animated:YES completion:nil];
-}
+
 - (void)deletePlane:(UIButton *)sender
 {
     CGPoint point = [sender convertPoint:CGPointZero toView:self.tableView];
@@ -598,14 +538,14 @@ static NSString *reusableCell = @"myGuidesCell";
     
     if ([cell.guideSummary.status isEqualToString:@"traveled"]) {
         cell.playedImage.image = [UIImage imageNamed:@"plan_bg_page_qian"];
+        
     } else {
         
     }
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self goPlan:indexPath];
 }
