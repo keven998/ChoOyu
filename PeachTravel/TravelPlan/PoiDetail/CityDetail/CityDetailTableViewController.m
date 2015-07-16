@@ -99,7 +99,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(_tableView.frame), 64)];
     view.backgroundColor = [UIColor clearColor];
     view.userInteractionEnabled = YES;
-    UIButton *footerView = [[UIButton alloc] initWithFrame:CGRectMake(20, 0, CGRectGetWidth(_tableView.frame) - 40, 44)];
+    UIButton *footerView = [[UIButton alloc] initWithFrame:CGRectMake(21, 0, CGRectGetWidth(_tableView.frame) - 42, 44)];
     [footerView setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
     [footerView setBackgroundImage:[ConvertMethods createImageWithColor:COLOR_DISABLE] forState:UIControlStateHighlighted];
     [footerView setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateNormal];
