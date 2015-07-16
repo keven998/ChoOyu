@@ -16,7 +16,6 @@
         self.poiType = kShoppingPoi;
         self.poiTypeName = @"购物";
         self.typeDesc = @"shopping";
-        _telephone = [json objectForKey:@"telephone"];
     }
     return self;
 }
@@ -24,7 +23,6 @@
 - (NSDictionary *)enCodeAllDataToDictionary
 {
     NSMutableDictionary *retDic = [[super enCodeAllDataToDictionary] mutableCopy];
-    [retDic safeSetObject:_telephone forKey:@"timeCostDesc"];
     [retDic safeSetObject:super.priceDesc forKey:@"priceDesc"];
     return retDic;
 }

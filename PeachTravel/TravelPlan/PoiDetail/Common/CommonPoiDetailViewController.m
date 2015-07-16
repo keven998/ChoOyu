@@ -20,9 +20,10 @@
 
 
 @interface CommonPoiDetailViewController () <UITableViewDataSource, UITableViewDelegate>
-@property (nonatomic, strong) SpotDetailView *spotDetailView;
 @property (nonatomic, strong) UIImageView *backGroundImageView;
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) SpotDetailView *spotDetailView;
+
 @end
 
 @implementation CommonPoiDetailViewController
@@ -74,35 +75,27 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return self.poi.comments.count + 4;
+    return self.poi.comments.count + 3;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row < 4) {
+    if (indexPath.row < 3) {
         return 67 * SCREEN_HEIGHT/736;
     } else {
-        CommentDetail *commonDetail = [self.poi.comments objectAtIndex:indexPath.row-4];
+        CommentDetail *commonDetail = [self.poi.comments objectAtIndex:indexPath.row-3];
         return [CommentTableViewCell heightForCommentCellWithComment:commonDetail.commentDetails];
     }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row < 4) {
+    if (indexPath.row < 3) {
         SpotDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"detailCell" forIndexPath:indexPath];
         cell.accessoryType = UITableViewCellAccessoryNone;
         if (indexPath.row == 0) {
             cell.categoryLabel.text = @"地址";
             cell.infomationLabel.text = self.poi.address;
             cell.image.image = [UIImage imageNamed:@"poi_icon_add"];
-        } else if (indexPath.row == 1) {
-            if (self.poi.poiType == kSpotPoi) {
-                cell.categoryLabel.text = @"开放";
-            } else {
-                cell.categoryLabel.text = @"类型";
-            }
-            cell.infomationLabel.text = self.poi.openTime;
-            cell.image.image = [UIImage imageNamed:@"icon_arrow"];
-        } else if(indexPath.row == 2) {
+        } else if(indexPath.row == 1) {
             cell.categoryLabel.text = @"费用";
             cell.infomationLabel.text = self.poi.priceDesc;
             cell.image.image = [UIImage imageNamed:@"poi_icon_ticket_default"];
@@ -115,7 +108,7 @@
         
     } else {
         CommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"commentCell" forIndexPath:indexPath];
-        cell.commentDetail = [self.poi.comments objectAtIndex:indexPath.row-4];
+        cell.commentDetail = [self.poi.comments objectAtIndex:indexPath.row-3];
         return cell;
     }
 }
@@ -125,15 +118,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if (indexPath.row < 4) {
+    if (indexPath.row < 3) {
         if (indexPath.row == 0) {
             [self jumpToMap];
         } else if (indexPath.row == 1) {
             [self showPoidetail:nil];
         } else if (indexPath.row == 2) {
-            [self showPoidetail:nil];
-        } else {
-            [self showPoidetail:nil];
+            [self makePhone];
         }
     }
 }
@@ -145,11 +136,32 @@
     _spotDetailView = [[SpotDetailView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 0)];
     _spotDetailView.spot = self.poi;
     self.tableView.tableHeaderView = _spotDetailView;
+    [_spotDetailView.poiSummary addTarget:self action:@selector(showPoiDesc) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)jumpToMap
 {
     [ConvertMethods jumpAppleMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
+}
+
+//拨打电话
+- (void)makePhone
+{
+    if (self.poi.telephone || ![self.poi.telephone isBlankString]) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"确认拨打电话？" message:self.poi.telephone delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
+            if (buttonIndex == 1) {
+                NSString *telStr = [NSString stringWithFormat:@"tel://%@", self.poi.telephone];
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:telStr]];
+            }
+        }];
+    }
+}
+
+//子类重写
+- (void)showPoiDesc
+{
+    
 }
 
 - (void)dismissCtlWithHint:(NSString *)hint {

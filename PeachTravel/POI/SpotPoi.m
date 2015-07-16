@@ -22,7 +22,6 @@
         _guideUrl = [json objectForKey:@"visitGuideUrl"];
         _tipsUrl = [json objectForKey:@"tipsUrl"];
         _travelMonth = [json objectForKey:@"travelMonth"];
-        _telephone = [json objectForKey:@"telephone"];
     }
     return self;
 }

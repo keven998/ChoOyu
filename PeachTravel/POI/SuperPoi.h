@@ -31,6 +31,7 @@
 @property (nonatomic) float lng;
 @property (nonatomic, strong) CityDestinationPoi *locality;
 @property (nonatomic) BOOL isMyFavorite;
+@property (nonatomic, copy) NSString *telephone;
 
 @property (nonatomic, copy) NSString *distanceStr;
 

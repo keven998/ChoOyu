@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface SpecialPoiCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UIButton *planBtn;
-@property (weak, nonatomic) IBOutlet UIButton *tipsBtn;
-@property (weak, nonatomic) IBOutlet UIButton *trafficBtn;
+
+@property (strong, nonatomic) UIButton *planBtn;
+@property (strong, nonatomic) UIButton *tipsBtn;
+@property (strong, nonatomic) UIButton *trafficBtn;
 
 @end

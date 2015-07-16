@@ -15,6 +15,7 @@
 #import "SpecialPoiCell.h"
 #import "CommentTableViewCell.h"
 #import "UIImage+BoxBlur.h"
+#import "CityDescDetailViewController.h"
 
 @interface SpotDetailViewController () <UIActionSheetDelegate>
 
@@ -127,9 +128,9 @@
     if (indexPath.row < 4) {
         if (indexPath.row == 0) {
             [super jumpToMap];
-        } else if (indexPath.row > 0 && indexPath.row < 4) {
+        } else if (indexPath.row > 0 && indexPath.row < 3) {
             [self showPoidetail:nil];
-        } else {
+        } else if (indexPath.row == 4) {
             
         }
     }
@@ -245,6 +246,14 @@
     [sheet addButtonWithTitle:@"取消"];
     sheet.cancelButtonIndex = sheet.numberOfButtons-1;
     [sheet showInView:self.view];
+}
+
+- (void)showPoiDesc
+{
+    CityDescDetailViewController *cddVC = [[CityDescDetailViewController alloc]init];
+    cddVC.des = self.poi.desc;
+    cddVC.title = @"景点简介";
+    [self.navigationController pushViewController:cddVC animated:YES];
 }
 
 #pragma mark - UIActionSheetDelegate

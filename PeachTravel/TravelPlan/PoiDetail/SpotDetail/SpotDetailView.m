@@ -91,19 +91,30 @@
     tagBtn.userInteractionEnabled = NO;
     [self addSubview:tagBtn];
     
+    UILabel *rankLable = [[UILabel alloc] initWithFrame:CGRectMake(14, 15, 16, 10)];
+    rankLable.textAlignment = NSTextAlignmentCenter;
+    rankLable.font = [UIFont systemFontOfSize:7.0];
+    rankLable.textColor = [UIColor whiteColor];
+    if (_spot.rank == 0 || _spot.rank > 500) {
+        rankLable.text = @"N";
+    } else {
+        rankLable.text = [NSString stringWithFormat:@"%d", _spot.rank];
+    }
+    [tagBtn addSubview:rankLable];
+    
     offsetY += 57;
     
     NSString *descStr = _spot.desc;
     if (descStr != nil && ([descStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length > 0)) {
-        UIButton *poiSummary = [[UIButton alloc]initWithFrame:CGRectMake(0, offsetY, width, 114)];
-        [poiSummary setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
-        [poiSummary setBackgroundImage:[ConvertMethods createImageWithColor:APP_PAGE_COLOR] forState:UIControlStateHighlighted];
-        [self addSubview:poiSummary];
-        _poisDesc = poiSummary;
-        [poiSummary setTitleColor:COLOR_TEXT_I forState:UIControlStateNormal];
-        poiSummary.titleLabel.numberOfLines = 3;
-        poiSummary.titleLabel.font = [UIFont systemFontOfSize:16];
-        [poiSummary setTitleEdgeInsets:UIEdgeInsetsMake(10, 18, 10, 18)];
+        _poiSummary = [[UIButton alloc]initWithFrame:CGRectMake(0, offsetY, width, 114)];
+        [_poiSummary setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+        [_poiSummary setBackgroundImage:[ConvertMethods createImageWithColor:APP_PAGE_COLOR] forState:UIControlStateHighlighted];
+        [self addSubview:_poiSummary];
+        _poisDesc = _poiSummary;
+        [_poiSummary setTitleColor:COLOR_TEXT_I forState:UIControlStateNormal];
+        _poiSummary.titleLabel.numberOfLines = 3;
+        _poiSummary.titleLabel.font = [UIFont systemFontOfSize:16];
+        [_poiSummary setTitleEdgeInsets:UIEdgeInsetsMake(10, 18, 10, 18)];
         CGRect minRect = [descStr boundingRectWithSize:CGSizeMake(width-36, 22)
                                                options:NSStringDrawingUsesLineFragmentOrigin
                                             attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:16]}
@@ -124,14 +135,14 @@
             NSMutableAttributedString *attrstr = [[NSMutableAttributedString alloc] initWithString:truncateStr attributes:attribs];
             NSAttributedString *more1 = [[NSAttributedString alloc] initWithString:@"全文" attributes:@{NSForegroundColorAttributeName : APP_THEME_COLOR_HIGHLIGHT, NSFontAttributeName: [UIFont systemFontOfSize:16]}];
             [attrstr appendAttributedString:more1];
-            [poiSummary setAttributedTitle:attrstr forState:UIControlStateNormal];
+            [_poiSummary setAttributedTitle:attrstr forState:UIControlStateNormal];
         } else {
-            poiSummary.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-            poiSummary.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
-            [poiSummary setTitle:descStr forState:UIControlStateNormal];
+            _poiSummary.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+            _poiSummary.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
+            [_poiSummary setTitle:descStr forState:UIControlStateNormal];
         }
         
-        offsetY = CGRectGetMaxY(poiSummary.frame);
+        offsetY = CGRectGetMaxY(_poiSummary.frame);
         
         UIView *spaceView5 = [[UIView alloc] initWithFrame:CGRectMake(18, offsetY-0.5, self.bounds.size.width - 18, 0.5)];
         spaceView5.backgroundColor = COLOR_LINE;
