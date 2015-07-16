@@ -91,17 +91,8 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
         UIBarButtonItem *finishBtn = [[UIBarButtonItem alloc]initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(addFinish:)];
         self.navigationItem.leftBarButtonItem = finishBtn;
         
-        TZButton *btn = [TZButton buttonWithType:UIButtonTypeCustom];
-        btn.frame = CGRectMake(0, 0, 44, 44);
-        [btn setTitle:@"筛选" forState:UIControlStateNormal];
-        [btn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-        [btn setImage:[UIImage imageNamed:@"ic_shaixuan_.png"] forState:UIControlStateNormal];
-        btn.titleLabel.font = [UIFont boldSystemFontOfSize:16];
-        [btn addTarget:self action:@selector(categoryFilt) forControlEvents:UIControlEventTouchUpInside];
-        btn.imagePosition = IMAGE_AT_RIGHT;
-        UIBarButtonItem *cbtn = [[UIBarButtonItem alloc] initWithCustomView:btn];
-        UIBarButtonItem *sbtn = [[UIBarButtonItem alloc]initWithTitle:@"搜索" style:UIBarButtonItemStylePlain target:self action:@selector(beginSearch)];
-        self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:cbtn,sbtn, nil];
+        UIBarButtonItem *sbtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"search.png"] style:UIBarButtonItemStylePlain target:self action:@selector(beginSearch)];
+        self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:sbtn, nil];
         
         CityDestinationPoi *firstDestination = [_tripDetail.destinations firstObject];
         _cityName = firstDestination.zhName;
