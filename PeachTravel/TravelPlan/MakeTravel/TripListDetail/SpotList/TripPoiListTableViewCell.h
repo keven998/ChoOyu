@@ -18,4 +18,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *propertyBtn;
 
 @property (weak, nonatomic) IBOutlet UIButton *actionBtn;
+
+@property (weak, nonatomic) IBOutlet UILabel *imageTitle;
+
+@property (weak, nonatomic) IBOutlet UILabel *foodNumber;
+
+
 @end
