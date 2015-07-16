@@ -143,6 +143,9 @@
 
 }
 
+/**
+ *  绑定 设备 id 和用户 id 的绑定
+ */
 - (void)bindRegisterID2UserId
 {
     ConnectionManager *connectionManager = [ConnectionManager shareInstance];
