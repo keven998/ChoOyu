@@ -13,4 +13,7 @@
 
 @property (nonatomic, strong) SuperPoi *spot;
 
+@property (nonatomic, strong) UIButton *poiSummary;
+
+
 @end

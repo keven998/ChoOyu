@@ -15,6 +15,7 @@
 #import "SpecialPoiCell.h"
 #import "CommentTableViewCell.h"
 #import "UIImage+BoxBlur.h"
+#import "CityDescDetailViewController.h"
 
 @interface SpotDetailViewController () <UIActionSheetDelegate>
 
@@ -30,6 +31,7 @@
     UIButton *talkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 44)];
     [talkBtn setImage:[UIImage imageNamed:@"navigationbar_chat_default.png"] forState:UIControlStateNormal];
     [talkBtn setImage:[UIImage imageNamed:@"navigationbar_chat_hilighted.png"] forState:UIControlStateHighlighted];
+    talkBtn.imageEdgeInsets = UIEdgeInsetsMake(2, 0, 0, 0);
     [talkBtn addTarget:self action:@selector(shareToTalk) forControlEvents:UIControlEventTouchUpInside];
     talkBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:talkBtn];
@@ -127,10 +129,10 @@
     if (indexPath.row < 4) {
         if (indexPath.row == 0) {
             [super jumpToMap];
-        } else if (indexPath.row > 0 && indexPath.row < 4) {
+        } else if (indexPath.row > 0 && indexPath.row < 3) {
             [self showPoidetail:nil];
-        } else {
-            
+        } else if (indexPath.row == 3) {
+            [super makePhone];
         }
     }
     
@@ -245,6 +247,14 @@
     [sheet addButtonWithTitle:@"取消"];
     sheet.cancelButtonIndex = sheet.numberOfButtons-1;
     [sheet showInView:self.view];
+}
+
+- (void)showPoiDesc
+{
+    CityDescDetailViewController *cddVC = [[CityDescDetailViewController alloc]init];
+    cddVC.des = self.poi.desc;
+    cddVC.title = @"景点简介";
+    [self.navigationController pushViewController:cddVC animated:YES];
 }
 
 #pragma mark - UIActionSheetDelegate
