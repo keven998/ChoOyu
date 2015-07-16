@@ -18,7 +18,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"城市简介";
     self.view.backgroundColor = [UIColor whiteColor];
     
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithIcon:@"ic_back_trip_ios" highIcon:@"nav_back" target:self action:@selector(goBack)];

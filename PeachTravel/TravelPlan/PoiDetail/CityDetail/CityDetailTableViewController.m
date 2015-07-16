@@ -93,9 +93,14 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [_cityHeaderView.showShoppingBtn addTarget:self action:@selector(viewShopping:) forControlEvents:UIControlEventTouchUpInside];
     [_cityHeaderView.showTipsBtn addTarget:self action:@selector(play:) forControlEvents:UIControlEventTouchUpInside];
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(dealtap:)];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showCityDetail:)];
     
     [_cityHeaderView.cityDesc addGestureRecognizer:tap];
+    
+    UITapGestureRecognizer *tap1 = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showCityTravelMonth:)];
+    
+    [_cityHeaderView.travelMonth addGestureRecognizer:tap1];
+
     _tableView.tableHeaderView = _cityHeaderView;
     
    }
@@ -409,12 +414,22 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [MobClick event:@"event_create_new_trip_plan_city"];
 }
 
-- (void)dealtap:(UITapGestureRecognizer *)tap
+- (void)showCityDetail:(UITapGestureRecognizer *)tap
 {
     CityDescDetailViewController *cddVC = [[CityDescDetailViewController alloc]init];
     cddVC.des = self.poi.desc;
+    cddVC.title = @"城市简介";
     [self.navigationController pushViewController:cddVC animated:YES];
 }
+
+- (void)showCityTravelMonth:(UITapGestureRecognizer *)tap
+{
+    CityDescDetailViewController *cddVC = [[CityDescDetailViewController alloc]init];
+    cddVC.des = self.poi.desc;
+    cddVC.title = @"最佳季节";
+    [self.navigationController pushViewController:cddVC animated:YES];
+}
+
 
 @end
 
