@@ -952,7 +952,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 {
-    return 10.0;
+    return 5.0;
 }
 
 #pragma mark - updateSelectedPlanDelegate
