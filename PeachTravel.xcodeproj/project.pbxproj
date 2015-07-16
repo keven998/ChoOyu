@@ -1027,6 +1027,7 @@
 		D9F70CAD1B31523C00BDACA1 /* AccountDaoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F70CAC1B31523C00BDACA1 /* AccountDaoHelper.swift */; };
 		D9FCE7DE1B134B4B0039F896 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FCE7DD1B134B4B0039F896 /* ChatViewController.m */; };
 		D9FCE7E91B135C820039F896 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FCE7E81B135C820039F896 /* Reachability.m */; };
+		E6E362BD1B5755F300730C1B /* collection.png in Resources */ = {isa = PBXBuildFile; fileRef = E6E362BC1B5755F300730C1B /* collection.png */; };
 		E6E7251E1B5603750007273A /* MJArgument.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E7250C1B5603750007273A /* MJArgument.m */; };
 		E6E7251F1B5603750007273A /* MJIvar.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E7250F1B5603750007273A /* MJIvar.m */; };
 		E6E725201B5603750007273A /* MJMember.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E725111B5603750007273A /* MJMember.m */; };
@@ -2467,6 +2468,7 @@
 		D9FCE7E71B135C820039F896 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		D9FCE7E81B135C820039F896 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		E36073AEEC32FD100F0D0A9B /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		E6E362BC1B5755F300730C1B /* collection.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = collection.png; sourceTree = "<group>"; };
 		E6E7250B1B5603750007273A /* MJArgument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJArgument.h; sourceTree = "<group>"; };
 		E6E7250C1B5603750007273A /* MJArgument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJArgument.m; sourceTree = "<group>"; };
 		E6E7250D1B5603750007273A /* MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJExtension.h; sourceTree = "<group>"; };
@@ -5077,6 +5079,7 @@
 		D9A803651A80E737005AD701 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				E6E362BB1B5755E700730C1B /* 收藏 */,
 				C6631CE51B300C4E00BE4ADC /* 3x */,
 				D9B7BA451B171FB300891600 /* app_icon@2x.png */,
 				27FF1AD01B09932400643D77 /* 他的资料 */,
@@ -5997,6 +6000,14 @@
 			path = Reachability;
 			sourceTree = "<group>";
 		};
+		E6E362BB1B5755E700730C1B /* 收藏 */ = {
+			isa = PBXGroup;
+			children = (
+				E6E362BC1B5755F300730C1B /* collection.png */,
+			);
+			name = "收藏";
+			sourceTree = "<group>";
+		};
 		E6E7250A1B5603750007273A /* MJExtension */ = {
 			isa = PBXGroup;
 			children = (
@@ -6295,7 +6306,6 @@
 				D90A9B2E1B5627C400E9F37C /* Loading_Animation_final3@3x.png in Resources */,
 				27FF1AB81B06F1F000643D77 /* ic_here_selected@2x.png in Resources */,
 				279CAF6D1B13249300A52465 /* ic_group_placeholder@2x.png in Resources */,
-				D9722F2B1A82446900D8A8CC /* Loading_Animation_final11@2x.png in Resources */,
 				E6E725551B5603D30007273A /* UMSCommentDetailController.xib in Resources */,
 				D9A804D11A80E738005AD701 /* ic_app_introduction@2x.png in Resources */,
 				D9A805381A80E738005AD701 /* ic_city_tra_up@2x.png in Resources */,
@@ -6357,6 +6367,7 @@
 				27FF1ABC1B06F1F000643D77 /* ic_menu_navigationbar@2x.png in Resources */,
 				D9A804B11A80E738005AD701 /* remove_contact@2x.png in Resources */,
 				271C418B1B44D5CD007BF285 /* SpecialPoiCell.xib in Resources */,
+				E6E362BD1B5755F300730C1B /* collection.png in Resources */,
 				271C41951B455B6A007BF285 /* icon@3x.png in Resources */,
 				D917DAD11A8B4A320039720A /* ic_guide3_talk2@2x.png in Resources */,
 				D9A804E21A80E738005AD701 /* ic_gender_man@2x.png in Resources */,
@@ -6471,7 +6482,6 @@
 				D9871DB51B479BD600BFDFAF /* plan_bottom_hotel@3x.png in Resources */,
 				C64BB5871B326CA400D11D9D /* ic_home_avatar_unknown@3x.png in Resources */,
 				274DB40C1B3D20DA00E426DE /* messages_plus_picture_default@3x.png in Resources */,
-				E62EF40F1B54EEE20064B00C /* UMSocialSDKResourcesNew.bundle in Resources */,
 				D90A9B5C1B5627C400E9F37C /* Loading_Animation_final49@3x.png in Resources */,
 				D9EDC26B1B4E533500599C4B /* add_poi@3x.png in Resources */,
 				27FF1AED1B09DEA000643D77 /* ic_zuji_flag@2x.png in Resources */,
@@ -6512,7 +6522,6 @@
 				27F273D31B198F0F00AC1ABE /* Default-375w-667h@2x~iphone.png in Resources */,
 				D90A9B681B56716D00E9F37C /* search@3x.png in Resources */,
 				D917DAC21A8B49AF0039720A /* ic_guide2_2_select@2x.png in Resources */,
-				D9722F2A1A82446900D8A8CC /* Loading_Animation_final10@2x.png in Resources */,
 				E6E7255B1B5603D30007273A /* UMSnsAccountViewController.xib in Resources */,
 				D9722F3C1A83674C00D8A8CC /* ic_dot_line@2x.png in Resources */,
 				C6631D241B30245200BE4ADC /* tababr@3x.png in Resources */,
