@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D2134" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -21,7 +21,7 @@
                             <constraint firstAttribute="width" constant="187" id="Or8-QV-NGs"/>
                             <constraint firstAttribute="height" constant="20" id="zpp-Dy-zJW"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.19607843137254902" green="0.19607843137254902" blue="0.19607843137254902" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                         <variation key="default">
@@ -97,7 +97,7 @@
                             <constraint firstAttribute="width" constant="30" id="sOg-OH-wtE"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="8"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                         <variation key="default">
                             <mask key="constraints">
@@ -121,7 +121,7 @@
                             </constraint>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.58823529411764708" green="0.58823529411764708" blue="0.58823529411764708" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                         <variation key="default">
                             <mask key="constraints">
@@ -168,21 +168,35 @@
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 <constraints>
                     <constraint firstItem="uIO-Dk-bN0" firstAttribute="leading" secondItem="ILK-yd-WJS" secondAttribute="trailing" constant="26" id="A9q-I9-oIb"/>
-                    <constraint firstAttribute="centerY" secondItem="uIO-Dk-bN0" secondAttribute="centerY" id="Bog-Ne-xSh"/>
-                    <constraint firstItem="4vC-oL-EfH" firstAttribute="bottom" secondItem="ILK-yd-WJS" secondAttribute="bottom" id="LAx-A6-BTc"/>
+                    <constraint firstAttribute="centerY" secondItem="uIO-Dk-bN0" secondAttribute="centerY" id="Bog-Ne-xSh">
+                        <variation key="widthClass=compact" constant="6.5"/>
+                    </constraint>
+                    <constraint firstItem="4vC-oL-EfH" firstAttribute="bottom" secondItem="ILK-yd-WJS" secondAttribute="bottom" id="LAx-A6-BTc">
+                        <variation key="widthClass=compact" constant="-7"/>
+                    </constraint>
                     <constraint firstItem="uIO-Dk-bN0" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="32" id="PU3-bf-bWE"/>
                     <constraint firstAttribute="centerY" secondItem="ILK-yd-WJS" secondAttribute="centerY" id="Qol-U8-RNJ"/>
-                    <constraint firstItem="uIO-Dk-bN0" firstAttribute="leading" secondItem="ILK-yd-WJS" secondAttribute="trailing" constant="17" id="WvD-HQ-2WF"/>
-                    <constraint firstItem="ILK-yd-WJS" firstAttribute="leading" secondItem="exs-3z-xVe" secondAttribute="trailing" constant="9" id="aAx-N6-EgL"/>
+                    <constraint firstItem="uIO-Dk-bN0" firstAttribute="leading" secondItem="ILK-yd-WJS" secondAttribute="trailing" constant="17" id="WvD-HQ-2WF">
+                        <variation key="widthClass=compact" constant="11"/>
+                    </constraint>
+                    <constraint firstItem="ILK-yd-WJS" firstAttribute="leading" secondItem="exs-3z-xVe" secondAttribute="trailing" constant="9" id="aAx-N6-EgL">
+                        <variation key="widthClass=compact" constant="7"/>
+                    </constraint>
                     <constraint firstAttribute="centerY" secondItem="exs-3z-xVe" secondAttribute="centerY" id="eZ0-9R-eye"/>
                     <constraint firstAttribute="trailing" secondItem="tnM-4F-Ut8" secondAttribute="trailing" constant="17" id="gV9-l2-cPC">
                         <variation key="widthClass=compact" constant="5"/>
                     </constraint>
                     <constraint firstAttribute="centerY" secondItem="tnM-4F-Ut8" secondAttribute="centerY" id="kYL-Y5-LXL"/>
-                    <constraint firstItem="exs-3z-xVe" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="mfC-6n-MGr"/>
-                    <constraint firstAttribute="trailing" secondItem="uIO-Dk-bN0" secondAttribute="trailing" constant="38" id="mo6-mf-rSu"/>
+                    <constraint firstItem="exs-3z-xVe" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="mfC-6n-MGr">
+                        <variation key="widthClass=compact" constant="15"/>
+                    </constraint>
+                    <constraint firstAttribute="trailing" secondItem="uIO-Dk-bN0" secondAttribute="trailing" constant="38" id="mo6-mf-rSu">
+                        <variation key="widthClass=compact" constant="39"/>
+                    </constraint>
                     <constraint firstItem="exs-3z-xVe" firstAttribute="centerX" secondItem="De8-VC-AtU" secondAttribute="centerX" id="pvo-3o-o6s"/>
-                    <constraint firstItem="4vC-oL-EfH" firstAttribute="leading" secondItem="uIO-Dk-bN0" secondAttribute="leading" id="sbA-fT-cYY"/>
+                    <constraint firstItem="4vC-oL-EfH" firstAttribute="leading" secondItem="uIO-Dk-bN0" secondAttribute="leading" id="sbA-fT-cYY">
+                        <variation key="widthClass=compact" constant="0.0"/>
+                    </constraint>
                     <constraint firstAttribute="centerY" secondItem="De8-VC-AtU" secondAttribute="centerY" id="sc3-pN-80e">
                         <variation key="widthClass=compact" constant="4"/>
                     </constraint>
@@ -197,19 +211,19 @@
                         <exclude reference="tnM-4F-Ut8"/>
                     </mask>
                     <mask key="constraints">
+                        <exclude reference="LAx-A6-BTc"/>
+                        <exclude reference="sbA-fT-cYY"/>
+                        <exclude reference="sc3-pN-80e"/>
                         <exclude reference="eZ0-9R-eye"/>
                         <exclude reference="mfC-6n-MGr"/>
                         <exclude reference="pvo-3o-o6s"/>
-                        <exclude reference="sc3-pN-80e"/>
+                        <exclude reference="gV9-l2-cPC"/>
+                        <exclude reference="kYL-Y5-LXL"/>
                         <exclude reference="Qol-U8-RNJ"/>
                         <exclude reference="aAx-N6-EgL"/>
                         <exclude reference="Bog-Ne-xSh"/>
                         <exclude reference="WvD-HQ-2WF"/>
                         <exclude reference="mo6-mf-rSu"/>
-                        <exclude reference="LAx-A6-BTc"/>
-                        <exclude reference="sbA-fT-cYY"/>
-                        <exclude reference="gV9-l2-cPC"/>
-                        <exclude reference="kYL-Y5-LXL"/>
                     </mask>
                 </variation>
                 <variation key="widthClass=compact">
@@ -220,10 +234,14 @@
                         <include reference="tnM-4F-Ut8"/>
                     </mask>
                     <mask key="constraints">
+                        <include reference="LAx-A6-BTc"/>
+                        <include reference="sbA-fT-cYY"/>
+                        <include reference="sc3-pN-80e"/>
                         <include reference="eZ0-9R-eye"/>
                         <include reference="mfC-6n-MGr"/>
                         <include reference="pvo-3o-o6s"/>
-                        <include reference="sc3-pN-80e"/>
+                        <include reference="gV9-l2-cPC"/>
+                        <include reference="kYL-Y5-LXL"/>
                         <include reference="Qol-U8-RNJ"/>
                         <include reference="aAx-N6-EgL"/>
                         <exclude reference="tTt-1k-O1N"/>
@@ -233,10 +251,6 @@
                         <exclude reference="PU3-bf-bWE"/>
                         <include reference="WvD-HQ-2WF"/>
                         <include reference="mo6-mf-rSu"/>
-                        <include reference="LAx-A6-BTc"/>
-                        <include reference="sbA-fT-cYY"/>
-                        <include reference="gV9-l2-cPC"/>
-                        <include reference="kYL-Y5-LXL"/>
                     </mask>
                 </variation>
             </tableViewCellContentView>

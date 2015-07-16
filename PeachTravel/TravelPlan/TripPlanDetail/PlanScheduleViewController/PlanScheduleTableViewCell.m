@@ -49,7 +49,7 @@
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
     style.lineSpacing = 3.0;
     
-    CGSize labelSize = [content boundingRectWithSize:CGSizeMake(kWindowWidth-100-24, MAXFLOAT)
+    CGSize labelSize = [content boundingRectWithSize:CGSizeMake(kWindowWidth-72, MAXFLOAT)
                                              options:NSStringDrawingUsesLineFragmentOrigin
                                           attributes:@{
                                                        NSFontAttributeName : [UIFont systemFontOfSize:13.0],
@@ -57,7 +57,6 @@
                                                        }
                                              context:nil].size;
     return labelSize.height+55;
-    
 }
 
 @end

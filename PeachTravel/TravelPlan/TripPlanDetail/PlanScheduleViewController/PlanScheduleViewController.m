@@ -73,12 +73,12 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 0.5;
+    return CGFLOAT_MIN;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 0.5;
+    return CGFLOAT_MIN;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
