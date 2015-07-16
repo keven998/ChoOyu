@@ -22,7 +22,7 @@
     _descLabel.font = [UIFont boldSystemFontOfSize:13.0];
     _sendBtn.layer.cornerRadius = 2.0;
     _sendBtn.backgroundColor = APP_THEME_COLOR;
-    _playedImage = [[UIImageView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 36 - 410/3, 144/3, 420/3, 396/3)];
+    _playedImage = [[UIImageView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 38 - 410/3, 144/3, 420/3, 396/3)];
     _playedImage.contentMode = UIViewContentModeScaleAspectFill;
     _playedImage.image = [UIImage imageNamed:@"plan_bg_page_qian"];
     [_headerImageView addSubview:_playedImage];

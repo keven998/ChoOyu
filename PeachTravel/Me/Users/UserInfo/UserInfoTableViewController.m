@@ -145,14 +145,20 @@
     if (!_footerView) {
         _footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 72)];
         
-        UIButton *footerBtn = [[UIButton alloc]initWithFrame:CGRectMake(12.0, 8, self.view.bounds.size.width - 24.0, 54 * SCREEN_HEIGHT/736)];
-        [footerBtn setBackgroundImage:[[UIImage imageNamed:@"chat_drawer_leave.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(8, 8, 8, 8)] forState:UIControlStateNormal];
-        footerBtn.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        [footerBtn setTitle:@"退出登录" forState:UIControlStateNormal];
-        [footerBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        footerBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14];
-        [footerBtn addTarget:self action:@selector(logout:) forControlEvents:UIControlEventTouchUpInside];
-        [_footerView addSubview:footerBtn];
+        UIButton *logoutBtn = [[UIButton alloc] initWithFrame:CGRectMake(12.0, 20.0, self.view.bounds.size.width - 24.0, 35.0)];
+        logoutBtn.center = _footerView.center;
+        logoutBtn.layer.cornerRadius = 4.0;
+        logoutBtn.clipsToBounds = YES;
+        [logoutBtn setBackgroundImage:[[UIImage imageNamed:@"chat_drawer_leave.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(8, 8, 8, 8)] forState:UIControlStateNormal];
+
+        logoutBtn.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        [logoutBtn setTitle:@"退出登录" forState:UIControlStateNormal];
+        logoutBtn.titleLabel.font = [UIFont systemFontOfSize:15.0];
+        [logoutBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        logoutBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+        [logoutBtn addTarget:self action:@selector(logout:) forControlEvents:UIControlEventTouchUpInside];
+        [_footerView addSubview:logoutBtn];
+
     }
     return _footerView;
 }
