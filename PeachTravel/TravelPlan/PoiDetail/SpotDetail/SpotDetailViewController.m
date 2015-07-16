@@ -79,7 +79,7 @@
             cell.infomationLabel.text = self.poi.address;
             cell.image.image = [UIImage imageNamed:@"poi_icon_add"];
         } else if (indexPath.row == 1) {
-            cell.categoryLabel.text = @"时间";
+            cell.categoryLabel.text = @"开放";
             cell.infomationLabel.text = ((SpotPoi *)self.poi).openTime;
             cell.image.image = [UIImage imageNamed:@"icon_arrow"];
         } else if (indexPath.row == 2) {
