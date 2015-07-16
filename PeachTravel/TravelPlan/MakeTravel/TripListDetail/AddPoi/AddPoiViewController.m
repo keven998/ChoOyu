@@ -777,10 +777,10 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     NSArray *oneDayArray = [self.tripDetail.itineraryList objectAtIndex:_currentDayIndex];
     SuperPoi *tripPoi = [oneDayArray objectAtIndex:indexPath.row];
     NSString *txt = [NSString stringWithFormat:@"%ld %@", (indexPath.row + 1), tripPoi.zhName];
-    cell.textView.text = txt;
-    cell.textView.textColor = [UIColor whiteColor];
-    CGSize size = [txt sizeWithAttributes:@{NSFontAttributeName : cell.textView.font}];
-    cell.textView.frame = CGRectMake(0, 0, size.width, 49);
+    cell.textLabel.text = txt;
+    cell.textLabel.textColor = [UIColor whiteColor];
+    CGSize size = [txt sizeWithAttributes:@{NSFontAttributeName : cell.textLabel.font}];
+    cell.textLabel.frame = CGRectMake(0, 0, size.width, 49);
     return cell;
 }
 

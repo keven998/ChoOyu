@@ -190,7 +190,6 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     UICollectionViewFlowLayout *aFlowLayout = [[UICollectionViewFlowLayout alloc] init];
     [aFlowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
     self.selectPanel = [[UICollectionView alloc] initWithFrame:collectionViewFrame collectionViewLayout:aFlowLayout];
-    [self.selectPanel setBackgroundColor:[UIColor clearColor]];
     self.selectPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.selectPanel.showsHorizontalScrollIndicator = NO;
     self.selectPanel.showsVerticalScrollIndicator = NO;
@@ -199,12 +198,12 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     self.selectPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     self.selectPanel.contentInset = UIEdgeInsetsMake(0, 15, 0, 15);
     [self.selectPanel registerClass:[SelectDestCell class] forCellWithReuseIdentifier:@"sdest_cell"];
-    UIImageView *backImg = [[UIImageView alloc]initWithFrame:self.selectPanel.frame];
-    backImg.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-    backImg.image = [UIImage imageNamed:@"collectionBack"];
-    [self.view addSubview:backImg];
-    
+    self.selectPanel.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_selectPanel];
+    
+    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 50, self.selectPanel.frame.size.width, 1)];
+    spaceView.backgroundColor = COLOR_LINE;
+    [self.view addSubview:spaceView];
 }
 
 #pragma mark - setter & getter
@@ -496,6 +495,31 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     cell.actionBtn.selected = !cell.actionBtn.selected;
 }
 
+- (void)deletePoi:(UIButton *)sender
+{
+    SuperPoi *poi = [_seletedArray objectAtIndex:sender.tag];
+    int index = -1;
+    NSInteger count = _seletedArray.count;
+    for (int i = 0; i < count; ++i) {
+        SuperPoi *tripPoi = [_seletedArray objectAtIndex:i];
+        if ([tripPoi.poiId isEqualToString:poi.poiId]) {
+            [_seletedArray removeObjectAtIndex:i];
+            index = i;
+            break;
+        }
+    }
+    
+    if (index != -1) {
+        NSIndexPath *lnp = [NSIndexPath indexPathForItem:index inSection:0];
+        [self.selectPanel performBatchUpdates:^{
+            [self.selectPanel deleteItemsAtIndexPaths:[NSArray arrayWithObject:lnp]];
+        } completion:^(BOOL finished) {
+            [self.selectPanel reloadData];
+        }];
+        [self.tableView reloadData];
+    }
+}
+
 - (IBAction)finishAdd:(id)sender
 {
     [_backTripDetail saveTrip:^(BOOL isSuccesss) {
@@ -511,7 +535,6 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
         }
     }];
 }
-
 
 /**
  *  点击搜索按钮开始搜索
@@ -532,7 +555,6 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     [self presentViewController:tznavc animated:YES completion:^{
         
     }];
-    
 }
 
 - (IBAction)jumpToMapView:(UIButton *)sender
@@ -890,11 +912,14 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     SelectDestCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"sdest_cell" forIndexPath:indexPath];
     SuperPoi *tripPoi = [_seletedArray objectAtIndex:indexPath.row];
     
-    NSString *txt = [NSString stringWithFormat:@"%ld %@", (indexPath.row + 1), tripPoi.zhName];
-    cell.textView.text = txt;
-    CGSize size = [txt sizeWithAttributes:@{NSFontAttributeName : cell.textView.font}];
-    cell.textView.frame = CGRectMake(0, 0, size.width, 49);
-    cell.textView.textColor = [UIColor whiteColor];
+    NSString *txt = [NSString stringWithFormat:@" %ld %@ ", (indexPath.row + 1), tripPoi.zhName];
+    cell.textLabel.text = txt;
+    CGSize size = [txt sizeWithAttributes:@{NSFontAttributeName : cell.textLabel.font}];
+    cell.textLabel.frame = CGRectMake(0, 15, size.width, 25);
+    cell.deleteBtn.frame = CGRectMake(size.width-13, 5, 20, 20);
+    cell.deleteBtn.tag = indexPath.row;
+    [cell.deleteBtn removeTarget:self action:@selector(deletePoi:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.deleteBtn addTarget:self action:@selector(deletePoi:) forControlEvents:UIControlEventTouchUpInside];
     return cell;
 }
 
@@ -920,14 +945,14 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     SuperPoi *tripPoi = [_seletedArray objectAtIndex:indexPath.row];
-    NSString *txt = [NSString stringWithFormat:@"%ld %@", (long)(indexPath.row + 1), tripPoi.zhName];
+    NSString *txt = [NSString stringWithFormat:@" %ld %@ ", (long)(indexPath.row + 1), tripPoi.zhName];
     CGSize size = [txt sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17]}];
     return CGSizeMake(size.width, 49);
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 {
-    return 15.0;
+    return 10.0;
 }
 
 #pragma mark - updateSelectedPlanDelegate
@@ -968,16 +993,21 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
 
 @implementation SelectDestCell
 
-@synthesize textView;
-
 - (id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        textView = [[UILabel alloc] init];
-        textView.font = [UIFont systemFontOfSize:17];
-        textView.textColor = [UIColor blueColor];
-        textView.textAlignment = NSTextAlignmentCenter;
-        textView.numberOfLines = 1;
-        [self.contentView addSubview:textView];
+        _textLabel = [[UILabel alloc] init];
+        _textLabel.font = [UIFont systemFontOfSize:14];
+        _textLabel.textColor = COLOR_TEXT_II;
+        _textLabel.textAlignment = NSTextAlignmentCenter;
+        _textLabel.numberOfLines = 1;
+        _textLabel.layer.borderColor = COLOR_LINE.CGColor;
+        _textLabel.layer.borderWidth = 1.0;
+        _textLabel.layer.cornerRadius = 2.0;
+        _textLabel.clipsToBounds = YES;
+        [self.contentView addSubview:_textLabel];
+        _deleteBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+        [_deleteBtn setImage:[UIImage imageNamed:@"delete_album.png"] forState:UIControlStateNormal];
+        [self.contentView addSubview:_deleteBtn];
     }
     return self;
 }

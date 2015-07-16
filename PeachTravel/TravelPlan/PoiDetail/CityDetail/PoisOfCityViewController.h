@@ -39,6 +39,7 @@
 
 @interface SelectDestCell : UICollectionViewCell
 
-@property (nonatomic, strong) UILabel *textView;
+@property (nonatomic, strong) UILabel *textLabel;
+@property (nonatomic, strong) UIButton *deleteBtn;
 
 @end
