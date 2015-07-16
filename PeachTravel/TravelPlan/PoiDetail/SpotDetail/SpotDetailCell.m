@@ -16,6 +16,11 @@
     self.categoryLabel.textColor = COLOR_TEXT_III;
     self.infomationLabel.font = [UIFont systemFontOfSize:16];
     self.infomationLabel.textColor = COLOR_TEXT_I;
+    
+    UIView *divider = [[UIView alloc] initWithFrame:CGRectMake(18, 67 * SCREEN_HEIGHT/736 - 0.5, CGRectGetWidth(self.bounds) - 18, 0.5)];
+    divider.backgroundColor = COLOR_LINE;
+    divider.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    [self.contentView addSubview:divider];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
