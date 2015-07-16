@@ -130,8 +130,8 @@
             [super jumpToMap];
         } else if (indexPath.row > 0 && indexPath.row < 3) {
             [self showPoidetail:nil];
-        } else if (indexPath.row == 4) {
-            
+        } else if (indexPath.row == 3) {
+            [super makePhone];
         }
     }
     
