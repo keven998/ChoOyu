@@ -674,13 +674,13 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
         if (section == 0) {
             return 100;
         }
-        return 0.5;
+        return CGFLOAT_MIN;
     }
-    return 0.5;
+    return CGFLOAT_MIN;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 0.5;
+    return CGFLOAT_MIN;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
