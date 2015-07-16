@@ -112,13 +112,14 @@
 - (void)changeTitle:(UIButton *)sender
 {
     BaseTextSettingViewController *bsvc = [[BaseTextSettingViewController alloc] init];
-    bsvc.navTitle = @"修改标题";
+    bsvc.navTitle = @"计划标题";
     bsvc.content = _tripDetail.tripTitle;
     bsvc.acceptEmptyContent = NO;
     bsvc.saveEdition = ^(NSString *editText, saveComplteBlock(completed)) {
         [self editGuideTitle:_tripDetail.tripTitle andTitle:editText success:completed];
     };
-    [self.navigationController pushViewController:bsvc animated:YES];
+    UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:bsvc];
+    [self presentViewController:navi animated:YES completion:nil];
 }
 
 
@@ -261,7 +262,6 @@
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             [self changeTitle:nil];
-        
         } else if (indexPath.row == 1) {
             ScheduleEditorViewController *sevc = [[ScheduleEditorViewController alloc] init];
             ScheduleDayEditViewController *menuCtl = [[ScheduleDayEditViewController alloc] init];
