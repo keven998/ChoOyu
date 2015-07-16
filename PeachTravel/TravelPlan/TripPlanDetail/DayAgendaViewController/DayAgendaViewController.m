@@ -97,7 +97,7 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 66;
+    return 70;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

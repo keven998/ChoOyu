@@ -35,13 +35,6 @@
 @property (nonatomic, assign) BOOL didEndScrollNormal;
 @property (nonatomic, assign) BOOL enableLoadMoreNormal;
 
-//管理搜索 tableview 的加载状态
-@property (nonatomic) NSUInteger currentPageSearch;
-@property (nonatomic, assign) BOOL isLoadingMoreSearch;
-@property (nonatomic, assign) BOOL didEndScrollSearch;
-@property (nonatomic, assign) BOOL enableLoadMoreSearch;
-
-
 @property (nonatomic, copy) NSString *searchText;
 @property (nonatomic, strong) TZProgressHUD *hud;
 @property (nonatomic, strong) UIButton *filterBtn;
@@ -119,12 +112,6 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
         self.navigationItem.title = @"购物攻略";
     }
     
-    NSString *searchPlaceHolder;
-    if (_poiType == kRestaurantPoi) {
-        searchPlaceHolder = @"输入美食";
-    } else if (_poiType == kShoppingPoi) {
-        searchPlaceHolder = @"输入购物";
-    }
     _currentPageNormal = 0;
     
     _hud = [[TZProgressHUD alloc] init];
@@ -620,17 +607,6 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     _didEndScrollNormal = YES;
 }
 
-/**
- *  搜索状态下加载完成
- */
-- (void) loadMoreCompletedSearch
-{
-    if (!_isLoadingMoreSearch) return;
-    [_indicatroView stopAnimating];
-    _isLoadingMoreSearch = NO;
-    _didEndScrollSearch = YES;
-}
-
 #pragma mark - TZFilterViewDelegate
 -(void)didSelectedItems:(NSArray *)itemIndexPath
 {
@@ -673,7 +649,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 66;
+    return 70;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -785,15 +761,6 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
         shoppingDetailCtl.poiId = poi.poiId;
         [self.navigationController pushViewController:shoppingDetailCtl animated:YES];
     }
-}
-
-#pragma mark - SearchBarDelegate
-
-- (void)searchDisplayController:(UISearchDisplayController *)controller willShowSearchResultsTableView:(UITableView *)tableView
-{
-    _isLoadingMoreSearch = YES;
-    _didEndScrollSearch = YES;
-    _enableLoadMoreSearch = NO;
 }
 
 #pragma mark - UIScrollViewDelegate
