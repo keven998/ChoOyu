@@ -43,12 +43,14 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     
     NSMutableArray *barItems = [[NSMutableArray alloc] init];
     UIButton *planBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 32, 44)];
-    [planBtn setImage:[UIImage imageNamed:@"ic_add_city.png"] forState:UIControlStateNormal];
+    [planBtn setImage:[UIImage imageNamed:@"city_navigationbar_add_default.png"] forState:UIControlStateNormal];
+    [planBtn setImage:[UIImage imageNamed:@"city_navigationbar_add_hilighted.png"] forState:UIControlStateHighlighted];
     planBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     [planBtn addTarget:self action:@selector(makePlan) forControlEvents:UIControlEventTouchUpInside];
     [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:planBtn]];
     UIButton *talkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 42, 44)];
-    [talkBtn setImage:[UIImage imageNamed:@"ic_ztl_lt"] forState:UIControlStateNormal];
+    [talkBtn setImage:[UIImage imageNamed:@"navigationbar_chat_default.png"] forState:UIControlStateNormal];
+    [talkBtn setImage:[UIImage imageNamed:@"navigationbar_chat_hilighted.png"] forState:UIControlStateHighlighted];
     [talkBtn addTarget:self action:@selector(shareToTalk) forControlEvents:UIControlEventTouchUpInside];
     talkBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:talkBtn]];
