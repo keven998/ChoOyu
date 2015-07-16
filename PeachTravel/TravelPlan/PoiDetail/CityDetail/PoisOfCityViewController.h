@@ -28,7 +28,10 @@
 @property (nonatomic, strong) TripDetail *tripDetail;
 @property (nonatomic) TZPoiType poiType;
 
-
+/**
+ *  标识这个界面加载的数据
+ */
+@property (nonatomic, assign)NSInteger page;
 
 @property (nonatomic, weak) id <PoisOfCityDelegate>delegate;
 

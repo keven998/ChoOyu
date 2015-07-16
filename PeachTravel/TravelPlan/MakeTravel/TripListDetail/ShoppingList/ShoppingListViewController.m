@@ -115,7 +115,7 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
 
 #pragma makr - IBAction Methods
 
-- (IBAction)addWantTo:(id)sender
+- (void)addWantTo:(NSInteger)page
 {
     [MobClick event:@"event_add_shopping_schedule"];
     PoisOfCityViewController *shoppingOfCityCtl = [[PoisOfCityViewController alloc] init];
@@ -123,6 +123,7 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
     shoppingOfCityCtl.delegate = self;
     shoppingOfCityCtl.poiType = kShoppingPoi;
     shoppingOfCityCtl.shouldEdit = YES;
+    shoppingOfCityCtl.page = page;
     TZNavigationViewController *nctl = [[TZNavigationViewController alloc] initWithRootViewController:shoppingOfCityCtl];
     [self presentViewController:nctl animated:YES completion:nil];
 }
@@ -223,30 +224,36 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
 {
     // 1.创建一个容器对象Button
     UIButton * containBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    containBtn.backgroundColor = APP_THEME_COLOR;
+    containBtn.backgroundColor = [UIColor whiteColor];
     [containBtn addTarget:self action:@selector(mergeTable:) forControlEvents:UIControlEventTouchDown];
     containBtn.tag = section;
     
     // 2.创建Button上面的视图
+    NSArray * dataSource = [self revertShoppingListToGroup:_tripDetail.shoppingList];
+    NSArray * shoppingArray = dataSource[section];
     UILabel * label = [[UILabel alloc] init];
     label.frame = CGRectMake(18, 20, 100, 40);
     CityDestinationPoi * poi = self.tripDetail.destinations[section];
-    label.text = poi.zhName;
+    NSString * title = [NSString stringWithFormat:@"%@ (%ld)",poi.zhName,shoppingArray.count];
+    label.text = title;
     [containBtn addSubview:label];
     
     // 3.创建收藏Button
     UIButton * collection = [UIButton buttonWithType:UIButtonTypeCustom];
+    collection.tag = section;
     CGFloat collectionW = 80;
-    collection.frame = CGRectMake(SCREEN_WIDTH - 30 - collectionW, 20, collectionW, 30);
+    collection.frame = CGRectMake(SCREEN_WIDTH - 30 - collectionW, 22, collectionW, 30);
     [collection setTitle:@"收藏" forState:UIControlStateNormal];
-    [collection setTitleColor:APP_SUB_THEME_COLOR forState:UIControlStateNormal];
+    [collection setTitleColor:[UIColor colorWithRed:150 / 256.0 green:150 / 256.0 blue:150 / 256.0 alpha:1.0] forState:UIControlStateNormal];
     [collection addTarget:self action:@selector(collectionShop:) forControlEvents:UIControlEventTouchUpInside];
     [collection setBackgroundImage:[UIImage imageNamed:@"collection"] forState:UIControlStateNormal];
     [containBtn addSubview:collection];
     
     // 4.创建头部的横条
-//    UIButton * banner = [[UIButton alloc] init];
-    
+    UIButton * banner = [UIButton buttonWithType:UIButtonTypeCustom];
+    banner.backgroundColor = APP_THEME_COLOR;
+    banner.frame = CGRectMake(0, 0, SCREEN_WIDTH, 2);
+    [containBtn addSubview:banner];
     
     return containBtn;
 }
@@ -254,7 +261,7 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
 // 监听收藏按钮的点击事件
 - (void)collectionShop:(UIButton *)collection
 {
-    [self addWantTo:nil];
+    [self addWantTo:collection.tag];
 }
 
 // 合并表格
@@ -280,17 +287,13 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
 
 
 #pragma mark - UITableViewDataSource & Delegate
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    return 66;
-//}
-
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 75;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 10;
+    return 20;
 }
 
 // 1.返回有多少组
