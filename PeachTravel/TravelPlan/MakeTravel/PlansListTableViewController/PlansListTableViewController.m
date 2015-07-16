@@ -80,14 +80,16 @@ static NSString *reusableCell = @"myGuidesCell";
         self.navigationItem.title = @"我的计划";
     }
     
-    UIButton *categoryBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
+    UIButton *categoryBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 20, 30)];
     [categoryBtn addTarget:self action:@selector(filtTrip) forControlEvents:UIControlEventTouchUpInside];
     [categoryBtn setImage:[UIImage imageNamed:@"plan_10_dashboard_sift"] forState:UIControlStateNormal];
+    categoryBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 2);
     
     if (_isOwner) {
-        UIButton *editBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
+        UIButton *editBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 20, 30)];
         [editBtn setImage:[UIImage imageNamed:@"plan_10_dashboard_add"] forState:UIControlStateNormal];
         [editBtn addTarget:self action:@selector(makePlan) forControlEvents:UIControlEventTouchUpInside];
+        editBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 4, 0, 0);
         UIBarButtonItem *cbtn = [[UIBarButtonItem alloc] initWithCustomView:editBtn];
         UIBarButtonItem *sbtn = [[UIBarButtonItem alloc] initWithCustomView:categoryBtn];
         self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:cbtn, sbtn, nil];
