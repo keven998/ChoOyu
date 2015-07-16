@@ -12,6 +12,8 @@
 
 @interface TripFavoriteTableViewController ()
 
+@property (nonatomic, strong)NSMutableDictionary * showDic;
+
 @end
 
 @implementation TripFavoriteTableViewController

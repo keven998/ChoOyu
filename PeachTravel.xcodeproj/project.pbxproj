@@ -1029,6 +1029,7 @@
 		D9F70CAD1B31523C00BDACA1 /* AccountDaoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F70CAC1B31523C00BDACA1 /* AccountDaoHelper.swift */; };
 		D9FCE7DE1B134B4B0039F896 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FCE7DD1B134B4B0039F896 /* ChatViewController.m */; };
 		D9FCE7E91B135C820039F896 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FCE7E81B135C820039F896 /* Reachability.m */; };
+		E6E362BD1B5755F300730C1B /* collection.png in Resources */ = {isa = PBXBuildFile; fileRef = E6E362BC1B5755F300730C1B /* collection.png */; };
 		E6E7251E1B5603750007273A /* MJArgument.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E7250C1B5603750007273A /* MJArgument.m */; };
 		E6E7251F1B5603750007273A /* MJIvar.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E7250F1B5603750007273A /* MJIvar.m */; };
 		E6E725201B5603750007273A /* MJMember.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E725111B5603750007273A /* MJMember.m */; };
@@ -2473,6 +2474,7 @@
 		D9FCE7E71B135C820039F896 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		D9FCE7E81B135C820039F896 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		E36073AEEC32FD100F0D0A9B /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		E6E362BC1B5755F300730C1B /* collection.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = collection.png; sourceTree = "<group>"; };
 		E6E7250B1B5603750007273A /* MJArgument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJArgument.h; sourceTree = "<group>"; };
 		E6E7250C1B5603750007273A /* MJArgument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJArgument.m; sourceTree = "<group>"; };
 		E6E7250D1B5603750007273A /* MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJExtension.h; sourceTree = "<group>"; };
@@ -5102,6 +5104,7 @@
 		D9A803651A80E737005AD701 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				E6E362BB1B5755E700730C1B /* 收藏 */,
 				C6631CE51B300C4E00BE4ADC /* 3x */,
 				D9B7BA451B171FB300891600 /* app_icon@2x.png */,
 				27FF1AD01B09932400643D77 /* 他的资料 */,
@@ -6015,6 +6018,14 @@
 			path = Reachability;
 			sourceTree = "<group>";
 		};
+		E6E362BB1B5755E700730C1B /* 收藏 */ = {
+			isa = PBXGroup;
+			children = (
+				E6E362BC1B5755F300730C1B /* collection.png */,
+			);
+			name = "收藏";
+			sourceTree = "<group>";
+		};
 		E6E7250A1B5603750007273A /* MJExtension */ = {
 			isa = PBXGroup;
 			children = (
@@ -6374,6 +6385,7 @@
 				27FF1ABC1B06F1F000643D77 /* ic_menu_navigationbar@2x.png in Resources */,
 				D9A804B11A80E738005AD701 /* remove_contact@2x.png in Resources */,
 				271C418B1B44D5CD007BF285 /* SpecialPoiCell.xib in Resources */,
+				E6E362BD1B5755F300730C1B /* collection.png in Resources */,
 				271C41951B455B6A007BF285 /* icon@3x.png in Resources */,
 				D917DAD11A8B4A320039720A /* ic_guide3_talk2@2x.png in Resources */,
 				D9A804E21A80E738005AD701 /* ic_gender_man@2x.png in Resources */,
