@@ -43,12 +43,14 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     
     NSMutableArray *barItems = [[NSMutableArray alloc] init];
     UIButton *planBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 32, 44)];
-    [planBtn setImage:[UIImage imageNamed:@"ic_add_city.png"] forState:UIControlStateNormal];
+    [planBtn setImage:[UIImage imageNamed:@"city_navigationbar_add_default.png"] forState:UIControlStateNormal];
+    [planBtn setImage:[UIImage imageNamed:@"city_navigationbar_add_hilighted.png"] forState:UIControlStateHighlighted];
     planBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     [planBtn addTarget:self action:@selector(makePlan) forControlEvents:UIControlEventTouchUpInside];
     [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:planBtn]];
     UIButton *talkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 42, 44)];
-    [talkBtn setImage:[UIImage imageNamed:@"ic_ztl_lt"] forState:UIControlStateNormal];
+    [talkBtn setImage:[UIImage imageNamed:@"navigationbar_chat_default.png"] forState:UIControlStateNormal];
+    [talkBtn setImage:[UIImage imageNamed:@"navigationbar_chat_hilighted.png"] forState:UIControlStateHighlighted];
     [talkBtn addTarget:self action:@selector(shareToTalk) forControlEvents:UIControlEventTouchUpInside];
     talkBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:talkBtn]];
@@ -91,9 +93,14 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [_cityHeaderView.showShoppingBtn addTarget:self action:@selector(viewShopping:) forControlEvents:UIControlEventTouchUpInside];
     [_cityHeaderView.showTipsBtn addTarget:self action:@selector(play:) forControlEvents:UIControlEventTouchUpInside];
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(dealtap:)];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showCityDetail:)];
     
     [_cityHeaderView.cityDesc addGestureRecognizer:tap];
+    
+    UITapGestureRecognizer *tap1 = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showCityTravelMonth:)];
+    
+    [_cityHeaderView.travelMonth addGestureRecognizer:tap1];
+
     _tableView.tableHeaderView = _cityHeaderView;
     
    }
@@ -407,12 +414,22 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [MobClick event:@"event_create_new_trip_plan_city"];
 }
 
-- (void)dealtap:(UITapGestureRecognizer *)tap
+- (void)showCityDetail:(UITapGestureRecognizer *)tap
 {
     CityDescDetailViewController *cddVC = [[CityDescDetailViewController alloc]init];
     cddVC.des = self.poi.desc;
+    cddVC.title = @"城市简介";
     [self.navigationController pushViewController:cddVC animated:YES];
 }
+
+- (void)showCityTravelMonth:(UITapGestureRecognizer *)tap
+{
+    CityDescDetailViewController *cddVC = [[CityDescDetailViewController alloc]init];
+    cddVC.des = self.poi.desc;
+    cddVC.title = @"最佳季节";
+    [self.navigationController pushViewController:cddVC animated:YES];
+}
+
 
 @end
 

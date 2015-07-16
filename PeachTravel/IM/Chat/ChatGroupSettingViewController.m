@@ -153,6 +153,10 @@
         
         UIView *wp = [[UIView alloc] initWithFrame:CGRectMake(0, 48, width, 47)];
         wp.backgroundColor = [UIColor whiteColor];
+        wp.layer.shadowColor = [UIColor blackColor].CGColor;
+        wp.layer.shadowOffset = CGSizeMake(0.5, 0.5);
+        wp.layer.shadowOpacity = 0.3;
+        wp.layer.shadowRadius = 1.0;
         [sectionHeaderView addSubview:wp];
         
         UIButton *inviteBtn = [[UIButton alloc] initWithFrame:CGRectMake(13, 58, 48, 26)];
@@ -177,10 +181,6 @@
         editBtn.layer.borderWidth = 1.0;
         [editBtn addTarget:self action:@selector(editGroup:) forControlEvents:UIControlEventTouchUpInside];
         [sectionHeaderView addSubview:editBtn];
-        
-        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 46, width, 0.6)];
-        line.backgroundColor = COLOR_LINE;
-        [wp addSubview:line];
     }
     return sectionHeaderView;
 }

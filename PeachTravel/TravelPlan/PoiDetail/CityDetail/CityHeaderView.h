@@ -16,6 +16,7 @@
 @property (nonatomic, strong) UIButton *showRestaurantsBtn;
 @property (nonatomic, strong) UIButton *showShoppingBtn;
 @property (nonatomic, strong) UILabel *cityDesc;
+@property (nonatomic, strong) UILabel *travelMonth;
 
 @property (nonatomic, strong) CityPoi *cityPoi;
 
