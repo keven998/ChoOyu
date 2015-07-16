@@ -222,6 +222,7 @@ static NSString *reusableCell = @"myGuidesCell";
     makePlanCtl.animationOptions = UIViewAnimationOptionTransitionNone;
     makePlanCtl.duration = 0;
     makePlanCtl.segmentedTitles = @[@"国内", @"国外"];
+    makePlanCtl.navBarTitle = @"199国21城";
     makePlanCtl.selectedColor = APP_THEME_COLOR;
     makePlanCtl.segmentedTitleFont = [UIFont systemFontOfSize:18.0];
     makePlanCtl.normalColor= [UIColor grayColor];

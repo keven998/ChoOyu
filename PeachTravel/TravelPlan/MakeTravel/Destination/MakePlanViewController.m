@@ -263,6 +263,7 @@
 {
     [self.searchResultArray removeAllObjects];
     for (id dic in [json objectForKey:@"locality"]) {
+        NSLog(@"%@",dic);
         CityDestinationPoi *poi = [[CityDestinationPoi alloc] initWithJson:dic];
         [self.searchResultArray addObject:poi];
     }
