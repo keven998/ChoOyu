@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -20,12 +20,12 @@
                             <constraint firstAttribute="width" constant="40" id="8mc-4T-8tp"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="小明" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eVz-vf-1hF">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eVz-vf-1hF">
                         <rect key="frame" x="60" y="3" width="156" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="ZWp-9i-z4d"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -54,7 +54,7 @@
                     <constraint firstItem="b7G-qZ-yTy" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="7" id="0iq-wd-yLG"/>
                     <constraint firstItem="9Bg-0R-Tpt" firstAttribute="top" secondItem="eVz-vf-1hF" secondAttribute="bottom" constant="3" id="5vH-sa-0s5"/>
                     <constraint firstItem="eVz-vf-1hF" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="3" id="6Y9-ai-vYd"/>
-                    <constraint firstAttribute="bottom" secondItem="b7G-qZ-yTy" secondAttribute="bottom" constant="5" id="Bod-OR-0sb"/>
+                    <constraint firstAttribute="bottom" secondItem="b7G-qZ-yTy" secondAttribute="bottom" constant="4" id="Bod-OR-0sb"/>
                     <constraint firstItem="AKY-pa-LVy" firstAttribute="leading" secondItem="9Bg-0R-Tpt" secondAttribute="trailing" constant="-3" id="Hv3-HP-wbY"/>
                     <constraint firstItem="9Bg-0R-Tpt" firstAttribute="leading" secondItem="b7G-qZ-yTy" secondAttribute="trailing" constant="13" id="IPH-of-rk7"/>
                     <constraint firstItem="AKY-pa-LVy" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="XY1-Yb-gm9"/>

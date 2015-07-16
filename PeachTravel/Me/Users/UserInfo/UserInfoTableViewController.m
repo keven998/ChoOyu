@@ -143,13 +143,14 @@
 - (UIView *)footerView
 {
     if (!_footerView) {
-        _footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 55.0)];
+        _footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 72)];
         
         UIButton *logoutBtn = [[UIButton alloc] initWithFrame:CGRectMake(12.0, 20.0, self.view.bounds.size.width - 24.0, 35.0)];
         logoutBtn.center = _footerView.center;
         logoutBtn.layer.cornerRadius = 4.0;
         logoutBtn.clipsToBounds = YES;
-        [logoutBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
+        [logoutBtn setBackgroundImage:[[UIImage imageNamed:@"chat_drawer_leave.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(8, 8, 8, 8)] forState:UIControlStateNormal];
+
         logoutBtn.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [logoutBtn setTitle:@"退出登录" forState:UIControlStateNormal];
         logoutBtn.titleLabel.font = [UIFont systemFontOfSize:15.0];
@@ -157,6 +158,7 @@
         logoutBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
         [logoutBtn addTarget:self action:@selector(logout:) forControlEvents:UIControlEventTouchUpInside];
         [_footerView addSubview:logoutBtn];
+
     }
     return _footerView;
 }
@@ -173,16 +175,10 @@
 
 - (void)loadUserInfo
 {
-    //    [self.accountManager.account loadUserInfoFromServer:^(bool isSuccess) {
-    //        if (isSuccess) {
-    
     [self updateTracksDesc];
     [self updateDestinations];
-    
-    
-    //        }
-    //    }];
 }
+
 - (void) setupTableHeaderView {
     CGFloat width = SCREEN_WIDTH;
     CGFloat height = SCREEN_HEIGHT;

@@ -37,10 +37,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"添加好友";
+    self.navigationItem.title = @"添加朋友";
     
-    UIBarButtonItem *leftBtn = [[UIBarButtonItem alloc]initWithTitle:@" 取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
-    self.navigationItem.leftBarButtonItem = leftBtn;
+//    UIBarButtonItem *leftBtn = [[UIBarButtonItem alloc]initWithTitle:@" 取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
+//    self.navigationItem.leftBarButtonItem = leftBtn;
     
     [self.searchTableViewController.searchResultsTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:searchCell];
     [_searchBar setBackgroundColor:APP_THEME_COLOR];
