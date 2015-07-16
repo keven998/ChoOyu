@@ -121,7 +121,9 @@
                         <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="12" id="FvO-wj-3oP"/>
-                            <constraint firstAttribute="width" constant="199" id="WF0-nR-ikn"/>
+                            <constraint firstAttribute="width" constant="199" id="WF0-nR-ikn">
+                                <variation key="widthClass=compact" constant="140"/>
+                            </constraint>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -143,9 +145,11 @@
                         <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="4j6-qr-kBT">
-                                <variation key="widthClass=compact" constant="30"/>
+                                <variation key="widthClass=compact" constant="20"/>
                             </constraint>
-                            <constraint firstAttribute="width" constant="69" id="dex-5y-YzS"/>
+                            <constraint firstAttribute="width" constant="69" id="dex-5y-YzS">
+                                <variation key="widthClass=compact" constant="50"/>
+                            </constraint>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <state key="normal" title="添加" backgroundImage="sent_bg.png">
@@ -176,13 +180,15 @@
                     <constraint firstItem="uIO-Dk-bN0" firstAttribute="leading" secondItem="ILK-yd-WJS" secondAttribute="trailing" constant="17" id="WvD-HQ-2WF"/>
                     <constraint firstItem="ILK-yd-WJS" firstAttribute="leading" secondItem="exs-3z-xVe" secondAttribute="trailing" constant="9" id="aAx-N6-EgL"/>
                     <constraint firstAttribute="centerY" secondItem="exs-3z-xVe" secondAttribute="centerY" id="eZ0-9R-eye"/>
-                    <constraint firstAttribute="trailing" secondItem="tnM-4F-Ut8" secondAttribute="trailing" constant="17" id="gV9-l2-cPC"/>
+                    <constraint firstAttribute="trailing" secondItem="tnM-4F-Ut8" secondAttribute="trailing" constant="17" id="gV9-l2-cPC">
+                        <variation key="widthClass=compact" constant="5"/>
+                    </constraint>
                     <constraint firstAttribute="centerY" secondItem="tnM-4F-Ut8" secondAttribute="centerY" id="kYL-Y5-LXL"/>
                     <constraint firstItem="exs-3z-xVe" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="mfC-6n-MGr"/>
                     <constraint firstItem="exs-3z-xVe" firstAttribute="centerX" secondItem="De8-VC-AtU" secondAttribute="centerX" id="pvo-3o-o6s"/>
                     <constraint firstItem="4vC-oL-EfH" firstAttribute="leading" secondItem="uIO-Dk-bN0" secondAttribute="leading" id="sbA-fT-cYY"/>
                     <constraint firstAttribute="centerY" secondItem="De8-VC-AtU" secondAttribute="centerY" id="sc3-pN-80e">
-                        <variation key="widthClass=compact" constant="2"/>
+                        <variation key="widthClass=compact" constant="4"/>
                     </constraint>
                     <constraint firstItem="ILK-yd-WJS" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="27" id="tTt-1k-O1N"/>
                     <constraint firstAttribute="centerY" secondItem="ILK-yd-WJS" secondAttribute="centerY" id="y5z-fo-Icz"/>

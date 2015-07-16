@@ -22,7 +22,7 @@
     _actionBtn.clipsToBounds = YES;
     [_actionBtn setTitle:@"添加" forState:UIControlStateNormal];
     [_actionBtn setTitle:@"已添加" forState:UIControlStateSelected];
-    _actionBtn.hidden = NO;
+    _actionBtn.hidden = YES;
     
 }
 
