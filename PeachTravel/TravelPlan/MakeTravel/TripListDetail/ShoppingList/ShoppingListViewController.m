@@ -232,6 +232,7 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
     NSArray * dataSource = [self revertShoppingListToGroup:_tripDetail.shoppingList];
     NSArray * shoppingArray = dataSource[section];
     UILabel * label = [[UILabel alloc] init];
+    label.font = [UIFont boldSystemFontOfSize:16.0f];
     label.frame = CGRectMake(18, 20, 100, 40);
     CityDestinationPoi * poi = self.tripDetail.destinations[section];
     NSString * title = [NSString stringWithFormat:@"%@ (%ld)",poi.zhName,shoppingArray.count];
@@ -284,6 +285,7 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
     }
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:didSection] withRowAnimation:UITableViewRowAnimationFade];
 }
+
 
 
 #pragma mark - UITableViewDataSource & Delegate
@@ -361,12 +363,12 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
     }
     
     // 3.处理里面数组为空的情况
-    for (int i = 0; i < dataSource.count; i++) {
-        NSArray * array = dataSource[i];
-        if (array.count == 0) {
-            [dataSource removeObject:array];
-        }
-    }
+//    for (int i = 0; i < dataSource.count; i++) {
+//        NSArray * array = dataSource[i];
+//        if (array.count == 0) {
+//            [dataSource removeObject:array];
+//        }
+//    }
     
     return dataSource;
 }

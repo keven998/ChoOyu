@@ -23,11 +23,25 @@
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) UIView *tableViewFooterView;
 
+@property (nonatomic, strong)NSMutableDictionary * showDic;
+
+@property (nonatomic, strong)NSMutableArray * shoppListArray;
+
+@property (nonatomic, strong)NSMutableArray * dataSource;
+
 @end
 
 @implementation RestaurantsListViewController
 
 static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
+
+- (NSMutableArray *)dataSource
+{
+    if (_dataSource == nil) {
+        _dataSource = [NSMutableArray array];
+    }
+    return _dataSource;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -87,11 +101,12 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
 
 #pragma makr - IBAction Methods
 
-- (IBAction)addWantTo:(id)sender
+- (IBAction)addWantTo:(NSInteger)page
 {
     [MobClick event:@"event_add_delicacy_schedule"];
     PoisOfCityViewController *restaurantOfCityCtl = [[PoisOfCityViewController alloc] init];
     restaurantOfCityCtl.tripDetail = _tripDetail;
+    restaurantOfCityCtl.page = page;
     restaurantOfCityCtl.delegate = self;
     restaurantOfCityCtl.poiType = kRestaurantPoi;
     restaurantOfCityCtl.shouldEdit = YES;
@@ -185,29 +200,158 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
 
 }
 
-#pragma mark - UITableViewDataSource & Delegate
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return CGFLOAT_MIN;
+#pragma mark - 设置分组的头部
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    // 1.创建一个容器对象Button
+    UIButton * containBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    containBtn.backgroundColor = [UIColor whiteColor];
+    [containBtn addTarget:self action:@selector(mergeTable:) forControlEvents:UIControlEventTouchDown];
+    containBtn.tag = section;
+    
+    // 2.创建Button上面的视图
+    NSArray * dataSource = [self revertShoppingListToGroup:_tripDetail.restaurantsList];
+    NSArray * shoppingArray = dataSource[section];
+    UILabel * label = [[UILabel alloc] init];
+    label.font = [UIFont boldSystemFontOfSize:16.0f];
+    label.frame = CGRectMake(18, 20, 100, 40);
+    CityDestinationPoi * poi = self.tripDetail.destinations[section];
+    NSString * title = [NSString stringWithFormat:@"%@ (%ld)",poi.zhName,shoppingArray.count];
+    label.text = title;
+    [containBtn addSubview:label];
+    
+    // 3.创建收藏Button
+    UIButton * collection = [UIButton buttonWithType:UIButtonTypeCustom];
+    collection.tag = section;
+    CGFloat collectionW = 80;
+    collection.frame = CGRectMake(SCREEN_WIDTH - 30 - collectionW, 22, collectionW, 30);
+    [collection setTitle:@"收藏" forState:UIControlStateNormal];
+    [collection setTitleColor:[UIColor colorWithRed:150 / 256.0 green:150 / 256.0 blue:150 / 256.0 alpha:1.0] forState:UIControlStateNormal];
+    [collection addTarget:self action:@selector(collectionShop:) forControlEvents:UIControlEventTouchUpInside];
+    [collection setBackgroundImage:[UIImage imageNamed:@"collection"] forState:UIControlStateNormal];
+    [containBtn addSubview:collection];
+    
+    // 4.创建头部的横条
+    UIButton * banner = [UIButton buttonWithType:UIButtonTypeCustom];
+    banner.backgroundColor = APP_THEME_COLOR;
+    banner.frame = CGRectMake(0, 0, SCREEN_WIDTH, 2);
+    [containBtn addSubview:banner];
+    
+    return containBtn;
 }
 
+// 监听收藏按钮的点击事件
+- (void)collectionShop:(UIButton *)collection
+{
+    [self addWantTo:collection.tag];
+}
+
+// 合并表格
+- (void)mergeTable:(UIButton *)contain
+{
+    NSLog(@"点击了合并表格");
+    
+    NSInteger didSection = contain.tag;
+    
+    if (!_showDic) {
+        _showDic = [[NSMutableDictionary alloc]init];
+    }
+    
+    NSString *key = [NSString stringWithFormat:@"%ld",didSection];
+    if (![_showDic objectForKey:key]) {
+        [_showDic setObject:@"1" forKey:key];
+        
+    }else{
+        [_showDic removeObjectForKey:key];
+    }
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:didSection] withRowAnimation:UITableViewRowAnimationFade];
+}
+
+
+// 处理shoppingList数组
+- (NSArray *)revertShoppingListToGroup:(NSArray *)shoppingList
+{
+    // 1.创建一个分组数组,里面存放了多少组数据
+    NSMutableArray *dataSource = [[NSMutableArray alloc] init];
+    for (int i = 0; i < _tripDetail.destinations.count; i++) {
+        
+        NSMutableArray * array = [NSMutableArray array];
+        [dataSource addObject:array];
+    }
+    
+    // 2.遍历数组
+    for (RestaurantPoi * poi in shoppingList) {
+        CityDestinationPoi * cityPoi = poi.locality;
+        int i = 0;
+        for (CityDestinationPoi * destpoi in _tripDetail.destinations)
+        {
+            if ([cityPoi.cityId isEqualToString:destpoi.cityId]) {
+                NSMutableArray *array = dataSource[i];
+                [array addObject:poi];
+                break;
+            }
+            i++;
+        }
+    }
+    
+    return dataSource;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if ([_showDic objectForKey:[NSString stringWithFormat:@"%ld",indexPath.section]]) {
+        return 66;
+    }
+    return 0;
+}
+
+#pragma mark - UITableViewDataSource & Delegate
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 75;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 20;
+}
+
+// 1.返回有多少组
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    
+    NSArray * dataSource = [self revertShoppingListToGroup:_tripDetail.restaurantsList];
+    
+    return dataSource.count;
+}
+
+// 2.返回每组的cell行数
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.tripDetail.restaurantsList.count;
-
+    NSArray * dataSource = [self revertShoppingListToGroup:_tripDetail.restaurantsList];
+    NSArray * shoppingArray = dataSource[section];
+    return shoppingArray.count;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 66;
-}
 
+// 3.初始化每组的cell
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     TripPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:restaurantListReusableIdentifier forIndexPath:indexPath];
-    cell.tripPoi = [_tripDetail.restaurantsList objectAtIndex:indexPath.row];
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    cell.separatorInset=UIEdgeInsetsZero;
+    
+    cell.clipsToBounds = YES;
+    
+    NSArray * dataSource = [self revertShoppingListToGroup:_tripDetail.restaurantsList];
+    
+    NSArray * shoppingArray = dataSource[indexPath.section];
+    
+    cell.tripPoi = shoppingArray[indexPath.row];
+    
     return cell;
 }
+
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
     return NO;
