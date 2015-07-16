@@ -215,8 +215,8 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
     NSArray * dataSource = [self revertShoppingListToGroup:_tripDetail.restaurantsList];
     NSArray * shoppingArray = dataSource[section];
     UILabel * label = [[UILabel alloc] init];
-    label.font = [UIFont boldSystemFontOfSize:16.0f];
-    label.frame = CGRectMake(18, 24, 100, 21);
+    label.font = [UIFont boldSystemFontOfSize:12.0f];
+    label.frame = CGRectMake(12, 16, 100, 12);
     [label setTextColor:[UIColor colorWithRed:100 / 256.0 green:100 / 256.0 blue:100 / 256.0 alpha:1.0]];
     CityDestinationPoi * poi = self.tripDetail.destinations[section];
     NSString * title = [NSString stringWithFormat:@"%@ (%ld)",poi.zhName,shoppingArray.count];
@@ -226,9 +226,10 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
     // 3.创建收藏Button
     UIButton * collection = [UIButton buttonWithType:UIButtonTypeCustom];
     collection.tag = section;
-    CGFloat collectionW = 81;
-    collection.frame = CGRectMake(SCREEN_WIDTH - 30 - collectionW, 12, collectionW, 42);
+    CGFloat collectionW = 54;
+    collection.frame = CGRectMake(SCREEN_WIDTH - 20 - collectionW, 8, collectionW, 26);
     [collection setTitle:@"收藏" forState:UIControlStateNormal];
+    collection.titleLabel.font = [UIFont systemFontOfSize:12.0];
     [collection setTitleColor:[UIColor colorWithRed:150 / 256.0 green:150 / 256.0 blue:150 / 256.0 alpha:1.0] forState:UIControlStateNormal];
     [collection addTarget:self action:@selector(collectionShop:) forControlEvents:UIControlEventTouchUpInside];
     [collection setBackgroundImage:[UIImage imageNamed:@"collection"] forState:UIControlStateNormal];
@@ -237,7 +238,7 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
     // 4.创建头部的横条
     UIButton * banner = [UIButton buttonWithType:UIButtonTypeCustom];
     banner.backgroundColor = APP_THEME_COLOR;
-    banner.frame = CGRectMake(0, 0, SCREEN_WIDTH, 2);
+    banner.frame = CGRectMake(0, 0, SCREEN_WIDTH, 1);
     [containBtn addSubview:banner];
     
     return containBtn;
@@ -309,7 +310,7 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
 
 #pragma mark - UITableViewDataSource & Delegate
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 70;
+    return 43;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
