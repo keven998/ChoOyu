@@ -81,7 +81,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     
     if (self.tripDetail) {
         _backTripDetail = [self.tripDetail backUpTrip];
-        CityDestinationPoi *destination = [self.backTripDetail.destinations firstObject];
+        CityDestinationPoi * destination = self.backTripDetail.destinations[self.page];
         _zhName = destination.zhName;
         _cityId = destination.cityId;
         if (self.backTripDetail.destinations.count > 1) {
@@ -101,7 +101,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     
     UIBarButtonItem *lbtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"search.png"] style:UIBarButtonItemStylePlain target:self action:@selector(beginSearch:)];
     [rbItems addObject:lbtn];
-    self.navigationItem.rightBarButtonItems = rbItems;
+    self.navigationItem.rightBarButtonItem = lbtn;
     
     self.view.backgroundColor = APP_PAGE_COLOR;
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
