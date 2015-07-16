@@ -129,7 +129,7 @@
                     </constraint>
                     <constraint firstItem="uIO-Dk-bN0" firstAttribute="leading" secondItem="ILK-yd-WJS" secondAttribute="trailing" constant="26" id="A9q-I9-oIb"/>
                     <constraint firstAttribute="centerY" secondItem="uIO-Dk-bN0" secondAttribute="centerY" id="Bog-Ne-xSh">
-                        <variation key="widthClass=compact" constant="1.5"/>
+                        <variation key="widthClass=compact" constant="5.5"/>
                     </constraint>
                     <constraint firstItem="uIO-Dk-bN0" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="32" id="PU3-bf-bWE"/>
                     <constraint firstItem="tnM-4F-Ut8" firstAttribute="leading" secondItem="uIO-Dk-bN0" secondAttribute="leading" id="PxH-Cg-8Mi">
