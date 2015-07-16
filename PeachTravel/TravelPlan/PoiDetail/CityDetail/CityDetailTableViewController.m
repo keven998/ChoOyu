@@ -96,18 +96,26 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [_cityHeaderView.cityDesc addGestureRecognizer:tap];
     _tableView.tableHeaderView = _cityHeaderView;
     
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(_tableView.frame), 64)];
-    view.backgroundColor = [UIColor clearColor];
-    view.userInteractionEnabled = YES;
-    UIButton *footerView = [[UIButton alloc] initWithFrame:CGRectMake(21, 0, CGRectGetWidth(_tableView.frame) - 42, 44)];
-    [footerView setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
-    [footerView setBackgroundImage:[ConvertMethods createImageWithColor:COLOR_DISABLE] forState:UIControlStateHighlighted];
-    [footerView setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateNormal];
-    [footerView setTitle:@"~阅读更多 · 达人游记~" forState:UIControlStateNormal];
-    footerView.titleLabel.font = [UIFont systemFontOfSize:12];
-    [footerView addTarget:self action:@selector(showMoreTravelNote:) forControlEvents:UIControlEventTouchUpInside];
-    [view addSubview:footerView];
-    _tableView.tableFooterView = view;
+   }
+
+- (void)updateTravelNoteTableView
+{
+    if (((CityPoi *)self.poi).travelNotes.count > 0) {
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(_tableView.frame), 64)];
+        view.backgroundColor = [UIColor clearColor];
+        view.userInteractionEnabled = YES;
+        UIButton *footerView = [[UIButton alloc] initWithFrame:CGRectMake(21, 0, CGRectGetWidth(_tableView.frame) - 42, 44)];
+        [footerView setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+        [footerView setBackgroundImage:[ConvertMethods createImageWithColor:COLOR_DISABLE] forState:UIControlStateHighlighted];
+        [footerView setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateNormal];
+        [footerView setTitle:@"~阅读更多 · 达人游记~" forState:UIControlStateNormal];
+        footerView.titleLabel.font = [UIFont systemFontOfSize:12];
+        [footerView addTarget:self action:@selector(showMoreTravelNote:) forControlEvents:UIControlEventTouchUpInside];
+        [view addSubview:footerView];
+        _tableView.tableFooterView = view;
+    }
+    [self.tableView reloadData];
+
 }
 
 - (UITableView *)tableView
@@ -205,7 +213,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
             if ([travelNotes isKindOfClass:[NSArray class]]) {
                 ((CityPoi *)self.poi).travelNotes = travelNotes;
             }
-            [self.tableView reloadData];
+            [self updateTravelNoteTableView];
         } else {
             
         }

@@ -149,7 +149,8 @@
         logoutBtn.center = _footerView.center;
         logoutBtn.layer.cornerRadius = 4.0;
         logoutBtn.clipsToBounds = YES;
-        [logoutBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
+        [logoutBtn setBackgroundImage:[[UIImage imageNamed:@"chat_drawer_leave.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(8, 8, 8, 8)] forState:UIControlStateNormal];
+
         logoutBtn.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [logoutBtn setTitle:@"退出登录" forState:UIControlStateNormal];
         logoutBtn.titleLabel.font = [UIFont systemFontOfSize:15.0];
