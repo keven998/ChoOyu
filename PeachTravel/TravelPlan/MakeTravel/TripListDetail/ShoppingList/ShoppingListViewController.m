@@ -291,7 +291,7 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
 
 #pragma mark - UITableViewDataSource & Delegate
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 66;
+    return 70;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
