@@ -1062,6 +1062,7 @@
 		E6E725621B5603D30007273A /* libSocialWechat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E6E7254D1B5603D30007273A /* libSocialWechat.a */; };
 		E6E725631B5603D30007273A /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E6E7254E1B5603D30007273A /* libWeChatSDK.a */; };
 		E6E725691B5604A90007273A /* GuilderDistribute.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E725681B5604A90007273A /* GuilderDistribute.m */; };
+		E6F66ADE1B57B3050031F491 /* collection_flower.png in Resources */ = {isa = PBXBuildFile; fileRef = E6F66ADD1B57B3050031F491 /* collection_flower.png */; };
 		ECA2A8C30F0010E2F827610E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ECFF7EAB22286C959CD2E43 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -2539,6 +2540,7 @@
 		E6E725511B5603D30007273A /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		E6E725671B5604A90007273A /* GuilderDistribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuilderDistribute.h; sourceTree = "<group>"; };
 		E6E725681B5604A90007273A /* GuilderDistribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuilderDistribute.m; sourceTree = "<group>"; };
+		E6F66ADD1B57B3050031F491 /* collection_flower.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = collection_flower.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -6034,6 +6036,7 @@
 			isa = PBXGroup;
 			children = (
 				E6E362BC1B5755F300730C1B /* collection.png */,
+				E6F66ADD1B57B3050031F491 /* collection_flower.png */,
 			);
 			name = "收藏";
 			sourceTree = "<group>";
@@ -6457,6 +6460,7 @@
 				C69EB43A1AE63FD90039626B /* route_timeline_pot@2x.png in Resources */,
 				C6631D201B30231500BE4ADC /* ic_loc_selected@3x.png in Resources */,
 				275B692D1B17F610002FE764 /* ic_chat_ce_add@2x.png in Resources */,
+				E6F66ADE1B57B3050031F491 /* collection_flower.png in Resources */,
 				27B9FAB11AFB284300EEBF07 /* ic_nrq_2@2x.png in Resources */,
 				D9A804DF1A80E738005AD701 /* ic_feedback@2x.png in Resources */,
 				2786AAFE1B3D908400881697 /* account_line_default@3x.png in Resources */,
