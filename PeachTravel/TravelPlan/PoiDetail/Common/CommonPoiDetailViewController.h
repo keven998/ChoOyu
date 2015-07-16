@@ -25,5 +25,7 @@
 - (void) loadDataWithUrl:(NSString *)url;
 - (void)showPoidetail:(id)sender;
 - (void)jumpToMap;
+- (void)showPoiDesc;
+- (void)makePhone;
 
 @end

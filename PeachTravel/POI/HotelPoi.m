@@ -17,7 +17,6 @@
         self.typeDesc = @"hotel";
         self.poiTypeName = @"酒店";
         _bookUrl = [json objectForKey:@"bookUrl"];
-        _telephone = [json objectForKey:@"telephone"];
     }
     return self;
 }

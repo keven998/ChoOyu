@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -13,59 +13,8 @@
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
-                <subviews>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hlw-zS-mw5">
-                        <rect key="frame" x="117" y="23" width="80" height="80"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="80" id="ePO-lA-uaH"/>
-                            <constraint firstAttribute="height" constant="80" id="yhW-TM-TV7"/>
-                        </constraints>
-                        <state key="normal" backgroundImage="poi_button_tip_default@3x.png">
-                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                        </state>
-                    </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kv5-zh-gr7">
-                        <rect key="frame" x="217" y="23" width="80" height="80"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="80" id="Vyd-MV-7fK"/>
-                            <constraint firstAttribute="width" constant="80" id="eWC-xF-Ij6"/>
-                        </constraints>
-                        <state key="normal" backgroundImage="poi_button_traffic_default@3x.png">
-                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                        </state>
-                    </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fy1-ct-lnz">
-                        <rect key="frame" x="17" y="23" width="80" height="80"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="80" id="fpd-zl-htn"/>
-                            <constraint firstAttribute="width" constant="80" id="zds-AT-aPU"/>
-                        </constraints>
-                        <state key="normal" backgroundImage="poi_button_raid_default@3x.png">
-                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                        </state>
-                    </button>
-                </subviews>
-                <constraints>
-                    <constraint firstAttribute="centerY" secondItem="kv5-zh-gr7" secondAttribute="centerY" id="3Eb-dk-BkS"/>
-                    <constraint firstAttribute="centerY" secondItem="kv5-zh-gr7" secondAttribute="centerY" id="4sL-qy-jme"/>
-                    <constraint firstAttribute="centerY" secondItem="Fy1-ct-lnz" secondAttribute="centerY" id="8Ao-PU-nvL"/>
-                    <constraint firstItem="kv5-zh-gr7" firstAttribute="leading" secondItem="hlw-zS-mw5" secondAttribute="trailing" constant="20" id="AT1-Lu-QJw"/>
-                    <constraint firstAttribute="centerY" secondItem="hlw-zS-mw5" secondAttribute="centerY" id="JE2-Wg-7zq"/>
-                    <constraint firstItem="hlw-zS-mw5" firstAttribute="leading" secondItem="Fy1-ct-lnz" secondAttribute="trailing" constant="20" id="Tkw-6A-xy7"/>
-                    <constraint firstItem="Fy1-ct-lnz" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="17" id="gkE-9h-M1h"/>
-                </constraints>
             </tableViewCellContentView>
-            <connections>
-                <outlet property="planBtn" destination="Fy1-ct-lnz" id="BCI-5X-Tod"/>
-                <outlet property="tipsBtn" destination="hlw-zS-mw5" id="atR-IS-7cy"/>
-                <outlet property="trafficBtn" destination="kv5-zh-gr7" id="Qx7-Dp-WeH"/>
-            </connections>
             <point key="canvasLocation" x="346" y="355"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="poi_button_raid_default@3x.png" width="258" height="258"/>
-        <image name="poi_button_tip_default@3x.png" width="258" height="258"/>
-        <image name="poi_button_traffic_default@3x.png" width="258" height="258"/>
-    </resources>
 </document>
