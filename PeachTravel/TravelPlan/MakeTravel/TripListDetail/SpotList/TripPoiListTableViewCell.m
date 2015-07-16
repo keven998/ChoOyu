@@ -13,17 +13,17 @@
 - (void)awakeFromNib {
     _headerImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
     
-    /*
-    [_actionBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [_actionBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
-    [_actionBtn setBackgroundImage:[ConvertMethods createImageWithColor:COLOR_DISABLE] forState:UIControlStateSelected];
+    
+    [_actionBtn setTitleColor: APP_THEME_COLOR forState:UIControlStateNormal];
+//    [_actionBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
+//    [_actionBtn setBackgroundImage:[ConvertMethods createImageWithColor:COLOR_DISABLE] forState:UIControlStateSelected];
     _actionBtn.titleLabel.font = [UIFont systemFontOfSize:13];
     _actionBtn.layer.cornerRadius = 5;
     _actionBtn.clipsToBounds = YES;
     [_actionBtn setTitle:@"添加" forState:UIControlStateNormal];
     [_actionBtn setTitle:@"已添加" forState:UIControlStateSelected];
-    _actionBtn.hidden = YES;
-     */
+    _actionBtn.hidden = NO;
+    
 }
 
 - (void)setTripPoi:(SuperPoi *)tripPoi
@@ -47,8 +47,10 @@
         rankStr = @"N";
     }
     
-    [_propertyBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-    [_propertyBtn setTitle:rankStr forState:UIControlStateNormal];
+//    [_propertyBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+//    [_propertyBtn setTitle:rankStr forState:UIControlStateNormal];
+    _imageTitle.text = rankStr;
+    [_imageTitle setTextColor:APP_THEME_COLOR];
     
     if (_tripPoi.poiType == kSpotPoi) {
         if ([((SpotPoi *)tripPoi).timeCostStr isBlankString]) {
@@ -71,8 +73,10 @@
         [_propertyBtn setAttributedTitle:string forState:UIControlStateNormal];
     }
     */
-    [_actionBtn setTitle:property forState:UIControlStateNormal];
-//    [_actionBtn setTitle:@"建议游玩" forState:UIControlStateNormal];
+    self.foodNumber.text = property;
+//    [_actionBtn setTitle:property forState:UIControlStateNormal];
+
+
 }
 
 @end

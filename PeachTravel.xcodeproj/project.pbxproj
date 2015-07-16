@@ -1060,6 +1060,7 @@
 		E6E725631B5603D30007273A /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E6E7254E1B5603D30007273A /* libWeChatSDK.a */; };
 		E6E725691B5604A90007273A /* GuilderDistribute.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E725681B5604A90007273A /* GuilderDistribute.m */; };
 		E6F66ADE1B57B3050031F491 /* collection_flower.png in Resources */ = {isa = PBXBuildFile; fileRef = E6F66ADD1B57B3050031F491 /* collection_flower.png */; };
+		E6F66AE01B57D9B70031F491 /* sent_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = E6F66ADF1B57D9B70031F491 /* sent_bg.png */; };
 		ECA2A8C30F0010E2F827610E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ECFF7EAB22286C959CD2E43 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -2535,6 +2536,7 @@
 		E6E725671B5604A90007273A /* GuilderDistribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuilderDistribute.h; sourceTree = "<group>"; };
 		E6E725681B5604A90007273A /* GuilderDistribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuilderDistribute.m; sourceTree = "<group>"; };
 		E6F66ADD1B57B3050031F491 /* collection_flower.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = collection_flower.png; sourceTree = "<group>"; };
+		E6F66ADF1B57D9B70031F491 /* sent_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sent_bg.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -6026,6 +6028,7 @@
 		E6E362BB1B5755E700730C1B /* 收藏 */ = {
 			isa = PBXGroup;
 			children = (
+				E6F66ADF1B57D9B70031F491 /* sent_bg.png */,
 				E6E362BC1B5755F300730C1B /* collection.png */,
 				E6F66ADD1B57B3050031F491 /* collection_flower.png */,
 			);
@@ -6425,6 +6428,7 @@
 				D9A804C11A80E738005AD701 /* ic_nav_filter_normal@2x.png in Resources */,
 				271C41B41B468611007BF285 /* plan_bg_page_selected.png in Resources */,
 				D9F6ABEB1AA882A800BE8263 /* ic_group_icon@2x.png in Resources */,
+				E6F66AE01B57D9B70031F491 /* sent_bg.png in Resources */,
 				D9A804C61A80E738005AD701 /* dx_checkbox_on.png in Resources */,
 				D92CA10D1AD8BDF900F244FF /* SVProgressHUD.bundle in Resources */,
 				274DB40F1B3D20DA00E426DE /* messages_plus_pin_selected@3x.png in Resources */,
