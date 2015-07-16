@@ -25,7 +25,6 @@
 @property (nonatomic, strong) UIActivityIndicatorView *indicatroView;
 @property (nonatomic, strong) UIView *footerView;
 @property (nonatomic, strong) NSMutableArray *searchResultArray;
-@property (nonatomic, strong) TZFilterViewController *filterCtl;
 
 @property (nonatomic, strong) TripDetail *backTripDetail;
 
@@ -222,23 +221,6 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
         [_indicatroView setCenter:CGPointMake(CGRectGetWidth(self.tableView.bounds)/2.0, 44.0/2.0)];
     }
     return _footerView;
-}
-
-- (TZFilterViewController *)filterCtl
-{
-    if (!_filterCtl) {
-        _filterCtl = [[TZFilterViewController alloc] init];
-        NSMutableArray *titiles = [[NSMutableArray alloc] init];
-        for (CityDestinationPoi *poi in _backTripDetail.destinations) {
-            [titiles addObject:poi.zhName];
-        }
-        _filterCtl.filterTitles = @[@"城市"];
-        _filterCtl.lineCountPerFilterType = @[@2];
-        _filterCtl.selectedItmesIndex = @[@0];
-        _filterCtl.filterItemsArray = @[titiles];
-        _filterCtl.delegate = self;
-    }
-    return _filterCtl;
 }
 
 #pragma mark - Private Methods
@@ -608,6 +590,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
 }
 
 #pragma mark - TZFilterViewDelegate
+
 -(void)didSelectedItems:(NSArray *)itemIndexPath
 {
     CityDestinationPoi *destination = [self.backTripDetail.destinations objectAtIndex:[[itemIndexPath firstObject] integerValue]];
@@ -624,8 +607,6 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     _currentPageNormal = 0;
     [self.tableView reloadData];
     [self loadDataPoisOfCity:_currentPageNormal];
-    
-    //    [_filterBtn setTitle:_zhName forState:UIControlStateNormal];
 }
 
 
