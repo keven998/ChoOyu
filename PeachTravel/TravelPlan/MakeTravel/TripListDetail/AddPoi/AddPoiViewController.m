@@ -110,7 +110,7 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
         self.navigationItem.title = @"添加行程";
         [self setupSelectPanel];
     } else {
-        UIBarButtonItem *sbtn = [[UIBarButtonItem alloc]initWithTitle:@"搜索" style:UIBarButtonItemStylePlain target:self action:@selector(beginSearch)];
+        UIBarButtonItem *sbtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"search.png"] style:UIBarButtonItemStylePlain target:self action:@selector(beginSearch)];
         self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:sbtn, nil];
         self.navigationItem.title = [NSString stringWithFormat:@"%@景点", _cityName];
     }
@@ -247,7 +247,6 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     _isLoadingMoreSearch = YES;
     [_indicatroView startAnimating];
     //    [self loadSearchDataWithPageNo:(_currentPageSearch + 1)];
-    
     NSLog(@"我要加载到第%lu",(long)_currentPageSearch+1);
     
 }
@@ -266,7 +265,6 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
 #pragma mark - IBAction Methods
 
 - (void)beginSearch {
-    //    [_searchBar becomeFirstResponder];
     PoisSearchViewController *searchCtl = [[PoisSearchViewController alloc] init];
     [searchCtl setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
     searchCtl.currentDayIndex = _currentDayIndex;
@@ -274,6 +272,7 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     searchCtl.tripDetail = _tripDetail;
     searchCtl.poiType = kSpotPoi;
     searchCtl.delegate = self;
+    searchCtl.shouldEdit = _shouldEdit;
     TZNavigationViewController *tznavc = [[TZNavigationViewController alloc] initWithRootViewController:searchCtl];
     
     [self presentViewController:tznavc animated:YES completion:^{

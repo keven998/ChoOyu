@@ -176,6 +176,7 @@
     [self getCaptcha];
 }
 
+//TODO: 修改注册接口
 - (IBAction)confirm:(UIButton *)sender {
     [self.view endEditing:YES];
     if (_verifyCodeTextField.text == nil || [_verifyCodeTextField.text isEqualToString:@""]) {

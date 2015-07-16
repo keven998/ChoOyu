@@ -15,6 +15,7 @@
 #import "ShoppingDetailViewController.h"
 #import "HotelDetailViewController.h"
 #import "SpotDetailViewController.h"
+#import "TripPoiListTableViewCell.h"
 
 @interface PoisSearchViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,UISearchBarDelegate>
 {
@@ -31,6 +32,8 @@
 @property (nonatomic, assign) BOOL enableLoadMoreSearch;
 
 @end
+
+static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
 
 @implementation PoisSearchViewController
 
@@ -65,7 +68,8 @@
     _tableView.separatorColor = APP_DIVIDER_COLOR;
     _tableView.delegate = self;
     [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
-    [_tableView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:@"commonPoiListCell"];
+    [_tableView registerNib:[UINib nibWithNibName:@"TripPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:poisOfCityCellIdentifier];
+
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:_tableView];
 }
@@ -204,32 +208,36 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    return 90;
+    return 66;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CommonPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"commonPoiListCell" forIndexPath:indexPath];
-    SuperPoi *poi = _dataArray[indexPath.row];
+    SuperPoi *poi = [_dataArray objectAtIndex:indexPath.row];
     
+    TripPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:poisOfCityCellIdentifier forIndexPath:indexPath];
     cell.tripPoi = poi;
-    cell.cellAction.tag = indexPath.row;
-    if (_tripDetail) {
-        cell.cellAction.hidden = NO;
-        if(_poiType == kSpotPoi){
-            [cell.cellAction setTitle:@"添加" forState:UIControlStateNormal];
-            [cell.cellAction setTitle:@"已添加" forState:UIControlStateSelected];
-            [cell.cellAction addTarget:self action:@selector(addSpotPoi:) forControlEvents:UIControlEventTouchUpInside];
-        } else {
-            [cell.cellAction setTitle:@"收集" forState:UIControlStateNormal];
-            [cell.cellAction setTitle:@"已收集" forState:UIControlStateSelected];
-            [cell.cellAction addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
+    //    如果从攻略列表进来想要添加美食或酒店
+    if (_shouldEdit) {
+        cell.actionBtn.tag = indexPath.row;
+        cell.actionBtn.hidden = NO;
+        BOOL isAdded = NO;
+        for (SuperPoi *tripPoi in _seletedArray) {
+            if ([tripPoi.poiId isEqualToString:poi.poiId]) {
+                isAdded = YES;
+                break;
+            }
         }
-        [cell.cellAction setBackgroundImage:[ConvertMethods createImageWithColor:TEXT_COLOR_TITLE_DESC] forState:UIControlStateSelected];
+        cell.actionBtn.selected = isAdded;
+        [cell.actionBtn removeTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.actionBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
     }
     return cell;
+
 }
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
     SuperPoi *poi = [_dataArray objectAtIndex:indexPath.row];
     if (_poiType == kRestaurantPoi) {
         CommonPoiDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];

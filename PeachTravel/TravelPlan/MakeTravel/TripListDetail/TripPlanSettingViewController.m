@@ -21,6 +21,7 @@
 #import "DomesticViewController.h"
 #import "ScheduleDayEditViewController.h"
 #import "ScheduleEditorViewController.h"
+#import "BaseTextSettingViewController.h"
 
 #define WIDTH self.view.bounds.size.width
 #define HEIGHT self.view.bounds.size.height
@@ -41,7 +42,9 @@
     self.view.backgroundColor = APP_PAGE_COLOR;
     
     _dataArray = [NSMutableArray array];
-    [_dataArray addObject:_tripDetail.destinations];
+    if (_tripDetail.destinations) {
+        [_dataArray addObject:_tripDetail.destinations];
+    }
     
     [self createTableView];
     [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
@@ -62,7 +65,7 @@
 }
 
 
--(void)createTableView
+- (void)createTableView
 {
     _tableView = ({
         _tableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
@@ -79,7 +82,7 @@
     [self.view addSubview:_tableView];
 }
 
--(void)editDestinationCity
+- (void)editDestinationCity
 {
     Destinations *destinations = [[Destinations alloc] init];
     MakePlanViewController *makePlanCtl = [[MakePlanViewController alloc] init];
@@ -105,6 +108,64 @@
     UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:makePlanCtl];
     [self presentViewController:navi animated:YES completion:nil];
 }
+
+- (void)changeTitle:(UIButton *)sender
+{
+    BaseTextSettingViewController *bsvc = [[BaseTextSettingViewController alloc] init];
+    bsvc.navTitle = @"修改标题";
+    bsvc.content = _tripDetail.tripTitle;
+    bsvc.acceptEmptyContent = NO;
+    bsvc.saveEdition = ^(NSString *editText, saveComplteBlock(completed)) {
+        [self editGuideTitle:_tripDetail.tripTitle andTitle:editText success:completed];
+    };
+    [self.navigationController pushViewController:bsvc animated:YES];
+}
+
+
+/**
+ *  修改攻略名称
+ *
+ *  @param guideSummary 被修改的攻略
+ *  @param title        新的标题
+ */
+- (void)editGuideTitle:(NSString *)title andTitle:(NSString *)editText success:(saveComplteBlock)completed
+{
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+    
+    NSString *requestUrl = [NSString stringWithFormat:@"%@%@",API_SAVE_TRIPINFO, _tripDetail.tripId];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:editText forKey:@"title"];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [manager PUT:requestUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        _tripDetail.tripTitle = editText;
+        [_tableView reloadData];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            completed(YES);
+        } else {
+            [self showHint:@"请求失败"];
+            completed(NO);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        [self showHint:@"没找到网络"];
+        completed(NO);
+    }];
+}
+
+#pragma mark - UITableView
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -160,12 +221,12 @@
     return 2;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 64*kWindowHeight/736;
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -195,15 +256,13 @@
     return 0;
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
+            [self changeTitle:nil];
         
         } else if (indexPath.row == 1) {
-//            ScheduleEditorViewController *sevc = [[ScheduleEditorViewController alloc] init];
-//            sevc.tripDetail = _tripDetail;
-//            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:sevc] animated:YES completion:nil];
             ScheduleEditorViewController *sevc = [[ScheduleEditorViewController alloc] init];
             ScheduleDayEditViewController *menuCtl = [[ScheduleDayEditViewController alloc] init];
             sevc.tripDetail = _tripDetail;

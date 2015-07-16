@@ -133,7 +133,7 @@
         [bbtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
         [bbtn setImage:[UIImage imageNamed:@"common_icon_navigaiton_back"] forState:UIControlStateNormal];
         [bbtn setImage:[UIImage imageNamed:@"common_icon_navigaiton_back_highlight"] forState:UIControlStateHighlighted];
-        [bbtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
+        [bbtn addTarget:self action:@selector(dismissCtl) forControlEvents:UIControlEventTouchUpInside];
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:bbtn];
         UIBarButtonItem * addBtn = [[UIBarButtonItem alloc]initWithCustomView:_forkBtn];
         self.navigationItem.rightBarButtonItem = addBtn;
@@ -169,7 +169,7 @@
         [bbtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
         [bbtn setImage:[UIImage imageNamed:@"common_icon_navigaiton_back"] forState:UIControlStateNormal];
         [bbtn setImage:[UIImage imageNamed:@"common_icon_navigaiton_back_highlight"] forState:UIControlStateHighlighted];
-        [bbtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
+        [bbtn addTarget:self action:@selector(dismissCtl) forControlEvents:UIControlEventTouchUpInside];
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:bbtn];
     }
 }
@@ -226,36 +226,6 @@
 - (void)mapView {
     if ([_currentViewController isKindOfClass:[PlanScheduleViewController class]]) {
         //        [_spotsListCtl mapView];
-    }
-}
-
-/**
- *  不同情况的确定按钮相应的操作不一致
- */
-- (void)goBack
-{
-    if ([_tripDetail tripIsChange]) {
-        UIAlertView *alterView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"是否保存已修改内容" delegate:self cancelButtonTitle:@"直接返回" otherButtonTitles:@"保存", nil];
-        [alterView showAlertViewWithBlock:^(NSInteger buttonIndex) {
-            if (buttonIndex == 0) {
-                [self dismissCtl];
-            } else if (buttonIndex == 1) {
-                TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-                [hud showHUD];
-                [_tripDetail saveTrip:^(BOOL isSuccesss) {
-                    [hud hideTZHUD];
-                    if (isSuccesss) {
-                        [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.3];
-                        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-                        [center postNotificationName:updateGuideListNoti object:nil];
-                    } else {
-                        [SVProgressHUD showHint:@"保存失败了～"];
-                    }
-                }];
-            }
-        }];
-    } else {
-        [self dismissCtl];
     }
 }
 
@@ -821,6 +791,7 @@
         [self showDestination:nil];
     }
 }
+
 
 @end
 

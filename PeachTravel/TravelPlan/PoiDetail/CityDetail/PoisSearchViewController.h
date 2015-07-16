@@ -25,6 +25,7 @@
 
 @property (nonatomic) TZPoiType poiType;
 @property (nonatomic, strong) TripDetail *tripDetail;
+@property (nonatomic) BOOL shouldEdit;
 
 @property (nonatomic, weak) id<updateSelectedPlanDelegate> delegate;
 

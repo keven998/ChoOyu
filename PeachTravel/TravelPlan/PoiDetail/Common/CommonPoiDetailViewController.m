@@ -96,10 +96,9 @@
             UIView *divide = [[UIView alloc]initWithFrame:CGRectMake(18, 66 * SCREEN_HEIGHT / 736, SCREEN_WIDTH, 1)];
             divide.backgroundColor = APP_DIVIDER_COLOR;
             [cell addSubview:divide];
-
         } else if (indexPath.row == 1) {
             if (self.poi.poiType == kSpotPoi) {
-                cell.categoryLabel.text = @"时间";
+                cell.categoryLabel.text = @"开放";
             } else {
                 cell.categoryLabel.text = @"类型";
             }

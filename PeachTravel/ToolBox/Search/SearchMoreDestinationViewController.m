@@ -56,22 +56,14 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     self.view.backgroundColor = APP_PAGE_COLOR;
     self.navigationItem.title = _titleStr;
     
-    if (_poiType == kHotelPoi || _poiType == kRestaurantPoi || _poiType == kShoppingPoi) {
-        _positionBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 65, 25)];
+    if (_poiType == kHotelPoi || _poiType == kRestaurantPoi || _poiType == kShoppingPoi || _poiType == kSpotPoi) {
+        _positionBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 30)];
         _positionBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-        _positionBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 3, 0, 3);
-        [_positionBtn setBackgroundImage:[UIImage imageNamed:@"ic_filter_box.png"] forState:UIControlStateNormal];
-        [_positionBtn setTitle:@"城市筛选" forState:UIControlStateNormal];
-        [_positionBtn setTitleEdgeInsets:UIEdgeInsetsMake(2, 2, 0, 0)];
-        [_positionBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 2)];
-        [_positionBtn setImage:[UIImage imageNamed:@"ic_filter.png"] forState:UIControlStateNormal];
-        [_positionBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-        [_positionBtn setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
+        [_positionBtn setImage:[UIImage imageNamed:@"plan_10_dashboard_sift"] forState:UIControlStateNormal];
         _positionBtn.titleLabel.font = [UIFont systemFontOfSize:11.0];
         [_positionBtn addTarget:self action:@selector(beginSearch:) forControlEvents:UIControlEventTouchUpInside];
         
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_positionBtn];
-      
     }
     [self.view addSubview:self.tableView];
     [self loadDataWithPageIndex:_currentPage];
@@ -79,7 +71,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     _hud = [[TZProgressHUD alloc] init];
     __weak typeof(SearchMoreDestinationViewController *)weakSelf = self;
     [_hud showHUDInViewController:weakSelf content:64];
-   
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -117,6 +109,9 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.dataSource = self;
         _tableView.delegate = self;
+        
+        _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 44 * SCREEN_HEIGHT/736)];
+        _tableView.contentInset = UIEdgeInsetsMake(-44 * SCREEN_HEIGHT/736, 0, 0, 0);
     }
     return _tableView;
 }
@@ -173,7 +168,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
             [self analysisData:[responseObject objectForKey:@"result"]];
             
         } else {
-             if (self.isShowing) {
+            if (self.isShowing) {
                 [SVProgressHUD showHint:@"请求也是失败了"];
             }
         }
@@ -210,13 +205,15 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if (self.dataSource.count) {
-        return 28.0;
-    } else return 0;
+        return 44 * SCREEN_HEIGHT/736;
+    } else {
+        return 0;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 54.0;
+    return 66 * SCREEN_HEIGHT/736;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -255,17 +252,14 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         default:
             break;
     }
-
-    UILabel *headerView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 28)];
-    headerView.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+    
+    UILabel *headerView = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, CGRectGetWidth(self.view.bounds), 44 * SCREEN_HEIGHT/736 - 5)];
+    headerView.textColor = COLOR_TEXT_I;
     headerView.text = [NSString stringWithFormat:@"   %@", desc];
-    headerView.backgroundColor = [UIColor whiteColor];
-    headerView.font = [UIFont systemFontOfSize:12.0];
-    headerView.layer.cornerRadius = 2.0;
-    headerView.layer.borderColor = APP_PAGE_COLOR.CGColor;
-    headerView.layer.borderWidth = 0.5;
+    headerView.font = [UIFont systemFontOfSize:14.0];
+    
     return headerView;
-
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -278,7 +272,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     cell.titleLabel.text = poi.zhName;
     cell.detailLabel.text = poi.address;
     return cell;
-        
+    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -317,7 +311,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
             default:
                 break;
         }
-
+        
         taoziMessageCtl.messageId = poi.poiId;
         taoziMessageCtl.messageDesc = poi.desc;
         taoziMessageCtl.messageName = poi.zhName;
@@ -333,8 +327,8 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         if (poi.poiType == kSpotPoi) {
             SpotDetailViewController *ctl = [[SpotDetailViewController alloc] init];
             ctl.spotId = poi.poiId;
-//                [self addChildViewController:ctl];
-//                [self.view addSubview:ctl.view];
+            //                [self addChildViewController:ctl];
+            //                [self.view addSubview:ctl.view];
             [self.navigationController pushViewController:ctl animated:YES];
             
         } else if (poi.poiType == kCityPoi) {
@@ -425,7 +419,6 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         
     } else {
         _localCity = cityPoi;
-        [_positionBtn setTitle:_localCity.zhName forState:UIControlStateNormal];
         [self.dataSource removeAllObjects];
         _currentPage = 0;
         _isLoadingMore = YES;

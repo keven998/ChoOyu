@@ -57,13 +57,13 @@
 //    _backGroundView.center = self.center;
     _backGroundView.center = CGPointMake(self.center.x, self.center.y-y);
     NSMutableArray *images = [[NSMutableArray alloc] init];
-    for (int i = 1; i < 15; i++) {
+    for (int i = 1; i < 60; i++) {
         NSString *imageName = [NSString stringWithFormat:@"Loading_Animation_final%d.png", i];
         UIImage *image = [UIImage imageNamed:imageName];
         [images addObject:image];
     }
     _imageView.animationImages = images;
-    _imageView.animationDuration = 1.4;
+    _imageView.animationDuration = 1;
     
     if (status) {
         _imageView.center = CGPointMake(_backGroundView.bounds.size.width/2, _backGroundView.bounds.size.height/2-10);
