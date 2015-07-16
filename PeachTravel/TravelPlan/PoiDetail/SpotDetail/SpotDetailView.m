@@ -137,9 +137,11 @@
             [attrstr appendAttributedString:more1];
             [_poiSummary setAttributedTitle:attrstr forState:UIControlStateNormal];
         } else {
-            _poiSummary.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-            _poiSummary.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
-            [_poiSummary setTitle:descStr forState:UIControlStateNormal];
+            NSMutableParagraphStyle *ps = [[NSMutableParagraphStyle alloc] init];
+            ps.lineSpacing = 4.0;
+            NSDictionary *attribs = @{NSFontAttributeName: [UIFont systemFontOfSize:16], NSParagraphStyleAttributeName:ps};
+            NSMutableAttributedString *attrstr = [[NSMutableAttributedString alloc] initWithString:descStr attributes:attribs];
+            [_poiSummary setAttributedTitle:attrstr forState:UIControlStateNormal];
         }
         
         offsetY = CGRectGetMaxY(_poiSummary.frame);
