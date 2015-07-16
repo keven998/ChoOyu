@@ -908,7 +908,6 @@
         MessageModel *model = [self.dataSource objectAtIndex:_longPressIndexPath.row];
         pasteboard.string = model.content;
     }
-    
     _longPressIndexPath = nil;
 }
 
