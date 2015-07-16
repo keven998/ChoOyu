@@ -33,13 +33,13 @@
     self.navigationItem.title = _titleStr;
     
     UIButton *cb = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    [cb setImage:[UIImage imageNamed:@"ic_ztl_lt"] forState:UIControlStateNormal];
+    [cb setImage:[UIImage imageNamed:@"navigationbar_chat_default.png"] forState:UIControlStateNormal];
     [cb addTarget:self action:@selector(chat) forControlEvents:UIControlEventTouchUpInside];
     cb.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     UIBarButtonItem *chatItem = [[UIBarButtonItem alloc] initWithCustomView:cb];
     self.navigationItem.rightBarButtonItem = chatItem;
-    
-    self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithIcon:@"ic_back_trip_ios" highIcon:@"nav_back" target:self action:@selector(gooBack)];
+
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"common_icon_navigaiton_back.png"] style:UIBarButtonItemStylePlain target:self action:@selector(gooBack)];
     
     _progressProxy = [[NJKWebViewProgress alloc] init];
     _progressProxy.webViewProxyDelegate = self;

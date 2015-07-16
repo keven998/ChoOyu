@@ -358,12 +358,13 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [MobClick event:@"event_city_travel_note_item"];
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     TravelNote *travelNote = [((CityPoi *)self.poi).travelNotes objectAtIndex:indexPath.row];
     TravelNoteDetailViewController *travelNoteCtl = [[TravelNoteDetailViewController alloc] init];
     travelNoteCtl.title = travelNote.title;
     travelNoteCtl.travelNote = travelNote;
     [self.navigationController pushViewController:travelNoteCtl animated:YES];
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark - IBAction
