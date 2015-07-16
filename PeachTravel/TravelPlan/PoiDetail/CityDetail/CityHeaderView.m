@@ -19,7 +19,6 @@
 @property (nonatomic, strong) NSMutableArray *imageViews;
 @property (nonatomic, strong) UIButton *showMoreDescContentBtn;
 @property (nonatomic, strong) UIButton *showMoreInfoContentBtn;
-@property (nonatomic, strong) UILabel *travelMonth;
 
 
 
@@ -53,6 +52,7 @@
     NSString *tm = [NSString stringWithFormat:@"~最佳季节：%@", _cityPoi.travelMonth];
     _travelMonth = [[UILabel alloc] initWithFrame:CGRectMake(18, CGRectGetMaxY(albumView.frame) + 20, width-36, 16)];
     _travelMonth.textColor = COLOR_TEXT_II;
+    _travelMonth.userInteractionEnabled = YES;
     _travelMonth.font = [UIFont systemFontOfSize:12.0];
     _travelMonth.numberOfLines = 1;
     CGSize timeCostLabelSize = [tm boundingRectWithSize:CGSizeMake(width-116, MAXFLOAT)
@@ -200,7 +200,7 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:@0 forKey:@"page"];
     [params setObject:@100 forKey:@"pageSize"];
-    NSNumber *imageWidth = [NSNumber numberWithInt:(kWindowWidth/3)*2];
+    NSNumber *imageWidth = [NSNumber numberWithInt:400];
     [params setObject:imageWidth forKey:@"imgWidth"];
     
     [manager GET:requsetUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
