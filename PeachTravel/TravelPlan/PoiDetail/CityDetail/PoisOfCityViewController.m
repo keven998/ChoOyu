@@ -728,7 +728,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
             [btn addTarget:self action:@selector(showIntruductionOfCity) forControlEvents:UIControlEventTouchUpInside];
             btn.titleLabel.numberOfLines = 2;
             
-            UILabel *moreLabel = [[UILabel alloc] initWithFrame:CGRectMake(btn.bounds.size.width-49, btn.bounds.size.height-26, 30, 20)];
+            UILabel *moreLabel = [[UILabel alloc] initWithFrame:CGRectMake(btn.bounds.size.width-49, btn.bounds.size.height-36, 30, 20)];
             moreLabel.textColor = APP_THEME_COLOR;
             moreLabel.font = [UIFont systemFontOfSize:13.0];
             moreLabel.text = @"全文";
