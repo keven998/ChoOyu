@@ -75,9 +75,7 @@ static NSString * const reuseIdentifier = @"Cell";
     nameLabel.font = [UIFont boldSystemFontOfSize:16];
     nameLabel.textAlignment = NSTextAlignmentCenter;
     nameLabel.lineBreakMode = NSLineBreakByTruncatingMiddle;
-//    nameLabel.text = @"~派派·泰国·达人~";
-    
-    nameLabel.text = [NSString stringWithFormat:@"~派派·%@·达人~",guiderDistribute.zhName];
+    nameLabel.text = [NSString stringWithFormat:@"~派派 · %@ · 达人~",guiderDistribute.zhName];
     [view addSubview:nameLabel];
     UILabel *idLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 26, 200, 12)];
     idLabel.textColor = [UIColor whiteColor];
