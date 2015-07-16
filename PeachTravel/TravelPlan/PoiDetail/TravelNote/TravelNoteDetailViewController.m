@@ -34,6 +34,8 @@
     
     UIButton *cb = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [cb setImage:[UIImage imageNamed:@"navigationbar_chat_default.png"] forState:UIControlStateNormal];
+    [cb setImage:[UIImage imageNamed:@"navigationbar_chat_hilighted.png"] forState:UIControlStateHighlighted];
+    cb.imageEdgeInsets = UIEdgeInsetsMake(2, 0, 0, 0);
     [cb addTarget:self action:@selector(chat) forControlEvents:UIControlEventTouchUpInside];
     cb.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     UIBarButtonItem *chatItem = [[UIBarButtonItem alloc] initWithCustomView:cb];
