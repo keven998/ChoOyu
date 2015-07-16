@@ -81,7 +81,7 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height) style:UITableViewStyleGrouped];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height-49) style:UITableViewStyleGrouped];
     _tableView.delegate  = self;
     _tableView.dataSource = self;
     
@@ -224,7 +224,6 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     [_indicatroView startAnimating];
     [self loadDataWithPageNo:(_currentPageNormal + 1)];
     
-    NSLog(@"我要加载到第%lu",(long)_currentPageNormal+1);
     
 }
 
@@ -247,7 +246,6 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     _isLoadingMoreSearch = YES;
     [_indicatroView startAnimating];
     //    [self loadSearchDataWithPageNo:(_currentPageSearch + 1)];
-    NSLog(@"我要加载到第%lu",(long)_currentPageSearch+1);
     
 }
 
