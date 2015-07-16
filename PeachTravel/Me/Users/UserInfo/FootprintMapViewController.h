@@ -10,18 +10,8 @@
 
 @interface FootprintMapViewController : UIViewController
 
-/**
- *  在地图上添加一个标记的点
- *
- *  @param location
- */
-- (void)addPoint:(CLLocation *)location;
+@property (nonatomic, strong) NSArray *dataSource;
 
-/**
- *  在地图上移除一个标记的点
- *
- *  @param location
- */
-- (void)removePoint:(CLLocation *)location;
 
+- (void)selectPointAtIndex:(NSInteger)index;
 @end

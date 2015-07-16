@@ -90,8 +90,8 @@
 
 #pragma mark - MKMapViewDelegate
 
-- (void)mapView:(MKMapView *)sender annotationView:(MKAnnotationView *)aView
-calloutAccessoryControlTapped:(UIControl *)control{
+- (void)mapView:(MKMapView *)sender annotationView:(MKAnnotationView *)aView calloutAccessoryControlTapped:(UIControl *)contro
+{
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)theMapView viewForAnnotation:(id<MKAnnotation>)annotation

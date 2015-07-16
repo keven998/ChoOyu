@@ -23,20 +23,20 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="1ab-7Q-w4p" secondAttribute="bottom" id="8aO-df-zXr"/>
-                <constraint firstItem="1ab-7Q-w4p" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Eld-Hu-Nae"/>
-                <constraint firstAttribute="trailing" secondItem="1ab-7Q-w4p" secondAttribute="trailing" id="SKV-cW-I2b"/>
-                <constraint firstItem="1ab-7Q-w4p" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="ep5-3p-aNF"/>
+                <constraint firstItem="1ab-7Q-w4p" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="04w-hd-paq"/>
+                <constraint firstAttribute="bottom" secondItem="1ab-7Q-w4p" secondAttribute="bottom" id="9wy-tP-wPS"/>
+                <constraint firstItem="1ab-7Q-w4p" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="EBS-IN-Qcj"/>
+                <constraint firstAttribute="trailing" secondItem="1ab-7Q-w4p" secondAttribute="trailing" id="jNc-9C-5tt"/>
             </constraints>
             <variation key="default">
                 <mask key="subviews">
                     <exclude reference="1ab-7Q-w4p"/>
                 </mask>
                 <mask key="constraints">
-                    <exclude reference="8aO-df-zXr"/>
-                    <exclude reference="Eld-Hu-Nae"/>
-                    <exclude reference="SKV-cW-I2b"/>
-                    <exclude reference="ep5-3p-aNF"/>
+                    <exclude reference="04w-hd-paq"/>
+                    <exclude reference="9wy-tP-wPS"/>
+                    <exclude reference="EBS-IN-Qcj"/>
+                    <exclude reference="jNc-9C-5tt"/>
                 </mask>
             </variation>
             <variation key="widthClass=compact">
@@ -44,10 +44,10 @@
                     <include reference="1ab-7Q-w4p"/>
                 </mask>
                 <mask key="constraints">
-                    <include reference="8aO-df-zXr"/>
-                    <include reference="Eld-Hu-Nae"/>
-                    <include reference="SKV-cW-I2b"/>
-                    <include reference="ep5-3p-aNF"/>
+                    <include reference="04w-hd-paq"/>
+                    <include reference="9wy-tP-wPS"/>
+                    <include reference="EBS-IN-Qcj"/>
+                    <include reference="jNc-9C-5tt"/>
                 </mask>
             </variation>
         </view>

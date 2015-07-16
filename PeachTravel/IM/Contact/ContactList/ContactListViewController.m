@@ -39,8 +39,9 @@
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
-    self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithIcon:@"ic_add_friend" highIcon:@"ic_add_friend" target:self action:@selector(addContact)];
-    self.navigationItem.title = @"联系人";
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_add_friend.png"] style:UIBarButtonItemStylePlain target:self action:@selector(addContact)];
+    self.navigationItem.title = @"我的好友";
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContactList) name:contactListNeedUpdateNoti object:nil];
     
     [self.view addSubview:self.contactTableView];

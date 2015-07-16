@@ -13,8 +13,12 @@
 #import "DestinationCollectionHeaderView.h"
 #import "SwipeView.h"
 #import "AreaDestination.h"
+#import "ItemFooterCollectionViewController.h"
+#import "MakePlanViewController.h"
+#import "DomesticViewController.h"
+#import "ForeignViewController.h"
 
-@interface FootPrintViewController ()<TaoziLayoutDelegate,UICollectionViewDataSource,UICollectionViewDelegate>
+@interface FootPrintViewController () <ItemFooterCollectionViewControllerDelegate>
 {
     NSInteger _countryCount;
     NSMutableArray *_dataArray;
@@ -25,6 +29,7 @@
 @property (nonatomic, strong) SwipeView *swipeView;
 @property (nonatomic, strong) UISegmentedControl *segmentControl;
 @property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic, strong) ItemFooterCollectionViewController *itemFooterCtl;
 
 @end
 
@@ -35,182 +40,72 @@
     if (!_destinations) {
         _destinations = [[Destinations alloc] init];
     }
+    self.automaticallyAdjustsScrollViewInsets = NO;
+
+    self.navigationItem.title = @"我的足迹";
     _countryCount = 0;
     _countryName = [NSMutableArray array];
     self.view.backgroundColor = APP_PAGE_COLOR;
-    [self downloadDomesticData:@"" url:API_GET_DOMESTIC_DESTINATIONS];
-    [self downloadForeignData:@"" url:API_GET_FOREIGN_DESTINATIONS];
     _footprintMapCtl = [[FootprintMapViewController alloc] init];
-    [_footprintMapCtl.view setFrame:CGRectMake(0, 0, self.view.bounds.size.width, 200)];
+    _footprintMapCtl.dataSource = _destinations.destinationsSelected;
+    [_footprintMapCtl.view setFrame:self.view.bounds];
     [self addChildViewController:_footprintMapCtl];
     [self.view addSubview:_footprintMapCtl.view];
     [_footprintMapCtl didMoveToParentViewController:self];
+    
+    _itemFooterCtl = [[ItemFooterCollectionViewController alloc] init];
+    _itemFooterCtl.dataSource = _destinations.destinationsSelected;
+    [_itemFooterCtl.view setFrame:CGRectMake(0, self.view.bounds.size.height-44, self.view.bounds.size.width, 44)];
+
+    [self addChildViewController:_itemFooterCtl];
+    [self.view addSubview:_itemFooterCtl.view];
+    [_itemFooterCtl didMoveToParentViewController:self];
+    _itemFooterCtl.delegate = self;
+    _itemFooterCtl.dataSource = _destinations.destinationsSelected;
     
     UIButton *backBtn = [[UIButton alloc]initWithFrame:CGRectMake(3, 15, 44, 44)];
     [backBtn setImage:[UIImage imageNamed:@"common_icon_navigaiton_back"] forState:UIControlStateNormal];
     [backBtn setImage:[UIImage imageNamed:@"common_icon_navigaiton_back_highlight"] forState:UIControlStateHighlighted];
     [backBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:backBtn];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
     
-    for (CityDestinationPoi *cityPoi in _destinations.destinationsSelected) {
-        float a = cityPoi.lat;
-        float b = cityPoi.lng;
-        CLLocation *location = [[CLLocation alloc] initWithLatitude:a longitude:b];
-        [_footprintMapCtl addPoint:location];
-    }
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(editFootPrint)];
+    self.navigationItem.rightBarButtonItem = item;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear: animated];
+    self.navigationController.navigationBar.translucent = YES;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBar.translucent = NO;
+}
+
+- (void)editFootPrint
+{
+    MakePlanViewController *makePlanCtl = [[MakePlanViewController alloc] init];
+    ForeignViewController *foreignCtl = [[ForeignViewController alloc] init];
+    DomesticViewController *domestic = [[DomesticViewController alloc] init];
     
-    UISegmentedControl *segControl = [[UISegmentedControl alloc] initWithItems:@[@"国内",@"国外"]];
-    segControl.tintColor = APP_THEME_COLOR;
-    segControl.frame = CGRectMake(0, 0, 136, 28);
-    segControl.center = CGPointMake(SCREEN_WIDTH/2, 220);
-    segControl.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    segControl.selectedSegmentIndex = 0;
-    [self.view addSubview:segControl];
-    [segControl addTarget:self action:@selector(selectedPage:) forControlEvents:UIControlEventValueChanged];
+    domestic.destinations = _destinations;
+    foreignCtl.destinations = _destinations;
+    makePlanCtl.destinations = _destinations;
+    makePlanCtl.viewControllers = @[domestic, foreignCtl];
+    domestic.makePlanCtl = makePlanCtl;
+    foreignCtl.makePlanCtl = makePlanCtl;
+    makePlanCtl.animationOptions = UIViewAnimationOptionTransitionNone;
+    makePlanCtl.duration = 0;
+    makePlanCtl.segmentedTitles = @[@"国内", @"国外"];
+    makePlanCtl.selectedColor = APP_THEME_COLOR;
+    makePlanCtl.segmentedTitleFont = [UIFont systemFontOfSize:18.0];
+    makePlanCtl.normalColor= [UIColor grayColor];
     
-    [self createCollectionView];
-    
-}
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:makePlanCtl] animated:YES completion:nil];
 
--(void)selectedPage:(UISegmentedControl *)segment {
-    if (segment.selectedSegmentIndex == 0) {
-        _dataArray = _destinations.domesticCities;
-        [_collectionView reloadData];
-    }else{
-        _dataArray = _destinations.foreignCountries;
-        [_collectionView reloadData];
-    }
-}
-
--(void)createCollectionView
-{
-    TaoziCollectionLayout *layout = [[TaoziCollectionLayout alloc] init];
-    layout.delegate = self;
-    
-    _collectionView=[[UICollectionView alloc] initWithFrame:CGRectMake(0, 234, SCREEN_WIDTH, SCREEN_HEIGHT-240) collectionViewLayout:layout];
-    _collectionView.dataSource=self;
-    _collectionView.delegate=self;
-    [_collectionView setBackgroundColor:[UIColor clearColor]];
-    
-    [_collectionView registerNib:[UINib nibWithNibName:@"ScreenningViewCell" bundle:nil]  forCellWithReuseIdentifier:@"cell"];
-    [_collectionView registerNib:[UINib nibWithNibName:@"DestinationCollectionHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"domesticHeader"];
-    [self.view addSubview:_collectionView];
-    layout.showDecorationView = YES;
-    layout.margin = 10;
-    layout.spacePerItem = 10;
-    layout.spacePerLine = 10;
-    
-}
-#pragma mark -  TaoziLayoutDelegate
-
-- (NSInteger)tzcollectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
-    AreaDestination *area = [_dataArray objectAtIndex:section];
-    return [area.cities count];
-}
-
-- (CGFloat)tzcollectionLayoutWidth
-{
-    return _collectionView.frame.size.width;
-}
-
-- (NSInteger)numberOfSectionsInTZCollectionView:(UICollectionView *)collectionView
-{
-    return _dataArray.count;
-}
-
-- (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    AreaDestination *area = [_dataArray objectAtIndex:indexPath.section];
-    CityDestinationPoi *city = [area.cities objectAtIndex:indexPath.row];
-    CGSize size = [city.zhName sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:15.0]}];
-    return CGSizeMake(size.width + 25 + 28, 28); //left-right margin + status image size
-}
-
-- (CGSize)collectionview:(UICollectionView *)collectionView sizeForHeaderView:(NSIndexPath *)indexPath
-{
-    return CGSizeMake(_collectionView.frame.size.width, 38);
-}
-
-#pragma mark - UICollectionViewDataSource
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
-    AreaDestination *area = [_dataArray objectAtIndex:section];
-    return [area.cities count];
-}
-
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
-{
-    return _dataArray.count;
-}
-
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
-{
-    if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-        DestinationCollectionHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"domesticHeader" forIndexPath:indexPath];
-        AreaDestination *area = [_dataArray objectAtIndex:indexPath.section];
-        headerView.titleLabel.text = area.zhName;
-        return headerView;
-    }
-    return nil;
-}
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    ScreenningViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
-    AreaDestination *area = [_dataArray objectAtIndex:indexPath.section];
-    CityDestinationPoi *city = [area.cities objectAtIndex:indexPath.row];
-    cell.nameLabel.text = city.zhName;
-    //    NSLog(@"%@",_destinations.destinationsSelected);
-    
-    for (CityDestinationPoi *cityPoi in _destinations.destinationsSelected) {
-        
-        if ([cityPoi.cityId isEqualToString:city.cityId]) {
-            cell.nameLabel.textColor = [UIColor whiteColor];
-            cell.backgroundColor = APP_THEME_COLOR;
-            
-            return  cell;
-        }
-    }
-    cell.nameLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
-    cell.backgroundColor = [UIColor whiteColor];
-    return  cell;
-}
-
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    [MobClick event:@"event_select_city"];
-    AreaDestination *area = [_dataArray objectAtIndex:indexPath.section];
-    CityDestinationPoi *city = [area.cities objectAtIndex:indexPath.row];
-    float a = city.lat;
-    float b = city.lng;
-    CLLocation *location = [[CLLocation alloc] initWithLatitude:a longitude:b];
-    BOOL find = NO;
-    for (CityDestinationPoi *cityPoi in _destinations.destinationsSelected) {
-        if ([city.cityId isEqualToString:cityPoi.cityId]) {
-            NSInteger index = [_destinations.destinationsSelected indexOfObject:cityPoi];
-            [_destinations.destinationsSelected removeObjectAtIndex:index];
-            [_countryName addObject:area.zhName];
-            [_footprintMapCtl removePoint:location];
-            if (_segmentControl.selectedSegmentIndex == 0) {
-                [self changTracks:@"del" city:city areaName:@"中国"];
-            } else {
-                [self changTracks:@"del" city:city areaName:area.zhName];
-            }
-            find = YES;
-            break;
-        }
-    }
-    if (!find) {
-        [_destinations.destinationsSelected addObject:city];
-        [_footprintMapCtl addPoint:location];
-        if (_segmentControl.selectedSegmentIndex == 0) {
-            [self changTracks:@"add" city:city areaName:@"中国"];
-        } else {
-            [self changTracks:@"add" city:city areaName:area.zhName];
-        }
-    }
-    [_collectionView reloadItemsAtIndexPaths:@[indexPath]];
 }
 
 - (void)back
@@ -264,89 +159,20 @@
     
     NSLog(@"%@",cityDesc);
     [self.delegate updataTracks:_countryName.count citys:_destinations.destinationsSelected.count trackStr:cityDesc];
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-#pragma mark - http method
-
--(void)downloadDomesticData:(NSString *)modifiedTime url:(NSString *)url
-{
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:@"Cache-Control" forHTTPHeaderField:@"private"];
-    [manager.requestSerializer setValue:modifiedTime forHTTPHeaderField:@"If-Modified-Since"];
-    
-    NSDictionary *params = @{@"groupBy" : [NSNumber numberWithBool:true]};
-    
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    //    API_GET_DOMESTIC_DESTINATIONS
-    
-    [manager GET:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        //        NSLog(@"%@",responseObject);
-        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-        if (code == 0) {
-            id result = [responseObject objectForKey:@"result"];
-            [_destinations.domesticCities removeAllObjects];
-            [_destinations initDomesticCitiesWithJson:result];
-            _dataArray = _destinations.domesticCities;
-            [_collectionView reloadData];
-            
-        } else {
-            
-        }
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-    }];
-    
-}
-
--(void)downloadForeignData:(NSString *)modifiedTime url:(NSString *)url
-{
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:@"Cache-Control" forHTTPHeaderField:@"private"];
-    [manager.requestSerializer setValue:modifiedTime forHTTPHeaderField:@"If-Modified-Since"];
-    
-    NSDictionary *params = @{@"groupBy" : [NSNumber numberWithBool:true]};
-    
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    //    API_GET_DOMESTIC_DESTINATIONS
-    
-    [manager GET:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        //        NSLog(@"%@",responseObject);
-        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-        if (code == 0) {
-            id result = [responseObject objectForKey:@"result"];
-            [_destinations.foreignCountries removeAllObjects];
-            [_destinations initForeignCountriesWithJson:result];
-            [_collectionView reloadData];
-            
-        } else {
-            
-        }
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-    }];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)changTracks:(NSString *)action city:(CityDestinationPoi *)track areaName:(NSString *)areaName
 {
     AccountManager *manager = [AccountManager shareAccountManager];
     [manager updataUserServerTracks:action withTrack:track areaName:areaName];
+}
+
+#pragma mark - ItemFooterCollectionViewControllerDelegate
+
+- (void)didSelectedItem:(NSInteger)index
+{
+    [_footprintMapCtl selectPointAtIndex:index];
 }
 
 @end
