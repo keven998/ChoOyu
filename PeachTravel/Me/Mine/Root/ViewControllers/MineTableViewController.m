@@ -469,7 +469,7 @@
     footCtl.hidesBottomBarWhenPushed = YES;
     footCtl.destinations = destinations;
     footCtl.delegate = self;
-    [self presentViewController:footCtl animated:YES completion:nil];
+    [self.navigationController pushViewController:footCtl animated:YES];
 }
 
 
