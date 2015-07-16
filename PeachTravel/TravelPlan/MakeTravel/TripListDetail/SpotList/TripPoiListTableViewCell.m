@@ -74,8 +74,12 @@
     }
     */
     self.foodNumber.text = property;
-//    [_actionBtn setTitle:property forState:UIControlStateNormal];
-
+    
+    if (self.actionBtn.hidden) {
+        self.rightLengthContraint.constant = 30;
+    }else{
+        self.rightLengthContraint.constant = 100;
+    }
 
 }
 

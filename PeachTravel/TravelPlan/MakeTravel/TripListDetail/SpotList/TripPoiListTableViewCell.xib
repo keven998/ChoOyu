@@ -19,9 +19,6 @@
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="HcF-xz-jVD"/>
                             <constraint firstAttribute="width" constant="187" id="Or8-QV-NGs"/>
-                            <constraint firstAttribute="width" constant="187" id="ga3-1m-F8w">
-                                <variation key="widthClass=compact" constant="250"/>
-                            </constraint>
                             <constraint firstAttribute="height" constant="20" id="zpp-Dy-zJW"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -30,14 +27,12 @@
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="HcF-xz-jVD"/>
-                                <exclude reference="ga3-1m-F8w"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
                             <mask key="constraints">
                                 <include reference="HcF-xz-jVD"/>
                                 <exclude reference="Or8-QV-NGs"/>
-                                <include reference="ga3-1m-F8w"/>
                                 <exclude reference="zpp-Dy-zJW"/>
                             </mask>
                         </variation>
@@ -185,6 +180,7 @@
                     </constraint>
                     <constraint firstAttribute="centerY" secondItem="tnM-4F-Ut8" secondAttribute="centerY" id="kYL-Y5-LXL"/>
                     <constraint firstItem="exs-3z-xVe" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="mfC-6n-MGr"/>
+                    <constraint firstAttribute="trailing" secondItem="uIO-Dk-bN0" secondAttribute="trailing" constant="38" id="mo6-mf-rSu"/>
                     <constraint firstItem="exs-3z-xVe" firstAttribute="centerX" secondItem="De8-VC-AtU" secondAttribute="centerX" id="pvo-3o-o6s"/>
                     <constraint firstItem="4vC-oL-EfH" firstAttribute="leading" secondItem="uIO-Dk-bN0" secondAttribute="leading" id="sbA-fT-cYY"/>
                     <constraint firstAttribute="centerY" secondItem="De8-VC-AtU" secondAttribute="centerY" id="sc3-pN-80e">
@@ -209,6 +205,7 @@
                         <exclude reference="aAx-N6-EgL"/>
                         <exclude reference="Bog-Ne-xSh"/>
                         <exclude reference="WvD-HQ-2WF"/>
+                        <exclude reference="mo6-mf-rSu"/>
                         <exclude reference="LAx-A6-BTc"/>
                         <exclude reference="sbA-fT-cYY"/>
                         <exclude reference="gV9-l2-cPC"/>
@@ -235,6 +232,7 @@
                         <include reference="Bog-Ne-xSh"/>
                         <exclude reference="PU3-bf-bWE"/>
                         <include reference="WvD-HQ-2WF"/>
+                        <include reference="mo6-mf-rSu"/>
                         <include reference="LAx-A6-BTc"/>
                         <include reference="sbA-fT-cYY"/>
                         <include reference="gV9-l2-cPC"/>
@@ -249,9 +247,10 @@
                 <outlet property="headerImageView" destination="ILK-yd-WJS" id="9g6-eT-3dO"/>
                 <outlet property="imageTitle" destination="De8-VC-AtU" id="DNJ-ec-1TD"/>
                 <outlet property="propertyBtn" destination="exs-3z-xVe" id="psp-iO-sVq"/>
+                <outlet property="rightLengthContraint" destination="mo6-mf-rSu" id="tHC-z9-Fs0"/>
                 <outlet property="titleLabel" destination="uIO-Dk-bN0" id="qDD-5D-76E"/>
             </connections>
-            <point key="canvasLocation" x="-306" y="109"/>
+            <point key="canvasLocation" x="-413" y="166"/>
         </tableViewCell>
     </objects>
     <resources>

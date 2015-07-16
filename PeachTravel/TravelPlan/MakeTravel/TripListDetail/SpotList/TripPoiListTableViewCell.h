@@ -23,5 +23,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *foodNumber;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *rightLengthContraint;
 
 @end
