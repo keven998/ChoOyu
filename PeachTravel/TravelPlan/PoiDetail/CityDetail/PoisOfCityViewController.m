@@ -456,7 +456,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     point = [sender convertPoint:CGPointZero toView:_tableView];
     indexPath = [_tableView indexPathForRowAtPoint:point];
     cell = (TripPoiListTableViewCell *)[_tableView cellForRowAtIndexPath:indexPath];
-
+    
     
     SuperPoi *poi = [_dataSource.recommendList objectAtIndex:sender.tag];
     
@@ -674,38 +674,26 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
         if (section == 0) {
             return 100;
         }
-        return 0.5;
+        return CGFLOAT_MIN;
     }
-    return 0.5;
+    return CGFLOAT_MIN;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 0.5;
+    return CGFLOAT_MIN;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    if (![_descDetail isBlankString] && _descDetail != nil) {
+    if (_descDetail != nil && ![_descDetail isBlankString]) {
         if (section == 0) {
-            UIView *sectionheaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 100)];
-            sectionheaderView.backgroundColor = APP_PAGE_COLOR;
-            
-            UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(27, 20, sectionheaderView.bounds.size.width-54, sectionheaderView.bounds.size.height-40)];
-            btn.layer.cornerRadius = 3.0;
-            
-            UIImageView *tagBtn = [[UIImageView alloc] initWithFrame:CGRectMake(10, 18, 80, 80)];
-            tagBtn.contentMode = UIViewContentModeCenter;
-            //            [tagBtn setBackgroundImage:[UIImage imageNamed:@"ic_city_border.png"] forState:UIControlStateNormal];
-            if (_poiType == kRestaurantPoi) {
-                [tagBtn setImage:[UIImage imageNamed:@"jingdian_food_eat"]];
-            } else if (_poiType == kShoppingPoi) {
-                [tagBtn setImage:[UIImage imageNamed:@"jingdian_shopping"]];
-            }
-//            [btn addSubview:tagBtn];
-            
+            UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 100)];
+            btn.titleLabel.font = [UIFont systemFontOfSize:13.0];
+            btn.titleEdgeInsets = UIEdgeInsetsMake(0, 24, 0, 24);
             NSUInteger len = [_descDetail length];
+            
             NSMutableAttributedString *desc = [[NSMutableAttributedString alloc] initWithString:_descDetail];
-            [desc addAttribute:NSForegroundColorAttributeName value:TEXT_COLOR_TITLE_SUBTITLE  range:NSMakeRange(0, len)];
+            [desc addAttribute:NSForegroundColorAttributeName value:COLOR_TEXT_II range:NSMakeRange(0, len)];
             NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
             style.lineBreakMode = NSLineBreakByTruncatingTail;
             style.lineSpacing = 5;
@@ -713,24 +701,18 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
             [btn setAttributedTitle:desc forState:UIControlStateNormal];
             
             desc = [[NSMutableAttributedString alloc] initWithAttributedString:desc];
-            [desc addAttribute:NSForegroundColorAttributeName value:TEXT_COLOR_TITLE  range:NSMakeRange(0, len)];
+            [desc addAttribute:NSForegroundColorAttributeName value:COLOR_TEXT_I range:NSMakeRange(0, len)];
             [btn setAttributedTitle:desc forState:UIControlStateHighlighted];
             [btn addTarget:self action:@selector(showIntruductionOfCity) forControlEvents:UIControlEventTouchUpInside];
-            btn.titleLabel.font = [UIFont systemFontOfSize:12.0];
             btn.titleLabel.numberOfLines = 2;
             
-            UILabel *moreLabel = [[UILabel alloc] initWithFrame:CGRectMake(sectionheaderView.bounds.size.width-49, sectionheaderView.bounds.size.height-26, 30, 20)];
-            moreLabel.textColor = APP_SUB_THEME_COLOR_HIGHLIGHT;
-            moreLabel.font = [UIFont systemFontOfSize:11.0];
-            moreLabel.text = @"攻略";
+            UILabel *moreLabel = [[UILabel alloc] initWithFrame:CGRectMake(btn.bounds.size.width-49, btn.bounds.size.height-26, 30, 20)];
+            moreLabel.textColor = APP_THEME_COLOR;
+            moreLabel.font = [UIFont systemFontOfSize:13.0];
+            moreLabel.text = @"全文";
+            [btn addSubview:moreLabel];
             
-            UIImageView *moreImage = [[UIImageView alloc] initWithFrame:CGRectMake(sectionheaderView.bounds.size.width-20, sectionheaderView.bounds.size.height-22, 7, 11)];
-            moreImage.image = [UIImage imageNamed:@"more_btn.png"];
-            [sectionheaderView addSubview:moreLabel];
-//            [sectionheaderView addSubview:moreImage];
-            
-            [sectionheaderView addSubview:btn];
-            return sectionheaderView;
+            return btn;
         }
         return nil;
     }

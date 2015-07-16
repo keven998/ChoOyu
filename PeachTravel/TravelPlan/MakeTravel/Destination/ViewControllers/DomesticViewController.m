@@ -114,6 +114,9 @@ static NSString *cacheName = @"destination_demostic_group";
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [manager GET:API_GET_DOMESTIC_DESTINATIONS parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSLog(@"%@",responseObject);
+        
         if (_hud) {
             [_hud hideTZHUD];
         }
@@ -204,7 +207,7 @@ static NSString *cacheName = @"destination_demostic_group";
 */
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath;
 {
-    return CGSizeMake(SCREEN_WIDTH/4, SCREEN_WIDTH/4);
+    return CGSizeMake(SCREEN_WIDTH/3, SCREEN_WIDTH/3);
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section;
@@ -263,6 +266,12 @@ static NSString *cacheName = @"destination_demostic_group";
     cell.tiltleLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
     cell.status.image = [UIImage imageNamed:@"ic_cell_item_unchoose.png"];
     cell.backgroundColor = [UIColor whiteColor];
+    
+#warning 这里的city模型需要增加image属性来给cell的背景图片赋值
+    // 设置cell的背景图片
+//    NSURL * url = [NSURL URLWithString:city.enName];
+//    [cell.backGroundImage sd_setImageWithURL:url];
+    
     return  cell;
 }
 

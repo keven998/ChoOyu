@@ -24,7 +24,7 @@
     _tableView.dataSource = self;
     _tableView.backgroundColor = APP_PAGE_COLOR;
     _tableView.separatorColor = COLOR_LINE;
-    _tableView.contentInset = UIEdgeInsetsMake(64, 0, 10, 0);
+    _tableView.contentInset = UIEdgeInsetsMake(64, 0, 24, 0);
     [_tableView setEditing:YES];
     [_tableView registerNib:[UINib nibWithNibName:@"PlanScheduleTableViewCell" bundle:nil] forCellReuseIdentifier:@"schedule_summary_cell"];
 }
@@ -65,7 +65,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 64 * CGRectGetHeight(tableView.frame)/768;
+    return 68;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

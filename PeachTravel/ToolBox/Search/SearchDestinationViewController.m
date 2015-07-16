@@ -84,7 +84,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         _tableView.backgroundColor = APP_PAGE_COLOR;
         
         [_tableView registerNib:[UINib nibWithNibName:@"SearchResultTableViewCell" bundle:nil]forCellReuseIdentifier:reusableCellIdentifier];
-        _tableView.contentInset = UIEdgeInsetsMake(0, 0, 10, 0);
+        _tableView.contentInset = UIEdgeInsetsMake(0, 0, 26, 0);
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.dataSource = self;
         _tableView.delegate = self;
@@ -151,7 +151,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         if (code == 0) {
             [self analysisData:[responseObject objectForKey:@"result"]];
         } else {
-
+            
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [hud hideTZHUD];
@@ -259,7 +259,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         case kSpotPoi:
             poiTypeDesc = @"vs";
             searchMoreCtl.titleStr = @"全部景点";
-        break;
+            break;
         case kRestaurantPoi:
             poiTypeDesc = @"restaurant";
             searchMoreCtl.titleStr = @"全部美食";
@@ -358,20 +358,17 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 44 * SCREEN_HEIGHT/736)];
-    headerView.backgroundColor = UIColorFromRGB(0xF9FAF9);
+    headerView.backgroundColor = APP_PAGE_COLOR;
     NSString *typeDesc = [[self.dataSource objectAtIndex:section] objectForKey:@"typeDesc"];
-    UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 44* SCREEN_HEIGHT/736)];
-    headerLabel.textColor = [UIColor blackColor];
+    UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, 50, 44* SCREEN_HEIGHT/736 - 5)];
+    headerLabel.textColor = COLOR_TEXT_I;
     headerLabel.text = [NSString stringWithFormat:@"   %@", typeDesc];
     headerLabel.font = [UIFont systemFontOfSize:14.0];
-    headerLabel.layer.cornerRadius = 2.0;
     
     NSArray *content = [[self.dataSource objectAtIndex:section] objectForKey:@"content"];
-    if (content.count < 5) {
-        
-    } else {
-        UIButton *showMoreBtn = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.view.bounds) - 100, 0, 100, 40)];
-        NSAttributedString *str = [[NSAttributedString alloc] initWithString:@"查看全部 " attributes:@{NSForegroundColorAttributeName : TEXT_COLOR_TITLE_SUBTITLE, NSFontAttributeName: [UIFont systemFontOfSize:12]}];
+    if (content.count >= 5) {
+        UIButton *showMoreBtn = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.view.bounds) - 100, 0, 100, CGRectGetHeight(headerView.frame))];
+        NSAttributedString *str = [[NSAttributedString alloc] initWithString:@"查看全部 " attributes:@{NSForegroundColorAttributeName : COLOR_TEXT_II, NSFontAttributeName: [UIFont systemFontOfSize:12]}];
         NSMutableAttributedString *showMoreStr = [[NSMutableAttributedString alloc]initWithAttributedString:str];
         
         showMoreBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
@@ -383,8 +380,8 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         NSAttributedString *sstr = [[NSAttributedString alloc]initWithString:@" >"];
         [showMoreStr appendAttributedString:sstr];
         [showMoreBtn setAttributedTitle:showMoreStr forState:UIControlStateNormal];
+        showMoreBtn.titleEdgeInsets = UIEdgeInsetsMake(5, 0, 0, 0);
         [headerView addSubview:showMoreBtn];
-        
     }
     
     [headerView addSubview:headerLabel];

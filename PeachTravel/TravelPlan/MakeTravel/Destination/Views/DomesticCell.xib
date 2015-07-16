@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D2134" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -11,7 +11,7 @@
             <rect key="frame" x="0.0" y="0.0" width="74" height="26"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="74" height="26"/>
+                <rect key="frame" x="0.0" y="0.0" width="133" height="79"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vBm-KO-Ev6">
                         <rect key="frame" x="12" y="0.0" width="50" height="26"/>
@@ -32,6 +32,9 @@
                             </mask>
                         </variation>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dHf-ZP-tRc">
+                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="l2p-v0-agr">
                         <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                         <constraints>
@@ -50,9 +53,6 @@
                                 <include reference="pHQ-2z-l1z"/>
                             </mask>
                         </variation>
-                    </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dHf-ZP-tRc">
-                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                     </imageView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -75,11 +75,11 @@
                 </constraint>
                 <constraint firstItem="vBm-KO-Ev6" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="o4q-6J-HOG"/>
             </constraints>
-            <size key="customSize" width="292" height="240"/>
+            <size key="customSize" width="351" height="293"/>
             <variation key="default">
                 <mask key="subviews">
-                    <exclude reference="l2p-v0-agr"/>
                     <exclude reference="dHf-ZP-tRc"/>
+                    <exclude reference="l2p-v0-agr"/>
                 </mask>
                 <mask key="constraints">
                     <exclude reference="AGw-Lf-OWn"/>
@@ -95,8 +95,8 @@
             </variation>
             <variation key="widthClass=compact">
                 <mask key="subviews">
-                    <include reference="l2p-v0-agr"/>
                     <include reference="dHf-ZP-tRc"/>
+                    <include reference="l2p-v0-agr"/>
                 </mask>
                 <mask key="constraints">
                     <include reference="AGw-Lf-OWn"/>
@@ -115,7 +115,7 @@
                 <outlet property="status" destination="l2p-v0-agr" id="d1h-PY-WlM"/>
                 <outlet property="tiltleLabel" destination="vBm-KO-Ev6" id="BDZ-tB-nBD"/>
             </connections>
-            <point key="canvasLocation" x="97" y="249.5"/>
+            <point key="canvasLocation" x="184.5" y="245.5"/>
         </collectionViewCell>
     </objects>
 </document>

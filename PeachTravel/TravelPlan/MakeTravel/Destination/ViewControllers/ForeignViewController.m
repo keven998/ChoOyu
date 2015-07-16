@@ -12,8 +12,8 @@
 #import "DestinationCollectionHeaderView.h"
 #import "AreaDestination.h"
 #import "CityDestinationPoi.h"
-
-@interface ForeignViewController () <TaoziLayoutDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
+#import "DomesticCell.h"
+@interface ForeignViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (nonatomic) NSInteger showCitiesIndex;
 
@@ -25,24 +25,29 @@
 @implementation ForeignViewController
 
 static NSString *reuseableHeaderIdentifier  = @"domesticHeader";
-static NSString *reuseableCellIdentifier  = @"cell";
-
+static NSString *reuseableCellIdentifier  = @"domesticCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     _showCitiesIndex = 0;
-    [self.foreignCollectionView registerNib:[UINib nibWithNibName:@"DomesticDestinationCell" bundle:nil]  forCellWithReuseIdentifier:reuseableCellIdentifier];
+    [self.foreignCollectionView registerNib:[UINib nibWithNibName:@"DomesticCell" bundle:nil]  forCellWithReuseIdentifier:reuseableCellIdentifier];
     [self.foreignCollectionView registerNib:[UINib nibWithNibName:@"DestinationCollectionHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:reuseableHeaderIdentifier];
-    [self.foreignCollectionView setContentInset:UIEdgeInsetsMake(-5, 0, 89, 0)];
+    UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.foreignCollectionView.collectionViewLayout;
+    layout.itemSize = CGSizeMake(SCREEN_WIDTH/3, SCREEN_WIDTH/3);
+    layout.minimumInteritemSpacing = 0;
+    layout.minimumLineSpacing = 0;
+//    [self.foreignCollectionView setContentInset:UIEdgeInsetsMake(-5, 0, 35, 0)];
+//    _domesticCollectionView.contentInset = UIEdgeInsetsMake(-5, 0, 35, 0);
+//    _domesticCollectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.foreignCollectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.foreignCollectionView setShowsVerticalScrollIndicator:NO];
-    
-    TaoziCollectionLayout *layout = (TaoziCollectionLayout *)_foreignCollectionView.collectionViewLayout;
-    layout.delegate = self;
-    layout.showDecorationView = YES;
-    layout.margin = 10;
-    layout.spacePerItem = 10;
-    layout.spacePerLine = 10;
+//    
+//    TaoziCollectionLayout *layout = (TaoziCollectionLayout *)_foreignCollectionView.collectionViewLayout;
+//    layout.delegate = self;
+//    layout.showDecorationView = YES;
+//    layout.margin = 0;
+//    layout.spacePerItem = 0;
+//    layout.spacePerLine = 0;
     
     _foreignCollectionView.dataSource = self;
     _foreignCollectionView.delegate = self;
@@ -190,39 +195,6 @@ static NSString *reuseableCellIdentifier  = @"cell";
     }
 }
 
-#pragma mark - TaoziLayoutDelegate
-
-- (CGSize)collectionview:(UICollectionView *)collectionView sizeForHeaderView:(NSIndexPath *)indexPath
-{
-    return CGSizeMake(self.foreignCollectionView.frame.size.width, 38);
-}
-
-- (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    AreaDestination *country = _destinations.foreignCountries[indexPath.section];
-    CityDestinationPoi *city = country.cities[indexPath.row];
-    CGSize size = [city.zhName sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:15.0]}];
-    return CGSizeMake(size.width + 25 + 28, 28);
-}
-
-- (NSInteger)numberOfSectionsInTZCollectionView:(UICollectionView *)collectionView
-{
-    return _destinations.foreignCountries.count;
-}
-
-- (NSInteger)tzcollectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
-//    if (section == _showCitiesIndex) {
-        return ((AreaDestination *)_destinations.foreignCountries[section]).cities.count;
-//    }
-//    return 0;
-}
-
-- (CGFloat)tzcollectionLayoutWidth
-{
-    return self.foreignCollectionView.frame.size.width;
-}
-
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
@@ -248,9 +220,28 @@ static NSString *reuseableCellIdentifier  = @"cell";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    /*
+     DomesticCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"domesticCell" forIndexPath:indexPath];
+     AreaDestination *area = [self.destinations.domesticCities objectAtIndex:indexPath.section];
+     CityDestinationPoi *city = [area.cities objectAtIndex:indexPath.row];
+     cell.tiltleLabel.text = city.zhName;
+     
+     for (CityDestinationPoi *cityPoi in _destinations.destinationsSelected) {
+     if ([cityPoi.cityId isEqualToString:city.cityId]) {
+     cell.tiltleLabel.textColor = [UIColor whiteColor];
+     cell.status.image = [UIImage imageNamed:@"ic_cell_item_chooesed.png"];
+     cell.backgroundColor = APP_THEME_COLOR;
+     return  cell;
+     }
+     }
+     cell.tiltleLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+     cell.status.image = [UIImage imageNamed:@"ic_cell_item_unchoose.png"];
+     cell.backgroundColor = [UIColor whiteColor];
+     return  cell;
+     */
     AreaDestination *country = _destinations.foreignCountries[indexPath.section];
     CityDestinationPoi *city = country.cities[indexPath.row];
-    DomesticDestinationCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseableCellIdentifier forIndexPath:indexPath];
+    DomesticCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseableCellIdentifier forIndexPath:indexPath];
     cell.tiltleLabel.text = city.zhName;
     for (CityDestinationPoi *cityPoi in _destinations.destinationsSelected) {
         if ([cityPoi.cityId isEqualToString:city.cityId]) {
@@ -264,6 +255,7 @@ static NSString *reuseableCellIdentifier  = @"cell";
     cell.status.image = [UIImage imageNamed:@"ic_cell_item_unchoose.png"];
     cell.backgroundColor = [UIColor whiteColor];
     return  cell;
+    
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath

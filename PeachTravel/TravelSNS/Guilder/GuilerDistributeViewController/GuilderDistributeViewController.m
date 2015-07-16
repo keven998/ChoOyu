@@ -9,12 +9,27 @@
 #import "GuilderDistributeViewController.h"
 #import "GuiderCollectionViewController.h"
 #import "GuiderCell.h"
-
+#import "GuilderDistribute.h"
+#import "MJExtension.h"
 @interface GuilderDistributeViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
 @property (nonatomic, strong) UITableView *tableView;
+
+@property (nonatomic, strong)NSArray * guiderArray;
+
 @end
 
 @implementation GuilderDistributeViewController
+
+/**
+ *  懒加载模型数组
+ */
+- (NSArray *)guiderArray
+{
+    if (_guiderArray == nil) {
+        _guiderArray = [NSArray array];
+    }
+    return _guiderArray;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -32,8 +47,45 @@
     self.navigationItem.leftBarButtonItem = barButton;
     
     [self.view addSubview:self.tableView];
+    
+    // 发送网络请求
+    [self sendRequest];
 }
 
+#pragma mark - 请求网络数据
+- (void)sendRequest
+{
+    // 1.获取请求管理者
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    // 2.请求链接
+    NSString * url = @"http://api-dev.lvxingpai.com/app/geo/countrys";
+    
+    // 3.发送Get请求
+    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        /**
+         *  获取字典数组
+         */
+        NSArray * resultArray = responseObject[@"result"];
+        
+        /**
+         *  将字典数组转换成模型数组
+         */
+        self.guiderArray = [GuilderDistribute objectArrayWithKeyValuesArray:resultArray];
+        
+        // 获得数据后刷新表格
+        [self.tableView reloadData];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        // 打印失败信息
+        NSLog(@"%@",error);
+    }];
+    
+}
+
+// 懒加载tableView
 - (UITableView *)tableView
 {
     if (!_tableView) {
@@ -55,11 +107,11 @@
 }
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
-    return 5;
+    return 1;
 }
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 2;
+    return self.guiderArray.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -92,14 +144,18 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    GuiderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"GuiderCell" forIndexPath:indexPath];
+//    GuiderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"GuiderCell" forIndexPath:indexPath];
+    GuiderCell * cell = [GuiderCell guiderWithTableView:tableView];
+    cell.guiderDistribute = self.guiderArray[indexPath.row];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     GuiderCollectionViewController *guider = [[GuiderCollectionViewController alloc] initWithNibName:@"GuiderCollectionViewController" bundle:nil];
-    guider.distributionArea = @"";
+    GuilderDistribute * guilderDistribute = self.guiderArray[indexPath.row];
+    guider.distributionArea = guilderDistribute.zhName;
+    guider.guiderDistribute = self.guiderArray[indexPath.row];
     [self.navigationController pushViewController:guider animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
