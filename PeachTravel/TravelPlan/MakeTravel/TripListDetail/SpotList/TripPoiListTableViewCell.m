@@ -13,6 +13,7 @@
 - (void)awakeFromNib {
     _headerImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
     
+    /*
     [_actionBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_actionBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
     [_actionBtn setBackgroundImage:[ConvertMethods createImageWithColor:COLOR_DISABLE] forState:UIControlStateSelected];
@@ -22,40 +23,56 @@
     [_actionBtn setTitle:@"添加" forState:UIControlStateNormal];
     [_actionBtn setTitle:@"已添加" forState:UIControlStateSelected];
     _actionBtn.hidden = YES;
+     */
 }
 
 - (void)setTripPoi:(SuperPoi *)tripPoi
 {
     _tripPoi = tripPoi;
+    
+    NSLog(@"%@",tripPoi);
+    
     TaoziImage *image = [_tripPoi.images firstObject];
     [_headerImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
     _titleLabel.text = tripPoi.zhName;
+    
+    
     NSString *property = nil;
     NSString *rankStr = nil;
     if (_tripPoi.rank <= 200 && _tripPoi.rank > 0) {
         rankStr = [NSString stringWithFormat:@"%d", _tripPoi.rank];
     } else if (_tripPoi.rank > 200) {
-        rankStr = @"200+";
+        rankStr = @"N";
     } else {
-        rankStr = @"  ";
+        rankStr = @"N";
     }
+    
+    [_propertyBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+    [_propertyBtn setTitle:rankStr forState:UIControlStateNormal];
     
     if (_tripPoi.poiType == kSpotPoi) {
         if ([((SpotPoi *)tripPoi).timeCostStr isBlankString]) {
             
         } else {
             NSString *timeStr = [NSString stringWithFormat:@"建议游玩%@", ((SpotPoi *)tripPoi).timeCostStr];
-            property = [NSString stringWithFormat:@"%@  %@", rankStr, timeStr];
+//            property = [NSString stringWithFormat:@"%@  %@", rankStr, timeStr];
+            property = timeStr;
         }
     } else {
-        property = [NSString stringWithFormat:@"%@  %@", rankStr, @"小吃快餐"];
+        property = [NSString stringWithFormat:@"%@%@", rankStr, @"小吃快餐"];
     }
+    
+    
+    /*
     [_propertyBtn setImage:[UIImage imageNamed:@"plan_bottom_flower.png"] forState:UIControlStateNormal];
     if (property != nil && ![property isBlankString]) {
         NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:property];
         [string addAttributes:@{NSForegroundColorAttributeName : COLOR_TEXT_III} range:NSMakeRange(rankStr.length+1, property.length-rankStr.length-1)];
         [_propertyBtn setAttributedTitle:string forState:UIControlStateNormal];
     }
+    */
+    [_actionBtn setTitle:property forState:UIControlStateNormal];
+//    [_actionBtn setTitle:@"建议游玩" forState:UIControlStateNormal];
 }
 
 @end

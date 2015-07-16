@@ -153,14 +153,16 @@
         self.navigationItem.leftBarButtonItems = nil;
     } else {
         NSMutableArray *barItems = [[NSMutableArray alloc] init];
-        _moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 44)];
+        _moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20, 44)];
         [_moreBtn setImage:[UIImage imageNamed:@"plan_02_dashboard_drawer.png"] forState:UIControlStateNormal];
+        _moreBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 4, 0, 0);
         [_moreBtn addTarget:self action:@selector(showMoreAction:) forControlEvents:UIControlEventTouchUpInside];
         [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_moreBtn]];
         
-        UIButton *mapBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 44)];
+        UIButton *mapBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20, 44)];
         [mapBtn setImage:[UIImage imageNamed:@"plan_02_dashboard_map.png"] forState:UIControlStateNormal];
         [mapBtn addTarget:self action:@selector(mapView) forControlEvents:UIControlEventTouchUpInside];
+        mapBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 2);
         [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:mapBtn]];
         
         self.navigationItem.rightBarButtonItems = barItems;

@@ -42,13 +42,13 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     self.view.backgroundColor = APP_PAGE_COLOR;
     
     NSMutableArray *barItems = [[NSMutableArray alloc] init];
-    UIButton *planBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 24, 44)];
+    UIButton *planBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20, 44)];
     [planBtn setImage:[UIImage imageNamed:@"city_navigationbar_add_default.png"] forState:UIControlStateNormal];
     [planBtn setImage:[UIImage imageNamed:@"city_navigationbar_add_hilighted.png"] forState:UIControlStateHighlighted];
     [planBtn addTarget:self action:@selector(makePlan) forControlEvents:UIControlEventTouchUpInside];
     planBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 4, 0, 0);
     [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:planBtn]];
-    UIButton *talkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 28, 44)];
+    UIButton *talkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20, 44)];
     [talkBtn setImage:[UIImage imageNamed:@"navigationbar_chat_default.png"] forState:UIControlStateNormal];
     [talkBtn setImage:[UIImage imageNamed:@"navigationbar_chat_hilighted.png"] forState:UIControlStateHighlighted];
     [talkBtn addTarget:self action:@selector(shareToTalk) forControlEvents:UIControlEventTouchUpInside];
