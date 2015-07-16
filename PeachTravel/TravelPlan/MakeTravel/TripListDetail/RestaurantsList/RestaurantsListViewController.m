@@ -50,6 +50,8 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
     self.view.backgroundColor = APP_PAGE_COLOR;
     [self.view addSubview:self.tableView];
     
+    self.tableView.contentInset = UIEdgeInsetsMake(18, 0, 0, 0);
+    
     if (_canEdit) {
 //        UIButton *toolBar = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49, CGRectGetWidth(self.view.bounds), 49)];
 //        toolBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
@@ -214,7 +216,8 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
     NSArray * shoppingArray = dataSource[section];
     UILabel * label = [[UILabel alloc] init];
     label.font = [UIFont boldSystemFontOfSize:16.0f];
-    label.frame = CGRectMake(18, 20, 100, 40);
+    label.frame = CGRectMake(18, 24, 100, 21);
+    [label setTextColor:[UIColor colorWithRed:100 / 256.0 green:100 / 256.0 blue:100 / 256.0 alpha:1.0]];
     CityDestinationPoi * poi = self.tripDetail.destinations[section];
     NSString * title = [NSString stringWithFormat:@"%@ (%ld)",poi.zhName,shoppingArray.count];
     label.text = title;
@@ -223,8 +226,8 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
     // 3.创建收藏Button
     UIButton * collection = [UIButton buttonWithType:UIButtonTypeCustom];
     collection.tag = section;
-    CGFloat collectionW = 80;
-    collection.frame = CGRectMake(SCREEN_WIDTH - 30 - collectionW, 22, collectionW, 30);
+    CGFloat collectionW = 81;
+    collection.frame = CGRectMake(SCREEN_WIDTH - 30 - collectionW, 12, collectionW, 42);
     [collection setTitle:@"收藏" forState:UIControlStateNormal];
     [collection setTitleColor:[UIColor colorWithRed:150 / 256.0 green:150 / 256.0 blue:150 / 256.0 alpha:1.0] forState:UIControlStateNormal];
     [collection addTarget:self action:@selector(collectionShop:) forControlEvents:UIControlEventTouchUpInside];
@@ -299,19 +302,19 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if ([_showDic objectForKey:[NSString stringWithFormat:@"%ld",indexPath.section]]) {
-        return 66;
+        return 108;
     }
     return 0;
 }
 
 #pragma mark - UITableViewDataSource & Delegate
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 75;
+    return 66;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 20;
+    return 19.5;
 }
 
 // 1.返回有多少组
