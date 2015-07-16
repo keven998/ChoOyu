@@ -8,6 +8,7 @@
 
 #import "ChatSettingViewController.h"
 #import "ChatGroupSettingCell.h"
+#import "PeachTravel-swift.h"
 
 @interface ChatSettingViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
@@ -85,14 +86,19 @@
     return 68 * SCREEN_HEIGHT / 736;
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 0) {
         ChatGroupSettingCell *cell = [tableView dequeueReusableCellWithIdentifier:@"chatGroupSettingCell" forIndexPath:indexPath];
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        IMClientManager *clientManager = [IMClientManager shareInstance];
+        ChatConversation *conversation = [clientManager.conversationManager getExistConversationInConversationList:_chatterId];
         [cell.switchBtn addTarget:self action:@selector(changeMsgStatus:) forControlEvents:UIControlEventValueChanged];
+        cell.switchBtn.on = [conversation isBlockMessag];
+        cell.tag = 101;
         return cell;
+
     } else if (indexPath.row == 1) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
         cell.textLabel.font = [UIFont systemFontOfSize:13.0];
@@ -103,7 +109,7 @@
     return nil;
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 0) {
         
@@ -119,8 +125,15 @@
     
 }
 
+//TODO: 设置聊天免打扰
+/**
+ *  更新群组消息提醒状态，屏蔽和不屏蔽
+ *
+ *  @param sender
+ */
 - (IBAction)changeMsgStatus:(UIButton *)sender {
     
 }
+
 
 @end
