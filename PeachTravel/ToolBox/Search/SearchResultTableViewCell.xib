@@ -35,13 +35,12 @@
                         <constraints>
                             <constraint firstAttribute="height" constant="15" id="huB-PW-O3S"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
                         <color key="textColor" red="0.58823529411764708" green="0.58823529411764708" blue="0.58823529411764708" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8PJ-vL-Zwj">
                         <rect key="frame" x="266" y="17" width="40" height="20"/>
-                        <color key="backgroundColor" red="0.99215686270000003" green="0.33725490200000002" blue="0.40784313729999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="2oM-yV-1s5"/>
                             <constraint firstAttribute="height" constant="20" id="yNz-C2-Qar"/>
