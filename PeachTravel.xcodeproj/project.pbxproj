@@ -235,6 +235,7 @@
 		C65343161B57992900C73A31 /* city_navigationbar_add_hilighted@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C65343141B57992900C73A31 /* city_navigationbar_add_hilighted@3x.png */; };
 		C65763211AEB392C0069909D /* ic_trip_list@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C65763201AEB392C0069909D /* ic_trip_list@2x.png */; };
 		C658BCF01B32B87700754A2D /* PlansListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C658BCEF1B32B87700754A2D /* PlansListTableViewController.m */; };
+		C65A3B781B589F4500CE0EAB /* collection_flower@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C65A3B771B589F4500CE0EAB /* collection_flower@3x.png */; };
 		C65DB7B81AD37B8600F51443 /* SelectionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C65DB7B61AD37B8600F51443 /* SelectionTableViewController.m */; };
 		C65DB7B91AD37B8600F51443 /* SelectionTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C65DB7B71AD37B8600F51443 /* SelectionTableViewController.xib */; };
 		C65DB7C01AD4E44800F51443 /* TravelersTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C65DB7BF1AD4E44800F51443 /* TravelersTableViewController.m */; };
@@ -1059,7 +1060,6 @@
 		E6E725621B5603D30007273A /* libSocialWechat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E6E7254D1B5603D30007273A /* libSocialWechat.a */; };
 		E6E725631B5603D30007273A /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E6E7254E1B5603D30007273A /* libWeChatSDK.a */; };
 		E6E725691B5604A90007273A /* GuilderDistribute.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E725681B5604A90007273A /* GuilderDistribute.m */; };
-		E6F66ADE1B57B3050031F491 /* collection_flower.png in Resources */ = {isa = PBXBuildFile; fileRef = E6F66ADD1B57B3050031F491 /* collection_flower.png */; };
 		E6F66AE01B57D9B70031F491 /* sent_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = E6F66ADF1B57D9B70031F491 /* sent_bg.png */; };
 		ECA2A8C30F0010E2F827610E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ECFF7EAB22286C959CD2E43 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -1346,6 +1346,7 @@
 		C658BCEE1B32B87700754A2D /* PlansListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlansListTableViewController.h; sourceTree = "<group>"; };
 		C658BCEF1B32B87700754A2D /* PlansListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlansListTableViewController.m; sourceTree = "<group>"; };
 		C659E9F61AE0FF2100A28095 /* SNSDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SNSDefine.h; sourceTree = "<group>"; };
+		C65A3B771B589F4500CE0EAB /* collection_flower@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "collection_flower@3x.png"; sourceTree = "<group>"; };
 		C65DB7B51AD37B8600F51443 /* SelectionTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectionTableViewController.h; sourceTree = "<group>"; };
 		C65DB7B61AD37B8600F51443 /* SelectionTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectionTableViewController.m; sourceTree = "<group>"; };
 		C65DB7B71AD37B8600F51443 /* SelectionTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectionTableViewController.xib; sourceTree = "<group>"; };
@@ -2535,7 +2536,6 @@
 		E6E725511B5603D30007273A /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		E6E725671B5604A90007273A /* GuilderDistribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuilderDistribute.h; sourceTree = "<group>"; };
 		E6E725681B5604A90007273A /* GuilderDistribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuilderDistribute.m; sourceTree = "<group>"; };
-		E6F66ADD1B57B3050031F491 /* collection_flower.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = collection_flower.png; sourceTree = "<group>"; };
 		E6F66ADF1B57D9B70031F491 /* sent_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sent_bg.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -2961,6 +2961,7 @@
 		C63FFCC31B3A6CFB0026758F /* CommonImages */ = {
 			isa = PBXGroup;
 			children = (
+				C65A3B771B589F4500CE0EAB /* collection_flower@3x.png */,
 				C653430F1B5795BA00C73A31 /* navigationbar_chat_default@3x.png */,
 				C65343101B5795BA00C73A31 /* navigationbar_chat_hilighted@3x.png */,
 				D90A9B671B56716D00E9F37C /* search@3x.png */,
@@ -6030,7 +6031,6 @@
 			children = (
 				E6F66ADF1B57D9B70031F491 /* sent_bg.png */,
 				E6E362BC1B5755F300730C1B /* collection.png */,
-				E6F66ADD1B57B3050031F491 /* collection_flower.png */,
 			);
 			name = "收藏";
 			sourceTree = "<group>";
@@ -6454,7 +6454,6 @@
 				C69EB43A1AE63FD90039626B /* route_timeline_pot@2x.png in Resources */,
 				C6631D201B30231500BE4ADC /* ic_loc_selected@3x.png in Resources */,
 				275B692D1B17F610002FE764 /* ic_chat_ce_add@2x.png in Resources */,
-				E6F66ADE1B57B3050031F491 /* collection_flower.png in Resources */,
 				27B9FAB11AFB284300EEBF07 /* ic_nrq_2@2x.png in Resources */,
 				D9A804DF1A80E738005AD701 /* ic_feedback@2x.png in Resources */,
 				2786AAFE1B3D908400881697 /* account_line_default@3x.png in Resources */,
@@ -6746,6 +6745,7 @@
 				D9008D6D1A8A05AD000A237D /* ic_quotation_l@2x.png in Resources */,
 				C6631D0E1B300D6400BE4ADC /* ic_lxp_search_homo@3x.png in Resources */,
 				27FF1A891B05A25200643D77 /* ic_back_trip_ios@2x.png in Resources */,
+				C65A3B781B589F4500CE0EAB /* collection_flower@3x.png in Resources */,
 				D91FED911B42851A0073AD77 /* city_button_spot_selected@3x.png in Resources */,
 				D9A805181A80E738005AD701 /* navi_bkg@2x.png in Resources */,
 				D9A800611A80DD0C005AD701 /* AddressBookTableViewCell.xib in Resources */,
