@@ -86,7 +86,7 @@
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
-        [self showHint:@"呃～好像没找到网络"];
+        [self showHint:HTTP_FAILED_HINT];
     }];
     
 }

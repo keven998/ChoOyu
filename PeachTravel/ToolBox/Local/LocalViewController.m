@@ -293,7 +293,7 @@
         [self loadMoreCompletedWithCurrentPage:realPageIndex];
 //        [SVProgressHUD showErrorWithStatus:@"加载失败"];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        [self showHint:@"呃～好像没找到网络"];
+        [self showHint:HTTP_FAILED_HINT];
         
     }];
     

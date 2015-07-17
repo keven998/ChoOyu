@@ -148,7 +148,7 @@
 //拨打电话
 - (void)makePhone
 {
-    if (self.poi.telephone || ![self.poi.telephone isBlankString]) {
+    if (self.poi.telephone && ![self.poi.telephone isBlankString]) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"确认拨打电话？" message:self.poi.telephone delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
             if (buttonIndex == 1) {
@@ -163,17 +163,6 @@
 - (void)showPoiDesc
 {
     
-}
-
-- (void)dismissCtlWithHint:(NSString *)hint {
-    [SVProgressHUD showHint:hint];
-    self.navigationController.navigationBar.hidden = NO;
-    [UIView animateWithDuration:0.0 animations:^{
-        self.view.alpha = 0;
-    } completion:^(BOOL finished) {
-        [self willMoveToParentViewController:nil];
-        [self.navigationController popViewControllerAnimated:YES];
-    }];
 }
 
 #pragma mark - Private Methods
@@ -230,11 +219,11 @@
             self.poi = [PoiFactory poiWithPoiType:_poiType andJson:[responseObject objectForKey:@"result"]];
             [self updateView];
         } else {
-            [self dismissCtlWithHint:@"无法获取数据"];
+            [self showHint:@"无法获取数据"];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [hud hideTZHUD];
-        [self dismissCtlWithHint:@"呃～好像没找到网络"];
+        [self showHint:HTTP_FAILED_HINT];
     }];
 }
 

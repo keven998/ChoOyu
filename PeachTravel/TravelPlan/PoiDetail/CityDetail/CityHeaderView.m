@@ -183,7 +183,7 @@
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
-    NSString *requsetUrl = [NSString stringWithFormat:@"%@%@/album", API_GET_ALBUM, _cityPoi.poiId];
+    NSString *requsetUrl = [NSString stringWithFormat:@"%@%@/albums", API_GET_ALBUM, _cityPoi.poiId];
     
     UIViewController *ctl;
     for (UIView* next = [self superview]; next; next = next.superview)
@@ -222,7 +222,7 @@
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (((CityDetailTableViewController *)ctl).isShowing) {
-            [SVProgressHUD showHint:@"呃～好像没找到网络"];
+            [SVProgressHUD showHint:HTTP_FAILED_HINT];
         }
     }];
 }

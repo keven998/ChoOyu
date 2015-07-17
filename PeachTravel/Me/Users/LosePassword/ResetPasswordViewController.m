@@ -67,7 +67,7 @@
     if (_verifyCaptchaType == UserBindTel) {
         [[AccountManager shareAccountManager] asyncBindTelephone:_phoneNumber token:_token completion:^(BOOL isSuccess, NSString *errorStr) {
             if (isSuccess) {
-                [SVProgressHUD showHint:@"OK!已成功修改"];
+                [SVProgressHUD showHint:@"修改成功"];
                 [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.4];
                 
             } else {
@@ -77,7 +77,7 @@
                 } else {
                     
                     if (self.isShowing) {
-                        [SVProgressHUD showHint:@"呃～好像没找到网络"];
+                        [SVProgressHUD showHint:HTTP_FAILED_HINT];
                     }
                 }
             }
@@ -86,7 +86,7 @@
     } else {
         [accountManager asyncResetPassword:_passwordLabel.text toke:_token completion:^(BOOL isSuccess, NSString *errorStr) {
             if (isSuccess) {
-                [SVProgressHUD showHint:@"OK!已成功修改"];
+                [SVProgressHUD showHint:@"修改成功"];
                 [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.4];
                 
             } else {
@@ -96,7 +96,7 @@
                 } else {
                     
                     if (self.isShowing) {
-                        [SVProgressHUD showHint:@"呃～好像没找到网络"];
+                        [SVProgressHUD showHint:HTTP_FAILED_HINT];
                     }
                 }
             }

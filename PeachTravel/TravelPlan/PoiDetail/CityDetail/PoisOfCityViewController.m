@@ -215,6 +215,11 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     return _footerView;
 }
 
+- (void)setTripDetail:(TripDetail *)tripDetail
+{
+    _tripDetail = tripDetail;
+}
+
 #pragma mark - Private Methods
 
 - (void)loadIntroductionOfCity
@@ -249,7 +254,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
         }
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self showHint:@"呃～好像没找到网络"];
+        [self showHint:HTTP_FAILED_HINT];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
 }
@@ -270,10 +275,10 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     NSString *requsetUrl;
     if (_poiType == kRestaurantPoi) {
-        requsetUrl = [NSString stringWithFormat:@"%@%@", API_GET_RESTAURANTSLIST_CITY,_cityId];
+        requsetUrl = API_GET_RESTAURANTSLIST_CITY;
         
     } else if (_poiType == kShoppingPoi) {
-        requsetUrl = [NSString stringWithFormat:@"%@%@", API_GET_SHOPPINGLIST_CITY,_cityId];
+        requsetUrl = API_GET_SHOPPINGLIST_CITY;
     }
     
     //加载之前备份一个城市的 id 与从网上取完数据后的 id 对比，如果不一致说明用户切换了城市
@@ -284,6 +289,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     [params setObject:imageWidth forKey:@"imgWidth"];
     [params setObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];
     [params setObject:[NSNumber numberWithInteger:pageNO] forKey:@"page"];
+    [params setObject:_cityId forKey:@"locality"];
     
     //获取城市的美食.购物列表信息
     [manager GET:requsetUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -315,7 +321,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
         }
         NSLog(@"%@", error);
         [self loadMoreCompletedNormal];
-        [self showHint:@"呃～好像没找到网络"];
+        [self showHint:HTTP_FAILED_HINT];
     }];
 }
 
@@ -377,7 +383,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
         }
         NSLog(@"%@", error);
         [self loadMoreCompletedNormal];
-        [self showHint:@"呃～好像没找到网络"];
+        [self showHint:HTTP_FAILED_HINT];
     }];
 }
 
@@ -911,10 +917,10 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     CityDestinationPoi *poi = [self.backTripDetail.destinations objectAtIndex:cityindex];
     NSString *requsetUrl = [[NSString alloc]init];
     if (_poiType == kRestaurantPoi) {
-        requsetUrl = [NSString stringWithFormat:@"%@%@", API_GET_RESTAURANTSLIST_CITY,poi.cityId];
+        requsetUrl = API_GET_RESTAURANTSLIST_CITY;
         self.navigationItem.title = [NSString stringWithFormat:@"吃在%@",poi.zhName];
     } else if (_poiType == kShoppingPoi) {
-        requsetUrl = [NSString stringWithFormat:@"%@%@", API_GET_SHOPPINGLIST_CITY,poi.cityId];
+        requsetUrl = API_GET_SHOPPINGLIST_CITY;
         self.navigationItem.title = [NSString stringWithFormat:@"%@购物",poi.zhName];
     }
     

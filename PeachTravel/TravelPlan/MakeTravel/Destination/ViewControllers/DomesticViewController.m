@@ -137,7 +137,7 @@ static NSString *cacheName = @"destination_demostic_group";
         } else {
             if (_hud) {
                 if (self.isShowing) {
-                    [SVProgressHUD showHint:@"呃～好像没找到网络"];
+                    [SVProgressHUD showHint:HTTP_FAILED_HINT];
                 }
             }
         }
@@ -146,7 +146,7 @@ static NSString *cacheName = @"destination_demostic_group";
         if (_hud) {
             [_hud hideTZHUD];
             if (self.isShowing) {
-                [SVProgressHUD showHint:@"呃～好像没找到网络"];
+                [SVProgressHUD showHint:HTTP_FAILED_HINT];
             }
         }
        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];

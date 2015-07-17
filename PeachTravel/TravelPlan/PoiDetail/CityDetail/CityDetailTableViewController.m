@@ -177,7 +177,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
             [self loadTravelNoteOfCityData];
         } else {
             if (self.isShowing) {
-                [SVProgressHUD showHint:@"呃～好像没找到网络"];
+                [SVProgressHUD showHint:HTTP_FAILED_HINT];
             }
             [_hud hideTZHUD];
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -186,7 +186,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
         if (self.isShowing) {
-            [SVProgressHUD showHint:@"呃～好像没找到网络"];
+            [SVProgressHUD showHint:HTTP_FAILED_HINT];
         }
         [_hud hideTZHUD];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -211,7 +211,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     NSNumber *imageWidth = [NSNumber numberWithInt:200];
     [params setObject:imageWidth forKey:@"imgWidth"];
     [params setObject:[NSNumber numberWithInt:3] forKey:@"pageSize"];
-    [params setObject:self.poi.poiId forKey:@"locId"];
+    [params setObject:self.poi.poiId forKey:@"locality"];
     [params setObject:[NSNumber numberWithInt:0] forKey:@"page"];
     [manager GET:API_SEARCH_TRAVELNOTE parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);

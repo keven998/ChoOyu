@@ -300,7 +300,7 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [hud hideTZHUD];
         if (self.isShowing) {
-            [SVProgressHUD showHint:@"呃～好像没找到网络"];
+            [SVProgressHUD showHint:HTTP_FAILED_HINT];
         }
     }];
 }
@@ -364,7 +364,7 @@
         if (hud) [hud hideTZHUD];
         NSLog(@"%@", error);
         if (self.isShowing) {
-            [SVProgressHUD showHint:@"呃～好像没找到网络"];
+            [SVProgressHUD showHint:HTTP_FAILED_HINT];
         }
     }];
 }
@@ -409,7 +409,7 @@
 - (IBAction)showMoreAction:(id)sender
 {
     if (!_tripDetail) {
-        //        [SVProgressHUD showHint:@"呃～好像没找到网络"];
+        //        [SVProgressHUD showHint:HTTP_FAILED_HINT];
         return;
     }
     
@@ -559,7 +559,7 @@
         [hud hideTZHUD];
         NSLog(@"%@", error);
         if (self.isShowing) {
-            [SVProgressHUD showHint:@"呃～好像没找到网络"];
+            [SVProgressHUD showHint:HTTP_FAILED_HINT];
         }
     }];
 }

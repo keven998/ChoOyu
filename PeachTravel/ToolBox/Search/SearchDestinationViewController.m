@@ -418,15 +418,11 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [_searchBar resignFirstResponder];
-    [MobClick event:@"event_click_search_result_item"];
-    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     SuperPoi *poi = [[[self.dataSource objectAtIndex:indexPath.section] objectForKey:@"content"] objectAtIndex:indexPath.row];
-    
     if (poi.poiType == kSpotPoi) {
         SpotDetailViewController *ctl = [[SpotDetailViewController alloc] init];
         ctl.spotId = poi.poiId;
         [self.navigationController pushViewController:ctl animated:YES];
-        
     } else if (poi.poiType == kCityPoi) {
         CityDetailTableViewController *ctl = [[CityDetailTableViewController alloc] init];
         ctl.cityId = poi.poiId;
@@ -436,6 +432,9 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         ctl.poiId = poi.poiId;
         [self.navigationController pushViewController:ctl animated:YES];
     }
+    
+    [MobClick event:@"event_click_search_result_item"];
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
@@ -479,8 +478,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 - (void)dismissPopup
 {
     if (self.popupViewController != nil) {
-        [self dismissPopupViewControllerAnimated:YES completion:^{
-        }];
+        [self dismissPopupViewControllerAnimated:YES completion:nil];
     }
 }
 

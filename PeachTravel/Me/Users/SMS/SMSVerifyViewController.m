@@ -220,7 +220,7 @@
         [hud hideTZHUD];
         NSLog(@"%@", error);
         if (self.isShowing) {
-            [SVProgressHUD showHint:@"呃～好像没找到网络"];
+            [SVProgressHUD showHint:HTTP_FAILED_HINT];
         }
     }];
 }
@@ -265,7 +265,7 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [hud hideTZHUD];
         if (self.isShowing) {
-            [SVProgressHUD showHint:@"呃～好像没找到网络"];
+            [SVProgressHUD showHint:HTTP_FAILED_HINT];
         }
         _statusLabel.text = @"验证码发送失败，请重试";
     }];
