@@ -62,35 +62,36 @@
     CGFloat h = 280*CGRectGetHeight(self.view.bounds)/736;
     UIButton *lxpHelper = [[UIButton alloc] initWithFrame:CGRectMake(10, mxh, w, h)];
     UIImageView *flag = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"lxp_expert_helper.png"]];
-    flag.center = CGPointMake(w/2.0, h/2.0 - 14);
+    flag.center = CGPointMake(w/2.0, h/2.0 - 12);
     [lxpHelper addSubview:flag];
     [lxpHelper setBackgroundImage:[UIImage imageNamed:@"tools_home_card_bg_normal.png"] forState:UIControlStateNormal];
     [lxpHelper setBackgroundImage:[UIImage imageNamed:@"tools_home_card_bg_highlight.png"] forState:UIControlStateHighlighted];
     [lxpHelper setTitle:@"达人咨询" forState:UIControlStateNormal];
     [lxpHelper setTitleEdgeInsets:UIEdgeInsetsMake(flag.frame.size.height / 2.0, 0, -64, 0)];
-    [lxpHelper setTitleColor:COLOR_TEXT_III forState:UIControlStateNormal];
+//    [lxpHelper setTitleColor:COLOR_TEXT_III forState:UIControlStateNormal];
+    [lxpHelper setTitleColor:TZColor(64, 64, 64) forState:UIControlStateNormal];
+    [lxpHelper setTitleColor:TZColor(32, 32, 32) forState:UIControlStateHighlighted];
     lxpHelper.titleLabel.font = [UIFont systemFontOfSize:16];
     [lxpHelper addTarget:self action:@selector(goLxpHelper) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:lxpHelper];
     
     UIButton *planHelper = [[UIButton alloc] initWithFrame:CGRectMake(w+20, mxh, w, h)];
     flag = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"lxp_plan_helper.png"]];
-    flag.center = CGPointMake(w/2.0, h/2.0 - 14);
+    flag.center = CGPointMake(w/2.0, h/2.0 - 12);
     [planHelper addSubview:flag];
     [planHelper setBackgroundImage:[UIImage imageNamed:@"tools_home_card_bg_normal.png"] forState:UIControlStateNormal];
     [planHelper setBackgroundImage:[UIImage imageNamed:@"tools_home_card_bg_highlight.png"] forState:UIControlStateHighlighted];
     [planHelper setTitle:@"我的计划" forState:UIControlStateNormal];
     [planHelper setTitleEdgeInsets:UIEdgeInsetsMake(flag.frame.size.height / 2.0, 0, -64, 0)];
-    [planHelper setTitleColor:COLOR_TEXT_III forState:UIControlStateNormal];
+//    [planHelper setTitleColor:COLOR_TEXT_III forState:UIControlStateNormal];
+    [planHelper setTitleColor:TZColor(64, 64, 64) forState:UIControlStateNormal];
+    [planHelper setTitleColor:TZColor(32, 32, 32) forState:UIControlStateHighlighted];
+
     planHelper.titleLabel.font = [UIFont systemFontOfSize:16];
     [planHelper addTarget:self action:@selector(goMyPlan) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:planHelper];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 #pragma mark - IBAction
 - (void) goLxpHelper {
@@ -129,15 +130,5 @@
     TZNavigationViewController *tznavc = [[TZNavigationViewController alloc] initWithRootViewController:searchCtl];
     [self presentViewController:tznavc animated:YES completion:nil];
 }
-
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
 
 @end

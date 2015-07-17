@@ -16,6 +16,7 @@
     
     _headerImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
     _sendBtn.layer.cornerRadius = 2.0;
+    _sendBtn.backgroundColor = APP_THEME_COLOR;
     
     UIView *divider = [[UIView alloc] initWithFrame:CGRectMake(15.0, CGRectGetHeight(self.frame) - 0.6, CGRectGetWidth(self.frame), 0.6)];
     divider.backgroundColor = COLOR_LINE;
