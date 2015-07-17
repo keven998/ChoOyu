@@ -290,6 +290,7 @@ calloutAccessoryControlTapped:(UIControl *)control{
     newAnnotationView.annotation = annotation;
     newAnnotationView.canShowCallout = YES;
     newAnnotationView.tag = index;
+    newAnnotationView.image = [UIImage imageNamed:@""];
 
     
     return newAnnotationView;

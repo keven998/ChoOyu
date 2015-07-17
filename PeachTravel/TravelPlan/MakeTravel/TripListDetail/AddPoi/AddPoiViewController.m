@@ -32,14 +32,10 @@ enum {
 
 @property (nonatomic, strong) UITableView *tableView;
 
-@property (strong, nonatomic) UISearchBar *searchBar;
-
 @property (nonatomic, strong) UIActivityIndicatorView *indicatroView;
 @property (nonatomic, strong) UIView *footerView;
 
 @property (nonatomic, copy) NSString *requestUrl;
-
-@property (nonatomic, strong) NSMutableArray *searchResultArray;
 
 @property (nonatomic, strong) UICollectionView *selectPanel;
 
@@ -49,13 +45,6 @@ enum {
 @property (nonatomic, assign) BOOL didEndScrollNormal;
 @property (nonatomic, assign) BOOL enableLoadMoreNormal;
 
-//管理搜索 tableview 的加载状态
-@property (nonatomic) NSUInteger currentPageSearch;
-@property (nonatomic, assign) BOOL isLoadingMoreSearch;
-@property (nonatomic, assign) BOOL didEndScrollSearch;
-@property (nonatomic, assign) BOOL enableLoadMoreSearch;
-
-@property (nonatomic, copy) NSString *searchText;
 @property (nonatomic, copy) NSString *currentCategory;
 
 //类型筛选: 1是城市、2是分类
@@ -109,11 +98,6 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     _urlArray = @[API_GET_SPOTLIST_CITY, API_GET_RESTAURANTSLIST_CITY, API_GET_SHOPPINGLIST_CITY, API_GET_HOTELLIST_CITY];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"TripPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:addPoiCellIndentifier];
-    
-    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 45)];
-    _searchBar.delegate = self;
-    UIImage *img = [[UIImage imageNamed:@"ic_searchBar_background"] stretchableImageWithLeftCapWidth:1 topCapHeight:0];
-    [_searchBar setBackgroundImage:img];
     
     self.tableView.separatorColor = COLOR_LINE;
     self.tableView.backgroundColor = APP_PAGE_COLOR;
@@ -172,14 +156,6 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     }
 }
 
-- (NSMutableArray *)searchResultArray
-{
-    if (!_searchResultArray) {
-        _searchResultArray = [[NSMutableArray alloc] init];
-    }
-    return _searchResultArray;
-}
-
 - (NSMutableArray *)dataSource
 {
     if (!_dataSource) {
@@ -227,28 +203,6 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     [_indicatroView stopAnimating];
     _isLoadingMoreNormal = NO;
     _didEndScrollNormal = YES;
-}
-
-/**
- *  搜索状态下上拉加载更多
- */
-- (void) beginLoadingSearch
-{
-    _isLoadingMoreSearch = YES;
-    [_indicatroView startAnimating];
-    //    [self loadSearchDataWithPageNo:(_currentPageSearch + 1)];
-    
-}
-
-/**
- *  搜索状态下加载完成
- */
-- (void) loadMoreCompletedSearch
-{
-    if (!_isLoadingMoreSearch) return;
-    [_indicatroView stopAnimating];
-    _isLoadingMoreSearch = NO;
-    _didEndScrollSearch = YES;
 }
 
 #pragma mark - IBAction Methods
@@ -460,96 +414,6 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     }];
 }
 
-/**
- *  加载搜索的数据
- *  @param pageNo     第几页
- *  @param searchText 搜索关键字
- */
-- (void)loadSearchDataWithPageNo:(NSUInteger)pageNo
-{
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSNumber *imageWidth = [NSNumber numberWithInt:300];
-    [params setObject:imageWidth forKey:@"imgWidth"];
-    [params setObject:[NSNumber numberWithInteger:pageNo] forKey:@"page"];
-    [params setObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    
-    NSString *key = nil;
-    switch (_currentListTypeIndex) {
-        case 0:
-            key = @"vs";
-            break;
-        case 1:
-            key = @"restaurant";
-            break;
-        case 2:
-            key = @"shopping";
-            break;
-        case 3:
-            key = @"hotel";
-            break;
-        default:
-            break;
-    }
-    
-    [params setObject:[NSNumber numberWithBool:YES] forKey:key];
-    
-    if (_tripDetail) {
-        CityDestinationPoi *poi = [self.tripDetail.destinations objectAtIndex:_currentCityIndex];
-        [params safeSetObject:poi.cityId forKey:@"locId"];
-    } else {
-        [params safeSetObject:_cityId forKey:@"locId"];
-    }
-    
-    [params safeSetObject:_searchText forKey:@"keyword"];
-    
-    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    
-    //获取搜索列表信息
-    [manager GET:API_SEARCH parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@", responseObject);
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        if (self.searchDisplayController.isActive) {
-            NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-            if (code == 0) {
-                NSArray *jsonDic = [[responseObject objectForKey:@"result"] objectForKey:key];
-                if (jsonDic.count == 15) {
-                    _enableLoadMoreSearch = YES;
-                }
-                for (id poiDic in jsonDic) {
-                    SuperPoi *poi = [PoiFactory poiWithPoiTypeDesc:key andJson:poiDic];
-                    [self.searchResultArray addObject:poi];
-                }
-                _currentPageSearch = pageNo;
-                [self.tableView reloadData];
-            } else {
-                if (self.isShowing) {
-                    [SVProgressHUD showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
-                }
-            }
-            [self loadMoreCompletedSearch];
-        }
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%@", error);
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        [hud hideTZHUD];
-        [self loadMoreCompletedSearch];
-        if (self.isShowing) {
-            [SVProgressHUD showHint:@"呃～好像没找到网络"];
-        }
-    }];
-}
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -573,12 +437,8 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    SuperPoi *poi;
-    if ([tableView isEqual:self.tableView]) {
-        poi = [self.dataSource objectAtIndex:indexPath.row];
-    } else {
-        poi = [self.searchResultArray objectAtIndex:indexPath.row];
-    }
+    SuperPoi *poi = [self.dataSource objectAtIndex:indexPath.row];
+
     BOOL isAdded = NO;
     NSMutableArray *oneDayArray = [self.tripDetail.itineraryList objectAtIndex:_currentDayIndex];
     for (SuperPoi *tripPoi in oneDayArray) {
@@ -602,12 +462,7 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SuperPoi *tripPoi;
-    if ([tableView isEqual:self.tableView]) {
-        tripPoi = [self.dataSource objectAtIndex:indexPath.row];
-    } else {
-        tripPoi = [self.searchResultArray objectAtIndex:indexPath.row];
-    }
+    SuperPoi *tripPoi = [self.dataSource objectAtIndex:indexPath.row];
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     switch (tripPoi.poiType) {
         case kSpotPoi: {
@@ -626,24 +481,6 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
         }
             break;
     }
-}
-
-#pragma mark - SearchBarDelegate
-
-- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
-    PoisSearchViewController *searchCtl = [[PoisSearchViewController alloc] init];
-    [searchCtl setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
-    CityDestinationPoi *poi = [self.tripDetail.destinations objectAtIndex:_currentCityIndex];
-    
-    searchCtl.cityId = poi.cityId;
-    searchCtl.tripDetail = _tripDetail;
-    searchCtl.poiType = kSpotPoi;
-    TZNavigationViewController *tznavc = [[TZNavigationViewController alloc] initWithRootViewController:searchCtl];
-    
-    [self presentViewController:tznavc animated:YES completion:^{
-        
-    }];
-    return NO;
 }
 
 #pragma mark - UIScrollViewDelegate
