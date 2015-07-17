@@ -392,7 +392,7 @@
     
     [UMSocialData defaultData].extConfig.wechatSessionData.url = @"http://a.app.qq.com/o/simple.jsp?pkgname=com.aizou.peachtravel";
     
-    UIImage *shareImage = [UIImage imageNamed:@"ic_taozi_share.png"];
+    UIImage *shareImage = [UIImage imageNamed:@"icon.png"];
     
     [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:@"能向达人咨询、朋友协作的旅行工具" image:shareImage location:nil urlResource:nil presentedController:self completion:^(UMSocialResponseEntity *response) {
         //        if (response.responseCode == UMSResponseCodeSuccess) {
