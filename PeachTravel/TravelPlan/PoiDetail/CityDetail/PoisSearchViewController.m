@@ -59,6 +59,8 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
         _seletedArray = self.tripDetail.restaurantsList;
     } else if (_poiType == kShoppingPoi) {
         _seletedArray = self.tripDetail.shoppingList;
+    } else if (_poiType == kSpotPoi) {
+        _seletedArray = [self.tripDetail.itineraryList objectAtIndex:_currentDayIndex];
     }
     
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
@@ -215,7 +217,6 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     
     TripPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:poisOfCityCellIdentifier forIndexPath:indexPath];
     cell.tripPoi = poi;
-    //    如果从攻略列表进来想要添加美食或酒店
     if (_shouldEdit) {
         cell.actionBtn.tag = indexPath.row;
         cell.actionBtn.hidden = NO;
