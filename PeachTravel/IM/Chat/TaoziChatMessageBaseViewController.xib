@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D2134" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TaoziChatMessageBaseViewController">
@@ -85,10 +85,9 @@
                     </state>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oZf-Rw-dOz">
-                    <rect key="frame" x="65" y="114" width="70" height="25"/>
+                    <rect key="frame" x="-1" y="111" width="146.5" height="40"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="70" id="2lT-mN-dTQ"/>
-                        <constraint firstAttribute="height" constant="25" id="lc4-hT-z0z"/>
+                        <constraint firstAttribute="height" constant="40" id="U64-Lr-UdO"/>
                     </constraints>
                     <state key="normal" title="取消">
                         <color key="titleColor" red="0.99215686274509807" green="0.33725490196078434" blue="0.40784313725490196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -99,10 +98,9 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8HH-bZ-ZBl">
-                    <rect key="frame" x="155" y="114" width="70" height="25"/>
+                    <rect key="frame" x="144.5" y="111" width="146.5" height="40"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="70" id="0Zr-6G-KA8"/>
-                        <constraint firstAttribute="height" constant="25" id="lv4-68-CvK"/>
+                        <constraint firstAttribute="height" constant="40" id="drq-cF-tsR"/>
                     </constraints>
                     <state key="normal" title="发送">
                         <color key="titleColor" red="0.99215686274509807" green="0.33725490196078434" blue="0.40784313725490196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -115,25 +113,27 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstAttribute="bottom" secondItem="oZf-Rw-dOz" secondAttribute="bottom" constant="-1" id="2et-QP-L8B"/>
                 <constraint firstItem="f7I-S5-Pmq" firstAttribute="top" secondItem="Os6-dJ-EaQ" secondAttribute="bottom" constant="11" id="2wa-4M-d4r"/>
                 <constraint firstItem="1Ve-so-cbn" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="4w5-A0-dBE"/>
-                <constraint firstAttribute="bottom" secondItem="oZf-Rw-dOz" secondAttribute="bottom" constant="11" id="6Mf-FQ-5bI"/>
                 <constraint firstItem="1Ve-so-cbn" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="65" id="7Uy-c1-PTe"/>
                 <constraint firstItem="nNG-ze-tM1" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="15" id="JI3-98-Vjv"/>
+                <constraint firstItem="oZf-Rw-dOz" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="-1" id="OQj-Uu-fMg"/>
                 <constraint firstAttribute="trailing" secondItem="f7I-S5-Pmq" secondAttribute="trailing" constant="8" id="Ot6-yT-5jd"/>
-                <constraint firstItem="oZf-Rw-dOz" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="65" id="PGI-Ev-r7v"/>
-                <constraint firstAttribute="trailing" secondItem="8HH-bZ-ZBl" secondAttribute="trailing" constant="65" id="S8O-KD-YZK"/>
                 <constraint firstItem="Aku-dr-fWc" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="15" id="WAI-Q0-9Qj"/>
                 <constraint firstItem="f7I-S5-Pmq" firstAttribute="leading" secondItem="Aku-dr-fWc" secondAttribute="trailing" constant="8" id="a5v-pV-lkE"/>
+                <constraint firstItem="8HH-bZ-ZBl" firstAttribute="leading" secondItem="oZf-Rw-dOz" secondAttribute="trailing" constant="-1" id="aYd-ju-bML"/>
                 <constraint firstAttribute="trailing" secondItem="pS2-3u-s7r" secondAttribute="trailing" constant="7" id="aoP-ve-j9w"/>
+                <constraint firstAttribute="bottom" secondItem="8HH-bZ-ZBl" secondAttribute="bottom" constant="-1" id="g00-nb-1kv"/>
                 <constraint firstItem="pS2-3u-s7r" firstAttribute="top" secondItem="f7I-S5-Pmq" secondAttribute="bottom" constant="4" id="hSg-rc-r0e"/>
                 <constraint firstItem="Os6-dJ-EaQ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="10" id="i2b-bJ-fPl"/>
-                <constraint firstAttribute="bottom" secondItem="8HH-bZ-ZBl" secondAttribute="bottom" constant="11" id="kyL-qI-w1V"/>
+                <constraint firstAttribute="trailing" secondItem="8HH-bZ-ZBl" secondAttribute="trailing" constant="-1" id="oXI-Mf-q0Z"/>
                 <constraint firstItem="pS2-3u-s7r" firstAttribute="leading" secondItem="1Ve-so-cbn" secondAttribute="trailing" constant="9" id="pDa-Xv-rP2"/>
                 <constraint firstItem="Aku-dr-fWc" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="qVm-pj-Wem"/>
                 <constraint firstItem="Os6-dJ-EaQ" firstAttribute="leading" secondItem="Aku-dr-fWc" secondAttribute="trailing" constant="8" id="qtV-bb-9MA"/>
                 <constraint firstAttribute="trailing" secondItem="Os6-dJ-EaQ" secondAttribute="trailing" constant="8" id="rSl-BI-M7P"/>
                 <constraint firstItem="nNG-ze-tM1" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="tSt-eV-634"/>
+                <constraint firstItem="8HH-bZ-ZBl" firstAttribute="width" secondItem="oZf-Rw-dOz" secondAttribute="width" id="uDv-6a-Nfc"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

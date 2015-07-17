@@ -21,7 +21,12 @@
     _titleBtn.font = [UIFont systemFontOfSize:11.0];
     _descLabel.font = [UIFont boldSystemFontOfSize:13.0];
     _sendBtn.layer.cornerRadius = 2.0;
-    _sendBtn.backgroundColor = APP_THEME_COLOR;
+//    _sendBtn.backgroundColor = APP_THEME_COLOR;
+    [_sendBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    // 设置发送按钮的边框
+    _sendBtn.layer.borderColor = [UIColor whiteColor].CGColor;
+    _sendBtn.layer.borderWidth = 1;
+    
     _playedImage = [[UIImageView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 38 - 410/3, 144/3, 420/3, 396/3)];
     _playedImage.contentMode = UIViewContentModeScaleAspectFill;
     _playedImage.image = [UIImage imageNamed:@"plan_bg_page_qian"];
@@ -66,6 +71,8 @@
     _isCanSend = isCanSend;
     if (_isCanSend) {
         _sendBtn.hidden = NO;
+        _deleteBtn.hidden = YES;
+        _playedBtn.hidden = YES;
     } else {
         _sendBtn.hidden = YES;
     }

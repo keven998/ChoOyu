@@ -19,12 +19,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.clipsToBounds = YES;
-    self.view.layer.cornerRadius = 4.0;
-    _sendBtn.layer.cornerRadius = 2.0;
-    _cancelBtn.layer.cornerRadius = 2.0;
+    self.view.layer.cornerRadius = 8.0;
+//    _sendBtn.layer.cornerRadius = 2.0;
+//    _cancelBtn.layer.cornerRadius = 2.0;
+    
+    // 设置字体颜色以及宽度
     _headerLabel.textColor = APP_THEME_COLOR;
-    _sendBtn.layer.borderColor = APP_THEME_COLOR.CGColor;
-    _cancelBtn.layer.borderColor = APP_THEME_COLOR.CGColor;
+    _sendBtn.layer.borderColor = [UIColor grayColor].CGColor;
+    _cancelBtn.layer.borderColor = [UIColor grayColor].CGColor;
     _sendBtn.layer.borderWidth = 1.0;
     _cancelBtn.layer.borderWidth = 1.0;
     _headerImageView.layer.cornerRadius = 2.0;

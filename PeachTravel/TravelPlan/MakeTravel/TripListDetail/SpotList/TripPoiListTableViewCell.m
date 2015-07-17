@@ -13,14 +13,15 @@
 - (void)awakeFromNib {
     _headerImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
     [_actionBtn setTitleColor: APP_THEME_COLOR forState:UIControlStateNormal];
+    [_actionBtn setTitleColor:[UIColor grayColor] forState:UIControlStateSelected];
     _actionBtn.titleLabel.font = [UIFont systemFontOfSize:13];
-    _actionBtn.layer.cornerRadius = 5;
-    _actionBtn.clipsToBounds = YES;
-    [_actionBtn setTitle:@"添加" forState:UIControlStateNormal];
-    [_actionBtn setTitle:@"已添加" forState:UIControlStateSelected];
     [_actionBtn setBackgroundImage:[ConvertMethods createImageWithColor:TEXT_COLOR_TITLE_DESC] forState:UIControlStateSelected];
     [_actionBtn setBackgroundImage:[UIImage imageNamed:@"sent_bg.png"] forState:UIControlStateNormal];
-
+    
+    _actionBtn.layer.cornerRadius = 5;
+    _actionBtn.clipsToBounds = YES;
+//    [_actionBtn setTitle:@"添加" forState:UIControlStateNormal];
+//    [_actionBtn setTitle:@"已添加" forState:UIControlStateSelected];
     _actionBtn.hidden = YES;
 }
 
