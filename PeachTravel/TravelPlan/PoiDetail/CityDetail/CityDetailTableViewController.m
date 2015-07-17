@@ -177,7 +177,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
             [self loadTravelNoteOfCityData];
         } else {
             if (self.isShowing) {
-                [SVProgressHUD showHint:@"呃～好像没找到网络"];
+                [SVProgressHUD showHint:HTTP_FAILED_HINT];
             }
             [_hud hideTZHUD];
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -186,7 +186,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
         if (self.isShowing) {
-            [SVProgressHUD showHint:@"呃～好像没找到网络"];
+            [SVProgressHUD showHint:HTTP_FAILED_HINT];
         }
         [_hud hideTZHUD];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];

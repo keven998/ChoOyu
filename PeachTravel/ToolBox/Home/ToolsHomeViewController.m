@@ -94,12 +94,18 @@
 
 
 #pragma mark - IBAction
+/**
+ *  跳转到达人咨询界面
+ */
 - (void) goLxpHelper {
     GuilderDistributeViewController *gdvc = [[GuilderDistributeViewController alloc] init];
     gdvc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:gdvc animated:YES];
 }
 
+/**
+ *  跳转到我的计划界面
+ */
 - (void)goMyPlan {
     [MobClick event:@"event_my_trip_plans"];
     
@@ -122,6 +128,7 @@
     }
 }
 
+// 添加手势监听searchBar的搜索效果
 - (void)lxpSearch:(UITapGestureRecognizer *)tap
 {
     SearchDestinationViewController *searchCtl = [[SearchDestinationViewController alloc] init];

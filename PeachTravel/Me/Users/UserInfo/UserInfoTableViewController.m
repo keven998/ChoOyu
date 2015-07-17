@@ -407,7 +407,7 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [hud hideTZHUD];
         if (self.isShowing) {
-            [SVProgressHUD showHint:@"呃～好像没找到网络"];
+            [SVProgressHUD showHint:HTTP_FAILED_HINT];
         }
     }];
 }
@@ -833,7 +833,7 @@
                 [SVProgressHUD showHint:errStr];
                 completed(NO);
             } else {
-                [SVProgressHUD showHint:@"呃～好像没找到网络"];
+                [SVProgressHUD showHint:HTTP_FAILED_HINT];
                 completed(NO);
             }
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -847,7 +847,7 @@
                 [SVProgressHUD showHint:errStr];
                 completed(NO);
             } else {
-                [SVProgressHUD showHint:@"呃～好像没找到网络"];
+                [SVProgressHUD showHint:HTTP_FAILED_HINT];
                 completed(NO);
             }
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];

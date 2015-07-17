@@ -134,7 +134,7 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:updateFavoriteListNoti object:nil];
             completion(YES);
         } else {
-            [self showHint:@"呃～好像没找到网络"];
+            [self showHint:HTTP_FAILED_HINT];
         }
     }];
 }

@@ -165,17 +165,6 @@
     
 }
 
-- (void)dismissCtlWithHint:(NSString *)hint {
-    [SVProgressHUD showHint:hint];
-    self.navigationController.navigationBar.hidden = NO;
-    [UIView animateWithDuration:0.0 animations:^{
-        self.view.alpha = 0;
-    } completion:^(BOOL finished) {
-        [self willMoveToParentViewController:nil];
-        [self.navigationController popViewControllerAnimated:YES];
-    }];
-}
-
 #pragma mark - Private Methods
 
 /**
@@ -230,11 +219,11 @@
             self.poi = [PoiFactory poiWithPoiType:_poiType andJson:[responseObject objectForKey:@"result"]];
             [self updateView];
         } else {
-            [self dismissCtlWithHint:@"无法获取数据"];
+            [self showHint:@"无法获取数据"];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [hud hideTZHUD];
-        [self dismissCtlWithHint:@"呃～好像没找到网络"];
+        [self showHint:HTTP_FAILED_HINT];
     }];
 }
 
