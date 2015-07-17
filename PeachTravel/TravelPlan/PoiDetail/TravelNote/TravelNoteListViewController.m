@@ -107,7 +107,7 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
     if (_isSearch) {
         [params safeSetObject:keyWord forKey:@"keyword"];
     } else {
-        [params safeSetObject:_cityId forKey:@"locId"];
+        [params safeSetObject:_cityId forKey:@"locality"];
     }
     
     //获取游记列表信息

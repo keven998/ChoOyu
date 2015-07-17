@@ -12,20 +12,16 @@
 #import "CreateConversationTableViewCell.h"
 #import "SelectContactScrollView.h"
 #import "SelectContactUnitView.h"
-#import "MJNIndexView.h"
 #import "PeachTravel-swift.h"
 
 #define contactCell      @"createConversationCell"
 
-@interface CreateConversationViewController ()<UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, TaoziSelectViewDelegate, MJNIndexViewDataSource>
+@interface CreateConversationViewController ()<UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, TaoziSelectViewDelegate>
 
 @property (strong, nonatomic) UITableView *contactTableView;
 @property (strong, nonatomic) NSDictionary *dataSource;
 @property (strong, nonatomic) NSMutableArray *selectedContacts;
 @property (strong, nonatomic) SelectContactScrollView *selectContactView;
-
-//索引
-@property (nonatomic, strong) MJNIndexView *indexView;
 
 @end
 
@@ -50,19 +46,6 @@
         self.navigationItem.leftBarButtonItem = backBtn;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismissCtl:) name:userDidLogoutNoti object:nil];
     }
-    
-    self.indexView = [[MJNIndexView alloc] initWithFrame:self.view.bounds];
-    self.indexView.rightMargin = 0;
-    self.indexView.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0];
-    self.indexView.fontColor = APP_SUB_THEME_COLOR;
-    self.indexView.selectedItemFontColor = APP_SUB_THEME_COLOR_HIGHLIGHT;
-    self.indexView.dataSource = self;
-    self.indexView.maxItemDeflection = 60;
-    self.indexView.rangeOfDeflection = 1;
-    
-    [self.indexView setFrame:CGRectMake(0, 0, kWindowWidth-5, kWindowHeight)];
-    [self.indexView refreshIndexItems];
-    [self.view addSubview:self.indexView];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -101,15 +84,16 @@
 - (UITableView *)contactTableView
 {
     if (!_contactTableView) {
-        _contactTableView = [[UITableView alloc] initWithFrame:self.view.bounds];
+        _contactTableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
         _contactTableView.dataSource = self;
         _contactTableView.delegate = self;
-        _contactTableView.separatorStyle = UITableViewCellSelectionStyleNone;
+        _contactTableView.separatorColor = COLOR_LINE;
         _contactTableView.backgroundColor = APP_PAGE_COLOR;
         _contactTableView.showsVerticalScrollIndicator = NO;
         _contactTableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [self.contactTableView registerNib:[UINib nibWithNibName:@"CreateConversationTableViewCell" bundle:nil] forCellReuseIdentifier:contactCell];
-        _contactTableView.sectionIndexColor = APP_SUB_THEME_COLOR;
+        _contactTableView.sectionIndexBackgroundColor = [UIColor clearColor];
+        _contactTableView.sectionIndexColor = COLOR_TEXT_II;
     }
     return _contactTableView;
 }
@@ -283,12 +267,9 @@
     sectionView.backgroundColor = [UIColor whiteColor];
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
     label.text = [NSString stringWithFormat:@"  %@", [[self.dataSource objectForKey:@"headerKeys"] objectAtIndex:section]];
-    
+    label.font = [UIFont systemFontOfSize:12];
+    label.textColor = COLOR_TEXT_II;
     [sectionView addSubview:label];
-    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 29, self.contactTableView.frame.size.width, 1)];
-    spaceView.backgroundColor = UIColorFromRGB(0xeeeeee);
-    [sectionView addSubview:spaceView];
-    
     return sectionView;
 }
 
@@ -303,7 +284,11 @@
 {
     FrendModel *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     CreateConversationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:contactCell forIndexPath:indexPath];
-    cell.nickNameLabel.text = contact.nickName;
+    if (contact.memo.length > 0) {
+        cell.nickNameLabel.text = contact.memo;
+    } else {
+        cell.nickNameLabel.text = contact.nickName;
+    }
     [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:contact.avatarSmall] placeholderImage:[UIImage imageNamed:@"person_disabled"]];
     if ([self isSelected:contact.userId]) {
         cell.checkStatus = checked;
@@ -350,17 +335,10 @@
     [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
-#pragma mark MJMIndexForTableView datasource methods
-// 索引目录
--(NSArray *)sectionIndexTitlesForMJNIndexView:(MJNIndexView *)indexView
+
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
 {
     return [self.dataSource objectForKey:@"headerKeys"];
-}
-
-- (void)sectionForSectionMJNIndexTitle:(NSString *)title atIndex:(NSInteger)index
-{
-    [self.contactTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:index] atScrollPosition: UITableViewScrollPositionTop animated:YES];
-    
 }
 
 
