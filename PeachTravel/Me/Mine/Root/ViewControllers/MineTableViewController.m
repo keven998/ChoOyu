@@ -154,7 +154,7 @@
     UIImageView *avatar = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, avatarW, avatarW)];
     avatar.clipsToBounds = YES;
     avatar.layer.cornerRadius = avatarW/2.0;
-    avatar.center = CGPointMake(width/2.0, 10 + ah/2.0);
+    avatar.center = CGPointMake(width/2.0, 15 + ah/2.0);
     avatar.contentMode = UIViewContentModeScaleAspectFill;
     [headerBgView addSubview:avatar];
     _avatarImageView = avatar;
@@ -480,7 +480,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 8;
+    return 16;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -488,7 +488,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 64*kWindowHeight/736;
+    return 70*kWindowHeight/736;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {

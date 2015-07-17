@@ -63,6 +63,11 @@ protocol ConversationDaoProtocol {
 
 class ConversationDaoHelper: BaseDaoHelper, ConversationDaoProtocol {
     
+    override init(db: FMDatabase, dbQueue: FMDatabaseQueue) {
+        super.init(db: db, dbQueue: dbQueue)
+        
+    }
+    
     //MARK: *******  ConversationDaoProtocol  ******
 
     /**
@@ -92,12 +97,13 @@ class ConversationDaoHelper: BaseDaoHelper, ConversationDaoProtocol {
                             conversation.chatterName = memoStr
                         } else {
                             if let chatterName = rs.stringForColumn("NickName") {
-                                conversation.chatterName = chatterName
+                               conversation.chatterName = chatterName
                             }
                         }
                         
                     } else if let chatterName = rs.stringForColumn("NickName") {
                         conversation.chatterName = chatterName
+
                     }
                     if let avatarSmall = rs.stringForColumn("AvatarSmall") {
                         if avatarSmall != "" {
@@ -154,7 +160,7 @@ class ConversationDaoHelper: BaseDaoHelper, ConversationDaoProtocol {
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
 
             if let conversationId = conversation.conversationId {
-                var sql = "insert or replace into \(conversationTableName) (ChatterId, LastUpdateTime, ConversationId) values (?,?,?)"
+                var sql = "insert into \(conversationTableName) (ChatterId, LastUpdateTime, ConversationId) values (?,?,?)"
                 println("执行 addConversation userId: \(conversation.chatterId)")
                 var array = [conversation.chatterId, conversation.lastUpdateTime, conversationId]
                 if dataBase.executeUpdate(sql, withArgumentsInArray:array as [AnyObject]) {
@@ -165,7 +171,7 @@ class ConversationDaoHelper: BaseDaoHelper, ConversationDaoProtocol {
                 }
                 
             } else {
-                var sql = "insert or replace into \(conversationTableName) (ChatterId, LastUpdateTime) values (?,?)"
+                var sql = "insert into \(conversationTableName) (ChatterId, LastUpdateTime) values (?,?)"
                 println("执行 addConversation userId: \(conversation.chatterId)")
                 var array = [conversation.chatterId, conversation.lastUpdateTime]
                 if dataBase.executeUpdate(sql, withArgumentsInArray:array as [AnyObject]) {
