@@ -554,8 +554,15 @@
     ChatConversation *tzConversation = [self.dataSource objectAtIndex:indexPath.row];
     
     if (tzConversation.chatType == IMChatTypeIMChatSingleType) {
-        
-        cell.name = tzConversation.chatterName;
+        if ([tzConversation.chatterName isBlankString]) {
+            if (tzConversation.chatterId == 10001) {
+                cell.name = @"旅行问问";
+            } else if (tzConversation.chatterId == 10000) {
+                cell.name = @"旅行派";
+            }
+        } else {
+            cell.name = tzConversation.chatterName;
+        }
         [cell.imageView sd_setImageWithURL:[NSURL URLWithString:tzConversation.chatterAvatar] placeholderImage:[UIImage imageNamed:@"ic_home_default_avatar.png"]];
         cell.imageView.layer.cornerRadius = 28;
     } else {
@@ -604,14 +611,22 @@
 }
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
-    return YES;
+    ChatConversation *conversation = [self.dataSource objectAtIndex:indexPath.row];
+    if (conversation.chatterId != 10001 && conversation.chatterId != 10000) {
+        return YES;
+    } else {
+        return NO;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         ChatConversation *conversation = [self.dataSource objectAtIndex:indexPath.row];
-        [self.imClientManager.conversationManager removeConversationWithChatterId: conversation.chatterId deleteMessage:NO];
-        [MobClick event:@"event_delete_talk_item"];
+        if (conversation.chatterId != 10001 && conversation.chatterId != 10000) {
+            [self.imClientManager.conversationManager removeConversationWithChatterId: conversation.chatterId deleteMessage:NO];
+            [MobClick event:@"event_delete_talk_item"];
+
+        }
     }
 }
 

@@ -32,6 +32,17 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
         let dbQueue = FMDatabaseQueue(path: dbPath)
         frendDaoHelper = FrendDaoHelper(db: db, dbQueue: dbQueue)
         super.init()
+        self.setUpDefaultFrend()
+    }
+    
+    /**
+    默认设置问问的资料
+    */
+    private func setUpDefaultFrend() {
+        let wenwen = FrendModel()
+        wenwen.userId = 10001
+        wenwen.nickName = "旅行问问"
+        self.addFrend2DB(wenwen)
     }
     
     /**

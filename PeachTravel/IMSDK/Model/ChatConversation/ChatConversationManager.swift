@@ -52,6 +52,23 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
         super.init()
     }
     
+    /**
+    设置初始化会话，旅行问问和派派
+    */
+    private func setUpDefaultConversation() {
+        let conversationWenwen = ChatConversation()
+        //派派的 conversation
+        conversationWenwen.chatterId = 10001
+        conversationWenwen.lastUpdateTime = Int(NSDate().timeIntervalSince1970)
+        self.addConversation(conversationWenwen)
+        let conversation = ChatConversation()
+        
+        //派派的 conversation
+        conversation.chatterId = 10000
+        conversation.lastUpdateTime = Int(NSDate().timeIntervalSince1970)
+        self.addConversation(conversation)
+    }
+    
     func getConversationList() -> NSArray {
         if conversationList.count < 1 {
             self.updateConversationListFromDB()
@@ -62,9 +79,9 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
     
     func updateConversationListFromDB() {
         var daoHelper = DaoHelper.shareInstance()
-        NSLog("****开始获取会话列表*****")
         conversationList = daoHelper.getAllConversationList()
-        NSLog("****结束获取会话列表*****")
+        self.setUpDefaultConversation()
+        self.reorderConversationList()
     }
     
     private func conversationIsExit(conversation: ChatConversation) -> Bool {
@@ -77,10 +94,28 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
     }
     
     /**
-    将 conversationlist 重新排序
+    将 conversationlist 重新排序,问问>派派>其他时间顺序
     */
     func reorderConversationList() {
         sort(&conversationList, { (conversation1: ChatConversation, conversation2: ChatConversation) -> Bool in
+            if conversation1.chatterId == 10001 {
+                return true
+            }
+            if conversation2.chatterId == 10001 {
+                return false
+            }
+            if conversation2.chatterId == 10000 && conversation1.chatterId == 10001 {
+                return true
+            }
+            if conversation1.chatterId == 10000 && conversation2.chatterId == 10001 {
+                return false
+            }
+            if conversation1.chatterId == 10000 && conversation2.chatterId != 10000 {
+                return true
+            }
+            if conversation2.chatterId == 10000 && conversation1.chatterId != 100001 {
+                return false
+            }
             if conversation1.isTopConversation && !conversation2.isTopConversation {
                 return true
             } else if !conversation1.isTopConversation && conversation2.isTopConversation {
