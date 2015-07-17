@@ -266,6 +266,13 @@ typedef NS_ENUM(NSUInteger, TZCMDChatType) {
 
 
 /*****应用启动时是否应该启动引导页******/
+// 颜色
+#define TZColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
+
+// 随机色
+#define TZRandomColor TZColor(arc4random_uniform(256), arc4random_uniform(256), arc4random_uniform(256))
+
+/*****应用启动时是否应该启动引导页******/
 #define shouldSkipIntroduce [[NSUserDefaults standardUserDefaults] boolForKey:[[AppUtils alloc] init].appVersion]
 
 #define kShouldShowIntroduceWhenFirstLaunch   NO

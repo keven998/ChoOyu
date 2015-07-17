@@ -281,7 +281,8 @@ calloutAccessoryControlTapped:(UIControl *)control{
     newAnnotationView.canShowCallout = YES;
     newAnnotationView.tag = index;
     newAnnotationView.layer.anchorPoint = CGPointMake(0.7, 0.55);
-    newAnnotationView.image = [UIImage imageNamed:@"map_icon_empty.png"];
+    NSString *imageName = [NSString stringWithFormat:@"map_icon_%ld.png", index+1];
+    newAnnotationView.image = [UIImage imageNamed:imageName];
     return newAnnotationView;
 }
 
