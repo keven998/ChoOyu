@@ -102,7 +102,7 @@
         }
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [SVProgressHUD showHint:@"呃～好像没找到网络"];
+        [SVProgressHUD showHint:HTTP_FAILED_HINT];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
     
@@ -129,6 +129,10 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return _searchResultArray.count;
+}
+
+- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 64 * CGRectGetHeight(self.view.bounds)/768;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

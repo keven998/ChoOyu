@@ -249,7 +249,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
         }
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self showHint:@"呃～好像没找到网络"];
+        [self showHint:HTTP_FAILED_HINT];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
 }
@@ -315,7 +315,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
         }
         NSLog(@"%@", error);
         [self loadMoreCompletedNormal];
-        [self showHint:@"呃～好像没找到网络"];
+        [self showHint:HTTP_FAILED_HINT];
     }];
 }
 
@@ -377,7 +377,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
         }
         NSLog(@"%@", error);
         [self loadMoreCompletedNormal];
-        [self showHint:@"呃～好像没找到网络"];
+        [self showHint:HTTP_FAILED_HINT];
     }];
 }
 

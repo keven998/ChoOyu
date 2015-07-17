@@ -382,6 +382,8 @@ typedef NS_ENUM(NSUInteger, TZCMDChatType) {
 
 
 
+#define HTTP_FAILED_HINT    @"网络请求失败"
+
 
 
 

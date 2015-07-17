@@ -180,7 +180,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
             _hud = nil;
         }
         if (self.isShowing) {
-            [SVProgressHUD showHint:@"呃～好像没找到网络"];
+            [SVProgressHUD showHint:HTTP_FAILED_HINT];
         }
     }];
 }
