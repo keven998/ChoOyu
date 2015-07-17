@@ -127,6 +127,7 @@
     if (_chatType == IMChatTypeIMChatDiscussionGroupType) {
         _groupNumbers = [[IMDiscussionGroupManager shareInstance] getFullDiscussionGroupInfoFromDBWithGroupId: _conversation.chatterId].numbers;
     }
+    
     _conversation.isCurrentConversation = YES;
     _conversation.delegate = self;
     [_conversation getDefaultChatMessageInConversation:15];
@@ -137,6 +138,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground) name:@"applicationDidEnterBackground" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateChatView:) name:updateChateViewNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateChatTitle:) name:updateChateGroupTitleNoti object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardHidden) name:UIKeyboardWillHideNotification object:nil];
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     
