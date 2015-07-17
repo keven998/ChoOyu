@@ -16,6 +16,10 @@
 
 @property (nonatomic, strong)NSArray * guiderArray;
 
+@property (nonatomic, strong)NSMutableArray * dataSource;
+
+@property (nonatomic, strong)NSArray * titleArray;
+
 @end
 
 @implementation GuilderDistributeViewController
@@ -29,6 +33,28 @@
         _guiderArray = [NSArray array];
     }
     return _guiderArray;
+}
+
+/**
+ *  懒加载分组总数组,里面包含每组的数组数据
+ */
+- (NSMutableArray *)dataSource
+{
+    if (_dataSource == nil) {
+        _dataSource = [NSMutableArray array];
+    }
+    return _dataSource;
+}
+
+/**
+ *  初始化标题数组
+ */
+- (NSArray *)titleArray
+{
+    if (_titleArray == nil) {
+        _titleArray = @[@"亚洲",@"欧洲",@"美洲",@"大洋洲",@"非洲"];
+    }
+    return _titleArray;
 }
 
 - (void)viewDidLoad {
@@ -85,6 +111,39 @@
     
 }
 
+// 处理guiderArray数组,将一个数组转换成分组数组
+/*
+- (NSArray *)revertGuiderListToGroup:(NSArray *)guiderList
+{
+    // 1.创建一个分组数组,里面存放了多少组数据
+    NSMutableArray *dataSource = [[NSMutableArray alloc] init];
+    for (int i = 0; i < self.titleArray.count; i++) {
+        
+        NSMutableArray * array = [NSMutableArray array];
+        [dataSource addObject:array];
+    }
+    
+    self.dataSource = dataSource;
+    
+    // 2.遍历数组
+    for (ShoppingPoi * poi in shoppingList) {
+        CityDestinationPoi * cityPoi = poi.locality;
+        int i = 0;
+        for (CityDestinationPoi * destpoi in _tripDetail.destinations)
+        {
+            if ([cityPoi.cityId isEqualToString:destpoi.cityId]) {
+                NSMutableArray *array = dataSource[i];
+                [array addObject:poi];
+                break;
+            }
+            i++;
+        }
+    }
+    
+    return dataSource;
+}
+ */
+
 // 懒加载tableView
 - (UITableView *)tableView
 {
@@ -107,7 +166,7 @@
 }
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return 5;
 }
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -117,22 +176,16 @@
 {
     return 44;
 }
+
+// 返回每一组的头部
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 44)];
     view.backgroundColor = [UIColor whiteColor];
     UILabel *sectionLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 6, CGRectGetWidth(self.view.bounds), 38)];
-    if (section == 0) {
-        sectionLabel.text = @"亚洲";
-    } else if (section == 1) {
-        sectionLabel.text = @"欧洲";
-    } else if (section == 2) {
-        sectionLabel.text = @"美洲";
-    } else if (section == 3) {
-        sectionLabel.text = @"大洋洲";
-    } else if (section == 4) {
-        sectionLabel.text = @"非洲";
-    }
+
+    // 设置头像的标题
+    sectionLabel.text = self.titleArray[section];
     
     sectionLabel.textAlignment = NSTextAlignmentCenter;
     sectionLabel.textColor = APP_THEME_COLOR;
@@ -144,7 +197,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    GuiderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"GuiderCell" forIndexPath:indexPath];
+    // cell的初始化
     GuiderCell * cell = [GuiderCell guiderWithTableView:tableView];
     cell.guiderDistribute = self.guiderArray[indexPath.row];
     return cell;
