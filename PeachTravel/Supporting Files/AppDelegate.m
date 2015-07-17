@@ -39,6 +39,7 @@
     [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:[UIImage imageNamed:@"common_icon_navigaiton_back"]];
     [[UINavigationBar appearance] setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR]
                                        forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setShadowImage:[UIImage imageNamed:@"bg_navigationbar_shadow.png"]];
     [[UINavigationBar appearance] setTitleTextAttributes:
         [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName]];
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
