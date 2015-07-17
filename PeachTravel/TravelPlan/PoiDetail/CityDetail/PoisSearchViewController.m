@@ -9,7 +9,6 @@
 #import "PoisSearchViewController.h"
 #import "TaoziSearchBar.h"
 #import "UIBarButtonItem+MJ.h"
-#import "CommonPoiListTableViewCell.h"
 #import "CommonPoiDetailViewController.h"
 #import "RestaurantDetailViewController.h"
 #import "ShoppingDetailViewController.h"
@@ -256,53 +255,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
         [self.navigationController pushViewController:spotDetail animated:YES];
     }
 }
-/**
- *  添加或者删除景点
- *
- *  @param sender
- */
-- (IBAction)addSpotPoi:(UIButton *)sender
-{
-    [MobClick event:@"event_add_desination_as_schedule"];
-    
-    CGPoint point;
-    NSIndexPath *indexPath;
-    CommonPoiListTableViewCell *cell;
-    point = [sender convertPoint:CGPointZero toView:_tableView];
-    indexPath = [_tableView indexPathForRowAtPoint:point];
-    cell = (CommonPoiListTableViewCell *)[_tableView cellForRowAtIndexPath:indexPath];
-    
-    
-    NSMutableArray *oneDayArray = [self.tripDetail.itineraryList objectAtIndex:_currentDayIndex];
-    SuperPoi *poi;
-    if (!cell.cellAction.selected) {
-        
-        poi = [_dataArray objectAtIndex:indexPath.row];
-        
-        [oneDayArray addObject:poi];
-    
-    } else {
-        SuperPoi *poi;
-        poi = [_dataArray objectAtIndex:indexPath.row];
-        
-        NSMutableArray *oneDayArray = [self.tripDetail.itineraryList objectAtIndex:_currentDayIndex];
-        int index = -1;
-        NSInteger count = oneDayArray.count;
-        for (int i = 0; i < count; ++i) {
-            SuperPoi *tripPoi = [oneDayArray objectAtIndex:i];
-            if ([tripPoi.poiId isEqualToString:poi.poiId]) {
-                [oneDayArray removeObjectAtIndex:i];
-                index = i;
-                break;
-            }
-        }
-        if (index != -1) {
-        }
-        
-    }
-    cell.cellAction.selected = !cell.cellAction.selected;
-    
-}
+
 /**
  *  添加一个 poi
  *
@@ -312,16 +265,15 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
 {
     CGPoint point;
     NSIndexPath *indexPath;
-    CommonPoiListTableViewCell *cell;
+    TripPoiListTableViewCell *cell;
     point = [sender convertPoint:CGPointZero toView:_tableView];
     indexPath = [_tableView indexPathForRowAtPoint:point];
-    cell = (CommonPoiListTableViewCell *)[_tableView cellForRowAtIndexPath:indexPath];
-    
+    cell = (TripPoiListTableViewCell *)[_tableView cellForRowAtIndexPath:indexPath];
     
     SuperPoi *poi;
     poi = [_dataArray objectAtIndex:sender.tag];
     
-    if (!cell.cellAction.isSelected) {
+    if (!cell.actionBtn.isSelected) {
         [_seletedArray addObject:poi];
         
         
@@ -341,7 +293,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
         }
         
     }
-    cell.cellAction.selected = !cell.cellAction.selected;
+    cell.actionBtn.selected = !cell.actionBtn.selected;
 }
 
 -(void)goback

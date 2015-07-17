@@ -24,7 +24,6 @@
 @property (nonatomic, strong) RecommendsOfCity *dataSource;
 @property (nonatomic, strong) UIActivityIndicatorView *indicatroView;
 @property (nonatomic, strong) UIView *footerView;
-@property (nonatomic, strong) NSMutableArray *searchResultArray;
 
 @property (nonatomic, strong) TripDetail *backTripDetail;
 
@@ -171,6 +170,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
 }
 
 #pragma mark - private method
+
 - (void) setupSelectPanel {
     CGRect collectionViewFrame = CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49, CGRectGetWidth(self.view.bounds), 49);
     UICollectionViewFlowLayout *aFlowLayout = [[UICollectionViewFlowLayout alloc] init];
@@ -200,14 +200,6 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
         _dataSource = [[RecommendsOfCity alloc] init];
     }
     return _dataSource;
-}
-
-- (NSMutableArray *)searchResultArray
-{
-    if (!_searchResultArray) {
-        _searchResultArray = [[NSMutableArray alloc] init];
-    }
-    return _searchResultArray;
 }
 
 - (UIView *)footerView {
@@ -326,6 +318,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
         [self showHint:@"呃～好像没找到网络"];
     }];
 }
+
 /**
  *  切换城市的poi列表
  *
@@ -518,6 +511,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     poiSearchCtl.cityId = _cityId;
     poiSearchCtl.zhName = _zhName;
     poiSearchCtl.delegate = self;
+    poiSearchCtl.shouldEdit = _shouldEdit;
     [poiSearchCtl setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
     TZNavigationViewController *tznavc = [[TZNavigationViewController alloc] initWithRootViewController:poiSearchCtl];
     
@@ -614,10 +608,6 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    //如果是搜索的情况
-    if (![tableView isEqual:self.tableView]) {
-        return self.searchResultArray.count;
-    }
     if (![_dataSource.desc isBlankString] && _dataSource.desc != nil) {
         if (section == 0) {
             return 0;
@@ -700,12 +690,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SuperPoi *poi ;
-    if (![tableView isEqual:self.tableView]) {
-        poi = [self.searchResultArray objectAtIndex:indexPath.row];
-    } else {
-        poi = [_dataSource.recommendList objectAtIndex:indexPath.row];
-    }
+    SuperPoi *poi = [_dataSource.recommendList objectAtIndex:indexPath.row];
     TripPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:poisOfCityCellIdentifier forIndexPath:indexPath];
     cell.tripPoi = poi;
     //    如果从攻略列表进来想要添加美食或酒店

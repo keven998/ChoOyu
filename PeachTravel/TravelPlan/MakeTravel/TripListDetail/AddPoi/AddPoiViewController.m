@@ -593,9 +593,6 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     if (_shouldEdit) {
         poiCell.actionBtn.hidden = NO;
         poiCell.actionBtn.tag = indexPath.row;
-        [poiCell.actionBtn setTitle:@"添加" forState:UIControlStateNormal];
-        [poiCell.actionBtn setTitle:@"已添加" forState:UIControlStateSelected];
-        [poiCell.actionBtn setBackgroundImage:[ConvertMethods createImageWithColor:TEXT_COLOR_TITLE_DESC] forState:UIControlStateSelected];
         poiCell.actionBtn.selected = isAdded;
         [poiCell.actionBtn removeTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
         [poiCell.actionBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
