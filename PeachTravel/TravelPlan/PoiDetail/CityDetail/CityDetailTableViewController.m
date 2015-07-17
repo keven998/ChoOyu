@@ -211,7 +211,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     NSNumber *imageWidth = [NSNumber numberWithInt:200];
     [params setObject:imageWidth forKey:@"imgWidth"];
     [params setObject:[NSNumber numberWithInt:3] forKey:@"pageSize"];
-    [params setObject:self.poi.poiId forKey:@"locId"];
+    [params setObject:self.poi.poiId forKey:@"locality"];
     [params setObject:[NSNumber numberWithInt:0] forKey:@"page"];
     [manager GET:API_SEARCH_TRAVELNOTE parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);

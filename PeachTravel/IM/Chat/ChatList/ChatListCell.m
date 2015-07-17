@@ -99,7 +99,6 @@
     CGFloat width = CGRectGetWidth(self.bounds);
     self.imageView.frame = CGRectMake(12, 10, 56, 56);
     self.imageView.contentMode = UIViewContentModeScaleAspectFill;
-//    self.imageView.layer.cornerRadius = 28;
     self.imageView.clipsToBounds = YES;
     
     CGFloat contentOffsetX = CGRectGetMaxX(self.imageView.frame) + 10;

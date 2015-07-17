@@ -48,15 +48,15 @@
 
 //详情接口
 #define API_GET_CITYDETAIL                      (BASE_URL @"geo/localities/")
-#define API_GET_SPOT_DETAIL                     (BASE_URL @"poi/vs/")
-#define API_GET_RESTAURANT_DETAIL               (BASE_URL @"poi/restaurant/")
+#define API_GET_SPOT_DETAIL                     (BASE_URL @"poi/viewspots/")
+#define API_GET_RESTAURANT_DETAIL               (BASE_URL @"poi/restaurants/")
 #define API_GET_SHOPPING_DETAIL                 (BASE_URL @"poi/shopping/")
 #define API_GET_HOTEL_DETAIL                    (BASE_URL @"poi/hotel/")
 
-#define API_GET_RESTAURANTSLIST_CITY            (BASE_URL @"poi/restaurant/localities/")//城市的美食列表
-#define API_GET_SHOPPINGLIST_CITY               (BASE_URL @"poi/shopping/localities/")//城市的购物列表
-#define API_GET_SPOTLIST_CITY                   (BASE_URL @"poi/vs/localities/") //城市的景点列表
-#define API_GET_HOTELLIST_CITY                  (BASE_URL @"poi/hotel/localities/") //城市的酒店列表
+#define API_GET_RESTAURANTSLIST_CITY            (BASE_URL @"poi/restaurants")//城市的美食列表
+#define API_GET_SHOPPINGLIST_CITY               (BASE_URL @"poi/shopping")//城市的购物列表
+#define API_GET_SPOTLIST_CITY                   (BASE_URL @"poi/viewspots") //城市的景点列表
+#define API_GET_HOTELLIST_CITY                  (BASE_URL @"poi/hotel") //城市的酒店列表
 
 #define API_GET_GUIDE_CITY                      (BASE_URL @"guides/locality/")    //城市的美食购物攻略介绍
 
@@ -76,7 +76,7 @@
 #define API_FAVORITE                            (BASE_URL @"misc/favorites")       //收藏
 #define API_UNFAVORITE                          (BASE_URL @"misc/favorites")      //取消收藏
 
-#define API_SEARCH_TRAVELNOTE                   (BASE_URL @"travel-notes/search")      //搜索游记
+#define API_SEARCH_TRAVELNOTE                   (BASE_URL @"travelnotes")      //搜索游记
 
 #define API_NEARBY                              (BASE_URL @"poi/nearby")      //我身边
 

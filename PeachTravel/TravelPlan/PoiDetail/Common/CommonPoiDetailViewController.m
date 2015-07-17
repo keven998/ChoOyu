@@ -148,7 +148,7 @@
 //拨打电话
 - (void)makePhone
 {
-    if (self.poi.telephone || ![self.poi.telephone isBlankString]) {
+    if (self.poi.telephone && ![self.poi.telephone isBlankString]) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"确认拨打电话？" message:self.poi.telephone delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
             if (buttonIndex == 1) {

@@ -460,6 +460,8 @@
 		D91851161B58CDC3004B8363 /* map_icon_19@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D91851021B58CDC3004B8363 /* map_icon_19@3x.png */; };
 		D91851171B58CDC3004B8363 /* map_icon_20@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D91851031B58CDC3004B8363 /* map_icon_20@3x.png */; };
 		D91851181B58CDC3004B8363 /* map_icon_27@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D91851041B58CDC3004B8363 /* map_icon_27@3x.png */; };
+		D918511B1B58E268004B8363 /* lvxingwenwen@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D91851191B58E268004B8363 /* lvxingwenwen@3x.png */; };
+		D918511C1B58E268004B8363 /* lvxingpaipai@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D918511A1B58E268004B8363 /* lvxingpaipai@3x.png */; };
 		D91FED431B3D2E0D0073AD77 /* ReceiverImageNodeBorder_black@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D91FED421B3D2E0D0073AD77 /* ReceiverImageNodeBorder_black@3x.png */; };
 		D91FED451B3D2E140073AD77 /* SenderImageNodeBorder_black@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D91FED441B3D2E140073AD77 /* SenderImageNodeBorder_black@3x.png */; };
 		D91FED6A1B3E75740073AD77 /* ReceiverImageNodeBorder_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D91FED681B3E75740073AD77 /* ReceiverImageNodeBorder_black@2x.png */; };
@@ -1628,6 +1630,8 @@
 		D91851021B58CDC3004B8363 /* map_icon_19@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map_icon_19@3x.png"; sourceTree = "<group>"; };
 		D91851031B58CDC3004B8363 /* map_icon_20@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map_icon_20@3x.png"; sourceTree = "<group>"; };
 		D91851041B58CDC3004B8363 /* map_icon_27@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map_icon_27@3x.png"; sourceTree = "<group>"; };
+		D91851191B58E268004B8363 /* lvxingwenwen@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lvxingwenwen@3x.png"; sourceTree = "<group>"; };
+		D918511A1B58E268004B8363 /* lvxingpaipai@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lvxingpaipai@3x.png"; sourceTree = "<group>"; };
 		D91FED421B3D2E0D0073AD77 /* ReceiverImageNodeBorder_black@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ReceiverImageNodeBorder_black@3x.png"; sourceTree = "<group>"; };
 		D91FED441B3D2E140073AD77 /* SenderImageNodeBorder_black@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SenderImageNodeBorder_black@3x.png"; sourceTree = "<group>"; };
 		D91FED681B3E75740073AD77 /* ReceiverImageNodeBorder_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ReceiverImageNodeBorder_black@2x.png"; sourceTree = "<group>"; };
@@ -3061,6 +3065,8 @@
 		C6528EEF1B4178A7008889EF /* audio */ = {
 			isa = PBXGroup;
 			children = (
+				D91851191B58E268004B8363 /* lvxingwenwen@3x.png */,
+				D918511A1B58E268004B8363 /* lvxingpaipai@3x.png */,
 				C6528EF01B4178A7008889EF /* speaking-motion10@3x.png */,
 				C6528EF11B4178A7008889EF /* speaking-motion11@3x.png */,
 				C6528EF21B4178A7008889EF /* speaking-motion12@3x.png */,
@@ -6772,6 +6778,7 @@
 				C6F5D4801B2AB2D9009163E3 /* PlanScheduleTableViewCell.xib in Resources */,
 				D9A804BC1A80E738005AD701 /* home_navigation_title@2x.png in Resources */,
 				271C419E1B45607C007BF285 /* login_textfield.png in Resources */,
+				D918511B1B58E268004B8363 /* lvxingwenwen@3x.png in Resources */,
 				D90A9B461B5627C400E9F37C /* Loading_Animation_final27@3x.png in Resources */,
 				D9A8FFB41A80D1C3005AD701 /* RecommendCollectionViewCell.xib in Resources */,
 				D90A9B331B5627C400E9F37C /* Loading_Animation_final8@3x.png in Resources */,
@@ -6832,6 +6839,7 @@
 				D9A804A51A80E738005AD701 /* chat_location_preview@2x.png in Resources */,
 				D9A804DB1A80E738005AD701 /* ic_contacts_selected@2x.png in Resources */,
 				271C41751B43E75B007BF285 /* poi_button_tip_default@3x.png in Resources */,
+				D918511C1B58E268004B8363 /* lvxingpaipai@3x.png in Resources */,
 				D917DACB1A8B49AF0039720A /* ic_mountain@2x.png in Resources */,
 				D9A8049D1A80E738005AD701 /* chat_time@2x.png in Resources */,
 				D9A8005F1A80DD0C005AD701 /* AddContactTableViewController.xib in Resources */,

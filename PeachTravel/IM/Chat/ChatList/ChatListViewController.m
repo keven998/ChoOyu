@@ -563,9 +563,21 @@
         } else {
             cell.name = tzConversation.chatterName;
         }
-        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:tzConversation.chatterAvatar] placeholderImage:[UIImage imageNamed:@"ic_home_default_avatar.png"]];
-        cell.imageView.layer.cornerRadius = 28;
+        if (tzConversation.chatterId == 10001) {
+            cell.imageView.image = [UIImage imageNamed:@"lvxingwenwen.png"];
+            cell.imageView.layer.cornerRadius = 0;
+
+        } else if (tzConversation.chatterId == 10000) {
+            cell.imageView.layer.cornerRadius = 0;
+            cell.imageView.image = [UIImage imageNamed:@"lvxingpaipai.png"];
+
+        } else {
+            [cell.imageView sd_setImageWithURL:[NSURL URLWithString:tzConversation.chatterAvatar] placeholderImage:[UIImage imageNamed:@"ic_home_default_avatar.png"]];
+            cell.imageView.layer.cornerRadius = 28;
+        }
+        
     } else {
+        cell.imageView.layer.cornerRadius = 28;
         cell.imageView.image = [UIImage imageNamed:@"ic_home_default_avatar.png"];
         cell.name = tzConversation.chatterName;
     }

@@ -101,12 +101,8 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     
     self.tableView.separatorColor = COLOR_LINE;
     self.tableView.backgroundColor = APP_PAGE_COLOR;
-    if (_tripDetail) {
-        CityDestinationPoi *firstDestination = [_tripDetail.destinations firstObject];
-        _requestUrl = [NSString stringWithFormat:@"%@%@", API_GET_SPOTLIST_CITY ,firstDestination.cityId];
-    } else {
-        _requestUrl = [NSString stringWithFormat:@"%@%@", API_GET_SPOTLIST_CITY ,_cityId];
-    }
+    _requestUrl =  API_GET_SPOTLIST_CITY;
+    _requestUrl = API_GET_SPOTLIST_CITY;
     
     [_tableView setContentOffset:CGPointMake(0, 45)];
     _tableView.contentInset = UIEdgeInsetsMake(0, 0, 20, 0);
@@ -154,6 +150,13 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     } else {
         [MobClick endLogPageView:@"page_spot_lists"];
     }
+}
+
+- (void)setTripDetail:(TripDetail *)tripDetail
+{
+    _tripDetail = tripDetail;
+    CityDestinationPoi *firstDestination = [_tripDetail.destinations firstObject];
+    _cityId = firstDestination.cityId;
 }
 
 - (NSMutableArray *)dataSource
@@ -363,6 +366,7 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     [params setObject:imageWidth forKey:@"imgWidth"];
     [params setObject:[NSNumber numberWithInteger:pageNo] forKey:@"page"];
     [params setObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];
+    [params setObject:_cityId forKey:@"locality"];
     
     NSString *backUrlForCheck = _requestUrl;
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
