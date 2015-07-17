@@ -437,6 +437,8 @@
 		D91850E61B575541004B8363 /* ItemFooterCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D91850E41B575541004B8363 /* ItemFooterCollectionViewCell.m */; };
 		D91850E71B575541004B8363 /* ItemFooterCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D91850E51B575541004B8363 /* ItemFooterCollectionViewCell.xib */; };
 		D91850E91B57947C004B8363 /* master_girl@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D91850E81B57947C004B8363 /* master_girl@3x.png */; };
+		D91850EE1B58B07E004B8363 /* map_icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D91850EC1B58B07E004B8363 /* map_icon@3x.png */; };
+		D91850F01B58B102004B8363 /* map_icon_empty@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D91850EF1B58B102004B8363 /* map_icon_empty@3x.png */; };
 		D91FED431B3D2E0D0073AD77 /* ReceiverImageNodeBorder_black@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D91FED421B3D2E0D0073AD77 /* ReceiverImageNodeBorder_black@3x.png */; };
 		D91FED451B3D2E140073AD77 /* SenderImageNodeBorder_black@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D91FED441B3D2E140073AD77 /* SenderImageNodeBorder_black@3x.png */; };
 		D91FED6A1B3E75740073AD77 /* ReceiverImageNodeBorder_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D91FED681B3E75740073AD77 /* ReceiverImageNodeBorder_black@2x.png */; };
@@ -1582,6 +1584,8 @@
 		D91850E41B575541004B8363 /* ItemFooterCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemFooterCollectionViewCell.m; sourceTree = "<group>"; };
 		D91850E51B575541004B8363 /* ItemFooterCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ItemFooterCollectionViewCell.xib; sourceTree = "<group>"; };
 		D91850E81B57947C004B8363 /* master_girl@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "master_girl@3x.png"; sourceTree = "<group>"; };
+		D91850EC1B58B07E004B8363 /* map_icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map_icon@3x.png"; sourceTree = "<group>"; };
+		D91850EF1B58B102004B8363 /* map_icon_empty@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map_icon_empty@3x.png"; sourceTree = "<group>"; };
 		D91FED421B3D2E0D0073AD77 /* ReceiverImageNodeBorder_black@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ReceiverImageNodeBorder_black@3x.png"; sourceTree = "<group>"; };
 		D91FED441B3D2E140073AD77 /* SenderImageNodeBorder_black@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SenderImageNodeBorder_black@3x.png"; sourceTree = "<group>"; };
 		D91FED681B3E75740073AD77 /* ReceiverImageNodeBorder_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ReceiverImageNodeBorder_black@2x.png"; sourceTree = "<group>"; };
@@ -3075,6 +3079,7 @@
 		C6631CE51B300C4E00BE4ADC /* 3x */ = {
 			isa = PBXGroup;
 			children = (
+				D91850EA1B58B048004B8363 /* 地图 icon */,
 				C653430C1B578CF500C73A31 /* 联系人列表 */,
 				D9EDC2551B4E1E9F00599C4B /* 达人 */,
 				276DF79C1B4BB953001A98FB /* 搜索 */,
@@ -3326,6 +3331,15 @@
 				D9092C821B0C70C300F0F35F /* PeachTravel-Bridging-Header.h */,
 			);
 			name = IM;
+			sourceTree = "<group>";
+		};
+		D91850EA1B58B048004B8363 /* 地图 icon */ = {
+			isa = PBXGroup;
+			children = (
+				D91850EF1B58B102004B8363 /* map_icon_empty@3x.png */,
+				D91850EC1B58B07E004B8363 /* map_icon@3x.png */,
+			);
+			path = "地图 icon";
 			sourceTree = "<group>";
 		};
 		D91FED6C1B4125DC0073AD77 /* Dao */ = {
@@ -6286,6 +6300,7 @@
 				D917DAA61A8B48EE0039720A /* ic_guide_earth@2x.png in Resources */,
 				D90A9B431B5627C400E9F37C /* Loading_Animation_final24@3x.png in Resources */,
 				C6631D1D1B30231500BE4ADC /* ic_home_normal@3x.png in Resources */,
+				D91850EE1B58B07E004B8363 /* map_icon@3x.png in Resources */,
 				D9A8057E1A80E738005AD701 /* s_rain@2x.png in Resources */,
 				27329DD41B13063500F0A4FA /* star_biankuang@2x.png in Resources */,
 				D90A9B611B5627C400E9F37C /* Loading_Animation_final54@3x.png in Resources */,
@@ -6881,6 +6896,7 @@
 				C6682AD51B41343300100EBA /* chat_sender_audio_playing_003@3x.png in Resources */,
 				D9722F131A81C91D00D8A8CC /* ic_star_yellow@2x.png in Resources */,
 				C6682AD71B41343300100EBA /* MessageSendFail@3x.png in Resources */,
+				D91850F01B58B102004B8363 /* map_icon_empty@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

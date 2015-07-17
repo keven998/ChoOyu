@@ -9,6 +9,7 @@
 #import "PlanScheduleViewController.h"
 #import "PlanScheduleTableViewCell.h"
 #import "DayAgendaViewController.h"
+#import "MyTripSpotsMapViewController.h"
 
 @interface PlanScheduleViewController ()<UITableViewDelegate, UITableViewDataSource>
 
