@@ -459,6 +459,8 @@
 		D91851181B58CDC3004B8363 /* map_icon_27@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D91851041B58CDC3004B8363 /* map_icon_27@3x.png */; };
 		D918511B1B58E268004B8363 /* lvxingwenwen@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D91851191B58E268004B8363 /* lvxingwenwen@3x.png */; };
 		D918511C1B58E268004B8363 /* lvxingpaipai@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D918511A1B58E268004B8363 /* lvxingpaipai@3x.png */; };
+		D918511E1B58F96E004B8363 /* chat_paipai@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D918511D1B58F96E004B8363 /* chat_paipai@3x.png */; };
+		D91851201B58F97E004B8363 /* chat_wenwen@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D918511F1B58F97E004B8363 /* chat_wenwen@3x.png */; };
 		D91FED431B3D2E0D0073AD77 /* ReceiverImageNodeBorder_black@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D91FED421B3D2E0D0073AD77 /* ReceiverImageNodeBorder_black@3x.png */; };
 		D91FED451B3D2E140073AD77 /* SenderImageNodeBorder_black@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D91FED441B3D2E140073AD77 /* SenderImageNodeBorder_black@3x.png */; };
 		D91FED6A1B3E75740073AD77 /* ReceiverImageNodeBorder_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D91FED681B3E75740073AD77 /* ReceiverImageNodeBorder_black@2x.png */; };
@@ -1625,6 +1627,8 @@
 		D91851041B58CDC3004B8363 /* map_icon_27@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map_icon_27@3x.png"; sourceTree = "<group>"; };
 		D91851191B58E268004B8363 /* lvxingwenwen@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lvxingwenwen@3x.png"; sourceTree = "<group>"; };
 		D918511A1B58E268004B8363 /* lvxingpaipai@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lvxingpaipai@3x.png"; sourceTree = "<group>"; };
+		D918511D1B58F96E004B8363 /* chat_paipai@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "chat_paipai@3x.png"; path = "audio/chat_paipai@3x.png"; sourceTree = "<group>"; };
+		D918511F1B58F97E004B8363 /* chat_wenwen@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_wenwen@3x.png"; sourceTree = "<group>"; };
 		D91FED421B3D2E0D0073AD77 /* ReceiverImageNodeBorder_black@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ReceiverImageNodeBorder_black@3x.png"; sourceTree = "<group>"; };
 		D91FED441B3D2E140073AD77 /* SenderImageNodeBorder_black@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SenderImageNodeBorder_black@3x.png"; sourceTree = "<group>"; };
 		D91FED681B3E75740073AD77 /* ReceiverImageNodeBorder_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ReceiverImageNodeBorder_black@2x.png"; sourceTree = "<group>"; };
@@ -2949,6 +2953,8 @@
 				276DF7511B47C9B6001A98FB /* setting */,
 				C6528EEF1B4178A7008889EF /* audio */,
 				C6682AC21B41343300100EBA /* chat_receiver_audio_playing_full@3x.png */,
+				D918511D1B58F96E004B8363 /* chat_paipai@3x.png */,
+				D918511F1B58F97E004B8363 /* chat_wenwen@3x.png */,
 				C6682AC31B41343300100EBA /* chat_receiver_audio_playing000@3x.png */,
 				C6682AC41B41343300100EBA /* chat_receiver_audio_playing001@3x.png */,
 				C6682AC51B41343300100EBA /* chat_receiver_audio_playing002@3x.png */,
@@ -6346,6 +6352,7 @@
 				C6631D161B3014A800BE4ADC /* tools_home_card_bg_normal@3x.png in Resources */,
 				D9A805071A80E738005AD701 /* ic_sns_pengyouquan@2x.png in Resources */,
 				D917DAA61A8B48EE0039720A /* ic_guide_earth@2x.png in Resources */,
+				D918511E1B58F96E004B8363 /* chat_paipai@3x.png in Resources */,
 				D90A9B431B5627C400E9F37C /* Loading_Animation_final24@3x.png in Resources */,
 				C6631D1D1B30231500BE4ADC /* ic_home_normal@3x.png in Resources */,
 				D91850EE1B58B07E004B8363 /* map_icon@3x.png in Resources */,
@@ -6424,6 +6431,7 @@
 				C60C0D701A299389006033C9 /* PushSettingTableViewCell.xib in Resources */,
 				D90A9B2C1B5627C400E9F37C /* Loading_Animation_final1@3x.png in Resources */,
 				27FF1A8E1B05A25200643D77 /* share@2x.png in Resources */,
+				D91851201B58F97E004B8363 /* chat_wenwen@3x.png in Resources */,
 				271C419B1B45607C007BF285 /* login_back_defaut@3x.png in Resources */,
 				D9F46DBB1AC52D8600972AE8 /* SVWebViewControllerActivityChrome-iPad@2x.png in Resources */,
 				D9A805771A80E738005AD701 /* fog@2x.png in Resources */,
