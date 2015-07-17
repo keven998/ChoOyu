@@ -28,13 +28,15 @@
     
     UILabel * desLabel = [[UILabel alloc]init];
     desLabel.numberOfLines = 0;
-    desLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+    desLabel.textColor = COLOR_TEXT_I;
     [scrollView addSubview:desLabel];
     
     CGRect frame = CGRectMake(10, 10, CGRectGetWidth(self.view.bounds) - 20, 0);
     NSMutableParagraphStyle *ps = [[NSMutableParagraphStyle alloc] init];
     ps.lineSpacing = 5.0;
-    NSDictionary *attribs = @{NSFontAttributeName: [UIFont systemFontOfSize:15], NSParagraphStyleAttributeName:ps};
+    ps.paragraphSpacing = 20.0;
+    ps.firstLineHeadIndent = 32.0;
+    NSDictionary *attribs = @{NSFontAttributeName: [UIFont systemFontOfSize:16], NSParagraphStyleAttributeName:ps};
     NSAttributedString *attrstr = [[NSAttributedString alloc] initWithString:self.des attributes:attribs];
     CGRect rect = [attrstr boundingRectWithSize:(CGSize){CGRectGetWidth(frame), CGFLOAT_MAX} options:NSStringDrawingUsesLineFragmentOrigin context:nil];
     frame.size.height = ceilf(rect.size.height) + 1;
