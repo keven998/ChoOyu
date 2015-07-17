@@ -90,15 +90,18 @@ static NSString * const reuseIdentifier = @"Cell";
 #pragma mark - http method
 - (void)loadTravelers:(NSString *)areaId withPageNo:(NSInteger)page
 {
+    // 1.初始化管理对象
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AppUtils *utils = [[AppUtils alloc] init];
     [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
     
+    // 2.设置请求的一些类型
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
+    // 3.设置请求参数
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSNumber *imageWidth = [NSNumber numberWithInt:60];
     [params setObject:imageWidth forKey:@"imgWidth"];
@@ -163,7 +166,8 @@ static NSString * const reuseIdentifier = @"Cell";
     
     // 初始化cell并对cell赋值
     GuiderCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
-//    FrendModel *up = [_dataSource objectAtIndex:indexPath.row];
+    
+    // 达人模型,dataSource是达人列表数组
     FrendModel * up = self.dataSource[indexPath.row];
     NSLog(@"haha%ld",up.guideCount);
 
@@ -232,35 +236,5 @@ static NSString * const reuseIdentifier = @"Cell";
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
-
-
-/*
- // Uncomment this method to specify if the specified item should be highlighted during tracking
- - (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
-	return YES;
- }
- */
-
-/*
- // Uncomment this method to specify if the specified item should be selected
- - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
- return YES;
- }
- */
-
-/*
- // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
- - (BOOL)collectionView:(UICollectionView *)collectionView shouldShowMenuForItemAtIndexPath:(NSIndexPath *)indexPath {
-	return NO;
- }
- 
- - (BOOL)collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	return NO;
- }
- 
- - (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	
- }
- */
 
 @end

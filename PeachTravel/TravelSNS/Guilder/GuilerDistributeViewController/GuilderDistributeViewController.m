@@ -20,6 +20,11 @@
 
 @property (nonatomic, strong)NSArray * titleArray;
 
+/**
+ *  新建一个字典存储展开的信息
+ */
+@property (nonatomic, strong)NSMutableDictionary * showDic;
+
 @end
 
 @implementation GuilderDistributeViewController
@@ -86,6 +91,9 @@
     
     // 2.请求链接
     NSString * url = @"http://api-dev.lvxingpai.com/app/geo/countrys";
+    
+    // 新列表链接
+//    NSString * url = @"http://api-dev.lvxingpai.com/app/geo/countries";
     
     // 3.发送Get请求
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -181,8 +189,10 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 44)];
+    view.tag = section;
     view.backgroundColor = [UIColor whiteColor];
     UILabel *sectionLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 6, CGRectGetWidth(self.view.bounds), 38)];
+    
 
     // 设置头像的标题
     sectionLabel.text = self.titleArray[section];
@@ -192,13 +202,43 @@
     sectionLabel.font = [UIFont systemFontOfSize:12];
     sectionLabel.tag = 1;
     [view addSubview:sectionLabel];
+    
+    // 添加手势监听,对于手势事件的,点击cell进行展开
+    UITapGestureRecognizer *singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(SingleTap:)];
+    singleRecognizer.numberOfTapsRequired = 1; //点击的次数 =1:单击
+    [singleRecognizer setNumberOfTouchesRequired:1];//1个手指操作
+    [view addGestureRecognizer:singleRecognizer];//添加一个手势监测；
+    
     return view;
 }
+
+#pragma mark 展开收缩section中cell 手势监听
+-(void)SingleTap:(UITapGestureRecognizer*)recognizer{
+    
+    NSLog(@"%s",__func__);
+    
+    NSInteger didSection = recognizer.view.tag;
+    
+    if (!_showDic) {
+        _showDic = [[NSMutableDictionary alloc]init];
+    }
+    
+    NSString *key = [NSString stringWithFormat:@"%ld",didSection];
+    if (![_showDic objectForKey:key]) {
+        [_showDic setObject:@"1" forKey:key];
+        
+    }else{
+        [_showDic removeObjectForKey:key];
+    }
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:didSection] withRowAnimation:UITableViewRowAnimationFade];
+}
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // cell的初始化
     GuiderCell * cell = [GuiderCell guiderWithTableView:tableView];
+    
     cell.guiderDistribute = self.guiderArray[indexPath.row];
     return cell;
 }
