@@ -26,6 +26,7 @@
 #import "TripPlanSettingViewController.h"
 #import "PlansListTableViewController.h"
 #import "TripFavoriteTableViewController.h"
+#import "MyTripSpotsMapViewController.h"
 
 @interface TripDetailRootViewController () <ActivityDelegate, TaoziMessageSendDelegate, ChatRecordListDelegate, CreateConversationDelegate, UIActionSheetDelegate>
 
@@ -226,9 +227,10 @@
 }
 
 - (void)mapView {
-    if ([_currentViewController isKindOfClass:[PlanScheduleViewController class]]) {
-        //        [_spotsListCtl mapView];
-    }
+    MyTripSpotsMapViewController *mapViewCtl = [[MyTripSpotsMapViewController alloc] init];
+    mapViewCtl.tripDetail = _tripDetail;
+    [self.frostedViewController.navigationController pushViewController:mapViewCtl animated:YES];
+
 }
 
 - (void)dismissCtl
