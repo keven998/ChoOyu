@@ -218,7 +218,7 @@ typedef void(^loginCompletion)(BOOL completed);
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:_phoneLabel.text forKey:@"tel"];
-    [params setObject:[NSNumber numberWithInt:1] forKey:@"actionCode"];
+    [params setObject:[NSNumber numberWithInt:1] forKey:@"action"];
     [params setObject:[NSNumber numberWithInt:86] forKey:@"dialCode"];
 
     __weak typeof(RegisterViewController *)weakSelf = self;

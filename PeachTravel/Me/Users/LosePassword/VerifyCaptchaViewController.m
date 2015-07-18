@@ -170,11 +170,11 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:_phoneLabel.text forKey:@"tel"];
     if (_verifyCaptchaType == UserLosePassword) {
-        [params setObject:kUserLosePassword forKey:@"actionCode"];
+        [params setObject:kUserLosePassword forKey:@"action"];
         AccountManager *accountManager = [AccountManager shareAccountManager];
         [params setObject:[NSNumber numberWithInteger: accountManager.account.userId] forKey:@"userId"];
     } else {
-        [params setObject:kUserRegister forKey:@"actionCode"];
+        [params setObject:kUserRegister forKey:@"action"];
     }
 
      __weak typeof(VerifyCaptchaViewController *)weakSelf = self;
@@ -223,11 +223,11 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:_phoneLabel.text forKey:@"tel"];
     if (_verifyCaptchaType == UserBindTel) {
-        [params setObject:kUserBindTel forKey:@"actionCode"];
+        [params setObject:kUserBindTel forKey:@"action"];
         AccountManager *accountManager = [AccountManager shareAccountManager];
         [params setObject:[NSNumber numberWithInteger: accountManager.account.userId] forKey:@"userId"];
     } else {
-        [params setObject:kUserLosePassword forKey:@"actionCode"];
+        [params setObject:kUserLosePassword forKey:@"action"];
     }
     
     [params setObject:_captchaLabel.text forKey:@"validationCode"];

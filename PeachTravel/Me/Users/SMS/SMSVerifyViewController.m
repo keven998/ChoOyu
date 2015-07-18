@@ -245,7 +245,7 @@
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:_phoneNumber forKey:@"tel"];
-    [params setObject:kUserRegister forKey:@"actionCode"];
+    [params setObject:kUserRegister forKey:@"action"];
     __weak typeof(SMSVerifyViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf content:64];

@@ -86,7 +86,7 @@
 #define API_WEIXIN_LOGIN                        (BASE_URL @"users/auth-signup")
 #define API_USERS                               (BASE_URL @"users/")
 #define API_GET_CAPTCHA                         (BASE_URL @"users/validation-codes")    //接收验证码
-#define API_VERIFY_CAPTCHA                      (BASE_URL @"users/validation-codes")   //验证验证码
+#define API_VERIFY_CAPTCHA                      (BASE_URL @"users/tokens")   //验证验证码
 #define API_SIGNUP                              (BASE_URL @"users")        //用户注册
 #define API_SIGNIN                              (BASE_URL @"users/signin")
 #define API_SEARCH_USER                         (BASE_URL @"users")      //搜索好友

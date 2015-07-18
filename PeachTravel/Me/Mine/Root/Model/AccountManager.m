@@ -451,15 +451,14 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:newPassword forKey:@"newPassword"];
     [params safeSetObject:token forKey:@"token"];
-    NSString *urlStr = [NSString stringWithFormat:@"%@%ld/password", API_USERS, self.account.userId];
+    [params safeSetObject:tel forKey:@"tel"];
+
+    NSString *urlStr = [NSString stringWithFormat:@"%@_/password", API_USERS];
 
     //完成修改
     [manager PUT:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            [self userDidLoginWithUserInfo:[responseObject objectForKey:@"result"]];
-            [[NSNotificationCenter defaultCenter] postNotificationName:userDidLoginNoti object:nil];
-            [[NSNotificationCenter defaultCenter] postNotificationName:userDidResetPWDNoti object:nil];
             completion(YES, nil);
         } else {
             NSString *errorStr;

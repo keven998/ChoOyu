@@ -72,7 +72,7 @@
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:_phoneNumberLabel.text forKey:@"tel"];
-    [params setObject:@"1" forKey:@"actionCode"];
+    [params setObject:kUserRegister forKey:@"action"];
     
     //获取用户信息
     [manager POST:API_GET_CAPTCHA parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
