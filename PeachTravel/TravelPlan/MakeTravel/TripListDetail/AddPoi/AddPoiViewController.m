@@ -18,12 +18,14 @@
 #import "PoisOfCityViewController.h"
 #import "PoisSearchViewController.h"
 #import "TripPoiListTableViewCell.h"
+#import "HWDropdownMenu.h"
+#import "DropDownViewController.h"
 enum {
     FILTER_TYPE_CITY = 1,
     FILTER_TYPE_CATE
 };
 
-@interface AddPoiViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate, UIActionSheetDelegate, SelectDelegate,didSelectedDelegate,updateSelectedPlanDelegate>
+@interface AddPoiViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate, UIActionSheetDelegate, SelectDelegate,didSelectedDelegate,updateSelectedPlanDelegate,dropDownMenuProtocol,HWDropdownMenuDelegate>
 
 @property (nonatomic) NSUInteger currentListTypeIndex;
 @property (nonatomic) NSUInteger currentCityIndex;
@@ -45,10 +47,18 @@ enum {
 @property (nonatomic, assign) BOOL didEndScrollNormal;
 @property (nonatomic, assign) BOOL enableLoadMoreNormal;
 
+@property (nonatomic, strong)HWDropdownMenu * dropDownMenu;
+
 @property (nonatomic, copy) NSString *currentCategory;
 
 //类型筛选: 1是城市、2是分类
 @property (nonatomic, assign) NSInteger filterType;
+
+/**
+ *   两个分类Button
+ */
+@property (nonatomic, weak)UIButton * cityButton;
+@property (nonatomic, weak)UIButton * categoryButton;
 
 @end
 
@@ -428,8 +438,10 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     return 70;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 0.5;
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)sectio
+{
+//    return 50;
+    return self.tripDetail ? 50 : 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -440,8 +452,160 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     return self.dataSource.count;
 }
 
+/**
+ *  设置cell的头部
+ *
+ *  @param tableView 视图tableView
+ *  @param section   标识哪一组
+ *
+ *  @return headerView
+ */
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    // 1.创建头部视图
+    UIView * header = [[UIView alloc] init];
+    header.frame = CGRectMake(0, 0, SCREEN_WIDTH, 50);
+    header.backgroundColor = [UIColor whiteColor];
+    
+    // 2.创建头部视图列表
+    NSMutableArray * siteArray = [NSMutableArray array];
+    NSLog(@"%@",self.tripDetail);
+    for (CityDestinationPoi * poi in self.tripDetail.destinations){
+        NSString * zhName = poi.zhName;
+        [siteArray addObject:zhName];
+    }
+    // 设置城市Button的一些基本属性
+    UIButton * scene = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.cityButton = scene;
+    scene.selected = NO;
+    [scene setTitle:siteArray[_currentCityIndex] forState:UIControlStateNormal];
+    scene.titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
+    [scene setTitleColor:COLOR_TEXT_I forState:UIControlStateNormal];
+    [scene addTarget:self action:@selector(sceneClick:) forControlEvents:UIControlEventTouchDown];
+    scene.frame = CGRectMake(0, 0, SCREEN_WIDTH * 0.5, 50);
+    [scene setImage:[UIImage imageNamed:@"ArtboardBottom@3x"] forState:UIControlStateNormal];
+    [scene setImage:[UIImage imageNamed:@"ArtboardTop@3x"] forState:UIControlStateSelected];
+    scene.imageEdgeInsets = UIEdgeInsetsMake(0, 80, 0, 0);
+    scene.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 40);
+    [header addSubview:scene];
+    
+    // 设置分类界面的一些基本属性
+    NSArray * typeArray = @[@"景点",@"美食",@"购物"];
+    UIButton * type = [UIButton buttonWithType:UIButtonTypeCustom];
+    type.titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
+    self.categoryButton = type;
+    type.selected = NO;
+    [type setTitle:typeArray[_currentListTypeIndex] forState:UIControlStateNormal];
+    [type setTitleColor:COLOR_TEXT_I forState:UIControlStateNormal];
+    [type addTarget:self action:@selector(typeClick:) forControlEvents:UIControlEventTouchDown];
+    [type setImage:[UIImage imageNamed:@"ArtboardBottom@3x"] forState:UIControlStateNormal];
+    [type setImage:[UIImage imageNamed:@"ArtboardTop@3x"] forState:UIControlStateSelected];
+    type.imageEdgeInsets = UIEdgeInsetsMake(0, 80, 0, 0);
+    type.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 40);
+    type.frame = CGRectMake(SCREEN_WIDTH * 0.5, 0, SCREEN_WIDTH * 0.5, 50);
+    [header addSubview:type];
+
+    // 3.添加中间的分割线
+    UIView * line = [[UIView alloc] init];
+    line.frame = CGRectMake(SCREEN_WIDTH * 0.5, 10, 1, 30);
+    line.backgroundColor = COLOR_LINE;
+    [header addSubview:line];
+    
+    return header;
+}
+
+/**
+ *  添加监听弹出下拉菜单的事件
+ */
+- (void)sceneClick:(UIButton *)scene
+{
+    NSLog(@"%s",__func__);
+    
+    scene.selected = !scene.selected;
+    
+    // 1.创建下拉菜单
+    HWDropdownMenu *menu = [HWDropdownMenu menu];
+    menu.delegate = self;
+    self.dropDownMenu = menu;
+    // 2.设置传入数组
+    NSMutableArray * siteArray = [NSMutableArray array];
+    NSLog(@"%@",self.tripDetail);
+    for (CityDestinationPoi * poi in self.tripDetail.destinations){
+        NSString * zhName = poi.zhName;
+        [siteArray addObject:zhName];
+    }
+    
+    // 3.设置内容
+    DropDownViewController *vc = [[DropDownViewController alloc] init];
+    vc.delegateDrop = self;
+    vc.siteArray = siteArray;
+    vc.showAccessory = _currentCityIndex;
+    vc.tag = 1;
+    vc.view.height = siteArray.count * 44;
+    vc.view.width = SCREEN_WIDTH / 3;
+    menu.contentController = vc;
+    
+    // 4.显示
+    [menu showFrom:scene];
+}
+
+- (void)typeClick:(UIButton *)type
+{
+    NSLog(@"%s",__func__);
+    
+    type.selected = !type.selected;
+    
+    // 1.创建下拉菜单
+    HWDropdownMenu *menu = [HWDropdownMenu menu];
+    menu.delegate = self;
+    self.dropDownMenu = menu;
+    
+    // 2.设置传入数组
+    NSArray * siteArray = @[@"景点",@"美食",@"购物"];
+    
+    // 3.设置内容
+    DropDownViewController *vc = [[DropDownViewController alloc] init];
+    vc.delegateDrop = self;
+    vc.siteArray = siteArray;
+    vc.showAccessory = _currentListTypeIndex;
+    vc.tag = 2;
+    vc.view.height = siteArray.count * 44;
+    vc.view.width = SCREEN_WIDTH / 3;
+    menu.contentController = vc;
+    
+    // 4.显示
+    [menu showFrom:type];
+}
+
+#pragma mark - HWDropdownMenuDelegate
+/**
+ *  下拉菜单被销毁了
+ */
+- (void)dropdownMenuDidDismiss:(HWDropdownMenu *)menu
+{
+    self.cityButton.selected = NO;
+    self.categoryButton.selected = NO;
+    // 让箭头向下
+    //    [titleButton setImage:[UIImage imageNamed:@"navigationbar_arrow_down"] forState:UIControlStateNormal];
+}
+
+/**
+ *  下拉菜单显示了
+ */
+- (void)dropdownMenuDidShow:(HWDropdownMenu *)menu
+{
+    
+    self.categoryButton.selected = YES;
+    // 让箭头向上
+    //    [titleButton setImage:[UIImage imageNamed:@"navigationbar_arrow_up"] forState:UIControlStateNormal];
+}
+
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SuperPoi *poi = [self.dataSource objectAtIndex:indexPath.row];
+    
+    NSLog(@"%@",self.tripDetail);
 
     BOOL isAdded = NO;
     NSMutableArray *oneDayArray = [self.tripDetail.itineraryList objectAtIndex:_currentDayIndex];
@@ -633,25 +797,28 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     return 15.0;
 }
 
-- (void) didSelectedcityIndex:(NSIndexPath *)cityindexPath categaryIndex:(NSIndexPath *)categaryIndexPath
+// 实现代理方法
+- (void)didSelectedcityIndex:(NSInteger)cityindex categaryIndex:(NSInteger)categaryIndex andTag:(int)tag
 {
-    _currentCityIndex = cityindexPath.row;
-    if (categaryIndexPath.row == 0){
-        _currentCategory= @"景点";
-        _currentListTypeIndex = 0;
-    }else if (categaryIndexPath.row == 1) {
-        _currentCategory = @"美食";
-        _currentListTypeIndex = 1;
-    }else if (categaryIndexPath.row == 2) {
-        _currentCategory = @"购物";
-        _currentListTypeIndex = 2;
-    }else if (categaryIndexPath.row == 3) {
-        _currentCategory = @"酒店";
-        _currentListTypeIndex = 3;
+    [self.dropDownMenu dismiss];
+    if (tag == 1) {
+        _currentCityIndex = cityindex;
+    }else{
+        _currentListTypeIndex = categaryIndex;
+        if (_currentListTypeIndex == 0){
+            _currentCategory= @"景点";
+        }else if (_currentListTypeIndex == 1) {
+            _currentCategory = @"美食";
+        }else if (_currentListTypeIndex== 2) {
+            _currentCategory = @"购物";
+        }else if (_currentListTypeIndex == 3) {
+            _currentCategory = @"酒店";
+        }
+
     }
+    // 刷新整个表格数据
     [self resetContents];
 }
-
 
 
 #pragma mark - SelectDelegate
@@ -674,7 +841,7 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     CityDestinationPoi *poi = [self.tripDetail.destinations objectAtIndex:_currentCityIndex];
     _cityId = poi.cityId;
     _cityName = poi.zhName;
-    _requestUrl = [NSString stringWithFormat:@"%@%@", _urlArray[_currentListTypeIndex], poi.cityId];
+    _requestUrl = _urlArray[_currentListTypeIndex];
     [self.dataSource removeAllObjects];
     [self.tableView reloadData];
     _currentPageNormal = 0;

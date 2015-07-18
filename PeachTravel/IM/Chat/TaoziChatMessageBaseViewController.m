@@ -25,8 +25,8 @@
     
     // 设置字体颜色以及宽度
     _headerLabel.textColor = APP_THEME_COLOR;
-    _sendBtn.layer.borderColor = [UIColor grayColor].CGColor;
-    _cancelBtn.layer.borderColor = [UIColor grayColor].CGColor;
+    _sendBtn.layer.borderColor = COLOR_LINE.CGColor;
+    _cancelBtn.layer.borderColor = COLOR_LINE.CGColor;
     _sendBtn.layer.borderWidth = 1.0;
     _cancelBtn.layer.borderWidth = 1.0;
     _headerImageView.layer.cornerRadius = 2.0;

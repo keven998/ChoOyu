@@ -46,6 +46,9 @@
 #define API_GET_DOMESTIC_DESTINATIONS           (BASE_URL @"geo/localities/domestic")     //获取国内目的地接口
 #define API_GET_FOREIGN_DESTINATIONS            (BASE_URL @"geo/localities/abroad")       //获取国外目的地接口
 
+// 是否为iOS7
+#define iOS7 ([[UIDevice currentDevice].systemVersion doubleValue] >= 7.0)
+
 //详情接口
 #define API_GET_CITYDETAIL                      (BASE_URL @"geo/localities/")
 #define API_GET_SPOT_DETAIL                     (BASE_URL @"poi/viewspots/")
@@ -271,6 +274,12 @@ typedef NS_ENUM(NSUInteger, TZCMDChatType) {
 
 // 随机色
 #define TZRandomColor TZColor(arc4random_uniform(256), arc4random_uniform(256), arc4random_uniform(256))
+
+// 判断是否是iOS7
+#define IOS7 ([[UIDevice currentDevice].systemVersion doubleValue] >= 7.0)
+
+// 点击弹出菜单通知
+#define NoticationDropdownMenu @"NoticationDropdownMenuSend"
 
 /*****应用启动时是否应该启动引导页******/
 #define shouldSkipIntroduce [[NSUserDefaults standardUserDefaults] boolForKey:[[AppUtils alloc] init].appVersion]
