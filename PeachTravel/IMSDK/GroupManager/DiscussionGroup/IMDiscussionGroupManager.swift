@@ -94,6 +94,26 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
         }
     }
     
+
+
+    /**
+    异步删除一个讨论组
+    
+    :param: subject         讨论组ID
+    :param: invitees        群组成员
+    :param: completionBlock 删除成功进入block
+    :param: errorCode       错误码,留着备用
+    */
+    func asyncDeleteDiscussionGroup(subject: String, completionBlock: (isSuccess: Bool, errorCode: Int, retMessage: NSDictionary?) -> ()) {  
+        // 1.发送删除操作给服务器,删除ID位subject的讨论组,同时清空数据库中该讨论组的相关信息
+        var params = NSMutableDictionary()
+        params.setObject(subject, forKey: "name")
+        let deleteDiscussionGroupUrl = "\(BASE_URL)chatgroups"
+        NetworkTransportAPI.asyncDELETE(requstUrl: deleteDiscussionGroupUrl, parameters: params) { (isSuccess, errorCode, retMessage) -> () in
+            completionBlock(isSuccess: isSuccess, errorCode: errorCode, retMessage: retMessage)
+        }
+    }
+    
     /**
     获取我所有的讨论组
     
@@ -131,16 +151,7 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
             
         }
     }
-    
-    /**
-    离开一个讨论组
-    
-    :param: completion
-    */
-    func asyncLeaveDiscussionGroup(completion:(isSuccess: Bool, errorCode: Int) -> ()) {
-        
-    }
-    
+
     /**
     修改讨论组title
     
