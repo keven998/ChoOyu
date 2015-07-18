@@ -63,8 +63,6 @@
 
 #define API_GET_GUIDE_CITY                      (BASE_URL @"guides/locality/")    //城市的美食购物攻略介绍
 
-#define API_CREATE_GUIDE                        (BASE_URL @"create-guide")    //制作攻略
-
 #define API_UPDATE_GUIDE_PROPERTY               (BASE_URL @"guides")    //修改攻略属性
 #define API_SAVE_TRIP                           (BASE_URL @"guides")    //保存攻略
 #define API_GET_GUIDELIST                       (BASE_URL @"guides")    //获取攻略列表
@@ -72,7 +70,6 @@
 #define API_GET_GUIDE                           (BASE_URL @"guides/")    //获取攻略列表
 #define API_DELETE_GUIDE                        (BASE_URL @"guides/")    //删除攻略列表
 #define API_SAVE_TRIPINFO                       (BASE_URL @"guides/info/")    //保存攻略信息
-#define API_FORK_TRIP                           (BASE_URL @"copy-guide/")     //复制攻略
 
 #define API_GET_FAVORITES                       (BASE_URL @"misc/favorites")    //获取我的收藏列表
 

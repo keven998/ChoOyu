@@ -119,16 +119,18 @@
 {
     if (_canEdit) {
         [self setupNavigationRightItems:NO];
+        
     } else {
         _forkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 20)];
         _forkBtn.layer.cornerRadius = 2.0;
-        _forkBtn.layer.borderColor = APP_THEME_COLOR.CGColor;
+        _forkBtn.layer.borderColor = [UIColor whiteColor].CGColor;
         _forkBtn.layer.borderWidth = 1.0;
         [_forkBtn setTitle:@"复制计划" forState:UIControlStateNormal];
         _forkBtn.titleLabel.font = [UIFont systemFontOfSize:10.0];
-        [_forkBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-        [_forkBtn setTitleColor:[APP_THEME_COLOR colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
+        [_forkBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_forkBtn addTarget:self action:@selector(forkTrip:) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem * addBtn = [[UIBarButtonItem alloc]initWithCustomView:_forkBtn];
+        self.navigationItem.rightBarButtonItem = addBtn;
         
         UIButton *bbtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
         [bbtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
@@ -136,8 +138,6 @@
         [bbtn setImage:[UIImage imageNamed:@"common_icon_navigaiton_back_highlight"] forState:UIControlStateHighlighted];
         [bbtn addTarget:self action:@selector(dismissCtl) forControlEvents:UIControlEventTouchUpInside];
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:bbtn];
-        UIBarButtonItem * addBtn = [[UIBarButtonItem alloc]initWithCustomView:_forkBtn];
-        self.navigationItem.rightBarButtonItem = addBtn;
     }
 }
 
@@ -268,19 +268,18 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSNumber *imageWidth = [NSNumber numberWithInt:150];
     [params setObject:imageWidth forKey:@"imgWidth"];
-    if (isNeedRecommend) {
-        [params setObject:@"recommend" forKey:@"action"];
-    } else {
-        [params setObject:@"" forKey:@"action"];
-    }
+    [params setObject:[NSNumber numberWithBool: isNeedRecommend] forKey:@"initViewSpots"];
+    [params setObject:@"create" forKey:@"action"];
+
     [params setObject:cityIds forKey:@"locId"];
     
     __weak typeof(TripDetailRootViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf content:64];
     
+    NSString *url = [NSString stringWithFormat:@"%@%ld/guides", API_USERS, [AccountManager shareAccountManager].account.userId];
     //获取路线模板数据,新制作路线的情况下
-    [manager POST:API_CREATE_GUIDE parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager POST:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [hud hideTZHUD];
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
@@ -338,7 +337,7 @@
         [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     }
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@%@/all", API_GET_GUIDE, _tripId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@guides/%@", BASE_URL, _tripId];
     TZProgressHUD *hud;
     if (_tripDetail == nil) {
         __weak typeof(TripDetailRootViewController *)weakSelf = self;
@@ -530,7 +529,7 @@
         [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     }
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@%@", API_FORK_TRIP, _tripDetail.tripId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@%ld/guides", API_USERS, [AccountManager shareAccountManager].account.userId];
     __weak typeof(TripDetailRootViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf content:64];
@@ -538,17 +537,19 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSNumber *imageWidth = [NSNumber numberWithInt:150];
     [params setObject:imageWidth forKey:@"imgWidth"];
+    [params setObject:_tripDetail.tripId forKeyedSubscript:@"guideId"];
+    [params setObject:@"fork" forKey:@"action"];
     
-    [manager GET:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         [hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             PlansListTableViewController *myGuidesCtl = [[PlansListTableViewController alloc] initWithUserId:accountManager.account.userId];
-            NSMutableArray *clts = [NSMutableArray arrayWithArray:[self.navigationController childViewControllers]];
+            NSMutableArray *clts = [NSMutableArray arrayWithArray:[self.container.navigationController childViewControllers]];
             myGuidesCtl.userName = accountManager.account.nickName;
             [clts replaceObjectAtIndex:(clts.count-1) withObject:myGuidesCtl];
-            [self.navigationController setViewControllers:clts animated:YES];
+            [self.container.navigationController setViewControllers:clts animated:YES];
         } else {
             if (self.isShowing) {
                 [SVProgressHUD showHint:@"请求也是失败了"];

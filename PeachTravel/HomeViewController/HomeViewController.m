@@ -416,7 +416,11 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     UILocalNotification *notification = [[UILocalNotification alloc] init];
     notification.fireDate = [NSDate date]; //触发通知的时间
     
-    notification.alertBody = @"您有一条新消息";
+    if ([message.abbrevMsg isBlankString]) {
+        notification.alertBody = @"您有一条新消息";
+    } else {
+        notification.alertBody = message.abbrevMsg;
+    }
     
     notification.alertAction = @"打开";
     notification.timeZone = [NSTimeZone defaultTimeZone];
