@@ -27,7 +27,7 @@
             [imagesArray addObject:image];
         }
         _images = imagesArray;
-        _country = [[CountryModel alloc] initWithJson:@"country"];
+        _country = [[CountryModel alloc] initWithJson:[json objectForKey:@"country"]];
     }
     return self;
 }
