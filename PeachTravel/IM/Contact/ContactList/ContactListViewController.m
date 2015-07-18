@@ -269,14 +269,10 @@
 {
     if (indexPath.section == 0) {
         OptionOfFASKTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"friend_ask"];
-//        cell.numberOfUnreadFrendRequest = _numberOfUnreadFrendRequest;
         cell.numberOfUnreadFrendRequest = _numberOfUnreadFrendRequest;
         NSLog(@"%ld",cell.numberOfUnreadFrendRequest);
         if (cell.numberOfUnreadFrendRequest == 0) {
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-//            CWBadgeView * badge = [[CWBadgeView alloc] init];
-//            badge.badgeValue = @"10";
-//            cell.accessoryView = badge;
         }
         return cell;
     } else {

@@ -124,9 +124,41 @@
 //用户退出登录
 - (void)asyncLogout:(void (^)(BOOL))completion
 {
+    
+    // 退出登录
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSString * userId = [NSString stringWithFormat:@"%ld",self.account.userId];
+    [params setObject:userId forKey:@"userId"];
+    
+    //普通登录
+    [manager POST:API_LOGOUT parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            
+            completion(YES);
+        } else {
+            completion(NO);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (operation.response.statusCode == 401) {
+            completion(NO);
+        }
+    }];
+
     _account = nil;
-    IMClientManager *manager = [IMClientManager shareInstance];
-    [manager userDidLogout];
+    IMClientManager *clientManager = [IMClientManager shareInstance];
+    [clientManager userDidLogout];
     AccountDaoHelper *daoHelper = [AccountDaoHelper shareInstance];
     [daoHelper deleteAccountInfoInDB];
     [[NSNotificationCenter defaultCenter] postNotificationName:userDidLogoutNoti object:nil];

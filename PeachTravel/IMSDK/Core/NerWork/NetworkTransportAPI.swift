@@ -85,6 +85,29 @@ class NetworkTransportAPI: NSObject {
         }
     }
     
+    
+    /**
+    发送一个 delete 请求
+    
+    :param: url             请求的 url
+    :param: parameters      post 参数
+    :param: completionBlock 请求的回掉
+    */
+    class func asyncDELETE(#requstUrl: String, parameters: NSDictionary, completionBlock: (isSuccess: Bool, errorCode: Int, retMessage: NSDictionary?) -> ()){
+        let manager = AFHTTPRequestOperationManager()
+        let requestSerializer = AFJSONRequestSerializer()
+        manager.requestSerializer = requestSerializer
+        var accountManager = AccountManager.shareAccountManager()
+        manager.requestSerializer.setValue("\(accountManager.account.userId)", forHTTPHeaderField: "UserId")
+        
+        manager.DELETE(requstUrl, parameters: parameters, success: { (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
+            print("删除成功")
+        }) { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+            print("error")
+        }
+    }
+    
+    
     class func asyncPATCH(#requstUrl: String, parameters: NSDictionary, completionBlock: (isSuccess: Bool, errorCode: Int, retMessage: NSDictionary?) -> ()) {
         let manager = AFHTTPRequestOperationManager()
         let requestSerializer = AFJSONRequestSerializer()
