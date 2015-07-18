@@ -559,6 +559,8 @@
                 cell.name = @"旅行问问";
             } else if (tzConversation.chatterId == 10000) {
                 cell.name = @"旅行派";
+            } else {
+                cell.name = [NSString stringWithFormat:@"%ld", tzConversation.chatterId];
             }
         } else {
             cell.name = tzConversation.chatterName;
