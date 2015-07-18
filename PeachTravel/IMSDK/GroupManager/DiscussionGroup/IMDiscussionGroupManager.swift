@@ -150,9 +150,8 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
     func asyncChangeDiscussionGroupTitle(#group: IMDiscussionGroup, title: String, completion:(isSuccess: Bool, errorCode: Int) -> ()) {
         var params = NSMutableDictionary()
         params.setObject(title, forKey: "name")
-        params.setObject(group.groupId, forKey: "groupId")
         let changeDiscussionGroupSubjectUrl = "\(discussionGroupUrl)/\(group.groupId)"
-        NetworkTransportAPI.asyncPUT(requstUrl: changeDiscussionGroupSubjectUrl, parameters: params) { (isSuccess, errorCode, retMessage) -> () in
+        NetworkTransportAPI.asyncPATCH(requstUrl: changeDiscussionGroupSubjectUrl, parameters: params) { (isSuccess, errorCode, retMessage) -> () in
             if isSuccess {
                 group.subject = title
                 self.updateGroupInfoInDB(group)
