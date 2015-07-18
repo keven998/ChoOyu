@@ -660,14 +660,14 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    if (_descDetail != nil && ![_descDetail isBlankString]) {
+    if (_dataSource.desc != nil && ![_dataSource.desc isBlankString]) {
         if (section == 0) {
             UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 100)];
             btn.titleLabel.font = [UIFont systemFontOfSize:13.0];
             btn.titleEdgeInsets = UIEdgeInsetsMake(0, 24, 0, 24);
-            NSUInteger len = [_descDetail length];
+            NSUInteger len = [_dataSource.desc length];
             
-            NSMutableAttributedString *desc = [[NSMutableAttributedString alloc] initWithString:_descDetail];
+            NSMutableAttributedString *desc = [[NSMutableAttributedString alloc] initWithString:_dataSource.desc];
             [desc addAttribute:NSForegroundColorAttributeName value:COLOR_TEXT_II range:NSMakeRange(0, len)];
             NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
             style.lineBreakMode = NSLineBreakByTruncatingTail;
