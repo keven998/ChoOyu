@@ -352,7 +352,7 @@
     
     NSString *urlStr = [NSString stringWithFormat:@"%@%ld", API_USERS, (long)self.account.userId];
     
-    [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager PATCH:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [SVProgressHUD showHint:@"修改成功"];
@@ -437,7 +437,7 @@
 
 }
 
-- (void)asyncResetPassword:(NSString *)newPassword toke:(NSString *)token completion:(void (^)(BOOL, NSString *))completion
+- (void)asyncResetPassword:(NSString *)newPassword tel:(NSString *)tel toke:(NSString *)token completion:(void (^)(BOOL, NSString *))completion
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AppUtils *utils = [[AppUtils alloc] init];
@@ -449,17 +449,16 @@
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params safeSetObject:newPassword forKey:@"pwd"];
+    [params safeSetObject:newPassword forKey:@"newPassword"];
     [params safeSetObject:token forKey:@"token"];
-    NSString *urlStr = [NSString stringWithFormat:@"%@%ld/password", API_USERS, self.account.userId];
+    [params safeSetObject:tel forKey:@"tel"];
+
+    NSString *urlStr = [NSString stringWithFormat:@"%@_/password", API_USERS];
 
     //完成修改
     [manager PUT:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            [self userDidLoginWithUserInfo:[responseObject objectForKey:@"result"]];
-            [[NSNotificationCenter defaultCenter] postNotificationName:userDidLoginNoti object:nil];
-            [[NSNotificationCenter defaultCenter] postNotificationName:userDidResetPWDNoti object:nil];
             completion(YES, nil);
         } else {
             NSString *errorStr;
@@ -751,49 +750,6 @@
     }
 }
 
-- (void)addContact:(id)contactDic
-{
-//    NSLog(@"收到添加联系人，联系人的内容为：%@", contactDic);
-//    
-//       Contact *newContact = [NSEntityDescription insertNewObjectForEntityForName:@"Contact" inManagedObjectContext:self.context];
-//    
-//    if ([contactDic isKindOfClass:[FrendRequest class]]) {
-//        //如果已经是我的好友了，那我就没必要添加了。。
-//
-//        if ([self isMyFrend:((FrendRequest *)contactDic).userId]) {
-//            return;
-//        }
-//        newContact.userId = ((FrendRequest *)contactDic).userId;
-//        newContact.nickName = ((FrendRequest *)contactDic).nickName;
-//        newContact.gender = ((FrendRequest *)contactDic).gender;
-//        newContact.memo = @"";
-//        newContact.easemobUser = ((FrendRequest *)contactDic).easemobUser;
-//        newContact.avatar = ((FrendRequest *)contactDic).avatar;
-//        newContact.avatarSmall = ((FrendRequest *)contactDic).avatarSmall;
-//        newContact.pinyin = [ConvertMethods chineseToPinyin:newContact.nickName];
-//        
-//    } else {
-//        //如果已经是我的好友了，那我就没必要添加了。。
-//        if ([self isMyFrend:[contactDic objectForKey:@"userId"]]) {
-//            return;
-//        }
-//
-//        newContact.userId = [contactDic objectForKey:@"userId"];
-//        newContact.nickName = [contactDic objectForKey:@"nickName"];
-//        newContact.gender = [contactDic objectForKey:@"gender"];
-//        newContact.memo = [contactDic objectForKey:@"memo"];
-//        newContact.easemobUser = [contactDic objectForKey:@"easemobUser"];
-//        newContact.avatar = [contactDic objectForKey:@"avatar"];
-//        newContact.avatarSmall = [contactDic objectForKey:@"avatarSmall"];
-//        newContact.signature = [contactDic objectForKey:@"signature"];
-//        newContact.pinyin = [ConvertMethods chineseToPinyin:[contactDic objectForKey:@"nickName"]];
-//    }
-//    [self.account addContactsObject:newContact];
-//    [self save];
-//    [[NSNotificationCenter defaultCenter] postNotificationName:contactListNeedUpdateNoti object:nil];
-
-}
-
 //解析好友列表，然后存到数据库里
 - (void)analysisAndSaveContacts:(NSArray *)contactList
 {
@@ -817,37 +773,6 @@
     }
 
     NSLog(@"成功解析联系人");
-}
-
-- (void)analysisAndSaveFrendRequest:(id)frendRequestDic
-{
-//    NSLog(@"开始解析好友请求");
-//    
-//    FrendRequest *frendRequest = [NSEntityDescription insertNewObjectForEntityForName:@"FrendRequest" inManagedObjectContext:self.context];
-//
-//    if ([frendRequestDic isKindOfClass:[NSDictionary class]]) {
-//        frendRequest.userId = [frendRequestDic objectForKey:@"userId"];
-//        frendRequest.nickName = [frendRequestDic objectForKey:@"nickName"];
-//        frendRequest.avatar = [frendRequestDic objectForKey:@"avatar"];
-//        frendRequest.avatarSmall = [frendRequestDic objectForKey:@"avatarSmall"];
-//        frendRequest.status = TZFrendDefault;
-//        frendRequest.gender = [frendRequestDic objectForKey:@"gender"];
-//        frendRequest.easemobUser = [frendRequestDic objectForKey:@"easemobUser"];
-//        frendRequest.attachMsg = [frendRequestDic objectForKey:@"attachMsg"];
-//        frendRequest.requestDate = [NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]];
-//    }
-//    
-//    for (FrendRequest *request in self.account.frendrequestlist) {
-//        if ([request.userId integerValue] == [frendRequest.userId integerValue]) {
-//            [self.account removeFrendrequestlistObject:request];
-//            NSLog(@"这个好友请求信息数据库里已经存在了,已经将数据库里旧的数据删除了,\n之前的 id 是%@，新 ID 是%@",request.userId, frendRequest.userId);
-//            break;
-//        }
-//    }
-//    [self.account addFrendrequestlistObject:frendRequest];
-//    NSLog(@"收到好友请求，请求信息为：%@", frendRequest);
-//    [[NSNotificationCenter defaultCenter] postNotificationName:frendRequestListNeedUpdateNoti object:nil];
-//    [self save];
 }
 
 #pragma mark - ********修改用户好友信息

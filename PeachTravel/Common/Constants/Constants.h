@@ -86,7 +86,7 @@
 #define API_WEIXIN_LOGIN                        (BASE_URL @"users/auth-signup")
 #define API_USERS                               (BASE_URL @"users/")
 #define API_GET_CAPTCHA                         (BASE_URL @"users/validation-codes")    //接收验证码
-#define API_VERIFY_CAPTCHA                      (BASE_URL @"users/validation-codes")   //验证验证码
+#define API_VERIFY_CAPTCHA                      (BASE_URL @"users/tokens")   //验证验证码
 #define API_SIGNUP                              (BASE_URL @"users")        //用户注册
 #define API_SIGNIN                              (BASE_URL @"users/signin")
 #define API_SEARCH_USER                         (BASE_URL @"users")      //搜索好友
@@ -181,9 +181,9 @@ typedef NS_ENUM(NSInteger, UserGender) {
 };
 
 /***** 请求验证码和验证验证码时候向服务器发送的指令类型 *****/
-#define    kUserRegister         @"1"        //用户注册时候进入时天下短信验证码
-#define    kUserLosePassword     @"2"        //用户忘记密码
-#define    kUserBindTel          @"3"         //用户绑定手机
+#define    kUserRegister         [NSNumber numberWithInt:1]        //用户注册时候进入时天下短信验证码
+#define    kUserLosePassword     [NSNumber numberWithInt:2]       //用户忘记密码
+#define    kUserBindTel          [NSNumber numberWithInt:3]         //用户绑定手机
 
 /**
  修改个人信息的类型

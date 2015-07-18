@@ -367,6 +367,11 @@
         _levelLabel.text = @"LV0";
         _nameLabel.text = @"旅行派";
         _idLabel.text = @"未登录";
+        _trackNumber.text = @"";
+        _planNumber.text = @"";
+        _pictureNumber.text = @"";
+
+
     }
 }
 
@@ -376,6 +381,7 @@
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self updateAccountInfo];
+        [self.tableView reloadData];
     });
 }
 

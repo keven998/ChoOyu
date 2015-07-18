@@ -362,8 +362,8 @@ static NSString *reusableCell = @"myGuidesCell";
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
-    NSLog(@"%@ ",API_GET_GUIDELIST);
-    [manager GET:API_GET_GUIDELIST parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSString *url = [NSString stringWithFormat: @"%@%ld/guides", API_USERS, _userId];
+    [manager GET:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             if (pageIndex == 0) {
@@ -558,6 +558,7 @@ static NSString *reusableCell = @"myGuidesCell";
     MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:indexPath.section];
     TripDetailRootViewController *tripDetailRootCtl = [[TripDetailRootViewController alloc] init];
     tripDetailRootCtl.canEdit = _isOwner;
+    tripDetailRootCtl.userId = _userId;
     tripDetailRootCtl.isMakeNewTrip = NO;
     tripDetailRootCtl.tripId = guideSummary.guideId;
     tripDetailRootCtl.contentMgrDelegate = self;

@@ -659,7 +659,7 @@
             FootPrintViewController *footCtl = [[FootPrintViewController alloc] init];
             footCtl.destinations = self.destinations;
             footCtl.delegate = self;
-            [self presentViewController:footCtl animated:YES completion:nil];
+            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:footCtl] animated:YES completion:nil];
         }
         else if (indexPath.row == 2) {
             [self viewUserPhotoAlbum];
