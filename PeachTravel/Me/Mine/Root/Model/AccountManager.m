@@ -437,7 +437,7 @@
 
 }
 
-- (void)asyncResetPassword:(NSString *)newPassword toke:(NSString *)token completion:(void (^)(BOOL, NSString *))completion
+- (void)asyncResetPassword:(NSString *)newPassword tel:(NSString *)tel toke:(NSString *)token completion:(void (^)(BOOL, NSString *))completion
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AppUtils *utils = [[AppUtils alloc] init];
@@ -449,7 +449,7 @@
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params safeSetObject:newPassword forKey:@"pwd"];
+    [params safeSetObject:newPassword forKey:@"newPassword"];
     [params safeSetObject:token forKey:@"token"];
     NSString *urlStr = [NSString stringWithFormat:@"%@%ld/password", API_USERS, self.account.userId];
 

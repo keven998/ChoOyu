@@ -181,9 +181,9 @@ typedef NS_ENUM(NSInteger, UserGender) {
 };
 
 /***** 请求验证码和验证验证码时候向服务器发送的指令类型 *****/
-#define    kUserRegister         @"1"        //用户注册时候进入时天下短信验证码
-#define    kUserLosePassword     @"2"        //用户忘记密码
-#define    kUserBindTel          @"3"         //用户绑定手机
+#define    kUserRegister         [NSNumber numberWithInt:1]        //用户注册时候进入时天下短信验证码
+#define    kUserLosePassword     [NSNumber numberWithInt:2]       //用户忘记密码
+#define    kUserBindTel          [NSNumber numberWithInt:3]         //用户绑定手机
 
 /**
  修改个人信息的类型

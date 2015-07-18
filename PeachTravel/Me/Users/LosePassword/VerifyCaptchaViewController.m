@@ -169,12 +169,12 @@
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:_phoneLabel.text forKey:@"tel"];
-    if (_verifyCaptchaType == UserBindTel) {
-        [params setObject:kUserBindTel forKey:@"actionCode"];
+    if (_verifyCaptchaType == UserLosePassword) {
+        [params setObject:kUserLosePassword forKey:@"actionCode"];
         AccountManager *accountManager = [AccountManager shareAccountManager];
         [params setObject:[NSNumber numberWithInteger: accountManager.account.userId] forKey:@"userId"];
     } else {
-        [params setObject:kUserLosePassword forKey:@"actionCode"];
+        [params setObject:kUserRegister forKey:@"actionCode"];
     }
 
      __weak typeof(VerifyCaptchaViewController *)weakSelf = self;
@@ -198,8 +198,13 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [hud hideTZHUD];
         _captchaBtn.enabled = YES;
-        if (self.isShowing) {
-            [SVProgressHUD showHint:HTTP_FAILED_HINT];
+        if (operation.response.statusCode == 403) {
+            [SVProgressHUD showHint:@"发送验证码过于频繁"];
+            
+        } else {
+            if (self.isShowing) {
+                [SVProgressHUD showHint:HTTP_FAILED_HINT];
+            }
         }
     }];
 }
@@ -224,7 +229,8 @@
     } else {
         [params setObject:kUserLosePassword forKey:@"actionCode"];
     }
-    [params setObject:_captchaLabel.text forKey:@"captcha"];
+    
+    [params setObject:_captchaLabel.text forKey:@"validationCode"];
      __weak typeof(VerifyCaptchaViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf content:64];
@@ -254,8 +260,12 @@
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [hud hideTZHUD];
-        if (self.isShowing) {
-            [SVProgressHUD showHint:HTTP_FAILED_HINT];
+        if (operation.response.statusCode == 403) {
+            [SVProgressHUD showHint:@"验证码验证失败"];
+        } else {
+            if (self.isShowing) {
+                [SVProgressHUD showHint:HTTP_FAILED_HINT];
+            }
         }
     }];
 }

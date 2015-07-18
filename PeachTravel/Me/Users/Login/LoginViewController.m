@@ -202,6 +202,7 @@
  */
 - (IBAction)losePassword:(UIButton *)sender {
     VerifyCaptchaViewController *losePasswordCtl = [[VerifyCaptchaViewController alloc] init];
+    losePasswordCtl.verifyCaptchaType = UserLosePassword;
     [self.navigationController pushViewController:losePasswordCtl animated:YES];
 }
 

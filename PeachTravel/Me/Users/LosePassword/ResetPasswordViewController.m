@@ -21,7 +21,7 @@
     [super viewDidLoad];
     
     UIBarButtonItem *registerBtn = [[UIBarButtonItem alloc]initWithTitle:@"完成 " style:UIBarButtonItemStylePlain target:self action:@selector(confirm:)];
-    registerBtn.tintColor = APP_THEME_COLOR;
+    registerBtn.tintColor = [UIColor whiteColor];
     self.navigationItem.rightBarButtonItem = registerBtn;
     
     if (_verifyCaptchaType == UserBindTel) {
@@ -84,7 +84,7 @@
         }];
         
     } else {
-        [accountManager asyncResetPassword:_passwordLabel.text toke:_token completion:^(BOOL isSuccess, NSString *errorStr) {
+        [accountManager asyncResetPassword:_passwordLabel.text tel: _phoneNumber toke:_token completion:^(BOOL isSuccess, NSString *errorStr) {
             if (isSuccess) {
                 [SVProgressHUD showHint:@"修改成功"];
                 [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.4];
