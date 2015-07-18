@@ -13,7 +13,7 @@
 - (void)awakeFromNib {
     _selectImageView.layer.cornerRadius = 10;
     _selectImageView.clipsToBounds = YES;
-    _avatarImageView.layer.cornerRadius = 6.0;
+    _avatarImageView.layer.cornerRadius = 20.0;
     _avatarImageView.clipsToBounds = YES;
 }
 
@@ -31,7 +31,7 @@
             break;
             
         case checked:
-            [_selectImageView setImage:[UIImage imageNamed:@"dx_checkbox_off.png"]];
+            [_selectImageView setImage:[UIImage imageNamed:@"dx_checkbox_selected.png"]];
             break;
             
         case disable:

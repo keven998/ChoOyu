@@ -193,7 +193,7 @@
     if (section == 0) {
         return 3;
     } else  {
-        return _groupModel.numbers.count;
+        return _groupModel.members.count;
     }
 }
 
@@ -239,12 +239,12 @@
     else {
         ChatGroupCell *cell = [tableView dequeueReusableCellWithIdentifier:@"chatCell" forIndexPath:indexPath];
         NSInteger i = indexPath.row;
-        cell.nameLabel.text = ((FrendModel *)self.groupModel.numbers[i]).nickName;
+        cell.nameLabel.text = ((FrendModel *)self.groupModel.members[i]).nickName;
         NSString *avatarStr = nil;
-        if (![((FrendModel *)self.groupModel.numbers[i]).avatarSmall isBlankString]) {
-            avatarStr = ((FrendModel *)self.groupModel.numbers[i]).avatarSmall;
+        if (![((FrendModel *)self.groupModel.members[i]).avatarSmall isBlankString]) {
+            avatarStr = ((FrendModel *)self.groupModel.members[i]).avatarSmall;
         } else {
-            avatarStr = ((FrendModel *)self.groupModel.numbers[i]).avatar;
+            avatarStr = ((FrendModel *)self.groupModel.members[i]).avatar;
         }
         [cell.headerImage sd_setImageWithURL:[NSURL URLWithString: avatarStr] placeholderImage:[UIImage imageNamed:@"person_disabled"]];
         return cell;
@@ -255,7 +255,7 @@
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 1 && ((FrendModel *)self.groupModel.numbers[indexPath.row]).userId != [AccountManager shareAccountManager].account.userId) {
+    if (indexPath.section == 1 && ((FrendModel *)self.groupModel.members[indexPath.row]).userId != [AccountManager shareAccountManager].account.userId) {
         return YES;
     }
     return NO;
@@ -265,10 +265,12 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         IMDiscussionGroupManager *groupManager = [IMDiscussionGroupManager shareInstance];
-        [groupManager asyncDeleteNumbersWithGroup:_groupModel numbers:@[_groupModel.numbers[indexPath.row]] completion:^(BOOL isSuccess, NSInteger errorCode) {
+        [groupManager asyncDeleteNumbersWithGroup:_groupModel members:@[_groupModel.members[indexPath.row]] completion:^(BOOL isSuccess, NSInteger errorCode) {
             if (isSuccess) {
                 [SVProgressHUD showHint:@"删除成功"];
                 [_tableView reloadData];
+            } else {
+                [SVProgressHUD showHint:@"删除失败"];
             }
         }];
     }
@@ -293,10 +295,10 @@
         }
     }
     if (indexPath.section == 1) {
-        if (indexPath.row == _groupModel.numbers.count) {
+        if (indexPath.row == _groupModel.members.count) {
             [self addGroupNumber:nil];
         } else {
-            FrendModel *selectPerson = self.groupModel.numbers[indexPath.row ];
+            FrendModel *selectPerson = self.groupModel.members[indexPath.row ];
             AccountManager *maneger = [AccountManager shareAccountManager];
             if (maneger.account.userId != selectPerson.userId) {
                 [self  showUserInfoWithContactInfo:selectPerson];
@@ -318,7 +320,7 @@
 - (void)updateView
 {
     CGFloat contactViewHight = 0;
-    NSInteger totalCtn = _groupModel.numbers.count;
+    NSInteger totalCtn = _groupModel.members.count;
     
     totalCtn++;
     int lineCnt = (int)totalCtn/4;

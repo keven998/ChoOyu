@@ -144,7 +144,16 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
 
         if (tzConversation.chatType == IMChatTypeIMChatSingleType) {
             cell.titleLabel.text = tzConversation.chatterName;
-            [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:tzConversation.chatterAvatar] placeholderImage:[UIImage imageNamed:@"person_disabled"]];
+            if (tzConversation.chatterId == 10001) {
+                cell.headerImageView.image = [UIImage imageNamed:@"lvxingwenwen.png"];
+                cell.headerImageView.layer.cornerRadius = 0;
+            } else if (tzConversation.chatterId == 10000) {
+                cell.headerImageView.layer.cornerRadius = 0;
+                cell.headerImageView.image = [UIImage imageNamed:@"lvxingpaipai.png"];
+            } else {
+                [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:tzConversation.chatterAvatar] placeholderImage:[UIImage imageNamed:@"person_disabled"]];
+                cell.imageView.layer.cornerRadius = 20;
+            }
         } else{
             [cell.headerImageView setImage:[UIImage imageNamed:@"ic_group_icon.png"]];
             cell.titleLabel.text = tzConversation.chatterName;

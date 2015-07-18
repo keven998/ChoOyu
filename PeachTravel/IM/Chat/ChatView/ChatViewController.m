@@ -125,7 +125,7 @@
     self.view.backgroundColor = APP_PAGE_COLOR;
     
     if (_chatType == IMChatTypeIMChatDiscussionGroupType) {
-        _groupNumbers = [[IMDiscussionGroupManager shareInstance] getFullDiscussionGroupInfoFromDBWithGroupId: _conversation.chatterId].numbers;
+        _groupNumbers = [[IMDiscussionGroupManager shareInstance] getFullDiscussionGroupInfoFromDBWithGroupId: _conversation.chatterId].members;
     }
     
     _conversation.isCurrentConversation = YES;

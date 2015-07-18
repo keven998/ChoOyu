@@ -139,11 +139,11 @@ class PushSDKManager: NSObject, GexinSdkDelegate {
             dispatchMessageDic = NSDictionary()
         }
 
-        var routingKey = "IM"
+        let routingkey = messageJson?.objectForKey("routingKey") as! String
         
         for value in listenerQueue {
             var listenerDic = value as! Dictionary<String, PushMessageDelegate>
-            if let pushMessageDelegate = listenerDic[routingKey] {
+            if let pushMessageDelegate = listenerDic[routingkey] {
                 pushMessageDelegate.receivePushMessage(dispatchMessageDic)
             }
         }

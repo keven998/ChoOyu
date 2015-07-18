@@ -267,7 +267,10 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
             let frendModel = FrendModel(json: contentDic)
             frendModel.type = IMFrendType.Frend
             self.insertOrUpdateFrendInfoInDB(frendModel)
-            self.insertMessageWhenFrendRequestAgreed(frendModel)
+            let daoHelper = DaoHelper.shareInstance()
+            if daoHelper.selectLastLocalMessageInChatTable("chat_\(frendModel.userId)") == nil {
+                self.insertMessageWhenFrendRequestAgreed(frendModel)
+            }
             
         default:
             break

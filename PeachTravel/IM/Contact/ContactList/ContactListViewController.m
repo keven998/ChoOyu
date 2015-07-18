@@ -123,7 +123,8 @@
         _contactTableView.showsVerticalScrollIndicator = NO;
         [_contactTableView registerNib:[UINib nibWithNibName:@"OptionOfFASKTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"friend_ask"];
         [_contactTableView registerNib:[UINib nibWithNibName:@"ContactListTableViewCell" bundle:nil] forCellReuseIdentifier:contactCell];
-        _contactTableView.sectionIndexColor = APP_SUB_THEME_COLOR;
+        _contactTableView.sectionIndexBackgroundColor = [UIColor clearColor];
+        _contactTableView.sectionIndexColor = COLOR_TEXT_II;
     }
     return _contactTableView;
 }
@@ -248,7 +249,7 @@
         label.text = [NSString stringWithFormat:@"    %@", [[self.dataSource objectForKey:@"headerKeys"] objectAtIndex:section-1]];
         label.backgroundColor = APP_PAGE_COLOR;
         label.font = [UIFont systemFontOfSize:12];
-        label.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+        label.textColor = COLOR_TEXT_II;
         return label;
     }
     return nil;

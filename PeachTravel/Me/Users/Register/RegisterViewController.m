@@ -214,12 +214,13 @@ typedef void(^loginCompletion)(BOOL completed);
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
     
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:_phoneLabel.text forKey:@"tel"];
-    [params setObject:kUserRegister forKey:@"actionCode"];
+    [params setObject:[NSNumber numberWithInt:1] forKey:@"actionCode"];
+    [params setObject:[NSNumber numberWithInt:86] forKey:@"dialCode"];
+
     __weak typeof(RegisterViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf];
@@ -246,7 +247,9 @@ typedef void(^loginCompletion)(BOOL completed);
         NSLog(@"%@", error);
         [hud hideTZHUD];
         _registerBtn.userInteractionEnabled = YES;
-        if (self.isShowing) {
+        if (operation.response.statusCode == 403) {
+            [SVProgressHUD showHint:@"获取验证码过于频繁"];
+        } else {
             [SVProgressHUD showHint:HTTP_FAILED_HINT];
         }
     }];

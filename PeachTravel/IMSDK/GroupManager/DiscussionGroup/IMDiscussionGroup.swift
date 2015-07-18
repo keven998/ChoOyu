@@ -14,7 +14,7 @@ class IMDiscussionGroup: NSObject {
     var subject: String?
     var owner: Int?
     var type: IMFrendType = .DiscussionGroup
-    var numbers: Array<FrendModel> = Array()
+    var members: Array<FrendModel> = Array()
     
     init(jsonData: NSDictionary) {
         self.owner = jsonData.objectForKey("creator") as? Int ?? -1
@@ -27,7 +27,7 @@ class IMDiscussionGroup: NSObject {
             let frend = FrendModel(json: frendDic)
             let frendManager = IMClientManager.shareInstance().frendManager
             frendManager.addFrend2DB(frend)
-            numbers.append(frend)
+            members.append(frend)
         }
     }
     
