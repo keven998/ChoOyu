@@ -31,15 +31,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
-    
+    IMDiscussionGroupManager *groupManager = [IMDiscussionGroupManager shareInstance];
+    _groupModel = [groupManager getFullDiscussionGroupInfoFromDBWithGroupId:_groupId];
     [self createTableView];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        IMDiscussionGroupManager *groupManager = [IMDiscussionGroupManager shareInstance];
-        _groupModel = [groupManager getFullDiscussionGroupInfoFromDBWithGroupId:_groupId];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [_tableView reloadData];
-        });
-    });
     [self updateGroupInfoFromServer];
 }
 
@@ -69,7 +63,7 @@
                 } else {
                     _groupModel = group;
                 }
-                [_tableView reloadData];
+                [self updateTableView];
             }];
         }
     }];
@@ -98,12 +92,26 @@
     UIButton *footerBtn = [[UIButton alloc]initWithFrame:CGRectMake(10, 32, CGRectGetWidth(self.view.bounds) - 20, 58 * SCREEN_HEIGHT/736)];
     [footerBtn setBackgroundImage:[[UIImage imageNamed:@"chat_drawer_leave.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(8, 8, 8, 8)] forState:UIControlStateNormal];
     footerBtn.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    [footerBtn setTitle:@"退出该群" forState:UIControlStateNormal];
+    if (_groupModel.owner == [AccountManager shareAccountManager].account.userId) {
+        [footerBtn setTitle:@"解散该群" forState:UIControlStateNormal];
+        [footerBtn addTarget:self action:@selector(quitGroup:) forControlEvents:UIControlEventTouchUpInside];
+        
+    } else {
+        [footerBtn setTitle:@"退出该群" forState:UIControlStateNormal];
+        [footerBtn addTarget:self action:@selector(deleteGroup:) forControlEvents:UIControlEventTouchUpInside];
+    }
+   
+
     [footerBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     footerBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14];
-    [footerBtn addTarget:self action:@selector(quitGroup:) forControlEvents:UIControlEventTouchUpInside];
     [footerBg addSubview:footerBtn];
     return footerBg;
+}
+
+- (void)updateTableView
+{
+    _tableView.tableFooterView = [self createFooterView];
+    [self.tableView reloadData];
 }
 
 #pragma mark - Table view data source
@@ -168,6 +176,7 @@
         inviteBtn.layer.borderColor = COLOR_LINE.CGColor;
         inviteBtn.layer.borderWidth = 1.0;
         [inviteBtn addTarget:self action:@selector(addGroupNumber:) forControlEvents:UIControlEventTouchUpInside];
+       
         [sectionHeaderView addSubview:inviteBtn];
         
         UIButton *editBtn = [[UIButton alloc] initWithFrame:CGRectMake(width - 48 - 15, 58, 48, 26)];
@@ -180,7 +189,10 @@
         editBtn.layer.borderColor = COLOR_LINE.CGColor;
         editBtn.layer.borderWidth = 1.0;
         [editBtn addTarget:self action:@selector(editGroup:) forControlEvents:UIControlEventTouchUpInside];
-        [sectionHeaderView addSubview:editBtn];
+        
+        if (_groupModel.owner == [AccountManager shareAccountManager].account.userId) {
+            [sectionHeaderView addSubview:editBtn];
+        }
     }
     return sectionHeaderView;
 }
@@ -333,7 +345,6 @@
     contactViewHight = 10 + 90*lineCnt;
     
     [_tableView reloadData];
-    //    [self createContactsScrollView];
 }
 
 //增加群组成员
@@ -348,15 +359,6 @@
 {
     sender.selected = !sender.selected;
     [_tableView setEditing:sender.selected animated:YES];
-}
-
-/**
- *  删除群组里的用户
- *
- *  @param sender
- */
-- (IBAction)deleteNumber:(UIButton *)sender
-{
 }
 
 /**
@@ -385,21 +387,6 @@
 }
 
 /**
- *  当退出一个群组，向群里发送一条退出语句
- */
-/*
- - (void)sendMsgWhileQuit
- {
- AccountManager *accountManager = [AccountManager shareAccountManager];
- NSString *messageStr = [NSString stringWithFormat:@"%@退出了群组",accountManager.account.nickName];
- 
- NSDictionary *messageDic = @{@"tzType":[NSNumber numberWithInt:TZTipsMsg], @"content":messageStr};
- 
- [ChatSendHelper sendTaoziMessageWithString:messageStr andExtMessage:messageDic toUsername:_group.groupId isChatGroup:YES requireEncryption:NO];
- }
- */
-
-/**
  *  更新群组消息提醒状态，屏蔽和不屏蔽
  *
  *  @param sender
@@ -414,56 +401,25 @@
     
 }
 
-- (IBAction)changeGroupTitle:(UIButton *)sender {
-}
 
-- (IBAction)deleteMsg:(UIButton *)sender {
-    //    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"确认删除聊天记录？" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-    //    [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
-    //        if (buttonIndex == 1) {
-    //            [[NSNotificationCenter defaultCenter] postNotificationName:@"RemoveAllMessages" object:_groupModel.groupId];
-    //
-    //        }
-    //    }];
-}
-
+/**
+ *  退出该群
+ *
+ *  @param sender
+ */
 - (IBAction)quitGroup:(UIButton *)sender {
-    //    AccountManager *accountManager = [AccountManager shareAccountManager];
-    //    __weak ChatGroupSettingViewController *weakSelf = self;
-    //    if ([_group.owner isEqualToString: accountManager.account.easemobUser]) {
-    //        [self showHudInView:self.view hint:@"删除群组"];
-    //        [[EaseMob sharedInstance].chatManager asyncDestroyGroup:_group.groupId completion:^(EMGroup *group, EMGroupLeaveReason reason, EMError *error) {
-    //            [weakSelf hideHud];
-    //            if (error) {
-    //                [weakSelf showHint:@"删除群组失败"];
-    //            }
-    //            else{
-    //                [weakSelf showHint:@"删除群组成功"];
-    //                [[NSNotificationCenter defaultCenter] postNotificationName:@"ExitGroup" object:nil];
-    //
-    //            }
-    //        } onQueue:nil];
-    //
-    //    } else {
-    //        [self showHudInView:self.view hint:@"退出群组"];
-    //        [[EaseMob sharedInstance].chatManager asyncLeaveGroup:_group.groupId completion:^(EMGroup *group, EMGroupLeaveReason reason, EMError *error) {
-    //            [weakSelf hideHud];
-    //            if (error) {
-    //                [weakSelf showHint:@"退出群组失败"];
-    //            }
-    //            else{
-    //                [weakSelf showHint:@"退出群组成功"];
-    //                [[NSNotificationCenter defaultCenter] postNotificationName:@"ExitGroup" object:nil];
-    //            }
-    //        } onQueue:nil];
-    //
-    //    }
     
 }
-//-(void)viewWillDisappear:(BOOL)animated
-//{
-//    self.navigationController.navigationBarHidden = NO;
-//}
+
+/**
+ *  解散改群
+ *
+ *  @param sender
+ */
+- (IBAction)deleteGroup:(id)sender {
+    
+}
+
 /**
  *  置顶聊天，但是暂时没有用到
  *

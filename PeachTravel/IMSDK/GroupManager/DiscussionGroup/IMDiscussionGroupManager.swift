@@ -304,8 +304,8 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
         frendModel.userId = group.groupId
         frendModel.nickName = group.subject ?? ""
         frendModel.type = IMFrendType.DiscussionGroup
+        var numberDic = NSMutableDictionary()
         if group.members.count > 0 {
-            var numberDic = NSMutableDictionary()
             var array = Array<NSDictionary>()
             for frend in group.members {
                 let dic = ["userId": frend.userId, "nickName": frend.nickName, "avatar": frend.avatar]
@@ -313,8 +313,10 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
 
             }
             numberDic.setObject(array, forKey: "members")
-            frendModel.extData = JSONConvertMethod.contentsStrWithJsonObjc(numberDic)!
         }
+        numberDic.setObject(group.owner, forKey: "creator")
+        frendModel.extData = JSONConvertMethod.contentsStrWithJsonObjc(numberDic)!
+
         
         return frendModel
     }
@@ -337,6 +339,9 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
                 let frend = FrendModel(json: userDic)
                 discussionGroup.members.append(frend)
             }
+        }
+        if let owner = extData.objectForKey("creator") as? Int {
+            discussionGroup.owner = owner
         }
         return discussionGroup
     }
