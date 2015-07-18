@@ -100,6 +100,8 @@
 #define API_GET_USERINFO_WITHEASEMOB            (BASE_URL @"users/easemob")   //传一个环信 id 数组，得到一个FM用户信息数组
 #define API_UPLOAD_ADDRESSBOOK                  (BASE_URL @"users/search-by-address-book")  //上传通讯录接口
 
+#define API_LOGOUT                              (BASE_URL @"users/logout") // 退出登录
+
 //其他一些乱七八糟的接口
 #define API_GET_COVER_STORIES                   (BASE_URL @"misc/cover-stories")  //获得封面故事接口
 #define API_POST_PHOTOIMAGE                     (BASE_URL @"misc/put-policy/portrait")  //上传头像接口

@@ -104,11 +104,10 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
     :param: completionBlock 删除成功进入block
     :param: errorCode       错误码,留着备用
     */
-    func asyncDeleteDiscussionGroup(subject: String, completionBlock: (isSuccess: Bool, errorCode: Int, retMessage: NSDictionary?) -> ()) {  
+    func asyncDeleteDiscussionGroup(groupId: Int, completionBlock: (isSuccess: Bool, errorCode: Int, retMessage: NSDictionary?) -> ()) {
         // 1.发送删除操作给服务器,删除ID位subject的讨论组,同时清空数据库中该讨论组的相关信息
         var params = NSMutableDictionary()
-        params.setObject(subject, forKey: "name")
-        let deleteDiscussionGroupUrl = "\(BASE_URL)chatgroups"
+        let deleteDiscussionGroupUrl = "\(BASE_URL)chatgroups/\(groupId)"
         NetworkTransportAPI.asyncDELETE(requstUrl: deleteDiscussionGroupUrl, parameters: params) { (isSuccess, errorCode, retMessage) -> () in
             completionBlock(isSuccess: isSuccess, errorCode: errorCode, retMessage: retMessage)
         }
@@ -208,13 +207,11 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
     :param: members
     :param: completion
     */
-    func asyncDeleteNumbers(#group: IMDiscussionGroup, members: Array<FrendModel>, completion:(isSuccess: Bool, errorCode: Int) -> ()) {
+    func asyncDeleteNumbers(#group: IMDiscussionGroup, members: Array<Int>, completion:(isSuccess: Bool, errorCode: Int) -> ()) {
         var array = Array<Int>()
-        for frend in members {
-            array.append(frend.userId)
-        }
+    
         var params = NSMutableDictionary()
-        params.setObject(array, forKey: "members")
+        params.setObject(members, forKey: "members")
         params.setObject(2, forKey: "action")
         let addNumberUrl = "\(discussionGroupUrl)/\(group.groupId)/members"
         NetworkTransportAPI.asyncPATCH(requstUrl: addNumberUrl, parameters: params) { (isSuccess, errorCode, retMessage) -> () in
@@ -384,12 +381,12 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
     :param: members
     :param: group
     */
-    private func deleteNumbersFromGroup(#members: Array<FrendModel>, group: IMDiscussionGroup) {
+    private func deleteNumbersFromGroup(#members: Array<Int>, group: IMDiscussionGroup) {
         var leftMembers = Array<FrendModel>()
-        for frend in members {
+        for userId in members {
             var find = false
             for oldFrend in group.members {
-                if oldFrend.userId != frend.userId {
+                if oldFrend.userId != userId {
                     leftMembers.append(oldFrend)
                 }
             }

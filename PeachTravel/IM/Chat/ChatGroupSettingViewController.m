@@ -395,7 +395,6 @@
     IMDiscussionGroupManager *manager = [IMDiscussionGroupManager shareInstance];
     [manager asyncChangeDiscussionGroupStateWithGroup:_groupModel completion:^(BOOL isSuccess, NSInteger errorCode) {
         if (isSuccess) {
-            
         }
     }];
     
@@ -403,21 +402,45 @@
 
 
 /**
- *  退出该群
+ *  解散该群
  *
  *  @param sender
  */
 - (IBAction)quitGroup:(UIButton *)sender {
     
+    IMDiscussionGroupManager * manager = [IMDiscussionGroupManager shareInstance];
+    [manager asyncDeleteDiscussionGroup:_groupId completionBlock:^(BOOL isSuccess, NSInteger errorCode, NSDictionary * __nullable retMessage) {
+        
+        if (isSuccess) {
+            NSLog(@"解散该群成功");
+            IMClientManager *manager = [IMClientManager shareInstance];
+            [manager.conversationManager removeConversationWithChatterId:_groupId deleteMessage:YES];
+            [self.navigationController popViewControllerAnimated:YES];
+        }else{
+            NSLog(@"解散失败");
+        }
+    }];
 }
 
 /**
- *  解散改群
+ *  退出该群
  *
  *  @param sender
  */
 - (IBAction)deleteGroup:(id)sender {
     
+    IMDiscussionGroupManager *manager = [IMDiscussionGroupManager shareInstance];
+    
+    NSNumber * member = [NSNumber numberWithLong:[AccountManager shareAccountManager].account.userId];
+    [manager asyncDeleteNumbersWithGroup:_groupModel members:@[member]
+                              completion:^(BOOL isSuccess, NSInteger errorCode) {
+                                  if (isSuccess) {
+                                      NSLog(@"退出该群成功");
+                                      IMClientManager * manager = [IMClientManager shareInstance];
+                                      [manager.conversationManager removeConversationWithChatterId:_groupId deleteMessage:YES];
+                                      [self.navigationController popViewControllerAnimated:YES];
+                                  }
+                              }];
 }
 
 /**
