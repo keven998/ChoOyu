@@ -21,6 +21,12 @@
             _lng = [[[[json objectForKey:@"location"] objectForKey:@"coordinates"] firstObject] doubleValue];
             _lat = [[[[json objectForKey:@"location"] objectForKey:@"coordinates"] lastObject] doubleValue];
         }
+        NSMutableArray *imagesArray = [[NSMutableArray alloc] init];
+        for (id imageDic in [json objectForKey:@"images"]) {
+            TaoziImage *image = [[TaoziImage alloc] initWithJson:imageDic];
+            [imagesArray addObject:image];
+        }
+        _images = imagesArray;
     }
     return self;
 }

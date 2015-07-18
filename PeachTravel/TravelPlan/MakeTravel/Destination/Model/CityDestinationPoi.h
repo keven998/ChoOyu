@@ -16,6 +16,7 @@
 @property (nonatomic, copy) NSString *pinyin;
 @property (nonatomic) float lat;
 @property (nonatomic) float lng;
+@property (nonatomic, strong) NSArray *images;
 - (id)initWithJson:(id)json;
 
 @end
