@@ -119,6 +119,7 @@
 {
     if (_canEdit) {
         [self setupNavigationRightItems:NO];
+        _userId = [AccountManager shareAccountManager].account.userId;
         
     } else {
         _forkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 20)];
@@ -337,7 +338,7 @@
         [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     }
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@guides/%@", BASE_URL, _tripId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@%ld/guides/%@", API_USERS, _userId, _tripId];
     TZProgressHUD *hud;
     if (_tripDetail == nil) {
         __weak typeof(TripDetailRootViewController *)weakSelf = self;

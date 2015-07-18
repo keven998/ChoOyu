@@ -630,6 +630,7 @@
                 tripDetailCtl.canEdit = YES;
             } else {
                 tripDetailCtl.canEdit = NO;
+                tripDetailCtl.userId = model.senderId;
             }
             
             TripPlanSettingViewController *tpvc = [[TripPlanSettingViewController alloc] init];
