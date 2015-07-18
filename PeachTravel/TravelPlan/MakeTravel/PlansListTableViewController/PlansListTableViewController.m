@@ -362,7 +362,7 @@ static NSString *reusableCell = @"myGuidesCell";
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
-    NSLog(@"%@wode ",API_GET_GUIDELIST);
+    NSLog(@"%@ ",API_GET_GUIDELIST);
     [manager GET:API_GET_GUIDELIST parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {

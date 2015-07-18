@@ -11,6 +11,7 @@ import UIKit
 class BaseMessage: NSObject {
     var localId: Int
     var messageId: String = ""
+    var abbrevMsg: String?
     var serverId: Int
     var message: String
     var messageType: IMMessageType
