@@ -40,6 +40,8 @@
         [array addObject:item];
     }
     _annotationsArray = array;
+    
+    [self showMapPin];
 }
 
 - (void)selectPointAtIndex:(NSInteger)index

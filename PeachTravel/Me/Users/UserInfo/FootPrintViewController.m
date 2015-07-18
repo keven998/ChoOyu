@@ -18,7 +18,7 @@
 #import "DomesticViewController.h"
 #import "ForeignViewController.h"
 
-@interface FootPrintViewController () <ItemFooterCollectionViewControllerDelegate>
+@interface FootPrintViewController () <ItemFooterCollectionViewControllerDelegate,UpdateDestinationsDelegate>
 {
     NSInteger _countryCount;
     NSMutableArray *_dataArray;
@@ -46,7 +46,10 @@
     _countryCount = 0;
     _countryName = [NSMutableArray array];
     self.view.backgroundColor = APP_PAGE_COLOR;
+    
+    // 点击足迹进入足迹地图控制器,需要传入
     _footprintMapCtl = [[FootprintMapViewController alloc] init];
+    // 下面的是数据源方法
     _footprintMapCtl.dataSource = _destinations.destinationsSelected;
     [_footprintMapCtl.view setFrame:self.view.bounds];
     [self addChildViewController:_footprintMapCtl];
@@ -73,6 +76,14 @@
     self.navigationItem.rightBarButtonItem = item;
 }
 
+#pragma mark - 实现选择目的地的代理方法
+- (void)updateDestinations:(NSArray *)destinations
+{
+    NSLog(@"%s",__func__);
+    _itemFooterCtl.dataSource = destinations;
+    _footprintMapCtl.dataSource = destinations;
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear: animated];
@@ -94,6 +105,9 @@
     domestic.destinations = _destinations;
     foreignCtl.destinations = _destinations;
     makePlanCtl.destinations = _destinations;
+    
+    makePlanCtl.shouldOnlyChangeDestinationWhenClickNextStep = YES;
+    makePlanCtl.myDelegate = self;
     makePlanCtl.viewControllers = @[domestic, foreignCtl];
     domestic.makePlanCtl = makePlanCtl;
     foreignCtl.makePlanCtl = makePlanCtl;

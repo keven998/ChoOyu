@@ -98,6 +98,7 @@
     // 3.发送Get请求
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
+        NSLog(@"%@",responseObject);
         /**
          *  获取字典数组
          */

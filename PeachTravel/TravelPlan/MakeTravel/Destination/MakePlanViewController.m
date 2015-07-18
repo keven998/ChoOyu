@@ -35,7 +35,14 @@
     UIBarButtonItem *lbi = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
     self.navigationItem.leftBarButtonItem = lbi;
     
-    UIBarButtonItem *rbi = [[UIBarButtonItem alloc] initWithTitle:@"下一步" style:UIBarButtonItemStylePlain target:self action:@selector(makePlan:)];
+    NSString * title = nil;
+    if (self.shouldOnlyChangeDestinationWhenClickNextStep) {
+        title = @"完成";
+    }else{
+        title = @"下一步";
+    }
+    
+    UIBarButtonItem *rbi = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStylePlain target:self action:@selector(makePlan:)];
     NSMutableDictionary *textAttrs=[NSMutableDictionary dictionary];
     NSMutableDictionary *dTextAttrs = [NSMutableDictionary dictionaryWithDictionary:textAttrs];
     dTextAttrs[NSForegroundColorAttributeName] = [UIColor grayColor];

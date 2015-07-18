@@ -49,6 +49,12 @@ static NSString * const reuseIdentifier = @"footerCell";
     // Dispose of any resources that can be recreated.
 }
 
+- (void)setDataSource:(NSArray *)dataSource
+{
+    _dataSource = dataSource;
+    [self.collectionView reloadData];
+}
+
 #pragma mark <UICollectionViewDataSource>
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
