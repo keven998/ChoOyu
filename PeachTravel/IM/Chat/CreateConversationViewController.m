@@ -185,7 +185,7 @@
 
 - (BOOL)isNumberInGroup:(NSInteger)userId
 {
-    for (FrendModel *frend in self.group.numbers) {
+    for (FrendModel *frend in self.group.members) {
         if (frend.userId == userId) {
             return YES;
         }
@@ -202,13 +202,16 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         IMDiscussionGroupManager *discussionGroupManager = [IMDiscussionGroupManager shareInstance];
-        [discussionGroupManager asyncAddNumbersWithGroup:_group numbers: self.selectedContacts completion:^(BOOL isSuccess, NSInteger errorCode) {
+        [discussionGroupManager asyncAddNumbersWithGroup:_group members: self.selectedContacts completion:^(BOOL isSuccess, NSInteger errorCode) {
             [hud hideTZHUD];
+
             if (isSuccess) {
                 [SVProgressHUD showHint:@"添加成功"];
                 [self.delegate reloadData];
-                [self dismissViewControllerAnimated:YES completion:nil];
+            } else {
+                [SVProgressHUD showHint:@"添加失败"];
             }
+            [self.navigationController popViewControllerAnimated:YES];
         }];
     });
 }

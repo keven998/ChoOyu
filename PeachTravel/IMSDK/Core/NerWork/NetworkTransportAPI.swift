@@ -85,6 +85,35 @@ class NetworkTransportAPI: NSObject {
         }
     }
     
+    class func asyncPATCH(#requstUrl: String, parameters: NSDictionary, completionBlock: (isSuccess: Bool, errorCode: Int, retMessage: NSDictionary?) -> ()) {
+        let manager = AFHTTPRequestOperationManager()
+        let requestSerializer = AFJSONRequestSerializer()
+        manager.requestSerializer = requestSerializer
+        var accountManager = AccountManager.shareAccountManager()
+        manager.requestSerializer.setValue("\(accountManager.account.userId)", forHTTPHeaderField: "UserId")
+        manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept")
+        manager.requestSerializer.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        
+        manager.PATCH(requstUrl, parameters: parameters, success:
+            {
+                (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
+                
+                println("responseObject: \(responseObject)")
+                if let code = responseObject.objectForKey("code") as? Int {
+                    if code == 0 {
+                        completionBlock(isSuccess: true, errorCode: 0, retMessage: responseObject.objectForKey("result") as? NSDictionary)
+                    } else {
+                        completionBlock(isSuccess: false, errorCode: 0, retMessage: nil)
+                    }
+                }
+            })
+            {
+                (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+                print(error)
+                completionBlock(isSuccess: false, errorCode: 0, retMessage: nil)
+        }
+    }
+    
     /**
     发送一个 GET 请求
     

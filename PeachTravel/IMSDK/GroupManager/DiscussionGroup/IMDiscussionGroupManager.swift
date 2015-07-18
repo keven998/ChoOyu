@@ -8,7 +8,7 @@
 
 import UIKit
 
-let discussionGroupUrl = "\(BASE_URL)chatgroups/"
+let discussionGroupUrl = "\(BASE_URL)chatgroups"
 
 @objc protocol DiscusssionGroupManagerDelegate {
     
@@ -77,14 +77,14 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
             array.append(frendModel.userId)
         }
         var params = NSMutableDictionary()
-        params.setObject(array, forKey: "participants")
+        params.setObject(array, forKey: "members")
         params.setObject(subject, forKey: "name")
         
-        NetworkTransportAPI.asyncPOST(requstUrl: groupUrl, parameters: params) { (isSuccess, errorCode, retMessage) -> () in
+        NetworkTransportAPI.asyncPOST(requstUrl: discussionGroupUrl, parameters: params) { (isSuccess, errorCode, retMessage) -> () in
             if isSuccess {
                 var group = IMDiscussionGroup(jsonData: retMessage!)
                 group.subject = subject
-                group.numbers = invitees
+                group.members = invitees
                 var frendManager = IMClientManager.shareInstance().frendManager
                 frendManager.addFrend2DB(self.convertDiscussionGroupModel2FrendModel(group))
                 completionBlock(isSuccess: true, errorCode: errorCode, discussionGroup: group)
@@ -126,7 +126,7 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
         var params = NSMutableDictionary()
         params.setObject("join", forKey: "action")
         params.setObject("\(request)", forKey: "message")
-        var requestAddGroupUrl = "\(groupUrl)/\(groupId)/request"
+        var requestAddGroupUrl = "\(discussionGroupUrl)/\(groupId)/request"
         NetworkTransportAPI.asyncPOST(requstUrl: requestAddGroupUrl, parameters: params) { (isSuccess, errorCode, retMessage) -> () in
             
         }
@@ -151,7 +151,7 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
         var params = NSMutableDictionary()
         params.setObject(title, forKey: "name")
         params.setObject(group.groupId, forKey: "groupId")
-        let changeDiscussionGroupSubjectUrl = "\(groupUrl)/\(group.groupId)"
+        let changeDiscussionGroupSubjectUrl = "\(discussionGroupUrl)/\(group.groupId)"
         NetworkTransportAPI.asyncPUT(requstUrl: changeDiscussionGroupSubjectUrl, parameters: params) { (isSuccess, errorCode, retMessage) -> () in
             if isSuccess {
                 group.subject = title
@@ -168,22 +168,21 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
     向群里添加新用户
     
     :param: groupId
-    :param: numbers
+    :param: members
     :param: completion 
     */
-    func asyncAddNumbers(#group: IMDiscussionGroup, numbers: Array<FrendModel>, completion:(isSuccess: Bool, errorCode: Int) -> ()) {
+    func asyncAddNumbers(#group: IMDiscussionGroup, members: Array<FrendModel>, completion:(isSuccess: Bool, errorCode: Int) -> ()) {
         var array = Array<Int>()
-        for frend in numbers {
+        for frend in members {
             array.append(frend.userId)
         }
         var params = NSMutableDictionary()
-        params.setObject(array, forKey: "participants")
-        params.setObject("addMembers", forKey: "action")
-        params.setObject(group.groupId, forKey: "id")
-        let addNumberUrl = "\(groupUrl)/\(group.groupId)"
-        NetworkTransportAPI.asyncPOST(requstUrl: addNumberUrl, parameters: params) { (isSuccess, errorCode, retMessage) -> () in
+        params.setObject(array, forKey: "members")
+        params.setObject(1, forKey: "action")
+        let addNumberUrl = "\(discussionGroupUrl)/\(group.groupId)/members"
+        NetworkTransportAPI.asyncPATCH(requstUrl: addNumberUrl, parameters: params) { (isSuccess, errorCode, retMessage) -> () in
             if isSuccess {
-                self.addNumbers2Group(numbers: numbers, group: group)
+                self.addNumbers2Group(members: members, group: group)
                 
                 completion(isSuccess: true, errorCode: 0)
             } else {
@@ -196,22 +195,21 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
     删除群组里的成员
     
     :param: groupId
-    :param: numbers
+    :param: members
     :param: completion
     */
-    func asyncDeleteNumbers(#group: IMDiscussionGroup, numbers: Array<FrendModel>, completion:(isSuccess: Bool, errorCode: Int) -> ()) {
+    func asyncDeleteNumbers(#group: IMDiscussionGroup, members: Array<FrendModel>, completion:(isSuccess: Bool, errorCode: Int) -> ()) {
         var array = Array<Int>()
-        for frend in numbers {
+        for frend in members {
             array.append(frend.userId)
         }
         var params = NSMutableDictionary()
-        params.setObject(array, forKey: "participants")
-        params.setObject("delMembers", forKey: "action")
-        params.setObject(group.groupId, forKey: "id")
-        let addNumberUrl = "\(groupUrl)/\(group.groupId)"
-        NetworkTransportAPI.asyncPOST(requstUrl: addNumberUrl, parameters: params) { (isSuccess, errorCode, retMessage) -> () in
+        params.setObject(array, forKey: "members")
+        params.setObject(2, forKey: "action")
+        let addNumberUrl = "\(discussionGroupUrl)/\(group.groupId)/members"
+        NetworkTransportAPI.asyncPATCH(requstUrl: addNumberUrl, parameters: params) { (isSuccess, errorCode, retMessage) -> () in
             if isSuccess {
-                self.deleteNumbersFromGroup(numbers: numbers, group: group)
+                self.deleteNumbersFromGroup(members: members, group: group)
                 
                 completion(isSuccess: true, errorCode: 0)
             } else {
@@ -296,15 +294,15 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
         frendModel.userId = group.groupId
         frendModel.nickName = group.subject ?? ""
         frendModel.type = IMFrendType.DiscussionGroup
-        if group.numbers.count > 0 {
+        if group.members.count > 0 {
             var numberDic = NSMutableDictionary()
             var array = Array<NSDictionary>()
-            for frend in group.numbers {
+            for frend in group.members {
                 let dic = ["userId": frend.userId, "nickName": frend.nickName, "avatar": frend.avatar]
                 array.append(dic)
 
             }
-            numberDic.setObject(array, forKey: "numbers")
+            numberDic.setObject(array, forKey: "members")
             frendModel.extData = JSONConvertMethod.contentsStrWithJsonObjc(numberDic)!
         }
         
@@ -324,10 +322,10 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
         discussionGroup.subject = frendModel.nickName
         var extData = JSONConvertMethod.jsonObjcWithString(frendModel.extData as String)
         
-        if let numbersData = extData.objectForKey("numbers") as? Array<NSDictionary> {
-            for userDic in numbersData {
+        if let membersData = extData.objectForKey("members") as? Array<NSDictionary> {
+            for userDic in membersData {
                 let frend = FrendModel(json: userDic)
-                discussionGroup.numbers.append(frend)
+                discussionGroup.members.append(frend)
             }
         }
         return discussionGroup
@@ -346,20 +344,20 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
     /**
     添加一组成员到群组的用户列表里。自动幂等，已有不添加
     
-    :param: numbers
+    :param: members
     :param: group
     */
-    private func addNumbers2Group(#numbers: Array<FrendModel>, group: IMDiscussionGroup) {
-        for frend in numbers {
+    private func addNumbers2Group(#members: Array<FrendModel>, group: IMDiscussionGroup) {
+        for frend in members {
             var find = false
-            for oldFrend in group.numbers {
+            for oldFrend in group.members {
                 if oldFrend.userId == frend.userId {
                     find = true
                     break
                 }
             }
             if !find {
-                group.numbers.append(frend)
+                group.members.append(frend)
             }
         }
         self.updateGroupNumbersInDB(group)
@@ -368,20 +366,20 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
     /**
     删除群组里的某一些成员
     
-    :param: numbers
+    :param: members
     :param: group
     */
-    private func deleteNumbersFromGroup(#numbers: Array<FrendModel>, group: IMDiscussionGroup) {
-        var leftNumbers = Array<FrendModel>()
-        for frend in numbers {
+    private func deleteNumbersFromGroup(#members: Array<FrendModel>, group: IMDiscussionGroup) {
+        var leftMembers = Array<FrendModel>()
+        for frend in members {
             var find = false
-            for oldFrend in group.numbers {
+            for oldFrend in group.members {
                 if oldFrend.userId != frend.userId {
-                    leftNumbers.append(oldFrend)
+                    leftMembers.append(oldFrend)
                 }
             }
         }
-        group.numbers = leftNumbers
+        group.members = leftMembers
         self.updateGroupNumbersInDB(group)
     }
 
