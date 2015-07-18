@@ -93,7 +93,7 @@
     _verifyCodeTextField.font = [UIFont systemFontOfSize:16.0];
     _verifyCodeTextField.textColor = COLOR_TEXT_I;
     _verifyCodeTextField.placeholder = @"短信验证码";
-    _verifyCodeTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+    _verifyCodeTextField.keyboardType = UIKeyboardTypeNumberPad;
     [textFieldBg addSubview:_verifyCodeBtn];
     [textFieldBg addSubview:_verifyCodeTextField];
     
