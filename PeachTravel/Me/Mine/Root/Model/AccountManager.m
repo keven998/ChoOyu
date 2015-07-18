@@ -614,7 +614,7 @@
     [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            [self updataUserLocalTracks:action withTrack:poi areaName:areaName];
+            [self updataUserLocalTracks:action withTrack:poi];
         } else {
             
         }
@@ -629,37 +629,17 @@
  *  @param action        add:添加   del:删除
  *  @param tracks
  */
-- (void)updataUserLocalTracks:(NSString *)action withTrack:(CityDestinationPoi *)poi areaName:(NSString *)areaName;
+- (void)updataUserLocalTracks:(NSString *)action withTrack:(CityDestinationPoi *)poi;
 {
-    NSLog(@"%@", _account.tracks);
-    NSMutableArray *citysInArea = [[_account.tracks objectForKey:areaName] mutableCopy];
-    if (!citysInArea) {
-        citysInArea = [[NSMutableArray alloc] init];
-    }
     if ([action isEqualToString:@"del"]) {
-        for (NSDictionary *poiDic in citysInArea) {
-            if ([poi.cityId isEqualToString:[poiDic objectForKey:@"id"]]) {
-                [citysInArea removeObject:poiDic];
+        for (CityDestinationPoi *city in _account.tracks) {
+            if ([poi.cityId isEqualToString :city.cityId]) {
+                [_account.tracks removeObject:city];
                 break;
             }
         }
     } else {
-        NSMutableDictionary *poiDic = [[NSMutableDictionary alloc] init];
-        [poiDic setObject:poi.cityId forKey:@"id"];
-        [poiDic setObject:poi.zhName forKey:@"zhName"];
-        NSMutableArray *coordinatesArray = [[NSMutableArray alloc] init];
-        [coordinatesArray addObject:[NSNumber numberWithDouble:poi.lng]];
-        [coordinatesArray addObject:[NSNumber numberWithDouble:poi.lat]];
-        [poiDic safeSetObject:@{@"coordinates":coordinatesArray} forKey:@"location"];
-        [citysInArea addObject:poiDic];
-    }
-    
-    NSLog(@"%@", _account.tracks);
-    
-    if (citysInArea.count > 0) {
-        [_account.tracks setObject:citysInArea forKey:areaName];
-    } else {
-        [_account.tracks removeObjectForKey:areaName];
+        [_account.tracks addObject:poi];
     }
 }
 

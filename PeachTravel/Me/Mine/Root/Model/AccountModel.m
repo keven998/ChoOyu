@@ -119,11 +119,13 @@
         _birthday = [json objectForKey:@"birthday"];
     }
     
-    if ([json objectForKey:@"tracks"] == [NSNull null] || ![[json objectForKey:@"tracks"] isKindOfClass:[NSDictionary class]]) {
-        _tracks = [[NSMutableDictionary alloc] init];
-    } else {
-        _tracks = [[json objectForKey:@"tracks"] mutableCopy];
+    NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+    if ([json objectForKey:@"tracks"] != [NSNull null]) {
+        for (NSDictionary *tracksDic in [json objectForKey:@"tracks"]) {
+            [tempArray addObject:[[CityDestinationPoi alloc] initWithJson:tracksDic]];
+        }
     }
+    _tracks = tempArray;
     
     if ([json objectForKey:@"travelStatus"] == [NSNull null]) {
         _travelStatus = @"";
