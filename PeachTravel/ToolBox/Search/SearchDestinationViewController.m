@@ -144,6 +144,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf content:64];
     
+    NSLog(@"%@,%@",API_SEARCH,params);
     [manager GET:API_SEARCH parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         [hud hideTZHUD];
@@ -155,7 +156,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [hud hideTZHUD];
-        
+        NSLog(@"%@",error);
     }];
 }
 
