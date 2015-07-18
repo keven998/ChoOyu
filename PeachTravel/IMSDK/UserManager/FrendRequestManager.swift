@@ -47,11 +47,20 @@ class FrendRequestManager: NSObject {
             frendRequest = FrendRequest(json: request)
         }
         
+        var index = 0
         for temp in self.frendRequestList {
             if temp.requestId == frendRequest.requestId {
-                println("已经有相同的好友请求了，不需要再次添加了")
-                return
+                if temp.status != TZFrendRequest.Default {
+                    self.frendRequestList.removeAtIndex(index)
+                    self.frendRequestDaoHelper.removeFrendRequest(frendRequest.requestId)
+                    break
+                    
+                } else {
+                    println("已经有相同的好友请求了，不需要再次添加了")
+                    return
+                }
             }
+            index++
         }
         self.frendRequestDaoHelper.addFrendRequestion2DB(request as! FrendRequest)
         self.frendRequestList.append(request as! FrendRequest)

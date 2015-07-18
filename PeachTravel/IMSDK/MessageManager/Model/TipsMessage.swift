@@ -54,7 +54,11 @@ class TipsMessage: BaseMessage {
                         retString += "我, "
                     } else {
                         let nickName = userInfo.objectForKey("nickName") as! String
-                        retString += "\(nickName), "
+                        if contenArray.count > 1 {
+                            retString += "\(nickName), "
+                        } else {
+                            retString += "\(nickName) "
+                        }
                     }
                 }
             }
