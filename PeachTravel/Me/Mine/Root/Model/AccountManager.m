@@ -114,7 +114,11 @@
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        completion(NO, nil);
+        if (operation.response.statusCode == 401) {
+            completion(NO, @"用户名密码错误");
+        } else {
+            completion(NO, nil);
+        }
     }];
 }
 

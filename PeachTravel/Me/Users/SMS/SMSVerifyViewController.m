@@ -220,7 +220,11 @@
         [hud hideTZHUD];
         NSLog(@"%@", error);
         if (self.isShowing) {
-            [SVProgressHUD showHint:HTTP_FAILED_HINT];
+            if (operation.response.statusCode == 401) {
+                [SVProgressHUD showHint:@"验证码输入错误"];
+            } else {
+                    [SVProgressHUD showHint:HTTP_FAILED_HINT];
+            }
         }
     }];
 }
