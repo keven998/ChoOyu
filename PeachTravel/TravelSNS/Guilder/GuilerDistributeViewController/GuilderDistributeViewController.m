@@ -120,7 +120,7 @@
 }
 
 // 处理guiderArray数组,将一个数组转换成分组数组
-/*
+
 - (NSArray *)revertGuiderListToGroup:(NSArray *)guiderList
 {
     // 1.创建一个分组数组,里面存放了多少组数据
@@ -130,18 +130,16 @@
         NSMutableArray * array = [NSMutableArray array];
         [dataSource addObject:array];
     }
-    
     self.dataSource = dataSource;
     
     // 2.遍历数组
-    for (ShoppingPoi * poi in shoppingList) {
-        CityDestinationPoi * cityPoi = poi.locality;
+    for (GuilderDistribute * distrubute in guiderList) {
         int i = 0;
-        for (CityDestinationPoi * destpoi in _tripDetail.destinations)
+        for (NSString * title in _titleArray)
         {
-            if ([cityPoi.cityId isEqualToString:destpoi.cityId]) {
+            if ([distrubute.continent isEqualToString:title]) {
                 NSMutableArray *array = dataSource[i];
-                [array addObject:poi];
+                [array addObject:distrubute];
                 break;
             }
             i++;
@@ -150,7 +148,7 @@
     
     return dataSource;
 }
- */
+
 
 // 懒加载tableView
 - (UITableView *)tableView
@@ -170,7 +168,11 @@
 #pragma mark - UITableViewDataSource & UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 232*CGRectGetWidth(self.view.frame)/414;
+
+    if ([_showDic objectForKey:[NSString stringWithFormat:@"%ld",indexPath.section]]) {
+        return 232*CGRectGetWidth(self.view.frame)/414;
+    }
+    return 0;
 }
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {

@@ -24,7 +24,7 @@
 // 初始化
 + (id)guiderWithTableView:(UITableView *)tableView
 {
-    static NSString * ID = @"cell";
+    static NSString * ID = @"guideCell";
     
     UINib * nib = [UINib nibWithNibName:NSStringFromClass([self class]) bundle:nil];
     
@@ -51,6 +51,7 @@
     if (array.count != 0) {
         NSString * imageUrl = array[0][@"url"];
         NSURL * url = [NSURL URLWithString:imageUrl];
+        self.bgImage.image = nil;
         [self.bgImage sd_setImageWithURL:url];
     }
     self.expertUserCnt.text = [NSString stringWithFormat:@"%@位",guiderDistribute.expertUserCnt];

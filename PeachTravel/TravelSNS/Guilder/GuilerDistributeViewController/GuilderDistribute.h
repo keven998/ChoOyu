@@ -22,6 +22,6 @@
 
 @property (nonatomic, strong)NSNumber * expertUserCnt;
 
-//@property (nonatomic, copy)NSString * continent;
+@property (nonatomic, copy)NSString * continent;
 
 @end

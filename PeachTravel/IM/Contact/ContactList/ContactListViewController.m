@@ -19,6 +19,7 @@
 #import "ChatSettingViewController.h"
 #import "OtherUserInfoViewController.h"
 #import "UIBarButtonItem+MJ.h"
+#import "CWBadgeView.h"
 #define contactCell      @"contactCell"
 #define requestCell      @"requestCell"
 
@@ -46,6 +47,10 @@
     
     [self.view addSubview:self.contactTableView];
     [self.accountManager loadContactsFromServer];
+    
+    
+    IMClientManager *manamger = [IMClientManager shareInstance];
+    NSLog(@"unReadCount:%ld",manamger.frendRequestManager.unReadFrendRequestCount);
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -263,8 +268,15 @@
 {
     if (indexPath.section == 0) {
         OptionOfFASKTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"friend_ask"];
+//        cell.numberOfUnreadFrendRequest = _numberOfUnreadFrendRequest;
         cell.numberOfUnreadFrendRequest = _numberOfUnreadFrendRequest;
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        NSLog(@"%ld",cell.numberOfUnreadFrendRequest);
+        if (cell.numberOfUnreadFrendRequest == 0) {
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+//            CWBadgeView * badge = [[CWBadgeView alloc] init];
+//            badge.badgeValue = @"10";
+//            cell.accessoryView = badge;
+        }
         return cell;
     } else {
         FrendModel *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
