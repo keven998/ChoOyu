@@ -112,6 +112,8 @@ static NSString *cacheName = @"destination_demostic_group";
     
     NSDictionary *params = @{@"groupBy" : [NSNumber numberWithBool:true]};
     
+    NSLog(@"%@",API_GET_DOMESTIC_DESTINATIONS);
+    
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [manager GET:API_GET_DOMESTIC_DESTINATIONS parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
@@ -254,23 +256,20 @@ static NSString *cacheName = @"destination_demostic_group";
     AreaDestination *area = [self.destinations.domesticCities objectAtIndex:indexPath.section];
     CityDestinationPoi *city = [area.cities objectAtIndex:indexPath.row];
     cell.tiltleLabel.text = city.zhName;
-    
+    BOOL find = NO;
     for (CityDestinationPoi *cityPoi in _destinations.destinationsSelected) {
         if ([cityPoi.cityId isEqualToString:city.cityId]) {
-            cell.tiltleLabel.textColor = [UIColor whiteColor];
-            cell.status.image = [UIImage imageNamed:@"ic_cell_item_chooesed.png"];
-            cell.backgroundColor = APP_THEME_COLOR;
-            return  cell;
+            cell.status.image = [UIImage imageNamed:@"dx_checkbox_selected"];
+            find = YES;
         }
     }
+    if (!find) {
+        cell.status.image = nil;
+    }
     cell.tiltleLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
-    cell.status.image = [UIImage imageNamed:@"ic_cell_item_unchoose.png"];
-    cell.backgroundColor = [UIColor whiteColor];
+    TaoziImage *image = city.images.firstObject;
     
-#warning 这里的city模型需要增加image属性来给cell的背景图片赋值
-    // 设置cell的背景图片
-//    NSURL * url = [NSURL URLWithString:city.enName];
-//    [cell.backGroundImage sd_setImageWithURL:url];
+    [cell.backGroundImage sd_setImageWithURL:[NSURL URLWithString:image.imageUrl]];
     
     return  cell;
 }
