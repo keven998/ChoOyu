@@ -47,7 +47,7 @@
     
     for (UIViewController *ctl in _viewControllers) {
 //        [ctl.view setFrame:self.view.bounds];
-        [ctl.view setFrame:CGRectMake(0, 48, self.view.bounds.size.width, self.view.bounds.size.height - 60)];
+        [ctl.view setFrame:CGRectMake(0, 48, self.view.bounds.size.width, self.view.bounds.size.height - 70)];
     }
     UIViewController *firstCtl = [_viewControllers firstObject];
     _currentViewController = firstCtl;

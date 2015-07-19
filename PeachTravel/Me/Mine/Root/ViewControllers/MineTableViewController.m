@@ -317,7 +317,9 @@
     if ([amgr isLogin]) {
         [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:amgr.account.avatarSmall] placeholderImage:[UIImage imageNamed:@"ic_home_avatar_unknown.png"]];
         
-        NSMutableDictionary *country = [NSMutableDictionary dictionaryWithDictionary:amgr.account.tracks];
+#warning 足迹接口
+//        NSMutableDictionary *country = [NSMutableDictionary dictionaryWithDictionary:amgr.account.tracks];
+        NSMutableDictionary *country;
         NSInteger cityNumber = 0;
         NSMutableString *cityDesc = nil;
         NSArray *keys = [country allKeys];
