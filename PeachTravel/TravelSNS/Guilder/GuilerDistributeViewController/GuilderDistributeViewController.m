@@ -11,6 +11,7 @@
 #import "GuiderCell.h"
 #import "GuilderDistribute.h"
 #import "MJExtension.h"
+#import "GuilderDistributeContinent.h"
 @interface GuilderDistributeViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 
@@ -81,6 +82,7 @@
     
     // 发送网络请求
     [self sendRequest];
+    
 }
 
 #pragma mark - 请求网络数据
@@ -92,8 +94,7 @@
     // 2.请求链接
     NSString * url = API_GET_TOUR_GULIDER;
     
-    // 新列表链接
-//    NSString * url = @"http://api-dev.lvxingpai.com/app/geo/countries";
+    NSLog(@"%@",url);
     
     // 3.发送Get请求
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -108,6 +109,9 @@
          *  将字典数组转换成模型数组
          */
         self.guiderArray = [GuilderDistribute objectArrayWithKeyValuesArray:resultArray];
+        [self revertGuiderListToGroup:self.guiderArray];
+        
+        NSLog(@"%@",self.guiderArray);
         
         // 获得数据后刷新表格
         [self.tableView reloadData];
@@ -122,7 +126,7 @@
 
 // 处理guiderArray数组,将一个数组转换成分组数组
 
-- (NSArray *)revertGuiderListToGroup:(NSArray *)guiderList
+- (void)revertGuiderListToGroup:(NSArray *)guiderList
 {
     // 1.创建一个分组数组,里面存放了多少组数据
     NSMutableArray *dataSource = [[NSMutableArray alloc] init];
@@ -136,9 +140,10 @@
     // 2.遍历数组
     for (GuilderDistribute * distrubute in guiderList) {
         int i = 0;
+        GuilderDistributeContinent * guilderContinent = distrubute.continents;
         for (NSString * title in _titleArray)
         {
-            if ([distrubute.continent isEqualToString:title]) {
+            if ([guilderContinent.zhName isEqualToString:title]) {
                 NSMutableArray *array = dataSource[i];
                 [array addObject:distrubute];
                 break;
@@ -146,8 +151,7 @@
             i++;
         }
     }
-    
-    return dataSource;
+    NSLog(@"%@",self.dataSource);
 }
 
 
@@ -170,18 +174,21 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    if ([_showDic objectForKey:[NSString stringWithFormat:@"%ld",indexPath.section]]) {
+    if (![_showDic objectForKey:[NSString stringWithFormat:@"%ld",indexPath.section]]) {
         return 232*CGRectGetWidth(self.view.frame)/414;
     }
     return 0;
 }
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
-    return 5;
+    
+    return self.dataSource.count;
+//    return 5;
 }
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.guiderArray.count;
+    NSArray * guilderArray = self.dataSource[section];
+    return guilderArray.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -242,16 +249,21 @@
     // cell的初始化
     GuiderCell * cell = [GuiderCell guiderWithTableView:tableView];
     
-    cell.guiderDistribute = self.guiderArray[indexPath.row];
+    cell.guiderDistribute = _dataSource[indexPath.section][indexPath.row];
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.separatorInset=UIEdgeInsetsZero;
+    cell.clipsToBounds = YES;
+    
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     GuiderCollectionViewController *guider = [[GuiderCollectionViewController alloc] initWithNibName:@"GuiderCollectionViewController" bundle:nil];
-    GuilderDistribute * guilderDistribute = self.guiderArray[indexPath.row];
+    GuilderDistribute * guilderDistribute = _dataSource[indexPath.section][indexPath.row];
     guider.distributionArea = guilderDistribute.zhName;
-    guider.guiderDistribute = self.guiderArray[indexPath.row];
+    guider.guiderDistribute = guilderDistribute;
     [self.navigationController pushViewController:guider animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

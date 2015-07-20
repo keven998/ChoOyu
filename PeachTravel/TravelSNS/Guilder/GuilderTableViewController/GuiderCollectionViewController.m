@@ -85,6 +85,8 @@ static NSString * const reuseIdentifier = @"Cell";
     idLabel.text = [NSString stringWithFormat:@"%@位",guiderDistribute.expertUserCnt];
     [view addSubview:idLabel];
     self.navigationItem.titleView = view;
+    
+    
 }
 
 #pragma mark - http method

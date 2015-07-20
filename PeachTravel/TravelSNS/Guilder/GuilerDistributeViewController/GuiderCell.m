@@ -33,6 +33,17 @@
     return [tableView dequeueReusableCellWithIdentifier:ID];
 }
 
++ (id)guiderWithTableView:(UITableView *)tableView andSection:(NSInteger)section
+{
+    NSString * ID = [NSString stringWithFormat:@"guilderCell%ld",section];
+    
+    UINib * nib = [UINib nibWithNibName:NSStringFromClass([self class]) bundle:nil];
+    
+    [tableView registerNib:nib forCellReuseIdentifier:ID];
+    
+    return [tableView dequeueReusableCellWithIdentifier:ID];
+}
+
 - (void)awakeFromNib {
     // Initialization code
     self.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -54,6 +65,7 @@
         self.bgImage.image = nil;
         [self.bgImage sd_setImageWithURL:url];
     }
+
     self.expertUserCnt.text = [NSString stringWithFormat:@"%@位",guiderDistribute.expertUserCnt];
     self.zhName.text = [NSString stringWithFormat:@"~派派 · %@ · 达人~",guiderDistribute.zhName];
     

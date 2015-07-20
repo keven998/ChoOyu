@@ -408,6 +408,9 @@
     [self.navigationController pushViewController:ctl animated:YES];
 }
 
+/**
+ *  修改好友备注
+ */
 - (void)remarkFriend
 {
     BaseTextSettingViewController *bsvc = [[BaseTextSettingViewController alloc] init];
