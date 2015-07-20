@@ -40,7 +40,7 @@
 
 #define cellDataSource              @[@[@"名字", @"性别", @"生日", @"现住地"], @[@"计划", @"足迹", @"相册"],@[@"安全设置", @"修改密码"]]
 
-@interface UserInfoTableViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource, SelectDelegate, ChangJobDelegate, HeaderPictureDelegate,updataTracksDelegate>
+@interface UserInfoTableViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource, SelectDelegate, ChangJobDelegate, HeaderPictureDelegate>
 {
     
 }
@@ -648,7 +648,6 @@
         else if (indexPath.row == 1) {
             FootPrintViewController *footCtl = [[FootPrintViewController alloc] init];
             footCtl.userId = self.accountManager.account.userId;
-            footCtl.delegate = self;
             [self presentViewController:[[UINavigationController alloc] initWithRootViewController:footCtl] animated:YES completion:nil];
         }
         else if (indexPath.row == 2) {
@@ -915,11 +914,6 @@
     
 }
 
-- (void)updataTracks:(NSInteger)country citys:(NSInteger)city trackStr:(NSString *)track
-{
-    _tracksDesc = [NSString stringWithFormat:@"%ld国 %ld个城市",country,city];
-    [self.tableView reloadData];
-}
 @end
 
 

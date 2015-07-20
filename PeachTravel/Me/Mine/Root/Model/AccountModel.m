@@ -125,6 +125,8 @@
         _travelStatus = [json objectForKey:@"travelStatus"];
     }
     
+    _footprintsDesc = @"0国家0城市";
+    
     NSString *genderStr = [json objectForKey:@"gender"];
     if ([genderStr isEqualToString:@"F"]) {
         _gender = Female;
@@ -140,6 +142,26 @@
 - (void)setFootprints:(NSMutableArray *)footprints
 {
     _footprints = footprints;
+    _footprintsDesc = [self footprintsDescWithFootprints];
+    
+}
+
+- (NSString *)footprintsDescWithFootprints
+{
+    NSMutableArray *countriesArray = [[NSMutableArray alloc] init];
+    for (CityDestinationPoi *poi in _footprints) {
+        BOOL find = NO;
+        for (NSString *countryId in countriesArray) {
+            if ([poi.country.coutryId isEqualToString:countryId]) {
+                find = YES;
+                break;
+            }
+        }
+        if (!find && poi.country.coutryId) {
+            [countriesArray addObject:poi.country.coutryId];
+        }
+    }
+    return [NSString stringWithFormat:@"%ld个国家，%ld个城市", countriesArray.count, _footprints.count];
 }
 
 - (void)loadUserInfoFromServer:(void (^)(bool isSuccess))completion

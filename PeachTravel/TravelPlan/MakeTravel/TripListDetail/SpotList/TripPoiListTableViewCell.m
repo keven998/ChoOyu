@@ -60,7 +60,7 @@
             property = timeStr;
         }
     } else {
-        property = [NSString stringWithFormat:@"%@%@", rankStr, @"小吃快餐"];
+        property = [NSString stringWithFormat:@"%@", @"小吃快餐"];
     }
     
     
