@@ -40,6 +40,7 @@ static NSString * const reuseIdentifier = @"albumImageCell";
         [editBtn setTitle:@"编辑" forState:UIControlStateNormal];
         [editBtn setTitle:@"完成" forState:UIControlStateSelected];
         [editBtn addTarget:self action:@selector(edit:) forControlEvents:UIControlEventTouchUpInside];
+        editBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
         UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithCustomView:editBtn];
         self.navigationItem.rightBarButtonItem = right;
     }
@@ -55,12 +56,10 @@ static NSString * const reuseIdentifier = @"albumImageCell";
 }
 
 - (void)edit:(UIButton *)button {
-    button.selected = !button.selected;
-    if (button.selected) {
-        _canEdit = YES;
-    } else {
-        _canEdit = NO;
-    }
+    BOOL selected = !button.selected;
+    button.selected = selected;
+    _canEdit = selected;
+    self.navigationItem.leftBarButtonItem.customView.hidden = selected;
     [self.collectionView reloadData];
 }
 
