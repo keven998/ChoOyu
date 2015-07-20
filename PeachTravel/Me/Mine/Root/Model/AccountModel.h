@@ -35,9 +35,7 @@
  */
 @property (nonatomic, strong) NSMutableArray *frendList;
 
-/**
- *  用户居住地
- */
+//用户居住地
 @property (nonatomic, copy) NSString *residence;
 @property (nonatomic) NSInteger guideCnt;
 @property (nonatomic, copy) NSString *birthday;

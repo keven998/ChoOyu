@@ -594,7 +594,7 @@
  *  @param tracks        足迹 CityDestinationPoi
  *  @param areaName      poi 所属的地区
  */
-- (void)updataUserServerTracks:(NSString *)action withTrack:(CityDestinationPoi *)poi areaName:(NSString *)areaName
+- (void)updataUserServerTracks:(NSString *)action withTrack:(CityDestinationPoi *)poi
 {
     AccountManager *account = [AccountManager shareAccountManager];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -606,21 +606,39 @@
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)account.account.userId] forHTTPHeaderField:@"UserId"];
     
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params safeSetObject:action forKey:@"action"];
-    [params safeSetObject:@[poi.cityId] forKey:@"tracks"];
-    
-    NSString *urlStr = [NSString stringWithFormat:@"%@users/%ld/tracks", BASE_URL, (long)account.account.userId];
-    [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-        if (code == 0) {
-            [self updataUserLocalTracks:action withTrack:poi];
-        } else {
-            
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    if ([action isEqualToString:@"add"]) {
+        NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+        [params safeSetObject:action forKey:@"action"];
+        [params safeSetObject:@[poi.cityId] forKey:@"tracks"];
         
-    }];
+        NSString *urlStr = [NSString stringWithFormat:@"%@users/%ld/tracks", BASE_URL, (long)account.account.userId];
+        [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+            if (code == 0) {
+                [self updataUserLocalTracks:action withTrack:poi];
+            } else {
+                
+            }
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            
+        }];
+    } else {
+        NSString *urlStr = [NSString stringWithFormat:@"%@users/%ld/footprints/%@", BASE_URL, (long)account.account.userId, poi
+                            .cityId];
+        [manager DELETE:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+            if (code == 0) {
+                [self updataUserLocalTracks:action withTrack:poi];
+            } else {
+                
+            }
+
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            
+        }];
+
+    }
+   
 }
 
 /**
