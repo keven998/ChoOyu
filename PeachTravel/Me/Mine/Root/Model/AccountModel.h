@@ -43,7 +43,12 @@
 @property (nonatomic, copy) NSString *birthday;
 @property (nonatomic, copy) NSString *zodiac;
 @property (nonatomic, copy) NSString *travelStatus;
-@property (nonatomic, strong) NSMutableArray *tracks;
+
+//足迹
+@property (nonatomic, strong) NSMutableArray *footprints;
+
+//足迹的描述
+@property (nonatomic, copy) NSString *footprintsDesc;
 
 /**
  *  用户的图集

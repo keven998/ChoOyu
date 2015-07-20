@@ -119,14 +119,6 @@
         _birthday = [json objectForKey:@"birthday"];
     }
     
-    NSMutableArray *tempArray = [[NSMutableArray alloc] init];
-    if ([json objectForKey:@"tracks"] != [NSNull null]) {
-        for (NSDictionary *tracksDic in [json objectForKey:@"tracks"]) {
-            [tempArray addObject:[[CityDestinationPoi alloc] initWithJson:tracksDic]];
-        }
-    }
-    _tracks = tempArray;
-    
     if ([json objectForKey:@"travelStatus"] == [NSNull null]) {
         _travelStatus = @"";
     } else {
@@ -143,6 +135,11 @@
     } else if ([genderStr isEqualToString:@"U"]) {
         _gender = Unknown;
     }
+}
+
+- (void)setFootprints:(NSMutableArray *)footprints
+{
+    _footprints = footprints;
 }
 
 - (void)loadUserInfoFromServer:(void (^)(bool isSuccess))completion

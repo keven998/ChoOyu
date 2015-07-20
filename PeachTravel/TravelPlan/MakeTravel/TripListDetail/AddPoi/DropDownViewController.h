@@ -10,8 +10,6 @@
 
 @protocol dropDownMenuProtocol <NSObject>
 
-//- (void)didSelectedcityIndex:(NSIndexPath *)cityindexPath categaryIndex:(NSIndexPath *)categaryIndexPath;
-
 - (void)didSelectedcityIndex:(NSInteger)cityindex categaryIndex:(NSInteger)categaryIndex andTag:(int)tag;
 
 @end

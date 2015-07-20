@@ -232,24 +232,7 @@
     _trackNumber.textAlignment = NSTextAlignmentCenter;
     _trackNumber.font = [UIFont systemFontOfSize:16];
     _trackNumber.lineBreakMode = NSLineBreakByTruncatingTail;
-    NSMutableDictionary *country = [NSMutableDictionary dictionaryWithDictionary:self.accountManager.account.tracks];
-    NSInteger cityNumber = 0;
-    NSMutableString *cityDesc = nil;
-    NSArray *keys = [country allKeys];
-    NSInteger countryNumber = keys.count;
-    for (int i = 0; i < countryNumber; ++i) {
-        NSArray *citys = [country objectForKey:[keys objectAtIndex:i]];
-        cityNumber += citys.count;
-        
-        for (id city in citys) {
-            CityDestinationPoi *poi = [[CityDestinationPoi alloc] initWithJson:city];
-            if (cityDesc == nil) {
-                cityDesc = [[NSMutableString alloc] initWithString:poi.zhName];
-            } else {
-                [cityDesc appendFormat:@" %@", poi.zhName];
-            }
-        }
-    }
+  
     _trackNumber.text = [NSString stringWithFormat:@"0国0城"];
     
     _trackCount = _trackNumber;
@@ -316,29 +299,8 @@
     AccountManager *amgr = self.accountManager;
     if ([amgr isLogin]) {
         [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:amgr.account.avatarSmall] placeholderImage:[UIImage imageNamed:@"ic_home_avatar_unknown.png"]];
-        
-#warning 足迹接口
-//        NSMutableDictionary *country = [NSMutableDictionary dictionaryWithDictionary:amgr.account.tracks];
-        NSMutableDictionary *country;
-        NSInteger cityNumber = 0;
-        NSMutableString *cityDesc = nil;
-        NSArray *keys = [country allKeys];
-        NSInteger countryNumber = keys.count;
-        for (int i = 0; i < countryNumber; ++i) {
-            NSArray *citys = [country objectForKey:[keys objectAtIndex:i]];
-            NSLog(@"%@",citys);
-            cityNumber += citys.count;
-            
-            for (id city in citys) {
-                CityDestinationPoi *poi = [[CityDestinationPoi alloc] initWithJson:city];
-                if (cityDesc == nil) {
-                    cityDesc = [[NSMutableString alloc] initWithString:poi.zhName];
-                } else {
-                    [cityDesc appendFormat:@" %@", poi.zhName];
-                }
-            }
-        }
-        _trackNumber.text = [NSString stringWithFormat:@"%ld国%ld城", (long)countryNumber, (long)cityNumber];
+    
+        _trackNumber.text = _accountManager.account.footprintsDesc;
         
         _pictureNumber.text = [NSString stringWithFormat:@"%zd图",_accountManager.account.userAlbum.count];
         
@@ -460,22 +422,9 @@
 - (IBAction)myTrack:(id)sender
 {
     FootPrintViewController *footCtl = [[FootPrintViewController alloc] init];
-    Destinations *destinations = [[Destinations alloc] init];
     AccountManager *amgr = self.accountManager;
-    NSMutableDictionary *country = [NSMutableDictionary dictionaryWithDictionary:amgr.account.tracks];
-    
-    NSArray *keys = [country allKeys];
-    NSInteger countryNumber = keys.count;
-    for (int i = 0; i < countryNumber; ++i) {
-        NSArray *citys = [country objectForKey:[keys objectAtIndex:i]];
-        for (id city in citys) {
-            CityDestinationPoi *poi = [[CityDestinationPoi alloc] initWithJson:city];
-            [destinations.destinationsSelected addObject:poi];
-        }
-    }
-    
     footCtl.hidesBottomBarWhenPushed = YES;
-    footCtl.destinations = destinations;
+    footCtl.userId = amgr.account.userId;
     footCtl.delegate = self;
     [self.navigationController pushViewController:footCtl animated:YES];
 }

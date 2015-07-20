@@ -19,6 +19,9 @@
 
 @interface FootPrintViewController : UIViewController
 
-@property (nonatomic, strong) Destinations *destinations;
+//要看攻略人的 userid
+@property (nonatomic) NSInteger userId;
+
 @property (nonatomic, weak) id<updataTracksDelegate> delegate;
+
 @end
