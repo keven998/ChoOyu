@@ -125,7 +125,10 @@
 {
     _destinations = [[Destinations alloc] init];
     AccountManager *amgr = self.accountManager;
-    NSMutableDictionary *country = [NSMutableDictionary dictionaryWithDictionary:amgr.account.tracks];
+    
+#warning 城市列表
+//    NSMutableDictionary *country = [NSMutableDictionary dictionaryWithDictionary:amgr.account.tracks];
+    NSMutableDictionary * country = nil;
     
     NSArray *keys = [country allKeys];
     NSInteger countryNumber = keys.count;
@@ -229,7 +232,9 @@
 
 - (void)updateTracksDesc
 {
-    NSMutableDictionary *country = [NSMutableDictionary dictionaryWithDictionary:[AccountManager shareAccountManager].account.tracks];
+#warning 城市列表
+//    NSMutableDictionary *country = [NSMutableDictionary dictionaryWithDictionary:[AccountManager shareAccountManager].account.tracks];
+    NSMutableDictionary * country = nil;
     if (country == nil || [country count] == 0) {
         _tracksDesc = @"";
     }
