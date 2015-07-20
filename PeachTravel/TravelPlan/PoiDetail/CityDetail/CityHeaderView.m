@@ -153,7 +153,7 @@
 {
     [MobClick event:@"event_city_photoes"];
     MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] init];
-    browser.titleStr = @"城市相册";
+    browser.titleStr = @"城市图集";
     for (UIView* next = [self superview]; next; next = next.superview)
     {
         UIResponder* nextResponder = [next nextResponder];

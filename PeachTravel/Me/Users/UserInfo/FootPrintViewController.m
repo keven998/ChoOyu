@@ -112,7 +112,7 @@
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", self.userId] forHTTPHeaderField:@"UserId"];
-    NSString *url = [NSString stringWithFormat:@"%@%ld/tracks", API_USERS, 100000];
+    NSString *url = [NSString stringWithFormat:@"%@%ld/footprints", API_USERS, _userId];
     
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
@@ -131,16 +131,6 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
     }];
 
-}
-
-#pragma mark - 实现选择目的地的代理方法
-
-- (void)updateDestinations:(NSArray *)destinations{
-    NSLog(@"%s",__func__);
-    _destinations.destinationsSelected = [destinations mutableCopy];
-    [AccountManager shareAccountManager].account.footprints = _destinations.destinationsSelected;
-    _itemFooterCtl.dataSource = _destinations.destinationsSelected;
-    _footprintMapCtl.dataSource = _destinations.destinationsSelected;
 }
 
 - (void)editFootPrint
@@ -183,6 +173,41 @@
 {
     AccountManager *manager = [AccountManager shareAccountManager];
     [manager updataUserServerTracks:action withTrack:track];
+}
+
+#pragma mark - 实现选择目的地的代理方法
+
+- (void)updateDestinations:(NSArray *)destinations{
+    NSMutableArray *addArray = [[NSMutableArray alloc] init];
+    NSMutableArray *delArray = [[NSMutableArray alloc] init];
+    
+    for (CityDestinationPoi *oldPoi in _destinations.destinationsSelected) {
+        BOOL find = NO;
+        for (CityDestinationPoi *poi in destinations) {
+            if ([poi.cityId isEqualToString:oldPoi.cityId]) {
+                find = YES;
+            }
+        }
+        if (!find) {
+            [delArray addObject:oldPoi];
+        }
+    }
+    
+    for (CityDestinationPoi *oldPoi in destinations) {
+        BOOL find = NO;
+        for (CityDestinationPoi *poi in _destinations.destinationsSelected) {
+            if ([poi.cityId isEqualToString:oldPoi.cityId]) {
+                find = YES;
+            }
+        }
+        if (!find) {
+            [addArray addObject:oldPoi];
+        }
+    }
+    _destinations.destinationsSelected = [destinations mutableCopy];
+    [AccountManager shareAccountManager].account.footprints = _destinations.destinationsSelected;
+    _itemFooterCtl.dataSource = _destinations.destinationsSelected;
+    _footprintMapCtl.dataSource = _destinations.destinationsSelected;
 }
 
 #pragma mark - ItemFooterCollectionViewControllerDelegate
