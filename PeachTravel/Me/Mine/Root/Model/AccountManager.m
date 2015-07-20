@@ -792,6 +792,7 @@
     FrendManager *frendManager = [IMClientManager shareInstance].frendManager;
     [frendManager updateContactMemoInDB:remark userId:userId];
     
+    // 修改备注需要提供自己的userId和好友的userId
     AccountManager * accountManager = [AccountManager shareAccountManager];
 
     NSString *urlStr = [NSString stringWithFormat:@"%@%ld/contacts/%ld/memo", API_USERS, accountManager.account.userId,userId];

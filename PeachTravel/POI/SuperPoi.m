@@ -23,6 +23,8 @@
         _address = [json objectForKey:@"address"];
         _descUrl = [json objectForKey:@"descUrl"];
         _telephone = [json objectForKey:@"telephone"];
+        
+        _style = [json objectForKey:@"style"];
 
         if ([[json objectForKey:@"type"] isEqualToString:@"vs"]) {
             _poiType = kSpotPoi;
