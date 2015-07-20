@@ -75,6 +75,19 @@
     
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(editFootPrint)];
     self.navigationItem.rightBarButtonItem = item;
+    [self loadFootprintData];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear: animated];
+    self.navigationController.navigationBar.translucent = YES;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBar.translucent = NO;
 }
 
 - (Destinations *)destinations
@@ -99,7 +112,7 @@
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", self.userId] forHTTPHeaderField:@"UserId"];
-    NSString *url = [NSString stringWithFormat:@"%@%ld/footprints", API_USERS, _userId];
+    NSString *url = [NSString stringWithFormat:@"%@%ld/tracks", API_USERS, 100000];
     
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
@@ -110,7 +123,7 @@
                 CityDestinationPoi *poi = [[CityDestinationPoi alloc] initWithJson:footprintDic];
                 [array addObject:poi];
             }
-            _destinations.destinationsSelected = array;
+            [self updateDestinations:array];
             
         } else {
             
@@ -124,20 +137,10 @@
 
 - (void)updateDestinations:(NSArray *)destinations{
     NSLog(@"%s",__func__);
-    _itemFooterCtl.dataSource = destinations;
-    _footprintMapCtl.dataSource = destinations;
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear: animated];
-    self.navigationController.navigationBar.translucent = YES;
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    self.navigationController.navigationBar.translucent = NO;
+    _destinations.destinationsSelected = [destinations mutableCopy];
+    [AccountManager shareAccountManager].account.footprints = _destinations.destinationsSelected;
+    _itemFooterCtl.dataSource = _destinations.destinationsSelected;
+    _footprintMapCtl.dataSource = _destinations.destinationsSelected;
 }
 
 - (void)editFootPrint
@@ -145,10 +148,11 @@
     MakePlanViewController *makePlanCtl = [[MakePlanViewController alloc] init];
     ForeignViewController *foreignCtl = [[ForeignViewController alloc] init];
     DomesticViewController *domestic = [[DomesticViewController alloc] init];
-    
-    domestic.destinations = _destinations;
-    foreignCtl.destinations = _destinations;
-    makePlanCtl.destinations = _destinations;
+    Destinations *destinatios = [[Destinations alloc] init];
+    _destinations.destinationsSelected = _destinations.destinationsSelected;
+    domestic.destinations = destinatios;
+    foreignCtl.destinations = destinatios;
+    makePlanCtl.destinations = destinatios;
     
     makePlanCtl.shouldOnlyChangeDestinationWhenClickNextStep = YES;
     makePlanCtl.myDelegate = self;
@@ -168,55 +172,6 @@
 
 - (void)back
 {
-    BOOL find = NO;
-    [_countryName removeAllObjects];
-    for (AreaDestination *area in self.destinations.domesticCities) {
-        for (CityDestinationPoi *city in area.cities) {
-            
-            for (CityDestinationPoi *cityPoi in _destinations.destinationsSelected) {
-                if ([cityPoi.cityId isEqualToString:city.cityId]) {
-                    [_countryName addObject:area.zhName];
-                    find = YES;
-                    break;
-                }
-            }
-            if (find) {
-                break;
-            }
-        }
-        if (find) {
-            break;
-        }
-    }
-    
-    for (AreaDestination *area in self.destinations.foreignCountries) {
-        for (CityDestinationPoi *city in area.cities) {
-            BOOL find = NO;
-            for (CityDestinationPoi *cityPoi in _destinations.destinationsSelected) {
-                if ([cityPoi.cityId isEqualToString:city.cityId]) {
-                    [_countryName addObject:area.zhName];
-                    find = YES;
-                    break;
-                }
-            }
-            if (find) {
-                break;
-            }
-        }
-    }
-    NSMutableString *cityDesc = nil;
-
-    for (CityDestinationPoi *cityPoi in _destinations.destinationsSelected) {
-        if (cityDesc == nil) {
-            cityDesc = [[NSMutableString alloc] initWithString:cityPoi.zhName];
-            
-        } else {
-            [cityDesc appendFormat:@" %@",cityPoi.zhName];
-        }
-    }
-    
-    NSLog(@"%@",cityDesc);
-    [self.delegate updataTracks:_countryName.count citys:_destinations.destinationsSelected.count trackStr:cityDesc];
     if (self.navigationController.viewControllers.count > 1) {
         [self.navigationController popViewControllerAnimated:YES];
     } else {
@@ -224,10 +179,10 @@
     }
 }
 
-- (void)changTracks:(NSString *)action city:(CityDestinationPoi *)track areaName:(NSString *)areaName
+- (void)changTracks:(NSString *)action city:(CityDestinationPoi *)track
 {
     AccountManager *manager = [AccountManager shareAccountManager];
-    [manager updataUserServerTracks:action withTrack:track areaName:areaName];
+    [manager updataUserServerTracks:action withTrack:track];
 }
 
 #pragma mark - ItemFooterCollectionViewControllerDelegate

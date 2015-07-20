@@ -331,8 +331,6 @@
     BOOL find = NO;
     for (CityDestinationPoi *cityPoi in _destinations.destinationsSelected) {
         if ([city.cityId isEqualToString:cityPoi.cityId]) {
-//            NSInteger index = [_destinations.destinationsSelected indexOfObject:cityPoi];
-//            [self.destinationToolBar removeUnitAtIndex:index];
             find = YES;
             break;
         }
@@ -342,7 +340,6 @@
             [self showDestinationBar];
         }
         [_destinations.destinationsSelected addObject:city];
-//        [self.destinationToolBar addUnit:@"ic_cell_item_unchoose" withName:city.zhName andUnitHeight:26];
     }
     
     SearchDestinationTableViewCell *cell = (SearchDestinationTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];

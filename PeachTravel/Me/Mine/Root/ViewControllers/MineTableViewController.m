@@ -27,7 +27,7 @@
 #define cellDataSource           @[@[@"邀请好友", @"意见反馈"], @[@"关于我们", @"应用设置"]]
 #define secondCell               @"secondCell"
 
-@interface MineTableViewController () <UITableViewDataSource, UITableViewDelegate,updataTracksDelegate>
+@interface MineTableViewController () <UITableViewDataSource, UITableViewDelegate>
 {
     UILabel *_trackNumber;
     UILabel *_pictureNumber;
@@ -89,6 +89,7 @@
     if (!_accountManager.account.guideCnt) {
         [self loadUserInfo];
     }
+    [self updateAccountInfo];
     [MobClick beginLogPageView:@"page_home_me"];
 }
 
@@ -295,7 +296,7 @@
     return _accountManager;
 }
 
-- (void) updateAccountInfo {
+- (void)updateAccountInfo {
     AccountManager *amgr = self.accountManager;
     if ([amgr isLogin]) {
         [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:amgr.account.avatarSmall] placeholderImage:[UIImage imageNamed:@"ic_home_avatar_unknown.png"]];
@@ -425,7 +426,6 @@
     AccountManager *amgr = self.accountManager;
     footCtl.hidesBottomBarWhenPushed = YES;
     footCtl.userId = amgr.account.userId;
-    footCtl.delegate = self;
     [self.navigationController pushViewController:footCtl animated:YES];
 }
 
@@ -582,10 +582,7 @@
         }
     }
 }
-- (void)updataTracks:(NSInteger)country citys:(NSInteger)city trackStr:(NSString *)track
-{
-    _trackNumber.text = [NSString stringWithFormat:@"%ld国%ld城",country,city];
-}
+
 @end
 
 
