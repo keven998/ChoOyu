@@ -125,20 +125,7 @@
 {
     _destinations = [[Destinations alloc] init];
     AccountManager *amgr = self.accountManager;
-    
-#warning 城市列表
-//    NSMutableDictionary *country = [NSMutableDictionary dictionaryWithDictionary:amgr.account.tracks];
-    NSMutableDictionary * country = nil;
-    
-    NSArray *keys = [country allKeys];
-    NSInteger countryNumber = keys.count;
-    for (int i = 0; i < countryNumber; ++i) {
-        NSArray *citys = [country objectForKey:[keys objectAtIndex:i]];
-        for (id city in citys) {
-            CityDestinationPoi *poi = [[CityDestinationPoi alloc] initWithJson:city];
-            [_destinations.destinationsSelected addObject:poi];
-        }
-    }
+    _destinations.destinationsSelected = amgr.account.footprints;
     return _destinations;
 }
 
@@ -232,7 +219,6 @@
 
 - (void)updateTracksDesc
 {
-#warning 城市列表
 //    NSMutableDictionary *country = [NSMutableDictionary dictionaryWithDictionary:[AccountManager shareAccountManager].account.tracks];
     NSMutableDictionary * country = nil;
     if (country == nil || [country count] == 0) {
@@ -661,7 +647,7 @@
         }
         else if (indexPath.row == 1) {
             FootPrintViewController *footCtl = [[FootPrintViewController alloc] init];
-            footCtl.destinations = self.destinations;
+            footCtl.userId = self.accountManager.account.userId;
             footCtl.delegate = self;
             [self presentViewController:[[UINavigationController alloc] initWithRootViewController:footCtl] animated:YES completion:nil];
         }

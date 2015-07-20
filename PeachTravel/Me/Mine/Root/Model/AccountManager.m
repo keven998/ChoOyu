@@ -632,14 +632,14 @@
 - (void)updataUserLocalTracks:(NSString *)action withTrack:(CityDestinationPoi *)poi;
 {
     if ([action isEqualToString:@"del"]) {
-        for (CityDestinationPoi *city in _account.tracks) {
+        for (CityDestinationPoi *city in _account.footprints) {
             if ([poi.cityId isEqualToString :city.cityId]) {
-                [_account.tracks removeObject:city];
+                [_account.footprints removeObject:city];
                 break;
             }
         }
     } else {
-        [_account.tracks addObject:poi];
+        [_account.footprints addObject:poi];
     }
 }
 

@@ -35,8 +35,6 @@
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
         
-        self.imageView.backgroundColor = APP_IMAGEVIEW_COLOR;
-        
         _timeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _timeLabel.font = [UIFont systemFontOfSize:14];
         _timeLabel.textColor = COLOR_TEXT_III;
