@@ -65,7 +65,8 @@
     [self.view addSubview:self.tableView];
     self.tableView.backgroundColor = APP_PAGE_COLOR;
     self.tableView.showsVerticalScrollIndicator = NO;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.separatorColor = COLOR_LINE;
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.tableView registerNib:[UINib nibWithNibName:@"OptionTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:secondCell];
     

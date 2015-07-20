@@ -75,8 +75,11 @@
     backBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
     
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(editFootPrint)];
-    self.navigationItem.rightBarButtonItem = item;
+    if (_userId == [AccountManager shareAccountManager].account.userId) {
+        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(editFootPrint)];
+        self.navigationItem.rightBarButtonItem = item;
+    }
+   
     [self loadFootprintData];
 }
 
