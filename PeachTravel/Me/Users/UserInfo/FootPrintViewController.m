@@ -24,6 +24,7 @@
     NSMutableArray *_dataArray;
     NSMutableArray *_countryName;
 }
+
 @property (nonatomic, strong) FootprintMapViewController *footprintMapCtl;
 @property (nonatomic, strong) UIViewController *currentViewController;
 @property (nonatomic, strong) SwipeView *swipeView;
@@ -71,6 +72,7 @@
     [backBtn setImage:[UIImage imageNamed:@"common_icon_navigaiton_back"] forState:UIControlStateNormal];
     [backBtn setImage:[UIImage imageNamed:@"common_icon_navigaiton_back_highlight"] forState:UIControlStateHighlighted];
     [backBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+    backBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
     
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(editFootPrint)];
@@ -139,7 +141,9 @@
     ForeignViewController *foreignCtl = [[ForeignViewController alloc] init];
     DomesticViewController *domestic = [[DomesticViewController alloc] init];
     Destinations *destinatios = [[Destinations alloc] init];
-    _destinations.destinationsSelected = _destinations.destinationsSelected;
+    for (CityDestinationPoi *poi in _destinations.destinationsSelected) {
+        [destinatios.destinationsSelected addObject:poi];
+    }
     domestic.destinations = destinatios;
     foreignCtl.destinations = destinatios;
     makePlanCtl.destinations = destinatios;
@@ -169,12 +173,6 @@
     }
 }
 
-- (void)changTracks:(NSString *)action city:(CityDestinationPoi *)track
-{
-    AccountManager *manager = [AccountManager shareAccountManager];
-    [manager updataUserServerTracks:action withTrack:track];
-}
-
 #pragma mark - 实现选择目的地的代理方法
 
 - (void)updateDestinations:(NSArray *)destinations{
@@ -186,10 +184,11 @@
         for (CityDestinationPoi *poi in destinations) {
             if ([poi.cityId isEqualToString:oldPoi.cityId]) {
                 find = YES;
+                break;
             }
         }
         if (!find) {
-            [delArray addObject:oldPoi];
+            [delArray addObject:oldPoi.cityId];
         }
     }
     
@@ -198,16 +197,27 @@
         for (CityDestinationPoi *poi in _destinations.destinationsSelected) {
             if ([poi.cityId isEqualToString:oldPoi.cityId]) {
                 find = YES;
+                break;
             }
         }
         if (!find) {
-            [addArray addObject:oldPoi];
+            [addArray addObject:oldPoi.cityId];
         }
     }
     _destinations.destinationsSelected = [destinations mutableCopy];
     [AccountManager shareAccountManager].account.footprints = _destinations.destinationsSelected;
     _itemFooterCtl.dataSource = _destinations.destinationsSelected;
     _footprintMapCtl.dataSource = _destinations.destinationsSelected;
+    if (addArray.count) {
+        [[AccountManager shareAccountManager] asyncChangeUserServerTracks:@"add" withTracks:addArray completion:^(BOOL isSuccess, NSString *errorStr) {
+            
+        }];
+    }
+    if (delArray.count) {
+        [[AccountManager shareAccountManager] asyncChangeUserServerTracks:@"del" withTracks:delArray completion:^(BOOL isSuccess, NSString *errorStr) {
+            
+        }];
+    }
 }
 
 #pragma mark - ItemFooterCollectionViewControllerDelegate
