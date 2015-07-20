@@ -59,7 +59,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.tableView];
     
     self.imClientManager.conversationManager.delegate = self;
@@ -567,9 +566,7 @@
         }
         if (tzConversation.chatterId == 10001) {
             cell.imageView.image = [UIImage imageNamed:@"lvxingwenwen.png"];
-            cell.imageView.layer.cornerRadius = 0;
         } else if (tzConversation.chatterId == 10000) {
-            cell.imageView.layer.cornerRadius = 0;
             cell.imageView.image = [UIImage imageNamed:@"lvxingpaipai.png"];
         } else {
             [cell.imageView sd_setImageWithURL:[NSURL URLWithString:tzConversation.chatterAvatar] placeholderImage:[UIImage imageNamed:@"ic_home_default_avatar.png"]];
