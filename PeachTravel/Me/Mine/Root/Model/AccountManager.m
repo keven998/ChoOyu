@@ -791,10 +791,13 @@
 
     FrendManager *frendManager = [IMClientManager shareInstance].frendManager;
     [frendManager updateContactMemoInDB:remark userId:userId];
-
-    NSString *urlStr = [NSString stringWithFormat:@"%@%ld/memo", API_USERS, userId];
     
-    [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    // 修改备注需要提供自己的userId和好友的userId
+    AccountManager * accountManager = [AccountManager shareAccountManager];
+
+    NSString *urlStr = [NSString stringWithFormat:@"%@%ld/contacts/%ld/memo", API_USERS, accountManager.account.userId,userId];
+    
+    [manager PUT:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"result = %@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -804,6 +807,7 @@
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         completion(NO);
+        NSLog(@"%@",error);
     }];
 
 }
