@@ -796,12 +796,15 @@
     AccountManager * accountManager = [AccountManager shareAccountManager];
 
     NSString *urlStr = [NSString stringWithFormat:@"%@%ld/contacts/%ld/memo", API_USERS, accountManager.account.userId,userId];
+    NSLog(@"%@",urlStr);
+    
+//    NSString * urlStr = @"http://api-dev.lvxingpai.com/app/users/100004/contacts/100014/memo";
     
     [manager PUT:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"result = %@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-                       completion(YES);
+            completion(YES);
         } else {
             completion(NO);
         }

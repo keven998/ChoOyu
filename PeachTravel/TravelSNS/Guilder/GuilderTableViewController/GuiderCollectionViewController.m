@@ -51,6 +51,8 @@ static NSString * const reuseIdentifier = @"Cell";
     }
     // Register cell classes
     [self.collectionView registerNib:[UINib nibWithNibName:@"GuiderCollectionCell" bundle:nil] forCellWithReuseIdentifier:reuseIdentifier];
+    
+    // 传入的时候刷新即可
     [self loadTravelers:_distributionArea withPageNo:0];
 }
 
@@ -87,7 +89,11 @@ static NSString * const reuseIdentifier = @"Cell";
     self.navigationItem.titleView = view;
     
     
+    // 传入国家ID数据时刷新表格
+    [self loadTravelers:guiderDistribute.ID withPageNo:0];
 }
+
+// 发送网络请求
 
 #pragma mark - http method
 - (void)loadTravelers:(NSString *)areaId withPageNo:(NSInteger)page
@@ -119,8 +125,15 @@ static NSString * const reuseIdentifier = @"Cell";
     
     NSLog(@"%@",API_SEARCH_USER);
     
+    // 更新新链接
+    NSString * urlStr = [NSString stringWithFormat:@"%@%@/expert",API_GET_EXPERT_DETAIL,areaId];
+#warning 测试接口
+//    NSString * urlStr = @"http://api-dev.lvxingpai.com/app/geo/countries/5434d70e10114e684bb1b4ee/expert";
+    
+    NSLog(@"%@",urlStr);
+    
     //搜索达人
-    [manager GET:API_SEARCH_USER parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [hud hideTZHUD];
         
         NSLog(@"%@",responseObject);
@@ -138,6 +151,7 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)parseSearchResult:(id)searchResult
 {
+    NSLog(@"%@",searchResult);
     NSInteger count = [searchResult count];
     NSMutableArray *array = [[NSMutableArray alloc] init];
     FrendModel *user;
@@ -146,6 +160,8 @@ static NSString * const reuseIdentifier = @"Cell";
         [array addObject:user];
     }
     _dataSource = array;
+    
+    NSLog(@"%@",user);
     
     NSLog(@"%@",self.dataSource);
     

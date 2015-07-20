@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D2134" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -17,6 +17,9 @@
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vK8-y6-Tqr">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="195"/>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" alpha="0.49999999999999961" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="master_layer.png" translatesAutoresizingMaskIntoConstraints="NO" id="A3O-HQ-kax">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="195.5"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NMN-ak-8wx">
                         <rect key="frame" x="20" y="64" width="280" height="40"/>
@@ -40,11 +43,15 @@
                     </label>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="A3O-HQ-kax" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="5i5-sI-MwO"/>
                     <constraint firstItem="NMN-ak-8wx" firstAttribute="centerY" secondItem="bwB-cb-VUx" secondAttribute="centerY" constant="-28.5" id="ATY-zo-pNH"/>
                     <constraint firstItem="vK8-y6-Tqr" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="AmC-MS-ygu"/>
                     <constraint firstItem="NMN-ak-8wx" firstAttribute="centerX" secondItem="bwB-cb-VUx" secondAttribute="centerX" id="Kc6-nm-xW4"/>
                     <constraint firstItem="NMN-ak-8wx" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="56" id="N9z-oH-FFX"/>
+                    <constraint firstAttribute="bottom" secondItem="A3O-HQ-kax" secondAttribute="bottom" id="Z0f-TL-ntS"/>
+                    <constraint firstItem="A3O-HQ-kax" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="ceT-ID-kyJ"/>
                     <constraint firstAttribute="trailing" secondItem="vK8-y6-Tqr" secondAttribute="trailing" id="fQL-Od-uS2"/>
+                    <constraint firstAttribute="trailing" secondItem="A3O-HQ-kax" secondAttribute="trailing" id="ftV-jb-htx"/>
                     <constraint firstItem="NMN-ak-8wx" firstAttribute="centerX" secondItem="vK8-y6-Tqr" secondAttribute="centerX" id="pON-7f-WqK"/>
                     <constraint firstItem="vK8-y6-Tqr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="vgS-Mv-6fH"/>
                     <constraint firstAttribute="bottom" secondItem="vK8-y6-Tqr" secondAttribute="bottom" id="wrs-Ib-FaY"/>
@@ -55,7 +62,10 @@
                 <outlet property="expertUserCnt" destination="NMN-ak-8wx" id="wg9-WJ-Mcj"/>
                 <outlet property="zhName" destination="bwB-cb-VUx" id="H37-P1-8el"/>
             </connections>
-            <point key="canvasLocation" x="132" y="403"/>
+            <point key="canvasLocation" x="-34" y="286"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="master_layer.png" width="34" height="698"/>
+    </resources>
 </document>

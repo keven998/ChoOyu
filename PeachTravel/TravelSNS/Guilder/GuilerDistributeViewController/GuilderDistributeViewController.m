@@ -151,7 +151,14 @@
             i++;
         }
     }
-    NSLog(@"%@",self.dataSource);
+    
+    // 3.过滤数组为空的元素
+    for (int i = 0; i < self.dataSource.count; i++) {
+        NSArray * guilderArray = self.dataSource[i];
+        if (guilderArray.count == 0) {
+            [self.dataSource removeObject:guilderArray];
+        }
+    }
 }
 
 
@@ -262,7 +269,9 @@
 {
     GuiderCollectionViewController *guider = [[GuiderCollectionViewController alloc] initWithNibName:@"GuiderCollectionViewController" bundle:nil];
     GuilderDistribute * guilderDistribute = _dataSource[indexPath.section][indexPath.row];
-    guider.distributionArea = guilderDistribute.zhName;
+    
+    // 这里传入的distributionArea应该是该地区的区域ID
+    guider.distributionArea = guilderDistribute.ID;
     guider.guiderDistribute = guilderDistribute;
     [self.navigationController pushViewController:guider animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

@@ -12,8 +12,6 @@
 
 + (id)guiderWithTableView:(UITableView *)tableView;
 
-+ (id)guiderWithTableView:(UITableView *)tableView andSection:(NSInteger)section;
-
 @property (nonatomic, strong)GuilderDistribute * guiderDistribute;
 
 @end
