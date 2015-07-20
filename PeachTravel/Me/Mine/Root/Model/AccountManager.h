@@ -81,10 +81,9 @@
  *  修改用户足迹
  *
  *  @param action        add:添加   del:删除
- *  @param tracks        足迹 @[CityDestinationPoi]
+ *  @param tracks        足迹 @[poiid]
  */
-- (void)updataUserServerTracks:(NSString *)action withTrack:(CityDestinationPoi *)poi;
-
+- (void)asyncChangeUserServerTracks:(NSString *)action withTracks:(NSArray *)poiIdArray completion:(void (^)(BOOL, NSString *))completion;
 /**
  *  修改用户名字
  *

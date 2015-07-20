@@ -49,6 +49,7 @@
     [rbi setTitleTextAttributes:dTextAttrs forState:UIControlStateDisabled];
     self.navigationItem.rightBarButtonItem = rbi;
     
+    
     [self setupSelectPanel];
     [self beginSearch:nil];
 }
@@ -199,8 +200,12 @@
 //    frame.origin.y = CGRectGetHeight(self.view.bounds);
 //    [UIView animateWithDuration:0.3 animations:^{
 //        self.selectPanel.superview.frame = frame;
+    
 //    } completion:^(BOOL finished) {
+    if (!self.shouldOnlyChangeDestinationWhenClickNextStep) {
         self.navigationItem.rightBarButtonItem.enabled = NO;
+    }
+    
 //    }];
     
     UIView *view = [self.selectPanel.superview viewWithTag:1];

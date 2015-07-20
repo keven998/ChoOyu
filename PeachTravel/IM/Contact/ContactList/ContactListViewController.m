@@ -19,7 +19,6 @@
 #import "ChatSettingViewController.h"
 #import "OtherUserInfoViewController.h"
 #import "UIBarButtonItem+MJ.h"
-#import "CWBadgeView.h"
 #define contactCell      @"contactCell"
 #define requestCell      @"requestCell"
 

@@ -41,6 +41,9 @@ static NSString * const reuseIdentifier = @"albumImageCell";
         [editBtn setTitle:@"完成" forState:UIControlStateSelected];
         [editBtn addTarget:self action:@selector(edit:) forControlEvents:UIControlEventTouchUpInside];
         editBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+        [editBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [editBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+        [editBtn setTitleColor:COLOR_DISABLE forState:UIControlStateHighlighted];
         UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithCustomView:editBtn];
         self.navigationItem.rightBarButtonItem = right;
     }

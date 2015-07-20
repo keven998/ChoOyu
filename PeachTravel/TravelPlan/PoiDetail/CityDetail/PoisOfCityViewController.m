@@ -293,6 +293,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     
     //获取城市的美食.购物列表信息
     [manager GET:requsetUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@",responseObject);
         if (_hud) {
             [_hud hideTZHUD];
             _hud = nil;

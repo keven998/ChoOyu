@@ -60,9 +60,10 @@
 #define API_GET_SHOPPINGLIST_CITY               (BASE_URL @"poi/shopping")//城市的购物列表
 #define API_GET_SPOTLIST_CITY                   (BASE_URL @"poi/viewspots") //城市的景点列表
 #define API_GET_HOTELLIST_CITY                  (BASE_URL @"poi/hotel") //城市的酒店列表
-#define API_GET_TOUR_GULIDER                    (BASE_URL @"geo/countrys") //旅游指南
+#define API_GET_TOUR_GULIDER                    (BASE_URL @"geo/countries") //旅游指南
 
 #define API_GET_GUIDE_CITY                      (BASE_URL @"guides/locality/")    //城市的美食购物攻略介绍
+#define API_GET_EXPERT_DETAIL                   (BASE_URL @"geo/countries/")   //达人列表
 
 #define API_UPDATE_GUIDE_PROPERTY               (BASE_URL @"guides")    //修改攻略属性
 #define API_SAVE_TRIP                           (BASE_URL @"guides")    //保存攻略

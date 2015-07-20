@@ -1061,8 +1061,9 @@
 		E66E6CD01B5A0F3000CBF65F /* ArtboardCheck@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E66E6CCD1B5A0F3000CBF65F /* ArtboardCheck@3x.png */; };
 		E66E6CD11B5A0F3000CBF65F /* ArtboardTop@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E66E6CCE1B5A0F3000CBF65F /* ArtboardTop@3x.png */; };
 		E66E6CD41B5A16A100CBF65F /* HWDropdownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = E66E6CD31B5A16A100CBF65F /* HWDropdownMenu.m */; };
-		E66E6CD91B5A268F00CBF65F /* CWBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = E66E6CD81B5A268F00CBF65F /* CWBadgeView.m */; };
 		E66E6CDC1B5A26BF00CBF65F /* UIImage+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = E66E6CDB1B5A26BF00CBF65F /* UIImage+Extension.m */; };
+		E676B8D41B5CD20C0042B539 /* GuilderDistributeContinent.m in Sources */ = {isa = PBXBuildFile; fileRef = E676B8D31B5CD20C0042B539 /* GuilderDistributeContinent.m */; };
+		E676B8D61B5D01040042B539 /* master_layer.png in Resources */ = {isa = PBXBuildFile; fileRef = E676B8D51B5D01040042B539 /* master_layer.png */; };
 		E6E118F61B59EE280090FDEF /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E118F41B59EE280090FDEF /* UIView+Extension.m */; };
 		E6E362BD1B5755F300730C1B /* collection.png in Resources */ = {isa = PBXBuildFile; fileRef = E6E362BC1B5755F300730C1B /* collection.png */; };
 		E6E7251E1B5603750007273A /* MJArgument.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E7250C1B5603750007273A /* MJArgument.m */; };
@@ -2545,10 +2546,11 @@
 		E66E6CCE1B5A0F3000CBF65F /* ArtboardTop@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ArtboardTop@3x.png"; sourceTree = "<group>"; };
 		E66E6CD21B5A16A100CBF65F /* HWDropdownMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HWDropdownMenu.h; sourceTree = "<group>"; };
 		E66E6CD31B5A16A100CBF65F /* HWDropdownMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HWDropdownMenu.m; sourceTree = "<group>"; };
-		E66E6CD71B5A268F00CBF65F /* CWBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWBadgeView.h; sourceTree = "<group>"; };
-		E66E6CD81B5A268F00CBF65F /* CWBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWBadgeView.m; sourceTree = "<group>"; };
 		E66E6CDA1B5A26BF00CBF65F /* UIImage+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Extension.h"; sourceTree = "<group>"; };
 		E66E6CDB1B5A26BF00CBF65F /* UIImage+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extension.m"; sourceTree = "<group>"; };
+		E676B8D21B5CD20C0042B539 /* GuilderDistributeContinent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuilderDistributeContinent.h; sourceTree = "<group>"; };
+		E676B8D31B5CD20C0042B539 /* GuilderDistributeContinent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuilderDistributeContinent.m; sourceTree = "<group>"; };
+		E676B8D51B5D01040042B539 /* master_layer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = master_layer.png; sourceTree = "<group>"; };
 		E6E118F31B59EE280090FDEF /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
 		E6E118F41B59EE280090FDEF /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
 		E6E362BC1B5755F300730C1B /* collection.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = collection.png; sourceTree = "<group>"; };
@@ -6006,6 +6008,7 @@
 		D9EDC2551B4E1E9F00599C4B /* 达人 */ = {
 			isa = PBXGroup;
 			children = (
+				E676B8D51B5D01040042B539 /* master_layer.png */,
 				D9EDC2561B4E1ED500599C4B /* master_address@3x.png */,
 				D91850E81B57947C004B8363 /* master_girl@3x.png */,
 				D9EDC2571B4E1ED500599C4B /* master_boy@3x.png */,
@@ -6158,8 +6161,6 @@
 		E66E6CD61B5A268000CBF65F /* Category */ = {
 			isa = PBXGroup;
 			children = (
-				E66E6CD71B5A268F00CBF65F /* CWBadgeView.h */,
-				E66E6CD81B5A268F00CBF65F /* CWBadgeView.m */,
 				E66E6CDA1B5A26BF00CBF65F /* UIImage+Extension.h */,
 				E66E6CDB1B5A26BF00CBF65F /* UIImage+Extension.m */,
 			);
@@ -6305,6 +6306,8 @@
 			children = (
 				E6E725671B5604A90007273A /* GuilderDistribute.h */,
 				E6E725681B5604A90007273A /* GuilderDistribute.m */,
+				E676B8D21B5CD20C0042B539 /* GuilderDistributeContinent.h */,
+				E676B8D31B5CD20C0042B539 /* GuilderDistributeContinent.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -6605,6 +6608,7 @@
 				E6E725561B5603D30007273A /* UMSCommentInputController.xib in Resources */,
 				D90A9B2B1B5627C400E9F37C /* Loading_Animation_final0@3x.png in Resources */,
 				E66E6CD11B5A0F3000CBF65F /* ArtboardTop@3x.png in Resources */,
+				E676B8D61B5D01040042B539 /* master_layer.png in Resources */,
 				D9A8006E1A80DD0C005AD701 /* FrendRequestTableViewCell.xib in Resources */,
 				D90A9B491B5627C400E9F37C /* Loading_Animation_final30@3x.png in Resources */,
 				C6631D111B300D6400BE4ADC /* lxp_search_bg_highlight@3x.png in Resources */,
@@ -7147,7 +7151,6 @@
 				C6D26C0F1B2C1CB80019AFA8 /* ScheduleEditorViewController.m in Sources */,
 				D9A802B71A80E3D3005AD701 /* UIResponder+Router.m in Sources */,
 				D992C9601B50FD0C000C7E2D /* TripFavoriteTableViewController.m in Sources */,
-				E66E6CD91B5A268F00CBF65F /* CWBadgeView.m in Sources */,
 				D9A8021F1A80E036005AD701 /* MJPhotoLoadingView.m in Sources */,
 				D92CA0FE1AD8BDF900F244FF /* PSTCollectionView.m in Sources */,
 				D9A8FFCF1A80D216005AD701 /* RecommendDataSource.m in Sources */,
@@ -7389,6 +7392,7 @@
 				D9A800201A80D52F005AD701 /* TaoziCollectionLayout.m in Sources */,
 				C65DB7C01AD4E44800F51443 /* TravelersTableViewController.m in Sources */,
 				E6E118F61B59EE280090FDEF /* UIView+Extension.m in Sources */,
+				E676B8D41B5CD20C0042B539 /* GuilderDistributeContinent.m in Sources */,
 				D9A800351A80D52F005AD701 /* TripDetail.m in Sources */,
 				D9A8FFBA1A80D1C3005AD701 /* TravelNote.m in Sources */,
 				D92CA1041AD8BDF900F244FF /* PSTCollectionViewLayout.m in Sources */,

@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+@class GuilderDistributeContinent;
 
 @interface GuilderDistribute : NSObject
 
@@ -18,10 +19,10 @@
 
 @property (nonatomic, copy)NSString * code;
 
-@property (nonatomic, copy)NSString * desc;
+//@property (nonatomic, copy)NSString * desc;
 
 @property (nonatomic, strong)NSNumber * expertUserCnt;
 
-@property (nonatomic, copy)NSString * continent;
+@property (nonatomic, strong)GuilderDistributeContinent * continents;
 
 @end

@@ -266,7 +266,8 @@ static NSString *cacheName = @"destination_demostic_group";
     if (!find) {
         cell.status.image = nil;
     }
-    cell.tiltleLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+    cell.tiltleLabel.textColor = [UIColor whiteColor];
+    cell.tiltleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
     TaoziImage *image = city.images.firstObject;
     
     [cell.backGroundImage sd_setImageWithURL:[NSURL URLWithString:image.imageUrl]];

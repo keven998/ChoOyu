@@ -8,11 +8,18 @@
 
 #import "GuilderDistribute.h"
 #import "MJExtension.h"
+#import "GuilderDistributeContinent.h"
 @implementation GuilderDistribute
 
 - (NSDictionary *)replacedKeyFromPropertyName
 {
     return @{@"ID":@"id"};
+}
+
+// 将数组中得字典转换成模型
+- (NSDictionary *)objectClassInArray
+{
+    return @{@"continents":[GuilderDistributeContinent class]};
 }
 
 @end

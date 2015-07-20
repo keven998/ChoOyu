@@ -125,7 +125,10 @@
         _travelStatus = [json objectForKey:@"travelStatus"];
     }
     
-    _footprintsDesc = @"0国家0城市";
+    int countryCount = [[json objectForKey:@"countryCnt"] intValue];
+    int cityCount = [[json objectForKey:@"trackCnt"] intValue];
+    
+    _footprintsDesc = [NSString stringWithFormat:@"%d国%d城市", countryCount, cityCount];
     
     NSString *genderStr = [json objectForKey:@"gender"];
     if ([genderStr isEqualToString:@"F"]) {
@@ -161,7 +164,7 @@
             [countriesArray addObject:poi.country.coutryId];
         }
     }
-    return [NSString stringWithFormat:@"%ld个国家，%ld个城市", countriesArray.count, _footprints.count];
+    return [NSString stringWithFormat:@"%ld国，%ld城市", countriesArray.count, _footprints.count];
 }
 
 - (void)loadUserInfoFromServer:(void (^)(bool isSuccess))completion
@@ -193,3 +196,4 @@
 }
 
 @end
+

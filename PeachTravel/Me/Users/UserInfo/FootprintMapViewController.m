@@ -25,7 +25,6 @@
     [super viewDidLoad];
     _mapView.showsBuildings = YES;
     _mapView.delegate = self;
-    [self showMapPin];
 }
 
 - (void)setDataSource:(NSArray *)dataSource
@@ -39,9 +38,7 @@
         item.title = poi.zhName;
         [array addObject:item];
     }
-    _annotationsArray = array;
-    
-    [self showMapPin];
+    [self showMapPinWithAnnotations:array];
 }
 
 - (void)selectPointAtIndex:(NSInteger)index
@@ -50,9 +47,11 @@
     
 }
 
-- (void)showMapPin
+- (void)showMapPinWithAnnotations:(NSArray *)annotations
 {
     [_mapView removeAnnotations:_annotationsArray];
+    
+    _annotationsArray = annotations;
     NSInteger count = _annotationsArray.count;
     for (int i = 0; i < count; i++) {
         MKPointAnnotation *item = [_annotationsArray objectAtIndex:i];
