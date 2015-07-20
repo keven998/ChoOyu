@@ -45,9 +45,7 @@
     } else {
         rankStr = @"N";
     }
-    
-//    [_propertyBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-//    [_propertyBtn setTitle:rankStr forState:UIControlStateNormal];
+
     _imageTitle.text = rankStr;
     [_imageTitle setTextColor:APP_THEME_COLOR];
     
@@ -56,7 +54,6 @@
             
         } else {
             NSString *timeStr = [NSString stringWithFormat:@"建议游玩%@", ((SpotPoi *)tripPoi).timeCostStr];
-//            property = [NSString stringWithFormat:@"%@  %@", rankStr, timeStr];
             property = timeStr;
         }
     } else {
