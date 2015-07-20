@@ -30,6 +30,7 @@
 @property (nonatomic, strong) UISegmentedControl *segmentControl;
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) ItemFooterCollectionViewController *itemFooterCtl;
+@property (nonatomic, strong) Destinations *destinations;
 
 @end
 
@@ -76,9 +77,52 @@
     self.navigationItem.rightBarButtonItem = item;
 }
 
-#pragma mark - 实现选择目的地的代理方法
-- (void)updateDestinations:(NSArray *)destinations
+- (Destinations *)destinations
 {
+    if (!_destinations) {
+        _destinations = [[Destinations alloc] init];
+    }
+    return _destinations;
+}
+
+/**
+ *  获取用户足迹接口
+ */
+- (void)loadFootprintData
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", self.userId] forHTTPHeaderField:@"UserId"];
+    NSString *url = [NSString stringWithFormat:@"%@%ld/footprints", API_USERS, _userId];
+    
+    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            NSMutableArray *array = [[NSMutableArray alloc] init];
+            for (NSDictionary *footprintDic in [responseObject objectForKey:@"result"]) {
+                CityDestinationPoi *poi = [[CityDestinationPoi alloc] initWithJson:footprintDic];
+                [array addObject:poi];
+            }
+            _destinations.destinationsSelected = array;
+            
+        } else {
+            
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    }];
+
+}
+
+#pragma mark - 实现选择目的地的代理方法
+
+- (void)updateDestinations:(NSArray *)destinations{
     NSLog(@"%s",__func__);
     _itemFooterCtl.dataSource = destinations;
     _footprintMapCtl.dataSource = destinations;

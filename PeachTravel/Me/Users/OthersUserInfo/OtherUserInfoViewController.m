@@ -23,6 +23,7 @@
 #import "MWPhotoBrowser.h"
 #import "UserAlbumViewController.h"
 #import "BaseTextSettingViewController.h"
+#import "FootPrintViewController.h"
 
 @interface OtherUserInfoViewController ()<UIActionSheetDelegate>
 {
@@ -747,15 +748,9 @@
 #pragma mark - buttonMethod
 - (void)visitTracks
 {
-    TraceViewController *ctl = [[TraceViewController alloc] init];
-    NSMutableArray *tracks = [[NSMutableArray alloc] init];
-    for (AreaDestination *area in _userInfo.tracks) {
-        for (CityDestinationPoi *poi in area.cities) {
-            [tracks addObject:poi];
-        }
-    }
-    ctl.citys = tracks;
-    [self.navigationController pushViewController:ctl animated:YES];
+    FootPrintViewController *footPrintCtl = [[FootPrintViewController alloc] init];
+    footPrintCtl.userId = _userId;
+    [self.navigationController pushViewController:footPrintCtl animated:YES];
     
 }
 - (void)seeOthersPlan

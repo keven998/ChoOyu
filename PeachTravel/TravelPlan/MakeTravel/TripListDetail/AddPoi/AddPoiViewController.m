@@ -25,7 +25,7 @@ enum {
     FILTER_TYPE_CATE
 };
 
-@interface AddPoiViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate, UIActionSheetDelegate, SelectDelegate,didSelectedDelegate,updateSelectedPlanDelegate,dropDownMenuProtocol,HWDropdownMenuDelegate>
+@interface AddPoiViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate, UIActionSheetDelegate, SelectDelegate,updateSelectedPlanDelegate,dropDownMenuProtocol,HWDropdownMenuDelegate>
 
 @property (nonatomic) NSUInteger currentListTypeIndex;
 @property (nonatomic) NSUInteger currentCityIndex;
@@ -325,19 +325,6 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     }
     cell.actionBtn.selected = !cell.actionBtn.selected;
     
-}
-
-- (void) categoryFilt {
-    NSMutableArray *array = [[NSMutableArray alloc] init];
-    for (CityDestinationPoi *poi in _tripDetail.destinations) {
-        [array addObject:poi.zhName];
-    }
-    FilterViewController *fvc = [[FilterViewController alloc] init];
-    fvc.delegate = self;
-    fvc.selectedCategoryIndex = [NSIndexPath indexPathForRow:_currentListTypeIndex inSection:0] ;
-    fvc.selectedCityIndex = [NSIndexPath indexPathForRow:_currentCityIndex inSection:1];
-    fvc.contentItems = [NSArray arrayWithArray:array];
-    [self presentViewController:[[TZNavigationViewController alloc] initWithRootViewController:fvc] animated:YES completion:nil];
 }
 
 - (void) changeCity {

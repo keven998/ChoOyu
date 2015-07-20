@@ -161,12 +161,6 @@
  */
 - (BOOL)frendIsMyContact:(NSInteger)userId;
 
-/**
- *  将好友加入到数据库当中
- *
- *  @param userInfo
- */
-- (void)addContact:(id)userInfo;
 
 /**
  *  从服务器上加载好友列表
@@ -179,13 +173,6 @@
  *  @return
  */
 - (NSDictionary *)contactsByPinyin;
-
-/**
- *  解析好友申请
- *
- *  @param frendRequestDic
- */
-- (void)analysisAndSaveFrendRequest:(NSDictionary *)frendRequestDic;
 
 /**
  *  删除好友
