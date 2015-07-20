@@ -90,7 +90,7 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     // 2.请求链接
-    NSString * url = @"http://api-dev.lvxingpai.com/app/geo/countrys";
+    NSString * url = API_GET_TOUR_GULIDER;
     
     // 新列表链接
 //    NSString * url = @"http://api-dev.lvxingpai.com/app/geo/countries";
