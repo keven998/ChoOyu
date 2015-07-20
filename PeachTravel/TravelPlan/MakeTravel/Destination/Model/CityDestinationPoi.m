@@ -27,7 +27,9 @@
             [imagesArray addObject:image];
         }
         _images = imagesArray;
-        _country = [[CountryModel alloc] initWithJson:[json objectForKey:@"country"]];
+        if ([json objectForKey:@"country"] != [NSNull null]) {
+            _country = [[CountryModel alloc] initWithJson:[json objectForKey:@"country"]];
+        }
     }
     return self;
 }
@@ -41,6 +43,7 @@
 - (id)initWithJson:(id)json
 {
     if (self = [super init]) {
+#warning 这里id为空,会造成崩溃
         _coutryId = [json objectForKey:@"id"];
         _zhName = [json objectForKey:@"zhName"];
         _enName = [json objectForKey:@"enName"];
