@@ -21,9 +21,9 @@
                         <rect key="frame" x="18" y="20" width="284" height="96"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AxZ-ld-PWP">
-                                <rect key="frame" x="70" y="7" width="212" height="18"/>
+                                <rect key="frame" x="60" y="7" width="222" height="18"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="18" id="Uem-78-WvA"/>
+                                    <constraint firstAttribute="height" constant="18" id="Drl-P3-66D"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" red="0.47450980392156861" green="0.47450980392156861" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -62,9 +62,9 @@
                                 </variation>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZSi-BI-IQI">
-                                <rect key="frame" x="65" y="30" width="217" height="14"/>
+                                <rect key="frame" x="60" y="30" width="222" height="14"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="14" id="gqU-OJ-1tF"/>
+                                    <constraint firstAttribute="height" constant="14" id="QgY-eZ-fwV"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -79,26 +79,14 @@
                             <constraint firstAttribute="bottom" secondItem="XAJ-wE-WPv" secondAttribute="bottom" constant="8" id="ERJ-y8-gB6">
                                 <variation key="widthClass=compact" constant="6"/>
                             </constraint>
-                            <constraint firstAttribute="trailing" secondItem="AxZ-ld-PWP" secondAttribute="trailing" constant="2" id="L7l-Nd-Zza">
-                                <variation key="widthClass=compact" constant="16"/>
-                            </constraint>
-                            <constraint firstAttribute="trailing" secondItem="ZSi-BI-IQI" secondAttribute="trailing" constant="2" id="Mhr-qz-jMQ">
-                                <variation key="widthClass=compact" constant="16"/>
-                            </constraint>
-                            <constraint firstItem="ZSi-BI-IQI" firstAttribute="top" secondItem="AxZ-ld-PWP" secondAttribute="bottom" constant="5" id="OPk-Tm-EJc">
-                                <variation key="widthClass=compact" constant="6"/>
-                            </constraint>
+                            <constraint firstItem="AxZ-ld-PWP" firstAttribute="leading" secondItem="bWf-Al-nkD" secondAttribute="leading" constant="60" id="Mee-u0-Zsp"/>
+                            <constraint firstAttribute="trailing" secondItem="ZSi-BI-IQI" secondAttribute="trailing" constant="2" id="PuG-x0-j9C"/>
+                            <constraint firstItem="ZSi-BI-IQI" firstAttribute="top" secondItem="AxZ-ld-PWP" secondAttribute="bottom" constant="5" id="R1H-A9-8hc"/>
                             <constraint firstItem="XAJ-wE-WPv" firstAttribute="leading" secondItem="bWf-Al-nkD" secondAttribute="leading" constant="12" id="RMd-jb-wjr"/>
                             <constraint firstItem="XAJ-wE-WPv" firstAttribute="leading" secondItem="bWf-Al-nkD" secondAttribute="leading" constant="12" id="S7c-gc-weR"/>
-                            <constraint firstItem="AxZ-ld-PWP" firstAttribute="top" secondItem="bWf-Al-nkD" secondAttribute="top" constant="7" id="Yxh-AV-NMj">
-                                <variation key="widthClass=compact" constant="18"/>
-                            </constraint>
-                            <constraint firstItem="AxZ-ld-PWP" firstAttribute="leading" secondItem="bWf-Al-nkD" secondAttribute="leading" constant="70" id="kKf-4n-ZaS">
-                                <variation key="widthClass=compact" constant="48"/>
-                            </constraint>
-                            <constraint firstItem="ZSi-BI-IQI" firstAttribute="leading" secondItem="bWf-Al-nkD" secondAttribute="leading" constant="65" id="oPb-eS-tij">
-                                <variation key="widthClass=compact" constant="48"/>
-                            </constraint>
+                            <constraint firstItem="ZSi-BI-IQI" firstAttribute="leading" secondItem="bWf-Al-nkD" secondAttribute="leading" constant="60" id="TBh-Rr-BG5"/>
+                            <constraint firstItem="AxZ-ld-PWP" firstAttribute="top" secondItem="bWf-Al-nkD" secondAttribute="top" constant="7" id="V3i-Ek-1AV"/>
+                            <constraint firstAttribute="trailing" secondItem="AxZ-ld-PWP" secondAttribute="trailing" constant="2" id="g3E-rm-ubL"/>
                             <constraint firstAttribute="trailing" secondItem="XAJ-wE-WPv" secondAttribute="trailing" constant="12" id="w8B-PO-sdm"/>
                         </constraints>
                         <variation key="default">

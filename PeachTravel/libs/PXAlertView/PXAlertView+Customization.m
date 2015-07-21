@@ -38,6 +38,19 @@ void * const kAllBGKey = (void * const) &kAllBGKey;
     [self setBackgroundColor:[UIColor whiteColor]];
 }
 
+- (void)useCustomStyle
+{
+    [self setTapToDismissEnabled:YES];
+    UIColor *customColor = TEXT_COLOR_TITLE;
+    [self setAllButtonsTextColor:customColor];
+    [self setTitleColor:[UIColor blackColor]];
+    [self setMessageColor:[UIColor blackColor]];
+    UIColor *defaultBackgroundColor = [UIColor colorWithRed:217/255.0 green:217/255.0 blue:217/255.0 alpha:1.0];
+    [self setAllButtonsBackgroundColor:defaultBackgroundColor];
+    [self setBackgroundColor:[UIColor whiteColor]];
+
+}
+
 - (void)setWindowTintColor:(UIColor *)color
 {
     self.backgroundView.backgroundColor = color;

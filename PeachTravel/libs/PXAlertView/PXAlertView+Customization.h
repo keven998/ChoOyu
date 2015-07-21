@@ -34,4 +34,6 @@
 
 - (void)useDefaultIOS7Style;
 
+- (void)useCustomStyle;
+
 @end

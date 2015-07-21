@@ -1,5 +1,5 @@
 //
-//  DomesticDestinationCell.m
+//  DomesticCell.h
 //  PeachTravel
 //
 //  Created by liangpengshuai on 14/10/9.

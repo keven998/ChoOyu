@@ -10,7 +10,6 @@
 #import "TaoziCollectionLayout.h"
 #import "DestinationCollectionHeaderView.h"
 #import "Destinations.h"
-#import "DomesticDestinationCell.h"
 #import "DomesticCell.h"
 #import "MakePlanViewController.h"
 #import "TMCache.h"
@@ -31,9 +30,6 @@ static NSString *cacheName = @"destination_demostic_group";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)_domesticCollectionView.collectionViewLayout;
-//    layout
-//    [_domesticCollectionView registerNib:[UINib nibWithNibName:@"DomesticDestinationCell" bundle:nil] forCellWithReuseIdentifier:reusableIdentifier];
     [_domesticCollectionView registerNib:[UINib nibWithNibName:@"DomesticCell" bundle:nil] forCellWithReuseIdentifier:@"domesticCell"];
     [_domesticCollectionView registerNib:[UINib nibWithNibName:@"DestinationCollectionHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:reusableHeaderIdentifier];
     _domesticCollectionView.dataSource = self;
@@ -43,6 +39,7 @@ static NSString *cacheName = @"destination_demostic_group";
     _domesticCollectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _domesticCollectionView.backgroundColor = APP_PAGE_COLOR;
     
+    self.view.backgroundColor = [UIColor whiteColor];
     
     if (_destinations.destinationsSelected.count == 0) {
         [self.makePlanCtl hideDestinationBar];
@@ -179,34 +176,7 @@ static NSString *cacheName = @"destination_demostic_group";
     }
 }
 
-#pragma mark -  TaoziLayoutDelegate
-/*
-- (NSInteger)tzcollectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
-    AreaDestination *area = [self.destinations.domesticCities objectAtIndex:section];
-    return [area.cities count];
-}
-
-- (CGFloat)tzcollectionLayoutWidth
-{
-    return self.domesticCollectionView.frame.size.width;
-}
-
-- (NSInteger)numberOfSectionsInTZCollectionView:(UICollectionView *)collectionView
-{
-    return self.destinations.domesticCities.count;
-}
-
-- (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    return CGSizeMake(SCREEN_WIDTH/4, SCREEN_WIDTH/4); //left-right margin + status image size
-}
-
-- (CGSize)collectionview:(UICollectionView *)collectionView sizeForHeaderView:(NSIndexPath *)indexPath
-{
-    return CGSizeMake(self.domesticCollectionView.frame.size.width, 38);
-}
-*/
+#pragma mark - UICollectionView的代理方法
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath;
 {
     return CGSizeMake(SCREEN_WIDTH/3, SCREEN_WIDTH/3);
@@ -243,6 +213,8 @@ static NSString *cacheName = @"destination_demostic_group";
 {
     if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
         DestinationCollectionHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:reusableHeaderIdentifier forIndexPath:indexPath];
+        headerView.backgroundColor = APP_PAGE_COLOR;
+        headerView.titleLabel.backgroundColor = APP_PAGE_COLOR;
         AreaDestination *area = [self.destinations.domesticCities objectAtIndex:indexPath.section];
         headerView.titleLabel.text = area.zhName;
         return headerView;

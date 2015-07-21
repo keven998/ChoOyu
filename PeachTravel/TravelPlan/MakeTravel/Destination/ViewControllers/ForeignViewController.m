@@ -8,7 +8,6 @@
 
 #import "ForeignViewController.h"
 #import "TaoziCollectionLayout.h"
-#import "DomesticDestinationCell.h"
 #import "DestinationCollectionHeaderView.h"
 #import "AreaDestination.h"
 #import "CityDestinationPoi.h"
@@ -36,19 +35,9 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
     layout.itemSize = CGSizeMake(SCREEN_WIDTH/3, SCREEN_WIDTH/3);
     layout.minimumInteritemSpacing = 0;
     layout.minimumLineSpacing = 0;
-//    [self.foreignCollectionView setContentInset:UIEdgeInsetsMake(-5, 0, 35, 0)];
-//    _domesticCollectionView.contentInset = UIEdgeInsetsMake(-5, 0, 35, 0);
-//    _domesticCollectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [self.foreignCollectionView setContentInset:UIEdgeInsetsMake(-5, 0, 100, 0)];
     self.foreignCollectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.foreignCollectionView setShowsVerticalScrollIndicator:NO];
-//    
-//    TaoziCollectionLayout *layout = (TaoziCollectionLayout *)_foreignCollectionView.collectionViewLayout;
-//    layout.delegate = self;
-//    layout.showDecorationView = YES;
-//    layout.margin = 0;
-//    layout.spacePerItem = 0;
-//    layout.spacePerLine = 0;
-    
     _foreignCollectionView.dataSource = self;
     _foreignCollectionView.delegate = self;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateDestinationsSelected:) name:updateDestinationsSelectedNoti object:nil];
@@ -287,6 +276,11 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
     }
     
     [self.foreignCollectionView reloadItemsAtIndexPaths:@[indexPath]];
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section;
+{
+    return CGSizeMake(self.foreignCollectionView.frame.size.width, 38);
 }
 
 @end

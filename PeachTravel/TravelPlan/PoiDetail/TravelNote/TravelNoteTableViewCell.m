@@ -29,9 +29,8 @@
     _sendBtn.layer.cornerRadius = 4.0;
     _travelNoteImageView.layer.cornerRadius = 23.5;
     _travelNoteImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
-    /**
-     *  发送按钮默认隐藏，是否显示需要设置 canSelecte
-     */
+    
+    //发送按钮默认隐藏，是否显示需要设置 canSelecte
     _sendBtn.hidden = NO;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     _titleLabel.font = [UIFont systemFontOfSize:16];

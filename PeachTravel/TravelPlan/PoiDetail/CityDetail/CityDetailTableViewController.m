@@ -429,8 +429,9 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 {
     CityDescDetailViewController *cddVC = [[CityDescDetailViewController alloc]init];
     
+    CityPoi * poi = (CityPoi *)self.poi;
     NSLog(@"%@",self.poi.desc);
-    cddVC.des = self.poi.desc;
+    cddVC.des = poi.travelMonth;
     cddVC.title = @"最佳季节";
     [self.navigationController pushViewController:cddVC animated:YES];
 }

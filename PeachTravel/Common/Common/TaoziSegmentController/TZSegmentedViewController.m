@@ -31,6 +31,13 @@
     }
     
     // 设置segment的样式并添加到控制器中
+    UIImageView * bgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 48)];
+    // 设置图片填充格式
+    bgView.contentMode = UIViewContentModeScaleAspectFill;
+    bgView.clipsToBounds = YES;
+    bgView.userInteractionEnabled = YES;
+    bgView.image = [UIImage imageNamed:@"Artboard_Top_Bg"];
+    [self.view addSubview:bgView];
     UISegmentedControl *segControl = [[UISegmentedControl alloc] initWithItems:_segmentedTitles];
     segControl.tintColor = [UIColor colorWithRed:148 / 256.0 green:201 / 256.0 blue:98 / 256.0 alpha:1.0];
     CGFloat screenW = [UIScreen mainScreen].bounds.size.width;
@@ -38,8 +45,8 @@
     segControl.frame = CGRectMake(segControlX, 10, 136, 28);
     segControl.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     segControl.selectedSegmentIndex = 0;
-    [self.view addSubview:segControl];
-    self.view.backgroundColor = APP_PAGE_COLOR;
+    [bgView addSubview:segControl];
+    self.view.backgroundColor = [UIColor whiteColor];
     [segControl addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
     _segmentControl = segControl;
     

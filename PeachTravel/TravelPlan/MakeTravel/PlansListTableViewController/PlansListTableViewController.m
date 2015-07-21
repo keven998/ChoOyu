@@ -73,7 +73,7 @@ static NSString *reusableCell = @"myGuidesCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = APP_PAGE_COLOR;
+    self.view.backgroundColor = [UIColor whiteColor];
     if (!_isOwner) {
         self.navigationItem.title = [NSString stringWithFormat:@"%@的计划", _userName];
     } else {
@@ -221,7 +221,8 @@ static NSString *reusableCell = @"myGuidesCell";
     makePlanCtl.animationOptions = UIViewAnimationOptionTransitionNone;
     makePlanCtl.duration = 0;
     makePlanCtl.segmentedTitles = @[@"国内", @"国外"];
-    makePlanCtl.navBarTitle = @"199国21城";
+    makePlanCtl.navBarTitle = @"选择目的地";
+    
     makePlanCtl.selectedColor = APP_THEME_COLOR;
     makePlanCtl.segmentedTitleFont = [UIFont systemFontOfSize:18.0];
     makePlanCtl.normalColor= [UIColor grayColor];

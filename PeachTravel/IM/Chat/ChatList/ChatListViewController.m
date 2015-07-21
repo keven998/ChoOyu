@@ -180,6 +180,7 @@
 
 - (IBAction)addAction:(UIButton *)sender
 {
+    /*
     PXAlertView *alertView = [PXAlertView showAlertWithTitle:nil
                                                      message:nil
                                                  cancelTitle:@"取消"
@@ -194,9 +195,9 @@
                                                       }
                                                   }];
      
-    
-    [alertView setTitleFont:[UIFont systemFontOfSize:16]];
-    [alertView useDefaultIOS7Style];
+    */
+//    [alertView setTitleFont:[UIFont systemFontOfSize:16]];
+//    [alertView useCustomStyle];
 }
 
 - (UITableView *)tableView

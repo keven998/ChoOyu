@@ -16,7 +16,7 @@
 #import "PXAlertView+Customization.h"
 #import "REFrostedViewController.h"
 #import "TripPlanSettingViewController.h"
-#import "DomesticDestinationCell.h"
+#import "DestinationCollectionViewCell.h"
 #import "AreaDestination.h"
 
 @interface MakePlanViewController () <UISearchBarDelegate, UISearchControllerDelegate, UISearchDisplayDelegate, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
@@ -88,11 +88,11 @@
 
 - (void) setupSelectPanel {
     UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-49, self.view.frame.size.width, 49)];
-//    toolBar.backgroundColor = APP_PAGE_COLOR;
     toolBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     [self.view addSubview:toolBar];
     
     UICollectionViewFlowLayout *aFlowLayout = [[UICollectionViewFlowLayout alloc] init];
+    aFlowLayout.minimumInteritemSpacing = 10;
     [aFlowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
     self.selectPanel = [[UICollectionView alloc] initWithFrame:toolBar.bounds collectionViewLayout:aFlowLayout];
     [self.selectPanel setBackgroundColor:APP_PAGE_COLOR];
@@ -102,7 +102,7 @@
     self.selectPanel.dataSource = self;
     self.selectPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     self.selectPanel.contentInset = UIEdgeInsetsMake(0, 15, 0, 15);
-    [self.selectPanel registerNib:[UINib nibWithNibName:@"DomesticDestinationCell" bundle:nil] forCellWithReuseIdentifier:@"cell"];
+    [self.selectPanel registerNib:[UINib nibWithNibName:@"DestinationCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"cell"];
     [toolBar addSubview:_selectPanel];
     
     UILabel *hintText = [[UILabel alloc] initWithFrame:toolBar.bounds];
@@ -400,12 +400,12 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    DomesticDestinationCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
-    cell.tiltleLabel.textColor = [UIColor whiteColor];
-    cell.status.image = [UIImage imageNamed:@"ic_cell_item_chooesed.png"];
-    cell.backgroundColor = APP_THEME_COLOR;
+    DestinationCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+    cell.titleLabel.textColor = COLOR_TEXT_I;
+//    cell.status.image = [UIImage imageNamed:@"ic_cell_item_chooesed.png"];
+//    cell.backgroundColor = APP_THEME_COLOR;
     CityDestinationPoi *city = [self.destinations.destinationsSelected objectAtIndex:indexPath.row];
-    cell.tiltleLabel.text = city.zhName;
+    cell.titleLabel.text = city.zhName;
     return cell;
 }
 
@@ -428,7 +428,7 @@
 {
     CityDestinationPoi *city = [self.destinations.destinationsSelected objectAtIndex:indexPath.row];
     CGSize size = [city.zhName sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:15.0]}];
-    return CGSizeMake(size.width + 25 + 28, 28);
+    return CGSizeMake(size.width+20, 28);
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
