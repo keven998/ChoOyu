@@ -231,15 +231,7 @@
     for (int i = 0; i < countryNumber; ++i) {
         NSArray *citys = [country objectForKey:[keys objectAtIndex:i]];
         cityNumber += citys.count;
-        
-        //        for (id city in citys) {
-        //            CityDestinationPoi *poi = [[CityDestinationPoi alloc] initWithJson:city];
-        //            if (cityDesc == nil) {
-        //                cityDesc = [[NSMutableString alloc] initWithString:poi.zhName];
-        //            } else {
-        //                [cityDesc appendFormat:@" %@", poi.zhName];
-        //            }
-        //        }
+
     }
     _tracksDesc = [NSString stringWithFormat:@"%ld国 %ld个城市", (long)countryNumber, (long)cityNumber];
 }

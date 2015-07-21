@@ -670,6 +670,7 @@ static NSString *reusableCell = @"myGuidesCell";
 }
 
 #pragma mark - HTTP REQUEST
+
 - (void) mark:(MyGuideSummary *)guideSummary as:(NSString *)status  {
     AccountManager *accountManager = [AccountManager shareAccountManager];
     

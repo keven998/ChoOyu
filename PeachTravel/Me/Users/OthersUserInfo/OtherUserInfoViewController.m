@@ -309,15 +309,7 @@
         _recidence.text = _userInfo.residence;
     }
     
-    NSInteger cityNumber = 0;
-    NSMutableString *cityDesc = [[NSMutableString alloc] init];
-    for (AreaDestination *area in _userInfo.tracks) {
-        for (CityDestinationPoi *poi in area.cities) {
-            [cityDesc appendString:[NSString stringWithFormat:@"%@ ", poi.zhName]];
-            cityNumber++;
-        }
-    }
-    _trackLabel.text = [NSString stringWithFormat:@"%ld国 %ld城", (long)_userInfo.tracks.count, (long)cityNumber];
+    _trackLabel.text = _userInfo.footprintDescription;
     NSString *guideCtn = [NSString stringWithFormat:@"%zd条",_userInfo.guideCount];
     _planeLabel.text = guideCtn;
     
@@ -576,23 +568,14 @@
         HeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"zuji" forIndexPath:indexPath];
         cell.nameLabel.text = @"TA的足迹";
         cell.footPrint.textColor = TEXT_COLOR_TITLE;
-        NSInteger cityNumber = 0;
-        NSMutableString *cityDesc = [[NSMutableString alloc] init];
-        for (AreaDestination *area in _userInfo.tracks) {
-            for (CityDestinationPoi *poi in area.cities) {
-                [cityDesc appendString:[NSString stringWithFormat:@"%@ ", poi.zhName]];
-                cityNumber++;
-            }
-        }
         
-        if (_userInfo.tracks.count > 0) {
-            cell.trajectory.text = [NSString stringWithFormat:@"%ld国 %ld个城市", (long)_userInfo.tracks.count, (long)cityNumber];
-            cell.footPrint.text = cityDesc;
+        if (_userInfo.footprints.count > 0) {
+            cell.footPrint.text = _userInfo.footprintDescription;
+            
         } else {
             cell.trajectory.text = @"0国 0个城市";
             cell.footPrint.text = @"未设置足迹";
         }
-        
         
         return cell;
     }
@@ -656,15 +639,10 @@
         [self.navigationController pushViewController:listCtl animated:YES];
         
     } else if (indexPath.section == 2){
-        TraceViewController *ctl = [[TraceViewController alloc] init];
-        NSMutableArray *tracks = [[NSMutableArray alloc] init];
-        for (AreaDestination *area in _userInfo.tracks) {
-            for (CityDestinationPoi *poi in area.cities) {
-                [tracks addObject:poi];
-            }
-        }
-        ctl.citys = tracks;
-        [self.navigationController pushViewController:ctl animated:YES];
+        FootPrintViewController *footCtl = [[FootPrintViewController alloc] init];
+        footCtl.hidesBottomBarWhenPushed = YES;
+        footCtl.userId = _userId;
+        [self.navigationController pushViewController:footCtl animated:YES];
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

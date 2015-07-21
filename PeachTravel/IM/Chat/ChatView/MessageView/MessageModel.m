@@ -95,6 +95,7 @@
                 _content = ((TipsMessage *) message).tipsContent;
 
                 break;
+                
             default:
                 break;
         }

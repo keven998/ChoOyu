@@ -224,6 +224,7 @@ class NetworkTransportAPI: NSObject {
         println("ACK接口,收取用户\(userId) 的未读消息")
         
         var url = ACKUrl+"\(userId)"+"/messages"
+        manager.requestSerializer.timeoutInterval = 20;
         
         manager.POST(url, parameters: params, success:
         {

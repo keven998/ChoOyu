@@ -289,6 +289,9 @@ class MessageManager: NSObject {
                 case .HotelMessageType:
                     messageModel = IMHotelMessage()
                     
+                case .QuestionMessageType:
+                    messageModel = QuestionMessage()
+                    
                 case .CMDMessageType:
                     messageModel = IMCMDMessage()
                     
