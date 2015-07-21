@@ -77,13 +77,12 @@
     
     if (_userId == [AccountManager shareAccountManager].account.userId) {
         UIButton * edit = [[UIButton alloc] init];
-        edit.frame = CGRectMake(0, 0, 48, 48);
+        edit.frame = CGRectMake(0, 0, 50, 50);
         
         // 设置个人足迹编辑的图标
-        [edit setBackgroundImage:[UIImage imageNamed:@"footprint_change_default"] forState:UIControlStateNormal];
-        [edit setBackgroundImage:[UIImage imageNamed:@"footprint_change_hilighted"] forState:UIControlStateHighlighted];
+        [edit setImage:[UIImage imageNamed:@"footprint_change_default"] forState:UIControlStateNormal];
+        [edit setImage:[UIImage imageNamed:@"footprint_change_hilighted"] forState:UIControlStateHighlighted];
         [edit addTarget:self action:@selector(editFootPrint) forControlEvents:UIControlEventTouchUpInside];
-//        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(editFootPrint)];
         UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:edit];
         self.navigationItem.rightBarButtonItem = item;
     }

@@ -69,6 +69,7 @@
 {
 }
 
+
 - (MKAnnotationView *)mapView:(MKMapView *)theMapView viewForAnnotation:(id<MKAnnotation>)annotation
 {
     NSInteger index = [_annotationsArray indexOfObject:annotation];
@@ -79,10 +80,11 @@
     newAnnotationView.annotation = annotation;
     newAnnotationView.canShowCallout = YES;
     newAnnotationView.tag = index;
+    NSString *imageName = @"map_icon.png";
+    newAnnotationView.image = [UIImage imageNamed:imageName];
     
     return newAnnotationView;
 }
-
 
 @end
 
