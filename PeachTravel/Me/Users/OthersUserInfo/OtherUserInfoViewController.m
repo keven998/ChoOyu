@@ -11,7 +11,6 @@
 #import "HeaderCell.h"
 #import "OtherUserBasicInfoCell.h"
 #import "OthersAlbumCell.h"
-#import "TraceViewController.h"
 #import "ChatViewController.h"
 #import "ChatSettingViewController.h"
 #import "AccountModel.h"

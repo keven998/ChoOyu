@@ -127,8 +127,6 @@ static NSString * const reuseIdentifier = @"Cell";
     
     // 更新新链接
     NSString * urlStr = [NSString stringWithFormat:@"%@%@/expert",API_GET_EXPERT_DETAIL,areaId];
-#warning 测试接口
-//    NSString * urlStr = @"http://api-dev.lvxingpai.com/app/geo/countries/5434d70e10114e684bb1b4ee/expert";
     
     NSLog(@"%@",urlStr);
     
