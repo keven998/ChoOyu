@@ -648,7 +648,7 @@
         else if (indexPath.row == 1) {
             FootPrintViewController *footCtl = [[FootPrintViewController alloc] init];
             footCtl.userId = self.accountManager.account.userId;
-            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:footCtl] animated:YES completion:nil];
+            [self.navigationController pushViewController:footCtl animated:YES];
         }
         else if (indexPath.row == 2) {
             [self viewUserPhotoAlbum];
