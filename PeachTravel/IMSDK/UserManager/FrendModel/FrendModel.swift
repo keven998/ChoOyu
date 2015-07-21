@@ -70,7 +70,8 @@ class FrendModel: NSObject {
         }
         return ""
     }
-    var tracks: Array<AreaDestination> = Array()
+    var footprints: Array<CityDestinationPoi> = Array()
+    var footprintCountryCount = 0
     var userAlbum: Array<AlbumImage> = Array()
     
     var costellation: NSString {
@@ -124,10 +125,8 @@ class FrendModel: NSObject {
     var footprintDescription :NSString {
         get {
             var count = 0
-            for area in self.tracks {
-                count += area.cities.count
-            }
-            return "\(self.tracks.count)国 \(count)城市"
+            
+            return "\(footprintCountryCount)国 \(footprints)城市"
         }
     }
 
@@ -185,21 +184,11 @@ class FrendModel: NSObject {
             }
         }
         
-        if let tracksDic = json.objectForKey("tracks") as? NSDictionary {
-            var keys = tracksDic.allKeys
-            for key in keys {
-                var area = AreaDestination()
-                area.enName = key as! String
-                if let citys = tracksDic.objectForKey(key) as? NSArray {
-                    for city in citys {
-                        var poi = CityDestinationPoi(json: city)
-                        area.cities.append(poi!)
-                    }
-                }
-                self.tracks.append(area)
+        if let footprintArray = json.objectForKey("footprints") as? NSArray {
+            for dic in footprintArray {
+                self.footprints.append(CityDestinationPoi(json: dic))
             }
         }
-        
     }
     
     override init() {

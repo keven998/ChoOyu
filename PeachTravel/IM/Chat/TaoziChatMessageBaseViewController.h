@@ -27,6 +27,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *cancelBtn;
 @property (weak, nonatomic) IBOutlet UIButton *sendBtn;
 @property (weak, nonatomic) IBOutlet UIButton *propertyBtn;
+@property (weak, nonatomic) IBOutlet UITextField *messageText;
+
 
 @property (nonatomic) NSInteger chatterId;
 

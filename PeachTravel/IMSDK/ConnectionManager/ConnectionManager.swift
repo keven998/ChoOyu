@@ -30,6 +30,7 @@ class ConnectionManager: NSObject, PushConnectionDelegate {
     
     override init() {
         super.init()
+
         if let cacheId = NSUserDefaults.standardUserDefaults().objectForKey("registionId") as? String {
             registionId = cacheId;
         }
@@ -37,9 +38,7 @@ class ConnectionManager: NSObject, PushConnectionDelegate {
     }
     
     /**
-    登录
-    :param: userId   用户名
-    :param: password 密码
+    建立个推连接
     */
     func createPushConnection() {
         pushSDKManager.createPushConnection()
