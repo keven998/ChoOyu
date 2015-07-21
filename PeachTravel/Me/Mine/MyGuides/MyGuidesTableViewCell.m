@@ -19,9 +19,8 @@
     _headerImageView.clipsToBounds = YES;
     [self.contentView addSubview:_headerImageView];
     _titleBtn.font = [UIFont systemFontOfSize:11.0];
-    _descLabel.font = [UIFont boldSystemFontOfSize:13.0];
+    _descLabel.font = [UIFont boldSystemFontOfSize:15.0];
     _sendBtn.layer.cornerRadius = 2.0;
-//    _sendBtn.backgroundColor = APP_THEME_COLOR;
     [_sendBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     // 设置发送按钮的边框
     _sendBtn.layer.borderColor = [UIColor whiteColor].CGColor;
@@ -36,9 +35,9 @@
     moonImage.image = [UIImage imageNamed:@"plan_bg_page_spot_zhedang"];
     [_headerImageView addSubview:moonImage];
     
-    [_deleteBtn setImage:[UIImage imageNamed:@"plan_10_dashboard_eidt"] forState:UIControlStateNormal];
+    [_deleteBtn setImage:[UIImage imageNamed:@"plan_delete.png"] forState:UIControlStateNormal];
     _deleteBtn.hidden = YES;
-    [_playedBtn setImage:[UIImage imageNamed:@"plan_10_dashboard_copy"] forState:UIControlStateNormal];
+    [_playedBtn setImage:[UIImage imageNamed:@"plan_traveled.png"] forState:UIControlStateNormal];
     _playedBtn.hidden = YES;
     //    [_changBtn setImage:[UIImage imageNamed:@"plan_10_dashboard_share"] forState:UIControlStateNormal];
     //    _changBtn.hidden = YES;
