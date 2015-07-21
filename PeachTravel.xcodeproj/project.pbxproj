@@ -539,6 +539,7 @@
 		D94B891B1B5E4F4C00584DE5 /* h5_labar_left_disabled@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94B89151B5E4F4C00584DE5 /* h5_labar_left_disabled@3x.png */; };
 		D94B891C1B5E4F4C00584DE5 /* h5_labar_right_default@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94B89161B5E4F4C00584DE5 /* h5_labar_right_default@3x.png */; };
 		D94B891D1B5E4F4C00584DE5 /* h5_labar_right_disabled@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94B89171B5E4F4C00584DE5 /* h5_labar_right_disabled@3x.png */; };
+		D94B89211B5E52AB00584DE5 /* icon_map@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94B89201B5E52AB00584DE5 /* icon_map@3x.png */; };
 		D955E3E019E7A23800047F2B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D955E3DF19E7A23800047F2B /* Security.framework */; };
 		D955E3E219E7A24500047F2B /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D955E3E119E7A24500047F2B /* libiconv.dylib */; };
 		D955E3E419E7A24E00047F2B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D955E3E319E7A24D00047F2B /* SystemConfiguration.framework */; };
@@ -1770,6 +1771,7 @@
 		D94B89151B5E4F4C00584DE5 /* h5_labar_left_disabled@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "h5_labar_left_disabled@3x.png"; sourceTree = "<group>"; };
 		D94B89161B5E4F4C00584DE5 /* h5_labar_right_default@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "h5_labar_right_default@3x.png"; sourceTree = "<group>"; };
 		D94B89171B5E4F4C00584DE5 /* h5_labar_right_disabled@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "h5_labar_right_disabled@3x.png"; sourceTree = "<group>"; };
+		D94B89201B5E52AB00584DE5 /* icon_map@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_map@3x.png"; sourceTree = "<group>"; };
 		D955E3DF19E7A23800047F2B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		D955E3E119E7A24500047F2B /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		D955E3E319E7A24D00047F2B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -3059,6 +3061,7 @@
 				C653430F1B5795BA00C73A31 /* navigationbar_chat_default@3x.png */,
 				C65343101B5795BA00C73A31 /* navigationbar_chat_hilighted@3x.png */,
 				D90A9B671B56716D00E9F37C /* search@3x.png */,
+				D94B89201B5E52AB00584DE5 /* icon_map@3x.png */,
 				C6B48B181B55228D001120D4 /* common_icon_navigaiton_back_dark@3x.png */,
 				C69D5FF01B4B95DA000A7869 /* common_icon_navigaiton_back_theme_style@3x.png */,
 				C6682ADD1B41391F00100EBA /* common_icon_navigaiton_back_highlight@3x.png */,
@@ -6980,6 +6983,7 @@
 				D9A8049D1A80E738005AD701 /* chat_time@2x.png in Resources */,
 				D9A8005F1A80DD0C005AD701 /* AddContactTableViewController.xib in Resources */,
 				D9A8056A1A80E738005AD701 /* more_btn@2x.png in Resources */,
+				D94B89211B5E52AB00584DE5 /* icon_map@3x.png in Resources */,
 				D9F46DBF1AC52D8600972AE8 /* SVWebViewControllerActivitySafari-iPad@2x.png in Resources */,
 				D9A8FFBE1A80D1C3005AD701 /* TravelNoteTableViewCell.xib in Resources */,
 				C68CBDB31B30358B00D95F50 /* ic_home_header_girl@3x.png in Resources */,

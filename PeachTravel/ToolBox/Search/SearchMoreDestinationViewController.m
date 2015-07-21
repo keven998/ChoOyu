@@ -59,7 +59,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     if (_poiType == kHotelPoi || _poiType == kRestaurantPoi || _poiType == kShoppingPoi || _poiType == kSpotPoi) {
         _positionBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 30)];
         _positionBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-        [_positionBtn setImage:[UIImage imageNamed:@"plan_10_dashboard_sift"] forState:UIControlStateNormal];
+        [_positionBtn setImage:[UIImage imageNamed:@"icon_map.png"] forState:UIControlStateNormal];
         _positionBtn.titleLabel.font = [UIFont systemFontOfSize:11.0];
         [_positionBtn addTarget:self action:@selector(beginSearch:) forControlEvents:UIControlEventTouchUpInside];
         
