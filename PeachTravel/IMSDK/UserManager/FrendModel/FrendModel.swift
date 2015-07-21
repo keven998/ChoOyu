@@ -74,51 +74,9 @@ class FrendModel: NSObject {
     var footprintCountryCount = 0
     var userAlbum: Array<AlbumImage> = Array()
     
-    var costellation: NSString {
+    var costellation: String {
         get {
-            var star = ""
-            if let date = ConvertMethods.stringToDate(self.birthday as String, withFormat: "yyyy-MM-dd", withTimeZone: NSTimeZone.systemTimeZone()) {
-                var components = NSCalendar.currentCalendar().components(NSCalendarUnit.DayCalendarUnit | NSCalendarUnit.MonthCalendarUnit | NSCalendarUnit.YearCalendarUnit, fromDate: date)
-                var month = components.month
-                var day = components.day
-                if (month == 1 && day >= 20) || (month == 2 && day <= 18) {
-                    star = "水瓶座"
-                }
-                else if (month == 2 && day >= 19) || (month == 3 && day <= 20) {
-                    star = "双鱼座"
-                }
-                else if (month == 3 && day >= 21) || (month == 4 && day <= 19) {
-                    star = "白羊座"
-                }
-                else if (month == 4 && day >= 20) || (month == 5 && day <= 20) {
-                    star = "金牛座"
-                }
-                else if (month == 5 && day >= 21) || (month == 6 && day <= 21) {
-                    star = "双子座"
-                }
-                else if (month == 6 && day >= 22) || (month == 7 && day <= 22) {
-                    star = "巨蟹座"
-                }
-                else if (month == 7 && day >= 23) || (month == 8 && day <= 22) {
-                    star = "狮子座";
-                }
-                else if (month == 8 && day >= 23) || (month == 9 && day <= 22) {
-                    star = "处女座";
-                }
-                else if (month == 9 && day >= 23) || (month == 10 && day <= 22) {
-                    star = "天秤座";
-                }
-                else if (month == 10 && day >= 23) || (month == 11 && day <= 21) {
-                    star = "天蝎座";
-                }
-                else if (month == 11 && day >= 22) || (month == 12 && day <= 21) {
-                    star = "射手座";
-                }
-                else if (month == 12 && day >= 22) || (month == 1 && day <= 19) {
-                    star = "摩羯座";
-                }
-            }
-            return star;
+            return FrendModel.costellationDescWithBirthday(birthday as String)
         }
     }
     
@@ -210,6 +168,100 @@ class FrendModel: NSObject {
         return true
     }
     
+    
+    class func costellationDescWithBirthday(birthday: String?) -> String {
+        var star = ""
+        if let date = ConvertMethods.stringToDate(birthday, withFormat: "yyyy-MM-dd", withTimeZone: NSTimeZone.systemTimeZone()) {
+            var components = NSCalendar.currentCalendar().components(NSCalendarUnit.DayCalendarUnit | NSCalendarUnit.MonthCalendarUnit | NSCalendarUnit.YearCalendarUnit, fromDate: date)
+            var month = components.month
+            var day = components.day
+            if (month == 1 && day >= 20) || (month == 2 && day <= 18) {
+                star = "水瓶座"
+            }
+            else if (month == 2 && day >= 19) || (month == 3 && day <= 20) {
+                star = "双鱼座"
+            }
+            else if (month == 3 && day >= 21) || (month == 4 && day <= 19) {
+                star = "白羊座"
+            }
+            else if (month == 4 && day >= 20) || (month == 5 && day <= 20) {
+                star = "金牛座"
+            }
+            else if (month == 5 && day >= 21) || (month == 6 && day <= 21) {
+                star = "双子座"
+            }
+            else if (month == 6 && day >= 22) || (month == 7 && day <= 22) {
+                star = "巨蟹座"
+            }
+            else if (month == 7 && day >= 23) || (month == 8 && day <= 22) {
+                star = "狮子座";
+            }
+            else if (month == 8 && day >= 23) || (month == 9 && day <= 22) {
+                star = "处女座";
+            }
+            else if (month == 9 && day >= 23) || (month == 10 && day <= 22) {
+                star = "天秤座";
+            }
+            else if (month == 10 && day >= 23) || (month == 11 && day <= 21) {
+                star = "天蝎座";
+            }
+            else if (month == 11 && day >= 22) || (month == 12 && day <= 21) {
+                star = "射手座";
+            }
+            else if (month == 12 && day >= 22) || (month == 1 && day <= 19) {
+                star = "摩羯座";
+            }
+        }
+        return star;
+    }
+    
+    /// 获取星座的图片名字
+    class func costellationImageNameWithBirthday(birthday: String?) -> String {
+        var star = "dashboard_03_icon_constellation0.png"
+        if let date = ConvertMethods.stringToDate(birthday, withFormat: "yyyy-MM-dd", withTimeZone: NSTimeZone.systemTimeZone()) {
+            var components = NSCalendar.currentCalendar().components(NSCalendarUnit.DayCalendarUnit | NSCalendarUnit.MonthCalendarUnit | NSCalendarUnit.YearCalendarUnit, fromDate: date)
+            var month = components.month
+            var day = components.day
+            if (month == 1 && day >= 20) || (month == 2 && day <= 18) {
+                star = "dashboard_03_icon_constellation1.png"
+            }
+            else if (month == 2 && day >= 19) || (month == 3 && day <= 20) {
+                star = "dashboard_03_icon_constellation2.png"
+            }
+            else if (month == 3 && day >= 21) || (month == 4 && day <= 19) {
+                star = "dashboard_03_icon_constellation3.png"
+            }
+            else if (month == 4 && day >= 20) || (month == 5 && day <= 20) {
+                star = "dashboard_03_icon_constellation4.png"
+            }
+            else if (month == 5 && day >= 21) || (month == 6 && day <= 21) {
+                star = "dashboard_03_icon_constellation5.png"
+            }
+            else if (month == 6 && day >= 22) || (month == 7 && day <= 22) {
+                star = "dashboard_03_icon_constellation6.png"
+            }
+            else if (month == 7 && day >= 23) || (month == 8 && day <= 22) {
+                star = "dashboard_03_icon_constellation7.png"
+            }
+            else if (month == 8 && day >= 23) || (month == 9 && day <= 22) {
+                star = "dashboard_03_icon_constellation8.png"
+            }
+            else if (month == 9 && day >= 23) || (month == 10 && day <= 22) {
+                star = "dashboard_03_icon_constellation9.png"
+            }
+            else if (month == 10 && day >= 23) || (month == 11 && day <= 21) {
+                star = "dashboard_03_icon_constellation10.png"
+            }
+            else if (month == 11 && day >= 22) || (month == 12 && day <= 21) {
+                star = "dashboard_03_icon_constellation11.png"
+            }
+            else if (month == 12 && day >= 22) || (month == 1 && day <= 19) {
+                star = "dashboard_03_icon_constellation12.png"
+            }
+        }
+        return star;
+    }
+
 }
 
 

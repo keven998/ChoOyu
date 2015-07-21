@@ -63,7 +63,7 @@
                         <variation key="widthClass=compact" constant="8"/>
                     </constraint>
                     <constraint firstAttribute="trailing" secondItem="qRP-a6-LMu" secondAttribute="trailing" id="7zw-2U-w9D">
-                        <variation key="widthClass=compact" constant="24"/>
+                        <variation key="widthClass=compact" constant="8"/>
                     </constraint>
                     <constraint firstAttribute="centerY" secondItem="lxA-5L-4T9" secondAttribute="centerY" id="QJ4-LA-bYB"/>
                     <constraint firstItem="lxA-5L-4T9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="YdL-T9-cll">
