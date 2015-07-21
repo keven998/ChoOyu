@@ -259,6 +259,7 @@
     cell.guiderDistribute = _dataSource[indexPath.section][indexPath.row];
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     cell.separatorInset=UIEdgeInsetsZero;
     cell.clipsToBounds = YES;
     

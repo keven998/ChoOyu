@@ -13,14 +13,17 @@
 - (void)awakeFromNib {
     _planBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 80, 80)];
     [_planBtn setBackgroundImage:[UIImage imageNamed:@"poi_button_raid_default.png"] forState:UIControlStateNormal];
+    [_planBtn setBackgroundImage:[UIImage imageNamed:@"poi_bottom_button_raid_disable"] forState:UIControlStateDisabled];
     [self addSubview:_planBtn];
     
     _tipsBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 80, 80)];
     [_tipsBtn setBackgroundImage:[UIImage imageNamed:@"poi_button_tip_default.png"] forState:UIControlStateNormal];
+    [_tipsBtn setBackgroundImage:[UIImage imageNamed:@"poi_bottom_button_tip_disable"] forState:UIControlStateDisabled];
     [self addSubview:_tipsBtn];
     
     _trafficBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 80, 80)];
     [_trafficBtn setBackgroundImage:[UIImage imageNamed:@"poi_button_traffic_default.png"] forState:UIControlStateNormal];
+    [_trafficBtn setBackgroundImage:[UIImage imageNamed:@"poi_bottom_button_traffic_disable"] forState:UIControlStateDisabled];
     [self addSubview:_trafficBtn];
 
 }
