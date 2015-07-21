@@ -193,6 +193,8 @@
                                                           [MobClick event:@"event_add_new_friend"];
                                                       }
                                                   }];
+     
+    
     [alertView setTitleFont:[UIFont systemFontOfSize:16]];
     [alertView useDefaultIOS7Style];
 }

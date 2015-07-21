@@ -16,6 +16,9 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dHf-ZP-tRc">
                         <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                     </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plan_city_footprint@3x.png" translatesAutoresizingMaskIntoConstraints="NO" id="C4s-dt-CnI">
+                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="l2p-v0-agr">
                         <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                         <constraints>
@@ -57,13 +60,16 @@
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <constraints>
+                <constraint firstAttribute="bottom" secondItem="C4s-dt-CnI" secondAttribute="bottom" id="0xJ-B7-rpe"/>
                 <constraint firstItem="dHf-ZP-tRc" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="8cO-yC-qya"/>
                 <constraint firstAttribute="trailing" secondItem="vBm-KO-Ev6" secondAttribute="trailing" id="AGw-Lf-OWn"/>
                 <constraint firstAttribute="bottom" secondItem="vBm-KO-Ev6" secondAttribute="bottom" constant="15" id="I65-zj-akn">
                     <variation key="widthClass=compact" constant="8"/>
                 </constraint>
+                <constraint firstAttribute="trailing" secondItem="C4s-dt-CnI" secondAttribute="trailing" id="PNG-ba-iUC"/>
                 <constraint firstAttribute="trailing" secondItem="dHf-ZP-tRc" secondAttribute="trailing" id="T17-1l-EER"/>
                 <constraint firstItem="dHf-ZP-tRc" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="XQI-h8-4Hz"/>
+                <constraint firstItem="C4s-dt-CnI" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="YgV-9L-Ipf"/>
                 <constraint firstAttribute="bottom" secondItem="dHf-ZP-tRc" secondAttribute="bottom" id="Yzv-ok-jZ2"/>
                 <constraint firstItem="l2p-v0-agr" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="4" id="eX8-Tr-GuJ">
                     <variation key="widthClass=compact" constant="4"/>
@@ -72,21 +78,27 @@
                     <variation key="widthClass=compact" constant="4"/>
                 </constraint>
                 <constraint firstItem="vBm-KO-Ev6" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="o4q-6J-HOG"/>
+                <constraint firstItem="C4s-dt-CnI" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="zXm-CT-bGy"/>
             </constraints>
             <size key="customSize" width="351" height="293"/>
             <variation key="default">
                 <mask key="subviews">
                     <exclude reference="dHf-ZP-tRc"/>
+                    <exclude reference="C4s-dt-CnI"/>
                     <exclude reference="l2p-v0-agr"/>
                 </mask>
                 <mask key="constraints">
-                    <exclude reference="AGw-Lf-OWn"/>
-                    <exclude reference="I65-zj-akn"/>
-                    <exclude reference="o4q-6J-HOG"/>
                     <exclude reference="8cO-yC-qya"/>
                     <exclude reference="T17-1l-EER"/>
                     <exclude reference="XQI-h8-4Hz"/>
                     <exclude reference="Yzv-ok-jZ2"/>
+                    <exclude reference="AGw-Lf-OWn"/>
+                    <exclude reference="I65-zj-akn"/>
+                    <exclude reference="o4q-6J-HOG"/>
+                    <exclude reference="0xJ-B7-rpe"/>
+                    <exclude reference="PNG-ba-iUC"/>
+                    <exclude reference="YgV-9L-Ipf"/>
+                    <exclude reference="zXm-CT-bGy"/>
                     <exclude reference="eX8-Tr-GuJ"/>
                     <exclude reference="juS-RM-Y9s"/>
                 </mask>
@@ -94,16 +106,21 @@
             <variation key="widthClass=compact">
                 <mask key="subviews">
                     <include reference="dHf-ZP-tRc"/>
+                    <include reference="C4s-dt-CnI"/>
                     <include reference="l2p-v0-agr"/>
                 </mask>
                 <mask key="constraints">
-                    <include reference="AGw-Lf-OWn"/>
-                    <include reference="I65-zj-akn"/>
-                    <include reference="o4q-6J-HOG"/>
                     <include reference="8cO-yC-qya"/>
                     <include reference="T17-1l-EER"/>
                     <include reference="XQI-h8-4Hz"/>
                     <include reference="Yzv-ok-jZ2"/>
+                    <include reference="AGw-Lf-OWn"/>
+                    <include reference="I65-zj-akn"/>
+                    <include reference="o4q-6J-HOG"/>
+                    <include reference="0xJ-B7-rpe"/>
+                    <include reference="PNG-ba-iUC"/>
+                    <include reference="YgV-9L-Ipf"/>
+                    <include reference="zXm-CT-bGy"/>
                     <include reference="eX8-Tr-GuJ"/>
                     <include reference="juS-RM-Y9s"/>
                 </mask>
@@ -113,7 +130,10 @@
                 <outlet property="status" destination="l2p-v0-agr" id="d1h-PY-WlM"/>
                 <outlet property="tiltleLabel" destination="vBm-KO-Ev6" id="BDZ-tB-nBD"/>
             </connections>
-            <point key="canvasLocation" x="184.5" y="245.5"/>
+            <point key="canvasLocation" x="-224" y="221"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="plan_city_footprint@3x.png" width="40" height="414"/>
+    </resources>
 </document>

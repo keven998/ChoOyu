@@ -112,7 +112,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(_tableView.frame), 64)];
         view.backgroundColor = [UIColor clearColor];
         view.userInteractionEnabled = YES;
-        UIButton *footerView = [[UIButton alloc] initWithFrame:CGRectMake(21, 0, CGRectGetWidth(_tableView.frame) - 42, 44)];
+        UIButton *footerView = [[UIButton alloc] initWithFrame:CGRectMake(21, -2, CGRectGetWidth(_tableView.frame) - 42, 44)];
         [footerView setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
         [footerView setBackgroundImage:[ConvertMethods createImageWithColor:COLOR_DISABLE] forState:UIControlStateHighlighted];
         [footerView setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
@@ -169,7 +169,8 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     
     //获取城市信息
     [manager GET:requsetUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        //        NSLog(@"%@", responseObject);
+        
+//        NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             self.poi = [[CityPoi alloc] initWithJson:[responseObject objectForKey:@"result"]];
@@ -427,6 +428,8 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 - (void)showCityTravelMonth:(UITapGestureRecognizer *)tap
 {
     CityDescDetailViewController *cddVC = [[CityDescDetailViewController alloc]init];
+    
+    NSLog(@"%@",self.poi.desc);
     cddVC.des = self.poi.desc;
     cddVC.title = @"最佳季节";
     [self.navigationController pushViewController:cddVC animated:YES];

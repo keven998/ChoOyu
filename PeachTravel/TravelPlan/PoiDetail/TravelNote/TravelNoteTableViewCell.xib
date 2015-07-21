@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -21,7 +21,7 @@
                         <rect key="frame" x="18" y="20" width="284" height="96"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AxZ-ld-PWP">
-                                <rect key="frame" x="58" y="7" width="224" height="18"/>
+                                <rect key="frame" x="70" y="7" width="212" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="18" id="Uem-78-WvA"/>
                                 </constraints>
@@ -62,7 +62,7 @@
                                 </variation>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZSi-BI-IQI">
-                                <rect key="frame" x="58" y="30" width="224" height="14"/>
+                                <rect key="frame" x="65" y="30" width="217" height="14"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="14" id="gqU-OJ-1tF"/>
                                 </constraints>
@@ -93,10 +93,10 @@
                             <constraint firstItem="AxZ-ld-PWP" firstAttribute="top" secondItem="bWf-Al-nkD" secondAttribute="top" constant="7" id="Yxh-AV-NMj">
                                 <variation key="widthClass=compact" constant="18"/>
                             </constraint>
-                            <constraint firstItem="AxZ-ld-PWP" firstAttribute="leading" secondItem="bWf-Al-nkD" secondAttribute="leading" constant="58" id="kKf-4n-ZaS">
+                            <constraint firstItem="AxZ-ld-PWP" firstAttribute="leading" secondItem="bWf-Al-nkD" secondAttribute="leading" constant="70" id="kKf-4n-ZaS">
                                 <variation key="widthClass=compact" constant="48"/>
                             </constraint>
-                            <constraint firstItem="ZSi-BI-IQI" firstAttribute="leading" secondItem="bWf-Al-nkD" secondAttribute="leading" constant="58" id="oPb-eS-tij">
+                            <constraint firstItem="ZSi-BI-IQI" firstAttribute="leading" secondItem="bWf-Al-nkD" secondAttribute="leading" constant="65" id="oPb-eS-tij">
                                 <variation key="widthClass=compact" constant="48"/>
                             </constraint>
                             <constraint firstAttribute="trailing" secondItem="XAJ-wE-WPv" secondAttribute="trailing" constant="12" id="w8B-PO-sdm"/>
@@ -120,10 +120,10 @@
                         </variation>
                     </view>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eaK-De-jRW">
-                        <rect key="frame" x="11" y="15" width="47" height="47"/>
+                        <rect key="frame" x="11" y="15" width="55" height="55"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="47" id="Q3B-Z4-grY"/>
-                            <constraint firstAttribute="width" constant="47" id="eSc-pX-nSy"/>
+                            <constraint firstAttribute="height" constant="55" id="Q3B-Z4-grY"/>
+                            <constraint firstAttribute="width" constant="55" id="eSc-pX-nSy"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -132,10 +132,10 @@
                         </userDefinedRuntimeAttributes>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="city_icon_mt_userpic.png" translatesAutoresizingMaskIntoConstraints="NO" id="iDs-vN-MYA">
-                        <rect key="frame" x="5" y="2" width="29" height="22"/>
+                        <rect key="frame" x="5" y="2" width="32" height="24"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="22" id="2UM-e0-b7r"/>
-                            <constraint firstAttribute="width" constant="29" id="SwN-3d-jpS"/>
+                            <constraint firstAttribute="height" constant="24" id="2UM-e0-b7r"/>
+                            <constraint firstAttribute="width" constant="32" id="SwN-3d-jpS"/>
                         </constraints>
                     </imageView>
                 </subviews>

@@ -31,7 +31,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"选择目的地";
+    if (self.shouldOnlyChangeDestinationWhenClickNextStep) {
+        self.navigationItem.title = @"我去过";
+    }
+    
     UIBarButtonItem *lbi = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
     self.navigationItem.leftBarButtonItem = lbi;
     

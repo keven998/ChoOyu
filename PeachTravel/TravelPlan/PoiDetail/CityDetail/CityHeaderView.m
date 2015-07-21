@@ -63,7 +63,7 @@
                                                                   context:nil].size;
     
     if (timeCostLabelSize.height > 16) {
-        NSAttributedString *more = [[NSAttributedString alloc] initWithString:@"全文" attributes:@{NSForegroundColorAttributeName : APP_THEME_COLOR, NSFontAttributeName: [UIFont systemFontOfSize:12]}];
+        NSAttributedString *more = [[NSAttributedString alloc] initWithString:@"攻略" attributes:@{NSForegroundColorAttributeName : APP_THEME_COLOR, NSFontAttributeName: [UIFont systemFontOfSize:12]}];
         NSMutableAttributedString *attrstr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@... ", [tm substringToIndex:20]] attributes:nil];
         [attrstr appendAttributedString:more];
         _travelMonth.attributedText = attrstr;
