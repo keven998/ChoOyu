@@ -111,7 +111,7 @@
                         <action selector="confirmSend:" destination="-1" eventType="touchUpInside" id="vYO-sV-YGU"/>
                     </connections>
                 </button>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="给小伙伴留言···" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nk1-bT-SAd">
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder=" 给小伙伴留言···" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nk1-bT-SAd">
                     <rect key="frame" x="15" y="108" width="260" height="30"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="0NR-Ht-Spz"/>

@@ -1064,6 +1064,7 @@
 		E66E6CDC1B5A26BF00CBF65F /* UIImage+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = E66E6CDB1B5A26BF00CBF65F /* UIImage+Extension.m */; };
 		E676B8D41B5CD20C0042B539 /* GuilderDistributeContinent.m in Sources */ = {isa = PBXBuildFile; fileRef = E676B8D31B5CD20C0042B539 /* GuilderDistributeContinent.m */; };
 		E676B8D61B5D01040042B539 /* master_layer.png in Resources */ = {isa = PBXBuildFile; fileRef = E676B8D51B5D01040042B539 /* master_layer.png */; };
+		E6BFE5E81B5E15DA00A9FDCA /* plan_city_footprint@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E6BFE5E71B5E15DA00A9FDCA /* plan_city_footprint@3x.png */; };
 		E6E118F61B59EE280090FDEF /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E118F41B59EE280090FDEF /* UIView+Extension.m */; };
 		E6E362BD1B5755F300730C1B /* collection.png in Resources */ = {isa = PBXBuildFile; fileRef = E6E362BC1B5755F300730C1B /* collection.png */; };
 		E6E7251E1B5603750007273A /* MJArgument.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E7250C1B5603750007273A /* MJArgument.m */; };
@@ -2551,6 +2552,7 @@
 		E676B8D21B5CD20C0042B539 /* GuilderDistributeContinent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuilderDistributeContinent.h; sourceTree = "<group>"; };
 		E676B8D31B5CD20C0042B539 /* GuilderDistributeContinent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuilderDistributeContinent.m; sourceTree = "<group>"; };
 		E676B8D51B5D01040042B539 /* master_layer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = master_layer.png; sourceTree = "<group>"; };
+		E6BFE5E71B5E15DA00A9FDCA /* plan_city_footprint@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plan_city_footprint@3x.png"; sourceTree = "<group>"; };
 		E6E118F31B59EE280090FDEF /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
 		E6E118F41B59EE280090FDEF /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
 		E6E362BC1B5755F300730C1B /* collection.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = collection.png; sourceTree = "<group>"; };
@@ -3478,6 +3480,7 @@
 		D91FED7F1B4285110073AD77 /* 其他 poi 详情 */ = {
 			isa = PBXGroup;
 			children = (
+				E6BFE5E71B5E15DA00A9FDCA /* plan_city_footprint@3x.png */,
 				D91FED921B428D840073AD77 /* city_icon_mt_userpic@3x.png */,
 			);
 			path = "其他 poi 详情";
@@ -6679,6 +6682,7 @@
 				D90A9B5C1B5627C400E9F37C /* Loading_Animation_final49@3x.png in Resources */,
 				D9EDC26B1B4E533500599C4B /* add_poi@3x.png in Resources */,
 				27FF1AED1B09DEA000643D77 /* ic_zuji_flag@2x.png in Resources */,
+				E6BFE5E81B5E15DA00A9FDCA /* plan_city_footprint@3x.png in Resources */,
 				D91850E71B575541004B8363 /* ItemFooterCollectionViewCell.xib in Resources */,
 				C68CBDAC1B30316100D95F50 /* ic_home_shareapp2friend@3x.png in Resources */,
 				270C16511B0079BE0048C85D /* ic_spots_normal@2x.png in Resources */,
