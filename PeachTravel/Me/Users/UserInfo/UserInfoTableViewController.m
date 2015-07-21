@@ -139,7 +139,7 @@
         logoutBtn.layer.cornerRadius = 4.0;
         logoutBtn.clipsToBounds = YES;
         [logoutBtn setBackgroundImage:[[UIImage imageNamed:@"chat_drawer_leave.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(8, 8, 8, 8)] forState:UIControlStateNormal];
-
+        
         logoutBtn.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [logoutBtn setTitle:@"退出登录" forState:UIControlStateNormal];
         logoutBtn.titleLabel.font = [UIFont systemFontOfSize:15.0];
@@ -147,7 +147,7 @@
         logoutBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
         [logoutBtn addTarget:self action:@selector(logout:) forControlEvents:UIControlEventTouchUpInside];
         [_footerView addSubview:logoutBtn];
-
+        
     }
     return _footerView;
 }
@@ -219,7 +219,7 @@
 
 - (void)updateTracksDesc
 {
-//    NSMutableDictionary *country = [NSMutableDictionary dictionaryWithDictionary:[AccountManager shareAccountManager].account.tracks];
+    //    NSMutableDictionary *country = [NSMutableDictionary dictionaryWithDictionary:[AccountManager shareAccountManager].account.tracks];
     NSMutableDictionary * country = nil;
     if (country == nil || [country count] == 0) {
         _tracksDesc = @"";
@@ -231,7 +231,7 @@
     for (int i = 0; i < countryNumber; ++i) {
         NSArray *citys = [country objectForKey:[keys objectAtIndex:i]];
         cityNumber += citys.count;
-
+        
     }
     _tracksDesc = [NSString stringWithFormat:@"%ld国 %ld个城市", (long)countryNumber, (long)cityNumber];
 }
@@ -635,7 +635,7 @@
             myGuidesCtl.hidesBottomBarWhenPushed = YES;
             myGuidesCtl.userName = _accountManager.account.nickName;
             [self.navigationController pushViewController:myGuidesCtl animated:YES];
-
+            
         }
         else if (indexPath.row == 1) {
             FootPrintViewController *footCtl = [[FootPrintViewController alloc] init];
