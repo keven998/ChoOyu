@@ -120,7 +120,7 @@ class PushSDKManager: NSObject, GexinSdkDelegate {
         var bytes = payload?.bytes
         var payloadMsg = NSString(bytes:bytes! , length: length!, encoding: NSUTF8StringEncoding)
         
-        
+        /*
         let questionDic = ["questions": [["title":"北京有哪些好吃的","image": "","url": "www.baidu.com", "test" : 123],
         ["title":"北京有哪些好吃的","image": "","url": "www.baidu.com", "test" : 123],
         ["title":"北京有哪些好吃的","image": "","url": "www.baidu.com", "test" : 123],
@@ -137,9 +137,10 @@ class PushSDKManager: NSObject, GexinSdkDelegate {
         [
             "routingKey" : "IM", "message" : messageDic
         ]
+        */
         
         if let message = payloadMsg {
-            dispatchPushMessage(JSONConvertMethod.contentsStrWithJsonObjc(dic)!)
+            dispatchPushMessage(message)
         }
     }
     
