@@ -8,7 +8,7 @@
 
 #import "TaoziChatMessageBaseViewController.h"
 
-@interface TaoziChatMessageBaseViewController ()
+@interface TaoziChatMessageBaseViewController ()<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UIView *imageBkgView;
 
 @end
@@ -120,6 +120,30 @@
             break;
     }
 
+    // 监听键盘的变化
+    self.messageText.layer.borderColor = UIColorFromRGB(0x121212).CGColor;
+    self.messageText.layer.borderWidth = 1.0;
+    self.messageText.delegate = self;
+}
+
+#pragma mark - 监听键盘的高度变化
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    NSLog(@"%s",__func__);
+    [UIView animateWithDuration:0.25 animations:^{
+        self.view.transform = CGAffineTransformTranslate(self.view.transform, 0, -150);
+    }];
+    
+    return YES;
+}
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
+{
+    [UIView animateWithDuration:0.25 animations:^{
+            self.view.transform = CGAffineTransformIdentity;
+    }];
+
+    return YES;
 }
 
 - (void)setMessageAddress:(NSString *)messageAddress
@@ -162,11 +186,28 @@
     _messageTimeCost = messageTimeCost;
 }
 
+// 留言信息
+- (void)setMessageText:(UITextField *)messageText
+{
+    _messageText = messageText;
+}
+
+#pragma mark - 监听键盘改变
+
+
 - (IBAction)confirmSend:(UIButton *)sender {
     IMClientManager *imclientManager = [IMClientManager shareInstance];
     BaseMessage *message = [imclientManager.messageSendManager sendPoiMessage:[self dataToSend] receiver:_chatterId chatType:_chatType conversationId:nil];
-    [_delegate sendSuccess:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:updateChateViewNoti object:nil userInfo:@{@"message":message}];
+    
+    // 发送文本消息
+    if (!self.messageText.text.length == 0) {
+        BaseMessage * textMessage = [imclientManager.messageSendManager sendTextMessage:self.messageText.text receiver:_chatterId chatType:_chatType conversationId:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:updateChateViewNoti object:nil userInfo:@{@"message":textMessage}];
+
+    }
+    
+    [_delegate sendSuccess:nil];
 
 }
 
