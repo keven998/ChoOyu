@@ -11,5 +11,6 @@
 @interface ChatGroupSettingCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UISwitch *switchBtn;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
 @end

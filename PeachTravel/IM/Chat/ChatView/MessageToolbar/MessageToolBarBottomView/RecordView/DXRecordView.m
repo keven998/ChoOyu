@@ -30,15 +30,21 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        _recordAnimationView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 0, self.bounds.size.width - 20, self.bounds.size.height - 10)];
+        _recordAnimationView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width - 20, self.bounds.size.height - 30)];
         _recordAnimationView.image = [UIImage imageNamed:@"speaking-motion1"];
         _recordAnimationView.contentMode = UIViewContentModeCenter;
-        _recordAnimationView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.67];
-        _recordAnimationView.layer.cornerRadius = 5.0;
         [self addSubview:_recordAnimationView];
         
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(10, 0, self.bounds.size.width-20, self.bounds.size.height-20)];
+        view.layer.cornerRadius = 5.0;
+        view.clipsToBounds = YES;
+        view.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.67];
+        [view addSubview:_recordAnimationView];
+        
+        [self addSubview:view];
+        
         _textLabel = [[UILabel alloc] initWithFrame:CGRectMake(10,
-                                                               self.bounds.size.height - 35,
+                                                               self.bounds.size.height - 45,
                                                                self.bounds.size.width - 20,
                                                                25)];
         _textLabel.textAlignment = NSTextAlignmentCenter;

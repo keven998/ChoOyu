@@ -12,6 +12,7 @@
 
 - (void)awakeFromNib {
     _switchBtn.onTintColor = APP_THEME_COLOR;
+    _titleLabel.textColor = COLOR_TEXT_I;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

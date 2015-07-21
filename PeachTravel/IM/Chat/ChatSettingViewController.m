@@ -92,6 +92,7 @@
         ChatGroupSettingCell *cell = [tableView dequeueReusableCellWithIdentifier:@"chatGroupSettingCell" forIndexPath:indexPath];
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.titleLabel.font = [UIFont systemFontOfSize:15.0];
         IMClientManager *clientManager = [IMClientManager shareInstance];
         ChatConversation *conversation = [clientManager.conversationManager getExistConversationInConversationList:_chatterId];
         [cell.switchBtn addTarget:self action:@selector(changeMsgStatus:) forControlEvents:UIControlEventValueChanged];
@@ -101,7 +102,7 @@
 
     } else if (indexPath.row == 1) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-        cell.textLabel.font = [UIFont systemFontOfSize:13.0];
+        cell.textLabel.font = [UIFont systemFontOfSize:15.0];
         cell.textLabel.textColor = COLOR_TEXT_I;
         cell.textLabel.text = @"清空聊天记录";
         return cell;
