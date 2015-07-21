@@ -41,6 +41,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="switchBtn" destination="7mM-1T-0gc" id="LlB-ml-veW"/>
+                <outlet property="titleLabel" destination="cQL-Eu-PGS" id="Xc5-vg-ike"/>
             </connections>
             <point key="canvasLocation" x="98" y="215"/>
         </tableViewCell>

@@ -361,7 +361,9 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
                 
             case .TipsMessageType:
                 retMessage = TipsMessage()
-
+                
+            case .QuestionMessageType:
+                retMessage = QuestionMessage()
             
             default:
                 break

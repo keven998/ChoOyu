@@ -24,6 +24,9 @@ class PushSDKManager: NSObject, GexinSdkDelegate {
     private var gexinSdk: GexinSdk?
     private var pushSdkIsConnected: Bool = false
     
+    var msgId:Int = 200
+
+    
     private var listenerQueue: NSMutableArray = NSMutableArray()
     
     weak var pushConnectionDelegate: PushConnectionDelegate?
@@ -117,6 +120,25 @@ class PushSDKManager: NSObject, GexinSdkDelegate {
         var bytes = payload?.bytes
         var payloadMsg = NSString(bytes:bytes! , length: length!, encoding: NSUTF8StringEncoding)
         
+        /*
+        let questionDic = ["questions": [["title":"北京有哪些好吃的","image": "","url": "www.baidu.com", "test" : 123],
+        ["title":"北京有哪些好吃的","image": "","url": "www.baidu.com", "test" : 123],
+        ["title":"北京有哪些好吃的","image": "","url": "www.baidu.com", "test" : 123],
+        ["title":"北京有哪些好吃的","image": "","url": "www.baidu.com", "test" : 123],
+        ["title":"北京有哪些好吃的","image": "","url": "www.baidu.com", "test" : 123]
+        ]]
+        let str: NSString = JSONConvertMethod.contentsStrWithJsonObjc(questionDic)!
+        
+        let messageDic =  [ "id" : "55addff01ae2400001cde012", "chatType" : "single","msgId" : msgId,"msgType" : 17,"conversation" : "557fb20c5f15030001b38480", "contents" : str,"senderId" : 100068,"abbrev" : "煎蛋小哈哈: 看到觉得基督教", "timestamp" : 1437458416707, "receiverId" : 100044 ]
+        
+        msgId++
+        
+        let dic: NSDictionary =
+        [
+            "routingKey" : "IM", "message" : messageDic
+        ]
+        */
+        
         if let message = payloadMsg {
             dispatchPushMessage(message)
         }
@@ -139,12 +161,12 @@ class PushSDKManager: NSObject, GexinSdkDelegate {
             dispatchMessageDic = NSDictionary()
         }
 
-        let routingkey = messageJson?.objectForKey("routingKey") as! String
-        
-        for value in listenerQueue {
-            var listenerDic = value as! Dictionary<String, PushMessageDelegate>
-            if let pushMessageDelegate = listenerDic[routingkey] {
-                pushMessageDelegate.receivePushMessage(dispatchMessageDic)
+        if let routingkey = messageJson?.objectForKey("routingKey") as? String {
+            for value in listenerQueue {
+                var listenerDic = value as! Dictionary<String, PushMessageDelegate>
+                if let pushMessageDelegate = listenerDic[routingkey] {
+                    pushMessageDelegate.receivePushMessage(dispatchMessageDic)
+                }
             }
         }
     }

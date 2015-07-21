@@ -42,14 +42,14 @@
     [super viewWillAppear:YES];
     [MobClick beginLogPageView:@"page_talk_setting"];
     [self updateView];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:YES];
     [MobClick endLogPageView:@"page_talk_setting"];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
 }
 
 - (void)updateGroupInfoFromServer
@@ -223,15 +223,16 @@
         if (indexPath.row == 0) {
             UserOtherTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"otherCell" forIndexPath:indexPath];
             cell.cellTitle.text = @"群名称";
-            cell.cellTitle.font = [UIFont systemFontOfSize:13.0f];
+            cell.cellTitle.textColor = COLOR_TEXT_I;
+            cell.cellTitle.font = [UIFont systemFontOfSize:15.0f];
             cell.cellDetail.text = _groupModel.subject;
-            cell.cellDetail.textColor = COLOR_TEXT_I;
             cell.cellDetail.font = [UIFont systemFontOfSize:16.0f];
             return cell;
         } else if (indexPath.row == 1) {
             ChatGroupSettingCell *cell = [tableView dequeueReusableCellWithIdentifier:@"chatGroupSettingCell" forIndexPath:indexPath];
             cell.accessoryType = UITableViewCellAccessoryNone;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.titleLabel.font = [UIFont systemFontOfSize:15.0];
             IMClientManager *clientManager = [IMClientManager shareInstance];
             ChatConversation *conversation = [clientManager.conversationManager getExistConversationInConversationList:_groupModel.groupId];
             [cell.switchBtn addTarget:self action:@selector(changeMsgStatus:) forControlEvents:UIControlEventValueChanged];
@@ -242,7 +243,8 @@
             UserOtherTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"otherCell" forIndexPath:indexPath];
             cell.accessoryType = UITableViewCellAccessoryNone;
             cell.cellTitle.text = @"清空聊天记录";
-            cell.cellTitle.font = [UIFont systemFontOfSize:13.0f];
+            cell.cellTitle.font = [UIFont systemFontOfSize:15.0f];
+            cell.cellTitle.textColor = COLOR_TEXT_I;
             cell.cellDetail.text = nil;
             return cell;
         }

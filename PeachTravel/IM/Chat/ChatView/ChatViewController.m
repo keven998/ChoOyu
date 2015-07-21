@@ -44,7 +44,8 @@
 #import "TZSideViewController.h"
 #import "REFrostedViewController.h"
 #import "TripPlanSettingViewController.h"
-
+#import "ChatQuestionTableViewCell.h"
+#import "SuperWebViewController.h"
 #import "OtherUserInfoViewController.h"
 
 #import "TripDetailRootViewController.h"
@@ -56,7 +57,7 @@
 
 #define KPageCount 20
 
-@interface ChatViewController ()<UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, DXChatBarMoreViewDelegate, DXMessageToolBarDelegate, LocationViewDelegate, ZYQAssetPickerControllerDelegate, ChatConversationDelegate, ChatManagerAudioPlayDelegate>
+@interface ChatViewController ()<UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, DXChatBarMoreViewDelegate, DXMessageToolBarDelegate, LocationViewDelegate, ZYQAssetPickerControllerDelegate, ChatConversationDelegate, ChatManagerAudioPlayDelegate, ChatQuestionTableViewCellDelegate>
 {
     UIMenuController *_menuController;
     UIMenuItem *_copyMenuItem;
@@ -406,7 +407,16 @@
                 tipsCell.content = model.content;
                 return tipsCell;
                 
-            }  else{
+            } else if (model.type == IMMessageTypeQuestionMessageType) {
+                ChatQuestionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"questionCell"];
+                if (!cell) {
+                    cell = [[ChatQuestionTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"questionCell"];
+                    cell.delegate = self;
+                }
+                cell.messageModel = model;
+                return cell;
+                
+            } else{
                 NSString *cellIdentifier = [EMChatViewCell cellIdentifierForMessageModel:model];
                 EMChatViewCell *cell = (EMChatViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
                 if (cell == nil) {
@@ -430,9 +440,14 @@
     NSObject *obj = [self.dataSource objectAtIndex:indexPath.row];
     if ([obj isKindOfClass:[NSString class]]) {
         return 40;
-    } else {
-        return [EMChatViewCell tableView:tableView heightForRowAtIndexPath:indexPath withObject:(MessageModel *)obj];
+    } else if ([obj isKindOfClass:[MessageModel class]]) {
+        if (((MessageModel *)obj).type == IMMessageTypeQuestionMessageType) {
+            return [ChatQuestionTableViewCell heightForBubbleWithObject:(MessageModel *)obj];
+        } else {
+            return [EMChatViewCell tableView:tableView heightForRowAtIndexPath:indexPath withObject:(MessageModel *)obj];
+        }
     }
+    return 0;
 }
 
 #pragma mark - scrollView delegate
@@ -470,6 +485,14 @@
         NSIndexPath * indexPath = [self.tableView indexPathForRowAtPoint:location];
         id object = [self.dataSource objectAtIndex:indexPath.row];
         if ([object isKindOfClass:[MessageModel class]]) {
+            if (((MessageModel *)object).type == IMMessageTypeQuestionMessageType) {
+                ChatQuestionTableViewCell *cell = (ChatQuestionTableViewCell *)[_tableView cellForRowAtIndexPath:indexPath];
+                CGPoint point = [recognizer locationInView:cell.tableView];
+                NSIndexPath *questionTableIndexPath = [cell.tableView indexPathForRowAtPoint:point];
+                QuestionModel *model = ((QuestionMessage *)((MessageModel *)object).baseMessage).questionList[questionTableIndexPath.row];
+                [self showQuestionWithLongPressPoint:model];
+                return;
+            }
             if (((MessageModel *)object).type == IMMessageTypeTipsMessageType) {
                 return;
             }
@@ -479,6 +502,15 @@
             [self showMenuViewController:cell.bubbleView andIndexPath:indexPath messageType:cell.messageModel.type];
         }
     }
+}
+
+- (void)showQuestionWithLongPressPoint:(QuestionModel *)questionModel
+{
+    SuperWebViewController *ctl = [[SuperWebViewController alloc] init];
+    ctl.urlStr = questionModel.url;
+    ctl.titleStr = questionModel.title;
+    [self.navigationController pushViewController:ctl animated:YES];
+
 }
 
 #pragma mark - UIResponder actions
@@ -517,6 +549,16 @@
     } else if ([eventName isEqualToString:kRouterEventChatHeadImageTapEventName]) {   //点击头像
         [self showUserInfoWithModel:model];
     }
+}
+
+#pragma mark - ChatQuestionTableViewCellDelegate
+
+- (void)chatQuestionTableCellDidSelectedWithQuestionModel:(QuestionModel *)questionModel
+{
+    SuperWebViewController *ctl = [[SuperWebViewController alloc] init];
+    ctl.urlStr = questionModel.url;
+    ctl.titleStr = questionModel.title;
+    [self.navigationController pushViewController:ctl animated:YES];
 }
 
 /**
@@ -920,7 +962,9 @@
         MessageModel *model = [self.dataSource objectAtIndex:_longPressIndexPath.row];
         NSMutableArray *messages = [NSMutableArray arrayWithObjects:model, nil];
         [_conversation deleteMessageWithLocalId:model.baseMessage.localId];
-        NSMutableArray *indexPaths = [NSMutableArray arrayWithObjects:_longPressIndexPath, nil];;
+        NSMutableArray *indexPaths = [NSMutableArray arrayWithObjects:_longPressIndexPath, nil];
+        NSLog(@"%@", _longPressIndexPath);
+        
         if (_longPressIndexPath.row - 1 >= 0) {
             id nextMessage = nil;
             id prevMessage = [self.dataSource objectAtIndex:(_longPressIndexPath.row - 1)];

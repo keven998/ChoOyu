@@ -26,13 +26,13 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
     [MobClick beginLogPageView:@"page_talk_setting"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
     [MobClick endLogPageView:@"page_talk_setting"];
 }
 
@@ -92,6 +92,7 @@
         ChatGroupSettingCell *cell = [tableView dequeueReusableCellWithIdentifier:@"chatGroupSettingCell" forIndexPath:indexPath];
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.titleLabel.font = [UIFont systemFontOfSize:15.0];
         IMClientManager *clientManager = [IMClientManager shareInstance];
         ChatConversation *conversation = [clientManager.conversationManager getExistConversationInConversationList:_chatterId];
         [cell.switchBtn addTarget:self action:@selector(changeMsgStatus:) forControlEvents:UIControlEventValueChanged];
@@ -101,7 +102,7 @@
 
     } else if (indexPath.row == 1) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-        cell.textLabel.font = [UIFont systemFontOfSize:13.0];
+        cell.textLabel.font = [UIFont systemFontOfSize:15.0];
         cell.textLabel.textColor = COLOR_TEXT_I;
         cell.textLabel.text = @"清空聊天记录";
         return cell;
