@@ -416,6 +416,12 @@
                 }
                     break;
                     
+                case IMMessageTypeQuestionMessageType: {
+                    ret = [NSString stringWithFormat:@"%@:[问问消息]", nickName];
+                    
+                }
+                    break;
+                    
                 case IMMessageTypeTipsMessageType: {
                     ret = ((TipsMessage *) lastMessage).tipsContent;
                     
@@ -482,6 +488,12 @@
                 case IMMessageTypeLocationMessageType: {
                     ret = [NSString stringWithFormat:@"[位置]"];
                     
+                }
+                    break;
+                    
+                case IMMessageTypeQuestionMessageType: {
+                    ret = [NSString stringWithFormat:@"[问问消息]"];
+
                 }
                     break;
                     

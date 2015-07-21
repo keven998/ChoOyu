@@ -12,6 +12,11 @@ class QuestionMessage: BaseMessage {
     
     var questionList: Array<QuestionModel> = Array()
     
+    override init() {
+        super.init()
+        messageType = IMMessageType.QuestionMessageType
+    }
+    
     override func fillContentWithContent(contents: String) {
         var messageDic = JSONConvertMethod.jsonObjcWithString(contents)
         self.fillContentWithContentDic(messageDic)
@@ -25,6 +30,7 @@ class QuestionMessage: BaseMessage {
                 tempArray.append(questionModel)
             }
         }
+        questionList = tempArray
     }
    
 }

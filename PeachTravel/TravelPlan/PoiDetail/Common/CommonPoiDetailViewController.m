@@ -28,7 +28,6 @@
 
 @implementation CommonPoiDetailViewController
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -227,7 +226,6 @@
     }];
 }
 
-
 - (void)setChatMessageModel:(TaoziChatMessageBaseViewController *)taoziMessageCtl
 {
     taoziMessageCtl.messageId = self.poi.poiId;
@@ -240,11 +238,13 @@
         taoziMessageCtl.messagePrice = ((HotelPoi *)self.poi).priceDesc;
         taoziMessageCtl.messageRating = self.poi.rating;
         self.title = @"酒店详情";
+        
     } else if (_poiType == kRestaurantPoi) {
         taoziMessageCtl.messageType = IMMessageTypeRestaurantMessageType;
         taoziMessageCtl.messageRating = self.poi.rating;
         taoziMessageCtl.messagePrice = ((RestaurantPoi *)self.poi).priceDesc;
         self.title = @"美食详情";
+        
     } else if (_poiType == kShoppingPoi) {
         taoziMessageCtl.messageType = IMMessageTypeShoppingMessageType;
         taoziMessageCtl.messageRating = self.poi.rating;
