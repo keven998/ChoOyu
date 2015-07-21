@@ -8,7 +8,6 @@
 
 #import "HeaderCell.h"
 #import "TaoziCollectionLayout.h"
-#import "ScreenningViewCell.h"
 #import "DestinationCollectionHeaderView.h"
 @interface HeaderCell ()<UICollectionViewDelegateFlowLayout>
 

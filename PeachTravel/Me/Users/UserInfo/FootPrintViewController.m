@@ -9,7 +9,6 @@
 #import "FootPrintViewController.h"
 #import "TaoziCollectionLayout.h"
 #import "FootprintMapViewController.h"
-#import "ScreenningViewCell.h"
 #import "DestinationCollectionHeaderView.h"
 #import "SwipeView.h"
 #import "AreaDestination.h"
