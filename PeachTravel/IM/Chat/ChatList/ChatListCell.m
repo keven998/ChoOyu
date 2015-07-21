@@ -35,6 +35,9 @@
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
         
+        self.imageView.contentMode = UIViewContentModeScaleAspectFill;
+        self.imageView.clipsToBounds = YES;
+        
         _timeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _timeLabel.font = [UIFont systemFontOfSize:14];
         _timeLabel.textColor = COLOR_TEXT_III;
@@ -73,11 +76,6 @@
         self.textLabel.font = [UIFont systemFontOfSize:18];
         self.textLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         self.textLabel.textColor = COLOR_TEXT_I;
-        
-//        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), 76)];
-//        view.backgroundColor = COLOR_ALERT;
-//        view.layer.cornerRadius = 10.0f;
-//        self.selectedBackgroundView = view;
     }
     return self;
 }
@@ -96,8 +94,6 @@
     
     CGFloat width = CGRectGetWidth(self.bounds);
     self.imageView.frame = CGRectMake(12, 10, 56, 56);
-    self.imageView.contentMode = UIViewContentModeScaleAspectFill;
-    self.imageView.clipsToBounds = YES;
     
     CGFloat contentOffsetX = CGRectGetMaxX(self.imageView.frame) + 10;
     
@@ -165,7 +161,7 @@
         [_unreadLabel setHidden:YES];
     }
     _unreadLabel.center = CGPointMake(65, 12);
-    spaceView.frame = CGRectMake(10, self.contentView.frame.size.height-0.5, width - 10, 0.5);
+    spaceView.frame = CGRectMake(13.5, self.contentView.frame.size.height-0.7, width - 13, 0.7);
 }
 
 -(void)setName:(NSString *)name{

@@ -74,6 +74,8 @@
     
     _ratingView = [[EDStarRating alloc] initWithFrame:CGRectMake(14, offsetY+18, 115, 21)];
     _ratingView.starImage = [UIImage imageNamed:@"poi_bottom_star_default"];
+    
+    // 设置评分的图片
     _ratingView.starHighlightedImage = [UIImage imageNamed:@"poi_bottom_star_selected"];
     _ratingView.maxRating = 5.0;
     _ratingView.editable = NO;
