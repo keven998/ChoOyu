@@ -235,19 +235,18 @@
     taoziMessageCtl.messageDesc = self.poi.desc;
     taoziMessageCtl.messageName = self.poi.zhName;
     taoziMessageCtl.messageRating = self.poi.rating;
-    taoziMessageCtl.chatType = IMMessageTypeHotelMessageType;
     if (_poiType == kHotelPoi) {
-        taoziMessageCtl.chatType = IMMessageTypeHotelMessageType;
+        taoziMessageCtl.messageType = IMMessageTypeHotelMessageType;
         taoziMessageCtl.messagePrice = ((HotelPoi *)self.poi).priceDesc;
         taoziMessageCtl.messageRating = self.poi.rating;
         self.title = @"酒店详情";
     } else if (_poiType == kRestaurantPoi) {
-        taoziMessageCtl.chatType = IMMessageTypeHotelMessageType;
+        taoziMessageCtl.messageType = IMMessageTypeRestaurantMessageType;
         taoziMessageCtl.messageRating = self.poi.rating;
         taoziMessageCtl.messagePrice = ((RestaurantPoi *)self.poi).priceDesc;
         self.title = @"美食详情";
     } else if (_poiType == kShoppingPoi) {
-        taoziMessageCtl.chatType = IMMessageTypeShoppingMessageType;
+        taoziMessageCtl.messageType = IMMessageTypeShoppingMessageType;
         taoziMessageCtl.messageRating = self.poi.rating;
         self.title = @"购物详情";
     }

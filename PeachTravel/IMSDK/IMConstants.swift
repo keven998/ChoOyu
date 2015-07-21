@@ -25,6 +25,7 @@ let userUrl = "http://hedy-dev.lvxingpai.com/users"
     case RestaurantMessageType = 14
     case ShoppingMessageType = 15
     case HotelMessageType = 16
+    case QuestionMessageType = 17
     case CMDMessageType = 100
     case TipsMessageType = 200
 }
