@@ -125,7 +125,7 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
     if (indexPath.section == 0) {
         return 50.0;
     }
-    return 60.0;
+    return 64.0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -134,7 +134,7 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
         cell.textLabel.text = @"创建新聊天";
         cell.textLabel.textColor = COLOR_TEXT_I;
         cell.backgroundColor = [UIColor whiteColor];
-        cell.textLabel.font = [UIFont boldSystemFontOfSize:17.0];
+        cell.textLabel.font = [UIFont systemFontOfSize:17.0];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         return cell;
         
@@ -168,10 +168,9 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
 {
     if (section == 1) {
         UIView *sectionView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 1, self.view.frame.size.width, 40)];
-        label.text = @"    最近聊天";
-        label.font = [UIFont systemFontOfSize:16.0];
-        label.backgroundColor = APP_PAGE_COLOR;
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15, 7, self.view.frame.size.width, 33)];
+        label.text = @"最近聊天";
+        label.font = [UIFont systemFontOfSize:13.0];
         sectionView.backgroundColor = APP_PAGE_COLOR;
         label.textColor = COLOR_TEXT_II;
         [sectionView addSubview:label];
