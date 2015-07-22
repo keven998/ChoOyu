@@ -333,8 +333,6 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     TripPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:restaurantListReusableIdentifier forIndexPath:indexPath];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.separatorInset=UIEdgeInsetsZero;
     cell.clipsToBounds = YES;
     
     NSArray * dataSource = [self revertShoppingListToGroup:_tripDetail.restaurantsList];

@@ -320,8 +320,6 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     TripPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:shoppingListReusableIdentifier forIndexPath:indexPath];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.separatorInset=UIEdgeInsetsZero;
     cell.clipsToBounds = YES;
     NSArray * dataSource = [self revertShoppingListToGroup:_tripDetail.shoppingList];
     NSArray * shoppingArray = dataSource[indexPath.section];
