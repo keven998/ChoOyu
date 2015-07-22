@@ -113,7 +113,7 @@ class AudioRecordDeviceManager: NSObject, AVAudioRecorderDelegate {
         if let why = audioInterruptionType as? UInt {
             if let type = AVAudioSessionInterruptionType(rawValue: why) {
                 if type == .Began {
-                    println("AudioInterruptionType Began")
+                    debug_println("AudioInterruptionType Began")
                     audioManagerDelegate?.audioRecordInterrupt()
                     
                 } else {
@@ -121,10 +121,10 @@ class AudioRecordDeviceManager: NSObject, AVAudioRecorderDelegate {
                     if let opt = audioInterruptionOption as? UInt {
                         let opts = AVAudioSessionInterruptionOptions(opt)
                         if opts == .OptionShouldResume {
-                            println("should resume")
+                            debug_println("should resume")
                             audioManagerDelegate?.audioRecordResume()
                         } else {
-                            println("not should resume")
+                            debug_println("not should resume")
                         }
                     }
                 }
@@ -133,7 +133,7 @@ class AudioRecordDeviceManager: NSObject, AVAudioRecorderDelegate {
     }
     
     func audioRecorderDidFinishRecording(recorder: AVAudioRecorder!, successfully flag: Bool) {
-        println("录音结束")
+        debug_println("录音结束")
         audioManagerDelegate?.audioRecordEnd()
     }
     

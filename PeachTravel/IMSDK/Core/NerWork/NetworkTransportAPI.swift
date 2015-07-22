@@ -23,7 +23,7 @@ class NetworkTransportAPI: NSObject {
         manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept")
         manager.requestSerializer.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         
-        println("发送消息接口\(message)")
+        debug_println("发送消息接口\(message)")
         manager.POST(sendMessageURL, parameters: message, success:
             {
                 (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
@@ -35,7 +35,7 @@ class NetworkTransportAPI: NSObject {
             })
             {
                 (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
-                print(error)
+                debug_print(error)
                 completionBlock(isSuccess: false, errorCode: 0, retMessage: nil)
         }
     }
@@ -60,7 +60,7 @@ class NetworkTransportAPI: NSObject {
             {
                 (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
                 
-                println("responseObject: \(responseObject)")
+                debug_println("responseObject: \(responseObject)")
                 if let code = responseObject.objectForKey("code") as? Int {
                     if code == 0 {
                         completionBlock(isSuccess: true, errorCode: 0, retMessage: responseObject.objectForKey("result") as? NSDictionary)
@@ -71,7 +71,7 @@ class NetworkTransportAPI: NSObject {
             })
             {
                 (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
-                print(error)
+                debug_print(error)
                 completionBlock(isSuccess: false, errorCode: 0, retMessage: nil)
         }
     }
@@ -92,9 +92,9 @@ class NetworkTransportAPI: NSObject {
         manager.requestSerializer.setValue("\(accountManager.account.userId)", forHTTPHeaderField: "UserId")
         
         manager.DELETE(requstUrl, parameters: parameters, success: { (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
-            print("删除成功")
+            debug_print("删除成功")
         }) { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
-            print("error")
+            debug_print("error")
         }
     }
     
@@ -112,7 +112,7 @@ class NetworkTransportAPI: NSObject {
             {
                 (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
                 
-                println("responseObject: \(responseObject)")
+                debug_println("responseObject: \(responseObject)")
                 if let code = responseObject.objectForKey("code") as? Int {
                     if code == 0 {
                         completionBlock(isSuccess: true, errorCode: 0, retMessage: responseObject.objectForKey("result") as? NSDictionary)
@@ -123,7 +123,7 @@ class NetworkTransportAPI: NSObject {
             })
             {
                 (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
-                print(error)
+                debug_print(error)
                 completionBlock(isSuccess: false, errorCode: 0, retMessage: nil)
         }
     }
@@ -144,7 +144,7 @@ class NetworkTransportAPI: NSObject {
         manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept")
         manager.requestSerializer.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         
-        println("开始网络请求: \(requestUrl)")
+        debug_println("开始网络请求: \(requestUrl)")
         
         manager.GET(requestUrl, parameters: parameters, success:
             {
@@ -155,7 +155,7 @@ class NetworkTransportAPI: NSObject {
             })
             {
                 (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
-                print(error)
+                debug_print(error)
                 completionBlock(isSuccess: false, errorCode: 0, retMessage: nil)
         }
     }
@@ -180,7 +180,7 @@ class NetworkTransportAPI: NSObject {
             {
                 (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
                 
-                println("responseObject: \(responseObject)")
+                debug_println("responseObject: \(responseObject)")
                 if let code = responseObject.objectForKey("code") as? Int {
                     if code == 0 {
                         completionBlock(isSuccess: true, errorCode: 0, retMessage: responseObject.objectForKey("result") as? NSDictionary)
@@ -191,7 +191,7 @@ class NetworkTransportAPI: NSObject {
             })
             {
                 (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
-                print(error)
+                debug_print(error)
                 completionBlock(isSuccess: false, errorCode: 0, retMessage: nil)
         }
     }
@@ -204,7 +204,7 @@ class NetworkTransportAPI: NSObject {
     */
     class func asyncACKMessage(userId: Int, lastFetchTime: Int?, completionBlock: (isSuccess: Bool, errorCode: Int, timestamp: Int?, retMessage: NSArray?) -> ()) {
         let manager = AFHTTPRequestOperationManager()
-        println("开始执行 ACK 接口")
+        debug_println("开始执行 ACK 接口")
         let requestSerializer = AFJSONRequestSerializer()
         manager.requestSerializer = requestSerializer
         manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept")
@@ -212,7 +212,7 @@ class NetworkTransportAPI: NSObject {
         
         var params = ["purgeBefore": lastFetchTime ?? 0]
         
-        println("ACK接口,收取用户\(userId) 的未读消息")
+        debug_println("ACK接口,收取用户\(userId) 的未读消息")
         
         var url = HedyUserUrl+"/\(userId)"+"/messages"
         manager.requestSerializer.timeoutInterval = 20;
@@ -230,7 +230,7 @@ class NetworkTransportAPI: NSObject {
         })
         {
         (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
-        print(error)
+        debug_print(error)
             completionBlock(isSuccess: false, errorCode: 0, timestamp: nil, retMessage: nil)
         }
     }

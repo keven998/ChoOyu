@@ -26,7 +26,7 @@ extension FrendManager {
                 
                 if (responseObject.objectForKey("code") as! Int) == 0 {
                     let resultDic = responseObject.objectForKey("result") as! NSDictionary
-                    println("\(resultDic)");
+                    debug_println("\(resultDic)");
                     var frend = FrendModel(json: resultDic)
                     completion(isSuccess: true, errorCode: 0, frendInfo: frend)
                 } else {
@@ -35,7 +35,7 @@ extension FrendManager {
             }){
                 (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
                 completion(isSuccess: false, errorCode: 0, frendInfo: nil)
-                print(error)
+                debug_print(error)
         }
     
     }

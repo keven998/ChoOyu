@@ -26,11 +26,11 @@ class MessageReceivePool: NSObject {
     weak var delegate: MessageReceivePoolDelegate?
     
     deinit {
-        println("MessageReceivePool deinit")
+        debug_println("MessageReceivePool deinit")
     }
     
     private func startTimer() {
-        println("启动定时器")
+        debug_println("启动定时器")
         timer = NSTimer.scheduledTimerWithTimeInterval(reorderTime, target: self, selector: Selector("distrubuteMessage"), userInfo: nil, repeats: false)
     }
     
@@ -49,29 +49,29 @@ class MessageReceivePool: NSObject {
                 var oldMessage = messageList.objectAtIndex(i) as! BaseMessage
                 if message.serverId == oldMessage.serverId {
                     haveAdded = true
-                    println("equail....")
+                    debug_println("equail....")
                     break
                     
                 } else if message.serverId < oldMessage.serverId {
-                    println("continue....message ServerID:\(message.serverId)  oldMessage.serverId: \(oldMessage.serverId)")
+                    debug_println("continue....message ServerID:\(message.serverId)  oldMessage.serverId: \(oldMessage.serverId)")
                     continue
                     
                 } else if message.serverId > oldMessage.serverId {
                     messageList.insertObject(message, atIndex: i+1)
-                    println("> and insert atIndex \(i+1)")
+                    debug_println("> and insert atIndex \(i+1)")
                     haveAdded = true
                     break
                 }
             }
             if !haveAdded {
                 messageList.insertObject(message, atIndex: 0)
-                println("not find and insert atIndex \(0)")
+                debug_println("not find and insert atIndex \(0)")
             }
             
         } else {
             var newMessageList = NSMutableArray()
             newMessageList.addObject(message)
-            println("newMessageList")
+            debug_println("newMessageList")
             messagePrepare2Reorder.setObject(newMessageList, forKey: message.chatterId)
         }
     }
@@ -95,10 +95,10 @@ class MessageReceivePool: NSObject {
         for messageList in messagePrepare2Reorder.allValues {
             count++
             for message in (messageList as! NSMutableArray) {
-                println("messageId: \((message as! BaseMessage).serverId)")
+                debug_println("messageId: \((message as! BaseMessage).serverId)")
             }
         }
-        println("消息已经重组完成")
+        debug_println("消息已经重组完成")
         
         delegate?.messgeReorderOver(messagePrepare2Reorder)
         messagePrepare2Reorder.removeAllObjects()

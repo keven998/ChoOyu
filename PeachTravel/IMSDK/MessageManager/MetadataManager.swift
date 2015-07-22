@@ -74,7 +74,7 @@ class MetadataUploadManager: NSObject {
                 (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
                 
                 completionBlock(isSuccess: false, key: nil, token: nil)
-                print(error)
+                debug_print(error)
         }
     }
    
@@ -116,9 +116,9 @@ class MetadataUploadManager: NSObject {
             }, params: params as [NSObject : AnyObject], checkCrc: true, cancellationSignal: nil)
     
         uploadManager.putData(metadata, key: key, token: token, complete: { (info: QNResponseInfo!, key: String!, resp:Dictionary!) -> Void in
-            println("resp: \(resp)")
+            debug_println("resp: \(resp)")
             if let error = info.error {
-                println("上传二进制文件出错： \(error)")
+                debug_println("上传二进制文件出错： \(error)")
                 completion(isSuccess: false, errorCode:0, retMessage: nil)
             } else {
                 completion(isSuccess: true, errorCode:0, retMessage: resp["result"] as? NSDictionary)
@@ -136,7 +136,7 @@ class MetadataDownloadManager:NSObject{
     */
     class func asyncDownloadThumbImage(imageUrl: String, completion:(isSuccess:Bool, metadata:NSData?) -> ()) {
         
-        println("开始下载图片缩略图")
+        debug_println("开始下载图片缩略图")
         var currentSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
        
         if let url = NSURL(string: imageUrl) {
@@ -166,7 +166,7 @@ class MetadataDownloadManager:NSObject{
     */
     class func asyncDownloadAudioData(audioMessage: AudioMessage, completion:(isSuccess:Bool, retMessage:AudioMessage) -> ()) {
         
-        println("开始下载语音")
+        debug_println("开始下载语音")
         var currentSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
         if audioMessage.remoteUrl == nil {
             return

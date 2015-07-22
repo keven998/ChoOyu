@@ -234,7 +234,7 @@ class MessageManager: NSObject {
             return
         }
         timer = NSTimer.scheduledTimerWithTimeInterval(ACKTime, target: self, selector: Selector("ackMessageWhenTimeout"), userInfo: nil, repeats: true)
-        println("********ACK 的定时器开始启动了*******")
+        debug_println("********ACK 的定时器开始启动了*******")
     }
     
     func stopTimer() {
@@ -341,7 +341,7 @@ class MessageManager: NSObject {
                 
             }
         } else {
-            println(" ****解析消息出错******")
+            debug_println(" ****解析消息出错******")
         }
         return messageModel
     }

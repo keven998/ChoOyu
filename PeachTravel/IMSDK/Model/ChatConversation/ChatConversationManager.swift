@@ -299,7 +299,7 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
     private func handleReceiveMessage(message: BaseMessage) {
         if let conversation = self.getConversationWithMessage(message) {
             conversation.addReceiveMessage(message)
-            println("conversation: \(conversation.chatterName)")
+            debug_println("conversation: \(conversation.chatterName)")
             if !conversation.isCurrentConversation {
                 conversation.unReadMessageCount++
             }
