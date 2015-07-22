@@ -77,6 +77,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
 
 -(void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
     [_searchBar resignFirstResponder];
 }
 

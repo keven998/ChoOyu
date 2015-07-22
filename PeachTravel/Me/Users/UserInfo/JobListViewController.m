@@ -61,7 +61,7 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *job = [[NSString alloc]init];
+    NSString *job;
     job = _dataArray[indexPath.row];
     [self.delegate changeJob:job];
     [self.navigationController popViewControllerAnimated:YES];

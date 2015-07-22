@@ -151,11 +151,11 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
                 cell.headerImageView.layer.cornerRadius = 0;
                 cell.headerImageView.image = [UIImage imageNamed:@"lvxingpaipai.png"];
             } else {
-                [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:tzConversation.chatterAvatar] placeholderImage:[UIImage imageNamed:@"person_disabled"]];
+                [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:tzConversation.chatterAvatar] placeholderImage:[UIImage imageNamed:@"ic_home_default_avatar.png"]];
                 cell.imageView.layer.cornerRadius = 20;
             }
         } else{
-            [cell.headerImageView setImage:[UIImage imageNamed:@"ic_group_icon.png"]];
+            [cell.headerImageView setImage:[UIImage imageNamed:@"icon_chat_group.png"]];
             cell.titleLabel.text = tzConversation.chatterName;
         }
         return cell;

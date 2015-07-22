@@ -333,7 +333,6 @@
 
 - (void)updateView
 {
-    CGFloat contactViewHight = 0;
     NSInteger totalCtn = _groupModel.members.count;
     
     totalCtn++;
@@ -344,8 +343,6 @@
     if (lineCnt == 0) {
         lineCnt = 1;
     }
-    contactViewHight = 10 + 90*lineCnt;
-    
     [_tableView reloadData];
 }
 

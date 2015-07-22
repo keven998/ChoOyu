@@ -292,7 +292,8 @@
     } else {
         cell.nickNameLabel.text = contact.nickName;
     }
-    [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:contact.avatarSmall] placeholderImage:[UIImage imageNamed:@"person_disabled"]];
+    
+    [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:contact.avatarSmall] placeholderImage:[UIImage imageNamed:@"ic_home_default_avatar.png"]];
     if ([self isSelected:contact.userId]) {
         cell.checkStatus = checked;
     } else {

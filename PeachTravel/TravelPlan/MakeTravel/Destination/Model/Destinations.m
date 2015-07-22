@@ -64,7 +64,7 @@
     
     NSMutableArray *arrayForArrays = [NSMutableArray array];
     BOOL checkValueAtIndex= NO;  //flag to check
-    NSMutableArray *TempArrForGrouping = nil;
+    NSMutableArray *tempArrForGrouping = [[NSMutableArray alloc] init];
     
     for(int index = 0; index < [chineseStringsArray count]; index++)
     {
@@ -74,15 +74,14 @@
         if(![sectionHeadsKeys containsObject:[sr uppercaseString]])//here I'm checking whether the character already in the selection header keys or not
         {
             [sectionHeadsKeys addObject:[sr uppercaseString]];
-            TempArrForGrouping = [[NSMutableArray alloc] initWithObjects:nil];
             checkValueAtIndex = NO;
         }
         if([sectionHeadsKeys containsObject:[sr uppercaseString]])
         {
-            [TempArrForGrouping addObject:[chineseStringsArray objectAtIndex:index]];
+            [tempArrForGrouping addObject:[chineseStringsArray objectAtIndex:index]];
             if(checkValueAtIndex == NO)
             {
-                [arrayForArrays addObject:TempArrForGrouping];
+                [arrayForArrays addObject:tempArrForGrouping];
                 checkValueAtIndex = YES;
             }
         }

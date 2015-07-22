@@ -691,7 +691,7 @@
 
 - (void)updateGender:(NSIndexPath *)selectIndex
 {
-    NSString *str = [[NSString alloc]init];
+    NSString *str;
     if (selectIndex.row == 0) {
         str = @"F";
     }else if (selectIndex.row == 1){

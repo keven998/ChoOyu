@@ -589,7 +589,7 @@
         }
     } else {
         cell.imageView.layer.cornerRadius = 28;
-        cell.imageView.image = [UIImage imageNamed:@"ic_home_default_avatar.png"];
+        cell.imageView.image = [UIImage imageNamed:@"icon_chat_group.png"];
         cell.name = tzConversation.chatterName;
     }
     

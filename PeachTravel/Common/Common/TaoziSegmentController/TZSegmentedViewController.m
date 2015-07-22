@@ -21,14 +21,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-//    self.automaticallyAdjustsScrollViewInsets = NO;
-//    _selectedIndext = -1;
-    int titleCount = 0;
-    if (_segmentedNormalImages) {
-        titleCount = (int)_segmentedNormalImages.count;
-    } else if (_segmentedTitles) {
-        titleCount = (int)_segmentedTitles.count;
-    }
     
     // 设置segment的样式并添加到控制器中
     UIImageView * bgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 48)];
