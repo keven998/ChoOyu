@@ -43,7 +43,7 @@
     }
     self.automaticallyAdjustsScrollViewInsets = NO;
 
-    self.navigationItem.title = @"我的足迹";
+    self.navigationItem.title = @"足迹";
     _countryCount = 0;
     _countryName = [NSMutableArray array];
     self.view.backgroundColor = APP_PAGE_COLOR;

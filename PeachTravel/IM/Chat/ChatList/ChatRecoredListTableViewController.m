@@ -167,10 +167,10 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
 {
     if (section == 1) {
         UIView *sectionView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 1, self.view.frame.size.width, 30)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 1, self.view.frame.size.width, 40)];
         label.text = @"    最近聊天";
-        label.font = [UIFont systemFontOfSize:13.0];
-        label.backgroundColor = [UIColor whiteColor];
+        label.font = [UIFont systemFontOfSize:16.0];
+        label.backgroundColor = APP_PAGE_COLOR;
         sectionView.backgroundColor = APP_PAGE_COLOR;
         label.textColor = COLOR_TEXT_II;
         [sectionView addSubview:label];

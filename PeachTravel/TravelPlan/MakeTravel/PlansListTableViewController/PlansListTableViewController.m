@@ -260,7 +260,7 @@ static NSString *reusableCell = @"myGuidesCell";
 {
     [MobClick event:@"event_delete_trip_plan"];
     MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:indexPath.section];
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"删除确认" message:[NSString stringWithFormat:@"删除\"%@\"", guideSummary.title] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:[NSString stringWithFormat:@"删除\"%@\"", guideSummary.title] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
     [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
         if (buttonIndex == 1) {
             NSInteger index = indexPath.section;
@@ -458,7 +458,7 @@ static NSString *reusableCell = @"myGuidesCell";
     CGPoint point = [sender convertPoint:CGPointZero toView:self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
     MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:indexPath.section];
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"删除确认" message:[NSString stringWithFormat:@"删除\"%@\"", guideSummary.title] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:[NSString stringWithFormat:@"删除\"%@\"", guideSummary.title] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
     [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
         if (buttonIndex == 1) {
             NSInteger index = indexPath.section;
@@ -707,7 +707,7 @@ static NSString *reusableCell = @"myGuidesCell";
                 MyGuideSummary *guide = self.dataSource [index];
                 guide.status = @"traveled";
                 
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"完成签到" message:@"您的旅历+1" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"已标记去过，个人旅历+1" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
                 [alertView show];
             }
             

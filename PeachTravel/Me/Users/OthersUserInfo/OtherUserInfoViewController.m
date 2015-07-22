@@ -11,7 +11,6 @@
 #import "HeaderCell.h"
 #import "OtherUserBasicInfoCell.h"
 #import "OthersAlbumCell.h"
-#import "TraceViewController.h"
 #import "ChatViewController.h"
 #import "ChatSettingViewController.h"
 #import "AccountModel.h"
@@ -120,7 +119,9 @@
     _constellationView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
     _constellationView.center = CGPointMake(width/2.0 - 18, CGRectGetMaxY(_avatarBg.frame) - 5);
     _constellationView.contentMode = UIViewContentModeScaleAspectFit;
-    _constellationView.image = [UIImage imageNamed:@"ic_home_user_constellation_shooter.png"];
+    
+    _constellationView.image = [UIImage imageNamed:[FrendModel costellationImageNameWithBirthday:_userInfo.birthday]];
+
     [_headerBgView addSubview:_constellationView];
     
     _levelLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64, 18)];
@@ -308,6 +309,8 @@
     } else {
         _recidence.text = _userInfo.residence;
     }
+
+    _constellationView.image = [UIImage imageNamed:[FrendModel costellationImageNameWithBirthday:_userInfo.birthday]];
     
     _trackLabel.text = _userInfo.footprintDescription;
     NSString *guideCtn = [NSString stringWithFormat:@"%zd条",_userInfo.guideCount];

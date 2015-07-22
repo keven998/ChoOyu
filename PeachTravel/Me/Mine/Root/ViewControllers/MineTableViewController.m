@@ -309,7 +309,7 @@
         _planNumber.text = [NSString stringWithFormat:@"%lu条",_accountManager.account.guideCnt];
         _nameLabel.text = amgr.account.nickName;
         _idLabel.text = [NSString stringWithFormat:@"ID：%ld", (long)amgr.account.userId];
-        _constellationView.image = [UIImage imageNamed:@"ic_home_user_constellation_shooter.png"];
+        _constellationView.image = [UIImage imageNamed:[FrendModel costellationImageNameWithBirthday:_accountManager.account.birthday]];
         _levelLabel.text = @"Lv12";
         if (amgr.account.gender == Male) {
             _avatarBg.image = [UIImage imageNamed:@"ic_home_avatar_border_boy.png"];

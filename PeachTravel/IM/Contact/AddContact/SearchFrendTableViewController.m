@@ -23,7 +23,7 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _searchBar = [[UISearchBar alloc]init];
     _searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    [_searchBar setPlaceholder:@"昵称/用户ID"];
+    [_searchBar setPlaceholder:@"昵称/用户ID/手机号"];
     _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
     [_searchBar setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
     [_searchBar setBackgroundColor:APP_THEME_COLOR];
@@ -36,7 +36,6 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 
@@ -59,7 +58,7 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSNumber *imageWidth = [NSNumber numberWithInt:(kWindowWidth-22)*2];
     [params setObject:imageWidth forKey:@"imgWidth"];
-    [params setObject:searchText forKey:@"tel"];
+    [params setObject:searchText forKey:@"query"];
     
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     __weak typeof(SearchFrendTableViewController *)weakSelf = self;
@@ -104,7 +103,7 @@
             [self performSelector:@selector(jumpToNextCtl) withObject:nil afterDelay:0.3];
         }
     } else {
-        [SVProgressHUD showHint:@"没有找到她~"];
+        [SVProgressHUD showHint:@"没有找到他~"];
     }
 }
 
