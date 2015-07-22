@@ -55,7 +55,7 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"我收藏的购物";
+    self.navigationItem.title = @"收藏的购物";
     self.view.backgroundColor = APP_PAGE_COLOR;
     
     self.isClosed = YES;
