@@ -279,7 +279,7 @@
 
 - (IBAction)cancel:(id)sender {
     if (_backupTrip.tripIsChange) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"计划发生修改是否忽略？" message:nil delegate:self cancelButtonTitle:@"忽略" otherButtonTitles:@"取消", nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"是否放弃修改直接返回" message:nil delegate:self cancelButtonTitle:@"直接返回" otherButtonTitles:@"取消", nil];
         [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
             if (buttonIndex == 0) {
                 [self dismissViewControllerAnimated:YES completion:nil];
