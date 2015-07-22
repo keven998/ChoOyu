@@ -26,6 +26,8 @@
 {
     [super viewDidLoad];
     
+    // 设置tableView不能滚动
+    self.tableView.scrollEnabled = NO;
 }
 
 - (void)setSiteArray:(NSArray *)siteArray

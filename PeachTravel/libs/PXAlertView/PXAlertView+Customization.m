@@ -178,4 +178,38 @@ void * const kAllBGKey = (void * const) &kAllBGKey;
     [self.otherButton setTitleColor:color forState:UIControlStateNormal];
     [self.otherButton setTitleColor:color forState:UIControlStateHighlighted];
 }
+
+
+#pragma mark - 增加了一些方法去改变内部文字普通状态下以及高亮状态下的颜色
+- (void)setCancelButtonTextColor:(UIColor *)color andHighLightedColor:(UIColor *)highLightedColor
+{
+    [self.cancelButton setTitleColor:color forState:UIControlStateNormal];
+    [self.cancelButton setTitleColor:highLightedColor forState:UIControlStateHighlighted];
+}
+
+- (void)setOtherButtonTextColor:(UIColor *)color andHighLightedColor:(UIColor *)highLightedColor
+{
+    [self.otherButton setTitleColor:color forState:UIControlStateNormal];
+    [self.otherButton setTitleColor:highLightedColor forState:UIControlStateHighlighted];
+}
+
+- (void)setAllButtonsTextColor:(UIColor *)color andHighLightedColor:(UIColor *)highLightedColor
+{
+    for (UIButton *button in self.buttons) {
+        [button setTitleColor:color forState:UIControlStateNormal];
+        [button setTitleColor:highLightedColor forState:UIControlStateHighlighted];
+    }
+}
+
+/**
+ *  下面方法是给Button设置下划线
+ */
+- (void)setCancelUnderlineWithColor:(UIColor *)color
+{
+    CGFloat underLineW = self.cancelButton.frame.size.width;
+    UIView * underLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, underLineW, 1)];
+    underLine.backgroundColor = color;
+    [self.cancelButton addSubview:underLine];
+}
+
 @end

@@ -36,4 +36,13 @@
 
 - (void)useCustomStyle;
 
+#pragma mark - 增加自定义方法
+- (void)setCancelButtonTextColor:(UIColor *)color andHighLightedColor:(UIColor *)highLightedColor;
+
+- (void)setOtherButtonTextColor:(UIColor *)color andHighLightedColor:(UIColor *)highLightedColor;
+
+- (void)setAllButtonsTextColor:(UIColor *)color andHighLightedColor:(UIColor *)highLightedColor;
+
+- (void)setCancelUnderlineWithColor:(UIColor *)color;
+
 @end
