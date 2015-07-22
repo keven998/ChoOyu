@@ -73,7 +73,7 @@
 //    content.width = self.containerView.width - 2 * content.x;
     
     // 设置灰色的高度
-    self.containerView.height = CGRectGetMaxY(content.frame) + 11;
+    self.containerView.height = CGRectGetMaxY(content.frame) + 2;
     // 设置灰色的宽度
     self.containerView.width = CGRectGetMaxX(content.frame) + 10;
     
