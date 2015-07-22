@@ -44,13 +44,16 @@
     UIBarButtonItem *lbtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"common_icon_navigaiton_back.png"] style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
     self.navigationItem.leftBarButtonItem = lbtn;
     
-    TZButton *btn = [TZButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(0, 0, 64, 44);
-    [btn setTitle:@"第1天" forState:UIControlStateNormal];
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(0, 0, 64, 28);
+    [btn setTitle:@"01.Day" forState:UIControlStateNormal];
+    btn.layer.borderWidth = 1.0;
+    btn.layer.cornerRadius = 3.0;
+    btn.layer.borderColor = [UIColor whiteColor].CGColor;
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    btn.titleLabel.font = [UIFont boldSystemFontOfSize:16];
+    [btn setTitleColor:COLOR_DISABLE forState:UIControlStateHighlighted];
+    btn.titleLabel.font = [UIFont systemFontOfSize:16];
     [btn addTarget:self action:@selector(switchDay) forControlEvents:UIControlEventTouchUpInside];
-    btn.imagePosition = IMAGE_AT_RIGHT;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
 
     _pois = _tripDetail.itineraryList[_currentDay];
@@ -95,12 +98,17 @@
     NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:(count + 1)];
     int i = 0;
     while (i < count) {
-        [array addObject:[NSString stringWithFormat:@"第%d天", ++i]];
+        if (i < 9) {
+            [array addObject:[NSString stringWithFormat:@"0%d.Day", ++i]];
+        } else {
+            [array addObject:[NSString stringWithFormat:@"%d.Day", ++i]];
+        }
     }
     
     SelectionTableViewController *ctl = [[SelectionTableViewController alloc] init];
     ctl.contentItems = array;
     ctl.delegate = self;
+    ctl.titleTxt = @"切换";
     ctl.selectItem = ((UIButton *)self.navigationItem.rightBarButtonItem.customView).titleLabel.text;
     TZNavigationViewController *nav = [[TZNavigationViewController alloc] initWithRootViewController:ctl];
     [self presentViewController:nav animated:YES completion:nil];
@@ -225,9 +233,8 @@
     SelectPoiCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"spoi_cell" forIndexPath:indexPath];
     
     SuperPoi *pb = [_pois objectAtIndex:indexPath.row];
-    NSString *txt = [NSString stringWithFormat:@"%ld %@", (indexPath.row + 1), pb.zhName];
+    NSString *txt = [NSString stringWithFormat:@"%ld.%@", (indexPath.row + 1), pb.zhName];
     cell.textView.text = txt;
-    cell.textView.textColor = COLOR_TEXT_II;
     CGSize size = [txt sizeWithAttributes:@{NSFontAttributeName : cell.textView.font}];
     cell.textView.frame = CGRectMake(0, 0, size.width, 49);
     return cell;
@@ -240,7 +247,7 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     SuperPoi *pb = [_pois objectAtIndex:indexPath.row];
-    NSString *txt = [NSString stringWithFormat:@"%ld %@", (indexPath.row + 1), pb.zhName];
+    NSString *txt = [NSString stringWithFormat:@"%ld.%@", (indexPath.row + 1), pb.zhName];
     CGSize size = [txt sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17]}];
     return CGSizeMake(size.width, 49);
 }
@@ -251,7 +258,6 @@
 
 #pragma mark - SelectDelegate
 - (void) selectItem:(NSString *)str atIndex:(NSIndexPath *)indexPath {
-//    self.navigationItem.rightBarButtonItem.title = str;
     [((UIButton *)self.navigationItem.rightBarButtonItem.customView) setTitle:str forState:UIControlStateNormal];
     _currentDay = indexPath.row;
     _pois = [self.tripDetail.itineraryList objectAtIndex:_currentDay];
@@ -289,7 +295,7 @@ calloutAccessoryControlTapped:(UIControl *)control{
 - (MKOverlayRenderer*)mapView:(MKMapView*)mapView rendererForOverlay:(id <MKOverlay>)overlay
 {
     MKPolylineRenderer* lineView = [[MKPolylineRenderer alloc] initWithPolyline:_line];
-    lineView.strokeColor = APP_SUB_THEME_COLOR;
+    lineView.strokeColor = COLOR_CHECKED;
     lineView.lineWidth = 2;
     return lineView;
 }
@@ -304,7 +310,7 @@ calloutAccessoryControlTapped:(UIControl *)control{
     if (self = [super initWithFrame:frame]) {
         textView = [[UILabel alloc] init];
         textView.font = [UIFont systemFontOfSize:17];
-        textView.textColor = [UIColor blueColor];
+        textView.textColor = COLOR_TEXT_II;
         textView.textAlignment = NSTextAlignmentCenter;
         textView.numberOfLines = 1;
         [self.contentView addSubview:textView];

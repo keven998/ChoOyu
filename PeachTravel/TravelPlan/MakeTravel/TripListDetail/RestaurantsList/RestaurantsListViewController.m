@@ -45,7 +45,7 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"美食收藏";
+    self.navigationItem.title = @"收藏的美食";
     
     self.view.backgroundColor = APP_PAGE_COLOR;
     [self.view addSubview:self.tableView];
@@ -53,14 +53,14 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
     self.tableView.contentInset = UIEdgeInsetsMake(18, 0, 0, 0);
     
     if (_canEdit) {
-//        UIButton *toolBar = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49, CGRectGetWidth(self.view.bounds), 49)];
-//        toolBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-//        toolBar.backgroundColor = APP_THEME_COLOR;
-//        [toolBar setTitle:@"添加收藏" forState:UIControlStateNormal];
-//        toolBar.titleLabel.font = [UIFont systemFontOfSize:17.0];
-//        [toolBar setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//        [toolBar addTarget:self action:@selector(addWantTo:) forControlEvents:UIControlEventTouchUpInside];
-//        [self.view addSubview:toolBar];
+        //        UIButton *toolBar = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49, CGRectGetWidth(self.view.bounds), 49)];
+        //        toolBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+        //        toolBar.backgroundColor = APP_THEME_COLOR;
+        //        [toolBar setTitle:@"添加收藏" forState:UIControlStateNormal];
+        //        toolBar.titleLabel.font = [UIFont systemFontOfSize:17.0];
+        //        [toolBar setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        //        [toolBar addTarget:self action:@selector(addWantTo:) forControlEvents:UIControlEventTouchUpInside];
+        //        [self.view addSubview:toolBar];
     }
 }
 
@@ -68,7 +68,7 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-    [self.tableView reloadData];    
+    [self.tableView reloadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -114,8 +114,6 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
     restaurantOfCityCtl.shouldEdit = YES;
     TZNavigationViewController *nctl = [[TZNavigationViewController alloc] initWithRootViewController:restaurantOfCityCtl];
     [self presentViewController:nctl animated:YES completion:nil];
-
-//    [self.navigationController pushViewController:restaurantOfCityCtl animated:YES];
 }
 
 - (void)updateTableView
@@ -126,14 +124,13 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
 - (IBAction)editTrip:(id)sender
 {
     if (_shouldEdit) {
-        [self.tableView setEditing:YES animated:YES]; 
+        [self.tableView setEditing:YES animated:YES];
         [self performSelector:@selector(updateTableView) withObject:nil afterDelay:0.2];
         
     } else {
         if (!self.tripDetail.tripIsChange) {
             [self.tableView setEditing:NO animated:YES];
             [self performSelector:@selector(updateTableView) withObject:nil afterDelay:0.2];
-
             return;
         }
         TZProgressHUD *hud = [[TZProgressHUD alloc] init];
@@ -154,7 +151,7 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
 - (void)jumpMapView:(UIButton *)sender
 {
     [MobClick event:@"event_day_map_view"];
-
+    
     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"地图导航"
                                                        delegate:self
                                               cancelButtonTitle:nil
@@ -199,7 +196,6 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
 - (void)finishEdit
 {
     [self.tableView reloadData];
-
 }
 
 #pragma mark - 设置分组的头部
@@ -219,7 +215,7 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
     label.frame = CGRectMake(12, 16, 100, 12);
     [label setTextColor:[UIColor colorWithRed:100 / 256.0 green:100 / 256.0 blue:100 / 256.0 alpha:1.0]];
     CityDestinationPoi * poi = self.tripDetail.destinations[section];
-    NSString * title = [NSString stringWithFormat:@"%@ (%ld)",poi.zhName,shoppingArray.count];
+    NSString * title = [NSString stringWithFormat:@"%@ (%ld收藏)",poi.zhName,shoppingArray.count];
     label.text = title;
     [containBtn addSubview:label];
     
@@ -228,7 +224,7 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
     collection.tag = section;
     CGFloat collectionW = 54;
     collection.frame = CGRectMake(SCREEN_WIDTH - 20 - collectionW, 8, collectionW, 26);
-    [collection setTitle:@"收藏" forState:UIControlStateNormal];
+    [collection setTitle:@"＋收藏" forState:UIControlStateNormal];
     collection.titleLabel.font = [UIFont systemFontOfSize:12.0];
     [collection setTitleColor:[UIColor colorWithRed:150 / 256.0 green:150 / 256.0 blue:150 / 256.0 alpha:1.0] forState:UIControlStateNormal];
     [collection addTarget:self action:@selector(collectionShop:) forControlEvents:UIControlEventTouchUpInside];
@@ -253,8 +249,6 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
 // 合并表格
 - (void)mergeTable:(UIButton *)contain
 {
-    NSLog(@"点击了合并表格");
-    
     NSInteger didSection = contain.tag;
     
     if (!_showDic) {
@@ -264,8 +258,7 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
     NSString *key = [NSString stringWithFormat:@"%ld",didSection];
     if (![_showDic objectForKey:key]) {
         [_showDic setObject:@"1" forKey:key];
-        
-    }else{
+    } else {
         [_showDic removeObjectForKey:key];
     }
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:didSection] withRowAnimation:UITableViewRowAnimationFade];
@@ -340,17 +333,10 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     TripPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:restaurantListReusableIdentifier forIndexPath:indexPath];
-    
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    cell.separatorInset=UIEdgeInsetsZero;
-    
     cell.clipsToBounds = YES;
     
     NSArray * dataSource = [self revertShoppingListToGroup:_tripDetail.restaurantsList];
-    
     NSArray * shoppingArray = dataSource[indexPath.section];
-    
     cell.tripPoi = shoppingArray[indexPath.row];
     
     return cell;
@@ -379,7 +365,7 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
     [MobClick event:@"event_reorder_items"];
     SuperPoi *poi = [_tripDetail.restaurantsList objectAtIndex:sourceIndexPath.row];
     [_tripDetail.restaurantsList removeObjectAtIndex:sourceIndexPath.row];
-   
+    
     [_tripDetail.restaurantsList insertObject:poi atIndex:destinationIndexPath.row];
     [self.tableView reloadData];
 }
@@ -397,10 +383,10 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
         
         if (proposedDestinationIndexPath.section == sourceIndexPath.section+1) {
             path = [NSIndexPath indexPathForItem:0 inSection:proposedDestinationIndexPath.section-1];
-
+            
         } else {
             path = [NSIndexPath indexPathForItem:1 inSection:proposedDestinationIndexPath.section-1];
-
+            
         }
         return path;
     }
@@ -417,11 +403,11 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SuperPoi *tripPoi = [_tripDetail.restaurantsList objectAtIndex:indexPath.row];
-
+    
     CommonPoiDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];
     restaurantDetailCtl.poiId = tripPoi.poiId;
     restaurantDetailCtl.poiType = kRestaurantPoi;
-
+    
     [self.navigationController pushViewController:restaurantDetailCtl animated:YES];
 }
 
@@ -429,7 +415,6 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
     _tableView.delegate = nil;
     _tableView.dataSource = nil;
     _tableView = nil;
-    
 }
 
 #pragma mark - UIActionSheetDelegate

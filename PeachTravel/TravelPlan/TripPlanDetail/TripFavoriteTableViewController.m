@@ -66,7 +66,7 @@
         cell.textLabel.text = @"美食";
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld个收藏", _tripDetail.restaurantsList.count];
     }
-    if (indexPath.row == 1) {
+    else if (indexPath.row == 1) {
         cell.imageView.image = [UIImage imageNamed:@"collect_shopping.png"];
         cell.textLabel.text = @"购物";
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld个收藏", _tripDetail.shoppingList.count];

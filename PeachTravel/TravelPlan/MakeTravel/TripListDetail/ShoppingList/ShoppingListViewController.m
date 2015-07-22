@@ -55,24 +55,24 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"购物收藏";
+    self.navigationItem.title = @"收藏的购物";
     self.view.backgroundColor = APP_PAGE_COLOR;
     
     self.isClosed = YES;
-
+    
     [self.view addSubview:self.tableView];
     
     self.tableView.contentInset = UIEdgeInsetsMake(18, 0, 0, 0);
     
     if (_canEdit) {
-//        UIButton *toolBar = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49, CGRectGetWidth(self.view.bounds), 49)];
-//        toolBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-//        toolBar.backgroundColor = APP_THEME_COLOR;
-//        [toolBar setTitle:@"添加收藏" forState:UIControlStateNormal];
-//        toolBar.titleLabel.font = [UIFont systemFontOfSize:17.0];
-//        [toolBar setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//        [toolBar addTarget:self action:@selector(addWantTo:) forControlEvents:UIControlEventTouchUpInside];
-//        [self.view addSubview:toolBar];
+        //        UIButton *toolBar = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49, CGRectGetWidth(self.view.bounds), 49)];
+        //        toolBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+        //        toolBar.backgroundColor = APP_THEME_COLOR;
+        //        [toolBar setTitle:@"添加收藏" forState:UIControlStateNormal];
+        //        toolBar.titleLabel.font = [UIFont systemFontOfSize:17.0];
+        //        [toolBar setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        //        [toolBar addTarget:self action:@selector(addWantTo:) forControlEvents:UIControlEventTouchUpInside];
+        //        [self.view addSubview:toolBar];
     }
 }
 
@@ -108,7 +108,7 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
         _tableView.backgroundColor = APP_PAGE_COLOR;
         _tableView.contentInset = UIEdgeInsetsMake(0, 0, 50, 0);
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-//        _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 10)];
+        //        _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 10)];
     }
     return _tableView;
 }
@@ -164,7 +164,7 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
 - (void)jumpMapView:(UIButton *)sender
 {
     [MobClick event:@"event_day_map_view"];
-
+    
     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"地图导航"
                                                        delegate:self
                                               cancelButtonTitle:nil
@@ -197,7 +197,7 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
 - (IBAction)deletePoi:(UIButton *)sender
 {
     [MobClick event:@"event_delete_select_item"];
-
+    
     CGPoint point = [sender convertPoint:CGPointMake(20, 20) toView:self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
     [_tripDetail.shoppingList removeObjectAtIndex:indexPath.row];
@@ -236,7 +236,7 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
     label.frame = CGRectMake(12, 16, 100, 12);
     [label setTextColor:[UIColor colorWithRed:100 / 256.0 green:100 / 256.0 blue:100 / 256.0 alpha:1.0]];
     CityDestinationPoi * poi = self.tripDetail.destinations[section];
-    NSString * title = [NSString stringWithFormat:@"%@ (%ld)",poi.zhName,shoppingArray.count];
+    NSString * title = [NSString stringWithFormat:@"%@ (%ld收藏)",poi.zhName,shoppingArray.count];
     label.text = title;
     [containBtn addSubview:label];
     
@@ -245,7 +245,7 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
     collection.tag = section;
     CGFloat collectionW = 54;
     collection.frame = CGRectMake(SCREEN_WIDTH - 20 - collectionW, 8, collectionW, 26);
-    [collection setTitle:@"收藏" forState:UIControlStateNormal];
+    [collection setTitle:@"＋收藏" forState:UIControlStateNormal];
     collection.titleLabel.font = [UIFont systemFontOfSize:12.0];
     [collection setTitleColor:[UIColor colorWithRed:150 / 256.0 green:150 / 256.0 blue:150 / 256.0 alpha:1.0] forState:UIControlStateNormal];
     [collection addTarget:self action:@selector(collectionShop:) forControlEvents:UIControlEventTouchUpInside];
@@ -270,8 +270,6 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
 // 合并表格
 - (void)mergeTable:(UIButton *)contain
 {
-    NSLog(@"点击了合并表格");
-
     NSInteger didSection = contain.tag;
     
     if (!_showDic) {
@@ -322,19 +320,10 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     TripPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:shoppingListReusableIdentifier forIndexPath:indexPath];
-    
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    cell.separatorInset=UIEdgeInsetsZero;
-    
     cell.clipsToBounds = YES;
-    
     NSArray * dataSource = [self revertShoppingListToGroup:_tripDetail.shoppingList];
-    
     NSArray * shoppingArray = dataSource[indexPath.section];
-    
     cell.tripPoi = shoppingArray[indexPath.row];
-    
     return cell;
 }
 

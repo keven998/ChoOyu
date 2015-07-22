@@ -74,7 +74,6 @@
         _tableView.dataSource = self;
         _tableView.opaque = NO;
         _tableView.backgroundColor = [UIColor clearColor];
-        _tableView.backgroundView = nil;
         _tableView.separatorColor = COLOR_LINE;
         _tableView.contentInset = UIEdgeInsetsMake(24, 0, 0, 0);
         _tableView;
@@ -272,8 +271,7 @@
             frostedViewController.liveBlur = YES;
             frostedViewController.limitMenuViewSize = YES;
             frostedViewController.resumeNavigationBar = NO;
-            self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan = NO;
-            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:frostedViewController] animated:YES completion:nil];
+            [self.frostedViewController.navigationController pushViewController:frostedViewController animated:YES];
         } else if (indexPath.row == 2){
             [self sendToFriends];
         }
