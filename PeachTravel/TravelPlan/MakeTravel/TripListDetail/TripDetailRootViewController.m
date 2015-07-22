@@ -230,6 +230,7 @@
 - (void)mapView {
     MyTripSpotsMapViewController *mapViewCtl = [[MyTripSpotsMapViewController alloc] init];
     mapViewCtl.tripDetail = _tripDetail;
+    mapViewCtl.titleText = self.navigationItem.title;
     [self.frostedViewController.navigationController pushViewController:mapViewCtl animated:YES];
 
 }

@@ -55,7 +55,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     [self setExtendedLayoutIncludesOpaqueBars:YES];
     _currentCityIndex = 0;
     if (self.shouldEdit) {
-        UIBarButtonItem *lbtn = [[UIBarButtonItem alloc] initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(finishAdd:)];
+        UIBarButtonItem *lbtn = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(finishAdd:)];
         self.navigationItem.leftBarButtonItem = lbtn;
     } else {
         UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
@@ -94,7 +94,6 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     [rbItems addObject:lbtn];
     self.navigationItem.rightBarButtonItem = lbtn;
     
-    self.view.backgroundColor = APP_PAGE_COLOR;
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -104,10 +103,18 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     [self.tableView registerNib:[UINib nibWithNibName:@"TripPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:poisOfCityCellIdentifier];
     [self.view addSubview:self.tableView];
     
+    NSString *cityName;
+    for (CityDestinationPoi *poi in _tripDetail.destinations) {
+        if ([poi.cityId isEqualToString:_cityId]) {
+            cityName = poi.zhName;
+            break;
+        }
+    }
+    
     if (_poiType == kRestaurantPoi) {
-        self.navigationItem.title = @"美食攻略";
+        self.navigationItem.title = [NSString stringWithFormat:@"%@美食", cityName];
     } else if (_poiType == kShoppingPoi) {
-        self.navigationItem.title = @"购物攻略";
+        self.navigationItem.title = [NSString stringWithFormat:@"%@购物", cityName];
     }
     
     _currentPageNormal = 0;

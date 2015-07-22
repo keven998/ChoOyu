@@ -88,7 +88,7 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     [self.view addSubview:_tableView];
     
     if (_tripDetail) {
-        UIBarButtonItem *finishBtn = [[UIBarButtonItem alloc]initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(addFinish:)];
+        UIBarButtonItem *finishBtn = [[UIBarButtonItem alloc]initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(addFinish:)];
         self.navigationItem.leftBarButtonItem = finishBtn;
         
         UIBarButtonItem *sbtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"search.png"] style:UIBarButtonItemStylePlain target:self action:@selector(beginSearch)];
