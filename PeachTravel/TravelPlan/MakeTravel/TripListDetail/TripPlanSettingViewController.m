@@ -271,8 +271,7 @@
             frostedViewController.liveBlur = YES;
             frostedViewController.limitMenuViewSize = YES;
             frostedViewController.resumeNavigationBar = NO;
-            self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan = NO;
-            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:frostedViewController] animated:YES completion:nil];
+            [self.frostedViewController.navigationController pushViewController:frostedViewController animated:YES];
         } else if (indexPath.row == 2){
             [self sendToFriends];
         }

@@ -97,7 +97,7 @@
     ctl.tripDetail = _backupTrip;
     ctl.shouldEdit = YES;
     ctl.delegate = self;
-    [self.navigationController pushViewController:ctl animated:YES];
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:ctl] animated:YES completion:nil];
 }
 
 #pragma mark - addPoiDelegate
