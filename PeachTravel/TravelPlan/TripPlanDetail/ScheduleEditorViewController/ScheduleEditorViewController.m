@@ -215,6 +215,12 @@
     return cell;
 }
 
+- (void)dealloc {
+    _rootCtl = nil;
+    _delegate = nil;
+    _tripDetail = nil;
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -263,13 +269,7 @@
     [_tripDetail saveTrip:^(BOOL isSuccesss) {
         if (isSuccesss) {
             _backupTrip = [_tripDetail backUpTrip];
-            [SVProgressHUD showHint:@"保存成功"];
-            if (self.rootCtl != nil && [self.rootCtl isKindOfClass:[DayAgendaViewController class]]) {
-                [self dismissViewControllerAnimated:YES completion:nil];
-                [self.rootCtl.navigationController popViewControllerAnimated:YES];
-            } else {
-                [self dismissViewControllerAnimated:YES completion:nil];
-            }
+            [self.frostedViewController.navigationController popViewControllerAnimated:YES];
         } else {
             _tripDetail.itineraryList = backItineraryList;
             [SVProgressHUD showHint:@"保存失败"];
@@ -279,14 +279,14 @@
 
 - (IBAction)cancel:(id)sender {
     if (_backupTrip.tripIsChange) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"是否放弃修改直接返回" message:nil delegate:self cancelButtonTitle:@"直接返回" otherButtonTitles:@"取消", nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"是否放弃修改直接返回" delegate:self cancelButtonTitle:@"直接返回" otherButtonTitles:@"取消", nil];
         [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
             if (buttonIndex == 0) {
-                [self dismissViewControllerAnimated:YES completion:nil];
+                [self.frostedViewController.navigationController popViewControllerAnimated:YES];
             }
         }];
     } else {
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [self.frostedViewController.navigationController popViewControllerAnimated:YES];
     }
 }
 
