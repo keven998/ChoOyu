@@ -180,7 +180,6 @@
 
 - (IBAction)addAction:(UIButton *)sender
 {
-#warning 需要修改AlertView样式
     PXAlertView *alertView = [PXAlertView showAlertWithTitle:nil
                                                      message:nil
                                                  cancelTitle:@"取消"

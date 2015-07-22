@@ -29,7 +29,7 @@
 }
 
 - (void)dealloc {
-    NSLog(@"ZTProgressHUD销毁掉了");
+    NSLog(@"TZProgressHUD销毁掉了");
 }
 
 - (void)setStatus:(NSString *)status
@@ -38,6 +38,12 @@
     _statusLabel.text = _status;
 }
 
+/**
+ *  初始化加载过程
+ *
+ *  @param status 加载提示文字
+ *  @param y      位置
+ */
 - (void)initLoadingViewWithStatus:(NSString *)status content:(CGFloat)y
 {
     if (status) {
@@ -56,6 +62,8 @@
     _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
 //    _backGroundView.center = self.center;
     _backGroundView.center = CGPointMake(self.center.x, self.center.y-y);
+    
+    // 将执行动画图片放到一个数组中
     NSMutableArray *images = [[NSMutableArray alloc] init];
     for (int i = 1; i < 60; i++) {
         NSString *imageName = [NSString stringWithFormat:@"Loading_Animation_final%d.png", i];
@@ -88,6 +96,7 @@
     [self showHUDInViewController:viewController withStatus:nil content:0];
 }
 
+#pragma mark - 显示加载动画在View中
 - (void)showHUDInView:(UIView *)contentView
 {
     [self initLoadingViewWithStatus:nil content:0];
@@ -107,6 +116,8 @@
 
 }
 
+
+#pragma mark - 将加载动画显示在控制器中,不能控制加载动画的位置
 - (void)showHUDInViewController:(UIViewController *)viewController withStatus:(NSString *)status {
     _rootViewController = viewController;
     [self initLoadingViewWithStatus:status content:0];
@@ -126,6 +137,8 @@
     }];
 
 }
+
+
 - (void)showHUDInViewController:(UIViewController *)viewController withStatus:(NSString *)status content:(CGFloat)y
 {
     _rootViewController = viewController;
@@ -146,6 +159,7 @@
     }];
     
 }
+
 - (void)showHUD
 {
     NSEnumerator *frontToBackWindows = [[[UIApplication sharedApplication]windows]reverseObjectEnumerator];

@@ -12,6 +12,7 @@ let API_USERS = "\(BASE_URL)users/"
 
 extension FrendManager {
     
+    /// 从服务器加载用户信息
     class func loadUserInfoFromServer(userId: Int, completion: (isSuccess: Bool, errorCode: Int, frendInfo: FrendModel?) -> ()) {
         let manager = AFHTTPRequestOperationManager()
         let requestSerializer = AFJSONRequestSerializer()

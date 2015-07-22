@@ -85,7 +85,7 @@
 
 - (void)asyncLogin:(NSString *)userId password:(NSString *)password completion:(void(^)(BOOL isSuccess, NSString *errorStr))completion
 {
-    
+    // 1.初始化网络管理对象
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AppUtils *utils = [[AppUtils alloc] init];
     [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
@@ -95,6 +95,7 @@
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
+    // 2.初始化参数
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:userId forKey:@"loginName"];
     [params setObject:password forKey:@"password"];
