@@ -98,12 +98,16 @@ class ConversationDaoHelper: BaseDaoHelper, ConversationDaoProtocol {
                         } else {
                             if let chatterName = rs.stringForColumn("NickName") {
                                conversation.chatterName = chatterName
+                            } else {
+                                conversation.chatterName = "\(conversation.chatterId)"
                             }
                         }
                         
                     } else if let chatterName = rs.stringForColumn("NickName") {
                         conversation.chatterName = chatterName
 
+                    } else {
+                        conversation.chatterName = "\(conversation.chatterId)"
                     }
                     if let avatarSmall = rs.stringForColumn("AvatarSmall") {
                         if avatarSmall != "" {

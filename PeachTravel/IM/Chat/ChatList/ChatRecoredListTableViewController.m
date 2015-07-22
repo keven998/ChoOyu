@@ -164,9 +164,6 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
 }
 
 
-#pragma mark - 返回用户的备注
-
-
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     if (section == 1) {
