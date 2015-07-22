@@ -83,6 +83,7 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height-49) style:UITableViewStyleGrouped];
     _tableView.delegate  = self;
     _tableView.dataSource = self;
+    self.automaticallyAdjustsScrollViewInsets = NO;
     
     [self.view addSubview:_tableView];
     
@@ -121,25 +122,23 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
 }
 
 - (void) setupSelectPanel {
-    CGRect collectionViewFrame = CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49, CGRectGetWidth(self.view.bounds), 49);
+    CGRect collectionViewFrame = CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49 - 64, CGRectGetWidth(self.view.bounds), 49);
     UICollectionViewFlowLayout *aFlowLayout = [[UICollectionViewFlowLayout alloc] init];
     [aFlowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
     self.selectPanel = [[UICollectionView alloc] initWithFrame:collectionViewFrame collectionViewLayout:aFlowLayout];
-    [self.selectPanel setBackgroundColor:[UIColor clearColor]];
+    self.selectPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.selectPanel.showsHorizontalScrollIndicator = NO;
     self.selectPanel.showsVerticalScrollIndicator = NO;
     self.selectPanel.delegate = self;
     self.selectPanel.dataSource = self;
-    self.selectPanel.contentInset = UIEdgeInsetsMake(0, 15, 0, 15);
-    self.selectPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    self.selectPanel.contentInset = UIEdgeInsetsMake(0, 10, 0, 10);
     [self.selectPanel registerClass:[SelectDestCell class] forCellWithReuseIdentifier:@"sdest_cell"];
-    UIImageView *collectionBg = [[UIImageView alloc]initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49, CGRectGetWidth(self.view.bounds), 49)];
-    collectionBg.image = [UIImage imageNamed:@"collectionBack"];
-    collectionBg.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-    [self.view addSubview:collectionBg];
-    
-    
+    self.selectPanel.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_selectPanel];
+    
+    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49 - 64, self.selectPanel.frame.size.width, 1)];
+    spaceView.backgroundColor = COLOR_LINE;
+    [self.view addSubview:spaceView];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -324,7 +323,32 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
         
     }
     cell.actionBtn.selected = !cell.actionBtn.selected;
+}
+
+- (void)deletePoi:(UIButton *)sender
+{
+    NSMutableArray *oneDayArray = [self.tripDetail.itineraryList objectAtIndex:_currentDayIndex];
+    SuperPoi *poi = [oneDayArray objectAtIndex:sender.tag];
+    int index = -1;
+    NSInteger count = oneDayArray.count;
+    for (int i = 0; i < count; ++i) {
+        SuperPoi *tripPoi = [oneDayArray objectAtIndex:i];
+        if ([tripPoi.poiId isEqualToString:poi.poiId]) {
+            [oneDayArray removeObjectAtIndex:i];
+            index = i;
+            break;
+        }
+    }
     
+    if (index != -1) {
+        NSIndexPath *lnp = [NSIndexPath indexPathForItem:index inSection:0];
+        [self.selectPanel performBatchUpdates:^{
+            [self.selectPanel deleteItemsAtIndexPaths:[NSArray arrayWithObject:lnp]];
+        } completion:^(BOOL finished) {
+            [self.selectPanel reloadData];
+        }];
+        [self.tableView reloadData];
+    }
 }
 
 - (void) changeCity {
@@ -751,14 +775,17 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     SelectDestCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"sdest_cell" forIndexPath:indexPath];
-    
     NSArray *oneDayArray = [self.tripDetail.itineraryList objectAtIndex:_currentDayIndex];
     SuperPoi *tripPoi = [oneDayArray objectAtIndex:indexPath.row];
-    NSString *txt = [NSString stringWithFormat:@"%ld %@", (indexPath.row + 1), tripPoi.zhName];
+    
+    NSString *txt = [NSString stringWithFormat:@" %ld %@ ", (indexPath.row + 1), tripPoi.zhName];
     cell.textLabel.text = txt;
-    cell.textLabel.textColor = [UIColor whiteColor];
     CGSize size = [txt sizeWithAttributes:@{NSFontAttributeName : cell.textLabel.font}];
-    cell.textLabel.frame = CGRectMake(0, 0, size.width, 49);
+    cell.textLabel.frame = CGRectMake(0, 15, size.width, 25);
+    cell.deleteBtn.frame = CGRectMake(size.width-13, 5, 20, 20);
+    cell.deleteBtn.tag = indexPath.row;
+    [cell.deleteBtn removeTarget:self action:@selector(deletePoi:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.deleteBtn addTarget:self action:@selector(deletePoi:) forControlEvents:UIControlEventTouchUpInside];
     return cell;
 }
 

@@ -4,7 +4,7 @@
 //
 //  Created by liangpengshuai on 6/16/15.
 //  Copyright (c) 2015 com.aizou.www. All rights reserved.
-//
+//  好友请求的模型
 
 #import <Foundation/Foundation.h>
 

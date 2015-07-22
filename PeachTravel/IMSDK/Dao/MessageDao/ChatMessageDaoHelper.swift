@@ -78,11 +78,11 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
     func createChatTableWithoutOpen(tableName: String) {
         if dataBase.open() {
             self.createChatTable(tableName)
-            println("success createChatTableWithoutOpen")
+            debug_println("success createChatTableWithoutOpen")
             dataBase.close()
 
         } else {
-            println("error createChatTableWithoutOpen")
+            debug_println("error createChatTableWithoutOpen")
         }
     }
     
@@ -96,9 +96,9 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
             var sql = "create table '\(tableName)' (LocalId INTEGER PRIMARY KEY AUTOINCREMENT  NOT NULL, ServerId INTEGER, Status int(4), Type int(4), Message TEXT, CreateTime INTEGER, SendType int, SenderId int)"
             if (dataBase.executeUpdate(sql, withArgumentsInArray: nil)) {
-                println("success 执行 sql 语句：\(sql)")
+                debug_println("success 执行 sql 语句：\(sql)")
             } else {
-                println("error 执行 sql 语句：\(sql)")
+                debug_println("error 执行 sql 语句：\(sql)")
             }
         }
     }
@@ -107,9 +107,9 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
             var sql = "drop table '\(tableName)'"
             if (dataBase.executeUpdate(sql, withArgumentsInArray: nil)) {
-                println("success 执行 sql 语句：\(sql)")
+                debug_println("success 执行 sql 语句：\(sql)")
             } else {
-                println("error 执行 sql 语句：\(sql)")
+                debug_println("error 执行 sql 语句：\(sql)")
             }
         }
     }
@@ -118,9 +118,9 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
             var sql = "delete from '\(tableName)'"
             if (dataBase.executeUpdate(sql, withArgumentsInArray: nil)) {
-                println("success 执行 sql 语句：\(sql)")
+                debug_println("success 执行 sql 语句：\(sql)")
             } else {
-                println("error 执行 sql 语句：\(sql)")
+                debug_println("error 执行 sql 语句：\(sql)")
             }
         }
     }
@@ -129,9 +129,9 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
             var sql = "delete from '\(tableName)' where LocalId = ?"
             if (dataBase.executeUpdate(sql, withArgumentsInArray: [localId])) {
-                println("success 执行 sql 语句：\(sql)")
+                debug_println("success 执行 sql 语句：\(sql)")
             } else {
-                println("error 执行 sql 语句：\(sql)")
+                debug_println("error 执行 sql 语句：\(sql)")
             }
         }
     }
@@ -152,13 +152,13 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
             var array = [message.serverId, message.status.rawValue, message.messageType.rawValue, message.message, message.createTime, message.sendType.rawValue, message.senderId]
             if dataBase.executeUpdate(sql, withArgumentsInArray:array as [AnyObject]) {
                 message.localId = Int(dataBase.lastInsertRowId())
-                println("success 执行 sql 语句：\(sql) message:\(message.message)  serverId:\(message.serverId)")
+                debug_println("success 执行 sql 语句：\(sql) message:\(message.message)  serverId:\(message.serverId)")
                 
                 count++
                 
-                println("一共插入数据库里的聊天数量为 \(count)")
+                debug_println("一共插入数据库里的聊天数量为 \(count)")
             } else {
-                println("error 执行 sql 语句：\(sql), message:\(message.message)  serverId:\(message.serverId)")
+                debug_println("error 执行 sql 语句：\(sql), message:\(message.message)  serverId:\(message.serverId)")
             }
         }
     }
@@ -189,9 +189,9 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
            
             var sql = "update \(tableName) set ServerId = ?, Status = ?  where LocalId = ?"
             if dataBase.executeUpdate(sql, withArgumentsInArray:[message.serverId, message.status.rawValue, message.localId]) {
-                println("success 执行 sql 语句：\(sql)")
+                debug_println("success 执行 sql 语句：\(sql)")
             } else {
-                println("error 执行 sql 语句：\(sql)")
+                debug_println("error 执行 sql 语句：\(sql)")
             }
         }
     }
@@ -206,9 +206,9 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
             var sql = "update \(tableName) set Message = ? where LocalId = ?"
             if dataBase.executeUpdate(sql, withArgumentsInArray:[message.message, message.localId]) {
-                println("success 执行更新消息内容的 sql 语句：\(sql)")
+                debug_println("success 执行更新消息内容的 sql 语句：\(sql)")
             } else {
-                println("error 执行更新消息内容的 sql 语句：\(sql) message: \(message.message) serverId:\(message.serverId), localId:\(message.localId)")
+                debug_println("error 执行更新消息内容的 sql 语句：\(sql) message: \(message.message) serverId:\(message.serverId), localId:\(message.localId)")
             }
         }
     }
@@ -220,7 +220,7 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
 
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
             var sql = "select * from (select * from \(tableName) where LocalId < ? order by LocalId desc limit \(messageCount)) order by LocalId"
-            println("执行 sql 语句 : \(sql)")
+            debug_println("执行 sql 语句 : \(sql)")
             var rs = dataBase.executeQuery(sql, withArgumentsInArray: [untilLocalId, messageCount])
             if (rs != nil) {
                 while rs.next() {

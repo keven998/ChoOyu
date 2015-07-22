@@ -45,7 +45,7 @@ class PushSDKManager: NSObject, GexinSdkDelegate {
     }
     
     deinit {
-        println("PushSDKManager deinit")
+        debug_println("PushSDKManager deinit")
     }
     
     func registerDeviceToken(token: String) {
@@ -57,7 +57,7 @@ class PushSDKManager: NSObject, GexinSdkDelegate {
     */
     func checkoutSDKStatus() {
         if !pushSdkIsConnected {
-            println("***** 个推 sdk 长链接未建立， 尝试重新建立中。******")
+            debug_println("***** 个推 sdk 长链接未建立， 尝试重新建立中。******")
             gexinSdk?.destroy()
             self.createPushConnection()
         }
@@ -95,7 +95,7 @@ class PushSDKManager: NSObject, GexinSdkDelegate {
     登录
     */
     func createPushConnection() {
-        println("正在建立 push 长链接。。。。。")
+        debug_println("正在建立 push 长链接。。。。。")
         gexinSdk = GetuiPush.login()
     }
     
@@ -106,7 +106,7 @@ class PushSDKManager: NSObject, GexinSdkDelegate {
     */
     func GexinSdkDidOccurError(error: NSError!) {
         pushSdkIsConnected = false
-        println("*****  GexinSdkDidOccurError  ******")
+        debug_println("*****  GexinSdkDidOccurError  ******")
     }
     
     /**
@@ -151,7 +151,7 @@ class PushSDKManager: NSObject, GexinSdkDelegate {
     */
     func dispatchPushMessage(message: NSString) {
         
-        println("dispatchPushMessage: \(message)")
+        debug_println("dispatchPushMessage: \(message)")
         let dispatchMessageDic: NSDictionary
         var mseesageData = message.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
         var messageJson: AnyObject? = NSJSONSerialization.JSONObjectWithData(mseesageData!, options:.AllowFragments, error: nil)
@@ -176,7 +176,7 @@ class PushSDKManager: NSObject, GexinSdkDelegate {
     :param: clientId 注册成功后的 id
     */
     func GexinSdkDidRegisterClient(clientId: String!) {
-        println("push 长链接建立成功")
+        debug_println("push 长链接建立成功")
         pushSdkIsConnected = true
         pushConnectionDelegate?.getuiDidConnection(clientId)
     }
@@ -195,7 +195,7 @@ class GetuiPush: GexinSdk {
     }
     
     deinit {
-        println("GetuiPush deinit")
+        debug_println("GetuiPush deinit")
     }
 }
 

@@ -12,6 +12,7 @@ let API_USERS = "\(BASE_URL)users/"
 
 extension FrendManager {
     
+    /// 从服务器加载用户信息
     class func loadUserInfoFromServer(userId: Int, completion: (isSuccess: Bool, errorCode: Int, frendInfo: FrendModel?) -> ()) {
         let manager = AFHTTPRequestOperationManager()
         let requestSerializer = AFJSONRequestSerializer()
@@ -25,7 +26,7 @@ extension FrendManager {
                 
                 if (responseObject.objectForKey("code") as! Int) == 0 {
                     let resultDic = responseObject.objectForKey("result") as! NSDictionary
-                    println("\(resultDic)");
+                    debug_println("\(resultDic)");
                     var frend = FrendModel(json: resultDic)
                     completion(isSuccess: true, errorCode: 0, frendInfo: frend)
                 } else {
@@ -34,7 +35,7 @@ extension FrendManager {
             }){
                 (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
                 completion(isSuccess: false, errorCode: 0, frendInfo: nil)
-                print(error)
+                debug_print(error)
         }
     
     }

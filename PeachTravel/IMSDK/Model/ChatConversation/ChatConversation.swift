@@ -62,7 +62,7 @@ class ChatConversation: NSObject {
     }
     
     deinit {
-        println("ChatConversation deinit")
+        debug_println("ChatConversation deinit")
     }
     
     func updateTimeStamp(newValue: Int) {

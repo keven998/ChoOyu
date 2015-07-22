@@ -25,6 +25,13 @@ class FrendRequestManager: NSObject {
         }
     }
     
+    /**
+    初始化
+    
+    :param: userId 用户ID
+    
+    :returns: 管理对象
+    */
     init(userId: Int) {
         accountId = userId
         let dbPath: String = documentPath.stringByAppendingPathComponent("\(accountId)/user.sqlite")
@@ -56,7 +63,7 @@ class FrendRequestManager: NSObject {
                     break
                     
                 } else {
-                    println("已经有相同的好友请求了，不需要再次添加了")
+                    debug_println("已经有相同的好友请求了，不需要再次添加了")
                     return
                 }
             }

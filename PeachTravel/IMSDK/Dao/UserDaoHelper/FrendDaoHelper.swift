@@ -95,7 +95,7 @@ class FrendDaoHelper: BaseDaoHelper, FrendDaoProtocol {
         
         var sql = "create table '\(frendTableName)' (UserId INTEGER PRIMARY KEY NOT NULL, NickName TEXT, Avatar Text, AvatarSmall Text, ShortPY Text, FullPY Text, Signature Text, Memo Text, Sex INTEGER, Type INTEGER, ExtData Text)"
         if (DB.executeUpdate(sql, withArgumentsInArray: nil)) {
-            println("执行 sql 语句：\(sql)")
+            debug_println("执行 sql 语句：\(sql)")
             return true
         }
         return false
@@ -105,10 +105,10 @@ class FrendDaoHelper: BaseDaoHelper, FrendDaoProtocol {
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
             var sql = "create table '\(frendTableName)' (UserId INTEGER PRIMARY KEY NOT NULL, NickName TEXT, Avatar Text, AvatarSmall Text, ShortPY Text, FullPY Text, Signature Text, Memo Text, Sex INTEGER, Type INTEGER, ExtData Text)"
             if (dataBase.executeUpdate(sql, withArgumentsInArray: nil)) {
-                println("success 执行 sql 语句：\(sql)")
+                debug_println("success 执行 sql 语句：\(sql)")
                 
             } else {
-                println("error 执行 sql 语句：\(sql)")
+                debug_println("error 执行 sql 语句：\(sql)")
             }
         }
     }
@@ -128,7 +128,7 @@ class FrendDaoHelper: BaseDaoHelper, FrendDaoProtocol {
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
 
             var sql = "insert into \(frendTableName) (UserId, NickName, Avatar, AvatarSmall, ShortPY, FullPY, Signature, Memo, Sex, Type, ExtData) values (?,?,?,?,?,?,?,?,?,?,?)"
-            println("执行 sql 语句：\(sql)")
+            debug_println("执行 sql 语句：\(sql)")
             var array = [frend.userId, frend.nickName, frend.avatar, frend.avatarSmall, frend.shortPY, frend.fullPY, frend.signature, frend.memo, frend.sex, frend.type.rawValue, frend.extData]
             dataBase.executeUpdate(sql, withArgumentsInArray: array as [AnyObject])
         }
@@ -141,7 +141,7 @@ class FrendDaoHelper: BaseDaoHelper, FrendDaoProtocol {
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
             
             var sql = "insert or replace into \(frendTableName) (UserId, NickName, Avatar, AvatarSmall, ShortPY, FullPY, Signature, Memo, Sex, Type, ExtData) values (?,?,?,?,?,?,?,?,?,?,?)"
-            println("执行 sql 语句：\(sql)")
+            debug_println("执行 sql 语句：\(sql)")
             var array = [frend.userId, frend.nickName, frend.avatar, frend.avatarSmall, frend.shortPY, frend.fullPY, frend.signature, frend.memo, frend.sex, frend.type.rawValue, frend.extData]
             dataBase.executeUpdate(sql, withArgumentsInArray: array as [AnyObject])
         }
@@ -151,7 +151,7 @@ class FrendDaoHelper: BaseDaoHelper, FrendDaoProtocol {
     func updateAvatarInDB(avatar: String, userId: Int) {
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
             var sql = "update \(frendTableName) set Avatar = \(avatar) where UserId = \(userId)"
-            println("执行 sql 语句：\(sql)")
+            debug_println("执行 sql 语句：\(sql)")
             dataBase.executeUpdate(sql, withArgumentsInArray: nil)
         }
     }
@@ -159,7 +159,7 @@ class FrendDaoHelper: BaseDaoHelper, FrendDaoProtocol {
     func updateNickNameInDB(name: String, userId: Int) {
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
             var sql = "update \(frendTableName) set NickName = \(name) where UserId = \(userId)"
-            println("执行 sql 语句：\(sql)")
+            debug_println("执行 sql 语句：\(sql)")
             dataBase.executeUpdate(sql, withArgumentsInArray: nil)
         }
     }
@@ -168,9 +168,9 @@ class FrendDaoHelper: BaseDaoHelper, FrendDaoProtocol {
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
             var sql = "update \(frendTableName) set ExtData = ? where UserId = ?"
             if dataBase.executeUpdate(sql, withArgumentsInArray: [extData, userId]) {
-                println("成功 执行 sql 语句：\(sql)")
+                debug_println("成功 执行 sql 语句：\(sql)")
             } else {
-                println("失败 执行 sql 语句：\(sql)")
+                debug_println("失败 执行 sql 语句：\(sql)")
             }
         }
     }
@@ -179,9 +179,9 @@ class FrendDaoHelper: BaseDaoHelper, FrendDaoProtocol {
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
             var sql = "update \(frendTableName) set Memo = ? where UserId = ?"
             if dataBase.executeUpdate(sql, withArgumentsInArray: [Memo, userId]) {
-                println("成功 执行 sql 语句：\(sql)")
+                debug_println("成功 执行 sql 语句：\(sql)")
             } else {
-                println("失败 执行 sql 语句：\(sql)")
+                debug_println("失败 执行 sql 语句：\(sql)")
             }
         }
     }
@@ -227,9 +227,9 @@ class FrendDaoHelper: BaseDaoHelper, FrendDaoProtocol {
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
             var sql = "delete from \(frendTableName) where Type = ? or Type = ? or Type = ? or Type = ?"
             if dataBase.executeUpdate(sql, withArgumentsInArray: [IMFrendType.Frend.rawValue, IMFrendType.ChatTop_Frend.rawValue, IMFrendType.Frend_Business.rawValue, IMFrendType.Frend_Expert.rawValue]) {
-                println("执行 deleteAllContactsFromDB 语句 成功")
+                debug_println("执行 deleteAllContactsFromDB 语句 成功")
             } else {
-                println("执行 deleteAllContactsFromDB 语句 失败")
+                debug_println("执行 deleteAllContactsFromDB 语句 失败")
 
             }
         }
@@ -297,7 +297,7 @@ class FrendDaoHelper: BaseDaoHelper, FrendDaoProtocol {
     func updateFrendType(#userId: Int, type: IMFrendType) {
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
             var sql = "update \(frendTableName) set Type = ? where UserId = ?"
-            println("执行 sql 语句：\(sql)")
+            debug_println("执行 sql 语句：\(sql)")
             var array = [type.rawValue, userId]
             dataBase.executeUpdate(sql, withArgumentsInArray: array as [AnyObject])
         }

@@ -103,7 +103,7 @@ class IMClientManager: NSObject {
     }
     
     deinit {
-        println("IMClientManager deinit")
+        debug_println("IMClientManager deinit")
     }
     
     class func shareInstance() -> IMClientManager {

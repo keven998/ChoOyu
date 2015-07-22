@@ -104,7 +104,7 @@ class ChatManagerAudio: NSObject, ChatManagerAudioProtocol, AudioManagerDelegate
     func updateMeters() {
         timeCounter += 0.1
         averagePower = audioRecordDeviceManager.updateMeters()
-        println("正在录音，已经录制：\(timeCounter) 声音分贝为：\(averagePower)")
+        debug_println("正在录音，已经录制：\(timeCounter) 声音分贝为：\(averagePower)")
     }
     
     //MARK: ChatManagerAudioProtocol

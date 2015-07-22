@@ -16,10 +16,10 @@ class FrendRequestDaoHelper: BaseDaoHelper {
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
             var sql = "create table '\(frendRequestTableName)' (RequestId TEXT PRIMARY KEY NOT NULL, UserId INTEGER, NickName TEXT, Avatar Text, Status INTEGER, Sex INTEGER, Date Double, Message Text)"
             if (dataBase.executeUpdate(sql, withArgumentsInArray: nil)) {
-                println("success 执行 sql 语句：\(sql)")
+                debug_println("success 执行 sql 语句：\(sql)")
                 
             } else {
-                println("error 执行 sql 语句：\(sql)")
+                debug_println("error 执行 sql 语句：\(sql)")
             }
         }
     }
@@ -44,7 +44,7 @@ class FrendRequestDaoHelper: BaseDaoHelper {
         }
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
             var sql = "insert into \(frendRequestTableName) (RequestId, UserId, NickName, Avatar, Status, Sex, Date, Message) values (?,?,?,?,?,?,?,?)"
-            println("执行 sql 语句：\(sql)")
+            debug_println("执行 sql 语句：\(sql)")
             var array = [request.requestId, request.userId, request.nickName, request.status.rawValue, request.avatar, request.gender.rawValue, request.requestDate, request.attachMsg]
             dataBase.executeUpdate(sql, withArgumentsInArray: array as [AnyObject])
         }
@@ -54,9 +54,9 @@ class FrendRequestDaoHelper: BaseDaoHelper {
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
             var sql = "delete from \(frendRequestTableName) where RequestId = ?"
             if dataBase.executeUpdate(sql, withArgumentsInArray: [requestId]) {
-                println("执行 deleteAllContactsFromDB 语句 成功")
+                debug_println("执行 deleteAllContactsFromDB 语句 成功")
             } else {
-                println("执行 deleteAllContactsFromDB 语句 失败")
+                debug_println("执行 deleteAllContactsFromDB 语句 失败")
                 
             }
         }
@@ -65,7 +65,7 @@ class FrendRequestDaoHelper: BaseDaoHelper {
     func changeFrendRequestStatus(requestId: String, status: TZFrendRequest) {
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
             var sql = "update \(frendRequestTableName) set Status = ? where RequestId = ?"
-            println("执行 sql 语句：\(sql)")
+            debug_println("执行 sql 语句：\(sql)")
             var array = [status.rawValue, requestId]
             dataBase.executeUpdate(sql, withArgumentsInArray: array as [AnyObject])
         }

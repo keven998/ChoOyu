@@ -262,7 +262,7 @@ class MessageSendManager: NSObject {
         imageMessage.createTime = Int(NSDate().timeIntervalSince1970)
         imageMessage.status = IMMessageStatus.IMMessageSending
 
-        println("imageDataLength: \(imageData.length)")
+        debug_println("imageDataLength: \(imageData.length)")
         
         var metadataId = NSUUID().UUIDString
         var imagePath = IMClientManager.shareInstance().userChatImagePath.stringByAppendingPathComponent("\(metadataId)")
@@ -330,7 +330,7 @@ class MessageSendManager: NSObject {
         audioMessage.localPath = audioWavPath
         audioMessage.message = JSONConvertMethod.contentsStrWithJsonObjc(audioContentDic) as! String
         
-        println("开始发送语音消息： 消息内容为： \(audioMessage.message)")
+        debug_println("开始发送语音消息： 消息内容为： \(audioMessage.message)")
         var daoHelper = DaoHelper.shareInstance()
 
         daoHelper.insertChatMessage("chat_\(chatterId)", message: audioMessage)
@@ -347,7 +347,7 @@ class MessageSendManager: NSObject {
                 var error: NSError?
                 fileManager.removeItemAtPath(tempAmrPath, error: &error)
                 if error != nil {
-                    println("移除发送完成后的临时文件出错 error\(error)")
+                    debug_println("移除发送完成后的临时文件出错 error\(error)")
                 }
             })
         }

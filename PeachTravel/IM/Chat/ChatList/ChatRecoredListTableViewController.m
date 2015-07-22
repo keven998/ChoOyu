@@ -163,6 +163,7 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
     return nil;
 }
 
+
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     if (section == 1) {
