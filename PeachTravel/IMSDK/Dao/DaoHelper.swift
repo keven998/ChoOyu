@@ -35,7 +35,7 @@ public class DaoHelper:NSObject {
         
         var dbPath: String = documentPath.stringByAppendingPathComponent("\(userId)/user.sqlite")
         
-        println("dbPath: \(dbPath)")
+        debug_println("dbPath: \(dbPath)")
         
         var fileManager =  NSFileManager()
         
@@ -66,7 +66,7 @@ public class DaoHelper:NSObject {
         
         var dbPath: String = documentPath.stringByAppendingPathComponent("\(userId)/user.sqlite")
         
-        println("dbPath: \(dbPath)")
+        debug_println("dbPath: \(dbPath)")
         
         var fileManager =  NSFileManager()
         

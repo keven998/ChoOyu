@@ -119,7 +119,7 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
         var messagePrepare2Fetch = NSMutableArray()
         var needFetchMessage = false
         
-        println("checkMessages queue: \(NSThread.currentThread())")
+        debug_println("checkMessages queue: \(NSThread.currentThread())")
         
         var allLastMessageList = messageManager.allLastMessageList
 
@@ -128,7 +128,7 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
                 
                 if let lastMessageServerId: AnyObject = allLastMessageList.objectForKey(message.chatterId) {
                     if (message.serverId - (lastMessageServerId as! Int)) > 1 {
-                        println("消息非法: 带插入的 serverId: \(message.serverId)  最后一条的 serverId: \(lastMessageServerId)")
+                        debug_println("消息非法: 带插入的 serverId: \(message.serverId)  最后一条的 serverId: \(lastMessageServerId)")
                         var index = messageList.indexOfObject(message)
                         for var i = index; i < messageList.count; i++ {
                             messagePrepare2Fetch.addObject(messageList.objectAtIndex(i))
@@ -139,7 +139,7 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
                         
                     } else if (message.serverId - (lastMessageServerId as! Int)) == 1 {
                         allLastMessageList.setObject(message.serverId, forKey: message.chatterId)
-                        println("消息合法: 带插入的 serverId: \(message.serverId)  最后一条的 serverId: \(lastMessageServerId)")
+                        debug_println("消息合法: 带插入的 serverId: \(message.serverId)  最后一条的 serverId: \(lastMessageServerId)")
                         messagePrepate2Distribute.addObject(message)
                         
                     } else {
@@ -149,17 +149,17 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
                     }
                     
                 } else {
-                    println("这是一条数据库不存在的消息: 带插入的 serverId: \(message.serverId))")
+                    debug_println("这是一条数据库不存在的消息: 带插入的 serverId: \(message.serverId))")
                     allLastMessageList.setObject(message.serverId, forKey: message.chatterId)
                     messagePrepate2Distribute.addObject(message)
                 }
             }
         }
 
-        println("进行插入的消息一共有\(messagePrepate2Distribute.count) 条")
+        debug_println("进行插入的消息一共有\(messagePrepate2Distribute.count) 条")
         
         if needFetchMessage {
-            println("存在不合法的消息, 需要 fetch")
+            debug_println("存在不合法的消息, 需要 fetch")
             self.asyncACKMessageWithReceivedMessages(messagePrepare2Fetch, completion: nil)
         }
         var array = messagePrepate2Distribute as AnyObject as! [BaseMessage]
@@ -257,7 +257,7 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
         daoHelper.insertChatMessageList(messageList, completionBlock: { () -> () in
             for message in messageList {
                 
-                println("distributionMessage: chatterId: \(message.chatterId)   serverId: \(message.serverId)")
+                debug_println("distributionMessage: chatterId: \(message.chatterId)   serverId: \(message.serverId)")
                 
                 if message.messageType == .ImageMessageType {
                     self.downloadPreviewImageAndDistribution(message as! ImageMessage)
@@ -381,7 +381,7 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
     func messgeReorderOver(messageList: NSDictionary) {
         receiveMessageList = messageList.copy() as? NSDictionary
         dispatch_async(messageReceiveQueue, { () -> Void in
-            println("messgeReorderOver queue: \(NSThread.currentThread())")
+            debug_println("messgeReorderOver queue: \(NSThread.currentThread())")
             for messageList in self.receiveMessageList!.allValues {
                 self.checkMessages(messageList as! NSArray)
             }

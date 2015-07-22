@@ -56,7 +56,7 @@ class FrendRequestManager: NSObject {
                     break
                     
                 } else {
-                    println("已经有相同的好友请求了，不需要再次添加了")
+                    debug_println("已经有相同的好友请求了，不需要再次添加了")
                     return
                 }
             }

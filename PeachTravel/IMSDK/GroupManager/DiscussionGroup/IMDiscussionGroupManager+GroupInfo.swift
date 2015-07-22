@@ -75,7 +75,7 @@ extension IMDiscussionGroupManager {
         }) {
             (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
             completion(isSuccess: false, errorCode: 0, discussionGroup: nil)
-            print(error)
+            debug_print(error)
         }
     }
 
@@ -108,7 +108,7 @@ extension IMDiscussionGroupManager {
             }) {
                 (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
                 completion(isSuccess: false, errorCode: 0, discussionGroup: nil)
-                print(error)
+                debug_print(error)
         }
     }
 

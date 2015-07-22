@@ -77,7 +77,7 @@ class AccountDaoHelper: NSObject {
         if db.open() {
             var sql = "create table '\(AccountTableName)' (UserId INTEGER PRIMARY KEY NOT NULL, NickName TEXT, Avatar Text, AvatarSmall Text, Signature Text, Sex Text, tel Text, secToke Text, ExtData Text)"
             if (db.executeUpdate(sql, withArgumentsInArray: nil)) {
-                println("执行 sql 语句：\(sql)")
+                debug_println("执行 sql 语句：\(sql)")
             }
             db.close()
         }
@@ -86,7 +86,7 @@ class AccountDaoHelper: NSObject {
     func addAccount2DB(account: AccountModel) {
         dbQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
             var sql = "insert or replace into \(AccountTableName) (UserId, NickName, Avatar, AvatarSmall, Signature, Sex, tel, secToke) values (?,?,?,?,?,?,?,?)"
-            println("执行 sql 语句：\(sql)")
+            debug_println("执行 sql 语句：\(sql)")
             var array = [account.userId, account.nickName, account.avatar, account.avatarSmall, account.signature, account.gender.rawValue, account.tel, account.secToken]
             dataBase.executeUpdate(sql, withArgumentsInArray: array as [AnyObject])
         }
@@ -98,7 +98,7 @@ class AccountDaoHelper: NSObject {
     func deleteAccountInfoInDB() {
         dbQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
             var sql = "delete from \(AccountTableName)"
-            println("执行 sql 语句：\(sql)")
+            debug_println("执行 sql 语句：\(sql)")
             dataBase.executeUpdate(sql, withArgumentsInArray: nil)
         }
 

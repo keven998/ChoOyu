@@ -177,7 +177,7 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
             }){
                 (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
                 completion(isSuccess: false, errorCode: 0)
-                print(error)
+                debug_print(error)
         }
     }
     
@@ -193,14 +193,13 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
         manager.requestSerializer = requestSerializer
         manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept")
         manager.requestSerializer.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-        manager.requestSerializer.setValue("\(AccountManager.shareAccountManager().account.userId)", forHTTPHeaderField: "UserId")
-        let params = ["userId": userId, "message": helloStr]
-        var url = "\(API_USERS)\(userId)/contact-requests"
+        let accountId = AccountManager.shareAccountManager().account.userId
+        manager.requestSerializer.setValue("\(accountId)", forHTTPHeaderField: "UserId")
+        let params = ["contactId": userId, "message": helloStr]
+        var url = "\(API_USERS)\(accountId)/contact-requests"
         manager.POST(url, parameters: params, success:
-            { (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
+            {(operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
                 if (responseObject.objectForKey("code") as! Int) == 0 {
-                    let frendRequest = FrendRequest(json: responseObject.objectForKey("result"))
-                    IMClientManager.shareInstance().frendRequestManager.addFrendRequest(frendRequest);
                     
                     completion(isSuccess: true, errorCode: 0)
                 } else {
@@ -209,7 +208,7 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
             }){
                 (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
                 completion(isSuccess: false, errorCode: 0)
-                print(error)
+                debug_print(error)
         }
     }
     
@@ -238,7 +237,7 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
             }){
                 (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
                 completion(isSuccess: false, errorCode: 0)
-                print(error)
+                debug_print(error)
         }
     }
     
