@@ -25,6 +25,13 @@ class FrendRequestManager: NSObject {
         }
     }
     
+    /**
+    初始化
+    
+    :param: userId 用户ID
+    
+    :returns: 管理对象
+    */
     init(userId: Int) {
         accountId = userId
         let dbPath: String = documentPath.stringByAppendingPathComponent("\(accountId)/user.sqlite")

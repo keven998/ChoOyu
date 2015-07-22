@@ -241,6 +241,7 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
         }
     }
     
+    
     private func insertMessageWhenFrendRequestAgreed(frend: FrendModel) {
         let textMsg = TextMessage()
         textMsg.senderId = frend.userId

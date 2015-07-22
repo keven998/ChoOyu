@@ -55,7 +55,7 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"我收藏的购物";
+    self.navigationItem.title = @"收藏的购物";
     self.view.backgroundColor = APP_PAGE_COLOR;
     
     self.isClosed = YES;
@@ -213,7 +213,7 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if ([_showDic objectForKey:[NSString stringWithFormat:@"%ld",indexPath.section]]) {
+    if (![_showDic objectForKey:[NSString stringWithFormat:@"%ld",indexPath.section]]) {
         return 72;
     }
     return 0;

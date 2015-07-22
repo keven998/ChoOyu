@@ -45,7 +45,7 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"我收藏的美食";
+    self.navigationItem.title = @"收藏的美食";
     
     self.view.backgroundColor = APP_PAGE_COLOR;
     [self.view addSubview:self.tableView];
@@ -295,7 +295,7 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if ([_showDic objectForKey:[NSString stringWithFormat:@"%ld",indexPath.section]]) {
+    if (![_showDic objectForKey:[NSString stringWithFormat:@"%ld",indexPath.section]]) {
         return 72;
     }
     return 0;

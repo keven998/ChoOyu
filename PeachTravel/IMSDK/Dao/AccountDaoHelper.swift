@@ -4,7 +4,7 @@
 //
 //  Created by liangpengshuai on 6/17/15.
 //  Copyright (c) 2015 com.aizou.www. All rights reserved.
-//
+//  这个文件主要是账户数据库的初始化以及创表,获取登录账号,创建账号,添加账号,删除用户记录等
 
 import UIKit
 
@@ -18,6 +18,9 @@ class AccountDaoHelper: NSObject {
     private let db : FMDatabase!
     private let dbQueue: FMDatabaseQueue!
     
+    /**
+    FMDB初始化创建数据库
+    */
     override init() {
         var dbPath: String = documentPath.stringByAppendingPathComponent("\(AccountTableName).sqlite")
         db = FMDatabase(path: dbPath)
@@ -28,6 +31,7 @@ class AccountDaoHelper: NSObject {
         }
     }
     
+    // 单例,初始化创建过程
     class func shareInstance() -> AccountDaoHelper {
         return accountDaoHelper
     }
@@ -51,6 +55,13 @@ class AccountDaoHelper: NSObject {
         return account
     }
     
+    /**
+    传入表名,判断是否存在
+    
+    :param: tableName 表名
+    
+    :returns: 存在返回true
+    */
     func tableIsExit(tableName: String) -> Bool {
         
         var retResult = false
@@ -73,6 +84,9 @@ class AccountDaoHelper: NSObject {
         return retResult;
     }
     
+    /**
+    创建账号表
+    */
     func createAccountDB() {
         if db.open() {
             var sql = "create table '\(AccountTableName)' (UserId INTEGER PRIMARY KEY NOT NULL, NickName TEXT, Avatar Text, AvatarSmall Text, Signature Text, Sex Text, tel Text, secToke Text, ExtData Text)"
@@ -83,6 +97,11 @@ class AccountDaoHelper: NSObject {
         }
     }
     
+    /**
+    添加一个账户到数据库表中
+    
+    :param: account 账户
+    */
     func addAccount2DB(account: AccountModel) {
         dbQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
             var sql = "insert or replace into \(AccountTableName) (UserId, NickName, Avatar, AvatarSmall, Signature, Sex, tel, secToke) values (?,?,?,?,?,?,?,?)"
