@@ -74,7 +74,6 @@
         _tableView.dataSource = self;
         _tableView.opaque = NO;
         _tableView.backgroundColor = [UIColor clearColor];
-        _tableView.backgroundView = nil;
         _tableView.separatorColor = COLOR_LINE;
         _tableView.contentInset = UIEdgeInsetsMake(24, 0, 0, 0);
         _tableView;
