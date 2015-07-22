@@ -180,7 +180,7 @@
 
 - (IBAction)addAction:(UIButton *)sender
 {
-    /*
+#warning 需要修改AlertView样式
     PXAlertView *alertView = [PXAlertView showAlertWithTitle:nil
                                                      message:nil
                                                  cancelTitle:@"取消"
@@ -195,9 +195,25 @@
                                                       }
                                                   }];
      
-    */
-//    [alertView setTitleFont:[UIFont systemFontOfSize:16]];
-//    [alertView useCustomStyle];
+    
+    [alertView setTitleFont:[UIFont systemFontOfSize:16]];
+    [alertView useCustomStyle];
+    
+    [alertView setBackgroundColor:[UIColor whiteColor]];
+    
+    
+    // 设置其他按钮的颜色
+    UIColor * otherNormal = TEXT_COLOR_TITLE;
+    UIColor * otherSeleced = APP_THEME_COLOR;
+    [alertView setAllButtonsTextColor:otherNormal andHighLightedColor:otherSeleced];
+    
+    // 设置取消按钮的颜色
+    UIColor *cancelNormal = TEXT_COLOR_TITLE;
+    UIColor *cancelSelected = TEXT_COLOR_TITLE;
+    [alertView setCancelButtonTextColor:cancelNormal andHighLightedColor:cancelSelected];
+    
+    // 设置取消按钮的下划线
+    [alertView setCancelUnderlineWithColor:COLOR_LINE];
 }
 
 - (UITableView *)tableView

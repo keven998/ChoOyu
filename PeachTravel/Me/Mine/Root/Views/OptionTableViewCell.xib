@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D2134" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -15,19 +15,20 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FDg-U2-dQN">
-                        <rect key="frame" x="12" y="4" width="35" height="35"/>
+                        <rect key="frame" x="14" y="3" width="38" height="38"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="35" id="1Yx-R4-JAk"/>
-                            <constraint firstAttribute="height" constant="35" id="U5l-Cv-Dyv"/>
+                            <constraint firstAttribute="width" constant="38" id="1Yx-R4-JAk"/>
+                            <constraint firstAttribute="height" constant="38" id="U5l-Cv-Dyv"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ID-ja-dxp">
-                        <rect key="frame" x="55" y="11" width="229" height="22"/>
+                        <rect key="frame" x="59" y="11" width="229" height="22"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="229" id="5cx-rO-rbA"/>
                             <constraint firstAttribute="height" constant="22" id="Pny-p9-B9r"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" red="0.19607843137254902" green="0.19607843137254902" blue="0.19607843137254902" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wYB-SB-q5H">
@@ -44,11 +45,11 @@
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 <constraints>
                     <constraint firstAttribute="centerY" secondItem="FDg-U2-dQN" secondAttribute="centerY" id="2xq-5k-wTD"/>
-                    <constraint firstItem="FDg-U2-dQN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="Nzn-Uj-bTL"/>
+                    <constraint firstItem="FDg-U2-dQN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="14" id="Nzn-Uj-bTL"/>
                     <constraint firstAttribute="centerY" secondItem="wYB-SB-q5H" secondAttribute="centerY" id="SQr-kz-MG8"/>
                     <constraint firstAttribute="centerY" secondItem="7ID-ja-dxp" secondAttribute="centerY" id="Yvw-KU-YmD"/>
                     <constraint firstAttribute="trailing" secondItem="wYB-SB-q5H" secondAttribute="trailing" id="azD-tJ-URI"/>
-                    <constraint firstItem="7ID-ja-dxp" firstAttribute="leading" secondItem="FDg-U2-dQN" secondAttribute="trailing" constant="8" id="fEA-Qj-n6D"/>
+                    <constraint firstItem="7ID-ja-dxp" firstAttribute="leading" secondItem="FDg-U2-dQN" secondAttribute="trailing" constant="7" id="fEA-Qj-n6D"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

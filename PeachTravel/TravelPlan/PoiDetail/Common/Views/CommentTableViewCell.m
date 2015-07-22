@@ -34,7 +34,6 @@
     _titleLabel.textColor = COLOR_TEXT_III;
     
     _ratingView.starImage = [UIImage imageNamed:@"poi_comment_start_default.png"];
-//    _ratingView.starImage = [UIImage imageNamed:@"ic_star_yellow"];
     _ratingView.starHighlightedImage = [UIImage imageNamed:@"poi_comment_start_highlight.png"];
     _ratingView.maxRating = 5.0;
     _ratingView.editable = NO;
