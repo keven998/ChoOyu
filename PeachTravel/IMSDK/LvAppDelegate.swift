@@ -17,7 +17,8 @@ extension AppDelegate {
         
         if (AccountManager.shareAccountManager().isLogin()) {
             IMClientManager.shareInstance().userDidLogin(AccountManager.shareAccountManager().account.userId)
-            AccountManager.shareAccountManager().bindRegisterID2UserId()
+            let connectionManager = ConnectionManager.shareInstance()
+            connectionManager.bindUserIdWithRegistionId(AccountManager.shareAccountManager().account.userId)
         }
         if isiOS8 {
             var userType = UIUserNotificationType.Badge | UIUserNotificationType.Alert | UIUserNotificationType.Sound

@@ -49,12 +49,6 @@
 - (void)userDidLoginWithUserInfo:(id)userInfo;
 
 /**
- *  将用户 id 和设备 id 进行绑定
- */
-- (void)bindRegisterID2UserId;
-
-
-/**
  *  账户是否绑定了手机号，返回 yes 是绑定了
  *
  *  @return

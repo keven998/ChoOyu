@@ -173,46 +173,10 @@
     [accountDaoHelper addAccount2DB:_account];
     IMClientManager *manager = [IMClientManager shareInstance];
     [manager userDidLogin:_account.userId];
-    [self bindRegisterID2UserId];
+    ConnectionManager *connectionManager = [ConnectionManager shareInstance];
+    [connectionManager bindUserIdWithRegistionId:_account.userId];
     [[NSNotificationCenter defaultCenter] postNotificationName:userDidLoginNoti object:nil];
 
-}
-
-/**
- *  绑定 设备 id 和用户 id 的绑定
- */
-- (void)bindRegisterID2UserId
-{
-    ConnectionManager *connectionManager = [ConnectionManager shareInstance];
-    if (!connectionManager.registionId) {
-        return;
-    }
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", self.account.userId] forHTTPHeaderField:@"UserId"];
-    
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    
-    [params setObject:[NSNumber numberWithInteger: self.account.userId] forKey:@"userId"];
-    [params setObject:[ConnectionManager shareInstance].registionId forKey:@"regId"];
-    
-    NSString *loginUrl = @"http://hedy-dev.lvxingpai.com/users/login";
-    
-    
-    [manager POST:loginUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-        if (code == 0) {
-            
-        } else {
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-    }];
 }
 
 #pragma mark - 修改用户信息相关接口

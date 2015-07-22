@@ -44,12 +44,38 @@ class ConnectionManager: NSObject, PushConnectionDelegate {
         pushSDKManager.createPushConnection()
     }
     
+    func bindUserIdWithRegistionId(userId: Int) {
+        if (self.registionId != nil) {
+            let manager = AFHTTPRequestOperationManager()
+            let requestSerializer = AFJSONRequestSerializer()
+            manager.requestSerializer = requestSerializer
+            var accountManager = AccountManager.shareAccountManager()
+            manager.requestSerializer.setValue("\(accountManager.account.userId)", forHTTPHeaderField: "UserId")
+            manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept")
+            manager.requestSerializer.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+            let params: NSDictionary = ["userId": userId, "regId": self.registionId!]
+            
+            manager.POST(HedyLoginUrl, parameters: params, success:
+                {
+                    (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
+                   
+                })
+                {
+                    (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+                   
+            }
+
+        }
+
+    }
+    
     //MARK:PushConnectionDelegate
     func getuiDidConnection(clientId: String) {
         registionId = clientId
         NSUserDefaults.standardUserDefaults().setObject(registionId, forKey: "registionId")
         NSNotificationCenter.defaultCenter().postNotificationName(getuiDidConnectionNoti, object: nil)
     }
+    
 }
 
 

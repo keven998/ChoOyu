@@ -8,7 +8,16 @@
 
 import UIKit
 
-let userUrl = "http://hedy-dev.lvxingpai.com/users"
+let HedyBaseUrl = "http://hedy-dev.lvxingpai.com/"
+
+let requestQiniuTokenToUploadMetadata = "\(HedyBaseUrl)upload/token-generator"
+
+let sendMessageURL = "\(HedyBaseUrl)chats"
+
+
+let HedyUserUrl = "\(HedyBaseUrl)users"
+
+let HedyLoginUrl = "\(HedyUserUrl)/login"
 
 /**
 消息类型

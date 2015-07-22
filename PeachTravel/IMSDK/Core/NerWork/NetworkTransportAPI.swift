@@ -8,15 +8,6 @@
 
 import UIKit
 
-let loginUrl = "http://hedy-dev.lvxingpai.com/users/login"
-
-let sendMessageURL = "http://hedy-dev.lvxingpai.com/chats"
-
-let ACKUrl = "http://hedy-dev.lvxingpai.com/users/"
-
-let requestQiniuTokenToUploadMetadata = "http://hedy-dev.lvxingpai.com/upload/token-generator"
-
-
 class NetworkTransportAPI: NSObject {
     
     /**
@@ -223,7 +214,7 @@ class NetworkTransportAPI: NSObject {
         
         println("ACK接口,收取用户\(userId) 的未读消息")
         
-        var url = ACKUrl+"\(userId)"+"/messages"
+        var url = HedyUserUrl+"/\(userId)"+"/messages"
         manager.requestSerializer.timeoutInterval = 20;
         
         manager.POST(url, parameters: params, success:
