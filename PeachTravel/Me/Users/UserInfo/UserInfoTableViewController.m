@@ -75,7 +75,6 @@
     [super viewDidLoad];
     self.navigationItem.title = @"编辑资料";
     
-    [self updateTracksDesc];
     [self updateDestinations];
     [self loadUserAlbum];
     [self setupTableHeaderView];
@@ -162,12 +161,6 @@
 
 #pragma mark - Private Methods
 
-- (void)loadUserInfo
-{
-    [self updateTracksDesc];
-    [self updateDestinations];
-}
-
 - (void) setupTableHeaderView {
     CGFloat width = SCREEN_WIDTH;
     CGFloat height = SCREEN_HEIGHT;
@@ -215,25 +208,6 @@
     [_headerBgView addSubview:_avatarBg];
     
     
-}
-
-- (void)updateTracksDesc
-{
-    //    NSMutableDictionary *country = [NSMutableDictionary dictionaryWithDictionary:[AccountManager shareAccountManager].account.tracks];
-    NSMutableDictionary * country = nil;
-    if (country == nil || [country count] == 0) {
-        _tracksDesc = @"";
-    }
-    NSInteger cityNumber = 0;
-    //    NSMutableString *cityDesc = nil;
-    NSArray *keys = [country allKeys];
-    NSInteger countryNumber = keys.count;
-    for (int i = 0; i < countryNumber; ++i) {
-        NSArray *citys = [country objectForKey:[keys objectAtIndex:i]];
-        cityNumber += citys.count;
-        
-    }
-    _tracksDesc = [NSString stringWithFormat:@"%ld国 %ld个城市", (long)countryNumber, (long)cityNumber];
 }
 
 /**
