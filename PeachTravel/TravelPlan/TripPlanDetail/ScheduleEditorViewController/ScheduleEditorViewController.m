@@ -48,6 +48,7 @@
     [self.view addSubview:_tableView];
     
     UIImageView *tabbarView = [[UIImageView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49 - 64, CGRectGetWidth(self.view.bounds), 49)];
+    tabbarView.userInteractionEnabled = YES;
     tabbarView.image = [[UIImage imageNamed:@"bottom_shadow.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 2, 5, 2)];
     
     [self.view addSubview:tabbarView];
