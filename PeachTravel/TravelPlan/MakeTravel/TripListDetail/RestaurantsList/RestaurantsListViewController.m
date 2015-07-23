@@ -93,7 +93,6 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
         _tableView.showsHorizontalScrollIndicator = NO;
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _tableView.backgroundColor = APP_PAGE_COLOR;
-        _tableView.contentInset = UIEdgeInsetsMake(0, 0, 50, 0);
         _tableView.delegate = self;
         _tableView.dataSource = self;
         [_tableView registerNib:[UINib nibWithNibName:@"TripPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:restaurantListReusableIdentifier];
@@ -203,8 +202,9 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
 {
     // 1.创建一个容器对象Button
     UIButton * containBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    containBtn.backgroundColor = [UIColor whiteColor];
-    [containBtn addTarget:self action:@selector(mergeTable:) forControlEvents:UIControlEventTouchDown];
+    [containBtn setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+    [containBtn setBackgroundImage:[ConvertMethods createImageWithColor:COLOR_DISABLE] forState:UIControlStateHighlighted];
+    [containBtn addTarget:self action:@selector(mergeTable:) forControlEvents:UIControlEventTouchUpInside];
     containBtn.tag = section;
     
     // 2.创建Button上面的视图
@@ -213,7 +213,7 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
     UILabel * label = [[UILabel alloc] init];
     label.font = [UIFont boldSystemFontOfSize:12.0f];
     label.frame = CGRectMake(12, 16, 100, 12);
-    [label setTextColor:[UIColor colorWithRed:100 / 256.0 green:100 / 256.0 blue:100 / 256.0 alpha:1.0]];
+    [label setTextColor:COLOR_TEXT_II];
     CityDestinationPoi * poi = self.tripDetail.destinations[section];
     NSString * title = [NSString stringWithFormat:@"%@ (%ld收藏)",poi.zhName,shoppingArray.count];
     label.text = title;
@@ -258,12 +258,18 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
     NSString *key = [NSString stringWithFormat:@"%ld",didSection];
     if (![_showDic objectForKey:key]) {
         [_showDic setObject:@"1" forKey:key];
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:didSection] withRowAnimation:UITableViewRowAnimationAutomatic];
     } else {
         [_showDic removeObjectForKey:key];
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:didSection] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self performSelector:@selector(scrollToVisiable:) withObject:[NSNumber numberWithLong:didSection] afterDelay:0.35];
     }
-    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:didSection] withRowAnimation:UITableViewRowAnimationFade];
 }
 
+- (void)scrollToVisiable:(NSNumber *)section {
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[section intValue]]
+                          atScrollPosition:UITableViewScrollPositionNone animated:YES];
+}
 
 // 处理shoppingList数组
 - (NSArray *)revertShoppingListToGroup:(NSArray *)shoppingList
