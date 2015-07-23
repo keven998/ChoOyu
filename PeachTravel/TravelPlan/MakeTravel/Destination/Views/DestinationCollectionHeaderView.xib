@@ -14,20 +14,24 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZTa-bM-kNZ">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bXi-ZB-ZcP">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bXi-ZB-ZcP">
                             <rect key="frame" x="0.0" y="14" width="320" height="26"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="bXi-ZB-ZcP" firstAttribute="leading" secondItem="ZTa-bM-kNZ" secondAttribute="leading" constant="10" id="SEw-bY-elS"/>
+                        <constraint firstItem="bXi-ZB-ZcP" firstAttribute="leading" secondItem="ZTa-bM-kNZ" secondAttribute="leading" constant="10" id="SEw-bY-elS">
+                            <variation key="widthClass=compact" constant="0.0"/>
+                        </constraint>
                         <constraint firstItem="bXi-ZB-ZcP" firstAttribute="top" secondItem="ZTa-bM-kNZ" secondAttribute="top" constant="12" id="YM3-XC-E3T">
                             <variation key="widthClass=compact" constant="0.0"/>
                         </constraint>
-                        <constraint firstAttribute="trailing" secondItem="bXi-ZB-ZcP" secondAttribute="trailing" constant="10" id="g8K-Wg-ymd"/>
+                        <constraint firstAttribute="trailing" secondItem="bXi-ZB-ZcP" secondAttribute="trailing" constant="10" id="g8K-Wg-ymd">
+                            <variation key="widthClass=compact" constant="0.0"/>
+                        </constraint>
                         <constraint firstAttribute="bottom" secondItem="bXi-ZB-ZcP" secondAttribute="bottom" constant="11" id="z0Y-8g-seD">
                             <variation key="widthClass=compact" constant="0.0"/>
                         </constraint>
