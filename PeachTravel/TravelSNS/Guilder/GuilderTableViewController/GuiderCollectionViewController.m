@@ -84,7 +84,7 @@ static NSString * const reuseIdentifier = @"Cell";
     idLabel.font = [UIFont boldSystemFontOfSize:10];
     idLabel.textAlignment = NSTextAlignmentCenter;
 //    idLabel.text = @"999位";
-    idLabel.text = [NSString stringWithFormat:@"%@位",guiderDistribute.expertUserCnt];
+    idLabel.text = [NSString stringWithFormat:@"%@位",guiderDistribute.expertCnt];
     [view addSubview:idLabel];
     self.navigationItem.titleView = view;
     
