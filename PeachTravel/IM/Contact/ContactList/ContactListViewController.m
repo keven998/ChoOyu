@@ -27,7 +27,6 @@
 @property (strong, nonatomic) UITableView *contactTableView;
 @property (strong, nonatomic) NSDictionary *dataSource;
 @property (strong, nonatomic) AccountManager *accountManager;
-@property (nonatomic) NSUInteger numberOfUnreadFrendRequest;
 
 @property (strong, nonatomic) UIView *emptyView;
 
@@ -268,7 +267,9 @@
 {
     if (indexPath.section == 0) {
         OptionOfFASKTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"friend_ask"];
-        cell.numberOfUnreadFrendRequest = _numberOfUnreadFrendRequest;
+        // j
+        IMClientManager *imclientManager = [IMClientManager shareInstance];
+        cell.numberOfUnreadFrendRequest = imclientManager.frendRequestManager.unReadFrendRequestCount;
         NSLog(@"%ld",cell.numberOfUnreadFrendRequest);
         if (cell.numberOfUnreadFrendRequest == 0) {
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
