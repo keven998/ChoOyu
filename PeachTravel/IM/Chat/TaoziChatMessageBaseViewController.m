@@ -71,7 +71,7 @@
             
         case IMMessageTypeRestaurantMessageType: {
             _headerLabel.text = @"   美食";
-            [_propertyBtn setImage:[UIImage imageNamed:@"ic_star_yellow.png"] forState:UIControlStateNormal];
+            [_propertyBtn setImage:[UIImage imageNamed:@"poi_comment_start_highlight.png"] forState:UIControlStateNormal];
             NSString *propertyStr = [NSString stringWithFormat:@"%.1f  %@",_messageRating, _messagePrice];
             _descLabel.text = _messageAddress;
             [_propertyBtn setTitle:propertyStr forState:UIControlStateNormal];
@@ -121,7 +121,7 @@
     }
 
     // 监听键盘的变化
-    self.messageText.layer.borderColor = UIColorFromRGB(0x121212).CGColor;
+    self.messageText.layer.borderColor = UIColorFromRGB(0xe2e2e2).CGColor;
     self.messageText.layer.borderWidth = 1.0;
     self.messageText.delegate = self;
 }
