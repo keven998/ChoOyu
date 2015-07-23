@@ -98,6 +98,7 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
     */
     func reorderConversationList() {
         sort(&conversationList, { (conversation1: ChatConversation, conversation2: ChatConversation) -> Bool in
+            debug_println("\(conversation1.chatterName)...\(conversation2.chatterName)")
             if conversation1.chatterId == 10001 {
                 return true
             }
@@ -113,9 +114,10 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
             if conversation1.chatterId == 10000 && conversation2.chatterId != 10000 {
                 return true
             }
-            if conversation2.chatterId == 10000 && conversation1.chatterId != 100001 {
+            if conversation2.chatterId == 10000 && conversation1.chatterId != 10001 {
                 return false
             }
+            
             if conversation1.isTopConversation && !conversation2.isTopConversation {
                 return true
             } else if !conversation1.isTopConversation && conversation2.isTopConversation {

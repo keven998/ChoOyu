@@ -67,7 +67,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"派派达人";
-    self.view.backgroundColor = APP_PAGE_COLOR;
     
     UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
     [button setImage:[UIImage imageNamed:@"common_icon_navigaiton_back"] forState:UIControlStateNormal];
@@ -167,9 +166,10 @@
 {
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
-        _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+        _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         _tableView.delegate = self;
         _tableView.dataSource = self;
+        _tableView.backgroundColor = APP_PAGE_COLOR;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [self.tableView registerNib:[UINib nibWithNibName:@"GuiderCell" bundle:nil]  forCellReuseIdentifier:@"GuiderCell"];
         
@@ -180,7 +180,7 @@
 #pragma mark - UITableViewDataSource & UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-
+    
     if (![_showDic objectForKey:[NSString stringWithFormat:@"%ld",indexPath.section]]) {
         return 232*CGRectGetWidth(self.view.frame)/414;
     }
@@ -190,7 +190,7 @@
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
     
     return self.dataSource.count;
-//    return 5;
+    //    return 5;
 }
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -210,13 +210,13 @@
     view.backgroundColor = [UIColor whiteColor];
     UILabel *sectionLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 6, CGRectGetWidth(self.view.bounds), 38)];
     
-
+    
     // 设置头像的标题
     sectionLabel.text = self.titleArray[section];
     
     sectionLabel.textAlignment = NSTextAlignmentCenter;
     sectionLabel.textColor = APP_THEME_COLOR;
-    sectionLabel.font = [UIFont systemFontOfSize:12];
+    sectionLabel.font = [UIFont boldSystemFontOfSize:14];
     sectionLabel.tag = 1;
     [view addSubview:sectionLabel];
     
