@@ -354,7 +354,7 @@
     AccountManager *accountManager = [AccountManager shareAccountManager];
     
     UIButton *beginTalk = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds)/2, 48)];
-    [beginTalk setTitle:@"开始聊天" forState:UIControlStateNormal];
+    [beginTalk setTitle:@"发送消息" forState:UIControlStateNormal];
     [beginTalk setBackgroundImage:[UIImage new] forState:UIControlStateNormal];
     [beginTalk setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
     [beginTalk setImage:[UIImage imageNamed:@"ic_home_normal.png"] forState:UIControlStateNormal];
@@ -378,7 +378,7 @@
         [_addFriendBtn setTitle:@"修改备注" forState:UIControlStateNormal];
         [_addFriendBtn addTarget:self action:@selector(remarkFriend) forControlEvents:UIControlEventTouchUpInside];
     } else {
-        [_addFriendBtn setTitle:@"加为好友" forState:UIControlStateNormal];
+        [_addFriendBtn setTitle:@"加为朋友" forState:UIControlStateNormal];
         [_addFriendBtn addTarget:self action:@selector(addToFriend) forControlEvents:UIControlEventTouchUpInside];
         
     }
@@ -387,7 +387,7 @@
 #pragma mark - IBAction
 
 - (void)addToFriend {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"好友验证" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"朋友验证" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     [alert setAlertViewStyle:UIAlertViewStylePlainTextInput];
     UITextField *nameTextField = [alert textFieldAtIndex:0];
     AccountManager *accountManager = [AccountManager shareAccountManager];
@@ -475,14 +475,14 @@
                                                        delegate:self
                                               cancelButtonTitle:@"取消"
                                          destructiveButtonTitle:nil
-                                              otherButtonTitles:@"删除好友", nil];
+                                              otherButtonTitles:@"删除朋友", nil];
     [sheet showInView:self.view];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 0) {
         [MobClick event:@"event_delete_it"];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"确认删除好友" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"确认删除朋友关系" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
         [alert showAlertViewWithBlock:^(NSInteger buttonIndex) {
             if (buttonIndex == 1) {
                 [self removeContact];
