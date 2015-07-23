@@ -11,6 +11,7 @@
   */
 
 #import "MessageModel.h"
+#import "ConvertToCommonEmoticonsHelper.h"
 
 @implementation MessageModel
 
@@ -34,6 +35,13 @@
         _senderId = message.senderId;
         
         switch (message.messageType) {
+            case IMMessageTypeTextMessageType: {
+                NSString *didReceiveText = [ConvertToCommonEmoticonsHelper
+                                            convertToSystemEmoticons:message.message];
+                _content = didReceiveText;
+            }
+
+                break;
             case IMMessageTypeAudioMessageType:
                 _localPath = ((AudioMessage *)message).localPath;
                 _remotePath = ((AudioMessage *)message).remoteUrl;

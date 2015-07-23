@@ -122,6 +122,7 @@ class MessageSendManager: NSObject {
         for messageManagerDelegate in self.sendDelegateList {
             messageManagerDelegate.sendNewMessage?(textMessage)
         }
+        
         sendMessage(textMessage, receiver: receiver, chatType: chatType, conversationId: conversationId)
         return textMessage
     }
