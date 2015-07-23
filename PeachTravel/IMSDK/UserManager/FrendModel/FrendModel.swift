@@ -84,7 +84,7 @@ class FrendModel: NSObject {
         get {
             var count = 0
             
-            return "\(footprintCountryCount)国 \(footprints)城市"
+            return "\(footprintCountryCount)国 \(footprints.count)城市"
         }
     }
 

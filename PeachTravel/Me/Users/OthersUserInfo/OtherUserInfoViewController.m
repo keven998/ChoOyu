@@ -313,6 +313,9 @@
     _constellationView.image = [UIImage imageNamed:[FrendModel costellationImageNameWithBirthday:_userInfo.birthday]];
     
     _trackLabel.text = _userInfo.footprintDescription;
+    
+    NSLog(@"%@",_userInfo.footprintDescription);
+    
     NSString *guideCtn = [NSString stringWithFormat:@"%zd条",_userInfo.guideCount];
     _planeLabel.text = guideCtn;
     
