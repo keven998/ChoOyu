@@ -99,7 +99,10 @@
 
 - (void)addContactWithFrendRequest:(FrendRequest *)frendRequest
 {
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUD];
     [[IMClientManager shareInstance].frendManager asyncAgreeAddContactWithRequestId:frendRequest.requestId completion:^(BOOL isSuccess, NSInteger errorCode) {
+        [hud hideTZHUD];
         if (isSuccess) {
             [self.tableView reloadData];
             [SVProgressHUD showHint:@"已添加"];
@@ -107,53 +110,6 @@
             [SVProgressHUD showHint:@"添加失败"];
         }
     }];
-//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-//    AppUtils *utils = [[AppUtils alloc] init];
-//    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-//    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-//    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-//    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-//    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-//    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", self.accountManager.account.userId] forHTTPHeaderField:@"UserId"];
-//    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-//
-//    [params setObject:frendRequest.userId forKey:@"userId"];
-//    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-//    __weak FrendRequestTableViewController *weakSelf = self;
-//    [hud showHUDInViewController:weakSelf.navigationController];
-//    
-//    //同意添加好友
-//    [manager POST:API_ADD_CONTACT parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        [hud hideTZHUD];
-//        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-//        if (code == 0) {
-//            [self.accountManager agreeFrendRequest:frendRequest];
-//            [self.accountManager addContact:frendRequest];
-//            [self.tableView reloadData];
-//            
-////            [SVProgressHUD showHint:@"已添加"];
-//            for (Contact *contact in self.accountManager.account.contacts) {
-//                if ([((FrendRequest *)frendRequest).userId longValue] == [contact.userId longValue]) {
-////                    ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
-//                    OtherUserInfoViewController *contactDetailCtl = [[OtherUserInfoViewController alloc]init];
-//                    
-//                    contactDetailCtl.userId = contact.userId;
-//                    [self.navigationController pushViewController:contactDetailCtl animated:YES];
-//                    break;
-//                }
-//            }
-//           
-//            
-//        } else {
-//            [SVProgressHUD showHint:@"添加失败"];
-//
-//        }
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        [hud hideTZHUD];
-//        if (self.isShowing) {
-//            [SVProgressHUD showHint:HTTP_FAILED_HINT];
-//        }
-//    }];
 }
 
 #pragma mark - IBAction Methods
@@ -162,9 +118,7 @@
 {
     NSLog(@"我同意好友请求，好友信息为：%@", [_dataSource objectAtIndex: sender.tag]);
     [self addContactWithFrendRequest:[_dataSource objectAtIndex: sender.tag]];
-
 }
-
 
 #pragma mark - Table view data source & delegate
 
@@ -202,11 +156,13 @@
         [cell.requestBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
         [cell.requestBtn setTitle:@"已添加" forState:UIControlStateNormal];
         cell.requestBtn.userInteractionEnabled = NO;
+        
     } else if (request.status == TZFrendDefault) {
         [cell.requestBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
         [cell.requestBtn setTitleColor:[APP_THEME_COLOR colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
         [cell.requestBtn setTitle:@"通过" forState:UIControlStateNormal];
         cell.requestBtn.userInteractionEnabled = YES;
+        [cell.requestBtn removeTarget:self action:@selector(agreeFrendRequest:) forControlEvents:UIControlEventTouchUpInside];
         [cell.requestBtn addTarget:self action:@selector(agreeFrendRequest:) forControlEvents:UIControlEventTouchUpInside];
     }
         
