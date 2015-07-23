@@ -779,7 +779,7 @@ static NSString *reusableCell = @"myGuidesCell";
 
 - (void) toTop {
     NSIndexSet *set = [NSIndexSet indexSetWithIndex:0];
-    [self.tableView insertSections:set withRowAnimation:UITableViewRowAnimationFade];
+    [self.tableView insertSections:set withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark - SelectDelegate

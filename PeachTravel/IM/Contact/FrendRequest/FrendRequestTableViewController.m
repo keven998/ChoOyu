@@ -192,7 +192,7 @@
         IMClientManager *clientManager = [IMClientManager shareInstance];
         [clientManager.frendRequestManager removeFrendRequest:frendRequest.requestId];
         [self.dataSource removeObject:frendRequest];
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
 }
 

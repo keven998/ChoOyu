@@ -999,7 +999,7 @@
             }
         }
         [self.dataSource removeObjectsInArray:messages];
-        [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
     }
     
     _longPressIndexPath = nil;
