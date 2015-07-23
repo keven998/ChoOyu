@@ -15,7 +15,7 @@
 
 #define requestCell      @"requestCell"
 
-@interface FrendRequestTableViewController ()
+@interface FrendRequestTableViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong) AccountManager *accountManager;
