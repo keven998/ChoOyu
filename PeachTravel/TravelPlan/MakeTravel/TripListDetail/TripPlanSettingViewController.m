@@ -197,10 +197,10 @@
     } else {
         strLabel.text = @"目的地";
         UIButton *editBtn = [[UIButton alloc] initWithFrame:CGRectMake(WIDTH - 80, 0, 80, 40)];
-        [editBtn setTitle:@"编辑" forState:UIControlStateNormal];
+        [editBtn setTitle:@"修改" forState:UIControlStateNormal];
         [editBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
         [editBtn setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
-        editBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
+        editBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14.0];
         editBtn.titleEdgeInsets = UIEdgeInsetsMake(5, 10, -5, -10);
         [editBtn addTarget:self action:@selector(editDestinationCity) forControlEvents:UIControlEventTouchUpInside];
         [sectionHeaderView addSubview:editBtn];
