@@ -47,6 +47,7 @@
 #import "ChatQuestionTableViewCell.h"
 #import "SuperWebViewController.h"
 #import "OtherUserInfoViewController.h"
+#import "ConvertToCommonEmoticonsHelper.h"
 
 #import "TripDetailRootViewController.h"
 #import <AVFoundation/AVFoundation.h>
@@ -1203,8 +1204,8 @@
 - (void)sendTextMessage:(NSString *)messageStr
 {
     IMClientManager *imClientManager = [IMClientManager shareInstance];
-    
-    BaseMessage *message = [imClientManager.messageSendManager sendTextMessage:messageStr receiver:_conversation.chatterId chatType:_conversation.chatType conversationId:_conversation.conversationId];
+    NSString *willSendText = [ConvertToCommonEmoticonsHelper convertToCommonEmoticons:messageStr];
+    BaseMessage *message = [imClientManager.messageSendManager sendTextMessage:willSendText receiver:_conversation.chatterId chatType:_conversation.chatType conversationId:_conversation.conversationId];
     [self addChatMessage2Buttom:message];
 }
 
