@@ -27,7 +27,8 @@ NSString *const kRouterEventImageBubbleTapEventName = @"kRouterEventImageBubbleT
     if (self = [super initWithFrame:frame]) {
         _imageView = [[UIImageView alloc] init];
 //        _imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-//        _imageView.contentMode = UIViewContentModeScaleAspectFit;
+        _imageView.contentMode = UIViewContentModeScaleAspectFill;
+        _imageView.backgroundColor = APP_PAGE_COLOR;
         [self addSubview:_imageView];
     }
     

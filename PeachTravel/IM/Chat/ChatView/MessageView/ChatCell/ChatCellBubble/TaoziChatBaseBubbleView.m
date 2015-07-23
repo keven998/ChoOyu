@@ -47,6 +47,7 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
         
         _pictureImageView = [[UIImageView alloc] init];
         _pictureImageView.layer.cornerRadius = 2.0;
+        _pictureImageView.backgroundColor = APP_PAGE_COLOR;
         _pictureImageView.contentMode = UIViewContentModeScaleAspectFill;
         _pictureImageView.clipsToBounds = YES;
         
