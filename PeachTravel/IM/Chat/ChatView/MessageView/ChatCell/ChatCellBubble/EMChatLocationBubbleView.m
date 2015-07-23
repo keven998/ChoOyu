@@ -31,6 +31,8 @@ NSString *const kRouterEventLocationBubbleTapEventName = @"kRouterEventLocationB
 {
     if (self = [super initWithFrame:frame]) {
         _locationImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+        _locationImageView.contentMode = UIViewContentModeScaleAspectFill;
+        _locationImageView.backgroundColor = APP_PAGE_COLOR;
         [self addSubview:_locationImageView];
         
         _addressLabel = [[UILabel alloc] init];
