@@ -184,7 +184,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 55.0;
+    return 58.0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -204,7 +204,7 @@
         cell.requestBtn.userInteractionEnabled = NO;
     } else if (request.status == TZFrendDefault) {
         [cell.requestBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-        [cell.requestBtn setTitleColor:[APP_THEME_COLOR colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
+        [cell.requestBtn setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
         [cell.requestBtn setTitle:@"通过" forState:UIControlStateNormal];
         cell.requestBtn.userInteractionEnabled = YES;
         [cell.requestBtn addTarget:self action:@selector(agreeFrendRequest:) forControlEvents:UIControlEventTouchUpInside];

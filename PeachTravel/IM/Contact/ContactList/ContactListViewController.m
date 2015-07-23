@@ -48,8 +48,8 @@
     [self.accountManager loadContactsFromServer];
     
     
-    IMClientManager *manamger = [IMClientManager shareInstance];
-    NSLog(@"unReadCount:%ld",manamger.frendRequestManager.unReadFrendRequestCount);
+//    IMClientManager *manamger = [IMClientManager shareInstance];
+//    NSLog(@"unReadCount:%ld",manamger.frendRequestManager.unReadFrendRequestCount);
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -225,7 +225,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 55.0;
+    return 58.0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -244,7 +244,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     if (section != 0) {
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 27)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, tableView.frame.size.width, 22)];
         label.text = [NSString stringWithFormat:@"    %@", [[self.dataSource objectForKey:@"headerKeys"] objectAtIndex:section-1]];
         label.backgroundColor = APP_PAGE_COLOR;
         label.font = [UIFont systemFontOfSize:12];

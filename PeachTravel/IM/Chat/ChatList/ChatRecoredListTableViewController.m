@@ -137,7 +137,6 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
         cell.textLabel.font = [UIFont systemFontOfSize:17.0];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         return cell;
-        
     } else {
         ChatRecordListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reusableChatRecordCell forIndexPath:indexPath];
         ChatConversation *tzConversation = [self.dataSource objectAtIndex:indexPath.row];

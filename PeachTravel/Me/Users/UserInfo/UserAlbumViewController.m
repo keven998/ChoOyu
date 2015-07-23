@@ -24,6 +24,8 @@ static NSString * const reuseIdentifier = @"albumImageCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationItem.title = @"相册";
+    
     UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
     [button setImage:[UIImage imageNamed:@"common_icon_navigaiton_back"] forState:UIControlStateNormal];
     [button setImage:[UIImage imageNamed:@"common_icon_navigaiton_back_highlight"] forState:UIControlStateHighlighted];
