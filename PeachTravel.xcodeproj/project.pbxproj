@@ -93,7 +93,6 @@
 		27FD23251B3BA19B00C2CFAA /* RefreshHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FD23241B3BA19B00C2CFAA /* RefreshHeader.m */; };
 		27FD63B01B3A9D2C00BC8170 /* messages_bg_friend@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27FD63AF1B3A9D2C00BC8170 /* messages_bg_friend@3x.png */; };
 		27FF1A3C1B04B91F00643D77 /* AIDatePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FF1A3B1B04B91F00643D77 /* AIDatePickerController.m */; };
-		27FF1A3D1B04B93C00643D77 /* AIDatePickerController.h in Sources */ = {isa = PBXBuildFile; fileRef = 27FF1A3A1B04B91F00643D77 /* AIDatePickerController.h */; };
 		27FF1A721B04BE0E00643D77 /* SignatureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FF1A711B04BE0E00643D77 /* SignatureViewController.m */; };
 		27FF1A791B059AFA00643D77 /* TripPlanSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FF1A771B059AFA00643D77 /* TripPlanSettingCell.m */; };
 		27FF1A7A1B059AFA00643D77 /* TripPlanSettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27FF1A781B059AFA00643D77 /* TripPlanSettingCell.xib */; };
@@ -419,6 +418,7 @@
 		D92CA1391AD8BEB400F244FF /* MWPhotoBrowser.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D92CA12E1AD8BEB400F244FF /* MWPhotoBrowser.bundle */; };
 		D9335E5C1B5F600B00073E49 /* icon_chat_group@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9335E5B1B5F600B00073E49 /* icon_chat_group@3x.png */; };
 		D9335E5E1B60B15A00073E49 /* ic_msg_sending@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9335E5D1B60B15A00073E49 /* ic_msg_sending@2x.png */; };
+		D9335E601B60EA0400073E49 /* ic_userInfo_add_avatar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9335E5F1B60EA0400073E49 /* ic_userInfo_add_avatar@2x.png */; };
 		D93B97F11B4B8C420054EF50 /* ChatGroupSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D93B97EF1B4B8C420054EF50 /* ChatGroupSettingCell.m */; };
 		D93B97F21B4B8C420054EF50 /* ChatGroupSettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D93B97F01B4B8C420054EF50 /* ChatGroupSettingCell.xib */; };
 		D93B97F41B4BACAF0054EF50 /* TipsMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93B97F31B4BACAF0054EF50 /* TipsMessage.swift */; };
@@ -1025,7 +1025,7 @@
 		27FD23231B3BA19B00C2CFAA /* RefreshHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RefreshHeader.h; sourceTree = "<group>"; };
 		27FD23241B3BA19B00C2CFAA /* RefreshHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RefreshHeader.m; sourceTree = "<group>"; };
 		27FD63AF1B3A9D2C00BC8170 /* messages_bg_friend@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "messages_bg_friend@3x.png"; sourceTree = "<group>"; };
-		27FF1A3A1B04B91F00643D77 /* AIDatePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIDatePickerController.h; sourceTree = "<group>"; };
+		27FF1A3A1B04B91F00643D77 /* AIDatePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AIDatePickerController.h; sourceTree = "<group>"; };
 		27FF1A3B1B04B91F00643D77 /* AIDatePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIDatePickerController.m; sourceTree = "<group>"; };
 		27FF1A701B04BE0E00643D77 /* SignatureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignatureViewController.h; sourceTree = "<group>"; };
 		27FF1A711B04BE0E00643D77 /* SignatureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignatureViewController.m; sourceTree = "<group>"; };
@@ -1435,6 +1435,7 @@
 		D92CA12E1AD8BEB400F244FF /* MWPhotoBrowser.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MWPhotoBrowser.bundle; sourceTree = "<group>"; };
 		D9335E5B1B5F600B00073E49 /* icon_chat_group@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_chat_group@3x.png"; sourceTree = "<group>"; };
 		D9335E5D1B60B15A00073E49 /* ic_msg_sending@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ic_msg_sending@2x.png"; path = "../ic_msg_sending@2x.png"; sourceTree = "<group>"; };
+		D9335E5F1B60EA0400073E49 /* ic_userInfo_add_avatar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_userInfo_add_avatar@2x.png"; sourceTree = "<group>"; };
 		D93B97EE1B4B8C420054EF50 /* ChatGroupSettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatGroupSettingCell.h; sourceTree = "<group>"; };
 		D93B97EF1B4B8C420054EF50 /* ChatGroupSettingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatGroupSettingCell.m; sourceTree = "<group>"; };
 		D93B97F01B4B8C420054EF50 /* ChatGroupSettingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatGroupSettingCell.xib; sourceTree = "<group>"; };
@@ -2372,6 +2373,7 @@
 			children = (
 				D94B89391B5E5F4C00584DE5 /* 星座 */,
 				D90A9AED1B560B5300E9F37C /* delete_album@3x.png */,
+				D9335E5F1B60EA0400073E49 /* ic_userInfo_add_avatar@2x.png */,
 				2786AAEF1B3D908400881697 /* account_button_default@3x.png */,
 				2786AAF01B3D908400881697 /* account_button_selected@3x.png */,
 				2786AAF11B3D908400881697 /* account_icon_any_default@3x.png */,
@@ -6064,6 +6066,7 @@
 				D9A8FEDB1A80C8A4005AD701 /* PushMsgsViewController.xib in Resources */,
 				D91FED8D1B42851A0073AD77 /* city_button_guide_selected@3x.png in Resources */,
 				D9A800651A80DD0C005AD701 /* SearchUserInfoViewController.xib in Resources */,
+				D9335E601B60EA0400073E49 /* ic_userInfo_add_avatar@2x.png in Resources */,
 				C6631D211B30231500BE4ADC /* ic_person_normal@3x.png in Resources */,
 				274DB40D1B3D20DA00E426DE /* messages_plus_picture_selected@3x.png in Resources */,
 				C6528F041B4178A7008889EF /* speaking-motion9@3x.png in Resources */,
@@ -6213,7 +6216,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D993C26B1B12DF0C0088D568 /* ChatConversation.swift in Sources */,
-				27FF1A3D1B04B93C00643D77 /* AIDatePickerController.h in Sources */,
 				D9A802B91A80E3D3005AD701 /* UIViewController+HUD.m in Sources */,
 				D9A802F01A80E3D3005AD701 /* AppUtils.m in Sources */,
 				D993C24C1B12DF0C0088D568 /* FMDatabaseQueue.m in Sources */,
