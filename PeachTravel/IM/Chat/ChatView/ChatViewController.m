@@ -127,6 +127,9 @@
     
     if (_chatType == IMChatTypeIMChatDiscussionGroupType) {
         _groupNumbers = [[IMDiscussionGroupManager shareInstance] getFullDiscussionGroupInfoFromDBWithGroupId: _conversation.chatterId].members;
+        if (!_groupNumbers || _groupNumbers.count == 0) {
+            [self getMembersInGroupFromServer];
+        }
     }
     
     _conversation.isCurrentConversation = YES;
@@ -153,6 +156,25 @@
     _isScrollToBottom = YES;
     
     [self setupBarButtonItem];
+}
+
+/**
+ *  从服务器上加载群组成员信息
+ */
+- (void)getMembersInGroupFromServer
+{
+    IMDiscussionGroupManager *groupManager = [IMDiscussionGroupManager shareInstance];
+    [groupManager asyncGetDiscussionGroupInfoFromServer:_conversation.chatterId completion:^(BOOL isSuccess, NSInteger errorCode, IMDiscussionGroup * group) {
+        if (isSuccess) {
+            [groupManager asyncGetMembersInDiscussionGroupInfoFromServer:group completion:^(BOOL isSuccess, NSInteger errorCode, IMDiscussionGroup * fullgroup) {
+                if (isSuccess) {
+                     _groupNumbers = [[IMDiscussionGroupManager shareInstance] getFullDiscussionGroupInfoFromDBWithGroupId: _conversation.chatterId].members;
+                    [self.tableView reloadData];
+                } else {
+                }
+            }];
+        }
+    }];
 }
 
 - (void)sortDataSource

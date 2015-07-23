@@ -164,7 +164,6 @@
         [cell.requestBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
         [cell.requestBtn setTitle:@"已添加" forState:UIControlStateNormal];
         cell.requestBtn.userInteractionEnabled = NO;
-        
     } else if (request.status == TZFrendDefault) {
         [cell.requestBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
         [cell.requestBtn setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];

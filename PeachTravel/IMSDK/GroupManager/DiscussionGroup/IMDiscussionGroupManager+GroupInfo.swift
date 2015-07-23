@@ -85,7 +85,7 @@ extension IMDiscussionGroupManager {
     :param: groupId
     :param: completion 
     */
-    func asyncGetNumbersInDiscussionGroupInfoFromServer(group: IMDiscussionGroup, completion: (isSuccess: Bool, errorCode: Int, discussionGroup: IMDiscussionGroup?) -> ()) {
+    func asyncGetMembersInDiscussionGroupInfoFromServer(group: IMDiscussionGroup, completion: (isSuccess: Bool, errorCode: Int, discussionGroup: IMDiscussionGroup?) -> ()) {
         let manager = AFHTTPRequestOperationManager()
         let requestSerializer = AFJSONRequestSerializer()
         manager.requestSerializer = requestSerializer
