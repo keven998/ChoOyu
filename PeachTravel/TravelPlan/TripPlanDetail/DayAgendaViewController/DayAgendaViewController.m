@@ -78,11 +78,16 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
         dayStr = [NSString stringWithFormat:@"%d.Day详情", _currentDay+1];
     }
 
+    NSMutableParagraphStyle *ps = [[NSMutableParagraphStyle alloc] init];
+    ps.lineSpacing = 3.0;
+    ps.alignment = NSTextAlignmentCenter;
+    NSDictionary *attribs = @{NSParagraphStyleAttributeName:ps};
+    
     NSString *totalStr = [NSString stringWithFormat:@"%@\n%@", dayStr, titleStr];
-    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString: totalStr];
+    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString: totalStr attributes:attribs];
     
     [attrStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:15] range:NSMakeRange(0, dayStr.length)];
-    [attrStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:11] range:NSMakeRange(dayStr.length+1, totalStr.length-dayStr.length-1)];
+    [attrStr addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:11] range:NSMakeRange(dayStr.length+1, totalStr.length-dayStr.length-1)];
     
     titleLabel.attributedText = attrStr;
     self.navigationItem.titleView = titleLabel;
