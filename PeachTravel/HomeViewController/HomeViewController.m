@@ -62,12 +62,14 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // 1.先设置tabBar,控制三个控制器
     [self setupViewControllers];
     
+    // 2.判断是否登录,如果没有登录,跳转到登录界面
     if (![[AccountManager shareAccountManager] isLogin]) {
         [self setupLoginPage];
         
-    } else {
+    } else {    // 登录之后,就调用接收普通消息的方法注册消息
         IMClientManager *imclientManager = [IMClientManager shareInstance];
         [imclientManager.messageReceiveManager addMessageReceiveListener:self withRoutingKey:MessageReceiveDelegateRoutingKeynormal];
     }

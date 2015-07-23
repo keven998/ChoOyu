@@ -10,12 +10,19 @@ import UIKit
 
 private let iMClientManager = IMClientManager()
 
+/*
+    IMClientDelegate代理方法判断当前是否有用户登录,如果有返回true
+*/
 @objc protocol IMClientDelegate {
     
     func userDidLogin(isSuccess: Bool, errorCode: Int)
     
 }
 
+/*
+    1.通过IMClientManager,控制消息接收管理对象,消息发送管理对象,聊天会话管理对象,好友管理对象,好友请求管理对象,CMD消息管理对象,网络连通检测对象
+    2.提供了一些方法:获取聊天文件的目录
+*/
 class IMClientManager: NSObject {
     
     var accountId: Int = -1;
@@ -73,8 +80,14 @@ class IMClientManager: NSObject {
         netWorkReachability = NetworkReachability()
     }
     
+    
+    /*
+        当登录的时候设置初始化的sdk
+    */
     private func setUpSDKWhenLogin() {
         messageReceiveManager = MessageReceiveManager()
+        
+        // 初始化与服务器建立长连接的对象
         let pushSDKManager = PushSDKManager.shareInstance()
         pushSDKManager.addPushMessageListener(messageReceiveManager, withRoutingKey: "IM")
 
@@ -84,12 +97,16 @@ class IMClientManager: NSObject {
         frendRequestManager = FrendRequestManager(userId: accountId)
         messageSendManager.addMessageSendDelegate(conversationManager)
         cmdMessageManager = CMDMessageManager()
+        
+        // 调用CMD消息的讨论组和普通消息
         cmdMessageManager.addCMDMessageListener(IMDiscussionGroupManager.shareInstance(), withRoutingKey: CMDMessageRoutingKey.DiscussionGroup_CMD)
         cmdMessageManager.addCMDMessageListener(IMClientManager.shareInstance().frendManager, withRoutingKey: CMDMessageRoutingKey.Frend_CMD)
+        
         messageReceiveManager.addMessageReceiveListener(cmdMessageManager, withRoutingKey: MessageReceiveDelegateRoutingKey.cmd)
         messageReceiveManager.addMessageReceiveListener(conversationManager, withRoutingKey: MessageReceiveDelegateRoutingKey.normal)
     }
     
+    //  当登出的时候设置初始化的sdk
     private func setUpSDKWhenLogout() {
         
         let pushSDKManager = PushSDKManager.shareInstance()

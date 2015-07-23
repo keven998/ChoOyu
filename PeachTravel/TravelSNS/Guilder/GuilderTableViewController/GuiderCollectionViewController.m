@@ -185,10 +185,11 @@ static NSString * const reuseIdentifier = @"Cell";
     
     // 达人模型,dataSource是达人列表数组
     FrendModel * up = self.dataSource[indexPath.row];
-    NSLog(@"haha%ld",up.guideCount);
+    NSLog(@"%ld",up.localityCnt);
 
-    cell.titleLabel.text = @"99个城市";
-    cell.subtitleLabel.text = @"泰国足迹";
+    
+    cell.titleLabel.text = [NSString stringWithFormat:@"%ld个城市",up.localityCnt];
+    cell.subtitleLabel.text = [NSString stringWithFormat:@"%@足迹",self.guiderDistribute.zhName];
     if ([up.sex isEqualToString:@"M"]) {
         [cell.genderBkgImageView setImage:[UIImage imageNamed:@"master_boy.png"]];
     } else if ([up.sex isEqualToString:@"F"]) {
@@ -201,7 +202,8 @@ static NSString * const reuseIdentifier = @"Cell";
     //星座
     if (up.costellation == nil || [up.costellation isBlankString]) {
         [cell.costellationBtn setImage:[UIImage imageNamed:@"master_star.png"] forState:UIControlStateNormal];
-        [cell.costellationBtn setTitle:@"星座" forState:UIControlStateNormal];
+        NSString * costellation = [NSString stringWithFormat:@"星座 %@",up.costellation];
+        [cell.costellationBtn setTitle:costellation forState:UIControlStateNormal];
     } else {
         [cell.costellationBtn setImage:[UIImage imageNamed:@"master_star.png"] forState:UIControlStateNormal];
         [cell.costellationBtn setTitle:up.costellation forState:UIControlStateNormal];

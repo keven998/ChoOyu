@@ -19,6 +19,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    // 增加监听用户选择注册和跳过通知对象
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidRegisted:) name:userDidRegistedNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(skip:) name:userDidLoginNoti object:nil];
 

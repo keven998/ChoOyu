@@ -206,6 +206,9 @@ typedef void(^loginCompletion)(BOOL completed);
     return NoError;
 }
 
+/**
+ *  获得验证码
+ */
 - (void)getCaptcha
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];

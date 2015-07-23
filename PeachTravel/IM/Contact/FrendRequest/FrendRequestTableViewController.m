@@ -39,14 +39,16 @@
     [MobClick beginLogPageView:@"page_ask_for_friend"];
 }
 
+/**
+ *  页面消失的时候通知上一个界面将未读数清0
+ *
+ *  @param animated <#animated description#>
+ */
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"page_ask_for_friend"];
-}
-
-- (void)dealloc
-{
+    
 }
 
 #pragma mark - setter & getter
@@ -106,6 +108,12 @@
         if (isSuccess) {
             [self.tableView reloadData];
             [SVProgressHUD showHint:@"已添加"];
+            
+            // 移除未读数
+            NSString * friendRequest = [NSString stringWithFormat:@"%@",frendRequest];
+            [[IMClientManager shareInstance].frendRequestManager removeFrendRequest:friendRequest];
+            [[NSNotificationCenter defaultCenter] postNotificationName:NoticationClearUnreadCount object:nil];
+            
         } else {
             [SVProgressHUD showHint:@"添加失败"];
         }
@@ -192,7 +200,5 @@
 - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
     return @"删除";
 }
-
-
 
 @end

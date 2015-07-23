@@ -221,6 +221,7 @@
         return;
     }
     
+    // 正则表达式判断用户输入是否合法
     NSString * regex0 = @"^1\\d{10}$";
     NSPredicate *pred0 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex0];
     if (![pred0 evaluateWithObject:_userNameTextField.text]) {
@@ -230,6 +231,12 @@
     __weak typeof(LoginViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf content:64];
+    /**
+     *  登录是调用AccountManager的异步登录方法,
+     *
+     *  @param isSuccess 登录是否成功
+     *  @param errorStr  错误信息
+     */
     [[AccountManager shareAccountManager] asyncLogin:_userNameTextField.text password:_passwordTextField.text completion:^(BOOL isSuccess, NSString *errorStr) {
         if (isSuccess) {
             [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.3];

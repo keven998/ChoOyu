@@ -22,7 +22,7 @@
 #define contactCell      @"contactCell"
 #define requestCell      @"requestCell"
 
-@interface ContactListViewController ()<UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, SWTableViewCellDelegate>
+@interface ContactListViewController ()<UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, SWTableViewCellDelegate,FriendRequestManagerDelegate>
 
 @property (strong, nonatomic) UITableView *contactTableView;
 @property (strong, nonatomic) NSDictionary *dataSource;
@@ -45,6 +45,25 @@
     
     [self.view addSubview:self.contactTableView];
     [self.accountManager loadContactsFromServer];
+    
+    // 增加监听未读数的通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clearUnreadCount:) name:NoticationClearUnreadCount object:nil];
+    
+    // 改变未读数
+    
+//    [IMClientManager shareInstance].frendRequestManager.delegate = self;
+}
+
+#pragma mark - 实现好友请求的代理方法
+//- (void)friendRequestNumberNeedUpdate
+//{
+//    [self.contactTableView reloadData];
+//}
+
+// 接收通知后实现方法
+- (void)clearUnreadCount:(NSNotification *)note
+{
+    [self.contactTableView reloadData];
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -263,8 +282,13 @@
 {
     if (indexPath.section == 0) {
         OptionOfFASKTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"friend_ask"];
-        // j
+        
+        // 获取好友未读数
         IMClientManager *imclientManager = [IMClientManager shareInstance];
+        
+        /**
+         *  判断是否已经查看了好友的未读数,如果已经查看了,显示未读数为0,否则显示从服务器返回的数据
+         */
         cell.numberOfUnreadFrendRequest = imclientManager.frendRequestManager.unReadFrendRequestCount;
         NSLog(@"%ld",cell.numberOfUnreadFrendRequest);
         if (cell.numberOfUnreadFrendRequest == 0) {

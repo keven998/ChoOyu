@@ -107,6 +107,8 @@
         if (code == 0) {
             AccountManager *accountManager = [AccountManager shareAccountManager];
             [accountManager userDidLoginWithUserInfo:[responseObject objectForKey:@"result"]];
+            
+            // 如果登录成功后将用户最后的登录信息UserId存起来
             [[TMCache sharedCache] setObject:userId forKey:@"last_account"];
             completion(YES, nil);
         } else {
