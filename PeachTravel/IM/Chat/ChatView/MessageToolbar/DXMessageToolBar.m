@@ -584,11 +584,15 @@
         [(DXRecordView *)self.recordView recordButtonTouchDown];
     }
 
-    [self.audioManager beginRecordAudio];
+    [self.audioManager beginRecordAudio:^(BOOL canRecord) {
+        if (canRecord) {
+            if (_delegate && [_delegate respondsToSelector:@selector(didStartRecordingVoiceAction:)]) {
+                [_delegate didStartRecordingVoiceAction:self.recordView];
+            }
+        }
+    }];
     
-    if (_delegate && [_delegate respondsToSelector:@selector(didStartRecordingVoiceAction:)]) {
-        [_delegate didStartRecordingVoiceAction:self.recordView];
-    }
+   
 }
 
 - (void)recordButtonTouchUpOutside

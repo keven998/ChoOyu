@@ -51,8 +51,9 @@ class AudioRecordDeviceManager: NSObject, AVAudioRecorderDelegate {
     开始录音
     */
     
-    func beginRecordAudio(audioUrl: NSURL) {
+    func beginRecordAudio(audioUrl: NSURL, prepareBlock: ((canRecord: Bool) ->())) {
         if isRecording {
+            prepareBlock(canRecord: false);
             return
         }
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"updateRecordState:" , name:
@@ -68,7 +69,9 @@ class AudioRecordDeviceManager: NSObject, AVAudioRecorderDelegate {
                 self.recorder.prepareToRecord()
                 self.isRecording = true
                 self.recorder.record()
+                prepareBlock(canRecord: true);
             } else {
+                prepareBlock(canRecord: false);
                 var alertView = UIAlertView(title: nil, message: "去隐私里打开语音访问", delegate: nil, cancelButtonTitle: "取消")
                 alertView.show()
             }

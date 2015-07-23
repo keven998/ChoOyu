@@ -390,7 +390,7 @@
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)self.accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     
-    [manager GET:API_POST_PHOTOALBUM parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:API_POST_PHOTOIMAGE parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
