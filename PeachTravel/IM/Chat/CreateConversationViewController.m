@@ -29,7 +29,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"选择好友";
+    self.navigationItem.title = @"选择联系人";
     self.view.backgroundColor = APP_PAGE_COLOR;
     
     [self.view addSubview:self.selectContactView];
@@ -129,7 +129,7 @@
         
     } else {
         if (self.selectedContacts.count == 0) {
-            [SVProgressHUD showErrorWithStatus:@"请选择一个以上好友"];
+            [SVProgressHUD showErrorWithStatus:@"请选择一个以上朋友"];
             
         } else if (self.selectedContacts.count == 1) {    //只选择一个视为单聊
             FrendModel *contact = [self.selectedContacts firstObject];

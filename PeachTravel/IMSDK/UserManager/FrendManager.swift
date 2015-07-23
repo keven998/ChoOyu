@@ -245,7 +245,7 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
     private func insertMessageWhenFrendRequestAgreed(frend: FrendModel) {
         let textMsg = TextMessage()
         textMsg.senderId = frend.userId
-        textMsg.message = "我已经同意了你的好友请求，现在我们可以开始聊天了"
+        textMsg.message = "我已经同意了你的请求，现在我们可以开始聊天了"
         textMsg.createTime = Int(NSDate().timeIntervalSince1970)
         textMsg.chatType = IMChatType.IMChatSingleType
         textMsg.sendType = IMMessageSendType.MessageSendSomeoneElse
