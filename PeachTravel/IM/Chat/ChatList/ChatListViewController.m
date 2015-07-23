@@ -88,10 +88,12 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:contactListBtn];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogin) name:userDidLoginNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkChanged:) name:networkConnectionStatusChangeNoti object:nil];
-    self.IMState = IM_RECEIVING;
-    [self.imClientManager.messageReceiveManager asyncACKMessageWithReceivedMessages:nil completion:^(BOOL isSuccess) {
-        self.IMState = IM_RECEIVED;
-    }];
+    if (self.accountManager.isLogin) {
+        self.IMState = IM_RECEIVING;
+        [self.imClientManager.messageReceiveManager asyncACKMessageWithReceivedMessages:nil completion:^(BOOL isSuccess) {
+            self.IMState = IM_RECEIVED;
+        }];
+    }
 }
 
 -(void)viewWillAppear:(BOOL)animated
