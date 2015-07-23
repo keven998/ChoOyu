@@ -1,5 +1,5 @@
 //
-//  GuilderDistribute.h
+//  GuiderDistribute.h
 //  PeachTravel
 //
 //  Created by 王聪 on 15/7/15.
@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-@class GuilderDistributeContinent;
+@class GuiderDistributeContinent;
 
-@interface GuilderDistribute : NSObject
+@interface GuiderDistribute : NSObject
 
 @property (nonatomic, copy)NSString * ID;
 
@@ -19,10 +19,10 @@
 
 @property (nonatomic, copy)NSString * code;
 
-//@property (nonatomic, copy)NSString * desc;
+@property (nonatomic) NSInteger rank;
 
-@property (nonatomic, strong)NSNumber * expertCnt;
+@property (nonatomic)NSInteger expertCnt;
 
-@property (nonatomic, strong)GuilderDistributeContinent * continents;
+@property (nonatomic, strong)GuiderDistributeContinent * continents;
 
 @end

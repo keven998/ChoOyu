@@ -1,5 +1,5 @@
 //
-//  GuilderDistributeViewController.h
+//  GuiderDistributeViewController.h
 //  PeachTravel
 //
 //  Created by Luo Yong on 15/6/23.

@@ -94,7 +94,7 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
     }
     
     /**
-    将 conversationlist 重新排序,问问>派派>其他时间顺序
+    将 conversationlist 重新排序,问问>派派>置顶>其他时间顺序
     */
     func reorderConversationList() {
         sort(&conversationList, { (conversation1: ChatConversation, conversation2: ChatConversation) -> Bool in
@@ -117,7 +117,6 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
             if conversation2.chatterId == 10000 && conversation1.chatterId != 10001 {
                 return false
             }
-            
             if conversation1.isTopConversation && !conversation2.isTopConversation {
                 return true
             } else if !conversation1.isTopConversation && conversation2.isTopConversation {

@@ -7,7 +7,7 @@
 //
 
 #import "GuiderCell.h"
-#import "GuilderDistribute.h"
+#import "GuiderDistribute.h"
 @interface GuiderCell ()
 
 @property (weak, nonatomic) IBOutlet UIImageView *bgImage;
@@ -42,7 +42,7 @@
 }
 
 // 2.给成员变量赋值
-- (void)setGuiderDistribute:(GuilderDistribute *)guiderDistribute
+- (void)setGuiderDistribute:(GuiderDistribute *)guiderDistribute
 {
     _guiderDistribute = guiderDistribute;
     
@@ -56,7 +56,7 @@
     }
 
     self.expertUserCnt.font = [UIFont boldSystemFontOfSize:30.0];
-    self.expertUserCnt.text = [NSString stringWithFormat:@"%@位",guiderDistribute.expertCnt];
+    self.expertUserCnt.text = [NSString stringWithFormat:@"%ld位",guiderDistribute.expertCnt];
     self.zhName.font = [UIFont boldSystemFontOfSize:15.0];
     self.zhName.text = [NSString stringWithFormat:@"~派派 · %@ · 达人~",guiderDistribute.zhName];
     
