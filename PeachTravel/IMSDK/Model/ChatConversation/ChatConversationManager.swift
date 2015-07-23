@@ -59,12 +59,14 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
         let conversationWenwen = ChatConversation()
         //派派的 conversation
         conversationWenwen.chatterId = 10001
+        conversationWenwen.chatterName = "旅行问问";
         conversationWenwen.lastUpdateTime = Int(NSDate().timeIntervalSince1970)
         self.addConversation(conversationWenwen)
         let conversation = ChatConversation()
         
         //派派的 conversation
         conversation.chatterId = 10000
+        conversation.chatterName = "派派";
         conversation.lastUpdateTime = Int(NSDate().timeIntervalSince1970)
         self.addConversation(conversation)
     }
