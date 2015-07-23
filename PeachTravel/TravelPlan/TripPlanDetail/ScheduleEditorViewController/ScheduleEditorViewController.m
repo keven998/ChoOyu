@@ -47,30 +47,32 @@
     _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.bounds.size.width, 50+49)];
     [self.view addSubview:_tableView];
     
-    UIImageView *tabbarView = [[UIImageView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49 - 64, CGRectGetWidth(self.view.bounds), 49)];
+    UIImageView *tabbarView = [[UIImageView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49, CGRectGetWidth(self.view.bounds), 49)];
+    tabbarView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
     tabbarView.userInteractionEnabled = YES;
     tabbarView.image = [[UIImage imageNamed:@"bottom_shadow.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 2, 5, 2)];
     
     [self.view addSubview:tabbarView];
     
-    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(tabbarView.bounds.size.width-74, 10, 55, 25)];
-    btn.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
+    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(tabbarView.bounds.size.width-74, 12, 55, 26)];
     btn.layer.cornerRadius = 3.0;
     btn.layer.borderColor = COLOR_LINE.CGColor;
     btn.layer.borderWidth = 1.0;
-    [btn setTitle:@"加一天" forState:UIControlStateNormal];
+    [btn setTitle:@"增加一天" forState:UIControlStateNormal];
     btn.titleLabel.font = [UIFont systemFontOfSize:12.0];
     [btn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
+    [btn setTitleColor:COLOR_TEXT_I forState:UIControlStateHighlighted];
     [btn addTarget:self action:@selector(addOneDay:) forControlEvents:UIControlEventTouchUpInside];
     [tabbarView addSubview:btn];
     
-    UIButton *editBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, 10, 55, 25)];
+    UIButton *editBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, 12, 55, 26)];
     editBtn.layer.cornerRadius = 3.0;
     editBtn.layer.borderColor = COLOR_LINE.CGColor;
     editBtn.layer.borderWidth = 1.0;
     editBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
-    [editBtn setTitle:@"按日调整" forState:UIControlStateNormal];
+    [editBtn setTitle:@"按天调整" forState:UIControlStateNormal];
     [editBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
+    [editBtn setTitleColor:COLOR_TEXT_I forState:UIControlStateHighlighted];
     [editBtn addTarget:self action:@selector(editDay:) forControlEvents:UIControlEventTouchUpInside];
     [tabbarView addSubview:editBtn];
 }
