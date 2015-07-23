@@ -10,7 +10,7 @@
 #import "GuiderCollectionCell.h"
 #import "PeachTravel-swift.h"
 #import "OtherUserInfoViewController.h"
-#import "GuilderDistribute.h"
+#import "GuiderDistribute.h"
 @interface GuiderCollectionViewController ()
 
 @property (nonatomic, strong) NSArray *dataSource;
@@ -57,7 +57,7 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 // 传递模型的时候给导航栏标题赋值
-- (void)setGuiderDistribute:(GuilderDistribute *)guiderDistribute
+- (void)setGuiderDistribute:(GuiderDistribute *)guiderDistribute
 {
     _guiderDistribute = guiderDistribute;
     
@@ -84,7 +84,7 @@ static NSString * const reuseIdentifier = @"Cell";
     idLabel.font = [UIFont boldSystemFontOfSize:10];
     idLabel.textAlignment = NSTextAlignmentCenter;
 //    idLabel.text = @"999位";
-    idLabel.text = [NSString stringWithFormat:@"%@位",guiderDistribute.expertCnt];
+    idLabel.text = [NSString stringWithFormat:@"%ld位",guiderDistribute.expertCnt];
     [view addSubview:idLabel];
     self.navigationItem.titleView = view;
     

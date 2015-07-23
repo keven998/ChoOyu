@@ -260,7 +260,7 @@
         } else {
             avatarStr = ((FrendModel *)self.groupModel.members[i]).avatar;
         }
-        [cell.headerImage sd_setImageWithURL:[NSURL URLWithString: avatarStr] placeholderImage:[UIImage imageNamed:@"person_disabled"]];
+        [cell.headerImage sd_setImageWithURL:[NSURL URLWithString: avatarStr] placeholderImage:[UIImage imageNamed:@"ic_home_default_avatar.png"]];
         return cell;
     }
     ChatGroupCell *cell = [tableView dequeueReusableCellWithIdentifier:@"chatCell" forIndexPath:indexPath];

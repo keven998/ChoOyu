@@ -8,7 +8,7 @@
 
 #import "ToolsHomeViewController.h"
 #import "PlansListTableViewController.h"
-#import "GuilderDistributeViewController.h"
+#import "GuiderDistributeViewController.h"
 #import "LoginViewController.h"
 #import "SearchDestinationViewController.h"
 

@@ -45,10 +45,6 @@
     
     [self.view addSubview:self.contactTableView];
     [self.accountManager loadContactsFromServer];
-    
-    
-//    IMClientManager *manamger = [IMClientManager shareInstance];
-//    NSLog(@"unReadCount:%ld",manamger.frendRequestManager.unReadFrendRequestCount);
 }
 
 - (void) viewWillAppear:(BOOL)animated {

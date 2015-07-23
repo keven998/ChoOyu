@@ -321,7 +321,6 @@
     self.moreButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.bounds) - 40, 0, 40, th)];
     self.moreButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     [self.moreButton setImage:[UIImage imageNamed:@"messages_icon_plus_default.png"] forState:UIControlStateNormal];
-//    [self.moreButton setImage:[UIImage imageNamed:@"chatBar_moreSelected"] forState:UIControlStateHighlighted];
     [self.moreButton setImage:[UIImage imageNamed:@"messages_icon_keyboard_default.png"] forState:UIControlStateSelected];
     [self.moreButton addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
     self.moreButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0.5*kHorizontalPadding);
@@ -332,9 +331,8 @@
     self.faceButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.bounds) - 80, 0, 40, th)];
     self.faceButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin;
     [self.faceButton setImage:[UIImage imageNamed:@"messages_icon_smile_default.png"] forState:UIControlStateNormal];
-//    [self.faceButton setImage:[UIImage imageNamed:@"chatBar_faceSelected"] forState:UIControlStateHighlighted];
-    self.faceButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     [self.faceButton setImage:[UIImage imageNamed:@"messages_icon_keyboard_default.png"] forState:UIControlStateSelected];
+    self.faceButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     [self.faceButton addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
     self.faceButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 4);
     self.faceButton.tag = 1;
@@ -342,7 +340,6 @@
     
     
     // 输入框的高度和宽度
-//    CGFloat width = CGRectGetWidth(self.bounds) - (allButtonWidth ? allButtonWidth : (textViewLeftMargin * 2))-kHorizontalPadding;
     CGFloat width = CGRectGetWidth(self.bounds) - allButtonWidth;
     
     self.inputTextView = [[HPGrowingTextView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.styleChangeButton.frame), (th - 34.0)/2.0, width, 34)];
@@ -529,17 +526,18 @@
         {
             if (button.selected) {
                 self.moreButton.selected = NO;
+                self.recordButton.hidden = button.selected;
+                self.inputTextView.hidden = !button.selected;
+                
                 //如果选择表情并且处于录音状态，切换成文字输入状态，但是不显示键盘
                 if (self.styleChangeButton.selected) {
                     self.styleChangeButton.selected = NO;
-                }
-                else{//如果处于文字输入状态，使文字输入框失去焦点
+                } else{//如果处于文字输入状态，使文字输入框失去焦点
                     [self.inputTextView resignFirstResponder];
                 }
                 
                 [self willShowBottomView:self.faceView];
-                self.recordButton.hidden = button.selected;
-                self.inputTextView.hidden = !button.selected;
+               
             } else {
                 if (!self.styleChangeButton.selected) {
                     [self.inputTextView becomeFirstResponder];
@@ -666,7 +664,7 @@
 {
     BOOL result = [super endEditing:force];
     
-    self.faceButton.selected = NO;
+
     self.moreButton.selected = NO;
     [self willShowBottomView:nil];
     

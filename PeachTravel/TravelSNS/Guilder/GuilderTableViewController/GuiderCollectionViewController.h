@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-@class GuilderDistribute;
+@class GuiderDistribute;
 
 @interface GuiderCollectionViewController : UICollectionViewController
 
 @property (nonatomic, copy) NSString *distributionArea;
 
 // 传递模型进来
-@property (nonatomic, strong)GuilderDistribute * guiderDistribute;
+@property (nonatomic, strong)GuiderDistribute * guiderDistribute;
 
 @end
