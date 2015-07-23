@@ -29,7 +29,7 @@
     UINib * nib = [UINib nibWithNibName:NSStringFromClass([self class]) bundle:nil];
     
     [tableView registerNib:nib forCellReuseIdentifier:ID];
-    
+
     return [tableView dequeueReusableCellWithIdentifier:ID];
 }
 
@@ -52,7 +52,9 @@
         NSString * imageUrl = array[0][@"url"];
         NSURL * url = [NSURL URLWithString:imageUrl];
         self.bgImage.image = nil;
-        [self.bgImage sd_setImageWithURL:url];
+        [self.bgImage sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"master_place_holder"]];
+    }else{
+        self.bgImage.image = [UIImage imageNamed:@"master_place_holder"];
     }
 
     self.expertUserCnt.font = [UIFont boldSystemFontOfSize:30.0];
