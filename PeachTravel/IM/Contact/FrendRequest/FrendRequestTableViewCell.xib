@@ -39,13 +39,12 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AKY-pa-LVy">
-                        <rect key="frame" x="257" y="10" width="50" height="30"/>
+                        <rect key="frame" x="257" y="0.0" width="63" height="52"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="50" id="bD3-JB-jh1"/>
+                            <constraint firstAttribute="width" constant="63" id="bD3-JB-jh1"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <state key="normal" title="添加">
-                            <color key="titleColor" red="0.93333333330000001" green="0.32156862749999998" blue="0.54901960780000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                     </button>
@@ -57,12 +56,12 @@
                     <constraint firstAttribute="bottom" secondItem="b7G-qZ-yTy" secondAttribute="bottom" constant="4" id="Bod-OR-0sb"/>
                     <constraint firstItem="AKY-pa-LVy" firstAttribute="leading" secondItem="9Bg-0R-Tpt" secondAttribute="trailing" constant="-5" id="Hv3-HP-wbY"/>
                     <constraint firstItem="9Bg-0R-Tpt" firstAttribute="leading" secondItem="b7G-qZ-yTy" secondAttribute="trailing" constant="10" id="IPH-of-rk7"/>
-                    <constraint firstItem="AKY-pa-LVy" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="XY1-Yb-gm9"/>
+                    <constraint firstItem="AKY-pa-LVy" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="XY1-Yb-gm9"/>
                     <constraint firstItem="AKY-pa-LVy" firstAttribute="leading" secondItem="eVz-vf-1hF" secondAttribute="trailing" constant="6" id="dF9-g4-Anc"/>
-                    <constraint firstAttribute="trailing" secondItem="AKY-pa-LVy" secondAttribute="trailing" constant="13" id="enB-aT-f1r"/>
+                    <constraint firstAttribute="trailing" secondItem="AKY-pa-LVy" secondAttribute="trailing" id="enB-aT-f1r"/>
                     <constraint firstItem="b7G-qZ-yTy" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="gGq-p9-GV9"/>
                     <constraint firstItem="eVz-vf-1hF" firstAttribute="leading" secondItem="b7G-qZ-yTy" secondAttribute="trailing" constant="10" id="pb0-LI-mKS"/>
-                    <constraint firstAttribute="bottom" secondItem="AKY-pa-LVy" secondAttribute="bottom" constant="9.5" id="tOU-F4-PQP"/>
+                    <constraint firstAttribute="bottom" secondItem="AKY-pa-LVy" secondAttribute="bottom" constant="-3" id="tOU-F4-PQP"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
