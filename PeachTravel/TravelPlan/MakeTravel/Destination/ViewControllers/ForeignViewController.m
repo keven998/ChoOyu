@@ -203,7 +203,10 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
 {
     AreaDestination *country = [_destinations.foreignCountries objectAtIndex:indexPath.section];
     DestinationCollectionHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:reuseableHeaderIdentifier forIndexPath:indexPath];
-    headerView.titleLabel.text = country.zhName;
+    headerView.backgroundColor = APP_PAGE_COLOR;
+    headerView.titleLabel.backgroundColor = APP_PAGE_COLOR;
+    NSString * title = [NSString stringWithFormat:@"- %@ -",country.zhName];
+    headerView.titleLabel.text = title;
     return headerView;
 }
 
@@ -280,7 +283,7 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section;
 {
-    return CGSizeMake(self.foreignCollectionView.frame.size.width, 38);
+    return CGSizeMake(self.foreignCollectionView.frame.size.width, 60);
 }
 
 @end

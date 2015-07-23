@@ -169,6 +169,16 @@
     return cell;
 }
 
+#pragma mark - 点击cell跳转页面
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"%s",__func__);
+    FrendRequest *request = [_dataSource objectAtIndex:indexPath.row];
+    OtherUserInfoViewController *contactDetailCtl = [[OtherUserInfoViewController alloc]init];
+    contactDetailCtl.userId = request.userId;
+    [self.navigationController pushViewController:contactDetailCtl animated:YES];
+}
+
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         FrendRequest *frendRequest = [self.dataSource objectAtIndex:indexPath.row];
@@ -182,5 +192,7 @@
 - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
     return @"删除";
 }
+
+
 
 @end
