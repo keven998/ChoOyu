@@ -74,7 +74,7 @@
     [contactListBtn setImage:[UIImage imageNamed:@"ic_navigationbar_menu_friendlist.png"] forState:UIControlStateNormal];
     [contactListBtn addTarget:self action:@selector(showContactList:) forControlEvents:UIControlEventTouchUpInside];
     contactListBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    _frendRequestUnreadCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 5, 8, 8)];
+    _frendRequestUnreadCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(12, 7, 8, 8)];
     _frendRequestUnreadCountLabel.backgroundColor = [UIColor redColor];
     _frendRequestUnreadCountLabel.layer.cornerRadius = 4;
     _frendRequestUnreadCountLabel.clipsToBounds = YES;
