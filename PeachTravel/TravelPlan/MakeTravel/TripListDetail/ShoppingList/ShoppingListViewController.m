@@ -244,7 +244,7 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
     UIButton * collection = [UIButton buttonWithType:UIButtonTypeCustom];
     collection.tag = section;
     CGFloat collectionW = 54;
-    collection.frame = CGRectMake(SCREEN_WIDTH - 20 - collectionW, 8, collectionW, 26);
+    collection.frame = CGRectMake(SCREEN_WIDTH - 10 - collectionW, 8, collectionW, 26);
     [collection setTitle:@"＋收藏" forState:UIControlStateNormal];
     collection.titleLabel.font = [UIFont systemFontOfSize:12.0];
     [collection setTitleColor:[UIColor colorWithRed:150 / 256.0 green:150 / 256.0 blue:150 / 256.0 alpha:1.0] forState:UIControlStateNormal];
