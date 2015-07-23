@@ -6,12 +6,12 @@
 //  Copyright (c) 2015年 com.aizou.www. All rights reserved.
 //
 
-#import "GuilderDistributeViewController.h"
+#import "GuiderDistributeViewController.h"
 #import "GuiderCollectionViewController.h"
 #import "GuiderCell.h"
-#import "GuilderDistribute.h"
+#import "GuiderDistribute.h"
 #import "MJExtension.h"
-#import "GuilderDistributeContinent.h"
+#import "GuiderDistributeContinent.h"
 @interface GuilderDistributeViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 
@@ -108,7 +108,7 @@
         /**
          *  将字典数组转换成模型数组
          */
-        self.guiderArray = [GuilderDistribute objectArrayWithKeyValuesArray:resultArray];
+        self.guiderArray = [GuiderDistribute objectArrayWithKeyValuesArray:resultArray];
         [self revertGuiderListToGroup:self.guiderArray];
         
         NSLog(@"%@",self.guiderArray);
@@ -126,8 +126,16 @@
 
 // 处理guiderArray数组,将一个数组转换成分组数组
 
-- (void)revertGuiderListToGroup:(NSArray *)guiderList
+- (void)revertGuiderListToGroup:(NSArray *)list
 {
+    NSArray *guiderList = [[list mutableCopy] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        GuiderDistribute *guiderOne = obj1;
+        GuiderDistribute *guiderTwo = obj2;
+        
+        NSComparisonResult result = guiderOne.rank > guiderTwo.rank;
+        return result == NSOrderedDescending;
+    }];
+    
     // 1.创建一个分组数组,里面存放了多少组数据
     NSMutableArray *dataSource = [[NSMutableArray alloc] init];
     for (int i = 0; i < self.titleArray.count; i++) {
@@ -138,9 +146,9 @@
     self.dataSource = dataSource;
     
     // 2.遍历数组
-    for (GuilderDistribute * distrubute in guiderList) {
+    for (GuiderDistribute * distrubute in guiderList) {
         int i = 0;
-        GuilderDistributeContinent * guilderContinent = distrubute.continents;
+        GuiderDistributeContinent * guilderContinent = distrubute.continents;
         for (NSString * title in _titleArray)
         {
             if ([guilderContinent.zhName isEqualToString:title]) {
@@ -269,11 +277,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     GuiderCollectionViewController *guider = [[GuiderCollectionViewController alloc] initWithNibName:@"GuiderCollectionViewController" bundle:nil];
-    GuilderDistribute * guilderDistribute = _dataSource[indexPath.section][indexPath.row];
+    GuiderDistribute * GuiderDistribute = _dataSource[indexPath.section][indexPath.row];
     
     // 这里传入的distributionArea应该是该地区的区域ID
-    guider.distributionArea = guilderDistribute.ID;
-    guider.guiderDistribute = guilderDistribute;
+    guider.distributionArea = GuiderDistribute.ID;
+    guider.guiderDistribute = GuiderDistribute;
     [self.navigationController pushViewController:guider animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

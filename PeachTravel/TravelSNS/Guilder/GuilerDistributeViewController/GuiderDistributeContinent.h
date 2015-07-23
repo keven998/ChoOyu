@@ -1,5 +1,5 @@
 //
-//  GuilderDistributeContinent.h
+//  GuiderDistributeContinent.h
 //  PeachTravel
 //
 //  Created by 王聪 on 15/7/20.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface GuilderDistributeContinent : NSObject
+@interface GuiderDistributeContinent : NSObject
 
 @property (nonatomic, copy)NSString * ID;
 

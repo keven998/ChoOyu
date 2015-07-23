@@ -1,15 +1,16 @@
 //
-//  GuilderDistribute.m
+//  GuiderDistribute.m
 //  PeachTravel
 //
 //  Created by 王聪 on 15/7/15.
 //  Copyright (c) 2015年 com.aizou.www. All rights reserved.
 //
 
-#import "GuilderDistribute.h"
+#import "GuiderDistribute.h"
 #import "MJExtension.h"
-#import "GuilderDistributeContinent.h"
-@implementation GuilderDistribute
+#import "GuiderDistributeContinent.h"
+
+@implementation GuiderDistribute
 
 - (NSDictionary *)replacedKeyFromPropertyName
 {
@@ -19,7 +20,7 @@
 // 将数组中得字典转换成模型
 - (NSDictionary *)objectClassInArray
 {
-    return @{@"continents":[GuilderDistributeContinent class]};
+    return @{@"continents":[GuiderDistributeContinent class]};
 }
 
 @end
