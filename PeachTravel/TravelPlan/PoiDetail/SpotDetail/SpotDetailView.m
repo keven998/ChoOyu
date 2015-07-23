@@ -85,7 +85,31 @@
     [self addSubview:_ratingView];
     
     UIButton *tagBtn = [[UIButton alloc] initWithFrame:CGRectMake(width-131, offsetY + 8.5, 116, 40)];
-    [tagBtn setTitle:@"高等学府" forState:UIControlStateNormal];
+    
+    NSString * tagTitle = nil;
+    if (self.spot.style.count == 0)
+    {
+        switch (self.spot.poiType) {
+            case kSpotPoi:
+                tagTitle = @"美丽景点";
+                break;
+            case kHotelPoi:
+                tagTitle = @"舒适宾馆";
+                break;
+            case kRestaurantPoi:
+                tagTitle = @"好吃餐厅";
+                break;
+            case kShoppingPoi:
+                tagTitle = @"欢乐购物";
+                break;
+            default:
+                break;
+        }
+    }else{
+        tagTitle = [_spot.style firstObject];
+    }
+
+    [tagBtn setTitle:tagTitle forState:UIControlStateNormal];
     [tagBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     tagBtn.titleLabel.font = [UIFont systemFontOfSize:13];
     [tagBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 20, 0, 0)];
