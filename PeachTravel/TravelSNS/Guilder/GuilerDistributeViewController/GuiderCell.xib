@@ -16,13 +16,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vK8-y6-Tqr">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="232.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="233"/>
                     </imageView>
                     <imageView userInteractionEnabled="NO" alpha="0.49999999999999961" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plan_city_footprint@3x.png" translatesAutoresizingMaskIntoConstraints="NO" id="A3O-HQ-kax">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="232.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="232"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NMN-ak-8wx">
-                        <rect key="frame" x="20" y="81.5" width="280" height="40"/>
+                        <rect key="frame" x="20" y="82" width="280" height="40"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="280" id="IVp-Z0-zLZ"/>
                             <constraint firstAttribute="height" constant="40" id="u3J-Pu-Rdg"/>
@@ -32,7 +32,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bwB-cb-VUx">
-                        <rect key="frame" x="20" y="123" width="280" height="21"/>
+                        <rect key="frame" x="20" y="124" width="280" height="21"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="280" id="IZX-24-WZe"/>
                             <constraint firstAttribute="height" constant="21" id="dxo-pn-erU"/>
@@ -49,13 +49,14 @@
                     <constraint firstItem="NMN-ak-8wx" firstAttribute="centerX" secondItem="bwB-cb-VUx" secondAttribute="centerX" id="Kc6-nm-xW4"/>
                     <constraint firstItem="NMN-ak-8wx" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="53" id="N9z-oH-FFX"/>
                     <constraint firstAttribute="bottom" secondItem="A3O-HQ-kax" secondAttribute="bottom" id="Z0f-TL-ntS"/>
-                    <constraint firstAttribute="centerY" secondItem="NMN-ak-8wx" secondAttribute="centerY" constant="15" id="cD9-GG-yKU"/>
+                    <constraint firstAttribute="centerY" secondItem="NMN-ak-8wx" secondAttribute="centerY" constant="14" id="cD9-GG-yKU"/>
                     <constraint firstItem="A3O-HQ-kax" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="ceT-ID-kyJ"/>
                     <constraint firstAttribute="trailing" secondItem="vK8-y6-Tqr" secondAttribute="trailing" id="fQL-Od-uS2"/>
                     <constraint firstAttribute="trailing" secondItem="A3O-HQ-kax" secondAttribute="trailing" id="ftV-jb-htx"/>
                     <constraint firstItem="NMN-ak-8wx" firstAttribute="centerX" secondItem="vK8-y6-Tqr" secondAttribute="centerX" id="pON-7f-WqK"/>
+                    <constraint firstAttribute="bottom" secondItem="vK8-y6-Tqr" secondAttribute="bottom" constant="-1" id="usA-J4-H1o"/>
                     <constraint firstItem="vK8-y6-Tqr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="vgS-Mv-6fH"/>
-                    <constraint firstAttribute="bottom" secondItem="vK8-y6-Tqr" secondAttribute="bottom" id="wrs-Ib-FaY"/>
+                    <constraint firstAttribute="bottom" secondItem="vK8-y6-Tqr" secondAttribute="bottom" constant="-1" id="wrs-Ib-FaY"/>
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">
