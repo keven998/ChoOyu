@@ -25,11 +25,7 @@
         _telephone = [json objectForKey:@"telephone"];
         
         _style = [json objectForKey:@"style"];
-
-        if ([[json objectForKey:@"type"] isEqualToString:@"vs"]) {
-            _poiType = kSpotPoi;
-        }
-            
+  
         if ([json objectForKey:@"rank"] != [NSNull null]) {
             _rank = [[json objectForKey:@"rank"] intValue];
         }
