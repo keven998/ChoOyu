@@ -15,9 +15,9 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="新朋友" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BDn-ti-aSj">
-                        <rect key="frame" x="68" y="19" width="158" height="17"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <rect key="frame" x="63" y="18" width="158" height="20"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" red="0.19607843137254902" green="0.19607843137254902" blue="0.19607843137254902" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jjM-4r-fyk">
@@ -30,8 +30,8 @@
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="frend_request_icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="De7-MS-DeS">
-                        <rect key="frame" x="16" y="8" width="40" height="40"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="frend_request_icon@3x.png" translatesAutoresizingMaskIntoConstraints="NO" id="De7-MS-DeS">
+                        <rect key="frame" x="16" y="7" width="40" height="40"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="EFA-hY-nHn"/>
                             <constraint firstAttribute="height" constant="40" id="lsq-5Q-VIo"/>
@@ -41,11 +41,11 @@
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 <constraints>
                     <constraint firstAttribute="centerY" secondItem="jjM-4r-fyk" secondAttribute="centerY" id="Opj-tg-5vK"/>
-                    <constraint firstAttribute="centerY" secondItem="BDn-ti-aSj" secondAttribute="centerY" id="Rgy-b1-x16"/>
+                    <constraint firstAttribute="centerY" secondItem="BDn-ti-aSj" secondAttribute="centerY" constant="-1" id="Rgy-b1-x16"/>
                     <constraint firstItem="De7-MS-DeS" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="XJj-LR-GW8"/>
-                    <constraint firstItem="jjM-4r-fyk" firstAttribute="leading" secondItem="BDn-ti-aSj" secondAttribute="trailing" constant="53" id="Xgs-4B-no9"/>
+                    <constraint firstItem="jjM-4r-fyk" firstAttribute="leading" secondItem="BDn-ti-aSj" secondAttribute="trailing" constant="58" id="Xgs-4B-no9"/>
                     <constraint firstAttribute="centerY" secondItem="De7-MS-DeS" secondAttribute="centerY" id="eHw-Im-4CO"/>
-                    <constraint firstItem="BDn-ti-aSj" firstAttribute="leading" secondItem="De7-MS-DeS" secondAttribute="trailing" constant="12" id="p0q-ql-LzT"/>
+                    <constraint firstItem="BDn-ti-aSj" firstAttribute="leading" secondItem="De7-MS-DeS" secondAttribute="trailing" constant="7" id="p0q-ql-LzT"/>
                     <constraint firstAttribute="trailing" secondItem="jjM-4r-fyk" secondAttribute="trailing" constant="11" id="r0c-oW-xTe"/>
                 </constraints>
             </tableViewCellContentView>
@@ -58,6 +58,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="frend_request_icon.png" width="26" height="23"/>
+        <image name="frend_request_icon@3x.png" width="114" height="114"/>
     </resources>
 </document>

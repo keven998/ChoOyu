@@ -53,6 +53,7 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
     
     self.tableView.backgroundColor = APP_PAGE_COLOR;
     self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
+    self.tableView.contentInset = UIEdgeInsetsMake(5, 0, 0, 0);
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismissCtl:) name:userDidLogoutNoti object:nil];
 }
@@ -123,7 +124,7 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        return 50.0;
+        return 54.0;
     }
     return 64.0;
 }
