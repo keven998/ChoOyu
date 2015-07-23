@@ -21,7 +21,7 @@
 
 //@property (nonatomic, copy)NSString * desc;
 
-@property (nonatomic, strong)NSNumber * expertUserCnt;
+@property (nonatomic, strong)NSNumber * expertCnt;
 
 @property (nonatomic, strong)GuilderDistributeContinent * continents;
 

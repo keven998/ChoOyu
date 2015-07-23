@@ -184,7 +184,7 @@ static NSString *cacheName = @"destination_demostic_group";
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section;
 {
-    return CGSizeMake(self.domesticCollectionView.frame.size.width, 38);
+    return CGSizeMake(self.domesticCollectionView.frame.size.width, 60);
 }
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section;
 {
@@ -216,7 +216,8 @@ static NSString *cacheName = @"destination_demostic_group";
         headerView.backgroundColor = APP_PAGE_COLOR;
         headerView.titleLabel.backgroundColor = APP_PAGE_COLOR;
         AreaDestination *area = [self.destinations.domesticCities objectAtIndex:indexPath.section];
-        headerView.titleLabel.text = area.zhName;
+        NSString * title = [NSString stringWithFormat:@"- %@ -",area.zhName];
+        headerView.titleLabel.text = title;
         return headerView;
     }
     return nil;
