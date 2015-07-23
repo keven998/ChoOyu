@@ -16,7 +16,7 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
     
     let accountId: Int
     
-    var frendDaoHelper :FrendDaoHelper
+    let frendDaoHelper :FrendDaoHelper
     
     /**
     初始化

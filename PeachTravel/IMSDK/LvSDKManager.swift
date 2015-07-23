@@ -25,7 +25,6 @@ class IMClientManager: NSObject {
     var frendManager: FrendManager!
     var frendRequestManager: FrendRequestManager!
     var cmdMessageManager: CMDMessageManager!
-    var netWorkReachability: NetworkReachability!
     
     /// 保存聊天图片文件的目录
     var userChatImagePath: String {
@@ -70,7 +69,6 @@ class IMClientManager: NSObject {
     
     override init() {
         super.init()
-        netWorkReachability = NetworkReachability()
     }
     
     private func setUpSDKWhenLogin() {

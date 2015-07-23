@@ -101,7 +101,8 @@
     [self refreshDataSource];
     [_delegate unreadMessageCountHasChange];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-    [self updateIMStatusWithNetworkStatus:self.imClientManager.netWorkReachability.hostReachability.currentReachabilityStatus];
+    NetworkReachability *networkReachability = [NetworkReachability shareInstance];
+    [self updateIMStatusWithNetworkStatus:networkReachability.hostReachability.currentReachabilityStatus];
 }
 
 -(void)viewWillDisappear:(BOOL)animated

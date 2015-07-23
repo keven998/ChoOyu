@@ -10,12 +10,20 @@
 
 @interface NetworkReachability ()
 
-//@property (nonatomic) Reachability *internetReachability;
-//@property (nonatomic) Reachability *wifiReachability;
-
 @end
 
 @implementation NetworkReachability
+
++ (NetworkReachability *)shareInstance
+{
+    static NetworkReachability *reachabililty;
+    static dispatch_once_t token;
+    dispatch_once(&token,^{
+        //这里调用私有的initSingle方法
+        reachabililty = [[NetworkReachability alloc] init];
+    });
+    return reachabililty;
+}
 
 - (instancetype)init
 {
@@ -36,14 +44,6 @@
     self.hostReachability = [Reachability reachabilityWithHostName:remoteHostName];
     [self.hostReachability startNotifier];
     [self updateInterfaceWithReachability:self.hostReachability];
-    
-//    self.internetReachability = [Reachability reachabilityForInternetConnection];
-//    [self.internetReachability startNotifier];
-//    [self updateInterfaceWithReachability:self.internetReachability];
-//    
-//    self.wifiReachability = [Reachability reachabilityForLocalWiFi];
-//    [self.wifiReachability startNotifier];
-//    [self updateInterfaceWithReachability:self.wifiReachability];
 }
 
 - (void)reachabilityChanged:(NSNotification *)note
@@ -62,14 +62,6 @@
         NSDictionary *dic = @{@"status": [NSNumber numberWithInt:netStatus]};
         [[NSNotificationCenter defaultCenter] postNotificationName:networkConnectionStatusChangeNoti object:nil userInfo:dic];
     }
-    
-//    if (reachability == self.internetReachability)
-//    {
-//    }
-//    
-//    if (reachability == self.wifiReachability)
-//    {
-//    }
 }
 
 

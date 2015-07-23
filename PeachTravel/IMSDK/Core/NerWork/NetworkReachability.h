@@ -13,4 +13,6 @@
 
 @property (nonatomic) Reachability *hostReachability;
 
++ (AccountManager *)shareInstance;
+
 @end
