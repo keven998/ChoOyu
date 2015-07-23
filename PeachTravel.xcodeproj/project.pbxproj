@@ -418,6 +418,7 @@
 		D92CA1381AD8BEB400F244FF /* MWZoomingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = D92CA12D1AD8BEB400F244FF /* MWZoomingScrollView.m */; };
 		D92CA1391AD8BEB400F244FF /* MWPhotoBrowser.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D92CA12E1AD8BEB400F244FF /* MWPhotoBrowser.bundle */; };
 		D9335E5C1B5F600B00073E49 /* icon_chat_group@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9335E5B1B5F600B00073E49 /* icon_chat_group@3x.png */; };
+		D9335E5E1B60B15A00073E49 /* ic_msg_sending@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9335E5D1B60B15A00073E49 /* ic_msg_sending@2x.png */; };
 		D93B97F11B4B8C420054EF50 /* ChatGroupSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D93B97EF1B4B8C420054EF50 /* ChatGroupSettingCell.m */; };
 		D93B97F21B4B8C420054EF50 /* ChatGroupSettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D93B97F01B4B8C420054EF50 /* ChatGroupSettingCell.xib */; };
 		D93B97F41B4BACAF0054EF50 /* TipsMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93B97F31B4BACAF0054EF50 /* TipsMessage.swift */; };
@@ -1433,6 +1434,7 @@
 		D92CA12D1AD8BEB400F244FF /* MWZoomingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWZoomingScrollView.m; sourceTree = "<group>"; };
 		D92CA12E1AD8BEB400F244FF /* MWPhotoBrowser.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MWPhotoBrowser.bundle; sourceTree = "<group>"; };
 		D9335E5B1B5F600B00073E49 /* icon_chat_group@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_chat_group@3x.png"; sourceTree = "<group>"; };
+		D9335E5D1B60B15A00073E49 /* ic_msg_sending@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ic_msg_sending@2x.png"; path = "../ic_msg_sending@2x.png"; sourceTree = "<group>"; };
 		D93B97EE1B4B8C420054EF50 /* ChatGroupSettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatGroupSettingCell.h; sourceTree = "<group>"; };
 		D93B97EF1B4B8C420054EF50 /* ChatGroupSettingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatGroupSettingCell.m; sourceTree = "<group>"; };
 		D93B97F01B4B8C420054EF50 /* ChatGroupSettingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatGroupSettingCell.xib; sourceTree = "<group>"; };
@@ -2478,6 +2480,7 @@
 		C63FFCBD1B3A6CFB0026758F /* 聊天页 */ = {
 			isa = PBXGroup;
 			children = (
+				D9335E5D1B60B15A00073E49 /* ic_msg_sending@2x.png */,
 				276DF7511B47C9B6001A98FB /* setting */,
 				C6528EEF1B4178A7008889EF /* audio */,
 				C6682AC21B41343300100EBA /* chat_receiver_audio_playing_full@3x.png */,
@@ -6002,6 +6005,7 @@
 				D90A9B461B5627C400E9F37C /* Loading_Animation_final27@3x.png in Resources */,
 				D9A8FFB41A80D1C3005AD701 /* RecommendCollectionViewCell.xib in Resources */,
 				D94B894D1B5E5F4C00584DE5 /* dashboard_03_icon_constellation3.png in Resources */,
+				D9335E5E1B60B15A00073E49 /* ic_msg_sending@2x.png in Resources */,
 				D90A9B331B5627C400E9F37C /* Loading_Animation_final8@3x.png in Resources */,
 				D917DABC1A8B49AF0039720A /* ic_guide2_7_select@2x.png in Resources */,
 				E6BFE6001B5E78B600A9FDCA /* Artboard_Top_Bg@3x.png in Resources */,

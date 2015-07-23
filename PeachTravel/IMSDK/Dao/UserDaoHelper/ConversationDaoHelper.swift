@@ -89,6 +89,10 @@ class ConversationDaoHelper: BaseDaoHelper, ConversationDaoProtocol {
             var rs = dataBase.executeQuery(sql, withArgumentsInArray: nil)
             if rs != nil {
                 while rs.next() {
+                    //如果是取的 cmd 的会话，直接 pass 掉
+                    if Int(rs.intForColumn("ChatterId")) == 0 {
+                        return
+                    }
                     var conversation = ChatConversation()
                     conversation.chatterId = Int(rs.intForColumn("ChatterId"))
                     conversation.lastUpdateTime = Int(rs.longForColumn("LastUpdateTime"))
