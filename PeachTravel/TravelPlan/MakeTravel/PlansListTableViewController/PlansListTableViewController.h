@@ -23,5 +23,7 @@
 @property (nonatomic) NSInteger userId;
 @property (nonatomic, strong) NSString *userName;
 
+@property (nonatomic, assign) BOOL copyPatch; //复制补丁
+
 
 @end

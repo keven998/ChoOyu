@@ -67,6 +67,7 @@ static NSString *reusableCell = @"myGuidesCell";
         _isOwner = ([AccountManager shareAccountManager].account.userId == userId);
         _userId = userId;
         _contentType = ALL;
+        _copyPatch = NO;
     }
     return self;
 }
@@ -115,10 +116,10 @@ static NSString *reusableCell = @"myGuidesCell";
     [self.refreshControl addTarget:self action:@selector(pullToRefreash:) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:self.refreshControl];
     
-    if (!_isOwner) {
-        [self loadData:_contentType WithPageIndex:0];
-    } else {
+    if (_isOwner && !_copyPatch) {
         [self initDataFromCache];
+    } else {
+        [self loadData:_contentType WithPageIndex:0];
     }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogout) name:userDidLogoutNoti object:nil];
@@ -537,13 +538,23 @@ static NSString *reusableCell = @"myGuidesCell";
         cell.playedBtn.hidden = YES;
         cell.deleteBtn.hidden = YES;
     }
-    cell.guideSummary = [self.dataSource objectAtIndex:indexPath.section];
+    
+    MyGuideSummary *summary = [self.dataSource objectAtIndex:indexPath.section];
+    cell.guideSummary = summary;
     cell.isCanSend = _selectToSend;
     [cell.sendBtn addTarget:self action:@selector(sendPoi:) forControlEvents:UIControlEventTouchUpInside];
     
+    if (_copyPatch && indexPath.section == 0) {
+        NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"(新复制) %@", summary.title]];
+        [attr addAttribute:NSForegroundColorAttributeName value:COLOR_CHECKED range:NSMakeRange(0, 4)];
+        cell.titleBtn.attributedText = attr;
+    } else {
+        cell.titleBtn.attributedText = nil;
+        cell.titleBtn.text = summary.title;
+    }
+    
     if ([cell.guideSummary.status isEqualToString:@"traveled"]) {
-        cell.playedImage.image = [UIImage imageNamed:@"plan_bg_page_qian"];
-        
+        cell.playedImage.image = [UIImage imageNamed:@"plan_bg_page_qian"];        
     } else {
         
     }
@@ -707,7 +718,7 @@ static NSString *reusableCell = @"myGuidesCell";
                 MyGuideSummary *guide = self.dataSource [index];
                 guide.status = @"traveled";
                 
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"已标记去过，个人旅历+1" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"已去过，旅历+1" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
                 [alertView show];
             }
             

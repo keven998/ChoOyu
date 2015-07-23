@@ -122,13 +122,14 @@
         _userId = [AccountManager shareAccountManager].account.userId;
         
     } else {
-        _forkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 20)];
+        _forkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 24)];
         _forkBtn.layer.cornerRadius = 2.0;
         _forkBtn.layer.borderColor = [UIColor whiteColor].CGColor;
         _forkBtn.layer.borderWidth = 1.0;
-        [_forkBtn setTitle:@"复制计划" forState:UIControlStateNormal];
-        _forkBtn.titleLabel.font = [UIFont systemFontOfSize:10.0];
+        [_forkBtn setTitle:@"复制" forState:UIControlStateNormal];
+        _forkBtn.titleLabel.font = [UIFont boldSystemFontOfSize:11.0];
         [_forkBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_forkBtn setTitleColor:COLOR_DISABLE forState:UIControlStateHighlighted];
         [_forkBtn addTarget:self action:@selector(forkTrip:) forControlEvents:UIControlEventTouchUpInside];
         UIBarButtonItem * addBtn = [[UIBarButtonItem alloc]initWithCustomView:_forkBtn];
         self.navigationItem.rightBarButtonItem = addBtn;
@@ -513,7 +514,12 @@
  */
 - (IBAction)forkTrip:(id)sender
 {
-    [self forkTrip];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:[NSString stringWithFormat:@"复制\"%@\"到我的旅行计划", _tripDetail.tripTitle] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    [alert showAlertViewWithBlock:^(NSInteger buttonIndex) {
+        if (buttonIndex == 1) {
+            [self forkTrip];
+        }
+    }];
 }
 
 - (void)forkTrip
@@ -550,6 +556,7 @@
             PlansListTableViewController *myGuidesCtl = [[PlansListTableViewController alloc] initWithUserId:accountManager.account.userId];
             NSMutableArray *clts = [NSMutableArray arrayWithArray:[self.container.navigationController childViewControllers]];
             myGuidesCtl.userName = accountManager.account.nickName;
+            myGuidesCtl.copyPatch = YES;
             [clts replaceObjectAtIndex:(clts.count-1) withObject:myGuidesCtl];
             [self.container.navigationController setViewControllers:clts animated:YES];
         } else {
