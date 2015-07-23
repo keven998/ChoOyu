@@ -93,7 +93,6 @@
 		27FD23251B3BA19B00C2CFAA /* RefreshHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FD23241B3BA19B00C2CFAA /* RefreshHeader.m */; };
 		27FD63B01B3A9D2C00BC8170 /* messages_bg_friend@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27FD63AF1B3A9D2C00BC8170 /* messages_bg_friend@3x.png */; };
 		27FF1A3C1B04B91F00643D77 /* AIDatePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FF1A3B1B04B91F00643D77 /* AIDatePickerController.m */; };
-		27FF1A3D1B04B93C00643D77 /* AIDatePickerController.h in Sources */ = {isa = PBXBuildFile; fileRef = 27FF1A3A1B04B91F00643D77 /* AIDatePickerController.h */; };
 		27FF1A721B04BE0E00643D77 /* SignatureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FF1A711B04BE0E00643D77 /* SignatureViewController.m */; };
 		27FF1A791B059AFA00643D77 /* TripPlanSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FF1A771B059AFA00643D77 /* TripPlanSettingCell.m */; };
 		27FF1A7A1B059AFA00643D77 /* TripPlanSettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27FF1A781B059AFA00643D77 /* TripPlanSettingCell.xib */; };
@@ -1025,7 +1024,7 @@
 		27FD23231B3BA19B00C2CFAA /* RefreshHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RefreshHeader.h; sourceTree = "<group>"; };
 		27FD23241B3BA19B00C2CFAA /* RefreshHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RefreshHeader.m; sourceTree = "<group>"; };
 		27FD63AF1B3A9D2C00BC8170 /* messages_bg_friend@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "messages_bg_friend@3x.png"; sourceTree = "<group>"; };
-		27FF1A3A1B04B91F00643D77 /* AIDatePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIDatePickerController.h; sourceTree = "<group>"; };
+		27FF1A3A1B04B91F00643D77 /* AIDatePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AIDatePickerController.h; sourceTree = "<group>"; };
 		27FF1A3B1B04B91F00643D77 /* AIDatePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIDatePickerController.m; sourceTree = "<group>"; };
 		27FF1A701B04BE0E00643D77 /* SignatureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignatureViewController.h; sourceTree = "<group>"; };
 		27FF1A711B04BE0E00643D77 /* SignatureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignatureViewController.m; sourceTree = "<group>"; };
@@ -6213,7 +6212,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D993C26B1B12DF0C0088D568 /* ChatConversation.swift in Sources */,
-				27FF1A3D1B04B93C00643D77 /* AIDatePickerController.h in Sources */,
 				D9A802B91A80E3D3005AD701 /* UIViewController+HUD.m in Sources */,
 				D9A802F01A80E3D3005AD701 /* AppUtils.m in Sources */,
 				D993C24C1B12DF0C0088D568 /* FMDatabaseQueue.m in Sources */,
