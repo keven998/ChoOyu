@@ -13,7 +13,7 @@ protocol ChatManagerAudioProtocol {
     /**
     开始录音
     */
-    func beginRecordAudio()
+    func beginRecordAudio(prepareBlock: (canRecord: Bool) ->())
     /**
     结束录音
     */
@@ -108,12 +108,16 @@ class ChatManagerAudio: NSObject, ChatManagerAudioProtocol, AudioManagerDelegate
     }
     
     //MARK: ChatManagerAudioProtocol
-    func beginRecordAudio() {
+    func beginRecordAudio(prepareBlock: ((canRecord: Bool) ->())) {
         audioRecordDeviceManager.audioManagerDelegate = self
         audioPath = documentPath.stringByAppendingPathComponent("temp.wav")
         var audioUrl = NSURL(string: audioPath)
-        audioRecordDeviceManager.beginRecordAudio(audioUrl!)
-        startTimer()
+        audioRecordDeviceManager.beginRecordAudio(audioUrl!, prepareBlock: { (canRecord) -> () in
+            if canRecord {
+                self.startTimer()
+            }
+            prepareBlock(canRecord: canRecord)
+        })
     }
     
     func stopRecordAudio() {

@@ -55,14 +55,14 @@
             if ([_messageTimeCost isBlankString] || !_messageTimeCost) {
                 [_propertyBtn setImage:nil forState:UIControlStateNormal];
             } else {
-                [_propertyBtn setImage:[UIImage imageNamed:@"ic_time.png"] forState:UIControlStateNormal];
+                [_propertyBtn setImage:[UIImage imageNamed:@"poi_clock_default.png"] forState:UIControlStateNormal];
             }
             _descLabel.text = _messageDesc;
             
             break;
             
         case IMMessageTypeGuideMessageType:
-            [_propertyBtn setImage:[UIImage imageNamed:@"ic_time.png"] forState:UIControlStateNormal];
+            [_propertyBtn setImage:[UIImage imageNamed:@"poi_clock_default.png"] forState:UIControlStateNormal];
             _headerLabel.text = @"  计划";
             [_propertyBtn setTitle:_messageTimeCost forState:UIControlStateNormal];
 
@@ -71,7 +71,7 @@
             
         case IMMessageTypeRestaurantMessageType: {
             _headerLabel.text = @"   美食";
-            [_propertyBtn setImage:[UIImage imageNamed:@"ic_star_yellow.png"] forState:UIControlStateNormal];
+            [_propertyBtn setImage:[UIImage imageNamed:@"poi_comment_start_highlight.png"] forState:UIControlStateNormal];
             NSString *propertyStr = [NSString stringWithFormat:@"%.1f  %@",_messageRating, _messagePrice];
             _descLabel.text = _messageAddress;
             [_propertyBtn setTitle:propertyStr forState:UIControlStateNormal];
@@ -81,7 +81,7 @@
             
         case IMMessageTypeHotelMessageType: {
             _headerLabel.text = @"   酒店";
-            [_propertyBtn setImage:[UIImage imageNamed:@"ic_star_yellow.png"] forState:UIControlStateNormal];
+            [_propertyBtn setImage:[UIImage imageNamed:@"poi_comment_start_highlight.png"] forState:UIControlStateNormal];
             NSString *propertyStr = [NSString stringWithFormat:@"%.1f  %@",_messageRating, _messagePrice];
             _descLabel.text = _messageAddress;
             [_propertyBtn setTitle:propertyStr forState:UIControlStateNormal];
@@ -91,7 +91,7 @@
             
         case IMMessageTypeShoppingMessageType: {
             _headerLabel.text = @"   购物";
-            [_propertyBtn setImage:[UIImage imageNamed:@"ic_star_yellow.png"] forState:UIControlStateNormal];
+            [_propertyBtn setImage:[UIImage imageNamed:@"poi_comment_start_highlight.png"] forState:UIControlStateNormal];
             NSString *propertyStr = [NSString stringWithFormat:@"%.1f",_messageRating];
             _descLabel.text = _messageAddress;
             [_propertyBtn setTitle:propertyStr forState:UIControlStateNormal];
@@ -104,7 +104,7 @@
             if ([_messageTimeCost isBlankString] || !_messageTimeCost) {
                 [_propertyBtn setImage:nil forState:UIControlStateNormal];
             } else {
-                [_propertyBtn setImage:[UIImage imageNamed:@"ic_time.png"] forState:UIControlStateNormal];
+                [_propertyBtn setImage:[UIImage imageNamed:@"poi_clock_default.png"] forState:UIControlStateNormal];
             }
             [_propertyBtn setTitle:_messageTimeCost forState:UIControlStateNormal];
             _descLabel.text = _messageDesc;
@@ -121,7 +121,7 @@
     }
 
     // 监听键盘的变化
-    self.messageText.layer.borderColor = UIColorFromRGB(0x121212).CGColor;
+    self.messageText.layer.borderColor = UIColorFromRGB(0xe2e2e2).CGColor;
     self.messageText.layer.borderWidth = 1.0;
     self.messageText.delegate = self;
 }
