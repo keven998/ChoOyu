@@ -74,7 +74,7 @@
     [contactListBtn setImage:[UIImage imageNamed:@"ic_navigationbar_menu_friendlist.png"] forState:UIControlStateNormal];
     [contactListBtn addTarget:self action:@selector(showContactList:) forControlEvents:UIControlEventTouchUpInside];
     contactListBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    _frendRequestUnreadCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 5, 8, 8)];
+    _frendRequestUnreadCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(12, 7, 8, 8)];
     _frendRequestUnreadCountLabel.backgroundColor = [UIColor redColor];
     _frendRequestUnreadCountLabel.layer.cornerRadius = 4;
     _frendRequestUnreadCountLabel.clipsToBounds = YES;
@@ -596,8 +596,11 @@
         }
         if (tzConversation.chatterId == 10001) {
             cell.imageView.image = [UIImage imageNamed:@"lvxingwenwen.png"];
+            cell.imageView.layer.cornerRadius = 0;
         } else if (tzConversation.chatterId == 10000) {
             cell.imageView.image = [UIImage imageNamed:@"lvxingpaipai.png"];
+            cell.imageView.layer.cornerRadius = 0;
+
         } else {
             [cell.imageView sd_setImageWithURL:[NSURL URLWithString:tzConversation.chatterAvatar] placeholderImage:[UIImage imageNamed:@"ic_home_default_avatar.png"]];
             cell.imageView.layer.cornerRadius = 28;

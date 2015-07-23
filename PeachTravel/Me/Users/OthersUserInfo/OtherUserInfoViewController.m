@@ -100,7 +100,7 @@
     _avatarImageView.clipsToBounds = YES;
     _avatarImageView.layer.cornerRadius = avatarW/2.0;
     _avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
-    [_avatarImageView setImage:[UIImage imageNamed:@"ic_home_userentry_unlogin.png"]];
+    [_avatarImageView setImage:[UIImage imageNamed:@"ic_home_avatar_unknown.png"]];
     [_headerBgView addSubview:_avatarImageView];
     
     _avatarBg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ah, ah)];
