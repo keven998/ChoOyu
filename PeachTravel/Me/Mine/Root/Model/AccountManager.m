@@ -787,8 +787,7 @@
     
     NSMutableArray *arrayForArrays = [[NSMutableArray alloc] init];
     BOOL checkValueAtIndex= NO;  //flag to check
-    NSMutableArray *tempArrForGrouping = [[NSMutableArray alloc] init];
-    
+    NSMutableArray *tempArrForGrouping = nil;
     for(int index = 0; index < [chineseStringsArray count]; index++)
     {
         FrendModel *contact = (FrendModel *)[chineseStringsArray objectAtIndex:index];
@@ -806,6 +805,7 @@
         NSString *sr= [strchar substringToIndex:1];
         if(![sectionHeadsKeys containsObject:[sr uppercaseString]]) {
             [sectionHeadsKeys addObject:[sr uppercaseString]];
+            tempArrForGrouping = [[NSMutableArray alloc] initWithObjects:nil];
             checkValueAtIndex = NO;
         }
         if([sectionHeadsKeys containsObject:[sr uppercaseString]])

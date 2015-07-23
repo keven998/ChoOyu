@@ -64,8 +64,7 @@
     
     NSMutableArray *arrayForArrays = [NSMutableArray array];
     BOOL checkValueAtIndex= NO;  //flag to check
-    NSMutableArray *tempArrForGrouping = [[NSMutableArray alloc] init];
-    
+    NSMutableArray *tempArrForGrouping = nil;
     for(int index = 0; index < [chineseStringsArray count]; index++)
     {
         CityDestinationPoi *city = (CityDestinationPoi *)[chineseStringsArray objectAtIndex:index];
@@ -75,6 +74,8 @@
         {
             [sectionHeadsKeys addObject:[sr uppercaseString]];
             checkValueAtIndex = NO;
+            tempArrForGrouping = [[NSMutableArray alloc] initWithObjects:nil];
+
         }
         if([sectionHeadsKeys containsObject:[sr uppercaseString]])
         {
