@@ -301,8 +301,10 @@
     AccountManager *amgr = self.accountManager;
     if ([amgr isLogin]) {
         [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:amgr.account.avatarSmall] placeholderImage:[UIImage imageNamed:@"ic_home_avatar_unknown.png"]];
-    
-        _trackNumber.text = _accountManager.account.footprintsDesc;
+
+        if (_accountManager.account.footprintsDesc) {
+            _trackNumber.text = _accountManager.account.footprintsDesc;
+        }
         
         _pictureNumber.text = [NSString stringWithFormat:@"%zd图",_accountManager.account.userAlbum.count];
         

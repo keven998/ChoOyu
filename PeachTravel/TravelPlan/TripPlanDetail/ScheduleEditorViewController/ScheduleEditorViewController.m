@@ -61,6 +61,7 @@
     [btn setTitle:@"加一天" forState:UIControlStateNormal];
     btn.titleLabel.font = [UIFont systemFontOfSize:12.0];
     [btn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(addOneDay:) forControlEvents:UIControlEventTouchUpInside];
     [tabbarView addSubview:btn];
     
     UIButton *editBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, 10, 55, 25)];
@@ -83,6 +84,15 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)addOneDay:(id)sender {
+    [_backupTrip.itineraryList addObject:[[NSMutableArray alloc] init]];
+    NSIndexSet *set = [NSIndexSet indexSetWithIndex:_backupTrip.itineraryList.count-1];
+    [self.tableView insertSections:set withRowAnimation:UITableViewRowAnimationAutomatic];
+    CGPoint offset = CGPointMake(0, self.tableView.contentSize.height - self.tableView.frame.size.height);
+    [self.tableView setContentOffset:offset animated:YES];
+
 }
 
 - (void)editDay:(id)sender
