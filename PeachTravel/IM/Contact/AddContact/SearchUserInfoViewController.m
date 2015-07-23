@@ -7,7 +7,6 @@
 //
 
 #import "SearchUserInfoViewController.h"
-#import "TZCMDChatHelper.h"
 #import "AccountManager.h"
 #import "ConvertMethods.h"
 
