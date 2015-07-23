@@ -174,7 +174,7 @@
 {
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
-        _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.backgroundColor = APP_PAGE_COLOR;
@@ -205,6 +205,7 @@
     NSArray * guilderArray = self.dataSource[section];
     return guilderArray.count;
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 44;
@@ -213,36 +214,24 @@
 // 返回每一组的头部
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 44)];
-    view.tag = section;
-    view.backgroundColor = [UIColor whiteColor];
-    UILabel *sectionLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 6, CGRectGetWidth(self.view.bounds), 38)];
-    
-    
-    // 设置头像的标题
-    sectionLabel.text = self.titleArray[section];
-    
-    sectionLabel.textAlignment = NSTextAlignmentCenter;
-    sectionLabel.textColor = APP_THEME_COLOR;
-    sectionLabel.font = [UIFont boldSystemFontOfSize:14];
-    sectionLabel.tag = 1;
-    [view addSubview:sectionLabel];
-    
-    // 添加手势监听,对于手势事件的,点击cell进行展开
-    UITapGestureRecognizer *singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(SingleTap:)];
-    singleRecognizer.numberOfTapsRequired = 1; //点击的次数 =1:单击
-    [singleRecognizer setNumberOfTouchesRequired:1];//1个手指操作
-    [view addGestureRecognizer:singleRecognizer];//添加一个手势监测；
-    
-    return view;
+    UIButton *headerBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 44)];
+    headerBtn.tag = section;
+    [headerBtn setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+    [headerBtn setBackgroundImage:[ConvertMethods createImageWithColor:COLOR_DISABLE] forState:UIControlStateHighlighted];
+    headerBtn.layer.borderWidth = 0.5;
+    headerBtn.layer.borderColor = APP_PAGE_COLOR.CGColor;
+    [headerBtn setTitle:self.titleArray[section] forState:UIControlStateNormal];
+    [headerBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+    headerBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
+    headerBtn.titleEdgeInsets = UIEdgeInsetsMake(5, 0, 0, 0);
+    [headerBtn addTarget:self action:@selector(singleTap:) forControlEvents:UIControlEventTouchUpInside];
+
+    return headerBtn;
 }
 
 #pragma mark 展开收缩section中cell 手势监听
--(void)SingleTap:(UITapGestureRecognizer*)recognizer{
-    
-    NSLog(@"%s",__func__);
-    
-    NSInteger didSection = recognizer.view.tag;
+-(void)singleTap:(UIButton*)recognizer{
+    NSInteger didSection = recognizer.tag;
     
     if (!_showDic) {
         _showDic = [[NSMutableDictionary alloc]init];
@@ -251,11 +240,17 @@
     NSString *key = [NSString stringWithFormat:@"%ld",didSection];
     if (![_showDic objectForKey:key]) {
         [_showDic setObject:@"1" forKey:key];
-        
-    }else{
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:didSection] withRowAnimation:UITableViewRowAnimationAutomatic];
+    } else {
         [_showDic removeObjectForKey:key];
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:didSection] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self performSelector:@selector(scrollToVisiable:) withObject:[NSNumber numberWithLong:didSection] afterDelay:0.35];
     }
-    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:didSection] withRowAnimation:UITableViewRowAnimationFade];
+}
+
+- (void)scrollToVisiable:(NSNumber *)section {
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[section intValue]]
+                         atScrollPosition:UITableViewScrollPositionNone animated:YES];
 }
 
 
@@ -263,14 +258,10 @@
 {
     // cell的初始化
     GuiderCell * cell = [GuiderCell guiderWithTableView:tableView];
-    
     cell.guiderDistribute = _dataSource[indexPath.section][indexPath.row];
-    
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
     cell.separatorInset=UIEdgeInsetsZero;
     cell.clipsToBounds = YES;
-    
     return cell;
 }
 
