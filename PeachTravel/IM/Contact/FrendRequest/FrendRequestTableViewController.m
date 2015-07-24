@@ -48,7 +48,7 @@
 /**
  *  页面消失的时候通知上一个界面将未读数清0
  *
- *  @param animated <#animated description#>
+ *  @param animated
  */
 - (void)viewWillDisappear:(BOOL)animated
 {
@@ -115,11 +115,6 @@
             [self.tableView reloadData];
             [SVProgressHUD showHint:@"已添加"];
             
-            // 移除未读数
-            NSString * friendRequest = [NSString stringWithFormat:@"%@",frendRequest];
-            [[IMClientManager shareInstance].frendRequestManager removeFrendRequest:friendRequest];
-            [[NSNotificationCenter defaultCenter] postNotificationName:NoticationClearUnreadCount object:nil];
-            
         } else {
             [SVProgressHUD showHint:@"添加失败"];
         }
@@ -167,16 +162,14 @@
     [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:request.avatar] placeholderImage:[UIImage imageNamed:@"person_disabled"]];
     cell.requestBtn.tag = indexPath.row;
     if (request.status == TZFrendAgree) {
-        [cell.requestBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-        [cell.requestBtn setTitle:@"已添加" forState:UIControlStateNormal];
-        cell.requestBtn.userInteractionEnabled = NO;
+        cell.requestBtn.enabled = NO;
+        cell.requestBtn.layer.borderWidth = 0;
     } else if (request.status == TZFrendDefault) {
-        [cell.requestBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-        [cell.requestBtn setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
-        [cell.requestBtn setTitle:@"通过" forState:UIControlStateNormal];
-        cell.requestBtn.userInteractionEnabled = YES;
+        cell.requestBtn.enabled = YES;
         [cell.requestBtn removeTarget:self action:@selector(agreeFrendRequest:) forControlEvents:UIControlEventTouchUpInside];
         [cell.requestBtn addTarget:self action:@selector(agreeFrendRequest:) forControlEvents:UIControlEventTouchUpInside];
+        
+        cell.requestBtn.layer.borderWidth = 0.8;
     }
         
     return cell;
@@ -185,11 +178,12 @@
 #pragma mark - 点击cell跳转页面
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"%s",__func__);
     FrendRequest *request = [_dataSource objectAtIndex:indexPath.row];
     OtherUserInfoViewController *contactDetailCtl = [[OtherUserInfoViewController alloc]init];
     contactDetailCtl.userId = request.userId;
     [self.navigationController pushViewController:contactDetailCtl animated:YES];
+
+    [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {

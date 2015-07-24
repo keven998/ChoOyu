@@ -42,6 +42,7 @@ class PushSDKManager: NSObject, GexinSdkDelegate {
     override init() {
         super.init()
         timer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: Selector("checkoutSDKStatus"), userInfo: nil, repeats: true)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "networkChanged:", name: networkConnectionStatusChangeNoti, object: nil)
     }
     
     deinit {
@@ -50,6 +51,16 @@ class PushSDKManager: NSObject, GexinSdkDelegate {
     
     func registerDeviceToken(token: String) {
         gexinSdk?.registerDeviceToken(token)
+    }
+    
+    func networkChanged(noti:NSNotification) {
+        if let userInfo = noti.userInfo {
+            if let status = userInfo["status"] as? Int {
+                if status == NetworkStatus.NotReachable.rawValue {
+                    pushSdkIsConnected = false
+                }
+            }
+        }
     }
     
     /**

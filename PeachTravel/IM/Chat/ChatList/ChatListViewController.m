@@ -79,7 +79,7 @@
     _frendRequestUnreadCountLabel.layer.cornerRadius = 4;
     _frendRequestUnreadCountLabel.clipsToBounds = YES;
     [contactListBtn addSubview:_frendRequestUnreadCountLabel];
-    [IMClientManager shareInstance].frendRequestManager.delegate = self;
+    [[IMClientManager shareInstance].frendRequestManager addFrendRequestDelegate:self];
     if ([IMClientManager shareInstance].frendRequestManager.unReadFrendRequestCount > 0) {
         _frendRequestUnreadCountLabel.hidden = NO;
     } else {
@@ -115,6 +115,8 @@
 - (void)dealloc {
     _createConversationCtl.delegate = nil;
     _createConversationCtl = nil;
+    [[IMClientManager shareInstance].frendRequestManager removeFrendRequestDelegate:self];
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 

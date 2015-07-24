@@ -282,13 +282,12 @@ typedef NS_ENUM(NSUInteger, TZCMDChatType) {
 // 点击弹出菜单通知
 #define NoticationDropdownMenu @"NoticationDropdownMenuSend"
 
-// 消息好友请求数页面退出后联系人界面新朋友数清0
-#define NoticationClearUnreadCount @"NoticationClearUnreadCount"
-
 /*****应用启动时是否应该启动引导页******/
 #define shouldSkipIntroduce [[NSUserDefaults standardUserDefaults] boolForKey:[[AppUtils alloc] init].appVersion]
 
 #define kShouldShowIntroduceWhenFirstLaunch   NO
+
+#define kShouldShowUnreadFrendRequestNoti  @"shouldShowUnreadFrendRequestNoti"
 
 /*****Yahoo!天气对应的 code 列表******/
 #define yahooWeatherCode @[   @"龙卷风",\
