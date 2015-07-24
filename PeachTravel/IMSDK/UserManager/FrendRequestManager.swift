@@ -58,7 +58,7 @@ class FrendRequestManager: NSObject {
     :param: request
     */
     func addFrendRequest(request: AnyObject) {
-        let frendRequest: FrendRequest
+        var frendRequest: FrendRequest
         if request.isKindOfClass(FrendRequest) {
             frendRequest = request as! FrendRequest
         } else {
@@ -80,8 +80,8 @@ class FrendRequestManager: NSObject {
             }
             index++
         }
-        self.frendRequestDaoHelper.addFrendRequestion2DB(request as! FrendRequest)
-        self.frendRequestList.append(request as! FrendRequest)
+        self.frendRequestDaoHelper.addFrendRequestion2DB(frendRequest)
+        self.frendRequestList.append(frendRequest)
         for delegate in delegateArray {
             delegate.friendRequestNumberNeedUpdate?()
         }

@@ -45,7 +45,7 @@ class FrendRequestDaoHelper: BaseDaoHelper {
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
             var sql = "insert into \(frendRequestTableName) (RequestId, UserId, NickName, Avatar, Status, Sex, Date, Message) values (?,?,?,?,?,?,?,?)"
             debug_println("执行 sql 语句：\(sql)")
-            var array = [request.requestId, request.userId, request.nickName, request.status.rawValue, request.avatar, request.gender.rawValue, request.requestDate, request.attachMsg]
+            var array = [request.requestId, request.userId, request.nickName, request.avatar, request.status.rawValue, request.gender.rawValue, request.requestDate, request.attachMsg]
             dataBase.executeUpdate(sql, withArgumentsInArray: array as [AnyObject])
         }
     }
