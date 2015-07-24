@@ -32,7 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (self.shouldOnlyChangeDestinationWhenClickNextStep) {
-        self.navigationItem.title = @"我去过";
+        self.navigationItem.title = @"添加我的旅行足迹";
     }
     
     UIBarButtonItem *lbi = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
@@ -264,7 +264,7 @@
         if (code == 0) {
             [self analysisData:[responseObject objectForKey:@"result"]];
         } else {
-            [SVProgressHUD showHint:@"请求也是失败了"];
+            [SVProgressHUD showHint:@"请求失败"];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

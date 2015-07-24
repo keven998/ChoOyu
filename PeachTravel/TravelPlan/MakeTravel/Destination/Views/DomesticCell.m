@@ -11,8 +11,8 @@
 @implementation DomesticCell
 
 - (void)awakeFromNib {
-    
-    
+    _tiltleLabel.textColor = [UIColor whiteColor];
+    _tiltleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
 }
 
 @end

@@ -204,7 +204,6 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
     AreaDestination *country = [_destinations.foreignCountries objectAtIndex:indexPath.section];
     DestinationCollectionHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:reuseableHeaderIdentifier forIndexPath:indexPath];
     headerView.backgroundColor = APP_PAGE_COLOR;
-    headerView.titleLabel.backgroundColor = APP_PAGE_COLOR;
     NSString * title = [NSString stringWithFormat:@"- %@ -",country.zhName];
     headerView.titleLabel.text = title;
     return headerView;
@@ -227,12 +226,10 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
     if (!find) {
         cell.status.image = nil;
     }
-    cell.tiltleLabel.textColor = [UIColor whiteColor];
-    cell.tiltleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
+    
     TaoziImage *image = city.images.firstObject;
     
     [cell.backGroundImage sd_setImageWithURL:[NSURL URLWithString:image.imageUrl]];
-    
     
     return  cell;
     
@@ -283,7 +280,7 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section;
 {
-    return CGSizeMake(self.foreignCollectionView.frame.size.width, 60);
+    return CGSizeMake(self.foreignCollectionView.frame.size.width, 72);
 }
 
 @end
