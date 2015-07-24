@@ -21,7 +21,9 @@
         _tripId = [json objectForKey:@"id"];
         _tripTitle = [json objectForKey:@"title"];
         _tripDetailUrl = [json objectForKey:@"detailUrl"];
-        _dayCount = [[json objectForKey:@"itineraryDays"] integerValue];
+        if ([json objectForKey:@"itineraryDays"] != [NSNull null]) {
+            _dayCount = [[json objectForKey:@"itineraryDays"] integerValue];
+        }
         NSMutableArray *imageArray = [[NSMutableArray alloc] init];
         for (id imageDic in [json objectForKey:@"images"]) {
             [imageArray addObject:[[TaoziImage alloc] initWithJson:imageDic]];
@@ -160,7 +162,9 @@
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     
-    [manager POST:API_SAVE_TRIP parameters:uploadDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSString *url = [NSString stringWithFormat:@"%@%ld/guides/%@", API_USERS, accountManager.account.userId, _tripId];
+
+    [manager PUT:url parameters:uploadDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -201,7 +205,7 @@
     [uploadDic safeSetObject:_tripId forKey:@"id"];
     [uploadDic safeSetObject:destinationsArray forKey:@"localities"];
     
-    [manager POST:API_SAVE_TRIP parameters:uploadDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager PUT:API_SAVE_TRIP parameters:uploadDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
