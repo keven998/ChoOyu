@@ -46,16 +46,19 @@
     [self.view addSubview:self.contactTableView];
     [self.accountManager loadContactsFromServer];
     [[IMClientManager shareInstance].frendRequestManager addFrendRequestDelegate:self];
+    
+}
 
-    
-    // 改变未读数
-    
-//    [IMClientManager shareInstance].frendRequestManager.delegate = self;
+#pragma mark - 实现代理方法,这个方法会在同意添加一个好友的情况下调用
+- (void)friendRequestNumberNeedUpdate
+{
+    [self.contactTableView reloadData];
 }
 
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_friends_lists"];
+    [self.contactTableView reloadData];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
@@ -189,12 +192,6 @@
     }];
 }
 
-#pragma mark - FriendRequestManagerDelegate
-- (void)friendRequestNumberNeedUpdate
-{
-    [self.contactTableView reloadData];
-}
-
 #pragma mark - SWTableViewCellDelegate
 
 - (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index
@@ -283,8 +280,19 @@
         /**
          *  判断是否已经查看了好友的未读数,如果已经查看了,显示未读数为0,否则显示从服务器返回的数据
          */
-        cell.numberOfUnreadFrendRequest = imclientManager.frendRequestManager.unReadFrendRequestCount;
-        NSLog(@"%ld",cell.numberOfUnreadFrendRequest);
+        NSUInteger unreadCount = 0;
+        NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+        
+        // 如果此时为NO,说明没有查看过联系人界面
+        BOOL isShowUnreadCount = [defaults boolForKey:kShouldShowUnreadFrendRequestNoti];
+        
+        if (isShowUnreadCount && imclientManager.frendRequestManager.unReadFrendRequestCount > 0) {
+            unreadCount = imclientManager.frendRequestManager.unReadFrendRequestCount;
+        }
+        
+        cell.numberOfUnreadFrendRequest = unreadCount;
+        
+        NSLog(@"%ld",(long)cell.numberOfUnreadFrendRequest);
         if (cell.numberOfUnreadFrendRequest == 0) {
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
