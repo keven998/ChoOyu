@@ -705,7 +705,11 @@ static NSString *reusableCell = @"myGuidesCell";
     [params setObject:status forKey:@"status"];
     [params setObject:guideSummary.guideId forKey:@"id"];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    [manager POST:API_UPDATE_GUIDE_PROPERTY parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    
+    // 修改接口
+    NSString * urlStr = [NSString stringWithFormat:@"%@%ld/guides",API_SIGN_GUIDE,accountManager.account.userId];
+    
+    [manager GET:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         [hud hideTZHUD];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -768,7 +772,11 @@ static NSString *reusableCell = @"myGuidesCell";
     [params setObject:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]] forKey:@"updateTime"];
     [params setObject:guideSummary.guideId forKey:@"id"];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    [manager POST:API_UPDATE_GUIDE_PROPERTY parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    
+//    API_UPDATE_GUIDE_PROPERTY
+    // 修改接口
+    NSString * urlStr = [NSString stringWithFormat:@"%@%ld/guides",API_SIGN_GUIDE,accountManager.account.userId];
+    [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         [hud hideTZHUD];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];

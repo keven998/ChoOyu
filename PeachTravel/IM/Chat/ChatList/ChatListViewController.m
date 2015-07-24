@@ -81,6 +81,7 @@
     [contactListBtn addSubview:_frendRequestUnreadCountLabel];
     [[IMClientManager shareInstance].frendRequestManager addFrendRequestDelegate:self];
     
+    // 在这里判断是否已经查看过好友请求数
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
     BOOL isShowUnreadCount = [defaults boolForKey:kShouldShowUnreadFrendRequestNoti];
     if (isShowUnreadCount&&[IMClientManager shareInstance].frendRequestManager.unReadFrendRequestCount > 0) {

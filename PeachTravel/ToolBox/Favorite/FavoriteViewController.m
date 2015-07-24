@@ -246,7 +246,10 @@
     NSString *backupTypeForCheck = faType;
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    [manager GET:API_GET_FAVORITES parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    
+    // 获得用户的接口ID改变
+    NSString * urlStr = [NSString stringWithFormat:@"%@%ld/favorites",API_USERS,accountManager.account.userId];
+    [manager GET:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", operation);
         
         if ([_currentFavoriteType isEqualToString:backupTypeForCheck]) {

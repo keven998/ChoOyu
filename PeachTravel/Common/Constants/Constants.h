@@ -71,6 +71,7 @@
 #define API_GET_GUIDELIST_EXPERT                (BASE_URL @"guides/")    //获取达人攻略列表
 #define API_GET_GUIDE                           (BASE_URL @"guides/")    //获取攻略列表
 #define API_DELETE_GUIDE                        (BASE_URL @"guides/")    //删除攻略列表
+#define API_SIGN_GUIDE                          (BASE_URL @"users/")    // 我的计划签到
 #define API_SAVE_TRIPINFO                       (BASE_URL @"guides/info/")    //保存攻略信息
 
 #define API_GET_FAVORITES                       (BASE_URL @"misc/favorites")    //获取我的收藏列表
