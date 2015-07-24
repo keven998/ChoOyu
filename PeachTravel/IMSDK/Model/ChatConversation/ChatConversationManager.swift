@@ -52,25 +52,6 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
         super.init()
     }
     
-    /**
-    设置初始化会话，旅行问问和派派
-    */
-    private func setUpDefaultConversation() {
-        let conversationWenwen = ChatConversation()
-        //派派的 conversation
-        conversationWenwen.chatterId = 10001
-        conversationWenwen.chatterName = "旅行问问";
-        conversationWenwen.lastUpdateTime = Int(NSDate().timeIntervalSince1970)
-        self.addConversation(conversationWenwen)
-        let conversation = ChatConversation()
-        
-        //派派的 conversation
-        conversation.chatterId = 10000
-        conversation.chatterName = "派派";
-        conversation.lastUpdateTime = Int(NSDate().timeIntervalSince1970)
-        self.addConversation(conversation)
-    }
-    
     func getConversationList() -> NSArray {
         if conversationList.count < 1 {
             self.updateConversationListFromDB()
@@ -84,15 +65,6 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
         conversationList = daoHelper.getAllConversationList()
         self.setUpDefaultConversation()
         self.reorderConversationList()
-    }
-    
-    private func conversationIsExit(conversation: ChatConversation) -> Bool {
-        for exitConversation in conversationList {
-            if exitConversation.chatterId == conversation.chatterId {
-                return true
-            }
-        }
-        return false
     }
     
     /**
@@ -127,6 +99,21 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
                 return conversation1.lastUpdateTime >= conversation2.lastUpdateTime
             }
         })
+    }
+    
+    /**
+    修改会话的状态(免打扰)
+    
+    :param: groupId
+    :param: groupState
+    
+    */
+    func asyncChangeConversationBlockStatus(#chatterId: Int, isBlock: Bool, completion: (isSuccess: Bool, errorCode: Int) -> ()) {
+        if let conversation = self.getExistConversationInConversationList(chatterId) {
+            conversation.isBlockMessag = isBlock
+            let daoHelper = DaoHelper.shareInstance()
+            daoHelper.updateBlockStatusInConversation(isBlock, userId: chatterId)
+        }
     }
 
     /**
@@ -294,6 +281,34 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
     }
     
 //MARK: private methods
+    
+    /**
+    设置初始化会话，旅行问问和派派
+    */
+    private func setUpDefaultConversation() {
+        let conversationWenwen = ChatConversation()
+        //派派的 conversation
+        conversationWenwen.chatterId = 10001
+        conversationWenwen.chatterName = "旅行问问";
+        conversationWenwen.lastUpdateTime = Int(NSDate().timeIntervalSince1970)
+        self.addConversation(conversationWenwen)
+        let conversation = ChatConversation()
+        
+        //派派的 conversation
+        conversation.chatterId = 10000
+        conversation.chatterName = "派派";
+        conversation.lastUpdateTime = Int(NSDate().timeIntervalSince1970)
+        self.addConversation(conversation)
+    }
+    
+    private func conversationIsExit(conversation: ChatConversation) -> Bool {
+        for exitConversation in conversationList {
+            if exitConversation.chatterId == conversation.chatterId {
+                return true
+            }
+        }
+        return false
+    }
     
     /**
     处理收到的消息，将收到的消息对应的插入 conversation 里，更新最后一条本地消息，和最后一条服务器消息

@@ -186,6 +186,7 @@ class FrendDaoHelper: BaseDaoHelper, FrendDaoProtocol {
         }
     }
     
+    
     func selectFrend(#userId: Int, frendType: IMFrendWeightType?) -> FrendModel? {
         var frend: FrendModel?
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
@@ -198,6 +199,8 @@ class FrendDaoHelper: BaseDaoHelper, FrendDaoProtocol {
                         if FrendModel.typeIsCorrect(tempFrend.type, typeWeight: type) {
                             frend = tempFrend
                         }
+                    } else {
+                        frend = tempFrend
                     }
                 }
             }
@@ -213,7 +216,7 @@ class FrendDaoHelper: BaseDaoHelper, FrendDaoProtocol {
         var retArray = Array<FrendModel>()
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
             var sql = "select * from \(frendTableName) where Type = ? or Type = ? or Type = ? or Type = ?"
-            var rs = dataBase.executeQuery(sql, withArgumentsInArray: [IMFrendType.Frend.rawValue, IMFrendType.ChatTop_Frend.rawValue, IMFrendType.Frend_Business.rawValue, IMFrendType.Frend_Expert.rawValue])
+            var rs = dataBase.executeQuery(sql, withArgumentsInArray: [IMFrendType.Frend.rawValue, IMFrendType.Frend_Business.rawValue, IMFrendType.Frend_Expert.rawValue])
             if (rs != nil) {
                 while rs.next() {
                     retArray.append(self.fillFrendModelWithFMResultSet(rs))
@@ -226,7 +229,7 @@ class FrendDaoHelper: BaseDaoHelper, FrendDaoProtocol {
     func deleteAllContactsFromDB() {
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
             var sql = "delete from \(frendTableName) where Type = ? or Type = ? or Type = ? or Type = ?"
-            if dataBase.executeUpdate(sql, withArgumentsInArray: [IMFrendType.Frend.rawValue, IMFrendType.ChatTop_Frend.rawValue, IMFrendType.Frend_Business.rawValue, IMFrendType.Frend_Expert.rawValue]) {
+            if dataBase.executeUpdate(sql, withArgumentsInArray: [IMFrendType.Frend.rawValue, IMFrendType.Frend_Business.rawValue, IMFrendType.Frend_Expert.rawValue]) {
                 debug_println("执行 deleteAllContactsFromDB 语句 成功")
             } else {
                 debug_println("执行 deleteAllContactsFromDB 语句 失败")
