@@ -176,15 +176,16 @@
     
     
      REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:[[UINavigationController alloc] initWithRootViewController:tripDetailCtl] menuViewController:tpvc];
-     tripDetailCtl.container = frostedViewController;
      tpvc.rootViewController = tripDetailCtl;
      frostedViewController.direction = REFrostedViewControllerDirectionRight;
      frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
      frostedViewController.liveBlur = YES;
      frostedViewController.limitMenuViewSize = YES;
      frostedViewController.resumeNavigationBar = NO;
-     [self.navigationController pushViewController:frostedViewController animated:YES];
-     
+    
+    NSMutableArray *ctls = [NSMutableArray arrayWithArray:self.navigationController.childViewControllers];
+    [ctls replaceObjectAtIndex:(ctls.count - 1) withObject:frostedViewController];
+    [self.navigationController setViewControllers:ctls animated:YES];
 }
 
 - (void)login

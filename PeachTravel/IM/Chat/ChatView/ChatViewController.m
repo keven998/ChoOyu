@@ -714,7 +714,6 @@
             frostedViewController.liveBlur = YES;
             frostedViewController.limitMenuViewSize = YES;
             frostedViewController.resumeNavigationBar = NO;
-            tripDetailCtl.container = frostedViewController;
             [self.frostedViewController.navigationController pushViewController:frostedViewController animated:YES];
         }
             break;
