@@ -31,6 +31,12 @@
     self.navigationItem.title = @"新朋友";
     [self.tableView registerNib:[UINib nibWithNibName:@"FrendRequestTableViewCell" bundle:nil] forCellReuseIdentifier:requestCell];
     self.tableView.separatorColor = COLOR_LINE;
+    
+    // 加载这个页面后说明已经访问了这个页面,此时需要将联系人页面的新朋友提示移除
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    BOOL isShowUnreadCount = NO;
+    [defaults setBool:isShowUnreadCount forKey:kShouldShowUnreadFrendRequestNoti];
+    [defaults synchronize];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -42,7 +48,7 @@
 /**
  *  页面消失的时候通知上一个界面将未读数清0
  *
- *  @param animated <#animated description#>
+ *  @param animated
  */
 - (void)viewWillDisappear:(BOOL)animated
 {
@@ -108,11 +114,6 @@
         if (isSuccess) {
             [self.tableView reloadData];
             [SVProgressHUD showHint:@"已添加"];
-            
-            // 移除未读数
-            NSString * friendRequest = [NSString stringWithFormat:@"%@",frendRequest];
-            [[IMClientManager shareInstance].frendRequestManager removeFrendRequest:friendRequest];
-            [[NSNotificationCenter defaultCenter] postNotificationName:NoticationClearUnreadCount object:nil];
             
         } else {
             [SVProgressHUD showHint:@"添加失败"];

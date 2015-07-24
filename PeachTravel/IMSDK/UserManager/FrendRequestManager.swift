@@ -9,7 +9,9 @@
 import UIKit
 
 @objc protocol FriendRequestManagerDelegate {
+    
     optional func friendRequestNumberNeedUpdate()
+
 }
 
 
@@ -19,7 +21,6 @@ class FrendRequestManager: NSObject {
     let frendRequestDaoHelper: FrendRequestDaoHelper
     var delegateArray: Array<FriendRequestManagerDelegate> = Array()
     let accountId: Int
-    var delegate: FriendRequestManagerDelegate?
     var unReadFrendRequestCount: Int {
         get {
             return self.frendRequestList.filter({$0.status == TZFrendRequest.Default}).count
@@ -40,20 +41,14 @@ class FrendRequestManager: NSObject {
         let dbQueue = FMDatabaseQueue(path: dbPath)
         frendRequestDaoHelper = FrendRequestDaoHelper(db: db, dbQueue: dbQueue)
         frendRequestList = frendRequestDaoHelper.getAllFrendRequest()
-        
-        // 添加数组
-//        super.init()
-//        self.addFrendRequestDelegate(delegate!)
-        
     }
     
     func addFrendRequestDelegate(delegate: FriendRequestManagerDelegate) {
         delegateArray.append(delegate)
-//        delegateArray.append(delegate)
     }
     
     func removeFrendRequestDelegate(delegate: FriendRequestManagerDelegate) {
-        delegateArray.removeAll(keepCapacity: true)
+        delegateArray = delegateArray.filter({$0 === delegate})
     }
     
     
@@ -87,7 +82,10 @@ class FrendRequestManager: NSObject {
         }
         self.frendRequestDaoHelper.addFrendRequestion2DB(request as! FrendRequest)
         self.frendRequestList.append(request as! FrendRequest)
-        self.delegate?.friendRequestNumberNeedUpdate?()
+        for delegate in delegateArray {
+            delegate.friendRequestNumberNeedUpdate?()
+        }
+        NSUserDefaults.standardUserDefaults().setBool(true, forKey: kShouldShowUnreadFrendRequestNoti)
     }
     
     /**
@@ -99,7 +97,9 @@ class FrendRequestManager: NSObject {
         frendRequestList = frendRequestList.filter({$0.requestId != requestId}
         )
         frendRequestDaoHelper.removeFrendRequest(requestId)
-        self.delegate?.friendRequestNumberNeedUpdate?()
+        for delegate in delegateArray {
+            delegate.friendRequestNumberNeedUpdate?()
+        }
     }
     
     /**
@@ -116,27 +116,9 @@ class FrendRequestManager: NSObject {
             return request
         })
         frendRequestDaoHelper.changeFrendRequestStatus(requestId, status: status)
-        self.delegate?.friendRequestNumberNeedUpdate?()
-    }
-    
-    
-    func changeRequestStatus(requestId: String, status: TZFrendRequest, tag: Int) {
-        frendRequestList.map({(var request) -> FrendRequest in
-            if request.requestId == requestId {
-                request.status = status
-            }
-            return request
-        })
-        frendRequestDaoHelper.changeFrendRequestStatus(requestId, status: status)
-        
-        // 这里需要做个判断
-        if tag == 0{
-            self.delegateArray[0].friendRequestNumberNeedUpdate!()
-        }else
-        {
-            self.delegateArray[1].friendRequestNumberNeedUpdate!()
+        for delegate in delegateArray {
+            delegate.friendRequestNumberNeedUpdate?()
         }
-//        self.delegate?.friendRequestNumberNeedUpdate?()
     }
 
 }
