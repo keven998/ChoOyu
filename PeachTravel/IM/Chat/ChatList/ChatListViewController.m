@@ -81,6 +81,7 @@
     [contactListBtn addSubview:_frendRequestUnreadCountLabel];
     [[IMClientManager shareInstance].frendRequestManager addFrendRequestDelegate:self];
     
+    
     // 在这里判断是否已经查看过好友请求数
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
     BOOL isShowUnreadCount = [defaults boolForKey:kShouldShowUnreadFrendRequestNoti];
@@ -89,6 +90,7 @@
     } else {
         _frendRequestUnreadCountLabel.hidden = YES;
     }
+    
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:contactListBtn];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogin) name:userDidLoginNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkChanged:) name:networkConnectionStatusChangeNoti object:nil];
@@ -108,6 +110,16 @@
     [_delegate unreadMessageCountHasChange];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     [self updateIMStatusWithNetworkStatus:self.imClientManager.netWorkReachability.hostReachability.currentReachabilityStatus];
+    
+    // 隐藏小红点
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    BOOL isShowUnreadCount = [defaults boolForKey:kShouldShowUnreadFrendRequestNoti];
+    if (isShowUnreadCount&&[IMClientManager shareInstance].frendRequestManager.unReadFrendRequestCount > 0) {
+        _frendRequestUnreadCountLabel.hidden = NO;
+    } else {
+        _frendRequestUnreadCountLabel.hidden = YES;
+    }
+    
 }
 
 -(void)viewWillDisappear:(BOOL)animated
