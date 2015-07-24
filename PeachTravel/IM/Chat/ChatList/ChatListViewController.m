@@ -80,7 +80,10 @@
     _frendRequestUnreadCountLabel.clipsToBounds = YES;
     [contactListBtn addSubview:_frendRequestUnreadCountLabel];
     [[IMClientManager shareInstance].frendRequestManager addFrendRequestDelegate:self];
-    if ([IMClientManager shareInstance].frendRequestManager.unReadFrendRequestCount > 0) {
+    
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    BOOL isShowUnreadCount = [defaults boolForKey:kShouldShowUnreadFrendRequestNoti];
+    if (isShowUnreadCount&&[IMClientManager shareInstance].frendRequestManager.unReadFrendRequestCount > 0) {
         _frendRequestUnreadCountLabel.hidden = NO;
     } else {
         _frendRequestUnreadCountLabel.hidden = YES;
