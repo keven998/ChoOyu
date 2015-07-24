@@ -496,9 +496,11 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     }
 }
 
+#warning 点击完后后不能更新列表
 - (IBAction)finishAdd:(id)sender
 {
     [_backTripDetail saveTrip:^(BOOL isSuccesss) {
+        NSLog(@"%d",isSuccesss);
         if (isSuccesss) {
             if (_poiType == kRestaurantPoi) {
                 _tripDetail.restaurantsList = _backTripDetail.restaurantsList;

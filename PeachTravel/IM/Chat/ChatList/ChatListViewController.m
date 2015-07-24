@@ -80,7 +80,10 @@
     _frendRequestUnreadCountLabel.clipsToBounds = YES;
     [contactListBtn addSubview:_frendRequestUnreadCountLabel];
     [[IMClientManager shareInstance].frendRequestManager addFrendRequestDelegate:self];
-    if ([IMClientManager shareInstance].frendRequestManager.unReadFrendRequestCount > 0) {
+    
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    BOOL isShowUnreadCount = [defaults boolForKey:kShouldShowUnreadFrendRequestNoti];
+    if (isShowUnreadCount&&[IMClientManager shareInstance].frendRequestManager.unReadFrendRequestCount > 0) {
         _frendRequestUnreadCountLabel.hidden = NO;
     } else {
         _frendRequestUnreadCountLabel.hidden = YES;
@@ -595,7 +598,7 @@
             } else if (tzConversation.chatterId == 10000) {
                 cell.name = @"旅行派";
             } else {
-                cell.name = [NSString stringWithFormat:@"%ld", tzConversation.chatterId];
+                cell.name = [NSString stringWithFormat:@"%ld", (long)tzConversation.chatterId];
             }
         } else {
             cell.name = tzConversation.chatterName;

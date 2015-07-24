@@ -40,6 +40,7 @@
     loginBtn.titleLabel.font = [UIFont boldSystemFontOfSize:16];
     [loginBtn setTitle:@"登录" forState:UIControlStateNormal];
     [loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [loginBtn setTitleColor:COLOR_DISABLE forState:UIControlStateHighlighted];
     loginBtn.layer.cornerRadius = 5;
     loginBtn.layer.borderColor = [UIColor whiteColor].CGColor;
     loginBtn.layer.borderWidth = 1.0;
@@ -51,6 +52,7 @@
     [registerBtn setTitle:@"注册" forState:UIControlStateNormal];
     registerBtn.titleLabel.font = [UIFont boldSystemFontOfSize:16];
     [registerBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [registerBtn setTitleColor:COLOR_DISABLE forState:UIControlStateHighlighted];
     registerBtn.layer.cornerRadius = 5;
     registerBtn.layer.borderColor = [UIColor whiteColor].CGColor;
     registerBtn.layer.borderWidth = 1.0;
@@ -60,9 +62,10 @@
 
     
     UIButton *skipBtn = [[UIButton alloc]initWithFrame:CGRectMake(13, self.view.bounds.size.height - 50, self.view.bounds.size.width-26, 30)];
-    skipBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+    skipBtn.titleLabel.font = [UIFont systemFontOfSize:13];
     [skipBtn setTitle:@"跳过" forState:UIControlStateNormal];
     [skipBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [skipBtn setTitleColor:COLOR_DISABLE forState:UIControlStateHighlighted];
     [skipBtn addTarget:self action:@selector(skip:) forControlEvents:UIControlEventTouchUpInside];
 
     [self.view addSubview:skipBtn];
@@ -75,10 +78,18 @@
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    _rootViewController = nil;
 }
 
 - (void)login:(id)sender {
-    LoginViewController *loginCtl = [[LoginViewController alloc] init];
+    LoginViewController *loginCtl = [[LoginViewController alloc] initWithCompletion:^(BOOL completed) {
+        HomeViewController *hvc = (HomeViewController *)_rootViewController;
+        [hvc setSelectedIndex:0];
+        [self willMoveToParentViewController:nil];
+        [self.view removeFromSuperview];
+        [self removeFromParentViewController];
+        _rootViewController = nil;
+    }];
     TZNavigationViewController *nctl = [[TZNavigationViewController alloc] initWithRootViewController:loginCtl];
     loginCtl.isPushed = NO;
     [_rootViewController presentViewController:nctl animated:YES completion:nil];
@@ -96,19 +107,22 @@
     [self willMoveToParentViewController:nil];
     [self.view removeFromSuperview];
     [self removeFromParentViewController];
+    _rootViewController = nil;
 }
 
 - (void)userDidRegisted:(NSNotification *)noti {
     UIViewController *ctl = [noti.userInfo objectForKey:@"poster"];
     [ctl.navigationController dismissViewControllerAnimated:YES completion:^{
         HomeViewController *hvc = (HomeViewController *)_rootViewController;
-        [hvc setSelectedIndex:1];
+        [hvc setSelectedIndex:0];
         [self willMoveToParentViewController:nil];
         [self.view removeFromSuperview];
         [self removeFromParentViewController];
         [self performSelector:@selector(pushToUserInfo) withObject:nil afterDelay:0.2];
+        _rootViewController = nil;
     }];
 }
+
 - (void)pushToUserInfo
 {
     UserInfoTableViewController *userInfo = [[UserInfoTableViewController alloc]init];

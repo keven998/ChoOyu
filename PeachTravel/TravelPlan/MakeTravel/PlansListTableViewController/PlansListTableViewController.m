@@ -548,7 +548,7 @@ static NSString *reusableCell = @"myGuidesCell";
     
     if (_copyPatch && indexPath.section == 0) {
         NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"(新复制) %@", summary.title]];
-        [attr addAttribute:NSForegroundColorAttributeName value:COLOR_CHECKED range:NSMakeRange(0, 4)];
+        [attr addAttribute:NSForegroundColorAttributeName value:COLOR_CHECKED range:NSMakeRange(0, 5)];
         cell.titleBtn.attributedText = attr;
     } else {
         cell.titleBtn.attributedText = nil;
