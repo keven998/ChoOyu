@@ -42,7 +42,7 @@
 /**
  *  页面消失的时候通知上一个界面将未读数清0
  *
- *  @param animated <#animated description#>
+ *  @param animated
  */
 - (void)viewWillDisappear:(BOOL)animated
 {
@@ -108,11 +108,6 @@
         if (isSuccess) {
             [self.tableView reloadData];
             [SVProgressHUD showHint:@"已添加"];
-            
-            // 移除未读数
-            NSString * friendRequest = [NSString stringWithFormat:@"%@",frendRequest];
-            [[IMClientManager shareInstance].frendRequestManager removeFrendRequest:friendRequest];
-            [[NSNotificationCenter defaultCenter] postNotificationName:NoticationClearUnreadCount object:nil];
             
         } else {
             [SVProgressHUD showHint:@"添加失败"];

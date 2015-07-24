@@ -45,25 +45,12 @@
     
     [self.view addSubview:self.contactTableView];
     [self.accountManager loadContactsFromServer];
-    
-    // 增加监听未读数的通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clearUnreadCount:) name:NoticationClearUnreadCount object:nil];
+    [[IMClientManager shareInstance].frendRequestManager addFrendRequestDelegate:self];
+
     
     // 改变未读数
     
 //    [IMClientManager shareInstance].frendRequestManager.delegate = self;
-}
-
-#pragma mark - 实现好友请求的代理方法
-//- (void)friendRequestNumberNeedUpdate
-//{
-//    [self.contactTableView reloadData];
-//}
-
-// 接收通知后实现方法
-- (void)clearUnreadCount:(NSNotification *)note
-{
-    [self.contactTableView reloadData];
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -80,6 +67,7 @@
 
 - (void)dealloc
 {
+    [[IMClientManager shareInstance].frendRequestManager removeFrendRequestDelegate:self];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     _contactTableView.delegate = nil;
     _emptyView = nil;
@@ -199,6 +187,12 @@
         }
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
+}
+
+#pragma mark - FriendRequestManagerDelegate
+- (void)friendRequestNumberNeedUpdate
+{
+    [self.contactTableView reloadData];
 }
 
 #pragma mark - SWTableViewCellDelegate
