@@ -591,7 +591,7 @@
             } else if (tzConversation.chatterId == 10000) {
                 cell.name = @"旅行派";
             } else {
-                cell.name = [NSString stringWithFormat:@"%ld", tzConversation.chatterId];
+                cell.name = [NSString stringWithFormat:@"%ld", (long)tzConversation.chatterId];
             }
         } else {
             cell.name = tzConversation.chatterName;

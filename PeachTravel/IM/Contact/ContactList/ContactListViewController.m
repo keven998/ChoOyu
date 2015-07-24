@@ -51,14 +51,14 @@
     
     // 改变未读数
     
-//    [IMClientManager shareInstance].frendRequestManager.delegate = self;
+    [IMClientManager shareInstance].frendRequestManager.delegate = self;
 }
 
 #pragma mark - 实现好友请求的代理方法
-//- (void)friendRequestNumberNeedUpdate
-//{
-//    [self.contactTableView reloadData];
-//}
+- (void)friendRequestNumberNeedUpdate
+{
+    [self.contactTableView reloadData];
+}
 
 // 接收通知后实现方法
 - (void)clearUnreadCount:(NSNotification *)note
@@ -286,11 +286,17 @@
         // 获取好友未读数
         IMClientManager *imclientManager = [IMClientManager shareInstance];
         
-        /**
-         *  判断是否已经查看了好友的未读数,如果已经查看了,显示未读数为0,否则显示从服务器返回的数据
-         */
-        cell.numberOfUnreadFrendRequest = imclientManager.frendRequestManager.unReadFrendRequestCount;
-        NSLog(@"%ld",cell.numberOfUnreadFrendRequest);
+        // 从沙盒中取出当前是否已经查看了未读好友请求数
+        NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+        BOOL isShowUnreadCount = [defaults boolForKey:@"isShowUnreadCount"];
+
+        if (isShowUnreadCount) {
+            cell.numberOfUnreadFrendRequest = imclientManager.frendRequestManager.unReadFrendRequestCount;
+        }else{
+            cell.numberOfUnreadFrendRequest = 0;
+        }
+        
+        NSLog(@"%ld",(long)cell.numberOfUnreadFrendRequest);
         if (cell.numberOfUnreadFrendRequest == 0) {
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
