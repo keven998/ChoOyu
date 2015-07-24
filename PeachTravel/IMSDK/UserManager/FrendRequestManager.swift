@@ -10,6 +10,9 @@ import UIKit
 
 @objc protocol FriendRequestManagerDelegate {
     optional func friendRequestNumberNeedUpdate()
+    
+    optional func receiveNewFrendRequest()
+
 }
 
 
