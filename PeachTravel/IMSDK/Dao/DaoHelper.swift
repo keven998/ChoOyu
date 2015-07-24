@@ -221,6 +221,18 @@ public class DaoHelper:NSObject {
 
     }
     
+    func updateBlockStatusInConversation(isBlock: Bool, userId: Int) {
+        dispatch_async(databaseWriteQueue, { () -> Void in
+            self.conversationHelper.updateBlockStatusInConversation(isBlock, userId: userId)
+        })
+    }
+    
+    func updateTopStatusInConversation(isTopConversation: Bool, userId: Int) {
+        dispatch_async(databaseWriteQueue, { () -> Void in
+            self.conversationHelper.updateTopStatusInConversation(isTopConversation, userId: userId)
+        })
+    }
+    
     func getAllConversationList() -> Array<ChatConversation> {
         var retArray = conversationHelper.getAllCoversation()
         return retArray

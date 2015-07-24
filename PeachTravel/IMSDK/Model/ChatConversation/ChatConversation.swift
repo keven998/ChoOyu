@@ -71,7 +71,6 @@ class ChatConversation: NSObject {
     }
     
     func fillConversationType(#frendType: IMFrendType) {
-        isTopConversation = FrendModel.typeIsCorrect(frendType, typeWeight: IMFrendWeightType.ConversationTop)
         if FrendModel.typeIsCorrect(frendType, typeWeight: IMFrendWeightType.Frend) {
             chatType = IMChatType.IMChatSingleType
             
@@ -81,7 +80,6 @@ class ChatConversation: NSObject {
         } else if FrendModel.typeIsCorrect(frendType, typeWeight: IMFrendWeightType.DiscussionGroup) {
             chatType = IMChatType.IMChatDiscussionGroupType
         }
-        isBlockMessag = FrendModel.typeIsCorrect(frendType, typeWeight: IMFrendWeightType.BlockMessage)
     }
     
 //MARK: private function

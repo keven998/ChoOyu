@@ -283,7 +283,11 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
     } else {
         [_showDic removeObjectForKey:key];
         [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:didSection] withRowAnimation:UITableViewRowAnimationAutomatic];
-        [self performSelector:@selector(scrollToVisiable:) withObject:[NSNumber numberWithLong:didSection] afterDelay:0.35];
+        NSArray * dataSource = [self revertShoppingListToGroup:_tripDetail.restaurantsList];
+        NSArray * shoppingArray = dataSource[didSection];
+        if (shoppingArray.count > 0) {
+            [self performSelector:@selector(scrollToVisiable:) withObject:[NSNumber numberWithLong:didSection] afterDelay:0.35];
+        }
     }
 }
 

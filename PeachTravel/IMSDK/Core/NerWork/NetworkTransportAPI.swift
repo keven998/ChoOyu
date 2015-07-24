@@ -167,7 +167,7 @@ class NetworkTransportAPI: NSObject {
     :param: parameters      post 参数
     :param: completionBlock 请求的回掉
     */
-    class func asyncPUT(#requstUrl: String, parameters: NSDictionary, completionBlock: (isSuccess: Bool, errorCode: Int, retMessage: NSDictionary?) -> ()) {
+    class func asyncPUT(#requestUrl: String, parameters: NSDictionary, completionBlock: (isSuccess: Bool, errorCode: Int, retMessage: NSDictionary?) -> ()) {
         let manager = AFHTTPRequestOperationManager()
         let requestSerializer = AFJSONRequestSerializer()
         manager.requestSerializer = requestSerializer
@@ -176,7 +176,7 @@ class NetworkTransportAPI: NSObject {
         manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept")
         manager.requestSerializer.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         
-        manager.PUT(requstUrl, parameters: parameters, success:
+        manager.PUT(requestUrl, parameters: parameters, success:
             {
                 (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
                 

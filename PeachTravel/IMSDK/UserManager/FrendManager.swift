@@ -144,7 +144,7 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
     }
     
     /**
-    从数据库里通过 userid 获取用户信息
+    从数据库里通过 userid 获取用户信息,如果不传 frendtype，也获取用户信息
     
     :param: userId
     

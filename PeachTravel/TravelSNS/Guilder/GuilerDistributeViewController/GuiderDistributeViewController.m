@@ -244,7 +244,9 @@
     } else {
         [_showDic removeObjectForKey:key];
         [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:didSection] withRowAnimation:UITableViewRowAnimationAutomatic];
-        [self performSelector:@selector(scrollToVisiable:) withObject:[NSNumber numberWithLong:didSection] afterDelay:0.35];
+        if ([_dataSource[didSection] count] > 0) {
+            [self performSelector:@selector(scrollToVisiable:) withObject:[NSNumber numberWithLong:didSection] afterDelay:0.35];
+        }
     }
 }
 

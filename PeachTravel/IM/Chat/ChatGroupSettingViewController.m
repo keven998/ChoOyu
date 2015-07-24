@@ -235,6 +235,7 @@
             cell.titleLabel.font = [UIFont systemFontOfSize:15.0];
             IMClientManager *clientManager = [IMClientManager shareInstance];
             ChatConversation *conversation = [clientManager.conversationManager getExistConversationInConversationList:_groupModel.groupId];
+            [cell.switchBtn removeTarget:self action:@selector(changeMsgStatus:) forControlEvents:UIControlEventValueChanged];
             [cell.switchBtn addTarget:self action:@selector(changeMsgStatus:) forControlEvents:UIControlEventValueChanged];
             cell.switchBtn.on = [conversation isBlockMessag];
             cell.tag = 101;
@@ -390,13 +391,12 @@
  *
  *  @param sender
  */
-- (IBAction)changeMsgStatus:(UIButton *)sender {
-    IMDiscussionGroupManager *manager = [IMDiscussionGroupManager shareInstance];
-    [manager asyncChangeDiscussionGroupStateWithGroup:_groupModel completion:^(BOOL isSuccess, NSInteger errorCode) {
+- (IBAction)changeMsgStatus:(UISwitch *)sender {
+    [[IMClientManager shareInstance].conversationManager asyncChangeConversationBlockStatusWithChatterId:_groupId isBlock:sender.isOn completion:^(BOOL isSuccess, NSInteger errorCode) {
         if (isSuccess) {
+            NSLog(@"免打扰设置成功");
         }
     }];
-    
 }
 
 

@@ -2154,6 +2154,7 @@
 		E676B8D21B5CD20C0042B539 /* GuiderDistributeContinent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuiderDistributeContinent.h; sourceTree = "<group>"; };
 		E676B8D31B5CD20C0042B539 /* GuiderDistributeContinent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuiderDistributeContinent.m; sourceTree = "<group>"; };
 		E676B8D51B5D01040042B539 /* master_layer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = master_layer.png; sourceTree = "<group>"; };
+		E6AD37B41B620A3900E21A58 /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
 		E6BFE5E71B5E15DA00A9FDCA /* plan_city_footprint@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plan_city_footprint@3x.png"; sourceTree = "<group>"; };
 		E6BFE5EA1B5E2EE400A9FDCA /* footprint_change_default@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "footprint_change_default@3x.png"; sourceTree = "<group>"; };
 		E6BFE5EB1B5E2EE400A9FDCA /* footprint_change_hilighted@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "footprint_change_hilighted@3x.png"; sourceTree = "<group>"; };
@@ -5281,6 +5282,7 @@
 		D9E1EF8319F0E2C8006348A3 /* Guide */ = {
 			isa = PBXGroup;
 			children = (
+				E6AD37B41B620A3900E21A58 /* TestViewController.h */,
 			);
 			name = Guide;
 			sourceTree = "<group>";

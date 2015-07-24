@@ -226,44 +226,6 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
     }
     
     /**
-    修改讨论组状态(免打扰)
-    
-    :param: groupId
-    :param: groupState
-    
-    */
-    func asyncChangeDiscussionGroupState(#group: IMDiscussionGroup, completion: (isSuccess: Bool, errorCode: Int) -> ())
-    {
-        var groupTypeValue = group.type.rawValue
-        let imClientManager = IMClientManager.shareInstance()
-        
-        let conversationManager = IMClientManager.shareInstance().conversationManager;
-       
-        if FrendModel.typeIsCorrect(group.type, typeWeight: IMFrendWeightType.BlockMessage) {
-            groupTypeValue = group.type.rawValue - IMFrendWeightType.BlockMessage.rawValue
-            imClientManager.conversationManager.updateConversationStatus(false, chatterId: group.groupId)
-            if let conversation = conversationManager.getExistConversationInConversationList(group.groupId) {
-                conversation.isBlockMessag = true;
-            }
-            
-        } else {
-            groupTypeValue = group.type.rawValue + IMFrendWeightType.BlockMessage.rawValue
-            imClientManager.conversationManager.updateConversationStatus(true, chatterId: group.groupId)
-            if let conversation = conversationManager.getExistConversationInConversationList(group.groupId) {
-                conversation.isBlockMessag = false;
-            }
-        }
-        if let type = IMFrendType(rawValue: groupTypeValue) {
-            group.type = type
-        }
-        let manager = IMClientManager.shareInstance().frendManager
-        manager.updateFrendType(userId: group.groupId, frendType: group.type)
-       
-        completion(isSuccess: true, errorCode: 0)
-        
-    }
-    
-    /**
     更新数据库里群组信息
     
     :param: group

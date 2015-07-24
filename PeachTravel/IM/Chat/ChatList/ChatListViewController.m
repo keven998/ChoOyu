@@ -563,6 +563,8 @@
     if (conversation.chatType == IMChatTypeIMChatGroupType || conversation.chatType == IMChatTypeIMChatDiscussionGroupType) {
         menuViewController = [[ChatGroupSettingViewController alloc] init];
         ((ChatGroupSettingViewController *)menuViewController).groupId = conversation.chatterId;
+        ((ChatGroupSettingViewController *)menuViewController).conversation = conversation;
+        
     } else {
         menuViewController = [[ChatSettingViewController alloc] init];
         ((ChatSettingViewController *)menuViewController).chatterId = conversation.chatterId;
