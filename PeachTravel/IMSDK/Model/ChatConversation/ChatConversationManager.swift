@@ -95,6 +95,8 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
                 return true
             } else if !conversation1.isTopConversation && conversation2.isTopConversation {
                 return false
+            } else if conversation1.lastUpdateTime == conversation2.lastUpdateTime {
+                return conversation1.chatterId > conversation2.chatterId
             } else {
                 return conversation1.lastUpdateTime >= conversation2.lastUpdateTime
             }
