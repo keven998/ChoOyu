@@ -80,7 +80,7 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
                 completionBlock(isSuccess: true, conversationId: conversationId)
             } else {
                 let imClientManager = IMClientManager.shareInstance()
-                let url = "\(API_USERS)\(imClientManager.accountId)/conversations/query"
+                let url = "\(HedyUserUrl)/\(imClientManager.accountId)/conversations"
                 let params = ["receivers" : chatterId]
                 NetworkTransportAPI.asyncGET(requestUrl: url, parameters: params, completionBlock: { (isSuccess, errorCode, retMessage) -> () in
                     if isSuccess {
@@ -95,7 +95,7 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
                             }
                         }
                     } else {
-                        completionBlock(isSuccess: true, conversationId: nil)
+                        completionBlock(isSuccess: false, conversationId: nil)
                     }
                 })
             }
@@ -150,9 +150,9 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
             
             let imClientManager = IMClientManager.shareInstance()
             if let conversationId = conversation.conversationId {
-                let url = "\(API_USERS)\(imClientManager.accountId)/conversations/\(conversationId)"
+                let url = "\(HedyUserUrl)/\(imClientManager.accountId)/conversations/\(conversationId)"
                 let params = ["mute": isBlock]
-                NetworkTransportAPI.asyncPUT(requstUrl: url, parameters: params, completionBlock: { (isSuccess, errorCode, retMessage) -> () in
+                NetworkTransportAPI.asyncPATCH(requstUrl: url, parameters: params, completionBlock: { (isSuccess, errorCode, retMessage) -> () in
                     if isSuccess {
                         conversation.isBlockMessag = isBlock
                         let daoHelper = DaoHelper.shareInstance()
@@ -160,12 +160,13 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
                     }
                     completion(isSuccess: isSuccess, errorCode: errorCode)
                 })
+                
             } else {
                 self.asyncGetConversationId(chatterId: chatterId, completionBlock: { (isSuccess, conversationId) -> () in
                     if isSuccess {
-                        let url = "\(API_USERS)\(imClientManager.accountId)/conversations/\(conversationId!)"
+                        let url = "\(HedyUserUrl)/\(imClientManager.accountId)/conversations/\(conversationId!)"
                         let params = ["mute": isBlock]
-                        NetworkTransportAPI.asyncPUT(requstUrl: url, parameters: params, completionBlock: { (isSuccess, errorCode, retMessage) -> () in
+                        NetworkTransportAPI.asyncPATCH(requstUrl: url, parameters: params, completionBlock: { (isSuccess, errorCode, retMessage) -> () in
                             if isSuccess {
                                 conversation.isBlockMessag = isBlock
                                 let daoHelper = DaoHelper.shareInstance()
@@ -173,6 +174,8 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
                             }
                             completion(isSuccess: isSuccess, errorCode: errorCode)
                         })
+                    } else {
+                        completion(isSuccess: false, errorCode: 0)
                     }
                 })
             }
