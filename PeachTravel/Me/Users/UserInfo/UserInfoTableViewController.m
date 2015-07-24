@@ -560,11 +560,10 @@
             
         } else if (indexPath.row == 2) {
             if (amgr.account.userAlbum.count) {
-                cell.cellDetail.text = [NSString stringWithFormat:@"%zd图",amgr.account.userAlbum.count];
+                cell.cellDetail.text = [NSString stringWithFormat:@"%zd张",amgr.account.userAlbum.count];
             } else {
-                cell.cellDetail.text = @"0图";
+                cell.cellDetail.text = @"0张";
             }
-            
         }
     }
     else {
