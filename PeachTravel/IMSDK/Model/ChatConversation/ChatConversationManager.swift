@@ -68,6 +68,41 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
     }
     
     /**
+    异步回去一个会话到 conversationId 如果本地数据库有，那么直接返回，如果没有，那么从服务器上获取,获取 conversationid 值的时候顺便把 conversationid 属性设置
+    
+    :param: chatterId
+    :param: completionBlock
+    :param: conversationId
+    */
+    func asyncGetConversationId(#chatterId: Int, completionBlock: (isSuccess: Bool, conversationId: String?) -> ()) {
+        if let conversation = self.getExistConversationInConversationList(chatterId) {
+            if let conversationId = conversation.conversationId {
+                completionBlock(isSuccess: true, conversationId: conversationId)
+            } else {
+                let imClientManager = IMClientManager.shareInstance()
+                let url = "\(API_USERS)\(imClientManager.accountId)/conversations/query"
+                let params = ["receivers" : chatterId]
+                NetworkTransportAPI.asyncGET(requestUrl: url, parameters: params, completionBlock: { (isSuccess, errorCode, retMessage) -> () in
+                    if isSuccess {
+                        if let retArray = retMessage as? NSArray {
+                            if let objc = retArray.firstObject as? NSDictionary {
+                                conversation.conversationId = objc.objectForKey("id") as? String
+                                conversation.isBlockMessag = objc.objectForKey("mute") as! Bool
+                                let daoHelper = DaoHelper.shareInstance()
+                                daoHelper.updateConversationIdInConversation(conversation.conversationId!, userId: conversation.chatterId)
+                                daoHelper.updateBlockStatusInConversation(conversation.isBlockMessag, userId: conversation.chatterId)
+                                completionBlock(isSuccess: true, conversationId: conversation.conversationId)
+                            }
+                        }
+                    } else {
+                        completionBlock(isSuccess: true, conversationId: nil)
+                    }
+                })
+            }
+        }
+    }
+    
+    /**
     将 conversationlist 重新排序,问问>派派>置顶>其他时间顺序
     */
     func reorderConversationList() {
@@ -112,9 +147,36 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
     */
     func asyncChangeConversationBlockStatus(#chatterId: Int, isBlock: Bool, completion: (isSuccess: Bool, errorCode: Int) -> ()) {
         if let conversation = self.getExistConversationInConversationList(chatterId) {
-            conversation.isBlockMessag = isBlock
-            let daoHelper = DaoHelper.shareInstance()
-            daoHelper.updateBlockStatusInConversation(isBlock, userId: chatterId)
+            
+            let imClientManager = IMClientManager.shareInstance()
+            if let conversationId = conversation.conversationId {
+                let url = "\(API_USERS)\(imClientManager.accountId)/conversations/\(conversationId)"
+                let params = ["mute": isBlock]
+                NetworkTransportAPI.asyncPUT(requstUrl: url, parameters: params, completionBlock: { (isSuccess, errorCode, retMessage) -> () in
+                    if isSuccess {
+                        conversation.isBlockMessag = isBlock
+                        let daoHelper = DaoHelper.shareInstance()
+                        daoHelper.updateBlockStatusInConversation(isBlock, userId: chatterId)
+                    }
+                    completion(isSuccess: isSuccess, errorCode: errorCode)
+                })
+            } else {
+                self.asyncGetConversationId(chatterId: chatterId, completionBlock: { (isSuccess, conversationId) -> () in
+                    if isSuccess {
+                        let url = "\(API_USERS)\(imClientManager.accountId)/conversations/\(conversationId!)"
+                        let params = ["mute": isBlock]
+                        NetworkTransportAPI.asyncPUT(requstUrl: url, parameters: params, completionBlock: { (isSuccess, errorCode, retMessage) -> () in
+                            if isSuccess {
+                                conversation.isBlockMessag = isBlock
+                                let daoHelper = DaoHelper.shareInstance()
+                                daoHelper.updateBlockStatusInConversation(isBlock, userId: chatterId)
+                            }
+                            completion(isSuccess: isSuccess, errorCode: errorCode)
+                        })
+                    }
+                })
+            }
+
         }
     }
 
@@ -325,7 +387,7 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
             }
             if (conversation.conversationId == nil && message.conversationId != nil) {
                 conversation.conversationId = message.conversationId
-                var daoHelper = DaoHelper.shareInstance()
+                let daoHelper = DaoHelper.shareInstance()
                 daoHelper.updateConversationIdInConversation(conversation.conversationId!, userId: conversation.chatterId)
             }
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
