@@ -50,11 +50,11 @@
 #import <netinet/in.h>
 
 
-typedef enum : NSInteger {
+typedef NS_ENUM(NSInteger, NetworkStatus) {
 	NotReachable = 0,
 	ReachableViaWiFi,
 	ReachableViaWWAN
-} NetworkStatus;
+};
 
 
 extern NSString *kReachabilityChangedNotification;

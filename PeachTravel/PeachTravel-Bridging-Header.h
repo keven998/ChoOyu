@@ -20,3 +20,4 @@
 #import "SuperPoi.h"
 #import "ConvertMethods.h"
 #import "AreaDestination.h"
+#import "Reachability.h"
