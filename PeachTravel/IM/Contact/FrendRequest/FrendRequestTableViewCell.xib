@@ -17,7 +17,8 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="b7G-qZ-yTy">
                         <rect key="frame" x="12" y="5" width="40" height="40"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="40" id="8mc-4T-8tp"/>
+                            <constraint firstAttribute="width" constant="40" id="Y3B-RH-bQ3"/>
+                            <constraint firstAttribute="height" constant="40" id="vgh-OL-bxa"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eVz-vf-1hF">
@@ -50,17 +51,16 @@
                     </button>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="b7G-qZ-yTy" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="0iq-wd-yLG"/>
                     <constraint firstItem="9Bg-0R-Tpt" firstAttribute="top" secondItem="eVz-vf-1hF" secondAttribute="bottom" constant="-1" id="5vH-sa-0s5"/>
                     <constraint firstItem="eVz-vf-1hF" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="11" id="6Y9-ai-vYd"/>
-                    <constraint firstAttribute="bottom" secondItem="b7G-qZ-yTy" secondAttribute="bottom" constant="4" id="Bod-OR-0sb"/>
+                    <constraint firstItem="9Bg-0R-Tpt" firstAttribute="leading" secondItem="b7G-qZ-yTy" secondAttribute="trailing" constant="10" id="BiQ-bC-eq0"/>
                     <constraint firstItem="AKY-pa-LVy" firstAttribute="leading" secondItem="9Bg-0R-Tpt" secondAttribute="trailing" constant="-5" id="Hv3-HP-wbY"/>
-                    <constraint firstItem="9Bg-0R-Tpt" firstAttribute="leading" secondItem="b7G-qZ-yTy" secondAttribute="trailing" constant="10" id="IPH-of-rk7"/>
+                    <constraint firstItem="b7G-qZ-yTy" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="M8y-oR-xox"/>
                     <constraint firstItem="AKY-pa-LVy" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="13" id="XY1-Yb-gm9"/>
+                    <constraint firstItem="b7G-qZ-yTy" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="bA0-mP-bDY"/>
                     <constraint firstItem="AKY-pa-LVy" firstAttribute="leading" secondItem="eVz-vf-1hF" secondAttribute="trailing" constant="6" id="dF9-g4-Anc"/>
                     <constraint firstAttribute="trailing" secondItem="AKY-pa-LVy" secondAttribute="trailing" constant="9" id="enB-aT-f1r"/>
-                    <constraint firstItem="b7G-qZ-yTy" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="gGq-p9-GV9"/>
-                    <constraint firstItem="eVz-vf-1hF" firstAttribute="leading" secondItem="b7G-qZ-yTy" secondAttribute="trailing" constant="10" id="pb0-LI-mKS"/>
+                    <constraint firstItem="eVz-vf-1hF" firstAttribute="leading" secondItem="b7G-qZ-yTy" secondAttribute="trailing" constant="10" id="kFj-7c-Tut"/>
                     <constraint firstAttribute="bottom" secondItem="AKY-pa-LVy" secondAttribute="bottom" constant="12" id="tOU-F4-PQP"/>
                 </constraints>
             </tableViewCellContentView>

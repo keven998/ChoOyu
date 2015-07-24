@@ -94,6 +94,8 @@
 
 @property (nonatomic) BOOL loadMessageOver;
 
+@property (nonatomic) BOOL isLoadingContactsInGroup;
+
 @end
 
 @implementation ChatViewController
@@ -107,6 +109,7 @@
         _chatType = conversation.chatType;
         _conversation = conversation;
         _loadMessageOver = NO;
+        _isLoadingContactsInGroup = false;
     }
     
     return self;
@@ -164,8 +167,13 @@
  */
 - (void)getMembersInGroupFromServer
 {
+    if (_isLoadingContactsInGroup) {
+        return;
+    }
+    _isLoadingContactsInGroup = YES;
     IMDiscussionGroupManager *groupManager = [IMDiscussionGroupManager shareInstance];
     [groupManager asyncGetDiscussionGroupInfoFromServer:_conversation.chatterId completion:^(BOOL isSuccess, NSInteger errorCode, IMDiscussionGroup * group) {
+        _isLoadingContactsInGroup = NO;
         if (isSuccess) {
             [groupManager asyncGetMembersInDiscussionGroupInfoFromServer:group completion:^(BOOL isSuccess, NSInteger errorCode, IMDiscussionGroup * fullgroup) {
                 if (isSuccess) {
@@ -1130,6 +1138,7 @@
             message.headImageURL = [NSURL URLWithString:_conversation.chatterAvatar];
             
         } else {
+            BOOL find = NO;
             for (FrendModel *model in _groupNumbers) {
                 if (model.userId == message.senderId) {
                     message.nickName = model.nickName;
@@ -1138,8 +1147,12 @@
                     } else {
                         message.headImageURL = [NSURL URLWithString:model.avatarSmall];
                     }
+                    find = YES;
                     break;
                 }
+            }
+            if (!find) {
+                [self getMembersInGroupFromServer];
             }
         }
     }
