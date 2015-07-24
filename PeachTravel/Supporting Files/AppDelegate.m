@@ -83,8 +83,6 @@
     BOOL isShowUnreadCount = YES;
     [defaults setBool:isShowUnreadCount forKey:kShouldShowUnreadFrendRequestNoti];
     [defaults synchronize];
-
-    BOOL show = [defaults boolForKey:kShouldShowUnreadFrendRequestNoti];
     
     return YES;
 }
