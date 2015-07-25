@@ -88,10 +88,6 @@
                     <exclude reference="l2p-v0-agr"/>
                 </mask>
                 <mask key="constraints">
-                    <exclude reference="8cO-yC-qya"/>
-                    <exclude reference="T17-1l-EER"/>
-                    <exclude reference="XQI-h8-4Hz"/>
-                    <exclude reference="Yzv-ok-jZ2"/>
                     <exclude reference="AGw-Lf-OWn"/>
                     <exclude reference="I65-zj-akn"/>
                     <exclude reference="o4q-6J-HOG"/>
@@ -99,6 +95,10 @@
                     <exclude reference="PNG-ba-iUC"/>
                     <exclude reference="YgV-9L-Ipf"/>
                     <exclude reference="zXm-CT-bGy"/>
+                    <exclude reference="8cO-yC-qya"/>
+                    <exclude reference="T17-1l-EER"/>
+                    <exclude reference="XQI-h8-4Hz"/>
+                    <exclude reference="Yzv-ok-jZ2"/>
                     <exclude reference="eX8-Tr-GuJ"/>
                     <exclude reference="juS-RM-Y9s"/>
                 </mask>
@@ -110,10 +110,6 @@
                     <include reference="l2p-v0-agr"/>
                 </mask>
                 <mask key="constraints">
-                    <include reference="8cO-yC-qya"/>
-                    <include reference="T17-1l-EER"/>
-                    <include reference="XQI-h8-4Hz"/>
-                    <include reference="Yzv-ok-jZ2"/>
                     <include reference="AGw-Lf-OWn"/>
                     <include reference="I65-zj-akn"/>
                     <include reference="o4q-6J-HOG"/>
@@ -121,6 +117,10 @@
                     <include reference="PNG-ba-iUC"/>
                     <include reference="YgV-9L-Ipf"/>
                     <include reference="zXm-CT-bGy"/>
+                    <include reference="8cO-yC-qya"/>
+                    <include reference="T17-1l-EER"/>
+                    <include reference="XQI-h8-4Hz"/>
+                    <include reference="Yzv-ok-jZ2"/>
                     <include reference="eX8-Tr-GuJ"/>
                     <include reference="juS-RM-Y9s"/>
                 </mask>

@@ -252,7 +252,7 @@
     _albumLabel.font = [UIFont systemFontOfSize:16];
     _albumLabel.textColor = COLOR_TEXT_I;
     _albumLabel.textAlignment = NSTextAlignmentCenter;
-    _albumLabel.text = [NSString stringWithFormat:@"%zd图",_albumArray.count];
+    _albumLabel.text = [NSString stringWithFormat:@"%zd张",_albumArray.count];
     [albumBtn addSubview:_albumLabel];
     UILabel *albumLabel2 = [[UILabel alloc]initWithFrame:CGRectMake(0, YY+31* height/736, btnWidth, 20)];
     albumLabel2.font = [UIFont systemFontOfSize:13];
@@ -729,7 +729,7 @@
         [_albumArray addObject:[[AlbumImage alloc] initWithJson:album]];
     }
     _userInfo.userAlbum = _albumArray;
-    _albumLabel.text = [NSString stringWithFormat:@"%lu",_albumArray.count];
+    _albumLabel.text = [NSString stringWithFormat:@"%lu张",_albumArray.count];
 }
 
 #pragma mark - buttonMethod

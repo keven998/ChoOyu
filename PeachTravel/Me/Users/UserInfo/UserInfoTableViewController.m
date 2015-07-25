@@ -560,11 +560,10 @@
             
         } else if (indexPath.row == 2) {
             if (amgr.account.userAlbum.count) {
-                cell.cellDetail.text = [NSString stringWithFormat:@"%zd图",amgr.account.userAlbum.count];
+                cell.cellDetail.text = [NSString stringWithFormat:@"%zd张",amgr.account.userAlbum.count];
             } else {
-                cell.cellDetail.text = @"0图";
+                cell.cellDetail.text = @"0张";
             }
-            
         }
     }
     else {
@@ -596,7 +595,7 @@
             [MobClick event:@"event_update_gender"];
             SelectionTableViewController *ctl = [[SelectionTableViewController alloc] init];
             ctl.contentItems = @[@"美女", @"帅锅", @"一言难尽", @"保密"];
-            ctl.titleTxt = @"我是";
+            ctl.titleTxt = @"性别设置";
             ctl.delegate = self;
             UserOtherTableViewCell *uc = (UserOtherTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
             ctl.selectItem = uc.cellDetail.text;

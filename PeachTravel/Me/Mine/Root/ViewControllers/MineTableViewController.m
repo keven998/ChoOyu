@@ -196,7 +196,7 @@
     _pictureNumber.textColor = COLOR_TEXT_I;
     _pictureNumber.textAlignment = NSTextAlignmentCenter;
     _pictureNumber.font = [UIFont systemFontOfSize:16];
-    _pictureNumber.text = @"0图";
+    _pictureNumber.text = @"0张";
     _pictureNumber.lineBreakMode = NSLineBreakByTruncatingTail;
     _friendCount = _pictureNumber;
     [friendEntry addSubview:_pictureNumber];
@@ -306,7 +306,7 @@
             _trackNumber.text = _accountManager.account.footprintsDesc;
         }
         
-        _pictureNumber.text = [NSString stringWithFormat:@"%zd图",_accountManager.account.userAlbum.count];
+        _pictureNumber.text = [NSString stringWithFormat:@"%zd张",_accountManager.account.userAlbum.count];
         
         _planNumber.text = [NSString stringWithFormat:@"%lu条",_accountManager.account.guideCnt];
         _nameLabel.text = amgr.account.nickName;
@@ -564,7 +564,7 @@
     }
     AccountManager *accountManager = [AccountManager shareAccountManager];
     accountManager.account.userAlbum = array;
-    _pictureNumber.text = [NSString stringWithFormat:@"%zd图",array.count];
+    _pictureNumber.text = [NSString stringWithFormat:@"%zd张",array.count];
     NSLog(@"%@",array);
 }
 

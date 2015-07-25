@@ -16,8 +16,6 @@
 @property (nonatomic, strong) TripDetail *tripDetail;
 @property (nonatomic, strong) NSArray *destinations;
 
-@property (nonatomic, weak) REFrostedViewController *container;
-
 @property (nonatomic, weak) id<TripUpdateDelegate> contentMgrDelegate;
 
 //编辑按钮

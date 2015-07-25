@@ -184,7 +184,7 @@ static NSString *cacheName = @"destination_demostic_group";
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section;
 {
-    return CGSizeMake(self.domesticCollectionView.frame.size.width, 60);
+    return CGSizeMake(self.domesticCollectionView.frame.size.width, 72);
 }
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section;
 {
@@ -214,7 +214,6 @@ static NSString *cacheName = @"destination_demostic_group";
     if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
         DestinationCollectionHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:reusableHeaderIdentifier forIndexPath:indexPath];
         headerView.backgroundColor = APP_PAGE_COLOR;
-        headerView.titleLabel.backgroundColor = APP_PAGE_COLOR;
         AreaDestination *area = [self.destinations.domesticCities objectAtIndex:indexPath.section];
         NSString * title = [NSString stringWithFormat:@"- %@ -",area.zhName];
         headerView.titleLabel.text = title;
@@ -239,8 +238,7 @@ static NSString *cacheName = @"destination_demostic_group";
     if (!find) {
         cell.status.image = nil;
     }
-    cell.tiltleLabel.textColor = [UIColor whiteColor];
-    cell.tiltleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
+    
     TaoziImage *image = city.images.firstObject;
     
     [cell.backGroundImage sd_setImageWithURL:[NSURL URLWithString:image.imageUrl]];

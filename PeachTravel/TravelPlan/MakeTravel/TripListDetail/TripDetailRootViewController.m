@@ -72,8 +72,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.segmentedControl];
+    
     [self setupViewControllers];
     [self setNavigationItems];
     
@@ -233,12 +235,16 @@
     mapViewCtl.tripDetail = _tripDetail;
     mapViewCtl.titleText = self.navigationItem.title;
     [self.frostedViewController.navigationController pushViewController:mapViewCtl animated:YES];
-
+    
 }
 
 - (void)dismissCtl
 {
-    [self.container.navigationController popViewControllerAnimated:YES];
+    if (self.frostedViewController.navigationController.childViewControllers.count > 1) {
+        [self.frostedViewController.navigationController popViewControllerAnimated:YES];
+    } else {
+        [self.frostedViewController dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 - (void)userDidLogout
@@ -273,7 +279,7 @@
     [params setObject:imageWidth forKey:@"imgWidth"];
     [params setObject:[NSNumber numberWithBool: isNeedRecommend] forKey:@"initViewSpots"];
     [params setObject:@"create" forKey:@"action"];
-
+    
     [params setObject:cityIds forKey:@"locId"];
     
     __weak typeof(TripDetailRootViewController *)weakSelf = self;
@@ -418,7 +424,6 @@
     [self.view endEditing:YES];
     
     [self.frostedViewController.view endEditing:YES];
-    
     [self.frostedViewController presentMenuViewController];
 }
 
@@ -554,11 +559,11 @@
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             PlansListTableViewController *myGuidesCtl = [[PlansListTableViewController alloc] initWithUserId:accountManager.account.userId];
-            NSMutableArray *clts = [NSMutableArray arrayWithArray:[self.container.navigationController childViewControllers]];
+            NSMutableArray *clts = [NSMutableArray arrayWithArray:[self.frostedViewController.navigationController childViewControllers]];
             myGuidesCtl.userName = accountManager.account.nickName;
             myGuidesCtl.copyPatch = YES;
             [clts replaceObjectAtIndex:(clts.count-1) withObject:myGuidesCtl];
-            [self.container.navigationController setViewControllers:clts animated:YES];
+            [self.frostedViewController.navigationController setViewControllers:clts animated:YES];
         } else {
             if (self.isShowing) {
                 [SVProgressHUD showHint:@"请求也是失败了"];
@@ -581,7 +586,7 @@
 {
     _spotsListCtl.tripDetail = _tripDetail;
     _tripFavoriteCtl.tripDetail = _tripDetail;
-    ((TripPlanSettingViewController *)self.container.menuViewController).tripDetail = self.tripDetail;
+    ((TripPlanSettingViewController *)self.frostedViewController.menuViewController).tripDetail = self.tripDetail;
     
     self.navigationItem.title = _tripDetail.tripTitle;
 }
@@ -589,14 +594,22 @@
 - (void)setupViewControllers
 {
     NSMutableArray *array = [[NSMutableArray alloc] init];
-    _spotsListCtl = [[PlanScheduleViewController alloc] init];
     
+    NSInteger count = self.frostedViewController.navigationController.childViewControllers.count;
+    
+    _spotsListCtl = [[PlanScheduleViewController alloc] init];
     _tripFavoriteCtl = [[TripFavoriteTableViewController alloc] init];
     _tripFavoriteCtl.canEdit = _canEdit;
+    if (count > 1) {    //view frame 64 offset 补丁
+        [_spotsListCtl.view setFrame:CGRectMake(0, 44, CGRectGetWidth(self.frostedViewController.view.bounds), CGRectGetHeight(self.frostedViewController.view.bounds) - 44)];
+        [_tripFavoriteCtl.view setFrame:CGRectMake(0, 44, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 44)];
+    } else {
+        [_spotsListCtl.view setFrame:CGRectMake(0, 44, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 44 - 44)];
+        [_tripFavoriteCtl.view setFrame:CGRectMake(0, 44, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 44 - 44)];
+    }
+    
     [self addChildViewController:_spotsListCtl];
     [self.view addSubview:_spotsListCtl.view];
-    [_spotsListCtl.view setFrame:CGRectMake(0, 44, self.view.bounds.size.width, self.view.bounds.size.height-44)];
-    [_tripFavoriteCtl.view setFrame:CGRectMake(0, 44, self.view.bounds.size.width, self.view.bounds.size.height-44)];
     
     [array addObject:_spotsListCtl];
     [array addObject:_tripFavoriteCtl];
@@ -775,7 +788,7 @@
      [self.navigationController pushViewController:chatCtl animated:YES];
      */
     
-    [SVProgressHUD showSuccessWithStatus:@"已发送~"];
+    [SVProgressHUD showSuccessWithStatus:@"已发送"];
     
 }
 

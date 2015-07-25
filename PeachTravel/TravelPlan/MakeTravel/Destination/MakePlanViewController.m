@@ -32,7 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (self.shouldOnlyChangeDestinationWhenClickNextStep) {
-        self.navigationItem.title = @"我去过";
+        self.navigationItem.title = @"添加我的旅行足迹";
     }
     
     UIBarButtonItem *lbi = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
@@ -176,15 +176,16 @@
     
     
      REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:[[UINavigationController alloc] initWithRootViewController:tripDetailCtl] menuViewController:tpvc];
-     tripDetailCtl.container = frostedViewController;
      tpvc.rootViewController = tripDetailCtl;
      frostedViewController.direction = REFrostedViewControllerDirectionRight;
      frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
      frostedViewController.liveBlur = YES;
      frostedViewController.limitMenuViewSize = YES;
      frostedViewController.resumeNavigationBar = NO;
-     [self.navigationController pushViewController:frostedViewController animated:YES];
-     
+    
+    NSMutableArray *ctls = [NSMutableArray arrayWithArray:self.navigationController.childViewControllers];
+    [ctls replaceObjectAtIndex:(ctls.count - 1) withObject:frostedViewController];
+    [self.navigationController setViewControllers:ctls animated:YES];
 }
 
 - (void)login
@@ -264,7 +265,7 @@
         if (code == 0) {
             [self analysisData:[responseObject objectForKey:@"result"]];
         } else {
-            [SVProgressHUD showHint:@"请求也是失败了"];
+            [SVProgressHUD showHint:@"请求失败"];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
