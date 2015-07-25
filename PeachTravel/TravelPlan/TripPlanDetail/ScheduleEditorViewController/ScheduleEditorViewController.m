@@ -54,25 +54,25 @@
     
     [self.view addSubview:tabbarView];
     
-    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(tabbarView.bounds.size.width-74, 12, 55, 26)];
+    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(tabbarView.bounds.size.width-74, 14, 60, 26)];
     btn.layer.cornerRadius = 3.0;
-    btn.layer.borderColor = COLOR_LINE.CGColor;
+    btn.layer.borderColor = APP_THEME_COLOR.CGColor;
     btn.layer.borderWidth = 1.0;
     [btn setTitle:@"增加一天" forState:UIControlStateNormal];
     btn.titleLabel.font = [UIFont systemFontOfSize:12.0];
-    [btn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
-    [btn setTitleColor:COLOR_TEXT_I forState:UIControlStateHighlighted];
+    [btn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+    [btn setTitleColor:COLOR_DISABLE forState:UIControlStateHighlighted];
     [btn addTarget:self action:@selector(addOneDay:) forControlEvents:UIControlEventTouchUpInside];
     [tabbarView addSubview:btn];
     
-    UIButton *editBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, 12, 55, 26)];
+    UIButton *editBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, 14, 60, 26)];
     editBtn.layer.cornerRadius = 3.0;
-    editBtn.layer.borderColor = COLOR_LINE.CGColor;
+    editBtn.layer.borderColor = APP_THEME_COLOR.CGColor;
     editBtn.layer.borderWidth = 1.0;
     editBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
     [editBtn setTitle:@"按天调整" forState:UIControlStateNormal];
-    [editBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
-    [editBtn setTitleColor:COLOR_TEXT_I forState:UIControlStateHighlighted];
+    [editBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+    [editBtn setTitleColor:COLOR_DISABLE forState:UIControlStateHighlighted];
     [editBtn addTarget:self action:@selector(editDay:) forControlEvents:UIControlEventTouchUpInside];
     [tabbarView addSubview:editBtn];
 }
@@ -171,7 +171,7 @@
     NSString *dayStr = [NSString stringWithFormat:@"%@Day ", dayIndex];
     NSMutableAttributedString *attrstr = [[NSMutableAttributedString alloc] init];
     NSAttributedString *unitAStr = [[NSAttributedString alloc] initWithString:dayStr attributes:@{
-                                                                                                  NSForegroundColorAttributeName : APP_THEME_COLOR
+                                                                                                  NSForegroundColorAttributeName : COLOR_TEXT_III
                                                                                                   }];
     [attrstr appendAttributedString:unitAStr];
     
