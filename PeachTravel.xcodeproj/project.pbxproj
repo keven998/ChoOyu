@@ -1124,8 +1124,6 @@
 		D9F70CAD1B31523C00BDACA1 /* AccountDaoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F70CAC1B31523C00BDACA1 /* AccountDaoHelper.swift */; };
 		D9FCE7DE1B134B4B0039F896 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FCE7DD1B134B4B0039F896 /* ChatViewController.m */; };
 		D9FCE7E91B135C820039F896 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FCE7E81B135C820039F896 /* Reachability.m */; };
-		E64649A61B632A8A00B3127F /* lvxingwenwen@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E64649A51B632A8A00B3127F /* lvxingwenwen@3x.png */; };
-		E64649A81B632BCA00B3127F /* lvxingpaipai@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E64649A71B632BCA00B3127F /* lvxingpaipai@3x.png */; };
 		E66E6CCA1B59F1E500CBF65F /* DropDownViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E66E6CC91B59F1E500CBF65F /* DropDownViewController.m */; };
 		E66E6CD41B5A16A100CBF65F /* HWDropdownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = E66E6CD31B5A16A100CBF65F /* HWDropdownMenu.m */; };
 		E66E6CDC1B5A26BF00CBF65F /* UIImage+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = E66E6CDB1B5A26BF00CBF65F /* UIImage+Extension.m */; };
@@ -2663,8 +2661,6 @@
 		D9FCE7E71B135C820039F896 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		D9FCE7E81B135C820039F896 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		E36073AEEC32FD100F0D0A9B /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		E64649A51B632A8A00B3127F /* lvxingwenwen@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lvxingwenwen@3x.png"; sourceTree = "<group>"; };
-		E64649A71B632BCA00B3127F /* lvxingpaipai@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lvxingpaipai@3x.png"; sourceTree = "<group>"; };
 		E66E6CC81B59F1E500CBF65F /* DropDownViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropDownViewController.h; sourceTree = "<group>"; };
 		E66E6CC91B59F1E500CBF65F /* DropDownViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropDownViewController.m; sourceTree = "<group>"; };
 		E66E6CD21B5A16A100CBF65F /* HWDropdownMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HWDropdownMenu.h; sourceTree = "<group>"; };
@@ -6981,7 +6977,6 @@
 				D93360BD1B625D0500073E49 /* icon@3x.png in Resources */,
 				D92CA1391AD8BEB400F244FF /* MWPhotoBrowser.bundle in Resources */,
 				D933608D1B625D0500073E49 /* account_labbar_icon_follow_selected@3x.png in Resources */,
-				E64649A81B632BCA00B3127F /* lvxingpaipai@3x.png in Resources */,
 				D90A9B3D1B5627C400E9F37C /* Loading_Animation_final18@3x.png in Resources */,
 				D93361AB1B625D0500073E49 /* ic_home_avatar_unknown@2x.png in Resources */,
 				D917DAD51A8B4B060039720A /* ic_guide_dot3@2x.png in Resources */,
@@ -7039,7 +7034,6 @@
 				D93361EC1B625D0500073E49 /* chat_wenwen@3x.png in Resources */,
 				D93360AE1B625D0500073E49 /* bottom_shadow@2x.png in Resources */,
 				D93361F61B625D0500073E49 /* speaking-motion12@3x.png in Resources */,
-				E64649A61B632A8A00B3127F /* lvxingwenwen@3x.png in Resources */,
 				D94B891C1B5E4F4C00584DE5 /* h5_labar_right_default@3x.png in Resources */,
 				D93361B91B625D0500073E49 /* ic_home_level_bg_unknown@2x.png in Resources */,
 				D933613B1B625D0500073E49 /* ic_person_normal@3x.png in Resources */,
