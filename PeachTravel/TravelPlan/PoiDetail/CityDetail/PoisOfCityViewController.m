@@ -102,7 +102,6 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     [self.tableView registerNib:[UINib nibWithNibName:@"TripPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:poisOfCityCellIdentifier];
     [self.view addSubview:self.tableView];
     
-    
     for (CityDestinationPoi *poi in _tripDetail.destinations) {
         if ([poi.cityId isEqualToString:_cityId]) {
             _zhName = poi.zhName;

@@ -64,16 +64,6 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
     
     self.tableView.contentInset = UIEdgeInsetsMake(18, 0, 0, 0);
     
-    if (_canEdit) {
-        //        UIButton *toolBar = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49, CGRectGetWidth(self.view.bounds), 49)];
-        //        toolBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-        //        toolBar.backgroundColor = APP_THEME_COLOR;
-        //        [toolBar setTitle:@"添加收藏" forState:UIControlStateNormal];
-        //        toolBar.titleLabel.font = [UIFont systemFontOfSize:17.0];
-        //        [toolBar setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        //        [toolBar addTarget:self action:@selector(addWantTo:) forControlEvents:UIControlEventTouchUpInside];
-        //        [self.view addSubview:toolBar];
-    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -240,21 +230,23 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
     label.text = title;
     [containBtn addSubview:label];
     
-    // 3.创建收藏Button
-    UIButton * collection = [UIButton buttonWithType:UIButtonTypeCustom];
-    collection.tag = section;
-    CGFloat collectionW = 52;
-    collection.frame = CGRectMake(SCREEN_WIDTH - 10 - collectionW, 8.5, collectionW, 26);
-    [collection setTitle:@"＋收藏" forState:UIControlStateNormal];
-    collection.titleLabel.font = [UIFont systemFontOfSize:12.0];
-    [collection setTitleColor:COLOR_TEXT_III forState:UIControlStateNormal];
-    [collection setTitleColor:COLOR_DISABLE forState:UIControlStateHighlighted];
-    collection.layer.cornerRadius = 4.0;
-    collection.layer.borderWidth = 1.0;
-    collection.titleEdgeInsets = UIEdgeInsetsMake(0, -2, 0, 0);
-    collection.layer.borderColor = COLOR_LINE.CGColor;
-    [collection addTarget:self action:@selector(collectionShop:) forControlEvents:UIControlEventTouchUpInside];
-    [containBtn addSubview:collection];
+    if (_canEdit) {
+        // 3.创建收藏Button
+        UIButton * collection = [UIButton buttonWithType:UIButtonTypeCustom];
+        collection.tag = section;
+        CGFloat collectionW = 52;
+        collection.frame = CGRectMake(SCREEN_WIDTH - 10 - collectionW, 8.5, collectionW, 26);
+        [collection setTitle:@"＋收藏" forState:UIControlStateNormal];
+        collection.titleLabel.font = [UIFont systemFontOfSize:12.0];
+        [collection setTitleColor:COLOR_TEXT_III forState:UIControlStateNormal];
+        [collection setTitleColor:COLOR_DISABLE forState:UIControlStateHighlighted];
+        collection.layer.cornerRadius = 4.0;
+        collection.layer.borderWidth = 1.0;
+        collection.titleEdgeInsets = UIEdgeInsetsMake(0, -2, 0, 0);
+        collection.layer.borderColor = COLOR_LINE.CGColor;
+        [collection addTarget:self action:@selector(collectionShop:) forControlEvents:UIControlEventTouchUpInside];
+        [containBtn addSubview:collection];
+    }
     
     // 4.创建头部的横条
     UIButton * banner = [UIButton buttonWithType:UIButtonTypeCustom];
