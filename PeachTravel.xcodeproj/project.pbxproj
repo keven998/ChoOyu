@@ -88,6 +88,7 @@
 		C6D26C0F1B2C1CB80019AFA8 /* ScheduleEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6D26C0E1B2C1CB80019AFA8 /* ScheduleEditorViewController.m */; };
 		C6D26C131B2C25730019AFA8 /* PoiOnEditorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C6D26C111B2C25730019AFA8 /* PoiOnEditorTableViewCell.m */; };
 		C6D26C141B2C25730019AFA8 /* PoiOnEditorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6D26C121B2C25730019AFA8 /* PoiOnEditorTableViewCell.xib */; };
+		C6F52FCC1B633915006BFFF9 /* sent_bg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6F52FCB1B633915006BFFF9 /* sent_bg@3x.png */; };
 		C6F5D47B1B2AB199009163E3 /* PlanScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F5D47A1B2AB199009163E3 /* PlanScheduleViewController.m */; };
 		C6F87A181ACD1C4400BB7D7F /* PXAlertView+Customization.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F87A131ACD1C4400BB7D7F /* PXAlertView+Customization.m */; };
 		C6F87A191ACD1C4400BB7D7F /* PXAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F87A151ACD1C4400BB7D7F /* PXAlertView.m */; };
@@ -1313,6 +1314,7 @@
 		C6D26C101B2C25730019AFA8 /* PoiOnEditorTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoiOnEditorTableViewCell.h; sourceTree = "<group>"; };
 		C6D26C111B2C25730019AFA8 /* PoiOnEditorTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoiOnEditorTableViewCell.m; sourceTree = "<group>"; };
 		C6D26C121B2C25730019AFA8 /* PoiOnEditorTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PoiOnEditorTableViewCell.xib; sourceTree = "<group>"; };
+		C6F52FCB1B633915006BFFF9 /* sent_bg@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sent_bg@3x.png"; sourceTree = "<group>"; };
 		C6F5D4791B2AB199009163E3 /* PlanScheduleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlanScheduleViewController.h; sourceTree = "<group>"; };
 		C6F5D47A1B2AB199009163E3 /* PlanScheduleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlanScheduleViewController.m; sourceTree = "<group>"; };
 		C6F87A121ACD1C4400BB7D7F /* PXAlertView+Customization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PXAlertView+Customization.h"; sourceTree = "<group>"; };
@@ -3392,6 +3394,7 @@
 		D9335E8E1B625D0400073E49 /* CommonImages */ = {
 			isa = PBXGroup;
 			children = (
+				C6F52FCB1B633915006BFFF9 /* sent_bg@3x.png */,
 				D9335E8F1B625D0400073E49 /* bg_navigationbar_shadow@2x.png */,
 				D9335E901B625D0400073E49 /* bg_navigationbar_shadow@3x.png */,
 				D9335E911B625D0400073E49 /* bottom_shadow@2x.png */,
@@ -6821,6 +6824,7 @@
 				D93361A41B625D0500073E49 /* ic_home_app_setting@3x.png in Resources */,
 				E6E725521B5603D30007273A /* UMSocialLocalizable.strings in Resources */,
 				D9A8FF181A80CC2B005AD701 /* VerifyCaptchaViewController.xib in Resources */,
+				C6F52FCC1B633915006BFFF9 /* sent_bg@3x.png in Resources */,
 				D93361401B625D0500073E49 /* add_poi@2x.png in Resources */,
 				D93362581B625D0500073E49 /* ic_setting_apprise@3x.png in Resources */,
 				D93361F81B625D0500073E49 /* speaking-motion13@3x.png in Resources */,
