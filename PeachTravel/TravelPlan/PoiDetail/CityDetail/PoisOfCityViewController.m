@@ -102,18 +102,18 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     [self.tableView registerNib:[UINib nibWithNibName:@"TripPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:poisOfCityCellIdentifier];
     [self.view addSubview:self.tableView];
     
-    NSString *cityName;
+    
     for (CityDestinationPoi *poi in _tripDetail.destinations) {
         if ([poi.cityId isEqualToString:_cityId]) {
-            cityName = poi.zhName;
+            _zhName = poi.zhName;
             break;
         }
     }
     
     if (_poiType == kRestaurantPoi) {
-        self.navigationItem.title = [NSString stringWithFormat:@"%@美食", cityName];
+        self.navigationItem.title = [NSString stringWithFormat:@"%@美食", _zhName];
     } else if (_poiType == kShoppingPoi) {
-        self.navigationItem.title = [NSString stringWithFormat:@"%@购物", cityName];
+        self.navigationItem.title = [NSString stringWithFormat:@"%@购物", _zhName];
     }
     
     _currentPageNormal = 0;
