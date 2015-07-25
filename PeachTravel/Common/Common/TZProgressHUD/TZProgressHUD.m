@@ -68,7 +68,9 @@
     for (int i = 1; i < 60; i++) {
         NSString *imageName = [NSString stringWithFormat:@"Loading_Animation_final%d.png", i];
         UIImage *image = [UIImage imageNamed:imageName];
-        [images addObject:image];
+        if (image) {
+            [images addObject:image];
+        }
     }
     _imageView.animationImages = images;
     _imageView.animationDuration = 1;
