@@ -87,15 +87,19 @@
 }
 
 - (void) setupSelectPanel {
-    UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-49, self.view.frame.size.width, 49)];
+    UIView *toolBar = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-49, self.view.frame.size.width, 49)];
     toolBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    toolBar.layer.shadowColor = COLOR_LINE.CGColor;
+    toolBar.layer.shadowOffset = CGSizeMake(0, -1.0);
+    toolBar.layer.shadowOpacity = 0.33;
+    toolBar.layer.shadowRadius = 1.0;
     [self.view addSubview:toolBar];
     
     UICollectionViewFlowLayout *aFlowLayout = [[UICollectionViewFlowLayout alloc] init];
     aFlowLayout.minimumInteritemSpacing = 0;
     [aFlowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
     self.selectPanel = [[UICollectionView alloc] initWithFrame:toolBar.bounds collectionViewLayout:aFlowLayout];
-    [self.selectPanel setBackgroundColor:APP_PAGE_COLOR];
+    [self.selectPanel setBackgroundColor:[UIColor whiteColor]];
     self.selectPanel.showsHorizontalScrollIndicator = NO;
     self.selectPanel.showsVerticalScrollIndicator = NO;
     self.selectPanel.delegate = self;
@@ -431,7 +435,7 @@
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
-    return 5;
+    return 14;
 }
 
 @end

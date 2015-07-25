@@ -181,7 +181,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     UICollectionViewFlowLayout *aFlowLayout = [[UICollectionViewFlowLayout alloc] init];
     [aFlowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
     self.selectPanel = [[UICollectionView alloc] initWithFrame:collectionViewFrame collectionViewLayout:aFlowLayout];
-    self.selectPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    self.selectPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     self.selectPanel.showsHorizontalScrollIndicator = NO;
     self.selectPanel.showsVerticalScrollIndicator = NO;
     self.selectPanel.delegate = self;
@@ -192,9 +192,15 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     self.selectPanel.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_selectPanel];
     
-    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 50, self.selectPanel.frame.size.width, 1)];
+    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49, self.selectPanel.frame.size.width, 0.6)];
+    spaceView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     spaceView.backgroundColor = COLOR_LINE;
+    spaceView.layer.shadowColor = COLOR_LINE.CGColor;
+    spaceView.layer.shadowOffset = CGSizeMake(0, -1.0);
+    spaceView.layer.shadowOpacity = 0.33;
+    spaceView.layer.shadowRadius = 1.0;
     [self.view addSubview:spaceView];
+    
 }
 
 #pragma mark - setter & getter
