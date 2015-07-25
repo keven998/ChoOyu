@@ -86,7 +86,6 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
             btn.imagePosition = IMAGE_AT_RIGHT;
             UIBarButtonItem *cbtn = [[UIBarButtonItem alloc] initWithCustomView:btn];
             [rbItems addObject:cbtn];
-            
         }
     }
     
@@ -134,7 +133,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     } else {
         [self loadDataPoisOfCity:_currentPageNormal];
         [self setupSelectPanel];
-        [_tableView setContentOffset:CGPointMake(0, 49)];
+        _tableView.contentInset = UIEdgeInsetsMake(0, 0, 50, 0);
     }
 }
 
@@ -531,9 +530,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     [poiSearchCtl setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
     TZNavigationViewController *tznavc = [[TZNavigationViewController alloc] initWithRootViewController:poiSearchCtl];
     
-    [self presentViewController:tznavc animated:YES completion:^{
-        
-    }];
+    [self presentViewController:tznavc animated:YES completion:nil];
 }
 
 - (IBAction)jumpToMapView:(UIButton *)sender
@@ -686,12 +683,12 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
             [btn setAttributedTitle:desc forState:UIControlStateNormal];
             
             desc = [[NSMutableAttributedString alloc] initWithAttributedString:desc];
-            [desc addAttribute:NSForegroundColorAttributeName value:COLOR_TEXT_I range:NSMakeRange(0, len)];
+            [desc addAttribute:NSForegroundColorAttributeName value:COLOR_DISABLE range:NSMakeRange(0, len)];
             [btn setAttributedTitle:desc forState:UIControlStateHighlighted];
             [btn addTarget:self action:@selector(showIntruductionOfCity) forControlEvents:UIControlEventTouchUpInside];
             btn.titleLabel.numberOfLines = 2;
             
-            UILabel *moreLabel = [[UILabel alloc] initWithFrame:CGRectMake(btn.bounds.size.width-49, btn.bounds.size.height-36, 30, 20)];
+            UILabel *moreLabel = [[UILabel alloc] initWithFrame:CGRectMake(btn.bounds.size.width-49, btn.bounds.size.height-31, 30, 20)];
             moreLabel.textColor = APP_THEME_COLOR;
             moreLabel.font = [UIFont systemFontOfSize:13.0];
             moreLabel.text = @"全文";
@@ -863,11 +860,11 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     SelectDestCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"sdest_cell" forIndexPath:indexPath];
     SuperPoi *tripPoi = [_seletedArray objectAtIndex:indexPath.row];
     
-    NSString *txt = [NSString stringWithFormat:@" %ld %@ ", (indexPath.row + 1), tripPoi.zhName];
+    NSString *txt = [NSString stringWithFormat:@" %ld.%@ ", (indexPath.row + 1), tripPoi.zhName];
     cell.textLabel.text = txt;
     CGSize size = [txt sizeWithAttributes:@{NSFontAttributeName : cell.textLabel.font}];
-    cell.textLabel.frame = CGRectMake(0, 15, size.width, 25);
-    cell.deleteBtn.frame = CGRectMake(size.width-13, 5, 20, 20);
+    cell.textLabel.frame = CGRectMake(0, 12, size.width, 26);
+    cell.deleteBtn.frame = CGRectMake(size.width-11, 5, 20, 20);
     cell.deleteBtn.tag = indexPath.row;
     [cell.deleteBtn removeTarget:self action:@selector(deletePoi:) forControlEvents:UIControlEventTouchUpInside];
     [cell.deleteBtn addTarget:self action:@selector(deletePoi:) forControlEvents:UIControlEventTouchUpInside];
@@ -896,14 +893,14 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     SuperPoi *tripPoi = [_seletedArray objectAtIndex:indexPath.row];
-    NSString *txt = [NSString stringWithFormat:@" %ld %@ ", (long)(indexPath.row + 1), tripPoi.zhName];
-    CGSize size = [txt sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17]}];
+    NSString *txt = [NSString stringWithFormat:@" %ld.%@ ", (long)(indexPath.row + 1), tripPoi.zhName];
+    CGSize size = [txt sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:13]}];
     return CGSizeMake(size.width, 49);
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 {
-    return 5.0;
+    return 14.0;
 }
 
 #pragma mark - updateSelectedPlanDelegate
@@ -947,8 +944,8 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
 - (id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         _textLabel = [[UILabel alloc] init];
-        _textLabel.font = [UIFont systemFontOfSize:14];
-        _textLabel.textColor = COLOR_TEXT_II;
+        _textLabel.font = [UIFont systemFontOfSize:13];
+        _textLabel.textColor = COLOR_TEXT_III;
         _textLabel.textAlignment = NSTextAlignmentCenter;
         _textLabel.numberOfLines = 1;
         _textLabel.layer.borderColor = COLOR_LINE.CGColor;

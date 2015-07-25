@@ -136,7 +136,9 @@
                         <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="50" id="3ay-Si-2yM"/>
-                            <constraint firstAttribute="height" constant="20" id="kVn-gO-TC2"/>
+                            <constraint firstAttribute="height" constant="20" id="kVn-gO-TC2">
+                                <variation key="widthClass=compact" constant="26"/>
+                            </constraint>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -169,7 +171,9 @@
                     <constraint firstAttribute="centerY" secondItem="tnM-4F-Ut8" secondAttribute="centerY" id="EES-2d-bBX"/>
                     <constraint firstItem="4vC-oL-EfH" firstAttribute="top" secondItem="uIO-Dk-bN0" secondAttribute="bottom" constant="8" id="FlY-Kp-Jsu"/>
                     <constraint firstAttribute="centerY" secondItem="ILK-yd-WJS" secondAttribute="centerY" id="LpO-rH-NhU"/>
-                    <constraint firstAttribute="trailing" secondItem="tnM-4F-Ut8" secondAttribute="trailing" constant="5" id="ZHU-O8-vmT"/>
+                    <constraint firstAttribute="trailing" secondItem="tnM-4F-Ut8" secondAttribute="trailing" constant="5" id="ZHU-O8-vmT">
+                        <variation key="widthClass=compact" constant="7"/>
+                    </constraint>
                     <constraint firstAttribute="centerY" secondItem="lD9-ci-9IW" secondAttribute="centerY" id="hYx-V3-sDk"/>
                     <constraint firstItem="ILK-yd-WJS" firstAttribute="leading" secondItem="lD9-ci-9IW" secondAttribute="trailing" constant="7" id="p2V-3h-apn">
                         <variation key="widthClass=compact" constant="8"/>

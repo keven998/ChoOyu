@@ -228,6 +228,7 @@
 		C6D26C0F1B2C1CB80019AFA8 /* ScheduleEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6D26C0E1B2C1CB80019AFA8 /* ScheduleEditorViewController.m */; };
 		C6D26C131B2C25730019AFA8 /* PoiOnEditorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C6D26C111B2C25730019AFA8 /* PoiOnEditorTableViewCell.m */; };
 		C6D26C141B2C25730019AFA8 /* PoiOnEditorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6D26C121B2C25730019AFA8 /* PoiOnEditorTableViewCell.xib */; };
+		C6F52FCA1B632F5F006BFFF9 /* sent_bg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6F52FC91B632F5F006BFFF9 /* sent_bg@3x.png */; };
 		C6F5D47B1B2AB199009163E3 /* PlanScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F5D47A1B2AB199009163E3 /* PlanScheduleViewController.m */; };
 		C6F5D47F1B2AB2D9009163E3 /* PlanScheduleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F5D47D1B2AB2D9009163E3 /* PlanScheduleTableViewCell.m */; };
 		C6F5D4801B2AB2D9009163E3 /* PlanScheduleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6F5D47E1B2AB2D9009163E3 /* PlanScheduleTableViewCell.xib */; };
@@ -1201,6 +1202,7 @@
 		C6D26C101B2C25730019AFA8 /* PoiOnEditorTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoiOnEditorTableViewCell.h; sourceTree = "<group>"; };
 		C6D26C111B2C25730019AFA8 /* PoiOnEditorTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoiOnEditorTableViewCell.m; sourceTree = "<group>"; };
 		C6D26C121B2C25730019AFA8 /* PoiOnEditorTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PoiOnEditorTableViewCell.xib; sourceTree = "<group>"; };
+		C6F52FC91B632F5F006BFFF9 /* sent_bg@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sent_bg@3x.png"; sourceTree = "<group>"; };
 		C6F5D4791B2AB199009163E3 /* PlanScheduleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlanScheduleViewController.h; sourceTree = "<group>"; };
 		C6F5D47A1B2AB199009163E3 /* PlanScheduleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlanScheduleViewController.m; sourceTree = "<group>"; };
 		C6F5D47C1B2AB2D9009163E3 /* PlanScheduleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlanScheduleTableViewCell.h; sourceTree = "<group>"; };
@@ -2532,6 +2534,7 @@
 		C63FFCC31B3A6CFB0026758F /* CommonImages */ = {
 			isa = PBXGroup;
 			children = (
+				C6F52FC91B632F5F006BFFF9 /* sent_bg@3x.png */,
 				D94B89101B5E494B00584DE5 /* bottom_shadow@3x.png */,
 				C6C808D41B58DD7B007120BF /* bg_navigationbar_shadow@3x.png */,
 				C65A3B771B589F4500CE0EAB /* collection_flower@3x.png */,
@@ -5810,6 +5813,7 @@
 				D98CEE0C1B4E17010019B902 /* GuiderCollectionViewController.xib in Resources */,
 				D91FED451B3D2E140073AD77 /* SenderImageNodeBorder_black@3x.png in Resources */,
 				C6528F031B4178A7008889EF /* speaking-motion1@3x.png in Resources */,
+				C6F52FCA1B632F5F006BFFF9 /* sent_bg@3x.png in Resources */,
 				274DB4111B3D20DA00E426DE /* messages_plus_plan_selected@3x.png in Resources */,
 				D90A9B551B5627C400E9F37C /* Loading_Animation_final42@3x.png in Resources */,
 				D9A8FF2A1A80CCA5005AD701 /* AccountManagerTableViewCell.xib in Resources */,
