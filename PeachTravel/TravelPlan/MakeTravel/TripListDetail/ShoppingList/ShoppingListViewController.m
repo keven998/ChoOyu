@@ -243,13 +243,17 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
     // 3.创建收藏Button
     UIButton * collection = [UIButton buttonWithType:UIButtonTypeCustom];
     collection.tag = section;
-    CGFloat collectionW = 54;
-    collection.frame = CGRectMake(SCREEN_WIDTH - 10 - collectionW, 8, collectionW, 26);
+    CGFloat collectionW = 52;
+    collection.frame = CGRectMake(SCREEN_WIDTH - 10 - collectionW, 8.5, collectionW, 26);
     [collection setTitle:@"＋收藏" forState:UIControlStateNormal];
     collection.titleLabel.font = [UIFont systemFontOfSize:12.0];
-    [collection setTitleColor:[UIColor colorWithRed:150 / 256.0 green:150 / 256.0 blue:150 / 256.0 alpha:1.0] forState:UIControlStateNormal];
+    [collection setTitleColor:COLOR_TEXT_III forState:UIControlStateNormal];
+    [collection setTitleColor:COLOR_DISABLE forState:UIControlStateHighlighted];
+    collection.layer.cornerRadius = 4.0;
+    collection.layer.borderWidth = 1.0;
+    collection.titleEdgeInsets = UIEdgeInsetsMake(0, -2, 0, 0);
+    collection.layer.borderColor = COLOR_LINE.CGColor;
     [collection addTarget:self action:@selector(collectionShop:) forControlEvents:UIControlEventTouchUpInside];
-    [collection setBackgroundImage:[UIImage imageNamed:@"collection"] forState:UIControlStateNormal];
     [containBtn addSubview:collection];
     
     // 4.创建头部的横条
