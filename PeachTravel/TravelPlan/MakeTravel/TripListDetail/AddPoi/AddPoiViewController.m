@@ -115,18 +115,17 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     _requestUrl =  API_GET_SPOTLIST_CITY;
     _requestUrl = API_GET_SPOTLIST_CITY;
     
-    [_tableView setContentOffset:CGPointMake(0, 45)];
-    _tableView.contentInset = UIEdgeInsetsMake(0, 0, 20, 0);
+    _tableView.contentInset = UIEdgeInsetsMake(0, 0, 50, 0);
     
     [self loadDataWithPageNo:_currentPageNormal];
 }
 
 - (void) setupSelectPanel {
-    CGRect collectionViewFrame = CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49 - 64, CGRectGetWidth(self.view.bounds), 49);
+    CGRect collectionViewFrame = CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49, CGRectGetWidth(self.view.bounds), 49);
     UICollectionViewFlowLayout *aFlowLayout = [[UICollectionViewFlowLayout alloc] init];
     [aFlowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
     self.selectPanel = [[UICollectionView alloc] initWithFrame:collectionViewFrame collectionViewLayout:aFlowLayout];
-    self.selectPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    self.selectPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     self.selectPanel.showsHorizontalScrollIndicator = NO;
     self.selectPanel.showsVerticalScrollIndicator = NO;
     self.selectPanel.delegate = self;
@@ -136,8 +135,13 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     self.selectPanel.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_selectPanel];
     
-    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49 - 64, self.selectPanel.frame.size.width, 1)];
+    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49, self.selectPanel.frame.size.width, 0.8)];
+    spaceView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     spaceView.backgroundColor = COLOR_LINE;
+    spaceView.layer.shadowColor = COLOR_LINE.CGColor;
+    spaceView.layer.shadowOffset = CGSizeMake(0, -1.0);
+    spaceView.layer.shadowOpacity = 0.5;
+    spaceView.layer.shadowRadius = 1.0;
     [self.view addSubview:spaceView];
 }
 
