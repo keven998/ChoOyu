@@ -99,7 +99,7 @@ static NSString *reusableCell = @"myGuidesCell";
         self.navigationItem.rightBarButtonItem = sbtn;
     }
     
-    self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithIcon:@"common_icon_navigaiton_back_dark.png" highIcon:@"common_icon_navigaiton_back_highlight" target:self action:@selector(goBack)];
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithIcon:@"common_icon_navigaiton_back_black.png" highIcon:@"common_icon_navigaiton_back_black.png" target:self action:@selector(goBack)];
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -366,7 +366,7 @@ static NSString *reusableCell = @"myGuidesCell";
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
-    NSString *url = [NSString stringWithFormat: @"%@%ld/guides", API_USERS, _userId];
+    NSString *url = [NSString stringWithFormat: @"%@%ld/guides", API_USERS, (long)_userId];
     [manager GET:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -707,7 +707,7 @@ static NSString *reusableCell = @"myGuidesCell";
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
     // 修改接口
-    NSString * urlStr = [NSString stringWithFormat:@"%@%ld/guides",API_SIGN_GUIDE,accountManager.account.userId];
+    NSString * urlStr = [NSString stringWithFormat:@"%@%ld/guides",API_SIGN_GUIDE, (long)accountManager.account.userId];
     
     [manager GET:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
@@ -775,7 +775,7 @@ static NSString *reusableCell = @"myGuidesCell";
     
 //    API_UPDATE_GUIDE_PROPERTY
     // 修改接口
-    NSString * urlStr = [NSString stringWithFormat:@"%@%ld/guides",API_SIGN_GUIDE,accountManager.account.userId];
+    NSString * urlStr = [NSString stringWithFormat:@"%@%ld/guides",API_SIGN_GUIDE, (long)accountManager.account.userId];
     [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         [hud hideTZHUD];
