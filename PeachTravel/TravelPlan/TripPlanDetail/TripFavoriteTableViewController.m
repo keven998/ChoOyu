@@ -64,12 +64,12 @@
     if (indexPath.row == 0) {
         cell.imageView.image = [UIImage imageNamed:@"collect_food.png"];
         cell.textLabel.text = @"美食";
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld个收藏", _tripDetail.restaurantsList.count];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld个收藏", (long)_tripDetail.restaurantsList.count];
     }
     else if (indexPath.row == 1) {
         cell.imageView.image = [UIImage imageNamed:@"collect_shopping.png"];
         cell.textLabel.text = @"购物";
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld个收藏", _tripDetail.shoppingList.count];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld个收藏", (long)_tripDetail.shoppingList.count];
     }
     
     return cell;
