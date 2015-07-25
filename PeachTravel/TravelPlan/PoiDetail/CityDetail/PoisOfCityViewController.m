@@ -500,7 +500,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     }
 }
 
-#warning 点击完后后不能更新列表
+
 - (IBAction)finishAdd:(id)sender
 {
     [_backTripDetail saveTrip:^(BOOL isSuccesss) {
@@ -514,6 +514,15 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
             _tripDetail.backUpJson = _backTripDetail.backUpJson;
             [_delegate finishEdit];
             [self dismissViewControllerAnimated:YES completion:nil];
+        } else {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"保存失败了是否重新保存？" message:nil delegate:self cancelButtonTitle:@"直接返回" otherButtonTitles:@"保存", nil];
+            [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
+                if (buttonIndex == 0) {
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                } else if (buttonIndex == 1) {
+                    [self finishAdd:nil];
+                }
+            }];
         }
     }];
 }
