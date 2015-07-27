@@ -432,6 +432,10 @@ static NSString *reusableCell = @"myGuidesCell";
     if (_dataSource.count >= 10) {
         _enableLoadMore = YES;
     }
+    
+    // 修改上个页面显示的计划条数
+    AccountManager * manager = [AccountManager shareAccountManager];
+    manager.account.guideCnt = self.dataSource.count;
 }
 
 - (IBAction)sendPoi:(UIButton *)sender

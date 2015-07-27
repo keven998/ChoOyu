@@ -117,7 +117,7 @@
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (operation.response.statusCode == 401) {
-            completion(NO, @"用户名密码错误");
+            completion(NO,@"用户名或密码错误");
         } else {
             completion(NO, nil);
         }
@@ -352,6 +352,7 @@
     
     NSString *urlStr = [NSString stringWithFormat:@"%@%ld", API_USERS, (long)self.account.userId];
     
+#warning 修改用户性别请求有问题
     [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
 
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
