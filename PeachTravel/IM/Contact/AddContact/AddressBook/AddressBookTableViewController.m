@@ -36,12 +36,18 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"AddressBookTableViewCell" bundle:nil] forCellReuseIdentifier:addressBookCell];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = APP_PAGE_COLOR;
-    if (ABAddressBookGetAuthorizationStatus() != kABAuthorizationStatusAuthorized) {
-        [SVProgressHUD showHint:@"需要你开启通讯录的访问权限"];
-//        [self performSelector:@selector(goBack) withObject:nil afterDelay:1];
-    } else {
-        [self loadContactsInAddrBook];
-    }
+    [self loadContactsInAddrBook];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -73,9 +79,6 @@
 //  展示所有联系人
 -(void)loadContactsInAddrBook
 {
-    _hud = [[TZProgressHUD alloc] init];
-    __weak typeof(AddressBookTableViewController *)weakSelf = self;
-    [_hud showHUDInViewController:weakSelf.navigationController];
 
     NSMutableArray *addressBookList = [[NSMutableArray alloc] init];
     CFErrorRef error = NULL;
@@ -84,8 +87,13 @@
     ABAddressBookRequestAccessWithCompletion(addressBook, ^(bool granted, CFErrorRef error) {
         if (granted) {
             if (ABAddressBookGetAuthorizationStatus() != kABAuthorizationStatusAuthorized) {
+                [SVProgressHUD showHint:@"需要你开启通讯录的访问权限"];
                 return ;
             }
+            _hud = [[TZProgressHUD alloc] init];
+            __weak typeof(AddressBookTableViewController *)weakSelf = self;
+            [_hud showHUDInViewController:weakSelf.navigationController];
+            
             CFErrorRef error = NULL;
             ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, &error);
             NSArray *array = CFBridgingRelease(ABAddressBookCopyArrayOfAllPeople(addressBook));
@@ -117,10 +125,15 @@
             [self uploadAddressBook:addressBookList];
             
         } else {
+            NSLog(@"需要你开启通讯录的访问权限");
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [SVProgressHUD showHint:@"需要你开启通讯录的访问权限"];
+            });
         }
     });
-    
-    CFRelease(addressBook);
+    if (addressBook) {
+        CFRelease(addressBook);
+    }
 }
 
 - (void)uploadAddressBook:(NSArray *)addressBookList
