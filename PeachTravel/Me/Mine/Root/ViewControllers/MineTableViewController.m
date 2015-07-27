@@ -23,6 +23,7 @@
 #import "ContactListViewController.h"
 #import "MWPhotoBrowser.h"
 #import "UserAlbumViewController.h"
+#import "WXApi.h"
 
 #define cellDataSource           @[@[@"邀请朋友", @"意见反馈"], @[@"关于我们", @"应用设置"]]
 #define secondCell               @"secondCell"

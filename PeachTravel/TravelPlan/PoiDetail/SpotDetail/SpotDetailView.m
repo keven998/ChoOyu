@@ -106,6 +106,7 @@
                 break;
         }
     }else{
+        NSLog(@"%@",[_spot.style firstObject]);
         tagTitle = [_spot.style firstObject];
     }
 

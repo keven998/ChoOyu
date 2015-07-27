@@ -147,6 +147,8 @@
     [_registerBtn addTarget:self action:@selector(userRegister:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_registerBtn];
     
+  
+    // 下面代码是微信登陆
     _weiChatBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     _weiChatBtn.frame = CGRectMake(0, 0, 100, 40);
     _weiChatBtn.center = CGPointMake(Width/2, CGRectGetMaxY(_registerBtn.frame) + 40);
@@ -155,6 +157,11 @@
     [_weiChatBtn setTitleColor:COLOR_DISABLE forState:UIControlStateHighlighted];    [self.view addSubview:_weiChatBtn];
     [_weiChatBtn addTarget:self action:@selector(weixinLogin:) forControlEvents:UIControlEventTouchUpInside];
     _weiChatBtn.titleLabel.font = [UIFont systemFontOfSize:20];
+    
+    // 没有安装微信,则隐藏
+    if (![WXApi isWXAppInstalled]) {
+        _weiChatBtn.hidden = YES;
+    }
     
 }
 - (void)viewWillAppear:(BOOL)animated
