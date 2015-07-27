@@ -166,7 +166,7 @@
     [self.tableView reloadData];
     for (ChatConversation *tzConversation in _dataSource) {
         if ([tzConversation.chatterName isBlankString]) {
-            [self.imClientManager.conversationManager asyncGetConversationInfoFromServer:tzConversation completion:^(ChatConversation * conversation) {
+            [self.imClientManager.conversationManager asyncChatterUserInfoInConversationFromServer:tzConversation completion:^(ChatConversation * conversation) {
                 NSInteger index = [_dataSource indexOfObject:tzConversation];
                 [self.dataSource replaceObjectAtIndex:index withObject:conversation];
                 [self.tableView reloadData];

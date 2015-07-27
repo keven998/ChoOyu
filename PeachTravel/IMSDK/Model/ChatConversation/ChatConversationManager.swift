@@ -74,32 +74,28 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
     :param: completionBlock
     :param: conversationId
     */
-    func asyncGetConversationId(#chatterId: Int, completionBlock: (isSuccess: Bool, conversationId: String?) -> ()) {
-        if let conversation = self.getExistConversationInConversationList(chatterId) {
-            if let conversationId = conversation.conversationId {
-                completionBlock(isSuccess: true, conversationId: conversationId)
-            } else {
-                let imClientManager = IMClientManager.shareInstance()
-                let url = "\(HedyUserUrl)/\(imClientManager.accountId)/conversations"
-                let params = ["receivers" : chatterId]
-                NetworkTransportAPI.asyncGET(requestUrl: url, parameters: params, completionBlock: { (isSuccess, errorCode, retMessage) -> () in
-                    if isSuccess {
-                        if let retArray = retMessage as? NSArray {
-                            if let objc = retArray.firstObject as? NSDictionary {
-                                conversation.conversationId = objc.objectForKey("id") as? String
-                                conversation.isBlockMessag = objc.objectForKey("mute") as! Bool
-                                let daoHelper = DaoHelper.shareInstance()
-                                daoHelper.updateConversationIdInConversation(conversation.conversationId!, userId: conversation.chatterId)
-                                daoHelper.updateBlockStatusInConversation(conversation.isBlockMessag, userId: conversation.chatterId)
-                                completionBlock(isSuccess: true, conversationId: conversation.conversationId)
-                            }
-                        }
-                    } else {
-                        completionBlock(isSuccess: false, conversationId: nil)
+    func asyncGetConversationInfoFromServer(#chatterId: Int, completionBlock: (isSuccess: Bool, conversation: ChatConversation?) -> ()) {
+        let imClientManager = IMClientManager.shareInstance()
+        let url = "\(HedyUserUrl)/\(imClientManager.accountId)/conversations/\(chatterId)"
+        NetworkTransportAPI.asyncGET(requestUrl: url, parameters: nil, completionBlock: { (isSuccess, errorCode, retMessage) -> () in
+            if isSuccess {
+                if let objc = retMessage as? NSDictionary {
+                    let daoHelper = DaoHelper.shareInstance()
+                    let conversation = ChatConversation()
+                    if let conversationId = objc.objectForKey("id") as? String {
+                        conversation.conversationId = conversationId
+                        daoHelper.updateConversationIdInConversation(conversation.conversationId!, userId: conversation.chatterId)
                     }
-                })
+                    if let muted = objc.objectForKey("muted") as? Bool {
+                        conversation.isBlockMessag = muted
+                        daoHelper.updateBlockStatusInConversation(conversation.isBlockMessag, userId: conversation.chatterId)
+                    }
+                    completionBlock(isSuccess: true, conversation: conversation)
+                }
+            } else {
+                completionBlock(isSuccess: false, conversation: nil)
             }
-        }
+        })
     }
     
     /**
@@ -145,15 +141,15 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
     
     */
     func asyncChangeConversationBlockStatus(#chatterId: Int, isBlock: Bool, completion: (isSuccess: Bool, errorCode: Int) -> ()) {
-        if let conversation = self.getExistConversationInConversationList(chatterId) {
+        if let exitConversation = self.getExistConversationInConversationList(chatterId) {
             
             let imClientManager = IMClientManager.shareInstance()
-            if let conversationId = conversation.conversationId {
+            if let conversationId = exitConversation.conversationId {
                 let url = "\(HedyUserUrl)/\(imClientManager.accountId)/conversations/\(conversationId)"
                 let params = ["mute": isBlock]
                 NetworkTransportAPI.asyncPATCH(requstUrl: url, parameters: params, completionBlock: { (isSuccess, errorCode, retMessage) -> () in
                     if isSuccess {
-                        conversation.isBlockMessag = isBlock
+                        exitConversation.isBlockMessag = isBlock
                         let daoHelper = DaoHelper.shareInstance()
                         daoHelper.updateBlockStatusInConversation(isBlock, userId: chatterId)
                     }
@@ -161,18 +157,22 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
                 })
                 
             } else {
-                self.asyncGetConversationId(chatterId: chatterId, completionBlock: { (isSuccess, conversationId) -> () in
+                self.asyncGetConversationInfoFromServer(chatterId: chatterId, completionBlock: { (isSuccess, conversation) -> () in
                     if isSuccess {
-                        let url = "\(HedyUserUrl)/\(imClientManager.accountId)/conversations/\(conversationId!)"
-                        let params = ["mute": isBlock]
-                        NetworkTransportAPI.asyncPATCH(requstUrl: url, parameters: params, completionBlock: { (isSuccess, errorCode, retMessage) -> () in
-                            if isSuccess {
-                                conversation.isBlockMessag = isBlock
-                                let daoHelper = DaoHelper.shareInstance()
-                                daoHelper.updateBlockStatusInConversation(isBlock, userId: chatterId)
-                            }
-                            completion(isSuccess: isSuccess, errorCode: errorCode)
-                        })
+                        if let conversationId = conversation!.conversationId {
+                            let url = "\(HedyUserUrl)/\(imClientManager.accountId)/conversations/\(conversation?.conversationId!)"
+                            let params = ["mute": isBlock]
+                            NetworkTransportAPI.asyncPATCH(requstUrl: url, parameters: params, completionBlock: { (isSuccess, errorCode, retMessage) -> () in
+                                if isSuccess {
+                                    exitConversation.isBlockMessag = isBlock
+                                    let daoHelper = DaoHelper.shareInstance()
+                                    daoHelper.updateBlockStatusInConversation(isBlock, userId: chatterId)
+                                }
+                                completion(isSuccess: isSuccess, errorCode: errorCode)
+                            })
+                        } else {
+                            completion(isSuccess: false, errorCode: 0)
+                        }
                     } else {
                         completion(isSuccess: false, errorCode: 0)
                     }
@@ -183,15 +183,21 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
     }
 
     /**
-    新建会话列表, 会话的 用户 id
+    新建会话, 会话的 用户 id
     */
     func createNewConversation(#chatterId: Int, chatType: IMChatType) -> ChatConversation {
-        var conversation = ChatConversation()
-        conversation.chatterId = chatterId
+        var exitConversation = ChatConversation()
+        exitConversation.chatterId = chatterId
+        self.asyncGetConversationInfoFromServer(chatterId: chatterId) { (isSuccess, conversation) -> () in
+            if isSuccess {
+                exitConversation.conversationId = conversation!.conversationId
+                exitConversation.isBlockMessag = conversation!.isBlockMessag
+            }
+        }
         var time = NSDate().timeIntervalSince1970
         var timeInt: Int = Int(round(time))
-        conversation.lastUpdateTime = timeInt
-        conversation.chatType = chatType
+        exitConversation.lastUpdateTime = timeInt
+        exitConversation.chatType = chatType
         var frendManager = IMClientManager.shareInstance().frendManager
         
         var type: IMFrendWeightType?
@@ -203,15 +209,15 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
         }
     
         if let frend = frendManager.getFrendInfoFromDB(userId: chatterId, frendType: type) {
-            self.fillConversationWithFrendData(conversation, frendModel: frend)
-            addConversation(conversation)
+            self.fillConversationWithFrendData(exitConversation, frendModel: frend)
+            addConversation(exitConversation)
             
         } else {
-            self.asyncGetConversationInfoFromServer(conversation, completion: { (fullConversation: ChatConversation) -> () in
+            self.asyncChatterUserInfoInConversationFromServer(exitConversation, completion: { (fullConversation: ChatConversation) -> () in
                 self.addConversation(fullConversation)
             })
         }
-        return conversation
+        return exitConversation
     }
     
     /**
@@ -309,12 +315,12 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
     }
     
     /**
-    从网上获取一个会话的详细信息
+    从网上获取一个会话的聊天信息
     
     :param: conversation
     :param: completion
     */
-    func asyncGetConversationInfoFromServer(conversation: ChatConversation, completion:(fullConversation: ChatConversation) -> ()) {
+    func asyncChatterUserInfoInConversationFromServer(conversation: ChatConversation, completion:(fullConversation: ChatConversation) -> ()) {
         if conversation.chatType == IMChatType.IMChatSingleType {
             let frendManager = IMClientManager.shareInstance().frendManager
             frendManager.asyncGetFrendInfoFromServer(conversation.chatterId, completion: { (isSuccess, errorCode, frendInfo) -> () in

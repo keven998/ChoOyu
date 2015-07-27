@@ -137,6 +137,9 @@
     [[IMClientManager shareInstance].conversationManager asyncChangeConversationBlockStatusWithChatterId:_chatterId isBlock:sender.isOn completion:^(BOOL isSuccess, NSInteger errorCode) {
         if (isSuccess) {
             NSLog(@"免打扰设置成功");
+        } else {
+            [SVProgressHUD showHint:@"设置失败"];
+            [sender setOn:!sender.isOn animated:YES];
         }
     }];
 }
