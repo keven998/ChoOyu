@@ -651,11 +651,14 @@
 
 #pragma mark - ChatManagerAudioDelegate
 
-- (void)audioRecordEnd:(NSString * __nonnull)audioPath
+- (void)audioRecordEnd:(NSString * __nonnull)audioPath audioLength: (float)audioLength
 {
-    if ([self.delegate respondsToSelector:@selector(didFinishRecoingVoiceAction:)])
-    {
-        [self.delegate didFinishRecoingVoiceAction:audioPath];
+    if (audioLength >= 0.8) {
+        if ([self.delegate respondsToSelector:@selector(didFinishRecoingVoiceAction:)]) {
+            [self.delegate didFinishRecoingVoiceAction:audioPath];
+        }
+    } else {
+        [SVProgressHUD showHint:@"录音时间太短"];
     }
 }
 

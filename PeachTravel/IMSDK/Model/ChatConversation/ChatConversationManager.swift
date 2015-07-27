@@ -107,7 +107,6 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
     */
     func reorderConversationList() {
         sort(&conversationList, { (conversation1: ChatConversation, conversation2: ChatConversation) -> Bool in
-            debug_println("\(conversation1.chatterName)...\(conversation2.chatterName)")
             if conversation1.chatterId == 10001 {
                 return true
             }
