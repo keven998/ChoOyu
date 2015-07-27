@@ -300,7 +300,7 @@
 - (IBAction)receiveVerifyCode:(UIButton *)sender {
     [self.view endEditing:YES];
     if ([self checkInput] == PhoneNumberError) {
-        [self showHint:@"请输入手机号"];
+        [self showHint:@"号码格式不对"];
     } else {
         _captchaBtn.enabled =  NO;
         [_captchaBtn setTitle:@"请稍候" forState:UIControlStateDisabled];
