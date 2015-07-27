@@ -23,8 +23,6 @@
         _address = [json objectForKey:@"address"];
         _descUrl = [json objectForKey:@"descUrl"];
         _telephone = [json objectForKey:@"telephone"];
-        
-        _style = [json objectForKey:@"style"];
   
         if ([json objectForKey:@"rank"] != [NSNull null]) {
             _rank = [[json objectForKey:@"rank"] intValue];
@@ -61,6 +59,13 @@
         }
         _comments = commnentArray;
         _isMyFavorite = [[json objectForKey:@"isFavorite"] boolValue];
+        
+        _style = [json objectForKey:@"style"];
+        NSMutableArray * styleArray = [[NSMutableArray alloc] init];
+        for (id styleDic in [json objectForKey:@"style"]) {
+            [styleArray addObject:styleDic];
+        }
+        _style = styleArray;
     }
     return self;
 }

@@ -40,6 +40,7 @@
     [talkBtn addTarget:self action:@selector(shareToTalk) forControlEvents:UIControlEventTouchUpInside];
     talkBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:talkBtn];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -76,6 +77,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
+    NSLog(@"%@",self.poi.style);
     return self.poi.comments.count + 3;
 }
 
@@ -220,7 +222,7 @@
     return image;
 }
 
-- (void) loadDataWithUrl:(NSString *)url
+- (void)loadDataWithUrl:(NSString *)url
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AppUtils *utils = [[AppUtils alloc] init];
@@ -240,6 +242,7 @@
     
     [manager GET:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [hud hideTZHUD];
+        NSLog(@"%@",responseObject);
         NSInteger result = [[responseObject objectForKey:@"code"] integerValue];
         if (result == 0) {
             self.poi = [PoiFactory poiWithPoiType:_poiType andJson:[responseObject objectForKey:@"result"]];
