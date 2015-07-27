@@ -405,10 +405,8 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     DestinationCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
-//    cell.status.image = [UIImage imageNamed:@"ic_cell_item_chooesed.png"];
-//    cell.backgroundColor = APP_THEME_COLOR;
     CityDestinationPoi *city = [self.destinations.destinationsSelected objectAtIndex:indexPath.row];
-    cell.titleLabel.text = [NSString stringWithFormat:@"%ld.%@", (indexPath.row + 1), city.zhName];
+    cell.titleLabel.text = [NSString stringWithFormat:@"%ld.%@", (long)(indexPath.row + 1), city.zhName];
     return cell;
 }
 
@@ -430,7 +428,9 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     CityDestinationPoi *city = [self.destinations.destinationsSelected objectAtIndex:indexPath.row];
-    CGSize size = [[NSString stringWithFormat:@"%ld.%@", (indexPath.row + 1), city.zhName] sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:15.0]}];
+    NSString *txt = [NSString stringWithFormat:@"%ld.%@", (long)(indexPath.row + 1), city.zhName];
+    CGSize size = [txt sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17]}];
+    NSLog(@"%@", NSStringFromCGSize(size));
     return CGSizeMake(size.width, 28);
 }
 
