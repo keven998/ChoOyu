@@ -46,6 +46,8 @@
  *  @param completion 
  */
 - (void)updateTripDestinations:(void(^)(BOOL isSuccesss))completion withDestinations:(NSArray *)destinations;
+
+- (void)updateGuideTitle:(NSString *)title completed:(void (^)(BOOL isSuccess))completed;
 @end
 
 

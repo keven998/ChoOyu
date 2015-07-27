@@ -21,8 +21,8 @@
 #import "TripPlanSettingViewController.h"
 #import "BaseTextSettingViewController.h"
 #import "SelectionTableViewController.h"
-
 #import "UIBarButtonItem+MJ.h"
+
 #define PAGE_COUNT 10
 
 enum CONTENT_TYPE {
@@ -31,7 +31,7 @@ enum CONTENT_TYPE {
     PASS
 };
 
-@interface PlansListTableViewController () <UIGestureRecognizerDelegate, TaoziMessageSendDelegate, TripUpdateDelegate, SWTableViewCellDelegate, UITableViewDataSource, UITableViewDelegate, SelectDelegate>
+@interface PlansListTableViewController () <UIGestureRecognizerDelegate, TaoziMessageSendDelegate, TripUpdateDelegate, UITableViewDataSource, UITableViewDelegate, SelectDelegate>
 
 @property (nonatomic) NSUInteger currentPage;
 @property (nonatomic, strong) NSMutableArray *dataSource;
@@ -99,7 +99,7 @@ static NSString *reusableCell = @"myGuidesCell";
         self.navigationItem.rightBarButtonItem = sbtn;
     }
     
-    self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithIcon:@"common_icon_navigaiton_back_black.png" highIcon:@"common_icon_navigaiton_back_black.png" target:self action:@selector(goBack)];
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithIcon:@"common_icon_navigaiton_back_normal.png" highIcon:@"common_icon_navigaiton_back_normal.png" target:self action:@selector(goBack)];
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -394,9 +394,7 @@ static NSString *reusableCell = @"myGuidesCell";
     }];
 }
 
-
-
-- (void) cacheFirstPage:(id)responseObject {
+- (void)cacheFirstPage:(id)responseObject {
     if (_isOwner && (_contentType == ALL)) {
         AccountManager *accountManager = [AccountManager shareAccountManager];
         NSInteger count = _dataSource.count;
@@ -409,7 +407,7 @@ static NSString *reusableCell = @"myGuidesCell";
     }
 }
 
-- (void) bindDataToView:(id)responseObject
+- (void)bindDataToView:(id)responseObject
 {
     NSArray *datas = [responseObject objectForKey:@"result"];
     if (datas.count == 0) {
@@ -480,11 +478,7 @@ static NSString *reusableCell = @"myGuidesCell";
 - (void)sendSuccess:(ChatViewController *)chatCtl
 {
     [self dismissPopup];
-    
-    /*发送完成后不进入聊天界面
-     [self.navigationController pushViewController:chatCtl animated:YES];
-     */
-    
+  
     [SVProgressHUD showSuccessWithStatus:@"已发送~"];
     
 }
@@ -598,8 +592,6 @@ static NSString *reusableCell = @"myGuidesCell";
     NSMutableArray *rightUtilityButtons = [NSMutableArray new];
     [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor lightGrayColor] icon:[UIImage imageNamed:@"options"]];
     [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor redColor] icon:[UIImage imageNamed:@"delete"]];
-    //    [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor clearColor] title:@"删除"];
-    //    [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor clearColor] title:@"更多"];
     
     return rightUtilityButtons;
 }
@@ -633,36 +625,6 @@ static NSString *reusableCell = @"myGuidesCell";
     _didEndScroll = YES;
 }
 
-#pragma mark - SWTableViewCellDelegate
-- (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index
-{
-    switch (index) {
-        case 0:
-        {
-            break;
-        }
-        case 1:
-        {
-            NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
-            [self deleteGuide:cellIndexPath];
-            break;
-        }
-        default:
-            break;
-    }
-}
-
-- (void)swipeableTableViewCell:(SWTableViewCell *)cell scrollingToState:(SWCellState)state {
-    if (state == kCellStateRight) {
-        if (_swipCell != nil) {
-            [_swipCell hideUtilityButtonsAnimated:YES];
-            _swipCell = nil;
-        }
-        _swipCell = cell;
-    } else if (state == kCellStateCenter) {
-        _swipCell = nil;
-    }
-}
 #pragma mark - UIScrollViewDelegate
 
 - (void) scrollViewDidScroll:(UIScrollView *)scrollView
@@ -776,7 +738,6 @@ static NSString *reusableCell = @"myGuidesCell";
     [params setObject:guideSummary.guideId forKey:@"id"];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
-//    API_UPDATE_GUIDE_PROPERTY
     // 修改接口
     NSString * urlStr = [NSString stringWithFormat:@"%@%ld/guides",API_SIGN_GUIDE, (long)accountManager.account.userId];
     [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -788,7 +749,6 @@ static NSString *reusableCell = @"myGuidesCell";
             [self.dataSource removeObject:guideSummary];
             NSIndexSet *set = [NSIndexSet indexSetWithIndex:cellIndexPath.section];
             [self.tableView deleteSections:set withRowAnimation:UITableViewRowAnimationNone];
-            //            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
             [self.dataSource insertObject:guideSummary atIndex:0];
             [self performSelector:@selector(toTop) withObject:nil afterDelay:0.4];
         } else {

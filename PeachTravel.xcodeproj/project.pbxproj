@@ -330,6 +330,7 @@
 		D993CB5A1AB6D6400075314E /* RestaurantPoi.m in Sources */ = {isa = PBXBuildFile; fileRef = D993CB591AB6D6400075314E /* RestaurantPoi.m */; };
 		D993CB5D1AB6D64B0075314E /* ShoppingPoi.m in Sources */ = {isa = PBXBuildFile; fileRef = D993CB5C1AB6D64B0075314E /* ShoppingPoi.m */; };
 		D993CB601AB6D6590075314E /* HotelPoi.m in Sources */ = {isa = PBXBuildFile; fileRef = D993CB5F1AB6D6590075314E /* HotelPoi.m */; };
+		D9980C7C1B66157900FAA28B /* chatbar_text_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9980C7B1B66157900FAA28B /* chatbar_text_background@2x.png */; };
 		D99D8EE519C8600C0021C25B /* PeachTravelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D99D8EE419C8600C0021C25B /* PeachTravelTests.m */; };
 		D9A800171A80D52F005AD701 /* MakePlanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FFD31A80D52F005AD701 /* MakePlanViewController.m */; };
 		D9A8001A1A80D52F005AD701 /* Destinations.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FFDA1A80D52F005AD701 /* Destinations.m */; };
@@ -1634,6 +1635,7 @@
 		D993CB5C1AB6D64B0075314E /* ShoppingPoi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingPoi.m; sourceTree = "<group>"; };
 		D993CB5E1AB6D6590075314E /* HotelPoi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelPoi.h; sourceTree = "<group>"; };
 		D993CB5F1AB6D6590075314E /* HotelPoi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelPoi.m; sourceTree = "<group>"; };
+		D9980C7B1B66157900FAA28B /* chatbar_text_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chatbar_text_background@2x.png"; sourceTree = "<group>"; };
 		D99D8EC519C8600C0021C25B /* PeachTravel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PeachTravel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D99D8EDE19C8600C0021C25B /* PeachTravelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PeachTravelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D99D8EE319C8600C0021C25B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -4193,6 +4195,7 @@
 			isa = PBXGroup;
 			children = (
 				27FF1A991B06E9C600643D77 /* chatBar_recordBg@2x.png */,
+				D9980C7B1B66157900FAA28B /* chatbar_text_background@2x.png */,
 				D9A800B31A80DD23005AD701 /* chatBar_recordSelectedBg@2x.png */,
 				D9A800B51A80DD23005AD701 /* messageToolbarBg@2x.png */,
 			);
@@ -6842,6 +6845,7 @@
 				E6381AF71B65F61000CF73AA /* chat_wenwen@2x.png in Resources */,
 				D9A801211A80DD23005AD701 /* call_silence_h.png in Resources */,
 				E6381A561B65F61000CF73AA /* footprint_change_default@2x.png in Resources */,
+				D9980C7C1B66157900FAA28B /* chatbar_text_background@2x.png in Resources */,
 				E6381B971B65F8D000CF73AA /* ic_userInfo_add_avatar@3x.png in Resources */,
 				E6381A901B65F61000CF73AA /* map_icon_19@2x.png in Resources */,
 				E6381B161B65F61000CF73AA /* speaking-motion8@3x.png in Resources */,

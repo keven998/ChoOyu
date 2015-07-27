@@ -172,7 +172,8 @@ typedef NS_ENUM(NSUInteger, UserInfoInputError) {
 /***** 用户验证验证码时候的原因 *****/
 typedef NS_ENUM(NSUInteger, VerifyCaptchaType) {
     UserLosePassword = 1,       //忘记密码
-    UserBindTel                 //绑定手机号的时候
+    UserBindTel,                 //绑定手机号的时候
+    UserRegister
 };
 
 /***** 用户性别枚举 *****/
@@ -185,7 +186,7 @@ typedef NS_ENUM(NSInteger, UserGender) {
 
 /***** 请求验证码和验证验证码时候向服务器发送的指令类型 *****/
 #define    kUserRegister         [NSNumber numberWithInt:1]        //用户注册时候进入时天下短信验证码
-#define    kUserLosePassword     [NSNumber numberWithInt:2]       //用户忘记密码
+#define    kUserLosePassword     [NSNumber numberWithInt:2]        //用户忘记密码
 #define    kUserBindTel          [NSNumber numberWithInt:3]         //用户绑定手机
 
 /**

@@ -114,7 +114,7 @@
     [tagBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     tagBtn.titleLabel.font = [UIFont systemFontOfSize:13];
     [tagBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 20, 0, 0)];
-    [tagBtn setBackgroundImage:[UIImage imageNamed:@"poi_bg_sort"] forState:UIControlStateNormal];
+    [tagBtn setBackgroundImage:[[UIImage imageNamed:@"poi_bg_sort"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)] forState:UIControlStateNormal];
     tagBtn.userInteractionEnabled = NO;
     [self addSubview:tagBtn];
     

@@ -125,6 +125,12 @@
         _travelStatus = [json objectForKey:@"travelStatus"];
     }
     
+    if ([json objectForKey:@"tel"]) {
+        _tel = [json objectForKey:@"tel"];
+    } else {
+        _tel = @"";
+    }
+    
     int countryCount = [[json objectForKey:@"countryCnt"] intValue];
     int cityCount = [[json objectForKey:@"trackCnt"] intValue];
     

@@ -107,7 +107,6 @@
         _cityDesc.text = descStr;
     }
     
-    
     oy += 56;
     
     CGFloat itemSpace = 18;

@@ -178,6 +178,47 @@
     }];
 }
 
+/**
+ *  修改攻略名称
+ *
+ *  @param guideSummary 被修改的攻略
+ *  @param title        新的标题
+ */
+- (void)updateGuideTitle:(NSString *)title completed:(void (^)(BOOL isSuccess))completed
+{
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@%ld/guides/%@", API_USERS, (long)accountManager.account.userId, _tripId];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:title forKey:@"title"];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [manager PUT:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            completed(YES);
+        } else {
+            completed(NO);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        completed(NO);
+    }];
+}
+
+
 - (void)updateTripDestinations:(void (^)(BOOL))completion withDestinations:(NSArray *)destinations
 {
     AccountManager *accountManager = [AccountManager shareAccountManager];
@@ -204,8 +245,9 @@
     NSMutableDictionary *uploadDic = [[NSMutableDictionary alloc] init];
     [uploadDic safeSetObject:_tripId forKey:@"id"];
     [uploadDic safeSetObject:destinationsArray forKey:@"localities"];
-    
-    [manager PUT:API_SAVE_TRIP parameters:uploadDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSString *url = [NSString stringWithFormat:@"%@%ld/guides/%@", API_USERS, (long)accountManager.account.userId, _tripId];
+
+    [manager PUT:url parameters:uploadDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {

@@ -11,7 +11,6 @@
 @implementation DestinationCollectionViewCell
 
 - (void)awakeFromNib {
-    // Initialization code
     _titleLabel.textColor = COLOR_TEXT_II;
 }
 

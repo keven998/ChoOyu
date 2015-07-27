@@ -167,6 +167,10 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     NSMutableDictionary *cityDic = [[NSMutableDictionary alloc] init];
     [cityDic setObject:@"城市" forKey:@"typeDesc"];
     NSMutableArray *cities = [[NSMutableArray alloc] init];
+    if ([[json objectForKey:@"locality"] count] == 0) {
+        NSString *searchStr = [NSString stringWithFormat:@"没有找到“%@”的相关结果", _searchBar.text];
+        [SVProgressHUD showHint:searchStr];
+    }
     for (id dic in [json objectForKey:@"locality"]) {
         SuperPoi *poi = [PoiFactory poiWithPoiType:kCityPoi andJson:dic];
         poi.poiType = kCityPoi;
