@@ -116,7 +116,7 @@
     bsvc.content = _tripDetail.tripTitle;
     bsvc.acceptEmptyContent = NO;
     bsvc.saveEdition = ^(NSString *editText, saveComplteBlock(completed)) {
-        [self editGuideTitle:_tripDetail.tripTitle andTitle:editText success:completed];
+        [self editGuideTitle:editText success:completed];
     };
     UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:bsvc];
     [self presentViewController:navi animated:YES completion:nil];
@@ -129,41 +129,15 @@
  *  @param guideSummary 被修改的攻略
  *  @param title        新的标题
  */
-- (void)editGuideTitle:(NSString *)title andTitle:(NSString *)editText success:(saveComplteBlock)completed
+- (void)editGuideTitle:(NSString *)editText success:(saveComplteBlock)completed
 {
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
-    
-    NSString *url = [NSString stringWithFormat:@"%@%ld/guides/%@", API_USERS, (long)accountManager.account.userId, _tripDetail.tripId];
-
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params setObject:editText forKey:@"title"];
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    [manager PUT:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@", responseObject);
-        _tripDetail.tripTitle = editText;
-        [_tableView reloadData];
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-        if (code == 0) {
-            completed(YES);
+    [_tripDetail updateGuideTitle:editText completed:^(BOOL isSuccess) {
+        if (isSuccess) {
+            [_tableView reloadData];
         } else {
             [self showHint:@"请求失败"];
-            completed(NO);
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        [self showHint:@"没找到网络"];
-        completed(NO);
+        completed(isSuccess);
     }];
 }
 
