@@ -346,7 +346,7 @@
         [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     }
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@%ld/guides/%@", API_USERS, _userId, _tripId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@%ld/guides/%@", API_USERS, (long)_userId, _tripId];
     TZProgressHUD *hud;
     if (_tripDetail == nil) {
         __weak typeof(TripDetailRootViewController *)weakSelf = self;
@@ -542,7 +542,7 @@
         [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     }
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@%ld/guides", API_USERS, [AccountManager shareAccountManager].account.userId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@%ld/guides", API_USERS, (long)[AccountManager shareAccountManager].account.userId];
     __weak typeof(TripDetailRootViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf content:64];

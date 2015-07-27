@@ -115,18 +115,17 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     _requestUrl =  API_GET_SPOTLIST_CITY;
     _requestUrl = API_GET_SPOTLIST_CITY;
     
-    [_tableView setContentOffset:CGPointMake(0, 45)];
-    _tableView.contentInset = UIEdgeInsetsMake(0, 0, 20, 0);
+    _tableView.contentInset = UIEdgeInsetsMake(0, 0, 50, 0);
     
     [self loadDataWithPageNo:_currentPageNormal];
 }
 
 - (void) setupSelectPanel {
-    CGRect collectionViewFrame = CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49 - 64, CGRectGetWidth(self.view.bounds), 49);
+    CGRect collectionViewFrame = CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49, CGRectGetWidth(self.view.bounds), 49);
     UICollectionViewFlowLayout *aFlowLayout = [[UICollectionViewFlowLayout alloc] init];
     [aFlowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
     self.selectPanel = [[UICollectionView alloc] initWithFrame:collectionViewFrame collectionViewLayout:aFlowLayout];
-    self.selectPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    self.selectPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     self.selectPanel.showsHorizontalScrollIndicator = NO;
     self.selectPanel.showsVerticalScrollIndicator = NO;
     self.selectPanel.delegate = self;
@@ -136,8 +135,13 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     self.selectPanel.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_selectPanel];
     
-    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49 - 64, self.selectPanel.frame.size.width, 1)];
+    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49, self.selectPanel.frame.size.width, 0.8)];
+    spaceView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     spaceView.backgroundColor = COLOR_LINE;
+    spaceView.layer.shadowColor = COLOR_LINE.CGColor;
+    spaceView.layer.shadowOffset = CGSizeMake(0, -1.0);
+    spaceView.layer.shadowOpacity = 0.5;
+    spaceView.layer.shadowRadius = 1.0;
     [self.view addSubview:spaceView];
 }
 
@@ -230,10 +234,7 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     searchCtl.shouldEdit = _shouldEdit;
     TZNavigationViewController *tznavc = [[TZNavigationViewController alloc] initWithRootViewController:searchCtl];
     
-    [self presentViewController:tznavc animated:YES completion:^{
-        
-    }];
-    
+    [self presentViewController:tznavc animated:YES completion:nil];
 }
 
 - (IBAction)addFinish:(id)sender
@@ -616,8 +617,6 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SuperPoi *poi = [self.dataSource objectAtIndex:indexPath.row];
     
-    NSLog(@"%@",self.tripDetail);
-
     BOOL isAdded = NO;
     NSMutableArray *oneDayArray = [self.tripDetail.itineraryList objectAtIndex:_currentDayIndex];
     for (SuperPoi *tripPoi in oneDayArray) {
@@ -778,11 +777,11 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     NSArray *oneDayArray = [self.tripDetail.itineraryList objectAtIndex:_currentDayIndex];
     SuperPoi *tripPoi = [oneDayArray objectAtIndex:indexPath.row];
     
-    NSString *txt = [NSString stringWithFormat:@" %ld %@ ", (indexPath.row + 1), tripPoi.zhName];
+    NSString *txt = [NSString stringWithFormat:@" %ld.%@ ", (indexPath.row + 1), tripPoi.zhName];
     cell.textLabel.text = txt;
     CGSize size = [txt sizeWithAttributes:@{NSFontAttributeName : cell.textLabel.font}];
-    cell.textLabel.frame = CGRectMake(0, 15, size.width, 25);
-    cell.deleteBtn.frame = CGRectMake(size.width-13, 5, 20, 20);
+    cell.textLabel.frame = CGRectMake(0, 12, size.width, 26);
+    cell.deleteBtn.frame = CGRectMake(size.width-11, 5, 20, 20);
     cell.deleteBtn.tag = indexPath.row;
     [cell.deleteBtn removeTarget:self action:@selector(deletePoi:) forControlEvents:UIControlEventTouchUpInside];
     [cell.deleteBtn addTarget:self action:@selector(deletePoi:) forControlEvents:UIControlEventTouchUpInside];
@@ -802,8 +801,8 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     NSArray *oneDayArray = [self.tripDetail.itineraryList objectAtIndex:_currentDayIndex];
     SuperPoi *tripPoi = [oneDayArray objectAtIndex:indexPath.row];
-    NSString *txt = [NSString stringWithFormat:@"%ld %@", (indexPath.row + 1), tripPoi.zhName];
-    CGSize size = [txt sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17]}];
+    NSString *txt = [NSString stringWithFormat:@" %ld.%@ ", (indexPath.row + 1), tripPoi.zhName];
+    CGSize size = [txt sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:13]}];
     return CGSizeMake(size.width, 49);
 }
 

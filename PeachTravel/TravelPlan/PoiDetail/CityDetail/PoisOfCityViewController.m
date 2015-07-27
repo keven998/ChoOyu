@@ -86,7 +86,6 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
             btn.imagePosition = IMAGE_AT_RIGHT;
             UIBarButtonItem *cbtn = [[UIBarButtonItem alloc] initWithCustomView:btn];
             [rbItems addObject:cbtn];
-            
         }
     }
     
@@ -103,18 +102,17 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     [self.tableView registerNib:[UINib nibWithNibName:@"TripPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:poisOfCityCellIdentifier];
     [self.view addSubview:self.tableView];
     
-    NSString *cityName;
     for (CityDestinationPoi *poi in _tripDetail.destinations) {
         if ([poi.cityId isEqualToString:_cityId]) {
-            cityName = poi.zhName;
+            _zhName = poi.zhName;
             break;
         }
     }
     
     if (_poiType == kRestaurantPoi) {
-        self.navigationItem.title = [NSString stringWithFormat:@"%@美食", cityName];
+        self.navigationItem.title = [NSString stringWithFormat:@"%@美食", _zhName];
     } else if (_poiType == kShoppingPoi) {
-        self.navigationItem.title = [NSString stringWithFormat:@"%@购物", cityName];
+        self.navigationItem.title = [NSString stringWithFormat:@"%@购物", _zhName];
     }
     
     _currentPageNormal = 0;
@@ -134,7 +132,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     } else {
         [self loadDataPoisOfCity:_currentPageNormal];
         [self setupSelectPanel];
-        [_tableView setContentOffset:CGPointMake(0, 49)];
+        _tableView.contentInset = UIEdgeInsetsMake(0, 0, 50, 0);
     }
 }
 
@@ -183,7 +181,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     UICollectionViewFlowLayout *aFlowLayout = [[UICollectionViewFlowLayout alloc] init];
     [aFlowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
     self.selectPanel = [[UICollectionView alloc] initWithFrame:collectionViewFrame collectionViewLayout:aFlowLayout];
-    self.selectPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    self.selectPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     self.selectPanel.showsHorizontalScrollIndicator = NO;
     self.selectPanel.showsVerticalScrollIndicator = NO;
     self.selectPanel.delegate = self;
@@ -194,9 +192,15 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     self.selectPanel.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_selectPanel];
     
-    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 50, self.selectPanel.frame.size.width, 1)];
+    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49, self.selectPanel.frame.size.width, 0.6)];
+    spaceView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     spaceView.backgroundColor = COLOR_LINE;
+    spaceView.layer.shadowColor = COLOR_LINE.CGColor;
+    spaceView.layer.shadowOffset = CGSizeMake(0, -1.0);
+    spaceView.layer.shadowOpacity = 0.33;
+    spaceView.layer.shadowRadius = 1.0;
     [self.view addSubview:spaceView];
+    
 }
 
 #pragma mark - setter & getter
@@ -496,6 +500,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     }
 }
 
+
 - (IBAction)finishAdd:(id)sender
 {
     [_backTripDetail saveTrip:^(BOOL isSuccesss) {
@@ -509,6 +514,15 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
             _tripDetail.backUpJson = _backTripDetail.backUpJson;
             [_delegate finishEdit];
             [self dismissViewControllerAnimated:YES completion:nil];
+        } else {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"保存失败了是否重新保存？" message:nil delegate:self cancelButtonTitle:@"直接返回" otherButtonTitles:@"保存", nil];
+            [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
+                if (buttonIndex == 0) {
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                } else if (buttonIndex == 1) {
+                    [self finishAdd:nil];
+                }
+            }];
         }
     }];
 }
@@ -530,9 +544,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     [poiSearchCtl setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
     TZNavigationViewController *tznavc = [[TZNavigationViewController alloc] initWithRootViewController:poiSearchCtl];
     
-    [self presentViewController:tznavc animated:YES completion:^{
-        
-    }];
+    [self presentViewController:tznavc animated:YES completion:nil];
 }
 
 - (IBAction)jumpToMapView:(UIButton *)sender
@@ -685,12 +697,12 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
             [btn setAttributedTitle:desc forState:UIControlStateNormal];
             
             desc = [[NSMutableAttributedString alloc] initWithAttributedString:desc];
-            [desc addAttribute:NSForegroundColorAttributeName value:COLOR_TEXT_I range:NSMakeRange(0, len)];
+            [desc addAttribute:NSForegroundColorAttributeName value:COLOR_DISABLE range:NSMakeRange(0, len)];
             [btn setAttributedTitle:desc forState:UIControlStateHighlighted];
             [btn addTarget:self action:@selector(showIntruductionOfCity) forControlEvents:UIControlEventTouchUpInside];
             btn.titleLabel.numberOfLines = 2;
             
-            UILabel *moreLabel = [[UILabel alloc] initWithFrame:CGRectMake(btn.bounds.size.width-49, btn.bounds.size.height-36, 30, 20)];
+            UILabel *moreLabel = [[UILabel alloc] initWithFrame:CGRectMake(btn.bounds.size.width-49, btn.bounds.size.height-31, 30, 20)];
             moreLabel.textColor = APP_THEME_COLOR;
             moreLabel.font = [UIFont systemFontOfSize:13.0];
             moreLabel.text = @"全文";
@@ -732,7 +744,6 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     SuperPoi *poi = [_dataSource.recommendList objectAtIndex:indexPath.row];
-    NSLog(@"%@",[poi.style firstObject]);
     
     if (_poiType == kRestaurantPoi) {
         CommonPoiDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];
@@ -863,11 +874,11 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     SelectDestCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"sdest_cell" forIndexPath:indexPath];
     SuperPoi *tripPoi = [_seletedArray objectAtIndex:indexPath.row];
     
-    NSString *txt = [NSString stringWithFormat:@" %ld %@ ", (indexPath.row + 1), tripPoi.zhName];
+    NSString *txt = [NSString stringWithFormat:@" %ld.%@ ", (indexPath.row + 1), tripPoi.zhName];
     cell.textLabel.text = txt;
     CGSize size = [txt sizeWithAttributes:@{NSFontAttributeName : cell.textLabel.font}];
-    cell.textLabel.frame = CGRectMake(0, 15, size.width, 25);
-    cell.deleteBtn.frame = CGRectMake(size.width-13, 5, 20, 20);
+    cell.textLabel.frame = CGRectMake(0, 12, size.width, 26);
+    cell.deleteBtn.frame = CGRectMake(size.width-11, 5, 20, 20);
     cell.deleteBtn.tag = indexPath.row;
     [cell.deleteBtn removeTarget:self action:@selector(deletePoi:) forControlEvents:UIControlEventTouchUpInside];
     [cell.deleteBtn addTarget:self action:@selector(deletePoi:) forControlEvents:UIControlEventTouchUpInside];
@@ -896,14 +907,14 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     SuperPoi *tripPoi = [_seletedArray objectAtIndex:indexPath.row];
-    NSString *txt = [NSString stringWithFormat:@" %ld %@ ", (long)(indexPath.row + 1), tripPoi.zhName];
-    CGSize size = [txt sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17]}];
+    NSString *txt = [NSString stringWithFormat:@" %ld.%@ ", (long)(indexPath.row + 1), tripPoi.zhName];
+    CGSize size = [txt sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:13]}];
     return CGSizeMake(size.width, 49);
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 {
-    return 5.0;
+    return 14.0;
 }
 
 #pragma mark - updateSelectedPlanDelegate
@@ -947,8 +958,8 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
 - (id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         _textLabel = [[UILabel alloc] init];
-        _textLabel.font = [UIFont systemFontOfSize:14];
-        _textLabel.textColor = COLOR_TEXT_II;
+        _textLabel.font = [UIFont systemFontOfSize:13];
+        _textLabel.textColor = COLOR_TEXT_III;
         _textLabel.textAlignment = NSTextAlignmentCenter;
         _textLabel.numberOfLines = 1;
         _textLabel.layer.borderColor = COLOR_LINE.CGColor;

@@ -15,6 +15,8 @@
 @implementation PlanScheduleTableViewCell
 
 - (void)awakeFromNib {
+    self.contentView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
+
     _headerImageView.clipsToBounds = YES;
     _dayLabel.textAlignment = NSTextAlignmentCenter;
     _dayScheduleSummary.numberOfLines = 0;

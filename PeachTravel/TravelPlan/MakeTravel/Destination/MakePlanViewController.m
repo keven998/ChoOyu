@@ -87,15 +87,19 @@
 }
 
 - (void) setupSelectPanel {
-    UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-49, self.view.frame.size.width, 49)];
+    UIView *toolBar = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-49, self.view.frame.size.width, 49)];
     toolBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    toolBar.layer.shadowColor = COLOR_LINE.CGColor;
+    toolBar.layer.shadowOffset = CGSizeMake(0, -1.0);
+    toolBar.layer.shadowOpacity = 0.33;
+    toolBar.layer.shadowRadius = 1.0;
     [self.view addSubview:toolBar];
     
     UICollectionViewFlowLayout *aFlowLayout = [[UICollectionViewFlowLayout alloc] init];
-    aFlowLayout.minimumInteritemSpacing = 10;
+    aFlowLayout.minimumInteritemSpacing = 0;
     [aFlowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
     self.selectPanel = [[UICollectionView alloc] initWithFrame:toolBar.bounds collectionViewLayout:aFlowLayout];
-    [self.selectPanel setBackgroundColor:APP_PAGE_COLOR];
+    [self.selectPanel setBackgroundColor:[UIColor whiteColor]];
     self.selectPanel.showsHorizontalScrollIndicator = NO;
     self.selectPanel.showsVerticalScrollIndicator = NO;
     self.selectPanel.delegate = self;
@@ -279,7 +283,6 @@
 {
     [self.searchResultArray removeAllObjects];
     for (id dic in [json objectForKey:@"locality"]) {
-        NSLog(@"%@",dic);
         CityDestinationPoi *poi = [[CityDestinationPoi alloc] initWithJson:dic];
         [self.searchResultArray addObject:poi];
     }
@@ -402,11 +405,10 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     DestinationCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
-    cell.titleLabel.textColor = COLOR_TEXT_I;
 //    cell.status.image = [UIImage imageNamed:@"ic_cell_item_chooesed.png"];
 //    cell.backgroundColor = APP_THEME_COLOR;
     CityDestinationPoi *city = [self.destinations.destinationsSelected objectAtIndex:indexPath.row];
-    cell.titleLabel.text = city.zhName;
+    cell.titleLabel.text = [NSString stringWithFormat:@"%ld.%@", (indexPath.row + 1), city.zhName];
     return cell;
 }
 
@@ -428,12 +430,12 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     CityDestinationPoi *city = [self.destinations.destinationsSelected objectAtIndex:indexPath.row];
-    CGSize size = [city.zhName sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:15.0]}];
-    return CGSizeMake(size.width+20, 28);
+    CGSize size = [[NSString stringWithFormat:@"%ld.%@", (indexPath.row + 1), city.zhName] sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:15.0]}];
+    return CGSizeMake(size.width, 28);
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
-    return 12.0;
+    return 14;
 }
 
 @end
