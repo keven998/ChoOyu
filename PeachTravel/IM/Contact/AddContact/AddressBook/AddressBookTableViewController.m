@@ -153,6 +153,7 @@
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:addressBookList forKey:@"contacts"];
+    [params setObject:@"addressbook" forKey:@"action"];
     
     [manager POST:API_UPLOAD_ADDRESSBOOK parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [_hud hideTZHUD];
