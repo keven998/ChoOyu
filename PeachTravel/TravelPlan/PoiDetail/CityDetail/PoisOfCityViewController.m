@@ -496,7 +496,6 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     }
 }
 
-#warning 点击完后后不能更新列表
 - (IBAction)finishAdd:(id)sender
 {
     [_backTripDetail saveTrip:^(BOOL isSuccesss) {
@@ -733,6 +732,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     SuperPoi *poi = [_dataSource.recommendList objectAtIndex:indexPath.row];
+    NSLog(@"%@",[poi.style firstObject]);
     
     if (_poiType == kRestaurantPoi) {
         CommonPoiDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];

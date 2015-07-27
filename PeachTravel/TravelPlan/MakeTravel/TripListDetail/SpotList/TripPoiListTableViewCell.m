@@ -35,6 +35,7 @@
     [_headerImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
     _titleLabel.text = tripPoi.zhName;
     
+    NSLog(@"%@",_tripPoi.style);
     
     NSString *property = nil;
     NSString *rankStr = nil;
@@ -57,7 +58,7 @@
             property = timeStr;
         }
     } else {
-        property = [NSString stringWithFormat:@"%@", @"小吃快餐"];
+        property = [_tripPoi.style firstObject];
     }
     
     
