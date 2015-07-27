@@ -99,6 +99,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self.tableView reloadData];
     [MobClick beginLogPageView:@"page_personal_profile"];
 }
 
