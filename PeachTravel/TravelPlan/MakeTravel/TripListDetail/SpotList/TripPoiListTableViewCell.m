@@ -19,8 +19,6 @@
     [_actionBtn setBackgroundImage:[UIImage imageNamed:@"sent_bg.png"] forState:UIControlStateNormal];
     _actionBtn.layer.cornerRadius = 3;
     _actionBtn.clipsToBounds = YES;
-//    [_actionBtn setTitle:@"添加" forState:UIControlStateNormal];
-//    [_actionBtn setTitle:@"已添加" forState:UIControlStateSelected];
     _actionBtn.hidden = YES;
 }
 
