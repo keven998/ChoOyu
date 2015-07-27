@@ -17,7 +17,8 @@
 #import "SpecialPoiCell.h"
 #import "CommentTableViewCell.h"
 #import "UIImage+BoxBlur.h"
-
+#import "PricePoiDetailController.h"
+#import "CityDescDetailViewController.h"
 
 @interface CommonPoiDetailViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) UIImageView *backGroundImageView;
@@ -161,7 +162,10 @@
 //子类重写
 - (void)showPoiDesc
 {
-    
+    CityDescDetailViewController *cddVC = [[CityDescDetailViewController alloc]init];
+    cddVC.des = self.poi.desc;
+    cddVC.title = self.poi.zhName;
+    [self.navigationController pushViewController:cddVC animated:YES];
 }
 
 #pragma mark - Private Methods
@@ -173,10 +177,33 @@
  */
 - (void)showPoidetail:(id)sender
 {
+    NSLog(@"%@",self.poi);
+    
+    SpotPoi * poi = (SpotPoi *)self.poi;
+    
     [MobClick event:@"event_spot_information"];
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
     webCtl.titleStr = self.poi.zhName;
-    webCtl.urlStr = self.poi.descUrl;
+    
+    NSLog(@"%@",self.poi.descUrl);
+    
+    if (self.poiType == kSpotPoi) {
+        if (poi.bookUrl.length != 0) {
+            webCtl.urlStr = poi.bookUrl;
+        }
+    }else{
+        if (self.poi.descUrl) {
+            webCtl.urlStr = self.poi.descUrl;
+        }else{
+            webCtl.urlStr = @"暂无此数据";
+            PricePoiDetailController * pricePoi = [[PricePoiDetailController alloc] init];
+            pricePoi.desc = self.poi.priceDesc;
+            pricePoi.view.backgroundColor = [UIColor whiteColor];
+            [self.navigationController pushViewController:pricePoi animated:YES];
+            return;
+        }
+    }
+    
     webCtl.hideToolBar = YES;
     [self.navigationController pushViewController:webCtl animated:YES];
     

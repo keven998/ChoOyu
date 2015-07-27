@@ -300,6 +300,7 @@
 
 - (void)updateAccountInfo {
     AccountManager *amgr = self.accountManager;
+    
     if ([amgr isLogin]) {
         [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:amgr.account.avatarSmall] placeholderImage:[UIImage imageNamed:@"ic_home_avatar_unknown.png"]];
 
@@ -313,7 +314,7 @@
         _nameLabel.text = amgr.account.nickName;
         _idLabel.text = [NSString stringWithFormat:@"ID：%ld", (long)amgr.account.userId];
         _constellationView.image = [UIImage imageNamed:[FrendModel costellationImageNameWithBirthday:_accountManager.account.birthday]];
-        _levelLabel.text = @"Lv12";
+        _levelLabel.text = @"Lv0";
         if (amgr.account.gender == Male) {
             _avatarBg.image = [UIImage imageNamed:@"ic_home_avatar_border_boy.png"];
             _levelBg.image = [UIImage imageNamed:@"ic_home_level_bg_boy.png"];
