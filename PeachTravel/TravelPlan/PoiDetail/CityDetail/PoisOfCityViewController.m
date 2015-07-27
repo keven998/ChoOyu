@@ -500,7 +500,6 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     }
 }
 
-
 - (IBAction)finishAdd:(id)sender
 {
     [_backTripDetail saveTrip:^(BOOL isSuccesss) {
