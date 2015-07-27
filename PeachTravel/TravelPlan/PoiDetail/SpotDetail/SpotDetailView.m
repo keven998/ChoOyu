@@ -113,21 +113,30 @@
     [tagBtn setTitle:tagTitle forState:UIControlStateNormal];
     [tagBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     tagBtn.titleLabel.font = [UIFont systemFontOfSize:13];
-    [tagBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 20, 0, 0)];
     [tagBtn setBackgroundImage:[[UIImage imageNamed:@"poi_bg_sort"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)] forState:UIControlStateNormal];
     tagBtn.userInteractionEnabled = NO;
     [self addSubview:tagBtn];
     
-    UILabel *rankLable = [[UILabel alloc] initWithFrame:CGRectMake(14, 15, 16, 10)];
-    rankLable.textAlignment = NSTextAlignmentCenter;
-    rankLable.font = [UIFont systemFontOfSize:7.0];
-    rankLable.textColor = [UIColor whiteColor];
+    UIButton *rankBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, 6, 22, 28)];
+    rankBtn.userInteractionEnabled = NO;
+    [rankBtn setBackgroundImage:[UIImage imageNamed:@"poi_bg_sort_flower.png"] forState:UIControlStateNormal];
+    rankBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+    [rankBtn setTitleEdgeInsets:UIEdgeInsetsMake(-2, 1, 2, 0)];
+    [rankBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     if (_spot.rank == 0 || _spot.rank > 500) {
-        rankLable.text = @"N";
-    } else {
-        rankLable.text = [NSString stringWithFormat:@"%d", _spot.rank];
+        [rankBtn setTitle:@"N" forState:UIControlStateNormal];
+        rankBtn.titleLabel.font = [UIFont systemFontOfSize:9.0];
+    } else  {
+        [rankBtn setTitle:[NSString stringWithFormat:@"%d", _spot.rank] forState:UIControlStateNormal];
+        if (_spot.rank < 10) {
+            rankBtn.titleLabel.font = [UIFont systemFontOfSize:9.0];
+        } else if (_spot.rank >= 10 && _spot.rank < 100) {
+            rankBtn.titleLabel.font = [UIFont systemFontOfSize:8.0];
+        } else {
+            rankBtn.titleLabel.font = [UIFont systemFontOfSize:6.0];
+        }
     }
-    [tagBtn addSubview:rankLable];
+    [tagBtn addSubview:rankBtn];
     
     offsetY += 57;
     

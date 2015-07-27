@@ -127,7 +127,7 @@
     _levelLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64, 18)];
     _levelLabel.textColor = [UIColor whiteColor];
     _levelLabel.font = [UIFont systemFontOfSize:9];
-    _levelLabel.text = @"LV0";
+    _levelLabel.text = [NSString stringWithFormat:@"LV%ld", (long)_userInfo.level];
     _levelLabel.textAlignment = NSTextAlignmentCenter;
     [_levelBg addSubview:_levelLabel];
     
@@ -706,7 +706,7 @@
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
     
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", account.account.userId] forHTTPHeaderField:@"UserId"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)account.account.userId] forHTTPHeaderField:@"UserId"];
     
     NSString *urlStr = [NSString stringWithFormat:@"%@%ld/albums", API_USERS, (long)_userId];
     
@@ -729,7 +729,7 @@
         [_albumArray addObject:[[AlbumImage alloc] initWithJson:album]];
     }
     _userInfo.userAlbum = _albumArray;
-    _albumLabel.text = [NSString stringWithFormat:@"%lu张",_albumArray.count];
+    _albumLabel.text = [NSString stringWithFormat:@"%lu张", (long)_albumArray.count];
 }
 
 #pragma mark - buttonMethod

@@ -28,6 +28,7 @@
 @property (nonatomic, strong) NSString * secToken;
 @property (nonatomic, strong) NSString * signature;
 @property (nonatomic, strong) NSString * tel;
+@property (nonatomic) NSInteger level;
 @property (nonatomic, strong) NSMutableArray *frendRequest;
 
 /**
