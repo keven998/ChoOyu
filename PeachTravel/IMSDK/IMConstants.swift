@@ -73,15 +73,11 @@ let HedyLoginUrl = "\(HedyUserUrl)/login"
 
 /******   Debug Log *****/
 func debug_println(object: AnyObject) {
-#if DEBUG
     Swift.println(object)
-#endif
 }
 
 func debug_print(object: AnyObject) {
-#if DEBUG
     Swift.print(object)
-#endif
 }
 
 

@@ -47,7 +47,7 @@ protocol ChatManagerAudioProtocol {
 
 @objc protocol ChatManagerAudioRecordDelegate {
     
-    optional func audioRecordEnd(audioPath: String)
+    optional func audioRecordEnd(audioPath: String, audioLength: Float)
 
 }
 
@@ -99,6 +99,23 @@ class ChatManagerAudio: NSObject, ChatManagerAudioProtocol, AudioManagerDelegate
             timer.invalidate()
             timer = nil
         }
+    }
+    
+    /**
+    删除录音文件
+    */
+    private func removeTemtAudioFile() {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
+            var fileManager =  NSFileManager.defaultManager()
+            var error: NSError?
+            fileManager.removeItemAtPath(self.audioPath, error: &error)
+            if error != nil {
+                debug_println("移除取消录音的文件文件出错 error\(error)")
+            } else {
+                debug_print("取消录音，删除录音文件成功")
+            }
+            
+        })
     }
 
     func updateMeters() {
@@ -167,13 +184,16 @@ class ChatManagerAudio: NSObject, ChatManagerAudioProtocol, AudioManagerDelegate
     }
     
     func audioRecordEnd() {
-        timeCounter = 0
         stopTimer()
         if audioIsValid {
-            chatManagerAudioRecordDelegate?.audioRecordEnd?(audioPath)
+            chatManagerAudioRecordDelegate?.audioRecordEnd?(audioPath, audioLength: timeCounter)
+            if timeCounter < 0.8 {
+                self.removeTemtAudioFile()
+            }
         } else {
-            // TODO: 删除录音文件
+           self.removeTemtAudioFile()
         }
+        timeCounter = 0
     }
     
     func audioRecordInterrupt() {
