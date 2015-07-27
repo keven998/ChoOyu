@@ -43,7 +43,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     _searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _searchBar.delegate = self;
     [_searchBar setPlaceholder:@"城市/景点/美食/购物"];
-    _searchBar.tintColor = COLOR_TEXT_I;
+    _searchBar.tintColor = COLOR_TEXT_II;
     _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
     [_searchBar setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
     [_searchBar setBackgroundColor:APP_THEME_COLOR];

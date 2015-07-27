@@ -452,8 +452,7 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)sectio
 {
-//    return 50;
-    return self.tripDetail ? 50 : 0;
+    return self.tripDetail ? 50 : 0.5;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -474,6 +473,9 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
  */
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
+    if (!_tripDetail) {
+        return nil;
+    }
     // 1.创建头部视图
     UIView * header = [[UIView alloc] init];
     header.frame = CGRectMake(0, 0, SCREEN_WIDTH, 50);

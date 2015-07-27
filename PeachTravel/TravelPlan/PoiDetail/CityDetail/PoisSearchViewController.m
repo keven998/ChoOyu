@@ -44,6 +44,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     _searchBar = [[UISearchBar alloc]init];
     _searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [_searchBar setPlaceholder:@"搜索"];
+    _searchBar.tintColor = COLOR_TEXT_II;
     _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
     [_searchBar setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
     [_searchBar setBackgroundColor:APP_THEME_COLOR];
@@ -139,6 +140,9 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
                 break;
         }
         NSArray *jsonDic = [[responseObject objectForKey:@"result"] objectForKey:key];
+        if (jsonDic.count == 0) {
+            [SVProgressHUD showHint:@"搜索无结果"];
+        }
         if (jsonDic.count == 15) {
             _enableLoadMoreSearch = YES;
         }
@@ -160,8 +164,8 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     [self loadSearchDataWithPageNo:(_currentPageSearch + 1)];
     
     NSLog(@"我要加载到第%lu",(long)_currentPageSearch+1);
-    
 }
+
 - (void) loadMoreCompletedSearch
 {
     if (!_isLoadingMoreSearch) return;
@@ -228,6 +232,9 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
                 break;
             }
         }
+        [cell.actionBtn setTitle:@"收藏" forState:UIControlStateNormal];
+        [cell.actionBtn setTitle:@"已收藏" forState:UIControlStateSelected];
+
         cell.actionBtn.selected = isAdded;
         [cell.actionBtn removeTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
         [cell.actionBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
