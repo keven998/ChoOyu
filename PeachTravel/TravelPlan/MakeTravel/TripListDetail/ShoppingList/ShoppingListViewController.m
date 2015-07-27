@@ -108,6 +108,7 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
 {
     [MobClick event:@"event_add_shopping_schedule"];
     PoisOfCityViewController *shoppingOfCityCtl = [[PoisOfCityViewController alloc] init];
+    NSLog(@"%@",_tripDetail);
     shoppingOfCityCtl.tripDetail = _tripDetail;
     shoppingOfCityCtl.delegate = self;
     shoppingOfCityCtl.poiType = kShoppingPoi;

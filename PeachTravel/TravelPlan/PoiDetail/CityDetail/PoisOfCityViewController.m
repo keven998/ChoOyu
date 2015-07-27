@@ -719,6 +719,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SuperPoi *poi = [_dataSource.recommendList objectAtIndex:indexPath.row];
+    NSLog(@"%@",poi);
     TripPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:poisOfCityCellIdentifier forIndexPath:indexPath];
     cell.tripPoi = poi;
     [cell.actionBtn setTitle:@"收藏" forState:UIControlStateNormal];
