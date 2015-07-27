@@ -285,7 +285,8 @@
             [self.frostedViewController.navigationController popViewControllerAnimated:YES];
         } else {
             _tripDetail.itineraryList = backItineraryList;
-            [SVProgressHUD showHint:@"保存失败"];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"保存失败，请检查你的网络设置" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+            [alertView show];
         }
     }];
 }

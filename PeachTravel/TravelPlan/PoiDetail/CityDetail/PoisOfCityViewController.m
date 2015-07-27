@@ -514,13 +514,15 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
             [_delegate finishEdit];
             [self dismissViewControllerAnimated:YES completion:nil];
         } else {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"保存失败了是否重新保存？" message:nil delegate:self cancelButtonTitle:@"直接返回" otherButtonTitles:@"保存", nil];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"保存失败，请检查你的网络设置" delegate:self cancelButtonTitle:@"直接返回" otherButtonTitles:@"确定", nil];
+            [alertView dismissWithClickedButtonIndex:1 animated:YES];
             [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
                 if (buttonIndex == 0) {
                     [self dismissViewControllerAnimated:YES completion:nil];
-                } else if (buttonIndex == 1) {
-                    [self finishAdd:nil];
                 }
+//                else if (buttonIndex == 1) {
+//                    [self finishAdd:nil];
+//                }
             }];
         }
     }];
