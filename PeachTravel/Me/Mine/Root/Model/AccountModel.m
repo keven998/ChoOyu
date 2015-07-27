@@ -125,6 +125,12 @@
         _travelStatus = [json objectForKey:@"travelStatus"];
     }
     
+    if ([json objectForKey:@"level"] == [NSNull null]) {
+        _level = 0;
+    } else {
+        _level = [[json objectForKey:@"level"] integerValue];
+    }
+    
     if ([json objectForKey:@"tel"]) {
         _tel = [json objectForKey:@"tel"];
     } else {
@@ -170,7 +176,7 @@
             [countriesArray addObject:poi.country.coutryId];
         }
     }
-    return [NSString stringWithFormat:@"%ld国，%ld城市", countriesArray.count, _footprints.count];
+    return [NSString stringWithFormat:@"%ld国，%ld城市", (long)countriesArray.count, (long)_footprints.count];
 }
 
 - (void)loadUserInfoFromServer:(void (^)(bool isSuccess))completion
@@ -183,8 +189,8 @@
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", self.userId] forHTTPHeaderField:@"UserId"];
-    NSString *url = [NSString stringWithFormat:@"%@%ld", API_USERS, self.userId];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)self.userId] forHTTPHeaderField:@"UserId"];
+    NSString *url = [NSString stringWithFormat:@"%@%ld", API_USERS, (long)self.userId];
     
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);

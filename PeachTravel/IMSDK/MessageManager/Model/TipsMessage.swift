@@ -48,8 +48,8 @@ class TipsMessage: BaseMessage {
             }
             retString += "\(operatorNickName)邀请 "
             if let contentArray = content.objectForKey("targets") as? NSArray {
+                var index = 0
                 for userInfo in contentArray {
-                    var index = 0
                     let userId: Int = userInfo.objectForKey("userId") as! Int
                     if userId == IMClientManager.shareInstance().accountId {
                         if contentArray.count == 0 {
@@ -60,7 +60,7 @@ class TipsMessage: BaseMessage {
                     } else {
                         let nickName = userInfo.objectForKey("nickName") as! String
                         if index == contentArray.count-1 {
-                            retString += "\(nickName)"
+                            retString += "\(nickName) "
                         } else {
                             retString += "\(nickName), "
                         }
@@ -78,9 +78,9 @@ class TipsMessage: BaseMessage {
 
             if let contentArray = content.objectForKey("targets") as? NSArray {
                 if contentArray.count > 0 {
+                    var index = 0
                     retString += "\(operatorNickName)把 "
                     for userInfo in contentArray {
-                        var index = 0
                         let userId: Int = userInfo.objectForKey("userId") as! Int
                         if userId == IMClientManager.shareInstance().accountId {
                             if contentArray.count == 1 {
@@ -91,7 +91,7 @@ class TipsMessage: BaseMessage {
                         } else {
                             let nickName = userInfo.objectForKey("nickName") as! String
                             if index == contentArray.count-1 {
-                                retString += "\(nickName)"
+                                retString += "\(nickName) "
                                 
                             } else {
                                 retString += "\(nickName), "
