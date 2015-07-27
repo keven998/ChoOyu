@@ -204,8 +204,9 @@
     NSMutableDictionary *uploadDic = [[NSMutableDictionary alloc] init];
     [uploadDic safeSetObject:_tripId forKey:@"id"];
     [uploadDic safeSetObject:destinationsArray forKey:@"localities"];
-    
-    [manager PUT:API_SAVE_TRIP parameters:uploadDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSString *url = [NSString stringWithFormat:@"%@%ld/guides/%@", API_USERS, (long)accountManager.account.userId, _tripId];
+
+    [manager PUT:url parameters:uploadDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {

@@ -52,6 +52,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [_tableView reloadData];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
 }
 
@@ -142,11 +143,12 @@
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     
-    NSString *requestUrl = [NSString stringWithFormat:@"%@%@",API_SAVE_TRIPINFO, _tripDetail.tripId];
+    NSString *url = [NSString stringWithFormat:@"%@%ld/guides/%@", API_USERS, (long)accountManager.account.userId, _tripDetail.tripId];
+
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:editText forKey:@"title"];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    [manager PUT:requestUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager PUT:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         _tripDetail.tripTitle = editText;
         [_tableView reloadData];

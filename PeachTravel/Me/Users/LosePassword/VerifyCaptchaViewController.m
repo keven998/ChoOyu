@@ -173,8 +173,12 @@
         [params setObject:kUserLosePassword forKey:@"action"];
         AccountManager *accountManager = [AccountManager shareAccountManager];
         [params setObject:[NSNumber numberWithInteger: accountManager.account.userId] forKey:@"userId"];
-    } else {
+    } else if (_verifyCaptchaType == UserRegister) {
         [params setObject:kUserRegister forKey:@"action"];
+    } else if (_verifyCaptchaType == UserBindTel) {
+        AccountManager *accountManager = [AccountManager shareAccountManager];
+        [params setObject:[NSNumber numberWithInteger: accountManager.account.userId] forKey:@"userId"];
+        [params setObject:kUserBindTel forKey:@"action"];
     }
 
      __weak typeof(VerifyCaptchaViewController *)weakSelf = self;
@@ -203,8 +207,7 @@
             
         } else {
             if (self.isShowing) {
-//                [SVProgressHUD showHint:HTTP_FAILED_HINT];
-                [SVProgressHUD showHint:@"号码未注册"];
+                [SVProgressHUD showHint:HTTP_FAILED_HINT];
             }
         }
     }];
