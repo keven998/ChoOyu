@@ -203,7 +203,8 @@
             
         } else {
             if (self.isShowing) {
-                [SVProgressHUD showHint:HTTP_FAILED_HINT];
+//                [SVProgressHUD showHint:HTTP_FAILED_HINT];
+                [SVProgressHUD showHint:@"号码未注册"];
             }
         }
     }];
