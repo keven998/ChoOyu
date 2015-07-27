@@ -729,7 +729,7 @@
         [_albumArray addObject:[[AlbumImage alloc] initWithJson:album]];
     }
     _userInfo.userAlbum = _albumArray;
-    _albumLabel.text = [NSString stringWithFormat:@"%lu张",_albumArray.count];
+    _albumLabel.text = [NSString stringWithFormat:@"%lu张", (long)_albumArray.count];
 }
 
 #pragma mark - buttonMethod
