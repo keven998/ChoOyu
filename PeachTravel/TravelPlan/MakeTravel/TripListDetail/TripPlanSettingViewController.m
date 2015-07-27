@@ -76,7 +76,7 @@
         _tableView.opaque = NO;
         _tableView.backgroundColor = [UIColor clearColor];
         _tableView.separatorColor = COLOR_LINE;
-        _tableView.contentInset = UIEdgeInsetsMake(24, 0, 0, 0);
+        _tableView.contentInset = UIEdgeInsetsMake(24, 0, 20, 0);
         _tableView;
     });
     [self.view addSubview:_tableView];
