@@ -44,6 +44,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     _searchBar = [[UISearchBar alloc]init];
     _searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [_searchBar setPlaceholder:@"搜索"];
+    _searchBar.tintColor = COLOR_TEXT_II;
     _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
     [_searchBar setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
     [_searchBar setBackgroundColor:APP_THEME_COLOR];
