@@ -191,7 +191,11 @@ typedef void(^loginCompletion)(BOOL completed);
 
 - (UserInfoInputError)checkInput
 {
-    NSString * regex0 = @"^1\\d{10}$";
+//    NSString * regex0 = @"^1\\d{10}$";
+    
+    NSString * regex0 = @"^[1][3458][0-9]{9}$";
+    
+    // /^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/
     NSPredicate *pred0 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex0];
     if (![pred0 evaluateWithObject:_phoneLabel.text]) {
         return PhoneNumberError;
