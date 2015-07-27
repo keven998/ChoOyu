@@ -99,7 +99,7 @@ static NSString *reusableCell = @"myGuidesCell";
         self.navigationItem.rightBarButtonItem = sbtn;
     }
     
-    self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithIcon:@"common_icon_navigaiton_back_black.png" highIcon:@"common_icon_navigaiton_back_black.png" target:self action:@selector(goBack)];
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithIcon:@"common_icon_navigaiton_back_normal.png" highIcon:@"common_icon_navigaiton_back_normal.png" target:self action:@selector(goBack)];
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;

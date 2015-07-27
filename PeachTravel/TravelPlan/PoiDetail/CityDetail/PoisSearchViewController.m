@@ -124,7 +124,6 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     //获取搜索列表信息
     [manager GET:API_SEARCH parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        //        NSLog(@"%@^-^-^",responseObject);
         NSString *key = nil;
         switch (_poiType) {
             case kRestaurantPoi:
@@ -141,7 +140,8 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
         }
         NSArray *jsonDic = [[responseObject objectForKey:@"result"] objectForKey:key];
         if (jsonDic.count == 0) {
-            [SVProgressHUD showHint:@"搜索无结果"];
+            NSString *searchStr = [NSString stringWithFormat:@"没有找到%@的相关结果", _searchBar.text];
+            [SVProgressHUD showHint:searchStr];
         }
         if (jsonDic.count == 15) {
             _enableLoadMoreSearch = YES;

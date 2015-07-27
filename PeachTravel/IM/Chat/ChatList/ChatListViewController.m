@@ -9,7 +9,6 @@
 #import "ChatListViewController.h"
 #import "ChatListCell.h"
 #import "NSDate+Category.h"
-#import "RealtimeSearchUtil.h"
 #import "ChatViewController.h"
 #import "ConvertToCommonEmoticonsHelper.h"
 #import "AccountManager.h"
