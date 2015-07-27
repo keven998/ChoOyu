@@ -639,10 +639,14 @@
     else {
         if (indexPath.row == 0) {
             [MobClick event:@"event_update_phone"];
-            VerifyCaptchaViewController *changePasswordCtl = [[VerifyCaptchaViewController alloc] init];
-            changePasswordCtl.verifyCaptchaType = UserBindTel;
-            
-            [self.navigationController presentViewController:[[TZNavigationViewController alloc] initWithRootViewController:changePasswordCtl] animated:YES completion:nil];
+            if (self.accountManager.accountIsBindTel) {
+                [SVProgressHUD showHint:@"帐号已绑定到手机号"];
+            } else {
+                VerifyCaptchaViewController *changePasswordCtl = [[VerifyCaptchaViewController alloc] init];
+                changePasswordCtl.verifyCaptchaType = UserBindTel;
+                [self.navigationController presentViewController:[[TZNavigationViewController alloc] initWithRootViewController:changePasswordCtl] animated:YES completion:nil];
+            }
+           
             
         } else if (indexPath.row == 1) {
             [MobClick event:@"event_update_password"];

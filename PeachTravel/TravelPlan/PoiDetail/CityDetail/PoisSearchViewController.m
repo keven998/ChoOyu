@@ -140,7 +140,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
         }
         NSArray *jsonDic = [[responseObject objectForKey:@"result"] objectForKey:key];
         if (jsonDic.count == 0) {
-            NSString *searchStr = [NSString stringWithFormat:@"没有找到%@的相关结果", _searchBar.text];
+            NSString *searchStr = [NSString stringWithFormat:@"没有找到“%@”的相关结果", _searchBar.text];
             [SVProgressHUD showHint:searchStr];
         }
         if (jsonDic.count == 15) {

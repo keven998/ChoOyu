@@ -227,8 +227,12 @@
         [params setObject:kUserBindTel forKey:@"action"];
         AccountManager *accountManager = [AccountManager shareAccountManager];
         [params setObject:[NSNumber numberWithInteger: accountManager.account.userId] forKey:@"userId"];
-    } else {
+        
+    } else if (_verifyCaptchaType == UserLosePassword){
         [params setObject:kUserLosePassword forKey:@"action"];
+        
+    } else if (_verifyCaptchaType == UserRegister) {
+        [params setObject:kUserRegister forKey:@"action"];
     }
     
     [params setObject:_captchaLabel.text forKey:@"validationCode"];
