@@ -352,8 +352,9 @@
     
     NSString *urlStr = [NSString stringWithFormat:@"%@%ld", API_USERS, (long)self.account.userId];
     
-#warning 修改用户性别请求有问题
-    [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSLog(@"%@,%@",urlStr,params);
+    
+    [manager PATCH:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
 
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {

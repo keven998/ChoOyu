@@ -128,6 +128,7 @@
 {
 }
 
+// WXApiDelegate的代理方法
 - (void)onResp:(BaseResp *)resp
 {
     SendAuthResp * result = (SendAuthResp *)resp;
