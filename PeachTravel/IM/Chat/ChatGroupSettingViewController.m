@@ -170,10 +170,10 @@
         UIButton *inviteBtn = [[UIButton alloc] initWithFrame:CGRectMake(13, 58, 48, 26)];
         inviteBtn.titleLabel.font = [UIFont systemFontOfSize:13];
         [inviteBtn setTitle:@"邀请" forState:UIControlStateNormal];
-        [inviteBtn setTitleColor:COLOR_TEXT_III forState:UIControlStateNormal];
-        [inviteBtn setTitleColor:COLOR_TEXT_I forState:UIControlStateHighlighted];
+        [inviteBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+        [inviteBtn setTitleColor:COLOR_DISABLE forState:UIControlStateHighlighted];
         inviteBtn.layer.cornerRadius = 4.0;
-        inviteBtn.layer.borderColor = COLOR_LINE.CGColor;
+        inviteBtn.layer.borderColor = APP_THEME_COLOR.CGColor;
         inviteBtn.layer.borderWidth = 1.0;
         [inviteBtn addTarget:self action:@selector(addGroupNumber:) forControlEvents:UIControlEventTouchUpInside];
        
@@ -183,10 +183,10 @@
         editBtn.titleLabel.font = [UIFont systemFontOfSize:13];
         [editBtn setTitle:@"移除" forState:UIControlStateNormal];
         [editBtn setTitle:@"完成" forState:UIControlStateSelected];
-        [editBtn setTitleColor:COLOR_TEXT_III forState:UIControlStateNormal];
-        [editBtn setTitleColor:COLOR_TEXT_I forState:UIControlStateHighlighted];
+        [editBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+        [editBtn setTitleColor:COLOR_DISABLE forState:UIControlStateHighlighted];
         editBtn.layer.cornerRadius = 4.0;
-        editBtn.layer.borderColor = COLOR_LINE.CGColor;
+        editBtn.layer.borderColor = APP_THEME_COLOR.CGColor;
         editBtn.layer.borderWidth = 1.0;
         [editBtn addTarget:self action:@selector(editGroup:) forControlEvents:UIControlEventTouchUpInside];
         

@@ -66,10 +66,9 @@
     [lxpHelper setBackgroundImage:[UIImage imageNamed:@"tools_home_card_bg_normal.png"] forState:UIControlStateNormal];
     [lxpHelper setBackgroundImage:[UIImage imageNamed:@"tools_home_card_bg_highlight.png"] forState:UIControlStateHighlighted];
     [lxpHelper setTitle:@"达人咨询" forState:UIControlStateNormal];
-    [lxpHelper setTitleEdgeInsets:UIEdgeInsetsMake(flag.frame.size.height / 2.0, 0, -64, 0)];
-//    [lxpHelper setTitleColor:COLOR_TEXT_III forState:UIControlStateNormal];
-    [lxpHelper setTitleColor:TZColor(64, 64, 64) forState:UIControlStateNormal];
-    [lxpHelper setTitleColor:TZColor(32, 32, 32) forState:UIControlStateHighlighted];
+    [lxpHelper setTitleEdgeInsets:UIEdgeInsetsMake(flag.frame.size.height / 2.0, 0, -70, 0)];
+    [lxpHelper setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
+    [lxpHelper setTitleColor:COLOR_TEXT_III forState:UIControlStateHighlighted];
     lxpHelper.titleLabel.font = [UIFont systemFontOfSize:16];
     [lxpHelper addTarget:self action:@selector(goLxpHelper) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:lxpHelper];
@@ -81,10 +80,9 @@
     [planHelper setBackgroundImage:[UIImage imageNamed:@"tools_home_card_bg_normal.png"] forState:UIControlStateNormal];
     [planHelper setBackgroundImage:[UIImage imageNamed:@"tools_home_card_bg_highlight.png"] forState:UIControlStateHighlighted];
     [planHelper setTitle:@"我的计划" forState:UIControlStateNormal];
-    [planHelper setTitleEdgeInsets:UIEdgeInsetsMake(flag.frame.size.height / 2.0, 0, -64, 0)];
-//    [planHelper setTitleColor:COLOR_TEXT_III forState:UIControlStateNormal];
-    [planHelper setTitleColor:TZColor(64, 64, 64) forState:UIControlStateNormal];
-    [planHelper setTitleColor:TZColor(32, 32, 32) forState:UIControlStateHighlighted];
+    [planHelper setTitleEdgeInsets:UIEdgeInsetsMake(flag.frame.size.height / 2.0, 0, -70, 0)];
+    [planHelper setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
+    [planHelper setTitleColor:COLOR_TEXT_III forState:UIControlStateHighlighted];
 
     planHelper.titleLabel.font = [UIFont systemFontOfSize:16];
     [planHelper addTarget:self action:@selector(goMyPlan) forControlEvents:UIControlEventTouchUpInside];
