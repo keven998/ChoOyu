@@ -261,6 +261,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     addCtl.cityId = _cityId;
     addCtl.cityName = self.poi.zhName;
     addCtl.shouldEdit = NO;
+    addCtl.poiType = kSpotPoi;
     [self.navigationController pushViewController:addCtl animated:YES];
 }
 

@@ -222,7 +222,7 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     searchCtl.currentDayIndex = _currentDayIndex;
     searchCtl.cityId = _cityId;
     searchCtl.tripDetail = _tripDetail;
-    searchCtl.poiType = kSpotPoi;
+    searchCtl.poiType = _poiType;
     searchCtl.delegate = self;
     searchCtl.shouldEdit = _shouldEdit;
     TZNavigationViewController *tznavc = [[TZNavigationViewController alloc] initWithRootViewController:searchCtl];
@@ -869,16 +869,23 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     [self.dropDownMenu dismiss];
     if (tag == 1) {
         _currentCityIndex = cityindex;
-    }else{
+    } else{
         _currentListTypeIndex = categaryIndex;
         if (_currentListTypeIndex == 0){
             _currentCategory= @"景点";
-        }else if (_currentListTypeIndex == 1) {
+            _poiType = kSpotPoi;
+            
+        } else if (_currentListTypeIndex == 1) {
             _currentCategory = @"美食";
-        }else if (_currentListTypeIndex== 2) {
+            _poiType = kRestaurantPoi;
+            
+        } else if (_currentListTypeIndex== 2) {
             _currentCategory = @"购物";
-        }else if (_currentListTypeIndex == 3) {
+            _poiType = kShoppingPoi;
+            
+        } else if (_currentListTypeIndex == 3) {
             _currentCategory = @"酒店";
+            _poiType = kHotelPoi;
         }
 
     }

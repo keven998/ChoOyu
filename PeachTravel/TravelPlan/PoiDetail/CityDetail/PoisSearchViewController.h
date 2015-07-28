@@ -11,7 +11,7 @@
 
 @protocol updateSelectedPlanDelegate <NSObject>
 
--(void)updateSelectedPlan;
+- (void)updateSelectedPlan;
 
 @end
 

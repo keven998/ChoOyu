@@ -123,6 +123,7 @@
     [MobClick event:@"button_item_add_poi"];
     AddPoiViewController *ctl = [[AddPoiViewController alloc] init];
     ctl.currentDayIndex = sender.tag;
+    ctl.poiType = kSpotPoi;
     ctl.tripDetail = _backupTrip;
     ctl.shouldEdit = YES;
     ctl.delegate = self;
