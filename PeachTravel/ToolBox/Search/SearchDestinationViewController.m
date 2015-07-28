@@ -68,10 +68,12 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"page_lxp_search"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"page_lxp_search"];
     [_searchBar endEditing:YES];
 }
 
@@ -247,6 +249,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 
 - (void)showMore:(UIButton *)sender
 {
+    [MobClick event:@"button_item_all_search_result"];
     NSDictionary *dic = [self.dataSource objectAtIndex:sender.tag];
     
     SearchMoreDestinationViewController *searchMoreCtl = [[SearchMoreDestinationViewController alloc] init];
@@ -288,6 +291,8 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 
 - (IBAction)sendPoi:(UIButton *)sender
 {
+    [MobClick event:@"button_item_lxp_send_search_result"];
+    
     CGPoint point = [sender convertPoint:CGPointZero toView:_tableView];
     NSIndexPath *indexPath = [_tableView indexPathForRowAtPoint:point];
     SuperPoi *poi = [[[self.dataSource objectAtIndex:indexPath.section] objectForKey:@"content"] objectAtIndex:indexPath.row];

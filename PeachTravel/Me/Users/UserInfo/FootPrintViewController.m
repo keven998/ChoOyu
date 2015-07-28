@@ -94,12 +94,14 @@
 {
     [super viewWillAppear: animated];
     self.navigationController.navigationBar.translucent = YES;
+    [MobClick beginLogPageView:@"page_profile_tracks"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     self.navigationController.navigationBar.translucent = NO;
+    [MobClick endLogPageView:@"page_profile_tracks"];
 }
 
 - (Destinations *)destinations

@@ -80,7 +80,14 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"page_user_profile"];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"page_user_profile"];
 }
 
 - (void) setupTableHeaderView {
@@ -405,6 +412,7 @@
 
 - (void)viewUserPhotoAlbum
 {
+    [MobClick event:@"button_item_album"];
     UserAlbumViewController *ctl = [[UserAlbumViewController alloc] initWithNibName:@"UserAlbumViewController" bundle:nil];
     ctl.albumArray = self.userInfo.userAlbum;
     [self.navigationController pushViewController:ctl animated:YES];
@@ -738,6 +746,7 @@
 #pragma mark - buttonMethod
 - (void)visitTracks
 {
+    [MobClick event:@"button_item_tracks"];
     FootPrintViewController *footPrintCtl = [[FootPrintViewController alloc] init];
     footPrintCtl.userId = _userId;
     [self.navigationController pushViewController:footPrintCtl animated:YES];
@@ -745,6 +754,7 @@
 }
 - (void)seeOthersPlan
 {
+    [MobClick event:@"button_item_plan"];
     PlansListTableViewController *listCtl = [[PlansListTableViewController alloc]initWithUserId:_userInfo.userId];
     listCtl.userName = _userInfo.nickName;
     [self.navigationController pushViewController:listCtl animated:YES];

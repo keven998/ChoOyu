@@ -22,7 +22,7 @@
 #import "AddPoiViewController.h"
 #import "CityDescDetailViewController.h"
 
-@interface CityDetailTableViewController () <UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate>
+@interface CityDetailTableViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) CityHeaderView *cityHeaderView;
@@ -51,7 +51,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     UIButton *talkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20, 44)];
     [talkBtn setImage:[UIImage imageNamed:@"navigationbar_chat_default.png"] forState:UIControlStateNormal];
     [talkBtn setImage:[UIImage imageNamed:@"navigationbar_chat_hilighted.png"] forState:UIControlStateHighlighted];
-    [talkBtn addTarget:self action:@selector(shareToTalk) forControlEvents:UIControlEventTouchUpInside];
+    [talkBtn addTarget:self action:@selector(send2Frend) forControlEvents:UIControlEventTouchUpInside];
     talkBtn.imageEdgeInsets = UIEdgeInsetsMake(2, 0, 0, 2);
     talkBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:talkBtn]];
@@ -63,11 +63,13 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"page_city_detail"];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"page_city_detail"];
 }
 
 - (void) dealloc {
@@ -253,6 +255,8 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 
 - (IBAction)viewSpots:(id)sender
 {
+    [MobClick event:@"button_item_city_spots"];
+
     AddPoiViewController *addCtl = [[AddPoiViewController alloc] init];
     addCtl.cityId = _cityId;
     addCtl.cityName = self.poi.zhName;
@@ -266,6 +270,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
  *  @param sender
  */
 - (IBAction)play:(id)sender {
+    [MobClick event:@"button_item_city_travel_tips"];
     SuperWebViewController *funOfCityWebCtl = [[SuperWebViewController alloc] init];
     funOfCityWebCtl.urlStr = ((CityPoi *)self.poi).playGuide;
     funOfCityWebCtl.titleStr = @"旅游指南";;
@@ -279,6 +284,8 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
  */
 - (IBAction)viewRestaurants:(id)sender
 {
+    [MobClick event:@"button_item_city_delicious"];
+
     PoisOfCityViewController *restaurantOfCityCtl = [[PoisOfCityViewController alloc] init];
     restaurantOfCityCtl.shouldEdit = NO;
     restaurantOfCityCtl.cityId = self.poi.poiId;
@@ -295,6 +302,8 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
  */
 - (IBAction)viewShopping:(id)sender
 {
+    [MobClick event:@"button_item_city_shoppings"];
+
     PoisOfCityViewController *shoppingOfCityCtl = [[PoisOfCityViewController alloc] init];
     shoppingOfCityCtl.shouldEdit = NO;
     shoppingOfCityCtl.descDetail = ((CityPoi *)self.poi).shoppingTitles;
@@ -317,6 +326,11 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     travelListCtl.cityId = ((CityPoi *)self.poi).poiId;
     travelListCtl.cityName = ((CityPoi *)self.poi).zhName;
     [self.navigationController pushViewController:travelListCtl animated:YES];
+}
+
+- (void)send2Frend
+{
+    [self shareToTalk];
 }
 
 #pragma mark - Table view data source
@@ -361,26 +375,9 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 }
 
 #pragma mark - IBAction
-- (IBAction)option:(id)sender {
-    UIActionSheet *as = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"创建旅途计划", @"发给好友", nil];
-    as.tag = 0;
-    [as showInView:self.view];
-}
-
-#pragma mark - UIActionSheetDelegate
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 0) {
-        [self makePlan];
-    } else if (buttonIndex == 1) {
-        [self shareToTalk];
-    } else {
-        return;
-    }
-}
 
 - (void)makePlan {
+    [MobClick event:@"navigation_item_lxp_city_create_plan"];
     Destinations *destinations = [[Destinations alloc] init];
     MakePlanViewController *makePlanCtl = [[MakePlanViewController alloc] init];
     ForeignViewController *foreignCtl = [[ForeignViewController alloc] init];

@@ -37,7 +37,7 @@
     [talkBtn setImage:[UIImage imageNamed:@"navigationbar_chat_default.png"] forState:UIControlStateNormal];
     [talkBtn setImage:[UIImage imageNamed:@"navigationbar_chat_hilighted.png"] forState:UIControlStateHighlighted];
     talkBtn.imageEdgeInsets = UIEdgeInsetsMake(2, 0, 0, 0);
-    [talkBtn addTarget:self action:@selector(shareToTalk) forControlEvents:UIControlEventTouchUpInside];
+    [talkBtn addTarget:self action:@selector(send2Frend) forControlEvents:UIControlEventTouchUpInside];
     talkBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:talkBtn];
     
@@ -46,11 +46,13 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"page_poi_detai"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"page_poi_detai"];
 }
 
 - (UITableView *)tableView
@@ -142,6 +144,12 @@
     [_spotDetailView.poiSummary addTarget:self action:@selector(showPoiDesc) forControlEvents:UIControlEventTouchUpInside];
 }
 
+- (void)send2Frend
+{
+    [MobClick event:@"navigation_item_poi_lxp_share"];
+    [self shareToTalk];
+}
+
 - (void)jumpToMap
 {
     [ConvertMethods jumpAppleMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
@@ -208,17 +216,6 @@
     webCtl.hideToolBar = YES;
     [self.navigationController pushViewController:webCtl animated:YES];
     
-}
-
-- (UIImage *)screenShotWithView:(UIView *)view
-{
-    UIGraphicsBeginImageContext(view.bounds.size);
-    [view.layer renderInContext:UIGraphicsGetCurrentContext()];
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    NSData *imageData = UIImageJPEGRepresentation(image, 0.8);
-    image = [UIImage imageWithData:imageData];
-    return image;
 }
 
 - (void)loadDataWithUrl:(NSString *)url

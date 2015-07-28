@@ -56,11 +56,13 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"page_add_friend"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"page_add_friend"];
 }
 
 #pragma mark - setter & getter
@@ -126,10 +128,13 @@
     
     if (indexPath.row == 0) {
         AddressBookTableViewController *addressBookCtl = [[AddressBookTableViewController alloc] init];
+        [MobClick event:@"cell_item_add_lxp_friends_from_contacts"];
         [self.navigationController pushViewController:addressBookCtl animated:YES];
     }
     if (indexPath.row == 1) {
         [self shareToWeChat];
+        [MobClick event:@"cell_item_add_lxp_friends_from_weichat"];
+
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

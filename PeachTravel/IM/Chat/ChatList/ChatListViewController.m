@@ -104,6 +104,8 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    [MobClick beginLogPageView:@"page_home_talk_lists"];
     [self refreshDataSource];
     [_delegate unreadMessageCountHasChange];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
@@ -120,9 +122,10 @@
     
 }
 
--(void)viewWillDisappear:(BOOL)animated
+- (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"page_home_talk_lists"];
 }
 
 - (void)dealloc {
@@ -197,6 +200,8 @@
 
 - (IBAction)addAction:(UIButton *)sender
 {
+    [MobClick endEvent:@"navigation_item_talks_menu"];
+    
     PXAlertView *alertView = [PXAlertView showAlertWithTitle:nil
                                                      message:nil
                                                  cancelTitle:@"取消"
@@ -256,7 +261,7 @@
 - (IBAction)showContactList:(id)sender
 {
     ContactListViewController *contactListCtl = [[ContactListViewController alloc] init];
-
+    [MobClick endEvent:@"navigation_item_my_friends"];
     TZNavigationViewController *nCtl = [[TZNavigationViewController alloc] initWithRootViewController:contactListCtl];
     [self presentViewController:nCtl animated:YES completion:nil];
 }
@@ -666,6 +671,12 @@
     tzConversation.unReadMessageCount = 0;
     [tzConversation resetConvsersationUnreadMessageCount];
     [_delegate unreadMessageCountHasChange];
+    if (tzConversation.chatterId == 10001) {
+        [MobClick event:@"cell_item_wenwen"];
+    }
+    if (tzConversation.chatterId == 10000) {
+        [MobClick event:@"cell_item_paipai"];
+    }
 }
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
