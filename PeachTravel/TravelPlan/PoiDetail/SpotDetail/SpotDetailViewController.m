@@ -193,6 +193,7 @@
  */
 - (IBAction)travelGuide:(id)sender
 {
+    [MobClick event:@"button_item_poi_travel_notes"];
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
     webCtl.titleStr = @"景点体验";
     webCtl.urlStr = ((SpotPoi *)self.poi).guideUrl;
