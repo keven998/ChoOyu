@@ -51,7 +51,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"page_choose_talk_to"];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 
 }
@@ -59,7 +58,6 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"page_choose_talk_to"];
 }
 
 - (void)dealloc

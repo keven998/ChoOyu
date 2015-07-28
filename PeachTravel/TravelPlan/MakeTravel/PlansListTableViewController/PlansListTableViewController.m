@@ -159,7 +159,6 @@ static NSString *reusableCell = @"myGuidesCell";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES]; //侧滑navigation bar 补丁
-    [MobClick beginLogPageView:@"page_my_trip_plans"];
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:COLOR_TEXT_I, NSForegroundColorAttributeName, nil]];
     [self.navigationController.navigationBar setBackgroundImage:[ConvertMethods createImageWithColor:APP_PAGE_COLOR] forBarMetrics:UIBarMetricsDefault];
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
@@ -169,7 +168,6 @@ static NSString *reusableCell = @"myGuidesCell";
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"page_my_trip_plans"];
     _isShowing = NO;
     if (_swipCell != nil) {
         [_swipCell hideUtilityButtonsAnimated:YES];
@@ -209,8 +207,6 @@ static NSString *reusableCell = @"myGuidesCell";
 }
 
 - (void)makePlan {
-    [MobClick event:@"event_create_new_trip_plan_mine"];
-    
     Destinations *destinations = [[Destinations alloc] init];
     MakePlanViewController *makePlanCtl = [[MakePlanViewController alloc] init];
     ForeignViewController *foreignCtl = [[ForeignViewController alloc] init];
@@ -261,7 +257,6 @@ static NSString *reusableCell = @"myGuidesCell";
  */
 - (void)deleteGuide:(NSIndexPath *)indexPath
 {
-    [MobClick event:@"event_delete_trip_plan"];
     MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:indexPath.section];
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:[NSString stringWithFormat:@"删除\"%@\"", guideSummary.title] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
     [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {

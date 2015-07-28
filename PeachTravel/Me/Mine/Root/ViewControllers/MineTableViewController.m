@@ -92,7 +92,6 @@
         [self loadUserInfo];
     }
     [self updateAccountInfo];
-    [MobClick beginLogPageView:@"page_home_me"];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -102,7 +101,6 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"page_home_me"];
 }
 
 - (void)dealloc
@@ -363,7 +361,6 @@
 
 - (void)shareToWeChat
 {
-    [MobClick event:@"event_share_app_by_weichat"];
     [UMSocialData defaultData].extConfig.wechatSessionData.title = @"推荐\"旅行派\"给你。";
     
     [UMSocialData defaultData].extConfig.wechatSessionData.url = @"http://a.app.qq.com/o/simple.jsp?pkgname=com.aizou.peachtravel";
@@ -499,7 +496,6 @@
         if (indexPath.row == 0) {
             [self shareToWeChat];
         } else if (indexPath.row == 1) {
-            [MobClick event:@"event_feedback"];
             FeedbackController *feedbackCtl = [[FeedbackController alloc] init];
             feedbackCtl.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:feedbackCtl animated:YES];

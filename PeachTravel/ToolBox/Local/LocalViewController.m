@@ -136,13 +136,11 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"page_locality"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"page_locality"];
 }
 
 - (void)goBack
@@ -151,7 +149,6 @@
 }
 
 - (IBAction)relocal:(id)sender {
-    [MobClick event:@"event_refresh_location"];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     CABasicAnimation* rotationAnimation;
     rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
@@ -171,21 +168,6 @@
 
 - (IBAction)jumpToMapView:(UIButton *)sender
 {
-    [MobClick event:@"event_go_navigation"];
-//    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"其他软件导航"
-//                                                       delegate:self
-//                                              cancelButtonTitle:nil
-//                                         destructiveButtonTitle:nil
-//                                              otherButtonTitles:nil];
-//    NSArray *platformArray = [ConvertMethods mapPlatformInPhone];
-//    for (NSDictionary *dic in platformArray) {
-//        [sheet addButtonWithTitle:[dic objectForKey:@"platform"]];
-//    }
-//    [sheet addButtonWithTitle:@"取消"];
-//    sheet.cancelButtonIndex = sheet.numberOfButtons-1;
-//    [sheet showInView:self.view];
-//    sheet.tag = sender.tag;
-
     NSInteger tag = _swipeView.currentItemView.tag;
     NSInteger tag1 = sender.tag;
     SuperPoi *poi = [[_dataSource objectAtIndex:tag] objectAtIndex:tag1];

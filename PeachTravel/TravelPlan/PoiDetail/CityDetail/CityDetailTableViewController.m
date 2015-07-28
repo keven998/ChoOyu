@@ -64,12 +64,10 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-    [MobClick beginLogPageView:@"page_city_detail"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"page_city_detail"];
 }
 
 - (void) dealloc {
@@ -255,7 +253,6 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 
 - (IBAction)viewSpots:(id)sender
 {
-    [MobClick event:@"event_city_spots"];
     AddPoiViewController *addCtl = [[AddPoiViewController alloc] init];
     addCtl.cityId = _cityId;
     addCtl.cityName = self.poi.zhName;
@@ -269,7 +266,6 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
  *  @param sender
  */
 - (IBAction)play:(id)sender {
-    [MobClick event:@"event_city_information"];
     SuperWebViewController *funOfCityWebCtl = [[SuperWebViewController alloc] init];
     funOfCityWebCtl.urlStr = ((CityPoi *)self.poi).playGuide;
     funOfCityWebCtl.titleStr = @"旅游指南";;
@@ -283,7 +279,6 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
  */
 - (IBAction)viewRestaurants:(id)sender
 {
-    [MobClick event:@"event_city_delicacy"];
     PoisOfCityViewController *restaurantOfCityCtl = [[PoisOfCityViewController alloc] init];
     restaurantOfCityCtl.shouldEdit = NO;
     restaurantOfCityCtl.cityId = self.poi.poiId;
@@ -300,7 +295,6 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
  */
 - (IBAction)viewShopping:(id)sender
 {
-    [MobClick event:@"event_city_shopping"];
     PoisOfCityViewController *shoppingOfCityCtl = [[PoisOfCityViewController alloc] init];
     shoppingOfCityCtl.shouldEdit = NO;
     shoppingOfCityCtl.descDetail = ((CityPoi *)self.poi).shoppingTitles;
@@ -318,8 +312,6 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
  */
 - (IBAction)showMoreTravelNote:(id)sender
 {
-    [MobClick event:@"event_more_city_travel_notes"];
-    
     TravelNoteListViewController *travelListCtl = [[TravelNoteListViewController alloc] init];
     travelListCtl.isSearch = NO;
     travelListCtl.cityId = ((CityPoi *)self.poi).poiId;
@@ -359,7 +351,6 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [MobClick event:@"event_city_travel_note_item"];
     TravelNote *travelNote = [((CityPoi *)self.poi).travelNotes objectAtIndex:indexPath.row];
     TravelNoteDetailViewController *travelNoteCtl = [[TravelNoteDetailViewController alloc] init];
     travelNoteCtl.titleStr = travelNote.title;
@@ -414,7 +405,6 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     makePlanCtl.normalColor= [UIColor grayColor];
     
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:makePlanCtl] animated:YES completion:nil];
-    [MobClick event:@"event_create_new_trip_plan_city"];
 }
 
 - (void)showCityDetail:(UITapGestureRecognizer *)tap

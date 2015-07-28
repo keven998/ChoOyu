@@ -104,8 +104,6 @@
  *  跳转到我的计划界面
  */
 - (void)goMyPlan {
-    [MobClick event:@"event_my_trip_plans"];
-    
     AccountManager *accountManager = [AccountManager shareAccountManager];
     if (!accountManager.isLogin) {
         LoginViewController *loginCtl = [[LoginViewController alloc] initWithCompletion:^(BOOL completed) {

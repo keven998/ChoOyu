@@ -68,12 +68,10 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"page_search_destination"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"page_search_destination"];
     [_searchBar endEditing:YES];
 }
 
@@ -249,8 +247,6 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 
 - (void)showMore:(UIButton *)sender
 {
-    [MobClick event:@"event_click_more_search_result"];
-    
     NSDictionary *dic = [self.dataSource objectAtIndex:sender.tag];
     
     SearchMoreDestinationViewController *searchMoreCtl = [[SearchMoreDestinationViewController alloc] init];
@@ -439,7 +435,6 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         [self.navigationController pushViewController:ctl animated:YES];
     }
     
-    [MobClick event:@"event_click_search_result_item"];
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 

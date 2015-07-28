@@ -150,9 +150,7 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
 {
     [super viewWillAppear:animated];
     if (_shouldEdit) {
-        [MobClick beginLogPageView:@"page_add_agenda"];
     } else {
-        [MobClick beginLogPageView:@"page_spot_lists"];
     }
 }
 
@@ -160,9 +158,7 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
 {
     [super viewWillDisappear:animated];
     if (_shouldEdit) {
-        [MobClick endLogPageView:@"page_add_agenda"];
     } else {
-        [MobClick endLogPageView:@"page_spot_lists"];
     }
 }
 
@@ -278,8 +274,6 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
  */
 - (IBAction)addPoi:(UIButton *)sender
 {
-    [MobClick event:@"event_add_desination_as_schedule"];
-    
     CGPoint point;
     NSIndexPath *indexPath;
     TripPoiListTableViewCell *cell;

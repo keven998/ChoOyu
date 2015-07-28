@@ -68,12 +68,12 @@
     [UMSocialWechatHandler setWXAppId:SHARE_WEIXIN_APPID appSecret:SHARE_WEIXIN_SECRET url:@"http://www.lvxingpai.com"];
     
     /**设置友盟统计**/
-    [MobClick startWithAppkey:UMENG_KEY reportPolicy:(ReportPolicy) REALTIME channelId:nil];
+//    [MobClick startWithAppkey:UMENG_KEY reportPolicy:(ReportPolicy) REALTIME channelId:nil];
 
 #ifndef __OPTIMIZE__
-    [MobClick setCrashReportEnabled:NO];
+//    [MobClick setCrashReportEnabled:NO];
 #else
-    [MobClick setCrashReportEnabled:YES];
+//    [MobClick setCrashReportEnabled:YES];
 #endif
     
     [iRate sharedInstance].promptAtLaunch = NO;

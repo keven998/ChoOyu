@@ -93,7 +93,6 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
 
 - (IBAction)addWantTo:(NSInteger)page
 {
-    [MobClick event:@"event_add_delicacy_schedule"];
     PoisOfCityViewController *restaurantOfCityCtl = [[PoisOfCityViewController alloc] init];
     restaurantOfCityCtl.tripDetail = _tripDetail;
     restaurantOfCityCtl.page = page;
@@ -138,8 +137,6 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
 
 - (void)jumpMapView:(UIButton *)sender
 {
-    [MobClick event:@"event_day_map_view"];
-    
     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"地图导航"
                                                        delegate:self
                                               cancelButtonTitle:nil
@@ -171,7 +168,6 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
 
 - (IBAction)deletePoi:(UIButton *)sender
 {
-    [MobClick event:@"event_delete_select_item"];
     CGPoint point = [sender convertPoint:CGPointMake(20, 20) toView:self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
     [_tripDetail.restaurantsList removeObjectAtIndex:indexPath.row];
@@ -368,7 +364,6 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
-    [MobClick event:@"event_reorder_items"];
     SuperPoi *poi = [_tripDetail.restaurantsList objectAtIndex:sourceIndexPath.row];
     [_tripDetail.restaurantsList removeObjectAtIndex:sourceIndexPath.row];
     

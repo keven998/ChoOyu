@@ -485,7 +485,6 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 0) {
-        [MobClick event:@"event_delete_it"];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"确认删除朋友关系" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
         [alert showAlertViewWithBlock:^(NSInteger buttonIndex) {
             if (buttonIndex == 1) {

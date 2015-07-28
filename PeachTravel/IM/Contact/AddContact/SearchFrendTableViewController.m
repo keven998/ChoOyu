@@ -137,7 +137,6 @@
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     [self searchUsersWithSearchText:searchBar.text];
-    [MobClick event:@"event_search_friend"];
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar

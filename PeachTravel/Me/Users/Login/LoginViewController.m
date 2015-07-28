@@ -167,7 +167,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"page_login"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(weixinDidLogin:) name:weixinDidLoginNoti object:nil];
     
     if (![WXApi isWXAppInstalled]) {
@@ -182,7 +181,6 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"page_login"];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:weixinDidLoginNoti object:nil];
 [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
@@ -265,7 +263,6 @@
 
 //微信登录
 - (IBAction)weixinLogin:(UIButton *)sender {
-    [MobClick event:@"event_login_with_weichat_account"];
     [self sendAuthRequest];
 }
 

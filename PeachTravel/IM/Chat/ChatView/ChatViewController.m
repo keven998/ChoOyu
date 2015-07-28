@@ -223,7 +223,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"page_talking"];
     [_chatToolBar registerNoti];
     if (_isScrollToBottom) {
         [self scrollViewToBottom:YES];
@@ -236,7 +235,6 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"page_talking"];
     [_chatToolBar unRegisterNoti];
     // 设置当前conversation的所有message为已读
     _conversation.unReadMessageCount = 0;
@@ -763,7 +761,6 @@
  */
 - (void)moreViewMyStrategyAction:(DXChatBarMoreView *)moreView
 {
-    [MobClick event:@"event_share_plan_extra"];
     PlansListTableViewController *myGuideListTableCtl = [[PlansListTableViewController alloc] initWithUserId:self.accountManager.account.userId];
     myGuideListTableCtl.chatterId = _chatter;
     myGuideListTableCtl.selectToSend = YES;
@@ -782,8 +779,6 @@
  */
 - (void)moreViewMyFavoriteAction:(DXChatBarMoreView *)moreView
 {
-    [MobClick event:@"event_share_favorite_extra"];
-    
     FavoriteViewController *favoriteCtl = [[FavoriteViewController alloc] init];
     favoriteCtl.chatType = _chatType;
     favoriteCtl.chatterId = _chatter;
@@ -801,7 +796,6 @@
  */
 - (void)moreViewDestinationAction:(DXChatBarMoreView *)moreView
 {
-    [MobClick event:@"event_share_search_extra"];
     SearchDestinationViewController *searchCtl = [[SearchDestinationViewController alloc] init];
     searchCtl.isCanSend = YES;
     searchCtl.chatterId = _chatter;
@@ -819,8 +813,6 @@
  */
 - (void)moreViewTravelNoteAction:(DXChatBarMoreView *)moreView
 {
-    [MobClick event:@"event_share_travel_notes_extra"];
-    
     TravelNoteListViewController *travelNoteCtl = [[TravelNoteListViewController alloc] init];
     travelNoteCtl.isSearch = YES;
     travelNoteCtl.chatterId = _chatter;

@@ -49,13 +49,11 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"page_bind_sns_account"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"page_bind_sns_account"];
 }
 
 - (void)didReceiveMemoryWarning
@@ -205,8 +203,6 @@
 {
     switch (sender.tag) {
         case 0: {
-            [MobClick event:@"event_bind_qq_account"];
-            
             UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToQQ];
             snsPlatform.loginClickHandler(self,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
                 NSLog(@"response is %@",response);
@@ -220,8 +216,6 @@
             break;
             
         case 1: {
-            [MobClick event:@"event_bind_weibo_account"];
-
             UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina];
             snsPlatform.loginClickHandler(self,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
                 NSLog(@"response is %@",response);
@@ -235,8 +229,6 @@
             break;
         
         case 2: {
-            [MobClick event:@"event_bind_douban_account"];
-
             UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToDouban];
             snsPlatform.loginClickHandler(self,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
                 NSLog(@"response is %@",response);

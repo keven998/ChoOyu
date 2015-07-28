@@ -183,7 +183,6 @@
     
     SpotPoi * poi = (SpotPoi *)self.poi;
     
-    [MobClick event:@"event_spot_information"];
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
     webCtl.titleStr = self.poi.zhName;
     

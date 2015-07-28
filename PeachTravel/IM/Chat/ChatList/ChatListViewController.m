@@ -104,7 +104,6 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"page_talk_lists"];
     [self refreshDataSource];
     [_delegate unreadMessageCountHasChange];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
@@ -124,7 +123,6 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"page_talk_lists"];
 }
 
 - (void)dealloc {
@@ -206,10 +204,8 @@
                                                   completion:^(BOOL cancelled, NSInteger buttonIndex) {
                                                       if (buttonIndex == 1) {
                                                           [self addConversation:nil];
-                                                          [MobClick event:@"event_create_new_talk"];
                                                       } else if (buttonIndex == 2) {
                                                           [self addUserContact:nil];
-                                                          [MobClick event:@"event_add_new_friend"];
                                                       }
                                                   }];
      
@@ -686,7 +682,6 @@
         ChatConversation *conversation = [self.dataSource objectAtIndex:indexPath.row];
         if (conversation.chatterId != 10001 && conversation.chatterId != 10000) {
             [self.imClientManager.conversationManager removeConversationWithChatterId: conversation.chatterId deleteMessage:NO];
-            [MobClick event:@"event_delete_talk_item"];
         }
     }
 }

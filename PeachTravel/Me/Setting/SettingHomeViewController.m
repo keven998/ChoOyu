@@ -44,13 +44,11 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"page_app_setting"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"page_app_setting"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -64,7 +62,6 @@
  */
 - (IBAction)mark
 {
-    [MobClick event:@"event_rates_app"];
     [iRate sharedInstance].onlyPromptIfLatestVersion = NO;
     [iRate sharedInstance].previewMode = NO;
     [iRate sharedInstance].appStoreID = APP_ID.intValue;
@@ -74,7 +71,6 @@
 - (void)clearMemo
 {
     [SVProgressHUD show];
-    [MobClick event:@"event_clear_cache"];
     [[SDImageCache sharedImageCache] clearDiskOnCompletion:^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [SVProgressHUD showHint:@"清理完成"];

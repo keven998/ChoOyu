@@ -77,13 +77,11 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"page_search_destination_all_result"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"page_search_destination_all_result"];
 }
 
 - (UIView *)footerView {
@@ -126,7 +124,6 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 
 - (IBAction)beginSearch:(id)sender
 {
-    [MobClick event:@"event_filter_city"];
     SuggestionDestinationTableViewController *ctl = [[SuggestionDestinationTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
     ctl.delegate = self;
     UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:ctl];

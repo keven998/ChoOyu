@@ -42,7 +42,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"page_ask_for_friend"];
 }
 
 /**
@@ -53,8 +52,6 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"page_ask_for_friend"];
-    
 }
 
 #pragma mark - setter & getter

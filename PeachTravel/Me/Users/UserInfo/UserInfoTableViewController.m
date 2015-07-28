@@ -100,13 +100,11 @@
 {
     [super viewWillAppear:animated];
     [self.tableView reloadData];
-    [MobClick beginLogPageView:@"page_personal_profile"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"page_personal_profile"];
 }
 
 - (void)goBack
@@ -593,7 +591,6 @@
             
         }
         else if (indexPath.row == 1) {
-            [MobClick event:@"event_update_gender"];
             SelectionTableViewController *ctl = [[SelectionTableViewController alloc] init];
             ctl.contentItems = @[@"美女", @"帅锅", @"一言难尽", @"保密"];
             ctl.titleTxt = @"性别设置";
@@ -638,7 +635,6 @@
     }
     else {
         if (indexPath.row == 0) {
-            [MobClick event:@"event_update_phone"];
             if (self.accountManager.accountIsBindTel) {
                 [SVProgressHUD showHint:@"帐号已绑定到手机号"];
             } else {
@@ -649,7 +645,6 @@
            
             
         } else if (indexPath.row == 1) {
-            [MobClick event:@"event_update_password"];
             ChangePasswordViewController *changePasswordCtl = [[ChangePasswordViewController alloc] init];
             [self presentViewController:[[UINavigationController alloc] initWithRootViewController:changePasswordCtl] animated:YES completion:nil];
         }
@@ -723,7 +718,6 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 1) {
-        [MobClick event:@"event_logout"];
         AccountManager *accountManager = [AccountManager shareAccountManager];
         [SVProgressHUD show];
         [accountManager asyncLogout:^(BOOL isSuccess) {

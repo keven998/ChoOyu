@@ -141,12 +141,9 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     if (_shouldEdit) {
-        [MobClick beginLogPageView:@"page_add_agenda"];
     } else {
         if (_poiType == kRestaurantPoi) {
-            [MobClick beginLogPageView:@"page_delicacy_lists"];
         } else if (_poiType == kShoppingPoi) {
-            [MobClick beginLogPageView:@"page_shopping_lists"];
         }
     }
 }
@@ -155,12 +152,9 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
 {
     [super viewWillDisappear:animated];
     if (_shouldEdit) {
-        [MobClick endLogPageView:@"page_add_agenda"];
     } else {
         if (_poiType == kRestaurantPoi) {
-            [MobClick endLogPageView:@"page_delicacy_lists"];
         } else if (_poiType == kShoppingPoi) {
-            [MobClick endLogPageView:@"page_shopping_lists"];
         }
     }
 }
@@ -577,11 +571,9 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
     if (_poiType == kRestaurantPoi) {
         webCtl.titleStr = @"美食攻略";
-        [MobClick event:@"event_delicacy_strategy"];
         
     } else if (_poiType == kShoppingPoi) {
         webCtl.titleStr = @"购物攻略";
-        [MobClick event:@"event_shopping_strategy"];
         
     }
     webCtl.urlStr = _dataSource.detailUrl;

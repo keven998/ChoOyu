@@ -61,13 +61,11 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES]; //侧滑navigation bar 补丁
-    [MobClick beginLogPageView:@"page_destinations"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"page_destinations"];
 }
 
 - (void)dealloc {
@@ -144,7 +142,6 @@
 {
     [self.view bringSubviewToFront:_selectPanel.superview];
     if (self.selectedIndext == 1) {
-        [MobClick event:@"event_go_aboard"];
     }
 }
 
@@ -155,7 +152,6 @@
  */
 - (IBAction)makePlan:(id)sender
 {
-    [MobClick event:@"event_select_done_go_next"];
     if (!_shouldOnlyChangeDestinationWhenClickNextStep) {
         AccountManager *accountManager = [AccountManager shareAccountManager];
         if ([accountManager isLogin]) {
@@ -337,7 +333,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [MobClick event:@"event_select_city"];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     CityDestinationPoi *city = [self.searchResultArray objectAtIndex:indexPath.row];
     BOOL find = NO;

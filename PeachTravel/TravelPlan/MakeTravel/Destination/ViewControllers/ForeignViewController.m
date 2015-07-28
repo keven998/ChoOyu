@@ -237,7 +237,6 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    [MobClick event:@"event_select_city"];
     AreaDestination *country = _destinations.foreignCountries[indexPath.section];
     CityDestinationPoi *city = country.cities[indexPath.row];
     BOOL find = NO;

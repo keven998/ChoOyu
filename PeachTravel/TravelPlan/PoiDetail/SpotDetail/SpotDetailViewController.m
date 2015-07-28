@@ -43,14 +43,12 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"page_spot_detail"];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"page_spot_detail"];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -182,8 +180,6 @@
  */
 - (IBAction)book:(id)sender
 {
-    [MobClick event:@"event_book_ticket"];
-    
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] initWithURL:[NSURL URLWithString:((SpotPoi *)self.poi).bookUrl]];
     webCtl.titleStr = @"在线预订";
     //    webCtl.urlStr = ((SpotPoi *)self.poi).bookUrl;
@@ -197,8 +193,6 @@
  */
 - (IBAction)travelGuide:(id)sender
 {
-    [MobClick event:@"event_spot_travel_experience"];
-    
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
     webCtl.titleStr = @"景点体验";
     webCtl.urlStr = ((SpotPoi *)self.poi).guideUrl;
@@ -212,8 +206,6 @@
  */
 - (IBAction)kengdie:(id)sender
 {
-    [MobClick event:@"event_spot_travel_tips"];
-    
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
     webCtl.titleStr = @"游玩小贴士";
     webCtl.urlStr = ((SpotPoi *)self.poi).tipsUrl;
@@ -227,8 +219,6 @@
  */
 - (IBAction)trafficGuide:(id)sender
 {
-    [MobClick event:@"event_spot_traffic_summary"];
-    
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
     webCtl.titleStr = @"景点交通";
     webCtl.urlStr = ((SpotPoi *)self.poi).trafficInfoUrl;
@@ -343,7 +333,7 @@
         }
         
     } else {
-        [MobClick event:@"event_spot_share_to_talk"];
+
         [self shareToTalk];
     }
 }

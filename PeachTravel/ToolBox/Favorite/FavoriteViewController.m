@@ -129,13 +129,11 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"page_my_favorites"];
     _isVisible = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"page_my_favorites"];
     _isVisible = NO;
 }
 
@@ -534,7 +532,6 @@
                 if (buttonIndex == 1) {
                     Favorite *favorite = [self.dataSource objectAtIndex:indexPath.section];
                     [self deleteUserFavorite:favorite atIndexPath:indexPath];
-                    [MobClick event:@"deleteUserFavorite"];
                 }
             }
         }];

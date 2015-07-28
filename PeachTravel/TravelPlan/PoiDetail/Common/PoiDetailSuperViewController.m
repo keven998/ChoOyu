@@ -61,7 +61,6 @@
         UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:_chatRecordListCtl];
         [self presentViewController:nCtl animated:YES completion:nil];
     }
-    [MobClick event:@"event_city_share_to_talk"];
 }
 
 #pragma mark - CreateConversationDelegate
