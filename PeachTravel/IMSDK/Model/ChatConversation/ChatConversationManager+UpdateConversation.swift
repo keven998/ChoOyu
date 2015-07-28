@@ -28,7 +28,7 @@ extension ChatConversationManager {
     */
     func updateConversationStatus(isBlockMessage: Bool, chatterId: Int) {
         if let conversation = self.getExistConversationInConversationList(chatterId) {
-            conversation.isBlockMessag = isBlockMessage
+            conversation.isBlockMessage = isBlockMessage
         }
     }
 }

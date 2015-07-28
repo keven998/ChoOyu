@@ -376,7 +376,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     IMClientManager *clientManager = [IMClientManager shareInstance];
     
     ChatConversation *conversation = [clientManager.conversationManager getExistConversationInConversationList:message.chatterId];
-    needShowNotification = ![conversation isBlockMessag];
+    needShowNotification = ![conversation isBlockMessage];
     if (needShowNotification) {
         if (!conversation.isCurrentConversation) {
             [self updateViewWithUnreadMessageCount];
