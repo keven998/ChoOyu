@@ -56,6 +56,22 @@ static NSString * const reuseIdentifier = @"Cell";
     [self loadTravelers:_distributionArea withPageNo:0];
 }
 
+#pragma mark - 友盟统计
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"page_lxp_guide_lists"];
+    
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"page_lxp_guide_lists"];
+    
+}
+
+
 // 传递模型的时候给导航栏标题赋值
 - (void)setGuiderDistribute:(GuiderDistribute *)guiderDistribute
 {

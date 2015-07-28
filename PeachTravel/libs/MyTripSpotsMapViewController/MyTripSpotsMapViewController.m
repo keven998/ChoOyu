@@ -68,11 +68,13 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [MobClick beginLogPageView:@"page_plan_map_view"];
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:NO];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+    [MobClick endLogPageView:@"page_plan_map_view"];
     [super viewWillDisappear:animated];
 }
 

@@ -87,6 +87,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [MobClick beginLogPageView:@"page_home_mine"];
     [super viewWillAppear:animated];
     if (!_accountManager.account.guideCnt) {
         [self loadUserInfo];
@@ -95,6 +96,7 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    [MobClick endLogPageView:@"page_home_mine"];
     [super viewDidAppear:animated];
 }
 
@@ -397,6 +399,7 @@
 
 - (void)editUserInfo {
     if (self.accountManager.isLogin) {
+        [MobClick event:@"navigation_item_edit_profile"];
         UserInfoTableViewController *userInfoCtl = [[UserInfoTableViewController alloc] init];
         userInfoCtl.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:userInfoCtl animated:YES];

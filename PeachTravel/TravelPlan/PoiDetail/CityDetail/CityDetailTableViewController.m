@@ -381,6 +381,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 }
 
 - (void)makePlan {
+    
     Destinations *destinations = [[Destinations alloc] init];
     MakePlanViewController *makePlanCtl = [[MakePlanViewController alloc] init];
     ForeignViewController *foreignCtl = [[ForeignViewController alloc] init];

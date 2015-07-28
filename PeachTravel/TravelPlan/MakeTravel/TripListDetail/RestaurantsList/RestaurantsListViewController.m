@@ -55,6 +55,7 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [MobClick beginLogPageView:@"page_plan_favorite_pois_lists_type_restaurant"];
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     [self.tableView reloadData];
@@ -62,6 +63,7 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [MobClick endLogPageView:@"page_plan_favorite_pois_lists_type_restaurant"];
     [super viewWillDisappear:animated];
     NSLog(@"Rest willdisappear");
 }
@@ -234,6 +236,7 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
 // 监听收藏按钮的点击事件
 - (void)collectionShop:(UIButton *)collection
 {
+    [MobClick event:@"button_item_add_favorite"];
     [self addWantTo:collection.tag];
 }
 

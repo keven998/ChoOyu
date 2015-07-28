@@ -84,6 +84,21 @@
     
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"page_lxp_guide_distribute"];
+  
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"page_lxp_guide_distribute"];
+  
+}
+
+
 #pragma mark - 请求网络数据
 - (void)sendRequest
 {

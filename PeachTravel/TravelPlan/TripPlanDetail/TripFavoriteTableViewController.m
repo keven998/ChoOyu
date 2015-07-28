@@ -26,8 +26,16 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    
+    [MobClick beginLogPageView:@"page_lxp_plan_favorite"];
     [super viewWillAppear:animated];
     [self.tableView reloadData];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"page_lxp_plan_favorite"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -76,12 +84,15 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [MobClick event:@"tab_item_trip_favorite"];
     if (indexPath.row == 0) {
+        [MobClick event:@"cell_item_plan_favorite_delicy"];
         RestaurantsListViewController *ctl = [[RestaurantsListViewController alloc] init];
         ctl.canEdit = _canEdit;
         ctl.tripDetail = _tripDetail;
         [self.frostedViewController.navigationController pushViewController:ctl animated:YES];
     } else {
+        [MobClick event:@"cell_item_plan_favorite_shopping"];
         ShoppingListViewController *ctl = [[ShoppingListViewController alloc] init];
         ctl.tripDetail = _tripDetail;
         ctl.canEdit = _canEdit;
