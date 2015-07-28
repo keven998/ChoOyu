@@ -18,7 +18,7 @@
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vK8-y6-Tqr">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="233"/>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" alpha="0.49999999999999961" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plan_city_footprint@3x.png" translatesAutoresizingMaskIntoConstraints="NO" id="A3O-HQ-kax">
+                    <imageView userInteractionEnabled="NO" alpha="0.49999999999999961" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Artboard.png" translatesAutoresizingMaskIntoConstraints="NO" id="A3O-HQ-kax">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="232"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NMN-ak-8wx">
@@ -73,6 +73,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="plan_city_footprint@3x.png" width="40" height="414"/>
+        <image name="Artboard.png" width="18" height="233"/>
     </resources>
 </document>

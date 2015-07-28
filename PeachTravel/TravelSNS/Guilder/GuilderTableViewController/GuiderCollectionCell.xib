@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="179" height="260"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hVa-9O-gZ7">
-                                <rect key="frame" x="52.5" y="25" width="73" height="82"/>
+                                <rect key="frame" x="53" y="26" width="72" height="81"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="hVa-9O-gZ7" secondAttribute="height" multiplier="38:42" constant="-1" id="7ZD-JA-ZpI"/>
                                 </constraints>
@@ -135,7 +135,7 @@
                             <constraint firstAttribute="centerX" secondItem="nxV-mg-Z5V" secondAttribute="centerX" id="fSM-Y2-gfH"/>
                             <constraint firstItem="aO9-VH-OpY" firstAttribute="top" secondItem="dUU-gd-x0t" secondAttribute="bottom" constant="2" id="kqg-hd-NaI"/>
                             <constraint firstAttribute="centerX" secondItem="aO9-VH-OpY" secondAttribute="centerX" id="l49-5x-9ay"/>
-                            <constraint firstItem="hVa-9O-gZ7" firstAttribute="top" secondItem="719-G3-Not" secondAttribute="top" constant="25" id="vdk-lq-ZG6"/>
+                            <constraint firstItem="hVa-9O-gZ7" firstAttribute="top" secondItem="719-G3-Not" secondAttribute="top" constant="26" id="vdk-lq-ZG6"/>
                             <constraint firstAttribute="centerX" secondItem="hVa-9O-gZ7" secondAttribute="centerX" id="wX7-gi-wNF"/>
                         </constraints>
                     </view>

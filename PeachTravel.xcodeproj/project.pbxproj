@@ -1193,6 +1193,10 @@
 		E6381C151B66269000CF73AA /* Loading_Animation_final7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E6381BD91B66269000CF73AA /* Loading_Animation_final7@2x.png */; };
 		E6381C161B66269000CF73AA /* Loading_Animation_final8@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E6381BDA1B66269000CF73AA /* Loading_Animation_final8@2x.png */; };
 		E6381C171B66269000CF73AA /* Loading_Animation_final9@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E6381BDB1B66269000CF73AA /* Loading_Animation_final9@2x.png */; };
+		E64B66A71B679F0200FF208E /* master_placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E64B66A51B679F0200FF208E /* master_placeholder@2x.png */; };
+		E64B66A81B679F0200FF208E /* master_placeholder@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E64B66A61B679F0200FF208E /* master_placeholder@3x.png */; };
+		E64B66AB1B679F4900FF208E /* Artboard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E64B66A91B679F4900FF208E /* Artboard@2x.png */; };
+		E64B66AC1B679F4900FF208E /* Artboard@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E64B66AA1B679F4900FF208E /* Artboard@3x.png */; };
 		E66E6CCA1B59F1E500CBF65F /* DropDownViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E66E6CC91B59F1E500CBF65F /* DropDownViewController.m */; };
 		E66E6CD41B5A16A100CBF65F /* HWDropdownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = E66E6CD31B5A16A100CBF65F /* HWDropdownMenu.m */; };
 		E66E6CDC1B5A26BF00CBF65F /* UIImage+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = E66E6CDB1B5A26BF00CBF65F /* UIImage+Extension.m */; };
@@ -2800,6 +2804,10 @@
 		E6381BD91B66269000CF73AA /* Loading_Animation_final7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Loading_Animation_final7@2x.png"; sourceTree = "<group>"; };
 		E6381BDA1B66269000CF73AA /* Loading_Animation_final8@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Loading_Animation_final8@2x.png"; sourceTree = "<group>"; };
 		E6381BDB1B66269000CF73AA /* Loading_Animation_final9@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Loading_Animation_final9@2x.png"; sourceTree = "<group>"; };
+		E64B66A51B679F0200FF208E /* master_placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "master_placeholder@2x.png"; sourceTree = "<group>"; };
+		E64B66A61B679F0200FF208E /* master_placeholder@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "master_placeholder@3x.png"; sourceTree = "<group>"; };
+		E64B66A91B679F4900FF208E /* Artboard@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Artboard@2x.png"; sourceTree = "<group>"; };
+		E64B66AA1B679F4900FF208E /* Artboard@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Artboard@3x.png"; sourceTree = "<group>"; };
 		E66E6CC81B59F1E500CBF65F /* DropDownViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropDownViewController.h; sourceTree = "<group>"; };
 		E66E6CC91B59F1E500CBF65F /* DropDownViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropDownViewController.m; sourceTree = "<group>"; };
 		E66E6CD21B5A16A100CBF65F /* HWDropdownMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HWDropdownMenu.h; sourceTree = "<group>"; };
@@ -6292,6 +6300,10 @@
 		E63819781B65F61000CF73AA /* 达人 */ = {
 			isa = PBXGroup;
 			children = (
+				E64B66A91B679F4900FF208E /* Artboard@2x.png */,
+				E64B66AA1B679F4900FF208E /* Artboard@3x.png */,
+				E64B66A51B679F0200FF208E /* master_placeholder@2x.png */,
+				E64B66A61B679F0200FF208E /* master_placeholder@3x.png */,
 				E63819791B65F61000CF73AA /* master_address@2x.png */,
 				E638197A1B65F61000CF73AA /* master_address@3x.png */,
 				E638197B1B65F61000CF73AA /* master_boy@2x.png */,
@@ -6751,6 +6763,7 @@
 				E6381B341B65F61000CF73AA /* messages_bg_self@3x.png in Resources */,
 				E6381A191B65F61000CF73AA /* poi_button_traffic_default@3x.png in Resources */,
 				E6381BF71B66269000CF73AA /* Loading_Animation_final34@2x.png in Resources */,
+				E64B66A81B679F0200FF208E /* master_placeholder@3x.png in Resources */,
 				E6381A941B65F61000CF73AA /* map_icon_20@2x.png in Resources */,
 				E6381B151B65F61000CF73AA /* speaking-motion8@2x.png in Resources */,
 				27FF1AE61B09AFB100643D77 /* OtherUserBasicInfoCell.xib in Resources */,
@@ -6806,6 +6819,7 @@
 				C60C0D701A299389006033C9 /* PushSettingTableViewCell.xib in Resources */,
 				E6381BE01B66269000CF73AA /* Loading_Animation_final13@2x.png in Resources */,
 				E6381ACF1B65F61000CF73AA /* ic_home_avatar_unknown@2x.png in Resources */,
+				E64B66A71B679F0200FF208E /* master_placeholder@2x.png in Resources */,
 				E6381A471B65F61000CF73AA /* city_button_shopping_default@3x.png in Resources */,
 				E6381AB31B65F61000CF73AA /* tools_home_card_bg_highlight@3x.png in Resources */,
 				E6381A161B65F61000CF73AA /* poi_button_tip_selected@2x.png in Resources */,
@@ -6961,6 +6975,7 @@
 				E63819FC1B65F61000CF73AA /* plan_bg_page_spot_zhedang@2X.png in Resources */,
 				E6381B781B65F61000CF73AA /* master_no@2x.png in Resources */,
 				E6381AA61B65F61000CF73AA /* map_icon_empty@2x.png in Resources */,
+				E64B66AB1B679F4900FF208E /* Artboard@2x.png in Resources */,
 				D9A8006E1A80DD0C005AD701 /* FrendRequestTableViewCell.xib in Resources */,
 				D90A9B491B5627C400E9F37C /* Loading_Animation_final30@3x.png in Resources */,
 				D9A8011F1A80DD23005AD701 /* call_silence.png in Resources */,
@@ -7369,6 +7384,7 @@
 				D9A8011E1A80DD23005AD701 /* call_out_h@2x.png in Resources */,
 				E6381B461B65F61000CF73AA /* messages_plus_pin_default@3x.png in Resources */,
 				D9A8020E1A80E036005AD701 /* JGProgressHUD Resources.bundle in Resources */,
+				E64B66AC1B679F4900FF208E /* Artboard@3x.png in Resources */,
 				E6381AF11B65F61000CF73AA /* ic_navigationbar_menu_add@2x.png in Resources */,
 				D90A9B401B5627C400E9F37C /* Loading_Animation_final21@3x.png in Resources */,
 				E6381B651B65F61000CF73AA /* ic_setting_apprise@2x.png in Resources */,
