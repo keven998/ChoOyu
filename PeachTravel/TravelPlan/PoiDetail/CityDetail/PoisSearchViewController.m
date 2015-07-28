@@ -232,8 +232,13 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
                 break;
             }
         }
-        [cell.actionBtn setTitle:@"收藏" forState:UIControlStateNormal];
-        [cell.actionBtn setTitle:@"已收藏" forState:UIControlStateSelected];
+        if (_isAddPoi) {
+            [cell.actionBtn setTitle:@"添加" forState:UIControlStateNormal];
+            [cell.actionBtn setTitle:@"已添加" forState:UIControlStateSelected];
+        } else {
+            [cell.actionBtn setTitle:@"收藏" forState:UIControlStateNormal];
+            [cell.actionBtn setTitle:@"已收藏" forState:UIControlStateSelected];
+        }
 
         cell.actionBtn.selected = isAdded;
         [cell.actionBtn removeTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];

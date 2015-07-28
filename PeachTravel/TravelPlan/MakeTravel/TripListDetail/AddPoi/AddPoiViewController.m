@@ -220,6 +220,7 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     PoisSearchViewController *searchCtl = [[PoisSearchViewController alloc] init];
     [searchCtl setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
     searchCtl.currentDayIndex = _currentDayIndex;
+    searchCtl.isAddPoi = YES;
     searchCtl.cityId = _cityId;
     searchCtl.tripDetail = _tripDetail;
     searchCtl.poiType = _poiType;
