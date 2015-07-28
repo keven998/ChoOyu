@@ -269,17 +269,21 @@
     travelNote.layer.shadowRadius = 2;
     travelNote.layer.shadowOpacity = 1;
     [travelNote setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
-    [_scrollView addSubview:travelNote];
+    
+    // 游记功能暂未实现,此时隐藏游记按钮
+//    [_scrollView addSubview:travelNote];
     UILabel *travelNoteLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, YY, btnWidth, 20)];
     travelNoteLabel.font = [UIFont systemFontOfSize:20* height/736];
     travelNoteLabel.textColor = COLOR_TEXT_I;
     travelNoteLabel.textAlignment = NSTextAlignmentCenter;
+    
     [travelNote addSubview:travelNoteLabel];
     UILabel *travelNoteLabel2 = [[UILabel alloc]initWithFrame:CGRectMake(0, YY+31* height/736, btnWidth, 20)];
     travelNoteLabel2.font = [UIFont systemFontOfSize:16* height/736];
     travelNoteLabel2.textColor = COLOR_TEXT_II;
     travelNoteLabel2.textAlignment = NSTextAlignmentCenter;
     travelNoteLabel2.text = @"游记";
+    
     [travelNote addSubview:travelNoteLabel2];
     _scrollView.contentSize = CGSizeMake(width, btnWidth * 2 + _headerBgView.bounds.size.height);
 }
