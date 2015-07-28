@@ -668,18 +668,20 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SuperPoi *poi = [self.dataSource objectAtIndex:indexPath.row];
     
-    BOOL isAdded = NO;
-    NSMutableArray *oneDayArray = [self.tripDetail.itineraryList objectAtIndex:_currentDayIndex];
-    for (SuperPoi *tripPoi in oneDayArray) {
-        if ([tripPoi.poiId isEqualToString:poi.poiId]) {
-            isAdded = YES;
-        }
-    }
-    
     TripPoiListTableViewCell *poiCell = [tableView dequeueReusableCellWithIdentifier:addPoiCellIndentifier forIndexPath:indexPath];
     poiCell.tripPoi = poi;
     
     if (_shouldEdit) {
+        BOOL isAdded = NO;
+        NSMutableArray *oneDayArray = [self.tripDetail.itineraryList objectAtIndex:_currentDayIndex];
+        for (SuperPoi *tripPoi in oneDayArray) {
+            if ([tripPoi.poiId isEqualToString:poi.poiId]) {
+                isAdded = YES;
+            }
+        }
+        [poiCell.actionBtn setTitle:@"添加" forState:UIControlStateNormal];
+        [poiCell.actionBtn setTitle:@"已添加" forState:UIControlStateSelected];
+
         poiCell.actionBtn.hidden = NO;
         poiCell.actionBtn.tag = indexPath.row;
         poiCell.actionBtn.selected = isAdded;
