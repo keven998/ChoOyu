@@ -52,9 +52,9 @@
         NSString * imageUrl = array[0][@"url"];
         NSURL * url = [NSURL URLWithString:imageUrl];
         self.bgImage.image = nil;
-        [self.bgImage sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"master_place_holder"]];
+        [self.bgImage sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"master_placeholder.png"]];
     }else{
-        self.bgImage.image = [UIImage imageNamed:@"master_place_holder"];
+        self.bgImage.image = [UIImage imageNamed:@"master_placeholder.png"];
     }
 
     self.expertUserCnt.font = [UIFont boldSystemFontOfSize:30.0];
