@@ -30,7 +30,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationItem.title = _titleStr;
+    if (_titleStr) {
+        self.navigationItem.title = _titleStr;
+    } else {
+        self.navigationItem.title = @"游记详情";
+    }
     
     UIButton *cb = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [cb setImage:[UIImage imageNamed:@"navigationbar_chat_default.png"] forState:UIControlStateNormal];

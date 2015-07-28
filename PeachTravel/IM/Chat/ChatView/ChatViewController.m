@@ -689,7 +689,7 @@
             
             travelNote.detailUrl = model.poiModel.detailUrl;
             travelNote.travelNoteId = model.poiModel.poiId;
-            travelNoteCtl.titleStr = @"游记详情";
+            travelNoteCtl.titleStr = model.poiModel.poiName;
             travelNoteCtl.travelNote = travelNote;
             [self.frostedViewController.navigationController pushViewController:travelNoteCtl animated:YES];
         }

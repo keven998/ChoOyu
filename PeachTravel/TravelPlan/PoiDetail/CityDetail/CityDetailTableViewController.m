@@ -362,7 +362,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [MobClick event:@"event_city_travel_note_item"];
     TravelNote *travelNote = [((CityPoi *)self.poi).travelNotes objectAtIndex:indexPath.row];
     TravelNoteDetailViewController *travelNoteCtl = [[TravelNoteDetailViewController alloc] init];
-    travelNoteCtl.title = travelNote.title;
+    travelNoteCtl.titleStr = travelNote.title;
     travelNoteCtl.travelNote = travelNote;
     [self.navigationController pushViewController:travelNoteCtl animated:YES];
     
