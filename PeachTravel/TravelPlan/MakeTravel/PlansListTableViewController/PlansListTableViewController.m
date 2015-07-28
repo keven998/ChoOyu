@@ -126,6 +126,7 @@ static NSString *reusableCell = @"myGuidesCell";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pullToRefreash:) name:updateGuideListNoti object:nil];
 }
 
+
 - (void)goBack
 {
     if (self.navigationController.childViewControllers.count > 1) {
@@ -158,6 +159,8 @@ static NSString *reusableCell = @"myGuidesCell";
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"page_lxp_plan_lists"];
+    
     [self.navigationController setNavigationBarHidden:NO animated:YES]; //侧滑navigation bar 补丁
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:COLOR_TEXT_I, NSForegroundColorAttributeName, nil]];
     [self.navigationController.navigationBar setBackgroundImage:[ConvertMethods createImageWithColor:APP_PAGE_COLOR] forBarMetrics:UIBarMetricsDefault];
@@ -168,6 +171,7 @@ static NSString *reusableCell = @"myGuidesCell";
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"page_lxp_plan_lists"];
     _isShowing = NO;
     if (_swipCell != nil) {
         [_swipCell hideUtilityButtonsAnimated:YES];
@@ -193,6 +197,8 @@ static NSString *reusableCell = @"myGuidesCell";
 #pragma mark - navigation action
 
 - (void) filtTrip {
+    [MobClick event:@"navigation_item_plans_status_filter"];
+    
     SelectionTableViewController *ctl = [[SelectionTableViewController alloc] init];
     ctl.contentItems = @[@"全部", @"只看计划", @"只看去过"];
     ctl.titleTxt = @"筛选";
@@ -207,6 +213,8 @@ static NSString *reusableCell = @"myGuidesCell";
 }
 
 - (void)makePlan {
+    [MobClick event:@"navigation_item_plan_create"];
+    
     Destinations *destinations = [[Destinations alloc] init];
     MakePlanViewController *makePlanCtl = [[MakePlanViewController alloc] init];
     ForeignViewController *foreignCtl = [[ForeignViewController alloc] init];
@@ -257,6 +265,8 @@ static NSString *reusableCell = @"myGuidesCell";
  */
 - (void)deleteGuide:(NSIndexPath *)indexPath
 {
+    [MobClick event:@"cell_item_plans_delete"];
+    
     MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:indexPath.section];
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:[NSString stringWithFormat:@"删除\"%@\"", guideSummary.title] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
     [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
@@ -269,7 +279,9 @@ static NSString *reusableCell = @"myGuidesCell";
 }
 
 - (void)played:(UIButton *)sender
-{   CGPoint point = [sender convertPoint:CGPointZero toView:self.tableView];
+{
+    [MobClick event:@"cell_item_plans_change_status"];
+    CGPoint point = [sender convertPoint:CGPointZero toView:self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
     MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:indexPath.section];
     if ([guideSummary.status isEqualToString:@"traveled"]) {

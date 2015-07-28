@@ -58,11 +58,19 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [MobClick beginLogPageView:@"page_lxp_day_schedule_detail"];
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     if (_dataSource) {
         [_tableView reloadData];
     }
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [MobClick endLogPageView:@"page_lxp_day_schedule_detail"];
 }
 
 - (void)setTitleStr:(NSString *)titleStr {

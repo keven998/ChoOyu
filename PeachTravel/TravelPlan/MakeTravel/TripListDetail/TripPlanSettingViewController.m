@@ -52,11 +52,13 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"page_plan_setting"];
     [_tableView reloadData];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
 }
 
 - (void) viewWillDisappear:(BOOL)animated {
+    [MobClick endLogPageView:@"page_plan_setting"];
     [super viewWillDisappear:animated];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
 }
@@ -236,8 +238,10 @@
 {
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
+            [MobClick event:@"cell_item_plan_change_name"];
             [self changeTitle:nil];
         } else if (indexPath.row == 1) {
+            [MobClick event:@"cell_item_plan_edit_plan"];
             ScheduleEditorViewController *sevc = [[ScheduleEditorViewController alloc] init];
             ScheduleDayEditViewController *menuCtl = [[ScheduleDayEditViewController alloc] init];
             sevc.tripDetail = _tripDetail;
@@ -249,10 +253,12 @@
             frostedViewController.resumeNavigationBar = NO;
             [self.frostedViewController.navigationController pushViewController:frostedViewController animated:YES];
         } else if (indexPath.row == 2){
+            [MobClick event:@"cell_item_plan_lxp_share"];
             [self sendToFriends];
         }
         
     } else if (indexPath.section == 1) {
+        [MobClick event:@"cell_item_plan_change_select_city"];
         CityDetailTableViewController *cityCtl = [[CityDetailTableViewController alloc]init];
         CityDestinationPoi *model = _tripDetail.destinations[indexPath.row];
         cityCtl.cityId = model.cityId;

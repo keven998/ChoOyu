@@ -106,11 +106,13 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [MobClick beginLogPageView:@"page_lxp_plan_agenda"];
     [super viewWillAppear:animated];
     _isShowing = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+    [MobClick endLogPageView:@"page_lxp_plan_agenda"];
     [super viewWillDisappear:animated];
     _isShowing = NO;
 }
@@ -207,6 +209,7 @@
 
 - (IBAction)finishEidtTrip:(id)sender
 {
+    
     TZProgressHUD *hud;
     if (self.tripDetail.tripIsChange) {
         hud = [[TZProgressHUD alloc] init];
@@ -228,6 +231,7 @@
 }
 
 - (void)mapView {
+    [MobClick event:@"navigation_item_lxp_plan_mapview"];
     MyTripSpotsMapViewController *mapViewCtl = [[MyTripSpotsMapViewController alloc] init];
     mapViewCtl.tripDetail = _tripDetail;
     mapViewCtl.titleText = self.navigationItem.title;
@@ -411,6 +415,7 @@
  */
 - (IBAction)showMoreAction:(id)sender
 {
+    [MobClick event:@"navigiation_item_lxp_plan_setting"];
     if (!_tripDetail) {
         //        [SVProgressHUD showHint:HTTP_FAILED_HINT];
         return;
@@ -513,6 +518,7 @@
  */
 - (IBAction)forkTrip:(id)sender
 {
+    [MobClick event:@"navigation_item_copy_plan"];
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:[NSString stringWithFormat:@"复制\"%@\"到我的旅行计划", _tripDetail.tripTitle] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     [alert showAlertViewWithBlock:^(NSInteger buttonIndex) {
         if (buttonIndex == 1) {

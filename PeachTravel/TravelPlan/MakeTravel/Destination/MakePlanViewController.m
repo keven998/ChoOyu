@@ -59,12 +59,14 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [MobClick beginLogPageView:@"page_select_plan_city"];
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES]; //侧滑navigation bar 补丁
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [MobClick endLogPageView:@"page_select_plan_city"];
     [super viewWillDisappear:animated];
 }
 
