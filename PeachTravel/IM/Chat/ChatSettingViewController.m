@@ -97,7 +97,7 @@
         ChatConversation *conversation = [clientManager.conversationManager getExistConversationInConversationList:_chatterId];
         [cell.switchBtn removeTarget:self action:@selector(changeMsgStatus:) forControlEvents:UIControlEventValueChanged];
         [cell.switchBtn addTarget:self action:@selector(changeMsgStatus:) forControlEvents:UIControlEventValueChanged];
-        cell.switchBtn.on = [conversation isBlockMessag];
+        cell.switchBtn.on = [conversation isBlockMessage];
         cell.tag = 101;
         return cell;
 

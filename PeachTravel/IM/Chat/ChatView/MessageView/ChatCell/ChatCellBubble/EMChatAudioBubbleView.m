@@ -52,7 +52,7 @@ NSString *const kRouterEventAudioBubbleTapEventName = @"kRouterEventAudioBubbleT
     return self;
 }
 
--(CGSize)sizeThatFits:(CGSize)size
+- (CGSize)sizeThatFits:(CGSize)size
 {
     CGFloat width = BUBBLE_VIEW_PADDING*2 + BUBBLE_ARROW_WIDTH + ANIMATION_TIME_LABEL_WIDHT +ANIMATION_TIME_IMAGEVIEW_PADDING + ANIMATION_IMAGEVIEW_SIZE;
     
@@ -60,7 +60,7 @@ NSString *const kRouterEventAudioBubbleTapEventName = @"kRouterEventAudioBubbleT
     return CGSizeMake(width, height);
 }
 
--(void)layoutSubviews
+- (void)layoutSubviews
 {
     [super layoutSubviews];
     
@@ -77,8 +77,7 @@ NSString *const kRouterEventAudioBubbleTapEventName = @"kRouterEventAudioBubbleT
         frame.origin.y = _animationImageView.center.y - frame.size.height / 2;
         _timeLabel.frame = frame;
 
-    }
-    else {
+    } else {
         _animationImageView.image = [UIImage imageNamed:RECEIVER_ANIMATION_IMAGEVIEW_IMAGE_DEFAULT];
         _timeLabel.textColor = UIColorFromRGB(0x797979);
 
@@ -102,18 +101,23 @@ NSString *const kRouterEventAudioBubbleTapEventName = @"kRouterEventAudioBubbleT
 - (void)setModel:(MessageModel *)model
 {
     [super setModel:model];
-    
-    _timeLabel.text = [NSString stringWithFormat:@"%d", (int)roundf(self.model.time)];
+    int time = (int)roundf(self.model.time);
+    int min = time/60;
+    int second = time%60;
+    if (min == 0) {
+        _timeLabel.text = [NSString stringWithFormat:@"%d\"", second];
+    } else {
+        _timeLabel.text = [NSString stringWithFormat:@"%d' %d\"", min, second];
+    }
     
     if (self.model.isSender) {
         [_isReadView setHidden:YES];
         _animationImageView.image = [UIImage imageNamed:SENDER_ANIMATION_IMAGEVIEW_IMAGE_DEFAULT];
         _animationImageView.animationImages = _senderAnimationImages;
-    }
-    else{
+    } else {
         if (model.isPlayed) {
             [_isReadView setHidden:YES];
-        }else{
+        } else {
             [_isReadView setHidden:NO];
         }
 
@@ -121,10 +125,9 @@ NSString *const kRouterEventAudioBubbleTapEventName = @"kRouterEventAudioBubbleT
         _animationImageView.animationImages = _recevierAnimationImages;
     }
     
-    if (self.model.isPlaying)
-    {
+    if (self.model.isPlaying) {
         [self startAudioAnimation];
-    }else {
+    } else {
         [self stopAudioAnimation];
     }
 }

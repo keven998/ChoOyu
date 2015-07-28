@@ -15,10 +15,4 @@
 
 @property (nonatomic, strong) TravelNote *travelNote;
 
-//@property (nonatomic, copy) NSString *travelNoteTitle;
-//@property (nonatomic, copy) NSString *desc;
-//@property (nonatomic, copy) NSString *travelNoteId;
-//@property (nonatomic, copy) NSString *travelNoteCover;
-//@property (nonatomic, copy) NSString *urlStr;
-
 @end

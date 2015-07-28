@@ -15,7 +15,6 @@
 
 @interface TravelNoteDetailViewController () <UIWebViewDelegate, NJKWebViewProgressDelegate, CreateConversationDelegate, TaoziMessageSendDelegate> {
     UIWebView *_webView;
-//    UIActivityIndicatorView *_activeView;
     
     NJKWebViewProgressView *_progressView;
     NJKWebViewProgress *_progressProxy;
@@ -30,7 +29,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationItem.title = _titleStr;
+    if (_titleStr) {
+        self.navigationItem.title = _titleStr;
+    } else {
+        self.navigationItem.title = @"游记详情";
+    }
     
     UIButton *cb = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [cb setImage:[UIImage imageNamed:@"navigationbar_chat_default.png"] forState:UIControlStateNormal];
@@ -118,6 +121,7 @@
     taoziMessageCtl.chatTitle = chatTitle;
     taoziMessageCtl.chatterId = chatterId;
     taoziMessageCtl.chatType = chatType;
+    taoziMessageCtl.messageType = IMMessageTypeTravelNoteMessageType;
     
     [self.chatRecordListCtl dismissViewControllerAnimated:YES completion:^{
         [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:nil];

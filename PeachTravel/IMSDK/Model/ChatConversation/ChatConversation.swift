@@ -45,7 +45,7 @@ class ChatConversation: NSObject {
         }
     }
     var isTopConversation: Bool = false                        //是否置顶
-    var isBlockMessag: Bool = false                            //是否设置为免打扰
+    var isBlockMessage: Bool = false                            //是否设置为免打扰
     var unReadMessageCount: Int {
         willSet {
             ChatConversation.updateUnreadMessageCountInDB(newValue, chatterId: chatterId)

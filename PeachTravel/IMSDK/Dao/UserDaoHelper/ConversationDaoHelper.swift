@@ -96,7 +96,7 @@ class ConversationDaoHelper: BaseDaoHelper, ConversationDaoProtocol {
                     var conversation = ChatConversation()
                     conversation.chatterId = Int(rs.intForColumn("ChatterId"))
                     conversation.lastUpdateTime = Int(rs.longForColumn("LastUpdateTime"))
-                    conversation.isBlockMessag = Bool(rs.boolForColumn("isBlockMessage"))
+                    conversation.isBlockMessage = Bool(rs.boolForColumn("isBlockMessage"))
                     conversation.isTopConversation = Bool(rs.boolForColumn("isTopConversation"))
 
                     if let memoStr = rs.stringForColumn("Memo") {
@@ -173,7 +173,7 @@ class ConversationDaoHelper: BaseDaoHelper, ConversationDaoProtocol {
             if let conversationId = conversation.conversationId {
                 var sql = "insert into \(conversationTableName) (ChatterId, LastUpdateTime, ConversationId, isBlockMessage, isTopConversation) values (?,?,?,?,?)"
                 debug_println("执行 addConversation userId: \(conversation.chatterId)")
-                var array = [conversation.chatterId, conversation.lastUpdateTime, conversationId, conversation.isBlockMessag, conversation.isTopConversation]
+                var array = [conversation.chatterId, conversation.lastUpdateTime, conversationId, conversation.isBlockMessage, conversation.isTopConversation]
                 if dataBase.executeUpdate(sql, withArgumentsInArray:array as [AnyObject]) {
                     debug_println("success 执行 sql 语句：\(sql)")
                     
@@ -184,7 +184,7 @@ class ConversationDaoHelper: BaseDaoHelper, ConversationDaoProtocol {
             } else {
                 var sql = "insert into \(conversationTableName) (ChatterId, LastUpdateTime) values (?,?)"
                 debug_println("执行 addConversation userId: \(conversation.chatterId)")
-                var array = [conversation.chatterId, conversation.lastUpdateTime, conversation.isBlockMessag, conversation.isTopConversation]
+                var array = [conversation.chatterId, conversation.lastUpdateTime, conversation.isBlockMessage, conversation.isTopConversation]
                 if dataBase.executeUpdate(sql, withArgumentsInArray:array as [AnyObject]) {
                     debug_println("success 执行 sql 语句：\(sql)")
                     
