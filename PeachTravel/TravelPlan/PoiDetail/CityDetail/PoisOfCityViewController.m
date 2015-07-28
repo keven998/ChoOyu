@@ -429,6 +429,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
  */
 - (IBAction)addPoi:(UIButton *)sender
 {
+    sender.userInteractionEnabled = NO;
     CGPoint point;
     NSIndexPath *indexPath;
     TripPoiListTableViewCell *cell;
@@ -448,6 +449,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
         } completion:^(BOOL finished) {
             [self.selectPanel scrollToItemAtIndexPath:lnp
                                      atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+            sender.userInteractionEnabled = YES;
         }];
         
     } else {
@@ -467,12 +469,17 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
             [self.selectPanel performBatchUpdates:^{
                 [self.selectPanel deleteItemsAtIndexPaths:[NSArray arrayWithObject:lnp]];
             } completion:^(BOOL finished) {
+                sender.userInteractionEnabled = YES;
                 [self.selectPanel reloadData];
+                
             }];
         }
         
     }
-    cell.actionBtn.selected = !cell.actionBtn.selected;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.15 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        cell.actionBtn.selected = !cell.actionBtn.selected;
+    });
+    
 }
 
 - (void)deletePoi:(UIButton *)sender
@@ -735,7 +742,9 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
                 break;
             }
         }
+        
         cell.actionBtn.selected = isAdded;
+        
         [cell.actionBtn removeTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
         [cell.actionBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -924,6 +933,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
 {
     [self.tableView reloadData];
     [self.selectPanel reloadData];
+    
 }
 
 #pragma mark - SelectDelegate
