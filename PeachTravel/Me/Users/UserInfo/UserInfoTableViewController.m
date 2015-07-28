@@ -688,7 +688,7 @@
     }else if (selectIndex.row == 1){
         str = @"M";
     }else if (selectIndex.row == 2){
-        str = @"U";
+        str = @"B";
     } else {
         str = @"S";
     }
