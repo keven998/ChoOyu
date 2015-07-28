@@ -462,74 +462,8 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     return self.dataSource.count;
 }
 
-/**
- *  设置cell的头部
- *
- *  @param tableView 视图tableView
- *  @param section   标识哪一组
- *
- *  @return headerView
- */
 
-/*
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    if (!_tripDetail) {
-        return nil;
-    }
-    // 1.创建头部视图
-    UIView * header = [[UIView alloc] init];
-    header.frame = CGRectMake(0, 0, SCREEN_WIDTH, 50);
-    header.backgroundColor = [UIColor whiteColor];
-    
-    // 2.创建头部视图列表
-    NSMutableArray * siteArray = [NSMutableArray array];
-    NSLog(@"%@",self.tripDetail);
-    for (CityDestinationPoi * poi in self.tripDetail.destinations){
-        NSString * zhName = poi.zhName;
-        [siteArray addObject:zhName];
-    }
-    // 设置城市Button的一些基本属性
-    UIButton * scene = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.cityButton = scene;
-    scene.selected = NO;
-    [scene setTitle:siteArray[_currentCityIndex] forState:UIControlStateNormal];
-    scene.titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
-    [scene setTitleColor:COLOR_TEXT_I forState:UIControlStateNormal];
-    [scene addTarget:self action:@selector(sceneClick:) forControlEvents:UIControlEventTouchDown];
-    scene.frame = CGRectMake(0, 0, SCREEN_WIDTH * 0.5, 50);
-    [scene setImage:[UIImage imageNamed:@"ArtboardBottom@3x"] forState:UIControlStateNormal];
-    [scene setImage:[UIImage imageNamed:@"ArtboardTop@3x"] forState:UIControlStateSelected];
-    scene.imageEdgeInsets = UIEdgeInsetsMake(0, 80, 0, 0);
-    scene.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 40);
-    [header addSubview:scene];
-    
-    // 设置分类界面的一些基本属性
-    NSArray * typeArray = @[@"景点",@"美食",@"购物"];
-    UIButton * type = [UIButton buttonWithType:UIButtonTypeCustom];
-    type.titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
-    self.categoryButton = type;
-    type.selected = NO;
-    [type setTitle:typeArray[_currentListTypeIndex] forState:UIControlStateNormal];
-    [type setTitleColor:COLOR_TEXT_I forState:UIControlStateNormal];
-    [type addTarget:self action:@selector(typeClick:) forControlEvents:UIControlEventTouchDown];
-    [type setImage:[UIImage imageNamed:@"ArtboardBottom@3x"] forState:UIControlStateNormal];
-    [type setImage:[UIImage imageNamed:@"ArtboardTop@3x"] forState:UIControlStateSelected];
-    type.imageEdgeInsets = UIEdgeInsetsMake(0, 80, 0, 0);
-    type.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 40);
-    type.frame = CGRectMake(SCREEN_WIDTH * 0.5, 0, SCREEN_WIDTH * 0.5, 50);
-    [header addSubview:type];
-
-    // 3.添加中间的分割线
-    UIView * line = [[UIView alloc] init];
-    line.frame = CGRectMake(SCREEN_WIDTH * 0.5, 10, 1, 30);
-    line.backgroundColor = COLOR_LINE;
-    [header addSubview:line];
-    
-    return header;
-}
-*/
-
+// 添加头部
 - (void)addHeaderView
 {
     // 1.创建头部视图
