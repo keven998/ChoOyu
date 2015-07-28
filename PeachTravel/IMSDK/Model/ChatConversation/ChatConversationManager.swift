@@ -78,9 +78,8 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
             let chatterId = conversationList.first!.chatterId
             params = ["targetIds": "\(chatterId)"]
         } else {
-            var index = 0
             var str = ""
-            for conversation in conversationList {
+            for (index, conversation) in enumerate(conversationList) {
                 if index == conversationList.count-1 {
                     str += ("\(conversation.chatterId)")
                 } else {
