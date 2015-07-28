@@ -89,7 +89,14 @@
         }  else if (indexPath.row == 3)   {
             cell.categoryLabel.text = @"电话";
             cell.infomationLabel.text = ((SpotPoi *)self.poi).telephone;
-            cell.image.image = [UIImage imageNamed:@"poi_icon_phone"];
+            // 如果没有号码,就显示未知
+            if (cell.infomationLabel.text.length == 0) {
+//                cell.image.image = [UIImage imageNamed:@"poi_icon_phone"];
+                cell.noTelLabel.text = @"未知";
+                cell.noTelLabel.hidden = NO;
+                cell.image.hidden = YES;
+            }
+            
         }
         return cell;
     } else if (indexPath.row == 4) {
