@@ -657,10 +657,7 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
  */
 - (void)dropdownMenuDidShow:(HWDropdownMenu *)menu
 {
-    
-    self.categoryButton.selected = YES;
-    // 让箭头向上
-    //    [titleButton setImage:[UIImage imageNamed:@"navigationbar_arrow_up"] forState:UIControlStateNormal];
+
 }
 
 
@@ -869,19 +866,23 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     [self.dropDownMenu dismiss];
     if (tag == 1) {
         _currentCityIndex = cityindex;
+        [self addHeaderView];
     } else{
         _currentListTypeIndex = categaryIndex;
         if (_currentListTypeIndex == 0){
             _currentCategory= @"景点";
             _poiType = kSpotPoi;
+            [self.categoryButton setTitle:@"景点" forState:UIControlStateNormal];
             
         } else if (_currentListTypeIndex == 1) {
             _currentCategory = @"美食";
             _poiType = kRestaurantPoi;
+            [self.categoryButton setTitle:@"美食" forState:UIControlStateNormal];
             
         } else if (_currentListTypeIndex== 2) {
             _currentCategory = @"购物";
             _poiType = kShoppingPoi;
+            [self.categoryButton setTitle:@"购物" forState:UIControlStateNormal];
             
         } else if (_currentListTypeIndex == 3) {
             _currentCategory = @"酒店";
