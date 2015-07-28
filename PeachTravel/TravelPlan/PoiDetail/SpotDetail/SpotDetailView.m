@@ -91,16 +91,16 @@
     {
         switch (self.spot.poiType) {
             case kSpotPoi:
-                tagTitle = @"美丽景点";
+                tagTitle = @"景点";
                 break;
             case kHotelPoi:
-                tagTitle = @"舒适宾馆";
+                tagTitle = @"宾馆";
                 break;
             case kRestaurantPoi:
-                tagTitle = @"好吃餐厅";
+                tagTitle = @"餐厅";
                 break;
             case kShoppingPoi:
-                tagTitle = @"欢乐购物";
+                tagTitle = @"购物";
                 break;
             default:
                 break;
