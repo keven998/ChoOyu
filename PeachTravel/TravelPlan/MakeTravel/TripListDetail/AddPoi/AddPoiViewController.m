@@ -83,6 +83,16 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height-49) style:UITableViewStyleGrouped];
     _tableView.delegate  = self;
     _tableView.dataSource = self;
+    if (_shouldEdit) {
+        _tableView.contentInset = UIEdgeInsetsMake(50, 0, 50, 0);
+    } else {
+        _tableView.contentInset = UIEdgeInsetsMake(0, 0, 50, 0);
+    }
+    [self.tableView registerNib:[UINib nibWithNibName:@"TripPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:addPoiCellIndentifier];
+    
+    self.tableView.separatorColor = COLOR_LINE;
+    self.tableView.backgroundColor = APP_PAGE_COLOR;
+
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     [self.view addSubview:_tableView];
@@ -108,15 +118,12 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     
     _urlArray = @[API_GET_SPOTLIST_CITY, API_GET_RESTAURANTSLIST_CITY, API_GET_SHOPPINGLIST_CITY, API_GET_HOTELLIST_CITY];
     
-    [self.tableView registerNib:[UINib nibWithNibName:@"TripPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:addPoiCellIndentifier];
-    
-    self.tableView.separatorColor = COLOR_LINE;
-    self.tableView.backgroundColor = APP_PAGE_COLOR;
     _requestUrl =  API_GET_SPOTLIST_CITY;
     _requestUrl = API_GET_SPOTLIST_CITY;
     
-    _tableView.contentInset = UIEdgeInsetsMake(50, 0, 50, 0);
-    [self addHeaderView];
+    if (_shouldEdit) {
+        [self addHeaderView];
+    }
     
     [self loadDataWithPageNo:_currentPageNormal];
 }
@@ -444,7 +451,6 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)sectio
 {
-//    return self.tripDetail ? 50 : 0.5;
     return 0.5;
 }
 
@@ -548,8 +554,8 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     [scene setTitleColor:COLOR_TEXT_I forState:UIControlStateNormal];
     [scene addTarget:self action:@selector(sceneClick:) forControlEvents:UIControlEventTouchDown];
     scene.frame = CGRectMake(0, 0, SCREEN_WIDTH * 0.5, 50);
-    [scene setImage:[UIImage imageNamed:@"ArtboardBottom@3x"] forState:UIControlStateNormal];
-    [scene setImage:[UIImage imageNamed:@"ArtboardTop@3x"] forState:UIControlStateSelected];
+    [scene setImage:[UIImage imageNamed:@"ArtboardBottom"] forState:UIControlStateNormal];
+    [scene setImage:[UIImage imageNamed:@"ArtboardTop"] forState:UIControlStateSelected];
     scene.imageEdgeInsets = UIEdgeInsetsMake(0, 80, 0, 0);
     scene.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 40);
     [header addSubview:scene];
@@ -563,8 +569,8 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     [type setTitle:typeArray[_currentListTypeIndex] forState:UIControlStateNormal];
     [type setTitleColor:COLOR_TEXT_I forState:UIControlStateNormal];
     [type addTarget:self action:@selector(typeClick:) forControlEvents:UIControlEventTouchDown];
-    [type setImage:[UIImage imageNamed:@"ArtboardBottom@3x"] forState:UIControlStateNormal];
-    [type setImage:[UIImage imageNamed:@"ArtboardTop@3x"] forState:UIControlStateSelected];
+    [type setImage:[UIImage imageNamed:@"ArtboardBottom"] forState:UIControlStateNormal];
+    [type setImage:[UIImage imageNamed:@"ArtboardTop"] forState:UIControlStateSelected];
     type.imageEdgeInsets = UIEdgeInsetsMake(0, 80, 0, 0);
     type.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 40);
     type.frame = CGRectMake(SCREEN_WIDTH * 0.5, 0, SCREEN_WIDTH * 0.5, 50);

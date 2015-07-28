@@ -58,7 +58,7 @@
     
     if (self.showAccessory == indexPath.row) {
 //        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-        cell.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ArtboardCheck@3x"]];
+        cell.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ArtboardCheck"]];
     }
     
     
