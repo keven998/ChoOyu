@@ -195,9 +195,10 @@
 
 - (void)showMoreComments
 {
+    [MobClick event:@"cell_item_poi_all_comments"];
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
     webCtl.urlStr = self.poi.moreCommentsUrl;
-    webCtl.titleStr = [NSString stringWithFormat:@"\"%@\"点评", self.poi.zhName];
+    webCtl.titleStr = [NSString stringWithFormat:@"\"%@\" 点评", self.poi.zhName];
     [self.navigationController pushViewController:webCtl animated:YES];
 }
 
