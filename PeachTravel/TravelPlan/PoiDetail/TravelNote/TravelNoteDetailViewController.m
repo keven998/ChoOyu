@@ -15,7 +15,6 @@
 
 @interface TravelNoteDetailViewController () <UIWebViewDelegate, NJKWebViewProgressDelegate, CreateConversationDelegate, TaoziMessageSendDelegate> {
     UIWebView *_webView;
-//    UIActivityIndicatorView *_activeView;
     
     NJKWebViewProgressView *_progressView;
     NJKWebViewProgress *_progressProxy;
