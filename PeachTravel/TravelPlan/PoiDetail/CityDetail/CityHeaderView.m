@@ -150,6 +150,8 @@
 
 - (void)viewImage:(NSInteger)index
 {
+    [MobClick event:@"card_item_city_pictures"];
+
     MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] init];
     browser.titleStr = @"城市图集";
     for (UIView* next = [self superview]; next; next = next.superview)

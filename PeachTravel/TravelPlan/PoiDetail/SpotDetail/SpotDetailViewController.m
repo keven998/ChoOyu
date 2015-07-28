@@ -206,6 +206,7 @@
  */
 - (IBAction)kengdie:(id)sender
 {
+    [MobClick event:@"button_item_poi_travel_tips"];
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
     webCtl.titleStr = @"游玩小贴士";
     webCtl.urlStr = ((SpotPoi *)self.poi).tipsUrl;
@@ -219,6 +220,7 @@
  */
 - (IBAction)trafficGuide:(id)sender
 {
+    [MobClick event:@"button_item_poi_travel_traffic"];
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
     webCtl.titleStr = @"景点交通";
     webCtl.urlStr = ((SpotPoi *)self.poi).trafficInfoUrl;

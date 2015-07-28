@@ -49,6 +49,19 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"page_travel_notes_lists"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [_searchBar endEditing:YES];
+    [MobClick endLogPageView:@"page_travel_notes_lists"];
+    
+}
+
 #pragma mark - setter & getter
 
 - (NSMutableArray *)dataSource
@@ -73,11 +86,6 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
         [_searchBar becomeFirstResponder];
     }
     return _searchBar;
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    [_searchBar endEditing:YES];
 }
 
 #pragma mark - private methods

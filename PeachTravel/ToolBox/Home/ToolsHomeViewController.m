@@ -89,12 +89,25 @@
     [self.view addSubview:planHelper];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"page_home_trip_tools"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"page_home_trip_tools"];
+}
+
 
 #pragma mark - IBAction
 /**
  *  跳转到达人咨询界面
  */
 - (void) goLxpHelper {
+    [MobClick event:@"card_item_lxp_guide"];
     GuilderDistributeViewController *gdvc = [[GuilderDistributeViewController alloc] init];
     gdvc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:gdvc animated:YES];
@@ -104,6 +117,7 @@
  *  跳转到我的计划界面
  */
 - (void)goMyPlan {
+    [MobClick event:@"card_item_lxp_plan"];
     AccountManager *accountManager = [AccountManager shareAccountManager];
     if (!accountManager.isLogin) {
         LoginViewController *loginCtl = [[LoginViewController alloc] initWithCompletion:^(BOOL completed) {
@@ -126,6 +140,7 @@
 // 添加手势监听searchBar的搜索效果
 - (void)lxpSearch:(UITapGestureRecognizer *)tap
 {
+    [MobClick event:@"card_item_lxp_search"];
     SearchDestinationViewController *searchCtl = [[SearchDestinationViewController alloc] init];
     searchCtl.hidesBottomBarWhenPushed = YES;
     [searchCtl setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];

@@ -149,17 +149,13 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    if (_shouldEdit) {
-    } else {
-    }
+    [MobClick beginLogPageView:@"page_poi_lists_type_spot"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    if (_shouldEdit) {
-    } else {
-    }
+    [MobClick endLogPageView:@"page_poi_lists_type_spot"];
 }
 
 - (void)setTripDetail:(TripDetail *)tripDetail

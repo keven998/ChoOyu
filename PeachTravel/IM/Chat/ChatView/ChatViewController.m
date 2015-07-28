@@ -223,6 +223,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"page_lxp_chatting"];
     [_chatToolBar registerNoti];
     if (_isScrollToBottom) {
         [self scrollViewToBottom:YES];
@@ -235,6 +236,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"page_lxp_chatting"];
     [_chatToolBar unRegisterNoti];
     // 设置当前conversation的所有message为已读
     _conversation.unReadMessageCount = 0;
@@ -257,6 +259,7 @@
 
 - (void)showMenu
 {
+    [MobClick event:@"navigation_item_chat_setting"];
     [self keyBoardHidden];
     [self.view endEditing:YES];
     [self.frostedViewController.view endEditing:YES];
@@ -761,6 +764,8 @@
  */
 - (void)moreViewMyStrategyAction:(DXChatBarMoreView *)moreView
 {
+    [MobClick event:@"chat_item_lxpplan"];
+
     PlansListTableViewController *myGuideListTableCtl = [[PlansListTableViewController alloc] initWithUserId:self.accountManager.account.userId];
     myGuideListTableCtl.chatterId = _chatter;
     myGuideListTableCtl.selectToSend = YES;
@@ -796,6 +801,8 @@
  */
 - (void)moreViewDestinationAction:(DXChatBarMoreView *)moreView
 {
+    [MobClick event:@"chat_item_lxpsearch"];
+
     SearchDestinationViewController *searchCtl = [[SearchDestinationViewController alloc] init];
     searchCtl.isCanSend = YES;
     searchCtl.chatterId = _chatter;
@@ -862,7 +869,8 @@
 {
     // 隐藏键盘
 //    [self keyBoardHidden];
-    
+    [MobClick event:@"chat_item_lxplocation"];
+
     LocationViewController *locationController = [[LocationViewController alloc] init];
     locationController.delegate = self;
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:locationController] animated:YES completion:nil];

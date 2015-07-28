@@ -37,7 +37,7 @@
     [talkBtn setImage:[UIImage imageNamed:@"navigationbar_chat_default.png"] forState:UIControlStateNormal];
     [talkBtn setImage:[UIImage imageNamed:@"navigationbar_chat_hilighted.png"] forState:UIControlStateHighlighted];
     talkBtn.imageEdgeInsets = UIEdgeInsetsMake(2, 0, 0, 0);
-    [talkBtn addTarget:self action:@selector(shareToTalk) forControlEvents:UIControlEventTouchUpInside];
+    [talkBtn addTarget:self action:@selector(send2Frend) forControlEvents:UIControlEventTouchUpInside];
     talkBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:talkBtn];
     
@@ -46,11 +46,13 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"page_poi_detai"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"page_poi_detai"];
 }
 
 - (UITableView *)tableView
@@ -140,6 +142,27 @@
     _spotDetailView.spot = self.poi;
     self.tableView.tableHeaderView = _spotDetailView;
     [_spotDetailView.poiSummary addTarget:self action:@selector(showPoiDesc) forControlEvents:UIControlEventTouchUpInside];
+    if (self.poi.comments.count > 0) {
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(_tableView.frame), 64)];
+        view.backgroundColor = [UIColor clearColor];
+        view.userInteractionEnabled = YES;
+        UIButton *footerView = [[UIButton alloc] initWithFrame:CGRectMake(0, -2, CGRectGetWidth(_tableView.frame), 38)];
+        [footerView setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+        [footerView setBackgroundImage:[ConvertMethods createImageWithColor:COLOR_DISABLE] forState:UIControlStateHighlighted];
+        [footerView setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+        [footerView setTitle:@"~ 更多点评 ~" forState:UIControlStateNormal];
+        footerView.titleLabel.font = [UIFont systemFontOfSize:12];
+        [footerView addTarget:self action:@selector(showMoreComments) forControlEvents:UIControlEventTouchUpInside];
+        [view addSubview:footerView];
+        _tableView.tableFooterView = view;
+
+    }
+}
+
+- (void)send2Frend
+{
+    [MobClick event:@"navigation_item_poi_lxp_share"];
+    [self shareToTalk];
 }
 
 - (void)jumpToMap
@@ -168,6 +191,14 @@
     cddVC.des = self.poi.desc;
     cddVC.title = self.poi.zhName;
     [self.navigationController pushViewController:cddVC animated:YES];
+}
+
+- (void)showMoreComments
+{
+    SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
+    webCtl.urlStr = self.poi.moreCommentsUrl;
+    webCtl.titleStr = [NSString stringWithFormat:@"\"%@\"点评", self.poi.zhName];
+    [self.navigationController pushViewController:webCtl animated:YES];
 }
 
 #pragma mark - Private Methods
@@ -208,17 +239,6 @@
     webCtl.hideToolBar = YES;
     [self.navigationController pushViewController:webCtl animated:YES];
     
-}
-
-- (UIImage *)screenShotWithView:(UIView *)view
-{
-    UIGraphicsBeginImageContext(view.bounds.size);
-    [view.layer renderInContext:UIGraphicsGetCurrentContext()];
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    NSData *imageData = UIImageJPEGRepresentation(image, 0.8);
-    image = [UIImage imageWithData:imageData];
-    return image;
 }
 
 - (void)loadDataWithUrl:(NSString *)url

@@ -57,6 +57,7 @@
 
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"page_friends_lists"];
     [self.contactTableView reloadData];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
@@ -64,6 +65,12 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"page_friends_lists"];
 }
 
 - (void)dealloc
@@ -86,6 +93,7 @@
 
 - (void)addContact {
     AddContactTableViewController *addContactCtl = [[AddContactTableViewController alloc] init];
+    [MobClick event:@"navigation_item_add_lxp_friend"];
     [self.navigationController pushViewController:addContactCtl animated:YES];
 }
 
@@ -94,13 +102,6 @@
 - (void)removeEmptyView {
     [self.emptyView removeFromSuperview];
     self.emptyView = nil;
-}
-
-- (IBAction)addUserContact:(id)sender
-{
-    AddContactTableViewController *addContactCtl = [[AddContactTableViewController alloc] init];
-    addContactCtl.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:addContactCtl animated:YES];
 }
 
 #pragma mark - setter & getter
@@ -335,6 +336,8 @@
         
         FrendRequestTableViewController *frendRequestCtl = [[FrendRequestTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
         [self.navigationController pushViewController:frendRequestCtl animated:YES];
+        
+        [MobClick event:@"cell_item_new_friends_request"];
         
     } else {
         

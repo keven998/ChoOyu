@@ -87,8 +87,8 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [MobClick beginLogPageView:@"page_home_mine"];
     [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"page_home_mine"];
     if (!_accountManager.account.guideCnt) {
         [self loadUserInfo];
     }
@@ -96,8 +96,8 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    [MobClick endLogPageView:@"page_home_mine"];
     [super viewDidAppear:animated];
+    [MobClick endLogPageView:@"page_home_mine"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
