@@ -181,6 +181,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="city_icon_mt_userpic.png" width="6" height="10"/>
+        <image name="city_icon_mt_userpic.png" width="26" height="22"/>
     </resources>
 </document>
