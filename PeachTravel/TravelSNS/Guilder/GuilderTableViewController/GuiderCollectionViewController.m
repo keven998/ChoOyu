@@ -215,13 +215,16 @@ static NSString * const reuseIdentifier = @"Cell";
     }
     [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:up.avatarSmall]];
     
+    AccountManager * accountManager = [AccountManager shareAccountManager];
+    
     //星座
     if (up.costellation == nil || [up.costellation isBlankString]) {
-        [cell.costellationBtn setImage:[UIImage imageNamed:@"master_star.png"] forState:UIControlStateNormal];
+        [cell.costellationBtn setImage:[UIImage imageNamed:[FrendModel smallCostellationImageNameWithBirthday:up.birthday]] forState:UIControlStateNormal];
+        
         NSString * costellation = [NSString stringWithFormat:@"星座 %@",up.costellation];
         [cell.costellationBtn setTitle:costellation forState:UIControlStateNormal];
     } else {
-        [cell.costellationBtn setImage:[UIImage imageNamed:@"master_star.png"] forState:UIControlStateNormal];
+        [cell.costellationBtn setImage:[UIImage imageNamed:[FrendModel smallCostellationImageNameWithBirthday:accountManager.account.birthday]] forState:UIControlStateNormal];
         [cell.costellationBtn setTitle:up.costellation forState:UIControlStateNormal];
     }
     

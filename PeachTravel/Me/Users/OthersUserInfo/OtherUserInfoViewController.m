@@ -120,7 +120,7 @@
     _constellationView.center = CGPointMake(width/2.0 - 18, CGRectGetMaxY(_avatarBg.frame) - 5);
     _constellationView.contentMode = UIViewContentModeScaleAspectFit;
     
-    _constellationView.image = [UIImage imageNamed:[FrendModel costellationImageNameWithBirthday:_userInfo.birthday]];
+    _constellationView.image = [UIImage imageNamed:[FrendModel bigCostellationImageNameWithBirthday:_userInfo.birthday]];
 
     [_headerBgView addSubview:_constellationView];
     
@@ -314,7 +314,7 @@
         _recidence.text = _userInfo.residence;
     }
 
-    _constellationView.image = [UIImage imageNamed:[FrendModel costellationImageNameWithBirthday:_userInfo.birthday]];
+    _constellationView.image = [UIImage imageNamed:[FrendModel bigCostellationImageNameWithBirthday:_userInfo.birthday]];
     
     _trackLabel.text = _userInfo.footprintDescription;
     
