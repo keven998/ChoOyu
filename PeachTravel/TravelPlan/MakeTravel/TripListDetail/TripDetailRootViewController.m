@@ -28,7 +28,7 @@
 #import "TripFavoriteTableViewController.h"
 #import "MyTripSpotsMapViewController.h"
 
-@interface TripDetailRootViewController () <ActivityDelegate, TaoziMessageSendDelegate, ChatRecordListDelegate, CreateConversationDelegate, UIActionSheetDelegate>
+@interface TripDetailRootViewController () <ActivityDelegate, TaoziMessageSendDelegate, ChatRecordListDelegate, CreateConversationDelegate, UIActionSheetDelegate, REFrostedViewControllerDelegate>
 
 @property (nonatomic, strong) PlanScheduleViewController *spotsListCtl;
 @property (nonatomic, strong) TripFavoriteTableViewController *tripFavoriteCtl;
@@ -78,6 +78,8 @@
     
     [self setupViewControllers];
     [self setNavigationItems];
+    
+    self.frostedViewController.delegate = self;
     
     UIView *spd = [[UIView alloc] initWithFrame:CGRectMake(0, 44/*content offset*/, CGRectGetWidth(self.view.bounds), 0.6)];
     spd.backgroundColor = COLOR_LINE;
@@ -819,6 +821,10 @@
     }
 }
 
+- (void)frostedViewController:(REFrostedViewController *)frostedViewController willHideMenuViewController:(UIViewController *)menuViewController
+{
+    self.navigationItem.title = _tripDetail.tripTitle;
+}
 
 @end
 

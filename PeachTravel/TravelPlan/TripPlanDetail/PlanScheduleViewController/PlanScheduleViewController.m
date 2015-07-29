@@ -30,7 +30,6 @@
     _tableView.delegate = self;
     [_tableView registerNib:[UINib nibWithNibName:@"PlanScheduleTableViewCell" bundle:nil] forCellReuseIdentifier:@"schedule_summary_cell"];
     [self.view addSubview:_tableView];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -180,5 +179,8 @@
     [self.frostedViewController.navigationController pushViewController:davc animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
+
+
+
 
 @end
