@@ -205,6 +205,7 @@
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [manager PUT:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
+        _tripTitle = title;
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
