@@ -296,6 +296,10 @@ typedef NS_ENUM(NSUInteger, TZCMDChatType) {
 
 #define kShouldShowUnreadFrendRequestNoti  @"shouldShowUnreadFrendRequestNoti"
 
+//是否改完善个人信息的 noti
+#define kShouldShowFinishUserInfoNoti  @"shouldShowFinishUserInfoNoti"
+
+
 /*****Yahoo!天气对应的 code 列表******/
 #define yahooWeatherCode @[   @"龙卷风",\
                               @"热带风暴",\

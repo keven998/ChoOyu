@@ -72,6 +72,12 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         IMClientManager *imclientManager = [IMClientManager shareInstance];
         [imclientManager.messageReceiveManager addMessageReceiveListener:self withRoutingKey:MessageReceiveDelegateRoutingKeynormal];
     }
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidRegister) name:userDidRegistedNoti object:nil];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
 }
 
 - (void)dealloc
@@ -165,6 +171,14 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
             [vc removeFromParentViewController];
         }
     }
+}
+
+- (void)userDidRegister
+{
+     NSString *key = [NSString stringWithFormat:@"%@_%ld", kShouldShowFinishUserInfoNoti, [AccountManager shareAccountManager].account.userId];
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:key];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [self showSomeTabbarNoti];
 }
 
 /**
@@ -309,6 +323,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
                                                               initWithRootViewController:_toolBoxCtl];
     
     _mineCtl = [[MineTableViewController alloc] init];
+    _mineCtl.homeCtl = self;
     TZNavigationViewController *FourthNavigationController = [[TZNavigationViewController alloc]
                                                               initWithRootViewController:_mineCtl];
     
@@ -333,6 +348,36 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         item.imageInsets = UIEdgeInsetsMake(7, 0, -7, 0);
         index++;
     }
+    [self showSomeTabbarNoti];
+}
+
+/**
+ *  展示一些tabbar上的提醒
+ */
+- (void)showSomeTabbarNoti
+{
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    NSString *key = [NSString stringWithFormat:@"%@_%ld", kShouldShowFinishUserInfoNoti, [AccountManager shareAccountManager].account.userId];
+    BOOL shouldShowNoti = [[defaults objectForKey:key] boolValue];
+    
+    if (shouldShowNoti) {
+        UIView *dotView = [[UIView alloc] init];
+        dotView.tag = 101;
+        CGRect tabFrame = self.tabBar.frame;
+        dotView.backgroundColor = [UIColor redColor];
+        dotView.layer.cornerRadius = 3.0;
+        dotView.clipsToBounds = YES;
+        CGFloat x = ceilf(0.87 * tabFrame.size.width);
+        CGFloat y = ceilf(0.2 * tabFrame.size.height);
+        dotView.frame = CGRectMake(x, y, 6, 6);
+        [self.tabBar addSubview:dotView];
+    } else {
+        for (UIView *view in self.tabBar.subviews) {
+            if (view.tag == 101) {
+                [view removeFromSuperview];
+            }
+        }
+    }
 }
 
 - (void)updateViewWithUnreadMessageCount
@@ -355,9 +400,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         badgeNum = unreadCount;
         UIApplication *application = [UIApplication sharedApplication];
         application.applicationIconBadgeNumber = badgeNum;
-
     }
-
 }
 
 #pragma mark - UnreadMessageCountChangeDelegate

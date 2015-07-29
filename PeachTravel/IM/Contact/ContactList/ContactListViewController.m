@@ -285,7 +285,9 @@
         NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
         
         // 如果此时为NO,说明没有查看过联系人界面
-        BOOL isShowUnreadCount = [defaults boolForKey:kShouldShowUnreadFrendRequestNoti];
+        NSString *key = [NSString stringWithFormat:@"%@_%ld", kShouldShowUnreadFrendRequestNoti, [AccountManager shareAccountManager].account.userId];
+
+        BOOL isShowUnreadCount = [defaults boolForKey:key];
         
         if (isShowUnreadCount && imclientManager.frendRequestManager.unReadFrendRequestCount > 0) {
             unreadCount = imclientManager.frendRequestManager.unReadFrendRequestCount;

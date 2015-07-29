@@ -93,6 +93,7 @@
         [self loadUserInfo];
     }
     [self updateAccountInfo];
+    [_homeCtl showSomeTabbarNoti];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

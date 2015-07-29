@@ -83,7 +83,8 @@
     
     // 在这里判断是否已经查看过好友请求数
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
-    BOOL isShowUnreadCount = [defaults boolForKey:kShouldShowUnreadFrendRequestNoti];
+    NSString *key = [NSString stringWithFormat:@"%@_%ld", kShouldShowUnreadFrendRequestNoti, [AccountManager shareAccountManager].account.userId];
+    BOOL isShowUnreadCount = [defaults boolForKey:key];
     if (isShowUnreadCount&&[IMClientManager shareInstance].frendRequestManager.unReadFrendRequestCount > 0) {
         _frendRequestUnreadCountLabel.hidden = NO;
     } else {
@@ -113,7 +114,9 @@
     
     // 隐藏小红点
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
-    BOOL isShowUnreadCount = [defaults boolForKey:kShouldShowUnreadFrendRequestNoti];
+    NSString *key = [NSString stringWithFormat:@"%@_%ld", kShouldShowUnreadFrendRequestNoti, [AccountManager shareAccountManager].account.userId];
+
+    BOOL isShowUnreadCount = [defaults boolForKey:key];
     if (isShowUnreadCount&&[IMClientManager shareInstance].frendRequestManager.unReadFrendRequestCount > 0) {
         _frendRequestUnreadCountLabel.hidden = NO;
     } else {
