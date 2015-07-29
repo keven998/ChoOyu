@@ -85,7 +85,9 @@ class FrendRequestManager: NSObject {
         for delegate in delegateArray {
             delegate.friendRequestNumberNeedUpdate?()
         }
-        NSUserDefaults.standardUserDefaults().setBool(true, forKey: kShouldShowUnreadFrendRequestNoti)
+        let key = "\(kShouldShowUnreadFrendRequestNoti)_\(accountId)"
+
+        NSUserDefaults.standardUserDefaults().setBool(true, forKey: key)
     }
     
     /**

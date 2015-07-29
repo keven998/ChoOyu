@@ -248,7 +248,7 @@
     [uploadDic safeSetObject:destinationsArray forKey:@"localities"];
     NSString *url = [NSString stringWithFormat:@"%@%ld/guides/%@", API_USERS, (long)accountManager.account.userId, _tripId];
 
-    [manager PUT:url parameters:uploadDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager PATCH:url parameters:uploadDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {

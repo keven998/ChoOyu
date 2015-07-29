@@ -35,7 +35,8 @@
     // 加载这个页面后说明已经访问了这个页面,此时需要将联系人页面的新朋友提示移除
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
     BOOL isShowUnreadCount = NO;
-    [defaults setBool:isShowUnreadCount forKey:kShouldShowUnreadFrendRequestNoti];
+    NSString *key = [NSString stringWithFormat:@"%@_%ld", kShouldShowUnreadFrendRequestNoti, [AccountManager shareAccountManager].account.userId];
+    [defaults setBool:isShowUnreadCount forKey:key];
     [defaults synchronize];
 }
 

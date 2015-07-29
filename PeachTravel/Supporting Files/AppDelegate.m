@@ -78,12 +78,6 @@
     
     [iRate sharedInstance].promptAtLaunch = NO;
     
-    // 程序启动的时候存储未读数的状态
-    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
-    BOOL isShowUnreadCount = YES;
-    [defaults setBool:isShowUnreadCount forKey:kShouldShowUnreadFrendRequestNoti];
-    [defaults synchronize];
-    
     return YES;
 }
 

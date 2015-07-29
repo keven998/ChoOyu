@@ -94,6 +94,11 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userAccountHasChage) name:updateUserInfoNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(goBack) name:userDidLogoutNoti object:nil];
+    
+    NSString *key = [NSString stringWithFormat:@"%@_%ld", kShouldShowFinishUserInfoNoti, [AccountManager shareAccountManager].account.userId];
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:NO] forKey:key];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
