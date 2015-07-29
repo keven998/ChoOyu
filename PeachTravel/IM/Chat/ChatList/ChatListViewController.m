@@ -606,9 +606,9 @@
     
     if (tzConversation.chatType == IMChatTypeIMChatSingleType) {
         if ([tzConversation.chatterName isBlankString]) {
-            if (tzConversation.chatterId == 10001) {
+            if (tzConversation.chatterId == WenwenUserId) {
                 cell.name = @"旅行问问";
-            } else if (tzConversation.chatterId == 10000) {
+            } else if (tzConversation.chatterId == PaipaiUserId) {
                 cell.name = @"旅行派";
             } else {
                 cell.name = [NSString stringWithFormat:@"%ld", (long)tzConversation.chatterId];
@@ -616,10 +616,10 @@
         } else {
             cell.name = tzConversation.chatterName;
         }
-        if (tzConversation.chatterId == 10001) {
+        if (tzConversation.chatterId == WenwenUserId) {
             cell.imageView.image = [UIImage imageNamed:@"lvxingwenwen.png"];
             cell.imageView.layer.cornerRadius = 0;
-        } else if (tzConversation.chatterId == 10000) {
+        } else if (tzConversation.chatterId == PaipaiUserId) {
             cell.imageView.image = [UIImage imageNamed:@"lvxingpaipai.png"];
             cell.imageView.layer.cornerRadius = 0;
 
@@ -671,17 +671,17 @@
     tzConversation.unReadMessageCount = 0;
     [tzConversation resetConvsersationUnreadMessageCount];
     [_delegate unreadMessageCountHasChange];
-    if (tzConversation.chatterId == 10001) {
+    if (tzConversation.chatterId == WenwenUserId) {
         [MobClick event:@"cell_item_wenwen"];
     }
-    if (tzConversation.chatterId == 10000) {
+    if (tzConversation.chatterId == PaipaiUserId) {
         [MobClick event:@"cell_item_paipai"];
     }
 }
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
     ChatConversation *conversation = [self.dataSource objectAtIndex:indexPath.row];
-    if (conversation.chatterId != 10001 && conversation.chatterId != 10000) {
+    if (conversation.chatterId != WenwenUserId && conversation.chatterId != PaipaiUserId) {
         return YES;
     } else {
         return NO;
@@ -691,7 +691,7 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         ChatConversation *conversation = [self.dataSource objectAtIndex:indexPath.row];
-        if (conversation.chatterId != 10001 && conversation.chatterId != 10000) {
+        if (conversation.chatterId != WenwenUserId && conversation.chatterId != PaipaiUserId) {
             [self.imClientManager.conversationManager removeConversationWithChatterId: conversation.chatterId deleteMessage:NO];
         }
     }

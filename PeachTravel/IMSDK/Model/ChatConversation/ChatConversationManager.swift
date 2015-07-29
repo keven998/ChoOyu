@@ -156,22 +156,22 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
     */
     func reorderConversationList() {
         sort(&conversationList, { (conversation1: ChatConversation, conversation2: ChatConversation) -> Bool in
-            if conversation1.chatterId == 10001 {
+            if conversation1.chatterId == Int(WenwenUserId) {
                 return true
             }
-            if conversation2.chatterId == 10001 {
+            if conversation2.chatterId == Int(WenwenUserId) {
                 return false
             }
-            if conversation2.chatterId == 10000 && conversation1.chatterId == 10001 {
+            if conversation2.chatterId == Int(PaipaiUserId) && conversation1.chatterId == Int(WenwenUserId) {
                 return true
             }
-            if conversation1.chatterId == 10000 && conversation2.chatterId == 10001 {
+            if conversation1.chatterId == Int(PaipaiUserId) && conversation2.chatterId == Int(WenwenUserId) {
                 return false
             }
-            if conversation1.chatterId == 10000 && conversation2.chatterId != 10000 {
+            if conversation1.chatterId == Int(PaipaiUserId) && conversation2.chatterId != Int(PaipaiUserId) {
                 return true
             }
-            if conversation2.chatterId == 10000 && conversation1.chatterId != 10001 {
+            if conversation2.chatterId == Int(PaipaiUserId) && conversation1.chatterId != Int(WenwenUserId) {
                 return false
             }
             if conversation1.isTopConversation && !conversation2.isTopConversation {
@@ -405,14 +405,14 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
     private func setUpDefaultConversation() {
         let conversationWenwen = ChatConversation()
         //派派的 conversation
-        conversationWenwen.chatterId = 10001
+        conversationWenwen.chatterId = Int(WenwenUserId)
         conversationWenwen.chatterName = "旅行问问";
         conversationWenwen.lastUpdateTime = Int(NSDate().timeIntervalSince1970)
         self.addConversation(conversationWenwen)
         let conversation = ChatConversation()
         
         //派派的 conversation
-        conversation.chatterId = 10000
+        conversation.chatterId = Int(PaipaiUserId)
         conversation.chatterName = "派派";
         conversation.lastUpdateTime = Int(NSDate().timeIntervalSince1970)
         self.addConversation(conversation)

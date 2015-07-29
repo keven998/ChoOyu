@@ -224,6 +224,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    NSLog(@"%@",self.dataSource);
     return [[self.dataSource objectForKey:@"headerKeys"] count]+1;
 }
 
@@ -270,6 +271,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    // 第一组是新朋友,如果未读数不为0的话,就需要显示有多少条未读数
     if (indexPath.section == 0) {
         OptionOfFASKTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"friend_ask"];
         

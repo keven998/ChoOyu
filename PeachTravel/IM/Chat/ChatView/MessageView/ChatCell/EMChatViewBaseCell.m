@@ -69,10 +69,10 @@ NSString *const kRouterEventChatHeadImageTapEventName = @"kRouterEventChatHeadIm
 {
     _messageModel = messageModel;
     _nameLabel.hidden = !(messageModel.chatType != IMChatTypeIMChatSingleType);
-    if (messageModel.senderId == 10001) {
+    if (messageModel.senderId == WenwenUserId) {
         self.headImageView.image = [UIImage imageNamed:@"chat_wenwen.png"];
         
-    } else if (messageModel.senderId == 10000) {
+    } else if (messageModel.senderId == PaipaiUserId) {
         self.headImageView.image = [UIImage imageNamed:@"chat_paipai.png"];
         
     } else {
