@@ -56,8 +56,7 @@ NSString *const kRouterEventAudioBubbleTapEventName = @"kRouterEventAudioBubbleT
 {
     CGFloat width = BUBBLE_VIEW_PADDING*2 + BUBBLE_ARROW_WIDTH + ANIMATION_TIME_LABEL_WIDHT +ANIMATION_TIME_IMAGEVIEW_PADDING + ANIMATION_IMAGEVIEW_SIZE;
     
-    CGFloat height = 50;
-    return CGSizeMake(width, height);
+    return CGSizeMake(width, 40);
 }
 
 - (void)layoutSubviews
@@ -114,13 +113,13 @@ NSString *const kRouterEventAudioBubbleTapEventName = @"kRouterEventAudioBubbleT
         [_isReadView setHidden:YES];
         _animationImageView.image = [UIImage imageNamed:SENDER_ANIMATION_IMAGEVIEW_IMAGE_DEFAULT];
         _animationImageView.animationImages = _senderAnimationImages;
+        
     } else {
         if (model.isPlayed) {
             [_isReadView setHidden:YES];
         } else {
             [_isReadView setHidden:NO];
         }
-
         _animationImageView.image = [UIImage imageNamed:RECEIVER_ANIMATION_IMAGEVIEW_IMAGE_DEFAULT];
         _animationImageView.animationImages = _recevierAnimationImages;
     }
@@ -142,7 +141,7 @@ NSString *const kRouterEventAudioBubbleTapEventName = @"kRouterEventAudioBubbleT
 
 + (CGFloat)heightForBubbleWithObject:(MessageModel *)object
 {
-    return 50+10;
+    return 60;
 }
 
 -(void)startAudioAnimation

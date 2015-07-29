@@ -675,13 +675,12 @@ static NSString *reusableCell = @"myGuidesCell";
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:status forKey:@"status"];
-    [params setObject:guideSummary.guideId forKey:@"id"];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
     // 修改接口
-    NSString * urlStr = [NSString stringWithFormat:@"%@%ld/guides",API_SIGN_GUIDE, (long)accountManager.account.userId];
+    NSString * urlStr = [NSString stringWithFormat:@"%@%ld/guides/%@",API_USERS, (long)accountManager.account.userId, guideSummary.guideId];
     
-    [manager GET:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager PATCH:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         [hud hideTZHUD];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
