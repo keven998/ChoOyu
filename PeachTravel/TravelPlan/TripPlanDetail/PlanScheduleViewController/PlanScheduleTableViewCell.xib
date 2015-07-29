@@ -19,9 +19,6 @@
                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                         <color key="textColor" red="0.58823529411764708" green="0.58823529411764708" blue="0.58823529411764708" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
-                        <variation key="widthClass=compact" misplaced="YES">
-                            <rect key="frame" x="66" y="43" width="246" height="0.0"/>
-                        </variation>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plan_02_bg_day@3x.png" translatesAutoresizingMaskIntoConstraints="NO" id="Q9G-KQ-zhd">
                         <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>

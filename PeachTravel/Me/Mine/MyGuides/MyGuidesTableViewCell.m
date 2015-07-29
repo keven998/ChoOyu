@@ -51,12 +51,12 @@
     _countBtn.text = [NSString stringWithFormat:@"%ld天", (long)_guideSummary.dayCount];
     _descLabel.text = _guideSummary.summary;
     _titleBtn.text = guideSummary.title;
-    UIImage *image = [[UIImage imageNamed:@"plan_bg_page_default"]resizableImageWithCapInsets:UIEdgeInsetsMake(30, 20, 70, 20)];
+    UIImage *image = [[UIImage imageNamed:@"plan_bg_page_default"]resizableImageWithCapInsets:UIEdgeInsetsMake(30, 15, 70, 15)];
     if ([_guideSummary.status isEqualToString:@"planned"]) {
         _headerImageView.image = image;
         _playedImage.hidden = YES;
     } else {
-        _headerImageView.image = [[UIImage imageNamed:@"plan_bg_page_grey"]resizableImageWithCapInsets:UIEdgeInsetsMake(30, 30, 70, 30)];
+        _headerImageView.image = [[UIImage imageNamed:@"plan_bg_page_grey"]resizableImageWithCapInsets:UIEdgeInsetsMake(30, 15, 70, 15)];
         _playedImage.hidden = NO;
     }
     
