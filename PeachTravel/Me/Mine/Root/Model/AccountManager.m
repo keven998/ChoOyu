@@ -538,7 +538,7 @@
                 self.account.gender = Male;
             } else if ([changeContent isEqualToString:@"S"]) {
                 self.account.gender = Secret;
-            } else if ([changeContent isEqualToString:@"U"]) {
+            } else if ([changeContent isEqualToString:@"B"]) {
                 self.account.gender = Unknown;
             }
             break;
