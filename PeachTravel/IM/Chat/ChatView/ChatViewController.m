@@ -129,6 +129,7 @@
     self.navigationItem.title = _chatterName;
     self.view.backgroundColor = APP_PAGE_COLOR;
     
+    // 聊天类型为讨论组
     if (_chatType == IMChatTypeIMChatDiscussionGroupType) {
         _groupNumbers = [[IMDiscussionGroupManager shareInstance] getFullDiscussionGroupInfoFromDBWithGroupId: _conversation.chatterId].members;
         if (!_groupNumbers || _groupNumbers.count == 0) {
