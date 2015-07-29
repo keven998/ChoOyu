@@ -1214,6 +1214,7 @@
     _conversation.unReadMessageCount = 0;
 }
 
+// 发送文本消息
 - (void)sendTextMessage:(NSString *)messageStr
 {
     IMClientManager *imClientManager = [IMClientManager shareInstance];
@@ -1222,6 +1223,7 @@
     [self addChatMessage2Buttom:message];
 }
 
+// 发送位置消息
 - (void)sendLocation:(LocationModel *)model Image:(UIImage *)locImage {
     IMClientManager *imClientManager = [IMClientManager shareInstance];
     
@@ -1230,6 +1232,7 @@
     [self addChatMessage2Buttom:message];
 }
 
+// 发送语音消息
 - (void)sendAudioMessage:(NSString *)audioPath
 {
     IMClientManager *imClientManager = [IMClientManager shareInstance];
@@ -1240,6 +1243,7 @@
     [self addChatMessage2Buttom:audioMessage];
 }
 
+// 发送图片消息
 - (void)sendImageMessage:(NSData *)imageData
 {
     IMClientManager *imClientManager = [IMClientManager shareInstance];
