@@ -59,6 +59,7 @@
 - (NSMutableArray *)dataSource
 {
     if (!_dataSource) {
+        // 这是一个排序器
         NSComparator cmptr = ^(FrendRequest *obj1, FrendRequest *obj2) {
             if (obj1.requestDate < obj2.requestDate) {
                 return NSOrderedDescending;

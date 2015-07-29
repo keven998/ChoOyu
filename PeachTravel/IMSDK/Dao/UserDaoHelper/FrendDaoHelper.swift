@@ -305,7 +305,7 @@ class FrendDaoHelper: BaseDaoHelper, FrendDaoProtocol {
             dataBase.executeUpdate(sql, withArgumentsInArray: array as [AnyObject])
         }
     }
-
+    
 }
 
 

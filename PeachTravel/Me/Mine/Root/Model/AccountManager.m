@@ -705,6 +705,7 @@
     NSLog(@"开始解析联系人");
     [self.account.frendList removeAllObjects];
     FrendManager *frendManager = [IMClientManager shareInstance].frendManager;
+    // 删除所有的联系人
     [frendManager deleteAllContacts];
     for (id contactDic in contactList) {
         FrendModel *newContact = [[FrendModel alloc] init];
@@ -777,13 +778,15 @@
     return ret;
 }
 
-#pragma mark -
+#pragma mark - 将从服务器获得的好友列表转换成拼音排序的列表
 - (NSDictionary *)contactsByPinyin
 {
+    // 定义一个数组存储排序后的拼音数组
     NSMutableArray *chineseStringsArray = [[NSMutableArray alloc] init];
     for (id tempContact in self.account.frendList) {
         [chineseStringsArray addObject:tempContact];
     }
+    
     NSMutableArray *sectionHeadsKeys = [[NSMutableArray alloc] init];
     //sort the ChineseStringArr by pinYin
     NSArray *sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"fullPY" ascending:YES]];

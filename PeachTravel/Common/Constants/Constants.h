@@ -284,6 +284,11 @@ typedef NS_ENUM(NSUInteger, TZCMDChatType) {
 // 点击弹出菜单通知
 #define NoticationDropdownMenu @"NoticationDropdownMenuSend"
 
+// 定义派派和问问ID
+#define PaipaiUserId 10000
+#define WenwenUserId 10001
+
+
 /*****应用启动时是否应该启动引导页******/
 #define shouldSkipIntroduce [[NSUserDefaults standardUserDefaults] boolForKey:[[AppUtils alloc] init].appVersion]
 

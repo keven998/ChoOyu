@@ -144,10 +144,10 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
 
         if (tzConversation.chatType == IMChatTypeIMChatSingleType) {
             cell.titleLabel.text = tzConversation.chatterName;
-            if (tzConversation.chatterId == 10001) {
+            if (tzConversation.chatterId == WenwenUserId) {
                 cell.headerImageView.image = [UIImage imageNamed:@"lvxingwenwen.png"];
                 cell.headerImageView.layer.cornerRadius = 0;
-            } else if (tzConversation.chatterId == 10000) {
+            } else if (tzConversation.chatterId == PaipaiUserId) {
                 cell.headerImageView.layer.cornerRadius = 0;
                 cell.headerImageView.image = [UIImage imageNamed:@"lvxingpaipai.png"];
             } else {

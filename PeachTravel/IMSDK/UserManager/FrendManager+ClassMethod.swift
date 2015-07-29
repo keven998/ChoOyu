@@ -24,6 +24,7 @@ extension FrendManager {
         manager.GET(url, parameters: nil, success:
             { (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
                 
+                println("\(url)")
                 if (responseObject.objectForKey("code") as! Int) == 0 {
                     let resultDic = responseObject.objectForKey("result") as! NSDictionary
                     debug_println("\(resultDic)");
