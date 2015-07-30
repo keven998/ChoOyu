@@ -254,6 +254,7 @@
 		D955E3EA19E7A26D00047F2B /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D955E3E919E7A26D00047F2B /* CoreTelephony.framework */; };
 		D955E3EC19E7A27700047F2B /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D955E3EB19E7A27700047F2B /* libstdc++.dylib */; };
 		D955E3EE19E7A28500047F2B /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D955E3ED19E7A28500047F2B /* libz.dylib */; };
+		D95813C01B6A07740021C0BA /* dx_checkbox_forbade@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D95813BF1B6A07740021C0BA /* dx_checkbox_forbade@2x.png */; };
 		D9687CA21AC4095500B1C88E /* FootprintMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9687CA01AC4095500B1C88E /* FootprintMapViewController.m */; };
 		D9687CA31AC4095500B1C88E /* FootprintMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9687CA11AC4095500B1C88E /* FootprintMapViewController.xib */; };
 		D9687CA61AC409AB00B1C88E /* FootPrintViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9687CA51AC409AB00B1C88E /* FootPrintViewController.m */; };
@@ -1592,6 +1593,7 @@
 		D955E3E919E7A26D00047F2B /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		D955E3EB19E7A27700047F2B /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
 		D955E3ED19E7A28500047F2B /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		D95813BF1B6A07740021C0BA /* dx_checkbox_forbade@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dx_checkbox_forbade@2x.png"; sourceTree = "<group>"; };
 		D9687C9F1AC4095500B1C88E /* FootprintMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FootprintMapViewController.h; path = ../UserInfo/FootprintMapViewController.h; sourceTree = "<group>"; };
 		D9687CA01AC4095500B1C88E /* FootprintMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FootprintMapViewController.m; path = ../UserInfo/FootprintMapViewController.m; sourceTree = "<group>"; };
 		D9687CA11AC4095500B1C88E /* FootprintMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FootprintMapViewController.xib; path = ../UserInfo/FootprintMapViewController.xib; sourceTree = "<group>"; };
@@ -6260,6 +6262,7 @@
 				D9980C801B66249000FAA28B /* dx_checkbox_on@3x.png */,
 				E638196F1B65F61000CF73AA /* dx_checkbox_selected@2x.png */,
 				E63819701B65F61000CF73AA /* dx_checkbox_selected@3x.png */,
+				D95813BF1B6A07740021C0BA /* dx_checkbox_forbade@2x.png */,
 				E63819711B65F61000CF73AA /* ic_add_friend@2x.png */,
 				E63819721B65F61000CF73AA /* ic_add_friend@3x.png */,
 			);
@@ -7462,6 +7465,7 @@
 				E6381B111B65F61000CF73AA /* speaking-motion6@2x.png in Resources */,
 				E6381AC21B65F61000CF73AA /* search_default_background@3x.png in Resources */,
 				D9A8FF101A80CC2B005AD701 /* ChangePasswordViewController.xib in Resources */,
+				D95813C01B6A07740021C0BA /* dx_checkbox_forbade@2x.png in Resources */,
 				E63819FD1B65F61000CF73AA /* plan_bg_page_spot_zhedang@3x.png in Resources */,
 				E6381A771B65F61000CF73AA /* plan_bottom_hotel@3x.png in Resources */,
 				E6381A4A1B65F61000CF73AA /* city_button_shopping_selected@2x.png in Resources */,
@@ -8119,7 +8123,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "89e9226b-f902-4ff1-a42b-397412bdcd62";
 				SWIFT_OBJC_BRIDGING_HEADER = "PeachTravel/PeachTravel-Bridging-Header.h";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
