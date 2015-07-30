@@ -239,7 +239,11 @@
         NSMutableDictionary *poiDic = [[NSMutableDictionary alloc] init];
         [poiDic safeSetObject:poi.cityId forKey:@"id"];
         [poiDic safeSetObject:poi.zhName forKey:@"zhName"];
-        [poiDic safeSetObject:poi.enName forKey:@"enName"];
+        if (poi.enName) {
+            [poiDic setObject:poi.enName forKey:@"enName"];
+        } else {
+            [poiDic setObject:@"" forKey:@"enName"];
+        }
         [destinationsArray addObject:poiDic];
     }
     
