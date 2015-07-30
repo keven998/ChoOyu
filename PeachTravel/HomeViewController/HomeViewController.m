@@ -77,7 +77,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
 }
 
 - (void)dealloc

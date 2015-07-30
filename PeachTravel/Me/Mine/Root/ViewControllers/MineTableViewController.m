@@ -36,6 +36,7 @@
 }
 @property (strong, nonatomic) AccountManager *accountManager;
 @property (strong, nonatomic) UITableView *tableView;
+@property (strong, nonatomic) UIButton *editButton;
 
 @property (nonatomic, strong) UIImageView *avatarImageView;
 @property (nonatomic, strong) UILabel *nameLabel;
@@ -66,7 +67,6 @@
     [self.view addSubview:self.tableView];
     self.tableView.backgroundColor = APP_PAGE_COLOR;
     self.tableView.showsVerticalScrollIndicator = NO;
-//    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.separatorColor = COLOR_LINE;
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.tableView registerNib:[UINib nibWithNibName:@"OptionTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:secondCell];
@@ -80,9 +80,12 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userAccountHasChage) name:updateUserInfoNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidRegister:) name:userDidRegistedNoti object:nil];
     
-    UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc]initWithTitle:@"编辑 " style:UIBarButtonItemStylePlain target:self action:@selector(editUserInfo)];
-    rightBtn.tintColor = [UIColor whiteColor];
-    self.navigationItem.rightBarButtonItem = rightBtn;
+    _editButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 30)];
+    [_editButton setTitle:@"编辑" forState:UIControlStateNormal];
+    [_editButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _editButton.titleLabel.font = [UIFont systemFontOfSize:16.0];
+    [_editButton addTarget:self action:@selector(editUserInfo) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_editButton];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -94,6 +97,7 @@
     }
     [self updateAccountInfo];
     [_homeCtl showSomeTabbarNoti];
+    [self showUserShouldEditUserInfoNoti];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -347,6 +351,31 @@
 }
 
 #pragma mark - Private Methods
+
+/**
+ *  新注册的用户应该显示提醒用户编辑用户信息的提醒
+ */
+- (void)showUserShouldEditUserInfoNoti
+{
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    NSString *key = [NSString stringWithFormat:@"%@_%ld", kShouldShowFinishUserInfoNoti, [AccountManager shareAccountManager].account.userId];
+    BOOL shouldShowNoti = [[defaults objectForKey:key] boolValue];
+    if (shouldShowNoti) {
+        UIView *dotView = [[UIView alloc] initWithFrame:CGRectMake(40, 5, 6, 6)];
+        dotView.backgroundColor = [UIColor redColor];
+        dotView.layer.cornerRadius = 3.0;
+        dotView.clipsToBounds = YES;
+        dotView.tag = 101;
+        [_editButton addSubview:dotView];
+    } else {
+        for (UIView *view in _editButton.subviews) {
+            if (view.tag == 101) {
+                [view removeFromSuperview];
+            }
+        }
+    }
+}
+
 
 - (void)userAccountHasChage
 {
