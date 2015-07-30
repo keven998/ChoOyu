@@ -63,10 +63,11 @@
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params setObject:code forKey:@"code"];
+    [params setObject:code forKey:@"authCode"];
+    [params setObject:@"weixin" forKey:@"provider"];
     
     //微信登录
-    [manager POST:API_WEIXIN_LOGIN parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager POST:API_SIGNIN parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {

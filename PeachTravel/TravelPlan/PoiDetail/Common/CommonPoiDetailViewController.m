@@ -211,8 +211,6 @@
  */
 - (void)showPoidetail:(id)sender
 {
-    NSLog(@"%@",self.poi);
-    
     SpotPoi * poi = (SpotPoi *)self.poi;
     
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
@@ -228,7 +226,6 @@
         if (self.poi.descUrl) {
             webCtl.urlStr = self.poi.descUrl;
         }else{
-            webCtl.urlStr = @"暂无此数据";
             PricePoiDetailController * pricePoi = [[PricePoiDetailController alloc] init];
             pricePoi.desc = self.poi.priceDesc;
             pricePoi.view.backgroundColor = [UIColor whiteColor];

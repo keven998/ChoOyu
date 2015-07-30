@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EE3230A632793FAD7469F4BF"
+               BlueprintIdentifier = "81127F8E954DA5EEAF5F5876"
                BuildableName = "libPods-iRate.a"
                BlueprintName = "Pods-iRate"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -42,7 +42,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EE3230A632793FAD7469F4BF"
+            BlueprintIdentifier = "81127F8E954DA5EEAF5F5876"
             BuildableName = "libPods-iRate.a"
             BlueprintName = "Pods-iRate"
             ReferencedContainer = "container:Pods.xcodeproj">

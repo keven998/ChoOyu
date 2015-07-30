@@ -16,7 +16,7 @@
 #import "CommentTableViewCell.h"
 #import "UIImage+BoxBlur.h"
 #import "CityDescDetailViewController.h"
-
+#import "PricePoiDetailController.h"
 @interface SpotDetailViewController () <UIActionSheetDelegate>
 
 @end
@@ -134,9 +134,13 @@
     if (indexPath.row < 4) {
         if (indexPath.row == 0) {
             [super jumpToMap];
-        } else if (indexPath.row > 0 && indexPath.row < 3) {
-            [self showPoidetail:nil];
-        } else if (indexPath.row == 3) {
+        } else if (indexPath.row == 1) {
+            // 开放时间
+            [self openTime];
+        }else if (indexPath.row == 2) {
+            [self book:nil];
+        }
+        else if (indexPath.row == 3) {
             [super makePhone];
         }
     }
@@ -174,6 +178,19 @@
 }
 
 /**
+ *  开放时间
+ */
+- (void)openTime
+{
+    PricePoiDetailController * pricePoi = [[PricePoiDetailController alloc] init];
+    pricePoi.desc = ((SpotPoi *)self.poi).openTime;
+    pricePoi.view.backgroundColor = [UIColor whiteColor];
+    
+    [self.navigationController pushViewController:pricePoi animated:YES];
+}
+
+
+/**
  *  在线预订
  *
  *  @param sender
@@ -182,7 +199,8 @@
 {
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] initWithURL:[NSURL URLWithString:((SpotPoi *)self.poi).bookUrl]];
     webCtl.titleStr = @"在线预订";
-    //    webCtl.urlStr = ((SpotPoi *)self.poi).bookUrl;
+    webCtl.urlStr = ((SpotPoi *)self.poi).bookUrl;
+    webCtl.hideToolBar = YES;
     [self.navigationController pushViewController:webCtl animated:YES];
 }
 

@@ -8,7 +8,10 @@
 
 import UIKit
 
-let HedyBaseUrl = "http://hedy-dev.lvxingpai.com/"
+//let HedyBaseUrl = "http://hedy-dev.lvxingpai.com/"
+
+let HedyBaseUrl = "http://hedy.lvxingpai.com/"
+
 
 let requestQiniuTokenToUploadMetadata = "\(HedyBaseUrl)upload/token-generator"
 

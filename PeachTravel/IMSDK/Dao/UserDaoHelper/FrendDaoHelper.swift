@@ -215,7 +215,7 @@ class FrendDaoHelper: BaseDaoHelper, FrendDaoProtocol {
     func selectAllContacts() -> Array<FrendModel> {
         var retArray = Array<FrendModel>()
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
-            var sql = "select * from \(frendTableName) where Type = ? or Type = ? or Type = ? or Type = ?"
+            var sql = "select * from \(frendTableName) where Type = ? or Type = ? or Type = ?"
             var rs = dataBase.executeQuery(sql, withArgumentsInArray: [IMFrendType.Frend.rawValue, IMFrendType.Frend_Business.rawValue, IMFrendType.Frend_Expert.rawValue])
             if (rs != nil) {
                 while rs.next() {
