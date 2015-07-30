@@ -193,9 +193,9 @@
     _constellationView = constellationView;
     
     CGFloat unitWidth = width/3.0;
-    CGFloat offsetY = CGRectGetMaxY(levelBg.frame);
+    CGFloat offsetY = CGRectGetMaxY(levelBg.frame) + 10;
     
-    CGFloat bh = 84*height/736;
+    CGFloat bh = 84*height/736 - 10;
     
     UIButton *friendEntry = [[UIButton alloc] initWithFrame:CGRectMake(unitWidth, offsetY, unitWidth, bh)];
     _pictureNumber = [[UILabel alloc] initWithFrame:CGRectMake(10, bh/2 - 20, unitWidth - 20, 20)];
@@ -212,6 +212,7 @@
     fl.textAlignment = NSTextAlignmentCenter;
     fl.font = [UIFont systemFontOfSize:13];
     [friendEntry addSubview:fl];
+    [friendEntry setBackgroundImage:[ConvertMethods createImageWithColor:APP_PAGE_COLOR] forState:UIControlStateHighlighted];
     [friendEntry addTarget:self action:@selector(showPictureGrid:) forControlEvents:UIControlEventTouchUpInside];
     [headerBgView addSubview:friendEntry];
     
@@ -230,6 +231,7 @@
     pl.textAlignment = NSTextAlignmentCenter;
     pl.font = [UIFont systemFontOfSize:13];
     [planEntry addSubview:pl];
+    [planEntry setBackgroundImage:[ConvertMethods createImageWithColor:APP_PAGE_COLOR] forState:UIControlStateHighlighted];
     [planEntry addTarget:self action:@selector(myPlan:) forControlEvents:UIControlEventTouchUpInside];
     [headerBgView addSubview:planEntry];
     
@@ -240,9 +242,7 @@
     _trackNumber.textAlignment = NSTextAlignmentCenter;
     _trackNumber.font = [UIFont systemFontOfSize:16];
     _trackNumber.lineBreakMode = NSLineBreakByTruncatingTail;
-  
     _trackNumber.text = [NSString stringWithFormat:@"0国0城"];
-    
     _trackCount = _trackNumber;
     [trackEntry addSubview:_trackNumber];
     UILabel *tl = [[UILabel alloc] initWithFrame:CGRectMake(10, bh/2, unitWidth - 20, 20)];
@@ -251,6 +251,7 @@
     tl.textAlignment = NSTextAlignmentCenter;
     tl.font = [UIFont systemFontOfSize:13];
     [trackEntry addSubview:tl];
+    [trackEntry setBackgroundImage:[ConvertMethods createImageWithColor:APP_PAGE_COLOR] forState:UIControlStateHighlighted];
     [trackEntry addTarget:self action:@selector(myTrack:) forControlEvents:UIControlEventTouchUpInside];
     [headerBgView addSubview:trackEntry];
     
