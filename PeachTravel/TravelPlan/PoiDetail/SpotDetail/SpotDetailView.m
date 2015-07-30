@@ -125,7 +125,7 @@
     rankBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
     [rankBtn setTitleEdgeInsets:UIEdgeInsetsMake(-2, 1, 2, 0)];
     [rankBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    if (_spot.rank == 0 || _spot.rank > 500) {
+    if (_spot.rank == 0 || _spot.rank > 200) {
         [rankBtn setTitle:@"N" forState:UIControlStateNormal];
         rankBtn.titleLabel.font = [UIFont systemFontOfSize:9.0];
     } else  {
