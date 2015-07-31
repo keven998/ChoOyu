@@ -360,7 +360,7 @@
 {
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
     NSString *key = [NSString stringWithFormat:@"%@_%ld", kShouldShowFinishUserInfoNoti, [AccountManager shareAccountManager].account.userId];
-    BOOL shouldShowNoti = [[defaults objectForKey:key] boolValue];
+    BOOL shouldShowNoti = [[defaults objectForKey:key] boolValue] && [[AccountManager shareAccountManager] isLogin];
     if (shouldShowNoti) {
         UIView *dotView = [[UIView alloc] initWithFrame:CGRectMake(40, 5, 6, 6)];
         dotView.backgroundColor = [UIColor redColor];
