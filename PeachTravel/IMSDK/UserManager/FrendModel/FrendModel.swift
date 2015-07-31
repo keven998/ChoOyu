@@ -64,7 +64,7 @@ class FrendModel: NSObject {
         }
         return ""
     }
-    var footprints: Array<CityDestinationPoi> = Array()
+    var footprintCityCount = 0
     var footprintCountryCount = 0
     var userAlbum: Array<AlbumImage> = Array()
     
@@ -76,13 +76,14 @@ class FrendModel: NSObject {
     
     var footprintDescription :NSString {
         get {
-            var count = 0
-            
-            return "\(footprintCountryCount)国 \(footprints.count)城市"
+            return "\(footprintCountryCount)国 \(footprintCityCount)城市"
         }
     }
 
     init(json: NSDictionary) {
+        
+        println("\(json)")
+        
         userId = json.objectForKey("userId") as! Int
         
         if let str =  json.objectForKey("nickName") as? String {
@@ -132,6 +133,14 @@ class FrendModel: NSObject {
             localityCnt = int
         }
         
+        if let count = json.objectForKey("countryCnt") as? Int {
+            footprintCountryCount = count
+        }
+        
+        if let count = json.objectForKey("trackCnt") as? Int {
+            footprintCityCount = count
+        }
+        
         if let roles = json.objectForKey("roles") as? NSArray {
             if let role = roles.firstObject as? String {
                 if role == "expert" {
@@ -140,11 +149,6 @@ class FrendModel: NSObject {
             }
         }
         
-        if let footprintArray = json.objectForKey("footprints") as? NSArray {
-            for dic in footprintArray {
-                self.footprints.append(CityDestinationPoi(json: dic))
-            }
-        }
     }
     
     override init() {
