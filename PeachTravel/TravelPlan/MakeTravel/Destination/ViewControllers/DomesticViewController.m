@@ -107,7 +107,8 @@ static NSString *cacheName = @"destination_demostic_group";
     [manager.requestSerializer setValue:@"Cache-Control" forHTTPHeaderField:@"private"];
     [manager.requestSerializer setValue:modifiedTime forHTTPHeaderField:@"If-Modified-Since"];
     
-    NSDictionary *params = @{@"groupBy" : [NSNumber numberWithBool:true]};
+    NSNumber *imageWidth = [NSNumber numberWithInt:450];
+    NSDictionary *params = @{@"groupBy" : [NSNumber numberWithBool:true], @"imgWidth": imageWidth};
     
     NSLog(@"%@",API_GET_DOMESTIC_DESTINATIONS);
     

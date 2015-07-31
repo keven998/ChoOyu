@@ -88,7 +88,7 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
     [manager.requestSerializer setValue:modifiedTime forHTTPHeaderField:@"If-Modified-Since"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSNumber *imageWidth = [NSNumber numberWithInt:(kWindowWidth-22)*2];
+    NSNumber *imageWidth = [NSNumber numberWithInt:450];
     [params setObject:imageWidth forKey:@"imgWidth"];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     if (_hud) {
