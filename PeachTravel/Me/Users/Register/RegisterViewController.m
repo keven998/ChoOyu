@@ -251,8 +251,12 @@ typedef void(^loginCompletion)(BOOL completed);
         _registerBtn.userInteractionEnabled = YES;
         if (operation.response.statusCode == 403) {
             [SVProgressHUD showHint:@"获取验证码过于频繁"];
+        } else if (operation.response.statusCode == 409) {
+            [SVProgressHUD showHint:@"号码已注册"];
+            
         } else {
             [SVProgressHUD showHint:HTTP_FAILED_HINT];
+
         }
     }];
 }
