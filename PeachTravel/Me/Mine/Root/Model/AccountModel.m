@@ -98,6 +98,8 @@
  */
 - (void)updateUserInfo:(id)json
 {
+    _avatar = [json objectForKey:@"avatar"];
+    _avatarSmall = [json objectForKey:@"avatarSmall"];
     if ([json objectForKey:@"residence"] == [NSNull null]) {
         _residence = @"";
     } else {
