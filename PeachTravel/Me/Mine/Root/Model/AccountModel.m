@@ -30,46 +30,7 @@
 - (id)initWithJson: (id)json
 {
     if (self = [super init]) {
-        _userId = [[json objectForKey:@"userId"] integerValue];
-        _nickName = [json objectForKey:@"nickName"];
-        if ([json objectForKey:@"avatar"]) {
-            _avatar = [json objectForKey:@"avatar"];
-        } else {
-            _avatar = @"";
-        }
-        if ([json objectForKey:@"avatarSmall"]) {
-            _avatarSmall = [json objectForKey:@"avatarSmall"];
-        } else {
-            _avatarSmall = @"";
-        }
-        if ([json objectForKey:@"tel"]) {
-            _tel = [json objectForKey:@"tel"];
-        } else {
-            _tel = @"";
-        }
-        
-        if ([json objectForKey:@"secToken"]) {
-            _secToken = [json objectForKey:@"secToken"];
-        } else {
-            _secToken = @"";
-        }
-        if ([json objectForKey:@"signature"]) {
-            _signature = [json objectForKey:@"signature"];
-        } else {
-            _signature = @"";
-        }
-        NSString *genderStr = [json objectForKey:@"gender"];
-        if ([genderStr isEqualToString:@"M"]) {
-            _gender = Male;
-        } else if ([genderStr isEqualToString:@"F"]) {
-            _gender = Female;
-        } else if ([genderStr isEqualToString:@"S"]) {
-            _gender = Secret;
-        }
-        if (!_gender) {
-            _gender = Unknown;
-        }
-    
+        [self updateUserInfo:json];
     }
     return self;
 }
@@ -98,8 +59,34 @@
  */
 - (void)updateUserInfo:(id)json
 {
-    _avatar = [json objectForKey:@"avatar"];
-    _avatarSmall = [json objectForKey:@"avatarSmall"];
+    _userId = [[json objectForKey:@"userId"] integerValue];
+    _nickName = [json objectForKey:@"nickName"];
+    if ([json objectForKey:@"avatar"]) {
+        _avatar = [json objectForKey:@"avatar"];
+    } else {
+        _avatar = @"";
+    }
+    if ([json objectForKey:@"avatarSmall"]) {
+        _avatarSmall = [json objectForKey:@"avatarSmall"];
+    } else {
+        _avatarSmall = @"";
+    }
+    if ([json objectForKey:@"tel"]) {
+        _tel = [json objectForKey:@"tel"];
+    } else {
+        _tel = @"";
+    }
+    
+    if ([json objectForKey:@"secToken"]) {
+        _secToken = [json objectForKey:@"secToken"];
+    } else {
+        _secToken = @"";
+    }
+    if ([json objectForKey:@"signature"]) {
+        _signature = [json objectForKey:@"signature"];
+    } else {
+        _signature = @"";
+    }
     if ([json objectForKey:@"residence"] == [NSNull null]) {
         _residence = @"";
     } else {
@@ -133,12 +120,6 @@
         _level = [[json objectForKey:@"level"] integerValue];
     }
     
-    if ([json objectForKey:@"tel"]) {
-        _tel = [json objectForKey:@"tel"];
-    } else {
-        _tel = @"";
-    }
-    
     int countryCount = [[json objectForKey:@"countryCnt"] intValue];
     int cityCount = [[json objectForKey:@"trackCnt"] intValue];
     
@@ -151,7 +132,7 @@
         _gender = Male;
     } else if ([genderStr isEqualToString:@"S"]) {
         _gender = Secret;
-    } else if ([genderStr isEqualToString:@"U"]) {
+    } else if ([genderStr isEqualToString:@"B"]) {
         _gender = Unknown;
     }
 }
