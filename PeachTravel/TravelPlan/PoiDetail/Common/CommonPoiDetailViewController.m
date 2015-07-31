@@ -85,7 +85,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row < 3) {
-        return 67 * SCREEN_HEIGHT/736;
+        return 66 * SCREEN_HEIGHT/736;
     } else {
         CommentDetail *commonDetail = [self.poi.comments objectAtIndex:indexPath.row-3];
         return [CommentTableViewCell heightForCommentCellWithComment:commonDetail.commentDetails];
