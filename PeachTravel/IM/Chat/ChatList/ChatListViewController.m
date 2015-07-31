@@ -463,6 +463,12 @@
                 }
                     break;
                     
+                case IMMessageTypeHtml5MessageType: {
+                    ret = [NSString stringWithFormat:@"%@:[链接]", nickName];
+
+                }
+                    break;
+                    
                 case IMMessageTypeTipsMessageType: {
                     ret = ((TipsMessage *) lastMessage).tipsContent;
                     
@@ -494,54 +500,50 @@
                     
                 case IMMessageTypeGuideMessageType:
                     ret = [NSString stringWithFormat:@"[链接] %@", ((IMGuideMessage *)lastMessage).guideName];
-                    
                     break;
+                    
                 case IMMessageTypeTravelNoteMessageType:
                     ret = [NSString stringWithFormat:@"[链接] %@", ((IMTravelNoteMessage *)lastMessage).name];
-                    
                     break;
+                    
                 case IMMessageTypeSpotMessageType:
                     ret = [NSString stringWithFormat:@"[链接] %@", ((IMSpotMessage *)lastMessage).spotName];
-                    
                     break;
+                    
                 case IMMessageTypeCityPoiMessageType:
                     ret = [NSString stringWithFormat:@"[链接] %@", ((IMCityMessage *)lastMessage).poiName];
-                    
                     break;
+                    
                 case IMMessageTypeRestaurantMessageType:
                     ret = [NSString stringWithFormat:@"[链接] %@", ((IMRestaurantMessage *)lastMessage).poiName];
-                    
                     break;
+                    
                 case IMMessageTypeHotelMessageType:
                     ret = [NSString stringWithFormat:@"[链接] %@", ((IMHotelMessage *)lastMessage).poiName];
                     break;
-                case IMMessageTypeShoppingMessageType: {
+                    
+                case IMMessageTypeShoppingMessageType:
                     ret = [NSString stringWithFormat:@"[链接] %@", ((IMShoppingMessage *)lastMessage).poiName];
-                }
                     break;
                     
-                case IMMessageTypeAudioMessageType:{
+                case IMMessageTypeHtml5MessageType:
+                    ret = [NSString stringWithFormat:@"[链接]"];
+                    break;
+                    
+                case IMMessageTypeAudioMessageType:
                     ret = [NSString stringWithFormat:@"[语音]"];
-                    
-                }
                     break;
                     
-                case IMMessageTypeLocationMessageType: {
+                case IMMessageTypeLocationMessageType:
                     ret = [NSString stringWithFormat:@"[位置]"];
-                    
-                }
                     break;
                     
-                case IMMessageTypeQuestionMessageType: {
+                case IMMessageTypeQuestionMessageType:
                     ret = [NSString stringWithFormat:@"[问问消息]"];
-
-                }
                     break;
                     
-                case IMMessageTypeTipsMessageType: {
+                case IMMessageTypeTipsMessageType: 
                     ret = ((TipsMessage *) lastMessage).tipsContent;
-                    
-                }
                     break;
 
                     

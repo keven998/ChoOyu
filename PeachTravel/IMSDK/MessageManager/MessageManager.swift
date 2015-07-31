@@ -298,6 +298,9 @@ class MessageManager: NSObject {
                 case .TipsMessageType:
                     messageModel = TipsMessage()
                     
+                case .Html5MessageType:
+                    messageModel = HtmlMessage()
+                    
                 default :
                     return nil
                 }

@@ -200,7 +200,7 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
         case IMMessageTypeLocationMessageType:
             return [[EMChatLocationBubbleView alloc] init];
             
-        case IMMessageTypeCityPoiMessageType: case IMMessageTypeGuideMessageType: case IMMessageTypeSpotMessageType: case IMMessageTypeTravelNoteMessageType: case IMMessageTypeRestaurantMessageType: case IMMessageTypeHotelMessageType: case IMMessageTypeShoppingMessageType: {
+        case IMMessageTypeCityPoiMessageType: case IMMessageTypeGuideMessageType: case IMMessageTypeSpotMessageType: case IMMessageTypeTravelNoteMessageType: case IMMessageTypeRestaurantMessageType: case IMMessageTypeHotelMessageType: case IMMessageTypeShoppingMessageType: case IMMessageTypeHtml5MessageType: {
             return [[TaoziChatBaseBubbleView alloc] init];
         }
             break;
@@ -255,7 +255,7 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
         case IMMessageTypeLocationMessageType:
             return [EMChatLocationBubbleView heightForBubbleWithObject:messageModel] + nickNameHeight;
             
-        case IMMessageTypeGuideMessageType: case IMMessageTypeSpotMessageType: case IMMessageTypeRestaurantMessageType: case IMMessageTypeHotelMessageType: case IMMessageTypeShoppingMessageType: case IMMessageTypeTravelNoteMessageType: {
+        case IMMessageTypeGuideMessageType: case IMMessageTypeSpotMessageType: case IMMessageTypeRestaurantMessageType: case IMMessageTypeHotelMessageType: case IMMessageTypeShoppingMessageType: case IMMessageTypeTravelNoteMessageType: case IMMessageTypeHtml5MessageType: {
             return [TaoziChatBaseBubbleView heightForBubbleWithObject:messageModel] + nickNameHeight;
         }
             break;

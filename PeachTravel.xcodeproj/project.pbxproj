@@ -600,6 +600,7 @@
 		D9B3AB661B450F3D0067B686 /* UserAlbumViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9B3AB641B450F3D0067B686 /* UserAlbumViewController.xib */; };
 		D9B3AB6B1B4510AC0067B686 /* AlbumImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B3AB691B4510AC0067B686 /* AlbumImageCell.m */; };
 		D9B3AB6C1B4510AC0067B686 /* AlbumImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9B3AB6A1B4510AC0067B686 /* AlbumImageCell.xib */; };
+		D9B408151B6B804C00795EB6 /* HtmlMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B408141B6B804C00795EB6 /* HtmlMessage.swift */; };
 		D9B7BA461B171FB300891600 /* app_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B7BA451B171FB300891600 /* app_icon@2x.png */; };
 		D9C78C3F1AD924D00087F52A /* PrepareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C78C3D1AD924D00087F52A /* PrepareViewController.m */; };
 		D9E7E58E1AC281400072D5B9 /* AreaDestination.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E7E58D1AC281400072D5B9 /* AreaDestination.m */; };
@@ -2178,6 +2179,7 @@
 		D9B3AB681B4510AC0067B686 /* AlbumImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlbumImageCell.h; sourceTree = "<group>"; };
 		D9B3AB691B4510AC0067B686 /* AlbumImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlbumImageCell.m; sourceTree = "<group>"; };
 		D9B3AB6A1B4510AC0067B686 /* AlbumImageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlbumImageCell.xib; sourceTree = "<group>"; };
+		D9B408141B6B804C00795EB6 /* HtmlMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HtmlMessage.swift; sourceTree = "<group>"; };
 		D9B7BA451B171FB300891600 /* app_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "app_icon@2x.png"; path = "../app_icon@2x.png"; sourceTree = "<group>"; };
 		D9C78C3C1AD924D00087F52A /* PrepareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrepareViewController.h; sourceTree = "<group>"; };
 		D9C78C3D1AD924D00087F52A /* PrepareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrepareViewController.m; sourceTree = "<group>"; };
@@ -3891,6 +3893,7 @@
 				D993C2271B12DF0C0088D568 /* LocationModel.swift */,
 				D993C2281B12DF0C0088D568 /* TextMessage.swift */,
 				D93B97F31B4BACAF0054EF50 /* TipsMessage.swift */,
+				D9B408141B6B804C00795EB6 /* HtmlMessage.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -7724,6 +7727,7 @@
 				276DF7A91B4CBFBB001A98FB /* GuiderCell.m in Sources */,
 				D9A8013E1A80DD23005AD701 /* EMChatAudioBubbleView.m in Sources */,
 				E6E7251E1B5603750007273A /* MJArgument.m in Sources */,
+				D9B408151B6B804C00795EB6 /* HtmlMessage.swift in Sources */,
 				D9A8006F1A80DD0C005AD701 /* FrendRequestTableViewController.m in Sources */,
 				D92CA1091AD8BDF900F244FF /* PSTGridLayoutSection.m in Sources */,
 				D92CA1381AD8BEB400F244FF /* MWZoomingScrollView.m in Sources */,

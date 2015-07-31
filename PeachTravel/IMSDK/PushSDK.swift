@@ -24,7 +24,7 @@ class PushSDKManager: NSObject, GexinSdkDelegate {
     private var gexinSdk: GexinSdk?
     private var pushSdkIsConnected: Bool = false
     
-    var msgId:Int = 200
+    var msgId:Int = 1100
 
     
     private var listenerQueue: NSMutableArray = NSMutableArray()
@@ -138,9 +138,12 @@ class PushSDKManager: NSObject, GexinSdkDelegate {
         ["title":"北京有哪些好吃的","image": "","url": "www.baidu.com", "test" : 123],
         ["title":"北京有哪些好吃的","image": "","url": "www.baidu.com", "test" : 123]
         ]]
-        let str: NSString = JSONConvertMethod.contentsStrWithJsonObjc(questionDic)!
         
-        let messageDic =  [ "id" : "55addff01ae2400001cde012", "chatType" : "single","msgId" : msgId,"msgType" : 17,"conversation" : "557fb20c5f15030001b38480", "contents" : str,"senderId" : 100068,"abbrev" : "煎蛋小哈哈: 看到觉得基督教", "timestamp" : 1437458416707, "receiverId" : 100044 ]
+        let htmlDic = ["url": "http://www.baidu.com", "title": "mt带我们去旅行", "desc": "哈哈红烧豆腐撒旦法是否收到了", "image": ""]
+        
+        let str: NSString = JSONConvertMethod.contentsStrWithJsonObjc(htmlDic)!
+        
+        let messageDic =  [ "id" : "55addff01ae2400001cde012", "chatType" : "single","msgId" : msgId, "msgType" : 18,"conversation" : "557fb20c5f15030001b38480", "contents" : str,"senderId" : 100068,"abbrev" : "煎蛋小哈哈: 看到觉得基督教", "timestamp" : 1437458416707, "receiverId" : 100044 ]
         
         msgId++
         
@@ -148,6 +151,8 @@ class PushSDKManager: NSObject, GexinSdkDelegate {
         [
             "routingKey" : "IM", "message" : messageDic
         ]
+        
+        let totalStr: NSString = JSONConvertMethod.contentsStrWithJsonObjc(dic)!
         */
         
         if let message = payloadMsg {

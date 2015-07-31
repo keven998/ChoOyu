@@ -104,8 +104,7 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
     [_titleBtn setFrame:CGRectMake(_pictureImageView.frame.origin.x + 70, 10, titleWidth, 20)];
     
     CGFloat offsetY;
-    if (_model.type ==  IMMessageTypeTravelNoteMessageType
-        || _model.type == IMMessageTypeCityPoiMessageType) {
+    if (_model.type ==  IMMessageTypeTravelNoteMessageType || _model.type == IMMessageTypeCityPoiMessageType || _model.type == IMMessageTypeHtml5MessageType) {
         _propertyBtn.hidden = YES;
         _propertyBtn.frame = CGRectZero;
         offsetY = 25;
@@ -133,13 +132,14 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
     self.backImageView.image = [[UIImage imageNamed:imageName] resizableImageWithCapInsets:UIEdgeInsetsMake(28, 18, 18, 10)];
 
     if (model.poiModel) {
+        _titleBtn.titleLabel.numberOfLines = 1;
         [_titleBtn setTitle:model.poiModel.poiName forState:UIControlStateNormal];
         [_pictureImageView sd_setImageWithURL:[NSURL URLWithString:model.poiModel.image] placeholderImage:nil];
-        /**
-         *  默认标题一行，但是游记的话是两行
-         */
-        _titleBtn.titleLabel.numberOfLines = 1;
+    
+        _typeLabel.hidden = NO;
+
         switch (model.type) {
+                
             case IMMessageTypeSpotMessageType:
                 _typeLabel.text = @"景点";
                 [_propertyBtn setTitle:model.poiModel.timeCost forState:UIControlStateNormal];
@@ -206,10 +206,17 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
             default:
                 break;
         }
+        
+    } else if (model.type == IMMessageTypeHtml5MessageType) {
+        _titleBtn.titleLabel.numberOfLines = 2;
+        _typeLabel.hidden = YES;
+        [_titleBtn setTitle:((HtmlMessage *)model.baseMessage).title forState:UIControlStateNormal];
+        [_pictureImageView sd_setImageWithURL:[NSURL URLWithString:((HtmlMessage *)model.baseMessage).imageUrl] placeholderImage:nil];
+        _descLabel.text = ((HtmlMessage *)model.baseMessage).subtitle;
     }
 }
 
--(void)bubbleViewPressed:(id)sender
+- (void)bubbleViewPressed:(id)sender
 {
     [self routerEventWithName:kRouterEventTaoziBubbleTapEventName
                      userInfo:@{KMESSAGEKEY:self.model}];

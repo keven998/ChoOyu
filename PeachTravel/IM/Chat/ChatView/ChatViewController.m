@@ -729,6 +729,14 @@
         }
             break;
             
+        case IMMessageTypeHtml5MessageType: {
+            SuperWebViewController *ctl = [[SuperWebViewController alloc] init];
+            ctl.titleStr = ((HtmlMessage *)model.baseMessage).title;
+            ctl.urlStr = ((HtmlMessage *)model.baseMessage).url;
+            [self.frostedViewController.navigationController pushViewController:ctl animated:YES];
+        }
+            break;
+            
         default:
             break;
     }

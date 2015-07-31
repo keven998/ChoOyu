@@ -364,6 +364,9 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
                 
             case .QuestionMessageType:
                 retMessage = QuestionMessage()
+                
+            case .Html5MessageType:
+                retMessage = HtmlMessage()
             
             default:
                 break

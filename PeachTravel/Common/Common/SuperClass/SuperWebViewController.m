@@ -54,8 +54,6 @@
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:_urlStr]];
     [super loadRequest:request];
     
-    
-    
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 25, self.view.bounds.size.width, 32)];
     label.text = @"旅行派\n能向达人咨询、朋友协作的旅行工具";
     label.textColor = COLOR_TEXT_II;
@@ -68,6 +66,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
     [self.navigationController.navigationBar addSubview:_progressView];
 }
 
