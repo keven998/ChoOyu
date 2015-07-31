@@ -148,7 +148,6 @@ class FrendModel: NSObject {
                 } 
             }
         }
-        
     }
     
     override init() {
@@ -217,7 +216,6 @@ class FrendModel: NSObject {
         return star;
     }
     
-
     /// 获取星座的图片名字
     class func bigCostellationImageNameWithBirthday(birthday: String?) -> String {
         var star = "dashboard_03_icon_constellation0.png"
