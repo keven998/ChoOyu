@@ -357,7 +357,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 {
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
     NSString *key = [NSString stringWithFormat:@"%@_%ld", kShouldShowFinishUserInfoNoti, [AccountManager shareAccountManager].account.userId];
-    BOOL shouldShowNoti = [[defaults objectForKey:key] boolValue];
+    BOOL shouldShowNoti = [[defaults objectForKey:key] boolValue] && [[AccountManager shareAccountManager] isLogin];
     
     if (shouldShowNoti) {
         UIView *dotView = [[UIView alloc] init];

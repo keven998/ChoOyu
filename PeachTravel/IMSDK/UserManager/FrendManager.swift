@@ -42,12 +42,12 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
         let wenwen = FrendModel()
         wenwen.userId = Int(WenwenUserId)
         wenwen.nickName = "旅行问问"
-        self.addFrend2DB(wenwen)
+        self.insertOrUpdateFrendInfoInDB(wenwen)
         
         let  paipai = FrendModel()
         paipai.userId = Int(PaipaiUserId)
         paipai.nickName = "派派"
-        self.addFrend2DB(paipai)
+        self.insertOrUpdateFrendInfoInDB(paipai)
     }
     
     /**

@@ -71,12 +71,13 @@
     label.numberOfLines = 2;
     [_webView addSubview:label];
     [_webView bringSubviewToFront:_webView.scrollView];
-
 }
+
 - (void)gooBack
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar addSubview:_progressView];

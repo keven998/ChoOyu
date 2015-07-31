@@ -208,10 +208,9 @@
         [hud hideTZHUD];
         if (code == 0) {
             __weak SMSVerifyViewController *weakSelf = self;
-            [[NSNotificationCenter defaultCenter] postNotificationName:userDidRegistedNoti object:nil userInfo:@{@"poster":weakSelf}];
             AccountManager *accountManager = [AccountManager shareAccountManager];
             [accountManager userDidLoginWithUserInfo:[responseObject objectForKey:@"result"]];
-            
+            [[NSNotificationCenter defaultCenter] postNotificationName:userDidRegistedNoti object:nil userInfo:@{@"poster":weakSelf}];
         } else {
             [SVProgressHUD showHint:[NSString stringWithFormat:@"%@", [[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
         }

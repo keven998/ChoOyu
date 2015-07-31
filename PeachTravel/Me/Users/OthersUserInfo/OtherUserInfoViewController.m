@@ -526,11 +526,10 @@
             }
         }
     }];
-    
 }
 
-
 #pragma mark - Table view data source
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return CGFLOAT_MIN;
 }
@@ -586,7 +585,7 @@
         cell.nameLabel.text = @"TA的足迹";
         cell.footPrint.textColor = TEXT_COLOR_TITLE;
         
-        if (_userInfo.footprints.count > 0) {
+        if (_userInfo.footprintCityCount > 0) {
             cell.footPrint.text = _userInfo.footprintDescription;
             
         } else {
