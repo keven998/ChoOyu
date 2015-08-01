@@ -10,6 +10,6 @@
 
 @interface UserAlbumViewController : UICollectionViewController
 
-@property (nonatomic, strong) NSArray *albumArray;
+@property (nonatomic, strong) NSMutableArray *albumArray;
 @property (nonatomic) BOOL isMyself;
 @end

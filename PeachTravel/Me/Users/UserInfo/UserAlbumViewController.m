@@ -59,6 +59,7 @@ static NSString * const reuseIdentifier = @"albumImageCell";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self.collectionView reloadData];
     [MobClick beginLogPageView:@"page_profile_album"];
 }
 
@@ -99,6 +100,7 @@ static NSString * const reuseIdentifier = @"albumImageCell";
     AlbumImageCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     if (_isMyself) {
         if (indexPath.row == 0) {
+            [cell.imageView sd_setImageWithURL:nil];
             cell.imageView.image = [UIImage imageNamed:@"ic_userInfo_add_avatar"];
             cell.editBtn.hidden = YES;
         } else {
@@ -107,14 +109,22 @@ static NSString * const reuseIdentifier = @"albumImageCell";
             } else {
                 cell.editBtn.hidden = YES;
             }
-            AlbumImage *image = [_albumArray objectAtIndex:indexPath.row-1];
-            [cell.imageView sd_setImageWithURL:[NSURL URLWithString:image.image.imageUrl] placeholderImage:nil];
+           
+            id image = [_albumArray objectAtIndex:indexPath.row-1];
+            if ([image isKindOfClass:[UIImage class]]) {
+                [cell.imageView sd_setImageWithURL:nil];
+                cell.imageView.image = (UIImage *)image;
+            } else {
+                cell.imageView.image = nil;
+                
+                [cell.imageView sd_setImageWithURL:[NSURL URLWithString:((AlbumImage *)image).image.imageUrl] placeholderImage:[UIImage imageNamed:@"ic_home_default_avatar.png"]];
+            }
             [cell.editBtn addTarget:self action:@selector(deletePhoto:) forControlEvents:UIControlEventTouchUpInside];
             cell.editBtn.tag = 100 + indexPath.row;
         }
     } else {
         AlbumImage *image = [_albumArray objectAtIndex:indexPath.row];
-        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:image.image.imageUrl] placeholderImage:nil];
+        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:image.image.imageUrl] placeholderImage:[UIImage imageNamed:@"ic_home_default_avatar.png"]];
     }
     return cell;
 }
@@ -134,9 +144,14 @@ static NSString * const reuseIdentifier = @"albumImageCell";
             NSMutableArray *photos = [NSMutableArray arrayWithCapacity:count];
             for (NSInteger i = 1; i<count +1; i++) {
                 // 替换为中等尺寸图片
-                AlbumImage *album = [_albumArray objectAtIndex:i-1];
                 MJPhoto *photo = [[MJPhoto alloc] init];
-                photo.url = album.image.imageUrl; // 图片路径
+
+                id album = [_albumArray objectAtIndex:i-1];
+                if ([album isKindOfClass:[UIImage class]]) {
+                    photo.image = album;
+                } else {
+                    photo.url = ((AlbumImage *)album).image.imageUrl; // 图片路径
+                }
                 photo.srcImageView = (UIImageView *)cell.imageView; // 来源于哪个UIImageView
                 [photos addObject:photo];
             }
@@ -273,16 +288,17 @@ static NSString * const reuseIdentifier = @"albumImageCell";
     [upManager putData:data key:key token:uploadToken
               complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
                   
-                  AlbumImage *image = [[AlbumImage alloc] init];
+                  AlbumImage *abImage = [[AlbumImage alloc] init];
                   TaoziImage * tzImage = [[TaoziImage alloc] init];
-                  image.imageId = [resp objectForKey:@"id"];
+                  abImage.imageId = [resp objectForKey:@"id"];
                   tzImage.imageUrl = [resp objectForKey:@"url"];
-                  image.image = tzImage;
+                  abImage.image = tzImage;
                   NSMutableArray *mutableArray = [self.manager.account.userAlbum mutableCopy];
-                  [mutableArray addObject:image];
+                  [mutableArray addObject:abImage];
                   self.manager.account.userAlbum = mutableArray;
-                  _albumArray = mutableArray;
+                  [_albumArray addObject:image];
                   [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
+                  [self.collectionView reloadData];
                   
               } option:opt];
     
