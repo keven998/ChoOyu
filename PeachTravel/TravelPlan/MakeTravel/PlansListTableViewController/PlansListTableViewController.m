@@ -487,6 +487,7 @@ static NSString *reusableCell = @"myGuidesCell";
     [self dismissPopup];
   
     [SVProgressHUD showSuccessWithStatus:@"已发送~"];
+    [self performSelector:@selector(dismissAfterSended) withObject:nil afterDelay:0.5];
     
 }
 
@@ -505,6 +506,14 @@ static NSString *reusableCell = @"myGuidesCell";
         [self.navigationController dismissPopupViewControllerAnimated:YES completion:nil];
     }
 }
+
+#pragma mark - private method
+
+- (void)dismissAfterSended
+{
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+}
+
 
 #pragma mark - Table view data source
 

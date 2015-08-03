@@ -469,6 +469,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 {
     [self dismissPopup];
     [SVProgressHUD showSuccessWithStatus:@"已发送~"];
+    [self performSelector:@selector(dismissAfterSended) withObject:nil afterDelay:0.5];
 }
 
 - (void)sendCancel
@@ -485,6 +486,13 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     if (self.popupViewController != nil) {
         [self dismissPopupViewControllerAnimated:YES completion:nil];
     }
+}
+
+#pragma mark - private method
+
+- (void)dismissAfterSended
+{
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 
