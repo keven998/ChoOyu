@@ -450,7 +450,7 @@
         ctl.isMyself = YES;
         ctl.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:ctl animated:YES];
-    }else{
+    } else {
         [self userLogin];
     }
     
@@ -464,7 +464,7 @@
         myGuidesCtl.hidesBottomBarWhenPushed = YES;
         myGuidesCtl.userName = _accountManager.account.nickName;
         [self.navigationController pushViewController:myGuidesCtl animated:YES];
-    }else{
+    } else {
         [self userLogin];
     }
 }
@@ -480,15 +480,9 @@
         footCtl.hidesBottomBarWhenPushed = YES;
         footCtl.userId = amgr.account.userId;
         [self.navigationController pushViewController:footCtl animated:YES];
-    }else{
+    } else  {
         [self userLogin];
     }
-    
-    FootPrintViewController *footCtl = [[FootPrintViewController alloc] init];
-    AccountManager *amgr = self.accountManager;
-    footCtl.hidesBottomBarWhenPushed = YES;
-    footCtl.userId = amgr.account.userId;
-    [self.navigationController pushViewController:footCtl animated:YES];
 }
 
 
