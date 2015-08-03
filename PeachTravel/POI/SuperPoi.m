@@ -22,7 +22,12 @@
         _openTime = [json objectForKey:@"openTime"];
         _address = [json objectForKey:@"address"];
         _descUrl = [json objectForKey:@"descUrl"];
-        _telephone = [json objectForKey:@"telephone"];
+        
+        NSArray * tel = [json objectForKey:@"tel"];
+        // 获得第一个电话号码
+        _telephone = [tel firstObject];
+        // 获得全部电话号码数组
+        _tel = [json objectForKey:@"tel"];
   
         if ([json objectForKey:@"rank"] != [NSNull null]) {
             _rank = [[json objectForKey:@"rank"] intValue];

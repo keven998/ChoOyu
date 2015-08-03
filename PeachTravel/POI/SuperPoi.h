@@ -34,6 +34,9 @@
 @property (nonatomic, copy) NSString *telephone;
 @property (nonatomic, strong)NSArray *style;
 
+// 电话号码数组
+@property (nonatomic, strong)NSArray * tel;
+
 @property (nonatomic, copy) NSString *distanceStr;
 
 - (id)initWithJson:(id)json;
