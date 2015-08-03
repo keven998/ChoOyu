@@ -56,10 +56,14 @@
         loginViewController.isPushed = NO;
         [self presentViewController:nctl animated:YES completion:nil];
     } else {
-        _chatRecordListCtl = [[ChatRecoredListTableViewController alloc] init];
-        _chatRecordListCtl.delegate = self;
-        UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:_chatRecordListCtl];
-        [self presentViewController:nCtl animated:YES completion:nil];
+        if (_poi.poiId) {
+            _chatRecordListCtl = [[ChatRecoredListTableViewController alloc] init];
+            _chatRecordListCtl.delegate = self;
+            UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:_chatRecordListCtl];
+            [self presentViewController:nCtl animated:YES completion:nil];
+        } else {
+            
+        }
     }
 }
 
