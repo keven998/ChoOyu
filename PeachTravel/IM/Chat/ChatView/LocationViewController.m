@@ -60,7 +60,7 @@ static LocationViewController *defaultLocation = nil;
 {
     [super viewDidLoad];
     
-    self.title = @"我的位置";
+    self.title = @"位置";
     locModel = [[LocationModel alloc]init];
     UIBarButtonItem *backBtn = [[UIBarButtonItem alloc] initWithTitle:@" 取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
     self.navigationItem.leftBarButtonItem = backBtn;
