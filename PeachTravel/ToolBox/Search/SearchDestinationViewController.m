@@ -353,20 +353,20 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 66 * SCREEN_HEIGHT/736;
+    return 58;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 44 * SCREEN_HEIGHT/736;
+    return 35;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 44 * SCREEN_HEIGHT/736)];
+    UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 35)];
     headerView.backgroundColor = APP_PAGE_COLOR;
     NSString *typeDesc = [[self.dataSource objectAtIndex:section] objectForKey:@"typeDesc"];
-    UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, 50, 44* SCREEN_HEIGHT/736 - 5)];
+    UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, 50, 25)];
     headerLabel.textColor = COLOR_TEXT_I;
     headerLabel.text = [NSString stringWithFormat:@"   %@", typeDesc];
     headerLabel.font = [UIFont systemFontOfSize:14.0];

@@ -107,9 +107,8 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.dataSource = self;
         _tableView.delegate = self;
-        
-        _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 44 * SCREEN_HEIGHT/736)];
-        _tableView.contentInset = UIEdgeInsetsMake(-44 * SCREEN_HEIGHT/736, 0, 0, 0);
+        _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 35)];
+        _tableView.contentInset = UIEdgeInsetsMake(-35, 0, 0, 0);
     }
     return _tableView;
 }
@@ -202,7 +201,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if (self.dataSource.count) {
-        return 44 * SCREEN_HEIGHT/736;
+        return 35;
     } else {
         return 0;
     }
@@ -210,7 +209,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 66 * SCREEN_HEIGHT/736;
+    return 58;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -250,7 +249,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
             break;
     }
     
-    UILabel *headerView = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, CGRectGetWidth(self.view.bounds), 44 * SCREEN_HEIGHT/736 - 5)];
+    UILabel *headerView = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, CGRectGetWidth(self.view.bounds), 25)];
     headerView.textColor = COLOR_TEXT_I;
     headerView.text = [NSString stringWithFormat:@"   %@", desc];
     headerView.font = [UIFont systemFontOfSize:14.0];
