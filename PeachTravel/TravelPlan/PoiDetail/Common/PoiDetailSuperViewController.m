@@ -45,7 +45,6 @@
 
 - (void)shareToTalk {
     if (![[AccountManager shareAccountManager] isLogin]) {
-//        [self performSelector:@selector(login) withObject:nil afterDelay:0.3];
         LoginViewController *loginViewController = [[LoginViewController alloc] initWithCompletion:^(BOOL completed) {
             _chatRecordListCtl = [[ChatRecoredListTableViewController alloc] init];
             _chatRecordListCtl.delegate = self;
