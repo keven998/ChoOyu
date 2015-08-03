@@ -954,7 +954,7 @@
         for (int i=0; i<assets.count; i++) {
             ALAsset *asset=assets[i];
             UIImage *tempImg=[UIImage imageWithCGImage:asset.defaultRepresentation.fullScreenImage];
-            NSData *imageData = UIImageJPEGRepresentation(tempImg, 0.3);
+            NSData *imageData = UIImageJPEGRepresentation(tempImg, 1);
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self sendImageMessage:imageData];
                 
