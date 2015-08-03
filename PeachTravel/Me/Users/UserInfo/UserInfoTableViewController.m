@@ -518,6 +518,7 @@
     AccountManager *amgr = self.accountManager;
     UserOtherTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:otherUserInfoCell forIndexPath:indexPath];
     cell.cellTitle.text = cellDataSource[indexPath.section][indexPath.row];
+    self.tracksDesc = self.accountManager.account.footprintsDesc;
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             cell.cellDetail.text = amgr.account.nickName;
