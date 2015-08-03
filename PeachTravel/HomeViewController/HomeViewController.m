@@ -96,7 +96,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 }
 
 - (void)setupConverView {
-    [self beginIntroduce];
     
     if (!shouldSkipIntroduce && kShouldShowIntroduceWhenFirstLaunch) {
         [self beginIntroduce];
