@@ -573,7 +573,7 @@
     else {
         if (indexPath.row == 0) {
             if (amgr.accountIsBindTel) {
-                cell.cellDetail.text = @"已安全绑定";
+                cell.cellDetail.text = @"已绑定";
                 
             } else {
                 cell.cellDetail.text = @"未设置";
@@ -640,13 +640,10 @@
     }
     else {
         if (indexPath.row == 0) {
-            if (self.accountManager.accountIsBindTel) {
-                [SVProgressHUD showHint:@"帐号已绑定到手机号"];
-            } else {
-                VerifyCaptchaViewController *changePasswordCtl = [[VerifyCaptchaViewController alloc] init];
-                changePasswordCtl.verifyCaptchaType = UserBindTel;
-                [self.navigationController presentViewController:[[TZNavigationViewController alloc] initWithRootViewController:changePasswordCtl] animated:YES completion:nil];
-            }
+            [SVProgressHUD showHint:@"帐号已绑定到手机号"];
+            VerifyCaptchaViewController *changePasswordCtl = [[VerifyCaptchaViewController alloc] init];
+            changePasswordCtl.verifyCaptchaType = UserBindTel;
+            [self.navigationController presentViewController:[[TZNavigationViewController alloc] initWithRootViewController:changePasswordCtl] animated:YES completion:nil];
            
             
         } else if (indexPath.row == 1) {
