@@ -484,6 +484,11 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 {
     if (self.popupViewController != nil) {
         [self dismissPopupViewControllerAnimated:YES completion:nil];
+        
+        // 回到上个页面
+        [self dismissViewControllerAnimated:YES completion:^{
+            
+        }];
     }
 }
 

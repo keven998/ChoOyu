@@ -204,7 +204,10 @@
         if (operation.response.statusCode == 403) {
             [SVProgressHUD showHint:@"发送验证码过于频繁"];
             
-        } else {
+        }else if (operation.response.statusCode == 422){
+            [SVProgressHUD showHint:@"号码未注册"];
+        }
+        else {
             if (self.isShowing) {
                 [SVProgressHUD showHint:HTTP_FAILED_HINT];
             }
