@@ -24,6 +24,8 @@
 #import "MWPhotoBrowser.h"
 #import "UserAlbumViewController.h"
 #import "WXApi.h"
+#import "LoginViewController.h"
+#import "TZNavigationViewController.h"
 
 #define cellDataSource           @[@[@"邀请朋友", @"意见反馈"], @[@"关于我们", @"应用设置"]]
 #define secondCell               @"secondCell"
@@ -441,23 +443,47 @@
 
 - (IBAction)showPictureGrid:(id)sender
 {
-    UserAlbumViewController *ctl = [[UserAlbumViewController alloc] initWithNibName:@"UserAlbumViewController" bundle:nil];
-    ctl.albumArray = self.accountManager.account.userAlbum;
-    ctl.isMyself = YES;
-    ctl.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:ctl animated:YES];
+    // 判断是否登录
+    if (self.accountManager.isLogin) {
+        UserAlbumViewController *ctl = [[UserAlbumViewController alloc] initWithNibName:@"UserAlbumViewController" bundle:nil];
+        ctl.albumArray = self.accountManager.account.userAlbum;
+        ctl.isMyself = YES;
+        ctl.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:ctl animated:YES];
+    }else{
+        [self userLogin];
+    }
+    
 }
 
 - (IBAction)myPlan:(id)sender
 {
-    PlansListTableViewController *myGuidesCtl = [[PlansListTableViewController alloc] initWithUserId:_accountManager.account.userId];
-    myGuidesCtl.hidesBottomBarWhenPushed = YES;
-    myGuidesCtl.userName = _accountManager.account.nickName;
-    [self.navigationController pushViewController:myGuidesCtl animated:YES];
+    
+    if (self.accountManager.isLogin) {
+        PlansListTableViewController *myGuidesCtl = [[PlansListTableViewController alloc] initWithUserId:_accountManager.account.userId];
+        myGuidesCtl.hidesBottomBarWhenPushed = YES;
+        myGuidesCtl.userName = _accountManager.account.nickName;
+        [self.navigationController pushViewController:myGuidesCtl animated:YES];
+    }else{
+        [self userLogin];
+    }
 }
+
+// 跳转到登录界面
+#pragma mark - IBAction Methods
 
 - (IBAction)myTrack:(id)sender
 {
+    if (self.accountManager.isLogin) {
+        FootPrintViewController *footCtl = [[FootPrintViewController alloc] init];
+        AccountManager *amgr = self.accountManager;
+        footCtl.hidesBottomBarWhenPushed = YES;
+        footCtl.userId = amgr.account.userId;
+        [self.navigationController pushViewController:footCtl animated:YES];
+    }else{
+        [self userLogin];
+    }
+    
     FootPrintViewController *footCtl = [[FootPrintViewController alloc] init];
     AccountManager *amgr = self.accountManager;
     footCtl.hidesBottomBarWhenPushed = YES;

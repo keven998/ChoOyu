@@ -416,15 +416,12 @@
     [upManager putData:data key:key token:uploadToken
               complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
                   
-                  AlbumImage *image = [[AlbumImage alloc] init];
-                  TaoziImage * tzImage = [[TaoziImage alloc] init];
-                  image.imageId = [resp objectForKey:@"id"];
-                  tzImage.imageUrl = [resp objectForKey:@"url"];
-                  image.image = tzImage;
-                  NSMutableArray *mutableArray = [self.accountManager.account.userAlbum mutableCopy];
-                  [mutableArray addObject:image];
-                  self.accountManager.account.userAlbum = mutableArray;
+                  NSString *url = [resp objectForKey:@"url"];
+                  NSString *urlSmall = [resp objectForKey:@"urlSmall"];
+                  _accountManager.account.avatar = url;
+                  _accountManager.account.avatarSmall = urlSmall;
                   [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
+                  _avatarImageView.image = image;
                   
               } option:opt];
     
@@ -450,7 +447,7 @@
             [_HUD dismiss];
             _HUD = nil;
             [SVProgressHUD showHint:@"修改成功"];
-            [_tableView reloadData];
+            
         });
     }
 }

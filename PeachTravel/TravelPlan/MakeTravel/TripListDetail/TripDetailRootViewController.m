@@ -27,6 +27,8 @@
 #import "PlansListTableViewController.h"
 #import "TripFavoriteTableViewController.h"
 #import "MyTripSpotsMapViewController.h"
+#import "TZNavigationViewController.h"
+#import "LoginViewController.h"
 
 @interface TripDetailRootViewController () <ActivityDelegate, TaoziMessageSendDelegate, ChatRecordListDelegate, CreateConversationDelegate, UIActionSheetDelegate, REFrostedViewControllerDelegate>
 
@@ -65,6 +67,7 @@
 
 @property (strong, nonatomic) UIButton *backButton;
 
+@property (nonatomic, strong) UIImageView *coverView;
 
 @end
 
@@ -520,6 +523,11 @@
  */
 - (IBAction)forkTrip:(id)sender
 {
+    // 2.判断是否登录,如果没有登录,跳转到登录界面
+    if (![[AccountManager shareAccountManager] isLogin]) {
+        [self userLogin];
+        return;
+    }
     [MobClick event:@"navigation_item_copy_plan"];
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:[NSString stringWithFormat:@"复制\"%@\"到我的旅行计划", _tripDetail.tripTitle] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     [alert showAlertViewWithBlock:^(NSInteger buttonIndex) {
@@ -528,6 +536,17 @@
         }
     }];
 }
+
+
+- (void)userLogin
+{
+    LoginViewController *loginCtl = [[LoginViewController alloc] init];
+    TZNavigationViewController *nctl = [[TZNavigationViewController alloc] initWithRootViewController:loginCtl];
+    loginCtl.isPushed = NO;
+    [self.navigationController presentViewController:nctl animated:YES completion:nil];
+}
+
+
 
 - (void)forkTrip
 {
