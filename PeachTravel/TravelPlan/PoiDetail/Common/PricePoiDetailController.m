@@ -17,13 +17,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UILabel * label = [[UILabel alloc] init];
-    label.frame = CGRectMake(0, 0, SCREEN_WIDTH, 50);
-    label.text = self.desc;
-    label.numberOfLines = 0;
-    label.textAlignment = UITextAlignmentCenter;
+    UITextView * textDesc = [[UITextView alloc] init];
+    textDesc.frame = CGRectMake(0, 0, SCREEN_WIDTH, 200);
+    textDesc.text = self.desc;
+    textDesc.font = [UIFont systemFontOfSize:15.0];
+    [self.view addSubview:textDesc];
     
-    [self.view addSubview:label];
 }
 
 
