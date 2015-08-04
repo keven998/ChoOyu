@@ -435,7 +435,8 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
         if let conversation = self.getConversationWithMessage(message) {
             conversation.addReceiveMessage(message)
             debug_println("conversation: \(conversation.chatterName)")
-            if !conversation.isCurrentConversation {
+            //如果当前的 conversation 不是正在显示的，并且消息不是从另一个终端已我的身份发送的
+            if !conversation.isCurrentConversation && (message.senderId != IMClientManager.shareInstance().accountId) {
                 conversation.unReadMessageCount++
             }
             if (conversation.conversationId == nil && message.conversationId != nil) {
