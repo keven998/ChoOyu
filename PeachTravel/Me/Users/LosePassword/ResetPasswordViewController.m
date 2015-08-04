@@ -24,6 +24,7 @@
     registerBtn.tintColor = [UIColor whiteColor];
     self.navigationItem.rightBarButtonItem = registerBtn;
     
+    //如果是绑定手机号进行到最后一步，进行设置密码
     if (_verifyCaptchaType == UserBindTel) {
         self.navigationItem.title = @"设置密码";
         UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 76.0, _passwordLabel.bounds.size.height - 16.0)];
@@ -63,45 +64,28 @@
     __weak typeof(ResetPasswordViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf content:64];
-    
-    if (_verifyCaptchaType == UserBindTel) {
-        [[AccountManager shareAccountManager] asyncBindTelephone:_phoneNumber token:_token completion:^(BOOL isSuccess, NSString *errorStr) {
-            if (isSuccess) {
-                [SVProgressHUD showHint:@"修改成功"];
-                [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.4];
-                
+       
+    [accountManager asyncResetPassword:_passwordLabel.text tel: _phoneNumber toke:_token completion:^(BOOL isSuccess, NSString *errorStr) {
+        if (isSuccess) {
+            [SVProgressHUD showHint:@"修改成功"];
+            if (_verifyCaptchaType == UserBindTel) {
+                [self.navigationController dismissViewControllerAnimated:YES completion:nil];
             } else {
-                [hud hideTZHUD];
-                if (errorStr) {
-                    [SVProgressHUD showHint:errorStr];
-                } else {
-                    
-                    if (self.isShowing) {
-                        [SVProgressHUD showHint:HTTP_FAILED_HINT];
-                    }
+                [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.4];
+            }
+            
+        } else {
+            [hud hideTZHUD];
+            if (errorStr) {
+                [SVProgressHUD showHint:errorStr];
+            } else {
+                
+                if (self.isShowing) {
+                    [SVProgressHUD showHint:HTTP_FAILED_HINT];
                 }
             }
-        }];
-        
-    } else {
-        [accountManager asyncResetPassword:_passwordLabel.text tel: _phoneNumber toke:_token completion:^(BOOL isSuccess, NSString *errorStr) {
-            if (isSuccess) {
-                [SVProgressHUD showHint:@"修改成功"];
-                [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.4];
-                
-            } else {
-                [hud hideTZHUD];
-                if (errorStr) {
-                    [SVProgressHUD showHint:errorStr];
-                } else {
-                    
-                    if (self.isShowing) {
-                        [SVProgressHUD showHint:HTTP_FAILED_HINT];
-                    }
-                }
-            }
-        }];
-    }
+        }
+    }];
    
     _passwordLabel.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
     _passwordLabel.layer.borderWidth = 1.0;
