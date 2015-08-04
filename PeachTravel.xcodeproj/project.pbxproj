@@ -1202,6 +1202,7 @@
 		E66E6CCA1B59F1E500CBF65F /* DropDownViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E66E6CC91B59F1E500CBF65F /* DropDownViewController.m */; };
 		E66E6CD41B5A16A100CBF65F /* HWDropdownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = E66E6CD31B5A16A100CBF65F /* HWDropdownMenu.m */; };
 		E66E6CDC1B5A26BF00CBF65F /* UIImage+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = E66E6CDB1B5A26BF00CBF65F /* UIImage+Extension.m */; };
+		E6744F731B708AA6001BE989 /* UIActionSheet+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = E6744F721B708AA6001BE989 /* UIActionSheet+Blocks.m */; };
 		E676B8D41B5CD20C0042B539 /* GuiderDistributeContinent.m in Sources */ = {isa = PBXBuildFile; fileRef = E676B8D31B5CD20C0042B539 /* GuiderDistributeContinent.m */; };
 		E68605701B6B52E600111D94 /* chat_paipai@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E686056C1B6B52E600111D94 /* chat_paipai@2x.png */; };
 		E68605711B6B52E600111D94 /* chat_paipai@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E686056D1B6B52E600111D94 /* chat_paipai@3x.png */; };
@@ -2824,6 +2825,8 @@
 		E66E6CD31B5A16A100CBF65F /* HWDropdownMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HWDropdownMenu.m; sourceTree = "<group>"; };
 		E66E6CDA1B5A26BF00CBF65F /* UIImage+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Extension.h"; sourceTree = "<group>"; };
 		E66E6CDB1B5A26BF00CBF65F /* UIImage+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extension.m"; sourceTree = "<group>"; };
+		E6744F711B708AA6001BE989 /* UIActionSheet+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActionSheet+Blocks.h"; sourceTree = "<group>"; };
+		E6744F721B708AA6001BE989 /* UIActionSheet+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActionSheet+Blocks.m"; sourceTree = "<group>"; };
 		E676B8D21B5CD20C0042B539 /* GuiderDistributeContinent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuiderDistributeContinent.h; sourceTree = "<group>"; };
 		E676B8D31B5CD20C0042B539 /* GuiderDistributeContinent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuiderDistributeContinent.m; sourceTree = "<group>"; };
 		E686056C1B6B52E600111D94 /* chat_paipai@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_paipai@2x.png"; sourceTree = "<group>"; };
@@ -4773,6 +4776,8 @@
 				D9A802471A80E3D3005AD701 /* NSString+TaoziString.m */,
 				D9A802481A80E3D3005AD701 /* NSString+Valid.h */,
 				D9A802491A80E3D3005AD701 /* NSString+Valid.m */,
+				E6744F711B708AA6001BE989 /* UIActionSheet+Blocks.h */,
+				E6744F721B708AA6001BE989 /* UIActionSheet+Blocks.m */,
 				D9A8024A1A80E3D3005AD701 /* UIAlertView+Block.h */,
 				D9A8024B1A80E3D3005AD701 /* UIAlertView+Block.m */,
 				D9A8024C1A80E3D3005AD701 /* UIImage+BoxBlur.h */,
@@ -7690,6 +7695,7 @@
 				D9A801571A80DD23005AD701 /* HPGrowingTextView.m in Sources */,
 				27FF1A3C1B04B91F00643D77 /* AIDatePickerController.m in Sources */,
 				D9F46DC21AC52D8600972AE8 /* SVWebViewControllerActivity.m in Sources */,
+				E6744F731B708AA6001BE989 /* UIActionSheet+Blocks.m in Sources */,
 				D92CA1341AD8BEB400F244FF /* MWPhoto.m in Sources */,
 				C694C3861AE9EB7800F5C36E /* SDSegmentedControl.m in Sources */,
 				D9B3AB6B1B4510AC0067B686 /* AlbumImageCell.m in Sources */,
