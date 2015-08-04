@@ -86,14 +86,6 @@
     _captchaBtn.enabled = YES;
 }
 
-//- (void)viewDidLayoutSubviews
-//{
-//    _phoneLabel.frame = CGRectMake(0, 30, self.view.bounds.size.width, 64*kWindowHeight/736);
-//    _captchaBtn.center = CGPointMake(self.view.bounds.size.width-20-_captchaBtn.bounds.size.width/2, _phoneLabel.center.y);
-//    _captchaLabel.frame = CGRectMake(0, 30+64*kWindowHeight/736+1, self.view.bounds.size.width, 64*kWindowHeight/736);
-//    _tipsLabel.frame = CGRectMake(20, 30+64*kWindowHeight/736*2+15, self.view.bounds.size.width-40, 20);
-//}
-
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -247,24 +239,21 @@
     //验证注册码
     [manager POST:API_VERIFY_CAPTCHA parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-        [hud hideTZHUD];
         if (code == 0) {
-            ResetPasswordViewController *resetPasswordCtl = [[ResetPasswordViewController alloc] init];
-            resetPasswordCtl.token = [[responseObject objectForKey:@"result"] objectForKey:@"token"];
-            resetPasswordCtl.phoneNumber = _phoneLabel.text;
-            
             if (_verifyCaptchaType == UserBindTel) {
-                AccountManager *accountManager = [AccountManager shareAccountManager];
-                resetPasswordCtl.userId = accountManager.account.userId;
-                //如果用户不是首次绑定手机号,则不进入下一个界面进行设置密码。而是直接退出次界面
-                if (!_shouldSetPasswordWhenBindTel) {
-                    [self bindTelwithToken:[[responseObject objectForKey:@"result"] objectForKey:@"token"]];
-                    return;
-                }
+                [self bindTelwithToken:[[responseObject objectForKey:@"result"] objectForKey:@"token"]];
+               
+            } else {
+                [hud hideTZHUD];
+                ResetPasswordViewController *resetPasswordCtl = [[ResetPasswordViewController alloc] init];
+                resetPasswordCtl.token = [[responseObject objectForKey:@"result"] objectForKey:@"token"];
+                resetPasswordCtl.phoneNumber = _phoneLabel.text;
+                resetPasswordCtl.verifyCaptchaType = _verifyCaptchaType;
+                [self.navigationController pushViewController:resetPasswordCtl animated:YES];
             }
-            resetPasswordCtl.verifyCaptchaType = _verifyCaptchaType;
-            [self.navigationController pushViewController:resetPasswordCtl animated:YES];
+            
         } else {
+            
             [SVProgressHUD showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
         }
         
@@ -283,15 +272,19 @@
 //修改手机号
 - (void)bindTelwithToken:(NSString *)token
 {
-    __weak typeof(VerifyCaptchaViewController *)weakSelf = self;
-    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf content:64];
-
     [[AccountManager shareAccountManager] asyncBindTelephone:_phoneLabel.text token:token completion:^(BOOL isSuccess, NSString *errorStr) {
         if (isSuccess) {
-            [self performSelector:@selector(goBack) withObject:nil afterDelay:0.4];
+            //如果用户不是首次绑定手机号,则不进入下一个界面进行设置密码。而是直接退出次界面
+            if (!_shouldSetPasswordWhenBindTel) {
+                [self performSelector:@selector(goBack) withObject:nil afterDelay:0.4];
+            } else {
+                ResetPasswordViewController *resetPasswordCtl = [[ResetPasswordViewController alloc] init];
+                resetPasswordCtl.token = token;
+                resetPasswordCtl.phoneNumber = _phoneLabel.text;
+                resetPasswordCtl.verifyCaptchaType = _verifyCaptchaType;
+                [self.navigationController pushViewController:resetPasswordCtl animated:YES];
+            }
         } else {
-            [hud hideTZHUD];
             if (errorStr) {
                 [SVProgressHUD showHint:errorStr];
             } else {

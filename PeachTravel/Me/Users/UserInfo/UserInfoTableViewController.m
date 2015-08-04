@@ -640,7 +640,6 @@
     }
     else {
         if (indexPath.row == 0) {
-            [SVProgressHUD showHint:@"帐号已绑定到手机号"];
             VerifyCaptchaViewController *changePasswordCtl = [[VerifyCaptchaViewController alloc] init];
             changePasswordCtl.verifyCaptchaType = UserBindTel;
             [self.navigationController presentViewController:[[TZNavigationViewController alloc] initWithRootViewController:changePasswordCtl] animated:YES completion:nil];
