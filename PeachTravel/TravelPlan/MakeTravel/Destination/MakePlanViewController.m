@@ -32,7 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (self.shouldOnlyChangeDestinationWhenClickNextStep) {
-        self.navigationItem.title = @"添加我的旅行足迹";
+        self.navigationItem.title = @"修改目的地";
     }
     
     UIBarButtonItem *lbi = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
