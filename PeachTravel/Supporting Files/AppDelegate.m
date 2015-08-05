@@ -74,7 +74,7 @@
     [MobClick setAppVersion:version];
 
 #ifndef __OPTIMIZE__
-    [MobClick setCrashReportEnabled:YES];
+    [MobClick setCrashReportEnabled:NO];
 #else
     [MobClick setCrashReportEnabled:YES];
 #endif
