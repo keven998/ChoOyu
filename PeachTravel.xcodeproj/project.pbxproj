@@ -8167,6 +8167,7 @@
 					"$(PROJECT_DIR)/PeachTravel/libs/UMSocial_Sdk_Extra_Frameworks/Wechat",
 				);
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_SWIFT_FLAGS = "-D DEBUG";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "PeachTravel/PeachTravel-Bridging-Header.h";
