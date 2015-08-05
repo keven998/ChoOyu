@@ -80,7 +80,6 @@ func debug_println(object: AnyObject) {
     #if DEBUG
         Swift.println(object)
         #else
-
     #endif
 }
 
