@@ -414,7 +414,7 @@
 {
     [MobClick event:@"button_item_album"];
     UserAlbumViewController *ctl = [[UserAlbumViewController alloc] initWithNibName:@"UserAlbumViewController" bundle:nil];
-    ctl.albumArray = self.userInfo.userAlbum;
+    ctl.albumArray = [self.userInfo.userAlbum mutableCopy];
     [self.navigationController pushViewController:ctl animated:YES];
 }
 

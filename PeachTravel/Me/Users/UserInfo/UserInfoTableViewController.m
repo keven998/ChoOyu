@@ -755,7 +755,7 @@
 - (void)viewUserPhotoAlbum
 {
     UserAlbumViewController *ctl = [[UserAlbumViewController alloc] initWithNibName:@"UserAlbumViewController" bundle:nil];
-    ctl.albumArray = self.accountManager.account.userAlbum;
+    ctl.albumArray = [self.accountManager.account.userAlbum mutableCopy];
     ctl.isMyself = YES;
     ctl.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:ctl animated:YES];

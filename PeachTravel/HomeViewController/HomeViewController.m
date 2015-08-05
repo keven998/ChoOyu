@@ -484,7 +484,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     //发送本地推送
     UILocalNotification *notification = [[UILocalNotification alloc] init];
     notification.fireDate = [NSDate date]; //触发通知的时间
-    
     if ([message.abbrevMsg isBlankString]) {
         notification.alertBody = @"您有一条新消息";
     } else {

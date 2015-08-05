@@ -446,7 +446,7 @@
     // 判断是否登录
     if (self.accountManager.isLogin) {
         UserAlbumViewController *ctl = [[UserAlbumViewController alloc] initWithNibName:@"UserAlbumViewController" bundle:nil];
-        ctl.albumArray = self.accountManager.account.userAlbum;
+        ctl.albumArray = [self.accountManager.account.userAlbum mutableCopy];
         ctl.isMyself = YES;
         ctl.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:ctl animated:YES];
@@ -458,7 +458,6 @@
 
 - (IBAction)myPlan:(id)sender
 {
-    
     if (self.accountManager.isLogin) {
         PlansListTableViewController *myGuidesCtl = [[PlansListTableViewController alloc] initWithUserId:_accountManager.account.userId];
         myGuidesCtl.hidesBottomBarWhenPushed = YES;
