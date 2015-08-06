@@ -196,11 +196,12 @@
 - (IBAction)book:(id)sender
 {
     if ([((SpotPoi *)self.poi).bookUrl isEqualToString:@""]) {
-        PricePoiDetailController * pricePoi = [[PricePoiDetailController alloc] init];
-        pricePoi.desc = ((SpotPoi *)self.poi).priceDesc;
-        pricePoi.view.backgroundColor = [UIColor whiteColor];
-    
-        [self.navigationController pushViewController:pricePoi animated:YES];
+        if (![self.poi.priceDesc isEqualToString:@""]) {
+            PricePoiDetailController * pricePoi = [[PricePoiDetailController alloc] init];
+            pricePoi.desc = ((SpotPoi *)self.poi).priceDesc;
+            pricePoi.view.backgroundColor = [UIColor whiteColor];
+            [self.navigationController pushViewController:pricePoi animated:YES];
+        }
     }else{
         SuperWebViewController *webCtl = [[SuperWebViewController alloc] initWithURL:[NSURL URLWithString:((SpotPoi *)self.poi).bookUrl]];
         webCtl.titleStr = @"在线预订";

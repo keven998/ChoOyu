@@ -238,10 +238,13 @@
         if (self.poi.descUrl) {
             webCtl.urlStr = self.poi.descUrl;
         }else{
-            PricePoiDetailController * pricePoi = [[PricePoiDetailController alloc] init];
-            pricePoi.desc = self.poi.priceDesc;
-            pricePoi.view.backgroundColor = [UIColor whiteColor];
-            [self.navigationController pushViewController:pricePoi animated:YES];
+            if (![self.poi.priceDesc isEqualToString:@""]) {
+                PricePoiDetailController * pricePoi = [[PricePoiDetailController alloc] init];
+                pricePoi.desc = self.poi.priceDesc;
+                pricePoi.view.backgroundColor = [UIColor whiteColor];
+                [self.navigationController pushViewController:pricePoi animated:YES];
+                
+            }
             return;
         }
     }
