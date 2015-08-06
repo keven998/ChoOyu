@@ -518,6 +518,7 @@
     AccountManager *amgr = self.accountManager;
     UserOtherTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:otherUserInfoCell forIndexPath:indexPath];
     cell.cellTitle.text = cellDataSource[indexPath.section][indexPath.row];
+    self.tracksDesc = self.accountManager.account.footprintsDesc;
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             cell.cellDetail.text = amgr.account.nickName;
@@ -572,7 +573,7 @@
     else {
         if (indexPath.row == 0) {
             if (amgr.accountIsBindTel) {
-                cell.cellDetail.text = @"已安全绑定";
+                cell.cellDetail.text = @"已绑定";
                 
             } else {
                 cell.cellDetail.text = @"未设置";
@@ -639,13 +640,9 @@
     }
     else {
         if (indexPath.row == 0) {
-            if (self.accountManager.accountIsBindTel) {
-                [SVProgressHUD showHint:@"帐号已绑定到手机号"];
-            } else {
-                VerifyCaptchaViewController *changePasswordCtl = [[VerifyCaptchaViewController alloc] init];
-                changePasswordCtl.verifyCaptchaType = UserBindTel;
-                [self.navigationController presentViewController:[[TZNavigationViewController alloc] initWithRootViewController:changePasswordCtl] animated:YES completion:nil];
-            }
+            VerifyCaptchaViewController *changePasswordCtl = [[VerifyCaptchaViewController alloc] init];
+            changePasswordCtl.verifyCaptchaType = UserBindTel;
+            [self.navigationController presentViewController:[[TZNavigationViewController alloc] initWithRootViewController:changePasswordCtl] animated:YES completion:nil];
            
             
         } else if (indexPath.row == 1) {
@@ -758,7 +755,7 @@
 - (void)viewUserPhotoAlbum
 {
     UserAlbumViewController *ctl = [[UserAlbumViewController alloc] initWithNibName:@"UserAlbumViewController" bundle:nil];
-    ctl.albumArray = self.accountManager.account.userAlbum;
+    ctl.albumArray = [self.accountManager.account.userAlbum mutableCopy];
     ctl.isMyself = YES;
     ctl.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:ctl animated:YES];

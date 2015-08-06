@@ -316,7 +316,11 @@ class MessageManager: NSObject {
                 
                 if let chatType = messageDic.objectForKey("chatType") as? String {
                     if chatType == "single" {
-                        messageModel!.chatterId = messageDic.objectForKey("senderId") as! Int
+                        if (messageDic.objectForKey("senderId") as! Int) == IMClientManager.shareInstance().accountId {
+                            messageModel!.chatterId = messageDic.objectForKey("receiverId") as! Int
+                        } else {
+                            messageModel!.chatterId = messageDic.objectForKey("senderId") as! Int
+                        }
                         messageModel!.chatType = IMChatType.IMChatSingleType
                         
                     } else if chatType == "group"{

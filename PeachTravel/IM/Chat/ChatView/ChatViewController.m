@@ -126,6 +126,7 @@
 {
     [super viewDidLoad];
 
+    self.automaticallyAdjustsScrollViewInsets = NO;
     self.navigationItem.title = _chatterName;
     self.view.backgroundColor = APP_PAGE_COLOR;
     
@@ -149,11 +150,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateChatTitle:) name:updateChateGroupTitleNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardHidden) name:UIKeyboardWillHideNotification object:nil];
     
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    
     [self.view addSubview:self.tableView];
-    NSLog(@"%@", NSStringFromCGRect(self.navigationController.view.frame));
-
     [self.view addSubview:self.chatToolBar];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyBoardHidden)];
@@ -162,6 +159,30 @@
     
     [self setupBarButtonItem];
 }
+
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"page_lxp_chatting"];
+    [_chatToolBar registerNoti];
+    if (_isScrollToBottom) {
+        [self scrollViewToBottom:YES];
+    }
+    else{
+        _isScrollToBottom = YES;
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"page_lxp_chatting"];
+    [_chatToolBar unRegisterNoti];
+    // 设置当前conversation的所有message为已读
+    _conversation.unReadMessageCount = 0;
+}
+
 
 /**
  *  从服务器上加载群组成员信息
@@ -219,28 +240,6 @@
     [back addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
     [back setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:back];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"page_lxp_chatting"];
-    [_chatToolBar registerNoti];
-    if (_isScrollToBottom) {
-        [self scrollViewToBottom:YES];
-    }
-    else{
-        _isScrollToBottom = YES;
-    }
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"page_lxp_chatting"];
-    [_chatToolBar unRegisterNoti];
-    // 设置当前conversation的所有message为已读
-    _conversation.unReadMessageCount = 0;
 }
 
 - (void)dealloc
@@ -955,7 +954,7 @@
         for (int i=0; i<assets.count; i++) {
             ALAsset *asset=assets[i];
             UIImage *tempImg=[UIImage imageWithCGImage:asset.defaultRepresentation.fullScreenImage];
-            NSData *imageData = UIImageJPEGRepresentation(tempImg, 0.3);
+            NSData *imageData = UIImageJPEGRepresentation(tempImg, 1);
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self sendImageMessage:imageData];
                 

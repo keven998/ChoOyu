@@ -224,40 +224,40 @@ class FrendModel: NSObject {
             var month = components.month
             var day = components.day
             if (month == 1 && day >= 20) || (month == 2 && day <= 18) {
-                star = "dashboard_03_icon_constellation1.png"
-            }
-            else if (month == 2 && day >= 19) || (month == 3 && day <= 20) {
-                star = "dashboard_03_icon_constellation2.png"
-            }
-            else if (month == 3 && day >= 21) || (month == 4 && day <= 19) {
-                star = "dashboard_03_icon_constellation3.png"
-            }
-            else if (month == 4 && day >= 20) || (month == 5 && day <= 20) {
-                star = "dashboard_03_icon_constellation4.png"
-            }
-            else if (month == 5 && day >= 21) || (month == 6 && day <= 21) {
-                star = "dashboard_03_icon_constellation5.png"
-            }
-            else if (month == 6 && day >= 22) || (month == 7 && day <= 22) {
-                star = "dashboard_03_icon_constellation6.png"
-            }
-            else if (month == 7 && day >= 23) || (month == 8 && day <= 22) {
-                star = "dashboard_03_icon_constellation7.png"
-            }
-            else if (month == 8 && day >= 23) || (month == 9 && day <= 22) {
-                star = "dashboard_03_icon_constellation8.png"
-            }
-            else if (month == 9 && day >= 23) || (month == 10 && day <= 22) {
-                star = "dashboard_03_icon_constellation9.png"
-            }
-            else if (month == 10 && day >= 23) || (month == 11 && day <= 21) {
-                star = "dashboard_03_icon_constellation10.png"
-            }
-            else if (month == 11 && day >= 22) || (month == 12 && day <= 21) {
                 star = "dashboard_03_icon_constellation11.png"
             }
-            else if (month == 12 && day >= 22) || (month == 1 && day <= 19) {
+            else if (month == 2 && day >= 19) || (month == 3 && day <= 20) {
                 star = "dashboard_03_icon_constellation12.png"
+            }
+            else if (month == 3 && day >= 21) || (month == 4 && day <= 19) {
+                star = "dashboard_03_icon_constellation1.png"
+            }
+            else if (month == 4 && day >= 20) || (month == 5 && day <= 20) {
+                star = "dashboard_03_icon_constellation2.png"
+            }
+            else if (month == 5 && day >= 21) || (month == 6 && day <= 21) {
+                star = "dashboard_03_icon_constellation3.png"
+            }
+            else if (month == 6 && day >= 22) || (month == 7 && day <= 22) {
+                star = "dashboard_03_icon_constellation4.png"
+            }
+            else if (month == 7 && day >= 23) || (month == 8 && day <= 22) {
+                star = "dashboard_03_icon_constellation5.png"
+            }
+            else if (month == 8 && day >= 23) || (month == 9 && day <= 22) {
+                star = "dashboard_03_icon_constellation6.png"
+            }
+            else if (month == 9 && day >= 23) || (month == 10 && day <= 22) {
+                star = "dashboard_03_icon_constellation7.png"
+            }
+            else if (month == 10 && day >= 23) || (month == 11 && day <= 21) {
+                star = "dashboard_03_icon_constellation8.png"
+            }
+            else if (month == 11 && day >= 22) || (month == 12 && day <= 21) {
+                star = "dashboard_03_icon_constellation9.png"
+            }
+            else if (month == 12 && day >= 22) || (month == 1 && day <= 19) {
+                star = "dashboard_03_icon_constellation10.png"
             }
         }
         return star;
@@ -271,40 +271,40 @@ class FrendModel: NSObject {
             var month = components.month
             var day = components.day
             if (month == 1 && day >= 20) || (month == 2 && day <= 18) {
-                star = "master_icon_constellation1.png"
-            }
-            else if (month == 2 && day >= 19) || (month == 3 && day <= 20) {
-                star = "master_icon_constellation2.png"
-            }
-            else if (month == 3 && day >= 21) || (month == 4 && day <= 19) {
-                star = "master_icon_constellation3.png"
-            }
-            else if (month == 4 && day >= 20) || (month == 5 && day <= 20) {
-                star = "master_icon_constellation4.png"
-            }
-            else if (month == 5 && day >= 21) || (month == 6 && day <= 21) {
-                star = "master_icon_constellation5.png"
-            }
-            else if (month == 6 && day >= 22) || (month == 7 && day <= 22) {
-                star = "master_icon_constellation6.png"
-            }
-            else if (month == 7 && day >= 23) || (month == 8 && day <= 22) {
-                star = "master_icon_constellation7.png"
-            }
-            else if (month == 8 && day >= 23) || (month == 9 && day <= 22) {
-                star = "master_icon_constellation8.png"
-            }
-            else if (month == 9 && day >= 23) || (month == 10 && day <= 22) {
-                star = "master_icon_constellation9.png"
-            }
-            else if (month == 10 && day >= 23) || (month == 11 && day <= 21) {
-                star = "master_icon_constellation10.png"
-            }
-            else if (month == 11 && day >= 22) || (month == 12 && day <= 21) {
                 star = "master_icon_constellation11.png"
             }
-            else if (month == 12 && day >= 22) || (month == 1 && day <= 19) {
+            else if (month == 2 && day >= 19) || (month == 3 && day <= 20) {
                 star = "master_icon_constellation12.png"
+            }
+            else if (month == 3 && day >= 21) || (month == 4 && day <= 19) {
+                star = "master_icon_constellation1.png"
+            }
+            else if (month == 4 && day >= 20) || (month == 5 && day <= 20) {
+                star = "master_icon_constellation2.png"
+            }
+            else if (month == 5 && day >= 21) || (month == 6 && day <= 21) {
+                star = "master_icon_constellation3.png"
+            }
+            else if (month == 6 && day >= 22) || (month == 7 && day <= 22) {
+                star = "master_icon_constellation4.png"
+            }
+            else if (month == 7 && day >= 23) || (month == 8 && day <= 22) {
+                star = "master_icon_constellation5.png"
+            }
+            else if (month == 8 && day >= 23) || (month == 9 && day <= 22) {
+                star = "master_icon_constellation6.png"
+            }
+            else if (month == 9 && day >= 23) || (month == 10 && day <= 22) {
+                star = "master_icon_constellation7.png"
+            }
+            else if (month == 10 && day >= 23) || (month == 11 && day <= 21) {
+                star = "master_icon_constellation8.png"
+            }
+            else if (month == 11 && day >= 22) || (month == 12 && day <= 21) {
+                star = "master_icon_constellation9.png"
+            }
+            else if (month == 12 && day >= 22) || (month == 1 && day <= 19) {
+                star = "master_icon_constellation10.png"
             }
         }
         return star;

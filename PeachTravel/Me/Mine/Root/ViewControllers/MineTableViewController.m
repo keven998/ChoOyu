@@ -446,11 +446,11 @@
     // 判断是否登录
     if (self.accountManager.isLogin) {
         UserAlbumViewController *ctl = [[UserAlbumViewController alloc] initWithNibName:@"UserAlbumViewController" bundle:nil];
-        ctl.albumArray = self.accountManager.account.userAlbum;
+        ctl.albumArray = [self.accountManager.account.userAlbum mutableCopy];
         ctl.isMyself = YES;
         ctl.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:ctl animated:YES];
-    }else{
+    } else {
         [self userLogin];
     }
     
@@ -458,13 +458,12 @@
 
 - (IBAction)myPlan:(id)sender
 {
-    
     if (self.accountManager.isLogin) {
         PlansListTableViewController *myGuidesCtl = [[PlansListTableViewController alloc] initWithUserId:_accountManager.account.userId];
         myGuidesCtl.hidesBottomBarWhenPushed = YES;
         myGuidesCtl.userName = _accountManager.account.nickName;
         [self.navigationController pushViewController:myGuidesCtl animated:YES];
-    }else{
+    } else {
         [self userLogin];
     }
 }
@@ -480,15 +479,9 @@
         footCtl.hidesBottomBarWhenPushed = YES;
         footCtl.userId = amgr.account.userId;
         [self.navigationController pushViewController:footCtl animated:YES];
-    }else{
+    } else  {
         [self userLogin];
     }
-    
-    FootPrintViewController *footCtl = [[FootPrintViewController alloc] init];
-    AccountManager *amgr = self.accountManager;
-    footCtl.hidesBottomBarWhenPushed = YES;
-    footCtl.userId = amgr.account.userId;
-    [self.navigationController pushViewController:footCtl animated:YES];
 }
 
 

@@ -314,6 +314,7 @@
 }
 
 #pragma mark - MFMessageComposeViewControllerDelegate
+
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
 {
     switch (result) {

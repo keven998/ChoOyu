@@ -19,6 +19,7 @@
 #import "UIImage+BoxBlur.h"
 #import "PricePoiDetailController.h"
 #import "CityDescDetailViewController.h"
+#import "UIActionSheet+Blocks.h"
 
 @interface CommonPoiDetailViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) UIImageView *backGroundImageView;
@@ -174,13 +175,18 @@
 - (void)makePhone
 {
     if (self.poi.telephone && ![self.poi.telephone isBlankString]) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"确认拨打电话？" message:self.poi.telephone delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-        [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
-            if (buttonIndex == 1) {
-                NSString *telStr = [NSString stringWithFormat:@"tel://%@", self.poi.telephone];
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:telStr]];
-            }
-        }];
+        
+        // 拨打电话
+        [UIActionSheet showInView:self.view
+                        withTitle:@"确认拨打电话?"
+                cancelButtonTitle:@"取消"
+           destructiveButtonTitle:nil
+                otherButtonTitles:self.poi.tel
+                         tapBlock:^(UIActionSheet *actionSheet, NSInteger buttonIndex) {
+                             NSLog(@"Chose %@", [actionSheet buttonTitleAtIndex:buttonIndex]);
+                             NSString *telStr = [NSString stringWithFormat:@"tel://%@", self.poi.tel[buttonIndex]];
+                             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:telStr]];
+                         }];
     }
 }
 

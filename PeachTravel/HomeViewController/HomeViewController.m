@@ -73,6 +73,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         [imclientManager.messageReceiveManager addMessageReceiveListener:self withRoutingKey:MessageReceiveDelegateRoutingKeynormal];
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidRegister) name:userDidRegistedNoti object:nil];
+    
+    [self setupConverView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -84,28 +86,20 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void) setupLoginPage {
+- (void)setupLoginPage {
     PrepareViewController *prepareCtl = [[PrepareViewController alloc] init];
     prepareCtl.rootViewController = self;
     prepareCtl.view.frame = self.view.frame;
     [self addChildViewController:prepareCtl];
     [self.view addSubview:prepareCtl.view];
     [prepareCtl willMoveToParentViewController:self];
-    
-    [self setupConverView];
-    //    [self beginIntroduce];
 }
 
-- (void) setupConverView {
+- (void)setupConverView {
+    
     if (!shouldSkipIntroduce && kShouldShowIntroduceWhenFirstLaunch) {
-        //        [self beginIntroduce];
-        //        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:[[AppUtils alloc] init].appVersion];
-    } else {
-        _coverView = [[UIImageView alloc] initWithFrame:self.view.bounds];
-        _coverView.userInteractionEnabled = YES;
-        _coverView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-        [self.view addSubview:_coverView];
-        [self performSelector:@selector(dismiss:) withObject:nil afterDelay:1.5];
+        [self beginIntroduce];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:[[AppUtils alloc] init].appVersion];
     }
 }
 
@@ -251,25 +245,61 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 {
     _coverView.hidden = YES;
     EAIntroPage *page1 = [EAIntroPage page];
-    _pageView1 = [[PageOne alloc] initWithFrame:self.view.bounds];
-    page1.bgImage = _pageView1.backGroundImageView;
-    page1.titleIconView = _pageView1.titleView;
-    page1.titleIconPositionY = self.view.bounds.size.height/2-30;
-    
     EAIntroPage *page2 = [EAIntroPage page];
-    _pageView2 = [[PageTwo alloc] initWithFrame:self.view.bounds];
-    page2.bgImage = _pageView2.backGroundImageView;
-    page2.titleIconView = _pageView2.titleView;
-    page2.titleIconPositionY = self.view.bounds.size.height/2-30;
-    
-    
     EAIntroPage *page3 = [EAIntroPage page];
-    _pageView3 = [[PageThree alloc] initWithFrame:self.view.bounds];
-    page3.bgImage = _pageView3.backGroundImageView;
-    page3.titleIconView = _pageView3.titleView;
-    page3.titleIconPositionY = self.view.bounds.size.height/2-40;
+    EAIntroPage *page4 = [EAIntroPage page];
+
+    {
+        NSString *imageName;
+        
+        NSLog(@"%lf", self.view.frame.size.height);
+        if (self.view.frame.size.height == 480) {
+            imageName =  @"introduce_4_1.png";
+        } else {
+            imageName = @"introduce_6_1.png";
+        }
+        UIImageView *image = [[UIImageView alloc] initWithFrame:self.view.bounds];
+        image.image = [UIImage imageNamed:imageName];
+        page1.bgImage = image;
+    }
+  
+    {
+        NSString *imageName;
+        if (self.view.frame.size.height == 480) {
+            imageName =  @"introduce_4_2.png";
+        } else {
+            imageName = @"introduce_6_2.png";
+        }
+        UIImageView *image = [[UIImageView alloc] initWithFrame:self.view.bounds];
+        image.image = [UIImage imageNamed:imageName];
+        page2.bgImage = image;
+    }
     
-    EAIntroView *intro = [[EAIntroView alloc] initWithFrame:self.view.bounds andPages:@[page1,page2,page3]];
+    {
+        NSString *imageName;
+        if (self.view.frame.size.height == 480) {
+            imageName =  @"introduce_4_3.png";
+        } else {
+            imageName = @"introduce_6_3.png";
+        }
+        UIImageView *image = [[UIImageView alloc] initWithFrame:self.view.bounds];
+        image.image = [UIImage imageNamed:imageName];
+        page3.bgImage = image;
+    }
+    
+    {
+        NSString *imageName;
+        if (self.view.frame.size.height == 480) {
+            imageName =  @"introduce_4_4.png";
+        } else {
+            imageName = @"introduce_6_4.png";
+        }
+        UIImageView *image = [[UIImageView alloc] initWithFrame:self.view.bounds];
+        image.image = [UIImage imageNamed:imageName];
+        page4.bgImage = image;
+    }
+    
+    EAIntroView *intro = [[EAIntroView alloc] initWithFrame:self.view.bounds andPages:@[page1,page2,page3,page4]];
     [intro setDelegate:self];
     
     [intro showInView:self.view animateDuration:0];
@@ -306,11 +336,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 {
     self.tabBar.translucent = NO;
     self.delegate = self;
-    //    self.tabBar.backgroundImage = [UIImage imageNamed:@"tababr.png"];
-    //    self.tabBar.shadowImage = [UIImage new];
     self.tabBar.selectedImageTintColor = APP_THEME_COLOR;
-    //    self.tabBar.opaque = YES;
-    //    self.tabBar.backgroundColor = [UIColor clearColor];
     
     _chatListCtl = [[ChatListViewController alloc] init];
     _chatListCtl.delegate = self;
@@ -418,7 +444,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     IMClientManager *clientManager = [IMClientManager shareInstance];
     
     ChatConversation *conversation = [clientManager.conversationManager getExistConversationInConversationList:message.chatterId];
-    needShowNotification = ![conversation isBlockMessage];
+    needShowNotification = ![conversation isBlockMessage] && (message.sendType == IMMessageSendTypeMessageSendSomeoneElse);
     if (needShowNotification) {
         if (!conversation.isCurrentConversation) {
             [self updateViewWithUnreadMessageCount];
@@ -458,7 +484,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     //发送本地推送
     UILocalNotification *notification = [[UILocalNotification alloc] init];
     notification.fireDate = [NSDate date]; //触发通知的时间
-    
     if ([message.abbrevMsg isBlankString]) {
         notification.alertBody = @"您有一条新消息";
     } else {

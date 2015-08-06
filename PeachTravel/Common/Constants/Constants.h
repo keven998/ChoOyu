@@ -97,7 +97,7 @@
 #define API_REQUEST_ADD_CONTACT                 (BASE_URL @"users/request-contacts")   //请求添加好友
 #define API_DELETE_CONTACTS                     (BASE_URL @"users/contacts")   //删除好友
 #define API_GET_USERINFO_WITHEASEMOB            (BASE_URL @"users/easemob")   //传一个环信 id 数组，得到一个FM用户信息数组
-#define API_UPLOAD_ADDRESSBOOK                  (BASE_URL @"users/search-by-address-book")  //上传通讯录接口
+#define API_UPLOAD_ADDRESSBOOK                  (BASE_URL @"users/match")  //上传通讯录接口
 
 #define API_LOGOUT                              (BASE_URL @"users/logout") // 退出登录
 
@@ -114,8 +114,8 @@
 /**
  html 接口
  */
-#define APP_ABOUT                               @ "http://h5.taozilvxing.com/about.php"             //关于页面
-#define APP_AGREEMENT                           @ "http://h5.taozilvxing.com/agreement.htm"       //用户协议
+#define APP_ABOUT                               @ "http://h5.lvxingpai.com/about.php"             //关于页面
+#define APP_AGREEMENT                           @ "http://h5.lvxingpai.com/agreement.htm"       //用户协议
 
 /***** Notification name *******/
 #define weixinDidLoginNoti                      @ "weixinDidLogin"              //微信登录完发送通知，传递 code 给服务器
@@ -291,7 +291,7 @@ typedef NS_ENUM(NSUInteger, TZCMDChatType) {
 /*****应用启动时是否应该启动引导页******/
 #define shouldSkipIntroduce [[NSUserDefaults standardUserDefaults] boolForKey:[[AppUtils alloc] init].appVersion]
 
-#define kShouldShowIntroduceWhenFirstLaunch   NO
+#define kShouldShowIntroduceWhenFirstLaunch   YES
 
 #define kShouldShowUnreadFrendRequestNoti  @"shouldShowUnreadFrendRequestNoti"
 
