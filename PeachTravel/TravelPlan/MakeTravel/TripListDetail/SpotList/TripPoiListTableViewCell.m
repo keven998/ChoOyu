@@ -55,7 +55,6 @@
             property = timeStr;
         }
     } else {
-#warning style数组为空
         property = [_tripPoi.style firstObject];
     }
     NSLog(@"%@",_tripPoi.style);
