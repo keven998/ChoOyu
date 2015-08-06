@@ -4,7 +4,7 @@
 //
 //  Created by liangpengshuai on 4/14/15.
 //  Copyright (c) 2015 com.aizou.www. All rights reserved.
-//
+//   数据库的一些操作
 
 import UIKit
 
@@ -37,6 +37,7 @@ public class DaoHelper:NSObject {
         
         debug_println("dbPath: \(dbPath)")
         
+        // 创建文件路径
         var fileManager =  NSFileManager()
         
         if !fileManager.fileExistsAtPath(dbPath) {

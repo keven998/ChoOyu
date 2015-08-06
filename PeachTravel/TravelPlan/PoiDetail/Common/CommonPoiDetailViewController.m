@@ -183,11 +183,17 @@
            destructiveButtonTitle:nil
                 otherButtonTitles:self.poi.tel
                          tapBlock:^(UIActionSheet *actionSheet, NSInteger buttonIndex) {
-                             NSLog(@"Chose %@", [actionSheet buttonTitleAtIndex:buttonIndex]);
-                             NSString *telStr = [NSString stringWithFormat:@"tel://%@", self.poi.tel[buttonIndex]];
-                             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:telStr]];
+                             if (buttonIndex == 0) {
+                                  NSLog(@"Chose %@", [actionSheet buttonTitleAtIndex:buttonIndex]);
+                                  NSString *telStr = [NSString stringWithFormat:@"tel://%@", self.poi.tel[buttonIndex]];
+                                  [[UIApplication sharedApplication] openURL:[NSURL URLWithString:telStr]];
+                                 
+                             }
+                           
                          }];
+        
     }
+    
 }
 
 //子类重写
