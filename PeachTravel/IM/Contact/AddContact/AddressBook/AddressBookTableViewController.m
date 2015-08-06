@@ -155,7 +155,11 @@
     [params safeSetObject:addressBookList forKey:@"contacts"];
     [params setObject:@"addressbook" forKey:@"action"];
     
-    [manager POST:API_UPLOAD_ADDRESSBOOK parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSString * urlStr = [NSString stringWithFormat:@"%@%ld/match",API_USERS,accountManager.account.userId];
+    
+    NSLog(@"%@",urlStr);
+    
+    [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [_hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {

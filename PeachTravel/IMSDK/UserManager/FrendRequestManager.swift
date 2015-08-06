@@ -47,6 +47,7 @@ class FrendRequestManager: NSObject {
         delegateArray.append(delegate)
     }
     
+    // 移除代理
     func removeFrendRequestDelegate(delegate: FriendRequestManagerDelegate) {
         delegateArray = delegateArray.filter({$0 === delegate})
     }
