@@ -60,6 +60,7 @@
     [super viewDidLoad];
     [self.view addSubview:self.tableView];
     
+    // 初始化对话管理对象
     self.imClientManager.conversationManager.delegate = self;
     _dataSource = [[self.imClientManager.conversationManager getConversationList] mutableCopy];
     
@@ -94,6 +95,7 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:contactListBtn];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogin) name:userDidLoginNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkChanged:) name:networkConnectionStatusChangeNoti object:nil];
+    
     if (self.accountManager.isLogin) {
         self.IMState = IM_RECEIVING;
         [self.imClientManager.messageReceiveManager asyncACKMessageWithReceivedMessages:nil completion:^(BOOL isSuccess) {
@@ -141,12 +143,14 @@
 
 - (void)userDidLogin
 {
+    // 设置会话管理者的代理
     self.imClientManager.conversationManager.delegate = self;
     [self.imClientManager.conversationManager updateConversationListFromDB];
     _dataSource = [[self.imClientManager.conversationManager getConversationList] mutableCopy];
     [self.tableView reloadData];
 }
 
+// 监听网络状态改变的通知
 - (void)networkChanged:(NSNotification *)noti
 {
     NSDictionary *userInfo = noti.userInfo;
@@ -609,6 +613,7 @@
     
     ChatConversation *tzConversation = [self.dataSource objectAtIndex:indexPath.row];
     
+    NSLog(@"%@",tzConversation);
     if (tzConversation.chatType == IMChatTypeIMChatSingleType) {
         if ([tzConversation.chatterName isBlankString]) {
             if (tzConversation.chatterId == WenwenUserId) {
@@ -672,10 +677,24 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     ChatConversation *tzConversation = [self.dataSource objectAtIndex:indexPath.row];
+    
+    /*
+    NSLog(@"%ld",tzConversation.chatMessageList.count);
+    BaseMessage * baseMessage = [[BaseMessage alloc] init];
+    baseMessage.messageId = @"40";
+    baseMessage.messageType = IMMessageTypeHtml5MessageType;
+    baseMessage.message = @"哈哈";
+    baseMessage.senderId = 10;
+    NSMutableArray * array = [[NSMutableArray alloc] init];
+    [array addObject:baseMessage];
+    tzConversation.chatMessageList = array;
+     */
+    
     [self pushChatViewControllerWithConversation:tzConversation];
     tzConversation.unReadMessageCount = 0;
     [tzConversation resetConvsersationUnreadMessageCount];
     [_delegate unreadMessageCountHasChange];
+    
     if (tzConversation.chatterId == WenwenUserId) {
         [MobClick event:@"cell_item_wenwen"];
     }

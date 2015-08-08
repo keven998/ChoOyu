@@ -158,6 +158,7 @@ class ChatConversation: NSObject {
     func getDefaultChatMessageInConversation(messageCount: Int) {
         defalutMessageNumber = messageCount
         
+        // 如果服务器返回的数据数量大于展示消息数,直接返回
         if chatMessageList.count >= messageCount {
             return
         }
