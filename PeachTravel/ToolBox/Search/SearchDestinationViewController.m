@@ -16,12 +16,13 @@
 #import "CityDetailTableViewController.h"
 #import "PoiDetailViewControllerFactory.h"
 
-@interface SearchDestinationViewController () <UISearchBarDelegate, UISearchControllerDelegate, UITableViewDataSource, UITableViewDelegate, TaoziMessageSendDelegate>
+@interface SearchDestinationViewController () <UISearchBarDelegate, UISearchControllerDelegate, UITableViewDataSource, UITableViewDelegate, TaoziMessageSendDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, strong) NSMutableArray *dataSource;
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UISearchBar *searchBar;
+@property (nonatomic, strong) UICollectionView *collectionView;
 
 //@property (nonatomic, strong) UITapGestureRecognizer *tap;
 
@@ -59,6 +60,19 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     self.tableView.hidden = YES;
     
     [_searchBar becomeFirstResponder];
+    
+    
+    // 添加UICollectionView
+    UICollectionViewFlowLayout * flowLayout = [[UICollectionViewFlowLayout alloc] init];
+    flowLayout.itemSize = CGSizeMake(100, 40);
+    
+    UICollectionView * collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:flowLayout];
+    collectionView.contentInset = UIEdgeInsetsMake(0, 10, 0, 10);
+    self.collectionView = collectionView;
+    collectionView.dataSource = self;
+    collectionView.delegate = self;
+    collectionView.backgroundColor = APP_PAGE_COLOR;
+    [self.view addSubview:collectionView];
 }
 
 - (void) goBack {
@@ -238,9 +252,11 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     }
     if (self.dataSource.count>0) {
         self.tableView.hidden = NO;
+        self.collectionView.hidden = YES;
         [self.tableView reloadData];
     } else {
         self.tableView.hidden = YES;
+        self.collectionView.hidden = YES;
         NSString *searchStr = [NSString stringWithFormat:@"没有找到“%@”的相关结果", _searchBar.text];
         [SVProgressHUD showHint:searchStr];
     }
@@ -445,6 +461,68 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     [_searchBar endEditing:YES];
 }
+
+
+#pragma mark - 实现UICollectionView的数据源以及代理方法
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    return 2;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return 10;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString * ID = @"cell";
+    [collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:ID];
+    
+    UICollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:ID forIndexPath:indexPath];
+    
+    cell.backgroundColor = [UIColor blueColor];
+    
+    return cell;
+}
+
+// collection的头部
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
+{
+    NSString * ID = @"header";
+    [collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:ID];
+    if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
+        
+        UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:ID forIndexPath:indexPath];
+        
+        UILabel * title = [[UILabel alloc] init];
+        
+        if (indexPath.section == 0) {
+            title.text = @"历史搜索";
+        }else{
+            title.text = @"热门搜索词";
+        }
+        
+        title.frame = headerView.bounds;
+        [headerView addSubview:title];
+        
+        return headerView;
+    }
+    
+    return nil;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
+{
+    return CGSizeMake(SCREEN_WIDTH, 50);
+}
+
+// 选中某一个item
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"%ld",indexPath.item);
+}
+
 
 #pragma mark - UISearchBar Delegate
 
