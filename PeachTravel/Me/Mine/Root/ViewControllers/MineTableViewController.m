@@ -26,6 +26,8 @@
 #import "WXApi.h"
 #import "LoginViewController.h"
 #import "TZNavigationViewController.h"
+#import "MJPhoto.h"
+#import "MJPhotoBrowser.h"
 
 #define cellDataSource           @[@[@"邀请朋友", @"意见反馈"], @[@"关于我们", @"应用设置"]]
 #define secondCell               @"secondCell"
@@ -162,12 +164,17 @@
     
     CGFloat avatarW = ah - 19 * height/736;
     UIImageView *avatar = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, avatarW, avatarW)];
+    avatar.userInteractionEnabled = YES;
     avatar.clipsToBounds = YES;
     avatar.layer.cornerRadius = avatarW/2.0;
     avatar.center = CGPointMake(width/2.0, 15 + ah/2.0);
     avatar.contentMode = UIViewContentModeScaleAspectFill;
     [headerBgView addSubview:avatar];
     _avatarImageView = avatar;
+    
+    // 给头像添加手势
+    UITapGestureRecognizer * tapAvatar = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAvatar:)];
+    [avatar addGestureRecognizer:tapAvatar];
     
     UIImageView *avatarBg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ah, ah)];
     avatarBg.center = avatar.center;
@@ -294,6 +301,29 @@
     _levelLabel.text = @"LV0";
     _nameLabel.text = @"旅行派";
     _idLabel.text = @"未登录";
+}
+
+
+#pragma mark - 实现单击手势的事件
+- (void)tapAvatar:(UIGestureRecognizer *)tap{
+    NSLog(@"点击了头像");
+    
+    // 1.封装图片数据
+    NSMutableArray *photos = [NSMutableArray array];
+
+        // 替换为中等尺寸图片
+    MJPhoto *photo = [[MJPhoto alloc] init];
+//    photo.url = [imageArray objectAtIndex:i]; // 图片路径
+    
+    photo.url = [AccountManager shareAccountManager].account.avatar;
+    photo.srcImageView = (UIImageView *)tap.view; // 来源于哪个UIImageView
+    [photos addObject:photo];
+    
+    // 2.显示相册
+    MJPhotoBrowser *browser = [[MJPhotoBrowser alloc] init];
+    browser.currentPhotoIndex = 0; // 弹出相册时显示的第一张图片是？
+    browser.photos = photos; // 设置所有的图片
+    [browser show];
 }
 
 #pragma mark - setter & getter
