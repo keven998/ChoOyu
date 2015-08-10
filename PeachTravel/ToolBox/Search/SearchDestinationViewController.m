@@ -15,6 +15,7 @@
 #import "CommonPoiDetailViewController.h"
 #import "CityDetailTableViewController.h"
 #import "PoiDetailViewControllerFactory.h"
+#import "RecentSearchTool.h"
 
 @interface SearchDestinationViewController () <UISearchBarDelegate, UISearchControllerDelegate, UITableViewDataSource, UITableViewDelegate, TaoziMessageSendDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
@@ -28,12 +29,22 @@
 
 @property (nonatomic, copy) NSString *keyWord;
 
+@property (nonatomic, strong)NSMutableArray * collectionArray;
+
 @end
 
 @implementation SearchDestinationViewController
 
 static NSString *reusableCellIdentifier = @"searchResultCell";
 
+// 懒加载
+- (NSMutableArray *)collectionArray
+{
+    if (_collectionArray == nil) {
+        _collectionArray = [NSMutableArray array];
+    }
+    return _collectionArray;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -64,7 +75,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     
     // 添加UICollectionView
     UICollectionViewFlowLayout * flowLayout = [[UICollectionViewFlowLayout alloc] init];
-    flowLayout.itemSize = CGSizeMake(100, 40);
+ 
     
     UICollectionView * collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:flowLayout];
     collectionView.contentInset = UIEdgeInsetsMake(0, 10, 0, 10);
@@ -73,6 +84,23 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     collectionView.delegate = self;
     collectionView.backgroundColor = APP_PAGE_COLOR;
     [self.view addSubview:collectionView];
+    
+    // 加载CollectionView的数据
+    [self setupCollectionDataSource];
+    
+    
+}
+
+// 加载CollectionView的数据源
+- (void)setupCollectionDataSource
+{
+    NSArray * recent_result = [RecentSearchTool getAllRecentSearchResult];
+    
+    NSLog(@"%@",recent_result);
+    
+    [self.collectionArray addObjectsFromArray:recent_result];
+    
+    [self.collectionView reloadData];
 }
 
 - (void) goBack {
@@ -471,7 +499,12 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 10;
+    if (section == 0) {
+        return self.collectionArray.count;
+    } else {
+        return 10;
+    }
+    
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -481,7 +514,17 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     
     UICollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:ID forIndexPath:indexPath];
     
-    cell.backgroundColor = [UIColor blueColor];
+    if (indexPath.section == 0) {
+        UILabel * title = [[UILabel alloc] init];
+        title.textAlignment = NSTextAlignmentCenter;
+        title.frame = cell.bounds;
+        [cell addSubview:title];
+        
+        title.text = self.collectionArray[indexPath.row];
+    } else {
+        cell.backgroundColor = [UIColor greenColor];
+    }
+
     
     return cell;
 }
@@ -496,6 +539,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:ID forIndexPath:indexPath];
         
         UILabel * title = [[UILabel alloc] init];
+        
         
         if (indexPath.section == 0) {
             title.text = @"历史搜索";
@@ -512,10 +556,20 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     return nil;
 }
 
+// 设置头部的大小
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
 {
     return CGSizeMake(SCREEN_WIDTH, 50);
 }
+
+// 设置item的大小
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+
+    return CGSizeMake(100, 50);
+}
+
+
 
 // 选中某一个item
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -529,6 +583,10 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     [_searchBar endEditing:YES];
+    
+    // 将搜索结果存入到数据库中
+    [RecentSearchTool saveRecentSearchToSpoiData:searchBar.text];
+    
     [self loadDataSourceWithKeyWord:searchBar.text];
 }
 

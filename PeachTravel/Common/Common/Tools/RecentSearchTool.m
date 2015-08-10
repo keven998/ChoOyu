@@ -39,15 +39,65 @@ static FMDatabase * _db;
 // 将搜索结果插入到数据库中
 + (void)saveRecentSearchToSpoiData:(NSString *)recentSearch
 {
+    
+    
+    if ([_db open]) {
+        // 根据请求参数查询数据
+        FMResultSet * resultSet = nil;
+        
+        //    int spoiDataNumber = 10;
+        
+        resultSet = [_db executeQuery:@"select * from recent_search order by id desc"];
+        
+        // 遍历查询结果
+        while ([resultSet next]) {
+            NSString * recent_search = [resultSet objectForColumnName:@"search_content"];
+            
+            if ([recentSearch isEqualToString:recent_search]) {
+                // 如果数据库中存在这个数据,就将它移除
+                [_db executeUpdate:@"delete from recent_search where search_content = ?;",recent_search];
+            }
+        }
+        
+    }
 
+    
+    BOOL result = [_db executeUpdate:@"insert into recent_search(search_content) values(?);",recentSearch];
+    
+    if (result) {
+        NSLog(@"插入数据成功");
+    }else{
+        NSLog(@"插入数据失败");
+    }
 }
 
 // 读取数据库中的元素
 + (NSArray *)getAllRecentSearchResult{
     
-    NSMutableArray * recentSearchResult = [NSMutableArray array];
+   NSMutableArray * recentSearchResult = [NSMutableArray array];
     
-    return recentSearchResult;
+    if ([_db open]) {
+        // 根据请求参数查询数据
+        FMResultSet * resultSet = nil;
+        
+        //    int spoiDataNumber = 10;
+        
+        resultSet = [_db executeQuery:@"select * from recent_search order by id desc"];
+//        resultSet = [_db executeQuery:@"select * from recent_search"];
+        
+        
+        // 遍历查询结果
+        while ([resultSet next]) {
+            NSString * recent_search = [resultSet objectForColumnName:@"search_content"];
+            
+            // 添加到数组中
+            [recentSearchResult addObject:recent_search];
+        }
+
+    }
+    
+      return recentSearchResult;
+
 }
 
 @end
