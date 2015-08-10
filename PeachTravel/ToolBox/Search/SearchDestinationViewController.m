@@ -575,6 +575,10 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"%ld",indexPath.item);
+    
+    [_searchBar endEditing:YES];
+    
+    [self loadDataSourceWithKeyWord:self.collectionArray[indexPath.item]];
 }
 
 
