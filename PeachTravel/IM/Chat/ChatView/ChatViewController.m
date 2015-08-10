@@ -208,6 +208,7 @@
     }];
 }
 
+// 将日期和聊天数据存放在dataSource
 - (void)sortDataSource
 {
     [self.dataSource removeAllObjects];
@@ -415,6 +416,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"%@",self.dataSource);
     if (indexPath.row < [self.dataSource count]) {
         id obj = [self.dataSource objectAtIndex:indexPath.row];
         if ([obj isKindOfClass:[NSString class]]) {

@@ -12,12 +12,17 @@
 #import "AreaDestination.h"
 #import "CityDestinationPoi.h"
 #import "DomesticCell.h"
-@interface ForeignViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface ForeignViewController () <UICollectionViewDataSource, UICollectionViewDelegate,UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic) NSInteger showCitiesIndex;
 
 @property (weak, nonatomic) IBOutlet UICollectionView *foreignCollectionView;
 @property (nonatomic, strong) TZProgressHUD *hud;
+
+@property (weak, nonatomic) IBOutlet UITableView *foreignTableView;
+
+// 下面定义一个CollectionView的数据源数组
+@property (nonatomic, strong)NSArray * citiesArray;
 
 @end
 
@@ -26,13 +31,26 @@
 static NSString *reuseableHeaderIdentifier  = @"domesticHeader";
 static NSString *reuseableCellIdentifier  = @"domesticCell";
 
+// 懒加载
+- (NSArray *)citiesArray
+{
+    if (_citiesArray == nil) {
+        _citiesArray = [NSArray array];
+    }
+    return _citiesArray;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    /**
+     *  定义CollectionView的内容
+     */
     _showCitiesIndex = 0;
     [self.foreignCollectionView registerNib:[UINib nibWithNibName:@"DomesticCell" bundle:nil]  forCellWithReuseIdentifier:reuseableCellIdentifier];
     [self.foreignCollectionView registerNib:[UINib nibWithNibName:@"DestinationCollectionHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:reuseableHeaderIdentifier];
     UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.foreignCollectionView.collectionViewLayout;
-    layout.itemSize = CGSizeMake(SCREEN_WIDTH/3, SCREEN_WIDTH/3);
+    layout.itemSize = CGSizeMake((SCREEN_WIDTH - 75)/3, (SCREEN_WIDTH - 75)/3);
     layout.minimumInteritemSpacing = 0;
     layout.minimumLineSpacing = 0;
     [self.foreignCollectionView setContentInset:UIEdgeInsetsMake(-5, 0, 100, 0)];
@@ -41,8 +59,14 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
     _foreignCollectionView.dataSource = self;
     _foreignCollectionView.delegate = self;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateDestinationsSelected:) name:updateDestinationsSelectedNoti object:nil];
+    
+    
+    self.foreignTableView.dataSource = self;
+    self.foreignTableView.delegate = self;
 
     [self initData];
+    
+ 
 }
 
 - (void) initData {
@@ -103,7 +127,13 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
         if (code == 0) {
             id result = [responseObject objectForKey:@"result"];
             [_destinations initForeignCountriesWithJson:result];
-            [_foreignCollectionView reloadData];
+
+            [self.foreignTableView reloadData];
+            
+            // 默认选中第一组
+            NSIndexPath *first = [NSIndexPath indexPathForRow:0 inSection:0];
+            [self.foreignTableView selectRowAtIndexPath:first animated:YES scrollPosition:UITableViewScrollPositionTop];
+            
             dispatch_async(dispatch_get_global_queue(0, 0), ^{
                 NSMutableDictionary *dic = [responseObject mutableCopy];
                 if ([operation.response.allHeaderFields objectForKey:@"Date"]) {
@@ -111,6 +141,15 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
                     [[TMCache sharedCache] setObject:dic forKey:@"destination_foreign"];
                 }
             });
+            
+            AreaDestination *country = _destinations.foreignCountries[0];
+            
+            self.citiesArray = country.cities;
+            
+            [_foreignCollectionView reloadData];
+            
+            
+            
         } else {
             if (_hud) {
                 if (self.isShowing) {
@@ -132,7 +171,7 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
 
 - (void)reloadData
 {
-    [self.foreignCollectionView reloadData];
+//    [self.foreignCollectionView reloadData];
 }
 
 #pragma mark - IBAction Methods
@@ -189,14 +228,17 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
 //    if (section == _showCitiesIndex) {
-        return ((AreaDestination *)_destinations.foreignCountries[section]).cities.count;
+//        return ((AreaDestination *)_destinations.foreignCountries[section]).cities.count;
 //    }
 //    return 0;
+    
+    return self.citiesArray.count;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return _destinations.foreignCountries.count;
+//    return _destinations.foreignCountries.count;
+    return 1;
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
@@ -211,8 +253,9 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    AreaDestination *country = _destinations.foreignCountries[indexPath.section];
-    CityDestinationPoi *city = country.cities[indexPath.row];
+//    AreaDestination *country = _destinations.foreignCountries[indexPath.section];
+    CityDestinationPoi *city = self.citiesArray[indexPath.item];
+    
     DomesticCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseableCellIdentifier forIndexPath:indexPath];
     cell.tiltleLabel.text = city.zhName;
 
@@ -237,8 +280,9 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    AreaDestination *country = _destinations.foreignCountries[indexPath.section];
-    CityDestinationPoi *city = country.cities[indexPath.row];
+//    AreaDestination *country = _destinations.foreignCountries[indexPath.section];
+    
+    CityDestinationPoi *city = self.citiesArray[indexPath.row];
     BOOL find = NO;
     for (CityDestinationPoi *cityPoi in _destinations.destinationsSelected) {
         if ([city.cityId isEqualToString:cityPoi.cityId]) {
@@ -279,7 +323,52 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section;
 {
-    return CGSizeMake(self.foreignCollectionView.frame.size.width, 72);
+//    return CGSizeMake(self.foreignCollectionView.frame.size.width, 72);
+    return CGSizeMake(self.foreignCollectionView.frame.size.width, 0);
+}
+
+
+#pragma mark - 实现tableView的数据源以及代理方法
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.destinations.foreignCountries.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString * ID = @"cell";
+    
+    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+    }
+    
+    AreaDestination *country = [_destinations.foreignCountries objectAtIndex:indexPath.row];
+
+    NSString * title = [NSString stringWithFormat:@"%@",country.zhName];
+    
+    cell.textLabel.text = title;
+    cell.textLabel.font = [UIFont systemFontOfSize:14.0];
+    
+    return cell;
+}
+
+/**
+ *  代理方法
+ */
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"选中了%ld行",indexPath.row);
+    
+    AreaDestination *country = _destinations.foreignCountries[indexPath.row];
+    
+    self.citiesArray = country.cities;
+    
+//    [self reloadData];
+    [self.foreignCollectionView reloadData];
+    
+    NSLog(@"%@",self.citiesArray);
 }
 
 @end
