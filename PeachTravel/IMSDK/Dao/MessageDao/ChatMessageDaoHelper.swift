@@ -311,6 +311,25 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
         return retMessage
     }
     
+//MARK: 获取所有的图片消息
+    func getAllImageMessageInChatTable(tableName: NSString) -> NSMutableArray? {
+        var imageMessageArray = NSMutableArray()
+        var retMessage: BaseMessage?
+        databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
+            
+            var sql = "select * from \(tableName) where type = 2 order by LocalId desc"
+            var rs = dataBase.executeQuery(sql, withArgumentsInArray: nil)
+            if (rs != nil) {
+                while rs.next() {
+                    retMessage = ChatMessageDaoHelper.messageModelWithFMResultSet(rs, tableName: tableName)
+                    imageMessageArray.addObject(retMessage!)
+                }
+            }
+        }
+        return imageMessageArray
+    }
+    
+    
 //MARK: class methods
     
     /**
