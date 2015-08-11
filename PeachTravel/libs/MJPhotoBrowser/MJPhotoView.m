@@ -92,6 +92,7 @@
 }
 
 #pragma mark 开始加载图片
+
 - (void)photoStartLoad
 {
     if (_photo.image) {
@@ -116,7 +117,6 @@
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
              [photoView photoDidFinishLoadWithImage:image];
         }];
-        
     }
 }
 
