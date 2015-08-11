@@ -468,7 +468,7 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
 {
     // 1.创建头部视图
     UIView * header = [[UIView alloc] init];
-    header.frame = CGRectMake(0, 0, SCREEN_WIDTH, 50);
+    header.frame = CGRectMake(0, 0, kWindowWidth, 50);
     header.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:header];
     
@@ -487,7 +487,7 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     scene.titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
     [scene setTitleColor:COLOR_TEXT_I forState:UIControlStateNormal];
     [scene addTarget:self action:@selector(sceneClick:) forControlEvents:UIControlEventTouchDown];
-    scene.frame = CGRectMake(0, 0, SCREEN_WIDTH * 0.5, 50);
+    scene.frame = CGRectMake(0, 0, kWindowWidth * 0.5, 50);
     [scene setImage:[UIImage imageNamed:@"ArtboardBottom"] forState:UIControlStateNormal];
     [scene setImage:[UIImage imageNamed:@"ArtboardTop"] forState:UIControlStateSelected];
     scene.imageEdgeInsets = UIEdgeInsetsMake(0, 80, 0, 0);
@@ -507,12 +507,12 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     [type setImage:[UIImage imageNamed:@"ArtboardTop"] forState:UIControlStateSelected];
     type.imageEdgeInsets = UIEdgeInsetsMake(0, 80, 0, 0);
     type.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 40);
-    type.frame = CGRectMake(SCREEN_WIDTH * 0.5, 0, SCREEN_WIDTH * 0.5, 50);
+    type.frame = CGRectMake(kWindowWidth * 0.5, 0, kWindowWidth * 0.5, 50);
     [header addSubview:type];
     
     // 3.添加中间的分割线
     UIView * line = [[UIView alloc] init];
-    line.frame = CGRectMake(SCREEN_WIDTH * 0.5, 10, 1, 30);
+    line.frame = CGRectMake(kWindowWidth * 0.5, 10, 1, 30);
     line.backgroundColor = COLOR_LINE;
     [header addSubview:line];
 }
@@ -546,7 +546,7 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     vc.showAccessory = _currentCityIndex;
     vc.tag = 1;
     vc.view.height = siteArray.count * 44;
-    vc.view.width = SCREEN_WIDTH / 3;
+    vc.view.width = kWindowWidth / 3;
     menu.contentController = vc;
     
     // 4.显示
@@ -574,7 +574,7 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     vc.showAccessory = _currentListTypeIndex;
     vc.tag = 2;
     vc.view.height = siteArray.count * 44;
-    vc.view.width = SCREEN_WIDTH / 3;
+    vc.view.width = kWindowWidth / 3;
     menu.contentController = vc;
     
     // 4.显示

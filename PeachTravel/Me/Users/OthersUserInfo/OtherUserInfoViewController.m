@@ -56,7 +56,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height - 45)];
+    _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kWindowWidth, self.view.bounds.size.height - 45)];
     _scrollView.showsHorizontalScrollIndicator = NO;
     _scrollView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:_scrollView];
@@ -91,8 +91,8 @@
 }
 
 - (void) setupTableHeaderView {
-    CGFloat width = SCREEN_WIDTH;
-    CGFloat height = SCREEN_HEIGHT;
+    CGFloat width = kWindowWidth;
+    CGFloat height = kWindowHeight;
     
     _headerBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 831/3*height/736)];
     _headerBgView.backgroundColor = APP_PAGE_COLOR;
@@ -197,7 +197,7 @@
     self.navigationItem.titleView = view;
     CGFloat btnWidth = width/2;
     CGFloat btnHeight;
-    //    if (SCREEN_HEIGHT == 480) {
+    //    if (kWindowHeight == 480) {
     //        btnHeight = (height - 64 - _headerBgView.bounds.size.height - 45)/2 ;
     //    } else {
     btnHeight = btnWidth * 471/615;
@@ -297,7 +297,7 @@
 
 - (void)updateUserInfo
 {
-    UILabel *signatureLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 924/3*SCREEN_HEIGHT/736 - 27, SCREEN_WIDTH, 13)];
+    UILabel *signatureLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 924/3*kWindowHeight/736 - 27, kWindowWidth, 13)];
     signatureLabel.text = _userInfo.signature;
     signatureLabel.textAlignment = NSTextAlignmentCenter;
     signatureLabel.textColor = APP_THEME_COLOR;

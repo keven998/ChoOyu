@@ -234,7 +234,7 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
         UIButton * collection = [UIButton buttonWithType:UIButtonTypeCustom];
         collection.tag = section;
         CGFloat collectionW = 52;
-        collection.frame = CGRectMake(SCREEN_WIDTH - 10 - collectionW, 8.5, collectionW, 26);
+        collection.frame = CGRectMake(kWindowWidth - 10 - collectionW, 8.5, collectionW, 26);
         [collection setTitle:@"＋收藏" forState:UIControlStateNormal];
         collection.titleLabel.font = [UIFont systemFontOfSize:12.0];
         [collection setTitleColor:COLOR_TEXT_III forState:UIControlStateNormal];
@@ -250,7 +250,7 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
     // 4.创建头部的横条
     UIButton * banner = [UIButton buttonWithType:UIButtonTypeCustom];
     banner.backgroundColor = APP_THEME_COLOR;
-    banner.frame = CGRectMake(0, 0, SCREEN_WIDTH, 1);
+    banner.frame = CGRectMake(0, 0, kWindowWidth, 1);
     [containBtn addSubview:banner];
     
     return containBtn;

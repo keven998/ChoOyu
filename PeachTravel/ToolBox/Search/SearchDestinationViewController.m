@@ -62,7 +62,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.navigationItem.titleView = _searchBar;
     
-    UIImageView *imageBg = [[UIImageView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 210)/2, 68, 210, 130)];
+    UIImageView *imageBg = [[UIImageView alloc]initWithFrame:CGRectMake((kWindowWidth - 210)/2, 68, 210, 130)];
     
     imageBg.image = [UIImage imageNamed:@"search_default_background"];
     [self.view addSubview:imageBg];
@@ -406,7 +406,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 35)];
+    UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWindowWidth, 35)];
     headerView.backgroundColor = APP_PAGE_COLOR;
     NSString *typeDesc = [[self.dataSource objectAtIndex:section] objectForKey:@"typeDesc"];
     UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, 50, 25)];
@@ -576,7 +576,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 
 - (CGSize)collectionview:(UICollectionView *)collectionView sizeForHeaderView:(NSIndexPath *)indexPath
 {
-    return CGSizeMake(SCREEN_WIDTH, 50);
+    return CGSizeMake(kWindowWidth, 50);
 }
 
 - (NSInteger)numberOfSectionsInTZCollectionView:(UICollectionView *)collectionView

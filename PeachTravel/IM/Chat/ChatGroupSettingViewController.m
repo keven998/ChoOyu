@@ -88,7 +88,7 @@
 {
     UIView *footerBg = [[UIView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 124)];
     footerBg.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    UIButton *footerBtn = [[UIButton alloc]initWithFrame:CGRectMake(10, 32, CGRectGetWidth(self.view.bounds) - 20, 58 * SCREEN_HEIGHT/736)];
+    UIButton *footerBtn = [[UIButton alloc]initWithFrame:CGRectMake(10, 32, CGRectGetWidth(self.view.bounds) - 20, 58 * kWindowHeight/736)];
     [footerBtn setBackgroundImage:[[UIImage imageNamed:@"chat_drawer_leave.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(8, 8, 8, 8)] forState:UIControlStateNormal];
     footerBtn.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     if (_groupModel.owner == [AccountManager shareAccountManager].account.userId) {
@@ -210,9 +210,9 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        return 68 * SCREEN_HEIGHT / 736;
+        return 68 * kWindowHeight / 736;
     } else {
-        return 72 * SCREEN_HEIGHT / 736;
+        return 72 * kWindowHeight / 736;
     }
 }
 

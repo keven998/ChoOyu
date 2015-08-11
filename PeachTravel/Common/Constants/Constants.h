@@ -218,12 +218,10 @@ typedef NS_ENUM(NSUInteger, TZCMDChatType) {
 
 /***** 设备信息 *****/
 
-#define SCREEN_WIDTH ([[UIScreen mainScreen] bounds].size.width)
-#define SCREEN_HEIGHT ([[UIScreen mainScreen] bounds].size.height)
 #define kWindowWidth   [UIApplication sharedApplication].keyWindow.frame.size.width
 #define kWindowHeight  [UIApplication sharedApplication].keyWindow.frame.size.height
 
-#define SCREEN_MAX_LENGTH (MAX(SCREEN_WIDTH, SCREEN_HEIGHT))
+#define SCREEN_MAX_LENGTH (MAX(kWindowWidth, kWindowHeight))
 
 #define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 #define IS_IPHONE_4  (fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )480 ) < DBL_EPSILON)

@@ -42,7 +42,7 @@
     
     count = _coolDown;
     
-    UIImageView *iconImage = [[UIImageView alloc]initWithFrame:CGRectMake(489/3 * SCREEN_WIDTH/414, 216/3 *SCREEN_HEIGHT/736, 87*SCREEN_HEIGHT/736, 87*SCREEN_HEIGHT/736)];
+    UIImageView *iconImage = [[UIImageView alloc]initWithFrame:CGRectMake(489/3 * kWindowWidth/414, 216/3 *kWindowHeight/736, 87*kWindowHeight/736, 87*kWindowHeight/736)];
     iconImage.image = [UIImage imageNamed:@"icon_little"];
     [self.view addSubview:iconImage];
     
@@ -56,17 +56,17 @@
     [self.view addSubview:label];
     _statusLabel = label;
     
-    UIView *textFieldBg = [[UIView alloc]initWithFrame:CGRectMake(13, CGRectGetMaxY(label.frame) + 7, SCREEN_WIDTH-26, 60 * SCREEN_HEIGHT/736)];
+    UIView *textFieldBg = [[UIView alloc]initWithFrame:CGRectMake(13, CGRectGetMaxY(label.frame) + 7, kWindowWidth-26, 60 * kWindowHeight/736)];
     textFieldBg.layer.borderColor = APP_THEME_COLOR.CGColor;
     textFieldBg.layer.borderWidth = 1;
     textFieldBg.layer.cornerRadius = 5;
     textFieldBg.clipsToBounds = YES;
     [self.view addSubview:textFieldBg];
-    UIView *devide2 = [[UIView alloc]initWithFrame:CGRectMake(772/3 *SCREEN_WIDTH/414, 0 *SCREEN_HEIGHT / 736, 1, 60 * SCREEN_HEIGHT/736)];
+    UIView *devide2 = [[UIView alloc]initWithFrame:CGRectMake(772/3 *kWindowWidth/414, 0 *kWindowHeight / 736, 1, 60 * kWindowHeight/736)];
     devide2.backgroundColor = APP_THEME_COLOR;
     [textFieldBg addSubview:devide2];
     
-    _verifyCodeBtn = [[UIButton alloc]initWithFrame:CGRectMake(775/3 *SCREEN_WIDTH/414, 0, 395/3 * SCREEN_WIDTH/414, 59* SCREEN_HEIGHT/736)];
+    _verifyCodeBtn = [[UIButton alloc]initWithFrame:CGRectMake(775/3 *kWindowWidth/414, 0, 395/3 * kWindowWidth/414, 59* kWindowHeight/736)];
     [_verifyCodeBtn setTitle:@"重新获取" forState:UIControlStateNormal];
     [_verifyCodeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_verifyCodeBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
@@ -81,7 +81,7 @@
     [_verifyCodeBtn addTarget:self action:@selector(reloadVerifyCode:) forControlEvents:UIControlEventTouchUpInside];
     [self startTimer];
     
-    _verifyCodeTextField = [[UITextField alloc]initWithFrame:CGRectMake(10, 0, SCREEN_WIDTH - 50 - CGRectGetWidth(_verifyCodeBtn.frame), 60 * SCREEN_HEIGHT / 736)];
+    _verifyCodeTextField = [[UITextField alloc]initWithFrame:CGRectMake(10, 0, kWindowWidth - 50 - CGRectGetWidth(_verifyCodeBtn.frame), 60 * kWindowHeight / 736)];
     UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 58.0, _verifyCodeTextField.bounds.size.height - 16.0)];
     ul.text = @" 验证码:";
     ul.textColor = COLOR_TEXT_I;
@@ -98,7 +98,7 @@
     [textFieldBg addSubview:_verifyCodeTextField];
     
     UIButton *nextBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    nextBtn.frame = CGRectMake(13, CGRectGetMaxY(textFieldBg.frame) + 5, SCREEN_WIDTH - 26, 56 * SCREEN_HEIGHT/736);
+    nextBtn.frame = CGRectMake(13, CGRectGetMaxY(textFieldBg.frame) + 5, kWindowWidth - 26, 56 * kWindowHeight/736);
     [nextBtn setTitle:@"完成" forState:UIControlStateNormal];
     nextBtn.layer.cornerRadius = 5.0;
     nextBtn.clipsToBounds = YES;

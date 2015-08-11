@@ -579,7 +579,7 @@ static NSString *reusableCell = @"myGuidesCell";
     [self goPlan:indexPath];
 }
 
-- (void) goPlan:(NSIndexPath *)indexPath {
+- (void)goPlan:(NSIndexPath *)indexPath {
     MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:indexPath.section];
     TripDetailRootViewController *tripDetailRootCtl = [[TripDetailRootViewController alloc] init];
     tripDetailRootCtl.canEdit = _isOwner;
@@ -622,7 +622,7 @@ static NSString *reusableCell = @"myGuidesCell";
     return _footerView;
 }
 
-- (void) beginLoadingMore {
+- (void)beginLoadingMore {
     if (self.tableView.tableFooterView == nil) {
         self.tableView.tableFooterView = self.footerView;
     }
@@ -631,7 +631,7 @@ static NSString *reusableCell = @"myGuidesCell";
     [self loadData:_contentType WithPageIndex:(_currentPage + 1)];
 }
 
-- (void) loadMoreCompleted {
+- (void)loadMoreCompleted {
     if (!_isLoadingMore) return;
     [_indicatroView stopAnimating];
     _isLoadingMore = NO;
@@ -640,7 +640,7 @@ static NSString *reusableCell = @"myGuidesCell";
 
 #pragma mark - UIScrollViewDelegate
 
-- (void) scrollViewDidScroll:(UIScrollView *)scrollView
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if (!_isLoadingMore && _didEndScroll && _enableLoadMore) {
         CGFloat scrollPosition = scrollView.contentSize.height - scrollView.frame.size.height - scrollView.contentOffset.y;

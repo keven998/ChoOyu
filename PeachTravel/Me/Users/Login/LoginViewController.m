@@ -12,8 +12,8 @@
 #import "AccountManager.h"
 #import "WXApi.h"
 #import "UIImage+resized.h"
-#define Width SCREEN_WIDTH
-#define Height SCREEN_HEIGHT
+#define Width kWindowWidth
+#define Height kWindowHeight
 
 @interface LoginViewController ()<UITextFieldDelegate>
 

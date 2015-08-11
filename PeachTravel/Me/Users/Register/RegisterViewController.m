@@ -49,27 +49,27 @@ typedef void(^loginCompletion)(BOOL completed);
 
 - (void)createUI
 {
-    UIImageView *iconImage = [[UIImageView alloc]initWithFrame:CGRectMake(489/3 * SCREEN_WIDTH/414, 216/3 *SCREEN_HEIGHT/736, 87*SCREEN_HEIGHT/736, 87*SCREEN_HEIGHT/736)];
+    UIImageView *iconImage = [[UIImageView alloc]initWithFrame:CGRectMake(489/3 * kWindowWidth/414, 216/3 *kWindowHeight/736, 87*kWindowHeight/736, 87*kWindowHeight/736)];
     iconImage.image = [UIImage imageNamed:@"icon_little"];
     [self.view addSubview:iconImage];
     
     
-    UIView *textFieldBg = [[UIView alloc]initWithFrame:CGRectMake(13, CGRectGetMaxY(iconImage.frame) + 40, SCREEN_WIDTH - 26, 121 * SCREEN_HEIGHT/736)];
+    UIView *textFieldBg = [[UIView alloc]initWithFrame:CGRectMake(13, CGRectGetMaxY(iconImage.frame) + 40, kWindowWidth - 26, 121 * kWindowHeight/736)];
     textFieldBg.layer.borderColor = APP_THEME_COLOR.CGColor;
     textFieldBg.layer.borderWidth = 1;
     textFieldBg.layer.cornerRadius = 5;
     [self.view addSubview:textFieldBg];
     
-    UIView *devide = [[UIView alloc]initWithFrame:CGRectMake(0, 60 *SCREEN_HEIGHT/736 , SCREEN_WIDTH - 26, 1)];
+    UIView *devide = [[UIView alloc]initWithFrame:CGRectMake(0, 60 *kWindowHeight/736 , kWindowWidth - 26, 1)];
     devide.backgroundColor = APP_THEME_COLOR;
     [textFieldBg addSubview:devide];
     
-    //    UIView *devide2 = [[UIView alloc]initWithFrame:CGRectMake(772/3 *SCREEN_WIDTH/414, 60 *SCREEN_HEIGHT / 736, 1, 60 * SCREEN_HEIGHT/736)];
+    //    UIView *devide2 = [[UIView alloc]initWithFrame:CGRectMake(772/3 *kWindowWidth/414, 60 *kWindowHeight / 736, 1, 60 * kWindowHeight/736)];
     //    devide2.backgroundColor = APP_THEME_COLOR;
     //    [textFieldBg addSubview:devide2];
     
     
-    _phoneLabel = [[UITextField alloc]initWithFrame:CGRectMake(10, 0, SCREEN_WIDTH - 50, 60 * SCREEN_HEIGHT / 736)];
+    _phoneLabel = [[UITextField alloc]initWithFrame:CGRectMake(10, 0, kWindowWidth - 50, 60 * kWindowHeight / 736)];
     UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _phoneLabel.bounds.size.height - 16.0)];
     ul.text = @"手机:";
     ul.textColor = COLOR_TEXT_I;
@@ -85,7 +85,7 @@ typedef void(^loginCompletion)(BOOL completed);
     _phoneLabel.keyboardType = UIKeyboardTypePhonePad;
     [textFieldBg addSubview:_phoneLabel];
     
-    _passwordLabel = [[UITextField alloc]initWithFrame:CGRectMake(10, 60 * SCREEN_HEIGHT / 736, SCREEN_WIDTH - 50, 60 * SCREEN_HEIGHT / 736)];
+    _passwordLabel = [[UITextField alloc]initWithFrame:CGRectMake(10, 60 * kWindowHeight / 736, kWindowWidth - 50, 60 * kWindowHeight / 736)];
     
     UILabel *pl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _passwordLabel.bounds.size.height - 16.0)];
     pl.text = @"密码:";
@@ -103,7 +103,7 @@ typedef void(^loginCompletion)(BOOL completed);
     [textFieldBg addSubview:_passwordLabel];
     
     _registerBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    _registerBtn.frame = CGRectMake(13, CGRectGetMaxY(textFieldBg.frame) + 5, SCREEN_WIDTH - 26, 56 * SCREEN_HEIGHT/736);
+    _registerBtn.frame = CGRectMake(13, CGRectGetMaxY(textFieldBg.frame) + 5, kWindowWidth - 26, 56 * kWindowHeight/736);
     [_registerBtn setTitle:@"下一步" forState:UIControlStateNormal];
     _registerBtn.layer.cornerRadius = 5.0;
     _registerBtn.clipsToBounds = YES;
