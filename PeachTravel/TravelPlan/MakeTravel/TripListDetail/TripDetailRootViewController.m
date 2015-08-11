@@ -30,6 +30,7 @@
 #import "TZNavigationViewController.h"
 #import "LoginViewController.h"
 
+
 @interface TripDetailRootViewController () <ActivityDelegate, TaoziMessageSendDelegate, ChatRecordListDelegate, CreateConversationDelegate, UIActionSheetDelegate, REFrostedViewControllerDelegate>
 
 @property (nonatomic, strong) PlanScheduleViewController *spotsListCtl;

@@ -10,10 +10,13 @@
 #import "PlanScheduleTableViewCell.h"
 #import "DayAgendaViewController.h"
 #import "MyTripSpotsMapViewController.h"
+#import "OZLExpandableTableView.h"
+#import "DMSlideTransition.h"
 
 @interface PlanScheduleViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) DMSlideTransition *slideTransition;
 
 @end
 
@@ -35,6 +38,9 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    [self restoreFromExpandedCell];
+    
     [self.tableView reloadData];
 }
 
@@ -147,6 +153,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [MobClick event:@"tab_item_trip_detail"];
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSArray *ds = _tripDetail.itineraryList[indexPath.row];
     NSMutableString *title = [[NSMutableString alloc] init];
     NSMutableArray *titleArray = [[NSMutableArray alloc] init];
@@ -172,12 +180,29 @@
             }
         }
     }
+    
 
     DayAgendaViewController *davc = [[DayAgendaViewController alloc] initWithDay:indexPath.row];
     davc.tripDetail = _tripDetail;
+    davc.sceenImage = [self imageViewFromScreen];
+    
+    UIView * sourceView = [tableView cellForRowAtIndexPath:indexPath];
+    int y = [sourceView convertPoint:CGPointMake(1, 1) toView:self.tableView].y;
+    davc.sep = [self.tableView convertPoint:CGPointMake(0, y) toView:self.view].y + 64 + 45;
     davc.titleStr = title;
-    [self.frostedViewController.navigationController pushViewController:davc animated:YES];
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self.frostedViewController.navigationController pushViewController:davc animated:NO];
+    
+
+}
+
+- (void)presentWithTransition:(id)transition
+{
+    DayAgendaViewController *vc = [[DayAgendaViewController alloc] init];
+    
+    [vc setTransitioningDelegate:transition];
+    [self presentViewController:vc animated:YES completion:^{
+        
+    }];
 }
 
 

@@ -1216,6 +1216,11 @@
 		E69E66E91B69CD660044275A /* ic_userInfo_add_avatar@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E69E66E71B69CD660044275A /* ic_userInfo_add_avatar@3x.png */; };
 		E6BFE5FD1B5E732F00A9FDCA /* DestinationCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6BFE5FB1B5E732F00A9FDCA /* DestinationCollectionViewCell.m */; };
 		E6BFE5FE1B5E732F00A9FDCA /* DestinationCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6BFE5FC1B5E732F00A9FDCA /* DestinationCollectionViewCell.xib */; };
+		E6C218811B79BB6B00877348 /* DMAlphaTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C2187A1B79BB6B00877348 /* DMAlphaTransition.m */; };
+		E6C218821B79BB6B00877348 /* DMBaseTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C2187C1B79BB6B00877348 /* DMBaseTransition.m */; };
+		E6C218831B79BB6B00877348 /* DMScaleTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C2187E1B79BB6B00877348 /* DMScaleTransition.m */; };
+		E6C218841B79BB6B00877348 /* DMSlideTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C218801B79BB6B00877348 /* DMSlideTransition.m */; };
+		E6C218881B79C12D00877348 /* OZLExpandableTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C218871B79C12D00877348 /* OZLExpandableTableView.m */; };
 		E6E118F61B59EE280090FDEF /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E118F41B59EE280090FDEF /* UIView+Extension.m */; };
 		E6E7251E1B5603750007273A /* MJArgument.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E7250C1B5603750007273A /* MJArgument.m */; };
 		E6E7251F1B5603750007273A /* MJIvar.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E7250F1B5603750007273A /* MJIvar.m */; };
@@ -2849,6 +2854,16 @@
 		E6BFE5FA1B5E732F00A9FDCA /* DestinationCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationCollectionViewCell.h; sourceTree = "<group>"; };
 		E6BFE5FB1B5E732F00A9FDCA /* DestinationCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationCollectionViewCell.m; sourceTree = "<group>"; };
 		E6BFE5FC1B5E732F00A9FDCA /* DestinationCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DestinationCollectionViewCell.xib; sourceTree = "<group>"; };
+		E6C218791B79BB6B00877348 /* DMAlphaTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMAlphaTransition.h; sourceTree = "<group>"; };
+		E6C2187A1B79BB6B00877348 /* DMAlphaTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMAlphaTransition.m; sourceTree = "<group>"; };
+		E6C2187B1B79BB6B00877348 /* DMBaseTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMBaseTransition.h; sourceTree = "<group>"; };
+		E6C2187C1B79BB6B00877348 /* DMBaseTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMBaseTransition.m; sourceTree = "<group>"; };
+		E6C2187D1B79BB6B00877348 /* DMScaleTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMScaleTransition.h; sourceTree = "<group>"; };
+		E6C2187E1B79BB6B00877348 /* DMScaleTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMScaleTransition.m; sourceTree = "<group>"; };
+		E6C2187F1B79BB6B00877348 /* DMSlideTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMSlideTransition.h; sourceTree = "<group>"; };
+		E6C218801B79BB6B00877348 /* DMSlideTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMSlideTransition.m; sourceTree = "<group>"; };
+		E6C218861B79C12D00877348 /* OZLExpandableTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OZLExpandableTableView.h; sourceTree = "<group>"; };
+		E6C218871B79C12D00877348 /* OZLExpandableTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OZLExpandableTableView.m; sourceTree = "<group>"; };
 		E6E118F31B59EE280090FDEF /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
 		E6E118F41B59EE280090FDEF /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
 		E6E7250B1B5603750007273A /* MJArgument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJArgument.h; sourceTree = "<group>"; };
@@ -4811,6 +4826,12 @@
 		D9A802541A80E3D3005AD701 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
+				E6C218851B79C12D00877348 /* Animation */,
+				E6C218781B79BB6B00877348 /* Transitions */,
+				E68F797C1B7890CC00DD08CF /* Tools */,
+=======
+>>>>>>> dff882d6220808133d4fecb046ea49d5d9f9213a
 				27F7EA6C1B0DB0A700148A66 /* TaoziSearchbar */,
 				D9A802551A80E3D3005AD701 /* ConverMethods */,
 				D9A802581A80E3D3005AD701 /* Introduction */,
@@ -6528,6 +6549,42 @@
 			path = Category;
 			sourceTree = "<group>";
 		};
+<<<<<<< HEAD
+		E68F797C1B7890CC00DD08CF /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				E68F797D1B7890E800DD08CF /* RecentSearchTool.h */,
+				E68F797E1B7890E800DD08CF /* RecentSearchTool.m */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		E6C218781B79BB6B00877348 /* Transitions */ = {
+			isa = PBXGroup;
+			children = (
+				E6C218791B79BB6B00877348 /* DMAlphaTransition.h */,
+				E6C2187A1B79BB6B00877348 /* DMAlphaTransition.m */,
+				E6C2187B1B79BB6B00877348 /* DMBaseTransition.h */,
+				E6C2187C1B79BB6B00877348 /* DMBaseTransition.m */,
+				E6C2187D1B79BB6B00877348 /* DMScaleTransition.h */,
+				E6C2187E1B79BB6B00877348 /* DMScaleTransition.m */,
+				E6C2187F1B79BB6B00877348 /* DMSlideTransition.h */,
+				E6C218801B79BB6B00877348 /* DMSlideTransition.m */,
+			);
+			path = Transitions;
+			sourceTree = "<group>";
+		};
+		E6C218851B79C12D00877348 /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				E6C218861B79C12D00877348 /* OZLExpandableTableView.h */,
+				E6C218871B79C12D00877348 /* OZLExpandableTableView.m */,
+			);
+			path = Animation;
+			sourceTree = "<group>";
+		};
+=======
+>>>>>>> dff882d6220808133d4fecb046ea49d5d9f9213a
 		E6E118F01B59EE190090FDEF /* DropDownMenu */ = {
 			isa = PBXGroup;
 			children = (
@@ -7717,6 +7774,7 @@
 				D92CA1341AD8BEB400F244FF /* MWPhoto.m in Sources */,
 				C694C3861AE9EB7800F5C36E /* SDSegmentedControl.m in Sources */,
 				D9B3AB6B1B4510AC0067B686 /* AlbumImageCell.m in Sources */,
+				E6C218841B79BB6B00877348 /* DMSlideTransition.m in Sources */,
 				D9A8001C1A80D52F005AD701 /* DomesticViewController.m in Sources */,
 				D92CA0B61AD8BDD400F244FF /* DACircularProgressView.m in Sources */,
 				D9A802B01A80E3D3005AD701 /* NSDate+Category.m in Sources */,
@@ -7773,6 +7831,7 @@
 				C694C38D1AEA23E500F5C36E /* FilterViewController.m in Sources */,
 				D9A801561A80DD23005AD701 /* BaseTableViewCell.m in Sources */,
 				27FF1A721B04BE0E00643D77 /* SignatureViewController.m in Sources */,
+				E6C218881B79C12D00877348 /* OZLExpandableTableView.m in Sources */,
 				D9A8015B1A80DD23005AD701 /* EMRemarkImageView.m in Sources */,
 				D9A802171A80E036005AD701 /* JGProgressHUDRingIndicatorView.m in Sources */,
 				D9A802321A80E036005AD701 /* THProgressView.m in Sources */,
@@ -7858,6 +7917,7 @@
 				D993C2551B12DF0C0088D568 /* CMDMessageManager.swift in Sources */,
 				D9A8FFB01A80D1C3005AD701 /* LocationTableViewCell.m in Sources */,
 				D9A802B51A80E3D3005AD701 /* UIAlertView+Block.m in Sources */,
+				E6C218821B79BB6B00877348 /* DMBaseTransition.m in Sources */,
 				C679D30D1ACD64E3007680D9 /* RECommonFunctions.m in Sources */,
 				D9A801111A80DD23005AD701 /* ChatGroupSettingViewController.m in Sources */,
 				D9E7E5911AC281B00072D5B9 /* CityDestinationPoi.m in Sources */,
@@ -7895,6 +7955,7 @@
 				E6E118F61B59EE280090FDEF /* UIView+Extension.m in Sources */,
 				E6BFE5FD1B5E732F00A9FDCA /* DestinationCollectionViewCell.m in Sources */,
 				D9F059F51B63360700DD683F /* PlanScheduleTableViewCell.m in Sources */,
+				E6C218811B79BB6B00877348 /* DMAlphaTransition.m in Sources */,
 				E676B8D41B5CD20C0042B539 /* GuiderDistributeContinent.m in Sources */,
 				D9A800351A80D52F005AD701 /* TripDetail.m in Sources */,
 				D9A8FFBA1A80D1C3005AD701 /* TravelNote.m in Sources */,
@@ -7929,6 +7990,7 @@
 				D92CA1141AD8BDF900F244FF /* SWTableViewCell.m in Sources */,
 				D92CA1161AD8BDF900F244FF /* SWUtilityButtonView.m in Sources */,
 				C679D30F1ACD64E3007680D9 /* REFrostedViewController.m in Sources */,
+				E6C218831B79BB6B00877348 /* DMScaleTransition.m in Sources */,
 				D9A8FFB31A80D1C3005AD701 /* RecommendCollectionViewCell.m in Sources */,
 				D993C2501B12DF0C0088D568 /* IMGroupManager.swift in Sources */,
 				D993C2331B12DF0C0088D568 /* ChatManagerAudio.swift in Sources */,

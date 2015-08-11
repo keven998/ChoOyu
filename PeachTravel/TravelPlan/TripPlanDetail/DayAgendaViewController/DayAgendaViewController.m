@@ -12,11 +12,19 @@
 #import "ScheduleEditorViewController.h"
 #import "TripPoiListTableViewCell.h"
 #import "ScheduleDayEditViewController.h"
+#import "OZLExpandableTableView.h"
+
+
+#define UPPERVIEW_TAG 1000
+#define BOTTOMVIEW_TAG 1001
+#define WHITEVIEW_TAG 1002
 
 @interface DayAgendaViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataSource;
+@property (nonatomic, weak) UIImageView *upperView;
+@property (nonatomic, weak) UIImageView *bottomView;
 @end
 
 static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
@@ -53,8 +61,77 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
     [btn setTitleColor:COLOR_DISABLE forState:UIControlStateHighlighted];
     [btn addTarget:self action:@selector(editSchedule) forControlEvents:UIControlEventTouchUpInside];
 //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];    //体验和复杂度
-    
+    [self startAnimationWithDismiss:YES];
 }
+
+// 执行动画
+- (void)startAnimationWithDismiss:(BOOL)dismiss
+{
+    // get image of the screen
+    int sep = self.sep;
+    [self setSeperator:[NSNumber numberWithInt:sep]];
+    
+    CGRect upperRect = CGRectMake(0, 64, kWindowWidth, sep-64);
+    CGRect bottomRect = CGRectMake(0, sep+64, kWindowWidth, self.view.frame.size.height - sep-64);
+    
+    
+    // animate the transform
+    if (dismiss) {
+        _tableView.contentInset = UIEdgeInsetsMake(sep, 0, 0, 0);
+        
+  
+        CGImageRef imageUp = CGImageCreateWithImageInRect([_sceenImage CGImage], [self scaleRect:upperRect withScale:[UIScreen mainScreen].scale]);
+        upperRect.origin.y = 0;
+        upperRect.size.height += 64;
+        UIImageView *upperView = [[UIImageView alloc] initWithFrame:upperRect];
+        self.upperView = upperView;
+        upperView.contentMode = UIViewContentModeScaleAspectFit;
+//        [upperView setImage:[UIImage imageWithCGImage:imageUp]];
+        upperView.backgroundColor = [UIColor blueColor];
+
+        bottomRect.origin.y = sep;
+        CGImageRef imageBottom = CGImageCreateWithImageInRect([_sceenImage CGImage], [self scaleRect:bottomRect withScale:[UIScreen mainScreen].scale ]);
+        UIImageView *bottomView = [[UIImageView alloc] initWithFrame:bottomRect];
+        self.bottomView = bottomView;
+        bottomView.contentMode = UIViewContentModeScaleAspectFit;
+//        [bottomView setImage:[UIImage imageWithCGImage:imageBottom]];
+        bottomView.backgroundColor = [UIColor redColor];
+        
+        [self.view addSubview:upperView];
+        [self.view addSubview:bottomView];
+        
+        [UIView animateWithDuration:10
+                         animations:^(void) {
+                             [upperView setFrame:CGRectMake(upperRect.origin.x, -sep, upperRect.size.width, upperRect.size.height)];
+                             [bottomView setFrame:CGRectMake(bottomRect.origin.x, kWindowHeight, bottomRect.size.width, bottomRect.size.height)];
+                             _tableView.contentInset = UIEdgeInsetsZero;
+                         } completion:^(BOOL finished) {
+                             
+                         }];
+    } else {
+        [UIView animateWithDuration:5
+                         animations:^(void) {
+                             [self.upperView setFrame:upperRect];
+                             [self.bottomView setFrame:bottomRect];
+                             _tableView.contentInset = UIEdgeInsetsMake(sep, 0, 0, 0);
+                         } completion:^(BOOL finished) {
+                             [self.navigationController popViewControllerAnimated:NO];
+                         }];
+    }
+}
+
+- (UIViewController *)popupViewController
+{
+    [super popupViewController];
+    
+    return self;
+}
+
+- (CGRect) scaleRect:(CGRect)rect withScale:(float) scale
+{
+    return CGRectMake(rect.origin.x * scale, rect.origin.y*scale, rect.size.width*scale, rect.size.height*scale);
+}
+
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -179,6 +256,12 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
     frostedViewController.resumeNavigationBar = NO;
     self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan = NO;
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:frostedViewController] animated:YES completion:nil];
+}
+
+- (void)goBack
+{
+    [self startAnimationWithDismiss:NO];
+//    [self.navigationController popViewControllerAnimated:YES];
 }
 
 

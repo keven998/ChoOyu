@@ -18,4 +18,8 @@
 @property (nonatomic, copy) NSString *titleStr;
 @property (nonatomic, strong) TripDetail *tripDetail;
 
+@property (nonatomic, strong) UIImage *sceenImage;
+
+@property (nonatomic, assign)int sep;
+
 @end
