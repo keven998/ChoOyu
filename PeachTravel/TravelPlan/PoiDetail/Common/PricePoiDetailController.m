@@ -18,7 +18,7 @@
     [super viewDidLoad];
     
     UITextView * textDesc = [[UITextView alloc] init];
-    textDesc.frame = CGRectMake(0, 0, SCREEN_WIDTH, 200);
+    textDesc.frame = CGRectMake(0, 0, kWindowWidth, 200);
     textDesc.text = self.desc;
     textDesc.font = [UIFont systemFontOfSize:15.0];
     [self.view addSubview:textDesc];

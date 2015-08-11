@@ -23,7 +23,7 @@
     [super viewDidLoad];
     
     // 设置segment的样式并添加到控制器中
-    UIImageView * bgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 48)];
+    UIImageView * bgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 48)];
     // 设置图片填充格式
     bgView.contentMode = UIViewContentModeScaleAspectFill;
     bgView.clipsToBounds = YES;

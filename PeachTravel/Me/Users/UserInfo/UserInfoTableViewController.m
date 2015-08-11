@@ -168,8 +168,8 @@
 #pragma mark - Private Methods
 
 - (void) setupTableHeaderView {
-    CGFloat width = SCREEN_WIDTH;
-    CGFloat height = SCREEN_HEIGHT;
+    CGFloat width = kWindowWidth;
+    CGFloat height = kWindowHeight;
     
     _headerBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 741/3*height/736)];
     _headerBgView.backgroundColor = APP_PAGE_COLOR;
@@ -511,7 +511,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 66 * SCREEN_HEIGHT/736;
+    return 66 * kWindowHeight/736;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

@@ -180,7 +180,7 @@ static NSString *cacheName = @"destination_demostic_group";
 #pragma mark - UICollectionView的代理方法
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath;
 {
-    return CGSizeMake(SCREEN_WIDTH/3, SCREEN_WIDTH/3);
+    return CGSizeMake(kWindowWidth/3, kWindowWidth/3);
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section;

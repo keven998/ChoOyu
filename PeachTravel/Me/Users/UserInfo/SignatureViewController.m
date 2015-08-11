@@ -29,7 +29,7 @@
     UIBarButtonItem *leftBtn = [[UIBarButtonItem alloc]initWithTitle:@" 取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
     self.navigationItem.leftBarButtonItem = leftBtn;
     
-    _contentTextField = [[UITextView alloc]initWithFrame:CGRectMake(0, 20, SCREEN_WIDTH, 88)];
+    _contentTextField = [[UITextView alloc]initWithFrame:CGRectMake(0, 20, kWindowWidth, 88)];
     _contentTextField.layer.borderColor = UIColorFromRGB(0xdcdcdc).CGColor;
     _contentTextField.layer.borderWidth = 0.5;
     _contentTextField.delegate = self;

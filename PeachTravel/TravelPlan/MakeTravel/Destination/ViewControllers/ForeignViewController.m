@@ -50,7 +50,7 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
     [self.foreignCollectionView registerNib:[UINib nibWithNibName:@"DomesticCell" bundle:nil]  forCellWithReuseIdentifier:reuseableCellIdentifier];
     [self.foreignCollectionView registerNib:[UINib nibWithNibName:@"DestinationCollectionHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:reuseableHeaderIdentifier];
     UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.foreignCollectionView.collectionViewLayout;
-    layout.itemSize = CGSizeMake((SCREEN_WIDTH - 75)/3, (SCREEN_WIDTH - 75)/3);
+    layout.itemSize = CGSizeMake((kWindowWidth - 75)/3, (kWindowWidth - 75)/3);
     layout.minimumInteritemSpacing = 0;
     layout.minimumLineSpacing = 0;
     [self.foreignCollectionView setContentInset:UIEdgeInsetsMake(-5, 0, 100, 0)];

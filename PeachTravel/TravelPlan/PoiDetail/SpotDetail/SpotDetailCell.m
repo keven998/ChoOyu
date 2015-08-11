@@ -18,7 +18,7 @@
     self.infomationLabel.textColor = COLOR_TEXT_I;
     self.noTelLabel.hidden = YES;
     
-    UIView *divider = [[UIView alloc] initWithFrame:CGRectMake(18, 66 * SCREEN_HEIGHT/736 - 0.6, CGRectGetWidth(self.bounds) - 18, 0.6)];
+    UIView *divider = [[UIView alloc] initWithFrame:CGRectMake(18, 66 * kWindowHeight/736 - 0.6, CGRectGetWidth(self.bounds) - 18, 0.6)];
     divider.backgroundColor = COLOR_LINE;
     divider.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [self.contentView addSubview:divider];
