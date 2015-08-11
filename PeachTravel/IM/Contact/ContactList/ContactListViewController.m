@@ -157,14 +157,15 @@
     IMClientManager *manager = [IMClientManager shareInstance];
     ChatConversation *conversation = [manager.conversationManager getConversationWithChatterId:contact.userId chatType:IMChatTypeIMChatSingleType];
     [manager.conversationManager addConversation: conversation];
-    conversation.chatterId = contact.userId;
     
     ChatViewController *chatCtl = [[ChatViewController alloc] initWithConversation:conversation];
     chatCtl.chatterName = contact.nickName;
     
-    UIViewController *menuViewController = [[ChatSettingViewController alloc] init];
+    ChatSettingViewController *menuViewController = [[ChatSettingViewController alloc] init];
+    menuViewController.currentConversation= conversation;
     
     REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:chatCtl menuViewController:menuViewController];
+    menuViewController.containerCtl = frostedViewController;
     frostedViewController.direction = REFrostedViewControllerDirectionRight;
     frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
     frostedViewController.liveBlur = YES;

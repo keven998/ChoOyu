@@ -298,6 +298,9 @@ typedef NS_ENUM(NSUInteger, TZCMDChatType) {
 //是否改完善个人信息的 noti
 #define kShouldShowFinishUserInfoNoti  @"shouldShowFinishUserInfoNoti"
 
+//搜索目的地缓存的key
+#define kSearchDestinationCacheKey @"searchDestinationCacheKey"
+
 
 /*****Yahoo!天气对应的 code 列表******/
 #define yahooWeatherCode @[   @"龙卷风",\

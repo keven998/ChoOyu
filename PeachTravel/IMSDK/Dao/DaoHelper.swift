@@ -204,8 +204,12 @@ public class DaoHelper:NSObject {
             self.chatMessageDaoHelper.updateMessageContents(tableName, message: message)
         })
     }
+    
+    func getAllImageMessageInChatTable(tableName: NSString) -> Array<BaseMessage> {
+        return self.chatMessageDaoHelper.selectAllImageMessageInChatTable(tableName)
+    }
 
-    //MARK: ConversationDaoProtocol 
+    //MARK: ConversationDaoProtocol
     func createConversationsTable() {
         dispatch_async(databaseWriteQueue, { () -> Void in
             self.openDB()
@@ -263,8 +267,5 @@ public class DaoHelper:NSObject {
         })
 
     }
-
-
-    
 }
 

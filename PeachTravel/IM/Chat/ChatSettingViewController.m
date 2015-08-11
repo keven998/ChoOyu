@@ -9,6 +9,7 @@
 #import "ChatSettingViewController.h"
 #import "ChatGroupSettingCell.h"
 #import "PeachTravel-swift.h"
+#import "ChatAlbumCollectionViewController.h"
 
 @interface ChatSettingViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
@@ -77,7 +78,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 2;
+    return 3;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -105,6 +106,12 @@
         cell.textLabel.textColor = COLOR_TEXT_I;
         cell.textLabel.text = @"清空聊天记录";
         return cell;
+    } else if (indexPath.row == 2) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+        cell.textLabel.font = [UIFont systemFontOfSize:15.0];
+        cell.textLabel.textColor = COLOR_TEXT_I;
+        cell.textLabel.text = @"聊天图集";
+        return cell;
     }
     return nil;
 }
@@ -120,12 +127,23 @@
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"RemoveAllMessages" object:[NSNumber numberWithInteger:_chatterId]];
             }
         }];
+        
+    } else if (indexPath.row == 2) {
+        ChatAlbumCollectionViewController *ctl = [[ChatAlbumCollectionViewController alloc] initWithNibName:@"ChatAlbumCollectionViewController" bundle:nil];
+        [self.containerCtl.navigationController pushViewController:ctl animated:YES];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            NSArray *albumImages = [self getAllChatAlbumImageInConversation];
+            NSArray *images = [self getAllImagePathList];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                ctl.imageList = images;
+                ctl.albumList = albumImages;
+            });
+        });
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
 }
 
-//TODO: 设置聊天免打扰
 /**
  *  更新群组消息提醒状态，屏蔽和不屏蔽
  *
@@ -141,6 +159,46 @@
         }
     }];
 }
+
+/**
+ *  获取所有的聊天图片
+ *
+ *  @return
+ */
+- (NSArray *)getAllImagePathList
+{
+    NSArray *imageMessages = [self.currentConversation getAllImageMessageInConversation];
+
+    NSMutableArray *retMessages = [[NSMutableArray alloc] init];
+    for (ImageMessage *message in imageMessages) {
+        if (message.sendType == IMMessageSendTypeMessageSendSomeoneElse) {
+            NSString *imageUrl = message.fullUrl;
+            if (imageUrl) {
+                [retMessages addObject:imageUrl];
+            }
+            
+        } else {
+            [retMessages addObject:message.localPath];
+        }
+    }
+    return retMessages;
+}
+
+/**
+ *  获取所有的聊天 album 图片消息
+ *
+ *  @return
+ */
+- (NSArray *)getAllChatAlbumImageInConversation
+{
+    NSMutableArray *retMessages = [[NSMutableArray alloc] init];
+    NSArray *imageMessages = [self.currentConversation getAllImageMessageInConversation];
+    for (ImageMessage *message in imageMessages) {
+        [retMessages addObject:message.localPath];
+    }
+    return retMessages;
+}
+
 
 
 @end

@@ -457,14 +457,20 @@
 
 - (void)pushChatViewController
 {
+    IMClientManager *manager = [IMClientManager shareInstance];
+    ChatConversation *conversation = [manager.conversationManager getConversationWithChatterId:_userId chatType:IMChatTypeIMChatSingleType];
+    [manager.conversationManager addConversation: conversation];
+    
     ChatViewController *chatController = [[ChatViewController alloc] initWithChatter:_userId chatType:IMChatTypeIMChatSingleType];
     UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:chatController];
     chatController.chatterName = _userInfo.nickName;
     
     ChatSettingViewController *menuViewController = [[ChatSettingViewController alloc] init];
+    menuViewController.currentConversation= conversation;
     menuViewController.chatterId = _userId;
     
     REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:navi menuViewController:menuViewController];
+    menuViewController.containerCtl = frostedViewController;
     frostedViewController.direction = REFrostedViewControllerDirectionRight;
     frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
     frostedViewController.liveBlur = YES;

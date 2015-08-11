@@ -57,7 +57,6 @@
 #pragma mark - photoSetter
 - (void)setPhoto:(MJPhoto *)photo {
     _photo = photo;
-    
     [self showImage];
 }
 
@@ -80,8 +79,6 @@
                     [photoView adjustFrame];
                 }];
             }
-            
-           
         }
     } else {
         [self photoStartLoad];
@@ -92,6 +89,7 @@
 }
 
 #pragma mark 开始加载图片
+
 - (void)photoStartLoad
 {
     if (_photo.image) {
@@ -99,24 +97,30 @@
         _imageView.image = _photo.image;
     } else {
         self.scrollEnabled = NO;
-        // 直接显示进度条
-        [_photoLoadingView showLoading];
-        [self addSubview:_photoLoadingView];
+       
         
-        __unsafe_unretained MJPhotoView *photoView = self;
-        __unsafe_unretained MJPhotoLoadingView *loading = _photoLoadingView;
-        
-        [_imageView sd_setImageWithURL:[NSURL URLWithString: _photo.url] placeholderImage:_photo.placeholder options:SDWebImageRetryFailed|SDWebImageLowPriority progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-            if (receivedSize > kMinProgress) {
-                if (loading != nil) {
-                    loading.progress = (float)receivedSize/expectedSize;
-                }
-            }
+        if ([_photo.url hasPrefix:@"/var"] || [_photo.url hasPrefix:@"/User"]) {
+            _photo.image = [UIImage imageWithContentsOfFile:_photo.url];
+            _imageView.image = _photo.image;
+            
+        } else {
+            // 直接显示进度条
+            [_photoLoadingView showLoading];
+            [self addSubview:_photoLoadingView];
+            __unsafe_unretained MJPhotoLoadingView *loading = _photoLoadingView;
+            __unsafe_unretained MJPhotoView *photoView = self;
 
-        } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-             [photoView photoDidFinishLoadWithImage:image];
-        }];
-        
+            [_imageView sd_setImageWithURL:[NSURL URLWithString: _photo.url] placeholderImage:_photo.placeholder options:SDWebImageRetryFailed|SDWebImageLowPriority progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+                if (receivedSize > kMinProgress) {
+                    if (loading != nil) {
+                        loading.progress = (float)receivedSize/expectedSize;
+                    }
+                }
+                
+            } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                [photoView photoDidFinishLoadWithImage:image];
+            }];
+        }
     }
 }
 

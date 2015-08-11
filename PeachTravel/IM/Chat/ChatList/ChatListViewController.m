@@ -588,12 +588,15 @@
         
     } else {
         menuViewController = [[ChatSettingViewController alloc] init];
+        ((ChatSettingViewController *)menuViewController).currentConversation= conversation;
         ((ChatSettingViewController *)menuViewController).chatterId = conversation.chatterId;
     }
     
     REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:navi menuViewController:menuViewController];
     if (conversation.chatType == IMChatTypeIMChatGroupType || conversation.chatType == IMChatTypeIMChatDiscussionGroupType) {
         ((ChatGroupSettingViewController *)menuViewController).containerCtl = frostedViewController;
+    } else {
+        ((ChatSettingViewController *)menuViewController).containerCtl = frostedViewController;
     }
     frostedViewController.hidesBottomBarWhenPushed = YES;
     frostedViewController.direction = REFrostedViewControllerDirectionRight;
