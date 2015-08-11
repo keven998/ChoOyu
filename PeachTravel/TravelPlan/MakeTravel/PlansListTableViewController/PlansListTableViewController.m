@@ -22,6 +22,7 @@
 #import "BaseTextSettingViewController.h"
 #import "SelectionTableViewController.h"
 #import "UIBarButtonItem+MJ.h"
+#import "PlansListTableHeaderView.h"
 
 #define PAGE_COUNT 10
 
@@ -515,16 +516,17 @@ static NSString *reusableCell = @"myGuidesCell";
 #pragma mark - Table view data source
 
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 12;
+    return 72;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.dataSource.count;
+//    return self.dataSource.count;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 1;
+    return self.dataSource.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -534,9 +536,11 @@ static NSString *reusableCell = @"myGuidesCell";
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 17)];
-    view.backgroundColor = [UIColor clearColor];
-    return view;
+    PlansListTableHeaderView * headerView = [PlansListTableHeaderView planListHeaderView];
+    
+    [headerView.addTourPlan addTarget:self action:@selector(makePlan) forControlEvents:UIControlEventTouchUpInside];
+    
+    return headerView;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -578,6 +582,7 @@ static NSString *reusableCell = @"myGuidesCell";
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self goPlan:indexPath];
 }
+
 
 - (void) goPlan:(NSIndexPath *)indexPath {
     MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:indexPath.section];
