@@ -191,8 +191,6 @@
     davc.sep = [self.tableView convertPoint:CGPointMake(0, y) toView:self.view].y + 64 + 45;
     davc.titleStr = title;
     [self.frostedViewController.navigationController pushViewController:davc animated:NO];
-    
-
 }
 
 - (void)presentWithTransition:(id)transition

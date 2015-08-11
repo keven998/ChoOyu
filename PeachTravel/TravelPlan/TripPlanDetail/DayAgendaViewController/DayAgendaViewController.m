@@ -23,8 +23,8 @@
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataSource;
-@property (nonatomic, weak) UIImageView *upperView;
-@property (nonatomic, weak) UIImageView *bottomView;
+@property (nonatomic, strong) UIImageView *upperView;
+@property (nonatomic, strong) UIImageView *bottomView;
 @end
 
 static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
@@ -72,48 +72,43 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
     [self setSeperator:[NSNumber numberWithInt:sep]];
     
     CGRect upperRect = CGRectMake(0, 64, kWindowWidth, sep-64);
-    CGRect bottomRect = CGRectMake(0, sep+64, kWindowWidth, self.view.frame.size.height - sep-64);
-    
+    CGRect bottomRect = CGRectMake(0, sep+64, kWindowWidth, self.view.frame.size.height - sep);
     
     // animate the transform
     if (dismiss) {
-        _tableView.contentInset = UIEdgeInsetsMake(sep, 0, 0, 0);
-        
-  
+        _tableView.contentInset = UIEdgeInsetsMake(sep-64, 0, 0, 0);
+    
         CGImageRef imageUp = CGImageCreateWithImageInRect([_sceenImage CGImage], [self scaleRect:upperRect withScale:[UIScreen mainScreen].scale]);
-        upperRect.origin.y = 0;
-        upperRect.size.height += 64;
-        UIImageView *upperView = [[UIImageView alloc] initWithFrame:upperRect];
-        self.upperView = upperView;
-        upperView.contentMode = UIViewContentModeScaleAspectFit;
-//        [upperView setImage:[UIImage imageWithCGImage:imageUp]];
-        upperView.backgroundColor = [UIColor blueColor];
+        self.upperView  = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, sep-64)];
+        _upperView.contentMode = UIViewContentModeScaleAspectFit;
+        [_upperView setImage:[UIImage imageWithCGImage:imageUp]];
+        _upperView.backgroundColor = [UIColor blueColor];
 
         bottomRect.origin.y = sep;
         CGImageRef imageBottom = CGImageCreateWithImageInRect([_sceenImage CGImage], [self scaleRect:bottomRect withScale:[UIScreen mainScreen].scale ]);
-        UIImageView *bottomView = [[UIImageView alloc] initWithFrame:bottomRect];
-        self.bottomView = bottomView;
-        bottomView.contentMode = UIViewContentModeScaleAspectFit;
-//        [bottomView setImage:[UIImage imageWithCGImage:imageBottom]];
-        bottomView.backgroundColor = [UIColor redColor];
+        self.bottomView = [[UIImageView alloc] initWithFrame:CGRectMake(0, sep-64, kWindowWidth, self.view.frame.size.height-sep)];
+
+        _bottomView.contentMode = UIViewContentModeScaleAspectFit;
+        [_bottomView setImage:[UIImage imageWithCGImage:imageBottom]];
+        _bottomView.backgroundColor = [UIColor redColor];
         
-        [self.view addSubview:upperView];
-        [self.view addSubview:bottomView];
+        [self.view addSubview:_upperView];
+        [self.view addSubview:_bottomView];
         
-        [UIView animateWithDuration:10
+        [UIView animateWithDuration:0.5
                          animations:^(void) {
-                             [upperView setFrame:CGRectMake(upperRect.origin.x, -sep, upperRect.size.width, upperRect.size.height)];
-                             [bottomView setFrame:CGRectMake(bottomRect.origin.x, kWindowHeight, bottomRect.size.width, bottomRect.size.height)];
+                             [_upperView setFrame:CGRectMake(0, -_upperView.bounds.size.height, _upperView.bounds.size.width, _upperView.bounds.size.height)];
+                             [_bottomView setFrame:CGRectMake(0, kWindowHeight, _bottomView.bounds.size.width, _bottomView.bounds.size.height)];
                              _tableView.contentInset = UIEdgeInsetsZero;
                          } completion:^(BOOL finished) {
                              
                          }];
     } else {
-        [UIView animateWithDuration:5
+        [UIView animateWithDuration:0.5
                          animations:^(void) {
-                             [self.upperView setFrame:upperRect];
-                             [self.bottomView setFrame:bottomRect];
-                             _tableView.contentInset = UIEdgeInsetsMake(sep, 0, 0, 0);
+                             [self.upperView setFrame:CGRectMake(0, 0, kWindowWidth, sep-64)];
+                             [self.bottomView setFrame:CGRectMake(0, sep-64, kWindowWidth, self.view.frame.size.height-sep+64)];
+                             _tableView.contentInset = UIEdgeInsetsMake(sep-64, 0, 0, 0);
                          } completion:^(BOOL finished) {
                              [self.navigationController popViewControllerAnimated:NO];
                          }];
