@@ -4826,12 +4826,9 @@
 		D9A802541A80E3D3005AD701 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
 				E6C218851B79C12D00877348 /* Animation */,
 				E6C218781B79BB6B00877348 /* Transitions */,
 				E68F797C1B7890CC00DD08CF /* Tools */,
-=======
->>>>>>> dff882d6220808133d4fecb046ea49d5d9f9213a
 				27F7EA6C1B0DB0A700148A66 /* TaoziSearchbar */,
 				D9A802551A80E3D3005AD701 /* ConverMethods */,
 				D9A802581A80E3D3005AD701 /* Introduction */,
@@ -6549,7 +6546,6 @@
 			path = Category;
 			sourceTree = "<group>";
 		};
-<<<<<<< HEAD
 		E68F797C1B7890CC00DD08CF /* Tools */ = {
 			isa = PBXGroup;
 			children = (
@@ -6583,8 +6579,6 @@
 			path = Animation;
 			sourceTree = "<group>";
 		};
-=======
->>>>>>> dff882d6220808133d4fecb046ea49d5d9f9213a
 		E6E118F01B59EE190090FDEF /* DropDownMenu */ = {
 			isa = PBXGroup;
 			children = (
