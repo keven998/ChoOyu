@@ -57,7 +57,6 @@
 #pragma mark - photoSetter
 - (void)setPhoto:(MJPhoto *)photo {
     _photo = photo;
-    
     [self showImage];
 }
 
@@ -71,6 +70,7 @@
             __unsafe_unretained MJPhotoView *photoView = self;
             __unsafe_unretained MJPhoto *photo = _photo;
             if ([_photo.url hasPrefix:@"/var"] || [_photo.url hasPrefix:@"/User"]) {
+                NSLog(@"%@", _photo.url);
                 _photo.image = [UIImage imageWithContentsOfFile:_photo.url];
                 _imageView.image = _photo.image;
             } else {

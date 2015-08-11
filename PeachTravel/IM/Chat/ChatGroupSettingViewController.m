@@ -18,6 +18,7 @@
 #import "UserOtherTableViewCell.h"
 #import "ChatGroupSettingCell.h"
 #import "REFrostedViewController.h"
+#import "ChatAlbumCollectionViewController.h"
 
 @interface ChatGroupSettingViewController () <UITableViewDataSource,UITableViewDelegate,CreateConversationDelegate,SWTableViewCellDelegate,changeTitle>
 
@@ -201,7 +202,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
-        return 3;
+        return 4;
     } else  {
         return _groupModel.members.count;
     }
@@ -242,6 +243,15 @@
             UserOtherTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"otherCell" forIndexPath:indexPath];
             cell.accessoryType = UITableViewCellAccessoryNone;
             cell.cellTitle.text = @"清空聊天记录";
+            cell.cellTitle.font = [UIFont systemFontOfSize:15.0f];
+            cell.cellTitle.textColor = COLOR_TEXT_I;
+            cell.cellDetail.text = nil;
+            return cell;
+            
+        } else if (indexPath.row == 3) {
+            UserOtherTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"otherCell" forIndexPath:indexPath];
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            cell.cellTitle.text = @"聊天图集";
             cell.cellTitle.font = [UIFont systemFontOfSize:15.0f];
             cell.cellTitle.textColor = COLOR_TEXT_I;
             cell.cellDetail.text = nil;
@@ -305,6 +315,18 @@
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"RemoveAllMessages" object:nil userInfo:nil];
                 }
             }];
+        } else if (indexPath.row == 3) {
+            ChatAlbumCollectionViewController *ctl = [[ChatAlbumCollectionViewController alloc] initWithNibName:@"ChatAlbumCollectionViewController" bundle:nil];
+            [self.containerCtl.navigationController pushViewController:ctl animated:YES];
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                NSArray *albumImages = [self getAllChatAlbumImageInConversation];
+                NSArray *images = [self getAllImagePathList];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    ctl.imageList = images;
+                    ctl.albumList = albumImages;
+                });
+            });
+
         }
     }
     if (indexPath.section == 1) {
@@ -461,5 +483,44 @@
 - (void)changeTitleDelegate
 {
     [self updateView];
+}
+
+/**
+ *  获取所有的聊天图片
+ *
+ *  @return
+ */
+- (NSArray *)getAllImagePathList
+{
+    NSArray *imageMessages = [self.conversation getAllImageMessageInConversation];
+    
+    NSMutableArray *retMessages = [[NSMutableArray alloc] init];
+    for (ImageMessage *message in imageMessages) {
+        if (message.sendType == IMMessageSendTypeMessageSendSomeoneElse) {
+            NSString *imageUrl = message.fullUrl;
+            if (imageUrl) {
+                [retMessages addObject:imageUrl];
+            }
+            
+        } else {
+            [retMessages addObject:message.localPath];
+        }
+    }
+    return retMessages;
+}
+
+/**
+ *  获取所有的聊天 album 图片消息
+ *
+ *  @return
+ */
+- (NSArray *)getAllChatAlbumImageInConversation
+{
+    NSMutableArray *retMessages = [[NSMutableArray alloc] init];
+    NSArray *imageMessages = [self.conversation getAllImageMessageInConversation];
+    for (ImageMessage *message in imageMessages) {
+        [retMessages addObject:message.localPath];
+    }
+    return retMessages;
 }
 @end

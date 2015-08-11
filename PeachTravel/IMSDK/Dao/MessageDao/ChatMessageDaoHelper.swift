@@ -319,7 +319,7 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
         var retMessage: BaseMessage?
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
             
-            var sql = "select * from \(tableName) where type = 2 order by LocalId desc"
+            var sql = "select * from \(tableName) where type = 2"
             var rs = dataBase.executeQuery(sql, withArgumentsInArray: nil)
             if (rs != nil) {
                 while rs.next() {

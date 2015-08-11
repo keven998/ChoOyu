@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PeachTravel-swift.h"
 
 @interface ChatSettingViewController : TZViewController
 
 @property (nonatomic) NSInteger chatterId;
+@property (nonatomic, strong) ChatConversation *currentConversation;
+
+@property (nonatomic, weak) UIViewController *containerCtl;
 
 @end

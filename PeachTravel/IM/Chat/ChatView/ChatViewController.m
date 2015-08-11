@@ -786,21 +786,6 @@
     return retMessages;
 }
 
-/**
- *  获取所有的聊天 album 图片消息
- *
- *  @return
- */
-- (NSArray *)getAllChatAlbumImageInConversation
-{
-    NSMutableArray *retMessages = [[NSMutableArray alloc] init];
-    NSArray *imageMessages = [self.conversation getAllImageMessageInConversation];
-    for (ImageMessage *message in imageMessages) {
-        [retMessages addObject:message.localPath];
-    }
-    return retMessages;
-}
-
 #pragma mark - EMChatBarMoreViewDelegate
 
 /**

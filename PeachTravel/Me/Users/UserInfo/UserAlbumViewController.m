@@ -162,8 +162,8 @@ static NSString * const reuseIdentifier = @"albumImageCell";
             browser.photos = photos; // 设置所有的图片
             [browser show];
         }
-    }
-    else {
+        
+    } else {
         AlbumImageCell *cell = (AlbumImageCell *)[collectionView cellForItemAtIndexPath:indexPath];
         NSInteger count = _albumArray.count;
         // 1.封装图片数据
