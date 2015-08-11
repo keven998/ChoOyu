@@ -15,9 +15,9 @@
 #import "CommonPoiDetailViewController.h"
 #import "CityDetailTableViewController.h"
 #import "PoiDetailViewControllerFactory.h"
-#import "RecentSearchTool.h"
+#import "TaoziCollectionLayout.h"
 
-@interface SearchDestinationViewController () <UISearchBarDelegate, UISearchControllerDelegate, UITableViewDataSource, UITableViewDelegate, TaoziMessageSendDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
+@interface SearchDestinationViewController () <UISearchBarDelegate, UISearchControllerDelegate, UITableViewDataSource, UITableViewDelegate, TaoziMessageSendDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout, TaoziLayoutDelegate>
 
 @property (nonatomic, strong) NSMutableArray *dataSource;
 
@@ -74,10 +74,10 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     
     
     // 添加UICollectionView
-    UICollectionViewFlowLayout * flowLayout = [[UICollectionViewFlowLayout alloc] init];
- 
-    
-    UICollectionView * collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:flowLayout];
+    TaoziCollectionLayout *layout = [[TaoziCollectionLayout alloc] init];
+    layout.delegate = self;
+    layout.showDecorationView = NO;
+    UICollectionView * collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
     collectionView.contentInset = UIEdgeInsetsMake(0, 10, 0, 10);
     self.collectionView = collectionView;
     collectionView.dataSource = self;
@@ -94,16 +94,15 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 // 加载CollectionView的数据源
 - (void)setupCollectionDataSource
 {
-    NSArray * recent_result = [RecentSearchTool getAllRecentSearchResult];
+    NSArray * recentResult = [[TMCache sharedCache] objectForKey:kSearchDestinationCacheKey];
+    NSLog(@"%@",recentResult);
     
-    NSLog(@"%@",recent_result);
-    
-    [self.collectionArray addObjectsFromArray:recent_result];
+    [self.collectionArray addObjectsFromArray:recentResult];
     
     [self.collectionView reloadData];
 }
 
-- (void) goBack {
+- (void)goBack {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -589,8 +588,15 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [_searchBar endEditing:YES];
     
     // 将搜索结果存入到数据库中
-    [RecentSearchTool saveRecentSearchToSpoiData:searchBar.text];
-    
+    NSArray * recentSearch = [[TMCache sharedCache] objectForKey:kSearchDestinationCacheKey];
+    NSMutableArray * mutableArray;
+    if (recentSearch) {
+        mutableArray = [recentSearch mutableCopy];
+    } else {
+        mutableArray = [[NSMutableArray alloc] init];
+    }
+    [mutableArray addObject:searchBar.text];
+    [[TMCache sharedCache] setObject:mutableArray forKey:kSearchDestinationCacheKey];
     [self loadDataSourceWithKeyWord:searchBar.text];
 }
 
