@@ -29,8 +29,7 @@ typedef void (^PlayBlock)(BOOL playing, MessageModel *messageModel);
 + (id)defaultManager;
 
 //default
-- (void)showBrowserWithImages:(NSArray *)imageArray andImageView:(UIImageView *)imageView;
-
+- (void)showBrowserWithImages:(NSArray *)imageArray andImageView:(UIImageView *)imageView andCurrentPhotoIndex:(NSUInteger)index;
 
 
 @end

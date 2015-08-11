@@ -115,7 +115,6 @@ class ChatConversation: NSObject {
             let daoHelper = DaoHelper.shareInstance()
             let tableName = "chat_\(chatterId)"
             return daoHelper.selectLastServerMessage(tableName)
-        
         }
     }
     
@@ -198,6 +197,17 @@ class ChatConversation: NSObject {
         
         NSLog("结束加载更多的聊天界面记录")
         return moreMessages
+    }
+    
+    /**
+    获取会话中的图片消息
+    
+    :returns: 所有的会话的图片消息
+    */
+    func getAllImageMessageInConversation() -> Array<BaseMessage> {
+        let daoHelper = DaoHelper.shareInstance()
+        let tableName = "chat_\(chatterId)"
+        return daoHelper.getAllImageMessageInChatTable(tableName)
     }
     
     /**

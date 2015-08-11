@@ -115,7 +115,7 @@ static MessageReadManager *detailInstance = nil;
 
 #pragma mark - public
 
-- (void)showBrowserWithImages:(NSArray *)imageArray andImageView:(UIImageView *)imageView
+- (void)showBrowserWithImages:(NSArray *)imageArray andImageView:(UIImageView *)imageView andCurrentPhotoIndex:(NSUInteger)index
 {
     NSInteger count = imageArray.count;
     // 1.封装图片数据
@@ -130,7 +130,7 @@ static MessageReadManager *detailInstance = nil;
     
     // 2.显示相册
     MJPhotoBrowser *browser = [[MJPhotoBrowser alloc] init];
-    browser.currentPhotoIndex = 0; // 弹出相册时显示的第一张图片是？
+    browser.currentPhotoIndex = index; // 弹出相册时显示的第一张图片是？
     browser.photos = photos; // 设置所有的图片
     [browser show];
 }

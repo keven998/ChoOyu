@@ -750,19 +750,55 @@
     __weak ChatViewController *weakSelf = self;
     
     if (model.type == IMMessageTypeImageMessageType) {
-        if (!model.isSender) {
-            NSString *imageUrl = ((ImageMessage *)model.baseMessage).fullUrl;
-            if (imageUrl) {
-                [weakSelf.messageReadManager showBrowserWithImages:@[imageUrl] andImageView:imageView];
-                
-            } else {
-                
+        NSArray *imageMessages = [self.conversation getAllImageMessageInConversation];
+        NSArray *imageList = [self getAllImagePathListWithImageList:imageMessages];
+
+        NSUInteger index = 0;
+        for (ImageMessage *message in imageMessages) {
+            if (message.localId == model.baseMessage.localId) {
+                break;
             }
-        } else {
-            [weakSelf.messageReadManager showBrowserWithImages:@[((ImageMessage *)model.baseMessage).localPath] andImageView:imageView];
+            index++;
+        }
+        [weakSelf.messageReadManager showBrowserWithImages:imageList andImageView:imageView andCurrentPhotoIndex:index];
+    }
+}
+
+/**
+ *  获取所有的聊天图片
+ *
+ *  @return
+ */
+- (NSArray *)getAllImagePathListWithImageList:(NSArray *)imageMessages
+{
+    NSMutableArray *retMessages = [[NSMutableArray alloc] init];
+    for (ImageMessage *message in imageMessages) {
+        if (message.sendType == IMMessageSendTypeMessageSendSomeoneElse) {
+            NSString *imageUrl = message.fullUrl;
+            if (imageUrl) {
+                [retMessages addObject:imageUrl];
+            }
             
+        } else {
+            [retMessages addObject:message.localPath];
         }
     }
+    return retMessages;
+}
+
+/**
+ *  获取所有的聊天 album 图片消息
+ *
+ *  @return
+ */
+- (NSArray *)getAllChatAlbumImageInConversation
+{
+    NSMutableArray *retMessages = [[NSMutableArray alloc] init];
+    NSArray *imageMessages = [self.conversation getAllImageMessageInConversation];
+    for (ImageMessage *message in imageMessages) {
+        [retMessages addObject:message.localPath];
+    }
+    return retMessages;
 }
 
 #pragma mark - EMChatBarMoreViewDelegate

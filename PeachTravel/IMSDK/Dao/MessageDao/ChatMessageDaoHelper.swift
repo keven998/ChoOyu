@@ -66,6 +66,8 @@ protocol ChatMessageDaoHelperProtocol{
     
     func updateMessageContents(tableName: String, message: BaseMessage)
     
+    func selectAllImageMessageInChatTable(tableName: NSString) -> Array<BaseMessage> 
+    
 }
 
 class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
@@ -312,8 +314,8 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
     }
     
 //MARK: 获取所有的图片消息
-    func getAllImageMessageInChatTable(tableName: NSString) -> NSMutableArray? {
-        var imageMessageArray = NSMutableArray()
+    func selectAllImageMessageInChatTable(tableName: NSString) -> Array<BaseMessage> {
+        var imageMessageArray = Array<BaseMessage>()
         var retMessage: BaseMessage?
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
             
@@ -321,8 +323,9 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
             var rs = dataBase.executeQuery(sql, withArgumentsInArray: nil)
             if (rs != nil) {
                 while rs.next() {
-                    retMessage = ChatMessageDaoHelper.messageModelWithFMResultSet(rs, tableName: tableName)
-                    imageMessageArray.addObject(retMessage!)
+                    if let retMessage = ChatMessageDaoHelper.messageModelWithFMResultSet(rs, tableName: tableName) {
+                        imageMessageArray.append(retMessage)
+                    }
                 }
             }
         }
