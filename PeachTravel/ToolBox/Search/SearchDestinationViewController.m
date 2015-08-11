@@ -491,6 +491,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 
 
 #pragma mark - 实现UICollectionView的数据源以及代理方法
+
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     return 2;
@@ -555,20 +556,6 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     return nil;
 }
 
-// 设置头部的大小
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
-{
-    return CGSizeMake(SCREEN_WIDTH, 50);
-}
-
-// 设置item的大小
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-
-    return CGSizeMake(100, 50);
-}
-
-
 
 // 选中某一个item
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -580,6 +567,32 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [self loadDataSourceWithKeyWord:self.collectionArray[indexPath.item]];
 }
 
+#pragma mark - TaoziLayoutDelegate
+
+- (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return CGSizeMake(100, 50);
+}
+
+- (CGSize)collectionview:(UICollectionView *)collectionView sizeForHeaderView:(NSIndexPath *)indexPath
+{
+    return CGSizeMake(SCREEN_WIDTH, 50);
+}
+
+- (NSInteger)numberOfSectionsInTZCollectionView:(UICollectionView *)collectionView
+{
+    return 2;
+}
+
+- (NSInteger)tzcollectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return 1;
+}
+
+- (CGFloat)tzcollectionLayoutWidth
+{
+    return self.view.bounds.size.width;
+}
 
 #pragma mark - UISearchBar Delegate
 
