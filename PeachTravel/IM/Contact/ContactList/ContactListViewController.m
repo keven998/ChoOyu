@@ -19,16 +19,19 @@
 #import "ChatSettingViewController.h"
 #import "OtherUserInfoViewController.h"
 #import "UIBarButtonItem+MJ.h"
+#import "ContactSearchViewController.h"
+
 #define contactCell      @"contactCell"
 #define requestCell      @"requestCell"
 
-@interface ContactListViewController ()<UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, SWTableViewCellDelegate,FriendRequestManagerDelegate>
+@interface ContactListViewController ()<UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, SWTableViewCellDelegate,FriendRequestManagerDelegate,UISearchBarDelegate>
 
 @property (strong, nonatomic) UITableView *contactTableView;
 @property (strong, nonatomic) NSDictionary *dataSource;
 @property (strong, nonatomic) AccountManager *accountManager;
 
 @property (strong, nonatomic) UIView *emptyView;
+@property (strong, nonatomic) UISearchBar * searchBar;
 
 @end
 
@@ -49,7 +52,8 @@
     
     
     // 增加搜索控件
-//    self.
+//    self.contactTableView.contentInset = UIEdgeInsetsMake(44, 0, 0, 0);
+    [self setupSearchBar];
 }
 
 #pragma mark - 实现代理方法,这个方法会在同意添加一个好友的情况下调用
@@ -240,7 +244,8 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if (section == 0) {
-        return CGFLOAT_MIN;
+//        return CGFLOAT_MIN;
+        return 44;
     }
     return 27;
 }
@@ -259,6 +264,8 @@
         label.font = [UIFont systemFontOfSize:12];
         label.textColor = COLOR_TEXT_II;
         return label;
+    }else {
+        return self.searchBar;
     }
     return nil;
 }
@@ -359,5 +366,39 @@
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [self.searchBar endEditing:YES];
+}
+
+#pragma mark - 添加searchBar
+- (void)setupSearchBar{
+    
+    UISearchBar * searchBar = [[UISearchBar alloc] init];
+    searchBar.frame = CGRectMake(0, 0, kWindowWidth, 44);
+    searchBar.delegate = self;
+    self.searchBar = searchBar;
+//    _searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    [_searchBar setPlaceholder:@"联系人"];
+    _searchBar.tintColor = APP_PAGE_COLOR;
+    _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
+    [_searchBar setBackgroundImage:[ConvertMethods createImageWithColor:APP_PAGE_COLOR] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+    [_searchBar setBackgroundColor:APP_PAGE_COLOR];
+    _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
+
+//    [self.view addSubview:searchBar];
+}
+
+
+#pragma mark - 实现searchBar的代理方法
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+{
+    ContactSearchViewController *searchCtl = [[ContactSearchViewController alloc] init];
+    
+    searchCtl.hidesBottomBarWhenPushed = YES;
+    [searchCtl setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+    TZNavigationViewController *tznavc = [[TZNavigationViewController alloc] initWithRootViewController:searchCtl];
+    [self presentViewController:tznavc animated:YES completion:nil];
+}
 
 @end

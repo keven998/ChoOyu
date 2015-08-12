@@ -15,4 +15,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *nickNameLabel;
 
++ (id)contactListCellWithTableView:(UITableView *)tableView;
+
 @end

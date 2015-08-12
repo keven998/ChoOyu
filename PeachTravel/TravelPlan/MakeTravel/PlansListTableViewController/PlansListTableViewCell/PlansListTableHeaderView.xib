@@ -12,7 +12,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vQc-mQ-z2K">
-                    <rect key="frame" x="18" y="0.0" width="339" height="72"/>
+                    <rect key="frame" x="18" y="12" width="339" height="48"/>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oHh-gA-oPg">
                     <rect key="frame" x="122" y="36" width="130" height="16"/>
@@ -31,9 +31,9 @@
                 <constraint firstAttribute="bottom" secondItem="oHh-gA-oPg" secondAttribute="bottom" constant="20" id="6uu-HZ-bFg"/>
                 <constraint firstAttribute="trailing" secondItem="vQc-mQ-z2K" secondAttribute="trailing" constant="18" id="7m8-LA-hcN"/>
                 <constraint firstItem="vQc-mQ-z2K" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="18" id="FwI-En-YzW"/>
-                <constraint firstAttribute="bottom" secondItem="vQc-mQ-z2K" secondAttribute="bottom" id="Hqk-Dj-CrC"/>
+                <constraint firstAttribute="bottom" secondItem="vQc-mQ-z2K" secondAttribute="bottom" constant="12" id="Hqk-Dj-CrC"/>
                 <constraint firstAttribute="centerX" secondItem="oHh-gA-oPg" secondAttribute="centerX" id="PkI-0J-ETE"/>
-                <constraint firstItem="vQc-mQ-z2K" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="lIP-II-7aT"/>
+                <constraint firstItem="vQc-mQ-z2K" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="12" id="lIP-II-7aT"/>
                 <constraint firstItem="oHh-gA-oPg" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="36" id="z5p-0L-GmA"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
