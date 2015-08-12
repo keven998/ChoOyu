@@ -16,6 +16,7 @@
 #import "CityDetailTableViewController.h"
 #import "PoiDetailViewControllerFactory.h"
 #import "TaoziCollectionLayout.h"
+#import "DestinationSearchHistoryCell.h"
 
 @interface SearchDestinationViewController () <UISearchBarDelegate, UISearchControllerDelegate, UITableViewDataSource, UITableViewDelegate, TaoziMessageSendDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout, TaoziLayoutDelegate>
 
@@ -77,12 +78,16 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     TaoziCollectionLayout *layout = [[TaoziCollectionLayout alloc] init];
     layout.delegate = self;
     layout.showDecorationView = NO;
+    layout.spacePerItem = 10;
+    layout.spacePerLine = 10;
     UICollectionView * collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
     collectionView.contentInset = UIEdgeInsetsMake(0, 10, 0, 10);
     self.collectionView = collectionView;
     collectionView.dataSource = self;
     collectionView.delegate = self;
     collectionView.backgroundColor = APP_PAGE_COLOR;
+    [collectionView registerNib:[UINib nibWithNibName:@"DestinationSearchHistoryCell" bundle:nil] forCellWithReuseIdentifier:@"searchHistoryCell"];
+
     [self.view addSubview:collectionView];
     // 加载CollectionView的数据
     [self setupCollectionDataSource];
@@ -282,7 +287,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     } else {
         self.tableView.hidden = YES;
         self.collectionView.hidden = YES;
-        NSString *searchStr = [NSString stringWithFormat:@"没有找到“%@”的相关结果", _searchBar.text];
+        NSString *searchStr = [NSString stringWithFormat:@"没有找到“%@”的相关结果", _keyWord];
         [SVProgressHUD showHint:searchStr];
     }
 }
@@ -502,28 +507,14 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     } else {
         return 10;
     }
-    
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString * ID = @"cell";
-    [collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:ID];
-    
-    UICollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:ID forIndexPath:indexPath];
-    
+    DestinationSearchHistoryCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"searchHistoryCell" forIndexPath:indexPath];
     if (indexPath.section == 0) {
-        UILabel * title = [[UILabel alloc] init];
-        title.textAlignment = NSTextAlignmentCenter;
-        title.frame = cell.bounds;
-        [cell addSubview:title];
-        
-        title.text = self.collectionArray[indexPath.row];
-    } else {
-        cell.backgroundColor = [UIColor greenColor];
+        cell.titleLabel.text = self.collectionArray[indexPath.row];
     }
-
-    
     return cell;
 }
 
@@ -569,7 +560,9 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 
 - (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake(100, 50);
+    NSString *title = [_collectionArray objectAtIndex:indexPath.row];
+    CGSize size = [title sizeWithAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:17.0]}];
+    return CGSizeMake(size.width+20, 30);
 }
 
 - (CGSize)collectionview:(UICollectionView *)collectionView sizeForHeaderView:(NSIndexPath *)indexPath
@@ -579,12 +572,12 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 
 - (NSInteger)numberOfSectionsInTZCollectionView:(UICollectionView *)collectionView
 {
-    return self.collectionArray.count;
+    return 1;
 }
 
 - (NSInteger)tzcollectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 1;
+    return self.collectionArray.count;
 }
 
 - (CGFloat)tzcollectionLayoutWidth
