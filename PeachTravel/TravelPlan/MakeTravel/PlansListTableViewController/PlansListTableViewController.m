@@ -87,6 +87,7 @@ static NSString *reusableCell = @"myGuidesCell";
     [categoryBtn setImage:[UIImage imageNamed:@"plan_10_dashboard_sift"] forState:UIControlStateNormal];
     categoryBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 2);
     
+    /*
     if (_isOwner) {
         UIButton *editBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 20, 30)];
         [editBtn setImage:[UIImage imageNamed:@"plan_10_dashboard_add"] forState:UIControlStateNormal];
@@ -99,6 +100,12 @@ static NSString *reusableCell = @"myGuidesCell";
         UIBarButtonItem *sbtn = [[UIBarButtonItem alloc] initWithCustomView:categoryBtn];
         self.navigationItem.rightBarButtonItem = sbtn;
     }
+     */
+    
+    // 设置
+    UIBarButtonItem *sbtn = [[UIBarButtonItem alloc] initWithCustomView:categoryBtn];
+    self.navigationItem.rightBarButtonItem = sbtn;
+    
     
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithIcon:@"common_icon_navigaiton_back_normal.png" highIcon:@"common_icon_navigaiton_back_normal.png" target:self action:@selector(goBack)];
     
@@ -516,7 +523,10 @@ static NSString *reusableCell = @"myGuidesCell";
 #pragma mark - Table view data source
 
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 72;
+    if (_isOwner) {
+        return 72;
+    }
+    return 1;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -536,11 +546,14 @@ static NSString *reusableCell = @"myGuidesCell";
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    PlansListTableHeaderView * headerView = [PlansListTableHeaderView planListHeaderView];
-    
-    [headerView.addTourPlan addTarget:self action:@selector(makePlan) forControlEvents:UIControlEventTouchUpInside];
-    
-    return headerView;
+    if (_isOwner) {
+        PlansListTableHeaderView * headerView = [PlansListTableHeaderView planListHeaderView];
+        
+        [headerView.addTourPlan addTarget:self action:@selector(makePlan) forControlEvents:UIControlEventTouchUpInside];
+        
+        return headerView;
+    }
+    return nil;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

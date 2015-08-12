@@ -47,6 +47,9 @@
     [self.accountManager loadContactsFromServer];
     [[IMClientManager shareInstance].frendRequestManager addFrendRequestDelegate:self];
     
+    
+    // 增加搜索控件
+//    self.
 }
 
 #pragma mark - 实现代理方法,这个方法会在同意添加一个好友的情况下调用
