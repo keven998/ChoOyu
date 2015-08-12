@@ -95,7 +95,7 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
         [self.view addSubview:_upperView];
         [self.view addSubview:_bottomView];
         
-        [UIView animateWithDuration:0.5
+        [UIView animateWithDuration:0.3
                          animations:^(void) {
                              [_upperView setFrame:CGRectMake(0, -_upperView.bounds.size.height, _upperView.bounds.size.width, _upperView.bounds.size.height)];
                              [_bottomView setFrame:CGRectMake(0, kWindowHeight, _bottomView.bounds.size.width, _bottomView.bounds.size.height)];
@@ -104,7 +104,7 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
                              
                          }];
     } else {
-        [UIView animateWithDuration:0.5
+        [UIView animateWithDuration:0.3
                          animations:^(void) {
                              [self.upperView setFrame:CGRectMake(0, 0, kWindowWidth, sep-64)];
                              [self.bottomView setFrame:CGRectMake(0, sep-64, kWindowWidth, self.view.frame.size.height-sep+64)];

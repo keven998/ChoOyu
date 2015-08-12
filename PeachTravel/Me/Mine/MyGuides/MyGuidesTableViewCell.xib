@@ -228,22 +228,22 @@
                         <exclude reference="1br-w7-Gyw"/>
                     </mask>
                     <mask key="constraints">
-                        <exclude reference="5da-4W-Dde"/>
-                        <exclude reference="Hun-46-j7f"/>
-                        <exclude reference="WMT-Ld-BiG"/>
-                        <exclude reference="Ii5-iF-Agb"/>
-                        <exclude reference="XCV-Zq-9mW"/>
+                        <exclude reference="BZN-3E-rEH"/>
+                        <exclude reference="fFZ-dd-l9s"/>
                         <exclude reference="bih-WB-FNu"/>
                         <exclude reference="oCo-66-bm6"/>
                         <exclude reference="wJE-Q3-1Fw"/>
-                        <exclude reference="BZN-3E-rEH"/>
-                        <exclude reference="fFZ-dd-l9s"/>
-                        <exclude reference="xyd-k9-o4e"/>
-                        <exclude reference="3qG-WT-SMS"/>
-                        <exclude reference="moX-vv-dO1"/>
+                        <exclude reference="Ii5-iF-Agb"/>
+                        <exclude reference="XCV-Zq-9mW"/>
+                        <exclude reference="5da-4W-Dde"/>
+                        <exclude reference="Hun-46-j7f"/>
+                        <exclude reference="WMT-Ld-BiG"/>
                         <exclude reference="JaS-9y-W2Y"/>
                         <exclude reference="bXd-r0-otj"/>
                         <exclude reference="m6z-bb-9A0"/>
+                        <exclude reference="3qG-WT-SMS"/>
+                        <exclude reference="moX-vv-dO1"/>
+                        <exclude reference="xyd-k9-o4e"/>
                     </mask>
                 </variation>
                 <variation key="widthClass=compact">
@@ -257,22 +257,22 @@
                         <include reference="1br-w7-Gyw"/>
                     </mask>
                     <mask key="constraints">
-                        <include reference="5da-4W-Dde"/>
-                        <include reference="Hun-46-j7f"/>
-                        <include reference="WMT-Ld-BiG"/>
-                        <include reference="Ii5-iF-Agb"/>
-                        <include reference="XCV-Zq-9mW"/>
+                        <include reference="BZN-3E-rEH"/>
+                        <include reference="fFZ-dd-l9s"/>
                         <include reference="bih-WB-FNu"/>
                         <include reference="oCo-66-bm6"/>
                         <include reference="wJE-Q3-1Fw"/>
-                        <include reference="BZN-3E-rEH"/>
-                        <include reference="fFZ-dd-l9s"/>
-                        <include reference="xyd-k9-o4e"/>
-                        <include reference="3qG-WT-SMS"/>
-                        <include reference="moX-vv-dO1"/>
+                        <include reference="Ii5-iF-Agb"/>
+                        <include reference="XCV-Zq-9mW"/>
+                        <include reference="5da-4W-Dde"/>
+                        <include reference="Hun-46-j7f"/>
+                        <include reference="WMT-Ld-BiG"/>
                         <include reference="JaS-9y-W2Y"/>
                         <include reference="bXd-r0-otj"/>
                         <include reference="m6z-bb-9A0"/>
+                        <include reference="3qG-WT-SMS"/>
+                        <include reference="moX-vv-dO1"/>
+                        <include reference="xyd-k9-o4e"/>
                     </mask>
                 </variation>
             </tableViewCellContentView>
