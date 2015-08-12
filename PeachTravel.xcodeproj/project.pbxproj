@@ -1225,6 +1225,7 @@
 		E6C218841B79BB6B00877348 /* DMSlideTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C218801B79BB6B00877348 /* DMSlideTransition.m */; };
 		E6C218881B79C12D00877348 /* OZLExpandableTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C218871B79C12D00877348 /* OZLExpandableTableView.m */; };
 		E6E118F61B59EE280090FDEF /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E118F41B59EE280090FDEF /* UIView+Extension.m */; };
+		E6E6B4081B7AF3BD001A78F4 /* ContactSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E6B4071B7AF3BD001A78F4 /* ContactSearchViewController.m */; };
 		E6E7251E1B5603750007273A /* MJArgument.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E7250C1B5603750007273A /* MJArgument.m */; };
 		E6E7251F1B5603750007273A /* MJIvar.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E7250F1B5603750007273A /* MJIvar.m */; };
 		E6E725201B5603750007273A /* MJMember.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E725111B5603750007273A /* MJMember.m */; };
@@ -2873,6 +2874,8 @@
 		E6C218871B79C12D00877348 /* OZLExpandableTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OZLExpandableTableView.m; sourceTree = "<group>"; };
 		E6E118F31B59EE280090FDEF /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
 		E6E118F41B59EE280090FDEF /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
+		E6E6B4061B7AF3BD001A78F4 /* ContactSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactSearchViewController.h; sourceTree = "<group>"; };
+		E6E6B4071B7AF3BD001A78F4 /* ContactSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactSearchViewController.m; sourceTree = "<group>"; };
 		E6E7250B1B5603750007273A /* MJArgument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJArgument.h; sourceTree = "<group>"; };
 		E6E7250C1B5603750007273A /* MJArgument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJArgument.m; sourceTree = "<group>"; };
 		E6E7250D1B5603750007273A /* MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJExtension.h; sourceTree = "<group>"; };
@@ -4198,6 +4201,7 @@
 		D9A8004C1A80DD0C005AD701 /* ContactList */ = {
 			isa = PBXGroup;
 			children = (
+				E6E6B4051B7AF36D001A78F4 /* ContactSearch */,
 				D9A8004D1A80DD0C005AD701 /* ContactListViewController.h */,
 				D9A8004E1A80DD0C005AD701 /* ContactListViewController.m */,
 				D9A8004F1A80DD0C005AD701 /* ContactListViewController.xib */,
@@ -6607,6 +6611,15 @@
 			name = DropDownMenu;
 			sourceTree = "<group>";
 		};
+		E6E6B4051B7AF36D001A78F4 /* ContactSearch */ = {
+			isa = PBXGroup;
+			children = (
+				E6E6B4061B7AF3BD001A78F4 /* ContactSearchViewController.h */,
+				E6E6B4071B7AF3BD001A78F4 /* ContactSearchViewController.m */,
+			);
+			path = ContactSearch;
+			sourceTree = "<group>";
+		};
 		E6E7250A1B5603750007273A /* MJExtension */ = {
 			isa = PBXGroup;
 			children = (
@@ -7905,6 +7918,7 @@
 				D92CA1371AD8BEB400F244FF /* MWTapDetectingView.m in Sources */,
 				D9A802181A80E036005AD701 /* JGProgressHUDSuccessIndicatorView.m in Sources */,
 				D9A802F91A80E566005AD701 /* AppDelegate.m in Sources */,
+				E6E6B4081B7AF3BD001A78F4 /* ContactSearchViewController.m in Sources */,
 				27F4043C1AF0C73100CEA095 /* JobListViewController.m in Sources */,
 				D9F70CAD1B31523C00BDACA1 /* AccountDaoHelper.swift in Sources */,
 				D9A801271A80DD23005AD701 /* ConvertToCommonEmoticonsHelper.m in Sources */,
