@@ -21,6 +21,8 @@
 //    self.bgImageView.image = [UIImage imageNamed:@"plan_bg_add"];
     
     [self.addTourPlan setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+    
+    self.backgroundColor = APP_PAGE_COLOR;
 }
 
 @end
