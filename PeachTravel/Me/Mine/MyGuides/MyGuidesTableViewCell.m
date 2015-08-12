@@ -18,9 +18,9 @@
     _headerImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _headerImageView.clipsToBounds = YES;
     _sendBtn.layer.cornerRadius = 2.0;
-    [_sendBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_sendBtn setTitleColor:COLOR_TEXT_III forState:UIControlStateNormal];
     // 设置发送按钮的边框
-    _sendBtn.layer.borderColor = [UIColor whiteColor].CGColor;
+    _sendBtn.layer.borderColor = COLOR_LINE.CGColor;
     _sendBtn.layer.borderWidth = 1;
     
     _playedImage = [[UIImageView alloc]initWithFrame:CGRectMake(kWindowWidth-180, 55, 80, 80)];
