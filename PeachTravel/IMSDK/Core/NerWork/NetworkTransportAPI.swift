@@ -93,9 +93,16 @@ class NetworkTransportAPI: NSObject {
         manager.requestSerializer.setValue("\(accountManager.account.userId)", forHTTPHeaderField: "UserId")
         
         manager.DELETE(requstUrl, parameters: parameters, success: { (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
-            debug_print("删除成功")
+            if let code = responseObject.objectForKey("code") as? Int {
+                if code == 0 {
+                    completionBlock(isSuccess: true, errorCode: 0, retMessage: responseObject.objectForKey("result") as? NSDictionary)
+                } else {
+                    completionBlock(isSuccess: false, errorCode: 0, retMessage: nil)
+                }
+            }
+
         }) { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
-            debug_print("error")
+            completionBlock(isSuccess: false, errorCode: 0, retMessage: nil)
         }
     }
     

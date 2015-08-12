@@ -639,6 +639,8 @@
 		D9E0EEE71B7A19F2003872DF /* plan_delete@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E0EEE31B7A19F2003872DF /* plan_delete@3x.png */; };
 		D9E0EEEA1B7A1A41003872DF /* plan_bg_page_qian@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E0EEE81B7A1A40003872DF /* plan_bg_page_qian@2x.png */; };
 		D9E0EEEB1B7A1A41003872DF /* plan_bg_page_qian@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E0EEE91B7A1A41003872DF /* plan_bg_page_qian@3x.png */; };
+		D9E0EEEF1B7B0D6D003872DF /* DestinationSearchHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E0EEED1B7B0D6D003872DF /* DestinationSearchHistoryCell.m */; };
+		D9E0EEF01B7B0D6D003872DF /* DestinationSearchHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9E0EEEE1B7B0D6D003872DF /* DestinationSearchHistoryCell.xib */; };
 		D9E7E58E1AC281400072D5B9 /* AreaDestination.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E7E58D1AC281400072D5B9 /* AreaDestination.m */; };
 		D9E7E5911AC281B00072D5B9 /* CityDestinationPoi.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E7E5901AC281B00072D5B9 /* CityDestinationPoi.m */; };
 		D9E7EC0C1ACB932800D30A5A /* AccountModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E7EC0B1ACB932800D30A5A /* AccountModel.m */; };
@@ -2243,6 +2245,9 @@
 		D9E0EEE31B7A19F2003872DF /* plan_delete@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plan_delete@3x.png"; sourceTree = "<group>"; };
 		D9E0EEE81B7A1A40003872DF /* plan_bg_page_qian@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plan_bg_page_qian@2x.png"; sourceTree = "<group>"; };
 		D9E0EEE91B7A1A41003872DF /* plan_bg_page_qian@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plan_bg_page_qian@3x.png"; sourceTree = "<group>"; };
+		D9E0EEEC1B7B0D6D003872DF /* DestinationSearchHistoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationSearchHistoryCell.h; sourceTree = "<group>"; };
+		D9E0EEED1B7B0D6D003872DF /* DestinationSearchHistoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationSearchHistoryCell.m; sourceTree = "<group>"; };
+		D9E0EEEE1B7B0D6D003872DF /* DestinationSearchHistoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DestinationSearchHistoryCell.xib; sourceTree = "<group>"; };
 		D9E7E58C1AC281400072D5B9 /* AreaDestination.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AreaDestination.h; sourceTree = "<group>"; };
 		D9E7E58D1AC281400072D5B9 /* AreaDestination.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AreaDestination.m; sourceTree = "<group>"; };
 		D9E7E58F1AC281B00072D5B9 /* CityDestinationPoi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityDestinationPoi.h; sourceTree = "<group>"; };
@@ -5323,6 +5328,9 @@
 			children = (
 				D9823E821B19AA0200A1AE35 /* SuggestionDestinationTableViewController.h */,
 				D9823E831B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m */,
+				D9E0EEEC1B7B0D6D003872DF /* DestinationSearchHistoryCell.h */,
+				D9E0EEED1B7B0D6D003872DF /* DestinationSearchHistoryCell.m */,
+				D9E0EEEE1B7B0D6D003872DF /* DestinationSearchHistoryCell.xib */,
 				D9A8FF4B1A80CF19005AD701 /* SearchDestinationViewController.h */,
 				D9A8FF4C1A80CF19005AD701 /* SearchDestinationViewController.m */,
 				D9A8FF4D1A80CF19005AD701 /* SearchMoreDestinationViewController.h */,
@@ -7176,6 +7184,7 @@
 				E6381C0A1B66269000CF73AA /* Loading_Animation_final51@2x.png in Resources */,
 				E6381A8D1B65F61000CF73AA /* map_icon_17@3x.png in Resources */,
 				D90A9B321B5627C400E9F37C /* Loading_Animation_final7@3x.png in Resources */,
+				D9E0EEF01B7B0D6D003872DF /* DestinationSearchHistoryCell.xib in Resources */,
 				E68605731B6B52E600111D94 /* chat_wenwen@3x.png in Resources */,
 				E6381AF91B65F61000CF73AA /* lvxingpaipai@2x.png in Resources */,
 				D917DAD31A8B4A320039720A /* ic_guide3_talk3@2x.png in Resources */,
@@ -7736,6 +7745,7 @@
 				D9A802231A80E036005AD701 /* MyTripSpotsMapViewController.m in Sources */,
 				D92CA1111AD8BDF900F244FF /* NSMutableArray+SWUtilityButtons.m in Sources */,
 				D9A802B21A80E3D3005AD701 /* NSMutableDictionary+MyDictionary.m in Sources */,
+				D9E0EEEF1B7B0D6D003872DF /* DestinationSearchHistoryCell.m in Sources */,
 				C6D26C0F1B2C1CB80019AFA8 /* ScheduleEditorViewController.m in Sources */,
 				D9A802B71A80E3D3005AD701 /* UIResponder+Router.m in Sources */,
 				D992C9601B50FD0C000C7E2D /* TripFavoriteTableViewController.m in Sources */,
@@ -8316,7 +8326,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "29fde4c9-8e7c-469a-a7ac-991d634e16a0";
+				PROVISIONING_PROFILE = "89e9226b-f902-4ff1-a42b-397412bdcd62";
 				SWIFT_OBJC_BRIDGING_HEADER = "PeachTravel/PeachTravel-Bridging-Header.h";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
