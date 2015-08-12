@@ -280,7 +280,8 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         IMDiscussionGroupManager *groupManager = [IMDiscussionGroupManager shareInstance];
-        [groupManager asyncDeleteNumbersWithGroup:_groupModel members:@[_groupModel.members[indexPath.row]] completion:^(BOOL isSuccess, NSInteger errorCode) {
+        FrendModel *frendModel = _groupModel.members[indexPath.row];
+        [groupManager asyncDeleteNumbersWithGroup:_groupModel members:@[[NSNumber numberWithInteger:frendModel.userId]] completion:^(BOOL isSuccess, NSInteger errorCode) {
             if (isSuccess) {
                 [SVProgressHUD showHint:@"删除成功"];
                 [_tableView reloadData];
