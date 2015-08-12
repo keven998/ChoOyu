@@ -173,6 +173,7 @@
     _avatarImageView = avatar;
     
     // 给头像添加手势
+  
     UITapGestureRecognizer * tapAvatar = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAvatar:)];
     [avatar addGestureRecognizer:tapAvatar];
     
@@ -308,22 +309,27 @@
 - (void)tapAvatar:(UIGestureRecognizer *)tap{
     NSLog(@"点击了头像");
     
-    // 1.封装图片数据
-    NSMutableArray *photos = [NSMutableArray array];
-
+    if (self.accountManager.isLogin) {
+        // 1.封装图片数据
+        NSMutableArray *photos = [NSMutableArray array];
+        
         // 替换为中等尺寸图片
-    MJPhoto *photo = [[MJPhoto alloc] init];
-//    photo.url = [imageArray objectAtIndex:i]; // 图片路径
-    
-    photo.url = [AccountManager shareAccountManager].account.avatar;
-    photo.srcImageView = (UIImageView *)tap.view; // 来源于哪个UIImageView
-    [photos addObject:photo];
-    
-    // 2.显示相册
-    MJPhotoBrowser *browser = [[MJPhotoBrowser alloc] init];
-    browser.currentPhotoIndex = 0; // 弹出相册时显示的第一张图片是？
-    browser.photos = photos; // 设置所有的图片
-    [browser show];
+        MJPhoto *photo = [[MJPhoto alloc] init];
+        //    photo.url = [imageArray objectAtIndex:i]; // 图片路径
+        
+        photo.url = [AccountManager shareAccountManager].account.avatar;
+        photo.srcImageView = (UIImageView *)tap.view; // 来源于哪个UIImageView
+        [photos addObject:photo];
+        
+        // 2.显示相册
+        MJPhotoBrowser *browser = [[MJPhotoBrowser alloc] init];
+        browser.currentPhotoIndex = 0; // 弹出相册时显示的第一张图片是？
+        browser.photos = photos; // 设置所有的图片
+        [browser show];
+    } else {
+        [self userLogin];
+    }
+  
 }
 
 #pragma mark - setter & getter
