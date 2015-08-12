@@ -47,15 +47,19 @@ class MessageReceivePool: NSObject {
             var haveAdded = false
             for var i = messageList.count-1; i>=0; i-- {
                 var oldMessage = messageList.objectAtIndex(i) as! BaseMessage
+                
+                //如果新加的消息和最后一条消息的 serverId 相等，丢直接 break，因为不存在插入位置
                 if message.serverId == oldMessage.serverId {
                     haveAdded = true
                     debug_println("equail....")
                     break
                     
+                //如果新消息的 serverId 比最后一条消息小，则继续寻找插入位置
                 } else if message.serverId < oldMessage.serverId {
                     debug_println("continue....message ServerID:\(message.serverId)  oldMessage.serverId: \(oldMessage.serverId)")
                     continue
                     
+                //如果新消息的 serverId 比最后一条的大，则插入
                 } else if message.serverId > oldMessage.serverId {
                     messageList.insertObject(message, atIndex: i+1)
                     debug_println("> and insert atIndex \(i+1)")
