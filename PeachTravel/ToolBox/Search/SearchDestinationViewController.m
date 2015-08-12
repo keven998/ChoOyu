@@ -84,11 +84,8 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     collectionView.delegate = self;
     collectionView.backgroundColor = APP_PAGE_COLOR;
     [self.view addSubview:collectionView];
-    
     // 加载CollectionView的数据
     [self setupCollectionDataSource];
-    
-    
 }
 
 // 加载CollectionView的数据源
