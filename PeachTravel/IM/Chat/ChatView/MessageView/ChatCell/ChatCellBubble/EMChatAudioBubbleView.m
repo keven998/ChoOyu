@@ -54,9 +54,13 @@ NSString *const kRouterEventAudioBubbleTapEventName = @"kRouterEventAudioBubbleT
 
 - (CGSize)sizeThatFits:(CGSize)size
 {
-    CGFloat width = BUBBLE_VIEW_PADDING*2 + BUBBLE_ARROW_WIDTH + ANIMATION_TIME_LABEL_WIDHT +ANIMATION_TIME_IMAGEVIEW_PADDING + ANIMATION_IMAGEVIEW_SIZE;
-    
-    return CGSizeMake(width, 40);
+    float time = (float)roundf(self.model.time);
+    float audioLength = time/60 * (kWindowWidth/2);
+    if (audioLength > kWindowWidth/2) {
+        audioLength = kWindowWidth/2;
+    }
+    audioLength += 60;
+    return CGSizeMake(audioLength+40, 40);
 }
 
 - (void)layoutSubviews
@@ -66,17 +70,19 @@ NSString *const kRouterEventAudioBubbleTapEventName = @"kRouterEventAudioBubbleT
     CGRect frame = _animationImageView.frame;
     
     if (self.model.isSender) {
+        self.backImageView.frame = CGRectMake(40, 0, self.bounds.size.width - 40, 40);
         frame.origin.x = self.frame.size.width - BUBBLE_ARROW_WIDTH - frame.size.width - BUBBLE_VIEW_PADDING;
         frame.origin.y = self.frame.size.height / 2 - frame.size.height / 2;
         _animationImageView.frame = frame;
-        _timeLabel.textColor = [UIColor whiteColor];
+        _timeLabel.textColor = UIColorFromRGB(0x797979);
 
         frame = _timeLabel.frame;
-        frame.origin.x = _animationImageView.frame.origin.x - ANIMATION_TIME_IMAGEVIEW_PADDING - ANIMATION_TIME_LABEL_WIDHT;
+        frame.origin.x = 0;
         frame.origin.y = _animationImageView.center.y - frame.size.height / 2;
         _timeLabel.frame = frame;
 
     } else {
+        self.backImageView.frame = CGRectMake(0, 0, self.bounds.size.width - 40, 40);
         _animationImageView.image = [UIImage imageNamed:RECEIVER_ANIMATION_IMAGEVIEW_IMAGE_DEFAULT];
         _timeLabel.textColor = UIColorFromRGB(0x797979);
 
@@ -84,14 +90,17 @@ NSString *const kRouterEventAudioBubbleTapEventName = @"kRouterEventAudioBubbleT
         frame.origin.y = self.frame.size.height / 2 - frame.size.height / 2;
         _animationImageView.frame = frame;
         
-        frame = _timeLabel.frame;
-        frame.origin.x = ANIMATION_TIME_IMAGEVIEW_PADDING + _animationImageView.frame.size.width + _animationImageView.frame.origin.x;
-        frame.origin.y = _animationImageView.center.y - frame.size.height / 2;
-        _timeLabel.frame = frame;
-        frame.origin.x = self.frame.size.width + 2;
+        frame.origin.x = self.backImageView.bounds.size.width + 4;
         frame.origin.y = 0;
         frame.size = _isReadView.frame.size;
         _isReadView.frame = frame;
+        
+        frame = _timeLabel.frame;
+        frame.origin.x = self.backImageView.bounds.size.width + 4;
+        frame.origin.y = _animationImageView.center.y - frame.size.height / 2;
+        _timeLabel.frame = frame;
+
+        
     }
 }
 
