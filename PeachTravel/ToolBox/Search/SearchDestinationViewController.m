@@ -94,12 +94,13 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 // 加载CollectionView的数据源
 - (void)setupCollectionDataSource
 {
+    
     NSArray * recentResult = [[TMCache sharedCache] objectForKey:kSearchDestinationCacheKey];
+    if (recentResult) {
+        [self.collectionArray addObjectsFromArray:recentResult];
+        [self.collectionView reloadData];
+    }
     NSLog(@"%@",recentResult);
-    
-    [self.collectionArray addObjectsFromArray:recentResult];
-    
-    [self.collectionView reloadData];
 }
 
 - (void)goBack {
@@ -581,7 +582,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 
 - (NSInteger)numberOfSectionsInTZCollectionView:(UICollectionView *)collectionView
 {
-    return 2;
+    return self.collectionArray.count;
 }
 
 - (NSInteger)tzcollectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
