@@ -91,16 +91,8 @@
     UIButton *footerBtn = [[UIButton alloc]initWithFrame:CGRectMake(10, 32, CGRectGetWidth(self.view.bounds) - 20, 58 * kWindowHeight/736)];
     [footerBtn setBackgroundImage:[[UIImage imageNamed:@"chat_drawer_leave.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(8, 8, 8, 8)] forState:UIControlStateNormal];
     footerBtn.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    if (_groupModel.owner == [AccountManager shareAccountManager].account.userId) {
-        [footerBtn setTitle:@"解散该群" forState:UIControlStateNormal];
-        [footerBtn addTarget:self action:@selector(quitGroup:) forControlEvents:UIControlEventTouchUpInside];
-        
-    } else {
-        [footerBtn setTitle:@"退出该群" forState:UIControlStateNormal];
-        [footerBtn addTarget:self action:@selector(deleteGroup:) forControlEvents:UIControlEventTouchUpInside];
-    }
-   
-
+    [footerBtn setTitle:@"退出该群" forState:UIControlStateNormal];
+    [footerBtn addTarget:self action:@selector(quitGroup:) forControlEvents:UIControlEventTouchUpInside];
     [footerBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     footerBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14];
     [footerBg addSubview:footerBtn];
@@ -428,18 +420,20 @@
  *
  *  @param sender
  */
-- (IBAction)quitGroup:(UIButton *)sender {
+- (IBAction)deleteGroup:(UIButton *)sender {
     
     IMDiscussionGroupManager * manager = [IMDiscussionGroupManager shareInstance];
     [manager asyncDeleteDiscussionGroup:_groupId completionBlock:^(BOOL isSuccess, NSInteger errorCode, NSDictionary * __nullable retMessage) {
         
         if (isSuccess) {
-            NSLog(@"解散该群成功");
+            [SVProgressHUD showHint:@"解散群组成功"];
             IMClientManager *manager = [IMClientManager shareInstance];
             [manager.conversationManager removeConversationWithChatterId:_groupId deleteMessage:YES];
             [self.navigationController popViewControllerAnimated:YES];
         }else{
             NSLog(@"解散失败");
+            [SVProgressHUD showHint:@"解散群组失败"];
+
         }
     }];
 }
@@ -449,7 +443,7 @@
  *
  *  @param sender
  */
-- (IBAction)deleteGroup:(id)sender {
+- (IBAction)quitGroup:(id)sender {
     
     IMDiscussionGroupManager *manager = [IMDiscussionGroupManager shareInstance];
     
@@ -458,9 +452,13 @@
                               completion:^(BOOL isSuccess, NSInteger errorCode) {
                                   if (isSuccess) {
                                       NSLog(@"退出该群成功");
+                                      [SVProgressHUD showHint:@"退出群组成功"];
                                       IMClientManager * manager = [IMClientManager shareInstance];
                                       [manager.conversationManager removeConversationWithChatterId:_groupId deleteMessage:YES];
                                       [self.navigationController popViewControllerAnimated:YES];
+                                  } else {
+                                      [SVProgressHUD showHint:@"退出群组失败"];
+
                                   }
                               }];
 }
