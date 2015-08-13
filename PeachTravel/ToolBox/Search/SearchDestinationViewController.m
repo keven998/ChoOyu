@@ -17,6 +17,7 @@
 #import "PoiDetailViewControllerFactory.h"
 #import "TaoziCollectionLayout.h"
 #import "DestinationSearchHistoryCell.h"
+#import "SearchDestinationHistoryCollectionReusableView.h"
 
 @interface SearchDestinationViewController () <UISearchBarDelegate, UISearchControllerDelegate, UITableViewDataSource, UITableViewDelegate, TaoziMessageSendDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout, TaoziLayoutDelegate>
 
@@ -79,6 +80,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     collectionView.backgroundColor = APP_PAGE_COLOR;
     collectionView.showsVerticalScrollIndicator = NO;
     [collectionView registerNib:[UINib nibWithNibName:@"DestinationSearchHistoryCell" bundle:nil] forCellWithReuseIdentifier:@"searchHistoryCell"];
+    [collectionView registerNib:[UINib nibWithNibName:@"SearchDestinationHistoryCollectionReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"searchDestinationHeader"];
 
     [self.view addSubview:collectionView];
     // 加载CollectionView的数据
@@ -121,6 +123,13 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 - (void)hideCollectionView
 {
     _collectionView.hidden = YES;
+}
+
+- (void)clearSearchHistory
+{
+    [[TMCache sharedCache] removeObjectForKey:kSearchDestinationCacheKey];
+    [_collectionArray[0] removeAllObjects];
+    [_collectionView reloadData];
 }
 
 // 懒加载
@@ -530,23 +539,18 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 // collection的头部
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
-    NSString * ID = @"header";
-    [collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:ID];
     if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-        
-        UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:ID forIndexPath:indexPath];
-        
-        UILabel * title = [[UILabel alloc] init];
-        
+        SearchDestinationHistoryCollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"searchDestinationHeader" forIndexPath:indexPath];
         if (indexPath.section == 0 && [[self.collectionArray objectAtIndex:0] count]) {
-            title.text = @"历史搜索";
+            headerView.titleLabel.text = @"历史搜索";
+            headerView.actionButton.hidden = NO;
+            [headerView.actionButton setTitle:@"清除" forState:UIControlStateNormal];
+            [headerView.actionButton addTarget:self action:@selector(clearSearchHistory) forControlEvents:UIControlEventTouchUpInside];
+            
         } else if (indexPath.section == 1 && [[self.collectionArray objectAtIndex:1] count]) {
-            title.text = @"热门搜索词";
+            headerView.titleLabel.text = @"热门搜索";
+            headerView.actionButton.hidden = YES;
         }
-        
-        title.frame = headerView.bounds;
-        [headerView addSubview:title];
-        
         return headerView;
     }
     
@@ -622,7 +626,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     }
     [mutableArray insertObject:searchBar.text atIndex:0];
     [[TMCache sharedCache] setObject:mutableArray forKey:kSearchDestinationCacheKey];
-    self.collectionArray = mutableArray;
+    self.collectionArray[0] = mutableArray;
     [self loadDataSourceWithKeyWord:searchBar.text];
    
 }
