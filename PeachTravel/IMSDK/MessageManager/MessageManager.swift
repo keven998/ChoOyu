@@ -320,6 +320,7 @@ class MessageManager: NSObject {
                             messageModel!.chatterId = messageDic.objectForKey("receiverId") as! Int
                         } else {
                             messageModel!.chatterId = messageDic.objectForKey("senderId") as! Int
+                            messageModel!.reveiverId = messageDic.objectForKey("receiverId") as? Int
                         }
                         messageModel!.chatType = IMChatType.IMChatSingleType
                         

@@ -378,10 +378,21 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
             if let message = MessageManager.messageModelWithMessage(message) {
                 if message.senderId == IMClientManager.shareInstance().accountId {
                     message.sendType = IMMessageSendType.MessageSendMine
+                    messagePool.addMessage4Reorder(message)
                 } else {
-                    message.sendType = IMMessageSendType.MessageSendSomeoneElse
+                    if let receiverId = message.reveiverId {
+                        //如果收到的消息中包含 receiverid，那么判断是不是发送给你的消息，如果不带 receiverid，则默认是发给你的消息
+                        if receiverId == IMClientManager.shareInstance().accountId {
+                            message.sendType = IMMessageSendType.MessageSendSomeoneElse
+                            messagePool.addMessage4Reorder(message)
+                        }
+                    } else {
+                        message.sendType = IMMessageSendType.MessageSendSomeoneElse
+                        messagePool.addMessage4Reorder(message)
+
+                    }
+
                 }
-                messagePool.addMessage4Reorder(message)
             }
         }
     }
