@@ -228,9 +228,6 @@ static NSString *reusableCell = @"myGuidesCell";
 
 - (void)makePlan {
     
-    [self.tableView reloadData];
-    
-    /*
     [MobClick event:@"navigation_item_plan_create"];
     
     Destinations *destinations = [[Destinations alloc] init];
@@ -254,7 +251,7 @@ static NSString *reusableCell = @"myGuidesCell";
     
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:makePlanCtl];
     [self presentViewController:nav animated:YES completion:nil];
-     */
+    
 }
 
 #pragma mark - setter & getter
@@ -274,7 +271,12 @@ static NSString *reusableCell = @"myGuidesCell";
  *  @param sender
  */
 - (void)pullToRefreash:(id)sender {
-    self.isNewCopy = YES;
+    
+    // 设置是否是最新复制
+    if (![sender isKindOfClass:[UIRefreshControl class]]) {
+        self.isNewCopy = YES;
+    }
+    
     [self loadData:_contentType WithPageIndex:0];
 }
 
