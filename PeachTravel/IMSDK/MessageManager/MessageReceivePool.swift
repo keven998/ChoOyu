@@ -76,6 +76,8 @@ class MessageReceivePool: NSObject {
             var newMessageList = NSMutableArray()
             newMessageList.addObject(message)
             debug_println("newMessageList")
+            
+            // 用聊天ID给消息数设置键值
             messagePrepare2Reorder.setObject(newMessageList, forKey: message.chatterId)
         }
     }
@@ -94,6 +96,9 @@ class MessageReceivePool: NSObject {
         return false
     }
     
+    /**
+    定时分发消息
+    */
     func distrubuteMessage() {
         var count = 0
         for messageList in messagePrepare2Reorder.allValues {

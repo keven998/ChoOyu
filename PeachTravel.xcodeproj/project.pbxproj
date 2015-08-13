@@ -336,7 +336,6 @@
 		D9980C811B66249000FAA28B /* dx_checkbox_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9980C7F1B66249000FAA28B /* dx_checkbox_on@2x.png */; };
 		D9980C821B66249000FAA28B /* dx_checkbox_on@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9980C801B66249000FAA28B /* dx_checkbox_on@3x.png */; };
 		D99D8EE519C8600C0021C25B /* PeachTravelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D99D8EE419C8600C0021C25B /* PeachTravelTests.m */; };
-		D9A800171A80D52F005AD701 /* MakePlanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FFD31A80D52F005AD701 /* MakePlanViewController.m */; };
 		D9A8001A1A80D52F005AD701 /* Destinations.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FFDA1A80D52F005AD701 /* Destinations.m */; };
 		D9A8001B1A80D52F005AD701 /* CityCardReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FFDD1A80D52F005AD701 /* CityCardReusableView.m */; };
 		D9A8001C1A80D52F005AD701 /* DomesticViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FFDF1A80D52F005AD701 /* DomesticViewController.m */; };
@@ -1211,6 +1210,10 @@
 		E68605711B6B52E600111D94 /* chat_paipai@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E686056D1B6B52E600111D94 /* chat_paipai@3x.png */; };
 		E68605721B6B52E600111D94 /* chat_wenwen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E686056E1B6B52E600111D94 /* chat_wenwen@2x.png */; };
 		E68605731B6B52E600111D94 /* chat_wenwen@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E686056F1B6B52E600111D94 /* chat_wenwen@3x.png */; };
+		E690D8CB1B7C7F5300BFDF1B /* MakePlanSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = E690D8CA1B7C7F5300BFDF1B /* MakePlanSearchController.m */; };
+		E690D8CF1B7C8F9F00BFDF1B /* MakePlanSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E690D8CD1B7C8F9F00BFDF1B /* MakePlanSearchCell.m */; };
+		E690D8D01B7C8F9F00BFDF1B /* MakePlanSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E690D8CE1B7C8F9F00BFDF1B /* MakePlanSearchCell.xib */; };
+		E690D8D21B7CB71B00BFDF1B /* MakePlanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E690D8D11B7CB71B00BFDF1B /* MakePlanViewController.m */; };
 		E69E66E81B69CD660044275A /* ic_userInfo_add_avatar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E69E66E61B69CD660044275A /* ic_userInfo_add_avatar@2x.png */; };
 		E69E66E91B69CD660044275A /* ic_userInfo_add_avatar@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E69E66E71B69CD660044275A /* ic_userInfo_add_avatar@3x.png */; };
 		E6A2EEE51B7A041300C66D8F /* PlansListTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6A2EEE41B7A041300C66D8F /* PlansListTableHeaderView.m */; };
@@ -2169,7 +2172,6 @@
 		D9A8FFC81A80D216005AD701 /* RecommendDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendDataSource.h; sourceTree = "<group>"; };
 		D9A8FFC91A80D216005AD701 /* RecommendDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendDataSource.m; sourceTree = "<group>"; };
 		D9A8FFD21A80D52F005AD701 /* MakePlanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakePlanViewController.h; sourceTree = "<group>"; };
-		D9A8FFD31A80D52F005AD701 /* MakePlanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MakePlanViewController.m; sourceTree = "<group>"; };
 		D9A8FFD91A80D52F005AD701 /* Destinations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Destinations.h; sourceTree = "<group>"; };
 		D9A8FFDA1A80D52F005AD701 /* Destinations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Destinations.m; sourceTree = "<group>"; };
 		D9A8FFDC1A80D52F005AD701 /* CityCardReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityCardReusableView.h; sourceTree = "<group>"; };
@@ -2854,6 +2856,12 @@
 		E686056D1B6B52E600111D94 /* chat_paipai@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_paipai@3x.png"; sourceTree = "<group>"; };
 		E686056E1B6B52E600111D94 /* chat_wenwen@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_wenwen@2x.png"; sourceTree = "<group>"; };
 		E686056F1B6B52E600111D94 /* chat_wenwen@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_wenwen@3x.png"; sourceTree = "<group>"; };
+		E690D8C91B7C7F5300BFDF1B /* MakePlanSearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakePlanSearchController.h; sourceTree = "<group>"; };
+		E690D8CA1B7C7F5300BFDF1B /* MakePlanSearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MakePlanSearchController.m; sourceTree = "<group>"; };
+		E690D8CC1B7C8F9F00BFDF1B /* MakePlanSearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakePlanSearchCell.h; sourceTree = "<group>"; };
+		E690D8CD1B7C8F9F00BFDF1B /* MakePlanSearchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MakePlanSearchCell.m; sourceTree = "<group>"; };
+		E690D8CE1B7C8F9F00BFDF1B /* MakePlanSearchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MakePlanSearchCell.xib; sourceTree = "<group>"; };
+		E690D8D11B7CB71B00BFDF1B /* MakePlanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MakePlanViewController.m; sourceTree = "<group>"; };
 		E69E66E61B69CD660044275A /* ic_userInfo_add_avatar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_userInfo_add_avatar@2x.png"; sourceTree = "<group>"; };
 		E69E66E71B69CD660044275A /* ic_userInfo_add_avatar@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_userInfo_add_avatar@3x.png"; sourceTree = "<group>"; };
 		E6A2EEE31B7A041300C66D8F /* PlansListTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlansListTableHeaderView.h; sourceTree = "<group>"; };
@@ -5483,7 +5491,9 @@
 			isa = PBXGroup;
 			children = (
 				D9A8FFD21A80D52F005AD701 /* MakePlanViewController.h */,
-				D9A8FFD31A80D52F005AD701 /* MakePlanViewController.m */,
+				E690D8D11B7CB71B00BFDF1B /* MakePlanViewController.m */,
+				E690D8C91B7C7F5300BFDF1B /* MakePlanSearchController.h */,
+				E690D8CA1B7C7F5300BFDF1B /* MakePlanSearchController.m */,
 				D9A8FFD41A80D52F005AD701 /* Model */,
 				D9A8FFDB1A80D52F005AD701 /* ViewControllers */,
 				D9A8FFE61A80D52F005AD701 /* Views */,
@@ -5540,6 +5550,9 @@
 				E6BFE5FA1B5E732F00A9FDCA /* DestinationCollectionViewCell.h */,
 				E6BFE5FB1B5E732F00A9FDCA /* DestinationCollectionViewCell.m */,
 				E6BFE5FC1B5E732F00A9FDCA /* DestinationCollectionViewCell.xib */,
+				E690D8CC1B7C8F9F00BFDF1B /* MakePlanSearchCell.h */,
+				E690D8CD1B7C8F9F00BFDF1B /* MakePlanSearchCell.m */,
+				E690D8CE1B7C8F9F00BFDF1B /* MakePlanSearchCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -7511,6 +7524,7 @@
 				D9D519911B71ED110041D01A /* ic_navigationbar_menu_add@2x.png in Resources */,
 				D9A800611A80DD0C005AD701 /* AddressBookTableViewCell.xib in Resources */,
 				D9A8FEDB1A80C8A4005AD701 /* PushMsgsViewController.xib in Resources */,
+				E690D8D01B7C8F9F00BFDF1B /* MakePlanSearchCell.xib in Resources */,
 				E6381A6D1B65F61000CF73AA /* collect_shopping@3x.png in Resources */,
 				E6381A781B65F61000CF73AA /* Default-375w-667h@2x~iphone.png in Resources */,
 				E6381A291B65F61000CF73AA /* poi_icon_phone@3x.png in Resources */,
@@ -7758,7 +7772,6 @@
 				D993C2391B12DF0C0088D568 /* NSString+Base64.m in Sources */,
 				27FF1A791B059AFA00643D77 /* TripPlanSettingCell.m in Sources */,
 				D9A802271A80E036005AD701 /* pinyin.c in Sources */,
-				D9A800171A80D52F005AD701 /* MakePlanViewController.m in Sources */,
 				C6F87A191ACD1C4400BB7D7F /* PXAlertView.m in Sources */,
 				D993C2521B12DF0C0088D568 /* IMConstants.swift in Sources */,
 				D9A8FF5F1A80CF19005AD701 /* SearchResultTableViewCell.m in Sources */,
@@ -7859,6 +7872,7 @@
 				D9A802DE1A80E3D3005AD701 /* EAIntroPage.m in Sources */,
 				D9A8FFAB1A80D1C3005AD701 /* PoiDetailSuperViewController.m in Sources */,
 				D9A8006D1A80DD0C005AD701 /* FrendRequestTableViewCell.m in Sources */,
+				E690D8D21B7CB71B00BFDF1B /* MakePlanViewController.m in Sources */,
 				D9A8FEC81A80C818005AD701 /* MyGuidesTableViewCell.m in Sources */,
 				D9A8002D1A80D52F005AD701 /* AddPoiViewController.m in Sources */,
 				E6E7251F1B5603750007273A /* MJIvar.m in Sources */,
@@ -7914,6 +7928,7 @@
 				D91851261B5914CF004B8363 /* SearchFrendTableViewController.m in Sources */,
 				D90042CA1B144275006F6B63 /* FrendManager+ClassMethod.swift in Sources */,
 				D92CA1151AD8BDF900F244FF /* SWUtilityButtonTapGestureRecognizer.m in Sources */,
+				E690D8CF1B7C8F9F00BFDF1B /* MakePlanSearchCell.m in Sources */,
 				E6E725241B5603750007273A /* NSObject+MJCoding.m in Sources */,
 				D92CA1311AD8BEB400F244FF /* MWCaptionView.m in Sources */,
 				D9A8FF131A80CC2B005AD701 /* LoginViewController.m in Sources */,
@@ -8080,6 +8095,7 @@
 				D993CB571AB6CB030075314E /* SpotPoi.m in Sources */,
 				D9A800691A80DD0C005AD701 /* ContactListTableViewCell.m in Sources */,
 				D9F46DC01AC52D8600972AE8 /* SVWebViewControllerActivitySafari.m in Sources */,
+				E690D8CB1B7C7F5300BFDF1B /* MakePlanSearchController.m in Sources */,
 				C6F87A181ACD1C4400BB7D7F /* PXAlertView+Customization.m in Sources */,
 				D9A8014B1A80DD23005AD701 /* TipsChatTableViewCell.m in Sources */,
 				D993C2661B12DF0C0088D568 /* IMSpotMessage.swift in Sources */,

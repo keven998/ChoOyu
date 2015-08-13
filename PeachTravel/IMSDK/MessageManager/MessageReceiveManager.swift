@@ -8,6 +8,7 @@
    
 import UIKit
 
+// 两种消息的RoutingKey
 @objc enum MessageReceiveDelegateRoutingKey: Int {
     case normal = 1
     case cmd = 2
@@ -381,6 +382,7 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
                 } else {
                     message.sendType = IMMessageSendType.MessageSendSomeoneElse
                 }
+                // 将消息重新排序,排序完成后会调用下面的代理方法
                 messagePool.addMessage4Reorder(message)
             }
         }
@@ -392,6 +394,8 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
         receiveMessageList = messageList.copy() as? NSDictionary
         dispatch_async(messageReceiveQueue, { () -> Void in
             debug_println("messgeReorderOver queue: \(NSThread.currentThread())")
+            // 通过allValues属性获得所有键值元素组成的Array数组对象
+            // 通过allKeys属性来获得当前字典集合中的所有键名元素组成的Array对象
             for messageList in self.receiveMessageList!.allValues {
                 self.checkMessages(messageList as! NSArray)
             }
