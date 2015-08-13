@@ -25,11 +25,5 @@
     self.backgroundColor = APP_PAGE_COLOR;
 }
 
-- (void)willMoveToSuperview:(UIView *)newSuperview
-{
-    [super willMoveToSuperview:newSuperview];
-    
-    self.frame = CGRectMake(0, 0, kWindowWidth, 72);
-}
 
 @end
