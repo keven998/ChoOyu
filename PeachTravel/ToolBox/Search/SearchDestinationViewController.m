@@ -121,6 +121,17 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [_searchBar endEditing:YES];
 }
 
+- (void)showCollectionView
+{
+    [_collectionView reloadData];
+    _collectionView.hidden = NO;
+}
+
+- (void)hideCollectionView
+{
+    _collectionView.hidden = YES;
+}
+
 - (UITableView *)tableView
 {
     if (!_tableView) {
@@ -154,7 +165,8 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [self.searchBar endEditing:YES];
     [super touchesEnded:touches withEvent:event];
     if (self.dataSource.count == 0) {
-        [self goBack];
+        self.tableView.hidden = YES;
+        [self showCollectionView];
     }
 }
 
@@ -281,12 +293,8 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         [self.dataSource addObject:hotelDic];
     }
     if (self.dataSource.count>0) {
-        self.tableView.hidden = NO;
-        self.collectionView.hidden = YES;
         [self.tableView reloadData];
     } else {
-        self.tableView.hidden = YES;
-        self.collectionView.hidden = YES;
         NSString *searchStr = [NSString stringWithFormat:@"没有找到“%@”的相关结果", _keyWord];
         [SVProgressHUD showHint:searchStr];
     }
@@ -599,9 +607,21 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     } else {
         mutableArray = [[NSMutableArray alloc] init];
     }
-    [mutableArray addObject:searchBar.text];
+    for (NSString *str in mutableArray) {
+        if ([str isEqualToString:searchBar.text]) {
+            [mutableArray removeObject:str];
+            break;
+        }
+    }
+    if (mutableArray.count >= 10) {
+        [mutableArray removeLastObject];
+    }
+    [mutableArray insertObject:searchBar.text atIndex:0];
     [[TMCache sharedCache] setObject:mutableArray forKey:kSearchDestinationCacheKey];
+    self.collectionArray = mutableArray;
     [self loadDataSourceWithKeyWord:searchBar.text];
+    self.tableView.hidden = YES;
+    [self hideCollectionView];
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
@@ -609,6 +629,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         [self.dataSource removeAllObjects];
         [_tableView reloadData];
         _tableView.hidden = YES;
+        [self showCollectionView];
     }
 }
 
