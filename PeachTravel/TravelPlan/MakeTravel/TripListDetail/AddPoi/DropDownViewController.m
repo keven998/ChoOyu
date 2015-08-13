@@ -28,6 +28,8 @@
     
     // 设置tableView不能滚动
     self.tableView.scrollEnabled = NO;
+    
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
 - (void)setSiteArray:(NSArray *)siteArray
@@ -52,12 +54,21 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
     }
     
+    // 添加分割线
+    if (indexPath.row != self.siteArray.count - 1) {
+        UIView * underLine = [[UIView alloc] init];
+        underLine.backgroundColor = [UIColor grayColor];
+        underLine.alpha = 0.5;
+        underLine.frame = CGRectMake(0, cell.frame.size.height - 1, kWindowWidth, 1);
+        [cell addSubview:underLine];
+    }
+    
+    
     cell.textLabel.text = self.siteArray[indexPath.row];
     [cell.textLabel setTextColor:TZColor(100, 100, 100)];
     cell.textLabel.font = [UIFont fontWithName:@"STHeitiSC-Light" size:16];
     
     if (self.showAccessory == indexPath.row) {
-//        cell.accessoryType = UITableViewCellAccessoryCheckmark;
         cell.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ArtboardCheck"]];
     }
     

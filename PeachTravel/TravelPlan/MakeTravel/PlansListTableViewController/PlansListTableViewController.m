@@ -438,9 +438,6 @@ static NSString *reusableCell = @"myGuidesCell";
     
     [self.tableView reloadData];
     
-    CGPoint currentPoint = self.tableView.contentOffset;
-    self.tableView.contentOffset = CGPointMake(currentPoint.x, currentPoint.y + 10);
-    
     if (_dataSource.count >= 10) {
         _enableLoadMore = YES;
     }
