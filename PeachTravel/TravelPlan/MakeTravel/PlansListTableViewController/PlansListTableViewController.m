@@ -112,9 +112,7 @@ static NSString *reusableCell = @"myGuidesCell";
     
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithIcon:@"common_icon_navigaiton_back_normal.png" highIcon:@"common_icon_navigaiton_back_normal.png" target:self action:@selector(goBack)];
     
-    self.tableView = [[UITableView alloc] init];
-
-    self.tableView.frame = self.view.bounds;
+    self.tableView = [[UITableView alloc] initWithFrame:self.view.frame];
 
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.tableView.delegate = self;
@@ -122,7 +120,6 @@ static NSString *reusableCell = @"myGuidesCell";
     self.tableView.backgroundColor = APP_PAGE_COLOR;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerNib:[UINib nibWithNibName:@"MyGuidesTableViewCell" bundle:nil] forCellReuseIdentifier:reusableCell];
-    self.tableView.contentInset = UIEdgeInsetsMake(-5, 0, 5, 0);
     [self.view addSubview:self.tableView];
     
     self.refreshControl = [[UIRefreshControl alloc] init];
@@ -202,10 +199,6 @@ static NSString *reusableCell = @"myGuidesCell";
 - (void)dealloc
 {
     [self.refreshControl endRefreshing];
-    self.refreshControl = nil;
-    _tableView.dataSource = nil;
-    _tableView.delegate = nil;
-    _tableView = nil;
 }
 
 #pragma mark - navigation action
@@ -541,7 +534,7 @@ static NSString *reusableCell = @"myGuidesCell";
 #pragma mark - Table view data source
 
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (_isOwner && section == 0) {
+    if (_isOwner) {
         return 72;
     }
     return 1;
@@ -563,12 +556,16 @@ static NSString *reusableCell = @"myGuidesCell";
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    if (_isOwner && section == 0) {
+    if (_isOwner) {
         PlansListTableHeaderView * headerView = [PlansListTableHeaderView planListHeaderView];
         
         [headerView.addTourPlan addTarget:self action:@selector(makePlan) forControlEvents:UIControlEventTouchUpInside];
         
         return headerView;
+        
+//        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 72)];
+//        view.backgroundColor = [UIColor redColor];
+//        return view;
     }
     return nil;
 }
