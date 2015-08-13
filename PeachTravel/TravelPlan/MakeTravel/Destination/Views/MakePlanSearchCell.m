@@ -10,14 +10,19 @@
 
 @implementation MakePlanSearchCell
 
-- (void)awakeFromNib {
-    // Initialization code
++ (id)makePlanSearchWithTableView:(UITableView *)tableView
+{
+    static NSString * ID = @"makePlanSearchCell";
+    
+    UINib * nib = [UINib nibWithNibName:NSStringFromClass([self class]) bundle:nil];
+    
+    [tableView registerNib:nib forCellReuseIdentifier:ID];
+    
+    return [tableView dequeueReusableCellWithIdentifier:ID];
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+- (void)awakeFromNib {
+    // Initialization code
 }
 
 @end

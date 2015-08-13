@@ -7,7 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "CityDestinationPoi.h"
 @interface MakePlanSearchCell : UITableViewCell
+
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+
+@property (weak, nonatomic) IBOutlet UIButton *addPlan;
+
+@property (nonatomic, strong) CityDestinationPoi * cityPoi;
+
++ (id)makePlanSearchWithTableView:(UITableView *)tableView;
 
 @end

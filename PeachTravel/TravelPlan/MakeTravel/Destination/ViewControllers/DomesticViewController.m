@@ -286,6 +286,17 @@ static NSString *cacheName = @"destination_demostic_group";
     [self.domesticCollectionView reloadItemsAtIndexPaths:@[indexPath]];
 }
 
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    NSLog(@"%@",self.destinations);
+    
+    [_makePlanCtl.selectPanel reloadData];
+    [self.domesticCollectionView reloadData];
+}
+
 @end
 
 

@@ -63,11 +63,10 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
     
     self.foreignTableView.dataSource = self;
     self.foreignTableView.delegate = self;
-    self.foreignTableView.contentInset = UIEdgeInsetsMake(0, 0, 50, 0);
+    self.foreignTableView.contentInset = UIEdgeInsetsMake(0, 0, 85, 0);
 
     [self initData];
     
- 
 }
 
 - (void) initData {
@@ -371,6 +370,18 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
     
     NSLog(@"%@",self.citiesArray);
 }
+
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    NSLog(@"%@",self.destinations);
+    
+    [_makePlanCtl.selectPanel reloadData];
+    [self.foreignCollectionView reloadData];
+}
+
 
 @end
 

@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Destinations.h"
 
 @interface MakePlanSearchController : UIViewController
+
+@property (nonatomic, strong) Destinations *destinations;
 
 @end
