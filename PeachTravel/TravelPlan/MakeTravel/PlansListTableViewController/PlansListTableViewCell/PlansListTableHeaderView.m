@@ -8,6 +8,7 @@
 
 #import "PlansListTableHeaderView.h"
 #import "UIImage+resized.h"
+
 @implementation PlansListTableHeaderView
 
 + (id)planListHeaderView {
