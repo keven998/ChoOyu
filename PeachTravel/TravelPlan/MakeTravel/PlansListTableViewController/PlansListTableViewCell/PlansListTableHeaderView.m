@@ -17,7 +17,7 @@
 
 - (void)awakeFromNib
 {
-    self.bgImageView.image = [[UIImage imageNamed:@"plan_bg_add"] resizableImageWithCapInsets:UIEdgeInsetsMake(26, 10, 3, 187)];
+    self.bgImageView.image = [[UIImage imageNamed:@"plan_bg_add"] resizableImageWithCapInsets:UIEdgeInsetsMake(26, 12, 3, 190)];
     
     [self.addTourPlan setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
     
