@@ -8,7 +8,6 @@
    
 import UIKit
 
-// 两种消息的RoutingKey
 @objc enum MessageReceiveDelegateRoutingKey: Int {
     case normal = 1
     case cmd = 2
@@ -379,11 +378,21 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
             if let message = MessageManager.messageModelWithMessage(message) {
                 if message.senderId == IMClientManager.shareInstance().accountId {
                     message.sendType = IMMessageSendType.MessageSendMine
+                    messagePool.addMessage4Reorder(message)
                 } else {
-                    message.sendType = IMMessageSendType.MessageSendSomeoneElse
+                    if let receiverId = message.reveiverId {
+                        //如果收到的消息中包含 receiverid，那么判断是不是发送给你的消息，如果不带 receiverid，则默认是发给你的消息
+                        if receiverId == IMClientManager.shareInstance().accountId {
+                            message.sendType = IMMessageSendType.MessageSendSomeoneElse
+                            messagePool.addMessage4Reorder(message)
+                        }
+                    } else {
+                        message.sendType = IMMessageSendType.MessageSendSomeoneElse
+                        messagePool.addMessage4Reorder(message)
+
+                    }
+
                 }
-                // 将消息重新排序,排序完成后会调用下面的代理方法
-                messagePool.addMessage4Reorder(message)
             }
         }
     }
@@ -394,8 +403,6 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
         receiveMessageList = messageList.copy() as? NSDictionary
         dispatch_async(messageReceiveQueue, { () -> Void in
             debug_println("messgeReorderOver queue: \(NSThread.currentThread())")
-            // 通过allValues属性获得所有键值元素组成的Array数组对象
-            // 通过allKeys属性来获得当前字典集合中的所有键名元素组成的Array对象
             for messageList in self.receiveMessageList!.allValues {
                 self.checkMessages(messageList as! NSArray)
             }

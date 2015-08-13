@@ -644,6 +644,8 @@
 		D9E0EEF41B7B4EDD003872DF /* lvxingwenwen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E0EEF21B7B4EDD003872DF /* lvxingwenwen@2x.png */; };
 		D9E0EEF71B7B4F38003872DF /* lvxingpaipai@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E0EEF51B7B4F38003872DF /* lvxingpaipai@3x.png */; };
 		D9E0EEF81B7B4F38003872DF /* lvxingwenwen@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E0EEF61B7B4F38003872DF /* lvxingwenwen@3x.png */; };
+		D9E0EEFC1B7CB020003872DF /* SearchDestinationHistoryCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E0EEFA1B7CB020003872DF /* SearchDestinationHistoryCollectionReusableView.m */; };
+		D9E0EEFD1B7CB020003872DF /* SearchDestinationHistoryCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9E0EEFB1B7CB020003872DF /* SearchDestinationHistoryCollectionReusableView.xib */; };
 		D9E7E58E1AC281400072D5B9 /* AreaDestination.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E7E58D1AC281400072D5B9 /* AreaDestination.m */; };
 		D9E7E5911AC281B00072D5B9 /* CityDestinationPoi.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E7E5901AC281B00072D5B9 /* CityDestinationPoi.m */; };
 		D9E7EC0C1ACB932800D30A5A /* AccountModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E7EC0B1ACB932800D30A5A /* AccountModel.m */; };
@@ -2254,6 +2256,9 @@
 		D9E0EEF21B7B4EDD003872DF /* lvxingwenwen@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lvxingwenwen@2x.png"; sourceTree = "<group>"; };
 		D9E0EEF51B7B4F38003872DF /* lvxingpaipai@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lvxingpaipai@3x.png"; sourceTree = "<group>"; };
 		D9E0EEF61B7B4F38003872DF /* lvxingwenwen@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lvxingwenwen@3x.png"; sourceTree = "<group>"; };
+		D9E0EEF91B7CB020003872DF /* SearchDestinationHistoryCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchDestinationHistoryCollectionReusableView.h; sourceTree = "<group>"; };
+		D9E0EEFA1B7CB020003872DF /* SearchDestinationHistoryCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchDestinationHistoryCollectionReusableView.m; sourceTree = "<group>"; };
+		D9E0EEFB1B7CB020003872DF /* SearchDestinationHistoryCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchDestinationHistoryCollectionReusableView.xib; sourceTree = "<group>"; };
 		D9E7E58C1AC281400072D5B9 /* AreaDestination.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AreaDestination.h; sourceTree = "<group>"; };
 		D9E7E58D1AC281400072D5B9 /* AreaDestination.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AreaDestination.m; sourceTree = "<group>"; };
 		D9E7E58F1AC281B00072D5B9 /* CityDestinationPoi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityDestinationPoi.h; sourceTree = "<group>"; };
@@ -5333,6 +5338,9 @@
 		D9A8FF4A1A80CF19005AD701 /* Search--搜索详情 */ = {
 			isa = PBXGroup;
 			children = (
+				D9E0EEF91B7CB020003872DF /* SearchDestinationHistoryCollectionReusableView.h */,
+				D9E0EEFA1B7CB020003872DF /* SearchDestinationHistoryCollectionReusableView.m */,
+				D9E0EEFB1B7CB020003872DF /* SearchDestinationHistoryCollectionReusableView.xib */,
 				D9823E821B19AA0200A1AE35 /* SuggestionDestinationTableViewController.h */,
 				D9823E831B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m */,
 				D9E0EEEC1B7B0D6D003872DF /* DestinationSearchHistoryCell.h */,
@@ -7389,6 +7397,7 @@
 				D917DADD1A8B4B3B0039720A /* ic_guide_title_1@2x.png in Resources */,
 				E63819B71B65F61000CF73AA /* dashboard_03_icon_constellation10@2x.png in Resources */,
 				E6381B8B1B65F61000CF73AA /* master_icon_constellation4@3x.png in Resources */,
+				D9E0EEFD1B7CB020003872DF /* SearchDestinationHistoryCollectionReusableView.xib in Resources */,
 				E6381AAD1B65F61000CF73AA /* lxp_plan_helper@3x.png in Resources */,
 				D90A9B361B5627C400E9F37C /* Loading_Animation_final11@3x.png in Resources */,
 				D9F46DBD1AC52D8600972AE8 /* SVWebViewControllerActivityChrome@2x.png in Resources */,
@@ -7992,6 +8001,7 @@
 				D9A801151A80DD23005AD701 /* ChatRecordListTableViewCell.m in Sources */,
 				D993C23E1B12DF0C0088D568 /* wav.mm in Sources */,
 				D9A802391A80E036005AD701 /* WOEIDUtils.m in Sources */,
+				D9E0EEFC1B7CB020003872DF /* SearchDestinationHistoryCollectionReusableView.m in Sources */,
 				D993C25D1B12DF0C0088D568 /* BaseMessage.swift in Sources */,
 				D9F46DD01AC92B9200972AE8 /* TZSideViewController.m in Sources */,
 				D9A8FF1D1A80CC2B005AD701 /* UserHeaderTableViewCell.m in Sources */,

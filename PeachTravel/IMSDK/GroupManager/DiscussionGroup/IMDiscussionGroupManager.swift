@@ -216,8 +216,20 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
         let addNumberUrl = "\(discussionGroupUrl)/\(group.groupId)/members"
         NetworkTransportAPI.asyncPATCH(requstUrl: addNumberUrl, parameters: params) { (isSuccess, errorCode, retMessage) -> () in
             if isSuccess {
-                self.deleteNumbersFromGroup(members: members, group: group)
-                
+                var isQuitGroup = false
+                for userId in members {
+                    if userId == IMClientManager.shareInstance().accountId {
+                        isQuitGroup = true
+                        break
+                    }
+                }
+                if isQuitGroup {
+                    var frendManager = IMClientManager.shareInstance().frendManager
+                    frendManager.deleteFrendFromDB(group.groupId)
+                } else {
+                    self.deleteNumbersFromGroup(members: members, group: group)
+
+                }
                 completion(isSuccess: true, errorCode: 0)
             } else {
                 completion(isSuccess: false, errorCode: 0)
@@ -276,7 +288,6 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
         numberDic.setObject(group.owner, forKey: "creator")
         frendModel.extData = JSONConvertMethod.contentsStrWithJsonObjc(numberDic)!
 
-        
         return frendModel
     }
     

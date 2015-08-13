@@ -58,6 +58,10 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
         self.frendDaoHelper.addFrend2DB(frend)
     }
     
+    func deleteFrendFromDB(userId: Int) {
+        self.frendDaoHelper.deleteFrend(userId)
+    }
+    
     /**
     添加一个好友到数据库，如果已经存在，则更新
     
