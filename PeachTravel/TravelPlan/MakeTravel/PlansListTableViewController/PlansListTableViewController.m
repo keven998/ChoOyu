@@ -541,7 +541,7 @@ static NSString *reusableCell = @"myGuidesCell";
 #pragma mark - Table view data source
 
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (_isOwner) {
+    if (_isOwner && section == 0) {
         return 72;
     }
     return 1;
@@ -552,7 +552,6 @@ static NSString *reusableCell = @"myGuidesCell";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
     return self.dataSource.count;
 }
 
@@ -564,7 +563,7 @@ static NSString *reusableCell = @"myGuidesCell";
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    if (_isOwner) {
+    if (_isOwner && section == 0) {
         PlansListTableHeaderView * headerView = [PlansListTableHeaderView planListHeaderView];
         
         [headerView.addTourPlan addTarget:self action:@selector(makePlan) forControlEvents:UIControlEventTouchUpInside];
@@ -577,21 +576,10 @@ static NSString *reusableCell = @"myGuidesCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MyGuidesTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reusableCell forIndexPath:indexPath];
-    if (_isOwner) {
-        [cell.playedBtn addTarget:self action:@selector(played:) forControlEvents:UIControlEventTouchUpInside];
-        [cell.deleteBtn addTarget:self action:@selector(deletePlane:) forControlEvents:UIControlEventTouchUpInside];
-        cell.playedBtn.hidden = NO;
-        cell.deleteBtn.hidden = NO;
-    }
-    else {
-        cell.playedBtn.hidden = YES;
-        cell.deleteBtn.hidden = YES;
-    }
     
     MyGuideSummary *summary = [self.dataSource objectAtIndex:indexPath.row];
     cell.guideSummary = summary;
     cell.isCanSend = _selectToSend;
-    [cell.sendBtn addTarget:self action:@selector(sendPoi:) forControlEvents:UIControlEventTouchUpInside];
     
     if ((_copyPatch && indexPath.row == 0) || (_isNewCopy && indexPath.row == 0)) {
         NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"(新复制) %@", summary.title]];
@@ -602,11 +590,21 @@ static NSString *reusableCell = @"myGuidesCell";
         cell.titleBtn.text = summary.title;
     }
     
-    if ([cell.guideSummary.status isEqualToString:@"traveled"]) {
-        cell.playedImage.image = [UIImage imageNamed:@"plan_bg_page_qian"];        
-    } else {
+    if (_isOwner) {
+        [cell.playedBtn addTarget:self action:@selector(played:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.deleteBtn addTarget:self action:@selector(deletePlane:) forControlEvents:UIControlEventTouchUpInside];
+        cell.playedBtn.hidden = NO;
+        cell.deleteBtn.hidden = NO;
         
+    } else {
+        cell.playedBtn.hidden = YES;
+        cell.deleteBtn.hidden = YES;
     }
+    
+    if (_selectToSend) {
+        [cell.sendBtn addTarget:self action:@selector(sendPoi:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    
     return cell;
 }
 
@@ -729,16 +727,12 @@ static NSString *reusableCell = @"myGuidesCell";
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             if ([guideSummary.status isEqualToString:@"traveled"]) {
-                NSInteger index = [self.dataSource indexOfObject:guideSummary];
-                MyGuideSummary *guide = self.dataSource [index];
-                guide.status = @"planned";
+                guideSummary.status = @"planned";
             } else {
-                NSInteger index = [self.dataSource indexOfObject:guideSummary];
-                MyGuideSummary *guide = self.dataSource [index];
-                guide.status = @"traveled";
+                guideSummary.status = @"traveled";
                 
                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"已去过，旅历+1" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-                [alertView show];
+//                [alertView show];
             }
             
             [self.tableView reloadData];

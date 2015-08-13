@@ -631,10 +631,10 @@
         }
         if (tzConversation.chatterId == WenwenUserId) {
             cell.imageView.image = [UIImage imageNamed:@"lvxingwenwen.png"];
-            cell.imageView.layer.cornerRadius = 0;
+            cell.imageView.layer.cornerRadius = 9;
         } else if (tzConversation.chatterId == PaipaiUserId) {
             cell.imageView.image = [UIImage imageNamed:@"lvxingpaipai.png"];
-            cell.imageView.layer.cornerRadius = 0;
+            cell.imageView.layer.cornerRadius = 9;
 
         } else {
             [cell.imageView sd_setImageWithURL:[NSURL URLWithString:tzConversation.chatterAvatar] placeholderImage:[UIImage imageNamed:@"ic_home_default_avatar.png"]];

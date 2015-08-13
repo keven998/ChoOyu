@@ -127,8 +127,9 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
             if let message = message as? BaseMessage {
                 
                 if let lastMessageServerId: AnyObject = allLastMessageList.objectForKey(message.chatterId) {
+                    
+                    //如果消息不连续了，则带着未处理的消息跳出循环去 fetch 消息
                     if (message.serverId - (lastMessageServerId as! Int)) > 1 {
-                        debug_println("消息非法: 带插入的 serverId: \(message.serverId)  最后一条的 serverId: \(lastMessageServerId)")
                         var index = messageList.indexOfObject(message)
                         for var i = index; i < messageList.count; i++ {
                             messagePrepare2Fetch.addObject(messageList.objectAtIndex(i))
@@ -136,12 +137,13 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
 
                         needFetchMessage = true
                         break
-                        
+                    
+                    //如果消息是连续的
                     } else if (message.serverId - (lastMessageServerId as! Int)) == 1 {
                         allLastMessageList.setObject(message.serverId, forKey: message.chatterId)
-                        debug_println("消息合法: 带插入的 serverId: \(message.serverId)  最后一条的 serverId: \(lastMessageServerId)")
                         messagePrepate2Distribute.addObject(message)
                         
+                    //如果消息是一条旧的消息，则判断一下数据库里有没有这条消息，如果没有的话则加入
                     } else {
                         if oldMessageShould2Distribution(message) {
                             messagePrepate2Distribute.addObject(message)

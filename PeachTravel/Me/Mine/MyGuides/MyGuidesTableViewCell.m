@@ -51,7 +51,7 @@
         _headerImageView.image = [[UIImage imageNamed:@"plan_bg_page_grey"]resizableImageWithCapInsets:UIEdgeInsetsMake(41, 12, 2, 187)];
         _playedImage.hidden = NO;
     }
-    
+
     _timeLabel.text = [NSString stringWithFormat:@"创建：%@", _guideSummary.updateTimeStr];
 }
 

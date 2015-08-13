@@ -146,9 +146,9 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
             cell.titleLabel.text = tzConversation.chatterName;
             if (tzConversation.chatterId == WenwenUserId) {
                 cell.headerImageView.image = [UIImage imageNamed:@"lvxingwenwen.png"];
-                cell.headerImageView.layer.cornerRadius = 0;
+                cell.headerImageView.layer.cornerRadius = 9;
             } else if (tzConversation.chatterId == PaipaiUserId) {
-                cell.headerImageView.layer.cornerRadius = 0;
+                cell.headerImageView.layer.cornerRadius = 9;
                 cell.headerImageView.image = [UIImage imageNamed:@"lvxingpaipai.png"];
             } else {
                 [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:tzConversation.chatterAvatar] placeholderImage:[UIImage imageNamed:@"ic_home_default_avatar.png"]];
