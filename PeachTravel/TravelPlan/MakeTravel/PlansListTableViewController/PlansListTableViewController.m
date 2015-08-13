@@ -562,10 +562,6 @@ static NSString *reusableCell = @"myGuidesCell";
         [headerView.addTourPlan addTarget:self action:@selector(makePlan) forControlEvents:UIControlEventTouchUpInside];
         
         return headerView;
-        
-//        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 72)];
-//        view.backgroundColor = [UIColor redColor];
-//        return view;
     }
     return nil;
 }
@@ -729,13 +725,11 @@ static NSString *reusableCell = @"myGuidesCell";
                 guideSummary.status = @"traveled";
                 
                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"已去过，旅历+1" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-//                [alertView show];
+                [alertView show];
             }
-            
-            [self.tableView reloadData];
-//            CGPoint currentPoint = self.tableView.contentOffset;
-//            self.tableView.contentOffset = CGPointMake(currentPoint.x, currentPoint.y + 1);
-
+            NSInteger index = [self.dataSource indexOfObject:guideSummary];
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
             
         } else {
             [self showHint:@"请求也是失败了"];
