@@ -90,21 +90,6 @@ static NSString *reusableCell = @"myGuidesCell";
     [categoryBtn setImage:[UIImage imageNamed:@"plan_10_dashboard_sift"] forState:UIControlStateNormal];
     categoryBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 2);
     
-    /*
-    if (_isOwner) {
-        UIButton *editBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 20, 30)];
-        [editBtn setImage:[UIImage imageNamed:@"plan_10_dashboard_add"] forState:UIControlStateNormal];
-        [editBtn addTarget:self action:@selector(makePlan) forControlEvents:UIControlEventTouchUpInside];
-        editBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 4, 0, 0);
-        UIBarButtonItem *cbtn = [[UIBarButtonItem alloc] initWithCustomView:editBtn];
-        UIBarButtonItem *sbtn = [[UIBarButtonItem alloc] initWithCustomView:categoryBtn];
-        self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:cbtn, sbtn, nil];
-    } else {
-        UIBarButtonItem *sbtn = [[UIBarButtonItem alloc] initWithCustomView:categoryBtn];
-        self.navigationItem.rightBarButtonItem = sbtn;
-    }
-     */
-    
     // 设置
     UIBarButtonItem *sbtn = [[UIBarButtonItem alloc] initWithCustomView:categoryBtn];
     self.navigationItem.rightBarButtonItem = sbtn;
@@ -112,9 +97,7 @@ static NSString *reusableCell = @"myGuidesCell";
     
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithIcon:@"common_icon_navigaiton_back_normal.png" highIcon:@"common_icon_navigaiton_back_normal.png" target:self action:@selector(goBack)];
     
-    self.tableView = [[UITableView alloc] init];
-
-    self.tableView.frame = self.view.bounds;
+    self.tableView = [[UITableView alloc] initWithFrame:self.view.frame];
 
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.tableView.delegate = self;
@@ -122,7 +105,6 @@ static NSString *reusableCell = @"myGuidesCell";
     self.tableView.backgroundColor = APP_PAGE_COLOR;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerNib:[UINib nibWithNibName:@"MyGuidesTableViewCell" bundle:nil] forCellReuseIdentifier:reusableCell];
-//    self.tableView.contentInset = UIEdgeInsetsMake(-5, 0, 5, 0);
     [self.view addSubview:self.tableView];
     
     self.refreshControl = [[UIRefreshControl alloc] init];
@@ -174,10 +156,10 @@ static NSString *reusableCell = @"myGuidesCell";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_lxp_plan_lists"];
-    self.navigationController.navigationBar.translucent = NO;
+    
     [self.navigationController setNavigationBarHidden:NO animated:YES]; //侧滑navigation bar 补丁
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:COLOR_TEXT_I, NSForegroundColorAttributeName, nil]];
-//    [self.navigationController.navigationBar setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackgroundImage:[ConvertMethods createImageWithColor:APP_PAGE_COLOR] forBarMetrics:UIBarMetricsDefault];
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];
     _isShowing = YES;
@@ -202,10 +184,6 @@ static NSString *reusableCell = @"myGuidesCell";
 - (void)dealloc
 {
     [self.refreshControl endRefreshing];
-    self.refreshControl = nil;
-    _tableView.dataSource = nil;
-    _tableView.delegate = nil;
-    _tableView = nil;
 }
 
 #pragma mark - navigation action
@@ -460,6 +438,9 @@ static NSString *reusableCell = @"myGuidesCell";
     
     [self.tableView reloadData];
     
+    CGPoint currentPoint = self.tableView.contentOffset;
+    self.tableView.contentOffset = CGPointMake(currentPoint.x, currentPoint.y + 10);
+    
     if (_dataSource.count >= 10) {
         _enableLoadMore = YES;
     }
@@ -540,7 +521,7 @@ static NSString *reusableCell = @"myGuidesCell";
 #pragma mark - Table view data source
 
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (_isOwner && section == 0) {
+    if (_isOwner) {
         return 72;
     }
     return 1;
@@ -562,7 +543,7 @@ static NSString *reusableCell = @"myGuidesCell";
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    if (_isOwner && section == 0) {
+    if (_isOwner) {
         PlansListTableHeaderView * headerView = [PlansListTableHeaderView planListHeaderView];
         
         [headerView.addTourPlan addTarget:self action:@selector(makePlan) forControlEvents:UIControlEventTouchUpInside];
@@ -733,11 +714,9 @@ static NSString *reusableCell = @"myGuidesCell";
                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"已去过，旅历+1" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
                 [alertView show];
             }
-            
-            [self.tableView reloadData];
-//            CGPoint currentPoint = self.tableView.contentOffset;
-//            self.tableView.contentOffset = CGPointMake(currentPoint.x, currentPoint.y + 1);
-
+            NSInteger index = [self.dataSource indexOfObject:guideSummary];
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
             
         } else {
             [self showHint:@"请求也是失败了"];
