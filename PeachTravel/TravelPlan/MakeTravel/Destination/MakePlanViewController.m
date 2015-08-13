@@ -18,6 +18,7 @@
 #import "TripPlanSettingViewController.h"
 #import "DestinationCollectionViewCell.h"
 #import "AreaDestination.h"
+#import "MakePlanSearchController.h"
 
 @interface MakePlanViewController () <UISearchBarDelegate, UISearchControllerDelegate, UISearchDisplayDelegate, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
 
@@ -131,7 +132,8 @@
 
 - (IBAction)beginSearch:(id)sender
 {
-    [_searchBar setFrame:CGRectMake(0, 20, self.view.bounds.size.width-40, 38)];
+//    [_searchBar setFrame:CGRectMake(0, 20, self.view.bounds.size.width-40, 38)];
+    
     [_searchController setActive:YES animated:YES];
     _searchBar.hidden = NO;
 }
@@ -387,6 +389,19 @@
 {
     [self loadDataSourceWithKeyWord:searchBar.text];
 }
+
+#pragma mark - 实现searchBar的代理方法
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+{
+    MakePlanSearchController *searchCtl = [[MakePlanSearchController alloc] init];
+    searchCtl.destinations = self.destinations;
+    searchCtl.hidesBottomBarWhenPushed = YES;
+    [searchCtl setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+    TZNavigationViewController *tznavc = [[TZNavigationViewController alloc] initWithRootViewController:searchCtl];
+    [self presentViewController:tznavc animated:YES completion:nil];
+}
+
+
 
 #pragma mark - Collection view
 
