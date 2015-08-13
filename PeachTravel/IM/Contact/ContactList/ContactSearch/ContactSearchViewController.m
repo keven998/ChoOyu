@@ -209,4 +209,9 @@
     [self.tableView reloadData];
 }
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self.searchBar endEditing:YES];
+}
+
 @end

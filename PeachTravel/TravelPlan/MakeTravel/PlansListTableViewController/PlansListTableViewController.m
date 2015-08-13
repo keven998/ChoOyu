@@ -53,6 +53,8 @@ enum CONTENT_TYPE {
 @property (nonatomic, assign) int contentType;
 @property (nonatomic) BOOL isOwner;
 
+@property (nonatomic, assign)BOOL isNewCopy;
+
 @end
 
 @implementation PlansListTableViewController
@@ -69,6 +71,7 @@ static NSString *reusableCell = @"myGuidesCell";
         _userId = userId;
         _contentType = ALL;
         _copyPatch = NO;
+        _isNewCopy = NO;
     }
     return self;
 }
@@ -109,7 +112,10 @@ static NSString *reusableCell = @"myGuidesCell";
     
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithIcon:@"common_icon_navigaiton_back_normal.png" highIcon:@"common_icon_navigaiton_back_normal.png" target:self action:@selector(goBack)];
     
-    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
+    self.tableView = [[UITableView alloc] init];
+
+    self.tableView.frame = self.view.bounds;
+
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -168,10 +174,10 @@ static NSString *reusableCell = @"myGuidesCell";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_lxp_plan_lists"];
-    
+    self.navigationController.navigationBar.translucent = NO;
     [self.navigationController setNavigationBarHidden:NO animated:YES]; //侧滑navigation bar 补丁
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:COLOR_TEXT_I, NSForegroundColorAttributeName, nil]];
-    [self.navigationController.navigationBar setBackgroundImage:[ConvertMethods createImageWithColor:APP_PAGE_COLOR] forBarMetrics:UIBarMetricsDefault];
+//    [self.navigationController.navigationBar setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forBarMetrics:UIBarMetricsDefault];
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];
     _isShowing = YES;
@@ -221,6 +227,10 @@ static NSString *reusableCell = @"myGuidesCell";
 }
 
 - (void)makePlan {
+    
+    [self.tableView reloadData];
+    
+    /*
     [MobClick event:@"navigation_item_plan_create"];
     
     Destinations *destinations = [[Destinations alloc] init];
@@ -244,6 +254,7 @@ static NSString *reusableCell = @"myGuidesCell";
     
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:makePlanCtl];
     [self presentViewController:nav animated:YES completion:nil];
+     */
 }
 
 #pragma mark - setter & getter
@@ -263,6 +274,7 @@ static NSString *reusableCell = @"myGuidesCell";
  *  @param sender
  */
 - (void)pullToRefreash:(id)sender {
+    self.isNewCopy = YES;
     [self loadData:_contentType WithPageIndex:0];
 }
 
@@ -275,11 +287,11 @@ static NSString *reusableCell = @"myGuidesCell";
 {
     [MobClick event:@"cell_item_plans_delete"];
     
-    MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:indexPath.section];
+    MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:indexPath.row];
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:[NSString stringWithFormat:@"删除\"%@\"", guideSummary.title] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
     [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
         if (buttonIndex == 1) {
-            NSInteger index = indexPath.section;
+            NSInteger index = indexPath.row;
             MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:index];
             [self deleteUserGuide:guideSummary];
         }
@@ -289,9 +301,9 @@ static NSString *reusableCell = @"myGuidesCell";
 - (void)played:(UIButton *)sender
 {
     [MobClick event:@"cell_item_plans_change_status"];
-    CGPoint point = [sender convertPoint:CGPointZero toView:self.tableView];
+    CGPoint point = [sender convertPoint:CGPointMake(1, 1) toView:self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
-    MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:indexPath.section];
+    MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:indexPath.row];
     if ([guideSummary.status isEqualToString:@"traveled"]) {
         [self mark:guideSummary as:@"planned"];
     } else {
@@ -329,8 +341,11 @@ static NSString *reusableCell = @"myGuidesCell";
         if (code == 0) {
             NSInteger index = [self.dataSource indexOfObject:guideSummary];
             [self.dataSource removeObject:guideSummary];
-            NSIndexSet *set = [NSIndexSet indexSetWithIndex:index];
-            [self.tableView deleteSections:set withRowAnimation:UITableViewRowAnimationAutomatic];
+//            NSIndexSet *set = [NSIndexSet indexSetWithIndex:index];
+//            [self.tableView deleteSections:set withRowAnimation:UITableViewRowAnimationAutomatic];
+            NSIndexPath * indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            
             [AccountManager shareAccountManager].account.guideCnt -= 1;
             
             if (self.dataSource.count == 0) {
@@ -443,6 +458,9 @@ static NSString *reusableCell = @"myGuidesCell";
     
     [self.tableView reloadData];
     
+    CGPoint currentPoint = self.tableView.contentOffset;
+    self.tableView.contentOffset = CGPointMake(currentPoint.x, currentPoint.y + 10);
+    
     if (_dataSource.count >= 10) {
         _enableLoadMore = YES;
     }
@@ -452,7 +470,7 @@ static NSString *reusableCell = @"myGuidesCell";
 {
     CGPoint point = [sender convertPoint:CGPointZero toView:self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
-    MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:indexPath.section];
+    MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:indexPath.row];
     
     TaoziChatMessageBaseViewController *taoziMessageCtl = [[TaoziChatMessageBaseViewController alloc] init];
     taoziMessageCtl.delegate = self;
@@ -474,11 +492,11 @@ static NSString *reusableCell = @"myGuidesCell";
 {
     CGPoint point = [sender convertPoint:CGPointZero toView:self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
-    MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:indexPath.section];
+    MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:indexPath.row];
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:[NSString stringWithFormat:@"删除\"%@\"", guideSummary.title] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
     [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
         if (buttonIndex == 1) {
-            NSInteger index = indexPath.section;
+            NSInteger index = indexPath.row;
             MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:index];
             [self deleteUserGuide:guideSummary];
         }
@@ -530,7 +548,6 @@ static NSString *reusableCell = @"myGuidesCell";
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-//    return self.dataSource.count;
     return 1;
 }
 
@@ -544,6 +561,7 @@ static NSString *reusableCell = @"myGuidesCell";
     return 164;
 }
 
+
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     if (_isOwner) {
@@ -555,6 +573,7 @@ static NSString *reusableCell = @"myGuidesCell";
     }
     return nil;
 }
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MyGuidesTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reusableCell forIndexPath:indexPath];
@@ -569,12 +588,12 @@ static NSString *reusableCell = @"myGuidesCell";
         cell.deleteBtn.hidden = YES;
     }
     
-    MyGuideSummary *summary = [self.dataSource objectAtIndex:indexPath.section];
+    MyGuideSummary *summary = [self.dataSource objectAtIndex:indexPath.row];
     cell.guideSummary = summary;
     cell.isCanSend = _selectToSend;
     [cell.sendBtn addTarget:self action:@selector(sendPoi:) forControlEvents:UIControlEventTouchUpInside];
     
-    if (_copyPatch && indexPath.section == 0) {
+    if ((_copyPatch && indexPath.row == 0) || (_isNewCopy && indexPath.row == 0)) {
         NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"(新复制) %@", summary.title]];
         [attr addAttribute:NSForegroundColorAttributeName value:COLOR_CHECKED range:NSMakeRange(0, 5)];
         cell.titleBtn.attributedText = attr;
@@ -597,7 +616,7 @@ static NSString *reusableCell = @"myGuidesCell";
 }
 
 - (void)goPlan:(NSIndexPath *)indexPath {
-    MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:indexPath.section];
+    MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:indexPath.row];
     TripDetailRootViewController *tripDetailRootCtl = [[TripDetailRootViewController alloc] init];
     tripDetailRootCtl.canEdit = _isOwner;
     tripDetailRootCtl.userId = _userId;
@@ -723,6 +742,10 @@ static NSString *reusableCell = @"myGuidesCell";
             }
             
             [self.tableView reloadData];
+//            CGPoint currentPoint = self.tableView.contentOffset;
+//            self.tableView.contentOffset = CGPointMake(currentPoint.x, currentPoint.y + 1);
+
+            
         } else {
             [self showHint:@"请求也是失败了"];
         }
@@ -761,7 +784,7 @@ static NSString *reusableCell = @"myGuidesCell";
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     
     NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
-    MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:cellIndexPath.section];
+    MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:cellIndexPath.row];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]] forKey:@"updateTime"];
     [params setObject:guideSummary.guideId forKey:@"id"];
@@ -776,8 +799,10 @@ static NSString *reusableCell = @"myGuidesCell";
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [self.dataSource removeObject:guideSummary];
-            NSIndexSet *set = [NSIndexSet indexSetWithIndex:cellIndexPath.section];
-            [self.tableView deleteSections:set withRowAnimation:UITableViewRowAnimationNone];
+//            NSIndexSet *set = [NSIndexSet indexSetWithIndex:cellIndexPath.section];
+//            [self.tableView deleteSections:set withRowAnimation:UITableViewRowAnimationNone];
+            [self.tableView deleteRowsAtIndexPaths:@[cellIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            
             [self.dataSource insertObject:guideSummary atIndex:0];
             [self performSelector:@selector(toTop) withObject:nil afterDelay:0.4];
         } else {
@@ -791,8 +816,9 @@ static NSString *reusableCell = @"myGuidesCell";
 }
 
 - (void) toTop {
-    NSIndexSet *set = [NSIndexSet indexSetWithIndex:0];
-    [self.tableView insertSections:set withRowAnimation:UITableViewRowAnimationAutomatic];
+
+    NSIndexPath * indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark - SelectDelegate
