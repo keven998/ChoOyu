@@ -288,7 +288,6 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
         numberDic.setObject(group.owner, forKey: "creator")
         frendModel.extData = JSONConvertMethod.contentsStrWithJsonObjc(numberDic)!
 
-        
         return frendModel
     }
     
