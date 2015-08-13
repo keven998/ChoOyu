@@ -103,13 +103,13 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [_cityHeaderView.travelMonth addGestureRecognizer:tap1];
 
     _tableView.tableHeaderView = _cityHeaderView;
-    
-   }
+    [self setUpToolbarView];
+}
 
 - (void)updateTravelNoteTableView
 {
     if (((CityPoi *)self.poi).travelNotes.count > 0) {
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(_tableView.frame), 64)];
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(_tableView.frame), 104)];
         view.backgroundColor = [UIColor clearColor];
         view.userInteractionEnabled = YES;
         UIButton *footerView = [[UIButton alloc] initWithFrame:CGRectMake(21, -2, CGRectGetWidth(_tableView.frame) - 42, 44)];
@@ -124,6 +124,23 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     }
     [self.tableView reloadData];
 
+}
+
+- (void)setUpToolbarView
+{
+    UIImageView *toolBarView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-44, self.view.bounds.size.width, 44)];
+    toolBarView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:toolBarView];
+    UIButton *footBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, toolBarView.bounds.size.width/2, toolBarView.bounds.size.height)];
+    [footBtn setTitle:@"去过" forState:UIControlStateNormal];
+    [footBtn setTitleColor:COLOR_TEXT_I forState:UIControlStateNormal];
+    [toolBarView addSubview:footBtn];
+    
+    UIButton *likeBtn = [[UIButton alloc] initWithFrame:CGRectMake(toolBarView.bounds.size.width/2, 0, toolBarView.bounds.size.width/2, toolBarView.bounds.size.height)];
+    [likeBtn setTitle:@"喜欢" forState:UIControlStateNormal];
+    [likeBtn setTitleColor:COLOR_TEXT_I forState:UIControlStateNormal];
+    [toolBarView addSubview:likeBtn];
+    
 }
 
 - (UITableView *)tableView
