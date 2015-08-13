@@ -38,15 +38,6 @@
 
 static NSString *reusableCellIdentifier = @"searchResultCell";
 
-// 懒加载
-- (NSMutableArray *)collectionArray
-{
-    if (_collectionArray == nil) {
-        _collectionArray = [NSMutableArray array];
-    }
-    return _collectionArray;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
@@ -78,14 +69,15 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     TaoziCollectionLayout *layout = [[TaoziCollectionLayout alloc] init];
     layout.delegate = self;
     layout.showDecorationView = NO;
-    layout.spacePerItem = 10;
-    layout.spacePerLine = 10;
-    UICollectionView * collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
-    collectionView.contentInset = UIEdgeInsetsMake(0, 10, 0, 10);
+    layout.spacePerItem = 12;
+    layout.spacePerLine = 15;
+    layout.margin = 10;
+    UICollectionView * collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(10, 0, self.view.bounds.size.width-29, self.view.bounds.size.height) collectionViewLayout:layout];
     self.collectionView = collectionView;
     collectionView.dataSource = self;
     collectionView.delegate = self;
     collectionView.backgroundColor = APP_PAGE_COLOR;
+    collectionView.showsVerticalScrollIndicator = NO;
     [collectionView registerNib:[UINib nibWithNibName:@"DestinationSearchHistoryCell" bundle:nil] forCellWithReuseIdentifier:@"searchHistoryCell"];
 
     [self.view addSubview:collectionView];
@@ -96,10 +88,9 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 // 加载CollectionView的数据源
 - (void)setupCollectionDataSource
 {
-    
     NSArray * recentResult = [[TMCache sharedCache] objectForKey:kSearchDestinationCacheKey];
     if (recentResult) {
-        [self.collectionArray addObjectsFromArray:recentResult];
+        self.collectionArray[0] = recentResult;
         [self.collectionView reloadData];
     }
     NSLog(@"%@",recentResult);
@@ -130,6 +121,19 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 - (void)hideCollectionView
 {
     _collectionView.hidden = YES;
+}
+
+// 懒加载
+- (NSMutableArray *)collectionArray
+{
+    if (_collectionArray == nil) {
+        _collectionArray = [[NSMutableArray alloc] init];
+        NSMutableArray *historyArray = [[NSMutableArray alloc] init];
+        [_collectionArray addObject:historyArray];
+        NSMutableArray *recommendArray = [[NSMutableArray alloc] init];
+        [_collectionArray addObject:recommendArray];
+    }
+    return _collectionArray;
 }
 
 - (UITableView *)tableView
@@ -175,6 +179,9 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
  */
 - (void)loadDataSourceWithKeyWord:(NSString *)keyWord
 {
+    self.tableView.hidden = NO;
+    [self hideCollectionView];
+    
     _keyWord = keyWord;
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -330,7 +337,6 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
             poiTypeDesc = @"hotel";
             searchMoreCtl.titleStr = @"全部酒店";
             break;
-            
             
         default:
             break;
@@ -505,24 +511,19 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return 2;
+    return _collectionArray.count;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    if (section == 0) {
-        return self.collectionArray.count;
-    } else {
-        return 10;
-    }
+    return [[_collectionArray objectAtIndex:section] count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     DestinationSearchHistoryCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"searchHistoryCell" forIndexPath:indexPath];
-    if (indexPath.section == 0) {
-        cell.titleLabel.text = self.collectionArray[indexPath.row];
-    }
+    NSArray *array = [_collectionArray objectAtIndex:indexPath.section];
+    cell.titleLabel.text = array[indexPath.row];
     return cell;
 }
 
@@ -537,10 +538,9 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         
         UILabel * title = [[UILabel alloc] init];
         
-        
-        if (indexPath.section == 0) {
+        if (indexPath.section == 0 && [[self.collectionArray objectAtIndex:0] count]) {
             title.text = @"历史搜索";
-        }else{
+        } else if (indexPath.section == 1 && [[self.collectionArray objectAtIndex:1] count]) {
             title.text = @"热门搜索词";
         }
         
@@ -557,40 +557,44 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 // 选中某一个item
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"%ld",indexPath.item);
-    
     [_searchBar endEditing:YES];
-    
-    [self loadDataSourceWithKeyWord:self.collectionArray[indexPath.item]];
+    NSArray *array = [self.collectionArray objectAtIndex:indexPath.section];
+    [self loadDataSourceWithKeyWord:array[indexPath.row]];
 }
 
 #pragma mark - TaoziLayoutDelegate
 
 - (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *title = [_collectionArray objectAtIndex:indexPath.row];
+    NSArray *array = [_collectionArray objectAtIndex:indexPath.section];
+    NSString *title = [array objectAtIndex:indexPath.row];
     CGSize size = [title sizeWithAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:17.0]}];
     return CGSizeMake(size.width+20, 30);
 }
 
 - (CGSize)collectionview:(UICollectionView *)collectionView sizeForHeaderView:(NSIndexPath *)indexPath
 {
-    return CGSizeMake(kWindowWidth, 50);
+    if (indexPath.section == 0 && [[self.collectionArray objectAtIndex:0] count]) {
+        return CGSizeMake(kWindowWidth, 50);
+    } else if (indexPath.section == 1 && [[self.collectionArray objectAtIndex:1] count]) {
+        return CGSizeMake(kWindowWidth, 50);
+    }
+    return CGSizeZero;
 }
 
 - (NSInteger)numberOfSectionsInTZCollectionView:(UICollectionView *)collectionView
 {
-    return 1;
+    return _collectionArray.count;
 }
 
 - (NSInteger)tzcollectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return self.collectionArray.count;
+    return [[_collectionArray objectAtIndex:section] count];
 }
 
 - (CGFloat)tzcollectionLayoutWidth
 {
-    return self.view.bounds.size.width;
+    return self.view.bounds.size.width-20;
 }
 
 #pragma mark - UISearchBar Delegate
@@ -620,8 +624,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [[TMCache sharedCache] setObject:mutableArray forKey:kSearchDestinationCacheKey];
     self.collectionArray = mutableArray;
     [self loadDataSourceWithKeyWord:searchBar.text];
-    self.tableView.hidden = YES;
-    [self hideCollectionView];
+   
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
