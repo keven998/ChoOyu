@@ -134,6 +134,18 @@ class FrendDaoHelper: BaseDaoHelper, FrendDaoProtocol {
         }
     }
     
+    func deleteFrend(userId: Int) {
+        databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
+            var sql = "delete from \(frendTableName) where UserId = ?"
+            if dataBase.executeUpdate(sql, withArgumentsInArray: [userId]) {
+                debug_println("执行 deleteAllContactsFromDB 语句 成功")
+            } else {
+                debug_println("执行 deleteAllContactsFromDB 语句 失败")
+                
+            }
+        }
+    }
+    
     func insertOrUpdateFrendInfoInDB(frend: FrendModel) {
         if !super.tableIsExit(frendTableName) {
             createFrendTable()
