@@ -37,10 +37,10 @@
     
     UISegmentedControl *segControl = [[UISegmentedControl alloc] initWithItems:_segmentedTitles];
     
-    NSDictionary *normolDic = [NSDictionary dictionaryWithObjectsAndKeys:TEXT_COLOR_TITLE_SUBTITLE,UITextAttributeTextColor,nil];
+    NSDictionary *normolDic = [NSDictionary dictionaryWithObjectsAndKeys:TEXT_COLOR_TITLE_SUBTITLE,NSForegroundColorAttributeName,nil];
     [segControl setTitleTextAttributes:normolDic forState:UIControlStateNormal];
     
-    NSDictionary *selectedDic = [NSDictionary dictionaryWithObjectsAndKeys:APP_THEME_COLOR,UITextAttributeTextColor,nil];
+    NSDictionary *selectedDic = [NSDictionary dictionaryWithObjectsAndKeys:APP_THEME_COLOR,NSForegroundColorAttributeName,nil];
     [segControl setTitleTextAttributes:selectedDic forState:UIControlStateSelected];
     
     CGFloat screenW = [UIScreen mainScreen].bounds.size.width;
