@@ -646,6 +646,7 @@
 		D9E0EEF81B7B4F38003872DF /* lvxingwenwen@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E0EEF61B7B4F38003872DF /* lvxingwenwen@3x.png */; };
 		D9E0EEFC1B7CB020003872DF /* SearchDestinationHistoryCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E0EEFA1B7CB020003872DF /* SearchDestinationHistoryCollectionReusableView.m */; };
 		D9E0EEFD1B7CB020003872DF /* SearchDestinationHistoryCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9E0EEFB1B7CB020003872DF /* SearchDestinationHistoryCollectionReusableView.xib */; };
+		D9E0EF011B7D9036003872DF /* CMPopTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E0EF001B7D9036003872DF /* CMPopTipView.m */; };
 		D9E7E58E1AC281400072D5B9 /* AreaDestination.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E7E58D1AC281400072D5B9 /* AreaDestination.m */; };
 		D9E7E5911AC281B00072D5B9 /* CityDestinationPoi.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E7E5901AC281B00072D5B9 /* CityDestinationPoi.m */; };
 		D9E7EC0C1ACB932800D30A5A /* AccountModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E7EC0B1ACB932800D30A5A /* AccountModel.m */; };
@@ -2259,6 +2260,8 @@
 		D9E0EEF91B7CB020003872DF /* SearchDestinationHistoryCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchDestinationHistoryCollectionReusableView.h; sourceTree = "<group>"; };
 		D9E0EEFA1B7CB020003872DF /* SearchDestinationHistoryCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchDestinationHistoryCollectionReusableView.m; sourceTree = "<group>"; };
 		D9E0EEFB1B7CB020003872DF /* SearchDestinationHistoryCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchDestinationHistoryCollectionReusableView.xib; sourceTree = "<group>"; };
+		D9E0EEFF1B7D9036003872DF /* CMPopTipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPopTipView.h; sourceTree = "<group>"; };
+		D9E0EF001B7D9036003872DF /* CMPopTipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPopTipView.m; sourceTree = "<group>"; };
 		D9E7E58C1AC281400072D5B9 /* AreaDestination.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AreaDestination.h; sourceTree = "<group>"; };
 		D9E7E58D1AC281400072D5B9 /* AreaDestination.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AreaDestination.m; sourceTree = "<group>"; };
 		D9E7E58F1AC281B00072D5B9 /* CityDestinationPoi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityDestinationPoi.h; sourceTree = "<group>"; };
@@ -4537,6 +4540,7 @@
 		D9A8016B1A80E036005AD701 /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				D9E0EEFE1B7D9036003872DF /* CMPopTipView */,
 				E66E6CD61B5A268000CBF65F /* Category */,
 				E6E118F01B59EE190090FDEF /* DropDownMenu */,
 				E6E725271B5603D30007273A /* UMSocial_Sdk_4.2.3 */,
@@ -5642,6 +5646,15 @@
 				D9B4083C1B6F638E00795EB6 /* introduce_4_4@2x.png */,
 			);
 			path = IOS_4;
+			sourceTree = "<group>";
+		};
+		D9E0EEFE1B7D9036003872DF /* CMPopTipView */ = {
+			isa = PBXGroup;
+			children = (
+				D9E0EEFF1B7D9036003872DF /* CMPopTipView.h */,
+				D9E0EF001B7D9036003872DF /* CMPopTipView.m */,
+			);
+			path = CMPopTipView;
 			sourceTree = "<group>";
 		};
 		D9E1EF8219F0E2B8006348A3 /* Others */ = {
@@ -7736,6 +7749,7 @@
 				D993C26B1B12DF0C0088D568 /* ChatConversation.swift in Sources */,
 				D9A802B91A80E3D3005AD701 /* UIViewController+HUD.m in Sources */,
 				D9A802F01A80E3D3005AD701 /* AppUtils.m in Sources */,
+				D9E0EF011B7D9036003872DF /* CMPopTipView.m in Sources */,
 				D993C24C1B12DF0C0088D568 /* FMDatabaseQueue.m in Sources */,
 				D9A802011A80E036005AD701 /* AFgzipRequestSerializer.m in Sources */,
 				D993C24F1B12DF0C0088D568 /* IMDiscussionGroupManager.swift in Sources */,
