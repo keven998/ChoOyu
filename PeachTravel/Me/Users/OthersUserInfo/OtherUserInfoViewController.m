@@ -24,6 +24,8 @@
 #import "BaseTextSettingViewController.h"
 #import "FootPrintViewController.h"
 #import "CMPopTipView.h"
+#import "MJPhotoBrowser.h"
+#import "MJPhoto.h"
 
 @interface OtherUserInfoViewController ()<UIActionSheetDelegate> {
     NSMutableArray *_dataArray;
@@ -116,8 +118,12 @@
     _avatarImageView.clipsToBounds = YES;
     _avatarImageView.layer.cornerRadius = avatarW/2.0;
     _avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
+    _avatarImageView.userInteractionEnabled = YES;
     [_avatarImageView setImage:[UIImage imageNamed:@"ic_home_avatar_unknown.png"]];
     [_headerBgView addSubview:_avatarImageView];
+    
+    UITapGestureRecognizer * tapAvatar = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAvatar:)];
+    [_avatarImageView addGestureRecognizer:tapAvatar];
     
     _avatarBg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ah, ah)];
     _avatarBg.center = _avatarImageView.center;
@@ -300,6 +306,30 @@
     [travelNote addSubview:travelNoteLabel2];
     _scrollView.contentSize = CGSizeMake(width, btnWidth * 2 + _headerBgView.bounds.size.height);
 }
+
+#pragma mark - 实现单击手势的事件
+- (void)tapAvatar:(UIGestureRecognizer *)tap{
+    NSLog(@"点击了头像");
+    
+        // 1.封装图片数据
+        NSMutableArray *photos = [NSMutableArray array];
+        
+        // 替换为中等尺寸图片
+        MJPhoto *photo = [[MJPhoto alloc] init];
+        //    photo.url = [imageArray objectAtIndex:i]; // 图片路径
+        
+        photo.url = self.userInfo.avatar;
+        photo.srcImageView = (UIImageView *)tap.view; // 来源于哪个UIImageView
+        [photos addObject:photo];
+        
+        // 2.显示相册
+        MJPhotoBrowser *browser = [[MJPhotoBrowser alloc] init];
+        browser.currentPhotoIndex = 0; // 弹出相册时显示的第一张图片是？
+        browser.photos = photos; // 设置所有的图片
+        [browser show];
+    
+}
+
 
 - (void)updateUserInfo
 {

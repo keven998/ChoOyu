@@ -155,6 +155,7 @@ class PushSDKManager: NSObject, GexinSdkDelegate {
         let totalStr: NSString = JSONConvertMethod.contentsStrWithJsonObjc(dic)!
         */
         
+        // 收到消息后分发出去
         if let message = payloadMsg {
             dispatchPushMessage(message)
         }
