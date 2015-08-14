@@ -542,7 +542,7 @@
 //显示达人交流的引导页面
 - (void)showExpertTipsViewWithView:(UIView *)sourceView
 {
-    CMPopTipView *tipView = [[CMPopTipView alloc] initWithMessage:@"“有问题可以向达人请教噢"];
+    CMPopTipView *tipView = [[CMPopTipView alloc] initWithMessage:@"有问题可以向达人请教噢"];
     tipView.backgroundColor = APP_THEME_COLOR;
     tipView.dismissTapAnywhere = YES;
     tipView.hasGradientBackground = NO;
@@ -552,7 +552,6 @@
     tipView.maxWidth = 110;
     tipView.has3DStyle = NO;
     [tipView presentPointingAtView:sourceView inView:self.view animated:YES];
-    objc_setAssociatedObject(self, @"collectionTipsView", tipView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"kShowExpertTipsView"];
 }
 
@@ -596,8 +595,8 @@
         cell.headerPicArray = _albumArray;
         NSLog(@"%@",cell.headerPicArray);
         return cell;
-    }
-    else if (indexPath.section == 1) {
+        
+    } else if (indexPath.section == 1) {
         
         OtherUserBasicInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"basicInfoCell" forIndexPath:indexPath];
         cell.information.font = [UIFont systemFontOfSize:14];
@@ -607,8 +606,8 @@
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
         return cell;
-    }
-    else if (indexPath.section == 2) {
+        
+    } else if (indexPath.section == 2) {
         HeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"zuji" forIndexPath:indexPath];
         cell.nameLabel.text = @"TA的足迹";
         cell.footPrint.textColor = TEXT_COLOR_TITLE;
@@ -622,8 +621,8 @@
         }
         
         return cell;
-    }
-    else if (indexPath.section == 3) {
+        
+    } else if (indexPath.section == 3) {
         HeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"zuji" forIndexPath:indexPath];
         cell.nameLabel.text = @"签名";
         cell.imageJiantou.image = nil;
@@ -636,14 +635,15 @@
         cell.footPrint.textColor = TEXT_COLOR_TITLE;
         cell.trajectory.text = @"";
         return cell;
-    }
-    else  {
+        
+    } else  {
         OtherUserBasicInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"basicInfoCell" forIndexPath:indexPath];
         if (indexPath.row == 0) {
             cell.basicLabel.font = [UIFont systemFontOfSize:16];
             cell.basicLabel.text = @"基本信息";
             cell.information.text = @"";
-        }else if (indexPath.row == 1){
+            
+        } else if (indexPath.row == 1){
             cell.basicLabel.font = [UIFont systemFontOfSize:14];
             cell.basicLabel.text = @"   年龄";
             
@@ -657,15 +657,15 @@
             cell.information.font = [UIFont systemFontOfSize:14];
             if (_userInfo.birthday == nil||[_userInfo.birthday isBlankString] || _userInfo.birthday.length == 0) {
                 cell.information.text = @"未设置";
-            }else {
+            } else {
                 cell.information.text = [NSString stringWithFormat:@"%d",age];
             }
-        }else {
+        } else {
             cell.basicLabel.font = [UIFont systemFontOfSize:14];
             cell.basicLabel.text = @"   现住地";
             if (_userInfo.residence.length == 0 || [_userInfo.residence isBlankString] || _userInfo.residence == nil) {
                 cell.information.text = @"未设置";
-            }else {
+            } else {
                 cell.information.text = _userInfo.residence;
             }
             cell.information.font = [UIFont systemFontOfSize:14];
@@ -675,7 +675,7 @@
     
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 1) {
         PlansListTableViewController *listCtl = [[PlansListTableViewController alloc]initWithUserId:_userInfo.userId];
@@ -771,6 +771,7 @@
 }
 
 #pragma mark - buttonMethod
+
 - (void)visitTracks
 {
     [MobClick event:@"button_item_tracks"];
