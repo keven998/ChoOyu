@@ -1227,7 +1227,6 @@
 		E6A2EEF71B7A1FA000C66D8F /* plan_bg_add@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E6A2EEF51B7A1FA000C66D8F /* plan_bg_add@3x.png */; };
 		E6BFE5FD1B5E732F00A9FDCA /* DestinationCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6BFE5FB1B5E732F00A9FDCA /* DestinationCollectionViewCell.m */; };
 		E6BFE5FE1B5E732F00A9FDCA /* DestinationCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6BFE5FC1B5E732F00A9FDCA /* DestinationCollectionViewCell.xib */; };
-		E6C218881B79C12D00877348 /* OZLExpandableTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C218871B79C12D00877348 /* OZLExpandableTableView.m */; };
 		E6E118F61B59EE280090FDEF /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E118F41B59EE280090FDEF /* UIView+Extension.m */; };
 		E6E6B4081B7AF3BD001A78F4 /* ContactSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E6B4071B7AF3BD001A78F4 /* ContactSearchViewController.m */; };
 		E6E7251E1B5603750007273A /* MJArgument.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E7250C1B5603750007273A /* MJArgument.m */; };
@@ -2879,8 +2878,6 @@
 		E6BFE5FA1B5E732F00A9FDCA /* DestinationCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationCollectionViewCell.h; sourceTree = "<group>"; };
 		E6BFE5FB1B5E732F00A9FDCA /* DestinationCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationCollectionViewCell.m; sourceTree = "<group>"; };
 		E6BFE5FC1B5E732F00A9FDCA /* DestinationCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DestinationCollectionViewCell.xib; sourceTree = "<group>"; };
-		E6C218861B79C12D00877348 /* OZLExpandableTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OZLExpandableTableView.h; sourceTree = "<group>"; };
-		E6C218871B79C12D00877348 /* OZLExpandableTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OZLExpandableTableView.m; sourceTree = "<group>"; };
 		E6E118F31B59EE280090FDEF /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
 		E6E118F41B59EE280090FDEF /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
 		E6E6B4061B7AF3BD001A78F4 /* ContactSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactSearchViewController.h; sourceTree = "<group>"; };
@@ -4528,7 +4525,6 @@
 		D9A8016B1A80E036005AD701 /* libs */ = {
 			isa = PBXGroup;
 			children = (
-				E6C218851B79C12D00877348 /* Animation */,
 				D9E0EEFE1B7D9036003872DF /* CMPopTipView */,
 				E66E6CD61B5A268000CBF65F /* Category */,
 				E6E118F01B59EE190090FDEF /* DropDownMenu */,
@@ -6605,16 +6601,6 @@
 			path = PlansListTableViewCell;
 			sourceTree = "<group>";
 		};
-		E6C218851B79C12D00877348 /* Animation */ = {
-			isa = PBXGroup;
-			children = (
-				E6C218861B79C12D00877348 /* OZLExpandableTableView.h */,
-				E6C218871B79C12D00877348 /* OZLExpandableTableView.m */,
-			);
-			name = Animation;
-			path = ../Common/Common/Animation;
-			sourceTree = "<group>";
-		};
 		E6E118F01B59EE190090FDEF /* DropDownMenu */ = {
 			isa = PBXGroup;
 			children = (
@@ -7876,7 +7862,6 @@
 				C694C38D1AEA23E500F5C36E /* FilterViewController.m in Sources */,
 				D9A801561A80DD23005AD701 /* BaseTableViewCell.m in Sources */,
 				27FF1A721B04BE0E00643D77 /* SignatureViewController.m in Sources */,
-				E6C218881B79C12D00877348 /* OZLExpandableTableView.m in Sources */,
 				D9A8015B1A80DD23005AD701 /* EMRemarkImageView.m in Sources */,
 				D9A802171A80E036005AD701 /* JGProgressHUDRingIndicatorView.m in Sources */,
 				D9A802321A80E036005AD701 /* THProgressView.m in Sources */,
