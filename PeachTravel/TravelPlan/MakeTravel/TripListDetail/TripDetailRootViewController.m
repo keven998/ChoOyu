@@ -29,7 +29,7 @@
 #import "MyTripSpotsMapViewController.h"
 #import "TZNavigationViewController.h"
 #import "LoginViewController.h"
-
+#import "CMPopTipView.h"
 
 @interface TripDetailRootViewController () <ActivityDelegate, TaoziMessageSendDelegate, ChatRecordListDelegate, CreateConversationDelegate, UIActionSheetDelegate, REFrostedViewControllerDelegate>
 
@@ -165,10 +165,11 @@
     } else {
         NSMutableArray *barItems = [[NSMutableArray alloc] init];
         _moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20, 44)];
-        [_moreBtn setImage:[UIImage imageNamed:@"plan_02_dashboard_drawer.png"] forState:UIControlStateNormal];
+        [_moreBtn setImage:[UIImage imageNamed:@"tripDetail_edit.png"] forState:UIControlStateNormal];
         _moreBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 4, 0, 0);
         [_moreBtn addTarget:self action:@selector(showMoreAction:) forControlEvents:UIControlEventTouchUpInside];
-        [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_moreBtn]];
+        UIBarButtonItem *barItem = [[UIBarButtonItem alloc]initWithCustomView:_moreBtn];
+        [barItems addObject: barItem];
         
         UIButton *mapBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20, 44)];
         [mapBtn setImage:[UIImage imageNamed:@"plan_02_dashboard_map.png"] forState:UIControlStateNormal];
@@ -184,6 +185,10 @@
         [bbtn setImage:[UIImage imageNamed:@"common_icon_navigaiton_back_highlight"] forState:UIControlStateHighlighted];
         [bbtn addTarget:self action:@selector(dismissCtl) forControlEvents:UIControlEventTouchUpInside];
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:bbtn];
+        BOOL isNotShouldShowNaviTipsView = [[[NSUserDefaults standardUserDefaults] objectForKey:@"kTripDetailRootCtlNaviTipsView"] boolValue];
+        if (!isNotShouldShowNaviTipsView) {
+            [self showNaviTipsViewWithBarButtonItem:barItem];
+        }
     }
 }
 
@@ -197,6 +202,48 @@
     _spotsListCtl = nil;
     _tripFavoriteCtl = nil;
     _chatRecordListCtl = nil;
+}
+
+//显示 navibar 上的页内引导页面
+- (void)showNaviTipsViewWithBarButtonItem:(UIBarButtonItem *)barItem
+{
+    CMPopTipView *tipView = [[CMPopTipView alloc] initWithMessage:@"可以编辑攻略哦更改旅行几号哦"];
+    tipView.backgroundColor = APP_THEME_COLOR;
+    tipView.dismissTapAnywhere = YES;
+    tipView.hasGradientBackground = NO;
+    tipView.hasShadow = YES;
+    tipView.borderColor = APP_THEME_COLOR;
+    tipView.sidePadding = 5;
+    tipView.maxWidth = 110;
+    tipView.has3DStyle = NO;
+    [tipView presentPointingAtBarButtonItem:barItem animated:YES];
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"kTripDetailRootCtlNaviTipsView"];
+}
+
+//显示 收藏 上的页内引导页面
+- (void)showCollectionTipsViewWithView:(UIView *)sourceView
+{
+    CMPopTipView *tipView = [[CMPopTipView alloc] initWithMessage:@"可以编辑攻略哦更改旅行几号哦"];
+    tipView.backgroundColor = APP_THEME_COLOR;
+    tipView.dismissTapAnywhere = YES;
+    tipView.hasGradientBackground = NO;
+    tipView.hasShadow = YES;
+    tipView.borderColor = APP_THEME_COLOR;
+    tipView.sidePadding = 5;
+    tipView.maxWidth = 110;
+    tipView.has3DStyle = NO;
+    tipView.offsetX = sourceView.bounds.size.width/4;
+    [tipView presentPointingAtView:sourceView inView:self.view animated:YES];
+    objc_setAssociatedObject(self, @"collectionTipsView", tipView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"kTripDetailRootCtlCollectionTipsView"];
+}
+
+- (void)hideCollectionTipsViewWithView
+{
+    id tipsView = objc_getAssociatedObject(self, @"collectionTipsView");
+    if (tipsView) {
+        [((CMPopTipView *)tipsView) dismissAnimated: YES];
+    }
 }
 
 - (UISegmentedControl *)segmentedControl
@@ -642,8 +689,15 @@
 
 - (void)changePage:(UISegmentedControl *)sender
 {
+    [self hideCollectionTipsViewWithView];
     UIViewController *newController = [_tabbarPageControllerArray objectAtIndex:sender.selectedSegmentIndex];
     [self replaceController:_currentViewController newController:newController];
+    if (sender.selectedSegmentIndex == 1) {
+        BOOL isNotShouldShowNaviTipsView = [[[NSUserDefaults standardUserDefaults] objectForKey:@"kTripDetailRootCtlCollectionTipsView"] boolValue];
+        if (!isNotShouldShowNaviTipsView) {
+            [self showCollectionTipsViewWithView:sender];
+        }
+    }
 }
 
 - (void)replaceController:(UIViewController *)oldController newController:(UIViewController *)newController
