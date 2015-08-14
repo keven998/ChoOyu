@@ -97,7 +97,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)setupConverView {
     
-    if (!shouldSkipIntroduce && kShouldShowIntroduceWhenFirstLaunch) {
+    if ((!shouldSkipIntroduce && kShouldShowIntroduceWhenFirstLaunch) || !kIsNotFirstInstall) {
         [self beginIntroduce];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:[[AppUtils alloc] init].appVersion];
     }
