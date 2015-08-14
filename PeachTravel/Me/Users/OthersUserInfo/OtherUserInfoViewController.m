@@ -98,7 +98,6 @@
     _headerBgView.backgroundColor = APP_PAGE_COLOR;
     _headerBgView.clipsToBounds = YES;
     
-    
     CGFloat ah = 200*height/736;
     
     CGFloat avatarW = ah - 19 * height/736;
