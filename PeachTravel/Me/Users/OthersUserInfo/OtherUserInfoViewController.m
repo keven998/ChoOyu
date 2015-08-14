@@ -23,9 +23,9 @@
 #import "UserAlbumViewController.h"
 #import "BaseTextSettingViewController.h"
 #import "FootPrintViewController.h"
+#import "CMPopTipView.h"
 
-@interface OtherUserInfoViewController ()<UIActionSheetDelegate>
-{
+@interface OtherUserInfoViewController ()<UIActionSheetDelegate> {
     NSMutableArray *_dataArray;
     UIImageView *_headerView;
     BOOL _isMyFriend;
@@ -45,6 +45,7 @@
     UILabel *_recidence;
     UILabel *_planeLabel;
     FrendModel *_userInfo;
+    UIButton *_beginTalk;
 }
 @property (nonatomic,strong) UIScrollView *scrollView;
 @property (nonatomic, strong) FrendModel *userInfo;
@@ -90,6 +91,15 @@
     [MobClick endLogPageView:@"page_user_profile"];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    BOOL isNotShouldShowTipsView = [[[NSUserDefaults standardUserDefaults] objectForKey:@"kShowExpertTipsView"] boolValue];
+    if (!isNotShouldShowTipsView && _shouldShowExpertTipsView) {
+        [self showExpertTipsViewWithView:_beginTalk];
+    }
+}
+
 - (void) setupTableHeaderView {
     CGFloat width = kWindowWidth;
     CGFloat height = kWindowHeight;
@@ -97,7 +107,6 @@
     _headerBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 831/3*height/736)];
     _headerBgView.backgroundColor = APP_PAGE_COLOR;
     _headerBgView.clipsToBounds = YES;
-    
     
     CGFloat ah = 200*height/736;
     
@@ -126,7 +135,6 @@
     _constellationView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
     _constellationView.center = CGPointMake(width/2.0 - 18, CGRectGetMaxY(_avatarBg.frame) - 5);
     _constellationView.contentMode = UIViewContentModeScaleAspectFit;
-    
     _constellationView.image = [UIImage imageNamed:[FrendModel bigCostellationImageNameWithBirthday:_userInfo.birthday]];
 
     [_headerBgView addSubview:_constellationView];
@@ -137,7 +145,6 @@
     _levelLabel.text = [NSString stringWithFormat:@"LV%ld", (long)_userInfo.level];
     _levelLabel.textAlignment = NSTextAlignmentCenter;
     [_levelBg addSubview:_levelLabel];
-    
     
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width/2, 44)];
     _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 6, width/2, 18)];
@@ -190,7 +197,6 @@
     _age.textAlignment = NSTextAlignmentCenter;
     _age.font = [UIFont systemFontOfSize:12];
     [_headerBgView addSubview:_age];
-    
     
     [_scrollView addSubview:_headerBgView];
     
@@ -364,17 +370,17 @@
     
     AccountManager *accountManager = [AccountManager shareAccountManager];
     
-    UIButton *beginTalk = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds)/2, 48)];
-    [beginTalk setTitle:@"发送消息" forState:UIControlStateNormal];
-    [beginTalk setBackgroundImage:[UIImage new] forState:UIControlStateNormal];
-    [beginTalk setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
-    [beginTalk setImage:[UIImage imageNamed:@"ic_home_normal.png"] forState:UIControlStateNormal];
-    [beginTalk setBackgroundImage:[UIImage imageNamed:@"account_button_selected.png"] forState:UIControlStateHighlighted];
-    beginTalk.titleLabel.font = [UIFont systemFontOfSize:13];
-    [beginTalk setImageEdgeInsets:UIEdgeInsetsMake(3, -5, 0, 0)];
-    [beginTalk setTitleEdgeInsets:UIEdgeInsetsMake(4, 0, 0, -5)];
-    [beginTalk addTarget:self action:@selector(talkToFriend) forControlEvents:UIControlEventTouchUpInside];
-    [barView addSubview:beginTalk];
+    _beginTalk = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds)/2, 48)];
+    [_beginTalk setTitle:@"发送消息" forState:UIControlStateNormal];
+    [_beginTalk setBackgroundImage:[UIImage new] forState:UIControlStateNormal];
+    [_beginTalk setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
+    [_beginTalk setImage:[UIImage imageNamed:@"ic_home_normal.png"] forState:UIControlStateNormal];
+    [_beginTalk setBackgroundImage:[UIImage imageNamed:@"account_button_selected.png"] forState:UIControlStateHighlighted];
+    _beginTalk.titleLabel.font = [UIFont systemFontOfSize:13];
+    [_beginTalk setImageEdgeInsets:UIEdgeInsetsMake(3, -5, 0, 0)];
+    [_beginTalk setTitleEdgeInsets:UIEdgeInsetsMake(4, 0, 0, -5)];
+    [_beginTalk addTarget:self action:@selector(talkToFriend) forControlEvents:UIControlEventTouchUpInside];
+    [barView addSubview:_beginTalk];
     _addFriendBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetWidth(self.view.bounds)/2, 0, CGRectGetWidth(self.view.bounds)/2, 48)];
     
     _addFriendBtn.titleLabel.font = [UIFont systemFontOfSize:13];
@@ -511,7 +517,6 @@
 - (void)removeContact
 {
     AccountManager *accountManager = [AccountManager shareAccountManager];
-    
     FrendManager *frendManager = [IMClientManager shareInstance].frendManager;
     __weak typeof(OtherUserInfoViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
@@ -532,6 +537,22 @@
             }
         }
     }];
+}
+
+//显示达人交流的引导页面
+- (void)showExpertTipsViewWithView:(UIView *)sourceView
+{
+    CMPopTipView *tipView = [[CMPopTipView alloc] initWithMessage:@"有问题可以向达人请教噢"];
+    tipView.backgroundColor = APP_THEME_COLOR;
+    tipView.dismissTapAnywhere = YES;
+    tipView.hasGradientBackground = NO;
+    tipView.hasShadow = YES;
+    tipView.borderColor = APP_THEME_COLOR;
+    tipView.sidePadding = 5;
+    tipView.maxWidth = 110;
+    tipView.has3DStyle = NO;
+    [tipView presentPointingAtView:sourceView inView:self.view animated:YES];
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"kShowExpertTipsView"];
 }
 
 #pragma mark - Table view data source
@@ -574,8 +595,8 @@
         cell.headerPicArray = _albumArray;
         NSLog(@"%@",cell.headerPicArray);
         return cell;
-    }
-    else if (indexPath.section == 1) {
+        
+    } else if (indexPath.section == 1) {
         
         OtherUserBasicInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"basicInfoCell" forIndexPath:indexPath];
         cell.information.font = [UIFont systemFontOfSize:14];
@@ -585,8 +606,8 @@
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
         return cell;
-    }
-    else if (indexPath.section == 2) {
+        
+    } else if (indexPath.section == 2) {
         HeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"zuji" forIndexPath:indexPath];
         cell.nameLabel.text = @"TA的足迹";
         cell.footPrint.textColor = TEXT_COLOR_TITLE;
@@ -600,8 +621,8 @@
         }
         
         return cell;
-    }
-    else if (indexPath.section == 3) {
+        
+    } else if (indexPath.section == 3) {
         HeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"zuji" forIndexPath:indexPath];
         cell.nameLabel.text = @"签名";
         cell.imageJiantou.image = nil;
@@ -614,14 +635,15 @@
         cell.footPrint.textColor = TEXT_COLOR_TITLE;
         cell.trajectory.text = @"";
         return cell;
-    }
-    else  {
+        
+    } else  {
         OtherUserBasicInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"basicInfoCell" forIndexPath:indexPath];
         if (indexPath.row == 0) {
             cell.basicLabel.font = [UIFont systemFontOfSize:16];
             cell.basicLabel.text = @"基本信息";
             cell.information.text = @"";
-        }else if (indexPath.row == 1){
+            
+        } else if (indexPath.row == 1){
             cell.basicLabel.font = [UIFont systemFontOfSize:14];
             cell.basicLabel.text = @"   年龄";
             
@@ -635,15 +657,15 @@
             cell.information.font = [UIFont systemFontOfSize:14];
             if (_userInfo.birthday == nil||[_userInfo.birthday isBlankString] || _userInfo.birthday.length == 0) {
                 cell.information.text = @"未设置";
-            }else {
+            } else {
                 cell.information.text = [NSString stringWithFormat:@"%d",age];
             }
-        }else {
+        } else {
             cell.basicLabel.font = [UIFont systemFontOfSize:14];
             cell.basicLabel.text = @"   现住地";
             if (_userInfo.residence.length == 0 || [_userInfo.residence isBlankString] || _userInfo.residence == nil) {
                 cell.information.text = @"未设置";
-            }else {
+            } else {
                 cell.information.text = _userInfo.residence;
             }
             cell.information.font = [UIFont systemFontOfSize:14];
@@ -653,7 +675,7 @@
     
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 1) {
         PlansListTableViewController *listCtl = [[PlansListTableViewController alloc]initWithUserId:_userInfo.userId];
@@ -749,6 +771,7 @@
 }
 
 #pragma mark - buttonMethod
+
 - (void)visitTracks
 {
     [MobClick event:@"button_item_tracks"];

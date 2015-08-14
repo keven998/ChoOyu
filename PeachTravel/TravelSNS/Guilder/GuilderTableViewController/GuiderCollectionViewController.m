@@ -262,7 +262,8 @@ static NSString * const reuseIdentifier = @"Cell";
     FrendModel *model = _dataSource[indexPath.row];
     //    otherInfoCtl.model = model;
     otherInfoCtl.userId = model.userId;
-    [self.navigationController pushViewController:otherInfoCtl animated:YES] ;
+    otherInfoCtl.shouldShowExpertTipsView = YES;
+    [self.navigationController pushViewController:otherInfoCtl animated:YES];
 }
 
 - (void)goBack

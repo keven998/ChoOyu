@@ -11,6 +11,7 @@
 #import "ScheduleDayEditViewController.h"
 #import "DayAgendaViewController.h"
 #import "AddPoiViewController.h"
+#import "CMPopTipView.h"
 
 @interface ScheduleEditorViewController ()<UITableViewDataSource, UITableViewDelegate, REFrostedViewControllerDelegate, addPoiDelegate> {
     NSMutableArray *_cityArray;
@@ -75,11 +76,22 @@
     [tabbarView addSubview:editBtn];
 }
 
-#pragma mark - 友盟分享
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_edit_lxp_plan"];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    BOOL isNotShouldShowNaviTipsView = [[[NSUserDefaults standardUserDefaults] objectForKey:@"kScheduleAddPoiTipsView"] boolValue];
+    if (!isNotShouldShowNaviTipsView) {
+        id sourceView = objc_getAssociatedObject(self, @"showTipsSourceView");
+        if (sourceView) {
+            [self showAddTipsViewWithView:sourceView];
+        }
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -126,6 +138,22 @@
     ctl.shouldEdit = YES;
     ctl.delegate = self;
     [self presentViewController:[[TZNavigationViewController alloc] initWithRootViewController:ctl] animated:YES completion:nil];
+}
+
+//显示 收藏 上的页内引导页面
+- (void)showAddTipsViewWithView:(UIView *)sourceView
+{
+    CMPopTipView *tipView = [[CMPopTipView alloc] initWithMessage:@"添加行程到行程计划"];
+    tipView.backgroundColor = APP_THEME_COLOR;
+    tipView.dismissTapAnywhere = YES;
+    tipView.hasGradientBackground = NO;
+    tipView.hasShadow = YES;
+    tipView.borderColor = APP_THEME_COLOR;
+    tipView.sidePadding = 5;
+    tipView.maxWidth = 100;
+    tipView.has3DStyle = NO;
+    [tipView presentPointingAtView:sourceView inView:self.view animated:YES];
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"kScheduleAddPoiTipsView"];
 }
 
 #pragma mark - addPoiDelegate
@@ -226,6 +254,10 @@
     addPoiBtn.tag = section;
     
     [headerView addSubview:addPoiBtn];
+    
+    if (section == 0) {
+        objc_setAssociatedObject(self, @"showTipsSourceView", addPoiBtn, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
     
     return headerView;
 }
