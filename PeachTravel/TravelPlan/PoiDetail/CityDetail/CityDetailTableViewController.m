@@ -128,18 +128,25 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 
 - (void)setUpToolbarView
 {
-    UIImageView *toolBarView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-44, self.view.bounds.size.width, 44)];
+    UIImageView *toolBarView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-44, self.view.bounds.size.width, 46)];
+    toolBarView.userInteractionEnabled = YES;
     toolBarView.image = [[UIImage imageNamed:@"ic_city_toolbar_bgk.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
     [self.view addSubview:toolBarView];
     UIButton *footBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, toolBarView.bounds.size.width/2, toolBarView.bounds.size.height)];
     [footBtn setTitle:@"去过" forState:UIControlStateNormal];
+    footBtn.titleLabel.font = [UIFont boldSystemFontOfSize:16.0];
+    footBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
+    footBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 10);
     [footBtn setTitleColor:COLOR_TEXT_I forState:UIControlStateNormal];
     [footBtn setImage:[UIImage imageNamed:@"ic_city_footter_normal.png"] forState:UIControlStateNormal];
     [footBtn setImage:[UIImage imageNamed:@"ic_city_footter_selected.png"] forState:UIControlStateSelected];
     [toolBarView addSubview:footBtn];
     
     UIButton *likeBtn = [[UIButton alloc] initWithFrame:CGRectMake(toolBarView.bounds.size.width/2, 0, toolBarView.bounds.size.width/2, toolBarView.bounds.size.height)];
+    likeBtn.titleLabel.font = [UIFont boldSystemFontOfSize:16.0];
     [likeBtn setTitle:@"喜欢" forState:UIControlStateNormal];
+    likeBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
+    likeBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 10);
     [likeBtn setTitleColor:COLOR_TEXT_I forState:UIControlStateNormal];
     [likeBtn setImage:[UIImage imageNamed:@"ic_city_favorite_normal.png"] forState:UIControlStateNormal];
     [likeBtn setImage:[UIImage imageNamed:@"ic_city_favorite_selected.png"] forState:UIControlStateSelected];
