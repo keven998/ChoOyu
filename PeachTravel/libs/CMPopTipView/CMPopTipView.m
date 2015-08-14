@@ -534,7 +534,7 @@
 		_targetPoint = CGPointMake(x_p-x_b, fullHeight-2.0);
 	}
 	
-	CGRect finalFrame = CGRectMake(x_b-_sidePadding,
+	CGRect finalFrame = CGRectMake(x_b-_sidePadding+_offsetX,
 								   y_b,
 								   _bubbleSize.width+_sidePadding*2,
 								   fullHeight);

@@ -11,12 +11,10 @@
 #import "DayAgendaViewController.h"
 #import "MyTripSpotsMapViewController.h"
 #import "OZLExpandableTableView.h"
-#import "DMSlideTransition.h"
 
 @interface PlanScheduleViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) DMSlideTransition *slideTransition;
 
 @end
 

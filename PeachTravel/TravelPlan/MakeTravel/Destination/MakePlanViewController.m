@@ -19,6 +19,7 @@
 #import "DestinationCollectionViewCell.h"
 #import "AreaDestination.h"
 #import "MakePlanSearchController.h"
+#import "CMPopTipView.h"
 
 @interface MakePlanViewController () <UISearchBarDelegate, UISearchControllerDelegate, UISearchDisplayDelegate, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
 
