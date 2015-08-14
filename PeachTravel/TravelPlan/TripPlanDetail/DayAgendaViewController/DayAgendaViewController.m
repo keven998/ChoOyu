@@ -68,7 +68,6 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
 {
     // get image of the screen
     int sep = self.sep;
-//    [self setSeperator:[NSNumber numberWithInt:sep]];
     
     CGRect upperRect = CGRectMake(0, 64, kWindowWidth, sep-64);
     CGRect bottomRect = CGRectMake(0, sep+64, kWindowWidth, self.view.frame.size.height - sep);
@@ -81,7 +80,6 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
         self.upperView  = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, sep-64)];
         _upperView.contentMode = UIViewContentModeScaleAspectFit;
         [_upperView setImage:[UIImage imageWithCGImage:imageUp]];
-        _upperView.backgroundColor = [UIColor blueColor];
 
         bottomRect.origin.y = sep;
         CGImageRef imageBottom = CGImageCreateWithImageInRect([_sceenImage CGImage], [self scaleRect:bottomRect withScale:[UIScreen mainScreen].scale ]);
@@ -89,7 +87,6 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
 
         _bottomView.contentMode = UIViewContentModeScaleAspectFit;
         [_bottomView setImage:[UIImage imageWithCGImage:imageBottom]];
-        _bottomView.backgroundColor = [UIColor redColor];
         
         [self.view addSubview:_upperView];
         [self.view addSubview:_bottomView];

@@ -17,5 +17,4 @@
 - (void)setUseBlurForPopup:(BOOL)useBlurForPopup;
 - (BOOL)useBlurForPopup;
 
-- (UIImage *)getScreenImage;
 @end
