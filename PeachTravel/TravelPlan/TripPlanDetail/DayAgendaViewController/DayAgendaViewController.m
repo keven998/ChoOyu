@@ -12,7 +12,6 @@
 #import "ScheduleEditorViewController.h"
 #import "TripPoiListTableViewCell.h"
 #import "ScheduleDayEditViewController.h"
-#import "OZLExpandableTableView.h"
 
 
 #define UPPERVIEW_TAG 1000
@@ -69,7 +68,7 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
 {
     // get image of the screen
     int sep = self.sep;
-    [self setSeperator:[NSNumber numberWithInt:sep]];
+//    [self setSeperator:[NSNumber numberWithInt:sep]];
     
     CGRect upperRect = CGRectMake(0, 64, kWindowWidth, sep-64);
     CGRect bottomRect = CGRectMake(0, sep+64, kWindowWidth, self.view.frame.size.height - sep);

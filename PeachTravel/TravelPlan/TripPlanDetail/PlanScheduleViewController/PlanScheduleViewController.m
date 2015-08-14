@@ -10,7 +10,6 @@
 #import "PlanScheduleTableViewCell.h"
 #import "DayAgendaViewController.h"
 #import "MyTripSpotsMapViewController.h"
-#import "OZLExpandableTableView.h"
 
 @interface PlanScheduleViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -36,8 +35,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    [self restoreFromExpandedCell];
     
     [self.tableView reloadData];
 }
@@ -182,7 +179,7 @@
 
     DayAgendaViewController *davc = [[DayAgendaViewController alloc] initWithDay:indexPath.row];
     davc.tripDetail = _tripDetail;
-    davc.sceenImage = [self imageViewFromScreen];
+    davc.sceenImage = [self getScreenImage];
     
     UIView * sourceView = [tableView cellForRowAtIndexPath:indexPath];
     int y = [sourceView convertPoint:CGPointMake(1, 1) toView:self.tableView].y;

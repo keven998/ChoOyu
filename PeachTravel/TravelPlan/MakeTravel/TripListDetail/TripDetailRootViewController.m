@@ -207,7 +207,7 @@
 //显示 navibar 上的页内引导页面
 - (void)showNaviTipsViewWithBarButtonItem:(UIBarButtonItem *)barItem
 {
-    CMPopTipView *tipView = [[CMPopTipView alloc] initWithMessage:@"可以编辑攻略哦更改旅行几号哦"];
+    CMPopTipView *tipView = [[CMPopTipView alloc] initWithMessage:@"点击这里修改计划"];
     tipView.backgroundColor = APP_THEME_COLOR;
     tipView.dismissTapAnywhere = YES;
     tipView.hasGradientBackground = NO;
@@ -223,7 +223,7 @@
 //显示 收藏 上的页内引导页面
 - (void)showCollectionTipsViewWithView:(UIView *)sourceView
 {
-    CMPopTipView *tipView = [[CMPopTipView alloc] initWithMessage:@"可以编辑攻略哦更改旅行几号哦"];
+    CMPopTipView *tipView = [[CMPopTipView alloc] initWithMessage:@"添加备选心愿到收藏"];
     tipView.backgroundColor = APP_THEME_COLOR;
     tipView.dismissTapAnywhere = YES;
     tipView.hasGradientBackground = NO;
