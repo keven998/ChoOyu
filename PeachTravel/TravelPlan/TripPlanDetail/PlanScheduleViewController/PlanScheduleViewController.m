@@ -179,7 +179,7 @@
 
     DayAgendaViewController *davc = [[DayAgendaViewController alloc] initWithDay:indexPath.row];
     davc.tripDetail = _tripDetail;
-    davc.sceenImage = [self getScreenImage];
+    davc.sceenImage = [self imageViewFromScreen];
     
     UIView * sourceView = [tableView cellForRowAtIndexPath:indexPath];
     int y = [sourceView convertPoint:CGPointMake(1, 1) toView:self.tableView].y;
@@ -188,15 +188,25 @@
     [self.frostedViewController.navigationController pushViewController:davc animated:NO];
 }
 
-- (void)presentWithTransition:(id)transition
-{
-    DayAgendaViewController *vc = [[DayAgendaViewController alloc] init];
+// capture a screen-sized image of the receiver
+- (UIImage *)imageViewFromScreen {
+    // make a bitmap copy of the screen
+    UIGraphicsBeginImageContextWithOptions([UIScreen mainScreen].bounds.size, YES,[UIScreen mainScreen].scale);
+    // get the root layer
+    CALayer *layer = self.view.layer;
+    while(layer.superlayer) {
+        layer = layer.superlayer;
+    }
+    // render it into the bitmap
+    [layer renderInContext:UIGraphicsGetCurrentContext()];
+    // get the image
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    // close the context
+    UIGraphicsEndImageContext();
     
-    [vc setTransitioningDelegate:transition];
-    [self presentViewController:vc animated:YES completion:^{
-        
-    }];
+    return(image);
 }
+
 
 
 
