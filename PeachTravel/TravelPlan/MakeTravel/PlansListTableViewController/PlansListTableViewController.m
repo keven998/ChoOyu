@@ -85,6 +85,7 @@ static NSString *reusableCell = @"myGuidesCell";
         self.navigationItem.title = @"我的计划";
     }
     
+    
     UIButton *categoryBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 20, 30)];
     [categoryBtn addTarget:self action:@selector(filtTrip) forControlEvents:UIControlEventTouchUpInside];
     [categoryBtn setImage:[UIImage imageNamed:@"plan_10_dashboard_sift"] forState:UIControlStateNormal];
@@ -518,7 +519,7 @@ static NSString *reusableCell = @"myGuidesCell";
 #pragma mark - Table view data source
 
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (_isOwner) {
+    if (_isOwner && self.navigationController.viewControllers.count > 1) {
         return 72;
     }
     return 1;
@@ -540,7 +541,7 @@ static NSString *reusableCell = @"myGuidesCell";
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    if (_isOwner) {
+    if (_isOwner && self.navigationController.viewControllers.count > 1) {
         PlansListTableHeaderView * headerView = [PlansListTableHeaderView planListHeaderView];
         
         [headerView.addTourPlan addTarget:self action:@selector(makePlan) forControlEvents:UIControlEventTouchUpInside];

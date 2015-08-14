@@ -64,6 +64,7 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
     self.foreignTableView.dataSource = self;
     self.foreignTableView.delegate = self;
     self.foreignTableView.contentInset = UIEdgeInsetsMake(0, 0, 85, 0);
+    self.foreignTableView.showsVerticalScrollIndicator = NO;
 
     [self initData];
     
@@ -350,6 +351,7 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
     
     cell.textLabel.text = title;
     cell.textLabel.font = [UIFont systemFontOfSize:14.0];
+    cell.textLabel.adjustsFontSizeToFitWidth = YES;
     
     return cell;
 }

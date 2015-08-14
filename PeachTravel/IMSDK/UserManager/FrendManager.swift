@@ -288,21 +288,3 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
     }
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
