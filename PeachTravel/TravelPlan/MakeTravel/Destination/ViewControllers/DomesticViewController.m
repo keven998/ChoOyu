@@ -295,6 +295,12 @@ static NSString *cacheName = @"destination_demostic_group";
     
     [_makePlanCtl.selectPanel reloadData];
     [self.domesticCollectionView reloadData];
+    
+    if (self.destinations.destinationsSelected.count == 0) {
+        [_makePlanCtl hideDestinationBar];
+    }else{
+        [_makePlanCtl showDestinationBar];
+    }
 }
 
 @end

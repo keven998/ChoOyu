@@ -380,6 +380,12 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
     
     [_makePlanCtl.selectPanel reloadData];
     [self.foreignCollectionView reloadData];
+    
+    if (self.destinations.destinationsSelected.count == 0) {
+        [_makePlanCtl hideDestinationBar];
+    }else{
+        [_makePlanCtl showDestinationBar];
+    }
 }
 
 
