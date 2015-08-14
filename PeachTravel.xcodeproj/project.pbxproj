@@ -681,6 +681,10 @@
 		D9F70CAD1B31523C00BDACA1 /* AccountDaoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F70CAC1B31523C00BDACA1 /* AccountDaoHelper.swift */; };
 		D9FCE7DE1B134B4B0039F896 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FCE7DD1B134B4B0039F896 /* ChatViewController.m */; };
 		D9FCE7E91B135C820039F896 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FCE7E81B135C820039F896 /* Reachability.m */; };
+		E625D5BB1B7DB2E90066F450 /* search_add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E625D5B71B7DB2E90066F450 /* search_add@2x.png */; };
+		E625D5BC1B7DB2E90066F450 /* search_add@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E625D5B81B7DB2E90066F450 /* search_add@3x.png */; };
+		E625D5BD1B7DB2E90066F450 /* search_chart@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E625D5B91B7DB2E90066F450 /* search_chart@2x.png */; };
+		E625D5BE1B7DB2E90066F450 /* search_chart@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E625D5BA1B7DB2E90066F450 /* search_chart@3x.png */; };
 		E63819A71B65F61000CF73AA /* account_button_default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E638179F1B65F61000CF73AA /* account_button_default@2x.png */; };
 		E63819A81B65F61000CF73AA /* account_button_default@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E63817A01B65F61000CF73AA /* account_button_default@3x.png */; };
 		E63819A91B65F61000CF73AA /* account_button_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E63817A11B65F61000CF73AA /* account_button_selected@2x.png */; };
@@ -2321,6 +2325,10 @@
 		D9FCE7E71B135C820039F896 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		D9FCE7E81B135C820039F896 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		E36073AEEC32FD100F0D0A9B /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		E625D5B71B7DB2E90066F450 /* search_add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search_add@2x.png"; sourceTree = "<group>"; };
+		E625D5B81B7DB2E90066F450 /* search_add@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search_add@3x.png"; sourceTree = "<group>"; };
+		E625D5B91B7DB2E90066F450 /* search_chart@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search_chart@2x.png"; sourceTree = "<group>"; };
+		E625D5BA1B7DB2E90066F450 /* search_chart@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search_chart@3x.png"; sourceTree = "<group>"; };
 		E638179F1B65F61000CF73AA /* account_button_default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "account_button_default@2x.png"; sourceTree = "<group>"; };
 		E63817A01B65F61000CF73AA /* account_button_default@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "account_button_default@3x.png"; sourceTree = "<group>"; };
 		E63817A11B65F61000CF73AA /* account_button_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "account_button_selected@2x.png"; sourceTree = "<group>"; };
@@ -6187,6 +6195,10 @@
 		E63818C71B65F61000CF73AA /* 搜索 */ = {
 			isa = PBXGroup;
 			children = (
+				E625D5B71B7DB2E90066F450 /* search_add@2x.png */,
+				E625D5B81B7DB2E90066F450 /* search_add@3x.png */,
+				E625D5B91B7DB2E90066F450 /* search_chart@2x.png */,
+				E625D5BA1B7DB2E90066F450 /* search_chart@3x.png */,
 				E63818C81B65F61000CF73AA /* search_default_background@2x.png */,
 				E63818C91B65F61000CF73AA /* search_default_background@3x.png */,
 				E63818CA1B65F61000CF73AA /* search_total_place@2x.png */,
@@ -7136,6 +7148,7 @@
 				D9A8011F1A80DD23005AD701 /* call_silence.png in Resources */,
 				E6381C081B66269000CF73AA /* Loading_Animation_final4@2x.png in Resources */,
 				E68605701B6B52E600111D94 /* chat_paipai@2x.png in Resources */,
+				E625D5BC1B7DB2E90066F450 /* search_add@3x.png in Resources */,
 				E6A2EEEC1B7A109A00C66D8F /* plan_add@2x.png in Resources */,
 				E6381AA11B65F61000CF73AA /* map_icon_7@3x.png in Resources */,
 				E6381ACB1B65F61000CF73AA /* ic_home_avatar_border_girl@2x.png in Resources */,
@@ -7358,6 +7371,7 @@
 				E6381AEE1B65F61000CF73AA /* ic_avatar_lxp_search@3x.png in Resources */,
 				E6381A101B65F61000CF73AA /* poi_button_raid_selected@2x.png in Resources */,
 				D9D5198F1B71ECF80041D01A /* ic_navigationbar_menu_friendlist@2x.png in Resources */,
+				E625D5BE1B7DB2E90066F450 /* search_chart@3x.png in Resources */,
 				D90A9B5E1B5627C400E9F37C /* Loading_Animation_final51@3x.png in Resources */,
 				E6381A1E1B65F61000CF73AA /* poi_comment_start_default@2x.png in Resources */,
 				D90A9B5A1B5627C400E9F37C /* Loading_Animation_final47@3x.png in Resources */,
@@ -7392,6 +7406,7 @@
 				D9B4083D1B6F638E00795EB6 /* introduce_4_4@2x.png in Resources */,
 				D90A9B461B5627C400E9F37C /* Loading_Animation_final27@3x.png in Resources */,
 				D9B4082C1B6F528D00795EB6 /* introduce_6_3@2x.png in Resources */,
+				E625D5BD1B7DB2E90066F450 /* search_chart@2x.png in Resources */,
 				E6381ADC1B65F61000CF73AA /* ic_home_level_bg_girl@3x.png in Resources */,
 				E6381ACC1B65F61000CF73AA /* ic_home_avatar_border_girl@3x.png in Resources */,
 				E6381B661B65F61000CF73AA /* ic_setting_apprise@3x.png in Resources */,
@@ -7582,6 +7597,7 @@
 				E6381BDE1B66269000CF73AA /* Loading_Animation_final11@2x.png in Resources */,
 				E6381A131B65F61000CF73AA /* poi_button_tip_default@3x.png in Resources */,
 				E6381B261B65F61000CF73AA /* chat_sender_audio_playing_001@3x.png in Resources */,
+				E625D5BB1B7DB2E90066F450 /* search_add@2x.png in Resources */,
 				E6381A0F1B65F61000CF73AA /* poi_button_raid_disable@3X.png in Resources */,
 				E6381B5D1B65F61000CF73AA /* chat_drawer_leave@2x.png in Resources */,
 				E6381B051B65F61000CF73AA /* speaking-motion14@2x.png in Resources */,
