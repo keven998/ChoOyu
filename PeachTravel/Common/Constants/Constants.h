@@ -289,7 +289,9 @@ typedef NS_ENUM(NSUInteger, TZCMDChatType) {
 /*****应用启动时是否应该启动引导页******/
 #define shouldSkipIntroduce [[NSUserDefaults standardUserDefaults] boolForKey:[[AppUtils alloc] init].appVersion]
 
-#define kShouldShowIntroduceWhenFirstLaunch   YES
+#define kIsNotFirstInstall [[NSUserDefaults standardUserDefaults] boolForKey:[[AppUtils alloc] init].appVersion]
+
+#define kShouldShowIntroduceWhenFirstLaunch   NO
 
 #define kShouldShowUnreadFrendRequestNoti  @"shouldShowUnreadFrendRequestNoti"
 
