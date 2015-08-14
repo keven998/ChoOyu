@@ -698,6 +698,8 @@ static NSString *reusableCell = @"myGuidesCell";
     // 修改接口
     NSString * urlStr = [NSString stringWithFormat:@"%@%ld/guides/%@",API_USERS, (long)accountManager.account.userId, guideSummary.guideId];
     
+    NSLog(@"%@,%@",urlStr,params);
+    
     [manager PATCH:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         [hud hideTZHUD];
@@ -769,8 +771,7 @@ static NSString *reusableCell = @"myGuidesCell";
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [self.dataSource removeObject:guideSummary];
-//            NSIndexSet *set = [NSIndexSet indexSetWithIndex:cellIndexPath.section];
-//            [self.tableView deleteSections:set withRowAnimation:UITableViewRowAnimationNone];
+            
             [self.tableView deleteRowsAtIndexPaths:@[cellIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
             
             [self.dataSource insertObject:guideSummary atIndex:0];
