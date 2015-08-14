@@ -198,6 +198,12 @@
     NSLog(@"%@",self.destinations.destinationsSelected);
     
     [self.selectPanel reloadData];
+    
+    if (self.destinations.destinationsSelected.count == 0) {
+        [self hideDestinationBar];
+    }else{
+        [self showDestinationBar];
+    }
 }
 
 
@@ -234,6 +240,7 @@
     self.tableView.hidden = NO;
     
     [self.dataSource removeAllObjects];
+    [self.allCountriesName removeAllObjects];
     
     // 存储所有区域数组
     NSMutableArray * allAreaDestination = [NSMutableArray array];
@@ -258,11 +265,10 @@
         }
     }
     
-    NSLog(@"%@",self.dataSource);
-    NSLog(@"%@",self.allCountriesName);
-    
     [self.tableView reloadData];
     [self.searchBar endEditing:YES];
+    
+    
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -301,9 +307,9 @@
     hintText.text = @"选择想去的城市";
     hintText.textAlignment = NSTextAlignmentCenter;
     hintText.font = [UIFont systemFontOfSize:14];
-    hintText.tag = 1000;
+    hintText.tag = 1;
     [toolBar addSubview:hintText];
-    
+
     if (self.destinations.destinationsSelected.count == 0) {
         [self hideDestinationBar];
     }else{
@@ -314,13 +320,13 @@
 
 - (void)hideDestinationBar
 {
-    UIView *view = [self.selectPanel.superview viewWithTag:1000];
+    UIView *view = [self.selectPanel.superview viewWithTag:1];
     view.hidden = NO;
 }
 
 - (void)showDestinationBar
 {
-    UIView *view = [self.selectPanel.superview viewWithTag:1000];
+    UIView *view = [self.selectPanel.superview viewWithTag:1];
     view.hidden = YES;
 }
 
@@ -337,14 +343,26 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
     DestinationCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     CityDestinationPoi *city = [self.destinations.destinationsSelected objectAtIndex:indexPath.row];
     cell.titleLabel.text = [NSString stringWithFormat:@"%ld.%@", (long)(indexPath.row + 1), city.zhName];
+
+    
+    // 执行跳转
+    [self.selectPanel performBatchUpdates:^{
+        
+    } completion:^(BOOL finished) {
+        [collectionView scrollToItemAtIndexPath:indexPath
+                               atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+    }];
+    
     return cell;
 }
 
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    /*
     [collectionView deselectItemAtIndexPath:indexPath animated:YES];
     CityDestinationPoi *city = [_destinations.destinationsSelected objectAtIndex:indexPath.row];
     [_destinations.destinationsSelected removeObjectAtIndex:indexPath.row];
@@ -357,6 +375,7 @@
         }
     }];
     [[NSNotificationCenter defaultCenter] postNotificationName:updateDestinationsSelectedNoti object:nil userInfo:@{@"city":city}];
+     */
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath

@@ -26,10 +26,10 @@
                         <state key="selected" title="已添加"/>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w9A-2Q-2Sa">
-                        <rect key="frame" x="24" y="18" width="120" height="21"/>
+                        <rect key="frame" x="24" y="18" width="220" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="RBU-XJ-v3i"/>
-                            <constraint firstAttribute="width" constant="120" id="bNX-Od-SgN"/>
+                            <constraint firstAttribute="width" constant="220" id="bNX-Od-SgN"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
