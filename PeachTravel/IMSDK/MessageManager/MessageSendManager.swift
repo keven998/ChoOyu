@@ -82,6 +82,11 @@ class MessageSendManager: NSObject {
         })
     }
     
+    private func sendNewMessage(message: BaseMessage, receiver: Int, chatType: IMChatType, conversationId: String?) {
+        var daoHelper = DaoHelper.shareInstance()
+        var accountManager = AccountManager.shareAccountManager()
+    }
+    
 //MARK: Internal methods
     /**
     判断一条消息是不是确实正在发送，判断的方法是： 检查这条消息是不是在发送中的队列里
