@@ -62,7 +62,7 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
     
     [self.view addSubview:self.tableView];
     
-    self.tableView.contentInset = UIEdgeInsetsMake(18, 0, 0, 0);
+//    self.tableView.contentInset = UIEdgeInsetsMake(18, 0, 0, 0);
     
 }
 

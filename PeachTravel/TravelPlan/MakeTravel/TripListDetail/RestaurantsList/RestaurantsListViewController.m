@@ -50,7 +50,7 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
     self.view.backgroundColor = APP_PAGE_COLOR;
     [self.view addSubview:self.tableView];
     
-    self.tableView.contentInset = UIEdgeInsetsMake(18, 0, 0, 0);
+//    self.tableView.contentInset = UIEdgeInsetsMake(18, 0, 0, 0);
 }
 
 - (void)viewWillAppear:(BOOL)animated
