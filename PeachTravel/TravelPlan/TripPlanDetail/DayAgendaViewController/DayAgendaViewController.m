@@ -91,21 +91,27 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
         [self.view addSubview:_upperView];
         [self.view addSubview:_bottomView];
         
-        [UIView animateWithDuration:0.3
+        self.tableView.alpha = 0.5;
+//        [UIView setAnimationTransition:UIViewAnimationTransitionCurlUp forView:self.tableView cache:YES];
+        [UIView animateWithDuration:0.5
                          animations:^(void) {
                              [_upperView setFrame:CGRectMake(0, -_upperView.bounds.size.height, _upperView.bounds.size.width, _upperView.bounds.size.height)];
                              [_bottomView setFrame:CGRectMake(0, kWindowHeight, _bottomView.bounds.size.width, _bottomView.bounds.size.height)];
                              _tableView.contentInset = UIEdgeInsetsZero;
+                             self.tableView.alpha = 1.0;
                          } completion:^(BOOL finished) {
                              
                          }];
     } else {
-        [UIView animateWithDuration:0.3
+        self.tableView.alpha = 1.0;
+        [UIView animateWithDuration:0.5
                          animations:^(void) {
                              [self.upperView setFrame:CGRectMake(0, 0, kWindowWidth, sep-64)];
                              [self.bottomView setFrame:CGRectMake(0, sep-64, kWindowWidth, self.view.frame.size.height-sep+64)];
                              _tableView.contentInset = UIEdgeInsetsMake(sep-64, 0, 0, 0);
+                             self.tableView.alpha = 0.5;
                          } completion:^(BOOL finished) {
+            
                              [self.navigationController popViewControllerAnimated:NO];
                          }];
     }
