@@ -23,6 +23,7 @@
     self.tableView.rowHeight = 70;
     
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
+    self.tableView.separatorColor = COLOR_LINE;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -59,25 +60,28 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 0.5;
+    return CGFLOAT_MIN;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 0.5;
+    return CGFLOAT_MIN;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
                                                    reuseIdentifier:@"Cell"];
+    cell.textLabel.textColor = COLOR_TEXT_I;
+    cell.detailTextLabel.textColor = COLOR_TEXT_II;
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     if (indexPath.row == 0) {
         cell.imageView.image = [UIImage imageNamed:@"collect_food.png"];
         cell.textLabel.text = @"美食";
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld个收藏", (long)_tripDetail.restaurantsList.count];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld个想去的美食", (long)_tripDetail.restaurantsList.count];
     }
     else if (indexPath.row == 1) {
         cell.imageView.image = [UIImage imageNamed:@"collect_shopping.png"];
         cell.textLabel.text = @"购物";
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld个收藏", (long)_tripDetail.shoppingList.count];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld个想去的购物", (long)_tripDetail.shoppingList.count];
     }
     
     return cell;

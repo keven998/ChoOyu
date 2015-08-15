@@ -214,12 +214,12 @@
     if (indexPath.section == 0)
     {
         if (indexPath.row == 0) {
-            cell.textLabel.text = _tripDetail.tripTitle;
+            cell.textLabel.text = @"修改标题";//_tripDetail.tripTitle;
         }
         else if (indexPath.row == 1) {
-            cell.textLabel.text = @"调整计划";
+            cell.textLabel.text = @"修改行程";
         }
-        else if (indexPath.row == 2){
+        else if (indexPath.row == 2) {
             cell.textLabel.text = @"发给朋友";
         }
         return cell;
