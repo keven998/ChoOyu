@@ -227,8 +227,7 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
 {
     TravelNoteTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reusableCellIdentifier forIndexPath:indexPath];
     TravelNote *travelNote = [self.dataSource objectAtIndex:indexPath.row];
-    TaoziImage *image = [travelNote.images firstObject];
-    cell.travelNoteImage = image.imageUrl;
+    cell.travelNoteImage = travelNote.authorAvatar;
     cell.title = travelNote.title;
     cell.desc = travelNote.summary;
     
