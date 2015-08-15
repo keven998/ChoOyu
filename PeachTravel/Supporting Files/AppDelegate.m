@@ -86,6 +86,7 @@
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
+    // 注册远程推送的DeviceToken
     [self lvApplication:application didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
 }
 
