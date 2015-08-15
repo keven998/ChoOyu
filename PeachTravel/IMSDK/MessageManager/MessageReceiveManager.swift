@@ -376,6 +376,8 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
         NSLog("收到消息： 消息为：\(message)")
         if AccountManager.shareAccountManager().isLogin() {
             if let message = MessageManager.messageModelWithMessage(message) {
+                
+                // 收到消息有可能是从其他客户端登录发送的
                 if message.senderId == IMClientManager.shareInstance().accountId {
                     message.sendType = IMMessageSendType.MessageSendMine
                     messagePool.addMessage4Reorder(message)

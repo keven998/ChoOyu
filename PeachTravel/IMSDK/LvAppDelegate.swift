@@ -15,6 +15,7 @@ extension AppDelegate {
     
     func lvApplication(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
+        // 程序启动之后调用此方法,如果用户登录,执行下列操作
         if (AccountManager.shareAccountManager().isLogin()) {
             IMClientManager.shareInstance().userDidLogin(AccountManager.shareAccountManager().account.userId)
             let connectionManager = ConnectionManager.shareInstance()
