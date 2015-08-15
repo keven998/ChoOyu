@@ -45,7 +45,7 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"收藏的美食";
+    self.navigationItem.title = @"想去的美食";
     
     self.view.backgroundColor = APP_PAGE_COLOR;
     [self.view addSubview:self.tableView];
@@ -202,7 +202,7 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
     label.frame = CGRectMake(12, 16, 100, 12);
     [label setTextColor:COLOR_TEXT_II];
     CityDestinationPoi * poi = self.tripDetail.destinations[section];
-    NSString * title = [NSString stringWithFormat:@"%@ (%ld收藏)",poi.zhName,shoppingArray.count];
+    NSString * title = [NSString stringWithFormat:@"%@美食（%ld）",poi.zhName,shoppingArray.count];
     label.text = title;
     [containBtn addSubview:label];
     
@@ -212,7 +212,7 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
         collection.tag = section;
         CGFloat collectionW = 52;
         collection.frame = CGRectMake(kWindowWidth - 10 - collectionW, 8.5, collectionW, 26);
-        [collection setTitle:@"＋收藏" forState:UIControlStateNormal];
+        [collection setTitle:@"＋想去" forState:UIControlStateNormal];
         collection.titleLabel.font = [UIFont systemFontOfSize:12.0];
         [collection setTitleColor:COLOR_TEXT_III forState:UIControlStateNormal];
         [collection setTitleColor:COLOR_DISABLE forState:UIControlStateHighlighted];

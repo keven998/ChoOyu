@@ -236,8 +236,8 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
             [cell.actionBtn setTitle:@"添加" forState:UIControlStateNormal];
             [cell.actionBtn setTitle:@"已添加" forState:UIControlStateSelected];
         } else {
-            [cell.actionBtn setTitle:@"收藏" forState:UIControlStateNormal];
-            [cell.actionBtn setTitle:@"已收藏" forState:UIControlStateSelected];
+            [cell.actionBtn setTitle:@"想去" forState:UIControlStateNormal];
+            [cell.actionBtn setTitle:@"已添加" forState:UIControlStateSelected];
         }
 
         cell.actionBtn.selected = isAdded;
