@@ -224,11 +224,11 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
                     }
                 }
                 if isQuitGroup {
+                    let frendType = IMFrendType(rawValue: (IMFrendWeightType.DiscussionGroup.rawValue + IMFrendWeightType.BlackList.rawValue))!
                     var frendManager = IMClientManager.shareInstance().frendManager
-                    frendManager.deleteFrendFromDB(group.groupId)
+                    frendManager.updateFrendType(userId: group.groupId, frendType: frendType)
                 } else {
                     self.deleteNumbersFromGroup(members: members, group: group)
-
                 }
                 completion(isSuccess: true, errorCode: 0)
             } else {
@@ -299,9 +299,7 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
     :returns:
     */
     func getFullDiscussionGroupInfo(#frendModel: FrendModel) -> IMDiscussionGroup {
-        var discussionGroup = IMDiscussionGroup()
-        discussionGroup.groupId = frendModel.userId
-        discussionGroup.subject = frendModel.nickName
+        let discussionGroup = self.getBasicDiscussionGroupInfo(frendModel: frendModel)
         var extData = JSONConvertMethod.jsonObjcWithString(frendModel.extData as String)
         
         if let membersData = extData.objectForKey("members") as? Array<NSDictionary> {
@@ -320,6 +318,8 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
         var discussionGroup = IMDiscussionGroup()
         discussionGroup.groupId = frendModel.userId
         discussionGroup.subject = frendModel.nickName
+        discussionGroup.type = frendModel.type
+        discussionGroup.blockMessage = FrendModel.typeIsCorrect(discussionGroup.type, typeWeight: IMFrendWeightType.BlackList)
         return discussionGroup
     }
     

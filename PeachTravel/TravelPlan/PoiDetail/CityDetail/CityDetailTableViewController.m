@@ -123,7 +123,6 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
         _tableView.tableFooterView = view;
     }
     [self.tableView reloadData];
-
 }
 
 - (void)setUpToolbarView
