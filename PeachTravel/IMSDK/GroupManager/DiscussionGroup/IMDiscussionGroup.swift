@@ -13,6 +13,7 @@ class IMDiscussionGroup: NSObject {
     var groupId: Int = -1
     var subject: String?
     var owner: Int = -1
+    var blockMessage: Bool = false
     var type: IMFrendType = .DiscussionGroup
     var members: Array<FrendModel> = Array()
     

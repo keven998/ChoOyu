@@ -44,7 +44,7 @@
     [_tableView setEditing:YES animated:YES];
     _tableView.separatorColor = COLOR_LINE;
     [_tableView registerNib:[UINib nibWithNibName:@"PoiOnEditorTableViewCell" bundle:nil] forCellReuseIdentifier:@"poi_cell_of_edit"];
-    _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.bounds.size.width, 50+49)];
+    _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.bounds.size.width, 220)];
     [self.view addSubview:_tableView];
 
     UIImageView *tabbarView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 49 - 64, CGRectGetWidth(self.view.bounds), 49)];
@@ -53,27 +53,33 @@
     
     [self.view addSubview:tabbarView];
     
-    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(tabbarView.bounds.size.width-74, 14, 60, 26)];
+    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(tabbarView.bounds.size.width/2-40, 14, 80, 26)];
     btn.layer.cornerRadius = 3.0;
-    btn.layer.borderColor = APP_THEME_COLOR.CGColor;
-    btn.layer.borderWidth = 1.0;
-    [btn setTitle:@"增加一天" forState:UIControlStateNormal];
-    btn.titleLabel.font = [UIFont systemFontOfSize:12.0];
-    [btn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+    btn.backgroundColor = APP_THEME_COLOR;
+    [btn setTitle:@"1天" forState:UIControlStateNormal];
+    [btn setImage:[UIImage imageNamed:@"trip_add_day.png"] forState:UIControlStateNormal];
+    btn.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
+    btn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 10);
+    btn.titleLabel.font = [UIFont systemFontOfSize:17.0];
+    [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [btn setTitleColor:COLOR_DISABLE forState:UIControlStateHighlighted];
     [btn addTarget:self action:@selector(addOneDay:) forControlEvents:UIControlEventTouchUpInside];
     [tabbarView addSubview:btn];
     
-    UIButton *editBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, 14, 60, 26)];
-    editBtn.layer.cornerRadius = 3.0;
-    editBtn.layer.borderColor = APP_THEME_COLOR.CGColor;
-    editBtn.layer.borderWidth = 1.0;
-    editBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
-    [editBtn setTitle:@"按天调整" forState:UIControlStateNormal];
-    [editBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+    UIButton *editBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-225, 40, 120)];
+    editBtn.titleLabel.font = [UIFont systemFontOfSize:16.0];
+    editBtn.titleLabel.numberOfLines = 0;
+    editBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 20, 10);
+    [editBtn setTitle:@"按\n天\n调\n整" forState:UIControlStateNormal];
+    [editBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [editBtn setTitleColor:COLOR_DISABLE forState:UIControlStateHighlighted];
+    [editBtn setBackgroundImage:[UIImage imageNamed:@"change_day_bg.png"] forState:UIControlStateNormal];
     [editBtn addTarget:self action:@selector(editDay:) forControlEvents:UIControlEventTouchUpInside];
-    [tabbarView addSubview:editBtn];
+    [self.view addSubview:editBtn];
+    
+    UIImageView *arrowView = [[UIImageView alloc] initWithFrame:CGRectMake(6, 92, editBtn.bounds.size.width-22, 10)];
+    arrowView.image = [UIImage imageNamed:@"change_day_arrow.png"];
+    [editBtn addSubview:arrowView];
 }
 
 - (void)viewWillAppear:(BOOL)animated

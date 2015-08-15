@@ -68,8 +68,8 @@ extension IMDiscussionGroupManager {
                 let group = IMDiscussionGroup(jsonData: resultDic)
                 self.updateGroupInfoInDB(group)
                 completion(isSuccess: true, errorCode: 0, discussionGroup: group)
-            } else {
                 
+            } else {
                 completion(isSuccess: false, errorCode: 0, discussionGroup: nil)
             }
         }) {

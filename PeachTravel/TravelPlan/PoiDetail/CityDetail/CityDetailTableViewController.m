@@ -123,7 +123,6 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
         _tableView.tableFooterView = view;
     }
     [self.tableView reloadData];
-
 }
 
 - (void)setUpToolbarView
@@ -151,7 +150,6 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [likeBtn setImage:[UIImage imageNamed:@"ic_city_favorite_normal.png"] forState:UIControlStateNormal];
     [likeBtn setImage:[UIImage imageNamed:@"ic_city_favorite_selected.png"] forState:UIControlStateSelected];
     [toolBarView addSubview:likeBtn];
-    
 }
 
 - (UITableView *)tableView
