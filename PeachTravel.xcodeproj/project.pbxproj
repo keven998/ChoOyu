@@ -252,6 +252,12 @@
 		D94B891B1B5E4F4C00584DE5 /* h5_labar_left_disabled@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94B89151B5E4F4C00584DE5 /* h5_labar_left_disabled@3x.png */; };
 		D94B891C1B5E4F4C00584DE5 /* h5_labar_right_default@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94B89161B5E4F4C00584DE5 /* h5_labar_right_default@3x.png */; };
 		D94B891D1B5E4F4C00584DE5 /* h5_labar_right_disabled@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94B89171B5E4F4C00584DE5 /* h5_labar_right_disabled@3x.png */; };
+		D953A0421B7EFF8200D74DF1 /* change_day_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D953A03E1B7EFF8200D74DF1 /* change_day_arrow@2x.png */; };
+		D953A0431B7EFF8200D74DF1 /* change_day_arrow@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D953A03F1B7EFF8200D74DF1 /* change_day_arrow@3x.png */; };
+		D953A0441B7EFF8200D74DF1 /* change_day_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D953A0401B7EFF8200D74DF1 /* change_day_bg@2x.png */; };
+		D953A0451B7EFF8200D74DF1 /* change_day_bg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D953A0411B7EFF8200D74DF1 /* change_day_bg@3x.png */; };
+		D953A0481B7F039B00D74DF1 /* trip_add_day@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D953A0461B7F039B00D74DF1 /* trip_add_day@2x.png */; };
+		D953A0491B7F039B00D74DF1 /* trip_add_day@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D953A0471B7F039B00D74DF1 /* trip_add_day@3x.png */; };
 		D955E3E019E7A23800047F2B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D955E3DF19E7A23800047F2B /* Security.framework */; };
 		D955E3E219E7A24500047F2B /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D955E3E119E7A24500047F2B /* libiconv.dylib */; };
 		D955E3E419E7A24E00047F2B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D955E3E319E7A24D00047F2B /* SystemConfiguration.framework */; };
@@ -1631,6 +1637,12 @@
 		D94B89151B5E4F4C00584DE5 /* h5_labar_left_disabled@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "h5_labar_left_disabled@3x.png"; sourceTree = "<group>"; };
 		D94B89161B5E4F4C00584DE5 /* h5_labar_right_default@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "h5_labar_right_default@3x.png"; sourceTree = "<group>"; };
 		D94B89171B5E4F4C00584DE5 /* h5_labar_right_disabled@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "h5_labar_right_disabled@3x.png"; sourceTree = "<group>"; };
+		D953A03E1B7EFF8200D74DF1 /* change_day_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "change_day_arrow@2x.png"; sourceTree = "<group>"; };
+		D953A03F1B7EFF8200D74DF1 /* change_day_arrow@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "change_day_arrow@3x.png"; sourceTree = "<group>"; };
+		D953A0401B7EFF8200D74DF1 /* change_day_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "change_day_bg@2x.png"; sourceTree = "<group>"; };
+		D953A0411B7EFF8200D74DF1 /* change_day_bg@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "change_day_bg@3x.png"; sourceTree = "<group>"; };
+		D953A0461B7F039B00D74DF1 /* trip_add_day@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trip_add_day@2x.png"; sourceTree = "<group>"; };
+		D953A0471B7F039B00D74DF1 /* trip_add_day@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trip_add_day@3x.png"; sourceTree = "<group>"; };
 		D955E3DF19E7A23800047F2B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		D955E3E119E7A24500047F2B /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		D955E3E319E7A24D00047F2B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -6089,6 +6101,12 @@
 		E63818691B65F61000CF73AA /* 制作攻略 */ = {
 			isa = PBXGroup;
 			children = (
+				D953A03E1B7EFF8200D74DF1 /* change_day_arrow@2x.png */,
+				D953A03F1B7EFF8200D74DF1 /* change_day_arrow@3x.png */,
+				D953A0401B7EFF8200D74DF1 /* change_day_bg@2x.png */,
+				D953A0411B7EFF8200D74DF1 /* change_day_bg@3x.png */,
+				D953A0461B7F039B00D74DF1 /* trip_add_day@2x.png */,
+				D953A0471B7F039B00D74DF1 /* trip_add_day@3x.png */,
 				E638186A1B65F61000CF73AA /* add_poi@2x.png */,
 				E638186B1B65F61000CF73AA /* add_poi@3x.png */,
 				E638186C1B65F61000CF73AA /* collect_food@2x.png */,
@@ -7025,6 +7043,7 @@
 				E6381B4C1B65F61000CF73AA /* messages_plus_plan_selected@3x.png in Resources */,
 				E6381B6B1B65F61000CF73AA /* master_boy@2x.png in Resources */,
 				D91851271B5914CF004B8363 /* SearchFrendTableViewController.xib in Resources */,
+				D953A0481B7F039B00D74DF1 /* trip_add_day@2x.png in Resources */,
 				E6381C031B66269000CF73AA /* Loading_Animation_final45@2x.png in Resources */,
 				D9A8011C1A80DD23005AD701 /* call_out@2x.png in Resources */,
 				E6381A051B65F61000CF73AA /* poi_bg_sort@3x.png in Resources */,
@@ -7105,6 +7124,7 @@
 				E6381C141B66269000CF73AA /* Loading_Animation_final6@2x.png in Resources */,
 				E6E7255C1B5603D30007273A /* UMSShareListController.xib in Resources */,
 				D9B4082B1B6F528D00795EB6 /* introduce_6_2@2x.png in Resources */,
+				D953A0421B7EFF8200D74DF1 /* change_day_arrow@2x.png in Resources */,
 				E63819ED1B65F61000CF73AA /* plan_10_dashboard_add@2x.png in Resources */,
 				D9A8FF211A80CC2B005AD701 /* UserOtherTableViewCell.xib in Resources */,
 				E6381AE91B65F61000CF73AA /* login_textfield@2x.png in Resources */,
@@ -7328,6 +7348,7 @@
 				E6381B331B65F61000CF73AA /* messages_bg_self@2x.png in Resources */,
 				E66D00FF1B68ED18004A33D4 /* master_placeholder_bg@2x.png in Resources */,
 				D9A8FF0E1A80CC2B005AD701 /* BindTelephoneViewController.xib in Resources */,
+				D953A0441B7EFF8200D74DF1 /* change_day_bg@2x.png in Resources */,
 				E6381B2A1B65F61000CF73AA /* chat_sender_audio_playing_003@3x.png in Resources */,
 				D917DABF1A8B49AF0039720A /* ic_guide2_1_normal@2x.png in Resources */,
 				E6381B0E1B65F61000CF73AA /* speaking-motion4@3x.png in Resources */,
@@ -7432,6 +7453,7 @@
 				E6381ADC1B65F61000CF73AA /* ic_home_level_bg_girl@3x.png in Resources */,
 				E6381ACC1B65F61000CF73AA /* ic_home_avatar_border_girl@3x.png in Resources */,
 				E6381B661B65F61000CF73AA /* ic_setting_apprise@3x.png in Resources */,
+				D953A0451B7EFF8200D74DF1 /* change_day_bg@3x.png in Resources */,
 				D9A8FFB41A80D1C3005AD701 /* RecommendCollectionViewCell.xib in Resources */,
 				E6381A1F1B65F61000CF73AA /* poi_comment_start_default@3x.png in Resources */,
 				E6381A021B65F61000CF73AA /* poi_bg_album@2x.png in Resources */,
@@ -7531,6 +7553,7 @@
 				D9A8FFBE1A80D1C3005AD701 /* TravelNoteTableViewCell.xib in Resources */,
 				E6381BDC1B66269000CF73AA /* Loading_Animation_final0@2x.png in Resources */,
 				D94B891C1B5E4F4C00584DE5 /* h5_labar_right_default@3x.png in Resources */,
+				D953A0431B7EFF8200D74DF1 /* change_day_arrow@3x.png in Resources */,
 				E6381A5B1B65F61000CF73AA /* ic_home_normal@3x.png in Resources */,
 				E6381AB01B65F61000CF73AA /* lxp_search_bg_normal@2x.png in Resources */,
 				E6381A981B65F61000CF73AA /* map_icon_3@2x.png in Resources */,
@@ -7585,6 +7608,7 @@
 				D9E0EED91B7A0FED003872DF /* plan_bg_page_grey@3x.png in Resources */,
 				D90A9B5D1B5627C400E9F37C /* Loading_Animation_final50@3x.png in Resources */,
 				D90A9B451B5627C400E9F37C /* Loading_Animation_final26@3x.png in Resources */,
+				D953A0491B7F039B00D74DF1 /* trip_add_day@3x.png in Resources */,
 				D9A8011E1A80DD23005AD701 /* call_out_h@2x.png in Resources */,
 				E6381B461B65F61000CF73AA /* messages_plus_pin_default@3x.png in Resources */,
 				D9A8020E1A80E036005AD701 /* JGProgressHUD Resources.bundle in Resources */,
