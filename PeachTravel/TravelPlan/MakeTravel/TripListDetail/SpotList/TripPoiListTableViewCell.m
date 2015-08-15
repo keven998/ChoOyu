@@ -57,16 +57,6 @@
     } else {
         property = [_tripPoi.style firstObject];
     }
-    NSLog(@"%@",_tripPoi.style);
-    
-    /*
-    [_propertyBtn setImage:[UIImage imageNamed:@"plan_bottom_flower.png"] forState:UIControlStateNormal];
-    if (property != nil && ![property isBlankString]) {
-        NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:property];
-        [string addAttributes:@{NSForegroundColorAttributeName : COLOR_TEXT_III} range:NSMakeRange(rankStr.length+1, property.length-rankStr.length-1)];
-        [_propertyBtn setAttributedTitle:string forState:UIControlStateNormal];
-    }
-    */
     self.foodNumber.text = property;
     
     if (self.actionBtn.hidden) {

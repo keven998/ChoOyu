@@ -475,7 +475,6 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.15 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         cell.actionBtn.selected = !cell.actionBtn.selected;
     });
-    
 }
 
 - (void)deletePoi:(UIButton *)sender

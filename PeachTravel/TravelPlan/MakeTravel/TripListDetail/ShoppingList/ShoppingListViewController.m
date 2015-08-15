@@ -18,17 +18,14 @@
 #import "TripPoiListTableViewCell.h"
 @interface ShoppingListViewController () <UITableViewDataSource, UITableViewDelegate, PoisOfCityDelegate, UIActionSheetDelegate>
 
+// 表格cell是否关闭
+@property (nonatomic, assign) BOOL isClosed;
+
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) UIView *tableViewFooterView;
-
-// 表格cell是否关闭
-@property (nonatomic, assign)BOOL isClosed;
-
-@property (nonatomic, strong)NSMutableDictionary * showDic;
-
-@property (nonatomic, strong)NSMutableArray * shoppListArray;
-
-@property (nonatomic, strong)NSMutableArray * dataSource;
+@property (nonatomic, strong) NSMutableDictionary *showDic;
+@property (nonatomic, strong) NSMutableArray *shoppListArray;
+@property (nonatomic, strong) NSMutableArray *dataSource;
 
 @end
 
@@ -61,9 +58,6 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
     self.isClosed = YES;
     
     [self.view addSubview:self.tableView];
-    
-//    self.tableView.contentInset = UIEdgeInsetsMake(18, 0, 0, 0);
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -86,6 +80,7 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
 - (void)setTripDetail:(TripDetail *)tripDetail
 {
     _tripDetail = tripDetail;
+    _dataSource = [self revertShoppingListToGroup:_tripDetail.shoppingList];
     [_tableView reloadData];
 }
 
@@ -121,6 +116,7 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
 
 - (void)updateTableView
 {
+    self.dataSource = [self revertShoppingListToGroup:_tripDetail.shoppingList];
     [self.tableView reloadData];
 }
 
@@ -197,7 +193,7 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
 
 - (void)finishEdit
 {
-    [self.tableView reloadData];
+    [self updateTableView];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -218,8 +214,7 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
     containBtn.tag = section;
     
     // 2.创建Button上面的视图
-    NSArray * dataSource = [self revertShoppingListToGroup:_tripDetail.shoppingList];
-    NSArray * shoppingArray = dataSource[section];
+    NSArray * shoppingArray = _dataSource[section];
     UILabel * label = [[UILabel alloc] init];
     label.font = [UIFont boldSystemFontOfSize:12.0f];
     label.frame = CGRectMake(12, 16, 100, 12);
@@ -279,8 +274,7 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
     } else {
         [_showDic removeObjectForKey:key];
         [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:didSection] withRowAnimation:UITableViewRowAnimationAutomatic];
-        NSArray * dataSource = [self revertShoppingListToGroup:_tripDetail.restaurantsList];
-        NSArray * shoppingArray = dataSource[didSection];
+        NSArray * shoppingArray = _dataSource[didSection];
         if (shoppingArray.count > 0) {
             [self performSelector:@selector(scrollToVisiable:) withObject:[NSNumber numberWithLong:didSection] afterDelay:0.35];
         }
@@ -307,39 +301,32 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
 // 1.返回有多少组
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    
-    NSArray * dataSource = [self revertShoppingListToGroup:_tripDetail.shoppingList];
-    
-    return dataSource.count;
+    return _dataSource.count;
 }
 
 // 2.返回每组的cell行数
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSArray * dataSource = [self revertShoppingListToGroup:_tripDetail.shoppingList];
-    NSArray * shoppingArray = dataSource[section];
+    NSArray * shoppingArray = _dataSource[section];
     return self.isClosed ? shoppingArray.count : 0;
 }
-
 
 // 3.初始化每组的cell
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     TripPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:shoppingListReusableIdentifier forIndexPath:indexPath];
     cell.clipsToBounds = YES;
-    NSArray * dataSource = [self revertShoppingListToGroup:_tripDetail.shoppingList];
-    NSArray * shoppingArray = dataSource[indexPath.section];
+    NSArray * shoppingArray = _dataSource[indexPath.section];
     cell.tripPoi = shoppingArray[indexPath.row];
     return cell;
 }
 
 // 处理shoppingList数组
-- (NSArray *)revertShoppingListToGroup:(NSArray *)shoppingList
+- (NSMutableArray *)revertShoppingListToGroup:(NSArray *)shoppingList
 {
     // 1.创建一个分组数组,里面存放了多少组数据
     NSMutableArray *dataSource = [[NSMutableArray alloc] init];
     for (int i = 0; i < _tripDetail.destinations.count; i++) {
-        
         NSMutableArray * array = [NSMutableArray array];
         [dataSource addObject:array];
     }
@@ -362,69 +349,6 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
     return dataSource;
 }
 
-
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    return NO;
-}
-
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return NO;
-}
-
-- (UITableViewCellEditingStyle) tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return UITableViewCellEditingStyleDelete;
-}
-
-- (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return NO;
-}
-
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
-    NSLog(@"from:%@ to:%@",sourceIndexPath, destinationIndexPath);
-    SuperPoi *poi = [_tripDetail.shoppingList objectAtIndex:sourceIndexPath.row];
-    [_tripDetail.shoppingList removeObjectAtIndex:sourceIndexPath.row];
-    
-    [_tripDetail.shoppingList insertObject:poi atIndex:destinationIndexPath.row];
-    [self.tableView reloadData];
-}
-
-//此举是为了在移动的时候保证顺序。过程有点复杂，慢慢看
-- (NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath
-{
-    if (proposedDestinationIndexPath.row > 0 && sourceIndexPath.section > proposedDestinationIndexPath.section) {
-        NSIndexPath *path = [NSIndexPath indexPathForItem:0 inSection:proposedDestinationIndexPath.section+1];
-        return path;
-    }
-    
-    if (sourceIndexPath.section < proposedDestinationIndexPath.section && proposedDestinationIndexPath.row == 0) {
-        NSIndexPath *path;
-        
-        if (proposedDestinationIndexPath.section == sourceIndexPath.section+1) {
-            path = [NSIndexPath indexPathForItem:0 inSection:proposedDestinationIndexPath.section-1];
-            
-        } else {
-            path = [NSIndexPath indexPathForItem:1 inSection:proposedDestinationIndexPath.section-1];
-            
-        }
-        return path;
-    }
-    return proposedDestinationIndexPath;
-}
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [_tripDetail.shoppingList removeObjectAtIndex:indexPath.row];
-        [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.row] withRowAnimation:UITableViewRowAnimationAutomatic];
-    }
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return @"删除";
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SuperPoi *tripPoi = [_tripDetail.shoppingList objectAtIndex:indexPath.row];
@@ -432,14 +356,6 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
     shoppingDetailCtl.poiId = tripPoi.poiId;
     shoppingDetailCtl.poiType = kShoppingPoi;
     [self.navigationController pushViewController:shoppingDetailCtl animated:YES];
-}
-
-- (void)dealloc {
-    _tableView.delegate = nil;
-    _tableView.dataSource = nil;
-    _tableView = nil;
-    _rootViewController = nil;
-    
 }
 
 #pragma mark - UIActionSheetDelegate
