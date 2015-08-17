@@ -166,6 +166,7 @@
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_lxp_chatting"];
     [_chatToolBar registerNoti];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopPlayAudio) name:UIApplicationWillResignActiveNotification object:nil];
     if (_isScrollToBottom) {
         [self scrollViewToBottom:YES];
     }
@@ -181,8 +182,14 @@
     [_chatToolBar unRegisterNoti];
     // 设置当前conversation的所有message为已读
     _conversation.unReadMessageCount = 0;
+    
+    [[ChatManagerAudio shareInstance] stopPlayAudio];
 }
 
+- (void)stopPlayAudio
+{
+    [[ChatManagerAudio shareInstance] stopPlayAudio];
+}
 
 /**
  *  从服务器上加载群组成员信息

@@ -126,6 +126,11 @@
 {
 }
 
+- (void)applicationWillEnterForeground:(UIApplication *)application
+{
+    
+}
+
 // WXApiDelegate的代理方法
 - (void)onResp:(BaseResp *)resp
 {

@@ -91,6 +91,7 @@
         self.navigationItem.rightBarButtonItem.enabled = NO;
         self.navigationItem.leftBarButtonItem.enabled = NO;
         self.navigationItem.title = @"正在提交...";
+        
         self.saveEdition(_contentTextField.text, ^(BOOL completed) {
             if (completed) {
                 [self goBack];

@@ -399,6 +399,7 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
         }
     }
     
+    
 //MARK: MessageReceivePoolDelegate
     
     func messgeReorderOver(messageList: NSDictionary) {
