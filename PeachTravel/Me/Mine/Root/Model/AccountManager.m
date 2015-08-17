@@ -626,11 +626,12 @@
 - (UserInfoInputError)checkUserinfo:(NSString *)userInfo andUserInfoType:(UserInfoChangeType)userInfoType
 {
     if (userInfoType == ChangeName) {
-        NSString *regex1 = @"^[\u4E00-\u9FA5|0-9a-zA-Z|_]{1,}$";
+//        NSString *regex1 = @"^[\u4E00-\u9FA5|0-9a-zA-Z|_]{1,}$";
         NSString *regex2 = @"^[0-9]{6,}$";
-        NSPredicate *pred1 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex1];
+//        NSPredicate *pred1 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex1];
         NSPredicate *pred2 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex2];
-        if (![pred1 evaluateWithObject:userInfo] || [pred2 evaluateWithObject:userInfo]) {
+//        ![pred1 evaluateWithObject:userInfo] || [pred2 evaluateWithObject:userInfo
+        if ([pred2 evaluateWithObject:userInfo]) {
             return IllegalCharacterError;
         }
     }
