@@ -13,12 +13,14 @@
 #import "AddPoiViewController.h"
 #import "CMPopTipView.h"
 
-@interface ScheduleEditorViewController ()<UITableViewDataSource, UITableViewDelegate, REFrostedViewControllerDelegate, addPoiDelegate> {
+@interface ScheduleEditorViewController ()<UITableViewDataSource, UITableViewDelegate, REFrostedViewControllerDelegate, addPoiDelegate, CMPopTipViewDelegate> {
     NSMutableArray *_cityArray;
 }
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) TripDetail *backupTrip;
+@property (nonatomic, weak) UIButton *editBtn;
+
 @end
 
 @implementation ScheduleEditorViewController
@@ -67,6 +69,8 @@
     [tabbarView addSubview:btn];
     
     UIButton *editBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-225, 40, 120)];
+    
+    self.editBtn = editBtn;
     editBtn.titleLabel.font = [UIFont systemFontOfSize:16.0];
     editBtn.titleLabel.numberOfLines = 0;
     editBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 20, 10);
@@ -158,9 +162,34 @@
     tipView.sidePadding = 5;
     tipView.maxWidth = 100;
     tipView.has3DStyle = NO;
+    tipView.delegate = self;
     [tipView presentPointingAtView:sourceView inView:self.view animated:YES];
     [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"kScheduleAddPoiTipsView"];
 }
+
+// 显示按天调整上的页内引导页面
+- (void)showDayChangeViewWithView:(UIView *)sourceView
+{
+    CMPopTipView *tipView = [[CMPopTipView alloc] initWithMessage:@"按天来调整旅行计划"];
+    tipView.backgroundColor = APP_THEME_COLOR;
+    tipView.dismissTapAnywhere = YES;
+    tipView.hasGradientBackground = NO;
+    tipView.hasShadow = YES;
+    tipView.borderColor = APP_THEME_COLOR;
+    tipView.sidePadding = 5;
+//    tipView.preferredPointDirection = PointDirectionAny;
+    tipView.has3DStyle = NO;
+    [tipView presentPointingAtView:sourceView inView:self.view animated:YES];
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"kScheduleAddPoiTipsView"];
+}
+
+- (void)popTipViewWasDismissedByUser:(CMPopTipView *)popTipView
+{
+    if (self.editBtn) {
+        [self showDayChangeViewWithView:self.editBtn];
+    }
+}
+
 
 #pragma mark - addPoiDelegate
 
