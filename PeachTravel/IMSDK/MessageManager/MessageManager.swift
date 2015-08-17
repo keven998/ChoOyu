@@ -58,7 +58,7 @@ class MessageManager: NSObject {
         }
     }
     
-    func ackMessageWhenTimeout() {
+    @objc private func ackMessageWhenTimeout() {
         if AccountManager.shareAccountManager().isLogin() {
             self.shouldACK()
             

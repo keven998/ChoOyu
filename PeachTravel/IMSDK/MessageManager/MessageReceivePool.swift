@@ -99,7 +99,7 @@ class MessageReceivePool: NSObject {
     /**
     定时分发消息
     */
-    func distrubuteMessage() {
+    @objc private func distrubuteMessage() {
         var count = 0
         for messageList in messagePrepare2Reorder.allValues {
             count++
