@@ -49,8 +49,6 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
     
     self.view.backgroundColor = APP_PAGE_COLOR;
     [self.view addSubview:self.tableView];
-    
-//    self.tableView.contentInset = UIEdgeInsetsMake(18, 0, 0, 0);
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -73,6 +71,7 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
 - (void)setTripDetail:(TripDetail *)tripDetail
 {
     _tripDetail = tripDetail;
+    self.dataSource = [self revertRestaurantListToGroup:_tripDetail.restaurantsList];
     [_tableView reloadData];
 }
 
@@ -107,6 +106,7 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
 
 - (void)updateTableView
 {
+    _dataSource = [self revertRestaurantListToGroup:self.tripDetail.restaurantsList];
     [self.tableView reloadData];
 }
 
@@ -181,10 +181,11 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
 
 - (void)finishEdit
 {
-    [self.tableView reloadData];
+    [self updateTableView];
 }
 
 #pragma mark - 设置分组的头部
+
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     // 1.创建一个容器对象Button
@@ -195,8 +196,7 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
     containBtn.tag = section;
     
     // 2.创建Button上面的视图
-    NSArray * dataSource = [self revertShoppingListToGroup:_tripDetail.restaurantsList];
-    NSArray * shoppingArray = dataSource[section];
+    NSArray * shoppingArray = _dataSource[section];
     UILabel * label = [[UILabel alloc] init];
     label.font = [UIFont boldSystemFontOfSize:12.0f];
     label.frame = CGRectMake(12, 16, 100, 12);
@@ -257,8 +257,7 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
         [_showDic removeObjectForKey:key];
         [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:didSection] withRowAnimation:UITableViewRowAnimationAutomatic];
         
-        NSArray * dataSource = [self revertShoppingListToGroup:_tripDetail.restaurantsList];
-        NSArray * shoppingArray = dataSource[didSection];
+        NSArray * shoppingArray = _dataSource[didSection];
         if (shoppingArray.count > 0) {
             [self performSelector:@selector(scrollToVisiable:) withObject:[NSNumber numberWithLong:didSection] afterDelay:0.35];
         }
@@ -270,8 +269,7 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
                           atScrollPosition:UITableViewScrollPositionNone animated:YES];
 }
 
-// 处理shoppingList数组
-- (NSArray *)revertShoppingListToGroup:(NSArray *)shoppingList
+- (NSMutableArray *)revertRestaurantListToGroup:(NSArray *)shoppingList
 {
     // 1.创建一个分组数组,里面存放了多少组数据
     NSMutableArray *dataSource = [[NSMutableArray alloc] init];
@@ -316,54 +314,25 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
     return 19.5;
 }
 
-// 1.返回有多少组
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    
-    NSArray * dataSource = [self revertShoppingListToGroup:_tripDetail.restaurantsList];
-    
-    return dataSource.count;
+    return _dataSource.count;
 }
 
-// 2.返回每组的cell行数
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSArray * dataSource = [self revertShoppingListToGroup:_tripDetail.restaurantsList];
-    NSArray * shoppingArray = dataSource[section];
+    NSArray * shoppingArray = _dataSource[section];
     return shoppingArray.count;
 }
 
-
-// 3.初始化每组的cell
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     TripPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:restaurantListReusableIdentifier forIndexPath:indexPath];
     cell.clipsToBounds = YES;
-    
-    NSArray * dataSource = [self revertShoppingListToGroup:_tripDetail.restaurantsList];
-    NSArray * shoppingArray = dataSource[indexPath.section];
+    NSArray * shoppingArray = _dataSource[indexPath.section];
     cell.tripPoi = shoppingArray[indexPath.row];
     
     return cell;
-}
-
-
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    return NO;
-}
-
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return NO;
-}
-
-- (UITableViewCellEditingStyle) tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return UITableViewCellEditingStyleDelete;
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return @"删除";
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
@@ -372,29 +341,6 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
     
     [_tripDetail.restaurantsList insertObject:poi atIndex:destinationIndexPath.row];
     [self.tableView reloadData];
-}
-
-//此举是为了在移动的时候保证顺序。过程有点复杂，慢慢看
-- (NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath
-{
-    if (proposedDestinationIndexPath.row > 0 && sourceIndexPath.section > proposedDestinationIndexPath.section) {
-        NSIndexPath *path = [NSIndexPath indexPathForItem:0 inSection:proposedDestinationIndexPath.section+1];
-        return path;
-    }
-    
-    if (sourceIndexPath.section < proposedDestinationIndexPath.section && proposedDestinationIndexPath.row == 0) {
-        NSIndexPath *path;
-        
-        if (proposedDestinationIndexPath.section == sourceIndexPath.section+1) {
-            path = [NSIndexPath indexPathForItem:0 inSection:proposedDestinationIndexPath.section-1];
-            
-        } else {
-            path = [NSIndexPath indexPathForItem:1 inSection:proposedDestinationIndexPath.section-1];
-            
-        }
-        return path;
-    }
-    return proposedDestinationIndexPath;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -413,12 +359,6 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
     restaurantDetailCtl.poiType = kRestaurantPoi;
     
     [self.navigationController pushViewController:restaurantDetailCtl animated:YES];
-}
-
-- (void)dealloc {
-    _tableView.delegate = nil;
-    _tableView.dataSource = nil;
-    _tableView = nil;
 }
 
 #pragma mark - UIActionSheetDelegate
