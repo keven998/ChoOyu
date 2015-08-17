@@ -73,6 +73,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         [imclientManager.messageReceiveManager addMessageReceiveListener:self withRoutingKey:MessageReceiveDelegateRoutingKeynormal];
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidRegister) name:userDidRegistedNoti object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogout) name:userDidLogoutNoti object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogin) name:userDidLoginNoti object:nil];
     
     [self setupConverView];
 }
@@ -154,7 +156,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     _coverView = nil;
 }
 
-- (void) userDidLogin {
+- (void)userDidLogin {
     NSArray *controllers = [self childViewControllers];
     if (controllers != nil && controllers.count > 0) {
         UIViewController *ctl = [controllers lastObject];
@@ -164,6 +166,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
             [vc removeFromParentViewController];
         }
     }
+    [self updateViewWithUnreadMessageCount];
 }
 
 - (void)userDidRegister
@@ -174,6 +177,12 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [self showSomeTabbarNoti];
 }
 
+- (void)userDidLogout
+{
+    [self updateViewWithUnreadMessageCount];
+}
+
+
 /**
  *  跳转到web 界面
  */
@@ -183,6 +192,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 }
 
 #pragma mark - loadStroy
+
 - (void)loadData
 {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];

@@ -11,15 +11,6 @@ import UIKit
 private let iMClientManager = IMClientManager()
 
 /*
-    IMClientDelegate代理方法判断当前是否有用户登录,如果有返回true
-*/
-@objc protocol IMClientDelegate {
-    
-    func userDidLogin(isSuccess: Bool, errorCode: Int)
-    
-}
-
-/*
     1.通过IMClientManager,控制消息接收管理对象,消息发送管理对象,聊天会话管理对象,好友管理对象,好友请求管理对象,CMD消息管理对象,网络连通检测对象
     2.提供了一些方法:获取聊天文件的目录
 */
@@ -72,8 +63,6 @@ class IMClientManager: NSObject {
             return locationStr
         }
     }
-    
-    weak var delegate: IMClientDelegate?
     
     override init() {
         super.init()
@@ -132,7 +121,6 @@ class IMClientManager: NSObject {
     */
     func userDidLogin(userId: Int) {
         accountId = userId
-        self.connectionSetup(true, errorCode: 0)
         let daoHelper = DaoHelper.shareInstance()
         daoHelper.setupDatabase()
         self.setUpSDKWhenLogin()
@@ -149,7 +137,6 @@ class IMClientManager: NSObject {
         if isSuccess {
           
         }
-        delegate?.userDidLogin(isSuccess, errorCode: errorCode)
     }
 }
 

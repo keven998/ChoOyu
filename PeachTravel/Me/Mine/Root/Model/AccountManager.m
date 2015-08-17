@@ -174,18 +174,15 @@
 {
     // 登录成功后需要将用户信息存储到数据库中
     _account =[[AccountModel alloc] initWithJson:userInfo];
-    
     // 存储账户
     AccountDaoHelper *accountDaoHelper = [AccountDaoHelper shareInstance];
     [accountDaoHelper addAccount2DB:_account];
-    
     
     IMClientManager *manager = [IMClientManager shareInstance];
     [manager userDidLogin:_account.userId];
     ConnectionManager *connectionManager = [ConnectionManager shareInstance];
     [connectionManager bindUserIdWithRegistionId:_account.userId];
     [[NSNotificationCenter defaultCenter] postNotificationName:userDidLoginNoti object:nil];
-
 }
 
 #pragma mark - 修改用户信息相关接口
