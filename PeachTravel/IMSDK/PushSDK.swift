@@ -66,7 +66,7 @@ class PushSDKManager: NSObject, GexinSdkDelegate {
     /**
     检查 push sdk 长链接的状态
     */
-    func checkoutSDKStatus() {
+    @objc private func checkoutSDKStatus() {
         if !pushSdkIsConnected {
             debug_println("***** 个推 sdk 长链接未建立， 尝试重新建立中。******")
             gexinSdk?.destroy()
