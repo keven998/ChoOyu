@@ -106,6 +106,7 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
     PoisOfCityViewController *shoppingOfCityCtl = [[PoisOfCityViewController alloc] init];
     NSLog(@"%@",_tripDetail);
     shoppingOfCityCtl.tripDetail = _tripDetail;
+    shoppingOfCityCtl.selectedArray = _dataSource[page];
     shoppingOfCityCtl.delegate = self;
     shoppingOfCityCtl.poiType = kShoppingPoi;
     shoppingOfCityCtl.shouldEdit = YES;

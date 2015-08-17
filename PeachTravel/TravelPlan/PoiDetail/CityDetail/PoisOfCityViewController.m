@@ -26,6 +26,8 @@
 @property (nonatomic, strong) UIView *footerView;
 
 @property (nonatomic, strong) TripDetail *backTripDetail;
+//如果从攻略编辑界面进来，则代表的是美食列表/购物列表
+@property (nonatomic, strong) NSMutableArray *tripPoiList;
 
 //管理普通 tableview 的加载状态
 @property (nonatomic) NSUInteger currentPageNormal;
@@ -40,7 +42,6 @@
 
 @property (nonatomic, strong) UICollectionView *selectPanel;
 
-@property (nonatomic, strong) NSMutableArray *seletedArray;
 
 @property (nonatomic) NSInteger currentCityIndex;
 @end
@@ -122,9 +123,9 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     [_hud showHUDInViewController:weakSelf];
     
     if (_poiType == kRestaurantPoi) {
-        _seletedArray = self.backTripDetail.restaurantsList;
+        _tripPoiList = self.backTripDetail.restaurantsList;
     } else if (_poiType == kShoppingPoi) {
-        _seletedArray = self.backTripDetail.shoppingList;
+        _tripPoiList = self.backTripDetail.shoppingList;
     }
     
     if (!_shouldEdit) {
@@ -437,9 +438,10 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     SuperPoi *poi = [_dataSource.recommendList objectAtIndex:sender.tag];
     
     if (!cell.actionBtn.isSelected) {
-        [_seletedArray addObject:poi];
+        [_selectedArray addObject:poi];
+        [_tripPoiList addObject:poi];
         
-        NSIndexPath *lnp = [NSIndexPath indexPathForItem:_seletedArray.count - 1 inSection:0];
+        NSIndexPath *lnp = [NSIndexPath indexPathForItem:_selectedArray.count - 1 inSection:0];
         [self.selectPanel performBatchUpdates:^{
             [self.selectPanel insertItemsAtIndexPaths:[NSArray arrayWithObject:lnp]];
         } completion:^(BOOL finished) {
@@ -450,11 +452,11 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
         
     } else {
         int index = -1;
-        NSInteger count = _seletedArray.count;
+        NSInteger count = _selectedArray.count;
         for (int i = 0; i < count; ++i) {
-            SuperPoi *tripPoi = [_seletedArray objectAtIndex:i];
+            SuperPoi *tripPoi = [_selectedArray objectAtIndex:i];
             if ([tripPoi.poiId isEqualToString:poi.poiId]) {
-                [_seletedArray removeObjectAtIndex:i];
+                [_selectedArray removeObjectAtIndex:i];
                 index = i;
                 break;
             }
@@ -467,10 +469,8 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
             } completion:^(BOOL finished) {
                 sender.userInteractionEnabled = YES;
                 [self.selectPanel reloadData];
-                
             }];
         }
-        
     }
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.15 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         cell.actionBtn.selected = !cell.actionBtn.selected;
@@ -479,14 +479,21 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
 
 - (void)deletePoi:(UIButton *)sender
 {
-    SuperPoi *poi = [_seletedArray objectAtIndex:sender.tag];
+    SuperPoi *poi = [_selectedArray objectAtIndex:sender.tag];
     int index = -1;
-    NSInteger count = _seletedArray.count;
+    NSInteger count = _selectedArray.count;
     for (int i = 0; i < count; ++i) {
-        SuperPoi *tripPoi = [_seletedArray objectAtIndex:i];
+        SuperPoi *tripPoi = [_selectedArray objectAtIndex:i];
         if ([tripPoi.poiId isEqualToString:poi.poiId]) {
-            [_seletedArray removeObjectAtIndex:i];
+            [_selectedArray removeObjectAtIndex:i];
             index = i;
+            break;
+        }
+    }
+    
+    for (SuperPoi *oldPoi in _tripPoiList) {
+        if ([poi.poiId isEqualToString:oldPoi.poiId]) {
+            [_tripPoiList removeObject:oldPoi];
             break;
         }
     }
@@ -522,9 +529,6 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
                 if (buttonIndex == 0) {
                     [self dismissViewControllerAnimated:YES completion:nil];
                 }
-//                else if (buttonIndex == 1) {
-//                    [self finishAdd:nil];
-//                }
             }];
         }
     }];
@@ -729,7 +733,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
         cell.actionBtn.tag = indexPath.row;
         cell.actionBtn.hidden = NO;
         BOOL isAdded = NO;
-        for (SuperPoi *tripPoi in _seletedArray) {
+        for (SuperPoi *tripPoi in _selectedArray) {
             if ([tripPoi.poiId isEqualToString:poi.poiId]) {
                 isAdded = YES;
                 break;
@@ -871,14 +875,14 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return _seletedArray.count;
+    return _selectedArray.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     SelectDestCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"sdest_cell" forIndexPath:indexPath];
-    SuperPoi *tripPoi = [_seletedArray objectAtIndex:indexPath.row];
+    SuperPoi *tripPoi = [_selectedArray objectAtIndex:indexPath.row];
     
-    NSString *txt = [NSString stringWithFormat:@" %ld.%@ ", (indexPath.row + 1), tripPoi.zhName];
+    NSString *txt = [NSString stringWithFormat:@" %ld.%@      ", (indexPath.row + 1), tripPoi.zhName];
     cell.textLabel.text = txt;
     CGSize size = [txt sizeWithAttributes:@{NSFontAttributeName : cell.textLabel.font}];
     cell.textLabel.frame = CGRectMake(0, 12, size.width, 26);
@@ -892,7 +896,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     [collectionView deselectItemAtIndexPath:indexPath animated:YES];
-    SuperPoi *tripPoi = [_seletedArray objectAtIndex:indexPath.row];
+    SuperPoi *tripPoi = [_selectedArray objectAtIndex:indexPath.row];
     
     if (_poiType == kRestaurantPoi) {
         CommonPoiDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];
@@ -910,10 +914,10 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    SuperPoi *tripPoi = [_seletedArray objectAtIndex:indexPath.row];
-    NSString *txt = [NSString stringWithFormat:@" %ld.%@ ", (long)(indexPath.row + 1), tripPoi.zhName];
+    SuperPoi *tripPoi = [_selectedArray objectAtIndex:indexPath.row];
+    NSString *txt = [NSString stringWithFormat:@" %ld.%@      ", (long)(indexPath.row + 1), tripPoi.zhName];
     CGSize size = [txt sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:13]}];
-    return CGSizeMake(size.width, 49);
+    return CGSizeMake(size.width+5, 49);
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section

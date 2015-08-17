@@ -94,12 +94,14 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
 
 - (IBAction)addWantTo:(NSInteger)page
 {
+    
     PoisOfCityViewController *restaurantOfCityCtl = [[PoisOfCityViewController alloc] init];
     restaurantOfCityCtl.tripDetail = _tripDetail;
     restaurantOfCityCtl.page = page;
     restaurantOfCityCtl.delegate = self;
     restaurantOfCityCtl.poiType = kRestaurantPoi;
     restaurantOfCityCtl.shouldEdit = YES;
+    restaurantOfCityCtl.selectedArray = self.dataSource[page];
     TZNavigationViewController *nctl = [[TZNavigationViewController alloc] initWithRootViewController:restaurantOfCityCtl];
     [self presentViewController:nctl animated:YES completion:nil];
 }
@@ -166,15 +168,6 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
     CityDetailTableViewController *cityDetailCtl = [[CityDetailTableViewController alloc] init];
     cityDetailCtl.cityId = poi.cityId;
     [self.navigationController pushViewController:cityDetailCtl animated:YES];
-}
-
-- (IBAction)deletePoi:(UIButton *)sender
-{
-    CGPoint point = [sender convertPoint:CGPointMake(20, 20) toView:self.tableView];
-    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
-    [_tripDetail.restaurantsList removeObjectAtIndex:indexPath.row];
-    NSIndexSet *set = [NSIndexSet indexSetWithIndex:indexPath.row];
-    [self.tableView deleteSections:set withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark - RestaurantsOfCityDelegate
