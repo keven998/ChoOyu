@@ -50,6 +50,7 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
     override init() {
         conversationList = Array<ChatConversation>()
         super.init()
+        getConversationList()
     }
     
     func getConversationList() -> NSArray {
