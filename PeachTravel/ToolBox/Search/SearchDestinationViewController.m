@@ -83,19 +83,48 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [collectionView registerNib:[UINib nibWithNibName:@"SearchDestinationHistoryCollectionReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"searchDestinationHeader"];
 
     [self.view addSubview:collectionView];
+    
     // 加载CollectionView的数据
-    [self setupCollectionDataSource];
+    [self sendRequestGethotSearchResult];
 }
 
 // 加载CollectionView的数据源
-- (void)setupCollectionDataSource
+- (void)setupCollectionDataSourceWithHotSearchResult:(NSArray *)hotSearchResult
 {
     NSArray * recentResult = [[TMCache sharedCache] objectForKey:kSearchDestinationCacheKey];
-    if (recentResult) {
+    if (recentResult && hotSearchResult) {
+        NSLog(@"%@",recentResult);
         self.collectionArray[0] = recentResult;
+        self.collectionArray[1] = hotSearchResult;
         [self.collectionView reloadData];
     }
     NSLog(@"%@",recentResult);
+}
+
+#pragma mark - 加载网络数据
+- (void)sendRequestGethotSearchResult {
+    // 1.获取请求管理者
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    // 2.发送Get请求
+    [manager GET:API_GET_HOT_SEARCH parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSMutableArray * searchNameArray = [NSMutableArray array];
+        NSArray *resultArray = responseObject[@"result"];
+        
+        for (NSDictionary * resultDict in resultArray) {
+            NSString * searchName = resultDict[@"zhName"];
+            [searchNameArray addObject:searchName];
+        }
+        
+        [self setupCollectionDataSourceWithHotSearchResult:searchNameArray];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        // 打印失败信息
+        NSLog(@"%@",error);
+    }];
+
 }
 
 - (void)goBack {
