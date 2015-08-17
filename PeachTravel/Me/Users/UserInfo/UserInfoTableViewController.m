@@ -735,9 +735,11 @@
     bsvc.navTitle = @"修改名字";
     bsvc.content = self.accountManager.account.nickName;
     bsvc.acceptEmptyContent = NO;
+    // 给block赋值
     bsvc.saveEdition = ^(NSString *editText, saveComplteBlock(completed)) {
         [self updateUserInfo:ChangeName withNewContent:editText success:completed];
     };
+    
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:bsvc] animated:YES completion:nil];
 }
 
