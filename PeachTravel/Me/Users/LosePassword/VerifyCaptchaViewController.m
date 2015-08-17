@@ -259,8 +259,8 @@
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [hud hideTZHUD];
-        if (operation.response.statusCode == 403) {
-            [SVProgressHUD showHint:@"验证码验证失败"];
+        if (operation.response.statusCode == 401) {
+            [SVProgressHUD showHint:@"验证码错误"];
         } else {
             if (self.isShowing) {
                 [SVProgressHUD showHint:HTTP_FAILED_HINT];
