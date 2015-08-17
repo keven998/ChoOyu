@@ -23,6 +23,7 @@
 #import "SelectionTableViewController.h"
 #import "UIBarButtonItem+MJ.h"
 #import "PlansListTableHeaderView.h"
+#import "SWTableViewCell.h"
 
 #define PAGE_COUNT 10
 
@@ -558,6 +559,7 @@ static NSString *reusableCell = @"myGuidesCell";
     MyGuideSummary *summary = [self.dataSource objectAtIndex:indexPath.row];
     cell.guideSummary = summary;
     cell.isCanSend = _selectToSend;
+    cell.rightUtilityButtons = [self rightButtons];
     
     if ((_copyPatch && indexPath.row == 0) || (_isNewCopy && indexPath.row == 0)) {
         NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"(新复制) %@", summary.title]];
@@ -586,6 +588,8 @@ static NSString *reusableCell = @"myGuidesCell";
     return cell;
 }
 
+
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self goPlan:indexPath];
@@ -612,6 +616,7 @@ static NSString *reusableCell = @"myGuidesCell";
     [self.navigationController pushViewController:frostedViewController animated:YES];
 }
 
+// 侧边栏的按钮
 - (NSArray *)rightButtons
 {
     NSMutableArray *rightUtilityButtons = [NSMutableArray new];

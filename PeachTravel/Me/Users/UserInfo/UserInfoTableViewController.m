@@ -797,7 +797,7 @@
             if (isSuccess) {
                 completed(YES);
             } else if (error != NoError){
-                [SVProgressHUD showHint:@"名字不能是纯数字或包含特殊字符"];
+                [SVProgressHUD showHint:@"名字不能是纯数字"];
                 completed(NO);
             } else if (errStr){
                 [SVProgressHUD showHint:errStr];
