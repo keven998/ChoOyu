@@ -490,7 +490,7 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     scene.frame = CGRectMake(0, 0, kWindowWidth * 0.5, 50);
     [scene setImage:[UIImage imageNamed:@"ArtboardBottom"] forState:UIControlStateNormal];
     [scene setImage:[UIImage imageNamed:@"ArtboardTop"] forState:UIControlStateSelected];
-    scene.imageEdgeInsets = UIEdgeInsetsMake(0, 80, 0, 0);
+    scene.imageEdgeInsets = UIEdgeInsetsMake(0, 100, 0, 0);
     scene.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 40);
     [header addSubview:scene];
     
@@ -505,7 +505,7 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     [type addTarget:self action:@selector(typeClick:) forControlEvents:UIControlEventTouchDown];
     [type setImage:[UIImage imageNamed:@"ArtboardBottom"] forState:UIControlStateNormal];
     [type setImage:[UIImage imageNamed:@"ArtboardTop"] forState:UIControlStateSelected];
-    type.imageEdgeInsets = UIEdgeInsetsMake(0, 80, 0, 0);
+    type.imageEdgeInsets = UIEdgeInsetsMake(0, 100, 0, 0);
     type.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 40);
     type.frame = CGRectMake(kWindowWidth * 0.5, 0, kWindowWidth * 0.5, 50);
     [header addSubview:type];
@@ -545,7 +545,16 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     vc.siteArray = siteArray;
     vc.showAccessory = _currentCityIndex;
     vc.tag = 1;
-    vc.view.height = siteArray.count * 44;
+//    vc.view.height = siteArray.count * 44;
+    CGFloat siteHeight = siteArray.count * 44;
+    if (siteHeight > kWindowHeight - 64 - 44) {
+        vc.tableView.scrollEnabled = YES;
+        vc.view.height = kWindowHeight - 64 - 44 - 30;
+    } else {
+        vc.tableView.scrollEnabled = NO;
+        vc.tableView.height = siteHeight;
+    }
+
     vc.view.width = kWindowWidth / 3;
     menu.contentController = vc;
     
@@ -575,6 +584,7 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     vc.tag = 2;
     vc.view.height = siteArray.count * 44;
     vc.view.width = kWindowWidth / 3;
+    vc.tableView.scrollEnabled = NO;
     menu.contentController = vc;
     
     // 4.显示
