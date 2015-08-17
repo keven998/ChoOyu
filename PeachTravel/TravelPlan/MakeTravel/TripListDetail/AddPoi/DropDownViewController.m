@@ -27,9 +27,10 @@
     [super viewDidLoad];
     
     // 设置tableView不能滚动
-    self.tableView.scrollEnabled = NO;
+//    self.tableView.scrollEnabled = NO;
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.showsVerticalScrollIndicator = NO;
 }
 
 - (void)setSiteArray:(NSArray *)siteArray
