@@ -104,7 +104,7 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
                          }];
     } else {
         self.tableView.alpha = 1.0;
-        [UIView animateWithDuration:0.5
+        [UIView animateWithDuration:0.3
                          animations:^(void) {
                              [self.upperView setFrame:CGRectMake(0, 0, kWindowWidth, sep-64)];
                              [self.bottomView setFrame:CGRectMake(0, sep-64, kWindowWidth, self.view.frame.size.height-sep+64)];
