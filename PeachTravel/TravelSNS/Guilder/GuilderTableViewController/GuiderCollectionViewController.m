@@ -71,7 +71,6 @@ static NSString * const reuseIdentifier = @"Cell";
     
 }
 
-
 // 传递模型的时候给导航栏标题赋值
 - (void)setGuiderDistribute:(GuiderDistribute *)guiderDistribute
 {
@@ -99,19 +98,16 @@ static NSString * const reuseIdentifier = @"Cell";
     idLabel.textColor = [UIColor whiteColor];
     idLabel.font = [UIFont boldSystemFontOfSize:10];
     idLabel.textAlignment = NSTextAlignmentCenter;
-//    idLabel.text = @"999位";
     idLabel.text = [NSString stringWithFormat:@"%ld位",guiderDistribute.expertCnt];
     [view addSubview:idLabel];
     self.navigationItem.titleView = view;
-    
     
     // 传入国家ID数据时刷新表格
     [self loadTravelers:guiderDistribute.ID withPageNo:0];
 }
 
-// 发送网络请求
-
 #pragma mark - http method
+
 - (void)loadTravelers:(NSString *)areaId withPageNo:(NSInteger)page
 {
     // 1.初始化管理对象
