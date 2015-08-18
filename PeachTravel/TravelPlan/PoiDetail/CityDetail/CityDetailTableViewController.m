@@ -29,6 +29,8 @@
 @property (nonatomic, strong) TZProgressHUD *hud;
 
 @property (nonatomic, strong) UIImageView *cityPicture;
+@property (nonatomic, weak) UIButton *footBtn;
+@property (nonatomic, weak) UIButton *likeBtn;
 
 @end
 
@@ -132,16 +134,24 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     toolBarView.image = [[UIImage imageNamed:@"ic_city_toolbar_bgk.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
     [self.view addSubview:toolBarView];
     UIButton *footBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, toolBarView.bounds.size.width/2, toolBarView.bounds.size.height)];
+    self.footBtn = footBtn;
+    // 设置cityPoi的选中状态
+    CityPoi *poi = (CityPoi *)self.poi;
+    footBtn.selected = poi.traveled;
+    
     [footBtn setTitle:@"去过" forState:UIControlStateNormal];
     footBtn.titleLabel.font = [UIFont boldSystemFontOfSize:16.0];
     footBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
     footBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 10);
+    [footBtn addTarget:self action:@selector(footBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [footBtn setTitleColor:COLOR_TEXT_I forState:UIControlStateNormal];
     [footBtn setImage:[UIImage imageNamed:@"ic_city_footter_normal.png"] forState:UIControlStateNormal];
     [footBtn setImage:[UIImage imageNamed:@"ic_city_footter_selected.png"] forState:UIControlStateSelected];
     [toolBarView addSubview:footBtn];
     
     UIButton *likeBtn = [[UIButton alloc] initWithFrame:CGRectMake(toolBarView.bounds.size.width/2, 0, toolBarView.bounds.size.width/2, toolBarView.bounds.size.height)];
+    self.likeBtn = likeBtn;
+    likeBtn.selected = poi.like;
     likeBtn.titleLabel.font = [UIFont boldSystemFontOfSize:16.0];
     [likeBtn setTitle:@"喜欢" forState:UIControlStateNormal];
     likeBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
@@ -149,7 +159,84 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [likeBtn setTitleColor:COLOR_TEXT_I forState:UIControlStateNormal];
     [likeBtn setImage:[UIImage imageNamed:@"ic_city_favorite_normal.png"] forState:UIControlStateNormal];
     [likeBtn setImage:[UIImage imageNamed:@"ic_city_favorite_selected.png"] forState:UIControlStateSelected];
+    [likeBtn addTarget:self action:@selector(likeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [toolBarView addSubview:likeBtn];
+}
+
+#pragma mark - 监听去过和喜欢按钮的点击事件
+- (void)likeBtnClick:(UIButton *)likeBtn {
+    // 修改喜欢btn的选中状态
+//    likeBtn.selected = !likeBtn.selected;
+    
+    // 将喜欢状态发送给服务器
+    [self sendLikeStatusRequest:likeBtn];
+}
+
+- (void)sendLikeStatusRequest:(UIButton *)likeBtn
+{
+    // 1.获取请求管理者
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    // 2.设置请求参数
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    
+    // 选中则喜欢
+    if (!likeBtn.selected) {
+        [params setObject:@"like" forKey:@"action"];
+    } else {
+        [params setObject:@"unlike" forKey:@"action"];
+    }
+    
+    [params setObject:@"locality" forKey:@"itemType"];
+    [params setObject:self.cityId forKey:@"itemId"];
+
+    
+    NSString *url = [NSString stringWithFormat:@"%@%ld/likes",API_USERS,[AccountManager shareAccountManager].account.userId];
+    
+    // 3.发送Post请求
+    [manager POST:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            // 设置likeBtn的选中状态
+            likeBtn.selected = !likeBtn.selected;
+//            [self loadCityData];
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        // 打印失败信息
+        NSLog(@"%@",error);
+    }];
+
+}
+
+- (void)footBtnClick:(UIButton *)footBtn {
+    
+    AccountManager * manager = [AccountManager shareAccountManager];
+    
+    NSString *trackStatus = nil;
+    if (!footBtn.selected) {
+        trackStatus = @"add";
+    } else {
+        trackStatus = @"del";
+    }
+    
+    // 修改用户足迹
+    [manager asyncChangeUserServerTracks:trackStatus withTracks:@[self.cityId] completion:^(BOOL isSuccess, NSString *errorCode) {
+        // 修改选中状态
+        footBtn.selected = !footBtn.selected;
+        
+//        [self loadCityData];
+    }];
 }
 
 - (UITableView *)tableView
@@ -196,7 +283,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     //获取城市信息
     [manager GET:requsetUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-//        NSLog(@"%@", responseObject);
+        NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             self.poi = [[CityPoi alloc] initWithJson:[responseObject objectForKey:@"result"]];
