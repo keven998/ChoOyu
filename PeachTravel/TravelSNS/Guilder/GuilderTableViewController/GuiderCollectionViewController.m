@@ -97,7 +97,7 @@ static NSString * const reuseIdentifier = @"Cell";
     UILabel *idLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 26, 200, 12)];
     idLabel.textColor = [UIColor whiteColor];
     idLabel.font = [UIFont boldSystemFontOfSize:10];
-    idLabel.textAlignment = NSTextAlignmentCenter;
+    idLabel.textAlignment = NSTextAlignmentCenter;     
     idLabel.text = [NSString stringWithFormat:@"%ld位",guiderDistribute.expertCnt];
     [view addSubview:idLabel];
     self.navigationItem.titleView = view;
