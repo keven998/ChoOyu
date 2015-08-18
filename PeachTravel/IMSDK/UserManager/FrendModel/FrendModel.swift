@@ -69,7 +69,7 @@ class FrendModel: NSObject {
     var footprintCountryCount = 0
     var userAlbum: Array<AlbumImage> = Array()
     
-    var costellation: String {
+    var constellation: String {
         get {
             return FrendModel.costellationDescWithBirthday(birthday as String)
         }

@@ -4,50 +4,103 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>AFNetworking.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>10</integer>
+		</dict>
+		<key>MJRefresh.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>11</integer>
+		</dict>
+		<key>OpenUDID.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>12</integer>
+		</dict>
 		<key>Pods-AFNetworking.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>2</integer>
 		</dict>
 		<key>Pods-MJRefresh.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>4</integer>
 		</dict>
 		<key>Pods-OpenUDID.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>5</integer>
 		</dict>
 		<key>Pods-Qiniu.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>6</integer>
 		</dict>
 		<key>Pods-SDWebImage.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>7</integer>
 		</dict>
 		<key>Pods-TMCache.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>8</integer>
 		</dict>
 		<key>Pods-UMengAnalytics-NO-IDFA.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>9</integer>
 		</dict>
 		<key>Pods-iRate.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>3</integer>
 		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+		<key>Qiniu.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>13</integer>
+		</dict>
+		<key>SDWebImage.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>14</integer>
+		</dict>
+		<key>TMCache.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>15</integer>
+		</dict>
+		<key>iRate.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>16</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -57,7 +110,32 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>3281CF7FFF15DCA99B18AB200EFA9540</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5352D432641F0656C90741034E32F31E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>81127F8E954DA5EEAF5F5876</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8B090755233C44E8E118A8DA48015C08</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>95472EE7AD2BC6F0860A9870049CEFC6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>996421D23D6C8322918F0E7E9AF6F545</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -72,6 +150,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>D80354DB6F5FF29E39666C8AF59A80EC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>E05599CBE865CAECC5ED6FE8</key>
 		<dict>
 			<key>primary</key>
@@ -82,12 +165,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>EC649B41305E8893CFB26AEBC50F22EB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>EF35FE94687F0C2A79DBF2B5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>F030E6D2F9F0D857EA6EFE91</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F74401446E2D4793999E45234F884CE4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
