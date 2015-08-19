@@ -1095,7 +1095,7 @@ static UIColor *titleColor;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-}
+} 
 
 - (void)didReceiveMemoryWarning
 {

@@ -44,6 +44,7 @@ class ConnectionManager: NSObject, PushConnectionDelegate {
         pushSDKManager.createPushConnection()
     }
     
+    // 登录聊天服务器
     func bindUserIdWithRegistionId(userId: Int) {
         if (self.registionId != nil) {
             let manager = AFHTTPRequestOperationManager()

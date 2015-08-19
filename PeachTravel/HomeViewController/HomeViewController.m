@@ -20,6 +20,7 @@
 #import "RegisterViewController.h"
 #import "PrepareViewController.h"
 #import "PeachTravel-swift.h"
+#import "HMAudioTool.h"
 
 #define kBackGroundImage    @"backGroundImage"
 
@@ -447,13 +448,15 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 
 #pragma mark - MessageReceiveManagerDelegate
-
+// 收到新消息
 - (void)receiveNewMessage:(BaseMessage * __nonnull)message
 {
     BOOL needShowNotification;
     IMClientManager *clientManager = [IMClientManager shareInstance];
     
     ChatConversation *conversation = [clientManager.conversationManager getExistConversationInConversationList:message.chatterId];
+    
+    // isBlockMessage: 是否是免打扰消息 并且是由他人发送的消息
     needShowNotification = ![conversation isBlockMessage] && (message.sendType == IMMessageSendTypeMessageSendSomeoneElse);
     if (needShowNotification) {
         if (!conversation.isCurrentConversation) {
@@ -462,6 +465,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 #if !TARGET_IPHONE_SIMULATOR
         [self playSoundAndVibration];
         
+        // 如果App不在前台,发送通知
         BOOL isAppActivity = [[UIApplication sharedApplication] applicationState] == UIApplicationStateActive;
         if (!isAppActivity) {
             [self showNotificationWithMessage:message];
@@ -484,6 +488,10 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     if (timeInterval < kDefaultPlaySoundInterval) {
         return;
     }
+    
+//    [HMAudioTool playSound:@"in.m4a"];
+    AudioServicesPlaySystemSound (kSystemSoundID_Vibrate);
+    
     //保存最后一次响铃时间
     self.lastPlaySoundDate = [NSDate date];
 }
@@ -498,9 +506,11 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     } else {
         notification.alertBody = message.abbrevMsg;
     }
-    
+    notification.soundName = UILocalNotificationDefaultSoundName;
     notification.alertAction = @"打开";
     notification.timeZone = [NSTimeZone defaultTimeZone];
+    
+
     //发送通知
     [[UIApplication sharedApplication] scheduleLocalNotification:notification];
 }
