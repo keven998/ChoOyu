@@ -265,10 +265,50 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
         let requestSerializer = AFJSONRequestSerializer()
         manager.requestSerializer = requestSerializer
         manager.requestSerializer.setValue("\(accountId)", forHTTPHeaderField: "UserId")
-        let url = "\(API_USERS)\(accountId)/contacts/\(userId)"
+        let url = "\(API_USERS)\(accountId)/blacklist/\(userId)"
+        manager.POST(url, parameters: nil, success:
+            { (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
+                if (responseObject.objectForKey("code") as! Int) == 0 {
+                    if let frend = self.getFrendInfoFromDB(userId: userId, frendType: nil) {
+                        if (!FrendModel.typeIsCorrect(frend.type, typeWeight: IMFrendWeightType.BlackList)) {
+                            let typeValue = frend.type.rawValue + IMFrendWeightType.BlackList.rawValue
+                            self.updateFrendType(userId: userId, frendType: IMFrendType(rawValue: typeValue)!)
+                        }
+                    }
+                    self.updateFrendType(userId: userId, frendType: IMFrendType.Frend)
+                    IMClientManager.shareInstance().conversationManager.removeConversation(chatterId: userId, deleteMessage: true)
+                    completion(isSuccess: true, errorCode: 0)
+                } else {
+                    completion(isSuccess: false, errorCode: 0)
+                }
+            }){
+                (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+                completion(isSuccess: false, errorCode: 0)
+                debug_print(error)
+        }
+    }
+    
+    /**
+    取消屏蔽用户
+    :param: userId
+    :param: helloStr
+    :param: completion
+    */
+    func asyncCancelBlackContact(#userId: Int, completion: (isSuccess: Bool, errorCode: Int) -> ()) {
+        let manager = AFHTTPRequestOperationManager()
+        let requestSerializer = AFJSONRequestSerializer()
+        manager.requestSerializer = requestSerializer
+        manager.requestSerializer.setValue("\(accountId)", forHTTPHeaderField: "UserId")
+        let url = "\(API_USERS)\(accountId)/blacklist/\(userId)"
         manager.DELETE(url, parameters: nil, success:
             { (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
                 if (responseObject.objectForKey("code") as! Int) == 0 {
+                    if let frend = self.getFrendInfoFromDB(userId: userId, frendType: nil) {
+                        if (FrendModel.typeIsCorrect(frend.type, typeWeight: IMFrendWeightType.BlackList)) {
+                            let typeValue = frend.type.rawValue - IMFrendWeightType.BlackList.rawValue
+                            self.updateFrendType(userId: userId, frendType: IMFrendType(rawValue: typeValue)!)
+                        }
+                    }
                     self .updateFrendType(userId: userId, frendType: IMFrendType.Frend)
                     IMClientManager.shareInstance().conversationManager.removeConversation(chatterId: userId, deleteMessage: true)
                     completion(isSuccess: true, errorCode: 0)
