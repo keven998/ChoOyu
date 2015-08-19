@@ -26,6 +26,8 @@
 #import "CMPopTipView.h"
 #import "MJPhotoBrowser.h"
 #import "MJPhoto.h"
+#import "LoginViewController.h"
+#import "TZNavigationViewController.h"
 
 @interface OtherUserInfoViewController ()<UIActionSheetDelegate> {
     NSMutableArray *_dataArray;
@@ -434,16 +436,21 @@
 #pragma mark - IBAction
 
 - (void)addToFriend {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"朋友验证" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-    [alert setAlertViewStyle:UIAlertViewStylePlainTextInput];
-    UITextField *nameTextField = [alert textFieldAtIndex:0];
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    nameTextField.text = [NSString stringWithFormat:@"Hi, 我是%@", accountManager.account.nickName];
-    [alert showAlertViewWithBlock:^(NSInteger buttonIndex) {
-        if (buttonIndex == 1) {
-            [self requestAddContactWithHello:nameTextField.text];
-        }
-    }];
+    
+    if ([AccountManager shareAccountManager].isLogin) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"朋友验证" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        [alert setAlertViewStyle:UIAlertViewStylePlainTextInput];
+        UITextField *nameTextField = [alert textFieldAtIndex:0];
+        AccountManager *accountManager = [AccountManager shareAccountManager];
+        nameTextField.text = [NSString stringWithFormat:@"Hi, 我是%@", accountManager.account.nickName];
+        [alert showAlertViewWithBlock:^(NSInteger buttonIndex) {
+            if (buttonIndex == 1) {
+                [self requestAddContactWithHello:nameTextField.text];
+            }
+        }];
+    } else {
+        [self userLogin];
+    }
 }
 
 - (void)viewUserPhotoAlbum
@@ -488,7 +495,25 @@
 }
 
 - (void)talkToFriend {
-    [self pushChatViewController];
+    
+    if ([AccountManager shareAccountManager].isLogin) {
+         [self pushChatViewController];
+    } else {
+        [self userLogin];
+    }
+}
+
+#pragma mark - IBAction Methods
+
+- (void)userLogin
+{
+    if ([AccountManager shareAccountManager].isLogin) {
+        return;
+    }
+    LoginViewController *loginCtl = [[LoginViewController alloc] init];
+    TZNavigationViewController *nctl = [[TZNavigationViewController alloc] initWithRootViewController:loginCtl];
+    loginCtl.isPushed = NO;
+    [self.navigationController presentViewController:nctl animated:YES completion:nil];
 }
 
 - (void)pushChatViewController
