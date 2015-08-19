@@ -128,7 +128,6 @@
 //用户退出登录
 - (void)asyncLogout:(void (^)(BOOL))completion
 {
-    
     // 退出登录
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AppUtils *utils = [[AppUtils alloc] init];

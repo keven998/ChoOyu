@@ -494,7 +494,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     
     //保存最后一次响铃时间
     self.lastPlaySoundDate = [NSDate date];
-    
 }
 
 - (void)showNotificationWithMessage:(BaseMessage *)message
