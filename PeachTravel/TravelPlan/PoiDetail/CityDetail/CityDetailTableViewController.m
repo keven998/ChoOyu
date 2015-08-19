@@ -234,8 +234,6 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [manager asyncChangeUserServerTracks:trackStatus withTracks:@[self.cityId] completion:^(BOOL isSuccess, NSString *errorCode) {
         // 修改选中状态
         footBtn.selected = !footBtn.selected;
-        
-//        [self loadCityData];
     }];
 }
 

@@ -620,8 +620,14 @@ static NSString *reusableCell = @"myGuidesCell";
 - (NSArray *)rightButtons
 {
     NSMutableArray *rightUtilityButtons = [NSMutableArray new];
-    [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor lightGrayColor] icon:[UIImage imageNamed:@"options"]];
-    [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor redColor] icon:[UIImage imageNamed:@"delete"]];
+//    [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor lightGrayColor] icon:[UIImage imageNamed:@"options"]];
+    
+    NSDictionary * markDict = @{NSForegroundColorAttributeName: [UIColor whiteColor], NSFontAttributeName: [UIFont boldSystemFontOfSize:16.0]};
+    NSAttributedString * attributeMark = [[NSAttributedString alloc] initWithString:@"签到" attributes:markDict];
+    
+    [rightUtilityButtons sw_addUtilityButtonWithColor:APP_THEME_COLOR attributedTitle:attributeMark];
+    NSAttributedString * attributeDelete = [[NSAttributedString alloc] initWithString:@"删除" attributes:markDict];
+   [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor redColor] attributedTitle:attributeDelete];
     
     return rightUtilityButtons;
 }

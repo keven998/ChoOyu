@@ -400,7 +400,7 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
     }
     
     
-//MARK: MessageReceivePoolDelegate
+//MARK: MessageReceivePoolDelegate (排序结束后)
     
     func messgeReorderOver(messageList: NSDictionary) {
         receiveMessageList = messageList.copy() as? NSDictionary

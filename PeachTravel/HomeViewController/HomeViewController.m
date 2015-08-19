@@ -447,13 +447,15 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 
 #pragma mark - MessageReceiveManagerDelegate
-
+// 收到新消息
 - (void)receiveNewMessage:(BaseMessage * __nonnull)message
 {
     BOOL needShowNotification;
     IMClientManager *clientManager = [IMClientManager shareInstance];
     
     ChatConversation *conversation = [clientManager.conversationManager getExistConversationInConversationList:message.chatterId];
+    
+    // isBlockMessage: 是否是免打扰消息 并且是由他人发送的消息
     needShowNotification = ![conversation isBlockMessage] && (message.sendType == IMMessageSendTypeMessageSendSomeoneElse);
     if (needShowNotification) {
         if (!conversation.isCurrentConversation) {
@@ -462,6 +464,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 #if !TARGET_IPHONE_SIMULATOR
         [self playSoundAndVibration];
         
+        // 如果App不在前台,发送通知
         BOOL isAppActivity = [[UIApplication sharedApplication] applicationState] == UIApplicationStateActive;
         if (!isAppActivity) {
             [self showNotificationWithMessage:message];

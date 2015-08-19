@@ -90,6 +90,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogin) name:userDidLoginNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkChanged:) name:networkConnectionStatusChangeNoti object:nil];
     
+    
     if (self.accountManager.isLogin) {
         self.IMState = IM_RECEIVING;
         [self.imClientManager.messageReceiveManager asyncACKMessageWithReceivedMessages:nil completion:^(BOOL isSuccess) {
