@@ -597,7 +597,23 @@
  */
 - (void)blackUser
 {
+    // 如果该用户已被屏蔽,显示取消屏蔽用户
+    //
+    if ([FrendModel typeIsCorrect:_userInfo.type typeWeight:IMFrendWeightTypeBlackList]) {
+        
+    }
+    __weak typeof(OtherUserInfoViewController *)weakSelf = self;
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInViewController:weakSelf];
+    FrendManager *frendManager = [IMClientManager shareInstance].frendManager;
     
+    [frendManager asyncBlackContactWithUserId:_userId completion:^(BOOL isSuccess, NSInteger errorCode) {
+        [hud hideTZHUD];
+        
+        if (isSuccess) {
+            [SVProgressHUD showHint:@"已屏蔽用户"];
+        }
+    }];
 }
 
 //显示达人交流的引导页面

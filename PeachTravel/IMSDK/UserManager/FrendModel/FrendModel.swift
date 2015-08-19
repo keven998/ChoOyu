@@ -24,6 +24,7 @@ import UIKit
     case Frend_Business = 17
     case Expert_GroupMember = 6
     case Business_GroupMember = 20
+    case Black_Default = 128
     case Black_Frend = 129
     case Black_Business = 144
     case Black_Expert = 130
@@ -110,6 +111,7 @@ class FrendModel: NSObject {
         if let str =  json.objectForKey("gender") as? String {
             sex = str
         }
+
 
         if let str =  json.objectForKey("residence") as? String {
             residence = str
