@@ -236,8 +236,40 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
         manager.DELETE(url, parameters: nil, success:
             { (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
                 if (responseObject.objectForKey("code") as! Int) == 0 {
+                    if let frend = self.getFrendInfoFromDB(userId: userId, frendType: nil) {
+                        if (FrendModel.typeIsCorrect(frend.type, typeWeight: IMFrendWeightType.Frend)) {
+                            let typeValue = frend.type.rawValue - IMFrendWeightType.Frend.rawValue
+                            self.updateFrendType(userId: userId, frendType: IMFrendType(rawValue: typeValue)!)
+                        }
+                    }
+                    IMClientManager.shareInstance().conversationManager.removeConversation(chatterId: userId, deleteMessage: true)
+                    completion(isSuccess: true, errorCode: 0)
+                } else {
+                    completion(isSuccess: false, errorCode: 0)
+                }
+            }){
+                (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+                completion(isSuccess: false, errorCode: 0)
+                debug_print(error)
+        }
+    }
+    
+    /**
+    屏蔽用户
+    :param: userId
+    :param: helloStr
+    :param: completion
+    */
+    func asyncBlackContact(#userId: Int, completion: (isSuccess: Bool, errorCode: Int) -> ()) {
+        let manager = AFHTTPRequestOperationManager()
+        let requestSerializer = AFJSONRequestSerializer()
+        manager.requestSerializer = requestSerializer
+        manager.requestSerializer.setValue("\(accountId)", forHTTPHeaderField: "UserId")
+        let url = "\(API_USERS)\(accountId)/contacts/\(userId)"
+        manager.DELETE(url, parameters: nil, success:
+            { (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
+                if (responseObject.objectForKey("code") as! Int) == 0 {
                     self .updateFrendType(userId: userId, frendType: IMFrendType.Frend)
-                    let daoHelper = DaoHelper.shareInstance()
                     IMClientManager.shareInstance().conversationManager.removeConversation(chatterId: userId, deleteMessage: true)
                     completion(isSuccess: true, errorCode: 0)
                 } else {

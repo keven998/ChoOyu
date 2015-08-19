@@ -68,13 +68,12 @@
     
     _isMyFriend = [accountManager frendIsMyContact:_userId];
     
-    if (_isMyFriend) {
-        UIButton *moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
-        [moreBtn setImage:[UIImage imageNamed:@"account_icon_any_default"] forState:UIControlStateNormal];
-        [moreBtn addTarget:self action:@selector(moreAction:) forControlEvents:UIControlEventTouchUpInside];
-        [moreBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:moreBtn];
-    }
+    UIButton *moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
+    [moreBtn setImage:[UIImage imageNamed:@"account_icon_any_default"] forState:UIControlStateNormal];
+    [moreBtn addTarget:self action:@selector(moreAction:) forControlEvents:UIControlEventTouchUpInside];
+    [moreBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:moreBtn];
+   
     [self setupTableHeaderView];
     [self createFooterBar];
     [self loadUserProfile:_userId];
@@ -525,23 +524,22 @@
 
 - (IBAction)moreAction:(UIButton *)sender
 {
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil
-                                                       delegate:self
-                                              cancelButtonTitle:@"取消"
-                                         destructiveButtonTitle:nil
-                                              otherButtonTitles:@"删除朋友", nil];
-    [sheet showInView:self.view];
-}
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 0) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"确认删除朋友关系" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
-        [alert showAlertViewWithBlock:^(NSInteger buttonIndex) {
-            if (buttonIndex == 1) {
-                [self removeContact];
-            }
-        }];
+    UIActionSheet *sheet;
+    if (_isMyFriend) {
+        sheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                           delegate:self
+                                                  cancelButtonTitle:@"取消"
+                                             destructiveButtonTitle:nil
+                                                  otherButtonTitles:@"删除朋友", nil];
+    } else {
+        sheet = [[UIActionSheet alloc] initWithTitle:nil
+                                            delegate:self
+                                   cancelButtonTitle:@"取消"
+                              destructiveButtonTitle:nil
+                                   otherButtonTitles:@"屏蔽用户", nil];
     }
+    
+    [sheet showInView:self.view];
 }
 
 - (void)removeContact
@@ -569,6 +567,14 @@
     }];
 }
 
+/**
+ *  屏蔽用户
+ */
+- (void)blackUser
+{
+    
+}
+
 //显示达人交流的引导页面
 - (void)showExpertTipsViewWithView:(UIView *)sourceView
 {
@@ -584,6 +590,24 @@
     [tipView presentPointingAtView:sourceView inView:self.view animated:YES];
     [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"kShowExpertTipsView"];
 }
+
+#pragma mark - UIActionsheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"确认删除朋友关系" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+        [alert showAlertViewWithBlock:^(NSInteger buttonIndex) {
+            if (buttonIndex == 1) {
+                if (_isMyFriend) {
+                    [self removeContact];
+                } else {
+                    [self blackUser];
+                }
+            }
+        }];
+    }
+}
+
 
 #pragma mark - Table view data source
 
