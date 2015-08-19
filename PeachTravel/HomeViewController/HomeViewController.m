@@ -20,6 +20,7 @@
 #import "RegisterViewController.h"
 #import "PrepareViewController.h"
 #import "PeachTravel-swift.h"
+#import "HMAudioTool.h"
 
 #define kBackGroundImage    @"backGroundImage"
 
@@ -487,6 +488,10 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     if (timeInterval < kDefaultPlaySoundInterval) {
         return;
     }
+    
+//    [HMAudioTool playSound:@"in.m4a"];
+    AudioServicesPlaySystemSound (kSystemSoundID_Vibrate);
+    
     //保存最后一次响铃时间
     self.lastPlaySoundDate = [NSDate date];
     
@@ -502,9 +507,11 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     } else {
         notification.alertBody = message.abbrevMsg;
     }
-    
+    notification.soundName = UILocalNotificationDefaultSoundName;
     notification.alertAction = @"打开";
     notification.timeZone = [NSTimeZone defaultTimeZone];
+    
+
     //发送通知
     [[UIApplication sharedApplication] scheduleLocalNotification:notification];
 }
