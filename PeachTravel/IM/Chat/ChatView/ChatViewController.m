@@ -1150,12 +1150,13 @@
 
 #pragma mark - LocationViewDelegate
 
-
 - (void)sendLocation:(LocationModel *)locModel locImage:(UIImage *)locImage
 {
     [self sendLocation:locModel Image:locImage];
 }
+
 #pragma mark - DXMessageToolBarDelegate
+
 - (void)inputTextViewWillBeginEditing:(HPGrowingTextView *)messageInputTextView{
     [_menuController setMenuItems:nil];
 }
