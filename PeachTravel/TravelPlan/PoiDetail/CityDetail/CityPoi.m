@@ -25,7 +25,7 @@
         _travelMonth = [json objectForKey:@"travelMonth"];
         _shoppingTitles = [json objectForKey:@"shoppingTitles"];
         _diningTitles = [json objectForKey:@"diningTitles"];
-        _like = [[json objectForKey:@"like"] boolValue];
+        _isVote = [[json objectForKey:@"isVote"] boolValue];
         _traveled = [[json objectForKey:@"traveled"] boolValue];
         _imageCount = [[json objectForKey:@"imageCnt"] integerValue]>100 ? 100:[[json objectForKey:@"imageCnt"] integerValue];
     }

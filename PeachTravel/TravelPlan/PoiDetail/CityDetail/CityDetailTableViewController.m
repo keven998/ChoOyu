@@ -151,7 +151,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     
     UIButton *likeBtn = [[UIButton alloc] initWithFrame:CGRectMake(toolBarView.bounds.size.width/2, 0, toolBarView.bounds.size.width/2, toolBarView.bounds.size.height)];
     self.likeBtn = likeBtn;
-    likeBtn.selected = poi.like;
+    likeBtn.selected = poi.isVote;
     likeBtn.titleLabel.font = [UIFont boldSystemFontOfSize:16.0];
     [likeBtn setTitle:@"喜欢" forState:UIControlStateNormal];
     likeBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
@@ -165,11 +165,14 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 
 #pragma mark - 监听去过和喜欢按钮的点击事件
 - (void)likeBtnClick:(UIButton *)likeBtn {
-    // 修改喜欢btn的选中状态
-//    likeBtn.selected = !likeBtn.selected;
     
-    // 将喜欢状态发送给服务器
-    [self sendLikeStatusRequest:likeBtn];
+    if (likeBtn.selected) {  // 说明是喜欢状态
+        // 删除喜欢
+        [self sendUnlikeStatusRequest:likeBtn];
+    } else {
+        // 喜欢
+        [self sendLikeStatusRequest:likeBtn];
+    }
 }
 
 - (void)sendLikeStatusRequest:(UIButton *)likeBtn
@@ -189,17 +192,11 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     
     // 选中则喜欢
-    if (!likeBtn.selected) {
-        [params setObject:@"like" forKey:@"action"];
-    } else {
-        [params setObject:@"unlike" forKey:@"action"];
-    }
     
-    [params setObject:@"locality" forKey:@"itemType"];
-    [params setObject:self.cityId forKey:@"itemId"];
-
+    NSInteger userId = [AccountManager shareAccountManager].account.userId;
+    [params setObject:[NSNumber numberWithInteger:userId] forKey:@"userId"];
     
-    NSString *url = [NSString stringWithFormat:@"%@%ld/likes",API_USERS,[AccountManager shareAccountManager].account.userId];
+    NSString *url = [NSString stringWithFormat:@"%@%@/votes",API_GET_CITYDETAIL,self.cityId];
     
     // 3.发送Post请求
     [manager POST:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -218,6 +215,47 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     }];
 
 }
+
+// 发送不喜欢状态
+- (void)sendUnlikeStatusRequest:(UIButton *)likeBtn
+{
+    // 1.获取请求管理者
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    // 2.设置请求参数
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    
+    NSInteger userId = [AccountManager shareAccountManager].account.userId;
+    [params setObject:[NSNumber numberWithInteger:userId] forKey:@"userId"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@/votes/%ld",API_GET_CITYDETAIL,self.cityId,userId];
+    
+    // 3.发送Post请求
+    [manager DELETE:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            // 设置likeBtn的选中状态
+            likeBtn.selected = !likeBtn.selected;
+            //            [self loadCityData];
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        // 打印失败信息
+        NSLog(@"%@",error);
+    }];
+    
+}
+
 
 - (void)footBtnClick:(UIButton *)footBtn {
     
