@@ -384,8 +384,6 @@
         _trackNumber.text = @"";
         _planNumber.text = @"";
         _pictureNumber.text = @"";
-
-
     }
 }
 
@@ -415,7 +413,6 @@
     }
 }
 
-
 - (void)userAccountHasChage
 {
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -439,9 +436,6 @@
     UIImage *shareImage = [UIImage imageNamed:@"icon.png"];
     
     [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:@"能向达人咨询、朋友协作的旅行工具" image:shareImage location:nil urlResource:nil presentedController:self completion:^(UMSocialResponseEntity *response) {
-        //        if (response.responseCode == UMSResponseCodeSuccess) {
-        //            NSLog(@"分享成功！");
-        //        }
     }];
 }
 
@@ -489,7 +483,6 @@
     } else {
         [self userLogin];
     }
-    
 }
 
 - (IBAction)myPlan:(id)sender

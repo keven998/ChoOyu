@@ -212,8 +212,6 @@
     _avatarBg.clipsToBounds = YES;
     _avatarBg.image = [UIImage imageNamed:@"ic_home_avatar_border_unknown.png"];
     [_headerBgView addSubview:_avatarBg];
-    
-    
 }
 
 /**
@@ -657,7 +655,6 @@
 
 - (void)selectItem:(NSString *)str atIndex:(NSIndexPath *)indexPath
 {
-    //    [_tableView reloadData];
     if (_updateUserInfoType == 1) {
         [self updateGender:indexPath];
     }else if(_updateUserInfoType == 2){
@@ -713,7 +710,6 @@
     
     UIImage *headerImage = [info objectForKey:UIImagePickerControllerEditedImage];
     
-    
     [self uploadPhotoImage:headerImage];
 }
 
@@ -729,6 +725,7 @@
 }
 
 #pragma mark - http method
+
 - (void)changeUserName
 {
     BaseTextSettingViewController *bsvc = [[BaseTextSettingViewController alloc] init];
