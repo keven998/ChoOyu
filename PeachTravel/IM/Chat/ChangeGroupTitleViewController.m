@@ -17,6 +17,8 @@
 
 @implementation ChangeGroupTitleViewController
 
+#pragma mark - life cycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     _titleLable.text = _oldTitle;
@@ -36,14 +38,18 @@
     
 }
 
-- (void)goBack
+-(void)viewWillAppear:(BOOL)animated
 {
-    [self.delegate changeTitleDelegate];
-    [self.navigationController popViewControllerAnimated:YES];
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
-- (void)dealloc
+#pragma mark - action methods
+
+- (void)goBack
 {
+    [self.delegate changeGroupTitle];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)confirm:(id)sender
@@ -72,17 +78,6 @@
     }
     
   
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
-}
-
-- (void)updateSuccess
-{
-    
 }
 
 @end

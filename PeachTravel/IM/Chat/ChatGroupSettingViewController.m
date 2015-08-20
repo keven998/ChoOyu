@@ -29,6 +29,8 @@
 
 @implementation ChatGroupSettingViewController
 
+#pragma mark - life cycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
@@ -50,6 +52,11 @@
     [super viewWillDisappear:YES];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
 }
+
+#pragma mark - setter & getter
+
+
+#pragma mark - private methods
 
 - (void)updateGroupInfoFromServer
 {
@@ -103,6 +110,61 @@
 {
     _tableView.tableFooterView = [self createFooterView];
     [self.tableView reloadData];
+}
+
+/**
+ *  获取所有的聊天图片
+ *
+ *  @return
+ */
+- (NSArray *)getAllImagePathList
+{
+    NSArray *imageMessages = [self.conversation getAllImageMessageInConversation];
+    
+    NSMutableArray *retMessages = [[NSMutableArray alloc] init];
+    for (ImageMessage *message in imageMessages) {
+        if (message.sendType == IMMessageSendTypeMessageSendSomeoneElse) {
+            NSString *imageUrl = message.fullUrl;
+            if (imageUrl) {
+                [retMessages addObject:imageUrl];
+            }
+            
+        } else {
+            [retMessages addObject:message.localPath];
+        }
+    }
+    return retMessages;
+}
+
+/**
+ *  获取所有的聊天 album 图片消息
+ *
+ *  @return
+ */
+- (NSArray *)getAllChatAlbumImageInConversation
+{
+    NSMutableArray *retMessages = [[NSMutableArray alloc] init];
+    NSArray *imageMessages = [self.conversation getAllImageMessageInConversation];
+    for (ImageMessage *message in imageMessages) {
+        [retMessages addObject:message.localPath];
+    }
+    return retMessages;
+}
+
+#pragma mark - action methods
+
+//增加群组成员
+- (IBAction)addGroupNumber:(id)sender
+{
+    CreateConversationViewController *createConversationCtl = [[CreateConversationViewController alloc] init];
+    createConversationCtl.group = _groupModel;
+    [_containerCtl.navigationController pushViewController:createConversationCtl animated:YES];
+}
+
+- (IBAction)editGroup:(UIButton *)sender
+{
+    sender.selected = !sender.selected;
+    [_tableView setEditing:sender.selected animated:YES];
 }
 
 #pragma mark - Table view data source
@@ -336,15 +398,6 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-- (NSArray *)rightButtons
-{
-    NSMutableArray *rightUtilityButtons = [NSMutableArray new];
-    NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:@"移除"];
-    [attr addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, 2)];
-    [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor redColor] attributedTitle:attr];
-    return rightUtilityButtons;
-}
-
 - (void)updateView
 {
     NSInteger totalCtn = _groupModel.members.count;
@@ -358,30 +411,6 @@
         lineCnt = 1;
     }
     [_tableView reloadData];
-}
-
-//增加群组成员
-- (IBAction)addGroupNumber:(id)sender
-{
-    CreateConversationViewController *createConversationCtl = [[CreateConversationViewController alloc] init];
-    createConversationCtl.group = _groupModel;
-    [_containerCtl.navigationController pushViewController:createConversationCtl animated:YES];
-}
-
-- (IBAction)editGroup:(UIButton *)sender
-{
-    sender.selected = !sender.selected;
-    [_tableView setEditing:sender.selected animated:YES];
-}
-
-/**
- *  点击群组联系人列表的头像进入联系人信息
- *
- *  @param sender
- */
-- (IBAction)showUserInfo:(UIButton *)sender
-{
-    
 }
 
 - (void)showUserInfoWithContactInfo:(FrendModel *)contact
@@ -473,53 +502,17 @@
 }
 
 #pragma mark - CreateConversationDelegate
+
 - (void)reloadData
 {
     [self updateView];
 }
 
 #pragma mark - changeTitle
-- (void)changeTitleDelegate
+
+- (void)changeGroupTitle
 {
     [self updateView];
 }
 
-/**
- *  获取所有的聊天图片
- *
- *  @return
- */
-- (NSArray *)getAllImagePathList
-{
-    NSArray *imageMessages = [self.conversation getAllImageMessageInConversation];
-    
-    NSMutableArray *retMessages = [[NSMutableArray alloc] init];
-    for (ImageMessage *message in imageMessages) {
-        if (message.sendType == IMMessageSendTypeMessageSendSomeoneElse) {
-            NSString *imageUrl = message.fullUrl;
-            if (imageUrl) {
-                [retMessages addObject:imageUrl];
-            }
-            
-        } else {
-            [retMessages addObject:message.localPath];
-        }
-    }
-    return retMessages;
-}
-
-/**
- *  获取所有的聊天 album 图片消息
- *
- *  @return
- */
-- (NSArray *)getAllChatAlbumImageInConversation
-{
-    NSMutableArray *retMessages = [[NSMutableArray alloc] init];
-    NSArray *imageMessages = [self.conversation getAllImageMessageInConversation];
-    for (ImageMessage *message in imageMessages) {
-        [retMessages addObject:message.localPath];
-    }
-    return retMessages;
-}
 @end

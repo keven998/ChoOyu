@@ -1045,7 +1045,6 @@
     myGuideListTableCtl.userName = _accountManager.account.nickName;
     UINavigationController *ctl = [[UINavigationController alloc] initWithRootViewController:myGuideListTableCtl];
     [self presentViewController:ctl animated:YES completion:^ {
-        //        [self keyBoardHidden];
     }];
 }
 
@@ -1150,12 +1149,13 @@
 
 #pragma mark - LocationViewDelegate
 
-
 - (void)sendLocation:(LocationModel *)locModel locImage:(UIImage *)locImage
 {
     [self sendLocation:locModel Image:locImage];
 }
+
 #pragma mark - DXMessageToolBarDelegate
+
 - (void)inputTextViewWillBeginEditing:(HPGrowingTextView *)messageInputTextView{
     [_menuController setMenuItems:nil];
 }
@@ -1355,13 +1355,11 @@
 -(void)sensorStateChange:(NSNotificationCenter *)notification;
 {
     //如果此时手机靠近面部放在耳朵旁，那么声音将通过听筒输出，并将屏幕变暗（省电啊）
-    if ([[UIDevice currentDevice] proximityState] == YES)
-    {
+    if ([[UIDevice currentDevice] proximityState] == YES) {
         NSLog(@"Device is close to user");
         [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
-    }
-    else
-    {
+        
+    } else {
         NSLog(@"Device is not close to user");
         [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
     }
