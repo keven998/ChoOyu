@@ -12,7 +12,6 @@
 #import "MJPhoto.h"
 @interface OthersAlbumCell ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 
-
 @end
 
 @implementation OthersAlbumCell

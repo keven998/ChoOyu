@@ -23,6 +23,7 @@
 
 @implementation AccountManagerViewController
 
+#pragma mark - lifeCycle
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -60,6 +61,7 @@
 {
     [super didReceiveMemoryWarning];
 }
+
 
 #pragma mark setter&getter
 

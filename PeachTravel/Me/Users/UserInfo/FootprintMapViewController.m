@@ -9,6 +9,7 @@
 #import "FootprintMapViewController.h"
 #import "DomesticViewController.h"
 #import "ForeignViewController.h"
+
 @interface FootprintMapViewController () <MKMapViewDelegate>
 {
     UISegmentedControl *_segmentControl;
@@ -27,6 +28,7 @@
     _mapView.delegate = self;
 }
 
+#pragma mark - setter or getter
 - (void)setDataSource:(NSArray *)dataSource
 {
     _dataSource = dataSource;
@@ -68,7 +70,6 @@
 - (void)mapView:(MKMapView *)sender annotationView:(MKAnnotationView *)aView calloutAccessoryControlTapped:(UIControl *)contro
 {
 }
-
 
 - (MKAnnotationView *)mapView:(MKMapView *)theMapView viewForAnnotation:(id<MKAnnotation>)annotation
 {

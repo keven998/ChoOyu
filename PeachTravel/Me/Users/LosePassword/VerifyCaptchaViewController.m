@@ -28,6 +28,8 @@
 
 @implementation VerifyCaptchaViewController
 
+#pragma mark - lifeCycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -95,7 +97,6 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
     
 }
 

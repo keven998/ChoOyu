@@ -182,7 +182,7 @@
 {
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:weixinDidLoginNoti object:nil];
-[self.navigationController setNavigationBarHidden:NO animated:YES];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 - (void)dealloc
@@ -268,7 +268,7 @@
 
 #pragma mark - private methods
 
--(void)sendAuthRequest
+- (void)sendAuthRequest
 {
     //构造SendAuthReq结构体
     SendAuthReq* req =[[SendAuthReq alloc] init];
@@ -289,7 +289,7 @@
     
     return YES;
 }
--(void)textFieldDidBeginEditing:(UITextField *)textField
+- (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     [UIView animateWithDuration:0.2 animations:^{
         _iconImageView.frame = CGRectMake((Width - 483/3 *Height/736)/2, 282/3 * Height/736 - 88 *Height / 736, 483/3 *Height/736 , 483/3 *Height/736);
