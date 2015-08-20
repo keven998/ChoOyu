@@ -8,8 +8,6 @@
 
 #import "SuggestionDestinationTableViewController.h"
 
-
-
 @interface SuggestionDestinationTableViewController () <UISearchBarDelegate>
 
 @property (nonatomic, strong) UISearchBar *searchBar;
@@ -18,7 +16,6 @@
  *  联想的城市数据
  */
 @property (nonatomic, strong) NSMutableArray *searchResultArray;
-
 
 @end
 

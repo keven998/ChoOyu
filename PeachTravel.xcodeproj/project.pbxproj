@@ -2382,7 +2382,6 @@
 		E6A2EEE31B7A041300C66D8F /* PlansListTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlansListTableHeaderView.h; sourceTree = "<group>"; };
 		E6A2EEE41B7A041300C66D8F /* PlansListTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlansListTableHeaderView.m; sourceTree = "<group>"; };
 		E6A2EEE61B7A043A00C66D8F /* PlansListTableHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlansListTableHeaderView.xib; sourceTree = "<group>"; };
-		E6AD37B41B620A3900E21A58 /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
 		E6BFE5FA1B5E732F00A9FDCA /* DestinationCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationCollectionViewCell.h; sourceTree = "<group>"; };
 		E6BFE5FB1B5E732F00A9FDCA /* DestinationCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationCollectionViewCell.m; sourceTree = "<group>"; };
 		E6BFE5FC1B5E732F00A9FDCA /* DestinationCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DestinationCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -5656,7 +5655,6 @@
 		D9E1EF8319F0E2C8006348A3 /* Guide */ = {
 			isa = PBXGroup;
 			children = (
-				E6AD37B41B620A3900E21A58 /* TestViewController.h */,
 			);
 			name = Guide;
 			sourceTree = "<group>";

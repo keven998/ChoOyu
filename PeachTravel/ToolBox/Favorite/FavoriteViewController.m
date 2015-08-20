@@ -57,6 +57,8 @@
 
 @implementation FavoriteViewController
 
+#pragma mark - lifeCycle
+
 - (id)init {
     if (self = [super init]) {
         _urlArray = @[@"all", @"locality", @"vs", @"restaurant", @"shopping", @"hotel", @"travelNote"];
@@ -137,6 +139,14 @@
     _isVisible = NO;
 }
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    [self.refreshControl endRefreshing];
+    self.refreshControl = nil;
+}
+
 - (void) initDataFromCache {
     AccountManager *accountManager = [AccountManager shareAccountManager];
     [[TMCache sharedCache] objectForKey:[NSString stringWithFormat:@"%ld_favorites", (long)accountManager.account.userId] block:^(TMCache *cache, NSString *key, id object)  {
@@ -158,6 +168,8 @@
     }];
 }
 
+#pragma mark - setter or getter
+
 - (UIView *)footerView {
     if (!_footerView) {
         _footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.bounds), 44.0)];
@@ -171,6 +183,9 @@
     }
     return _footerView;
 }
+
+
+#pragma mark - private Methods
 
 - (void)switchCate {
     SelectionTableViewController *ctl = [[SelectionTableViewController alloc] init];
@@ -186,13 +201,7 @@
     [self loadDataWithPageIndex:0 andFavoriteType:_currentFavoriteType];
 }
 
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-
-    [self.refreshControl endRefreshing];
-    self.refreshControl = nil;
-}
+#pragma mark - ActionEvent
 
 - (void)userDidLogout
 {

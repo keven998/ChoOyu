@@ -559,7 +559,7 @@ static NSString *reusableCell = @"myGuidesCell";
     MyGuideSummary *summary = [self.dataSource objectAtIndex:indexPath.row];
     cell.guideSummary = summary;
     cell.isCanSend = _selectToSend;
-    cell.rightUtilityButtons = [self rightButtons];
+//    cell.rightUtilityButtons = [self rightButtons];
     
     if ((_copyPatch && indexPath.row == 0) || (_isNewCopy && indexPath.row == 0)) {
         NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"(新复制) %@", summary.title]];

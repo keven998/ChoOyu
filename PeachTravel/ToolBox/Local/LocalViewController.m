@@ -48,10 +48,11 @@
 
 @property (strong, nonatomic) CLLocationManager* locationManager;
 
-
 @end
 
 @implementation LocalViewController
+
+#pragma mark - lifeCycle
 
 - (id)init {
     if (self = [super init]) {
@@ -142,6 +143,8 @@
 {
     [super viewWillDisappear:animated];
 }
+
+#pragma mark - private Methods
 
 - (void)goBack
 {
@@ -273,7 +276,6 @@
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self loadMoreCompletedWithCurrentPage:realPageIndex];
-//        [SVProgressHUD showErrorWithStatus:@"加载失败"];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         [self showHint:HTTP_FAILED_HINT];
         
