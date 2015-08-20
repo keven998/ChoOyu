@@ -51,7 +51,7 @@
     FrendModel *_userInfo;
     UIButton *_beginTalk;
 }
-@property (nonatomic,strong) UIScrollView *scrollView;
+@property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) FrendModel *userInfo;
 @property (nonatomic, strong) UIButton *addFriendBtn;
 
@@ -59,8 +59,10 @@
 
 @implementation OtherUserInfoViewController
 
+#pragma mark - lifeCycle
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kWindowWidth, self.view.bounds.size.height - 45)];
     _scrollView.showsHorizontalScrollIndicator = NO;
     _scrollView.showsVerticalScrollIndicator = NO;
@@ -103,6 +105,7 @@
     }
 }
 
+#pragma mark - privateMethod
 - (void) setupTableHeaderView {
     CGFloat width = kWindowWidth;
     CGFloat height = kWindowHeight;
@@ -919,19 +922,3 @@
     [self.navigationController pushViewController:listCtl animated:YES];
 }
 @end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

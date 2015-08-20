@@ -6,13 +6,13 @@
 //  Copyright (c) 2014年 com.aizou.www. All rights reserved.
 //
 
+#import <QiniuSDK.h>
 #import "UserInfoTableViewController.h"
 #import "UserHeaderTableViewCell.h"
 #import "ChangePasswordViewController.h"
 #import "AccountManager.h"
 #import "UserOtherTableViewCell.h"
 #import "VerifyCaptchaViewController.h"
-#import <QiniuSDK.h>
 #import "JGProgressHUDPieIndicatorView.h"
 #import "JGProgressHUDSuccessIndicatorView.h"
 #import "FootPrintViewController.h"
@@ -41,9 +41,7 @@
 #define cellDataSource              @[@[@"名字", @"性别", @"生日", @"现住地"], @[@"计划", @"足迹", @"相册"],@[@"安全设置", @"修改密码"]]
 
 @interface UserInfoTableViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource, SelectDelegate, ChangJobDelegate, HeaderPictureDelegate>
-{
-    
-}
+
 @property (strong, nonatomic) UIView *footerView;
 @property (strong, nonatomic) AccountManager *accountManager;
 @property (strong, nonatomic) Destinations *destinations;

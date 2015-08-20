@@ -1279,7 +1279,6 @@
 		E6F18B241B845F4900232EEB /* master_icon_constellation9@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E6F1890B1B845F4900232EEB /* master_icon_constellation9@3x.png */; };
 		E6F18B251B845F4900232EEB /* ic_remarks_edit@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E6F1890C1B845F4900232EEB /* ic_remarks_edit@2x.png */; };
 		E6F18B281B845F7800232EEB /* in.m4a in Resources */ = {isa = PBXBuildFile; fileRef = E6F18B271B845F7800232EEB /* in.m4a */; };
-		E6F18B2F1B84600E00232EEB /* HMAudioTool.m in Sources */ = {isa = PBXBuildFile; fileRef = E6F18B2E1B84600E00232EEB /* HMAudioTool.m */; };
 		ECA2A8C30F0010E2F827610E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ECFF7EAB22286C959CD2E43 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -2983,8 +2982,6 @@
 		E6F1890B1B845F4900232EEB /* master_icon_constellation9@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "master_icon_constellation9@3x.png"; sourceTree = "<group>"; };
 		E6F1890C1B845F4900232EEB /* ic_remarks_edit@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_remarks_edit@2x.png"; sourceTree = "<group>"; };
 		E6F18B271B845F7800232EEB /* in.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = in.m4a; sourceTree = "<group>"; };
-		E6F18B2D1B84600E00232EEB /* HMAudioTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMAudioTool.h; sourceTree = "<group>"; };
-		E6F18B2E1B84600E00232EEB /* HMAudioTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMAudioTool.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -6878,8 +6875,6 @@
 		E6F18B2C1B84600500232EEB /* AudioPlayer */ = {
 			isa = PBXGroup;
 			children = (
-				E6F18B2D1B84600E00232EEB /* HMAudioTool.h */,
-				E6F18B2E1B84600E00232EEB /* HMAudioTool.m */,
 			);
 			path = AudioPlayer;
 			sourceTree = "<group>";
@@ -8151,7 +8146,6 @@
 				D9A801291A80DD23005AD701 /* DXMessageToolBar.m in Sources */,
 				D993C2351B12DF0C0088D568 /* ConnectionManager.swift in Sources */,
 				D9A802211A80E036005AD701 /* MJPhotoToolbar.m in Sources */,
-				E6F18B2F1B84600E00232EEB /* HMAudioTool.m in Sources */,
 				D9A801471A80DD23005AD701 /* EMChatTimeCell.m in Sources */,
 				D92CA0FF1AD8BDF900F244FF /* PSTCollectionViewCell.m in Sources */,
 				D993C23B1B12DF0C0088D568 /* NetworkTransportAPI.swift in Sources */,

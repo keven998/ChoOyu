@@ -20,7 +20,6 @@
 #import "RegisterViewController.h"
 #import "PrepareViewController.h"
 #import "PeachTravel-swift.h"
-#import "HMAudioTool.h"
 
 #define kBackGroundImage    @"backGroundImage"
 
@@ -489,8 +488,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         return;
     }
     
-//    [HMAudioTool playSound:@"in.m4a"];
-    AudioServicesPlaySystemSound (kSystemSoundID_Vibrate);
+//    AudioServicesPlaySystemSound (kSystemSoundID_Vibrate);
     
     //保存最后一次响铃时间
     self.lastPlaySoundDate = [NSDate date];
