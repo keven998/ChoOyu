@@ -431,7 +431,7 @@
 {
     [UMSocialData defaultData].extConfig.wechatSessionData.title = @"推荐\"旅行派\"给你。";
     
-    [UMSocialData defaultData].extConfig.wechatSessionData.url = @"http://a.app.qq.com/o/simple.jsp?pkgname=com.aizou.peachtravel";
+    [UMSocialData defaultData].extConfig.wechatSessionData.url = @"http://a.app.qq.com/o/simple.jsp?pkgname=com.xuejian.client.lxp&g_f=991653";
     
     UIImage *shareImage = [UIImage imageNamed:@"icon.png"];
     
