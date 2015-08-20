@@ -42,6 +42,8 @@
 
 @implementation ChatListViewController
 
+#pragma mark - life cycle
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -99,7 +101,7 @@
     }
 }
 
--(void)viewWillAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
@@ -128,13 +130,54 @@
     [MobClick endLogPageView:@"page_home_talk_lists"];
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
     _createConversationCtl.delegate = nil;
     _createConversationCtl = nil;
     [[IMClientManager shareInstance].frendRequestManager removeFrendRequestDelegate:self];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+
+#pragma mark - getter & setter
+
+- (AccountManager *)accountManager
+{
+    if (!_accountManager) {
+        _accountManager = [AccountManager shareAccountManager];
+    }
+    return _accountManager;
+}
+
+- (IMClientManager *)imClientManager
+{
+    if (!_imClientManager) {
+        _imClientManager = [IMClientManager shareInstance];
+    }
+    return _imClientManager;
+}
+
+- (UITableView *)tableView
+{
+    if (_tableView == nil) {
+        _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+        _tableView.backgroundColor = APP_PAGE_COLOR;
+        _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        [_tableView registerClass:[ChatListCell class] forCellReuseIdentifier:@"chatListCell" ];
+    }
+    return _tableView;
+}
+
+- (void)setIMState:(IM_CONNECT_STATE)IMState
+{
+    _IMState = IMState;
+    [self updateNavigationTitleViewStatus];
+}
+
+#pragma mark - private methods
 
 - (void)userDidLogin
 {
@@ -182,101 +225,6 @@
     }
 }
 
-#pragma mark - getter & setter
-
-- (AccountManager *)accountManager
-{
-    if (!_accountManager) {
-        _accountManager = [AccountManager shareAccountManager];
-    }
-    return _accountManager;
-}
-
-- (IMClientManager *)imClientManager
-{
-    if (!_imClientManager) {
-        _imClientManager = [IMClientManager shareInstance];
-    }
-    return _imClientManager;
-}
-
-- (IBAction)addAction:(UIButton *)sender
-{
-    [MobClick endEvent:@"navigation_item_talks_menu"];
-    
-    PXAlertView *alertView = [PXAlertView showAlertWithTitle:nil
-                                                     message:nil
-                                                 cancelTitle:@"取消"
-                                                 otherTitles:@[ @"新建聊天", @"添加朋友"]
-                                                  completion:^(BOOL cancelled, NSInteger buttonIndex) {
-                                                      if (buttonIndex == 1) {
-                                                          [self addConversation:nil];
-                                                      } else if (buttonIndex == 2) {
-                                                          [self addUserContact:nil];
-                                                      }
-                                                  }];
-     
-    
-    [alertView setTitleFont:[UIFont systemFontOfSize:16]];
-    [alertView useCustomStyle];
-    
-    [alertView setBackgroundColor:[UIColor whiteColor]];
-    
-    
-    // 设置其他按钮的颜色
-    UIColor * otherNormal = TEXT_COLOR_TITLE;
-    UIColor * otherSeleced = APP_THEME_COLOR;
-    [alertView setAllButtonsTextColor:otherNormal andHighLightedColor:otherSeleced];
-    
-    // 设置取消按钮的颜色
-    UIColor *cancelNormal = TEXT_COLOR_TITLE;
-    UIColor *cancelSelected = TEXT_COLOR_TITLE;
-    [alertView setCancelButtonTextColor:cancelNormal andHighLightedColor:cancelSelected];
-    
-    // 设置取消按钮的下划线
-    [alertView setCancelUnderlineWithColor:COLOR_LINE];
-}
-
-- (UITableView *)tableView
-{
-    if (_tableView == nil) {
-        _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
-        _tableView.backgroundColor = APP_PAGE_COLOR;
-        _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-        _tableView.delegate = self;
-        _tableView.dataSource = self;
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        [_tableView registerClass:[ChatListCell class] forCellReuseIdentifier:@"chatListCell" ];
-    }
-    return _tableView;
-}
-
-- (void)setIMState:(IM_CONNECT_STATE)IMState
-{
-    _IMState = IMState;
-    [self updateNavigationTitleViewStatus];
-}
-
-
-#pragma mark - IBAction
-
-- (IBAction)showContactList:(id)sender
-{
-    ContactListViewController *contactListCtl = [[ContactListViewController alloc] init];
-    [MobClick endEvent:@"navigation_item_my_friends"];
-    TZNavigationViewController *nCtl = [[TZNavigationViewController alloc] initWithRootViewController:contactListCtl];
-    [self presentViewController:nCtl animated:YES completion:nil];
-}
-
-- (IBAction)addUserContact:(id)sender
-{
-    AddContactTableViewController *addContactCtl = [[AddContactTableViewController alloc] init];
-    TZNavigationViewController *nCtl = [[TZNavigationViewController alloc] initWithRootViewController:addContactCtl];
-    [self presentViewController:nCtl animated:YES completion:nil];
-}
-
-
-#pragma mark - private
 
 /**
  *  通过连接状态更新navi的状态
@@ -464,7 +412,7 @@
                     
                 case IMMessageTypeHtml5MessageType: {
                     ret = [NSString stringWithFormat:@"%@:[链接]", nickName];
-
+                    
                 }
                     break;
                     
@@ -541,10 +489,10 @@
                     ret = [NSString stringWithFormat:@"[问问消息]"];
                     break;
                     
-                case IMMessageTypeTipsMessageType: 
+                case IMMessageTypeTipsMessageType:
                     ret = ((TipsMessage *) lastMessage).tipsContent;
                     break;
-
+                    
                     
                 default: {
                     ret = [NSString stringWithFormat:@"升级新版本才可以查看这条神秘消息哦"];
@@ -601,6 +549,61 @@
     frostedViewController.resumeNavigationBar = NO;
     self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan = NO;
     [self.navigationController pushViewController:frostedViewController animated:YES];
+}
+
+
+#pragma mark - IBAction
+
+- (IBAction)showContactList:(id)sender
+{
+    ContactListViewController *contactListCtl = [[ContactListViewController alloc] init];
+    [MobClick endEvent:@"navigation_item_my_friends"];
+    TZNavigationViewController *nCtl = [[TZNavigationViewController alloc] initWithRootViewController:contactListCtl];
+    [self presentViewController:nCtl animated:YES completion:nil];
+}
+
+- (IBAction)addUserContact:(id)sender
+{
+    AddContactTableViewController *addContactCtl = [[AddContactTableViewController alloc] init];
+    TZNavigationViewController *nCtl = [[TZNavigationViewController alloc] initWithRootViewController:addContactCtl];
+    [self presentViewController:nCtl animated:YES completion:nil];
+}
+
+- (IBAction)addAction:(UIButton *)sender
+{
+    [MobClick endEvent:@"navigation_item_talks_menu"];
+    
+    PXAlertView *alertView = [PXAlertView showAlertWithTitle:nil
+                                                     message:nil
+                                                 cancelTitle:@"取消"
+                                                 otherTitles:@[ @"新建聊天", @"添加朋友"]
+                                                  completion:^(BOOL cancelled, NSInteger buttonIndex) {
+                                                      if (buttonIndex == 1) {
+                                                          [self addConversation:nil];
+                                                      } else if (buttonIndex == 2) {
+                                                          [self addUserContact:nil];
+                                                      }
+                                                  }];
+    
+    
+    [alertView setTitleFont:[UIFont systemFontOfSize:16]];
+    [alertView useCustomStyle];
+    
+    [alertView setBackgroundColor:[UIColor whiteColor]];
+    
+    
+    // 设置其他按钮的颜色
+    UIColor * otherNormal = TEXT_COLOR_TITLE;
+    UIColor * otherSeleced = APP_THEME_COLOR;
+    [alertView setAllButtonsTextColor:otherNormal andHighLightedColor:otherSeleced];
+    
+    // 设置取消按钮的颜色
+    UIColor *cancelNormal = TEXT_COLOR_TITLE;
+    UIColor *cancelSelected = TEXT_COLOR_TITLE;
+    [alertView setCancelButtonTextColor:cancelNormal andHighLightedColor:cancelSelected];
+    
+    // 设置取消按钮的下划线
+    [alertView setCancelUnderlineWithColor:COLOR_LINE];
 }
 
 #pragma mark - TableViewDelegate & TableViewDatasource
@@ -675,19 +678,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     ChatConversation *tzConversation = [self.dataSource objectAtIndex:indexPath.row];
-    
-    /*
-    NSLog(@"%ld",tzConversation.chatMessageList.count);
-    BaseMessage * baseMessage = [[BaseMessage alloc] init];
-    baseMessage.messageId = @"40";
-    baseMessage.messageType = IMMessageTypeHtml5MessageType;
-    baseMessage.message = @"哈哈";
-    baseMessage.senderId = 10;
-    NSMutableArray * array = [[NSMutableArray alloc] init];
-    [array addObject:baseMessage];
-    tzConversation.chatMessageList = array;
-     */
-    
     [self pushChatViewControllerWithConversation:tzConversation];
     tzConversation.unReadMessageCount = 0;
     [tzConversation resetConvsersationUnreadMessageCount];
@@ -701,7 +691,7 @@
     }
 }
 
--(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
     ChatConversation *conversation = [self.dataSource objectAtIndex:indexPath.row];
     if (conversation.chatterId != WenwenUserId && conversation.chatterId != PaipaiUserId) {
         return YES;
@@ -720,6 +710,7 @@
 }
 
 #pragma mark - ChatConversationManagerDelegate
+
 - (void)conversationsHaveAdded:(NSArray * __nonnull)conversationList
 {
     [_delegate unreadMessageCountHasChange];
