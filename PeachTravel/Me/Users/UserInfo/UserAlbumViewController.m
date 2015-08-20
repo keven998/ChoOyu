@@ -6,21 +6,26 @@
 //  Copyright (c) 2015 com.aizou.www. All rights reserved.
 //
 
+#import <QiniuSDK.h>
 #import "UserAlbumViewController.h"
 #import "JGProgressHUDPieIndicatorView.h"
 #import "AlbumImageCell.h"
 #import "MJPhotoBrowser.h"
 #import "MJPhoto.h"
-#import <QiniuSDK.h>
+
 @interface UserAlbumViewController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate>
-@property (nonatomic,strong) AccountManager *manager;
+@property (nonatomic, strong) AccountManager *manager;
 @property (nonatomic, strong) JGProgressHUD *HUD;
+
 @property (nonatomic) BOOL canEdit;
+
 @end
 
 @implementation UserAlbumViewController
 
 static NSString * const reuseIdentifier = @"albumImageCell";
+
+#pragma mark - lifeCycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -72,6 +77,8 @@ static NSString * const reuseIdentifier = @"albumImageCell";
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
+
+#pragma mark - private Methods
 
 - (void)edit:(UIButton *)button {
     BOOL selected = !button.selected;
@@ -184,6 +191,8 @@ static NSString * const reuseIdentifier = @"albumImageCell";
         [browser show];
     }
 }
+
+#pragma mark - ImagePickerDelegate
 
 - (void)presentImagePicker
 {

@@ -9,7 +9,6 @@
 #import "SignatureViewController.h"
 
 @interface SignatureViewController ()<UITextViewDelegate>
-
 {
     UITextView *_contentTextField;
 }

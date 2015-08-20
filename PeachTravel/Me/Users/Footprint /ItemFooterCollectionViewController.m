@@ -20,6 +20,7 @@
 
 static NSString * const reuseIdentifier = @"footerCell";
 
+#pragma mark - lifeCycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -49,6 +50,7 @@ static NSString * const reuseIdentifier = @"footerCell";
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - setter or getter
 - (void)setDataSource:(NSArray *)dataSource
 {
     _dataSource = dataSource;

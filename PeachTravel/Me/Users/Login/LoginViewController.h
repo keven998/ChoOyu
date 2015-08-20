@@ -14,6 +14,6 @@ typedef void(^loginCompletion)(BOOL completed);
 
 @property (nonatomic) BOOL isPushed;       //判断是 push 还是 present
 
-- (id) initWithCompletion:(loginCompletion)completion;
+- (id)initWithCompletion:(loginCompletion)completion;
 
 @end

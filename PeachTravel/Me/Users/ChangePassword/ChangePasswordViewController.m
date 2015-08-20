@@ -77,7 +77,7 @@
     return YES;
 }
 
-- (void) textChanged:(UITextField *)textField {
+- (void)textChanged:(UITextField *)textField {
     if (![_confirmPasswordLabel.text isEqualToString:@""] && ![_presentPasswordLabel.text isEqualToString:@""]) {
         self.navigationItem.rightBarButtonItem.enabled = YES;
     }

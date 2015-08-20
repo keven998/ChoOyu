@@ -36,6 +36,7 @@
 
 @implementation FootPrintViewController
 
+#pragma mark - lifeCycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (!_destinations) {
@@ -104,6 +105,7 @@
     [MobClick endLogPageView:@"page_profile_tracks"];
 }
 
+#pragma mark - setter or getter
 - (Destinations *)destinations
 {
     if (!_destinations) {
@@ -112,6 +114,7 @@
     return _destinations;
 }
 
+#pragma mark - ActionEvent
 /**
  *  获取用户足迹接口
  */

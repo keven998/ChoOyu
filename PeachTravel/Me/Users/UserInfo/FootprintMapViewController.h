@@ -12,6 +12,6 @@
 
 @property (nonatomic, strong) NSArray *dataSource;
 
-
 - (void)selectPointAtIndex:(NSInteger)index;
+
 @end
