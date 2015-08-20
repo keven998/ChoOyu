@@ -10,6 +10,7 @@
 
 @implementation Favorite
 
+#pragma mark - init方法
 - (id)initWithJson:(id)json
 {
     if (self = [super init]) {
@@ -91,6 +92,7 @@
 
 }
 
+#pragma mark - setter or getter
 - (NSString *)typeDescByType
 {
     if (_type == kSpotPoi) {

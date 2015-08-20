@@ -18,6 +18,8 @@
 
 @implementation ToolsHomeViewController
 
+#pragma mark - LifeCycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"旅行";
@@ -104,7 +106,7 @@
 /**
  *  跳转到达人咨询界面
  */
-- (void) goLxpHelper {
+- (void)goLxpHelper {
     [MobClick event:@"card_item_lxp_guide"];
     GuilderDistributeViewController *gdvc = [[GuilderDistributeViewController alloc] init];
     gdvc.hidesBottomBarWhenPushed = YES;
