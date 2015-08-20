@@ -57,7 +57,7 @@ class MessageSendManager: NSObject {
     
 //MARK: private methods
     
-    private func sendMessage(message: BaseMessage, receiver: Int, chatType:IMChatType, conversationId: String?) {
+    private func sendMessage(message: BaseMessage, receiver: Int, chatType:IMChatType, conversationId: String?, completionBlock: (isSuccess: Bool, error: String?) -> ()) {
         sendingMessageList.addObject(message)
         
         var daoHelper = DaoHelper.shareInstance()
@@ -70,10 +70,13 @@ class MessageSendManager: NSObject {
                     if let serverId = retMessage.objectForKey("msgId") as? Int {
                         message.serverId = serverId
                         MessageManager.shareInsatance().updateLastServerMessage(message)
+                        completionBlock(isSuccess: true, error: nil)
                     }
                 }
             } else {
                 message.status = IMMessageStatus.IMMessageFailed
+                
+                completionBlock(isSuccess: false, error: retMessage?.objectForKey("error") as? String)
             }
             daoHelper.updateMessageInDB("chat_\(receiver)", message: message)
             for messageManagerDelegate in self.sendDelegateList {
@@ -113,7 +116,7 @@ class MessageSendManager: NSObject {
     :param: message     消息的内容
     :returns: 被发送的 message
     */
-    func sendTextMessage(message: String, receiver: Int, chatType:IMChatType, conversationId: String?) -> BaseMessage {
+    func sendTextMessage(message: String, receiver: Int, chatType:IMChatType, conversationId: String?, completionBlock:(isSuccess: Bool, error: String?) -> ()) -> BaseMessage {
         var textMessage = TextMessage()
         textMessage.createTime = Int(NSDate().timeIntervalSince1970)
         textMessage.status = IMMessageStatus.IMMessageSending
@@ -128,7 +131,12 @@ class MessageSendManager: NSObject {
             messageManagerDelegate.sendNewMessage?(textMessage)
         }
         
-        sendMessage(textMessage, receiver: receiver, chatType: chatType, conversationId: conversationId)
+        sendMessage(textMessage, receiver: receiver, chatType: chatType, conversationId: conversationId) { (isSuccess, error) -> () in
+            if (error != nil) {
+                debug_print("\(error)")
+            }
+            completionBlock(isSuccess: isSuccess, error: error)
+        }
         return textMessage
     }
     
@@ -159,7 +167,12 @@ class MessageSendManager: NSObject {
         for messageManagerDelegate in self.sendDelegateList {
             messageManagerDelegate.sendNewMessage?(locationMessage)
         }
-        sendMessage(locationMessage, receiver: receiver, chatType: chatType, conversationId: conversationId)
+        
+        sendMessage(locationMessage, receiver: receiver, chatType: chatType, conversationId: conversationId) { (isSuccess, error) -> () in
+            if (error != nil) {
+                debug_print("\(error)")
+            }
+        }
 
         return locationMessage
     }
@@ -248,7 +261,11 @@ class MessageSendManager: NSObject {
         for messageManagerDelegate in self.sendDelegateList {
             messageManagerDelegate.sendNewMessage?(message)
         }
-        sendMessage(message, receiver: receiver, chatType: chatType, conversationId: conversationId)
+        sendMessage(message, receiver: receiver, chatType: chatType, conversationId: conversationId) { (isSuccess, error) -> () in
+            if (error != nil) {
+                debug_print("\(error)")
+            }
+        }
         
         return message
     }
@@ -451,7 +468,11 @@ class MessageSendManager: NSObject {
                 })
             }
         } else {
-            self.sendMessage(message, receiver: receiver, chatType: chatType, conversationId: conversationId)
+            sendMessage(message, receiver: receiver, chatType: chatType, conversationId: conversationId) { (isSuccess, error) -> () in
+                if (error != nil) {
+                    debug_print("\(error)")
+                }
+            }
         }
     }
 }

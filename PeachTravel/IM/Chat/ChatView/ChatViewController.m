@@ -394,7 +394,18 @@
 {
     IMClientManager *imClientManager = [IMClientManager shareInstance];
     NSString *willSendText = [ConvertToCommonEmoticonsHelper convertToCommonEmoticons:messageStr];
-    BaseMessage *message = [imClientManager.messageSendManager sendTextMessage:willSendText receiver:_conversation.chatterId chatType:_conversation.chatType conversationId:_conversation.conversationId];
+    BaseMessage *message = [imClientManager.messageSendManager sendTextMessage:willSendText receiver:_conversation.chatterId chatType:_conversation.chatType conversationId:_conversation.conversationId completionBlock:^(BOOL isSuccess, NSString * __nullable error) {
+        if (!isSuccess) {
+            if (error) {
+                TipsMessage *message = [[TipsMessage alloc] initWithContent:error tipsType:TipsMessageTypeCommon_Tips];
+                message.chatterId = _conversation.chatterId;
+                message.createTime = [[NSDate date] timeIntervalSince1970];
+                [_conversation addReceiveMessage:message];
+                [_conversation insertMessage2DB: message]; 
+            }
+        }
+    }];
+    
     [self addChatMessage2Buttom:message];
 }
 

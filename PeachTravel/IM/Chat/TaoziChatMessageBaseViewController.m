@@ -199,7 +199,9 @@
     
     // 发送文本消息
     if (!self.messageText.text.length == 0) {
-        BaseMessage * textMessage = [imclientManager.messageSendManager sendTextMessage:self.messageText.text receiver:_chatterId chatType:_chatType conversationId:nil];
+        BaseMessage * textMessage = [imclientManager.messageSendManager sendTextMessage:self.messageText.text receiver:_chatterId chatType:_chatType conversationId:nil completionBlock:^(BOOL isSuccess, NSString * __nullable errors) {
+            
+        }];
         [[NSNotificationCenter defaultCenter] postNotificationName:updateChateViewNoti object:nil userInfo:@{@"message":textMessage}];
 
     }

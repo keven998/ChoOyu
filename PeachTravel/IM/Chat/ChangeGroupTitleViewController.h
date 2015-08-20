@@ -15,11 +15,11 @@
 
 @end
 
-
 @interface ChangeGroupTitleViewController : TZViewController
 
 @property (nonatomic) IMDiscussionGroup *group;
 @property (nonatomic, copy) NSString *oldTitle;
+
 @property (weak,nonatomic) id<ChangeGroupTitleDelegate> delegate;
 
 @end

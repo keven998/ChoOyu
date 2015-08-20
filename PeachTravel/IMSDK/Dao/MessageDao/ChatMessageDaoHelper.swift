@@ -8,8 +8,6 @@
 
 import UIKit
 
-var count = 0
-
 protocol ChatMessageDaoHelperProtocol{
     func createChatTable(tableName: String)
     func insertChatMessage(tableName: String, message:BaseMessage)
@@ -155,10 +153,7 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
             if dataBase.executeUpdate(sql, withArgumentsInArray:array as [AnyObject]) {
                 message.localId = Int(dataBase.lastInsertRowId())
                 debug_println("success 执行 sql 语句：\(sql) message:\(message.message)  serverId:\(message.serverId)")
-                
-                count++
-                
-                debug_println("一共插入数据库里的聊天数量为 \(count)")
+        
             } else {
                 debug_println("error 执行 sql 语句：\(sql), message:\(message.message)  serverId:\(message.serverId)")
             }

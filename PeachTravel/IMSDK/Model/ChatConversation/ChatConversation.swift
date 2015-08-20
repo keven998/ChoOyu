@@ -130,6 +130,12 @@ class ChatConversation: NSObject {
         daoHelper.deleteChatMessage("chat_\(chatterId)", localId: localId)
     }
     
+    func insertMessage2DB(message: BaseMessage) {
+        let daoHelper = DaoHelper.shareInstance()
+        daoHelper.insertChatMessageList([message], completionBlock: { () -> () in
+            })
+    }
+    
     /**
     删除会话中所有的信息
     */

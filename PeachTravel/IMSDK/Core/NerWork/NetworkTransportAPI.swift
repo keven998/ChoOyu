@@ -28,16 +28,19 @@ class NetworkTransportAPI: NSObject {
         manager.POST(sendMessageURL, parameters: message, success:
             {
                 (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
-                if let reslutDic = responseObject.objectForKey("result") as? NSDictionary {
-                    completionBlock(isSuccess: true, errorCode: 0, retMessage: reslutDic)
-                } else {
-                    completionBlock(isSuccess: false, errorCode: 0, retMessage: nil)
+                if let code = responseObject.objectForKey("code") as? Int {
+                    if code == 0 {
+                        completionBlock(isSuccess: true, errorCode: 0, retMessage: responseObject.objectForKey("result") as? NSDictionary)
+                    } else {
+                        completionBlock(isSuccess: false, errorCode: 0, retMessage: nil)
+                    }
                 }
             })
             {
                 (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
                 debug_print(error)
-                completionBlock(isSuccess: false, errorCode: 0, retMessage: nil)
+                debug_print(operation.responseObject);
+                completionBlock(isSuccess: false, errorCode: 0, retMessage: operation.responseObject as? NSDictionary)
         }
     }
     

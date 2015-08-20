@@ -8,7 +8,8 @@
 
 import UIKit
 
-enum TipsMessageType: Int {
+@objc enum TipsMessageType: Int {
+    case Common_Tips                         = 0        //默认的 tips 消息
     case Add_GroupMember                     = 2001       //
     case Remove_GroupMember                  = 2002       //讨论组相关的 cmd 消息
     case Modify_GroupInfo                    = 2003      //群组相关的 cmd 消息
@@ -21,6 +22,17 @@ class TipsMessage: BaseMessage {
     override init() {
         super.init()
         messageType = .TipsMessageType
+    }
+    
+    convenience init (content: String, tipsType: TipsMessageType) {
+        self.init()
+        if tipsType == TipsMessageType.Common_Tips {
+            tipsContent = content
+            let contentDic = ["message": content, "tipType": 0]
+            if let messageStr = JSONConvertMethod.contentsStrWithJsonObjc(contentDic) as? String {
+                message = messageStr
+            }
+        }
     }
     
     override func fillContentWithContent(contents: String) {
@@ -70,7 +82,6 @@ class TipsMessage: BaseMessage {
             }
             
             retString += "加入讨论组"
-            break
             
         case .Remove_GroupMember:
             
@@ -107,11 +118,15 @@ class TipsMessage: BaseMessage {
                 
             }
             
-            break
 
         case .Modify_GroupInfo:
             break
+            
+        case .Common_Tips:
+            return (content.objectForKey("message") as? String)!
+            
         }
+        
         return retString
     }
    

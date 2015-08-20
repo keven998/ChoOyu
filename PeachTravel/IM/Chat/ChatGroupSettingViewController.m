@@ -20,7 +20,7 @@
 #import "REFrostedViewController.h"
 #import "ChatAlbumCollectionViewController.h"
 
-@interface ChatGroupSettingViewController () <UITableViewDataSource,UITableViewDelegate,CreateConversationDelegate,SWTableViewCellDelegate,changeTitle>
+@interface ChatGroupSettingViewController () <UITableViewDataSource, UITableViewDelegate, CreateConversationDelegate, SWTableViewCellDelegate, ChangeGroupTitleDelegate>
 
 @property (nonatomic, strong) IMDiscussionGroup *groupModel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
