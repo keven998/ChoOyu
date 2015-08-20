@@ -502,12 +502,14 @@
 }
 
 #pragma mark - CreateConversationDelegate
+
 - (void)reloadData
 {
     [self updateView];
 }
 
 #pragma mark - changeTitle
+
 - (void)changeGroupTitle
 {
     [self updateView];

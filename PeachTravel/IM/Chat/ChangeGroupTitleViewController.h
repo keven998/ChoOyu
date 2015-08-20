@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "PeachTravel-swift.h"
 
-@protocol changeTitle <NSObject>
+@protocol ChangeGroupTitleDelegate <NSObject>
 
 - (void)changeGroupTitle;
 
@@ -20,6 +20,6 @@
 
 @property (nonatomic) IMDiscussionGroup *group;
 @property (nonatomic, copy) NSString *oldTitle;
-@property (weak,nonatomic) id<changeTitle> delegate;
+@property (weak,nonatomic) id<ChangeGroupTitleDelegate> delegate;
 
 @end
