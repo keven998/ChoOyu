@@ -11,7 +11,7 @@
 //友盟key
 #define UMENG_KEY               @ "5433d2e2fd98c5b7a3020907"
 
-#define APP_ID                  @ 954201036
+#define APP_ID                  @ 1006591167
 
 //第三方分享相关key
 

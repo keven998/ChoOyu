@@ -1204,7 +1204,7 @@
     [self sendAudioMessage:audioPath];
 }
 
-#pragma mark - ZYQAssetPickerController Delegate
+#pragma mark - ZYQAssetPickerControllerDelegate
 /**
  *  从相册里获取图片
  *
@@ -1217,9 +1217,14 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         for (int i=0; i<assets.count; i++) {
             ALAsset *asset=assets[i];
-            UIImage *tempImg=[UIImage imageWithCGImage:asset.defaultRepresentation.fullScreenImage];
+            
+            NSLog(@"开始获取图片信息");
+            UIImage *tempImg = [UIImage imageWithCGImage:asset.defaultRepresentation.fullScreenImage];
             NSData *imageData = UIImageJPEGRepresentation(tempImg, 1);
+            NSLog(@"结束获取图片信息");
+
             dispatch_async(dispatch_get_main_queue(), ^{
+                
                 [self sendImageMessage:imageData];
                 
             });
@@ -1249,7 +1254,6 @@
 
 - (void)copyMenuAction:(id)sender
 {
-    // todo by du. 复制
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
     if (_longPressIndexPath.row > 0) {
         MessageModel *model = [self.dataSource objectAtIndex:_longPressIndexPath.row];
@@ -1334,6 +1338,7 @@
 }
 
 #pragma mark - 监听听筒or扬声器
+
 - (void) handleNotification:(BOOL)state
 {
     [[UIDevice currentDevice] setProximityMonitoringEnabled:state]; //建议在播放之前设置yes，播放结束设置NO，这个功能是开启红外感应
@@ -1345,6 +1350,7 @@
     else//移除监听
         [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UIDeviceProximityStateDidChangeNotification" object:nil];
 }
+
 //处理监听触发事件
 -(void)sensorStateChange:(NSNotificationCenter *)notification;
 {
@@ -1360,9 +1366,11 @@
         [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
     }
 }
+
 - (void)updateChatTitle:(NSNotification *)Noti
 {
     self.navigationItem.title = Noti.object;
     
 }
+
 @end
