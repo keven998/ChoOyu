@@ -11,7 +11,7 @@
 
 @protocol changeTitle <NSObject>
 
-- (void)changeTitleDelegate;
+- (void)changeGroupTitle;
 
 @end
 
