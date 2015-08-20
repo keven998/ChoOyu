@@ -43,6 +43,7 @@ import UIKit
 }
 
 class FrendModel: NSObject {
+    var isBlacked: Bool = false
     var userId: Int = -1
     var nickName: String = ""
     var type: IMFrendType = .Default
@@ -85,6 +86,10 @@ class FrendModel: NSObject {
     init(json: NSDictionary) {
         
         println("\(json)")
+        
+        if let blacked = json.objectForKey("isBlocked") as? Bool {
+            isBlacked = blacked
+        }
         
         userId = json.objectForKey("userId") as! Int
         
@@ -134,6 +139,11 @@ class FrendModel: NSObject {
         // 增加个字段
         if let int = json.objectForKey("localityCnt") as? Int {
             localityCnt = int
+        }
+        
+        // 增加个类型:如果是黑名单,将类型改变
+        if isBlacked {
+            type = IMFrendType.Black_Default
         }
         
         if let count = json.objectForKey("countryCnt") as? Int {

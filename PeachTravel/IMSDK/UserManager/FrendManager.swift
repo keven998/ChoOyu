@@ -265,9 +265,15 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
         let requestSerializer = AFJSONRequestSerializer()
         manager.requestSerializer = requestSerializer
         manager.requestSerializer.setValue("\(accountId)", forHTTPHeaderField: "UserId")
-        let url = "\(API_USERS)\(accountId)/blacklist/\(userId)"
-        manager.POST(url, parameters: nil, success:
+        let url = "\(API_USERS)\(accountId)/blacklist"
+        
+        let params = ["userId": userId]
+        
+        println("\(url)和\(params)")
+        
+        manager.POST(url, parameters: params, success:
             { (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
+                
                 if (responseObject.objectForKey("code") as! Int) == 0 {
                     if let frend = self.getFrendInfoFromDB(userId: userId, frendType: nil) {
                         if (!FrendModel.typeIsCorrect(frend.type, typeWeight: IMFrendWeightType.BlackList)) {
@@ -276,7 +282,7 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
                         }
                     }
                     self.updateFrendType(userId: userId, frendType: IMFrendType.Frend)
-                    IMClientManager.shareInstance().conversationManager.removeConversation(chatterId: userId, deleteMessage: true)
+                    IMClientManager.shareInstance().conversationManager.removeConversation(chatterId: userId, deleteMessage: false)
                     completion(isSuccess: true, errorCode: 0)
                 } else {
                     completion(isSuccess: false, errorCode: 0)
@@ -310,7 +316,6 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
                         }
                     }
                     self .updateFrendType(userId: userId, frendType: IMFrendType.Frend)
-                    IMClientManager.shareInstance().conversationManager.removeConversation(chatterId: userId, deleteMessage: true)
                     completion(isSuccess: true, errorCode: 0)
                 } else {
                     completion(isSuccess: false, errorCode: 0)
