@@ -22,6 +22,8 @@
 
 static NSString * const reuseIdentifier = @"Cell";
 
+#pragma mark - lifeCycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;

@@ -797,7 +797,7 @@ static NSString *reusableCell = @"myGuidesCell";
     }];
 }
 
-- (void) toTop {
+- (void)toTop {
 
     NSIndexPath * indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];

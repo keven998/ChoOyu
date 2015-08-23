@@ -162,6 +162,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [_collectionView reloadData];
 }
 
+#pragma mark - getter or setter方法
 // 懒加载
 - (NSMutableArray *)collectionArray
 {
@@ -213,6 +214,8 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     }
 }
 
+
+#pragma mark - private Methods
 /**
  *  开始搜索
  */
