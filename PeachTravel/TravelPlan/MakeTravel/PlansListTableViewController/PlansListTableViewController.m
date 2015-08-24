@@ -92,9 +92,23 @@ static NSString *reusableCell = @"myGuidesCell";
     [categoryBtn setImage:[UIImage imageNamed:@"plan_10_dashboard_sift"] forState:UIControlStateNormal];
     categoryBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 2);
     
+    if (_isOwner) {
+        UIButton *editBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 20, 30)];
+        [editBtn setImage:[UIImage imageNamed:@"plan_10_dashboard_add"] forState:UIControlStateNormal];
+        [editBtn addTarget:self action:@selector(makePlan) forControlEvents:UIControlEventTouchUpInside];
+        editBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 4, 0, 0);
+        UIBarButtonItem *cbtn = [[UIBarButtonItem alloc] initWithCustomView:editBtn];
+        UIBarButtonItem *sbtn = [[UIBarButtonItem alloc] initWithCustomView:categoryBtn];
+        self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:cbtn, sbtn, nil];
+    } else {
+        UIBarButtonItem *sbtn = [[UIBarButtonItem alloc] initWithCustomView:categoryBtn];
+        self.navigationItem.rightBarButtonItem = sbtn;
+    }
+
+    
     // 设置
-    UIBarButtonItem *sbtn = [[UIBarButtonItem alloc] initWithCustomView:categoryBtn];
-    self.navigationItem.rightBarButtonItem = sbtn;
+//    UIBarButtonItem *sbtn = [[UIBarButtonItem alloc] initWithCustomView:categoryBtn];
+//    self.navigationItem.rightBarButtonItem = sbtn;
     
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithIcon:@"common_icon_navigaiton_back_normal.png" highIcon:@"common_icon_navigaiton_back_normal.png" target:self action:@selector(goBack)];
     
@@ -521,9 +535,11 @@ static NSString *reusableCell = @"myGuidesCell";
 #pragma mark - Table view data source
 
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    /*
     if (_isOwner && self.navigationController.viewControllers.count > 1) {
         return 72;
     }
+     */
     return 1;
 }
 
@@ -540,6 +556,7 @@ static NSString *reusableCell = @"myGuidesCell";
     return 164;
 }
 
+/*
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     if (_isOwner && self.navigationController.viewControllers.count > 1) {
@@ -549,6 +566,7 @@ static NSString *reusableCell = @"myGuidesCell";
     }
     return nil;
 }
+ */
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
