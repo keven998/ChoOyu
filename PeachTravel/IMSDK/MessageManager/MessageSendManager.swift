@@ -75,7 +75,6 @@ class MessageSendManager: NSObject {
                 }
             } else {
                 message.status = IMMessageStatus.IMMessageFailed
-                
                 completionBlock(isSuccess: false, error: retMessage?.objectForKey("error") as? String)
             }
             daoHelper.updateMessageInDB("chat_\(receiver)", message: message)
@@ -141,7 +140,7 @@ class MessageSendManager: NSObject {
     }
     
     /**
-    发送一条位置信息
+    发送一条位置信息,不包含实时图片,暂时弃用
     
     :param: location       位置 model，包括 lat，lng，address
     :param: receiver       接收者
@@ -150,7 +149,7 @@ class MessageSendManager: NSObject {
     
     :returns: 发送前的消息
     */
-    func sendLocationMessage(location: LocationModel, receiver: Int, chatType: IMChatType, conversationId: String?) -> BaseMessage {
+    func sendLocationMessage(location: LocationModel, receiver: Int, chatType: IMChatType, conversationId: String?, completionBlock:(isSuccess: Bool, error: String?) -> ()) -> BaseMessage {
         var locationMessage = LocationMessage()
         locationMessage.createTime = Int(NSDate().timeIntervalSince1970)
         locationMessage.latitude = location.latitude
@@ -172,13 +171,14 @@ class MessageSendManager: NSObject {
             if (error != nil) {
                 debug_print("\(error)")
             }
+            completionBlock(isSuccess: isSuccess, error: error)
         }
 
         return locationMessage
     }
     
     /**
-    发送一条位置信息
+    发送一条位置信息,包含实时位置图片
     
     :param: location       位置 model，包括 lat，lng，address
     :param: receiver       接收者
@@ -229,7 +229,7 @@ class MessageSendManager: NSObject {
     
     :returns:
     */
-    func sendPoiMessage(poiModel: IMPoiModel, receiver: Int, chatType: IMChatType, conversationId: String?) -> BaseMessage {
+    func sendPoiMessage(poiModel: IMPoiModel, receiver: Int, chatType: IMChatType, conversationId: String?, completionBlock:(isSuccess: Bool, error: String?) -> ()) -> BaseMessage {
         let message = MessageManager.messageModelWithPoiModel(poiModel)
         message.createTime = Int(NSDate().timeIntervalSince1970)
         message.chatterId = receiver
@@ -265,8 +265,49 @@ class MessageSendManager: NSObject {
             if (error != nil) {
                 debug_print("\(error)")
             }
+            completionBlock(isSuccess: isSuccess, error: error)
         }
         
+        return message
+    }
+    
+    /**
+    发送
+    
+    :param: message         HTML5消息
+    :param: receiver        接收者
+    :param: chatType        消息类型
+    :param: conversationId  会话ID
+    :param: completionBlock 回调block
+    :param: error           错误信息
+    */
+    func sendHtml5Message(html5Model: IMPoiModel, receiver: Int, chatType:IMChatType, conversationId: String?, completionBlock:(isSuccess: Bool, error: String?) -> ()) -> BaseMessage {
+        let message = MessageManager.messageModelWithPoiModel(html5Model)
+        message.createTime = Int(NSDate().timeIntervalSince1970)
+        message.chatterId = receiver
+        message.status = .IMMessageSending
+        message.sendType = .MessageSendMine
+        message.conversationId = conversationId
+        switch html5Model.poiType {
+        case .City :
+            message.messageType = .CityPoiMessageType
+        case .Guide :
+            message.messageType = .GuideMessageType
+        default :
+            break
+        }
+        
+        var daoHelper = DaoHelper.shareInstance()
+        daoHelper.insertChatMessage("chat_\(receiver)", message: message)
+        for MessageManagerDelegate in self.sendDelegateList {
+            MessageManagerDelegate.sendNewMessage?(message)
+        }
+        sendMessage(message, receiver: receiver, chatType: chatType, conversationId: conversationId) { (isSuccess, error) -> () in
+            if (error != nil) {
+                debug_print("\(error)")
+            }
+            completionBlock(isSuccess: isSuccess, error: error)
+        }
         return message
     }
     

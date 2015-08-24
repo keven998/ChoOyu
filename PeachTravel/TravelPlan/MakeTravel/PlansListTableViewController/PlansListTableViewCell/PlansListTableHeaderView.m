@@ -11,6 +11,8 @@
 
 @implementation PlansListTableHeaderView
 
+#pragma mark - 初始化方法
+
 + (id)planListHeaderView {
     
     return [[[NSBundle mainBundle] loadNibNamed:@"PlansListTableHeaderView" owner:nil options:nil] lastObject];

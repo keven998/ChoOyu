@@ -21,6 +21,8 @@
 
 @implementation SuggestionDestinationTableViewController
 
+#pragma mark - lifeCycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"确定所在城市";
@@ -58,6 +60,8 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - setter or getter
+
 - (NSMutableArray *)searchResultArray
 {
     if (!_searchResultArray) {
@@ -70,6 +74,8 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+
+#pragma mark - private Methods
 /**
  *  搜索城市的时候联想查询
  */
