@@ -275,18 +275,25 @@ static NSString *cacheName = @"destination_demostic_group";
         }
         [_destinations.destinationsSelected addObject:city];
         NSIndexPath *lnp = [NSIndexPath indexPathForItem:(_destinations.destinationsSelected.count-1) inSection:0];
+        
         [_makePlanCtl.selectPanel performBatchUpdates:^{
             [_makePlanCtl.selectPanel insertItemsAtIndexPaths:[NSArray arrayWithObject:lnp]];
         } completion:^(BOOL finished) {
             if (finished) {
-                [_makePlanCtl.selectPanel scrollToItemAtIndexPath:lnp
-                                     atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+                NSLog(@"%@", lnp);
+//                [_makePlanCtl.selectPanel scrollToItemAtIndexPath:lnp
+//                                     atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
             }
         }];
     }
+    NSIndexPath *lnp = [NSIndexPath indexPathForItem:(_destinations.destinationsSelected.count-1) inSection:0];
+    [_makePlanCtl.selectPanel scrollToItemAtIndexPath:lnp
+                                         atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
     
     [self.domesticCollectionView reloadItemsAtIndexPaths:@[indexPath]];
 }
+
+
 
 
 - (void)viewWillAppear:(BOOL)animated
