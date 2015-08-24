@@ -349,6 +349,7 @@
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             _tripDetail = [[TripDetail alloc] initWithJson:[responseObject objectForKey:@"result"]];
+            accountManager.account.guideCnt += 1;
             [self reloadTripData];
             [[NSNotificationCenter defaultCenter] postNotificationName:updateGuideListNoti object:nil];
             if (isNeedRecommend) {
@@ -595,8 +596,6 @@
     [self.navigationController presentViewController:nctl animated:YES completion:nil];
 }
 
-
-
 - (void)forkTrip
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -628,6 +627,7 @@
         [hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
+            accountManager.account.guideCnt += 1;
             PlansListTableViewController *myGuidesCtl = [[PlansListTableViewController alloc] initWithUserId:accountManager.account.userId];
             NSMutableArray *clts = [NSMutableArray arrayWithArray:[self.frostedViewController.navigationController childViewControllers]];
             myGuidesCtl.userName = accountManager.account.nickName;
@@ -670,7 +670,7 @@
     _spotsListCtl = [[PlanScheduleViewController alloc] init];
     _tripFavoriteCtl = [[TripFavoriteTableViewController alloc] init];
     _tripFavoriteCtl.canEdit = _canEdit;
-    if (count > 1) {    //view frame 64 offset 补丁
+    if (count > 1) {
         [_spotsListCtl.view setFrame:CGRectMake(0, 44, CGRectGetWidth(self.frostedViewController.view.bounds), CGRectGetHeight(self.frostedViewController.view.bounds) - 44)];
         [_tripFavoriteCtl.view setFrame:CGRectMake(0, 44, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 44)];
     } else {
