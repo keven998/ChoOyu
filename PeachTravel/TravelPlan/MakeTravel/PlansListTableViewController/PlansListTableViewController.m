@@ -46,7 +46,6 @@ enum CONTENT_TYPE {
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
-
 @property (nonatomic, strong) SWTableViewCell *swipCell;
 
 @property (nonatomic) BOOL isShowing;
@@ -94,7 +93,6 @@ static NSString *reusableCell = @"myGuidesCell";
     // 设置
     UIBarButtonItem *sbtn = [[UIBarButtonItem alloc] initWithCustomView:categoryBtn];
     self.navigationItem.rightBarButtonItem = sbtn;
-    
     
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithIcon:@"common_icon_navigaiton_back_normal.png" highIcon:@"common_icon_navigaiton_back_normal.png" target:self action:@selector(goBack)];
     
@@ -188,7 +186,8 @@ static NSString *reusableCell = @"myGuidesCell";
 
 #pragma mark - navigation action
 
-- (void) filtTrip {
+- (void)filtTrip
+{
     [MobClick event:@"navigation_item_plans_status_filter"];
     
     SelectionTableViewController *ctl = [[SelectionTableViewController alloc] init];
