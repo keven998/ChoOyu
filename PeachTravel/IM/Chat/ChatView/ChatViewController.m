@@ -388,8 +388,11 @@
     return retMessages;
 }
 
-
-// 发送文本消息
+/**
+ *  发送文本消息
+ *
+ *  @param messageStr
+ */
 - (void)sendTextMessage:(NSString *)messageStr
 {
     IMClientManager *imClientManager = [IMClientManager shareInstance];
@@ -409,7 +412,12 @@
     [self addChatMessage2Buttom:message];
 }
 
-// 发送位置消息
+/**
+ *  发送位置消息
+ *
+ *  @param model
+ *  @param locImage
+ */
 - (void)sendLocation:(LocationModel *)model Image:(UIImage *)locImage {
     IMClientManager *imClientManager = [IMClientManager shareInstance];
     
@@ -418,7 +426,11 @@
     [self addChatMessage2Buttom:message];
 }
 
-// 发送语音消息
+/**
+ *  发送语音消息
+ *
+ *  @param audioPath
+ */
 - (void)sendAudioMessage:(NSString *)audioPath
 {
     IMClientManager *imClientManager = [IMClientManager shareInstance];
@@ -429,7 +441,11 @@
     [self addChatMessage2Buttom:audioMessage];
 }
 
-// 发送图片消息
+/**
+ *  发送图片消息
+ *
+ *  @param imageData 
+ */
 - (void)sendImageMessage:(NSData *)imageData
 {
     IMClientManager *imClientManager = [IMClientManager shareInstance];
