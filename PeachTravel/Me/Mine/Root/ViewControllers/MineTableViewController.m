@@ -470,6 +470,7 @@
         UserInfoTableViewController *userInfoCtl = [[UserInfoTableViewController alloc] init];
         userInfoCtl.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:userInfoCtl animated:YES];
+        
     } else {
         [self userLogin];
     }
@@ -512,6 +513,7 @@
         footCtl.hidesBottomBarWhenPushed = YES;
         footCtl.userId = amgr.account.userId;
         [self.navigationController pushViewController:footCtl animated:YES];
+        
     } else  {
         [self userLogin];
     }
