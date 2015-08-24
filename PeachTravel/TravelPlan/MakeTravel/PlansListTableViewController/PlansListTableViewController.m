@@ -180,6 +180,7 @@ static NSString *reusableCell = @"myGuidesCell";
                 }
             });
             [self loadData:_contentType WithPageIndex:0];
+            
         } else {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.refreshControl beginRefreshing];
@@ -367,7 +368,6 @@ static NSString *reusableCell = @"myGuidesCell";
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
-    //    AccountManager *accountManager = [AccountManager shareAccountManager];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)_userId] forHTTPHeaderField:@"UserId"];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSNumber *imageWidth = [NSNumber numberWithInt:(kWindowWidth-22)*2];
