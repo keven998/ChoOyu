@@ -77,7 +77,6 @@
     
     [self setupTableHeaderView];
     [self updateAccountInfo];
-    [self loadUserInfo];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userAccountHasChage) name:userDidLoginNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userAccountHasChage) name:userDidLogoutNoti object:nil];
@@ -96,9 +95,7 @@
 {
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_home_mine"];
-    if (!_accountManager.account.guideCnt) {
-        [self loadUserInfo];
-    }
+    [self loadUserInfo];
     [self updateAccountInfo];
     [_homeCtl showSomeTabbarNoti];
     [self showUserShouldEditUserInfoNoti];
