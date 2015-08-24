@@ -597,6 +597,8 @@ static NSString *reusableCell = @"myGuidesCell";
     }
     
     if (_selectToSend) {
+        cell.playedBtn.hidden = YES;
+        cell.deleteBtn.hidden = YES;
         [cell.sendBtn addTarget:self action:@selector(sendPoi:) forControlEvents:UIControlEventTouchUpInside];
     }
     
