@@ -105,11 +105,6 @@ static NSString *reusableCell = @"myGuidesCell";
         self.navigationItem.rightBarButtonItem = sbtn;
     }
 
-    
-    // 设置
-//    UIBarButtonItem *sbtn = [[UIBarButtonItem alloc] initWithCustomView:categoryBtn];
-//    self.navigationItem.rightBarButtonItem = sbtn;
-    
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithIcon:@"common_icon_navigaiton_back_normal.png" highIcon:@"common_icon_navigaiton_back_normal.png" target:self action:@selector(goBack)];
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.frame];
@@ -414,6 +409,7 @@ static NSString *reusableCell = @"myGuidesCell";
         [self loadMoreCompleted];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         [self.refreshControl endRefreshing];
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self loadMoreCompleted];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];

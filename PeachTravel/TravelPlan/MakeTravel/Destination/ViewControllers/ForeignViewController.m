@@ -214,8 +214,7 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
         for (int j=0; j<country.cities.count; j++) {
             CityDestinationPoi *cityPoi = country.cities[j];
             if ([cityPoi.cityId isEqualToString:city.cityId]) {
-                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:j inSection:0];
-                [self.foreignCollectionView reloadItemsAtIndexPaths:@[indexPath]];
+                [_foreignCollectionView reloadData];
             }
         }
     }
