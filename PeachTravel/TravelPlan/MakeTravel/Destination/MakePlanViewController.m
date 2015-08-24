@@ -142,17 +142,6 @@
 }
 
 /**
- *  重写父类方法
- */
-
-- (void)finishSwithPages
-{
-    [self.view bringSubviewToFront:_selectPanel.superview];
-    if (self.selectedIndext == 1) {
-    }
-}
-
-/**
  *  开始制作攻略
  *
  *  @param sender 
@@ -173,7 +162,8 @@
     }
 }
 
-- (void) doMakePlan {
+- (void)doMakePlan
+{
     TripDetailRootViewController *tripDetailCtl = [[TripDetailRootViewController alloc] init];
     tripDetailCtl.canEdit = YES;
     tripDetailCtl.destinations = self.destinations.destinationsSelected;
@@ -207,17 +197,9 @@
 
 - (void)hideDestinationBar
 {
-//    CGRect frame = self.selectPanel.superview.frame;
-//    frame.origin.y = CGRectGetHeight(self.view.bounds);
-//    [UIView animateWithDuration:0.3 animations:^{
-//        self.selectPanel.superview.frame = frame;
-    
-//    } completion:^(BOOL finished) {
     if (!self.shouldOnlyChangeDestinationWhenClickNextStep) {
         self.navigationItem.rightBarButtonItem.enabled = NO;
     }
-    
-//    }];
     
     UIView *view = [self.selectPanel.superview viewWithTag:1];
     view.hidden = NO;
@@ -225,13 +207,7 @@
 
 - (void)showDestinationBar
 {
-//    CGRect frame = self.selectPanel.superview.frame;
-//    frame.origin.y = CGRectGetHeight(self.view.bounds) - 49;
-//    [UIView animateWithDuration:0.3 animations:^{
-//        self.selectPanel.superview.frame = frame;
-//    } completion:^(BOOL finished) {
-        self.navigationItem.rightBarButtonItem.enabled = YES;
-//    }];
+    self.navigationItem.rightBarButtonItem.enabled = YES;
     
     UIView *view = [self.selectPanel.superview viewWithTag:1];
     view.hidden = YES;
