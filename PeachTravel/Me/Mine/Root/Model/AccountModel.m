@@ -159,7 +159,7 @@
             [countriesArray addObject:poi.country.coutryId];
         }
     }
-    return [NSString stringWithFormat:@"%ld国，%ld城市", (long)countriesArray.count, (long)_footprints.count];
+    return [NSString stringWithFormat:@"%ld国%ld城市", (long)countriesArray.count, (long)_footprints.count];
 }
 
 - (void)loadUserInfoFromServer:(void (^)(bool isSuccess))completion

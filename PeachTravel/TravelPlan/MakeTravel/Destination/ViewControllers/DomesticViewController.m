@@ -49,7 +49,8 @@ static NSString *cacheName = @"destination_demostic_group";
     [self initData];
 }
 
-- (void) initData {
+- (void)initData
+{
     [[TMCache sharedCache] objectForKey:cacheName block:^(TMCache *cache, NSString *key, id object)  {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (object != nil) {
