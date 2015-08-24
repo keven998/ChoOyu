@@ -17,6 +17,8 @@
 
 @implementation PrepareViewController
 
+#pragma mark - lifeCycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -79,6 +81,8 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     _rootViewController = nil;
 }
+
+#pragma mark - IBAction
 
 - (void)login:(id)sender {
     LoginViewController *loginCtl = [[LoginViewController alloc] initWithCompletion:^(BOOL completed) {

@@ -11,6 +11,8 @@
 
 @implementation SuperPoi
 
+#pragma mark - 初始化
+
 - (id)initWithJson:(id)json
 {
     if (self = [super init]) {

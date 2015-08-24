@@ -6,10 +6,11 @@
 //  Copyright (c) 2014年 com.aizou.www. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
+
 #import "HomeViewController.h"
 #import "ToolsHomeViewController.h"
 #import "MineTableViewController.h"
-#import <QuartzCore/QuartzCore.h>
 #import "PageOne.h"
 #import "PageTwo.h"
 #import "PageThree.h"
@@ -51,6 +52,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 @implementation HomeViewController
 
+#pragma mark - lifeCycle
+
 - (instancetype)init
 {
     self = [super init];
@@ -59,7 +62,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     return self;
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     
     // 1.先设置tabBar,控制三个控制器
@@ -79,7 +83,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [self setupConverView];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:animated];
 }
 
@@ -88,7 +93,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)setupLoginPage {
+- (void)setupLoginPage
+{
     PrepareViewController *prepareCtl = [[PrepareViewController alloc] init];
     prepareCtl.rootViewController = self;
     prepareCtl.view.frame = self.view.frame;
@@ -97,7 +103,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [prepareCtl willMoveToParentViewController:self];
 }
 
-- (void)setupConverView {
+- (void)setupConverView
+{
     
     if ((!shouldSkipIntroduce && kShouldShowIntroduceWhenFirstLaunch) || !kIsNotFirstInstall) {
         [self beginIntroduce];
@@ -105,7 +112,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     }
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
 }
 
@@ -124,7 +132,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 }
 
 //进入聊天功能
-- (IBAction)jumpIM:(UIButton *)sender {
+- (IBAction)jumpIM:(UIButton *)sender
+{
     AccountManager *accountManager = [AccountManager shareAccountManager];
     if ([accountManager isLogin]) {
         [self.navigationController pushViewController:self.chatListCtl animated:YES];
@@ -144,19 +153,24 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [self presentViewController:nctl animated:YES completion:nil];
 }
 
-- (IBAction)goRegist:(id)sender {
+- (IBAction)goRegist:(id)sender
+{
     RegisterViewController *loginCtl = [[RegisterViewController alloc] init];
     TZNavigationViewController *nctl = [[TZNavigationViewController alloc] initWithRootViewController:loginCtl];
     [self presentViewController:nctl animated:YES completion:nil];
 }
 
-- (IBAction)goPass:(id)sender {
+- (IBAction)goPass:(id)sender
+{
     [self setSelectedIndex:1];
     [_coverView removeFromSuperview];
     _coverView = nil;
 }
 
-- (void)userDidLogin {
+#pragma mark - private Methods
+
+- (void)userDidLogin
+{
     NSArray *controllers = [self childViewControllers];
     if (controllers != nil && controllers.count > 0) {
         UIViewController *ctl = [controllers lastObject];
@@ -478,7 +492,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     }
 }
 
-- (void)playSoundAndVibration{
+- (void)playSoundAndVibration
+{
     //如果距离上次响铃和震动时间太短, 则跳过响铃
     NSLog(@"%@, %@", [NSDate date], self.lastPlaySoundDate);
     
