@@ -20,7 +20,8 @@
 
 #pragma mark - LifeCycle
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     self.navigationItem.title = @"旅行";
     self.view.backgroundColor = APP_PAGE_COLOR;
@@ -106,7 +107,8 @@
 /**
  *  跳转到达人咨询界面
  */
-- (void)goLxpHelper {
+- (void)goLxpHelper
+{
     [MobClick event:@"card_item_lxp_guide"];
     GuilderDistributeViewController *gdvc = [[GuilderDistributeViewController alloc] init];
     gdvc.hidesBottomBarWhenPushed = YES;
@@ -116,7 +118,8 @@
 /**
  *  跳转到我的计划界面
  */
-- (void)goMyPlan {
+- (void)goMyPlan
+{
     [MobClick event:@"card_item_lxp_plan"];
     AccountManager *accountManager = [AccountManager shareAccountManager];
     if (!accountManager.isLogin) {

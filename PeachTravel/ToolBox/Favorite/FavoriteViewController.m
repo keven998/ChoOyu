@@ -59,7 +59,8 @@
 
 #pragma mark - lifeCycle
 
-- (id)init {
+- (id)init
+{
     if (self = [super init]) {
         _urlArray = @[@"all", @"locality", @"vs", @"restaurant", @"shopping", @"hotel", @"travelNote"];
         _urlTitleArray = @[@"全部分类", @"城市", @"景点", @"美食", @"购物", @"酒店", @"游记"];
@@ -74,7 +75,8 @@
     return self;
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
 
     self.navigationItem.title = @"收藏夹";
@@ -129,12 +131,14 @@
     [self performSelector:@selector(refreshLoadData) withObject:nil afterDelay:0.25];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:animated];
     _isVisible = YES;
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
+- (void)viewWillDisappear:(BOOL)animated
+{
     [super viewWillDisappear:animated];
     _isVisible = NO;
 }
@@ -147,7 +151,8 @@
     self.refreshControl = nil;
 }
 
-- (void) initDataFromCache {
+- (void)initDataFromCache
+{
     AccountManager *accountManager = [AccountManager shareAccountManager];
     [[TMCache sharedCache] objectForKey:[NSString stringWithFormat:@"%ld_favorites", (long)accountManager.account.userId] block:^(TMCache *cache, NSString *key, id object)  {
         if (object != nil) {
@@ -170,7 +175,8 @@
 
 #pragma mark - setter or getter
 
-- (UIView *)footerView {
+- (UIView *)footerView
+{
     if (!_footerView) {
         _footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.bounds), 44.0)];
         _footerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -187,7 +193,8 @@
 
 #pragma mark - private Methods
 
-- (void)switchCate {
+- (void)switchCate
+{
     SelectionTableViewController *ctl = [[SelectionTableViewController alloc] init];
     ctl.contentItems = _urlTitleArray;
     ctl.delegate = self;
@@ -197,7 +204,8 @@
     [self presentViewController:nav animated:YES completion:nil];
 }
 
-- (void)pullToRefreash:(id)sender {
+- (void)pullToRefreash:(id)sender
+{
     [self loadDataWithPageIndex:0 andFavoriteType:_currentFavoriteType];
 }
 
@@ -354,7 +362,8 @@
     }
 }
 
-- (void) bindDataToView:(id)responseObject {
+- (void) bindDataToView:(id)responseObject
+{
     NSArray *datas = [responseObject objectForKey:@"result"];
     if (datas.count == 0) {
         if (_currentPage == 0) {
@@ -421,7 +430,8 @@
 }
 
 #pragma mark - SelectDelegate
-- (void) selectItem:(NSString *)str atIndex:(NSIndexPath *)indexPath {
+- (void) selectItem:(NSString *)str atIndex:(NSIndexPath *)indexPath
+{
     _currentFavoriteType = [_urlArray objectAtIndex:indexPath.row];
     _selectText = str;
     _enableLoadMore = NO;
@@ -430,7 +440,8 @@
     [self performSelector:@selector(refreshLoadData) withObject:nil afterDelay:0.25];
 }
 
-- (void) refreshLoadData {
+- (void) refreshLoadData
+{
     [self.tableView setContentOffset:CGPointMake(0, -self.refreshControl.frame.size.height) animated:YES];
     [self.refreshControl beginRefreshing];
     [self.refreshControl sendActionsForControlEvents:UIControlEventValueChanged];
@@ -438,21 +449,25 @@
 
 #pragma mark - UITableViewDataSource
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
     return _dataSource.count;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     return 1;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 10)];
     view.backgroundColor = [UIColor clearColor];
     return view;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     FavoriteTableViewCell *cell = [tv dequeueReusableCellWithIdentifier:@"favorite_cell" forIndexPath:indexPath];
     Favorite *item = [_dataSource objectAtIndex:indexPath.section];
     
@@ -491,12 +506,14 @@
     return 10;
 }
 
-- (CGFloat)tableView:(UITableView *)tv heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tv heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     
     return 135.0;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     Favorite *item = [_dataSource objectAtIndex:indexPath.section];
     if (item.type == kSpotPoi) {
@@ -529,11 +546,13 @@
     }
 }
 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
     return YES;
 }
 
-- (void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"确定从收藏夹中删除" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
@@ -547,11 +566,13 @@
     }
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     return @"删除";
 }
 
-- (void) beginLoadingMore {
+- (void) beginLoadingMore
+{
     if (self.tableView.tableFooterView == nil) {
         self.tableView.tableFooterView = self.footerView;
     }
@@ -560,7 +581,8 @@
     [self loadDataWithPageIndex:(_currentPage + 1) andFavoriteType:_currentFavoriteType];
 }
 
-- (void) loadMoreCompleted {
+- (void) loadMoreCompleted
+{
     [_indicatroView stopAnimating];
     _isLoadingMore = NO;
     _didEndScroll = YES;
@@ -610,7 +632,8 @@
     }
 }
 
-- (void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+- (void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
     _didEndScroll = YES;
 }
 

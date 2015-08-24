@@ -10,7 +10,8 @@
 
 @implementation TripPoiListTableViewCell
 
-- (void)awakeFromNib {
+- (void)awakeFromNib
+{
     _headerImageView.backgroundColor = APP_PAGE_COLOR;
     [_actionBtn setTitleColor: APP_THEME_COLOR forState:UIControlStateNormal];
     [_actionBtn setTitleColor:COLOR_TEXT_III forState:UIControlStateSelected];

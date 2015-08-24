@@ -54,14 +54,16 @@
 
 #pragma mark - lifeCycle
 
-- (id)init {
+- (id)init
+{
     if (self = [super init]) {
         _didEndScroll = YES;
     }
     return self;
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
     self.navigationItem.title = @"附近";
@@ -151,7 +153,8 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (IBAction)relocal:(id)sender {
+- (IBAction)relocal:(id)sender
+{
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     CABasicAnimation* rotationAnimation;
     rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
@@ -341,7 +344,8 @@
 
 #pragma mark - UITableViewDelegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSInteger tag = [tableView superview].tag;
     SuperPoi *poi = [[_dataSource objectAtIndex:tag] objectAtIndex:indexPath.row];
@@ -388,20 +392,23 @@
     }
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     return 90;
 }
 
 
 #pragma mark - UITableViewDataSource
 
-- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     NSInteger page = [tableView superview].tag;
     NSArray *datas = [self.dataSource objectAtIndex:page];
     return datas.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     NSInteger page = [tableView superview].tag;
     CommonPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"commonPoiListCell"];
     SuperPoi *poi = [[_dataSource objectAtIndex:page] objectAtIndex:indexPath.row];
@@ -418,11 +425,13 @@
 
 #pragma mark - SwipeViewDataSource
 
-- (NSInteger)numberOfItemsInSwipeView:(SwipeView *)swipeView {
+- (NSInteger)numberOfItemsInSwipeView:(SwipeView *)swipeView
+{
     return LOCAL_PAGE_TITLES.count;
 }
 
-- (UIView *)swipeView:(SwipeView *)swipeView viewForItemAtIndex:(NSInteger)index reusingView:(UIView *)view {
+- (UIView *)swipeView:(SwipeView *)swipeView viewForItemAtIndex:(NSInteger)index reusingView:(UIView *)view
+{
     UITableView *tbView = nil;
     if (view == nil)
     {
@@ -455,7 +464,8 @@
 
 #pragma mark - SwipeViewDelegate
 
-- (void)swipeViewCurrentItemIndexDidChange:(SwipeView *)swipeView {
+- (void)swipeViewCurrentItemIndexDidChange:(SwipeView *)swipeView
+{
     NSInteger page = swipeView.currentPage;
     
     if (_filterView.selectedSegmentIndex != page) {
@@ -470,7 +480,8 @@
     }
 }
 
-- (CGSize)swipeViewItemSize:(SwipeView *)swipeView {
+- (CGSize)swipeViewItemSize:(SwipeView *)swipeView
+{
     return swipeView.bounds.size;
 }
 
@@ -503,7 +514,8 @@
     [self performSelector:@selector(stopRefreashWithStatus:) withObject:@"获取当前位置失败" afterDelay:0.8];
 }
 
-- (void)stopRefreashWithStatus:(NSString *)msg {
+- (void)stopRefreashWithStatus:(NSString *)msg
+{
     [_reLocBtn.layer removeAnimationForKey:@"rotationAnimation"];
     _locLabel.text = msg;
 }
@@ -597,7 +609,8 @@
     [self loadDataWithPageIndex:[[self.currentPageList objectAtIndex:page] integerValue]+1];
 }
 
-- (void)loadMoreCompletedWithCurrentPage:(NSInteger)pageIndex {
+- (void)loadMoreCompletedWithCurrentPage:(NSInteger)pageIndex
+{
     if (![[self.isLoaddingMoreList objectAtIndex:pageIndex] boolValue]) {
         return;
     }
@@ -624,7 +637,8 @@
 }
 
 #pragma mark - IBAction
--(void)selectedPage:(UISegmentedControl *)segment {
+-(void)selectedPage:(UISegmentedControl *)segment
+{
     if (_swipeView.currentPage == segment.selectedSegmentIndex) {
         UITableView *currentTableView =  (UITableView *)[_swipeView.currentItemView viewWithTag:RECYCLE_PAGE_TAG];
         [currentTableView setContentOffset:CGPointZero animated:YES];
@@ -658,7 +672,8 @@
     }
 }
 
-- (void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+- (void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
     NSLog(@"scrollViewDidEndDecelerating");
     _didEndScroll = YES;
 }

@@ -17,9 +17,11 @@
 @end
 @implementation HeaderPictureCell
 
-- (void)awakeFromNib {
+- (void)awakeFromNib
+{
     [self createUI];
 }
+
 -(void)createUI
 {
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
@@ -71,7 +73,8 @@
     return cell;
 }
 
-- (CGSize) collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+- (CGSize) collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
     if (indexPath.row == _headerPicArray.count) {
         return CGSizeMake(97.5, 85);
     } else {
@@ -89,7 +92,8 @@
 }
 
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
     [super setSelected:selected animated:animated];
 
     

@@ -62,7 +62,8 @@ enum CONTENT_TYPE {
 
 static NSString *reusableCell = @"myGuidesCell";
 
-- (id)initWithUserId:(NSInteger) userId {
+- (id)initWithUserId:(NSInteger) userId
+{
     if (self = [super init]) {
         _currentPage = 0;
         _isLoadingMore = YES;
@@ -77,7 +78,8 @@ static NSString *reusableCell = @"myGuidesCell";
     return self;
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     if (!_isOwner) {
@@ -123,7 +125,8 @@ static NSString *reusableCell = @"myGuidesCell";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pullToRefreash:) name:updateGuideListNoti object:nil];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_lxp_plan_lists"];
     
@@ -135,7 +138,8 @@ static NSString *reusableCell = @"myGuidesCell";
     _isShowing = YES;
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
+- (void)viewWillDisappear:(BOOL)animated
+{
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"page_lxp_plan_lists"];
     _isShowing = NO;
@@ -165,7 +169,8 @@ static NSString *reusableCell = @"myGuidesCell";
     }
 }
 
-- (void) initDataFromCache {
+- (void) initDataFromCache
+{
     AccountManager *accountManager = [AccountManager shareAccountManager];
     [[TMCache sharedCache] objectForKey:[NSString stringWithFormat:@"%ld_plans", accountManager.account.userId] block:^(TMCache *cache, NSString *key, id object)  {
         if (object != nil) {
@@ -188,7 +193,8 @@ static NSString *reusableCell = @"myGuidesCell";
 
 #pragma mark - navigation action
 
-- (void) filtTrip {
+- (void) filtTrip
+{
     [MobClick event:@"navigation_item_plans_status_filter"];
     
     SelectionTableViewController *ctl = [[SelectionTableViewController alloc] init];
@@ -204,7 +210,8 @@ static NSString *reusableCell = @"myGuidesCell";
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
-- (void)makePlan {
+- (void)makePlan
+{
     
     [MobClick event:@"navigation_item_plan_create"];
     
@@ -248,7 +255,8 @@ static NSString *reusableCell = @"myGuidesCell";
  *
  *  @param sender
  */
-- (void)pullToRefreash:(id)sender {
+- (void)pullToRefreash:(id)sender
+{
     
     // 设置是否是最新复制
     if (![sender isKindOfClass:[UIRefreshControl class]]) {
@@ -549,7 +557,8 @@ static NSString *reusableCell = @"myGuidesCell";
 }
 
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     MyGuidesTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reusableCell forIndexPath:indexPath];
     
     MyGuideSummary *summary = [self.dataSource objectAtIndex:indexPath.row];
@@ -582,12 +591,14 @@ static NSString *reusableCell = @"myGuidesCell";
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self goPlan:indexPath];
 }
 
-- (void)goPlan:(NSIndexPath *)indexPath {
+- (void)goPlan:(NSIndexPath *)indexPath
+{
     MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:indexPath.row];
     TripDetailRootViewController *tripDetailRootCtl = [[TripDetailRootViewController alloc] init];
     tripDetailRootCtl.canEdit = _isOwner;
@@ -623,7 +634,8 @@ static NSString *reusableCell = @"myGuidesCell";
     return rightUtilityButtons;
 }
 
-- (UIView *)footerView {
+- (UIView *)footerView
+{
     if (!_footerView) {
         _footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.bounds), 44.0)];
         _footerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;

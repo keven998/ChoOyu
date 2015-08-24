@@ -30,7 +30,8 @@
     return self;
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder {
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
     self = [super init];
     if (self) {
         _guideId = [aDecoder decodeObjectForKey:@"id"];
@@ -45,7 +46,8 @@
     return self;
 }
 
-- (void) encodeWithCoder:(NSCoder *)aCoder {
+- (void) encodeWithCoder:(NSCoder *)aCoder
+{
     [aCoder encodeObject:_guideId forKey:@"id"];
     [aCoder encodeObject:_title forKey:@"title"];
     [aCoder encodeInt64:_updateTime forKey:@"updateTime"];

@@ -69,7 +69,8 @@
 
 #pragma mark - LifeCycle
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     self.navigationItem.title = @"编辑资料";
     
@@ -165,7 +166,8 @@
 
 #pragma mark - Private Methods
 
-- (void) setupTableHeaderView {
+- (void) setupTableHeaderView
+{
     CGFloat width = kWindowWidth;
     CGFloat height = kWindowHeight;
     
@@ -423,7 +425,8 @@
     
 }
 
-- (JGProgressHUD *)HUD {
+- (JGProgressHUD *)HUD
+{
     if (!_HUD) {
         _HUD = [JGProgressHUD progressHUDWithStyle:JGProgressHUDStyleDark];
         _HUD.indicatorView = [[JGProgressHUDPieIndicatorView alloc] initWithHUDStyle:JGProgressHUDStyleDark];
@@ -434,7 +437,8 @@
     return _HUD;
 }
 
-- (void)incrementWithProgress:(float)progress {
+- (void)incrementWithProgress:(float)progress
+{
     _HUD.textLabel.text = [NSString stringWithFormat:@"%d%%", (int)(progress*100)];
     [self.HUD setProgress:progress animated:YES];
     
@@ -494,23 +498,28 @@
 }
 
 #pragma mark - Table view data source
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
     return CGFLOAT_MIN;
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
     return cellDataSource.count;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     return [cellDataSource[section] count];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     return 66 * kWindowHeight/736;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     AccountManager *amgr = self.accountManager;
     UserOtherTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:otherUserInfoCell forIndexPath:indexPath];
     cell.cellTitle.text = cellDataSource[indexPath.section][indexPath.row];
@@ -585,7 +594,8 @@
 
 #pragma mark - Table view delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             [self changeUserName];
@@ -711,7 +721,8 @@
     [self uploadPhotoImage:headerImage];
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
     if (buttonIndex == 1) {
         AccountManager *accountManager = [AccountManager shareAccountManager];
         [SVProgressHUD show];

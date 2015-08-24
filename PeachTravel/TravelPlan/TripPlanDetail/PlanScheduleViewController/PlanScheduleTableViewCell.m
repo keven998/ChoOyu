@@ -14,7 +14,8 @@
 
 @implementation PlanScheduleTableViewCell
 
-- (void)awakeFromNib {
+- (void)awakeFromNib
+{
     self.contentView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
 
     _headerImageView.clipsToBounds = YES;
@@ -34,7 +35,8 @@
     _dayScheduleSummary.attributedText = attrStr;
 }
 
-- (void) setDay:(NSString *)dayIndex {
+- (void) setDay:(NSString *)dayIndex
+{
     NSAttributedString *unitAStr = [[NSAttributedString alloc] initWithString:@"\nDay" attributes:@{
                                                                                                     NSFontAttributeName : [UIFont systemFontOfSize:10.0],
                                                                                                     }];
@@ -43,11 +45,13 @@
     _dayLabel.attributedText = attrstr;
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
     [super setSelected:selected animated:animated];
 }
 
-+ (CGFloat)heightOfCellWithContent:(NSString *)content {
++ (CGFloat)heightOfCellWithContent:(NSString *)content
+{
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
     style.lineSpacing = 3.0;
     

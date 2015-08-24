@@ -17,7 +17,8 @@
 
 @implementation SignatureViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     self.navigationItem.title = _navTitle;
     UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc]initWithTitle:@"保存 " style:UIBarButtonItemStylePlain target:self action:@selector(saveChange:)];
@@ -72,7 +73,8 @@
 
 
 
-- (void) textChanged:(UITextField *)textField {
+- (void) textChanged:(UITextField *)textField
+{
     self.navigationItem.rightBarButtonItem.enabled = ![textField.text isEqualToString:_content];
     if (!_acceptEmptyContent) {
         NSString *str = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -103,7 +105,8 @@
     
 }
 
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
     [self.view endEditing:YES];
     [super touchesEnded:touches withEvent:event];
 }

@@ -63,7 +63,8 @@
     return _titleArray;
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"派派达人";
@@ -202,7 +203,8 @@
 
 #pragma mark - UITableViewDataSource & UITableViewDelegate
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     
     if (![_showDic objectForKey:[NSString stringWithFormat:@"%ld",indexPath.section]]) {
         return 232*CGRectGetWidth(self.view.frame)/414;
@@ -210,13 +212,15 @@
     return 0;
 }
 
-- (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
+{
     
     return self.dataSource.count;
     //    return 5;
 }
 
-- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     NSArray * guilderArray = self.dataSource[section];
     return guilderArray.count;
 }
@@ -245,7 +249,8 @@
 }
 
 #pragma mark 展开收缩section中cell 手势监听
--(void)singleTap:(UIButton*)recognizer{
+-(void)singleTap:(UIButton*)recognizer
+{
     NSInteger didSection = recognizer.tag;
     
     if (!_showDic) {
@@ -265,7 +270,8 @@
     }
 }
 
-- (void)scrollToVisiable:(NSNumber *)section {
+- (void)scrollToVisiable:(NSNumber *)section
+{
     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[section intValue]]
                          atScrollPosition:UITableViewScrollPositionNone animated:YES];
 }
@@ -295,7 +301,8 @@
 }
 
 #pragma mark - UIScrollViewDelegate
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
     CGFloat sectionHeaderHeight = 44;
     CGPoint point;
     NSIndexPath *indexPath;

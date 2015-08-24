@@ -74,13 +74,15 @@ static NSString * const reuseIdentifier = @"albumImageCell";
     [MobClick endLogPageView:@"page_profile_album"];
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
 }
 
 #pragma mark - private Methods
 
-- (void)edit:(UIButton *)button {
+- (void)edit:(UIButton *)button
+{
     BOOL selected = !button.selected;
     button.selected = selected;
     _canEdit = selected;
@@ -90,12 +92,14 @@ static NSString * const reuseIdentifier = @"albumImageCell";
 
 #pragma mark <UICollectionViewDataSource>
 
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
     return 1;
 }
 
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
     if (_isMyself) {
         return _albumArray.count + 1;
     } else {
@@ -103,7 +107,8 @@ static NSString * const reuseIdentifier = @"albumImageCell";
     }
 }
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
     AlbumImageCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     if (_isMyself) {
         if (indexPath.row == 0) {
@@ -313,7 +318,8 @@ static NSString * const reuseIdentifier = @"albumImageCell";
     
 }
 
-- (void)incrementWithProgress:(float)progress {
+- (void)incrementWithProgress:(float)progress
+{
     _HUD.textLabel.text = [NSString stringWithFormat:@"%d%%", (int)(progress*100)];
     [self.HUD setProgress:progress animated:YES];
     
@@ -327,7 +333,8 @@ static NSString * const reuseIdentifier = @"albumImageCell";
     }
 }
 
-- (JGProgressHUD *)HUD {
+- (JGProgressHUD *)HUD
+{
     if (!_HUD) {
         _HUD = [JGProgressHUD progressHUDWithStyle:JGProgressHUDStyleDark];
         _HUD.indicatorView = [[JGProgressHUDPieIndicatorView alloc] initWithHUDStyle:JGProgressHUDStyleDark];

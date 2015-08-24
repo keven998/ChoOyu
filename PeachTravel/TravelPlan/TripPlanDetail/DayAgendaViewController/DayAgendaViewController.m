@@ -39,7 +39,8 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
     return self;
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
     
@@ -147,7 +148,8 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
     [MobClick endLogPageView:@"page_lxp_day_schedule_detail"];
 }
 
-- (void)setTitleStr:(NSString *)titleStr {
+- (void)setTitleStr:(NSString *)titleStr
+{
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds)-150, 40)];
     titleLabel.numberOfLines = 2.0;
     titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -176,7 +178,8 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
 }
 
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
 }
 
@@ -192,7 +195,8 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
     return 1;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
     return CGFLOAT_MIN;
 }
 
@@ -230,17 +234,20 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
     return NO;
 }
 
-- (UITableViewCellEditingStyle) tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCellEditingStyle) tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     return UITableViewCellEditingStyleDelete;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     return @"删除";
 }
 
 
 #pragma IBAction - editSchedule
-- (void) editSchedule {
+- (void) editSchedule
+{
     ScheduleEditorViewController *sevc = [[ScheduleEditorViewController alloc] init];
     sevc.rootCtl = self;
     ScheduleDayEditViewController *menuCtl = [[ScheduleDayEditViewController alloc] init];

@@ -6,8 +6,6 @@
 //  Copyright (c) 2014年 com.aizou.www. All rights reserved.
 //
 
-
-
 #import "PushSettingViewController.h"
 #import "PushSettingTableViewCell.h"
 

@@ -18,7 +18,8 @@
 
 @implementation TripFavoriteTableViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     self.tableView.rowHeight = 70;
     
@@ -26,8 +27,8 @@
     self.tableView.separatorColor = COLOR_LINE;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    
+- (void)viewWillAppear:(BOOL)animated
+{
     [MobClick beginLogPageView:@"page_lxp_plan_favorite"];
     [super viewWillAppear:animated];
     [self.tableView reloadData];
@@ -39,7 +40,8 @@
     [MobClick endLogPageView:@"page_lxp_plan_favorite"];
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
 }
 
@@ -51,23 +53,28 @@
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     return 2;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
     return CGFLOAT_MIN;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
     return CGFLOAT_MIN;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
                                                    reuseIdentifier:@"Cell"];
     cell.textLabel.textColor = COLOR_TEXT_I;
@@ -87,7 +94,8 @@
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     [MobClick event:@"tab_item_trip_favorite"];
     if (indexPath.row == 0) {
         [MobClick event:@"cell_item_plan_favorite_delicy"];

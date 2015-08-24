@@ -10,7 +10,8 @@
 
 @implementation DestinationSearchHistoryCell
 
-- (void)awakeFromNib {
+- (void)awakeFromNib
+{
     _titleLabel.layer.cornerRadius = 5.0;
     _titleLabel.layer.borderColor = APP_THEME_COLOR.CGColor;
     _titleLabel.textColor = APP_THEME_COLOR;
