@@ -256,6 +256,8 @@
 		D9687CA21AC4095500B1C88E /* FootprintMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9687CA01AC4095500B1C88E /* FootprintMapViewController.m */; };
 		D9687CA31AC4095500B1C88E /* FootprintMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9687CA11AC4095500B1C88E /* FootprintMapViewController.xib */; };
 		D9687CA61AC409AB00B1C88E /* FootPrintViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9687CA51AC409AB00B1C88E /* FootPrintViewController.m */; };
+		D971E26B1B8AF034007E5AFD /* MyGuidesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D971E2691B8AF034007E5AFD /* MyGuidesTableViewCell.m */; };
+		D971E26C1B8AF034007E5AFD /* MyGuidesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D971E26A1B8AF034007E5AFD /* MyGuidesTableViewCell.xib */; };
 		D97C8B4D1A526B9F00476C9C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D97C8B4C1A526B9F00476C9C /* Images.xcassets */; };
 		D9823E841B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9823E831B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m */; };
 		D9871DBA1B47D31E00BFDFAF /* ScheduleDayEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9871DB81B47D31E00BFDFAF /* ScheduleDayEditViewController.m */; };
@@ -520,8 +522,6 @@
 		D9A8FDF71A808908005AD701 /* libstdc++.6.0.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D9A8FDF61A808908005AD701 /* libstdc++.6.0.9.dylib */; };
 		D9A8FEC51A80C818005AD701 /* ConfirmRouteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FEA21A80C818005AD701 /* ConfirmRouteViewController.m */; };
 		D9A8FEC61A80C818005AD701 /* ConfirmRouteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A8FEA31A80C818005AD701 /* ConfirmRouteViewController.xib */; };
-		D9A8FEC81A80C818005AD701 /* MyGuidesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FEA71A80C818005AD701 /* MyGuidesTableViewCell.m */; };
-		D9A8FEC91A80C818005AD701 /* MyGuidesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A8FEA81A80C818005AD701 /* MyGuidesTableViewCell.xib */; };
 		D9A8FECA1A80C818005AD701 /* MyGuideSummary.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FEAA1A80C818005AD701 /* MyGuideSummary.m */; };
 		D9A8FECC1A80C818005AD701 /* AccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FEB11A80C818005AD701 /* AccountManager.m */; };
 		D9A8FED01A80C818005AD701 /* MineTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FEBA1A80C818005AD701 /* MineTableViewController.m */; };
@@ -1649,6 +1649,9 @@
 		D9687CA11AC4095500B1C88E /* FootprintMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FootprintMapViewController.xib; path = ../UserInfo/FootprintMapViewController.xib; sourceTree = "<group>"; };
 		D9687CA41AC409AB00B1C88E /* FootPrintViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FootPrintViewController.h; path = ../UserInfo/FootPrintViewController.h; sourceTree = "<group>"; };
 		D9687CA51AC409AB00B1C88E /* FootPrintViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FootPrintViewController.m; path = ../UserInfo/FootPrintViewController.m; sourceTree = "<group>"; };
+		D971E2681B8AF034007E5AFD /* MyGuidesTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGuidesTableViewCell.h; sourceTree = "<group>"; };
+		D971E2691B8AF034007E5AFD /* MyGuidesTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGuidesTableViewCell.m; sourceTree = "<group>"; };
+		D971E26A1B8AF034007E5AFD /* MyGuidesTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyGuidesTableViewCell.xib; sourceTree = "<group>"; };
 		D97C8B4C1A526B9F00476C9C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
 		D9823E821B19AA0200A1AE35 /* SuggestionDestinationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuggestionDestinationTableViewController.h; sourceTree = "<group>"; };
 		D9823E831B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuggestionDestinationTableViewController.m; sourceTree = "<group>"; };
@@ -2067,9 +2070,6 @@
 		D9A8FEA11A80C818005AD701 /* ConfirmRouteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfirmRouteViewController.h; sourceTree = "<group>"; };
 		D9A8FEA21A80C818005AD701 /* ConfirmRouteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfirmRouteViewController.m; sourceTree = "<group>"; };
 		D9A8FEA31A80C818005AD701 /* ConfirmRouteViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConfirmRouteViewController.xib; sourceTree = "<group>"; };
-		D9A8FEA61A80C818005AD701 /* MyGuidesTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGuidesTableViewCell.h; sourceTree = "<group>"; };
-		D9A8FEA71A80C818005AD701 /* MyGuidesTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGuidesTableViewCell.m; sourceTree = "<group>"; };
-		D9A8FEA81A80C818005AD701 /* MyGuidesTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyGuidesTableViewCell.xib; sourceTree = "<group>"; };
 		D9A8FEA91A80C818005AD701 /* MyGuideSummary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGuideSummary.h; sourceTree = "<group>"; };
 		D9A8FEAA1A80C818005AD701 /* MyGuideSummary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGuideSummary.m; sourceTree = "<group>"; };
 		D9A8FEB01A80C818005AD701 /* AccountManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountManager.h; sourceTree = "<group>"; };
@@ -5128,10 +5128,10 @@
 		D9A8FE9F1A80C818005AD701 /* MyGuides */ = {
 			isa = PBXGroup;
 			children = (
+				D971E2681B8AF034007E5AFD /* MyGuidesTableViewCell.h */,
+				D971E2691B8AF034007E5AFD /* MyGuidesTableViewCell.m */,
+				D971E26A1B8AF034007E5AFD /* MyGuidesTableViewCell.xib */,
 				D9A8FEA01A80C818005AD701 /* ConfirmGuideTitle */,
-				D9A8FEA61A80C818005AD701 /* MyGuidesTableViewCell.h */,
-				D9A8FEA71A80C818005AD701 /* MyGuidesTableViewCell.m */,
-				D9A8FEA81A80C818005AD701 /* MyGuidesTableViewCell.xib */,
 				D9A8FEA91A80C818005AD701 /* MyGuideSummary.h */,
 				D9A8FEAA1A80C818005AD701 /* MyGuideSummary.m */,
 			);
@@ -6059,34 +6059,10 @@
 		E6F186D41B845F4800232EEB /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				E6F186D51B845F4800232EEB /* 2x */,
 				E6F186D81B845F4800232EEB /* 2x+3x */,
 				E6F1890C1B845F4900232EEB /* ic_remarks_edit@2x.png */,
 			);
 			path = Images;
-			sourceTree = "<group>";
-		};
-		E6F186D51B845F4800232EEB /* 2x */ = {
-			isa = PBXGroup;
-			children = (
-				E6F186D61B845F4800232EEB /* ChatView */,
-			);
-			path = 2x;
-			sourceTree = "<group>";
-		};
-		E6F186D61B845F4800232EEB /* ChatView */ = {
-			isa = PBXGroup;
-			children = (
-				E6F186D71B845F4800232EEB /* chatLocation */,
-			);
-			path = ChatView;
-			sourceTree = "<group>";
-		};
-		E6F186D71B845F4800232EEB /* chatLocation */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = chatLocation;
 			sourceTree = "<group>";
 		};
 		E6F186D81B845F4800232EEB /* 2x+3x */ = {
@@ -7010,6 +6986,7 @@
 				E6F189931B845F4900232EEB /* poi_icon_ticket_default@2x.png in Resources */,
 				E6F189C31B845F4900232EEB /* ic_city_footter_selected@2x.png in Resources */,
 				E6F189B51B845F4900232EEB /* city_button_spot_disable@2x.png in Resources */,
+				D971E26C1B8AF034007E5AFD /* MyGuidesTableViewCell.xib in Resources */,
 				E6F18ACD1B845F4900232EEB /* messages_plus_pin_selected@2x.png in Resources */,
 				E6F1893C1B845F4900232EEB /* collection_flower@3x.png in Resources */,
 				E6F18A761B845F4900232EEB /* ic_home_avatar_unknown copy@2x.png in Resources */,
@@ -7560,7 +7537,6 @@
 				E6F18A0F1B845F4900232EEB /* map_icon_20@2x.png in Resources */,
 				E6F189881B845F4900232EEB /* poi_comment_start_default@3x.png in Resources */,
 				E6F18A341B845F4900232EEB /* introduce_4_4@2x.png in Resources */,
-				D9A8FEC91A80C818005AD701 /* MyGuidesTableViewCell.xib in Resources */,
 				E6F189501B845F4900232EEB /* icon_map@3x.png in Resources */,
 				E6F189FD1B845F4900232EEB /* map_icon_12@2x.png in Resources */,
 				E6F18A031B845F4900232EEB /* map_icon_15@2x.png in Resources */,
@@ -7988,7 +7964,6 @@
 				D9A8FFAB1A80D1C3005AD701 /* PoiDetailSuperViewController.m in Sources */,
 				D9A8006D1A80DD0C005AD701 /* FrendRequestTableViewCell.m in Sources */,
 				E690D8D21B7CB71B00BFDF1B /* MakePlanViewController.m in Sources */,
-				D9A8FEC81A80C818005AD701 /* MyGuidesTableViewCell.m in Sources */,
 				D9A8002D1A80D52F005AD701 /* AddPoiViewController.m in Sources */,
 				E6E7251F1B5603750007273A /* MJIvar.m in Sources */,
 				D993C2491B12DF0C0088D568 /* FMDatabase.m in Sources */,
@@ -7996,6 +7971,7 @@
 				C694C38D1AEA23E500F5C36E /* FilterViewController.m in Sources */,
 				D9A801561A80DD23005AD701 /* BaseTableViewCell.m in Sources */,
 				27FF1A721B04BE0E00643D77 /* SignatureViewController.m in Sources */,
+				D971E26B1B8AF034007E5AFD /* MyGuidesTableViewCell.m in Sources */,
 				D9A8015B1A80DD23005AD701 /* EMRemarkImageView.m in Sources */,
 				D9A802171A80E036005AD701 /* JGProgressHUDRingIndicatorView.m in Sources */,
 				D9A802321A80E036005AD701 /* THProgressView.m in Sources */,
