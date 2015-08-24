@@ -19,7 +19,8 @@
 
 @implementation PlanScheduleViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
     
@@ -39,7 +40,8 @@
     [self.tableView reloadData];
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     [self.tableView reloadData];
 }
@@ -206,9 +208,5 @@
     
     return(image);
 }
-
-
-
-
 
 @end

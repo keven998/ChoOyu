@@ -10,7 +10,8 @@
 
 @implementation AlbumImageCell
 
-- (void)awakeFromNib {
+- (void)awakeFromNib
+{
     _imageView.contentMode = UIViewContentModeScaleAspectFill;
     [_editBtn setImage:[UIImage imageNamed:@"delete_album.png"] forState:UIControlStateNormal];
     _editBtn.hidden = YES;

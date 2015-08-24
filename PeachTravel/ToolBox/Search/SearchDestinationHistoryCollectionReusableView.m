@@ -10,7 +10,8 @@
 
 @implementation SearchDestinationHistoryCollectionReusableView
 
-- (void)awakeFromNib {
+- (void)awakeFromNib
+{
     _titleLabel.textColor = COLOR_TEXT_II;
     [_actionButton setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
 }

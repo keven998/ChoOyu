@@ -28,7 +28,8 @@
     return self;
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
+- (void)viewWillDisappear:(BOOL)animated
+{
     [super viewWillDisappear:animated];
 }
 
@@ -68,7 +69,8 @@
     contentEditor = suggestion;
 }
 
-- (void) showkeyboard {
+- (void) showkeyboard
+{
     [contentEditor becomeFirstResponder];
 }
 
@@ -78,17 +80,20 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
     [self.view endEditing:YES];
     [super touchesEnded:touches withEvent:event];
 }
 
-- (IBAction)sendFeedback:(id)sender {
+- (IBAction)sendFeedback:(id)sender
+{
     [contentEditor resignFirstResponder];
     [self feedback];
 }
 
-- (void) feedback {
+- (void)feedback
+{
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AppUtils *utils = [[AppUtils alloc] init];
     [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];

@@ -31,7 +31,8 @@
 
 @implementation MakePlanViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     if (self.shouldOnlyChangeDestinationWhenClickNextStep) {
         self.navigationItem.title = @"修改目的地";
@@ -72,7 +73,8 @@
     [super viewWillDisappear:animated];
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
     _selectPanel.dataSource = nil;
     _selectPanel.delegate = nil;
     _selectPanel = nil;

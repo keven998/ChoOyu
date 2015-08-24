@@ -10,13 +10,15 @@
 
 @implementation UserHeaderTableViewCell
 
-- (void)awakeFromNib {
+- (void)awakeFromNib
+{
     _userPhoto.layer.cornerRadius = 20.5;
     _userPhoto.clipsToBounds = YES;
     _cellLabel.font = [UIFont systemFontOfSize:14.0];
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
     [super setSelected:selected animated:animated];
 
 }

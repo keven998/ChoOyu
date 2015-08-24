@@ -25,7 +25,8 @@
 
 @implementation ScheduleEditorViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     self.navigationItem.title = @"修改行程";
     
@@ -116,12 +117,14 @@
     _backupTrip = [_tripDetail backUpTrip];
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-- (void)addOneDay:(id)sender {
+- (void)addOneDay:(id)sender
+{
     [MobClick event:@"button_item_add_day"];
     [_backupTrip.itineraryList addObject:[[NSMutableArray alloc] init]];
     NSIndexSet *set = [NSIndexSet indexSetWithIndex:_backupTrip.itineraryList.count-1];
@@ -321,7 +324,8 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         NSMutableArray *poisOfDay = _backupTrip.itineraryList[indexPath.section];
         [poisOfDay removeObjectAtIndex:indexPath.row];
@@ -339,15 +343,18 @@
     return YES;
 }
 
-- (UITableViewCellEditingStyle) tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCellEditingStyle) tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     return UITableViewCellEditingStyleDelete;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     return @"删除";
 }
 
--(void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+-(void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
+{
     NSMutableArray *sourcePois = _backupTrip.itineraryList[sourceIndexPath.section];
     NSMutableArray *destinationPois = _backupTrip.itineraryList[destinationIndexPath.section];
     id poi = [sourcePois objectAtIndex:sourceIndexPath.row];
@@ -373,7 +380,8 @@
     }];
 }
 
-- (IBAction)cancel:(id)sender {
+- (IBAction)cancel:(id)sender
+{
     if (_backupTrip.tripIsChange) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"是否放弃修改直接返回" delegate:self cancelButtonTitle:@"直接返回" otherButtonTitles:@"取消", nil];
         [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {

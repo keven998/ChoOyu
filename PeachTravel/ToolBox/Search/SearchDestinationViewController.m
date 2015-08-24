@@ -40,7 +40,8 @@
 static NSString *reusableCellIdentifier = @"searchResultCell";
 
 #pragma mark - lifeCycle
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
@@ -103,7 +104,8 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 }
 
 #pragma mark - 加载网络数据
-- (void)sendRequestGethotSearchResult {
+- (void)sendRequestGethotSearchResult
+{
     // 1.获取请求管理者
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
@@ -128,7 +130,8 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 
 }
 
-- (void)goBack {
+- (void)goBack
+{
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -138,7 +141,8 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [MobClick beginLogPageView:@"page_lxp_search"];
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
+- (void)viewWillDisappear:(BOOL)animated
+{
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"page_lxp_search"];
     [_searchBar endEditing:YES];
@@ -204,7 +208,8 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     return _dataSource;
 }
 
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
     [self.view endEditing:YES];
     [self.searchBar endEditing:YES];
     [super touchesEnded:touches withEvent:event];

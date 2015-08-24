@@ -33,7 +33,8 @@
     return [tableView dequeueReusableCellWithIdentifier:ID];
 }
 
-- (void)awakeFromNib {
+- (void)awakeFromNib
+{
     // Initialization code
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.contentView.backgroundColor = APP_PAGE_COLOR;

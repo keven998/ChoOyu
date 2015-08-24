@@ -10,8 +10,8 @@
 
 @implementation FavoriteTableViewCell
 
-
-- (void)awakeFromNib {
+- (void)awakeFromNib
+{
     self.backgroundColor = APP_PAGE_COLOR;
     
     _contentType.font = [UIFont systemFontOfSize:26.0];

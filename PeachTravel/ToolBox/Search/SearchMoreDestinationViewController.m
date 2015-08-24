@@ -40,7 +40,8 @@
 
 static NSString *reusableCellIdentifier = @"searchResultCell";
 
-- (id) init {
+- (id)init
+{
     if (self = [super init]) {
         _currentPage = 0;
         _isLoadingMore = YES;
@@ -50,7 +51,8 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     return self;
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     
     self.view.backgroundColor = APP_PAGE_COLOR;
@@ -135,7 +137,8 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 }
 
 
-- (UIView *)footerView {
+- (UIView *)footerView
+{
     if (!_footerView) {
         _footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.bounds), 44.0)];
         _footerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -359,7 +362,8 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     }
 }
 
-- (void) beginLoadingMore {
+- (void) beginLoadingMore
+{
     if (self.tableView.tableFooterView == nil) {
         self.tableView.tableFooterView = self.footerView;
     }
@@ -368,7 +372,8 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [self loadDataWithPageIndex:(_currentPage + 1)];
 }
 
-- (void) loadMoreCompleted {
+- (void) loadMoreCompleted
+{
     if (!_isLoadingMore) return;
     [_indicatroView stopAnimating];
     _isLoadingMore = NO;
@@ -376,11 +381,13 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 }
 
 
-- (void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+- (void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
     _didEndScroll = YES;
 }
 
-- (void) tripUpdate:(id)jsonString {
+- (void) tripUpdate:(id)jsonString
+{
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         [[TMCache sharedCache] setObject:jsonString forKey:@"last_tripdetail"];
     });

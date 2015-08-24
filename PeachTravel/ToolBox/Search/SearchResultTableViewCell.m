@@ -10,7 +10,8 @@
 
 @implementation SearchResultTableViewCell
 
-- (void)awakeFromNib {
+- (void)awakeFromNib
+{
     self.headerImageView.layer.cornerRadius = 2.0;
     self.headerImageView.clipsToBounds = YES;
     
@@ -34,7 +35,8 @@
     }
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
     [super setSelected:selected animated:animated];
 }
 

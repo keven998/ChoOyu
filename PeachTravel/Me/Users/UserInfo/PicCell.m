@@ -10,7 +10,8 @@
 
 @implementation PicCell
 
-- (void)awakeFromNib {
+- (void)awakeFromNib
+{
 }
 
 @end

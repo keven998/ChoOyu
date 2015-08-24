@@ -10,7 +10,8 @@
 
 @implementation PoiOnEditorTableViewCell
 
-- (void)awakeFromNib {
+- (void)awakeFromNib
+{
     // Initialization code
 //    UIView *bgview = [[UIView alloc] initWithFrame:self.frame];
 //    bgview.backgroundColor = [UIColor whiteColor];

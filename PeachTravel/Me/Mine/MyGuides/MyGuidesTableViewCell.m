@@ -10,7 +10,8 @@
 #import "UIImage+resized.h"
 @implementation MyGuidesTableViewCell
 
-- (void)awakeFromNib {
+- (void)awakeFromNib
+{
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.backgroundColor = APP_PAGE_COLOR;
     
@@ -34,7 +35,8 @@
     [self insertSubview:_headerImageView atIndex:0];
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
     [super setSelected:selected animated:animated];
 }
 
