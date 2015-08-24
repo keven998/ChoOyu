@@ -106,7 +106,8 @@
 }
 
 #pragma mark - privateMethod
-- (void) setupTableHeaderView {
+- (void) setupTableHeaderView
+{
     CGFloat width = kWindowWidth;
     CGFloat height = kWindowHeight;
     
@@ -312,7 +313,8 @@
 }
 
 #pragma mark - 实现单击手势的事件
-- (void)tapAvatar:(UIGestureRecognizer *)tap{
+- (void)tapAvatar:(UIGestureRecognizer *)tap
+{
     NSLog(@"点击了头像");
     
         // 1.封装图片数据
@@ -437,7 +439,8 @@
 
 #pragma mark - IBAction
 
-- (void)addToFriend {
+- (void)addToFriend
+{
     
     if ([AccountManager shareAccountManager].isLogin) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"朋友验证" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
@@ -496,7 +499,8 @@
     }];
 }
 
-- (void)talkToFriend {
+- (void)talkToFriend
+{
     
     if ([AccountManager shareAccountManager].isLogin) {
          [self pushChatViewController];
@@ -663,7 +667,8 @@
 
 #pragma mark - UIActionsheetDelegate
 
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
     if (buttonIndex == 0) {
         
         NSString *message = nil;
@@ -691,15 +696,18 @@
 
 #pragma mark - Table view data source
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
     return CGFLOAT_MIN;
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
     return 5;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     if (section == 4) {
         return 3;
     } else {
@@ -707,7 +715,8 @@
     }
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     if (indexPath.section == 2||indexPath.section == 3) {
         
         return 90;
@@ -854,7 +863,8 @@
     }];
 }
 
-- (void)loadUserProfile:(NSInteger)userId {
+- (void)loadUserProfile:(NSInteger)userId
+{
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [FrendManager loadUserInfoFromServer:userId completion:^(BOOL isSuccess, NSInteger errorCode, FrendModel * __nonnull frend) {
         if (isSuccess) {

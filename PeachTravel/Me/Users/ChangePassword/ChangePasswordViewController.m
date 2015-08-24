@@ -20,7 +20,8 @@
 
 #pragma mark - LifeCycle
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     
     self.navigationItem.title = @"修改密码";
@@ -66,7 +67,8 @@
 
 #pragma mark - UITextFieldDelegate
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
     if (textField == _confirmPasswordLabel) {
         [textField resignFirstResponder];
     } else if (textField == _oldPasswordLabel) {
@@ -77,7 +79,8 @@
     return YES;
 }
 
-- (void)textChanged:(UITextField *)textField {
+- (void)textChanged:(UITextField *)textField
+{
     if (![_confirmPasswordLabel.text isEqualToString:@""] && ![_presentPasswordLabel.text isEqualToString:@""]) {
         self.navigationItem.rightBarButtonItem.enabled = YES;
     }
@@ -127,7 +130,8 @@
 
 #pragma mark - IBActiong Methods
 
-- (IBAction)changePassword:(UIButton *)sender {
+- (IBAction)changePassword:(UIButton *)sender
+{
     UserInfoInputError errorCode = [self checkInput];
     if (errorCode == NoError) {
         [self changePassword];
@@ -146,7 +150,8 @@
     
 }
 
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
     [self.view endEditing:YES];
     [super touchesEnded:touches withEvent:event];
 }
