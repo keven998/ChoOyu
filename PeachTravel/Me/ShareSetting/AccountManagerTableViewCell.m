@@ -10,7 +10,8 @@
 
 @implementation AccountManagerTableViewCell
 
-- (void)awakeFromNib {
+- (void)awakeFromNib
+{
     // Initialization code
     self.contentView.layer.borderColor = APP_DIVIDER_COLOR.CGColor;
     self.contentView.layer.borderWidth = 0.25;
@@ -18,7 +19,8 @@
     [_snsSwitch setOnTintColor:APP_THEME_COLOR];
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
     [super setSelected:selected animated:animated];
 
 }

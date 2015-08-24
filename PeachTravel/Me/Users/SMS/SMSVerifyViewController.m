@@ -26,7 +26,8 @@
 
 #pragma mark - LifeCycle
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
     
@@ -116,7 +117,8 @@
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated
+{
     [super viewDidAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
@@ -129,12 +131,14 @@
     [self stopTimer];
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
+- (void)viewDidDisappear:(BOOL)animated
+{
     [super viewDidDisappear:animated];
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
 }
 
 #pragma mark - Private Methods
@@ -172,11 +176,13 @@
 #pragma mark - IBAction Methods
 
 //重新获取验证码
-- (IBAction)reloadVerifyCode:(UIButton *)sender {
+- (IBAction)reloadVerifyCode:(UIButton *)sender
+{
     [self getCaptcha];
 }
 
-- (IBAction)confirm:(UIButton *)sender {
+- (IBAction)confirm:(UIButton *)sender
+{
     [self.view endEditing:YES];
     if (_verifyCodeTextField.text == nil || [_verifyCodeTextField.text isEqualToString:@""]) {
         [SVProgressHUD showSuccessWithStatus:@"请输入验证码"];
@@ -274,11 +280,14 @@
     }];
 }
 
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
     [self.view endEditing:YES];
     [super touchesEnded:touches withEvent:event];
 }
-- (void)goBack {
+
+- (void)goBack
+{
     if (self.navigationController.childViewControllers.count > 1) {
         [self.navigationController popViewControllerAnimated:YES];
     } else {

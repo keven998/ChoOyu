@@ -36,14 +36,16 @@
 
 #pragma mark - LifeCycle
 
-- (id) initWithCompletion:(loginCompletion)completion {
+- (id) initWithCompletion:(loginCompletion)completion
+{
     if (self = [super init]) {
         self.completion = completion;
     }
     return self;
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -205,14 +207,16 @@
  *
  *  @param sender
  */
-- (IBAction)losePassword:(UIButton *)sender {
+- (IBAction)losePassword:(UIButton *)sender
+{
     VerifyCaptchaViewController *losePasswordCtl = [[VerifyCaptchaViewController alloc] init];
     losePasswordCtl.verifyCaptchaType = UserLosePassword;
     [self.navigationController pushViewController:losePasswordCtl animated:YES];
 }
 
 //帐号密码登录
-- (IBAction)login:(UIButton *)sender {
+- (IBAction)login:(UIButton *)sender
+{
     [UIView animateWithDuration:0.2 animations:^{
         _iconImageView.frame = CGRectMake((Width - 483/3 *Height/736)/2, 282/3 * Height/736, 483/3 *Height/736 , 483/3 *Height/736);
         _textFieldBg.frame = CGRectMake(13, CGRectGetMaxY(_iconImageView.frame) + 40, Width - 26, 122 * Height / 736);
@@ -262,7 +266,8 @@
 }
 
 //微信登录
-- (IBAction)weixinLogin:(UIButton *)sender {
+- (IBAction)weixinLogin:(UIButton *)sender
+{
     [self sendAuthRequest];
 }
 
@@ -279,7 +284,8 @@
     [WXApi sendReq:req];
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
     
     if (textField == _userNameTextField) {
         [_passwordTextField becomeFirstResponder];
@@ -298,7 +304,8 @@
     }];
     
 }
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
     
     [UIView animateWithDuration:0.2 animations:^{
         _iconImageView.frame = CGRectMake((Width - 483/3 *Height/736)/2, 282/3 * Height/736, 483/3 *Height/736 , 483/3 *Height/736);

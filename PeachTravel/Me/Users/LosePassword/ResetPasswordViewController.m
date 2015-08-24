@@ -19,7 +19,8 @@
 
 #pragma mark - lifeCycle
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     
     UIBarButtonItem *registerBtn = [[UIBarButtonItem alloc]initWithTitle:@"完成 " style:UIBarButtonItemStylePlain target:self action:@selector(confirm:)];
@@ -53,7 +54,8 @@
 
 #pragma mark - IBAction Methods
 
-- (IBAction)confirm:(UIButton *)sender {
+- (IBAction)confirm:(UIButton *)sender
+{
     
     NSString * regex = @"^[A-Za-z0-9]{6,16}$";
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
@@ -101,7 +103,8 @@
     _passwordLabel.leftViewMode = UITextFieldViewModeAlways;
 }
 
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
     [self.view endEditing:YES];
     [super touchesEnded:touches withEvent:event];
 }

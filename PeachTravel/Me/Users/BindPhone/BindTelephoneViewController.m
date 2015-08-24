@@ -18,7 +18,8 @@
 
 #pragma mark - LifeCycle
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     
     _phoneNumberLabel.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
@@ -32,13 +33,15 @@
     _phoneNumberLabel.leftViewMode = UITextFieldViewModeAlways;
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
 }
 
 #pragma mark - IBAction Methods
 
-- (IBAction)bindTelephone:(UIButton *)sender {
+- (IBAction)bindTelephone:(UIButton *)sender
+{
     if ([self checkInput] == PhoneNumberError) {
         NSLog(@"请输入11位手机号");
         [self showHint:@"请正确输入11位手机号"];
@@ -91,7 +94,8 @@
     
 }
 
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
     [self.view endEditing:YES];
     [super touchesEnded:touches withEvent:event];
 }

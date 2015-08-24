@@ -24,7 +24,8 @@ typedef void(^loginCompletion)(BOOL completed);
 
 #pragma mark - LifeCycle
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
     
@@ -41,7 +42,8 @@ typedef void(^loginCompletion)(BOOL completed);
     [self createUI];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated
+{
     [super viewDidAppear:animated];
     
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
@@ -139,7 +141,8 @@ typedef void(^loginCompletion)(BOOL completed);
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
 }
 
-- (void)goBack {
+- (void)goBack
+{
     if (self.navigationController.childViewControllers.count > 1) {
         [self.navigationController popViewControllerAnimated:YES];
     } else {
@@ -149,7 +152,8 @@ typedef void(^loginCompletion)(BOOL completed);
 
 #pragma mark - UITextFieldDelegate
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
     if (textField == _passwordLabel) {
         [textField resignFirstResponder];
     }
@@ -158,12 +162,14 @@ typedef void(^loginCompletion)(BOOL completed);
 
 #pragma mark - IBAction Methods
 
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
     [self.view endEditing:YES];
     [super touchesEnded:touches withEvent:event];
 }
 
-- (IBAction)confirmRegister:(UIButton *)sender {
+- (IBAction)confirmRegister:(UIButton *)sender
+{
     [self.view endEditing:YES];
     switch ([self checkInput]) {
         case NoError: {
@@ -261,7 +267,8 @@ typedef void(^loginCompletion)(BOOL completed);
     }];
 }
 
-- (IBAction)goProtocolWebView:(UIButton *)sender {
+- (IBAction)goProtocolWebView:(UIButton *)sender
+{
     SuperWebViewController *webViewCtl = [[SuperWebViewController alloc] init];
     webViewCtl.urlStr = APP_AGREEMENT;
     webViewCtl.titleStr = @"用户注册协议";

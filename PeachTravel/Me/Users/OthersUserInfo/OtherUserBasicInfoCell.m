@@ -10,7 +10,8 @@
 
 @implementation OtherUserBasicInfoCell
 
-- (void)awakeFromNib {
+- (void)awakeFromNib
+{
     // Initialization code
 }
 

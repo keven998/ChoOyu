@@ -16,9 +16,11 @@
 
 @implementation OthersAlbumCell
 
-- (void)awakeFromNib {
+- (void)awakeFromNib
+{
     [self createUI];
 }
+
 -(void)createUI
 {
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
@@ -34,6 +36,7 @@
     
     [self.contentView addSubview:_collectionView];
 }
+
 - (void)setHeaderPicArray:(NSArray *)headerPicArray
 {
     _headerPicArray = headerPicArray;

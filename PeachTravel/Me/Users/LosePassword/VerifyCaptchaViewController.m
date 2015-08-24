@@ -300,7 +300,8 @@
 
 #pragma mark - IBAction Methods
 
-- (IBAction)receiveVerifyCode:(UIButton *)sender {
+- (IBAction)receiveVerifyCode:(UIButton *)sender
+{
     [self.view endEditing:YES];
     if ([self checkInput] == PhoneNumberError) {
         [self showHint:@"号码格式不对"];
@@ -312,7 +313,8 @@
     }
 }
 
-- (IBAction)nextStep:(UIButton *)sender {
+- (IBAction)nextStep:(UIButton *)sender
+{
     if ([_captchaLabel.text stringByReplacingOccurrencesOfString:@" " withString:@""].length == 0) {
         [self showHint:@"请输入验证码"];
         return;
@@ -322,12 +324,14 @@
     [self virifyCaptcha];
 }
 
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
     [self.view endEditing:YES];
     [super touchesEnded:touches withEvent:event];
 }
 
-- (void) textChanged:(UITextField *)textField {
+- (void) textChanged:(UITextField *)textField
+{
     self.navigationItem.rightBarButtonItem.enabled = ![textField.text isEqualToString:@""];
 }
 @end
