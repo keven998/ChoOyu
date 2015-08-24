@@ -70,7 +70,8 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
     
 }
 
-- (void) initData {
+- (void)initData
+{
     [[TMCache sharedCache] objectForKey:@"destination_foreign" block:^(TMCache *cache, NSString *key, id object)  {
         if (object != nil) {
             if ([object isKindOfClass:[NSDictionary class]]) {
@@ -144,12 +145,8 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
             });
             
             AreaDestination *country = _destinations.foreignCountries[0];
-            
             self.citiesArray = country.cities;
-            
             [_foreignCollectionView reloadData];
-            
-            
             
         } else {
             if (_hud) {
@@ -170,17 +167,10 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
     }];
 }
 
-- (void)reloadData
-{
-//    [self.foreignCollectionView reloadData];
-}
-
 #pragma mark - IBAction Methods
 
 - (IBAction)showCities:(UIButton *)sender
 {
-//    NSInteger pre = _showCitiesIndex;
-    
     if (_showCitiesIndex == sender.tag) {
         _showCitiesIndex = -1;
     } else {
@@ -188,20 +178,7 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
     }
     
     [self.foreignCollectionView reloadData];
-    
-//    [self.foreignCollectionView performBatchUpdates:^{
-//        [self.foreignCollectionView insertItemsAtIndexPaths:indexpaths];
-//        if (_showCitiesIndex == -1) {
-//            [self.foreignCollectionView reloadSections:[NSIndexSet indexSetWithIndex:pre]];
-//        } else if (pre == -1) {
-//            [self.foreignCollectionView reloadSections:[NSIndexSet indexSetWithIndex:_showCitiesIndex]];
-//        } else if (_showCitiesIndex > pre) {
-//            [self.foreignCollectionView reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(pre, _showCitiesIndex)]];
-//        } else {
-//            [self.foreignCollectionView reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(_showCitiesIndex, pre)]];
-//        }
-//    } completion:nil];
-    
+
 }
 
 #pragma mark - notification
@@ -227,17 +204,11 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-//    if (section == _showCitiesIndex) {
-//        return ((AreaDestination *)_destinations.foreignCountries[section]).cities.count;
-//    }
-//    return 0;
-    
     return self.citiesArray.count;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-//    return _destinations.foreignCountries.count;
     return 1;
 }
 
@@ -253,7 +224,6 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-//    AreaDestination *country = _destinations.foreignCountries[indexPath.section];
     CityDestinationPoi *city = self.citiesArray[indexPath.item];
     
     DomesticCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseableCellIdentifier forIndexPath:indexPath];
@@ -280,8 +250,6 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-//    AreaDestination *country = _destinations.foreignCountries[indexPath.section];
-    
     CityDestinationPoi *city = self.citiesArray[indexPath.row];
     BOOL find = NO;
     for (CityDestinationPoi *cityPoi in _destinations.destinationsSelected) {
@@ -292,7 +260,6 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
             [_makePlanCtl.selectPanel performBatchUpdates:^{
                 [_makePlanCtl.selectPanel deleteItemsAtIndexPaths:[NSArray arrayWithObject:lnp]];
             } completion:^(BOOL finished) {
-//                [_makePlanCtl.selectPanel reloadData];
                 if (_destinations.destinationsSelected.count == 0) {
                     [_makePlanCtl hideDestinationBar];
                 }
@@ -323,7 +290,6 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section;
 {
-//    return CGSizeMake(self.foreignCollectionView.frame.size.width, 72);
     return CGSizeMake(self.foreignCollectionView.frame.size.width, 0);
 }
 
@@ -365,8 +331,6 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
     AreaDestination *country = _destinations.foreignCountries[indexPath.row];
     
     self.citiesArray = country.cities;
-    
-//    [self reloadData];
     [self.foreignCollectionView reloadData];
     
     NSLog(@"%@",self.citiesArray);
