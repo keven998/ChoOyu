@@ -148,6 +148,8 @@ static NSString *reusableCell = @"myGuidesCell";
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];
     _isShowing = YES;
+    
+    [self pullToRefreash:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -268,7 +270,6 @@ static NSString *reusableCell = @"myGuidesCell";
  */
 - (void)pullToRefreash:(id)sender
 {
-    
     // 设置是否是最新复制
     if (![sender isKindOfClass:[UIRefreshControl class]]) {
         self.isNewCopy = YES;

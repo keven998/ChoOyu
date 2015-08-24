@@ -262,6 +262,7 @@ static NSString *cacheName = @"destination_demostic_group";
             } completion:^(BOOL finished) {
                 if (_destinations.destinationsSelected.count == 0) {
                     [_makePlanCtl hideDestinationBar];
+
                 }
             }];
             find = YES;
@@ -283,6 +284,7 @@ static NSString *cacheName = @"destination_demostic_group";
             }
         }];
     }
+    
     [self.domesticCollectionView reloadItemsAtIndexPaths:@[indexPath]];
 }
 
