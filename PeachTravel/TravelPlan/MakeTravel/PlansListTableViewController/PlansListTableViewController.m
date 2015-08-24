@@ -124,37 +124,6 @@ static NSString *reusableCell = @"myGuidesCell";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pullToRefreash:) name:updateGuideListNoti object:nil];
 }
 
-
-- (void)goBack
-{
-    if (self.navigationController.childViewControllers.count > 1) {
-        [self.navigationController popViewControllerAnimated:YES];
-    } else {
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }
-}
-
-- (void) initDataFromCache {
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    [[TMCache sharedCache] objectForKey:[NSString stringWithFormat:@"%ld_plans", accountManager.account.userId] block:^(TMCache *cache, NSString *key, id object)  {
-        if (object != nil) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.dataSource addObjectsFromArray:object];
-                [self.tableView reloadData];
-                if (_dataSource.count >= PAGE_COUNT) {
-                    _enableLoadMore = YES;
-                }
-            });
-            [self loadData:_contentType WithPageIndex:0];
-        } else {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.refreshControl beginRefreshing];
-                [self.refreshControl sendActionsForControlEvents:UIControlEventValueChanged];
-            });
-        }
-    }];
-}
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_lxp_plan_lists"];
@@ -186,6 +155,36 @@ static NSString *reusableCell = @"myGuidesCell";
 - (void)dealloc
 {
     [self.refreshControl endRefreshing];
+}
+
+- (void)goBack
+{
+    if (self.navigationController.childViewControllers.count > 1) {
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+}
+
+- (void) initDataFromCache {
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    [[TMCache sharedCache] objectForKey:[NSString stringWithFormat:@"%ld_plans", accountManager.account.userId] block:^(TMCache *cache, NSString *key, id object)  {
+        if (object != nil) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.dataSource addObjectsFromArray:object];
+                [self.tableView reloadData];
+                if (_dataSource.count >= PAGE_COUNT) {
+                    _enableLoadMore = YES;
+                }
+            });
+            [self loadData:_contentType WithPageIndex:0];
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.refreshControl beginRefreshing];
+                [self.refreshControl sendActionsForControlEvents:UIControlEventValueChanged];
+            });
+        }
+    }];
 }
 
 #pragma mark - navigation action
@@ -292,6 +291,7 @@ static NSString *reusableCell = @"myGuidesCell";
         [self mark:guideSummary as:@"traveled"];
     }
 }
+
 #pragma mark - Private Methods
 
 /**
@@ -323,8 +323,6 @@ static NSString *reusableCell = @"myGuidesCell";
         if (code == 0) {
             NSInteger index = [self.dataSource indexOfObject:guideSummary];
             [self.dataSource removeObject:guideSummary];
-//            NSIndexSet *set = [NSIndexSet indexSetWithIndex:index];
-//            [self.tableView deleteSections:set withRowAnimation:UITableViewRowAnimationAutomatic];
             NSIndexPath * indexPath = [NSIndexPath indexPathForRow:index inSection:0];
             [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
             
@@ -407,7 +405,8 @@ static NSString *reusableCell = @"myGuidesCell";
     }];
 }
 
-- (void)cacheFirstPage:(id)responseObject {
+- (void)cacheFirstPage:(id)responseObject
+{
     if (_isOwner && (_contentType == ALL)) {
         AccountManager *accountManager = [AccountManager shareAccountManager];
         NSInteger count = _dataSource.count;
@@ -481,6 +480,7 @@ static NSString *reusableCell = @"myGuidesCell";
         }
     }];
 }
+
 #pragma mark - TaoziMessageSendDelegate
 
 //用户确定发送poi给朋友
@@ -516,7 +516,6 @@ static NSString *reusableCell = @"myGuidesCell";
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
-
 #pragma mark - Table view data source
 
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -544,9 +543,7 @@ static NSString *reusableCell = @"myGuidesCell";
 {
     if (_isOwner && self.navigationController.viewControllers.count > 1) {
         PlansListTableHeaderView * headerView = [PlansListTableHeaderView planListHeaderView];
-        
         [headerView.addTourPlan addTarget:self action:@selector(makePlan) forControlEvents:UIControlEventTouchUpInside];
-        
         return headerView;
     }
     return nil;
@@ -559,8 +556,6 @@ static NSString *reusableCell = @"myGuidesCell";
     MyGuideSummary *summary = [self.dataSource objectAtIndex:indexPath.row];
     cell.guideSummary = summary;
     cell.isCanSend = _selectToSend;
-//    cell.rightUtilityButtons = [self rightButtons];
-    
     if ((_copyPatch && indexPath.row == 0) || (_isNewCopy && indexPath.row == 0)) {
         NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"(新复制) %@", summary.title]];
         [attr addAttribute:NSForegroundColorAttributeName value:COLOR_CHECKED range:NSMakeRange(0, 5)];
@@ -587,8 +582,6 @@ static NSString *reusableCell = @"myGuidesCell";
     
     return cell;
 }
-
-
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -620,7 +613,6 @@ static NSString *reusableCell = @"myGuidesCell";
 - (NSArray *)rightButtons
 {
     NSMutableArray *rightUtilityButtons = [NSMutableArray new];
-//    [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor lightGrayColor] icon:[UIImage imageNamed:@"options"]];
     
     NSDictionary * markDict = @{NSForegroundColorAttributeName: [UIColor whiteColor], NSFontAttributeName: [UIFont boldSystemFontOfSize:16.0]};
     NSAttributedString * attributeMark = [[NSAttributedString alloc] initWithString:@"签到" attributes:markDict];
@@ -645,7 +637,8 @@ static NSString *reusableCell = @"myGuidesCell";
     return _footerView;
 }
 
-- (void)beginLoadingMore {
+- (void)beginLoadingMore
+{
     if (self.tableView.tableFooterView == nil) {
         self.tableView.tableFooterView = self.footerView;
     }
@@ -654,7 +647,8 @@ static NSString *reusableCell = @"myGuidesCell";
     [self loadData:_contentType WithPageIndex:(_currentPage + 1)];
 }
 
-- (void)loadMoreCompleted {
+- (void)loadMoreCompleted
+{
     if (!_isLoadingMore) return;
     [_indicatroView stopAnimating];
     _isLoadingMore = NO;
@@ -674,11 +668,13 @@ static NSString *reusableCell = @"myGuidesCell";
     }
 }
 
-- (void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+- (void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
     _didEndScroll = YES;
 }
 
-- (void) tripUpdate:(id)jsonString {
+- (void) tripUpdate:(id)jsonString
+{
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         [[TMCache sharedCache] setObject:jsonString forKey:@"last_tripdetail"];
     });
@@ -686,7 +682,8 @@ static NSString *reusableCell = @"myGuidesCell";
 
 #pragma mark - HTTP REQUEST
 
-- (void) mark:(MyGuideSummary *)guideSummary as:(NSString *)status  {
+- (void) mark:(MyGuideSummary *)guideSummary as:(NSString *)status
+{
     AccountManager *accountManager = [AccountManager shareAccountManager];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -739,7 +736,8 @@ static NSString *reusableCell = @"myGuidesCell";
     }];
 }
 
-- (void)hintPlanStatusChanged:(NSString *)msg {
+- (void)hintPlanStatusChanged:(NSString *)msg
+{
     PXAlertView *alertView = [PXAlertView showAlertWithTitle:@"提示"
                                                      message:msg
                                                  cancelTitle:@"确定"
@@ -750,7 +748,9 @@ static NSString *reusableCell = @"myGuidesCell";
 }
 
 #pragma mark - 置顶
-- (void) reorderToFirst:(SWTableViewCell *)cell {
+
+- (void) reorderToFirst:(SWTableViewCell *)cell
+{
     AccountManager *accountManager = [AccountManager shareAccountManager];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -797,13 +797,14 @@ static NSString *reusableCell = @"myGuidesCell";
     }];
 }
 
-- (void) toTop {
-
+- (void)toTop
+{
     NSIndexPath * indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark - SelectDelegate
+
 - (void)selectItem:(NSString *)str atIndex:(NSIndexPath *)indexPath
 {
     [_dataSource removeAllObjects];

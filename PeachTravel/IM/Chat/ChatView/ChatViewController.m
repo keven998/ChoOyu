@@ -444,7 +444,7 @@
 /**
  *  发送图片消息
  *
- *  @param imageData 
+ *  @param imageData
  */
 - (void)sendImageMessage:(NSData *)imageData
 {
@@ -1368,7 +1368,8 @@
 
 - (void) handleNotification:(BOOL)state
 {
-    [[UIDevice currentDevice] setProximityMonitoringEnabled:state]; //建议在播放之前设置yes，播放结束设置NO，这个功能是开启红外感应
+    //建议在播放之前设置yes，播放结束设置NO，这个功能是开启红外感应
+    [[UIDevice currentDevice] setProximityMonitoringEnabled:state];
     
     if(state)//添加监听
         [[NSNotificationCenter defaultCenter] addObserver:self

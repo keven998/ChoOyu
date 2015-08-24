@@ -104,7 +104,8 @@
     [self showUserShouldEditUserInfoNoti];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated
+{
     [super viewDidAppear:animated];
     [MobClick endLogPageView:@"page_home_mine"];
 }
@@ -122,7 +123,8 @@
     _tableView = nil;
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
 }
 
@@ -136,8 +138,8 @@
     }];
 }
 
-- (void) setupTableHeaderView {
-    
+- (void)setupTableHeaderView
+{
     CGFloat width = CGRectGetWidth(self.view.bounds);
     CGFloat height = CGRectGetHeight(self.view.frame);
     
@@ -306,7 +308,9 @@
 
 
 #pragma mark - 实现单击手势的事件
-- (void)tapAvatar:(UIGestureRecognizer *)tap{
+
+- (void)tapAvatar:(UIGestureRecognizer *)tap
+{
     NSLog(@"点击了头像");
     
     if (self.accountManager.isLogin) {
@@ -342,7 +346,8 @@
     return _accountManager;
 }
 
-- (void)updateAccountInfo {
+- (void)updateAccountInfo
+{
     AccountManager *amgr = self.accountManager;
     if ([amgr isLogin]) {
         [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:amgr.account.avatarSmall] placeholderImage:[UIImage imageNamed:@"ic_home_avatar_unknown.png"]];
@@ -492,12 +497,12 @@
         myGuidesCtl.hidesBottomBarWhenPushed = YES;
         myGuidesCtl.userName = _accountManager.account.nickName;
         [self.navigationController pushViewController:myGuidesCtl animated:YES];
+        
     } else {
         [self userLogin];
     }
 }
 
-// 跳转到登录界面
 #pragma mark - IBAction Methods
 
 - (IBAction)myTrack:(id)sender
