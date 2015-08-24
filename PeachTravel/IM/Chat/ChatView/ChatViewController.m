@@ -1147,7 +1147,14 @@
         }
     }];
     
-    [self presentViewController:picker animated:YES completion:NULL];
+    // 判断是否开启权限
+    NSString * mediaType = AVMediaTypeVideo;
+    AVAuthorizationStatus  authorizationStatus = [AVCaptureDevice authorizationStatusForMediaType:mediaType];
+    if (authorizationStatus == AVAuthorizationStatusRestricted|| authorizationStatus == AVAuthorizationStatusDenied) {
+        [self showHint:@"您没有开启相册权限!"];
+    }else{
+        [self presentViewController:picker animated:YES completion:NULL];
+    }
 }
 
 - (void)moreViewTakePicAction:(DXChatBarMoreView *)moreView
@@ -1159,7 +1166,14 @@
 #elif TARGET_OS_IPHONE
     self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
     self.imagePicker.mediaTypes = @[(NSString *)kUTTypeImage];
-    [self presentViewController:self.imagePicker animated:YES completion:nil];
+    
+    NSString * mediaType = AVMediaTypeVideo;
+    AVAuthorizationStatus  authorizationStatus = [AVCaptureDevice authorizationStatusForMediaType:mediaType];
+    if (authorizationStatus == AVAuthorizationStatusRestricted|| authorizationStatus == AVAuthorizationStatusDenied) {
+        [self showHint:@"您没有开启摄像头权限!"];
+    }else{
+        [self presentViewController:self.imagePicker animated:YES completion:nil];
+    }
 #endif
 }
 
