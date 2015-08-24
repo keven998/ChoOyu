@@ -349,6 +349,7 @@
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             _tripDetail = [[TripDetail alloc] initWithJson:[responseObject objectForKey:@"result"]];
+            accountManager.account.guideCnt += 1;
             [self reloadTripData];
             [[NSNotificationCenter defaultCenter] postNotificationName:updateGuideListNoti object:nil];
             if (isNeedRecommend) {
@@ -628,6 +629,7 @@
         [hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
+            accountManager.account.guideCnt += 1;
             PlansListTableViewController *myGuidesCtl = [[PlansListTableViewController alloc] initWithUserId:accountManager.account.userId];
             NSMutableArray *clts = [NSMutableArray arrayWithArray:[self.frostedViewController.navigationController childViewControllers]];
             myGuidesCtl.userName = accountManager.account.nickName;

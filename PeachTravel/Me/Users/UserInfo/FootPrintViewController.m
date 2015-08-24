@@ -190,7 +190,8 @@
 
 #pragma mark - 实现选择目的地的代理方法
 
-- (void)updateDestinations:(NSArray *)destinations{
+- (void)updateDestinations:(NSArray *)destinations
+{
     NSMutableArray *addArray = [[NSMutableArray alloc] init];
     NSMutableArray *delArray = [[NSMutableArray alloc] init];
     
