@@ -271,7 +271,7 @@ static NSString *reusableCell = @"myGuidesCell";
 - (void)pullToRefreash:(id)sender
 {
     // 设置是否是最新复制
-    if (![sender isKindOfClass:[UIRefreshControl class]]) {
+    if (![sender isKindOfClass:[UIRefreshControl class]] && sender != nil) {
         self.isNewCopy = YES;
     }
     
@@ -576,6 +576,7 @@ static NSString *reusableCell = @"myGuidesCell";
     MyGuideSummary *summary = [self.dataSource objectAtIndex:indexPath.row];
     cell.guideSummary = summary;
     cell.isCanSend = _selectToSend;
+    
     if ((_copyPatch && indexPath.row == 0) || (_isNewCopy && indexPath.row == 0)) {
         NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"(新复制) %@", summary.title]];
         [attr addAttribute:NSForegroundColorAttributeName value:COLOR_CHECKED range:NSMakeRange(0, 5)];
