@@ -211,7 +211,6 @@ static NSString *reusableCell = @"myGuidesCell";
 
 - (void)makePlan
 {
-    
     [MobClick event:@"navigation_item_plan_create"];
     
     Destinations *destinations = [[Destinations alloc] init];
@@ -235,7 +234,6 @@ static NSString *reusableCell = @"myGuidesCell";
     
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:makePlanCtl];
     [self presentViewController:nav animated:YES completion:nil];
-    
 }
 
 #pragma mark - setter & getter
@@ -495,7 +493,6 @@ static NSString *reusableCell = @"myGuidesCell";
   
     [SVProgressHUD showSuccessWithStatus:@"已发送~"];
     [self performSelector:@selector(dismissAfterSended) withObject:nil afterDelay:0.5];
-    
 }
 
 - (void)sendCancel
@@ -543,7 +540,6 @@ static NSString *reusableCell = @"myGuidesCell";
     return 164;
 }
 
-
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     if (_isOwner && self.navigationController.viewControllers.count > 1) {
@@ -553,7 +549,6 @@ static NSString *reusableCell = @"myGuidesCell";
     }
     return nil;
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
