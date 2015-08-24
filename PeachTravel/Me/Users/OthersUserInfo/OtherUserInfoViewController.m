@@ -214,11 +214,7 @@
     self.navigationItem.titleView = view;
     CGFloat btnWidth = width/2;
     CGFloat btnHeight;
-    //    if (kWindowHeight == 480) {
-    //        btnHeight = (height - 64 - _headerBgView.bounds.size.height - 45)/2 ;
-    //    } else {
     btnHeight = btnWidth * 471/615;
-    //    }
     
     UIButton *planeBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 831/3*height/736, btnWidth-2, btnHeight-4)];
     [planeBtn setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
@@ -896,12 +892,8 @@
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [self paraseUserAlbum:[responseObject objectForKey:@"result"]];
-            //            [_tableView reloadData];
-        } else {
-            //            [_tableView reloadData];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        //        [_tableView reloadData];
     }];
 }
 

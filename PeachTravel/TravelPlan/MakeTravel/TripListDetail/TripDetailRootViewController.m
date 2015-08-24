@@ -596,8 +596,6 @@
     [self.navigationController presentViewController:nctl animated:YES completion:nil];
 }
 
-
-
 - (void)forkTrip
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -672,7 +670,7 @@
     _spotsListCtl = [[PlanScheduleViewController alloc] init];
     _tripFavoriteCtl = [[TripFavoriteTableViewController alloc] init];
     _tripFavoriteCtl.canEdit = _canEdit;
-    if (count > 1) {    //view frame 64 offset 补丁
+    if (count > 1) {
         [_spotsListCtl.view setFrame:CGRectMake(0, 44, CGRectGetWidth(self.frostedViewController.view.bounds), CGRectGetHeight(self.frostedViewController.view.bounds) - 44)];
         [_tripFavoriteCtl.view setFrame:CGRectMake(0, 44, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 44)];
     } else {
