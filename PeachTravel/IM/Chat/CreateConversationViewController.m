@@ -345,5 +345,16 @@
     return [self.dataSource objectForKey:@"headerKeys"];
 }
 
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [self.view endEditing:YES];
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [super touchesBegan:touches withEvent:event];
+    
+    [self.view endEditing:YES];
+}
 
 @end
