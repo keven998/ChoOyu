@@ -123,7 +123,7 @@ class MetadataUploadManager: NSObject {
             } else {
                 completion(isSuccess: true, errorCode:0, retMessage: resp["result"] as? NSDictionary)
             }
-            }, option: opt)
+        }, option: opt)
     }
 }
 

@@ -194,17 +194,30 @@
 
 - (IBAction)confirmSend:(UIButton *)sender {
     IMClientManager *imclientManager = [IMClientManager shareInstance];
-    BaseMessage *message = [imclientManager.messageSendManager sendPoiMessage:[self dataToSend] receiver:_chatterId chatType:_chatType conversationId:nil];
-    [[NSNotificationCenter defaultCenter] postNotificationName:updateChateViewNoti object:nil userInfo:@{@"message":message}];
     
-    // 发送文本消息
-    if (!self.messageText.text.length == 0) {
-        BaseMessage * textMessage = [imclientManager.messageSendManager sendTextMessage:self.messageText.text receiver:_chatterId chatType:_chatType conversationId:nil completionBlock:^(BOOL isSuccess, NSString * __nullable errors) {
-            
-        }];
-        [[NSNotificationCenter defaultCenter] postNotificationName:updateChateViewNoti object:nil userInfo:@{@"message":textMessage}];
-
-    }
+    // 发送Poi消息
+    BaseMessage *message = [imclientManager.messageSendManager sendPoiMessage:[self dataToSend] receiver:_chatterId chatType:_chatType conversationId:nil completionBlock:^(BOOL isSuccess, NSString * __nullable error) {
+        if (!isSuccess) {
+            if (error) {
+                TipsMessage *message = [[TipsMessage alloc] initWithContent:error tipsType:TipsMessageTypeCommon_Tips];
+                message.chatterId = _chatterId;
+                message.createTime = [[NSDate date] timeIntervalSince1970];
+                ChatConversation *conversation = [imclientManager.conversationManager getConversationWithChatterId:_chatterId chatType:_chatType];
+                [conversation addReceiveMessage:message];
+                [conversation insertMessage2DB:message];
+            }
+        } else {
+            // 发送文本消息
+            if (!self.messageText.text.length == 0) {
+                BaseMessage * textMessage = [imclientManager.messageSendManager sendTextMessage:self.messageText.text receiver:_chatterId chatType:_chatType conversationId:nil completionBlock:^(BOOL isSuccess, NSString * __nullable errors) {
+                    
+                }];
+                [[NSNotificationCenter defaultCenter] postNotificationName:updateChateViewNoti object:nil userInfo:@{@"message":textMessage}];
+            }
+        }
+    }];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:updateChateViewNoti object:nil userInfo:@{@"message":message}];
     
     [_delegate sendSuccess:nil];
 

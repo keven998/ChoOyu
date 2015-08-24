@@ -9,6 +9,7 @@
 
 class JSONConvertMethod: NSObject {
 
+    // 将字符串转换成字典
     class func jsonObjcWithString(messageStr: String) -> NSDictionary {
         var mseesageData = messageStr.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
         var messageJson: AnyObject? = NSJSONSerialization.JSONObjectWithData(mseesageData!, options:.AllowFragments, error: nil)
