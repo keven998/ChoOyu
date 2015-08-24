@@ -462,12 +462,14 @@
     [self presentViewController:navc animated:YES completion:nil];
 }
 
-- (void)editUserInfo {
+- (void)editUserInfo
+{
     if (self.accountManager.isLogin) {
         [MobClick event:@"navigation_item_edit_profile"];
         UserInfoTableViewController *userInfoCtl = [[UserInfoTableViewController alloc] init];
         userInfoCtl.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:userInfoCtl animated:YES];
+        
     } else {
         [self userLogin];
     }
@@ -510,6 +512,7 @@
         footCtl.hidesBottomBarWhenPushed = YES;
         footCtl.userId = amgr.account.userId;
         [self.navigationController pushViewController:footCtl animated:YES];
+        
     } else  {
         [self userLogin];
     }
