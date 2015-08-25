@@ -173,7 +173,6 @@
     _avatarImageView = avatar;
     
     // 给头像添加手势
-  
     UITapGestureRecognizer * tapAvatar = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAvatar:)];
     [avatar addGestureRecognizer:tapAvatar];
     
@@ -303,7 +302,6 @@
     _nameLabel.text = @"旅行派";
     _idLabel.text = @"未登录";
 }
-
 
 #pragma mark - 实现单击手势的事件
 
@@ -643,6 +641,7 @@
         [self.tableView reloadData];
     }];
 }
+
 /*
  *  解析用户头像列表
  *
@@ -661,6 +660,7 @@
 }
 
 #pragma mark - ScrollViewDelegate
+
 - (void) scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if (_tableView != nil) {
