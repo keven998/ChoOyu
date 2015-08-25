@@ -271,6 +271,9 @@
 		D971E2841B8AF27A007E5AFD /* plan_delete@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D971E2771B8AF27A007E5AFD /* plan_delete@3x.png */; };
 		D971E2851B8AF27A007E5AFD /* plan_traveled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D971E2781B8AF27A007E5AFD /* plan_traveled@2x.png */; };
 		D971E2861B8AF27A007E5AFD /* plan_traveled@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D971E2791B8AF27A007E5AFD /* plan_traveled@3x.png */; };
+		D971E28E1B8C8F57007E5AFD /* JDStatusBarNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = D971E2891B8C8F57007E5AFD /* JDStatusBarNotification.m */; };
+		D971E28F1B8C8F57007E5AFD /* JDStatusBarStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = D971E28B1B8C8F57007E5AFD /* JDStatusBarStyle.m */; };
+		D971E2901B8C8F57007E5AFD /* JDStatusBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = D971E28D1B8C8F57007E5AFD /* JDStatusBarView.m */; };
 		D97C8B4D1A526B9F00476C9C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D97C8B4C1A526B9F00476C9C /* Images.xcassets */; };
 		D9823E841B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9823E831B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m */; };
 		D9871DBA1B47D31E00BFDFAF /* ScheduleDayEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9871DB81B47D31E00BFDFAF /* ScheduleDayEditViewController.m */; };
@@ -1666,6 +1669,12 @@
 		D971E2771B8AF27A007E5AFD /* plan_delete@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plan_delete@3x.png"; sourceTree = "<group>"; };
 		D971E2781B8AF27A007E5AFD /* plan_traveled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plan_traveled@2x.png"; sourceTree = "<group>"; };
 		D971E2791B8AF27A007E5AFD /* plan_traveled@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plan_traveled@3x.png"; sourceTree = "<group>"; };
+		D971E2881B8C8F57007E5AFD /* JDStatusBarNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDStatusBarNotification.h; sourceTree = "<group>"; };
+		D971E2891B8C8F57007E5AFD /* JDStatusBarNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDStatusBarNotification.m; sourceTree = "<group>"; };
+		D971E28A1B8C8F57007E5AFD /* JDStatusBarStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDStatusBarStyle.h; sourceTree = "<group>"; };
+		D971E28B1B8C8F57007E5AFD /* JDStatusBarStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDStatusBarStyle.m; sourceTree = "<group>"; };
+		D971E28C1B8C8F57007E5AFD /* JDStatusBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDStatusBarView.h; sourceTree = "<group>"; };
+		D971E28D1B8C8F57007E5AFD /* JDStatusBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDStatusBarView.m; sourceTree = "<group>"; };
 		D97C8B4C1A526B9F00476C9C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
 		D9823E821B19AA0200A1AE35 /* SuggestionDestinationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuggestionDestinationTableViewController.h; sourceTree = "<group>"; };
 		D9823E831B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuggestionDestinationTableViewController.m; sourceTree = "<group>"; };
@@ -3622,6 +3631,19 @@
 			name = FeedBack;
 			sourceTree = "<group>";
 		};
+		D971E2871B8C8F57007E5AFD /* JDStatusBarNotification */ = {
+			isa = PBXGroup;
+			children = (
+				D971E2881B8C8F57007E5AFD /* JDStatusBarNotification.h */,
+				D971E2891B8C8F57007E5AFD /* JDStatusBarNotification.m */,
+				D971E28A1B8C8F57007E5AFD /* JDStatusBarStyle.h */,
+				D971E28B1B8C8F57007E5AFD /* JDStatusBarStyle.m */,
+				D971E28C1B8C8F57007E5AFD /* JDStatusBarView.h */,
+				D971E28D1B8C8F57007E5AFD /* JDStatusBarView.m */,
+			);
+			path = JDStatusBarNotification;
+			sourceTree = "<group>";
+		};
 		D9722F1A1A82446900D8A8CC /* loading_animation */ = {
 			isa = PBXGroup;
 			children = (
@@ -4570,6 +4592,7 @@
 		D9A8016B1A80E036005AD701 /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				D971E2871B8C8F57007E5AFD /* JDStatusBarNotification */,
 				E6F18B2C1B84600500232EEB /* AudioPlayer */,
 				D9E0EEFE1B7D9036003872DF /* CMPopTipView */,
 				E66E6CD61B5A268000CBF65F /* Category */,
@@ -7938,6 +7961,7 @@
 				D993C2561B12DF0C0088D568 /* MessageManager.swift in Sources */,
 				D9A802241A80E036005AD701 /* PositionBean.m in Sources */,
 				D9A8010F1A80DD23005AD701 /* ChangeGroupTitleViewController.m in Sources */,
+				D971E28F1B8C8F57007E5AFD /* JDStatusBarStyle.m in Sources */,
 				D993C26F1B12DF0C0088D568 /* FrendModel.swift in Sources */,
 				D993C2541B12DF0C0088D568 /* LvSDKManager.swift in Sources */,
 				D9A801621A80DD23005AD701 /* SelectContactUnitView.m in Sources */,
@@ -8042,6 +8066,7 @@
 				D9F70CAD1B31523C00BDACA1 /* AccountDaoHelper.swift in Sources */,
 				D9A801271A80DD23005AD701 /* ConvertToCommonEmoticonsHelper.m in Sources */,
 				27F7EA601B0C879800148A66 /* PoisSearchViewController.m in Sources */,
+				D971E28E1B8C8F57007E5AFD /* JDStatusBarNotification.m in Sources */,
 				D9A8FFAC1A80D1C3005AD701 /* CommentTableViewCell.m in Sources */,
 				27F7EA6F1B0DB0A700148A66 /* TaoziSearchBar.m in Sources */,
 				D92CA1351AD8BEB400F244FF /* MWPhotoBrowser.m in Sources */,
@@ -8212,6 +8237,7 @@
 				D9EE34621AB958D70076933B /* PoiDetailViewControllerFactory.m in Sources */,
 				D9A8020C1A80E036005AD701 /* NSData+Godzippa.m in Sources */,
 				D993C2451B12DF0C0088D568 /* MetaDataDaoHelper.swift in Sources */,
+				D971E2901B8C8F57007E5AFD /* JDStatusBarView.m in Sources */,
 				D9A8015A1A80DD23005AD701 /* EMTextView.m in Sources */,
 				D9E7E58E1AC281400072D5B9 /* AreaDestination.m in Sources */,
 				D9A8FFA51A80D1C3005AD701 /* PoisOfCityViewController.m in Sources */,

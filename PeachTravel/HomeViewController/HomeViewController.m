@@ -21,6 +21,7 @@
 #import "ChatListViewController.h"
 #import "RegisterViewController.h"
 #import "PrepareViewController.h"
+#import "JDStatusBarNotification.h"
 #import "PeachTravel-swift.h"
 
 #define kBackGroundImage    @"backGroundImage"
@@ -479,6 +480,9 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     if (needShowNotification) {
         if (!conversation.isCurrentConversation) {
             [self updateViewWithUnreadMessageCount];
+            if (self.selectedIndex != 0) {
+                [self showStatusMessageNoti:message];
+            }
         }
 #if !TARGET_IPHONE_SIMULATOR
         [self playSoundAndVibration];
@@ -495,6 +499,16 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         }
 #endif
     }
+}
+
+/**
+ *  展现 statusbar 上的消息
+ *
+ *  @param message
+ */
+- (void)showStatusMessageNoti:(BaseMessage *) message
+{
+    [JDStatusBarNotification showWithStatus:message.abbrevMsg dismissAfter:2];
 }
 
 - (void)playSoundAndVibration
