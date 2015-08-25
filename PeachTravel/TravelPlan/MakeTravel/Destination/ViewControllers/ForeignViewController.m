@@ -97,6 +97,11 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
     _foreignCollectionView = nil;
 }
 
+- (void)reloadData
+{
+    [self.foreignCollectionView reloadData];
+}
+
 /**
  * 获取国外目的地数据
  */
