@@ -147,7 +147,6 @@
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            
             completion(YES);
         } else {
             completion(NO);
@@ -242,7 +241,7 @@
     } else {
         completion(NO, errStr);
     }
-}];
+    }];
 }
 
 /**
@@ -835,10 +834,3 @@
 }
 
 @end
-
-
-
-
-
-
-
