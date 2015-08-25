@@ -71,6 +71,22 @@ static NSString *cacheName = @"destination_demostic_group";
     }];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    NSLog(@"%@",self.destinations);
+    
+    [_makePlanCtl.selectPanel reloadData];
+    [self.domesticCollectionView reloadData];
+    
+    if (self.destinations.destinationsSelected.count == 0) {
+        [_makePlanCtl hideDestinationBar];
+    }else{
+        [_makePlanCtl showDestinationBar];
+    }
+}
+
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -281,37 +297,19 @@ static NSString *cacheName = @"destination_demostic_group";
             [_makePlanCtl.selectPanel insertItemsAtIndexPaths:[NSArray arrayWithObject:lnp]];
         } completion:^(BOOL finished) {
             if (finished) {
-                NSLog(@"%@", lnp);
-//                [_makePlanCtl.selectPanel scrollToItemAtIndexPath:lnp
-//                                     atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
             }
         }];
     }
-    NSIndexPath *lnp = [NSIndexPath indexPathForItem:(_destinations.destinationsSelected.count-1) inSection:0];
-    [_makePlanCtl.selectPanel scrollToItemAtIndexPath:lnp
+    if (_destinations.destinationsSelected.count > 0) {
+        NSIndexPath *lnp = [NSIndexPath indexPathForItem:(_destinations.destinationsSelected.count-1) inSection:0];
+        [_makePlanCtl.selectPanel scrollToItemAtIndexPath:lnp
                                          atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+    }
     
     [self.domesticCollectionView reloadItemsAtIndexPaths:@[indexPath]];
 }
 
 
-
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    NSLog(@"%@",self.destinations);
-    
-    [_makePlanCtl.selectPanel reloadData];
-    [self.domesticCollectionView reloadData];
-    
-    if (self.destinations.destinationsSelected.count == 0) {
-        [_makePlanCtl hideDestinationBar];
-    }else{
-        [_makePlanCtl showDestinationBar];
-    }
-}
 
 @end
 
