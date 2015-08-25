@@ -278,11 +278,16 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
             [_makePlanCtl.selectPanel insertItemsAtIndexPaths:[NSArray arrayWithObject:lnp]];
         } completion:^(BOOL finished) {
             if (finished) {
-                [_makePlanCtl.selectPanel scrollToItemAtIndexPath:lnp
-                                                 atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+            
             }
             
         }];
+    }
+    
+    if (_destinations.destinationsSelected.count > 0) {
+        NSIndexPath *lnp = [NSIndexPath indexPathForItem:(_destinations.destinationsSelected.count-1) inSection:0];
+        [_makePlanCtl.selectPanel scrollToItemAtIndexPath:lnp
+                                         atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
     }
     
     [self.foreignCollectionView reloadItemsAtIndexPaths:@[indexPath]];

@@ -278,7 +278,7 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
  */
 - (IBAction)addPoi:(UIButton *)sender
 {
-    sender.userInteractionEnabled = NO;
+//    sender.userInteractionEnabled = NO;
     CGPoint point;
     NSIndexPath *indexPath;
     TripPoiListTableViewCell *cell;
@@ -296,10 +296,22 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
         [self.selectPanel performBatchUpdates:^{
             [self.selectPanel insertItemsAtIndexPaths:[NSArray arrayWithObject:lnp]];
         } completion:^(BOOL finished) {
+            /*
+             if (_destinations.destinationsSelected.count > 0) {
+             NSIndexPath *lnp = [NSIndexPath indexPathForItem:(_destinations.destinationsSelected.count-1) inSection:0];
+             [_makePlanCtl.selectPanel scrollToItemAtIndexPath:lnp
+             atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+             }
+
+             */
+            
+            
+//            sender.userInteractionEnabled = YES;
+        }];
+        if (oneDayArray.count > 0) {
             [self.selectPanel scrollToItemAtIndexPath:lnp
                                      atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
-            sender.userInteractionEnabled = YES;
-        }];
+        }
     } else {
         SuperPoi *poi;
         poi = [self.dataSource objectAtIndex:indexPath.row];
@@ -319,7 +331,7 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
             [self.selectPanel performBatchUpdates:^{
                 [self.selectPanel deleteItemsAtIndexPaths:[NSArray arrayWithObject:lnp]];
             } completion:^(BOOL finished) {
-                sender.userInteractionEnabled = YES;
+//                sender.userInteractionEnabled = YES;
                 [self.selectPanel reloadData];
             }];
         }
