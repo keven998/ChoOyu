@@ -1,5 +1,5 @@
 //
-//  GuilderDistributeViewController.m
+//  GuiderDistributeViewController.m
 //  PeachTravel
 //
 //  Created by Luo Yong on 15/6/23.
@@ -13,7 +13,7 @@
 #import "MJExtension.h"
 #import "GuiderDistributeContinent.h"
 
-@interface GuilderDistributeViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
+@interface GuiderDistributeViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 
 @property (nonatomic, strong)NSArray * guiderArray;
@@ -29,7 +29,7 @@
 
 @end
 
-@implementation GuilderDistributeViewController
+@implementation GuiderDistributeViewController
 
 /**
  *  懒加载模型数组
@@ -69,15 +69,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"派派达人";
-    
-    UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setImage:[UIImage imageNamed:@"common_icon_navigaiton_back"] forState:UIControlStateNormal];
-    [button setImage:[UIImage imageNamed:@"common_icon_navigaiton_back_highlight"] forState:UIControlStateHighlighted];
-    [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
-    [button setFrame:CGRectMake(0, 0, 30, 30)];
-    button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
-    self.navigationItem.leftBarButtonItem = barButton;
     
     [self.view addSubview:self.tableView];
     
@@ -325,7 +316,6 @@
     
     if (scrollView.contentOffset.y <= sectionHeaderHeight&&scrollView.contentOffset.y >= 0) {
         scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
-        
     }
     else if (scrollView.contentOffset.y >= sectionHeaderHeight) {
         scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);

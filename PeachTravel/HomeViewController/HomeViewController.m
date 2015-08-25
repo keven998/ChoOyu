@@ -44,7 +44,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 @property (nonatomic, strong) ToolsHomeViewController *toolBoxCtl;
 @property (nonatomic, strong) MineTableViewController *mineCtl;
 @property (nonatomic, strong) ChatListViewController *chatListCtl;
-@property (nonatomic, strong) GuilderDistributeViewController *guiderCtl;
+@property (nonatomic, strong) GuiderDistributeViewController *guiderCtl;
 
 @property (nonatomic, strong) PageOne *pageView1;
 @property (nonatomic, strong) PageTwo *pageView2;
@@ -369,7 +369,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     TZNavigationViewController *firstNavigationController = [[TZNavigationViewController alloc]
                                                              initWithRootViewController:self.chatListCtl];
     
-    _guiderCtl = [[GuilderDistributeViewController alloc] init];
+    _guiderCtl = [[GuiderDistributeViewController alloc] init];
     TZNavigationViewController *secondNavigationController = [[TZNavigationViewController alloc]
                                                               initWithRootViewController:_guiderCtl];
     
