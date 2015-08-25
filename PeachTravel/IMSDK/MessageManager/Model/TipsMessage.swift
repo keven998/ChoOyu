@@ -115,9 +115,7 @@ class TipsMessage: BaseMessage {
                 } else {
                     retString = "\(operatorNickName)退出了讨论组"
                 }
-                
             }
-            
 
         case .Modify_GroupInfo:
             break
