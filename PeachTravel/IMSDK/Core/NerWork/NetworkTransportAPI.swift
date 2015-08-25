@@ -79,7 +79,6 @@ class NetworkTransportAPI: NSObject {
         }
     }
     
-    
     /**
     发送一个 delete 请求
     
@@ -107,7 +106,6 @@ class NetworkTransportAPI: NSObject {
             completionBlock(isSuccess: false, errorCode: 0, retMessage: nil)
         }
     }
-    
     
     class func asyncPATCH(#requstUrl: String, parameters: NSDictionary, completionBlock: (isSuccess: Bool, errorCode: Int, retMessage: NSDictionary?) -> ()) {
         let manager = AFHTTPRequestOperationManager()
