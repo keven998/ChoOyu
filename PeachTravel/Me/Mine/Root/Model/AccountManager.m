@@ -440,8 +440,6 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         completion(NO, nil);
     }];
-
-
 }
 
 - (void)asyncChangePassword:(NSString *)newPassword oldPassword:(NSString *)oldPassword completion:(void (^)(BOOL, NSString *))completion
@@ -474,7 +472,6 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         completion(NO, nil);
     }];
-
 }
 
 - (void)asyncChangeStatus:(NSString *)newStatus completion:(void (^)(BOOL, NSString *))completion
@@ -491,14 +488,12 @@
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:newStatus forKey:@"travelStatus"];
-    
     NSString *urlStr = [NSString stringWithFormat:@"%@%ld", API_USERS, (long)self.account.userId];
     
     [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-//            [self updateUserInfo:newStatus withChangeType:ChangeGender];
             self.account.travelStatus = newStatus;
             [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
             completion(YES, nil);
@@ -508,7 +503,6 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         completion(NO, nil);
     }];
-    
 }
 
 /**
