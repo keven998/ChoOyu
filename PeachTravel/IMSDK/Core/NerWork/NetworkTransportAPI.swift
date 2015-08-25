@@ -39,7 +39,6 @@ class NetworkTransportAPI: NSObject {
             {
                 (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
                 debug_print(error)
-                debug_print(operation.responseObject);
                 completionBlock(isSuccess: false, errorCode: 0, retMessage: operation.responseObject as? NSDictionary)
         }
     }
