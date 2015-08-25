@@ -329,7 +329,6 @@
     } else {
         [self userLogin];
     }
-  
 }
 
 #pragma mark - setter & getter
@@ -353,7 +352,6 @@
         }
         
         _pictureNumber.text = [NSString stringWithFormat:@"%zd张",_accountManager.account.userAlbum.count];
-        
         _planNumber.text = [NSString stringWithFormat:@"%lu条",(long)_accountManager.account.guideCnt];
         _nameLabel.text = amgr.account.nickName;
         _idLabel.text = [NSString stringWithFormat:@"ID：%ld", (long)amgr.account.userId];
@@ -432,7 +430,7 @@
 {
     [UMSocialData defaultData].extConfig.wechatSessionData.title = @"推荐\"旅行派\"给你。";
     
-    [UMSocialData defaultData].extConfig.wechatSessionData.url = @"http://a.app.qq.com/o/simple.jsp?pkgname=com.xuejian.client.lxp&g_f=991653";
+    [UMSocialData defaultData].extConfig.wechatSessionData.url = @"http://www.lvxingpai.com/app/download/";
     
     UIImage *shareImage = [UIImage imageNamed:@"icon.png"];
     
