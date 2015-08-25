@@ -303,7 +303,7 @@ static NSString *cacheName = @"destination_demostic_group";
     if (_destinations.destinationsSelected.count > 0) {
         NSIndexPath *lnp = [NSIndexPath indexPathForItem:(_destinations.destinationsSelected.count-1) inSection:0];
         [_makePlanCtl.selectPanel scrollToItemAtIndexPath:lnp
-                                         atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+                                         atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
     }
     
     [self.domesticCollectionView reloadItemsAtIndexPaths:@[indexPath]];
