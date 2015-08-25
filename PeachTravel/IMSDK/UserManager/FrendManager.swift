@@ -266,10 +266,7 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
         manager.requestSerializer = requestSerializer
         manager.requestSerializer.setValue("\(accountId)", forHTTPHeaderField: "UserId")
         let url = "\(API_USERS)\(accountId)/blacklist"
-        
         let params = ["userId": userId]
-        
-        println("\(url)和\(params)")
         
         manager.POST(url, parameters: params, success:
             { (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
