@@ -64,7 +64,7 @@ class TipsMessage: BaseMessage {
                 for userInfo in contentArray {
                     let userId: Int = userInfo.objectForKey("userId") as! Int
                     if userId == IMClientManager.shareInstance().accountId {
-                        if contentArray.count == 0 {
+                        if contentArray.count == 1 {
                             retString += "你"
                         } else {
                             retString += "你, "

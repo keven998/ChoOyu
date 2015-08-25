@@ -224,9 +224,8 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
                     }
                 }
                 if isQuitGroup {
-                    let frendType = IMFrendType(rawValue: (IMFrendWeightType.DiscussionGroup.rawValue + IMFrendWeightType.BlackList.rawValue))!
-                    var frendManager = IMClientManager.shareInstance().frendManager
-                    frendManager.updateFrendType(userId: group.groupId, frendType: frendType)
+                    let frendManager = IMClientManager.shareInstance().frendManager
+                    frendManager.deleteFrendFromDB(group.groupId)
                 } else {
                     self.deleteNumbersFromGroup(members: members, group: group)
                 }
