@@ -8,7 +8,6 @@
 
 #import "ToolsHomeViewController.h"
 #import "PlansListTableViewController.h"
-#import "GuiderDistributeViewController.h"
 #import "LoginViewController.h"
 #import "SearchDestinationViewController.h"
 
@@ -104,16 +103,6 @@
 
 
 #pragma mark - IBAction
-/**
- *  跳转到达人咨询界面
- */
-- (void)goLxpHelper
-{
-    [MobClick event:@"card_item_lxp_guide"];
-    GuilderDistributeViewController *gdvc = [[GuilderDistributeViewController alloc] init];
-    gdvc.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:gdvc animated:YES];
-}
 
 /**
  *  跳转到我的计划界面

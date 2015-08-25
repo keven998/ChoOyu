@@ -12,6 +12,7 @@
 #import "GuiderDistribute.h"
 #import "MJExtension.h"
 #import "GuiderDistributeContinent.h"
+
 @interface GuilderDistributeViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 
@@ -290,13 +291,15 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    GuiderCollectionViewController *guider = [[GuiderCollectionViewController alloc] initWithNibName:@"GuiderCollectionViewController" bundle:nil];
-    GuiderDistribute * GuiderDistribute = _dataSource[indexPath.section][indexPath.row];
+    GuiderCollectionViewController *guiderCtl = [[GuiderCollectionViewController alloc] initWithNibName:@"GuiderCollectionViewController" bundle:nil];
+    GuiderDistribute * guiderDistribute = _dataSource[indexPath.section][indexPath.row];
+    
     
     // 这里传入的distributionArea应该是该地区的区域ID
-    guider.distributionArea = GuiderDistribute.ID;
-    guider.guiderDistribute = GuiderDistribute;
-    [self.navigationController pushViewController:guider animated:YES];
+    guiderCtl.distributionArea = guiderDistribute.ID;
+    guiderCtl.guiderDistribute = guiderDistribute;
+    guiderCtl.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:guiderCtl animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
@@ -309,15 +312,15 @@
     point = scrollView.contentOffset;
     indexPath = [_tableView indexPathForRowAtPoint:point];
     if (indexPath.section == 0) {
-        self.title = @"亚洲";
+        self.navigationItem.title = @"亚洲";
     } else if (indexPath.section == 1) {
-        self.title = @"欧洲";
+        self.navigationItem.title = @"欧洲";
     } else if (indexPath.section == 2) {
-        self.title = @"美洲";
+        self.navigationItem.title = @"美洲";
     } else if (indexPath.section == 3) {
-        self.title = @"大洋洲";
+        self.navigationItem.title = @"大洋洲";
     } else if (indexPath.section == 4) {
-        self.title = @"非洲";
+        self.navigationItem.title = @"非洲";
     }
     
     if (scrollView.contentOffset.y <= sectionHeaderHeight&&scrollView.contentOffset.y >= 0) {

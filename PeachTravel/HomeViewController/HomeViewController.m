@@ -17,6 +17,7 @@
 #import "EAIntroView.h"
 #import "ChatListViewController.h"
 #import "LoginViewController.h"
+#import "GuiderDistributeViewController.h"
 #import "ChatListViewController.h"
 #import "RegisterViewController.h"
 #import "PrepareViewController.h"
@@ -43,6 +44,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 @property (nonatomic, strong) ToolsHomeViewController *toolBoxCtl;
 @property (nonatomic, strong) MineTableViewController *mineCtl;
 @property (nonatomic, strong) ChatListViewController *chatListCtl;
+@property (nonatomic, strong) GuilderDistributeViewController *guiderCtl;
 
 @property (nonatomic, strong) PageOne *pageView1;
 @property (nonatomic, strong) PageTwo *pageView2;
@@ -367,18 +369,22 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     TZNavigationViewController *firstNavigationController = [[TZNavigationViewController alloc]
                                                              initWithRootViewController:self.chatListCtl];
     
-    _toolBoxCtl = [[ToolsHomeViewController alloc] init];
+    _guiderCtl = [[GuilderDistributeViewController alloc] init];
     TZNavigationViewController *secondNavigationController = [[TZNavigationViewController alloc]
+                                                              initWithRootViewController:_guiderCtl];
+    
+    _toolBoxCtl = [[ToolsHomeViewController alloc] init];
+    TZNavigationViewController *thirdNavigationController = [[TZNavigationViewController alloc]
                                                               initWithRootViewController:_toolBoxCtl];
     
     _mineCtl = [[MineTableViewController alloc] init];
     _mineCtl.homeCtl = self;
-    TZNavigationViewController *FourthNavigationController = [[TZNavigationViewController alloc]
+    TZNavigationViewController *fourthNavigationController = [[TZNavigationViewController alloc]
                                                               initWithRootViewController:_mineCtl];
     
     
-    [self setViewControllers:@[firstNavigationController, secondNavigationController,
-                               FourthNavigationController]];
+    [self setViewControllers:@[firstNavigationController, secondNavigationController, thirdNavigationController
+                               , fourthNavigationController]];
     [self customizeTabBarForController];
 
 }
@@ -386,8 +392,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (void)customizeTabBarForController
 {
     
-    NSArray *tabBarItemImages = @[@"ic_home", @"ic_loc", @"ic_person"];
-    //    NSArray *titles = @[@"消息", @"旅行", @"我"];
+    NSArray *tabBarItemImages = @[@"ic_home", @"ic_loc", @"ic_loc", @"ic_person"];
     NSInteger index = 0;
     
     for (UITabBarItem *item in self.tabBar.items) {
