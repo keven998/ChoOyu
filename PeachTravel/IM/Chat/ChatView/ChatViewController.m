@@ -1148,6 +1148,7 @@
     }];
     
     // 判断是否开启权限
+    /*
     NSString * mediaType = AVMediaTypeVideo;
     AVAuthorizationStatus  authorizationStatus = [AVCaptureDevice authorizationStatusForMediaType:mediaType];
     if (authorizationStatus == AVAuthorizationStatusRestricted|| authorizationStatus == AVAuthorizationStatusDenied) {
@@ -1155,6 +1156,8 @@
     }else{
         [self presentViewController:picker animated:YES completion:NULL];
     }
+     */
+    [self presentViewController:picker animated:YES completion:NULL];
 }
 
 - (void)moreViewTakePicAction:(DXChatBarMoreView *)moreView
