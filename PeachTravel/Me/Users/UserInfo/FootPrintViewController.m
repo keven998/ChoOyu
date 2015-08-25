@@ -81,12 +81,13 @@
         
         // 设置个人足迹编辑的图标
         [edit setImage:[UIImage imageNamed:@"footprint_change_default"] forState:UIControlStateNormal];
-//        [edit setImage:[UIImage imageNamed:@"footprint_change_hilighted"] forState:UIControlStateHighlighted];
         [edit addTarget:self action:@selector(editFootPrint) forControlEvents:UIControlEventTouchUpInside];
         edit.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
         UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:edit];
         self.navigationItem.rightBarButtonItem = item;
     }
+    _destinations.destinationsSelected = [AccountManager shareAccountManager].account.footprints;
+
    
     [self loadFootprintData];
 }
@@ -140,7 +141,10 @@
                 CityDestinationPoi *poi = [[CityDestinationPoi alloc] initWithJson:footprintDic];
                 [array addObject:poi];
             }
-            [self updateDestinations:array];
+            _destinations.destinationsSelected = [array mutableCopy];
+            [AccountManager shareAccountManager].account.footprints = _destinations.destinationsSelected;
+            _itemFooterCtl.dataSource = _destinations.destinationsSelected;
+            _footprintMapCtl.dataSource = _destinations.destinationsSelected;
             
         } else {
             
@@ -220,18 +224,30 @@
             [addArray addObject:oldPoi.cityId];
         }
     }
-    _destinations.destinationsSelected = [destinations mutableCopy];
-    [AccountManager shareAccountManager].account.footprints = _destinations.destinationsSelected;
-    _itemFooterCtl.dataSource = _destinations.destinationsSelected;
-    _footprintMapCtl.dataSource = _destinations.destinationsSelected;
+    _itemFooterCtl.dataSource = destinations;
+    _footprintMapCtl.dataSource = destinations;
     if (addArray.count) {
         [[AccountManager shareAccountManager] asyncChangeUserServerTracks:@"add" withTracks:addArray completion:^(BOOL isSuccess, NSString *errorStr) {
-            
+            if (isSuccess) {
+                _destinations.destinationsSelected = [destinations mutableCopy];
+                [AccountManager shareAccountManager].account.footprints = _destinations.destinationsSelected;
+            } else {
+                [SVProgressHUD showErrorWithStatus:@"修改失败"];
+                _itemFooterCtl.dataSource = _destinations.destinationsSelected;
+                _footprintMapCtl.dataSource = _destinations.destinationsSelected;
+            }
         }];
     }
     if (delArray.count) {
         [[AccountManager shareAccountManager] asyncChangeUserServerTracks:@"del" withTracks:delArray completion:^(BOOL isSuccess, NSString *errorStr) {
-            
+            if (isSuccess) {
+                _destinations.destinationsSelected = [destinations mutableCopy];
+                [AccountManager shareAccountManager].account.footprints = _destinations.destinationsSelected;
+            } else {
+                [SVProgressHUD showErrorWithStatus:@"修改失败"];
+                _itemFooterCtl.dataSource = _destinations.destinationsSelected;
+                _footprintMapCtl.dataSource = _destinations.destinationsSelected;
+            }
         }];
     }
 }
