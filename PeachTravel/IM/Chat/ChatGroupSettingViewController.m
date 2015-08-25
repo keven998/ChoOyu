@@ -63,6 +63,7 @@
     IMDiscussionGroupManager *groupManager = [IMDiscussionGroupManager shareInstance];
     [groupManager asyncGetDiscussionGroupInfoFromServer:_groupId completion:^(BOOL isSuccess, NSInteger errorCode, IMDiscussionGroup * group) {
         if (isSuccess) {
+            _conversation.chatterName = group.subject;
             [groupManager asyncGetMembersInDiscussionGroupInfoFromServer:group completion:^(BOOL isSuccess, NSInteger errorCode, IMDiscussionGroup * fullgroup) {
                 if (isSuccess) {
                     _groupModel = fullgroup;
