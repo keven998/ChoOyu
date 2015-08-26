@@ -1230,11 +1230,10 @@
 {
     [UIView animateWithDuration:0.25 animations:^{
         CGRect rect = self.tableView.frame;
-        NSLog(@"%f", self.view.frame.size.height - toHeight);
         rect.size.height = kWindowHeight - toHeight - 64;
         self.tableView.frame = rect;
     }];
-    [self scrollViewToBottom:YES];
+    [self scrollViewToBottom:NO];
 }
 
 - (void)didSendText:(NSString *)text
