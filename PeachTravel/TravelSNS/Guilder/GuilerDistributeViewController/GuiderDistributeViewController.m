@@ -12,11 +12,10 @@
 #import "GuiderDistribute.h"
 #import "MJExtension.h"
 #import "GuiderDistributeContinent.h"
+#import "GuiderDistributeTools.h"
 
 @interface GuiderDistributeViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
 @property (nonatomic, strong) UITableView *tableView;
-
-@property (nonatomic, strong)NSArray * guiderArray;
 
 @property (nonatomic, strong)NSMutableArray * dataSource;
 
@@ -31,16 +30,6 @@
 
 @implementation GuiderDistributeViewController
 
-/**
- *  懒加载模型数组
- */
-- (NSArray *)guiderArray
-{
-    if (_guiderArray == nil) {
-        _guiderArray = [NSArray array];
-    }
-    return _guiderArray;
-}
 
 /**
  *  懒加载分组总数组,里面包含每组的数组数据
@@ -59,7 +48,7 @@
 - (NSArray *)titleArray
 {
     if (_titleArray == nil) {
-        _titleArray = @[@"亚洲",@"欧洲",@"美洲",@"大洋洲",@"非洲"];
+        _titleArray = [GuiderDistributeTools getTitleArray];
     }
     return _titleArray;
 }
@@ -73,7 +62,8 @@
     [self.view addSubview:self.tableView];
     
     // 发送网络请求
-    [self sendRequest];
+//    [self sendRequest];
+    [self setupStatus];
     
 }
 
@@ -91,89 +81,15 @@
   
 }
 
-
-#pragma mark - 请求网络数据
-- (void)sendRequest
-{
-    // 1.获取请求管理者
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+#pragma mark - 获得达人数据
+- (void)setupStatus {
     
-    // 2.请求链接
-    NSString * url = API_GET_TOUR_GULIDER;
-    
-    NSLog(@"%@",url);
-    
-    // 3.发送Get请求
-    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        NSLog(@"%@",responseObject);
-        /**
-         *  获取字典数组
-         */
-        NSArray * resultArray = responseObject[@"result"];
-        
-        /**
-         *  将字典数组转换成模型数组
-         */
-        self.guiderArray = [GuiderDistribute objectArrayWithKeyValuesArray:resultArray];
-        [self revertGuiderListToGroup:self.guiderArray];
-        
-        NSLog(@"%@",self.guiderArray);
-        
-        // 获得数据后刷新表格
+    [GuiderDistributeTools guiderStatusWithParam:nil success:^(NSArray *dataSource) {
+        [self.dataSource addObjectsFromArray:dataSource];
         [self.tableView reloadData];
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-        // 打印失败信息
+    } failure:^(NSError *error) {
         NSLog(@"%@",error);
     }];
-    
-}
-
-// 处理guiderArray数组,将一个数组转换成分组数组
-
-- (void)revertGuiderListToGroup:(NSArray *)list
-{
-    NSArray *guiderList = [[list mutableCopy] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-        GuiderDistribute *guiderOne = obj1;
-        GuiderDistribute *guiderTwo = obj2;
-        
-        NSComparisonResult result = guiderOne.rank > guiderTwo.rank;
-        return result == NSOrderedDescending;
-    }];
-    
-    // 1.创建一个分组数组,里面存放了多少组数据
-    NSMutableArray *dataSource = [[NSMutableArray alloc] init];
-    for (int i = 0; i < self.titleArray.count; i++) {
-        
-        NSMutableArray * array = [NSMutableArray array];
-        [dataSource addObject:array];
-    }
-    self.dataSource = dataSource;
-    
-    // 2.遍历数组
-    for (GuiderDistribute * distrubute in guiderList) {
-        int i = 0;
-        GuiderDistributeContinent * guilderContinent = distrubute.continents;
-        for (NSString * title in _titleArray)
-        {
-            if ([guilderContinent.zhName isEqualToString:title]) {
-                NSMutableArray *array = dataSource[i];
-                [array addObject:distrubute];
-                break;
-            }
-            i++;
-        }
-    }
-    
-    // 3.过滤数组为空的元素
-    for (int i = 0; i < self.dataSource.count; i++) {
-        NSArray * guilderArray = self.dataSource[i];
-        if (guilderArray.count == 0) {
-            [self.dataSource removeObject:guilderArray];
-        }
-    }
 }
 
 
@@ -284,7 +200,6 @@
 {
     GuiderCollectionViewController *guiderCtl = [[GuiderCollectionViewController alloc] initWithNibName:@"GuiderCollectionViewController" bundle:nil];
     GuiderDistribute * guiderDistribute = _dataSource[indexPath.section][indexPath.row];
-    
     
     // 这里传入的distributionArea应该是该地区的区域ID
     guiderCtl.distributionArea = guiderDistribute.ID;

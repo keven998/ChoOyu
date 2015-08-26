@@ -657,6 +657,7 @@
 		D9FCE7E91B135C820039F896 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FCE7E81B135C820039F896 /* Reachability.m */; };
 		E608A0EA1B8D5771003BA318 /* ExpertRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E608A0E81B8D5771003BA318 /* ExpertRequestViewController.swift */; };
 		E608A0EB1B8D5771003BA318 /* ExpertRequestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E608A0E91B8D5771003BA318 /* ExpertRequestViewController.xib */; };
+		E608A0F11B8D8560003BA318 /* GuiderDistributeTools.m in Sources */ = {isa = PBXBuildFile; fileRef = E608A0F01B8D8560003BA318 /* GuiderDistributeTools.m */; };
 		E6381B9C1B660EB000CF73AA /* PricePoiDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6381B9B1B660EB000CF73AA /* PricePoiDetailController.m */; };
 		E6381BDC1B66269000CF73AA /* Loading_Animation_final0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E6381BA01B66268F00CF73AA /* Loading_Animation_final0@2x.png */; };
 		E6381BDD1B66269000CF73AA /* Loading_Animation_final10@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E6381BA11B66268F00CF73AA /* Loading_Animation_final10@2x.png */; };
@@ -2328,6 +2329,8 @@
 		E36073AEEC32FD100F0D0A9B /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		E608A0E81B8D5771003BA318 /* ExpertRequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpertRequestViewController.swift; sourceTree = "<group>"; };
 		E608A0E91B8D5771003BA318 /* ExpertRequestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExpertRequestViewController.xib; sourceTree = "<group>"; };
+		E608A0EF1B8D8560003BA318 /* GuiderDistributeTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuiderDistributeTools.h; sourceTree = "<group>"; };
+		E608A0F01B8D8560003BA318 /* GuiderDistributeTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuiderDistributeTools.m; sourceTree = "<group>"; };
 		E6381B9A1B660EB000CF73AA /* PricePoiDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PricePoiDetailController.h; sourceTree = "<group>"; };
 		E6381B9B1B660EB000CF73AA /* PricePoiDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PricePoiDetailController.m; sourceTree = "<group>"; };
 		E6381BA01B66268F00CF73AA /* Loading_Animation_final0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Loading_Animation_final0@2x.png"; sourceTree = "<group>"; };
@@ -3184,6 +3187,7 @@
 		C651F3EE1B394C7400B80690 /* GuierDistributeViewController */ = {
 			isa = PBXGroup;
 			children = (
+				E608A0EE1B8D853C003BA318 /* Tools */,
 				E6E725661B5604550007273A /* Controllers */,
 				E6E725651B56044F0007273A /* Views */,
 				E6E725641B5604420007273A /* Models */,
@@ -5808,6 +5812,15 @@
 			path = Me/Setting/ExpertRequest;
 			sourceTree = "<group>";
 		};
+		E608A0EE1B8D853C003BA318 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				E608A0EF1B8D8560003BA318 /* GuiderDistributeTools.h */,
+				E608A0F01B8D8560003BA318 /* GuiderDistributeTools.m */,
+			);
+			name = Tools;
+			sourceTree = "<group>";
+		};
 		E6381B9F1B66268F00CF73AA /* loading@2x */ = {
 			isa = PBXGroup;
 			children = (
@@ -7863,6 +7876,7 @@
 				D9A802F01A80E3D3005AD701 /* AppUtils.m in Sources */,
 				D9E0EF011B7D9036003872DF /* CMPopTipView.m in Sources */,
 				D993C24C1B12DF0C0088D568 /* FMDatabaseQueue.m in Sources */,
+				E608A0F11B8D8560003BA318 /* GuiderDistributeTools.m in Sources */,
 				D9A802011A80E036005AD701 /* AFgzipRequestSerializer.m in Sources */,
 				D993C24F1B12DF0C0088D568 /* IMDiscussionGroupManager.swift in Sources */,
 				D92CA0FA1AD8BDF900F244FF /* MBProgressHUD.m in Sources */,
