@@ -1270,6 +1270,7 @@
 }
 
 #pragma mark - ZYQAssetPickerControllerDelegate
+
 /**
  *  从相册里获取图片
  *
