@@ -10,7 +10,11 @@
 
 @protocol dropDownMenuProtocol <NSObject>
 
+@optional
 - (void)didSelectedcityIndex:(NSInteger)cityindex categaryIndex:(NSInteger)categaryIndex andTag:(int)tag;
+
+// 选中的大洲列表
+- (void)didSelectedContinentIndex:(NSInteger)continentIndex;
 
 @end
 
