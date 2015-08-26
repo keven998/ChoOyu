@@ -36,7 +36,8 @@
     self.view.backgroundColor = APP_PAGE_COLOR;
     IMDiscussionGroupManager *groupManager = [IMDiscussionGroupManager shareInstance];
     _groupModel = [groupManager getFullDiscussionGroupInfoFromDBWithGroupId:_groupId];
-    [self createTableView];
+    [self fillGroupMemberInfo];
+    [self setUpTableView];
     [self updateGroupInfoFromServer];
 }
 
@@ -52,9 +53,6 @@
     [super viewWillDisappear:YES];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
 }
-
-#pragma mark - setter & getter
-
 
 #pragma mark - private methods
 
@@ -74,13 +72,29 @@
                 } else {
                     _groupModel = group;
                 }
+                [self fillGroupMemberInfo];
                 [self updateTableView];
             }];
         }
     }];
 }
 
-- (void)createTableView
+/**
+ *  填充群组成员的信息，如备注等
+ */
+- (void)fillGroupMemberInfo
+{
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    FrendManager *frendManager = [IMClientManager shareInstance].frendManager;
+    for (FrendModel *model in _groupModel.members) {
+        if ([accountManager frendIsMyContact:model.userId]) {
+            FrendModel *frend = [frendManager getFrendInfoFromDBWithUserId:model.userId];
+            model.memo = frend.memo;
+        }
+    }
+}
+
+- (void)setUpTableView
 {
     _tableView.dataSource = self;
     _tableView.delegate = self;
@@ -316,12 +330,14 @@
             cell.cellDetail.text = nil;
             return cell;
         }
-    }
-    
-    else {
+    } else {
         ChatGroupCell *cell = [tableView dequeueReusableCellWithIdentifier:@"chatCell" forIndexPath:indexPath];
         NSInteger i = indexPath.row;
-        cell.nameLabel.text = ((FrendModel *)self.groupModel.members[i]).nickName;
+        if ([((FrendModel *)self.groupModel.members[i]).memo isBlankString]) {
+            cell.nameLabel.text = ((FrendModel *)self.groupModel.members[i]).nickName;
+        } else {
+            cell.nameLabel.text = ((FrendModel *)self.groupModel.members[i]).memo;
+        }
         NSString *avatarStr = nil;
         if (![((FrendModel *)self.groupModel.members[i]).avatarSmall isBlankString]) {
             avatarStr = ((FrendModel *)self.groupModel.members[i]).avatarSmall;

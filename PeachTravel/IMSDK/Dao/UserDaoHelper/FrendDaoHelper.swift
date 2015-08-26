@@ -65,7 +65,7 @@ protocol FrendDaoProtocol {
     
     :returns:
     */
-    func selectFrend(#userId: Int, frendType: IMFrendWeightType?) -> FrendModel?
+    func selectFrend(#userId: Int) -> FrendModel?
     
     /**
     更新好友类型
@@ -199,21 +199,14 @@ class FrendDaoHelper: BaseDaoHelper, FrendDaoProtocol {
     }
     
     
-    func selectFrend(#userId: Int, frendType: IMFrendWeightType?) -> FrendModel? {
+    func selectFrend(#userId: Int) -> FrendModel? {
         var frend: FrendModel?
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
             var sql = "select * from \(frendTableName) where UserId = ?"
             var rs = dataBase.executeQuery(sql, withArgumentsInArray: [userId])
             if (rs != nil) {
                 while rs.next() {
-                    let tempFrend = self.fillFrendModelWithFMResultSet(rs)
-                    if let type = frendType {
-                        if FrendModel.typeIsCorrect(tempFrend.type, typeWeight: type) {
-                            frend = tempFrend
-                        }
-                    } else {
-                        frend = tempFrend
-                    }
+                    frend = self.fillFrendModelWithFMResultSet(rs)
                 }
             }
         }

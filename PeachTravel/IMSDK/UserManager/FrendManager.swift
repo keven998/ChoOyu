@@ -154,8 +154,8 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
     
     :returns:
     */
-    func getFrendInfoFromDB(#userId: Int, frendType: IMFrendWeightType?) -> FrendModel? {
-        return self.frendDaoHelper.selectFrend(userId: userId, frendType: frendType)
+    func getFrendInfoFromDB(#userId: Int) -> FrendModel? {
+        return self.frendDaoHelper.selectFrend(userId: userId)
     }
     
     /**
@@ -236,7 +236,7 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
         manager.DELETE(url, parameters: nil, success:
             { (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
                 if (responseObject.objectForKey("code") as! Int) == 0 {
-                    if let frend = self.getFrendInfoFromDB(userId: userId, frendType: nil) {
+                    if let frend = self.getFrendInfoFromDB(userId: userId) {
                         if (FrendModel.typeIsCorrect(frend.type, typeWeight: IMFrendWeightType.Frend)) {
                             let typeValue = frend.type.rawValue - IMFrendWeightType.Frend.rawValue
                             self.updateFrendType(userId: userId, frendType: IMFrendType(rawValue: typeValue)!)
@@ -272,7 +272,7 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
             { (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
                 
                 if (responseObject.objectForKey("code") as! Int) == 0 {
-                    if let frend = self.getFrendInfoFromDB(userId: userId, frendType: nil) {
+                    if let frend = self.getFrendInfoFromDB(userId: userId) {
                         if (!FrendModel.typeIsCorrect(frend.type, typeWeight: IMFrendWeightType.BlackList)) {
                             let typeValue = frend.type.rawValue + IMFrendWeightType.BlackList.rawValue
                             self.updateFrendType(userId: userId, frendType: IMFrendType(rawValue: typeValue)!)
@@ -306,7 +306,7 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
         manager.DELETE(url, parameters: nil, success:
             { (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
                 if (responseObject.objectForKey("code") as! Int) == 0 {
-                    if let frend = self.getFrendInfoFromDB(userId: userId, frendType: nil) {
+                    if let frend = self.getFrendInfoFromDB(userId: userId) {
                         if (FrendModel.typeIsCorrect(frend.type, typeWeight: IMFrendWeightType.BlackList)) {
                             let typeValue = frend.type.rawValue - IMFrendWeightType.BlackList.rawValue
                             self.updateFrendType(userId: userId, frendType: IMFrendType(rawValue: typeValue)!)
