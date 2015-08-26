@@ -118,12 +118,14 @@
     }
     
     // 3.过滤数组为空的元素
+    /*
     for (int i = 0; i < dataSource.count; i++) {
         NSArray * guilderArray = dataSource[i];
         if (guilderArray.count == 0) {
             [dataSource removeObject:guilderArray];
         }
     }
+     */
     
     return dataSource;
 }

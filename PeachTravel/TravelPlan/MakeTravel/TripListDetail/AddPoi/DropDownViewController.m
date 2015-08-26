@@ -84,8 +84,10 @@
     
     if (self.tag == 1) {
         [self.delegateDrop didSelectedcityIndex:indexPath.row categaryIndex:1 andTag:1];
-    }else{
+    } else if (self.tag == 2) {
         [self.delegateDrop didSelectedcityIndex:1 categaryIndex:indexPath.row andTag:2];
+    } else {
+        [self.delegateDrop didSelectedContinentIndex:indexPath.row];
     }
 }
 

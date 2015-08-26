@@ -623,7 +623,7 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
  */
 - (void)dropdownMenuDidShow:(HWDropdownMenu *)menu
 {
-
+    
 }
 
 

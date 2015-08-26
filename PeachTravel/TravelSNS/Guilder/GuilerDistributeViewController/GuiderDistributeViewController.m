@@ -13,11 +13,18 @@
 #import "MJExtension.h"
 #import "GuiderDistributeContinent.h"
 #import "GuiderDistributeTools.h"
+#import "HWDropdownMenu.h"
+#import "DropDownViewController.h"
 
-@interface GuiderDistributeViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
+@interface GuiderDistributeViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,HWDropdownMenuDelegate,dropDownMenuProtocol>
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, weak) UIButton *titleBtn;
 
-@property (nonatomic, strong)NSMutableArray * dataSource;
+// 总的数据源
+@property (nonatomic, strong)NSMutableArray *dataSource;
+
+// 每一个洲的达人列表
+@property (nonatomic, strong)NSArray *guiderArray;
 
 @property (nonatomic, strong)NSArray * titleArray;
 
@@ -25,6 +32,8 @@
  *  新建一个字典存储展开的信息
  */
 @property (nonatomic, strong)NSMutableDictionary * showDic;
+
+@property (nonatomic, strong)HWDropdownMenu * dropDownMenu;
 
 @end
 
@@ -34,6 +43,14 @@
 /**
  *  懒加载分组总数组,里面包含每组的数组数据
  */
+- (NSArray *)guiderArray
+{
+    if (_guiderArray == nil) {
+        _guiderArray = [NSArray array];
+    }
+    return _guiderArray;
+}
+
 - (NSMutableArray *)dataSource
 {
     if (_dataSource == nil) {
@@ -62,9 +79,12 @@
     [self.view addSubview:self.tableView];
     
     // 发送网络请求
-//    [self sendRequest];
     [self setupStatus];
     
+    // 设置头部标题的格式
+    [self setupHeaderTitle];
+    
+    [self.navigationController.navigationBar setBackgroundColor:APP_PAGE_COLOR];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -86,12 +106,93 @@
     
     [GuiderDistributeTools guiderStatusWithParam:nil success:^(NSArray *dataSource) {
         [self.dataSource addObjectsFromArray:dataSource];
+        self.guiderArray = [self.dataSource firstObject];
         [self.tableView reloadData];
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
     }];
 }
 
+// 设置头部标题页面
+- (void)setupHeaderTitle
+{
+    // 设置分类界面的一些基本属性
+    NSArray * typeArray = self.titleArray;
+    
+    UIButton * type = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.titleBtn = type;
+    type.titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
+    type.selected = NO;
+    [type setTitle:typeArray[0] forState:UIControlStateNormal];
+    [type setTitleColor:COLOR_TEXT_I forState:UIControlStateNormal];
+    [type addTarget:self action:@selector(typeClick:) forControlEvents:UIControlEventTouchDown];
+    [type setImage:[UIImage imageNamed:@"ArtboardBottom"] forState:UIControlStateNormal];
+    [type setImage:[UIImage imageNamed:@"ArtboardTop"] forState:UIControlStateSelected];
+    type.imageEdgeInsets = UIEdgeInsetsMake(0, 60, 0, 0);
+    type.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 40);
+    type.frame = CGRectMake(kWindowWidth * 0.5, 0, kWindowWidth * 0.5, 50);
+    self.navigationItem.titleView = type;
+}
+
+- (void)typeClick:(UIButton *)type
+{
+    NSLog(@"%s",__func__);
+    
+    type.selected = !type.selected;
+    
+    // 1.创建下拉菜单
+    HWDropdownMenu *menu = [HWDropdownMenu menu];
+    menu.delegate = self;
+    self.dropDownMenu = menu;
+    
+    // 2.设置传入数组
+    NSArray * siteArray = self.titleArray;
+    
+    // 3.设置内容
+    DropDownViewController *vc = [[DropDownViewController alloc] init];
+    vc.delegateDrop = self;
+    vc.siteArray = siteArray;
+//    vc.showAccessory = _currentListTypeIndex;
+    vc.tag = 3;
+    vc.view.height = siteArray.count * 44;
+    vc.view.width = kWindowWidth / 3;
+    vc.tableView.scrollEnabled = NO;
+    menu.contentController = vc;
+    
+    // 4.显示
+    [menu showFrom:type];
+}
+
+#pragma mark - 实现dropDownMenuProtocol代理方法
+- (void)didSelectedContinentIndex:(NSInteger)continentIndex
+{
+    [self.dropDownMenu dismiss];
+    [self.titleBtn setTitle:self.titleArray[continentIndex] forState:UIControlStateNormal];
+    self.guiderArray = self.dataSource[continentIndex];
+    
+    NSLog(@"%@",self.guiderArray);
+    [self.tableView reloadData];
+}
+
+#pragma mark - HWDropdownMenuDelegate
+/**
+ *  下拉菜单被销毁了
+ */
+- (void)dropdownMenuDidDismiss:(HWDropdownMenu *)menu
+{
+//    self.cityButton.selected = NO;
+//    self.categoryButton.selected = NO;
+    // 让箭头向下
+    //    [titleButton setImage:[UIImage imageNamed:@"navigationbar_arrow_down"] forState:UIControlStateNormal];
+}
+
+/**
+ *  下拉菜单显示了
+ */
+- (void)dropdownMenuDidShow:(HWDropdownMenu *)menu
+{
+    
+}
 
 // 懒加载tableView
 - (UITableView *)tableView
@@ -123,16 +224,17 @@
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
 {
     
-    return self.dataSource.count;
+//    return self.dataSource.count;
+    return 1;
     //    return 5;
 }
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSArray * guilderArray = self.dataSource[section];
-    return guilderArray.count;
+    return self.guiderArray.count;
 }
 
+/*
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 44;
@@ -155,6 +257,7 @@
 
     return headerBtn;
 }
+ */
 
 #pragma mark 展开收缩section中cell 手势监听
 -(void)singleTap:(UIButton*)recognizer
@@ -189,7 +292,7 @@
 {
     // cell的初始化
     GuiderCell * cell = [GuiderCell guiderWithTableView:tableView];
-    cell.guiderDistribute = _dataSource[indexPath.section][indexPath.row];
+    cell.guiderDistribute = self.guiderArray[indexPath.row];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.separatorInset=UIEdgeInsetsZero;
     cell.clipsToBounds = YES;
