@@ -62,7 +62,8 @@
     [self.contactTableView reloadData];
 }
 
-- (void) viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_friends_lists"];
     [self.contactTableView reloadData];

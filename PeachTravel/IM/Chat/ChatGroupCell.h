@@ -10,7 +10,6 @@
 #import "SWTableViewCell.h"
 @interface ChatGroupCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *ownerLabel;
 
 @property (weak, nonatomic) IBOutlet UIImageView *headerImage;
 @end

@@ -60,6 +60,7 @@
 @implementation OtherUserInfoViewController
 
 #pragma mark - lifeCycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -86,6 +87,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self updateUserInfo];
     [MobClick beginLogPageView:@"page_user_profile"];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
@@ -391,7 +393,7 @@
     }
 }
 
--(void)createFooterBar
+- (void)createFooterBar
 {
     UIImageView *barView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-49, CGRectGetWidth(self.view.bounds), 49)];
     barView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;

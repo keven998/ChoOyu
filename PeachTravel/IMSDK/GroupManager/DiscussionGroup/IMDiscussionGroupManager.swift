@@ -255,7 +255,7 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
     func updateGroupInfoInDB(group: IMDiscussionGroup) {
         var frend = self.convertDiscussionGroupModel2FrendModel(group)
         var frendManager = IMClientManager.shareInstance().frendManager
-        let exitFrend = frendManager.getFrendInfoFromDB(userId: frend.userId, frendType: IMFrendWeightType.DiscussionGroup)
+        let exitFrend = frendManager.getFrendInfoFromDB(userId: frend.userId)
         if frend.extData == "" {
             frend.extData = exitFrend?.extData ?? ""
         }

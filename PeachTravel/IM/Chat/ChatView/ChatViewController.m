@@ -137,6 +137,8 @@
         _groupNumbers = [[IMDiscussionGroupManager shareInstance] getFullDiscussionGroupInfoFromDBWithGroupId: _conversation.chatterId].members;
         if (!_groupNumbers || _groupNumbers.count == 0) {
             [self getMembersInGroupFromServer];
+        } else {
+            [self fillGroupMemberInfo];
         }
     }
     
@@ -309,12 +311,28 @@
             [groupManager asyncGetMembersInDiscussionGroupInfoFromServer:group completion:^(BOOL isSuccess, NSInteger errorCode, IMDiscussionGroup * fullgroup) {
                 if (isSuccess) {
                      _groupNumbers = [[IMDiscussionGroupManager shareInstance] getFullDiscussionGroupInfoFromDBWithGroupId: _conversation.chatterId].members;
+                    [self fillGroupMemberInfo];
                     [self.tableView reloadData];
                 } else {
                 }
             }];
         }
     }];
+}
+
+/**
+ *  填充群组成员的信息，如备注等
+ */
+- (void)fillGroupMemberInfo
+{
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    FrendManager *frendManager = [IMClientManager shareInstance].frendManager;
+    for (FrendModel *model in _groupNumbers) {
+        if ([accountManager frendIsMyContact:model.userId]) {
+            FrendModel *frend = [frendManager getFrendInfoFromDBWithUserId:model.userId];
+            model.memo = frend.memo;
+        }
+    }
 }
 
 // 将日期和聊天数据存放在dataSource
@@ -581,7 +599,11 @@
             BOOL find = NO;
             for (FrendModel *model in _groupNumbers) {
                 if (model.userId == message.senderId) {
-                    message.nickName = model.nickName;
+                    if ([model.memo isBlankString]) {
+                        message.nickName = model.nickName;
+                    } else {
+                        message.nickName = model.memo;
+                    }
                     if ([model.avatarSmall isBlankString]) {
                         message.headImageURL = [NSURL URLWithString:model.avatar];
                     } else {
@@ -1208,11 +1230,10 @@
 {
     [UIView animateWithDuration:0.25 animations:^{
         CGRect rect = self.tableView.frame;
-        NSLog(@"%f", self.view.frame.size.height - toHeight);
         rect.size.height = kWindowHeight - toHeight - 64;
         self.tableView.frame = rect;
     }];
-    [self scrollViewToBottom:YES];
+    [self scrollViewToBottom:NO];
 }
 
 - (void)didSendText:(NSString *)text

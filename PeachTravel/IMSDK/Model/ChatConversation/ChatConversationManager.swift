@@ -254,7 +254,7 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
             type = IMFrendWeightType.Group
         }
     
-        if let frend = frendManager.getFrendInfoFromDB(userId: chatterId, frendType: type) {
+        if let frend = frendManager.getFrendInfoFromDB(userId: chatterId) {
             //如果此联系人的属性为屏蔽消息，则不添加新的会话
             if !FrendModel.typeIsCorrect(frend.type, typeWeight: IMFrendWeightType.BlackList) {
                 self.fillConversationWithFrendData(exitConversation, frendModel: frend)

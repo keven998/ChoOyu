@@ -108,7 +108,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)setupConverView
 {
-    
     if ((!shouldSkipIntroduce && kShouldShowIntroduceWhenFirstLaunch) || !kIsNotFirstInstall) {
         [self beginIntroduce];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:[[AppUtils alloc] init].appVersion];
@@ -198,7 +197,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 {
     [self updateViewWithUnreadMessageCount];
 }
-
 
 /**
  *  跳转到web 界面
@@ -541,7 +539,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     notification.soundName = UILocalNotificationDefaultSoundName;
     notification.alertAction = @"打开";
     notification.timeZone = [NSTimeZone defaultTimeZone];
-    
 
     //发送通知
     [[UIApplication sharedApplication] scheduleLocalNotification:notification];
