@@ -740,21 +740,19 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:remark forKey:@"memo"];
 
-    FrendManager *frendManager = [IMClientManager shareInstance].frendManager;
-    [frendManager updateContactMemoInDB:remark userId:userId];
-    
     // 修改备注需要提供自己的userId和好友的userId
     AccountManager * accountManager = [AccountManager shareAccountManager];
 
     NSString *urlStr = [NSString stringWithFormat:@"%@%ld/contacts/%ld/memo", API_USERS, accountManager.account.userId,userId];
     NSLog(@"%@",urlStr);
     
-//    NSString * urlStr = @"http://api-dev.lvxingpai.com/app/users/100004/contacts/100014/memo";
-    
     [manager PUT:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"result = %@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
+            FrendManager *frendManager = [IMClientManager shareInstance].frendManager;
+            [frendManager updateContactMemoInDB:remark userId:userId];
+            [self updateFrendMemoInContactList:remark userId:userId];
             completion(YES);
         } else {
             completion(NO);
@@ -775,6 +773,16 @@
         }
     }
     return ret;
+}
+
+- (void)updateFrendMemoInContactList:(NSString *)memo userId:(NSInteger)userId
+{
+    for (FrendModel *frend in self.account.frendList) {
+        if (frend.userId == userId) {
+            frend.memo = memo;
+            return;
+        }
+    }
 }
 
 #pragma mark - 将从服务器获得的好友列表转换成拼音排序的列表
