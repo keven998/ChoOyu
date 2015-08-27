@@ -70,7 +70,6 @@
     [lxpHelper setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
     [lxpHelper setTitleColor:COLOR_TEXT_III forState:UIControlStateHighlighted];
     lxpHelper.titleLabel.font = [UIFont systemFontOfSize:16];
-    [lxpHelper addTarget:self action:@selector(goLxpHelper) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:lxpHelper];
     
     UIButton *planHelper = [[UIButton alloc] initWithFrame:CGRectMake(w+20, mxh, w, h)];
