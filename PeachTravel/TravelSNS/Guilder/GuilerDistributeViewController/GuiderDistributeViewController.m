@@ -156,6 +156,7 @@
     // 1.创建下拉菜单
     HWDropdownMenu *menu = [HWDropdownMenu menu];
     menu.delegate = self;
+    menu.containerImage = @"bg_continent";
     self.dropDownMenu = menu;
     
     // 2.设置传入数组

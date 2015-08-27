@@ -31,6 +31,8 @@
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.showsVerticalScrollIndicator = NO;
+    
+    self.tableView.backgroundColor = [UIColor clearColor];
 }
 
 - (void)setSiteArray:(NSArray *)siteArray
@@ -63,14 +65,15 @@
         underLine.frame = CGRectMake(0, cell.frame.size.height - 1, kWindowWidth, 1);
         [cell addSubview:underLine];
     }
-    
+    cell.backgroundColor = [UIColor clearColor];
     
     cell.textLabel.text = self.siteArray[indexPath.row];
-    [cell.textLabel setTextColor:TZColor(100, 100, 100)];
-    cell.textLabel.font = [UIFont fontWithName:@"STHeitiSC-Light" size:16];
+    cell.textLabel.font = [UIFont boldSystemFontOfSize:16.0];
+    [cell.textLabel setTextColor:[UIColor whiteColor]];
     
     if (self.showAccessory == indexPath.row) {
-        cell.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ArtboardCheck"]];
+        cell.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"point"]];
+        [cell.textLabel setTextColor:APP_THEME_COLOR];
     }
     
     

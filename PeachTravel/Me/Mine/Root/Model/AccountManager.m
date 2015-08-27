@@ -657,6 +657,7 @@
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)self.account.userId] forHTTPHeaderField:@"UserId"];
     
     NSString *url = [NSString stringWithFormat:@"%@%ld/contacts", API_USERS, self.account.userId];
+    NSLog(@"%@",url);
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
