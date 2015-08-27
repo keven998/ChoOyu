@@ -7,11 +7,12 @@
 //
 
 #import "HWDropdownMenu.h"
+#import "CWContainView.h"
 @interface HWDropdownMenu()
 /**
  *  将来用来显示具体内容的容器
  */
-@property (nonatomic, weak) UIImageView *containerView;
+@property (nonatomic, weak) CWContainView *containerView;
 
 @property (nonatomic, weak) UIView * mainView;
 
@@ -19,14 +20,15 @@
 
 @implementation HWDropdownMenu
 
-- (UIImageView *)containerView
+- (UIView *)containerView
 {
     if (!_containerView) {
         
         // 添加一个灰色图片控件
-        UIImageView *containerView = [[UIImageView alloc] init];
-        containerView.image = [UIImage imageNamed:@"ArtboardBg"];
+        CWContainView *containerView = [[CWContainView alloc] init];
+//        containerView.image = [UIImage imageNamed:@"ArtboardBg"];
         containerView.userInteractionEnabled = YES; // 开启交互
+        containerView.alpha = 0.8;
         [self addSubview:containerView];
         self.containerView = containerView;
     }
@@ -46,12 +48,6 @@
 
     }
     return self;
-}
-
-// 画图
-- (void)drawRect:(CGRect)rect
-{
-
 }
 
 - (void)layoutSubviews
@@ -85,16 +81,10 @@
     
     // 添加内容到灰色图片中
     [self.containerView addSubview:content];
+    
+    self.containerView.backgroundColor = [UIColor clearColor];
 }
 
-- (void)setContainerImage:(NSString *)containerImage
-{
-    _containerImage = containerImage;
-    
-    self.containerView.image = [UIImage imageNamed:containerImage];
-    
-    [self.containerView.image resizableImageWithCapInsets:UIEdgeInsetsMake(6, 50, 10, 50)];
-}
 
 - (void)setContentController:(UIViewController *)contentController
 {
@@ -124,7 +114,7 @@
     CGRect newFrame = [from convertRect:from.bounds toView:window];
 //    CGRect newFrame = [from.superview convertRect:from.frame toView:window];
     self.containerView.centerX = CGRectGetMidX(newFrame);
-    self.containerView.y = CGRectGetMaxY(newFrame);
+    self.containerView.y = CGRectGetMaxY(newFrame) - 17;
     
     self.alpha = 0.0;
     

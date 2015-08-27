@@ -70,10 +70,13 @@
     cell.textLabel.text = self.siteArray[indexPath.row];
     cell.textLabel.font = [UIFont boldSystemFontOfSize:16.0];
     [cell.textLabel setTextColor:[UIColor whiteColor]];
+//    cell.selectedBackgroundView.backgroundColor = [UIColor redColor];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     if (self.showAccessory == indexPath.row) {
         cell.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"point"]];
         [cell.textLabel setTextColor:APP_THEME_COLOR];
+//        cell.backgroundColor = [UIColor grayColor];
     }
     
     

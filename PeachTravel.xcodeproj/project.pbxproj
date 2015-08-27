@@ -662,8 +662,6 @@
 		E608A1051B8EF6D8003BA318 /* GuiderSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E608A1041B8EF6D8003BA318 /* GuiderSearchViewController.m */; };
 		E608A1121B8F26CF003BA318 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = E608A1111B8F26CF003BA318 /* UIView+Extension.m */; };
 		E608A1151B8F2755003BA318 /* CWTitleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E608A1141B8F2755003BA318 /* CWTitleButton.m */; };
-		E608A11F1B8F32BD003BA318 /* GuiderProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E608A11D1B8F32BD003BA318 /* GuiderProfileViewController.m */; };
-		E608A1201B8F32BD003BA318 /* GuiderProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E608A11E1B8F32BD003BA318 /* GuiderProfileViewController.xib */; };
 		E608A1271B8F3D3D003BA318 /* bg_continent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E608A1251B8F3D3D003BA318 /* bg_continent@2x.png */; };
 		E608A1281B8F3D3D003BA318 /* bg_continent@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E608A1261B8F3D3D003BA318 /* bg_continent@3x.png */; };
 		E608A12D1B8F413E003BA318 /* point@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E608A1291B8F413E003BA318 /* point@2x.png */; };
@@ -674,6 +672,9 @@
 		E608A1361B8F414C003BA318 /* down@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E608A1321B8F414C003BA318 /* down@3x.png */; };
 		E608A1371B8F414C003BA318 /* up@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E608A1331B8F414C003BA318 /* up@2x.png */; };
 		E608A1381B8F414C003BA318 /* up@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E608A1341B8F414C003BA318 /* up@3x.png */; };
+		E608A13D1B8F6987003BA318 /* GuiderProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E608A13B1B8F6987003BA318 /* GuiderProfileViewController.m */; };
+		E608A13E1B8F6987003BA318 /* GuiderProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E608A13C1B8F6987003BA318 /* GuiderProfileViewController.xib */; };
+		E608A1411B8F6F84003BA318 /* CWContainView.m in Sources */ = {isa = PBXBuildFile; fileRef = E608A1401B8F6F84003BA318 /* CWContainView.m */; };
 		E6381B9C1B660EB000CF73AA /* PricePoiDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6381B9B1B660EB000CF73AA /* PricePoiDetailController.m */; };
 		E6381BDC1B66269000CF73AA /* Loading_Animation_final0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E6381BA01B66268F00CF73AA /* Loading_Animation_final0@2x.png */; };
 		E6381BDD1B66269000CF73AA /* Loading_Animation_final10@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E6381BA11B66268F00CF73AA /* Loading_Animation_final10@2x.png */; };
@@ -2354,9 +2355,6 @@
 		E608A1111B8F26CF003BA318 /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
 		E608A1131B8F2755003BA318 /* CWTitleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CWTitleButton.h; path = PeachTravel/Common/Category/CWTitleButton.h; sourceTree = SOURCE_ROOT; };
 		E608A1141B8F2755003BA318 /* CWTitleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CWTitleButton.m; path = PeachTravel/Common/Category/CWTitleButton.m; sourceTree = SOURCE_ROOT; };
-		E608A11C1B8F32BD003BA318 /* GuiderProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GuiderProfileViewController.h; path = ../../../../../../Documents/GuiderProfileViewController.h; sourceTree = "<group>"; };
-		E608A11D1B8F32BD003BA318 /* GuiderProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GuiderProfileViewController.m; path = ../../../../../../Documents/GuiderProfileViewController.m; sourceTree = "<group>"; };
-		E608A11E1B8F32BD003BA318 /* GuiderProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GuiderProfileViewController.xib; path = ../../../../../../Documents/GuiderProfileViewController.xib; sourceTree = "<group>"; };
 		E608A1251B8F3D3D003BA318 /* bg_continent@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_continent@2x.png"; sourceTree = "<group>"; };
 		E608A1261B8F3D3D003BA318 /* bg_continent@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_continent@3x.png"; sourceTree = "<group>"; };
 		E608A1291B8F413E003BA318 /* point@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "point@2x.png"; sourceTree = "<group>"; };
@@ -2367,6 +2365,11 @@
 		E608A1321B8F414C003BA318 /* down@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "down@3x.png"; sourceTree = "<group>"; };
 		E608A1331B8F414C003BA318 /* up@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "up@2x.png"; sourceTree = "<group>"; };
 		E608A1341B8F414C003BA318 /* up@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "up@3x.png"; sourceTree = "<group>"; };
+		E608A13A1B8F6987003BA318 /* GuiderProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuiderProfileViewController.h; sourceTree = "<group>"; };
+		E608A13B1B8F6987003BA318 /* GuiderProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuiderProfileViewController.m; sourceTree = "<group>"; };
+		E608A13C1B8F6987003BA318 /* GuiderProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GuiderProfileViewController.xib; sourceTree = "<group>"; };
+		E608A13F1B8F6F84003BA318 /* CWContainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWContainView.h; sourceTree = "<group>"; };
+		E608A1401B8F6F84003BA318 /* CWContainView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWContainView.m; sourceTree = "<group>"; };
 		E6381B9A1B660EB000CF73AA /* PricePoiDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PricePoiDetailController.h; sourceTree = "<group>"; };
 		E6381B9B1B660EB000CF73AA /* PricePoiDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PricePoiDetailController.m; sourceTree = "<group>"; };
 		E6381BA01B66268F00CF73AA /* Loading_Animation_final0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Loading_Animation_final0@2x.png"; sourceTree = "<group>"; };
@@ -3199,7 +3202,7 @@
 		C651F3EC1B394C3400B80690 /* Guider */ = {
 			isa = PBXGroup;
 			children = (
-				E608A1161B8F3166003BA318 /* GuiderProfileViewController */,
+				E608A1391B8F697A003BA318 /* GuiderProfileViewController */,
 				C651F3ED1B394C7400B80690 /* GuiderCollectionViewController */,
 				C651F3EE1B394C7400B80690 /* GuierDistributeViewController */,
 			);
@@ -5859,15 +5862,14 @@
 			name = Tools;
 			sourceTree = "<group>";
 		};
-		E608A1161B8F3166003BA318 /* GuiderProfileViewController */ = {
+		E608A1391B8F697A003BA318 /* GuiderProfileViewController */ = {
 			isa = PBXGroup;
 			children = (
-				E608A11C1B8F32BD003BA318 /* GuiderProfileViewController.h */,
-				E608A11D1B8F32BD003BA318 /* GuiderProfileViewController.m */,
-				E608A11E1B8F32BD003BA318 /* GuiderProfileViewController.xib */,
+				E608A13A1B8F6987003BA318 /* GuiderProfileViewController.h */,
+				E608A13B1B8F6987003BA318 /* GuiderProfileViewController.m */,
+				E608A13C1B8F6987003BA318 /* GuiderProfileViewController.xib */,
 			);
-			name = GuiderProfileViewController;
-			path = GuiderInfoViewController;
+			path = GuiderProfileViewController;
 			sourceTree = "<group>";
 		};
 		E6381B9F1B66268F00CF73AA /* loading@2x */ = {
@@ -5992,6 +5994,8 @@
 			children = (
 				E66E6CD21B5A16A100CBF65F /* HWDropdownMenu.h */,
 				E66E6CD31B5A16A100CBF65F /* HWDropdownMenu.m */,
+				E608A13F1B8F6F84003BA318 /* CWContainView.h */,
+				E608A1401B8F6F84003BA318 /* CWContainView.m */,
 				E6E118F31B59EE280090FDEF /* UIView+Extension.h */,
 				E6E118F41B59EE280090FDEF /* UIView+Extension.m */,
 			);
@@ -7294,6 +7298,7 @@
 				E6F18AD21B845F4900232EEB /* messages_plus_plan_selected@3x.png in Resources */,
 				D9A8FF1E1A80CC2B005AD701 /* UserHeaderTableViewCell.xib in Resources */,
 				D90A9B3A1B5627C400E9F37C /* Loading_Animation_final15@3x.png in Resources */,
+				E608A13E1B8F6987003BA318 /* GuiderProfileViewController.xib in Resources */,
 				E608A12D1B8F413E003BA318 /* point@2x.png in Resources */,
 				E6F189781B845F4900232EEB /* poi_button_raid_disable@3X.png in Resources */,
 				E6F18A491B845F4900232EEB /* search_default_background@3x.png in Resources */,
@@ -7543,7 +7548,6 @@
 				E6F18A6F1B845F4900232EEB /* login_button_next@3x.png in Resources */,
 				E6F1898F1B845F4900232EEB /* poi_icon_add@2x.png in Resources */,
 				E6F18AC91B845F4900232EEB /* messages_plus_picture_selected@2x.png in Resources */,
-				E608A1201B8F32BD003BA318 /* GuiderProfileViewController.xib in Resources */,
 				E6381C171B66269000CF73AA /* Loading_Animation_final9@2x.png in Resources */,
 				E6F189E01B845F4900232EEB /* collect_food@3x.png in Resources */,
 				D90A9B3C1B5627C400E9F37C /* Loading_Animation_final17@3x.png in Resources */,
@@ -8148,6 +8152,7 @@
 				D92CA1381AD8BEB400F244FF /* MWZoomingScrollView.m in Sources */,
 				D993C2691B12DF0C0088D568 /* LocationModel.swift in Sources */,
 				C651F3F11B394C8B00B80690 /* GuiderDistributeViewController.m in Sources */,
+				E608A1411B8F6F84003BA318 /* CWContainView.m in Sources */,
 				D9A8FF2B1A80CCA5005AD701 /* AccountManagerViewController.m in Sources */,
 				D9A801611A80DD23005AD701 /* SelectContactScrollView.m in Sources */,
 				D993C26E1B12DF0C0088D568 /* FrendManager.swift in Sources */,
@@ -8258,7 +8263,7 @@
 				D9A801591A80DD23005AD701 /* EMSearchBar.m in Sources */,
 				D9A801291A80DD23005AD701 /* DXMessageToolBar.m in Sources */,
 				D993C2351B12DF0C0088D568 /* ConnectionManager.swift in Sources */,
-				E608A11F1B8F32BD003BA318 /* GuiderProfileViewController.m in Sources */,
+				E608A13D1B8F6987003BA318 /* GuiderProfileViewController.m in Sources */,
 				D9A802211A80E036005AD701 /* MJPhotoToolbar.m in Sources */,
 				D9A801471A80DD23005AD701 /* EMChatTimeCell.m in Sources */,
 				D92CA0FF1AD8BDF900F244FF /* PSTCollectionViewCell.m in Sources */,
