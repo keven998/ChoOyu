@@ -667,7 +667,6 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [[TMCache sharedCache] setObject:mutableArray forKey:kSearchDestinationCacheKey];
     self.collectionArray[0] = mutableArray;
     [self loadDataSourceWithKeyWord:searchBar.text];
-   
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
@@ -684,7 +683,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 /**
  *  用户确定发送景点给朋友
  *
- *  @param chatCtl 
+ *  @param chatCtl
  */
 - (void)sendSuccess:(ChatViewController *)chatCtl
 {

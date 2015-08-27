@@ -11,9 +11,10 @@
 #import "OptionTableViewCell.h"
 #import "PushSettingViewController.h"
 #import "iRate.h"
+#import "UMSocial.h"
 
 #define cellIdentifier   @"settingCell"
-#define SET_ITEMS       @[@"清理缓存", @"应用评分", @"消息和提醒"]
+#define SET_ITEMS       @[@[@"推荐应用给朋友", @"申请成为达人"], @[@"清理缓存", @"应用评分"],@[@"意见反馈"]]
 
 @interface SettingHomeViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -85,11 +86,23 @@
     
 }
 
+- (void)shareToWeChat
+{
+    [UMSocialData defaultData].extConfig.wechatSessionData.title = @"推荐\"旅行派\"给你。";
+    
+    [UMSocialData defaultData].extConfig.wechatSessionData.url = @"http://www.lvxingpai.com/app/download/";
+    
+    UIImage *shareImage = [UIImage imageNamed:@"icon.png"];
+    
+    [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:@"能向达人咨询、朋友协作的旅行工具" image:shareImage location:nil urlResource:nil presentedController:self completion:^(UMSocialResponseEntity *response) {
+    }];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return SET_ITEMS.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -104,20 +117,15 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    //    return [dataSource count]/2;
-    if (section == 0) {
-        return 2;
-    } else {
-        return 1;
-    }
+    return [[SET_ITEMS objectAtIndex:section] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     OptionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
-    cell.titleView.text = [SET_ITEMS objectAtIndex:(indexPath.section * 2 + indexPath.row)];
+    cell.titleView.text = [[SET_ITEMS objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    if (indexPath.section == 0) {
+    if (indexPath.section == 1) {
         if (indexPath.row == 0) {
             cell.flagView.image = [UIImage imageNamed:@"ic_setting_cache_clean.png"];
             NSString *str = [NSString stringWithFormat:@"%.2fM",(float)[[SDImageCache sharedImageCache] getSize]/(1024*1024)];
@@ -140,26 +148,27 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSInteger index = indexPath.section*2 + indexPath.row;
-    switch (index) {
-        case 0:
-            [self clearMemo];
-            break;
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            [self shareToWeChat];
+        } else if (indexPath.row == 1) {
             
-        case 1:
-            [self mark];
-            break;
-            
-        case 2: {
-            PushSettingViewController *ctl = [[PushSettingViewController alloc] init];
-            [self.navigationController pushViewController:ctl animated:YES];
         }
-            break;
-            
-        default:
-            break;
+    } else if (indexPath.section == 1) {
+        if (indexPath.row == 0) {
+            [self clearMemo];
+
+        } else if (indexPath.row == 1) {
+            [self mark];
+        }
+        
+    } else if (indexPath.section == 2) {
+        if (indexPath.row == 0) {
+            FeedbackController *feedbackCtl = [[FeedbackController alloc] init];
+            feedbackCtl.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:feedbackCtl animated:YES];
+        }
     }
-    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
