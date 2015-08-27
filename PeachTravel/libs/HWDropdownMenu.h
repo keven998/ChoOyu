@@ -38,4 +38,7 @@
  *  内容控制器
  */
 @property (nonatomic, strong) UIViewController *contentController;
+
+@property (nonatomic, copy) NSString *containerImage;
+
 @end

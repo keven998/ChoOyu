@@ -48,6 +48,12 @@
     return self;
 }
 
+// 画图
+- (void)drawRect:(CGRect)rect
+{
+
+}
+
 - (void)layoutSubviews
 {
     [super layoutSubviews];
@@ -81,6 +87,15 @@
     [self.containerView addSubview:content];
 }
 
+- (void)setContainerImage:(NSString *)containerImage
+{
+    _containerImage = containerImage;
+    
+    self.containerView.image = [UIImage imageNamed:containerImage];
+    
+    [self.containerView.image resizableImageWithCapInsets:UIEdgeInsetsMake(6, 50, 10, 50)];
+}
+
 - (void)setContentController:(UIViewController *)contentController
 {
     _contentController = contentController;
@@ -98,6 +113,7 @@
     
     // 2.添加自己到窗口上
     [window addSubview:self];
+  
     
     // 3.设置尺寸
     self.frame = window.bounds;
@@ -110,6 +126,12 @@
     self.containerView.centerX = CGRectGetMidX(newFrame);
     self.containerView.y = CGRectGetMaxY(newFrame);
     
+    self.alpha = 0.0;
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        self.alpha = 1.0;
+    }];
+    
     // 通知外界，自己显示了
     if ([self.delegate respondsToSelector:@selector(dropdownMenuDidShow:)]) {
         [self.delegate dropdownMenuDidShow:self];
@@ -121,7 +143,14 @@
  */
 - (void)dismiss
 {
-    [self removeFromSuperview];
+    [UIView animateWithDuration:0.3 animations:^{
+        self.alpha = 0.0;
+    }];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self removeFromSuperview];
+    });
+
     
     // 通知外界，自己被销毁了
     if ([self.delegate respondsToSelector:@selector(dropdownMenuDidDismiss:)]) {
