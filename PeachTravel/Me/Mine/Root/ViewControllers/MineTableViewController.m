@@ -88,7 +88,7 @@
     [_editButton setTitle:@"编辑" forState:UIControlStateNormal];
     [_editButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     _editButton.titleLabel.font = [UIFont systemFontOfSize:16.0];
-    [_editButton addTarget:self action:@selector(editUserInfo) forControlEvents:UIControlEventTouchUpInside];
+    [_editButton addTarget:self action:@selector(showSettingCtl:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_editButton];
 }
 
@@ -470,6 +470,18 @@
     } else {
         [self userLogin];
     }
+}
+
+/**
+ *  进入设置界面
+ *
+ *  @param sender
+ */
+- (void)showSettingCtl:(id)sender
+{
+    SettingHomeViewController *settingCtl = [[SettingHomeViewController alloc] init];
+    settingCtl.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:settingCtl animated:YES];
 }
 
 - (IBAction)showPictureGrid:(id)sender

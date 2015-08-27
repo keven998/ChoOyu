@@ -13,7 +13,7 @@
 #import "iRate.h"
 
 #define cellIdentifier   @"settingCell"
-#define SET_ITEMS       @[@"清理缓存", @"应用评分", @"消息和提醒"]
+#define SET_ITEMS       @[@[@"推荐应用给朋友", @"申请成为达人"], @[@"清理缓存", @"应用评分"],@[@"意见反馈"]]
 
 @interface SettingHomeViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -89,7 +89,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return SET_ITEMS.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -104,18 +104,13 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    //    return [dataSource count]/2;
-    if (section == 0) {
-        return 2;
-    } else {
-        return 1;
-    }
+    return [[SET_ITEMS objectAtIndex:section] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     OptionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
-    cell.titleView.text = [SET_ITEMS objectAtIndex:(indexPath.section * 2 + indexPath.row)];
+    cell.titleView.text = [[SET_ITEMS objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
