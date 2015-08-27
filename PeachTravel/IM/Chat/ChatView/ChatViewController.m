@@ -176,7 +176,6 @@
     else{
         _isScrollToBottom = YES;
     }
-    
 }
 
 - (void)viewWillDisappear:(BOOL)animated

@@ -532,11 +532,6 @@ static NSString *reusableCell = @"myGuidesCell";
 #pragma mark - Table view data source
 
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    /*
-    if (_isOwner && self.navigationController.viewControllers.count > 1) {
-        return 72;
-    }
-     */
     return 1;
 }
 
@@ -552,18 +547,6 @@ static NSString *reusableCell = @"myGuidesCell";
 {
     return 164;
 }
-
-/*
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    if (_isOwner && self.navigationController.viewControllers.count > 1) {
-        PlansListTableHeaderView * headerView = [PlansListTableHeaderView planListHeaderView];
-        [headerView.addTourPlan addTarget:self action:@selector(makePlan) forControlEvents:UIControlEventTouchUpInside];
-        return headerView;
-    }
-    return nil;
-}
- */
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
