@@ -379,7 +379,6 @@
     [UMSocialConfig setFinishToastIsHidden:NO position:UMSocialiToastPositionCenter];
     switch (imageIndex) {
             
-            
         case 0: {
             [UMSocialData defaultData].extConfig.wechatTimelineData.url = url;
             [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatTimeline] content:shareContentWithoutUrl image:nil location:nil urlResource:resource presentedController:self completion:^(UMSocialResponseEntity *response){

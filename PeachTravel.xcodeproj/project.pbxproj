@@ -275,6 +275,7 @@
 		D971E28F1B8C8F57007E5AFD /* JDStatusBarStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = D971E28B1B8C8F57007E5AFD /* JDStatusBarStyle.m */; };
 		D971E2901B8C8F57007E5AFD /* JDStatusBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = D971E28D1B8C8F57007E5AFD /* JDStatusBarView.m */; };
 		D971E2961B8EA622007E5AFD /* libGeTuiSdk-1.2.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D971E2951B8EA622007E5AFD /* libGeTuiSdk-1.2.1.a */; };
+		D971E2981B8F3843007E5AFD /* share_icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D971E2971B8F3843007E5AFD /* share_icon@3x.png */; };
 		D97C8B4D1A526B9F00476C9C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D97C8B4C1A526B9F00476C9C /* Images.xcassets */; };
 		D9823E841B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9823E831B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m */; };
 		D9871DBA1B47D31E00BFDFAF /* ScheduleDayEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9871DB81B47D31E00BFDFAF /* ScheduleDayEditViewController.m */; };
@@ -1682,6 +1683,7 @@
 		D971E2931B8EA622007E5AFD /* GeTuiSdk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeTuiSdk.h; sourceTree = "<group>"; };
 		D971E2941B8EA622007E5AFD /* GeTuiSdkError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeTuiSdkError.h; sourceTree = "<group>"; };
 		D971E2951B8EA622007E5AFD /* libGeTuiSdk-1.2.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libGeTuiSdk-1.2.1.a"; sourceTree = "<group>"; };
+		D971E2971B8F3843007E5AFD /* share_icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "share_icon@3x.png"; sourceTree = "<group>"; };
 		D97C8B4C1A526B9F00476C9C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
 		D9823E821B19AA0200A1AE35 /* SuggestionDestinationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuggestionDestinationTableViewController.h; sourceTree = "<group>"; };
 		D9823E831B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuggestionDestinationTableViewController.m; sourceTree = "<group>"; };
@@ -6225,6 +6227,7 @@
 				E6F187131B845F4800232EEB /* common_icon_navigaiton_menu@3x.png */,
 				E6F187141B845F4800232EEB /* common_icon_right@2x.png */,
 				E6F187151B845F4800232EEB /* common_icon_right@3x.png */,
+				D971E2971B8F3843007E5AFD /* share_icon@3x.png */,
 				E6F187161B845F4800232EEB /* icon@2x.png */,
 				E6F187171B845F4800232EEB /* icon@3x.png */,
 				E6F187181B845F4800232EEB /* icon_arrow@2x.png */,
@@ -7687,6 +7690,7 @@
 				E6F189DA1B845F4900232EEB /* add_poi@3x.png in Resources */,
 				E6F18A181B845F4900232EEB /* map_icon_5@3x.png in Resources */,
 				E6F18B181B845F4900232EEB /* master_icon_constellation3@3x.png in Resources */,
+				D971E2981B8F3843007E5AFD /* share_icon@3x.png in Resources */,
 				D94B891C1B5E4F4C00584DE5 /* h5_labar_right_default@3x.png in Resources */,
 				D9A800611A80DD0C005AD701 /* AddressBookTableViewCell.xib in Resources */,
 				E6F189241B845F4900232EEB /* dashboard_03_icon_constellation12@3x.png in Resources */,
