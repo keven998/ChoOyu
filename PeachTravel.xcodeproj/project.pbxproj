@@ -659,6 +659,8 @@
 		E608A0EB1B8D5771003BA318 /* ExpertRequestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E608A0E91B8D5771003BA318 /* ExpertRequestViewController.xib */; };
 		E608A0F11B8D8560003BA318 /* GuiderDistributeTools.m in Sources */ = {isa = PBXBuildFile; fileRef = E608A0F01B8D8560003BA318 /* GuiderDistributeTools.m */; };
 		E608A1051B8EF6D8003BA318 /* GuiderSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E608A1041B8EF6D8003BA318 /* GuiderSearchViewController.m */; };
+		E608A1121B8F26CF003BA318 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = E608A1111B8F26CF003BA318 /* UIView+Extension.m */; };
+		E608A1151B8F2755003BA318 /* CWTitleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E608A1141B8F2755003BA318 /* CWTitleButton.m */; };
 		E6381B9C1B660EB000CF73AA /* PricePoiDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6381B9B1B660EB000CF73AA /* PricePoiDetailController.m */; };
 		E6381BDC1B66269000CF73AA /* Loading_Animation_final0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E6381BA01B66268F00CF73AA /* Loading_Animation_final0@2x.png */; };
 		E6381BDD1B66269000CF73AA /* Loading_Animation_final10@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E6381BA11B66268F00CF73AA /* Loading_Animation_final10@2x.png */; };
@@ -2334,6 +2336,10 @@
 		E608A0F01B8D8560003BA318 /* GuiderDistributeTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuiderDistributeTools.m; sourceTree = "<group>"; };
 		E608A1031B8EF6D8003BA318 /* GuiderSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuiderSearchViewController.h; sourceTree = "<group>"; };
 		E608A1041B8EF6D8003BA318 /* GuiderSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuiderSearchViewController.m; sourceTree = "<group>"; };
+		E608A1101B8F26CF003BA318 /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
+		E608A1111B8F26CF003BA318 /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
+		E608A1131B8F2755003BA318 /* CWTitleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CWTitleButton.h; path = PeachTravel/Common/Category/CWTitleButton.h; sourceTree = SOURCE_ROOT; };
+		E608A1141B8F2755003BA318 /* CWTitleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CWTitleButton.m; path = PeachTravel/Common/Category/CWTitleButton.m; sourceTree = SOURCE_ROOT; };
 		E6381B9A1B660EB000CF73AA /* PricePoiDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PricePoiDetailController.h; sourceTree = "<group>"; };
 		E6381B9B1B660EB000CF73AA /* PricePoiDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PricePoiDetailController.m; sourceTree = "<group>"; };
 		E6381BA01B66268F00CF73AA /* Loading_Animation_final0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Loading_Animation_final0@2x.png"; sourceTree = "<group>"; };
@@ -4918,6 +4924,8 @@
 				D9A802511A80E3D3005AD701 /* UIViewController+DismissKeyboard.m */,
 				D9A802521A80E3D3005AD701 /* UIViewController+HUD.h */,
 				D9A802531A80E3D3005AD701 /* UIViewController+HUD.m */,
+				E608A1101B8F26CF003BA318 /* UIView+Extension.h */,
+				E608A1111B8F26CF003BA318 /* UIView+Extension.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -5924,6 +5932,8 @@
 		E68F797C1B7890CC00DD08CF /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				E608A1131B8F2755003BA318 /* CWTitleButton.h */,
+				E608A1141B8F2755003BA318 /* CWTitleButton.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -7997,6 +8007,7 @@
 				D9A8010F1A80DD23005AD701 /* ChangeGroupTitleViewController.m in Sources */,
 				D971E28F1B8C8F57007E5AFD /* JDStatusBarStyle.m in Sources */,
 				D993C26F1B12DF0C0088D568 /* FrendModel.swift in Sources */,
+				E608A1151B8F2755003BA318 /* CWTitleButton.m in Sources */,
 				D993C2541B12DF0C0088D568 /* LvSDKManager.swift in Sources */,
 				D9A801621A80DD23005AD701 /* SelectContactUnitView.m in Sources */,
 				C6C5C3CB1ADE65570047C058 /* NSTimer+Addition.m in Sources */,
@@ -8137,6 +8148,7 @@
 				D9A8012E1A80DD23005AD701 /* DXChatBarMoreView.m in Sources */,
 				D9A801511A80DD23005AD701 /* ZYQAssetPickerController.m in Sources */,
 				C679D3121ACD64E3007680D9 /* UIViewController+REFrostedViewController.m in Sources */,
+				E608A1121B8F26CF003BA318 /* UIView+Extension.m in Sources */,
 				D9A802BA1A80E3D3005AD701 /* ConvertMethods.m in Sources */,
 				D91850E11B575450004B8363 /* ItemFooterCollectionViewController.m in Sources */,
 				D92CA1081AD8BDF900F244FF /* PSTGridLayoutRow.m in Sources */,
