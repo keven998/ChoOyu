@@ -91,6 +91,19 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [self sendRequestGethotSearchResult];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"page_lxp_search"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"page_lxp_search"];
+    [_searchBar endEditing:YES];
+}
+
 // 加载CollectionView的数据源
 - (void)setupCollectionDataSourceWithHotSearchResult:(NSArray *)hotSearchResult
 {
@@ -134,19 +147,6 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 - (void)goBack
 {
     [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"page_lxp_search"];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"page_lxp_search"];
-    [_searchBar endEditing:YES];
 }
 
 - (void)showCollectionView
@@ -443,7 +443,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     taoziMessageCtl.messageRating = poi.rating;
     taoziMessageCtl.chatterId = _chatterId;
     taoziMessageCtl.chatType = _chatType;
-    [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:nil];
+    [self.navigationController presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:nil];
 }
 
 #pragma mark - tableview datasource & delegate
@@ -692,6 +692,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 - (void)sendCancel
 {
     [self dismissPopup];
+    [self performSelector:@selector(dismissAfterSended) withObject:nil afterDelay:0.5];
 }
 
 /**
@@ -700,13 +701,8 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
  */
 - (void)dismissPopup
 {
-    if (self.popupViewController != nil) {
-        [self dismissPopupViewControllerAnimated:YES completion:nil];
-        
-        // 回到上个页面
-        [self dismissViewControllerAnimated:YES completion:^{
-            
-        }];
+    if (self.navigationController.popupViewController != nil) {
+        [self.navigationController dismissPopupViewControllerAnimated:YES completion:nil];
     }
 }
 
