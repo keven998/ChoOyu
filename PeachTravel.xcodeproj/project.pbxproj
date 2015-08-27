@@ -274,6 +274,7 @@
 		D971E28E1B8C8F57007E5AFD /* JDStatusBarNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = D971E2891B8C8F57007E5AFD /* JDStatusBarNotification.m */; };
 		D971E28F1B8C8F57007E5AFD /* JDStatusBarStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = D971E28B1B8C8F57007E5AFD /* JDStatusBarStyle.m */; };
 		D971E2901B8C8F57007E5AFD /* JDStatusBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = D971E28D1B8C8F57007E5AFD /* JDStatusBarView.m */; };
+		D971E2961B8EA622007E5AFD /* libGeTuiSdk-1.2.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D971E2951B8EA622007E5AFD /* libGeTuiSdk-1.2.1.a */; };
 		D97C8B4D1A526B9F00476C9C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D97C8B4C1A526B9F00476C9C /* Images.xcassets */; };
 		D9823E841B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9823E831B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m */; };
 		D9871DBA1B47D31E00BFDFAF /* ScheduleDayEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9871DB81B47D31E00BFDFAF /* ScheduleDayEditViewController.m */; };
@@ -302,7 +303,6 @@
 		D993C2451B12DF0C0088D568 /* MetaDataDaoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D993C1F11B12DF0C0088D568 /* MetaDataDaoHelper.swift */; };
 		D993C2461B12DF0C0088D568 /* ConversationDaoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D993C1F31B12DF0C0088D568 /* ConversationDaoHelper.swift */; };
 		D993C2471B12DF0C0088D568 /* FrendDaoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D993C1F41B12DF0C0088D568 /* FrendDaoHelper.swift */; };
-		D993C2481B12DF0C0088D568 /* libGexinSdk-1.1.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D993C1F91B12DF0C0088D568 /* libGexinSdk-1.1.1.a */; };
 		D993C2491B12DF0C0088D568 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = D993C1FC1B12DF0C0088D568 /* FMDatabase.m */; };
 		D993C24A1B12DF0C0088D568 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D993C1FE1B12DF0C0088D568 /* FMDatabaseAdditions.m */; };
 		D993C24B1B12DF0C0088D568 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = D993C2001B12DF0C0088D568 /* FMDatabasePool.m */; };
@@ -1678,6 +1678,9 @@
 		D971E28B1B8C8F57007E5AFD /* JDStatusBarStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDStatusBarStyle.m; sourceTree = "<group>"; };
 		D971E28C1B8C8F57007E5AFD /* JDStatusBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDStatusBarView.h; sourceTree = "<group>"; };
 		D971E28D1B8C8F57007E5AFD /* JDStatusBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDStatusBarView.m; sourceTree = "<group>"; };
+		D971E2931B8EA622007E5AFD /* GeTuiSdk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeTuiSdk.h; sourceTree = "<group>"; };
+		D971E2941B8EA622007E5AFD /* GeTuiSdkError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeTuiSdkError.h; sourceTree = "<group>"; };
+		D971E2951B8EA622007E5AFD /* libGeTuiSdk-1.2.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libGeTuiSdk-1.2.1.a"; sourceTree = "<group>"; };
 		D97C8B4C1A526B9F00476C9C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
 		D9823E821B19AA0200A1AE35 /* SuggestionDestinationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuggestionDestinationTableViewController.h; sourceTree = "<group>"; };
 		D9823E831B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuggestionDestinationTableViewController.m; sourceTree = "<group>"; };
@@ -1720,9 +1723,6 @@
 		D993C1F11B12DF0C0088D568 /* MetaDataDaoHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetaDataDaoHelper.swift; sourceTree = "<group>"; };
 		D993C1F31B12DF0C0088D568 /* ConversationDaoHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationDaoHelper.swift; sourceTree = "<group>"; };
 		D993C1F41B12DF0C0088D568 /* FrendDaoHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FrendDaoHelper.swift; path = ../Dao/UserDaoHelper/FrendDaoHelper.swift; sourceTree = "<group>"; };
-		D993C1F71B12DF0C0088D568 /* GexinSdk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GexinSdk.h; sourceTree = "<group>"; };
-		D993C1F81B12DF0C0088D568 /* GXSdkError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXSdkError.h; sourceTree = "<group>"; };
-		D993C1F91B12DF0C0088D568 /* libGexinSdk-1.1.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libGexinSdk-1.1.1.a"; sourceTree = "<group>"; };
 		D993C1FB1B12DF0C0088D568 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
 		D993C1FC1B12DF0C0088D568 /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
 		D993C1FD1B12DF0C0088D568 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
@@ -3010,8 +3010,8 @@
 				D9A8065E1A80F285005AD701 /* Social.framework in Frameworks */,
 				D9A8FDF71A808908005AD701 /* libstdc++.6.0.9.dylib in Frameworks */,
 				D93C50C11A47EEFA00FFE2FA /* libresolv.dylib in Frameworks */,
-				D993C2481B12DF0C0088D568 /* libGexinSdk-1.1.1.a in Frameworks */,
 				E6E725601B5603D30007273A /* TencentOpenAPI.framework in Frameworks */,
+				D971E2961B8EA622007E5AFD /* libGeTuiSdk-1.2.1.a in Frameworks */,
 				D955E3EC19E7A27700047F2B /* libstdc++.dylib in Frameworks */,
 				D955E3E219E7A24500047F2B /* libiconv.dylib in Frameworks */,
 				D993C2401B12DF0C0088D568 /* libopencore-amrwb.a in Frameworks */,
@@ -3653,6 +3653,24 @@
 			path = JDStatusBarNotification;
 			sourceTree = "<group>";
 		};
+		D971E2911B8EA622007E5AFD /* Getui */ = {
+			isa = PBXGroup;
+			children = (
+				D971E2921B8EA622007E5AFD /* include */,
+				D971E2951B8EA622007E5AFD /* libGeTuiSdk-1.2.1.a */,
+			);
+			path = Getui;
+			sourceTree = "<group>";
+		};
+		D971E2921B8EA622007E5AFD /* include */ = {
+			isa = PBXGroup;
+			children = (
+				D971E2931B8EA622007E5AFD /* GeTuiSdk.h */,
+				D971E2941B8EA622007E5AFD /* GeTuiSdkError.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
 		D9722F1A1A82446900D8A8CC /* loading_animation */ = {
 			isa = PBXGroup;
 			children = (
@@ -3788,7 +3806,7 @@
 		D993C1CB1B12DF0C0088D568 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				D993C1F51B12DF0C0088D568 /* dist */,
+				D971E2911B8EA622007E5AFD /* Getui */,
 				D993C1FA1B12DF0C0088D568 /* fmdb */,
 				D993C1CC1B12DF0C0088D568 /* AES */,
 				D993C1D51B12DF0C0088D568 /* AudioDeviceManager */,
@@ -3918,25 +3936,6 @@
 			);
 			name = ConversationDaoHelper;
 			path = UserDaoHelper;
-			sourceTree = "<group>";
-		};
-		D993C1F51B12DF0C0088D568 /* dist */ = {
-			isa = PBXGroup;
-			children = (
-				D993C1F61B12DF0C0088D568 /* include */,
-				D993C1F91B12DF0C0088D568 /* libGexinSdk-1.1.1.a */,
-			);
-			name = dist;
-			path = ../dist;
-			sourceTree = "<group>";
-		};
-		D993C1F61B12DF0C0088D568 /* include */ = {
-			isa = PBXGroup;
-			children = (
-				D993C1F71B12DF0C0088D568 /* GexinSdk.h */,
-				D993C1F81B12DF0C0088D568 /* GXSdkError.h */,
-			);
-			path = include;
 			sourceTree = "<group>";
 		};
 		D993C1FA1B12DF0C0088D568 /* fmdb */ = {
@@ -8444,12 +8443,12 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/PeachTravel",
-					"$(PROJECT_DIR)/PeachTravel/IMSDK/dist",
 					"$(PROJECT_DIR)/PeachTravel/IMSDK/Core/VoiceConvert/lib",
 					"$(PROJECT_DIR)/PeachTravel/libs/UMSocial_Sdk_4.2.3",
 					"$(PROJECT_DIR)/PeachTravel/libs/UMSocial_Sdk_Extra_Frameworks/Sina",
 					"$(PROJECT_DIR)/PeachTravel/libs/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 					"$(PROJECT_DIR)/PeachTravel/libs/UMSocial_Sdk_Extra_Frameworks/Wechat",
+					"$(PROJECT_DIR)/PeachTravel/IMSDK/Core/Getui",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-D DEBUG";
@@ -8482,12 +8481,12 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/PeachTravel",
-					"$(PROJECT_DIR)/PeachTravel/IMSDK/dist",
 					"$(PROJECT_DIR)/PeachTravel/IMSDK/Core/VoiceConvert/lib",
 					"$(PROJECT_DIR)/PeachTravel/libs/UMSocial_Sdk_4.2.3",
 					"$(PROJECT_DIR)/PeachTravel/libs/UMSocial_Sdk_Extra_Frameworks/Sina",
 					"$(PROJECT_DIR)/PeachTravel/libs/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 					"$(PROJECT_DIR)/PeachTravel/libs/UMSocial_Sdk_Extra_Frameworks/Wechat",
+					"$(PROJECT_DIR)/PeachTravel/IMSDK/Core/Getui",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";

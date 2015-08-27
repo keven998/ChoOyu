@@ -4,7 +4,7 @@
 
 #import "FMDB.h"
 #import "AESCrypt.h"
-#import "GexinSdk.h"
+#import "GeTuiSdk.h"
 #import "AFNetworking.h"
 #import "SVProgressHUD.h"
 #import "QiniuSDK.h"

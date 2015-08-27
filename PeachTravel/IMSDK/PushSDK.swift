@@ -19,9 +19,8 @@ import UIKit
 
 private let pushSDKManager = PushSDKManager()
 
-class PushSDKManager: NSObject, GexinSdkDelegate {
+class PushSDKManager: NSObject, GeTuiSdkDelegate {
     
-    private var gexinSdk: GexinSdk?
     private var pushSdkIsConnected: Bool = false
     
     var msgId:Int = 1100
@@ -50,7 +49,7 @@ class PushSDKManager: NSObject, GexinSdkDelegate {
     }
     
     func registerDeviceToken(token: String) {
-        gexinSdk?.registerDeviceToken(token)
+        GeTuiSdk.registerDeviceToken(token)
     }
     
     func networkChanged(noti:NSNotification) {
@@ -69,7 +68,7 @@ class PushSDKManager: NSObject, GexinSdkDelegate {
     @objc private func checkoutSDKStatus() {
         if !pushSdkIsConnected {
             debug_println("***** 个推 sdk 长链接未建立， 尝试重新建立中。******")
-            gexinSdk?.destroy()
+//            gexinSdk?.destroy()
             self.createPushConnection()
         }
     }
@@ -107,7 +106,7 @@ class PushSDKManager: NSObject, GexinSdkDelegate {
     */
     func createPushConnection() {
         debug_println("正在建立 push 长链接。。。。。")
-        gexinSdk = GetuiPush.login()
+        GetuiPush.login()
     }
     
     //MARK: 个推 delegate
@@ -115,9 +114,13 @@ class PushSDKManager: NSObject, GexinSdkDelegate {
     个推sdk 出现问题
     :param: error
     */
-    func GexinSdkDidOccurError(error: NSError!) {
+    func GeTuiSdkDidOccurError(error: NSError!) {
         pushSdkIsConnected = false
-        debug_println("*****  GexinSdkDidOccurError  ******")
+        debug_println("*****  GeTuiSdkDidOccurError  ******")
+    }
+    
+    func GeTuiSDkDidNotifySdkState(aStatus: SdkStatus) {
+        debug_print("*****GeTuiSDkDidNotifySdkState \(aStatus)")
     }
     
     /**
@@ -125,35 +128,12 @@ class PushSDKManager: NSObject, GexinSdkDelegate {
     :param: payloadId 透传消息内容
     :param: appId     来自的 id
     */
-    func GexinSdkDidReceivePayload(payloadId: String!, fromApplication appId: String!) {
-        var payload = gexinSdk?.retrivePayloadById(payloadId)
+    
+    func GeTuiSdkDidReceivePayload(payloadId: String!, andTaskId taskId: String!, andMessageId aMsgId: String!, fromApplication appId: String!) {
+        var payload = GeTuiSdk.retrivePayloadById(payloadId)
         var length = payload?.length
         var bytes = payload?.bytes
         var payloadMsg = NSString(bytes:bytes! , length: length!, encoding: NSUTF8StringEncoding)
-        
-        /*
-        let questionDic = ["questions": [["title":"北京有哪些好吃的","image": "","url": "www.baidu.com", "test" : 123],
-        ["title":"北京有哪些好吃的","image": "","url": "www.baidu.com", "test" : 123],
-        ["title":"北京有哪些好吃的","image": "","url": "www.baidu.com", "test" : 123],
-        ["title":"北京有哪些好吃的","image": "","url": "www.baidu.com", "test" : 123],
-        ["title":"北京有哪些好吃的","image": "","url": "www.baidu.com", "test" : 123]
-        ]]
-        
-        let htmlDic = ["url": "http://www.baidu.com", "title": "mt带我们去旅行", "desc": "哈哈红烧豆腐撒旦法是否收到了", "image": ""]
-        
-        let str: NSString = JSONConvertMethod.contentsStrWithJsonObjc(htmlDic)!
-        
-        let messageDic =  [ "id" : "55addff01ae2400001cde012", "chatType" : "single","msgId" : msgId, "msgType" : 18,"conversation" : "557fb20c5f15030001b38480", "contents" : str,"senderId" : 100068,"abbrev" : "煎蛋小哈哈: 看到觉得基督教", "timestamp" : 1437458416707, "receiverId" : 100044 ]
-        
-        msgId++
-        
-        let dic: NSDictionary =
-        [
-            "routingKey" : "IM", "message" : messageDic
-        ]
-        
-        let totalStr: NSString = JSONConvertMethod.contentsStrWithJsonObjc(dic)!
-        */
         
         // 收到消息后分发出去
         if let message = payloadMsg {
@@ -192,23 +172,23 @@ class PushSDKManager: NSObject, GexinSdkDelegate {
     个推注册成功,相当于 client 登录成功
     :param: clientId 注册成功后的 id
     */
-    func GexinSdkDidRegisterClient(clientId: String!) {
+    func GeTuiSdkDidRegisterClient(clientId: String!) {
         debug_println("push 长链接建立成功")
         pushSdkIsConnected = true
         pushConnectionDelegate?.getuiDidConnection(clientId)
     }
 }
 
-class GetuiPush: GexinSdk {
+class GetuiPush: GeTuiSdk {
     
-    class func login() -> GexinSdk {
+    class func login() {
         let kAppKey = "O2ooToqPrsAGJYy3iZ54d7"
         let kAppId = "aGqQz4HiLg70iOUXheRSZ3"
         let kAppSecret = "HBD1EqFmJF78PnWEy5KEM5"
         
         var pushSDKManager = PushSDKManager.shareInstance()
         var err: NSErrorPointer = NSErrorPointer()
-        return GexinSdk.createSdkWithAppId(kAppId, appKey: kAppKey, appSecret: kAppSecret, appVersion: "1.0.0", delegate:pushSDKManager, error: err)
+        GeTuiSdk.startSdkWithAppId(kAppId, appKey: kAppKey, appSecret: kAppSecret, delegate: pushSDKManager, error: err)
     }
     
     deinit {
