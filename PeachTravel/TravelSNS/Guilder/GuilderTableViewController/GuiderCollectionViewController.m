@@ -57,6 +57,8 @@ static NSString * const reuseIdentifier = @"Cell";
     
     // 传入的时候刷新即可
     [self loadTravelers:_distributionArea withPageNo:0];
+    
+
 }
 
 #pragma mark - 友盟统计
@@ -108,6 +110,8 @@ static NSString * const reuseIdentifier = @"Cell";
     // 传入国家ID数据时刷新表格
     [self loadTravelers:guiderDistribute.ID withPageNo:0];
 }
+
+
 
 #pragma mark - http method
 

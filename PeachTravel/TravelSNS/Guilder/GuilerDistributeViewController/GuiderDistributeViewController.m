@@ -15,6 +15,7 @@
 #import "GuiderDistributeTools.h"
 #import "HWDropdownMenu.h"
 #import "DropDownViewController.h"
+#import "GuiderSearchViewController.h"
 
 @interface GuiderDistributeViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,HWDropdownMenuDelegate,dropDownMenuProtocol>
 @property (nonatomic, strong) UITableView *tableView;
@@ -85,6 +86,9 @@
     
     // 设置头部标题的格式
     [self setupHeaderTitle];
+    
+    // 设置右上角的搜索按钮
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"account_labbar_icon_follow_selected"] style:UIBarButtonItemStyleBordered target:self action:@selector(searchExpert:)];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -171,6 +175,20 @@
     // 4.显示
     [menu showFrom:type];
 }
+
+/**
+ *  搜索达人
+ *
+ *  @param sender 搜索达人
+ */
+- (void)searchExpert:(id)sender
+{
+    GuiderSearchViewController *searchCtl = [[GuiderSearchViewController alloc] init];
+    
+    searchCtl.hidesBottomBarWhenPushed = YES;
+    [searchCtl setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+    TZNavigationViewController *tznavc = [[TZNavigationViewController alloc] initWithRootViewController:searchCtl];
+    [self presentViewController:tznavc animated:YES completion:nil];}
 
 #pragma mark - 实现dropDownMenuProtocol代理方法
 - (void)didSelectedContinentIndex:(NSInteger)continentIndex

@@ -658,6 +658,7 @@
 		E608A0EA1B8D5771003BA318 /* ExpertRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E608A0E81B8D5771003BA318 /* ExpertRequestViewController.swift */; };
 		E608A0EB1B8D5771003BA318 /* ExpertRequestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E608A0E91B8D5771003BA318 /* ExpertRequestViewController.xib */; };
 		E608A0F11B8D8560003BA318 /* GuiderDistributeTools.m in Sources */ = {isa = PBXBuildFile; fileRef = E608A0F01B8D8560003BA318 /* GuiderDistributeTools.m */; };
+		E608A1051B8EF6D8003BA318 /* GuiderSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E608A1041B8EF6D8003BA318 /* GuiderSearchViewController.m */; };
 		E6381B9C1B660EB000CF73AA /* PricePoiDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6381B9B1B660EB000CF73AA /* PricePoiDetailController.m */; };
 		E6381BDC1B66269000CF73AA /* Loading_Animation_final0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E6381BA01B66268F00CF73AA /* Loading_Animation_final0@2x.png */; };
 		E6381BDD1B66269000CF73AA /* Loading_Animation_final10@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E6381BA11B66268F00CF73AA /* Loading_Animation_final10@2x.png */; };
@@ -2331,6 +2332,8 @@
 		E608A0E91B8D5771003BA318 /* ExpertRequestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExpertRequestViewController.xib; sourceTree = "<group>"; };
 		E608A0EF1B8D8560003BA318 /* GuiderDistributeTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuiderDistributeTools.h; sourceTree = "<group>"; };
 		E608A0F01B8D8560003BA318 /* GuiderDistributeTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuiderDistributeTools.m; sourceTree = "<group>"; };
+		E608A1031B8EF6D8003BA318 /* GuiderSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuiderSearchViewController.h; sourceTree = "<group>"; };
+		E608A1041B8EF6D8003BA318 /* GuiderSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuiderSearchViewController.m; sourceTree = "<group>"; };
 		E6381B9A1B660EB000CF73AA /* PricePoiDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PricePoiDetailController.h; sourceTree = "<group>"; };
 		E6381B9B1B660EB000CF73AA /* PricePoiDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PricePoiDetailController.m; sourceTree = "<group>"; };
 		E6381BA01B66268F00CF73AA /* Loading_Animation_final0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Loading_Animation_final0@2x.png"; sourceTree = "<group>"; };
@@ -6095,6 +6098,8 @@
 			children = (
 				C651F3EF1B394C8B00B80690 /* GuiderDistributeViewController.h */,
 				C651F3F01B394C8B00B80690 /* GuiderDistributeViewController.m */,
+				E608A1031B8EF6D8003BA318 /* GuiderSearchViewController.h */,
+				E608A1041B8EF6D8003BA318 /* GuiderSearchViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -8154,6 +8159,7 @@
 				D9A8FF151A80CC2B005AD701 /* ResetPasswordViewController.m in Sources */,
 				D9A800201A80D52F005AD701 /* TaoziCollectionLayout.m in Sources */,
 				E6E118F61B59EE280090FDEF /* UIView+Extension.m in Sources */,
+				E608A1051B8EF6D8003BA318 /* GuiderSearchViewController.m in Sources */,
 				E6BFE5FD1B5E732F00A9FDCA /* DestinationCollectionViewCell.m in Sources */,
 				D9F059F51B63360700DD683F /* PlanScheduleTableViewCell.m in Sources */,
 				E676B8D41B5CD20C0042B539 /* GuiderDistributeContinent.m in Sources */,
