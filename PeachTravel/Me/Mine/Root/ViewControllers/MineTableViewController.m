@@ -432,7 +432,7 @@
     
     [UMSocialData defaultData].extConfig.wechatSessionData.url = @"http://www.lvxingpai.com/app/download/";
     
-    UIImage *shareImage = [UIImage imageNamed:@"icon.png"];
+    UIImage *shareImage = [UIImage imageNamed:@"share_icon.png"];
     
     [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:@"能向达人咨询、朋友协作的旅行工具" image:shareImage location:nil urlResource:nil presentedController:self completion:^(UMSocialResponseEntity *response) {
     }];
