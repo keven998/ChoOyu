@@ -91,7 +91,7 @@ NSString *const kRouterEventTaoziCityBubbleTapEventName = @"kRouterEventTaoziCit
  */
 + (CGFloat)heightForBubbleWithObject:(MessageModel *)object
 {
-    return TaoziCityBubbleHeight + 10;
+    return TaoziCityBubbleHeight;
 }
 
 @end

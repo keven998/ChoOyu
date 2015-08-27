@@ -40,6 +40,7 @@
 static NSString *reusableCellIdentifier = @"searchResultCell";
 
 #pragma mark - lifeCycle
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

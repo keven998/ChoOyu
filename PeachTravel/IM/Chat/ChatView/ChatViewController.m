@@ -1172,16 +1172,6 @@
         }
     }];
     
-    // 判断是否开启权限
-    /*
-    NSString * mediaType = AVMediaTypeVideo;
-    AVAuthorizationStatus  authorizationStatus = [AVCaptureDevice authorizationStatusForMediaType:mediaType];
-    if (authorizationStatus == AVAuthorizationStatusRestricted|| authorizationStatus == AVAuthorizationStatusDenied) {
-        [self showHint:@"您没有开启相册权限!"];
-    }else{
-        [self presentViewController:picker animated:YES completion:NULL];
-    }
-     */
     [self presentViewController:picker animated:YES completion:NULL];
 }
 
@@ -1208,7 +1198,6 @@
 - (void)moreViewLocationAction:(DXChatBarMoreView *)moreView
 {
     // 隐藏键盘
-//    [self keyBoardHidden];
     [MobClick event:@"chat_item_lxplocation"];
 
     LocationViewController *locationController = [[LocationViewController alloc] init];
@@ -1273,6 +1262,7 @@
 }
 
 #pragma mark - ZYQAssetPickerControllerDelegate
+
 /**
  *  从相册里获取图片
  *
