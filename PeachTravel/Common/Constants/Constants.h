@@ -411,7 +411,13 @@ typedef NS_ENUM(NSUInteger, TZCMDChatType) {
 #define HTTP_FAILED_HINT    @"网络请求失败"
 
 
-
+/**
+ *  判断设备类型
+ */
+#define IS_IPHONE4S (([[UIScreen mainScreen] bounds].size.height == 480) ? YES : NO)
+#define IS_IPHONE5S (([[UIScreen mainScreen] bounds].size.height == 568) ? YES : NO)
+#define IS_IPhone6 (667 == [[UIScreen mainScreen] bounds].size.height ? YES : NO)
+#define IS_IPhone6plus (736 == [[UIScreen mainScreen] bounds].size.height ? YES : NO)
 
 
 

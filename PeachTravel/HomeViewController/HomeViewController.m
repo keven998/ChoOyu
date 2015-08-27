@@ -84,6 +84,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogin) name:userDidLoginNoti object:nil];
     
     [self setupConverView];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
