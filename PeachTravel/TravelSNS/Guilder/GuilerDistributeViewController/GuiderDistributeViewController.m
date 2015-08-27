@@ -34,6 +34,8 @@
 @property (nonatomic, strong)NSMutableDictionary * showDic;
 
 @property (nonatomic, strong)HWDropdownMenu * dropDownMenu;
+// 当前选中的大洲
+@property (nonatomic) NSUInteger currentContinentIndex;
 
 @end
 
@@ -83,15 +85,18 @@
     
     // 设置头部标题的格式
     [self setupHeaderTitle];
-    
-    [self.navigationController.navigationBar setBackgroundColor:APP_PAGE_COLOR];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_lxp_guide_distribute"];
-  
+    
+    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:COLOR_TEXT_I, NSForegroundColorAttributeName, nil]];
+    [self.navigationController.navigationBar setBackgroundImage:[ConvertMethods createImageWithColor:APP_PAGE_COLOR] forBarMetrics:UIBarMetricsDefault];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+    self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -99,6 +104,10 @@
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"page_lxp_guide_distribute"];
   
+    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,nil]];
+    [self.navigationController.navigationBar setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:[UIImage imageNamed:@"bg_navigationbar_shadow.png"]];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
 }
 
 #pragma mark - 获得达人数据
@@ -128,7 +137,7 @@
     [type addTarget:self action:@selector(typeClick:) forControlEvents:UIControlEventTouchDown];
     [type setImage:[UIImage imageNamed:@"ArtboardBottom"] forState:UIControlStateNormal];
     [type setImage:[UIImage imageNamed:@"ArtboardTop"] forState:UIControlStateSelected];
-    type.imageEdgeInsets = UIEdgeInsetsMake(0, 60, 0, 0);
+    type.imageEdgeInsets = UIEdgeInsetsMake(0, 90, 0, 0);
     type.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 40);
     type.frame = CGRectMake(kWindowWidth * 0.5, 0, kWindowWidth * 0.5, 50);
     self.navigationItem.titleView = type;
@@ -152,7 +161,7 @@
     DropDownViewController *vc = [[DropDownViewController alloc] init];
     vc.delegateDrop = self;
     vc.siteArray = siteArray;
-//    vc.showAccessory = _currentListTypeIndex;
+    vc.showAccessory = self.currentContinentIndex;
     vc.tag = 3;
     vc.view.height = siteArray.count * 44;
     vc.view.width = kWindowWidth / 3;
@@ -166,11 +175,11 @@
 #pragma mark - 实现dropDownMenuProtocol代理方法
 - (void)didSelectedContinentIndex:(NSInteger)continentIndex
 {
+    self.currentContinentIndex = continentIndex;
     [self.dropDownMenu dismiss];
     [self.titleBtn setTitle:self.titleArray[continentIndex] forState:UIControlStateNormal];
     self.guiderArray = self.dataSource[continentIndex];
     
-    NSLog(@"%@",self.guiderArray);
     [self.tableView reloadData];
 }
 
@@ -180,10 +189,7 @@
  */
 - (void)dropdownMenuDidDismiss:(HWDropdownMenu *)menu
 {
-//    self.cityButton.selected = NO;
-//    self.categoryButton.selected = NO;
-    // 让箭头向下
-    //    [titleButton setImage:[UIImage imageNamed:@"navigationbar_arrow_down"] forState:UIControlStateNormal];
+    self.titleBtn.selected = NO;
 }
 
 /**
@@ -224,9 +230,7 @@
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
 {
     
-//    return self.dataSource.count;
     return 1;
-    //    return 5;
 }
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

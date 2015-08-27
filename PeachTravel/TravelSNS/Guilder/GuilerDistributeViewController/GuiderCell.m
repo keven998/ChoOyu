@@ -58,10 +58,11 @@
         self.bgImage.image = [UIImage imageNamed:@"master_placeholder_bg.png"];
     }
 
+
     self.expertUserCnt.font = [UIFont boldSystemFontOfSize:30.0];
-    self.expertUserCnt.text = [NSString stringWithFormat:@"%ld位",guiderDistribute.expertCnt];
+    self.expertUserCnt.text = [NSString stringWithFormat:@"%@",guiderDistribute.zhName];
     self.zhName.font = [UIFont boldSystemFontOfSize:15.0];
-    self.zhName.text = [NSString stringWithFormat:@"~派派 · %@ · 达人~",guiderDistribute.zhName];
+    self.zhName.text = [NSString stringWithFormat:@"~派派 · %ld位 · 达人~",guiderDistribute.expertCnt];
     
 }
 
