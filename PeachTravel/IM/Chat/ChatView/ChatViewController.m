@@ -176,9 +176,6 @@
     else{
         _isScrollToBottom = YES;
     }
-    
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.dataSource.count-1 inSection:0];
-    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
