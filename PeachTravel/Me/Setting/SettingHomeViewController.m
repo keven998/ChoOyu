@@ -10,6 +10,7 @@
 #import "FeedbackViewController.h"
 #import "OptionTableViewCell.h"
 #import "PushSettingViewController.h"
+#import "ExpertRequestViewController.h"
 #import "iRate.h"
 #import "UMSocial.h"
 
@@ -152,6 +153,9 @@
         if (indexPath.row == 0) {
             [self shareToWeChat];
         } else if (indexPath.row == 1) {
+            ExpertRequestViewController *ctl = [[ExpertRequestViewController alloc] init];
+            ctl.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:ctl animated:YES];
             
         }
     } else if (indexPath.section == 1) {

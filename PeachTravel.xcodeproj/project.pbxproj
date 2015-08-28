@@ -276,6 +276,9 @@
 		D971E2901B8C8F57007E5AFD /* JDStatusBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = D971E28D1B8C8F57007E5AFD /* JDStatusBarView.m */; };
 		D971E2961B8EA622007E5AFD /* libGeTuiSdk-1.2.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D971E2951B8EA622007E5AFD /* libGeTuiSdk-1.2.1.a */; };
 		D971E2981B8F3843007E5AFD /* share_icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D971E2971B8F3843007E5AFD /* share_icon@3x.png */; };
+		D971E2A21B904F93007E5AFD /* ExpertRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D971E2A01B904F93007E5AFD /* ExpertRequestViewController.m */; };
+		D971E2A31B904F93007E5AFD /* ExpertRequestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D971E2A11B904F93007E5AFD /* ExpertRequestViewController.xib */; };
+		D971E2A51B90574B007E5AFD /* textfield_bgk@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D971E2A41B90574B007E5AFD /* textfield_bgk@2x.png */; };
 		D97C8B4D1A526B9F00476C9C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D97C8B4C1A526B9F00476C9C /* Images.xcassets */; };
 		D9823E841B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9823E831B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m */; };
 		D9871DBA1B47D31E00BFDFAF /* ScheduleDayEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9871DB81B47D31E00BFDFAF /* ScheduleDayEditViewController.m */; };
@@ -656,8 +659,6 @@
 		D9F70CAD1B31523C00BDACA1 /* AccountDaoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F70CAC1B31523C00BDACA1 /* AccountDaoHelper.swift */; };
 		D9FCE7DE1B134B4B0039F896 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FCE7DD1B134B4B0039F896 /* ChatViewController.m */; };
 		D9FCE7E91B135C820039F896 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FCE7E81B135C820039F896 /* Reachability.m */; };
-		E608A0EA1B8D5771003BA318 /* ExpertRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E608A0E81B8D5771003BA318 /* ExpertRequestViewController.swift */; };
-		E608A0EB1B8D5771003BA318 /* ExpertRequestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E608A0E91B8D5771003BA318 /* ExpertRequestViewController.xib */; };
 		E608A0F11B8D8560003BA318 /* GuiderDistributeTools.m in Sources */ = {isa = PBXBuildFile; fileRef = E608A0F01B8D8560003BA318 /* GuiderDistributeTools.m */; };
 		E608A1051B8EF6D8003BA318 /* GuiderSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E608A1041B8EF6D8003BA318 /* GuiderSearchViewController.m */; };
 		E608A1121B8F26CF003BA318 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = E608A1111B8F26CF003BA318 /* UIView+Extension.m */; };
@@ -1722,6 +1723,10 @@
 		D971E2941B8EA622007E5AFD /* GeTuiSdkError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeTuiSdkError.h; sourceTree = "<group>"; };
 		D971E2951B8EA622007E5AFD /* libGeTuiSdk-1.2.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libGeTuiSdk-1.2.1.a"; sourceTree = "<group>"; };
 		D971E2971B8F3843007E5AFD /* share_icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "share_icon@3x.png"; sourceTree = "<group>"; };
+		D971E29F1B904F93007E5AFD /* ExpertRequestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpertRequestViewController.h; sourceTree = "<group>"; };
+		D971E2A01B904F93007E5AFD /* ExpertRequestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpertRequestViewController.m; sourceTree = "<group>"; };
+		D971E2A11B904F93007E5AFD /* ExpertRequestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExpertRequestViewController.xib; sourceTree = "<group>"; };
+		D971E2A41B90574B007E5AFD /* textfield_bgk@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "textfield_bgk@2x.png"; sourceTree = "<group>"; };
 		D97C8B4C1A526B9F00476C9C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
 		D9823E821B19AA0200A1AE35 /* SuggestionDestinationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuggestionDestinationTableViewController.h; sourceTree = "<group>"; };
 		D9823E831B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuggestionDestinationTableViewController.m; sourceTree = "<group>"; };
@@ -2368,8 +2373,6 @@
 		D9FCE7E71B135C820039F896 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		D9FCE7E81B135C820039F896 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		E36073AEEC32FD100F0D0A9B /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		E608A0E81B8D5771003BA318 /* ExpertRequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpertRequestViewController.swift; sourceTree = "<group>"; };
-		E608A0E91B8D5771003BA318 /* ExpertRequestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExpertRequestViewController.xib; sourceTree = "<group>"; };
 		E608A0EF1B8D8560003BA318 /* GuiderDistributeTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuiderDistributeTools.h; sourceTree = "<group>"; };
 		E608A0F01B8D8560003BA318 /* GuiderDistributeTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuiderDistributeTools.m; sourceTree = "<group>"; };
 		E608A1031B8EF6D8003BA318 /* GuiderSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuiderSearchViewController.h; sourceTree = "<group>"; };
@@ -3715,7 +3718,7 @@
 		D964200E19EBC9AD00CC8057 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
-				E608A0E71B8D5755003BA318 /* ExpertRequest */,
+				D971E29E1B904F93007E5AFD /* ExpertRequest */,
 				C60C0D661A298DDA006033C9 /* PushSetting */,
 				D964201919EBE9B900CC8057 /* FeedBack */,
 				C65DB7C41AD644E000F51443 /* SettingHomeViewController.h */,
@@ -3762,6 +3765,17 @@
 				D971E2941B8EA622007E5AFD /* GeTuiSdkError.h */,
 			);
 			path = include;
+			sourceTree = "<group>";
+		};
+		D971E29E1B904F93007E5AFD /* ExpertRequest */ = {
+			isa = PBXGroup;
+			children = (
+				D971E29F1B904F93007E5AFD /* ExpertRequestViewController.h */,
+				D971E2A01B904F93007E5AFD /* ExpertRequestViewController.m */,
+				D971E2A11B904F93007E5AFD /* ExpertRequestViewController.xib */,
+			);
+			name = ExpertRequest;
+			path = Me/Setting/ExpertRequest;
 			sourceTree = "<group>";
 		};
 		D9722F1A1A82446900D8A8CC /* loading_animation */ = {
@@ -5896,16 +5910,6 @@
 			path = Reachability;
 			sourceTree = "<group>";
 		};
-		E608A0E71B8D5755003BA318 /* ExpertRequest */ = {
-			isa = PBXGroup;
-			children = (
-				E608A0E81B8D5771003BA318 /* ExpertRequestViewController.swift */,
-				E608A0E91B8D5771003BA318 /* ExpertRequestViewController.xib */,
-			);
-			name = ExpertRequest;
-			path = Me/Setting/ExpertRequest;
-			sourceTree = "<group>";
-		};
 		E608A0EE1B8D853C003BA318 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
@@ -6359,6 +6363,7 @@
 		E6F187031B845F4800232EEB /* CommonImages */ = {
 			isa = PBXGroup;
 			children = (
+				D971E2A41B90574B007E5AFD /* textfield_bgk@2x.png */,
 				E6F187041B845F4800232EEB /* bg_navigationbar_shadow@2x.png */,
 				E6F187051B845F4800232EEB /* bg_navigationbar_shadow@3x.png */,
 				E6F187061B845F4800232EEB /* bottom_shadow@2x.png */,
@@ -7798,6 +7803,7 @@
 				E6F1898E1B845F4900232EEB /* poi_dot_selected@3x.png in Resources */,
 				E6F18A771B845F4900232EEB /* ic_home_default_avatar@2x.png in Resources */,
 				E6F18A9F1B845F4900232EEB /* chat_receiver_audio_playing002@2x.png in Resources */,
+				D971E2A31B904F93007E5AFD /* ExpertRequestViewController.xib in Resources */,
 				E6F18A5D1B845F4900232EEB /* ic_home_header_girl@3x.png in Resources */,
 				E608A1811B90793D003BA318 /* girl@2x.png in Resources */,
 				D917DAD51A8B4B060039720A /* ic_guide_dot3@2x.png in Resources */,
@@ -7833,6 +7839,7 @@
 				D9A802FB1A80E566005AD701 /* Launch Screen.xib in Resources */,
 				E6F18AF11B845F4900232EEB /* ic_setting_cache_clean@3x.png in Resources */,
 				E608A1381B8F414C003BA318 /* up@3x.png in Resources */,
+				D971E2A51B90574B007E5AFD /* textfield_bgk@2x.png in Resources */,
 				D90A9B301B5627C400E9F37C /* Loading_Animation_final5@3x.png in Resources */,
 				D917DAC61A8B49AF0039720A /* ic_guide2_4_select@2x.png in Resources */,
 				E6F1892E1B845F4900232EEB /* dashboard_03_icon_constellation5@3x.png in Resources */,
@@ -7933,7 +7940,6 @@
 				E6381C0E1B66269000CF73AA /* Loading_Animation_final55@2x.png in Resources */,
 				E6F18A1F1B845F4900232EEB /* map_icon_9@2x.png in Resources */,
 				E6F189541B845F4900232EEB /* search@3x.png in Resources */,
-				E608A0EB1B8D5771003BA318 /* ExpertRequestViewController.xib in Resources */,
 				E6F18A801B845F4900232EEB /* speaking-motion11@3x.png in Resources */,
 				E6F189C01B845F4900232EEB /* ic_city_favorite_selected@3x.png in Resources */,
 				E6F18AE21B845F4900232EEB /* chat_drawer_disturb_selected@3x.png in Resources */,
@@ -8160,6 +8166,7 @@
 				D9A802151A80E036005AD701 /* JGProgressHUDIndicatorView.m in Sources */,
 				D9A802E11A80E3D3005AD701 /* PageThree.m in Sources */,
 				D993C2611B12DF0C0088D568 /* IMGuideMessage.swift in Sources */,
+				D971E2A21B904F93007E5AFD /* ExpertRequestViewController.m in Sources */,
 				D9A801571A80DD23005AD701 /* HPGrowingTextView.m in Sources */,
 				27FF1A3C1B04B91F00643D77 /* AIDatePickerController.m in Sources */,
 				D9F46DC21AC52D8600972AE8 /* SVWebViewControllerActivity.m in Sources */,
@@ -8229,7 +8236,6 @@
 				D971E26B1B8AF034007E5AFD /* MyGuidesTableViewCell.m in Sources */,
 				D9A8015B1A80DD23005AD701 /* EMRemarkImageView.m in Sources */,
 				D9A802171A80E036005AD701 /* JGProgressHUDRingIndicatorView.m in Sources */,
-				E608A0EA1B8D5771003BA318 /* ExpertRequestViewController.swift in Sources */,
 				D9A802321A80E036005AD701 /* THProgressView.m in Sources */,
 				E6E725231B5603750007273A /* MJTypeEncoding.m in Sources */,
 				D9A8FF171A80CC2B005AD701 /* VerifyCaptchaViewController.m in Sources */,
