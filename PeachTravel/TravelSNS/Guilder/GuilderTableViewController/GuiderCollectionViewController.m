@@ -33,25 +33,8 @@ static NSString * const reuseIdentifier = @"Cell";
     
     UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
     
-    if (IS_IPHONE_6P) {
-        layout.minimumLineSpacing = 21;
-        layout.minimumInteritemSpacing = 20;
-        CGFloat width = (self.collectionView.bounds.size.width-58)/2;
-        self.collectionView.contentInset = UIEdgeInsetsMake(16, 19, 5, 19);
-        layout.itemSize = CGSizeMake(width, width*780/537);
-    } else if (IS_IPHONE_6) {
-        layout.minimumLineSpacing = 15;
-        layout.minimumInteritemSpacing = 18;
-        self.collectionView.contentInset = UIEdgeInsetsMake(16, 15, 5, 15);
-        CGFloat width = (self.collectionView.bounds.size.width-48)/2;
-        layout.itemSize = CGSizeMake(width, width*780/537);
-    } else {
-        layout.minimumLineSpacing = 15;
-        layout.minimumInteritemSpacing = 10;
-        self.collectionView.contentInset = UIEdgeInsetsMake(16, 10, 5, 10);
-        CGFloat width = (self.collectionView.bounds.size.width-30)/2;
-        layout.itemSize = CGSizeMake(width, width*780/537+20);
-    }
+    layout.minimumLineSpacing = 20;
+    layout.itemSize = CGSizeMake(self.view.bounds.size.width, 540);
     // Register cell classes
     [self.collectionView registerNib:[UINib nibWithNibName:@"GuiderCollectionCell" bundle:nil] forCellWithReuseIdentifier:reuseIdentifier];
     
@@ -217,7 +200,7 @@ static NSString * const reuseIdentifier = @"Cell";
     } else {
         [cell.genderBkgImageView setImage:[UIImage imageNamed:@"master_no.png"]];
     }
-    [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:frend.avatarSmall]];
+    [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:frend.avatar]];
     
     [cell.costellationBtn setImage:[UIImage imageNamed:[FrendModel smallCostellationImageNameWithBirthday:frend.birthday]] forState:UIControlStateNormal];
     //星座
