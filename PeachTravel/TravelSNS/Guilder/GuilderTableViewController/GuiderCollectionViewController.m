@@ -32,8 +32,8 @@ static NSString * const reuseIdentifier = @"Cell";
     self.collectionView.backgroundColor = APP_PAGE_COLOR;
     
     UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
-    
     layout.minimumLineSpacing = 20;
+    
     layout.itemSize = CGSizeMake(self.view.bounds.size.width, 540);
     // Register cell classes
     [self.collectionView registerNib:[UINib nibWithNibName:@"GuiderCollectionCell" bundle:nil] forCellWithReuseIdentifier:reuseIdentifier];
@@ -190,52 +190,7 @@ static NSString * const reuseIdentifier = @"Cell";
     
     // 达人模型,dataSource是达人列表数组
     FrendModel * frend = self.dataSource[indexPath.row];
-    
-    cell.titleLabel.text = [NSString stringWithFormat:@"%ld个城市",frend.localityCnt];
-    cell.subtitleLabel.text = [NSString stringWithFormat:@"%@足迹",self.guiderDistribute.zhName];
-    if ([frend.sex isEqualToString:@"M"]) {
-        [cell.genderBkgImageView setImage:[UIImage imageNamed:@"master_boy.png"]];
-    } else if ([frend.sex isEqualToString:@"F"]) {
-        [cell.genderBkgImageView setImage:[UIImage imageNamed:@"master_girl.png"]];
-    } else {
-        [cell.genderBkgImageView setImage:[UIImage imageNamed:@"master_no.png"]];
-    }
-    [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:frend.avatar]];
-    
-    [cell.costellationBtn setImage:[UIImage imageNamed:[FrendModel smallCostellationImageNameWithBirthday:frend.birthday]] forState:UIControlStateNormal];
-    //星座
-    if (frend.constellation == nil || [frend.constellation isBlankString]) {
-        NSString * constellation = [NSString stringWithFormat:@"星座 %@",frend.constellation];
-        [cell.costellationBtn setTitle:constellation forState:UIControlStateNormal];
-        
-    } else {
-        [cell.costellationBtn setTitle:frend.constellation forState:UIControlStateNormal];
-    }
-    
-    //昵称
-    [cell.nickNmaeLabel setText:frend.nickName];
-    
-    //所住
-    if (frend.residence == nil || [frend.residence isBlankString]) {
-        [cell.addressBtn setTitle:@"现住地" forState:UIControlStateNormal];
-    } else {
-        [cell.addressBtn setTitle:frend.residence forState:UIControlStateNormal];
-    }
-    
-    //年龄
-    NSDateFormatter *format2=[[NSDateFormatter alloc]init];
-    [format2 setDateFormat:@"yyyy/MM/dd"];
-    NSString *str2 = frend.birthday;
-    NSDate *date = [format2 dateFromString:str2];
-    NSTimeInterval dateDiff = [date timeIntervalSinceNow];
-    int age = trunc(dateDiff/(60*60*24))/365;
-    age = -age;
-    if (frend.birthday == nil || [frend.birthday isBlankString]) {
-        cell.ageLabel.text = @"年龄";
-    } else {
-        cell.ageLabel.text = [NSString stringWithFormat:@"%d", age];
-    }
-    
+    cell.guiderModel = frend;
     return cell;
 }
 
