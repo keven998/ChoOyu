@@ -102,10 +102,13 @@
             <size key="customSize" width="175" height="344"/>
             <connections>
                 <outlet property="backGroundView" destination="719-G3-Not" id="89x-m3-vQY"/>
+                <outlet property="cityLabel" destination="Yqf-8C-Oz8" id="bgu-uy-ZFw"/>
+                <outlet property="commentLabel" destination="aOb-HZ-D76" id="GxM-eS-WOM"/>
                 <outlet property="headerImageView" destination="423-VW-64w" id="Ze6-0y-6Hs"/>
+                <outlet property="subtitleLabel" destination="DiS-hU-WWf" id="L1v-Sm-Cki"/>
                 <outlet property="titleLabel" destination="vhb-SL-D5w" id="L3T-gP-bqe"/>
             </connections>
-            <point key="canvasLocation" x="16" y="115"/>
+            <point key="canvasLocation" x="-102" y="7"/>
         </collectionViewCell>
     </objects>
 </document>
