@@ -209,7 +209,9 @@ static NSString * const reuseIdentifier = @"Cell";
      */
     
     GuiderProfileViewController *guiderCtl = [[GuiderProfileViewController alloc] init];
-    guiderCtl.hidesBottomBarWhenPushed = YES;
+    FrendModel *model = _dataSource[indexPath.row];
+    guiderCtl.userId = model.userId;
+    guiderCtl.shouldShowExpertTipsView = YES;
     [self.navigationController pushViewController:guiderCtl animated:YES];
 }
 

@@ -7,7 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+@class FrendModel;
 
-@interface GuiderProfileViewController : UIViewController
+@interface GuiderProfileViewController : TZViewController
+
+@property (nonatomic) NSInteger userId;
+
+//显示页内导航界面，如果是第一次进入的达人详情的话
+@property (nonatomic) BOOL shouldShowExpertTipsView;
+
+//@property (nonatomic, )
 
 @end
