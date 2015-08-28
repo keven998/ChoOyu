@@ -10,4 +10,8 @@
 
 @interface GuiderProfileImageView : UIView
 
+@property (nonatomic, weak)UIImageView *imageView;
+
+@property (nonatomic, weak) UILabel *titleLab;
+
 @end

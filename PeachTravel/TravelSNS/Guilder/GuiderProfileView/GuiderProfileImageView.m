@@ -10,10 +10,6 @@
 
 @interface GuiderProfileImageView ()
 
-@property (nonatomic, weak)UIImageView *imageView;
-
-@property (nonatomic, weak)UILabel *titleLab;
-
 @end
 
 @implementation GuiderProfileImageView
@@ -29,6 +25,7 @@
 - (void)setupViewWithFrame:(CGRect)frame {
     // 添加imageView
     UIImageView *imageView = [[UIImageView alloc] init];
+    imageView.contentMode = UIViewContentModeScaleAspectFill;
     imageView.backgroundColor = [UIColor purpleColor];
     self.imageView = imageView;
     [self addSubview:imageView];
@@ -36,7 +33,9 @@
     // 添加label
     UILabel *label = [[UILabel alloc] init];
     label.textAlignment = NSTextAlignmentRight;
-    label.text = @"hahhahhh";
+    label.text = @"旅行派达人咨询师 LEVEL-3";
+    label.textColor = [UIColor whiteColor];
+    label.font = [UIFont boldSystemFontOfSize:16.0];
     self.titleLab = label;
     [self addSubview:label];
 }
@@ -45,7 +44,7 @@
 {
     [super layoutSubviews];
     self.imageView.frame = self.bounds;
-    self.titleLab.frame = CGRectMake(0, kWindowWidth - 25, kWindowWidth, 25);
+    self.titleLab.frame = CGRectMake(0, kWindowWidth - 35, kWindowWidth - 10, 25);
 }
 
 - (void)willMoveToSuperview:(UIView *)newSuperview

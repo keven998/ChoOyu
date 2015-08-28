@@ -10,14 +10,22 @@
 
 @implementation GuiderProfileTourViewCell
 
-- (void)awakeFromNib {
-    // Initialization code
++ (id)guiderProfileTourWithTableView:(UITableView *)tableView
+{
+    static NSString * ID = @"guideCell";
+    
+    UINib * nib = [UINib nibWithNibName:NSStringFromClass([self class]) bundle:nil];
+    
+    [tableView registerNib:nib forCellReuseIdentifier:ID];
+    
+    return [tableView dequeueReusableCellWithIdentifier:ID];
+
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+- (void)awakeFromNib {
+    // Initialization code
+    self.footprintCount.textColor = APP_THEME_COLOR;
+    self.planCount.textColor = APP_THEME_COLOR;
 }
 
 @end

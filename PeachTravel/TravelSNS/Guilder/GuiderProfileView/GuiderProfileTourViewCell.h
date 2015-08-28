@@ -10,4 +10,14 @@
 
 @interface GuiderProfileTourViewCell : UITableViewCell
 
++ (id)guiderProfileTourWithTableView:(UITableView *)tableView;
+
+@property (weak, nonatomic) IBOutlet UILabel *footprintCount;
+
+@property (weak, nonatomic) IBOutlet UILabel *planCount;
+
+@property (weak, nonatomic) IBOutlet UIButton *footprintBtn;
+
+@property (weak, nonatomic) IBOutlet UIButton *planBtn;
+
 @end

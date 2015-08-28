@@ -10,4 +10,8 @@
 
 @interface GuiderProfileAbout : UITableViewCell
 
+@property (nonatomic, weak) UILabel *titleLab;
+
+@property (nonatomic, weak) UILabel *contentLab;
+
 @end

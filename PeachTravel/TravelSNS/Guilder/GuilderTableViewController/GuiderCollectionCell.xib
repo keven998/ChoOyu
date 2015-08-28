@@ -58,7 +58,7 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="423-VW-64w">
                                 <rect key="frame" x="12" y="108" width="390" height="342"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aOb-HZ-D76">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="390" translatesAutoresizingMaskIntoConstraints="NO" id="aOb-HZ-D76">
                                 <rect key="frame" x="12" y="468" width="390" height="54"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="54" id="ULw-bi-2nG"/>

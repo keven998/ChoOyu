@@ -7,8 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+@class GuiderProfileImageView, FrendModel, GuiderProfileHeaderView;
 
 @interface GuiderDetailInfoCell : UITableViewCell
+
+@property (nonatomic, strong) GuiderProfileImageView *profileHeader;
+
+@property (nonatomic, strong) FrendModel *userInfo;
+
+@property (nonatomic, weak) UILabel *name;
+
+@property (nonatomic, strong) GuiderProfileHeaderView *profileView;
 
 + (id)guiderDetailInfo;
 

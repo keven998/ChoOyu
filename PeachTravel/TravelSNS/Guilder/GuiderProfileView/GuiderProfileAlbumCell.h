@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GuiderProfileAlbumCell : UITableViewCell
+@interface GuiderProfileAlbumCell : UITableViewCell <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, weak) UILabel *titleLab;
 @property (nonatomic, weak) UILabel *albumCount;
 @property (nonatomic, weak) UICollectionView *collectionView;
+
+@property (nonatomic, strong) NSArray *albumArray;
 
 @end
