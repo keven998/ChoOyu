@@ -108,6 +108,14 @@
                             <constraint firstItem="X6q-mf-GVj" firstAttribute="leading" secondItem="UtH-7q-VW3" secondAttribute="leading" id="uwj-L5-XKU"/>
                         </constraints>
                     </view>
+                    <view alpha="0.44999999999999962" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xa7-fA-F3m">
+                        <rect key="frame" x="186.5" y="69.5" width="1" height="45"/>
+                        <color key="backgroundColor" red="0.62375710230000003" green="0.62375710230000003" blue="0.62375710230000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="45" id="MwU-HH-59V"/>
+                            <constraint firstAttribute="width" constant="1" id="VjQ-9A-crg"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="m63-eU-XHF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="6I9-59-xaf"/>
@@ -116,10 +124,12 @@
                     <constraint firstItem="UtH-7q-VW3" firstAttribute="top" secondItem="m63-eU-XHF" secondAttribute="bottom" id="TZx-Y3-4qU"/>
                     <constraint firstItem="ffc-gl-8fX" firstAttribute="top" secondItem="m63-eU-XHF" secondAttribute="bottom" id="UJ3-Aq-cn9"/>
                     <constraint firstItem="UtH-7q-VW3" firstAttribute="width" secondItem="ffc-gl-8fX" secondAttribute="width" id="ght-bi-M97"/>
+                    <constraint firstAttribute="bottom" secondItem="xa7-fA-F3m" secondAttribute="bottom" constant="15" id="lca-Vt-jlQ"/>
                     <constraint firstItem="UtH-7q-VW3" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="187" id="nLa-Wo-5j4"/>
                     <constraint firstAttribute="trailing" secondItem="m63-eU-XHF" secondAttribute="trailing" id="pgx-h2-nnF"/>
                     <constraint firstItem="ffc-gl-8fX" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="r2E-C4-Ca1"/>
                     <constraint firstAttribute="bottom" secondItem="ffc-gl-8fX" secondAttribute="bottom" id="rTd-Cc-7mG"/>
+                    <constraint firstAttribute="centerX" secondItem="xa7-fA-F3m" secondAttribute="centerX" id="wd2-BA-m1t"/>
                     <constraint firstItem="UtH-7q-VW3" firstAttribute="width" secondItem="ffc-gl-8fX" secondAttribute="width" id="yDt-pL-ORb"/>
                     <constraint firstAttribute="bottom" secondItem="UtH-7q-VW3" secondAttribute="bottom" id="zGW-xA-JFV"/>
                 </constraints>

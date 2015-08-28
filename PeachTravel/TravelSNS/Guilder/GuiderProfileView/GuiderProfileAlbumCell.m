@@ -8,6 +8,9 @@
 
 #import "GuiderProfileAlbumCell.h"
 #import "AlbumImageCell.h"
+#import "MJPhoto.h"
+#import "MJPhotoBrowser.h"
+
 #define ProfileAbumID @"albumImageCell"
 
 @interface GuiderProfileAlbumCell ()
@@ -43,7 +46,7 @@
     albumCount.text = @"66";
     albumCount.textColor = TEXT_COLOR_TITLE_SUBTITLE;
     albumCount.font = [UIFont boldSystemFontOfSize:36.0];
-    albumCount.textAlignment = NSTextAlignmentRight;
+    albumCount.textAlignment = NSTextAlignmentCenter;
     self.albumCount = albumCount;
     [self addSubview:albumCount];
     
@@ -57,6 +60,7 @@
     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:flowLayout];
     collectionView.dataSource = self;
     collectionView.delegate = self;
+    collectionView.showsHorizontalScrollIndicator = NO;
     collectionView.backgroundColor = [UIColor whiteColor];
     [collectionView registerNib:[UINib nibWithNibName:@"AlbumImageCell" bundle:nil] forCellWithReuseIdentifier:ProfileAbumID];
     self.collectionView = collectionView;
@@ -74,7 +78,7 @@
     [super layoutSubviews];
     
     self.titleLab.frame = CGRectMake(0, 0, kWindowWidth, 50);
-    self.albumCount.frame = CGRectMake(0, CGRectGetMaxY(self.titleLab.frame), 80, 80);
+    self.albumCount.frame = CGRectMake(10, CGRectGetMaxY(self.titleLab.frame), 70, 80);
     self.collectionView.frame = CGRectMake(CGRectGetMaxX(self.albumCount.frame), CGRectGetMaxY(self.titleLab.frame), kWindowWidth - 140, 80);
     
     self.albumImage.frame = CGRectMake(0, 0, 80, 80);
@@ -96,6 +100,30 @@
     
 
     return cell;
+}
+
+// 选中某一张图片
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    AlbumImageCell *cell = (AlbumImageCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    NSInteger count = _albumArray.count;
+    // 1.封装图片数据
+    NSMutableArray *photos = [NSMutableArray arrayWithCapacity:count];
+    for (NSInteger i = 0; i<count; i++) {
+        // 替换为中等尺寸图片
+        AlbumImage *album = [_albumArray objectAtIndex:i];
+        MJPhoto *photo = [[MJPhoto alloc] init];
+        photo.url = album.image.imageUrl; // 图片路径
+        photo.srcImageView = (UIImageView *)cell.imageView; // 来源于哪个UIImageView
+        [photos addObject:photo];
+    }
+    
+    // 2.显示相册
+    MJPhotoBrowser *browser = [[MJPhotoBrowser alloc] init];
+    browser.currentPhotoIndex = indexPath.row; // 弹出相册时显示的第一张图片是？
+    browser.photos = photos; // 设置所有的图片
+    [browser show];
+
 }
 
 // 刷新数据
