@@ -10,4 +10,12 @@
 
 @interface GuiderProfileHeaderView : UIView
 
+@property (weak, nonatomic) UILabel *age;
+@property (weak, nonatomic) UIImageView *sexImage;
+@property (weak, nonatomic) UILabel *constellation;
+@property (weak, nonatomic) UILabel *city;
+
+@property (weak, nonatomic) UIButton *friendBtn;
+@property (weak, nonatomic) UIButton *sendBtn;
+
 @end

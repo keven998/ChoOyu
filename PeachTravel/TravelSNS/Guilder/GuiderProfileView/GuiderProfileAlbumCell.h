@@ -10,4 +10,8 @@
 
 @interface GuiderProfileAlbumCell : UITableViewCell
 
+@property (nonatomic, weak) UILabel *titleLab;
+@property (nonatomic, weak) UILabel *albumCount;
+@property (nonatomic, weak) UICollectionView *collectionView;
+
 @end

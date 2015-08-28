@@ -8,14 +8,51 @@
 
 #import "GuiderProfileImageView.h"
 
+@interface GuiderProfileImageView ()
+
+@property (nonatomic, weak)UIImageView *imageView;
+
+@property (nonatomic, weak)UILabel *titleLab;
+
+@end
+
 @implementation GuiderProfileImageView
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    if (self = [super initWithFrame:frame]) {
+        [self setupViewWithFrame:frame];
+    }
+    return self;
 }
-*/
+
+- (void)setupViewWithFrame:(CGRect)frame {
+    // 添加imageView
+    UIImageView *imageView = [[UIImageView alloc] init];
+    imageView.backgroundColor = [UIColor purpleColor];
+    self.imageView = imageView;
+    [self addSubview:imageView];
+    
+    // 添加label
+    UILabel *label = [[UILabel alloc] init];
+    label.textAlignment = NSTextAlignmentRight;
+    label.text = @"hahhahhh";
+    self.titleLab = label;
+    [self addSubview:label];
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    self.imageView.frame = self.bounds;
+    self.titleLab.frame = CGRectMake(0, kWindowWidth - 25, kWindowWidth, 25);
+}
+
+- (void)willMoveToSuperview:(UIView *)newSuperview
+{
+    [super willMoveToSuperview:newSuperview];
+    NSLog(@"%@",NSStringFromCGRect(self.frame));
+    
+}
 
 @end

@@ -7,17 +7,58 @@
 //
 
 #import "GuiderDetailInfoCell.h"
+#import "GuiderProfileHeaderView.h"
+#import "GuiderProfileImageView.h"
+@interface GuiderDetailInfoCell ()
+
+@property (nonatomic, weak)UICollectionView *collectionView;
+
+@end
 
 @implementation GuiderDetailInfoCell
 
-- (void)awakeFromNib {
-    // Initialization code
+#pragma mark - 初始化方法
++ (id)guiderDetailInfo
+{
+    return [[self alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+        // 1.加载View视图
+        [self setupDetailInfo];
+    }
+    return self;
+}
 
-    // Configure the view for the selected state
+#pragma mark - 加载View视图
+- (void)setupDetailInfo {
+    
+    // 1.头部图片
+    GuiderProfileImageView *profileHeader = [[GuiderProfileImageView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, kWindowWidth)];
+//    profileHeader.frame = CGRectMake(0, 0, kWindowWidth, kWindowWidth);
+    profileHeader.backgroundColor = [UIColor yellowColor];
+    [self addSubview:profileHeader];
+    
+    
+    // 2.添加用户信息
+    UILabel *name = [[UILabel alloc] init];
+    name.text = @"特罗迪亚";
+    name.frame = CGRectMake(10, CGRectGetMaxY(profileHeader.frame), 200, 50);
+    [self addSubview:name];
+    
+    
+    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+    UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(name.frame), kWindowWidth, 100) collectionViewLayout:flowLayout];
+    [self addSubview:collectionView];
+    
+    
+    //3.加载年龄,星座,城市等信息
+    GuiderProfileHeaderView *profileView = [[GuiderProfileHeaderView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(collectionView.frame), kWindowWidth, 90)];
+//    profileHeader.frame = CGRectMake(0, CGRectGetMaxY(collectionView.frame), kWindowWidth, 100);
+    [self addSubview:profileView];
+    
 }
 
 @end

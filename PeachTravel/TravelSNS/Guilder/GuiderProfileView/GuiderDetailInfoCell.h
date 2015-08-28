@@ -10,4 +10,6 @@
 
 @interface GuiderDetailInfoCell : UITableViewCell
 
++ (id)guiderDetailInfo;
+
 @end

@@ -16,6 +16,7 @@
 #import "HWDropdownMenu.h"
 #import "DropDownViewController.h"
 #import "GuiderSearchViewController.h"
+#import "GuiderProfileViewController.h"
 
 @interface GuiderDistributeViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,HWDropdownMenuDelegate,dropDownMenuProtocol>
 @property (nonatomic, strong) UITableView *tableView;
@@ -324,12 +325,17 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    /*
     GuiderCollectionViewController *guiderCtl = [[GuiderCollectionViewController alloc] initWithNibName:@"GuiderCollectionViewController" bundle:nil];
     GuiderDistribute * guiderDistribute = _dataSource[indexPath.section][indexPath.row];
     
     // 这里传入的distributionArea应该是该地区的区域ID
     guiderCtl.distributionArea = guiderDistribute.ID;
     guiderCtl.guiderDistribute = guiderDistribute;
+    guiderCtl.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:guiderCtl animated:YES];
+     */
+    GuiderProfileViewController *guiderCtl = [[GuiderProfileViewController alloc] init];
     guiderCtl.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:guiderCtl animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
