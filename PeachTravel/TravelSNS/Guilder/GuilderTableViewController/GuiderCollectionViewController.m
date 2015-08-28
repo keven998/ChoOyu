@@ -11,6 +11,7 @@
 #import "PeachTravel-swift.h"
 #import "OtherUserInfoViewController.h"
 #import "GuiderDistribute.h"
+#import "GuiderProfileViewController.h"
 @interface GuiderCollectionViewController ()
 
 @property (nonatomic, strong) NSArray *dataSource;
@@ -260,12 +261,18 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    /*
     OtherUserInfoViewController *otherInfoCtl = [[OtherUserInfoViewController alloc]init];
     FrendModel *model = _dataSource[indexPath.row];
     //    otherInfoCtl.model = model;
     otherInfoCtl.userId = model.userId;
     otherInfoCtl.shouldShowExpertTipsView = YES;
     [self.navigationController pushViewController:otherInfoCtl animated:YES];
+     */
+    
+    GuiderProfileViewController *guiderCtl = [[GuiderProfileViewController alloc] init];
+    guiderCtl.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:guiderCtl animated:YES];
 }
 
 - (void)goBack
