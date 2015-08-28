@@ -10,15 +10,15 @@
 
 @interface GuiderCollectionCell : UICollectionViewCell
 
+@property (nonatomic, strong) FrendModel *guiderModel;
+
 @property (weak, nonatomic) IBOutlet UIView *backGroundView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *subtitleLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *genderBkgImageView;
-@property (weak, nonatomic) IBOutlet UIImageView *scoreImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *headerImageView;
-@property (weak, nonatomic) IBOutlet UIButton *addressBtn;
-@property (weak, nonatomic) IBOutlet UIButton *costellationBtn;
-@property (weak, nonatomic) IBOutlet UILabel *nickNmaeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *ageLabel;
+@property (weak, nonatomic) IBOutlet UILabel *cityLabel;
+@property (weak, nonatomic) IBOutlet UILabel *commentLabel;
+@property (weak, nonatomic) IBOutlet UIButton *levelBtn;
+
 
 @end

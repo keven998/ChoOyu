@@ -139,14 +139,18 @@
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSString * userId = [NSString stringWithFormat:@"%ld",self.account.userId];
-    [params setObject:userId forKey:@"userId"];
+    [params setObject:[NSNumber numberWithInteger:_account.userId] forKey:@"userId"];
     
-    //普通登录
     [manager POST:API_LOGOUT parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
+            _account = nil;
+            IMClientManager *clientManager = [IMClientManager shareInstance];
+            [clientManager userDidLogout];
+            AccountDaoHelper *daoHelper = [AccountDaoHelper shareInstance];
+            [daoHelper deleteAccountInfoInDB];
+            [[NSNotificationCenter defaultCenter] postNotificationName:userDidLogoutNoti object:nil];
             completion(YES);
         } else {
             completion(NO);
@@ -157,14 +161,6 @@
             completion(NO);
         }
     }];
-
-    _account = nil;
-    IMClientManager *clientManager = [IMClientManager shareInstance];
-    [clientManager userDidLogout];
-    AccountDaoHelper *daoHelper = [AccountDaoHelper shareInstance];
-    [daoHelper deleteAccountInfoInDB];
-    [[NSNotificationCenter defaultCenter] postNotificationName:userDidLogoutNoti object:nil];
-    completion(YES);
 }
 
 //用户旅行派系统登录成功

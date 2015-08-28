@@ -7,22 +7,30 @@
 //
 
 #import "GuiderCollectionCell.h"
+#import "PeachTravel-swift.h"
 
 @implementation GuiderCollectionCell
 
 - (void)awakeFromNib
 {
-    _backGroundView.layer.cornerRadius = 4.0;
-    _backGroundView.clipsToBounds = YES;
-    
-    [_costellationBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [_addressBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _headerImageView.clipsToBounds = YES;
 }
 
-- (void)layoutSubviews
+- (void)setGuiderModel:(FrendModel *)guiderModel
 {
-    [super layoutSubviews];
-    _headerImageView.layer.cornerRadius = CGRectGetWidth(_headerImageView.frame)/2.0;
+    _guiderModel = guiderModel;
+    
+    _titleLabel.text = _guiderModel.nickName;
+    
+    NSString *subtitle;
+    if (_guiderModel.age == 0) {
+        subtitle = _guiderModel.residence;
+    } else {
+        subtitle = [NSString stringWithFormat:@"%@ %ld 岁", _guiderModel.residence, _guiderModel.age];
+    }
+    _subtitleLabel.text = subtitle;
+    
+    [_headerImageView sd_setImageWithURL:[NSURL URLWithString:_guiderModel.avatar] placeholderImage:nil];
 }
 
 @end
