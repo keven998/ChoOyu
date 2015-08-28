@@ -58,6 +58,13 @@ class FrendModel: NSObject {
     var residence: NSString = ""
     var level: Int = 0
     var birthday: NSString = ""
+    var age: Int {
+        let format = NSDateFormatter()
+        format.dateFormat = "yyyy/MM/dd"
+        let date = format.dateFromString(birthday as String)
+        let interval = date?.timeIntervalSinceNow
+        return Int(-trunc((interval ?? 0)/(60*60*24)/365))
+    }
     var travelStatus: NSString = ""
     var guideCount:Int = 0
     var localityCnt:Int = 0
