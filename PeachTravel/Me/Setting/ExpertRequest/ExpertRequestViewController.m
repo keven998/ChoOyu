@@ -7,6 +7,7 @@
 //
 
 #import "ExpertRequestViewController.h"
+#import "NotificationViewController.h"
 
 @interface ExpertRequestViewController ()
 
@@ -64,7 +65,8 @@
 
 - (void)commitRequest:(id)sender
 {
-    
+    NotificationViewController *ctl = [[NotificationViewController alloc] init];
+    [ctl showNotiViewInController:self.navigationController];
 }
 
 - (void)goBack:(id)sender
