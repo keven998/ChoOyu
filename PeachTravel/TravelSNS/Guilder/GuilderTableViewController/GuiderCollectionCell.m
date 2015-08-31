@@ -28,9 +28,19 @@
     if (_guiderModel.age == 0) {
         subtitle = _guiderModel.residence;
     } else {
-        subtitle = [NSString stringWithFormat:@"%@ %ld 岁", _guiderModel.residence, _guiderModel.age];
+        subtitle = [NSString stringWithFormat:@"%@ %ld 岁", _guiderModel.residence, (long)_guiderModel.age];
     }
     _subtitleLabel.text = subtitle;
+    
+    NSMutableAttributedString *cityStr = [[NSMutableAttributedString alloc] initWithString:@"服务城市: "];
+
+    [cityStr addAttribute:NSForegroundColorAttributeName value:APP_THEME_COLOR range:NSMakeRange(0, 5)];
+    _cityLabel.attributedText = cityStr;
+    
+    NSMutableAttributedString *commentStr = [[NSMutableAttributedString alloc] initWithString:@"派派点评: "];
+    
+    [commentStr addAttribute:NSForegroundColorAttributeName value:APP_THEME_COLOR range:NSMakeRange(0, 5)];
+    _commentLabel.attributedText = commentStr;
     
     [_headerImageView sd_setImageWithURL:[NSURL URLWithString:_guiderModel.avatar] placeholderImage:nil];
 }
