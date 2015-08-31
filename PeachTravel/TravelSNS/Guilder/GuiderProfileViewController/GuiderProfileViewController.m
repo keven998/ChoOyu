@@ -479,7 +479,6 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) {
-        
         NSString *message = nil;
         BOOL isBlackUser = [FrendModel typeIsCorrect:_userInfo.type typeWeight:IMFrendWeightTypeBlackList];
         if(_isMyFriend) {
@@ -492,7 +491,6 @@
                 message = @"确定屏蔽用户?";
             }
         }
-        
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:message delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
         [alert showAlertViewWithBlock:^(NSInteger buttonIndex) {
@@ -507,9 +505,8 @@
     }
 }
 
-
-
 #pragma mark - buttonMethod
+
 // 浏览足迹
 - (void)visitTracks
 {

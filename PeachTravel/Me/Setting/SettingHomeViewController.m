@@ -148,8 +148,8 @@
             ExpertRequestViewController *ctl = [[ExpertRequestViewController alloc] init];
             ctl.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:ctl animated:YES];
-            
         }
+        
     } else if (indexPath.section == 1) {
         if (indexPath.row == 0) {
             [self clearMemo];

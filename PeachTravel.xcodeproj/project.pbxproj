@@ -299,6 +299,7 @@
 		D971E2CD1B93F4D3007E5AFD /* other@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D971E2BB1B93F4D3007E5AFD /* other@3x.png */; };
 		D971E2CE1B93F4D3007E5AFD /* plan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D971E2BC1B93F4D3007E5AFD /* plan@2x.png */; };
 		D971E2CF1B93F4D3007E5AFD /* plan@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D971E2BD1B93F4D3007E5AFD /* plan@3x.png */; };
+		D971E2D31B943809007E5AFD /* GuilderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D971E2D21B943809007E5AFD /* GuilderManager.m */; };
 		D97C8B4D1A526B9F00476C9C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D97C8B4C1A526B9F00476C9C /* Images.xcassets */; };
 		D9823E841B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9823E831B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m */; };
 		D9871DBA1B47D31E00BFDFAF /* ScheduleDayEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9871DB81B47D31E00BFDFAF /* ScheduleDayEditViewController.m */; };
@@ -1756,6 +1757,8 @@
 		D971E2BB1B93F4D3007E5AFD /* other@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "other@3x.png"; sourceTree = "<group>"; };
 		D971E2BC1B93F4D3007E5AFD /* plan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plan@2x.png"; sourceTree = "<group>"; };
 		D971E2BD1B93F4D3007E5AFD /* plan@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plan@3x.png"; sourceTree = "<group>"; };
+		D971E2D11B943809007E5AFD /* GuilderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuilderManager.h; sourceTree = "<group>"; };
+		D971E2D21B943809007E5AFD /* GuilderManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuilderManager.m; sourceTree = "<group>"; };
 		D97C8B4C1A526B9F00476C9C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
 		D9823E821B19AA0200A1AE35 /* SuggestionDestinationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuggestionDestinationTableViewController.h; sourceTree = "<group>"; };
 		D9823E831B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuggestionDestinationTableViewController.m; sourceTree = "<group>"; };
@@ -3278,6 +3281,7 @@
 		C651F3EC1B394C3400B80690 /* Guider */ = {
 			isa = PBXGroup;
 			children = (
+				D971E2D01B9437F3007E5AFD /* Manager */,
 				E608A1431B8FFBA0003BA318 /* GuiderProfileView */,
 				E608A1391B8F697A003BA318 /* GuiderProfileViewController */,
 				C651F3ED1B394C7400B80690 /* GuiderCollectionViewController */,
@@ -3825,6 +3829,15 @@
 				D971E2BD1B93F4D3007E5AFD /* plan@3x.png */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		D971E2D01B9437F3007E5AFD /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				D971E2D11B943809007E5AFD /* GuilderManager.h */,
+				D971E2D21B943809007E5AFD /* GuilderManager.m */,
+			);
+			name = Manager;
 			sourceTree = "<group>";
 		};
 		D9722F1A1A82446900D8A8CC /* loading_animation */ = {
@@ -8484,6 +8497,7 @@
 				D9A8012D1A80DD23005AD701 /* FacialView.m in Sources */,
 				270C164D1B0059F60048C85D /* CityDescDetailViewController.m in Sources */,
 				D9A802B11A80E3D3005AD701 /* NSDateFormatter+Category.m in Sources */,
+				D971E2D31B943809007E5AFD /* GuilderManager.m in Sources */,
 				D9EE34421AB93CF10076933B /* RestaurantDetailViewController.m in Sources */,
 				D9A801401A80DD23005AD701 /* EMChatImageBubbleView.m in Sources */,
 				D9A800361A80D52F005AD701 /* TripDetailRootViewController.m in Sources */,

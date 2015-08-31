@@ -12,6 +12,8 @@
 #import "OtherUserInfoViewController.h"
 #import "GuiderDistribute.h"
 #import "GuiderProfileViewController.h"
+#import "GuilderManager.h"
+
 @interface GuiderCollectionViewController ()
 
 @property (nonatomic, strong) NSArray *dataSource;
@@ -45,7 +47,6 @@ static NSString * const reuseIdentifier = @"Cell";
 
 }
 
-#pragma mark - 友盟统计
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -101,74 +102,19 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)loadTravelers:(NSString *)areaId withPageNo:(NSInteger)page
 {
-    // 1.初始化管理对象
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    // 2.设置请求的一些类型
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
-    // 3.设置请求参数
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSNumber *imageWidth = [NSNumber numberWithInt:60];
-    [params setObject:imageWidth forKey:@"imgWidth"];
-    [params setObject:@"expert" forKey:@"keyword"];
-    [params setObject:@"roles" forKey:@"field"];
-    [params setObject:areaId forKey:@"locId"];
-    [params setObject:[NSNumber numberWithInt:16] forKey:@"pageSize"];
-    [params setObject:[NSNumber numberWithInteger:page] forKey:@"page"];
-    
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     __weak typeof(GuiderCollectionViewController *)weakSelf = self;
     [hud showHUDInViewController:weakSelf content:64];
-    
-    NSLog(@"%@",API_SEARCH_USER);
-    
-    // 更新新链接
-    NSString * urlStr = [NSString stringWithFormat:@"%@%@/expert",API_GET_EXPERT_DETAIL,areaId];
-    
-    NSLog(@"%@",urlStr);
-    
-    //搜索达人
-    [manager GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [GuilderManager asyncLoadGuidersWithAreaId:areaId page:page pageSize:15 completionBlock:^(BOOL isSuccess, NSArray *guiderArray) {
         [hud hideTZHUD];
-        
-        NSLog(@"%@",responseObject);
-        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-        if (code == 0) {
-            [self parseSearchResult:[responseObject objectForKey:@"result"]];
+        if (isSuccess) {
+            _dataSource = guiderArray;
+            [self.collectionView reloadData];
         } else {
-            [SVProgressHUD showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
+            [SVProgressHUD showErrorWithStatus: HTTP_FAILED_HINT];
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%@", error);
-        [hud hideTZHUD];
     }];
 }
-
-- (void)parseSearchResult:(id)searchResult
-{
-    NSLog(@"%@",searchResult);
-    NSInteger count = [searchResult count];
-    NSMutableArray *array = [[NSMutableArray alloc] init];
-    FrendModel *user;
-    for (int i = 0; i < count; ++i) {
-        user = [[FrendModel alloc] initWithJson:[searchResult objectAtIndex:i]];
-        [array addObject:user];
-    }
-    _dataSource = array;
-    
-    NSLog(@"%@",user);
-    
-    NSLog(@"%@",self.dataSource);
-    
-    [self.collectionView reloadData];
-}
-
 
 #pragma mark <UICollectionViewDataSource>
 
