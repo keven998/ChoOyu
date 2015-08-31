@@ -23,14 +23,16 @@
     _guiderModel = guiderModel;
     
     _titleLabel.text = _guiderModel.nickName;
+    [_levelBtn setTitle:[NSString stringWithFormat:@"V%ld", (long)_guiderModel.level] forState:UIControlStateNormal];
     
     NSString *subtitle;
     if (_guiderModel.age == 0) {
         subtitle = _guiderModel.residence;
     } else {
-        subtitle = [NSString stringWithFormat:@"%@ %ld 岁", _guiderModel.residence, (long)_guiderModel.age];
+        subtitle = [NSString stringWithFormat:@"%@  %ld岁", _guiderModel.residence, (long)_guiderModel.age];
     }
     _subtitleLabel.text = subtitle;
+    
     
     NSMutableAttributedString *cityStr = [[NSMutableAttributedString alloc] initWithString:@"服务城市: "];
 
