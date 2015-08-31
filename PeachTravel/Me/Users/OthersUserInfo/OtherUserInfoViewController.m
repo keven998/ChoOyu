@@ -671,12 +671,17 @@
         
         NSString *message = nil;
         BOOL isBlackUser = [FrendModel typeIsCorrect:_userInfo.type typeWeight:IMFrendWeightTypeBlackList];
-        if (isBlackUser) {
-            // 如果已经是黑名单,则显示取消屏蔽用户
-            message = @"确定取消屏蔽用户?";
+        if(_isMyFriend) {
+            message = @"确定删除好友?";
         } else {
-            message = @"确定屏蔽用户?";
+            if (isBlackUser) {
+                // 如果已经是黑名单,则显示取消屏蔽用户
+                message = @"确定取消屏蔽用户?";
+            } else {
+                message = @"确定屏蔽用户?";
+            }
         }
+        
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:message delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
         [alert showAlertViewWithBlock:^(NSInteger buttonIndex) {
