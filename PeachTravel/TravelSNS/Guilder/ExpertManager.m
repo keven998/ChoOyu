@@ -67,4 +67,47 @@
 }
 
 
++ (void)asyncRequest2BeAnExpert:(NSString *)phoneNumber completionBlock:(void (^)(BOOL isSuccess))completionBlock
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSNumber *imageWidth = [NSNumber numberWithInt:60];
+    [params setObject:imageWidth forKey:@"imgWidth"];
+    [params setObject:@"expert" forKey:@"keyword"];
+    [params setObject:@"roles" forKey:@"field"];
+    
+//    NSString * urlStr = [NSString stringWithFormat:@"%@%@/expert", API_USERS,areaId];
+    
+    [manager POST:@"" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@",responseObject);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            completionBlock(YES);
+        } else {
+            completionBlock(NO);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completionBlock(NO);
+    }];
+
+}
+
+
 @end
+
+
+
+
+
+
+
+
+

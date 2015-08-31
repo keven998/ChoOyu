@@ -20,4 +20,12 @@
  */
 + (void)asyncLoadExpertsWithAreaId:(NSString *)areaId page:(NSInteger)page pageSize:(NSInteger)pageSize completionBlock:(void(^)(BOOL isSuccess, NSArray *expertsArray))completionBlock;
 
+/**
+ *  申请成为达人
+ *
+ *  @param phoneNumber
+ *  @param completionBlock  
+ */
++ (void)asyncRequest2BeAnExpert:(NSString *)phoneNumber completionBlock:(void(^)(BOOL isSuccess))completionBlock;
+
 @end
