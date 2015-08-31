@@ -447,8 +447,6 @@
     }
 }
 
-
-
 #pragma mark - buttonMethod
 // 浏览足迹
 - (void)visitTracks
