@@ -303,6 +303,8 @@
 		D971E2D61B94650A007E5AFD /* master_level_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D971E2D41B94650A007E5AFD /* master_level_bg@2x.png */; };
 		D971E2D71B94650A007E5AFD /* master_level_bg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D971E2D51B94650A007E5AFD /* master_level_bg@3x.png */; };
 		D971E2DB1B9468E1007E5AFD /* guider_cell_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D971E2DA1B9468E1007E5AFD /* guider_cell_bg@2x.png */; };
+		D971E2DD1B946B0F007E5AFD /* ExpertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D971E2DC1B946B0F007E5AFD /* ExpertModel.swift */; };
+		D971E2DF1B946B3E007E5AFD /* BusinessMoel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D971E2DE1B946B3E007E5AFD /* BusinessMoel.swift */; };
 		D97C8B4D1A526B9F00476C9C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D97C8B4C1A526B9F00476C9C /* Images.xcassets */; };
 		D9823E841B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9823E831B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m */; };
 		D9871DBA1B47D31E00BFDFAF /* ScheduleDayEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9871DB81B47D31E00BFDFAF /* ScheduleDayEditViewController.m */; };
@@ -1765,6 +1767,8 @@
 		D971E2D41B94650A007E5AFD /* master_level_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "master_level_bg@2x.png"; sourceTree = "<group>"; };
 		D971E2D51B94650A007E5AFD /* master_level_bg@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "master_level_bg@3x.png"; sourceTree = "<group>"; };
 		D971E2DA1B9468E1007E5AFD /* guider_cell_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "guider_cell_bg@2x.png"; sourceTree = "<group>"; };
+		D971E2DC1B946B0F007E5AFD /* ExpertModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpertModel.swift; sourceTree = "<group>"; };
+		D971E2DE1B946B3E007E5AFD /* BusinessMoel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessMoel.swift; sourceTree = "<group>"; };
 		D97C8B4C1A526B9F00476C9C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
 		D9823E821B19AA0200A1AE35 /* SuggestionDestinationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuggestionDestinationTableViewController.h; sourceTree = "<group>"; };
 		D9823E831B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuggestionDestinationTableViewController.m; sourceTree = "<group>"; };
@@ -4243,6 +4247,8 @@
 			isa = PBXGroup;
 			children = (
 				D993C2321B12DF0C0088D568 /* FrendModel.swift */,
+				D971E2DC1B946B0F007E5AFD /* ExpertModel.swift */,
+				D971E2DE1B946B3E007E5AFD /* BusinessMoel.swift */,
 			);
 			path = FrendModel;
 			sourceTree = "<group>";
@@ -8222,6 +8228,7 @@
 				C6D26C131B2C25730019AFA8 /* PoiOnEditorTableViewCell.m in Sources */,
 				E6E725691B5604A90007273A /* GuiderDistribute.m in Sources */,
 				D92CA1071AD8BDF900F244FF /* PSTGridLayoutItem.m in Sources */,
+				D971E2DD1B946B0F007E5AFD /* ExpertModel.swift in Sources */,
 				D91FED6F1B4232AD0073AD77 /* FrendRequestManager.swift in Sources */,
 				27329DB41B0E030700F0A4FA /* ChatGroupCell.m in Sources */,
 				D9E7EC0C1ACB932800D30A5A /* AccountModel.m in Sources */,
@@ -8474,6 +8481,7 @@
 				E608A13D1B8F6987003BA318 /* GuiderProfileViewController.m in Sources */,
 				D9A802211A80E036005AD701 /* MJPhotoToolbar.m in Sources */,
 				D9A801471A80DD23005AD701 /* EMChatTimeCell.m in Sources */,
+				D971E2DF1B946B3E007E5AFD /* BusinessMoel.swift in Sources */,
 				D92CA0FF1AD8BDF900F244FF /* PSTCollectionViewCell.m in Sources */,
 				D993C23B1B12DF0C0088D568 /* NetworkTransportAPI.swift in Sources */,
 				C65DB7B81AD37B8600F51443 /* SelectionTableViewController.m in Sources */,

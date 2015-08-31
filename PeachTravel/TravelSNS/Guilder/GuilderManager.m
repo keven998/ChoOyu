@@ -52,7 +52,7 @@
 {
     NSMutableArray *array = [[NSMutableArray alloc] init];
     for (NSDictionary *dic in result) {
-        FrendModel *frend = [[FrendModel alloc] initWithJson:dic];
+        ExpertModel *frend = [[ExpertModel alloc] initWithJson:dic];
         [array addObject:frend];
     }
     return array;
