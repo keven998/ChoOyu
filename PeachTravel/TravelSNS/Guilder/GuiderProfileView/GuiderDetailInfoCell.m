@@ -39,7 +39,7 @@
 - (void)setupDetailInfo {
     
     // 1.头部图片
-    GuiderProfileImageView *profileHeader = [[GuiderProfileImageView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, kWindowWidth)];
+    GuiderProfileImageView *profileHeader = [[GuiderProfileImageView alloc] init];
     self.profileHeader = profileHeader;
     [self addSubview:profileHeader];
     
@@ -50,7 +50,6 @@
     name.font = [UIFont fontWithName:@"STHeitiSC-Light" size:24.0];
     name.textColor = UIColorFromRGB(0x646464);
     self.name = name;
-    name.frame = CGRectMake(26.7, CGRectGetMaxY(profileHeader.frame)+12, 200, 25);
     [self addSubview:name];
     
     
@@ -62,7 +61,7 @@
     layout.spacePerLine = 15;
     layout.margin = 10;
     
-    UICollectionView * collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(name.frame), kWindowWidth-20, 85) collectionViewLayout:layout];
+    UICollectionView * collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
     self.collectionView = collectionView;
     collectionView.dataSource = self;
     collectionView.delegate = self;
@@ -76,10 +75,19 @@
     
     
     //3.加载年龄,星座,城市等信息
-    GuiderProfileHeaderView *profileView = [[GuiderProfileHeaderView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(collectionView.frame), kWindowWidth, 90)];
+    GuiderProfileHeaderView *profileView = [[GuiderProfileHeaderView alloc] init];
     self.profileView = profileView;
     [self addSubview:profileView];
     
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    self.profileHeader.frame = CGRectMake(0, 0, kWindowWidth, kWindowWidth);
+    self.name.frame = CGRectMake(26.7, CGRectGetMaxY(self.profileHeader.frame)+12, 200, 25);
+    self.collectionView.frame = CGRectMake(10, CGRectGetMaxY(self.name.frame), kWindowWidth-20, 85);
+    self.profileView.frame = CGRectMake(0, CGRectGetMaxY(self.collectionView.frame), kWindowWidth, 90);
 }
 
 #pragma mark - 设置数据
@@ -98,6 +106,23 @@
     NSArray *collectionArray = userInfo.tags;
     self.collectionArray = collectionArray;
     [self.collectionView reloadData];
+}
+
+- (void)setAccountModel:(AccountModel *)accountModel
+{
+    _accountModel = accountModel;
+    
+    self.profileView.accountModel = accountModel;
+    
+    // 设置数据
+    NSURL *url = [NSURL URLWithString:accountModel.avatar];
+    [self.profileHeader.imageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"ic_home_avatar_unknown.png"]];
+    self.name.text = accountModel.nickName;
+    
+    // 隐藏collectionView
+    self.collectionView.hidden = YES;
+    self.profileView.friendBtn.hidden = YES;
+    self.profileView.sendBtn.hidden = YES;
 }
 
 - (void)setCollectionArray:(NSArray *)collectionArray

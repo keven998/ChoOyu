@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-@class FrendModel;
+@class FrendModel,AccountModel;
 
 @interface GuiderProfileHeaderView : UIView
 
@@ -19,6 +19,7 @@
 @property (weak, nonatomic) UIButton *friendBtn;
 @property (weak, nonatomic) UIButton *sendBtn;
 
-@property (weak, nonatomic) FrendModel *userInfo;
+@property (strong, nonatomic) FrendModel *userInfo;
+@property (strong, nonatomic) AccountModel *accountModel;
 
 @end

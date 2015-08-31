@@ -26,7 +26,6 @@
     // 添加imageView
     UIImageView *imageView = [[UIImageView alloc] init];
     imageView.contentMode = UIViewContentModeScaleAspectFill;
-    imageView.backgroundColor = [UIColor purpleColor];
     self.imageView = imageView;
     [self addSubview:imageView];
     

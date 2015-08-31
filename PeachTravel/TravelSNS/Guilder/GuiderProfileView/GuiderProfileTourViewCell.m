@@ -26,6 +26,7 @@
     // Initialization code
     self.footprintCount.textColor = APP_THEME_COLOR;
     self.planCount.textColor = APP_THEME_COLOR;
+    self.tourCount.textColor = APP_THEME_COLOR;
 }
 
 @end

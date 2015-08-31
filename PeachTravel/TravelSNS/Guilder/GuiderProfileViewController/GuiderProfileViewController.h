@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-@class FrendModel;
+#import "BaseProfileViewController.h"
 
-@interface GuiderProfileViewController : TZViewController
+@interface GuiderProfileViewController : BaseProfileViewController
 
 @property (nonatomic) NSInteger userId;
 
