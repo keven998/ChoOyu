@@ -16,6 +16,7 @@
 #import "HWDropdownMenu.h"
 #import "DropDownViewController.h"
 #import "GuiderSearchViewController.h"
+#import "GuiderProfileViewController.h"
 
 @interface GuiderDistributeViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,HWDropdownMenuDelegate,dropDownMenuProtocol>
 @property (nonatomic, strong) UITableView *tableView;
@@ -324,6 +325,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     GuiderCollectionViewController *guiderCtl = [[GuiderCollectionViewController alloc] initWithNibName:@"GuiderCollectionViewController" bundle:nil];
     GuiderDistribute * guiderDistribute = _dataSource[indexPath.section][indexPath.row];
     
@@ -332,7 +334,7 @@
     guiderCtl.guiderDistribute = guiderDistribute;
     guiderCtl.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:guiderCtl animated:YES];
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+     
 }
 
 #pragma mark - UIScrollViewDelegate

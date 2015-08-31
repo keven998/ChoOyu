@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="guideCell" rowHeight="119" id="KGk-i7-Jjw" customClass="GuiderProfileTourViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="他的旅行" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m63-eU-XHF">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="rWW-Et-pLl"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ffc-gl-8fX">
+                        <rect key="frame" x="0.0" y="40" width="188" height="89.5"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DRK-Q3-Dvr">
+                                <rect key="frame" x="0.0" y="0.0" width="188" height="89.5"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qzF-H8-6eb">
+                                <rect key="frame" x="0.0" y="58" width="188" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="yvf-NN-w8H"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c0f-w4-sC0">
+                                <rect key="frame" x="51" y="24" width="87" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="87" id="H4L-s1-5Jy"/>
+                                    <constraint firstAttribute="height" constant="22" id="YjW-LX-w9j"/>
+                                </constraints>
+                                <state key="normal" title="足迹" image="foot.png">
+                                    <color key="titleColor" red="0.62375710227272729" green="0.62375710227272729" blue="0.62375710227272729" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="centerY" secondItem="c0f-w4-sC0" secondAttribute="centerY" constant="10" id="KWc-5W-Pj4"/>
+                            <constraint firstItem="qzF-H8-6eb" firstAttribute="leading" secondItem="ffc-gl-8fX" secondAttribute="leading" id="ORj-El-1Lp"/>
+                            <constraint firstAttribute="bottom" secondItem="qzF-H8-6eb" secondAttribute="bottom" constant="10" id="YPT-PW-hrb"/>
+                            <constraint firstAttribute="centerX" secondItem="c0f-w4-sC0" secondAttribute="centerX" id="ebc-Ek-uwq"/>
+                            <constraint firstAttribute="trailing" secondItem="DRK-Q3-Dvr" secondAttribute="trailing" id="i44-Kf-1hh"/>
+                            <constraint firstAttribute="trailing" secondItem="qzF-H8-6eb" secondAttribute="trailing" id="jJQ-5T-M3G"/>
+                            <constraint firstItem="DRK-Q3-Dvr" firstAttribute="top" secondItem="ffc-gl-8fX" secondAttribute="top" id="rPW-PK-U3l"/>
+                            <constraint firstAttribute="bottom" secondItem="DRK-Q3-Dvr" secondAttribute="bottom" id="tQX-Vw-fg8"/>
+                            <constraint firstItem="DRK-Q3-Dvr" firstAttribute="leading" secondItem="ffc-gl-8fX" secondAttribute="leading" id="zUq-9r-bd9"/>
+                        </constraints>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UtH-7q-VW3">
+                        <rect key="frame" x="187" y="40" width="188" height="89.5"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X6q-mf-GVj">
+                                <rect key="frame" x="0.0" y="0.0" width="188" height="89.5"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fUa-Zf-mb5">
+                                <rect key="frame" x="0.0" y="58" width="188" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="4zi-2h-Wn3"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kaj-9C-Pp2">
+                                <rect key="frame" x="59" y="24" width="70" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="22" id="Mf3-yU-0Cv"/>
+                                    <constraint firstAttribute="width" constant="70" id="baV-f3-hqG"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                <state key="normal" title="计划" image="plan.png">
+                                    <color key="titleColor" red="0.62375710230000003" green="0.62375710230000003" blue="0.62375710230000003" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="fUa-Zf-mb5" secondAttribute="bottom" constant="10" id="2pn-sl-yH3"/>
+                            <constraint firstAttribute="centerY" secondItem="Kaj-9C-Pp2" secondAttribute="centerY" constant="10" id="3Sj-85-JHL"/>
+                            <constraint firstAttribute="trailing" secondItem="fUa-Zf-mb5" secondAttribute="trailing" id="6my-3D-vKO"/>
+                            <constraint firstItem="fUa-Zf-mb5" firstAttribute="leading" secondItem="UtH-7q-VW3" secondAttribute="leading" id="HZh-C1-5Cg"/>
+                            <constraint firstAttribute="bottom" secondItem="X6q-mf-GVj" secondAttribute="bottom" id="M0t-ae-lBk"/>
+                            <constraint firstAttribute="centerX" secondItem="Kaj-9C-Pp2" secondAttribute="centerX" id="OAu-mH-YWz"/>
+                            <constraint firstItem="X6q-mf-GVj" firstAttribute="top" secondItem="UtH-7q-VW3" secondAttribute="top" id="UZX-k3-O4t"/>
+                            <constraint firstAttribute="trailing" secondItem="X6q-mf-GVj" secondAttribute="trailing" id="mMX-Wf-f4j"/>
+                            <constraint firstItem="X6q-mf-GVj" firstAttribute="leading" secondItem="UtH-7q-VW3" secondAttribute="leading" id="uwj-L5-XKU"/>
+                        </constraints>
+                    </view>
+                    <view alpha="0.44999999999999962" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xa7-fA-F3m">
+                        <rect key="frame" x="186.5" y="69.5" width="1" height="45"/>
+                        <color key="backgroundColor" red="0.62375710230000003" green="0.62375710230000003" blue="0.62375710230000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="45" id="MwU-HH-59V"/>
+                            <constraint firstAttribute="width" constant="1" id="VjQ-9A-crg"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="m63-eU-XHF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="6I9-59-xaf"/>
+                    <constraint firstAttribute="trailing" secondItem="UtH-7q-VW3" secondAttribute="trailing" id="Cmi-T5-tsj"/>
+                    <constraint firstItem="m63-eU-XHF" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="JkL-K0-BtM"/>
+                    <constraint firstItem="UtH-7q-VW3" firstAttribute="top" secondItem="m63-eU-XHF" secondAttribute="bottom" id="TZx-Y3-4qU"/>
+                    <constraint firstItem="ffc-gl-8fX" firstAttribute="top" secondItem="m63-eU-XHF" secondAttribute="bottom" id="UJ3-Aq-cn9"/>
+                    <constraint firstItem="UtH-7q-VW3" firstAttribute="width" secondItem="ffc-gl-8fX" secondAttribute="width" id="ght-bi-M97"/>
+                    <constraint firstAttribute="bottom" secondItem="xa7-fA-F3m" secondAttribute="bottom" constant="15" id="lca-Vt-jlQ"/>
+                    <constraint firstItem="UtH-7q-VW3" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="187" id="nLa-Wo-5j4"/>
+                    <constraint firstAttribute="trailing" secondItem="m63-eU-XHF" secondAttribute="trailing" id="pgx-h2-nnF"/>
+                    <constraint firstItem="ffc-gl-8fX" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="r2E-C4-Ca1"/>
+                    <constraint firstAttribute="bottom" secondItem="ffc-gl-8fX" secondAttribute="bottom" id="rTd-Cc-7mG"/>
+                    <constraint firstAttribute="centerX" secondItem="xa7-fA-F3m" secondAttribute="centerX" id="wd2-BA-m1t"/>
+                    <constraint firstItem="UtH-7q-VW3" firstAttribute="width" secondItem="ffc-gl-8fX" secondAttribute="width" id="yDt-pL-ORb"/>
+                    <constraint firstAttribute="bottom" secondItem="UtH-7q-VW3" secondAttribute="bottom" id="zGW-xA-JFV"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="footprintBtn" destination="DRK-Q3-Dvr" id="wwU-Sb-d9e"/>
+                <outlet property="footprintCount" destination="qzF-H8-6eb" id="Gux-uz-ZKL"/>
+                <outlet property="planBtn" destination="X6q-mf-GVj" id="HSD-Ax-usk"/>
+                <outlet property="planCount" destination="fUa-Zf-mb5" id="u2u-CA-AKA"/>
+            </connections>
+            <point key="canvasLocation" x="289.5" y="235"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="foot.png" width="15" height="19"/>
+        <image name="plan.png" width="15" height="19"/>
+    </resources>
+</document>
