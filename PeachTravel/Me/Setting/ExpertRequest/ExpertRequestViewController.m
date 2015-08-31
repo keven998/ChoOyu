@@ -65,7 +65,7 @@
 
 - (void)commitRequest:(id)sender
 {
-    NotificationViewController *ctl = [[NotificationViewController alloc] init];
+    NotificationViewController *ctl = [[NotificationViewController alloc] initWithTitle:@"您的申请已收到" subtitle:@"派派客服会尽快与您联系，请保持手机畅通" andActionTitle:@"知道了"];
     [ctl showNotiViewInController:self.navigationController];
 }
 

@@ -9,12 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface NotificationViewController : UIViewController
-@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UILabel *subtitleLabel;
-@property (weak, nonatomic) IBOutlet UIButton *actionBtn;
-@property (weak, nonatomic) IBOutlet UIView *alertBgkView;
 
+- (id)initWithTitle:(NSString *)title subtitle:(NSString *)subtitle andActionTitle:(NSString *)actionTitle;
 
 - (void)showNotiViewInController:(UIViewController *)containerController;
+
 
 @end
