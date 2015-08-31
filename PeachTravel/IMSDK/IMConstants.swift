@@ -44,6 +44,14 @@ let HedyLoginUrl = "\(HedyUserUrl)/login"
 }
 
 /**
+信息发送错误码
+*/
+@objc enum MessageSendErrorCode: Int {
+    case sendBlackError = 0
+
+}
+
+/**
 消息的状态
 - IMMessageReaded: 已读和发送成功
 - IMMessageSending: 发送中
