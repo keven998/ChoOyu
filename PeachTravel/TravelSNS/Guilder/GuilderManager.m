@@ -11,7 +11,7 @@
 
 @implementation GuilderManager
 
-+ (void)asyncLoadGuidersWithAreaId:(NSString *)areaId page:(int)page pageSize:(int)pageSize completionBlock:(void (^)(BOOL isSuccess, NSArray *guiderArray))completionBlock
++ (void)asyncLoadGuidersWithAreaId:(NSString *)areaId page:(NSInteger)page pageSize:(NSInteger)pageSize completionBlock:(void (^)(BOOL isSuccess, NSArray *guiderArray))completionBlock
 {
     // 1.初始化管理对象
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];

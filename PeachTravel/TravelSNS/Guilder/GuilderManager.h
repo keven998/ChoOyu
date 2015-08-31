@@ -18,7 +18,7 @@
  *  @param pageSize
  *  @param completionBlock 数据回掉， 包含请求是否成功，达人列表信息
  */
-+ (void)asyncLoadGuidersWithAreaId:(NSString *)areaId page:(int)page pageSize:(int)pageSize completionBlock:(void(^)(BOOL isSuccess, NSArray *guiderArray))completionBlock;
++ (void)asyncLoadGuidersWithAreaId:(NSString *)areaId page:(NSInteger)page pageSize:(NSInteger)pageSize completionBlock:(void(^)(BOOL isSuccess, NSArray *guiderArray))completionBlock;
 
 
 @end

@@ -28,7 +28,7 @@
 // 每一个洲的达人列表
 @property (nonatomic, strong)NSArray *guiderArray;
 
-@property (nonatomic, strong)NSArray * titleArray;
+@property (nonatomic, strong)NSArray *titleArray;
 
 /**
  *  新建一个字典存储展开的信息
@@ -327,7 +327,7 @@
 {
     
     GuiderCollectionViewController *guiderCtl = [[GuiderCollectionViewController alloc] initWithNibName:@"GuiderCollectionViewController" bundle:nil];
-    GuiderDistribute * guiderDistribute = _dataSource[indexPath.section][indexPath.row];
+    GuiderDistribute * guiderDistribute = _guiderArray[indexPath.row];
     
     // 这里传入的distributionArea应该是该地区的区域ID
     guiderCtl.distributionArea = guiderDistribute.ID;
