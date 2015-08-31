@@ -18,7 +18,7 @@
     [_levelBtn setBackgroundImage:[UIImage imageNamed:@"master_level_bg.png"] forState:UIControlStateNormal];
 }
 
-- (void)setGuiderModel:(FrendModel *)guiderModel
+- (void)setGuiderModel:(ExpertModel *)guiderModel
 {
     _guiderModel = guiderModel;
     
