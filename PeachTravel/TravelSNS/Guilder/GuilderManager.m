@@ -43,11 +43,19 @@
         } else {
             completionBlock(NO, nil);
         }
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         completionBlock(NO, nil);
     }];
 }
 
+/**
+ *  解析达人列表的数据
+ *
+ *  @param result
+ *
+ *  @return
+ */
 + (NSArray *)parseGuiderListRequestResult:(id)result
 {
     NSMutableArray *array = [[NSMutableArray alloc] init];
