@@ -89,6 +89,11 @@ class FrendModel: NSObject {
             return "\(footprintCountryCount)国 \(footprintCityCount)城市"
         }
     }
+    
+    // 个人点评和tags数组
+    var profile: NSString = ""
+    
+    var tags: Array<String> = Array()
 
     init(json: NSDictionary) {
         
@@ -167,6 +172,15 @@ class FrendModel: NSObject {
                     type = IMFrendType.Expert
                 } 
             }
+        }
+        
+        // 增加派派点评和标签两个字段
+        if let pro = json.objectForKey("profile") as? String {
+            profile = pro
+        }
+        
+        if let tag = json.objectForKey("tags") as? NSArray {
+            tags = tag as! Array<String>
         }
     }
     

@@ -14,4 +14,7 @@
 
 @property (nonatomic, weak) UILabel *contentLab;
 
+// 内容
+@property (nonatomic, copy) NSString *content;
+
 @end

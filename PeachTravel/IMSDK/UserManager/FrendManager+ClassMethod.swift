@@ -22,6 +22,8 @@ extension FrendManager {
         manager.requestSerializer.setValue("\(AccountManager.shareAccountManager().account.userId)", forHTTPHeaderField: "UserId")
         var url = "\(API_USERS)\(userId)"
         
+        println("\(url)")
+        
         manager.GET(url, parameters: nil, success: {
             (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in    
                 if (responseObject.objectForKey("code") as! Int) == 0 {
