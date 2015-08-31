@@ -113,7 +113,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 64*kWindowHeight/736;
+    return 50;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -132,14 +132,6 @@
             NSString *str = [NSString stringWithFormat:@"%.2fM",(float)[[SDImageCache sharedImageCache] getSize]/(1024*1024)];
             cell.cacheLabel.text = str;
             cell.cacheLabel.tag = 101;
-        } else if (indexPath.row == 1) {
-            cell.flagView.image = [UIImage imageNamed:@"ic_setting_apprise.png"];
-        }
-    } else if (indexPath.section == 1) {
-        if (indexPath.row == 0) {
-            cell.flagView.image = [UIImage imageNamed:@"ic_good"];
-        } else if (indexPath.row == 1) {
-            cell.flagView.image = [UIImage imageNamed:@"ic_app_message.png"];
         }
     }
     return cell;
