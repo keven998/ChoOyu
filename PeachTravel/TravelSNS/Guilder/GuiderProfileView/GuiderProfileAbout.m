@@ -34,6 +34,7 @@
     contentLab.font = [UIFont systemFontOfSize:14.0];
     contentLab.text = @"他还没有个人签名哦..";
     contentLab.numberOfLines = 0;
+    contentLab.lineBreakMode = NSLineBreakByWordWrapping;//换行方式
     self.contentLab = contentLab;
     [self addSubview:contentLab];
 }
@@ -43,9 +44,19 @@
     [super layoutSubviews];
     
     self.titleLab.frame = CGRectMake(10, 0, kWindowWidth - 20, 50);
+
+    CGSize size = CGSizeMake(kWindowWidth - 40,CGFLOAT_MAX);//LableWight标签宽度，固定的
     
-//    CGFloat contentH = 
-    self.contentLab.frame = CGRectMake(20, CGRectGetMaxY(self.titleLab.frame), kWindowWidth - 40, 100);
+    //计算实际frame大小，并将label的frame变成实际大小
+    NSDictionary *dict = @{NSFontAttributeName: [UIFont systemFontOfSize:14.0]};
+    CGSize contentSize = [self.content boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
+    
+    CGFloat contentH = contentSize.height;
+    if (self.content.length == 0) {
+        contentH = 50;
+    }
+    
+    self.contentLab.frame = CGRectMake(20, CGRectGetMaxY(self.titleLab.frame), kWindowWidth - 40, contentH);
 }
 
 #pragma mark - 传入内容
@@ -55,5 +66,4 @@
     self.contentLab.text = content;
     [self setNeedsLayout];
 }
-
 @end
