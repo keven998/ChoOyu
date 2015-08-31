@@ -302,6 +302,7 @@
 		D971E2D31B943809007E5AFD /* GuilderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D971E2D21B943809007E5AFD /* GuilderManager.m */; };
 		D971E2D61B94650A007E5AFD /* master_level_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D971E2D41B94650A007E5AFD /* master_level_bg@2x.png */; };
 		D971E2D71B94650A007E5AFD /* master_level_bg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D971E2D51B94650A007E5AFD /* master_level_bg@3x.png */; };
+		D971E2DB1B9468E1007E5AFD /* guider_cell_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D971E2DA1B9468E1007E5AFD /* guider_cell_bg@2x.png */; };
 		D97C8B4D1A526B9F00476C9C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D97C8B4C1A526B9F00476C9C /* Images.xcassets */; };
 		D9823E841B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9823E831B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m */; };
 		D9871DBA1B47D31E00BFDFAF /* ScheduleDayEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9871DB81B47D31E00BFDFAF /* ScheduleDayEditViewController.m */; };
@@ -1763,6 +1764,7 @@
 		D971E2D21B943809007E5AFD /* GuilderManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuilderManager.m; sourceTree = "<group>"; };
 		D971E2D41B94650A007E5AFD /* master_level_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "master_level_bg@2x.png"; sourceTree = "<group>"; };
 		D971E2D51B94650A007E5AFD /* master_level_bg@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "master_level_bg@3x.png"; sourceTree = "<group>"; };
+		D971E2DA1B9468E1007E5AFD /* guider_cell_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "guider_cell_bg@2x.png"; sourceTree = "<group>"; };
 		D97C8B4C1A526B9F00476C9C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
 		D9823E821B19AA0200A1AE35 /* SuggestionDestinationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuggestionDestinationTableViewController.h; sourceTree = "<group>"; };
 		D9823E831B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuggestionDestinationTableViewController.m; sourceTree = "<group>"; };
@@ -7068,6 +7070,7 @@
 		E6F188D91B845F4900232EEB /* 达人 */ = {
 			isa = PBXGroup;
 			children = (
+				D971E2DA1B9468E1007E5AFD /* guider_cell_bg@2x.png */,
 				D971E2D41B94650A007E5AFD /* master_level_bg@2x.png */,
 				D971E2D51B94650A007E5AFD /* master_level_bg@3x.png */,
 				E6F188DA1B845F4900232EEB /* black_mask@2x.png */,
@@ -7835,6 +7838,7 @@
 				E6F18AEC1B845F4900232EEB /* ic_add_friend@2x.png in Resources */,
 				D9A8FFB41A80D1C3005AD701 /* RecommendCollectionViewCell.xib in Resources */,
 				D90A9B331B5627C400E9F37C /* Loading_Animation_final8@3x.png in Resources */,
+				D971E2DB1B9468E1007E5AFD /* guider_cell_bg@2x.png in Resources */,
 				E6F189861B845F4900232EEB /* poi_button_traffic_selected@3x.png in Resources */,
 				E6F189C91B845F4900232EEB /* footprint_change_hilighted@2x.png in Resources */,
 				E6381BFE1B66269000CF73AA /* Loading_Animation_final40@2x.png in Resources */,

@@ -11,6 +11,7 @@
 @interface GuiderCollectionCell : UICollectionViewCell
 
 @property (nonatomic, strong) FrendModel *guiderModel;
+@property (weak, nonatomic) IBOutlet UIImageView *bkgImageView;
 
 @property (weak, nonatomic) IBOutlet UIView *backGroundView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;

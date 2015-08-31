@@ -14,6 +14,7 @@
 - (void)awakeFromNib
 {
     _headerImageView.clipsToBounds = YES;
+    [_bkgImageView setImage:[[UIImage imageNamed:@"guider_cell_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)]];
     [_levelBtn setBackgroundImage:[UIImage imageNamed:@"master_level_bg.png"] forState:UIControlStateNormal];
 }
 
