@@ -115,7 +115,6 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
     }
     
     [_descLabel setFrame:CGRectMake(_titleBtn.frame.origin.x, offsetY+4, titleWidth, TaoziBubbleHeight-offsetY-10)];
-    
 }
 
 - (CGSize)sizeThatFits:(CGSize)size
