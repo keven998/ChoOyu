@@ -54,7 +54,8 @@
     
     // 3.相册列表
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-    flowLayout.itemSize = CGSizeMake(80, 80);
+    CGFloat itemW = (kWindowWidth - 100) / 4;
+    flowLayout.itemSize = CGSizeMake(itemW, itemW);
     flowLayout.minimumInteritemSpacing = 0;
     flowLayout.minimumLineSpacing = 0;
     flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
@@ -80,10 +81,10 @@
     [super layoutSubviews];
     
     self.titleLab.frame = CGRectMake(0, 0, kWindowWidth, 50);
-    self.albumCount.frame = CGRectMake(0, CGRectGetMaxY(self.titleLab.frame), 70, 80);
-    self.collectionView.frame = CGRectMake(CGRectGetMaxX(self.albumCount.frame)+10, CGRectGetMaxY(self.titleLab.frame), kWindowWidth - 140, 80);
+    self.albumCount.frame = CGRectMake(0, CGRectGetMaxY(self.titleLab.frame), 50, (kWindowWidth - 60 - 40)/4);
+    self.collectionView.frame = CGRectMake(CGRectGetMaxX(self.albumCount.frame)+10, CGRectGetMaxY(self.titleLab.frame), kWindowWidth - 60 - 40, (kWindowWidth - 60 - 40)/4);
     
-    self.albumImage.frame = CGRectMake(0, 0, 80, 80);
+    self.albumImage.frame = CGRectMake(0, 0, (kWindowWidth - 60 - 40)/4, (kWindowWidth - 60 - 40)/4);
 }
 
 #pragma mark - 实现数据源方法和代理方法
