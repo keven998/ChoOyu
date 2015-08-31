@@ -59,6 +59,8 @@
     
     [self loadUserProfile:_userId];
     self.view.backgroundColor = APP_PAGE_COLOR;
+    
+    self.tableView.showsVerticalScrollIndicator = NO;
 }
 
 #pragma mark - 设置视图
@@ -131,10 +133,13 @@
         [cell.profileView.friendBtn addTarget:self action:@selector(talkToFriend) forControlEvents:UIControlEventTouchUpInside];
         [cell.profileView.sendBtn addTarget:self action:@selector(remarkFriend) forControlEvents:UIControlEventTouchUpInside];
         cell.userInfo = self.userInfo;
+        cell.collectionArray = @[@"哈哈",@"嘿嘿和",@"呵呵呵呵",@"额额",@"哈哈",@"嘿嘿和",@"呵呵呵呵"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     } else if (indexPath.section == 1) {
         GuiderProfileAlbumCell *albumCell = [[GuiderProfileAlbumCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
         albumCell.albumArray = self.albumArray;
+        albumCell.selectionStyle = UITableViewCellSelectionStyleNone;
         return albumCell;
     } else if (indexPath.section == 2) {
         GuiderProfileTourViewCell *profileTourCell = [GuiderProfileTourViewCell guiderProfileTourWithTableView:tableView];
@@ -142,16 +147,18 @@
         profileTourCell.planCount.text = [NSString stringWithFormat:@"%ld篇",_userInfo.guideCount];
         [profileTourCell.footprintBtn addTarget:self action:@selector(visitTracks) forControlEvents:UIControlEventTouchUpInside];
         [profileTourCell.planBtn addTarget:self action:@selector(seeOthersPlan) forControlEvents:UIControlEventTouchUpInside];
-        
+        profileTourCell.selectionStyle = UITableViewCellSelectionStyleNone;
         return profileTourCell;
     } else if (indexPath.section == 3) {
         GuiderProfileAbout *cell = [[GuiderProfileAbout alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
         cell.titleLab.text = @"关于达人";
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
     else {
         GuiderProfileAbout *cell = [[GuiderProfileAbout alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
         cell.titleLab.text = @"派派点评";
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
 }

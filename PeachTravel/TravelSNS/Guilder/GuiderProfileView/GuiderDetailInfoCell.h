@@ -19,6 +19,8 @@
 
 @property (nonatomic, strong) GuiderProfileHeaderView *profileView;
 
+@property (nonatomic, strong) NSArray *collectionArray;
+
 + (id)guiderDetailInfo;
 
 @end
