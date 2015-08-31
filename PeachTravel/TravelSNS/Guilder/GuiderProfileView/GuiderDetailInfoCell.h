@@ -7,13 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-@class GuiderProfileImageView, FrendModel, GuiderProfileHeaderView;
+@class GuiderProfileImageView, FrendModel, AccountModel, GuiderProfileHeaderView;
 
 @interface GuiderDetailInfoCell : UITableViewCell
 
 @property (nonatomic, strong) GuiderProfileImageView *profileHeader;
 
 @property (nonatomic, strong) FrendModel *userInfo;
+
+@property (nonatomic, strong) AccountModel *accountModel;
 
 @property (nonatomic, weak) UILabel *name;
 

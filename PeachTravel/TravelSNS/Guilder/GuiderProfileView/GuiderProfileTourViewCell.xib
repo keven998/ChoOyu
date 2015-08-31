@@ -184,6 +184,8 @@
                 <outlet property="planBtn" destination="X6q-mf-GVj" id="HSD-Ax-usk"/>
                 <outlet property="planCount" destination="fUa-Zf-mb5" id="u2u-CA-AKA"/>
                 <outlet property="tourBtn" destination="wrV-Za-tGW" id="gk4-61-mQv"/>
+                <outlet property="tourCount" destination="fAs-hk-07r" id="MJC-Rg-13M"/>
+                <outlet property="tourTitle" destination="m63-eU-XHF" id="TS2-QV-hlm"/>
             </connections>
             <point key="canvasLocation" x="289.5" y="235"/>
         </tableViewCell>

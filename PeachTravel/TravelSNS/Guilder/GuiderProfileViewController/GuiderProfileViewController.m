@@ -7,33 +7,6 @@
 //
 
 #import "GuiderProfileViewController.h"
-#import "GuiderProfileHeaderView.h"
-#import "GuiderDetailInfoCell.h"
-#import "GuiderProfileAlbumCell.h"
-#import "GuiderProfileTourViewCell.h"
-#import "GuiderProfileAbout.h"
-
-#import "PlansListTableViewController.h"
-#import "HeaderCell.h"
-#import "OtherUserBasicInfoCell.h"
-#import "OthersAlbumCell.h"
-#import "ChatViewController.h"
-#import "ChatSettingViewController.h"
-#import "AccountModel.h"
-#import "UIBarButtonItem+MJ.h"
-#import "REFrostedViewController.h"
-#import "ChatGroupSettingViewController.h"
-#import "UIImage+resized.h"
-#import "ChatListViewController.h"
-#import "MWPhotoBrowser.h"
-#import "UserAlbumViewController.h"
-#import "BaseTextSettingViewController.h"
-#import "FootPrintViewController.h"
-#import "CMPopTipView.h"
-#import "MJPhotoBrowser.h"
-#import "MJPhoto.h"
-#import "LoginViewController.h"
-#import "TZNavigationViewController.h"
 
 @interface GuiderProfileViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -61,6 +34,34 @@
     self.view.backgroundColor = APP_PAGE_COLOR;
     
     self.tableView.showsVerticalScrollIndicator = NO;
+
+    UIButton *moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
+    [moreBtn setImage:[UIImage imageNamed:@"account_icon_any_default"] forState:UIControlStateNormal];
+    [moreBtn addTarget:self action:@selector(moreAction:) forControlEvents:UIControlEventTouchUpInside];
+    [moreBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:moreBtn];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+//    [self updateUserInfo];
+    [MobClick beginLogPageView:@"page_user_profile"];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"page_user_profile"];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    BOOL isNotShouldShowTipsView = [[[NSUserDefaults standardUserDefaults] objectForKey:@"kShowExpertTipsView"] boolValue];
+    if (!isNotShouldShowTipsView && _shouldShowExpertTipsView) {
+//        [self showExpertTipsViewWithView:_beginTalk];
+    }
 }
 
 #pragma mark - 设置视图
@@ -108,7 +109,6 @@
         [_albumArray addObject:[[AlbumImage alloc] initWithJson:album]];
     }
     _userInfo.userAlbum = _albumArray;
-//    _albumLabel.text = [NSString stringWithFormat:@"%lu张", (long)_albumArray.count];
 }
 
 #pragma mark - DataSource or Delegate
@@ -301,6 +301,153 @@
         };
     }
 }
+
+#pragma mark - 点击更多按钮
+- (IBAction)moreAction:(UIButton *)sender
+{
+    UIActionSheet *sheet;
+    if (_isMyFriend) {
+        sheet = [[UIActionSheet alloc] initWithTitle:nil
+                                            delegate:self
+                                   cancelButtonTitle:@"取消"
+                              destructiveButtonTitle:nil
+                                   otherButtonTitles:@"删除朋友", nil];
+    } else {
+        
+        NSString *actionSheetTitle = nil;
+        BOOL isBlackUser = [FrendModel typeIsCorrect:_userInfo.type typeWeight:IMFrendWeightTypeBlackList];
+        if (isBlackUser) {
+            // 如果已经是黑名单,则显示取消屏蔽用户
+            actionSheetTitle = @"取消屏蔽用户";
+        } else {
+            actionSheetTitle = @"屏蔽用户";
+        }
+        sheet = [[UIActionSheet alloc] initWithTitle:nil
+                                            delegate:self
+                                   cancelButtonTitle:@"取消"
+                              destructiveButtonTitle:nil
+                                   otherButtonTitles:actionSheetTitle, nil];
+    }
+    
+    [sheet showInView:self.view];
+}
+
+- (void)removeContact
+{
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    FrendManager *frendManager = [IMClientManager shareInstance].frendManager;
+    __weak typeof(GuiderProfileViewController *)weakSelf = self;
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInViewController:weakSelf];
+    
+    [frendManager asyncRemoveContactWithUserId:_userId completion:^(BOOL isSuccess, NSInteger errorCode) {
+        [hud hideTZHUD];
+        
+        if (isSuccess) {
+            [accountManager removeContact:_userInfo];
+            [SVProgressHUD showHint:@"已删除～"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:contactListNeedUpdateNoti object:nil];
+            [self performSelector:@selector(goBack) withObject:nil afterDelay:0.4];
+            
+        } else {
+            if (self.isShowing) {
+                [SVProgressHUD showHint:@"请求也是失败了"];
+            }
+        }
+    }];
+}
+
+/**
+ *  屏蔽用户
+ */
+- (void)blackUser
+{
+    // 用户类型如果不是黑名单类型,则屏蔽用户
+    if (![FrendModel typeIsCorrect:_userInfo.type typeWeight:IMFrendWeightTypeBlackList]) {
+        
+        __weak typeof(GuiderProfileViewController *)weakSelf = self;
+        TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+        [hud showHUDInViewController:weakSelf];
+        FrendManager *frendManager = [IMClientManager shareInstance].frendManager;
+        
+        // 屏蔽用户
+        [frendManager asyncBlackContactWithUserId:_userId completion:^(BOOL isSuccess, NSInteger errorCode) {
+            [hud hideTZHUD];
+            
+            if (isSuccess) {
+                _userInfo.type = _userInfo.type + IMFrendWeightTypeBlackList;
+                [SVProgressHUD showHint:@"已屏蔽用户"];
+            }
+        }];
+        
+    } else {  // 用户类型如果是黑名单类型,则取消屏蔽用户
+        __weak typeof(GuiderProfileViewController *)weakSelf = self;
+        TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+        [hud showHUDInViewController:weakSelf];
+        FrendManager *frendManager = [IMClientManager shareInstance].frendManager;
+        
+        // 取消屏蔽用户
+        [frendManager asyncCancelBlackContactWithUserId:_userId completion:^(BOOL isSuccess, NSInteger errorCode) {
+            [hud hideTZHUD];
+            _userInfo.type = _userInfo.type - IMFrendWeightTypeBlackList;
+            if (isSuccess) {
+                [SVProgressHUD showHint:@"取消用户屏蔽成功"];
+            }
+        }];
+        
+    }
+}
+
+//显示达人交流的引导页面
+- (void)showExpertTipsViewWithView:(UIView *)sourceView
+{
+    CMPopTipView *tipView = [[CMPopTipView alloc] initWithMessage:@"有问题可以向达人请教噢"];
+    tipView.backgroundColor = APP_THEME_COLOR;
+    tipView.dismissTapAnywhere = YES;
+    tipView.hasGradientBackground = NO;
+    tipView.hasShadow = YES;
+    tipView.borderColor = APP_THEME_COLOR;
+    tipView.sidePadding = 5;
+    tipView.maxWidth = 110;
+    tipView.has3DStyle = NO;
+    [tipView presentPointingAtView:sourceView inView:self.view animated:YES];
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"kShowExpertTipsView"];
+}
+
+#pragma mark - UIActionsheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        
+        NSString *message = nil;
+        BOOL isBlackUser = [FrendModel typeIsCorrect:_userInfo.type typeWeight:IMFrendWeightTypeBlackList];
+        if(_isMyFriend) {
+            message = @"确定删除好友?";
+        } else {
+            if (isBlackUser) {
+                // 如果已经是黑名单,则显示取消屏蔽用户
+                message = @"确定取消屏蔽用户?";
+            } else {
+                message = @"确定屏蔽用户?";
+            }
+        }
+        
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:message delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+        [alert showAlertViewWithBlock:^(NSInteger buttonIndex) {
+            if (buttonIndex == 1) {
+                if (_isMyFriend) {
+                    [self removeContact];
+                } else {
+                    [self blackUser];
+                }
+            }
+        }];
+    }
+}
+
+
 
 #pragma mark - buttonMethod
 // 浏览足迹

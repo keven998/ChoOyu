@@ -97,4 +97,19 @@
     self.city.text = userInfo.residence;
 }
 
+- (void)setAccountModel:(AccountModel *)accountModel
+{
+    _accountModel = accountModel;
+    
+    if (accountModel.gender == Male) {
+        self.sexImage.image = [UIImage imageNamed:@"boy"];
+    } else {
+        self.sexImage.image = [UIImage imageNamed:@"girl"];
+    }
+    self.age.text = [NSString stringWithFormat:@"%@",accountModel.birthday];
+    
+//    self.constellation.text = userInfo.constellation;
+    self.city.text = accountModel.residence;
+}
+
 @end

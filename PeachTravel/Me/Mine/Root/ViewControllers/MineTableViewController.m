@@ -28,6 +28,7 @@
 #import "TZNavigationViewController.h"
 #import "MJPhoto.h"
 #import "MJPhotoBrowser.h"
+#import "MineProfileViewController.h"
 
 #define cellDataSource           @[@[@"邀请朋友", @"意见反馈"], @[@"关于我们", @"应用设置"]]
 #define secondCell               @"secondCell"
@@ -479,9 +480,10 @@
  */
 - (void)showSettingCtl:(id)sender
 {
-    SettingHomeViewController *settingCtl = [[SettingHomeViewController alloc] init];
-    settingCtl.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:settingCtl animated:YES];
+    MineProfileViewController *profileCtr = [[MineProfileViewController alloc] init];
+    profileCtr.hidesBottomBarWhenPushed = YES;
+    profileCtr.userInfo = [AccountManager shareAccountManager].account;
+    [self.navigationController pushViewController:profileCtr animated:YES];
 }
 
 - (IBAction)showPictureGrid:(id)sender

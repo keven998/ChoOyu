@@ -7,12 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseProfileViewController.h"
 
-@interface MineProfileViewController : UIViewController
+@interface MineProfileViewController : BaseProfileViewController
 
 @property (nonatomic) NSInteger userId;
 
 //显示页内导航界面，如果是第一次进入的达人详情的话
 @property (nonatomic) BOOL shouldShowExpertTipsView;
+
+@property (nonatomic, strong) AccountModel *userInfo;
 
 @end

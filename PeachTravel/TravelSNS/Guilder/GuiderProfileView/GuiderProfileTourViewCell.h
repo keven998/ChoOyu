@@ -22,5 +22,8 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *tourBtn;
 
+@property (weak, nonatomic) IBOutlet UILabel *tourTitle;
+
+@property (weak, nonatomic) IBOutlet UILabel *tourCount;
 
 @end
