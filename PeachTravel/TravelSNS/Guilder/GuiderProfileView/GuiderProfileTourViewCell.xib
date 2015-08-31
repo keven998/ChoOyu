@@ -26,14 +26,14 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ffc-gl-8fX">
                         <rect key="frame" x="0.0" y="40" width="125" height="90"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DRK-Q3-Dvr">
-                                <rect key="frame" x="0.0" y="-40" width="30" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DRK-Q3-Dvr">
+                                <rect key="frame" x="0.0" y="0.0" width="125" height="90"/>
                                 <state key="normal">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
                             <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c0f-w4-sC0">
-                                <rect key="frame" x="19" y="34" width="87" height="22"/>
+                                <rect key="frame" x="19" y="24" width="87" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="NnH-W3-x5p"/>
                                     <constraint firstAttribute="width" constant="87" id="tZa-0t-BHf"/>
@@ -46,7 +46,7 @@
                                 </state>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qzF-H8-6eb">
-                                <rect key="frame" x="0.0" y="69" width="125" height="21"/>
+                                <rect key="frame" x="0.0" y="59" width="125" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="gXd-jA-7wg"/>
                                 </constraints>
@@ -56,24 +56,28 @@
                             </label>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="DRK-Q3-Dvr" firstAttribute="top" secondItem="ffc-gl-8fX" secondAttribute="top" id="33o-jL-Blh"/>
+                            <constraint firstItem="DRK-Q3-Dvr" firstAttribute="leading" secondItem="ffc-gl-8fX" secondAttribute="leading" id="4L5-AN-Ohs"/>
+                            <constraint firstAttribute="bottom" secondItem="DRK-Q3-Dvr" secondAttribute="bottom" id="4c2-VR-5SX"/>
                             <constraint firstItem="qzF-H8-6eb" firstAttribute="leading" secondItem="ffc-gl-8fX" secondAttribute="leading" id="8qC-Hu-ANS"/>
                             <constraint firstAttribute="centerX" secondItem="c0f-w4-sC0" secondAttribute="centerX" id="Ett-2w-bPw"/>
-                            <constraint firstAttribute="centerY" secondItem="c0f-w4-sC0" secondAttribute="centerY" id="Nhj-i5-oEh"/>
-                            <constraint firstAttribute="bottom" secondItem="qzF-H8-6eb" secondAttribute="bottom" id="qTD-8z-xCh"/>
+                            <constraint firstAttribute="centerY" secondItem="c0f-w4-sC0" secondAttribute="centerY" constant="10" id="Nhj-i5-oEh"/>
+                            <constraint firstAttribute="trailing" secondItem="DRK-Q3-Dvr" secondAttribute="trailing" id="PBD-cT-1qv"/>
+                            <constraint firstAttribute="bottom" secondItem="qzF-H8-6eb" secondAttribute="bottom" constant="10" id="qTD-8z-xCh"/>
                             <constraint firstAttribute="trailing" secondItem="qzF-H8-6eb" secondAttribute="trailing" id="xif-4u-QQc"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UtH-7q-VW3">
                         <rect key="frame" x="125" y="40" width="125" height="90"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X6q-mf-GVj">
-                                <rect key="frame" x="-125" y="-40" width="30" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X6q-mf-GVj">
+                                <rect key="frame" x="0.0" y="0.0" width="125" height="90"/>
                                 <state key="normal">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fUa-Zf-mb5">
-                                <rect key="frame" x="0.0" y="69" width="125" height="21"/>
+                                <rect key="frame" x="0.0" y="59" width="125" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="A6Z-7h-Zqm"/>
                                 </constraints>
@@ -82,7 +86,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kaj-9C-Pp2">
-                                <rect key="frame" x="27" y="34" width="70" height="22"/>
+                                <rect key="frame" x="27" y="24" width="70" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="Qgo-Yy-AfY"/>
                                     <constraint firstAttribute="width" constant="70" id="ZWe-OQ-1YX"/>
@@ -103,27 +107,31 @@
                             </view>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="fUa-Zf-mb5" secondAttribute="bottom" id="bzi-ld-WYy"/>
+                            <constraint firstItem="X6q-mf-GVj" firstAttribute="leading" secondItem="UtH-7q-VW3" secondAttribute="leading" id="Rel-Vl-PKc"/>
+                            <constraint firstAttribute="bottom" secondItem="X6q-mf-GVj" secondAttribute="bottom" id="W5I-B6-WOT"/>
+                            <constraint firstItem="X6q-mf-GVj" firstAttribute="top" secondItem="UtH-7q-VW3" secondAttribute="top" id="Yxp-mw-yny"/>
+                            <constraint firstAttribute="bottom" secondItem="fUa-Zf-mb5" secondAttribute="bottom" constant="10" id="bzi-ld-WYy"/>
                             <constraint firstAttribute="bottom" secondItem="kgd-L4-qU0" secondAttribute="bottom" constant="16" id="dlP-Mm-eSg"/>
-                            <constraint firstAttribute="centerY" secondItem="Kaj-9C-Pp2" secondAttribute="centerY" id="krZ-c4-wQy"/>
+                            <constraint firstAttribute="centerY" secondItem="Kaj-9C-Pp2" secondAttribute="centerY" constant="10" id="krZ-c4-wQy"/>
                             <constraint firstAttribute="centerX" secondItem="Kaj-9C-Pp2" secondAttribute="centerX" id="nfP-1K-DO6"/>
                             <constraint firstItem="fUa-Zf-mb5" firstAttribute="leading" secondItem="UtH-7q-VW3" secondAttribute="leading" id="u7a-LS-K1V"/>
                             <constraint firstAttribute="trailing" secondItem="fUa-Zf-mb5" secondAttribute="trailing" id="uKQ-zP-qhH"/>
                             <constraint firstAttribute="trailing" secondItem="kgd-L4-qU0" secondAttribute="trailing" id="uYe-64-uQE"/>
                             <constraint firstItem="kgd-L4-qU0" firstAttribute="top" secondItem="UtH-7q-VW3" secondAttribute="top" constant="16" id="wkR-CV-gSK"/>
+                            <constraint firstAttribute="trailing" secondItem="X6q-mf-GVj" secondAttribute="trailing" id="xPH-sF-R6H"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1xv-kq-UAV">
                         <rect key="frame" x="250" y="40" width="125" height="90"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wrV-Za-tGW">
-                                <rect key="frame" x="-250" y="-40" width="30" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wrV-Za-tGW">
+                                <rect key="frame" x="0.0" y="0.0" width="125" height="90"/>
                                 <state key="normal">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
                             <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TgX-Ls-goc">
-                                <rect key="frame" x="27" y="34" width="70" height="22"/>
+                                <rect key="frame" x="27" y="24" width="70" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="BKt-VK-L2q"/>
                                     <constraint firstAttribute="width" constant="70" id="mXX-hZ-m3H"/>
@@ -135,8 +143,8 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fAs-hk-07r">
-                                <rect key="frame" x="0.0" y="69" width="125" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0份" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fAs-hk-07r">
+                                <rect key="frame" x="0.0" y="59" width="125" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="XJk-NN-OKj"/>
                                 </constraints>
@@ -147,10 +155,14 @@
                         </subviews>
                         <constraints>
                             <constraint firstItem="fAs-hk-07r" firstAttribute="leading" secondItem="1xv-kq-UAV" secondAttribute="leading" id="17U-tq-TzX"/>
-                            <constraint firstAttribute="bottom" secondItem="fAs-hk-07r" secondAttribute="bottom" id="HNV-ZA-AU4"/>
+                            <constraint firstAttribute="bottom" secondItem="fAs-hk-07r" secondAttribute="bottom" constant="10" id="HNV-ZA-AU4"/>
                             <constraint firstAttribute="trailing" secondItem="fAs-hk-07r" secondAttribute="trailing" id="Ngv-bf-g9A"/>
+                            <constraint firstAttribute="bottom" secondItem="wrV-Za-tGW" secondAttribute="bottom" id="RR8-VE-pci"/>
+                            <constraint firstAttribute="trailing" secondItem="wrV-Za-tGW" secondAttribute="trailing" id="RXZ-Cq-2Rb"/>
+                            <constraint firstItem="wrV-Za-tGW" firstAttribute="top" secondItem="1xv-kq-UAV" secondAttribute="top" id="Z3p-0y-YiJ"/>
+                            <constraint firstItem="wrV-Za-tGW" firstAttribute="leading" secondItem="1xv-kq-UAV" secondAttribute="leading" id="ZwB-cW-aLG"/>
                             <constraint firstAttribute="centerX" secondItem="TgX-Ls-goc" secondAttribute="centerX" id="ad9-wl-Pou"/>
-                            <constraint firstAttribute="centerY" secondItem="TgX-Ls-goc" secondAttribute="centerY" id="q7e-7A-ajR"/>
+                            <constraint firstAttribute="centerY" secondItem="TgX-Ls-goc" secondAttribute="centerY" constant="10" id="q7e-7A-ajR"/>
                         </constraints>
                     </view>
                     <view alpha="0.29999999999999966" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="64T-Wr-fDF">
@@ -191,7 +203,7 @@
                 <outlet property="tourCount" destination="fAs-hk-07r" id="MJC-Rg-13M"/>
                 <outlet property="tourTitle" destination="m63-eU-XHF" id="TS2-QV-hlm"/>
             </connections>
-            <point key="canvasLocation" x="289.5" y="235"/>
+            <point key="canvasLocation" x="157.5" y="271"/>
         </tableViewCell>
     </objects>
     <resources>

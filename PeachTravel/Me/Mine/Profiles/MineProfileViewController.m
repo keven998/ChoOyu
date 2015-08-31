@@ -108,6 +108,11 @@
 {
     UIView *footer = [[UIView alloc] init];
     footer.backgroundColor = APP_PAGE_COLOR;
+    UIButton *topLine = [UIButton buttonWithType:UIButtonTypeCustom];
+    topLine.backgroundColor = UIColorFromRGB(0x000000);
+    topLine.alpha = 0.1;
+    topLine.frame = CGRectMake(0, 0, kWindowWidth, 1);
+    [footer addSubview:topLine];
     return footer;
 }
 

@@ -8,7 +8,7 @@
 
 #import "GuiderProfileViewController.h"
 
-@interface GuiderProfileViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface GuiderProfileViewController () <UITableViewDataSource, UITableViewDelegate,UIActionSheetDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -40,6 +40,28 @@
     [moreBtn addTarget:self action:@selector(moreAction:) forControlEvents:UIControlEventTouchUpInside];
     [moreBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:moreBtn];
+    
+    [self setupHeaderView];
+}
+
+- (void)setupHeaderView {
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 44)];
+    view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 6, 200, 18)];
+    nameLabel.textColor = [UIColor whiteColor];
+    nameLabel.font = [UIFont boldSystemFontOfSize:16];
+    nameLabel.textAlignment = NSTextAlignmentCenter;
+    nameLabel.lineBreakMode = NSLineBreakByTruncatingMiddle;
+    nameLabel.text = @"旅行达人";
+    [view addSubview:nameLabel];
+    UILabel *idLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 26, 200, 12)];
+    idLabel.textColor = [UIColor whiteColor];
+    idLabel.font = [UIFont boldSystemFontOfSize:10];
+    idLabel.textAlignment = NSTextAlignmentCenter;
+    idLabel.text = [NSString stringWithFormat:@"ID:%ld",_userId];
+    [view addSubview:idLabel];
+    self.navigationItem.titleView = view;
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -53,6 +75,7 @@
 {
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"page_user_profile"];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -153,10 +176,12 @@
         GuiderProfileTourViewCell *profileTourCell = [GuiderProfileTourViewCell guiderProfileTourWithTableView:tableView];
         profileTourCell.footprintCount.text = _userInfo.footprintDescription;
         profileTourCell.planCount.text = [NSString stringWithFormat:@"%ld篇",_userInfo.guideCount];
+        
         // 添加事件
         [profileTourCell.footprintBtn addTarget:self action:@selector(visitTracks) forControlEvents:UIControlEventTouchUpInside];
         [profileTourCell.planBtn addTarget:self action:@selector(seeOthersPlan) forControlEvents:UIControlEventTouchUpInside];
         [profileTourCell.tourBtn addTarget:self action:@selector(seeOtherTour) forControlEvents:UIControlEventTouchUpInside];
+        
         profileTourCell.selectionStyle = UITableViewCellSelectionStyleNone;
         return profileTourCell;
     } else if (indexPath.section == 3) {
@@ -185,7 +210,7 @@
     if (indexPath.section == 0) {
         return kWindowWidth + 215;
     } else if (indexPath.section == 1) {
-        return 140;
+        return 50 + (kWindowWidth - 60 - 40)/4 + 10;
     } else if (indexPath.section == 2) {
         return 130;
     } else if (indexPath.section == 3) {
@@ -211,6 +236,11 @@
 {
     UIView *footer = [[UIView alloc] init];
     footer.backgroundColor = APP_PAGE_COLOR;
+    UIButton *topLine = [UIButton buttonWithType:UIButtonTypeCustom];
+    topLine.backgroundColor = UIColorFromRGB(0x000000);
+    topLine.alpha = 0.1;
+    topLine.frame = CGRectMake(0, 0, kWindowWidth, 1);
+    [footer addSubview:topLine];
     return footer;
 }
 
