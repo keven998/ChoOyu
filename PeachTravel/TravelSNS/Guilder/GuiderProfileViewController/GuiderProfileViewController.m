@@ -70,9 +70,7 @@
     [FrendManager loadUserInfoFromServer:userId completion:^(BOOL isSuccess, NSInteger errorCode, FrendModel * __nonnull frend) {
         if (isSuccess) {
             _userInfo = frend;
-            [self loadUserAlbum];
-//            [self updateUserInfo];
-            
+            [self loadUserAlbum];            
             [self.tableView reloadData];
         } else {
             [SVProgressHUD showHint:@"请求失败"];
@@ -145,19 +143,23 @@
         GuiderProfileTourViewCell *profileTourCell = [GuiderProfileTourViewCell guiderProfileTourWithTableView:tableView];
         profileTourCell.footprintCount.text = _userInfo.footprintDescription;
         profileTourCell.planCount.text = [NSString stringWithFormat:@"%ld篇",_userInfo.guideCount];
+        // 添加事件
         [profileTourCell.footprintBtn addTarget:self action:@selector(visitTracks) forControlEvents:UIControlEventTouchUpInside];
         [profileTourCell.planBtn addTarget:self action:@selector(seeOthersPlan) forControlEvents:UIControlEventTouchUpInside];
+        [profileTourCell.tourBtn addTarget:self action:@selector(seeOtherTour) forControlEvents:UIControlEventTouchUpInside];
         profileTourCell.selectionStyle = UITableViewCellSelectionStyleNone;
         return profileTourCell;
     } else if (indexPath.section == 3) {
         GuiderProfileAbout *cell = [[GuiderProfileAbout alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
         cell.titleLab.text = @"关于达人";
+        cell.content = self.userInfo.signature;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
     else {
         GuiderProfileAbout *cell = [[GuiderProfileAbout alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
         cell.titleLab.text = @"派派点评";
+        cell.content = self.userInfo.profile;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
@@ -171,11 +173,26 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        return kWindowWidth + 240;
+        return kWindowWidth + 215;
     } else if (indexPath.section == 1) {
         return 140;
     } else if (indexPath.section == 2) {
         return 130;
+    } else if (indexPath.section == 3) {
+        if (self.userInfo.signature.length == 0) return 50 + 40;
+        CGSize size = CGSizeMake(kWindowWidth - 40,CGFLOAT_MAX);//LableWight标签宽度，固定的
+        
+        //计算实际frame大小，并将label的frame变成实际大小
+        NSDictionary *dict = @{NSFontAttributeName: [UIFont systemFontOfSize:14.0]};
+        CGSize contentSize = [self.userInfo.signature boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
+        return 50 + contentSize.height + 20;
+    } else if (indexPath.section == 4) {
+        if (self.userInfo.profile.length == 0) return 50 + 40;
+        CGSize size = CGSizeMake(kWindowWidth - 40,CGFLOAT_MAX);//LableWight标签宽度，固定的
+        //计算实际frame大小，并将label的frame变成实际大小
+        NSDictionary *dict = @{NSFontAttributeName: [UIFont systemFontOfSize:14.0]};
+        CGSize contentSize = [self.userInfo.profile boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
+        return 50 + contentSize.height + 20;
     }
     return 150;
 }
@@ -286,7 +303,7 @@
 }
 
 #pragma mark - buttonMethod
-
+// 浏览足迹
 - (void)visitTracks
 {
     [MobClick event:@"button_item_tracks"];
@@ -295,6 +312,7 @@
     [self.navigationController pushViewController:footPrintCtl animated:YES];
     
 }
+// 查看他人计划
 - (void)seeOthersPlan
 {
     [MobClick event:@"button_item_plan"];
@@ -302,5 +320,9 @@
     listCtl.userName = _userInfo.nickName;
     [self.navigationController pushViewController:listCtl animated:YES];
 }
+// 查看他人游记
+- (void)seeOtherTour
+{
 
+}
 @end

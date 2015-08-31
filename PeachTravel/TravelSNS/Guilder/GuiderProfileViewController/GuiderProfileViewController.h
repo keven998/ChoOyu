@@ -16,6 +16,4 @@
 //显示页内导航界面，如果是第一次进入的达人详情的话
 @property (nonatomic) BOOL shouldShowExpertTipsView;
 
-//@property (nonatomic, )
-
 @end
