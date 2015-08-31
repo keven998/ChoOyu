@@ -10,9 +10,30 @@
 
 @interface NotificationViewController ()
 
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *subtitleLabel;
+@property (weak, nonatomic) IBOutlet UIButton *actionBtn;
+@property (weak, nonatomic) IBOutlet UIView *alertBgkView;
+
+@property (nonatomic, copy) NSString *titleStr;
+@property (nonatomic, copy) NSString *subTitle;
+@property (nonatomic, copy) NSString *actionTitle;
+
+
+
 @end
 
 @implementation NotificationViewController
+
+- (id)initWithTitle:(NSString *)title subtitle:(NSString *)subtitle andActionTitle:(NSString *)actionTitle
+{
+    if (self = [super init]) {
+        _titleStr = title;
+        _subTitle = subtitle;
+        _actionTitle = actionTitle;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -22,6 +43,9 @@
     _actionBtn.clipsToBounds = YES;
     self.view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.55];
     [_actionBtn addTarget:self action:@selector(dismiss:) forControlEvents:UIControlEventTouchUpInside];
+    _titleLabel.text = _titleStr;
+    _subtitleLabel.text = _subTitle;
+    [_actionBtn setTitle:_actionTitle forState:UIControlStateNormal];
 }
 
 - (void)viewWillAppear:(BOOL)animated
