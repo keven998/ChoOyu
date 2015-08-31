@@ -26,12 +26,15 @@
     UILabel *titleLab = [[UILabel alloc] init];
     titleLab.text = @"个人相册";
     titleLab.textAlignment = NSTextAlignmentCenter;
+    titleLab.textColor = UIColorFromRGB(0x646464);
+    titleLab.font = [UIFont fontWithName:@"Helvetica-Bold" size:16.0];
     self.titleLab = titleLab;
     [self addSubview:titleLab];
 
     // 2.正文
     UILabel *contentLab = [[UILabel alloc] init];
-    contentLab.font = [UIFont systemFontOfSize:14.0];
+    contentLab.font = [UIFont fontWithName:@"Helvetica-Bold" size:14.0];
+    contentLab.textColor = UIColorFromRGB(0x646464);
     contentLab.text = @"他还没有个人签名哦..";
     contentLab.numberOfLines = 0;
     contentLab.lineBreakMode = NSLineBreakByWordWrapping;//换行方式
@@ -56,7 +59,7 @@
         contentH = 50;
     }
     
-    self.contentLab.frame = CGRectMake(20, CGRectGetMaxY(self.titleLab.frame), kWindowWidth - 40, contentH);
+    self.contentLab.frame = CGRectMake(42, CGRectGetMaxY(self.titleLab.frame), kWindowWidth - 84, contentH);
 }
 
 #pragma mark - 传入内容

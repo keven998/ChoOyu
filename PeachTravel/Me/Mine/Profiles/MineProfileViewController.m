@@ -63,6 +63,7 @@
         profileTourCell.tourTitle.text = @"我的旅行";
         profileTourCell.footprintCount.text = _userInfo.footprintsDesc;
         profileTourCell.planCount.text = [NSString stringWithFormat:@"%ld篇",_userInfo.guideCnt];
+        profileTourCell.tourCount.text = [NSString stringWithFormat:@"%ld份",_userInfo.footprints.count];
         // 添加事件
         [profileTourCell.footprintBtn addTarget:self action:@selector(visitTracks) forControlEvents:UIControlEventTouchUpInside];
         [profileTourCell.planBtn addTarget:self action:@selector(seeOthersPlan) forControlEvents:UIControlEventTouchUpInside];
