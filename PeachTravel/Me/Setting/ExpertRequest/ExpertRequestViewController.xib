@@ -41,7 +41,6 @@
                     <textInputTraits key="textInputTraits"/>
                 </textField>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="TBN-FH-oEo" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="0kj-VN-ez9"/>
                 <constraint firstAttribute="trailing" secondItem="MA5-gI-r9t" secondAttribute="trailing" constant="12" id="2LQ-h8-PIB"/>
