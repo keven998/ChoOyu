@@ -43,11 +43,9 @@ let HedyLoginUrl = "\(HedyUserUrl)/login"
     case TipsMessageType = 200
 }
 
-/**
-信息发送错误码
-*/
+
 @objc enum MessageSendErrorCode: Int {
-    case sendBlackError = 0
+    case SendBlackError = 0
 
 }
 
