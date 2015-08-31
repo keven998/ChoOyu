@@ -12,7 +12,7 @@
 #import "OtherUserInfoViewController.h"
 #import "GuiderDistribute.h"
 #import "GuiderProfileViewController.h"
-#import "GuilderManager.h"
+#import "ExpertManager.h"
 
 @interface GuiderCollectionViewController ()
 
@@ -105,10 +105,10 @@ static NSString * const reuseIdentifier = @"Cell";
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     __weak typeof(GuiderCollectionViewController *)weakSelf = self;
     [hud showHUDInViewController:weakSelf content:64];
-    [GuilderManager asyncLoadGuidersWithAreaId:areaId page:page pageSize:15 completionBlock:^(BOOL isSuccess, NSArray *guiderArray) {
+    [ExpertManager asyncLoadExpertsWithAreaId:areaId page:page pageSize:15 completionBlock:^(BOOL isSuccess, NSArray *expertsArray) {
         [hud hideTZHUD];
         if (isSuccess) {
-            _dataSource = guiderArray;
+            _dataSource = expertsArray;
             [self.collectionView reloadData];
         } else {
             [SVProgressHUD showErrorWithStatus: HTTP_FAILED_HINT];

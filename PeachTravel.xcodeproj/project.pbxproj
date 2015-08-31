@@ -299,12 +299,12 @@
 		D971E2CD1B93F4D3007E5AFD /* other@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D971E2BB1B93F4D3007E5AFD /* other@3x.png */; };
 		D971E2CE1B93F4D3007E5AFD /* plan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D971E2BC1B93F4D3007E5AFD /* plan@2x.png */; };
 		D971E2CF1B93F4D3007E5AFD /* plan@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D971E2BD1B93F4D3007E5AFD /* plan@3x.png */; };
-		D971E2D31B943809007E5AFD /* GuilderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D971E2D21B943809007E5AFD /* GuilderManager.m */; };
 		D971E2D61B94650A007E5AFD /* master_level_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D971E2D41B94650A007E5AFD /* master_level_bg@2x.png */; };
 		D971E2D71B94650A007E5AFD /* master_level_bg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D971E2D51B94650A007E5AFD /* master_level_bg@3x.png */; };
 		D971E2DB1B9468E1007E5AFD /* guider_cell_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D971E2DA1B9468E1007E5AFD /* guider_cell_bg@2x.png */; };
 		D971E2DD1B946B0F007E5AFD /* ExpertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D971E2DC1B946B0F007E5AFD /* ExpertModel.swift */; };
 		D971E2DF1B946B3E007E5AFD /* BusinessMoel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D971E2DE1B946B3E007E5AFD /* BusinessMoel.swift */; };
+		D971E2E41B94835D007E5AFD /* ExpertManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D971E2E31B94835D007E5AFD /* ExpertManager.m */; };
 		D97C8B4D1A526B9F00476C9C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D97C8B4C1A526B9F00476C9C /* Images.xcassets */; };
 		D9823E841B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9823E831B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m */; };
 		D9871DBA1B47D31E00BFDFAF /* ScheduleDayEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9871DB81B47D31E00BFDFAF /* ScheduleDayEditViewController.m */; };
@@ -1762,13 +1762,13 @@
 		D971E2BB1B93F4D3007E5AFD /* other@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "other@3x.png"; sourceTree = "<group>"; };
 		D971E2BC1B93F4D3007E5AFD /* plan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plan@2x.png"; sourceTree = "<group>"; };
 		D971E2BD1B93F4D3007E5AFD /* plan@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plan@3x.png"; sourceTree = "<group>"; };
-		D971E2D11B943809007E5AFD /* GuilderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuilderManager.h; sourceTree = "<group>"; };
-		D971E2D21B943809007E5AFD /* GuilderManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuilderManager.m; sourceTree = "<group>"; };
 		D971E2D41B94650A007E5AFD /* master_level_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "master_level_bg@2x.png"; sourceTree = "<group>"; };
 		D971E2D51B94650A007E5AFD /* master_level_bg@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "master_level_bg@3x.png"; sourceTree = "<group>"; };
 		D971E2DA1B9468E1007E5AFD /* guider_cell_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "guider_cell_bg@2x.png"; sourceTree = "<group>"; };
 		D971E2DC1B946B0F007E5AFD /* ExpertModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpertModel.swift; sourceTree = "<group>"; };
 		D971E2DE1B946B3E007E5AFD /* BusinessMoel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessMoel.swift; sourceTree = "<group>"; };
+		D971E2E21B94835D007E5AFD /* ExpertManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpertManager.h; sourceTree = "<group>"; };
+		D971E2E31B94835D007E5AFD /* ExpertManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpertManager.m; sourceTree = "<group>"; };
 		D97C8B4C1A526B9F00476C9C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
 		D9823E821B19AA0200A1AE35 /* SuggestionDestinationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuggestionDestinationTableViewController.h; sourceTree = "<group>"; };
 		D9823E831B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuggestionDestinationTableViewController.m; sourceTree = "<group>"; };
@@ -3844,8 +3844,8 @@
 		D971E2D01B9437F3007E5AFD /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				D971E2D11B943809007E5AFD /* GuilderManager.h */,
-				D971E2D21B943809007E5AFD /* GuilderManager.m */,
+				D971E2E21B94835D007E5AFD /* ExpertManager.h */,
+				D971E2E31B94835D007E5AFD /* ExpertManager.m */,
 			);
 			name = Manager;
 			sourceTree = "<group>";
@@ -8517,7 +8517,6 @@
 				D9A8012D1A80DD23005AD701 /* FacialView.m in Sources */,
 				270C164D1B0059F60048C85D /* CityDescDetailViewController.m in Sources */,
 				D9A802B11A80E3D3005AD701 /* NSDateFormatter+Category.m in Sources */,
-				D971E2D31B943809007E5AFD /* GuilderManager.m in Sources */,
 				D9EE34421AB93CF10076933B /* RestaurantDetailViewController.m in Sources */,
 				D9A801401A80DD23005AD701 /* EMChatImageBubbleView.m in Sources */,
 				D9A800361A80D52F005AD701 /* TripDetailRootViewController.m in Sources */,
@@ -8572,6 +8571,7 @@
 				D9A8020C1A80E036005AD701 /* NSData+Godzippa.m in Sources */,
 				D993C2451B12DF0C0088D568 /* MetaDataDaoHelper.swift in Sources */,
 				D971E2901B8C8F57007E5AFD /* JDStatusBarView.m in Sources */,
+				D971E2E41B94835D007E5AFD /* ExpertManager.m in Sources */,
 				D9A8015A1A80DD23005AD701 /* EMTextView.m in Sources */,
 				D9E7E58E1AC281400072D5B9 /* AreaDestination.m in Sources */,
 				D9A8FFA51A80D1C3005AD701 /* PoisOfCityViewController.m in Sources */,
