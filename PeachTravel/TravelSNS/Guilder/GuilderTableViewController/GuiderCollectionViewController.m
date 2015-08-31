@@ -45,7 +45,6 @@ static NSString * const reuseIdentifier = @"Cell";
 
 }
 
-#pragma mark - 友盟统计
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -133,7 +132,6 @@ static NSString * const reuseIdentifier = @"Cell";
     
     NSLog(@"%@",urlStr);
     
-    //搜索达人
     [manager GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [hud hideTZHUD];
         
