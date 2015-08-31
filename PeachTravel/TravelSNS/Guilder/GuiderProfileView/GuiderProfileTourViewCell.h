@@ -20,4 +20,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *planBtn;
 
+@property (weak, nonatomic) IBOutlet UIButton *tourBtn;
+
+
 @end

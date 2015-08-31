@@ -769,6 +769,10 @@
 		E671E77F1B8AF85A00D4A42F /* plan_10_dashboard_add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E671E77E1B8AF85A00D4A42F /* plan_10_dashboard_add@2x.png */; };
 		E6744F731B708AA6001BE989 /* UIActionSheet+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = E6744F721B708AA6001BE989 /* UIActionSheet+Blocks.m */; };
 		E676B8D41B5CD20C0042B539 /* GuiderDistributeContinent.m in Sources */ = {isa = PBXBuildFile; fileRef = E676B8D31B5CD20C0042B539 /* GuiderDistributeContinent.m */; };
+		E677952B1B941B1B004CE21A /* GuiderDetailCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E67795291B941B1B004CE21A /* GuiderDetailCollectionCell.m */; };
+		E677952C1B941B1B004CE21A /* GuiderDetailCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E677952A1B941B1B004CE21A /* GuiderDetailCollectionCell.xib */; };
+		E67795311B942152004CE21A /* MineProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E677952F1B942152004CE21A /* MineProfileViewController.m */; };
+		E67795321B942152004CE21A /* MineProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E67795301B942152004CE21A /* MineProfileViewController.xib */; };
 		E690D8CB1B7C7F5300BFDF1B /* MakePlanSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = E690D8CA1B7C7F5300BFDF1B /* MakePlanSearchController.m */; };
 		E690D8CF1B7C8F9F00BFDF1B /* MakePlanSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E690D8CD1B7C8F9F00BFDF1B /* MakePlanSearchCell.m */; };
 		E690D8D01B7C8F9F00BFDF1B /* MakePlanSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E690D8CE1B7C8F9F00BFDF1B /* MakePlanSearchCell.xib */; };
@@ -2504,6 +2508,12 @@
 		E6744F721B708AA6001BE989 /* UIActionSheet+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActionSheet+Blocks.m"; sourceTree = "<group>"; };
 		E676B8D21B5CD20C0042B539 /* GuiderDistributeContinent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuiderDistributeContinent.h; sourceTree = "<group>"; };
 		E676B8D31B5CD20C0042B539 /* GuiderDistributeContinent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuiderDistributeContinent.m; sourceTree = "<group>"; };
+		E67795281B941B1B004CE21A /* GuiderDetailCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuiderDetailCollectionCell.h; sourceTree = "<group>"; };
+		E67795291B941B1B004CE21A /* GuiderDetailCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuiderDetailCollectionCell.m; sourceTree = "<group>"; };
+		E677952A1B941B1B004CE21A /* GuiderDetailCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GuiderDetailCollectionCell.xib; sourceTree = "<group>"; };
+		E677952E1B942152004CE21A /* MineProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineProfileViewController.h; sourceTree = "<group>"; };
+		E677952F1B942152004CE21A /* MineProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineProfileViewController.m; sourceTree = "<group>"; };
+		E67795301B942152004CE21A /* MineProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MineProfileViewController.xib; sourceTree = "<group>"; };
 		E690D8C91B7C7F5300BFDF1B /* MakePlanSearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakePlanSearchController.h; sourceTree = "<group>"; };
 		E690D8CA1B7C7F5300BFDF1B /* MakePlanSearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MakePlanSearchController.m; sourceTree = "<group>"; };
 		E690D8CC1B7C8F9F00BFDF1B /* MakePlanSearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakePlanSearchCell.h; sourceTree = "<group>"; };
@@ -5293,6 +5303,7 @@
 		D9A8FE9E1A80C818005AD701 /* Mine */ = {
 			isa = PBXGroup;
 			children = (
+				E677952D1B942132004CE21A /* Profiles */,
 				D9A8FE9F1A80C818005AD701 /* MyGuides */,
 				D9A8FEAC1A80C818005AD701 /* Root */,
 			);
@@ -5965,6 +5976,7 @@
 		E608A1431B8FFBA0003BA318 /* GuiderProfileView */ = {
 			isa = PBXGroup;
 			children = (
+				E67795271B941AF7004CE21A /* GuiderDetailCollectionCell */,
 				E608A1441B8FFBD4003BA318 /* GuiderProfileHeaderView.h */,
 				E608A1451B8FFBD4003BA318 /* GuiderProfileHeaderView.m */,
 				E608A1531B900A09003BA318 /* GuiderDetailInfoCell.h */,
@@ -6078,6 +6090,26 @@
 				E66E6CDB1B5A26BF00CBF65F /* UIImage+Extension.m */,
 			);
 			path = Category;
+			sourceTree = "<group>";
+		};
+		E67795271B941AF7004CE21A /* GuiderDetailCollectionCell */ = {
+			isa = PBXGroup;
+			children = (
+				E67795281B941B1B004CE21A /* GuiderDetailCollectionCell.h */,
+				E67795291B941B1B004CE21A /* GuiderDetailCollectionCell.m */,
+				E677952A1B941B1B004CE21A /* GuiderDetailCollectionCell.xib */,
+			);
+			path = GuiderDetailCollectionCell;
+			sourceTree = "<group>";
+		};
+		E677952D1B942132004CE21A /* Profiles */ = {
+			isa = PBXGroup;
+			children = (
+				E677952E1B942152004CE21A /* MineProfileViewController.h */,
+				E677952F1B942152004CE21A /* MineProfileViewController.m */,
+				E67795301B942152004CE21A /* MineProfileViewController.xib */,
+			);
+			path = Profiles;
 			sourceTree = "<group>";
 		};
 		E68F797C1B7890CC00DD08CF /* Tools */ = {
@@ -7589,6 +7621,7 @@
 				E6F18A2E1B845F4900232EEB /* tools_home_card_bg_highlight@3x.png in Resources */,
 				D9A8001F1A80D52F005AD701 /* ForeignViewController.xib in Resources */,
 				E6F18AAE1B845F4900232EEB /* chat_sender_audio_playing_full@3x.png in Resources */,
+				E67795321B942152004CE21A /* MineProfileViewController.xib in Resources */,
 				C6D26C141B2C25730019AFA8 /* PoiOnEditorTableViewCell.xib in Resources */,
 				D9A801211A80DD23005AD701 /* call_silence_h.png in Resources */,
 				E6F1891E1B845F4900232EEB /* dashboard_03_icon_constellation0@3x.png in Resources */,
@@ -7828,6 +7861,7 @@
 				D9F46DC11AC52D8600972AE8 /* SVWebViewControllerActivitySafari@2x.png in Resources */,
 				E6F18A1C1B845F4900232EEB /* map_icon_7@3x.png in Resources */,
 				E6F18B061B845F4900232EEB /* master_no@3x.png in Resources */,
+				E677952C1B941B1B004CE21A /* GuiderDetailCollectionCell.xib in Resources */,
 				E6F1895F1B845F4900232EEB /* plan_bg_add@2x.png in Resources */,
 				E6F18B151B845F4900232EEB /* master_icon_constellation2@2x.png in Resources */,
 				E6F18A971B845F4900232EEB /* speaking-motion9@2x.png in Resources */,
@@ -8160,6 +8194,7 @@
 				D9A802161A80E036005AD701 /* JGProgressHUDPieIndicatorView.m in Sources */,
 				D9A801411A80DD23005AD701 /* EMChatLocationBubbleView.m in Sources */,
 				D92CA1321AD8BEB400F244FF /* MWGridCell.m in Sources */,
+				E67795311B942152004CE21A /* MineProfileViewController.m in Sources */,
 				E608A1551B900A09003BA318 /* GuiderDetailInfoCell.m in Sources */,
 				D993C2531B12DF0C0088D568 /* LvAppDelegate.swift in Sources */,
 				D993C25C1B12DF0C0088D568 /* AudioMessage.swift in Sources */,
@@ -8338,6 +8373,7 @@
 				D9A800621A80DD0C005AD701 /* AddressBookTableViewController.m in Sources */,
 				D9A8FFB81A80D1C3005AD701 /* SpotDetailViewController.m in Sources */,
 				D9A801521A80DD23005AD701 /* CreateConversationTableViewCell.m in Sources */,
+				E677952B1B941B1B004CE21A /* GuiderDetailCollectionCell.m in Sources */,
 				D9A802121A80E036005AD701 /* JGProgressHUDFadeAnimation.m in Sources */,
 				D9A802E51A80E3D3005AD701 /* TZTableViewController.m in Sources */,
 				E6E725211B5603750007273A /* MJMethod.m in Sources */,

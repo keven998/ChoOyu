@@ -11,7 +11,7 @@
 #import "GuiderProfileImageView.h"
 #import "PeachTravel-Swift.h"
 #import "TaoziCollectionLayout.h"
-#import "DestinationSearchHistoryCell.h"
+#import "GuiderDetailCollectionCell.h"
 @interface GuiderDetailInfoCell () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,TaoziLayoutDelegate>
 
 @property (nonatomic, weak)UICollectionView *collectionView;
@@ -41,17 +41,16 @@
     // 1.头部图片
     GuiderProfileImageView *profileHeader = [[GuiderProfileImageView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, kWindowWidth)];
     self.profileHeader = profileHeader;
-    profileHeader.backgroundColor = [UIColor yellowColor];
     [self addSubview:profileHeader];
     
     
     // 2.添加用户信息
     UILabel *name = [[UILabel alloc] init];
     name.text = @"特罗迪亚";
-    name.font = [UIFont boldSystemFontOfSize:26.0];
-    name.textColor = TEXT_COLOR_TITLE;
+    name.font = [UIFont fontWithName:@"STHeitiSC-Light" size:24.0];
+    name.textColor = UIColorFromRGB(0x646464);
     self.name = name;
-    name.frame = CGRectMake(20, CGRectGetMaxY(profileHeader.frame), 200, 50);
+    name.frame = CGRectMake(26.7, CGRectGetMaxY(profileHeader.frame)+12, 200, 25);
     [self addSubview:name];
     
     
@@ -62,18 +61,18 @@
     layout.spacePerItem = 12;
     layout.spacePerLine = 15;
     layout.margin = 10;
-    UICollectionView * collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(name.frame), kWindowWidth-20, 100) collectionViewLayout:layout];
+    
+    UICollectionView * collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(name.frame), kWindowWidth-20, 85) collectionViewLayout:layout];
     self.collectionView = collectionView;
     collectionView.dataSource = self;
     collectionView.delegate = self;
     collectionView.scrollEnabled = NO;
-    collectionView.backgroundColor = APP_PAGE_COLOR;
+    collectionView.backgroundColor = [UIColor whiteColor];
     collectionView.showsVerticalScrollIndicator = NO;
-    [collectionView registerNib:[UINib nibWithNibName:@"DestinationSearchHistoryCell" bundle:nil] forCellWithReuseIdentifier:@"searchHistoryCell"];
+    [collectionView registerNib:[UINib nibWithNibName:@"GuiderDetailCollectionCell" bundle:nil] forCellWithReuseIdentifier:@"detailInfoCell"];
     [collectionView registerNib:[UINib nibWithNibName:@"SearchDestinationHistoryCollectionReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"searchDestinationHeader"];
     
     [self addSubview:collectionView];
-
     
     
     //3.加载年龄,星座,城市等信息
@@ -95,6 +94,10 @@
     [self.profileHeader.imageView sd_setImageWithURL:url];
     self.name.text = userInfo.nickName;
 
+    // 设置collectionView的数据
+    NSArray *collectionArray = userInfo.tags;
+    self.collectionArray = collectionArray;
+    [self.collectionView reloadData];
 }
 
 - (void)setCollectionArray:(NSArray *)collectionArray
@@ -119,8 +122,8 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    DestinationSearchHistoryCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"searchHistoryCell" forIndexPath:indexPath];
-    cell.titleLabel.text = _collectionArray[indexPath.row];
+    GuiderDetailCollectionCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"detailInfoCell" forIndexPath:indexPath];
+    cell.titleLab.text = _collectionArray[indexPath.row];
     
     return cell;
 }
@@ -132,7 +135,7 @@
 {
     NSString *title = [_collectionArray objectAtIndex:indexPath.row];
     CGSize size = [title sizeWithAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:17.0]}];
-    return CGSizeMake(size.width+20, 30);
+    return CGSizeMake(size.width, 20);
 }
 
 - (CGSize)collectionview:(UICollectionView *)collectionView sizeForHeaderView:(NSIndexPath *)indexPath
