@@ -27,6 +27,8 @@
     // 1.年龄
     UILabel *age = [[UILabel alloc] init];
     age.text = @"年龄";
+    age.font = [UIFont fontWithName:@"Helvetica-Bold" size:16.0];
+    age.textColor = UIColorFromRGB(0x969696);
     self.age = age;
     [self addSubview:age];
     
@@ -37,12 +39,16 @@
     
     // 3.星座
     UILabel *constellation = [[UILabel alloc] init];
+    constellation.font = [UIFont fontWithName:@"Helvetica-Bold" size:16.0];
+    constellation.textColor = UIColorFromRGB(0x969696);
     constellation.text = @"星座";
     self.constellation = constellation;
     [self addSubview:constellation];
 
     // 4.城市
     UILabel *city = [[UILabel alloc] init];
+    city.font = [UIFont fontWithName:@"Helvetica-Bold" size:16.0];
+    city.textColor = UIColorFromRGB(0x969696);
     city.text = @"北京市";
     self.city = city;
     [self addSubview:city];
@@ -52,6 +58,7 @@
     [friendBtn setTitle:@"好友" forState:UIControlStateNormal];
     [friendBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
     [friendBtn setImage:[UIImage imageNamed:@"add_friend"] forState:UIControlStateNormal];
+    [friendBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 5.7, 0, 0)];
     self.friendBtn = friendBtn;
     self.friendBtn.layer.borderColor = APP_THEME_COLOR.CGColor;
     self.friendBtn.layer.borderWidth = 1.0;
@@ -62,7 +69,8 @@
     UIButton *sendBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     sendBtn.backgroundColor = APP_THEME_COLOR;
     [sendBtn setTitle:@"发送" forState:UIControlStateNormal];
-    [sendBtn setImage:[UIImage imageNamed:@"plan"] forState:UIControlStateNormal];
+    [sendBtn setImage:[UIImage imageNamed:@"massage"] forState:UIControlStateNormal];
+    [sendBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 5.7, 0, 0)];
     self.sendBtn = sendBtn;
     self.sendBtn.layer.cornerRadius = 7.0;
     self.sendBtn.layer.masksToBounds = YES;
@@ -73,8 +81,8 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    self.age.frame = CGRectMake(20, 0, 30, 40);
-    self.sexImage.frame = CGRectMake(CGRectGetMaxX(self.age.frame), 10, 20, 20);
+    self.age.frame = CGRectMake(20, 0, 20, 40);
+    self.sexImage.frame = CGRectMake(CGRectGetMaxX(self.age.frame), 14, 12.6, 12.9);
     self.constellation.frame = CGRectMake(CGRectGetMaxX(self.sexImage.frame)+10, 0, 60, 40);
     self.city.frame = CGRectMake(CGRectGetMaxX(self.constellation.frame), 0, 200, 40);
     
@@ -95,6 +103,8 @@
     
     self.constellation.text = userInfo.constellation;
     self.city.text = userInfo.residence;
+    
+    [self setNeedsDisplay];
 }
 
 - (void)setAccountModel:(AccountModel *)accountModel
@@ -106,10 +116,21 @@
     } else {
         self.sexImage.image = [UIImage imageNamed:@"girl"];
     }
-    self.age.text = [NSString stringWithFormat:@"%@",accountModel.birthday];
     
-//    self.constellation.text = userInfo.constellation;
+    NSDateFormatter *format = [[NSDateFormatter alloc] init];
+    format.dateFormat = @"yyyy/MM/dd";
+    NSDate *date = [format dateFromString:accountModel.birthday];
+    
+    NSTimeInterval dateDiff = [date timeIntervalSinceNow];
+    
+    int age= -trunc(dateDiff/(60*60*24))/365;
+    
+    self.age.text = [NSString stringWithFormat:@"%d",age];
+    self.constellation.text = [FrendModel costellationDescWithBirthday:accountModel.birthday];
     self.city.text = accountModel.residence;
+    
+    [self setNeedsDisplay];
+
 }
 
 @end

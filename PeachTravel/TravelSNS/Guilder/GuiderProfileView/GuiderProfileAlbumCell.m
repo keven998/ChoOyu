@@ -37,6 +37,8 @@
     // 1.标题
     UILabel *titleLab = [[UILabel alloc] init];
     titleLab.text = @"个人相册";
+    titleLab.font = [UIFont fontWithName:@"Helvetica-Bold" size:17.0];
+    titleLab.textColor = UIColorFromRGB(0x646464);
     titleLab.textAlignment = NSTextAlignmentCenter;
     self.titleLab = titleLab;
     [self addSubview:titleLab];
@@ -44,9 +46,9 @@
     // 2.相册图片数量
     UILabel *albumCount = [[UILabel alloc] init];
     albumCount.text = @"66";
-    albumCount.textColor = TEXT_COLOR_TITLE_SUBTITLE;
-    albumCount.font = [UIFont boldSystemFontOfSize:36.0];
-    albumCount.textAlignment = NSTextAlignmentCenter;
+    albumCount.textColor = UIColorFromRGB(0xC7C7C7);
+    albumCount.font = [UIFont boldSystemFontOfSize:30.0];
+    albumCount.textAlignment = NSTextAlignmentRight;
     self.albumCount = albumCount;
     [self addSubview:albumCount];
     
@@ -78,8 +80,8 @@
     [super layoutSubviews];
     
     self.titleLab.frame = CGRectMake(0, 0, kWindowWidth, 50);
-    self.albumCount.frame = CGRectMake(10, CGRectGetMaxY(self.titleLab.frame), 70, 80);
-    self.collectionView.frame = CGRectMake(CGRectGetMaxX(self.albumCount.frame), CGRectGetMaxY(self.titleLab.frame), kWindowWidth - 140, 80);
+    self.albumCount.frame = CGRectMake(0, CGRectGetMaxY(self.titleLab.frame), 70, 80);
+    self.collectionView.frame = CGRectMake(CGRectGetMaxX(self.albumCount.frame)+10, CGRectGetMaxY(self.titleLab.frame), kWindowWidth - 140, 80);
     
     self.albumImage.frame = CGRectMake(0, 0, 80, 80);
 }

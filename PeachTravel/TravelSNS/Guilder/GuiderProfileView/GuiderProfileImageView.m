@@ -33,8 +33,8 @@
     UILabel *label = [[UILabel alloc] init];
     label.textAlignment = NSTextAlignmentRight;
     label.text = @"旅行派达人咨询师 LEVEL-3";
-    label.textColor = [UIColor whiteColor];
-    label.font = [UIFont boldSystemFontOfSize:16.0];
+    label.textColor = UIColorFromRGB(0xFFFFFF);
+    label.font = [UIFont fontWithName:@"Helvetica-Bold" size:16.0];
     self.titleLab = label;
     [self addSubview:label];
 }

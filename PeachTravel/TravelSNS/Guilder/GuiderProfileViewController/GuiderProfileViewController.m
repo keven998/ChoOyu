@@ -109,6 +109,8 @@
         [_albumArray addObject:[[AlbumImage alloc] initWithJson:album]];
     }
     _userInfo.userAlbum = _albumArray;
+    
+    [self.tableView reloadData];
 }
 
 #pragma mark - DataSource or Delegate
@@ -129,7 +131,15 @@
     if (indexPath.section == 0) {
         GuiderDetailInfoCell *cell = [GuiderDetailInfoCell guiderDetailInfo];
         [cell.profileView.friendBtn addTarget:self action:@selector(talkToFriend) forControlEvents:UIControlEventTouchUpInside];
-        [cell.profileView.sendBtn addTarget:self action:@selector(remarkFriend) forControlEvents:UIControlEventTouchUpInside];
+        if ([[AccountManager shareAccountManager] frendIsMyContact:_userId]) {
+            [cell.profileView.sendBtn setTitle:@"修改备注" forState:UIControlStateNormal];
+            [cell.profileView.sendBtn addTarget:self action:@selector(remarkFriend) forControlEvents:UIControlEventTouchUpInside];
+        } else {
+            [cell.profileView.sendBtn setTitle:@"加为朋友" forState:UIControlStateNormal];
+            [cell.profileView.sendBtn addTarget:self action:@selector(addToFriend) forControlEvents:UIControlEventTouchUpInside];
+            
+        }
+
         cell.userInfo = self.userInfo;
         cell.collectionArray = @[@"哈哈",@"嘿嘿和",@"呵呵呵呵",@"额额",@"哈哈",@"嘿嘿和",@"呵呵呵呵"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -256,6 +266,56 @@
         [self userLogin];
     }
 }
+
+- (void)addToFriend
+{
+    
+    if ([AccountManager shareAccountManager].isLogin) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"朋友验证" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        [alert setAlertViewStyle:UIAlertViewStylePlainTextInput];
+        UITextField *nameTextField = [alert textFieldAtIndex:0];
+        AccountManager *accountManager = [AccountManager shareAccountManager];
+        nameTextField.text = [NSString stringWithFormat:@"Hi, 我是%@", accountManager.account.nickName];
+        [alert showAlertViewWithBlock:^(NSInteger buttonIndex) {
+            if (buttonIndex == 1) {
+                [self requestAddContactWithHello:nameTextField.text];
+            }
+        }];
+    } else {
+        [self userLogin];
+    }
+}
+
+#pragma mark - HTTP请求
+#pragma mark - http method
+
+/**
+ *  邀请好友
+ *
+ *  @param helloStr
+ */
+- (void)requestAddContactWithHello:(NSString *)helloStr
+{
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    
+    FrendManager *frendManager = [IMClientManager shareInstance].frendManager;
+    if ([helloStr stringByReplacingOccurrencesOfString:@" " withString:@""].length == 0) {
+        helloStr = [NSString stringWithFormat:@"Hi, 我是%@", accountManager.account.nickName];
+    }
+    __weak typeof(GuiderProfileViewController *)weakSelf = self;
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInViewController:weakSelf content:64];
+    [frendManager asyncRequestAddContactWithUserId:_userId helloStr:helloStr completion:^(BOOL isSuccess, NSInteger errorCode) {
+        [hud hideTZHUD];
+        if (isSuccess) {
+            [SVProgressHUD showHint:@"请求已发送，等待对方验证"];
+        } else {
+            [SVProgressHUD showHint:@"添加失败"];
+        }
+    }];
+}
+
+
 
 #pragma mark - IBAction Methods
 

@@ -61,7 +61,7 @@
     [super layoutSubviews];
     self.profileHeader.frame = CGRectMake(0, 0, kWindowWidth, kWindowWidth);
     self.name.frame = CGRectMake(26.7, CGRectGetMaxY(self.profileHeader.frame)+12, 200, 25);
-    self.profileView.frame = CGRectMake(26.7, CGRectGetMaxY(self.name.frame), kWindowWidth - 26.7*2, 50);
+    self.profileView.frame = CGRectMake(0, CGRectGetMaxY(self.name.frame), kWindowWidth, 50);
 }
 
 #pragma mark - 设置数据
@@ -73,6 +73,7 @@
     NSURL *url = [NSURL URLWithString:accountModel.avatar];
     [self.profileHeader.imageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"ic_home_avatar_unknown.png"]];
     self.name.text = accountModel.nickName;
+    self.profileView.accountModel = accountModel;
 }
 
 @end
