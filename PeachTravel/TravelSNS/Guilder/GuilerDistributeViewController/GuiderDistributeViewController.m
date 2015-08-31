@@ -190,7 +190,8 @@
     searchCtl.hidesBottomBarWhenPushed = YES;
     [searchCtl setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
     TZNavigationViewController *tznavc = [[TZNavigationViewController alloc] initWithRootViewController:searchCtl];
-    [self presentViewController:tznavc animated:YES completion:nil];}
+    [self presentViewController:tznavc animated:YES completion:nil];
+}
 
 #pragma mark - 实现dropDownMenuProtocol代理方法
 - (void)didSelectedContinentIndex:(NSInteger)continentIndex
@@ -240,7 +241,6 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     if (![_showDic objectForKey:[NSString stringWithFormat:@"%ld",indexPath.section]]) {
         return 232*CGRectGetWidth(self.view.frame)/414;
     }
@@ -249,7 +249,6 @@
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
 {
-    
     return 1;
 }
 
@@ -257,31 +256,6 @@
 {
     return self.guiderArray.count;
 }
-
-/*
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return 44;
-}
-
-// 返回每一组的头部
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    UIButton *headerBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 44)];
-    headerBtn.tag = section;
-    [headerBtn setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
-    [headerBtn setBackgroundImage:[ConvertMethods createImageWithColor:COLOR_DISABLE] forState:UIControlStateHighlighted];
-    headerBtn.layer.borderWidth = 0.5;
-    headerBtn.layer.borderColor = APP_PAGE_COLOR.CGColor;
-    [headerBtn setTitle:self.titleArray[section] forState:UIControlStateNormal];
-    [headerBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-    headerBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
-    headerBtn.titleEdgeInsets = UIEdgeInsetsMake(5, 0, 0, 0);
-    [headerBtn addTarget:self action:@selector(singleTap:) forControlEvents:UIControlEventTouchUpInside];
-
-    return headerBtn;
-}
- */
 
 #pragma mark 展开收缩section中cell 手势监听
 -(void)singleTap:(UIButton*)recognizer
