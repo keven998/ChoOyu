@@ -35,8 +35,8 @@
     return titleArray;
 }
 
-
 #pragma mark - 请求网络数据
+
 + (void)guiderStatusWithParam:(NSDictionary *)param success:(void (^)(NSArray *))success failure:(void (^)(NSError *))failure
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -77,7 +77,6 @@
     NSArray *guiderList = [[list mutableCopy] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
         GuiderDistribute *guiderOne = obj1;
         GuiderDistribute *guiderTwo = obj2;
-        
         NSComparisonResult result = guiderOne.rank > guiderTwo.rank;
         return result == NSOrderedDescending;
     }];

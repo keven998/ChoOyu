@@ -14,6 +14,7 @@
 - (void)awakeFromNib
 {
     _headerImageView.clipsToBounds = YES;
+    [_levelBtn setBackgroundImage:[UIImage imageNamed:@"master_level_bg.png"] forState:UIControlStateNormal];
 }
 
 - (void)setGuiderModel:(FrendModel *)guiderModel
