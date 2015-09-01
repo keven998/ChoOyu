@@ -12,7 +12,13 @@
 
 + (BOOL)isMobileFormat:(NSString *)mobile
 {
+    NSString * regex0 = @"^1\\d{10}$";
     
+    NSPredicate *pred0 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex0];
+    if (![pred0 evaluateWithObject: mobile]) {
+        return NO;
+    }
+    return YES;
 }
 
 

@@ -10,4 +10,14 @@
 
 @interface FormatCheck : NSObject
 
+/**
+ *  是否是手机号
+ *
+ *  @param mobile
+ *
+ *  @return 
+ */
++ (BOOL)isMobileFormat:(NSString *)mobile;
+
+
 @end

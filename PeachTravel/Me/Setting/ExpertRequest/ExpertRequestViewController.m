@@ -8,8 +8,11 @@
 
 #import "ExpertRequestViewController.h"
 #import "NotificationViewController.h"
+#import "FormatCheck.h"
 
 @interface ExpertRequestViewController ()
+
+@property (nonatomic, strong) UIButton *commitBtn;
 
 @end
 
@@ -21,15 +24,19 @@
     _titleBkgImageView.image = [[UIImage imageNamed:@"textfield_bgk.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 3, 5, 3)];
     self.navigationItem.title = @"达人∙申请";
     
-    UIButton *commitBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    [commitBtn setTitle:@"提交" forState:UIControlStateNormal];
-    [commitBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-    [commitBtn addTarget:self action:@selector(commitRequest:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:commitBtn];
+    _commitBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [_commitBtn setTitle:@"提交" forState:UIControlStateNormal];
+    [_commitBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+    [_commitBtn setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
+    [_commitBtn addTarget:self action:@selector(commitRequest:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_commitBtn];
+    _commitBtn.enabled = NO;
+
     
     UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [backBtn setTitle:@"取消" forState:UIControlStateNormal];
     [backBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
+
     [backBtn addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
     
@@ -80,7 +87,11 @@
 
 - (void)contentChanged:(id)sender
 {
-    
+    if ([FormatCheck isMobileFormat:_contentTextField.text]) {
+        _commitBtn.enabled = YES;
+    } else {
+        _commitBtn.enabled = NO;
+    }
 }
 
 @end
