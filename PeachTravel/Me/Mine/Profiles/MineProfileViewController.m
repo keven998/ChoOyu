@@ -106,13 +106,17 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    UIView *footer = [[UIView alloc] init];
-    footer.backgroundColor = APP_PAGE_COLOR;
-    UIButton *topLine = [UIButton buttonWithType:UIButtonTypeCustom];
-    topLine.backgroundColor = UIColorFromRGB(0x000000);
-    topLine.alpha = 0.1;
-    topLine.frame = CGRectMake(0, 0, kWindowWidth, 1);
-    [footer addSubview:topLine];
+    UIView *footer = nil;
+    if (section != 3) {
+        footer = [[UIView alloc] init];
+        footer.backgroundColor = APP_PAGE_COLOR;
+        UIButton *topLine = [UIButton buttonWithType:UIButtonTypeCustom];
+        topLine.backgroundColor = UIColorFromRGB(0x000000);
+        topLine.alpha = 0.1;
+        topLine.frame = CGRectMake(0, 0, kWindowWidth, 1);
+        [footer addSubview:topLine];
+    }
+ 
     return footer;
 }
 
