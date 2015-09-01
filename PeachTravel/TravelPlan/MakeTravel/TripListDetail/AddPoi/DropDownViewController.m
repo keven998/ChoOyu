@@ -9,6 +9,8 @@
 #import "DropDownViewController.h"
 @interface DropDownViewController ()
 
+@property (nonatomic, strong) UIView *cellBgView;
+
 @end
 
 @implementation DropDownViewController
@@ -33,6 +35,8 @@
     self.tableView.showsVerticalScrollIndicator = NO;
     
     self.tableView.backgroundColor = [UIColor clearColor];
+    
+    self.cellBgView = [[UIView alloc] init];
 }
 
 - (void)setSiteArray:(NSArray *)siteArray
@@ -58,6 +62,7 @@
     }
     
     // 添加分割线
+    /*
     if (indexPath.row != self.siteArray.count - 1) {
         UIView * underLine = [[UIView alloc] init];
         underLine.backgroundColor = [UIColor grayColor];
@@ -65,6 +70,7 @@
         underLine.frame = CGRectMake(0, cell.frame.size.height - 1, kWindowWidth, 1);
         [cell addSubview:underLine];
     }
+     */
     cell.backgroundColor = [UIColor clearColor];
     
     cell.textLabel.text = self.siteArray[indexPath.row];
@@ -75,8 +81,11 @@
     
     if (self.showAccessory == indexPath.row) {
         cell.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"point"]];
+        self.cellBgView.backgroundColor = TZColor(32, 32, 32);
+        self.cellBgView.alpha = 0.3;
+        self.cellBgView.frame = CGRectMake(0, 5, cell.frame.size.width, cell.frame.size.height - 10);
+        [cell addSubview:self.cellBgView];
         [cell.textLabel setTextColor:APP_THEME_COLOR];
-//        cell.backgroundColor = [UIColor grayColor];
     }
     
     
