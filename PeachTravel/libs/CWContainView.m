@@ -21,7 +21,7 @@
     // 2.画矩形
     CGContextAddRect(ctx, CGRectMake(0, 15, width, height));
     
-    CGContextMoveToPoint(ctx, width * 0.5, 0);
+    CGContextMoveToPoint(ctx, width * 0.5, 5);
     CGContextAddLineToPoint(ctx, width * 0.5 - 10, 15);
     CGContextAddLineToPoint(ctx, width * 0.5 + 10, 15);
     CGContextClosePath(ctx);
