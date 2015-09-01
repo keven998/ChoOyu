@@ -306,6 +306,7 @@
 		D971E2DF1B946B3E007E5AFD /* BusinessMoel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D971E2DE1B946B3E007E5AFD /* BusinessMoel.swift */; };
 		D971E2E41B94835D007E5AFD /* ExpertManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D971E2E31B94835D007E5AFD /* ExpertManager.m */; };
 		D971E2F01B957A9E007E5AFD /* FormatCheck.m in Sources */ = {isa = PBXBuildFile; fileRef = D971E2EF1B957A9E007E5AFD /* FormatCheck.m */; };
+		D971E2FB1B95C28E007E5AFD /* MineContentRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D971E2FA1B95C28E007E5AFD /* MineContentRootViewController.m */; };
 		D97C8B4D1A526B9F00476C9C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D97C8B4C1A526B9F00476C9C /* Images.xcassets */; };
 		D9823E841B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9823E831B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m */; };
 		D9871DBA1B47D31E00BFDFAF /* ScheduleDayEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9871DB81B47D31E00BFDFAF /* ScheduleDayEditViewController.m */; };
@@ -1772,6 +1773,8 @@
 		D971E2E31B94835D007E5AFD /* ExpertManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpertManager.m; sourceTree = "<group>"; };
 		D971E2EE1B957A9E007E5AFD /* FormatCheck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormatCheck.h; sourceTree = "<group>"; };
 		D971E2EF1B957A9E007E5AFD /* FormatCheck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormatCheck.m; sourceTree = "<group>"; };
+		D971E2F91B95C28E007E5AFD /* MineContentRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineContentRootViewController.h; sourceTree = "<group>"; };
+		D971E2FA1B95C28E007E5AFD /* MineContentRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineContentRootViewController.m; sourceTree = "<group>"; };
 		D97C8B4C1A526B9F00476C9C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
 		D9823E821B19AA0200A1AE35 /* SuggestionDestinationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuggestionDestinationTableViewController.h; sourceTree = "<group>"; };
 		D9823E831B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuggestionDestinationTableViewController.m; sourceTree = "<group>"; };
@@ -5416,6 +5419,8 @@
 			children = (
 				D9A8FEB91A80C818005AD701 /* MineTableViewController.h */,
 				D9A8FEBA1A80C818005AD701 /* MineTableViewController.m */,
+				D971E2F91B95C28E007E5AFD /* MineContentRootViewController.h */,
+				D971E2FA1B95C28E007E5AFD /* MineContentRootViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -8475,6 +8480,7 @@
 				D993CB601AB6D6590075314E /* HotelPoi.m in Sources */,
 				D993C24E1B12DF0C0088D568 /* IMDiscussionGroup.swift in Sources */,
 				D9A800641A80DD0C005AD701 /* SearchUserInfoViewController.m in Sources */,
+				D971E2FB1B95C28E007E5AFD /* MineContentRootViewController.m in Sources */,
 				C673B5591ADCEC7100D40262 /* TripPlanSettingViewController.m in Sources */,
 				E608A1461B8FFBD4003BA318 /* GuiderProfileHeaderView.m in Sources */,
 				E677953B1B942EA9004CE21A /* MineDetailInfoCell.m in Sources */,
