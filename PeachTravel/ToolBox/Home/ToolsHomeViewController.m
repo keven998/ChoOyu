@@ -10,6 +10,7 @@
 #import "PlansListTableViewController.h"
 #import "LoginViewController.h"
 #import "SearchDestinationViewController.h"
+#import "MineContentRootViewController.h"
 
 @interface ToolsHomeViewController ()
 
@@ -66,6 +67,7 @@
     [lxpHelper setBackgroundImage:[UIImage imageNamed:@"tools_home_card_bg_normal.png"] forState:UIControlStateNormal];
     [lxpHelper setBackgroundImage:[UIImage imageNamed:@"tools_home_card_bg_highlight.png"] forState:UIControlStateHighlighted];
     [lxpHelper setTitle:@"达人指路" forState:UIControlStateNormal];
+    [lxpHelper addTarget:self action:@selector(test) forControlEvents:UIControlEventTouchUpInside];
     [lxpHelper setTitleEdgeInsets:UIEdgeInsetsMake(flag.frame.size.height / 2.0, 0, -70, 0)];
     [lxpHelper setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
     [lxpHelper setTitleColor:COLOR_TEXT_III forState:UIControlStateHighlighted];
@@ -103,6 +105,11 @@
 
 #pragma mark - IBAction
 
+- (void)test
+{
+    MineContentRootViewController *ctl = [[MineContentRootViewController alloc] init];
+    [self presentViewController:ctl animated:YES completion:nil];
+}
 /**
  *  跳转到我的计划界面
  */
