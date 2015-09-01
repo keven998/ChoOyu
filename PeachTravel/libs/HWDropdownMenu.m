@@ -26,9 +26,7 @@
         
         // 添加一个灰色图片控件
         CWContainView *containerView = [[CWContainView alloc] init];
-//        containerView.image = [UIImage imageNamed:@"ArtboardBg"];
         containerView.userInteractionEnabled = YES; // 开启交互
-        containerView.alpha = 0.8;
         [self addSubview:containerView];
         self.containerView = containerView;
     }

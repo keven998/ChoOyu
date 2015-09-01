@@ -10,6 +10,4 @@
 
 @interface CWContainView : UIView
 
-@property (nonatomic, weak) UIColor *bgColor;
-
 @end
