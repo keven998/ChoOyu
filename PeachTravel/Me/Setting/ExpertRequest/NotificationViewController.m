@@ -46,6 +46,8 @@
     _titleLabel.text = _titleStr;
     _subtitleLabel.text = _subTitle;
     [_actionBtn setTitle:_actionTitle forState:UIControlStateNormal];
+    
+    NSLog(@"%@", NSStringFromCGRect(self.view.frame));
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -69,6 +71,7 @@
 
 - (void)showNotiViewInController:(UIViewController *)containerController
 {
+    self.view.frame = containerController.view.bounds;
     [containerController addChildViewController:self];
     [containerController.view addSubview:self.view];
     [self willMoveToParentViewController:containerController];

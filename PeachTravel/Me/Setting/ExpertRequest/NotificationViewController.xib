@@ -128,19 +128,19 @@
                         <mask key="constraints">
                             <exclude reference="2vr-1f-fKB"/>
                             <exclude reference="OMn-NZ-Czg"/>
+                            <exclude reference="OMl-wW-3qI"/>
+                            <exclude reference="TxY-Oo-xOj"/>
+                            <exclude reference="bso-sy-Tan"/>
                             <exclude reference="2lQ-Za-RjE"/>
                             <exclude reference="SdD-QB-j4e"/>
                             <exclude reference="mx3-AF-iiB"/>
+                            <exclude reference="CcB-3a-xKk"/>
+                            <exclude reference="KBQ-bl-i3V"/>
+                            <exclude reference="oiT-FB-z5A"/>
                             <exclude reference="FV3-1G-1ga"/>
                             <exclude reference="Nvv-ce-v7T"/>
                             <exclude reference="i8j-kX-MjS"/>
                             <exclude reference="mmT-K2-MTi"/>
-                            <exclude reference="OMl-wW-3qI"/>
-                            <exclude reference="TxY-Oo-xOj"/>
-                            <exclude reference="bso-sy-Tan"/>
-                            <exclude reference="CcB-3a-xKk"/>
-                            <exclude reference="KBQ-bl-i3V"/>
-                            <exclude reference="oiT-FB-z5A"/>
                         </mask>
                     </variation>
                     <variation key="widthClass=compact">
@@ -153,19 +153,19 @@
                         <mask key="constraints">
                             <include reference="2vr-1f-fKB"/>
                             <include reference="OMn-NZ-Czg"/>
+                            <include reference="OMl-wW-3qI"/>
+                            <include reference="TxY-Oo-xOj"/>
+                            <include reference="bso-sy-Tan"/>
                             <include reference="2lQ-Za-RjE"/>
                             <include reference="SdD-QB-j4e"/>
                             <include reference="mx3-AF-iiB"/>
+                            <include reference="CcB-3a-xKk"/>
+                            <include reference="KBQ-bl-i3V"/>
+                            <include reference="oiT-FB-z5A"/>
                             <include reference="FV3-1G-1ga"/>
                             <include reference="Nvv-ce-v7T"/>
                             <include reference="i8j-kX-MjS"/>
                             <include reference="mmT-K2-MTi"/>
-                            <include reference="OMl-wW-3qI"/>
-                            <include reference="TxY-Oo-xOj"/>
-                            <include reference="bso-sy-Tan"/>
-                            <include reference="CcB-3a-xKk"/>
-                            <include reference="KBQ-bl-i3V"/>
-                            <include reference="oiT-FB-z5A"/>
                         </mask>
                     </variation>
                 </view>
