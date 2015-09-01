@@ -107,7 +107,7 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
     if (_model.type ==  IMMessageTypeTravelNoteMessageType || _model.type == IMMessageTypeCityPoiMessageType || _model.type == IMMessageTypeHtml5MessageType) {
         _propertyBtn.hidden = YES;
         _propertyBtn.frame = CGRectZero;
-        offsetY = 25;
+        offsetY = 40;
     } else {
         _propertyBtn.hidden = NO;
         _propertyBtn.frame = CGRectMake(_titleBtn.frame.origin.x, 30, titleWidth, 15);
@@ -115,7 +115,6 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
     }
     
     [_descLabel setFrame:CGRectMake(_titleBtn.frame.origin.x, offsetY+4, titleWidth, TaoziBubbleHeight-offsetY-10)];
-    
 }
 
 - (CGSize)sizeThatFits:(CGSize)size

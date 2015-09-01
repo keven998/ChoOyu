@@ -1,17 +1,17 @@
 //
-//  GuilderManager.m
+//  ExpertManager.m
 //  PeachTravel
 //
 //  Created by liangpengshuai on 8/31/15.
 //  Copyright (c) 2015 com.aizou.www. All rights reserved.
 //
 
-#import "GuilderManager.h"
+#import "ExpertManager.h"
 #import "PeachTravel-swift.h"
 
-@implementation GuilderManager
+@implementation ExpertManager
 
-+ (void)asyncLoadGuidersWithAreaId:(NSString *)areaId page:(NSInteger)page pageSize:(NSInteger)pageSize completionBlock:(void (^)(BOOL isSuccess, NSArray *guiderArray))completionBlock
++ (void)asyncLoadExpertsWithAreaId:(NSString *)areaId page:(NSInteger)page pageSize:(NSInteger)pageSize completionBlock:(void(^)(BOOL isSuccess, NSArray *expertsArray))completionBlock
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AppUtils *utils = [[AppUtils alloc] init];
@@ -43,21 +43,71 @@
         } else {
             completionBlock(NO, nil);
         }
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         completionBlock(NO, nil);
     }];
 }
 
+/**
+ *  解析达人列表的数据
+ *
+ *  @param result
+ *
+ *  @return
+ */
 + (NSArray *)parseGuiderListRequestResult:(id)result
 {
     NSMutableArray *array = [[NSMutableArray alloc] init];
     for (NSDictionary *dic in result) {
-        FrendModel *frend = [[FrendModel alloc] initWithJson:dic];
+        ExpertModel *frend = [[ExpertModel alloc] initWithJson:dic];
         [array addObject:frend];
     }
     return array;
 }
 
 
++ (void)asyncRequest2BeAnExpert:(NSString *)phoneNumber completionBlock:(void (^)(BOOL isSuccess))completionBlock
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSNumber *imageWidth = [NSNumber numberWithInt:60];
+    [params setObject:imageWidth forKey:@"imgWidth"];
+    [params setObject:@"expert" forKey:@"keyword"];
+    [params setObject:@"roles" forKey:@"field"];
+    
+//    NSString * urlStr = [NSString stringWithFormat:@"%@%@/expert", API_USERS,areaId];
+    
+    [manager POST:@"" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@",responseObject);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            completionBlock(YES);
+        } else {
+            completionBlock(NO);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completionBlock(NO);
+    }];
+
+}
+
 
 @end
+
+
+
+
+
+
+
+
+
