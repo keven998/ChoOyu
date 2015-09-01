@@ -12,7 +12,7 @@
 
 - (id)initWithTitle:(NSString *)title subtitle:(NSString *)subtitle andActionTitle:(NSString *)actionTitle;
 
-- (void)showNotiViewInController:(UIViewController *)containerController;
+- (void)showNotiViewInController:(UIViewController *)containerController dismissBlock:(void(^)())block;
 
 
 @end
