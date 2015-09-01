@@ -558,7 +558,7 @@
 {
     NSMutableArray *indexPath2Insert = [[NSMutableArray alloc] init];
     int i = 0;
-    for (NSInteger j=messageList.count-1; j>0; j--) {
+    for (NSInteger j=messageList.count-1; j>=0; j--) {
         BaseMessage *message = messageList[j];
         NSDate *createDate = [NSDate dateWithTimeIntervalInMilliSecondSince1970:(NSTimeInterval)message.createTime];
         NSTimeInterval tempDate = [createDate timeIntervalSinceDate:self.chatTagDate];
