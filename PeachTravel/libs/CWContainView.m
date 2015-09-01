@@ -27,7 +27,8 @@
     // 画圆角矩形
     CGFloat radius = 5.0;
     CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetRGBStrokeColor(context, 1.0, 1.0, 1.0, 1);
+//    CGContextSetRGBStrokeColor(context, 1.0, 1.0, 1.0, 1);
+    [[[UIColor blackColor] colorWithAlphaComponent:0.8] set];
     CGFloat minx = CGRectGetMinX(newRect), midx = CGRectGetMidX(newRect), maxx = CGRectGetMaxX(newRect);
     CGFloat miny = CGRectGetMinY(newRect), midy = CGRectGetMidY(newRect), maxy = CGRectGetMaxY(newRect);
     CGContextMoveToPoint(context, minx, midy);
