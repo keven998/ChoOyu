@@ -32,6 +32,8 @@
     [backBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
     [backBtn addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
+    
+    [_contentTextField addTarget:self action:@selector(contentChanged:) forControlEvents:UIControlEventEditingChanged];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -72,6 +74,13 @@
 - (void)goBack:(id)sender
 {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - action methods
+
+- (void)contentChanged:(id)sender
+{
+    
 }
 
 @end

@@ -305,6 +305,7 @@
 		D971E2DD1B946B0F007E5AFD /* ExpertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D971E2DC1B946B0F007E5AFD /* ExpertModel.swift */; };
 		D971E2DF1B946B3E007E5AFD /* BusinessMoel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D971E2DE1B946B3E007E5AFD /* BusinessMoel.swift */; };
 		D971E2E41B94835D007E5AFD /* ExpertManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D971E2E31B94835D007E5AFD /* ExpertManager.m */; };
+		D971E2F01B957A9E007E5AFD /* FormatCheck.m in Sources */ = {isa = PBXBuildFile; fileRef = D971E2EF1B957A9E007E5AFD /* FormatCheck.m */; };
 		D97C8B4D1A526B9F00476C9C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D97C8B4C1A526B9F00476C9C /* Images.xcassets */; };
 		D9823E841B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9823E831B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m */; };
 		D9871DBA1B47D31E00BFDFAF /* ScheduleDayEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9871DB81B47D31E00BFDFAF /* ScheduleDayEditViewController.m */; };
@@ -1769,6 +1770,8 @@
 		D971E2DE1B946B3E007E5AFD /* BusinessMoel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessMoel.swift; sourceTree = "<group>"; };
 		D971E2E21B94835D007E5AFD /* ExpertManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpertManager.h; sourceTree = "<group>"; };
 		D971E2E31B94835D007E5AFD /* ExpertManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpertManager.m; sourceTree = "<group>"; };
+		D971E2EE1B957A9E007E5AFD /* FormatCheck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormatCheck.h; sourceTree = "<group>"; };
+		D971E2EF1B957A9E007E5AFD /* FormatCheck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormatCheck.m; sourceTree = "<group>"; };
 		D97C8B4C1A526B9F00476C9C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
 		D9823E821B19AA0200A1AE35 /* SuggestionDestinationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuggestionDestinationTableViewController.h; sourceTree = "<group>"; };
 		D9823E831B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuggestionDestinationTableViewController.m; sourceTree = "<group>"; };
@@ -3850,6 +3853,15 @@
 			name = Manager;
 			sourceTree = "<group>";
 		};
+		D971E2ED1B957A90007E5AFD /* FormatCheck */ = {
+			isa = PBXGroup;
+			children = (
+				D971E2EE1B957A9E007E5AFD /* FormatCheck.h */,
+				D971E2EF1B957A9E007E5AFD /* FormatCheck.m */,
+			);
+			path = FormatCheck;
+			sourceTree = "<group>";
+		};
 		D9722F1A1A82446900D8A8CC /* loading_animation */ = {
 			isa = PBXGroup;
 			children = (
@@ -5105,6 +5117,7 @@
 		D9A802541A80E3D3005AD701 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				D971E2ED1B957A90007E5AFD /* FormatCheck */,
 				E68F797C1B7890CC00DD08CF /* Tools */,
 				27F7EA6C1B0DB0A700148A66 /* TaoziSearchbar */,
 				D9A802551A80E3D3005AD701 /* ConverMethods */,
@@ -8294,6 +8307,7 @@
 				D9A8FF5C1A80CF19005AD701 /* LocalViewController.m in Sources */,
 				D9A801541A80DD23005AD701 /* CreateConversationViewController.m in Sources */,
 				D9A802E61A80E3D3005AD701 /* TZViewController.m in Sources */,
+				D971E2F01B957A9E007E5AFD /* FormatCheck.m in Sources */,
 				D993C2681B12DF0C0088D568 /* LocationMessage.swift in Sources */,
 				C658BCF01B32B87700754A2D /* PlansListTableViewController.m in Sources */,
 				D9A8FF0D1A80CC2B005AD701 /* BindTelephoneViewController.m in Sources */,
