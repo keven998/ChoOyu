@@ -10,7 +10,8 @@
 
 #import "HomeViewController.h"
 #import "ToolsHomeViewController.h"
-#import "MineTableViewController.h"
+//#import "MineTableViewController.h"
+#import "MineViewContoller.h"
 #import "PageOne.h"
 #import "PageTwo.h"
 #import "PageThree.h"
@@ -43,7 +44,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 @property (nonatomic, strong) UILabel *unReadMsgLabel;
 
 @property (nonatomic, strong) ToolsHomeViewController *toolBoxCtl;
-@property (nonatomic, strong) MineTableViewController *mineCtl;
+//@property (nonatomic, strong) MineTableViewController *mineCtl;
+@property (nonatomic, strong) MineViewContoller *mineCtl;
 @property (nonatomic, strong) ChatListViewController *chatListCtl;
 @property (nonatomic, strong) GuiderDistributeViewController *guiderCtl;
 
@@ -377,8 +379,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     TZNavigationViewController *thirdNavigationController = [[TZNavigationViewController alloc]
                                                               initWithRootViewController:_toolBoxCtl];
     
-    _mineCtl = [[MineTableViewController alloc] init];
-    _mineCtl.homeCtl = self;
+    _mineCtl = [[MineViewContoller alloc] init];
+//    _mineCtl.homeCtl = self;
     TZNavigationViewController *fourthNavigationController = [[TZNavigationViewController alloc]
                                                               initWithRootViewController:_mineCtl];
     
