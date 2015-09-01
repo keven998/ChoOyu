@@ -9,6 +9,7 @@
 #import "ExpertRequestViewController.h"
 #import "NotificationViewController.h"
 #import "FormatCheck.h"
+#import "ExpertManager.h"
 
 @interface ExpertRequestViewController ()
 
@@ -74,8 +75,15 @@
 
 - (void)commitRequest:(id)sender
 {
-    NotificationViewController *ctl = [[NotificationViewController alloc] initWithTitle:@"您的申请已收到" subtitle:@"派派客服会尽快与您联系，\n请保持手机畅通" andActionTitle:@"知道了"];
-    [ctl showNotiViewInController:self.navigationController];
+   [ExpertManager asyncRequest2BeAnExpert:_contentTextField.text completionBlock:^(BOOL isSuccess) {
+       if (!isSuccess) {
+           NotificationViewController *ctl = [[NotificationViewController alloc] initWithTitle:@"您的申请已收到" subtitle:@"派派客服会尽快与您联系，\n请保持手机畅通" andActionTitle:@"知道了"];
+           __weak ExpertRequestViewController *weakSelf = self;
+           [ctl showNotiViewInController:self.navigationController dismissBlock:^{
+               [weakSelf performSelector:@selector(goBack:) withObject:nil afterDelay:0.3];
+           }];
+       }
+   }];
 }
 
 - (void)goBack:(id)sender

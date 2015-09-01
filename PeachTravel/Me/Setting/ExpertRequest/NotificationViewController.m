@@ -19,7 +19,7 @@
 @property (nonatomic, copy) NSString *subTitle;
 @property (nonatomic, copy) NSString *actionTitle;
 
-
+@property (nonatomic, copy) void (^dismissBlock)();
 
 @end
 
@@ -46,6 +46,8 @@
     _titleLabel.text = _titleStr;
     _subtitleLabel.text = _subTitle;
     [_actionBtn setTitle:_actionTitle forState:UIControlStateNormal];
+    
+    NSLog(@"%@", NSStringFromCGRect(self.view.frame));
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -67,16 +69,21 @@
     [self dismissNotiView];
 }
 
-- (void)showNotiViewInController:(UIViewController *)containerController
+- (void)showNotiViewInController:(UIViewController *)containerController dismissBlock:(void (^)())block
 {
+    self.view.frame = containerController.view.bounds;
     [containerController addChildViewController:self];
     [containerController.view addSubview:self.view];
     [self willMoveToParentViewController:containerController];
     [self startShowAnimation];
+    _dismissBlock = block;
 }
 
 - (void)dismissNotiView
 {
+    if (_dismissBlock) {
+        _dismissBlock();
+    }
     [self.view removeFromSuperview];
     [self willMoveToParentViewController:nil];
     [self removeFromParentViewController];
