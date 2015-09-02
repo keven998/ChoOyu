@@ -10,7 +10,7 @@
 #import "ContactListViewController.h"
 #import "PlansListTableViewController.h"
 
-@interface MineContentRootViewController ()
+@interface MineContentRootViewController () <UIScrollViewDelegate>
 
 //保存 切换按钮
 @property (nonatomic, strong) NSArray *segmentBtns;
@@ -27,6 +27,8 @@
 //保存 包含的 controller
 @property (nonatomic, strong) NSArray *contentControllers;
 
+@property (nonatomic, strong)  UIScrollView *contentView;
+
 @property (nonatomic, strong) UIView *indicatorView;
 
 @end
@@ -41,8 +43,8 @@
     
     ContactListViewController *contactList = [[ContactListViewController alloc] init];
     PlansListTableViewController *plansCtl = [[PlansListTableViewController alloc] init];
-    [arrays addObject:contactList];
     [arrays addObject:plansCtl];
+    [arrays addObject:contactList];
     
     _contentControllers = arrays;
 
@@ -103,20 +105,21 @@
  */
 - (void)setupContentView
 {
-    UIScrollView *contentView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 49, self.view.bounds.size.width, self.view.bounds.size.height-49)];
-    contentView.pagingEnabled = YES;
-    contentView.contentSize = CGSizeMake(self.view.bounds.size.width*_contentControllers.count, contentView.bounds.size.height);
-    [self.view addSubview:contentView];
+    _contentView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 49, self.view.bounds.size.width, self.view.bounds.size.height-49)];
+    _contentView.pagingEnabled = YES;
+    _contentView.delegate = self;
+    _contentView.contentSize = CGSizeMake(self.view.bounds.size.width*_contentControllers.count, _contentView.bounds.size.height);
+    [self.view addSubview:_contentView];
     
     CGFloat offsetX = 0;
     
     for (int i = 0; i < _contentControllers.count; i++) {
         CGFloat width = self.view.bounds.size.width;
-        CGFloat height = contentView.bounds.size.height;
+        CGFloat height = _contentView.bounds.size.height;
         UIViewController *ctl = [_contentControllers objectAtIndex:i];
         [self addChildViewController:ctl];
         ctl.view.frame = CGRectMake(offsetX, 0, width, height);
-        [contentView addSubview:ctl.view];
+        [_contentView addSubview:ctl.view];
         [ctl willMoveToParentViewController:self];
         offsetX += width;
     }
@@ -127,7 +130,7 @@
     NSLog(@"切换到第 %ld", pageIndex);
     UIButton *sender = [_segmentBtns objectAtIndex:pageIndex];
     _indicatorView.center = CGPointMake(sender.center.x, 47.5);
-
+    [_contentView setContentOffset:CGPointMake(_contentView.bounds.size.width*pageIndex, 0) animated:YES];
 }
 
 #pragma mark - IBAction methods
@@ -136,6 +139,17 @@
 {
     NSInteger index = [_segmentBtns indexOfObject:sender];
     [self changePage:index];
+}
+
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    if ([scrollView isEqual:_contentView]) {
+        CGFloat offsetX= scrollView.contentOffset.x;
+        NSUInteger pageIndex = offsetX/scrollView.bounds.size.width;
+        [self changePage:pageIndex];
+    }
 }
 
 @end
