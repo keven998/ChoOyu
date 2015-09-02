@@ -8,9 +8,9 @@
 
 import UIKit
 
-let HedyBaseUrl = "http://hedy-dev.lvxingpai.com/"
+//let HedyBaseUrl = "http://hedy-dev.lvxingpai.com/"
 
-//let HedyBaseUrl = "http://hedy.lvxingpai.com/"
+let HedyBaseUrl = "http://hedy.lvxingpai.com/"
 
 
 let requestQiniuTokenToUploadMetadata = "\(HedyBaseUrl)upload/token-generator"
@@ -44,8 +44,8 @@ let HedyLoginUrl = "\(HedyUserUrl)/login"
 }
 
 @objc enum MessageSendErrorCode: Int {
-    case SendBlackError = 0
-
+    case SendBlackError = 300
+    case SendGroupForbiddenError = 301
 }
 
 /**
