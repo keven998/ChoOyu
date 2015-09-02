@@ -42,8 +42,6 @@
     self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeContentFrame:) name:@"ChangePlanListFrame" object:nil];
-    
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -64,13 +62,18 @@
 
 - (void)setupNavBar
 {
-    UIButton *editButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+    UIButton *editButton = [[UIButton alloc] initWithFrame:CGRectMake(kWindowWidth - 56, 33, 36, 19)];
     [editButton setTitle:@"设置" forState:UIControlStateNormal];
-    [editButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    editButton.titleLabel.font = [UIFont systemFontOfSize:16.0];
+    [editButton setTitleColor:UIColorFromRGB(0xFFFFFF) forState:UIControlStateNormal];
+    editButton.titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
     [editButton addTarget:self action:@selector(showSettingCtl:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:editButton];
 
+    UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake((kWindowWidth-108)*0.5, 33, 108, 19)];
+    titleLab.text = @"我的·旅行派";
+    titleLab.font = [UIFont boldSystemFontOfSize:18.0];
+    titleLab.textColor = UIColorFromRGB(0xFFFFFF);
+    [self.view addSubview:titleLab];
 }
 
 // 设置scrollView
@@ -84,30 +87,12 @@
     [self.view addSubview:topView];
     
     MineContentRootViewController *contentViewCtl = [[MineContentRootViewController alloc] init];
-    contentViewCtl.view.backgroundColor = [UIColor redColor];
     self.contentViewCtl = contentViewCtl;
     [self addChildViewController:contentViewCtl];
     [self.view addSubview:contentViewCtl.view];
     contentViewCtl.view.frame = CGRectMake(0, TopViewH, kWindowWidth, kWindowHeight-TopViewH-49);
     [contentViewCtl willMoveToParentViewController:self];
 }
-
-#pragma mark - UIScrollViewDelegate
-/*
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    NSLog(@"contentY:%f",scrollView.contentOffset.y);
-    // 向下拽了多少距离
-    CGFloat down = -(TopViewH * 0.5) - scrollView.contentOffset.y;
-    NSLog(@"down%f",down);
-    if (down > 200) return;
-    
-    CGRect frame = self.topView.frame;
-    // 5决定图片变大的速度,值越大,速度越快
-    frame.size.height = TopViewH + down*0.6;
-    self.topView.frame = frame;
-}
- */
 
 #pragma mark - 实现头部View的滚动
 // 向上滚动
@@ -131,17 +116,6 @@
     }];
 }
 
-// 向下拉的时候改变frame
-- (void)topViewBeginScaleWithScrollH:(CGFloat)scrollH
-{
-    if (scrollH > 200) {
-        return;
-    }
-    CGRect frame = self.topView.frame;
-    // 5决定图片变大的速度,值越大,速度越快
-    frame.size.height = scrollH;
-    self.topView.frame = frame;
-}
 
 #pragma mark - action
 /**
