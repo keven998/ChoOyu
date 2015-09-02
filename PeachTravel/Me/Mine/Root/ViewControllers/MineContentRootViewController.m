@@ -27,6 +27,8 @@
 //保存 包含的 controller
 @property (nonatomic, strong) NSArray *contentControllers;
 
+@property (nonatomic, strong) UIView *indicatorView;
+
 @end
 
 @implementation MineContentRootViewController
@@ -46,6 +48,7 @@
 
     [self setupSegmentView];
     [self setupContentView];
+    [self changePage:0];
 
 }
 
@@ -64,6 +67,7 @@
 - (void)setupSegmentView
 {
     UIView *segmentPanel = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 49)];
+    segmentPanel.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:segmentPanel];
     
     NSMutableArray *buttonArray = [[NSMutableArray alloc] init];
@@ -71,6 +75,11 @@
     float btnWidth = self.view.bounds.size.width/[_segmentTitles count];
     float btnHeight = 49;
     float offsetX = 0;
+    
+    _indicatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, btnWidth, 3)];
+    _indicatorView.backgroundColor = APP_THEME_COLOR;
+    [segmentPanel addSubview:_indicatorView];
+    
     for (int i = 0; i < [_segmentTitles count]; i++) {
         NSString *title = [_segmentTitles objectAtIndex:i];
         NSString *imageNormalName = [_segmentNormalImages objectAtIndex:i];
@@ -81,6 +90,7 @@
         [segmentBtn setImage:[UIImage imageNamed:imageSelectName] forState:UIControlStateSelected];
         [segmentBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
         [segmentBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateSelected];
+        [segmentBtn addTarget:self action:@selector(changePageAction:) forControlEvents:UIControlEventTouchUpInside];
         [segmentPanel addSubview:segmentBtn];
         [buttonArray addObject:segmentBtn];
         offsetX += btnWidth;
@@ -115,6 +125,9 @@
 - (void)changePage:(NSUInteger)pageIndex
 {
     NSLog(@"切换到第 %ld", pageIndex);
+    UIButton *sender = [_segmentBtns objectAtIndex:pageIndex];
+    _indicatorView.center = CGPointMake(sender.center.x, 47.5);
+
 }
 
 #pragma mark - IBAction methods
