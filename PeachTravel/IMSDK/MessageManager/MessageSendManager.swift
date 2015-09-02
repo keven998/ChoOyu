@@ -75,7 +75,11 @@ class MessageSendManager: NSObject {
                 }
             } else {
                 message.status = IMMessageStatus.IMMessageFailed
-                completionBlock(isSuccess: false, error: retMessage?.objectForKey("error") as? String)
+                var errorDesc: String?
+                if let errorCode = retMessage?.objectForKey("code") as? Int {
+                    errorDesc = MessageSendManager.getSendErrorMessage(errorCodeValue: errorCode)
+                }
+                completionBlock(isSuccess: false, error: errorDesc)
             }
             daoHelper.updateMessageInDB("chat_\(receiver)", message: message)
             for messageManagerDelegate in self.sendDelegateList {
@@ -515,6 +519,18 @@ class MessageSendManager: NSObject {
                 }
             }
         }
+    }
+    
+    /// 通过发送的 errorcode 返回发送的错误信息描述
+    class func getSendErrorMessage(#errorCodeValue: Int) -> String? {
+        
+        if errorCodeValue == MessageSendErrorCode.SendBlackError.rawValue {
+            return "对方已拒绝接收你的消息";
+        }
+        if errorCodeValue == MessageSendErrorCode.SendGroupForbiddenError.rawValue {
+            return "你已经退出了该群组";
+        }
+        return nil
     }
 }
 
