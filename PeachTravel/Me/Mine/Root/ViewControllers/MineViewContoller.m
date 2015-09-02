@@ -84,6 +84,7 @@ const CGFloat TopViewH = 300;
  */
 
 #pragma mark - 实现头部View的滚动
+// 向上滚动
 - (void)topViewScrollToTop
 {
     [UIView animateWithDuration:0.3 animations:^{
@@ -91,10 +92,22 @@ const CGFloat TopViewH = 300;
     }];
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+// 向下滚动
+- (void)topViewScrollToBottom
 {
-    [super touchesBegan:touches withEvent:event];
-    [self topViewScrollToTop];
+    [UIView animateWithDuration:0.3 animations:^{
+        self.scrollView.contentOffset = CGPointMake(0, 0);
+    }];
+}
+
+// 滚动过程
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGFloat scrollH = scrollView.contentOffset.y;
+    
+    if ([self.delegate respondsToSelector:@selector(topViewBeginScroll:)]) {
+        [self.delegate topViewBeginScroll:scrollH];
+    }
 }
 
 #pragma mark - action
