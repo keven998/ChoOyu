@@ -45,7 +45,7 @@
     PlansListTableViewController *plansCtl = [[PlansListTableViewController alloc] init];
     [arrays addObject:plansCtl];
     [arrays addObject:contactList];
-    
+
     _contentControllers = arrays;
 
     [self setupSegmentView];
@@ -119,9 +119,18 @@
         UIViewController *ctl = [_contentControllers objectAtIndex:i];
         [self addChildViewController:ctl];
         ctl.view.frame = CGRectMake(offsetX, 0, width, height);
+        
         [_contentView addSubview:ctl.view];
         [ctl willMoveToParentViewController:self];
         offsetX += width;
+        
+        if (i == 0) {
+            PlansListTableViewController *plansCtl = (PlansListTableViewController *)ctl;
+            plansCtl.tableView.contentInset = UIEdgeInsetsMake(0, 0, 120, 0);
+        } else {
+            ContactListViewController *contactCtl = (ContactListViewController *)ctl;
+            contactCtl.contactTableView.contentInset = UIEdgeInsetsMake(0, 0, 120, 0);
+        }
     }
 }
 

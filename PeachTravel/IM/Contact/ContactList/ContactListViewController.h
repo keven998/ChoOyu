@@ -10,5 +10,6 @@
 
 @interface ContactListViewController : UIViewController
 
+@property (strong, nonatomic) UITableView *contactTableView;
 
 @end
