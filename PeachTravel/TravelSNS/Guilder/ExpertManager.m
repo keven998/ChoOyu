@@ -78,14 +78,12 @@
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSNumber *imageWidth = [NSNumber numberWithInt:60];
-    [params setObject:imageWidth forKey:@"imgWidth"];
-    [params setObject:@"expert" forKey:@"keyword"];
-    [params setObject:@"roles" forKey:@"field"];
+    if ([[AccountManager shareAccountManager] isLogin]) {
+        [params safeSetObject:[NSNumber numberWithInteger: [AccountManager shareAccountManager].account.userId] forKey:@"userId"];
+    }
+    [params safeSetObject:phoneNumber forKey:@"tel"];
     
-//    NSString * urlStr = [NSString stringWithFormat:@"%@%@/expert", API_USERS,areaId];
-    
-    [manager POST:@"" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager POST:API_EXPERTREQUEST parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@",responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
