@@ -7,6 +7,8 @@
 //
 
 #import "MineContentRootViewController.h"
+#import "ContactListViewController.h"
+#import "PlansListTableViewController.h"
 
 @interface MineContentRootViewController ()
 
@@ -32,7 +34,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _segmentTitles = @[@"旅行计划", @"联系人"];
+    
+    NSMutableArray *arrays = [[NSMutableArray alloc] init];
+    
+    ContactListViewController *contactList = [[ContactListViewController alloc] init];
+    PlansListTableViewController *plansCtl = [[PlansListTableViewController alloc] init];
+    [arrays addObject:contactList];
+    [arrays addObject:plansCtl];
+    
+    _contentControllers = arrays;
+
     [self setupSegmentView];
+    [self setupContentView];
 
 }
 
@@ -73,6 +86,30 @@
         offsetX += btnWidth;
     }
     _segmentBtns = buttonArray;
+}
+
+/**
+ *  设置具体内容
+ */
+- (void)setupContentView
+{
+    UIScrollView *contentView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 49, self.view.bounds.size.width, self.view.bounds.size.height-49)];
+    contentView.pagingEnabled = YES;
+    contentView.contentSize = CGSizeMake(self.view.bounds.size.width*_contentControllers.count, contentView.bounds.size.height);
+    [self.view addSubview:contentView];
+    
+    CGFloat offsetX = 0;
+    
+    for (int i = 0; i < _contentControllers.count; i++) {
+        CGFloat width = self.view.bounds.size.width;
+        CGFloat height = contentView.bounds.size.height;
+        UIViewController *ctl = [_contentControllers objectAtIndex:i];
+        [self addChildViewController:ctl];
+        ctl.view.frame = CGRectMake(offsetX, 0, width, height);
+        [contentView addSubview:ctl.view];
+        [ctl willMoveToParentViewController:self];
+        offsetX += width;
+    }
 }
 
 - (void)changePage:(NSUInteger)pageIndex
