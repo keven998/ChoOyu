@@ -7,7 +7,7 @@
 //
 
 #import "MineHeaderView.h"
-
+#import "PeachTravel-swift.h"
 @implementation MineHeaderView
 
 #pragma mark - lifeCycle
@@ -15,6 +15,7 @@
 {
     if (self = [super initWithFrame:frame]) {
         self.userInteractionEnabled = YES;
+        self.account = [AccountManager shareAccountManager].account;
         [self setupMainView];
     }
     return self;
@@ -24,46 +25,54 @@
 {
     // 1.头像
     UIImageView *avatar = [[UIImageView alloc] init];
+    avatar.layer.cornerRadius = 65*0.5;
+    avatar.layer.masksToBounds = YES;
     self.avatar = avatar;
+    NSURL *url = [NSURL URLWithString:self.account.avatar];
+    [self.avatar sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"ic_home_avatar_unknown.png"]];
     [self addSubview:avatar];
     
     // 2.昵称
     UILabel *nickName = [[UILabel alloc] init];
-    nickName.font = [UIFont fontWithName:@"STHeitiSC-Medium" size:16.0];
+    nickName.font = [UIFont boldSystemFontOfSize:16.0];
     nickName.textColor = UIColorFromRGB(0xFFFFFF);
-    nickName.text = @"小明";
+    nickName.text = self.account.nickName;
     self.nickName = nickName;
     [self addSubview:nickName];
     
     // 3.用户Id
     UILabel *userId = [[UILabel alloc] init];
-    userId.font = [UIFont fontWithName:@"STHeitiSC-Medium" size:16.0];
+    userId.font = [UIFont boldSystemFontOfSize:12.0];
     userId.textColor = UIColorFromRGB(0xFFFFFF);
-    userId.text = @"小明";
+    userId.text = [NSString stringWithFormat:@"%ld",self.account.userId];
     self.userId = userId;
     [self addSubview:userId];
     
     // 4.性别
     UILabel *sex = [[UILabel alloc] init];
-    sex.font = [UIFont fontWithName:@"STHeitiSC-Medium" size:16.0];
+    sex.font = [UIFont boldSystemFontOfSize:12.0];
     sex.textColor = UIColorFromRGB(0xFFFFFF);
-    sex.text = @"小明";
+    if (self.account.gender == Male) {
+        sex.text = @"男";
+    } else {
+        sex.text = @"女";
+    }
     self.sex = sex;
     [self addSubview:sex];
     
     // 5.星座
     UILabel *costellation = [[UILabel alloc] init];
-    costellation.font = [UIFont fontWithName:@"STHeitiSC-Medium" size:16.0];
+    costellation.font = [UIFont boldSystemFontOfSize:12.0];
     costellation.textColor = UIColorFromRGB(0xFFFFFF);
-    costellation.text = @"小明";
+    costellation.text = [FrendModel costellationDescWithBirthday:self.account.birthday];
     self.costellation = costellation;
     [self addSubview:costellation];
     
     // 6.等级
     UILabel *level = [[UILabel alloc] init];
-    level.font = [UIFont fontWithName:@"STHeitiSC-Medium" size:16.0];
+    level.font = [UIFont boldSystemFontOfSize:12.0];
     level.textColor = UIColorFromRGB(0xFFFFFF);
-    level.text = @"小明";
+    level.text = @"LV1";
     self.level = level;
     [self addSubview:level];
 
@@ -77,8 +86,21 @@
     CGFloat avatarW = 65;
     self.avatar.frame = CGRectMake(15, contentH-avatarW-13, avatarW, avatarW);
     
-//    CGSize size = [self.nickName.text boundingRectWithSize:<#(CGSize)#> options:<#(NSStringDrawingOptions)#> attributes:<#(NSDictionary *)#> context:<#(NSStringDrawingContext *)#>];
-    self.nickName.frame = CGRectMake(CGRectGetMaxX(self.avatar.frame), contentH-16-46, 100, 16);
+    CGSize size = CGSizeMake(kWindowWidth - 40,CGFLOAT_MAX);//LableWight标签宽度，固定的
+    //计算实际frame大小，并将label的frame变成实际大小
+    NSDictionary *dict = @{NSFontAttributeName: [UIFont fontWithName:@"STHeitiSC-Medium" size:16.0]};
+    CGSize nickNameSize = [self.account.nickName boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
+    self.nickName.frame = CGRectMake(CGRectGetMaxX(self.avatar.frame)+5, contentH-16-46, nickNameSize.width, 16);
+    
+    self.userId.frame = CGRectMake(CGRectGetMaxX(self.nickName.frame)+10, contentH-12-46, 100, 12);
+    self.sex.frame = CGRectMake(CGRectGetMaxX(self.avatar.frame)+5, CGRectGetMaxY(self.nickName.frame)+10, 12, 12);
+    self.costellation.frame = CGRectMake(CGRectGetMaxX(self.sex.frame)+12, CGRectGetMaxY(self.nickName.frame)+10, 36, 12);
+    self.level.frame = CGRectMake(CGRectGetMaxX(self.costellation.frame)+12, CGRectGetMaxY(self.nickName.frame)+10, 21+16, 12);
+}
+
+- (void)setAccount:(AccountModel *)account
+{
+    _account = account;
 }
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+@class AccountModel;
 
 @interface MineHeaderView : UIImageView
 
@@ -16,5 +17,7 @@
 @property (nonatomic, weak) UILabel *sex;
 @property (nonatomic, weak) UILabel *costellation;
 @property (nonatomic, weak) UILabel *level;
+
+@property (nonatomic, strong) AccountModel *account;
 
 @end
