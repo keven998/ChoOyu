@@ -7,7 +7,8 @@
 //
 
 #import "MineViewContoller.h"
-
+#import "MineProfileViewController.h"
+const CGFloat TopViewH = 300;
 @interface MineViewContoller () <UIScrollViewDelegate>
 {
     CGFloat contentOffsetY;
@@ -16,6 +17,7 @@
 }
 
 @property (nonatomic, weak) UIScrollView *scrollView;
+@property (nonatomic, weak) UIImageView *topView;
 
 @end
 
@@ -27,77 +29,85 @@
     [super viewDidLoad];
     
     [self setupMainView];
+    [self setupNavBar];
 }
+
+#pragma mark - 设置导航栏
+- (void)setupNavBar
+{
+    UIButton *editButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 30)];
+    [editButton setTitle:@"设置" forState:UIControlStateNormal];
+    [editButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    editButton.titleLabel.font = [UIFont systemFontOfSize:16.0];
+    [editButton addTarget:self action:@selector(showSettingCtl:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:editButton];
+}
+
+
 
 // 设置scrollView
 - (void)setupMainView
 {
     UIScrollView *scrollView = [[UIScrollView alloc] init];
-    scrollView.frame = self.view.bounds;
+    scrollView.frame = CGRectMake(0, 0, kWindowWidth, TopViewH*2-100);
     scrollView.delegate = self;
     scrollView.backgroundColor = [UIColor grayColor];
+    scrollView.contentSize = CGSizeMake(0, 1000);
+//    scrollView.contentInset = UIEdgeInsetsMake(TopViewH, 0, 0, 0);
     self.scrollView = scrollView;
     [self.view addSubview:scrollView];
+    
+    //
+    UIImageView *topView = [[UIImageView alloc] init];
+    topView.frame = CGRectMake(0, 0, kWindowWidth, TopViewH);
+    topView.image = [UIImage imageNamed:@"testpicture"];
+    topView.contentMode = UIViewContentModeScaleAspectFill;
+    self.topView = topView;
+    [scrollView addSubview:topView];
 }
 
 #pragma mark - UIScrollViewDelegate
-//开始拖拽视图
-
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-{
-    contentOffsetY = scrollView.contentOffset.y;
-}
-
-// 滚动时调用此方法(手指离开屏幕后)
-
+/*
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    NSLog(@"contentY:%f",scrollView.contentOffset.y);
+    // 向下拽了多少距离
+    CGFloat down = -(TopViewH * 0.5) - scrollView.contentOffset.y;
+    NSLog(@"down%f",down);
+    if (down > 200) return;
     
-    newContentOffsetY = scrollView.contentOffset.y;
-    
-    if (newContentOffsetY > oldContentOffsetY && oldContentOffsetY > contentOffsetY) {  // 向上滚动
-        NSLog(@"up");
-      
-    } else if (newContentOffsetY < oldContentOffsetY && oldContentOffsetY < contentOffsetY) { // 向下滚动
-        NSLog(@"down");
-        
-    } else {
-        NSLog(@"dragging");
-        
-    }
-    if (scrollView.dragging) {  // 拖拽
+    CGRect frame = self.topView.frame;
+    // 5决定图片变大的速度,值越大,速度越快
+    frame.size.height = TopViewH + down*0.6;
+    self.topView.frame = frame;
+}
+ */
 
-        NSLog(@"scrollView.dragging");
-
-        NSLog(@"contentOffsetY: %f", contentOffsetY);
-        
-        NSLog(@"newContentOffsetY: %f", scrollView.contentOffset.y);
-        
-        if ((scrollView.contentOffset.y - contentOffsetY) > 5.0f) {  // 向上拖拽
-            
-            // 隐藏导航栏和选项栏
-            
-        } else if ((contentOffsetY - scrollView.contentOffset.y) > 5.0f) {   // 向下拖拽
-  
-        } else {
-  
-        }
-        
-    }
-    
-
-    
+#pragma mark - 实现头部View的滚动
+- (void)topViewScrollToTop
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        self.scrollView.contentOffset = CGPointMake(0, TopViewH);
+    }];
 }
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [super touchesBegan:touches withEvent:event];
+    [self topViewScrollToTop];
+}
 
-// 完成拖拽(滚动停止时调用此方法，手指离开屏幕前)
- - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
- {
- // NSLog(@"scrollViewDidEndDragging");
- 
- oldContentOffsetY = scrollView.contentOffset.y;
- 
- }
- 
-
+#pragma mark - action
+/**
+ *  进入设置界面
+ *
+ *  @param sender
+ */
+- (void)showSettingCtl:(id)sender
+{
+    MineProfileViewController *profileCtr = [[MineProfileViewController alloc] init];
+    profileCtr.hidesBottomBarWhenPushed = YES;
+    profileCtr.userInfo = [AccountManager shareAccountManager].account;
+    [self.navigationController pushViewController:profileCtr animated:YES];
+}
 @end
