@@ -34,11 +34,8 @@
 
 /***** API *****/
 
-//#define BASE_URL                                @ "http://api-dev.lvxingpai.com/app/"
-#define BASE_URL                                @ "http://api.lvxingpai.com/app/"
-
-//#define BASE_URL1                                 @ "http://182.92.150.243:9000/taozi/"
-
+#define BASE_URL                                @ "http://api-dev.lvxingpai.com/app/"
+//#define BASE_URL                                @ "http://api.lvxingpai.com/app/"
 
 //攻略相关接口
 #define API_GET_RECOMMEND                       (BASE_URL @"recommend")     //获取目的地首页推荐接口
@@ -111,6 +108,8 @@
 #define API_GET_ALBUM                           (BASE_URL @"geo/localities/")      //获取城市图集
 #define API_GET_COLUMNS                         (BASE_URL @"columns")     //获取首页运营位置推荐
 #define API_FEEDBACK                            (BASE_URL @"misc/feedback")    //反馈接口
+#define API_EXPERTREQUEST                       (BASE_URL @"misc/expert-requests")    //达人申请接口
+
 
 /**
  html 接口

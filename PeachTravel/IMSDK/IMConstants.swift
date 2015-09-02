@@ -8,9 +8,9 @@
 
 import UIKit
 
-//let HedyBaseUrl = "http://hedy-dev.lvxingpai.com/"
+let HedyBaseUrl = "http://hedy-dev.lvxingpai.com/"
 
-let HedyBaseUrl = "http://hedy.lvxingpai.com/"
+//let HedyBaseUrl = "http://hedy.lvxingpai.com/"
 
 
 let requestQiniuTokenToUploadMetadata = "\(HedyBaseUrl)upload/token-generator"
@@ -42,7 +42,6 @@ let HedyLoginUrl = "\(HedyUserUrl)/login"
     case CMDMessageType = 100
     case TipsMessageType = 200
 }
-
 
 @objc enum MessageSendErrorCode: Int {
     case SendBlackError = 0

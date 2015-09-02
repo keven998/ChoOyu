@@ -8,6 +8,8 @@
 
 #import "MineViewContoller.h"
 #import "MineProfileViewController.h"
+#import "SettingHomeViewController.h"
+
 const CGFloat TopViewH = 300;
 @interface MineViewContoller () <UIScrollViewDelegate>
 {
@@ -105,9 +107,8 @@ const CGFloat TopViewH = 300;
  */
 - (void)showSettingCtl:(id)sender
 {
-    MineProfileViewController *profileCtr = [[MineProfileViewController alloc] init];
+    SettingHomeViewController *profileCtr = [[SettingHomeViewController alloc] init];
     profileCtr.hidesBottomBarWhenPushed = YES;
-    profileCtr.userInfo = [AccountManager shareAccountManager].account;
     [self.navigationController pushViewController:profileCtr animated:YES];
 }
 @end
