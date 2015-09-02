@@ -785,6 +785,7 @@
 		E677953B1B942EA9004CE21A /* MineDetailInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E677953A1B942EA9004CE21A /* MineDetailInfoCell.m */; };
 		E67795811B95C60F004CE21A /* MineViewContoller.m in Sources */ = {isa = PBXBuildFile; fileRef = E67795801B95C60F004CE21A /* MineViewContoller.m */; };
 		E67795831B95D70D004CE21A /* testpicture.png in Resources */ = {isa = PBXBuildFile; fileRef = E67795821B95D70D004CE21A /* testpicture.png */; };
+		E67795861B96BED9004CE21A /* MineHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E67795851B96BED9004CE21A /* MineHeaderView.m */; };
 		E690D8CB1B7C7F5300BFDF1B /* MakePlanSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = E690D8CA1B7C7F5300BFDF1B /* MakePlanSearchController.m */; };
 		E690D8CF1B7C8F9F00BFDF1B /* MakePlanSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E690D8CD1B7C8F9F00BFDF1B /* MakePlanSearchCell.m */; };
 		E690D8D01B7C8F9F00BFDF1B /* MakePlanSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E690D8CE1B7C8F9F00BFDF1B /* MakePlanSearchCell.xib */; };
@@ -2544,6 +2545,8 @@
 		E677957F1B95C60F004CE21A /* MineViewContoller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineViewContoller.h; sourceTree = "<group>"; };
 		E67795801B95C60F004CE21A /* MineViewContoller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineViewContoller.m; sourceTree = "<group>"; };
 		E67795821B95D70D004CE21A /* testpicture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = testpicture.png; sourceTree = "<group>"; };
+		E67795841B96BED9004CE21A /* MineHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineHeaderView.h; sourceTree = "<group>"; };
+		E67795851B96BED9004CE21A /* MineHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineHeaderView.m; sourceTree = "<group>"; };
 		E690D8C91B7C7F5300BFDF1B /* MakePlanSearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakePlanSearchController.h; sourceTree = "<group>"; };
 		E690D8CA1B7C7F5300BFDF1B /* MakePlanSearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MakePlanSearchController.m; sourceTree = "<group>"; };
 		E690D8CC1B7C8F9F00BFDF1B /* MakePlanSearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakePlanSearchCell.h; sourceTree = "<group>"; };
@@ -5439,6 +5442,8 @@
 				D9A8FEBF1A80C818005AD701 /* OptionTableViewCell.h */,
 				D9A8FEC01A80C818005AD701 /* OptionTableViewCell.m */,
 				D9A8FEC11A80C818005AD701 /* OptionTableViewCell.xib */,
+				E67795841B96BED9004CE21A /* MineHeaderView.h */,
+				E67795851B96BED9004CE21A /* MineHeaderView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -8538,6 +8543,7 @@
 				D9A8FFA71A80D1C3005AD701 /* CommonPoiDetailViewController.m in Sources */,
 				D9A802E21A80E3D3005AD701 /* PageTwo.m in Sources */,
 				D9A802341A80E036005AD701 /* TZSelectView.m in Sources */,
+				E67795861B96BED9004CE21A /* MineHeaderView.m in Sources */,
 				D9A801241A80DD23005AD701 /* ChatScrollView.m in Sources */,
 				C60C0D6F1A299389006033C9 /* PushSettingTableViewCell.m in Sources */,
 				D9A802E01A80E3D3005AD701 /* PageOne.m in Sources */,

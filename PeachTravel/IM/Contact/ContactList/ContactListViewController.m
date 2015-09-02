@@ -26,7 +26,7 @@
 
 @interface ContactListViewController ()<UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, SWTableViewCellDelegate,FriendRequestManagerDelegate,UISearchBarDelegate>
 
-@property (strong, nonatomic) UITableView *contactTableView;
+//@property (strong, nonatomic) UITableView *contactTableView;
 @property (strong, nonatomic) NSDictionary *dataSource;
 @property (strong, nonatomic) AccountManager *accountManager;
 
@@ -56,18 +56,22 @@
     [self setupSearchBar];
 }
 
-#pragma mark - 实现代理方法,这个方法会在同意添加一个好友的情况下调用
-- (void)friendRequestNumberNeedUpdate
-{
-    [self.contactTableView reloadData];
-}
-
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_friends_lists"];
     [self.contactTableView reloadData];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    
+    NSLog(@"ContactListViewontroller %p", self.navigationController);
+    
+    for (UIViewController *ct in self.navigationController.viewControllers) {
+        NSLog(@"%p", ct);
+        if ([ct isEqual:self]) {
+            [self.navigationController setNavigationBarHidden:NO animated:YES];
+            break;
+        }
+    }
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -87,6 +91,12 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     _contactTableView.delegate = nil;
     _emptyView = nil;
+}
+
+#pragma mark - 实现代理方法,这个方法会在同意添加一个好友的情况下调用
+- (void)friendRequestNumberNeedUpdate
+{
+    [self.contactTableView reloadData];
 }
 
 #pragma mark - IBAction
@@ -400,6 +410,22 @@
     [searchCtl setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
     TZNavigationViewController *tznavc = [[TZNavigationViewController alloc] initWithRootViewController:searchCtl];
     [self presentViewController:tznavc animated:YES completion:nil];
+}
+
+#pragma mark - scrollViewDelegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    // 调用代理方法
+    [self scrollViewChangeFrame:scrollView];
+}
+
+- (void)scrollViewChangeFrame:(UIScrollView *)scrollView
+{
+    NSLog(@"contentOfSet:%f",scrollView.contentOffset.y);
+    
+    NSString *scrollH = [NSString stringWithFormat:@"%f",scrollView.contentOffset.y];
+    NSDictionary *userInfo = @{@"scrollH": scrollH};
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ChangePlanListFrame" object:nil userInfo:userInfo];
 }
 
 @end

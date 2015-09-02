@@ -380,7 +380,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
                                                               initWithRootViewController:_toolBoxCtl];
     
     _mineCtl = [[MineViewContoller alloc] init];
-//    _mineCtl.homeCtl = self;
     TZNavigationViewController *fourthNavigationController = [[TZNavigationViewController alloc]
                                                               initWithRootViewController:_mineCtl];
     

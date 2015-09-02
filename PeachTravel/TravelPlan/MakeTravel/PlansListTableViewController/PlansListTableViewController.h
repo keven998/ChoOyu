@@ -25,5 +25,6 @@
 
 @property (nonatomic, assign) BOOL copyPatch; //复制补丁
 
+@property (nonatomic, strong) UITableView *tableView;
 
 @end

@@ -44,7 +44,7 @@ enum CONTENT_TYPE {
 @property (nonatomic, assign) BOOL didEndScroll;
 @property (nonatomic, assign) BOOL enableLoadMore;
 
-@property (nonatomic, strong) UITableView *tableView;
+//@property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (nonatomic, strong) SWTableViewCell *swipCell;
 
@@ -137,11 +137,17 @@ static NSString *reusableCell = @"myGuidesCell";
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_lxp_plan_lists"];
     
-    [self.navigationController setNavigationBarHidden:NO animated:YES]; //侧滑navigation bar 补丁
-    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:COLOR_TEXT_I, NSForegroundColorAttributeName, nil]];
-    [self.navigationController.navigationBar setBackgroundImage:[ConvertMethods createImageWithColor:APP_PAGE_COLOR] forBarMetrics:UIBarMetricsDefault];
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
-    self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];
+    for (UIViewController *ct in self.navigationController.viewControllers) {
+        NSLog(@"%p", ct);
+        if ([ct isEqual:self]) {
+            [self.navigationController setNavigationBarHidden:NO animated:YES]; //侧滑navigation bar 补丁
+            [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:COLOR_TEXT_I, NSForegroundColorAttributeName, nil]];
+            [self.navigationController.navigationBar setBackgroundImage:[ConvertMethods createImageWithColor:APP_PAGE_COLOR] forBarMetrics:UIBarMetricsDefault];
+            [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+            self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];            break;
+        }
+    }
+    
     _isShowing = YES;
     
     [self pullToRefreash:nil];
@@ -156,11 +162,16 @@ static NSString *reusableCell = @"myGuidesCell";
         [_swipCell hideUtilityButtonsAnimated:YES];
         _swipCell = nil;
     }
-    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,nil]];
-    [self.navigationController.navigationBar setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setShadowImage:[UIImage imageNamed:@"bg_navigationbar_shadow.png"]];
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     
+    for (UIViewController *ct in self.navigationController.viewControllers) {
+        NSLog(@"%p", ct);
+        if ([ct isEqual:self]) {
+            [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,nil]];
+            [self.navigationController.navigationBar setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forBarMetrics:UIBarMetricsDefault];
+            [self.navigationController.navigationBar setShadowImage:[UIImage imageNamed:@"bg_navigationbar_shadow.png"]];
+            [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+        }
+    }
     _copyPatch = NO;
 }
 
@@ -671,6 +682,9 @@ static NSString *reusableCell = @"myGuidesCell";
             [self beginLoadingMore];
         }
     }
+    
+    // 调用代理方法
+    [self scrollViewChangeFrame:scrollView];
 }
 
 - (void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView
@@ -816,6 +830,16 @@ static NSString *reusableCell = @"myGuidesCell";
     [_tableView reloadData];
     _contentType = (int)indexPath.row; //碰巧索引对应，注意bug
     [self loadData:_contentType WithPageIndex:0];
+}
+
+#pragma mark - scrollViewDelegate
+- (void)scrollViewChangeFrame:(UIScrollView *)scrollView
+{
+    NSLog(@"contentOfSet:%f",scrollView.contentOffset.y);
+    
+    NSString *scrollH = [NSString stringWithFormat:@"%f",scrollView.contentOffset.y];
+    NSDictionary *userInfo = @{@"scrollH": scrollH};
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ChangePlanListFrame" object:nil userInfo:userInfo];
 }
 
 @end

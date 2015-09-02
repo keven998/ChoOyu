@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+
+
 @interface PlansListTableHeaderView : UIView
 
 @property (weak, nonatomic) IBOutlet UIImageView *bgImageView;
