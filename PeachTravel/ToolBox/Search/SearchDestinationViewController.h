@@ -17,6 +17,9 @@
 
 @property (nonatomic) IMChatType chatType;
 
+//是否是 tabbar 层的 viewcontroller
+@property (nonatomic) BOOL isRootViewController;
+
 /**
  *  点击是否可以发送
  */

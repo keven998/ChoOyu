@@ -378,6 +378,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
                                                               initWithRootViewController:_guiderCtl];
     
     _searchPoiCtl = [[SearchDestinationViewController alloc] init];
+    _searchPoiCtl.isRootViewController = YES;
     TZNavigationViewController *thirdNavigationController = [[TZNavigationViewController alloc]
                                                               initWithRootViewController:_searchPoiCtl];
     
@@ -394,13 +395,11 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)customizeTabBarForController
 {
-    
     NSArray *tabBarItemImages = @[@"ic_tabbar_chat", @"ic_tabbar_expert", @"ic_tabbar_search", @"ic_tabbar_mine"];
     NSArray *tabbarItemNames = @[@"消息", @"达人", @"搜索", @"我的"];
     NSInteger index = 0;
     
     for (UITabBarItem *item in self.tabBar.items) {
-        //        item.title = titles[index];
         item.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@_normal", [tabBarItemImages objectAtIndex:index]]];
         item.selectedImage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_selected", [tabBarItemImages objectAtIndex:index]]];
         item.title = [tabbarItemNames objectAtIndex:index];
