@@ -794,6 +794,13 @@
 		E6BFE5FD1B5E732F00A9FDCA /* DestinationCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6BFE5FB1B5E732F00A9FDCA /* DestinationCollectionViewCell.m */; };
 		E6BFE5FE1B5E732F00A9FDCA /* DestinationCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6BFE5FC1B5E732F00A9FDCA /* DestinationCollectionViewCell.xib */; };
 		E6E118F61B59EE280090FDEF /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E118F41B59EE280090FDEF /* UIView+Extension.m */; };
+		E6E595511B9BD92200E29ED0 /* MineProfileIntroduce.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E595501B9BD92200E29ED0 /* MineProfileIntroduce.m */; };
+		E6E595551B9BDB5400E29ED0 /* MineProfileTourViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E595531B9BDB5400E29ED0 /* MineProfileTourViewCell.m */; };
+		E6E595561B9BDB5400E29ED0 /* MineProfileTourViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6E595541B9BDB5400E29ED0 /* MineProfileTourViewCell.xib */; };
+		E6E595591B9BDF7F00E29ED0 /* MineProfileTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E595581B9BDF7F00E29ED0 /* MineProfileTitleView.m */; };
+		E6E5955F1B9BE74300E29ED0 /* BaseProfileHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E5955E1B9BE74300E29ED0 /* BaseProfileHeaderView.m */; };
+		E6E595631B9BE7A200E29ED0 /* BaseProfileHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6E595621B9BE7A200E29ED0 /* BaseProfileHeaderView.xib */; };
+		E6E5956A1B9BECDB00E29ED0 /* ExpertProfileTagViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E595691B9BECDB00E29ED0 /* ExpertProfileTagViewCell.m */; };
 		E6E6B4081B7AF3BD001A78F4 /* ContactSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E6B4071B7AF3BD001A78F4 /* ContactSearchViewController.m */; };
 		E6E7251E1B5603750007273A /* MJArgument.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E7250C1B5603750007273A /* MJArgument.m */; };
 		E6E7251F1B5603750007273A /* MJIvar.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E7250F1B5603750007273A /* MJIvar.m */; };
@@ -2558,6 +2565,18 @@
 		E6BFE5FC1B5E732F00A9FDCA /* DestinationCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DestinationCollectionViewCell.xib; sourceTree = "<group>"; };
 		E6E118F31B59EE280090FDEF /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
 		E6E118F41B59EE280090FDEF /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
+		E6E5954F1B9BD92200E29ED0 /* MineProfileIntroduce.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineProfileIntroduce.h; sourceTree = "<group>"; };
+		E6E595501B9BD92200E29ED0 /* MineProfileIntroduce.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineProfileIntroduce.m; sourceTree = "<group>"; };
+		E6E595521B9BDB5300E29ED0 /* MineProfileTourViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineProfileTourViewCell.h; sourceTree = "<group>"; };
+		E6E595531B9BDB5400E29ED0 /* MineProfileTourViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineProfileTourViewCell.m; sourceTree = "<group>"; };
+		E6E595541B9BDB5400E29ED0 /* MineProfileTourViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MineProfileTourViewCell.xib; sourceTree = "<group>"; };
+		E6E595571B9BDF7F00E29ED0 /* MineProfileTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineProfileTitleView.h; sourceTree = "<group>"; };
+		E6E595581B9BDF7F00E29ED0 /* MineProfileTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineProfileTitleView.m; sourceTree = "<group>"; };
+		E6E5955D1B9BE74300E29ED0 /* BaseProfileHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseProfileHeaderView.h; sourceTree = "<group>"; };
+		E6E5955E1B9BE74300E29ED0 /* BaseProfileHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseProfileHeaderView.m; sourceTree = "<group>"; };
+		E6E595621B9BE7A200E29ED0 /* BaseProfileHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BaseProfileHeaderView.xib; sourceTree = "<group>"; };
+		E6E595681B9BECDB00E29ED0 /* ExpertProfileTagViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpertProfileTagViewCell.h; sourceTree = "<group>"; };
+		E6E595691B9BECDB00E29ED0 /* ExpertProfileTagViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpertProfileTagViewCell.m; sourceTree = "<group>"; };
 		E6E6B4061B7AF3BD001A78F4 /* ContactSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactSearchViewController.h; sourceTree = "<group>"; };
 		E6E6B4071B7AF3BD001A78F4 /* ContactSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactSearchViewController.m; sourceTree = "<group>"; };
 		E6E7250B1B5603750007273A /* MJArgument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJArgument.h; sourceTree = "<group>"; };
@@ -5433,6 +5452,7 @@
 		D9A8FEBB1A80C818005AD701 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E6E5954E1B9BD8A900E29ED0 /* ProfileView */,
 				D9A8FEAB1A80C818005AD701 /* PushMessages */,
 				D9A8FEBF1A80C818005AD701 /* OptionTableViewCell.h */,
 				D9A8FEC01A80C818005AD701 /* OptionTableViewCell.m */,
@@ -6046,6 +6066,8 @@
 				E608A1601B904B07003BA318 /* GuiderProfileTourViewCell.xib */,
 				E608A1631B904E7B003BA318 /* GuiderProfileAbout.h */,
 				E608A1641B904E7B003BA318 /* GuiderProfileAbout.m */,
+				E6E595681B9BECDB00E29ED0 /* ExpertProfileTagViewCell.h */,
+				E6E595691B9BECDB00E29ED0 /* ExpertProfileTagViewCell.m */,
 			);
 			path = GuiderProfileView;
 			sourceTree = "<group>";
@@ -6163,11 +6185,19 @@
 			children = (
 				E677952E1B942152004CE21A /* MineProfileViewController.h */,
 				E677952F1B942152004CE21A /* MineProfileViewController.m */,
+				E6E5955D1B9BE74300E29ED0 /* BaseProfileHeaderView.h */,
+				E6E5955E1B9BE74300E29ED0 /* BaseProfileHeaderView.m */,
+				E6E595621B9BE7A200E29ED0 /* BaseProfileHeaderView.xib */,
+				E6E595521B9BDB5300E29ED0 /* MineProfileTourViewCell.h */,
+				E6E595531B9BDB5400E29ED0 /* MineProfileTourViewCell.m */,
+				E6E595541B9BDB5400E29ED0 /* MineProfileTourViewCell.xib */,
 				E67795301B942152004CE21A /* MineProfileViewController.xib */,
 				E67795331B942314004CE21A /* BaseProfileViewController.h */,
 				E67795341B942314004CE21A /* BaseProfileViewController.m */,
 				E67795391B942EA9004CE21A /* MineDetailInfoCell.h */,
 				E677953A1B942EA9004CE21A /* MineDetailInfoCell.m */,
+				E6E595571B9BDF7F00E29ED0 /* MineProfileTitleView.h */,
+				E6E595581B9BDF7F00E29ED0 /* MineProfileTitleView.m */,
 			);
 			path = Profiles;
 			sourceTree = "<group>";
@@ -6202,6 +6232,15 @@
 				E6E118F41B59EE280090FDEF /* UIView+Extension.m */,
 			);
 			name = DropDownMenu;
+			sourceTree = "<group>";
+		};
+		E6E5954E1B9BD8A900E29ED0 /* ProfileView */ = {
+			isa = PBXGroup;
+			children = (
+				E6E5954F1B9BD92200E29ED0 /* MineProfileIntroduce.h */,
+				E6E595501B9BD92200E29ED0 /* MineProfileIntroduce.m */,
+			);
+			path = ProfileView;
 			sourceTree = "<group>";
 		};
 		E6E6B4051B7AF36D001A78F4 /* ContactSearch */ = {
@@ -7284,6 +7323,7 @@
 				E6F18A391B845F4900232EEB /* Artboard@3x.png in Resources */,
 				E6381BE51B66269000CF73AA /* Loading_Animation_final18@2x.png in Resources */,
 				E6F18A651B845F4900232EEB /* ic_home_level_bg_unknown@3x.png in Resources */,
+				E6E595631B9BE7A200E29ED0 /* BaseProfileHeaderView.xib in Resources */,
 				D971E2831B8AF27A007E5AFD /* plan_delete@2x.png in Resources */,
 				D94B891D1B5E4F4C00584DE5 /* h5_labar_right_disabled@3x.png in Resources */,
 				E6381C071B66269000CF73AA /* Loading_Animation_final49@2x.png in Resources */,
@@ -7880,6 +7920,7 @@
 				E6F18AD61B845F4900232EEB /* messages_plus_search_selected@3x.png in Resources */,
 				2753BCC81AF60B1D0098E5B3 /* HeaderPictureCell.xib in Resources */,
 				E6F18B1C1B845F4900232EEB /* master_icon_constellation5@3x.png in Resources */,
+				E6E595561B9BDB5400E29ED0 /* MineProfileTourViewCell.xib in Resources */,
 				E6F18A811B845F4900232EEB /* speaking-motion12@2x.png in Resources */,
 				D971E2CA1B93F4D3007E5AFD /* notes@2x.png in Resources */,
 				E6E725571B5603D30007273A /* UMSCommentInputControlleriPad.xib in Resources */,
@@ -8256,6 +8297,7 @@
 				E6E725691B5604A90007273A /* GuiderDistribute.m in Sources */,
 				D92CA1071AD8BDF900F244FF /* PSTGridLayoutItem.m in Sources */,
 				D971E2DD1B946B0F007E5AFD /* ExpertModel.swift in Sources */,
+				E6E595511B9BD92200E29ED0 /* MineProfileIntroduce.m in Sources */,
 				D91FED6F1B4232AD0073AD77 /* FrendRequestManager.swift in Sources */,
 				27329DB41B0E030700F0A4FA /* ChatGroupCell.m in Sources */,
 				D9E7EC0C1ACB932800D30A5A /* AccountModel.m in Sources */,
@@ -8269,6 +8311,7 @@
 				D993C25C1B12DF0C0088D568 /* AudioMessage.swift in Sources */,
 				D92CA1011AD8BDF900F244FF /* PSTCollectionViewData.m in Sources */,
 				D9A8FFA21A80D1C3005AD701 /* CityPoi.m in Sources */,
+				E6E595591B9BDF7F00E29ED0 /* MineProfileTitleView.m in Sources */,
 				D9A8FFBC1A80D1C3005AD701 /* TravelNoteListViewController.m in Sources */,
 				D9A8002B1A80D52F005AD701 /* SearchDestinationTableViewCell.m in Sources */,
 				D993C26D1B12DF0C0088D568 /* PushSDK.swift in Sources */,
@@ -8496,6 +8539,7 @@
 				D9A8001B1A80D52F005AD701 /* CityCardReusableView.m in Sources */,
 				D9A802B81A80E3D3005AD701 /* UIViewController+DismissKeyboard.m in Sources */,
 				D971E2A91B906686007E5AFD /* NotificationViewController.m in Sources */,
+				E6E595551B9BDB5400E29ED0 /* MineProfileTourViewCell.m in Sources */,
 				27FF1A7E1B059F5900643D77 /* CityNameCell.m in Sources */,
 				D9A8FED31A80C818005AD701 /* OptionTableViewCell.m in Sources */,
 				D9A802EF1A80E3D3005AD701 /* TZProgressHUD.m in Sources */,
@@ -8517,6 +8561,7 @@
 				D92CA1131AD8BDF900F244FF /* SWLongPressGestureRecognizer.m in Sources */,
 				C6C5C3B71ADE15BE0047C058 /* BaseTextSettingViewController.m in Sources */,
 				D9A801141A80DD23005AD701 /* ChatListViewController.m in Sources */,
+				E6E5956A1B9BECDB00E29ED0 /* ExpertProfileTagViewCell.m in Sources */,
 				D920A4151B15AB3800AD81B7 /* JSONConvertMethod.swift in Sources */,
 				D92CA1141AD8BDF900F244FF /* SWTableViewCell.m in Sources */,
 				D92CA1161AD8BDF900F244FF /* SWUtilityButtonView.m in Sources */,
@@ -8596,6 +8641,7 @@
 				D993C2651B12DF0C0088D568 /* IMShoppingMessage.swift in Sources */,
 				D993C2641B12DF0C0088D568 /* IMRestaurantMessage.swift in Sources */,
 				D9A8FF551A80CF19005AD701 /* FavoriteViewController.m in Sources */,
+				E6E5955F1B9BE74300E29ED0 /* BaseProfileHeaderView.m in Sources */,
 				C6261BB01B2AFDA400DFADEF /* DayAgendaViewController.m in Sources */,
 				D9EE34621AB958D70076933B /* PoiDetailViewControllerFactory.m in Sources */,
 				D9A8020C1A80E036005AD701 /* NSData+Godzippa.m in Sources */,

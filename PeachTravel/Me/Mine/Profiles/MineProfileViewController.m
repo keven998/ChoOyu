@@ -8,6 +8,9 @@
 
 #import "MineProfileViewController.h"
 #import "MineDetailInfoCell.h"
+#import "MineProfileTitleView.h"
+#import "BaseProfileHeaderView.h"
+
 @interface MineProfileViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -24,19 +27,30 @@
     [super viewDidLoad];
     
     _albumArray = [NSMutableArray array];
-    
     self.view.backgroundColor = APP_PAGE_COLOR;
-    
     self.userInfo = [AccountManager shareAccountManager].account;
     
+    [self setupTableView];
+}
+
+#pragma mark - 设置tableView的一些属性
+- (void)setupTableView
+{
     self.tableView.showsVerticalScrollIndicator = NO;
+    self.tableView.frame = CGRectMake(0, -50, kWindowWidth, kWindowHeight+50);
+    self.tableView.contentOffset = CGPointMake(0, 50);
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+
+    BaseProfileHeaderView *headerView = [BaseProfileHeaderView profileHeaderView];
+    headerView.frame = CGRectMake(0, 0, kWindowWidth, 200);
+    self.tableView.tableHeaderView = headerView;
 }
 
 #pragma mark - DataSource or Delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 4;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -48,17 +62,11 @@
 {
     
     if (indexPath.section == 0) {
-        MineDetailInfoCell *cell = [MineDetailInfoCell guiderDetailInfo];
-        [cell.profileView.friendBtn addTarget:self action:@selector(talkToFriend) forControlEvents:UIControlEventTouchUpInside];
-        cell.accountModel = self.userInfo;
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return cell;
-    } else if (indexPath.section == 1) {
         GuiderProfileAlbumCell *albumCell = [[GuiderProfileAlbumCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
         albumCell.albumArray = self.userInfo.userAlbum;
         albumCell.selectionStyle = UITableViewCellSelectionStyleNone;
         return albumCell;
-    } else if (indexPath.section == 2) {
+    } else if (indexPath.section == 1) {
         GuiderProfileTourViewCell *profileTourCell = [GuiderProfileTourViewCell guiderProfileTourWithTableView:tableView];
         profileTourCell.tourTitle.text = @"我的旅行";
         profileTourCell.footprintCount.text = _userInfo.footprintsDesc;
@@ -87,10 +95,8 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        return kWindowWidth + 75;
-    } else if (indexPath.section == 1) {
         return 140;
-    } else if (indexPath.section == 2) {
+    } else if (indexPath.section == 1) {
         return 130;
     } else {
         if (self.userInfo.signature.length == 0) return 50 + 40;
@@ -102,6 +108,20 @@
         return 50 + contentSize.height + 20;
     }
     return 150;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 50;
+}
+
+
+// 头部和尾部
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    MineProfileTitleView *titleView = [[MineProfileTitleView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 50)];
+    [titleView.titleBtn setTitle:@"我的相册" forState:UIControlStateNormal];
+    return titleView;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
@@ -122,7 +142,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    if (section == 3) {
+    if (section == 2) {
         return 0;
     }
     return 10;
