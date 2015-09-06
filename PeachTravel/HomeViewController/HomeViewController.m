@@ -558,6 +558,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         return NO;
     } else {
         if ([viewController isEqual:_mineCtl.navigationController]) {
+            _mineCtl.navigationController.navigationBarHidden = YES;
         }
     }
     return YES;
