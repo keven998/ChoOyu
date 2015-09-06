@@ -248,6 +248,7 @@
 }
 
 #pragma mark 展开收缩section中cell 手势监听
+
 -(void)singleTap:(UIButton*)recognizer
 {
     NSInteger didSection = recognizer.tag;
@@ -289,7 +290,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     GuiderCollectionViewController *guiderCtl = [[GuiderCollectionViewController alloc] initWithNibName:@"GuiderCollectionViewController" bundle:nil];
     GuiderDistribute * guiderDistribute = _guiderArray[indexPath.row];
     
