@@ -55,6 +55,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"page_user_profile"];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     
 }
@@ -62,6 +63,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"page_user_profile"];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
@@ -74,8 +76,8 @@
     [editButton setTitle:@"设置" forState:UIControlStateNormal];
     [editButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     editButton.titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
-    [editButton addTarget:self action:@selector(editMineProfile) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:editButton];
+//    [editButton addTarget:self action:@selector(editMineProfile) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:editButton];
     
     UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake((kWindowWidth-108)*0.5, 33, 108, 19)];
     titleLab.text = @"我的·旅行派";
@@ -124,10 +126,10 @@
     self.tableView.showsVerticalScrollIndicator = NO;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-//    BaseProfileHeaderView *headerView = [BaseProfileHeaderView profileHeaderView];
     BaseProfileHeaderView *headerView = [[BaseProfileHeaderView alloc] init];
-//    headerView.backgroundColor = [UIColor redColor];
+    headerView.image = [UIImage imageNamed:@"testpicture"];
     headerView.frame = CGRectMake(0, 0, kWindowWidth, 310);
+    headerView.userInfo = self.userInfo;
     self.tableView.tableHeaderView = headerView;
 }
 
@@ -267,18 +269,6 @@
 {
 
     if (indexPath.section == 0) {
-        /*
-        GuiderDetailInfoCell *cell = [GuiderDetailInfoCell guiderDetailInfo];
-        [cell.profileView.friendBtn addTarget:self action:@selector(talkToFriend) forControlEvents:UIControlEventTouchUpInside];
-        if ([[AccountManager shareAccountManager] frendIsMyContact:_userId]) {
-            [cell.profileView.sendBtn setTitle:@"修改备注" forState:UIControlStateNormal];
-            [cell.profileView.sendBtn addTarget:self action:@selector(remarkFriend) forControlEvents:UIControlEventTouchUpInside];
-        } else {
-            [cell.profileView.sendBtn setTitle:@"加为朋友" forState:UIControlStateNormal];
-            [cell.profileView.sendBtn addTarget:self action:@selector(addToFriend) forControlEvents:UIControlEventTouchUpInside];
-            
-        }
-         */
         ExpertProfileTagViewCell *cell = [ExpertProfileTagViewCell expertDetailInfo];
         cell.userInfo = self.userInfo;
         cell.collectionArray = @[@"哈哈",@"嘿嘿和",@"呵呵呵呵",@"额额",@"哈哈",@"嘿嘿和",@"呵呵呵呵"];

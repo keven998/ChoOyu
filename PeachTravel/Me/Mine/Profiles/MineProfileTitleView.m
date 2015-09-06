@@ -24,11 +24,13 @@
     // 1.标题
     UIButton *titleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [titleBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
+    titleBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     self.titleBtn = titleBtn;
     [self addSubview:titleBtn];
     
     // 2.图片数量
     UILabel *countLab = [[UILabel alloc] init];
+    countLab.textAlignment = NSTextAlignmentRight;
     countLab.textColor = TEXT_COLOR_TITLE;
     self.countLab = countLab;
     [self addSubview:countLab];
@@ -46,8 +48,8 @@
     [super layoutSubviews];
     CGFloat selfH = self.frame.size.height;
     
-    self.titleBtn.frame = CGRectMake(0, 0, 200, selfH);
-    self.countLab.frame = CGRectMake(kWindowWidth - 200, 0, 200, selfH);
+    self.titleBtn.frame = CGRectMake(10, 0, 300, selfH);
+    self.countLab.frame = CGRectMake(kWindowWidth-200-10, 0, 200, selfH);
     self.line.frame = CGRectMake(0, selfH - 1, kWindowWidth, 1);
 }
 

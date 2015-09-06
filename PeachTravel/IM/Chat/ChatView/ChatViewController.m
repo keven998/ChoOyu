@@ -225,7 +225,7 @@
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - [DXMessageToolBar defaultHeight] - 64)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - [DXMessageToolBar defaultHeight] - 64)];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.backgroundColor = APP_PAGE_COLOR;
@@ -251,7 +251,7 @@
 {
     if (!_chatToolBar) {
         
-        _chatToolBar = [[DXMessageToolBar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - [DXMessageToolBar defaultHeight] - 64, self.view.frame.size.width, [DXMessageToolBar defaultHeight])];
+        _chatToolBar = [[DXMessageToolBar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - [DXMessageToolBar defaultHeight], self.view.frame.size.width, [DXMessageToolBar defaultHeight])];
         _chatToolBar.backgroundColor = [UIColor whiteColor];
         _chatToolBar.delegate = self;
         _chatToolBar.rootCtl = self;
