@@ -7,17 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface BaseProfileHeaderView : UIView
+@class FrendModel;
+@interface BaseProfileHeaderView : UIImageView
 
 + (BaseProfileHeaderView *)profileHeaderView;
 
 @property (weak, nonatomic) UILabel *age;
 @property (weak, nonatomic) UIImageView *sexImage;
-@property (weak, nonatomic) UILabel *constellation;
+@property (weak, nonatomic) UIImageView *constellation;
 @property (weak, nonatomic) UILabel *city;
+@property (weak, nonatomic) UIImageView *level;
 
 @property (weak, nonatomic) UILabel *nickName;
 @property (weak, nonatomic) UIImageView *avatar;
+
+@property (nonatomic, strong) FrendModel *userInfo;
 
 @end

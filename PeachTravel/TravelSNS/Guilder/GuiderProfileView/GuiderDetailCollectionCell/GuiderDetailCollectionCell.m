@@ -13,8 +13,8 @@
 - (void)awakeFromNib {
     _titleLab.layer.cornerRadius = 5.0;
     _titleLab.layer.borderColor = UIColorFromRGB(0xF0F0F0).CGColor;
-    _titleLab.backgroundColor = UIColorFromRGB(0xF0F0F0);
-    _titleLab.textColor = UIColorFromRGB(0x878787);
+    _titleLab.backgroundColor = TZRandomColor;
+    _titleLab.textColor = [UIColor whiteColor];
     _titleLab.layer.borderWidth = 1.0;
     _titleLab.font = [UIFont fontWithName:@"STHeitiSC-Light" size:12.0];
     _titleLab.clipsToBounds = YES;
