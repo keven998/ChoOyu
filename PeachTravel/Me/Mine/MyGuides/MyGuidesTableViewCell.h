@@ -12,11 +12,8 @@
 
 @interface MyGuidesTableViewCell : UITableViewCell
 
-@property (strong, nonatomic) UIImageView *headerImageView;
-
 @property (nonatomic, strong) MyGuideSummary *guideSummary;
 
-@property (weak, nonatomic) IBOutlet UIButton *timeBtn;
 @property (weak, nonatomic) IBOutlet UILabel *titleBtn;
 @property (weak, nonatomic) IBOutlet UILabel *countBtn;
 @property (weak, nonatomic) IBOutlet UILabel *descLabel;
@@ -27,5 +24,6 @@
 //@property (weak, nonatomic) IBOutlet UIButton *changBtn;
 @property (strong, nonatomic) UIImageView *playedImage;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *headerImageView;
 
 @end
