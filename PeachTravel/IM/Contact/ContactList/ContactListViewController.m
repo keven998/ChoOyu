@@ -50,9 +50,6 @@
     [self.accountManager loadContactsFromServer];
     [[IMClientManager shareInstance].frendRequestManager addFrendRequestDelegate:self];
     
-    
-    // 增加搜索控件
-//    self.contactTableView.contentInset = UIEdgeInsetsMake(44, 0, 0, 0);
     [self setupSearchBar];
 }
 

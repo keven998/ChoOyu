@@ -144,7 +144,8 @@ static NSString *reusableCell = @"myGuidesCell";
             [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:COLOR_TEXT_I, NSForegroundColorAttributeName, nil]];
             [self.navigationController.navigationBar setBackgroundImage:[ConvertMethods createImageWithColor:APP_PAGE_COLOR] forBarMetrics:UIBarMetricsDefault];
             [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
-            self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];            break;
+            self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];
+            break;
         }
     }
     
@@ -163,15 +164,11 @@ static NSString *reusableCell = @"myGuidesCell";
         _swipCell = nil;
     }
     
-    for (UIViewController *ct in self.navigationController.viewControllers) {
-        NSLog(@"%p", ct);
-        if ([ct isEqual:self]) {
-            [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,nil]];
-            [self.navigationController.navigationBar setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forBarMetrics:UIBarMetricsDefault];
-            [self.navigationController.navigationBar setShadowImage:[UIImage imageNamed:@"bg_navigationbar_shadow.png"]];
-            [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-        }
-    }
+    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,nil]];
+    [self.navigationController.navigationBar setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:[UIImage imageNamed:@"bg_navigationbar_shadow.png"]];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+
     _copyPatch = NO;
 }
 
