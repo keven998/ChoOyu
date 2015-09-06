@@ -78,7 +78,7 @@
     float btnHeight = 49;
     float offsetX = 0;
     
-    _indicatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, btnWidth, 3)];
+    _indicatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, btnWidth, 2)];
     _indicatorView.backgroundColor = APP_THEME_COLOR;
     [segmentPanel addSubview:_indicatorView];
     
@@ -96,6 +96,10 @@
         [segmentPanel addSubview:segmentBtn];
         [buttonArray addObject:segmentBtn];
         offsetX += btnWidth;
+        
+        UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(offsetX, 8, 0.5, 33)];
+        spaceView.backgroundColor = COLOR_LINE;
+        [segmentPanel addSubview:spaceView];
     }
     _segmentBtns = buttonArray;
 }
@@ -138,7 +142,11 @@
 {
     NSLog(@"切换到第 %ld", pageIndex);
     UIButton *sender = [_segmentBtns objectAtIndex:pageIndex];
-    _indicatorView.center = CGPointMake(sender.center.x, 47.5);
+    for (UIButton *btn in _segmentBtns) {
+        btn.selected = NO;
+    }
+    sender.selected = YES;
+    _indicatorView.center = CGPointMake(sender.center.x, 48);
     [_contentView setContentOffset:CGPointMake(_contentView.bounds.size.width*pageIndex, 0) animated:YES];
 }
 
