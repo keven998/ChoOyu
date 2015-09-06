@@ -123,19 +123,32 @@
     // 设置分类界面的一些基本属性
     NSArray * typeArray = self.titleArray;
     
-    UIButton * type = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.titleBtn = type;
-    type.titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
-    type.selected = NO;
-    [type setTitle:typeArray[0] forState:UIControlStateNormal];
-    [type setTitleColor:COLOR_TEXT_I forState:UIControlStateNormal];
-    [type addTarget:self action:@selector(typeClick:) forControlEvents:UIControlEventTouchDown];
-    [type setImage:[UIImage imageNamed:@"ArtboardBottom"] forState:UIControlStateNormal];
-    [type setImage:[UIImage imageNamed:@"ArtboardTop"] forState:UIControlStateSelected];
-    type.imageEdgeInsets = UIEdgeInsetsMake(0, 90, 0, 0);
-    type.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 40);
-    type.frame = CGRectMake(kWindowWidth * 0.5, 0, kWindowWidth * 0.5, 50);
-    self.navigationItem.titleView = type;
+    UIButton * titleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.titleBtn = titleBtn;
+    titleBtn.titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
+    titleBtn.selected = NO;
+    [titleBtn setTitle:typeArray[3] forState:UIControlStateNormal];
+    [titleBtn setTitleColor:COLOR_TEXT_I forState:UIControlStateNormal];
+    [titleBtn addTarget:self action:@selector(typeClick:) forControlEvents:UIControlEventTouchDown];
+    [titleBtn setImage:[UIImage imageNamed:@"ArtboardBottom"] forState:UIControlStateNormal];
+    [titleBtn setImage:[UIImage imageNamed:@"ArtboardTop"] forState:UIControlStateSelected];
+    
+    
+//    titleBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 90, 0, 0);
+//    titleBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 40);
+    [self setupBtnFeature:titleBtn titleContent:typeArray[3]];
+    
+    titleBtn.frame = CGRectMake(kWindowWidth * 0.5, 0, kWindowWidth * 0.5, 50);
+    self.navigationItem.titleView = titleBtn;
+}
+
+- (void)setupBtnFeature:(UIButton *)titleBtn titleContent:(NSString *)title
+{
+    CGSize size = CGSizeMake(kWindowWidth,CGFLOAT_MAX);
+    NSDictionary *dict = @{NSFontAttributeName: [UIFont systemFontOfSize:17.0]};
+    CGSize contentSize = [title boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
+    titleBtn.imageEdgeInsets = UIEdgeInsetsMake(0, contentSize.width+40, 0, 0);
+    titleBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 40);
 }
 
 - (void)typeClick:(UIButton *)type
@@ -188,7 +201,10 @@
 {
     self.currentContinentIndex = continentIndex;
     [self.dropDownMenu dismiss];
+    
     [self.titleBtn setTitle:self.titleArray[continentIndex] forState:UIControlStateNormal];
+    [self setupBtnFeature:self.titleBtn titleContent:self.titleArray[continentIndex]];
+    
     self.guiderArray = self.dataSource[continentIndex];
     
     [self.tableView reloadData];
