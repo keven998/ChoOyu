@@ -61,8 +61,8 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-
-    self.collectionView.frame = CGRectMake(10, 0, kWindowWidth-20, 85);
+    
+    self.collectionView.frame = CGRectMake(10, 0, kWindowWidth-20, self.frame.size.height);
 }
 
 #pragma mark - 设置数据

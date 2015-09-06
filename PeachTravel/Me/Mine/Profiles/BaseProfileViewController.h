@@ -7,7 +7,6 @@
 //
 
 #import "TZViewController.h"
-#import "GuiderProfileHeaderView.h"
 #import "GuiderDetailInfoCell.h"
 #import "GuiderProfileAlbumCell.h"
 #import "GuiderProfileTourViewCell.h"

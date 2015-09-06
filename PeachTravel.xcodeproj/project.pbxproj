@@ -702,7 +702,6 @@
 		E608A13D1B8F6987003BA318 /* GuiderProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E608A13B1B8F6987003BA318 /* GuiderProfileViewController.m */; };
 		E608A13E1B8F6987003BA318 /* GuiderProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E608A13C1B8F6987003BA318 /* GuiderProfileViewController.xib */; };
 		E608A1411B8F6F84003BA318 /* CWContainView.m in Sources */ = {isa = PBXBuildFile; fileRef = E608A1401B8F6F84003BA318 /* CWContainView.m */; };
-		E608A1461B8FFBD4003BA318 /* GuiderProfileHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E608A1451B8FFBD4003BA318 /* GuiderProfileHeaderView.m */; };
 		E608A1551B900A09003BA318 /* GuiderDetailInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E608A1541B900A09003BA318 /* GuiderDetailInfoCell.m */; };
 		E608A1581B9016D2003BA318 /* GuiderProfileImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = E608A1571B9016D2003BA318 /* GuiderProfileImageView.m */; };
 		E608A15C1B90347D003BA318 /* GuiderProfileAlbumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E608A15A1B90347D003BA318 /* GuiderProfileAlbumCell.m */; };
@@ -2450,8 +2449,6 @@
 		E608A13C1B8F6987003BA318 /* GuiderProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GuiderProfileViewController.xib; sourceTree = "<group>"; };
 		E608A13F1B8F6F84003BA318 /* CWContainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWContainView.h; sourceTree = "<group>"; };
 		E608A1401B8F6F84003BA318 /* CWContainView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWContainView.m; sourceTree = "<group>"; };
-		E608A1441B8FFBD4003BA318 /* GuiderProfileHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuiderProfileHeaderView.h; sourceTree = "<group>"; };
-		E608A1451B8FFBD4003BA318 /* GuiderProfileHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuiderProfileHeaderView.m; sourceTree = "<group>"; };
 		E608A1531B900A09003BA318 /* GuiderDetailInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuiderDetailInfoCell.h; sourceTree = "<group>"; };
 		E608A1541B900A09003BA318 /* GuiderDetailInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuiderDetailInfoCell.m; sourceTree = "<group>"; };
 		E608A1561B9016D2003BA318 /* GuiderProfileImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuiderProfileImageView.h; sourceTree = "<group>"; };
@@ -6052,8 +6049,6 @@
 			isa = PBXGroup;
 			children = (
 				E67795271B941AF7004CE21A /* GuiderDetailCollectionCell */,
-				E608A1441B8FFBD4003BA318 /* GuiderProfileHeaderView.h */,
-				E608A1451B8FFBD4003BA318 /* GuiderProfileHeaderView.m */,
 				E608A1531B900A09003BA318 /* GuiderDetailInfoCell.h */,
 				E608A1541B900A09003BA318 /* GuiderDetailInfoCell.m */,
 				E608A1561B9016D2003BA318 /* GuiderProfileImageView.h */,
@@ -8537,7 +8532,6 @@
 				D9A800641A80DD0C005AD701 /* SearchUserInfoViewController.m in Sources */,
 				D971E2FB1B95C28E007E5AFD /* MineContentRootViewController.m in Sources */,
 				C673B5591ADCEC7100D40262 /* TripPlanSettingViewController.m in Sources */,
-				E608A1461B8FFBD4003BA318 /* GuiderProfileHeaderView.m in Sources */,
 				E677953B1B942EA9004CE21A /* MineDetailInfoCell.m in Sources */,
 				D9A8001B1A80D52F005AD701 /* CityCardReusableView.m in Sources */,
 				D9A802B81A80E3D3005AD701 /* UIViewController+DismissKeyboard.m in Sources */,
