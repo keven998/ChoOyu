@@ -10,7 +10,6 @@
 
 #import "HomeViewController.h"
 #import "ToolsHomeViewController.h"
-//#import "MineTableViewController.h"
 #import "MineViewContoller.h"
 #import "PageOne.h"
 #import "PageTwo.h"
@@ -44,7 +43,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 @property (nonatomic, strong) UILabel *unReadMsgLabel;
 
 @property (nonatomic, strong) ToolsHomeViewController *toolBoxCtl;
-//@property (nonatomic, strong) MineTableViewController *mineCtl;
 @property (nonatomic, strong) MineViewContoller *mineCtl;
 @property (nonatomic, strong) ChatListViewController *chatListCtl;
 @property (nonatomic, strong) GuiderDistributeViewController *guiderCtl;
@@ -558,6 +556,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         return NO;
     } else {
         if ([viewController isEqual:_mineCtl.navigationController]) {
+            _mineCtl.navigationController.navigationBarHidden = YES;
         }
     }
     return YES;

@@ -572,7 +572,6 @@
 		D9A8FEC61A80C818005AD701 /* ConfirmRouteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A8FEA31A80C818005AD701 /* ConfirmRouteViewController.xib */; };
 		D9A8FECA1A80C818005AD701 /* MyGuideSummary.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FEAA1A80C818005AD701 /* MyGuideSummary.m */; };
 		D9A8FECC1A80C818005AD701 /* AccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FEB11A80C818005AD701 /* AccountManager.m */; };
-		D9A8FED01A80C818005AD701 /* MineTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FEBA1A80C818005AD701 /* MineTableViewController.m */; };
 		D9A8FED31A80C818005AD701 /* OptionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FEC01A80C818005AD701 /* OptionTableViewCell.m */; };
 		D9A8FED41A80C818005AD701 /* OptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A8FEC11A80C818005AD701 /* OptionTableViewCell.xib */; };
 		D9A8FEDA1A80C8A4005AD701 /* PushMsgsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FED81A80C8A4005AD701 /* PushMsgsViewController.m */; };
@@ -2204,8 +2203,6 @@
 		D9A8FEAA1A80C818005AD701 /* MyGuideSummary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGuideSummary.m; sourceTree = "<group>"; };
 		D9A8FEB01A80C818005AD701 /* AccountManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountManager.h; sourceTree = "<group>"; };
 		D9A8FEB11A80C818005AD701 /* AccountManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountManager.m; sourceTree = "<group>"; };
-		D9A8FEB91A80C818005AD701 /* MineTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineTableViewController.h; sourceTree = "<group>"; };
-		D9A8FEBA1A80C818005AD701 /* MineTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineTableViewController.m; sourceTree = "<group>"; };
 		D9A8FEBF1A80C818005AD701 /* OptionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionTableViewCell.h; sourceTree = "<group>"; };
 		D9A8FEC01A80C818005AD701 /* OptionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionTableViewCell.m; sourceTree = "<group>"; };
 		D9A8FEC11A80C818005AD701 /* OptionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OptionTableViewCell.xib; sourceTree = "<group>"; };
@@ -5444,8 +5441,6 @@
 		D9A8FEB81A80C818005AD701 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				D9A8FEB91A80C818005AD701 /* MineTableViewController.h */,
-				D9A8FEBA1A80C818005AD701 /* MineTableViewController.m */,
 				D971E2F91B95C28E007E5AFD /* MineContentRootViewController.h */,
 				D971E2FA1B95C28E007E5AFD /* MineContentRootViewController.m */,
 				E677957F1B95C60F004CE21A /* MineViewContoller.h */,
@@ -8583,7 +8578,6 @@
 				C6C5C3C91ADE65570047C058 /* AutoSlideScrollView.m in Sources */,
 				D993C23D1B12DF0C0088D568 /* amrFileCodec.mm in Sources */,
 				D920A4131B15A40E00AD81B7 /* IMDiscussionGroupManager+GroupInfo.swift in Sources */,
-				D9A8FED01A80C818005AD701 /* MineTableViewController.m in Sources */,
 				D92CA1361AD8BEB400F244FF /* MWTapDetectingImageView.m in Sources */,
 				D9A8FFA71A80D1C3005AD701 /* CommonPoiDetailViewController.m in Sources */,
 				D9A802E21A80E3D3005AD701 /* PageTwo.m in Sources */,
