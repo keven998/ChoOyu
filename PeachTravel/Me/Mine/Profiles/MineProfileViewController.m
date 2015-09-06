@@ -32,8 +32,50 @@
     
     [self setupTableView];
     
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:UIBarButtonItemStyleDone target:self action:@selector(editMineProfile)];
-    self.navigationItem.rightBarButtonItem = rightItem;
+    [self setupNavBar];
+    
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navigation_bar_background.png"] forBarMetrics:UIBarMetricsCompact];
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
+#pragma mark - 设置导航栏
+
+- (void)setupNavBar
+{
+    UIButton *editButton = [[UIButton alloc] initWithFrame:CGRectMake(kWindowWidth - 56, 33, 36, 19)];
+    [editButton setTitle:@"设置" forState:UIControlStateNormal];
+    [editButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    editButton.titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
+    [editButton addTarget:self action:@selector(editMineProfile) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:editButton];
+    
+    UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake((kWindowWidth-108)*0.5, 33, 108, 19)];
+    titleLab.text = @"我的·旅行派";
+    titleLab.textAlignment = NSTextAlignmentCenter;
+    titleLab.font = [UIFont boldSystemFontOfSize:18.0];
+    titleLab.textColor = [UIColor whiteColor];
+    [self.view addSubview:titleLab];
+    
+    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake( 10, 33, 36, 19)];
+    [backButton setTitle:@"返回" forState:UIControlStateNormal];
+    [backButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    backButton.titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
+    [backButton addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:backButton];
 }
 
 #pragma mark - 设置tableView的一些属性
@@ -43,7 +85,7 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
     BaseProfileHeaderView *headerView = [BaseProfileHeaderView profileHeaderView];
-    headerView.frame = CGRectMake(0, 0, kWindowWidth, 250);
+    headerView.frame = CGRectMake(0, 0, kWindowWidth, 310);
     self.tableView.tableHeaderView = headerView;
 }
 
@@ -51,6 +93,11 @@
 {
     UserInfoTableViewController *userInfo = [[UserInfoTableViewController alloc]init];
     [self.navigationController pushViewController:userInfo animated:YES];
+}
+
+- (void)back
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - DataSource or Delegate
@@ -127,7 +174,13 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     MineProfileTitleView *titleView = [[MineProfileTitleView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 50)];
-    [titleView.titleBtn setTitle:@"我的相册" forState:UIControlStateNormal];
+    if (section == 0) {
+        [titleView.titleBtn setTitle:@"我的相册" forState:UIControlStateNormal];
+    } else if (section == 1) {
+        [titleView.titleBtn setTitle:@"我的旅历" forState:UIControlStateNormal];
+    } else {
+        [titleView.titleBtn setTitle:@"关于自己" forState:UIControlStateNormal];
+    }
     return titleView;
 }
 
