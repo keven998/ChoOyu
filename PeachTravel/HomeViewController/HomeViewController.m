@@ -9,7 +9,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 #import "HomeViewController.h"
-#import "ToolsHomeViewController.h"
+#import "SearchDestinationViewController.h"
 #import "MineViewContoller.h"
 #import "PageOne.h"
 #import "PageTwo.h"
@@ -42,7 +42,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
  */
 @property (nonatomic, strong) UILabel *unReadMsgLabel;
 
-@property (nonatomic, strong) ToolsHomeViewController *toolBoxCtl;
+@property (nonatomic, strong) SearchDestinationViewController *searchPoiCtl;
 @property (nonatomic, strong) MineViewContoller *mineCtl;
 @property (nonatomic, strong) ChatListViewController *chatListCtl;
 @property (nonatomic, strong) GuiderDistributeViewController *guiderCtl;
@@ -373,9 +373,9 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     TZNavigationViewController *secondNavigationController = [[TZNavigationViewController alloc]
                                                               initWithRootViewController:_guiderCtl];
     
-    _toolBoxCtl = [[ToolsHomeViewController alloc] init];
+    _searchPoiCtl = [[SearchDestinationViewController alloc] init];
     TZNavigationViewController *thirdNavigationController = [[TZNavigationViewController alloc]
-                                                              initWithRootViewController:_toolBoxCtl];
+                                                              initWithRootViewController:_searchPoiCtl];
     
     _mineCtl = [[MineViewContoller alloc] init];
     TZNavigationViewController *fourthNavigationController = [[TZNavigationViewController alloc]

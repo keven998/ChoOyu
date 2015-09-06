@@ -71,7 +71,6 @@
 		C679D3111ACD64E3007680D9 /* UIView+REFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C679D30A1ACD64E3007680D9 /* UIView+REFrostedViewController.m */; };
 		C679D3121ACD64E3007680D9 /* UIViewController+REFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C679D30C1ACD64E3007680D9 /* UIViewController+REFrostedViewController.m */; };
 		C679D3161ACD65EC007680D9 /* UIViewController+CWPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = C679D3151ACD65EC007680D9 /* UIViewController+CWPopup.m */; };
-		C691DD921B2ECB8400B7D318 /* ToolsHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C691DD911B2ECB8400B7D318 /* ToolsHomeViewController.m */; };
 		C694C3861AE9EB7800F5C36E /* SDSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C694C3851AE9EB7800F5C36E /* SDSegmentedControl.m */; };
 		C694C38D1AEA23E500F5C36E /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C694C38C1AEA23E500F5C36E /* FilterViewController.m */; };
 		C694C3901AEA274500F5C36E /* CategoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C694C38F1AEA274500F5C36E /* CategoryTableViewCell.m */; };
@@ -382,6 +381,7 @@
 		D9980C7C1B66157900FAA28B /* chatbar_text_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9980C7B1B66157900FAA28B /* chatbar_text_background@2x.png */; };
 		D99D8EE519C8600C0021C25B /* PeachTravelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D99D8EE419C8600C0021C25B /* PeachTravelTests.m */; };
 		D9A380EF1B9C3CEC000B5B66 /* navi_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A380EE1B9C3CEC000B5B66 /* navi_bg@2x.png */; };
+		D9A380F11B9C405E000B5B66 /* icon_search_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A380F01B9C405E000B5B66 /* icon_search_bg@2x.png */; };
 		D9A8001A1A80D52F005AD701 /* Destinations.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FFDA1A80D52F005AD701 /* Destinations.m */; };
 		D9A8001B1A80D52F005AD701 /* CityCardReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FFDD1A80D52F005AD701 /* CityCardReusableView.m */; };
 		D9A8001C1A80D52F005AD701 /* DomesticViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FFDF1A80D52F005AD701 /* DomesticViewController.m */; };
@@ -1479,8 +1479,6 @@
 		C679D30C1ACD64E3007680D9 /* UIViewController+REFrostedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+REFrostedViewController.m"; sourceTree = "<group>"; };
 		C679D3141ACD65EC007680D9 /* UIViewController+CWPopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+CWPopup.h"; sourceTree = "<group>"; };
 		C679D3151ACD65EC007680D9 /* UIViewController+CWPopup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+CWPopup.m"; sourceTree = "<group>"; };
-		C691DD901B2ECB8400B7D318 /* ToolsHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolsHomeViewController.h; sourceTree = "<group>"; };
-		C691DD911B2ECB8400B7D318 /* ToolsHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolsHomeViewController.m; sourceTree = "<group>"; };
 		C694C3841AE9EB7800F5C36E /* SDSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDSegmentedControl.h; sourceTree = "<group>"; };
 		C694C3851AE9EB7800F5C36E /* SDSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDSegmentedControl.m; sourceTree = "<group>"; };
 		C694C38B1AEA23E500F5C36E /* FilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterViewController.h; sourceTree = "<group>"; };
@@ -1888,6 +1886,7 @@
 		D99D8EE319C8600C0021C25B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D99D8EE419C8600C0021C25B /* PeachTravelTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PeachTravelTests.m; sourceTree = "<group>"; };
 		D9A380EE1B9C3CEC000B5B66 /* navi_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navi_bg@2x.png"; sourceTree = "<group>"; };
+		D9A380F01B9C405E000B5B66 /* icon_search_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_search_bg@2x.png"; sourceTree = "<group>"; };
 		D9A800011A80D52F005AD701 /* RestaurantsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantsListViewController.h; sourceTree = "<group>"; };
 		D9A800021A80D52F005AD701 /* RestaurantsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantsListViewController.m; sourceTree = "<group>"; };
 		D9A800041A80D52F005AD701 /* ShareActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareActivity.h; sourceTree = "<group>"; };
@@ -5604,8 +5603,6 @@
 			children = (
 				D9A8FF391A80CF19005AD701 /* OperationData.h */,
 				D9A8FF3A1A80CF19005AD701 /* OperationData.m */,
-				C691DD901B2ECB8400B7D318 /* ToolsHomeViewController.h */,
-				C691DD911B2ECB8400B7D318 /* ToolsHomeViewController.m */,
 			);
 			name = "Home--3.第二个主界面";
 			path = ToolBox/Home;
@@ -6505,6 +6502,7 @@
 		E6F187031B845F4800232EEB /* CommonImages */ = {
 			isa = PBXGroup;
 			children = (
+				D9A380F01B9C405E000B5B66 /* icon_search_bg@2x.png */,
 				D9A380EE1B9C3CEC000B5B66 /* navi_bg@2x.png */,
 				D971E2A41B90574B007E5AFD /* textfield_bgk@2x.png */,
 				E6F187041B845F4800232EEB /* bg_navigationbar_shadow@2x.png */,
@@ -7558,6 +7556,7 @@
 				E608A13E1B8F6987003BA318 /* GuiderProfileViewController.xib in Resources */,
 				E608A12D1B8F413E003BA318 /* point@2x.png in Resources */,
 				E6F189781B845F4900232EEB /* poi_button_raid_disable@3X.png in Resources */,
+				D9A380F11B9C405E000B5B66 /* icon_search_bg@2x.png in Resources */,
 				E6F18A491B845F4900232EEB /* search_default_background@3x.png in Resources */,
 				E6F18A321B845F4900232EEB /* introduce_4_2@2x.png in Resources */,
 				E6F1894C1B845F4900232EEB /* icon_arrow@3x.png in Resources */,
@@ -8548,7 +8547,6 @@
 				D9A8FED31A80C818005AD701 /* OptionTableViewCell.m in Sources */,
 				D9A802EF1A80E3D3005AD701 /* TZProgressHUD.m in Sources */,
 				27FF1AEA1B09C51000643D77 /* OthersAlbumCell.m in Sources */,
-				C691DD921B2ECB8400B7D318 /* ToolsHomeViewController.m in Sources */,
 				D9A802381A80E036005AD701 /* WeatherInfo.m in Sources */,
 				C65DB7C61AD644E000F51443 /* SettingHomeViewController.m in Sources */,
 				C679D30E1ACD64E3007680D9 /* REFrostedContainerViewController.m in Sources */,
