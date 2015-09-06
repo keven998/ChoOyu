@@ -17,7 +17,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="YxP-3D-aoa">
-                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <rect key="frame" x="0.0" y="-50" width="600" height="650"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="g8R-Y1-fgP"/>
@@ -27,10 +27,10 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="YxP-3D-aoa" secondAttribute="trailing" id="JWF-ax-uaG"/>
-                <constraint firstItem="YxP-3D-aoa" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="iwz-S8-dca"/>
-                <constraint firstAttribute="bottom" secondItem="YxP-3D-aoa" secondAttribute="bottom" id="jWv-fz-V6C"/>
-                <constraint firstItem="YxP-3D-aoa" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="jnP-Sg-Ayu"/>
+                <constraint firstAttribute="bottom" secondItem="YxP-3D-aoa" secondAttribute="bottom" id="JuF-A9-FH6"/>
+                <constraint firstAttribute="trailing" secondItem="YxP-3D-aoa" secondAttribute="trailing" id="Vqj-NE-Gss"/>
+                <constraint firstItem="YxP-3D-aoa" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="-50" id="gTZ-zx-j9r"/>
+                <constraint firstItem="YxP-3D-aoa" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="l8S-fX-Oy5"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <point key="canvasLocation" x="18" y="45"/>
