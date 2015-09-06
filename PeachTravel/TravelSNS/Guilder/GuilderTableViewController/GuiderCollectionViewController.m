@@ -67,8 +67,8 @@ static NSString * const reuseIdentifier = @"Cell";
     _guiderDistribute = guiderDistribute;
     
     UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setImage:[UIImage imageNamed:@"common_icon_navigaiton_back"] forState:UIControlStateNormal];
-    [button setImage:[UIImage imageNamed:@"common_icon_navigaiton_back_highlight"] forState:UIControlStateHighlighted];
+    [button setImage:[UIImage imageNamed:@"common_icon_navigaiton_back_normal"] forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:@"common_icon_navigaiton_back_hilighted"] forState:UIControlStateHighlighted];
     [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
     [button setFrame:CGRectMake(0, 0, 30, 30)];
     button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
@@ -78,7 +78,7 @@ static NSString * const reuseIdentifier = @"Cell";
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 44)];
     view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 6, 200, 18)];
-    nameLabel.textColor = [UIColor whiteColor];
+    nameLabel.textColor = COLOR_TEXT_I;
     nameLabel.font = [UIFont boldSystemFontOfSize:16];
     nameLabel.textAlignment = NSTextAlignmentCenter;
     nameLabel.lineBreakMode = NSLineBreakByTruncatingMiddle;
@@ -136,8 +136,8 @@ static NSString * const reuseIdentifier = @"Cell";
     GuiderCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     
     // 达人模型,dataSource是达人列表数组
-    FrendModel * frend = self.dataSource[indexPath.row];
-    cell.guiderModel = frend;
+    ExpertModel * expert = self.dataSource[indexPath.row];
+    cell.guiderModel = expert;
     return cell;
 }
 
@@ -145,15 +145,6 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    /*
-    OtherUserInfoViewController *otherInfoCtl = [[OtherUserInfoViewController alloc]init];
-    FrendModel *model = _dataSource[indexPath.row];
-    //    otherInfoCtl.model = model;
-    otherInfoCtl.userId = model.userId;
-    otherInfoCtl.shouldShowExpertTipsView = YES;
-    [self.navigationController pushViewController:otherInfoCtl animated:YES];
-     */
-    
     GuiderProfileViewController *guiderCtl = [[GuiderProfileViewController alloc] init];
     FrendModel *model = _dataSource[indexPath.row];
     guiderCtl.userId = model.userId;
