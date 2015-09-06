@@ -43,6 +43,7 @@
     
     ContactListViewController *contactList = [[ContactListViewController alloc] init];
     PlansListTableViewController *plansCtl = [[PlansListTableViewController alloc] init];
+    plansCtl.userId = [AccountManager shareAccountManager].account.userId;
     [arrays addObject:plansCtl];
     [arrays addObject:contactList];
 

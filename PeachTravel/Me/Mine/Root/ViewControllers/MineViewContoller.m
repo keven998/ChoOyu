@@ -154,6 +154,7 @@
 {
     NSLog(@"---------");
     MineProfileViewController *profile = [[MineProfileViewController alloc] init];
+    profile.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:profile animated:YES];
 }
 

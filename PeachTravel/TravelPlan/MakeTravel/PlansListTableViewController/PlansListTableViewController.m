@@ -138,7 +138,6 @@ static NSString *reusableCell = @"myGuidesCell";
     [MobClick beginLogPageView:@"page_lxp_plan_lists"];
     
     for (UIViewController *ct in self.navigationController.viewControllers) {
-        NSLog(@"%p", ct);
         if ([ct isEqual:self]) {
             [self.navigationController setNavigationBarHidden:NO animated:YES]; //侧滑navigation bar 补丁
             [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:COLOR_TEXT_I, NSForegroundColorAttributeName, nil]];
@@ -365,7 +364,6 @@ static NSString *reusableCell = @"myGuidesCell";
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%@", error);
         [hud hideTZHUD];
         if (self.isShowing) {
             [SVProgressHUD showHint:HTTP_FAILED_HINT];
@@ -834,8 +832,6 @@ static NSString *reusableCell = @"myGuidesCell";
 #pragma mark - scrollViewDelegate
 - (void)scrollViewChangeFrame:(UIScrollView *)scrollView
 {
-    NSLog(@"contentOfSet:%f",scrollView.contentOffset.y);
-    
     NSString *scrollH = [NSString stringWithFormat:@"%f",scrollView.contentOffset.y];
     NSDictionary *userInfo = @{@"scrollH": scrollH};
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ChangePlanListFrame" object:nil userInfo:userInfo];
