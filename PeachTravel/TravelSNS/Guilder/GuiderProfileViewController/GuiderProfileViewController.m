@@ -50,10 +50,6 @@
     [self setupHeaderView];
     [self createFooterBar];
     [self setupNavBar];
-    
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navigation_bar_background.png"] forBarMetrics:UIBarMetricsCompact];
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated

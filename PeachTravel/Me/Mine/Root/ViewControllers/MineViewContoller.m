@@ -39,9 +39,6 @@
     [self setupMainView];
     [self setupNavBar];
     
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navigation_bar_background.png"] forBarMetrics:UIBarMetricsCompact];
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeContentFrame:) name:@"ChangePlanListFrame" object:nil];
 }
 
@@ -152,7 +149,6 @@
 // 点击头部进入个人Profile
 - (void)tapHeaderView:(UITapGestureRecognizer *)tap
 {
-    NSLog(@"---------");
     MineProfileViewController *profile = [[MineProfileViewController alloc] init];
     profile.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:profile animated:YES];
