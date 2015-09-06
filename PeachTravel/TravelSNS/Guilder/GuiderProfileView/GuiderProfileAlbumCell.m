@@ -50,7 +50,7 @@
     albumCount.font = [UIFont boldSystemFontOfSize:30.0];
     albumCount.textAlignment = NSTextAlignmentRight;
     self.albumCount = albumCount;
-    [self addSubview:albumCount];
+//    [self addSubview:albumCount];
     
     // 3.相册列表
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
@@ -80,11 +80,11 @@
 {
     [super layoutSubviews];
     
-    self.titleLab.frame = CGRectMake(0, 0, kWindowWidth, 50);
+//    self.titleLab.frame = CGRectMake(0, 0, kWindowWidth, 50);
     self.albumCount.frame = CGRectMake(0, CGRectGetMaxY(self.titleLab.frame), 50, (kWindowWidth - 60 - 40)/4);
-    self.collectionView.frame = CGRectMake(CGRectGetMaxX(self.albumCount.frame)+10, CGRectGetMaxY(self.titleLab.frame), kWindowWidth - 60 - 40, (kWindowWidth - 60 - 40)/4);
+    self.collectionView.frame = CGRectMake(10, 10, kWindowWidth - 40, (kWindowWidth - 40)/4);
     
-    self.albumImage.frame = CGRectMake(0, 0, (kWindowWidth - 60 - 40)/4, (kWindowWidth - 60 - 40)/4);
+    self.albumImage.frame = CGRectMake(0, 0, (kWindowWidth - 40)/4, (kWindowWidth - 40)/4);
 }
 
 #pragma mark - 实现数据源方法和代理方法

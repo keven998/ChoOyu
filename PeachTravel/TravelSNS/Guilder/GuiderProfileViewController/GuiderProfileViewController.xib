@@ -32,6 +32,7 @@
                 <constraint firstAttribute="trailing" secondItem="nYL-pc-j8f" secondAttribute="trailing" id="np9-vp-SEK"/>
                 <constraint firstAttribute="bottom" secondItem="nYL-pc-j8f" secondAttribute="bottom" id="uFa-Tw-esv"/>
             </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
             <point key="canvasLocation" x="372" y="285"/>
         </view>
     </objects>

@@ -29,7 +29,7 @@
     titleLab.textColor = UIColorFromRGB(0x646464);
     titleLab.font = [UIFont fontWithName:@"Helvetica-Bold" size:16.0];
     self.titleLab = titleLab;
-    [self addSubview:titleLab];
+//    [self addSubview:titleLab];
 
     // 2.正文
     UILabel *contentLab = [[UILabel alloc] init];
@@ -59,7 +59,7 @@
         contentH = 50;
     }
     
-    self.contentLab.frame = CGRectMake(42, CGRectGetMaxY(self.titleLab.frame), kWindowWidth - 84, contentH);
+    self.contentLab.frame = CGRectMake(42, 10, kWindowWidth - 84, contentH);
 }
 
 #pragma mark - 传入内容

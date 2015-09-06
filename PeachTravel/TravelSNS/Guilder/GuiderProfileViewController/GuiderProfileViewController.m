@@ -7,6 +7,8 @@
 //
 
 #import "GuiderProfileViewController.h"
+#import "MineProfileTitleView.h"
+#import "ExpertProfileTagViewCell.h"
 
 @interface GuiderProfileViewController () <UITableViewDataSource, UITableViewDelegate,UIActionSheetDelegate>
 
@@ -40,6 +42,10 @@
     [moreBtn addTarget:self action:@selector(moreAction:) forControlEvents:UIControlEventTouchUpInside];
     [moreBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:moreBtn];
+    
+    self.tableView.frame = CGRectMake(0, -100, kWindowWidth, kWindowHeight+50);
+    self.tableView.contentOffset = CGPointMake(0, 50);
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     [self setupHeaderView];
 }
@@ -152,6 +158,7 @@
 {
 
     if (indexPath.section == 0) {
+        /*
         GuiderDetailInfoCell *cell = [GuiderDetailInfoCell guiderDetailInfo];
         [cell.profileView.friendBtn addTarget:self action:@selector(talkToFriend) forControlEvents:UIControlEventTouchUpInside];
         if ([[AccountManager shareAccountManager] frendIsMyContact:_userId]) {
@@ -162,7 +169,8 @@
             [cell.profileView.sendBtn addTarget:self action:@selector(addToFriend) forControlEvents:UIControlEventTouchUpInside];
             
         }
-
+         */
+        ExpertProfileTagViewCell *cell = [ExpertProfileTagViewCell expertDetailInfo];
         cell.userInfo = self.userInfo;
         cell.collectionArray = @[@"哈哈",@"嘿嘿和",@"呵呵呵呵",@"额额",@"哈哈",@"嘿嘿和",@"呵呵呵呵"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -208,9 +216,9 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        return kWindowWidth + 215;
+        return 100;
     } else if (indexPath.section == 1) {
-        return 50 + (kWindowWidth - 60 - 40)/4 + 10;
+        return (kWindowWidth - 60 - 40)/4 + 10;
     } else if (indexPath.section == 2) {
         return 130;
     } else if (indexPath.section == 3) {
@@ -220,16 +228,24 @@
         //计算实际frame大小，并将label的frame变成实际大小
         NSDictionary *dict = @{NSFontAttributeName: [UIFont systemFontOfSize:14.0]};
         CGSize contentSize = [self.userInfo.signature boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
-        return 50 + contentSize.height + 20;
+        return contentSize.height + 20;
     } else if (indexPath.section == 4) {
-        if (self.userInfo.profile.length == 0) return 50 + 40;
+        if (self.userInfo.profile.length == 0) return 40;
         CGSize size = CGSizeMake(kWindowWidth - 40,CGFLOAT_MAX);//LableWight标签宽度，固定的
         //计算实际frame大小，并将label的frame变成实际大小
         NSDictionary *dict = @{NSFontAttributeName: [UIFont systemFontOfSize:14.0]};
         CGSize contentSize = [self.userInfo.profile boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
-        return 50 + contentSize.height + 20;
+        return contentSize.height + 20;
     }
     return 150;
+}
+
+#pragma mark - 设置头部和尾部
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    MineProfileTitleView *titleView = [[MineProfileTitleView alloc] init];
+    [titleView.titleBtn setTitle:@"我的标记" forState:UIControlStateNormal];
+    return titleView;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
@@ -242,6 +258,11 @@
     topLine.frame = CGRectMake(0, 0, kWindowWidth, 1);
     [footer addSubview:topLine];
     return footer;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 50;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section

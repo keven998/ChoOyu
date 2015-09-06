@@ -10,4 +10,6 @@
 
 @interface BaseProfileHeaderView : UIView
 
++ (BaseProfileHeaderView *)profileHeaderView;
+
 @end
