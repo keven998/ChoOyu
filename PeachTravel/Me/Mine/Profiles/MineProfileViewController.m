@@ -131,7 +131,6 @@
         return profileTourCell;
     } else {
         GuiderProfileAbout *cell = [[GuiderProfileAbout alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-        cell.titleLab.text = @"关于自己";
         cell.content = self.userInfo.signature;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;

@@ -181,24 +181,6 @@
     }
 }
 
-
-
-/*
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-//    [self updateUserInfo];
-    [MobClick beginLogPageView:@"page_user_profile"];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"page_user_profile"];
-    
-}
- */
-
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -271,7 +253,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
     if (indexPath.section == 0) {
         ExpertProfileTagViewCell *cell = [ExpertProfileTagViewCell expertDetailInfo];
         cell.userInfo = self.userInfo;
@@ -297,14 +278,12 @@
         return profileTourCell;
     } else if (indexPath.section == 3) {
         GuiderProfileAbout *cell = [[GuiderProfileAbout alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-        cell.titleLab.text = @"关于达人";
         cell.content = self.userInfo.signature;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
     else {
         GuiderProfileAbout *cell = [[GuiderProfileAbout alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-        cell.titleLab.text = @"派派点评";
         cell.content = self.userInfo.profile;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
@@ -327,7 +306,6 @@
             tagSumH += 50;
         }
     }
-    NSLog(@"%f",tagSumH);
     return tagSumH;
 }
 
@@ -346,7 +324,7 @@
     } else if (indexPath.section == 2) {
         return 130;
     } else if (indexPath.section == 3) {
-        if (self.userInfo.signature.length == 0) return 50 + 40;
+        if (self.userInfo.signature.length == 0) return 50;
         CGSize size = CGSizeMake(kWindowWidth - 40,CGFLOAT_MAX);//LableWight标签宽度，固定的
         
         //计算实际frame大小，并将label的frame变成实际大小
@@ -354,7 +332,7 @@
         CGSize contentSize = [self.userInfo.signature boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
         return contentSize.height + 20;
     } else if (indexPath.section == 4) {
-        if (self.userInfo.profile.length == 0) return 40;
+        if (self.userInfo.profile.length == 0) return 50;
         CGSize size = CGSizeMake(kWindowWidth - 40,CGFLOAT_MAX);//LableWight标签宽度，固定的
         //计算实际frame大小，并将label的frame变成实际大小
         NSDictionary *dict = @{NSFontAttributeName: [UIFont systemFontOfSize:14.0]};
