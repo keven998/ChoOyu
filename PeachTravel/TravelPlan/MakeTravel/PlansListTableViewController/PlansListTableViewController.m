@@ -107,13 +107,13 @@ static NSString *reusableCell = @"myGuidesCell";
 
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithIcon:@"common_icon_navigaiton_back_normal.png" highIcon:@"common_icon_navigaiton_back_normal.png" target:self action:@selector(goBack)];
     
-    self.tableView = [[UITableView alloc] initWithFrame:self.view.frame];
+    self.tableView = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStyleGrouped];
 
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.backgroundColor = APP_PAGE_COLOR;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.separatorColor = COLOR_LINE;
     [self.tableView registerNib:[UINib nibWithNibName:@"MyGuidesTableViewCell" bundle:nil] forCellReuseIdentifier:reusableCell];
     [self.view addSubview:self.tableView];
     
@@ -556,7 +556,7 @@ static NSString *reusableCell = @"myGuidesCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 164;
+    return 136;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -566,6 +566,8 @@ static NSString *reusableCell = @"myGuidesCell";
     MyGuideSummary *summary = [self.dataSource objectAtIndex:indexPath.row];
     cell.guideSummary = summary;
     cell.isCanSend = _selectToSend;
+    TaoziImage *image = [summary.images firstObject];
+    [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
     
     if ((_copyPatch && indexPath.row == 0) || (_isNewCopy && indexPath.row == 0)) {
         NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"(新复制) %@", summary.title]];
