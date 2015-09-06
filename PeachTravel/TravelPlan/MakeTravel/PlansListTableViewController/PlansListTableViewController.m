@@ -107,13 +107,13 @@ static NSString *reusableCell = @"myGuidesCell";
 
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithIcon:@"common_icon_navigaiton_back_normal.png" highIcon:@"common_icon_navigaiton_back_normal.png" target:self action:@selector(goBack)];
     
-    self.tableView = [[UITableView alloc] initWithFrame:self.view.frame];
+    self.tableView = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStyleGrouped];
 
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.backgroundColor = APP_PAGE_COLOR;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.separatorColor = COLOR_LINE;
     [self.tableView registerNib:[UINib nibWithNibName:@"MyGuidesTableViewCell" bundle:nil] forCellReuseIdentifier:reusableCell];
     [self.view addSubview:self.tableView];
     
@@ -137,25 +137,6 @@ static NSString *reusableCell = @"myGuidesCell";
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_lxp_plan_lists"];
     
-    for (UIViewController *ct in self.navigationController.viewControllers) {
-        NSLog(@"%p", ct);
-        if ([ct isEqual:self]) {
-            [self.navigationController setNavigationBarHidden:NO animated:YES]; //侧滑navigation bar 补丁
-            
-            /*
-            [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:COLOR_TEXT_I, NSForegroundColorAttributeName, nil]];
-            [self.navigationController.navigationBar setBackgroundImage:[ConvertMethods createImageWithColor:APP_PAGE_COLOR] forBarMetrics:UIBarMetricsDefault];
-            [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
-            self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];
-            break;
-             */
-            [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,nil]];
-            [self.navigationController.navigationBar setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forBarMetrics:UIBarMetricsDefault];
-            [self.navigationController.navigationBar setShadowImage:[UIImage imageNamed:@"bg_navigationbar_shadow.png"]];
-            [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-        }
-    }
-    
     _isShowing = YES;
     
     [self pullToRefreash:nil];
@@ -169,16 +150,6 @@ static NSString *reusableCell = @"myGuidesCell";
     if (_swipCell != nil) {
         [_swipCell hideUtilityButtonsAnimated:YES];
         _swipCell = nil;
-    }
-    
-    for (UIViewController *ct in self.navigationController.viewControllers) {
-        NSLog(@"%p", ct);
-        if ([ct isEqual:self]) {
-            [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,nil]];
-            [self.navigationController.navigationBar setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forBarMetrics:UIBarMetricsDefault];
-            [self.navigationController.navigationBar setShadowImage:[UIImage imageNamed:@"bg_navigationbar_shadow.png"]];
-            [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-        }
     }
     _copyPatch = NO;
 }
@@ -376,7 +347,6 @@ static NSString *reusableCell = @"myGuidesCell";
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%@", error);
         [hud hideTZHUD];
         if (self.isShowing) {
             [SVProgressHUD showHint:HTTP_FAILED_HINT];
@@ -564,7 +534,7 @@ static NSString *reusableCell = @"myGuidesCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 164;
+    return 136;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -843,8 +813,6 @@ static NSString *reusableCell = @"myGuidesCell";
 #pragma mark - scrollViewDelegate
 - (void)scrollViewChangeFrame:(UIScrollView *)scrollView
 {
-    NSLog(@"contentOfSet:%f",scrollView.contentOffset.y);
-    
     NSString *scrollH = [NSString stringWithFormat:@"%f",scrollView.contentOffset.y];
     NSDictionary *userInfo = @{@"scrollH": scrollH};
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ChangePlanListFrame" object:nil userInfo:userInfo];

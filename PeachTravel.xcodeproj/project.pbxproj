@@ -381,6 +381,7 @@
 		D993CB601AB6D6590075314E /* HotelPoi.m in Sources */ = {isa = PBXBuildFile; fileRef = D993CB5F1AB6D6590075314E /* HotelPoi.m */; };
 		D9980C7C1B66157900FAA28B /* chatbar_text_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9980C7B1B66157900FAA28B /* chatbar_text_background@2x.png */; };
 		D99D8EE519C8600C0021C25B /* PeachTravelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D99D8EE419C8600C0021C25B /* PeachTravelTests.m */; };
+		D9A380EF1B9C3CEC000B5B66 /* navi_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A380EE1B9C3CEC000B5B66 /* navi_bg@2x.png */; };
 		D9A8001A1A80D52F005AD701 /* Destinations.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FFDA1A80D52F005AD701 /* Destinations.m */; };
 		D9A8001B1A80D52F005AD701 /* CityCardReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FFDD1A80D52F005AD701 /* CityCardReusableView.m */; };
 		D9A8001C1A80D52F005AD701 /* DomesticViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FFDF1A80D52F005AD701 /* DomesticViewController.m */; };
@@ -1886,6 +1887,7 @@
 		D99D8EDE19C8600C0021C25B /* PeachTravelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PeachTravelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D99D8EE319C8600C0021C25B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D99D8EE419C8600C0021C25B /* PeachTravelTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PeachTravelTests.m; sourceTree = "<group>"; };
+		D9A380EE1B9C3CEC000B5B66 /* navi_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navi_bg@2x.png"; sourceTree = "<group>"; };
 		D9A800011A80D52F005AD701 /* RestaurantsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantsListViewController.h; sourceTree = "<group>"; };
 		D9A800021A80D52F005AD701 /* RestaurantsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantsListViewController.m; sourceTree = "<group>"; };
 		D9A800041A80D52F005AD701 /* ShareActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareActivity.h; sourceTree = "<group>"; };
@@ -6503,6 +6505,7 @@
 		E6F187031B845F4800232EEB /* CommonImages */ = {
 			isa = PBXGroup;
 			children = (
+				D9A380EE1B9C3CEC000B5B66 /* navi_bg@2x.png */,
 				D971E2A41B90574B007E5AFD /* textfield_bgk@2x.png */,
 				E6F187041B845F4800232EEB /* bg_navigationbar_shadow@2x.png */,
 				E6F187051B845F4800232EEB /* bg_navigationbar_shadow@3x.png */,
@@ -7372,6 +7375,7 @@
 				E6F189811B845F4900232EEB /* poi_button_traffic_default@2x.png in Resources */,
 				E6F18ADD1B845F4900232EEB /* chat_drawer_add@2x.png in Resources */,
 				E6F18A5F1B845F4900232EEB /* ic_home_header_unlogin@3x.png in Resources */,
+				D9A380EF1B9C3CEC000B5B66 /* navi_bg@2x.png in Resources */,
 				E6F189911B845F4900232EEB /* poi_icon_phone@2x.png in Resources */,
 				27FF1AE61B09AFB100643D77 /* OtherUserBasicInfoCell.xib in Resources */,
 				E6F189EE1B845F4900232EEB /* plan_bottom_hotel@3x.png in Resources */,

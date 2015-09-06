@@ -126,21 +126,35 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="aB5-vv-4mc" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="4Lj-Lv-hnn"/>
-                    <constraint firstAttribute="trailing" secondItem="1br-w7-Gyw" secondAttribute="trailing" constant="17" id="6Ky-3W-bwZ"/>
-                    <constraint firstItem="FX5-5D-sXI" firstAttribute="leading" secondItem="aB5-vv-4mc" secondAttribute="trailing" constant="8" id="BVB-La-LFx"/>
+                    <constraint firstAttribute="trailing" secondItem="1br-w7-Gyw" secondAttribute="trailing" constant="17" id="6Ky-3W-bwZ">
+                        <variation key="widthClass=compact" constant="14"/>
+                    </constraint>
+                    <constraint firstItem="FX5-5D-sXI" firstAttribute="leading" secondItem="aB5-vv-4mc" secondAttribute="trailing" constant="8" id="BVB-La-LFx">
+                        <variation key="widthClass=compact" constant="11"/>
+                    </constraint>
                     <constraint firstItem="FX5-5D-sXI" firstAttribute="top" secondItem="sTG-fZ-1py" secondAttribute="bottom" constant="5" id="DPs-HA-WJV"/>
-                    <constraint firstAttribute="trailing" secondItem="FX5-5D-sXI" secondAttribute="trailing" constant="8" id="ELi-HE-wTC"/>
+                    <constraint firstAttribute="trailing" secondItem="FX5-5D-sXI" secondAttribute="trailing" constant="8" id="ELi-HE-wTC">
+                        <variation key="widthClass=compact" constant="5"/>
+                    </constraint>
                     <constraint firstItem="aB5-vv-4mc" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="OpI-QZ-tRw">
                         <variation key="widthClass=compact" constant="16"/>
                     </constraint>
                     <constraint firstItem="1br-w7-Gyw" firstAttribute="top" secondItem="FX5-5D-sXI" secondAttribute="bottom" constant="4" id="Pqq-yz-VgO"/>
-                    <constraint firstItem="1br-w7-Gyw" firstAttribute="leading" secondItem="aB5-vv-4mc" secondAttribute="trailing" constant="8" id="Q1g-n5-hB0"/>
-                    <constraint firstItem="Rtr-c5-dr5" firstAttribute="leading" secondItem="aB5-vv-4mc" secondAttribute="trailing" constant="8" id="Q7J-GN-Sd5"/>
+                    <constraint firstItem="1br-w7-Gyw" firstAttribute="leading" secondItem="aB5-vv-4mc" secondAttribute="trailing" constant="8" id="Q1g-n5-hB0">
+                        <variation key="widthClass=compact" constant="11"/>
+                    </constraint>
+                    <constraint firstItem="Rtr-c5-dr5" firstAttribute="leading" secondItem="aB5-vv-4mc" secondAttribute="trailing" constant="8" id="Q7J-GN-Sd5">
+                        <variation key="widthClass=compact" constant="11"/>
+                    </constraint>
                     <constraint firstItem="Rtr-c5-dr5" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="26" id="SUP-24-ygD">
                         <variation key="widthClass=compact" constant="18"/>
                     </constraint>
-                    <constraint firstItem="sTG-fZ-1py" firstAttribute="leading" secondItem="aB5-vv-4mc" secondAttribute="trailing" constant="8" id="eTc-40-7Y6"/>
-                    <constraint firstAttribute="trailing" secondItem="sTG-fZ-1py" secondAttribute="trailing" constant="8" id="vNH-WE-Ece"/>
+                    <constraint firstItem="sTG-fZ-1py" firstAttribute="leading" secondItem="aB5-vv-4mc" secondAttribute="trailing" constant="8" id="eTc-40-7Y6">
+                        <variation key="widthClass=compact" constant="11"/>
+                    </constraint>
+                    <constraint firstAttribute="trailing" secondItem="sTG-fZ-1py" secondAttribute="trailing" constant="8" id="vNH-WE-Ece">
+                        <variation key="widthClass=compact" constant="53"/>
+                    </constraint>
                     <constraint firstItem="sTG-fZ-1py" firstAttribute="top" secondItem="Rtr-c5-dr5" secondAttribute="bottom" constant="5" id="vqx-5m-boH">
                         <variation key="widthClass=compact" constant="8"/>
                     </constraint>
@@ -204,7 +218,7 @@
                 <outlet property="timeLabel" destination="1br-w7-Gyw" id="Eda-vL-IGl"/>
                 <outlet property="titleBtn" destination="sTG-fZ-1py" id="ThX-8c-hGU"/>
             </connections>
-            <point key="canvasLocation" x="43" y="80.5"/>
+            <point key="canvasLocation" x="43" y="80"/>
         </tableViewCell>
     </objects>
 </document>
