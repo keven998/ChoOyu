@@ -33,6 +33,7 @@
                 <constraint firstItem="YxP-3D-aoa" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="jnP-Sg-Ayu"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
+            <point key="canvasLocation" x="18" y="45"/>
         </view>
     </objects>
 </document>

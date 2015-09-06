@@ -11,6 +11,7 @@
 #import "SettingHomeViewController.h"
 #import "MineHeaderView.h"
 #import "MineContentRootViewController.h"
+
 @interface MineViewContoller () <UIScrollViewDelegate>
 {
     CGFloat contentOffsetY;
@@ -86,7 +87,12 @@
     self.topView = topView;
     [self.view addSubview:topView];
     
+    // 添加手势
+    UITapGestureRecognizer *tapHeaderView = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHeaderView:)];
+    [topView addGestureRecognizer:tapHeaderView];
+    
     MineContentRootViewController *contentViewCtl = [[MineContentRootViewController alloc] init];
+    contentViewCtl.view.backgroundColor = APP_PAGE_COLOR;
     self.contentViewCtl = contentViewCtl;
     [self addChildViewController:contentViewCtl];
     [self.view addSubview:contentViewCtl.view];
@@ -143,6 +149,14 @@
         [self topViewScrollToBottom];
         
     }
+}
+
+// 点击头部进入个人Profile
+- (void)tapHeaderView:(UITapGestureRecognizer *)tap
+{
+    NSLog(@"---------");
+    MineProfileViewController *profile = [[MineProfileViewController alloc] init];
+    [self.navigationController pushViewController:profile animated:YES];
 }
 
 @end
