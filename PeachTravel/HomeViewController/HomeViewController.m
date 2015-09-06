@@ -112,6 +112,11 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     if ((!shouldSkipIntroduce && kShouldShowIntroduceWhenFirstLaunch) || !kIsNotFirstInstall) {
         [self beginIntroduce];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:[[AppUtils alloc] init].appVersion];
+    } else {
+        _coverView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+        [self.view addSubview:_coverView];
+        [self loadCoverData];
+        [self updateBackgroundData:[[NSUserDefaults standardUserDefaults] objectForKey:kBackGroundImage]];
     }
 }
 
@@ -209,7 +214,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 #pragma mark - loadStroy
 
-- (void)loadData
+- (void)loadCoverData
 {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
@@ -238,8 +243,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
             if (!([[[responseObject objectForKey:@"result"] objectForKey:@"image"] isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:kBackGroundImage]])) {
                 [self updateBackgroundData:[[responseObject objectForKey:@"result"] objectForKey:@"image"]];
             }
-        } else {
-            
         }
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -267,6 +270,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 }
 
 #pragma mark - help
+
 - (void)beginIntroduce
 {
     _coverView.hidden = YES;
@@ -391,14 +395,15 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (void)customizeTabBarForController
 {
     
-    NSArray *tabBarItemImages = @[@"ic_home", @"ic_loc", @"ic_loc", @"ic_person"];
+    NSArray *tabBarItemImages = @[@"ic_tabbar_chat", @"ic_tabbar_expert", @"ic_tabbar_search", @"ic_tabbar_mine"];
+    NSArray *tabbarItemNames = @[@"消息", @"达人", @"搜索", @"我的"];
     NSInteger index = 0;
     
     for (UITabBarItem *item in self.tabBar.items) {
         //        item.title = titles[index];
         item.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@_normal", [tabBarItemImages objectAtIndex:index]]];
         item.selectedImage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_selected", [tabBarItemImages objectAtIndex:index]]];
-        item.imageInsets = UIEdgeInsetsMake(7, 0, -7, 0);
+        item.title = [tabbarItemNames objectAtIndex:index];
         index++;
     }
     [self showSomeTabbarNoti];

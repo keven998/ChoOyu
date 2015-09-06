@@ -48,7 +48,6 @@
     [UINavigationBar appearance].layer.shadowRadius = 10.0f;//阴影半径
     
     [UIApplication sharedApplication].statusBarHidden = NO;
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = APP_PAGE_COLOR;
