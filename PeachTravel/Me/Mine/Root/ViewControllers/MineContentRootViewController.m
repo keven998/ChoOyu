@@ -140,7 +140,6 @@
 
 - (void)changePage:(NSUInteger)pageIndex
 {
-    NSLog(@"切换到第 %ld", pageIndex);
     UIButton *sender = [_segmentBtns objectAtIndex:pageIndex];
     for (UIButton *btn in _segmentBtns) {
         btn.selected = NO;
