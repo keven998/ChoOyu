@@ -72,8 +72,14 @@
     // 4.照片
     UIImageView *albumImage = [[UIImageView alloc] init];
     albumImage.backgroundColor = [UIColor greenColor];
-    
     self.albumImage = albumImage;
+    
+    // 5.右边箭头
+    UIButton *arrowBtn = [[UIButton alloc] init];
+    [arrowBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+//    [arrowBtn addTarget:self action:@selector(clickArrowBtn:) forControlEvents:UIControlEventTouchUpInside];
+    self.arrowBtn = arrowBtn;
+    [self addSubview:arrowBtn];
 }
 
 - (void)layoutSubviews
@@ -84,6 +90,7 @@
     self.collectionView.frame = CGRectMake(10, 10, kWindowWidth - 30, collectionW);
     
     self.albumImage.frame = CGRectMake(0, 0, collectionW, collectionW);
+    self.arrowBtn.frame = CGRectMake(kWindowWidth-CGRectGetMaxX(self.collectionView.frame), 0, 20, collectionW+20);
 }
 
 #pragma mark - 实现数据源方法和代理方法

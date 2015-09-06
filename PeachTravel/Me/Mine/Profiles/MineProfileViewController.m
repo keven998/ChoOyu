@@ -80,10 +80,9 @@
     self.tableView.showsVerticalScrollIndicator = NO;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
-//    BaseProfileHeaderView *headerView = [BaseProfileHeaderView profileHeaderView];
     BaseProfileHeaderView *headerView = [[BaseProfileHeaderView alloc] init];
-    headerView.frame = CGRectMake(0, 0, kWindowWidth, 200);
-    headerView.backgroundColor = [UIColor redColor];
+    headerView.frame = CGRectMake(0, 0, kWindowWidth, 310);
+    headerView.image = [UIImage imageNamed:@"testpicture"];
     self.tableView.tableHeaderView = headerView;
 }
 
