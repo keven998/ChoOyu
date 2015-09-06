@@ -141,10 +141,18 @@ static NSString *reusableCell = @"myGuidesCell";
         NSLog(@"%p", ct);
         if ([ct isEqual:self]) {
             [self.navigationController setNavigationBarHidden:NO animated:YES]; //侧滑navigation bar 补丁
+            
+            /*
             [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:COLOR_TEXT_I, NSForegroundColorAttributeName, nil]];
             [self.navigationController.navigationBar setBackgroundImage:[ConvertMethods createImageWithColor:APP_PAGE_COLOR] forBarMetrics:UIBarMetricsDefault];
             [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
-            self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];            break;
+            self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];
+            break;
+             */
+            [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,nil]];
+            [self.navigationController.navigationBar setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forBarMetrics:UIBarMetricsDefault];
+            [self.navigationController.navigationBar setShadowImage:[UIImage imageNamed:@"bg_navigationbar_shadow.png"]];
+            [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
         }
     }
     
