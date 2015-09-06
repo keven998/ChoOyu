@@ -7,7 +7,6 @@
 //
 
 #import "GuiderDetailInfoCell.h"
-#import "GuiderProfileHeaderView.h"
 #import "GuiderProfileImageView.h"
 #import "PeachTravel-Swift.h"
 #import "TaoziCollectionLayout.h"
@@ -73,12 +72,6 @@
     
     [self addSubview:collectionView];
     
-    
-    //3.加载年龄,星座,城市等信息
-    GuiderProfileHeaderView *profileView = [[GuiderProfileHeaderView alloc] init];
-    self.profileView = profileView;
-    [self addSubview:profileView];
-    
 }
 
 - (void)layoutSubviews
@@ -87,15 +80,12 @@
     self.profileHeader.frame = CGRectMake(0, 0, kWindowWidth, kWindowWidth);
     self.name.frame = CGRectMake(26.7, CGRectGetMaxY(self.profileHeader.frame)+12, 200, 25);
     self.collectionView.frame = CGRectMake(10, CGRectGetMaxY(self.name.frame), kWindowWidth-20, 85);
-    self.profileView.frame = CGRectMake(0, CGRectGetMaxY(self.collectionView.frame), kWindowWidth, 90);
 }
 
 #pragma mark - 设置数据
 - (void)setUserInfo:(FrendModel *)userInfo
 {
     _userInfo = userInfo;
-    
-    self.profileView.userInfo = userInfo;
     
     // 设置数据
     NSURL *url = [NSURL URLWithString:userInfo.avatar];
@@ -112,8 +102,6 @@
 {
     _accountModel = accountModel;
     
-    self.profileView.accountModel = accountModel;
-    
     // 设置数据
     NSURL *url = [NSURL URLWithString:accountModel.avatar];
     [self.profileHeader.imageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"ic_home_avatar_unknown.png"]];
@@ -121,8 +109,6 @@
     
     // 隐藏collectionView
     self.collectionView.hidden = YES;
-    self.profileView.friendBtn.hidden = YES;
-    self.profileView.sendBtn.hidden = YES;
 }
 
 - (void)setCollectionArray:(NSArray *)collectionArray

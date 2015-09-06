@@ -21,6 +21,8 @@
 @property (nonatomic, strong) UIButton *addFriendBtn;
 @property (nonatomic, strong) UIButton *beginTalk;
 
+@property (nonatomic, strong) NSArray *tags;
+
 @end
 
 @implementation GuiderProfileViewController
@@ -50,6 +52,8 @@
     [self setupHeaderView];
     [self createFooterBar];
     [self setupNavBar];
+    
+    self.tags = @[@"哈哈",@"嘿嘿和",@"呵呵呵呵",@"额额",@"哈哈",@"嘿嘿和",@"呵呵呵呵",@"哈哈",@"嘿嘿和",@"呵呵呵呵",@"额额",@"哈哈",@"嘿嘿和",@"呵呵呵呵",@"哈哈",@"嘿嘿和",@"呵呵呵呵",@"额额",@"哈哈",@"嘿嘿和"];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -271,7 +275,7 @@
     if (indexPath.section == 0) {
         ExpertProfileTagViewCell *cell = [ExpertProfileTagViewCell expertDetailInfo];
         cell.userInfo = self.userInfo;
-        cell.collectionArray = @[@"哈哈",@"嘿嘿和",@"呵呵呵呵",@"额额",@"哈哈",@"嘿嘿和",@"呵呵呵呵"];
+        cell.collectionArray = self.tags;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     } else if (indexPath.section == 1) {
@@ -307,6 +311,26 @@
     }
 }
 
+// 计算collectionViewCell的高度
+- (CGFloat)calculateTagsHeight
+{
+    NSArray *tags = self.tags;
+    CGFloat tagSumH = 50;
+    CGFloat tagSumW = 0;
+    for (NSString *tag in tags) {
+        CGSize size = CGSizeMake(kWindowWidth - 40,CGFLOAT_MAX);
+        NSDictionary *dict = @{NSFontAttributeName: [UIFont systemFontOfSize:17.0]};
+        CGSize contentSize = [tag boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
+        tagSumW += contentSize.width+10;
+        if (tagSumW > kWindowWidth-20) {
+            tagSumW = 0;
+            tagSumH += 50;
+        }
+    }
+    NSLog(@"%f",tagSumH);
+    return tagSumH;
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
@@ -315,7 +339,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        return 100;
+        return [self calculateTagsHeight];
     } else if (indexPath.section == 1) {
         CGFloat collectionW = (kWindowWidth-10-20) / 3;
         return collectionW + 20;
