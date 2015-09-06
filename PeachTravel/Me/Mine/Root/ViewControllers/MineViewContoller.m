@@ -11,6 +11,7 @@
 #import "SettingHomeViewController.h"
 #import "MineHeaderView.h"
 #import "MineContentRootViewController.h"
+
 @interface MineViewContoller () <UIScrollViewDelegate>
 {
     CGFloat contentOffsetY;
@@ -21,7 +22,7 @@
 }
 
 @property (nonatomic, weak) UIScrollView *scrollView;
-@property (nonatomic, weak) UIImageView *topView;
+@property (nonatomic, weak) MineHeaderView *topView;
 @property (nonatomic, weak) UIViewController *contentViewCtl;
 
 @end
@@ -79,8 +80,7 @@
 // 设置scrollView
 - (void)setupMainView
 {
-    MineHeaderView *topView = [[MineHeaderView alloc] init];
-    topView.frame = CGRectMake(0, 0, kWindowWidth, TopViewH);
+    MineHeaderView *topView = [[MineHeaderView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, TopViewH)];
     topView.image = [UIImage imageNamed:@"testpicture"];
     topView.contentMode = UIViewContentModeScaleAspectFill;
     self.topView = topView;
@@ -100,7 +100,7 @@
 {
     [UIView animateWithDuration:0.3 animations:^{
         self.topView.frame = CGRectMake(0, -TopViewH+64, kWindowWidth, TopViewH-64);
-        
+        _topView.contentView.alpha = 0;
         _contentViewCtl.view.frame = CGRectMake(0, 64, kWindowWidth, kWindowHeight - 64 - 49);
     }];
 }
@@ -110,7 +110,7 @@
 {
     [UIView animateWithDuration:0.3 animations:^{
         self.topView.frame = CGRectMake(0, 0, kWindowWidth, TopViewH);
-        
+        _topView.contentView.alpha = 1;
         _contentViewCtl.view.frame = CGRectMake(0, TopViewH, kWindowWidth, kWindowHeight-TopViewH-49);
 
     }];

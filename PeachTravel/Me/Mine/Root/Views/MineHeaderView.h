@@ -20,4 +20,6 @@
 
 @property (nonatomic, strong) AccountModel *account;
 
+@property (nonatomic, strong) UIView *contentView;
+
 @end

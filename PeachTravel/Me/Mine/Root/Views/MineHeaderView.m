@@ -11,6 +11,7 @@
 @implementation MineHeaderView
 
 #pragma mark - lifeCycle
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
@@ -23,6 +24,8 @@
 
 - (void)setupMainView
 {
+    _contentView = [[UIView alloc] initWithFrame:self.bounds];
+    [self addSubview:_contentView];
     // 1.头像
     UIImageView *avatar = [[UIImageView alloc] init];
     avatar.layer.cornerRadius = 65*0.5;
@@ -30,7 +33,7 @@
     self.avatar = avatar;
     NSURL *url = [NSURL URLWithString:self.account.avatar];
     [self.avatar sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"ic_home_avatar_unknown.png"]];
-    [self addSubview:avatar];
+    [_contentView addSubview:avatar];
     
     // 2.昵称
     UILabel *nickName = [[UILabel alloc] init];
@@ -38,7 +41,7 @@
     nickName.textColor = UIColorFromRGB(0xFFFFFF);
     nickName.text = self.account.nickName;
     self.nickName = nickName;
-    [self addSubview:nickName];
+    [_contentView addSubview:nickName];
     
     // 3.用户Id
     UILabel *userId = [[UILabel alloc] init];
@@ -46,7 +49,7 @@
     userId.textColor = UIColorFromRGB(0xFFFFFF);
     userId.text = [NSString stringWithFormat:@"%ld",self.account.userId];
     self.userId = userId;
-    [self addSubview:userId];
+    [_contentView addSubview:userId];
     
     // 4.性别
     UILabel *sex = [[UILabel alloc] init];
@@ -58,7 +61,7 @@
         sex.text = @"女";
     }
     self.sex = sex;
-    [self addSubview:sex];
+    [_contentView addSubview:sex];
     
     // 5.星座
     UILabel *costellation = [[UILabel alloc] init];
@@ -66,7 +69,7 @@
     costellation.textColor = UIColorFromRGB(0xFFFFFF);
     costellation.text = [FrendModel costellationDescWithBirthday:self.account.birthday];
     self.costellation = costellation;
-    [self addSubview:costellation];
+    [_contentView addSubview:costellation];
     
     // 6.等级
     UILabel *level = [[UILabel alloc] init];
@@ -74,13 +77,14 @@
     level.textColor = UIColorFromRGB(0xFFFFFF);
     level.text = @"LV1";
     self.level = level;
-    [self addSubview:level];
+    [_contentView addSubview:level];
+    
+    [self updateSubviewsFrame];
 
 }
 
-- (void)layoutSubviews
+- (void)updateSubviewsFrame
 {
-    [super layoutSubviews];
     CGFloat contentH = self.frame.size.height;
     
     CGFloat avatarW = 65;
