@@ -107,13 +107,13 @@ static NSString *reusableCell = @"myGuidesCell";
 
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithIcon:@"common_icon_navigaiton_back_normal.png" highIcon:@"common_icon_navigaiton_back_normal.png" target:self action:@selector(goBack)];
     
-    self.tableView = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStyleGrouped];
+    self.tableView = [[UITableView alloc] initWithFrame:self.view.frame];
 
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.backgroundColor = APP_PAGE_COLOR;
-    self.tableView.separatorColor = COLOR_LINE;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerNib:[UINib nibWithNibName:@"MyGuidesTableViewCell" bundle:nil] forCellReuseIdentifier:reusableCell];
     [self.view addSubview:self.tableView];
     
@@ -140,11 +140,18 @@ static NSString *reusableCell = @"myGuidesCell";
     for (UIViewController *ct in self.navigationController.viewControllers) {
         if ([ct isEqual:self]) {
             [self.navigationController setNavigationBarHidden:NO animated:YES]; //侧滑navigation bar 补丁
+            
+            /*
             [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:COLOR_TEXT_I, NSForegroundColorAttributeName, nil]];
             [self.navigationController.navigationBar setBackgroundImage:[ConvertMethods createImageWithColor:APP_PAGE_COLOR] forBarMetrics:UIBarMetricsDefault];
             [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
             self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];
             break;
+             */
+            [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,nil]];
+            [self.navigationController.navigationBar setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forBarMetrics:UIBarMetricsDefault];
+            [self.navigationController.navigationBar setShadowImage:[UIImage imageNamed:@"bg_navigationbar_shadow.png"]];
+            [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
         }
     }
     
@@ -163,11 +170,15 @@ static NSString *reusableCell = @"myGuidesCell";
         _swipCell = nil;
     }
     
-    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,nil]];
-    [self.navigationController.navigationBar setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setShadowImage:[UIImage imageNamed:@"bg_navigationbar_shadow.png"]];
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-
+    for (UIViewController *ct in self.navigationController.viewControllers) {
+        NSLog(@"%p", ct);
+        if ([ct isEqual:self]) {
+            [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,nil]];
+            [self.navigationController.navigationBar setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forBarMetrics:UIBarMetricsDefault];
+            [self.navigationController.navigationBar setShadowImage:[UIImage imageNamed:@"bg_navigationbar_shadow.png"]];
+            [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+        }
+    }
     _copyPatch = NO;
 }
 
@@ -551,7 +562,7 @@ static NSString *reusableCell = @"myGuidesCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 136;
+    return 164;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -561,8 +572,6 @@ static NSString *reusableCell = @"myGuidesCell";
     MyGuideSummary *summary = [self.dataSource objectAtIndex:indexPath.row];
     cell.guideSummary = summary;
     cell.isCanSend = _selectToSend;
-    TaoziImage *image = [summary.images firstObject];
-    [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
     
     if ((_copyPatch && indexPath.row == 0) || (_isNewCopy && indexPath.row == 0)) {
         NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"(新复制) %@", summary.title]];

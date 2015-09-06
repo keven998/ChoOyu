@@ -49,7 +49,53 @@
     [self setupTableView];
     [self setupHeaderView];
     [self createFooterBar];
+    [self setupNavBar];
+    
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navigation_bar_background.png"] forBarMetrics:UIBarMetricsCompact];
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
+    
 }
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
+
+#pragma mark - 设置导航栏
+
+- (void)setupNavBar
+{
+    UIButton *editButton = [[UIButton alloc] initWithFrame:CGRectMake(kWindowWidth - 56, 33, 36, 19)];
+    [editButton setTitle:@"设置" forState:UIControlStateNormal];
+    [editButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    editButton.titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
+    [editButton addTarget:self action:@selector(editMineProfile) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:editButton];
+    
+    UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake((kWindowWidth-108)*0.5, 33, 108, 19)];
+    titleLab.text = @"我的·旅行派";
+    titleLab.textAlignment = NSTextAlignmentCenter;
+    titleLab.font = [UIFont boldSystemFontOfSize:18.0];
+    titleLab.textColor = [UIColor whiteColor];
+    [self.view addSubview:titleLab];
+    
+    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake( 10, 33, 36, 19)];
+    [backButton setTitle:@"返回" forState:UIControlStateNormal];
+    [backButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    backButton.titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
+    [backButton addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:backButton];
+}
+
 
 - (void)setupHeaderView {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 44)];
@@ -71,14 +117,21 @@
 
 }
 
+- (void)back
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 #pragma mark - 设置tableView的一些属性
 - (void)setupTableView
 {
     self.tableView.showsVerticalScrollIndicator = NO;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    BaseProfileHeaderView *headerView = [BaseProfileHeaderView profileHeaderView];
-    headerView.frame = CGRectMake(0, 0, kWindowWidth, 250);
+//    BaseProfileHeaderView *headerView = [BaseProfileHeaderView profileHeaderView];
+    BaseProfileHeaderView *headerView = [[BaseProfileHeaderView alloc] init];
+//    headerView.backgroundColor = [UIColor redColor];
+    headerView.frame = CGRectMake(0, 0, kWindowWidth, 310);
     self.tableView.tableHeaderView = headerView;
 }
 
@@ -127,6 +180,8 @@
 }
 
 
+
+/*
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 //    [self updateUserInfo];
@@ -140,6 +195,7 @@
     [MobClick endLogPageView:@"page_user_profile"];
     
 }
+ */
 
 - (void)viewDidAppear:(BOOL)animated
 {
