@@ -17,7 +17,6 @@
     CGFloat contentOffsetY;
     CGFloat oldContentOffsetY;
     CGFloat newContentOffsetY;
-    
     CGFloat TopViewH;
 }
 
@@ -30,6 +29,7 @@
 @implementation MineViewContoller
 
 #pragma mark - lifeCycle
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -56,7 +56,6 @@
 {
     [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-
 }
 
 #pragma mark - 设置导航栏
@@ -65,15 +64,16 @@
 {
     UIButton *editButton = [[UIButton alloc] initWithFrame:CGRectMake(kWindowWidth - 56, 33, 36, 19)];
     [editButton setTitle:@"设置" forState:UIControlStateNormal];
-    [editButton setTitleColor:UIColorFromRGB(0xFFFFFF) forState:UIControlStateNormal];
+    [editButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     editButton.titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
     [editButton addTarget:self action:@selector(showSettingCtl:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:editButton];
 
     UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake((kWindowWidth-108)*0.5, 33, 108, 19)];
     titleLab.text = @"我的·旅行派";
+    titleLab.textAlignment = NSTextAlignmentCenter;
     titleLab.font = [UIFont boldSystemFontOfSize:18.0];
-    titleLab.textColor = UIColorFromRGB(0xFFFFFF);
+    titleLab.textColor = [UIColor whiteColor];
     [self.view addSubview:titleLab];
 }
 
@@ -100,6 +100,7 @@
 }
 
 #pragma mark - 实现头部View的滚动
+
 // 向上滚动
 - (void)topViewScrollToTop
 {
@@ -117,10 +118,8 @@
         self.topView.frame = CGRectMake(0, 0, kWindowWidth, TopViewH);
         _topView.contentView.alpha = 1;
         _contentViewCtl.view.frame = CGRectMake(0, TopViewH, kWindowWidth, kWindowHeight-TopViewH-49);
-
     }];
 }
-
 
 #pragma mark - action
 /**
