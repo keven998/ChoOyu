@@ -11,6 +11,7 @@
 @implementation MineHeaderView
 
 #pragma mark - lifeCycle
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
@@ -23,6 +24,8 @@
 
 - (void)setupMainView
 {
+    _contentView = [[UIView alloc] initWithFrame:self.bounds];
+    [self addSubview:_contentView];
     // 1.头像
     UIImageView *avatar = [[UIImageView alloc] init];
     avatar.layer.cornerRadius = 65*0.5;
@@ -30,7 +33,7 @@
     self.avatar = avatar;
     NSURL *url = [NSURL URLWithString:self.account.avatar];
     [self.avatar sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"ic_home_avatar_unknown.png"]];
-    [self addSubview:avatar];
+    [_contentView addSubview:avatar];
     
     // 2.昵称
     UILabel *nickName = [[UILabel alloc] init];
@@ -38,7 +41,7 @@
     nickName.textColor = UIColorFromRGB(0xFFFFFF);
     nickName.text = self.account.nickName;
     self.nickName = nickName;
-    [self addSubview:nickName];
+    [_contentView addSubview:nickName];
     
     // 3.用户Id
     UILabel *userId = [[UILabel alloc] init];
@@ -46,41 +49,37 @@
     userId.textColor = UIColorFromRGB(0xFFFFFF);
     userId.text = [NSString stringWithFormat:@"%ld",self.account.userId];
     self.userId = userId;
-    [self addSubview:userId];
+    [_contentView addSubview:userId];
     
     // 4.性别
-    UILabel *sex = [[UILabel alloc] init];
-    sex.font = [UIFont boldSystemFontOfSize:12.0];
-    sex.textColor = UIColorFromRGB(0xFFFFFF);
-    if (self.account.gender == Male) {
-        sex.text = @"男";
-    } else {
-        sex.text = @"女";
+    UILabel *tempLabel = [[UILabel alloc] init];
+    tempLabel.font = [UIFont boldSystemFontOfSize:12.0];
+    tempLabel.textColor = UIColorFromRGB(0xFFFFFF);
+    self.subtitleLabel = tempLabel;
+    [_contentView addSubview:self.subtitleLabel];
+    
+    NSMutableString *subtitleStr = [[NSMutableString alloc] init];
+    
+    if (_account.gender == Male) {
+        [subtitleStr appendString:@"男  "];
+    } else if (_account.gender == Female) {
+        [subtitleStr appendString:@"女  "];
     }
-    self.sex = sex;
-    [self addSubview:sex];
+    if (_account.birthday) {
+        NSString *str = [FrendModel costellationDescWithBirthday:_account.birthday];
+        [subtitleStr appendString:[NSString stringWithFormat:@"%@  ", str]];
+    }
+    if (_account.level) {
+        [subtitleStr appendString:[NSString stringWithFormat:@"LV%ld", _account.level]];
+    }
     
-    // 5.星座
-    UILabel *costellation = [[UILabel alloc] init];
-    costellation.font = [UIFont boldSystemFontOfSize:12.0];
-    costellation.textColor = UIColorFromRGB(0xFFFFFF);
-    costellation.text = [FrendModel costellationDescWithBirthday:self.account.birthday];
-    self.costellation = costellation;
-    [self addSubview:costellation];
-    
-    // 6.等级
-    UILabel *level = [[UILabel alloc] init];
-    level.font = [UIFont boldSystemFontOfSize:12.0];
-    level.textColor = UIColorFromRGB(0xFFFFFF);
-    level.text = @"LV1";
-    self.level = level;
-    [self addSubview:level];
+    self.subtitleLabel.text = subtitleStr;
+    [self updateSubviewsFrame];
 
 }
 
-- (void)layoutSubviews
+- (void)updateSubviewsFrame
 {
-    [super layoutSubviews];
     CGFloat contentH = self.frame.size.height;
     
     CGFloat avatarW = 65;
@@ -90,12 +89,10 @@
     //计算实际frame大小，并将label的frame变成实际大小
     NSDictionary *dict = @{NSFontAttributeName: [UIFont fontWithName:@"STHeitiSC-Medium" size:16.0]};
     CGSize nickNameSize = [self.account.nickName boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
-    self.nickName.frame = CGRectMake(CGRectGetMaxX(self.avatar.frame)+5, contentH-16-46, nickNameSize.width, 16);
+    self.nickName.frame = CGRectMake(CGRectGetMaxX(self.avatar.frame)+5, contentH-16-46, nickNameSize.width+2, 16);
     
     self.userId.frame = CGRectMake(CGRectGetMaxX(self.nickName.frame)+10, contentH-12-46, 100, 12);
-    self.sex.frame = CGRectMake(CGRectGetMaxX(self.avatar.frame)+5, CGRectGetMaxY(self.nickName.frame)+10, 12, 12);
-    self.costellation.frame = CGRectMake(CGRectGetMaxX(self.sex.frame)+12, CGRectGetMaxY(self.nickName.frame)+10, 36, 12);
-    self.level.frame = CGRectMake(CGRectGetMaxX(self.costellation.frame)+12, CGRectGetMaxY(self.nickName.frame)+10, 21+16, 12);
+    self.subtitleLabel.frame = CGRectMake(CGRectGetMaxX(self.avatar.frame)+5, CGRectGetMaxY(self.nickName.frame)+10, kWindowWidth-CGRectGetMaxX(self.avatar.frame)-10, 12);
 }
 
 - (void)setAccount:(AccountModel *)account

@@ -27,7 +27,7 @@
 //保存 包含的 controller
 @property (nonatomic, strong) NSArray *contentControllers;
 
-@property (nonatomic, strong)  UIScrollView *contentView;
+@property (nonatomic, strong) UIScrollView *contentView;
 
 @property (nonatomic, strong) UIView *indicatorView;
 

@@ -14,10 +14,10 @@
 @property (nonatomic, weak) UIImageView *avatar;
 @property (nonatomic, weak) UILabel *nickName;
 @property (nonatomic, weak) UILabel *userId;
-@property (nonatomic, weak) UILabel *sex;
-@property (nonatomic, weak) UILabel *costellation;
-@property (nonatomic, weak) UILabel *level;
+@property (nonatomic, weak) UILabel *subtitleLabel;
 
 @property (nonatomic, strong) AccountModel *account;
+
+@property (nonatomic, strong) UIView *contentView;
 
 @end
