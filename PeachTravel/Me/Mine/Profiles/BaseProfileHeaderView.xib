@@ -8,23 +8,59 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="BaseProfileHeaderView">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Default.png" translatesAutoresizingMaskIntoConstraints="NO" id="gP8-cn-Zox">
-                    <rect key="frame" x="142" y="21" width="91" height="87"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Default.png" translatesAutoresizingMaskIntoConstraints="NO" id="gP8-cn-Zox">
+                    <rect key="frame" x="142" y="60" width="90" height="90"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="90" id="8ea-6k-PBs"/>
+                        <constraint firstAttribute="height" constant="90" id="r6e-Tq-BPi"/>
+                    </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6yJ-cy-hrM">
-                    <rect key="frame" x="166" y="127" width="42" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6yJ-cy-hrM" userLabel="nickName">
+                    <rect key="frame" x="0.0" y="164" width="375" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="9L5-N6-Ig1"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n6M-VK-Z8L" userLabel="AgeAndCity">
+                    <rect key="frame" x="0.0" y="198" width="375" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="PtY-MV-F8k"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mNK-ym-ABp">
+                    <rect key="frame" x="112" y="233" width="150" height="57"/>
+                    <color key="backgroundColor" red="1" green="0.6149726807" blue="0.97630029780000005" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="150" id="RoJ-TE-Kny"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="mNK-ym-ABp" secondAttribute="bottom" constant="10" id="45B-jA-Ejr"/>
+                <constraint firstItem="mNK-ym-ABp" firstAttribute="top" secondItem="n6M-VK-Z8L" secondAttribute="bottom" constant="14" id="6Yc-a1-Mag"/>
+                <constraint firstAttribute="centerX" secondItem="mNK-ym-ABp" secondAttribute="centerX" id="8QH-iu-ZfJ"/>
+                <constraint firstItem="n6M-VK-Z8L" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="C6o-BM-8xf"/>
+                <constraint firstItem="6yJ-cy-hrM" firstAttribute="top" secondItem="gP8-cn-Zox" secondAttribute="bottom" constant="14" id="HFr-p3-nbR"/>
+                <constraint firstItem="n6M-VK-Z8L" firstAttribute="top" secondItem="6yJ-cy-hrM" secondAttribute="bottom" constant="13" id="R7g-8Y-dxb"/>
+                <constraint firstAttribute="trailing" secondItem="6yJ-cy-hrM" secondAttribute="trailing" id="T61-eW-KQd"/>
+                <constraint firstItem="gP8-cn-Zox" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="60" id="d0U-MS-tbS"/>
+                <constraint firstItem="6yJ-cy-hrM" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="ezQ-wW-Tzr"/>
+                <constraint firstAttribute="centerX" secondItem="gP8-cn-Zox" secondAttribute="centerX" id="hmK-Jr-Opg"/>
+                <constraint firstAttribute="trailing" secondItem="n6M-VK-Z8L" secondAttribute="trailing" id="jDX-iX-267"/>
+            </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="335.5" y="333"/>
+            <point key="canvasLocation" x="335.5" y="365"/>
         </view>
     </objects>
     <resources>

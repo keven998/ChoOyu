@@ -10,7 +10,7 @@
 #import "MineDetailInfoCell.h"
 #import "MineProfileTitleView.h"
 #import "BaseProfileHeaderView.h"
-
+#import "UserInfoTableViewController.h"
 @interface MineProfileViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -31,19 +31,26 @@
     self.userInfo = [AccountManager shareAccountManager].account;
     
     [self setupTableView];
+    
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:UIBarButtonItemStyleDone target:self action:@selector(editMineProfile)];
+    self.navigationItem.rightBarButtonItem = rightItem;
 }
 
 #pragma mark - 设置tableView的一些属性
 - (void)setupTableView
 {
     self.tableView.showsVerticalScrollIndicator = NO;
-    self.tableView.frame = CGRectMake(0, -50, kWindowWidth, kWindowHeight+50);
-    self.tableView.contentOffset = CGPointMake(0, 50);
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
     BaseProfileHeaderView *headerView = [BaseProfileHeaderView profileHeaderView];
-    headerView.frame = CGRectMake(0, 0, kWindowWidth, 200);
+    headerView.frame = CGRectMake(0, 0, kWindowWidth, 250);
     self.tableView.tableHeaderView = headerView;
+}
+
+- (void)editMineProfile
+{
+    UserInfoTableViewController *userInfo = [[UserInfoTableViewController alloc]init];
+    [self.navigationController pushViewController:userInfo animated:YES];
 }
 
 #pragma mark - DataSource or Delegate

@@ -17,7 +17,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="nYL-pc-j8f">
-                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <rect key="frame" x="0.0" y="-50" width="600" height="601"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="dGq-UK-Ikx"/>
@@ -28,9 +28,9 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="nYL-pc-j8f" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Vee-33-sZc"/>
-                <constraint firstItem="nYL-pc-j8f" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="gPx-hT-SA4"/>
+                <constraint firstItem="nYL-pc-j8f" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="-50" id="gPx-hT-SA4"/>
                 <constraint firstAttribute="trailing" secondItem="nYL-pc-j8f" secondAttribute="trailing" id="np9-vp-SEK"/>
-                <constraint firstAttribute="bottom" secondItem="nYL-pc-j8f" secondAttribute="bottom" id="uFa-Tw-esv"/>
+                <constraint firstAttribute="bottom" secondItem="nYL-pc-j8f" secondAttribute="bottom" constant="49" id="uFa-Tw-esv"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <point key="canvasLocation" x="372" y="285"/>
