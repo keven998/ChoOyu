@@ -12,4 +12,12 @@
 
 + (BaseProfileHeaderView *)profileHeaderView;
 
+@property (weak, nonatomic) UILabel *age;
+@property (weak, nonatomic) UIImageView *sexImage;
+@property (weak, nonatomic) UILabel *constellation;
+@property (weak, nonatomic) UILabel *city;
+
+@property (weak, nonatomic) UILabel *nickName;
+@property (weak, nonatomic) UIImageView *avatar;
+
 @end
