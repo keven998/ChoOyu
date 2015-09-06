@@ -90,6 +90,7 @@
     
     // 设置右上角的搜索按钮
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"account_labbar_icon_follow_selected"] style:UIBarButtonItemStyleBordered target:self action:@selector(searchExpert:)];
+    self.automaticallyAdjustsScrollViewInsets = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -298,34 +299,6 @@
     guiderCtl.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:guiderCtl animated:YES];
      
-}
-
-#pragma mark - UIScrollViewDelegate
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    CGFloat sectionHeaderHeight = 44;
-    CGPoint point;
-    NSIndexPath *indexPath;
-    point = scrollView.contentOffset;
-    indexPath = [_tableView indexPathForRowAtPoint:point];
-    if (indexPath.section == 0) {
-        self.navigationItem.title = @"亚洲";
-    } else if (indexPath.section == 1) {
-        self.navigationItem.title = @"欧洲";
-    } else if (indexPath.section == 2) {
-        self.navigationItem.title = @"美洲";
-    } else if (indexPath.section == 3) {
-        self.navigationItem.title = @"大洋洲";
-    } else if (indexPath.section == 4) {
-        self.navigationItem.title = @"非洲";
-    }
-    
-    if (scrollView.contentOffset.y <= sectionHeaderHeight&&scrollView.contentOffset.y >= 0) {
-        scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
-    }
-    else if (scrollView.contentOffset.y >= sectionHeaderHeight) {
-        scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
-    }
 }
 
 @end

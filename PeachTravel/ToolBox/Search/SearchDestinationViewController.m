@@ -45,16 +45,17 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 {
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
-    
+
     _searchBar = [[UISearchBar alloc]init];
     _searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _searchBar.delegate = self;
     [_searchBar setPlaceholder:@"城市/景点/美食/购物"];
     _searchBar.tintColor = COLOR_TEXT_II;
+    _searchBar.showsCancelButton = YES;
     _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
-    [_searchBar setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
-    [_searchBar setBackgroundColor:APP_THEME_COLOR];
+    [_searchBar setBackgroundImage:[[UIImage imageNamed:@"icon_search_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+    [_searchBar setSearchFieldBackgroundImage:[[UIImage imageNamed:@"icon_search_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)] forState:UIControlStateNormal];
+    [_searchBar setTranslucent:YES];
     _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.navigationItem.titleView = _searchBar;
     
@@ -66,9 +67,6 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [self.view addSubview:self.tableView];
     self.tableView.hidden = YES;
     
-    [_searchBar becomeFirstResponder];
-    
-    
     // 添加UICollectionView
     TaoziCollectionLayout *layout = [[TaoziCollectionLayout alloc] init];
     layout.delegate = self;
@@ -76,7 +74,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     layout.spacePerItem = 12;
     layout.spacePerLine = 15;
     layout.margin = 10;
-    UICollectionView * collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(10, 0, self.view.bounds.size.width-29, self.view.bounds.size.height) collectionViewLayout:layout];
+    UICollectionView * collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(10, 64, self.view.bounds.size.width-29, self.view.bounds.size.height-64) collectionViewLayout:layout];
     self.collectionView = collectionView;
     collectionView.dataSource = self;
     collectionView.delegate = self;
@@ -676,6 +674,11 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         _tableView.hidden = YES;
         [self showCollectionView];
     }
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    [_searchBar endEditing:YES];
 }
 
 #pragma mark - TaoziMessageSendDelegate

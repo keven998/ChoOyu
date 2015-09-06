@@ -232,11 +232,11 @@
 - (void)updateNavigationTitleViewStatus
 {
     UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 150, 44)];
-    UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     activityView.center = CGPointMake(35, 22);
     [titleView addSubview:activityView];
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(55, 0, 105, 44)];
-    titleLabel.textColor = [UIColor whiteColor];
+    titleLabel.textColor = COLOR_TEXT_I;
     titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
     [activityView startAnimating];
     [titleView addSubview:titleLabel];
@@ -251,7 +251,7 @@
             
         case IM_DISCONNECTED: {
             UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(55, 0, 105, 44)];
-            titleLabel.textColor = [UIColor whiteColor];
+            titleLabel.textColor = COLOR_TEXT_I;
             titleLabel.textAlignment = NSTextAlignmentCenter;
             titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
             titleLabel.text = @"消息(未连接)";
@@ -270,7 +270,7 @@
             
         case IM_RECEIVED: {
             UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 105, 44)];
-            titleLabel.textColor = [UIColor whiteColor];
+            titleLabel.textColor = COLOR_TEXT_I;
             titleLabel.textAlignment = NSTextAlignmentCenter;
             titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
             titleLabel.text = @"消息";
@@ -281,7 +281,7 @@
             
         case IM_CONNECTED: {
             UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 105, 44)];
-            titleLabel.textColor = [UIColor whiteColor];
+            titleLabel.textColor = COLOR_TEXT_I;
             titleLabel.textAlignment = NSTextAlignmentCenter;
             titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
             titleLabel.text = @"消息";
@@ -292,7 +292,7 @@
             
         default: {
             UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 105, 44)];
-            titleLabel.textColor = [UIColor whiteColor];
+            titleLabel.textColor = COLOR_TEXT_I;
             titleLabel.textAlignment = NSTextAlignmentCenter;
             titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
             titleLabel.text = @"消息";
