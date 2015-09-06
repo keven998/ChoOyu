@@ -9,7 +9,7 @@
 #import "GuiderProfileViewController.h"
 #import "MineProfileTitleView.h"
 #import "ExpertProfileTagViewCell.h"
-
+#import "BaseProfileHeaderView.h"
 @interface GuiderProfileViewController () <UITableViewDataSource, UITableViewDelegate,UIActionSheetDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -17,6 +17,9 @@
 @property (nonatomic, strong) FrendModel *userInfo;
 @property (nonatomic, strong) NSMutableArray *albumArray;
 @property (nonatomic, assign) BOOL isMyFriend;
+
+@property (nonatomic, strong) UIButton *addFriendBtn;
+@property (nonatomic, strong) UIButton *beginTalk;
 
 @end
 
@@ -43,11 +46,9 @@
     [moreBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:moreBtn];
     
-    self.tableView.frame = CGRectMake(0, -100, kWindowWidth, kWindowHeight+50);
-    self.tableView.contentOffset = CGPointMake(0, 50);
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
+    [self setupTableView];
     [self setupHeaderView];
+    [self createFooterBar];
 }
 
 - (void)setupHeaderView {
@@ -69,6 +70,62 @@
     self.navigationItem.titleView = view;
 
 }
+
+#pragma mark - 设置tableView的一些属性
+- (void)setupTableView
+{
+    self.tableView.showsVerticalScrollIndicator = NO;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    BaseProfileHeaderView *headerView = [BaseProfileHeaderView profileHeaderView];
+    headerView.frame = CGRectMake(0, 0, kWindowWidth, 250);
+    self.tableView.tableHeaderView = headerView;
+}
+
+- (void)createFooterBar
+{
+    UIImageView *barView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-49, CGRectGetWidth(self.view.bounds), 49)];
+    barView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    [barView setImage:[UIImage imageNamed:@"account_button_default.png"]];
+    barView.contentMode = UIViewContentModeScaleToFill;
+    barView.userInteractionEnabled = YES;
+    [self.view addSubview:barView];
+    
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    
+    _beginTalk = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, kWindowWidth*0.5, 48)];
+    [_beginTalk setTitle:@"发送消息" forState:UIControlStateNormal];
+    [_beginTalk setBackgroundImage:[UIImage new] forState:UIControlStateNormal];
+    [_beginTalk setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
+    [_beginTalk setImage:[UIImage imageNamed:@"ic_home_normal.png"] forState:UIControlStateNormal];
+    [_beginTalk setBackgroundImage:[UIImage imageNamed:@"account_button_selected.png"] forState:UIControlStateHighlighted];
+    _beginTalk.titleLabel.font = [UIFont systemFontOfSize:13];
+    [_beginTalk setImageEdgeInsets:UIEdgeInsetsMake(3, -5, 0, 0)];
+    [_beginTalk setTitleEdgeInsets:UIEdgeInsetsMake(4, 0, 0, -5)];
+    [_beginTalk addTarget:self action:@selector(talkToFriend) forControlEvents:UIControlEventTouchUpInside];
+    [barView addSubview:_beginTalk];
+    
+    _addFriendBtn = [[UIButton alloc]initWithFrame:CGRectMake(kWindowWidth*0.5, 0, kWindowWidth*0.5, 48)];
+    
+    _addFriendBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+    [_addFriendBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
+    [_addFriendBtn setImage:[UIImage imageNamed:@"account_labbar_icon_follow_default.png"] forState:UIControlStateNormal];
+    [_addFriendBtn setBackgroundImage:[UIImage new] forState:UIControlStateHighlighted];
+    [_addFriendBtn setBackgroundImage:[UIImage imageNamed:@"account_button_selected.png"] forState:UIControlStateHighlighted];
+    [_addFriendBtn setImageEdgeInsets:UIEdgeInsetsMake(3, -5, 0, 0)];
+    [_addFriendBtn setTitleEdgeInsets:UIEdgeInsetsMake(4, 0, 0, -5)];
+    [barView addSubview:_addFriendBtn];
+    
+    if ([accountManager frendIsMyContact:_userId]) {
+        [_addFriendBtn setTitle:@"修改备注" forState:UIControlStateNormal];
+        [_addFriendBtn addTarget:self action:@selector(remarkFriend) forControlEvents:UIControlEventTouchUpInside];
+    } else {
+        [_addFriendBtn setTitle:@"加为朋友" forState:UIControlStateNormal];
+        [_addFriendBtn addTarget:self action:@selector(addToFriend) forControlEvents:UIControlEventTouchUpInside];
+        
+    }
+}
+
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -218,7 +275,8 @@
     if (indexPath.section == 0) {
         return 100;
     } else if (indexPath.section == 1) {
-        return (kWindowWidth - 60 - 40)/4 + 10;
+        CGFloat collectionW = (kWindowWidth-10-20) / 3;
+        return collectionW + 20;
     } else if (indexPath.section == 2) {
         return 130;
     } else if (indexPath.section == 3) {
@@ -244,7 +302,25 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     MineProfileTitleView *titleView = [[MineProfileTitleView alloc] init];
-    [titleView.titleBtn setTitle:@"我的标记" forState:UIControlStateNormal];
+    
+    if (section == 0) {
+        [titleView.titleBtn setTitle:@"旅行派·达人·咨询师" forState:UIControlStateNormal];
+        titleView.countLab.text = @"达人标签";
+    } else if (section == 1) {
+        NSString *title = [NSString stringWithFormat:@"%@的相册",_userInfo.nickName];
+        [titleView.titleBtn setTitle:title forState:UIControlStateNormal];
+        NSString *albumCount = [NSString stringWithFormat:@"%ld图",self.albumArray.count];
+        titleView.countLab.text = albumCount;
+
+    } else if (section == 2) {
+        NSString *title = [NSString stringWithFormat:@"%@的旅行",_userInfo.nickName];
+        [titleView.titleBtn setTitle:title forState:UIControlStateNormal];
+    } else if (section == 3) {
+        NSString *title = [NSString stringWithFormat:@"关于%@",_userInfo.nickName];
+        [titleView.titleBtn setTitle:title forState:UIControlStateNormal];
+    } else {
+        [titleView.titleBtn setTitle:@"派派点评" forState:UIControlStateNormal];
+    }
     return titleView;
 }
 
@@ -254,7 +330,7 @@
     footer.backgroundColor = APP_PAGE_COLOR;
     UIButton *topLine = [UIButton buttonWithType:UIButtonTypeCustom];
     topLine.backgroundColor = UIColorFromRGB(0x000000);
-    topLine.alpha = 0.1;
+    topLine.alpha = 0.05;
     topLine.frame = CGRectMake(0, 0, kWindowWidth, 1);
     [footer addSubview:topLine];
     return footer;
