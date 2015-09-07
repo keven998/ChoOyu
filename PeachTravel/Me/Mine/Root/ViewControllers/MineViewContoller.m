@@ -88,12 +88,12 @@
 {
     viewController.hidesBottomBarWhenPushed = YES;
     if ([viewController isKindOfClass:[MineProfileViewController class]]) {
-        [self.navigationController setNavigationBarHidden:YES animated:YES];
+           
     } else if ([viewController isKindOfClass:[MineViewContoller class]]) {
-        [self.navigationController setNavigationBarHidden:YES animated:YES];
+           
 
     } else {
-        [self.navigationController setNavigationBarHidden:NO animated:YES];
+          
     }
 }
 

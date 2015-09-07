@@ -108,7 +108,7 @@
     [MobClick beginLogPageView:@"page_home_talk_lists"];
     [self refreshDataSource];
     [_delegate unreadMessageCountHasChange];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+      
     [self updateIMStatusWithNetworkStatus:self.imClientManager.netWorkReachability.hostReachability.currentReachabilityStatus];
     
     // 隐藏小红点

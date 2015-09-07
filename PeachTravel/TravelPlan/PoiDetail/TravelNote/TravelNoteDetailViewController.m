@@ -81,7 +81,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar addSubview:_progressView];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+      
     [MobClick beginLogPageView:@"page_tavel_notes_detail"];
 }
 

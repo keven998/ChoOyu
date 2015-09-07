@@ -66,7 +66,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_city_detail"];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+      
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

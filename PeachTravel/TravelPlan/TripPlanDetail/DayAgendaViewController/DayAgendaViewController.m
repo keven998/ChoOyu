@@ -135,7 +135,7 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
 {
     [MobClick beginLogPageView:@"page_lxp_day_schedule_detail"];
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+      
     if (_dataSource) {
         [_tableView reloadData];
     }

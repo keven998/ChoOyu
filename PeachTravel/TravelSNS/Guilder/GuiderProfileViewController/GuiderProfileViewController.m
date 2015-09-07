@@ -60,7 +60,7 @@
 {
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_user_profile"];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
+       
     
 }
 
@@ -68,7 +68,7 @@
 {
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"page_user_profile"];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+      
 }
 
 

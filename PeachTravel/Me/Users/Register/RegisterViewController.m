@@ -131,13 +131,13 @@ typedef void(^loginCompletion)(BOOL completed);
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
+       
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+      
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
 }
 

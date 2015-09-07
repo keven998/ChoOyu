@@ -52,7 +52,7 @@
 {
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_create_new_talk"];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+      
 
 }
 

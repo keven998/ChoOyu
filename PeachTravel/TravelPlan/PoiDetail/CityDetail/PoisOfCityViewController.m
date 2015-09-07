@@ -140,7 +140,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+      
 
     if (_poiType == kRestaurantPoi) {
         [MobClick beginLogPageView:@"page_poi_lists_type_delicy"];

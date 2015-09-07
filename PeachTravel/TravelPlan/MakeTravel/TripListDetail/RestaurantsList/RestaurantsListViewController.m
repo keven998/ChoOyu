@@ -55,7 +55,7 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
 {
     [MobClick beginLogPageView:@"page_plan_favorite_pois_lists_type_restaurant"];
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+      
     [self.tableView reloadData];
 }
 

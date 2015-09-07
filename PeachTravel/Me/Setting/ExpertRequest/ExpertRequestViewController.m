@@ -47,7 +47,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:YES]; //侧滑navigation bar 补丁
+       //侧滑navigation bar 补丁
 }
 
 - (void)viewWillDisappear:(BOOL)animated

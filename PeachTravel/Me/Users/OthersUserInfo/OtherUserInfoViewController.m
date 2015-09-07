@@ -89,7 +89,7 @@
     [super viewWillAppear:animated];
     [self updateUserInfo];
     [MobClick beginLogPageView:@"page_user_profile"];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+      
 }
 
 - (void)viewWillDisappear:(BOOL)animated
