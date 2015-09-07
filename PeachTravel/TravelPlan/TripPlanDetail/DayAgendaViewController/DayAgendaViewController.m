@@ -257,7 +257,6 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
     frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
     frostedViewController.liveBlur = YES;
     frostedViewController.limitMenuViewSize = YES;
-    frostedViewController.resumeNavigationBar = NO;
     self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan = NO;
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:frostedViewController] animated:YES completion:nil];
 }

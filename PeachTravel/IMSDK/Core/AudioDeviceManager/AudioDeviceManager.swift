@@ -82,7 +82,9 @@ class AudioRecordDeviceManager: NSObject, AVAudioRecorderDelegate {
     结束录音
     */
     func stopRecordAudio() {
-        recorder.stop()
+        if recorder != nil {
+            recorder.stop()
+        }
         self.isRecording = false
     }
     

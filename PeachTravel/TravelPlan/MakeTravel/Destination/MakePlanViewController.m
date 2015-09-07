@@ -178,7 +178,6 @@
      frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
      frostedViewController.liveBlur = YES;
      frostedViewController.limitMenuViewSize = YES;
-     frostedViewController.resumeNavigationBar = NO;
     
     NSMutableArray *ctls = [NSMutableArray arrayWithArray:self.navigationController.childViewControllers];
     [ctls replaceObjectAtIndex:(ctls.count - 1) withObject:frostedViewController];

@@ -67,8 +67,8 @@ static NSString * const reuseIdentifier = @"Cell";
     _guiderDistribute = guiderDistribute;
     
     UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setImage:[UIImage imageNamed:@"common_icon_navigaiton_back_normal"] forState:UIControlStateNormal];
-    [button setImage:[UIImage imageNamed:@"common_icon_navigaiton_back_hilighted"] forState:UIControlStateHighlighted];
+    [button setImage:[UIImage imageNamed:@"common_icon_navigation_back_normal"] forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:@"common_icon_navigation_back_normal_hilighted"] forState:UIControlStateHighlighted];
     [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
     [button setFrame:CGRectMake(0, 0, 30, 30)];
     button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;

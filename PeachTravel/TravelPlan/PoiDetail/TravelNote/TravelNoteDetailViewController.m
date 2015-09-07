@@ -44,7 +44,7 @@
     UIBarButtonItem *chatItem = [[UIBarButtonItem alloc] initWithCustomView:cb];
     self.navigationItem.rightBarButtonItem = chatItem;
 
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"common_icon_navigaiton_back.png"] style:UIBarButtonItemStylePlain target:self action:@selector(gooBack)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"common_icon_navigation_back_normal.png"] style:UIBarButtonItemStylePlain target:self action:@selector(gooBack)];
     
     _progressProxy = [[NJKWebViewProgress alloc] init];
     _progressProxy.webViewProxyDelegate = self;
