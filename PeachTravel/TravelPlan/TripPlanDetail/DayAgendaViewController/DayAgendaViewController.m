@@ -252,7 +252,7 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
     sevc.rootCtl = self;
     ScheduleDayEditViewController *menuCtl = [[ScheduleDayEditViewController alloc] init];
     sevc.tripDetail = _tripDetail;
-    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:[[UINavigationController alloc] initWithRootViewController:sevc] menuViewController:menuCtl];
+    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:sevc menuViewController:menuCtl];
     frostedViewController.direction = REFrostedViewControllerDirectionLeft;
     frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
     frostedViewController.liveBlur = YES;
@@ -268,16 +268,5 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
 }
 
 
-#pragma mark - ScheduleUpdateDelegate
-
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
 
 @end

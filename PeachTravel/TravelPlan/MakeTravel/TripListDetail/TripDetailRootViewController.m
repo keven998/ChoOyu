@@ -130,20 +130,20 @@
         [_forkBtn setTitleColor:COLOR_DISABLE forState:UIControlStateHighlighted];
         [_forkBtn addTarget:self action:@selector(forkTrip:) forControlEvents:UIControlEventTouchUpInside];
         UIBarButtonItem * addBtn = [[UIBarButtonItem alloc]initWithCustomView:_forkBtn];
-        self.navigationItem.rightBarButtonItem = addBtn;
+        self.frostedViewController.navigationItem.rightBarButtonItem = addBtn;
         
         UIButton *bbtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
         [bbtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
         [bbtn setImage:[UIImage imageNamed:@"common_icon_navigation_back_normal"] forState:UIControlStateNormal];
         [bbtn setImage:[UIImage imageNamed:@"common_icon_navigation_back_highlight"] forState:UIControlStateHighlighted];
         [bbtn addTarget:self action:@selector(dismissCtl) forControlEvents:UIControlEventTouchUpInside];
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:bbtn];
+        self.frostedViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:bbtn];
     }
 }
 
 - (void)setupNavigationRightItems:(BOOL)isEditing
 {
-    self.navigationItem.rightBarButtonItems = nil;
+    self.frostedViewController.navigationItem.rightBarButtonItems = nil;
     if (isEditing) {
         _editBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
         [_editBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
@@ -151,8 +151,8 @@
         [_editBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
         [_editBtn addTarget:self action:@selector(editTrip:) forControlEvents:UIControlEventTouchUpInside];
         _editBtn.selected = YES;
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_editBtn];
-        self.navigationItem.leftBarButtonItems = nil;
+        self.frostedViewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_editBtn];
+        self.frostedViewController.navigationItem.leftBarButtonItems = nil;
     } else {
         NSMutableArray *barItems = [[NSMutableArray alloc] init];
         _moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20, 44)];
@@ -169,14 +169,14 @@
         mapBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 2);
         [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:mapBtn]];
         
-        self.navigationItem.rightBarButtonItems = barItems;
+        self.frostedViewController.navigationItem.rightBarButtonItems = barItems;
         
         UIButton *bbtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
         [bbtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
         [bbtn setImage:[UIImage imageNamed:@"common_icon_navigation_back_normal"] forState:UIControlStateNormal];
         [bbtn setImage:[UIImage imageNamed:@"common_icon_navigation_back_highlight"] forState:UIControlStateHighlighted];
         [bbtn addTarget:self action:@selector(dismissCtl) forControlEvents:UIControlEventTouchUpInside];
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:bbtn];
+        self.frostedViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:bbtn];
         BOOL isNotShouldShowNaviTipsView = [[[NSUserDefaults standardUserDefaults] objectForKey:@"kTripDetailRootCtlNaviTipsView"] boolValue];
         if (!isNotShouldShowNaviTipsView) {
             [self showNaviTipsViewWithBarButtonItem:barItem];
@@ -279,7 +279,7 @@
     [MobClick event:@"navigation_item_lxp_plan_mapview"];
     MyTripSpotsMapViewController *mapViewCtl = [[MyTripSpotsMapViewController alloc] init];
     mapViewCtl.tripDetail = _tripDetail;
-    mapViewCtl.titleText = self.navigationItem.title;
+    mapViewCtl.titleText = self.frostedViewController.navigationItem.title;
     [self.frostedViewController.navigationController pushViewController:mapViewCtl animated:YES];
     
 }
@@ -295,7 +295,7 @@
 
 - (void)userDidLogout
 {
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.frostedViewController.navigationController popToRootViewControllerAnimated:YES];
 }
 
 /**
@@ -463,7 +463,6 @@
 {
     [MobClick event:@"navigiation_item_lxp_plan_setting"];
     if (!_tripDetail) {
-        //        [SVProgressHUD showHint:HTTP_FAILED_HINT];
         return;
     }
     
@@ -520,7 +519,7 @@
     
     [_destinationBkgView addSubview:panelView];
     
-    [self.navigationController.view addSubview:_destinationBkgView];
+    [self.frostedViewController.navigationController.view addSubview:_destinationBkgView];
     
     [UIView animateWithDuration:0.2 animations:^{
         panelView.frame = CGRectMake(0, _destinationBkgView.bounds.size.height-340, _destinationBkgView.bounds.size.width, 340);
@@ -583,7 +582,7 @@
     LoginViewController *loginCtl = [[LoginViewController alloc] init];
     TZNavigationViewController *nctl = [[TZNavigationViewController alloc] initWithRootViewController:loginCtl];
     loginCtl.isPushed = NO;
-    [self.navigationController presentViewController:nctl animated:YES completion:nil];
+    [self.frostedViewController.navigationController presentViewController:nctl animated:YES completion:nil];
 }
 
 - (void)forkTrip
@@ -648,7 +647,7 @@
     _tripFavoriteCtl.tripDetail = _tripDetail;
     ((TripPlanSettingViewController *)self.frostedViewController.menuViewController).tripDetail = self.tripDetail;
     
-    self.navigationItem.title = _tripDetail.tripTitle;
+    self.frostedViewController.navigationItem.title = _tripDetail.tripTitle;
 }
 
 - (void)setupViewControllers
@@ -875,7 +874,7 @@
 
 - (void)frostedViewController:(REFrostedViewController *)frostedViewController willHideMenuViewController:(UIViewController *)menuViewController
 {
-    self.navigationItem.title = _tripDetail.tripTitle;
+    self.frostedViewController.navigationItem.title = _tripDetail.tripTitle;
 }
 
 @end

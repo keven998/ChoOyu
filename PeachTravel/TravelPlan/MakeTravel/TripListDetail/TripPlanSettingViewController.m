@@ -52,19 +52,21 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self.frostedViewController.navigationController setNavigationBarHidden:YES animated:YES];
+
     [MobClick beginLogPageView:@"page_plan_setting"];
     [_tableView reloadData];
 }
 
-- (void) viewWillDisappear:(BOOL)animated {
-    [MobClick endLogPageView:@"page_plan_setting"];
+- (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [self.frostedViewController.navigationController setNavigationBarHidden:NO animated:YES];
+    [MobClick endLogPageView:@"page_plan_setting"];
 }
 
 - (void)setTripDetail:(TripDetail *)tripDetail {
     _tripDetail = tripDetail;
 }
-
 
 - (void)createTableView
 {
@@ -118,10 +120,9 @@
     bsvc.saveEdition = ^(NSString *editText, saveComplteBlock(completed)) {
         [self editGuideTitle:editText success:completed];
     };
-    UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:bsvc];
-    [self presentViewController:navi animated:YES completion:nil];
-}
 
+    [self.frostedViewController.navigationController pushViewController:bsvc animated:YES];
+}
 
 /**
  *  修改攻略名称
@@ -209,8 +210,7 @@
     cell.textLabel.font = [UIFont systemFontOfSize:15.0];
     cell.textLabel.textColor = COLOR_TEXT_II;
     
-    if (indexPath.section == 0)
-    {
+    if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             cell.textLabel.text = @"修改标题";//_tripDetail.tripTitle;
         }
@@ -221,8 +221,8 @@
             cell.textLabel.text = @"发给朋友";
         }
         return cell;
-    }
-    else if (indexPath.section == 1)
+        
+    } else if (indexPath.section == 1)
     {
         CityDestinationPoi *model = _tripDetail.destinations[indexPath.row];
         cell.textLabel.text = model.zhName;
@@ -243,7 +243,7 @@
             ScheduleEditorViewController *sevc = [[ScheduleEditorViewController alloc] init];
             ScheduleDayEditViewController *menuCtl = [[ScheduleDayEditViewController alloc] init];
             sevc.tripDetail = _tripDetail;
-            REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:[[UINavigationController alloc] initWithRootViewController:sevc] menuViewController:menuCtl];
+            REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:sevc menuViewController:menuCtl];
             frostedViewController.direction = REFrostedViewControllerDirectionLeft;
             frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
             frostedViewController.liveBlur = YES;
@@ -259,7 +259,7 @@
         CityDetailTableViewController *cityCtl = [[CityDetailTableViewController alloc]init];
         CityDestinationPoi *model = _tripDetail.destinations[indexPath.row];
         cityCtl.cityId = model.cityId;
-        [self.navigationController pushViewController:cityCtl animated:YES];
+        [self.frostedViewController.navigationController pushViewController:cityCtl animated:YES];
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES ];
     
@@ -269,8 +269,7 @@
 {
     _chatRecordListCtl = [[ChatRecoredListTableViewController alloc] init];
     _chatRecordListCtl.delegate = self;
-    TZNavigationViewController *nCtl = [[TZNavigationViewController alloc] initWithRootViewController:_chatRecordListCtl];
-    [self presentViewController:nCtl animated:YES completion:nil];
+    [self.frostedViewController.navigationController pushViewController:_chatRecordListCtl animated:YES];
 }
 
 - (IBAction)share:(id)sender
@@ -278,7 +277,7 @@
     NSArray *shareButtonimageArray = @[@"ic_sns_pengyouquan.png",  @"ic_sns_weixin.png", @"ic_sns_qq.png", @"ic_sns_qzone.png", @"ic_sns_sina.png", @"ic_sns_douban.png"];
     NSArray *shareButtonTitleArray = @[@"朋友圈", @"微信朋友", @"QQ", @"QQ空间", @"新浪微博", @"豆瓣"];
     ShareActivity *shareActivity = [[ShareActivity alloc] initWithTitle:@"转发至" delegate:self cancelButtonTitle:@"取消" ShareButtonTitles:shareButtonTitleArray withShareButtonImagesName:shareButtonimageArray];
-    [shareActivity showInView:self.navigationController.view];
+    [shareActivity showInView:self.frostedViewController.navigationController.view];
 }
 
 #pragma mark - CreateConversationDelegate
@@ -292,7 +291,7 @@
     taoziMessageCtl.chatType = chatType;
     
     [self.chatRecordListCtl dismissViewControllerAnimated:YES completion:^{
-        [self.navigationController presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:nil];
+        [self.frostedViewController.navigationController presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:nil];
     }];
 }
 
@@ -340,8 +339,8 @@
  */
 - (void)dismissPopup
 {
-    if (self.navigationController.popupViewController != nil) {
-        [self.navigationController dismissPopupViewControllerAnimated:YES completion:nil];
+    if (self.frostedViewController.navigationController.popupViewController != nil) {
+        [self.frostedViewController.navigationController dismissPopupViewControllerAnimated:YES completion:nil];
     }
 }
 

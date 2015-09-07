@@ -594,7 +594,7 @@ static NSString *reusableCell = @"myGuidesCell";
     
     TripPlanSettingViewController *tpvc = [[TripPlanSettingViewController alloc] init];
     
-    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:[[UINavigationController alloc] initWithRootViewController:tripDetailRootCtl] menuViewController:tpvc];
+    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:tripDetailRootCtl menuViewController:tpvc];
     tpvc.rootViewController = tripDetailRootCtl;
     frostedViewController.direction = REFrostedViewControllerDirectionRight;
     frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
@@ -812,11 +812,14 @@ static NSString *reusableCell = @"myGuidesCell";
 }
 
 #pragma mark - scrollViewDelegate
+
 - (void)scrollViewChangeFrame:(UIScrollView *)scrollView
 {
     NSString *scrollH = [NSString stringWithFormat:@"%f",scrollView.contentOffset.y];
     NSDictionary *userInfo = @{@"scrollH": scrollH};
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ChangePlanListFrame" object:nil userInfo:userInfo];
 }
+
+
 
 @end

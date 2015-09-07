@@ -10,6 +10,7 @@
 #import "ChatGroupSettingCell.h"
 #import "PeachTravel-swift.h"
 #import "ChatAlbumCollectionViewController.h"
+#import "REFrostedViewController.h"
 
 @interface ChatSettingViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
@@ -27,10 +28,12 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self.frostedViewController.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [self.frostedViewController.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 -(void)createTableView
@@ -128,7 +131,7 @@
         
     } else if (indexPath.row == 2) {
         ChatAlbumCollectionViewController *ctl = [[ChatAlbumCollectionViewController alloc] initWithNibName:@"ChatAlbumCollectionViewController" bundle:nil];
-        [self.containerCtl.navigationController pushViewController:ctl animated:YES];
+        [self.frostedViewController.navigationController pushViewController:ctl animated:YES];
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             NSArray *albumImages = [self getAllChatAlbumImageInConversation];
             NSArray *images = [self getAllImagePathList];

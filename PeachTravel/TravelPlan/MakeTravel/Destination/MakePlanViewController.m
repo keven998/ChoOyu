@@ -54,7 +54,7 @@
     dTextAttrs[NSForegroundColorAttributeName] = [UIColor grayColor];
     [rbi setTitleTextAttributes:dTextAttrs forState:UIControlStateDisabled];
     self.navigationItem.rightBarButtonItem = rbi;
-    
+    self.automaticallyAdjustsScrollViewInsets = NO;
     
     [self setupSelectPanel];
     [self beginSearch:nil];
@@ -172,7 +172,7 @@
     TripPlanSettingViewController *tpvc = [[TripPlanSettingViewController alloc] init];
     
     
-     REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:[[UINavigationController alloc] initWithRootViewController:tripDetailCtl] menuViewController:tpvc];
+     REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:tripDetailCtl menuViewController:tpvc];
      tpvc.rootViewController = tripDetailCtl;
      frostedViewController.direction = REFrostedViewControllerDirectionRight;
      frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;

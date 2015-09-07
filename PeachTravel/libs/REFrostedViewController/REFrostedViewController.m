@@ -112,11 +112,13 @@
 {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor blackColor];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     [self re_displayController:self.contentViewController frame:self.view.bounds];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -300,5 +302,6 @@
         self.calculatedMenuViewSize = CGSizeZero;
     }
 }
+
 
 @end
