@@ -43,7 +43,6 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    [self.tableView reloadData];
 }
 
 - (void)setTripDetail:(TripDetail *)tripDetail
