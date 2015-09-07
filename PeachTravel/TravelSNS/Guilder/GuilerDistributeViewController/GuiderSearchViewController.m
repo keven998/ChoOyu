@@ -41,20 +41,26 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = APP_PAGE_COLOR;
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
     
+    self.automaticallyAdjustsScrollViewInsets = YES;
     _searchBar = [[UISearchBar alloc]init];
     _searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _searchBar.delegate = self;
-    [_searchBar setPlaceholder:@"搜索达人"];
+    [_searchBar setPlaceholder:@"输入“国家、城市” 搜索达人..."];
     _searchBar.tintColor = COLOR_TEXT_II;
+    _searchBar.showsCancelButton = YES;
     _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
-    [_searchBar setBackgroundImage:[ConvertMethods createImageWithColor:APP_PAGE_COLOR] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
-    [_searchBar setBackgroundColor:APP_PAGE_COLOR];
+    [_searchBar setSearchFieldBackgroundImage:[[UIImage imageNamed:@"icon_search_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)] forState:UIControlStateNormal];
+    [_searchBar setTranslucent:YES];
     _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.navigationItem.titleView = _searchBar;
     
+    UIImageView *imageBg = [[UIImageView alloc]initWithFrame:CGRectMake((kWindowWidth - 210)/2, 68, 210, 130)];
     
+    imageBg.image = [UIImage imageNamed:@"search_default_background"];
+    [self.view addSubview:imageBg];
+
     [self.view addSubview:self.tableView];
     self.tableView.hidden = YES;
     
@@ -175,12 +181,11 @@
     [self loadTravelers:searchBar.text withPageNo:0];
 }
 
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
-    NSLog(@"%s",__func__);
-    
-//    [self refreshTableDataWithSearchText:searchText];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
+
 
 #pragma mark - 加载网络数据
  - (void)loadTravelers:(NSString *)areaName withPageNo:(NSInteger)page

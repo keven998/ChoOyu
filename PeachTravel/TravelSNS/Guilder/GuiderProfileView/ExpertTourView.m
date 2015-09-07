@@ -46,7 +46,7 @@
     
     CGFloat iconImageW = 43;
     CGFloat iconImageH = 43;
-    CGFloat iconImageX = (kWindowWidth/3-iconImageW)*0.5;
+    CGFloat iconImageX = (selfW-iconImageW)*0.5;
     CGFloat iconImageY = 30;
     self.iconImage.frame = CGRectMake(iconImageX, iconImageY, iconImageW, iconImageH);
     
