@@ -361,13 +361,6 @@
     [menu addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
     [menu setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:menu];
-    
-    UIButton *back = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
-    [back setImage:[UIImage imageNamed:@"common_icon_navigaiton_back"] forState:UIControlStateNormal];
-    [back setImage:[UIImage imageNamed:@"common_icon_navigaiton_back_highlight"] forState:UIControlStateHighlighted];
-    [back addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
-    [back setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:back];
 }
 
 /**
@@ -881,7 +874,6 @@
             frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
             frostedViewController.liveBlur = YES;
             frostedViewController.limitMenuViewSize = YES;
-            frostedViewController.resumeNavigationBar = NO;
             [self.frostedViewController.navigationController pushViewController:frostedViewController animated:YES];
         }
             break;

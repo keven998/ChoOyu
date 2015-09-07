@@ -250,7 +250,6 @@
             frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
             frostedViewController.liveBlur = YES;
             frostedViewController.limitMenuViewSize = YES;
-            frostedViewController.resumeNavigationBar = NO;
             [self.frostedViewController.navigationController pushViewController:frostedViewController animated:YES];
         } else if (indexPath.row == 2){
             [MobClick event:@"cell_item_plan_lxp_share"];
