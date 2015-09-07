@@ -94,9 +94,9 @@
     self.avatar.frame = CGRectMake(avatarX, avatarY, avatarW, avatarH);
     
     // 2.昵称
-    CGFloat nickNameW = 100;
+    CGFloat nickNameW = kWindowWidth;
     CGFloat nickNameH = 21;
-    CGFloat nickNameX = (kWindowWidth-avatarW)*0.5;
+    CGFloat nickNameX = 0;
     CGFloat nickNameY = CGRectGetMaxY(self.avatar.frame)+5;
     self.nickName.frame = CGRectMake(nickNameX, nickNameY, nickNameW, nickNameH);
     
@@ -156,6 +156,34 @@
     }
     
     NSString *constellationImageName = [FrendModel bigCostellationImageNameWithBirthday:userInfo.birthday];
+    self.constellation.image = [UIImage imageNamed:constellationImageName];
+}
+
+- (void)setAccountModel:(AccountModel *)accountModel
+{
+    _accountModel = accountModel;
+    // 设置数据
+    NSURL *url = [NSURL URLWithString:accountModel.avatar];
+    [self.avatar sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"avatar_default"]];
+    
+    self.nickName.text = accountModel.nickName;
+    if (accountModel.gender == Male) {
+        self.sexImage.image = [UIImage imageNamed:@"boy"];
+    } else {
+        self.sexImage.image = [UIImage imageNamed:@"girl"];
+    }
+    
+    NSDateFormatter *format = [[NSDateFormatter alloc] init];
+    format.dateFormat = @"yyyy/MM/dd";
+    NSDate *date = [format dateFromString:accountModel.birthday];
+    
+    NSTimeInterval dateDiff = [date timeIntervalSinceNow];
+    
+    int age= -trunc(dateDiff/(60*60*24))/365;
+    
+    self.age.text = [NSString stringWithFormat:@"%d岁 现居住在%@",age,accountModel.residence];
+    
+    NSString *constellationImageName = [FrendModel bigCostellationImageNameWithBirthday:accountModel.birthday];
     self.constellation.image = [UIImage imageNamed:constellationImageName];
 }
 
