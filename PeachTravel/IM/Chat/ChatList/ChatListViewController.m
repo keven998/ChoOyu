@@ -663,6 +663,7 @@
     }
     cell.detailMsg = [self subTitleMessageByConversation:tzConversation];
     cell.time = [self lastMessageTimeByConversation:tzConversation];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.unreadCount = tzConversation.unReadMessageCount;
     return cell;
 }

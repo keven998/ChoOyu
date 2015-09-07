@@ -60,6 +60,9 @@
         
         _unreadLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 14, 21, 21)];
         _unreadLabel.backgroundColor = COLOR_CHECKED;
+        if (_unreadLabel.isHighlighted) {
+            _unreadLabel.backgroundColor = [UIColor redColor];
+        }
         _unreadLabel.textAlignment = NSTextAlignmentCenter;
         _unreadLabel.font = [UIFont systemFontOfSize:12];
         _unreadLabel.adjustsFontSizeToFitWidth = NO;
