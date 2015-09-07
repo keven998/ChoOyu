@@ -47,19 +47,12 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [UIApplication sharedApplication].statusBarHidden = YES;
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
-
-    self.navigationController.delegate = self;
-    
     self.navigationController.interactivePopGestureRecognizer.delegate = self;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [UIApplication sharedApplication].statusBarHidden = NO;
-    self.navigationController.delegate = nil;
 }
 
 - (void)preSetNavForSlide
@@ -93,13 +86,15 @@
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
+    viewController.hidesBottomBarWhenPushed = YES;
     if ([viewController isKindOfClass:[MineProfileViewController class]]) {
-        NSLog(@"%@",[viewController class]);
-        return;
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
     } else if ([viewController isKindOfClass:[MineViewContoller class]]) {
-        return;
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
+
+    } else {
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
     }
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 #pragma mark - 设置导航栏

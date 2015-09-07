@@ -58,17 +58,6 @@
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_friends_lists"];
     [self.contactTableView reloadData];
-    
-    NSLog(@"ContactListViewontroller %p", self.navigationController);
-    
-    for (UIViewController *ct in self.navigationController.viewControllers) {
-        NSLog(@"%p", ct);
-        if ([ct isEqual:self]) {
-            [self.navigationController setNavigationBarHidden:NO animated:YES];
-            break;
-        }
-    }
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated
