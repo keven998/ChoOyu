@@ -49,7 +49,7 @@
 
 - (void)viewDidLayoutSubviews
 {
-    _contentTextField.frame = CGRectMake(0, 30, self.view.frame.size.width, 64*kWindowHeight/736);
+    _contentTextField.frame = CGRectMake(0, 30+64, self.view.frame.size.width, 64*kWindowHeight/736);
 }
 
 /**

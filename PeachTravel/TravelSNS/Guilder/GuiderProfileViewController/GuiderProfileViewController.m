@@ -514,14 +514,13 @@
     [manager.conversationManager addConversation: conversation];
     
     ChatViewController *chatController = [[ChatViewController alloc] initWithChatter:_userId chatType:IMChatTypeIMChatSingleType];
-    UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:chatController];
     chatController.chatterName = _userInfo.nickName;
     
     ChatSettingViewController *menuViewController = [[ChatSettingViewController alloc] init];
     menuViewController.currentConversation= conversation;
     menuViewController.chatterId = _userId;
     
-    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:navi menuViewController:menuViewController];
+    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:chatController menuViewController:menuViewController];
     menuViewController.containerCtl = frostedViewController;
     frostedViewController.direction = REFrostedViewControllerDirectionRight;
     frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;

@@ -56,7 +56,6 @@
 {
     [super viewDidLoad];
     [self.view addSubview:self.tableView];
-    
     // 初始化对话管理对象
     self.imClientManager.conversationManager.delegate = self;
     _dataSource = [[self.imClientManager.conversationManager getConversationList] mutableCopy];
@@ -521,7 +520,7 @@
 - (void)pushChatViewControllerWithConversation: (ChatConversation *)conversation
 {
     ChatViewController *chatController = [[ChatViewController alloc] initWithConversation:conversation];
-    UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:chatController];
+//    UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:chatController];
     chatController.chatterName = conversation.chatterName;
     UIViewController *menuViewController = nil;
     if (conversation.chatType == IMChatTypeIMChatGroupType || conversation.chatType == IMChatTypeIMChatDiscussionGroupType) {
@@ -535,7 +534,7 @@
         ((ChatSettingViewController *)menuViewController).chatterId = conversation.chatterId;
     }
     
-    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:navi menuViewController:menuViewController];
+    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:chatController menuViewController:menuViewController];
     if (conversation.chatType == IMChatTypeIMChatGroupType || conversation.chatType == IMChatTypeIMChatDiscussionGroupType) {
         ((ChatGroupSettingViewController *)menuViewController).containerCtl = frostedViewController;
     } else {

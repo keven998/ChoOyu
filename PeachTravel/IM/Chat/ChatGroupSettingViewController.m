@@ -44,12 +44,14 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
+    [self.frostedViewController.navigationController setNavigationBarHidden:YES animated:YES];
     [self updateView];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:YES];
+    [self.frostedViewController.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 #pragma mark - private methods

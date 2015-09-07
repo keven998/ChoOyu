@@ -40,20 +40,24 @@
     [self setupMainView];
     [self setupNavBar];
     
-    self.navigationController.delegate = self;
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeContentFrame:) name:@"ChangePlanListFrame" object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.navigationController.interactivePopGestureRecognizer.delegate = self;
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
 }
 
 - (void)preSetNavForSlide
@@ -173,35 +177,30 @@
     [self.navigationController pushViewController:profile animated:YES];
 }
 
-#pragma mark - navigationDelegate 实现此代理方法也是为防止滑动返回时界面卡死
-- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
-{
-    //开启滑动手势
-    if ([navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)])
-    {
-        navigationController.interactivePopGestureRecognizer.enabled = YES;
-    }
-}
-
-- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
-{
-    //如果进入我的界面需要隐藏 navi bar
-    if ([viewController isKindOfClass:[MineProfileViewController class]]) {
-        [self.navigationController setNavigationBarHidden:YES animated:YES];
-        
-        //如果进入我的profile需要隐藏 navi bar
-    } else if ([viewController isKindOfClass:[MineViewContoller class]]) {
-        [self.navigationController setNavigationBarHidden:YES animated:YES];
-        
-        //如果进入REFrostedViewController类型的界面需要隐藏 navi bar
-    } else if ([viewController isKindOfClass:[REFrostedViewController class]]){
-        [self.navigationController setNavigationBarHidden:YES animated:YES];
-        
-        //其他类型显示 navi bar
-    } else {
-        [self.navigationController setNavigationBarHidden:NO animated:YES];
-    }
-}
+//#pragma mark - navigationDelegate 实现此代理方法也是为防止滑动返回时界面卡死
+//- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+//{
+//    //开启滑动手势
+//    if ([navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)])
+//    {
+//        navigationController.interactivePopGestureRecognizer.enabled = YES;
+//    }
+//}
+//
+//- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+//{
+//    //如果进入我的界面需要隐藏 navi bar
+//    if ([viewController isKindOfClass:[MineProfileViewController class]]) {
+//        [self.navigationController setNavigationBarHidden:YES animated:YES];
+//        
+//        //如果进入我的profile需要隐藏 navi bar
+//    } else if ([viewController isKindOfClass:[MineViewContoller class]]) {
+//        [self.navigationController setNavigationBarHidden:YES animated:YES];
+//        
+//    } else {
+//        [self.navigationController setNavigationBarHidden:NO animated:YES];
+//    }
+//}
 
 
 

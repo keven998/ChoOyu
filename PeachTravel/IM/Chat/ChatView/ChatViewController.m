@@ -129,7 +129,7 @@
     [super viewDidLoad];
 
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.navigationItem.title = _chatterName;
+    self.frostedViewController.navigationItem.title = _chatterName;
     self.view.backgroundColor = APP_PAGE_COLOR;
     
     // 聊天类型为讨论组
@@ -225,7 +225,7 @@
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - [DXMessageToolBar defaultHeight] - 64)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - [DXMessageToolBar defaultHeight]-64)];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.backgroundColor = APP_PAGE_COLOR;
@@ -242,6 +242,8 @@
         header.stateLabel.hidden = YES;
         // 设置header
         self.tableView.header = header;
+        
+        NSLog(@"chat tableview frame: %@", NSStringFromCGRect(self.tableView.frame));
     }
     
     return _tableView;
@@ -360,7 +362,17 @@
     [menu setImage:[UIImage imageNamed:@"common_icon_navigaiton_menu"] forState:UIControlStateNormal];
     [menu addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
     [menu setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:menu];
+    self.frostedViewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:menu];
+    
+    UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setImage:[UIImage imageNamed:@"common_icon_navigation_back_normal.png"] forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:@"common_icon_navigation_back_hilighted.png"] forState:UIControlStateHighlighted];
+    
+    [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
+    [button setFrame:CGRectMake(0, 0, 30, 30)];
+    button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
+    self.frostedViewController.navigationItem.leftBarButtonItem = barButton;
 }
 
 /**
@@ -658,7 +670,7 @@
 
 - (void)exitGroup
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.frostedViewController.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)applicationDidEnterBackground
@@ -677,7 +689,6 @@
     [self keyBoardHidden];
     [self.view endEditing:YES];
     [self.frostedViewController.view endEditing:YES];
-    
     [self.frostedViewController presentMenuViewController];
 }
 
@@ -750,7 +761,7 @@
     SuperWebViewController *ctl = [[SuperWebViewController alloc] init];
     ctl.urlStr = questionModel.url;
     ctl.titleStr = questionModel.title;
-    [self.navigationController pushViewController:ctl animated:YES];
+    [self.frostedViewController.navigationController pushViewController:ctl animated:YES];
 }
 
 /**
@@ -791,7 +802,7 @@
 {
     _isScrollToBottom = NO;
     LocationViewController *locationController = [[LocationViewController alloc] initWithLocation:CLLocationCoordinate2DMake(model.latitude, model.longitude)];
-    [self.navigationController pushViewController:locationController animated:YES];
+    [self.frostedViewController.navigationController pushViewController:locationController animated:YES];
 }
 
 /**
@@ -869,7 +880,7 @@
             
             TripPlanSettingViewController *tpvc = [[TripPlanSettingViewController alloc] init];
             
-            REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:[[UINavigationController alloc] initWithRootViewController:tripDetailCtl] menuViewController:tpvc];
+            REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController: tripDetailCtl menuViewController:tpvc];
             frostedViewController.direction = REFrostedViewControllerDirectionRight;
             frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
             frostedViewController.liveBlur = YES;
@@ -1064,7 +1075,7 @@
     SuperWebViewController *ctl = [[SuperWebViewController alloc] init];
     ctl.urlStr = questionModel.url;
     ctl.titleStr = questionModel.title;
-    [self.navigationController pushViewController:ctl animated:YES];
+    [self.frostedViewController.navigationController pushViewController:ctl animated:YES];
 }
 
 
@@ -1214,6 +1225,7 @@
         rect.size.height = kWindowHeight - toHeight - 64;
         self.tableView.frame = rect;
     }];
+    NSLog(@"chat tableview frame: %@", NSStringFromCGRect(self.tableView.frame));
     [self scrollViewToBottom:NO];
 }
 
@@ -1415,7 +1427,7 @@
 
 - (void)updateChatTitle:(NSNotification *)Noti
 {
-    self.navigationItem.title = Noti.object;
+    self.frostedViewController.navigationItem.title = Noti.object;
     
 }
 

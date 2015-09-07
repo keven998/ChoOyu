@@ -85,7 +85,12 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
 
 - (IBAction)dismissCtl:(id)sender
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if (self.navigationController.viewControllers.count > 1) {
+        [self.navigationController popViewControllerAnimated:YES];
+        
+    } else {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 #pragma mark - CreateConversationDelegate
