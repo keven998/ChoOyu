@@ -44,7 +44,7 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
     
-    _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-64) style:UITableViewStyleGrouped];
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _tableView.dataSource = self;
     _tableView.delegate = self;
@@ -60,8 +60,8 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [btn setTitleColor:COLOR_DISABLE forState:UIControlStateHighlighted];
     [btn addTarget:self action:@selector(editSchedule) forControlEvents:UIControlEventTouchUpInside];
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];    //体验和复杂度
     [self startAnimationWithDismiss:YES];
+    self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
 // 执行动画
@@ -75,16 +75,16 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
     
     // animate the transform
     if (dismiss) {
-        _tableView.contentInset = UIEdgeInsetsMake(sep-64, 0, 0, 0);
+        _tableView.contentInset = UIEdgeInsetsMake(sep, 0, 0, 0);
     
         CGImageRef imageUp = CGImageCreateWithImageInRect([_sceenImage CGImage], [self scaleRect:upperRect withScale:[UIScreen mainScreen].scale]);
-        self.upperView  = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, sep-64)];
+        self.upperView  = [[UIImageView alloc] initWithFrame:CGRectMake(0, 64, kWindowWidth, sep-64)];
         _upperView.contentMode = UIViewContentModeScaleAspectFit;
         [_upperView setImage:[UIImage imageWithCGImage:imageUp]];
 
         bottomRect.origin.y = sep;
         CGImageRef imageBottom = CGImageCreateWithImageInRect([_sceenImage CGImage], [self scaleRect:bottomRect withScale:[UIScreen mainScreen].scale ]);
-        self.bottomView = [[UIImageView alloc] initWithFrame:CGRectMake(0, sep-64, kWindowWidth, self.view.frame.size.height-sep)];
+        self.bottomView = [[UIImageView alloc] initWithFrame:CGRectMake(0, sep, kWindowWidth, self.view.frame.size.height-sep)];
 
         _bottomView.contentMode = UIViewContentModeScaleAspectFit;
         [_bottomView setImage:[UIImage imageWithCGImage:imageBottom]];
@@ -93,7 +93,7 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
         [self.view addSubview:_bottomView];
         
         self.tableView.alpha = 0.5;
-//        [UIView setAnimationTransition:UIViewAnimationTransitionCurlUp forView:self.tableView cache:YES];
+
         [UIView animateWithDuration:0.5
                          animations:^(void) {
                              [_upperView setFrame:CGRectMake(0, -_upperView.bounds.size.height, _upperView.bounds.size.width, _upperView.bounds.size.height)];
@@ -107,9 +107,9 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
         self.tableView.alpha = 1.0;
         [UIView animateWithDuration:0.3
                          animations:^(void) {
-                             [self.upperView setFrame:CGRectMake(0, 0, kWindowWidth, sep-64)];
-                             [self.bottomView setFrame:CGRectMake(0, sep-64, kWindowWidth, self.view.frame.size.height-sep+64)];
-                             _tableView.contentInset = UIEdgeInsetsMake(sep-64, 0, 0, 0);
+                             [self.upperView setFrame:CGRectMake(0, 64, kWindowWidth, sep-64)];
+                             [self.bottomView setFrame:CGRectMake(0, sep, kWindowWidth, self.view.frame.size.height-sep)];
+                             _tableView.contentInset = UIEdgeInsetsMake(sep, 0, 0, 0);
                              self.tableView.alpha = 0.5;
                          } completion:^(BOOL finished) {
             

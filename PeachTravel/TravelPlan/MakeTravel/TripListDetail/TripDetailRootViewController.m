@@ -61,11 +61,6 @@
 //现实目的地按钮
 @property (nonatomic, strong) UIButton *destinationBtn;
 
-/**
- *  目的地titile 列表，三个界面共享
- */
-//@property (strong, nonatomic) DestinationsView *destinationsHeaderView;
-
 @property (strong, nonatomic) UIButton *backButton;
 
 @property (nonatomic, strong) UIImageView *coverView;
@@ -76,8 +71,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = APP_PAGE_COLOR;
+    self.automaticallyAdjustsScrollViewInsets = NO;
     [self.view addSubview:self.segmentedControl];
     
     [self setupViewControllers];
@@ -107,14 +102,14 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [MobClick beginLogPageView:@"page_lxp_plan_agenda"];
     [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"page_lxp_plan_agenda"];
     _isShowing = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    [MobClick endLogPageView:@"page_lxp_plan_agenda"];
     [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"page_lxp_plan_agenda"];
     _isShowing = NO;
 }
 
@@ -248,7 +243,7 @@
     if (!_segmentedControl) {
         _segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"行程", @"想去"]];
         _segmentedControl.selectedSegmentIndex = 0;
-        _segmentedControl.frame = CGRectMake(self.view.bounds.size.width/2-100, 64+7, 200, 30);
+        _segmentedControl.frame = CGRectMake(self.view.bounds.size.width/2-100, 7 + 64, 200, 30);
         [_segmentedControl addTarget:self action:@selector(changePage:) forControlEvents:UIControlEventValueChanged];
         _segmentedControl.tintColor = APP_THEME_COLOR;
     }
@@ -583,7 +578,6 @@
     }];
 }
 
-
 - (void)userLogin
 {
     LoginViewController *loginCtl = [[LoginViewController alloc] init];
@@ -848,11 +842,6 @@
 - (void)sendSuccess:(ChatViewController *)chatCtl
 {
     [self dismissPopup];
-    
-    /*发送完成后不进入聊天界面
-     [self.navigationController pushViewController:chatCtl animated:YES];
-     */
-    
     [SVProgressHUD showSuccessWithStatus:@"已发送"];
     
 }
