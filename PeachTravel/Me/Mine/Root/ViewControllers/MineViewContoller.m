@@ -84,7 +84,6 @@
     }
 }
 
-
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
     //如果进入我的界面需要隐藏 navi bar
@@ -98,7 +97,8 @@
     //如果进入REFrostedViewController类型的界面需要隐藏 navi bar
     } else if ([viewController isKindOfClass:[REFrostedViewController class]]){
         [self.navigationController setNavigationBarHidden:YES animated:YES];
-
+    
+    //其他类型显示 navi bar
     } else {
         [self.navigationController setNavigationBarHidden:NO animated:YES];
     }

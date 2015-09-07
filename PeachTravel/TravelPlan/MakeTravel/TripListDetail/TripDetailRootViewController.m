@@ -248,7 +248,7 @@
     if (!_segmentedControl) {
         _segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"行程", @"想去"]];
         _segmentedControl.selectedSegmentIndex = 0;
-        _segmentedControl.frame = CGRectMake(self.view.bounds.size.width/2-100, 7, 200, 30);
+        _segmentedControl.frame = CGRectMake(self.view.bounds.size.width/2-100, 64+7, 200, 30);
         [_segmentedControl addTarget:self action:@selector(changePage:) forControlEvents:UIControlEventValueChanged];
         _segmentedControl.tintColor = APP_THEME_COLOR;
     }
@@ -661,26 +661,18 @@
 {
     NSMutableArray *array = [[NSMutableArray alloc] init];
     
-    NSInteger count = self.frostedViewController.navigationController.childViewControllers.count;
-    
     _spotsListCtl = [[PlanScheduleViewController alloc] init];
     _tripFavoriteCtl = [[TripFavoriteTableViewController alloc] init];
     _tripFavoriteCtl.canEdit = _canEdit;
-    if (count > 1) {
-        [_spotsListCtl.view setFrame:CGRectMake(0, 44, CGRectGetWidth(self.frostedViewController.view.bounds), CGRectGetHeight(self.frostedViewController.view.bounds) - 44)];
-        [_tripFavoriteCtl.view setFrame:CGRectMake(0, 44, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 44)];
-    } else {
-        [_spotsListCtl.view setFrame:CGRectMake(0, 44, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 44 - 44)];
-        [_tripFavoriteCtl.view setFrame:CGRectMake(0, 44, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 44 - 44)];
-    }
-    
+    [_spotsListCtl.view setFrame:CGRectMake(0, 44+64, CGRectGetWidth(self.frostedViewController.view.bounds), CGRectGetHeight(self.frostedViewController.view.bounds)-44-64)];
+    [_tripFavoriteCtl.view setFrame:CGRectMake(0, 44+64, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds)-44-64)];
     [self addChildViewController:_spotsListCtl];
     [self.view addSubview:_spotsListCtl.view];
     
     [array addObject:_spotsListCtl];
     [array addObject:_tripFavoriteCtl];
     _tabbarPageControllerArray = array;
-    
+
     _currentViewController = _spotsListCtl;
 }
 
