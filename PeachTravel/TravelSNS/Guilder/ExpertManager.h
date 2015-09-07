@@ -28,4 +28,14 @@
  */
 + (void)asyncRequest2BeAnExpert:(NSString *)phoneNumber completionBlock:(void(^)(BOOL isSuccess))completionBlock;
 
+/**
+ *  异步从网上加载达人
+ *
+ *  @param areaName        区域名
+ *  @param page
+ *  @param pageSize
+ *  @param completionBlock 回调
+ */
++ (void)asyncLoadExpertsWithAreaName:(NSString *)areaName page:(NSInteger)page pageSize:(NSInteger)pageSize completionBlock:(void (^)(BOOL, NSArray *))completionBlock;
+
 @end

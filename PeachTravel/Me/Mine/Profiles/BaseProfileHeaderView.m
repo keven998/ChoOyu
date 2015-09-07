@@ -72,7 +72,7 @@
     
     // 7.头像
     UIImageView *avatar = [[UIImageView alloc] init];
-    avatar.contentMode = UIViewContentModeScaleToFill;
+    avatar.contentMode = UIViewContentModeScaleAspectFill;
     avatar.layer.cornerRadius = 44;
     avatar.layer.masksToBounds = YES;
     self.avatar = avatar;

@@ -26,7 +26,7 @@
     UILabel *contentLab = [[UILabel alloc] init];
     contentLab.font = [UIFont systemFontOfSize:18.0];
     contentLab.textColor = UIColorFromRGB(0x323232);
-    contentLab.text = @"他还没有达人点评哦..";
+//    contentLab.text = @"他还没有达人点评哦..";
     contentLab.numberOfLines = 0;
     contentLab.textAlignment = NSTextAlignmentLeft;
     contentLab.lineBreakMode = NSLineBreakByWordWrapping;//换行方式

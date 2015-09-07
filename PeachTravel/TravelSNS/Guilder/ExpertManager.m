@@ -49,6 +49,36 @@
     }];
 }
 
++ (void)asyncLoadExpertsWithAreaName:(NSString *)areaName page:(NSInteger)page pageSize:(NSInteger)pageSize completionBlock:(void (^)(BOOL, NSArray *))completionBlock
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:areaName forKey:@"zone"];
+    [params setObject:[NSNumber numberWithInt:16] forKey:@"pageSize"];
+    [params setObject:[NSNumber numberWithInteger:page] forKey:@"page"];
+    
+    NSString * urlStr = [NSString stringWithFormat:@"%@experts",API_USERS];
+    
+    NSLog(@"%@",urlStr);
+    
+    [manager GET:urlStr parameters:params
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@",responseObject);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            NSArray *resultArray = [self parseGuiderListRequestResult:[responseObject objectForKey:@"result"]];
+            completionBlock(YES, resultArray);
+        } else {
+            completionBlock(NO, nil);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completionBlock(NO, nil);
+    }];
+
+}
+
 /**
  *  解析达人列表的数据
  *
