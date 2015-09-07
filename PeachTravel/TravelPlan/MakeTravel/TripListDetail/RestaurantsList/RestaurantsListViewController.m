@@ -63,7 +63,6 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
 {
     [MobClick endLogPageView:@"page_plan_favorite_pois_lists_type_restaurant"];
     [super viewWillDisappear:animated];
-    NSLog(@"Rest willdisappear");
 }
 
 #pragma mark - setter & getter

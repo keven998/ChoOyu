@@ -81,7 +81,6 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
         [_searchBar setPlaceholder:@"游记名、景点、城市名等"];
         _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
         _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
-        _searchBar.translucent = YES;
         [_searchBar setSearchFieldBackgroundImage:[UIImage imageNamed:@"ic_notify_flag.png"] forState:UIControlStateNormal];
         [_searchBar becomeFirstResponder];
     }
