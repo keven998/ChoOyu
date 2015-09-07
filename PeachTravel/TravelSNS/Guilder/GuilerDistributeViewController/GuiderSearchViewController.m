@@ -12,13 +12,14 @@
 #import "AccountManager.h"
 #import "ChatViewController.h"
 #import "OtherUserInfoViewController.h"
-
+#import "ExpertManager.h"
+#import "GuiderProfileViewController.h"
 @interface GuiderSearchViewController () <UISearchBarDelegate, UISearchControllerDelegate, UITableViewDataSource, UITableViewDelegate,SWTableViewCellDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UISearchBar *searchBar;
 
-@property (nonatomic, strong)NSMutableArray * dataSource;
+@property (nonatomic, strong)NSArray * dataSource;
 
 #define contactCell      @"contactCell2"
 #define requestCell      @"requestCell"
@@ -27,10 +28,10 @@
 
 @implementation GuiderSearchViewController
 
-- (NSMutableArray *)dataSource
+- (NSArray *)dataSource
 {
     if (_dataSource == nil) {
-        _dataSource = [NSMutableArray array];
+        _dataSource = [NSArray array];
     }
     return _dataSource;
 }
@@ -48,15 +49,11 @@
     [_searchBar setPlaceholder:@"搜索达人"];
     _searchBar.tintColor = COLOR_TEXT_II;
     _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
-    [_searchBar setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
-    [_searchBar setBackgroundColor:APP_THEME_COLOR];
+    [_searchBar setBackgroundImage:[ConvertMethods createImageWithColor:APP_PAGE_COLOR] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+    [_searchBar setBackgroundColor:APP_PAGE_COLOR];
     _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.navigationItem.titleView = _searchBar;
     
-    UIImageView *imageBg = [[UIImageView alloc]initWithFrame:CGRectMake((kWindowWidth - 210)/2, 68, 210, 130)];
-    
-    imageBg.image = [UIImage imageNamed:@"search_default_background"];
-    [self.view addSubview:imageBg];
     
     [self.view addSubview:self.tableView];
     self.tableView.hidden = YES;
@@ -121,9 +118,10 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    FrendModel * contact = self.dataSource[indexPath.row];
+    ExpertModel * contact = self.dataSource[indexPath.row];
     
     ContactListTableViewCell *cell = [ContactListTableViewCell contactListCellWithTableView:tableView];
+    cell.backgroundColor = [UIColor redColor];
     
     [cell setRightUtilityButtons:[self rightButtons] WithButtonWidth:60];
     cell.delegate = self;
@@ -147,8 +145,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    FrendModel *contact = self.dataSource[indexPath.row];
-    OtherUserInfoViewController *contactDetailCtl = [[OtherUserInfoViewController alloc]init];
+    ExpertModel *contact = self.dataSource[indexPath.row];
+    GuiderProfileViewController *contactDetailCtl = [[GuiderProfileViewController alloc]init];
     contactDetailCtl.userId = contact.userId;
     [self.navigationController pushViewController:contactDetailCtl animated:YES];
     
@@ -174,40 +172,37 @@
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     NSLog(@"点击了搜索按钮");
+    [self loadTravelers:searchBar.text withPageNo:0];
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
     NSLog(@"%s",__func__);
     
-    [self refreshTableDataWithSearchText:searchText];
+//    [self refreshTableDataWithSearchText:searchText];
 }
 
-#pragma mark - 输入文字时刷新表格数据
-- (void)refreshTableDataWithSearchText:(NSString *)searchText{
-    
-    self.tableView.hidden = NO;
-    
-    [self.dataSource removeAllObjects];
-    
-    AccountManager * manager = [AccountManager shareAccountManager];
-    NSMutableArray * contactLists = [NSMutableArray arrayWithArray:manager.account.frendList];
-    
-    // 将小写字母转换成大写字母
-    NSString * newSearchText = searchText.uppercaseString;
-    
-    for (FrendModel * frendModel in contactLists) {
-        NSLog(@"%@",frendModel.fullPY);
-        
-        if ([frendModel.fullPY.uppercaseString rangeOfString:newSearchText].location != NSNotFound || [frendModel.nickName.uppercaseString rangeOfString:newSearchText].location != NSNotFound) {
-            [self.dataSource addObject:frendModel];
+#pragma mark - 加载网络数据
+ - (void)loadTravelers:(NSString *)areaName withPageNo:(NSInteger)page
+{
+    [SVProgressHUD show];
+    [ExpertManager asyncLoadExpertsWithAreaName:areaName page:page pageSize:15 completionBlock:^(BOOL isSuccess, NSArray *expertsArray) {
+        if (isSuccess) {
+            [SVProgressHUD showHint:@"加载完成"];
+            _dataSource = expertsArray;
+            [self.tableView reloadData];
+            self.tableView.hidden = NO;
+            [self.searchBar endEditing:YES];
+        } else {
+            NSString *tip = [NSString stringWithFormat:@"还没有达人去过%@",areaName];
+            [SVProgressHUD showErrorWithStatus:tip];
+            [self.searchBar endEditing:YES];
         }
-    }
-    
-    NSLog(@"%@",self.dataSource);
-    
-    [self.tableView reloadData];
+    }];
 }
+
+
+#pragma mark - 输入文字时刷新表格数据
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
