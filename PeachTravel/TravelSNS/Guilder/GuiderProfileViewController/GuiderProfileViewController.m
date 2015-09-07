@@ -48,7 +48,7 @@
     [moreBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:moreBtn];
     
-    [self setupTableView];
+//    [self setupTableView];
     [self setupHeaderView];
     [self createFooterBar];
     [self setupNavBar];
@@ -60,15 +60,14 @@
 {
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_user_profile"];
-       
-    
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"page_user_profile"];
-      
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 
@@ -131,7 +130,8 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     BaseProfileHeaderView *headerView = [[BaseProfileHeaderView alloc] init];
-    headerView.image = [UIImage imageNamed:@"testpicture"];
+//    headerView.image = [UIImage imageNamed:@"testpicture"];
+    headerView.backgroundColor = [UIColor grayColor];
     headerView.frame = CGRectMake(0, 0, kWindowWidth, 310);
     headerView.userInfo = self.userInfo;
     self.tableView.tableHeaderView = headerView;
@@ -197,7 +197,8 @@
     [FrendManager loadUserInfoFromServer:userId completion:^(BOOL isSuccess, NSInteger errorCode, FrendModel * __nonnull frend) {
         if (isSuccess) {
             _userInfo = frend;
-            [self loadUserAlbum];            
+            [self loadUserAlbum];
+            [self setupTableView];
             [self.tableView reloadData];
         } else {
             [SVProgressHUD showHint:@"请求失败"];

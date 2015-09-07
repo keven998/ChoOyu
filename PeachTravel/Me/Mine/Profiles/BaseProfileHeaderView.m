@@ -31,8 +31,9 @@
     // 1.年龄
     UILabel *age = [[UILabel alloc] init];
     age.text = @"年龄";
-    age.font = [UIFont fontWithName:@"Helvetica-Bold" size:16.0];
-    age.textColor = UIColorFromRGB(0x969696);
+    age.textAlignment = NSTextAlignmentCenter;
+    age.font = [UIFont fontWithName:@"Helvetica-Bold" size:12.0];
+    age.textColor = UIColorFromRGB(0xFFFFFF);
     self.age = age;
     [self addSubview:age];
     
@@ -63,14 +64,16 @@
     UILabel *nickName = [[UILabel alloc] init];
     nickName.text = @"娜美";
     nickName.textAlignment = NSTextAlignmentCenter;
-    nickName.font = [UIFont fontWithName:@"Helvetica-Bold" size:25.0];
-    nickName.textColor = UIColorFromRGB(0x969696);
+    nickName.font = [UIFont fontWithName:@"Helvetica-Bold" size:18.0];
+    nickName.textColor = UIColorFromRGB(0xFFFFFF);
     self.nickName = nickName;
     [self addSubview:nickName];
     
     // 7.头像
     UIImageView *avatar = [[UIImageView alloc] init];
-    avatar.contentMode = UIViewContentModeScaleAspectFill;
+    avatar.contentMode = UIViewContentModeScaleToFill;
+    avatar.layer.cornerRadius = 44;
+    avatar.layer.masksToBounds = YES;
     self.avatar = avatar;
     [self addSubview:avatar];
 }
@@ -83,8 +86,8 @@
 //    CGFloat selfH = self.frame.size.height;
     
     // 1.头像
-    CGFloat avatarW = 90;
-    CGFloat avatarH = avatarW;
+    CGFloat avatarW = 88;
+    CGFloat avatarH = 88;
     CGFloat avatarX = (kWindowWidth-avatarW)*0.5;
     CGFloat avatarY = 100;
     self.avatar.frame = CGRectMake(avatarX, avatarY, avatarW, avatarH);
@@ -93,13 +96,13 @@
     CGFloat nickNameW = 100;
     CGFloat nickNameH = 21;
     CGFloat nickNameX = (kWindowWidth-avatarW)*0.5;
-    CGFloat nickNameY = CGRectGetMaxY(self.avatar.frame)+10;
+    CGFloat nickNameY = CGRectGetMaxY(self.avatar.frame)+5;
     self.nickName.frame = CGRectMake(nickNameX, nickNameY, nickNameW, nickNameH);
     
     // 3.年龄
-    CGFloat ageW = 200;
+    CGFloat ageW = kWindowWidth;
     CGFloat ageH = 21;
-    CGFloat ageX = (kWindowWidth-avatarW)*0.5;
+    CGFloat ageX = 0;
     CGFloat ageY = CGRectGetMaxY(self.nickName.frame)+10;
     self.age.frame = CGRectMake(ageX, ageY, ageW, ageH);
     
@@ -135,6 +138,8 @@
 - (void)setUserInfo:(FrendModel *)userInfo
 {
     _userInfo = userInfo;
+    
+    NSLog(@"%@",_userInfo);
     
     // 设置数据
     NSURL *url = [NSURL URLWithString:userInfo.avatar];
