@@ -24,10 +24,11 @@
 {
     // 正文
     UILabel *contentLab = [[UILabel alloc] init];
-    contentLab.font = [UIFont fontWithName:@"Helvetica-Bold" size:14.0];
-    contentLab.textColor = UIColorFromRGB(0x646464);
+    contentLab.font = [UIFont systemFontOfSize:18.0];
+    contentLab.textColor = UIColorFromRGB(0x323232);
     contentLab.text = @"他还没有达人点评哦..";
     contentLab.numberOfLines = 0;
+    contentLab.textAlignment = NSTextAlignmentLeft;
     contentLab.lineBreakMode = NSLineBreakByWordWrapping;//换行方式
     self.contentLab = contentLab;
     [self addSubview:contentLab];
@@ -40,15 +41,15 @@
     CGSize size = CGSizeMake(kWindowWidth - 40,CGFLOAT_MAX);//LableWight标签宽度，固定的
     
     //计算实际frame大小，并将label的frame变成实际大小
-    NSDictionary *dict = @{NSFontAttributeName: [UIFont systemFontOfSize:14.0]};
+    NSDictionary *dict = @{NSFontAttributeName: [UIFont systemFontOfSize:18.0]};
     CGSize contentSize = [self.content boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
     
     CGFloat contentH = contentSize.height;
     if (self.content.length == 0) {
-        contentH = 40;
+        contentH = 50;
     }
     
-    self.contentLab.frame = CGRectMake(42, 10, kWindowWidth - 84, contentH);
+    self.contentLab.frame = CGRectMake(16, 17, kWindowWidth - 35, contentH);
 }
 
 #pragma mark - 传入内容

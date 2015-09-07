@@ -40,7 +40,7 @@
     TaoziCollectionLayout *layout = [[TaoziCollectionLayout alloc] init];
     layout.delegate = self;
     layout.showDecorationView = NO;
-    layout.spacePerItem = 12;
+    layout.spacePerItem = 6;
     layout.spacePerLine = 15;
     layout.margin = 10;
     
@@ -111,7 +111,7 @@
 {
     NSString *title = [_collectionArray objectAtIndex:indexPath.row];
     CGSize size = [title sizeWithAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:17.0]}];
-    return CGSizeMake(size.width, 20);
+    return CGSizeMake(size.width, 23);
 }
 
 - (CGSize)collectionview:(UICollectionView *)collectionView sizeForHeaderView:(NSIndexPath *)indexPath

@@ -23,15 +23,17 @@
 {
     // 1.标题
     UIButton *titleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [titleBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
+    [titleBtn setTitleColor:UIColorFromRGB(0x646464) forState:UIControlStateNormal];
+    [titleBtn.titleLabel setFont:[UIFont boldSystemFontOfSize:14.0]];
     titleBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     self.titleBtn = titleBtn;
     [self addSubview:titleBtn];
     
     // 2.图片数量
     UILabel *countLab = [[UILabel alloc] init];
+    countLab.font = [UIFont boldSystemFontOfSize:14.0];
     countLab.textAlignment = NSTextAlignmentRight;
-    countLab.textColor = TEXT_COLOR_TITLE;
+    countLab.textColor = UIColorFromRGB(0x969696);
     self.countLab = countLab;
     [self addSubview:countLab];
     
@@ -41,6 +43,11 @@
     line.alpha = 0.3;
     self.line = line;
     [self addSubview:line];
+    
+    // 4.标题icon
+    UIImageView *iconImage = [[UIImageView alloc] init];
+    self.iconImage = iconImage;
+    [self addSubview:iconImage];
 }
 
 - (void)layoutSubviews
@@ -48,7 +55,8 @@
     [super layoutSubviews];
     CGFloat selfH = self.frame.size.height;
     
-    self.titleBtn.frame = CGRectMake(10, 0, 300, selfH);
+    self.iconImage.frame = CGRectMake(13, (selfH-14)*0.5, 14, 14);
+    self.titleBtn.frame = CGRectMake(29, 0, 300, selfH);
     self.countLab.frame = CGRectMake(kWindowWidth-200-10, 0, 200, selfH);
     self.line.frame = CGRectMake(0, selfH - 1, kWindowWidth, 1);
 }

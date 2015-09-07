@@ -48,7 +48,7 @@
     [moreBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:moreBtn];
     
-    [self setupTableView];
+//    [self setupTableView];
     [self setupHeaderView];
     [self createFooterBar];
     [self setupNavBar];
@@ -60,15 +60,14 @@
 {
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_user_profile"];
-       
-    
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"page_user_profile"];
-      
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 
@@ -131,7 +130,8 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     BaseProfileHeaderView *headerView = [[BaseProfileHeaderView alloc] init];
-    headerView.image = [UIImage imageNamed:@"testpicture"];
+//    headerView.image = [UIImage imageNamed:@"testpicture"];
+    headerView.backgroundColor = [UIColor grayColor];
     headerView.frame = CGRectMake(0, 0, kWindowWidth, 310);
     headerView.userInfo = self.userInfo;
     self.tableView.tableHeaderView = headerView;
@@ -197,7 +197,8 @@
     [FrendManager loadUserInfoFromServer:userId completion:^(BOOL isSuccess, NSInteger errorCode, FrendModel * __nonnull frend) {
         if (isSuccess) {
             _userInfo = frend;
-            [self loadUserAlbum];            
+            [self loadUserAlbum];
+            [self setupTableView];
             [self.tableView reloadData];
         } else {
             [SVProgressHUD showHint:@"请求失败"];
@@ -265,7 +266,8 @@
         albumCell.selectionStyle = UITableViewCellSelectionStyleNone;
         return albumCell;
     } else if (indexPath.section == 2) {
-        GuiderProfileTourViewCell *profileTourCell = [GuiderProfileTourViewCell guiderProfileTourWithTableView:tableView];
+        GuiderProfileTourViewCell *profileTourCell = [[GuiderProfileTourViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+        profileTourCell.userInfo = self.userInfo;
         profileTourCell.footprintCount.text = _userInfo.footprintDescription;
         profileTourCell.planCount.text = [NSString stringWithFormat:@"%ld篇",_userInfo.guideCount];
         
@@ -317,27 +319,27 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        return [self calculateTagsHeight];
+        return [self calculateTagsHeight]+10;
     } else if (indexPath.section == 1) {
         CGFloat collectionW = (kWindowWidth-10-20) / 3;
         return collectionW + 20;
     } else if (indexPath.section == 2) {
-        return 130;
+        return 132;
     } else if (indexPath.section == 3) {
         if (self.userInfo.signature.length == 0) return 50;
         CGSize size = CGSizeMake(kWindowWidth - 40,CGFLOAT_MAX);//LableWight标签宽度，固定的
         
         //计算实际frame大小，并将label的frame变成实际大小
-        NSDictionary *dict = @{NSFontAttributeName: [UIFont systemFontOfSize:14.0]};
+        NSDictionary *dict = @{NSFontAttributeName: [UIFont systemFontOfSize:18.0]};
         CGSize contentSize = [self.userInfo.signature boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
-        return contentSize.height + 20;
+        return contentSize.height + 34;
     } else if (indexPath.section == 4) {
         if (self.userInfo.profile.length == 0) return 50;
         CGSize size = CGSizeMake(kWindowWidth - 40,CGFLOAT_MAX);//LableWight标签宽度，固定的
         //计算实际frame大小，并将label的frame变成实际大小
-        NSDictionary *dict = @{NSFontAttributeName: [UIFont systemFontOfSize:14.0]};
+        NSDictionary *dict = @{NSFontAttributeName: [UIFont systemFontOfSize:18.0]};
         CGSize contentSize = [self.userInfo.profile boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
-        return contentSize.height + 20;
+        return contentSize.height + 34;
     }
     return 150;
 }
@@ -350,20 +352,24 @@
     if (section == 0) {
         [titleView.titleBtn setTitle:@"旅行派·达人·咨询师" forState:UIControlStateNormal];
         titleView.countLab.text = @"达人标签";
+        titleView.iconImage.image = [UIImage imageNamed:@"master"];
     } else if (section == 1) {
         NSString *title = [NSString stringWithFormat:@"%@的相册",_userInfo.nickName];
         [titleView.titleBtn setTitle:title forState:UIControlStateNormal];
         NSString *albumCount = [NSString stringWithFormat:@"%ld图",self.albumArray.count];
         titleView.countLab.text = albumCount;
-
+        titleView.iconImage.image = [UIImage imageNamed:@"picture_biaoti"];
     } else if (section == 2) {
         NSString *title = [NSString stringWithFormat:@"%@的旅行",_userInfo.nickName];
         [titleView.titleBtn setTitle:title forState:UIControlStateNormal];
+        titleView.iconImage.image = [UIImage imageNamed:@"travel_biaoti"];
     } else if (section == 3) {
         NSString *title = [NSString stringWithFormat:@"关于%@",_userInfo.nickName];
         [titleView.titleBtn setTitle:title forState:UIControlStateNormal];
+        titleView.iconImage.image = [UIImage imageNamed:@"about"];
     } else {
         [titleView.titleBtn setTitle:@"派派点评" forState:UIControlStateNormal];
+        titleView.iconImage.image = [UIImage imageNamed:@"paipai"];
     }
     return titleView;
 }
@@ -382,7 +388,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 50;
+    return 36;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section

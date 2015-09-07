@@ -7,23 +7,24 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "ExpertTourView.h"
+@class FrendModel;
 @interface GuiderProfileTourViewCell : UITableViewCell
 
-+ (id)guiderProfileTourWithTableView:(UITableView *)tableView;
+@property (weak, nonatomic) UILabel *footprintCount;
 
-@property (weak, nonatomic) IBOutlet UILabel *footprintCount;
+@property (weak, nonatomic) UILabel *planCount;
 
-@property (weak, nonatomic) IBOutlet UILabel *planCount;
+@property (weak, nonatomic) ExpertTourView *footprintBtn;
 
-@property (weak, nonatomic) IBOutlet UIButton *footprintBtn;
+@property (weak, nonatomic) ExpertTourView *planBtn;
 
-@property (weak, nonatomic) IBOutlet UIButton *planBtn;
+@property (weak, nonatomic) ExpertTourView *tourBtn;
 
-@property (weak, nonatomic) IBOutlet UIButton *tourBtn;
+@property (weak, nonatomic) UILabel *tourTitle;
 
-@property (weak, nonatomic) IBOutlet UILabel *tourTitle;
+@property (weak, nonatomic) UILabel *tourCount;
 
-@property (weak, nonatomic) IBOutlet UILabel *tourCount;
+@property (nonatomic, strong) FrendModel *userInfo;
 
 @end
