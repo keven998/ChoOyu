@@ -157,9 +157,7 @@
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (operation.response.statusCode == 401) {
-            completion(NO);
-        }
+        completion(NO);
     }];
 }
 

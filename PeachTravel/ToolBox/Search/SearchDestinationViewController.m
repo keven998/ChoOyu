@@ -53,7 +53,6 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     _searchBar.tintColor = COLOR_TEXT_II;
     _searchBar.showsCancelButton = YES;
     _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
-    [_searchBar setBackgroundImage:[[UIImage imageNamed:@"icon_search_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
     [_searchBar setSearchFieldBackgroundImage:[[UIImage imageNamed:@"icon_search_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)] forState:UIControlStateNormal];
     [_searchBar setTranslucent:YES];
     _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;

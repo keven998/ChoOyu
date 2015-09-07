@@ -43,7 +43,7 @@
     
     count = _coolDown;
     
-    UIImageView *iconImage = [[UIImageView alloc]initWithFrame:CGRectMake(489/3 * kWindowWidth/414, 216/3 *kWindowHeight/736, 87*kWindowHeight/736, 87*kWindowHeight/736)];
+    UIImageView *iconImage = [[UIImageView alloc]initWithFrame:CGRectMake(489/3 * kWindowWidth/414, 64+20, 87*kWindowHeight/736, 87*kWindowHeight/736)];
     iconImage.image = [UIImage imageNamed:@"icon_little"];
     [self.view addSubview:iconImage];
     
