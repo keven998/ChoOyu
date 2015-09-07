@@ -86,14 +86,16 @@
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
-    viewController.hidesBottomBarWhenPushed = YES;
     if ([viewController isKindOfClass:[MineProfileViewController class]]) {
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
            
     } else if ([viewController isKindOfClass:[MineViewContoller class]]) {
-           
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
+
 
     } else {
-          
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
+
     }
 }
 
@@ -192,7 +194,6 @@
 - (void)tapHeaderView:(UITapGestureRecognizer *)tap
 {
     MineProfileViewController *profile = [[MineProfileViewController alloc] init];
-    profile.hidesBottomBarWhenPushed = YES;
     [self preSetNavForSlide];
     [self.navigationController pushViewController:profile animated:YES];
 }
