@@ -51,11 +51,18 @@
     [self setupSegmentView];
     [self setupContentView];
     [self changePage:0];
-
+//    [self setupAddPlanBtn];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
+- (void)setupAddPlanBtn
+{
+    UIButton *addPlan = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    CGRect rect = CGRectMake((kWindowWidth-50)*0.5, self.view.frame.size.height-100, 50, 50);
+    CGRect revertRect = [self.view convertRect:rect toView:[UIApplication sharedApplication].keyWindow];
+    addPlan.frame = revertRect;
+    addPlan.backgroundColor = [UIColor redColor];
+    [self.view addSubview:addPlan];
 }
 
 #pragma mark - setter & getter
@@ -166,6 +173,13 @@
         NSUInteger pageIndex = offsetX/scrollView.bounds.size.width;
         [self changePage:pageIndex];
     }
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    NSString *scrollW = [NSString stringWithFormat:@"%f",scrollView.contentOffset.x];
+    NSDictionary *userInfo = @{@"scrollW": scrollW};
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ChangeAddPlanFrame" object:nil userInfo:userInfo];
 }
 
 @end

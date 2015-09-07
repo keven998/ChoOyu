@@ -25,6 +25,8 @@
 @property (nonatomic, weak) MineHeaderView *topView;
 @property (nonatomic, weak) UIViewController *contentViewCtl;
 
+@property (nonatomic, weak) UIButton *addPlan;
+
 @end
 
 @implementation MineViewContoller
@@ -43,7 +45,22 @@
     self.navigationController.delegate = self;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeContentFrame:) name:@"ChangePlanListFrame" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAddPlanBtnFrame:) name:@"ChangeAddPlanFrame" object:nil];
+    
+    [self setupAddPlanBtn];
 }
+
+- (void)setupAddPlanBtn
+{
+    UIButton *addPlan = [UIButton buttonWithType:UIButtonTypeCustom];
+    [addPlan addTarget:self action:@selector(addPlan:) forControlEvents:UIControlEventTouchUpInside];
+    CGRect rect = CGRectMake((kWindowWidth-50)*0.5, self.view.frame.size.height-120, 50, 50);
+    addPlan.frame = rect;
+    addPlan.backgroundColor = [UIColor redColor];
+    self.addPlan = addPlan;
+    [self.view addSubview:addPlan];
+}
+
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -165,12 +182,29 @@
     }
 }
 
+- (void)changeAddPlanBtnFrame:(NSNotification *)note
+{
+    NSString *scrollW = note.userInfo[@"scrollW"];
+    CGFloat scrollWidth = [scrollW floatValue];
+    
+    NSLog(@"scrollWidth:%f",scrollWidth);
+    CGRect frame = self.addPlan.frame;
+    frame.origin.x = frame.origin.x-scrollWidth;
+
+}
+
 // 点击头部进入个人Profile
 - (void)tapHeaderView:(UITapGestureRecognizer *)tap
 {
     MineProfileViewController *profile = [[MineProfileViewController alloc] init];
     [self preSetNavForSlide];
     [self.navigationController pushViewController:profile animated:YES];
+}
+
+// 添加计划
+- (void)addPlan:(UIButton *)btn
+{
+    
 }
 
 #pragma mark - navigationDelegate 实现此代理方法也是为防止滑动返回时界面卡死
