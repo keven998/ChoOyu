@@ -177,14 +177,14 @@
         _wechatLabel.hidden = NO;
     }
     
-       
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:weixinDidLoginNoti object:nil];
-      
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 - (void)dealloc

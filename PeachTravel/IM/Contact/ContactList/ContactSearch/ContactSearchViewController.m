@@ -48,8 +48,7 @@
     [_searchBar setPlaceholder:@"联系人"];
     _searchBar.tintColor = COLOR_TEXT_II;
     _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
-    [_searchBar setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
-    [_searchBar setBackgroundColor:APP_THEME_COLOR];
+    [_searchBar setSearchFieldBackgroundImage:[[UIImage imageNamed:@"icon_search_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)] forState:UIControlStateNormal];
     _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.navigationItem.titleView = _searchBar;
     

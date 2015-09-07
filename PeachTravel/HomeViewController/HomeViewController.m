@@ -248,7 +248,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
-    
 }
 
 - (void)updateBackgroundData:(NSString *)imageUrl
@@ -257,15 +256,13 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         [_coverView sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"Default-375w-667h@2x~iphone"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             if (image) {
                 if (_coverView != nil) {
-                    [NSObject cancelPreviousPerformRequestsWithTarget:self
-                                                             selector:@selector(dismiss:)
-                                                               object:nil];
-                    [self performSelector:@selector(dismiss:) withObject:nil afterDelay:3];
                 }
             }
         }];
     }
     
+    [self performSelector:@selector(dismiss:) withObject:nil afterDelay:3];
+
     [[NSUserDefaults standardUserDefaults] setObject:imageUrl forKey:kBackGroundImage];
 }
 
@@ -424,8 +421,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         dotView.backgroundColor = [UIColor redColor];
         dotView.layer.cornerRadius = 3.0;
         dotView.clipsToBounds = YES;
-        CGFloat x = ceilf(0.87 * tabFrame.size.width);
-        CGFloat y = ceilf(0.2 * tabFrame.size.height);
+        CGFloat x = ceilf(0.92 * tabFrame.size.width);
+        CGFloat y = ceilf(0.18 * tabFrame.size.height);
         dotView.frame = CGRectMake(x, y, 6, 6);
         [self.tabBar addSubview:dotView];
     } else {
@@ -510,7 +507,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
  */
 - (void)showStatusMessageNoti:(BaseMessage *) message
 {
-    [JDStatusBarNotification showWithStatus:message.abbrevMsg dismissAfter:2];
+    [JDStatusBarNotification showWithStatus:message.abbrevMsg dismissAfter:2 styleName:JDStatusBarStyleDark];
 }
 
 - (void)playSoundAndVibration

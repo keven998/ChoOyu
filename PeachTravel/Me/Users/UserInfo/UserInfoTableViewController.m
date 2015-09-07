@@ -727,8 +727,12 @@
         AccountManager *accountManager = [AccountManager shareAccountManager];
         [SVProgressHUD show];
         [accountManager asyncLogout:^(BOOL isSuccess) {
-            [self showHint:@"退出成功"];
-            [self.navigationController popViewControllerAnimated:YES];
+            if (isSuccess) {
+                [self showHint:@"退出成功"];
+                [self.navigationController popViewControllerAnimated:YES];
+            } else {
+                [self showHint:@"退出失败"];
+            }
         }];
     }
 }

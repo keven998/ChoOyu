@@ -21,12 +21,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
     _searchBar = [[UISearchBar alloc]init];
     _searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [_searchBar setPlaceholder:@"昵称/用户ID/手机号"];
-    _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
-    [_searchBar setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
-    [_searchBar setBackgroundColor:APP_THEME_COLOR];
+    _searchBar.tintColor = COLOR_TEXT_II;
+       _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
+    [_searchBar setSearchFieldBackgroundImage:[[UIImage imageNamed:@"icon_search_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)] forState:UIControlStateNormal];
     _searchBar.showsCancelButton = YES;
     _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.navigationItem.titleView = _searchBar;
