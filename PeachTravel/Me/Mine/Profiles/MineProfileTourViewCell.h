@@ -7,7 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "ExpertTourView.h"
 @interface MineProfileTourViewCell : UITableViewCell
+
+@property (weak, nonatomic) UILabel *footprintCount;
+
+@property (weak, nonatomic) UILabel *planCount;
+
+@property (weak, nonatomic) UIButton *footprintBtn;
+
+@property (weak, nonatomic) UIButton *planBtn;
+
+@property (weak, nonatomic) UIButton *tourBtn;
+
+@property (weak, nonatomic) UILabel *tourTitle;
+
+@property (weak, nonatomic) UILabel *tourCount;
+
 
 @end

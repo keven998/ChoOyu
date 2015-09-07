@@ -7,43 +7,61 @@
 //
 
 #import "GuiderProfileTourViewCell.h"
-
+#import "PeachTravel-swift.h"
 @implementation GuiderProfileTourViewCell
 
-+ (id)guiderProfileTourWithTableView:(UITableView *)tableView
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
-    static NSString * ID = @"guideCell";
-    
-    UINib * nib = [UINib nibWithNibName:NSStringFromClass([self class]) bundle:nil];
-    
-    [tableView registerNib:nib forCellReuseIdentifier:ID];
-    
-    return [tableView dequeueReusableCellWithIdentifier:ID];
-
-}
-
-- (void)awakeFromNib {
-    
-    [self.footprintBtn.titleLabel setTextColor:UIColorFromRGB(0x969696)];
-    [self.footprintBtn.titleLabel setFont:[UIFont fontWithName:@"STHeitiSC-Medium" size:12.0]];
-    
-    [self.planBtn.titleLabel setTextColor:UIColorFromRGB(0x969696)];
-    [self.planBtn.titleLabel setFont:[UIFont fontWithName:@"STHeitiSC-Medium" size:12.0]];
-    
-    [self.tourBtn.titleLabel setTextColor:UIColorFromRGB(0x969696)];
-    [self.tourBtn.titleLabel setFont:[UIFont fontWithName:@"STHeitiSC-Medium" size:12.0]];
-    
-    self.footprintCount.textColor = APP_THEME_COLOR;
-    self.planCount.textColor = APP_THEME_COLOR;
-    self.tourCount.textColor = APP_THEME_COLOR;
-}
-
-- (instancetype)initWithFrame:(CGRect)frame
-{
-    if (self = [super initWithFrame:frame]) {
-        
+    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+        [self setupMainView];
     }
     return self;
+}
+
+- (void)setupMainView
+{
+    ExpertTourView *footprintBtn = [[ExpertTourView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth/3, self.frame.size.height)];
+    footprintBtn.iconImage.image = [UIImage imageNamed:@"travel"];
+    self.footprintBtn = footprintBtn;
+    [self addSubview:footprintBtn];
+    
+    
+    ExpertTourView *planBtn = [[ExpertTourView alloc] initWithFrame:CGRectMake(kWindowWidth/3, 0, kWindowWidth/3, self.frame.size.height)];
+    planBtn.iconImage.image = [UIImage imageNamed:@"plan"];
+    self.planBtn = planBtn;
+    [self addSubview:planBtn];
+    
+    
+    ExpertTourView *tourBtn = [[ExpertTourView alloc] initWithFrame:CGRectMake(kWindowWidth/3*2, 0, kWindowWidth/3, self.frame.size.height)];
+    tourBtn.iconImage.image = [UIImage imageNamed:@"youji"];
+    self.tourBtn = tourBtn;
+    [self addSubview:tourBtn];
+}
+
+- (void)setUserInfo:(FrendModel *)userInfo
+{
+    _userInfo = userInfo;
+    
+    NSString *coutryCount = [NSString stringWithFormat:@"%ld",_userInfo.footprintCountryCount];
+    NSString *cityCount = [NSString stringWithFormat:@"%ld",_userInfo.footprintCityCount];
+    NSString *footprint = [NSString stringWithFormat:@"旅行%ld个国家 共%ld个城市",_userInfo.footprintCountryCount,_userInfo.footprintCityCount];
+    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:footprint];
+    [str addAttribute:NSForegroundColorAttributeName value:APP_THEME_COLOR range:NSMakeRange(2, coutryCount.length)];
+    [str addAttribute:NSForegroundColorAttributeName value:APP_THEME_COLOR range:NSMakeRange(footprint.length-cityCount.length-3, cityCount.length)];
+    self.footprintBtn.titleLab.attributedText = str;
+    
+    NSString *guiderCount = [NSString stringWithFormat:@"%ld",_userInfo.guideCount];
+    NSString *plan = [NSString stringWithFormat:@"共%ld份旅行计划",_userInfo.guideCount];
+    NSMutableAttributedString *planStr = [[NSMutableAttributedString alloc] initWithString:plan];
+    [planStr addAttribute:NSForegroundColorAttributeName value:APP_THEME_COLOR range:NSMakeRange(1, guiderCount.length)];
+    self.planBtn.titleLab.attributedText = planStr;
+    
+    NSString *tourCount = [NSString stringWithFormat:@"%ld",_userInfo.guideCount];
+    NSString *tour = [NSString stringWithFormat:@"完成%ld篇旅行游记",_userInfo.guideCount];
+    NSMutableAttributedString *tourStr = [[NSMutableAttributedString alloc] initWithString:tour];
+    [tourStr addAttribute:NSForegroundColorAttributeName value:APP_THEME_COLOR range:NSMakeRange(2, tourCount.length)];
+    self.tourBtn.titleLab.attributedText = tourStr;
+
 }
 
 @end

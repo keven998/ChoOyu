@@ -708,7 +708,6 @@
 		E608A1581B9016D2003BA318 /* GuiderProfileImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = E608A1571B9016D2003BA318 /* GuiderProfileImageView.m */; };
 		E608A15C1B90347D003BA318 /* GuiderProfileAlbumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E608A15A1B90347D003BA318 /* GuiderProfileAlbumCell.m */; };
 		E608A1611B904B07003BA318 /* GuiderProfileTourViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E608A15F1B904B07003BA318 /* GuiderProfileTourViewCell.m */; };
-		E608A1621B904B07003BA318 /* GuiderProfileTourViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E608A1601B904B07003BA318 /* GuiderProfileTourViewCell.xib */; };
 		E608A1651B904E7B003BA318 /* GuiderProfileAbout.m in Sources */ = {isa = PBXBuildFile; fileRef = E608A1641B904E7B003BA318 /* GuiderProfileAbout.m */; };
 		E6381B9C1B660EB000CF73AA /* PricePoiDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6381B9B1B660EB000CF73AA /* PricePoiDetailController.m */; };
 		E6381BDC1B66269000CF73AA /* Loading_Animation_final0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E6381BA01B66268F00CF73AA /* Loading_Animation_final0@2x.png */; };
@@ -783,7 +782,6 @@
 		E67795311B942152004CE21A /* MineProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E677952F1B942152004CE21A /* MineProfileViewController.m */; };
 		E67795321B942152004CE21A /* MineProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E67795301B942152004CE21A /* MineProfileViewController.xib */; };
 		E67795351B942314004CE21A /* BaseProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E67795341B942314004CE21A /* BaseProfileViewController.m */; };
-		E677953B1B942EA9004CE21A /* MineDetailInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E677953A1B942EA9004CE21A /* MineDetailInfoCell.m */; };
 		E67795811B95C60F004CE21A /* MineViewContoller.m in Sources */ = {isa = PBXBuildFile; fileRef = E67795801B95C60F004CE21A /* MineViewContoller.m */; };
 		E67795831B95D70D004CE21A /* testpicture.png in Resources */ = {isa = PBXBuildFile; fileRef = E67795821B95D70D004CE21A /* testpicture.png */; };
 		E67795861B96BED9004CE21A /* MineHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E67795851B96BED9004CE21A /* MineHeaderView.m */; };
@@ -849,7 +847,6 @@
 		E6E118F61B59EE280090FDEF /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E118F41B59EE280090FDEF /* UIView+Extension.m */; };
 		E6E595511B9BD92200E29ED0 /* MineProfileIntroduce.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E595501B9BD92200E29ED0 /* MineProfileIntroduce.m */; };
 		E6E595551B9BDB5400E29ED0 /* MineProfileTourViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E595531B9BDB5400E29ED0 /* MineProfileTourViewCell.m */; };
-		E6E595561B9BDB5400E29ED0 /* MineProfileTourViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6E595541B9BDB5400E29ED0 /* MineProfileTourViewCell.xib */; };
 		E6E595591B9BDF7F00E29ED0 /* MineProfileTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E595581B9BDF7F00E29ED0 /* MineProfileTitleView.m */; };
 		E6E5955F1B9BE74300E29ED0 /* BaseProfileHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E5955E1B9BE74300E29ED0 /* BaseProfileHeaderView.m */; };
 		E6E595631B9BE7A200E29ED0 /* BaseProfileHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6E595621B9BE7A200E29ED0 /* BaseProfileHeaderView.xib */; };
@@ -2497,7 +2494,6 @@
 		E608A15A1B90347D003BA318 /* GuiderProfileAlbumCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuiderProfileAlbumCell.m; sourceTree = "<group>"; };
 		E608A15E1B904B07003BA318 /* GuiderProfileTourViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuiderProfileTourViewCell.h; sourceTree = "<group>"; };
 		E608A15F1B904B07003BA318 /* GuiderProfileTourViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuiderProfileTourViewCell.m; sourceTree = "<group>"; };
-		E608A1601B904B07003BA318 /* GuiderProfileTourViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GuiderProfileTourViewCell.xib; sourceTree = "<group>"; };
 		E608A1631B904E7B003BA318 /* GuiderProfileAbout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuiderProfileAbout.h; sourceTree = "<group>"; };
 		E608A1641B904E7B003BA318 /* GuiderProfileAbout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuiderProfileAbout.m; sourceTree = "<group>"; };
 		E6381B9A1B660EB000CF73AA /* PricePoiDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PricePoiDetailController.h; sourceTree = "<group>"; };
@@ -2582,8 +2578,6 @@
 		E67795301B942152004CE21A /* MineProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MineProfileViewController.xib; sourceTree = "<group>"; };
 		E67795331B942314004CE21A /* BaseProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseProfileViewController.h; sourceTree = "<group>"; };
 		E67795341B942314004CE21A /* BaseProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseProfileViewController.m; sourceTree = "<group>"; };
-		E67795391B942EA9004CE21A /* MineDetailInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineDetailInfoCell.h; sourceTree = "<group>"; };
-		E677953A1B942EA9004CE21A /* MineDetailInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineDetailInfoCell.m; sourceTree = "<group>"; };
 		E677957F1B95C60F004CE21A /* MineViewContoller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineViewContoller.h; sourceTree = "<group>"; };
 		E67795801B95C60F004CE21A /* MineViewContoller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineViewContoller.m; sourceTree = "<group>"; };
 		E67795821B95D70D004CE21A /* testpicture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = testpicture.png; sourceTree = "<group>"; };
@@ -2659,7 +2653,6 @@
 		E6E595501B9BD92200E29ED0 /* MineProfileIntroduce.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineProfileIntroduce.m; sourceTree = "<group>"; };
 		E6E595521B9BDB5300E29ED0 /* MineProfileTourViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineProfileTourViewCell.h; sourceTree = "<group>"; };
 		E6E595531B9BDB5400E29ED0 /* MineProfileTourViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineProfileTourViewCell.m; sourceTree = "<group>"; };
-		E6E595541B9BDB5400E29ED0 /* MineProfileTourViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MineProfileTourViewCell.xib; sourceTree = "<group>"; };
 		E6E595571B9BDF7F00E29ED0 /* MineProfileTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineProfileTitleView.h; sourceTree = "<group>"; };
 		E6E595581B9BDF7F00E29ED0 /* MineProfileTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineProfileTitleView.m; sourceTree = "<group>"; };
 		E6E5955D1B9BE74300E29ED0 /* BaseProfileHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseProfileHeaderView.h; sourceTree = "<group>"; };
@@ -6131,7 +6124,6 @@
 				E608A15A1B90347D003BA318 /* GuiderProfileAlbumCell.m */,
 				E608A15E1B904B07003BA318 /* GuiderProfileTourViewCell.h */,
 				E608A15F1B904B07003BA318 /* GuiderProfileTourViewCell.m */,
-				E608A1601B904B07003BA318 /* GuiderProfileTourViewCell.xib */,
 				E608A1631B904E7B003BA318 /* GuiderProfileAbout.h */,
 				E608A1641B904E7B003BA318 /* GuiderProfileAbout.m */,
 				E6E595681B9BECDB00E29ED0 /* ExpertProfileTagViewCell.h */,
@@ -6259,11 +6251,8 @@
 				E6E595621B9BE7A200E29ED0 /* BaseProfileHeaderView.xib */,
 				E6E595521B9BDB5300E29ED0 /* MineProfileTourViewCell.h */,
 				E6E595531B9BDB5400E29ED0 /* MineProfileTourViewCell.m */,
-				E6E595541B9BDB5400E29ED0 /* MineProfileTourViewCell.xib */,
 				E67795331B942314004CE21A /* BaseProfileViewController.h */,
 				E67795341B942314004CE21A /* BaseProfileViewController.m */,
-				E67795391B942EA9004CE21A /* MineDetailInfoCell.h */,
-				E677953A1B942EA9004CE21A /* MineDetailInfoCell.m */,
 				E6E595571B9BDF7F00E29ED0 /* MineProfileTitleView.h */,
 				E6E595581B9BDF7F00E29ED0 /* MineProfileTitleView.m */,
 			);
@@ -7653,7 +7642,6 @@
 				E6381BFA1B66269000CF73AA /* Loading_Animation_final37@2x.png in Resources */,
 				D98CEE0C1B4E17010019B902 /* GuiderCollectionViewController.xib in Resources */,
 				E6F18ADF1B845F4900232EEB /* chat_drawer_disturb_default@2x.png in Resources */,
-				E608A1621B904B07003BA318 /* GuiderProfileTourViewCell.xib in Resources */,
 				E6F189591B845F4900232EEB /* plan_10_dashboard_sift@2x.png in Resources */,
 				E6381C021B66269000CF73AA /* Loading_Animation_final44@2x.png in Resources */,
 				E6F18A5C1B845F4900232EEB /* ic_home_header_girl@2x.png in Resources */,
@@ -8080,7 +8068,6 @@
 				E6F18AD61B845F4900232EEB /* messages_plus_search_selected@3x.png in Resources */,
 				2753BCC81AF60B1D0098E5B3 /* HeaderPictureCell.xib in Resources */,
 				E6F18B1C1B845F4900232EEB /* master_icon_constellation5@3x.png in Resources */,
-				E6E595561B9BDB5400E29ED0 /* MineProfileTourViewCell.xib in Resources */,
 				E6F18A811B845F4900232EEB /* speaking-motion12@2x.png in Resources */,
 				D971E2CA1B93F4D3007E5AFD /* notes@2x.png in Resources */,
 				E6E725571B5603D30007273A /* UMSCommentInputControlleriPad.xib in Resources */,
@@ -8710,7 +8697,6 @@
 				D9A800641A80DD0C005AD701 /* SearchUserInfoViewController.m in Sources */,
 				D971E2FB1B95C28E007E5AFD /* MineContentRootViewController.m in Sources */,
 				C673B5591ADCEC7100D40262 /* TripPlanSettingViewController.m in Sources */,
-				E677953B1B942EA9004CE21A /* MineDetailInfoCell.m in Sources */,
 				D9A8001B1A80D52F005AD701 /* CityCardReusableView.m in Sources */,
 				D9A802B81A80E3D3005AD701 /* UIViewController+DismissKeyboard.m in Sources */,
 				D971E2A91B906686007E5AFD /* NotificationViewController.m in Sources */,

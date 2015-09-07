@@ -266,7 +266,8 @@
         albumCell.selectionStyle = UITableViewCellSelectionStyleNone;
         return albumCell;
     } else if (indexPath.section == 2) {
-        GuiderProfileTourViewCell *profileTourCell = [GuiderProfileTourViewCell guiderProfileTourWithTableView:tableView];
+        GuiderProfileTourViewCell *profileTourCell = [[GuiderProfileTourViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+        profileTourCell.userInfo = self.userInfo;
         profileTourCell.footprintCount.text = _userInfo.footprintDescription;
         profileTourCell.planCount.text = [NSString stringWithFormat:@"%ld篇",_userInfo.guideCount];
         
@@ -323,7 +324,7 @@
         CGFloat collectionW = (kWindowWidth-10-20) / 3;
         return collectionW + 20;
     } else if (indexPath.section == 2) {
-        return 130;
+        return 132;
     } else if (indexPath.section == 3) {
         if (self.userInfo.signature.length == 0) return 50;
         CGSize size = CGSizeMake(kWindowWidth - 40,CGFLOAT_MAX);//LableWight标签宽度，固定的
@@ -387,7 +388,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 50;
+    return 36;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section

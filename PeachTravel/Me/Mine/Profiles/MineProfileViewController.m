@@ -7,10 +7,10 @@
 //
 
 #import "MineProfileViewController.h"
-#import "MineDetailInfoCell.h"
 #import "MineProfileTitleView.h"
 #import "BaseProfileHeaderView.h"
 #import "UserInfoTableViewController.h"
+#import "MineProfileTourViewCell.h"
 @interface MineProfileViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -115,7 +115,7 @@
         albumCell.selectionStyle = UITableViewCellSelectionStyleNone;
         return albumCell;
     } else if (indexPath.section == 1) {
-        GuiderProfileTourViewCell *profileTourCell = [GuiderProfileTourViewCell guiderProfileTourWithTableView:tableView];
+        MineProfileTourViewCell *profileTourCell = [[MineProfileTourViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
         profileTourCell.tourTitle.text = @"我的旅行";
         profileTourCell.footprintCount.text = _userInfo.footprintsDesc;
         profileTourCell.planCount.text = [NSString stringWithFormat:@"%ld篇",_userInfo.guideCnt];

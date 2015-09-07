@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ExpertTourView : UIView
+@interface ExpertTourView : UIButton
+
+@property (nonatomic, weak) UIImageView *iconImage;
+@property (nonatomic, weak) UILabel *titleLab;
 
 @end
