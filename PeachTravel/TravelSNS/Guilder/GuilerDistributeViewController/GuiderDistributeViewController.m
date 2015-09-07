@@ -127,16 +127,13 @@
     self.titleBtn = titleBtn;
     titleBtn.titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
     titleBtn.selected = NO;
-    [titleBtn setTitle:typeArray[3] forState:UIControlStateNormal];
+    [titleBtn setTitle:typeArray[0] forState:UIControlStateNormal];
     [titleBtn setTitleColor:COLOR_TEXT_I forState:UIControlStateNormal];
     [titleBtn addTarget:self action:@selector(typeClick:) forControlEvents:UIControlEventTouchDown];
     [titleBtn setImage:[UIImage imageNamed:@"ArtboardBottom"] forState:UIControlStateNormal];
     [titleBtn setImage:[UIImage imageNamed:@"ArtboardTop"] forState:UIControlStateSelected];
     
-    
-//    titleBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 90, 0, 0);
-//    titleBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 40);
-    [self setupBtnFeature:titleBtn titleContent:typeArray[3]];
+    [self setupBtnFeature:titleBtn titleContent:typeArray[0]];
     
     titleBtn.frame = CGRectMake(kWindowWidth * 0.5, 0, kWindowWidth * 0.5, 50);
     self.navigationItem.titleView = titleBtn;
