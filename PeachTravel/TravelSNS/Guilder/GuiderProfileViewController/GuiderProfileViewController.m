@@ -130,8 +130,7 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     BaseProfileHeaderView *headerView = [[BaseProfileHeaderView alloc] init];
-//    headerView.image = [UIImage imageNamed:@"testpicture"];
-    headerView.backgroundColor = [UIColor grayColor];
+    headerView.image = [UIImage imageNamed:@"bg_master"];
     headerView.frame = CGRectMake(0, 0, kWindowWidth, 310);
     headerView.userInfo = self.userInfo;
     self.tableView.tableHeaderView = headerView;
@@ -148,7 +147,7 @@
     
     AccountManager *accountManager = [AccountManager shareAccountManager];
     
-    _beginTalk = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, kWindowWidth*0.5, 48)];
+    _beginTalk = [[UIButton alloc]initWithFrame:CGRectMake(kWindowWidth*0.5, 0, kWindowWidth*0.5, 48)];
     [_beginTalk setTitle:@"发送消息" forState:UIControlStateNormal];
     [_beginTalk setBackgroundImage:[UIImage new] forState:UIControlStateNormal];
     [_beginTalk setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
@@ -160,7 +159,7 @@
     [_beginTalk addTarget:self action:@selector(talkToFriend) forControlEvents:UIControlEventTouchUpInside];
     [barView addSubview:_beginTalk];
     
-    _addFriendBtn = [[UIButton alloc]initWithFrame:CGRectMake(kWindowWidth*0.5, 0, kWindowWidth*0.5, 48)];
+    _addFriendBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, kWindowWidth*0.5, 48)];
     
     _addFriendBtn.titleLabel.font = [UIFont systemFontOfSize:13];
     [_addFriendBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];

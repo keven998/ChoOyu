@@ -88,8 +88,12 @@
     // 设置头部标题的格式
     [self setupHeaderTitle];
     
+    UIImage *image = [UIImage imageNamed:@"expert_search"];
+    // 返回一个没有渲染的图片给你
+    image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     // 设置右上角的搜索按钮
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"account_labbar_icon_follow_selected"] style:UIBarButtonItemStyleBordered target:self action:@selector(searchExpert:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStyleBordered target:self action:@selector(searchExpert:)];
+    self.navigationController.navigationBar.barTintColor = [UIColor clearColor];
     self.automaticallyAdjustsScrollViewInsets = YES;
 }
 

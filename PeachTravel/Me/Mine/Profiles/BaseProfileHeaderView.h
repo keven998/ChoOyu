@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-@class FrendModel;
+@class FrendModel,AccountModel;
 @interface BaseProfileHeaderView : UIImageView
 
 + (BaseProfileHeaderView *)profileHeaderView;
@@ -22,5 +22,6 @@
 @property (weak, nonatomic) UIImageView *avatar;
 
 @property (nonatomic, strong) FrendModel *userInfo;
+@property (nonatomic, strong) AccountModel *accountModel;
 
 @end

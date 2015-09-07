@@ -120,8 +120,24 @@
         _level = [[json objectForKey:@"level"] integerValue];
     }
     
+    if ([json objectForKey:@"countryCnt"] == [NSNull null]) {
+        _countryCount = 0;
+    } else {
+        _countryCount = [[json objectForKey:@"countryCnt"] intValue];
+    }
+
+    if ([json objectForKey:@"trackCnt"] == [NSNull null]) {
+        _cityCount = 0;
+    } else {
+        _cityCount = [[json objectForKey:@"trackCnt"] intValue];;
+    }
+
+    
     int countryCount = [[json objectForKey:@"countryCnt"] intValue];
     int cityCount = [[json objectForKey:@"trackCnt"] intValue];
+    
+    
+
     
     _footprintsDesc = [NSString stringWithFormat:@"%d国%d城市", countryCount, cityCount];
     

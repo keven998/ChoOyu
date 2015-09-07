@@ -76,8 +76,8 @@
     
     // 5.右边箭头
     UIButton *arrowBtn = [[UIButton alloc] init];
-    [arrowBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
-//    [arrowBtn addTarget:self action:@selector(clickArrowBtn:) forControlEvents:UIControlEventTouchUpInside];
+//    arrowBtn.backgroundColor = [UIColor redColor];
+    [arrowBtn setImage:[UIImage imageNamed:@"album_arrow"] forState:UIControlStateNormal];
     self.arrowBtn = arrowBtn;
     [self addSubview:arrowBtn];
 }
@@ -90,7 +90,7 @@
     self.collectionView.frame = CGRectMake(8, 10, kWindowWidth - 31, collectionW);
     
     self.albumImage.frame = CGRectMake(0, 0, collectionW, collectionW);
-    self.arrowBtn.frame = CGRectMake(kWindowWidth-CGRectGetMaxX(self.collectionView.frame), 0, 23, collectionW+23);
+    self.arrowBtn.frame = CGRectMake(kWindowWidth-23, (self.frame.size.height-23)*0.5, 23, 23);
 }
 
 #pragma mark - 实现数据源方法和代理方法

@@ -79,7 +79,8 @@
 
     BaseProfileHeaderView *headerView = [[BaseProfileHeaderView alloc] init];
     headerView.frame = CGRectMake(0, 0, kWindowWidth, 310);
-    headerView.image = [UIImage imageNamed:@"testpicture"];
+    headerView.accountModel = self.userInfo;
+    headerView.image = [UIImage imageNamed:@"bg_master"];
     self.tableView.tableHeaderView = headerView;
 }
 
@@ -116,10 +117,7 @@
         return albumCell;
     } else if (indexPath.section == 1) {
         MineProfileTourViewCell *profileTourCell = [[MineProfileTourViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-        profileTourCell.tourTitle.text = @"我的旅行";
-        profileTourCell.footprintCount.text = _userInfo.footprintsDesc;
-        profileTourCell.planCount.text = [NSString stringWithFormat:@"%ld篇",_userInfo.guideCnt];
-        profileTourCell.tourCount.text = [NSString stringWithFormat:@"%ld份",_userInfo.footprints.count];
+        profileTourCell.userInfo = self.userInfo;
         // 添加事件
         [profileTourCell.footprintBtn addTarget:self action:@selector(visitTracks) forControlEvents:UIControlEventTouchUpInside];
         [profileTourCell.planBtn addTarget:self action:@selector(seeOthersPlan) forControlEvents:UIControlEventTouchUpInside];

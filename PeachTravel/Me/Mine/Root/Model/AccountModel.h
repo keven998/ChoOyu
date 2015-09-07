@@ -49,6 +49,10 @@
 //足迹的描述
 @property (nonatomic, copy) NSString *footprintsDesc;
 
+@property (nonatomic, assign) NSInteger countryCount;
+
+@property (nonatomic, assign) NSInteger cityCount;
+
 /**
  *  用户的图集
  */
