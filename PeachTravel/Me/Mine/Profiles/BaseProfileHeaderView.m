@@ -42,23 +42,24 @@
     self.sexImage = sexImage;
     [self addSubview:sexImage];
     
-    // 3.星座
+    // 3.等级
+    UIImageView *level = [[UIImageView alloc] init];
+    level.image = [UIImage imageNamed:@"level"];
+    self.level = level;
+    [self addSubview:level];
+    
+    // 4.星座
     UIImageView *constellation = [[UIImageView alloc] init];
     self.constellation = constellation;
     [self addSubview:constellation];
     
-    // 4.城市
+    // 5.城市
     UILabel *city = [[UILabel alloc] init];
     city.font = [UIFont fontWithName:@"Helvetica-Bold" size:16.0];
     city.textColor = UIColorFromRGB(0x969696);
     city.text = @"北京市";
     self.city = city;
 //    [self addSubview:city];
-    
-    // 5.等级
-    UIImageView *level = [[UIImageView alloc] init];
-    self.level = level;
-    [self addSubview:level];
     
     // 6.昵称
     UILabel *nickName = [[UILabel alloc] init];
@@ -89,7 +90,7 @@
     CGFloat avatarW = 88;
     CGFloat avatarH = 88;
     CGFloat avatarX = (kWindowWidth-avatarW)*0.5;
-    CGFloat avatarY = 100;
+    CGFloat avatarY = 115;
     self.avatar.frame = CGRectMake(avatarX, avatarY, avatarW, avatarH);
     
     // 2.昵称
@@ -113,25 +114,25 @@
     CGFloat cityY = 100;
     self.city.frame = CGRectMake(cityX, cityY, cityW, cityH);
     
-    // 5.等级
-    CGFloat levelW = 90;
-    CGFloat levelH = avatarW;
-    CGFloat levelX = (kWindowWidth-avatarW)*0.5;
-    CGFloat levelY = 100;
-    self.level.frame = CGRectMake(levelX, levelY, levelW, levelH);
-    
-    // 6.性别
-    CGFloat sexW = 90;
-    CGFloat sexH = avatarW;
-    CGFloat sexX = (kWindowWidth-avatarW)*0.5;
-    CGFloat sexY = 100;
+    // 5.性别
+    CGFloat sexW = 18;
+    CGFloat sexH = sexW;
+    CGFloat sexX = (kWindowWidth-sexW)*0.5;
+    CGFloat sexY = CGRectGetMaxY(self.age.frame)+10;
     self.sexImage.frame = CGRectMake(sexX, sexY, sexW, sexH);
     
+    // 6.等级
+    CGFloat levelW = 18;
+    CGFloat levelH = levelW;
+    CGFloat levelX = sexX-32;
+    CGFloat levelY = sexY;
+    self.level.frame = CGRectMake(levelX, levelY, levelW, levelH);
+    
     // 7.星座
-    CGFloat constellationW = 90;
-    CGFloat constellationH = avatarW;
-    CGFloat constellationX = (kWindowWidth-avatarW)*0.5;
-    CGFloat constellationY = 100;
+    CGFloat constellationW = 18;
+    CGFloat constellationH = constellationW;
+    CGFloat constellationX = sexX+32;
+    CGFloat constellationY = sexY;
     self.constellation.frame = CGRectMake(constellationX, constellationY, constellationW, constellationH);
 }
 
@@ -155,8 +156,7 @@
     }
     
     NSString *constellationImageName = [FrendModel bigCostellationImageNameWithBirthday:userInfo.birthday];
-    NSURL *constellationUrl = [NSURL URLWithString:constellationImageName];
-    [self.constellation sd_setImageWithURL:constellationUrl];
+    self.constellation.image = [UIImage imageNamed:constellationImageName];
 }
 
 @end

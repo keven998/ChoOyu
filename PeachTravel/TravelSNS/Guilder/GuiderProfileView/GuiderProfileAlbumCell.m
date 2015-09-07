@@ -86,11 +86,11 @@
 {
     [super layoutSubviews];
     
-    CGFloat collectionW = (kWindowWidth-10-20) / 3;
-    self.collectionView.frame = CGRectMake(10, 10, kWindowWidth - 30, collectionW);
+    CGFloat collectionW = (kWindowWidth-8-23) / 3;
+    self.collectionView.frame = CGRectMake(8, 10, kWindowWidth - 31, collectionW);
     
     self.albumImage.frame = CGRectMake(0, 0, collectionW, collectionW);
-    self.arrowBtn.frame = CGRectMake(kWindowWidth-CGRectGetMaxX(self.collectionView.frame), 0, 20, collectionW+20);
+    self.arrowBtn.frame = CGRectMake(kWindowWidth-CGRectGetMaxX(self.collectionView.frame), 0, 23, collectionW+23);
 }
 
 #pragma mark - 实现数据源方法和代理方法

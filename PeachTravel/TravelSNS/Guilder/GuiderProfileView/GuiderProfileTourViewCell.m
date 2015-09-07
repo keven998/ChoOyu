@@ -23,10 +23,6 @@
 }
 
 - (void)awakeFromNib {
-    // Initialization code
-    
-    self.tourTitle.font = [UIFont fontWithName:@"Helvetica-Bold" size:16.0];
-    self.tourTitle.textColor = UIColorFromRGB(0x646464);
     
     [self.footprintBtn.titleLabel setTextColor:UIColorFromRGB(0x969696)];
     [self.footprintBtn.titleLabel setFont:[UIFont fontWithName:@"STHeitiSC-Medium" size:12.0]];
@@ -40,6 +36,14 @@
     self.footprintCount.textColor = APP_THEME_COLOR;
     self.planCount.textColor = APP_THEME_COLOR;
     self.tourCount.textColor = APP_THEME_COLOR;
+}
+
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    if (self = [super initWithFrame:frame]) {
+        
+    }
+    return self;
 }
 
 @end

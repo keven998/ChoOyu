@@ -10,6 +10,7 @@
 
 @interface MineProfileTitleView : UIView
 
+@property (nonatomic, weak) UIImageView *iconImage;
 @property (nonatomic, weak) UIButton *titleBtn;
 @property (nonatomic, weak) UILabel *countLab;
 @property (nonatomic, weak) UIView *line;
