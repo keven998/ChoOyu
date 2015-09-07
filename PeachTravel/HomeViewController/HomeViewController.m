@@ -361,7 +361,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)setupViewControllers
 {
-    self.tabBar.translucent = NO;
     self.delegate = self;
     self.tabBar.selectedImageTintColor = APP_THEME_COLOR;
     
