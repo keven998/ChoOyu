@@ -45,7 +45,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 {
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
-
+    self.automaticallyAdjustsScrollViewInsets = YES;
     _searchBar = [[UISearchBar alloc]init];
     _searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _searchBar.delegate = self;
@@ -182,19 +182,13 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds)+60)];
-        _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-64-49)];
         _tableView.backgroundColor = APP_PAGE_COLOR;
         
         [_tableView registerNib:[UINib nibWithNibName:@"SearchResultTableViewCell" bundle:nil]forCellReuseIdentifier:reusableCellIdentifier];
-        _tableView.contentInset = UIEdgeInsetsMake(0, 0, 26, 0);
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.dataSource = self;
         _tableView.delegate = self;
-        
-        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.bounds.size.width, 41)];
-        footerView.backgroundColor = APP_PAGE_COLOR;
-        _tableView.tableFooterView = footerView;
     }
     return _tableView;
 }
@@ -678,7 +672,11 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
-    [_searchBar endEditing:YES];
+    if (_isRootViewController) {
+        [_searchBar endEditing:YES];
+    } else {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 #pragma mark - TaoziMessageSendDelegate
