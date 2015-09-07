@@ -85,11 +85,6 @@
     
     self.frostedViewController.delegate = self;
     
-    UIView *spd = [[UIView alloc] initWithFrame:CGRectMake(0, 44/*content offset*/, CGRectGetWidth(self.view.bounds), 0.6)];
-    spd.backgroundColor = COLOR_LINE;
-    spd.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    [self.view addSubview:spd];
-    
     if (!_isMakeNewTrip) {
         [[TMCache sharedCache] objectForKey:@"last_tripdetail" block:^(TMCache *cache, NSString *key, id object)  {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -132,11 +127,11 @@
     } else {
         _forkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 24)];
         _forkBtn.layer.cornerRadius = 2.0;
-        _forkBtn.layer.borderColor = [UIColor whiteColor].CGColor;
+        _forkBtn.layer.borderColor = COLOR_TEXT_II.CGColor;
         _forkBtn.layer.borderWidth = 1.0;
         [_forkBtn setTitle:@"复制" forState:UIControlStateNormal];
         _forkBtn.titleLabel.font = [UIFont boldSystemFontOfSize:11.0];
-        [_forkBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_forkBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
         [_forkBtn setTitleColor:COLOR_DISABLE forState:UIControlStateHighlighted];
         [_forkBtn addTarget:self action:@selector(forkTrip:) forControlEvents:UIControlEventTouchUpInside];
         UIBarButtonItem * addBtn = [[UIBarButtonItem alloc]initWithCustomView:_forkBtn];
@@ -151,7 +146,8 @@
     }
 }
 
-- (void) setupNavigationRightItems:(BOOL)isEditing {
+- (void)setupNavigationRightItems:(BOOL)isEditing
+{
     self.navigationItem.rightBarButtonItems = nil;
     if (isEditing) {
         _editBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
@@ -252,7 +248,7 @@
     if (!_segmentedControl) {
         _segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"行程", @"想去"]];
         _segmentedControl.selectedSegmentIndex = 0;
-        _segmentedControl.frame = CGRectMake(self.view.bounds.size.width/2-100, 7, 200, 30);
+        _segmentedControl.frame = CGRectMake(self.view.bounds.size.width/2-100, 64+7, 200, 30);
         [_segmentedControl addTarget:self action:@selector(changePage:) forControlEvents:UIControlEventValueChanged];
         _segmentedControl.tintColor = APP_THEME_COLOR;
     }
@@ -665,26 +661,18 @@
 {
     NSMutableArray *array = [[NSMutableArray alloc] init];
     
-    NSInteger count = self.frostedViewController.navigationController.childViewControllers.count;
-    
     _spotsListCtl = [[PlanScheduleViewController alloc] init];
     _tripFavoriteCtl = [[TripFavoriteTableViewController alloc] init];
     _tripFavoriteCtl.canEdit = _canEdit;
-    if (count > 1) {
-        [_spotsListCtl.view setFrame:CGRectMake(0, 44, CGRectGetWidth(self.frostedViewController.view.bounds), CGRectGetHeight(self.frostedViewController.view.bounds) - 44)];
-        [_tripFavoriteCtl.view setFrame:CGRectMake(0, 44, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 44)];
-    } else {
-        [_spotsListCtl.view setFrame:CGRectMake(0, 44, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 44 - 44)];
-        [_tripFavoriteCtl.view setFrame:CGRectMake(0, 44, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 44 - 44)];
-    }
-    
+    [_spotsListCtl.view setFrame:CGRectMake(0, 44+64, CGRectGetWidth(self.frostedViewController.view.bounds), CGRectGetHeight(self.frostedViewController.view.bounds)-44-64)];
+    [_tripFavoriteCtl.view setFrame:CGRectMake(0, 44+64, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds)-44-64)];
     [self addChildViewController:_spotsListCtl];
     [self.view addSubview:_spotsListCtl.view];
     
     [array addObject:_spotsListCtl];
     [array addObject:_tripFavoriteCtl];
     _tabbarPageControllerArray = array;
-    
+
     _currentViewController = _spotsListCtl;
 }
 

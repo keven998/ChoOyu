@@ -54,13 +54,11 @@
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_plan_setting"];
     [_tableView reloadData];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
 }
 
 - (void) viewWillDisappear:(BOOL)animated {
     [MobClick endLogPageView:@"page_plan_setting"];
     [super viewWillDisappear:animated];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
 }
 
 - (void)setTripDetail:(TripDetail *)tripDetail {

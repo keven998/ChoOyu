@@ -875,12 +875,10 @@
                                                       }
                                                   }];
     [alertView setTitleFont:[UIFont systemFontOfSize:16]];
-//    [alertView useDefaultIOS7Style];
     [alertView setTitleFont:[UIFont systemFontOfSize:16]];
     [alertView useCustomStyle];
     
     [alertView setBackgroundColor:[UIColor whiteColor]];
-    
     
     // 设置其他按钮的颜色
     UIColor * otherNormal = TEXT_COLOR_TITLE;
@@ -896,7 +894,7 @@
     [alertView setCancelUnderlineWithColor:COLOR_LINE];
 }
 
--(void)showImageDetail:(NSInteger)index
+- (void)showImageDetail:(NSInteger)index
 {
     AccountManager *amgr = self.accountManager;
     NSInteger count = amgr.account.userAlbum.count;
