@@ -85,11 +85,6 @@
     
     self.frostedViewController.delegate = self;
     
-    UIView *spd = [[UIView alloc] initWithFrame:CGRectMake(0, 44/*content offset*/, CGRectGetWidth(self.view.bounds), 0.6)];
-    spd.backgroundColor = COLOR_LINE;
-    spd.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    [self.view addSubview:spd];
-    
     if (!_isMakeNewTrip) {
         [[TMCache sharedCache] objectForKey:@"last_tripdetail" block:^(TMCache *cache, NSString *key, id object)  {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -132,11 +127,11 @@
     } else {
         _forkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 24)];
         _forkBtn.layer.cornerRadius = 2.0;
-        _forkBtn.layer.borderColor = [UIColor whiteColor].CGColor;
+        _forkBtn.layer.borderColor = COLOR_TEXT_II.CGColor;
         _forkBtn.layer.borderWidth = 1.0;
         [_forkBtn setTitle:@"复制" forState:UIControlStateNormal];
         _forkBtn.titleLabel.font = [UIFont boldSystemFontOfSize:11.0];
-        [_forkBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_forkBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
         [_forkBtn setTitleColor:COLOR_DISABLE forState:UIControlStateHighlighted];
         [_forkBtn addTarget:self action:@selector(forkTrip:) forControlEvents:UIControlEventTouchUpInside];
         UIBarButtonItem * addBtn = [[UIBarButtonItem alloc]initWithCustomView:_forkBtn];
@@ -151,7 +146,8 @@
     }
 }
 
-- (void) setupNavigationRightItems:(BOOL)isEditing {
+- (void)setupNavigationRightItems:(BOOL)isEditing
+{
     self.navigationItem.rightBarButtonItems = nil;
     if (isEditing) {
         _editBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];

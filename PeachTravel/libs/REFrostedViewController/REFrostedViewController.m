@@ -122,7 +122,9 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    if (!_shouldNotShowNavigationBar) {
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
+    }
 }
 
 - (UIViewController *)childViewControllerForStatusBarStyle

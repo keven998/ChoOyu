@@ -596,6 +596,7 @@ static NSString *reusableCell = @"myGuidesCell";
     
     REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:[[UINavigationController alloc] initWithRootViewController:tripDetailRootCtl] menuViewController:tpvc];
     tpvc.rootViewController = tripDetailRootCtl;
+    frostedViewController.shouldNotShowNavigationBar = YES;
     frostedViewController.direction = REFrostedViewControllerDirectionRight;
     frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
     frostedViewController.liveBlur = YES;
