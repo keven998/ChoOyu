@@ -32,7 +32,7 @@ typedef void(^loginCompletion)(BOOL completed);
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     backBtn.frame = CGRectMake(0, 0, 64, 64);
     [backBtn setImage:[UIImage imageNamed:@"login_back_defaut"] forState:UIControlStateNormal];
-    [backBtn setImage:[UIImage imageNamed:@"common_icon_navigaiton_back_highlight"] forState:UIControlStateHighlighted];
+    [backBtn setImage:[UIImage imageNamed:@"common_icon_navigation_back_highlight"] forState:UIControlStateHighlighted];
     [backBtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
     backBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
     backBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
