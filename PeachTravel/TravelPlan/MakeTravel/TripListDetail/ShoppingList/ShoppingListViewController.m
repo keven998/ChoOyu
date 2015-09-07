@@ -71,7 +71,6 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
 {
     [MobClick endLogPageView:@"page_plan_favorite_pois_lists_type_shop"];
     [super viewWillDisappear:animated];
-    NSLog(@"Rest willdisappear");
 }
 
 
