@@ -20,12 +20,12 @@
 
 - (void)setupMainView
 {
-    ExpertTourView *footprintBtn = [[ExpertTourView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth/2, self.frame.size.height)];
+    ExpertTourView *footprintBtn = [[ExpertTourView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth/2, 132)];
     footprintBtn.iconImage.image = [UIImage imageNamed:@"travel"];
     self.footprintBtn = footprintBtn;
     [self addSubview:footprintBtn];
     
-    ExpertTourView *planBtn = [[ExpertTourView alloc] initWithFrame:CGRectMake(kWindowWidth/2, 0, kWindowWidth/2, self.frame.size.height)];
+    ExpertTourView *planBtn = [[ExpertTourView alloc] initWithFrame:CGRectMake(kWindowWidth/2, 0, kWindowWidth/2, 132)];
     planBtn.iconImage.image = [UIImage imageNamed:@"plan"];
     self.planBtn = planBtn;
     [self addSubview:planBtn];

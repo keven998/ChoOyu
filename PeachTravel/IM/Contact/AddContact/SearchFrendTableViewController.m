@@ -8,6 +8,7 @@
 
 #import "SearchFrendTableViewController.h"
 #import "OtherUserInfoViewController.h"
+#import "OtherProfileViewController.h"
 
 @interface SearchFrendTableViewController () <UISearchBarDelegate>
 
@@ -92,13 +93,13 @@
             
             //如果已经是好友了，进入好友详情界面
             if ([accountManager frendIsMyContact:userId]) {
-                OtherUserInfoViewController *contactDetailCtl = [[OtherUserInfoViewController alloc]init];
+                OtherProfileViewController *contactDetailCtl = [[OtherProfileViewController alloc]init];
                 contactDetailCtl.userId = userId;
                 _nextViewController = contactDetailCtl;
                 [self performSelector:@selector(jumpToNextCtl) withObject:nil afterDelay:0.3];
                 return;
             }
-            OtherUserInfoViewController *otherCtl = [[OtherUserInfoViewController alloc]init];
+            OtherProfileViewController *otherCtl = [[OtherProfileViewController alloc]init];
             otherCtl.userId = userId;
             _nextViewController = otherCtl;
             [self performSelector:@selector(jumpToNextCtl) withObject:nil afterDelay:0.3];

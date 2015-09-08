@@ -46,7 +46,6 @@
 #import "TripPlanSettingViewController.h"
 #import "ChatQuestionTableViewCell.h"
 #import "SuperWebViewController.h"
-#import "OtherUserInfoViewController.h"
 #import "OtherProfileViewController.h"
 #import "ConvertToCommonEmoticonsHelper.h"
 
@@ -720,11 +719,6 @@
     if (model.isSender) {
         return;
     }
-    /*
-    OtherUserInfoViewController *OtherUser = [[OtherUserInfoViewController alloc]init];
-    OtherUser.userId = model.senderId;
-    [self.frostedViewController.navigationController pushViewController:OtherUser animated:YES];
-     */
     OtherProfileViewController *OtherUser = [[OtherProfileViewController alloc]init];
     OtherUser.userId = model.senderId;
     [self.frostedViewController.navigationController pushViewController:OtherUser animated:YES];

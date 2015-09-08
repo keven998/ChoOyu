@@ -12,6 +12,9 @@
 #import "MineHeaderView.h"
 #import "MineContentRootViewController.h"
 #import "REFrostedViewController.h"
+#import "MakePlanViewController.h"
+#import "ForeignViewController.h"
+#import "DomesticViewController.h"
 
 @interface MineViewContoller () <UIScrollViewDelegate, UINavigationControllerDelegate,UIGestureRecognizerDelegate>
 {
@@ -41,8 +44,8 @@
     
     TopViewH = kWindowWidth*255/414;
 
-    [self setupMainView];
-    [self setupNavBar];
+//    [self setupMainView];
+//    [self setupNavBar];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeContentFrame:) name:@"ChangePlanListFrame" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAddPlanBtnFrame:) name:@"ChangeAddPlanFrame" object:nil];
@@ -54,9 +57,10 @@
 {
     UIButton *addPlan = [UIButton buttonWithType:UIButtonTypeCustom];
     [addPlan addTarget:self action:@selector(addPlan:) forControlEvents:UIControlEventTouchUpInside];
-    CGRect rect = CGRectMake((kWindowWidth-50)*0.5, self.view.frame.size.height-120, 50, 50);
+    CGRect rect = CGRectMake((kWindowWidth-50)*0.5, self.view.frame.size.height-110, 50, 50);
     addPlan.frame = rect;
-    addPlan.backgroundColor = [UIColor redColor];
+    [addPlan setImage:[UIImage imageNamed:@"plan_add"] forState:UIControlStateNormal];
+    addPlan.highlighted = NO;
     self.addPlan = addPlan;
     [self.view addSubview:addPlan];
 }
@@ -66,6 +70,8 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
+    [self setupMainView];
+    [self setupNavBar];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -123,8 +129,8 @@
 - (void)setupMainView
 {
     MineHeaderView *topView = [[MineHeaderView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, TopViewH)];
-    topView.image = [UIImage imageNamed:@"testpicture"];
-    topView.contentMode = UIViewContentModeScaleAspectFill;
+    topView.image = [UIImage imageNamed:@"bg_master"];
+    topView.contentMode = UIViewContentModeScaleToFill;
     self.topView = topView;
     [self.view addSubview:topView];
     
@@ -214,7 +220,34 @@
 // 添加计划
 - (void)addPlan:(UIButton *)btn
 {
+    [self makePlan];
+}
+
+- (void)makePlan
+{
+    [MobClick event:@"navigation_item_plan_create"];
     
+    Destinations *destinations = [[Destinations alloc] init];
+    MakePlanViewController *makePlanCtl = [[MakePlanViewController alloc] init];
+    ForeignViewController *foreignCtl = [[ForeignViewController alloc] init];
+    DomesticViewController *domestic = [[DomesticViewController alloc] init];
+    domestic.destinations = destinations;
+    foreignCtl.destinations = destinations;
+    makePlanCtl.destinations = destinations;
+    makePlanCtl.viewControllers = @[domestic, foreignCtl];
+    domestic.makePlanCtl = makePlanCtl;
+    foreignCtl.makePlanCtl = makePlanCtl;
+    makePlanCtl.animationOptions = UIViewAnimationOptionTransitionNone;
+    makePlanCtl.duration = 0;
+    makePlanCtl.segmentedTitles = @[@"国内", @"国外"];
+    makePlanCtl.navBarTitle = @"选择目的地";
+    
+    makePlanCtl.selectedColor = APP_THEME_COLOR;
+    makePlanCtl.segmentedTitleFont = [UIFont systemFontOfSize:18.0];
+    makePlanCtl.normalColor= [UIColor grayColor];
+    _shouldNotShowNavigationBarWhenDisappear = YES;
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:makePlanCtl];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 @end

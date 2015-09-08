@@ -15,7 +15,6 @@
 #import "AddressBookTableViewCell.h"
 #import "SearchUserInfoViewController.h"
 
-#import "OtherUserInfoViewController.h"
 #import "OtherProfileViewController.h"
 
 #define addressBookCell    @"addressBookCell"
@@ -240,12 +239,6 @@
     [manager GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            /*
-            OtherUserInfoViewController *otherCtl = [[OtherUserInfoViewController alloc]init];
-            NSDictionary *userInfo = [responseObject objectForKey:@"result"];
-            otherCtl.userId = [[userInfo objectForKey:@"userId"] integerValue];
-            [self.navigationController pushViewController:otherCtl animated:YES];
-            */
             OtherProfileViewController *otherCtl = [[OtherProfileViewController alloc]init];
             NSDictionary *userInfo = [responseObject objectForKey:@"result"];
             otherCtl.userId = [[userInfo objectForKey:@"userId"] integerValue];

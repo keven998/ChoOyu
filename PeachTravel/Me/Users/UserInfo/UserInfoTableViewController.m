@@ -196,7 +196,7 @@
     _avatarImageView.clipsToBounds = YES;
     _avatarImageView.layer.cornerRadius = avatarW/2.0;
     _avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
-    [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:_accountManager.account.avatarSmall] placeholderImage:[UIImage imageNamed:@"ic_home_avatar_unknown.png"]];
+    [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:_accountManager.account.avatarSmall] placeholderImage:[UIImage imageNamed:@"avatar_default"]];
     _avatarImageView.center = _headerBgView.center;
     [_headerBgView addSubview:_avatarImageView];
     _avatarImageView.userInteractionEnabled = YES;

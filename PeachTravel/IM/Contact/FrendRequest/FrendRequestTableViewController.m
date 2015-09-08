@@ -10,7 +10,7 @@
 #import "FrendRequestTableViewCell.h"
 #import "FrendRequest.h"
 #import "AccountManager.h"
-#import "OtherUserInfoViewController.h"
+#import "OtherProfileViewController.h"
 #import "PeachTravel-swift.h"
 
 #define requestCell      @"requestCell"
@@ -178,7 +178,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     FrendRequest *request = [_dataSource objectAtIndex:indexPath.row];
-    OtherUserInfoViewController *contactDetailCtl = [[OtherUserInfoViewController alloc]init];
+    
+    OtherProfileViewController *contactDetailCtl = [[OtherProfileViewController alloc]init];
     contactDetailCtl.userId = request.userId;
     [self.navigationController pushViewController:contactDetailCtl animated:YES];
 

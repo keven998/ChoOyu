@@ -11,7 +11,7 @@
 #import "ContactListTableViewCell.h"
 #import "AccountManager.h"
 #import "ChatViewController.h"
-#import "OtherUserInfoViewController.h"
+#import "OtherProfileViewController.h"
 
 @interface ContactSearchViewController () <UISearchBarDelegate, UISearchControllerDelegate, UITableViewDataSource, UITableViewDelegate,SWTableViewCellDelegate>
 
@@ -55,7 +55,7 @@
     UIImageView *imageBg = [[UIImageView alloc]initWithFrame:CGRectMake((kWindowWidth - 210)/2, 68, 210, 130)];
     
     imageBg.image = [UIImage imageNamed:@"search_default_background"];
-    [self.view addSubview:imageBg];
+//    [self.view addSubview:imageBg];
     
     [self.view addSubview:self.tableView];
     self.tableView.hidden = YES;
@@ -147,9 +147,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         
     FrendModel *contact = self.dataSource[indexPath.row];
-    OtherUserInfoViewController *contactDetailCtl = [[OtherUserInfoViewController alloc]init];
+    
+    OtherProfileViewController *contactDetailCtl = [[OtherProfileViewController alloc]init];
     contactDetailCtl.userId = contact.userId;
     [self.navigationController pushViewController:contactDetailCtl animated:YES];
+
     
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
