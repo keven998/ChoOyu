@@ -9,7 +9,7 @@
 #import "MineProfileViewController.h"
 #import "MineProfileTitleView.h"
 #import "BaseProfileHeaderView.h"
-#import "UserInfoTableViewController.h"
+#import "EditUserInfoTableViewController.h"
 #import "MineProfileTourViewCell.h"
 #import "MineViewContoller.h"
 
@@ -110,7 +110,7 @@
 
 - (void)editMineProfile
 {
-    UserInfoTableViewController *userInfo = [[UserInfoTableViewController alloc]init];
+    EditUserInfoTableViewController *userInfo = [[EditUserInfoTableViewController alloc]init];
     [self.navigationController pushViewController:userInfo animated:YES];
 }
 

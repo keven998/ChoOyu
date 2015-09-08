@@ -45,7 +45,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 {
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
-    self.automaticallyAdjustsScrollViewInsets = YES;
+    self.automaticallyAdjustsScrollViewInsets = NO;
     _searchBar = [[UISearchBar alloc]init];
     _searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _searchBar.delegate = self;
@@ -61,8 +61,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     UIImageView *imageBg = [[UIImageView alloc]initWithFrame:CGRectMake((kWindowWidth - 210)/2, 68, 210, 130)];
     
     imageBg.image = [UIImage imageNamed:@"search_default_background"];
-//    [self.view addSubview:imageBg];
-    
+
     [self.view addSubview:self.tableView];
     self.tableView.hidden = YES;
     

@@ -1,5 +1,5 @@
 //
-//  UserInfoTableViewController.m
+//  EditUserInfoTableViewController.m
 //  PeachTravel
 //
 //  Created by liangpengshuai on 14/10/14.
@@ -7,7 +7,7 @@
 //
 
 #import <QiniuSDK.h>
-#import "UserInfoTableViewController.h"
+#import "EditUserInfoTableViewController.h"
 #import "UserHeaderTableViewCell.h"
 #import "ChangePasswordViewController.h"
 #import "AccountManager.h"
@@ -40,7 +40,7 @@
 
 #define cellDataSource              @[@[@"名字", @"性别", @"生日", @"现住地"], @[@"计划", @"足迹", @"相册"],@[@"安全设置", @"修改密码"]]
 
-@interface UserInfoTableViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource, SelectDelegate, ChangJobDelegate, HeaderPictureDelegate>
+@interface EditUserInfoTableViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource, SelectDelegate, ChangJobDelegate, HeaderPictureDelegate>
 
 @property (strong, nonatomic) UIView *footerView;
 @property (strong, nonatomic) AccountManager *accountManager;
@@ -65,7 +65,7 @@
 
 @end
 
-@implementation UserInfoTableViewController
+@implementation EditUserInfoTableViewController
 
 #pragma mark - LifeCycle
 
@@ -309,14 +309,14 @@
 - (void)showDatePicker
 {
     NSDate *birthday = [ConvertMethods stringToDate:self.accountManager.account.birthday withFormat:@"yyyy-MM-dd" withTimeZone:[NSTimeZone systemTimeZone]];
-    __weak UserInfoTableViewController *weakSelf = self;
+    __weak EditUserInfoTableViewController *weakSelf = self;
     AIDatePickerController *datePickerViewController = [AIDatePickerController pickerWithDate:birthday selectedBlock:^(NSDate *selectedDate) {
-        __strong UserInfoTableViewController *strongSelf = weakSelf;
+        __strong EditUserInfoTableViewController *strongSelf = weakSelf;
         [strongSelf dismissViewControllerAnimated:YES completion:nil];
         
         [self confirmDatePick:selectedDate];
     } cancelBlock:^{
-        __strong UserInfoTableViewController *strongSelf = weakSelf;
+        __strong EditUserInfoTableViewController *strongSelf = weakSelf;
         [strongSelf dismissViewControllerAnimated:YES completion:nil];
     }];
     
@@ -359,7 +359,7 @@
     AppUtils *utils = [[AppUtils alloc] init];
     [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    __weak typeof(UserInfoTableViewController *)weakSelf = self;
+    __weak typeof(EditUserInfoTableViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf content:64];
     
@@ -463,7 +463,7 @@
     if (gender == accountManager.account.gender) {
         return;
     }
-    __weak typeof(UserInfoTableViewController *)weakSelf = self;
+    __weak typeof(EditUserInfoTableViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf content:64];
     NSString *genderStr = [NSString stringWithFormat:@"%lu",gender];

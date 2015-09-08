@@ -1,5 +1,5 @@
 //
-//  UserInfoTableViewController.h
+//  EditUserInfoTableViewController.h
 //  PeachTravel
 //
 //  Created by liangpengshuai on 14/10/14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UserInfoTableViewController :TZViewController
+@interface EditUserInfoTableViewController :TZViewController
 
 @end

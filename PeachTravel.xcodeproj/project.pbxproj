@@ -629,7 +629,7 @@
 		D9A8FF1B1A80CC2B005AD701 /* SMSVerifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FF021A80CC2B005AD701 /* SMSVerifyViewController.m */; };
 		D9A8FF1D1A80CC2B005AD701 /* UserHeaderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FF061A80CC2B005AD701 /* UserHeaderTableViewCell.m */; };
 		D9A8FF1E1A80CC2B005AD701 /* UserHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A8FF071A80CC2B005AD701 /* UserHeaderTableViewCell.xib */; };
-		D9A8FF1F1A80CC2B005AD701 /* UserInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FF091A80CC2B005AD701 /* UserInfoTableViewController.m */; };
+		D9A8FF1F1A80CC2B005AD701 /* EditUserInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FF091A80CC2B005AD701 /* EditUserInfoTableViewController.m */; };
 		D9A8FF201A80CC2B005AD701 /* UserOtherTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FF0B1A80CC2B005AD701 /* UserOtherTableViewCell.m */; };
 		D9A8FF211A80CC2B005AD701 /* UserOtherTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A8FF0C1A80CC2B005AD701 /* UserOtherTableViewCell.xib */; };
 		D9A8FF291A80CCA5005AD701 /* AccountManagerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FF241A80CCA5005AD701 /* AccountManagerTableViewCell.m */; };
@@ -2293,8 +2293,8 @@
 		D9A8FF051A80CC2B005AD701 /* UserHeaderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserHeaderTableViewCell.h; sourceTree = "<group>"; };
 		D9A8FF061A80CC2B005AD701 /* UserHeaderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserHeaderTableViewCell.m; sourceTree = "<group>"; };
 		D9A8FF071A80CC2B005AD701 /* UserHeaderTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserHeaderTableViewCell.xib; sourceTree = "<group>"; };
-		D9A8FF081A80CC2B005AD701 /* UserInfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoTableViewController.h; sourceTree = "<group>"; };
-		D9A8FF091A80CC2B005AD701 /* UserInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoTableViewController.m; sourceTree = "<group>"; };
+		D9A8FF081A80CC2B005AD701 /* EditUserInfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditUserInfoTableViewController.h; sourceTree = "<group>"; };
+		D9A8FF091A80CC2B005AD701 /* EditUserInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditUserInfoTableViewController.m; sourceTree = "<group>"; };
 		D9A8FF0A1A80CC2B005AD701 /* UserOtherTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserOtherTableViewCell.h; sourceTree = "<group>"; };
 		D9A8FF0B1A80CC2B005AD701 /* UserOtherTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserOtherTableViewCell.m; sourceTree = "<group>"; };
 		D9A8FF0C1A80CC2B005AD701 /* UserOtherTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserOtherTableViewCell.xib; sourceTree = "<group>"; };
@@ -5625,8 +5625,8 @@
 				D9A8FF051A80CC2B005AD701 /* UserHeaderTableViewCell.h */,
 				D9A8FF061A80CC2B005AD701 /* UserHeaderTableViewCell.m */,
 				D9A8FF071A80CC2B005AD701 /* UserHeaderTableViewCell.xib */,
-				D9A8FF081A80CC2B005AD701 /* UserInfoTableViewController.h */,
-				D9A8FF091A80CC2B005AD701 /* UserInfoTableViewController.m */,
+				D9A8FF081A80CC2B005AD701 /* EditUserInfoTableViewController.h */,
+				D9A8FF091A80CC2B005AD701 /* EditUserInfoTableViewController.m */,
 				27FF1A701B04BE0E00643D77 /* SignatureViewController.h */,
 				27FF1A711B04BE0E00643D77 /* SignatureViewController.m */,
 				D9A8FF0A1A80CC2B005AD701 /* UserOtherTableViewCell.h */,
@@ -8537,7 +8537,7 @@
 				275003561B4D0165002B7856 /* GuiderCollectionCell.m in Sources */,
 				27FF1ACA1B07170E00643D77 /* OtherUserInfoViewController.m in Sources */,
 				C6F87A1A1ACD1C4400BB7D7F /* UIAlertView+PXAlertViewOverride.m in Sources */,
-				D9A8FF1F1A80CC2B005AD701 /* UserInfoTableViewController.m in Sources */,
+				D9A8FF1F1A80CC2B005AD701 /* EditUserInfoTableViewController.m in Sources */,
 				D9F70CA91B304E1800BDACA1 /* FrendRequest.m in Sources */,
 				D9F46DB71AC52D8600972AE8 /* SVModalWebViewController.m in Sources */,
 				276DF7A91B4CBFBB001A98FB /* GuiderCell.m in Sources */,

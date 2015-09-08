@@ -10,7 +10,7 @@
 #import "LoginViewController.h"
 #import "RegisterViewController.h"
 #import "HomeViewController.h"
-#import "UserInfoTableViewController.h"
+#import "EditUserInfoTableViewController.h"
 @interface PrepareViewController ()
 
 @end
@@ -128,7 +128,7 @@
 
 - (void)pushToUserInfo
 {
-    UserInfoTableViewController *userInfo = [[UserInfoTableViewController alloc]init];
+    EditUserInfoTableViewController *userInfo = [[EditUserInfoTableViewController alloc]init];
     [self.navigationController pushViewController:userInfo animated:YES];
 
 }
