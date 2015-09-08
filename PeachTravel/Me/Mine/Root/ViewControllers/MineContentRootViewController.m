@@ -51,22 +51,8 @@
     [self setupSegmentView];
     [self setupContentView];
     [self changePage:0];
-//    [self setupAddPlanBtn];
-}
-
-- (void)setupAddPlanBtn
-{
-    UIButton *addPlan = [UIButton buttonWithType:UIButtonTypeCustom];
     
-    CGRect rect = CGRectMake((kWindowWidth-50)*0.5, self.view.frame.size.height-100, 50, 50);
-    CGRect revertRect = [self.view convertRect:rect toView:[UIApplication sharedApplication].keyWindow];
-    addPlan.frame = revertRect;
-    addPlan.backgroundColor = [UIColor redColor];
-    [self.view addSubview:addPlan];
 }
-
-#pragma mark - setter & getter
-
 
 #pragma mark - private methods
 
@@ -120,6 +106,7 @@
     _contentView.pagingEnabled = YES;
     _contentView.delegate = self;
     _contentView.contentSize = CGSizeMake(self.view.bounds.size.width*_contentControllers.count, _contentView.bounds.size.height);
+    _contentView.scrollEnabled = NO;
     [self.view addSubview:_contentView];
     
     CGFloat offsetX = 0;

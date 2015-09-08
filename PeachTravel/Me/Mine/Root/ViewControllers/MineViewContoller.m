@@ -44,7 +44,7 @@
         [self userLogin];
     }
     
-    TopViewH = kWindowWidth*255/414;
+    TopViewH = kWindowWidth*200/414;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeContentFrame:) name:@"ChangePlanListFrame" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAddPlanBtnFrame:) name:@"ChangeAddPlanFrame" object:nil];
