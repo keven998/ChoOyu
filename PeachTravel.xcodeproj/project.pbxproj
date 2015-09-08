@@ -236,12 +236,8 @@
 		D93C50C11A47EEFA00FFE2FA /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D93C50C01A47EEFA00FFE2FA /* libresolv.dylib */; };
 		D942C1271B9EB5C3005B81C5 /* back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D942C0F81B9EB5C3005B81C5 /* back@2x.png */; };
 		D942C1281B9EB5C3005B81C5 /* back@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D942C0F91B9EB5C3005B81C5 /* back@3x.png */; };
-		D942C1291B9EB5C3005B81C5 /* boy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D942C0FA1B9EB5C3005B81C5 /* boy@2x.png */; };
-		D942C12A1B9EB5C3005B81C5 /* boy@3X.png in Resources */ = {isa = PBXBuildFile; fileRef = D942C0FB1B9EB5C3005B81C5 /* boy@3X.png */; };
 		D942C12B1B9EB5C3005B81C5 /* foot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D942C0FC1B9EB5C3005B81C5 /* foot@2x.png */; };
 		D942C12C1B9EB5C3005B81C5 /* foot@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D942C0FD1B9EB5C3005B81C5 /* foot@3x.png */; };
-		D942C12D1B9EB5C3005B81C5 /* girl@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D942C0FE1B9EB5C3005B81C5 /* girl@2x.png */; };
-		D942C12E1B9EB5C3005B81C5 /* girl@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D942C0FF1B9EB5C3005B81C5 /* girl@3x.png */; };
 		D942C12F1B9EB5C3005B81C5 /* massage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D942C1001B9EB5C3005B81C5 /* massage@2x.png */; };
 		D942C1301B9EB5C3005B81C5 /* massage@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D942C1011B9EB5C3005B81C5 /* massage@3x.png */; };
 		D942C1311B9EB5C3005B81C5 /* notes@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D942C1021B9EB5C3005B81C5 /* notes@2x.png */; };
@@ -1725,12 +1721,8 @@
 		D93C50C01A47EEFA00FFE2FA /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
 		D942C0F81B9EB5C3005B81C5 /* back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@2x.png"; sourceTree = "<group>"; };
 		D942C0F91B9EB5C3005B81C5 /* back@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@3x.png"; sourceTree = "<group>"; };
-		D942C0FA1B9EB5C3005B81C5 /* boy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "boy@2x.png"; sourceTree = "<group>"; };
-		D942C0FB1B9EB5C3005B81C5 /* boy@3X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "boy@3X.png"; sourceTree = "<group>"; };
 		D942C0FC1B9EB5C3005B81C5 /* foot@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "foot@2x.png"; sourceTree = "<group>"; };
 		D942C0FD1B9EB5C3005B81C5 /* foot@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "foot@3x.png"; sourceTree = "<group>"; };
-		D942C0FE1B9EB5C3005B81C5 /* girl@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "girl@2x.png"; sourceTree = "<group>"; };
-		D942C0FF1B9EB5C3005B81C5 /* girl@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "girl@3x.png"; sourceTree = "<group>"; };
 		D942C1001B9EB5C3005B81C5 /* massage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "massage@2x.png"; sourceTree = "<group>"; };
 		D942C1011B9EB5C3005B81C5 /* massage@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "massage@3x.png"; sourceTree = "<group>"; };
 		D942C1021B9EB5C3005B81C5 /* notes@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notes@2x.png"; sourceTree = "<group>"; };
@@ -3795,12 +3787,8 @@
 			children = (
 				D942C0F81B9EB5C3005B81C5 /* back@2x.png */,
 				D942C0F91B9EB5C3005B81C5 /* back@3x.png */,
-				D942C0FA1B9EB5C3005B81C5 /* boy@2x.png */,
-				D942C0FB1B9EB5C3005B81C5 /* boy@3X.png */,
 				D942C0FC1B9EB5C3005B81C5 /* foot@2x.png */,
 				D942C0FD1B9EB5C3005B81C5 /* foot@3x.png */,
-				D942C0FE1B9EB5C3005B81C5 /* girl@2x.png */,
-				D942C0FF1B9EB5C3005B81C5 /* girl@3x.png */,
 				D942C1001B9EB5C3005B81C5 /* massage@2x.png */,
 				D942C1011B9EB5C3005B81C5 /* massage@3x.png */,
 				D942C1021B9EB5C3005B81C5 /* notes@2x.png */,
@@ -7499,7 +7487,6 @@
 				E6F18AEE1B845F4900232EEB /* ic_setting_apprise@2x.png in Resources */,
 				E6F189751B845F4900232EEB /* poi_button_raid_default@2x.png in Resources */,
 				E6F189941B845F4900232EEB /* poi_icon_ticket_default@3x.png in Resources */,
-				D942C12D1B9EB5C3005B81C5 /* girl@2x.png in Resources */,
 				E6F18AB41B845F4900232EEB /* lvxingpaipai@3x.png in Resources */,
 				D90A9B441B5627C400E9F37C /* Loading_Animation_final25@3x.png in Resources */,
 				D992C9611B50FD0C000C7E2D /* TripFavoriteTableViewController.xib in Resources */,
@@ -7777,7 +7764,6 @@
 				E6381C0A1B66269000CF73AA /* Loading_Animation_final51@2x.png in Resources */,
 				E6F189E41B845F4900232EEB /* plan_02_bg_day@3x.png in Resources */,
 				E6F18AA91B845F4900232EEB /* chat_sender_audio_playing_002@2x.png in Resources */,
-				D942C12A1B9EB5C3005B81C5 /* boy@3X.png in Resources */,
 				D90A9B321B5627C400E9F37C /* Loading_Animation_final7@3x.png in Resources */,
 				E6F18AA01B845F4900232EEB /* chat_receiver_audio_playing002@3x.png in Resources */,
 				D9A380FF1B9C5FC1000B5B66 /* ic_tabbar_search_selected@2x.png in Resources */,
@@ -8083,7 +8069,6 @@
 				D917DAD51A8B4B060039720A /* ic_guide_dot3@2x.png in Resources */,
 				E6F189471B845F4900232EEB /* common_icon_right@2x.png in Resources */,
 				E6F18AF21B845F4900232EEB /* ic_userInfo_add_avatar@2x.png in Resources */,
-				D942C1291B9EB5C3005B81C5 /* boy@2x.png in Resources */,
 				E6F18AE71B845F4900232EEB /* dx_checkbox_forbade@2x.png in Resources */,
 				D9A8FFCD1A80D216005AD701 /* HotDestinationCollectionViewCell.xib in Resources */,
 				E6F189FF1B845F4900232EEB /* map_icon_13@2x.png in Resources */,
@@ -8132,7 +8117,6 @@
 				E6F18A691B845F4900232EEB /* ic_home_userentry_unlogin@3x.png in Resources */,
 				D9F46DBF1AC52D8600972AE8 /* SVWebViewControllerActivitySafari-iPad@2x.png in Resources */,
 				E6F18AE91B845F4900232EEB /* dx_checkbox_on@3x.png in Resources */,
-				D942C12E1B9EB5C3005B81C5 /* girl@3x.png in Resources */,
 				E6F189AF1B845F4900232EEB /* city_button_shopping_disable@2x.png in Resources */,
 				E6F189B11B845F4900232EEB /* city_button_shopping_selected@2x.png in Resources */,
 				E6F18A4C1B845F4900232EEB /* ic_home_aboutus@2x.png in Resources */,
