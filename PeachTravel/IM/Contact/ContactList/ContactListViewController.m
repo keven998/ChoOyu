@@ -354,11 +354,7 @@
     } else {
         
         FrendModel *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
-        /*
-        OtherUserInfoViewController *contactDetailCtl = [[OtherUserInfoViewController alloc]init];
-        contactDetailCtl.userId = contact.userId;
-        [self.navigationController pushViewController:contactDetailCtl animated:YES];
-        */
+   
         OtherProfileViewController *contactDetailCtl = [[OtherProfileViewController alloc]init];
         contactDetailCtl.userId = contact.userId;
         [self.navigationController pushViewController:contactDetailCtl animated:YES];

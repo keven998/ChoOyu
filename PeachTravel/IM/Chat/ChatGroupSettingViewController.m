@@ -19,6 +19,7 @@
 #import "ChatGroupSettingCell.h"
 #import "REFrostedViewController.h"
 #import "ChatAlbumCollectionViewController.h"
+#import "OtherProfileViewController.h"
 
 @interface ChatGroupSettingViewController () <UITableViewDataSource, UITableViewDelegate, CreateConversationDelegate, SWTableViewCellDelegate, ChangeGroupTitleDelegate>
 
@@ -436,9 +437,15 @@
 
 - (void)showUserInfoWithContactInfo:(FrendModel *)contact
 {
+    /*
     OtherUserInfoViewController *contactDetailCtl = [[OtherUserInfoViewController alloc]init];
     contactDetailCtl.userId = contact.userId;
     [self.navigationController pushViewController:contactDetailCtl animated:YES];
+     */
+    OtherProfileViewController *contactDetailCtl = [[OtherProfileViewController alloc]init];
+    contactDetailCtl.userId = contact.userId;
+    [self.navigationController pushViewController:contactDetailCtl animated:YES];
+
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
