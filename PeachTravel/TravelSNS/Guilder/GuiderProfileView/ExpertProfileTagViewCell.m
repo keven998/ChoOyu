@@ -19,6 +19,7 @@
 @implementation ExpertProfileTagViewCell
 
 #pragma mark - 初始化方法
+
 + (id)expertDetailInfo
 {
     return [[self alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];

@@ -354,7 +354,7 @@ static NSString *reusableCell = @"myGuidesCell";
     }];
 }
 
-- (void)loadData:(int)type WithPageIndex:(NSInteger)pageIndex
+- (void)loadData:(int)status WithPageIndex:(NSInteger)pageIndex
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AppUtils *utils = [[AppUtils alloc] init];
@@ -369,9 +369,9 @@ static NSString *reusableCell = @"myGuidesCell";
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSNumber *imageWidth = [NSNumber numberWithInt:(kWindowWidth-22)*2];
     [params setObject:imageWidth forKey:@"imgWidth"];
-    if (type == PASS) {
+    if (status == PASS) {
         [params safeSetObject:@"traveled" forKey:@"status"];
-    } else if (type == PLAN) {
+    } else if (status == PLAN) {
         [params safeSetObject:@"planned" forKey:@"status"];
     }
     [params safeSetObject:[NSNumber numberWithInt:PAGE_COUNT] forKey:@"pageSize"];

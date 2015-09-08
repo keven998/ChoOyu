@@ -11,7 +11,7 @@
 #import "BaseProfileHeaderView.h"
 #import "UserInfoTableViewController.h"
 #import "MineProfileTourViewCell.h"
-@interface MineProfileViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface MineProfileViewController () <UITableViewDataSource, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -38,12 +38,14 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
 }
+
 
 #pragma mark - 设置导航栏
 
@@ -88,6 +90,7 @@
 {
     UserInfoTableViewController *userInfo = [[UserInfoTableViewController alloc]init];
     [self.navigationController pushViewController:userInfo animated:YES];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 - (void)back
@@ -256,6 +259,7 @@
 }
 
 #pragma mark - buttonMethod
+
 // 浏览足迹
 - (void)visitTracks
 {
@@ -263,6 +267,7 @@
     FootPrintViewController *footPrintCtl = [[FootPrintViewController alloc] init];
     footPrintCtl.userId = _userId;
     [self.navigationController pushViewController:footPrintCtl animated:YES];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
     
 }
 // 查看他人计划
@@ -272,12 +277,13 @@
     PlansListTableViewController *listCtl = [[PlansListTableViewController alloc]initWithUserId:_userInfo.userId];
     listCtl.userName = _userInfo.nickName;
     [self.navigationController pushViewController:listCtl animated:YES];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+
 }
 // 查看他人游记
 - (void)seeOtherTour
 {
-    
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
-
 
 @end
