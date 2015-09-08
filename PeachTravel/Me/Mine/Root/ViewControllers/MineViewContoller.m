@@ -192,9 +192,9 @@
     CGFloat scrollWidth = [scrollW floatValue];
     
     NSLog(@"scrollWidth:%f",scrollWidth);
-    CGRect frame = self.addPlan.frame;
-    frame.origin.x = frame.origin.x-scrollWidth;
-
+    CGPoint center = CGPointMake(self.view.bounds.size.width/2, _addPlan.center.y);
+    center.x -= scrollWidth;
+    _addPlan.center = center;
 }
 
 // 点击头部进入个人Profile
@@ -235,7 +235,6 @@
 //        [self.navigationController setNavigationBarHidden:NO animated:YES];
 //    }
 //}
->>>>>>> 1ce998581615c333a407e4608abc611289d7bc17
 
 
 

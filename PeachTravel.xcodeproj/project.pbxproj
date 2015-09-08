@@ -814,6 +814,8 @@
 		E68CB1D51B9DB3A100A5B38B /* album_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E68CB1D21B9DB3A100A5B38B /* album_arrow@2x.png */; };
 		E68CB1D61B9DB3A100A5B38B /* album_arrow@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E68CB1D31B9DB3A100A5B38B /* album_arrow@3x.png */; };
 		E68CB1D71B9DB3A100A5B38B /* youji@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E68CB1D41B9DB3A100A5B38B /* youji@3x.png */; };
+		E68CB1DC1B9E7B0000A5B38B /* OtherProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E68CB1DA1B9E7B0000A5B38B /* OtherProfileViewController.m */; };
+		E68CB1DD1B9E7B0000A5B38B /* OtherProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E68CB1DB1B9E7B0000A5B38B /* OtherProfileViewController.xib */; };
 		E690D8CB1B7C7F5300BFDF1B /* MakePlanSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = E690D8CA1B7C7F5300BFDF1B /* MakePlanSearchController.m */; };
 		E690D8CF1B7C8F9F00BFDF1B /* MakePlanSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E690D8CD1B7C8F9F00BFDF1B /* MakePlanSearchCell.m */; };
 		E690D8D01B7C8F9F00BFDF1B /* MakePlanSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E690D8CE1B7C8F9F00BFDF1B /* MakePlanSearchCell.xib */; };
@@ -2597,6 +2599,9 @@
 		E68CB1D21B9DB3A100A5B38B /* album_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "album_arrow@2x.png"; sourceTree = "<group>"; };
 		E68CB1D31B9DB3A100A5B38B /* album_arrow@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "album_arrow@3x.png"; sourceTree = "<group>"; };
 		E68CB1D41B9DB3A100A5B38B /* youji@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "youji@3x.png"; sourceTree = "<group>"; };
+		E68CB1D91B9E7B0000A5B38B /* OtherProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OtherProfileViewController.h; sourceTree = "<group>"; };
+		E68CB1DA1B9E7B0000A5B38B /* OtherProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OtherProfileViewController.m; sourceTree = "<group>"; };
+		E68CB1DB1B9E7B0000A5B38B /* OtherProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OtherProfileViewController.xib; sourceTree = "<group>"; };
 		E690D8C91B7C7F5300BFDF1B /* MakePlanSearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakePlanSearchController.h; sourceTree = "<group>"; };
 		E690D8CA1B7C7F5300BFDF1B /* MakePlanSearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MakePlanSearchController.m; sourceTree = "<group>"; };
 		E690D8CC1B7C8F9F00BFDF1B /* MakePlanSearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakePlanSearchCell.h; sourceTree = "<group>"; };
@@ -5443,6 +5448,7 @@
 		D9A8FE9E1A80C818005AD701 /* Mine */ = {
 			isa = PBXGroup;
 			children = (
+				E68CB1D81B9E79D900A5B38B /* OtherProfile */,
 				E677952D1B942132004CE21A /* Profiles */,
 				D9A8FE9F1A80C818005AD701 /* MyGuides */,
 				D9A8FEAC1A80C818005AD701 /* Root */,
@@ -6262,6 +6268,16 @@
 				E6E595581B9BDF7F00E29ED0 /* MineProfileTitleView.m */,
 			);
 			path = Profiles;
+			sourceTree = "<group>";
+		};
+		E68CB1D81B9E79D900A5B38B /* OtherProfile */ = {
+			isa = PBXGroup;
+			children = (
+				E68CB1D91B9E7B0000A5B38B /* OtherProfileViewController.h */,
+				E68CB1DA1B9E7B0000A5B38B /* OtherProfileViewController.m */,
+				E68CB1DB1B9E7B0000A5B38B /* OtherProfileViewController.xib */,
+			);
+			path = OtherProfile;
 			sourceTree = "<group>";
 		};
 		E68F797C1B7890CC00DD08CF /* Tools */ = {
@@ -8260,6 +8276,7 @@
 				E6F18AAB1B845F4900232EEB /* chat_sender_audio_playing_003@2x.png in Resources */,
 				E6381BE11B66269000CF73AA /* Loading_Animation_final14@2x.png in Resources */,
 				E6381BF51B66269000CF73AA /* Loading_Animation_final32@2x.png in Resources */,
+				E68CB1DD1B9E7B0000A5B38B /* OtherProfileViewController.xib in Resources */,
 				D9A8FF101A80CC2B005AD701 /* ChangePasswordViewController.xib in Resources */,
 				E6F18A091B845F4900232EEB /* map_icon_18@2x.png in Resources */,
 				E6F189831B845F4900232EEB /* poi_button_traffic_disable@2x.png in Resources */,
@@ -8478,6 +8495,7 @@
 				D9A8FFAB1A80D1C3005AD701 /* PoiDetailSuperViewController.m in Sources */,
 				D9A8006D1A80DD0C005AD701 /* FrendRequestTableViewCell.m in Sources */,
 				E690D8D21B7CB71B00BFDF1B /* MakePlanViewController.m in Sources */,
+				E68CB1DC1B9E7B0000A5B38B /* OtherProfileViewController.m in Sources */,
 				D9A8002D1A80D52F005AD701 /* AddPoiViewController.m in Sources */,
 				E6E7251F1B5603750007273A /* MJIvar.m in Sources */,
 				D993C2491B12DF0C0088D568 /* FMDatabase.m in Sources */,

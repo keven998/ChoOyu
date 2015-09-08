@@ -13,7 +13,6 @@
 #import "AccountManager.h"
 #import "SearchUserInfoViewController.h"
 #import "ConvertMethods.h"
-#import "OtherUserInfoViewController.h"
 #import "SearchFrendTableViewController.h"
 
 #define searchCell          @"searchContactCell"

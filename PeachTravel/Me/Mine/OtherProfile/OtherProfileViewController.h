@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseProfileViewController.h"
 
-@interface OtherProfileViewController : UIViewController
+@interface OtherProfileViewController : BaseProfileViewController
+
+@property (nonatomic) NSInteger userId;
+
+@property (nonatomic, strong) FrendModel *userInfo;
 
 @end
