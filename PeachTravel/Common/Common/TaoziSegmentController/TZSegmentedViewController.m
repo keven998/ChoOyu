@@ -120,18 +120,6 @@
 
 - (void)changePage:(NSInteger)pageIndex
 {
-//    if (_selectedIndext >= 0) {
-//        UIButton *fbtn = [_segmentedBtns objectAtIndex:_selectedIndext];
-//        fbtn.selected = NO;
-//    }
-//    _selectedIndext = pageIndex;
-//    
-//    UIButton *btn = [_segmentedBtns objectAtIndex:_selectedIndext];
-//    btn.selected = YES;
-//    [UIView animateWithDuration:0.2 animations:^{
-//        _indicateView.center = CGPointMake(btn.center.x, 42);
-//    }];
-
     UIViewController *newController = [_viewControllers objectAtIndex:pageIndex];
     
     if ([newController isEqual:_currentViewController]) {
