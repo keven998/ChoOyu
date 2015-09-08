@@ -131,10 +131,6 @@
     [self stopTimer];
 }
 
-- (void)dealloc
-{
-}
-
 #pragma mark - Private Methods
 
 - (void)startTimer
