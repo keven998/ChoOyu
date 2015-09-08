@@ -48,12 +48,6 @@ typedef void(^loginCompletion)(BOOL completed);
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
-}
-
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear: animated];
@@ -221,7 +215,7 @@ typedef void(^loginCompletion)(BOOL completed);
     [params setObject:_phoneLabel.text forKey:@"tel"];
     [params setObject:[NSNumber numberWithInt:1] forKey:@"action"];
     [params setObject:[NSNumber numberWithInt:86] forKey:@"dialCode"];
-
+    
     __weak typeof(RegisterViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf];

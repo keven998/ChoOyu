@@ -131,16 +131,6 @@
     [self stopTimer];
 }
 
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-}
-
-- (void)dealloc
-{
-}
-
 #pragma mark - Private Methods
 
 - (void)startTimer
@@ -218,7 +208,7 @@
             [accountManager userDidLoginWithUserInfo:[responseObject objectForKey:@"result"]];
             [[NSNotificationCenter defaultCenter] postNotificationName:userDidRegistedNoti object:nil userInfo:@{@"poster":weakSelf}];
         } else {
-            [SVProgressHUD showHint:[NSString stringWithFormat:@"%@", [[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+            [SVProgressHUD showHint:@"注册失败"];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -294,5 +284,6 @@
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
+
 @end
 
