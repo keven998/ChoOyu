@@ -549,7 +549,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
 {
     AccountManager *accountManager = [AccountManager shareAccountManager];
-    if ([viewController isEqual:_chatListCtl.navigationController] && !accountManager.isLogin) {
+    if (([viewController isEqual:_chatListCtl.navigationController] || [viewController isEqual:_mineCtl.navigationController]) && !accountManager.isLogin) {
         LoginViewController *loginCtl = [[LoginViewController alloc] init];
         TZNavigationViewController *navi = [[TZNavigationViewController alloc] initWithRootViewController:loginCtl];
         [self presentViewController:navi animated:YES completion:nil];

@@ -40,15 +40,27 @@
 {
     [super viewDidLoad];
     
+    if (![AccountManager shareAccountManager].isLogin) {
+        [self userLogin];
+    }
+    
     TopViewH = kWindowWidth*255/414;
-
-//    [self setupMainView];
-//    [self setupNavBar];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeContentFrame:) name:@"ChangePlanListFrame" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAddPlanBtnFrame:) name:@"ChangeAddPlanFrame" object:nil];
     
     [self setupAddPlanBtn];
+}
+
+- (void)userLogin
+{
+    if ([AccountManager shareAccountManager].isLogin) {
+        return;
+    }
+    LoginViewController *loginCtl = [[LoginViewController alloc] init];
+    TZNavigationViewController *nctl = [[TZNavigationViewController alloc] initWithRootViewController:loginCtl];
+    loginCtl.isPushed = NO;
+    [self.navigationController presentViewController:nctl animated:YES completion:nil];
 }
 
 - (void)setupAddPlanBtn
