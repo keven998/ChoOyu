@@ -180,12 +180,10 @@
     
     int age= -trunc(dateDiff/(60*60*24))/365;
     
-    NSLog(@"%@",accountModel.residence);
-
-    if ([accountModel.residence isEqualToString:@""]) {
-        self.age.text = [NSString stringWithFormat:@"%d岁 现居住在%@",age,accountModel.residence];
-    } else {
+    if (accountModel.residence == (id)[NSNull null] || accountModel.residence.length == 0) {
         self.age.text = [NSString stringWithFormat:@"%d岁 现居住在", age];
+    } else {
+        self.age.text = [NSString stringWithFormat:@"%d岁 现居住在%@",age,accountModel.residence];
     }
     
     
