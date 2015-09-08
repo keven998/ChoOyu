@@ -420,9 +420,7 @@
 }
 
 - (void)scrollViewChangeFrame:(UIScrollView *)scrollView
-{
-    NSLog(@"contentOfSet:%f",scrollView.contentOffset.y);
-    
+{    
     NSString *scrollH = [NSString stringWithFormat:@"%f",scrollView.contentOffset.y];
     NSDictionary *userInfo = @{@"scrollH": scrollH};
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ChangePlanListFrame" object:nil userInfo:userInfo];
