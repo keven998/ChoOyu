@@ -244,33 +244,6 @@
 }
 
 
-#pragma mark - buttonMethod
-
-// 浏览足迹
-- (void)visitTracks
-{
-    [MobClick event:@"button_item_tracks"];
-    FootPrintViewController *footPrintCtl = [[FootPrintViewController alloc] init];
-    footPrintCtl.userId = _userInfo.userId;
-    [self.navigationController pushViewController:footPrintCtl animated:YES];
-    
-}
-// 查看他人计划
-- (void)seeOthersPlan
-{
-    [MobClick event:@"button_item_plan"];
-    PlansListTableViewController *listCtl = [[PlansListTableViewController alloc]initWithUserId:_userInfo.userId];
-    listCtl.userName = _userInfo.nickName;
-    [self.navigationController pushViewController:listCtl animated:YES];
-
-}
-
-
-// 查看他人游记
-- (void)seeOtherTour
-{
-}
-
 #pragma mark - IBAction Methods
 
 - (IBAction)myTrack:(id)sender

@@ -10,7 +10,7 @@
 #import "SWTableViewCell.h"
 #import "MyGuideSummary.h"
 
-@interface MyGuidesTableViewCell : UITableViewCell
+@interface MyGuidesTableViewCell : SWTableViewCell
 
 @property (nonatomic, strong) MyGuideSummary *guideSummary;
 

@@ -33,7 +33,7 @@ enum CONTENT_TYPE {
     PASS
 };
 
-@interface PlansListTableViewController () <UIGestureRecognizerDelegate, TaoziMessageSendDelegate, TripUpdateDelegate, UITableViewDataSource, UITableViewDelegate, SelectDelegate>
+@interface PlansListTableViewController () <UIGestureRecognizerDelegate, TaoziMessageSendDelegate, TripUpdateDelegate, UITableViewDataSource, UITableViewDelegate, SelectDelegate,SWTableViewCellDelegate>
 
 @property (nonatomic) NSUInteger currentPage;
 @property (nonatomic, strong) NSMutableArray *dataSource;
@@ -296,6 +296,19 @@ static NSString *reusableCell = @"myGuidesCell";
     }
 }
 
+- (void)sign:(NSIndexPath *)indexPath
+{
+    [MobClick event:@"cell_item_plans_change_status"];
+    
+    MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:indexPath.row];
+    if ([guideSummary.status isEqualToString:@"traveled"]) {
+        [self mark:guideSummary as:@"planned"];
+    } else {
+        [self mark:guideSummary as:@"traveled"];
+    }
+
+}
+
 #pragma mark - Private Methods
 
 /**
@@ -540,8 +553,9 @@ static NSString *reusableCell = @"myGuidesCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     MyGuidesTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reusableCell forIndexPath:indexPath];
-    
     MyGuideSummary *summary = [self.dataSource objectAtIndex:indexPath.row];
+    cell.rightUtilityButtons = [self rightButtons];
+    cell.delegate = self;
     cell.guideSummary = summary;
     cell.isCanSend = _selectToSend;
     TaoziImage *image = [summary.images firstObject];
@@ -609,14 +623,34 @@ static NSString *reusableCell = @"myGuidesCell";
     NSMutableArray *rightUtilityButtons = [NSMutableArray new];
     
     NSDictionary * markDict = @{NSForegroundColorAttributeName: [UIColor whiteColor], NSFontAttributeName: [UIFont boldSystemFontOfSize:16.0]};
-    NSAttributedString * attributeMark = [[NSAttributedString alloc] initWithString:@"签到" attributes:markDict];
     
+    NSAttributedString * attributeMark = [[NSAttributedString alloc] initWithString:@"签到" attributes:markDict];
     [rightUtilityButtons sw_addUtilityButtonWithColor:APP_THEME_COLOR attributedTitle:attributeMark];
     NSAttributedString * attributeDelete = [[NSAttributedString alloc] initWithString:@"删除" attributes:markDict];
    [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor redColor] attributedTitle:attributeDelete];
     
     return rightUtilityButtons;
 }
+
+- (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index
+{
+    NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
+    switch (index) {
+        case 0:
+        {
+            [self sign:cellIndexPath];
+            break;
+        }
+        case 1:
+        {
+            [self deleteGuide:cellIndexPath];
+            break;
+        }
+        default:
+            break;
+    }
+}
+
 
 - (UIView *)footerView
 {

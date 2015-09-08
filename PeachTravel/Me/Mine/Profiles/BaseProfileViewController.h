@@ -7,7 +7,6 @@
 //
 
 #import "TZViewController.h"
-#import "GuiderDetailInfoCell.h"
 #import "GuiderProfileAlbumCell.h"
 #import "GuiderProfileTourViewCell.h"
 #import "GuiderProfileAbout.h"
@@ -40,6 +39,6 @@
 @property (nonatomic) NSInteger userId;
 
 
-- (void)loadUserProfile:(NSInteger)userId;
+//- (void)loadUserProfile:(NSInteger)userId;
 
 @end

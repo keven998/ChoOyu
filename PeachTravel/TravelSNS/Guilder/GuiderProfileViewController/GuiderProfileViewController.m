@@ -475,7 +475,6 @@
     }
 }
 
-#pragma mark - HTTP请求
 #pragma mark - http method
 
 /**
