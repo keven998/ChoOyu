@@ -57,6 +57,7 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     [self setupSelectPanel];
+    [self setupContentViewController];
     [self beginSearch:nil];
 }
 
@@ -128,6 +129,13 @@
     }
 }
 
+- (void)setupContentViewController
+{
+    for (UIViewController *ctl in self.viewControllers) {
+        ctl.view.frame = CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-49-64);
+    }
+}
+
 - (void)goBack
 {
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -135,8 +143,6 @@
 
 - (IBAction)beginSearch:(id)sender
 {
-//    [_searchBar setFrame:CGRectMake(0, 20, self.view.bounds.size.width-40, 38)];
-    
     [_searchController setActive:YES animated:YES];
     _searchBar.hidden = NO;
 }

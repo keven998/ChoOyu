@@ -45,6 +45,7 @@ static NSString *cacheName = @"destination_demostic_group";
         [self.makePlanCtl hideDestinationBar];
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateDestinationsSelected:) name:updateDestinationsSelectedNoti object:nil];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     
     [self initData];
 }
