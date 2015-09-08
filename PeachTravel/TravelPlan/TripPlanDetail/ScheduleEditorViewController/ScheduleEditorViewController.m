@@ -28,19 +28,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationItem.title = @"修改行程";
+    self.frostedViewController.navigationItem.title = @"修改行程";
     
     UIBarButtonItem *finishBtn = [[UIBarButtonItem alloc]initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(saveTripChange:)];
     UIBarButtonItem *cancelBtn = [[UIBarButtonItem alloc]initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(cancel:)];
-    self.navigationItem.rightBarButtonItem = finishBtn;
-    self.navigationItem.leftBarButtonItem = cancelBtn;
+    self.frostedViewController.navigationItem.rightBarButtonItem = finishBtn;
+    self.frostedViewController.navigationItem.leftBarButtonItem = cancelBtn;
     
     self.view.backgroundColor = [UIColor whiteColor];
     self.frostedViewController.delegate = self;
     
     _cityArray = [NSMutableArray array];
     
-    _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-64) style:UITableViewStyleGrouped];
     _tableView.backgroundColor = APP_PAGE_COLOR;
     _tableView.dataSource = self;
     _tableView.delegate = self;
@@ -50,7 +50,7 @@
     _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.bounds.size.width, 220)];
     [self.view addSubview:_tableView];
 
-    UIImageView *tabbarView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 49 - 64, CGRectGetWidth(self.view.bounds), 49)];
+    UIImageView *tabbarView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 49, CGRectGetWidth(self.view.bounds), 49)];
     tabbarView.userInteractionEnabled = YES;
     tabbarView.image = [[UIImage imageNamed:@"bottom_shadow.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 2, 5, 2)];
     

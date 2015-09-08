@@ -24,7 +24,7 @@
 @property (nonatomic, weak) UIScrollView *scrollView;
 @property (nonatomic, weak) MineHeaderView *topView;
 @property (nonatomic, weak) UIViewController *contentViewCtl;
-
+@property (nonatomic) BOOL shouldNotShowNavigationBarWhenDisappear;
 @property (nonatomic, weak) UIButton *addPlan;
 
 @end
@@ -69,7 +69,10 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    if (!_shouldNotShowNavigationBarWhenDisappear) {
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
+    }
+    _shouldNotShowNavigationBarWhenDisappear = NO;
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -203,6 +206,7 @@
     MineProfileViewController *profile = [[MineProfileViewController alloc] init];
     [self preSetNavForSlide];
     [self.navigationController pushViewController:profile animated:YES];
+    _shouldNotShowNavigationBarWhenDisappear = YES;
 }
 
 // 添加计划
@@ -210,32 +214,5 @@
 {
     
 }
-
-//#pragma mark - navigationDelegate 实现此代理方法也是为防止滑动返回时界面卡死
-//- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
-//{
-//    //开启滑动手势
-//    if ([navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)])
-//    {
-//        navigationController.interactivePopGestureRecognizer.enabled = YES;
-//    }
-//}
-//
-//- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
-//{
-//    //如果进入我的界面需要隐藏 navi bar
-//    if ([viewController isKindOfClass:[MineProfileViewController class]]) {
-//        [self.navigationController setNavigationBarHidden:YES animated:YES];
-//        
-//        //如果进入我的profile需要隐藏 navi bar
-//    } else if ([viewController isKindOfClass:[MineViewContoller class]]) {
-//        [self.navigationController setNavigationBarHidden:YES animated:YES];
-//        
-//    } else {
-//        [self.navigationController setNavigationBarHidden:NO animated:YES];
-//    }
-//}
-
-
 
 @end
