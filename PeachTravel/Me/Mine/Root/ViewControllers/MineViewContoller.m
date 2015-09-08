@@ -49,6 +49,12 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeContentFrame:) name:@"ChangePlanListFrame" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAddPlanBtnFrame:) name:@"ChangeAddPlanFrame" object:nil];
     
+    [[AccountManager shareAccountManager].account loadUserInfoFromServer:^(bool isSuccess) {
+        if (isSuccess) {
+            [self updateContent];
+        }
+    }];
+    
 }
 
 - (void)userLogin
@@ -104,6 +110,10 @@
     }
 }
 
+- (void)updateContent
+{
+    _topView.account = [AccountManager shareAccountManager].account;
+}
 
 #pragma mark - UIGestureRecognizerDelegate 在根视图时不响应interactivePopGestureRecognizer手势
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
@@ -141,6 +151,7 @@
     topView.contentMode = UIViewContentModeScaleToFill;
     self.topView = topView;
     [self.view addSubview:topView];
+    topView.account = [AccountManager shareAccountManager].account;
     
     // 添加手势
     UITapGestureRecognizer *tapHeaderView = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHeaderView:)];

@@ -21,8 +21,6 @@
 		27329DBC1B0E0B9600F0A4FA /* AddMemberCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27329DBA1B0E0B9600F0A4FA /* AddMemberCell.xib */; };
 		275003561B4D0165002B7856 /* GuiderCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 275003541B4D0165002B7856 /* GuiderCollectionCell.m */; };
 		275003571B4D0165002B7856 /* GuiderCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 275003551B4D0165002B7856 /* GuiderCollectionCell.xib */; };
-		2753BCC71AF60B1D0098E5B3 /* HeaderPictureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2753BCC51AF60B1D0098E5B3 /* HeaderPictureCell.m */; };
-		2753BCC81AF60B1D0098E5B3 /* HeaderPictureCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2753BCC61AF60B1D0098E5B3 /* HeaderPictureCell.xib */; };
 		2755298C1B04A52400A10506 /* HMSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 2755298B1B04A52400A10506 /* HMSegmentedControl.m */; };
 		276DF7671B4A49F4001A98FB /* DomesticCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 276DF7651B4A49F4001A98FB /* DomesticCell.m */; };
 		276DF7681B4A49F4001A98FB /* DomesticCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 276DF7661B4A49F4001A98FB /* DomesticCell.xib */; };
@@ -1411,9 +1409,6 @@
 		275003531B4D0165002B7856 /* GuiderCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuiderCollectionCell.h; sourceTree = "<group>"; };
 		275003541B4D0165002B7856 /* GuiderCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuiderCollectionCell.m; sourceTree = "<group>"; };
 		275003551B4D0165002B7856 /* GuiderCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GuiderCollectionCell.xib; sourceTree = "<group>"; };
-		2753BCC41AF60B1D0098E5B3 /* HeaderPictureCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderPictureCell.h; sourceTree = "<group>"; };
-		2753BCC51AF60B1D0098E5B3 /* HeaderPictureCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderPictureCell.m; sourceTree = "<group>"; };
-		2753BCC61AF60B1D0098E5B3 /* HeaderPictureCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeaderPictureCell.xib; sourceTree = "<group>"; };
 		2755298A1B04A52400A10506 /* HMSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMSegmentedControl.h; sourceTree = "<group>"; };
 		2755298B1B04A52400A10506 /* HMSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMSegmentedControl.m; sourceTree = "<group>"; };
 		276DF7641B4A49F4001A98FB /* DomesticCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DomesticCell.h; sourceTree = "<group>"; };
@@ -5629,9 +5624,6 @@
 				27FC91511AF205030083F052 /* HeaderCell.h */,
 				27FC91521AF205030083F052 /* HeaderCell.m */,
 				27FC91531AF205030083F052 /* HeaderCell.xib */,
-				2753BCC41AF60B1D0098E5B3 /* HeaderPictureCell.h */,
-				2753BCC51AF60B1D0098E5B3 /* HeaderPictureCell.m */,
-				2753BCC61AF60B1D0098E5B3 /* HeaderPictureCell.xib */,
 				27951B6E1AF86C46004D69BE /* PicCell.h */,
 				27951B6F1AF86C46004D69BE /* PicCell.m */,
 				27951B701AF86C46004D69BE /* PicCell.xib */,
@@ -8021,7 +8013,6 @@
 				D917DABC1A8B49AF0039720A /* ic_guide2_7_select@2x.png in Resources */,
 				D9A8FF541A80CF19005AD701 /* FavoriteTableViewCell.xib in Resources */,
 				E6F18AD61B845F4900232EEB /* messages_plus_search_selected@3x.png in Resources */,
-				2753BCC81AF60B1D0098E5B3 /* HeaderPictureCell.xib in Resources */,
 				E6F18B1C1B845F4900232EEB /* master_icon_constellation5@3x.png in Resources */,
 				E6F18A811B845F4900232EEB /* speaking-motion12@2x.png in Resources */,
 				E6E725571B5603D30007273A /* UMSCommentInputControlleriPad.xib in Resources */,
@@ -8382,7 +8373,6 @@
 				D993C2521B12DF0C0088D568 /* IMConstants.swift in Sources */,
 				D9A8FF5F1A80CF19005AD701 /* SearchResultTableViewCell.m in Sources */,
 				D9FCE7E91B135C820039F896 /* Reachability.m in Sources */,
-				2753BCC71AF60B1D0098E5B3 /* HeaderPictureCell.m in Sources */,
 				D9A8001E1A80D52F005AD701 /* ForeignViewController.m in Sources */,
 				D92CA1001AD8BDF900F244FF /* PSTCollectionViewController.m in Sources */,
 				D9A802E71A80E3D3005AD701 /* TaoziImage.m in Sources */,

@@ -22,7 +22,6 @@
 #import "BaseTextSettingViewController.h"
 #import "JobListViewController.h"
 #import "HeaderCell.h"
-#import "HeaderPictureCell.h"
 #import "UITableView+FDTemplateLayoutCell.h"
 #import "AIDatePickerController.h"
 #import "SignatureViewController.h"
@@ -38,9 +37,9 @@
 #define accountDetailHeaderCell          @"headerCell"
 #define otherUserInfoCell           @"otherCell"
 
-#define cellDataSource              @[@[@"名字", @"性别", @"生日", @"现住地"], @[@"计划", @"足迹", @"相册"],@[@"安全设置", @"修改密码"]]
+#define cellDataSource              @[@[@"名字"], @[@"名字", @"性别", @"生日", @"现住地"], @[@"计划", @"足迹", @"相册"],@[@"安全设置", @"修改密码"]]
 
-@interface EditUserInfoTableViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource, SelectDelegate, ChangJobDelegate, HeaderPictureDelegate>
+@interface EditUserInfoTableViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource, SelectDelegate, ChangJobDelegate>
 
 @property (strong, nonatomic) UIView *footerView;
 @property (strong, nonatomic) AccountManager *accountManager;
@@ -58,11 +57,6 @@
 
 @property (nonatomic, assign) NSInteger updateUserInfoType; //修改用户信息封装的补丁
 
-@property (nonatomic, strong) UIView *headerBgView;
-@property (nonatomic, strong) UIImageView *avatarImageView;
-@property (nonatomic, strong) UIImageView *avatarBg;
-@property (nonatomic, strong) UIImageView *constellationView;
-
 @end
 
 @implementation EditUserInfoTableViewController
@@ -76,7 +70,6 @@
     
     [self updateDestinations];
     [self loadUserAlbum];
-    [self setupTableHeaderView];
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     self.tableView.dataSource = self;
     self.tableView.backgroundColor = APP_PAGE_COLOR;
@@ -89,7 +82,6 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"HeaderCell" bundle:nil] forCellReuseIdentifier:@"zuji"];
     [self.tableView registerNib:[UINib nibWithNibName:@"HeaderPictureCell" bundle:nil] forCellReuseIdentifier:@"header"];
     self.tableView.tableFooterView = self.footerView;
-    self.tableView.tableHeaderView = self.headerBgView;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userAccountHasChage) name:updateUserInfoNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(goBack) name:userDidLogoutNoti object:nil];
@@ -165,54 +157,6 @@
 }
 
 #pragma mark - Private Methods
-
-- (void) setupTableHeaderView
-{
-    CGFloat width = kWindowWidth;
-    CGFloat height = kWindowHeight;
-    
-    _headerBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 741/3*height/736)];
-    _headerBgView.backgroundColor = APP_PAGE_COLOR;
-    _headerBgView.clipsToBounds = YES;
-    UIImageView *flagHeaderIV = [[UIImageView alloc] initWithFrame:_headerBgView.bounds];
-    flagHeaderIV.contentMode = UIViewContentModeScaleAspectFill;
-    flagHeaderIV.clipsToBounds = YES;
-    if (_accountManager.account.gender == Male) {
-        flagHeaderIV.image = [UIImage imageNamed:@"ic_home_header_boy.png"];
-    } else if (_accountManager.account.gender == Female) {
-        flagHeaderIV.image = [UIImage imageNamed:@"ic_home_header_girl.png"];
-    } else {
-        flagHeaderIV.image = [UIImage imageNamed:@"ic_home_header_unlogin.png"];
-    }
-    
-    flagHeaderIV.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    [_headerBgView addSubview:flagHeaderIV];
-    
-    
-    CGFloat ah = 200*height/736;
-    
-    CGFloat avatarW = ah - 19 * height/736;
-    _avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, avatarW, avatarW)];
-    _avatarImageView.clipsToBounds = YES;
-    _avatarImageView.layer.cornerRadius = avatarW/2.0;
-    _avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
-    [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:_accountManager.account.avatarSmall] placeholderImage:[UIImage imageNamed:@"avatar_default"]];
-    _avatarImageView.center = _headerBgView.center;
-    [_headerBgView addSubview:_avatarImageView];
-    _avatarImageView.userInteractionEnabled = YES;
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(presentImagePicker)];
-    tap.numberOfTapsRequired = 1;
-    tap.numberOfTouchesRequired = 1;
-    [_avatarImageView addGestureRecognizer:tap];
-    
-    
-    _avatarBg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ah, ah)];
-    _avatarBg.center = _avatarImageView.center;
-    _avatarBg.contentMode = UIViewContentModeScaleToFill;
-    _avatarBg.clipsToBounds = YES;
-    _avatarBg.image = [UIImage imageNamed:@"ic_home_avatar_border_unknown.png"];
-    [_headerBgView addSubview:_avatarBg];
-}
 
 /**
  *  下载用户头像列表
@@ -419,7 +363,6 @@
                   _accountManager.account.avatar = url;
                   _accountManager.account.avatarSmall = urlSmall;
                   [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
-                  _avatarImageView.image = image;
                   
               } option:opt];
     
@@ -515,81 +458,89 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 66 * kWindowHeight/736;
+    if (indexPath.section == 0) {
+        return 85;
+    }
+    return 60;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     AccountManager *amgr = self.accountManager;
-    UserOtherTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:otherUserInfoCell forIndexPath:indexPath];
-    cell.cellTitle.text = cellDataSource[indexPath.section][indexPath.row];
-    self.tracksDesc = self.accountManager.account.footprintsDesc;
     if (indexPath.section == 0) {
-        if (indexPath.row == 0) {
-            cell.cellDetail.text = amgr.account.nickName;
-            
-        } else if (indexPath.row == 1) {
-            if (amgr.account.gender ==Female) {
-                cell.cellDetail.text = @"美女";
+        UserHeaderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:accountDetailHeaderCell forIndexPath:indexPath];
+        [cell.userPhoto sd_setImageWithURL:[NSURL URLWithString: amgr.account.avatarSmall] placeholderImage:nil];
+        return cell;
+
+    } else {
+        UserOtherTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:otherUserInfoCell forIndexPath:indexPath];
+        cell.cellTitle.text = cellDataSource[indexPath.section][indexPath.row];
+        self.tracksDesc = self.accountManager.account.footprintsDesc;
+        if (indexPath.section == 1) {
+            if (indexPath.row == 0) {
+                cell.cellDetail.text = amgr.account.nickName;
+                
+            } else if (indexPath.row == 1) {
+                if (amgr.account.gender ==Female) {
+                    cell.cellDetail.text = @"美女";
+                }
+                else if (amgr.account.gender == Male) {
+                    cell.cellDetail.text = @"帅锅";
+                }
+                else if (amgr.account.gender == Unknown) {
+                    cell.cellDetail.text = @"一言难尽";
+                }
+                else {
+                    cell.cellDetail.text = @"保密";
+                }
+                
+            } else if (indexPath.row == 2) {
+                if (amgr.account.birthday.length == 0 || amgr.account.birthday == nil) {
+                    cell.cellDetail.text = @"未设置";
+                } else {
+                    cell.cellDetail.text = amgr.account.birthday;
+                }
+                
+            } else if (indexPath.row == 3) {
+                if (amgr.account.residence == nil || amgr.account.residence.length == 0) {
+                    cell.cellDetail.text = @"未设置";
+                } else {
+                    cell.cellDetail.text = amgr.account.residence;
+                }
             }
-            else if (amgr.account.gender == Male) {
-                cell.cellDetail.text = @"帅锅";
+        } else if (indexPath.section == 2) {
+            if (indexPath.row == 0) {
+                cell.cellDetail.text = [NSString stringWithFormat:@"%ld 条", amgr.account.guideCnt];
+            } else if (indexPath.row == 1) {
+                if (_tracksDesc) {
+                    cell.cellDetail.text = _tracksDesc;
+                } else {
+                    cell.cellDetail.text = @"未设置";
+                }
+                
+            } else if (indexPath.row == 2) {
+                if (amgr.account.userAlbum.count) {
+                    cell.cellDetail.text = [NSString stringWithFormat:@"%zd张",amgr.account.userAlbum.count];
+                } else {
+                    cell.cellDetail.text = @"0张";
+                }
             }
-            else if (amgr.account.gender == Unknown) {
-                cell.cellDetail.text = @"一言难尽";
-            }
-            else {
-                cell.cellDetail.text = @"保密";
-            }
-            
-        } else if (indexPath.row == 2) {
-            if (amgr.account.birthday.length == 0 || amgr.account.birthday == nil) {
-                cell.cellDetail.text = @"未设置";
-            } else {
-                cell.cellDetail.text = amgr.account.birthday;
-            }
-            
-        } else if (indexPath.row == 3) {
-            if (amgr.account.residence == nil || amgr.account.residence.length == 0) {
-                cell.cellDetail.text = @"未设置";
-            } else {
-                cell.cellDetail.text = amgr.account.residence;
-            }
-        }
-    }
-    else if (indexPath.section == 1) {
-        if (indexPath.row == 0) {
-            cell.cellDetail.text = [NSString stringWithFormat:@"%ld 条", amgr.account.guideCnt];
-        } else if (indexPath.row == 1) {
-            if (_tracksDesc) {
-                cell.cellDetail.text = _tracksDesc;
-            } else {
-                cell.cellDetail.text = @"未设置";
-            }
-            
-        } else if (indexPath.row == 2) {
-            if (amgr.account.userAlbum.count) {
-                cell.cellDetail.text = [NSString stringWithFormat:@"%zd张",amgr.account.userAlbum.count];
-            } else {
-                cell.cellDetail.text = @"0张";
-            }
-        }
-    }
-    else {
-        if (indexPath.row == 0) {
-            if (amgr.accountIsBindTel) {
-                cell.cellDetail.text = @"已绑定";
+        } else {
+            if (indexPath.row == 0) {
+                if (amgr.accountIsBindTel) {
+                    cell.cellDetail.text = @"已绑定";
+                    
+                } else {
+                    cell.cellDetail.text = @"未设置";
+                }
                 
             } else {
-                cell.cellDetail.text = @"未设置";
+                cell.cellDetail.text = @"";
             }
-            
-        } else {
-            cell.cellDetail.text = @"";
         }
+        
+        return cell;
     }
-    
-    return cell;
 }
 
 #pragma mark - Table view delegate
@@ -597,11 +548,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
+        [self changeUserAvatar];
+        
+    } else if (indexPath.section == 1) {
         if (indexPath.row == 0) {
             [self changeUserName];
             
-        }
-        else if (indexPath.row == 1) {
+        } else if (indexPath.row == 1) {
             SelectionTableViewController *ctl = [[SelectionTableViewController alloc] init];
             ctl.contentItems = @[@"美女", @"帅锅", @"一言难尽", @"保密"];
             ctl.titleTxt = @"性别设置";
@@ -612,11 +565,9 @@
             _updateUserInfoType = 1;
             [self presentViewController:nav animated:YES completion:nil];
             
-        }
-        else if (indexPath.row == 2) {
+        } else if (indexPath.row == 2) {
             [self showDatePicker];
-        }
-        else if (indexPath.row == 3) {
+        } else if (indexPath.row == 3) {
             NSString *url = [[NSBundle mainBundle] pathForResource:@"DomesticCityDataSource" ofType:@"plist"];
             NSArray *cityArray = [NSArray arrayWithContentsOfFile:url];
             CityListTableViewController *cityListCtl = [[CityListTableViewController alloc] init];
@@ -626,24 +577,20 @@
             [self presentViewController:navc animated:YES completion:nil];
             
         }
-    }
-    else if (indexPath.section == 1) {
+    } else if (indexPath.section == 2) {
         if (indexPath.row == 0) {
             PlansListTableViewController *myGuidesCtl = [[PlansListTableViewController alloc] initWithUserId:_accountManager.account.userId];
             myGuidesCtl.userName = _accountManager.account.nickName;
             [self.navigationController pushViewController:myGuidesCtl animated:YES];
             
-        }
-        else if (indexPath.row == 1) {
+        } else if (indexPath.row == 1) {
             FootPrintViewController *footCtl = [[FootPrintViewController alloc] init];
             footCtl.userId = self.accountManager.account.userId;
             [self.navigationController pushViewController:footCtl animated:YES];
-        }
-        else if (indexPath.row == 2) {
+        } else if (indexPath.row == 2) {
             [self viewUserPhotoAlbum];
         }
-    }
-    else {
+    } else {
         if (indexPath.row == 0) {
             VerifyCaptchaViewController *changePasswordCtl = [[VerifyCaptchaViewController alloc] init];
             changePasswordCtl.verifyCaptchaType = UserBindTel;
@@ -664,7 +611,7 @@
 {
     if (_updateUserInfoType == 1) {
         [self updateGender:indexPath];
-    }else if(_updateUserInfoType == 2){
+    } else if(_updateUserInfoType == 2){
         [self updateStatus:str];
     }
 }
@@ -708,38 +655,13 @@
     }];
 }
 
+#pragma mark - action method
 
-#pragma mark - UIImagePickerControllerDelegate
 
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+- (void)changeUserAvatar
 {
-    [picker dismissViewControllerAnimated:YES completion:nil];
-    
-    UIImage *headerImage = [info objectForKey:UIImagePickerControllerEditedImage];
-    
-    [self uploadPhotoImage:headerImage];
+    [self presentImagePicker];
 }
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 1) {
-        AccountManager *accountManager = [AccountManager shareAccountManager];
-        [SVProgressHUD show];
-        [accountManager asyncLogout:^(BOOL isSuccess) {
-            if (isSuccess) {
-                [self showHint:@"退出成功"];
-                [self.navigationController popViewControllerAnimated:YES];
-              
-                [self.tabBarController setSelectedIndex:1];
-//                [NSNotificationCenter defaultCenter] postNotificationName:@"UserExitLogin" object:<#(id)#>
-            } else {
-                [self showHint:@"退出失败"];
-            }
-        }];
-    }
-}
-
-#pragma mark - http method
 
 - (void)changeUserName
 {
@@ -774,6 +696,7 @@
     ctl.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:ctl animated:YES];
 }
+
 /**
  *  删除用户头像
  *
@@ -849,80 +772,35 @@
     [_tableView reloadData];
 }
 
-#pragma mark - HeaderPictureDelegate
-- (void)showPickerView
+#pragma mark - UIImagePickerControllerDelegate
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    [self presentImagePicker];
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    
+    UIImage *headerImage = [info objectForKey:UIImagePickerControllerEditedImage];
+    
+    [self uploadPhotoImage:headerImage];
 }
 
-- (void)editAvatar:(NSInteger)index
-{
-    PXAlertView *alertView = [PXAlertView showAlertWithTitle:nil
-                                                     message:nil
-                                                 cancelTitle:@"取消"
-                                                 otherTitles:@[ @"设为头像", @"查看图片", @"删除"]
-                                                  completion:^(BOOL cancelled, NSInteger buttonIndex) {
-                                                      if (buttonIndex == 1) {
-                                                          
-                                                          [self changeAvatar:index];
-                                                          
-                                                      } else if (buttonIndex == 2) {
-                                                          
-                                                          [self showImageDetail:index];
-                                                          
-                                                      } else if (buttonIndex == 3) {
-                                                          
-                                                          [self deleteUserAvatar:index];
-                                                          
-                                                      }
-                                                  }];
-    [alertView setTitleFont:[UIFont systemFontOfSize:16]];
-    [alertView setTitleFont:[UIFont systemFontOfSize:16]];
-    [alertView useCustomStyle];
-    
-    [alertView setBackgroundColor:[UIColor whiteColor]];
-    
-    // 设置其他按钮的颜色
-    UIColor * otherNormal = TEXT_COLOR_TITLE;
-    UIColor * otherSeleced = APP_THEME_COLOR;
-    [alertView setAllButtonsTextColor:otherNormal andHighLightedColor:otherSeleced];
-    
-    // 设置取消按钮的颜色
-    UIColor *cancelNormal = TEXT_COLOR_TITLE;
-    UIColor *cancelSelected = TEXT_COLOR_TITLE;
-    [alertView setCancelButtonTextColor:cancelNormal andHighLightedColor:cancelSelected];
-    
-    // 设置取消按钮的下划线
-    [alertView setCancelUnderlineWithColor:COLOR_LINE];
-}
+#pragma mark - UIAlertViewDelegate
 
-- (void)showImageDetail:(NSInteger)index
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    AccountManager *amgr = self.accountManager;
-    NSInteger count = amgr.account.userAlbum.count;
-    // 1.封装图片数据
-    NSMutableArray *photos = [NSMutableArray arrayWithCapacity:count];
-    for (NSInteger i = 0; i<count; i++) {
-        // 替换为中等尺寸图片
-        AlbumImage *albumImage = amgr.account.userAlbum[i];
-        MJPhoto *photo = [[MJPhoto alloc] init];
-        photo.url = albumImage.image.imageUrl; // 图片路径
-        
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-        HeaderPictureCell *cell = (HeaderPictureCell *)[_tableView cellForRowAtIndexPath:indexPath];
-        NSIndexPath *picIndexPath = [NSIndexPath indexPathForRow:index inSection:0];
-        PicCell *picCell = (PicCell *)[cell.collectionView cellForItemAtIndexPath:picIndexPath];
-        photo.srcImageView = picCell.picImage;
-        //        photo.srcImageView = (UIImageView *)[cell.collectionView cellForItemAtIndexPath:picIndexPath];
-        [photos addObject:photo];
+    if (buttonIndex == 1) {
+        AccountManager *accountManager = [AccountManager shareAccountManager];
+        [SVProgressHUD show];
+        [accountManager asyncLogout:^(BOOL isSuccess) {
+            if (isSuccess) {
+                [self showHint:@"退出成功"];
+                [self.navigationController popViewControllerAnimated:YES];
+                
+                [self.tabBarController setSelectedIndex:1];
+            } else {
+                [self showHint:@"退出失败"];
+            }
+        }];
     }
-    
-    // 2.显示相册
-    MJPhotoBrowser *browser = [[MJPhotoBrowser alloc] init];
-    browser.currentPhotoIndex = index; // 弹出相册时显示的第一张图片是？
-    browser.photos = photos; // 设置所有的图片
-    [browser show];
-    
 }
 
 @end

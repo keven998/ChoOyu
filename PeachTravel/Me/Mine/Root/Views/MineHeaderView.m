@@ -16,7 +16,6 @@
 {
     if (self = [super initWithFrame:frame]) {
         self.userInteractionEnabled = YES;
-        self.account = [AccountManager shareAccountManager].account;
         [self setupMainView];
     }
     return self;
@@ -31,15 +30,12 @@
     avatar.layer.cornerRadius = 65*0.5;
     avatar.layer.masksToBounds = YES;
     self.avatar = avatar;
-    NSURL *url = [NSURL URLWithString:self.account.avatar];
-    [self.avatar sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"avatar_default"]];
     [_contentView addSubview:avatar];
     
     // 2.昵称
     UILabel *nickName = [[UILabel alloc] init];
     nickName.font = [UIFont boldSystemFontOfSize:16.0];
     nickName.textColor = UIColorFromRGB(0xFFFFFF);
-    nickName.text = self.account.nickName;
     self.nickName = nickName;
     [_contentView addSubview:nickName];
     
@@ -47,7 +43,6 @@
     UILabel *userId = [[UILabel alloc] init];
     userId.font = [UIFont boldSystemFontOfSize:12.0];
     userId.textColor = UIColorFromRGB(0xFFFFFF);
-    userId.text = [NSString stringWithFormat:@"%ld",self.account.userId];
     self.userId = userId;
     [_contentView addSubview:userId];
     
@@ -57,23 +52,7 @@
     tempLabel.textColor = UIColorFromRGB(0xFFFFFF);
     self.subtitleLabel = tempLabel;
     [_contentView addSubview:self.subtitleLabel];
-    
-    NSMutableString *subtitleStr = [[NSMutableString alloc] init];
-    
-    if (_account.gender == Male) {
-        [subtitleStr appendString:@"男  "];
-    } else if (_account.gender == Female) {
-        [subtitleStr appendString:@"女  "];
-    }
-    if (_account.birthday) {
-        NSString *str = [FrendModel costellationDescWithBirthday:_account.birthday];
-        [subtitleStr appendString:[NSString stringWithFormat:@"%@  ", str]];
-    }
-    if (_account.level) {
-        [subtitleStr appendString:[NSString stringWithFormat:@"LV%ld", _account.level]];
-    }
-    
-    self.subtitleLabel.text = subtitleStr;
+
     [self updateSubviewsFrame];
 
 }
@@ -95,9 +74,36 @@
     self.subtitleLabel.frame = CGRectMake(CGRectGetMaxX(self.avatar.frame)+5, CGRectGetMaxY(self.nickName.frame)+10, kWindowWidth-CGRectGetMaxX(self.avatar.frame)-10, 12);
 }
 
+- (void)updateContent
+{
+    NSURL *url = [NSURL URLWithString:self.account.avatar];
+    [self.avatar sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"avatar_default"]];
+
+    _nickName.text = self.account.nickName;
+    _userId.text = [NSString stringWithFormat:@"%ld",self.account.userId];
+
+    NSMutableString *subtitleStr = [[NSMutableString alloc] init];
+    
+    if (_account.gender == Male) {
+        [subtitleStr appendString:@"男  "];
+    } else if (_account.gender == Female) {
+        [subtitleStr appendString:@"女  "];
+    }
+    if (_account.birthday) {
+        NSString *str = [FrendModel costellationDescWithBirthday:_account.birthday];
+        [subtitleStr appendString:[NSString stringWithFormat:@"%@  ", str]];
+    }
+    if (_account.level) {
+        [subtitleStr appendString:[NSString stringWithFormat:@"LV%ld", _account.level]];
+    }
+    
+    self.subtitleLabel.text = subtitleStr;
+}
+
 - (void)setAccount:(AccountModel *)account
 {
     _account = account;
+    [self updateContent];
 }
 
 @end
