@@ -229,18 +229,6 @@
     self.navBgView.alpha = (scrollView.contentOffset.y+20)/160;
 }
 
-#pragma ActionEvent
-
-
-- (void)talkToFriend
-{
-    
-    if ([AccountManager shareAccountManager].isLogin) {
-        [self pushChatViewController];
-    } else {
-        [self userLogin];
-    }
-}
 
 #pragma mark - IBAction Methods
 
@@ -255,35 +243,6 @@
     [self.navigationController presentViewController:nctl animated:YES completion:nil];
 }
 
-- (void)pushChatViewController
-{
-    IMClientManager *manager = [IMClientManager shareInstance];
-    ChatConversation *conversation = [manager.conversationManager getConversationWithChatterId:_userId chatType:IMChatTypeIMChatSingleType];
-    [manager.conversationManager addConversation: conversation];
-    
-    ChatViewController *chatController = [[ChatViewController alloc] initWithChatter:_userId chatType:IMChatTypeIMChatSingleType];
-    chatController.chatterName = _userInfo.nickName;
-    
-    ChatSettingViewController *menuViewController = [[ChatSettingViewController alloc] init];
-    menuViewController.currentConversation= conversation;
-    menuViewController.chatterId = _userId;
-    
-    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:chatController menuViewController:menuViewController];
-    menuViewController.containerCtl = frostedViewController;
-    frostedViewController.direction = REFrostedViewControllerDirectionRight;
-    frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
-    frostedViewController.liveBlur = YES;
-    frostedViewController.limitMenuViewSize = YES;
-    self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan = NO;
-    [self.navigationController pushViewController:frostedViewController animated:YES];
-    
-    __weak ChatViewController *viewController = chatController;
-    if (![self.navigationController.viewControllers.firstObject isKindOfClass:[ChatListViewController class]]) {
-        chatController.backBlock = ^(){
-            [viewController.frostedViewController.navigationController popViewControllerAnimated:YES];
-        };
-    }
-}
 
 #pragma mark - buttonMethod
 
@@ -292,7 +251,7 @@
 {
     [MobClick event:@"button_item_tracks"];
     FootPrintViewController *footPrintCtl = [[FootPrintViewController alloc] init];
-    footPrintCtl.userId = _userId;
+    footPrintCtl.userId = _userInfo.userId;
     [self.navigationController pushViewController:footPrintCtl animated:YES];
     
 }

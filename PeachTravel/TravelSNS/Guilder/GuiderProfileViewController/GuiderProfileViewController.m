@@ -36,9 +36,9 @@
     _albumArray = [NSMutableArray array];
     AccountManager *accountManager = [AccountManager shareAccountManager];
     
-    _isMyFriend = [accountManager frendIsMyContact:_userId];
+    _isMyFriend = [accountManager frendIsMyContact:self.userId];
     
-    [self loadUserProfile:_userId];
+    [self loadUserProfile:self.userId];
     self.view.backgroundColor = APP_PAGE_COLOR;
     
     self.tableView.showsVerticalScrollIndicator = NO;
@@ -119,7 +119,7 @@
     idLabel.textColor = [UIColor whiteColor];
     idLabel.font = [UIFont boldSystemFontOfSize:10];
     idLabel.textAlignment = NSTextAlignmentCenter;
-    idLabel.text = [NSString stringWithFormat:@"ID:%ld",_userId];
+    idLabel.text = [NSString stringWithFormat:@"ID:%ld",self.userId];
     [view addSubview:idLabel];
     self.navigationItem.titleView = view;
 
@@ -177,7 +177,7 @@
     [_addFriendBtn setTitleEdgeInsets:UIEdgeInsetsMake(4, 0, 0, -5)];
     [barView addSubview:_addFriendBtn];
     
-    if ([accountManager frendIsMyContact:_userId]) {
+    if ([accountManager frendIsMyContact:self.userId]) {
         [_addFriendBtn setTitle:@"修改备注" forState:UIControlStateNormal];
         [_addFriendBtn addTarget:self action:@selector(remarkFriend) forControlEvents:UIControlEventTouchUpInside];
     } else {
@@ -225,7 +225,7 @@
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)account.account.userId] forHTTPHeaderField:@"UserId"];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@%ld/albums", API_USERS, (long)_userId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@%ld/albums", API_USERS, (long)self.userId];
     
     [manager GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
@@ -494,7 +494,7 @@
     __weak typeof(GuiderProfileViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf content:64];
-    [frendManager asyncRequestAddContactWithUserId:_userId helloStr:helloStr completion:^(BOOL isSuccess, NSInteger errorCode) {
+    [frendManager asyncRequestAddContactWithUserId:self.userId helloStr:helloStr completion:^(BOOL isSuccess, NSInteger errorCode) {
         [hud hideTZHUD];
         if (isSuccess) {
             [SVProgressHUD showHint:@"请求已发送，等待对方验证"];
@@ -522,15 +522,15 @@
 - (void)pushChatViewController
 {
     IMClientManager *manager = [IMClientManager shareInstance];
-    ChatConversation *conversation = [manager.conversationManager getConversationWithChatterId:_userId chatType:IMChatTypeIMChatSingleType];
+    ChatConversation *conversation = [manager.conversationManager getConversationWithChatterId:self.userId chatType:IMChatTypeIMChatSingleType];
     [manager.conversationManager addConversation: conversation];
     
-    ChatViewController *chatController = [[ChatViewController alloc] initWithChatter:_userId chatType:IMChatTypeIMChatSingleType];
+    ChatViewController *chatController = [[ChatViewController alloc] initWithChatter:self.userId chatType:IMChatTypeIMChatSingleType];
     chatController.chatterName = _userInfo.nickName;
     
     ChatSettingViewController *menuViewController = [[ChatSettingViewController alloc] init];
     menuViewController.currentConversation= conversation;
-    menuViewController.chatterId = _userId;
+    menuViewController.chatterId = self.userId;
     
     REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:chatController menuViewController:menuViewController];
     menuViewController.containerCtl = frostedViewController;
@@ -587,7 +587,7 @@
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf];
     
-    [frendManager asyncRemoveContactWithUserId:_userId completion:^(BOOL isSuccess, NSInteger errorCode) {
+    [frendManager asyncRemoveContactWithUserId:self.userId completion:^(BOOL isSuccess, NSInteger errorCode) {
         [hud hideTZHUD];
         
         if (isSuccess) {
@@ -618,7 +618,7 @@
         FrendManager *frendManager = [IMClientManager shareInstance].frendManager;
         
         // 屏蔽用户
-        [frendManager asyncBlackContactWithUserId:_userId completion:^(BOOL isSuccess, NSInteger errorCode) {
+        [frendManager asyncBlackContactWithUserId:self.userId completion:^(BOOL isSuccess, NSInteger errorCode) {
             [hud hideTZHUD];
             
             if (isSuccess) {
@@ -634,7 +634,7 @@
         FrendManager *frendManager = [IMClientManager shareInstance].frendManager;
         
         // 取消屏蔽用户
-        [frendManager asyncCancelBlackContactWithUserId:_userId completion:^(BOOL isSuccess, NSInteger errorCode) {
+        [frendManager asyncCancelBlackContactWithUserId:self.userId completion:^(BOOL isSuccess, NSInteger errorCode) {
             [hud hideTZHUD];
             _userInfo.type = _userInfo.type - IMFrendWeightTypeBlackList;
             if (isSuccess) {
@@ -699,7 +699,7 @@
 {
     [MobClick event:@"button_item_tracks"];
     FootPrintViewController *footPrintCtl = [[FootPrintViewController alloc] init];
-    footPrintCtl.userId = _userId;
+    footPrintCtl.userId = self.userId;
     [self.navigationController pushViewController:footPrintCtl animated:YES];
     
 }

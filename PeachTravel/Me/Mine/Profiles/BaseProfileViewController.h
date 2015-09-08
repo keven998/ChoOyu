@@ -33,7 +33,13 @@
 #import "MJPhoto.h"
 #import "LoginViewController.h"
 #import "TZNavigationViewController.h"
+#import "BaseProfileHeaderView.h"
 
 @interface BaseProfileViewController : TZViewController
+
+@property (nonatomic) NSInteger userId;
+
+
+- (void)loadUserProfile:(NSInteger)userId;
 
 @end

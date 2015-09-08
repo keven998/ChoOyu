@@ -10,13 +10,20 @@
 
 @interface BaseProfileViewController ()
 
+@property (nonatomic, strong) id userInfo;
+
+@property (nonatomic, strong) NSMutableArray *albumArray;
+
+@property (nonatomic, weak) UITableView *tableView;
+
 @end
 
 @implementation BaseProfileViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+
 }
+
 
 @end

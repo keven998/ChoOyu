@@ -11,7 +11,7 @@
 
 @interface OtherProfileViewController : BaseProfileViewController
 
-@property (nonatomic) NSInteger userId;
+//@property (nonatomic) NSInteger userId;
 
 @property (nonatomic, strong) FrendModel *userInfo;
 
