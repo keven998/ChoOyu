@@ -7,7 +7,7 @@
 //
 
 #import "MineProfileTourViewCell.h"
-
+#import "PeachTravel-swift.h"
 @implementation MineProfileTourViewCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -46,6 +46,26 @@
     
     NSString *guiderCount = [NSString stringWithFormat:@"%ld",_userInfo.guideCnt];
     NSString *plan = [NSString stringWithFormat:@"共%ld份旅行计划",_userInfo.guideCnt];
+    NSMutableAttributedString *planStr = [[NSMutableAttributedString alloc] initWithString:plan];
+    [planStr addAttribute:NSForegroundColorAttributeName value:APP_THEME_COLOR range:NSMakeRange(1, guiderCount.length)];
+    self.planBtn.titleLab.attributedText = planStr;
+
+}
+
+- (void)setOtherUserinfo:(FrendModel *)otherUserinfo
+{
+    _otherUserinfo = otherUserinfo;
+    
+    NSString *coutryCount = [NSString stringWithFormat:@"%ld",_otherUserinfo.footprintCountryCount];
+    NSString *cityCount = [NSString stringWithFormat:@"%ld",_otherUserinfo.footprintCityCount];
+    NSString *footprint = [NSString stringWithFormat:@"旅行%ld个国家 共%ld个城市",_otherUserinfo.footprintCountryCount,_otherUserinfo.footprintCityCount];
+    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:footprint];
+    [str addAttribute:NSForegroundColorAttributeName value:APP_THEME_COLOR range:NSMakeRange(2, coutryCount.length)];
+    [str addAttribute:NSForegroundColorAttributeName value:APP_THEME_COLOR range:NSMakeRange(footprint.length-cityCount.length-3, cityCount.length)];
+    self.footprintBtn.titleLab.attributedText = str;
+    
+    NSString *guiderCount = [NSString stringWithFormat:@"%ld",_otherUserinfo.guideCount];
+    NSString *plan = [NSString stringWithFormat:@"共%ld份旅行计划",_otherUserinfo.guideCount];
     NSMutableAttributedString *planStr = [[NSMutableAttributedString alloc] initWithString:plan];
     [planStr addAttribute:NSForegroundColorAttributeName value:APP_THEME_COLOR range:NSMakeRange(1, guiderCount.length)];
     self.planBtn.titleLab.attributedText = planStr;

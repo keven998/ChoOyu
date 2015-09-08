@@ -25,6 +25,8 @@
 
 @property (weak, nonatomic) UILabel *tourCount;
 
-@property (nonatomic, weak) AccountModel *userInfo;
+@property (nonatomic, strong) AccountModel *userInfo;
+
+@property (nonatomic, strong) FrendModel *otherUserinfo;
 
 @end
