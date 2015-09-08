@@ -12,9 +12,9 @@
 
 - (void)awakeFromNib
 {
-    _userPhoto.layer.cornerRadius = 20.5;
+    _userPhoto.layer.cornerRadius = 16;
     _userPhoto.clipsToBounds = YES;
-    _cellLabel.font = [UIFont systemFontOfSize:14.0];
+    self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
