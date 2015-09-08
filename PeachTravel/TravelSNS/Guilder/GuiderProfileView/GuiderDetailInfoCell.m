@@ -104,7 +104,7 @@
     
     // 设置数据
     NSURL *url = [NSURL URLWithString:accountModel.avatar];
-    [self.profileHeader.imageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"ic_home_avatar_unknown.png"]];
+    [self.profileHeader.imageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"avatar_default"]];
     self.name.text = accountModel.nickName;
     
     // 隐藏collectionView

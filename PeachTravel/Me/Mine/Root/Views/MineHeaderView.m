@@ -32,7 +32,7 @@
     avatar.layer.masksToBounds = YES;
     self.avatar = avatar;
     NSURL *url = [NSURL URLWithString:self.account.avatar];
-    [self.avatar sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"ic_home_avatar_unknown.png"]];
+    [self.avatar sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"avatar_default"]];
     [_contentView addSubview:avatar];
     
     // 2.昵称

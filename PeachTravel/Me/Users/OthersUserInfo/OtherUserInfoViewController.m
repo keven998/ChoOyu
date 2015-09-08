@@ -126,7 +126,7 @@
     _avatarImageView.layer.cornerRadius = avatarW/2.0;
     _avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
     _avatarImageView.userInteractionEnabled = YES;
-    [_avatarImageView setImage:[UIImage imageNamed:@"ic_home_avatar_unknown.png"]];
+    [_avatarImageView setImage:[UIImage imageNamed:@"avatar_default"]];
     [_headerBgView addSubview:_avatarImageView];
     
     UITapGestureRecognizer * tapAvatar = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAvatar:)];
@@ -370,7 +370,7 @@
     NSString *guideCtn = [NSString stringWithFormat:@"%zd条",_userInfo.guideCount];
     _planeLabel.text = guideCtn;
     
-    [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:_userInfo.avatarSmall] placeholderImage:[UIImage imageNamed:@"ic_home_avatar_unknown.png"]];
+    [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:_userInfo.avatarSmall] placeholderImage:[UIImage imageNamed:@"avatar_default"]];
     if ([_userInfo.memo isBlankString]) {
         _nameLabel.text = _userInfo.nickName;
     } else {
