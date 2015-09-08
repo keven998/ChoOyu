@@ -57,7 +57,6 @@ typedef void(^loginCompletion)(BOOL completed);
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear: animated];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
 
 }
 
@@ -77,11 +76,6 @@ typedef void(^loginCompletion)(BOOL completed);
     UIView *devide = [[UIView alloc]initWithFrame:CGRectMake(0, 60 *kWindowHeight/736 , kWindowWidth - 26, 1)];
     devide.backgroundColor = APP_THEME_COLOR;
     [textFieldBg addSubview:devide];
-    
-    //    UIView *devide2 = [[UIView alloc]initWithFrame:CGRectMake(772/3 *kWindowWidth/414, 60 *kWindowHeight / 736, 1, 60 * kWindowHeight/736)];
-    //    devide2.backgroundColor = APP_THEME_COLOR;
-    //    [textFieldBg addSubview:devide2];
-    
     
     _phoneLabel = [[UITextField alloc]initWithFrame:CGRectMake(10, 0, kWindowWidth - 50, 60 * kWindowHeight / 736)];
     UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _phoneLabel.bounds.size.height - 16.0)];
@@ -243,6 +237,7 @@ typedef void(^loginCompletion)(BOOL completed);
             smsVerifyCtl.password = self.passwordLabel.text;
             smsVerifyCtl.coolDown = [[[responseObject objectForKey:@"result"] objectForKey:@"coolDown"] integerValue];
             [self.navigationController pushViewController:smsVerifyCtl animated:YES];
+            [self.navigationController setNavigationBarHidden:NO animated:YES];
         } else {
             if ([[responseObject objectForKey:@"err"] objectForKey:@"message"]) {
                 [SVProgressHUD showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
@@ -273,6 +268,7 @@ typedef void(^loginCompletion)(BOOL completed);
     webViewCtl.titleStr = @"用户注册协议";
     webViewCtl.hideToolBar = YES;
     [self.navigationController pushViewController:webViewCtl animated:YES];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 @end

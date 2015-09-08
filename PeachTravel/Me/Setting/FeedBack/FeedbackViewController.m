@@ -43,7 +43,7 @@
     
     CGFloat width = self.view.frame.size.width;
     
-    UILabel *desc1 = [[UILabel alloc]initWithFrame:CGRectMake(5, 20.0, width-10, 20.0)];
+    UILabel *desc1 = [[UILabel alloc]initWithFrame:CGRectMake(5, 20.0+64, width-10, 20.0)];
     desc1.font = [UIFont systemFontOfSize:13.0];
     desc1.textColor = COLOR_TEXT_II;
     desc1.textAlignment = NSTextAlignmentLeft;
@@ -51,7 +51,7 @@
     desc1.backgroundColor = [UIColor clearColor];
     [self.view addSubview:desc1];
     
-    UIView *eborder = [[UIView alloc] initWithFrame:CGRectMake(5, 45, width - 10, 86.0)];
+    UIView *eborder = [[UIView alloc] initWithFrame:CGRectMake(5, 45+64, width - 10, 86.0)];
     eborder.backgroundColor = [UIColor whiteColor];
     eborder.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     eborder.layer.borderColor = COLOR_LINE.CGColor;
@@ -59,7 +59,7 @@
     eborder.layer.cornerRadius = 3.0;
     [self.view addSubview:eborder];
     
-    UITextView *suggestion = [[UITextView alloc] initWithFrame:CGRectMake(5.0, 4.0, width - 10.0, 78.0)];
+    UITextView *suggestion = [[UITextView alloc] initWithFrame:CGRectMake(5.0, 4, width - 10.0, 78.0)];
     suggestion.backgroundColor = [UIColor clearColor];
     suggestion.textColor = COLOR_TEXT_I;
     suggestion.autoresizingMask = UIViewAutoresizingFlexibleWidth;

@@ -28,6 +28,9 @@
 @property (strong, nonatomic) UIImageView *iconImageView;
 @property (strong, nonatomic) UIView *textFieldBg;
 
+//disappear 的时候是不是应该显示出 navigationbar
+@property (nonatomic) BOOL shouldNotShowNavigationBarWhenDisappear;
+
 @property (nonatomic, copy) void (^completion)(BOOL completed);
 
 @end
@@ -184,7 +187,11 @@
 {
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:weixinDidLoginNoti object:nil];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    
+    if (!_shouldNotShowNavigationBarWhenDisappear) {
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
+    }
+    _shouldNotShowNavigationBarWhenDisappear = NO;
 }
 
 - (void)dealloc
@@ -196,6 +203,7 @@
 
 - (IBAction)userRegister:(id)sender
 {
+    _shouldNotShowNavigationBarWhenDisappear = YES;
     RegisterViewController *registerCtl = [[RegisterViewController alloc] init];
     registerCtl.defaultPhone = _userNameTextField.text;
     registerCtl.defaultPassword = _passwordTextField.text;
@@ -357,6 +365,7 @@
     if (self.navigationController.viewControllers.count > 1) {
         [self.navigationController popToRootViewControllerAnimated:YES];
     } else {
+        _shouldNotShowNavigationBarWhenDisappear = YES;
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 }

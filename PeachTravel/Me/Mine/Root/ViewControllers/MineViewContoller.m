@@ -27,6 +27,8 @@
 @property (nonatomic, weak) UIScrollView *scrollView;
 @property (nonatomic, weak) MineHeaderView *topView;
 @property (nonatomic, weak) UIViewController *contentViewCtl;
+
+//disappear 的时候是不是应该显示出 navigationbar 
 @property (nonatomic) BOOL shouldNotShowNavigationBarWhenDisappear;
 @property (nonatomic, weak) UIButton *addPlan;
 

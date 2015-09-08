@@ -21,6 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     self.navigationItem.title = _navTitle;
     UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc]initWithTitle:@"保存 " style:UIBarButtonItemStylePlain target:self action:@selector(saveChange:)];
     rightBtn.tintColor = [UIColor whiteColor];
@@ -37,7 +38,6 @@
     sv.backgroundColor = [UIColor whiteColor];
     _contentTextField.leftView = sv;
     _contentTextField.leftViewMode = UITextFieldViewModeAlways;
-    [_contentTextField becomeFirstResponder];
     _contentTextField.text = _content;
     [_contentTextField addTarget:self action:@selector(textChanged:) forControlEvents:UIControlEventEditingChanged];
 }
@@ -45,11 +45,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear: animated];
-}
-
-- (void)viewDidLayoutSubviews
-{
-    _contentTextField.frame = CGRectMake(0, 30+64, self.view.frame.size.width, 64*kWindowHeight/736);
+    [_contentTextField becomeFirstResponder];
 }
 
 /**

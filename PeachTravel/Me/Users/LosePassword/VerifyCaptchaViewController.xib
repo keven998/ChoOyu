@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -111,7 +111,7 @@
             <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="u3R-qM-t3B" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="49" id="4oB-zW-hYy">
-                    <variation key="widthClass=compact" constant="20"/>
+                    <variation key="widthClass=compact" constant="84"/>
                 </constraint>
                 <constraint firstItem="Ah4-Ne-V7B" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="8IK-HG-6Kz"/>
                 <constraint firstItem="Ah4-Ne-V7B" firstAttribute="top" secondItem="VtS-KD-ZnZ" secondAttribute="bottom" constant="15" id="AFg-hl-8gZ"/>
@@ -167,7 +167,7 @@
                     <include reference="yTf-mu-WlW"/>
                 </mask>
             </variation>
-            <point key="canvasLocation" x="326" y="384"/>
+            <point key="canvasLocation" x="18" y="159"/>
         </view>
     </objects>
 </document>
