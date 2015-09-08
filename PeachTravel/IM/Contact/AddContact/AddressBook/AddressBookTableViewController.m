@@ -15,7 +15,6 @@
 #import "AddressBookTableViewCell.h"
 #import "SearchUserInfoViewController.h"
 
-#import "OtherUserInfoViewController.h"
 #import "OtherProfileViewController.h"
 
 #define addressBookCell    @"addressBookCell"

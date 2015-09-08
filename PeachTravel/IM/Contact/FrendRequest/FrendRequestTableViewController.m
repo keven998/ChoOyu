@@ -10,7 +10,6 @@
 #import "FrendRequestTableViewCell.h"
 #import "FrendRequest.h"
 #import "AccountManager.h"
-#import "OtherUserInfoViewController.h"
 #import "OtherProfileViewController.h"
 #import "PeachTravel-swift.h"
 

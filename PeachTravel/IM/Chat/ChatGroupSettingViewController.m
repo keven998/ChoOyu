@@ -9,7 +9,6 @@
 #import "ChatGroupSettingViewController.h"
 #import "AccountManager.h"
 #import "ChangeGroupTitleViewController.h"
-#import "OtherUserInfoViewController.h"
 #import "CreateConversationViewController.h"
 #import "SearchUserInfoViewController.h"
 #import "ChatGroupCell.h"
@@ -437,11 +436,6 @@
 
 - (void)showUserInfoWithContactInfo:(FrendModel *)contact
 {
-    /*
-    OtherUserInfoViewController *contactDetailCtl = [[OtherUserInfoViewController alloc]init];
-    contactDetailCtl.userId = contact.userId;
-    [self.navigationController pushViewController:contactDetailCtl animated:YES];
-     */
     OtherProfileViewController *contactDetailCtl = [[OtherProfileViewController alloc]init];
     contactDetailCtl.userId = contact.userId;
     [self.navigationController pushViewController:contactDetailCtl animated:YES];

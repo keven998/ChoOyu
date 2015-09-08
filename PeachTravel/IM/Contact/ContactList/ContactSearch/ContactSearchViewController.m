@@ -11,7 +11,6 @@
 #import "ContactListTableViewCell.h"
 #import "AccountManager.h"
 #import "ChatViewController.h"
-#import "OtherUserInfoViewController.h"
 #import "OtherProfileViewController.h"
 
 @interface ContactSearchViewController () <UISearchBarDelegate, UISearchControllerDelegate, UITableViewDataSource, UITableViewDelegate,SWTableViewCellDelegate>
@@ -149,11 +148,6 @@
         
     FrendModel *contact = self.dataSource[indexPath.row];
     
-    /*
-    OtherUserInfoViewController *contactDetailCtl = [[OtherUserInfoViewController alloc]init];
-    contactDetailCtl.userId = contact.userId;
-    [self.navigationController pushViewController:contactDetailCtl animated:YES];
-     */
     OtherProfileViewController *contactDetailCtl = [[OtherProfileViewController alloc]init];
     contactDetailCtl.userId = contact.userId;
     [self.navigationController pushViewController:contactDetailCtl animated:YES];

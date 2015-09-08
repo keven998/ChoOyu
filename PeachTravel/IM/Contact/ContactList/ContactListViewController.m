@@ -17,7 +17,6 @@
 #import "BaseTextSettingViewController.h"
 #import "REFrostedViewController.h"
 #import "ChatSettingViewController.h"
-#import "OtherUserInfoViewController.h"
 #import "UIBarButtonItem+MJ.h"
 #import "ContactSearchViewController.h"
 #import "OtherProfileViewController.h"
