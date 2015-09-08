@@ -54,7 +54,7 @@
     if ([_travelNoteImage isEqual: [NSNull null]]) {
         return;
     }
-    [_travelNoteImageView sd_setImageWithURL:[NSURL URLWithString:_travelNoteImage] placeholderImage:[UIImage imageNamed:@"ic_home_default_avatar.png"]];
+    [_travelNoteImageView sd_setImageWithURL:[NSURL URLWithString:_travelNoteImage] placeholderImage:[UIImage imageNamed:@"avatar_default.png"]];
 }
 
 - (void)setTitle:(NSString *)title

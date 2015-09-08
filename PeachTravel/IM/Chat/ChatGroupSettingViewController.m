@@ -344,7 +344,7 @@
         } else {
             avatarStr = ((FrendModel *)self.groupModel.members[i]).avatar;
         }
-        [cell.headerImage sd_setImageWithURL:[NSURL URLWithString: avatarStr] placeholderImage:[UIImage imageNamed:@"ic_home_default_avatar.png"]];
+        [cell.headerImage sd_setImageWithURL:[NSURL URLWithString: avatarStr] placeholderImage:[UIImage imageNamed:@"avatar_default"]];
         return cell;
     }
     ChatGroupCell *cell = [tableView dequeueReusableCellWithIdentifier:@"chatCell" forIndexPath:indexPath];

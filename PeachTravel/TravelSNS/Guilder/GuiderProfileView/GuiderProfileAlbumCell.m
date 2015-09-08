@@ -105,7 +105,7 @@
     
     AlbumImage *image = [_albumArray objectAtIndex:indexPath.row];
     
-    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:((AlbumImage *)image).image.imageUrl] placeholderImage:[UIImage imageNamed:@"ic_home_default_avatar.png"]];
+    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:((AlbumImage *)image).image.imageUrl] placeholderImage:[UIImage imageNamed:@"avatar_default.png"]];
     
 
     return cell;

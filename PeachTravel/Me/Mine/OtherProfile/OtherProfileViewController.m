@@ -164,15 +164,15 @@
 
 - (void)setupNavBar
 {
-    UIButton *editButton = [[UIButton alloc] initWithFrame:CGRectMake(kWindowWidth - 56, 33, 36, 19)];
-    [editButton setTitle:@"设置" forState:UIControlStateNormal];
-    [editButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    editButton.titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
-    [editButton addTarget:self action:@selector(editMineProfile) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:editButton];
+    UIButton *moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(kWindowWidth - 56, 33, 36, 19)];
+    [moreBtn setImage:[UIImage imageNamed:@"account_icon_any_default"] forState:UIControlStateNormal];
+    [moreBtn addTarget:self action:@selector(moreAction:) forControlEvents:UIControlEventTouchUpInside];
+    [moreBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+    moreBtn.titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
+    [self.view addSubview:moreBtn];
     
     UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake((kWindowWidth-108)*0.5, 33, 108, 19)];
-    titleLab.text = @"我的·旅行派";
+    titleLab.text = self.userInfo.nickName;
     titleLab.textAlignment = NSTextAlignmentCenter;
     titleLab.font = [UIFont boldSystemFontOfSize:18.0];
     titleLab.textColor = [UIColor whiteColor];

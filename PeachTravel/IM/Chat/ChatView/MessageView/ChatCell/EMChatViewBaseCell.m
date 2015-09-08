@@ -76,7 +76,7 @@ NSString *const kRouterEventChatHeadImageTapEventName = @"kRouterEventChatHeadIm
         self.headImageView.image = [UIImage imageNamed:@"chat_paipai.png"];
         
     } else {
-        [self.headImageView sd_setImageWithURL:_messageModel.headImageURL placeholderImage:[UIImage imageNamed:@"ic_home_default_avatar.png"]];
+        [self.headImageView sd_setImageWithURL:_messageModel.headImageURL placeholderImage:[UIImage imageNamed:@"avatar_default.png"]];
     }
 }
 
