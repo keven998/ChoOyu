@@ -293,7 +293,7 @@
         cell.nickNameLabel.text = contact.nickName;
     }
     
-    [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:contact.avatarSmall] placeholderImage:[UIImage imageNamed:@"ic_home_default_avatar.png"]];
+    [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:contact.avatarSmall] placeholderImage:[UIImage imageNamed:@"avatar_default.png"]];
     if ([self isSelected:contact.userId]) {
         cell.checkStatus = checked;
     } else {
@@ -331,7 +331,7 @@
         }
         [self.selectedContacts addObject:contact];
         SelectContactUnitView *unitView = [[SelectContactUnitView alloc] initWithFrame:CGRectMake(0, 0, 40, 80)];
-        [unitView.avatarBtn sd_setImageWithURL:[NSURL URLWithString:contact.avatarSmall] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"ic_home_default_avatar.png"]];
+        [unitView.avatarBtn sd_setImageWithURL:[NSURL URLWithString:contact.avatarSmall] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"avatar_default.png"]];
         unitView.nickNameLabel.text = contact.nickName;
         [self.selectContactView addSelectUnit:unitView];
         self.navigationItem.rightBarButtonItem.title = [NSString stringWithFormat:@"确定(%ld)", (unsigned long)self.selectedContacts.count];

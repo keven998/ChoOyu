@@ -55,6 +55,9 @@
         }
     }];
     
+    [self setupMainView];
+    [self setupNavBar];
+    [self setupAddPlanBtn];
 }
 
 - (void)userLogin
@@ -84,9 +87,6 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
-    [self setupMainView];
-    [self setupNavBar];
-    [self setupAddPlanBtn];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

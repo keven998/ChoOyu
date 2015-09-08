@@ -22,6 +22,7 @@
 {
     ExpertTourView *footprintBtn = [[ExpertTourView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth/3, 132)];
     footprintBtn.iconImage.image = [UIImage imageNamed:@"travel"];
+    footprintBtn.titleLab.numberOfLines = 0;
     self.footprintBtn = footprintBtn;
     [self addSubview:footprintBtn];
     

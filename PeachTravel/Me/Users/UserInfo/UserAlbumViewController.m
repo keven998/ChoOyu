@@ -129,14 +129,14 @@ static NSString * const reuseIdentifier = @"albumImageCell";
             } else {
                 cell.imageView.image = nil;
                 
-                [cell.imageView sd_setImageWithURL:[NSURL URLWithString:((AlbumImage *)image).image.imageUrl] placeholderImage:[UIImage imageNamed:@"ic_home_default_avatar.png"]];
+                [cell.imageView sd_setImageWithURL:[NSURL URLWithString:((AlbumImage *)image).image.imageUrl] placeholderImage:[UIImage imageNamed:@"avatar_default.png"]];
             }
             [cell.editBtn addTarget:self action:@selector(deletePhoto:) forControlEvents:UIControlEventTouchUpInside];
             cell.editBtn.tag = 100 + indexPath.row;
         }
     } else {
         AlbumImage *image = [_albumArray objectAtIndex:indexPath.row];
-        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:image.image.imageUrl] placeholderImage:[UIImage imageNamed:@"ic_home_default_avatar.png"]];
+        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:image.image.imageUrl] placeholderImage:[UIImage imageNamed:@"avatar_default.png"]];
     }
     return cell;
 }

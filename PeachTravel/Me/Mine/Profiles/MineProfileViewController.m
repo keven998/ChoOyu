@@ -36,11 +36,73 @@
     _albumArray = [NSMutableArray array];
     self.view.backgroundColor = APP_PAGE_COLOR;
     self.userInfo = [AccountManager shareAccountManager].account;
+    [self loadUserAlbum];
     
     [self setupTableView];
     
     [self setupNavBar];
     
+}
+
+/**
+ 
+ *  下载用户头像列表
+ 
+ */
+
+- (void)loadUserAlbum
+{
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@%ld/albums", API_USERS, accountManager.account.userId];
+    
+    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            [self paraseUserAlbum:[responseObject objectForKey:@"result"]];
+            [self.tableView reloadData];
+        } else {
+            [self.tableView reloadData];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [self.tableView reloadData];
+    }];
+    
+}
+
+/*
+ *  解析用户头像列表
+ *
+ *  @param albumArray
+ */
+
+- (void)paraseUserAlbum:(NSArray *)albumArray
+{
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    for (id album in albumArray) {
+        [array addObject:[[AlbumImage alloc] initWithJson:album]];
+    }
+    
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    
+    accountManager.account.userAlbum = array;
+    
+//    _pictureNumber.text = [NSString stringWithFormat:@"%zd张",array.count];
+    
+    NSLog(@"%@",array);
+    self.albumArray = albumArray;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -60,7 +122,6 @@
     if (![[self.navigationController.viewControllers lastObject]isKindOfClass:[MineViewContoller class]]) {
         [self.navigationController setNavigationBarHidden:NO animated:YES];
     }
-
 }
 
 #pragma mark - 设置导航栏
@@ -74,7 +135,7 @@
     [self.view addSubview:bgView];
     
     UIButton *editButton = [[UIButton alloc] initWithFrame:CGRectMake(kWindowWidth - 56, 33, 36, 19)];
-    [editButton setTitle:@"设置" forState:UIControlStateNormal];
+    [editButton setTitle:@"编辑" forState:UIControlStateNormal];
     [editButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     editButton.titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
     [editButton addTarget:self action:@selector(editMineProfile) forControlEvents:UIControlEventTouchUpInside];

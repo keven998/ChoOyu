@@ -632,7 +632,7 @@
             cell.imageView.layer.cornerRadius = 9;
 
         } else {
-            [cell.imageView sd_setImageWithURL:[NSURL URLWithString:tzConversation.chatterAvatar] placeholderImage:[UIImage imageNamed:@"ic_home_default_avatar.png"]];
+            [cell.imageView sd_setImageWithURL:[NSURL URLWithString:tzConversation.chatterAvatar] placeholderImage:[UIImage imageNamed:@"avatar_default"]];
             cell.imageView.layer.cornerRadius = 28;
         }
     } else {

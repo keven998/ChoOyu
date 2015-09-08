@@ -39,8 +39,7 @@
     
     // 3.下划线阴影
     UIView *line = [[UIView alloc] init];
-    line.backgroundColor = [UIColor grayColor];
-    line.alpha = 0.3;
+    line.backgroundColor = COLOR_LINE;
     self.line = line;
     [self addSubview:line];
     
@@ -58,7 +57,7 @@
     self.iconImage.frame = CGRectMake(13, (selfH-14)*0.5, 14, 14);
     self.titleBtn.frame = CGRectMake(29, 0, 300, selfH);
     self.countLab.frame = CGRectMake(kWindowWidth-200-10, 0, 200, selfH);
-    self.line.frame = CGRectMake(0, selfH - 1, kWindowWidth, 1);
+    self.line.frame = CGRectMake(0, selfH - 1, kWindowWidth, 0.5);
 }
 
 @end
