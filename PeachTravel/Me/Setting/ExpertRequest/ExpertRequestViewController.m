@@ -33,7 +33,6 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_commitBtn];
     _commitBtn.enabled = NO;
 
-    
     UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [backBtn setTitle:@"取消" forState:UIControlStateNormal];
     [backBtn setTitleColor:COLOR_TEXT_I forState:UIControlStateNormal];
