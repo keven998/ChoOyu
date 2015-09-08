@@ -28,12 +28,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationItem.title = @"修改行程";
+    self.frostedViewController.navigationItem.title = @"修改行程";
     
     UIBarButtonItem *finishBtn = [[UIBarButtonItem alloc]initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(saveTripChange:)];
     UIBarButtonItem *cancelBtn = [[UIBarButtonItem alloc]initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(cancel:)];
-    self.navigationItem.rightBarButtonItem = finishBtn;
-    self.navigationItem.leftBarButtonItem = cancelBtn;
+    self.frostedViewController.navigationItem.rightBarButtonItem = finishBtn;
+    self.frostedViewController.navigationItem.leftBarButtonItem = cancelBtn;
     
     self.view.backgroundColor = [UIColor whiteColor];
     self.frostedViewController.delegate = self;

@@ -824,8 +824,6 @@
 		E6AD323E1B9DAA9600EE6A62 /* expert_search@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E6AD323A1B9DAA9600EE6A62 /* expert_search@3x.png */; };
 		E6AD32411B9DAB3100EE6A62 /* album_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E6AD323F1B9DAB3100EE6A62 /* album_arrow@2x.png */; };
 		E6AD32421B9DAB3100EE6A62 /* album_arrow@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E6AD32401B9DAB3100EE6A62 /* album_arrow@3x.png */; };
-		E6AD32451B9DAD0B00EE6A62 /* bg_master@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E6AD32431B9DAD0B00EE6A62 /* bg_master@2x.png */; };
-		E6AD32461B9DAD0B00EE6A62 /* bg_master@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E6AD32441B9DAD0B00EE6A62 /* bg_master@3x.png */; };
 		E6BFE5FD1B5E732F00A9FDCA /* DestinationCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6BFE5FB1B5E732F00A9FDCA /* DestinationCollectionViewCell.m */; };
 		E6BFE5FE1B5E732F00A9FDCA /* DestinationCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6BFE5FC1B5E732F00A9FDCA /* DestinationCollectionViewCell.xib */; };
 		E6E118F61B59EE280090FDEF /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E118F41B59EE280090FDEF /* UIView+Extension.m */; };
@@ -2610,8 +2608,6 @@
 		E6AD323A1B9DAA9600EE6A62 /* expert_search@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "expert_search@3x.png"; sourceTree = "<group>"; };
 		E6AD323F1B9DAB3100EE6A62 /* album_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "album_arrow@2x.png"; sourceTree = "<group>"; };
 		E6AD32401B9DAB3100EE6A62 /* album_arrow@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "album_arrow@3x.png"; sourceTree = "<group>"; };
-		E6AD32431B9DAD0B00EE6A62 /* bg_master@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_master@2x.png"; sourceTree = "<group>"; };
-		E6AD32441B9DAD0B00EE6A62 /* bg_master@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_master@3x.png"; sourceTree = "<group>"; };
 		E6BFE5FA1B5E732F00A9FDCA /* DestinationCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationCollectionViewCell.h; sourceTree = "<group>"; };
 		E6BFE5FB1B5E732F00A9FDCA /* DestinationCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationCollectionViewCell.m; sourceTree = "<group>"; };
 		E6BFE5FC1B5E732F00A9FDCA /* DestinationCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DestinationCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -6276,41 +6272,6 @@
 			path = PlansListTableViewCell;
 			sourceTree = "<group>";
 		};
-		E6AD31C91B9D69D900EE6A62 /* slices */ = {
-			isa = PBXGroup;
-			children = (
-				E6AD32431B9DAD0B00EE6A62 /* bg_master@2x.png */,
-				E6AD32441B9DAD0B00EE6A62 /* bg_master@3x.png */,
-				E6AD323F1B9DAB3100EE6A62 /* album_arrow@2x.png */,
-				E6AD32401B9DAB3100EE6A62 /* album_arrow@3x.png */,
-				E6AD31CA1B9D69D900EE6A62 /* about@2x.png */,
-				E6AD31CB1B9D69D900EE6A62 /* about@3x.png */,
-				E6AD31CC1B9D69D900EE6A62 /* boy@2x.png */,
-				E6AD31CD1B9D69D900EE6A62 /* boy@3x.png */,
-				E6AD31CE1B9D69D900EE6A62 /* girl@2x.png */,
-				E6AD31CF1B9D69D900EE6A62 /* girl@3x.png */,
-				E6AD31D01B9D69D900EE6A62 /* level@2x.png */,
-				E6AD31D11B9D69D900EE6A62 /* level@3x.png */,
-				E6AD31D21B9D69D900EE6A62 /* master@2x.png */,
-				E6AD31D31B9D69D900EE6A62 /* master@3x.png */,
-				E6AD31D41B9D69D900EE6A62 /* paipai@2x.png */,
-				E6AD31D51B9D69D900EE6A62 /* paipai@3x.png */,
-				E6AD31D61B9D69D900EE6A62 /* picture@2x.png */,
-				E6AD31D71B9D69D900EE6A62 /* picture@3x.png */,
-				E6AD31D81B9D69D900EE6A62 /* picture_biaoti@2x.png */,
-				E6AD31D91B9D69D900EE6A62 /* picture_biaoti@3x.png */,
-				E6AD31DA1B9D69D900EE6A62 /* plan@2x.png */,
-				E6AD31DB1B9D69D900EE6A62 /* plan@3x.png */,
-				E6AD31DC1B9D69D900EE6A62 /* travel@2x.png */,
-				E6AD31DD1B9D69D900EE6A62 /* travel@3x.png */,
-				E6AD31DE1B9D69D900EE6A62 /* travel_biaoti@2x.png */,
-				E6AD31DF1B9D69D900EE6A62 /* travel_biaoti@3x.png */,
-				E6AD31E01B9D69D900EE6A62 /* youji@2x.png */,
-				E6AD31E11B9D69D900EE6A62 /* youji@3x.png */,
-			);
-			path = slices;
-			sourceTree = "<group>";
-		};
 		E6AD322F1B9D6EC400EE6A62 /* ExpertTourView */ = {
 			isa = PBXGroup;
 			children = (
@@ -7479,7 +7440,6 @@
 				27FF1AE61B09AFB100643D77 /* OtherUserBasicInfoCell.xib in Resources */,
 				E6F189EE1B845F4900232EEB /* plan_bottom_hotel@3x.png in Resources */,
 				D90A9B5B1B5627C400E9F37C /* Loading_Animation_final48@3x.png in Resources */,
-				E6AD32451B9DAD0B00EE6A62 /* bg_master@2x.png in Resources */,
 				D90A9B4E1B5627C400E9F37C /* Loading_Animation_final35@3x.png in Resources */,
 				E6F189AC1B845F4900232EEB /* city_button_guide_selected@3x.png in Resources */,
 				E6F18AD31B845F4900232EEB /* messages_plus_search_default@2x.png in Resources */,
@@ -7606,7 +7566,6 @@
 				E6F18AA71B845F4900232EEB /* chat_sender_audio_playing_001@2x.png in Resources */,
 				E6F1897F1B845F4900232EEB /* poi_button_tip_selected@2x.png in Resources */,
 				E6AD32351B9D942400EE6A62 /* avatar_default@2x.png in Resources */,
-				E6AD320F1B9D69D900EE6A62 /* travel@2x.png in Resources */,
 				E6381C001B66269000CF73AA /* Loading_Animation_final42@2x.png in Resources */,
 				E6F18AC81B845F4900232EEB /* messages_plus_picture_default@3x.png in Resources */,
 				D90A9B511B5627C400E9F37C /* Loading_Animation_final38@3x.png in Resources */,
@@ -7829,7 +7788,6 @@
 				E6381BE21B66269000CF73AA /* Loading_Animation_final15@2x.png in Resources */,
 				E6F189B41B845F4900232EEB /* city_button_spot_default@3x.png in Resources */,
 				E6E7255B1B5603D30007273A /* UMSnsAccountViewController.xib in Resources */,
-				E6AD32461B9DAD0B00EE6A62 /* bg_master@3x.png in Resources */,
 				E6F18B021B845F4900232EEB /* master_level@3x.png in Resources */,
 				D90A9B411B5627C400E9F37C /* Loading_Animation_final22@3x.png in Resources */,
 				E6F18A1E1B845F4900232EEB /* map_icon_8@3x.png in Resources */,
