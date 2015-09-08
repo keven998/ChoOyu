@@ -508,7 +508,7 @@
                     cell.cellDetail.text = amgr.account.residence;
                 }
             }
-        } else if (indexPath.section == 1) {
+        } else if (indexPath.section == 2) {
             if (indexPath.row == 0) {
                 cell.cellDetail.text = [NSString stringWithFormat:@"%ld 条", amgr.account.guideCnt];
             } else if (indexPath.row == 1) {
@@ -548,6 +548,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
+        [self changeUserAvatar];
         
     } else if (indexPath.section == 1) {
         if (indexPath.row == 0) {
@@ -654,37 +655,13 @@
     }];
 }
 
+#pragma mark - action method
 
-#pragma mark - UIImagePickerControllerDelegate
 
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+- (void)changeUserAvatar
 {
-    [picker dismissViewControllerAnimated:YES completion:nil];
-    
-    UIImage *headerImage = [info objectForKey:UIImagePickerControllerEditedImage];
-    
-    [self uploadPhotoImage:headerImage];
+    [self presentImagePicker];
 }
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 1) {
-        AccountManager *accountManager = [AccountManager shareAccountManager];
-        [SVProgressHUD show];
-        [accountManager asyncLogout:^(BOOL isSuccess) {
-            if (isSuccess) {
-                [self showHint:@"退出成功"];
-                [self.navigationController popViewControllerAnimated:YES];
-              
-                [self.tabBarController setSelectedIndex:1];
-            } else {
-                [self showHint:@"退出失败"];
-            }
-        }];
-    }
-}
-
-#pragma mark - http method
 
 - (void)changeUserName
 {
@@ -719,6 +696,7 @@
     ctl.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:ctl animated:YES];
 }
+
 /**
  *  删除用户头像
  *
@@ -794,10 +772,35 @@
     [_tableView reloadData];
 }
 
+#pragma mark - UIImagePickerControllerDelegate
 
-- (void)showPickerView
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    [self presentImagePicker];
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    
+    UIImage *headerImage = [info objectForKey:UIImagePickerControllerEditedImage];
+    
+    [self uploadPhotoImage:headerImage];
+}
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        AccountManager *accountManager = [AccountManager shareAccountManager];
+        [SVProgressHUD show];
+        [accountManager asyncLogout:^(BOOL isSuccess) {
+            if (isSuccess) {
+                [self showHint:@"退出成功"];
+                [self.navigationController popViewControllerAnimated:YES];
+                
+                [self.tabBarController setSelectedIndex:1];
+            } else {
+                [self showHint:@"退出失败"];
+            }
+        }];
+    }
 }
 
 @end
