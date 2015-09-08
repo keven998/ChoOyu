@@ -17,6 +17,8 @@
 
 @property (nonatomic, strong) NSMutableArray *albumArray;
 
+@property (nonatomic, strong) AccountManager *accountManager;
+
 @end
 
 @implementation MineProfileViewController
@@ -26,6 +28,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.accountManager = [AccountManager shareAccountManager];
     _albumArray = [NSMutableArray array];
     self.view.backgroundColor = APP_PAGE_COLOR;
     self.userInfo = [AccountManager shareAccountManager].account;
@@ -39,6 +42,9 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
+    
+    self.userInfo = [AccountManager shareAccountManager].account;
+    [self.tableView reloadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -122,9 +128,8 @@
         MineProfileTourViewCell *profileTourCell = [[MineProfileTourViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
         profileTourCell.userInfo = self.userInfo;
         // 添加事件
-        [profileTourCell.footprintBtn addTarget:self action:@selector(visitTracks) forControlEvents:UIControlEventTouchUpInside];
-        [profileTourCell.planBtn addTarget:self action:@selector(seeOthersPlan) forControlEvents:UIControlEventTouchUpInside];
-        [profileTourCell.tourBtn addTarget:self action:@selector(seeOtherTour) forControlEvents:UIControlEventTouchUpInside];
+        [profileTourCell.footprintBtn addTarget:self action:@selector(myTrack:) forControlEvents:UIControlEventTouchUpInside];
+        [profileTourCell.planBtn addTarget:self action:@selector(myPlan:) forControlEvents:UIControlEventTouchUpInside];
         profileTourCell.selectionStyle = UITableViewCellSelectionStyleNone;
         return profileTourCell;
     } else {
@@ -285,5 +290,35 @@
 {
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
+
+#pragma mark - IBAction Methods
+
+- (IBAction)myTrack:(id)sender
+{
+    if (self.accountManager.isLogin) {
+        FootPrintViewController *footCtl = [[FootPrintViewController alloc] init];
+        AccountManager *amgr = self.accountManager;
+        footCtl.hidesBottomBarWhenPushed = YES;
+        footCtl.userId = amgr.account.userId;
+        [self.navigationController pushViewController:footCtl animated:YES];
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
+    } else  {
+        [self userLogin];
+    }
+}
+
+- (IBAction)myPlan:(id)sender
+{
+    if (self.accountManager.isLogin) {
+        PlansListTableViewController *myGuidesCtl = [[PlansListTableViewController alloc] initWithUserId:_accountManager.account.userId];
+        myGuidesCtl.hidesBottomBarWhenPushed = YES;
+        myGuidesCtl.userName = _accountManager.account.nickName;
+        [self.navigationController pushViewController:myGuidesCtl animated:YES];
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
+    } else {
+        [self userLogin];
+    }
+}
+
 
 @end

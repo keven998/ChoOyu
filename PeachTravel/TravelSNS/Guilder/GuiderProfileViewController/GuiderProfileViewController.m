@@ -151,8 +151,8 @@
     [_beginTalk setTitle:@"发送消息" forState:UIControlStateNormal];
     [_beginTalk setBackgroundImage:[UIImage new] forState:UIControlStateNormal];
     [_beginTalk setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
-    [_beginTalk setImage:[UIImage imageNamed:@"ic_home_normal.png"] forState:UIControlStateNormal];
-    [_beginTalk setBackgroundImage:[UIImage imageNamed:@"account_button_selected.png"] forState:UIControlStateHighlighted];
+    [_beginTalk setImage:[UIImage imageNamed:@"chat_friend"] forState:UIControlStateNormal];
+//    [_beginTalk setBackgroundImage:[UIImage imageNamed:@"account_button_selected.png"] forState:UIControlStateHighlighted];
     _beginTalk.titleLabel.font = [UIFont systemFontOfSize:13];
     [_beginTalk setImageEdgeInsets:UIEdgeInsetsMake(3, -5, 0, 0)];
     [_beginTalk setTitleEdgeInsets:UIEdgeInsetsMake(4, 0, 0, -5)];
@@ -163,9 +163,9 @@
     
     _addFriendBtn.titleLabel.font = [UIFont systemFontOfSize:13];
     [_addFriendBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
-    [_addFriendBtn setImage:[UIImage imageNamed:@"account_labbar_icon_follow_default.png"] forState:UIControlStateNormal];
+    [_addFriendBtn setImage:[UIImage imageNamed:@"add_friend"] forState:UIControlStateNormal];
     [_addFriendBtn setBackgroundImage:[UIImage new] forState:UIControlStateHighlighted];
-    [_addFriendBtn setBackgroundImage:[UIImage imageNamed:@"account_button_selected.png"] forState:UIControlStateHighlighted];
+//    [_addFriendBtn setBackgroundImage:[UIImage imageNamed:@"account_button_selected.png"] forState:UIControlStateHighlighted];
     [_addFriendBtn setImageEdgeInsets:UIEdgeInsetsMake(3, -5, 0, 0)];
     [_addFriendBtn setTitleEdgeInsets:UIEdgeInsetsMake(4, 0, 0, -5)];
     [barView addSubview:_addFriendBtn];
@@ -703,4 +703,7 @@
 {
 
 }
+
+
+
 @end

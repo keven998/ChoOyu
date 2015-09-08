@@ -20,19 +20,19 @@
 
 - (void)setupMainView
 {
-    ExpertTourView *footprintBtn = [[ExpertTourView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth/3, self.frame.size.height)];
+    ExpertTourView *footprintBtn = [[ExpertTourView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth/3, 132)];
     footprintBtn.iconImage.image = [UIImage imageNamed:@"travel"];
     self.footprintBtn = footprintBtn;
     [self addSubview:footprintBtn];
     
     
-    ExpertTourView *planBtn = [[ExpertTourView alloc] initWithFrame:CGRectMake(kWindowWidth/3, 0, kWindowWidth/3, self.frame.size.height)];
+    ExpertTourView *planBtn = [[ExpertTourView alloc] initWithFrame:CGRectMake(kWindowWidth/3, 0, kWindowWidth/3, 132)];
     planBtn.iconImage.image = [UIImage imageNamed:@"plan"];
     self.planBtn = planBtn;
     [self addSubview:planBtn];
     
     
-    ExpertTourView *tourBtn = [[ExpertTourView alloc] initWithFrame:CGRectMake(kWindowWidth/3*2, 0, kWindowWidth/3, self.frame.size.height)];
+    ExpertTourView *tourBtn = [[ExpertTourView alloc] initWithFrame:CGRectMake(kWindowWidth/3*2, 0, kWindowWidth/3, 132)];
     tourBtn.iconImage.image = [UIImage imageNamed:@"youji"];
     self.tourBtn = tourBtn;
     [self addSubview:tourBtn];
@@ -41,6 +41,8 @@
 - (void)setUserInfo:(FrendModel *)userInfo
 {
     _userInfo = userInfo;
+    
+    NSLog(@"%@",_userInfo);
     
     NSString *coutryCount = [NSString stringWithFormat:@"%ld",_userInfo.footprintCountryCount];
     NSString *cityCount = [NSString stringWithFormat:@"%ld",_userInfo.footprintCityCount];
