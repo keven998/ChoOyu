@@ -51,7 +51,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeContentFrame:) name:@"ChangePlanListFrame" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAddPlanBtnFrame:) name:@"ChangeAddPlanFrame" object:nil];
     
-    [self setupAddPlanBtn];
 }
 
 - (void)userLogin
@@ -68,9 +67,8 @@
 - (void)setupAddPlanBtn
 {
     UIButton *addPlan = [UIButton buttonWithType:UIButtonTypeCustom];
+    addPlan.frame = CGRectMake((kWindowWidth-50)*0.5, self.view.frame.size.height-110, 50, 50);
     [addPlan addTarget:self action:@selector(addPlan:) forControlEvents:UIControlEventTouchUpInside];
-    CGRect rect = CGRectMake((kWindowWidth-50)*0.5, self.view.frame.size.height-110, 50, 50);
-    addPlan.frame = rect;
     [addPlan setImage:[UIImage imageNamed:@"plan_add"] forState:UIControlStateNormal];
     addPlan.highlighted = NO;
     self.addPlan = addPlan;
@@ -84,6 +82,7 @@
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     [self setupMainView];
     [self setupNavBar];
+    [self setupAddPlanBtn];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

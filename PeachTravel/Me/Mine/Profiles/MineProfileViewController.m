@@ -11,13 +11,15 @@
 #import "BaseProfileHeaderView.h"
 #import "UserInfoTableViewController.h"
 #import "MineProfileTourViewCell.h"
-@interface MineProfileViewController () <UITableViewDataSource, UITableViewDataSource>
+@interface MineProfileViewController () <UITableViewDataSource, UITableViewDataSource,UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (nonatomic, strong) NSMutableArray *albumArray;
 
 @property (nonatomic, strong) AccountManager *accountManager;
+
+@property (nonatomic, weak) UIView *navBgView;
 
 @end
 
@@ -36,6 +38,7 @@
     [self setupTableView];
     
     [self setupNavBar];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -57,6 +60,12 @@
 
 - (void)setupNavBar
 {
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth,64)];
+    bgView.alpha = 0;
+    self.navBgView = bgView;
+    bgView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_master"]];
+    [self.view addSubview:bgView];
+    
     UIButton *editButton = [[UIButton alloc] initWithFrame:CGRectMake(kWindowWidth - 56, 33, 36, 19)];
     [editButton setTitle:@"设置" forState:UIControlStateNormal];
     [editButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -207,6 +216,13 @@
     return 10;
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    NSLog(@"scrollViewY:%f",scrollView.contentOffset.y);
+    if (scrollView.contentOffset.y>140) return;
+    self.navBgView.alpha = (scrollView.contentOffset.y+20)/160;
+}
+
 #pragma ActionEvent
 
 
@@ -285,6 +301,8 @@
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 
 }
+
+
 // 查看他人游记
 - (void)seeOtherTour
 {

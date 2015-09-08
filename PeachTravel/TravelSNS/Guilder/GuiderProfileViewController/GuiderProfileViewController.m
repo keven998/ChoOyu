@@ -20,6 +20,7 @@
 
 @property (nonatomic, strong) UIButton *addFriendBtn;
 @property (nonatomic, strong) UIButton *beginTalk;
+@property (nonatomic, weak) UIView *navBgView;
 
 @property (nonatomic, strong) NSArray *tags;
 
@@ -75,6 +76,12 @@
 
 - (void)setupNavBar
 {
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth,64)];
+    bgView.alpha = 0;
+    self.navBgView = bgView;
+    bgView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_master"]];
+    [self.view addSubview:bgView];
+    
     UIButton *editButton = [[UIButton alloc] initWithFrame:CGRectMake(kWindowWidth - 56, 33, 36, 19)];
     [editButton setTitle:@"设置" forState:UIControlStateNormal];
     [editButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -289,6 +296,12 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (scrollView.contentOffset.y>140) return;
+    self.navBgView.alpha = (scrollView.contentOffset.y+20)/160;
 }
 
 // 计算collectionViewCell的高度

@@ -729,6 +729,9 @@
             if (isSuccess) {
                 [self showHint:@"退出成功"];
                 [self.navigationController popViewControllerAnimated:YES];
+              
+                [self.tabBarController setSelectedIndex:1];
+//                [NSNotificationCenter defaultCenter] postNotificationName:@"UserExitLogin" object:<#(id)#>
             } else {
                 [self showHint:@"退出失败"];
             }

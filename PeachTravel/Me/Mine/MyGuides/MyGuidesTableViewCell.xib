@@ -123,11 +123,37 @@
                             </mask>
                         </variation>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plan_kuang_photo.png" translatesAutoresizingMaskIntoConstraints="NO" id="H51-EM-vAy">
+                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="104" id="OCy-WI-spU">
+                                <variation key="widthClass=compact" constant="112"/>
+                            </constraint>
+                            <constraint firstAttribute="height" constant="104" id="k1N-RA-VYN">
+                                <variation key="widthClass=compact" constant="112"/>
+                            </constraint>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="OCy-WI-spU"/>
+                                <exclude reference="k1N-RA-VYN"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="OCy-WI-spU"/>
+                                <include reference="k1N-RA-VYN"/>
+                            </mask>
+                        </variation>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="aB5-vv-4mc" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="4Lj-Lv-hnn"/>
                     <constraint firstAttribute="trailing" secondItem="1br-w7-Gyw" secondAttribute="trailing" constant="17" id="6Ky-3W-bwZ">
                         <variation key="widthClass=compact" constant="14"/>
+                    </constraint>
+                    <constraint firstItem="H51-EM-vAy" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="80x-74-NPK">
+                        <variation key="widthClass=compact" constant="12"/>
                     </constraint>
                     <constraint firstItem="FX5-5D-sXI" firstAttribute="leading" secondItem="aB5-vv-4mc" secondAttribute="trailing" constant="8" id="BVB-La-LFx">
                         <variation key="widthClass=compact" constant="11"/>
@@ -149,6 +175,9 @@
                     <constraint firstItem="Rtr-c5-dr5" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="26" id="SUP-24-ygD">
                         <variation key="widthClass=compact" constant="18"/>
                     </constraint>
+                    <constraint firstItem="H51-EM-vAy" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="Zhb-t6-MuE">
+                        <variation key="widthClass=compact" constant="12"/>
+                    </constraint>
                     <constraint firstItem="sTG-fZ-1py" firstAttribute="leading" secondItem="aB5-vv-4mc" secondAttribute="trailing" constant="8" id="eTc-40-7Y6">
                         <variation key="widthClass=compact" constant="11"/>
                     </constraint>
@@ -167,10 +196,13 @@
                         <exclude reference="1br-w7-Gyw"/>
                         <exclude reference="aB5-vv-4mc"/>
                         <exclude reference="sTG-fZ-1py"/>
+                        <exclude reference="H51-EM-vAy"/>
                     </mask>
                     <mask key="constraints">
                         <exclude reference="4Lj-Lv-hnn"/>
                         <exclude reference="OpI-QZ-tRw"/>
+                        <exclude reference="80x-74-NPK"/>
+                        <exclude reference="Zhb-t6-MuE"/>
                         <exclude reference="Q7J-GN-Sd5"/>
                         <exclude reference="SUP-24-ygD"/>
                         <exclude reference="eTc-40-7Y6"/>
@@ -192,10 +224,13 @@
                         <include reference="1br-w7-Gyw"/>
                         <include reference="aB5-vv-4mc"/>
                         <include reference="sTG-fZ-1py"/>
+                        <include reference="H51-EM-vAy"/>
                     </mask>
                     <mask key="constraints">
                         <include reference="4Lj-Lv-hnn"/>
                         <include reference="OpI-QZ-tRw"/>
+                        <include reference="80x-74-NPK"/>
+                        <include reference="Zhb-t6-MuE"/>
                         <include reference="Q7J-GN-Sd5"/>
                         <include reference="SUP-24-ygD"/>
                         <include reference="eTc-40-7Y6"/>
@@ -221,4 +256,7 @@
             <point key="canvasLocation" x="43" y="80"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="plan_kuang_photo.png" width="103" height="103"/>
+    </resources>
 </document>

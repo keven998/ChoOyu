@@ -202,6 +202,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (void)userDidLogout
 {
     [self updateViewWithUnreadMessageCount];
+    [self setSelectedIndex:1];
 }
 
 /**
