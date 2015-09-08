@@ -40,11 +40,26 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_add_friend.png"] style:UIBarButtonItemStylePlain target:self action:@selector(addContact)];
     self.navigationItem.title = @"我的朋友";
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContactList) name:contactListNeedUpdateNoti object:nil];
+    
+    UIButton *backBtn =  [UIButton buttonWithType:UIButtonTypeCustom];
+    [backBtn addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
+    [backBtn setFrame:CGRectMake(0, 0, 40, 30)];
+    backBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [backBtn setTitleColor:COLOR_TEXT_I forState:UIControlStateNormal];
+    [backBtn setTitle:@"取消" forState:UIControlStateNormal];
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
+    self.navigationItem.leftBarButtonItem = barButton;
+
+    UIButton *itemBtn =  [UIButton buttonWithType:UIButtonTypeCustom];
+    [itemBtn addTarget:self action:@selector(addContact)forControlEvents:UIControlEventTouchUpInside];
+    [itemBtn setFrame:CGRectMake(0, 0, 40, 30)];
+    itemBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+    [itemBtn setImage:[UIImage imageNamed:@"ic_add_friend.png"] forState:UIControlStateNormal];
+    UIBarButtonItem *rightBarItem = [[UIBarButtonItem alloc] initWithCustomView:itemBtn];
+    self.navigationItem.rightBarButtonItem = rightBarItem;
     
     [self.view addSubview:self.contactTableView];
     [self.accountManager loadContactsFromServer];

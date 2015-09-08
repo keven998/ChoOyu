@@ -11,6 +11,7 @@
 #import "BaseProfileHeaderView.h"
 #import "UserInfoTableViewController.h"
 #import "MineProfileTourViewCell.h"
+#import "MineViewContoller.h"
 
 @interface OtherProfileViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -46,7 +47,9 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    if (![[self.navigationController.viewControllers lastObject]isKindOfClass:[MineViewContoller class]]) {
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
+    }
 }
 
 

@@ -43,7 +43,7 @@
     [UINavigationBar appearance].layer.shadowOffset = CGSizeMake(20.0f , 20.0f); //shadowOffset阴影偏移x，y向(上/下)偏移(-/+)2
     [UINavigationBar appearance].layer.shadowOpacity = 0.5f;//阴影透明度，默认0
     [UINavigationBar appearance].layer.shadowRadius = 10.0f;//阴影半径
-    [UINavigationBar appearance].tintColor = COLOR_TEXT_II;
+    [UINavigationBar appearance].tintColor = COLOR_TEXT_I;
     
     [UIApplication sharedApplication].statusBarHidden = NO;
     
