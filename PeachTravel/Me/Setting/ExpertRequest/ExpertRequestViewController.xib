@@ -18,7 +18,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请输入您的联系方式：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TBN-FH-oEo">
-                    <rect key="frame" x="8" y="0.0" width="584" height="50"/>
+                    <rect key="frame" x="8" y="64" width="584" height="50"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="r6m-aR-BU0"/>
                     </constraints>
@@ -27,13 +27,13 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fKU-bD-KRV">
-                    <rect key="frame" x="0.0" y="50" width="600" height="50"/>
+                    <rect key="frame" x="0.0" y="114" width="600" height="50"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="GsC-Lx-OOe"/>
                     </constraints>
                 </imageView>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MA5-gI-r9t">
-                    <rect key="frame" x="12" y="50" width="576" height="50"/>
+                    <rect key="frame" x="12" y="114" width="576" height="50"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="Fl8-cn-tTJ"/>
                     </constraints>
@@ -50,10 +50,10 @@
                 <constraint firstAttribute="trailing" secondItem="fKU-bD-KRV" secondAttribute="trailing" id="VGo-Gv-9IM"/>
                 <constraint firstItem="MA5-gI-r9t" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="12" id="cly-Zn-fDD"/>
                 <constraint firstItem="fKU-bD-KRV" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="jJ4-7m-boM"/>
-                <constraint firstItem="TBN-FH-oEo" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="kq6-7o-DB2"/>
+                <constraint firstItem="TBN-FH-oEo" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="kq6-7o-DB2"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
-            <point key="canvasLocation" x="356" y="182"/>
+            <point key="canvasLocation" x="81" y="148"/>
         </view>
     </objects>
 </document>

@@ -301,7 +301,8 @@ static NSString * const reuseIdentifier = @"albumImageCell";
     
     [upManager putData:data key:key token:uploadToken
               complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
-                  
+                  [_HUD dismiss];
+                  _HUD = nil;
                   AlbumImage *abImage = [[AlbumImage alloc] init];
                   TaoziImage * tzImage = [[TaoziImage alloc] init];
                   abImage.imageId = [resp objectForKey:@"id"];
