@@ -31,7 +31,7 @@
 //disappear 的时候是不是应该显示出 navigationbar
 @property (nonatomic) BOOL shouldNotShowNavigationBarWhenDisappear;
 
-@property (nonatomic, copy) void (^completion)(BOOL completed);
+@property (nonatomic, copy) void (^loginCompletion)(BOOL completed);
 
 @end
 
@@ -42,7 +42,7 @@
 - (id) initWithCompletion:(loginCompletion)completion
 {
     if (self = [super init]) {
-        self.completion = completion;
+        self.loginCompletion = completion;
     }
     return self;
 }
@@ -77,6 +77,37 @@
         }
     }];
 }
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(weixinDidLogin:) name:weixinDidLoginNoti object:nil];
+    
+    if (![WXApi isWXAppInstalled]) {
+        _wechatLabel.hidden = YES;
+    } else {
+        _wechatLabel.hidden = NO;
+    }
+    
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:weixinDidLoginNoti object:nil];
+    
+    if (!_shouldNotShowNavigationBarWhenDisappear) {
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
+    }
+    _shouldNotShowNavigationBarWhenDisappear = NO;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)createUI
 {
     _iconImageView = [[UIImageView alloc]initWithFrame:CGRectMake((Width - 483/3 *Height/736)/2, 282/3 * Height/736, 483/3 *Height/736 , 483/3 *Height/736)];
@@ -167,36 +198,6 @@
     if (![WXApi isWXAppInstalled]) {
         _weiChatBtn.hidden = YES;
     }
-    
-}
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(weixinDidLogin:) name:weixinDidLoginNoti object:nil];
-    
-    if (![WXApi isWXAppInstalled]) {
-        _wechatLabel.hidden = YES;
-    } else {
-        _wechatLabel.hidden = NO;
-    }
-    
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:weixinDidLoginNoti object:nil];
-    
-    if (!_shouldNotShowNavigationBarWhenDisappear) {
-        [self.navigationController setNavigationBarHidden:NO animated:YES];
-    }
-    _shouldNotShowNavigationBarWhenDisappear = NO;
-}
-
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - IBAction Methods
@@ -257,8 +258,8 @@
     [[AccountManager shareAccountManager] asyncLogin:_userNameTextField.text password:_passwordTextField.text completion:^(BOOL isSuccess, NSString *errorStr) {
         if (isSuccess) {
             [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.3];
-            if (self.completion) {
-                self.completion(YES);
+            if (self.loginCompletion) {
+                self.loginCompletion(YES);
             }
         } else {
             [hud hideTZHUD];
@@ -336,8 +337,8 @@
     [[AccountManager shareAccountManager] asyncLoginWithWeChat:code completion:^(BOOL isSuccess, NSString *errorStr) {
         if (isSuccess) {
             [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.3];
-            if (self.completion) {
-                self.completion(YES);
+            if (self.loginCompletion) {
+                self.loginCompletion(YES);
             }
         } else {
             [hud hideTZHUD];
@@ -355,19 +356,15 @@
 - (void)userDidRegisted
 {
     [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.3];
-    if (self.completion) {
-        self.completion(YES);
+    if (self.loginCompletion) {
+        self.loginCompletion(YES);
     }
 }
 
 - (void)dismissCtl
 {
-    if (self.navigationController.viewControllers.count > 1) {
-        [self.navigationController popToRootViewControllerAnimated:YES];
-    } else {
-        _shouldNotShowNavigationBarWhenDisappear = YES;
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }
+    _shouldNotShowNavigationBarWhenDisappear = YES;
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

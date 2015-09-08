@@ -63,11 +63,6 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     [super viewWillDisappear:animated];
 }
 
-- (UIStatusBarStyle)preferredStatusBarStyle
-{
-    return UIStatusBarStyleLightContent;
-}
-
 - (void) initData {
     [[TMCache sharedCache] objectForKey:@"hot_destination" block:^(TMCache *cache, NSString *key, id object)  {
         if (object != nil) {
