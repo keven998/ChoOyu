@@ -101,7 +101,7 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
         UIBarButtonItem *finishBtn = [[UIBarButtonItem alloc]initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(addFinish:)];
         self.navigationItem.leftBarButtonItem = finishBtn;
         
-        UIBarButtonItem *sbtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"search.png"] style:UIBarButtonItemStylePlain target:self action:@selector(beginSearch)];
+        UIBarButtonItem *sbtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_common_search.png"] style:UIBarButtonItemStylePlain target:self action:@selector(beginSearch)];
         self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:sbtn, nil];
         
         CityDestinationPoi *firstDestination = [_tripDetail.destinations firstObject];
@@ -111,7 +111,7 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
         self.navigationItem.title = @"添加行程";
         [self setupSelectPanel];
     } else {
-        UIBarButtonItem *sbtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"search.png"] style:UIBarButtonItemStylePlain target:self action:@selector(beginSearch)];
+        UIBarButtonItem *sbtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_common_search.png"] style:UIBarButtonItemStylePlain target:self action:@selector(beginSearch)];
         self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:sbtn, nil];
         self.navigationItem.title = [NSString stringWithFormat:@"%@景点", _cityName];
     }

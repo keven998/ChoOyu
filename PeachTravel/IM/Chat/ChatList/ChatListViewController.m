@@ -520,7 +520,6 @@
 - (void)pushChatViewControllerWithConversation: (ChatConversation *)conversation
 {
     ChatViewController *chatController = [[ChatViewController alloc] initWithConversation:conversation];
-//    UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:chatController];
     chatController.chatterName = conversation.chatterName;
     UIViewController *menuViewController = nil;
     if (conversation.chatType == IMChatTypeIMChatGroupType || conversation.chatType == IMChatTypeIMChatDiscussionGroupType) {

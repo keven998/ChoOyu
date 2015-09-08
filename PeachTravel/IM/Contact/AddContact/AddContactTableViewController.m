@@ -41,7 +41,7 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     
     UIButton *searchBtn =  [UIButton buttonWithType:UIButtonTypeCustom];
-    [searchBtn setImage:[UIImage imageNamed:@"search.png"] forState:UIControlStateNormal];
+    [searchBtn setImage:[UIImage imageNamed:@"ic_common_search.png"] forState:UIControlStateNormal];
     [searchBtn addTarget:self action:@selector(searchFrend:)forControlEvents:UIControlEventTouchUpInside];
     [searchBtn setFrame:CGRectMake(0, 0, 25, 30)];
     

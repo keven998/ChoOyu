@@ -28,8 +28,6 @@
 @property (nonatomic, weak) MineHeaderView *topView;
 @property (nonatomic, weak) UIViewController *contentViewCtl;
 
-//disappear 的时候是不是应该显示出 navigationbar 
-@property (nonatomic) BOOL shouldNotShowNavigationBarWhenDisappear;
 @property (nonatomic, weak) UIButton *addPlan;
 
 @end
@@ -89,10 +87,9 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    if (!_shouldNotShowNavigationBarWhenDisappear) {
+    if (![[self.navigationController.viewControllers lastObject]isKindOfClass:[BaseProfileViewController class]]) {
         [self.navigationController setNavigationBarHidden:NO animated:YES];
     }
-    _shouldNotShowNavigationBarWhenDisappear = NO;
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -199,8 +196,6 @@
     NSString *scrollH = note.userInfo[@"scrollH"];
     CGFloat scrollHeight = [scrollH floatValue];
     
-    NSLog(@"scrollHeight:%f",scrollHeight);
-    
     if (scrollHeight > 0) {
         [self topViewScrollToTop];
     } else if (scrollHeight < 0){
@@ -214,7 +209,6 @@
     NSString *scrollW = note.userInfo[@"scrollW"];
     CGFloat scrollWidth = [scrollW floatValue];
     
-    NSLog(@"scrollWidth:%f",scrollWidth);
     CGPoint center = CGPointMake(self.view.bounds.size.width/2, _addPlan.center.y);
     center.x -= scrollWidth;
     _addPlan.center = center;
@@ -226,7 +220,6 @@
     MineProfileViewController *profile = [[MineProfileViewController alloc] init];
     [self preSetNavForSlide];
     [self.navigationController pushViewController:profile animated:YES];
-    _shouldNotShowNavigationBarWhenDisappear = YES;
 }
 
 // 添加计划
@@ -257,7 +250,6 @@
     makePlanCtl.selectedColor = APP_THEME_COLOR;
     makePlanCtl.segmentedTitleFont = [UIFont systemFontOfSize:18.0];
     makePlanCtl.normalColor= [UIColor grayColor];
-    _shouldNotShowNavigationBarWhenDisappear = YES;
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:makePlanCtl];
     [self presentViewController:nav animated:YES completion:nil];
 }

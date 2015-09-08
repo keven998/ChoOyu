@@ -90,7 +90,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
         }
     }
     
-    UIBarButtonItem *lbtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"search.png"] style:UIBarButtonItemStylePlain target:self action:@selector(beginSearch:)];
+    UIBarButtonItem *lbtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_common_search.png"] style:UIBarButtonItemStylePlain target:self action:@selector(beginSearch:)];
     [rbItems addObject:lbtn];
     self.navigationItem.rightBarButtonItem = lbtn;
     

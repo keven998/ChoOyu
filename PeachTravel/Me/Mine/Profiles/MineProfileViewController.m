@@ -11,6 +11,8 @@
 #import "BaseProfileHeaderView.h"
 #import "UserInfoTableViewController.h"
 #import "MineProfileTourViewCell.h"
+#import "MineViewContoller.h"
+
 @interface MineProfileViewController () <UITableViewDataSource, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -45,11 +47,17 @@
     
     self.userInfo = [AccountManager shareAccountManager].account;
     [self.tableView reloadData];
+    
+    NSLog(@"%p", [self.navigationController.viewControllers lastObject]);
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    if (![[self.navigationController.viewControllers lastObject]isKindOfClass:[MineViewContoller class]]) {
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
+    }
+
 }
 
 
@@ -96,7 +104,6 @@
 {
     UserInfoTableViewController *userInfo = [[UserInfoTableViewController alloc]init];
     [self.navigationController pushViewController:userInfo animated:YES];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 - (void)back
@@ -272,7 +279,6 @@
     FootPrintViewController *footPrintCtl = [[FootPrintViewController alloc] init];
     footPrintCtl.userId = _userId;
     [self.navigationController pushViewController:footPrintCtl animated:YES];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
     
 }
 // 查看他人计划
@@ -282,13 +288,11 @@
     PlansListTableViewController *listCtl = [[PlansListTableViewController alloc]initWithUserId:_userInfo.userId];
     listCtl.userName = _userInfo.nickName;
     [self.navigationController pushViewController:listCtl animated:YES];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
 
 }
 // 查看他人游记
 - (void)seeOtherTour
 {
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 #pragma mark - IBAction Methods
@@ -301,7 +305,6 @@
         footCtl.hidesBottomBarWhenPushed = YES;
         footCtl.userId = amgr.account.userId;
         [self.navigationController pushViewController:footCtl animated:YES];
-        [self.navigationController setNavigationBarHidden:NO animated:YES];
     } else  {
         [self userLogin];
     }
@@ -314,7 +317,6 @@
         myGuidesCtl.hidesBottomBarWhenPushed = YES;
         myGuidesCtl.userName = _accountManager.account.nickName;
         [self.navigationController pushViewController:myGuidesCtl animated:YES];
-        [self.navigationController setNavigationBarHidden:NO animated:YES];
     } else {
         [self userLogin];
     }
