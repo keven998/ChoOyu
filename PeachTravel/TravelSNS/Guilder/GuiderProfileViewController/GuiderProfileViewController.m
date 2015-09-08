@@ -263,7 +263,7 @@
     if (indexPath.section == 0) {
         ExpertProfileTagViewCell *cell = [ExpertProfileTagViewCell expertDetailInfo];
         cell.userInfo = self.userInfo;
-        cell.collectionArray = self.tags;
+        cell.collectionArray = self.userInfo.tags;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     } else if (indexPath.section == 1) {
@@ -307,7 +307,7 @@
 // 计算collectionViewCell的高度
 - (CGFloat)calculateTagsHeight
 {
-    NSArray *tags = self.tags;
+    NSArray *tags = self.userInfo.tags;
     CGFloat tagSumH = 50;
     CGFloat tagSumW = 0;
     for (NSString *tag in tags) {

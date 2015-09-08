@@ -102,6 +102,18 @@
     GuiderDetailCollectionCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"detailInfoCell" forIndexPath:indexPath];
     cell.titleLab.text = _collectionArray[indexPath.row];
     
+    if (indexPath.item%5 == 0) {
+        cell.titleLab.backgroundColor = UIColorFromRGB(0xB9DC96);
+    } else if (indexPath.item%5 == 1) {
+        cell.titleLab.backgroundColor = UIColorFromRGB(0xFF96A0);
+    } else if (indexPath.item%5 == 2) {
+        cell.titleLab.backgroundColor = UIColorFromRGB(0x8CC8FF);
+    } else if (indexPath.item%5 == 3) {
+        cell.titleLab.backgroundColor = UIColorFromRGB(0xFFBE64);
+    } else {
+        cell.titleLab.backgroundColor = UIColorFromRGB(0x82F0FA);
+    }
+
     return cell;
 }
 
