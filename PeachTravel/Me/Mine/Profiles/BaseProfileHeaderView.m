@@ -140,13 +140,12 @@
 {
     _userInfo = userInfo;
     
-    NSLog(@"%@",_userInfo);
-    
     // 设置数据
     NSURL *url = [NSURL URLWithString:userInfo.avatar];
     [self.avatar sd_setImageWithURL:url];
     
     self.nickName.text = userInfo.nickName;
+    NSLog(@"%@",userInfo.residence);
     self.age.text = [NSString stringWithFormat:@"%ld岁 现居住在 %@",userInfo.age,userInfo.residence];
     
     if ([userInfo.sex isEqualToString:@"M"]) {
@@ -181,7 +180,14 @@
     
     int age= -trunc(dateDiff/(60*60*24))/365;
     
-    self.age.text = [NSString stringWithFormat:@"%d岁 现居住在%@",age,accountModel.residence];
+    NSLog(@"%@",accountModel.residence);
+
+    if ([accountModel.residence isEqualToString:@""]) {
+        self.age.text = [NSString stringWithFormat:@"%d岁 现居住在%@",age,accountModel.residence];
+    } else {
+        self.age.text = [NSString stringWithFormat:@"%d岁 现居住在", age];
+    }
+    
     
     NSString *constellationImageName = [FrendModel bigCostellationImageNameWithBirthday:accountModel.birthday];
     self.constellation.image = [UIImage imageNamed:constellationImageName];
