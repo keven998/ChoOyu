@@ -469,7 +469,7 @@
     AccountManager *amgr = self.accountManager;
     if (indexPath.section == 0) {
         UserHeaderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:accountDetailHeaderCell forIndexPath:indexPath];
-        [cell.userPhoto sd_setImageWithURL:[NSURL URLWithString: amgr.account.avatarSmall] placeholderImage:nil];
+        [cell.userPhoto sd_setImageWithURL:[NSURL URLWithString: amgr.account.avatarSmall] placeholderImage:[UIImage imageNamed:@"avatar_default.png"]];
         return cell;
 
     } else {

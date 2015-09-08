@@ -22,6 +22,7 @@
 @property (nonatomic, strong) AccountManager *accountManager;
 
 @property (nonatomic, weak) UIView *navBgView;
+@property (nonatomic, weak) UIButton *settingBtn;
 
 @end
 
@@ -50,8 +51,7 @@
     
     self.userInfo = [AccountManager shareAccountManager].account;
     [self.tableView reloadData];
-    
-    NSLog(@"%p", [self.navigationController.viewControllers lastObject]);
+    [self showUserShouldEditUserInfoNoti];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -60,7 +60,6 @@
     if (![[self.navigationController.viewControllers lastObject]isKindOfClass:[MineViewContoller class]]) {
         [self.navigationController setNavigationBarHidden:NO animated:YES];
     }
-
 }
 
 #pragma mark - 设置导航栏
@@ -79,6 +78,7 @@
     editButton.titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
     [editButton addTarget:self action:@selector(editMineProfile) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:editButton];
+    _settingBtn = editButton;
     
     UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake((kWindowWidth-108)*0.5, 33, 108, 19)];
     titleLab.text = @"我的·旅行派";
@@ -94,6 +94,31 @@
     [backButton addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:backButton];
 }
+
+/**
+ *  新注册的用户应该显示提醒用户编辑用户信息的提醒
+ */
+- (void)showUserShouldEditUserInfoNoti
+{
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    NSString *key = [NSString stringWithFormat:@"%@_%ld", kShouldShowFinishUserInfoNoti, [AccountManager shareAccountManager].account.userId];
+    BOOL shouldShowNoti = [[defaults objectForKey:key] boolValue] && [[AccountManager shareAccountManager] isLogin];
+    if (shouldShowNoti) {
+        UIView *dotView = [[UIView alloc] initWithFrame:CGRectMake(40, 2, 6, 6)];
+        dotView.backgroundColor = [UIColor redColor];
+        dotView.layer.cornerRadius = 3.0;
+        dotView.clipsToBounds = YES;
+        dotView.tag = 101;
+        [_settingBtn addSubview:dotView];
+    } else {
+        for (UIView *view in _settingBtn.subviews) {
+            if (view.tag == 101) {
+                [view removeFromSuperview];
+            }
+        }
+    }
+}
+
 
 #pragma mark - 设置tableView的一些属性
 - (void)setupTableView

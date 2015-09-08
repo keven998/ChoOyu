@@ -27,6 +27,7 @@
 @property (nonatomic, weak) UIScrollView *scrollView;
 @property (nonatomic, weak) MineHeaderView *topView;
 @property (nonatomic, weak) UIViewController *contentViewCtl;
+@property (nonatomic, weak) UIButton *settingBtn;
 
 @property (nonatomic, weak) UIButton *addPlan;
 
@@ -54,7 +55,23 @@
             [self updateContent];
         }
     }];
-    
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    [self setupMainView];
+    [self setupNavBar];
+    [self setupAddPlanBtn];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    if (![[self.navigationController.viewControllers lastObject]isKindOfClass:[BaseProfileViewController class]]) {
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
+    }
 }
 
 - (void)userLogin
@@ -77,29 +94,6 @@
     addPlan.highlighted = NO;
     self.addPlan = addPlan;
     [self.view addSubview:addPlan];
-}
-
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
-    [self setupMainView];
-    [self setupNavBar];
-    [self setupAddPlanBtn];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    if (![[self.navigationController.viewControllers lastObject]isKindOfClass:[BaseProfileViewController class]]) {
-        [self.navigationController setNavigationBarHidden:NO animated:YES];
-    }
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
 }
 
 - (void)preSetNavForSlide
@@ -134,6 +128,7 @@
     editButton.titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
     [editButton addTarget:self action:@selector(showSettingCtl:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:editButton];
+    _settingBtn = editButton;
 
     UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake((kWindowWidth-108)*0.5, 33, 108, 19)];
     titleLab.text = @"我的·旅行派";
