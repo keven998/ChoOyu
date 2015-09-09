@@ -25,6 +25,9 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(saveEdit:)];
     
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismissCtl)];
+
+    
     CGFloat width = self.view.frame.size.width;
     
     UIView *eborder = [[UIView alloc] initWithFrame:CGRectMake(5, 20+64, width - 10, 86.0)];
@@ -68,6 +71,7 @@
     [_contentEditor resignFirstResponder];
     [[AccountManager shareAccountManager] asyncChangeSignature:_contentEditor.text completion:^(BOOL isSuccess, UserInfoInputError error, NSString *errStr) {
         if (isSuccess) {
+            [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.3];
         } else if (errStr){
             [SVProgressHUD showHint:errStr];
         } else {
@@ -79,7 +83,11 @@
 
 - (void)dismissCtl
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    if (self.navigationController.viewControllers.count > 1) {
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 
