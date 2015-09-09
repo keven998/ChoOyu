@@ -92,7 +92,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    if (![[self.navigationController.viewControllers lastObject]isKindOfClass:[BaseProfileViewController class]]) {
+    if (![[self.navigationController.viewControllers lastObject]isKindOfClass:[BaseProfileViewController class]] && ![self.navigationController.viewControllers.lastObject isKindOfClass:[MineViewContoller class]]) {
         [self.navigationController setNavigationBarHidden:NO animated:YES];
     }
 }
