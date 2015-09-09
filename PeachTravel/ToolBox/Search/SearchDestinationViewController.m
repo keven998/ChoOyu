@@ -593,6 +593,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [_searchBar endEditing:YES];
     NSArray *array = [self.collectionArray objectAtIndex:indexPath.section];
     [self loadDataSourceWithKeyWord:array[indexPath.row]];
+    _searchBar.text = array[indexPath.row];
 }
 
 #pragma mark - TaoziLayoutDelegate
