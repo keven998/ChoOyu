@@ -87,6 +87,9 @@
         [segmentBtn setImage:[UIImage imageNamed:imageSelectName] forState:UIControlStateSelected];
         [segmentBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
         [segmentBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateSelected];
+        [segmentBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 3, 0, 0)];
+        [segmentBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 3)];
+        segmentBtn.titleLabel.font = [UIFont systemFontOfSize:16.0];
         [segmentBtn addTarget:self action:@selector(changePageAction:) forControlEvents:UIControlEventTouchUpInside];
         [segmentPanel addSubview:segmentBtn];
         [buttonArray addObject:segmentBtn];
