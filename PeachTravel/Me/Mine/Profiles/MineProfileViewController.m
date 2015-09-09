@@ -303,7 +303,6 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    NSLog(@"scrollViewY:%f",scrollView.contentOffset.y);
     if (scrollView.contentOffset.y>140) return;
     self.navBgView.alpha = (scrollView.contentOffset.y+20)/160;
 }
