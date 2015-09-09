@@ -54,10 +54,9 @@
         NSURL * url = [NSURL URLWithString:imageUrl];
         self.bgImage.image = nil;
         [self.bgImage sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"master_placeholder_bg.png"]];
-    }else{
+    } else {
         self.bgImage.image = [UIImage imageNamed:@"master_placeholder_bg.png"];
     }
-
 
     self.expertUserCnt.font = [UIFont boldSystemFontOfSize:30.0];
     self.expertUserCnt.text = [NSString stringWithFormat:@"%@",guiderDistribute.zhName];
