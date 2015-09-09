@@ -25,5 +25,6 @@
 @property (strong, nonatomic) UIImageView *playedImage;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *headerImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *markImageView;
 
 @end

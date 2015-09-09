@@ -53,7 +53,7 @@
     self.subtitleLabel = tempLabel;
     [_contentView addSubview:self.subtitleLabel];
 
-    [self updateSubviewsFrame];
+//    [self updateSubviewsFrame];
 
 }
 
@@ -66,7 +66,7 @@
     
     CGSize size = CGSizeMake(kWindowWidth - 40,CGFLOAT_MAX);//LableWight标签宽度，固定的
     //计算实际frame大小，并将label的frame变成实际大小
-    NSDictionary *dict = @{NSFontAttributeName: [UIFont fontWithName:@"STHeitiSC-Medium" size:16.0]};
+    NSDictionary *dict = @{NSFontAttributeName: [UIFont boldSystemFontOfSize:16.0]};
     CGSize nickNameSize = [self.account.nickName boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
     self.nickName.frame = CGRectMake(CGRectGetMaxX(self.avatar.frame)+5, contentH-16-46, nickNameSize.width+2, 16);
     
@@ -98,6 +98,8 @@
     }
     
     self.subtitleLabel.text = subtitleStr;
+    
+    [self updateSubviewsFrame];
 }
 
 - (void)setAccount:(AccountModel *)account

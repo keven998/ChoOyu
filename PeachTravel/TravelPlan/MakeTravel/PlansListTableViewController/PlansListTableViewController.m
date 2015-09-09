@@ -554,10 +554,16 @@ static NSString *reusableCell = @"myGuidesCell";
 {
     MyGuidesTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reusableCell forIndexPath:indexPath];
     MyGuideSummary *summary = [self.dataSource objectAtIndex:indexPath.row];
-    cell.rightUtilityButtons = [self rightButtons];
+    if ([summary.status isEqualToString:@"traveled"]) {
+        cell.markImageView.hidden = NO;
+    } else {
+        cell.markImageView.hidden = YES;
+    }
+    cell.rightUtilityButtons = [self rightButtonsWithIndexPath:indexPath];
     cell.delegate = self;
     cell.guideSummary = summary;
     cell.isCanSend = _selectToSend;
+
     TaoziImage *image = [summary.images firstObject];
     [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
     
@@ -618,39 +624,27 @@ static NSString *reusableCell = @"myGuidesCell";
 }
 
 // 侧边栏的按钮
-- (NSArray *)rightButtons
+- (NSArray *)rightButtonsWithIndexPath:(NSIndexPath *)path
 {
     NSMutableArray *rightUtilityButtons = [NSMutableArray new];
     
     NSDictionary * markDict = @{NSForegroundColorAttributeName: [UIColor whiteColor], NSFontAttributeName: [UIFont boldSystemFontOfSize:16.0]};
     
-    NSAttributedString * attributeMark = [[NSAttributedString alloc] initWithString:@"签到" attributes:markDict];
+    NSString *signTitle = nil;
+    MyGuideSummary *summary = [self.dataSource objectAtIndex:path.row];
+    if ([summary.status isEqualToString:@"traveled"]) {
+        signTitle = @"取消签到";
+    } else {
+        signTitle = @"签到";
+    }
+
+    NSAttributedString * attributeMark = [[NSAttributedString alloc] initWithString:signTitle attributes:markDict];
     [rightUtilityButtons sw_addUtilityButtonWithColor:APP_THEME_COLOR attributedTitle:attributeMark];
     NSAttributedString * attributeDelete = [[NSAttributedString alloc] initWithString:@"删除" attributes:markDict];
    [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor redColor] attributedTitle:attributeDelete];
     
     return rightUtilityButtons;
 }
-
-- (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index
-{
-    NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
-    switch (index) {
-        case 0:
-        {
-            [self sign:cellIndexPath];
-            break;
-        }
-        case 1:
-        {
-            [self deleteGuide:cellIndexPath];
-            break;
-        }
-        default:
-            break;
-    }
-}
-
 
 - (UIView *)footerView
 {
@@ -705,7 +699,7 @@ static NSString *reusableCell = @"myGuidesCell";
     _didEndScroll = YES;
 }
 
-- (void) tripUpdate:(id)jsonString
+- (void)tripUpdate:(id)jsonString
 {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         [[TMCache sharedCache] setObject:jsonString forKey:@"last_tripdetail"];
@@ -854,6 +848,25 @@ static NSString *reusableCell = @"myGuidesCell";
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ChangePlanListFrame" object:nil userInfo:userInfo];
 }
 
+#pragma mark - SWTableViewCellDelegate
 
+- (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index
+{
+    NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
+    switch (index) {
+        case 0:
+        {
+            [self sign:cellIndexPath];
+            break;
+        }
+        case 1:
+        {
+            [self deleteGuide:cellIndexPath];
+            break;
+        }
+        default:
+            break;
+    }
+}
 
 @end

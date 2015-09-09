@@ -146,6 +146,25 @@
                             </mask>
                         </variation>
                     </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plan_mark.png" translatesAutoresizingMaskIntoConstraints="NO" id="0FW-2L-jAw">
+                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="41" id="IWZ-Mg-SJz"/>
+                            <constraint firstAttribute="height" constant="41" id="LE2-DP-Agm"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="IWZ-Mg-SJz"/>
+                                <exclude reference="LE2-DP-Agm"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="IWZ-Mg-SJz"/>
+                                <include reference="LE2-DP-Agm"/>
+                            </mask>
+                        </variation>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="aB5-vv-4mc" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="4Lj-Lv-hnn"/>
@@ -175,12 +194,14 @@
                     <constraint firstItem="Rtr-c5-dr5" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="26" id="SUP-24-ygD">
                         <variation key="widthClass=compact" constant="18"/>
                     </constraint>
+                    <constraint firstItem="0FW-2L-jAw" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="ZTM-Lz-tAm"/>
                     <constraint firstItem="H51-EM-vAy" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="Zhb-t6-MuE">
                         <variation key="widthClass=compact" constant="12"/>
                     </constraint>
                     <constraint firstItem="sTG-fZ-1py" firstAttribute="leading" secondItem="aB5-vv-4mc" secondAttribute="trailing" constant="8" id="eTc-40-7Y6">
                         <variation key="widthClass=compact" constant="11"/>
                     </constraint>
+                    <constraint firstItem="0FW-2L-jAw" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="rtJ-YT-K6B"/>
                     <constraint firstAttribute="trailing" secondItem="sTG-fZ-1py" secondAttribute="trailing" constant="8" id="vNH-WE-Ece">
                         <variation key="widthClass=compact" constant="53"/>
                     </constraint>
@@ -197,12 +218,15 @@
                         <exclude reference="aB5-vv-4mc"/>
                         <exclude reference="sTG-fZ-1py"/>
                         <exclude reference="H51-EM-vAy"/>
+                        <exclude reference="0FW-2L-jAw"/>
                     </mask>
                     <mask key="constraints">
-                        <exclude reference="4Lj-Lv-hnn"/>
-                        <exclude reference="OpI-QZ-tRw"/>
+                        <exclude reference="ZTM-Lz-tAm"/>
+                        <exclude reference="rtJ-YT-K6B"/>
                         <exclude reference="80x-74-NPK"/>
                         <exclude reference="Zhb-t6-MuE"/>
+                        <exclude reference="4Lj-Lv-hnn"/>
+                        <exclude reference="OpI-QZ-tRw"/>
                         <exclude reference="Q7J-GN-Sd5"/>
                         <exclude reference="SUP-24-ygD"/>
                         <exclude reference="eTc-40-7Y6"/>
@@ -225,12 +249,15 @@
                         <include reference="aB5-vv-4mc"/>
                         <include reference="sTG-fZ-1py"/>
                         <include reference="H51-EM-vAy"/>
+                        <include reference="0FW-2L-jAw"/>
                     </mask>
                     <mask key="constraints">
-                        <include reference="4Lj-Lv-hnn"/>
-                        <include reference="OpI-QZ-tRw"/>
+                        <include reference="ZTM-Lz-tAm"/>
+                        <include reference="rtJ-YT-K6B"/>
                         <include reference="80x-74-NPK"/>
                         <include reference="Zhb-t6-MuE"/>
+                        <include reference="4Lj-Lv-hnn"/>
+                        <include reference="OpI-QZ-tRw"/>
                         <include reference="Q7J-GN-Sd5"/>
                         <include reference="SUP-24-ygD"/>
                         <include reference="eTc-40-7Y6"/>
@@ -249,6 +276,7 @@
                 <outlet property="countBtn" destination="Rtr-c5-dr5" id="xPu-Ru-lfj"/>
                 <outlet property="descLabel" destination="FX5-5D-sXI" id="QpU-m0-o5j"/>
                 <outlet property="headerImageView" destination="aB5-vv-4mc" id="yMd-5H-PFS"/>
+                <outlet property="markImageView" destination="0FW-2L-jAw" id="RMW-Le-IhB"/>
                 <outlet property="sendBtn" destination="6vZ-p7-189" id="cqZ-Xs-dtz"/>
                 <outlet property="timeLabel" destination="1br-w7-Gyw" id="Eda-vL-IGl"/>
                 <outlet property="titleBtn" destination="sTG-fZ-1py" id="ThX-8c-hGU"/>
@@ -258,5 +286,6 @@
     </objects>
     <resources>
         <image name="plan_kuang_photo.png" width="103" height="103"/>
+        <image name="plan_mark.png" width="42" height="42"/>
     </resources>
 </document>

@@ -26,6 +26,8 @@
     _deleteBtn.hidden = YES;
     [_playedBtn setImage:[UIImage imageNamed:@"plan_traveled.png"] forState:UIControlStateNormal];
     _playedBtn.hidden = YES;
+    
+    _markImageView.hidden = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
