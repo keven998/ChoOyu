@@ -36,7 +36,7 @@ static NSString * const reuseIdentifier = @"Cell";
     UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
     layout.minimumLineSpacing = 20;
     
-    layout.itemSize = CGSizeMake(self.view.bounds.size.width, 540);
+    layout.itemSize = CGSizeMake(self.view.bounds.size.width, 540*kWindowWidth/414);
     // Register cell classes
     [self.collectionView registerNib:[UINib nibWithNibName:@"GuiderCollectionCell" bundle:nil] forCellWithReuseIdentifier:reuseIdentifier];
     
@@ -84,7 +84,7 @@ static NSString * const reuseIdentifier = @"Cell";
     nameLabel.text = [NSString stringWithFormat:@"~派派 · %@ · 达人~",guiderDistribute.zhName];
     [view addSubview:nameLabel];
     UILabel *idLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 26, 200, 12)];
-    idLabel.textColor = [UIColor whiteColor];
+    idLabel.textColor = COLOR_TEXT_I;
     idLabel.font = [UIFont boldSystemFontOfSize:10];
     idLabel.textAlignment = NSTextAlignmentCenter;
     idLabel.text = [NSString stringWithFormat:@"%ld位",guiderDistribute.expertCnt];
@@ -94,8 +94,6 @@ static NSString * const reuseIdentifier = @"Cell";
     // 传入国家ID数据时刷新表格
     [self loadTravelers:guiderDistribute.ID withPageNo:0];
 }
-
-
 
 #pragma mark - http method
 
@@ -129,7 +127,6 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     // 初始化cell并对cell赋值
     GuiderCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     

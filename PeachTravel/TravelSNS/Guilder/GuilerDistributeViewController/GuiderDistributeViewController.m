@@ -30,11 +30,6 @@
 
 @property (nonatomic, strong)NSArray *titleArray;
 
-/**
- *  新建一个字典存储展开的信息
- */
-@property (nonatomic, strong)NSMutableDictionary * showDic;
-
 @property (nonatomic, strong)HWDropdownMenu * dropDownMenu;
 // 当前选中的大洲
 @property (nonatomic) NSUInteger currentContinentIndex;
@@ -248,10 +243,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (![_showDic objectForKey:[NSString stringWithFormat:@"%ld",indexPath.section]]) {
-        return 232*CGRectGetWidth(self.view.frame)/414;
-    }
-    return 0;
+    return 232*CGRectGetWidth(self.view.frame)/414;
 }
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
@@ -266,33 +258,11 @@
 
 #pragma mark 展开收缩section中cell 手势监听
 
--(void)singleTap:(UIButton*)recognizer
-{
-    NSInteger didSection = recognizer.tag;
-    
-    if (!_showDic) {
-        _showDic = [[NSMutableDictionary alloc]init];
-    }
-    
-    NSString *key = [NSString stringWithFormat:@"%ld",didSection];
-    if (![_showDic objectForKey:key]) {
-        [_showDic setObject:@"1" forKey:key];
-        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:didSection] withRowAnimation:UITableViewRowAnimationAutomatic];
-    } else {
-        [_showDic removeObjectForKey:key];
-        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:didSection] withRowAnimation:UITableViewRowAnimationAutomatic];
-        if ([_dataSource[didSection] count] > 0) {
-            [self performSelector:@selector(scrollToVisiable:) withObject:[NSNumber numberWithLong:didSection] afterDelay:0.35];
-        }
-    }
-}
-
 - (void)scrollToVisiable:(NSNumber *)section
 {
     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[section intValue]]
                          atScrollPosition:UITableViewScrollPositionNone animated:YES];
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
