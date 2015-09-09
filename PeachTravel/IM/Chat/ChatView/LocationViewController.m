@@ -86,6 +86,7 @@ static LocationViewController *defaultLocation = nil;
             [location requestWhenInUseAuthorization];
         }
     } else {
+        
         [self removeToLocation:_currentLocationCoordinate];
     }
 }
@@ -172,7 +173,7 @@ static LocationViewController *defaultLocation = nil;
     [self showHudInView:self.view hint:@"正在定位..."];
 }
 
--(void)createAnnotationWithCoords:(CLLocationCoordinate2D)coords
+- (void)createAnnotationWithCoords:(CLLocationCoordinate2D)coords
 {
     if (_annotation == nil) {
         _annotation = [[MKPointAnnotation alloc] init];

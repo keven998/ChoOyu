@@ -420,18 +420,3 @@ typedef NS_ENUM(NSUInteger, TZCMDChatType) {
 #define IS_IPhone6plus (736 == [[UIScreen mainScreen] bounds].size.height ? YES : NO)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
