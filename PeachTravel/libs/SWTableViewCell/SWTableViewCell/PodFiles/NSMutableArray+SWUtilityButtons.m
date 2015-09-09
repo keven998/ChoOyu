@@ -78,6 +78,10 @@
     NSString *titleB = [buttonB titleForState:UIControlStateNormal];
     BOOL haveEqualTitles = (!titleA && !titleB) || [titleA isEqualToString:titleB];
     
+    NSAttributedString *attributeTitleA = [buttonA attributedTitleForState:UIControlStateNormal];
+    NSAttributedString *attributeTitleB = [buttonB attributedTitleForState:UIControlStateNormal];
+    BOOL haveEqualAttributeTitles = (!attributeTitleA && !attributeTitleB) || [attributeTitleA isEqualToAttributedString:attributeTitleB];
+    
     UIImage *normalIconA = [buttonA imageForState:UIControlStateNormal];
     UIImage *normalIconB = [buttonB imageForState:UIControlStateNormal];
     BOOL haveEqualNormalIcons = (!normalIconA && !normalIconB) || [normalIconA isEqual:normalIconB];
@@ -86,7 +90,9 @@
     UIImage *selectedIconB = [buttonB imageForState:UIControlStateSelected];
     BOOL haveEqualSelectedIcons = (!selectedIconA && !selectedIconB) || [selectedIconA isEqual:selectedIconB];
     
-    return haveEqualBackgroundColors && haveEqualTitles && haveEqualNormalIcons && haveEqualSelectedIcons;
+    NSLog(@"ButtonA: %@  ButtonB: %@", attributeTitleA, attributeTitleB);
+    
+    return haveEqualBackgroundColors && haveEqualTitles && haveEqualNormalIcons && haveEqualSelectedIcons && haveEqualAttributeTitles;
 }
 
 @end
