@@ -50,54 +50,16 @@
 
 - (void)loadUserAlbum
 {
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
-    
-    NSString *url = [NSString stringWithFormat:@"%@%ld/albums", API_USERS, accountManager.account.userId];
-    
-    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-        if (code == 0) {
-            [self paraseUserAlbum:[responseObject objectForKey:@"result"]];
+    [[AccountManager shareAccountManager] asyncLoadUserAlbum:0 completion:^(BOOL isSuccess, NSString *errorCode) {
+        if (isSuccess) {
             [self.tableView reloadData];
         } else {
+            [SVProgressHUD showWithStatus:@"相册获取失败"];
             [self.tableView reloadData];
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self.tableView reloadData];
     }];
 }
 
-/*
- *  解析用户头像列表
- *
- *  @param albumArray
- */
-
-- (void)paraseUserAlbum:(NSArray *)albumArray
-{
-    NSMutableArray *array = [[NSMutableArray alloc] init];
-    for (id album in albumArray) {
-        [array addObject:[[AlbumImage alloc] initWithJson:album]];
-    }
-    
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    
-    accountManager.account.userAlbum = array;
-    
-//    _pictureNumber.text = [NSString stringWithFormat:@"%zd张",array.count];
-}
 
 - (void)viewWillAppear:(BOOL)animated
 {

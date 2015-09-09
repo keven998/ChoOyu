@@ -175,4 +175,14 @@
 - (void)removeContact:(FrendModel *)userId;
 
 
+/**
+ *  异步加载用户相册
+ *
+ *  @param userId     用户Id
+ *  @param completion 完成后回调
+ *
+ *  @return 
+ */
+- (NSArray *)asyncLoadUserAlbum:(NSInteger)userId completion:(void (^)(BOOL, NSString *))completion;
+
 @end
