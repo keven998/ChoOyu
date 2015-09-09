@@ -25,7 +25,7 @@
     
     _searchBar = [[UISearchBar alloc]init];
     _searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    [_searchBar setPlaceholder:@"昵称/用户ID/手机号"];
+    [_searchBar setPlaceholder:@"昵称/手机号"];
     _searchBar.tintColor = COLOR_TEXT_I;
        _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
     [_searchBar setSearchFieldBackgroundImage:[[UIImage imageNamed:@"icon_search_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)] forState:UIControlStateNormal];
