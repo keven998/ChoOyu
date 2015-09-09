@@ -17,7 +17,7 @@
 #define cellIdentifier   @"settingCell"
 #define SET_ITEMS       @[@[@"推荐应用给朋友", @"申请成为达人"], @[@"清理缓存", @"应用评分"],@[@"意见反馈"]]
 
-@interface SettingHomeViewController ()<UITableViewDataSource, UITableViewDelegate>
+@interface SettingHomeViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 
