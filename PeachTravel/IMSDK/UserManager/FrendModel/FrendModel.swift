@@ -151,7 +151,7 @@ class FrendModel: NSObject {
         }
         
         // 游记数量
-        if let int = json.objectForKey("travelNoteCount") as? Int {
+        if let int = json.objectForKey("travelNoteCnt") as? Int {
             travelNoteCount = int
         }
         
@@ -188,6 +188,11 @@ class FrendModel: NSObject {
         
         if let tag = json.objectForKey("tags") as? NSArray {
             tags = tag as! Array<String>
+        }
+        
+        // 达人信息
+        if let expertInfo = json.objectForKey("expertInfo") as? NSDictionary {
+            
         }
     }
     
