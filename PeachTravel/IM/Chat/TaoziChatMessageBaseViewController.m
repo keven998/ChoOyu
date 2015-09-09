@@ -220,7 +220,6 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:updateChateViewNoti object:nil userInfo:@{@"message":message}];
     
     [_delegate sendSuccess:nil];
-
 }
 
 - (IBAction)cancel:(UIButton *)sender {

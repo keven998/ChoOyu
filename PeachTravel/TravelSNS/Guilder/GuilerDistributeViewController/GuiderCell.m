@@ -54,16 +54,14 @@
         NSURL * url = [NSURL URLWithString:imageUrl];
         self.bgImage.image = nil;
         [self.bgImage sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"master_placeholder_bg.png"]];
-    }else{
+    } else {
         self.bgImage.image = [UIImage imageNamed:@"master_placeholder_bg.png"];
     }
-
 
     self.expertUserCnt.font = [UIFont boldSystemFontOfSize:30.0];
     self.expertUserCnt.text = [NSString stringWithFormat:@"%@",guiderDistribute.zhName];
     self.zhName.font = [UIFont boldSystemFontOfSize:15.0];
-    self.zhName.text = [NSString stringWithFormat:@"~派派 · %ld位 · 达人~",guiderDistribute.expertCnt];
-    
+    self.zhName.text = [NSString stringWithFormat:@"· %ld位 ·",guiderDistribute.expertCnt];
 }
 
 @end

@@ -82,9 +82,11 @@ static LocationViewController *defaultLocation = nil;
         [self startLocation];
         location = [[CLLocationManager alloc] init];
         location.delegate= self;
-        [location requestAlwaysAuthorization];
-    }
-    else{
+        if (IS_IOS8) {
+            [location requestWhenInUseAuthorization];
+        }
+    } else {
+        
         [self removeToLocation:_currentLocationCoordinate];
     }
 }
@@ -92,7 +94,6 @@ static LocationViewController *defaultLocation = nil;
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -172,7 +173,7 @@ static LocationViewController *defaultLocation = nil;
     [self showHudInView:self.view hint:@"正在定位..."];
 }
 
--(void)createAnnotationWithCoords:(CLLocationCoordinate2D)coords
+- (void)createAnnotationWithCoords:(CLLocationCoordinate2D)coords
 {
     if (_annotation == nil) {
         _annotation = [[MKPointAnnotation alloc] init];

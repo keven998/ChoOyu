@@ -24,7 +24,6 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.navigationItem.title = _navTitle;
     UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc]initWithTitle:@"保存 " style:UIBarButtonItemStylePlain target:self action:@selector(saveChange:)];
-    rightBtn.tintColor = [UIColor whiteColor];
     self.navigationItem.rightBarButtonItem = rightBtn;
     self.navigationItem.rightBarButtonItem.enabled = NO;
     
