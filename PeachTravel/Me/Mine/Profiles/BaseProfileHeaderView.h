@@ -17,6 +17,7 @@
 @property (weak, nonatomic) UIImageView *constellation;
 @property (weak, nonatomic) UILabel *city;
 @property (weak, nonatomic) UIImageView *level;
+@property (weak, nonatomic) UILabel *levelContent;
 
 @property (weak, nonatomic) UILabel *nickName;
 @property (weak, nonatomic) UIImageView *avatar;

@@ -59,8 +59,8 @@
     [planStr addAttribute:NSForegroundColorAttributeName value:APP_THEME_COLOR range:NSMakeRange(1, guiderCount.length)];
     self.planBtn.titleLab.attributedText = planStr;
     
-    NSString *tourCount = [NSString stringWithFormat:@"%ld",_userInfo.guideCount];
-    NSString *tour = [NSString stringWithFormat:@"完成%ld篇旅行游记",_userInfo.guideCount];
+    NSString *tourCount = [NSString stringWithFormat:@"%ld",_userInfo.travelNoteCount];
+    NSString *tour = [NSString stringWithFormat:@"完成%ld篇旅行游记",_userInfo.travelNoteCount];
     NSMutableAttributedString *tourStr = [[NSMutableAttributedString alloc] initWithString:tour];
     [tourStr addAttribute:NSForegroundColorAttributeName value:APP_THEME_COLOR range:NSMakeRange(2, tourCount.length)];
     self.tourBtn.titleLab.attributedText = tourStr;

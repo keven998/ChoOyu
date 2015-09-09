@@ -48,6 +48,15 @@
     self.level = level;
     [self addSubview:level];
     
+    // 等级内容
+    UILabel *levelContent = [[UILabel alloc] init];
+    levelContent.text = @"V9";
+    levelContent.textAlignment = NSTextAlignmentCenter;
+    levelContent.font = [UIFont fontWithName:@"Helvetica-Bold" size:9.0];
+    levelContent.textColor = UIColorFromRGB(0xFFFFFF);
+    self.levelContent = levelContent;
+    [self addSubview:levelContent];
+    
     // 4.星座
     UIImageView *constellation = [[UIImageView alloc] init];
     self.constellation = constellation;
@@ -59,7 +68,6 @@
     city.textColor = UIColorFromRGB(0x969696);
     city.text = @"北京市";
     self.city = city;
-//    [self addSubview:city];
     
     // 6.昵称
     UILabel *nickName = [[UILabel alloc] init];
@@ -83,9 +91,7 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    
-//    CGFloat selfH = self.frame.size.height;
-    
+        
     // 1.头像
     CGFloat avatarW = 88;
     CGFloat avatarH = 88;
@@ -127,6 +133,7 @@
     CGFloat levelX = sexX-32;
     CGFloat levelY = sexY;
     self.level.frame = CGRectMake(levelX, levelY, levelW, levelH);
+    self.levelContent.frame = self.level.frame;
     
     // 7.星座
     CGFloat constellationW = 18;
@@ -156,6 +163,8 @@
     
     NSString *constellationImageName = [FrendModel bigCostellationImageNameWithBirthday:userInfo.birthday];
     self.constellation.image = [UIImage imageNamed:constellationImageName];
+    
+    self.levelContent.text = [NSString stringWithFormat:@"V%ld",_userInfo.level];
 }
 
 - (void)setAccountModel:(AccountModel *)accountModel
@@ -189,6 +198,8 @@
     
     NSString *constellationImageName = [FrendModel bigCostellationImageNameWithBirthday:accountModel.birthday];
     self.constellation.image = [UIImage imageNamed:constellationImageName];
+    
+    self.levelContent.text = [NSString stringWithFormat:@"V%ld",_accountModel.level];
 }
 
 @end
