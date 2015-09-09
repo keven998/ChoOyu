@@ -84,7 +84,6 @@
             label.text = @"0M";
         });
     }];
-    
 }
 
 - (void)shareToWeChat
