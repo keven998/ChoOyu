@@ -858,7 +858,6 @@
 		E6E595551B9BDB5400E29ED0 /* MineProfileTourViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E595531B9BDB5400E29ED0 /* MineProfileTourViewCell.m */; };
 		E6E595591B9BDF7F00E29ED0 /* MineProfileTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E595581B9BDF7F00E29ED0 /* MineProfileTitleView.m */; };
 		E6E5955F1B9BE74300E29ED0 /* BaseProfileHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E5955E1B9BE74300E29ED0 /* BaseProfileHeaderView.m */; };
-		E6E595631B9BE7A200E29ED0 /* BaseProfileHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6E595621B9BE7A200E29ED0 /* BaseProfileHeaderView.xib */; };
 		E6E5956A1B9BECDB00E29ED0 /* ExpertProfileTagViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E595691B9BECDB00E29ED0 /* ExpertProfileTagViewCell.m */; };
 		E6E6B4081B7AF3BD001A78F4 /* ContactSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E6B4071B7AF3BD001A78F4 /* ContactSearchViewController.m */; };
 		E6E7251E1B5603750007273A /* MJArgument.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E7250C1B5603750007273A /* MJArgument.m */; };
@@ -2658,7 +2657,6 @@
 		E6E595581B9BDF7F00E29ED0 /* MineProfileTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineProfileTitleView.m; sourceTree = "<group>"; };
 		E6E5955D1B9BE74300E29ED0 /* BaseProfileHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseProfileHeaderView.h; sourceTree = "<group>"; };
 		E6E5955E1B9BE74300E29ED0 /* BaseProfileHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseProfileHeaderView.m; sourceTree = "<group>"; };
-		E6E595621B9BE7A200E29ED0 /* BaseProfileHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BaseProfileHeaderView.xib; sourceTree = "<group>"; };
 		E6E595681B9BECDB00E29ED0 /* ExpertProfileTagViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpertProfileTagViewCell.h; sourceTree = "<group>"; };
 		E6E595691B9BECDB00E29ED0 /* ExpertProfileTagViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpertProfileTagViewCell.m; sourceTree = "<group>"; };
 		E6E6B4061B7AF3BD001A78F4 /* ContactSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactSearchViewController.h; sourceTree = "<group>"; };
@@ -6265,7 +6263,6 @@
 				E67795301B942152004CE21A /* MineProfileViewController.xib */,
 				E6E5955D1B9BE74300E29ED0 /* BaseProfileHeaderView.h */,
 				E6E5955E1B9BE74300E29ED0 /* BaseProfileHeaderView.m */,
-				E6E595621B9BE7A200E29ED0 /* BaseProfileHeaderView.xib */,
 				E6E595521B9BDB5300E29ED0 /* MineProfileTourViewCell.h */,
 				E6E595531B9BDB5400E29ED0 /* MineProfileTourViewCell.m */,
 				E67795331B942314004CE21A /* BaseProfileViewController.h */,
@@ -7425,7 +7422,6 @@
 				E6F18A391B845F4900232EEB /* Artboard@3x.png in Resources */,
 				E6381BE51B66269000CF73AA /* Loading_Animation_final18@2x.png in Resources */,
 				E6F18A651B845F4900232EEB /* ic_home_level_bg_unknown@3x.png in Resources */,
-				E6E595631B9BE7A200E29ED0 /* BaseProfileHeaderView.xib in Resources */,
 				D971E2831B8AF27A007E5AFD /* plan_delete@2x.png in Resources */,
 				D94B891D1B5E4F4C00584DE5 /* h5_labar_right_disabled@3x.png in Resources */,
 				E6381C071B66269000CF73AA /* Loading_Animation_final49@2x.png in Resources */,

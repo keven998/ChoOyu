@@ -32,7 +32,6 @@
 #import "MJPhoto.h"
 #import "LoginViewController.h"
 #import "TZNavigationViewController.h"
-#import "BaseProfileHeaderView.h"
 
 @interface BaseProfileViewController : TZViewController
 

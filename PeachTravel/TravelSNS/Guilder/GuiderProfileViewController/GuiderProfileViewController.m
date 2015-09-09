@@ -10,6 +10,7 @@
 #import "MineProfileTitleView.h"
 #import "ExpertProfileTagViewCell.h"
 #import "BaseProfileHeaderView.h"
+#import "TravelNoteListViewController.h"
 @interface GuiderProfileViewController () <UITableViewDataSource, UITableViewDelegate,UIActionSheetDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -82,21 +83,21 @@
     bgView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_master"]];
     [self.view addSubview:bgView];
     
-    UIButton *moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(kWindowWidth - 56, 33, 36, 19)];
+    UIButton *moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(kWindowWidth - 56, 20, 40, 40)];
     [moreBtn setImage:[UIImage imageNamed:@"account_icon_any_default"] forState:UIControlStateNormal];
     [moreBtn addTarget:self action:@selector(moreAction:) forControlEvents:UIControlEventTouchUpInside];
     [moreBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
     moreBtn.titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
     [self.view addSubview:moreBtn];
     
-    UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake((kWindowWidth-108)*0.5, 33, 108, 19)];
+    UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake((kWindowWidth-108)*0.5, 20, 108, 40)];
     titleLab.text = self.userInfo.nickName;
     titleLab.textAlignment = NSTextAlignmentCenter;
     titleLab.font = [UIFont boldSystemFontOfSize:18.0];
     titleLab.textColor = [UIColor whiteColor];
     [self.view addSubview:titleLab];
     
-    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake( 10, 33, 36, 19)];
+    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 20, 40, 40)];
     [backButton setTitle:@"返回" forState:UIControlStateNormal];
     [backButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     backButton.titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
@@ -159,7 +160,6 @@
     [_beginTalk setBackgroundImage:[UIImage new] forState:UIControlStateNormal];
     [_beginTalk setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
     [_beginTalk setImage:[UIImage imageNamed:@"chat_friend"] forState:UIControlStateNormal];
-//    [_beginTalk setBackgroundImage:[UIImage imageNamed:@"account_button_selected.png"] forState:UIControlStateHighlighted];
     _beginTalk.titleLabel.font = [UIFont systemFontOfSize:13];
     [_beginTalk setImageEdgeInsets:UIEdgeInsetsMake(3, -5, 0, 0)];
     [_beginTalk setTitleEdgeInsets:UIEdgeInsetsMake(4, 0, 0, -5)];
@@ -172,7 +172,6 @@
     [_addFriendBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
     [_addFriendBtn setImage:[UIImage imageNamed:@"add_friend"] forState:UIControlStateNormal];
     [_addFriendBtn setBackgroundImage:[UIImage new] forState:UIControlStateHighlighted];
-//    [_addFriendBtn setBackgroundImage:[UIImage imageNamed:@"account_button_selected.png"] forState:UIControlStateHighlighted];
     [_addFriendBtn setImageEdgeInsets:UIEdgeInsetsMake(3, -5, 0, 0)];
     [_addFriendBtn setTitleEdgeInsets:UIEdgeInsetsMake(4, 0, 0, -5)];
     [barView addSubview:_addFriendBtn];
@@ -714,6 +713,9 @@
 // 查看他人游记
 - (void)seeOtherTour
 {
+    [MobClick event:@"button_item_tours"];
+    TravelNoteListViewController *tourCtl = [[TravelNoteListViewController alloc]init];
+    [self.navigationController pushViewController:tourCtl animated:YES];
 
 }
 

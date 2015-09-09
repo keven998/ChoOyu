@@ -32,6 +32,7 @@
     titleLab.font = [UIFont boldSystemFontOfSize:10.0];
     titleLab.textColor = UIColorFromRGB(0x323232);
     titleLab.text = @"哈哈哈哈";
+    titleLab.numberOfLines = 0;
     titleLab.textAlignment = NSTextAlignmentCenter;
     self.titleLab = titleLab;
     [self addSubview:titleLab];
@@ -42,7 +43,6 @@
     [super layoutSubviews];
     
     CGFloat selfW = self.frame.size.width;
-//    CGFloat selfH = self.frame.size.height;
     
     CGFloat iconImageW = 43;
     CGFloat iconImageH = 43;
@@ -51,9 +51,9 @@
     self.iconImage.frame = CGRectMake(iconImageX, iconImageY, iconImageW, iconImageH);
     
     CGFloat titleLabW = selfW;
-    CGFloat titleLabH = 12;
+    CGFloat titleLabH = 24;
     CGFloat titleLabX = 0;
-    CGFloat titleLabY = CGRectGetMaxY(self.iconImage.frame)+11;
+    CGFloat titleLabY = CGRectGetMaxY(self.iconImage.frame)+5;
     self.titleLab.frame = CGRectMake(titleLabX, titleLabY, titleLabW, titleLabH);
 }
 
