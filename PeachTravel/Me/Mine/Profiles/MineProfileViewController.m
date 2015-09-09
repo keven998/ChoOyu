@@ -77,7 +77,6 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self.tableView reloadData];
     }];
-    
 }
 
 /*
@@ -174,7 +173,6 @@
         }
     }
 }
-
 
 #pragma mark - 设置tableView的一些属性
 - (void)setupTableView
