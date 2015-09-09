@@ -90,8 +90,6 @@
     UIImage *selectedIconB = [buttonB imageForState:UIControlStateSelected];
     BOOL haveEqualSelectedIcons = (!selectedIconA && !selectedIconB) || [selectedIconA isEqual:selectedIconB];
     
-    NSLog(@"ButtonA: %@  ButtonB: %@", attributeTitleA, attributeTitleB);
-    
     return haveEqualBackgroundColors && haveEqualTitles && haveEqualNormalIcons && haveEqualSelectedIcons && haveEqualAttributeTitles;
 }
 

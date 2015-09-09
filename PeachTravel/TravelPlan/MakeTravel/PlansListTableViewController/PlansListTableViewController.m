@@ -349,9 +349,7 @@ static NSString *reusableCell = @"myGuidesCell";
                 [self.refreshControl beginRefreshing];
                 [self.refreshControl sendActionsForControlEvents:UIControlEventValueChanged];
             } else if (index < PAGE_COUNT) {
-                dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                    [self cacheFirstPage:responseObject];
-                });
+                [self cacheFirstPage:responseObject];
             }
         } else {
             if (self.isShowing) {
@@ -402,9 +400,7 @@ static NSString *reusableCell = @"myGuidesCell";
             _currentPage = pageIndex;
             [self bindDataToView:responseObject];
             if (pageIndex == 0 || self.dataSource.count < 2*PAGE_COUNT) {
-                dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                    [self cacheFirstPage:responseObject];
-                });
+                [self cacheFirstPage:responseObject];
             }
         } else {
             [self showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];

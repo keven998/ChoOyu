@@ -40,16 +40,20 @@
     button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     
-    UIButton *searchBtn =  [UIButton buttonWithType:UIButtonTypeCustom];
-    [searchBtn setImage:[UIImage imageNamed:@"ic_common_search.png"] forState:UIControlStateNormal];
-    [searchBtn addTarget:self action:@selector(searchFrend:)forControlEvents:UIControlEventTouchUpInside];
-    [searchBtn setFrame:CGRectMake(0, 0, 25, 30)];
-    
-    searchBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:searchBtn];
     
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:normalCell];
     self.tableView.separatorColor = COLOR_LINE;
+    
+    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 49)];
+    searchBar.placeholder = @"昵称/手机号";
+    [searchBar setSearchFieldBackgroundImage:[[UIImage imageNamed:@"icon_search_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)] forState:UIControlStateNormal];
+    searchBar.backgroundImage = [ConvertMethods createImageWithColor:[UIColor whiteColor]];
+    self.tableView.tableHeaderView = searchBar;
+    
+    //在searchbar上覆盖一层假的 button，点击进入下个搜索界面
+    UIButton *searchBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 49)];
+    [searchBtn addTarget:self action:@selector(searchFrend:)forControlEvents:UIControlEventTouchUpInside];
+    [searchBar addSubview:searchBtn];
 }
 
 - (void)viewWillAppear:(BOOL)animated
