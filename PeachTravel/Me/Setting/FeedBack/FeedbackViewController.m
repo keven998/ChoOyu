@@ -18,7 +18,6 @@
 @end
 
 @implementation FeedbackController
-@synthesize contentEditor;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -66,17 +65,17 @@
     suggestion.font = [UIFont systemFontOfSize:14.0];
     suggestion.scrollEnabled = YES;
     [eborder addSubview:suggestion];
-    contentEditor = suggestion;
+    _contentEditor = suggestion;
 }
 
 - (void) showkeyboard
 {
-    [contentEditor becomeFirstResponder];
+    [_contentEditor becomeFirstResponder];
 }
 
 - (void)goBack
 {
-    [contentEditor resignFirstResponder];
+    [_contentEditor resignFirstResponder];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -88,7 +87,7 @@
 
 - (IBAction)sendFeedback:(id)sender
 {
-    [contentEditor resignFirstResponder];
+    [_contentEditor resignFirstResponder];
     [self feedback];
 }
 
@@ -99,7 +98,7 @@
     [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
     
-    NSString *contents = contentEditor.text;
+    NSString *contents = _contentEditor.text;
     NSString *trimText = [contents stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if ([trimText length] < 5) {
         [SVProgressHUD showHint:@"多说点什么吧"];

@@ -136,9 +136,6 @@
     int countryCount = [[json objectForKey:@"countryCnt"] intValue];
     int cityCount = [[json objectForKey:@"trackCnt"] intValue];
     
-    
-
-    
     _footprintsDesc = [NSString stringWithFormat:@"%d国%d城市", countryCount, cityCount];
     
     NSString *genderStr = [json objectForKey:@"gender"];
