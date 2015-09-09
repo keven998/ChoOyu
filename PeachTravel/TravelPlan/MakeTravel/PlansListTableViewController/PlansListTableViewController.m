@@ -869,4 +869,9 @@ static NSString *reusableCell = @"myGuidesCell";
     }
 }
 
+- (BOOL)swipeableTableViewCellShouldHideUtilityButtonsOnSwipe:(SWTableViewCell *)cell
+{
+    return YES;
+}
+
 @end
