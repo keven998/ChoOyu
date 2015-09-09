@@ -29,6 +29,7 @@
 @property (nonatomic, weak) UIViewController *contentViewCtl;
 
 @property (nonatomic, weak) UIButton *addPlan;
+@property (nonatomic, weak) UIView *navBgView;
 
 @end
 
@@ -128,6 +129,12 @@
 
 - (void)setupNavBar
 {
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth,64)];
+    bgView.alpha = 0;
+    self.navBgView = bgView;
+    bgView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_master"]];
+    [self.view addSubview:bgView];
+    
     UIButton *editButton = [[UIButton alloc] initWithFrame:CGRectMake(kWindowWidth - 56, 33, 36, 19)];
     [editButton setTitle:@"设置" forState:UIControlStateNormal];
     [editButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -175,6 +182,7 @@
         self.topView.frame = CGRectMake(0, -TopViewH+64, kWindowWidth, TopViewH-64);
         _topView.contentView.alpha = 0;
         _contentViewCtl.view.frame = CGRectMake(0, 64, kWindowWidth, kWindowHeight - 64 - 49);
+        self.navBgView.alpha = 1;
     }];
 }
 
@@ -185,6 +193,7 @@
         self.topView.frame = CGRectMake(0, 0, kWindowWidth, TopViewH);
         _topView.contentView.alpha = 1;
         _contentViewCtl.view.frame = CGRectMake(0, TopViewH, kWindowWidth, kWindowHeight-TopViewH-49);
+        self.navBgView.alpha = 0;
     }];
 }
 
