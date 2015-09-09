@@ -11,11 +11,8 @@
 @implementation GuiderDetailCollectionCell
 
 - (void)awakeFromNib {
-    _titleLab.layer.cornerRadius = 5.0;
-    _titleLab.layer.borderColor = UIColorFromRGB(0xF0F0F0).CGColor;
-    
+    _titleLab.layer.cornerRadius = 10.0;
     _titleLab.textColor = [UIColor whiteColor];
-    _titleLab.layer.borderWidth = 1.0;
     _titleLab.font = [UIFont fontWithName:@"STHeitiSC-Light" size:12.0];
     _titleLab.clipsToBounds = YES;
 }

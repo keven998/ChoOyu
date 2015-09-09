@@ -635,9 +635,9 @@ static NSString *reusableCell = @"myGuidesCell";
     }
 
     NSAttributedString * attributeMark = [[NSAttributedString alloc] initWithString:signTitle attributes:markDict];
-    [rightUtilityButtons sw_addUtilityButtonWithColor:APP_THEME_COLOR attributedTitle:attributeMark];
+    [rightUtilityButtons sw_addUtilityButtonWithColor:TZColor(253, 130, 10) attributedTitle:attributeMark];
     NSAttributedString * attributeDelete = [[NSAttributedString alloc] initWithString:@"删除" attributes:markDict];
-   [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor redColor] attributedTitle:attributeDelete];
+   [rightUtilityButtons sw_addUtilityButtonWithColor:TZColor(245, 54, 82) attributedTitle:attributeDelete];
     
     return rightUtilityButtons;
 }
