@@ -17,8 +17,6 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
-@property (nonatomic, strong) NSMutableArray *albumArray;
-
 @property (nonatomic, strong) AccountManager *accountManager;
 
 @property (nonatomic, weak) UIView *navBgView;
@@ -34,7 +32,6 @@
     [super viewDidLoad];
     
     self.accountManager = [AccountManager shareAccountManager];
-    _albumArray = [NSMutableArray array];
     self.view.backgroundColor = APP_PAGE_COLOR;
     self.userInfo = [AccountManager shareAccountManager].account;
     [self loadUserAlbum];
@@ -101,9 +98,6 @@
     accountManager.account.userAlbum = array;
     
 //    _pictureNumber.text = [NSString stringWithFormat:@"%zd张",array.count];
-    
-    NSLog(@"%@",array);
-    self.albumArray = [albumArray mutableCopy];
 }
 
 - (void)viewWillAppear:(BOOL)animated
