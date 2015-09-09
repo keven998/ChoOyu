@@ -74,6 +74,7 @@ class FrendModel: NSObject {
         }
         return ""
     }
+    var travelNoteCount:Int = 0
     var footprintCityCount = 0
     var footprintCountryCount = 0
     var userAlbum: Array<AlbumImage> = Array()
@@ -148,6 +149,12 @@ class FrendModel: NSObject {
         if let int =  json.objectForKey("guideCnt") as? Int {
             guideCount = int
         }
+        
+        // 游记数量
+        if let int = json.objectForKey("travelNoteCount") as? Int {
+            travelNoteCount = int
+        }
+        
         // 增加个字段
         if let int = json.objectForKey("localityCnt") as? Int {
             localityCnt = int
