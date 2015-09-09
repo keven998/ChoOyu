@@ -103,7 +103,7 @@
 //    _pictureNumber.text = [NSString stringWithFormat:@"%zd张",array.count];
     
     NSLog(@"%@",array);
-    self.albumArray = albumArray;
+    self.albumArray = [albumArray mutableCopy];
 }
 
 - (void)viewWillAppear:(BOOL)animated
