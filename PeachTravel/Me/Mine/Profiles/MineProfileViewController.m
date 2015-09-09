@@ -127,22 +127,23 @@
     bgView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_master"]];
     [self.view addSubview:bgView];
     
-    UIButton *editButton = [[UIButton alloc] initWithFrame:CGRectMake(kWindowWidth - 56, 33, 36, 19)];
+    UIButton *editButton = [[UIButton alloc] initWithFrame:CGRectMake(kWindowWidth - 56, 20, 40, 40)];
     [editButton setTitle:@"编辑" forState:UIControlStateNormal];
     [editButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     editButton.titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
+    
     [editButton addTarget:self action:@selector(editMineProfile) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:editButton];
     _settingBtn = editButton;
     
-    UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake((kWindowWidth-108)*0.5, 33, 108, 19)];
+    UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake((kWindowWidth-108)*0.5, 20, 108, 40)];
     titleLab.text = @"我的·旅行派";
     titleLab.textAlignment = NSTextAlignmentCenter;
     titleLab.font = [UIFont boldSystemFontOfSize:18.0];
     titleLab.textColor = [UIColor whiteColor];
     [self.view addSubview:titleLab];
     
-    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake( 10, 33, 36, 19)];
+    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 20, 40, 40)];
     [backButton setTitle:@"返回" forState:UIControlStateNormal];
     [backButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     backButton.titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
@@ -269,10 +270,15 @@
     MineProfileTitleView *titleView = [[MineProfileTitleView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 50)];
     if (section == 0) {
         [titleView.titleBtn setTitle:@"我的相册" forState:UIControlStateNormal];
+        NSString *albumCount = [NSString stringWithFormat:@"%ld图",self.userInfo.userAlbum.count];
+        titleView.countLab.text = albumCount;
+        titleView.iconImage.image = [UIImage imageNamed:@"picture_biaoti"];
     } else if (section == 1) {
         [titleView.titleBtn setTitle:@"我的旅历" forState:UIControlStateNormal];
+        titleView.iconImage.image = [UIImage imageNamed:@"travel_biaoti"];
     } else {
         [titleView.titleBtn setTitle:@"关于自己" forState:UIControlStateNormal];
+        titleView.iconImage.image = [UIImage imageNamed:@"about"];
     }
     return titleView;
 }
