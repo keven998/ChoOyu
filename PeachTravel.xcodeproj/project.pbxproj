@@ -298,6 +298,7 @@
 		D955E3EA19E7A26D00047F2B /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D955E3E919E7A26D00047F2B /* CoreTelephony.framework */; };
 		D955E3EC19E7A27700047F2B /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D955E3EB19E7A27700047F2B /* libstdc++.dylib */; };
 		D955E3EE19E7A28500047F2B /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D955E3ED19E7A28500047F2B /* libz.dylib */; };
+		D963CB661B9FF751007480FA /* EditUserSignatureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D963CB651B9FF751007480FA /* EditUserSignatureViewController.m */; };
 		D9687CA21AC4095500B1C88E /* FootprintMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9687CA01AC4095500B1C88E /* FootprintMapViewController.m */; };
 		D9687CA31AC4095500B1C88E /* FootprintMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9687CA11AC4095500B1C88E /* FootprintMapViewController.xib */; };
 		D9687CA61AC409AB00B1C88E /* FootPrintViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9687CA51AC409AB00B1C88E /* FootPrintViewController.m */; };
@@ -1787,6 +1788,8 @@
 		D955E3E919E7A26D00047F2B /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		D955E3EB19E7A27700047F2B /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
 		D955E3ED19E7A28500047F2B /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		D963CB641B9FF751007480FA /* EditUserSignatureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditUserSignatureViewController.h; sourceTree = "<group>"; };
+		D963CB651B9FF751007480FA /* EditUserSignatureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditUserSignatureViewController.m; sourceTree = "<group>"; };
 		D9687C9F1AC4095500B1C88E /* FootprintMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FootprintMapViewController.h; path = ../UserInfo/FootprintMapViewController.h; sourceTree = "<group>"; };
 		D9687CA01AC4095500B1C88E /* FootprintMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FootprintMapViewController.m; path = ../UserInfo/FootprintMapViewController.m; sourceTree = "<group>"; };
 		D9687CA11AC4095500B1C88E /* FootprintMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FootprintMapViewController.xib; path = ../UserInfo/FootprintMapViewController.xib; sourceTree = "<group>"; };
@@ -5645,6 +5648,8 @@
 				27951B701AF86C46004D69BE /* PicCell.xib */,
 				27F404361AF0C67700CEA095 /* JobList */,
 				D9F46DCD1AC8EB1200972AE8 /* CityListTableViewController */,
+				D963CB641B9FF751007480FA /* EditUserSignatureViewController.h */,
+				D963CB651B9FF751007480FA /* EditUserSignatureViewController.m */,
 			);
 			path = UserInfo;
 			sourceTree = "<group>";
@@ -8539,6 +8544,7 @@
 				271C40C31B43D537007BF285 /* SpotDetailCell.m in Sources */,
 				D9A8002E1A80D52F005AD701 /* DestinationsView.m in Sources */,
 				D9A8015D1A80DD23005AD701 /* EMChooseViewController.m in Sources */,
+				D963CB661B9FF751007480FA /* EditUserSignatureViewController.m in Sources */,
 				D93B97F41B4BACAF0054EF50 /* TipsMessage.swift in Sources */,
 				D993C2631B12DF0C0088D568 /* IMPoiModel.swift in Sources */,
 				27FD23251B3BA19B00C2CFAA /* RefreshHeader.m in Sources */,

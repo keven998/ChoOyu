@@ -33,11 +33,12 @@
 #import "PlansListTableViewController.h"
 #import "MWPhotoBrowser.h"
 #import "UserAlbumViewController.h"
+#import "EditUserSignatureViewController.h"
 
 #define accountDetailHeaderCell          @"headerCell"
 #define otherUserInfoCell           @"otherCell"
 
-#define cellDataSource              @[@[@"名字"], @[@"名字", @"性别", @"生日", @"现住地"], @[@"计划", @"足迹", @"相册"],@[@"安全设置", @"修改密码"]]
+#define cellDataSource              @[@[@"头像"], @[@"名字", @"性别", @"生日", @"现住地"], @[@"填写签名"], @[@"足迹", @"相册"],@[@"安全设置", @"修改密码"]]
 
 @interface EditUserInfoTableViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource, SelectDelegate, ChangJobDelegate>
 
@@ -357,7 +358,6 @@
     
     [upManager putData:data key:key token:uploadToken
               complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
-                  
                   NSString *url = [resp objectForKey:@"url"];
                   NSString *urlSmall = [resp objectForKey:@"urlSmall"];
                   _accountManager.account.avatar = url;
@@ -390,7 +390,6 @@
             [_HUD dismiss];
             _HUD = nil;
             [SVProgressHUD showHint:@"修改成功"];
-            
         });
     }
 }
@@ -508,17 +507,24 @@
                     cell.cellDetail.text = amgr.account.residence;
                 }
             }
+            
         } else if (indexPath.section == 2) {
             if (indexPath.row == 0) {
-                cell.cellDetail.text = [NSString stringWithFormat:@"%ld 条", amgr.account.guideCnt];
-            } else if (indexPath.row == 1) {
+                if (![amgr.account.signature isBlankString]) {
+                    cell.cellDetail.text = amgr.account.signature;
+                } else {
+                    cell.cellDetail.text = @"未设置";
+                }
+            }
+        } else if (indexPath.section == 3) {
+           if (indexPath.row == 0) {
                 if (_tracksDesc) {
                     cell.cellDetail.text = _tracksDesc;
                 } else {
                     cell.cellDetail.text = @"未设置";
                 }
                 
-            } else if (indexPath.row == 2) {
+            } else if (indexPath.row == 1) {
                 if (amgr.account.userAlbum.count) {
                     cell.cellDetail.text = [NSString stringWithFormat:@"%zd张",amgr.account.userAlbum.count];
                 } else {
@@ -577,17 +583,18 @@
             [self presentViewController:navc animated:YES completion:nil];
             
         }
+        
     } else if (indexPath.section == 2) {
         if (indexPath.row == 0) {
-            PlansListTableViewController *myGuidesCtl = [[PlansListTableViewController alloc] initWithUserId:_accountManager.account.userId];
-            myGuidesCtl.userName = _accountManager.account.nickName;
-            [self.navigationController pushViewController:myGuidesCtl animated:YES];
-            
-        } else if (indexPath.row == 1) {
+            [self changeUserMark];
+        }
+        
+    } else if (indexPath.section == 3) {
+       if (indexPath.row == 0) {
             FootPrintViewController *footCtl = [[FootPrintViewController alloc] init];
             footCtl.userId = self.accountManager.account.userId;
             [self.navigationController pushViewController:footCtl animated:YES];
-        } else if (indexPath.row == 2) {
+        } else if (indexPath.row == 1) {
             [self viewUserPhotoAlbum];
         }
     } else {
@@ -596,7 +603,6 @@
             changePasswordCtl.verifyCaptchaType = UserBindTel;
             [self.navigationController presentViewController:[[TZNavigationViewController alloc] initWithRootViewController:changePasswordCtl] animated:YES completion:nil];
            
-            
         } else if (indexPath.row == 1) {
             ChangePasswordViewController *changePasswordCtl = [[ChangePasswordViewController alloc] init];
             [self presentViewController:[[UINavigationController alloc] initWithRootViewController:changePasswordCtl] animated:YES completion:nil];
@@ -714,14 +720,8 @@
 
 - (void)changeUserMark
 {
-    SignatureViewController *bsvc = [[SignatureViewController alloc]init];
-    bsvc.navTitle = @"个性签名";
-    bsvc.content = self.accountManager.account.signature;
-    bsvc.acceptEmptyContent = YES;
-    bsvc.saveEdition = ^(NSString *editText, saveComplteBlock(completed)) {
-        [self updateUserInfo:ChangeSignature withNewContent:editText success:completed];
-    };
-    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:bsvc] animated:YES completion:nil];
+    EditUserSignatureViewController *ctl = [[EditUserSignatureViewController alloc] init];
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:ctl] animated:YES completion:nil];
 }
 
 - (void)updateUserInfo:(UserInfoChangeType)changeType withNewContent:(NSString *)newText success:(saveComplteBlock)completed
@@ -746,19 +746,6 @@
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         }];
         
-    } else if (changeType == ChangeSignature) {
-        [accountManager asyncChangeSignature:newText completion:^(BOOL isSuccess, UserInfoInputError error, NSString *errStr) {
-            if (isSuccess) {
-                completed(YES);
-            } else if (errStr){
-                [SVProgressHUD showHint:errStr];
-                completed(NO);
-            } else {
-                [SVProgressHUD showHint:HTTP_FAILED_HINT];
-                completed(NO);
-            }
-            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        }];
     }
 }
 
