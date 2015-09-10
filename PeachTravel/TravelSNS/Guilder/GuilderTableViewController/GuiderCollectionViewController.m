@@ -157,8 +157,6 @@ static NSString * const reuseIdentifierHeader = @"expertCellHeader";
     return header;
 }
 
-
-
 - (void)goBack
 {
     if (self.navigationController.childViewControllers.count > 1) {

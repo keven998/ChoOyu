@@ -53,7 +53,7 @@
     self.subtitleLabel = tempLabel;
     [_contentView addSubview:self.subtitleLabel];
 
-//    [self updateSubviewsFrame];
+    [self updateSubviewsFrame];
 
 }
 
