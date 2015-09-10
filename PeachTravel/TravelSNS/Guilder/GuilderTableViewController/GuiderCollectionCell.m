@@ -42,7 +42,7 @@
     int i = 0;
     for (NSString *cityName in _guiderModel.allZone) {
         if(i > 0) {
-            NSString *newCityName = [NSString stringWithFormat:@"·%@",cityName];
+            NSString *newCityName = [NSString stringWithFormat:@" · %@",cityName];
             [allCityStr appendString:newCityName];
         } else {
             NSString *newCityName = [NSString stringWithFormat:@"%@",cityName];
