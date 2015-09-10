@@ -138,7 +138,7 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     BaseProfileHeaderView *headerView = [[BaseProfileHeaderView alloc] init];
-    headerView.image = [UIImage imageNamed:@"bg_master"];
+    headerView.image = [UIImage imageNamed:@"bg_profile_master"];
     headerView.frame = CGRectMake(0, 0, kWindowWidth, 310);
     headerView.userInfo = self.userInfo;
     self.tableView.tableHeaderView = headerView;
@@ -191,7 +191,7 @@
     [super viewDidAppear:animated];
     BOOL isNotShouldShowTipsView = [[[NSUserDefaults standardUserDefaults] objectForKey:@"kShowExpertTipsView"] boolValue];
     if (!isNotShouldShowTipsView && _shouldShowExpertTipsView) {
-//        [self showExpertTipsViewWithView:_beginTalk];
+
     }
 }
 

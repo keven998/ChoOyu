@@ -137,7 +137,7 @@
     
     UIButton *editButton = [[UIButton alloc] initWithFrame:CGRectMake(kWindowWidth - 56, 20, 40, 40)];
     [editButton setTitle:@"设置" forState:UIControlStateNormal];
-    [editButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [editButton setTitleColor:TZColor(100, 100, 100) forState:UIControlStateNormal];
     editButton.titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
     [editButton addTarget:self action:@selector(showSettingCtl:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:editButton];
@@ -146,7 +146,7 @@
     titleLab.text = @"我的·旅行派";
     titleLab.textAlignment = NSTextAlignmentCenter;
     titleLab.font = [UIFont boldSystemFontOfSize:18.0];
-    titleLab.textColor = [UIColor whiteColor];
+    titleLab.textColor = TZColor(50, 50, 50);
     [self.view addSubview:titleLab];
 }
 
@@ -154,7 +154,8 @@
 - (void)setupMainView
 {
     MineHeaderView *topView = [[MineHeaderView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, TopViewH)];
-    topView.image = [UIImage imageNamed:@"bg_master"];
+    topView.backgroundColor = TZColor(247, 250, 247);
+//    topView.image = [UIImage imageNamed:@"bg_myplan_master"];
     topView.contentMode = UIViewContentModeScaleToFill;
     self.topView = topView;
     [self.view addSubview:topView];

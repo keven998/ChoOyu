@@ -32,7 +32,7 @@
 {
     [super viewDidLoad];
     
-    self.webView.frame = CGRectMake(0, 64, kWindowWidth, kWindowHeight-64);
+    self.webView.frame = CGRectMake(0, 64, kWindowWidth, kWindowHeight-64-49);
     UIButton *back = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
     [back setImage:[UIImage imageNamed:@"common_icon_navigation_back_normal"] forState:UIControlStateNormal];
     [back setImage:[UIImage imageNamed:@"common_icon_navigation_back_highlight"] forState:UIControlStateHighlighted];

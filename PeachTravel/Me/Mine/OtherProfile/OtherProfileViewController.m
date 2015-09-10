@@ -173,7 +173,7 @@
     BaseProfileHeaderView *headerView = [[BaseProfileHeaderView alloc] init];
     headerView.frame = CGRectMake(0, 0, kWindowWidth, 310);
     headerView.userInfo = self.userInfo;
-    headerView.image = [UIImage imageNamed:@"bg_master"];
+    headerView.image = [UIImage imageNamed:@"bg_profile_master"];
     self.tableView.tableHeaderView = headerView;
 }
 
