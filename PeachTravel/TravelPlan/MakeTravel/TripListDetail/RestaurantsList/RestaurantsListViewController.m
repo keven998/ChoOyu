@@ -107,6 +107,7 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
 
 - (void)updateTableView
 {
+    NSLog(@"%@",self.tripDetail.restaurantsList);
     _dataSource = [self revertRestaurantListToGroup:self.tripDetail.restaurantsList];
     [self.tableView reloadData];
 }

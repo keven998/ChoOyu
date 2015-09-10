@@ -457,6 +457,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
             SuperPoi *tripPoi = [_selectedArray objectAtIndex:i];
             if ([tripPoi.poiId isEqualToString:poi.poiId]) {
                 [_selectedArray removeObjectAtIndex:i];
+                [_tripPoiList removeObjectAtIndex:i];
                 index = i;
                 break;
             }
@@ -494,6 +495,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     for (SuperPoi *oldPoi in _tripPoiList) {
         if ([poi.poiId isEqualToString:oldPoi.poiId]) {
             [_tripPoiList removeObject:oldPoi];
+
             break;
         }
     }
@@ -519,6 +521,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
             } else if (_poiType == kShoppingPoi) {
                 _tripDetail.shoppingList = _backTripDetail.shoppingList;
             }
+            NSLog(@"%@",_tripDetail.restaurantsList);
             _tripDetail.backUpJson = _backTripDetail.backUpJson;
             [_delegate finishEdit];
             [self dismissViewControllerAnimated:YES completion:nil];
