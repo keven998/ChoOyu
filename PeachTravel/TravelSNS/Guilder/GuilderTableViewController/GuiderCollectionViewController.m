@@ -12,7 +12,7 @@
 #import "GuiderDistribute.h"
 #import "GuiderProfileViewController.h"
 #import "ExpertManager.h"
-
+#import "ExpertCollectionCell.h"
 @interface GuiderCollectionViewController ()
 
 @property (nonatomic, strong) NSArray *dataSource;
@@ -22,7 +22,8 @@
 
 @implementation GuiderCollectionViewController
 
-static NSString * const reuseIdentifier = @"Cell";
+static NSString * const reuseIdentifier = @"expertCell";
+static NSString * const reuseIdentifierHeader = @"expertCellHeader";
 
 #pragma mark - lifeCycle
 
@@ -35,15 +36,17 @@ static NSString * const reuseIdentifier = @"Cell";
     
     UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
     layout.minimumLineSpacing = 20;
+    layout.footerReferenceSize = CGSizeMake(kWindowWidth, 16);
     
-    layout.itemSize = CGSizeMake(self.view.bounds.size.width, 540*kWindowWidth/414);
+    layout.itemSize = CGSizeMake(self.view.bounds.size.width, 160);
     // Register cell classes
-    [self.collectionView registerNib:[UINib nibWithNibName:@"GuiderCollectionCell" bundle:nil] forCellWithReuseIdentifier:reuseIdentifier];
+    [self.collectionView registerNib:[UINib nibWithNibName:@"ExpertCollectionCell" bundle:nil] forCellWithReuseIdentifier:reuseIdentifier];
+    [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:reuseIdentifierHeader];
     
     // 传入的时候刷新即可
     [self loadTravelers:_distributionArea withPageNo:0];
     
-
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -117,21 +120,21 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return 1;
+    return _dataSource.count;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return _dataSource.count;
+    return 1;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     // 初始化cell并对cell赋值
-    GuiderCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+    ExpertCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     
     // 达人模型,dataSource是达人列表数组
-    ExpertModel * expert = self.dataSource[indexPath.row];
+    ExpertModel * expert = self.dataSource[indexPath.section];
     cell.guiderModel = expert;
     return cell;
 }
@@ -141,11 +144,20 @@ static NSString * const reuseIdentifier = @"Cell";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     GuiderProfileViewController *guiderCtl = [[GuiderProfileViewController alloc] init];
-    FrendModel *model = _dataSource[indexPath.row];
+    FrendModel *model = _dataSource[indexPath.section];
     guiderCtl.userId = model.userId;
     guiderCtl.shouldShowExpertTipsView = YES;
     [self.navigationController pushViewController:guiderCtl animated:YES];
 }
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
+{
+    UICollectionReusableView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:reuseIdentifierHeader forIndexPath:indexPath];
+    header.backgroundColor = APP_PAGE_COLOR;
+    return header;
+}
+
+
 
 - (void)goBack
 {

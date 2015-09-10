@@ -14,8 +14,6 @@
 
 - (void)finishEdit;
 
-- (void)finishEditWithTripDetailArray:(NSArray *)tripDetailArray;
-
 @end
 
 @interface PoisOfCityViewController : UIViewController

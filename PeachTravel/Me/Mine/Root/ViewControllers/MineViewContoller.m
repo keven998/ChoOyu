@@ -133,7 +133,7 @@
     bgView.alpha = 0;
     self.navBgView = bgView;
     bgView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_master"]];
-    [self.view addSubview:bgView];
+//    [self.view addSubview:bgView];
     
     UIButton *editButton = [[UIButton alloc] initWithFrame:CGRectMake(kWindowWidth - 56, 20, 40, 40)];
     [editButton setTitle:@"设置" forState:UIControlStateNormal];
