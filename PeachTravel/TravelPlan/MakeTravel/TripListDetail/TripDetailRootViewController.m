@@ -241,7 +241,7 @@
 - (UISegmentedControl *)segmentedControl
 {
     if (!_segmentedControl) {
-        _segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"行程", @"想去"]];
+        _segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"行程", @"收集"]];
         _segmentedControl.selectedSegmentIndex = 0;
         _segmentedControl.frame = CGRectMake(self.view.bounds.size.width/2-100, 7 + 64, 200, 30);
         [_segmentedControl addTarget:self action:@selector(changePage:) forControlEvents:UIControlEventValueChanged];
