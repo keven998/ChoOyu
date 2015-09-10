@@ -19,7 +19,11 @@ extension FrendManager {
         manager.requestSerializer = requestSerializer
         manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept")
         manager.requestSerializer.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-        manager.requestSerializer.setValue("\(AccountManager.shareAccountManager().account.userId)", forHTTPHeaderField: "UserId")
+        
+        if(AccountManager.shareAccountManager().isLogin())
+        {
+            manager.requestSerializer.setValue("\(AccountManager.shareAccountManager().account.userId)", forHTTPHeaderField: "UserId")
+        }
         var url = "\(API_USERS)\(userId)"
         
         println("\(url)")
@@ -57,7 +61,12 @@ extension FrendManager {
         manager.requestSerializer = requestSerializer
         manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept")
         manager.requestSerializer.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-        manager.requestSerializer.setValue("\(AccountManager.shareAccountManager().account.userId)", forHTTPHeaderField: "UserId")
+        
+        if(AccountManager.shareAccountManager().isLogin())
+        {
+            manager.requestSerializer.setValue("\(AccountManager.shareAccountManager().account.userId)", forHTTPHeaderField: "UserId")
+        }
+
         var url = "\(API_USERS)\(userId)/albums"
         
         println("\(url)")
