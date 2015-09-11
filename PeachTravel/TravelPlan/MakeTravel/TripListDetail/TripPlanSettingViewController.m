@@ -33,6 +33,9 @@
     UIView *_headerView;
 }
 @property (nonatomic, strong) ChatRecoredListTableViewController *chatRecordListCtl;
+//disappear 的时候是不是应该显示出 navigationbar
+@property (nonatomic) BOOL shouldNotShowNavigationBarWhenDisappear;
+
 @end
 
 @implementation TripPlanSettingViewController
@@ -60,7 +63,10 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self.frostedViewController.navigationController setNavigationBarHidden:NO animated:YES];
+    if (!_shouldNotShowNavigationBarWhenDisappear) {
+        [self.frostedViewController.navigationController setNavigationBarHidden:NO animated:YES];
+    }
+    _shouldNotShowNavigationBarWhenDisappear = NO;
     [MobClick endLogPageView:@"page_plan_setting"];
 }
 
@@ -86,6 +92,7 @@
 
 - (void)editDestinationCity
 {
+    _shouldNotShowNavigationBarWhenDisappear = YES;
     Destinations *destinations = [[Destinations alloc] init];
     MakePlanViewController *makePlanCtl = [[MakePlanViewController alloc] init];
     ForeignViewController *foreignCtl = [[ForeignViewController alloc] init];
@@ -269,7 +276,8 @@
 {
     _chatRecordListCtl = [[ChatRecoredListTableViewController alloc] init];
     _chatRecordListCtl.delegate = self;
-    [self.frostedViewController.navigationController pushViewController:_chatRecordListCtl animated:YES];
+    _shouldNotShowNavigationBarWhenDisappear = YES;
+    [self.frostedViewController presentViewController:[[UINavigationController alloc] initWithRootViewController:_chatRecordListCtl] animated:YES completion:nil];
 }
 
 - (IBAction)share:(id)sender
@@ -281,6 +289,7 @@
 }
 
 #pragma mark - CreateConversationDelegate
+
 - (void)createConversationSuccessWithChatter:(NSInteger)chatterId chatType:(IMChatType)chatType chatTitle:(NSString *)chatTitle
 {
     TaoziChatMessageBaseViewController *taoziMessageCtl = [[TaoziChatMessageBaseViewController alloc] init];

@@ -43,7 +43,8 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
 {
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
-    
+    self.navigationItem.title = [NSString stringWithFormat:@"第%d天", _currentDay+1];
+
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-64) style:UITableViewStyleGrouped];
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _tableView.dataSource = self;
@@ -147,36 +148,6 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
     
     [MobClick endLogPageView:@"page_lxp_day_schedule_detail"];
 }
-
-- (void)setTitleStr:(NSString *)titleStr
-{
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds)-150, 40)];
-    titleLabel.numberOfLines = 2.0;
-    titleLabel.textAlignment = NSTextAlignmentCenter;
-    titleLabel.textColor = [UIColor whiteColor];
-    
-    NSString *dayStr;
-    if (_currentDay < 9) {
-        dayStr = [NSString stringWithFormat:@"0%d.Day详情", _currentDay+1];
-    } else {
-        dayStr = [NSString stringWithFormat:@"%d.Day详情", _currentDay+1];
-    }
-
-    NSMutableParagraphStyle *ps = [[NSMutableParagraphStyle alloc] init];
-    ps.lineSpacing = 3.0;
-    ps.alignment = NSTextAlignmentCenter;
-    NSDictionary *attribs = @{NSParagraphStyleAttributeName:ps};
-    
-    NSString *totalStr = [NSString stringWithFormat:@"%@\n%@", dayStr, titleStr];
-    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString: totalStr attributes:attribs];
-    
-    [attrStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:15] range:NSMakeRange(0, dayStr.length)];
-    [attrStr addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:11] range:NSMakeRange(dayStr.length+1, totalStr.length-dayStr.length-1)];
-    
-    titleLabel.attributedText = attrStr;
-    self.navigationItem.titleView = titleLabel;
-}
-
 
 - (void)didReceiveMemoryWarning
 {

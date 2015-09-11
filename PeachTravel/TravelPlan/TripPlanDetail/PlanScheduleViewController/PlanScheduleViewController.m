@@ -186,7 +186,6 @@
     UIView * sourceView = [tableView cellForRowAtIndexPath:indexPath];
     int y = [sourceView convertPoint:CGPointMake(1, 1) toView:self.tableView].y;
     davc.sep = [self.tableView convertPoint:CGPointMake(0, y) toView:self.view].y + 64 + 45;
-    davc.titleStr = title;
     [self.frostedViewController.navigationController pushViewController:davc animated:NO];
 }
 

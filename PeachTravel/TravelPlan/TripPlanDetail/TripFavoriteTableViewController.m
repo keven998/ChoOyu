@@ -22,8 +22,7 @@
 {
     [super viewDidLoad];
     self.tableView.rowHeight = 70;
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    self.view.backgroundColor = [UIColor redColor];
+    self.tableView.backgroundColor = [UIColor whiteColor];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
     self.tableView.separatorColor = COLOR_LINE;
 }
