@@ -148,6 +148,7 @@
     } else if ([genderStr isEqualToString:@"B"]) {
         _gender = Unknown;
     }
+    [[AccountDaoHelper shareInstance] addAccount2DB:self];
 }
 
 - (void)setFootprints:(NSMutableArray *)footprints
