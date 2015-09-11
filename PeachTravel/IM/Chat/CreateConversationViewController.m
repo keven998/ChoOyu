@@ -36,13 +36,13 @@
     [self.view addSubview:self.contactTableView];
     
     UIBarButtonItem *confirm = [[UIBarButtonItem alloc]initWithTitle:@"确定 " style:UIBarButtonItemStylePlain target:self action:@selector(createConversation:)];
-    confirm.tintColor = [UIColor whiteColor];
+    confirm.tintColor = COLOR_TEXT_II;
     self.navigationItem.rightBarButtonItem = confirm;
     self.navigationItem.rightBarButtonItem.enabled = NO;
     
     if (self.navigationController.viewControllers.count == 1) {
         UIBarButtonItem *backBtn = [[UIBarButtonItem alloc]initWithTitle:@" 取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismissCtl:)];
-        backBtn.tintColor = [UIColor whiteColor];
+        backBtn.tintColor = COLOR_TEXT_II;
         self.navigationItem.leftBarButtonItem = backBtn;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismissCtl:) name:userDidLogoutNoti object:nil];
     }
@@ -72,7 +72,7 @@
 - (SelectContactScrollView *)selectContactView
 {
     if (!_selectContactView) {
-        _selectContactView = [[SelectContactScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 90)];
+        _selectContactView = [[SelectContactScrollView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, 90)];
         _selectContactView.delegate = self;
         _selectContactView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         _selectContactView.backgroundColor = [UIColor whiteColor];
@@ -84,7 +84,7 @@
 - (UITableView *)contactTableView
 {
     if (!_contactTableView) {
-        _contactTableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+        _contactTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.bounds.size.height-64) style:UITableViewStyleGrouped];
         _contactTableView.dataSource = self;
         _contactTableView.delegate = self;
         _contactTableView.separatorColor = COLOR_LINE;
