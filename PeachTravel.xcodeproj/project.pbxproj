@@ -695,6 +695,7 @@
 		D9E9D2151BA2B28100FB6C07 /* icon_chat_group@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E9D2131BA2B28100FB6C07 /* icon_chat_group@3x.png */; };
 		D9E9D2181BA2CCE000FB6C07 /* collection_flower@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E9D2161BA2CCE000FB6C07 /* collection_flower@2x.png */; };
 		D9E9D2191BA2CCE000FB6C07 /* collection_flower@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E9D2171BA2CCE000FB6C07 /* collection_flower@3x.png */; };
+		D9E9D2491BA2F6F800FB6C07 /* ic_msg_sending@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E9D2481BA2F6F800FB6C07 /* ic_msg_sending@2x.png */; };
 		D9E9F79619FF6F6A003F70F6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9E9F79519FF6F6A003F70F6 /* MapKit.framework */; };
 		D9E9F79819FF6F71003F70F6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9E9F79719FF6F71003F70F6 /* CoreLocation.framework */; };
 		D9E9F7A419FFDCB9003F70F6 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9E9F7A219FFDCB9003F70F6 /* AddressBook.framework */; };
@@ -2447,6 +2448,7 @@
 		D9E9D2131BA2B28100FB6C07 /* icon_chat_group@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_chat_group@3x.png"; path = "audio/icon_chat_group@3x.png"; sourceTree = "<group>"; };
 		D9E9D2161BA2CCE000FB6C07 /* collection_flower@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "collection_flower@2x.png"; sourceTree = "<group>"; };
 		D9E9D2171BA2CCE000FB6C07 /* collection_flower@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "collection_flower@3x.png"; sourceTree = "<group>"; };
+		D9E9D2481BA2F6F800FB6C07 /* ic_msg_sending@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_msg_sending@2x.png"; sourceTree = "<group>"; };
 		D9E9F79519FF6F6A003F70F6 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		D9E9F79719FF6F71003F70F6 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		D9E9F7A219FFDCB9003F70F6 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
@@ -7127,6 +7129,7 @@
 		E6F1885D1B845F4900232EEB /* 聊天页 */ = {
 			isa = PBXGroup;
 			children = (
+				D9E9D2481BA2F6F800FB6C07 /* ic_msg_sending@2x.png */,
 				D9E9D2121BA2B28100FB6C07 /* icon_chat_group@2x.png */,
 				D9E9D2131BA2B28100FB6C07 /* icon_chat_group@3x.png */,
 				E6F1885E1B845F4900232EEB /* audio */,
@@ -7859,6 +7862,7 @@
 				D9A800221A80D52F005AD701 /* DestinationCollectionHeaderView.xib in Resources */,
 				E6381BFB1B66269000CF73AA /* Loading_Animation_final38@2x.png in Resources */,
 				E6F18A2A1B845F4900232EEB /* lxp_search_bg_highlight@3x.png in Resources */,
+				D9E9D2491BA2F6F800FB6C07 /* ic_msg_sending@2x.png in Resources */,
 				E6F189F31B845F4900232EEB /* Default-375w-667h@2x~iphone.png in Resources */,
 				D917DAD71A8B4B170039720A /* ic_guide_dot2@2x.png in Resources */,
 				D90A9B4F1B5627C400E9F37C /* Loading_Animation_final36@3x.png in Resources */,
