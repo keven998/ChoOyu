@@ -164,6 +164,7 @@
         if (indexPath.row == 0) {
             FeedbackController *feedbackCtl = [[FeedbackController alloc] init];
             [self.navigationController pushViewController:feedbackCtl animated:YES];
+            
         } else if (indexPath.row == 1) {
             SuperWebViewController *aboutMeCtl = [[SuperWebViewController alloc] init];
             aboutMeCtl.titleStr = @"关于我们";
