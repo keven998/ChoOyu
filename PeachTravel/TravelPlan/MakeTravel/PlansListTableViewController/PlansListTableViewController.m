@@ -157,6 +157,7 @@ static NSString *reusableCell = @"myGuidesCell";
 - (void)dealloc
 {
     [self.refreshControl endRefreshing];
+    self.tableView.delegate = nil;
 }
 
 - (void)goBack

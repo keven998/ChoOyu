@@ -38,7 +38,7 @@ static NSString * const reuseIdentifierHeader = @"expertCellHeader";
     layout.minimumLineSpacing = 20;
     layout.footerReferenceSize = CGSizeMake(kWindowWidth, 16);
     
-    layout.itemSize = CGSizeMake(self.view.bounds.size.width, 160);
+    layout.itemSize = CGSizeMake(self.view.bounds.size.width, 150);
     // Register cell classes
     [self.collectionView registerNib:[UINib nibWithNibName:@"ExpertCollectionCell" bundle:nil] forCellWithReuseIdentifier:reuseIdentifier];
     [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:reuseIdentifierHeader];
@@ -109,6 +109,7 @@ static NSString * const reuseIdentifierHeader = @"expertCellHeader";
         [hud hideTZHUD];
         if (isSuccess) {
             _dataSource = expertsArray;
+            NSLog(@"%@",expertsArray);
             [self.collectionView reloadData];
         } else {
             [SVProgressHUD showErrorWithStatus: HTTP_FAILED_HINT];
