@@ -182,7 +182,6 @@
     DayAgendaViewController *davc = [[DayAgendaViewController alloc] initWithDay:indexPath.row];
     davc.tripDetail = _tripDetail;
     davc.sceenImage = [self imageViewFromScreen];
-    davc.titleStr = [NSString stringWithFormat:@"第%ld天", indexPath.row+1];
     
     UIView * sourceView = [tableView cellForRowAtIndexPath:indexPath];
     int y = [sourceView convertPoint:CGPointMake(1, 1) toView:self.tableView].y;

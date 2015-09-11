@@ -43,7 +43,8 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
 {
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
-    self.navigationItem.title = _titleStr;
+    self.navigationItem.title = [NSString stringWithFormat:@"第%d天", _currentDay+1];
+
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-64) style:UITableViewStyleGrouped];
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _tableView.dataSource = self;
