@@ -63,7 +63,6 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
     
     self.foreignTableView.dataSource = self;
     self.foreignTableView.delegate = self;
-    self.foreignTableView.contentInset = UIEdgeInsetsMake(0, 0, 85, 0);
     self.foreignTableView.showsVerticalScrollIndicator = NO;
     self.automaticallyAdjustsScrollViewInsets = NO;
 

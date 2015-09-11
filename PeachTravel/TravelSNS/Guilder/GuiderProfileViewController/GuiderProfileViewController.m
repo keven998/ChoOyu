@@ -138,7 +138,7 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     BaseProfileHeaderView *headerView = [[BaseProfileHeaderView alloc] init];
-    headerView.image = [UIImage imageNamed:@"bg_master"];
+    headerView.image = [UIImage imageNamed:@"bg_profile_master"];
     headerView.frame = CGRectMake(0, 0, kWindowWidth, 310);
     headerView.userInfo = self.userInfo;
     self.tableView.tableHeaderView = headerView;
@@ -191,7 +191,7 @@
     [super viewDidAppear:animated];
     BOOL isNotShouldShowTipsView = [[[NSUserDefaults standardUserDefaults] objectForKey:@"kShowExpertTipsView"] boolValue];
     if (!isNotShouldShowTipsView && _shouldShowExpertTipsView) {
-//        [self showExpertTipsViewWithView:_beginTalk];
+
     }
 }
 
@@ -215,35 +215,13 @@
 
 - (void)loadUserAlbum
 {
-    AccountManager *account = [AccountManager shareAccountManager];
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)account.account.userId] forHTTPHeaderField:@"UserId"];
-    
-    NSString *urlStr = [NSString stringWithFormat:@"%@%ld/albums", API_USERS, (long)self.userId];
-    
-    [manager GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-        if (code == 0) {
-            [self paraseUserAlbum:[responseObject objectForKey:@"result"]];
+    [FrendManager loadUserAlbumFromServer:self.userId completion:^(BOOL isSuccess, NSInteger userId, NSArray * __nonnull albumArray) {
+        if (isSuccess) {
+            NSLog(@"%@",albumArray);
+            _userInfo.userAlbum = albumArray;
+            [self.tableView reloadData];
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
     }];
-}
-
-- (void)paraseUserAlbum:(NSArray *)albumArray
-{
-    for (id album in albumArray) {
-        [_albumArray addObject:[[AlbumImage alloc] initWithJson:album]];
-    }
-    _userInfo.userAlbum = _albumArray;
-    
-    [self.tableView reloadData];
 }
 
 #pragma mark - DataSource or Delegate
@@ -268,7 +246,7 @@
         return cell;
     } else if (indexPath.section == 1) {
         GuiderProfileAlbumCell *albumCell = [[GuiderProfileAlbumCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-        albumCell.albumArray = self.albumArray;
+        albumCell.albumArray = self.userInfo.userAlbum;
         albumCell.selectionStyle = UITableViewCellSelectionStyleNone;
         return albumCell;
     } else if (indexPath.section == 2) {

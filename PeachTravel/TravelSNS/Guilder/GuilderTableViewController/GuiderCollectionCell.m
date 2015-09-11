@@ -22,6 +22,9 @@
 {
     _guiderModel = guiderModel;
     
+//    _guiderModel.allZone = @[@"上海",@"北京",@"安徽",@"黑龙江"];
+//    _guiderModel.profile = @"我真的很牛逼,,不管你信不信,反正我是信了";
+    
     _titleLabel.text = _guiderModel.nickName;
     [_levelBtn setTitle:[NSString stringWithFormat:@"V%ld", (long)_guiderModel.level] forState:UIControlStateNormal];
     
@@ -33,15 +36,34 @@
     }
     _subtitleLabel.text = subtitle;
     
-    
     NSMutableAttributedString *cityStr = [[NSMutableAttributedString alloc] initWithString:@"服务城市: "];
+    
+    NSMutableString *allCityStr = [NSMutableString string];
+    int i = 0;
+    for (NSString *cityName in _guiderModel.allZone) {
+        if(i > 0) {
+            NSString *newCityName = [NSString stringWithFormat:@" · %@",cityName];
+            [allCityStr appendString:newCityName];
+        } else {
+            NSString *newCityName = [NSString stringWithFormat:@"%@",cityName];
+            [allCityStr appendString:newCityName];
+        }
+        i++;
+    }
+    
+    NSAttributedString *allCityAttr = [[NSAttributedString alloc] initWithString:allCityStr];
+    [cityStr appendAttributedString:allCityAttr];
 
     [cityStr addAttribute:NSForegroundColorAttributeName value:APP_THEME_COLOR range:NSMakeRange(0, 5)];
+    [cityStr addAttribute:NSForegroundColorAttributeName value:TEXT_COLOR_TITLE range:NSMakeRange(5, cityStr.length-5)];
     _cityLabel.attributedText = cityStr;
     
-    NSMutableAttributedString *commentStr = [[NSMutableAttributedString alloc] initWithString:@"派派点评: "];
+    
+    NSString *realCommentStr = [NSString stringWithFormat:@"派派点评: %@",_guiderModel.profile];
+    NSMutableAttributedString *commentStr = [[NSMutableAttributedString alloc] initWithString:realCommentStr];
     
     [commentStr addAttribute:NSForegroundColorAttributeName value:APP_THEME_COLOR range:NSMakeRange(0, 5)];
+    [commentStr addAttribute:NSForegroundColorAttributeName value:TEXT_COLOR_TITLE range:NSMakeRange(5, commentStr.length-5)];
     _commentLabel.attributedText = commentStr;
     
     [_headerImageView sd_setImageWithURL:[NSURL URLWithString:_guiderModel.avatar] placeholderImage:nil];

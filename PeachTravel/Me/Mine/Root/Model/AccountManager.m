@@ -830,4 +830,52 @@
     return @{@"headerKeys":sectionHeadsKeys, @"content":arrayForArrays};
 }
 
+
+/**
+ *  异步加载用户相册
+ *
+ *  @param userId     用户Id
+ *  @param completion 完成后回调
+ *
+ *  @return 
+ */
+- (NSArray *)asyncLoadUserAlbum:(NSInteger)userId completion:(void (^)(BOOL, NSString *))completion
+{
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@%ld/albums", API_USERS, accountManager.account.userId];
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+
+    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            NSArray *albumArray = [responseObject objectForKey:@"result"];
+            for (id album in albumArray) {
+                [array addObject:[[AlbumImage alloc] initWithJson:album]];
+            }
+            AccountManager *accountManager = [AccountManager shareAccountManager];
+            accountManager.account.userAlbum = array;
+            completion(YES,nil);
+        } else {
+            completion(NO,nil);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completion(NO,nil);
+    }];
+
+    return [array mutableCopy];
+}
+
 @end

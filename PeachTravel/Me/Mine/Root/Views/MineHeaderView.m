@@ -35,25 +35,25 @@
     // 2.昵称
     UILabel *nickName = [[UILabel alloc] init];
     nickName.font = [UIFont boldSystemFontOfSize:16.0];
-    nickName.textColor = UIColorFromRGB(0xFFFFFF);
+    nickName.textColor = TZColor(50, 50, 50);
     self.nickName = nickName;
     [_contentView addSubview:nickName];
     
     // 3.用户Id
     UILabel *userId = [[UILabel alloc] init];
     userId.font = [UIFont boldSystemFontOfSize:12.0];
-    userId.textColor = UIColorFromRGB(0xFFFFFF);
+    userId.textColor = TZColor(50, 50, 50);
     self.userId = userId;
     [_contentView addSubview:userId];
     
     // 4.性别
     UILabel *tempLabel = [[UILabel alloc] init];
     tempLabel.font = [UIFont boldSystemFontOfSize:12.0];
-    tempLabel.textColor = UIColorFromRGB(0xFFFFFF);
+    tempLabel.textColor = TZColor(100, 100, 100);
     self.subtitleLabel = tempLabel;
     [_contentView addSubview:self.subtitleLabel];
 
-//    [self updateSubviewsFrame];
+    [self updateSubviewsFrame];
 
 }
 

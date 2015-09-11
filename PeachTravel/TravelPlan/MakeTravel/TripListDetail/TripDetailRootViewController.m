@@ -241,7 +241,7 @@
 - (UISegmentedControl *)segmentedControl
 {
     if (!_segmentedControl) {
-        _segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"行程", @"想去"]];
+        _segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"行程", @"收集"]];
         _segmentedControl.selectedSegmentIndex = 0;
         _segmentedControl.frame = CGRectMake(self.view.bounds.size.width/2-100, 7 + 64, 200, 30);
         [_segmentedControl addTarget:self action:@selector(changePage:) forControlEvents:UIControlEventValueChanged];
@@ -657,8 +657,8 @@
     _spotsListCtl = [[PlanScheduleViewController alloc] init];
     _tripFavoriteCtl = [[TripFavoriteTableViewController alloc] init];
     _tripFavoriteCtl.canEdit = _canEdit;
-    [_spotsListCtl.view setFrame:CGRectMake(0, 44+64, CGRectGetWidth(self.frostedViewController.view.bounds), CGRectGetHeight(self.frostedViewController.view.bounds)-44-64)];
-    [_tripFavoriteCtl.view setFrame:CGRectMake(0, 44+64, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds)-44-64)];
+    [_spotsListCtl.view setFrame:CGRectMake(0, 44+64, CGRectGetWidth(self.frostedViewController.view.bounds), CGRectGetHeight(self.frostedViewController.view.bounds)-44-64-49)];
+    [_tripFavoriteCtl.view setFrame:CGRectMake(0, 44+64, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds)-44-64-49)];
     [self addChildViewController:_spotsListCtl];
     [self.view addSubview:_spotsListCtl.view];
     

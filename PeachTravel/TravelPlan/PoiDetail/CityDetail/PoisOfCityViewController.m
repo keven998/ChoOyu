@@ -457,6 +457,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
             SuperPoi *tripPoi = [_selectedArray objectAtIndex:i];
             if ([tripPoi.poiId isEqualToString:poi.poiId]) {
                 [_selectedArray removeObjectAtIndex:i];
+                [_tripPoiList removeObjectAtIndex:i];
                 index = i;
                 break;
             }
@@ -494,6 +495,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     for (SuperPoi *oldPoi in _tripPoiList) {
         if ([poi.poiId isEqualToString:oldPoi.poiId]) {
             [_tripPoiList removeObject:oldPoi];
+
             break;
         }
     }
@@ -519,6 +521,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
             } else if (_poiType == kShoppingPoi) {
                 _tripDetail.shoppingList = _backTripDetail.shoppingList;
             }
+            NSLog(@"%@",_tripDetail.restaurantsList);
             _tripDetail.backUpJson = _backTripDetail.backUpJson;
             [_delegate finishEdit];
             [self dismissViewControllerAnimated:YES completion:nil];
@@ -726,7 +729,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     NSLog(@"%@",poi);
     TripPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:poisOfCityCellIdentifier forIndexPath:indexPath];
     cell.tripPoi = poi;
-    [cell.actionBtn setTitle:@"想去" forState:UIControlStateNormal];
+    [cell.actionBtn setTitle:@"收集" forState:UIControlStateNormal];
     [cell.actionBtn setTitle:@"已添加" forState:UIControlStateSelected];
     //    如果从攻略列表进来想要添加美食或酒店
     if (_shouldEdit) {

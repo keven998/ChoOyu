@@ -52,7 +52,7 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"想去的购物";
+    self.navigationItem.title = @"收集的购物";
     self.view.backgroundColor = APP_PAGE_COLOR;
     
     self.isClosed = YES;
@@ -230,7 +230,7 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
         collection.tag = section;
         CGFloat collectionW = 52;
         collection.frame = CGRectMake(kWindowWidth - 10 - collectionW, 8.5, collectionW, 26);
-        [collection setTitle:@"＋想去" forState:UIControlStateNormal];
+        [collection setTitle:@"＋收集" forState:UIControlStateNormal];
         collection.titleLabel.font = [UIFont systemFontOfSize:12.0];
         [collection setTitleColor:COLOR_TEXT_III forState:UIControlStateNormal];
         [collection setTitleColor:COLOR_DISABLE forState:UIControlStateHighlighted];
