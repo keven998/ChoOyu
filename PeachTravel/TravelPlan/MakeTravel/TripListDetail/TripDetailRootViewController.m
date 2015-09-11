@@ -847,6 +847,7 @@
 
 - (void)sendCancel
 {
+    [self dismissPopup];
 }
 
 /**

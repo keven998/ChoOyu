@@ -45,7 +45,6 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 {
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
-    self.automaticallyAdjustsScrollViewInsets = NO;
     _searchBar = [[UISearchBar alloc]init];
     _searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _searchBar.delegate = self;
@@ -180,7 +179,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-64-49)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-64)];
         _tableView.backgroundColor = APP_PAGE_COLOR;
         
         [_tableView registerNib:[UINib nibWithNibName:@"SearchResultTableViewCell" bundle:nil]forCellReuseIdentifier:reusableCellIdentifier];
@@ -695,7 +694,6 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 - (void)sendCancel
 {
     [self dismissPopup];
-    [self performSelector:@selector(dismissAfterSended) withObject:nil afterDelay:0.5];
 }
 
 /**

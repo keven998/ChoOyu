@@ -46,7 +46,6 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     NSMutableArray *barItems = [[NSMutableArray alloc] init];
     UIButton *planBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20, 44)];
     [planBtn setImage:[UIImage imageNamed:@"city_navigationbar_add_default.png"] forState:UIControlStateNormal];
-    [planBtn setImage:[UIImage imageNamed:@"city_navigationbar_add_hilighted.png"] forState:UIControlStateHighlighted];
     [planBtn addTarget:self action:@selector(makePlan) forControlEvents:UIControlEventTouchUpInside];
     planBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 4, 0, 0);
     [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:planBtn]];

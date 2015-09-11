@@ -279,6 +279,7 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
 
 - (void)sendCancel
 {
+    [self dismissPopup];
 }
 
 /**

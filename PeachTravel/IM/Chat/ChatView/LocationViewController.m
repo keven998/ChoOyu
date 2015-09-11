@@ -75,7 +75,7 @@ static LocationViewController *defaultLocation = nil;
         _mapView.showsUserLocation = YES;//显示当前位置
         
         UIBarButtonItem * sendButton = [[UIBarButtonItem alloc]initWithTitle:@"发送 " style:UIBarButtonItemStylePlain target:self action:@selector(sendLocation)];
-        sendButton.tintColor = [UIColor whiteColor];
+        sendButton.tintColor = COLOR_TEXT_II;
         self.navigationItem.rightBarButtonItem = sendButton;
         self.navigationItem.rightBarButtonItem.enabled = NO;
         
@@ -86,7 +86,6 @@ static LocationViewController *defaultLocation = nil;
             [location requestWhenInUseAuthorization];
         }
     } else {
-        
         [self removeToLocation:_currentLocationCoordinate];
     }
 }
@@ -211,9 +210,6 @@ static LocationViewController *defaultLocation = nil;
     CGRect rect = CGRectMake(0, y, kWindowWidth, kWindowWidth*2/3);
     CGImageRef imageRefRect =CGImageCreateWithImageInRect(imageRef, rect);
     UIImage *sendImage = [[UIImage alloc] initWithCGImage:imageRefRect];
-    //    NSData *imageData = UIImagePNGRepresentation(sendImage);
-    //    sendImage = [UIImage imageWithData:imageData];
-    
     return sendImage;
 }
 
