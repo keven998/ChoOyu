@@ -275,7 +275,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     EAIntroPage *page1 = [EAIntroPage page];
     EAIntroPage *page2 = [EAIntroPage page];
     EAIntroPage *page3 = [EAIntroPage page];
-    EAIntroPage *page4 = [EAIntroPage page];
 
     {
         NSString *imageName;
@@ -283,8 +282,11 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         NSLog(@"%lf", self.view.frame.size.height);
         if (self.view.frame.size.height == 480) {
             imageName =  @"introduce_4_1.png";
-        } else {
+        } else if (self.view.frame.size.height == 667) {
             imageName = @"introduce_6_1.png";
+        }
+        else {
+            imageName = @"introduce_6p_1.png";
         }
         UIImageView *image = [[UIImageView alloc] initWithFrame:self.view.bounds];
         image.image = [UIImage imageNamed:imageName];
@@ -295,8 +297,11 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         NSString *imageName;
         if (self.view.frame.size.height == 480) {
             imageName =  @"introduce_4_2.png";
-        } else {
+        } else if (self.view.frame.size.height == 667) {
             imageName = @"introduce_6_2.png";
+        }
+        else {
+            imageName = @"introduce_6p_2.png";
         }
         UIImageView *image = [[UIImageView alloc] initWithFrame:self.view.bounds];
         image.image = [UIImage imageNamed:imageName];
@@ -307,29 +312,22 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         NSString *imageName;
         if (self.view.frame.size.height == 480) {
             imageName =  @"introduce_4_3.png";
-        } else {
+        } else if (self.view.frame.size.height == 667) {
             imageName = @"introduce_6_3.png";
+        }
+        else {
+            imageName = @"introduce_6p_3.png";
         }
         UIImageView *image = [[UIImageView alloc] initWithFrame:self.view.bounds];
         image.image = [UIImage imageNamed:imageName];
         page3.bgImage = image;
     }
     
-    {
-        NSString *imageName;
-        if (self.view.frame.size.height == 480) {
-            imageName =  @"introduce_4_4.png";
-        } else {
-            imageName = @"introduce_6_4.png";
-        }
-        UIImageView *image = [[UIImageView alloc] initWithFrame:self.view.bounds];
-        image.image = [UIImage imageNamed:imageName];
-        page4.bgImage = image;
-    }
-    
-    EAIntroView *intro = [[EAIntroView alloc] initWithFrame:self.view.bounds andPages:@[page1,page2,page3,page4]];
+    EAIntroView *intro = [[EAIntroView alloc] initWithFrame:self.view.bounds andPages:@[page1,page2,page3]];
     [intro setDelegate:self];
-    
+    intro.hideOffscreenPages = YES;
+    intro.skipButton.hidden = YES;
+    intro.pageControl.hidden = YES;
     [intro showInView:self.view animateDuration:0];
 }
 
