@@ -56,6 +56,7 @@
     
     self.tags = @[@"哈哈",@"嘿嘿和",@"呵呵呵呵",@"额额",@"哈哈",@"嘿嘿和",@"呵呵呵呵",@"哈哈",@"嘿嘿和",@"呵呵呵呵",@"额额",@"哈哈",@"嘿嘿和",@"呵呵呵呵",@"哈哈",@"嘿嘿和",@"呵呵呵呵",@"额额",@"哈哈",@"嘿嘿和"];
     
+    self.tableView.hidden = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -75,7 +76,7 @@
 
 #pragma mark - 设置导航栏
 
-- (void)setupNavBar
+- (void)setupNavBarWithTag:(BOOL)sucRequest;
 {
     UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth,64)];
     bgView.alpha = 0;
@@ -99,7 +100,11 @@
     
     UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 20, 40, 40)];
     [backButton setTitle:@"返回" forState:UIControlStateNormal];
-    [backButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    if (sucRequest) {
+        [backButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    } else {
+        [backButton setTitleColor:COLOR_TEXT_I forState:UIControlStateNormal];
+    }
     backButton.titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
     [backButton addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:backButton];
@@ -202,12 +207,14 @@
     [FrendManager loadUserInfoFromServer:userId completion:^(BOOL isSuccess, NSInteger errorCode, FrendModel * __nonnull frend) {
         if (isSuccess) {
             _userInfo = frend;
-            [self setupNavBar];
+            self.tableView.hidden = NO;
+            [self setupNavBarWithTag:YES];
             [self loadUserAlbum];
             [self setupTableView];
             [self.tableView reloadData];
         } else {
             [SVProgressHUD showHint:@"请求失败"];
+            [self setupNavBarWithTag:NO];
         }
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];

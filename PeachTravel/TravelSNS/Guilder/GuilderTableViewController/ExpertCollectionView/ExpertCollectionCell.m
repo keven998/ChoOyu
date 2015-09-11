@@ -79,6 +79,9 @@
     
     _content.text = _guiderModel.profile;
     
+    NSString *levelBtnTitle = [NSString stringWithFormat:@"V%ld",_guiderModel.level];
+    [_levelBtn setTitle:levelBtnTitle forState:UIControlStateNormal];
+    
     self.collectionArray = @[@"哈哈",@"嘿嘿和",@"八十多",@"但客服可视对讲",@"哈哈",@"嘿嘿和",@"八十多",@"但客服可视对讲",@"哈哈",@"嘿嘿和",@"八十多",@"但客服可视对讲"];
     [self.collectionView reloadData];
 }
