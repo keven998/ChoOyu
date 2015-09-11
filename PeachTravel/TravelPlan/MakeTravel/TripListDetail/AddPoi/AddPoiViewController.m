@@ -80,7 +80,7 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height-49) style:UITableViewStyleGrouped];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height) style:UITableViewStyleGrouped];
     _tableView.delegate  = self;
     _tableView.dataSource = self;
     if (_shouldEdit) {
@@ -431,17 +431,16 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
                 [self.tableView reloadData];
                 _currentPageNormal = pageNo;
             } else {
-                NSLog(@"用户切换页面了，我不应该加载数据");
+
             }
         } else {
             if (self.isShowing) {
-                [SVProgressHUD showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+                [SVProgressHUD showErrorWithStatus: HTTP_FAILED_HINT];
             }
         }
         [self loadMoreCompletedNormal];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%@", error);
         if (hud) {
             [hud hideTZHUD];
         }

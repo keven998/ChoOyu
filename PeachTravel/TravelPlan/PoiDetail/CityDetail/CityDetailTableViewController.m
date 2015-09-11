@@ -38,7 +38,6 @@
 
 static NSString * const reuseIdentifier = @"travelNoteCell";
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
