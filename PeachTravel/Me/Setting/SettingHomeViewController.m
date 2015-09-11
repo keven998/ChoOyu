@@ -11,11 +11,12 @@
 #import "OptionTableViewCell.h"
 #import "PushSettingViewController.h"
 #import "ExpertRequestViewController.h"
+#import "SuperWebViewController.h"
 #import "iRate.h"
 #import "UMSocial.h"
 
 #define cellIdentifier   @"settingCell"
-#define SET_ITEMS       @[@[@"推荐应用给朋友", @"申请成为达人"], @[@"清理缓存", @"应用评分"],@[@"意见反馈"]]
+#define SET_ITEMS       @[@[@"推荐应用给朋友", @"申请成为达人"], @[@"清理缓存", @"应用评分"],@[@"意见反馈", @"关于我们"]]
 
 @interface SettingHomeViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -148,7 +149,6 @@
             [self shareToWeChat];
         } else if (indexPath.row == 1) {
             ExpertRequestViewController *ctl = [[ExpertRequestViewController alloc] init];
-            ctl.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:ctl animated:YES];
         }
         
@@ -163,8 +163,13 @@
     } else if (indexPath.section == 2) {
         if (indexPath.row == 0) {
             FeedbackController *feedbackCtl = [[FeedbackController alloc] init];
-            feedbackCtl.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:feedbackCtl animated:YES];
+        } else if (indexPath.row == 1) {
+            SuperWebViewController *aboutMeCtl = [[SuperWebViewController alloc] init];
+            aboutMeCtl.titleStr = @"关于我们";
+            aboutMeCtl.urlStr = APP_ABOUT;
+            aboutMeCtl.hideToolBar = YES;
+            [self.navigationController pushViewController:aboutMeCtl animated:YES];
         }
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
