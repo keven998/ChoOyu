@@ -20,6 +20,7 @@
 - (void)setupBaseInfo
 {
     self.backgroundColor = [UIColor whiteColor];
+    self.avatarImage.clipsToBounds = YES;
     
     self.nickName.textColor = UIColorFromRGB(0x99CC66);
     self.nickName.font = [UIFont boldSystemFontOfSize:12.0];
