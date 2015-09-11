@@ -45,6 +45,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 {
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
+    self.automaticallyAdjustsScrollViewInsets = NO;
     _searchBar = [[UISearchBar alloc]init];
     _searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _searchBar.delegate = self;
