@@ -149,6 +149,7 @@
     
     [self.refreshControl endRefreshing];
     self.refreshControl = nil;
+    self.tableView.delegate = nil;
 }
 
 - (void)initDataFromCache

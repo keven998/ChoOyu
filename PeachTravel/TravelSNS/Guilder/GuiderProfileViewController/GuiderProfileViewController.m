@@ -57,6 +57,8 @@
     self.tags = @[@"哈哈",@"嘿嘿和",@"呵呵呵呵",@"额额",@"哈哈",@"嘿嘿和",@"呵呵呵呵",@"哈哈",@"嘿嘿和",@"呵呵呵呵",@"额额",@"哈哈",@"嘿嘿和",@"呵呵呵呵",@"哈哈",@"嘿嘿和",@"呵呵呵呵",@"额额",@"哈哈",@"嘿嘿和"];
     
     self.tableView.hidden = YES;
+    
+    [self setupNavBarWithTag:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -71,6 +73,11 @@
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"page_user_profile"];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
+- (void)dealloc
+{
+    self.tableView.delegate = nil;
 }
 
 
@@ -208,13 +215,13 @@
         if (isSuccess) {
             _userInfo = frend;
             self.tableView.hidden = NO;
-            [self setupNavBarWithTag:YES];
+//            [self setupNavBarWithTag:YES];
             [self loadUserAlbum];
             [self setupTableView];
             [self.tableView reloadData];
         } else {
             [SVProgressHUD showHint:@"请求失败"];
-            [self setupNavBarWithTag:NO];
+//            [self setupNavBarWithTag:NO];
         }
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
@@ -282,6 +289,7 @@
         return cell;
     }
 }
+
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {

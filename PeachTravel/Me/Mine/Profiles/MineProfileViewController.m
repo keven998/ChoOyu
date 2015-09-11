@@ -79,6 +79,12 @@
     }
 }
 
+- (void)dealloc
+{
+    self.tableView.delegate = nil;
+}
+
+
 #pragma mark - 设置导航栏
 
 - (void)setupNavBar

@@ -86,6 +86,11 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [super viewWillDisappear:animated];
 }
 
+- (void)dealloc
+{
+    self.tableView.delegate = nil;
+}
+
 - (IBAction)sendPoi:(UIButton *)sender
 {
     [MobClick event:@"button_item_lxp_send_search_result"];

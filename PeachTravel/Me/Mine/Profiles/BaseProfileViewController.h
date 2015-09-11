@@ -35,7 +35,7 @@
 
 @interface BaseProfileViewController : TZViewController
 
-@property (nonatomic) NSInteger userId;
+//@property (nonatomic) NSInteger userId;
 
 
 //- (void)loadUserProfile:(NSInteger)userId;

@@ -63,6 +63,11 @@
     }
 }
 
+- (void)dealloc
+{
+    self.tableView.delegate = nil;
+}
+
 - (void)createFooterBar
 {
     UIImageView *barView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-49, CGRectGetWidth(self.view.bounds), 49)];
@@ -387,8 +392,6 @@
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
 }
-
-
 
 
 - (void)addToFriend
