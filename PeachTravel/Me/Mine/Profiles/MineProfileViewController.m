@@ -19,6 +19,8 @@
 
 @property (nonatomic, strong) AccountManager *accountManager;
 
+@property (nonatomic, strong) BaseProfileHeaderView *headerView;
+
 @property (nonatomic, weak) UIView *navBgView;
 @property (nonatomic, weak) UIButton *settingBtn;
 
@@ -85,6 +87,12 @@
 }
 
 
+- (void)setUserInfo:(AccountModel *)userInfo
+{
+    _userInfo = userInfo;
+    _headerView.accountModel = _userInfo;
+}
+
 #pragma mark - 设置导航栏
 
 - (void)setupNavBar
@@ -149,11 +157,11 @@
     self.tableView.showsVerticalScrollIndicator = NO;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
-    BaseProfileHeaderView *headerView = [[BaseProfileHeaderView alloc] init];
-    headerView.frame = CGRectMake(0, 0, kWindowWidth, 310);
-    headerView.accountModel = self.userInfo;
-    headerView.image = [UIImage imageNamed:@"bg_profile_master"];
-    self.tableView.tableHeaderView = headerView;
+    _headerView = [[BaseProfileHeaderView alloc] init];
+    _headerView.frame = CGRectMake(0, 0, kWindowWidth, 310);
+    _headerView.accountModel = self.userInfo;
+    _headerView.image = [UIImage imageNamed:@"bg_profile_master"];
+    self.tableView.tableHeaderView = _headerView;
 }
 
 - (void)editMineProfile
