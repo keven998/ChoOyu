@@ -696,6 +696,10 @@
 		D9E9D2181BA2CCE000FB6C07 /* collection_flower@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E9D2161BA2CCE000FB6C07 /* collection_flower@2x.png */; };
 		D9E9D2191BA2CCE000FB6C07 /* collection_flower@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E9D2171BA2CCE000FB6C07 /* collection_flower@3x.png */; };
 		D9E9D2491BA2F6F800FB6C07 /* ic_msg_sending@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E9D2481BA2F6F800FB6C07 /* ic_msg_sending@2x.png */; };
+		D9E9D24C1BA3BE1200FB6C07 /* messages_poi_bg_self@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E9D24A1BA3BE1200FB6C07 /* messages_poi_bg_self@2x.png */; };
+		D9E9D24D1BA3BE1200FB6C07 /* messages_poi_bg_self@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E9D24B1BA3BE1200FB6C07 /* messages_poi_bg_self@3x.png */; };
+		D9E9D2501BA3BE4300FB6C07 /* messages_poi_bg_friend@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E9D24E1BA3BE4300FB6C07 /* messages_poi_bg_friend@2x.png */; };
+		D9E9D2511BA3BE4300FB6C07 /* messages_poi_bg_friend@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E9D24F1BA3BE4300FB6C07 /* messages_poi_bg_friend@3x.png */; };
 		D9E9F79619FF6F6A003F70F6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9E9F79519FF6F6A003F70F6 /* MapKit.framework */; };
 		D9E9F79819FF6F71003F70F6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9E9F79719FF6F71003F70F6 /* CoreLocation.framework */; };
 		D9E9F7A419FFDCB9003F70F6 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9E9F7A219FFDCB9003F70F6 /* AddressBook.framework */; };
@@ -2449,6 +2453,10 @@
 		D9E9D2161BA2CCE000FB6C07 /* collection_flower@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "collection_flower@2x.png"; sourceTree = "<group>"; };
 		D9E9D2171BA2CCE000FB6C07 /* collection_flower@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "collection_flower@3x.png"; sourceTree = "<group>"; };
 		D9E9D2481BA2F6F800FB6C07 /* ic_msg_sending@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_msg_sending@2x.png"; sourceTree = "<group>"; };
+		D9E9D24A1BA3BE1200FB6C07 /* messages_poi_bg_self@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "messages_poi_bg_self@2x.png"; sourceTree = "<group>"; };
+		D9E9D24B1BA3BE1200FB6C07 /* messages_poi_bg_self@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "messages_poi_bg_self@3x.png"; sourceTree = "<group>"; };
+		D9E9D24E1BA3BE4300FB6C07 /* messages_poi_bg_friend@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "messages_poi_bg_friend@2x.png"; sourceTree = "<group>"; };
+		D9E9D24F1BA3BE4300FB6C07 /* messages_poi_bg_friend@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "messages_poi_bg_friend@3x.png"; sourceTree = "<group>"; };
 		D9E9F79519FF6F6A003F70F6 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		D9E9F79719FF6F71003F70F6 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		D9E9F7A219FFDCB9003F70F6 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
@@ -7161,6 +7169,10 @@
 				E6F188961B845F4900232EEB /* lvxingpaipai@3x.png */,
 				E6F188971B845F4900232EEB /* lvxingwenwen@2x.png */,
 				E6F188981B845F4900232EEB /* lvxingwenwen@3x.png */,
+				D9E9D24A1BA3BE1200FB6C07 /* messages_poi_bg_self@2x.png */,
+				D9E9D24B1BA3BE1200FB6C07 /* messages_poi_bg_self@3x.png */,
+				D9E9D24E1BA3BE4300FB6C07 /* messages_poi_bg_friend@2x.png */,
+				D9E9D24F1BA3BE4300FB6C07 /* messages_poi_bg_friend@3x.png */,
 				E6F188991B845F4900232EEB /* messages_bg_friend@2x.png */,
 				E6F1889A1B845F4900232EEB /* messages_bg_friend@3x.png */,
 				E6F1889B1B845F4900232EEB /* messages_bg_self@2x.png */,
@@ -7469,6 +7481,7 @@
 				E68CB3541BA2D33500A5B38B /* introduce_6_3@2x.png in Resources */,
 				E6F18B0A1B845F4900232EEB /* master_search@3x.png in Resources */,
 				E6F18AC71B845F4900232EEB /* messages_plus_picture_default@2x.png in Resources */,
+				D9E9D24C1BA3BE1200FB6C07 /* messages_poi_bg_self@2x.png in Resources */,
 				D9E9D2091BA2A56E00FB6C07 /* city_navigationbar_add_default@3x.png in Resources */,
 				D9A801551A80DD23005AD701 /* CreateConversationViewController.xib in Resources */,
 				E608A1281B8F3D3D003BA318 /* bg_continent@3x.png in Resources */,
@@ -7493,6 +7506,7 @@
 				E6F18B141B845F4900232EEB /* master_icon_constellation1@3x.png in Resources */,
 				E6381C0F1B66269000CF73AA /* Loading_Animation_final56@2x.png in Resources */,
 				D90A9B611B5627C400E9F37C /* Loading_Animation_final54@3x.png in Resources */,
+				D9E9D24D1BA3BE1200FB6C07 /* messages_poi_bg_self@3x.png in Resources */,
 				E6F18AFC1B845F4900232EEB /* master_free_online@2x.png in Resources */,
 				E68CB2BC1BA0152600A5B38B /* ic_tabbar_expert_selected@2x.png in Resources */,
 				E68CB2C51BA0152600A5B38B /* ic_tabbar_search_selected@3x.png in Resources */,
@@ -8034,6 +8048,7 @@
 				D971E27E1B8AF27A007E5AFD /* plan_bg_page_qian@2x.png in Resources */,
 				D9E0EEFD1B7CB020003872DF /* SearchDestinationHistoryCollectionReusableView.xib in Resources */,
 				E6F18AAC1B845F4900232EEB /* chat_sender_audio_playing_003@3x.png in Resources */,
+				D9E9D2511BA3BE4300FB6C07 /* messages_poi_bg_friend@3x.png in Resources */,
 				E6F18A131B845F4900232EEB /* map_icon_3@2x.png in Resources */,
 				E68CB34D1BA2D2CD00A5B38B /* introduce_4_2@2x.png in Resources */,
 				E6F189F91B845F4900232EEB /* map_icon_10@2x.png in Resources */,
@@ -8259,6 +8274,7 @@
 				E6F18A051B845F4900232EEB /* map_icon_16@2x.png in Resources */,
 				D9A8011E1A80DD23005AD701 /* call_out_h@2x.png in Resources */,
 				E6F189161B845F4900232EEB /* account_labbar_icon_follow_default@3x.png in Resources */,
+				D9E9D2501BA3BE4300FB6C07 /* messages_poi_bg_friend@2x.png in Resources */,
 				D9A8020E1A80E036005AD701 /* JGProgressHUD Resources.bundle in Resources */,
 				D90A9B401B5627C400E9F37C /* Loading_Animation_final21@3x.png in Resources */,
 				E6F18A941B845F4900232EEB /* speaking-motion7@3x.png in Resources */,

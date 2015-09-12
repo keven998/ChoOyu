@@ -56,7 +56,7 @@ NSString *const kRouterEventTaoziCityBubbleTapEventName = @"kRouterEventTaoziCit
 
         _titleLabel.textAlignment = NSTextAlignmentLeft;
     }
-    NSString *imageName = self.model.isSender ? @"messages_bg_self.png" : @"messages_bg_friend.png";
+    NSString *imageName = self.model.isSender ? @"messages_poi_bg_self.png" : @"messages_poi_bg_friend.png";
 
     _titleImageView.image = [[UIImage imageNamed:imageName] resizableImageWithCapInsets:UIEdgeInsetsMake(28, 18, 18, 10)];
 
