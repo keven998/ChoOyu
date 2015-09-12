@@ -8,6 +8,7 @@
 
 #import "GuiderCell.h"
 #import "GuiderDistribute.h"
+#import "GuiderDistributeContinent.h"
 @interface GuiderCell ()
 
 @property (weak, nonatomic) IBOutlet UIImageView *bgImage;
@@ -16,6 +17,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *zhName;
 
+@property (weak, nonatomic) IBOutlet UILabel *enName;
 
 @end
 
@@ -40,6 +42,8 @@
     self.contentView.backgroundColor = APP_PAGE_COLOR;
     self.contentView.layer.borderWidth = 0.5;
     self.contentView.layer.borderColor = COLOR_LINE.CGColor;
+    
+    self.expertUserCnt.textColor = [UIColor whiteColor];
 }
 
 // 2.给成员变量赋值
@@ -58,10 +62,13 @@
         self.bgImage.image = [UIImage imageNamed:@"master_placeholder_bg.png"];
     }
 
-    self.expertUserCnt.font = [UIFont boldSystemFontOfSize:30.0];
-    self.expertUserCnt.text = [NSString stringWithFormat:@"%@",guiderDistribute.zhName];
-    self.zhName.font = [UIFont boldSystemFontOfSize:15.0];
-    self.zhName.text = [NSString stringWithFormat:@"· %ld位 ·",guiderDistribute.expertCnt];
+    self.expertUserCnt.font = [UIFont boldSystemFontOfSize:15.0];
+    self.expertUserCnt.text = [NSString stringWithFormat:@"%ld",guiderDistribute.expertCnt];
+    
+    self.zhName.font = [UIFont boldSystemFontOfSize:30.0];
+    self.zhName.text = [NSString stringWithFormat:@"%@",guiderDistribute.zhName];
+    self.enName.font = [UIFont systemFontOfSize:15.0];
+    self.enName.text = [NSString stringWithFormat:@"%@",guiderDistribute.enName];
 }
 
 @end

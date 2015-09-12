@@ -22,6 +22,8 @@
 @property (nonatomic, strong) UIButton *addFriendBtn;
 @property (nonatomic, strong) UIButton *beginTalk;
 @property (nonatomic, weak) UIView *navBgView;
+@property (nonatomic, weak) UIButton *backBtn;
+@property (nonatomic, weak) UILabel *titleLab;
 
 @property (nonatomic, strong) NSArray *tags;
 
@@ -58,7 +60,7 @@
     
     self.tableView.hidden = YES;
     
-    [self setupNavBarWithTag:YES];
+    [self setupNavBar];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -83,7 +85,7 @@
 
 #pragma mark - 设置导航栏
 
-- (void)setupNavBarWithTag:(BOOL)sucRequest;
+- (void)setupNavBar
 {
     UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth,64)];
     bgView.alpha = 0;
@@ -99,6 +101,7 @@
     [self.view addSubview:moreBtn];
     
     UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake((kWindowWidth-108)*0.5, 20, 108, 40)];
+    self.titleLab = titleLab;
     titleLab.text = self.userInfo.nickName;
     titleLab.textAlignment = NSTextAlignmentCenter;
     titleLab.font = [UIFont boldSystemFontOfSize:18.0];
@@ -106,12 +109,10 @@
     [self.view addSubview:titleLab];
     
     UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 20, 40, 40)];
+    self.backBtn = backButton;
     [backButton setTitle:@"返回" forState:UIControlStateNormal];
-    if (sucRequest) {
-        [backButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    } else {
-        [backButton setTitleColor:COLOR_TEXT_I forState:UIControlStateNormal];
-    }
+    [backButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    
     backButton.titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
     [backButton addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:backButton];
@@ -215,13 +216,13 @@
         if (isSuccess) {
             _userInfo = frend;
             self.tableView.hidden = NO;
-//            [self setupNavBarWithTag:YES];
+            self.titleLab.text = _userInfo.nickName;
             [self loadUserAlbum];
             [self setupTableView];
             [self.tableView reloadData];
         } else {
             [SVProgressHUD showHint:@"请求失败"];
-//            [self setupNavBarWithTag:NO];
+            [self.backBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
         }
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];

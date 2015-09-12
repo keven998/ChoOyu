@@ -47,6 +47,7 @@
         
         NSLog(@"%@",responseObject);
         NSArray * resultArray = responseObject[@"result"];
+        NSLog(@"%@",resultArray);
         NSArray *guiderArray = [NSArray array];
         guiderArray = [GuiderDistribute objectArrayWithKeyValuesArray:resultArray];
         NSArray *dataSource = [GuiderDistributeTools revertGuiderListToGroup:guiderArray];

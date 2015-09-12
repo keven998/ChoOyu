@@ -882,6 +882,8 @@
 		E68CB3581BA2D36C00A5B38B /* introduce_6p_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E68CB3551BA2D36C00A5B38B /* introduce_6p_1@2x.png */; };
 		E68CB3591BA2D36C00A5B38B /* introduce_6p_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E68CB3561BA2D36C00A5B38B /* introduce_6p_2@2x.png */; };
 		E68CB35A1BA2D36C00A5B38B /* introduce_6p_3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E68CB3571BA2D36C00A5B38B /* introduce_6p_3@2x.png */; };
+		E68CB35D1BA3C5CE00A5B38B /* master_expert@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E68CB35B1BA3C5CE00A5B38B /* master_expert@2x.png */; };
+		E68CB35E1BA3C5CE00A5B38B /* master_expert@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E68CB35C1BA3C5CE00A5B38B /* master_expert@3x.png */; };
 		E690D8CB1B7C7F5300BFDF1B /* MakePlanSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = E690D8CA1B7C7F5300BFDF1B /* MakePlanSearchController.m */; };
 		E690D8CF1B7C8F9F00BFDF1B /* MakePlanSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E690D8CD1B7C8F9F00BFDF1B /* MakePlanSearchCell.m */; };
 		E690D8D01B7C8F9F00BFDF1B /* MakePlanSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E690D8CE1B7C8F9F00BFDF1B /* MakePlanSearchCell.xib */; };
@@ -2688,6 +2690,8 @@
 		E68CB3551BA2D36C00A5B38B /* introduce_6p_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "introduce_6p_1@2x.png"; sourceTree = "<group>"; };
 		E68CB3561BA2D36C00A5B38B /* introduce_6p_2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "introduce_6p_2@2x.png"; sourceTree = "<group>"; };
 		E68CB3571BA2D36C00A5B38B /* introduce_6p_3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "introduce_6p_3@2x.png"; sourceTree = "<group>"; };
+		E68CB35B1BA3C5CE00A5B38B /* master_expert@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "master_expert@2x.png"; sourceTree = "<group>"; };
+		E68CB35C1BA3C5CE00A5B38B /* master_expert@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "master_expert@3x.png"; sourceTree = "<group>"; };
 		E690D8C91B7C7F5300BFDF1B /* MakePlanSearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakePlanSearchController.h; sourceTree = "<group>"; };
 		E690D8CA1B7C7F5300BFDF1B /* MakePlanSearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MakePlanSearchController.m; sourceTree = "<group>"; };
 		E690D8CC1B7C8F9F00BFDF1B /* MakePlanSearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakePlanSearchCell.h; sourceTree = "<group>"; };
@@ -7298,6 +7302,8 @@
 		E6F188D91B845F4900232EEB /* 达人 */ = {
 			isa = PBXGroup;
 			children = (
+				E68CB35B1BA3C5CE00A5B38B /* master_expert@2x.png */,
+				E68CB35C1BA3C5CE00A5B38B /* master_expert@3x.png */,
 				D971E2DA1B9468E1007E5AFD /* guider_cell_bg@2x.png */,
 				D971E2D41B94650A007E5AFD /* master_level_bg@2x.png */,
 				D971E2D51B94650A007E5AFD /* master_level_bg@3x.png */,
@@ -7963,6 +7969,7 @@
 				D9A8FF0E1A80CC2B005AD701 /* BindTelephoneViewController.xib in Resources */,
 				E68CB2B81BA0152600A5B38B /* ic_tabbar_chat_selected@2x.png in Resources */,
 				E6F18A191B845F4900232EEB /* map_icon_6@2x.png in Resources */,
+				E68CB35D1BA3C5CE00A5B38B /* master_expert@2x.png in Resources */,
 				E6F189FA1B845F4900232EEB /* map_icon_10@3x.png in Resources */,
 				D917DABF1A8B49AF0039720A /* ic_guide2_1_normal@2x.png in Resources */,
 				E6F18B121B845F4900232EEB /* master_icon_constellation12@3x.png in Resources */,
@@ -7977,6 +7984,7 @@
 				D90A9B4B1B5627C400E9F37C /* Loading_Animation_final32@3x.png in Resources */,
 				E6F189B21B845F4900232EEB /* city_button_shopping_selected@3x.png in Resources */,
 				D942C13B1B9EB5C3005B81C5 /* bg_master@2x.png in Resources */,
+				E68CB35E1BA3C5CE00A5B38B /* master_expert@3x.png in Resources */,
 				E6F189CA1B845F4900232EEB /* footprint_change_hilighted@3x.png in Resources */,
 				E6F1892B1B845F4900232EEB /* dashboard_03_icon_constellation4@2x.png in Resources */,
 				E6F1895B1B845F4900232EEB /* plan_10_dashboard_sift_highlight@2x.png in Resources */,

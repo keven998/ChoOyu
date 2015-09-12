@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -41,19 +41,40 @@
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="master_expert.png" translatesAutoresizingMaskIntoConstraints="NO" id="0dj-VI-iZv">
+                        <rect key="frame" x="283" y="15" width="22" height="18"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="22" id="MLb-l8-yTA"/>
+                            <constraint firstAttribute="height" constant="18" id="cqq-eV-YrG"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xeK-vZ-zGX">
+                        <rect key="frame" x="273" y="33" width="42" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="42" id="A3G-lM-MaH"/>
+                            <constraint firstAttribute="height" constant="21" id="cGY-5C-mYF"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="A3O-HQ-kax" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="5i5-sI-MwO"/>
+                    <constraint firstItem="0dj-VI-iZv" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="ABR-iA-zF6"/>
                     <constraint firstItem="NMN-ak-8wx" firstAttribute="centerY" secondItem="bwB-cb-VUx" secondAttribute="centerY" constant="-32" id="ATY-zo-pNH"/>
                     <constraint firstItem="vK8-y6-Tqr" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="AmC-MS-ygu"/>
                     <constraint firstItem="NMN-ak-8wx" firstAttribute="centerX" secondItem="bwB-cb-VUx" secondAttribute="centerX" id="Kc6-nm-xW4"/>
+                    <constraint firstItem="xeK-vZ-zGX" firstAttribute="top" secondItem="0dj-VI-iZv" secondAttribute="bottom" id="MNm-FF-wcb"/>
                     <constraint firstItem="NMN-ak-8wx" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="53" id="N9z-oH-FFX"/>
+                    <constraint firstAttribute="trailing" secondItem="0dj-VI-iZv" secondAttribute="trailing" constant="15" id="SJd-hS-esA"/>
                     <constraint firstAttribute="bottom" secondItem="A3O-HQ-kax" secondAttribute="bottom" id="Z0f-TL-ntS"/>
                     <constraint firstAttribute="centerY" secondItem="NMN-ak-8wx" secondAttribute="centerY" constant="14" id="cD9-GG-yKU"/>
                     <constraint firstItem="A3O-HQ-kax" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="ceT-ID-kyJ"/>
                     <constraint firstAttribute="trailing" secondItem="vK8-y6-Tqr" secondAttribute="trailing" id="fQL-Od-uS2"/>
                     <constraint firstAttribute="trailing" secondItem="A3O-HQ-kax" secondAttribute="trailing" id="ftV-jb-htx"/>
                     <constraint firstItem="NMN-ak-8wx" firstAttribute="centerX" secondItem="vK8-y6-Tqr" secondAttribute="centerX" id="pON-7f-WqK"/>
+                    <constraint firstItem="xeK-vZ-zGX" firstAttribute="centerX" secondItem="0dj-VI-iZv" secondAttribute="centerX" id="un9-tN-klq"/>
                     <constraint firstAttribute="bottom" secondItem="vK8-y6-Tqr" secondAttribute="bottom" constant="-1" id="usA-J4-H1o"/>
                     <constraint firstItem="vK8-y6-Tqr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="vgS-Mv-6fH"/>
                     <constraint firstAttribute="bottom" secondItem="vK8-y6-Tqr" secondAttribute="bottom" constant="-1" id="wrs-Ib-FaY"/>
@@ -66,13 +87,15 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="bgImage" destination="vK8-y6-Tqr" id="uuP-bb-EHQ"/>
-                <outlet property="expertUserCnt" destination="NMN-ak-8wx" id="wg9-WJ-Mcj"/>
-                <outlet property="zhName" destination="bwB-cb-VUx" id="H37-P1-8el"/>
+                <outlet property="enName" destination="bwB-cb-VUx" id="vIc-8m-OxF"/>
+                <outlet property="expertUserCnt" destination="xeK-vZ-zGX" id="4JR-gs-8kH"/>
+                <outlet property="zhName" destination="NMN-ak-8wx" id="OnE-ZC-M6Y"/>
             </connections>
             <point key="canvasLocation" x="-34" y="286"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="black_mask.png" width="18" height="233"/>
+        <image name="master_expert.png" width="22" height="18"/>
     </resources>
 </document>
