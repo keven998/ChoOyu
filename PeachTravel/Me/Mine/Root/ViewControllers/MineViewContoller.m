@@ -29,6 +29,7 @@
 @property (nonatomic, weak) UIViewController *contentViewCtl;
 
 @property (nonatomic, weak) UIButton *addPlan;
+
 @property (nonatomic, weak) UIView *navBgView;
 
 @end
@@ -61,6 +62,21 @@
     [self setupAddPlanBtn];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    [self updateContent];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    if (![[self.navigationController.viewControllers lastObject]isKindOfClass:[BaseProfileViewController class]] && ![self.navigationController.viewControllers.lastObject isKindOfClass:[MineViewContoller class]]) {
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
+    }
+}
+
 - (void)userLogin
 {
     if ([AccountManager shareAccountManager].isLogin) {
@@ -81,26 +97,6 @@
     addPlan.highlighted = NO;
     self.addPlan = addPlan;
     [self.view addSubview:addPlan];
-}
-
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    if (![[self.navigationController.viewControllers lastObject]isKindOfClass:[BaseProfileViewController class]] && ![self.navigationController.viewControllers.lastObject isKindOfClass:[MineViewContoller class]]) {
-        [self.navigationController setNavigationBarHidden:NO animated:YES];
-    }
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
 }
 
 - (void)updateContent
