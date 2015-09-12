@@ -103,14 +103,6 @@
     [super viewDidDisappear:animated];
 }
 
-- (void)preSetNavForSlide
-{
-    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)])
-    {
-        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
-    }
-}
-
 - (void)updateContent
 {
     _topView.account = [AccountManager shareAccountManager].account;
@@ -238,7 +230,6 @@
 - (void)tapHeaderView:(UITapGestureRecognizer *)tap
 {
     MineProfileViewController *profile = [[MineProfileViewController alloc] init];
-    [self preSetNavForSlide];
     [self.navigationController pushViewController:profile animated:YES];
 }
 
