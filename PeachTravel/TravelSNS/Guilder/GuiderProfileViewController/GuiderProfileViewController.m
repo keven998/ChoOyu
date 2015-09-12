@@ -111,7 +111,7 @@
     UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 20, 40, 40)];
     self.backBtn = backButton;
     [backButton setTitle:@"返回" forState:UIControlStateNormal];
-    [backButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [backButton setTitleColor:COLOR_TEXT_I forState:UIControlStateNormal];
     
     backButton.titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
     [backButton addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
@@ -216,13 +216,13 @@
         if (isSuccess) {
             _userInfo = frend;
             self.tableView.hidden = NO;
+            [self.backBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             self.titleLab.text = _userInfo.nickName;
             [self loadUserAlbum];
             [self setupTableView];
             [self.tableView reloadData];
         } else {
             [SVProgressHUD showHint:@"请求失败"];
-            [self.backBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
         }
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];

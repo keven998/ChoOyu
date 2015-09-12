@@ -23,6 +23,7 @@
 
 @property (nonatomic, strong) UIButton *addFriendBtn;
 @property (nonatomic, strong) UIButton *beginTalk;
+@property (nonatomic, weak) UIButton *backBtn;
 
 
 @end
@@ -47,6 +48,7 @@
     [self createFooterBar];
     
     self.tableView.hidden = YES;
+    [self setupNavBar];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -120,14 +122,13 @@
     [FrendManager loadUserInfoFromServer:userId completion:^(BOOL isSuccess, NSInteger errorCode, FrendModel * __nonnull frend) {
         if (isSuccess) {
             _userInfo = frend;
+            [self.backBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             self.tableView.hidden = NO;
             [self loadUserAlbum];
-            [self setupNavBarWithTag:YES];
             [self setupTableView];
             [self.tableView reloadData];
         } else {
             [SVProgressHUD showHint:@"请求失败"];
-            [self setupNavBarWithTag:NO];
         }
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
@@ -147,7 +148,7 @@
 
 #pragma mark - 设置导航栏
 
-- (void)setupNavBarWithTag:(BOOL)sucRequest
+- (void)setupNavBar
 {
     UIButton *moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(kWindowWidth - 56, 20, 40, 40)];
     [moreBtn setImage:[UIImage imageNamed:@"account_icon_any_default"] forState:UIControlStateNormal];
@@ -165,13 +166,10 @@
     
     UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 20, 40, 40)];
     [backButton setTitle:@"返回" forState:UIControlStateNormal];
-    if (sucRequest) {
-        [backButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    } else {
-        [backButton setTitleColor:COLOR_TEXT_I forState:UIControlStateNormal];
-    }
+    [backButton setTitleColor:COLOR_TEXT_I forState:UIControlStateNormal];
     backButton.titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
     [backButton addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+    self.backBtn = backButton;
     [self.view addSubview:backButton];
 }
 
