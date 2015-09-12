@@ -87,7 +87,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -101,14 +101,6 @@
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-}
-
-- (void)preSetNavForSlide
-{
-    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)])
-    {
-        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
-    }
 }
 
 - (void)updateContent
@@ -238,7 +230,6 @@
 - (void)tapHeaderView:(UITapGestureRecognizer *)tap
 {
     MineProfileViewController *profile = [[MineProfileViewController alloc] init];
-    [self preSetNavForSlide];
     [self.navigationController pushViewController:profile animated:YES];
 }
 
