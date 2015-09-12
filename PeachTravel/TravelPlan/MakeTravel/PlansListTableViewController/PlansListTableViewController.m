@@ -556,7 +556,9 @@ static NSString *reusableCell = @"myGuidesCell";
     } else {
         cell.markImageView.hidden = YES;
     }
-    cell.rightUtilityButtons = [self rightButtonsWithIndexPath:indexPath];
+    if (_isOwner) {
+        cell.rightUtilityButtons = [self rightButtonsWithIndexPath:indexPath];
+    }
     cell.delegate = self;
     cell.guideSummary = summary;
     cell.isCanSend = _selectToSend;
