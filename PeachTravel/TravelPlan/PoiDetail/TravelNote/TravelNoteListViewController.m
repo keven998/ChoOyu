@@ -37,16 +37,22 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
     self.tableView.backgroundColor = APP_PAGE_COLOR;
     [self.tableView registerNib:[UINib nibWithNibName:@"TravelNoteTableViewCell" bundle:nil] forCellReuseIdentifier:reusableCellIdentifier];
     _currentPage = 0;
-    if (!_isSearch) {
-        self.navigationItem.title = @"全部游记";//[NSString stringWithFormat:@"%@精选游记", _cityName];
-        [self loadDataWithPageNo:_currentPage andKeyWork:nil];
+    
+    if (self.userId) {
+        [self loadDataWithPageNo:_currentPage andUserId:self.userId];
     } else {
-        self.tableView.tableHeaderView = self.searchBar;
-        self.navigationItem.title = @"发送游记";
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
-        
-        [self.tableView setContentOffset:CGPointMake(0, 40)];
+        if (!_isSearch) {
+            self.navigationItem.title = @"全部游记";
+            [self loadDataWithPageNo:_currentPage andKeyWork:nil];
+        } else {
+            self.tableView.tableHeaderView = self.searchBar;
+            self.navigationItem.title = @"发送游记";
+            self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
+            
+            [self.tableView setContentOffset:CGPointMake(0, 40)];
+        }
     }
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -152,6 +158,66 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
         [self loadMoreCompleted];
         [self showHint:HTTP_FAILED_HINT];
     }];
+}
+
+
+- (void)loadDataWithPageNo:(NSInteger)pageNo andUserId:(NSInteger)userId
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSNumber *imageWidth = [NSNumber numberWithInt:200];
+    [params setObject:imageWidth forKey:@"imgWidth"];
+    [params setObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];
+    [params setObject:[NSNumber numberWithInteger:pageNo] forKey:@"page"];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@%ld/travelnotes",API_USERS,userId];
+    
+    NSLog(@"%@",urlStr);
+    
+    //获取游记列表信息
+    [manager GET:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (_hud) {
+            [_hud hideTZHUD];
+            _hud = nil;
+        }
+        [self loadMoreCompleted];
+        NSLog(@"%@", responseObject);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            [self parseData:[responseObject objectForKey:@"result"]];
+            
+            if ([[responseObject objectForKey:@"result"] count] >= 15) {
+                self.enableLoadingMore = YES;
+                _currentPage = pageNo;
+            } else {
+                self.enableLoadingMore = NO;
+                if (_currentPage > 0) {
+                    [self showHint:@"没有了~"];
+                } else {
+                }
+            }
+        } else {
+            [self showHint:HTTP_FAILED_HINT];
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", error);
+        if (_hud) {
+            [_hud hideTZHUD];
+            _hud = nil;
+        }
+        [self loadMoreCompleted];
+        [self showHint:HTTP_FAILED_HINT];
+    }];
+
 }
 
 - (void)parseData:(id)json

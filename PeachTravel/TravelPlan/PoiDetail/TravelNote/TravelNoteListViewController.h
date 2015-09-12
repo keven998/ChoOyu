@@ -23,4 +23,9 @@
 @property (nonatomic) NSInteger chatterId;
 @property (nonatomic) IMChatType chatType;
 
+/**
+ *  是否是达人游记
+ */
+@property (nonatomic, assign) NSInteger userId;
+
 @end

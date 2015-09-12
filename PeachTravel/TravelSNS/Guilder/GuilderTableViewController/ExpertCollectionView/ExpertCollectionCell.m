@@ -52,6 +52,7 @@
     
     self.collectionView.collectionViewLayout = layout;
     
+    _collectionView.userInteractionEnabled = NO;
     _collectionView.dataSource = self;
     _collectionView.delegate = self;
     _collectionView.scrollEnabled = NO;

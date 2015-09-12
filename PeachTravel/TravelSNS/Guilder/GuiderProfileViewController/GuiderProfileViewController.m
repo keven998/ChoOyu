@@ -709,6 +709,8 @@
 {
     [MobClick event:@"button_item_tours"];
     TravelNoteListViewController *tourCtl = [[TravelNoteListViewController alloc]init];
+    tourCtl.title = [NSString stringWithFormat:@"%@的游记",_userInfo.nickName];
+    tourCtl.userId = _userInfo.userId;
     [self.navigationController pushViewController:tourCtl animated:YES];
 
 }

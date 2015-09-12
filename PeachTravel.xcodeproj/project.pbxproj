@@ -898,7 +898,6 @@
 		E6BFE5FD1B5E732F00A9FDCA /* DestinationCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6BFE5FB1B5E732F00A9FDCA /* DestinationCollectionViewCell.m */; };
 		E6BFE5FE1B5E732F00A9FDCA /* DestinationCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6BFE5FC1B5E732F00A9FDCA /* DestinationCollectionViewCell.xib */; };
 		E6E118F61B59EE280090FDEF /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E118F41B59EE280090FDEF /* UIView+Extension.m */; };
-		E6E595511B9BD92200E29ED0 /* MineProfileIntroduce.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E595501B9BD92200E29ED0 /* MineProfileIntroduce.m */; };
 		E6E595551B9BDB5400E29ED0 /* MineProfileTourViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E595531B9BDB5400E29ED0 /* MineProfileTourViewCell.m */; };
 		E6E595591B9BDF7F00E29ED0 /* MineProfileTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E595581B9BDF7F00E29ED0 /* MineProfileTitleView.m */; };
 		E6E5955F1B9BE74300E29ED0 /* BaseProfileHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E5955E1B9BE74300E29ED0 /* BaseProfileHeaderView.m */; };
@@ -2712,8 +2711,6 @@
 		E6BFE5FC1B5E732F00A9FDCA /* DestinationCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DestinationCollectionViewCell.xib; sourceTree = "<group>"; };
 		E6E118F31B59EE280090FDEF /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
 		E6E118F41B59EE280090FDEF /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
-		E6E5954F1B9BD92200E29ED0 /* MineProfileIntroduce.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineProfileIntroduce.h; sourceTree = "<group>"; };
-		E6E595501B9BD92200E29ED0 /* MineProfileIntroduce.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineProfileIntroduce.m; sourceTree = "<group>"; };
 		E6E595521B9BDB5300E29ED0 /* MineProfileTourViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineProfileTourViewCell.h; sourceTree = "<group>"; };
 		E6E595531B9BDB5400E29ED0 /* MineProfileTourViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineProfileTourViewCell.m; sourceTree = "<group>"; };
 		E6E595571B9BDF7F00E29ED0 /* MineProfileTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineProfileTitleView.h; sourceTree = "<group>"; };
@@ -5578,7 +5575,6 @@
 		D9A8FEBB1A80C818005AD701 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				E6E5954E1B9BD8A900E29ED0 /* ProfileView */,
 				D9A8FEAB1A80C818005AD701 /* PushMessages */,
 				D9A8FEBF1A80C818005AD701 /* OptionTableViewCell.h */,
 				D9A8FEC01A80C818005AD701 /* OptionTableViewCell.m */,
@@ -6384,15 +6380,6 @@
 				E6E118F41B59EE280090FDEF /* UIView+Extension.m */,
 			);
 			name = DropDownMenu;
-			sourceTree = "<group>";
-		};
-		E6E5954E1B9BD8A900E29ED0 /* ProfileView */ = {
-			isa = PBXGroup;
-			children = (
-				E6E5954F1B9BD92200E29ED0 /* MineProfileIntroduce.h */,
-				E6E595501B9BD92200E29ED0 /* MineProfileIntroduce.m */,
-			);
-			path = ProfileView;
 			sourceTree = "<group>";
 		};
 		E6E6B4051B7AF36D001A78F4 /* ContactSearch */ = {
@@ -8514,7 +8501,6 @@
 				E6E725691B5604A90007273A /* GuiderDistribute.m in Sources */,
 				D92CA1071AD8BDF900F244FF /* PSTGridLayoutItem.m in Sources */,
 				D971E2DD1B946B0F007E5AFD /* ExpertModel.swift in Sources */,
-				E6E595511B9BD92200E29ED0 /* MineProfileIntroduce.m in Sources */,
 				D91FED6F1B4232AD0073AD77 /* FrendRequestManager.swift in Sources */,
 				27329DB41B0E030700F0A4FA /* ChatGroupCell.m in Sources */,
 				D9E7EC0C1ACB932800D30A5A /* AccountModel.m in Sources */,
