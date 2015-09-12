@@ -37,10 +37,11 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
         _typeLabel.textAlignment = NSTextAlignmentCenter;
         _typeLabel.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
         _typeLabel.textColor = [UIColor whiteColor];
+        _typeLabel.hidden = YES;
         
         _titleBtn = [[UIButton alloc] init];
         _titleBtn.titleLabel.font = [UIFont boldSystemFontOfSize:15.0];
-        [_titleBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_titleBtn setTitleColor:COLOR_TEXT_I forState:UIControlStateNormal];
         _titleBtn.backgroundColor = [UIColor clearColor];
         _titleBtn.userInteractionEnabled = NO;
         _titleBtn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
@@ -52,7 +53,7 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
         _pictureImageView.clipsToBounds = YES;
         
         _propertyBtn = [[UIButton alloc] init];
-        [_propertyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_propertyBtn setTitleColor:COLOR_TEXT_III forState:UIControlStateNormal];
         _propertyBtn.titleLabel.font = [UIFont systemFontOfSize:10.0];
         _propertyBtn.userInteractionEnabled = NO;
         _propertyBtn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
@@ -60,7 +61,7 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
         
         _descLabel = [[UILabel alloc] init];
         _descLabel.font = [UIFont systemFontOfSize:9.0];
-        _descLabel.textColor = [UIColor whiteColor];
+        _descLabel.textColor = COLOR_TEXT_III;
         _descLabel.backgroundColor = [UIColor clearColor];
         _descLabel.numberOfLines = 3;
         
@@ -83,16 +84,14 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
     
     CGFloat titleWidth;
     if (_model.isSender) {
-        _descLabel.textColor = [UIColor whiteColor];
-        [_propertyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [_titleBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         titleWidth = 100;
     } else {
         titleWidth = 110;
-        _descLabel.textColor = TEXT_COLOR_TITLE;
-        [_propertyBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
-        [_titleBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
     }
+    _descLabel.textColor = COLOR_TEXT_III;
+    [_propertyBtn setTitleColor:COLOR_TEXT_III forState:UIControlStateNormal];
+    [_titleBtn setTitleColor:COLOR_TEXT_I forState:UIControlStateNormal];
+    
     if (_model.isSender) {
         [_pictureImageView setFrame:CGRectMake(12.5, 10, 60, 60)];
     } else {
@@ -107,7 +106,7 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
     if (_model.type ==  IMMessageTypeTravelNoteMessageType || _model.type == IMMessageTypeCityPoiMessageType || _model.type == IMMessageTypeHtml5MessageType) {
         _propertyBtn.hidden = YES;
         _propertyBtn.frame = CGRectZero;
-        offsetY = 40;
+        offsetY = 20;
     } else {
         _propertyBtn.hidden = NO;
         _propertyBtn.frame = CGRectMake(_titleBtn.frame.origin.x, 30, titleWidth, 15);
@@ -127,7 +126,7 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
     _model = model;
     
     BOOL isReceiver = !_model.isSender;
-    NSString *imageName = isReceiver ? @"messages_bg_friend.png" : @"messages_bg_self.png";
+    NSString *imageName = isReceiver ? @"messages_poi_bg_friend.png" : @"messages_poi_bg_self.png";
     self.backImageView.image = [[UIImage imageNamed:imageName] resizableImageWithCapInsets:UIEdgeInsetsMake(28, 18, 18, 10)];
 
     if (model.poiModel) {
@@ -135,8 +134,6 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
         [_titleBtn setTitle:model.poiModel.poiName forState:UIControlStateNormal];
         [_pictureImageView sd_setImageWithURL:[NSURL URLWithString:model.poiModel.image] placeholderImage:nil];
     
-        _typeLabel.hidden = NO;
-
         switch (model.type) {
                 
             case IMMessageTypeSpotMessageType:
@@ -208,7 +205,6 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
         
     } else if (model.type == IMMessageTypeHtml5MessageType) {
         _titleBtn.titleLabel.numberOfLines = 2;
-        _typeLabel.hidden = YES;
         [_titleBtn setTitle:((HtmlMessage *)model.baseMessage).title forState:UIControlStateNormal];
         [_pictureImageView sd_setImageWithURL:[NSURL URLWithString:((HtmlMessage *)model.baseMessage).imageUrl] placeholderImage:nil];
         _descLabel.text = ((HtmlMessage *)model.baseMessage).subtitle;
