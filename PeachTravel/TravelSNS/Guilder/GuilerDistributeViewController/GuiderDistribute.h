@@ -17,6 +17,8 @@
 
 @property (nonatomic, copy)NSString * zhName;
 
+@property (nonatomic, copy)NSString *enName;
+
 @property (nonatomic, copy)NSString * code;
 
 @property (nonatomic) NSInteger rank;
