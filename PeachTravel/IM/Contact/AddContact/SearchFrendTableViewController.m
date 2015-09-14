@@ -7,7 +7,6 @@
 //
 
 #import "SearchFrendTableViewController.h"
-#import "OtherUserInfoViewController.h"
 #import "OtherProfileViewController.h"
 
 @interface SearchFrendTableViewController () <UISearchBarDelegate>

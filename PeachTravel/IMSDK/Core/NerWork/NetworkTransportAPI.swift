@@ -238,7 +238,6 @@ class NetworkTransportAPI: NSObject {
                 
             } else {
                 completionBlock(isSuccess: false, errorCode: 0, timestamp: nil, retMessage: nil)
-
             }
         })
         {

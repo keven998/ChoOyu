@@ -82,7 +82,7 @@ NSString *const kRouterEventChatHeadImageTapEventName = @"kRouterEventChatHeadIm
 
 #pragma mark - private
 
--(void)headImagePressed:(id)sender
+- (void)headImagePressed:(id)sender
 {
     [super routerEventWithName:kRouterEventChatHeadImageTapEventName userInfo:@{KMESSAGEKEY:self.messageModel}];
 }

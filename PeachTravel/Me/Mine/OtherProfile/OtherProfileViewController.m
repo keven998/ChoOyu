@@ -25,6 +25,8 @@
 @property (nonatomic, strong) UIButton *beginTalk;
 @property (nonatomic, weak) UIButton *backBtn;
 
+@property (nonatomic) BOOL navigationBarHasHiddenInPreCtl;
+
 
 @end
 
@@ -54,13 +56,16 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    _navigationBarHasHiddenInPreCtl = self.navigationController.navigationBarHidden;
+    if (!_navigationBarHasHiddenInPreCtl) {
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    if (![[self.navigationController.viewControllers lastObject]isKindOfClass:[MineViewContoller class]]) {
+    if (!_navigationBarHasHiddenInPreCtl) {
         [self.navigationController setNavigationBarHidden:NO animated:YES];
     }
 }

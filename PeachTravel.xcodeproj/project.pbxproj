@@ -41,7 +41,6 @@
 		27FF1A7E1B059F5900643D77 /* CityNameCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FF1A7C1B059F5900643D77 /* CityNameCell.m */; };
 		27FF1A7F1B059F5900643D77 /* CityNameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27FF1A7D1B059F5900643D77 /* CityNameCell.xib */; };
 		27FF1A9A1B06E9C600643D77 /* chatBar_recordBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27FF1A991B06E9C600643D77 /* chatBar_recordBg@2x.png */; };
-		27FF1ACA1B07170E00643D77 /* OtherUserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FF1AC91B07170E00643D77 /* OtherUserInfoViewController.m */; };
 		27FF1AE51B09AFB100643D77 /* OtherUserBasicInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FF1AE31B09AFB100643D77 /* OtherUserBasicInfoCell.m */; };
 		27FF1AE61B09AFB100643D77 /* OtherUserBasicInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27FF1AE41B09AFB100643D77 /* OtherUserBasicInfoCell.xib */; };
 		27FF1AEA1B09C51000643D77 /* OthersAlbumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FF1AE81B09C51000643D77 /* OthersAlbumCell.m */; };
@@ -1467,8 +1466,6 @@
 		27FF1A7C1B059F5900643D77 /* CityNameCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityNameCell.m; sourceTree = "<group>"; };
 		27FF1A7D1B059F5900643D77 /* CityNameCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CityNameCell.xib; sourceTree = "<group>"; };
 		27FF1A991B06E9C600643D77 /* chatBar_recordBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chatBar_recordBg@2x.png"; sourceTree = "<group>"; };
-		27FF1AC81B07170E00643D77 /* OtherUserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OtherUserInfoViewController.h; sourceTree = "<group>"; };
-		27FF1AC91B07170E00643D77 /* OtherUserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OtherUserInfoViewController.m; sourceTree = "<group>"; };
 		27FF1AE21B09AFB100643D77 /* OtherUserBasicInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OtherUserBasicInfoCell.h; sourceTree = "<group>"; };
 		27FF1AE31B09AFB100643D77 /* OtherUserBasicInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OtherUserBasicInfoCell.m; sourceTree = "<group>"; };
 		27FF1AE41B09AFB100643D77 /* OtherUserBasicInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OtherUserBasicInfoCell.xib; sourceTree = "<group>"; };
@@ -3338,8 +3335,6 @@
 		27FF1AC71B0716F800643D77 /* OthersUserInfo */ = {
 			isa = PBXGroup;
 			children = (
-				27FF1AC81B07170E00643D77 /* OtherUserInfoViewController.h */,
-				27FF1AC91B07170E00643D77 /* OtherUserInfoViewController.m */,
 				27FF1AE71B09C51000643D77 /* OthersAlbumCell.h */,
 				27FF1AE81B09C51000643D77 /* OthersAlbumCell.m */,
 				27FF1AE91B09C51000643D77 /* OthersAlbumCell.xib */,
@@ -8624,7 +8619,6 @@
 				D9A802331A80E036005AD701 /* TZScrollView.m in Sources */,
 				C679D3111ACD64E3007680D9 /* UIView+REFrostedViewController.m in Sources */,
 				275003561B4D0165002B7856 /* GuiderCollectionCell.m in Sources */,
-				27FF1ACA1B07170E00643D77 /* OtherUserInfoViewController.m in Sources */,
 				C6F87A1A1ACD1C4400BB7D7F /* UIAlertView+PXAlertViewOverride.m in Sources */,
 				D9A8FF1F1A80CC2B005AD701 /* EditUserInfoTableViewController.m in Sources */,
 				D9F70CA91B304E1800BDACA1 /* FrendRequest.m in Sources */,

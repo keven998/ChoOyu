@@ -24,6 +24,8 @@
 
 @property (nonatomic, strong) IMDiscussionGroup *groupModel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+//disappear 的时候是不是应该显示出 navigationbar
+@property (nonatomic) BOOL shouldNotShowNavigationBarWhenDisappear;
 
 @end
 
@@ -51,7 +53,10 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:YES];
-    [self.frostedViewController.navigationController setNavigationBarHidden:NO animated:YES];
+    if (!_shouldNotShowNavigationBarWhenDisappear) {
+        [self.frostedViewController.navigationController setNavigationBarHidden:NO animated:YES];
+    }
+    _shouldNotShowNavigationBarWhenDisappear = NO;
 }
 
 #pragma mark - private methods
@@ -436,6 +441,7 @@
 
 - (void)showUserInfoWithContactInfo:(FrendModel *)contact
 {
+    _shouldNotShowNavigationBarWhenDisappear = YES;
     OtherProfileViewController *contactDetailCtl = [[OtherProfileViewController alloc]init];
     contactDetailCtl.userId = contact.userId;
     [self.navigationController pushViewController:contactDetailCtl animated:YES];

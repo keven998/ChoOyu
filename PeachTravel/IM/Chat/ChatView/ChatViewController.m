@@ -593,6 +593,7 @@
 {
     if (message.isSender) {
         message.nickName = self.accountManager.account.nickName;
+        message.senderId = self.accountManager.account.userId;
         message.headImageURL = [NSURL URLWithString: self.accountManager.account.avatarSmall];
         
     } else {
