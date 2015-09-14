@@ -149,6 +149,11 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
     [MobClick endLogPageView:@"page_lxp_day_schedule_detail"];
 }
 
+- (void)dealloc
+{
+    self.tableView.delegate = nil;
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

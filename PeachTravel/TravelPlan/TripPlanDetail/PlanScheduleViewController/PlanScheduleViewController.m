@@ -46,6 +46,11 @@
     [super didReceiveMemoryWarning];
 }
 
+- (void)dealloc
+{
+    self.tableView.delegate = nil;
+}
+
 - (void)setTripDetail:(TripDetail *)tripDetail
 {
     _tripDetail = tripDetail;
