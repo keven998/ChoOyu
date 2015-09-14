@@ -40,6 +40,11 @@
     [MobClick endLogPageView:@"page_lxp_plan_favorite"];
 }
 
+- (void)dealloc
+{
+    self.tableView.delegate = nil;
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

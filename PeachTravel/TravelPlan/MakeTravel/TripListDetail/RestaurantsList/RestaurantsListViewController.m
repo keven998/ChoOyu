@@ -65,6 +65,12 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
     [super viewWillDisappear:animated];
 }
 
+- (void)dealloc
+{
+    self.tableView.delegate = nil;
+}
+
+
 #pragma mark - setter & getter
 
 - (void)setTripDetail:(TripDetail *)tripDetail

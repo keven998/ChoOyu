@@ -73,6 +73,11 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
     [super viewWillDisappear:animated];
 }
 
+- (void)dealloc
+{
+    self.tableView.delegate = nil;
+}
+
 
 #pragma mark - setter & getter
 
@@ -180,6 +185,7 @@ static NSString *shoppingListReusableIdentifier = @"tripPoiListCell";
     [self.rootViewController.navigationController pushViewController:cityDetailCtl animated:YES];
 }
 
+// 删除景点
 - (IBAction)deletePoi:(UIButton *)sender
 {
     CGPoint point = [sender convertPoint:CGPointMake(20, 20) toView:self.tableView];
