@@ -268,11 +268,19 @@
 {
     MineProfileTitleView *titleView = [[MineProfileTitleView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 50)];
     if (section == 0) {
-        [titleView.titleBtn setTitle:@"我的相册" forState:UIControlStateNormal];
+        NSString *title = [NSString stringWithFormat:@"%@的相册",_userInfo.nickName];
+        [titleView.titleBtn setTitle:title forState:UIControlStateNormal];
+        NSString *albumCount = [NSString stringWithFormat:@"%ld图",self.userInfo.userAlbum.count];
+        titleView.countLab.text = albumCount;
+        titleView.iconImage.image = [UIImage imageNamed:@"picture_biaoti"];
     } else if (section == 1) {
-        [titleView.titleBtn setTitle:@"我的旅历" forState:UIControlStateNormal];
+        NSString *title = [NSString stringWithFormat:@"%@的旅行",_userInfo.nickName];
+        [titleView.titleBtn setTitle:title forState:UIControlStateNormal];
+        titleView.iconImage.image = [UIImage imageNamed:@"travel_biaoti"];
     } else {
-        [titleView.titleBtn setTitle:@"关于自己" forState:UIControlStateNormal];
+        NSString *title = [NSString stringWithFormat:@"关于%@",_userInfo.nickName];
+        [titleView.titleBtn setTitle:title forState:UIControlStateNormal];
+        titleView.iconImage.image = [UIImage imageNamed:@"about"];
     }
     return titleView;
 }

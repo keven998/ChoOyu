@@ -67,9 +67,7 @@
 - (void)setGuiderModel:(ExpertModel *)guiderModel
 {
     _guiderModel = guiderModel;
-    
-//    _guiderModel.profile = @"电视剧分别是的南方科技那富士康 开发的年纪的奶粉今年房价看呢教科文额看五分局南方你看你胃口放你飞机呢电视剧分别是的南方科技那富士康 开发的年纪的奶粉今年房价看呢教科文额看五分局南方你看你胃口放你飞机呢电视剧分别是的南方科技那富士康 开发的年纪的奶粉今年房价看呢教科文额看五分局南方你看你胃口放你飞机呢";
-    
+        
     _nickName.text = _guiderModel.nickName;
     [_levelBtn setTitle:[NSString stringWithFormat:@"V%ld", (long)_guiderModel.level] forState:UIControlStateNormal];
     
@@ -78,7 +76,7 @@
     NSString *cityContent = [NSString stringWithFormat:@"%@ %ld岁",_guiderModel.residence,_guiderModel.age];
     _city.text = cityContent;
     
-    _content.text = _guiderModel.profile;
+    _content.text = _guiderModel.signature;
     
     NSString *levelBtnTitle = [NSString stringWithFormat:@"V%ld",_guiderModel.level];
     [_levelBtn setTitle:levelBtnTitle forState:UIControlStateNormal];
