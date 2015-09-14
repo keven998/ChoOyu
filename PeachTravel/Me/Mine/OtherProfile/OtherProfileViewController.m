@@ -12,6 +12,7 @@
 #import "EditUserInfoTableViewController.h"
 #import "MineProfileTourViewCell.h"
 #import "MineViewContoller.h"
+#import "REFrostedViewController.h"
 
 @interface OtherProfileViewController () <UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate>
 
@@ -24,9 +25,6 @@
 @property (nonatomic, strong) UIButton *addFriendBtn;
 @property (nonatomic, strong) UIButton *beginTalk;
 @property (nonatomic, weak) UIButton *backBtn;
-
-@property (nonatomic) BOOL navigationBarHasHiddenInPreCtl;
-
 
 @end
 
@@ -56,16 +54,13 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    _navigationBarHasHiddenInPreCtl = self.navigationController.navigationBarHidden;
-    if (!_navigationBarHasHiddenInPreCtl) {
-        [self.navigationController setNavigationBarHidden:YES animated:YES];
-    }
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    if (!_navigationBarHasHiddenInPreCtl) {
+    if (![[self.navigationController.viewControllers lastObject]isKindOfClass:[MineViewContoller class]]) {
         [self.navigationController setNavigationBarHidden:NO animated:YES];
     }
 }
