@@ -343,7 +343,6 @@
             [self reloadTripData];
             [[NSNotificationCenter defaultCenter] postNotificationName:updateGuideListNoti object:nil];
             if (isNeedRecommend) {
-                //                [SVProgressHUD showHint:[NSString stringWithFormat:@"已为你创建%lu行程", (unsigned long)_tripDetail.itineraryList.count]];
                 [self performSelector:@selector(hintBuildRoutes) withObject:nil afterDelay:0.5];
             }
         } else {
@@ -411,7 +410,7 @@
             [self setupViewWithData:[responseObject objectForKey:@"result"]];
         } else {
             if (self.isShowing) {
-                [SVProgressHUD showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+                [SVProgressHUD showHint:HTTP_FAILED_HINT];
             }
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

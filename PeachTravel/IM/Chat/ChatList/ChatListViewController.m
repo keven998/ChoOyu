@@ -611,7 +611,6 @@
     
     ChatConversation *tzConversation = [self.dataSource objectAtIndex:indexPath.row];
     
-    NSLog(@"%@",tzConversation);
     if (tzConversation.chatType == IMChatTypeIMChatSingleType) {
         if ([tzConversation.chatterName isBlankString]) {
             if (tzConversation.chatterId == WenwenUserId) {
