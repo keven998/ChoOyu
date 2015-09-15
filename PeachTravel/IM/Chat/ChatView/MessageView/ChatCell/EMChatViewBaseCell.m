@@ -70,12 +70,15 @@ NSString *const kRouterEventChatHeadImageTapEventName = @"kRouterEventChatHeadIm
     _messageModel = messageModel;
     _nameLabel.hidden = !(messageModel.chatType != IMChatTypeIMChatSingleType);
     if (messageModel.senderId == WenwenUserId) {
+        [self.headImageView sd_setImageWithURL:nil];
         self.headImageView.image = [UIImage imageNamed:@"chat_wenwen.png"];
         
     } else if (messageModel.senderId == PaipaiUserId) {
+        [self.headImageView sd_setImageWithURL:nil];
         self.headImageView.image = [UIImage imageNamed:@"chat_paipai.png"];
         
     } else {
+        self.headImageView.image = nil;
         [self.headImageView sd_setImageWithURL:_messageModel.headImageURL placeholderImage:[UIImage imageNamed:@"avatar_default.png"]];
     }
 }
