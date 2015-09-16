@@ -30,7 +30,7 @@
 }
 
 + (NSArray *)continentCodeArray {
-    NSArray * continentCode = @[@"AS",@"EU",@"NA", @"SA", @"OA", @"AF"];
+    NSArray * continentCode = @[@"AS",@"EU",@"NA", @"SA", @"OC", @"AF"];
     return continentCode;
 }
 
