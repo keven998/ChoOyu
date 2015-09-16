@@ -637,7 +637,11 @@
     } else {
         cell.imageView.layer.cornerRadius = 28;
         cell.imageView.image = [UIImage imageNamed:@"icon_chat_group.png"];
-        cell.name = tzConversation.chatterName;
+        if (tzConversation.chatterName && ![tzConversation.chatterName isBlankString]) {
+            cell.name = tzConversation.chatterName;
+        } else {
+            cell.name = [NSString stringWithFormat:@"%ld", tzConversation.chatterId];
+        }
     }
     
     BaseMessage *message = tzConversation.lastLocalMessage;
