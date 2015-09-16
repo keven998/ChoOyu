@@ -189,7 +189,7 @@
  */
 - (void)searchExpert:(id)sender
 {
-    GuiderSearchViewController *searchCtl = [[GuiderSearchViewController alloc] init];
+    GuiderSearchViewController *searchCtl = [[GuiderSearchViewController alloc] initWithNibName:@"GuiderSearchViewController" bundle:nil];
     
     searchCtl.hidesBottomBarWhenPushed = YES;
     [searchCtl setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];

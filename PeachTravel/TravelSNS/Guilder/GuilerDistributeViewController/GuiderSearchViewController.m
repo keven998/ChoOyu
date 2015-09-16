@@ -13,17 +13,19 @@
 #import "ChatViewController.h"
 #import "ExpertManager.h"
 #import "GuiderProfileViewController.h"
-@interface GuiderSearchViewController () <UISearchBarDelegate, UISearchControllerDelegate, UITableViewDataSource, UITableViewDelegate,SWTableViewCellDelegate>
+#import "ExpertCollectionCell.h"
 
-@property (nonatomic, strong) UITableView *tableView;
+@interface GuiderSearchViewController () <UISearchBarDelegate, UISearchControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, SWTableViewCellDelegate>
+
 @property (nonatomic, strong) UISearchBar *searchBar;
 
-@property (nonatomic, strong)NSArray * dataSource;
-
-#define contactCell      @"contactCell2"
-#define requestCell      @"requestCell"
+@property (nonatomic, strong) NSArray * dataSource;
 
 @end
+
+
+static NSString * const reuseIdentifier = @"expertCell";
+static NSString * const reuseIdentifierHeader = @"expertCellHeader";
 
 @implementation GuiderSearchViewController
 
@@ -40,7 +42,6 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = APP_PAGE_COLOR;
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
     
     self.automaticallyAdjustsScrollViewInsets = YES;
     _searchBar = [[UISearchBar alloc]init];
@@ -58,10 +59,18 @@
     UIImageView *imageBg = [[UIImageView alloc]initWithFrame:CGRectMake((kWindowWidth - 210)/2, 68, 210, 130)];
     
     imageBg.image = [UIImage imageNamed:@"search_default_background"];
-//    [self.view addSubview:imageBg];
-
-    [self.view addSubview:self.tableView];
-    self.tableView.hidden = YES;
+    
+    
+    self.collectionView.backgroundColor = APP_PAGE_COLOR;
+    
+    UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
+    layout.minimumLineSpacing = 20;
+    layout.footerReferenceSize = CGSizeMake(kWindowWidth, 16);
+    
+    layout.itemSize = CGSizeMake(self.view.bounds.size.width, 150);
+    // Register cell classes
+    [self.collectionView registerNib:[UINib nibWithNibName:@"ExpertCollectionCell" bundle:nil] forCellWithReuseIdentifier:reuseIdentifier];
+    [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:reuseIdentifierHeader];
     
     [_searchBar becomeFirstResponder];
     
@@ -83,88 +92,45 @@
     [_searchBar endEditing:YES];
 }
 
-- (UITableView *)tableView
+#pragma mark <UICollectionViewDataSource>
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds)+60)];
-        _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        _tableView.backgroundColor = APP_PAGE_COLOR;
-        
-        _tableView.contentInset = UIEdgeInsetsMake(0, 0, 26, 0);
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableView.dataSource = self;
-        _tableView.delegate = self;
-        
-        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.bounds.size.width, 41)];
-        footerView.backgroundColor = APP_PAGE_COLOR;
-        _tableView.tableFooterView = footerView;
-    }
-    return _tableView;
+    return _dataSource.count;
 }
 
-
-
-#pragma mark - 实现tableView数据源方法以及代理方法
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 58.0;
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return self.dataSource.count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+    // 初始化cell并对cell赋值
+    ExpertCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     
-    ExpertModel * contact = self.dataSource[indexPath.row];
-    
-    ContactListTableViewCell *cell = [ContactListTableViewCell contactListCellWithTableView:tableView];
-    cell.backgroundColor = [UIColor redColor];
-    
-    [cell setRightUtilityButtons:[self rightButtons] WithButtonWidth:60];
-    cell.delegate = self;
-    
-    if (![contact.avatarSmall isBlankString]) {
-        [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:contact.avatarSmall] placeholderImage:[UIImage imageNamed:@"avatar_default.png"]];
-    } else {
-        [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:contact.avatar] placeholderImage:[UIImage imageNamed:@"avatar_default.png"]];
-    }
-    
-    if (contact.memo.length > 0) {
-        cell.nickNameLabel.text = contact.memo;
-    } else {
-        cell.nickNameLabel.text = contact.nickName;
-    }
+    // 达人模型,dataSource是达人列表数组
+    ExpertModel * expert = self.dataSource[indexPath.section];
+    cell.guiderModel = expert;
     return cell;
 }
 
+#pragma mark <UICollectionViewDelegate>
 
-#pragma mark - Table view delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    ExpertModel *contact = self.dataSource[indexPath.row];
-    GuiderProfileViewController *contactDetailCtl = [[GuiderProfileViewController alloc]init];
-    contactDetailCtl.userId = contact.userId;
-    [self.navigationController pushViewController:contactDetailCtl animated:YES];
-    
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    GuiderProfileViewController *guiderCtl = [[GuiderProfileViewController alloc] init];
+    FrendModel *model = _dataSource[indexPath.section];
+    guiderCtl.userId = model.userId;
+    guiderCtl.shouldShowExpertTipsView = YES;
+    [self.navigationController pushViewController:guiderCtl animated:YES];
 }
 
-
-
-- (NSArray *)rightButtons
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
-    NSMutableArray *rightUtilityButtons = [NSMutableArray new];
-    [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor lightGrayColor] icon:[UIImage imageNamed:@"ic_guide_edit.png"]];
-    return rightUtilityButtons;
+    UICollectionReusableView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:reuseIdentifierHeader forIndexPath:indexPath];
+    header.backgroundColor = APP_PAGE_COLOR;
+    return header;
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
@@ -187,15 +153,14 @@
 
 
 #pragma mark - 加载网络数据
- - (void)loadTravelers:(NSString *)areaName withPageNo:(NSInteger)page
+- (void)loadTravelers:(NSString *)areaName withPageNo:(NSInteger)page
 {
     [SVProgressHUD show];
     [ExpertManager asyncLoadExpertsWithAreaName:areaName page:page pageSize:15 completionBlock:^(BOOL isSuccess, NSArray *expertsArray) {
         if (isSuccess) {
             [SVProgressHUD showHint:@"加载完成"];
             _dataSource = expertsArray;
-            [self.tableView reloadData];
-            self.tableView.hidden = NO;
+            [self.collectionView reloadData];
             [self.searchBar endEditing:YES];
         } else {
             NSString *tip = [NSString stringWithFormat:@"还没有达人去过%@",areaName];
