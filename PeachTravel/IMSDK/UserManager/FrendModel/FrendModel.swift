@@ -91,10 +91,6 @@ class FrendModel: NSObject {
         }
     }
     
-    // 个人点评和tags数组
-    var profile: NSString = ""
-    var allZone: NSArray = NSArray()
-    
     var tags: Array<String> = Array()
 
     init(json: NSDictionary) {
@@ -189,15 +185,6 @@ class FrendModel: NSObject {
             tags = tag as! Array<String>
         }
         
-        // 达人信息
-        if let expertInfo = json.objectForKey("expertInfo") as? NSDictionary {
-            if let pro = json.objectForKey("profile") as? String {
-                profile = pro
-            }
-            if let zone = json.objectForKey("zone") as? NSArray {
-                allZone = zone
-            }
-        }
     }
     
     override init() {

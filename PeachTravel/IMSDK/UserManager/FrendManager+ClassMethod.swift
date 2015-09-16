@@ -43,9 +43,41 @@ extension FrendManager {
                 completion(isSuccess: false, errorCode: 0, frendInfo: nil)
                 debug_print(error)
         }
-    
     }
     
+    /// 从服务器加载达人信息
+    class func loadExpertInfoFromServer(userId: Int, completion: (isSuccess: Bool, errorCode: Int, frendInfo: ExpertModel?) -> ()) {
+        let manager = AFHTTPRequestOperationManager()
+        let requestSerializer = AFJSONRequestSerializer()
+        manager.requestSerializer = requestSerializer
+        manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept")
+        manager.requestSerializer.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        
+        if(AccountManager.shareAccountManager().isLogin())
+        {
+            manager.requestSerializer.setValue("\(AccountManager.shareAccountManager().account.userId)", forHTTPHeaderField: "UserId")
+        }
+        var url = "\(API_USERS)\(userId)"
+        
+        println("\(url)")
+        
+        manager.GET(url, parameters: nil, success: {
+            (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
+            if (responseObject.objectForKey("code") as! Int) == 0 {
+                let resultDic = responseObject.objectForKey("result") as! NSDictionary
+                debug_println("\(resultDic)");
+                var frend = ExpertModel(json: resultDic)
+                completion(isSuccess: true, errorCode: 0, frendInfo: frend)
+            } else {
+                completion(isSuccess: false, errorCode: 0, frendInfo: nil)
+            }
+            }){
+                (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+                completion(isSuccess: false, errorCode: 0, frendInfo: nil)
+                debug_print(error)
+        }
+        
+    }
     
     /**
     从服务器上加载用户相册

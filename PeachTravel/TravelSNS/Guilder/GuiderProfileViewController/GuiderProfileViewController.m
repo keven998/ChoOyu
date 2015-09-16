@@ -15,7 +15,7 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
-@property (nonatomic, strong) FrendModel *userInfo;
+@property (nonatomic, strong) ExpertModel *userInfo;
 @property (nonatomic, strong) NSMutableArray *albumArray;
 @property (nonatomic, assign) BOOL isMyFriend;
 
@@ -212,7 +212,7 @@
 - (void)loadUserProfile:(NSInteger)userId
 {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    [FrendManager loadUserInfoFromServer:userId completion:^(BOOL isSuccess, NSInteger errorCode, FrendModel * __nonnull frend) {
+    [FrendManager loadExpertInfoFromServer:userId completion:^(BOOL isSuccess, NSInteger errorCode, ExpertModel * __nonnull frend) {
         if (isSuccess) {
             _userInfo = frend;
             self.tableView.hidden = NO;
