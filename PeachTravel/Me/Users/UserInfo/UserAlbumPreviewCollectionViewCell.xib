@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="userAlbumPreviewCell" id="gTV-IL-0wX" customClass="UserAlbumPreviewCollectionViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="143" height="147"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="143" height="147"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bxj-6t-Skw" customClass="PhotoPreivewView">
+                        <rect key="frame" x="0.0" y="0.0" width="143" height="147"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="bxj-6t-Skw" secondAttribute="bottom" id="9To-N1-4zM"/>
+                <constraint firstItem="bxj-6t-Skw" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="D4P-IV-qOc"/>
+                <constraint firstAttribute="trailing" secondItem="bxj-6t-Skw" secondAttribute="trailing" id="EhV-E8-Smq"/>
+                <constraint firstItem="bxj-6t-Skw" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="yCn-gj-Q32"/>
+            </constraints>
+            <size key="customSize" width="143" height="147"/>
+            <connections>
+                <outlet property="mainView" destination="bxj-6t-Skw" id="13o-r3-P44"/>
+            </connections>
+            <point key="canvasLocation" x="107.5" y="267.5"/>
+        </collectionViewCell>
+    </objects>
+</document>
