@@ -240,25 +240,25 @@
                         <exclude reference="0FW-2L-jAw"/>
                     </mask>
                     <mask key="constraints">
+                        <exclude reference="6Ky-3W-bwZ"/>
+                        <exclude reference="Pqq-yz-VgO"/>
+                        <exclude reference="Q1g-n5-hB0"/>
+                        <exclude reference="BVB-La-LFx"/>
+                        <exclude reference="DPs-HA-WJV"/>
+                        <exclude reference="ELi-HE-wTC"/>
+                        <exclude reference="Q7J-GN-Sd5"/>
+                        <exclude reference="SUP-24-ygD"/>
+                        <exclude reference="eTc-40-7Y6"/>
+                        <exclude reference="vNH-WE-Ece"/>
+                        <exclude reference="vqx-5m-boH"/>
+                        <exclude reference="E2Y-61-vrH"/>
+                        <exclude reference="LNG-ia-yfW"/>
                         <exclude reference="ZTM-Lz-tAm"/>
                         <exclude reference="rtJ-YT-K6B"/>
                         <exclude reference="80x-74-NPK"/>
                         <exclude reference="Zhb-t6-MuE"/>
                         <exclude reference="4Lj-Lv-hnn"/>
                         <exclude reference="OpI-QZ-tRw"/>
-                        <exclude reference="Q7J-GN-Sd5"/>
-                        <exclude reference="SUP-24-ygD"/>
-                        <exclude reference="eTc-40-7Y6"/>
-                        <exclude reference="vNH-WE-Ece"/>
-                        <exclude reference="vqx-5m-boH"/>
-                        <exclude reference="BVB-La-LFx"/>
-                        <exclude reference="DPs-HA-WJV"/>
-                        <exclude reference="ELi-HE-wTC"/>
-                        <exclude reference="6Ky-3W-bwZ"/>
-                        <exclude reference="Pqq-yz-VgO"/>
-                        <exclude reference="Q1g-n5-hB0"/>
-                        <exclude reference="E2Y-61-vrH"/>
-                        <exclude reference="LNG-ia-yfW"/>
                     </mask>
                 </variation>
                 <variation key="widthClass=compact">
@@ -273,25 +273,25 @@
                         <include reference="0FW-2L-jAw"/>
                     </mask>
                     <mask key="constraints">
+                        <include reference="6Ky-3W-bwZ"/>
+                        <include reference="Pqq-yz-VgO"/>
+                        <include reference="Q1g-n5-hB0"/>
+                        <include reference="BVB-La-LFx"/>
+                        <include reference="DPs-HA-WJV"/>
+                        <include reference="ELi-HE-wTC"/>
+                        <include reference="Q7J-GN-Sd5"/>
+                        <include reference="SUP-24-ygD"/>
+                        <include reference="eTc-40-7Y6"/>
+                        <include reference="vNH-WE-Ece"/>
+                        <include reference="vqx-5m-boH"/>
+                        <include reference="E2Y-61-vrH"/>
+                        <include reference="LNG-ia-yfW"/>
                         <include reference="ZTM-Lz-tAm"/>
                         <include reference="rtJ-YT-K6B"/>
                         <include reference="80x-74-NPK"/>
                         <include reference="Zhb-t6-MuE"/>
                         <include reference="4Lj-Lv-hnn"/>
                         <include reference="OpI-QZ-tRw"/>
-                        <include reference="Q7J-GN-Sd5"/>
-                        <include reference="SUP-24-ygD"/>
-                        <include reference="eTc-40-7Y6"/>
-                        <include reference="vNH-WE-Ece"/>
-                        <include reference="vqx-5m-boH"/>
-                        <include reference="BVB-La-LFx"/>
-                        <include reference="DPs-HA-WJV"/>
-                        <include reference="ELi-HE-wTC"/>
-                        <include reference="6Ky-3W-bwZ"/>
-                        <include reference="Pqq-yz-VgO"/>
-                        <include reference="Q1g-n5-hB0"/>
-                        <include reference="E2Y-61-vrH"/>
-                        <include reference="LNG-ia-yfW"/>
                     </mask>
                 </variation>
             </tableViewCellContentView>

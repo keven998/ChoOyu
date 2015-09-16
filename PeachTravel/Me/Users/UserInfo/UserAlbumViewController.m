@@ -12,6 +12,7 @@
 #import "AlbumImageCell.h"
 #import "MJPhotoBrowser.h"
 #import "MJPhoto.h"
+#import "UserAlbumOverViewTableViewController.h"
 
 @interface UserAlbumViewController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 @property (nonatomic, strong) AccountManager *manager;
@@ -214,11 +215,13 @@ static NSString * const reuseIdentifier = @"albumImageCell";
                                                       } else {
                                                           return;
                                                       }
-                                                      UIImagePickerController * picker = [[UIImagePickerController alloc] init];
-                                                      picker.delegate = self;
-                                                      picker.allowsEditing = YES;
-                                                      picker.sourceType = sourceType;
-                                                      [self presentViewController:picker animated:YES completion:nil];
+//                                                      UIImagePickerController * picker = [[UIImagePickerController alloc] init];
+//                                                      picker.delegate = self;
+//                                                      picker.allowsEditing = YES;
+//                                                      picker.sourceType = sourceType;
+//                                                      [self presentViewController:picker animated:YES completion:nil];
+                                                      UserAlbumOverViewTableViewController *ctl = [[UserAlbumOverViewTableViewController alloc] init];
+                                                      [self.navigationController pushViewController:ctl animated:YES];
                                                   }];
     [alertView setTitleFont:[UIFont systemFontOfSize:16]];
     [alertView useCustomStyle];
