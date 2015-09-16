@@ -76,13 +76,12 @@
     NSString *cityContent = [NSString stringWithFormat:@"%@ %ld岁",_guiderModel.residence,_guiderModel.age];
     _city.text = cityContent;
     
-    _content.text = _guiderModel.signature;
+    _content.text = _guiderModel.profile;
     
     NSString *levelBtnTitle = [NSString stringWithFormat:@"V%ld",_guiderModel.level];
     [_levelBtn setTitle:levelBtnTitle forState:UIControlStateNormal];
     
     NSLog(@"%@",_guiderModel);
-//    self.collectionArray = @[@"哈哈",@"嘿嘿和",@"八十多",@"但客服可视对讲",@"哈哈",@"嘿嘿和",@"八十多",@"但客服可视对讲",@"哈哈",@"嘿嘿和",@"八十多",@"但客服可视对讲"];
     self.collectionArray = _guiderModel.tags;
     [self.collectionView reloadData];
 }

@@ -7,7 +7,6 @@
 //
 
 #import "GuiderCollectionViewController.h"
-#import "GuiderCollectionCell.h"
 #import "PeachTravel-swift.h"
 #import "GuiderDistribute.h"
 #import "GuiderProfileViewController.h"

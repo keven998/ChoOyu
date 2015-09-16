@@ -19,8 +19,6 @@
 		27329DB51B0E030700F0A4FA /* ChatGroupCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27329DB31B0E030600F0A4FA /* ChatGroupCell.xib */; };
 		27329DBB1B0E0B9600F0A4FA /* AddMemberCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 27329DB91B0E0B9600F0A4FA /* AddMemberCell.m */; };
 		27329DBC1B0E0B9600F0A4FA /* AddMemberCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27329DBA1B0E0B9600F0A4FA /* AddMemberCell.xib */; };
-		275003561B4D0165002B7856 /* GuiderCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 275003541B4D0165002B7856 /* GuiderCollectionCell.m */; };
-		275003571B4D0165002B7856 /* GuiderCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 275003551B4D0165002B7856 /* GuiderCollectionCell.xib */; };
 		2755298C1B04A52400A10506 /* HMSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 2755298B1B04A52400A10506 /* HMSegmentedControl.m */; };
 		276DF7671B4A49F4001A98FB /* DomesticCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 276DF7651B4A49F4001A98FB /* DomesticCell.m */; };
 		276DF7681B4A49F4001A98FB /* DomesticCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 276DF7661B4A49F4001A98FB /* DomesticCell.xib */; };
@@ -1430,9 +1428,6 @@
 		27329DB81B0E0B9600F0A4FA /* AddMemberCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddMemberCell.h; sourceTree = "<group>"; };
 		27329DB91B0E0B9600F0A4FA /* AddMemberCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddMemberCell.m; sourceTree = "<group>"; };
 		27329DBA1B0E0B9600F0A4FA /* AddMemberCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddMemberCell.xib; sourceTree = "<group>"; };
-		275003531B4D0165002B7856 /* GuiderCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuiderCollectionCell.h; sourceTree = "<group>"; };
-		275003541B4D0165002B7856 /* GuiderCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuiderCollectionCell.m; sourceTree = "<group>"; };
-		275003551B4D0165002B7856 /* GuiderCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GuiderCollectionCell.xib; sourceTree = "<group>"; };
 		2755298A1B04A52400A10506 /* HMSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMSegmentedControl.h; sourceTree = "<group>"; };
 		2755298B1B04A52400A10506 /* HMSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMSegmentedControl.m; sourceTree = "<group>"; };
 		276DF7641B4A49F4001A98FB /* DomesticCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DomesticCell.h; sourceTree = "<group>"; };
@@ -3415,9 +3410,6 @@
 			isa = PBXGroup;
 			children = (
 				E68CB2D21BA1679F00A5B38B /* ExpertCollectionView */,
-				275003531B4D0165002B7856 /* GuiderCollectionCell.h */,
-				275003541B4D0165002B7856 /* GuiderCollectionCell.m */,
-				275003551B4D0165002B7856 /* GuiderCollectionCell.xib */,
 				D98CEE081B4E17010019B902 /* GuiderCollectionViewController.h */,
 				D98CEE091B4E17010019B902 /* GuiderCollectionViewController.m */,
 				D98CEE0A1B4E17010019B902 /* GuiderCollectionViewController.xib */,
@@ -7585,7 +7577,6 @@
 				E6E725551B5603D30007273A /* UMSCommentDetailController.xib in Resources */,
 				D90A9B391B5627C400E9F37C /* Loading_Animation_final14@3x.png in Resources */,
 				E6F189601B845F4900232EEB /* plan_bg_add@3x.png in Resources */,
-				275003571B4D0165002B7856 /* GuiderCollectionCell.xib in Resources */,
 				E6F189D71B845F4900232EEB /* tababr@2x.png in Resources */,
 				E6F1895C1B845F4900232EEB /* plan_10_dashboard_sift_highlight@3x.png in Resources */,
 				C65DB7B91AD37B8600F51443 /* SelectionTableViewController.xib in Resources */,
@@ -8618,7 +8609,6 @@
 				D9A8FF191A80CC2B005AD701 /* RegisterViewController.m in Sources */,
 				D9A802331A80E036005AD701 /* TZScrollView.m in Sources */,
 				C679D3111ACD64E3007680D9 /* UIView+REFrostedViewController.m in Sources */,
-				275003561B4D0165002B7856 /* GuiderCollectionCell.m in Sources */,
 				C6F87A1A1ACD1C4400BB7D7F /* UIAlertView+PXAlertViewOverride.m in Sources */,
 				D9A8FF1F1A80CC2B005AD701 /* EditUserInfoTableViewController.m in Sources */,
 				D9F70CA91B304E1800BDACA1 /* FrendRequest.m in Sources */,

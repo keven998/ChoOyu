@@ -54,6 +54,11 @@
 {
     if (_dataSource == nil) {
         _dataSource = [NSMutableArray array];
+        for (int i = 0; i < [self titleArray].count; i++) {
+            NSMutableArray * array = [NSMutableArray array];
+            [_dataSource addObject:array];
+        }
+        
     }
     return _dataSource;
 }
@@ -108,7 +113,7 @@
 - (void)setupStatus {
     
     [GuiderDistributeTools guiderStatusWithParam:nil success:^(NSArray *dataSource) {
-        [self.dataSource addObjectsFromArray:dataSource];
+        self.dataSource = [dataSource mutableCopy];
         self.guiderArray = [self.dataSource firstObject];
         [self.tableView reloadData];
     } failure:^(NSError *error) {
