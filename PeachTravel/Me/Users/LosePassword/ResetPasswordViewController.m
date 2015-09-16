@@ -24,7 +24,7 @@
     [super viewDidLoad];
     
     UIBarButtonItem *registerBtn = [[UIBarButtonItem alloc]initWithTitle:@"完成 " style:UIBarButtonItemStylePlain target:self action:@selector(confirm:)];
-    registerBtn.tintColor = [UIColor whiteColor];
+    registerBtn.tintColor = COLOR_TEXT_II;
     self.navigationItem.rightBarButtonItem = registerBtn;
     
     //如果是绑定手机号进行到最后一步，进行设置密码

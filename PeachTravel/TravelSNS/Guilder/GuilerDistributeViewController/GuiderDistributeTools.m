@@ -29,9 +29,14 @@
     return _guiderArray;
 }
 
++ (NSArray *)continentCodeArray {
+    NSArray * continentCode = @[@"AS",@"EU",@"NA", @"SA", @"OA", @"AF"];
+    return continentCode;
+}
+
 // 获得标题数组
-+ (NSArray *)getTitleArray {
-    NSArray * titleArray = @[@"亚洲",@"欧洲",@"美洲",@"大洋洲",@"非洲"];
++ (NSArray *)titleArray {
+    NSArray * titleArray = @[@"亚洲",@"欧洲",@"北美洲", @"南美洲", @"大洋洲",@"非洲"];
     return titleArray;
 }
 
@@ -82,10 +87,10 @@
         return result == NSOrderedDescending;
     }];
     
-    NSArray *titleArray = [GuiderDistributeTools getTitleArray];
+    NSArray *codeArray = [GuiderDistributeTools continentCodeArray];
     NSMutableArray *dataSource = [[NSMutableArray alloc] init];
     
-    for (int i = 0; i < titleArray.count; i++) {
+    for (int i = 0; i < codeArray.count; i++) {
         
         NSMutableArray * array = [NSMutableArray array];
         [dataSource addObject:array];
@@ -94,9 +99,8 @@
     for (GuiderDistribute * distrubute in guiderList) {
         int i = 0;
         GuiderDistributeContinent * guilderContinent = distrubute.continents;
-        for (NSString * title in titleArray)
-        {
-            if ([guilderContinent.zhName isEqualToString:title]) {
+        for (NSString *code in codeArray) {
+            if ([guilderContinent.code isEqualToString:code]) {
                 NSMutableArray *array = dataSource[i];
                 [array addObject:distrubute];
                 break;

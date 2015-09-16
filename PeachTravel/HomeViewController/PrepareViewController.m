@@ -121,17 +121,8 @@
         [self willMoveToParentViewController:nil];
         [self.view removeFromSuperview];
         [self removeFromParentViewController];
-        [self performSelector:@selector(pushToUserInfo) withObject:nil afterDelay:0.2];
         _rootViewController = nil;
     }];
 }
-
-- (void)pushToUserInfo
-{
-    EditUserInfoTableViewController *userInfo = [[EditUserInfoTableViewController alloc]init];
-    [self.navigationController pushViewController:userInfo animated:YES];
-
-}
-
 
 @end

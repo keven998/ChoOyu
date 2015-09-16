@@ -183,7 +183,6 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
             self.createChatTable(tableName)
         }
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
-           
             var sql = "update \(tableName) set ServerId = ?, Status = ?  where LocalId = ?"
             if dataBase.executeUpdate(sql, withArgumentsInArray:[message.serverId, message.status.rawValue, message.localId]) {
                 debug_println("success 执行 sql 语句：\(sql)")

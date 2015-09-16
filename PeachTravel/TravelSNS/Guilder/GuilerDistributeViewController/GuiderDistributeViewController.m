@@ -64,7 +64,7 @@
 - (NSArray *)titleArray
 {
     if (_titleArray == nil) {
-        _titleArray = [GuiderDistributeTools getTitleArray];
+        _titleArray = [GuiderDistributeTools titleArray];
     }
     return _titleArray;
 }

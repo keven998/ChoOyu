@@ -109,6 +109,8 @@
     [nextBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
     [self.view addSubview:nextBtn];
     [nextBtn addTarget:self action:@selector(confirm:) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.navigationItem.title = @"验证验证码";
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -203,22 +205,24 @@
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         [hud hideTZHUD];
         if (code == 0) {
+            NSLog(@"注册成功");
             __weak SMSVerifyViewController *weakSelf = self;
             AccountManager *accountManager = [AccountManager shareAccountManager];
             [accountManager userDidLoginWithUserInfo:[responseObject objectForKey:@"result"]];
             [[NSNotificationCenter defaultCenter] postNotificationName:userDidRegistedNoti object:nil userInfo:@{@"poster":weakSelf}];
+            [SVProgressHUD showHint:@"注册成功"];
         } else {
             [SVProgressHUD showHint:@"注册失败"];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [hud hideTZHUD];
-        NSLog(@"%@", error);
+        NSLog(@"注册失败");
         if (self.isShowing) {
             if (operation.response.statusCode == 401) {
                 [SVProgressHUD showHint:@"验证码输入错误"];
             } else {
-                    [SVProgressHUD showHint:HTTP_FAILED_HINT];
+                [SVProgressHUD showHint:HTTP_FAILED_HINT];
             }
         }
     }];

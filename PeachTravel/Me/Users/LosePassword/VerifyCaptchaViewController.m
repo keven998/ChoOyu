@@ -36,9 +36,9 @@
     UIBarButtonItem *leftBtn = [[UIBarButtonItem alloc]initWithTitle:@" 取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
     self.navigationItem.leftBarButtonItem = leftBtn;
 
-    UIBarButtonItem *addBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStylePlain target:self action:@selector(nextStep:)];
-    addBtn.tintColor = [UIColor whiteColor];
-    self.navigationItem.rightBarButtonItem = addBtn;
+    UIBarButtonItem *nextBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStylePlain target:self action:@selector(nextStep:)];
+    nextBtn.tintColor = COLOR_TEXT_II;
+    self.navigationItem.rightBarButtonItem = nextBtn;
     AccountManager *accountManager = [AccountManager shareAccountManager];
     _shouldSetPasswordWhenBindTel = !accountManager.accountIsBindTel;    //如果之前账户已经有手机号了那么不需要进入下一页面设置密码了
     

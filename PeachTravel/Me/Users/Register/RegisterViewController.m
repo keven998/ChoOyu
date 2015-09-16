@@ -40,6 +40,7 @@ typedef void(^loginCompletion)(BOOL completed);
     [self.view addSubview:backBtn];
     
     [self createUI];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidRegisted) name:userDidRegistedNoti object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -135,6 +136,11 @@ typedef void(^loginCompletion)(BOOL completed);
     } else {
         [self dismissViewControllerAnimated:YES completion:nil];
     }
+}
+
+- (void)userDidRegisted
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - UITextFieldDelegate
