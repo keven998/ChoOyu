@@ -96,7 +96,6 @@
     return array;
 }
 
-
 + (void)asyncRequest2BeAnExpert:(NSString *)phoneNumber completionBlock:(void (^)(BOOL isSuccess))completionBlock
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];

@@ -311,7 +311,8 @@ class MessageManager: NSObject {
                 }
                 messageModel?.messageType = messageType
                 messageModel!.conversationId = messageDic.objectForKey("conversation") as? String
-                messageModel!.createTime = (messageDic.objectForKey("timestamp") as! Int)/1000
+                
+                messageModel!.createTime = Int((messageDic.objectForKey("timestamp") as! NSNumber).longLongValue / 1000)
                 messageModel!.abbrevMsg = messageDic.objectForKey("abbrev") as? String
                 
                 if let chatType = messageDic.objectForKey("chatType") as? String {

@@ -100,13 +100,7 @@ class MessageReceivePool: NSObject {
     定时分发消息
     */
     @objc private func distrubuteMessage() {
-        var count = 0
-        for messageList in messagePrepare2Reorder.allValues {
-            count++
-            for message in (messageList as! NSMutableArray) {
-                debug_println("messageId: \((message as! BaseMessage).serverId)")
-            }
-        }
+      
         debug_println("消息已经重组完成")
         
         delegate?.messgeReorderOver(messagePrepare2Reorder)
