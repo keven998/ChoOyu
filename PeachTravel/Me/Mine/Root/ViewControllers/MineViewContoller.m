@@ -105,6 +105,7 @@
 }
 
 #pragma mark - UIGestureRecognizerDelegate 在根视图时不响应interactivePopGestureRecognizer手势
+
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
     if (self.navigationController.viewControllers.count == 1)

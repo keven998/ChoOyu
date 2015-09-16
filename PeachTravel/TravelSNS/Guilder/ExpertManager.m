@@ -125,9 +125,7 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         completionBlock(NO);
     }];
-
 }
-
 
 @end
 
