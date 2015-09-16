@@ -35,10 +35,12 @@
 {
     [super layoutSubviews];
     _scrollView.frame = self.bounds;
-    // 基本尺寸参数
-    CGSize boundsSize = _scrollView.bounds.size;
-    CGFloat boundsWidth = boundsSize.width;
-    CGFloat boundsHeight = boundsSize.height;
+    
+    [_scrollView setMinimumZoomScale:0.25f];
+    [_scrollView setMaximumZoomScale:3.0f];
+    
+    CGFloat boundsWidth = _scrollView.bounds.size.width;
+    CGFloat boundsHeight = _scrollView.bounds.size.height;
     
     CGRect imageFrame = CGRectMake(0, 0, boundsWidth*2, boundsHeight*2);
     _imageView.frame = imageFrame;
@@ -74,7 +76,7 @@
     if (self.scrollView.zoomScale == self.scrollView.maximumZoomScale) {
         [self.scrollView setZoomScale:self.scrollView.minimumZoomScale animated:YES];
     } else {
-        [self.scrollView zoomToRect:CGRectMake(touchPoint.x, touchPoint.y, 1.5, 1.5) animated:YES];
+        [self.scrollView zoomToRect:CGRectMake(touchPoint.x, touchPoint.y, 1, 1) animated:YES];
     }
 }
 
