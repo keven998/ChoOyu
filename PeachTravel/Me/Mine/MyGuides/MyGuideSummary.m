@@ -18,18 +18,20 @@
         _updateTime = [[json objectForKey:@"updateTime"] longLongValue]/1000;
         _summary = [json objectForKey:@"summary"];
         NSMutableArray *imagesArray = [[NSMutableArray alloc] init];
-        _updateTimeStr = [ConvertMethods timeIntervalToString:_updateTime withFormat:@"yyyy-MM-dd HH:mm:ss" withTimeZone:[NSTimeZone systemTimeZone]];
+        _updateTimeStr = [ConvertMethods timeIntervalToString:_updateTime withFormat:@"yyyy-MM-dd" withTimeZone:[NSTimeZone systemTimeZone]];
         for (id imageDic in [json objectForKey:@"images"]) {
             TaoziImage *image = [[TaoziImage alloc] initWithJson:imageDic];
             [imagesArray addObject:image];
         }
         _images = imagesArray;
         _dayCount = [[json objectForKey:@"dayCnt"] integerValue];
+        _status = [json objectForKey:@"status"];
     }
     return self;
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder {
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
     self = [super init];
     if (self) {
         _guideId = [aDecoder decodeObjectForKey:@"id"];
@@ -39,17 +41,20 @@
         _updateTimeStr = [aDecoder decodeObjectForKey:@"updateTimeStr"];
         _images = [aDecoder decodeObjectForKey:@"images"];
         _dayCount = [aDecoder decodeIntForKey:@"dayCnt"];
+        _status = [aDecoder decodeObjectForKey:@"status"];
     }
     return self;
 }
 
-- (void) encodeWithCoder:(NSCoder *)aCoder {
+- (void) encodeWithCoder:(NSCoder *)aCoder
+{
     [aCoder encodeObject:_guideId forKey:@"id"];
     [aCoder encodeObject:_title forKey:@"title"];
     [aCoder encodeInt64:_updateTime forKey:@"updateTime"];
     [aCoder encodeObject:_summary forKey:@"summary"];
     [aCoder encodeObject:_updateTimeStr forKey:@"updateTimeStr"];
     [aCoder encodeObject:_images forKey:@"images"];
+    [aCoder encodeObject:_status forKey:@"status"];
     [aCoder encodeInteger:_dayCount forKey:@"dayCnt"];
 }
 

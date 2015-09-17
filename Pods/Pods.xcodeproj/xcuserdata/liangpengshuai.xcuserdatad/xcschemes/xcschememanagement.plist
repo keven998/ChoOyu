@@ -2,88 +2,204 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>SuppressBuildableAutocreation</key>
+	<key>SchemeUserState</key>
 	<dict>
+		<key>AFNetworking.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>10</integer>
+		</dict>
+		<key>MJRefresh.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>11</integer>
+		</dict>
+		<key>OpenUDID.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>12</integer>
+		</dict>
 		<key>Pods-AFNetworking.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+		<key>Pods-MJRefresh.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>4</integer>
 		</dict>
 		<key>Pods-OpenUDID.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>5</integer>
 		</dict>
 		<key>Pods-Qiniu.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>6</integer>
 		</dict>
 		<key>Pods-SDWebImage.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>7</integer>
 		</dict>
 		<key>Pods-TMCache.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>8</integer>
 		</dict>
 		<key>Pods-UMengAnalytics-NO-IDFA.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>9</integer>
 		</dict>
 		<key>Pods-iRate.xcscheme</key>
 		<dict>
-			<key>primary</key>
-			<true/>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>3</integer>
 		</dict>
-		<key>1AADBC036A27F2CD5ACCDD1F</key>
+		<key>Pods.xcscheme</key>
 		<dict>
-			<key>primary</key>
-			<true/>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>1</integer>
 		</dict>
-
+		<key>Qiniu.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>13</integer>
+		</dict>
+		<key>SDWebImage.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>14</integer>
+		</dict>
+		<key>TMCache.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>15</integer>
+		</dict>
+		<key>iRate.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>16</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>0ACC320D0838B47F5C3DB086</key>
+		<key>0577256221AEE2F48E57C316</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3CB76CCAFEF8F26AA91F072A</key>
+		<key>3281CF7FFF15DCA99B18AB200EFA9540</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>78FFC46AD092A08DD63AD808</key>
+		<key>5352D432641F0656C90741034E32F31E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7BFBFCA11E1B88E150707D4A</key>
+		<key>81127F8E954DA5EEAF5F5876</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8A0F32CAC80EBA20A6E6A560</key>
+		<key>8B090755233C44E8E118A8DA48015C08</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A3B104F516DAAAA10E9F032C</key>
+		<key>95472EE7AD2BC6F0860A9870049CEFC6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B8749C98FC77C6B2F00E3CB3</key>
+		<key>996421D23D6C8322918F0E7E9AF6F545</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D10E396D309313502D8205B6</key>
+		<key>A3080F38577AC3AC19DFA5C3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C54EDBDA36FCC083A42E3FF3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D80354DB6F5FF29E39666C8AF59A80EC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E05599CBE865CAECC5ED6FE8</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E79D968C1471A1347434A94C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EC649B41305E8893CFB26AEBC50F22EB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EF35FE94687F0C2A79DBF2B5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F030E6D2F9F0D857EA6EFE91</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F74401446E2D4793999E45234F884CE4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FC07E27BFAFDCE0D20712198</key>
 		<dict>
 			<key>primary</key>
 			<true/>

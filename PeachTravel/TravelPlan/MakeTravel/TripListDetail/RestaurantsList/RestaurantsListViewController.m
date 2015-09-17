@@ -16,35 +16,58 @@
 #import "PoisOfCityViewController.h"
 #import "RestaurantDetailViewController.h"
 #import "ShoppingDetailViewController.h"
+#import "TripPoiListTableViewCell.h"
 
 @interface RestaurantsListViewController () <UITableViewDataSource, UITableViewDelegate, PoisOfCityDelegate, UIActionSheetDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) UIView *tableViewFooterView;
 
+@property (nonatomic, strong)NSMutableDictionary * showDic;
+
+@property (nonatomic, strong)NSMutableArray * shoppListArray;
+
+@property (nonatomic, strong)NSMutableArray * dataSource;
+
 @end
 
 @implementation RestaurantsListViewController
 
-static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
+static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
+
+- (NSMutableArray *)dataSource
+{
+    if (_dataSource == nil) {
+        _dataSource = [NSMutableArray array];
+    }
+    return _dataSource;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationItem.title = @"收集的美食";
     
-    self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = APP_PAGE_COLOR;
     [self.view addSubview:self.tableView];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [MobClick beginLogPageView:@"page_plan_favorite_pois_lists_type_restaurant"];
     [super viewWillAppear:animated];
+      
+    [self.tableView reloadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [MobClick endLogPageView:@"page_plan_favorite_pois_lists_type_restaurant"];
     [super viewWillDisappear:animated];
-    NSLog(@"Rest willdisappear");
+}
+
+- (void)dealloc
+{
+    self.tableView.delegate = nil;
 }
 
 
@@ -53,99 +76,58 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
 - (void)setTripDetail:(TripDetail *)tripDetail
 {
     _tripDetail = tripDetail;
+    self.dataSource = [self revertRestaurantListToGroup:_tripDetail.restaurantsList];
     [_tableView reloadData];
 }
 
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+        _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+        _tableView.separatorColor = COLOR_LINE;
         _tableView.showsHorizontalScrollIndicator = NO;
-        [_tableView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:restaurantListReusableIdentifier];
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _tableView.backgroundColor = APP_PAGE_COLOR;
         _tableView.delegate = self;
-        _tableView.contentInset = UIEdgeInsetsMake(0, 0, 50, 0);
         _tableView.dataSource = self;
-        if (_canEdit) {
-            _tableView.tableFooterView = self.tableViewFooterView;
-        }
-//        _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 10)];
-
+        [_tableView registerNib:[UINib nibWithNibName:@"TripPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:restaurantListReusableIdentifier];
     }
     return _tableView;
 }
 
-- (UIView *)tableViewFooterView
-{
-    _tableViewFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 100)];
-    UIButton *addWantToBtn = [[UIButton alloc] initWithFrame:CGRectMake((_tableViewFooterView.bounds.size.width-185)/2, 5, 185.0, 33)];
-    
-    [addWantToBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-
-    [addWantToBtn setTitle:@"收集美食" forState:UIControlStateNormal];
-    [addWantToBtn setImage:[UIImage imageNamed:@"add_to_list.png"] forState:UIControlStateNormal];
-    [addWantToBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 60)];
-    [addWantToBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
-
-    addWantToBtn.clipsToBounds = YES;
-    [addWantToBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_SUB_THEME_COLOR] forState:UIControlStateNormal];
-    [addWantToBtn addTarget:self action:@selector(addWantTo:) forControlEvents:UIControlEventTouchUpInside];
-    addWantToBtn.layer.cornerRadius = 16.5;
-    addWantToBtn.titleLabel.font = [UIFont boldSystemFontOfSize:15.0];
-    [_tableViewFooterView addSubview:addWantToBtn];
-    
-    return _tableViewFooterView;
-}
-
-- (void)setShouldEdit:(BOOL)shouldEdit
-{
-    _shouldEdit = shouldEdit;
-    [self editTrip:nil];
-}
-
-- (void)setCanEdit:(BOOL)canEdit
-{
-    _canEdit = canEdit;
-    if (_canEdit) {
-        _tableView.tableFooterView = self.tableViewFooterView;
-    } else {
-        _tableView.tableFooterView = nil;
-    }
-}
-
 #pragma makr - IBAction Methods
 
-- (IBAction)addWantTo:(id)sender
+- (IBAction)addWantTo:(NSInteger)page
 {
-    [MobClick event:@"event_add_delicacy_schedule"];
+    
     PoisOfCityViewController *restaurantOfCityCtl = [[PoisOfCityViewController alloc] init];
     restaurantOfCityCtl.tripDetail = _tripDetail;
+    restaurantOfCityCtl.page = page;
     restaurantOfCityCtl.delegate = self;
     restaurantOfCityCtl.poiType = kRestaurantPoi;
     restaurantOfCityCtl.shouldEdit = YES;
+    restaurantOfCityCtl.selectedArray = self.dataSource[page];
     TZNavigationViewController *nctl = [[TZNavigationViewController alloc] initWithRootViewController:restaurantOfCityCtl];
-    [self.rootViewController presentViewController:nctl animated:YES completion:nil];
-//    [self.navigationController pushViewController:restaurantOfCityCtl animated:YES];
+    [self presentViewController:nctl animated:YES completion:nil];
 }
 
 - (void)updateTableView
 {
+    NSLog(@"%@",self.tripDetail.restaurantsList);
+    _dataSource = [self revertRestaurantListToGroup:self.tripDetail.restaurantsList];
     [self.tableView reloadData];
 }
 
 - (IBAction)editTrip:(id)sender
 {
     if (_shouldEdit) {
-        [self.tableView setEditing:YES animated:YES]; 
+        [self.tableView setEditing:YES animated:YES];
         [self performSelector:@selector(updateTableView) withObject:nil afterDelay:0.2];
         
     } else {
         if (!self.tripDetail.tripIsChange) {
             [self.tableView setEditing:NO animated:YES];
             [self performSelector:@selector(updateTableView) withObject:nil afterDelay:0.2];
-
             return;
         }
         TZProgressHUD *hud = [[TZProgressHUD alloc] init];
@@ -165,8 +147,6 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
 
 - (void)jumpMapView:(UIButton *)sender
 {
-    [MobClick event:@"event_day_map_view"];
-
     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"地图导航"
                                                        delegate:self
                                               cancelButtonTitle:nil
@@ -193,131 +173,191 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
     CityDestinationPoi *poi = [_tripDetail.destinations objectAtIndex:sender.tag];
     CityDetailTableViewController *cityDetailCtl = [[CityDetailTableViewController alloc] init];
     cityDetailCtl.cityId = poi.cityId;
-    [self.rootViewController.navigationController pushViewController:cityDetailCtl animated:YES];
-}
-
-- (IBAction)deletePoi:(UIButton *)sender
-{
-    [MobClick event:@"event_delete_select_item"];
-    CGPoint point = [sender convertPoint:CGPointMake(20, 20) toView:self.tableView];
-    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
-    [_tripDetail.restaurantsList removeObjectAtIndex:indexPath.section];
-    NSIndexSet *set = [NSIndexSet indexSetWithIndex:indexPath.section];
-    [self.tableView deleteSections:set withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.navigationController pushViewController:cityDetailCtl animated:YES];
 }
 
 #pragma mark - RestaurantsOfCityDelegate
 
 - (void)finishEdit
 {
-//    if (!_shouldEdit) {
-//        [_rootViewController.editBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
-//    }
-    [self.tableView reloadData];
+    [self updateTableView];
+}
+
+#pragma mark - 设置分组的头部
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    // 1.创建一个容器对象Button
+    UIButton * containBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [containBtn setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+    [containBtn setBackgroundImage:[ConvertMethods createImageWithColor:COLOR_DISABLE] forState:UIControlStateHighlighted];
+    [containBtn addTarget:self action:@selector(mergeTable:) forControlEvents:UIControlEventTouchUpInside];
+    containBtn.tag = section;
+    
+    // 2.创建Button上面的视图
+    NSArray * shoppingArray = _dataSource[section];
+    UILabel * label = [[UILabel alloc] init];
+    label.font = [UIFont boldSystemFontOfSize:12.0f];
+    label.frame = CGRectMake(12, 16, 100, 12);
+    [label setTextColor:COLOR_TEXT_II];
+    CityDestinationPoi * poi = self.tripDetail.destinations[section];
+    NSString * title = [NSString stringWithFormat:@"%@美食（%ld）",poi.zhName,shoppingArray.count];
+    label.text = title;
+    [containBtn addSubview:label];
+    
+    if (_canEdit) {
+        // 3.创建收藏Button
+        UIButton * collection = [UIButton buttonWithType:UIButtonTypeCustom];
+        collection.tag = section;
+        CGFloat collectionW = 52;
+        collection.frame = CGRectMake(kWindowWidth - 10 - collectionW, 8.5, collectionW, 26);
+        [collection setTitle:@"＋收集" forState:UIControlStateNormal];
+        collection.titleLabel.font = [UIFont systemFontOfSize:12.0];
+        [collection setTitleColor:COLOR_TEXT_III forState:UIControlStateNormal];
+        [collection setTitleColor:COLOR_DISABLE forState:UIControlStateHighlighted];
+        collection.layer.cornerRadius = 4.0;
+        collection.layer.borderWidth = 1.0;
+        collection.titleEdgeInsets = UIEdgeInsetsMake(0, -2, 0, 0);
+        collection.layer.borderColor = COLOR_LINE.CGColor;
+        [collection addTarget:self action:@selector(collectionShop:) forControlEvents:UIControlEventTouchUpInside];
+        [containBtn addSubview:collection];
+    }
+    
+    // 4.创建头部的横条
+    UIButton * banner = [UIButton buttonWithType:UIButtonTypeCustom];
+    banner.backgroundColor = APP_THEME_COLOR;
+    banner.frame = CGRectMake(0, 0, kWindowWidth, 1);
+    [containBtn addSubview:banner];
+    
+    return containBtn;
+}
+
+// 监听收藏按钮的点击事件
+- (void)collectionShop:(UIButton *)collection
+{
+    [MobClick event:@"button_item_add_favorite"];
+    [self addWantTo:collection.tag];
+}
+
+// 合并表格
+- (void)mergeTable:(UIButton *)contain
+{
+    NSInteger didSection = contain.tag;
+    
+    if (!_showDic) {
+        _showDic = [[NSMutableDictionary alloc]init];
+    }
+    
+    NSString *key = [NSString stringWithFormat:@"%ld",didSection];
+    if (![_showDic objectForKey:key]) {
+        [_showDic setObject:@"1" forKey:key];
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:didSection] withRowAnimation:UITableViewRowAnimationAutomatic];
+    } else {
+        [_showDic removeObjectForKey:key];
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:didSection] withRowAnimation:UITableViewRowAnimationAutomatic];
+        
+        NSArray * shoppingArray = _dataSource[didSection];
+        if (shoppingArray.count > 0) {
+            [self performSelector:@selector(scrollToVisiable:) withObject:[NSNumber numberWithLong:didSection] afterDelay:0.35];
+        }
+    }
+}
+
+- (void)scrollToVisiable:(NSNumber *)section {
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[section intValue]]
+                          atScrollPosition:UITableViewScrollPositionNone animated:YES];
+}
+
+- (NSMutableArray *)revertRestaurantListToGroup:(NSArray *)shoppingList
+{
+    // 1.创建一个分组数组,里面存放了多少组数据
+    NSMutableArray *dataSource = [[NSMutableArray alloc] init];
+    for (int i = 0; i < _tripDetail.destinations.count; i++) {
+        
+        NSMutableArray * array = [NSMutableArray array];
+        [dataSource addObject:array];
+    }
+    
+    // 2.遍历数组
+    for (RestaurantPoi * poi in shoppingList) {
+        CityDestinationPoi * cityPoi = poi.locality;
+        int i = 0;
+        for (CityDestinationPoi * destpoi in _tripDetail.destinations)
+        {
+            if ([cityPoi.cityId isEqualToString:destpoi.cityId]) {
+                NSMutableArray *array = dataSource[i];
+                [array addObject:poi];
+                break;
+            }
+            i++;
+        }
+    }
+    
+    return dataSource;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (![_showDic objectForKey:[NSString stringWithFormat:@"%ld",indexPath.section]]) {
+        return 72;
+    }
+    return 0;
 }
 
 #pragma mark - UITableViewDataSource & Delegate
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 43;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 19.5;
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return self.tripDetail.restaurantsList.count;
+    return _dataSource.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 90;
+    NSArray * shoppingArray = _dataSource[section];
+    return shoppingArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CommonPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:restaurantListReusableIdentifier forIndexPath:indexPath];
-    cell.cellAction.tag = indexPath.section;
-    [cell.cellAction removeTarget:self action:@selector(jumpMapView:) forControlEvents:UIControlEventTouchUpInside];
-    [cell.cellAction addTarget:self action:@selector(jumpMapView:) forControlEvents:UIControlEventTouchUpInside];
-//    [cell.deleteBtn addTarget:self action:@selector(deletePoi:) forControlEvents:UIControlEventTouchUpInside];
-    cell.tripPoi = [_tripDetail.restaurantsList objectAtIndex:indexPath.section];
+    TripPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:restaurantListReusableIdentifier forIndexPath:indexPath];
+    cell.clipsToBounds = YES;
+    NSArray * shoppingArray = _dataSource[indexPath.section];
+    cell.tripPoi = shoppingArray[indexPath.row];
+    
     return cell;
 }
 
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
-}
-
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return YES;
-}
-
-- (UITableViewCellEditingStyle) tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return UITableViewCellEditingStyleDelete;
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return @"删除";
-}
-
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
-    [MobClick event:@"event_reorder_items"];
-    SuperPoi *poi = [_tripDetail.restaurantsList objectAtIndex:sourceIndexPath.section];
-    [_tripDetail.restaurantsList removeObjectAtIndex:sourceIndexPath.section];
-   
-    [_tripDetail.restaurantsList insertObject:poi atIndex:destinationIndexPath.section];
-    [self.tableView reloadData];
-}
-
-//此举是为了在移动的时候保证顺序。过程有点复杂，慢慢看
-- (NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath
-{
-    if (proposedDestinationIndexPath.row > 0 && sourceIndexPath.section > proposedDestinationIndexPath.section) {
-        NSIndexPath *path = [NSIndexPath indexPathForItem:0 inSection:proposedDestinationIndexPath.section+1];
-        return path;
-    }
+    SuperPoi *poi = [_tripDetail.restaurantsList objectAtIndex:sourceIndexPath.row];
+    [_tripDetail.restaurantsList removeObjectAtIndex:sourceIndexPath.row];
     
-    if (sourceIndexPath.section < proposedDestinationIndexPath.section && proposedDestinationIndexPath.row == 0) {
-        NSIndexPath *path;
-        
-        if (proposedDestinationIndexPath.section == sourceIndexPath.section+1) {
-            path = [NSIndexPath indexPathForItem:0 inSection:proposedDestinationIndexPath.section-1];
-
-        } else {
-            path = [NSIndexPath indexPathForItem:1 inSection:proposedDestinationIndexPath.section-1];
-
-        }
-        return path;
-    }
-    return proposedDestinationIndexPath;
+    [_tripDetail.restaurantsList insertObject:poi atIndex:destinationIndexPath.row];
+    [self.tableView reloadData];
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [_tripDetail.restaurantsList removeObjectAtIndex:indexPath.section];
-        [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [_tripDetail.restaurantsList removeObjectAtIndex:indexPath.row];
+        [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.row] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SuperPoi *tripPoi = [_tripDetail.restaurantsList objectAtIndex:indexPath.section];
-
+    SuperPoi *tripPoi = [_tripDetail.restaurantsList objectAtIndex:indexPath.row];
+    
     CommonPoiDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];
     restaurantDetailCtl.poiId = tripPoi.poiId;
     restaurantDetailCtl.poiType = kRestaurantPoi;
-
-    [self.navigationController pushViewController:restaurantDetailCtl animated:YES];
-}
-
-- (void)dealloc {
-    _tableView.delegate = nil;
-    _tableView.dataSource = nil;
-    _tableView = nil;
-    _rootViewController = nil;
     
+    [self.navigationController pushViewController:restaurantDetailCtl animated:YES];
 }
 
 #pragma mark - UIActionSheetDelegate

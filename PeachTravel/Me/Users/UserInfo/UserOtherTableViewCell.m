@@ -10,15 +10,18 @@
 
 @implementation UserOtherTableViewCell
 
-- (void)awakeFromNib {
-//    _cellTitle.font = [UIFont systemFontOfSize:16.0];
-    _cellDetail.font = [UIFont systemFontOfSize:13.0];
+- (void)awakeFromNib
+{
     self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    self.cellTitle.font = [UIFont systemFontOfSize:16];
+    self.cellTitle.textColor = COLOR_TEXT_II;
+    self.cellDetail.font = [UIFont systemFontOfSize:17];
+    self.cellDetail.textColor = COLOR_TEXT_I;
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
     [super setSelected:selected animated:animated];
-
 }
 
 @end

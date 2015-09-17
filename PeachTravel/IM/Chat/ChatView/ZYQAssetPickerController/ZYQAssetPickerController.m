@@ -477,10 +477,29 @@ static UIColor *titleColor;
 - (void)setupButtons
 {
     self.navigationItem.rightBarButtonItem =
-    [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"完成 ", nil)
+    [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"发送 ", nil)
                                      style:UIBarButtonItemStylePlain
                                     target:self
                                     action:@selector(finishPickingAssets:)];
+    
+    
+    UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setImage:[UIImage imageNamed:@"common_icon_navigation_back_normal"] forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:@"common_icon_navigation_back_highlight"] forState:UIControlStateHighlighted];
+    [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
+    [button setFrame:CGRectMake(0, 0, 30, 30)];
+    button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
+    self.navigationItem.leftBarButtonItem = barButton;
+}
+
+- (void)goBack
+{
+    if (self.navigationController.childViewControllers.count > 1) {
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 - (void)setupAssets
@@ -1076,7 +1095,7 @@ static UIColor *titleColor;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-}
+} 
 
 - (void)didReceiveMemoryWarning
 {

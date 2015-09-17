@@ -10,12 +10,12 @@
 #import "TaoziCollectionLayout.h"
 #import "DestinationCollectionHeaderView.h"
 #import "Destinations.h"
-#import "DomesticDestinationCell.h"
+#import "DomesticCell.h"
 #import "MakePlanViewController.h"
 #import "TMCache.h"
 #import "AreaDestination.h"
 
-@interface DomesticViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, TaoziLayoutDelegate>
+@interface DomesticViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *domesticCollectionView;
 
@@ -30,7 +30,7 @@ static NSString *cacheName = @"destination_demostic_group";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [_domesticCollectionView registerNib:[UINib nibWithNibName:@"DomesticDestinationCell" bundle:nil] forCellWithReuseIdentifier:reusableIdentifier];
+    [_domesticCollectionView registerNib:[UINib nibWithNibName:@"DomesticCell" bundle:nil] forCellWithReuseIdentifier:@"domesticCell"];
     [_domesticCollectionView registerNib:[UINib nibWithNibName:@"DestinationCollectionHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:reusableHeaderIdentifier];
     _domesticCollectionView.dataSource = self;
     _domesticCollectionView.delegate = self;
@@ -39,23 +39,19 @@ static NSString *cacheName = @"destination_demostic_group";
     _domesticCollectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _domesticCollectionView.backgroundColor = APP_PAGE_COLOR;
     
-    
-    TaoziCollectionLayout *layout = (TaoziCollectionLayout *)_domesticCollectionView.collectionViewLayout;
-    layout.delegate = self;
-    layout.showDecorationView = YES;
-    layout.margin = 10;
-    layout.spacePerItem = 10;
-    layout.spacePerLine = 10;
+    self.view.backgroundColor = [UIColor whiteColor];
     
     if (_destinations.destinationsSelected.count == 0) {
         [self.makePlanCtl hideDestinationBar];
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateDestinationsSelected:) name:updateDestinationsSelectedNoti object:nil];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     
     [self initData];
 }
 
-- (void) initData {
+- (void)initData
+{
     [[TMCache sharedCache] objectForKey:cacheName block:^(TMCache *cache, NSString *key, id object)  {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (object != nil) {
@@ -74,6 +70,22 @@ static NSString *cacheName = @"destination_demostic_group";
             }
         });
     }];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    NSLog(@"%@",self.destinations);
+    
+    [_makePlanCtl.selectPanel reloadData];
+    [self.domesticCollectionView reloadData];
+    
+    if (self.destinations.destinationsSelected.count == 0) {
+        [_makePlanCtl hideDestinationBar];
+    }else{
+        [_makePlanCtl showDestinationBar];
+    }
 }
 
 - (void)dealloc
@@ -113,10 +125,16 @@ static NSString *cacheName = @"destination_demostic_group";
     [manager.requestSerializer setValue:@"Cache-Control" forHTTPHeaderField:@"private"];
     [manager.requestSerializer setValue:modifiedTime forHTTPHeaderField:@"If-Modified-Since"];
     
-    NSDictionary *params = @{@"groupBy" : [NSNumber numberWithBool:true]};
+    NSNumber *imageWidth = [NSNumber numberWithInt:450];
+    NSDictionary *params = @{@"groupBy" : [NSNumber numberWithBool:true], @"imgWidth": imageWidth};
+    
+    NSLog(@"%@",API_GET_DOMESTIC_DESTINATIONS);
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [manager GET:API_GET_DOMESTIC_DESTINATIONS parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSLog(@"%@",responseObject);
+        
         if (_hud) {
             [_hud hideTZHUD];
         }
@@ -137,7 +155,7 @@ static NSString *cacheName = @"destination_demostic_group";
         } else {
             if (_hud) {
                 if (self.isShowing) {
-                    [SVProgressHUD showHint:@"呃～好像没找到网络"];
+                    [SVProgressHUD showHint:HTTP_FAILED_HINT];
                 }
             }
         }
@@ -146,7 +164,7 @@ static NSString *cacheName = @"destination_demostic_group";
         if (_hud) {
             [_hud hideTZHUD];
             if (self.isShowing) {
-                [SVProgressHUD showHint:@"呃～好像没找到网络"];
+                [SVProgressHUD showHint:HTTP_FAILED_HINT];
             }
         }
        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -177,35 +195,24 @@ static NSString *cacheName = @"destination_demostic_group";
     }
 }
 
-#pragma mark -  TaoziLayoutDelegate
-
-- (NSInteger)tzcollectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+#pragma mark - UICollectionView的代理方法
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath;
 {
-    AreaDestination *area = [self.destinations.domesticCities objectAtIndex:section];
-    return [area.cities count];
+    return CGSizeMake(kWindowWidth/3, kWindowWidth/3);
 }
 
-- (CGFloat)tzcollectionLayoutWidth
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section;
 {
-    return self.domesticCollectionView.frame.size.width;
+    return CGSizeMake(self.domesticCollectionView.frame.size.width, 72);
+}
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section;
+{
+    return 0;
 }
 
-- (NSInteger)numberOfSectionsInTZCollectionView:(UICollectionView *)collectionView
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section;
 {
-    return self.destinations.domesticCities.count;
-}
-
-- (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    AreaDestination *area = [self.destinations.domesticCities objectAtIndex:indexPath.section];
-    CityDestinationPoi *city = [area.cities objectAtIndex:indexPath.row];
-    CGSize size = [city.zhName sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:15.0]}];
-    return CGSizeMake(size.width + 25 + 28, 28); //left-right margin + status image size
-}
-
-- (CGSize)collectionview:(UICollectionView *)collectionView sizeForHeaderView:(NSIndexPath *)indexPath
-{
-    return CGSizeMake(self.domesticCollectionView.frame.size.width, 38);
+    return 0;
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -225,8 +232,10 @@ static NSString *cacheName = @"destination_demostic_group";
 {
     if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
         DestinationCollectionHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:reusableHeaderIdentifier forIndexPath:indexPath];
+        headerView.backgroundColor = APP_PAGE_COLOR;
         AreaDestination *area = [self.destinations.domesticCities objectAtIndex:indexPath.section];
-        headerView.titleLabel.text = area.zhName;
+        NSString * title = [NSString stringWithFormat:@"- %@ -",area.zhName];
+        headerView.titleLabel.text = title;
         return headerView;
     }
     return nil;
@@ -234,28 +243,30 @@ static NSString *cacheName = @"destination_demostic_group";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    DomesticDestinationCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reusableIdentifier forIndexPath:indexPath];
+    DomesticCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"domesticCell" forIndexPath:indexPath];
     AreaDestination *area = [self.destinations.domesticCities objectAtIndex:indexPath.section];
     CityDestinationPoi *city = [area.cities objectAtIndex:indexPath.row];
     cell.tiltleLabel.text = city.zhName;
-    
+    BOOL find = NO;
     for (CityDestinationPoi *cityPoi in _destinations.destinationsSelected) {
         if ([cityPoi.cityId isEqualToString:city.cityId]) {
-            cell.tiltleLabel.textColor = [UIColor whiteColor];
-            cell.status.image = [UIImage imageNamed:@"ic_cell_item_chooesed.png"];
-            cell.backgroundColor = APP_THEME_COLOR;
-            return  cell;
+            cell.status.image = [UIImage imageNamed:@"dx_checkbox_selected"];
+            find = YES;
         }
     }
-    cell.tiltleLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
-    cell.status.image = [UIImage imageNamed:@"ic_cell_item_unchoose.png"];
-    cell.backgroundColor = [UIColor whiteColor];
+    if (!find) {
+        cell.status.image = nil;
+    }
+    
+    TaoziImage *image = city.images.firstObject;
+    
+    [cell.backGroundImage sd_setImageWithURL:[NSURL URLWithString:image.imageUrl]];
+    
     return  cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    [MobClick event:@"event_select_city"];
     AreaDestination *area = [self.destinations.domesticCities objectAtIndex:indexPath.section];
     CityDestinationPoi *city = [area.cities objectAtIndex:indexPath.row];
     BOOL find = NO;
@@ -269,6 +280,7 @@ static NSString *cacheName = @"destination_demostic_group";
             } completion:^(BOOL finished) {
                 if (_destinations.destinationsSelected.count == 0) {
                     [_makePlanCtl hideDestinationBar];
+
                 }
             }];
             find = YES;
@@ -281,17 +293,24 @@ static NSString *cacheName = @"destination_demostic_group";
         }
         [_destinations.destinationsSelected addObject:city];
         NSIndexPath *lnp = [NSIndexPath indexPathForItem:(_destinations.destinationsSelected.count-1) inSection:0];
+        
         [_makePlanCtl.selectPanel performBatchUpdates:^{
             [_makePlanCtl.selectPanel insertItemsAtIndexPaths:[NSArray arrayWithObject:lnp]];
         } completion:^(BOOL finished) {
             if (finished) {
-                [_makePlanCtl.selectPanel scrollToItemAtIndexPath:lnp
-                                     atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
             }
         }];
     }
+    if (_destinations.destinationsSelected.count > 0) {
+        NSIndexPath *lnp = [NSIndexPath indexPathForItem:(_destinations.destinationsSelected.count-1) inSection:0];
+        [_makePlanCtl.selectPanel scrollToItemAtIndexPath:lnp
+                                         atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+    }
+    
     [self.domesticCollectionView reloadItemsAtIndexPaths:@[indexPath]];
 }
+
+
 
 @end
 

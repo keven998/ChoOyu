@@ -1,4 +1,4 @@
-//
+    //
 //  MakePlanViewController.m
 //  PeachTravel
 //
@@ -16,8 +16,10 @@
 #import "PXAlertView+Customization.h"
 #import "REFrostedViewController.h"
 #import "TripPlanSettingViewController.h"
-#import "DomesticDestinationCell.h"
+#import "DestinationCollectionViewCell.h"
 #import "AreaDestination.h"
+#import "MakePlanSearchController.h"
+#import "CMPopTipView.h"
 
 @interface MakePlanViewController () <UISearchBarDelegate, UISearchControllerDelegate, UISearchDisplayDelegate, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
 
@@ -29,37 +31,51 @@
 
 @implementation MakePlanViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
+    if (self.shouldOnlyChangeDestinationWhenClickNextStep) {
+        self.navigationItem.title = @"修改目的地";
+    }
     
     UIBarButtonItem *lbi = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
     self.navigationItem.leftBarButtonItem = lbi;
     
-    UIBarButtonItem *rbi = [[UIBarButtonItem alloc] initWithTitle:@"下一步" style:UIBarButtonItemStylePlain target:self action:@selector(makePlan:)];
+    NSString * title = nil;
+    if (self.shouldOnlyChangeDestinationWhenClickNextStep) {
+        title = @"完成";
+    }else{
+        title = @"下一步";
+    }
+    
+    UIBarButtonItem *rbi = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStylePlain target:self action:@selector(makePlan:)];
     NSMutableDictionary *textAttrs=[NSMutableDictionary dictionary];
     NSMutableDictionary *dTextAttrs = [NSMutableDictionary dictionaryWithDictionary:textAttrs];
     dTextAttrs[NSForegroundColorAttributeName] = [UIColor grayColor];
     [rbi setTitleTextAttributes:dTextAttrs forState:UIControlStateDisabled];
     self.navigationItem.rightBarButtonItem = rbi;
+    self.automaticallyAdjustsScrollViewInsets = NO;
     
     [self setupSelectPanel];
+    [self setupContentViewController];
     [self beginSearch:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [MobClick beginLogPageView:@"page_select_plan_city"];
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:YES]; //侧滑navigation bar 补丁
-    [MobClick beginLogPageView:@"page_destinations"];
+       //侧滑navigation bar 补丁
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [MobClick endLogPageView:@"page_select_plan_city"];
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"page_destinations"];
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
     _selectPanel.dataSource = nil;
     _selectPanel.delegate = nil;
     _selectPanel = nil;
@@ -76,22 +92,26 @@
 }
 
 - (void) setupSelectPanel {
-    UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-49, self.view.frame.size.width, 49)];
-//    toolBar.backgroundColor = APP_PAGE_COLOR;
+    UIView *toolBar = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-49, self.view.frame.size.width, 49)];
     toolBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    toolBar.layer.shadowColor = COLOR_LINE.CGColor;
+    toolBar.layer.shadowOffset = CGSizeMake(0, -1.0);
+    toolBar.layer.shadowOpacity = 0.33;
+    toolBar.layer.shadowRadius = 1.0;
     [self.view addSubview:toolBar];
     
     UICollectionViewFlowLayout *aFlowLayout = [[UICollectionViewFlowLayout alloc] init];
+    aFlowLayout.minimumInteritemSpacing = 0;
     [aFlowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
     self.selectPanel = [[UICollectionView alloc] initWithFrame:toolBar.bounds collectionViewLayout:aFlowLayout];
-    [self.selectPanel setBackgroundColor:APP_PAGE_COLOR];
+    [self.selectPanel setBackgroundColor:[UIColor whiteColor]];
     self.selectPanel.showsHorizontalScrollIndicator = NO;
     self.selectPanel.showsVerticalScrollIndicator = NO;
     self.selectPanel.delegate = self;
     self.selectPanel.dataSource = self;
     self.selectPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     self.selectPanel.contentInset = UIEdgeInsetsMake(0, 15, 0, 15);
-    [self.selectPanel registerNib:[UINib nibWithNibName:@"DomesticDestinationCell" bundle:nil] forCellWithReuseIdentifier:@"cell"];
+    [self.selectPanel registerNib:[UINib nibWithNibName:@"DestinationCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"cell"];
     [toolBar addSubview:_selectPanel];
     
     UILabel *hintText = [[UILabel alloc] initWithFrame:toolBar.bounds];
@@ -109,6 +129,13 @@
     }
 }
 
+- (void)setupContentViewController
+{
+    for (UIViewController *ctl in self.viewControllers) {
+        ctl.view.frame = CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-49-64);
+    }
+}
+
 - (void)goBack
 {
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -116,21 +143,8 @@
 
 - (IBAction)beginSearch:(id)sender
 {
-    [_searchBar setFrame:CGRectMake(0, 20, self.view.bounds.size.width-40, 38)];
     [_searchController setActive:YES animated:YES];
     _searchBar.hidden = NO;
-}
-
-/**
- *  重写父类方法
- */
-
-- (void)finishSwithPages
-{
-    [self.view bringSubviewToFront:_selectPanel.superview];
-    if (self.selectedIndext == 1) {
-        [MobClick event:@"event_go_aboard"];
-    }
 }
 
 /**
@@ -140,7 +154,6 @@
  */
 - (IBAction)makePlan:(id)sender
 {
-    [MobClick event:@"event_select_done_go_next"];
     if (!_shouldOnlyChangeDestinationWhenClickNextStep) {
         AccountManager *accountManager = [AccountManager shareAccountManager];
         if ([accountManager isLogin]) {
@@ -155,7 +168,8 @@
     }
 }
 
-- (void) doMakePlan {
+- (void)doMakePlan
+{
     TripDetailRootViewController *tripDetailCtl = [[TripDetailRootViewController alloc] init];
     tripDetailCtl.canEdit = YES;
     tripDetailCtl.destinations = self.destinations.destinationsSelected;
@@ -163,17 +177,17 @@
     
     TripPlanSettingViewController *tpvc = [[TripPlanSettingViewController alloc] init];
     
-    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:tripDetailCtl menuViewController:tpvc];
-    frostedViewController.direction = REFrostedViewControllerDirectionRight;
-    frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
-    frostedViewController.liveBlur = YES;
-    frostedViewController.limitMenuViewSize = YES;
-    frostedViewController.resumeNavigationBar = NO;
-    tripDetailCtl.container = frostedViewController;
-    tpvc.rootViewController = tripDetailCtl;
-    NSMutableArray *array = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
-    [array replaceObjectAtIndex:(array.count - 1) withObject:frostedViewController];
-    [self.navigationController setViewControllers:array animated:YES];
+    
+     REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:tripDetailCtl menuViewController:tpvc];
+     tpvc.rootViewController = tripDetailCtl;
+     frostedViewController.direction = REFrostedViewControllerDirectionRight;
+     frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
+     frostedViewController.liveBlur = YES;
+     frostedViewController.limitMenuViewSize = YES;
+    
+    NSMutableArray *ctls = [NSMutableArray arrayWithArray:self.navigationController.childViewControllers];
+    [ctls replaceObjectAtIndex:(ctls.count - 1) withObject:frostedViewController];
+    [self.navigationController setViewControllers:ctls animated:YES];
 }
 
 - (void)login
@@ -188,13 +202,9 @@
 
 - (void)hideDestinationBar
 {
-//    CGRect frame = self.selectPanel.superview.frame;
-//    frame.origin.y = CGRectGetHeight(self.view.bounds);
-//    [UIView animateWithDuration:0.3 animations:^{
-//        self.selectPanel.superview.frame = frame;
-//    } completion:^(BOOL finished) {
+    if (!self.shouldOnlyChangeDestinationWhenClickNextStep) {
         self.navigationItem.rightBarButtonItem.enabled = NO;
-//    }];
+    }
     
     UIView *view = [self.selectPanel.superview viewWithTag:1];
     view.hidden = NO;
@@ -202,13 +212,7 @@
 
 - (void)showDestinationBar
 {
-//    CGRect frame = self.selectPanel.superview.frame;
-//    frame.origin.y = CGRectGetHeight(self.view.bounds) - 49;
-//    [UIView animateWithDuration:0.3 animations:^{
-//        self.selectPanel.superview.frame = frame;
-//    } completion:^(BOOL finished) {
-        self.navigationItem.rightBarButtonItem.enabled = YES;
-//    }];
+    self.navigationItem.rightBarButtonItem.enabled = YES;
     
     UIView *view = [self.selectPanel.superview viewWithTag:1];
     view.hidden = YES;
@@ -249,12 +253,12 @@
         if (code == 0) {
             [self analysisData:[responseObject objectForKey:@"result"]];
         } else {
-            [SVProgressHUD showHint:@"请求也是失败了"];
+            [SVProgressHUD showHint:@"请求失败"];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [hud hideTZHUD];
-        [SVProgressHUD showHint:@"呃～好像没找到网络"];
+        [SVProgressHUD showHint:HTTP_FAILED_HINT];
     }];
     
 }
@@ -317,14 +321,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [MobClick event:@"event_select_city"];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     CityDestinationPoi *city = [self.searchResultArray objectAtIndex:indexPath.row];
     BOOL find = NO;
     for (CityDestinationPoi *cityPoi in _destinations.destinationsSelected) {
         if ([city.cityId isEqualToString:cityPoi.cityId]) {
-//            NSInteger index = [_destinations.destinationsSelected indexOfObject:cityPoi];
-//            [self.destinationToolBar removeUnitAtIndex:index];
             find = YES;
             break;
         }
@@ -334,7 +335,6 @@
             [self showDestinationBar];
         }
         [_destinations.destinationsSelected addObject:city];
-//        [self.destinationToolBar addUnit:@"ic_cell_item_unchoose" withName:city.zhName andUnitHeight:26];
     }
     
     SearchDestinationTableViewCell *cell = (SearchDestinationTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
@@ -374,6 +374,19 @@
     [self loadDataSourceWithKeyWord:searchBar.text];
 }
 
+#pragma mark - 实现searchBar的代理方法
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+{
+    MakePlanSearchController *searchCtl = [[MakePlanSearchController alloc] init];
+    searchCtl.destinations = self.destinations;
+    searchCtl.hidesBottomBarWhenPushed = YES;
+    [searchCtl setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+    TZNavigationViewController *tznavc = [[TZNavigationViewController alloc] initWithRootViewController:searchCtl];
+    [self presentViewController:tznavc animated:YES completion:nil];
+}
+
+
+
 #pragma mark - Collection view
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -387,12 +400,9 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    DomesticDestinationCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
-    cell.tiltleLabel.textColor = [UIColor whiteColor];
-    cell.status.image = [UIImage imageNamed:@"ic_cell_item_chooesed.png"];
-    cell.backgroundColor = APP_THEME_COLOR;
+    DestinationCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     CityDestinationPoi *city = [self.destinations.destinationsSelected objectAtIndex:indexPath.row];
-    cell.tiltleLabel.text = city.zhName;
+    cell.titleLabel.text = [NSString stringWithFormat:@"%ld.%@", (long)(indexPath.row + 1), city.zhName];
     return cell;
 }
 
@@ -414,12 +424,14 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     CityDestinationPoi *city = [self.destinations.destinationsSelected objectAtIndex:indexPath.row];
-    CGSize size = [city.zhName sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:15.0]}];
-    return CGSizeMake(size.width + 25 + 28, 28);
+    NSString *txt = [NSString stringWithFormat:@"%ld.%@", (long)(indexPath.row + 1), city.zhName];
+    CGSize size = [txt sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17]}];
+    NSLog(@"%@", NSStringFromCGSize(size));
+    return CGSizeMake(size.width, 28);
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
-    return 12.0;
+    return 14;
 }
 
 @end

@@ -15,18 +15,23 @@
 #import "CommonPoiDetailViewController.h"
 #import "CityDetailTableViewController.h"
 #import "PoiDetailViewControllerFactory.h"
+#import "TaoziCollectionLayout.h"
+#import "DestinationSearchHistoryCell.h"
+#import "SearchDestinationHistoryCollectionReusableView.h"
 
-@interface SearchDestinationViewController () <UISearchBarDelegate, UISearchControllerDelegate, UITableViewDataSource, UITableViewDelegate, TaoziMessageSendDelegate>
+@interface SearchDestinationViewController () <UISearchBarDelegate, UISearchControllerDelegate, UITableViewDataSource, UITableViewDelegate, TaoziMessageSendDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout, TaoziLayoutDelegate>
 
 @property (nonatomic, strong) NSMutableArray *dataSource;
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UISearchBar *searchBar;
+@property (nonatomic, strong) UICollectionView *collectionView;
 
 //@property (nonatomic, strong) UITapGestureRecognizer *tap;
 
 @property (nonatomic, copy) NSString *keyWord;
 
+@property (nonatomic, strong)NSMutableArray * collectionArray;
 
 @end
 
@@ -34,74 +39,154 @@
 
 static NSString *reusableCellIdentifier = @"searchResultCell";
 
+#pragma mark - lifeCycle
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
-    
+
     _searchBar = [[UISearchBar alloc]init];
     _searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-//    _searchBar.searchBarStyle = UISearchBarStyleProminent;
     _searchBar.delegate = self;
-    [_searchBar setPlaceholder:@"城市、景点、美食、购物"];
+    [_searchBar setPlaceholder:@"城市/景点/美食/购物"];
+    _searchBar.tintColor = COLOR_TEXT_II;
+    _searchBar.showsCancelButton = YES;
     _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
-//    _searchBar.showsCancelButton = YES;
-    [_searchBar setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor redColor]] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+    [_searchBar setSearchFieldBackgroundImage:[[UIImage imageNamed:@"icon_search_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)] forState:UIControlStateNormal];
+    [_searchBar setTranslucent:YES];
     _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.navigationItem.titleView = _searchBar;
     
-//    [self.view addSubview:_searchBar];
+    UIImageView *imageBg = [[UIImageView alloc]initWithFrame:CGRectMake((kWindowWidth - 210)/2, 68, 210, 130)];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 30, CGRectGetWidth(self.view.bounds), 50)];
-    label.font = [UIFont systemFontOfSize:13.0];
-    label.textColor = TEXT_COLOR_TITLE_PH;
-    label.textAlignment = NSTextAlignmentCenter;
-    label.numberOfLines = 2;
-    label.text = @"旅行搜搜\n搜索旅行中的城市、景点、美食、购物";
-    [self.view addSubview:label];
-    
+    imageBg.image = [UIImage imageNamed:@"search_default_background"];
+
     [self.view addSubview:self.tableView];
     self.tableView.hidden = YES;
     
-    [_searchBar becomeFirstResponder];
-}
+    // 添加UICollectionView
+    TaoziCollectionLayout *layout = [[TaoziCollectionLayout alloc] init];
+    layout.delegate = self;
+    layout.showDecorationView = NO;
+    layout.spacePerItem = 12;
+    layout.spacePerLine = 15;
+    layout.margin = 10;
+    UICollectionView * collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(10, 64, self.view.bounds.size.width-29, self.view.bounds.size.height-64) collectionViewLayout:layout];
+    self.collectionView = collectionView;
+    collectionView.dataSource = self;
+    collectionView.delegate = self;
+    collectionView.backgroundColor = APP_PAGE_COLOR;
+    collectionView.showsVerticalScrollIndicator = NO;
+    [collectionView registerNib:[UINib nibWithNibName:@"DestinationSearchHistoryCell" bundle:nil] forCellWithReuseIdentifier:@"searchHistoryCell"];
+    [collectionView registerNib:[UINib nibWithNibName:@"SearchDestinationHistoryCollectionReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"searchDestinationHeader"];
 
-- (void) goBack {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.view addSubview:collectionView];
+    
+    // 加载CollectionView的数据
+    [self sendRequestGethotSearchResult];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"page_search_destination"];
-    [self.navigationController.navigationBar setBackgroundImage:[ConvertMethods createImageWithColor:APP_PAGE_COLOR] forBarMetrics:UIBarMetricsDefault];
+    [MobClick beginLogPageView:@"page_lxp_search"];
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
+- (void)viewWillDisappear:(BOOL)animated
+{
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"page_search_destination"];
-    [self.navigationController.navigationBar setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forBarMetrics:UIBarMetricsDefault];
-
+    [MobClick endLogPageView:@"page_lxp_search"];
     [_searchBar endEditing:YES];
+}
+
+// 加载CollectionView的数据源
+- (void)setupCollectionDataSourceWithHotSearchResult:(NSArray *)hotSearchResult
+{
+    NSArray * recentResult = [[TMCache sharedCache] objectForKey:kSearchDestinationCacheKey];
+    if (recentResult && hotSearchResult) {
+        NSLog(@"%@",recentResult);
+        self.collectionArray[0] = recentResult;
+        self.collectionArray[1] = hotSearchResult;
+        [self.collectionView reloadData];
+    }
+    NSLog(@"%@",recentResult);
+}
+
+#pragma mark - 加载网络数据
+- (void)sendRequestGethotSearchResult
+{
+    // 1.获取请求管理者
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    // 2.发送Get请求
+    [manager GET:API_GET_HOT_SEARCH parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSMutableArray * searchNameArray = [NSMutableArray array];
+        NSArray *resultArray = responseObject[@"result"];
+        
+        for (NSDictionary * resultDict in resultArray) {
+            NSString * searchName = resultDict[@"zhName"];
+            [searchNameArray addObject:searchName];
+        }
+        
+        [self setupCollectionDataSourceWithHotSearchResult:searchNameArray];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        // 打印失败信息
+        NSLog(@"%@",error);
+    }];
+
+}
+
+- (void)goBack
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)showCollectionView
+{
+    [_collectionView reloadData];
+    _collectionView.hidden = NO;
+}
+
+- (void)hideCollectionView
+{
+    _collectionView.hidden = YES;
+}
+
+- (void)clearSearchHistory
+{
+    [[TMCache sharedCache] removeObjectForKey:kSearchDestinationCacheKey];
+    [_collectionArray[0] removeAllObjects];
+    [_collectionView reloadData];
+}
+
+#pragma mark - getter or setter方法
+// 懒加载
+- (NSMutableArray *)collectionArray
+{
+    if (_collectionArray == nil) {
+        _collectionArray = [[NSMutableArray alloc] init];
+        NSMutableArray *historyArray = [[NSMutableArray alloc] init];
+        [_collectionArray addObject:historyArray];
+        NSMutableArray *recommendArray = [[NSMutableArray alloc] init];
+        [_collectionArray addObject:recommendArray];
+    }
+    return _collectionArray;
 }
 
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds)+60)];
-        _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
         _tableView.backgroundColor = APP_PAGE_COLOR;
-
+        
         [_tableView registerNib:[UINib nibWithNibName:@"SearchResultTableViewCell" bundle:nil]forCellReuseIdentifier:reusableCellIdentifier];
-        _tableView.contentInset = UIEdgeInsetsMake(0, 0, 10, 0);
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.dataSource = self;
         _tableView.delegate = self;
-
-        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.bounds.size.width, 41)];
-        footerView.backgroundColor = APP_PAGE_COLOR;
-        _tableView.tableFooterView = footerView;
     }
     return _tableView;
 }
@@ -114,24 +199,27 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     return _dataSource;
 }
 
-- (void)tapTouch
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    [self.searchBar endEditing:YES];
-//    [self.tableView removeGestureRecognizer:_tap];
-}
-
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     [self.view endEditing:YES];
     [self.searchBar endEditing:YES];
     [super touchesEnded:touches withEvent:event];
-    [self goBack];
+    if (self.dataSource.count == 0) {
+        self.tableView.hidden = YES;
+        [self showCollectionView];
+    }
 }
 
+
+#pragma mark - private Methods
 /**
  *  开始搜索
  */
 - (void)loadDataSourceWithKeyWord:(NSString *)keyWord
 {
+    self.tableView.hidden = NO;
+    [self hideCollectionView];
+    
     _keyWord = keyWord;
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -153,11 +241,12 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [params setObject:[NSNumber numberWithBool:YES] forKey:@"hotel"];
     [params setObject:[NSNumber numberWithBool:YES] forKey:@"shopping"];
     [params setObject:[NSNumber numberWithInt:5] forKey:@"pageSize"];
-
-     __weak typeof(SearchDestinationViewController *)weakSelf = self;
-    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf];
     
+    __weak typeof(SearchDestinationViewController *)weakSelf = self;
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInViewController:weakSelf content:64];
+    
+    NSLog(@"%@,%@",API_SEARCH,params);
     [manager GET:API_SEARCH parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         [hud hideTZHUD];
@@ -165,17 +254,12 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         if (code == 0) {
             [self analysisData:[responseObject objectForKey:@"result"]];
         } else {
-//             if (self.isShowing) {
-//                [SVProgressHUD showHint:@"请求也是失败了"];
-//            }
+            
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [hud hideTZHUD];
-//        if (self.isShowing) {
-//            [SVProgressHUD showHint:@"呃～好像没找到网络"];
-//        }
+        NSLog(@"%@",error);
     }];
-
 }
 
 - (void)analysisData:(id)json
@@ -184,6 +268,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     NSMutableDictionary *cityDic = [[NSMutableDictionary alloc] init];
     [cityDic setObject:@"城市" forKey:@"typeDesc"];
     NSMutableArray *cities = [[NSMutableArray alloc] init];
+   
     for (id dic in [json objectForKey:@"locality"]) {
         SuperPoi *poi = [PoiFactory poiWithPoiType:kCityPoi andJson:dic];
         poi.poiType = kCityPoi;
@@ -195,7 +280,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         [cityDic setObject:[NSNumber numberWithInt:kCityPoi] forKey:@"type"];
     }
     NSMutableDictionary *spotDic = [[NSMutableDictionary alloc] init];
-
+    
     [spotDic setObject:@"景点" forKey:@"typeDesc"];
     NSMutableArray *spots = [[NSMutableArray alloc] init];
     for (id dic in [json objectForKey:@"vs"]) {
@@ -205,12 +290,12 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     if (spots.count > 0) {
         [spotDic setObject:spots forKey:@"content"];
         [spotDic setObject:[NSNumber numberWithInt:kSpotPoi] forKey:@"type"];
-
+        
         [self.dataSource addObject:spotDic];
     }
     
     NSMutableDictionary *restaurantDic = [[NSMutableDictionary alloc] init];
-
+    
     [restaurantDic setObject:@"美食" forKey:@"typeDesc"];
     NSMutableArray *restaurants = [[NSMutableArray alloc] init];
     for (id dic in [json objectForKey:@"restaurant"]) {
@@ -224,7 +309,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     }
     
     NSMutableDictionary *shoppingDic = [[NSMutableDictionary alloc] init];
-
+    
     [shoppingDic setObject:@"购物" forKey:@"typeDesc"];
     NSMutableArray *shoppingArray = [[NSMutableArray alloc] init];
     for (id dic in [json objectForKey:@"shopping"]) {
@@ -234,12 +319,12 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     if (shoppingArray.count > 0) {
         [shoppingDic setObject:shoppingArray forKey:@"content"];
         [shoppingDic setObject:[NSNumber numberWithInt:kShoppingPoi] forKey:@"type"];
-
+        
         [self.dataSource addObject:shoppingDic];
     }
     
     NSMutableDictionary *hotelDic = [[NSMutableDictionary alloc] init];
-
+    
     [hotelDic setObject:@"酒店" forKey:@"typeDesc"];
     NSMutableArray *hotels = [[NSMutableArray alloc] init];
     for (id dic in [json objectForKey:@"hotel"]) {
@@ -249,21 +334,20 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     if (hotels.count > 0) {
         [hotelDic setObject:hotels forKey:@"content"];
         [hotelDic setObject:[NSNumber numberWithInt:kHotelPoi] forKey:@"type"];
-
+        
         [self.dataSource addObject:hotelDic];
     }
     if (self.dataSource.count>0) {
-        self.tableView.hidden = NO;
         [self.tableView reloadData];
     } else {
-        self.tableView.hidden = YES;
+        NSString *searchStr = [NSString stringWithFormat:@"没有找到“%@”的相关结果", _keyWord];
+        [SVProgressHUD showHint:searchStr];
     }
 }
 
 - (void)showMore:(UIButton *)sender
 {
-    [MobClick event:@"event_click_more_search_result"];
-    
+    [MobClick event:@"button_item_all_search_result"];
     NSDictionary *dic = [self.dataSource objectAtIndex:sender.tag];
     
     SearchMoreDestinationViewController *searchMoreCtl = [[SearchMoreDestinationViewController alloc] init];
@@ -273,37 +357,39 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     switch ([[dic objectForKey:@"type"] integerValue]) {
         case kCityPoi:
             poiTypeDesc = @"locality";
-            
+            searchMoreCtl.titleStr = @"全部城市";
             break;
         case kSpotPoi:
             poiTypeDesc = @"vs";
-            
+            searchMoreCtl.titleStr = @"全部景点";
             break;
         case kRestaurantPoi:
             poiTypeDesc = @"restaurant";
-            
+            searchMoreCtl.titleStr = @"全部美食";
             break;
         case kShoppingPoi:
             poiTypeDesc = @"shopping";
-            
+            searchMoreCtl.titleStr = @"全部购物";
             break;
         case kHotelPoi:
             poiTypeDesc = @"hotel";
+            searchMoreCtl.titleStr = @"全部酒店";
             break;
-            
             
         default:
             break;
     }
     searchMoreCtl.poiTypeDesc = poiTypeDesc;
     searchMoreCtl.keyWord = _keyWord;
-    searchMoreCtl.chatter = _chatter;
-    searchMoreCtl.isChatGroup = _isChatGroup;
+    searchMoreCtl.chatterId = _chatterId;
+    searchMoreCtl.chatType = _chatType;
     [self.navigationController pushViewController:searchMoreCtl animated:YES];
 }
 
 - (IBAction)sendPoi:(UIButton *)sender
 {
+    [MobClick event:@"button_item_lxp_send_search_result"];
+    
     CGPoint point = [sender convertPoint:CGPointZero toView:_tableView];
     NSIndexPath *indexPath = [_tableView indexPathForRowAtPoint:point];
     SuperPoi *poi = [[[self.dataSource objectAtIndex:indexPath.section] objectForKey:@"content"] objectAtIndex:indexPath.row];
@@ -312,26 +398,26 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     taoziMessageCtl.delegate = self;
     switch (poi.poiType) {
         case kCityPoi:
-            taoziMessageCtl.chatType = TZChatTypeCity;
+            taoziMessageCtl.messageType = IMMessageTypeCityPoiMessageType;
             taoziMessageCtl.messageTimeCost = [NSString stringWithFormat:@"%@", ((CityPoi *)poi).timeCostDesc];
             break;
             
         case kSpotPoi:
-            taoziMessageCtl.chatType = TZChatTypeSpot;
+            taoziMessageCtl.messageType = IMMessageTypeSpotMessageType;
             taoziMessageCtl.messageTimeCost = [NSString stringWithFormat:@"%@", ((SpotPoi *)poi).timeCostStr];
             break;
             
         case kRestaurantPoi:
-            taoziMessageCtl.chatType = TZChatTypeFood;
+            taoziMessageCtl.messageType = IMMessageTypeRestaurantMessageType;
             taoziMessageCtl.messagePrice = ((RestaurantPoi *)poi).priceDesc;
             break;
             
         case kShoppingPoi:
-            taoziMessageCtl.chatType = TZChatTypeShopping;
+            taoziMessageCtl.messageType = IMMessageTypeShoppingMessageType;
             break;
             
         case kHotelPoi:
-            taoziMessageCtl.chatType = TZChatTypeHotel;
+            taoziMessageCtl.messageType = IMMessageTypeHotelMessageType;
             taoziMessageCtl.messagePrice = ((HotelPoi *)poi).priceDesc;
             break;
             
@@ -345,9 +431,9 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     taoziMessageCtl.messageImage = image.imageUrl;
     taoziMessageCtl.messageAddress = poi.address;
     taoziMessageCtl.messageRating = poi.rating;
-    taoziMessageCtl.chatter = _chatter;
-    taoziMessageCtl.isGroup = _isChatGroup;
-    [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:nil];
+    taoziMessageCtl.chatterId = _chatterId;
+    taoziMessageCtl.chatType = _chatType;
+    [self.navigationController presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:nil];
 }
 
 #pragma mark - tableview datasource & delegate
@@ -365,65 +451,44 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 54.0;
+    return 58;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 28.0;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-{
-    NSArray *content = [[self.dataSource objectAtIndex:section] objectForKey:@"content"];
-    if (content.count < 5) {
-        return 10;
-    } else {
-        return 50;
-    }
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
-{
-    UIView *footerView;
-    NSArray *content = [[self.dataSource objectAtIndex:section] objectForKey:@"content"];
-    if (content.count < 5) {
-        footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 10)];
-        footerView.backgroundColor = APP_PAGE_COLOR;
-    } else {
-        footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 50)];
-        footerView.backgroundColor = APP_PAGE_COLOR;
-        UIButton *showMoreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 40)];
-        [showMoreBtn setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
-        [showMoreBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_BORDER_COLOR] forState:UIControlStateHighlighted];
-        [showMoreBtn setTitleColor:APP_SUB_THEME_COLOR forState:UIControlStateNormal];
-        [showMoreBtn setTitleColor:APP_SUB_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
-        [showMoreBtn setTitle:@"查看全部结果" forState:UIControlStateNormal];
-        showMoreBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
-        showMoreBtn.tag = section;
-        [showMoreBtn setContentEdgeInsets:UIEdgeInsetsMake(0, 11, 0, 0)];
-        [showMoreBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
-        showMoreBtn.layer.borderColor = APP_PAGE_COLOR.CGColor;
-        showMoreBtn.layer.borderWidth = 0.5;
-        [showMoreBtn addTarget:self action:@selector(showMore:) forControlEvents:UIControlEventTouchUpInside];
-        [showMoreBtn setImage:[UIImage imageNamed:@"ic_search.png"] forState:UIControlStateNormal];
-        showMoreBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        [footerView addSubview:showMoreBtn];
-    }
-    return footerView;
+    return 35;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
+    UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWindowWidth, 35)];
+    headerView.backgroundColor = APP_PAGE_COLOR;
     NSString *typeDesc = [[self.dataSource objectAtIndex:section] objectForKey:@"typeDesc"];
-    UILabel *headerView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 28)];
-    headerView.textColor = TEXT_COLOR_TITLE_SUBTITLE;
-    headerView.text = [NSString stringWithFormat:@"   %@", typeDesc];
-    headerView.backgroundColor = [UIColor whiteColor];
-    headerView.font = [UIFont systemFontOfSize:12.0];
-    headerView.layer.cornerRadius = 2.0;
-    headerView.layer.borderColor = APP_PAGE_COLOR.CGColor;
-    headerView.layer.borderWidth = 0.5;
+    UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, 50, 25)];
+    headerLabel.textColor = COLOR_TEXT_I;
+    headerLabel.text = [NSString stringWithFormat:@"   %@", typeDesc];
+    headerLabel.font = [UIFont systemFontOfSize:14.0];
+    
+    NSArray *content = [[self.dataSource objectAtIndex:section] objectForKey:@"content"];
+    if (content.count >= 5) {
+        UIButton *showMoreBtn = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.view.bounds) - 100, 0, 100, CGRectGetHeight(headerView.frame))];
+        NSAttributedString *str = [[NSAttributedString alloc] initWithString:@"查看全部 " attributes:@{NSForegroundColorAttributeName : COLOR_TEXT_II, NSFontAttributeName: [UIFont systemFontOfSize:12]}];
+        NSMutableAttributedString *showMoreStr = [[NSMutableAttributedString alloc]initWithAttributedString:str];
+        
+        showMoreBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
+        showMoreBtn.tag = section;
+        [showMoreBtn addTarget:self action:@selector(showMore:) forControlEvents:UIControlEventTouchUpInside];
+        showMoreBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        NSAttributedString *more1 = [[NSAttributedString alloc] initWithString:typeDesc attributes:@{NSForegroundColorAttributeName : APP_THEME_COLOR, NSFontAttributeName: [UIFont systemFontOfSize:12]}];
+        [showMoreStr appendAttributedString:more1];
+        NSAttributedString *sstr = [[NSAttributedString alloc]initWithString:@" >"];
+        [showMoreStr appendAttributedString:sstr];
+        [showMoreBtn setAttributedTitle:showMoreStr forState:UIControlStateNormal];
+        showMoreBtn.titleEdgeInsets = UIEdgeInsetsMake(5, 0, 0, 0);
+        [headerView addSubview:showMoreBtn];
+    }
+    
+    [headerView addSubview:headerLabel];
     return headerView;
 }
 
@@ -431,7 +496,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 {
     SuperPoi *poi = [[[self.dataSource objectAtIndex:indexPath.section] objectForKey:@"content"] objectAtIndex:indexPath.row];
     SearchResultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reusableCellIdentifier];
-
+    
     if (poi.poiType == kRestaurantPoi || poi.poiType == kShoppingPoi || poi.poiType == kHotelPoi || poi.poiType == kSpotPoi) {
         if ([poi.address isBlankString]||poi.address.length == 0) {
             poi.address = poi.zhName;
@@ -447,7 +512,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         cell.detailLabel.text = @"";
     }
     cell.isCanSend = _isCanSend;
-
+    
     if (_isCanSend) {
         [cell.sendBtn addTarget:self action:@selector(sendPoi:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -457,15 +522,11 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [_searchBar resignFirstResponder];
-    [MobClick event:@"event_click_search_result_item"];
-    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     SuperPoi *poi = [[[self.dataSource objectAtIndex:indexPath.section] objectForKey:@"content"] objectAtIndex:indexPath.row];
-
     if (poi.poiType == kSpotPoi) {
         SpotDetailViewController *ctl = [[SpotDetailViewController alloc] init];
         ctl.spotId = poi.poiId;
         [self.navigationController pushViewController:ctl animated:YES];
-        
     } else if (poi.poiType == kCityPoi) {
         CityDetailTableViewController *ctl = [[CityDetailTableViewController alloc] init];
         ctl.cityId = poi.poiId;
@@ -475,10 +536,99 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         ctl.poiId = poi.poiId;
         [self.navigationController pushViewController:ctl animated:YES];
     }
+    
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     [_searchBar endEditing:YES];
+}
+
+
+#pragma mark - 实现UICollectionView的数据源以及代理方法
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    return _collectionArray.count;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return [[_collectionArray objectAtIndex:section] count];
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    DestinationSearchHistoryCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"searchHistoryCell" forIndexPath:indexPath];
+    NSArray *array = [_collectionArray objectAtIndex:indexPath.section];
+    cell.titleLabel.text = array[indexPath.row];
+    return cell;
+}
+
+// collection的头部
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
+{
+    if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
+        SearchDestinationHistoryCollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"searchDestinationHeader" forIndexPath:indexPath];
+        if (indexPath.section == 0 && [[self.collectionArray objectAtIndex:0] count]) {
+            headerView.titleLabel.text = @"历史搜索";
+            headerView.actionButton.hidden = NO;
+            [headerView.actionButton setTitle:@"清除" forState:UIControlStateNormal];
+            [headerView.actionButton addTarget:self action:@selector(clearSearchHistory) forControlEvents:UIControlEventTouchUpInside];
+            
+        } else if (indexPath.section == 1 && [[self.collectionArray objectAtIndex:1] count]) {
+            headerView.titleLabel.text = @"热门搜索";
+            headerView.actionButton.hidden = YES;
+        }
+        return headerView;
+    }
+    
+    return nil;
+}
+
+
+// 选中某一个item
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    [_searchBar endEditing:YES];
+    NSArray *array = [self.collectionArray objectAtIndex:indexPath.section];
+    [self loadDataSourceWithKeyWord:array[indexPath.row]];
+    _searchBar.text = array[indexPath.row];
+}
+
+#pragma mark - TaoziLayoutDelegate
+
+- (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSArray *array = [_collectionArray objectAtIndex:indexPath.section];
+    NSString *title = [array objectAtIndex:indexPath.row];
+    CGSize size = [title sizeWithAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:17.0]}];
+    return CGSizeMake(size.width+20, 30);
+}
+
+- (CGSize)collectionview:(UICollectionView *)collectionView sizeForHeaderView:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0 && [[self.collectionArray objectAtIndex:0] count]) {
+        return CGSizeMake(kWindowWidth, 50);
+    } else if (indexPath.section == 1 && [[self.collectionArray objectAtIndex:1] count]) {
+        return CGSizeMake(kWindowWidth, 50);
+    }
+    return CGSizeZero;
+}
+
+- (NSInteger)numberOfSectionsInTZCollectionView:(UICollectionView *)collectionView
+{
+    return _collectionArray.count;
+}
+
+- (NSInteger)tzcollectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return [[_collectionArray objectAtIndex:section] count];
+}
+
+- (CGFloat)tzcollectionLayoutWidth
+{
+    return self.view.bounds.size.width-20;
 }
 
 #pragma mark - UISearchBar Delegate
@@ -486,6 +636,27 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     [_searchBar endEditing:YES];
+    
+    // 将搜索结果存入到数据库中
+    NSArray * recentSearch = [[TMCache sharedCache] objectForKey:kSearchDestinationCacheKey];
+    NSMutableArray * mutableArray;
+    if (recentSearch) {
+        mutableArray = [recentSearch mutableCopy];
+    } else {
+        mutableArray = [[NSMutableArray alloc] init];
+    }
+    for (NSString *str in mutableArray) {
+        if ([str isEqualToString:searchBar.text]) {
+            [mutableArray removeObject:str];
+            break;
+        }
+    }
+    if (mutableArray.count >= 10) {
+        [mutableArray removeLastObject];
+    }
+    [mutableArray insertObject:searchBar.text atIndex:0];
+    [[TMCache sharedCache] setObject:mutableArray forKey:kSearchDestinationCacheKey];
+    self.collectionArray[0] = mutableArray;
     [self loadDataSourceWithKeyWord:searchBar.text];
 }
 
@@ -494,16 +665,31 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         [self.dataSource removeAllObjects];
         [_tableView reloadData];
         _tableView.hidden = YES;
+        [self showCollectionView];
+    }
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    if (_isRootViewController) {
+        [_searchBar endEditing:YES];
+    } else {
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 
 #pragma mark - TaoziMessageSendDelegate
 
-//用户确定发送景点给朋友
+/**
+ *  用户确定发送景点给朋友
+ *
+ *  @param chatCtl
+ */
 - (void)sendSuccess:(ChatViewController *)chatCtl
 {
     [self dismissPopup];
     [SVProgressHUD showSuccessWithStatus:@"已发送~"];
+    [self performSelector:@selector(dismissAfterSended) withObject:nil afterDelay:0.5];
 }
 
 - (void)sendCancel
@@ -517,10 +703,16 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
  */
 - (void)dismissPopup
 {
-    if (self.popupViewController != nil) {
-        [self dismissPopupViewControllerAnimated:YES completion:^{
-        }];
+    if (self.navigationController.popupViewController != nil) {
+        [self.navigationController dismissPopupViewControllerAnimated:YES completion:nil];
     }
+}
+
+#pragma mark - private method
+
+- (void)dismissAfterSended
+{
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 

@@ -7,14 +7,18 @@
 //
 
 #import "TZViewController.h"
+#import "PeachTravel-swift.h"
 
 @interface SearchDestinationViewController : UIViewController
 
-@property (nonatomic, copy) NSString *chatter;
+@property (nonatomic) NSInteger chatterId;
 
 @property (nonatomic, strong) NSString *titleStr;
 
-@property (nonatomic) BOOL isChatGroup;
+@property (nonatomic) IMChatType chatType;
+
+//是否是 tabbar 层的 viewcontroller
+@property (nonatomic) BOOL isRootViewController;
 
 /**
  *  点击是否可以发送

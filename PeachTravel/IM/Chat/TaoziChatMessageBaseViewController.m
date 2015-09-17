@@ -7,9 +7,8 @@
 //
 
 #import "TaoziChatMessageBaseViewController.h"
-#import "ChatSendHelper.h"
 
-@interface TaoziChatMessageBaseViewController ()
+@interface TaoziChatMessageBaseViewController ()<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UIView *imageBkgView;
 
 @end
@@ -20,12 +19,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.clipsToBounds = YES;
-    self.view.layer.cornerRadius = 4.0;
-    _sendBtn.layer.cornerRadius = 2.0;
-    _cancelBtn.layer.cornerRadius = 2.0;
+    self.view.layer.cornerRadius = 8.0;
+
+    // 设置字体颜色以及宽度
     _headerLabel.textColor = APP_THEME_COLOR;
-    _sendBtn.layer.borderColor = APP_THEME_COLOR.CGColor;
-    _cancelBtn.layer.borderColor = APP_THEME_COLOR.CGColor;
+    _sendBtn.layer.borderColor = COLOR_LINE.CGColor;
+    _cancelBtn.layer.borderColor = COLOR_LINE.CGColor;
     _sendBtn.layer.borderWidth = 1.0;
     _cancelBtn.layer.borderWidth = 1.0;
     _headerImageView.layer.cornerRadius = 2.0;
@@ -36,7 +35,7 @@
     _imageBkgView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
     _headerImageView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
     [_titleBtn setTitle:_messageName forState:UIControlStateNormal];
-    if (_chatType == TZChatTypeTravelNote) {
+    if (_messageType == IMMessageTypeTravelNoteMessageType) {
         _titleBtn.titleLabel.numberOfLines = 2;
         _propertyBtn.hidden = YES;
 
@@ -47,30 +46,30 @@
     
     [_headerImageView sd_setImageWithURL:[NSURL URLWithString:_messageImage] placeholderImage:nil];
     
-    switch (_chatType) {
-        case TZChatTypeSpot:
+    switch (_messageType) {
+        case IMMessageTypeSpotMessageType:
             _headerLabel.text = @"  景点";
             [_propertyBtn setTitle:_messageTimeCost forState:UIControlStateNormal];
             if ([_messageTimeCost isBlankString] || !_messageTimeCost) {
                 [_propertyBtn setImage:nil forState:UIControlStateNormal];
             } else {
-                [_propertyBtn setImage:[UIImage imageNamed:@"ic_time.png"] forState:UIControlStateNormal];
+                [_propertyBtn setImage:[UIImage imageNamed:@"poi_clock_default.png"] forState:UIControlStateNormal];
             }
             _descLabel.text = _messageDesc;
             
             break;
             
-        case TZChatTypeStrategy:
-            [_propertyBtn setImage:[UIImage imageNamed:@"ic_time.png"] forState:UIControlStateNormal];
+        case IMMessageTypeGuideMessageType:
+            [_propertyBtn setImage:[UIImage imageNamed:@"poi_clock_default.png"] forState:UIControlStateNormal];
             _headerLabel.text = @"  计划";
             [_propertyBtn setTitle:_messageTimeCost forState:UIControlStateNormal];
 
             _descLabel.text = _messageDesc;
             break;
             
-        case TZChatTypeFood: {
+        case IMMessageTypeRestaurantMessageType: {
             _headerLabel.text = @"   美食";
-            [_propertyBtn setImage:[UIImage imageNamed:@"ic_star_yellow.png"] forState:UIControlStateNormal];
+            [_propertyBtn setImage:[UIImage imageNamed:@"poi_comment_start_highlight.png"] forState:UIControlStateNormal];
             NSString *propertyStr = [NSString stringWithFormat:@"%.1f  %@",_messageRating, _messagePrice];
             _descLabel.text = _messageAddress;
             [_propertyBtn setTitle:propertyStr forState:UIControlStateNormal];
@@ -78,9 +77,9 @@
         }
             break;
             
-        case TZChatTypeHotel: {
+        case IMMessageTypeHotelMessageType: {
             _headerLabel.text = @"   酒店";
-            [_propertyBtn setImage:[UIImage imageNamed:@"ic_star_yellow.png"] forState:UIControlStateNormal];
+            [_propertyBtn setImage:[UIImage imageNamed:@"poi_comment_start_highlight.png"] forState:UIControlStateNormal];
             NSString *propertyStr = [NSString stringWithFormat:@"%.1f  %@",_messageRating, _messagePrice];
             _descLabel.text = _messageAddress;
             [_propertyBtn setTitle:propertyStr forState:UIControlStateNormal];
@@ -88,29 +87,28 @@
             
             break;
             
-        case TZChatTypeShopping: {
+        case IMMessageTypeShoppingMessageType: {
             _headerLabel.text = @"   购物";
-            [_propertyBtn setImage:[UIImage imageNamed:@"ic_star_yellow.png"] forState:UIControlStateNormal];
+            [_propertyBtn setImage:[UIImage imageNamed:@"poi_comment_start_highlight.png"] forState:UIControlStateNormal];
             NSString *propertyStr = [NSString stringWithFormat:@"%.1f",_messageRating];
             _descLabel.text = _messageAddress;
             [_propertyBtn setTitle:propertyStr forState:UIControlStateNormal];
 
         }
-            
             break;
             
-        case TZChatTypeCity:
+        case IMMessageTypeCityPoiMessageType:
             _headerLabel.text = @"   城市";
             if ([_messageTimeCost isBlankString] || !_messageTimeCost) {
                 [_propertyBtn setImage:nil forState:UIControlStateNormal];
             } else {
-                [_propertyBtn setImage:[UIImage imageNamed:@"ic_time.png"] forState:UIControlStateNormal];
+                [_propertyBtn setImage:[UIImage imageNamed:@"poi_clock_default.png"] forState:UIControlStateNormal];
             }
             [_propertyBtn setTitle:_messageTimeCost forState:UIControlStateNormal];
             _descLabel.text = _messageDesc;
             break;
             
-        case TZChatTypeTravelNote:
+        case IMMessageTypeTravelNoteMessageType:
             _headerLabel.text = @"   游记";
             _descLabel.text = _messageDesc;
             break;
@@ -120,6 +118,30 @@
             break;
     }
 
+    // 监听键盘的变化
+    self.messageText.layer.borderColor = UIColorFromRGB(0xe2e2e2).CGColor;
+    self.messageText.layer.borderWidth = 1.0;
+    self.messageText.delegate = self;
+}
+
+#pragma mark - 监听键盘的高度变化
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    NSLog(@"%s",__func__);
+    [UIView animateWithDuration:0.25 animations:^{
+        self.view.transform = CGAffineTransformTranslate(self.view.transform, 0, -150);
+    }];
+    
+    return YES;
+}
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
+{
+    [UIView animateWithDuration:0.25 animations:^{
+            self.view.transform = CGAffineTransformIdentity;
+    }];
+
+    return YES;
 }
 
 - (void)setMessageAddress:(NSString *)messageAddress
@@ -162,15 +184,42 @@
     _messageTimeCost = messageTimeCost;
 }
 
-- (IBAction)confirmSend:(UIButton *)sender {
-   
-    ChatViewController *temtChatCtl = [[ChatViewController alloc] initWithChatter:_chatter isGroup:_isGroup];
-    temtChatCtl.title = _chatTitle;
-    EMMessage *message = [ChatSendHelper sendTaoziMessageWithString:@"" andExtMessage:[self dataToSend] toUsername:_chatter isChatGroup:_isGroup requireEncryption:NO];
-    
-    [_delegate sendSuccess:temtChatCtl];
-    [[NSNotificationCenter defaultCenter] postNotificationName:updateChateViewNoti object:nil userInfo:@{@"message":message}];
+// 留言信息
+- (void)setMessageText:(UITextField *)messageText
+{
+    _messageText = messageText;
+}
 
+#pragma mark - 监听键盘改变
+
+- (IBAction)confirmSend:(UIButton *)sender {
+    IMClientManager *imclientManager = [IMClientManager shareInstance];
+    
+    // 发送Poi消息
+    BaseMessage *message = [imclientManager.messageSendManager sendPoiMessage:[self dataToSend] receiver:_chatterId chatType:_chatType conversationId:nil completionBlock:^(BOOL isSuccess, NSString * __nullable error) {
+        if (!isSuccess) {
+            if (error) {
+                TipsMessage *message = [[TipsMessage alloc] initWithContent:error tipsType:TipsMessageTypeCommon_Tips];
+                message.chatterId = _chatterId;
+                message.createTime = [[NSDate date] timeIntervalSince1970];
+                ChatConversation *conversation = [imclientManager.conversationManager getConversationWithChatterId:_chatterId chatType:_chatType];
+                [conversation addReceiveMessage:message];
+                [conversation insertMessage2DB:message];
+            }
+        } else {
+            // 发送文本消息
+            if (!self.messageText.text.length == 0) {
+                BaseMessage * textMessage = [imclientManager.messageSendManager sendTextMessage:self.messageText.text receiver:_chatterId chatType:_chatType conversationId:nil completionBlock:^(BOOL isSuccess, NSString * __nullable errors) {
+                    
+                }];
+                [[NSNotificationCenter defaultCenter] postNotificationName:updateChateViewNoti object:nil userInfo:@{@"message":textMessage}];
+            }
+        }
+    }];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:updateChateViewNoti object:nil userInfo:@{@"message":message}];
+    
+    [_delegate sendSuccess:nil];
 }
 
 - (IBAction)cancel:(UIButton *)sender {
@@ -182,62 +231,76 @@
  *
  *  @return 需要发送的内容
  */
-- (NSDictionary *)dataToSend
+- (IMPoiModel *)dataToSend
 {
-    NSMutableDictionary *retDic = [[NSMutableDictionary alloc] init];
-    [retDic setObject:[NSNumber numberWithInt:_chatType] forKey:@"tzType"];
-    NSMutableDictionary *contentDic = [[NSMutableDictionary alloc] init];
-    [contentDic safeSetObject:_messageId forKey:@"id"];
-    [contentDic safeSetObject:_messageImage forKey:@"image"];
-    [contentDic safeSetObject:_messageName forKey:@"name"];
-    switch (_chatType) {
-        case TZChatTypeSpot:
-            [contentDic safeSetObject:_messageDesc forKey:@"desc"];
-            [contentDic safeSetObject:_messageTimeCost forKey:@"timeCost"];
+    IMPoiModel *retModel = [[IMPoiModel alloc] init];
+    retModel.poiId = _messageId;
+    retModel.image = _messageImage;
+    retModel.poiName = _messageName;
+    
+    switch (_messageType) {
+        case IMMessageTypeSpotMessageType:
+            retModel.desc = _messageDesc;
+            retModel.timeCost = _messageTimeCost;
+            retModel.poiType = IMPoiTypeSpot;
             break;
             
-        case TZChatTypeStrategy:
-            [contentDic safeSetObject:_messageDesc forKey:@"desc"];
-            [contentDic safeSetObject:_messageTimeCost forKey:@"timeCost"];
+        case IMMessageTypeGuideMessageType:
+            retModel.desc = _messageDesc;
+            retModel.timeCost = _messageTimeCost;
+            retModel.poiType = IMPoiTypeGuide;
 
             break;
             
-        case TZChatTypeFood:
-            [contentDic safeSetObject:[NSString stringWithFormat:@"%.1f", _messageRating] forKey:@"rating"];
-            [contentDic safeSetObject:_messagePrice forKey:@"price"];
-            [contentDic safeSetObject:_messageAddress forKey:@"address"];
+        case IMMessageTypeRestaurantMessageType:
+            retModel.rating = [NSString stringWithFormat:@"%.1f", _messageRating];
+            retModel.price = _messagePrice;
+            retModel.address = _messageAddress;
+            retModel.poiType = IMPoiTypeRestaurant;
+
             break;
             
-        case TZChatTypeHotel:
-            [contentDic safeSetObject:[NSString stringWithFormat:@"%.1f", _messageRating] forKey:@"rating"];
-            [contentDic safeSetObject:_messagePrice forKey:@"price"];
-            [contentDic safeSetObject:_messageAddress forKey:@"address"];
+        case IMMessageTypeHotelMessageType:
+            retModel.rating = [NSString stringWithFormat:@"%.1f", _messageRating];
+            retModel.price = _messagePrice;
+            retModel.address = _messageAddress;
+            retModel.poiType = IMPoiTypeHotel;
+
             break;
             
-        case TZChatTypeShopping:
-            [contentDic safeSetObject:[NSString stringWithFormat:@"%.1f", _messageRating] forKey:@"rating"];
-            [contentDic safeSetObject:_messageAddress forKey:@"address"];
+        case IMMessageTypeShoppingMessageType:
+            retModel.rating = [NSString stringWithFormat:@"%.1f", _messageRating];
+            retModel.address = _messageAddress;
+            retModel.poiType = IMPoiTypeShopping;
+
             break;
             
-        case TZChatTypeCity:
-            [contentDic safeSetObject:_messageDesc forKey:@"desc"];
+        case IMMessageTypeCityPoiMessageType:
+            retModel.desc = _messageDesc;
+            retModel.poiType = IMPoiTypeCity;
+
             break;
             
-        case TZChatTypeTravelNote:
-            [contentDic safeSetObject:_messageDesc forKey:@"desc"];
-            [contentDic safeSetObject:_messageDetailUrl forKey:@"detailUrl"];
+        case IMMessageTypeTravelNoteMessageType:
+            retModel.desc = _messageDesc;
+            retModel.detailUrl = _messageDetailUrl;
+            retModel.poiType = IMPoiTypeTravelNote;
 
             break;
             
         default:
             break;
     }
-    [retDic setObject:contentDic forKey:@"content"];
     
-    return retDic;
+    return retModel;
 }
 
-
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [super touchesBegan:touches withEvent:event];
+    
+    [self.view endEditing:YES];
+}
 
 
 

@@ -1,32 +1,32 @@
-/************************************************************
-  *  * EaseMob CONFIDENTIAL 
-  * __________________ 
-  * Copyright (C) 2013-2014 EaseMob Technologies. All rights reserved. 
-  *  
-  * NOTICE: All information contained herein is, and remains 
-  * the property of EaseMob Technologies.
-  * Dissemination of this information or reproduction of this material 
-  * is strictly forbidden unless prior written permission is obtained
-  * from EaseMob Technologies.
-  */
+//
+//  ChatListViewController
+//  PeachTravel
+//
+//  Created by liangpengshuai on 5/25/15.
+//  Copyright (c) 2015 com.aizou.www. All rights reserved.
+//
 
 #import <UIKit/UIKit.h>
 
-@interface ChatListViewController : TZViewController
-
-- (void)refreshDataSource;
-
-- (void)networkChanged:(EMConnectionState)connectionState;
+@protocol UnreadMessageCountChangeDelegate <NSObject>
 
 /**
- *  未读的聊天消息
+ *  未读消息的数量发生变化
+ *
+ *  @param unreadCount 
  */
-@property (nonatomic) int numberOfUnReadChatMsg;
+- (void)unreadMessageCountHasChange;
+
+@end
+
+@interface ChatListViewController : TZViewController
 
 /**
  *  链接状态
  */
 @property (nonatomic) IM_CONNECT_STATE IMState;
+
+@property (nonatomic, weak) id <UnreadMessageCountChangeDelegate> delegate;
 
 @end
 

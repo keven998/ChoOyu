@@ -10,7 +10,8 @@
 
 @implementation PushSettingTableViewCell
 
-- (void)awakeFromNib {
+- (void)awakeFromNib
+{
     // Initialization code
     
     self.contentView.layer.borderWidth = 0.25f;
@@ -19,7 +20,8 @@
     [_switchButton setOnTintColor:APP_THEME_COLOR];
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state

@@ -11,6 +11,8 @@
 
 @implementation SuperPoi
 
+#pragma mark - 初始化
+
 - (id)initWithJson:(id)json
 {
     if (self = [super init]) {
@@ -18,11 +20,17 @@
         _zhName = [json objectForKey:@"zhName"];
         _enName = [json objectForKey:@"enName"];
         _desc = [json objectForKey:@"desc"];
+        _priceDesc = [json objectForKey:@"priceDesc"];
+        _openTime = [json objectForKey:@"openTime"];
         _address = [json objectForKey:@"address"];
-        if ([[json objectForKey:@"type"] isEqualToString:@"vs"]) {
-            _poiType = kSpotPoi;
-        }
-            
+        _descUrl = [json objectForKey:@"descUrl"];
+        
+        NSArray * tel = [json objectForKey:@"tel"];
+        // 获得第一个电话号码
+        _telephone = [tel firstObject];
+        // 获得全部电话号码数组
+        _tel = [json objectForKey:@"tel"];
+  
         if ([json objectForKey:@"rank"] != [NSNull null]) {
             _rank = [[json objectForKey:@"rank"] intValue];
         }
@@ -58,6 +66,13 @@
         }
         _comments = commnentArray;
         _isMyFavorite = [[json objectForKey:@"isFavorite"] boolValue];
+        
+        _style = [json objectForKey:@"style"];
+        NSMutableArray * styleArray = [[NSMutableArray alloc] init];
+        for (id styleDic in [json objectForKey:@"style"]) {
+            [styleArray addObject:styleDic];
+        }
+        _style = styleArray;
     }
     return self;
 }
@@ -179,7 +194,7 @@
     [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     
     if (!self.isMyFavorite) {
         [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];

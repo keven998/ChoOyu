@@ -30,7 +30,7 @@
                                                        delegate:self
                                               cancelButtonTitle:@"取消"
                                          destructiveButtonTitle:nil
-                                              otherButtonTitles:@"发给好友", nil];
+                                              otherButtonTitles:@"发给朋友", nil];
     sheet.tag = kASShare;
     [sheet showInView:self.view];
 }
@@ -45,7 +45,6 @@
 
 - (void)shareToTalk {
     if (![[AccountManager shareAccountManager] isLogin]) {
-//        [self performSelector:@selector(login) withObject:nil afterDelay:0.3];
         LoginViewController *loginViewController = [[LoginViewController alloc] initWithCompletion:^(BOOL completed) {
             _chatRecordListCtl = [[ChatRecoredListTableViewController alloc] init];
             _chatRecordListCtl.delegate = self;
@@ -56,24 +55,28 @@
         loginViewController.isPushed = NO;
         [self presentViewController:nctl animated:YES completion:nil];
     } else {
-        _chatRecordListCtl = [[ChatRecoredListTableViewController alloc] init];
-        _chatRecordListCtl.delegate = self;
-        UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:_chatRecordListCtl];
-        [self presentViewController:nCtl animated:YES completion:nil];
+        if (_poi.poiId) {
+            _chatRecordListCtl = [[ChatRecoredListTableViewController alloc] init];
+            _chatRecordListCtl.delegate = self;
+            UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:_chatRecordListCtl];
+            [self presentViewController:nCtl animated:YES completion:nil];
+        } else {
+            
+        }
     }
-    [MobClick event:@"event_city_share_to_talk"];
 }
 
 #pragma mark - CreateConversationDelegate
 
-- (void)createConversationSuccessWithChatter:(NSString *)chatter isGroup:(BOOL)isGroup chatTitle:(NSString *)chatTitle
+- (void)createConversationSuccessWithChatter:(NSInteger)chatterId chatType:(IMChatType)chatType chatTitle:(NSString *)chatTitle
 {
     TaoziChatMessageBaseViewController *taoziMessageCtl = [[TaoziChatMessageBaseViewController alloc] init];
     [self setChatMessageModel:taoziMessageCtl];
     taoziMessageCtl.delegate = self;
     taoziMessageCtl.chatTitle = chatTitle;
-    taoziMessageCtl.chatter = chatter;
-    taoziMessageCtl.isGroup = isGroup;
+    taoziMessageCtl.chatterId = chatterId;
+    taoziMessageCtl.chatType = chatType;
+
     
     [self.chatRecordListCtl dismissViewControllerAnimated:YES completion:^{
         [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:nil];
@@ -82,7 +85,7 @@
 
 #pragma mark - TaoziMessageSendDelegate
 
-//用户确定发送景点给朋友
+//用户确定发送poi给朋友
 - (void)sendSuccess:(ChatViewController *)chatCtl
 {
     [self dismissPopup];
@@ -133,7 +136,7 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:updateFavoriteListNoti object:nil];
             completion(YES);
         } else {
-            [self showHint:@"呃～好像没找到网络"];
+            [self showHint:HTTP_FAILED_HINT];
         }
     }];
 }

@@ -32,6 +32,7 @@
 {
     [self addNewUnit:selectContactUnit];
     [selectContactUnit.avatarBtn addTarget:self action:@selector(removeUnitCell:) forControlEvents:UIControlEventTouchUpInside];
+    [selectContactUnit.deleteBtn addTarget:self action:@selector(removeUnitCell:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (IBAction)removeUnitCell:(UIButton *)cell

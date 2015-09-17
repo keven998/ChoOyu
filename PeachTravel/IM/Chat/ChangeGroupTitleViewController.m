@@ -7,6 +7,7 @@
 //
 
 #import "ChangeGroupTitleViewController.h"
+#import "PeachTravel-swift.h"
 
 @interface ChangeGroupTitleViewController ()
 
@@ -16,13 +17,15 @@
 
 @implementation ChangeGroupTitleViewController
 
+#pragma mark - life cycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     _titleLable.text = _oldTitle;
     self.navigationItem.title = @"修改群名称";
     
     UIBarButtonItem * addBtn = [[UIBarButtonItem alloc]initWithTitle:@"确定 " style:UIBarButtonItemStylePlain target:self action:@selector(confirm:)];
-    addBtn.tintColor = APP_THEME_COLOR;
+    addBtn.tintColor = [UIColor whiteColor];
     self.navigationItem.rightBarButtonItem = addBtn;
     
     _titleLable.layer.borderColor = UIColorFromRGB(0xdcdcdc).CGColor;
@@ -35,13 +38,17 @@
     
 }
 
-- (void)goBack
+-(void)viewWillAppear:(BOOL)animated
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    [super viewWillAppear:animated];
 }
 
-- (void)dealloc
+#pragma mark - action methods
+
+- (void)goBack
 {
+    [self.delegate changeGroupTitle];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)confirm:(id)sender
@@ -55,23 +62,21 @@
         __weak typeof(ChangeGroupTitleViewController *)weakSelf = self;
         hud = [[TZProgressHUD alloc] init];
         [hud showHUDInViewController:weakSelf content:64];
-        [[EaseMob sharedInstance].chatManager asyncChangeGroupSubject:_titleLable.text
-                                                             forGroup:_groupId];
+        IMDiscussionGroupManager *manager = [IMDiscussionGroupManager shareInstance];
+        [manager asyncChangeDiscussionGroupTitleWithGroup:_group title:title completion:^(BOOL isSuccess, NSInteger errorCode) {
+            [hud hideTZHUD];
+            if (isSuccess) {
+                [SVProgressHUD showHint:@"修改成功"];
+                NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+                [center postNotificationName:updateChateGroupTitleNoti object:title];
+                IMClientManager *client = [IMClientManager shareInstance];
+                [client.conversationManager updateConversationName:title chatterId:_group.groupId];
+                [self performSelector:@selector(goBack) withObject:nil afterDelay:0.4];
+            }
+        }];
     }
     
-    [[EaseMob sharedInstance].chatManager asyncChangeGroupSubject:_titleLable.text forGroup:_groupId completion:^(EMGroup *group, EMError *error) {
-        [hud hideTZHUD];
-        [SVProgressHUD showHint:@"修改成功"];
-        [self performSelector:@selector(goBack) withObject:nil afterDelay:0.4];
-    } onQueue:nil];
-}
--(void)viewWillAppear:(BOOL)animated
-{
-    self.navigationController.navigationBarHidden = NO;
-}
-- (void)updateSuccess
-{
-    
+  
 }
 
 @end

@@ -7,12 +7,15 @@
 //
 
 #import "TZSegmentedViewController.h"
+#import "MakePlanSearchController.h"
 
-@interface TZSegmentedViewController ()
+@interface TZSegmentedViewController () <UISearchBarDelegate>
 
 @property (nonatomic, strong) UIViewController *currentViewController;
 //@property (nonatomic, strong) UIView *indicateView;
 @property (nonatomic, strong) UISegmentedControl *segmentControl;
+
+@property (nonatomic, weak) UISearchBar * searchBar2;
 
 @end
 
@@ -21,31 +24,76 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-//    self.automaticallyAdjustsScrollViewInsets = NO;
-//    _selectedIndext = -1;
-    int titleCount = 0;
-    if (_segmentedNormalImages) {
-        titleCount = (int)_segmentedNormalImages.count;
-    } else if (_segmentedTitles) {
-        titleCount = (int)_segmentedTitles.count;
-    }
+    
+    // 设置segment的样式并添加到控制器中
+    UIImageView * bgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 48)];
+    // 设置图片填充格式
+    bgView.contentMode = UIViewContentModeScaleAspectFill;
+    bgView.clipsToBounds = YES;
+    bgView.userInteractionEnabled = YES;
+    bgView.image = [UIImage imageNamed:@"Artboard_Top_Bg"];
+//    [self.view addSubview:bgView];
+    
     
     UISegmentedControl *segControl = [[UISegmentedControl alloc] initWithItems:_segmentedTitles];
-    segControl.tintColor = APP_THEME_COLOR;
-    segControl.frame = CGRectMake(0, 0, 136, 28);
+    
+    NSDictionary *normolDic = [NSDictionary dictionaryWithObjectsAndKeys:TEXT_COLOR_TITLE_SUBTITLE,NSForegroundColorAttributeName,nil];
+    [segControl setTitleTextAttributes:normolDic forState:UIControlStateNormal];
+    
+    NSDictionary *selectedDic = [NSDictionary dictionaryWithObjectsAndKeys:APP_THEME_COLOR,NSForegroundColorAttributeName,nil];
+    [segControl setTitleTextAttributes:selectedDic forState:UIControlStateSelected];
+    
+    CGFloat screenW = [UIScreen mainScreen].bounds.size.width;
+    CGFloat segControlX = (screenW - 136) / 2;
+    segControl.frame = CGRectMake(segControlX, 10, 136, 28);
     segControl.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     segControl.selectedSegmentIndex = 0;
-    self.navigationItem.titleView = segControl;
+    segControl.backgroundColor = APP_PAGE_COLOR;
+    [bgView addSubview:segControl];
+    self.view.backgroundColor = [UIColor whiteColor];
     [segControl addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
     _segmentControl = segControl;
     
+
+    
     for (UIViewController *ctl in _viewControllers) {
-        [ctl.view setFrame:self.view.bounds];
+//        [ctl.view setFrame:self.view.bounds];
+        [ctl.view setFrame:CGRectMake(0, 44, self.view.bounds.size.width, self.view.bounds.size.height - 70)];
     }
     UIViewController *firstCtl = [_viewControllers firstObject];
     _currentViewController = firstCtl;
     [self addChildViewController:firstCtl];
     [self.view addSubview:firstCtl.view];
+    
+    self.navigationItem.titleView = segControl;
+    
+    [self setupSearchBar];
+}
+
+#pragma mark - 添加searchBar
+- (void)setupSearchBar{
+    
+    UISearchBar * searchBar = [[UISearchBar alloc] init];
+    searchBar.frame = CGRectMake(0, 0, kWindowWidth, 44);
+    searchBar.delegate = self;
+    self.searchBar2 = searchBar;
+    [_searchBar2 setPlaceholder:@"城市/国家"];
+    _searchBar2.tintColor = APP_PAGE_COLOR;
+    _searchBar2.autocorrectionType = UITextAutocorrectionTypeNo;
+    [_searchBar2 setBackgroundImage:[ConvertMethods createImageWithColor:APP_PAGE_COLOR] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+    [_searchBar2 setBackgroundColor:APP_PAGE_COLOR];
+    _searchBar2.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    
+    [self.view addSubview:searchBar];
+}
+
+
+// 设置导航栏标题
+- (void)setNavBarTitle:(NSString *)navBarTitle
+{
+    _navBarTitle = navBarTitle;
+    
+    self.navigationItem.title = navBarTitle;
 }
 
 -(void)segmentAction:(UISegmentedControl *)segment {
@@ -72,18 +120,6 @@
 
 - (void)changePage:(NSInteger)pageIndex
 {
-//    if (_selectedIndext >= 0) {
-//        UIButton *fbtn = [_segmentedBtns objectAtIndex:_selectedIndext];
-//        fbtn.selected = NO;
-//    }
-//    _selectedIndext = pageIndex;
-//    
-//    UIButton *btn = [_segmentedBtns objectAtIndex:_selectedIndext];
-//    btn.selected = YES;
-//    [UIView animateWithDuration:0.2 animations:^{
-//        _indicateView.center = CGPointMake(btn.center.x, 42);
-//    }];
-
     UIViewController *newController = [_viewControllers objectAtIndex:pageIndex];
     
     if ([newController isEqual:_currentViewController]) {

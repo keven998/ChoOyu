@@ -51,10 +51,10 @@
     _scrollView.delegate = self;
     
     _pageControl = [[UIPageControl alloc]initWithFrame:CGRectMake(0, 0, 100, 30)];
-    _pageControl.center = CGPointMake(SCREEN_WIDTH/2, self.bounds.size.height-20);
+    _pageControl.center = CGPointMake(kWindowWidth/2, self.bounds.size.height-20);
     _pageControl.numberOfPages = 2;
-    _pageControl.currentPageIndicatorTintColor = GRAY_COLOR;
-    _pageControl.pageIndicatorTintColor = [UIColor whiteColor];
+    _pageControl.currentPageIndicatorTintColor = APP_THEME_COLOR;
+    _pageControl.pageIndicatorTintColor = COLOR_DISABLE;
     [self addSubview:_pageControl];
     
     self.backgroundColor = APP_PAGE_COLOR;

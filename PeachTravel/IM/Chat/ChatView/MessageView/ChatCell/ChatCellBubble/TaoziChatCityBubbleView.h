@@ -8,7 +8,7 @@
 
 #import "EMChatBaseBubbleView.h"
 
-#define  TaoziCityBubbleHeight 98
+#define  TaoziCityBubbleHeight 90
 #define  TaoziCityBubbleWidth 133
 #define  TaoziCityTitleBubbleHeight    18
 

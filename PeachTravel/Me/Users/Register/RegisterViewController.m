@@ -14,9 +14,9 @@ typedef void(^loginCompletion)(BOOL completed);
 
 @interface RegisterViewController ()<UITextFieldDelegate>
 
-@property (weak, nonatomic) IBOutlet UITextField *phoneLabel;
-@property (weak, nonatomic) IBOutlet UITextField *passwordLabel;
-@property (weak, nonatomic) IBOutlet UIButton *registerBtn;
+@property (strong, nonatomic)  UITextField *phoneLabel;
+@property (strong, nonatomic)  UITextField *passwordLabel;
+@property (strong, nonatomic)  UIButton *registerBtn;
 
 @end
 
@@ -24,57 +24,113 @@ typedef void(^loginCompletion)(BOOL completed);
 
 #pragma mark - LifeCycle
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
+    self.view.backgroundColor = APP_PAGE_COLOR;
     
-//    UIBarButtonItem *navBack = [[UIBarButtonItem alloc]initWithTitle:@" 取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
-//    navBack.tintColor = APP_THEME_COLOR;
-//    self.navigationItem.leftBarButtonItem = navBack;
+    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    backBtn.frame = CGRectMake(0, 0, 64, 64);
+    [backBtn setImage:[UIImage imageNamed:@"login_back_defaut"] forState:UIControlStateNormal];
+    [backBtn setImage:[UIImage imageNamed:@"common_icon_navigation_back_highlight"] forState:UIControlStateHighlighted];
+    [backBtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
+    backBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
+    backBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [backBtn setImageEdgeInsets:UIEdgeInsetsMake(34, 14, 0, 0)];
+    [self.view addSubview:backBtn];
     
-    UIBarButtonItem *registerBtn = [[UIBarButtonItem alloc]initWithTitle:@"提交 " style:UIBarButtonItemStylePlain target:self action:@selector(confirmRegister:)];
-    registerBtn.tintColor = APP_THEME_COLOR;
-    self.navigationItem.rightBarButtonItem = registerBtn;
-    
-    self.navigationItem.title = @"注册";
-    
-    _passwordLabel.delegate = self;
-    
-    UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _phoneLabel.bounds.size.height - 16.0)];
-    ul.text = @"手机:";
-    ul.textColor = TEXT_COLOR_TITLE;
-    ul.font = [UIFont systemFontOfSize:14.0];
-    ul.textAlignment = NSTextAlignmentCenter;
-    _phoneLabel.leftView = ul;
-    _phoneLabel.leftViewMode = UITextFieldViewModeAlways;
-    _phoneLabel.text = _defaultPhone;
-    
-    UILabel *pl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _passwordLabel.bounds.size.height - 16.0)];
-    pl.text = @"密码:";
-    pl.textColor = TEXT_COLOR_TITLE;
-    pl.font = [UIFont systemFontOfSize:14.0];
-    pl.textAlignment = NSTextAlignmentCenter;
-    _passwordLabel.leftView = pl;
-    _passwordLabel.leftViewMode = UITextFieldViewModeAlways;
-    _passwordLabel.text = _defaultPassword;
-
-    _registerBtn.layer.cornerRadius = 4.0;
-    _registerBtn.clipsToBounds = YES;
-    [_registerBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
+    [self createUI];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidRegisted) name:userDidRegistedNoti object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"page_register"];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"page_register"];
+    [super viewWillDisappear: animated];
+
 }
 
-- (void)goBack {
+- (void)createUI
+{
+    UIImageView *iconImage = [[UIImageView alloc]initWithFrame:CGRectMake(489/3 * kWindowWidth/414, 216/3 *kWindowHeight/736, 87*kWindowHeight/736, 87*kWindowHeight/736)];
+    iconImage.image = [UIImage imageNamed:@"icon_little"];
+    [self.view addSubview:iconImage];
+    
+    
+    UIView *textFieldBg = [[UIView alloc]initWithFrame:CGRectMake(13, CGRectGetMaxY(iconImage.frame) + 40, kWindowWidth - 26, 121 * kWindowHeight/736)];
+    textFieldBg.layer.borderColor = APP_THEME_COLOR.CGColor;
+    textFieldBg.layer.borderWidth = 1;
+    textFieldBg.layer.cornerRadius = 5;
+    [self.view addSubview:textFieldBg];
+    
+    UIView *devide = [[UIView alloc]initWithFrame:CGRectMake(0, 60 *kWindowHeight/736 , kWindowWidth - 26, 1)];
+    devide.backgroundColor = APP_THEME_COLOR;
+    [textFieldBg addSubview:devide];
+    
+    _phoneLabel = [[UITextField alloc]initWithFrame:CGRectMake(10, 0, kWindowWidth - 50, 60 * kWindowHeight / 736)];
+    UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _phoneLabel.bounds.size.height - 16.0)];
+    ul.text = @"手机:";
+    ul.textColor = COLOR_TEXT_I;
+    ul.font = [UIFont systemFontOfSize:13.0];
+    ul.textAlignment = NSTextAlignmentCenter;
+    _phoneLabel.leftView = ul;
+    _phoneLabel.placeholder = @"手机号";
+    _phoneLabel.leftViewMode = UITextFieldViewModeAlways;
+    _phoneLabel.text = _defaultPhone;
+    _phoneLabel.textColor = COLOR_TEXT_I;
+    _phoneLabel.font = [UIFont systemFontOfSize:15.0];
+    _phoneLabel.delegate = self;
+    _phoneLabel.keyboardType = UIKeyboardTypePhonePad;
+    [textFieldBg addSubview:_phoneLabel];
+    
+    _passwordLabel = [[UITextField alloc]initWithFrame:CGRectMake(10, 60 * kWindowHeight / 736, kWindowWidth - 50, 60 * kWindowHeight / 736)];
+    
+    UILabel *pl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _passwordLabel.bounds.size.height - 16.0)];
+    pl.text = @"密码:";
+    pl.textColor = COLOR_TEXT_I;
+    pl.font = [UIFont systemFontOfSize:13.0];
+    pl.textAlignment = NSTextAlignmentCenter;
+    _passwordLabel.leftView = pl;
+    _passwordLabel.placeholder = @"设置密码";
+    _passwordLabel.leftViewMode = UITextFieldViewModeAlways;
+    _passwordLabel.text = _defaultPassword;
+    _passwordLabel.font = [UIFont systemFontOfSize:15.0];
+    _passwordLabel.delegate = self;
+    _passwordLabel.textColor = COLOR_TEXT_I;
+    _passwordLabel.secureTextEntry = YES;
+    [textFieldBg addSubview:_passwordLabel];
+    
+    _registerBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    _registerBtn.frame = CGRectMake(13, CGRectGetMaxY(textFieldBg.frame) + 5, kWindowWidth - 26, 56 * kWindowHeight/736);
+    [_registerBtn setTitle:@"下一步" forState:UIControlStateNormal];
+    _registerBtn.layer.cornerRadius = 5.0;
+    _registerBtn.clipsToBounds = YES;
+    _registerBtn.titleLabel.font = [UIFont systemFontOfSize:16.0];
+    [_registerBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_registerBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateHighlighted];
+    [_registerBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
+    [self.view addSubview:_registerBtn];
+    [_registerBtn addTarget:self action:@selector(confirmRegister:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *label = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 100, 32)];
+    label.titleLabel.font = [UIFont systemFontOfSize:13.0];
+    [label setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+    [label setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
+    label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;\
+    [label setTitle:@"注册协议" forState:UIControlStateNormal];
+    [label addTarget:self action:@selector(goProtocolWebView:) forControlEvents:UIControlEventTouchUpInside];
+    label.center = CGPointMake(CGRectGetWidth(self.view.bounds)/2.0, CGRectGetHeight(self.view.bounds) - 44);
+    [self.view addSubview:label];
+    
+}
+
+- (void)goBack
+{
     if (self.navigationController.childViewControllers.count > 1) {
         [self.navigationController popViewControllerAnimated:YES];
     } else {
@@ -82,9 +138,15 @@ typedef void(^loginCompletion)(BOOL completed);
     }
 }
 
+- (void)userDidRegisted
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 #pragma mark - UITextFieldDelegate
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
     if (textField == _passwordLabel) {
         [textField resignFirstResponder];
     }
@@ -93,12 +155,14 @@ typedef void(^loginCompletion)(BOOL completed);
 
 #pragma mark - IBAction Methods
 
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
     [self.view endEditing:YES];
     [super touchesEnded:touches withEvent:event];
 }
 
-- (IBAction)confirmRegister:(UIButton *)sender {
+- (IBAction)confirmRegister:(UIButton *)sender
+{
     [self.view endEditing:YES];
     switch ([self checkInput]) {
         case NoError: {
@@ -125,6 +189,7 @@ typedef void(^loginCompletion)(BOOL completed);
 - (UserInfoInputError)checkInput
 {
     NSString * regex0 = @"^1\\d{10}$";
+    
     NSPredicate *pred0 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex0];
     if (![pred0 evaluateWithObject:_phoneLabel.text]) {
         return PhoneNumberError;
@@ -135,10 +200,13 @@ typedef void(^loginCompletion)(BOOL completed);
     if (![pred evaluateWithObject:_passwordLabel.text]) {
         return PasswordError;
     }
-
+    
     return NoError;
 }
 
+/**
+ *  获得验证码
+ */
 - (void)getCaptcha
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -147,16 +215,17 @@ typedef void(^loginCompletion)(BOOL completed);
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
     
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:_phoneLabel.text forKey:@"tel"];
-    [params setObject:kUserRegister forKey:@"actionCode"];
-     __weak typeof(RegisterViewController *)weakSelf = self;
+    [params setObject:[NSNumber numberWithInt:1] forKey:@"action"];
+    [params setObject:[NSNumber numberWithInt:86] forKey:@"dialCode"];
+    
+    __weak typeof(RegisterViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf];
-
+    
     //获取注册码
     [manager POST:API_GET_CAPTCHA parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [hud hideTZHUD];
@@ -168,6 +237,7 @@ typedef void(^loginCompletion)(BOOL completed);
             smsVerifyCtl.password = self.passwordLabel.text;
             smsVerifyCtl.coolDown = [[[responseObject objectForKey:@"result"] objectForKey:@"coolDown"] integerValue];
             [self.navigationController pushViewController:smsVerifyCtl animated:YES];
+            [self.navigationController setNavigationBarHidden:NO animated:YES];
         } else {
             if ([[responseObject objectForKey:@"err"] objectForKey:@"message"]) {
                 [SVProgressHUD showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
@@ -179,17 +249,26 @@ typedef void(^loginCompletion)(BOOL completed);
         NSLog(@"%@", error);
         [hud hideTZHUD];
         _registerBtn.userInteractionEnabled = YES;
-        if (self.isShowing) {
-            [SVProgressHUD showHint:@"呃～好像没找到网络"];
+        if (operation.response.statusCode == 403) {
+            [SVProgressHUD showHint:@"获取验证码过于频繁"];
+        } else if (operation.response.statusCode == 409) {
+            [SVProgressHUD showHint:@"号码已注册"];
+            
+        } else {
+            [SVProgressHUD showHint:HTTP_FAILED_HINT];
+
         }
     }];
 }
-- (IBAction)goProtocolWebView:(UIButton *)sender {
+
+- (IBAction)goProtocolWebView:(UIButton *)sender
+{
     SuperWebViewController *webViewCtl = [[SuperWebViewController alloc] init];
     webViewCtl.urlStr = APP_AGREEMENT;
     webViewCtl.titleStr = @"用户注册协议";
     webViewCtl.hideToolBar = YES;
     [self.navigationController pushViewController:webViewCtl animated:YES];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 @end

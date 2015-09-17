@@ -16,7 +16,6 @@
 @interface TripDetail : NSObject
 
 @property (nonatomic, strong) id backUpJson;               //备份 json 串，用来生成备份路线
-@property (nonatomic, strong) TripDetail *backUpTrip;      //备份路线
 
 @property (nonatomic, copy) NSString *tripId;
 @property (nonatomic, copy) NSString *tripTitle;
@@ -34,6 +33,8 @@
 @property (nonatomic) BOOL tripIsChange;
 - (id)initWithJson:(id)json;
 
+- (TripDetail *)backUpTrip;
+
 /**
  *  保存所有的路线，包含三张单的内容,但是你别小瞧了这个函数，这个函数可厉害了，他会自动判断你哪张单做了改动，要是没做改动是不会上传的。
  */
@@ -45,6 +46,8 @@
  *  @param completion 
  */
 - (void)updateTripDestinations:(void(^)(BOOL isSuccesss))completion withDestinations:(NSArray *)destinations;
+
+- (void)updateGuideTitle:(NSString *)title completed:(void (^)(BOOL isSuccess))completed;
 @end
 
 

@@ -5,7 +5,6 @@
 //  Created by liangpengshuai on 3/16/15.
 //  Copyright (c) 2015 com.aizou.www. All rights reserved.
 //
-
 #import <Foundation/Foundation.h>
 #import "CityDestinationPoi.h"
 #import "PoiManagerProtocol.h"
@@ -17,7 +16,10 @@
 @property (nonatomic, copy) NSString *enName;
 @property (nonatomic, copy) NSString *desc;
 @property (nonatomic, copy) NSString *typeDesc;
+@property (nonatomic, copy) NSString *descUrl;
 @property (nonatomic) TZPoiType poiType;
+@property (nonatomic, copy) NSString *priceDesc;
+@property (nonatomic, copy) NSString *openTime;
 @property (nonatomic, strong) NSArray *images;
 @property (nonatomic, strong) NSArray *comments;
 @property (nonatomic, copy) NSString *moreCommentsUrl;
@@ -29,6 +31,11 @@
 @property (nonatomic) float lng;
 @property (nonatomic, strong) CityDestinationPoi *locality;
 @property (nonatomic) BOOL isMyFavorite;
+@property (nonatomic, copy) NSString *telephone;
+@property (nonatomic, strong)NSArray *style;
+
+// 电话号码数组
+@property (nonatomic, strong)NSArray * tel;
 
 @property (nonatomic, copy) NSString *distanceStr;
 

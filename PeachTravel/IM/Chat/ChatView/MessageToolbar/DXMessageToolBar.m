@@ -11,10 +11,11 @@
   */
 
 #import "DXMessageToolBar.h"
+#import "PeachTravel-swift.h"
 
-#define CHAT_PANEL_VIEW_HEIGHT 188
+#define CHAT_PANEL_VIEW_HEIGHT 200
 
-@interface DXMessageToolBar()<HPGrowingTextViewDelegate, DXFaceDelegate>
+@interface DXMessageToolBar()<HPGrowingTextViewDelegate, DXFaceDelegate, ChatManagerAudioRecordDelegate>
 {
     CGFloat _previousTextViewContentHeight;//上一次inputTextView的contentSize.height
 }
@@ -34,6 +35,7 @@
 @property (strong, nonatomic) UIButton *moreButton;
 @property (strong, nonatomic) UIButton *faceButton;
 @property (strong, nonatomic) UIButton *recordButton;
+@property (strong, nonatomic) ChatManagerAudio *audioManager;
 
 /**
  *  底部扩展页面
@@ -107,7 +109,6 @@
 {
     if (_toolbarView == nil) {
         _toolbarView = [[UIView alloc] init];
-        _toolbarView.backgroundColor = APP_PAGE_COLOR;
         _toolbarView.userInteractionEnabled = YES;
     }
     
@@ -137,6 +138,15 @@
         _faceView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     }
     return _faceView;
+}
+
+- (ChatManagerAudio *)audioManager
+{
+    if (!_audioManager) {
+        _audioManager = [ChatManagerAudio shareInstance];
+        _audioManager.chatManagerAudioRecordDelegate = self;
+    }
+    return _audioManager;
 }
 
 #pragma mark - setter
@@ -274,17 +284,11 @@
     
     self.activityButtomView = nil;
     self.isShowButtomView = NO;
-//    self.backgroundImageView.image = [[UIImage imageNamed:@"messageToolbarBg"] stretchableImageWithLeftCapWidth:0.5 topCapHeight:10];
-//    [self addSubview:self.backgroundImageView];
     
     self.toolbarView.frame = CGRectMake(0, 0, CGRectGetWidth(self.bounds), kVerticalPadding * 2 + kInputTextViewMinHeight);
     UIView *shadowImg = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), 0.5)];
     shadowImg.backgroundColor = [UIColor lightGrayColor];
     [self.toolbarView addSubview:shadowImg];
-    
-    UIView *shadowImgBottom = [[UIView alloc] initWithFrame:CGRectMake(0, self.toolbarView.frame.size.height - 0.5, CGRectGetWidth(self.bounds), 0.5)];
-    shadowImgBottom.backgroundColor = GRAY_COLOR;
-    [self.toolbarView addSubview:shadowImgBottom];
     
     [self addSubview:self.toolbarView];
 }
@@ -302,66 +306,64 @@
 - (void)setupSubviews
 {
     CGFloat allButtonWidth = 0.0;
+    CGFloat th = CGRectGetHeight(_toolbarView.frame);
     
     //转变输入样式
-    self.styleChangeButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 46, _toolbarView.frame.size.height)];
+    self.styleChangeButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 46, th)];
     self.styleChangeButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    [self.styleChangeButton setImage:[UIImage imageNamed:@"chatBar_record"] forState:UIControlStateNormal];
-    [self.styleChangeButton setImage:[UIImage imageNamed:@"ic_keyboard"] forState:UIControlStateSelected];
+    [self.styleChangeButton setImage:[UIImage imageNamed:@"messages_icon_audio_default.png"] forState:UIControlStateNormal];
+    [self.styleChangeButton setImage:[UIImage imageNamed:@"messages_icon_keyboard_default.png"] forState:UIControlStateSelected];
     [self.styleChangeButton addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
     self.styleChangeButton.tag = 0;
     allButtonWidth += CGRectGetWidth(self.styleChangeButton.frame);
     
     //更多
-    self.moreButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.bounds) - 46, 0, 46, _toolbarView.frame.size.height)];
+    self.moreButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.bounds) - 40, 0, 40, th)];
     self.moreButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    [self.moreButton setImage:[UIImage imageNamed:@"chatBar_more"] forState:UIControlStateNormal];
-//    [self.moreButton setImage:[UIImage imageNamed:@"chatBar_moreSelected"] forState:UIControlStateHighlighted];
-    [self.moreButton setImage:[UIImage imageNamed:@"ic_keyboard"] forState:UIControlStateSelected];
+    [self.moreButton setImage:[UIImage imageNamed:@"messages_icon_plus_default.png"] forState:UIControlStateNormal];
+    [self.moreButton setImage:[UIImage imageNamed:@"messages_icon_keyboard_default.png"] forState:UIControlStateSelected];
     [self.moreButton addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
     self.moreButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0.5*kHorizontalPadding);
     self.moreButton.tag = 2;
     allButtonWidth += CGRectGetWidth(self.moreButton.frame);
     
     //表情
-    self.faceButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.bounds) - 86, 0, 40, _toolbarView.frame.size.height)];
+    self.faceButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.bounds) - 80, 0, 40, th)];
     self.faceButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin;
-    [self.faceButton setImage:[UIImage imageNamed:@"chatBar_face"] forState:UIControlStateNormal];
-//    [self.faceButton setImage:[UIImage imageNamed:@"chatBar_faceSelected"] forState:UIControlStateHighlighted];
-    [self.faceButton setImage:[UIImage imageNamed:@"ic_keyboard"] forState:UIControlStateSelected];
+    [self.faceButton setImage:[UIImage imageNamed:@"messages_icon_smile_default.png"] forState:UIControlStateNormal];
+    [self.faceButton setImage:[UIImage imageNamed:@"messages_icon_keyboard_default.png"] forState:UIControlStateSelected];
+    self.faceButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     [self.faceButton addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
-    self.faceButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+    self.faceButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 4);
     self.faceButton.tag = 1;
+    allButtonWidth += CGRectGetWidth(self.faceButton.frame);
     
     
     // 输入框的高度和宽度
-//    CGFloat width = CGRectGetWidth(self.bounds) - (allButtonWidth ? allButtonWidth : (textViewLeftMargin * 2))-kHorizontalPadding;
     CGFloat width = CGRectGetWidth(self.bounds) - allButtonWidth;
     
-    self.inputTextView = [[HPGrowingTextView alloc] initWithFrame:CGRectMake(0, 0, width, 34)];
+    self.inputTextView = [[HPGrowingTextView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.styleChangeButton.frame), (th - 34.0)/2.0, width, 34)];
     self.inputTextView.isScrollable = NO;
     self.inputTextView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.inputTextView.minNumberOfLines = 1;
     self.inputTextView.maxNumberOfLines = 6;
-    self.inputTextView.textColor = TEXT_COLOR_TITLE;
+    self.inputTextView.textColor = COLOR_TEXT_I;
     _inputTextView.layer.borderWidth = 0.65f;
     _inputTextView.layer.cornerRadius = 4.0f;
-    _inputTextView.layer.borderColor = APP_DIVIDER_COLOR.CGColor;
+    _inputTextView.layer.borderColor = COLOR_LINE.CGColor;
     self.inputTextView.returnKeyType = UIReturnKeySend; //just as an example
     self.inputTextView.font = [UIFont systemFontOfSize:14];
     self.inputTextView.delegate = self;
-    self.inputTextView.contentInset = UIEdgeInsetsMake(0, 5, 0, 35);
+    self.inputTextView.contentInset = UIEdgeInsetsMake(0, 5, 0, 4);
     self.inputTextView.backgroundColor = [UIColor whiteColor];
     self.inputTextView.placeholder = @"输入新消息";
-    self.inputTextView.center = CGPointMake(CGRectGetWidth(self.toolbarView.frame)/2.0, CGRectGetHeight(self.toolbarView.frame)/2.0);
 
     //录制
-    self.recordButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, width, 34)];
+    self.recordButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.styleChangeButton.frame), (th - 34.0)/2.0, width, 34)];
     self.recordButton.userInteractionEnabled = YES;
     self.recordButton.titleLabel.font = [UIFont systemFontOfSize:15.0];
     [self.recordButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     [self.recordButton setBackgroundImage:[[UIImage imageNamed:@"chatbar_text_background"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateNormal];
-    self.recordButton.layer.cornerRadius = 4.0;
     [self.recordButton setBackgroundImage:[[UIImage imageNamed:@"chatBar_recordSelectedBg"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateHighlighted];
     [self.recordButton setTitle:kTouchToRecord forState:UIControlStateNormal];
     [self.recordButton setTitle:kTouchToFinish forState:UIControlStateHighlighted];
@@ -372,7 +374,6 @@
     [self.recordButton addTarget:self action:@selector(recordButtonTouchUpInside) forControlEvents:UIControlEventTouchUpInside];
     [self.recordButton addTarget:self action:@selector(recordDragOutside) forControlEvents:UIControlEventTouchDragExit];
     [self.recordButton addTarget:self action:@selector(recordDragInside) forControlEvents:UIControlEventTouchDragEnter];
-    self.recordButton.center = CGPointMake((CGRectGetWidth(self.toolbarView.frame))/2.0, CGRectGetHeight(self.toolbarView.frame)/2.0);
     
     if (!self.recordView) {
         self.recordView = [[DXRecordView alloc] initWithFrame:CGRectMake(90, 130, 140, 140)];
@@ -524,17 +525,18 @@
         {
             if (button.selected) {
                 self.moreButton.selected = NO;
+                self.recordButton.hidden = button.selected;
+                self.inputTextView.hidden = !button.selected;
+                
                 //如果选择表情并且处于录音状态，切换成文字输入状态，但是不显示键盘
                 if (self.styleChangeButton.selected) {
                     self.styleChangeButton.selected = NO;
-                }
-                else{//如果处于文字输入状态，使文字输入框失去焦点
+                } else{//如果处于文字输入状态，使文字输入框失去焦点
                     [self.inputTextView resignFirstResponder];
                 }
                 
                 [self willShowBottomView:self.faceView];
-                self.recordButton.hidden = button.selected;
-                self.inputTextView.hidden = !button.selected;
+               
             } else {
                 if (!self.styleChangeButton.selected) {
                     [self.inputTextView becomeFirstResponder];
@@ -580,15 +582,22 @@
     if ([self.recordView isKindOfClass:[DXRecordView class]]) {
         [(DXRecordView *)self.recordView recordButtonTouchDown];
     }
+
+    [self.audioManager beginRecordAudio:^(BOOL canRecord) {
+        if (canRecord) {
+            if (_delegate && [_delegate respondsToSelector:@selector(didStartRecordingVoiceAction:)]) {
+                [_delegate didStartRecordingVoiceAction:self.recordView];
+            }
+        }
+    }];
     
-    if (_delegate && [_delegate respondsToSelector:@selector(didStartRecordingVoiceAction:)]) {
-        [_delegate didStartRecordingVoiceAction:self.recordView];
-    }
+   
 }
 
 - (void)recordButtonTouchUpOutside
 {
     NSLog(@"recordButtonTouchUpOutside-----");
+    [self.audioManager cancelRecordAudio];
     if (_delegate && [_delegate respondsToSelector:@selector(didCancelRecordingVoiceAction:)])
     {
         [_delegate didCancelRecordingVoiceAction:self.recordView];
@@ -604,13 +613,11 @@
 - (void)recordButtonTouchUpInside
 {
     NSLog(@"recordButtonTouchUpInside-----");
+    
+    [self.audioManager stopRecordAudio];
+    
     if ([self.recordView isKindOfClass:[DXRecordView class]]) {
         [(DXRecordView *)self.recordView recordButtonTouchUpInside];
-    }
-    
-    if ([self.delegate respondsToSelector:@selector(didFinishRecoingVoiceAction:)])
-    {
-        [self.delegate didFinishRecoingVoiceAction:self.recordView];
     }
     
     [self.recordView removeFromSuperview];
@@ -631,7 +638,6 @@
 
 - (void)recordDragInside
 {
-    NSLog(@"recordDragInside-----");
     if ([self.recordView isKindOfClass:[DXRecordView class]]) {
         [(DXRecordView *)self.recordView recordButtonDragInside];
     }
@@ -639,6 +645,19 @@
     if ([self.delegate respondsToSelector:@selector(didDragInsideAction:)])
     {
         [self.delegate didDragInsideAction:self.recordView];
+    }
+}
+
+#pragma mark - ChatManagerAudioDelegate
+
+- (void)audioRecordEnd:(NSString * __nonnull)audioPath audioLength: (float)audioLength
+{
+    if (audioLength >= 0.8) {
+        if ([self.delegate respondsToSelector:@selector(didFinishRecoingVoiceAction:)]) {
+            [self.delegate didFinishRecoingVoiceAction:audioPath];
+        }
+    } else {
+        [SVProgressHUD showHint:@"录音时间太短"];
     }
 }
 
@@ -651,7 +670,7 @@
 {
     BOOL result = [super endEditing:force];
     
-    self.faceButton.selected = NO;
+
     self.moreButton.selected = NO;
     [self willShowBottomView:nil];
     
@@ -663,8 +682,6 @@
  */
 - (void)cancelTouchRecord
 {
-//    self.recordButton.selected = NO;
-//    self.recordButton.highlighted = NO;
     if ([_recordView isKindOfClass:[DXRecordView class]]) {
         [(DXRecordView *)_recordView recordButtonTouchUpInside];
         [_recordView removeFromSuperview];
@@ -675,5 +692,7 @@
 {
     return kVerticalPadding * 2 + kInputTextViewMinHeight;
 }
+
+
 
 @end

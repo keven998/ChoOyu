@@ -9,13 +9,14 @@
 #import "FootprintMapViewController.h"
 #import "DomesticViewController.h"
 #import "ForeignViewController.h"
-@interface FootprintMapViewController ()
+
+@interface FootprintMapViewController () <MKMapViewDelegate>
 {
     UISegmentedControl *_segmentControl;
 }
-@property (weak, nonatomic) IBOutlet MKMapView *mapView;
 
-@property (nonatomic, strong) NSMutableArray *annotationsArray;
+@property (weak, nonatomic) IBOutlet MKMapView *mapView;
+@property (nonatomic, strong) NSArray *annotationsArray;
 
 @end
 
@@ -24,37 +25,68 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _mapView.showsBuildings = YES;
+    _mapView.delegate = self;
 }
 
-
-- (NSMutableArray *)annotationsArray
+#pragma mark - setter or getter
+- (void)setDataSource:(NSArray *)dataSource
 {
-    if (!_annotationsArray) {
-        _annotationsArray = [[NSMutableArray alloc] init];
+    _dataSource = dataSource;
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    for (CityDestinationPoi *poi in _dataSource) {
+        CLLocationCoordinate2D location = CLLocationCoordinate2DMake(poi.lat, poi.lng);
+        MKPointAnnotation* item = [[MKPointAnnotation alloc]init];
+        item.coordinate = location;
+        item.title = poi.zhName;
+        [array addObject:item];
     }
-    return _annotationsArray;
+    [self showMapPinWithAnnotations:array];
 }
 
-- (void)addPoint:(CLLocation *)location
+- (void)selectPointAtIndex:(NSInteger)index
 {
-    MKPointAnnotation* item = [[MKPointAnnotation alloc]init];
-    item.coordinate = location.coordinate;
-    [self.annotationsArray addObject:item];
-    [_mapView addAnnotation:item];
-    [_mapView setCenterCoordinate:location.coordinate animated:YES];
+    [_mapView selectAnnotation:[_annotationsArray objectAtIndex:index] animated:YES];
+    
 }
 
-- (void)removePoint:(CLLocation *)location
+- (void)showMapPinWithAnnotations:(NSArray *)annotations
 {
-    for (int i = 0; i < self.annotationsArray.count; i++) {
-        MKPointAnnotation *item = self.annotationsArray[i];
-        if (item.coordinate.latitude == location.coordinate.latitude && item.coordinate.longitude == location.coordinate.longitude) {
-            [_mapView removeAnnotation:item];
-            [self.annotationsArray removeObject:item];
-            break;
-        }
+    [_mapView removeAnnotations:_annotationsArray];
+    
+    _annotationsArray = annotations;
+    NSInteger count = _annotationsArray.count;
+    for (int i = 0; i < count; i++) {
+        MKPointAnnotation *item = [_annotationsArray objectAtIndex:i];
+        [_mapView addAnnotation:item];
     }
+    
+    MKCoordinateRegion region = MKCoordinateRegionMake(_mapView.centerCoordinate, MKCoordinateSpanMake(180, 360));
+    [_mapView setRegion:region animated:YES];
+    [_mapView setCenterCoordinate:CLLocationCoordinate2DMake(39.54, 116.23)];
 }
+
+#pragma mark - MKMapViewDelegate
+
+- (void)mapView:(MKMapView *)sender annotationView:(MKAnnotationView *)aView calloutAccessoryControlTapped:(UIControl *)contro
+{
+}
+
+- (MKAnnotationView *)mapView:(MKMapView *)theMapView viewForAnnotation:(id<MKAnnotation>)annotation
+{
+    NSInteger index = [_annotationsArray indexOfObject:annotation];
+    
+    MKPinAnnotationView *newAnnotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:[annotation title]];
+    newAnnotationView.pinColor = MKPinAnnotationColorRed;
+    
+    newAnnotationView.annotation = annotation;
+    newAnnotationView.canShowCallout = YES;
+    newAnnotationView.tag = index;
+    NSString *imageName = @"map_icon.png";
+    newAnnotationView.image = [UIImage imageNamed:imageName];
+    
+    return newAnnotationView;
+}
+
 @end
 
 

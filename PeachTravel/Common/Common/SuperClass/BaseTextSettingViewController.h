@@ -19,6 +19,7 @@ typedef void(^saveEdition)(NSString *text, saveComplteBlock(completed));
 @property (nonatomic, copy) NSString *navTitle;
 @property (nonatomic, assign) BOOL acceptEmptyContent;
 
+// 定义一个void类型的block,把block当做一个数据类型来看
 @property (nonatomic, copy) void (^saveEdition)(NSString *editText, saveComplteBlock(completed));
 
 @end

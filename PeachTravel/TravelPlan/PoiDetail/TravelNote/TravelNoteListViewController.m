@@ -37,16 +37,35 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
     self.tableView.backgroundColor = APP_PAGE_COLOR;
     [self.tableView registerNib:[UINib nibWithNibName:@"TravelNoteTableViewCell" bundle:nil] forCellReuseIdentifier:reusableCellIdentifier];
     _currentPage = 0;
-    if (!_isSearch) {
-        self.navigationItem.title = _cityName;//[NSString stringWithFormat:@"%@精选游记", _cityName];
-        [self loadDataWithPageNo:_currentPage andKeyWork:nil];
+    
+    if (self.userId) {
+        [self loadDataWithPageNo:_currentPage andUserId:self.userId];
     } else {
-        self.tableView.tableHeaderView = self.searchBar;
-        self.navigationItem.title = @"发送游记";
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
-        
-        [self.tableView setContentOffset:CGPointMake(0, 40)];
+        if (!_isSearch) {
+            self.navigationItem.title = @"全部游记";
+            [self loadDataWithPageNo:_currentPage andKeyWork:nil];
+        } else {
+            self.tableView.tableHeaderView = self.searchBar;
+            self.navigationItem.title = @"发送游记";
+            self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
+            
+            [self.tableView setContentOffset:CGPointMake(0, 40)];
+        }
     }
+
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"page_travel_notes_lists"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [_searchBar endEditing:YES];
+    [MobClick endLogPageView:@"page_travel_notes_lists"];
+    
 }
 
 #pragma mark - setter & getter
@@ -68,16 +87,10 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
         [_searchBar setPlaceholder:@"游记名、景点、城市名等"];
         _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
         _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
-        _searchBar.translucent = YES;
         [_searchBar setSearchFieldBackgroundImage:[UIImage imageNamed:@"ic_notify_flag.png"] forState:UIControlStateNormal];
         [_searchBar becomeFirstResponder];
     }
     return _searchBar;
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    [_searchBar endEditing:YES];
 }
 
 #pragma mark - private methods
@@ -107,7 +120,7 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
     if (_isSearch) {
         [params safeSetObject:keyWord forKey:@"keyword"];
     } else {
-        [params safeSetObject:_cityId forKey:@"locId"];
+        [params safeSetObject:_cityId forKey:@"locality"];
     }
     
     //获取游记列表信息
@@ -133,7 +146,7 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
                 }
             }
         } else {
-            [self showHint:@"呃～好像没找到网络"];
+            [self showHint:HTTP_FAILED_HINT];
         }
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -143,8 +156,68 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
             _hud = nil;
         }
         [self loadMoreCompleted];
-        [self showHint:@"呃～好像没找到网络"];
+        [self showHint:HTTP_FAILED_HINT];
     }];
+}
+
+
+- (void)loadDataWithPageNo:(NSInteger)pageNo andUserId:(NSInteger)userId
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSNumber *imageWidth = [NSNumber numberWithInt:200];
+    [params setObject:imageWidth forKey:@"imgWidth"];
+    [params setObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];
+    [params setObject:[NSNumber numberWithInteger:pageNo] forKey:@"page"];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@%ld/travelnotes",API_USERS,userId];
+    
+    NSLog(@"%@",urlStr);
+    
+    //获取游记列表信息
+    [manager GET:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (_hud) {
+            [_hud hideTZHUD];
+            _hud = nil;
+        }
+        [self loadMoreCompleted];
+        NSLog(@"%@", responseObject);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            [self parseData:[responseObject objectForKey:@"result"]];
+            
+            if ([[responseObject objectForKey:@"result"] count] >= 15) {
+                self.enableLoadingMore = YES;
+                _currentPage = pageNo;
+            } else {
+                self.enableLoadingMore = NO;
+                if (_currentPage > 0) {
+                    [self showHint:@"没有了~"];
+                } else {
+                }
+            }
+        } else {
+            [self showHint:HTTP_FAILED_HINT];
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", error);
+        if (_hud) {
+            [_hud hideTZHUD];
+            _hud = nil;
+        }
+        [self loadMoreCompleted];
+        [self showHint:HTTP_FAILED_HINT];
+    }];
+
 }
 
 - (void)parseData:(id)json
@@ -179,15 +252,14 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
     TravelNote *travelNote = [self.dataSource objectAtIndex:sender.tag];
     TaoziChatMessageBaseViewController *taoziMessageCtl = [[TaoziChatMessageBaseViewController alloc] init];
     taoziMessageCtl.delegate = self;
-    taoziMessageCtl.chatType = TZChatTypeTravelNote;
+    taoziMessageCtl.messageType = IMMessageTypeTravelNoteMessageType;
     taoziMessageCtl.messageId = travelNote.travelNoteId;
     taoziMessageCtl.messageName = travelNote.title;
     taoziMessageCtl.messageDesc = travelNote.summary;
     taoziMessageCtl.messageDetailUrl = travelNote.detailUrl;
     TaoziImage *image = [travelNote.images firstObject];
     taoziMessageCtl.messageImage = image.imageUrl;
-    taoziMessageCtl.chatter = _chatter;
-    taoziMessageCtl.isGroup = _isChatGroup;
+    taoziMessageCtl.chatterId = _chatterId;
     [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:nil];
 }
 
@@ -213,19 +285,18 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 90;
+    return 126;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     TravelNoteTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reusableCellIdentifier forIndexPath:indexPath];
     TravelNote *travelNote = [self.dataSource objectAtIndex:indexPath.row];
-    TaoziImage *image = [travelNote.images firstObject];
-    cell.travelNoteImage = image.imageUrl;
+    cell.travelNoteImage = travelNote.authorAvatar;
     cell.title = travelNote.title;
     cell.desc = travelNote.summary;
     
-    cell.property = [NSString stringWithFormat:@"%@  %@  %@", travelNote.authorName, travelNote.source, travelNote.publishDateStr];
+    cell.property = [NSString stringWithFormat:@"%@    %@", travelNote.authorName, travelNote.publishDateStr];
     cell.canSelect = NO;
 
     cell.canSelect = _isSearch;

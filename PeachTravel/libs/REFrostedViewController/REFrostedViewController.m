@@ -70,7 +70,7 @@
     self.wantsFullScreenLayout = YES;
 #pragma clang diagnostic pop
     _panGestureEnabled = YES;
-    _animationDuration = 0.35f;
+    _animationDuration = 0.20f;
     _backgroundFadeAmount = 0.3f;
     _blurTintColor = REUIKitIsFlatMode() ? nil : [UIColor colorWithWhite:1 alpha:0.75f];
     _blurSaturationDeltaFactor = 1.8f;
@@ -81,7 +81,6 @@
     _liveBlur = REUIKitIsFlatMode();
     _panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:_containerViewController action:@selector(panGestureRecognized:)];
     _automaticSize = YES;
-    _resumeNavigationBar = YES;
 }
 
 - (id)initWithContentViewController:(UIViewController *)contentViewController menuViewController:(UIViewController *)menuViewController
@@ -94,22 +93,36 @@
     return self;
 }
 
+- (void)setPanGestureEnabled:(BOOL)panGestureEnabled {
+    _panGestureEnabled = panGestureEnabled;
+    if (panGestureEnabled) {
+        if (_panGestureRecognizer == nil) {
+            _panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:_containerViewController action:@selector(panGestureRecognized:)];
+            [_containerViewController.view addGestureRecognizer:_panGestureRecognizer];
+        }
+    } else {
+        if (_panGestureRecognizer != nil) {
+            [_containerViewController.view removeGestureRecognizer:_panGestureRecognizer];
+            _panGestureRecognizer = nil;
+        }
+    }
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor blackColor];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     [self re_displayController:self.contentViewController frame:self.view.bounds];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    if (_resumeNavigationBar) {
-        [self.navigationController setNavigationBarHidden:NO animated:YES];
-    }
 }
 
 - (UIViewController *)childViewControllerForStatusBarStyle
@@ -193,10 +206,10 @@
     self.containerViewController.animateApperance = animateApperance;
     if (self.automaticSize) {
         if (self.direction == REFrostedViewControllerDirectionLeft || self.direction == REFrostedViewControllerDirectionRight)
-            self.calculatedMenuViewSize = CGSizeMake(self.contentViewController.view.frame.size.width - 50.0f, self.contentViewController.view.frame.size.height);
+            self.calculatedMenuViewSize = CGSizeMake(self.contentViewController.view.frame.size.width - MENU_MAGIN, self.contentViewController.view.frame.size.height);
         
         if (self.direction == REFrostedViewControllerDirectionTop || self.direction == REFrostedViewControllerDirectionBottom)
-            self.calculatedMenuViewSize = CGSizeMake(self.contentViewController.view.frame.size.width, self.contentViewController.view.frame.size.height - 50.0f);
+            self.calculatedMenuViewSize = CGSizeMake(self.contentViewController.view.frame.size.width, self.contentViewController.view.frame.size.height - MENU_MAGIN);
     } else {
         self.calculatedMenuViewSize = CGSizeMake(_menuViewSize.width > 0 ? _menuViewSize.width : self.contentViewController.view.frame.size.width,
                                                  _menuViewSize.height > 0 ? _menuViewSize.height : self.contentViewController.view.frame.size.height);
@@ -271,10 +284,10 @@
     if (self.visible) {
         if (self.automaticSize) {
             if (self.direction == REFrostedViewControllerDirectionLeft || self.direction == REFrostedViewControllerDirectionRight)
-                self.calculatedMenuViewSize = CGSizeMake(self.view.bounds.size.width - 50.0f, self.view.bounds.size.height);
+                self.calculatedMenuViewSize = CGSizeMake(self.view.bounds.size.width - MENU_MAGIN, self.view.bounds.size.height);
             
             if (self.direction == REFrostedViewControllerDirectionTop || self.direction == REFrostedViewControllerDirectionBottom)
-                self.calculatedMenuViewSize = CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height - 50.0f);
+                self.calculatedMenuViewSize = CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height - MENU_MAGIN);
         } else {
             self.calculatedMenuViewSize = CGSizeMake(_menuViewSize.width > 0 ? _menuViewSize.width : self.view.bounds.size.width,
                                                      _menuViewSize.height > 0 ? _menuViewSize.height : self.view.bounds.size.height);
@@ -289,5 +302,6 @@
         self.calculatedMenuViewSize = CGSizeZero;
     }
 }
+
 
 @end

@@ -15,6 +15,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *nickNameLabel;
 
-@property (weak, nonatomic) IBOutlet UIButton *chatBtn;
++ (id)contactListCellWithTableView:(UITableView *)tableView;
 
 @end

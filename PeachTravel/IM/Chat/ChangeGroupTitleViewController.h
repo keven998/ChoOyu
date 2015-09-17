@@ -7,10 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PeachTravel-swift.h"
+
+@protocol ChangeGroupTitleDelegate <NSObject>
+
+- (void)changeGroupTitle;
+
+@end
 
 @interface ChangeGroupTitleViewController : TZViewController
 
-@property (nonatomic, copy) NSString *groupId;
+@property (nonatomic) IMDiscussionGroup *group;
 @property (nonatomic, copy) NSString *oldTitle;
+
+@property (weak,nonatomic) id<ChangeGroupTitleDelegate> delegate;
 
 @end

@@ -14,10 +14,15 @@
 
 @property (strong, nonatomic) SuperPoi *tripPoi;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UILabel *propertyLabel;
-
-@property (weak, nonatomic) IBOutlet UILabel *valueLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *headerImageView;
-@property (weak, nonatomic) IBOutlet UIView *timeLineView;
+@property (weak, nonatomic) IBOutlet UIButton *propertyBtn;
+
+@property (weak, nonatomic) IBOutlet UIButton *actionBtn;
+
+@property (weak, nonatomic) IBOutlet UILabel *imageTitle;
+
+@property (weak, nonatomic) IBOutlet UILabel *foodNumber;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *rightLengthContraint;
 
 @end

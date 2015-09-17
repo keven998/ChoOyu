@@ -9,16 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "Destinations.h"
 
-@protocol updataTracksDelegate <NSObject>
-
-- (void)updataTracks:(NSInteger) country
-               citys:(NSInteger) city
-            trackStr:(NSString *) track;
-
-@end
-
 @interface FootPrintViewController : UIViewController
 
-@property (nonatomic, strong) Destinations *destinations;
-@property (nonatomic, weak) id<updataTracksDelegate> delegate;
+//要看攻略人的 userid
+@property (nonatomic) NSInteger userId;
+
 @end

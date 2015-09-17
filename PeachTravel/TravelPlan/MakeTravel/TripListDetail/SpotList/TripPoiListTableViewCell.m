@@ -10,85 +10,68 @@
 
 @implementation TripPoiListTableViewCell
 
-- (void)awakeFromNib {
-//    _headerImageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
-//    _headerImageView.layer.borderWidth = 0.5;
-//    _headerImageView.layer.cornerRadius = 1.0;
-    _headerImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
-    
-    UIView *dividerView = [[UIView alloc] initWithFrame:CGRectMake(36, 0, CGRectGetWidth(self.bounds) - 46, 1)];
-    dividerView.backgroundColor = APP_PAGE_COLOR;
-    dividerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    [self.contentView addSubview:dividerView];
-
-    _titleLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
-    _propertyLabel.textColor = TEXT_COLOR_TITLE_HINT;
-    _valueLabel.textColor = APP_THEME_COLOR;
-    _timeLineView.backgroundColor = APP_DIVIDER_COLOR;
-    
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
-}
-
-- (void)willTransitionToState:(UITableViewCellStateMask)state {
-    [super willTransitionToState:state];
-    _timeLineView.hidden = (state != UITableViewCellStateDefaultMask);
+- (void)awakeFromNib
+{
+    _headerImageView.backgroundColor = APP_PAGE_COLOR;
+    [_actionBtn setTitleColor: APP_THEME_COLOR forState:UIControlStateNormal];
+    [_actionBtn setTitleColor:COLOR_TEXT_III forState:UIControlStateSelected];
+    _actionBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+    [_actionBtn setBackgroundImage:[ConvertMethods createImageWithColor:COLOR_DISABLE] forState:UIControlStateSelected];
+    [_actionBtn setBackgroundImage:[UIImage imageNamed:@"sent_bg.png"] forState:UIControlStateNormal];
+    _actionBtn.layer.cornerRadius = 3;
+    _actionBtn.clipsToBounds = YES;
+    _actionBtn.hidden = YES;
 }
 
 - (void)setTripPoi:(SuperPoi *)tripPoi
 {
     _tripPoi = tripPoi;
+    
+    NSLog(@"%@",tripPoi);
+    
     TaoziImage *image = [_tripPoi.images firstObject];
     [_headerImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
     _titleLabel.text = tripPoi.zhName;
     
-    NSString *rankStr;
-    switch (_tripPoi.poiType) {
-        case kSpotPoi:
-            rankStr = @"景点排名第";
-            break;
-            
-        case kRestaurantPoi:
-            rankStr = @"美食排名第";
-            break;
-        
-        case kShoppingPoi:
-            rankStr = @"购物排名第";
-            break;
-            
-        case kHotelPoi:
-            rankStr = @"酒店排名第";
-            break;
-            
-        default:
-            break;
-    }
+    NSLog(@"%@",_tripPoi.style);
     
-    NSString *property = _tripPoi.locality.zhName;
-    if (_tripPoi.rank == 0) {
-        
-    } else if (_tripPoi.rank <= 500) {
-        property = [NSString stringWithFormat:@"%@ %@%d", property, rankStr, _tripPoi.rank];
+    NSString *property = nil;
+    NSString *rankStr = nil;
+    if (_tripPoi.rank <= 200 && _tripPoi.rank > 0) {
+        rankStr = [NSString stringWithFormat:@"%d", _tripPoi.rank];
+    } else if (_tripPoi.rank > 200) {
+        rankStr = @"N";
     } else {
-        property = [NSString stringWithFormat:@"%@", property];
+        rankStr = @"N";
     }
-    _propertyLabel.text = property;
+
+    _imageTitle.text = rankStr;
+    [_imageTitle setTextColor:APP_THEME_COLOR];
     
     if (_tripPoi.poiType == kSpotPoi) {
         if ([((SpotPoi *)tripPoi).timeCostStr isBlankString]) {
-            _valueLabel.text = @"";
-        }else{
-        NSString *timeStr = [NSString stringWithFormat:@"建议游玩%@", ((SpotPoi *)tripPoi).timeCostStr];
-            _valueLabel.text = timeStr;
             
+        } else {
+            NSString *timeStr = [NSString stringWithFormat:@"建议游玩%@", ((SpotPoi *)tripPoi).timeCostStr];
+            property = timeStr;
         }
     } else {
-        _valueLabel.text = nil;
+        property = [_tripPoi.style firstObject];
     }
-//    else {
-//        if (_tripPoi.poiType == kRestaurantPoi || _tripPoi.poiType == kHotelPoi || _tripPoi.poiType == kShoppingPoi) {
-//            _valueLabel.text = _tripPoi.address;
-//        }
-//    }   
+    self.foodNumber.text = property;
+    
+    if (self.actionBtn.hidden) {
+        self.rightLengthContraint.constant = 30;
+    }else{
+        self.rightLengthContraint.constant = 100;
+    }
+
 }
 
 @end
+
+
+
+
+
+

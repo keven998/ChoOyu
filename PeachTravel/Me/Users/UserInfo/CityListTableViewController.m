@@ -19,18 +19,18 @@
 
 @implementation CityListTableViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     self.navigationItem.title = @"选择现住地";
     
     if (self.navigationController.childViewControllers.count == 1) {
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
-        self.navigationItem.leftBarButtonItem = nil;
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
+        self.navigationItem.rightBarButtonItem = nil;
     } else {
-//        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_navigation_back.png"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
         UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
-        [button setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateHighlighted];
+        [button setImage:[UIImage imageNamed:@"common_icon_navigation_back_normal"] forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:@"common_icon_navigation_back_highlight"] forState:UIControlStateHighlighted];
         [button addTarget:self action:@selector(dismiss)forControlEvents:UIControlEventTouchUpInside];
         [button setFrame:CGRectMake(0, 0, 48, 30)];
         button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
@@ -43,6 +43,7 @@
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _tableView.delegate = self;
     _tableView.dataSource = self;
+    _tableView.rowHeight = 60;
     [self.view addSubview:_tableView];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cityCell"];
     
@@ -65,7 +66,8 @@
     }
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
 }
 
@@ -88,14 +90,16 @@
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
     if (_needUserLocation) {
         return 2;
     }
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     if (_needUserLocation) {
         if (section == 0) {
             return 1;
@@ -110,24 +114,35 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section;
 {
-    return 30;
+    if (section == 0) {
+        return 50;
+    }
+    return 20;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 30)];
-    label.font = [UIFont systemFontOfSize:14.0];
-    label.backgroundColor = APP_PAGE_COLOR;
-    if (_needUserLocation) {
-        if (section == 0) {
-            label.text = @"   定位获取的位置";
+    if (section == 0) {
+        UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 50)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, tableView.bounds.size.width, 30)];
+        label.font = [UIFont systemFontOfSize:14.0];
+        label.backgroundColor = APP_PAGE_COLOR;
+        label.textColor = COLOR_TEXT_II;
+        if (_needUserLocation) {
+            label.text = @"   定位位置";
         } else {
-            label.text = @"   国内全部城市";
+            label.text = @"   全部城市";
         }
+        [headerView addSubview:label];
+        return headerView;
     } else {
-        label.text = @"   国内全部城市";
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 20)];
+        label.font = [UIFont systemFontOfSize:14.0];
+        label.backgroundColor = APP_PAGE_COLOR;
+        label.text = @"   全部城市";
+        label.textColor = COLOR_TEXT_II;
+        return label;
     }
-    return label;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -165,7 +180,8 @@
 
 #pragma mark - Table view delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (_needUserLocation) {
         if (indexPath.section == 0) {

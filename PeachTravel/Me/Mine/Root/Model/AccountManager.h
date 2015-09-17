@@ -7,16 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Account.h"
-#import "Contact.h"
 #import "FrendRequest.h"
 #import "AccountModel.h"
 
+@class FrendModel;
+@class CityDestinationPoi;
+
 @interface AccountManager : NSObject
 
-@property (nonatomic, strong) Account *account;
-
-@property (strong, nonatomic) AccountModel *accountDetail;
+@property (nonatomic, strong) AccountModel *account;
 
 + (AccountManager *)shareAccountManager;
 
@@ -32,22 +31,22 @@
  *
  *  @param userInfo
  */
-- (void)userDidLoginWithUserInfo:(id)userInfo;
+- (void)asyncLogin:(NSString *)userId password:(NSString *)password completion:(void(^)(BOOL isSuccess, NSString *errorStr))completion;
 
 /**
- *  环信系统已经登录成功
+ *  微信登录
+ *
+ *  @param code
+ *  @param completion 
  */
-- (void)easeMobDidLogin;
-
-/**
- *  环信系统登录失败
- */
-- (void)easeMobUnlogin;
+- (void)asyncLoginWithWeChat:(NSString *)code completion:(void(^)(BOOL isSuccess, NSString *errorStr))completion;
 
 /**
  *  异步退出登录
  */
 - (void)asyncLogout:(void(^)(BOOL isSuccess))completion;
+
+- (void)userDidLoginWithUserInfo:(id)userInfo;
 
 /**
  *  账户是否绑定了手机号，返回 yes 是绑定了
@@ -56,15 +55,13 @@
  */
 - (BOOL)accountIsBindTel;
 
-/**
- *  登录环信服务器
- */
-- (void)loginEaseMobServer;
-
-- (void)loginEaseMobServer:(void (^)(BOOL isSuccess))completion;
-
-
 /*******用户信息相关接口********/
+
+- (void)asyncChangePassword:(NSString *)newPassword oldPassword:(NSString *)oldPassword completion:(void (^)(BOOL, NSString *))completion;
+
+- (void)asyncBindTelephone:(NSString *)tel token:(NSString *)token completion:(void (^)(BOOL, NSString *))completion;
+
+- (void)asyncResetPassword:(NSString *)newPassword tel:(NSString *)tel toke:(NSString *)token completion:(void (^)(BOOL, NSString *))completion;
 
 /**
  *  修改用户信息
@@ -74,14 +71,13 @@
  */
 - (void)updateUserInfo:(NSString *)changeContent withChangeType:(UserInfoChangeType)changeType;
 
-
 /**
- *  更新用户信息
+ *  修改用户足迹
  *
- *  @param changeContent 信息内容
+ *  @param action        add:添加   del:删除
+ *  @param tracks        足迹 @[poiid]
  */
-- (void)updateUserInfo:(id)userInfo;
-
+- (void)asyncChangeUserServerTracks:(NSString *)action withTracks:(NSArray *)poiIdArray completion:(void (^)(BOOL, NSString *))completion;
 /**
  *  修改用户名字
  *
@@ -147,7 +143,7 @@
 
 #pragma mark - 修改用户的好友信息
 
-- (void)asyncChangeRemark:(NSString *)remark withUserId:(NSNumber *)userId completion:(void (^)(BOOL isSuccess))completion;
+- (void)asyncChangeRemark:(NSString *)remark withUserId:(NSInteger)userId completion:(void (^)(BOOL isSuccess))completion;
 
 /**
  *  判读是不是我的好友
@@ -156,33 +152,8 @@
  *
  *  @return
  */
-- (BOOL)isMyFrend:(NSNumber *)userId;
+- (BOOL)frendIsMyContact:(NSInteger)userId;
 
-/**
- *  通过 userid 获取好友信息
- *
- *  @param userId
- *
- *  @return 
- */
-- (Contact *)contactWithUserId:(NSNumber *)userId;
-
-/**
- *  通过环信 id 获取好友
- *
- *  @param userId
- *
- *  @return
- */
-- (Contact *)contactWithEaseMobUserId:(NSString *)userId;
-
-
-/**
- *  将好友加入到数据库当中
- *
- *  @param userInfo
- */
-- (void)addContact:(id)userInfo;
 
 /**
  *  从服务器上加载好友列表
@@ -197,102 +168,21 @@
 - (NSDictionary *)contactsByPinyin;
 
 /**
- *  解析好友申请
- *
- *  @param frendRequestDic
- */
-- (void)analysisAndSaveFrendRequest:(NSDictionary *)frendRequestDic;
-
-/**
- *  移除好友申请
- *
- *  @param frendRequest
- */
-- (void)removeFrendRequest:(FrendRequest *)frendRequest;
-
-/**
- *  同意好友申请
- *
- *  @param frendRequest
- */
-- (void)agreeFrendRequest:(FrendRequest *)frendRequest;
-
-/**
- *  通过环信 id 删除好友
+ *  删除好友
  *
  *  @param userId
  */
-- (void)removeContact:(NSNumber *)userId;
+- (void)removeContact:(FrendModel *)userId;
+
 
 /**
- *  通过环信 id 获取旅行派用户信息
+ *  异步加载用户相册
  *
- *  @param easemobUser
- *
- *  @return
- */
-- (Contact *)TZContactByEasemobUser:(NSString *)easemobUser;
-
-
-#pragma mark *******群组相关信息******
-
-/**
- *  通过群组 id 得到去租信息
- *
- *  @param groupId
- *
- *  @return
- */
-- (Group *)groupWithGroupId:(NSString *)groupId;
-
-- (Group *)updateGroup:(NSString *)groupId
-        withGroupOwner:(NSString *)owner
-          groupSubject:(NSString *)subject
-             groupInfo:(NSString *)groupDescription
-               numbers:(id)numbersDic;
-
-/**
- *  更新群组信息,如果未存在则创建一个群组
- *
- *  @param groupId          群组 id
- *  @param owner            群组所有人
- *  @param subject          群组标题
- *  @param groupDescription 群组介绍
- *
- *  @return 更新后的群组
- */
-- (Group *)updateGroup:(NSString *)groupId
-        withGroupOwner:(NSString *)owner
-          groupSubject:(NSString *)subject
-             groupInfo:(NSString *)groupDescription;
-
-/**
- *  添加一个成员到群组里
- *
- *  @param groupId
- *  @param numbers
- */
-- (void)addNumberToGroup:(NSString *)groupId
-                 numbers:(NSSet *)numbers;
-
-/**
- *  从移除一个成员
- *
- *  @param groupId
- *  @param numbers
- */
-- (void)removeNumberToGroup:(NSString *)groupId
-                 numbers:(NSSet *)numbers;
-
-
-#pragma mark *****其他操作******
-
-/**
- *  返回未读的好友请求的数量
+ *  @param userId     用户Id
+ *  @param completion 完成后回调
  *
  *  @return 
  */
-- (NSUInteger)numberOfUnReadFrendRequest;
-
+- (NSArray *)asyncLoadUserAlbum:(NSInteger)userId completion:(void (^)(BOOL, NSString *))completion;
 
 @end

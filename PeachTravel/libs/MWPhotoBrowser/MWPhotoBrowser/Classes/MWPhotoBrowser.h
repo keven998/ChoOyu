@@ -58,7 +58,7 @@
  *  图片合集
  */
 @property (nonatomic, strong) NSArray *imageList;
-
+@property (nonatomic, copy) NSString *titleStr;
 //tzlx
 @property (nonatomic, strong) NSMutableArray *defaultPhotos;
 @property (nonatomic, strong) NSMutableArray *HDPhotos;

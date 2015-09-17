@@ -16,8 +16,6 @@
 @property (nonatomic, strong) TripDetail *tripDetail;
 @property (nonatomic, strong) NSArray *destinations;
 
-@property (nonatomic, weak) REFrostedViewController *container;
-
 @property (nonatomic, weak) id<TripUpdateDelegate> contentMgrDelegate;
 
 //编辑按钮
@@ -32,6 +30,8 @@
  *  是否有资格更改路线，当从聊天界面点击别人发送的攻略进入此界面时，没有资格编辑路线
  */
 @property (nonatomic, assign) BOOL canEdit;
+//想要看别人的攻略必须把别人的 userid 穿进来
+@property (nonatomic) NSInteger userId;
 
 @property (nonatomic, copy) NSString *tripId;
 

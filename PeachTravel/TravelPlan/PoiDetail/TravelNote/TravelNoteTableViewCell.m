@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *descLabel;
 @property (weak, nonatomic) IBOutlet UILabel *propertyLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
 
 
 @end
@@ -22,27 +23,25 @@
 
 - (void)awakeFromNib {
     self.backgroundColor = [UIColor whiteColor];
+    [_backgroundImageView setImage:[[UIImage imageNamed:@"city_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)]];
+
     _travelNoteImageView.clipsToBounds = YES;
     _sendBtn.layer.cornerRadius = 4.0;
-    
+    _travelNoteImageView.layer.cornerRadius = 26;
     _travelNoteImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
-    /**
-     *  发送按钮默认隐藏，是否显示需要设置 canSelecte
-     */
+    
+    //发送按钮默认隐藏，是否显示需要设置 canSelecte
     _sendBtn.hidden = NO;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     _titleLabel.font = [UIFont systemFontOfSize:16];
-    _titleLabel.textColor = TEXT_COLOR_TITLE;
-    _descLabel.font = [UIFont systemFontOfSize:13];
-    _descLabel.numberOfLines = 3;
-    _descLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+    _titleLabel.textColor = COLOR_TEXT_I;
+    
+    _descLabel.font = [UIFont systemFontOfSize:12];
+    _descLabel.numberOfLines = 2;
+    _descLabel.textColor = COLOR_TEXT_II;
     
     _propertyLabel.font = [UIFont systemFontOfSize:12];
-    _propertyLabel.textColor = TEXT_COLOR_TITLE_PH;
-    
-    UIView *divider = [[UIView alloc] initWithFrame:CGRectMake(13, 0, CGRectGetWidth(self.bounds) - 26, 0.5)];
-    divider.backgroundColor = APP_DIVIDER_COLOR;
-    [self addSubview:divider];
+    _propertyLabel.textColor = COLOR_TEXT_III;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -55,7 +54,7 @@
     if ([_travelNoteImage isEqual: [NSNull null]]) {
         return;
     }
-    [_travelNoteImageView sd_setImageWithURL:[NSURL URLWithString:_travelNoteImage] placeholderImage:nil];
+    [_travelNoteImageView sd_setImageWithURL:[NSURL URLWithString:_travelNoteImage] placeholderImage:[UIImage imageNamed:@"avatar_default.png"]];
 }
 
 - (void)setTitle:(NSString *)title
@@ -67,14 +66,11 @@
 - (void)setDesc:(NSString *)desc
 {
     _desc = desc;
-    
-//    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:desc];
-//    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
-//    style.lineSpacing = 1.5;
-//    style.lineBreakMode = NSLineBreakByTruncatingTail;
-//    [attrStr addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, desc.length)];
-//    _descLabel.attributedText = attrStr;
-    _descLabel.text = desc;
+    NSMutableParagraphStyle *ps = [[NSMutableParagraphStyle alloc] init];
+    ps.lineSpacing = 2.0;
+    NSDictionary *attribs = @{NSParagraphStyleAttributeName:ps};
+    NSAttributedString *attrstr = [[NSAttributedString alloc] initWithString:desc attributes:attribs];
+    _descLabel.attributedText = attrstr;
 }
 
 - (void)setAuthorAvatar:(NSString *)authorAvatar

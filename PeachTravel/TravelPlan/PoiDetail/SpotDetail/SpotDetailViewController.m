@@ -11,14 +11,13 @@
 #import "SpotPoi.h"
 #import "AccountManager.h"
 #import "SuperWebViewController.h"
+#import "SpotDetailCell.h"
+#import "SpecialPoiCell.h"
+#import "CommentTableViewCell.h"
 #import "UIImage+BoxBlur.h"
-
+#import "CityDescDetailViewController.h"
+#import "PricePoiDetailController.h"
 @interface SpotDetailViewController () <UIActionSheetDelegate>
-{
-    UIButton *_favoriteBtn;
-}
-@property (nonatomic, strong) SpotDetailView *spotDetailView;
-@property (nonatomic, strong) UIImageView *backGroundImageView;
 
 @end
 
@@ -26,171 +25,144 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = APP_PAGE_COLOR;
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.navigationItem.title = @"详情";
-    
-    self.view.backgroundColor = [UIColor whiteColor];
-    NSMutableArray *barItems = [[NSMutableArray alloc] init];
     
     UIButton *talkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 44)];
-    [talkBtn setImage:[UIImage imageNamed:@"ic_home_normal"] forState:UIControlStateNormal];
+    [talkBtn setImage:[UIImage imageNamed:@"navigationbar_chat_default.png"] forState:UIControlStateNormal];
+    [talkBtn setImage:[UIImage imageNamed:@"navigationbar_chat_hilighted.png"] forState:UIControlStateHighlighted];
+    talkBtn.imageEdgeInsets = UIEdgeInsetsMake(2, 0, 0, 0);
     [talkBtn addTarget:self action:@selector(shareToTalk) forControlEvents:UIControlEventTouchUpInside];
+    talkBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:talkBtn];
     
-    [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:talkBtn]];
-    
-    _favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 44)];
-    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_ztl_sc_2"] forState:UIControlStateNormal];
-    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_ztl_sc_1"] forState:UIControlStateSelected];
-    [_favoriteBtn addTarget:self action:@selector(favorite:) forControlEvents:UIControlEventTouchUpInside];
-    [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_favoriteBtn]];
-    
-    self.navigationItem.rightBarButtonItems = barItems;
+    super.poiType = kSpotPoi;
     
     [self loadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"page_spot_detail"];
-    
+      
 }
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"page_spot_detail"];
 }
 
-- (IBAction)favorite:(UIButton *)sender
-{
-    [MobClick event:@"event_city_favorite"];
-    //先将收藏的状态改变
-    //    _cityHeaderView.favoriteBtn.selected = !self.poi.isMyFavorite;
-    //    _cityHeaderView.favoriteBtn.userInteractionEnabled = NO;
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    [super asyncFavoritePoiWithCompletion:^(BOOL isSuccess) {
-        //        _cityHeaderView.favoriteBtn.userInteractionEnabled = YES;
-        //        if (!isSuccess) {
-        //            _cityHeaderView.favoriteBtn.selected = !_cityHeaderView.favoriteBtn.selected;
-        //
-        //        }
-        if (isSuccess) {
-            _favoriteBtn.selected = !_favoriteBtn.selected;
+    return self.poi.comments.count + 5;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row < 4) {
+        return 66 * kWindowHeight/736;
+    } else if (indexPath.row == 4) {
+        return  372/3;
+    } else {
+        return 100;
+    }
+}
+
+#pragma mark - Table view delegate
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row < 4) {
+        SpotDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"detailCell" forIndexPath:indexPath];
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        if (indexPath.row == 0) {
+            cell.categoryLabel.text = @"地址";
+            cell.infomationLabel.text = self.poi.address;
+            cell.image.image = [UIImage imageNamed:@"poi_icon_add"];
+        } else if (indexPath.row == 1) {
+            cell.categoryLabel.text = @"开放";
+            cell.infomationLabel.text = ((SpotPoi *)self.poi).openTime;
+            cell.image.image = [UIImage imageNamed:@"icon_arrow"];
+        } else if (indexPath.row == 2) {
+            cell.categoryLabel.text = @"票价";
+            cell.infomationLabel.text = ((SpotPoi *)self.poi).priceDesc;
+            cell.image.image = [UIImage imageNamed:@"poi_icon_ticket_default"];
+        }  else if (indexPath.row == 3)   {
+            cell.categoryLabel.text = @"电话";
+            cell.infomationLabel.text = ((SpotPoi *)self.poi).telephone;
+            // 如果没有号码,就显示未知
+            if (cell.infomationLabel.text.length == 0) {
+                cell.infomationLabel.text = @"未知";
+//                cell.noTelLabel.hidden = NO;
+            }
+            cell.image.image = [UIImage imageNamed:@"poi_icon_phone"];
         }
-    }];
-    
-    
-}
-- (void)updateView
-{
-//    _spotDetailView = [[SpotDetailView alloc] initWithFrame:CGRectMake(15, 40, self.view.bounds.size.width-30, self.view.bounds.size.height-60)];
-//    self.automaticallyAdjustsScrollViewInsets = NO;
-    _spotDetailView = [[SpotDetailView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
-//    _spotDetailView.contentSize = CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height+150) ;
-    _spotDetailView.showsHorizontalScrollIndicator = NO;
-    _spotDetailView.showsVerticalScrollIndicator = NO;
-    _spotDetailView.spot = (SpotPoi *)self.poi;
-    _spotDetailView.rootCtl = self;
-//    self.navigationItem.title = self.poi.zhName;
-    _spotDetailView.layer.cornerRadius = 4.0;
-    [self.view addSubview:_spotDetailView];
-
-//    _spotDetailView.transform = CGAffineTransformMakeScale(0.01, 0.01);
-//
-//    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-//        _spotDetailView.transform = CGAffineTransformMakeScale(1, 1);
-//    } completion:nil];
-    
-    if (((SpotPoi *)self.poi).trafficInfoUrl == nil || [((SpotPoi *)self.poi).trafficInfoUrl isBlankString]) {
-        _spotDetailView.trafficGuideBtn.enabled = NO;
+        return cell;
+    } else if (indexPath.row == 4) {
+        SpecialPoiCell *cell = [tableView dequeueReusableCellWithIdentifier:@"specialCell" forIndexPath:indexPath];
+        cell.backgroundColor = APP_PAGE_COLOR;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        if (((SpotPoi *)self.poi).guideUrl == nil || [((SpotPoi *)self.poi).guideUrl isBlankString]) {
+            cell.planBtn.enabled = NO;
+        } else {
+            [cell.planBtn addTarget:self action:@selector(travelGuide:) forControlEvents:UIControlEventTouchUpInside];
+        }
+        
+        if (((SpotPoi *)self.poi).tipsUrl == nil || [((SpotPoi *)self.poi).tipsUrl isBlankString]) {
+            cell.tipsBtn.enabled = NO;
+        } else {
+            [cell.tipsBtn addTarget:self action:@selector(kengdie:) forControlEvents:UIControlEventTouchUpInside];
+        }
+        
+        
+        if (((SpotPoi *)self.poi).trafficInfoUrl == nil || [((SpotPoi *)self.poi).trafficInfoUrl isBlankString]) {
+            cell.trafficBtn.enabled = NO;
+        } else {
+            [cell.trafficBtn addTarget:self action:@selector(trafficGuide:) forControlEvents:UIControlEventTouchUpInside];
+        }
+        
+        return cell;
     } else {
-        [_spotDetailView.trafficGuideBtn addTarget:self action:@selector(trafficGuide:) forControlEvents:UIControlEventTouchUpInside];
+        CommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"commentCell" forIndexPath:indexPath];
+        cell.commentDetail =[self.poi.comments objectAtIndex:1];
+        return cell;
     }
-    if (((SpotPoi *)self.poi).guideUrl == nil || [((SpotPoi *)self.poi).guideUrl isBlankString]) {
-        _spotDetailView.travelGuideBtn.enabled = NO;
-    } else {
-        [_spotDetailView.travelGuideBtn addTarget:self action:@selector(travelGuide:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    if (((SpotPoi *)self.poi).tipsUrl == nil || [((SpotPoi *)self.poi).tipsUrl isBlankString]) {
-        _spotDetailView.kendieBtn.enabled = NO;
-    } else {
-        [_spotDetailView.kendieBtn addTarget:self action:@selector(kengdie:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    
-    [_spotDetailView.closeBtn addTarget:self action:@selector(dismissCtl) forControlEvents:UIControlEventTouchUpInside];
-    [_spotDetailView.favoriteBtn addTarget:self action:@selector(favorite:) forControlEvents:UIControlEventTouchUpInside];
-    [_spotDetailView.addressBtn addTarget:self action:@selector(jumpToMap) forControlEvents:UIControlEventTouchUpInside];
-    
-    [_spotDetailView.shareBtn addTarget:self action:@selector(chat:) forControlEvents:UIControlEventTouchUpInside];
-    [_spotDetailView.travelBtn addTarget:self action:@selector(showSpotDetail:) forControlEvents:UIControlEventTouchUpInside];
-    [_spotDetailView.phoneButton addTarget:self action:@selector(showSpotDetail:) forControlEvents:UIControlEventTouchUpInside];
-    [_spotDetailView.ticketBtn addTarget:self action:@selector(showSpotDetail:) forControlEvents:UIControlEventTouchUpInside];
-    [_spotDetailView.descDetailBtn addTarget:self action:@selector(showSpotDetail:) forControlEvents:UIControlEventTouchUpInside];
-    [_spotDetailView.bookBtn addTarget:self action:@selector(book:) forControlEvents:UIControlEventTouchUpInside];
 }
 
+#pragma mark - Table view delegate
 
-- (void)dismissCtl
-{
-    [SVProgressHUD dismiss];
-    [UIView animateWithDuration:0.0 animations:^{
-        self.view.alpha = 0;
-    } completion:^(BOOL finished) {
-        [self willMoveToParentViewController:nil];
-        [self.view removeFromSuperview];
-        [self removeFromParentViewController];
-    }];
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row < 4) {
+        if (indexPath.row == 0) {
+            [super jumpToMap];
+        } else if (indexPath.row == 1) {
+            // 开放时间
+            [self openTime];
+        }else if (indexPath.row == 2) {
+            [self book:nil];
+        }
+        else if (indexPath.row == 3) {
+            [super makePhone];
+        }
+    }
     
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (void)dealloc
 {
-    NSLog(@"citydetailCtl dealloc");
-    _spotDetailView = nil;
 }
 
 
 #pragma mark - Private Methods
 
-- (void) loadData
+- (void)loadData
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    if (accountManager.isLogin) {
-        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
-    }
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSNumber *imageWidth = [NSNumber numberWithInt:(kWindowWidth-22)*2];
-    [params setObject:imageWidth forKey:@"imgWidth"];
-    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    __weak typeof(self)weakSelf = self;
-    [hud showHUDInViewController:weakSelf];
     NSString *url = [NSString stringWithFormat:@"%@%@", API_GET_SPOT_DETAIL, _spotId];
-    [manager GET:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [hud hideTZHUD];
-        NSInteger result = [[responseObject objectForKey:@"code"] integerValue];
-        if (result == 0) {
-            [SVProgressHUD dismiss];
-            self.poi = [[SpotPoi alloc] initWithJson:[responseObject objectForKey:@"result"]];
-            [self updateView];
-        } else {
-        }
-        _favoriteBtn.selected=self.poi.isMyFavorite;
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [hud hideTZHUD];
-    }];
-
-    
+    [super loadDataWithUrl:url];
 }
 
 /**
  *  实现父类的发送 poi 到旅行派 的值传递
  *
- *  @param taoziMessageCtl 
+ *  @param taoziMessageCtl
  */
 - (void)setChatMessageModel:(TaoziChatMessageBaseViewController *)taoziMessageCtl
 {
@@ -200,20 +172,17 @@
     taoziMessageCtl.messageName = self.poi.zhName;
     taoziMessageCtl.messageTimeCost = ((SpotPoi *)self.poi).timeCostStr;
     taoziMessageCtl.descLabel.text = self.poi.desc;
-    taoziMessageCtl.chatType = TZChatTypeSpot;
+    taoziMessageCtl.messageType = IMMessageTypeSpotMessageType;
 }
 
 /**
- *  进入景点的详细介绍的 h5
- *
- *  @param sender
+ *  开放时间
  */
-- (IBAction)showSpotDetail:(id)sender
+- (void)openTime
 {
-    [MobClick event:@"event_spot_information"];
-    SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
-    webCtl.titleStr = self.poi.zhName;
-    webCtl.urlStr = ((SpotPoi *)self.poi).descUrl;
+    SuperWebViewController *webCtl = [[SuperWebViewController alloc] initWithURL:[NSURL URLWithString:self.poi.descUrl]];
+    webCtl.titleStr = @"在线预订";
+    webCtl.urlStr = self.poi.descUrl;
     webCtl.hideToolBar = YES;
     [self.navigationController pushViewController:webCtl animated:YES];
 }
@@ -226,12 +195,20 @@
  */
 - (IBAction)book:(id)sender
 {
-    [MobClick event:@"event_book_ticket"];
-
-    SuperWebViewController *webCtl = [[SuperWebViewController alloc] initWithURL:[NSURL URLWithString:((SpotPoi *)self.poi).bookUrl]];
-    webCtl.titleStr = @"在线预订";
-//    webCtl.urlStr = ((SpotPoi *)self.poi).bookUrl;
-    [self.navigationController pushViewController:webCtl animated:YES];
+    if ([((SpotPoi *)self.poi).bookUrl isEqualToString:@""]) {
+        if (![self.poi.priceDesc isEqualToString:@""]) {
+            PricePoiDetailController * pricePoi = [[PricePoiDetailController alloc] init];
+            pricePoi.desc = ((SpotPoi *)self.poi).priceDesc;
+            pricePoi.view.backgroundColor = [UIColor whiteColor];
+            [self.navigationController pushViewController:pricePoi animated:YES];
+        }
+    }else{
+        SuperWebViewController *webCtl = [[SuperWebViewController alloc] initWithURL:[NSURL URLWithString:((SpotPoi *)self.poi).bookUrl]];
+        webCtl.titleStr = @"在线预订";
+        webCtl.urlStr = ((SpotPoi *)self.poi).bookUrl;
+        webCtl.hideToolBar = YES;
+        [self.navigationController pushViewController:webCtl animated:YES];
+    }
 }
 
 /**
@@ -241,8 +218,7 @@
  */
 - (IBAction)travelGuide:(id)sender
 {
-    [MobClick event:@"event_spot_travel_experience"];
-
+    [MobClick event:@"button_item_poi_travel_notes"];
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
     webCtl.titleStr = @"景点体验";
     webCtl.urlStr = ((SpotPoi *)self.poi).guideUrl;
@@ -256,8 +232,7 @@
  */
 - (IBAction)kengdie:(id)sender
 {
-    [MobClick event:@"event_spot_travel_tips"];
-
+    [MobClick event:@"button_item_poi_travel_tips"];
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
     webCtl.titleStr = @"游玩小贴士";
     webCtl.urlStr = ((SpotPoi *)self.poi).tipsUrl;
@@ -271,8 +246,7 @@
  */
 - (IBAction)trafficGuide:(id)sender
 {
-    [MobClick event:@"event_spot_traffic_summary"];
-
+    [MobClick event:@"button_item_poi_travel_traffic"];
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
     webCtl.titleStr = @"景点交通";
     webCtl.urlStr = ((SpotPoi *)self.poi).trafficInfoUrl;
@@ -287,10 +261,10 @@
 - (IBAction)jumpToMapview:(id)sender
 {
     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"其他软件导航"
-                                                     delegate:self
-                                            cancelButtonTitle:nil
-                                       destructiveButtonTitle:nil
-                                            otherButtonTitles:nil];
+                                                       delegate:self
+                                              cancelButtonTitle:nil
+                                         destructiveButtonTitle:nil
+                                              otherButtonTitles:nil];
     NSArray *platformArray = [ConvertMethods mapPlatformInPhone];
     for (NSDictionary *dic in platformArray) {
         [sheet addButtonWithTitle:[dic objectForKey:@"platform"]];
@@ -300,26 +274,12 @@
     [sheet showInView:self.view];
 }
 
-//- (IBAction)favorite:(id)sender
-//{
-//    //先将收藏的状态改变
-//    [MobClick event:@"event_spot_favorite"];
-//    _spotDetailView.favoriteBtn.selected = !_spotDetailView.favoriteBtn.selected;
-//    _spotDetailView.favoriteBtn.userInteractionEnabled = NO;
-//    
-//    [super asyncFavoritePoiWithCompletion:^(BOOL isSuccess) {
-//        _spotDetailView.favoriteBtn.userInteractionEnabled = YES;
-//        if (isSuccess) {
-//        } else {      //如果失败了，再把状态改回来
-//            _spotDetailView.favoriteBtn.selected = !_spotDetailView.favoriteBtn.selected;
-//        }
-//    }];
-//
-//}
-
--(void)jumpToMap
+- (void)showPoiDesc
 {
-    [ConvertMethods jumpAppleMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
+    CityDescDetailViewController *cddVC = [[CityDescDetailViewController alloc]init];
+    cddVC.des = self.poi.desc;
+    cddVC.title = @"景点简介";
+    [self.navigationController pushViewController:cddVC animated:YES];
 }
 
 #pragma mark - UIActionSheetDelegate
@@ -327,7 +287,9 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == actionSheet.cancelButtonIndex) {
+        
         return;
+        
     }
     if (actionSheet.tag != kASShare) {
         NSArray *platformArray = [ConvertMethods mapPlatformInPhone];
@@ -397,9 +359,9 @@
             default:
                 break;
         }
-
+        
     } else {
-        [MobClick event:@"event_spot_share_to_talk"];
+
         [self shareToTalk];
     }
 }

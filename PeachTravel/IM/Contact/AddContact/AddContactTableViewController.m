@@ -13,22 +13,14 @@
 #import "AccountManager.h"
 #import "SearchUserInfoViewController.h"
 #import "ConvertMethods.h"
-#import "ContactDetailViewController.h"
-#import "OtherUserInfoViewController.h"
+#import "SearchFrendTableViewController.h"
 
 #define searchCell          @"searchContactCell"
 #define normalCell          @"normalCell"
 
-@interface AddContactTableViewController() <UISearchBarDelegate>
-
-@property (strong, nonatomic) IBOutlet UISearchDisplayController *searchTableViewController;
+@interface AddContactTableViewController() <UISearchBarDelegate, UISearchDisplayDelegate>
 
 @property (strong, nonatomic) NSArray *normalDataSource;
-@property (strong, nonatomic) NSMutableArray *searchDataSource;
-
-@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
-
-@property (nonatomic, strong) UIViewController *nextViewController;
 
 @end
 
@@ -38,8 +30,30 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"添加";
-    [self.searchTableViewController.searchResultsTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:searchCell];
+    self.title = @"添加朋友";
+    UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setImage:[UIImage imageNamed:@"common_icon_navigation_back_normal"] forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:@"common_icon_navigation_back_highlight"] forState:UIControlStateHighlighted];
+    [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
+    [button setFrame:CGRectMake(0, 0, 25, 30)];
+    
+    button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+    
+    
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:normalCell];
+    self.tableView.separatorColor = COLOR_LINE;
+    
+    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 49)];
+    searchBar.placeholder = @"昵称/手机号";
+    [searchBar setSearchFieldBackgroundImage:[[UIImage imageNamed:@"icon_search_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)] forState:UIControlStateNormal];
+    searchBar.backgroundImage = [ConvertMethods createImageWithColor:[UIColor whiteColor]];
+    self.tableView.tableHeaderView = searchBar;
+    
+    //在searchbar上覆盖一层假的 button，点击进入下个搜索界面
+    UIButton *searchBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 49)];
+    [searchBtn addTarget:self action:@selector(searchFrend:)forControlEvents:UIControlEventTouchUpInside];
+    [searchBar addSubview:searchBtn];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -59,20 +73,19 @@
 - (NSArray *)normalDataSource
 {
     if (!_normalDataSource) {
-        _normalDataSource = @[@"通讯录好友", @"邀请微信好友"];
+        _normalDataSource = @[@"通讯录朋友", @"邀请微信朋友"];
     }
     return _normalDataSource;
 }
 
-- (NSMutableArray *)searchDataSource
-{
-    if (!_searchDataSource) {
-        _searchDataSource = [[NSMutableArray alloc] init];
-    }
-    return _searchDataSource;
-}
-
 #pragma mark - Private Methods
+
+- (void)searchFrend:(id)sender
+{
+    SearchFrendTableViewController *ctl = [[SearchFrendTableViewController alloc] init];
+    ctl.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:ctl] animated:YES completion:nil];
+}
 
 - (void)shareToWeChat
 {
@@ -83,176 +96,52 @@
     }];
 }
 
-- (void)searchUsersWithSearchText:(NSString *)searchText
-{
-    if (searchText.length == 0) {
-        [SVProgressHUD showHint:@"你想找谁呢～"];
-        return;
-    }
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSNumber *imageWidth = [NSNumber numberWithInt:(kWindowWidth-22)*2];
-    [params setObject:imageWidth forKey:@"imgWidth"];
-    [params setObject:searchText forKey:@"keyword"];
-    
-    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    __weak typeof(AddContactTableViewController *)weakSelf = self;
-    [hud showHUDInViewController:weakSelf];
-    //搜索好友
-    [manager GET:API_SEARCH_USER parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [hud hideTZHUD];
-        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-        if (code == 0) {
-            [self parseSearchResult:[responseObject objectForKey:@"result"]];
-        } else {
-            [SVProgressHUD showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
-        }
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [hud hideTZHUD];
-        if (self.isShowing) {
-            [SVProgressHUD showHint:@"呃～好像没找到网络"];
-        }
-    }];
-}
-
-- (void)parseSearchResult:(id)searchResult
-{
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    if ([searchResult count] > 0) {
-        NSInteger userId = [[[searchResult firstObject] objectForKey:@"userId"] integerValue];
-        if (userId == [accountManager.account.userId integerValue]) {
-            [SVProgressHUD showHint:@"不能添加自己到通讯录"];
-        } else {
-            [_searchBar resignFirstResponder];
-              
-            //如果已经是好友了，进入好友详情界面
-            for (Contact *contact in accountManager.account.contacts) {
-                if ([contact.userId integerValue] == userId) {
-//                    ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
-                    OtherUserInfoViewController *contactDetailCtl = [[OtherUserInfoViewController alloc]init];
-                    contactDetailCtl.userId = contact.userId;
-                    _nextViewController = contactDetailCtl;
-                    [self performSelector:@selector(jumpToNextCtl) withObject:nil afterDelay:0.3];
-                    return;
-                }
-            }
-            OtherUserInfoViewController *otherCtl = [[OtherUserInfoViewController alloc]init];
-            otherCtl.userId = [NSNumber numberWithInteger:userId];
-            _nextViewController = otherCtl;
-            [self performSelector:@selector(jumpToNextCtl) withObject:nil afterDelay:0.3];
-        }
-    } else {
-        [SVProgressHUD showHint:@"没有找到她~"];
-    }
-}
-
-- (void)jumpToNextCtl
-{
-    [self.navigationController pushViewController:_nextViewController animated:YES];
-}
 
 #pragma mark - Table view data source
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return CGFLOAT_MIN;
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if ([tableView isEqual: _searchTableViewController.searchResultsTableView ]) {
-        return 1;
-    }
     return 1;
 }
 
-//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-//    if ([tableView isEqual:_searchTableViewController.searchResultsTableView]) {
-//        return 0;
-//    }
-//    return 12.0;
-//}
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 48.0;
+    return 56.0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (tableView == _searchTableViewController.searchResultsTableView) {
-        return self.searchDataSource.count;
-    } else {
-        return  self.normalDataSource.count;
-    }
+    return  self.normalDataSource.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (tableView == _searchTableViewController.searchResultsTableView) {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:searchCell forIndexPath:indexPath];
-        cell.textLabel.text = @"cell";
-        return cell;
-    } else {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:normalCell];
-        if (cell == nil) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:normalCell];
-            if (indexPath.row == 0) {
-                UIView *divider = [[UIView alloc] initWithFrame:CGRectMake(0.0, 47.5, tableView.frame.size.width, 0.5)];
-                divider.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-                divider.backgroundColor = UIColorFromRGB(0xdddddd);
-                [cell.contentView addSubview:divider];
-            }
-            cell.textLabel.font = [UIFont systemFontOfSize:15.0];
-            cell.textLabel.textColor = TEXT_COLOR_TITLE;
-        }
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.textLabel.text = self.normalDataSource[indexPath.row];
-        return cell;
-    }
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:normalCell forIndexPath:indexPath];
+    cell.textLabel.font = [UIFont systemFontOfSize:15.0];
+    cell.textLabel.textColor = COLOR_TEXT_I;
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.textLabel.text = self.normalDataSource[indexPath.row];
+    return cell;
 }
 
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-//    if ([tableView isEqual:_searchTableViewController.searchResultsTableView]) {
-//        return nil;
-//    }
-//    UIView *view = [[UIView alloc] init];
-//    view.backgroundColor = APP_PAGE_COLOR;
-//    return view;
-//}
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (tableView == _searchTableViewController.searchResultsTableView) {
-        
-    } else {
-        if (indexPath.row == 0) {
-            [MobClick event:@"event_add_friend_from_contacts"];
-            AddressBookTableViewController *addressBookCtl = [[AddressBookTableViewController alloc] init];
-            [self.navigationController pushViewController:addressBookCtl animated:YES];
-        }
-        if (indexPath.row == 1) {
-            [MobClick event:@"event_notify_weichat_friends"];
-            [self shareToWeChat];
-        }
+    if (indexPath.row == 0) {
+        AddressBookTableViewController *addressBookCtl = [[AddressBookTableViewController alloc] init];
+        [MobClick event:@"cell_item_add_lxp_friends_from_contacts"];
+        [self.navigationController pushViewController:addressBookCtl animated:YES];
+    }
+    if (indexPath.row == 1) {
+        [self shareToWeChat];
+        [MobClick event:@"cell_item_add_lxp_friends_from_weichat"];
+
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-#pragma mark - UISearchBarDelegate
 
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
-{
-    [self searchUsersWithSearchText:searchBar.text];
-    [MobClick event:@"event_search_friend"];
-}
-
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
-{
-      
-}
 
 @end

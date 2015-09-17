@@ -10,28 +10,28 @@
 #import "AccountManager.h"
 #import "ChatViewController.h"
 #import "FrendRequestTableViewController.h"
-#import "ContactDetailViewController.h"
 #import "ContactListTableViewCell.h"
 #import "OptionOfFASKTableViewCell.h"
 #import "AddContactTableViewController.h"
 #import "ConvertMethods.h"
 #import "BaseTextSettingViewController.h"
-#import "TZConversation.h"
 #import "REFrostedViewController.h"
 #import "ChatSettingViewController.h"
-#import "OtherUserInfoViewController.h"
 #import "UIBarButtonItem+MJ.h"
+#import "ContactSearchViewController.h"
+#import "OtherProfileViewController.h"
+
 #define contactCell      @"contactCell"
 #define requestCell      @"requestCell"
 
-@interface ContactListViewController ()<UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, SWTableViewCellDelegate>
+@interface ContactListViewController ()<UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, SWTableViewCellDelegate,FriendRequestManagerDelegate,UISearchBarDelegate>
 
-@property (strong, nonatomic) UITableView *contactTableView;
+//@property (strong, nonatomic) UITableView *contactTableView;
 @property (strong, nonatomic) NSDictionary *dataSource;
 @property (strong, nonatomic) AccountManager *accountManager;
-@property (nonatomic) NSUInteger numberOfUnreadFrendRequest;
 
 @property (strong, nonatomic) UIView *emptyView;
+@property (strong, nonatomic) UISearchBar * searchBar;
 
 @end
 
@@ -40,39 +40,64 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_add_friend"] style:UIBarButtonItemStylePlain target:self action:@selector(addContact)];
-    self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithIcon:@"ic_add_friend" highIcon:@"ic_add_friend" target:self action:@selector(addContact)];
-    self.navigationItem.title = @"联系人";
+    self.navigationItem.title = @"我的朋友";
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContactList) name:contactListNeedUpdateNoti object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateNumberOfUnreadFrendRequest) name:frendRequestListNeedUpdateNoti object:nil];
+    
+    UIButton *backBtn =  [UIButton buttonWithType:UIButtonTypeCustom];
+    [backBtn addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
+    [backBtn setFrame:CGRectMake(0, 0, 40, 30)];
+    backBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [backBtn setTitleColor:COLOR_TEXT_I forState:UIControlStateNormal];
+    [backBtn setTitle:@"取消" forState:UIControlStateNormal];
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
+    self.navigationItem.leftBarButtonItem = barButton;
 
-
+    UIButton *itemBtn =  [UIButton buttonWithType:UIButtonTypeCustom];
+    [itemBtn addTarget:self action:@selector(addContact)forControlEvents:UIControlEventTouchUpInside];
+    [itemBtn setFrame:CGRectMake(0, 0, 40, 30)];
+    itemBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+    [itemBtn setImage:[UIImage imageNamed:@"ic_add_friend.png"] forState:UIControlStateNormal];
+    UIBarButtonItem *rightBarItem = [[UIBarButtonItem alloc] initWithCustomView:itemBtn];
+    self.navigationItem.rightBarButtonItem = rightBarItem;
+    
     [self.view addSubview:self.contactTableView];
-   
     [self.accountManager loadContactsFromServer];
-//    [self handleEmptyView];
+    [[IMClientManager shareInstance].frendRequestManager addFrendRequestDelegate:self];
+    
+    [self setupSearchBar];
 }
 
-- (void) viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_friends_lists"];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
-    [self updateNumberOfUnreadFrendRequest];
+    [self.contactTableView reloadData];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"page_friends_lists"];
 }
 
 - (void)dealloc
 {
+    [[IMClientManager shareInstance].frendRequestManager removeFrendRequestDelegate:self];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     _contactTableView.delegate = nil;
     _emptyView = nil;
+}
+
+#pragma mark - 实现代理方法,这个方法会在同意添加一个好友的情况下调用
+- (void)friendRequestNumberNeedUpdate
+{
+    [self.contactTableView reloadData];
 }
 
 #pragma mark - IBAction
@@ -85,75 +110,17 @@
     }
 }
 
-- (void) addContact {
+- (void)addContact {
     AddContactTableViewController *addContactCtl = [[AddContactTableViewController alloc] init];
+    [MobClick event:@"navigation_item_add_lxp_friend"];
     [self.navigationController pushViewController:addContactCtl animated:YES];
 }
 
 #pragma mark - private method
 
-- (void) handleEmptyView {
-    if ([[self.dataSource objectForKey:@"headerKeys"] count] <= 0) {
-        if (self.emptyView == nil) {
-            [self setupEmptyView];
-        }
-    } else {
-        [self removeEmptyView];
-    }
-}
-
-- (void) setupEmptyView {
-    CGFloat width = CGRectGetWidth(self.contactTableView.frame);
-    
-    self.emptyView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, width, 192.0)];
-    self.emptyView.userInteractionEnabled = YES;
-    self.emptyView.center = CGPointMake(self.view.frame.size.width/2.0, 160.0);
-    
-    UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(20.0, 20.0, width - 50.0, 16.0)];
-    label1.font = [UIFont systemFontOfSize:14.0];
-    label1.textColor = APP_THEME_COLOR;
-    label1.textAlignment = NSTextAlignmentCenter;
-    label1.textAlignment = NSTextAlignmentLeft;
-    label1.text = @"蜜蜜新圈子";
-    [self.emptyView addSubview:label1];
-    
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20.0, 40.0, width - 50.0, 16.0)];
-    label.font = [UIFont systemFontOfSize:13.0];
-    label.textColor = TEXT_COLOR_TITLE_SUBTITLE;
-    label.textAlignment = NSTextAlignmentCenter;
-    label.textAlignment = NSTextAlignmentLeft;
-    label.text = @"爱旅行的蜜蜜们之间的专属小天地~";
-    [self.emptyView addSubview:label];
-    
-    UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_indicator.png"]];
-    imgView.center = CGPointMake(width*0.33, 75.0);
-    [self.emptyView addSubview:imgView];
-    
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(0.0, 0.0, 108.0, 32.0);
-    [btn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
-    btn.titleLabel.font = [UIFont systemFontOfSize:13.0];
-    [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [btn setTitle:@"加好友" forState:UIControlStateNormal];
-    btn.center = CGPointMake(width/2.0, 114.0);
-    btn.layer.cornerRadius = 2.0;
-    btn.clipsToBounds = YES;
-    [btn addTarget:self action:@selector(addUserContact:) forControlEvents:UIControlEventTouchUpInside];
-    [self.emptyView addSubview:btn];
-    
-    [self.contactTableView addSubview:self.emptyView];
-}
-
-- (void) removeEmptyView {
+- (void)removeEmptyView {
     [self.emptyView removeFromSuperview];
     self.emptyView = nil;
-}
-
-- (IBAction)addUserContact:(id)sender
-{
-    AddContactTableViewController *addContactCtl = [[AddContactTableViewController alloc] init];
-    addContactCtl.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:addContactCtl animated:YES];
 }
 
 #pragma mark - setter & getter
@@ -166,28 +133,20 @@
     return _accountManager;
 }
 
-- (void)updateNumberOfUnreadFrendRequest{
-    _numberOfUnreadFrendRequest = self.accountManager.numberOfUnReadFrendRequest;
-    if (_contactTableView) {
-        [_contactTableView reloadData];
-    }
-}
-
 - (UITableView *)contactTableView
 {
     if (!_contactTableView) {
-        _contactTableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
-//        _contactTableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 27)];
-//        _contactTableView.contentInset = UIEdgeInsetsMake(27, 0, 0, 0);
+        _contactTableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
         _contactTableView.dataSource = self;
         _contactTableView.delegate = self;
         _contactTableView.backgroundColor = APP_PAGE_COLOR;
+        _contactTableView.separatorColor = COLOR_LINE;
         _contactTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-        _contactTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _contactTableView.showsVerticalScrollIndicator = NO;
         [_contactTableView registerNib:[UINib nibWithNibName:@"OptionOfFASKTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"friend_ask"];
         [_contactTableView registerNib:[UINib nibWithNibName:@"ContactListTableViewCell" bundle:nil] forCellReuseIdentifier:contactCell];
-        _contactTableView.sectionIndexColor = APP_SUB_THEME_COLOR;
+        _contactTableView.sectionIndexBackgroundColor = [UIColor clearColor];
+        _contactTableView.sectionIndexColor = COLOR_TEXT_II;
     }
     return _contactTableView;
 }
@@ -212,48 +171,47 @@
 {
     CGPoint point = [sender convertPoint:CGPointZero toView:self.contactTableView];
     NSIndexPath *indexPath = [self.contactTableView indexPathForRowAtPoint:point];
-    Contact *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
-
-    ChatViewController *chatCtl = [[ChatViewController alloc] initWithChatter:contact.easemobUser isGroup:NO];
-    chatCtl.title = contact.nickName;
-    NSArray *conversations = [[EaseMob sharedInstance].chatManager conversations];
-    for (EMConversation *conversation in conversations) {
-        if ([conversation.chatter isEqualToString:contact.easemobUser]) {
-            [conversation markAllMessagesAsRead:YES];
-            break;
-        }
-    }
+    FrendModel *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
     
-    UIViewController *menuViewController = [[ChatSettingViewController alloc] init];
+    IMClientManager *manager = [IMClientManager shareInstance];
+    ChatConversation *conversation = [manager.conversationManager getConversationWithChatterId:contact.userId chatType:IMChatTypeIMChatSingleType];
+    [manager.conversationManager addConversation: conversation];
+    
+    ChatViewController *chatCtl = [[ChatViewController alloc] initWithConversation:conversation];
+    chatCtl.chatterName = contact.nickName;
+    
+    ChatSettingViewController *menuViewController = [[ChatSettingViewController alloc] init];
+    menuViewController.currentConversation= conversation;
     
     REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:chatCtl menuViewController:menuViewController];
+    menuViewController.containerCtl = frostedViewController;
     frostedViewController.direction = REFrostedViewControllerDirectionRight;
     frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
     frostedViewController.liveBlur = YES;
-    frostedViewController.resumeNavigationBar = NO;
     frostedViewController.limitMenuViewSize = YES;
-    self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan=NO;
+    self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan = NO;
     [self.navigationController pushViewController:frostedViewController animated:YES];
 }
 
 #pragma mark - http method
-- (void)confirmChange:(NSString *)text withContacts:(Contact *)contact success:(saveComplteBlock)completed
+
+- (void)confirmChange:(NSString *)text withContacts:(FrendModel *)contact success:(saveComplteBlock)completed
 {
     AccountManager *accountManager = [AccountManager shareAccountManager];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    contact.memo = text;
+    [self.contactTableView reloadData];
+    completed(YES);
     [accountManager asyncChangeRemark:text withUserId:contact.userId completion:^(BOOL isSuccess) {
         if (isSuccess) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:contactListNeedUpdateNoti object:nil];
-            completed(YES);
         } else {
-            [SVProgressHUD showHint:@"请求失败"];
-            completed(NO);
         }
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
 }
 
 #pragma mark - SWTableViewCellDelegate
+
 - (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index
 {
     [cell hideUtilityButtonsAnimated:YES];
@@ -261,12 +219,15 @@
         case 0:
         {
             NSIndexPath *indexPath = [_contactTableView indexPathForCell:cell];
-            Contact *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
+            FrendModel *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
             
-            //bug 需要返回备注昵称
             BaseTextSettingViewController *bsvc = [[BaseTextSettingViewController alloc] init];
             bsvc.navTitle = @"修改备注";
-            bsvc.content = contact.nickName;
+            if (contact.memo.length > 0) {
+                bsvc.content = contact.memo;
+            } else {
+                bsvc.content = contact.nickName;
+            }
             bsvc.acceptEmptyContent = NO;
             bsvc.saveEdition = ^(NSString *editText, saveComplteBlock(completed)) {
                 [self confirmChange:editText withContacts:contact success:completed];
@@ -282,36 +243,40 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    NSLog(@"%@",self.dataSource);
     return [[self.dataSource objectForKey:@"headerKeys"] count]+1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 45.0;
+    return 58.0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if (section == 0) {
-        return 0;
+//        return CGFLOAT_MIN;
+        return 44;
     }
     return 27;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 0;
+    return CGFLOAT_MIN;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     if (section != 0) {
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 27)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, tableView.frame.size.width, 22)];
         label.text = [NSString stringWithFormat:@"    %@", [[self.dataSource objectForKey:@"headerKeys"] objectAtIndex:section-1]];
         label.backgroundColor = APP_PAGE_COLOR;
         label.font = [UIFont systemFontOfSize:12];
-        label.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+        label.textColor = COLOR_TEXT_II;
         return label;
+    }else {
+        return self.searchBar;
     }
     return nil;
 }
@@ -328,26 +293,52 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    // 第一组是新朋友,如果未读数不为0的话,就需要显示有多少条未读数
     if (indexPath.section == 0) {
         OptionOfFASKTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"friend_ask"];
-        cell.numberOfUnreadFrendRequest = _numberOfUnreadFrendRequest;
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        
+        // 获取好友未读数
+        IMClientManager *imclientManager = [IMClientManager shareInstance];
+        
+        /**
+         *  判断是否已经查看了好友的未读数,如果已经查看了,显示未读数为0,否则显示从服务器返回的数据
+         */
+        NSUInteger unreadCount = 0;
+        NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+        
+        // 如果此时为NO,说明没有查看过联系人界面
+        NSString *key = [NSString stringWithFormat:@"%@_%ld", kShouldShowUnreadFrendRequestNoti, [AccountManager shareAccountManager].account.userId];
+
+        BOOL isShowUnreadCount = [defaults boolForKey:key];
+        
+        if (isShowUnreadCount && imclientManager.frendRequestManager.unReadFrendRequestCount > 0) {
+            unreadCount = imclientManager.frendRequestManager.unReadFrendRequestCount;
+        }
+        
+        cell.numberOfUnreadFrendRequest = unreadCount;
+        
+        NSLog(@"%ld",(long)cell.numberOfUnreadFrendRequest);
+        if (cell.numberOfUnreadFrendRequest == 0) {
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }
         return cell;
     } else {
-        Contact *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
+        FrendModel *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
         ContactListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:contactCell forIndexPath:indexPath];
         [cell setRightUtilityButtons:[self rightButtons] WithButtonWidth:60];
         cell.delegate = self;
-
-        [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:contact.avatarSmall] placeholderImage:[UIImage imageNamed:@"person_disabled"]];
-//        NSString *detailStr;
-//        if (![contact.memo isBlankString]) {
-//            detailStr = [NSString stringWithFormat:@"%@ (%@)", contact.memo, contact.nickName];
-//        } else {
-//            detailStr = contact.nickName;
-//        }
-        cell.nickNameLabel.text = contact.nickName;
-        [cell.chatBtn addTarget:self action:@selector(chat:) forControlEvents:UIControlEventTouchUpInside];
+        
+        if (![contact.avatarSmall isBlankString]) {
+            [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:contact.avatarSmall] placeholderImage:[UIImage imageNamed:@"avatar_default"]];
+        } else {
+            [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:contact.avatar] placeholderImage:[UIImage imageNamed:@"avatar_default"]];
+        }
+    
+        if (contact.memo.length > 0) {
+            cell.nickNameLabel.text = contact.memo;
+        } else {
+            cell.nickNameLabel.text = contact.nickName;
+        }
         return cell;
     }
 }
@@ -355,13 +346,12 @@
 - (NSArray *)rightButtons
 {
     NSMutableArray *rightUtilityButtons = [NSMutableArray new];
-    [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor lightGrayColor] icon:[UIImage imageNamed:@"ic_guide_edit.png"]];
+    [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor lightGrayColor] icon:[UIImage imageNamed:@"ic_remarks_edit.png"]];
     return rightUtilityButtons;
 }
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
 {
-    
     return [self.dataSource objectForKey:@"headerKeys"];
 }
 
@@ -369,18 +359,71 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        FrendRequestTableViewController *frendRequestCtl = [[FrendRequestTableViewController alloc] init];
-        [self.navigationController pushViewController:frendRequestCtl animated:YES];
-    } else {
-        Contact *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
-//        ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
-        OtherUserInfoViewController *contactDetailCtl = [[OtherUserInfoViewController alloc]init];
         
+        FrendRequestTableViewController *frendRequestCtl = [[FrendRequestTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+        [self.navigationController pushViewController:frendRequestCtl animated:YES];
+        
+        [MobClick event:@"cell_item_new_friends_request"];
+        
+    } else {
+        
+        FrendModel *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
+   
+        OtherProfileViewController *contactDetailCtl = [[OtherProfileViewController alloc]init];
         contactDetailCtl.userId = contact.userId;
         [self.navigationController pushViewController:contactDetailCtl animated:YES];
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [self.searchBar endEditing:YES];
+}
+
+#pragma mark - 添加searchBar
+- (void)setupSearchBar{
+    
+    UISearchBar * searchBar = [[UISearchBar alloc] init];
+    searchBar.frame = CGRectMake(0, 0, kWindowWidth, 44);
+    searchBar.delegate = self;
+    self.searchBar = searchBar;
+//    _searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    [_searchBar setPlaceholder:@"联系人"];
+    _searchBar.tintColor = APP_PAGE_COLOR;
+    _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
+    [_searchBar setBackgroundImage:[ConvertMethods createImageWithColor:APP_PAGE_COLOR] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+    [_searchBar setBackgroundColor:APP_PAGE_COLOR];
+    _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
+
+//    [self.view addSubview:searchBar];
+}
+
+
+#pragma mark - 实现searchBar的代理方法
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+{
+    ContactSearchViewController *searchCtl = [[ContactSearchViewController alloc] init];
+    
+    searchCtl.hidesBottomBarWhenPushed = YES;
+    [searchCtl setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+    TZNavigationViewController *tznavc = [[TZNavigationViewController alloc] initWithRootViewController:searchCtl];
+    [self presentViewController:tznavc animated:YES completion:nil];
+}
+
+#pragma mark - scrollViewDelegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    // 调用代理方法
+    [self scrollViewChangeFrame:scrollView];
+}
+
+- (void)scrollViewChangeFrame:(UIScrollView *)scrollView
+{    
+    NSString *scrollH = [NSString stringWithFormat:@"%f",scrollView.contentOffset.y];
+    NSDictionary *userInfo = @{@"scrollH": scrollH};
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ChangePlanListFrame" object:nil userInfo:userInfo];
 }
 
 @end

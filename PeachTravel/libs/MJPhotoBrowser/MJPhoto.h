@@ -7,7 +7,7 @@
 #import <Foundation/Foundation.h>
 
 @interface MJPhoto : NSObject
-@property (nonatomic, strong) NSURL *url;
+@property (nonatomic, strong) NSString *url;
 @property (nonatomic, strong) UIImage *image; // 完整的图片
 
 @property (nonatomic, strong) UIImageView *srcImageView; // 来源view

@@ -10,6 +10,7 @@
 
 typedef void(^saveComplteBlock)(BOOL completed);
 typedef void(^saveEdition)(NSString *text, saveComplteBlock(completed));
+
 @interface SignatureViewController : TZViewController
 
 @property (nonatomic) UserInfoChangeType changeType;
@@ -19,6 +20,5 @@ typedef void(^saveEdition)(NSString *text, saveComplteBlock(completed));
 @property (nonatomic, assign) BOOL acceptEmptyContent;
 
 @property (nonatomic, copy) void (^saveEdition)(NSString *editText, saveComplteBlock(completed));
-
 
 @end

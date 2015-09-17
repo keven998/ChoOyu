@@ -10,8 +10,6 @@
 
 @interface UserOtherTableViewCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UIImageView *cellImage;
-
 @property (weak, nonatomic) IBOutlet UILabel *cellTitle;
 @property (weak, nonatomic) IBOutlet UILabel *cellDetail;
 @end

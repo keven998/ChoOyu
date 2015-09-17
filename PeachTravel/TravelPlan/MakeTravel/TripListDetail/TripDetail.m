@@ -21,7 +21,9 @@
         _tripId = [json objectForKey:@"id"];
         _tripTitle = [json objectForKey:@"title"];
         _tripDetailUrl = [json objectForKey:@"detailUrl"];
-        _dayCount = [[json objectForKey:@"itineraryDays"] integerValue];
+        if ([json objectForKey:@"itineraryDays"] != [NSNull null]) {
+            _dayCount = [[json objectForKey:@"itineraryDays"] integerValue];
+        }
         NSMutableArray *imageArray = [[NSMutableArray alloc] init];
         for (id imageDic in [json objectForKey:@"images"]) {
             [imageArray addObject:[[TaoziImage alloc] initWithJson:imageDic]];
@@ -44,10 +46,7 @@
 
 - (TripDetail *)backUpTrip
 {
-    if (!_backUpTrip) {
-        _backUpTrip = [[TripDetail alloc] initWithJson:self.backUpJson];
-    }
-    return _backUpTrip;
+    return [[TripDetail alloc] initWithJson:self.backUpJson];
 }
 
 
@@ -92,7 +91,7 @@
         }
         [uploadDicToSave safeSetObject:itineraryListToServer forKey:@"itinerary"];
         [uploadDicToUpdateBackUpTrip safeSetObject:itineraryListToUpdateBackUpTrip forKey:@"itinerary"];
-
+        _dayCount = _itineraryList.count;
         [uploadDicToSave safeSetObject:[NSNumber numberWithInteger:_dayCount] forKey:@"itineraryDays"];
         [uploadDicToUpdateBackUpTrip safeSetObject:[NSNumber numberWithInteger:_dayCount] forKey:@"itineraryDays"];
 
@@ -161,9 +160,11 @@
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     
-    [manager POST:API_SAVE_TRIP parameters:uploadDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSString *url = [NSString stringWithFormat:@"%@%ld/guides/%@", API_USERS, (long)accountManager.account.userId, _tripId];
+
+    [manager PUT:url parameters:uploadDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -177,6 +178,48 @@
     }];
 }
 
+/**
+ *  修改攻略名称
+ *
+ *  @param guideSummary 被修改的攻略
+ *  @param title        新的标题
+ */
+- (void)updateGuideTitle:(NSString *)title completed:(void (^)(BOOL isSuccess))completed
+{
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@%ld/guides/%@", API_USERS, (long)accountManager.account.userId, _tripId];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:title forKey:@"title"];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [manager PUT:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        _tripTitle = title;
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            completed(YES);
+        } else {
+            completed(NO);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        completed(NO);
+    }];
+}
+
+
 - (void)updateTripDestinations:(void (^)(BOOL))completion withDestinations:(NSArray *)destinations
 {
     AccountManager *accountManager = [AccountManager shareAccountManager];
@@ -189,7 +232,7 @@
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     
     NSMutableArray *destinationsArray = [[NSMutableArray alloc] init];
     for (CityDestinationPoi *poi in destinations) {
@@ -203,8 +246,9 @@
     NSMutableDictionary *uploadDic = [[NSMutableDictionary alloc] init];
     [uploadDic safeSetObject:_tripId forKey:@"id"];
     [uploadDic safeSetObject:destinationsArray forKey:@"localities"];
-    
-    [manager POST:API_SAVE_TRIP parameters:uploadDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSString *url = [NSString stringWithFormat:@"%@%ld/guides/%@", API_USERS, (long)accountManager.account.userId, _tripId];
+
+    [manager PATCH:url parameters:uploadDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -229,9 +273,7 @@
     NSMutableDictionary *tempDic = [_backUpJson mutableCopy];
     [tempDic setObject:destinations forKey:@"localities"];
     _backUpJson = tempDic;
-    _backUpTrip = [[TripDetail alloc] initWithJson:self.backUpJson];
 }
-
 
 /**
  *  当保存成功后将备份的路线更新
@@ -252,7 +294,6 @@
         [tempDic setObject:[uploadDic objectForKey:@"shopping"] forKey:@"shopping"];
     }
     _backUpJson = tempDic;
-    _backUpTrip = [[TripDetail alloc] initWithJson:self.backUpJson];
 }
 
 - (NSMutableArray *)analysisItineraryData:(id)json

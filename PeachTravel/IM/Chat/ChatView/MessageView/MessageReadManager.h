@@ -29,20 +29,7 @@ typedef void (^PlayBlock)(BOOL playing, MessageModel *messageModel);
 + (id)defaultManager;
 
 //default
-- (void)showBrowserWithImages:(NSArray *)imageArray andImageView:(UIImageView *)imageView;
+- (void)showBrowserWithImages:(NSArray *)imageArray andImageView:(UIImageView *)imageView andCurrentPhotoIndex:(NSUInteger)index;
 
-/**
- *  准备播放语音文件
- *
- *  @param messageModel     要播放的语音文件
- *  @param updateCompletion 需要更新model所在的Cell
- *
- *  @return 若返回NO，则不需要调用播放方法
- *
- */
-- (BOOL)prepareMessageAudioModel:(MessageModel *)messageModel
-              updateViewCompletion:(void (^)(MessageModel *prevAudioModel, MessageModel *currentAudioModel))updateCompletion;
-
-- (MessageModel *)stopMessageAudioModel;
 
 @end
