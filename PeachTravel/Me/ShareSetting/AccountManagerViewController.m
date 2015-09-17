@@ -18,7 +18,6 @@
 @property (nonatomic, strong) UITableView *accountTableView;
 @property (nonatomic, strong) NSDictionary *snsAccnout;
 
-
 @end
 
 @implementation AccountManagerViewController

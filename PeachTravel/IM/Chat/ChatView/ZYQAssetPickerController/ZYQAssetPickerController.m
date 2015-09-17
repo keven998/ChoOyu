@@ -138,7 +138,7 @@ static UIColor *disabledColor;
     disabledColor   = [UIColor colorWithWhite:1 alpha:0.9];
 }
 
--(id)initWithFrame:(CGRect)frame{
+- (id)initWithFrame:(CGRect)frame{
     if (self=[super initWithFrame:frame]) {
         _selectView=[[UIImageView alloc] initWithFrame:CGRectMake(frame.size.width-checkedIcon.size.width, frame.size.height-checkedIcon.size.height, checkedIcon.size.width, checkedIcon.size.height)];
         [self addSubview:_selectView];
@@ -146,7 +146,7 @@ static UIColor *disabledColor;
     return self;
 }
 
--(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
     if (_disabled) {
         return;
     }
