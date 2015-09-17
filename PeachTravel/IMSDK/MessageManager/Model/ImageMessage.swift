@@ -23,7 +23,7 @@ class ImageMessage: BaseMessage {
     }
 
     override func fillContentWithContent(contents: String) {
-        var imageDic = JSONConvertMethod.jsonObjcWithString(contents)
+        let imageDic = JSONConvertMethod.jsonObjcWithString(contents)
         self.fillContentWithContentDic(imageDic)
     }
     
@@ -38,7 +38,7 @@ class ImageMessage: BaseMessage {
         thumbUrl = contentsDic.objectForKey("thumb") as? String
         fullUrl = contentsDic.objectForKey("full") as? String
         if let imageId = contentsDic.objectForKey("metadataId") as? String {
-            localPath = IMClientManager.shareInstance().userChatImagePath.stringByAppendingPathComponent("\(imageId)")
+            localPath = IMClientManager.shareInstance().userChatImagePath.stringByAppendingString("\(imageId)")
         }
     }
     
@@ -46,7 +46,7 @@ class ImageMessage: BaseMessage {
     更新消息的主体内容，一般是下载附件完成后填入新的 metadataId
     */
     func updateMessageContent() {
-        var imageDic: NSMutableDictionary = JSONConvertMethod.jsonObjcWithString(message).mutableCopy() as! NSMutableDictionary
+        let imageDic: NSMutableDictionary = JSONConvertMethod.jsonObjcWithString(message).mutableCopy() as! NSMutableDictionary
         if let metadataId = metadataId {
             imageDic.setObject(metadataId, forKey: "metadataId")
             if let url = fullUrl {

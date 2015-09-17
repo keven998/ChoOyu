@@ -23,8 +23,8 @@ class NetworkTransportAPI: NSObject {
         manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept")
         manager.requestSerializer.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         
-        debug_println("发送消息接口\(message)")
-        debug_println("链接\(sendMessageURL)")
+        debug_print("发送消息接口\(message)")
+        debug_print("链接\(sendMessageURL)")
         manager.POST(sendMessageURL, parameters: message, success:
             {
                 (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
@@ -50,11 +50,11 @@ class NetworkTransportAPI: NSObject {
     :param: parameters      post 参数
     :param: completionBlock 请求的回掉
     */
-    class func asyncPOST(#requstUrl: String, parameters: NSDictionary, completionBlock: (isSuccess: Bool, errorCode: Int, retMessage: NSDictionary?) -> ()) {
+    class func asyncPOST(requstUrl requstUrl: String, parameters: NSDictionary, completionBlock: (isSuccess: Bool, errorCode: Int, retMessage: NSDictionary?) -> ()) {
         let manager = AFHTTPRequestOperationManager()
         let requestSerializer = AFJSONRequestSerializer()
         manager.requestSerializer = requestSerializer
-        var accountManager = AccountManager.shareAccountManager()
+        let accountManager = AccountManager.shareAccountManager()
         manager.requestSerializer.setValue("\(accountManager.account.userId)", forHTTPHeaderField: "UserId")
         manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept")
         manager.requestSerializer.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
@@ -63,7 +63,7 @@ class NetworkTransportAPI: NSObject {
             {
                 (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
                 
-                debug_println("responseObject: \(responseObject)")
+                debug_print("responseObject: \(responseObject)")
                 if let code = responseObject.objectForKey("code") as? Int {
                     if code == 0 {
                         completionBlock(isSuccess: true, errorCode: 0, retMessage: responseObject.objectForKey("result") as? NSDictionary)
@@ -86,11 +86,11 @@ class NetworkTransportAPI: NSObject {
     :param: parameters      post 参数
     :param: completionBlock 请求的回掉
     */
-    class func asyncDELETE(#requstUrl: String, parameters: NSDictionary, completionBlock: (isSuccess: Bool, errorCode: Int, retMessage: NSDictionary?) -> ()){
+    class func asyncDELETE(requstUrl requstUrl: String, parameters: NSDictionary, completionBlock: (isSuccess: Bool, errorCode: Int, retMessage: NSDictionary?) -> ()){
         let manager = AFHTTPRequestOperationManager()
         let requestSerializer = AFJSONRequestSerializer()
         manager.requestSerializer = requestSerializer
-        var accountManager = AccountManager.shareAccountManager()
+        let accountManager = AccountManager.shareAccountManager()
         manager.requestSerializer.setValue("\(accountManager.account.userId)", forHTTPHeaderField: "UserId")
         
         manager.DELETE(requstUrl, parameters: parameters, success: { (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
@@ -107,11 +107,11 @@ class NetworkTransportAPI: NSObject {
         }
     }
     
-    class func asyncPATCH(#requstUrl: String, parameters: NSDictionary, completionBlock: (isSuccess: Bool, errorCode: Int, retMessage: NSDictionary?) -> ()) {
+    class func asyncPATCH(requstUrl requstUrl: String, parameters: NSDictionary, completionBlock: (isSuccess: Bool, errorCode: Int, retMessage: NSDictionary?) -> ()) {
         let manager = AFHTTPRequestOperationManager()
         let requestSerializer = AFJSONRequestSerializer()
         manager.requestSerializer = requestSerializer
-        var accountManager = AccountManager.shareAccountManager()
+        let accountManager = AccountManager.shareAccountManager()
         manager.requestSerializer.setValue("\(accountManager.account.userId)", forHTTPHeaderField: "UserId")
         manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept")
         manager.requestSerializer.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
@@ -120,7 +120,7 @@ class NetworkTransportAPI: NSObject {
             {
                 (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
                 
-                debug_println("responseObject: \(responseObject)")
+                debug_print("responseObject: \(responseObject)")
                 if let code = responseObject.objectForKey("code") as? Int {
                     if code == 0 {
                         completionBlock(isSuccess: true, errorCode: 0, retMessage: responseObject.objectForKey("result") as? NSDictionary)
@@ -143,16 +143,16 @@ class NetworkTransportAPI: NSObject {
     :param: parameters      post 参数
     :param: completionBlock 请求的回掉
     */
-    class func asyncGET(#requestUrl: String, parameters: NSDictionary?, completionBlock: (isSuccess: Bool, errorCode: Int, retMessage: AnyObject?) -> ()) {
+    class func asyncGET(requestUrl requestUrl: String, parameters: NSDictionary?, completionBlock: (isSuccess: Bool, errorCode: Int, retMessage: AnyObject?) -> ()) {
         let manager = AFHTTPRequestOperationManager()
         let requestSerializer = AFJSONRequestSerializer()
         manager.requestSerializer = requestSerializer
-        var accountManager = AccountManager.shareAccountManager()
+        let accountManager = AccountManager.shareAccountManager()
         manager.requestSerializer.setValue("\(accountManager.account.userId)", forHTTPHeaderField: "UserId")
         manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept")
         manager.requestSerializer.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         
-        debug_println("开始网络请求: \(requestUrl)")
+        debug_print("开始网络请求: \(requestUrl)")
         
         manager.GET(requestUrl, parameters: parameters, success:
             {
@@ -180,11 +180,11 @@ class NetworkTransportAPI: NSObject {
     :param: parameters      post 参数
     :param: completionBlock 请求的回掉
     */
-    class func asyncPUT(#requestUrl: String, parameters: NSDictionary, completionBlock: (isSuccess: Bool, errorCode: Int, retMessage: NSDictionary?) -> ()) {
+    class func asyncPUT(requestUrl requestUrl: String, parameters: NSDictionary, completionBlock: (isSuccess: Bool, errorCode: Int, retMessage: NSDictionary?) -> ()) {
         let manager = AFHTTPRequestOperationManager()
         let requestSerializer = AFJSONRequestSerializer()
         manager.requestSerializer = requestSerializer
-        var accountManager = AccountManager.shareAccountManager()
+        let accountManager = AccountManager.shareAccountManager()
         manager.requestSerializer.setValue("\(accountManager.account.userId)", forHTTPHeaderField: "UserId")
         manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept")
         manager.requestSerializer.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
@@ -193,7 +193,7 @@ class NetworkTransportAPI: NSObject {
             {
                 (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
                 
-                debug_println("responseObject: \(responseObject)")
+                debug_print("responseObject: \(responseObject)")
                 if let code = responseObject.objectForKey("code") as? Int {
                     if code == 0 {
                         completionBlock(isSuccess: true, errorCode: 0, retMessage: responseObject.objectForKey("result") as? NSDictionary)
@@ -217,17 +217,17 @@ class NetworkTransportAPI: NSObject {
     */
     class func asyncACKMessage(userId: Int, lastFetchTime: Int?, completionBlock: (isSuccess: Bool, errorCode: Int, timestamp: Int?, retMessage: NSArray?) -> ()) {
         let manager = AFHTTPRequestOperationManager()
-        debug_println("开始执行 ACK 接口")
+        debug_print("开始执行 ACK 接口")
         let requestSerializer = AFJSONRequestSerializer()
         manager.requestSerializer = requestSerializer
         manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept")
         manager.requestSerializer.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         
-        var params = ["purgeBefore": lastFetchTime ?? 0]
+        let params = ["purgeBefore": lastFetchTime ?? 0]
         
-        debug_println("ACK接口,收取用户\(userId) 的未读消息")
+        debug_print("ACK接口,收取用户\(userId) 的未读消息")
         
-        var url = HedyUserUrl+"/\(userId)"+"/messages"
+        let url = HedyUserUrl+"/\(userId)"+"/messages"
         manager.requestSerializer.timeoutInterval = 20;
         
         manager.POST(url, parameters: params, success:

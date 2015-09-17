@@ -26,11 +26,11 @@ class MessageReceivePool: NSObject {
     weak var delegate: MessageReceivePoolDelegate?
     
     deinit {
-        debug_println("MessageReceivePool deinit")
+        debug_print("MessageReceivePool deinit")
     }
     
     private func startTimer() {
-        debug_println("启动定时器")
+        debug_print("启动定时器")
         timer = NSTimer.scheduledTimerWithTimeInterval(reorderTime, target: self, selector: Selector("distrubuteMessage"), userInfo: nil, repeats: false)
     }
     
@@ -43,39 +43,39 @@ class MessageReceivePool: NSObject {
             startTimer()
         }
         if conversationIsExit(message) {
-            var messageList = messagePrepare2Reorder.objectForKey(message.chatterId) as! NSMutableArray
+            let messageList = messagePrepare2Reorder.objectForKey(message.chatterId) as! NSMutableArray
             var haveAdded = false
             for var i = messageList.count-1; i>=0; i-- {
-                var oldMessage = messageList.objectAtIndex(i) as! BaseMessage
+                let oldMessage = messageList.objectAtIndex(i) as! BaseMessage
                 
                 //如果新加的消息和最后一条消息的 serverId 相等，丢直接 break，因为不存在插入位置
                 if message.serverId == oldMessage.serverId {
                     haveAdded = true
-                    debug_println("equail....")
+                    debug_print("equail....")
                     break
                     
                 //如果新消息的 serverId 比最后一条消息小，则继续寻找插入位置
                 } else if message.serverId < oldMessage.serverId {
-                    debug_println("continue....message ServerID:\(message.serverId)  oldMessage.serverId: \(oldMessage.serverId)")
+                    debug_print("continue....message ServerID:\(message.serverId)  oldMessage.serverId: \(oldMessage.serverId)")
                     continue
                     
                 //如果新消息的 serverId 比最后一条的大，则插入
                 } else if message.serverId > oldMessage.serverId {
                     messageList.insertObject(message, atIndex: i+1)
-                    debug_println("> and insert atIndex \(i+1)")
+                    debug_print("> and insert atIndex \(i+1)")
                     haveAdded = true
                     break
                 }
             }
             if !haveAdded {
                 messageList.insertObject(message, atIndex: 0)
-                debug_println("not find and insert atIndex \(0)")
+                debug_print("not find and insert atIndex \(0)")
             }
             
         } else {
-            var newMessageList = NSMutableArray()
+            let newMessageList = NSMutableArray()
             newMessageList.addObject(message)
-            debug_println("newMessageList")
+            debug_print("newMessageList")
             
             // 用聊天ID给消息数设置键值
             messagePrepare2Reorder.setObject(newMessageList, forKey: message.chatterId)
@@ -101,7 +101,7 @@ class MessageReceivePool: NSObject {
     */
     @objc private func distrubuteMessage() {
       
-        debug_println("消息已经重组完成")
+        debug_print("消息已经重组完成")
         
         delegate?.messgeReorderOver(messagePrepare2Reorder)
         messagePrepare2Reorder.removeAllObjects()

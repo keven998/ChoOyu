@@ -106,29 +106,29 @@ class ChatManagerAudio: NSObject, ChatManagerAudioProtocol, AudioManagerDelegate
     */
     private func removeTemtAudioFile() {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
-            var fileManager =  NSFileManager.defaultManager()
-            var error: NSError?
-            fileManager.removeItemAtPath(self.audioPath, error: &error)
-            if error != nil {
-                debug_println("移除取消录音的文件文件出错 error\(error)")
-            } else {
+            let fileManager =  NSFileManager.defaultManager()
+            do {
+                try fileManager.removeItemAtPath(self.audioPath)
                 debug_print("取消录音，删除录音文件成功")
+
+            } catch {
+                debug_print("移除取消录音的文件文件出错 error\(error)")
+
             }
-            
         })
     }
 
     @objc private func updateMeters() {
         timeCounter += 0.1
         averagePower = audioRecordDeviceManager.updateMeters()
-        debug_println("正在录音，已经录制：\(timeCounter) 声音分贝为：\(averagePower)")
+        debug_print("正在录音，已经录制：\(timeCounter) 声音分贝为：\(averagePower)")
     }
     
     //MARK: ChatManagerAudioProtocol
     func beginRecordAudio(prepareBlock: ((canRecord: Bool) ->())) {
         audioRecordDeviceManager.audioManagerDelegate = self
-        audioPath = documentPath.stringByAppendingPathComponent("temp.wav")
-        var audioUrl = NSURL(string: audioPath)
+        audioPath = documentPath.stringByAppendingString("temp.wav")
+        let audioUrl = NSURL(string: audioPath)
         audioRecordDeviceManager.beginRecordAudio(audioUrl!, prepareBlock: { (canRecord) -> () in
             if canRecord {
                 self.startTimer()
@@ -160,13 +160,18 @@ class ChatManagerAudio: NSObject, ChatManagerAudioProtocol, AudioManagerDelegate
             chatManagerAudioPlayDelegate?.playAudioEnded?(currentMessageId)
         }
         if let audioData = NSData.dataWithContentsOfMappedFile(audioPath) as? NSData {
-            self.audioPlayer = AVAudioPlayer(data: audioData, error: nil)
-            audioPlayer.volume = 0.8;
-            audioPlayer.currentTime = 0;
-            audioPlayer.prepareToPlay()
-            audioPlayer.delegate = self;
-            audioPlayer.play()
-            currentMessageId = messageLocalId
+            do {
+                self.audioPlayer = try AVAudioPlayer(data: audioData)
+                audioPlayer.volume = 0.8;
+                audioPlayer.currentTime = 0;
+                audioPlayer.prepareToPlay()
+                audioPlayer.delegate = self;
+                audioPlayer.play()
+                currentMessageId = messageLocalId
+
+            } catch {
+                
+            }
         }
     }
     
@@ -209,13 +214,13 @@ class ChatManagerAudio: NSObject, ChatManagerAudioProtocol, AudioManagerDelegate
     
     //MARK: AVAudioPlayerDelegate
     
-    func audioPlayerDidFinishPlaying(player: AVAudioPlayer!, successfully flag: Bool) {
+    func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool) {
         NSLog("播放完毕");
         audioPlayer = nil;
         chatManagerAudioPlayDelegate?.playAudioEnded?(currentMessageId)
     }
     
-    func audioPlayerEndInterruption(player: AVAudioPlayer!) {
+    func audioPlayerEndInterruption(player: AVAudioPlayer) {
         NSLog("播放被打断");
         audioPlayer = nil
         chatManagerAudioPlayDelegate?.playAudioEnded?(currentMessageId)

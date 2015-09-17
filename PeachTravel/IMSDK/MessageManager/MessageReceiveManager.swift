@@ -60,7 +60,7 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
     :param: routingKey 监听消息的 key
     */
     func removeMessageReceiveListener(listener: MessageReceiveManagerDelegate, withRoutingKey routingKey: MessageReceiveDelegateRoutingKey) {
-        for (index, value) in enumerate(receiveDelegateList) {
+        for (index, value) in receiveDelegateList.enumerate() {
             if value[routingKey] === listener {
                 receiveDelegateList.removeAtIndex(index)
                 return
@@ -83,8 +83,6 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
     :param: receivedMessages 已经收到的消息
     */
     func asyncACKMessageWithReceivedMessages(receivedMessages: NSArray?, completion: ((isSucess: Bool) -> ())?) {
-        //储存需要额外处理的消息
-        var messagesNeed2Deal = NSMutableArray()
         isFetching = true
         
         NetworkTransportAPI.asyncACKMessage(IMClientManager.shareInstance().accountId, lastFetchTime:messageManager.lastFetchTime, completionBlock: { (isSuccess: Bool, errorCode: Int, timestamp: Int?, retMessage: NSArray?) -> () in
@@ -115,13 +113,13 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
     */
     private func checkMessages(messageList: NSArray) {
 
-        var messagePrepate2Distribute = NSMutableArray()
-        var messagePrepare2Fetch = NSMutableArray()
+        let messagePrepate2Distribute = NSMutableArray()
+        let messagePrepare2Fetch = NSMutableArray()
         var needFetchMessage = false
         
-        debug_println("checkMessages queue: \(NSThread.currentThread())")
+        debug_print("checkMessages queue: \(NSThread.currentThread())")
         
-        var allLastMessageList = messageManager.allLastMessageList
+        let allLastMessageList = messageManager.allLastMessageList
 
         for message in (messageList as! NSMutableArray) {
             if let message = message as? BaseMessage {
@@ -130,7 +128,7 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
                     
                     //如果消息不连续了，则带着未处理的消息跳出循环去 fetch 消息
                     if (message.serverId - (lastMessageServerId as! Int)) > 1 {
-                        var index = messageList.indexOfObject(message)
+                        let index = messageList.indexOfObject(message)
                         for var i = index; i < messageList.count; i++ {
                             messagePrepare2Fetch.addObject(messageList.objectAtIndex(i))
                         }
@@ -151,20 +149,20 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
                     }
                     
                 } else {
-                    debug_println("这是一条数据库不存在的消息: 带插入的 serverId: \(message.serverId))")
+                    debug_print("这是一条数据库不存在的消息: 带插入的 serverId: \(message.serverId))")
                     allLastMessageList.setObject(message.serverId, forKey: message.chatterId)
                     messagePrepate2Distribute.addObject(message)
                 }
             }
         }
 
-        debug_println("进行插入的消息一共有\(messagePrepate2Distribute.count) 条")
+        debug_print("进行插入的消息一共有\(messagePrepate2Distribute.count) 条")
         
         if needFetchMessage {
-            debug_println("存在不合法的消息, 需要 fetch")
+            debug_print("存在不合法的消息, 需要 fetch")
             self.asyncACKMessageWithReceivedMessages(messagePrepare2Fetch, completion: nil)
         }
-        var array = messagePrepate2Distribute as AnyObject as! [BaseMessage]
+        let array = messagePrepate2Distribute as AnyObject as! [BaseMessage]
         distributionMessage(array)
     }
     
@@ -178,7 +176,7 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
         NSLog("dealwithFetchResult*** currentThread   fetchMessagesCount %@, %d", NSThread.currentThread(), fetchMessages?.count ?? 0)
         var messagesPrepare2DistributeArray = NSMutableArray()
         
-        var allLastMessageList = messageManager.allLastMessageList
+        let allLastMessageList = messageManager.allLastMessageList
 
         if let receivedMessageArray = receivedMessages {
             messagesPrepare2DistributeArray = receivedMessageArray.mutableCopy() as! NSMutableArray
@@ -201,7 +199,7 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
                             
                             var haveAdded = false
                             for var i = messagesPrepare2DistributeArray.count-1; i>=0; i-- {
-                                var oldMessage = messagesPrepare2DistributeArray.objectAtIndex(i) as! BaseMessage
+                                let oldMessage = messagesPrepare2DistributeArray.objectAtIndex(i) as! BaseMessage
                                 if (message.serverId == oldMessage.serverId && message.chatterId == oldMessage.chatterId) {
                                     haveAdded = true
                                     break
@@ -233,7 +231,7 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
                 }
             }
         }
-        var array = messagesPrepare2DistributeArray as AnyObject as! [BaseMessage]
+        let array = messagesPrepare2DistributeArray as AnyObject as! [BaseMessage]
         distributionMessage(array)
     }
     
@@ -245,7 +243,7 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
     */
     private func oldMessageShould2Distribution(message: BaseMessage) -> Bool {
         let daoHelper = DaoHelper.shareInstance()
-        var chatTableName = "chat_\(message.chatterId)"
+        let chatTableName = "chat_\(message.chatterId)"
         if daoHelper.messageIsExitInTable(chatTableName, message: message) {
             return false
         } else {
@@ -263,7 +261,7 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
         daoHelper.insertChatMessageList(messageList, completionBlock: { () -> () in
             for message in messageList {
                 
-                debug_println("distributionMessage: chatterId: \(message.chatterId)   serverId: \(message.serverId)")
+                debug_print("distributionMessage: chatterId: \(message.chatterId)   serverId: \(message.serverId)")
                 
                 if message.messageType == .ImageMessageType {
                     self.downloadPreviewImageAndDistribution(message as! ImageMessage)
@@ -302,15 +300,15 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
     private func downloadPreviewImageAndDistribution(imageMessage: ImageMessage) {
         MetadataDownloadManager.asyncDownloadThumbImage(imageMessage.thumbUrl ?? "", completion: { (isSuccess: Bool, metadata: NSData?) -> () in
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
-                var imagePath = IMClientManager.shareInstance().userChatImagePath.stringByAppendingPathComponent("\(imageMessage.metadataId!)")
+                let imagePath = IMClientManager.shareInstance().userChatImagePath.stringByAppendingString("\(imageMessage.metadataId!)")
                 
                 if let imageData = metadata {
-                    var fileManager =  NSFileManager()
+                    let fileManager =  NSFileManager()
                     fileManager.createFileAtPath(imagePath, contents: imageData, attributes: nil)
                     NSLog("下载图片预览图成功 保存后的地址为: \(imagePath)")
                     imageMessage.localPath = imagePath
                     imageMessage.updateMessageContent()
-                    var daoHelper = DaoHelper.shareInstance()
+                    let daoHelper = DaoHelper.shareInstance()
                     daoHelper.updateMessageContents("chat_\(imageMessage.chatterId)", message: imageMessage)
                 }
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
@@ -332,15 +330,15 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
     private func downloadSnapshotImageAndDistribution(message: LocationMessage) {
         MetadataDownloadManager.asyncDownloadThumbImage(message.mapImageUrl!, completion: { (isSuccess: Bool, metadata: NSData?) -> () in
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
-                var imagePath = IMClientManager.shareInstance().userChatImagePath.stringByAppendingPathComponent("\(message.metadataId!)")
+                let imagePath = IMClientManager.shareInstance().userChatImagePath.stringByAppendingString("\(message.metadataId!)")
                 
                 if let imageData = metadata {
-                    var fileManager =  NSFileManager()
+                    let fileManager =  NSFileManager()
                     fileManager.createFileAtPath(imagePath, contents: imageData, attributes: nil)
                     NSLog("下载图片预览图成功 保存后的地址为: \(imagePath)")
                     message.localPath = imagePath
                     message.updateMessageContent()
-                    var daoHelper = DaoHelper.shareInstance()
+                    let daoHelper = DaoHelper.shareInstance()
                     daoHelper.updateMessageContents("chat_\(message.chatterId)", message: message)
                 }
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
@@ -405,7 +403,7 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
     func messgeReorderOver(messageList: NSDictionary) {
         receiveMessageList = messageList.copy() as? NSDictionary
         dispatch_async(messageReceiveQueue, { () -> Void in
-            debug_println("messgeReorderOver queue: \(NSThread.currentThread())")
+            debug_print("messgeReorderOver queue: \(NSThread.currentThread())")
             for messageList in self.receiveMessageList!.allValues {
                 self.checkMessages(messageList as! NSArray)
             }

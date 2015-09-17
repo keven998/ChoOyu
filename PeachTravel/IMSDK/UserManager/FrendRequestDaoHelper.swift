@@ -14,12 +14,12 @@ class FrendRequestDaoHelper: BaseDaoHelper {
     
     func createFrendRequestTable() {
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
-            var sql = "create table '\(frendRequestTableName)' (RequestId TEXT PRIMARY KEY NOT NULL, UserId INTEGER, NickName TEXT, Avatar Text, Status INTEGER, Sex INTEGER, Date Double, Message Text)"
+            let sql = "create table '\(frendRequestTableName)' (RequestId TEXT PRIMARY KEY NOT NULL, UserId INTEGER, NickName TEXT, Avatar Text, Status INTEGER, Sex INTEGER, Date Double, Message Text)"
             if (dataBase.executeUpdate(sql, withArgumentsInArray: nil)) {
-                debug_println("success 执行 sql 语句：\(sql)")
+                debug_print("success 执行 sql 语句：\(sql)")
                 
             } else {
-                debug_println("error 执行 sql 语句：\(sql)")
+                debug_print("error 执行 sql 语句：\(sql)")
             }
         }
     }
@@ -27,8 +27,8 @@ class FrendRequestDaoHelper: BaseDaoHelper {
     func getAllFrendRequest() -> Array<FrendRequest> {
         var retArray = Array<FrendRequest>()
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
-            var sql = "select * from \(frendRequestTableName)"
-            var rs = dataBase.executeQuery(sql, withArgumentsInArray: nil)
+            let sql = "select * from \(frendRequestTableName)"
+            let rs = dataBase.executeQuery(sql, withArgumentsInArray: nil)
             if (rs != nil) {
                 while rs.next() {
                     retArray.append(self.fillFrendRequestModelWithFMResultSet(rs))
@@ -43,20 +43,20 @@ class FrendRequestDaoHelper: BaseDaoHelper {
             createFrendRequestTable()
         }
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
-            var sql = "insert into \(frendRequestTableName) (RequestId, UserId, NickName, Avatar, Status, Sex, Date, Message) values (?,?,?,?,?,?,?,?)"
-            debug_println("执行 sql 语句：\(sql)")
-            var array = [request.requestId, request.userId, request.nickName, request.avatar, request.status.rawValue, request.gender.rawValue, request.requestDate, request.attachMsg]
+            let sql = "insert into \(frendRequestTableName) (RequestId, UserId, NickName, Avatar, Status, Sex, Date, Message) values (?,?,?,?,?,?,?,?)"
+            debug_print("执行 sql 语句：\(sql)")
+            let array = [request.requestId, request.userId, request.nickName, request.avatar, request.status.rawValue, request.gender.rawValue, request.requestDate, request.attachMsg]
             dataBase.executeUpdate(sql, withArgumentsInArray: array as [AnyObject])
         }
     }
     
     func removeFrendRequest(requestId: String) {
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
-            var sql = "delete from \(frendRequestTableName) where RequestId = ?"
+            let sql = "delete from \(frendRequestTableName) where RequestId = ?"
             if dataBase.executeUpdate(sql, withArgumentsInArray: [requestId]) {
-                debug_println("执行 deleteAllContactsFromDB 语句 成功")
+                debug_print("执行 deleteAllContactsFromDB 语句 成功")
             } else {
-                debug_println("执行 deleteAllContactsFromDB 语句 失败")
+                debug_print("执行 deleteAllContactsFromDB 语句 失败")
                 
             }
         }
@@ -64,16 +64,16 @@ class FrendRequestDaoHelper: BaseDaoHelper {
     
     func changeFrendRequestStatus(requestId: String, status: TZFrendRequest) {
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
-            var sql = "update \(frendRequestTableName) set Status = ? where RequestId = ?"
-            debug_println("执行 sql 语句：\(sql)")
-            var array = [status.rawValue, requestId]
+            let sql = "update \(frendRequestTableName) set Status = ? where RequestId = ?"
+            debug_print("执行 sql 语句：\(sql)")
+            let array = [status.rawValue, requestId]
             dataBase.executeUpdate(sql, withArgumentsInArray: array as [AnyObject])
         }
     }
     
     //MARK: private methods
     private func fillFrendRequestModelWithFMResultSet(rs: FMResultSet) -> FrendRequest {
-        var frend = FrendRequest()
+        let frend = FrendRequest()
         frend.requestId = rs.stringForColumn("RequestId")
         frend.userId = Int(rs.intForColumn("UserId"))
         frend.nickName = rs.stringForColumn("NickName")

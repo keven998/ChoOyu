@@ -36,7 +36,7 @@ class TipsMessage: BaseMessage {
     }
     
     override func fillContentWithContent(contents: String) {
-        var tipsDic = JSONConvertMethod.jsonObjcWithString(contents)
+        let tipsDic = JSONConvertMethod.jsonObjcWithString(contents)
         self.fillContentWithContentDic(tipsDic)
     }
     

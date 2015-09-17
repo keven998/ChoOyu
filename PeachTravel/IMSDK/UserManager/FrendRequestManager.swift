@@ -36,7 +36,7 @@ class FrendRequestManager: NSObject {
     */
     init(userId: Int) {
         accountId = userId
-        let dbPath: String = documentPath.stringByAppendingPathComponent("\(accountId)/user.sqlite")
+        let dbPath: String = documentPath.stringByAppendingString("/\(accountId)/user.sqlite")
         let db = FMDatabase(path: dbPath)
         let dbQueue = FMDatabaseQueue(path: dbPath)
         frendRequestDaoHelper = FrendRequestDaoHelper(db: db, dbQueue: dbQueue)
@@ -75,7 +75,7 @@ class FrendRequestManager: NSObject {
                     break
                     
                 } else {
-                    debug_println("已经有相同的好友请求了，不需要再次添加了")
+                    debug_print("已经有相同的好友请求了，不需要再次添加了")
                     return
                 }
             }
@@ -112,7 +112,7 @@ class FrendRequestManager: NSObject {
     :param: status
     */
     func changeStatus(requestId: String, status: TZFrendRequest) {
-        frendRequestList.map({(var request) -> FrendRequest in
+        _ = frendRequestList.map({( request) -> FrendRequest in
             if request.requestId == requestId {
                 request.status = status 
             }

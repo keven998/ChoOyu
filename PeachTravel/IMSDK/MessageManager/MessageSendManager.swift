@@ -47,7 +47,7 @@ class MessageSendManager: NSObject {
     :param: routingKey 监听消息的 key
     */
     func removeMessageSendDelegate(listener: MessageSendManagerDelegate) {
-        for (index, value) in enumerate(sendDelegateList) {
+        for (index, value) in sendDelegateList.enumerate() {
             if value === listener {
                 sendDelegateList.removeAtIndex(index)
                 return
@@ -60,8 +60,8 @@ class MessageSendManager: NSObject {
     private func sendMessage(message: BaseMessage, receiver: Int, chatType:IMChatType, conversationId: String?, completionBlock: (isSuccess: Bool, error: String?) -> ()) {
         sendingMessageList.addObject(message)
         
-        var daoHelper = DaoHelper.shareInstance()
-        var accountManager = AccountManager.shareAccountManager()
+        let daoHelper = DaoHelper.shareInstance()
+        let accountManager = AccountManager.shareAccountManager()
         NetworkTransportAPI.asyncSendMessage(MessageManager.prepareMessage2Send(receiverId: receiver, senderId: accountManager.account.userId, conversationId: conversationId, chatType: chatType, message: message), completionBlock: { (isSuccess: Bool, errorCode: Int, retMessage: NSDictionary?) -> () in
             self.sendingMessageList.removeObject(message)
             if isSuccess {
@@ -87,11 +87,11 @@ class MessageSendManager: NSObject {
             }
         })
     }
-    
-    private func sendNewMessage(message: BaseMessage, receiver: Int, chatType: IMChatType, conversationId: String?) {
-        var daoHelper = DaoHelper.shareInstance()
-        var accountManager = AccountManager.shareAccountManager()
-    }
+//    
+//    private func sendNewMessage(message: BaseMessage, receiver: Int, chatType: IMChatType, conversationId: String?) {
+//        var daoHelper = DaoHelper.shareInstance()
+//        var accountManager = AccountManager.shareAccountManager()
+//    }
     
 //MARK: Internal methods
     /**
@@ -120,7 +120,7 @@ class MessageSendManager: NSObject {
     :returns: 被发送的 message
     */
     func sendTextMessage(message: String, receiver: Int, chatType:IMChatType, conversationId: String?, completionBlock:(isSuccess: Bool, error: String?) -> ()) -> BaseMessage {
-        var textMessage = TextMessage()
+        let textMessage = TextMessage()
         textMessage.createTime = Int(NSDate().timeIntervalSince1970)
         textMessage.status = IMMessageStatus.IMMessageSending
         textMessage.message = message
@@ -128,7 +128,7 @@ class MessageSendManager: NSObject {
         textMessage.sendType = IMMessageSendType.MessageSendMine
         textMessage.conversationId = conversationId
         
-        var daoHelper = DaoHelper.shareInstance()
+        let daoHelper = DaoHelper.shareInstance()
         daoHelper.insertChatMessage("chat_\(receiver)", message: textMessage)
         for messageManagerDelegate in self.sendDelegateList {
             messageManagerDelegate.sendNewMessage?(textMessage)
@@ -154,7 +154,7 @@ class MessageSendManager: NSObject {
     :returns: 发送前的消息
     */
     func sendLocationMessage(location: LocationModel, receiver: Int, chatType: IMChatType, conversationId: String?, completionBlock:(isSuccess: Bool, error: String?) -> ()) -> BaseMessage {
-        var locationMessage = LocationMessage()
+        let locationMessage = LocationMessage()
         locationMessage.createTime = Int(NSDate().timeIntervalSince1970)
         locationMessage.latitude = location.latitude
         locationMessage.longitude = location.longitude
@@ -162,10 +162,10 @@ class MessageSendManager: NSObject {
         locationMessage.chatterId = receiver
         locationMessage.sendType = IMMessageSendType.MessageSendMine
         locationMessage.conversationId = conversationId
-        var locationDic = ["lat": location.latitude, "lng": location.longitude, "name": location.address];
+        let locationDic = ["lat": location.latitude, "lng": location.longitude, "name": location.address];
         locationMessage.message = JSONConvertMethod.contentsStrWithJsonObjc(locationDic) as! String
 
-        var daoHelper = DaoHelper.shareInstance()
+        let daoHelper = DaoHelper.shareInstance()
         daoHelper.insertChatMessage("chat_\(receiver)", message: locationMessage)
         for messageManagerDelegate in self.sendDelegateList {
             messageManagerDelegate.sendNewMessage?(locationMessage)
@@ -192,32 +192,32 @@ class MessageSendManager: NSObject {
     :returns: 发送前的消息
     */
     func sendLocationMessage(location: LocationModel, receiver: Int, mapImage: UIImage, chatType: IMChatType, conversationId: String?) -> BaseMessage {
-        var locationMessage = LocationMessage()
+        let locationMessage = LocationMessage()
         locationMessage.createTime = Int(NSDate().timeIntervalSince1970)
         locationMessage.latitude = location.latitude
         locationMessage.longitude = location.longitude
         locationMessage.address = location.address
         locationMessage.chatterId = receiver
         locationMessage.status = .IMMessageSending
-        var metadataId = NSUUID().UUIDString
-        var imageData = UIImageJPEGRepresentation(mapImage, 1)
+        let metadataId = NSUUID().UUIDString
+        let imageData = UIImageJPEGRepresentation(mapImage, 1)
 
-        let path = IMClientManager.shareInstance().userChatImagePath.stringByAppendingPathComponent("\(metadataId)")
+        let path = IMClientManager.shareInstance().userChatImagePath.stringByAppendingString("\(metadataId)")
         locationMessage.localPath = path
-        MetaDataManager.moveMetadata2Path(imageData, toPath: path)
+        MetaDataManager.moveMetadata2Path(imageData!, toPath: path)
 
         locationMessage.sendType = IMMessageSendType.MessageSendMine
         locationMessage.conversationId = conversationId
-        var locationDic = ["lat": location.latitude, "lng": location.longitude, "address": location.address, "metadataId": metadataId];
+        let locationDic = ["lat": location.latitude, "lng": location.longitude, "address": location.address, "metadataId": metadataId];
         locationMessage.message = JSONConvertMethod.contentsStrWithJsonObjc(locationDic) as! String
         
-        var daoHelper = DaoHelper.shareInstance()
+        let daoHelper = DaoHelper.shareInstance()
         daoHelper.insertChatMessage("chat_\(receiver)", message: locationMessage)
         for messageManagerDelegate in self.sendDelegateList {
             messageManagerDelegate.sendNewMessage?(locationMessage)
         }
 
-        self.sendMetadataMessage(locationMessage, metadata: imageData, chatType: chatType, conversationId: conversationId, progress: nil) { (isSuccess) -> () in
+        self.sendMetadataMessage(locationMessage, metadata: imageData!, chatType: chatType, conversationId: conversationId, progress: nil) { (isSuccess) -> () in
             
         }
         return locationMessage
@@ -256,11 +256,8 @@ class MessageSendManager: NSObject {
         case .Hotel :
             message.messageType = IMMessageType.HotelMessageType
             
-        default:
-            break
-            
         }
-        var daoHelper = DaoHelper.shareInstance()
+        let daoHelper = DaoHelper.shareInstance()
         daoHelper.insertChatMessage("chat_\(receiver)", message: message)
         for messageManagerDelegate in self.sendDelegateList {
             messageManagerDelegate.sendNewMessage?(message)
@@ -301,7 +298,7 @@ class MessageSendManager: NSObject {
             break
         }
         
-        var daoHelper = DaoHelper.shareInstance()
+        let daoHelper = DaoHelper.shareInstance()
         daoHelper.insertChatMessage("chat_\(receiver)", message: message)
         for MessageManagerDelegate in self.sendDelegateList {
             MessageManagerDelegate.sendNewMessage?(message)
@@ -324,25 +321,25 @@ class MessageSendManager: NSObject {
     :returns:
     */
     func sendImageMessage(chatterId: Int, conversationId: String?, imageData: NSData, chatType: IMChatType, progress:(progressValue: Float) -> ()) -> BaseMessage {
-        var imageMessage = ImageMessage()
+        let imageMessage = ImageMessage()
         imageMessage.chatterId = chatterId
         imageMessage.sendType = IMMessageSendType.MessageSendMine
         imageMessage.createTime = Int(NSDate().timeIntervalSince1970)
         imageMessage.status = IMMessageStatus.IMMessageSending
 
-        debug_println("imageDataLength: \(imageData.length)")
+        debug_print("imageDataLength: \(imageData.length)")
         
-        var metadataId = NSUUID().UUIDString
-        var imagePath = IMClientManager.shareInstance().userChatImagePath.stringByAppendingPathComponent("\(metadataId)")
+        let metadataId = NSUUID().UUIDString
+        let imagePath = IMClientManager.shareInstance().userChatImagePath.stringByAppendingString("\(metadataId)")
         MetaDataManager.moveMetadata2Path(imageData, toPath: imagePath)
         
         imageMessage.localPath = imagePath
         
-        var imageContentDic = NSMutableDictionary()
+        let imageContentDic = NSMutableDictionary()
         imageContentDic.setObject(metadataId, forKey: "metadataId")
         imageMessage.message = JSONConvertMethod.contentsStrWithJsonObjc(imageContentDic) as! String
         
-        var daoHelper = DaoHelper.shareInstance()
+        let daoHelper = DaoHelper.shareInstance()
         daoHelper.insertChatMessage("chat_\(chatterId)", message: imageMessage)
         
         for messageManagerDelegate in self.sendDelegateList {
@@ -367,39 +364,39 @@ class MessageSendManager: NSObject {
     :returns:
     */
     func sendAudioMessageWithWavFormat(chatterId: Int, conversationId: String?, wavAudioPath: String, chatType:IMChatType, progress:(progressValue: Float) -> ()) -> BaseMessage? {
-        var audioMessage = AudioMessage()
+        let audioMessage = AudioMessage()
         audioMessage.chatterId = chatterId
         audioMessage.sendType = IMMessageSendType.MessageSendMine
         audioMessage.createTime = Int(NSDate().timeIntervalSince1970)
         audioMessage.status = IMMessageStatus.IMMessageSending
         
-        var metadataId = NSUUID().UUIDString
+        let metadataId = NSUUID().UUIDString
         
-        var tempAmrPath = IMClientManager.shareInstance().userChatTempPath.stringByAppendingPathComponent("\(metadataId).amr")
+        let tempAmrPath = IMClientManager.shareInstance().userChatTempPath.stringByAppendingString("\(metadataId).amr")
 
-        var audioWavPath = IMClientManager.shareInstance().userChatAudioPath.stringByAppendingPathComponent("\(metadataId).wav")
+        let audioWavPath = IMClientManager.shareInstance().userChatAudioPath.stringByAppendingString("\(metadataId).wav")
         MetaDataManager.moveMetadataFromOnePath2AnotherPath(wavAudioPath, toPath: audioWavPath)
         
         VoiceConverter.wavToAmr(wavAudioPath, amrSavePath: tempAmrPath)
         
-        var audioContentDic = NSMutableDictionary()
+        let audioContentDic = NSMutableDictionary()
         audioContentDic.setObject(metadataId, forKey: "metadataId")
 
         if let url = NSURL(string: tempAmrPath) {
-            if let play = AVAudioPlayer(contentsOfURL: url, error: nil) {
+            do {
+                let play = try AVAudioPlayer(contentsOfURL: url)
                 audioContentDic.setObject(play.duration, forKey: "duration")
                 audioMessage.audioLength = Float(play.duration)
+            } catch {
                 
-            } else {
-                return nil
             }
         }
         
         audioMessage.localPath = audioWavPath
         audioMessage.message = JSONConvertMethod.contentsStrWithJsonObjc(audioContentDic) as! String
         
-        debug_println("开始发送语音消息： 消息内容为： \(audioMessage.message)")
-        var daoHelper = DaoHelper.shareInstance()
+        debug_print("开始发送语音消息： 消息内容为： \(audioMessage.message)")
+        let daoHelper = DaoHelper.shareInstance()
 
         daoHelper.insertChatMessage("chat_\(chatterId)", message: audioMessage)
         
@@ -407,15 +404,16 @@ class MessageSendManager: NSObject {
             messageManagerDelegate.sendNewMessage?(audioMessage)
         }
         
-        var audioData = NSData(contentsOfFile: tempAmrPath)
+        let audioData = NSData(contentsOfFile: tempAmrPath)
         
         if let audioData = audioData {
             self.sendMetadataMessage(audioMessage, metadata: audioData, chatType: chatType, conversationId: conversationId, progress: progress, completionBlock: { (isSuccess) -> () in
-                var fileManager =  NSFileManager()
-                var error: NSError?
-                fileManager.removeItemAtPath(tempAmrPath, error: &error)
-                if error != nil {
-                    debug_println("移除发送完成后的临时文件出错 error\(error)")
+                let fileManager =  NSFileManager()
+                do {
+                    try fileManager.removeItemAtPath(tempAmrPath)
+                } catch {
+                    debug_print("移除发送完成后的临时文件出错 error\(error)")
+
                 }
             })
         }
@@ -491,7 +489,7 @@ class MessageSendManager: NSObject {
         let daoHelper = DaoHelper.shareInstance()
         daoHelper.updateMessageInDB("chat_\(message.chatterId)", message: message)
         if message.messageType == IMMessageType.AudioMessageType {
-            var tempAmrPath = IMClientManager.shareInstance().userChatTempPath.stringByAppendingPathComponent("\((message as! AudioMessage).metadataId).amr")
+            let tempAmrPath = IMClientManager.shareInstance().userChatTempPath.stringByAppendingString("\((message as! AudioMessage).metadataId).amr")
             VoiceConverter.wavToAmr((message as! AudioMessage).localPath, amrSavePath: tempAmrPath)
             if let audioData = NSData(contentsOfFile: tempAmrPath) {
                 self.sendMetadataMessage(message, metadata: audioData, chatType: chatType, conversationId: conversationId, progress: nil, completionBlock: { (isSuccess) -> () in
@@ -522,7 +520,7 @@ class MessageSendManager: NSObject {
     }
     
     /// 通过发送的 errorcode 返回发送的错误信息描述
-    class func getSendErrorMessage(#errorCodeValue: Int) -> String? {
+    class func getSendErrorMessage(errorCodeValue errorCodeValue: Int) -> String? {
         
         if errorCodeValue == MessageSendErrorCode.SendBlackError.rawValue {
             return "对方已拒绝接收你的消息";

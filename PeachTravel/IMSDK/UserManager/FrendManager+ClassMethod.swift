@@ -24,16 +24,16 @@ extension FrendManager {
         {
             manager.requestSerializer.setValue("\(AccountManager.shareAccountManager().account.userId)", forHTTPHeaderField: "UserId")
         }
-        var url = "\(API_USERS)\(userId)"
+        let url = "\(API_USERS)\(userId)"
         
-        println("\(url)")
+        debug_print("\(url)")
         
         manager.GET(url, parameters: nil, success: {
             (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in    
                 if (responseObject.objectForKey("code") as! Int) == 0 {
                     let resultDic = responseObject.objectForKey("result") as! NSDictionary
-                    debug_println("\(resultDic)");
-                    var frend = FrendModel(json: resultDic)
+                    debug_print("\(resultDic)");
+                    let frend = FrendModel(json: resultDic)
                     completion(isSuccess: true, errorCode: 0, frendInfo: frend)
                 } else {
                     completion(isSuccess: false, errorCode: 0, frendInfo: nil)
@@ -57,16 +57,14 @@ extension FrendManager {
         {
             manager.requestSerializer.setValue("\(AccountManager.shareAccountManager().account.userId)", forHTTPHeaderField: "UserId")
         }
-        var url = "\(API_USERS)\(userId)"
-        
-        println("\(url)")
+        let url = "\(API_USERS)\(userId)"
         
         manager.GET(url, parameters: nil, success: {
             (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
             if (responseObject.objectForKey("code") as! Int) == 0 {
                 let resultDic = responseObject.objectForKey("result") as! NSDictionary
-                debug_println("\(resultDic)");
-                var frend = ExpertModel(json: resultDic)
+                debug_print("\(resultDic)");
+                let frend = ExpertModel(json: resultDic)
                 completion(isSuccess: true, errorCode: 0, frendInfo: frend)
             } else {
                 completion(isSuccess: false, errorCode: 0, frendInfo: nil)
@@ -99,24 +97,21 @@ extension FrendManager {
             manager.requestSerializer.setValue("\(AccountManager.shareAccountManager().account.userId)", forHTTPHeaderField: "UserId")
         }
 
-        var url = "\(API_USERS)\(userId)/albums"
+        let url = "\(API_USERS)\(userId)/albums"
         
-        println("\(url)")
-        
-        var albumArray : NSMutableArray = NSMutableArray()
+        let albumArray : NSMutableArray = NSMutableArray()
         
         manager.GET(url, parameters: nil, success: {
             (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
             if (responseObject.objectForKey("code") as! Int) == 0 {
                 let resultArray = responseObject.objectForKey("result") as! NSArray
-                debug_println("\(resultArray)");
+                debug_print("\(resultArray)");
                 
                 for album in resultArray {
-                    var albumImage: AlbumImage = AlbumImage(json: album)
+                    let albumImage: AlbumImage = AlbumImage(json: album)
                     albumArray.addObject(albumImage)
                 }
                 
-                println("\(albumArray)")
                 completion(isSuccess: true, errorCode: 0, albumArray: albumArray)
             } else {
                 completion(isSuccess: false, errorCode: 0, albumArray: albumArray)

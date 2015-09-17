@@ -51,7 +51,7 @@ class CMDMessageManager: NSObject, MessageReceiveManagerDelegate {
     :param: routingKey 监听消息的 key
     */
     func removeCMDMessageListener(listener: CMDMessageManager, withRoutingKey routingKey: CMDMessageRoutingKey) {
-        for (index, value) in enumerate(listenerQueue) {
+        for (index, value) in listenerQueue.enumerate() {
             if value[routingKey] === listener {
                 listenerQueue.removeAtIndex(index)
                 return
@@ -83,7 +83,7 @@ class CMDMessageManager: NSObject, MessageReceiveManagerDelegate {
     */
     private func dispatchCMDMessage(message: IMCMDMessage) {
         if let actionCode = message.actionCode {
-            switch message.actionCode! {
+            switch actionCode {
                 
             case .D_INVITE :
                 if let delegate = self.getDelegateWithRoutingKey(CMDMessageRoutingKey.DiscussionGroup_CMD) {

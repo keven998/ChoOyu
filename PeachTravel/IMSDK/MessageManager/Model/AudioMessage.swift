@@ -20,7 +20,7 @@ class AudioMessage: BaseMessage {
         willSet {
             if audioStatus != newValue {
                 self.updateAudioStatus(newValue)
-                var daoHelper = DaoHelper()
+                let daoHelper = DaoHelper()
                 daoHelper.updateMessageContents("chat_\(chatterId)", message: self)
             }
         }
@@ -34,7 +34,7 @@ class AudioMessage: BaseMessage {
     }
     
     override func fillContentWithContent(contents: String) {
-        var audioDic = JSONConvertMethod.jsonObjcWithString(contents)
+        let audioDic = JSONConvertMethod.jsonObjcWithString(contents)
         self.fillContentWithContentDic(audioDic)
     }
     
@@ -45,7 +45,7 @@ class AudioMessage: BaseMessage {
         
         if let audioId = contentsDic.objectForKey("metadataId") as? String {
             metadataId = audioId
-            localPath = IMClientManager.shareInstance().userChatAudioPath.stringByAppendingPathComponent("\(audioId).wav")
+            localPath = IMClientManager.shareInstance().userChatAudioPath.stringByAppendingString("\(audioId).wav")
         }
         
         if let audioStatusValue = contentsDic.objectForKey("audioStatus") as? Int {
@@ -59,7 +59,7 @@ class AudioMessage: BaseMessage {
     更新消息的主体内容，一般是下载附件完成后填入新的 metadataId
     */
     func updateMessageContent() {
-        var imageDic: NSMutableDictionary = JSONConvertMethod.jsonObjcWithString(message).mutableCopy() as! NSMutableDictionary
+        let imageDic: NSMutableDictionary = JSONConvertMethod.jsonObjcWithString(message).mutableCopy() as! NSMutableDictionary
         if let metadataId = metadataId {
             imageDic.setObject(metadataId, forKey: "metadataId")
             imageDic.setObject(audioStatus.rawValue, forKey: "audioStatus")
@@ -75,7 +75,7 @@ class AudioMessage: BaseMessage {
     更新消息的状态
     */
     func updateAudioStatus(status: IMAudioStatus) {
-        var imageDic: NSMutableDictionary = JSONConvertMethod.jsonObjcWithString(message).mutableCopy() as! NSMutableDictionary
+        let imageDic: NSMutableDictionary = JSONConvertMethod.jsonObjcWithString(message).mutableCopy() as! NSMutableDictionary
         imageDic.setObject(status.rawValue, forKey: "audioStatus")
         if let content = JSONConvertMethod.contentsStrWithJsonObjc(imageDic) {
             message = content as String

@@ -22,13 +22,13 @@ class LocationMessage: BaseMessage {
     }
     
     override func fillContentWithContent(contents: String) {
-        var imageDic = JSONConvertMethod.jsonObjcWithString(contents)
+        let imageDic = JSONConvertMethod.jsonObjcWithString(contents)
         self.fillContentWithContentDic(imageDic)
     }
     
     override func fillContentWithContentDic(contentsDic: NSDictionary) {
         if let imageId = contentsDic.objectForKey("metadataId") as? String {
-            localPath = IMClientManager.shareInstance().userChatImagePath.stringByAppendingPathComponent("\(imageId).jpeg")
+            localPath = IMClientManager.shareInstance().userChatImagePath.stringByAppendingString("\(imageId).jpeg")
         }
         if let lng = contentsDic.objectForKey("lng") as? Double {
             longitude = lng
@@ -48,7 +48,7 @@ class LocationMessage: BaseMessage {
     更新消息的主体内容，一般是下载附件完成后填入新的 metadataId
     */
     func updateMessageContent() {
-        var imageDic: NSMutableDictionary = JSONConvertMethod.jsonObjcWithString(message).mutableCopy() as! NSMutableDictionary
+        let imageDic: NSMutableDictionary = JSONConvertMethod.jsonObjcWithString(message).mutableCopy() as! NSMutableDictionary
         if let metadataId = metadataId {
             imageDic.setObject(metadataId, forKey: "metadataId")
             if let url = mapImageUrl {

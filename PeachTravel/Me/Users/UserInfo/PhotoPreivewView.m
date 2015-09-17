@@ -8,7 +8,7 @@
 
 #import "PhotoPreivewView.h"
 
-@interface PhotoPreivewView()
+@interface PhotoPreivewView() <UIScrollViewDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIImageView *imageView;
@@ -35,15 +35,6 @@
 {
     [super layoutSubviews];
     _scrollView.frame = self.bounds;
-    
-    [_scrollView setMinimumZoomScale:0.25f];
-    [_scrollView setMaximumZoomScale:3.0f];
-    
-    CGFloat boundsWidth = _scrollView.bounds.size.width;
-    CGFloat boundsHeight = _scrollView.bounds.size.height;
-    
-    CGRect imageFrame = CGRectMake(0, 0, boundsWidth*2, boundsHeight*2);
-    _imageView.frame = imageFrame;
 }
 
 - (void)setupMainView
@@ -51,10 +42,12 @@
     _scrollView = [[UIScrollView alloc] init];
     _scrollView.decelerationRate = UIScrollViewDecelerationRateFast;
     _scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    _scrollView.maximumZoomScale = 2.0;
+    _scrollView.delegate = self;
 
     [self addSubview:_scrollView];
     
-    _imageView = [[UIImageView alloc] init];
+    _imageView = [[UIImageView alloc] initWithImage:_image];
     _imageView.userInteractionEnabled = YES;
     _imageView.contentMode = UIViewContentModeScaleAspectFit;
     [_scrollView addSubview:_imageView];
@@ -80,6 +73,12 @@
     }
 }
 
+
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
+    
+    return _imageView;
+    
+}
 
 
 @end

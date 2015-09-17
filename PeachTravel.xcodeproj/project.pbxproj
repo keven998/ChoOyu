@@ -159,8 +159,6 @@
 		D90A9B641B5627C400E9F37C /* Loading_Animation_final57@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D90A9B281B5627C400E9F37C /* Loading_Animation_final57@3x.png */; };
 		D90A9B651B5627C400E9F37C /* Loading_Animation_final58@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D90A9B291B5627C400E9F37C /* Loading_Animation_final58@3x.png */; };
 		D90A9B661B5627C400E9F37C /* Loading_Animation_final59@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D90A9B2A1B5627C400E9F37C /* Loading_Animation_final59@3x.png */; };
-		D91061FC1BA9832C00C4FBCB /* GuiderSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D91061FA1BA9832C00C4FBCB /* GuiderSearchViewController.m */; };
-		D91061FD1BA9832C00C4FBCB /* GuiderSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D91061FB1BA9832C00C4FBCB /* GuiderSearchViewController.xib */; };
 		D91061D01BA93C2800C4FBCB /* UserAlbumOverViewTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D91061CF1BA93C2800C4FBCB /* UserAlbumOverViewTableViewController.m */; };
 		D91061D41BA93D6E00C4FBCB /* UserAlbumOverviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D91061D21BA93D6E00C4FBCB /* UserAlbumOverviewCell.m */; };
 		D91061D51BA93D6E00C4FBCB /* UserAlbumOverviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D91061D31BA93D6E00C4FBCB /* UserAlbumOverviewCell.xib */; };
@@ -172,6 +170,8 @@
 		D91061F41BA953D800C4FBCB /* UserAlbumPreviewCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D91061F21BA953D800C4FBCB /* UserAlbumPreviewCollectionViewCell.m */; };
 		D91061F51BA953D800C4FBCB /* UserAlbumPreviewCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D91061F31BA953D800C4FBCB /* UserAlbumPreviewCollectionViewCell.xib */; };
 		D91061F81BA954BC00C4FBCB /* PhotoPreivewView.m in Sources */ = {isa = PBXBuildFile; fileRef = D91061F71BA954BC00C4FBCB /* PhotoPreivewView.m */; };
+		D91061FC1BA9832C00C4FBCB /* GuiderSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D91061FA1BA9832C00C4FBCB /* GuiderSearchViewController.m */; };
+		D91061FD1BA9832C00C4FBCB /* GuiderSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D91061FB1BA9832C00C4FBCB /* GuiderSearchViewController.xib */; };
 		D917DAA61A8B48EE0039720A /* ic_guide_earth@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D917DAA21A8B48EE0039720A /* ic_guide_earth@2x.png */; };
 		D917DAA71A8B48EE0039720A /* ic_guide_phone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D917DAA31A8B48EE0039720A /* ic_guide_phone@2x.png */; };
 		D917DAA81A8B48EE0039720A /* ic_guide_plan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D917DAA41A8B48EE0039720A /* ic_guide_plan@2x.png */; };
@@ -1643,9 +1643,6 @@
 		D90A9B281B5627C400E9F37C /* Loading_Animation_final57@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Loading_Animation_final57@3x.png"; sourceTree = "<group>"; };
 		D90A9B291B5627C400E9F37C /* Loading_Animation_final58@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Loading_Animation_final58@3x.png"; sourceTree = "<group>"; };
 		D90A9B2A1B5627C400E9F37C /* Loading_Animation_final59@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Loading_Animation_final59@3x.png"; sourceTree = "<group>"; };
-		D91061F91BA9832C00C4FBCB /* GuiderSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuiderSearchViewController.h; sourceTree = "<group>"; };
-		D91061FA1BA9832C00C4FBCB /* GuiderSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuiderSearchViewController.m; sourceTree = "<group>"; };
-		D91061FB1BA9832C00C4FBCB /* GuiderSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GuiderSearchViewController.xib; sourceTree = "<group>"; };
 		D91061CE1BA93C2800C4FBCB /* UserAlbumOverViewTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserAlbumOverViewTableViewController.h; sourceTree = "<group>"; };
 		D91061CF1BA93C2800C4FBCB /* UserAlbumOverViewTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserAlbumOverViewTableViewController.m; sourceTree = "<group>"; };
 		D91061D11BA93D6E00C4FBCB /* UserAlbumOverviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserAlbumOverviewCell.h; sourceTree = "<group>"; };
@@ -1664,6 +1661,9 @@
 		D91061F31BA953D800C4FBCB /* UserAlbumPreviewCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserAlbumPreviewCollectionViewCell.xib; sourceTree = "<group>"; };
 		D91061F61BA954BC00C4FBCB /* PhotoPreivewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoPreivewView.h; sourceTree = "<group>"; };
 		D91061F71BA954BC00C4FBCB /* PhotoPreivewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoPreivewView.m; sourceTree = "<group>"; };
+		D91061F91BA9832C00C4FBCB /* GuiderSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuiderSearchViewController.h; sourceTree = "<group>"; };
+		D91061FA1BA9832C00C4FBCB /* GuiderSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuiderSearchViewController.m; sourceTree = "<group>"; };
+		D91061FB1BA9832C00C4FBCB /* GuiderSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GuiderSearchViewController.xib; sourceTree = "<group>"; };
 		D917DAA21A8B48EE0039720A /* ic_guide_earth@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_guide_earth@2x.png"; sourceTree = "<group>"; };
 		D917DAA31A8B48EE0039720A /* ic_guide_phone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_guide_phone@2x.png"; sourceTree = "<group>"; };
 		D917DAA41A8B48EE0039720A /* ic_guide_plan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_guide_plan@2x.png"; sourceTree = "<group>"; };
@@ -7465,7 +7465,8 @@
 		D99D8EBD19C8600C0021C25B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0640;
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = com.aizou.www;
 				TargetAttributes = {
 					D99D8EC419C8600C0021C25B = {
@@ -9063,6 +9064,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/PeachTravel/libs/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
@@ -9101,6 +9103,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/PeachTravel/libs/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",

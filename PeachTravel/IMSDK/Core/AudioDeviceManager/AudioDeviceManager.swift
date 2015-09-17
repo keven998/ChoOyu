@@ -58,23 +58,31 @@ class AudioRecordDeviceManager: NSObject, AVAudioRecorderDelegate {
         }
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"updateRecordState:" , name:
             AVAudioSessionInterruptionNotification, object: nil)
-       
-        AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, error: nil)
-        AVAudioSession.sharedInstance().setActive(true, error: nil)
-        AVAudioSession.sharedInstance().requestRecordPermission { (isPermission: Bool) -> Void in
-            if isPermission {
-                self.recorder = AVAudioRecorder(URL: audioUrl, settings: AudioRecordDeviceManager.getAudioRecorderSettingDict() as [NSObject : AnyObject], error: nil)
-                self.recorder.delegate = self
-                self.recorder.meteringEnabled = true
-                self.recorder.prepareToRecord()
-                self.isRecording = true
-                self.recorder.record()
-                prepareBlock(canRecord: true);
-            } else {
-                prepareBlock(canRecord: false);
-                var alertView = UIAlertView(title: nil, message: "去隐私里打开语音访问", delegate: nil, cancelButtonTitle: "取消")
-                alertView.show()
+        
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord)
+            try AVAudioSession.sharedInstance().setActive(true)
+            AVAudioSession.sharedInstance().requestRecordPermission { (isPermission: Bool) -> Void in
+                if isPermission {
+                    do {
+                        self.recorder = try AVAudioRecorder(URL: audioUrl, settings: AudioRecordDeviceManager.getAudioRecorderSettingDict() as! [String : AnyObject])
+                        self.recorder.delegate = self
+                        self.recorder.meteringEnabled = true
+                        self.recorder.prepareToRecord()
+                        self.isRecording = true
+                        self.recorder.record()
+                        prepareBlock(canRecord: true);
+                    } catch {
+                        
+                    }
+                } else {
+                    prepareBlock(canRecord: false);
+                    let alertView = UIAlertView(title: nil, message: "去隐私里打开语音访问", delegate: nil, cancelButtonTitle: "取消")
+                    alertView.show()
+                }
             }
+        } catch {
+            
         }
     }
 
@@ -103,11 +111,11 @@ class AudioRecordDeviceManager: NSObject, AVAudioRecorderDelegate {
     @returns 录音设置
     */
     private class func getAudioRecorderSettingDict() -> NSDictionary {
-        var retDic = [
-            AVSampleRateKey:8000.0,
-            AVFormatIDKey:kAudioFormatLinearPCM,
-            AVLinearPCMBitDepthKey:16,
-            AVNumberOfChannelsKey:1
+        let retDic = [
+            AVSampleRateKey: 8000.0,
+            AVFormatIDKey: Int(kAudioFormatLinearPCM),
+            AVLinearPCMBitDepthKey: 16,
+            AVNumberOfChannelsKey: 1
         ]
         return retDic
     }
@@ -118,18 +126,18 @@ class AudioRecordDeviceManager: NSObject, AVAudioRecorderDelegate {
         if let why = audioInterruptionType as? UInt {
             if let type = AVAudioSessionInterruptionType(rawValue: why) {
                 if type == .Began {
-                    debug_println("AudioInterruptionType Began")
+                    debug_print("AudioInterruptionType Began")
                     audioManagerDelegate?.audioRecordInterrupt()
                     
                 } else {
                     let audioInterruptionOption: AnyObject? = noti.userInfo![AVAudioSessionInterruptionOptionKey]
                     if let opt = audioInterruptionOption as? UInt {
-                        let opts = AVAudioSessionInterruptionOptions(opt)
-                        if opts == .OptionShouldResume {
-                            debug_println("should resume")
+                        let opts = AVAudioSessionInterruptionOptions(rawValue: opt)
+                        if opts == .ShouldResume {
+                            debug_print("should resume")
                             audioManagerDelegate?.audioRecordResume()
                         } else {
-                            debug_println("not should resume")
+                            debug_print("not should resume")
                         }
                     }
                 }
@@ -137,8 +145,8 @@ class AudioRecordDeviceManager: NSObject, AVAudioRecorderDelegate {
         }
     }
     
-    func audioRecorderDidFinishRecording(recorder: AVAudioRecorder!, successfully flag: Bool) {
-        debug_println("录音结束")
+    func audioRecorderDidFinishRecording(recorder: AVAudioRecorder, successfully flag: Bool) {
+        debug_print("录音结束")
         audioManagerDelegate?.audioRecordEnd()
     }
     

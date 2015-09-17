@@ -62,7 +62,7 @@ class ChatConversation: NSObject {
     }
     
     deinit {
-        debug_println("ChatConversation deinit")
+        debug_print("ChatConversation deinit")
     }
     
     func updateTimeStamp(newValue: Int) {
@@ -70,7 +70,7 @@ class ChatConversation: NSObject {
         ChatConversation.updateConversationTimestampInDB(newValue, chatterId: chatterId)
     }
     
-    func fillConversationType(#frendType: IMFrendType) {
+    func fillConversationType(frendType frendType: IMFrendType) {
         if FrendModel.typeIsCorrect(frendType, typeWeight: IMFrendWeightType.Frend) {
             chatType = IMChatType.IMChatSingleType
             
@@ -120,13 +120,13 @@ class ChatConversation: NSObject {
     
 //MARK: public Internal function
     
-    func deleteMessage(#localId: Int) {
-        for (index, value) in enumerate(self.chatMessageList) {
+    func deleteMessage(localId localId: Int) {
+        for (index, value) in self.chatMessageList.enumerate() {
             if value.localId == localId {
                 self.chatMessageList.removeAtIndex(index)
             }
         }
-        var daoHelper = DaoHelper.shareInstance()
+        let daoHelper = DaoHelper.shareInstance()
         daoHelper.deleteChatMessage("chat_\(chatterId)", localId: localId)
     }
     
@@ -141,7 +141,7 @@ class ChatConversation: NSObject {
     */
     func deleteAllMessage() {
         self.chatMessageList.removeAll(keepCapacity: false)
-        var daoHelper = DaoHelper.shareInstance()
+        let daoHelper = DaoHelper.shareInstance()
         daoHelper.delteAllMessageInDB("chat_\(chatterId)")
     }
     
@@ -168,8 +168,7 @@ class ChatConversation: NSObject {
             return
         }
         NSLog("开始加载聊天界面记录")
-        var daoHelper = DaoHelper.shareInstance()
-        var retArray = NSArray()
+        let daoHelper = DaoHelper.shareInstance()
         chatMessageList = daoHelper.selectChatMessageList(chatterId, untilLocalId: Int.max, messageCount: messageCount)
 
         NSLog("结束加载聊天界面记录")
@@ -186,8 +185,6 @@ class ChatConversation: NSObject {
         
         NSLog("开始加载更多的聊天界面记录")
         let daoHelper = DaoHelper.shareInstance()
-        let tableName = "chat_\(chatterId)"
-        let retArray = NSArray()
         let localId: Int
         if chatMessageList.count > 0 {
             localId = (chatMessageList.first)!.localId
@@ -230,12 +227,12 @@ class ChatConversation: NSObject {
     :param: count
     */
     private class func updateUnreadMessageCountInDB(count: Int, chatterId: Int) {
-        var daoHelper = DaoHelper.shareInstance()
+        let daoHelper = DaoHelper.shareInstance()
         daoHelper.updateUnreadMessageCountInConversation(count, userId: chatterId)
     }
     
     private class func updateConversationTimestampInDB(timestamp: Int,  chatterId: Int) {
-        var daoHelper = DaoHelper.shareInstance()
+        let daoHelper = DaoHelper.shareInstance()
         daoHelper.updateTimestampInConversation(timestamp, userId: chatterId)
     }
     
@@ -254,7 +251,7 @@ class ChatConversation: NSObject {
     */
     func messageHaveSended(message: BaseMessage) {
         for var i=chatMessageList.count-1; i>0; i-- {
-            var tempMessage = chatMessageList[i]
+            let tempMessage = chatMessageList[i]
             if tempMessage.localId == message.localId {
                 tempMessage.status = message.status
                 tempMessage.serverId = message.serverId

@@ -18,7 +18,7 @@ class QuestionMessage: BaseMessage {
     }
     
     override func fillContentWithContent(contents: String) {
-        var messageDic = JSONConvertMethod.jsonObjcWithString(contents)
+        let messageDic = JSONConvertMethod.jsonObjcWithString(contents)
         self.fillContentWithContentDic(messageDic)
     }
     

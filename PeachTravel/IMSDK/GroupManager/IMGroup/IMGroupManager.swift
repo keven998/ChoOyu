@@ -60,7 +60,7 @@ class IMGroupManager: NSObject {
     :param: delegate
     */
     func removeDelegate(delegate: IMGroupManager) {
-        for (index, value) in enumerate(delegateQueue) {
+        for (index, value) in delegateQueue.enumerate() {
             if value === delegate {
                 delegateQueue.removeAtIndex(index)
                 return
@@ -74,9 +74,9 @@ class IMGroupManager: NSObject {
             var groupList = Array<IMGroupModel>()
             if let retData = retMessage as? NSArray {
                 for groupData in retData  {
-                    var group = IMGroupModel(jsonData: groupData as! NSDictionary)
+                    let group = IMGroupModel(jsonData: groupData as! NSDictionary)
                     groupList.append(group)
-                    var frendManager = IMClientManager.shareInstance().frendManager
+                    let frendManager = IMClientManager.shareInstance().frendManager
                     frendManager.addFrend2DB(self.convertGroupModel2FrendModel(group))
                 }
             }
@@ -89,8 +89,8 @@ class IMGroupManager: NSObject {
         return frendManager.selectAllGroup()
     }
     
-    func asyncCreateGroup(#subject: NSString, description: String?, isPublic: Bool, invitees: Array<Int>, welcomeMessage: String?, completionBlock: (isSuccess: Bool, errorCode: Int, retGroup: IMGroupModel?) -> ()) {
-        var params = NSMutableDictionary()
+    func asyncCreateGroup(subject subject: NSString, description: String?, isPublic: Bool, invitees: Array<Int>, welcomeMessage: String?, completionBlock: (isSuccess: Bool, errorCode: Int, retGroup: IMGroupModel?) -> ()) {
+        let params = NSMutableDictionary()
         params.setObject(subject, forKey: "name")
         params.setObject(isPublic, forKey: "isPublic")
         params.setObject("common", forKey: "groupType")
@@ -98,8 +98,8 @@ class IMGroupManager: NSObject {
 
         NetworkTransportAPI.asyncPOST(requstUrl: groupUrl, parameters: params) { (isSuccess, errorCode, retMessage) -> () in
             if isSuccess {
-                var group = IMGroupModel(jsonData: retMessage!)
-                var frendManager = IMClientManager.shareInstance().frendManager
+                let group = IMGroupModel(jsonData: retMessage!)
+                let frendManager = IMClientManager.shareInstance().frendManager
                 frendManager.addFrend2DB(self.convertGroupModel2FrendModel(group))
                 completionBlock(isSuccess: isSuccess, errorCode: errorCode, retGroup: group)
             } else {
@@ -108,32 +108,32 @@ class IMGroupManager: NSObject {
         }
     }
     
-    func asyncRequestJoinGroup(#groupId: Int, request: String?, completionBlock: (isSuccess: Bool, errorCode: Int) -> ()) {
-        var params = NSMutableDictionary()
+    func asyncRequestJoinGroup(groupId groupId: Int, request: String?, completionBlock: (isSuccess: Bool, errorCode: Int) -> ()) {
+        let params = NSMutableDictionary()
         params.setObject("join", forKey: "action")
         params.setObject("\(request)", forKey: "message")
-        var requestAddGroupUrl = "\(groupUrl)/\(groupId)/request"
+        let requestAddGroupUrl = "\(groupUrl)/\(groupId)/request"
         NetworkTransportAPI.asyncPOST(requstUrl: requestAddGroupUrl, parameters: params) { (isSuccess, errorCode, retMessage) -> () in
             
         }
         
     }
     
-    func asyncLeaveGroup(#groupId: Int, completionBlock: (isSuccess: Bool, errorCode: Int) -> ()) {
-        var params = NSMutableDictionary()
+    func asyncLeaveGroup(groupId groupId: Int, completionBlock: (isSuccess: Bool, errorCode: Int) -> ()) {
+        let params = NSMutableDictionary()
         params.setObject("exit", forKey: "action")
-        var exitGroupUrl = "\(groupUrl)/\(groupId)/request"
+        let exitGroupUrl = "\(groupUrl)/\(groupId)/request"
         NetworkTransportAPI.asyncPOST(requstUrl: exitGroupUrl, parameters: params) { (isSuccess, errorCode, retMessage) -> () in
             
         }
     }
     
-    func asyncDestroyGroup(#groupId: Int, completionBlock: (isSuccess: Bool, errorCode: Int) -> ()) {
+    func asyncDestroyGroup(groupId groupId: Int, completionBlock: (isSuccess: Bool, errorCode: Int) -> ()) {
         
     }
     
-    func asyncAddNumbers2Group(#groupId: Int, numbers: Array<Int>, welcomeMessage: String?, completionBlock: (isSuccess: Bool, errorCode: Int) -> ()) {
-        var params = NSMutableDictionary()
+    func asyncAddNumbers2Group(groupId groupId: Int, numbers: Array<Int>, welcomeMessage: String?, completionBlock: (isSuccess: Bool, errorCode: Int) -> ()) {
+        let params = NSMutableDictionary()
         params.setObject("addMembers", forKey: "action")
         params.setObject(groupId, forKey: "id")
         params.setObject(numbers, forKey: "participants")
@@ -143,8 +143,8 @@ class IMGroupManager: NSObject {
         }
     }
     
-    func asyncRemoveNumbersFromGroup(#groupId: Int, numbers: Array<Int>, completionBlock: (isSuccess: Bool, errorCode: Int) -> ()) {
-        var params = NSMutableDictionary()
+    func asyncRemoveNumbersFromGroup(groupId groupId: Int, numbers: Array<Int>, completionBlock: (isSuccess: Bool, errorCode: Int) -> ()) {
+        let params = NSMutableDictionary()
         params.setObject("delMembers", forKey: "action")
         params.setObject(groupId, forKey: "id")
         params.setObject(numbers, forKey: "participants")
@@ -154,8 +154,8 @@ class IMGroupManager: NSObject {
         }
     }
     
-    func asyncBlockNumbers(#groupId: Int, numbers: Array<Int>, completionBlock: (isSuccess: Bool, errorCode: Int) -> ()) {
-        var params = NSMutableDictionary()
+    func asyncBlockNumbers(groupId groupId: Int, numbers: Array<Int>, completionBlock: (isSuccess: Bool, errorCode: Int) -> ()) {
+        let params = NSMutableDictionary()
         params.setObject("silence", forKey: "action")
         params.setObject(groupId, forKey: "id")
         params.setObject(numbers, forKey: "participants")
@@ -165,15 +165,15 @@ class IMGroupManager: NSObject {
         }
     }
 
-    func asyncUnBlockNumbers(#groupId: Int, numbers: Array<Int>, completionBlock: (isSuccess: Bool, errorCode: Int) -> ()) {
+    func asyncUnBlockNumbers(groupId groupId: Int, numbers: Array<Int>, completionBlock: (isSuccess: Bool, errorCode: Int) -> ()) {
         
     }
     
-    func asyncChangeGroupSubject(#groupId: Int, subject: String, completionBlock: (isSuccess: Bool, errorCode: Int) -> ()) {
+    func asyncChangeGroupSubject(groupId groupId: Int, subject: String, completionBlock: (isSuccess: Bool, errorCode: Int) -> ()) {
         
     }
     
-    func asyncChangeGroupDescription(#groupId: Int, description: String, completionBlock: (isSuccess: Bool, errorCode: Int) -> ()) {
+    func asyncChangeGroupDescription(groupId groupId: Int, description: String, completionBlock: (isSuccess: Bool, errorCode: Int) -> ()) {
         
     }
     
@@ -187,7 +187,7 @@ class IMGroupManager: NSObject {
     :returns:
     */
     func convertGroupModel2FrendModel(group: IMGroupModel) -> FrendModel {
-        var frendModel = FrendModel()
+        let frendModel = FrendModel()
         frendModel.userId = group.groupId
         frendModel.nickName = group.subject
         frendModel.type = IMFrendType.Group

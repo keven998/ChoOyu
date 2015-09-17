@@ -45,7 +45,7 @@ class PushSDKManager: NSObject, GeTuiSdkDelegate {
     }
     
     deinit {
-        debug_println("PushSDKManager deinit")
+        debug_print("PushSDKManager deinit")
     }
     
     func registerDeviceToken(token: String) {
@@ -67,7 +67,7 @@ class PushSDKManager: NSObject, GeTuiSdkDelegate {
     */
     @objc private func checkoutSDKStatus() {
         if !pushSdkIsConnected {
-            debug_println("***** 个推 sdk 长链接未建立， 尝试重新建立中。******")
+            debug_print("***** 个推 sdk 长链接未建立， 尝试重新建立中。******")
 //            gexinSdk?.destroy()
             self.createPushConnection()
         }
@@ -105,7 +105,7 @@ class PushSDKManager: NSObject, GeTuiSdkDelegate {
     登录
     */
     func createPushConnection() {
-        debug_println("正在建立 push 长链接。。。。。")
+        debug_print("正在建立 push 长链接。。。。。")
         GetuiPush.login()
     }
     
@@ -116,7 +116,7 @@ class PushSDKManager: NSObject, GeTuiSdkDelegate {
     */
     func GeTuiSdkDidOccurError(error: NSError!) {
         pushSdkIsConnected = false
-        debug_println("*****  GeTuiSdkDidOccurError  ******")
+        debug_print("*****  GeTuiSdkDidOccurError  ******")
     }
     
     func GeTuiSDkDidNotifySdkState(aStatus: SdkStatus) {
@@ -130,10 +130,10 @@ class PushSDKManager: NSObject, GeTuiSdkDelegate {
     */
     
     func GeTuiSdkDidReceivePayload(payloadId: String!, andTaskId taskId: String!, andMessageId aMsgId: String!, fromApplication appId: String!) {
-        var payload = GeTuiSdk.retrivePayloadById(payloadId)
-        var length = payload?.length
-        var bytes = payload?.bytes
-        var payloadMsg = NSString(bytes:bytes! , length: length!, encoding: NSUTF8StringEncoding)
+        let payload = GeTuiSdk.retrivePayloadById(payloadId)
+        let length = payload?.length
+        let bytes = payload?.bytes
+        let payloadMsg = NSString(bytes:bytes! , length: length!, encoding: NSUTF8StringEncoding)
         
         // 收到消息后分发出去
         if let message = payloadMsg {
@@ -148,23 +148,28 @@ class PushSDKManager: NSObject, GeTuiSdkDelegate {
     */
     func dispatchPushMessage(message: NSString) {
         
-        debug_println("dispatchPushMessage: \(message)")
+        debug_print("dispatchPushMessage: \(message)")
         let dispatchMessageDic: NSDictionary
-        var mseesageData = message.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
-        var messageJson: AnyObject? = NSJSONSerialization.JSONObjectWithData(mseesageData!, options:.AllowFragments, error: nil)
-        if messageJson is NSDictionary {
-            dispatchMessageDic = messageJson?.objectForKey("message") as! NSDictionary
-        } else {
-            dispatchMessageDic = NSDictionary()
-        }
-
-        if let routingkey = messageJson?.objectForKey("routingKey") as? String {
-            for value in listenerQueue {
-                var listenerDic = value as! Dictionary<String, PushMessageDelegate>
-                if let pushMessageDelegate = listenerDic[routingkey] {
-                    pushMessageDelegate.receivePushMessage(dispatchMessageDic)
+        let mseesageData = message.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
+        do {
+            let messageJson: AnyObject? = try NSJSONSerialization.JSONObjectWithData(mseesageData!, options: .AllowFragments)
+            if messageJson is NSDictionary {
+                dispatchMessageDic = messageJson?.objectForKey("message") as! NSDictionary
+            } else {
+                dispatchMessageDic = NSDictionary()
+            }
+            
+            if let routingkey = messageJson?.objectForKey("routingKey") as? String {
+                for value in listenerQueue {
+                    var listenerDic = value as! Dictionary<String, PushMessageDelegate>
+                    if let pushMessageDelegate = listenerDic[routingkey] {
+                        pushMessageDelegate.receivePushMessage(dispatchMessageDic)
+                    }
                 }
             }
+            
+        } catch {
+            debug_print("消息解析失败")
         }
     }
     
@@ -173,7 +178,7 @@ class PushSDKManager: NSObject, GeTuiSdkDelegate {
     :param: clientId 注册成功后的 id
     */
     func GeTuiSdkDidRegisterClient(clientId: String!) {
-        debug_println("push 长链接建立成功")
+        debug_print("push 长链接建立成功")
         pushSdkIsConnected = true
         pushConnectionDelegate?.getuiDidConnection(clientId)
     }
@@ -186,13 +191,13 @@ class GetuiPush: GeTuiSdk {
         let kAppId = "aGqQz4HiLg70iOUXheRSZ3"
         let kAppSecret = "HBD1EqFmJF78PnWEy5KEM5"
         
-        var pushSDKManager = PushSDKManager.shareInstance()
-        var err: NSErrorPointer = NSErrorPointer()
+        let pushSDKManager = PushSDKManager.shareInstance()
+        let err: NSErrorPointer = NSErrorPointer()
         GeTuiSdk.startSdkWithAppId(kAppId, appKey: kAppKey, appSecret: kAppSecret, delegate: pushSDKManager, error: err)
     }
     
     deinit {
-        debug_println("GetuiPush deinit")
+        debug_print("GetuiPush deinit")
     }
 }
 

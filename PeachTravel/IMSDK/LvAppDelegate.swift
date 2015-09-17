@@ -21,14 +21,14 @@ extension AppDelegate {
             let connectionManager = ConnectionManager.shareInstance()
             connectionManager.bindUserIdWithRegistionId(AccountManager.shareAccountManager().account.userId)
         }
-        if isiOS8 {
-            var userType = UIUserNotificationType.Badge | UIUserNotificationType.Alert | UIUserNotificationType.Sound
-            var uns = UIUserNotificationSettings(forTypes: userType, categories: nil)
+        
+        if #available(iOS 8.0, *) {
+            let setting = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
             application.registerForRemoteNotifications()
-            application.registerUserNotificationSettings(uns)
+            application.registerUserNotificationSettings(setting)
+            
         } else {
-            var remoteType = UIRemoteNotificationType.Badge | UIRemoteNotificationType.Alert | UIRemoteNotificationType.Sound
-            application.registerForRemoteNotificationTypes(remoteType)
+           application.registerForRemoteNotificationTypes([.Badge, .Alert, .Sound])
         }
         
         ConnectionManager.shareInstance().createPushConnection()
@@ -53,15 +53,14 @@ extension AppDelegate {
     }
 
     func lvApplication(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
-        var token = deviceToken.description.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "<>"))
-        println("设备 token 为\(token)")
-        var pushSDKManager = PushSDKManager.shareInstance()
+        let token = deviceToken.description.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "<>"))
+        debug_print("设备 token 为\(token)")
+        let pushSDKManager = PushSDKManager.shareInstance()
         pushSDKManager.registerDeviceToken(token)
-        var manager = IMClientManager.shareInstance
     }
     
     func lvApplication(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
-        var pushSDKManager = PushSDKManager.shareInstance()
+        let pushSDKManager = PushSDKManager.shareInstance()
         pushSDKManager.registerDeviceToken("")
     }
     
