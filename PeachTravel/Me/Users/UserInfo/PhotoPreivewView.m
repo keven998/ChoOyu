@@ -35,14 +35,15 @@
 {
     [super layoutSubviews];
     _scrollView.frame = self.bounds;
+    _imageView.frame = _scrollView.bounds;
 }
 
 - (void)setupMainView
 {
     _scrollView = [[UIScrollView alloc] init];
-    _scrollView.decelerationRate = UIScrollViewDecelerationRateFast;
-    _scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _scrollView.maximumZoomScale = 2.0;
+    _scrollView.minimumZoomScale = 1.0;
+    _scrollView.multipleTouchEnabled = YES;
     _scrollView.delegate = self;
 
     [self addSubview:_scrollView];
@@ -61,6 +62,7 @@
 {
     _image = image;
     _imageView.image = _image;
+    _imageView.center = _scrollView.center;
 }
 
 - (void)handleDoubleTap:(UITapGestureRecognizer *)tap {
@@ -73,6 +75,12 @@
     }
 }
 
+- (void)scrollViewDidZoom:(UIScrollView *)scrollView
+{
+    CGFloat offsetX = (scrollView.bounds.size.width > scrollView.contentSize.width)?(scrollView.bounds.size.width - scrollView.contentSize.width)/2 : 0.0;
+    CGFloat offsetY = (scrollView.bounds.size.height > scrollView.contentSize.height)?(scrollView.bounds.size.height - scrollView.contentSize.height)/2 :0.0;
+    _imageView.center = CGPointMake(scrollView.contentSize.width/2 + offsetX,scrollView.contentSize.height/2 + offsetY);
+}
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
     
