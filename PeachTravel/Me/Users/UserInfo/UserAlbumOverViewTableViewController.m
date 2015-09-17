@@ -10,7 +10,7 @@
 
 #import "UserAlbumOverViewTableViewController.h"
 #import "UserAlbumOverviewCell.h"
-#import "UserAlbumDetailCollectionViewController.h"
+#import "UserAlbumSelectViewController.h"
 
 @interface UserAlbumOverViewTableViewController ()
 
@@ -113,7 +113,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    UserAlbumDetailCollectionViewController *ctl = [[UserAlbumDetailCollectionViewController alloc] initWithNibName: @"UserAlbumDetailCollectionViewController" bundle:nil];
+    UserAlbumSelectViewController *ctl = [[UserAlbumSelectViewController alloc] init];
     ctl.assetsGroup = _dataSource[indexPath.row];
     [self.navigationController pushViewController:ctl animated:YES];
 }
