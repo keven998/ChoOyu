@@ -36,6 +36,7 @@ static NSString * const reuseIdentifier = @"userAlbumSelectCell";
 {
     [super viewWillAppear:animated];
     [self.collectionView reloadData];
+    [self updateButtonStatus];
 }
 
 - (void)setToolBar

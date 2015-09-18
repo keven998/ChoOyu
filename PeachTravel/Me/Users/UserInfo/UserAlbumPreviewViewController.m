@@ -16,6 +16,7 @@
 @property (nonatomic, strong) UICollectionView *collectionView;
 
 @property (nonatomic, strong) UIButton *selectBtn;
+@property (nonatomic, strong) UIButton *confirmBtn;
 
 @end
 
@@ -23,7 +24,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = APP_PAGE_COLOR;
     [self.view addSubview:self.collectionView];
     [self.collectionView reloadData];
     [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:_currentIndex inSection:0] atScrollPosition: UICollectionViewScrollPositionLeft animated:NO];
@@ -34,6 +35,14 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_selectBtn];
     [_selectBtn addTarget:self action:@selector(selectPhoto:) forControlEvents:UIControlEventTouchUpInside];
     _selectBtn.selected = [self photoIsSelected:_dataSource[_currentIndex]];
+    
+    _confirmBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width-90, self.view.bounds.size.height-40, 70, 30)];
+    _confirmBtn.layer.cornerRadius = 5.0;
+    _confirmBtn.layer.borderWidth = 1.0;
+    [_confirmBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+    [_confirmBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateDisabled];
+    [self.view addSubview:_confirmBtn];
+    [self updateButtonStatus];
 }
 
 - (void)setDataSource:(NSMutableArray *)dataSource
@@ -78,6 +87,19 @@
     return NO;
 }
 
+- (void)updateButtonStatus
+{
+    if (_selectedPhotos.count > 0) {
+        [_confirmBtn setTitle:[NSString stringWithFormat:@"确定(%ld)", _selectedPhotos.count] forState:UIControlStateNormal];
+        _confirmBtn.enabled = YES;
+        _confirmBtn.layer.borderColor = APP_THEME_COLOR.CGColor;
+        
+    } else {
+        [_confirmBtn setTitle:@"确定" forState:UIControlStateNormal];
+        _confirmBtn.enabled = NO;
+        _confirmBtn.layer.borderColor = COLOR_TEXT_II.CGColor;
+    }
+}
 
 #pragma mark - IBAction Methods
 
@@ -91,6 +113,7 @@
         [self.selectedPhotos addObject:asset];
         _selectBtn.selected = YES;
     }
+    [self updateButtonStatus];
 }
 
 #pragma mark <UICollectionViewDataSource>
