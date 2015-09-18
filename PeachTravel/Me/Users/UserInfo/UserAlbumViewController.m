@@ -18,8 +18,6 @@
 @property (nonatomic, strong) AccountManager *manager;
 @property (nonatomic, strong) JGProgressHUD *HUD;
 
-@property (nonatomic) BOOL canEdit;
-
 @end
 
 @implementation UserAlbumViewController
@@ -32,6 +30,7 @@ static NSString * const reuseIdentifier = @"albumImageCell";
     [super viewDidLoad];
     self.navigationItem.title = @"相册";
     
+    self.collectionView.backgroundColor = APP_PAGE_COLOR;
     UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
     [button setImage:[UIImage imageNamed:@"common_icon_navigation_back_normal"] forState:UIControlStateNormal];
     [button setImage:[UIImage imageNamed:@"common_icon_navigation_back_highlight"] forState:UIControlStateHighlighted];
@@ -43,21 +42,22 @@ static NSString * const reuseIdentifier = @"albumImageCell";
     
     self.manager = [AccountManager shareAccountManager];
     if (_isMyself){
-        UIButton *editBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        editBtn.frame = CGRectMake(0, 0, 40, 40);
-        [editBtn setTitle:@"编辑" forState:UIControlStateNormal];
-        [editBtn setTitle:@"完成" forState:UIControlStateSelected];
-        [editBtn addTarget:self action:@selector(edit:) forControlEvents:UIControlEventTouchUpInside];
-        editBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-        [editBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
-        [editBtn setTitleColor:COLOR_DISABLE forState:UIControlStateHighlighted];
-        UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithCustomView:editBtn];
+        UIButton *addPhoto = [UIButton buttonWithType:UIButtonTypeCustom];
+        addPhoto.frame = CGRectMake(0, 0, 40, 40);
+        [addPhoto setImage:[UIImage imageNamed:@"icon_add_photo.png"] forState:UIControlStateNormal];
+        [addPhoto addTarget:self action:@selector(addPhoto:) forControlEvents:UIControlEventTouchUpInside];
+        addPhoto.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+        [addPhoto setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
+        [addPhoto setTitleColor:COLOR_DISABLE forState:UIControlStateHighlighted];
+        UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithCustomView:addPhoto];
         self.navigationItem.rightBarButtonItem = right;
     }
     UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionViewLayout;
-    layout.itemSize = CGSizeMake(self.view.bounds.size.width/4, (self.view.bounds.size.width/4));
-    layout.minimumLineSpacing = 0;
-    layout.minimumInteritemSpacing = 0;
+    CGFloat itemWidth = (kWindowWidth-10*2-8*3)/4;
+    layout.itemSize = CGSizeMake(itemWidth, itemWidth);
+    layout.sectionInset = UIEdgeInsetsMake(10, 10, 0, 10);
+    layout.minimumLineSpacing = 8;
+    layout.minimumInteritemSpacing = 8;
     [self.collectionView registerNib:[UINib nibWithNibName:@"AlbumImageCell" bundle:nil]forCellWithReuseIdentifier:@"albumImageCell"];
 }
 
@@ -81,13 +81,10 @@ static NSString * const reuseIdentifier = @"albumImageCell";
 
 #pragma mark - private Methods
 
-- (void)edit:(UIButton *)button
+- (void)addPhoto:(UIButton *)button
 {
-    BOOL selected = !button.selected;
-    button.selected = selected;
-    _canEdit = selected;
-    self.navigationItem.leftBarButtonItem.customView.hidden = selected;
-    [self.collectionView reloadData];
+    UserAlbumOverViewTableViewController *ctl = [[UserAlbumOverViewTableViewController alloc] init];
+    [self.navigationController pushViewController:ctl animated:YES];
 }
 
 #pragma mark <UICollectionViewDataSource>
@@ -100,43 +97,20 @@ static NSString * const reuseIdentifier = @"albumImageCell";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    if (_isMyself) {
-        return _albumArray.count + 1;
-    } else {
-        return _albumArray.count;
-    }
+    return _albumArray.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     AlbumImageCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
-    if (_isMyself) {
-        if (indexPath.row == 0) {
-            [cell.imageView sd_setImageWithURL:nil];
-            cell.imageView.image = [UIImage imageNamed:@"ic_userInfo_add_avatar"];
-            cell.editBtn.hidden = YES;
-        } else {
-            if (_canEdit) {
-                cell.editBtn.hidden = NO;
-            } else {
-                cell.editBtn.hidden = YES;
-            }
-           
-            id image = [_albumArray objectAtIndex:indexPath.row-1];
-            if ([image isKindOfClass:[UIImage class]]) {
-                [cell.imageView sd_setImageWithURL:nil];
-                cell.imageView.image = (UIImage *)image;
-            } else {
-                cell.imageView.image = nil;
-                
-                [cell.imageView sd_setImageWithURL:[NSURL URLWithString:((AlbumImage *)image).image.imageUrl] placeholderImage:[UIImage imageNamed:@"avatar_default.png"]];
-            }
-            [cell.editBtn addTarget:self action:@selector(deletePhoto:) forControlEvents:UIControlEventTouchUpInside];
-            cell.editBtn.tag = 100 + indexPath.row;
-        }
+    id image = [_albumArray objectAtIndex:indexPath.row];
+    if ([image isKindOfClass:[UIImage class]]) {
+        [cell.imageView sd_setImageWithURL:nil];
+        cell.imageView.image = (UIImage *)image;
     } else {
-        AlbumImage *image = [_albumArray objectAtIndex:indexPath.row];
-        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:image.image.imageUrl] placeholderImage:[UIImage imageNamed:@"avatar_default.png"]];
+        cell.imageView.image = nil;
+        
+        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:((AlbumImage *)image).image.imageUrl] placeholderImage:[UIImage imageNamed:@"avatar_default.png"]];
     }
     return cell;
 }
@@ -145,102 +119,31 @@ static NSString * const reuseIdentifier = @"albumImageCell";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (_isMyself) {
-        if (indexPath.row == 0) {
-            [self presentImagePicker];
+    AlbumImageCell *cell = (AlbumImageCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    NSInteger count = _albumArray.count;
+    // 1.封装图片数据
+    NSMutableArray *photos = [NSMutableArray arrayWithCapacity:count];
+    for (NSInteger i = 1; i<count +1; i++) {
+        // 替换为中等尺寸图片
+        MJPhoto *photo = [[MJPhoto alloc] init];
+
+        id album = [_albumArray objectAtIndex:i-1];
+        if ([album isKindOfClass:[UIImage class]]) {
+            photo.image = album;
         } else {
-            
-            AlbumImageCell *cell = (AlbumImageCell *)[collectionView cellForItemAtIndexPath:indexPath];
-            NSInteger count = _albumArray.count;
-            // 1.封装图片数据
-            NSMutableArray *photos = [NSMutableArray arrayWithCapacity:count];
-            for (NSInteger i = 1; i<count +1; i++) {
-                // 替换为中等尺寸图片
-                MJPhoto *photo = [[MJPhoto alloc] init];
-
-                id album = [_albumArray objectAtIndex:i-1];
-                if ([album isKindOfClass:[UIImage class]]) {
-                    photo.image = album;
-                } else {
-                    photo.url = ((AlbumImage *)album).image.imageUrl; // 图片路径
-                }
-                photo.srcImageView = (UIImageView *)cell.imageView; // 来源于哪个UIImageView
-                [photos addObject:photo];
-            }
-            
-            // 2.显示相册
-            MJPhotoBrowser *browser = [[MJPhotoBrowser alloc] init];
-            browser.currentPhotoIndex = indexPath.row-1; // 弹出相册时显示的第一张图片是？
-            browser.photos = photos; // 设置所有的图片
-            [browser show];
+            photo.url = ((AlbumImage *)album).image.imageUrl; // 图片路径
         }
-        
-    } else {
-        AlbumImageCell *cell = (AlbumImageCell *)[collectionView cellForItemAtIndexPath:indexPath];
-        NSInteger count = _albumArray.count;
-        // 1.封装图片数据
-        NSMutableArray *photos = [NSMutableArray arrayWithCapacity:count];
-        for (NSInteger i = 0; i<count; i++) {
-            // 替换为中等尺寸图片
-            AlbumImage *album = [_albumArray objectAtIndex:i];
-            MJPhoto *photo = [[MJPhoto alloc] init];
-            photo.url = album.image.imageUrl; // 图片路径
-            photo.srcImageView = (UIImageView *)cell.imageView; // 来源于哪个UIImageView
-            [photos addObject:photo];
-        }
-        
-        // 2.显示相册
-        MJPhotoBrowser *browser = [[MJPhotoBrowser alloc] init];
-        browser.currentPhotoIndex = indexPath.row; // 弹出相册时显示的第一张图片是？
-        browser.photos = photos; // 设置所有的图片
-        [browser show];
+        photo.srcImageView = (UIImageView *)cell.imageView; // 来源于哪个UIImageView
+        [photos addObject:photo];
     }
-}
+    
+    // 2.显示相册
+    MJPhotoBrowser *browser = [[MJPhotoBrowser alloc] init];
+    browser.currentPhotoIndex = indexPath.row; // 弹出相册时显示的第一张图片是？
+    browser.photos = photos; // 设置所有的图片
+    [browser show];
+  }
 
-#pragma mark - ImagePickerDelegate
-
-- (void)presentImagePicker
-{
-    PXAlertView *alertView = [PXAlertView showAlertWithTitle:nil
-                                                     message:nil
-                                                 cancelTitle:@"取消"
-                                                 otherTitles:@[@"拍照", @"相册"]
-                                                  completion:^(BOOL cancelled, NSInteger buttonIndex) {
-                                                      UIImagePickerControllerSourceType sourceType;
-                                                      if (buttonIndex == 1) {
-                                                          sourceType  = UIImagePickerControllerSourceTypeCamera;
-                                                      } else if (buttonIndex == 2) {
-                                                          sourceType  = UIImagePickerControllerSourceTypePhotoLibrary;
-                                                      } else {
-                                                          return;
-                                                      }
-//                                                      UIImagePickerController * picker = [[UIImagePickerController alloc] init];
-//                                                      picker.delegate = self;
-//                                                      picker.allowsEditing = YES;
-//                                                      picker.sourceType = sourceType;
-//                                                      [self presentViewController:picker animated:YES completion:nil];
-                                                      UserAlbumOverViewTableViewController *ctl = [[UserAlbumOverViewTableViewController alloc] init];
-                                                      [self.navigationController pushViewController:ctl animated:YES];
-                                                  }];
-    [alertView setTitleFont:[UIFont systemFontOfSize:16]];
-    [alertView useCustomStyle];
-    
-    [alertView setBackgroundColor:[UIColor whiteColor]];
-    
-    
-    // 设置其他按钮的颜色
-    UIColor * otherNormal = TEXT_COLOR_TITLE;
-    UIColor * otherSeleced = APP_THEME_COLOR;
-    [alertView setAllButtonsTextColor:otherNormal andHighLightedColor:otherSeleced];
-    
-    // 设置取消按钮的颜色
-    UIColor *cancelNormal = TEXT_COLOR_TITLE;
-    UIColor *cancelSelected = TEXT_COLOR_TITLE;
-    [alertView setCancelButtonTextColor:cancelNormal andHighLightedColor:cancelSelected];
-    
-    // 设置取消按钮的下划线
-    [alertView setCancelUnderlineWithColor:COLOR_LINE];
-}
 /**
  *  获取上传七牛服务器所需要的 token，key
  *
