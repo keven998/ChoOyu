@@ -24,6 +24,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.collectionView];
     [self.collectionView reloadData];
+    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:_currentIndex inSection:0] atScrollPosition: UICollectionViewScrollPositionLeft animated:NO];
 }
 
 - (void)setDataSource:(NSMutableArray *)dataSource
@@ -66,7 +67,9 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UserAlbumPreviewCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"userAlbumPreviewCell" forIndexPath:indexPath];
     ALAsset *asset = [_dataSource objectAtIndex:indexPath.row];
-    cell.mainView.image = [UIImage imageWithCGImage:asset.thumbnail];
+    ALAssetRepresentation* representation = [asset defaultRepresentation];
+    CGImageRef ref = [representation fullScreenImage];
+    cell.mainView.image = [UIImage imageWithCGImage:ref];
     return cell;
 }
 

@@ -31,9 +31,9 @@ class IMPoiModel: NSObject {
     var timeCost: String?
     
     func getContentStr() -> NSString? {
-        var contentDic = NSMutableDictionary()
+        let contentDic = NSMutableDictionary()
         contentDic.setObject(poiId, forKey: "id")
-        if let poiName = poiName {
+        if let poiId = poiId {
             contentDic.setObject(poiId, forKey: "id")
 
         }
@@ -69,8 +69,13 @@ class IMPoiModel: NSObject {
             contentDic.setObject(timeCost, forKey: "timeCost")
 
         }
-        var jsonData = NSJSONSerialization.dataWithJSONObject(contentDic, options: NSJSONWritingOptions.PrettyPrinted, error: nil)
-        var retStr = NSString(data:jsonData!, encoding: NSUTF8StringEncoding)
-        return retStr
+        do {
+            let jsonData = try NSJSONSerialization.dataWithJSONObject(contentDic, options: NSJSONWritingOptions.PrettyPrinted)
+            let retStr = NSString(data:jsonData, encoding: NSUTF8StringEncoding)
+            return retStr
+
+        } catch {
+            return nil
+        }
     }
 }

@@ -25,12 +25,12 @@ class BaseDaoHelper: NSObject {
         
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
 
-            var sql = "select count(*) as 'count' from sqlite_master where type ='table' and name = ?"
-            var rs = dataBase.executeQuery(sql, withArgumentsInArray: [tableName])
+            let sql = "select count(*) as 'count' from sqlite_master where type ='table' and name = ?"
+            let rs = dataBase.executeQuery(sql, withArgumentsInArray: [tableName])
             if (rs != nil) {
                 while (rs.next())
                 {
-                    var count: Int32 = rs.intForColumn("count")
+                    let count: Int32 = rs.intForColumn("count")
                     if (0 == count) {
                         retResult =  false;
                     } else {
@@ -42,12 +42,12 @@ class BaseDaoHelper: NSObject {
         return retResult;
     }
     
-    func selectAllTableName(#keyWord: String) -> NSArray {
-        var retArray = NSMutableArray()
+    func selectAllTableName(keyWord keyWord: String) -> NSArray {
+        let retArray = NSMutableArray()
         
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
-            var sql = "select * from sqlite_master where type ='table' and name like '\(keyWord)%'"
-            var rs = dataBase.executeQuery(sql, withArgumentsInArray: nil)
+            let sql = "select * from sqlite_master where type ='table' and name like '\(keyWord)%'"
+            let rs = dataBase.executeQuery(sql, withArgumentsInArray: nil)
             if (rs != nil) {
                 while (rs.next())
                 {

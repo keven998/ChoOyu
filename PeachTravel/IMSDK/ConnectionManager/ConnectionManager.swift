@@ -50,7 +50,7 @@ class ConnectionManager: NSObject, PushConnectionDelegate {
             let manager = AFHTTPRequestOperationManager()
             let requestSerializer = AFJSONRequestSerializer()
             manager.requestSerializer = requestSerializer
-            var accountManager = AccountManager.shareAccountManager()
+            let accountManager = AccountManager.shareAccountManager()
             manager.requestSerializer.setValue("\(accountManager.account.userId)", forHTTPHeaderField: "UserId")
             manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept")
             manager.requestSerializer.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")

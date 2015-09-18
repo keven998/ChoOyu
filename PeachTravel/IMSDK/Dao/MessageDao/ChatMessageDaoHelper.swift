@@ -78,11 +78,11 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
     func createChatTableWithoutOpen(tableName: String) {
         if dataBase.open() {
             self.createChatTable(tableName)
-            debug_println("success createChatTableWithoutOpen")
+            debug_print("success createChatTableWithoutOpen")
             dataBase.close()
 
         } else {
-            debug_println("error createChatTableWithoutOpen")
+            debug_print("error createChatTableWithoutOpen")
         }
     }
     
@@ -94,44 +94,44 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
     func createChatTable(tableName: String) {
         
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
-            var sql = "create table '\(tableName)' (LocalId INTEGER PRIMARY KEY AUTOINCREMENT  NOT NULL, ServerId INTEGER, Status int(4), Type int(4), Message TEXT, CreateTime INTEGER, SendType int, SenderId int)"
+            let sql = "create table '\(tableName)' (LocalId INTEGER PRIMARY KEY AUTOINCREMENT  NOT NULL, ServerId INTEGER, Status int(4), Type int(4), Message TEXT, CreateTime INTEGER, SendType int, SenderId int)"
             if (dataBase.executeUpdate(sql, withArgumentsInArray: nil)) {
-                debug_println("success 执行 sql 语句：\(sql)")
+                debug_print("success 执行 sql 语句：\(sql)")
             } else {
-                debug_println("error 执行 sql 语句：\(sql)")
+                debug_print("error 执行 sql 语句：\(sql)")
             }
         }
     }
     
     func dropChatTable(tableName: String) {
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
-            var sql = "drop table '\(tableName)'"
+            let sql = "drop table '\(tableName)'"
             if (dataBase.executeUpdate(sql, withArgumentsInArray: nil)) {
-                debug_println("success 执行 sql 语句：\(sql)")
+                debug_print("success 执行 sql 语句：\(sql)")
             } else {
-                debug_println("error 执行 sql 语句：\(sql)")
+                debug_print("error 执行 sql 语句：\(sql)")
             }
         }
     }
     
     func deleteAllMessage(tableName: String) {
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
-            var sql = "delete from '\(tableName)'"
+            let sql = "delete from '\(tableName)'"
             if (dataBase.executeUpdate(sql, withArgumentsInArray: nil)) {
-                debug_println("success 执行 sql 语句：\(sql)")
+                debug_print("success 执行 sql 语句：\(sql)")
             } else {
-                debug_println("error 执行 sql 语句：\(sql)")
+                debug_print("error 执行 sql 语句：\(sql)")
             }
         }
     }
     
     func deleteChatMessage(tableName: String, localId: Int) {
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
-            var sql = "delete from '\(tableName)' where LocalId = ?"
+            let sql = "delete from '\(tableName)' where LocalId = ?"
             if (dataBase.executeUpdate(sql, withArgumentsInArray: [localId])) {
-                debug_println("success 执行 sql 语句：\(sql)")
+                debug_print("success 执行 sql 语句：\(sql)")
             } else {
-                debug_println("error 执行 sql 语句：\(sql)")
+                debug_print("error 执行 sql 语句：\(sql)")
             }
         }
     }
@@ -148,14 +148,14 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
         
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
            
-            var sql = "insert into \(tableName) (ServerId, Status, Type, Message, CreateTime, SendType, SenderId) values (?,?,?,?,?,?,?)"
-            var array = [message.serverId, message.status.rawValue, message.messageType.rawValue, message.message, message.createTime, message.sendType.rawValue, message.senderId]
+            let sql = "insert into \(tableName) (ServerId, Status, Type, Message, CreateTime, SendType, SenderId) values (?,?,?,?,?,?,?)"
+            let array = [message.serverId, message.status.rawValue, message.messageType.rawValue, message.message, message.createTime, message.sendType.rawValue, message.senderId]
             if dataBase.executeUpdate(sql, withArgumentsInArray:array as [AnyObject]) {
                 message.localId = Int(dataBase.lastInsertRowId())
-                debug_println("success 执行 sql 语句：\(sql) message:\(message.message)  serverId:\(message.serverId)")
+                debug_print("success 执行 sql 语句：\(sql) message:\(message.message)  serverId:\(message.serverId)")
         
             } else {
-                debug_println("error 执行 sql 语句：\(sql), message:\(message.message)  serverId:\(message.serverId)")
+                debug_print("error 执行 sql 语句：\(sql), message:\(message.message)  serverId:\(message.serverId)")
             }
         }
     }
@@ -168,7 +168,7 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
     */
     func insertChatMessageList(messageList: Array<BaseMessage>) {
         for message in messageList {
-            var tableName = "chat_\(message.chatterId)"
+            let tableName = "chat_\(message.chatterId)"
             self.insertChatMessage(tableName, message:message)
         }
     }
@@ -183,11 +183,11 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
             self.createChatTable(tableName)
         }
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
-            var sql = "update \(tableName) set ServerId = ?, Status = ?  where LocalId = ?"
+            let sql = "update \(tableName) set ServerId = ?, Status = ?  where LocalId = ?"
             if dataBase.executeUpdate(sql, withArgumentsInArray:[message.serverId, message.status.rawValue, message.localId]) {
-                debug_println("success 执行 sql 语句：\(sql)")
+                debug_print("success 执行 sql 语句：\(sql)")
             } else {
-                debug_println("error 执行 sql 语句：\(sql)")
+                debug_print("error 执行 sql 语句：\(sql)")
             }
         }
     }
@@ -200,11 +200,11 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
     */
     func updateMessageContents(tableName: String, message: BaseMessage) {
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
-            var sql = "update \(tableName) set Message = ? where LocalId = ?"
+            let sql = "update \(tableName) set Message = ? where LocalId = ?"
             if dataBase.executeUpdate(sql, withArgumentsInArray:[message.message, message.localId]) {
-                debug_println("success 执行更新消息内容的 sql 语句：\(sql)")
+                debug_print("success 执行更新消息内容的 sql 语句：\(sql)")
             } else {
-                debug_println("error 执行更新消息内容的 sql 语句：\(sql) message: \(message.message) serverId:\(message.serverId), localId:\(message.localId)")
+                debug_print("error 执行更新消息内容的 sql 语句：\(sql) message: \(message.message) serverId:\(message.serverId), localId:\(message.localId)")
             }
         }
     }
@@ -212,12 +212,12 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
     func selectChatMessageList(chatterId: Int, untilLocalId: Int, messageCount: Int) -> Array<BaseMessage> {
         var retArray = Array<BaseMessage>()
         
-        var tableName = "chat_\(chatterId)"
+        let tableName = "chat_\(chatterId)"
 
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
-            var sql = "select * from (select * from \(tableName) where LocalId < ? order by LocalId desc limit \(messageCount)) order by LocalId"
-            debug_println("执行 sql 语句 : \(sql)")
-            var rs = dataBase.executeQuery(sql, withArgumentsInArray: [untilLocalId, messageCount])
+            let sql = "select * from (select * from \(tableName) where LocalId < ? order by LocalId desc limit \(messageCount)) order by LocalId"
+            debug_print("执行 sql 语句 : \(sql)")
+            let rs = dataBase.executeQuery(sql, withArgumentsInArray: [untilLocalId, messageCount])
             if (rs != nil) {
                 while rs.next() {
                     if let message = ChatMessageDaoHelper.messageModelWithFMResultSet(rs, tableName: tableName) {
@@ -242,8 +242,8 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
         
         var retResult: Bool = false
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
-            var sql = "select * from \(tableName) where serverId = ?"
-            var rs = dataBase.executeQuery(sql, withArgumentsInArray: [message.serverId])
+            let sql = "select * from \(tableName) where serverId = ?"
+            let rs = dataBase.executeQuery(sql, withArgumentsInArray: [message.serverId])
             if (rs != nil) {
                 while rs.next() {
                     retResult = true
@@ -261,8 +261,8 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
     func selectLastServerMessage(fromTable: String) -> BaseMessage? {
         var retMessage: BaseMessage?
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
-            var sql = "select * from \(fromTable) where serverId > 0 order by LocalId desc limit 1"
-            var rs = dataBase.executeQuery(sql, withArgumentsInArray: nil)
+            let sql = "select * from \(fromTable) where serverId > 0 order by LocalId desc limit 1"
+            let rs = dataBase.executeQuery(sql, withArgumentsInArray: nil)
             if (rs != nil) {
                 while rs.next() {
                     retMessage = ChatMessageDaoHelper.messageModelWithFMResultSet(rs, tableName: fromTable)
@@ -277,10 +277,10 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
     :returns:
     */
     func selectAllLastServerChatMessageInDB() -> NSDictionary {
-        var retDic = NSMutableDictionary()
-        var allTables = super.selectAllTableName(keyWord: "chat")
+        let retDic = NSMutableDictionary()
+        let allTables = super.selectAllTableName(keyWord: "chat")
         for tableName in allTables {
-            var message = self.selectLastServerMessage(tableName as! String)
+            let message = self.selectLastServerMessage(tableName as! String)
             if let message = message {
                 retDic.setObject(message.serverId, forKey: message.chatterId)
             }
@@ -296,8 +296,8 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
         var retMessage: BaseMessage?
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
             
-            var sql = "select * from \(tableName) order by LocalId desc limit 1"
-            var rs = dataBase.executeQuery(sql, withArgumentsInArray: nil)
+            let sql = "select * from \(tableName) order by LocalId desc limit 1"
+            let rs = dataBase.executeQuery(sql, withArgumentsInArray: nil)
             if (rs != nil) {
                 while rs.next() {
                     retMessage = ChatMessageDaoHelper.messageModelWithFMResultSet(rs, tableName: tableName)
@@ -310,11 +310,10 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
 //MARK: 获取所有的图片消息
     func selectAllImageMessageInChatTable(tableName: NSString) -> Array<BaseMessage> {
         var imageMessageArray = Array<BaseMessage>()
-        var retMessage: BaseMessage?
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
             
-            var sql = "select * from \(tableName) where type = 2"
-            var rs = dataBase.executeQuery(sql, withArgumentsInArray: nil)
+            let sql = "select * from \(tableName) where type = 2"
+            let rs = dataBase.executeQuery(sql, withArgumentsInArray: nil)
             if (rs != nil) {
                 while rs.next() {
                     if let retMessage = ChatMessageDaoHelper.messageModelWithFMResultSet(rs, tableName: tableName) {
@@ -384,14 +383,13 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
             case .Html5MessageType:
                 retMessage = HtmlMessage()
             
-            default:
-                break
             }
             
             //attention: 因为表明的结构为 chat_100。所以从第五位取可以取到 chatterid
             let chatterIdStr = tableName.substringFromIndex(5)
-            retMessage?.chatterId = chatterIdStr.toInt()!
-            var contents = rs.stringForColumn("Message")
+            retMessage?.chatterId = Int(chatterIdStr)!
+
+            let contents = rs.stringForColumn("Message")
             retMessage?.fillContentWithContent(contents)
             
             retMessage?.message = contents

@@ -8,7 +8,7 @@
 
 #import "PhotoPreivewView.h"
 
-@interface PhotoPreivewView()
+@interface PhotoPreivewView() <UIScrollViewDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIImageView *imageView;
@@ -35,26 +35,20 @@
 {
     [super layoutSubviews];
     _scrollView.frame = self.bounds;
-    
-    [_scrollView setMinimumZoomScale:0.25f];
-    [_scrollView setMaximumZoomScale:3.0f];
-    
-    CGFloat boundsWidth = _scrollView.bounds.size.width;
-    CGFloat boundsHeight = _scrollView.bounds.size.height;
-    
-    CGRect imageFrame = CGRectMake(0, 0, boundsWidth*2, boundsHeight*2);
-    _imageView.frame = imageFrame;
+    _imageView.frame = _scrollView.bounds;
 }
 
 - (void)setupMainView
 {
     _scrollView = [[UIScrollView alloc] init];
-    _scrollView.decelerationRate = UIScrollViewDecelerationRateFast;
-    _scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    _scrollView.maximumZoomScale = 2.0;
+    _scrollView.minimumZoomScale = 1.0;
+    _scrollView.multipleTouchEnabled = YES;
+    _scrollView.delegate = self;
 
     [self addSubview:_scrollView];
     
-    _imageView = [[UIImageView alloc] init];
+    _imageView = [[UIImageView alloc] initWithImage:_image];
     _imageView.userInteractionEnabled = YES;
     _imageView.contentMode = UIViewContentModeScaleAspectFit;
     [_scrollView addSubview:_imageView];
@@ -68,6 +62,7 @@
 {
     _image = image;
     _imageView.image = _image;
+    _imageView.center = _scrollView.center;
 }
 
 - (void)handleDoubleTap:(UITapGestureRecognizer *)tap {
@@ -80,6 +75,18 @@
     }
 }
 
+- (void)scrollViewDidZoom:(UIScrollView *)scrollView
+{
+    CGFloat offsetX = (scrollView.bounds.size.width > scrollView.contentSize.width)?(scrollView.bounds.size.width - scrollView.contentSize.width)/2 : 0.0;
+    CGFloat offsetY = (scrollView.bounds.size.height > scrollView.contentSize.height)?(scrollView.bounds.size.height - scrollView.contentSize.height)/2 :0.0;
+    _imageView.center = CGPointMake(scrollView.contentSize.width/2 + offsetX,scrollView.contentSize.height/2 + offsetY);
+}
+
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
+    
+    return _imageView;
+    
+}
 
 
 @end

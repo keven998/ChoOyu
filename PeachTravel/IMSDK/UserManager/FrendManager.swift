@@ -27,7 +27,7 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
     */
     init(userId: Int) {
         accountId = userId
-        var dbPath: String = documentPath.stringByAppendingPathComponent("\(accountId)/user.sqlite")
+        let dbPath: String = documentPath.stringByAppendingString("/\(accountId)/user.sqlite")
         let db = FMDatabase(path: dbPath)
         let dbQueue = FMDatabaseQueue(path: dbPath)
         frendDaoHelper = FrendDaoHelper(db: db, dbQueue: dbQueue)
@@ -122,7 +122,7 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
         return self.frendDaoHelper.frendIsExitInDB(userId)
     }
     
-    func updateFrendType(#userId: Int, frendType: IMFrendType) {
+    func updateFrendType(userId userId: Int, frendType: IMFrendType) {
         self.frendDaoHelper.updateFrendType(userId: userId, type: frendType)
     }
     
@@ -154,7 +154,7 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
     
     :returns:
     */
-    func getFrendInfoFromDB(#userId: Int) -> FrendModel? {
+    func getFrendInfoFromDB(userId userId: Int) -> FrendModel? {
         return self.frendDaoHelper.selectFrend(userId: userId)
     }
     
@@ -165,7 +165,7 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
     :param: completion
     :param: errorCode
     */
-    func asyncAgreeAddContact(#requestId: String, completion: (isSuccess: Bool, errorCode: Int) -> ()) {
+    func asyncAgreeAddContact(requestId requestId: String, completion: (isSuccess: Bool, errorCode: Int) -> ()) {
         let manager = AFHTTPRequestOperationManager()
         let requestSerializer = AFJSONRequestSerializer()
         manager.requestSerializer = requestSerializer
@@ -173,7 +173,7 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
         manager.requestSerializer.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         manager.requestSerializer.setValue("\(AccountManager.shareAccountManager().account.userId)", forHTTPHeaderField: "UserId")
         let params = ["action": 1];
-        var url = "\(API_USERS)\(accountId)/contact-requests/\(requestId)"
+        let url = "\(API_USERS)\(accountId)/contact-requests/\(requestId)"
         
         manager.PATCH(url, parameters: params, success:
             { (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
@@ -196,7 +196,7 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
     :param: userId
     :param: completion
     */
-    func asyncRequestAddContact(#userId: Int, helloStr: String, completion: (isSuccess: Bool, errorCode: Int) -> ()) {
+    func asyncRequestAddContact(userId userId: Int, helloStr: String, completion: (isSuccess: Bool, errorCode: Int) -> ()) {
         let manager = AFHTTPRequestOperationManager()
         let requestSerializer = AFJSONRequestSerializer()
         manager.requestSerializer = requestSerializer
@@ -205,7 +205,7 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
         let accountId = AccountManager.shareAccountManager().account.userId
         manager.requestSerializer.setValue("\(accountId)", forHTTPHeaderField: "UserId")
         let params = ["contactId": userId, "message": helloStr]
-        var url = "\(API_USERS)\(accountId)/contact-requests"
+        let url = "\(API_USERS)\(accountId)/contact-requests"
         manager.POST(url, parameters: params, success:
             {(operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
                 if (responseObject.objectForKey("code") as! Int) == 0 {
@@ -227,7 +227,7 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
     :param: helloStr
     :param: completion
     */
-    func asyncRemoveContact(#userId: Int, completion: (isSuccess: Bool, errorCode: Int) -> ()) {
+    func asyncRemoveContact(userId userId: Int, completion: (isSuccess: Bool, errorCode: Int) -> ()) {
         let manager = AFHTTPRequestOperationManager()
         let requestSerializer = AFJSONRequestSerializer()
         manager.requestSerializer = requestSerializer
@@ -260,7 +260,7 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
     :param: helloStr
     :param: completion
     */
-    func asyncBlackContact(#userId: Int, completion: (isSuccess: Bool, errorCode: Int) -> ()) {
+    func asyncBlackContact(userId userId: Int, completion: (isSuccess: Bool, errorCode: Int) -> ()) {
         let manager = AFHTTPRequestOperationManager()
         let requestSerializer = AFJSONRequestSerializer()
         manager.requestSerializer = requestSerializer
@@ -297,7 +297,7 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
     :param: helloStr
     :param: completion
     */
-    func asyncCancelBlackContact(#userId: Int, completion: (isSuccess: Bool, errorCode: Int) -> ()) {
+    func asyncCancelBlackContact(userId userId: Int, completion: (isSuccess: Bool, errorCode: Int) -> ()) {
         let manager = AFHTTPRequestOperationManager()
         let requestSerializer = AFJSONRequestSerializer()
         manager.requestSerializer = requestSerializer

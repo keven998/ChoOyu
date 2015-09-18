@@ -17,9 +17,9 @@ extension IMDiscussionGroupManager {
     
     :returns:
     */
-    func getBasicDiscussionGroupInfoFromDB(#groupId: Int) -> IMDiscussionGroup? {
+    func getBasicDiscussionGroupInfoFromDB(groupId groupId: Int) -> IMDiscussionGroup? {
         let frendManager = IMClientManager.shareInstance().frendManager
-        var frendModel = frendManager.getFrendInfoFromDB(userId: groupId)
+        let frendModel = frendManager.getFrendInfoFromDB(userId: groupId)
         var retGroup: IMDiscussionGroup?
         
         if let frend = frendModel {
@@ -35,9 +35,9 @@ extension IMDiscussionGroupManager {
     
     :returns:
     */
-    func getFullDiscussionGroupInfoFromDB(#groupId: Int) -> IMDiscussionGroup? {
+    func getFullDiscussionGroupInfoFromDB(groupId groupId: Int) -> IMDiscussionGroup? {
         let frendManager = IMClientManager.shareInstance().frendManager
-        var frendModel = frendManager.getFrendInfoFromDB(userId: groupId)
+        let frendModel = frendManager.getFrendInfoFromDB(userId: groupId)
         var retGroup: IMDiscussionGroup?
         
         if let frend = frendModel {
@@ -60,7 +60,7 @@ extension IMDiscussionGroupManager {
         manager.requestSerializer.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         manager.requestSerializer.setValue("\(AccountManager.shareAccountManager().account.userId)", forHTTPHeaderField: "UserId")
         
-        var url = "\(discussionGroupUrl)/\(groupId)"
+        let url = "\(discussionGroupUrl)/\(groupId)"
         manager.GET(url, parameters: nil, success: {
             (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
             if (responseObject.objectForKey("code") as! Int) == 0 {
@@ -93,7 +93,7 @@ extension IMDiscussionGroupManager {
         manager.requestSerializer.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         manager.requestSerializer.setValue("\(AccountManager.shareAccountManager().account.userId)", forHTTPHeaderField: "UserId")
         
-        var url = "\(discussionGroupUrl)/\(group.groupId)/members"
+        let url = "\(discussionGroupUrl)/\(group.groupId)/members"
         manager.GET(url, parameters: nil, success: {
             (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
             if (responseObject.objectForKey("code") as! Int) == 0 {

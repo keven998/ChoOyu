@@ -10,7 +10,7 @@ import UIKit
 
 private let daoHelper = DaoHelper()
 
-let documentPath: String = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as! String
+let documentPath: String = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] 
 let tempDirectory: String = NSTemporaryDirectory()
 
 let databaseWriteQueue = dispatch_queue_create("com.database.write", nil)
@@ -30,19 +30,23 @@ public class DaoHelper:NSObject {
     override init() {
         var userId = -1
         if let account = AccountManager.shareAccountManager().account {
-            userId = AccountManager.shareAccountManager().account.userId
+            userId = account.userId
         }
         
-        var dbPath: String = documentPath.stringByAppendingPathComponent("\(userId)/user.sqlite")
+        let dbPath: String = documentPath.stringByAppendingString("/\(userId)/user.sqlite")
         
-        debug_println("dbPath: \(dbPath)")
+        debug_print("dbPath: \(dbPath)")
         
         // 创建文件路径
-        var fileManager =  NSFileManager()
+        let fileManager =  NSFileManager()
         
         if !fileManager.fileExistsAtPath(dbPath) {
-            var directryPath = documentPath.stringByAppendingPathComponent("\(userId)")
-            fileManager.createDirectoryAtPath(directryPath, withIntermediateDirectories: true, attributes: nil, error: nil)
+            let directryPath = documentPath.stringByAppendingString("/\(userId)")
+            do {
+                try fileManager.createDirectoryAtPath(directryPath, withIntermediateDirectories: true, attributes: nil)
+            } catch {
+                
+            }
         }
         
         db = FMDatabase(path: dbPath)
@@ -62,18 +66,23 @@ public class DaoHelper:NSObject {
     func fillDatabase() {
         var userId = -1
         if let account = AccountManager.shareAccountManager().account {
-            userId = AccountManager.shareAccountManager().account.userId
+            userId = account.userId
         }
         
-        var dbPath: String = documentPath.stringByAppendingPathComponent("\(userId)/user.sqlite")
+        let dbPath: String = documentPath.stringByAppendingString("/\(userId)/user.sqlite")
         
-        debug_println("dbPath: \(dbPath)")
+        debug_print("dbPath: \(dbPath)")
         
-        var fileManager =  NSFileManager()
+        let fileManager =  NSFileManager()
         
         if !fileManager.fileExistsAtPath(dbPath) {
-            var directryPath = documentPath.stringByAppendingPathComponent("\(userId)")
-            fileManager.createDirectoryAtPath(directryPath, withIntermediateDirectories: true, attributes: nil, error: nil)
+            let directryPath = documentPath.stringByAppendingString("/\(userId)")
+            do {
+                try fileManager.createDirectoryAtPath(directryPath, withIntermediateDirectories: true, attributes: nil)
+                
+            } catch {
+                
+            }
         }
         
         db = FMDatabase(path: dbPath)
@@ -153,7 +162,7 @@ public class DaoHelper:NSObject {
     
     func selectLastServerMessage(fromTable: String) -> BaseMessage? {
         if self.openDB() {
-            var result = chatMessageDaoHelper.selectLastServerMessage(fromTable)
+            let result = chatMessageDaoHelper.selectLastServerMessage(fromTable)
             self.closeDB()
             return result
         }
@@ -162,7 +171,7 @@ public class DaoHelper:NSObject {
     
     func selectLastLocalMessageInChatTable(tableName: NSString) -> BaseMessage? {
         if self.openDB() {
-            var result = chatMessageDaoHelper.selectLastLocalMessageInChatTable(tableName)
+            let result = chatMessageDaoHelper.selectLastLocalMessageInChatTable(tableName)
             self.closeDB()
             return result
         }
@@ -171,7 +180,7 @@ public class DaoHelper:NSObject {
     
     func selectAllLastServerChatMessageInDB() -> NSDictionary {
         if self.openDB() {
-            var result =  chatMessageDaoHelper.selectAllLastServerChatMessageInDB()
+            let result =  chatMessageDaoHelper.selectAllLastServerChatMessageInDB()
             self.closeDB()
             return result
             
@@ -190,7 +199,7 @@ public class DaoHelper:NSObject {
     */
     func messageIsExitInTable(tableName: String, message: BaseMessage) -> Bool {
         if self.openDB() {
-            var result = chatMessageDaoHelper.messageIsExitInTable(tableName, message: message)
+            let result = chatMessageDaoHelper.messageIsExitInTable(tableName, message: message)
             self.closeDB()
             return result
 
@@ -239,7 +248,7 @@ public class DaoHelper:NSObject {
     }
     
     func getAllConversationList() -> Array<ChatConversation> {
-        var retArray = conversationHelper.getAllCoversation()
+        let retArray = conversationHelper.getAllCoversation()
         return retArray
     }
     

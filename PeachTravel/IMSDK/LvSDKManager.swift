@@ -28,11 +28,15 @@ class IMClientManager: NSObject {
     /// 保存聊天图片文件的目录
     var userChatImagePath: String {
         get {
-            let locationStr = documentPath.stringByAppendingPathComponent("\(accountId)/ChatImage/")
+            let locationStr = documentPath.stringByAppendingString("/\(accountId)/ChatImage/")
             let fileManager = NSFileManager()
 
             if !fileManager.fileExistsAtPath(locationStr) {
-                fileManager.createDirectoryAtPath(locationStr, withIntermediateDirectories: true, attributes: nil, error: nil)
+                do {
+                    try fileManager.createDirectoryAtPath(locationStr, withIntermediateDirectories: true, attributes: nil)
+                } catch {
+                    
+                }
             }
             return locationStr
         }
@@ -41,11 +45,15 @@ class IMClientManager: NSObject {
     /// 保存聊天语音文件的目录
     var userChatAudioPath: String {
         get {
-            let locationStr = documentPath.stringByAppendingPathComponent("\(accountId)/ChatAudio/")
+            let locationStr = documentPath.stringByAppendingString("/\(accountId)/ChatAudio/")
             let fileManager = NSFileManager()
             
             if !fileManager.fileExistsAtPath(locationStr) {
-                fileManager.createDirectoryAtPath(locationStr, withIntermediateDirectories: true, attributes: nil, error: nil)
+                do {
+                    try fileManager.createDirectoryAtPath(locationStr, withIntermediateDirectories: true, attributes: nil)
+                } catch {
+                    
+                }
             }
             return locationStr
         }
@@ -54,11 +62,15 @@ class IMClientManager: NSObject {
     /// 保存聊天临时文件的目录
     var userChatTempPath: String {
         get {
-            let locationStr = documentPath.stringByAppendingPathComponent("\(accountId)/ChatTemp/")
+            let locationStr = documentPath.stringByAppendingString("/\(accountId)/ChatTemp/")
             let fileManager = NSFileManager()
             
             if !fileManager.fileExistsAtPath(locationStr) {
-                fileManager.createDirectoryAtPath(locationStr, withIntermediateDirectories: true, attributes: nil, error: nil)
+                do {
+                    try fileManager.createDirectoryAtPath(locationStr, withIntermediateDirectories: true, attributes: nil)
+                } catch {
+                    
+                }
             }
             return locationStr
         }
@@ -109,7 +121,7 @@ class IMClientManager: NSObject {
     }
     
     deinit {
-        debug_println("IMClientManager deinit")
+        debug_print("IMClientManager deinit")
     }
     
     class func shareInstance() -> IMClientManager {

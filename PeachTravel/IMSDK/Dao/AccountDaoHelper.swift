@@ -22,7 +22,7 @@ class AccountDaoHelper: NSObject {
     FMDB初始化创建数据库
     */
     override init() {
-        var dbPath: String = documentPath.stringByAppendingPathComponent("\(AccountTableName).sqlite")
+        let dbPath: String = documentPath.stringByAppendingString("/\(AccountTableName).sqlite")
         db = FMDatabase(path: dbPath)
         dbQueue = FMDatabaseQueue(path: dbPath)
         super.init()
@@ -44,8 +44,8 @@ class AccountDaoHelper: NSObject {
     func selectCurrentAccount() -> AccountModel? {
         var account: AccountModel?
         dbQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
-            var sql = "select * from \(AccountTableName)"
-            var rs = dataBase.executeQuery(sql, withArgumentsInArray: nil)
+            let sql = "select * from \(AccountTableName)"
+            let rs = dataBase.executeQuery(sql, withArgumentsInArray: nil)
             if (rs != nil) {
                 while rs.next() {
                     account = self.fillAccountWithFMResultSet(rs)
@@ -67,12 +67,12 @@ class AccountDaoHelper: NSObject {
         var retResult = false
         
         dbQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
-            var sql = "select count(*) as 'count' from sqlite_master where type ='table' and name = ?"
-            var rs = dataBase.executeQuery(sql, withArgumentsInArray: [tableName])
+            let sql = "select count(*) as 'count' from sqlite_master where type ='table' and name = ?"
+            let rs = dataBase.executeQuery(sql, withArgumentsInArray: [tableName])
             if (rs != nil) {
                 while (rs.next())
                 {
-                    var count: Int32 = rs.intForColumn("count")
+                    let count: Int32 = rs.intForColumn("count")
                     if (0 == count) {
                         retResult =  false;
                     } else {
@@ -89,9 +89,9 @@ class AccountDaoHelper: NSObject {
     */
     func createAccountDB() {
         if db.open() {
-            var sql = "create table '\(AccountTableName)' (UserId INTEGER PRIMARY KEY NOT NULL, NickName TEXT, Avatar Text, AvatarSmall Text, Signature Text, Sex Text, tel Text, secToke Text, ExtData Text)"
+            let sql = "create table '\(AccountTableName)' (UserId INTEGER PRIMARY KEY NOT NULL, NickName TEXT, Avatar Text, AvatarSmall Text, Signature Text, Sex Text, tel Text, secToke Text, ExtData Text)"
             if (db.executeUpdate(sql, withArgumentsInArray: nil)) {
-                debug_println("执行 sql 语句：\(sql)")
+                debug_print("执行 sql 语句：\(sql)")
             }
             db.close()
         }
@@ -104,9 +104,9 @@ class AccountDaoHelper: NSObject {
     */
     func addAccount2DB(account: AccountModel) {
         dbQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
-            var sql = "insert or replace into \(AccountTableName) (UserId, NickName, Avatar, AvatarSmall, Signature, Sex, tel, secToke) values (?,?,?,?,?,?,?,?)"
-            debug_println("执行 sql 语句：\(sql)")
-            var array = [account.userId, account.nickName, account.avatar, account.avatarSmall, account.signature, account.gender.rawValue, account.tel, account.secToken]
+            let sql = "insert or replace into \(AccountTableName) (UserId, NickName, Avatar, AvatarSmall, Signature, Sex, tel, secToke) values (?,?,?,?,?,?,?,?)"
+            debug_print("执行 sql 语句：\(sql)")
+            let array = [account.userId, account.nickName, account.avatar, account.avatarSmall, account.signature, account.gender.rawValue, account.tel, account.secToken]
             dataBase.executeUpdate(sql, withArgumentsInArray: array as [AnyObject])
         }
     }
@@ -116,8 +116,8 @@ class AccountDaoHelper: NSObject {
     */
     func deleteAccountInfoInDB() {
         dbQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
-            var sql = "delete from \(AccountTableName)"
-            debug_println("执行 sql 语句：\(sql)")
+            let sql = "delete from \(AccountTableName)"
+            debug_print("执行 sql 语句：\(sql)")
             dataBase.executeUpdate(sql, withArgumentsInArray: nil)
         }
 
@@ -125,7 +125,7 @@ class AccountDaoHelper: NSObject {
     
     //MARK: private methods
     private func fillAccountWithFMResultSet(rs: FMResultSet) -> AccountModel {
-        var account = AccountModel()
+        let account = AccountModel()
         account.userId = Int(rs.intForColumn("UserId"))
         account.nickName = rs.stringForColumn("NickName")
         account.avatar = rs.stringForColumn("Avatar")

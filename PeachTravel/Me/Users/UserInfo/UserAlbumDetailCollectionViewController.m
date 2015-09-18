@@ -82,6 +82,7 @@ static NSString * const reuseIdentifier = @"userAlbumSelectCell";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     UserAlbumPreviewViewController *ctl = [[UserAlbumPreviewViewController alloc] init];
+    ctl.currentIndex = indexPath.row;
     ctl.dataSource = _dataSource;
     [self.navigationController pushViewController: ctl animated:YES];
 }

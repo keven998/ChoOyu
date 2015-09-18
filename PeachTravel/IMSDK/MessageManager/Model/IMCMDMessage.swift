@@ -31,7 +31,7 @@ class IMCMDMessage: BaseMessage {
     var actionContent: NSDictionary!
 
     override func fillContentWithContent(contents: String) {
-        var imageDic = JSONConvertMethod.jsonObjcWithString(contents)
+        let imageDic = JSONConvertMethod.jsonObjcWithString(contents)
         self.fillContentWithContentDic(imageDic)
     }
     

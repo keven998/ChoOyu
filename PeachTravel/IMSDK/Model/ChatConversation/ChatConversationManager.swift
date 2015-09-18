@@ -62,7 +62,7 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
     }
     
     func updateConversationListFromDB() {
-        var daoHelper = DaoHelper.shareInstance()
+        let daoHelper = DaoHelper.shareInstance()
         conversationList = daoHelper.getAllConversationList()
         self.setUpDefaultConversation()
         self.reorderConversationList()
@@ -80,7 +80,7 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
             params = ["targetIds": "\(chatterId)"]
         } else {
             var str = ""
-            for (index, conversation) in enumerate(conversationList) {
+            for (index, conversation) in conversationList.enumerate() {
                 if index == conversationList.count-1 {
                     str += ("\(conversation.chatterId)")
                 } else {
@@ -92,7 +92,6 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
         }
         NetworkTransportAPI.asyncGET(requestUrl: url, parameters: params, completionBlock: { (isSuccess, errorCode, retMessage) -> () in
             if isSuccess {
-                var conversation: ChatConversation?
                 let daoHelper = DaoHelper.shareInstance()
                 if let array = retMessage as? NSArray {
                     for data in array {
@@ -123,7 +122,7 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
     :param: completionBlock
     :param: conversation
     */
-    func asyncGetConversationInfoFromServer(#chatterId: Int, completionBlock: (isSuccess: Bool, conversation: ChatConversation?) -> ()) {
+    func asyncGetConversationInfoFromServer(chatterId chatterId: Int, completionBlock: (isSuccess: Bool, conversation: ChatConversation?) -> ()) {
         let imClientManager = IMClientManager.shareInstance()
         let url = "\(HedyUserUrl)/\(imClientManager.accountId)/conversations"
         let params = ["targetIds": "\(chatterId)"]
@@ -156,7 +155,7 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
     将 conversationlist 重新排序,问问>派派>置顶>其他时间顺序
     */
     func reorderConversationList() {
-        sort(&conversationList, { (conversation1: ChatConversation, conversation2: ChatConversation) -> Bool in
+        conversationList.sortInPlace { (conversation1: ChatConversation, conversation2: ChatConversation) -> Bool in
             if conversation1.chatterId == Int(WenwenUserId) {
                 return true
             }
@@ -184,7 +183,7 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
             } else {
                 return conversation1.lastUpdateTime >= conversation2.lastUpdateTime
             }
-        })
+        }
     }
     
     /**
@@ -194,7 +193,7 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
     :param: groupState
     
     */
-    func asyncChangeConversationBlockStatus(#chatterId: Int, isBlock: Bool, completion: (isSuccess: Bool, errorCode: Int) -> ()) {
+    func asyncChangeConversationBlockStatus(chatterId chatterId: Int, isBlock: Bool, completion: (isSuccess: Bool, errorCode: Int) -> ()) {
         if let exitConversation = self.getExistConversationInConversationList(chatterId) {
             
             let imClientManager = IMClientManager.shareInstance()
@@ -229,8 +228,8 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
     /**
     新建会话, 会话的 用户 id
     */
-    func createNewConversation(#chatterId: Int, chatType: IMChatType) -> ChatConversation {
-        var exitConversation = ChatConversation()
+    func createNewConversation(chatterId chatterId: Int, chatType: IMChatType) -> ChatConversation {
+        let exitConversation = ChatConversation()
         exitConversation.chatterId = chatterId
         self.asyncGetConversationInfoFromServer(chatterId: chatterId) { (isSuccess, conversation) -> () in
             if isSuccess {
@@ -240,19 +239,11 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
                 }
             }
         }
-        var time = NSDate().timeIntervalSince1970
-        var timeInt: Int = Int(round(time))
+        let time = NSDate().timeIntervalSince1970
+        let timeInt: Int = Int(round(time))
         exitConversation.lastUpdateTime = timeInt
         exitConversation.chatType = chatType
-        var frendManager = IMClientManager.shareInstance().frendManager
-        
-        var type: IMFrendWeightType?
-        if chatType == IMChatType.IMChatDiscussionGroupType {
-            type = IMFrendWeightType.DiscussionGroup
-        }
-        if chatType == IMChatType.IMChatGroupType {
-            type = IMFrendWeightType.Group
-        }
+        let frendManager = IMClientManager.shareInstance().frendManager
     
         if let frend = frendManager.getFrendInfoFromDB(userId: chatterId) {
             //如果此联系人的属性为屏蔽消息，则不添加新的会话
@@ -274,7 +265,7 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
     :param: message
     :returns:
     */
-    func createNewConversation(#message: BaseMessage) -> ChatConversation {
+    func createNewConversation(message message: BaseMessage) -> ChatConversation {
         return self.createNewConversation(chatterId: message.chatterId, chatType: message.chatType)
     }
     
@@ -307,7 +298,7 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
                 return exitConversation
             }
         }
-        var conversation = self.createNewConversation(chatterId: chatterId, chatType: chatType)
+        let conversation = self.createNewConversation(chatterId: chatterId, chatType: chatType)
         self.addConversation(conversation)
         return conversation
     }
@@ -334,7 +325,7 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
         if self.conversationIsExit(conversation) {
             return
         }
-        var daoHelper = DaoHelper.shareInstance()
+        let daoHelper = DaoHelper.shareInstance()
         daoHelper.addConversation(conversation)
         self.conversationList.append(conversation)
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
@@ -347,11 +338,11 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
     :param: chatterId
     :Bool: 是否成功
     */
-    func removeConversation(#chatterId: Int, deleteMessage: Bool) {
-        var daoHelper = DaoHelper.shareInstance()
+    func removeConversation(chatterId chatterId: Int, deleteMessage: Bool) {
+        let daoHelper = DaoHelper.shareInstance()
         daoHelper.removeConversationfromDB(chatterId)
         for i in 0 ..< conversationList.count {
-            var conversation = conversationList[i]
+            let conversation = conversationList[i]
             if conversation.chatterId == chatterId {
                 conversationList.removeAtIndex(i)
                 delegate?.conversationsHaveRemoved([conversation])
@@ -438,7 +429,7 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
     private func handleReceiveMessage(message: BaseMessage) {
         if let conversation = self.getConversationWithMessage(message) {
             conversation.addReceiveMessage(message)
-            debug_println("conversation: \(conversation.chatterName)")
+            debug_print("conversation: \(conversation.chatterName)")
             //如果当前的 conversation 不是正在显示的，并且消息不是从另一个终端已我的身份发送的
             if !conversation.isCurrentConversation && (message.senderId != IMClientManager.shareInstance().accountId) {
                 conversation.unReadMessageCount++
@@ -456,8 +447,7 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
         
         //如果在所有的已有会话里找不到这条消息的会话，那么新建一个会话并加入到会话列表里
 
-        var conversation = createNewConversation(message: message)
-        var frendManager = IMClientManager.shareInstance().frendManager
+        let conversation = createNewConversation(message: message)
         conversation.addReceiveMessage(message)
         conversation.unReadMessageCount = 1
     }

@@ -24,11 +24,11 @@ class MetaDataDaoHelper: MetadataDaoHelperProtocol {
     :returns: 是否创建成功
     */
     func createAudioMessageTable(tableName: String) {
-        var sql = "create table 'VoiceTable' (UserId text, LocalId INTEGER, ServerUrl text, LocalPath text, Status int(4), Length INTEGER, CreateTime INTEGER)"
+        let sql = "create table 'VoiceTable' (UserId text, LocalId INTEGER, ServerUrl text, LocalPath text, Status int(4), Length INTEGER, CreateTime INTEGER)"
         if (dataBase.executeUpdate(sql, withArgumentsInArray: nil)) {
-            debug_println("success 执行 sql :\(sql)")
+            debug_print("success 执行 sql :\(sql)")
         } else {
-            debug_println("error 执行 sql :\(sql)")
+            debug_print("error 执行 sql :\(sql)")
 
         }
     }

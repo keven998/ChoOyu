@@ -95,8 +95,6 @@ class FrendModel: NSObject {
 
     init(json: NSDictionary) {
         
-        println("\(json)")
-        
         if let blacked = json.objectForKey("isBlocked") as? Bool {
             isBlacked = blacked
         }
@@ -210,9 +208,9 @@ class FrendModel: NSObject {
     class func costellationDescWithBirthday(birthday: String?) -> String {
         var star = ""
         if let date = ConvertMethods.stringToDate(birthday, withFormat: "yyyy-MM-dd", withTimeZone: NSTimeZone.systemTimeZone()) {
-            var components = NSCalendar.currentCalendar().components(NSCalendarUnit.DayCalendarUnit | NSCalendarUnit.MonthCalendarUnit | NSCalendarUnit.YearCalendarUnit, fromDate: date)
-            var month = components.month
-            var day = components.day
+            let components = NSCalendar.currentCalendar().components(NSCalendarUnit([.Day, .Month, .Year]), fromDate: date)
+            let month = components.month
+            let day = components.day
             if (month == 1 && day >= 20) || (month == 2 && day <= 18) {
                 star = "水瓶座"
             }
@@ -257,9 +255,9 @@ class FrendModel: NSObject {
     class func bigCostellationImageNameWithBirthday(birthday: String?) -> String {
         var star = "dashboard_03_icon_constellation0.png"
         if let date = ConvertMethods.stringToDate(birthday, withFormat: "yyyy-MM-dd", withTimeZone: NSTimeZone.systemTimeZone()) {
-            var components = NSCalendar.currentCalendar().components(NSCalendarUnit.DayCalendarUnit | NSCalendarUnit.MonthCalendarUnit | NSCalendarUnit.YearCalendarUnit, fromDate: date)
-            var month = components.month
-            var day = components.day
+            let components = NSCalendar.currentCalendar().components(NSCalendarUnit([.Day, .Month, .Year]), fromDate: date)
+            let month = components.month
+            let day = components.day
             if (month == 1 && day >= 20) || (month == 2 && day <= 18) {
                 star = "dashboard_03_icon_constellation11.png"
             }
@@ -304,9 +302,9 @@ class FrendModel: NSObject {
     class func smallCostellationImageNameWithBirthday(birthday: String?) -> String {
         var star = "master_icon_constellation0.png"
         if let date = ConvertMethods.stringToDate(birthday, withFormat: "yyyy-MM-dd", withTimeZone: NSTimeZone.systemTimeZone()) {
-            var components = NSCalendar.currentCalendar().components(NSCalendarUnit.DayCalendarUnit | NSCalendarUnit.MonthCalendarUnit | NSCalendarUnit.YearCalendarUnit, fromDate: date)
-            var month = components.month
-            var day = components.day
+            let components = NSCalendar.currentCalendar().components(NSCalendarUnit([.Day, .Month, .Year]), fromDate: date)
+            let month = components.month
+            let day = components.day
             if (month == 1 && day >= 20) || (month == 2 && day <= 18) {
                 star = "master_icon_constellation11.png"
             }

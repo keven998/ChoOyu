@@ -40,7 +40,7 @@ class MessageManager: NSObject {
     }
     
     override init() {
-        var daoHelper = DaoHelper.shareInstance()
+        let daoHelper = DaoHelper.shareInstance()
         allLastMessageList = daoHelper.selectAllLastServerChatMessageInDB().mutableCopy() as! NSMutableDictionary
         super.init()
         if (AccountManager.shareAccountManager().isLogin()) {
@@ -90,8 +90,8 @@ class MessageManager: NSObject {
     :param: message
     :returns:
     */
-    class func prepareMessage2Send(#receiverId: Int, senderId: Int, conversationId: String?, chatType: IMChatType, message:BaseMessage) ->  NSDictionary {
-        var retDic = NSMutableDictionary()
+    class func prepareMessage2Send(receiverId receiverId: Int, senderId: Int, conversationId: String?, chatType: IMChatType, message:BaseMessage) ->  NSDictionary {
+        let retDic = NSMutableDictionary()
         retDic.setValue(message.messageType.rawValue, forKey: "msgType")
         retDic.setValue(senderId, forKey: "sender")
         retDic.setValue(message.message, forKey: "contents")
@@ -108,8 +108,8 @@ class MessageManager: NSObject {
     
         switch message.messageType {
         case .LocationMessageType :
-            var location = ["name": (message as! LocationMessage).address, "lng": (message as! LocationMessage).longitude, "lat": (message as! LocationMessage).latitude]
-            var contentStr = JSONConvertMethod.contentsStrWithJsonObjc(location)
+            let location = ["name": (message as! LocationMessage).address, "lng": (message as! LocationMessage).longitude, "lat": (message as! LocationMessage).latitude]
+            let contentStr = JSONConvertMethod.contentsStrWithJsonObjc(location)
             retDic.setValue(contentStr, forKey: "contents")
             
         case .TextMessageType :
@@ -142,7 +142,7 @@ class MessageManager: NSObject {
         var message: BaseMessage
         switch poiModel.poiType {
         case IMPoiType.City:
-            var cityMsg = IMCityMessage()
+            let cityMsg = IMCityMessage()
             cityMsg.poiId = poiModel.poiId
             cityMsg.poiName = poiModel.poiName
             cityMsg.image = poiModel.image
@@ -151,7 +151,7 @@ class MessageManager: NSObject {
             message = cityMsg
 
         case IMPoiType.Spot:
-            var spotMsg = IMSpotMessage()
+            let spotMsg = IMSpotMessage()
             spotMsg.spotId = poiModel.poiId
             spotMsg.spotName = poiModel.poiName
             spotMsg.image = poiModel.image
@@ -161,7 +161,7 @@ class MessageManager: NSObject {
             message = spotMsg
 
         case IMPoiType.Guide:
-            var guideMsg = IMGuideMessage()
+            let guideMsg = IMGuideMessage()
             guideMsg.guideId = poiModel.poiId
             guideMsg.guideName = poiModel.poiName
             guideMsg.image = poiModel.image
@@ -172,7 +172,7 @@ class MessageManager: NSObject {
             message = guideMsg
 
         case IMPoiType.TravelNote:
-            var travelNoteMsg = IMTravelNoteMessage()
+            let travelNoteMsg = IMTravelNoteMessage()
             travelNoteMsg.travelNoteId = poiModel.poiId
             travelNoteMsg.name = poiModel.poiName
             travelNoteMsg.image = poiModel.image
@@ -183,7 +183,7 @@ class MessageManager: NSObject {
             message = travelNoteMsg
 
         case IMPoiType.Restaurant:
-            var restaurantMsg = IMRestaurantMessage()
+            let restaurantMsg = IMRestaurantMessage()
             restaurantMsg.restaurantId = poiModel.poiId
             restaurantMsg.poiName = poiModel.poiName
             restaurantMsg.image = poiModel.image
@@ -195,7 +195,7 @@ class MessageManager: NSObject {
             message = restaurantMsg
 
         case IMPoiType.Shopping:
-            var shoppingMsg = IMShoppingMessage()
+            let shoppingMsg = IMShoppingMessage()
             shoppingMsg.shoppingId = poiModel.poiId
             shoppingMsg.poiName = poiModel.poiName
             shoppingMsg.image = poiModel.image
@@ -207,7 +207,7 @@ class MessageManager: NSObject {
             message = shoppingMsg
 
         case IMPoiType.Hotel:
-            var hotelMsg = IMHotelMessage()
+            let hotelMsg = IMHotelMessage()
             hotelMsg.hotelId = poiModel.poiId
             hotelMsg.poiName = poiModel.poiName
             hotelMsg.image = poiModel.image
@@ -217,10 +217,6 @@ class MessageManager: NSObject {
             hotelMsg.poiModel = poiModel
 
             message = hotelMsg
-
-        default:
-            message = BaseMessage()
-
         }
         
         if let content = poiModel.getContentStr() {
@@ -234,7 +230,7 @@ class MessageManager: NSObject {
             return
         }
         timer = NSTimer.scheduledTimerWithTimeInterval(ACKTime, target: self, selector: Selector("ackMessageWhenTimeout"), userInfo: nil, repeats: true)
-        debug_println("********ACK 的定时器开始启动了*******")
+        debug_print("********ACK 的定时器开始启动了*******")
     }
     
     func stopTimer() {
@@ -301,8 +297,6 @@ class MessageManager: NSObject {
                 case .Html5MessageType:
                     messageModel = HtmlMessage()
                     
-                default :
-                    return nil
                 }
                 
                 if let contents = messageDic.objectForKey("contents") as? String {
@@ -350,7 +344,7 @@ class MessageManager: NSObject {
                 
             }
         } else {
-            debug_println(" ****解析消息出错******")
+            debug_print(" ****解析消息出错******")
         }
         return messageModel
     }
