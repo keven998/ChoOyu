@@ -9,6 +9,10 @@
 #import "UserAlbumSelectViewController.h"
 #import "UserAlbumSelectCollectionViewCell.h"
 #import "UserAlbumPreviewViewController.h"
+#import "UploadUserAlbumViewController.h"
+#import "UserAlbumOverViewTableViewController.h"
+#import "UserAlbumViewController.h"
+#import "UploadUserAlbumViewController.h"
 
 @interface UserAlbumSelectViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 
@@ -51,7 +55,7 @@ static NSString * const reuseIdentifier = @"userAlbumSelectCell";
     _confirmBtn.layer.borderWidth = 1.0;
     [_confirmBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
     [_confirmBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateDisabled];
-
+    [_confirmBtn addTarget:self action:@selector(confirmUploadPhotos:) forControlEvents:UIControlEventTouchUpInside];
     [toolBar addSubview:_confirmBtn];
     
     _previewBtn = [[UIButton alloc] initWithFrame:CGRectMake(15, 9, 60, 30)];
@@ -163,6 +167,13 @@ static NSString * const reuseIdentifier = @"userAlbumSelectCell";
 - (void)previewSelectPhotos:(UIButton *)sender
 {
     [self previewPhotos:_selectedPhotos atIndex:0];
+}
+
+- (void)confirmUploadPhotos:(id)sender
+{
+    UIViewController *ctl = self.navigationController.viewControllers.firstObject;
+    [ctl dismissViewControllerAnimated:YES completion:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:uploadUserAlbumNoti object:nil userInfo:@{@"images" : _selectedPhotos}];
 }
 
 #pragma mark <UICollectionViewDataSource>

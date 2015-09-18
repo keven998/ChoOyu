@@ -172,6 +172,12 @@
 		D90ED42B1BABBC7E000C6033 /* UploadUserAlbumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D90ED42A1BABBC7E000C6033 /* UploadUserAlbumViewController.m */; settings = {ASSET_TAGS = (); }; };
 		D90ED42E1BABE83B000C6033 /* icon_add_photo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D90ED42C1BABE83B000C6033 /* icon_add_photo@2x.png */; settings = {ASSET_TAGS = (); }; };
 		D90ED42F1BABE83B000C6033 /* icon_add_photo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D90ED42D1BABE83B000C6033 /* icon_add_photo@3x.png */; settings = {ASSET_TAGS = (); }; };
+		D90ED4321BABF160000C6033 /* UploadUserPhotoOperationView.m in Sources */ = {isa = PBXBuildFile; fileRef = D90ED4311BABF160000C6033 /* UploadUserPhotoOperationView.m */; settings = {ASSET_TAGS = (); }; };
+		D90ED4341BABF196000C6033 /* UploadUserPhotoOperationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D90ED4331BABF196000C6033 /* UploadUserPhotoOperationView.xib */; settings = {ASSET_TAGS = (); }; };
+		D90ED4381BAC001A000C6033 /* UploadUserAlbumCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D90ED4361BAC001A000C6033 /* UploadUserAlbumCollectionViewCell.m */; settings = {ASSET_TAGS = (); }; };
+		D90ED4391BAC001A000C6033 /* UploadUserAlbumCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D90ED4371BAC001A000C6033 /* UploadUserAlbumCollectionViewCell.xib */; settings = {ASSET_TAGS = (); }; };
+		D90ED43C1BAC0AD4000C6033 /* icon_big_add_photo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D90ED43A1BAC0AD4000C6033 /* icon_big_add_photo@2x.png */; settings = {ASSET_TAGS = (); }; };
+		D90ED43D1BAC0AD4000C6033 /* icon_big_add_photo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D90ED43B1BAC0AD4000C6033 /* icon_big_add_photo@3x.png */; settings = {ASSET_TAGS = (); }; };
 		D91061D01BA93C2800C4FBCB /* UserAlbumOverViewTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D91061CF1BA93C2800C4FBCB /* UserAlbumOverViewTableViewController.m */; };
 		D91061D41BA93D6E00C4FBCB /* UserAlbumOverviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D91061D21BA93D6E00C4FBCB /* UserAlbumOverviewCell.m */; };
 		D91061D51BA93D6E00C4FBCB /* UserAlbumOverviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D91061D31BA93D6E00C4FBCB /* UserAlbumOverviewCell.xib */; };
@@ -1672,6 +1678,14 @@
 		D90ED42A1BABBC7E000C6033 /* UploadUserAlbumViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadUserAlbumViewController.m; sourceTree = "<group>"; };
 		D90ED42C1BABE83B000C6033 /* icon_add_photo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_add_photo@2x.png"; sourceTree = "<group>"; };
 		D90ED42D1BABE83B000C6033 /* icon_add_photo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_add_photo@3x.png"; sourceTree = "<group>"; };
+		D90ED4301BABF160000C6033 /* UploadUserPhotoOperationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadUserPhotoOperationView.h; sourceTree = "<group>"; };
+		D90ED4311BABF160000C6033 /* UploadUserPhotoOperationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadUserPhotoOperationView.m; sourceTree = "<group>"; };
+		D90ED4331BABF196000C6033 /* UploadUserPhotoOperationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UploadUserPhotoOperationView.xib; sourceTree = "<group>"; };
+		D90ED4351BAC001A000C6033 /* UploadUserAlbumCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadUserAlbumCollectionViewCell.h; sourceTree = "<group>"; };
+		D90ED4361BAC001A000C6033 /* UploadUserAlbumCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadUserAlbumCollectionViewCell.m; sourceTree = "<group>"; };
+		D90ED4371BAC001A000C6033 /* UploadUserAlbumCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UploadUserAlbumCollectionViewCell.xib; sourceTree = "<group>"; };
+		D90ED43A1BAC0AD4000C6033 /* icon_big_add_photo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_big_add_photo@2x.png"; sourceTree = "<group>"; };
+		D90ED43B1BAC0AD4000C6033 /* icon_big_add_photo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_big_add_photo@3x.png"; sourceTree = "<group>"; };
 		D91061CE1BA93C2800C4FBCB /* UserAlbumOverViewTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserAlbumOverViewTableViewController.h; sourceTree = "<group>"; };
 		D91061CF1BA93C2800C4FBCB /* UserAlbumOverViewTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserAlbumOverViewTableViewController.m; sourceTree = "<group>"; };
 		D91061D11BA93D6E00C4FBCB /* UserAlbumOverviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserAlbumOverviewCell.h; sourceTree = "<group>"; };
@@ -3723,6 +3737,8 @@
 				D90ED4261BABB22A000C6033 /* icon_photo_normal@3x.png */,
 				D90ED4181BABACEC000C6033 /* icon_photo_selected@2x.png */,
 				D90ED4191BABACEC000C6033 /* icon_photo_selected@3x.png */,
+				D90ED43A1BAC0AD4000C6033 /* icon_big_add_photo@2x.png */,
+				D90ED43B1BAC0AD4000C6033 /* icon_big_add_photo@3x.png */,
 			);
 			path = userAlbum;
 			sourceTree = "<group>";
@@ -3760,6 +3776,12 @@
 				D91061F71BA954BC00C4FBCB /* PhotoPreivewView.m */,
 				D90ED4291BABBC7E000C6033 /* UploadUserAlbumViewController.h */,
 				D90ED42A1BABBC7E000C6033 /* UploadUserAlbumViewController.m */,
+				D90ED4301BABF160000C6033 /* UploadUserPhotoOperationView.h */,
+				D90ED4311BABF160000C6033 /* UploadUserPhotoOperationView.m */,
+				D90ED4331BABF196000C6033 /* UploadUserPhotoOperationView.xib */,
+				D90ED4351BAC001A000C6033 /* UploadUserAlbumCollectionViewCell.h */,
+				D90ED4361BAC001A000C6033 /* UploadUserAlbumCollectionViewCell.m */,
+				D90ED4371BAC001A000C6033 /* UploadUserAlbumCollectionViewCell.xib */,
 			);
 			name = AddAlbum;
 			sourceTree = "<group>";
@@ -7935,11 +7957,13 @@
 				E6F189E31B845F4900232EEB /* plan_02_bg_day@2x.png in Resources */,
 				E6F18A291B845F4900232EEB /* lxp_search_bg_highlight@2x.png in Resources */,
 				E6F18B0F1B845F4900232EEB /* master_icon_constellation11@2x.png in Resources */,
+				D90ED43C1BAC0AD4000C6033 /* icon_big_add_photo@2x.png in Resources */,
 				E6F18A541B845F4900232EEB /* ic_home_avatar_border_unknown@2x.png in Resources */,
 				C6C5C3CC1ADE65570047C058 /* AutoSlideScrollView.bundle in Resources */,
 				D94B891A1B5E4F4C00584DE5 /* h5_labar_left_default@3x.png in Resources */,
 				E6F18A9A1B845F4900232EEB /* chat_paipai@3x.png in Resources */,
 				E6381C0A1B66269000CF73AA /* Loading_Animation_final51@2x.png in Resources */,
+				D90ED4391BAC001A000C6033 /* UploadUserAlbumCollectionViewCell.xib in Resources */,
 				E6F189E41B845F4900232EEB /* plan_02_bg_day@3x.png in Resources */,
 				E6F18AA91B845F4900232EEB /* chat_sender_audio_playing_002@2x.png in Resources */,
 				D90A9B321B5627C400E9F37C /* Loading_Animation_final7@3x.png in Resources */,
@@ -8360,6 +8384,7 @@
 				D90A9B661B5627C400E9F37C /* Loading_Animation_final59@3x.png in Resources */,
 				E6F1897E1B845F4900232EEB /* poi_button_tip_disable@3X.png in Resources */,
 				E6F18B0B1B845F4900232EEB /* master_icon_constellation0@2x.png in Resources */,
+				D90ED4341BABF196000C6033 /* UploadUserPhotoOperationView.xib in Resources */,
 				D9A8FEC61A80C818005AD701 /* ConfirmRouteViewController.xib in Resources */,
 				E6F189AB1B845F4900232EEB /* city_button_guide_selected@2x.png in Resources */,
 				E6F189981B845F4900232EEB /* poi_line_default@3x.png in Resources */,
@@ -8412,6 +8437,7 @@
 				E6F1896B1B845F4900232EEB /* poi_bg_album@2x.png in Resources */,
 				E6F189E11B845F4900232EEB /* collect_shopping@2x.png in Resources */,
 				D90A9B3F1B5627C400E9F37C /* Loading_Animation_final20@3x.png in Resources */,
+				D90ED43D1BAC0AD4000C6033 /* icon_big_add_photo@3x.png in Resources */,
 				E6F18A841B845F4900232EEB /* speaking-motion13@3x.png in Resources */,
 				E67795831B95D70D004CE21A /* testpicture.png in Resources */,
 				D917DAD21A8B4A320039720A /* ic_guide3_talk3_1@2x.png in Resources */,
@@ -8632,6 +8658,7 @@
 				D9A802201A80E036005AD701 /* MJPhotoProgressView.m in Sources */,
 				D9A802141A80E036005AD701 /* JGProgressHUDIndeterminateIndicatorView.m in Sources */,
 				D9A802151A80E036005AD701 /* JGProgressHUDIndicatorView.m in Sources */,
+				D90ED4321BABF160000C6033 /* UploadUserPhotoOperationView.m in Sources */,
 				D9A802E11A80E3D3005AD701 /* PageThree.m in Sources */,
 				D993C2611B12DF0C0088D568 /* IMGuideMessage.swift in Sources */,
 				D971E2A21B904F93007E5AFD /* ExpertRequestViewController.m in Sources */,
@@ -8699,6 +8726,7 @@
 				E690D8D21B7CB71B00BFDF1B /* MakePlanViewController.m in Sources */,
 				E68CB1DC1B9E7B0000A5B38B /* OtherProfileViewController.m in Sources */,
 				D9A8002D1A80D52F005AD701 /* AddPoiViewController.m in Sources */,
+				D90ED4381BAC001A000C6033 /* UploadUserAlbumCollectionViewCell.m in Sources */,
 				E6E7251F1B5603750007273A /* MJIvar.m in Sources */,
 				D993C2491B12DF0C0088D568 /* FMDatabase.m in Sources */,
 				D9687CA21AC4095500B1C88E /* FootprintMapViewController.m in Sources */,

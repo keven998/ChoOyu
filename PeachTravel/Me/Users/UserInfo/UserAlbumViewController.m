@@ -13,6 +13,7 @@
 #import "MJPhotoBrowser.h"
 #import "MJPhoto.h"
 #import "UserAlbumOverViewTableViewController.h"
+#import "UploadUserAlbumViewController.h"
 
 @interface UserAlbumViewController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 @property (nonatomic, strong) AccountManager *manager;
@@ -66,6 +67,7 @@ static NSString * const reuseIdentifier = @"albumImageCell";
     [super viewWillAppear:animated];
     [self.collectionView reloadData];
     [MobClick beginLogPageView:@"page_profile_album"];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(photoHasSelected:) name:uploadUserAlbumNoti object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -79,12 +81,22 @@ static NSString * const reuseIdentifier = @"albumImageCell";
     [super didReceiveMemoryWarning];
 }
 
+- (void)photoHasSelected:(NSNotification *)noti
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    NSMutableArray *selectedPhotos = [noti.userInfo objectForKey:@"images"];
+    UploadUserAlbumViewController *ctl = [[UploadUserAlbumViewController alloc] init];
+    ctl.selectedPhotos = selectedPhotos;
+    [self.navigationController pushViewController:ctl animated:NO];
+}
+
 #pragma mark - private Methods
 
 - (void)addPhoto:(UIButton *)button
 {
     UserAlbumOverViewTableViewController *ctl = [[UserAlbumOverViewTableViewController alloc] init];
-    [self.navigationController pushViewController:ctl animated:YES];
+    ctl.selectedPhotos = [[NSMutableArray alloc] init];
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:ctl] animated:YES completion:nil];
 }
 
 #pragma mark <UICollectionViewDataSource>

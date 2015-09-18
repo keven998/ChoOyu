@@ -17,4 +17,5 @@
 
 @property (nonatomic, strong) ALAsset *asset;
 
+
 @end

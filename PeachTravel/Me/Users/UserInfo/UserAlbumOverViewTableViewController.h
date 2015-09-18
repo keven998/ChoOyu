@@ -10,5 +10,6 @@
 
 @interface UserAlbumOverViewTableViewController : UITableViewController
 
+@property (nonatomic, strong) NSMutableArray *selectedPhotos;
 
 @end

@@ -41,6 +41,7 @@
     _confirmBtn.layer.borderWidth = 1.0;
     [_confirmBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
     [_confirmBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateDisabled];
+    [_confirmBtn addTarget:self action:@selector(confirmUploadPhotos:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_confirmBtn];
     [self updateButtonStatus];
 }
@@ -114,6 +115,13 @@
         _selectBtn.selected = YES;
     }
     [self updateButtonStatus];
+}
+
+- (void)confirmUploadPhotos:(id)sender
+{
+    UIViewController *ctl = self.navigationController.viewControllers.firstObject;
+    [ctl dismissViewControllerAnimated:YES completion:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:uploadUserAlbumNoti object:nil userInfo:@{@"images" : _selectedPhotos}];
 }
 
 #pragma mark <UICollectionViewDataSource>

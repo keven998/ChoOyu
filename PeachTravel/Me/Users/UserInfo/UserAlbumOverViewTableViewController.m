@@ -16,7 +16,6 @@
 
 @property (nonatomic, strong) ALAssetsLibrary *assetsLibrary;
 @property (nonatomic, strong) NSMutableArray *dataSource;
-@property (nonatomic, strong) NSMutableArray *selectedPhotos;
 
 @end
 
@@ -24,6 +23,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [backBtn setTitle:@"取消" forState:UIControlStateNormal];
+    [backBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
+    [backBtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
+    
     [self.tableView registerNib:[UINib nibWithNibName:@"UserAlbumOverviewCell" bundle:nil] forCellReuseIdentifier:@"userAlbumCell"];
     [self loadDataSource];
 }
@@ -39,14 +45,6 @@
         _dataSource = [[NSMutableArray alloc] init];
     }
     return _dataSource;
-}
-
-- (NSMutableArray *)selectedPhotos
-{
-    if (!_selectedPhotos) {
-        _selectedPhotos = [[NSMutableArray alloc] init];
-    }
-    return _selectedPhotos;
 }
 
 + (ALAssetsLibrary *)defaultAssetsLibrary
@@ -94,6 +92,11 @@
     [self.assetsLibrary enumerateGroupsWithTypes:type
                                       usingBlock:resultsBlock
                                     failureBlock:failureBlock];
+}
+
+- (void)goBack
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Table view data source

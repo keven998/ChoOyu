@@ -10,4 +10,6 @@
 
 @interface UploadUserAlbumViewController : UIViewController
 
+@property (nonatomic, strong) NSMutableArray *selectedPhotos;
+
 @end
