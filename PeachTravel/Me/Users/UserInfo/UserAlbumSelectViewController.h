@@ -13,4 +13,6 @@
 
 @property (nonatomic, strong) ALAssetsGroup *assetsGroup;
 
+@property (nonatomic, strong) NSMutableArray *selectedPhotos;
+
 @end

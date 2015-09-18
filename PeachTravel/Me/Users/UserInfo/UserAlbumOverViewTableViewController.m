@@ -16,6 +16,7 @@
 
 @property (nonatomic, strong) ALAssetsLibrary *assetsLibrary;
 @property (nonatomic, strong) NSMutableArray *dataSource;
+@property (nonatomic, strong) NSMutableArray *selectedPhotos;
 
 @end
 
@@ -38,6 +39,14 @@
         _dataSource = [[NSMutableArray alloc] init];
     }
     return _dataSource;
+}
+
+- (NSMutableArray *)selectedPhotos
+{
+    if (!_selectedPhotos) {
+        _selectedPhotos = [[NSMutableArray alloc] init];
+    }
+    return _selectedPhotos;
 }
 
 + (ALAssetsLibrary *)defaultAssetsLibrary
@@ -115,6 +124,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     UserAlbumSelectViewController *ctl = [[UserAlbumSelectViewController alloc] init];
     ctl.assetsGroup = _dataSource[indexPath.row];
+    ctl.selectedPhotos = self.selectedPhotos;
     [self.navigationController pushViewController:ctl animated:YES];
 }
 

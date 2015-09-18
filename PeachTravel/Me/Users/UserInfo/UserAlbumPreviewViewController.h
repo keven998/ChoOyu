@@ -14,4 +14,5 @@
 
 @property (nonatomic) NSUInteger currentIndex;
 
+@property (nonatomic, strong) NSMutableArray *selectedPhotos;
 @end

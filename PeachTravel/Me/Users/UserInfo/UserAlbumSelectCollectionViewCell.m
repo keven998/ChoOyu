@@ -11,7 +11,8 @@
 @implementation UserAlbumSelectCollectionViewCell
 
 - (void)awakeFromNib {
-    // Initialization code
+    [_selectBtn setImage:[UIImage imageNamed:@"icon_photo_normal.png"] forState:UIControlStateNormal];
+    [_selectBtn setImage:[UIImage imageNamed:@"icon_photo_selected.png"] forState:UIControlStateSelected];
 }
 
 - (void)setAsset:(ALAsset *)asset

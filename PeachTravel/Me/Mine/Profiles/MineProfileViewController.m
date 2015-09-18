@@ -56,7 +56,7 @@
         if (isSuccess) {
             [self.tableView reloadData];
         } else {
-            [SVProgressHUD showWithStatus:@"相册获取失败"];
+            [SVProgressHUD showHint:@"相册获取失败"];
             [self.tableView reloadData];
         }
     }];
