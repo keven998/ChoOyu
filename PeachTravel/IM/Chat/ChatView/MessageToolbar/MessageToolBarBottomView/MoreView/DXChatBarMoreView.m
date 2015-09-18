@@ -12,11 +12,14 @@
 
 #import "DXChatBarMoreView.h"
 
-#define CHAT_BUTTON_SIZE (200 - 36)/2
-#define CHAT_BUTTON_HEIGHT (CHAT_BUTTON_SIZE + 18) //panel height: 200
 
-#define CHAT_LABEL_HEIGHT 18
-#define INSETS 5
+
+@interface DXChatBarMoreView ()
+
+
+
+@end
+
 
 @implementation DXChatBarMoreView
 
@@ -151,7 +154,19 @@
      */
 }
 
+
+
 #pragma mark - action
+
+- (void)scenicAction{
+    NSLog(@"%s",__FUNCTION__);
+}
+- (void)foodAction{
+    NSLog(@"%s",__FUNCTION__);
+}
+- (void)shopAction{
+    NSLog(@"%s",__FUNCTION__);
+}
 
 - (void)myStrategyAction
 {
