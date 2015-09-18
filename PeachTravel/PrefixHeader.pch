@@ -43,7 +43,7 @@
 #import "PXAlertView+Customization.h"
 #import "TZNavigationViewController.h"
 #import <AVFoundation/AVFoundation.h>
-
+#import "UIColor+RandomColor.h"
 #endif
 
 

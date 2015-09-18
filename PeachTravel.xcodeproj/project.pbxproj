@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		01F3C7981BAA6E2300CC58F4 /* DXChatBarMoreViewAddBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F3C7971BAA6E2300CC58F4 /* DXChatBarMoreViewAddBtn.m */; };
+		01F3C79B1BAA7DC100CC58F4 /* UIColor+RandomColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F3C79A1BAA7DC100CC58F4 /* UIColor+RandomColor.m */; };
+		01F3C79F1BAA831A00CC58F4 /* DXChatBarMoreViewAddBtnCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F3C79E1BAA831A00CC58F4 /* DXChatBarMoreViewAddBtnCell.m */; };
 		27089ABE1AE9178F000FAD56 /* UIBarButtonItem+MJ.m in Sources */ = {isa = PBXBuildFile; fileRef = 27089ABC1AE9178F000FAD56 /* UIBarButtonItem+MJ.m */; };
 		270C164D1B0059F60048C85D /* CityDescDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 270C164C1B0059F60048C85D /* CityDescDetailViewController.m */; };
 		270C165A1B00CF6A0048C85D /* UITableView+FDTemplateLayoutCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 270C16591B00CF6A0048C85D /* UITableView+FDTemplateLayoutCell.m */; };
@@ -1425,6 +1428,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		01F3C7961BAA6E2300CC58F4 /* DXChatBarMoreViewAddBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DXChatBarMoreViewAddBtn.h; sourceTree = "<group>"; };
+		01F3C7971BAA6E2300CC58F4 /* DXChatBarMoreViewAddBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DXChatBarMoreViewAddBtn.m; sourceTree = "<group>"; };
+		01F3C7991BAA7DC100CC58F4 /* UIColor+RandomColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+RandomColor.h"; sourceTree = "<group>"; };
+		01F3C79A1BAA7DC100CC58F4 /* UIColor+RandomColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+RandomColor.m"; sourceTree = "<group>"; };
+		01F3C79D1BAA831A00CC58F4 /* DXChatBarMoreViewAddBtnCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DXChatBarMoreViewAddBtnCell.h; sourceTree = "<group>"; };
+		01F3C79E1BAA831A00CC58F4 /* DXChatBarMoreViewAddBtnCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DXChatBarMoreViewAddBtnCell.m; sourceTree = "<group>"; };
 		0ECFF7EAB22286C959CD2E43 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		27089ABC1AE9178F000FAD56 /* UIBarButtonItem+MJ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+MJ.m"; sourceTree = "<group>"; };
 		27089ABD1AE9178F000FAD56 /* UIBarButtonItem+MJ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+MJ.h"; sourceTree = "<group>"; };
@@ -3334,6 +3343,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		01F3C79C1BAA82F500CC58F4 /* MoreViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				01F3C79D1BAA831A00CC58F4 /* DXChatBarMoreViewAddBtnCell.h */,
+				01F3C79E1BAA831A00CC58F4 /* DXChatBarMoreViewAddBtnCell.m */,
+			);
+			path = MoreViewCell;
+			sourceTree = "<group>";
+		};
 		275529891B04A52400A10506 /* HMSegmentedControl */ = {
 			isa = PBXGroup;
 			children = (
@@ -4913,8 +4931,11 @@
 		D9A800A81A80DD23005AD701 /* MoreView */ = {
 			isa = PBXGroup;
 			children = (
+				01F3C79C1BAA82F500CC58F4 /* MoreViewCell */,
 				D9A800A91A80DD23005AD701 /* DXChatBarMoreView.h */,
 				D9A800AA1A80DD23005AD701 /* DXChatBarMoreView.m */,
+				01F3C7961BAA6E2300CC58F4 /* DXChatBarMoreViewAddBtn.h */,
+				01F3C7971BAA6E2300CC58F4 /* DXChatBarMoreViewAddBtn.m */,
 			);
 			path = MoreView;
 			sourceTree = "<group>";
@@ -5344,6 +5365,8 @@
 			children = (
 				27089ABD1AE9178F000FAD56 /* UIBarButtonItem+MJ.h */,
 				27089ABC1AE9178F000FAD56 /* UIBarButtonItem+MJ.m */,
+				01F3C7991BAA7DC100CC58F4 /* UIColor+RandomColor.h */,
+				01F3C79A1BAA7DC100CC58F4 /* UIColor+RandomColor.m */,
 				270C16581B00CF6A0048C85D /* UITableView+FDTemplateLayoutCell.h */,
 				270C16591B00CF6A0048C85D /* UITableView+FDTemplateLayoutCell.m */,
 				271C40BA1B3E93A3007BF285 /* UIImage+resized.h */,
@@ -8659,6 +8682,7 @@
 				D993C2371B12DF0C0088D568 /* NSData+Base64.m in Sources */,
 				27FC91541AF205030083F052 /* HeaderCell.m in Sources */,
 				D9EE34651ABA6DD40076933B /* PoiFactory.m in Sources */,
+				01F3C79B1BAA7DC100CC58F4 /* UIColor+RandomColor.m in Sources */,
 				D9A8FFA61A80D1C3005AD701 /* RecommendsOfCity.m in Sources */,
 				D9823E841B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m in Sources */,
 				D9A8FFA01A80D1C3005AD701 /* CityDetailTableViewController.m in Sources */,
@@ -8729,6 +8753,7 @@
 				D90042CA1B144275006F6B63 /* FrendManager+ClassMethod.swift in Sources */,
 				D92CA1151AD8BDF900F244FF /* SWUtilityButtonTapGestureRecognizer.m in Sources */,
 				E690D8CF1B7C8F9F00BFDF1B /* MakePlanSearchCell.m in Sources */,
+				01F3C7981BAA6E2300CC58F4 /* DXChatBarMoreViewAddBtn.m in Sources */,
 				E6E725241B5603750007273A /* NSObject+MJCoding.m in Sources */,
 				D92CA1311AD8BEB400F244FF /* MWCaptionView.m in Sources */,
 				D9A8FF131A80CC2B005AD701 /* LoginViewController.m in Sources */,
@@ -8859,6 +8884,7 @@
 				D993C2331B12DF0C0088D568 /* ChatManagerAudio.swift in Sources */,
 				D92CA1051AD8BDF900F244FF /* PSTCollectionViewUpdateItem.m in Sources */,
 				E6E725261B5603750007273A /* NSObject+MJMember.m in Sources */,
+				01F3C79F1BAA831A00CC58F4 /* DXChatBarMoreViewAddBtnCell.m in Sources */,
 				27951B711AF86C46004D69BE /* PicCell.m in Sources */,
 				D9A802EB1A80E3D3005AD701 /* TZFilterView.m in Sources */,
 				D9EE345F1AB93E3F0076933B /* HotelDetailViewController.m in Sources */,

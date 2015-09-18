@@ -13,7 +13,7 @@
 #import "DXMessageToolBar.h"
 #import "PeachTravel-swift.h"
 
-#define CHAT_PANEL_VIEW_HEIGHT 200
+
 
 @interface DXMessageToolBar()<HPGrowingTextViewDelegate, DXFaceDelegate, ChatManagerAudioRecordDelegate>
 {
@@ -118,7 +118,7 @@
 - (DXChatBarMoreView *)moreView
 {
     if (!_moreView) {
-        _moreView = [[DXChatBarMoreView alloc] initWithFrame:CGRectMake(0, (kVerticalPadding * 2 + kInputTextViewMinHeight), self.frame.size.width, CHAT_PANEL_VIEW_HEIGHT) typw:ChatMoreTypeGroupChat];
+        _moreView = [[DXChatBarMoreViewAddBtn alloc] initWithFrame:CGRectMake(0, (kVerticalPadding * 2 + kInputTextViewMinHeight), self.frame.size.width, CHAT_PANEL_VIEW_HEIGHT) typw:ChatMoreTypeGroupChat];
         _moreView.backgroundColor = APP_PAGE_COLOR;
         _moreView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
         //将self注册为chatToolBar的moreView的代理
@@ -692,7 +692,5 @@
 {
     return kVerticalPadding * 2 + kInputTextViewMinHeight;
 }
-
-
 
 @end
