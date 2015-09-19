@@ -178,6 +178,8 @@
 		D90ED4391BAC001A000C6033 /* UploadUserAlbumCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D90ED4371BAC001A000C6033 /* UploadUserAlbumCollectionViewCell.xib */; settings = {ASSET_TAGS = (); }; };
 		D90ED43C1BAC0AD4000C6033 /* icon_big_add_photo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D90ED43A1BAC0AD4000C6033 /* icon_big_add_photo@2x.png */; settings = {ASSET_TAGS = (); }; };
 		D90ED43D1BAC0AD4000C6033 /* icon_big_add_photo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D90ED43B1BAC0AD4000C6033 /* icon_big_add_photo@3x.png */; settings = {ASSET_TAGS = (); }; };
+		D90ED4401BAD0CA6000C6033 /* UserAlbumManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D90ED43F1BAD0CA6000C6033 /* UserAlbumManager.m */; settings = {ASSET_TAGS = (); }; };
+		D90ED4441BAD33CD000C6033 /* UCZProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = D90ED4431BAD33CD000C6033 /* UCZProgressView.m */; settings = {ASSET_TAGS = (); }; };
 		D91061D01BA93C2800C4FBCB /* UserAlbumOverViewTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D91061CF1BA93C2800C4FBCB /* UserAlbumOverViewTableViewController.m */; };
 		D91061D41BA93D6E00C4FBCB /* UserAlbumOverviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D91061D21BA93D6E00C4FBCB /* UserAlbumOverviewCell.m */; };
 		D91061D51BA93D6E00C4FBCB /* UserAlbumOverviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D91061D31BA93D6E00C4FBCB /* UserAlbumOverviewCell.xib */; };
@@ -1686,6 +1688,10 @@
 		D90ED4371BAC001A000C6033 /* UploadUserAlbumCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UploadUserAlbumCollectionViewCell.xib; sourceTree = "<group>"; };
 		D90ED43A1BAC0AD4000C6033 /* icon_big_add_photo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_big_add_photo@2x.png"; sourceTree = "<group>"; };
 		D90ED43B1BAC0AD4000C6033 /* icon_big_add_photo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_big_add_photo@3x.png"; sourceTree = "<group>"; };
+		D90ED43E1BAD0CA6000C6033 /* UserAlbumManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserAlbumManager.h; sourceTree = "<group>"; };
+		D90ED43F1BAD0CA6000C6033 /* UserAlbumManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserAlbumManager.m; sourceTree = "<group>"; };
+		D90ED4421BAD33CD000C6033 /* UCZProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UCZProgressView.h; sourceTree = "<group>"; };
+		D90ED4431BAD33CD000C6033 /* UCZProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UCZProgressView.m; sourceTree = "<group>"; };
 		D91061CE1BA93C2800C4FBCB /* UserAlbumOverViewTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserAlbumOverViewTableViewController.h; sourceTree = "<group>"; };
 		D91061CF1BA93C2800C4FBCB /* UserAlbumOverViewTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserAlbumOverViewTableViewController.m; sourceTree = "<group>"; };
 		D91061D11BA93D6E00C4FBCB /* UserAlbumOverviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserAlbumOverviewCell.h; sourceTree = "<group>"; };
@@ -3743,6 +3749,15 @@
 			path = userAlbum;
 			sourceTree = "<group>";
 		};
+		D90ED4411BAD33CD000C6033 /* UCZProgressView */ = {
+			isa = PBXGroup;
+			children = (
+				D90ED4421BAD33CD000C6033 /* UCZProgressView.h */,
+				D90ED4431BAD33CD000C6033 /* UCZProgressView.m */,
+			);
+			path = UCZProgressView;
+			sourceTree = "<group>";
+		};
 		D90F356819F6321B00E26FA9 /* IM */ = {
 			isa = PBXGroup;
 			children = (
@@ -3782,6 +3797,8 @@
 				D90ED4351BAC001A000C6033 /* UploadUserAlbumCollectionViewCell.h */,
 				D90ED4361BAC001A000C6033 /* UploadUserAlbumCollectionViewCell.m */,
 				D90ED4371BAC001A000C6033 /* UploadUserAlbumCollectionViewCell.xib */,
+				D90ED43E1BAD0CA6000C6033 /* UserAlbumManager.h */,
+				D90ED43F1BAD0CA6000C6033 /* UserAlbumManager.m */,
 			);
 			name = AddAlbum;
 			sourceTree = "<group>";
@@ -5103,6 +5120,7 @@
 		D9A8016B1A80E036005AD701 /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				D90ED4411BAD33CD000C6033 /* UCZProgressView */,
 				D902CC841BAA5785004F4011 /* UMSocial_Sdk_4.2.3 */,
 				D971E2871B8C8F57007E5AFD /* JDStatusBarNotification */,
 				E6F18B2C1B84600500232EEB /* AudioPlayer */,
@@ -8728,6 +8746,7 @@
 				D9A8002D1A80D52F005AD701 /* AddPoiViewController.m in Sources */,
 				D90ED4381BAC001A000C6033 /* UploadUserAlbumCollectionViewCell.m in Sources */,
 				E6E7251F1B5603750007273A /* MJIvar.m in Sources */,
+				D90ED4441BAD33CD000C6033 /* UCZProgressView.m in Sources */,
 				D993C2491B12DF0C0088D568 /* FMDatabase.m in Sources */,
 				D9687CA21AC4095500B1C88E /* FootprintMapViewController.m in Sources */,
 				C694C38D1AEA23E500F5C36E /* FilterViewController.m in Sources */,
@@ -8788,6 +8807,7 @@
 				01F3C7981BAA6E2300CC58F4 /* DXChatBarMoreViewAddBtn.m in Sources */,
 				E6E725241B5603750007273A /* NSObject+MJCoding.m in Sources */,
 				D92CA1311AD8BEB400F244FF /* MWCaptionView.m in Sources */,
+				D90ED4401BAD0CA6000C6033 /* UserAlbumManager.m in Sources */,
 				D9A8FF131A80CC2B005AD701 /* LoginViewController.m in Sources */,
 				D92CA1331AD8BEB400F244FF /* MWGridViewController.m in Sources */,
 				D9A8FECA1A80C818005AD701 /* MyGuideSummary.m in Sources */,
