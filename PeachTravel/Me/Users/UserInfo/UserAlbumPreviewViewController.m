@@ -108,7 +108,7 @@
 {
     ALAsset *asset = _dataSource[_currentIndex];
     if ([self photoIsSelected:asset]) {
-        [self.selectedPhotos removeObject:asset];
+        [self removeAssetFromSelectedPhotos:asset];
         _selectBtn.selected = NO;
     } else {
         [self.selectedPhotos addObject:asset];
@@ -122,6 +122,18 @@
     UIViewController *ctl = self.navigationController.viewControllers.firstObject;
     [ctl dismissViewControllerAnimated:YES completion:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:uploadUserAlbumNoti object:nil userInfo:@{@"images" : _selectedPhotos}];
+}
+
+- (void)removeAssetFromSelectedPhotos:(ALAsset *)asset
+{
+    for (ALAsset *tempAsset in _selectedPhotos) {
+        ALAssetRepresentation* representationOne = [asset defaultRepresentation];
+        ALAssetRepresentation* representationTwo = [tempAsset defaultRepresentation];
+        if ([representationOne.url.absoluteString isEqualToString: representationTwo.url.absoluteString]) {
+            [_selectedPhotos removeObject:tempAsset];
+            return;
+        }
+    }
 }
 
 #pragma mark <UICollectionViewDataSource>

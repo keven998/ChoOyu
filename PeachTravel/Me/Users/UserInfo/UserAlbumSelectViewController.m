@@ -155,13 +155,25 @@ static NSString * const reuseIdentifier = @"userAlbumSelectCell";
 {
     ALAsset *asset = _dataSource[sender.tag];
     if ([self photoIsSelected:asset]) {
-        [self.selectedPhotos removeObject:asset];
+        [self removeAssetFromSelectedPhotos:asset];
     } else {
-        [self.selectedPhotos addObject:asset];
+        [_selectedPhotos addObject:asset];
     }
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:sender.tag inSection:0];
     [_collectionView reloadItemsAtIndexPaths:@[indexPath]];
     [self updateButtonStatus];
+}
+
+- (void)removeAssetFromSelectedPhotos:(ALAsset *)asset
+{
+    for (ALAsset *tempAsset in _selectedPhotos) {
+        ALAssetRepresentation* representationOne = [asset defaultRepresentation];
+        ALAssetRepresentation* representationTwo = [tempAsset defaultRepresentation];
+        if ([representationOne.url.absoluteString isEqualToString: representationTwo.url.absoluteString]) {
+            [_selectedPhotos removeObject:tempAsset];
+            return;
+        }
+    }
 }
 
 - (void)previewSelectPhotos:(UIButton *)sender

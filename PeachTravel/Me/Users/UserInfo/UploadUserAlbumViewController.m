@@ -26,14 +26,21 @@ static NSString * const reuseIdentifier = @"uploadPhotoCell";
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
     _scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
-    _scrollView.contentSize = CGSizeMake(_scrollView.bounds.size.width, _scrollView.bounds.size.height+1);
+    _scrollView.delegate = self;
     _containterView = [UploadUserPhotoOperationView uploadUserPhotoView];
-    _containterView.frame = CGRectMake(0, 0, self.view.bounds.size.width, [UploadUserPhotoOperationView heigthWithPhotoCount:_selectedPhotos.count + 1]);
+    CGFloat height = [UploadUserPhotoOperationView heigthWithPhotoCount:_selectedPhotos.count + 1];
+    _containterView.frame = CGRectMake(0, 0, self.view.bounds.size.width, height);
+    CGFloat scrollViewHeight = height > _scrollView.bounds.size.height ? height : _scrollView.bounds.size.height+1;
+    
+    _scrollView.contentSize = CGSizeMake(_scrollView.bounds.size.width, scrollViewHeight+1);
+
+    _containterView.frame = CGRectMake(0, 0, self.view.bounds.size.width, height);
     _containterView.collectionView.dataSource = self;
     _containterView.collectionView.delegate = self;
     [_containterView.collectionView registerNib:[UINib nibWithNibName:@"UploadUserAlbumCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:reuseIdentifier];
     [_scrollView addSubview:_containterView];
     [self.view addSubview:_scrollView];
+    
     
     UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [backBtn setTitle:@"取消" forState:UIControlStateNormal];
@@ -55,6 +62,11 @@ static NSString * const reuseIdentifier = @"uploadPhotoCell";
     [super didReceiveMemoryWarning];
 }
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)goBack
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"确定放弃编辑？" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
@@ -74,16 +86,20 @@ static NSString * const reuseIdentifier = @"uploadPhotoCell";
 
 - (void)choseMorePhotos
 {
+    NSMutableArray *tempArray = [[NSMutableArray alloc] initWithArray:_selectedPhotos];
     UserAlbumOverViewTableViewController *ctl = [[UserAlbumOverViewTableViewController alloc] init];
-    ctl.selectedPhotos = _selectedPhotos;
+    ctl.selectedPhotos = tempArray;
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:ctl] animated:YES completion:nil];
 }
 
 - (void)photoHasSelected:(NSNotification *)noti
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
     NSMutableArray *selectedPhotos = [noti.userInfo objectForKey:@"images"];
-    self.selectedPhotos = selectedPhotos;
+    self.selectedPhotos = [[NSMutableArray alloc] initWithArray:selectedPhotos];
+    CGFloat height = [UploadUserPhotoOperationView heigthWithPhotoCount:_selectedPhotos.count + 1];
+    _containterView.frame = CGRectMake(0, 0, self.view.bounds.size.width, height);
+    CGFloat scrollViewHeight = height > _scrollView.bounds.size.height ? height : _scrollView.bounds.size.height+1;
+    [_scrollView setContentSize:CGSizeMake(_scrollView.bounds.size.width, scrollViewHeight)];
     [_containterView.collectionView reloadData];
 }
 
@@ -116,5 +132,12 @@ static NSString * const reuseIdentifier = @"uploadPhotoCell";
     if (indexPath.row == _selectedPhotos.count) {
         [self choseMorePhotos];
     }
+}
+
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [self.view endEditing:YES];
 }
 @end

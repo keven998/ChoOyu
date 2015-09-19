@@ -86,7 +86,7 @@ static NSString * const reuseIdentifier = @"albumImageCell";
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     NSMutableArray *selectedPhotos = [noti.userInfo objectForKey:@"images"];
     UploadUserAlbumViewController *ctl = [[UploadUserAlbumViewController alloc] init];
-    ctl.selectedPhotos = selectedPhotos;
+    ctl.selectedPhotos = [[NSMutableArray alloc] initWithArray:selectedPhotos];
     [self.navigationController pushViewController:ctl animated:NO];
 }
 

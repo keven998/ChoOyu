@@ -22,6 +22,7 @@
     _textView.textColor = COLOR_TEXT_II;
     _textView.delegate = self;
     _collectionView.backgroundColor = [UIColor clearColor];
+    _collectionView.scrollEnabled = NO;
     UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)_collectionView.collectionViewLayout;
     CGFloat itemWidth = (kWindowWidth-10*2-8*3)/4;
     layout.itemSize = CGSizeMake(itemWidth, itemWidth);
@@ -34,17 +35,11 @@
     _placeHolder.font = [UIFont systemFontOfSize:16.0];
     _placeHolder.text = @"给照片写点什么把...";
     [_textView addSubview:_placeHolder];
-    
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];
-    tapGesture.numberOfTapsRequired = 1;
-    tapGesture.numberOfTouchesRequired = 1;
-    [_textView addGestureRecognizer:tapGesture];
-
 }
 
-- (void)tapAction
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    [self.textView endEditing:YES];
+    [self endEditing:YES];
 }
 
 + (id)uploadUserPhotoView
