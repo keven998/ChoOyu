@@ -10,6 +10,5 @@
 
 @interface AlbumImageCell : UICollectionViewCell
 
-@property (weak, nonatomic) IBOutlet UIButton *editBtn;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @end

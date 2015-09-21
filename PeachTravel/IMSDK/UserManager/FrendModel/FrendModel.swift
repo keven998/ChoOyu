@@ -77,7 +77,7 @@ class FrendModel: NSObject {
     var travelNoteCount:Int = 0
     var footprintCityCount = 0
     var footprintCountryCount = 0
-    var userAlbum: Array<AlbumImage> = Array()
+    var userAlbum: Array<AlbumImageModel> = Array()
     
     var constellation: String {
         get {

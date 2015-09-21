@@ -8,15 +8,16 @@
 //******用来保存从网络上加载的用户信息，只是临时存放的,不写入数据库的信息******/
 
 #import <Foundation/Foundation.h>
-@interface AlbumImage : NSObject
 
-@property (nonatomic, copy) NSString *imageId;
-@property (nonatomic, strong) TaoziImage *image;
-@property (nonatomic) long createTime;
-
-- (id)initWithJson: (id)json;
-
-@end
+//@interface AlbumImage : NSObject
+//
+//@property (nonatomic, copy) NSString *imageId;
+//@property (nonatomic, strong) TaoziImage *image;
+//@property (nonatomic) long createTime;
+//
+//- (id)initWithJson: (id)json;
+//
+//@end
 
 @interface AccountModel : NSObject
 
@@ -56,7 +57,7 @@
 /**
  *  用户的图集
  */
-@property (nonatomic, strong) NSArray *userAlbum;
+@property (nonatomic, strong) NSMutableArray *userAlbum;
 
 - (id)initWithJson: (id)json;
 

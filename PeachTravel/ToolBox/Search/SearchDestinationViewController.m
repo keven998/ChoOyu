@@ -104,13 +104,13 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 - (void)setupCollectionDataSourceWithHotSearchResult:(NSArray *)hotSearchResult
 {
     NSArray * recentResult = [[TMCache sharedCache] objectForKey:kSearchDestinationCacheKey];
-    if (recentResult && hotSearchResult) {
-        NSLog(@"%@",recentResult);
+    if (recentResult) {
         self.collectionArray[0] = recentResult;
-        self.collectionArray[1] = hotSearchResult;
-        [self.collectionView reloadData];
     }
-    NSLog(@"%@",recentResult);
+    if (hotSearchResult) {
+        self.collectionArray[1] = hotSearchResult;
+    }
+    [self.collectionView reloadData];
 }
 
 #pragma mark - 加载网络数据

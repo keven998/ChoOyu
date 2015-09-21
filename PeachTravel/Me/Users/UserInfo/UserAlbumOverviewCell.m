@@ -11,22 +11,21 @@
 @implementation UserAlbumOverviewCell
 
 - (void)awakeFromNib {
-    // Initialization code
+    _titleLabel.textColor = COLOR_TEXT_I;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
 - (void)setAssetsGroup:(ALAssetsGroup *)assetsGroup
 {
     _assetsGroup = assetsGroup;
     CGImageRef posterImage      = assetsGroup.posterImage;
-    self.imageView.image        = [UIImage imageWithCGImage:posterImage scale:2 orientation:UIImageOrientationUp];
-    self.textLabel.text         = [assetsGroup valueForProperty:ALAssetsGroupPropertyName];
-    self.detailTextLabel.text   = [NSString stringWithFormat:@"%ld", (long)[assetsGroup numberOfAssets]];
+    self.headerImageView.image        = [UIImage imageWithCGImage:posterImage scale:2 orientation:UIImageOrientationUp];
+    
+    NSString *title = [NSString stringWithFormat:@"%@ (共%ld张)",[assetsGroup valueForProperty:ALAssetsGroupPropertyName],  (long)[assetsGroup numberOfAssets]];
+    self.titleLabel.text = title;
     self.accessoryType          = UITableViewCellAccessoryDisclosureIndicator;
 }
 

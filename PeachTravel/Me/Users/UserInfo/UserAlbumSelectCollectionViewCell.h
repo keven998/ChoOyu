@@ -13,6 +13,9 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *backGroundImageView;
 
+@property (weak, nonatomic) IBOutlet UIButton *selectBtn;
+
 @property (nonatomic, strong) ALAsset *asset;
+
 
 @end

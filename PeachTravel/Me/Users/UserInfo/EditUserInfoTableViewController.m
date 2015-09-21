@@ -200,7 +200,7 @@
 {
     NSMutableArray *array = [[NSMutableArray alloc] init];
     for (id album in albumArray) {
-        [array addObject:[[AlbumImage alloc] initWithJson:album]];
+        [array addObject:[[AlbumImageModel alloc] initWithJson:album]];
     }
     AccountManager *accountManager = [AccountManager shareAccountManager];
     accountManager.account.userAlbum = array;
@@ -690,7 +690,7 @@
 {
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:self.navigationController content:64];
-    AlbumImage *image = [self.accountManager.account.userAlbum objectAtIndex:index];
+    AlbumImageModel *image = [self.accountManager.account.userAlbum objectAtIndex:index];
     [self.accountManager asyncChangeUserAvatar:image completion:^(BOOL isSuccess, NSString *error) {
         [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
         [hud hideTZHUD];
@@ -704,21 +704,6 @@
     ctl.isMyself = YES;
     ctl.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:ctl animated:YES];
-}
-
-/**
- *  删除用户头像
- *
- *  @param index
- */
-- (void)deleteUserAvatar:(NSInteger)index
-{
-    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInView:self.view];
-    AlbumImage *image = [self.accountManager.account.userAlbum objectAtIndex:index];
-    [self.accountManager asyncDelegateUserAlbumImage:image completion:^(BOOL isSuccess, NSString *error) {
-        [hud hideTZHUD];
-    }];
 }
 
 - (void)changeUserMark

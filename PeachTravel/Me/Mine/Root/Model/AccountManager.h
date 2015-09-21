@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "FrendRequest.h"
 #import "AccountModel.h"
+#import "AlbumImageModel.h"
 
 @class FrendModel;
 @class CityDestinationPoi;
@@ -129,16 +130,13 @@
  *  @param albumImage
  *  @param completion 
  */
-- (void)asyncChangeUserAvatar:(AlbumImage *)albumImage completion:(void (^)(BOOL, NSString *))completion;
-
+- (void)asyncChangeUserAvatar:(AlbumImageModel *)albumImage completion:(void (^)(BOOL, NSString *))completion;
 
 /**
  *  删除用户相册里的某一张图片
  *
- *  @param albumImage
- *  @param completion 
  */
-- (void)asyncDelegateUserAlbumImage:(AlbumImage *)albumImage completion:(void (^)(BOOL, NSString *))completion;
+- (void)deleteUserAlbumImage:(NSString *)imageId;
 
 
 #pragma mark - 修改用户的好友信息
@@ -174,15 +172,5 @@
  */
 - (void)removeContact:(FrendModel *)userId;
 
-
-/**
- *  异步加载用户相册
- *
- *  @param userId     用户Id
- *  @param completion 完成后回调
- *
- *  @return 
- */
-- (NSArray *)asyncLoadUserAlbum:(NSInteger)userId completion:(void (^)(BOOL, NSString *))completion;
 
 @end

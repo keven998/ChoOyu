@@ -8,10 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UserAlbumPreviewViewController : UIViewController
+@interface UserAlbumPreviewViewController : TZViewController
 
 @property (nonatomic, strong) NSMutableArray *dataSource;
 
 @property (nonatomic) NSUInteger currentIndex;
+
+@property (nonatomic, strong) NSMutableArray *selectedPhotos;
+
+//是否显示确定按钮
+@property (nonatomic) BOOL showConfirmToolBar;
 
 @end

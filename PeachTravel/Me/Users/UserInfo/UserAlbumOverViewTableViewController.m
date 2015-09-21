@@ -10,7 +10,7 @@
 
 #import "UserAlbumOverViewTableViewController.h"
 #import "UserAlbumOverviewCell.h"
-#import "UserAlbumDetailCollectionViewController.h"
+#import "UserAlbumSelectViewController.h"
 
 @interface UserAlbumOverViewTableViewController ()
 
@@ -23,6 +23,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [backBtn setTitle:@"取消" forState:UIControlStateNormal];
+    [backBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
+    [backBtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
+    
     [self.tableView registerNib:[UINib nibWithNibName:@"UserAlbumOverviewCell" bundle:nil] forCellReuseIdentifier:@"userAlbumCell"];
     [self loadDataSource];
 }
@@ -87,20 +94,35 @@
                                     failureBlock:failureBlock];
 }
 
+- (void)goBack
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 #pragma mark - Table view data source
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 0.1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 0.1;
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-
+    
     return self.dataSource.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 80;
+    return 70;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -113,8 +135,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    UserAlbumDetailCollectionViewController *ctl = [[UserAlbumDetailCollectionViewController alloc] initWithNibName: @"UserAlbumDetailCollectionViewController" bundle:nil];
+    UserAlbumSelectViewController *ctl = [[UserAlbumSelectViewController alloc] init];
     ctl.assetsGroup = _dataSource[indexPath.row];
+    ctl.selectedPhotos = self.selectedPhotos;
     [self.navigationController pushViewController:ctl animated:YES];
 }
 

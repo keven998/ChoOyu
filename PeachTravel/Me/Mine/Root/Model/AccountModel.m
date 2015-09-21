@@ -10,20 +10,20 @@
 #import "AppDelegate.h"
 #import "PeachTravel-swift.h"
 
-@implementation AlbumImage
-
-- (id)initWithJson: (id)json
-{
-    if (self = [super init]) {
-       
-        _imageId = [json objectForKey:@"id"];
-        _image = [[TaoziImage alloc] initWithJson:[[json objectForKey:@"image"] firstObject]];
-        _createTime = [[json objectForKey:@"cTime"] longValue];
-    }
-    return self;
-}
-
-@end
+//@implementation AlbumImage
+//
+//- (id)initWithJson: (id)json
+//{
+//    if (self = [super init]) {
+//       
+//        _imageId = [json objectForKey:@"id"];
+//        _image = [[TaoziImage alloc] initWithJson:[[json objectForKey:@"image"] firstObject]];
+//        _createTime = [[json objectForKey:@"cTime"] longValue];
+//    }
+//    return self;
+//}
+//
+//@end
 
 @implementation AccountModel
 
@@ -44,10 +44,10 @@
     return _frendList;
 }
 
-- (NSArray *)userAlbum
+- (NSMutableArray *)userAlbum
 {
     if (!_userAlbum) {
-        _userAlbum = [NSArray array];
+        _userAlbum = [NSMutableArray array];
     }
     return _userAlbum;
 }

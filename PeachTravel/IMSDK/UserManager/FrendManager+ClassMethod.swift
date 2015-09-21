@@ -108,7 +108,7 @@ extension FrendManager {
                 debug_print("\(resultArray)");
                 
                 for album in resultArray {
-                    let albumImage: AlbumImage = AlbumImage(json: album)
+                    let albumImage: AlbumImageModel = AlbumImageModel(json: album)
                     albumArray.addObject(albumImage)
                 }
                 

@@ -12,6 +12,7 @@
 #import "EditUserInfoTableViewController.h"
 #import "MineProfileTourViewCell.h"
 #import "MineViewContoller.h"
+#import "UserAlbumManager.h"
 
 @interface MineProfileViewController () <UITableViewDataSource, UITableViewDataSource,UIScrollViewDelegate>
 
@@ -52,11 +53,12 @@
 
 - (void)loadUserAlbum
 {
-    [[AccountManager shareAccountManager] asyncLoadUserAlbum:0 completion:^(BOOL isSuccess, NSString *errorCode) {
+    [UserAlbumManager asyncLoadUserAlbum:[AccountManager shareAccountManager].account.userId  completion:^(BOOL isSuccess, NSArray *albumList) {
         if (isSuccess) {
+            _userInfo.userAlbum = [albumList mutableCopy];
             [self.tableView reloadData];
         } else {
-            [SVProgressHUD showWithStatus:@"相册获取失败"];
+            [SVProgressHUD showHint:@"相册获取失败"];
             [self.tableView reloadData];
         }
     }];
@@ -189,7 +191,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     if (indexPath.section == 0) {
         GuiderProfileAlbumCell *albumCell = [[GuiderProfileAlbumCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
         albumCell.albumArray = self.userInfo.userAlbum;

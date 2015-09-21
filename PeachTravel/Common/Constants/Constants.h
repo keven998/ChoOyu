@@ -136,6 +136,8 @@
 
 #define networkConnectionStatusChangeNoti       @"networkConnectionStatusChange"    //网络状态发生变化
 
+#define uploadUserAlbumNoti                     @"uploadUserAlbum"
+
 #pragma mark - ***********各种枚举信息*************
 
 typedef NS_ENUM(NSUInteger, TZPoiType) {
