@@ -10,11 +10,14 @@
 #import "UploadUserPhotoOperationView.h"
 #import "UploadUserAlbumCollectionViewCell.h"
 #import "UserAlbumOverViewTableViewController.h"
+#import "UserAlbumManager.h"
 
 @interface UploadUserAlbumViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate>
 
 @property (nonatomic, strong) UploadUserPhotoOperationView *containterView;
 @property (nonatomic, strong) UIScrollView *scrollView;
+
+@property (nonatomic, strong) NSMutableArray *userAlbumUploadStatusList;
 
 @end
 
@@ -55,7 +58,6 @@ static NSString * const reuseIdentifier = @"uploadPhotoCell";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:uploadBtn];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(photoHasSelected:) name:uploadUserAlbumNoti object:nil];
-
 }
 
 - (void)didReceiveMemoryWarning {
@@ -79,9 +81,60 @@ static NSString * const reuseIdentifier = @"uploadPhotoCell";
     }];
 }
 
+- (NSMutableArray *)userAlbumUploadStatusList
+{
+    if (!_userAlbumUploadStatusList) {
+        _userAlbumUploadStatusList = [[NSMutableArray alloc] init];
+    }
+    return _userAlbumUploadStatusList;
+}
+
 - (void)uploadUserAlbum
 {
+    [_userAlbumUploadStatusList removeAllObjects];
     
+    for (int i = 0; i < _selectedPhotos.count; i++) {
+        
+        UploadUserAlbumStatus *status = [[UploadUserAlbumStatus alloc] init];
+        status.isBegin = YES;
+        [_userAlbumUploadStatusList addObject:status];
+        
+        ALAsset *asset = [_selectedPhotos objectAtIndex:i];
+        ALAssetRepresentation* representation = [asset defaultRepresentation];
+        CGImageRef ref = [representation fullScreenImage];
+        UIImage *uploadImage = [UIImage imageWithCGImage:ref];
+        [UserAlbumManager uploadUserAlbumPhoto:uploadImage withPhotoDesc:_containterView.textView.text progress:^(CGFloat progressValue) {
+            [self uploadIncrementWithProgress:progressValue itemIndex:i];
+            
+        } completion:^(BOOL isSuccess) {
+            [self uploadCompletion:isSuccess itemIndex:i];
+        }];
+    }
+}
+
+- (void)uploadIncrementWithProgress:(float)progress itemIndex:(NSInteger)index
+{
+    UploadUserAlbumCollectionViewCell *cell = (UploadUserAlbumCollectionViewCell *)[_containterView.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0]];
+    UploadUserAlbumStatus *status = [_userAlbumUploadStatusList objectAtIndex:index];
+    status.uploadProgressValue = progress;
+    cell.uploadStatus = status;
+}
+
+- (void)uploadCompletion:(BOOL)isSuccess itemIndex:(NSInteger)index
+{
+    UploadUserAlbumCollectionViewCell *cell = (UploadUserAlbumCollectionViewCell *)[_containterView.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0]];
+    UploadUserAlbumStatus *status = [_userAlbumUploadStatusList objectAtIndex:index];
+    status.isFailure = !isSuccess;
+    status.isSuccess = isSuccess;
+    status.isFinish = YES;
+    cell.uploadStatus = status;
+    
+    for (UploadUserAlbumStatus *status in _userAlbumUploadStatusList) {
+        if (!status.isFinish) {
+            return;
+        }
+    }
+    [SVProgressHUD showHint:@"上传成功"];
 }
 
 - (void)choseMorePhotos
@@ -122,6 +175,11 @@ static NSString * const reuseIdentifier = @"uploadPhotoCell";
         ALAsset *asset = _selectedPhotos[indexPath.row];
         cell.image = [UIImage imageWithCGImage:asset.thumbnail];
     }
+    
+    if (self.userAlbumUploadStatusList.count >= indexPath.row+1) {
+        UploadUserAlbumStatus *status = [_userAlbumUploadStatusList objectAtIndex:indexPath.row];
+        cell.uploadStatus = status;
+    }
     return cell;
 }
 
@@ -141,3 +199,8 @@ static NSString * const reuseIdentifier = @"uploadPhotoCell";
     [self.view endEditing:YES];
 }
 @end
+
+
+@implementation UploadUserAlbumStatus
+@end
+

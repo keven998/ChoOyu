@@ -8,26 +8,39 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="uploadPhotoCell" id="gTV-IL-0wX" customClass="UploadUserAlbumCollectionViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+            <rect key="frame" x="0.0" y="0.0" width="161" height="159"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                <rect key="frame" x="0.0" y="0.0" width="161" height="159"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oeB-7B-ZiJ">
-                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                        <rect key="frame" x="0.0" y="0.0" width="161" height="159"/>
                     </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nL5-8H-9Rp" customClass="UCZProgressView">
+                        <rect key="frame" x="0.0" y="0.0" width="161" height="159"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="161" id="Ihm-lp-hao"/>
+                            <constraint firstAttribute="height" constant="159" id="wdq-BN-eyO"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <constraints>
                 <constraint firstItem="oeB-7B-ZiJ" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="8Cx-ri-fsy"/>
                 <constraint firstAttribute="bottom" secondItem="oeB-7B-ZiJ" secondAttribute="bottom" id="Dmi-f8-FDC"/>
+                <constraint firstItem="nL5-8H-9Rp" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="Wrf-oe-b6h"/>
                 <constraint firstItem="oeB-7B-ZiJ" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="cNd-ej-OkM"/>
                 <constraint firstAttribute="trailing" secondItem="oeB-7B-ZiJ" secondAttribute="trailing" id="rGU-l9-VDX"/>
+                <constraint firstItem="nL5-8H-9Rp" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="wQ5-qd-1x5"/>
             </constraints>
+            <size key="customSize" width="161" height="159"/>
             <connections>
                 <outlet property="imageView" destination="oeB-7B-ZiJ" id="xgf-A9-7jV"/>
+                <outlet property="progressView" destination="nL5-8H-9Rp" id="vxr-f4-rqC"/>
             </connections>
+            <point key="canvasLocation" x="113.5" y="302.5"/>
         </collectionViewCell>
     </objects>
 </document>

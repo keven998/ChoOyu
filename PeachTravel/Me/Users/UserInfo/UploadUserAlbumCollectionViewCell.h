@@ -9,9 +9,17 @@
 #import <UIKit/UIKit.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 
+#import "UCZProgressView.h"
+
+@class UploadUserAlbumStatus;
+
 @interface UploadUserAlbumCollectionViewCell : UICollectionViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (nonatomic, strong) UIImage *image;
+
+@property (weak, nonatomic) IBOutlet UCZProgressView *progressView;
+
+@property (nonatomic, strong) UploadUserAlbumStatus *uploadStatus;
 
 @end

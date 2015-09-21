@@ -12,9 +12,14 @@
 
 @implementation UserAlbumManager
 
-+ (void)uploadUserAlbums:(NSArray *)albums withCommonDesc:(NSString *)desc
++ (void)uploadUserAlbumPhoto:(UIImage *)photo withPhotoDesc:(NSString *)desc progress:(void (^)(CGFloat))progressBlock completion:(void (^)(BOOL))completionBlock
 {
-    
+    [UserAlbumManager requestUploadTokeAndUploadPhoto:photo photoDesc:desc progress:^(CGFloat progress) {
+        progressBlock(progress);
+        
+    } completion:^(BOOL isSuccess) {
+        completionBlock(isSuccess);
+    }];
 }
 
 /**
@@ -22,9 +27,10 @@
  *
  *  @param image
  */
-+ (void)requestUploadTokeAndUploadPhoto:(UIImage *)image photoDesc:(NSString *)desc
++ (void)requestUploadTokeAndUploadPhoto:(UIImage *)image photoDesc:(NSString *)desc progress:(void (^)(CGFloat progress))progressBlock completion:(void (^)(BOOL isSuccess))completionBlock
 {
     
+    progressBlock(0.0);
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AppUtils *utils = [[AppUtils alloc] init];
     [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
@@ -35,16 +41,27 @@
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)[AccountManager shareAccountManager].account.userId] forHTTPHeaderField:@"UserId"];
     
-    [manager GET:API_POST_PHOTOALBUM parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSDictionary *params;
+    if (desc) {
+        params = @{@"caption": desc};
+    }
+    
+    [manager GET:API_POST_PHOTOALBUM parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            
-            [self uploadPhotoToQINIUServer:image withToken:[[responseObject objectForKey:@"result"] objectForKey:@"uploadToken"] andKey:[[responseObject objectForKey:@"result"] objectForKey:@"key"]];
+            [self uploadPhotoToQINIUServer:image withToken:[[responseObject objectForKey:@"result"] objectForKey:@"uploadToken"] andKey:[[responseObject objectForKey:@"result"] objectForKey:@"key"] progress:^(CGFloat progress) {
+                progressBlock(progress);
+                
+            } completion:^(BOOL isSuccess) {
+                completionBlock(isSuccess);
+            }];
             
         } else {
-            
+            completionBlock(NO);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completionBlock(NO);
+
     }];
 }
 
@@ -55,7 +72,7 @@
  *  @param uploadToken 上传的 token
  *  @param key         上传的 key
  */
-+ (void)uploadPhotoToQINIUServer:(UIImage *)image withToken:(NSString *)uploadToken andKey:(NSString *)key
++ (void)uploadPhotoToQINIUServer:(UIImage *)image withToken:(NSString *)uploadToken andKey:(NSString *)key progress:(void (^)(CGFloat progress))progressBlock completion:(void (^)(BOOL isSuccess))completionBlock
 {
     NSData *data = UIImageJPEGRepresentation(image, 1.0);
     QNUploadManager *upManager = [[QNUploadManager alloc] init];
@@ -64,15 +81,20 @@
     
     QNUploadOption *opt = [[QNUploadOption alloc] initWithMime:@"text/plain"
                                                progressHandler:^(NSString *key, float percent) {
-
-                                                   ;}
+                                                   dispatch_async(dispatch_get_main_queue(), ^{
+                                                       progressBlock(percent);
+                                                   });
+                                                                  }
                                                         params:@{ @"x:foo":@"fooval" }
                                                       checkCrc:YES
                                             cancellationSignal:nil];
     
     [upManager putData:data key:key token:uploadToken
               complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
-                                  
+                  dispatch_async(dispatch_get_main_queue(), ^{
+                      completionBlock(YES);
+                  });
+
               } option:opt];
     
 }

@@ -44,10 +44,10 @@
     return _frendList;
 }
 
-- (NSArray *)userAlbum
+- (NSMutableArray *)userAlbum
 {
     if (!_userAlbum) {
-        _userAlbum = [NSArray array];
+        _userAlbum = [NSMutableArray array];
     }
     return _userAlbum;
 }

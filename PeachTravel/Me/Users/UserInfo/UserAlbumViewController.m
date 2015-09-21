@@ -106,7 +106,6 @@ static NSString * const reuseIdentifier = @"albumImageCell";
     return 1;
 }
 
-
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return _albumArray.count;
