@@ -80,6 +80,7 @@
 		0115C8541BAFF69800631928 /* weizhi_hilighted@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0115C8381BAFF69800631928 /* weizhi_hilighted@3x.png */; settings = {ASSET_TAGS = (); }; };
 		0115C8551BAFF69800631928 /* weizhi_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0115C8391BAFF69800631928 /* weizhi_normal@2x.png */; settings = {ASSET_TAGS = (); }; };
 		0115C8561BAFF69800631928 /* weizhi_normal@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0115C83A1BAFF69800631928 /* weizhi_normal@3x.png */; settings = {ASSET_TAGS = (); }; };
+		0115C8591BB0225600631928 /* CityHeaderView2_0_3.m in Sources */ = {isa = PBXBuildFile; fileRef = 0115C8581BB0225600631928 /* CityHeaderView2_0_3.m */; settings = {ASSET_TAGS = (); }; };
 		01F3C7981BAA6E2300CC58F4 /* DXChatBarMoreViewAddBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F3C7971BAA6E2300CC58F4 /* DXChatBarMoreViewAddBtn.m */; };
 		01F3C79B1BAA7DC100CC58F4 /* UIColor+RandomColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F3C79A1BAA7DC100CC58F4 /* UIColor+RandomColor.m */; };
 		01F3C79F1BAA831A00CC58F4 /* DXChatBarMoreViewAddBtnCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F3C79E1BAA831A00CC58F4 /* DXChatBarMoreViewAddBtnCell.m */; };
@@ -1603,6 +1604,8 @@
 		0115C8381BAFF69800631928 /* weizhi_hilighted@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weizhi_hilighted@3x.png"; sourceTree = "<group>"; };
 		0115C8391BAFF69800631928 /* weizhi_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weizhi_normal@2x.png"; sourceTree = "<group>"; };
 		0115C83A1BAFF69800631928 /* weizhi_normal@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weizhi_normal@3x.png"; sourceTree = "<group>"; };
+		0115C8571BB0225600631928 /* CityHeaderView2_0_3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityHeaderView2_0_3.h; sourceTree = "<group>"; };
+		0115C8581BB0225600631928 /* CityHeaderView2_0_3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityHeaderView2_0_3.m; sourceTree = "<group>"; };
 		01F3C7961BAA6E2300CC58F4 /* DXChatBarMoreViewAddBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DXChatBarMoreViewAddBtn.h; sourceTree = "<group>"; };
 		01F3C7971BAA6E2300CC58F4 /* DXChatBarMoreViewAddBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DXChatBarMoreViewAddBtn.m; sourceTree = "<group>"; };
 		01F3C7991BAA7DC100CC58F4 /* UIColor+RandomColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+RandomColor.h"; sourceTree = "<group>"; };
@@ -3950,7 +3953,7 @@
 				D992C95F1B50FD0C000C7E2D /* TripFavoriteTableViewController.xib */,
 			);
 			name = TripPlanDetail;
-			path = TravelPlan/TripPlanDetail;
+			path = ../TripPlanDetail;
 			sourceTree = "<group>";
 		};
 		C6F5D4771B2AB183009163E3 /* PlanFavoritesViewController */ = {
@@ -4992,7 +4995,6 @@
 			isa = PBXGroup;
 			children = (
 				C6261BB11B2B00B200DFADEF /* CommonViewUnit */,
-				C6F5D4761B2AB183009163E3 /* TripPlanDetail */,
 				D9A8FFD01A80D52F005AD701 /* MakeTravel */,
 				D9A8FFBF1A80D216005AD701 /* HotDestination--目的地 */,
 				D9A8FF611A80D1C3005AD701 /* PoiDetail--Poi详细 */,
@@ -6259,6 +6261,7 @@
 		D9A8FF611A80D1C3005AD701 /* PoiDetail--Poi详细 */ = {
 			isa = PBXGroup;
 			children = (
+				C6F5D4761B2AB183009163E3 /* TripPlanDetail */,
 				0115C7BE1BAD53A100631928 /* TZCityDetail */,
 				D9EE34591AB93E3F0076933B /* HotelDetail */,
 				D9EE34491AB93D500076933B /* ShoppingDetail */,
@@ -6285,6 +6288,8 @@
 				D91FED7C1B426A470073AD77 /* CityAlbum */,
 				D9A8FF651A80D1C3005AD701 /* CityHeaderView.h */,
 				D9A8FF661A80D1C3005AD701 /* CityHeaderView.m */,
+				0115C8571BB0225600631928 /* CityHeaderView2_0_3.h */,
+				0115C8581BB0225600631928 /* CityHeaderView2_0_3.m */,
 				D9A8FF6C1A80D1C3005AD701 /* PoisOfCityViewController.h */,
 				D9A8FF6D1A80D1C3005AD701 /* PoisOfCityViewController.m */,
 				27F7EA5E1B0C879800148A66 /* PoisSearchViewController.h */,
@@ -9405,6 +9410,7 @@
 				D9F46DC01AC52D8600972AE8 /* SVWebViewControllerActivitySafari.m in Sources */,
 				E690D8CB1B7C7F5300BFDF1B /* MakePlanSearchController.m in Sources */,
 				C6F87A181ACD1C4400BB7D7F /* PXAlertView+Customization.m in Sources */,
+				0115C8591BB0225600631928 /* CityHeaderView2_0_3.m in Sources */,
 				D9A8014B1A80DD23005AD701 /* TipsChatTableViewCell.m in Sources */,
 				D993C2661B12DF0C0088D568 /* IMSpotMessage.swift in Sources */,
 				D993C2511B12DF0C0088D568 /* IMGroupModel.swift in Sources */,

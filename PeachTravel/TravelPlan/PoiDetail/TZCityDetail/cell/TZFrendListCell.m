@@ -25,6 +25,7 @@
 
 @property (nonatomic, strong) UIView* seperatorView;
 
+
 @end
 
 @implementation TZFrendListCell
@@ -47,6 +48,11 @@
     [self.contentView addSubview:self.descriptionLabel];
     [self.contentView addSubview:self.tagCollectionView];
     [self.contentView addSubview:self.seperatorView];
+    [self.contentView addSubview:self.cityAndAgeLabel];
+    
+    
+    
+    
     
 #ifdef COLORDEBUG
     //    self.crownImageView.backgroundColor = RANDOMCOLOR;
@@ -65,6 +71,7 @@
     self.descriptionLabel.translatesAutoresizingMaskIntoConstraints = NO;
     self.tagCollectionView.translatesAutoresizingMaskIntoConstraints = NO;
     self.seperatorView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.cityAndAgeLabel.translatesAutoresizingMaskIntoConstraints = NO;
     
     NSDictionary* dict = @{@"crown":self.crownImageView,
                            @"header":self.headerImageView,
@@ -87,10 +94,17 @@
     
     [self.levelImageView addConstraint:[NSLayoutConstraint constraintWithItem:self.levelLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.levelImageView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
     [self.levelImageView addConstraint:[NSLayoutConstraint constraintWithItem:self.levelLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.levelImageView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:8]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.tagCollectionView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.titleLabel attribute:NSLayoutAttributeBottom multiplier:1.0 constant:14]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.tagCollectionView attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.titleLabel attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0]];
+    
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.cityAndAgeLabel attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.titleLabel attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.cityAndAgeLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.titleLabel attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0]];
+    
+    [self prepareSubViewsForArea];
+    
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.tagCollectionView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.cityAndAgeLabel attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.tagCollectionView attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.cityAndAgeLabel attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.tagCollectionView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.descriptionLabel attribute:NSLayoutAttributeTop multiplier:1.0 constant:0]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.tagCollectionView attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.levelImageView attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0]];
+    
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-24-[seperator]-24-|" options:0 metrics:nil views:dict]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[seperator(0.5)]-0-|" options:0 metrics:nil views:dict]];
     
@@ -101,6 +115,13 @@
     _headerImageView.clipsToBounds = YES;
     
 //    self.contentView.backgroundColor = APP_IMAGEVIEW_COLOR;
+}
+
+- (void)prepareSubViewsForArea{
+    
+    
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.cityAndAgeLabel attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:2]];
+    
 }
 
 #pragma mark - collectionViewDataSource
@@ -138,7 +159,8 @@
     self.descriptionLabel.text = self.model.signature;
 //    _model.tags = @[@"我是标签1",@"标签2",@"我有可能是标签3",@"我是几",@"乱入"];
     [self.tagCollectionView reloadData];
-    NSLog(@"----- profile  ---- %@",self.model.profile);
+
+
 }
 
 - (UIImageView *)crownImageView{
@@ -214,6 +236,15 @@
         _seperatorView.backgroundColor = COLOR_TEXT_IV;
     }
     return _seperatorView;
+}
+
+- (UILabel *)cityAndAgeLabel{
+    if (_cityAndAgeLabel == nil) {
+        _cityAndAgeLabel = [[UILabel alloc] init];
+        _cityAndAgeLabel.font = [UIFont systemFontOfSize:8];
+        _cityAndAgeLabel.textColor = COLOR_TEXT_II;
+    }
+    return _cityAndAgeLabel;
 }
 
 
