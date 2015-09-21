@@ -17,6 +17,7 @@
 @interface UserAlbumViewController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 @property (nonatomic, strong) AccountManager *manager;
+@property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong) JGProgressHUD *HUD;
 
 @end
@@ -29,8 +30,7 @@ static NSString * const reuseIdentifier = @"albumImageCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"相册";
-    
+    self.navigationItem.title = @"相册";    
     self.collectionView.backgroundColor = APP_PAGE_COLOR;
     UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
     [button setImage:[UIImage imageNamed:@"common_icon_navigation_back_normal"] forState:UIControlStateNormal];
@@ -131,32 +131,9 @@ static NSString * const reuseIdentifier = @"albumImageCell";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     UserAlbumReviewViewController *ctl = [[UserAlbumReviewViewController alloc] init];
-    ctl.dataSource = _manager.account.userAlbum;
+    ctl.dataSource = _albumArray;
     ctl.currentIndex = indexPath.row;
     [self.navigationController pushViewController:ctl animated:YES];
-}
-
-- (void)deletePhoto:(UIButton *)sender
-{
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"确认删除？" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-    [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
-        if (buttonIndex == 0) {
-            
-        } else {
-            AlbumImageModel *image = [self.manager.account.userAlbum objectAtIndex:sender.tag-101];
-//            [self.manager asyncDelegateUserAlbumImage:image completion:^(BOOL isSuccess, NSString *error) {
-//                if (isSuccess) {
-//                    NSMutableArray *mutableArray = [_albumArray mutableCopy];
-//                    [mutableArray removeObjectAtIndex:sender.tag - 101];
-//                    _albumArray = mutableArray;
-//                    [self.collectionView reloadData];
-//                } else {
-//                    [SVProgressHUD showHint:@"删除失败"];
-//                }
-//            }];
-        }
-    }];
-   
 }
 
 - (void)goBack

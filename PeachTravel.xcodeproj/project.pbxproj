@@ -414,6 +414,8 @@
 		D955E3EE19E7A28500047F2B /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D955E3ED19E7A28500047F2B /* libz.dylib */; };
 		D95663981BAFE58F006B2765 /* common_icon_navigaiton_back_white_style@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D95663961BAFE58F006B2765 /* common_icon_navigaiton_back_white_style@2x.png */; settings = {ASSET_TAGS = (); }; };
 		D95663991BAFE58F006B2765 /* common_icon_navigaiton_back_white_style@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D95663971BAFE58F006B2765 /* common_icon_navigaiton_back_white_style@3x.png */; settings = {ASSET_TAGS = (); }; };
+		D956639C1BAFEAF0006B2765 /* icon_navi_white_more@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D956639A1BAFEAF0006B2765 /* icon_navi_white_more@2x.png */; settings = {ASSET_TAGS = (); }; };
+		D956639D1BAFEAF0006B2765 /* icon_navi_white_more@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D956639B1BAFEAF0006B2765 /* icon_navi_white_more@3x.png */; settings = {ASSET_TAGS = (); }; };
 		D963CB661B9FF751007480FA /* EditUserSignatureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D963CB651B9FF751007480FA /* EditUserSignatureViewController.m */; };
 		D9687CA21AC4095500B1C88E /* FootprintMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9687CA01AC4095500B1C88E /* FootprintMapViewController.m */; };
 		D9687CA31AC4095500B1C88E /* FootprintMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9687CA11AC4095500B1C88E /* FootprintMapViewController.xib */; };
@@ -2062,6 +2064,8 @@
 		D955E3ED19E7A28500047F2B /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		D95663961BAFE58F006B2765 /* common_icon_navigaiton_back_white_style@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "common_icon_navigaiton_back_white_style@2x.png"; sourceTree = "<group>"; };
 		D95663971BAFE58F006B2765 /* common_icon_navigaiton_back_white_style@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "common_icon_navigaiton_back_white_style@3x.png"; sourceTree = "<group>"; };
+		D956639A1BAFEAF0006B2765 /* icon_navi_white_more@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_navi_white_more@2x.png"; sourceTree = "<group>"; };
+		D956639B1BAFEAF0006B2765 /* icon_navi_white_more@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_navi_white_more@3x.png"; sourceTree = "<group>"; };
 		D963CB641B9FF751007480FA /* EditUserSignatureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditUserSignatureViewController.h; sourceTree = "<group>"; };
 		D963CB651B9FF751007480FA /* EditUserSignatureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditUserSignatureViewController.m; sourceTree = "<group>"; };
 		D9687C9F1AC4095500B1C88E /* FootprintMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FootprintMapViewController.h; path = ../UserInfo/FootprintMapViewController.h; sourceTree = "<group>"; };
@@ -7097,6 +7101,8 @@
 				E6F187051B845F4800232EEB /* bg_navigationbar_shadow@3x.png */,
 				E6F187061B845F4800232EEB /* bottom_shadow@2x.png */,
 				E6F187071B845F4800232EEB /* bottom_shadow@3x.png */,
+				D956639A1BAFEAF0006B2765 /* icon_navi_white_more@2x.png */,
+				D956639B1BAFEAF0006B2765 /* icon_navi_white_more@3x.png */,
 				E6F1870C1B845F4800232EEB /* common_icon_navigation_back_hilighted@2x.png */,
 				E6F1870D1B845F4800232EEB /* common_icon_navigation_back_hilighted@3x.png */,
 				E6F1870E1B845F4800232EEB /* common_icon_navigation_back_normal@2x.png */,
@@ -7975,6 +7981,7 @@
 				E6F189B51B845F4900232EEB /* city_button_spot_disable@2x.png in Resources */,
 				D971E26C1B8AF034007E5AFD /* MyGuidesTableViewCell.xib in Resources */,
 				E6F18ACD1B845F4900232EEB /* messages_plus_pin_selected@2x.png in Resources */,
+				D956639D1BAFEAF0006B2765 /* icon_navi_white_more@3x.png in Resources */,
 				E6F18A761B845F4900232EEB /* ic_home_avatar_unknown copy@2x.png in Resources */,
 				E6AD323D1B9DAA9600EE6A62 /* expert_search@2x.png in Resources */,
 				D9E9D2141BA2B28100FB6C07 /* icon_chat_group@2x.png in Resources */,
@@ -8490,6 +8497,7 @@
 				E6381BFC1B66269000CF73AA /* Loading_Animation_final39@2x.png in Resources */,
 				E6F189231B845F4900232EEB /* dashboard_03_icon_constellation12@2x.png in Resources */,
 				E6F18AB01B845F4900232EEB /* chat_wenwen@3x.png in Resources */,
+				D956639C1BAFEAF0006B2765 /* icon_navi_white_more@2x.png in Resources */,
 				E6F189B01B845F4900232EEB /* city_button_shopping_disable@3X.png in Resources */,
 				E6381C041B66269000CF73AA /* Loading_Animation_final46@2x.png in Resources */,
 				D90A9B631B5627C400E9F37C /* Loading_Animation_final56@3x.png in Resources */,

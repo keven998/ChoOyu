@@ -8,8 +8,9 @@
 
 #import "UserAlbumReviewViewController.h"
 #import "UserAlbumPreviewCollectionViewCell.h"
+#import "UserAlbumManager.h"
 
-@interface UserAlbumReviewViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface UserAlbumReviewViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UIActionSheetDelegate>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) UIScrollView *descScrollView;
@@ -33,7 +34,14 @@
     button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.leftBarButtonItem = barButton;
-
+    
+    UIButton *moreBtn =  [UIButton buttonWithType:UIButtonTypeCustom];
+    [moreBtn setImage:[UIImage imageNamed:@"icon_navi_white_more.png"] forState:UIControlStateNormal];
+    [moreBtn addTarget:self action:@selector(moreAction:)forControlEvents:UIControlEventTouchUpInside];
+    [moreBtn setFrame:CGRectMake(0, 0, 30, 30)];
+    moreBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+    UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithCustomView:moreBtn];
+    self.navigationItem.rightBarButtonItem = rightBarButton;
     
     self.view.backgroundColor = COLOR_TEXT_I;
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -74,6 +82,12 @@
     } else {
         [self dismissViewControllerAnimated:YES completion:nil];
     }
+}
+
+- (void)moreAction:(id)sender
+{
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"保存到手机", @"编辑文字描述", @"删除", nil];
+    [sheet showInView:self.view];
 }
 
 - (void)setDataSource:(NSMutableArray *)dataSource
@@ -136,6 +150,55 @@
     return _descLabel;
 }
 
+- (void)saveImage2Disk
+{
+    UserAlbumPreviewCollectionViewCell *cell = (UserAlbumPreviewCollectionViewCell *)[_collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:_currentIndex inSection:0]];
+    UIImage *saveImage = cell.mainView.imageView.image;
+    if (saveImage) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            UIImageWriteToSavedPhotosAlbum(saveImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+        });
+    } else {
+        [SVProgressHUD showHint:@"请等待图片下载完成"];
+    }
+   
+
+}
+
+- (void)editImageDesc
+{
+    
+}
+
+- (void)deleteUserAlbum
+{
+    
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"确认删除？" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
+        if (buttonIndex == 0) {
+            
+        } else {
+            AlbumImageModel *image = _dataSource[_currentIndex];
+            [UserAlbumManager asyncDelegateUserAlbumImage:image userId:[AccountManager shareAccountManager].account.userId completion:^(BOOL isSuccess, NSString *errorStr) {
+                if (isSuccess) {
+                    [SVProgressHUD showHint:@"删除成功"];
+                    [_dataSource removeObject:image];
+                    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:_currentIndex inSection:0];
+                    [_collectionView deleteItemsAtIndexPaths:@[indexPath]];
+                    if (_currentIndex == _dataSource.count) {
+                        self.currentIndex = self.currentIndex - 1;
+                    }
+                    [[AccountManager shareAccountManager] deleteUserAlbumImage:image.imageId];
+                } else {
+                    [SVProgressHUD showHint:@"删除失败"];
+                    
+                }
+            }];
+        }
+    }];
+  
+}
+
 #pragma mark <UICollectionViewDataSource>
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -166,6 +229,31 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     self.currentIndex = scrollView.contentOffset.x/_collectionView.bounds.size.width;
+}
+
+#pragma mark - UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        [self saveImage2Disk];
+        
+    } else if (buttonIndex == 1) {
+        [self editImageDesc];
+        
+    } else if (buttonIndex == 2) {
+        [self deleteUserAlbum];
+        
+    }
+}
+
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
+{
+    if (error) {
+        [SVProgressHUD showHint:@"保存失败"];
+    } else {
+        [SVProgressHUD showHint:@"成功保存到相册"];
+    }
 }
 
 
