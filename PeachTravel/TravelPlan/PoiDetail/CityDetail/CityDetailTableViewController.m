@@ -21,6 +21,14 @@
 #import "DomesticViewController.h"
 #import "AddPoiViewController.h"
 #import "CityDescDetailViewController.h"
+#import "TZFrendListVC.h"
+#import "TZFrendListCell.h"
+#import "ExpertManager.h"
+#import "GuiderProfileViewController.h"
+#import "CityDetailLoadMoreCell.h"
+#import "TZFrendListCellForArea.h"
+
+#define CITY_DETAIL_LOAD_MORE_CELL @"CITY_DETAIL_LOAD_MORE_CELL"
 
 @interface CityDetailTableViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -31,6 +39,8 @@
 @property (nonatomic, strong) UIImageView *cityPicture;
 @property (nonatomic, weak) UIButton *footBtn;
 @property (nonatomic, weak) UIButton *likeBtn;
+
+@property (nonatomic, strong) NSArray* expertsArray;
 
 @end
 
@@ -57,8 +67,11 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:talkBtn]];
     self.navigationItem.rightBarButtonItems = barItems;
     
-    [self.tableView registerNib:[UINib nibWithNibName:@"TravelNoteTableViewCell" bundle:nil] forCellReuseIdentifier:reuseIdentifier];
+
+    
     [self loadCityData];
+    
+    
     self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
@@ -104,12 +117,16 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [_cityHeaderView.travelMonth addGestureRecognizer:tap1];
 
     _tableView.tableHeaderView = _cityHeaderView;
+//    _tableView.tableFooterView
     [self setUpToolbarView];
 }
 
 - (void)updateTravelNoteTableView
 {
-    if (((CityPoi *)self.poi).travelNotes.count > 0) {
+//    if (((CityPoi *)self.poi).travelNotes.count > 0) {
+    if (self.expertsArray.count > 0) {
+        
+    
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(_tableView.frame), 104)];
         view.backgroundColor = [UIColor clearColor];
         view.userInteractionEnabled = YES;
@@ -117,7 +134,8 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
         [footerView setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
         [footerView setBackgroundImage:[ConvertMethods createImageWithColor:COLOR_DISABLE] forState:UIControlStateHighlighted];
         [footerView setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-        [footerView setTitle:@"~阅读更多 · 达人游记~" forState:UIControlStateNormal];
+        [footerView setTitle:[NSString stringWithFormat:@"~查看更多 · %@达人~",self.poi.zhName] forState:UIControlStateNormal];
+//        [footerView setTitle:@"~阅读更多 · 达人游记~" forState:UIControlStateNormal];
         footerView.titleLabel.font = [UIFont systemFontOfSize:12];
         [footerView addTarget:self action:@selector(showMoreTravelNote:) forControlEvents:UIControlEventTouchUpInside];
         [view addSubview:footerView];
@@ -245,6 +263,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
             // 设置likeBtn的选中状态
             likeBtn.selected = !likeBtn.selected;
             //            [self loadCityData];
+            
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -277,16 +296,21 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-64)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-64-46)];
         _tableView.backgroundColor = APP_PAGE_COLOR;
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.showsVerticalScrollIndicator = NO;
+        [self.tableView registerClass:[TZFrendListCell class] forCellReuseIdentifier:reuseIdentifier];
+        [self.tableView registerClass:[CityDetailLoadMoreCell class] forCellReuseIdentifier:CITY_DETAIL_LOAD_MORE_CELL];
     }
     return _tableView;
 }
+
+
+#pragma mark - 网络请求
 
 - (void)loadCityData
 {
@@ -323,7 +347,8 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
         if (code == 0) {
             self.poi = [[CityPoi alloc] initWithJson:[responseObject objectForKey:@"result"]];
             [self updateView];
-            [self loadTravelNoteOfCityData];
+//            [self loadTravelNoteOfCityData];
+            [self loadFrendListOfCityData];
         } else {
             if (self.isShowing) {
                 [SVProgressHUD showHint:HTTP_FAILED_HINT];
@@ -343,8 +368,35 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 }
 
 /**
+ *  同时加载城市达人信息
+ */
+
+- (void)loadFrendListOfCityData{
+//    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    __weak typeof(CityDetailTableViewController *)weakSelf = self;
+//    [hud showHUDInViewController:weakSelf content:64];
+    [ExpertManager asyncLoadExpertsWithAreaName:self.poi.zhName page:0 pageSize:3 completionBlock:^(BOOL success, NSArray * result) {
+        if (success) {
+            self.expertsArray = result;
+
+            [weakSelf.tableView reloadData];
+            [_hud hideTZHUD];
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        }else {
+            if (self.isShowing) {
+                [SVProgressHUD showHint:HTTP_FAILED_HINT];
+            }
+            [_hud hideTZHUD];
+            
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        }
+    }];
+}
+
+/**
  *  当加载完城市详情后开始加载城市的攻略内容
  */
+
 - (void)loadTravelNoteOfCityData
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -382,6 +434,8 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
 }
+
+
 
 /**
  *  实现父类的发送 poi 到消息的值传递
@@ -470,7 +524,8 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
  */
 - (IBAction)showMoreTravelNote:(id)sender
 {
-    TravelNoteListViewController *travelListCtl = [[TravelNoteListViewController alloc] init];
+    TZFrendListVC *travelListCtl = [[TZFrendListVC alloc] init];
+//    TravelNoteListViewController *travelListCtl = [[TravelNoteListViewController alloc] init];
     travelListCtl.isSearch = NO;
     travelListCtl.cityId = ((CityPoi *)self.poi).poiId;
     travelListCtl.cityName = ((CityPoi *)self.poi).zhName;
@@ -490,36 +545,67 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 126;
+    if (indexPath.row == 0) {
+        return 44;
+    }
+    
+    return 120;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return ((CityPoi *)self.poi).travelNotes.count;
+//    return ((CityPoi *)self.poi).travelNotes.count;
+//    return self.expertsArray.count;
+    return 4;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    TravelNoteTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
-    TravelNote *travelNote = [((CityPoi *)self.poi).travelNotes objectAtIndex:indexPath.row];
-    cell.travelNoteImage = travelNote.authorAvatar;
-    cell.title = travelNote.title;
-    cell.desc = travelNote.summary;
+    if (indexPath.row == 0) {
+        CityDetailLoadMoreCell *cell = [tableView dequeueReusableCellWithIdentifier:CITY_DETAIL_LOAD_MORE_CELL forIndexPath:indexPath];
+//        ExpertModel* model = self.expertsArray[indexPath.row];
+//        cell.model = model;
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell;
+    }
+    TZFrendListCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
+    ExpertModel* model = self.expertsArray[indexPath.row];
+    cell.model = model;
     
-    cell.property = [NSString stringWithFormat:@"%@    %@", travelNote.authorName, travelNote.publishDateStr];
-    cell.canSelect = NO;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
+    
+    //    TravelNote *travelNote = [((CityPoi *)self.poi).travelNotes objectAtIndex:indexPath.row];
+    //    cell.travelNoteImage = travelNote.authorAvatar;
+    //    cell.title = travelNote.title;
+    //    cell.desc = travelNote.summary;
+    //
+    //    cell.property = [NSString stringWithFormat:@"%@    %@", travelNote.authorName, travelNote.publishDateStr];
+    //    cell.canSelect = NO;
 }
 
 #pragma mark - TableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    TravelNote *travelNote = [((CityPoi *)self.poi).travelNotes objectAtIndex:indexPath.row];
-    TravelNoteDetailViewController *travelNoteCtl = [[TravelNoteDetailViewController alloc] init];
-    travelNoteCtl.titleStr = travelNote.title;
-    travelNoteCtl.travelNote = travelNote;
-    [self.navigationController pushViewController:travelNoteCtl animated:YES];
+//    TravelNote *travelNote = [((CityPoi *)self.poi).travelNotes objectAtIndex:indexPath.row];
+//    TravelNoteDetailViewController *travelNoteCtl = [[TravelNoteDetailViewController alloc] init];
+//    travelNoteCtl.titleStr = travelNote.title;
+//    travelNoteCtl.travelNote = travelNote;
+//    [self.navigationController pushViewController:travelNoteCtl animated:YES];
+//    
+//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.row == 0) {
+        TZFrendListVC* frendList = [[TZFrendListVC alloc] initWithCityName:self.poi.zhName orAreaId:nil];
+        [self.navigationController pushViewController:frendList animated:YES];
+        return;
+    }
+    
+    GuiderProfileViewController *guiderCtl = [[GuiderProfileViewController alloc] init];
+    FrendModel *model = self.expertsArray[indexPath.row];
+    guiderCtl.userId = model.userId;
+    guiderCtl.shouldShowExpertTipsView = YES;
+    [self.navigationController pushViewController:guiderCtl animated:YES];
 }
 
 #pragma mark - IBAction
