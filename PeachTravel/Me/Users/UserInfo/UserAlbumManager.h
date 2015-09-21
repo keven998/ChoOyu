@@ -12,4 +12,8 @@
 
 + (void)uploadUserAlbumPhoto:(UIImage *)photo withPhotoDesc:(NSString *)desc progress:(void (^) (CGFloat progressValue))progressBlock completion:(void(^)(BOOL isSuccess))completionBlock;
 
++ (void)asyncDelegateUserAlbumImage:(AlbumImageModel *)albumImage userId:(NSInteger)userId completion:(void (^)(BOOL isSuccess, NSString *errorStr))completion;
+
++ (void)asyncLoadUserAlbum:(NSInteger)userId completion:(void (^)(BOOL isSuccess, NSArray *albumList))completion;
+
 @end

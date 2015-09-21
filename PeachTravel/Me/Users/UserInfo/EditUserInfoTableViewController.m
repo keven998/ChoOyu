@@ -706,21 +706,6 @@
     [self.navigationController pushViewController:ctl animated:YES];
 }
 
-/**
- *  删除用户头像
- *
- *  @param index
- */
-- (void)deleteUserAvatar:(NSInteger)index
-{
-    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInView:self.view];
-    AlbumImageModel *image = [self.accountManager.account.userAlbum objectAtIndex:index];
-    [self.accountManager asyncDelegateUserAlbumImage:image completion:^(BOOL isSuccess, NSString *error) {
-        [hud hideTZHUD];
-    }];
-}
-
 - (void)changeUserMark
 {
     EditUserSignatureViewController *ctl = [[EditUserSignatureViewController alloc] init];

@@ -121,7 +121,7 @@ static NSString * const reuseIdentifier = @"albumImageCell";
     } else {
         cell.imageView.image = nil;
         
-        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:((AlbumImageModel *)image).smallImageUrl] placeholderImage:[UIImage imageNamed:@"avatar_default.png"]];
+        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:((AlbumImageModel *)image).smallImageUrl] placeholderImage:[UIImage imageNamed:@"icon_userAlbum_placeholder.png"]];
     }
     return cell;
 }
@@ -155,33 +155,6 @@ static NSString * const reuseIdentifier = @"albumImageCell";
     [browser show];
 }
 
-- (void)incrementWithProgress:(float)progress
-{
-    _HUD.textLabel.text = [NSString stringWithFormat:@"%d%%", (int)(progress*100)];
-    [self.HUD setProgress:progress animated:YES];
-    
-    if (progress == 1.0) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [_HUD dismiss];
-            _HUD = nil;
-            [SVProgressHUD showHint:@"修改成功"];
-            [self.collectionView reloadData];
-        });
-    }
-}
-
-- (JGProgressHUD *)HUD
-{
-    if (!_HUD) {
-        _HUD = [JGProgressHUD progressHUDWithStyle:JGProgressHUDStyleDark];
-        _HUD.indicatorView = [[JGProgressHUDPieIndicatorView alloc] initWithHUDStyle:JGProgressHUDStyleDark];
-        _HUD.detailTextLabel.text = nil;
-        _HUD.textLabel.text = @"正在上传";
-        _HUD.layoutChangeAnimationDuration = 0.0;
-    }
-    return _HUD;
-}
-
 - (void)deletePhoto:(UIButton *)sender
 {
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"确认删除？" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
@@ -190,16 +163,16 @@ static NSString * const reuseIdentifier = @"albumImageCell";
             
         } else {
             AlbumImageModel *image = [self.manager.account.userAlbum objectAtIndex:sender.tag-101];
-            [self.manager asyncDelegateUserAlbumImage:image completion:^(BOOL isSuccess, NSString *error) {
-                if (isSuccess) {
-                    NSMutableArray *mutableArray = [_albumArray mutableCopy];
-                    [mutableArray removeObjectAtIndex:sender.tag - 101];
-                    _albumArray = mutableArray;
-                    [self.collectionView reloadData];
-                } else {
-                    [SVProgressHUD showHint:@"删除失败"];
-                }
-            }];
+//            [self.manager asyncDelegateUserAlbumImage:image completion:^(BOOL isSuccess, NSString *error) {
+//                if (isSuccess) {
+//                    NSMutableArray *mutableArray = [_albumArray mutableCopy];
+//                    [mutableArray removeObjectAtIndex:sender.tag - 101];
+//                    _albumArray = mutableArray;
+//                    [self.collectionView reloadData];
+//                } else {
+//                    [SVProgressHUD showHint:@"删除失败"];
+//                }
+//            }];
         }
     }];
    

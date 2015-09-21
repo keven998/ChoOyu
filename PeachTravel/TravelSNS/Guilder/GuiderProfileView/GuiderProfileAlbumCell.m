@@ -105,9 +105,8 @@
     
     AlbumImageModel *image = [_albumArray objectAtIndex:indexPath.row];
     
-    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:((AlbumImageModel *)image).smallImageUrl] placeholderImage:[UIImage imageNamed:@"picture"]];
+    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:((AlbumImageModel *)image).smallImageUrl] placeholderImage:[UIImage imageNamed:@"icon_userAlbum_placeholder.png"]];
     
-
     return cell;
 }
 
