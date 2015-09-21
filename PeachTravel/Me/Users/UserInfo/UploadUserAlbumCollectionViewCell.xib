@@ -24,19 +24,30 @@
                             <constraint firstAttribute="height" constant="159" id="wdq-BN-eyO"/>
                         </constraints>
                     </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WJD-aW-PyK">
+                        <rect key="frame" x="0.0" y="0.0" width="161" height="159"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <constraints>
                 <constraint firstItem="oeB-7B-ZiJ" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="8Cx-ri-fsy"/>
+                <constraint firstItem="WJD-aW-PyK" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="9Ot-ne-pWm"/>
                 <constraint firstAttribute="bottom" secondItem="oeB-7B-ZiJ" secondAttribute="bottom" id="Dmi-f8-FDC"/>
+                <constraint firstItem="WJD-aW-PyK" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="WBB-5E-F6n"/>
                 <constraint firstItem="nL5-8H-9Rp" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="Wrf-oe-b6h"/>
+                <constraint firstAttribute="trailing" secondItem="WJD-aW-PyK" secondAttribute="trailing" id="bVP-gX-Bc8"/>
                 <constraint firstItem="oeB-7B-ZiJ" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="cNd-ej-OkM"/>
+                <constraint firstAttribute="bottom" secondItem="WJD-aW-PyK" secondAttribute="bottom" id="kuM-YA-fQJ"/>
                 <constraint firstAttribute="trailing" secondItem="oeB-7B-ZiJ" secondAttribute="trailing" id="rGU-l9-VDX"/>
                 <constraint firstItem="nL5-8H-9Rp" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="wQ5-qd-1x5"/>
             </constraints>
             <size key="customSize" width="161" height="159"/>
             <connections>
+                <outlet property="failureTextLabel" destination="WJD-aW-PyK" id="oXq-z9-xGP"/>
                 <outlet property="imageView" destination="oeB-7B-ZiJ" id="xgf-A9-7jV"/>
                 <outlet property="progressView" destination="nL5-8H-9Rp" id="vxr-f4-rqC"/>
             </connections>

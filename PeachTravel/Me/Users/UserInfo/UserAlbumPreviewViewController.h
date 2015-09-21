@@ -15,4 +15,8 @@
 @property (nonatomic) NSUInteger currentIndex;
 
 @property (nonatomic, strong) NSMutableArray *selectedPhotos;
+
+//是否显示确定按钮
+@property (nonatomic) BOOL showConfirmToolBar;
+
 @end

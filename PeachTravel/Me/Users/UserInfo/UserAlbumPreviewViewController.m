@@ -37,15 +37,19 @@
     [_selectBtn addTarget:self action:@selector(selectPhoto:) forControlEvents:UIControlEventTouchUpInside];
     _selectBtn.selected = [self photoIsSelected:_dataSource[_currentIndex]];
     
-    _confirmBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width-90, self.view.bounds.size.height-40, 72, 26)];
-    _confirmBtn.titleLabel.font = [UIFont systemFontOfSize:15.0];
-    _confirmBtn.layer.cornerRadius = 5.0;
-    _confirmBtn.layer.borderWidth = 1.0;
-    [_confirmBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-    [_confirmBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateDisabled];
-    [_confirmBtn addTarget:self action:@selector(confirmUploadPhotos:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_confirmBtn];
-    [self updateButtonStatus];
+    
+    if (_showConfirmToolBar) {
+        _confirmBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width-90, self.view.bounds.size.height-40, 72, 26)];
+        _confirmBtn.titleLabel.font = [UIFont systemFontOfSize:15.0];
+        _confirmBtn.layer.cornerRadius = 5.0;
+        _confirmBtn.layer.borderWidth = 1.0;
+        [_confirmBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+        [_confirmBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateDisabled];
+        [_confirmBtn addTarget:self action:@selector(confirmUploadPhotos:) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:_confirmBtn];
+        [self updateButtonStatus];
+
+    }
     self.naviTitle = [NSString stringWithFormat:@"%ld/%ld", _currentIndex+1, _dataSource.count];
 }
 
@@ -76,7 +80,11 @@
         layout.minimumInteritemSpacing = 0;
         layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
 
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height-49) collectionViewLayout:layout];
+        if (_showConfirmToolBar) {
+            _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height-49) collectionViewLayout:layout];
+        } else {
+            _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height) collectionViewLayout:layout];
+        }
         _collectionView.backgroundColor = [UIColor whiteColor];
         [_collectionView registerNib:[UINib nibWithNibName:@"UserAlbumPreviewCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"userAlbumPreviewCell"];
         _collectionView.dataSource = self;

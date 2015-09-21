@@ -145,6 +145,7 @@ static NSString * const reuseIdentifier = @"userAlbumSelectCell";
 - (void)previewPhotos:(NSArray *)photos atIndex:(NSUInteger)index
 {
     UserAlbumPreviewViewController *ctl = [[UserAlbumPreviewViewController alloc] init];
+    ctl.showConfirmToolBar = YES;
     ctl.currentIndex = index;
     ctl.dataSource = _dataSource;
     ctl.selectedPhotos = self.selectedPhotos;

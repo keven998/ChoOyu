@@ -11,11 +11,13 @@
 #import "UploadUserAlbumCollectionViewCell.h"
 #import "UserAlbumOverViewTableViewController.h"
 #import "UserAlbumManager.h"
+#import "UserAlbumPreviewViewController.h"
 
 @interface UploadUserAlbumViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate>
 
 @property (nonatomic, strong) UploadUserPhotoOperationView *containterView;
 @property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, strong) UIButton *backBtn;
 
 @property (nonatomic, strong) NSMutableArray *userAlbumUploadStatusList;
 
@@ -45,11 +47,11 @@ static NSString * const reuseIdentifier = @"uploadPhotoCell";
     [self.view addSubview:_scrollView];
     
     
-    UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    [backBtn setTitle:@"取消" forState:UIControlStateNormal];
-    [backBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
-    [backBtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
+    _backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [_backBtn setTitle:@"取消" forState:UIControlStateNormal];
+    [_backBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
+    [_backBtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_backBtn];
     
     UIButton *uploadBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [uploadBtn setTitle:@"上传" forState:UIControlStateNormal];
@@ -58,6 +60,12 @@ static NSString * const reuseIdentifier = @"uploadPhotoCell";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:uploadBtn];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(photoHasSelected:) name:uploadUserAlbumNoti object:nil];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.containterView.collectionView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -141,8 +149,10 @@ static NSString * const reuseIdentifier = @"uploadPhotoCell";
             return;
         }
     }
-    [SVProgressHUD showHint:@"上传成功"];
-    [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.3];
+    [SVProgressHUD showHint:@"上传完成"];
+    [_backBtn setTitle:@"完成" forState:UIControlStateNormal];
+    [_backBtn removeTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
+    [_backBtn addTarget:self action:@selector(dismissCtl) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)choseMorePhotos
@@ -197,6 +207,12 @@ static NSString * const reuseIdentifier = @"uploadPhotoCell";
 {
     if (indexPath.row == _selectedPhotos.count) {
         [self choseMorePhotos];
+    } else {
+        UserAlbumPreviewViewController *ctl = [[UserAlbumPreviewViewController alloc] init];
+        ctl.currentIndex = indexPath.row;
+        ctl.dataSource = _selectedPhotos;
+        ctl.selectedPhotos = self.selectedPhotos;
+        [self.navigationController pushViewController: ctl animated:YES];
     }
 }
 

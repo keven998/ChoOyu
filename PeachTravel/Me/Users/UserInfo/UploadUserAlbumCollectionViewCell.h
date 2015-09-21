@@ -22,4 +22,5 @@
 
 @property (nonatomic, strong) UploadUserAlbumStatus *uploadStatus;
 
+@property (weak, nonatomic) IBOutlet UILabel *failureTextLabel;
 @end
