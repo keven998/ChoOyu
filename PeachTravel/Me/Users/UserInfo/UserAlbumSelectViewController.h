@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 
-@interface UserAlbumSelectViewController : UIViewController
+@interface UserAlbumSelectViewController : TZViewController
 
 @property (nonatomic, strong) ALAssetsGroup *assetsGroup;
 

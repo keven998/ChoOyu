@@ -56,7 +56,7 @@ static NSString * const reuseIdentifier = @"albumImageCell";
     UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionViewLayout;
     CGFloat itemWidth = (kWindowWidth-10*2-8*3)/4;
     layout.itemSize = CGSizeMake(itemWidth, itemWidth);
-    layout.sectionInset = UIEdgeInsetsMake(10, 10, 0, 10);
+    layout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
     layout.minimumLineSpacing = 8;
     layout.minimumInteritemSpacing = 8;
     [self.collectionView registerNib:[UINib nibWithNibName:@"AlbumImageCell" bundle:nil]forCellWithReuseIdentifier:@"albumImageCell"];

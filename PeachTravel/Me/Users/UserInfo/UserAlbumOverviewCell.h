@@ -13,5 +13,7 @@
 @interface UserAlbumOverviewCell : UITableViewCell
 
 @property (nonatomic, strong) ALAssetsGroup *assetsGroup;
+@property (weak, nonatomic) IBOutlet UIImageView *headerImageView;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
 @end

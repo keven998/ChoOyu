@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UserAlbumPreviewViewController : UIViewController
+@interface UserAlbumPreviewViewController : TZViewController
 
 @property (nonatomic, strong) NSMutableArray *dataSource;
 

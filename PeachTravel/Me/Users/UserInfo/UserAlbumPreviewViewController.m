@@ -17,6 +17,7 @@
 
 @property (nonatomic, strong) UIButton *selectBtn;
 @property (nonatomic, strong) UIButton *confirmBtn;
+@property (nonatomic, copy) NSString *naviTitle;
 
 @end
 
@@ -24,19 +25,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = APP_PAGE_COLOR;
+    self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.collectionView];
     [self.collectionView reloadData];
     [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:_currentIndex inSection:0] atScrollPosition: UICollectionViewScrollPositionLeft animated:NO];
     
     _selectBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    [_selectBtn setImage:[UIImage imageNamed:@"icon_photo_normal.png"] forState:UIControlStateNormal];
-    [_selectBtn setImage:[UIImage imageNamed:@"icon_photo_selected.png"] forState:UIControlStateSelected];
+    [_selectBtn setImage:[UIImage imageNamed:@"icon_photo_bar_normal.png"] forState:UIControlStateNormal];
+    [_selectBtn setImage:[UIImage imageNamed:@"icon_photo_bar_selected.png"] forState:UIControlStateSelected];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_selectBtn];
     [_selectBtn addTarget:self action:@selector(selectPhoto:) forControlEvents:UIControlEventTouchUpInside];
     _selectBtn.selected = [self photoIsSelected:_dataSource[_currentIndex]];
     
-    _confirmBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width-90, self.view.bounds.size.height-40, 70, 30)];
+    _confirmBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width-90, self.view.bounds.size.height-40, 72, 26)];
+    _confirmBtn.titleLabel.font = [UIFont systemFontOfSize:15.0];
     _confirmBtn.layer.cornerRadius = 5.0;
     _confirmBtn.layer.borderWidth = 1.0;
     [_confirmBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
@@ -44,6 +46,7 @@
     [_confirmBtn addTarget:self action:@selector(confirmUploadPhotos:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_confirmBtn];
     [self updateButtonStatus];
+    self.naviTitle = [NSString stringWithFormat:@"%ld/%ld", _currentIndex+1, _dataSource.count];
 }
 
 - (void)setDataSource:(NSMutableArray *)dataSource
@@ -55,6 +58,13 @@
 {
     _currentIndex = currentIndex;
     _selectBtn.selected = [self photoIsSelected:_dataSource[_currentIndex]];
+    self.naviTitle = [NSString stringWithFormat:@"%ld/%ld", _currentIndex+1, _dataSource.count];
+}
+
+- (void)setNaviTitle:(NSString *)naviTitle
+{
+    _naviTitle = naviTitle;
+    self.navigationItem.title = _naviTitle;
 }
 
 - (UICollectionView *)collectionView

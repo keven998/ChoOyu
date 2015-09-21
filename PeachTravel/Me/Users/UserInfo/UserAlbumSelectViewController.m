@@ -50,15 +50,17 @@ static NSString * const reuseIdentifier = @"userAlbumSelectCell";
     toolBar.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:toolBar];
     
-    _confirmBtn = [[UIButton alloc] initWithFrame:CGRectMake(toolBar.bounds.size.width-85, 9, 60, 30)];
+    _confirmBtn = [[UIButton alloc] initWithFrame:CGRectMake(toolBar.bounds.size.width-85, 11, 60, 26)];
     _confirmBtn.layer.cornerRadius = 5.0;
     _confirmBtn.layer.borderWidth = 1.0;
+    _confirmBtn.titleLabel.font = [UIFont systemFontOfSize:15.0];
     [_confirmBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
     [_confirmBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateDisabled];
     [_confirmBtn addTarget:self action:@selector(confirmUploadPhotos:) forControlEvents:UIControlEventTouchUpInside];
     [toolBar addSubview:_confirmBtn];
     
     _previewBtn = [[UIButton alloc] initWithFrame:CGRectMake(15, 9, 60, 30)];
+    _previewBtn.titleLabel.font = [UIFont systemFontOfSize:15.0];
     [_previewBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
     [_previewBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateDisabled];
     [_previewBtn addTarget:self action:@selector(previewSelectPhotos:) forControlEvents:UIControlEventTouchUpInside];
@@ -70,10 +72,10 @@ static NSString * const reuseIdentifier = @"userAlbumSelectCell";
 - (void)updateButtonStatus
 {
     if (_selectedPhotos.count > 0) {
-        [_previewBtn setTitle:[NSString stringWithFormat:@"预览%ld", _selectedPhotos.count] forState:UIControlStateNormal];
+        [_previewBtn setTitle:[NSString stringWithFormat:@"预览(%ld)", _selectedPhotos.count] forState:UIControlStateNormal];
         _previewBtn.enabled = YES;
         
-        [_confirmBtn setTitle:[NSString stringWithFormat:@"确定%ld", _selectedPhotos.count] forState:UIControlStateNormal];
+        [_confirmBtn setTitle:[NSString stringWithFormat:@"确定(%ld)", _selectedPhotos.count] forState:UIControlStateNormal];
         _confirmBtn.enabled = YES;
         _confirmBtn.layer.borderColor = APP_THEME_COLOR.CGColor;
         
