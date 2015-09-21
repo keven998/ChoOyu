@@ -12,13 +12,13 @@
 
 @implementation UserAlbumManager
 
-+ (void)uploadUserAlbumPhoto:(UIImage *)photo withPhotoDesc:(NSString *)desc progress:(void (^)(CGFloat))progressBlock completion:(void (^)(BOOL))completionBlock
++ (void)uploadUserAlbumPhoto:(UIImage *)photo withPhotoDesc:(NSString *)desc progress:(void (^)(CGFloat))progressBlock completion:(void (^)(BOOL isSuccess, AlbumImageModel *albumImage))completionBlock
 {
     [UserAlbumManager requestUploadTokeAndUploadPhoto:photo photoDesc:desc progress:^(CGFloat progress) {
         progressBlock(progress);
         
-    } completion:^(BOOL isSuccess) {
-        completionBlock(isSuccess);
+    } completion:^(BOOL isSuccess, AlbumImageModel *image) {
+        completionBlock(isSuccess, image);
     }];
 }
 
@@ -27,7 +27,7 @@
  *
  *  @param image
  */
-+ (void)requestUploadTokeAndUploadPhoto:(UIImage *)image photoDesc:(NSString *)desc progress:(void (^)(CGFloat progress))progressBlock completion:(void (^)(BOOL isSuccess))completionBlock
++ (void)requestUploadTokeAndUploadPhoto:(UIImage *)image photoDesc:(NSString *)desc progress:(void (^)(CGFloat progress))progressBlock completion:(void (^)(BOOL isSuccess, AlbumImageModel *image))completionBlock
 {
     
     progressBlock(0.0);
@@ -52,15 +52,15 @@
             [self uploadPhotoToQINIUServer:image withToken:[[responseObject objectForKey:@"result"] objectForKey:@"uploadToken"] andKey:[[responseObject objectForKey:@"result"] objectForKey:@"key"] progress:^(CGFloat progress) {
                 progressBlock(progress);
                 
-            } completion:^(BOOL isSuccess) {
-                completionBlock(isSuccess);
+            } completion:^(BOOL isSuccess, AlbumImageModel *image) {
+                completionBlock(isSuccess, image);
             }];
             
         } else {
-            completionBlock(NO);
+            completionBlock(NO, nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        completionBlock(NO);
+        completionBlock(NO, nil);
 
     }];
 }
@@ -72,7 +72,7 @@
  *  @param uploadToken 上传的 token
  *  @param key         上传的 key
  */
-+ (void)uploadPhotoToQINIUServer:(UIImage *)image withToken:(NSString *)uploadToken andKey:(NSString *)key progress:(void (^)(CGFloat progress))progressBlock completion:(void (^)(BOOL isSuccess))completionBlock
++ (void)uploadPhotoToQINIUServer:(UIImage *)image withToken:(NSString *)uploadToken andKey:(NSString *)key progress:(void (^)(CGFloat progress))progressBlock completion:(void (^)(BOOL isSuccess, AlbumImageModel *image))completionBlock
 {
     NSData *data = UIImageJPEGRepresentation(image, 1.0);
     QNUploadManager *upManager = [[QNUploadManager alloc] init];
@@ -91,8 +91,13 @@
     
     [upManager putData:data key:key token:uploadToken
               complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+                  AlbumImageModel *image = [[AlbumImageModel alloc] init];
+                  image.imageId = [resp objectForKey:@"id"];
+                  image.imageUrl = [resp objectForKey:@"url"];
+                  image.smallImageUrl = [resp objectForKey:@"urlSmall"];
+                  image.imageDesc = [resp objectForKey:@"caption"];
                   dispatch_async(dispatch_get_main_queue(), ^{
-                      completionBlock(YES);
+                      completionBlock(YES, image);
                   });
 
               } option:opt];

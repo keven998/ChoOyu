@@ -8,6 +8,7 @@
 
 #import "UserAlbumReviewViewController.h"
 #import "UserAlbumPreviewCollectionViewCell.h"
+#import "EditUserAlbumDescViewController.h"
 #import "UserAlbumManager.h"
 
 @interface UserAlbumReviewViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UIActionSheetDelegate>
@@ -167,7 +168,9 @@
 
 - (void)editImageDesc
 {
-    
+    EditUserAlbumDescViewController *ctl = [[EditUserAlbumDescViewController alloc] init];
+    ctl.albumImage = self.dataSource[_currentIndex];
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:ctl] animated:YES completion:nil];
 }
 
 - (void)deleteUserAlbum

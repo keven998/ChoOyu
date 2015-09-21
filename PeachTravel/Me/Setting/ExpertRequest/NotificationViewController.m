@@ -81,12 +81,12 @@
 
 - (void)dismissNotiView
 {
-    if (_dismissBlock) {
-        _dismissBlock();
-    }
     [self.view removeFromSuperview];
     [self willMoveToParentViewController:nil];
     [self removeFromParentViewController];
+    if (_dismissBlock) {
+        _dismissBlock();
+    }
 }
 
 #pragma mark - private methods

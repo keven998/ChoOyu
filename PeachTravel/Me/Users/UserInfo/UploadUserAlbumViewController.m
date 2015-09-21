@@ -121,8 +121,8 @@ static NSString * const reuseIdentifier = @"uploadPhotoCell";
         [UserAlbumManager uploadUserAlbumPhoto:uploadImage withPhotoDesc:_containterView.textView.text progress:^(CGFloat progressValue) {
             [self uploadIncrementWithProgress:progressValue itemIndex:i];
             
-        } completion:^(BOOL isSuccess) {
-            [self uploadCompletion:isSuccess itemIndex:i];
+        } completion:^(BOOL isSuccess, AlbumImageModel *image) {
+            [self uploadCompletion:isSuccess  albumImage:image itemIndex:i];
         }];
     }
 }
@@ -135,8 +135,9 @@ static NSString * const reuseIdentifier = @"uploadPhotoCell";
     cell.uploadStatus = status;
 }
 
-- (void)uploadCompletion:(BOOL)isSuccess itemIndex:(NSInteger)index
+- (void)uploadCompletion:(BOOL)isSuccess albumImage:(AlbumImageModel *)albumImage itemIndex:(NSInteger)index
 {
+    [[AccountManager shareAccountManager].account.userAlbum insertObject:albumImage atIndex:0];
     UploadUserAlbumCollectionViewCell *cell = (UploadUserAlbumCollectionViewCell *)[_containterView.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0]];
     UploadUserAlbumStatus *status = [_userAlbumUploadStatusList objectAtIndex:index];
     status.isFailure = !isSuccess;

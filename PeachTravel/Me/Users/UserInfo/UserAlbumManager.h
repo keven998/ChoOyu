@@ -10,7 +10,7 @@
 
 @interface UserAlbumManager : NSObject
 
-+ (void)uploadUserAlbumPhoto:(UIImage *)photo withPhotoDesc:(NSString *)desc progress:(void (^) (CGFloat progressValue))progressBlock completion:(void(^)(BOOL isSuccess))completionBlock;
++ (void)uploadUserAlbumPhoto:(UIImage *)photo withPhotoDesc:(NSString *)desc progress:(void (^) (CGFloat progressValue))progressBlock completion:(void(^)(BOOL isSuccess, AlbumImageModel *albumImage))completionBlock;
 
 + (void)asyncDelegateUserAlbumImage:(AlbumImageModel *)albumImage userId:(NSInteger)userId completion:(void (^)(BOOL isSuccess, NSString *errorStr))completion;
 
