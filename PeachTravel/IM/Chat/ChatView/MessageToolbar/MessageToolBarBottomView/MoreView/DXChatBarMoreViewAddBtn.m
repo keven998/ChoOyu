@@ -47,14 +47,14 @@
 #pragma mark - 如果要增删该按钮，修改这里数组
 - (NSArray *)btnPropertyList{
     if (_btnPropertyList == nil) {
-        _btnPropertyList = @[@{@"picN":@"messages_plus_plan_default",@"picH":@"messages_plus_plan_selected",@"title":@"计划",@"selector":@"myStrategyAction"},
-             @{@"picN":@"messages_plus_search_default",@"picH":@"messages_plus_search_selected",@"title":@"游记",@"selector":@"destinationAction"},
-             @{@"picN":@"messages_plus_pin_default",@"picH":@"messages_plus_pin_selected",@"title":@"位置",@"selector":@"locationAction"},
-             @{@"picN":@"messages_plus_picture_default",@"picH":@"messages_plus_picture_selected",@"title":@"相册",@"selector":@"photoAction"},
-             @{@"picN":@"messages_plus_camera_default",@"picH":@"messages_plus_camera_selected",@"title":@"拍照",@"selector":@"takePicAction"},
-             @{@"picN":@"messages_plus_camera_default",@"picH":@"messages_plus_camera_selected",@"title":@"景点",@"selector":@"scenicAction"},
-             @{@"picN":@"messages_plus_camera_default",@"picH":@"messages_plus_camera_selected",@"title":@"美食",@"selector":@"foodAction"},
-             @{@"picN":@"messages_plus_camera_default",@"picH":@"messages_plus_camera_selected",@"title":@"购物",@"selector":@"shopAction"}];
+        _btnPropertyList = @[
+             @{@"picN":@"plan_normal",@"picH":@"plan_hilighted",@"title":@"计划",@"selector":@"myStrategyAction"},
+             @{@"picN":@"photo_normal",@"picH":@"photo_hilighted",@"title":@"图片",@"selector":@"photoAction"},
+             @{@"picN":@"camera_normal",@"picH":@"camera_hilighted",@"title":@"拍照",@"selector":@"takePicAction"},
+             @{@"picN":@"weizhi_normal",@"picH":@"weizhi_hilighted",@"title":@"位置",@"selector":@"locationAction"},
+             @{@"picN":@"screen_normal",@"picH":@"screen_hilighted",@"title":@"景点",@"selector":@"destinationAction"},
+             @{@"picN":@"shopping_normal",@"picH":@"shopping_hilighted",@"title":@"购物",@"selector":@"destinationAction"},
+             @{@"picN":@"food-normal",@"picH":@"food-hilighted",@"title":@"美食",@"selector":@"destinationAction"}];
     }
     return _btnPropertyList;
 }
@@ -73,10 +73,10 @@
 - (UICollectionViewFlowLayout *)flowLayout{
     if (_flowLayout == nil) {
         _flowLayout = [[UICollectionViewFlowLayout alloc] init];
-        _flowLayout.itemSize = CGSizeMake(([UIScreen mainScreen].bounds.size.width - CHAT_PANEL_VIEW_MARGIN * (CHAT_PANEL_VIEW_RANK + 1)) / CHAT_PANEL_VIEW_RANK, (CHAT_PANEL_VIEW_HEIGHT - ((self.btnPropertyList.count / CHAT_PANEL_VIEW_RANK) + 1) * CHAT_PANEL_VIEW_MARGIN) / (self.btnPropertyList.count / CHAT_PANEL_VIEW_RANK));
+        _flowLayout.itemSize = CGSizeMake(([UIScreen mainScreen].bounds.size.width - 1 - CHAT_PANEL_VIEW_MARGIN * (CHAT_PANEL_VIEW_RANK + 1)) / CHAT_PANEL_VIEW_RANK, (CHAT_PANEL_VIEW_HEIGHT - 1 - (2) * CHAT_PANEL_VIEW_MARGIN) / (2));
         _flowLayout.sectionInset = UIEdgeInsetsMake(CHAT_PANEL_VIEW_MARGIN, CHAT_PANEL_VIEW_MARGIN, CHAT_PANEL_VIEW_MARGIN, CHAT_PANEL_VIEW_MARGIN);
-        _flowLayout.minimumInteritemSpacing = CHAT_PANEL_VIEW_MARGIN;
-        _flowLayout.minimumLineSpacing = CHAT_PANEL_VIEW_MARGIN;
+        _flowLayout.minimumInteritemSpacing = 0;
+        _flowLayout.minimumLineSpacing = 0;
     }
     return _flowLayout;
 }

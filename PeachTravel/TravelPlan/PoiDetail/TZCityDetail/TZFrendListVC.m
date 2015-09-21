@@ -172,10 +172,10 @@
     return [[UIView alloc] init];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 0;
+    return 6;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 6;
+    return 0;
 }
 
 #pragma mark - setter & getter
