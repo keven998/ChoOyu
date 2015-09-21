@@ -18,6 +18,8 @@
 
 @property (nonatomic, weak) id<SearchDestinationRecommendDelegate> delegate;
 
-- (void)addSearchHistoryText:(NSString *)searchText poiType:(TZPoiType)poiType;
+@property (nonatomic) TZPoiType poiType;
+
+- (void)addSearchHistoryText:(NSString *)searchText;
 
 @end

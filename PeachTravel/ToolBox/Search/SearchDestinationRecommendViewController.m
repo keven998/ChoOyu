@@ -66,15 +66,24 @@
 
 - (void)clearSearchHistory
 {
-    [[TMCache sharedCache] removeObjectForKey:kSearchDestinationCacheKey];
+    [[TMCache sharedCache] removeObjectForKey:[self destinationCacheKey]];
     [_collectionArray[0] removeAllObjects];
     [_collectionView reloadData];
 }
 
-- (void)addSearchHistoryText:(NSString *)searchText poiType:(TZPoiType)poiType
+- (NSString *)destinationCacheKey
+{
+    NSString *commomKey = kSearchDestinationCacheKey;
+    if (_poiType != 0) {
+        return [NSString stringWithFormat:@"%@_%ld", commomKey, _poiType];
+    }
+    return commomKey;
+}
+
+- (void)addSearchHistoryText:(NSString *)searchText
 {
     // 将搜索结果存入到数据库中
-    NSArray * recentSearch = [[TMCache sharedCache] objectForKey:kSearchDestinationCacheKey];
+    NSArray * recentSearch = [[TMCache sharedCache] objectForKey:[self destinationCacheKey]];
     NSMutableArray * mutableArray;
     if (recentSearch) {
         mutableArray = [recentSearch mutableCopy];
@@ -91,7 +100,7 @@
         [mutableArray removeLastObject];
     }
     [mutableArray insertObject:searchText atIndex:0];
-    [[TMCache sharedCache] setObject:mutableArray forKey:kSearchDestinationCacheKey];
+    [[TMCache sharedCache] setObject:mutableArray forKey:[self destinationCacheKey]];
     self.collectionArray[0] = mutableArray;
     [self.collectionView reloadData];
 }
@@ -124,7 +133,7 @@
 
 - (void)setupCollectionDataSourceWithHotSearchResult:(NSArray *)hotSearchResult
 {
-    NSArray * recentResult = [[TMCache sharedCache] objectForKey:kSearchDestinationCacheKey];
+    NSArray * recentResult = [[TMCache sharedCache] objectForKey:[self destinationCacheKey]];
     if (recentResult) {
         self.collectionArray[0] = recentResult;
     }

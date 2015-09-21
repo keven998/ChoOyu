@@ -467,7 +467,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     [_searchBar endEditing:YES];
-    [self.searchRecommendViewController addSearchHistoryText:searchBar.text poiType:_searchPoiType];
+    [self.searchRecommendViewController addSearchHistoryText:searchBar.text];
     [self loadDataSourceWithKeyWord:searchBar.text];
 }
 
