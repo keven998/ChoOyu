@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "FrendRequest.h"
 #import "AccountModel.h"
+#import "AlbumImageModel.h"
 
 @class FrendModel;
 @class CityDestinationPoi;
@@ -129,7 +130,7 @@
  *  @param albumImage
  *  @param completion 
  */
-- (void)asyncChangeUserAvatar:(AlbumImage *)albumImage completion:(void (^)(BOOL, NSString *))completion;
+- (void)asyncChangeUserAvatar:(AlbumImageModel *)albumImage completion:(void (^)(BOOL, NSString *))completion;
 
 
 /**
@@ -138,7 +139,7 @@
  *  @param albumImage
  *  @param completion 
  */
-- (void)asyncDelegateUserAlbumImage:(AlbumImage *)albumImage completion:(void (^)(BOOL, NSString *))completion;
+- (void)asyncDelegateUserAlbumImage:(AlbumImageModel *)albumImage completion:(void (^)(BOOL, NSString *))completion;
 
 
 #pragma mark - 修改用户的好友信息

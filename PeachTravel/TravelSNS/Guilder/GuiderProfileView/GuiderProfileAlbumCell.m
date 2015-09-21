@@ -103,9 +103,9 @@
 {
     AlbumImageCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ProfileAbumID forIndexPath:indexPath];
     
-    AlbumImage *image = [_albumArray objectAtIndex:indexPath.row];
+    AlbumImageModel *image = [_albumArray objectAtIndex:indexPath.row];
     
-    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:((AlbumImage *)image).image.imageUrl] placeholderImage:[UIImage imageNamed:@"picture"]];
+    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:((AlbumImageModel *)image).smallImageUrl] placeholderImage:[UIImage imageNamed:@"picture"]];
     
 
     return cell;
@@ -120,9 +120,9 @@
     NSMutableArray *photos = [NSMutableArray arrayWithCapacity:count];
     for (NSInteger i = 0; i<count; i++) {
         // 替换为中等尺寸图片
-        AlbumImage *album = [_albumArray objectAtIndex:i];
+        AlbumImageModel *album = [_albumArray objectAtIndex:i];
         MJPhoto *photo = [[MJPhoto alloc] init];
-        photo.url = album.image.imageUrl; // 图片路径
+        photo.url = album.imageUrl; // 图片路径
         photo.srcImageView = (UIImageView *)cell.imageView; // 来源于哪个UIImageView
         [photos addObject:photo];
     }

@@ -121,7 +121,7 @@ static NSString * const reuseIdentifier = @"albumImageCell";
     } else {
         cell.imageView.image = nil;
         
-        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:((AlbumImage *)image).image.imageUrl] placeholderImage:[UIImage imageNamed:@"avatar_default.png"]];
+        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:((AlbumImageModel *)image).smallImageUrl] placeholderImage:[UIImage imageNamed:@"avatar_default.png"]];
     }
     return cell;
 }
@@ -142,7 +142,7 @@ static NSString * const reuseIdentifier = @"albumImageCell";
         if ([album isKindOfClass:[UIImage class]]) {
             photo.image = album;
         } else {
-            photo.url = ((AlbumImage *)album).image.imageUrl; // 图片路径
+            photo.url = ((AlbumImageModel *)album).imageUrl; // 图片路径
         }
         photo.srcImageView = (UIImageView *)cell.imageView; // 来源于哪个UIImageView
         [photos addObject:photo];
@@ -189,7 +189,7 @@ static NSString * const reuseIdentifier = @"albumImageCell";
         if (buttonIndex == 0) {
             
         } else {
-            AlbumImage *image = [self.manager.account.userAlbum objectAtIndex:sender.tag-101];
+            AlbumImageModel *image = [self.manager.account.userAlbum objectAtIndex:sender.tag-101];
             [self.manager asyncDelegateUserAlbumImage:image completion:^(BOOL isSuccess, NSString *error) {
                 if (isSuccess) {
                     NSMutableArray *mutableArray = [_albumArray mutableCopy];

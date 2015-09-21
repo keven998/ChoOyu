@@ -74,11 +74,17 @@ static NSString * const reuseIdentifier = @"uploadPhotoCell";
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"确定放弃编辑？" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     [alert showAlertViewWithBlock:^(NSInteger buttonIndex) {
         if (buttonIndex == 1) {
-            [self.navigationController popViewControllerAnimated:YES];
+            [self dismissCtl];
         } else {
             
         }
     }];
+}
+
+- (void)dismissCtl
+{
+    [self.navigationController popViewControllerAnimated:YES];
+    
 }
 
 - (NSMutableArray *)userAlbumUploadStatusList
@@ -91,6 +97,7 @@ static NSString * const reuseIdentifier = @"uploadPhotoCell";
 
 - (void)uploadUserAlbum
 {
+    [self.view endEditing:YES];
     [_userAlbumUploadStatusList removeAllObjects];
     
     for (int i = 0; i < _selectedPhotos.count; i++) {
@@ -135,6 +142,7 @@ static NSString * const reuseIdentifier = @"uploadPhotoCell";
         }
     }
     [SVProgressHUD showHint:@"上传成功"];
+    [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.3];
 }
 
 - (void)choseMorePhotos

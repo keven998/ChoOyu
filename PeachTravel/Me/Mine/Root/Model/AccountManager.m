@@ -244,12 +244,12 @@
  *  @param albumImage
  *  @param completion
  */
-- (void)asyncChangeUserAvatar:(AlbumImage *)albumImage completion:(void (^)(BOOL, NSString *))completion
+- (void)asyncChangeUserAvatar:(AlbumImageModel *)albumImage completion:(void (^)(BOOL, NSString *))completion
 {
-    [self asyncUpdateUserInfoToServer:albumImage.image.imageUrl andUserInfoType:ChangeAvatar andKeyWord:@"avatar" completion:^(BOOL isSuccess, NSString *errStr) {
+    [self asyncUpdateUserInfoToServer:albumImage.imageUrl andUserInfoType:ChangeAvatar andKeyWord:@"avatar" completion:^(BOOL isSuccess, NSString *errStr) {
         if (isSuccess) {
-            self.account.avatar =  albumImage.image.imageUrl;
-            self.account.avatarSmall =  albumImage.image.imageUrl;
+            self.account.avatar =  albumImage.imageUrl;
+            self.account.avatarSmall =  albumImage.smallImageUrl;
 
             completion(YES, nil);
         } else {
@@ -258,7 +258,7 @@
     }];
 }
 
-- (void)asyncDelegateUserAlbumImage:(AlbumImage *)albumImage completion:(void (^)(BOOL, NSString *))completion
+- (void)asyncDelegateUserAlbumImage:(AlbumImageModel *)albumImage completion:(void (^)(BOOL, NSString *))completion
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AppUtils *utils = [[AppUtils alloc] init];
@@ -863,7 +863,7 @@
         if (code == 0) {
             NSArray *albumArray = [responseObject objectForKey:@"result"];
             for (id album in albumArray) {
-                [array addObject:[[AlbumImage alloc] initWithJson:album]];
+                [array addObject:[[AlbumImageModel alloc] initWithJson:album]];
             }
             AccountManager *accountManager = [AccountManager shareAccountManager];
             accountManager.account.userAlbum = array;

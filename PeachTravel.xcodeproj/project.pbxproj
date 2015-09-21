@@ -320,6 +320,7 @@
 		D942C27C1B9EBDF0005B81C5 /* ic_navigationbar_menu_add@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D942C27A1B9EBDF0005B81C5 /* ic_navigationbar_menu_add@3x.png */; };
 		D942C27F1B9EC17A005B81C5 /* ic_add_friend@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D942C27D1B9EC17A005B81C5 /* ic_add_friend@2x.png */; };
 		D942C2801B9EC17A005B81C5 /* ic_add_friend@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D942C27E1B9EC17A005B81C5 /* ic_add_friend@3x.png */; };
+		D944189B1BAFAA9F0091FC0B /* AlbumImageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D944189A1BAFAA9F0091FC0B /* AlbumImageModel.m */; settings = {ASSET_TAGS = (); }; };
 		D9455C181B3A4DB800684080 /* ChatConversationManager+UpdateConversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9455C171B3A4DB800684080 /* ChatConversationManager+UpdateConversation.swift */; };
 		D94B890A1B5DE70000584DE5 /* QuestionMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94B89091B5DE70000584DE5 /* QuestionMessage.swift */; };
 		D94B890C1B5DE72E00584DE5 /* QuestionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94B890B1B5DE72E00584DE5 /* QuestionModel.swift */; };
@@ -1878,6 +1879,8 @@
 		D942C27A1B9EBDF0005B81C5 /* ic_navigationbar_menu_add@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_navigationbar_menu_add@3x.png"; sourceTree = "<group>"; };
 		D942C27D1B9EC17A005B81C5 /* ic_add_friend@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_add_friend@2x.png"; sourceTree = "<group>"; };
 		D942C27E1B9EC17A005B81C5 /* ic_add_friend@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_add_friend@3x.png"; sourceTree = "<group>"; };
+		D94418991BAFAA9F0091FC0B /* AlbumImageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlbumImageModel.h; sourceTree = "<group>"; };
+		D944189A1BAFAA9F0091FC0B /* AlbumImageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlbumImageModel.m; sourceTree = "<group>"; };
 		D9455C171B3A4DB800684080 /* ChatConversationManager+UpdateConversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChatConversationManager+UpdateConversation.swift"; sourceTree = "<group>"; };
 		D94B89091B5DE70000584DE5 /* QuestionMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionMessage.swift; sourceTree = "<group>"; };
 		D94B890B1B5DE72E00584DE5 /* QuestionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionModel.swift; sourceTree = "<group>"; };
@@ -6194,6 +6197,8 @@
 				D9B3AB681B4510AC0067B686 /* AlbumImageCell.h */,
 				D9B3AB691B4510AC0067B686 /* AlbumImageCell.m */,
 				D9B3AB6A1B4510AC0067B686 /* AlbumImageCell.xib */,
+				D94418991BAFAA9F0091FC0B /* AlbumImageModel.h */,
+				D944189A1BAFAA9F0091FC0B /* AlbumImageModel.m */,
 			);
 			name = UserAlbum;
 			sourceTree = "<group>";
@@ -8764,6 +8769,7 @@
 				D9FCE7DE1B134B4B0039F896 /* ChatViewController.m in Sources */,
 				E6AD32321B9D6EE800EE6A62 /* ExpertTourView.m in Sources */,
 				D91061D41BA93D6E00C4FBCB /* UserAlbumOverviewCell.m in Sources */,
+				D944189B1BAFAA9F0091FC0B /* AlbumImageModel.m in Sources */,
 				D9A802E81A80E3D3005AD701 /* TZSegmentedViewController.m in Sources */,
 				D9A802261A80E036005AD701 /* NJKWebViewProgressView.m in Sources */,
 				E68CB2DC1BA1992300A5B38B /* ExpertCollectionCell.m in Sources */,
