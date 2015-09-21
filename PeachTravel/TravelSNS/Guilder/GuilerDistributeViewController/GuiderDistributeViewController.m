@@ -17,6 +17,7 @@
 #import "DropDownViewController.h"
 #import "GuiderSearchViewController.h"
 #import "GuiderProfileViewController.h"
+#import "TZFrendListVC.h"
 
 @interface GuiderDistributeViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,HWDropdownMenuDelegate,dropDownMenuProtocol>
 @property (nonatomic, strong) UITableView *tableView;
@@ -282,12 +283,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    GuiderCollectionViewController *guiderCtl = [[GuiderCollectionViewController alloc] initWithNibName:@"GuiderCollectionViewController" bundle:nil];
+//    GuiderCollectionViewController *guiderCtl = [[GuiderCollectionViewController alloc] initWithNibName:@"GuiderCollectionViewController" bundle:nil];
     GuiderDistribute * guiderDistribute = _guiderArray[indexPath.row];
+    TZFrendListVC* guiderCtl = [[TZFrendListVC alloc] initWithCityName:nil orAreaId:guiderDistribute.ID];
+    
     
     // 这里传入的distributionArea应该是该地区的区域ID
-    guiderCtl.distributionArea = guiderDistribute.ID;
-    guiderCtl.guiderDistribute = guiderDistribute;
+//    guiderCtl.distributionArea = guiderDistribute.ID;
+//    guiderCtl.guiderDistribute = guiderDistribute;
     guiderCtl.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:guiderCtl animated:YES];
      

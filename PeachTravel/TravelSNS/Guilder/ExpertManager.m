@@ -55,7 +55,7 @@
 
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:areaName forKey:@"zone"];
-    [params setObject:[NSNumber numberWithInt:16] forKey:@"pageSize"];
+    [params setObject:[NSNumber numberWithInteger:pageSize] forKey:@"pageSize"];
     [params setObject:[NSNumber numberWithInteger:page] forKey:@"page"];
     
     NSString * urlStr = [NSString stringWithFormat:@"%@experts",API_USERS];
