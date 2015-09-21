@@ -286,6 +286,7 @@
 //    GuiderCollectionViewController *guiderCtl = [[GuiderCollectionViewController alloc] initWithNibName:@"GuiderCollectionViewController" bundle:nil];
     GuiderDistribute * guiderDistribute = _guiderArray[indexPath.row];
     TZFrendListVC* guiderCtl = [[TZFrendListVC alloc] initWithCityName:nil orAreaId:guiderDistribute.ID];
+    guiderCtl.areaName = guiderDistribute.zhName;
     
     
     // 这里传入的distributionArea应该是该地区的区域ID

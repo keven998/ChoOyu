@@ -37,6 +37,7 @@
             self.cityName = cityName;
             [self.tableView registerClass:[TZFrendListCell class] forCellReuseIdentifier:CITYDETAILCELL];
             [self loadFrendListOfCityData];
+            self.title = [NSString stringWithFormat:@"全部达人"];
             return self;
         }
         self.areaId = areaId;
@@ -51,7 +52,7 @@
     [self prepareTableView];
     self.view.backgroundColor = APP_PAGE_COLOR;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"common_icon_navigation_back_hilighted"] style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
-    self.title = [NSString stringWithFormat:@"%@达人",self.cityName];
+    
 }
 
 - (void)goBack{
@@ -190,6 +191,10 @@
 //        _tableView.separatorEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark ];
     }
     return _tableView;
+}
+- (void)setAreaName:(NSString *)areaName{
+    _areaName = areaName;
+    self.title = [NSString stringWithFormat:@"~派派·%@·达人~",_areaName];
 }
 
 @end

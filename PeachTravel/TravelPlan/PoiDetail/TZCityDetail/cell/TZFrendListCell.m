@@ -151,6 +151,7 @@
 - (UIImageView *)headerImageView{
     if (_headerImageView == nil) {
         _headerImageView = [[UIImageView alloc] init];
+        _headerImageView.contentMode = UIViewContentModeScaleAspectFill;
     }
     return _headerImageView;
 }

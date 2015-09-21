@@ -22,6 +22,7 @@
 @property (nonatomic, copy) NSString *cityName;
 
 @property (nonatomic, copy) NSString* areaId;
+@property (nonatomic, copy) NSString* areaName;
 
 @property (nonatomic) NSInteger chatterId;
 @property (nonatomic) IMChatType chatType;
