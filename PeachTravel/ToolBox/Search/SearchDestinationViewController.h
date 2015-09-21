@@ -17,6 +17,8 @@
 
 @property (nonatomic) IMChatType chatType;
 
+@property (nonatomic) TZPoiType searchPoiType;
+
 //是否是 tabbar 层的 viewcontroller
 @property (nonatomic) BOOL isRootViewController;
 
