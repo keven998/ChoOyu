@@ -102,6 +102,7 @@
 		D902CCA71BAA5785004F4011 /* UMSnsAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D902CC9B1BAA5785004F4011 /* UMSnsAccountViewController.xib */; };
 		D902CCA81BAA5785004F4011 /* UMSShareListController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D902CC9C1BAA5785004F4011 /* UMSShareListController.xib */; };
 		D902CCA91BAA5785004F4011 /* UMSocialSDKResourcesNew.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D902CC9D1BAA5785004F4011 /* UMSocialSDKResourcesNew.bundle */; };
+		D904AB721BAFDD6300031AB4 /* UserAlbumReviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D904AB711BAFDD6300031AB4 /* UserAlbumReviewViewController.m */; settings = {ASSET_TAGS = (); }; };
 		D90A9B2B1B5627C400E9F37C /* Loading_Animation_final0@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D90A9AEF1B5627C400E9F37C /* Loading_Animation_final0@3x.png */; };
 		D90A9B2C1B5627C400E9F37C /* Loading_Animation_final1@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D90A9AF01B5627C400E9F37C /* Loading_Animation_final1@3x.png */; };
 		D90A9B2D1B5627C400E9F37C /* Loading_Animation_final2@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D90A9AF11B5627C400E9F37C /* Loading_Animation_final2@3x.png */; };
@@ -338,6 +339,8 @@
 		D955E3EA19E7A26D00047F2B /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D955E3E919E7A26D00047F2B /* CoreTelephony.framework */; };
 		D955E3EC19E7A27700047F2B /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D955E3EB19E7A27700047F2B /* libstdc++.dylib */; };
 		D955E3EE19E7A28500047F2B /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D955E3ED19E7A28500047F2B /* libz.dylib */; };
+		D95663981BAFE58F006B2765 /* common_icon_navigaiton_back_white_style@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D95663961BAFE58F006B2765 /* common_icon_navigaiton_back_white_style@2x.png */; settings = {ASSET_TAGS = (); }; };
+		D95663991BAFE58F006B2765 /* common_icon_navigaiton_back_white_style@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D95663971BAFE58F006B2765 /* common_icon_navigaiton_back_white_style@3x.png */; settings = {ASSET_TAGS = (); }; };
 		D963CB661B9FF751007480FA /* EditUserSignatureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D963CB651B9FF751007480FA /* EditUserSignatureViewController.m */; };
 		D9687CA21AC4095500B1C88E /* FootprintMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9687CA01AC4095500B1C88E /* FootprintMapViewController.m */; };
 		D9687CA31AC4095500B1C88E /* FootprintMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9687CA11AC4095500B1C88E /* FootprintMapViewController.xib */; };
@@ -1613,6 +1616,8 @@
 		D902CC9C1BAA5785004F4011 /* UMSShareListController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UMSShareListController.xib; sourceTree = "<group>"; };
 		D902CC9D1BAA5785004F4011 /* UMSocialSDKResourcesNew.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = UMSocialSDKResourcesNew.bundle; sourceTree = "<group>"; };
 		D902CC9E1BAA5785004F4011 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/UMSocialLocalizable.strings"; sourceTree = "<group>"; };
+		D904AB701BAFDD6300031AB4 /* UserAlbumReviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserAlbumReviewViewController.h; sourceTree = "<group>"; };
+		D904AB711BAFDD6300031AB4 /* UserAlbumReviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserAlbumReviewViewController.m; sourceTree = "<group>"; };
 		D9092C821B0C70C300F0F35F /* PeachTravel-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PeachTravel-Bridging-Header.h"; sourceTree = "<group>"; };
 		D90A9AEF1B5627C400E9F37C /* Loading_Animation_final0@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Loading_Animation_final0@3x.png"; sourceTree = "<group>"; };
 		D90A9AF01B5627C400E9F37C /* Loading_Animation_final1@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Loading_Animation_final1@3x.png"; sourceTree = "<group>"; };
@@ -1903,6 +1908,8 @@
 		D955E3E919E7A26D00047F2B /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		D955E3EB19E7A27700047F2B /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
 		D955E3ED19E7A28500047F2B /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		D95663961BAFE58F006B2765 /* common_icon_navigaiton_back_white_style@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "common_icon_navigaiton_back_white_style@2x.png"; sourceTree = "<group>"; };
+		D95663971BAFE58F006B2765 /* common_icon_navigaiton_back_white_style@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "common_icon_navigaiton_back_white_style@3x.png"; sourceTree = "<group>"; };
 		D963CB641B9FF751007480FA /* EditUserSignatureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditUserSignatureViewController.h; sourceTree = "<group>"; };
 		D963CB651B9FF751007480FA /* EditUserSignatureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditUserSignatureViewController.m; sourceTree = "<group>"; };
 		D9687C9F1AC4095500B1C88E /* FootprintMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FootprintMapViewController.h; path = ../UserInfo/FootprintMapViewController.h; sourceTree = "<group>"; };
@@ -6209,6 +6216,8 @@
 				D9B3AB621B450F3D0067B686 /* UserAlbumViewController.h */,
 				D9B3AB631B450F3D0067B686 /* UserAlbumViewController.m */,
 				D9B3AB641B450F3D0067B686 /* UserAlbumViewController.xib */,
+				D904AB701BAFDD6300031AB4 /* UserAlbumReviewViewController.h */,
+				D904AB711BAFDD6300031AB4 /* UserAlbumReviewViewController.m */,
 				D9B3AB681B4510AC0067B686 /* AlbumImageCell.h */,
 				D9B3AB691B4510AC0067B686 /* AlbumImageCell.m */,
 				D9B3AB6A1B4510AC0067B686 /* AlbumImageCell.xib */,
@@ -6815,6 +6824,8 @@
 				E6F1870F1B845F4800232EEB /* common_icon_navigation_back_normal@3x.png */,
 				E6F187101B845F4800232EEB /* common_icon_navigaiton_back_theme_style@2x.png */,
 				E6F187111B845F4800232EEB /* common_icon_navigaiton_back_theme_style@3x.png */,
+				D95663961BAFE58F006B2765 /* common_icon_navigaiton_back_white_style@2x.png */,
+				D95663971BAFE58F006B2765 /* common_icon_navigaiton_back_white_style@3x.png */,
 				D942C26D1B9EBCB3005B81C5 /* common_icon_navigaiton_menu@2x.png */,
 				D942C26E1B9EBCB3005B81C5 /* common_icon_navigaiton_menu@3x.png */,
 				E6F187141B845F4800232EEB /* common_icon_right@2x.png */,
@@ -7693,6 +7704,7 @@
 				E6F18A8D1B845F4900232EEB /* speaking-motion4@2x.png in Resources */,
 				E68CB2801B9EB74300A5B38B /* chat_friend@2x.png in Resources */,
 				E6F18A1D1B845F4900232EEB /* map_icon_8@2x.png in Resources */,
+				D95663981BAFE58F006B2765 /* common_icon_navigaiton_back_white_style@2x.png in Resources */,
 				E6F1896C1B845F4900232EEB /* poi_bg_album@3x.png in Resources */,
 				E6F189811B845F4900232EEB /* poi_button_traffic_default@2x.png in Resources */,
 				E6F18ADD1B845F4900232EEB /* chat_drawer_add@2x.png in Resources */,
@@ -7939,6 +7951,7 @@
 				E6381C081B66269000CF73AA /* Loading_Animation_final4@2x.png in Resources */,
 				E6F18A461B845F4900232EEB /* search_chart@2x.png in Resources */,
 				D90A9B3B1B5627C400E9F37C /* Loading_Animation_final16@3x.png in Resources */,
+				D95663991BAFE58F006B2765 /* common_icon_navigaiton_back_white_style@3x.png in Resources */,
 				E6381C151B66269000CF73AA /* Loading_Animation_final7@2x.png in Resources */,
 				D9E0EED31B79BDC2003872DF /* ChatAlbumCollectionViewCell.xib in Resources */,
 				E6F18A681B845F4900232EEB /* ic_home_userentry_unlogin@2x.png in Resources */,
@@ -8714,6 +8727,7 @@
 				C694C3861AE9EB7800F5C36E /* SDSegmentedControl.m in Sources */,
 				D9B3AB6B1B4510AC0067B686 /* AlbumImageCell.m in Sources */,
 				D9A8001C1A80D52F005AD701 /* DomesticViewController.m in Sources */,
+				D904AB721BAFDD6300031AB4 /* UserAlbumReviewViewController.m in Sources */,
 				D92CA0B61AD8BDD400F244FF /* DACircularProgressView.m in Sources */,
 				D9A802B01A80E3D3005AD701 /* NSDate+Category.m in Sources */,
 				E66E6CDC1B5A26BF00CBF65F /* UIImage+Extension.m in Sources */,

@@ -10,12 +10,12 @@
 #import "UserAlbumViewController.h"
 #import "JGProgressHUDPieIndicatorView.h"
 #import "AlbumImageCell.h"
-#import "MJPhotoBrowser.h"
-#import "MJPhoto.h"
+#import "UserAlbumReviewViewController.h"
 #import "UserAlbumOverViewTableViewController.h"
 #import "UploadUserAlbumViewController.h"
 
 @interface UserAlbumViewController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+
 @property (nonatomic, strong) AccountManager *manager;
 @property (nonatomic, strong) JGProgressHUD *HUD;
 
@@ -130,29 +130,10 @@ static NSString * const reuseIdentifier = @"albumImageCell";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    AlbumImageCell *cell = (AlbumImageCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    NSInteger count = _albumArray.count;
-    // 1.封装图片数据
-    NSMutableArray *photos = [NSMutableArray arrayWithCapacity:count];
-    for (NSInteger i = 1; i<count +1; i++) {
-        // 替换为中等尺寸图片
-        MJPhoto *photo = [[MJPhoto alloc] init];
-
-        id album = [_albumArray objectAtIndex:i-1];
-        if ([album isKindOfClass:[UIImage class]]) {
-            photo.image = album;
-        } else {
-            photo.url = ((AlbumImageModel *)album).imageUrl; // 图片路径
-        }
-        photo.srcImageView = (UIImageView *)cell.imageView; // 来源于哪个UIImageView
-        [photos addObject:photo];
-    }
-    
-    // 2.显示相册
-    MJPhotoBrowser *browser = [[MJPhotoBrowser alloc] init];
-    browser.currentPhotoIndex = indexPath.row; // 弹出相册时显示的第一张图片是？
-    browser.photos = photos; // 设置所有的图片
-    [browser show];
+    UserAlbumReviewViewController *ctl = [[UserAlbumReviewViewController alloc] init];
+    ctl.dataSource = _manager.account.userAlbum;
+    ctl.currentIndex = indexPath.row;
+    [self.navigationController pushViewController:ctl animated:YES];
 }
 
 - (void)deletePhoto:(UIButton *)sender
