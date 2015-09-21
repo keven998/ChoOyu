@@ -75,16 +75,26 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
     [[TMCache sharedCache] objectForKey:@"destination_foreign" block:^(TMCache *cache, NSString *key, id object)  {
         if (object != nil) {
             if ([object isKindOfClass:[NSDictionary class]]) {
-                [_destinations initForeignCountriesWithJson:[object objectForKey:@"result"]];
-                [_foreignCollectionView reloadData];
-                [self loadForeignDataFromServerWithLastModified:[object objectForKey:@"lastModified"]];
+                dispatch_async(dispatch_get_main_queue(), ^{
+
+                    [_destinations initForeignCountriesWithJson:[object objectForKey:@"result"]];
+                    [_foreignCollectionView reloadData];
+                    [self loadForeignDataFromServerWithLastModified:[object objectForKey:@"lastModified"]];
+                });
             } else {
-                [self loadForeignDataFromServerWithLastModified:@""];
+                dispatch_async(dispatch_get_main_queue(), ^{
+
+                    [self loadForeignDataFromServerWithLastModified:@""];
+                });
             }
         } else {
-            _hud = [[TZProgressHUD alloc] init];
-            [_hud showHUD];
-            [self loadForeignDataFromServerWithLastModified:@""];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                _hud = [[TZProgressHUD alloc] init];
+                [_hud showHUD];
+                [self loadForeignDataFromServerWithLastModified:@""];
+
+            });
+            
         }
     }];
 }

@@ -15,6 +15,6 @@
 
 @property (nonatomic, strong) UILabel* titleLabel;
 @property (nonatomic, strong) UICollectionView* tagCollectionView;
-
+@property (nonatomic, strong) UILabel* cityAndAgeLabel;
 
 @end
