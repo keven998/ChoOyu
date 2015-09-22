@@ -60,6 +60,9 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self.collectionView reloadData];
+    AlbumImageModel *image = [_dataSource objectAtIndex:_currentIndex];
+    _descLabel.text = image.imageDesc;
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     [self.navigationController.navigationBar setTitleTextAttributes:
      [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName]];
