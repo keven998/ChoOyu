@@ -51,6 +51,7 @@
 {
     if ([_descTextView.text isEqualToString:_albumImage.imageDesc]) {
         [self dismissCtl];
+        
     } else {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"确定放弃编辑？" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [alert showAlertViewWithBlock:^(NSInteger buttonIndex) {
