@@ -132,6 +132,7 @@ static NSString * const reuseIdentifier = @"albumImageCell";
 {
     UserAlbumReviewViewController *ctl = [[UserAlbumReviewViewController alloc] init];
     ctl.dataSource = _albumArray;
+    ctl.canEidt = _isMyself;
     ctl.currentIndex = indexPath.row;
     [self.navigationController pushViewController:ctl animated:YES];
 }

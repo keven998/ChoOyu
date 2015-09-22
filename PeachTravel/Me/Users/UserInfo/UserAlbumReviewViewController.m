@@ -87,7 +87,12 @@
 
 - (void)moreAction:(id)sender
 {
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"保存到手机", @"编辑文字描述", @"删除", nil];
+    UIActionSheet *sheet;
+    if (_canEidt) {
+        sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"保存到手机", @"编辑文字描述", @"删除", nil];
+    } else {
+        sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"保存到手机", nil];
+    }
     [sheet showInView:self.view];
 }
 

@@ -13,8 +13,9 @@
 #import "MineProfileTourViewCell.h"
 #import "MineViewContoller.h"
 #import "REFrostedViewController.h"
+#import "UserAlbumReviewViewController.h"
 
-@interface OtherProfileViewController () <UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate>
+@interface OtherProfileViewController () <UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate, GuiderProfileAlbumCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -214,7 +215,8 @@
     
     if (indexPath.section == 0) {
         GuiderProfileAlbumCell *albumCell = [[GuiderProfileAlbumCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-        albumCell.albumArray = self.userInfo.userAlbum;
+        albumCell.delegate = self;
+        albumCell.albumArray = [self.userInfo.userAlbum mutableCopy];
         albumCell.selectionStyle = UITableViewCellSelectionStyleNone;
         return albumCell;
     } else if (indexPath.section == 1) {
@@ -307,6 +309,17 @@
         return 0;
     }
     return 10;
+}
+
+#pragma mark - GuiderProfileAlbumCellDelegate
+
+- (void)didSelectItemWitnIndexPath:(NSIndexPath *)indexPath
+{
+    UserAlbumReviewViewController *ctl = [[UserAlbumReviewViewController alloc] init];
+    ctl.dataSource = [self.userInfo.userAlbum mutableCopy];
+    ctl.canEidt = NO;
+    ctl.currentIndex = indexPath.row;
+    [self.navigationController pushViewController:ctl animated:YES];
 }
 
 #pragma ActionEvent

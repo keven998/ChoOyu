@@ -118,7 +118,7 @@
 }
 
 // 刷新数据
-- (void)setAlbumArray:(NSArray *)albumArray
+- (void)setAlbumArray:(NSMutableArray *)albumArray
 {
     _albumArray = albumArray;
     

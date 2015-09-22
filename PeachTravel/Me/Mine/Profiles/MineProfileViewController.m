@@ -299,6 +299,7 @@
     UserAlbumReviewViewController *ctl = [[UserAlbumReviewViewController alloc] init];
     ctl.dataSource = self.userInfo.userAlbum;
     ctl.currentIndex = indexPath.row;
+    ctl.canEidt = YES;
     [self.navigationController pushViewController:ctl animated:YES];
 }
 
