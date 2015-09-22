@@ -52,11 +52,11 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     _searchBar.delegate = self;
     NSString *placeholderText;
     if (_searchPoiType == kSpotPoi) {
-        placeholderText = @"景点";
+        placeholderText = @"搜索景点";
     } else if (_searchPoiType == kRestaurantPoi) {
-        placeholderText = @"美食";
+        placeholderText = @"搜索美食";
     } else if (_searchPoiType == kShoppingPoi) {
-        placeholderText = @"购物";
+        placeholderText = @"搜索购物";
     } else {
         placeholderText = @"城市/景点/美食/购物";
     }
