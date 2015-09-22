@@ -91,14 +91,21 @@
     
     [upManager putData:data key:key token:uploadToken
               complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
-                  AlbumImageModel *image = [[AlbumImageModel alloc] init];
-                  image.imageId = [resp objectForKey:@"id"];
-                  image.imageUrl = [resp objectForKey:@"url"];
-                  image.smallImageUrl = [resp objectForKey:@"urlSmall"];
-                  image.imageDesc = [resp objectForKey:@"caption"];
-                  dispatch_async(dispatch_get_main_queue(), ^{
-                      completionBlock(YES, image);
-                  });
+                  if (resp) {
+                      AlbumImageModel *image = [[AlbumImageModel alloc] init];
+                      image.imageId = [resp objectForKey:@"id"];
+                      image.imageUrl = [resp objectForKey:@"url"];
+                      image.smallImageUrl = [resp objectForKey:@"urlSmall"];
+                      image.imageDesc = [resp objectForKey:@"caption"];
+                      dispatch_async(dispatch_get_main_queue(), ^{
+                          completionBlock(YES, image);
+                      });
+                  } else {
+                      dispatch_async(dispatch_get_main_queue(), ^{
+                          completionBlock(NO, nil);
+                      });
+                  }
+                
 
               } option:opt];
     
