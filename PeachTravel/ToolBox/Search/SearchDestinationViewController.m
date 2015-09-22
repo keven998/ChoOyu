@@ -18,20 +18,16 @@
 #import "TaoziCollectionLayout.h"
 #import "DestinationSearchHistoryCell.h"
 #import "SearchDestinationHistoryCollectionReusableView.h"
+#import "SearchDestinationRecommendViewController.h"
 
-@interface SearchDestinationViewController () <UISearchBarDelegate, UISearchControllerDelegate, UITableViewDataSource, UITableViewDelegate, TaoziMessageSendDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout, TaoziLayoutDelegate>
+@interface SearchDestinationViewController () <UISearchBarDelegate, UISearchControllerDelegate, UITableViewDataSource, UITableViewDelegate, TaoziMessageSendDelegate, SearchDestinationRecommendDelegate>
 
 @property (nonatomic, strong) NSMutableArray *dataSource;
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UISearchBar *searchBar;
-@property (nonatomic, strong) UICollectionView *collectionView;
-
-//@property (nonatomic, strong) UITapGestureRecognizer *tap;
-
+@property (nonatomic, strong) SearchDestinationRecommendViewController *searchRecommendViewController;
 @property (nonatomic, copy) NSString *keyWord;
-
-@property (nonatomic, strong)NSMutableArray * collectionArray;
 
 @end
 
@@ -65,26 +61,10 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [self.view addSubview:self.tableView];
     self.tableView.hidden = YES;
     
-    // 添加UICollectionView
-    TaoziCollectionLayout *layout = [[TaoziCollectionLayout alloc] init];
-    layout.delegate = self;
-    layout.showDecorationView = NO;
-    layout.spacePerItem = 12;
-    layout.spacePerLine = 15;
-    layout.margin = 10;
-    UICollectionView * collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(10, 64, self.view.bounds.size.width-29, self.view.bounds.size.height-64) collectionViewLayout:layout];
-    self.collectionView = collectionView;
-    collectionView.dataSource = self;
-    collectionView.delegate = self;
-    collectionView.backgroundColor = APP_PAGE_COLOR;
-    collectionView.showsVerticalScrollIndicator = NO;
-    [collectionView registerNib:[UINib nibWithNibName:@"DestinationSearchHistoryCell" bundle:nil] forCellWithReuseIdentifier:@"searchHistoryCell"];
-    [collectionView registerNib:[UINib nibWithNibName:@"SearchDestinationHistoryCollectionReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"searchDestinationHeader"];
-
-    [self.view addSubview:collectionView];
-    
-    // 加载CollectionView的数据
-    [self sendRequestGethotSearchResult];
+    [self addChildViewController:self.searchRecommendViewController];
+    [self.view addSubview:self.searchRecommendViewController.view];
+    self.searchRecommendViewController.view.frame = CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-64);
+    [self.searchRecommendViewController willMoveToParentViewController:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -100,83 +80,12 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [_searchBar endEditing:YES];
 }
 
-// 加载CollectionView的数据源
-- (void)setupCollectionDataSourceWithHotSearchResult:(NSArray *)hotSearchResult
-{
-    NSArray * recentResult = [[TMCache sharedCache] objectForKey:kSearchDestinationCacheKey];
-    if (recentResult) {
-        self.collectionArray[0] = recentResult;
-    }
-    if (hotSearchResult) {
-        self.collectionArray[1] = hotSearchResult;
-    }
-    [self.collectionView reloadData];
-}
-
-#pragma mark - 加载网络数据
-- (void)sendRequestGethotSearchResult
-{
-    // 1.获取请求管理者
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    // 2.发送Get请求
-    [manager GET:API_GET_HOT_SEARCH parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        NSMutableArray * searchNameArray = [NSMutableArray array];
-        NSArray *resultArray = responseObject[@"result"];
-        
-        for (NSDictionary * resultDict in resultArray) {
-            NSString * searchName = resultDict[@"zhName"];
-            [searchNameArray addObject:searchName];
-        }
-        
-        [self setupCollectionDataSourceWithHotSearchResult:searchNameArray];
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-        // 打印失败信息
-        NSLog(@"%@",error);
-    }];
-
-}
-
 - (void)goBack
 {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)showCollectionView
-{
-    [_collectionView reloadData];
-    _collectionView.hidden = NO;
-}
-
-- (void)hideCollectionView
-{
-    _collectionView.hidden = YES;
-}
-
-- (void)clearSearchHistory
-{
-    [[TMCache sharedCache] removeObjectForKey:kSearchDestinationCacheKey];
-    [_collectionArray[0] removeAllObjects];
-    [_collectionView reloadData];
-}
-
 #pragma mark - getter or setter方法
-// 懒加载
-- (NSMutableArray *)collectionArray
-{
-    if (_collectionArray == nil) {
-        _collectionArray = [[NSMutableArray alloc] init];
-        NSMutableArray *historyArray = [[NSMutableArray alloc] init];
-        [_collectionArray addObject:historyArray];
-        NSMutableArray *recommendArray = [[NSMutableArray alloc] init];
-        [_collectionArray addObject:recommendArray];
-    }
-    return _collectionArray;
-}
-
 - (UITableView *)tableView
 {
     if (!_tableView) {
@@ -199,6 +108,15 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     return _dataSource;
 }
 
+- (SearchDestinationRecommendViewController *)searchRecommendViewController
+{
+    if (!_searchRecommendViewController) {
+        _searchRecommendViewController = [[SearchDestinationRecommendViewController alloc] init];
+        _searchRecommendViewController.delegate = self;
+    }
+    return _searchRecommendViewController;
+}
+
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [self.view endEditing:YES];
@@ -206,7 +124,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [super touchesEnded:touches withEvent:event];
     if (self.dataSource.count == 0) {
         self.tableView.hidden = YES;
-        [self showCollectionView];
+        self.searchRecommendViewController.view.hidden = NO;
     }
 }
 
@@ -218,7 +136,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 - (void)loadDataSourceWithKeyWord:(NSString *)keyWord
 {
     self.tableView.hidden = NO;
-    [self hideCollectionView];
+    self.searchRecommendViewController.view.hidden = YES;
     
     _keyWord = keyWord;
     
@@ -544,119 +462,12 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [_searchBar endEditing:YES];
 }
 
-
-#pragma mark - 实现UICollectionView的数据源以及代理方法
-
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
-{
-    return _collectionArray.count;
-}
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
-    return [[_collectionArray objectAtIndex:section] count];
-}
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    DestinationSearchHistoryCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"searchHistoryCell" forIndexPath:indexPath];
-    NSArray *array = [_collectionArray objectAtIndex:indexPath.section];
-    cell.titleLabel.text = array[indexPath.row];
-    return cell;
-}
-
-// collection的头部
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
-{
-    if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-        SearchDestinationHistoryCollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"searchDestinationHeader" forIndexPath:indexPath];
-        if (indexPath.section == 0 && [[self.collectionArray objectAtIndex:0] count]) {
-            headerView.titleLabel.text = @"历史搜索";
-            headerView.actionButton.hidden = NO;
-            [headerView.actionButton setTitle:@"清除" forState:UIControlStateNormal];
-            [headerView.actionButton addTarget:self action:@selector(clearSearchHistory) forControlEvents:UIControlEventTouchUpInside];
-            
-        } else if (indexPath.section == 1 && [[self.collectionArray objectAtIndex:1] count]) {
-            headerView.titleLabel.text = @"热门搜索";
-            headerView.actionButton.hidden = YES;
-        }
-        return headerView;
-    }
-    
-    return nil;
-}
-
-
-// 选中某一个item
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    [_searchBar endEditing:YES];
-    NSArray *array = [self.collectionArray objectAtIndex:indexPath.section];
-    [self loadDataSourceWithKeyWord:array[indexPath.row]];
-    _searchBar.text = array[indexPath.row];
-}
-
-#pragma mark - TaoziLayoutDelegate
-
-- (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSArray *array = [_collectionArray objectAtIndex:indexPath.section];
-    NSString *title = [array objectAtIndex:indexPath.row];
-    CGSize size = [title sizeWithAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:17.0]}];
-    return CGSizeMake(size.width+20, 30);
-}
-
-- (CGSize)collectionview:(UICollectionView *)collectionView sizeForHeaderView:(NSIndexPath *)indexPath
-{
-    if (indexPath.section == 0 && [[self.collectionArray objectAtIndex:0] count]) {
-        return CGSizeMake(kWindowWidth, 50);
-    } else if (indexPath.section == 1 && [[self.collectionArray objectAtIndex:1] count]) {
-        return CGSizeMake(kWindowWidth, 50);
-    }
-    return CGSizeZero;
-}
-
-- (NSInteger)numberOfSectionsInTZCollectionView:(UICollectionView *)collectionView
-{
-    return _collectionArray.count;
-}
-
-- (NSInteger)tzcollectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
-    return [[_collectionArray objectAtIndex:section] count];
-}
-
-- (CGFloat)tzcollectionLayoutWidth
-{
-    return self.view.bounds.size.width-20;
-}
-
 #pragma mark - UISearchBar Delegate
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     [_searchBar endEditing:YES];
-    
-    // 将搜索结果存入到数据库中
-    NSArray * recentSearch = [[TMCache sharedCache] objectForKey:kSearchDestinationCacheKey];
-    NSMutableArray * mutableArray;
-    if (recentSearch) {
-        mutableArray = [recentSearch mutableCopy];
-    } else {
-        mutableArray = [[NSMutableArray alloc] init];
-    }
-    for (NSString *str in mutableArray) {
-        if ([str isEqualToString:searchBar.text]) {
-            [mutableArray removeObject:str];
-            break;
-        }
-    }
-    if (mutableArray.count >= 10) {
-        [mutableArray removeLastObject];
-    }
-    [mutableArray insertObject:searchBar.text atIndex:0];
-    [[TMCache sharedCache] setObject:mutableArray forKey:kSearchDestinationCacheKey];
-    self.collectionArray[0] = mutableArray;
+    [self.searchRecommendViewController addSearchHistoryText:searchBar.text];
     [self loadDataSourceWithKeyWord:searchBar.text];
 }
 
@@ -665,7 +476,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         [self.dataSource removeAllObjects];
         [_tableView reloadData];
         _tableView.hidden = YES;
-        [self showCollectionView];
+        _searchRecommendViewController.view.hidden = NO;
     }
 }
 
@@ -676,6 +487,15 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     } else {
         [self dismissViewControllerAnimated:YES completion:nil];
     }
+}
+
+#pragma mark- SearchDestinationRecommendDelegate
+
+- (void)didSelectItemWithSearchText:(NSString *)searchText
+{
+    [_searchBar endEditing:YES];
+    [self loadDataSourceWithKeyWord:searchText];
+    _searchBar.text = searchText;
 }
 
 #pragma mark - TaoziMessageSendDelegate

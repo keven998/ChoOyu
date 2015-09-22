@@ -87,7 +87,12 @@
 
 - (void)moreAction:(id)sender
 {
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"保存到手机", @"编辑文字描述", @"删除", nil];
+    UIActionSheet *sheet;
+    if (_canEidt) {
+        sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"保存到手机", @"编辑文字描述", @"删除", nil];
+    } else {
+        sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"保存到手机", nil];
+    }
     [sheet showInView:self.view];
 }
 
@@ -238,15 +243,22 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 0) {
-        [self saveImage2Disk];
-        
-    } else if (buttonIndex == 1) {
-        [self editImageDesc];
-        
-    } else if (buttonIndex == 2) {
-        [self deleteUserAlbum];
-        
+    if (_canEidt) {
+        if (buttonIndex == 0) {
+            [self saveImage2Disk];
+            
+        } else if (buttonIndex == 1) {
+            [self editImageDesc];
+            
+        } else if (buttonIndex == 2) {
+            [self deleteUserAlbum];
+            
+        }
+    } else {
+        if (buttonIndex == 0) {
+            [self saveImage2Disk];
+            
+        }
     }
 }
 

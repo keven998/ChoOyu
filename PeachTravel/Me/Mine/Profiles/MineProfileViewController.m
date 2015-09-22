@@ -13,8 +13,9 @@
 #import "MineProfileTourViewCell.h"
 #import "MineViewContoller.h"
 #import "UserAlbumManager.h"
+#import "UserAlbumReviewViewController.h"
 
-@interface MineProfileViewController () <UITableViewDataSource, UITableViewDataSource,UIScrollViewDelegate>
+@interface MineProfileViewController () <UITableViewDataSource, UITableViewDataSource,UIScrollViewDelegate, GuiderProfileAlbumCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -193,6 +194,7 @@
 {
     if (indexPath.section == 0) {
         GuiderProfileAlbumCell *albumCell = [[GuiderProfileAlbumCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+        albumCell.delegate = self;
         albumCell.albumArray = self.userInfo.userAlbum;
         albumCell.selectionStyle = UITableViewCellSelectionStyleNone;
         return albumCell;
@@ -290,6 +292,16 @@
     self.navBgView.alpha = (scrollView.contentOffset.y+20)/160;
 }
 
+#pragma mark - GuiderProfileAlbumCellDelegate
+
+- (void)didSelectItemWitnIndexPath:(NSIndexPath *)indexPath
+{
+    UserAlbumReviewViewController *ctl = [[UserAlbumReviewViewController alloc] init];
+    ctl.dataSource = self.userInfo.userAlbum;
+    ctl.currentIndex = indexPath.row;
+    ctl.canEidt = YES;
+    [self.navigationController pushViewController:ctl animated:YES];
+}
 
 #pragma mark - IBAction Methods
 

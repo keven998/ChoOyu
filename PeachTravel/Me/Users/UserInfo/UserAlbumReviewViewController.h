@@ -14,4 +14,6 @@
 
 @property (nonatomic) NSUInteger currentIndex;
 
+@property (nonatomic) BOOL canEidt;
+
 @end
