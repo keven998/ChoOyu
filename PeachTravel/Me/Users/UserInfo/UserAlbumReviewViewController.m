@@ -243,15 +243,22 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 0) {
-        [self saveImage2Disk];
-        
-    } else if (buttonIndex == 1) {
-        [self editImageDesc];
-        
-    } else if (buttonIndex == 2) {
-        [self deleteUserAlbum];
-        
+    if (_canEidt) {
+        if (buttonIndex == 0) {
+            [self saveImage2Disk];
+            
+        } else if (buttonIndex == 1) {
+            [self editImageDesc];
+            
+        } else if (buttonIndex == 2) {
+            [self deleteUserAlbum];
+            
+        }
+    } else {
+        if (buttonIndex == 0) {
+            [self saveImage2Disk];
+            
+        }
     }
 }
 
