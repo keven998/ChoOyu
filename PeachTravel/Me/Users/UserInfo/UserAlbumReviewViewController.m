@@ -54,7 +54,6 @@
     
     self.naviTitle = [NSString stringWithFormat:@"%ld/%ld", _currentIndex+1, _dataSource.count];
     AlbumImageModel *image = [_dataSource objectAtIndex:_currentIndex];
-    image.imageDesc = @"我特别喜欢大海，哈哈，这个大海这个烂啊，我很陶醉，我很喜欢滑翔，很装逼，带我装逼带我飞";
     _descLabel.text = image.imageDesc;
 }
 
@@ -107,7 +106,6 @@
     self.naviTitle = [NSString stringWithFormat:@"%ld/%ld", _currentIndex+1, _dataSource.count];
     if (self.dataSource.count) {
         AlbumImageModel *image = [_dataSource objectAtIndex:_currentIndex];
-        image.imageDesc = @"我特别喜欢大海，哈哈，这个大海这个烂啊，我很陶醉，我很喜欢滑翔，很装逼，带我装逼带我飞";
         _descLabel.text = image.imageDesc;
     }
   }
