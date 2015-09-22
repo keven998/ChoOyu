@@ -113,6 +113,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     if (!_searchRecommendViewController) {
         _searchRecommendViewController = [[SearchDestinationRecommendViewController alloc] init];
         _searchRecommendViewController.delegate = self;
+        _searchRecommendViewController.poiType = _searchPoiType;
     }
     return _searchRecommendViewController;
 }

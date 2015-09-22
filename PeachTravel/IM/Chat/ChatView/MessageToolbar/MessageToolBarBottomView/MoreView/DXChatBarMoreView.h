@@ -64,7 +64,7 @@ typedef enum{
 
 - (void)moreViewMyStrategyAction:(DXChatBarMoreView *)moreView;
 - (void)moreViewMyFavoriteAction:(DXChatBarMoreView *)moreView;
-- (void)moreViewDestinationAction:(DXChatBarMoreView *)moreView;
+- (void)moreViewDestinationAction:(DXChatBarMoreView *)moreView poiType:(TZPoiType)poiType;
 - (void)moreViewTravelNoteAction:(DXChatBarMoreView *)moreView;
 - (void)moreViewPhotoAction:(DXChatBarMoreView *)moreView;
 - (void)moreViewTakePicAction:(DXChatBarMoreView *)moreView;
