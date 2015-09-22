@@ -10,7 +10,7 @@
 
 @implementation PoiSearchManager
 
-+ (void)searchPoiWithKeyword:(NSString *)keyWord andSearchCount:(NSInteger)count andPoiType:(TZPoiType)poiType completionBlock:(void (^)(BOOL, NSArray *))completion
++ (void)searchPoiWithKeyword:(NSString *)keyWord andSearchCount:(NSInteger)count andPoiType:(TZPoiType)poiType completionBlock:(void (^)(BOOL isSuccess, NSArray *searchResultList))completion
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AppUtils *utils = [[AppUtils alloc] init];
@@ -128,6 +128,15 @@
         [retArray addObject:hotelDic];
     }
     return retArray;
+}
+
++ (void)asyncGetDescriptionOfSearchText:(NSString *)searchText andPoiType:(TZPoiType)poiType completionBlock:(void (^)(BOOL, NSDictionary *))completion
+{
+    if ([searchText isEqualToString: @"北京"]) {
+        completion(YES, @{@"detailUrl": @"http://www.baidu.com", @"desc": @"北京是一个大城市。哈哈哈哈哈,北京是一个大城市。哈哈哈哈哈,北京是一个大城市。哈哈哈哈哈,北京是一个大城市。哈哈哈哈哈,北京是一个大城市。哈哈哈哈哈,北京是一个大城市。哈哈哈哈哈"});
+    } else {
+        completion(YES, nil);
+    }
 }
 
 

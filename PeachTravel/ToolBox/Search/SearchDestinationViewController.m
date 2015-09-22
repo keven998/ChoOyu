@@ -20,6 +20,7 @@
 #import "SearchDestinationHistoryCollectionReusableView.h"
 #import "SearchDestinationRecommendViewController.h"
 #import "PoiSearchManager.h"
+#import "SuperWebViewController.h"
 
 @interface SearchDestinationViewController () <UISearchBarDelegate, UISearchControllerDelegate, UITableViewDataSource, UITableViewDelegate, TaoziMessageSendDelegate, SearchDestinationRecommendDelegate>
 
@@ -29,6 +30,9 @@
 @property (nonatomic, strong) UISearchBar *searchBar;
 @property (nonatomic, strong) SearchDestinationRecommendViewController *searchRecommendViewController;
 @property (nonatomic, copy) NSString *keyWord;
+
+//如果搜美食的时候搜到“北京”，那么在 tableview 的头部放上北京美食简介
+@property (nonatomic, strong) NSDictionary *descriptionOfSerachText;
 
 @end
 
@@ -142,6 +146,57 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 
 
 #pragma mark - private Methods
+
+- (void)showTableViewHeader
+{
+    NSString *descriptionStr = [_descriptionOfSerachText objectForKey:@"desc"];
+    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 100)];
+    btn.titleLabel.font = [UIFont systemFontOfSize:13.0];
+    btn.titleEdgeInsets = UIEdgeInsetsMake(0, 24, 0, 24);
+    NSUInteger len = [descriptionStr length];
+    
+    NSMutableAttributedString *desc = [[NSMutableAttributedString alloc] initWithString:descriptionStr];
+    [desc addAttribute:NSForegroundColorAttributeName value:COLOR_TEXT_II range:NSMakeRange(0, len)];
+    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+    style.lineBreakMode = NSLineBreakByTruncatingTail;
+    style.lineSpacing = 5;
+    [desc addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, len)];
+    [btn setAttributedTitle:desc forState:UIControlStateNormal];
+    
+    desc = [[NSMutableAttributedString alloc] initWithAttributedString:desc];
+    [desc addAttribute:NSForegroundColorAttributeName value:COLOR_DISABLE range:NSMakeRange(0, len)];
+    [btn setAttributedTitle:desc forState:UIControlStateHighlighted];
+    [btn addTarget:self action:@selector(showIntruductionOfCity) forControlEvents:UIControlEventTouchUpInside];
+    btn.titleLabel.numberOfLines = 2;
+    
+    UILabel *moreLabel = [[UILabel alloc] initWithFrame:CGRectMake(btn.bounds.size.width-49, btn.bounds.size.height-31, 30, 20)];
+    moreLabel.textColor = APP_THEME_COLOR;
+    moreLabel.font = [UIFont systemFontOfSize:13.0];
+    moreLabel.text = @"全文";
+    [btn addSubview:moreLabel];
+    self.tableView.tableHeaderView = btn;
+
+}
+
+- (void)hideTableViewHeaderView
+{
+    self.tableView.tableHeaderView = nil;
+}
+
+- (void)showIntruductionOfCity
+{
+    SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
+    if (_searchPoiType == kRestaurantPoi) {
+        webCtl.titleStr = @"美食攻略";
+        
+    } else if (_searchPoiType == kShoppingPoi) {
+        webCtl.titleStr = @"购物攻略";
+        
+    }
+    webCtl.urlStr = [_descriptionOfSerachText objectForKey:@"detailUrl"];
+    webCtl.hideToolBar = YES;
+    [self.navigationController pushViewController:webCtl animated:YES];
+}
 /**
  *  开始搜索
  */
@@ -163,19 +218,45 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         searchCount = 20;
     }
     
-    [PoiSearchManager searchPoiWithKeyword:_keyWord andSearchCount:searchCount andPoiType:_searchPoiType completionBlock:^(BOOL isSuccess, NSArray *searchResultList) {
-        if (isSuccess) {
-            [self.dataSource removeAllObjects];
-            self.dataSource = [searchResultList mutableCopy];
-            if (self.dataSource.count>0) {
-                [self.tableView reloadData];
+    if (_searchPoiType == kRestaurantPoi || _searchPoiType == kShoppingPoi) {
+        _descriptionOfSerachText = nil;
+        [PoiSearchManager asyncGetDescriptionOfSearchText:_keyWord andPoiType:_searchPoiType completionBlock:^(BOOL isSuccess, NSDictionary *descriptionDic) {
+            if (isSuccess && descriptionDic) {
+                _descriptionOfSerachText = descriptionDic;
+                [self showTableViewHeader];
+                [PoiSearchManager searchPoiWithKeyword:_keyWord andSearchCount:searchCount andPoiType:_searchPoiType completionBlock:^(BOOL isSuccess, NSArray *searchResultList) {
+                    if (isSuccess) {
+                        [self.dataSource removeAllObjects];
+                        self.dataSource = [searchResultList mutableCopy];
+                        if (self.dataSource.count>0) {
+                            [self.tableView reloadData];
+                        } else {
+                            NSString *searchStr = [NSString stringWithFormat:@"没有找到“%@”的相关结果", _keyWord];
+                            [SVProgressHUD showHint:searchStr];
+                        }
+                    }
+                    [hud hideTZHUD];
+                }];
+                
             } else {
-                NSString *searchStr = [NSString stringWithFormat:@"没有找到“%@”的相关结果", _keyWord];
-                [SVProgressHUD showHint:searchStr];
+                [self hideTableViewHeaderView];
             }
-        }
-        [hud hideTZHUD];
-    }];
+        }];
+    } else {
+        [PoiSearchManager searchPoiWithKeyword:_keyWord andSearchCount:searchCount andPoiType:_searchPoiType completionBlock:^(BOOL isSuccess, NSArray *searchResultList) {
+            if (isSuccess) {
+                [self.dataSource removeAllObjects];
+                self.dataSource = [searchResultList mutableCopy];
+                if (self.dataSource.count>0) {
+                    [self.tableView reloadData];
+                } else {
+                    NSString *searchStr = [NSString stringWithFormat:@"没有找到“%@”的相关结果", _keyWord];
+                    [SVProgressHUD showHint:searchStr];
+                }
+            }
+            [hud hideTZHUD];
+        }];
+    }
 }
 
 - (void)showMore:(UIButton *)sender
