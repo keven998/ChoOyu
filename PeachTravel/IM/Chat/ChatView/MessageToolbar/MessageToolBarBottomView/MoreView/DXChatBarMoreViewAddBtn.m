@@ -40,13 +40,13 @@
 - (NSArray *)btnPropertyList{
     if (_btnPropertyList == nil) {
         _btnPropertyList = @[
-             @{@"picN":@"plan_normal",@"picH":@"plan_hilighted",@"title":@"计划",@"selector":@"myStrategyAction"},
-             @{@"picN":@"photo_normal",@"picH":@"photo_hilighted",@"title":@"图片",@"selector":@"photoAction"},
-             @{@"picN":@"camera_normal",@"picH":@"camera_hilighted",@"title":@"拍照",@"selector":@"takePicAction"},
-             @{@"picN":@"weizhi_normal",@"picH":@"weizhi_hilighted",@"title":@"位置",@"selector":@"locationAction"},
-             @{@"picN":@"screen_normal",@"picH":@"screen_hilighted",@"title":@"景点",@"selector":@"destinationAction"},
-             @{@"picN":@"shopping_normal",@"picH":@"shopping_hilighted",@"title":@"购物",@"selector":@"destinationAction"},
-             @{@"picN":@"food-normal",@"picH":@"food-hilighted",@"title":@"美食",@"selector":@"destinationAction"}];
+             @{@"picN":@"moreview_plan_normal",@"picH":@"moreview_plan_hilighted",@"title":@"计划",@"selector":@"myStrategyAction"},
+             @{@"picN":@"moreview_photo_normal",@"picH":@"moreview_photo_hilighted",@"title":@"图片",@"selector":@"photoAction"},
+             @{@"picN":@"moreview_camera_normal",@"picH":@"moreview_camera_hilighted",@"title":@"拍照",@"selector":@"takePicAction"},
+             @{@"picN":@"moreview_weizhi_normal",@"picH":@"moreview_weizhi_hilighted",@"title":@"位置",@"selector":@"locationAction"},
+             @{@"picN":@"moreview_screen_normal",@"picH":@"moreview_screen_hilighted",@"title":@"景点",@"selector":@"destinationAction"},
+             @{@"picN":@"moreview_shopping_normal",@"picH":@"moreview_shopping_hilighted",@"title":@"购物",@"selector":@"destinationAction"},
+             @{@"picN":@"moreview_food-normal",@"picH":@"moreview_food-hilighted",@"title":@"美食",@"selector":@"destinationAction"}];
     }
     return _btnPropertyList;
 }
