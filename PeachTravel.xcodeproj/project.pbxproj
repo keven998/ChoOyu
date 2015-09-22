@@ -533,6 +533,7 @@
 		D99D8EE519C8600C0021C25B /* PeachTravelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D99D8EE419C8600C0021C25B /* PeachTravelTests.m */; };
 		D9A380EF1B9C3CEC000B5B66 /* navi_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A380EE1B9C3CEC000B5B66 /* navi_bg@2x.png */; };
 		D9A380F11B9C405E000B5B66 /* icon_search_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A380F01B9C405E000B5B66 /* icon_search_bg@2x.png */; };
+		D9A3BCAB1BB0FF3C008C1038 /* PoiSearchManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A3BCAA1BB0FF3C008C1038 /* PoiSearchManager.m */; settings = {ASSET_TAGS = (); }; };
 		D9A8001A1A80D52F005AD701 /* Destinations.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FFDA1A80D52F005AD701 /* Destinations.m */; };
 		D9A8001B1A80D52F005AD701 /* CityCardReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FFDD1A80D52F005AD701 /* CityCardReusableView.m */; };
 		D9A8001C1A80D52F005AD701 /* DomesticViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FFDF1A80D52F005AD701 /* DomesticViewController.m */; };
@@ -2232,6 +2233,8 @@
 		D99D8EE419C8600C0021C25B /* PeachTravelTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PeachTravelTests.m; sourceTree = "<group>"; };
 		D9A380EE1B9C3CEC000B5B66 /* navi_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navi_bg@2x.png"; sourceTree = "<group>"; };
 		D9A380F01B9C405E000B5B66 /* icon_search_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_search_bg@2x.png"; sourceTree = "<group>"; };
+		D9A3BCA91BB0FF3C008C1038 /* PoiSearchManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoiSearchManager.h; sourceTree = "<group>"; };
+		D9A3BCAA1BB0FF3C008C1038 /* PoiSearchManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoiSearchManager.m; sourceTree = "<group>"; };
 		D9A800011A80D52F005AD701 /* RestaurantsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantsListViewController.h; sourceTree = "<group>"; };
 		D9A800021A80D52F005AD701 /* RestaurantsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantsListViewController.m; sourceTree = "<group>"; };
 		D9A800041A80D52F005AD701 /* ShareActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareActivity.h; sourceTree = "<group>"; };
@@ -6236,6 +6239,8 @@
 		D9A8FF4A1A80CF19005AD701 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				D9A3BCA91BB0FF3C008C1038 /* PoiSearchManager.h */,
+				D9A3BCAA1BB0FF3C008C1038 /* PoiSearchManager.m */,
 				D9E0EEF91B7CB020003872DF /* SearchDestinationHistoryCollectionReusableView.h */,
 				D9E0EEFA1B7CB020003872DF /* SearchDestinationHistoryCollectionReusableView.m */,
 				D9E0EEFB1B7CB020003872DF /* SearchDestinationHistoryCollectionReusableView.xib */,
@@ -9182,6 +9187,7 @@
 				D9FCE7DE1B134B4B0039F896 /* ChatViewController.m in Sources */,
 				E6AD32321B9D6EE800EE6A62 /* ExpertTourView.m in Sources */,
 				0115C7C61BAD53A100631928 /* TZFrendListVC.m in Sources */,
+				D9A3BCAB1BB0FF3C008C1038 /* PoiSearchManager.m in Sources */,
 				D91061D41BA93D6E00C4FBCB /* UserAlbumOverviewCell.m in Sources */,
 				D944189B1BAFAA9F0091FC0B /* AlbumImageModel.m in Sources */,
 				D9A802E81A80E3D3005AD701 /* TZSegmentedViewController.m in Sources */,
