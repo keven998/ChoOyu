@@ -26,7 +26,7 @@
     UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [backBtn setTitle:@"取消" forState:UIControlStateNormal];
     [backBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
-    [backBtn addTarget:self action:@selector(dismissCtl) forControlEvents:UIControlEventTouchUpInside];
+    [backBtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
     
     _saveBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
@@ -47,22 +47,32 @@
     [super didReceiveMemoryWarning];
 }
 
-- (void)dismissCtl
+- (void)goBack
 {
     if ([_descTextView.text isEqualToString:_albumImage.imageDesc]) {
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [self dismissCtl];
     } else {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"确定放弃编辑？" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [alert showAlertViewWithBlock:^(NSInteger buttonIndex) {
             if (buttonIndex == 1) {
-                [self dismissViewControllerAnimated:YES completion:nil];
+                [self dismissCtl];
             }
         }];
     }
 }
 
+- (void)dismissCtl
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+
+}
+
 - (void)saveChange
 {
+    if ([_albumImage.imageDesc isEqualToString:_descTextView.text]) {
+        [self dismissCtl];
+        return;
+    }
     [UserAlbumManager asyncUpdateUserAlbumCaption:_descTextView.text withImageId:_albumImage.imageId completion:^(BOOL isSuccess) {
         if (isSuccess) {
             _albumImage.imageDesc = _descTextView.text;
