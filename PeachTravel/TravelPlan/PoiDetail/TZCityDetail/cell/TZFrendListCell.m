@@ -105,8 +105,8 @@
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.tagCollectionView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.descriptionLabel attribute:NSLayoutAttributeTop multiplier:1.0 constant:0]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.tagCollectionView attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.levelImageView attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0]];
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-24-[seperator]-24-|" options:0 metrics:nil views:dict]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[seperator(0.5)]-0-|" options:0 metrics:nil views:dict]];
+//    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-24-[seperator]-24-|" options:0 metrics:nil views:dict]];
+//    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[seperator(0.5)]-0-|" options:0 metrics:nil views:dict]];
     
     _headerImageView.layer.cornerRadius = HEADERSIZE / 2;
     _headerImageView.layer.borderWidth = 2;
@@ -166,7 +166,7 @@
 - (UIImageView *)crownImageView{
     if (_crownImageView == nil) {
         _crownImageView = [[UIImageView alloc] init];
-        _crownImageView.image = [UIImage imageNamed:@"king_head"];
+        _crownImageView.image = [UIImage imageNamed:@"citydetail_king_head"];
     }
     return _crownImageView;
 }
@@ -188,7 +188,7 @@
 - (UIImageView *)levelImageView{
     if (_levelImageView == nil) {
         _levelImageView = [[UIImageView alloc] init];
-        _levelImageView.image = [UIImage imageNamed:@"lv_bg"];
+        _levelImageView.image = [UIImage imageNamed:@"citydetail_lv_bg"];
     }
     return _levelImageView;
 }

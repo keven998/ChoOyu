@@ -27,13 +27,14 @@
 #import "GuiderProfileViewController.h"
 #import "CityDetailLoadMoreCell.h"
 #import "TZFrendListCellForArea.h"
+#import "CityDetailHeaderView.h"
 
 #define CITY_DETAIL_LOAD_MORE_CELL @"CITY_DETAIL_LOAD_MORE_CELL"
 
 @interface CityDetailTableViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) CityHeaderView *cityHeaderView;
+@property (nonatomic, strong) CityDetailHeaderView *cityHeaderView;
 @property (nonatomic, strong) TZProgressHUD *hud;
 
 @property (nonatomic, strong) UIImageView *cityPicture;
@@ -97,26 +98,31 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 {
     self.navigationItem.title = self.poi.zhName;
     
-    _cityHeaderView = [[CityHeaderView alloc] init];
-    [_cityHeaderView setFrame:CGRectMake(0, 0, self.view.frame.size.width, 0)];
-    _cityHeaderView.cityPoi = (CityPoi *)self.poi;
+    
+//    [_cityHeaderView setFrame:CGRectMake(0, 0, self.view.frame.size.width, 0)];
+
     
     [self.view addSubview:self.tableView];
+    self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
     
-    [_cityHeaderView.showSpotsBtn addTarget:self action:@selector(viewSpots:) forControlEvents:UIControlEventTouchUpInside];
-    [_cityHeaderView.showRestaurantsBtn addTarget:self action:@selector(viewRestaurants:) forControlEvents:UIControlEventTouchUpInside];
-    [_cityHeaderView.showShoppingBtn addTarget:self action:@selector(viewShopping:) forControlEvents:UIControlEventTouchUpInside];
-    [_cityHeaderView.showTipsBtn addTarget:self action:@selector(play:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[table]-0-|" options:0 metrics:nil views:@{@"table":self.tableView}]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-64-[table]-0-|" options:0 metrics:nil views:@{@"table":self.tableView}]];
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showCityDetail:)];
     
-    [_cityHeaderView.cityDesc addGestureRecognizer:tap];
-    
-    UITapGestureRecognizer *tap1 = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showCityTravelMonth:)];
-    
-    [_cityHeaderView.travelMonth addGestureRecognizer:tap1];
+//    [_cityHeaderView.showSpotsBtn addTarget:self action:@selector(viewSpots:) forControlEvents:UIControlEventTouchUpInside];
+//    [_cityHeaderView.showRestaurantsBtn addTarget:self action:@selector(viewRestaurants:) forControlEvents:UIControlEventTouchUpInside];
+//    [_cityHeaderView.showShoppingBtn addTarget:self action:@selector(viewShopping:) forControlEvents:UIControlEventTouchUpInside];
+//    [_cityHeaderView.showTipsBtn addTarget:self action:@selector(play:) forControlEvents:UIControlEventTouchUpInside];
+//    
+//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showCityDetail:)];
+//    
+//    [_cityHeaderView.cityDesc addGestureRecognizer:tap];
+//    
+//    UITapGestureRecognizer *tap1 = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showCityTravelMonth:)];
+//    
+//    [_cityHeaderView.travelMonth addGestureRecognizer:tap1];
 
-    _tableView.tableHeaderView = _cityHeaderView;
+//    _tableView.tableHeaderView = _cityHeaderView;
 //    _tableView.tableFooterView
     [self setUpToolbarView];
 }
@@ -296,15 +302,17 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-64-46)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
         _tableView.backgroundColor = APP_PAGE_COLOR;
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 //        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.showsVerticalScrollIndicator = NO;
-        [self.tableView registerClass:[TZFrendListCell class] forCellReuseIdentifier:reuseIdentifier];
-        [self.tableView registerClass:[CityDetailLoadMoreCell class] forCellReuseIdentifier:CITY_DETAIL_LOAD_MORE_CELL];
+        [_tableView registerClass:[TZFrendListCell class] forCellReuseIdentifier:reuseIdentifier];
+        [_tableView registerClass:[CityDetailLoadMoreCell class] forCellReuseIdentifier:CITY_DETAIL_LOAD_MORE_CELL];
+
+//        _tableView.
     }
     return _tableView;
 }
@@ -555,24 +563,30 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 //    return ((CityPoi *)self.poi).travelNotes.count;
 //    return self.expertsArray.count;
+    if (self.expertsArray.count == 0) {
+        return 0;
+    }
     return 4;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == 0) {
         CityDetailLoadMoreCell *cell = [tableView dequeueReusableCellWithIdentifier:CITY_DETAIL_LOAD_MORE_CELL forIndexPath:indexPath];
-//        ExpertModel* model = self.expertsArray[indexPath.row];
-//        cell.model = model;
+
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
     TZFrendListCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
-    ExpertModel* model = self.expertsArray[indexPath.row];
+    ExpertModel* model = self.expertsArray[indexPath.row - 1];
     cell.model = model;
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
+    
+    
+    //        ExpertModel* model = self.expertsArray[indexPath.row];
+    //        cell.model = model;
     
     //    TravelNote *travelNote = [((CityPoi *)self.poi).travelNotes objectAtIndex:indexPath.row];
     //    cell.travelNoteImage = travelNote.authorAvatar;
@@ -581,6 +595,15 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     //
     //    cell.property = [NSString stringWithFormat:@"%@    %@", travelNote.authorName, travelNote.publishDateStr];
     //    cell.canSelect = NO;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 483 + 12;
+}
+
+- (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    _cityHeaderView = [[CityDetailHeaderView alloc] init];
+    _cityHeaderView.cityPoi = (CityPoi *)self.poi;
+    return _cityHeaderView;
 }
 
 #pragma mark - TableViewDelegate
