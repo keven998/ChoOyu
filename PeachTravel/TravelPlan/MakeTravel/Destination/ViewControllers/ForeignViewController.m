@@ -94,7 +94,6 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
                 [self loadForeignDataFromServerWithLastModified:@""];
 
             });
-            
         }
     }];
 }

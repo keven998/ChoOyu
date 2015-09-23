@@ -22,6 +22,7 @@
 #import "RegisterViewController.h"
 #import "PrepareViewController.h"
 #import "JDStatusBarNotification.h"
+#import "PoiRecommendRootViewController.h"
 #import "PeachTravel-swift.h"
 
 #define kBackGroundImage    @"backGroundImage"
@@ -45,7 +46,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 @property (nonatomic, strong) SearchDestinationViewController *searchPoiCtl;
 @property (nonatomic, strong) MineViewContoller *mineCtl;
 @property (nonatomic, strong) ChatListViewController *chatListCtl;
-@property (nonatomic, strong) GuiderDistributeViewController *guiderCtl;
+@property (nonatomic, strong) PoiRecommendRootViewController *poiRecommendCtl;
 
 @property (nonatomic, strong) PageOne *pageView1;
 @property (nonatomic, strong) PageTwo *pageView2;
@@ -368,9 +369,9 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     TZNavigationViewController *firstNavigationController = [[TZNavigationViewController alloc]
                                                              initWithRootViewController:self.chatListCtl];
     
-    _guiderCtl = [[GuiderDistributeViewController alloc] init];
+    _poiRecommendCtl = [[PoiRecommendRootViewController alloc] init];
     TZNavigationViewController *secondNavigationController = [[TZNavigationViewController alloc]
-                                                              initWithRootViewController:_guiderCtl];
+                                                              initWithRootViewController:_poiRecommendCtl];
     
     _searchPoiCtl = [[SearchDestinationViewController alloc] init];
     _searchPoiCtl.isRootViewController = YES;
@@ -391,7 +392,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (void)customizeTabBarForController
 {
     NSArray *tabBarItemImages = @[@"ic_tabbar_chat", @"ic_tabbar_expert", @"ic_tabbar_search", @"ic_tabbar_mine"];
-    NSArray *tabbarItemNames = @[@"消息", @"达人", @"搜索", @"我的"];
+    NSArray *tabbarItemNames = @[@"消息", @"目的地", @"搜索", @"我的"];
     NSInteger index = 0;
     
     for (UITabBarItem *item in self.tabBar.items) {
