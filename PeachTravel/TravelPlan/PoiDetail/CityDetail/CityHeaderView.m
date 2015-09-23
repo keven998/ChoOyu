@@ -26,11 +26,11 @@
 
 @implementation CityHeaderView
 
-- (void)setCityPoi:(CityPoi *)cityPoi
-{
-    _cityPoi = cityPoi;
-    [self setupSubView];
-}
+//- (void)setCityPoi:(CityPoi *)cityPoi
+//{
+//    _cityPoi = cityPoi;
+//    [self setupSubView];
+//}
 
 - (void)setupSubView
 {
