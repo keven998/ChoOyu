@@ -28,7 +28,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"新朋友";
+    self.navigationItem.title = @"好友请求";
     [self.tableView registerNib:[UINib nibWithNibName:@"FrendRequestTableViewCell" bundle:nil] forCellReuseIdentifier:requestCell];
     self.tableView.separatorColor = COLOR_LINE;
     

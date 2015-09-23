@@ -54,13 +54,15 @@
     
     self.naviTitle = [NSString stringWithFormat:@"%ld/%ld", _currentIndex+1, _dataSource.count];
     AlbumImageModel *image = [_dataSource objectAtIndex:_currentIndex];
-    image.imageDesc = @"我特别喜欢大海，哈哈，这个大海这个烂啊，我很陶醉，我很喜欢滑翔，很装逼，带我装逼带我飞";
     _descLabel.text = image.imageDesc;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self.collectionView reloadData];
+    AlbumImageModel *image = [_dataSource objectAtIndex:_currentIndex];
+    _descLabel.text = image.imageDesc;
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     [self.navigationController.navigationBar setTitleTextAttributes:
      [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName]];
@@ -105,10 +107,11 @@
 {
     _currentIndex = currentIndex;
     self.naviTitle = [NSString stringWithFormat:@"%ld/%ld", _currentIndex+1, _dataSource.count];
-    AlbumImageModel *image = [_dataSource objectAtIndex:_currentIndex];
-    image.imageDesc = @"我特别喜欢大海，哈哈，这个大海这个烂啊，我很陶醉，我很喜欢滑翔，很装逼，带我装逼带我飞";
-    _descLabel.text = image.imageDesc;
-}
+    if (self.dataSource.count) {
+        AlbumImageModel *image = [_dataSource objectAtIndex:_currentIndex];
+        _descLabel.text = image.imageDesc;
+    }
+  }
 
 - (void)setNaviTitle:(NSString *)naviTitle
 {
@@ -196,6 +199,7 @@
                     if (_currentIndex == _dataSource.count) {
                         self.currentIndex = self.currentIndex - 1;
                     }
+                    self.currentIndex = _currentIndex;
                     [[AccountManager shareAccountManager] deleteUserAlbumImage:image.imageId];
                 } else {
                     [SVProgressHUD showHint:@"删除失败"];

@@ -19,6 +19,8 @@
 #import "DestinationSearchHistoryCell.h"
 #import "SearchDestinationHistoryCollectionReusableView.h"
 #import "SearchDestinationRecommendViewController.h"
+#import "PoiSearchManager.h"
+#import "SuperWebViewController.h"
 
 @interface SearchDestinationViewController () <UISearchBarDelegate, UISearchControllerDelegate, UITableViewDataSource, UITableViewDelegate, TaoziMessageSendDelegate, SearchDestinationRecommendDelegate>
 
@@ -28,6 +30,9 @@
 @property (nonatomic, strong) UISearchBar *searchBar;
 @property (nonatomic, strong) SearchDestinationRecommendViewController *searchRecommendViewController;
 @property (nonatomic, copy) NSString *keyWord;
+
+//如果搜美食的时候搜到“北京”，那么在 tableview 的头部放上北京美食简介
+@property (nonatomic, strong) NSDictionary *descriptionOfSerachText;
 
 @end
 
@@ -45,7 +50,17 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     _searchBar = [[UISearchBar alloc]init];
     _searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _searchBar.delegate = self;
-    [_searchBar setPlaceholder:@"城市/景点/美食/购物"];
+    NSString *placeholderText;
+    if (_searchPoiType == kSpotPoi) {
+        placeholderText = @"搜索景点";
+    } else if (_searchPoiType == kRestaurantPoi) {
+        placeholderText = @"搜索美食";
+    } else if (_searchPoiType == kShoppingPoi) {
+        placeholderText = @"搜索购物";
+    } else {
+        placeholderText = @"城市/景点/美食/购物";
+    }
+    [_searchBar setPlaceholder:placeholderText];
     _searchBar.tintColor = COLOR_TEXT_II;
     _searchBar.showsCancelButton = YES;
     _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
@@ -113,6 +128,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     if (!_searchRecommendViewController) {
         _searchRecommendViewController = [[SearchDestinationRecommendViewController alloc] init];
         _searchRecommendViewController.delegate = self;
+        _searchRecommendViewController.poiType = _searchPoiType;
     }
     return _searchRecommendViewController;
 }
@@ -130,6 +146,57 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 
 
 #pragma mark - private Methods
+
+- (void)showTableViewHeader
+{
+    NSString *descriptionStr = [_descriptionOfSerachText objectForKey:@"desc"];
+    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 100)];
+    btn.titleLabel.font = [UIFont systemFontOfSize:13.0];
+    btn.titleEdgeInsets = UIEdgeInsetsMake(0, 24, 0, 24);
+    NSUInteger len = [descriptionStr length];
+    
+    NSMutableAttributedString *desc = [[NSMutableAttributedString alloc] initWithString:descriptionStr];
+    [desc addAttribute:NSForegroundColorAttributeName value:COLOR_TEXT_II range:NSMakeRange(0, len)];
+    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+    style.lineBreakMode = NSLineBreakByTruncatingTail;
+    style.lineSpacing = 5;
+    [desc addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, len)];
+    [btn setAttributedTitle:desc forState:UIControlStateNormal];
+    
+    desc = [[NSMutableAttributedString alloc] initWithAttributedString:desc];
+    [desc addAttribute:NSForegroundColorAttributeName value:COLOR_DISABLE range:NSMakeRange(0, len)];
+    [btn setAttributedTitle:desc forState:UIControlStateHighlighted];
+    [btn addTarget:self action:@selector(showIntruductionOfCity) forControlEvents:UIControlEventTouchUpInside];
+    btn.titleLabel.numberOfLines = 2;
+    
+    UILabel *moreLabel = [[UILabel alloc] initWithFrame:CGRectMake(btn.bounds.size.width-49, btn.bounds.size.height-31, 30, 20)];
+    moreLabel.textColor = APP_THEME_COLOR;
+    moreLabel.font = [UIFont systemFontOfSize:13.0];
+    moreLabel.text = @"全文";
+    [btn addSubview:moreLabel];
+    self.tableView.tableHeaderView = btn;
+
+}
+
+- (void)hideTableViewHeaderView
+{
+    self.tableView.tableHeaderView = nil;
+}
+
+- (void)showIntruductionOfCity
+{
+    SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
+    if (_searchPoiType == kRestaurantPoi) {
+        webCtl.titleStr = @"美食攻略";
+        
+    } else if (_searchPoiType == kShoppingPoi) {
+        webCtl.titleStr = @"购物攻略";
+        
+    }
+    webCtl.urlStr = [_descriptionOfSerachText objectForKey:@"detailUrl"];
+    webCtl.hideToolBar = YES;
+    [self.navigationController pushViewController:webCtl animated:YES];
+}
 /**
  *  开始搜索
  */
@@ -138,128 +205,57 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     self.tableView.hidden = NO;
     self.searchRecommendViewController.view.hidden = YES;
     
-    _keyWord = keyWord;
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSNumber *imageWidth = [NSNumber numberWithInt:80];
-    [params setObject:imageWidth forKey:@"imgWidth"];
-    [params setObject:keyWord forKey:@"keyword"];
-    [params setObject:[NSNumber numberWithBool:YES] forKey:@"loc"];
-    [params setObject:[NSNumber numberWithBool:YES] forKey:@"vs"];
-    [params setObject:[NSNumber numberWithBool:YES] forKey:@"restaurant"];
-    [params setObject:[NSNumber numberWithBool:YES] forKey:@"hotel"];
-    [params setObject:[NSNumber numberWithBool:YES] forKey:@"shopping"];
-    [params setObject:[NSNumber numberWithInt:5] forKey:@"pageSize"];
-    
     __weak typeof(SearchDestinationViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf content:64];
     
-    NSLog(@"%@,%@",API_SEARCH,params);
-    [manager GET:API_SEARCH parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@", responseObject);
-        [hud hideTZHUD];
-        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-        if (code == 0) {
-            [self analysisData:[responseObject objectForKey:@"result"]];
-        } else {
-            
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [hud hideTZHUD];
-        NSLog(@"%@",error);
-    }];
-}
-
-- (void)analysisData:(id)json
-{
-    [self.dataSource removeAllObjects];
-    NSMutableDictionary *cityDic = [[NSMutableDictionary alloc] init];
-    [cityDic setObject:@"城市" forKey:@"typeDesc"];
-    NSMutableArray *cities = [[NSMutableArray alloc] init];
-   
-    for (id dic in [json objectForKey:@"locality"]) {
-        SuperPoi *poi = [PoiFactory poiWithPoiType:kCityPoi andJson:dic];
-        poi.poiType = kCityPoi;
-        [cities addObject:poi];
-    }
-    if (cities.count > 0) {
-        [cityDic setObject:cities forKey:@"content"];
-        [self.dataSource addObject:cityDic];
-        [cityDic setObject:[NSNumber numberWithInt:kCityPoi] forKey:@"type"];
-    }
-    NSMutableDictionary *spotDic = [[NSMutableDictionary alloc] init];
+    _keyWord = keyWord;
     
-    [spotDic setObject:@"景点" forKey:@"typeDesc"];
-    NSMutableArray *spots = [[NSMutableArray alloc] init];
-    for (id dic in [json objectForKey:@"vs"]) {
-        SuperPoi *poi = [PoiFactory poiWithPoiType:kSpotPoi andJson:dic];
-        [spots addObject:poi];
-    }
-    if (spots.count > 0) {
-        [spotDic setObject:spots forKey:@"content"];
-        [spotDic setObject:[NSNumber numberWithInt:kSpotPoi] forKey:@"type"];
-        
-        [self.dataSource addObject:spotDic];
-    }
-    
-    NSMutableDictionary *restaurantDic = [[NSMutableDictionary alloc] init];
-    
-    [restaurantDic setObject:@"美食" forKey:@"typeDesc"];
-    NSMutableArray *restaurants = [[NSMutableArray alloc] init];
-    for (id dic in [json objectForKey:@"restaurant"]) {
-        SuperPoi *poi = [PoiFactory poiWithPoiType:kRestaurantPoi andJson:dic];
-        [restaurants addObject:poi];
-    }
-    if (restaurants.count > 0) {
-        [restaurantDic setObject:restaurants forKey:@"content"];
-        [restaurantDic setObject:[NSNumber numberWithInt:kRestaurantPoi] forKey:@"type"];
-        [self.dataSource addObject:restaurantDic];
-    }
-    
-    NSMutableDictionary *shoppingDic = [[NSMutableDictionary alloc] init];
-    
-    [shoppingDic setObject:@"购物" forKey:@"typeDesc"];
-    NSMutableArray *shoppingArray = [[NSMutableArray alloc] init];
-    for (id dic in [json objectForKey:@"shopping"]) {
-        SuperPoi *poi = [PoiFactory poiWithPoiType:kShoppingPoi andJson:dic];
-        [shoppingArray addObject:poi];
-    }
-    if (shoppingArray.count > 0) {
-        [shoppingDic setObject:shoppingArray forKey:@"content"];
-        [shoppingDic setObject:[NSNumber numberWithInt:kShoppingPoi] forKey:@"type"];
-        
-        [self.dataSource addObject:shoppingDic];
-    }
-    
-    NSMutableDictionary *hotelDic = [[NSMutableDictionary alloc] init];
-    
-    [hotelDic setObject:@"酒店" forKey:@"typeDesc"];
-    NSMutableArray *hotels = [[NSMutableArray alloc] init];
-    for (id dic in [json objectForKey:@"hotel"]) {
-        SuperPoi *poi = [PoiFactory poiWithPoiType:kHotelPoi andJson:dic];
-        [hotels addObject:poi];
-    }
-    if (hotels.count > 0) {
-        [hotelDic setObject:hotels forKey:@"content"];
-        [hotelDic setObject:[NSNumber numberWithInt:kHotelPoi] forKey:@"type"];
-        
-        [self.dataSource addObject:hotelDic];
-    }
-    if (self.dataSource.count>0) {
-        [self.tableView reloadData];
+    NSInteger searchCount = 0;
+    if (_searchPoiType == 0) {
+        searchCount = 5;
     } else {
-        NSString *searchStr = [NSString stringWithFormat:@"没有找到“%@”的相关结果", _keyWord];
-        [SVProgressHUD showHint:searchStr];
+        searchCount = 20;
+    }
+    
+    if (_searchPoiType == kRestaurantPoi || _searchPoiType == kShoppingPoi) {
+        _descriptionOfSerachText = nil;
+        [PoiSearchManager asyncGetDescriptionOfSearchText:_keyWord andPoiType:_searchPoiType completionBlock:^(BOOL isSuccess, NSDictionary *descriptionDic) {
+            if (isSuccess && descriptionDic) {
+                _descriptionOfSerachText = descriptionDic;
+                [self showTableViewHeader];
+                [PoiSearchManager searchPoiWithKeyword:_keyWord andSearchCount:searchCount andPoiType:_searchPoiType completionBlock:^(BOOL isSuccess, NSArray *searchResultList) {
+                    if (isSuccess) {
+                        [self.dataSource removeAllObjects];
+                        self.dataSource = [searchResultList mutableCopy];
+                        if (self.dataSource.count>0) {
+                            [self.tableView reloadData];
+                        } else {
+                            NSString *searchStr = [NSString stringWithFormat:@"没有找到“%@”的相关结果", _keyWord];
+                            [SVProgressHUD showHint:searchStr];
+                        }
+                    }
+                    [hud hideTZHUD];
+                }];
+                
+            } else {
+                [self hideTableViewHeaderView];
+            }
+        }];
+    } else {
+        [PoiSearchManager searchPoiWithKeyword:_keyWord andSearchCount:searchCount andPoiType:_searchPoiType completionBlock:^(BOOL isSuccess, NSArray *searchResultList) {
+            if (isSuccess) {
+                [self.dataSource removeAllObjects];
+                self.dataSource = [searchResultList mutableCopy];
+                if (self.dataSource.count>0) {
+                    [self.tableView reloadData];
+                } else {
+                    NSString *searchStr = [NSString stringWithFormat:@"没有找到“%@”的相关结果", _keyWord];
+                    [SVProgressHUD showHint:searchStr];
+                }
+            }
+            [hud hideTZHUD];
+        }];
     }
 }
 

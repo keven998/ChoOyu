@@ -1124,12 +1124,13 @@
  *
  *  @param moreView
  */
-- (void)moreViewDestinationAction:(DXChatBarMoreView *)moreView
+- (void)moreViewDestinationAction:(DXChatBarMoreView *)moreView poiType:(TZPoiType)poiType
 {
     [MobClick event:@"chat_item_lxpsearch"];
 
     SearchDestinationViewController *searchCtl = [[SearchDestinationViewController alloc] init];
     searchCtl.isCanSend = YES;
+    searchCtl.searchPoiType = poiType;
     searchCtl.chatterId = _chatter;
     searchCtl.chatType = _chatType;
     UINavigationController *tznavc = [[UINavigationController alloc] initWithRootViewController:searchCtl];

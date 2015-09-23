@@ -17,9 +17,9 @@
         if ([[[json objectForKey:@"image"] firstObject] objectForKey:@"caption"] != [NSNull null]) {
             _imageDesc = [[[json objectForKey:@"image"] firstObject] objectForKey:@"caption"];
         }
-        _imageUrl = [[[json objectForKey:@"image"] firstObject] objectForKey:@"url"];
-        if ([[[json objectForKey:@"image"] firstObject] objectForKey:@"smallUrl"]) {
-            _smallImageUrl = [[[json objectForKey:@"image"] firstObject] objectForKey:@"smallUrl"];
+        _imageUrl = [[[json objectForKey:@"image"] firstObject] objectForKey:@"full"];
+        if ([[[json objectForKey:@"image"] firstObject] objectForKey:@"thumb"]) {
+            _smallImageUrl = [[[json objectForKey:@"image"] firstObject] objectForKey:@"thumb"];
         } else {
             _smallImageUrl = _imageUrl;
         }

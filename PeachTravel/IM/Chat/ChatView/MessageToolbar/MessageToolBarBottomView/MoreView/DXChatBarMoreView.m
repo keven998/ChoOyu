@@ -182,10 +182,24 @@
     }
 }
 
-- (void)destinationAction
+- (void)restaurantAction
 {
-    if(_delegate && [_delegate respondsToSelector:@selector(moreViewDestinationAction:)]){
-        [_delegate moreViewDestinationAction:self];
+    if(_delegate && [_delegate respondsToSelector:@selector(moreViewDestinationAction: poiType:)]){
+        [_delegate moreViewDestinationAction:self poiType:kRestaurantPoi];
+    }
+}
+
+- (void)shoppingAction
+{
+    if(_delegate && [_delegate respondsToSelector:@selector(moreViewDestinationAction: poiType:)]){
+        [_delegate moreViewDestinationAction:self poiType:kShoppingPoi];
+    }
+}
+
+- (void)viewSpotAction
+{
+    if(_delegate && [_delegate respondsToSelector:@selector(moreViewDestinationAction: poiType:)]){
+        [_delegate moreViewDestinationAction:self poiType:kSpotPoi];
     }
 }
 

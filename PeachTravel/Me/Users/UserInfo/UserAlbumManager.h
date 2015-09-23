@@ -16,4 +16,6 @@
 
 + (void)asyncLoadUserAlbum:(NSInteger)userId completion:(void (^)(BOOL isSuccess, NSArray *albumList))completion;
 
++ (void)asyncUpdateUserAlbumCaption:(NSString *)caption withImageId:(NSString *)imageId completion:(void (^)(BOOL isSuccess))completion;
+
 @end

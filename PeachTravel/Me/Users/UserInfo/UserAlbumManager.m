@@ -91,14 +91,21 @@
     
     [upManager putData:data key:key token:uploadToken
               complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
-                  AlbumImageModel *image = [[AlbumImageModel alloc] init];
-                  image.imageId = [resp objectForKey:@"id"];
-                  image.imageUrl = [resp objectForKey:@"url"];
-                  image.smallImageUrl = [resp objectForKey:@"urlSmall"];
-                  image.imageDesc = [resp objectForKey:@"caption"];
-                  dispatch_async(dispatch_get_main_queue(), ^{
-                      completionBlock(YES, image);
-                  });
+                  if (resp) {
+                      AlbumImageModel *image = [[AlbumImageModel alloc] init];
+                      image.imageId = [resp objectForKey:@"id"];
+                      image.imageUrl = [resp objectForKey:@"url"];
+                      image.smallImageUrl = [resp objectForKey:@"urlSmall"];
+                      image.imageDesc = [resp objectForKey:@"caption"];
+                      dispatch_async(dispatch_get_main_queue(), ^{
+                          completionBlock(YES, image);
+                      });
+                  } else {
+                      dispatch_async(dispatch_get_main_queue(), ^{
+                          completionBlock(NO, nil);
+                      });
+                  }
+                
 
               } option:opt];
     
@@ -173,6 +180,40 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         completion(NO,nil);
     }];
+}
+
++ (void)asyncUpdateUserAlbumCaption:(NSString *)caption withImageId:(NSString *)imageId completion:(void (^)(BOOL))completion
+{
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@%ld/albums/%@", API_USERS, accountManager.account.userId, imageId];
+    
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic safeSetObject:caption forKey:@"caption"];
+    
+    [manager PUT:url parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            completion(YES);
+        } else {
+            completion(NO);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completion(NO);
+    }];
+
 }
 
 

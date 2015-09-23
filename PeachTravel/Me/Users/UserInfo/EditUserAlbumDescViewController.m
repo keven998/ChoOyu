@@ -7,11 +7,13 @@
 //
 
 #import "EditUserAlbumDescViewController.h"
+#import "UserAlbumManager.h"
 
-@interface EditUserAlbumDescViewController ()
+@interface EditUserAlbumDescViewController () <UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UITextView *descTextView;
+@property (nonatomic, strong) UIButton *saveBtn;
 
 @end
 
@@ -24,16 +26,18 @@
     UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [backBtn setTitle:@"取消" forState:UIControlStateNormal];
     [backBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
-    [backBtn addTarget:self action:@selector(dismissCtl) forControlEvents:UIControlEventTouchUpInside];
+    [backBtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
     
-    UIButton *saveBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    [saveBtn setTitle:@"保存" forState:UIControlStateNormal];
-    [saveBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
-    [saveBtn addTarget:self action:@selector(saveChange) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:saveBtn];
+    _saveBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [_saveBtn setTitle:@"保存" forState:UIControlStateNormal];
+    [_saveBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
+    [_saveBtn setTitleColor:COLOR_TEXT_III forState:UIControlStateDisabled];
+    [_saveBtn addTarget:self action:@selector(saveChange) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_saveBtn];
     
     [_imageView sd_setImageWithURL:[NSURL URLWithString:_albumImage.smallImageUrl]];
+    _descTextView.delegate = self;
     _descTextView.text = _albumImage.imageDesc;
     [_descTextView becomeFirstResponder];
 
@@ -43,23 +47,42 @@
     [super didReceiveMemoryWarning];
 }
 
-- (void)dismissCtl
+- (void)goBack
 {
     if ([_descTextView.text isEqualToString:_albumImage.imageDesc]) {
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [self dismissCtl];
+        
     } else {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"确定放弃编辑？" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [alert showAlertViewWithBlock:^(NSInteger buttonIndex) {
             if (buttonIndex == 1) {
-                [self dismissViewControllerAnimated:YES completion:nil];
+                [self dismissCtl];
             }
         }];
     }
 }
 
+- (void)dismissCtl
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+
+}
+
 - (void)saveChange
 {
-    
+    if ([_albumImage.imageDesc isEqualToString:_descTextView.text]) {
+        [self dismissCtl];
+        return;
+    }
+    [UserAlbumManager asyncUpdateUserAlbumCaption:_descTextView.text withImageId:_albumImage.imageId completion:^(BOOL isSuccess) {
+        if (isSuccess) {
+            _albumImage.imageDesc = _descTextView.text;
+            [SVProgressHUD showHint:@"修改成功"];
+            [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.5];
+        } else {
+            [SVProgressHUD showHint:@"修改失败"];
+        }
+    }];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
@@ -67,14 +90,14 @@
     [self.view endEditing:YES];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark - UITextViewDelegate
+- (void)textViewDidChange:(UITextView *)textView
+{
+    if ([textView.text isBlankString]) {
+        _saveBtn.enabled = NO;
+    } else {
+        _saveBtn.enabled = YES;
+    }
 }
-*/
 
 @end

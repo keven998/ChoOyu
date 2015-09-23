@@ -137,7 +137,9 @@ static NSString * const reuseIdentifier = @"uploadPhotoCell";
 
 - (void)uploadCompletion:(BOOL)isSuccess albumImage:(AlbumImageModel *)albumImage itemIndex:(NSInteger)index
 {
-    [[AccountManager shareAccountManager].account.userAlbum insertObject:albumImage atIndex:0];
+    if (isSuccess) {
+        [[AccountManager shareAccountManager].account.userAlbum insertObject:albumImage atIndex:0];
+    }
     UploadUserAlbumCollectionViewCell *cell = (UploadUserAlbumCollectionViewCell *)[_containterView.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0]];
     UploadUserAlbumStatus *status = [_userAlbumUploadStatusList objectAtIndex:index];
     status.isFailure = !isSuccess;
