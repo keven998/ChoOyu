@@ -398,6 +398,7 @@ static NSString *reusableCell = @"myGuidesCell";
             if (pageIndex == 0) {
                 [self.dataSource removeAllObjects];
             }
+            NSLog(@"--------- %@",url);
             _currentPage = pageIndex;
             [self bindDataToView:responseObject];
             if (pageIndex == 0 || self.dataSource.count < 2*PAGE_COUNT) {
