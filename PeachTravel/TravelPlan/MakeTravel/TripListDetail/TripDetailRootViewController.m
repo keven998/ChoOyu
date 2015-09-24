@@ -30,6 +30,8 @@
 #import "TZNavigationViewController.h"
 #import "LoginViewController.h"
 #import "CMPopTipView.h"
+#import "MapMarkMenuVC.h"
+#import "REFrostedViewController.h"
 
 @interface TripDetailRootViewController () <ActivityDelegate, TaoziMessageSendDelegate, ChatRecordListDelegate, CreateConversationDelegate, UIActionSheetDelegate, REFrostedViewControllerDelegate>
 
@@ -275,10 +277,12 @@
 }
 
 - (void)mapView {
+    
     [MobClick event:@"navigation_item_lxp_plan_mapview"];
     MyTripSpotsMapViewController *mapViewCtl = [[MyTripSpotsMapViewController alloc] init];
     mapViewCtl.tripDetail = _tripDetail;
     mapViewCtl.titleText = self.frostedViewController.navigationItem.title;
+
     [self.frostedViewController.navigationController pushViewController:mapViewCtl animated:YES];
     
 }
