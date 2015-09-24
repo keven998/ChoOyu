@@ -56,7 +56,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     PoiRecommendTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"poiRecommendCell" forIndexPath:indexPath];
-    cell.textLabel.text = @"登上了看风景圣诞快乐发觉上断开连接";
     return cell;
 }
 
