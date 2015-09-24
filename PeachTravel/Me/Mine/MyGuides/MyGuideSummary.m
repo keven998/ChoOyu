@@ -10,15 +10,6 @@
 
 @implementation MyGuideSummary
 
-+ (NSArray*)guideSummarysWithArray:(NSArray*)array{
-    NSMutableArray* tempArray = [NSMutableArray array];
-    for (NSDictionary* dict in array) {
-        MyGuideSummary* model = [[MyGuideSummary alloc] initWithJson:dict];
-        [tempArray addObject:model];
-    }
-    return [tempArray copy];
-}
-
 - (id)initWithJson:(id)json
 {
     if (self = [super init]) {

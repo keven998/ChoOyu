@@ -26,6 +26,14 @@
     self.segmentedTitleFont = [UIFont systemFontOfSize:18.0];
     self.normalColor= [UIColor grayColor];
     
+    UIButton *moreBtn =  [UIButton buttonWithType:UIButtonTypeCustom];
+    [moreBtn setImage:[UIImage imageNamed:@"icon_navi_gray_more.png"] forState:UIControlStateNormal];
+    [moreBtn addTarget:self action:@selector(moreAction:)forControlEvents:UIControlEventTouchUpInside];
+    [moreBtn setFrame:CGRectMake(0, 0, 30, 30)];
+    moreBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+    UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithCustomView:moreBtn];
+    self.navigationItem.rightBarButtonItem = rightBarButton;
+    
     [super viewDidLoad];
 }
 
@@ -34,14 +42,10 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)moreAction:(id)sender
+{
+    
 }
-*/
+
 
 @end
