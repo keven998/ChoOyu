@@ -10,6 +10,9 @@
 #import "CityPoi.h"
 
 @interface CityHeaderView : UIView
+{
+    CityPoi* _cityPoi;
+}
 
 @property (nonatomic, strong) UIButton *showTipsBtn;
 @property (nonatomic, strong) UIButton *showSpotsBtn;
@@ -18,9 +21,7 @@
 @property (nonatomic, strong) UILabel *cityDesc;
 @property (nonatomic, strong) UILabel *travelMonth;
 
+
 @property (nonatomic, strong) CityPoi *cityPoi;
-
-
-
 
 @end

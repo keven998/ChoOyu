@@ -11,6 +11,10 @@
 #import "ArgumentsOfCityDetailHeaderView.h"
 #import "Constants.h"
 #import "CityDetailHeaderBtnSqure.h"
+#import "ResizableView.h"
+#import "MWPhotoBrowser.h"
+#import "CityDetailTableViewController.h"
+#import "CityImageAlbum.h"
 
 #import "CityDetailHeaderBottomView.h"
 
@@ -79,34 +83,141 @@
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    NSLog(@"%s %@",__FUNCTION__,[self class]);
+    
 }
 
 #pragma mark - delegate
 - (void)restaurantBtnAction{
-    
+    if ([self.delegate respondsToSelector:@selector(restaurantBtnAction)]) {
+        [self.delegate restaurantBtnAction];
+    }
 }
 - (void)spotBtnAction{
-    
+    if ([self.delegate respondsToSelector:@selector(spotBtnAction)]) {
+        [self.delegate spotBtnAction];
+    }
 }
 - (void)guideBtnAction{
-    
+    if ([self.delegate respondsToSelector:@selector(guideBtnAction)]) {
+        [self.delegate guideBtnAction];
+    }
 }
 - (void)shoppingBtnAction{
-    
+    if ([self.delegate respondsToSelector:@selector(shoppingBtnAction)]) {
+        [self.delegate shoppingBtnAction];
+    }
 }
 - (void)planBtnAction{
-    
+    if ([self.delegate respondsToSelector:@selector(planBtnAction)]) {
+        [self.delegate planBtnAction];
+    }
 }
 - (void)journeyBtnAction{
-    
+    if ([self.delegate respondsToSelector:@selector(journeyBtnAction)]) {
+        [self.delegate journeyBtnAction];
+    }
 }
+- (void)imageListAction{
+
+        [self performSelector:@selector(viewImage:)];
+
+}
+- (void)travelMonthAction{
+    if ([self.delegate respondsToSelector:@selector(travelMonthAction)]) {
+        [self.delegate travelMonthAction];
+    }
+}
+- (void)descriptionAction{
+    if ([self.delegate respondsToSelector:@selector(descriptionAction)]) {
+        [self.delegate descriptionAction];
+    }
+}
+
+//- (void)viewImage:(NSInteger)index
+//{
+//    [MobClick event:@"card_item_city_pictures"];
+//    
+//    MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] init];
+//    browser.titleStr = @"城市图集";
+//    for (UIView* next = [self superview]; next; next = next.superview)
+//    {
+//        UIResponder* nextResponder = [next nextResponder];
+//        
+//        if ([nextResponder isKindOfClass:[UIViewController class]])
+//        {
+//            UIViewController *ctl = (UIViewController*)nextResponder;
+//            [self loadAlbumDataWithAlbumCtl:browser];
+//            [browser setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+//            UINavigationController *navc = [[UINavigationController alloc] initWithRootViewController:browser];
+//            [ctl presentViewController:navc animated:YES completion:nil];
+//            break;
+//        }
+//    }
+//}
+///**
+// *  获取城市的图集信息
+// */
+//- (void)loadAlbumDataWithAlbumCtl:(MWPhotoBrowser *)albumCtl
+//{
+//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//    AppUtils *utils = [[AppUtils alloc] init];
+//    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+//    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+//    
+//    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+//    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+//    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+//    
+//    NSString *requsetUrl = [NSString stringWithFormat:@"%@%@/albums", API_GET_ALBUM, _cityPoi.poiId];
+//    
+//    UIViewController *ctl;
+//    for (UIView* next = [self superview]; next; next = next.superview)
+//    {
+//        UIResponder* nextResponder = [next nextResponder];
+//        
+//        if ([nextResponder isKindOfClass:[UIViewController class]])
+//        {
+//            ctl = (UIViewController*)nextResponder;
+//            break;
+//        }
+//    }
+//    
+//    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+//    [params setObject:@0 forKey:@"page"];
+//    [params setObject:@100 forKey:@"pageSize"];
+//    NSNumber *imageWidth = [NSNumber numberWithInt:400];
+//    [params setObject:imageWidth forKey:@"imgWidth"];
+//    
+//    [manager GET:requsetUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        NSLog(@"%@", responseObject);
+//        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+//        if (code == 0) {
+//            NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+//            for (id imageDic in [[responseObject objectForKey:@"result"] objectForKey:@"album"]) {
+//                [tempArray addObject:imageDic];
+//                if (tempArray.count == 99) {
+//                    break;
+//                }
+//            }
+//            albumCtl.imageList = tempArray;
+//            
+//        } else {
+//            
+//        }
+//        
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        if (((CityDetailTableViewController *)ctl).isShowing) {
+//            [SVProgressHUD showHint:HTTP_FAILED_HINT];
+//        }
+//    }];
+//}
 
 
 #pragma mark - setter & getter
 - (TopImageView *)topView{
     if (_topView == nil) {
         _topView = [[TopImageView alloc] init];
+        [_topView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageListAction)]];
     }
     return _topView;
 }
@@ -116,6 +227,8 @@
         _bestTravelTimeLabel.font = [UIFont systemFontOfSize:DETAIL_FONT_SIZE];
         _bestTravelTimeLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
         _bestTravelTimeLabel.text = @"最佳游玩时间 · 03-05月 08-10月";
+        _bestTravelTimeLabel.userInteractionEnabled = YES;
+        [_bestTravelTimeLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(travelMonthAction)]];
     }
     return _bestTravelTimeLabel;
 }
@@ -126,6 +239,8 @@
         _descriptionLabel.textColor = TEXT_COLOR_TITLE;
         _descriptionLabel.numberOfLines = 2;
         _descriptionLabel.text = @"哔哩哔哩哔哩比巴拉巴拉巴拉巴拉巴拉巴拉哔哩哔哩哔哩比巴拉巴拉巴拉巴拉巴拉巴拉哔哩哔哩哔哩比巴拉巴拉巴拉巴拉巴拉巴拉哔哩哔哩哔哩比巴拉巴拉巴拉巴拉巴拉巴拉";
+        _descriptionLabel.userInteractionEnabled = YES;
+        [_descriptionLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(descriptionAction)]];
     }
     return _descriptionLabel;
 }
@@ -164,17 +279,13 @@
     
     if (timeCostLabelSize.height > 16) {
         NSAttributedString *more = [[NSAttributedString alloc] initWithString:@"攻略" attributes:@{NSForegroundColorAttributeName : APP_THEME_COLOR, NSFontAttributeName: [UIFont systemFontOfSize:12]}];
-        NSMutableAttributedString *attrstr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@... ", [tm substringToIndex:20]] attributes:nil];
+        NSMutableAttributedString *attrstr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"~最佳季节: %@... ", [tm substringToIndex:20]] attributes:nil];
         [attrstr appendAttributedString:more];
         self.bestTravelTimeLabel.attributedText = attrstr;
     } else {
         self.bestTravelTimeLabel.text = tm;
     }
-    
 
-    
-    
-    
     NSString *descStr = _cityPoi.desc;
     CGRect minRect = [descStr boundingRectWithSize:CGSizeMake(width-36, 12)
                                            options:NSStringDrawingUsesLineFragmentOrigin

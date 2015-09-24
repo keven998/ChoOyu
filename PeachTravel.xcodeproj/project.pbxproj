@@ -86,6 +86,9 @@
 		019BCF741BB27378007841E4 /* CityDetailHeaderFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 019BCF6C1BB27378007841E4 /* CityDetailHeaderFlowLayout.m */; settings = {ASSET_TAGS = (); }; };
 		019BCF751BB27378007841E4 /* CityDetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 019BCF6E1BB27378007841E4 /* CityDetailHeaderView.m */; settings = {ASSET_TAGS = (); }; };
 		019BCF761BB27378007841E4 /* TopImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 019BCF701BB27378007841E4 /* TopImageView.m */; settings = {ASSET_TAGS = (); }; };
+		01A5CDD01BB2A5E400A59A8A /* CallForNewFrandCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A5CDCF1BB2A5E400A59A8A /* CallForNewFrandCell.m */; settings = {ASSET_TAGS = (); }; };
+		01A5CDD21BB2A93400A59A8A /* citydetail_master_recruit@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 01A5CDD11BB2A93400A59A8A /* citydetail_master_recruit@3x.png */; settings = {ASSET_TAGS = (); }; };
+		01A5CE241BB39E3700A59A8A /* TravelPlanListForCityDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A5CE231BB39E3700A59A8A /* TravelPlanListForCityDetailVC.m */; settings = {ASSET_TAGS = (); }; };
 		01F3C7981BAA6E2300CC58F4 /* DXChatBarMoreViewAddBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F3C7971BAA6E2300CC58F4 /* DXChatBarMoreViewAddBtn.m */; };
 		01F3C79B1BAA7DC100CC58F4 /* UIColor+RandomColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F3C79A1BAA7DC100CC58F4 /* UIColor+RandomColor.m */; };
 		01F3C79F1BAA831A00CC58F4 /* DXChatBarMoreViewAddBtnCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F3C79E1BAA831A00CC58F4 /* DXChatBarMoreViewAddBtnCell.m */; };
@@ -1626,6 +1629,11 @@
 		019BCF6E1BB27378007841E4 /* CityDetailHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityDetailHeaderView.m; sourceTree = "<group>"; };
 		019BCF6F1BB27378007841E4 /* TopImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopImageView.h; sourceTree = "<group>"; };
 		019BCF701BB27378007841E4 /* TopImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopImageView.m; sourceTree = "<group>"; };
+		01A5CDCE1BB2A5E400A59A8A /* CallForNewFrandCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallForNewFrandCell.h; sourceTree = "<group>"; };
+		01A5CDCF1BB2A5E400A59A8A /* CallForNewFrandCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CallForNewFrandCell.m; sourceTree = "<group>"; };
+		01A5CDD11BB2A93400A59A8A /* citydetail_master_recruit@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "citydetail_master_recruit@3x.png"; sourceTree = "<group>"; };
+		01A5CE221BB39E3700A59A8A /* TravelPlanListForCityDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TravelPlanListForCityDetailVC.h; sourceTree = "<group>"; };
+		01A5CE231BB39E3700A59A8A /* TravelPlanListForCityDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TravelPlanListForCityDetailVC.m; sourceTree = "<group>"; };
 		01F3C7961BAA6E2300CC58F4 /* DXChatBarMoreViewAddBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DXChatBarMoreViewAddBtn.h; sourceTree = "<group>"; };
 		01F3C7971BAA6E2300CC58F4 /* DXChatBarMoreViewAddBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DXChatBarMoreViewAddBtn.m; sourceTree = "<group>"; };
 		01F3C7991BAA7DC100CC58F4 /* UIColor+RandomColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+RandomColor.h"; sourceTree = "<group>"; };
@@ -3608,6 +3616,8 @@
 			children = (
 				0115C7DB1BAFACD300631928 /* FrendListTagCell.h */,
 				0115C7DC1BAFACD300631928 /* FrendListTagCell.m */,
+				01A5CDCE1BB2A5E400A59A8A /* CallForNewFrandCell.h */,
+				01A5CDCF1BB2A5E400A59A8A /* CallForNewFrandCell.m */,
 			);
 			path = tagCell;
 			sourceTree = "<group>";
@@ -3659,6 +3669,7 @@
 		0115C9801BB103FC00631928 /* 城市详情 */ = {
 			isa = PBXGroup;
 			children = (
+				01A5CDD11BB2A93400A59A8A /* citydetail_master_recruit@3x.png */,
 				0115C9811BB103FC00631928 /* citydetail_arrow@2x.png */,
 				0115C9821BB103FC00631928 /* citydetail_arrow@3x.png */,
 				0115C9831BB103FC00631928 /* citydetail_food_hilighted@2x.png */,
@@ -3721,6 +3732,15 @@
 				019BCF701BB27378007841E4 /* TopImageView.m */,
 			);
 			path = CityDetailHeaderView;
+			sourceTree = "<group>";
+		};
+		01A5CE211BB399F100A59A8A /* TravelPlanListForCityDetail */ = {
+			isa = PBXGroup;
+			children = (
+				01A5CE221BB39E3700A59A8A /* TravelPlanListForCityDetailVC.h */,
+				01A5CE231BB39E3700A59A8A /* TravelPlanListForCityDetailVC.m */,
+			);
+			path = TravelPlanListForCityDetail;
 			sourceTree = "<group>";
 		};
 		01F3C79C1BAA82F500CC58F4 /* MoreViewCell */ = {
@@ -6344,6 +6364,7 @@
 		D9A8FF621A80D1C3005AD701 /* CityDetail */ = {
 			isa = PBXGroup;
 			children = (
+				01A5CE211BB399F100A59A8A /* TravelPlanListForCityDetail */,
 				0115C7DE1BAFC88D00631928 /* loadMoreCell */,
 				D9A8FF631A80D1C3005AD701 /* CityDetailTableViewController.h */,
 				D9A8FF641A80D1C3005AD701 /* CityDetailTableViewController.m */,
@@ -8929,6 +8950,7 @@
 				E6F18A841B845F4900232EEB /* speaking-motion13@3x.png in Resources */,
 				E67795831B95D70D004CE21A /* testpicture.png in Resources */,
 				D917DAD21A8B4A320039720A /* ic_guide3_talk3_1@2x.png in Resources */,
+				01A5CDD21BB2A93400A59A8A /* citydetail_master_recruit@3x.png in Resources */,
 				E6F189F01B845F4900232EEB /* trip_add_day@3x.png in Resources */,
 				0115C9CD1BB103FC00631928 /* citydetail_write_journey_hilighted@2x.png in Resources */,
 				D95663A21BAFFB94006B2765 /* EditUserAlbumDescViewController.xib in Resources */,
@@ -9223,6 +9245,7 @@
 				D9A802DE1A80E3D3005AD701 /* EAIntroPage.m in Sources */,
 				D9A8FFAB1A80D1C3005AD701 /* PoiDetailSuperViewController.m in Sources */,
 				D9A8006D1A80DD0C005AD701 /* FrendRequestTableViewCell.m in Sources */,
+				01A5CDD01BB2A5E400A59A8A /* CallForNewFrandCell.m in Sources */,
 				E690D8D21B7CB71B00BFDF1B /* MakePlanViewController.m in Sources */,
 				E68CB1DC1B9E7B0000A5B38B /* OtherProfileViewController.m in Sources */,
 				D9A8002D1A80D52F005AD701 /* AddPoiViewController.m in Sources */,
@@ -9249,6 +9272,7 @@
 				0115C7C61BAD53A100631928 /* TZFrendListVC.m in Sources */,
 				D9A3BCAB1BB0FF3C008C1038 /* PoiSearchManager.m in Sources */,
 				D91061D41BA93D6E00C4FBCB /* UserAlbumOverviewCell.m in Sources */,
+				01A5CE241BB39E3700A59A8A /* TravelPlanListForCityDetailVC.m in Sources */,
 				D944189B1BAFAA9F0091FC0B /* AlbumImageModel.m in Sources */,
 				D9A802E81A80E3D3005AD701 /* TZSegmentedViewController.m in Sources */,
 				D9A802261A80E036005AD701 /* NJKWebViewProgressView.m in Sources */,

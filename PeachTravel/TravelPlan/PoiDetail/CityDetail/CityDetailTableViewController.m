@@ -28,10 +28,13 @@
 #import "CityDetailLoadMoreCell.h"
 #import "TZFrendListCellForArea.h"
 #import "CityDetailHeaderView.h"
+#import "CallForNewFrandCell.h"
+#import "ExpertRequestViewController.h"
+#import "TravelPlanListForCityDetailVC.h"
 
 #define CITY_DETAIL_LOAD_MORE_CELL @"CITY_DETAIL_LOAD_MORE_CELL"
 
-@interface CityDetailTableViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface CityDetailTableViewController () <UITableViewDataSource, UITableViewDelegate,CityDetailHeaderViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) CityDetailHeaderView *cityHeaderView;
@@ -106,7 +109,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[table]-0-|" options:0 metrics:nil views:@{@"table":self.tableView}]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-64-[table]-0-|" options:0 metrics:nil views:@{@"table":self.tableView}]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-64-[table]-46-|" options:0 metrics:nil views:@{@"table":self.tableView}]];
     
     
 //    [_cityHeaderView.showSpotsBtn addTarget:self action:@selector(viewSpots:) forControlEvents:UIControlEventTouchUpInside];
@@ -125,6 +128,35 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 //    _tableView.tableHeaderView = _cityHeaderView;
 //    _tableView.tableFooterView
     [self setUpToolbarView];
+}
+
+- (void)restaurantBtnAction{
+    [self viewRestaurants:nil];
+}
+- (void)spotBtnAction{
+    [self viewSpots:nil];
+}
+- (void)guideBtnAction{
+    [self play:nil];
+}
+- (void)shoppingBtnAction{
+    [self viewShopping:nil];
+}
+- (void)planBtnAction{
+    TravelPlanListForCityDetailVC* planList = [[TravelPlanListForCityDetailVC alloc] init];
+    [self.navigationController pushViewController:planList animated:YES];
+}
+- (void)journeyBtnAction{
+    [self showMoreTravelNote:nil];
+}
+- (void)imageListAction{
+    
+}
+- (void)travelMonthAction{
+    [self showCityTravelMonth:nil];
+}
+- (void)descriptionAction{
+    [self showCityDetail:nil];
 }
 
 - (void)updateTravelNoteTableView
@@ -311,8 +343,9 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
         _tableView.showsVerticalScrollIndicator = NO;
         [_tableView registerClass:[TZFrendListCell class] forCellReuseIdentifier:reuseIdentifier];
         [_tableView registerClass:[CityDetailLoadMoreCell class] forCellReuseIdentifier:CITY_DETAIL_LOAD_MORE_CELL];
+        [_tableView registerClass:[CallForNewFrandCell class] forCellReuseIdentifier:@"callforcell"];
 
-//        _tableView.
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     return _tableView;
 }
@@ -404,7 +437,6 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 /**
  *  当加载完城市详情后开始加载城市的攻略内容
  */
-
 - (void)loadTravelNoteOfCityData
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -532,13 +564,13 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
  */
 - (IBAction)showMoreTravelNote:(id)sender
 {
-    TZFrendListVC *travelListCtl = [[TZFrendListVC alloc] init];
-//    TravelNoteListViewController *travelListCtl = [[TravelNoteListViewController alloc] init];
+    TravelNoteListViewController *travelListCtl = [[TravelNoteListViewController alloc] init];
     travelListCtl.isSearch = NO;
     travelListCtl.cityId = ((CityPoi *)self.poi).poiId;
     travelListCtl.cityName = ((CityPoi *)self.poi).zhName;
     [self.navigationController pushViewController:travelListCtl animated:YES];
 }
+
 
 - (void)send2Frend
 {
@@ -555,6 +587,8 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 {
     if (indexPath.row == 0) {
         return 44;
+    }else if (self.expertsArray.count == 0){
+        return [UIScreen mainScreen].bounds.size.width / 1206 * 336 + 14.6;
     }
     
     return 120;
@@ -564,7 +598,9 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 //    return ((CityPoi *)self.poi).travelNotes.count;
 //    return self.expertsArray.count;
     if (self.expertsArray.count == 0) {
-        return 0;
+        return 2;
+    }else if (self.expertsArray.count < 3){
+        return self.expertsArray.count + 1;
     }
     return 4;
 }
@@ -577,13 +613,18 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
-    TZFrendListCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
-    ExpertModel* model = self.expertsArray[indexPath.row - 1];
-    cell.model = model;
-    
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    return cell;
-    
+    if (self.expertsArray.count > 0) {
+        TZFrendListCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
+        ExpertModel* model = self.expertsArray[indexPath.row - 1];
+        cell.model = model;
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell;
+    }else {
+        CallForNewFrandCell* cell = [tableView dequeueReusableCellWithIdentifier:@"callforcell" forIndexPath:indexPath];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell;
+    }
     
     //        ExpertModel* model = self.expertsArray[indexPath.row];
     //        cell.model = model;
@@ -599,10 +640,14 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 483 + 12;
 }
+//- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+//    return 46;
+//}
 
 - (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     _cityHeaderView = [[CityDetailHeaderView alloc] init];
     _cityHeaderView.cityPoi = (CityPoi *)self.poi;
+    _cityHeaderView.delegate = self;
     return _cityHeaderView;
 }
 
@@ -623,12 +668,18 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
         [self.navigationController pushViewController:frendList animated:YES];
         return;
     }
+    if (self.expertsArray.count > 0) {
+        GuiderProfileViewController *guiderCtl = [[GuiderProfileViewController alloc] init];
+        FrendModel *model = self.expertsArray[indexPath.row];
+        guiderCtl.userId = model.userId;
+        guiderCtl.shouldShowExpertTipsView = YES;
+        [self.navigationController pushViewController:guiderCtl animated:YES];
+    } else{
+        ExpertRequestViewController* expertRequestVC = [[ExpertRequestViewController alloc] init];
+        [self.navigationController pushViewController:expertRequestVC animated:YES];
+    }
     
-    GuiderProfileViewController *guiderCtl = [[GuiderProfileViewController alloc] init];
-    FrendModel *model = self.expertsArray[indexPath.row];
-    guiderCtl.userId = model.userId;
-    guiderCtl.shouldShowExpertTipsView = YES;
-    [self.navigationController pushViewController:guiderCtl animated:YES];
+    
 }
 
 #pragma mark - IBAction
