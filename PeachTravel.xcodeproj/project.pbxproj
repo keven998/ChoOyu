@@ -111,6 +111,7 @@
 		01A5CEEA1BB3DDC200A59A8A /* mapMark_point_line_white@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 01A5CED61BB3DDC200A59A8A /* mapMark_point_line_white@3x.png */; settings = {ASSET_TAGS = (); }; };
 		01F03DAC1BB400C7005DD792 /* MapMarkMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F03DA91BB400C7005DD792 /* MapMarkMenuCell.m */; settings = {ASSET_TAGS = (); }; };
 		01F03DAD1BB400C7005DD792 /* MapMarkMenuVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F03DAB1BB400C7005DD792 /* MapMarkMenuVC.m */; settings = {ASSET_TAGS = (); }; };
+		01F03DB01BB40B57005DD792 /* MapViewSetLocationBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F03DAF1BB40B57005DD792 /* MapViewSetLocationBtn.m */; settings = {ASSET_TAGS = (); }; };
 		01F3C7981BAA6E2300CC58F4 /* DXChatBarMoreViewAddBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F3C7971BAA6E2300CC58F4 /* DXChatBarMoreViewAddBtn.m */; };
 		01F3C79B1BAA7DC100CC58F4 /* UIColor+RandomColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F3C79A1BAA7DC100CC58F4 /* UIColor+RandomColor.m */; };
 		01F3C79F1BAA831A00CC58F4 /* DXChatBarMoreViewAddBtnCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F3C79E1BAA831A00CC58F4 /* DXChatBarMoreViewAddBtnCell.m */; };
@@ -1685,6 +1686,8 @@
 		01F03DA91BB400C7005DD792 /* MapMarkMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapMarkMenuCell.m; sourceTree = "<group>"; };
 		01F03DAA1BB400C7005DD792 /* MapMarkMenuVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapMarkMenuVC.h; sourceTree = "<group>"; };
 		01F03DAB1BB400C7005DD792 /* MapMarkMenuVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapMarkMenuVC.m; sourceTree = "<group>"; };
+		01F03DAE1BB40B57005DD792 /* MapViewSetLocationBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewSetLocationBtn.h; sourceTree = "<group>"; };
+		01F03DAF1BB40B57005DD792 /* MapViewSetLocationBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewSetLocationBtn.m; sourceTree = "<group>"; };
 		01F3C7961BAA6E2300CC58F4 /* DXChatBarMoreViewAddBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DXChatBarMoreViewAddBtn.h; sourceTree = "<group>"; };
 		01F3C7971BAA6E2300CC58F4 /* DXChatBarMoreViewAddBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DXChatBarMoreViewAddBtn.m; sourceTree = "<group>"; };
 		01F3C7991BAA7DC100CC58F4 /* UIColor+RandomColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+RandomColor.h"; sourceTree = "<group>"; };
@@ -5781,6 +5784,8 @@
 				01F03DA71BB400C7005DD792 /* mapMarkMenu */,
 				D9A801BF1A80E036005AD701 /* MyTripSpotsMapViewController.h */,
 				D9A801C01A80E036005AD701 /* MyTripSpotsMapViewController.m */,
+				01F03DAE1BB40B57005DD792 /* MapViewSetLocationBtn.h */,
+				01F03DAF1BB40B57005DD792 /* MapViewSetLocationBtn.m */,
 				D9A801C11A80E036005AD701 /* PositionBean */,
 			);
 			path = MyTripSpotsMapViewController;
@@ -9322,6 +9327,7 @@
 				D92CA0B61AD8BDD400F244FF /* DACircularProgressView.m in Sources */,
 				D9A802B01A80E3D3005AD701 /* NSDate+Category.m in Sources */,
 				E66E6CDC1B5A26BF00CBF65F /* UIImage+Extension.m in Sources */,
+				01F03DB01BB40B57005DD792 /* MapViewSetLocationBtn.m in Sources */,
 				D9A802221A80E036005AD701 /* MJPhotoView.m in Sources */,
 				019BCF731BB27378007841E4 /* CityDetailHeaderCircleBtnCell.m in Sources */,
 				E67795351B942314004CE21A /* BaseProfileViewController.m in Sources */,

@@ -11,9 +11,10 @@
 #import "TZButton.h"
 #import "MapMarkMenuVC.h"
 #import "AppDelegate.h"
+#import "MapViewSetLocationBtn.h"
 #import <MapKit/MapKit.h>
 
-@interface MyTripSpotsMapViewController () <MKMapViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, MapMarkMenuVCDelegate>
+@interface MyTripSpotsMapViewController () <MKMapViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, MapMarkMenuVCDelegate,CLLocationManagerDelegate>
 
 @property (nonatomic, strong) MKMapView *mapView;
 @property (nonatomic, strong) UILabel *currentDayLabel;
@@ -21,6 +22,8 @@
 @property (nonatomic, assign) NSUInteger positionCount;      //记录是第几个
 @property (nonatomic, strong) MKPolyline *line;
 @property (nonatomic, strong) NSArray *pois;
+@property (nonatomic, strong) MapViewSetLocationBtn* locationBtn;
+@property (nonatomic, strong) CLLocationManager* locationManager;
 
 @property (nonatomic, strong) UIView* menuView;
 @property (nonatomic, strong) UICollectionView *selectPanel;
@@ -68,6 +71,9 @@
     [self showMapPin];
 
     [self setupSelectPanel];
+    
+    [self.view addSubview:self.locationBtn];
+    self.locationBtn.frame = CGRectMake(-3, [UIScreen mainScreen].bounds.size.height / 3 * 2, 30, 70);
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -78,6 +84,27 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [MobClick endLogPageView:@"page_plan_map_view"];
     [super viewWillDisappear:animated];
+}
+
+- (void)setLocationOfself{
+    if (self.locationManager == nil) {
+        self.locationManager = [CLLocationManager new];
+        self.locationManager.delegate = self;
+        if ([UIDevice currentDevice].systemVersion.floatValue >= 8.0) {
+            [self.locationManager requestWhenInUseAuthorization];
+//            self.locationManager.allowsBackgroundLocationUpdates = YES;
+        }
+    }
+    
+    [self.locationManager startUpdatingLocation];
+}
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    CLLocation *location = [locations lastObject];
+    
+    NSLog(@"latitude纬度: %f, longitude经度: %f",location.coordinate.latitude, location.coordinate.longitude);
+    [self.locationManager stopUpdatingLocation];
+    [self.mapView setCenterCoordinate:location.coordinate animated:YES];
 }
 
 - (void) setupSelectPanel {
@@ -320,6 +347,13 @@ calloutAccessoryControlTapped:(UIControl *)control{
     lineView.lineWidth = 2;
     return lineView;
 }
+- (MapViewSetLocationBtn *)locationBtn{
+    if (_locationBtn == nil) {
+        _locationBtn = [[MapViewSetLocationBtn alloc] init];
+        [_locationBtn addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(setLocationOfself)]];
+    }
+    return _locationBtn;
+}
 
 @end
 
@@ -338,6 +372,7 @@ calloutAccessoryControlTapped:(UIControl *)control{
     }
     return self;
 }
+
 
 @end
 

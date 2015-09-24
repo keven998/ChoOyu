@@ -53,9 +53,9 @@
 - (void)didMoveToSuperview{
     [super didMoveToSuperview];
     [UIView animateWithDuration:0.25 animations:^{
-                self.maskView.alpha = 0.3;
-                self.animatedConstraint.constant = 0;
-                [self layoutIfNeeded];
+        self.maskView.alpha = 0.3;
+        self.animatedConstraint.constant = 0;
+        [self layoutIfNeeded];
     }];
 }
 
