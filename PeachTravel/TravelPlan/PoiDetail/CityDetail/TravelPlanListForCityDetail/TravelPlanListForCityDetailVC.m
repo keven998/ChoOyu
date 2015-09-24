@@ -96,7 +96,7 @@
     return 136;
 }
 
-- (void)loadTravelList{
+- (void)loadTravelList {
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AppUtils *utils = [[AppUtils alloc] init];
@@ -116,7 +116,6 @@
         if (code == 0) {
             NSLog(@"%@",url);
             NSLog(@"%@",responseObject);
-            self.travelPlanArray = [MyGuideSummary guideSummarysWithArray:[responseObject objectForKey:@"result"]];
             [self.tableView reloadData];
             
         } else {
