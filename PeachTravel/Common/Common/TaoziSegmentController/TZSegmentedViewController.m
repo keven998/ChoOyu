@@ -38,7 +38,7 @@
     NSDictionary *normolDic = [NSDictionary dictionaryWithObjectsAndKeys:TEXT_COLOR_TITLE_SUBTITLE,NSForegroundColorAttributeName,nil];
     [segControl setTitleTextAttributes:normolDic forState:UIControlStateNormal];
     
-    NSDictionary *selectedDic = [NSDictionary dictionaryWithObjectsAndKeys:APP_THEME_COLOR,NSForegroundColorAttributeName,nil];
+    NSDictionary *selectedDic = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,nil];
     [segControl setTitleTextAttributes:selectedDic forState:UIControlStateSelected];
     
     CGFloat screenW = [UIScreen mainScreen].bounds.size.width;
@@ -46,6 +46,7 @@
     segControl.frame = CGRectMake(segControlX, 10, 136, 28);
     segControl.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     segControl.selectedSegmentIndex = 0;
+    segControl.tintColor = APP_THEME_COLOR;
     segControl.backgroundColor = APP_PAGE_COLOR;
     [bgView addSubview:segControl];
     self.view.backgroundColor = [UIColor whiteColor];
