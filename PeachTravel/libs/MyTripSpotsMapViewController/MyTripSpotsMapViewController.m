@@ -104,7 +104,11 @@
     
     NSLog(@"latitude纬度: %f, longitude经度: %f",location.coordinate.latitude, location.coordinate.longitude);
     [self.locationManager stopUpdatingLocation];
-    [self.mapView setCenterCoordinate:location.coordinate animated:YES];
+//    [self.mapView setCenterCoordinate:location.coordinate animated:YES];
+    MKCoordinateRegion regin = (MKCoordinateRegion){self.mapView.userLocation.coordinate,{0.05,0.05}};
+    [self.mapView setRegion:regin animated:YES];
+    
+    self.mapView.showsUserLocation = YES;
 }
 
 - (void) setupSelectPanel {
