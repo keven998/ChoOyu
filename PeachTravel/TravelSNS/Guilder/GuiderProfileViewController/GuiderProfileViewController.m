@@ -261,7 +261,7 @@
         return cell;
     } else if (indexPath.section == 1) {
         GuiderProfileAlbumCell *albumCell = [[GuiderProfileAlbumCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-        albumCell.albumArray = self.userInfo.userAlbum;
+        albumCell.albumArray = [self.userInfo.userAlbum mutableCopy];
         albumCell.selectionStyle = UITableViewCellSelectionStyleNone;
         return albumCell;
     } else if (indexPath.section == 2) {

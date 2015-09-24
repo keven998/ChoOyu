@@ -24,6 +24,11 @@
     [super viewDidLoad];
     [self.view addSubview:self.collectionView];
     [self loadHotSearchWithPoiType:0];
+    NSArray * recentResult = [[TMCache sharedCache] objectForKey:[self destinationCacheKey]];
+    if (recentResult) {
+        self.collectionArray[0] = recentResult;
+    }
+    [self.collectionView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -133,15 +138,12 @@
 
 - (void)setupCollectionDataSourceWithHotSearchResult:(NSArray *)hotSearchResult
 {
-    NSArray * recentResult = [[TMCache sharedCache] objectForKey:[self destinationCacheKey]];
-    if (recentResult) {
-        self.collectionArray[0] = recentResult;
-    }
     if (hotSearchResult) {
         self.collectionArray[1] = hotSearchResult;
     }
     [self.collectionView reloadData];
 }
+
 
 #pragma mark - 实现UICollectionView的数据源以及代理方法
 

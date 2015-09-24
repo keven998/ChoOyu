@@ -534,6 +534,7 @@
     }
     
     REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:chatController menuViewController:menuViewController];
+    
     if (conversation.chatType == IMChatTypeIMChatGroupType || conversation.chatType == IMChatTypeIMChatDiscussionGroupType) {
         ((ChatGroupSettingViewController *)menuViewController).containerCtl = frostedViewController;
     } else {

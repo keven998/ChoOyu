@@ -435,6 +435,8 @@
 		D9687CA21AC4095500B1C88E /* FootprintMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9687CA01AC4095500B1C88E /* FootprintMapViewController.m */; };
 		D9687CA31AC4095500B1C88E /* FootprintMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9687CA11AC4095500B1C88E /* FootprintMapViewController.xib */; };
 		D9687CA61AC409AB00B1C88E /* FootPrintViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9687CA51AC409AB00B1C88E /* FootPrintViewController.m */; };
+		D96EA95E1BB3916300360ED8 /* PoiRecommendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D96EA95C1BB3916300360ED8 /* PoiRecommendTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
+		D96EA95F1BB3916300360ED8 /* PoiRecommendTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D96EA95D1BB3916300360ED8 /* PoiRecommendTableViewCell.xib */; settings = {ASSET_TAGS = (); }; };
 		D971E26B1B8AF034007E5AFD /* MyGuidesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D971E2691B8AF034007E5AFD /* MyGuidesTableViewCell.m */; };
 		D971E26C1B8AF034007E5AFD /* MyGuidesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D971E26A1B8AF034007E5AFD /* MyGuidesTableViewCell.xib */; };
 		D971E27A1B8AF27A007E5AFD /* plan_bg_page_default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D971E26D1B8AF27A007E5AFD /* plan_bg_page_default@2x.png */; };
@@ -2118,6 +2120,9 @@
 		D9687CA11AC4095500B1C88E /* FootprintMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FootprintMapViewController.xib; path = ../UserInfo/FootprintMapViewController.xib; sourceTree = "<group>"; };
 		D9687CA41AC409AB00B1C88E /* FootPrintViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FootPrintViewController.h; path = ../UserInfo/FootPrintViewController.h; sourceTree = "<group>"; };
 		D9687CA51AC409AB00B1C88E /* FootPrintViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FootPrintViewController.m; path = ../UserInfo/FootPrintViewController.m; sourceTree = "<group>"; };
+		D96EA95B1BB3916300360ED8 /* PoiRecommendTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoiRecommendTableViewCell.h; sourceTree = "<group>"; };
+		D96EA95C1BB3916300360ED8 /* PoiRecommendTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoiRecommendTableViewCell.m; sourceTree = "<group>"; };
+		D96EA95D1BB3916300360ED8 /* PoiRecommendTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PoiRecommendTableViewCell.xib; sourceTree = "<group>"; };
 		D971E2681B8AF034007E5AFD /* MyGuidesTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGuidesTableViewCell.h; sourceTree = "<group>"; };
 		D971E2691B8AF034007E5AFD /* MyGuidesTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGuidesTableViewCell.m; sourceTree = "<group>"; };
 		D971E26A1B8AF034007E5AFD /* MyGuidesTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyGuidesTableViewCell.xib; sourceTree = "<group>"; };
@@ -3857,7 +3862,7 @@
 		C651F3EC1B394C3400B80690 /* Guider */ = {
 			isa = PBXGroup;
 			children = (
-				D971E2D01B9437F3007E5AFD /* Manager */,
+				D971E2D01B9437F3007E5AFD /* ExpertManager */,
 				E608A1431B8FFBA0003BA318 /* GuiderProfileView */,
 				E608A1391B8F697A003BA318 /* GuiderProfileViewController */,
 				C651F3ED1B394C7400B80690 /* GuiderCollectionViewController */,
@@ -4195,6 +4200,9 @@
 				D91529701BB245CF002D1F51 /* DomesticPoiRecommendViewController.m */,
 				D91529721BB245E5002D1F51 /* ForeignPoiRecommendViewController.h */,
 				D91529731BB245E5002D1F51 /* ForeignPoiRecommendViewController.m */,
+				D96EA95B1BB3916300360ED8 /* PoiRecommendTableViewCell.h */,
+				D96EA95C1BB3916300360ED8 /* PoiRecommendTableViewCell.m */,
+				D96EA95D1BB3916300360ED8 /* PoiRecommendTableViewCell.xib */,
 			);
 			path = PoiRecommend;
 			sourceTree = "<group>";
@@ -4564,13 +4572,13 @@
 			path = Me/Setting/ExpertRequest;
 			sourceTree = "<group>";
 		};
-		D971E2D01B9437F3007E5AFD /* Manager */ = {
+		D971E2D01B9437F3007E5AFD /* ExpertManager */ = {
 			isa = PBXGroup;
 			children = (
 				D971E2E21B94835D007E5AFD /* ExpertManager.h */,
 				D971E2E31B94835D007E5AFD /* ExpertManager.m */,
 			);
-			name = Manager;
+			name = ExpertManager;
 			sourceTree = "<group>";
 		};
 		D971E2ED1B957A90007E5AFD /* FormatCheck */ = {
@@ -5038,13 +5046,13 @@
 		D99D8EC719C8600C0021C25B /* PeachTravel */ = {
 			isa = PBXGroup;
 			children = (
-				D915296A1BB24437002D1F51 /* PoiRecommend */,
 				E6F186CF1B845F4800232EEB /* resource */,
 				D993CB511AB6C6E50075314E /* POI */,
 				D9A8023C1A80E3D3005AD701 /* Common */,
 				D9A8016B1A80E036005AD701 /* libs */,
 				D90F356819F6321B00E26FA9 /* IM */,
 				C608ED631A2C4D5E00B76934 /* HomeViewController */,
+				D915296A1BB24437002D1F51 /* PoiRecommend */,
 				D9A5939119E3DA8E004A6072 /* TravelPlan */,
 				D9A5939219E3DA9D004A6072 /* ToolBox */,
 				C65DB7BD1AD4DD3500F51443 /* TravelSNS */,
@@ -9025,6 +9033,7 @@
 				D9A8FF101A80CC2B005AD701 /* ChangePasswordViewController.xib in Resources */,
 				E6F18A091B845F4900232EEB /* map_icon_18@2x.png in Resources */,
 				D942C1481B9EB5C3005B81C5 /* icon_userAlbum_placeholder@3x.png in Resources */,
+				D96EA95F1BB3916300360ED8 /* PoiRecommendTableViewCell.xib in Resources */,
 				E6F189831B845F4900232EEB /* poi_button_traffic_disable@2x.png in Resources */,
 				E6F18A0C1B845F4900232EEB /* map_icon_19@3x.png in Resources */,
 				E6F18ADA1B845F4900232EEB /* ReceiverImageNodeBorder_black@3x.png in Resources */,
@@ -9322,6 +9331,7 @@
 				D9A8FF131A80CC2B005AD701 /* LoginViewController.m in Sources */,
 				D92CA1331AD8BEB400F244FF /* MWGridViewController.m in Sources */,
 				D9A8FECA1A80C818005AD701 /* MyGuideSummary.m in Sources */,
+				D96EA95E1BB3916300360ED8 /* PoiRecommendTableViewCell.m in Sources */,
 				D9A8FF0F1A80CC2B005AD701 /* ChangePasswordViewController.m in Sources */,
 				D993CB5D1AB6D64B0075314E /* ShoppingPoi.m in Sources */,
 				D993C23A1B12DF0C0088D568 /* AudioDeviceManager.swift in Sources */,
