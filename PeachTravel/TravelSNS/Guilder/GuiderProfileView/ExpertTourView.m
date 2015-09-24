@@ -31,7 +31,6 @@
     UILabel *titleLab = [[UILabel alloc] init];
     titleLab.font = [UIFont boldSystemFontOfSize:10.0];
     titleLab.textColor = UIColorFromRGB(0x323232);
-    titleLab.text = @"哈哈哈哈";
     titleLab.numberOfLines = 0;
     titleLab.textAlignment = NSTextAlignmentCenter;
     self.titleLab = titleLab;
