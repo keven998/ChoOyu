@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface TravelPlanListForCityDetailVC : UITableViewController
-
+- (instancetype)initWithCityId:(NSString*)cityId;
 @end

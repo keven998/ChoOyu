@@ -19,5 +19,6 @@
 @property (nonatomic) NSInteger dayCount;
 @property (nonatomic, copy) NSString *status;
 - (id)initWithJson:(id)json;
++ (NSArray*)guideSummarysWithArray:(NSArray*)array;
 
 @end

@@ -38,8 +38,9 @@
 {
     _guideSummary = guideSummary;
     _countBtn.text = [NSString stringWithFormat:@"%ld天", (long)_guideSummary.dayCount];
+
     _descLabel.text = _guideSummary.summary;
-    _titleBtn.text = guideSummary.title;
+    _titleBtn.text = _guideSummary.title;
     if ([_guideSummary.status isEqualToString:@"planned"]) {
         _playedImage.hidden = YES;
     } else {
@@ -47,6 +48,8 @@
     }
     
     _timeLabel.text = [NSString stringWithFormat:@"创建：%@", _guideSummary.updateTimeStr];
+    
+    NSLog(@"%ld,%@,%@,%@,%@",_guideSummary.dayCount,_guideSummary.summary,_guideSummary.title,_guideSummary.status,_guideSummary.updateTimeStr);
 }
 
 - (void)setIsCanSend:(BOOL)isCanSend

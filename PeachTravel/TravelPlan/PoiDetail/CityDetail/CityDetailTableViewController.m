@@ -143,7 +143,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [self viewShopping:nil];
 }
 - (void)planBtnAction{
-    TravelPlanListForCityDetailVC* planList = [[TravelPlanListForCityDetailVC alloc] init];
+    TravelPlanListForCityDetailVC* planList = [[TravelPlanListForCityDetailVC alloc] initWithCityId:self.cityId];
     [self.navigationController pushViewController:planList animated:YES];
 }
 - (void)journeyBtnAction{
