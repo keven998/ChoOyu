@@ -52,6 +52,9 @@
     
     _homeViewController = [[HomeViewController alloc] init];
     self.window.rootViewController = _homeViewController;
+    
+    
+    
     [self.window makeKeyAndVisible];
     
     /** 设置友盟分享**/

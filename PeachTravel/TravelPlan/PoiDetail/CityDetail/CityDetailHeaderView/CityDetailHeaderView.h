@@ -8,11 +8,25 @@
 
 #import <UIKit/UIKit.h>
 #import "CityPoi.h"
+#import "CityHeaderView.h"
 
+@protocol CityDetailHeaderViewDelegate <NSObject>
+@required
+- (void)restaurantBtnAction;
+- (void)spotBtnAction;
+- (void)guideBtnAction;
+- (void)shoppingBtnAction;
+- (void)planBtnAction;
+- (void)journeyBtnAction;
+- (void)imageListAction;
+- (void)travelMonthAction;
+- (void)descriptionAction;
+@end
 
-@interface CityDetailHeaderView : UIView
+@interface CityDetailHeaderView : CityHeaderView
 
-@property (nonatomic, strong) CityPoi *cityPoi;
+//@property (nonatomic, strong) CityPoi *cityPoi;
+@property (nonatomic, weak) id <CityDetailHeaderViewDelegate> delegate;
 
 + (CGFloat)headerHeight;
 
