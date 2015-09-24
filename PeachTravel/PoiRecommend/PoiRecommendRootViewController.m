@@ -17,6 +17,7 @@
 @implementation PoiRecommendRootViewController
 
 - (void)viewDidLoad {
+    self.automaticallyAdjustsScrollViewInsets = NO;
     ForeignPoiRecommendViewController *foreignCtl = [[ForeignPoiRecommendViewController alloc] init];
     DomesticPoiRecommendViewController *domestic = [[DomesticPoiRecommendViewController alloc] init];
     self.viewControllers = @[domestic, foreignCtl];
