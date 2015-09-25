@@ -464,6 +464,7 @@
 		D96EA9671BB3C31C00360ED8 /* icon_navi_gray_more@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D96EA9651BB3C31C00360ED8 /* icon_navi_gray_more@3x.png */; settings = {ASSET_TAGS = (); }; };
 		D96EA96A1BB3C3E500360ED8 /* DestinationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D96EA9691BB3C3E500360ED8 /* DestinationManager.m */; settings = {ASSET_TAGS = (); }; };
 		D96EA9EC1BB3E69C00360ED8 /* TripDetailManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D96EA9EB1BB3E69C00360ED8 /* TripDetailManager.m */; settings = {ASSET_TAGS = (); }; };
+		D96EAA141BB4E55E00360ED8 /* CustomMKAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = D96EAA131BB4E55E00360ED8 /* CustomMKAnnotationView.m */; settings = {ASSET_TAGS = (); }; };
 		D971E26B1B8AF034007E5AFD /* MyGuidesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D971E2691B8AF034007E5AFD /* MyGuidesTableViewCell.m */; };
 		D971E26C1B8AF034007E5AFD /* MyGuidesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D971E26A1B8AF034007E5AFD /* MyGuidesTableViewCell.xib */; };
 		D971E27A1B8AF27A007E5AFD /* plan_bg_page_default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D971E26D1B8AF27A007E5AFD /* plan_bg_page_default@2x.png */; };
@@ -2181,6 +2182,8 @@
 		D96EA9691BB3C3E500360ED8 /* DestinationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationManager.m; sourceTree = "<group>"; };
 		D96EA9EA1BB3E69C00360ED8 /* TripDetailManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripDetailManager.h; sourceTree = "<group>"; };
 		D96EA9EB1BB3E69C00360ED8 /* TripDetailManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripDetailManager.m; sourceTree = "<group>"; };
+		D96EAA121BB4E55E00360ED8 /* CustomMKAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomMKAnnotationView.h; sourceTree = "<group>"; };
+		D96EAA131BB4E55E00360ED8 /* CustomMKAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomMKAnnotationView.m; sourceTree = "<group>"; };
 		D971E2681B8AF034007E5AFD /* MyGuidesTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGuidesTableViewCell.h; sourceTree = "<group>"; };
 		D971E2691B8AF034007E5AFD /* MyGuidesTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGuidesTableViewCell.m; sourceTree = "<group>"; };
 		D971E26A1B8AF034007E5AFD /* MyGuidesTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyGuidesTableViewCell.xib; sourceTree = "<group>"; };
@@ -5651,7 +5654,6 @@
 				D9A801911A80E036005AD701 /* JGProgressHUD */,
 				D9A801AD1A80E036005AD701 /* MJNIndexView */,
 				D9A801B01A80E036005AD701 /* MJPhotoBrowser */,
-				D9A801BE1A80E036005AD701 /* MyTripSpotsMapViewController */,
 				D9A801C41A80E036005AD701 /* NJKWebViewProgress */,
 				D9A801C91A80E036005AD701 /* pinyin */,
 				D9A801DE1A80E036005AD701 /* SwipeView */,
@@ -5787,8 +5789,11 @@
 				01F03DAE1BB40B57005DD792 /* MapViewSetLocationBtn.h */,
 				01F03DAF1BB40B57005DD792 /* MapViewSetLocationBtn.m */,
 				D9A801C11A80E036005AD701 /* PositionBean */,
+				D96EAA121BB4E55E00360ED8 /* CustomMKAnnotationView.h */,
+				D96EAA131BB4E55E00360ED8 /* CustomMKAnnotationView.m */,
 			);
-			path = MyTripSpotsMapViewController;
+			name = MyTripSpotsMapViewController;
+			path = ../../../libs/MyTripSpotsMapViewController;
 			sourceTree = "<group>";
 		};
 		D9A801C11A80E036005AD701 /* PositionBean */ = {
@@ -6665,6 +6670,7 @@
 		D9A8FFFA1A80D52F005AD701 /* TripListDetail */ = {
 			isa = PBXGroup;
 			children = (
+				D9A801BE1A80E036005AD701 /* MyTripSpotsMapViewController */,
 				D9A800131A80D52F005AD701 /* TripListCommon */,
 				D9A8FFFB1A80D52F005AD701 /* AddPoi */,
 				D9A8FFFE1A80D52F005AD701 /* DestinationsView.h */,
@@ -9221,6 +9227,7 @@
 				E608A0F11B8D8560003BA318 /* GuiderDistributeTools.m in Sources */,
 				D9A802011A80E036005AD701 /* AFgzipRequestSerializer.m in Sources */,
 				D993C24F1B12DF0C0088D568 /* IMDiscussionGroupManager.swift in Sources */,
+				D96EAA141BB4E55E00360ED8 /* CustomMKAnnotationView.m in Sources */,
 				D92CA0FA1AD8BDF900F244FF /* MBProgressHUD.m in Sources */,
 				D9A8FFB71A80D1C3005AD701 /* SpotDetailView.m in Sources */,
 				D9A801491A80DD23005AD701 /* EMChatViewCell.m in Sources */,
