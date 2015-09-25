@@ -9,6 +9,7 @@
 #import "PoiRecommendRootViewController.h"
 #import "DomesticPoiRecommendViewController.h"
 #import "ForeignPoiRecommendViewController.h"
+#import "MorePoiRecommendRootViewController.h"
 
 @interface PoiRecommendRootViewController ()
 
@@ -44,7 +45,8 @@
 
 - (void)moreAction:(id)sender
 {
-    
+    MorePoiRecommendRootViewController *ctl = [[MorePoiRecommendRootViewController alloc] init];
+    [self.navigationController pushViewController:ctl animated:YES];
 }
 
 
