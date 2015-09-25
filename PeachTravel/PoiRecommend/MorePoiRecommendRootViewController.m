@@ -17,7 +17,7 @@
 @implementation MorePoiRecommendRootViewController
 
 - (void)viewDidLoad {
-    
+    self.automaticallyAdjustsScrollViewInsets = NO;
     UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
     [button setImage:[UIImage imageNamed:@"common_icon_navigation_back_normal.png"] forState:UIControlStateNormal];
     [button setImage:[UIImage imageNamed:@"common_icon_navigation_back_hilighted.png"] forState:UIControlStateHighlighted];

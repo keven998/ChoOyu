@@ -10,6 +10,7 @@
 #import "AreaDestination.h"
 #import "DestinationCollectionHeaderView.h"
 #import "PoiRecommendCollectionViewCell.h"
+#import "CityDetailTableViewController.h"
 
 @interface MoreDomesticPoiRecommendViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
@@ -41,7 +42,7 @@ static NSString *cacheName = @"destination_demostic_group";
         UICollectionViewFlowLayout *layou = [[UICollectionViewFlowLayout alloc] init];
         layou.minimumLineSpacing = 0.0;
         layou.itemSize = CGSizeMake(self.view.bounds.size.width, 210);
-        _domesticCollectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layou];
+        _domesticCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-64) collectionViewLayout:layou];
         [_domesticCollectionView registerNib:[UINib nibWithNibName:@"PoiRecommendCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:reusableIdentifier];
         [_domesticCollectionView registerNib:[UINib nibWithNibName:@"DestinationCollectionHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:reusableHeaderIdentifier];
         _domesticCollectionView.dataSource = self;
@@ -197,6 +198,11 @@ static NSString *cacheName = @"destination_demostic_group";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    AreaDestination *area = [self.destinations.domesticCities objectAtIndex:indexPath.section];
+    CityDestinationPoi *city = [area.cities objectAtIndex:indexPath.row];
+    CityDetailTableViewController *ctl = [[CityDetailTableViewController alloc] init];
+    ctl.cityId = city.cityId;
+    [self.navigationController pushViewController:ctl animated:YES];
 }
 
 
