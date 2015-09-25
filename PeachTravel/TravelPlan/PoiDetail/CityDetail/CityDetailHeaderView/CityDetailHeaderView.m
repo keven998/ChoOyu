@@ -298,7 +298,7 @@
     NSInteger totalLine = ceilf(maxRect.size.height / minRect.size.height);
     NSInteger ccount = descStr.length;
     NSInteger count = ccount * 2/totalLine;
-    if (count < ccount) {
+    if (count < ccount && count > 3) {
         NSString *truncateStr = [descStr substringWithRange:NSMakeRange(0, count - 3)];
         
         NSMutableParagraphStyle *ps = [[NSMutableParagraphStyle alloc] init];
