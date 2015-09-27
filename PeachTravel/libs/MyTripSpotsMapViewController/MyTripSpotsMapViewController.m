@@ -130,48 +130,23 @@
 
 #pragma mark - IBAction
 - (void) switchDay {
-<<<<<<< HEAD
-    NSInteger count = _tripDetail.itineraryList.count;
-    NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:(count + 1)];
-    int i = 0;
-    while (i < count) {
-        if (i < 9) {
-            [array addObject:[NSString stringWithFormat:@"0%d.Day", ++i]];
-        } else {
-            [array addObject:[NSString stringWithFormat:@"%d.Day", ++i]];
-=======
+
+
+
     if (self.menuView == nil) {
         NSInteger count = _tripDetail.itineraryList.count;
         NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:(count + 1)];
         int i = 0;
         while (i < count) {
             [array addObject:[NSNumber numberWithInteger:++i]];
->>>>>>> 69bbc4fb2b374eed9ce3b3f56de2e82c2bdc4595
         }
+        MapMarkMenuVC* ctl = [[MapMarkMenuVC alloc] initWithArray:array];
+        ctl.delegate = self;
+        ctl.frame = self.view.bounds;
+        self.menuView = ctl;
     }
-    
-    SelectionTableViewController *ctl = [[SelectionTableViewController alloc] init];
-    ctl.contentItems = array;
-    ctl.delegate = self;
-    ctl.titleTxt = @"切换";
-    ctl.selectItem = ((UIButton *)self.navigationItem.rightBarButtonItem.customView).titleLabel.text;
-    TZNavigationViewController *nav = [[TZNavigationViewController alloc] initWithRootViewController:ctl];
-    [self presentViewController:nav animated:YES completion:nil];
-
-//    if (self.menuView == nil) {
-//        NSInteger count = _tripDetail.itineraryList.count;
-//        NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:(count + 1)];
-//        int i = 0;
-//        while (i < count) {
-//            [array addObject:[NSNumber numberWithInteger:++i]];
-//        }
-//        MapMarkMenuVC* ctl = [[MapMarkMenuVC alloc] initWithArray:array];
-//        ctl.delegate = self;
-//        ctl.frame = self.view.bounds;
-//        self.menuView = ctl;
-//    }
-//   
-//    [self.navigationController.view addSubview:self.menuView];
+   
+    [self.navigationController.view addSubview:self.menuView];
     
 
 }
@@ -349,16 +324,12 @@
     newAnnotationView.annotation = annotation;
     newAnnotationView.canShowCallout = YES;
     newAnnotationView.tag = index;
-<<<<<<< HEAD
+
     newAnnotationView.layer.anchorPoint = CGPointMake(0.7, 0.55);
     NSString *imageName = [NSString stringWithFormat:@"map_icon_%ld.png", index+1];
     newAnnotationView.image = [UIImage imageNamed:imageName];
     NSLog(@"%@",newAnnotationView.image);
-=======
-    NSString *imageName = [NSString stringWithFormat:@"map_icon_%ld.png", (long)index+1];
-    newAnnotationView.pinImageName = imageName;
 
->>>>>>> 69bbc4fb2b374eed9ce3b3f56de2e82c2bdc4595
     return newAnnotationView;
 }
 

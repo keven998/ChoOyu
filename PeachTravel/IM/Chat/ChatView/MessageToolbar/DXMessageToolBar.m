@@ -15,7 +15,7 @@
 
 
 
-@interface DXMessageToolBar()<HPGrowingTextViewDelegate, DXFaceDelegate, ChatManagerAudioRecordDelegate>
+@interface DXMessageToolBar()<HPGrowingTextViewDelegate, DXFaceDelegate, ChatManagerAudioRecordDelegate,TZChatTextViewDelegate>
 {
     CGFloat _previousTextViewContentHeight;//上一次inputTextView的contentSize.height
 }
@@ -240,13 +240,24 @@
 //    [self textViewDidChange:self.inputTextView.internalTextView];
 }
 
+#pragma mark - 发送表情
 - (void)sendFace
 {
     NSString *chatText = self.inputTextView.text;
     if (chatText.length > 0) {
         if ([self.delegate respondsToSelector:@selector(didSendText:)]) {
             [self.delegate didSendText:chatText];
-            self.inputTextView.text = @"";
+//            self.inputTextView.text = @"";
+        }
+    }
+}
+#pragma mark - 发送表情的代理方法
+- (void)sendMessageAction:(NSString*)messege{
+    NSString *chatText = messege;
+    if (chatText.length > 0) {
+        if ([self.delegate respondsToSelector:@selector(didSendText:)]) {
+            [self.delegate didSendText:chatText];
+            //            self.inputTextView.text = @"";
         }
     }
 }
@@ -357,6 +368,7 @@
     self.inputTextView.contentInset = UIEdgeInsetsMake(0, 5, 0, 4);
     self.inputTextView.backgroundColor = [UIColor whiteColor];
     self.inputTextView.placeholder = @"输入新消息";
+    self.inputTextView.internalTextView.TZdelegate = self;
 
     //录制
     self.recordButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.styleChangeButton.frame), (th - 34.0)/2.0, width, 34)];
