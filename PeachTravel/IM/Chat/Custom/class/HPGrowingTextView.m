@@ -28,6 +28,7 @@
 #import "HPGrowingTextView.h"
 #import "HPTextViewInternal.h"
 
+
 @interface HPGrowingTextView(private)
 -(void)commonInitialiser;
 -(void)resizeTextView:(NSInteger)newSizeH;
@@ -89,7 +90,7 @@
     r.origin.y = 0;
     r.origin.x = 0;
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
-    internalTextView = [[HPTextViewInternal alloc] initWithFrame:r textContainer:textContainer];
+    internalTextView = [[TZChatTextView alloc] initWithFrame:r textContainer:textContainer];
 #else
     internalTextView = [[HPTextViewInternal alloc] initWithFrame:r];
 #endif
@@ -167,7 +168,7 @@
     internalTextView.hidden = YES;
     
     for (int i = 1; i < n; ++i)
-        newText = [newText stringByAppendingString:@"\n|W|"];
+    newText = [newText stringByAppendingString:@"\n|W|"];
     
     internalTextView.text = newText;
     

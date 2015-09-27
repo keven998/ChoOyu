@@ -14,7 +14,7 @@
 #import "MapViewSetLocationBtn.h"
 #import <MapKit/MapKit.h>
 
-@interface MyTripSpotsMapViewController () <MKMapViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, MapMarkMenuVCDelegate,CLLocationManagerDelegate>
+@interface MyTripSpotsMapViewController () <MKMapViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, MapMarkMenuVCDelegate,CLLocationManagerDelegate,SelectDelegate>
 
 @property (nonatomic, strong) MKMapView *mapView;
 @property (nonatomic, strong) UILabel *currentDayLabel;
@@ -71,9 +71,9 @@
     [self showMapPin];
 
     [self setupSelectPanel];
-    
+
     [self.view addSubview:self.locationBtn];
-    self.locationBtn.frame = CGRectMake(-3, [UIScreen mainScreen].bounds.size.height / 3 * 2, 30, 70);
+    self.locationBtn.frame = CGRectMake(-3, [UIScreen mainScreen].bounds.size.height / 3 * 2, 30, 50);
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -97,6 +97,7 @@
     }
     
     [self.locationManager startUpdatingLocation];
+//    [self resetView];
 }
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
@@ -129,39 +130,39 @@
 
 #pragma mark - IBAction
 - (void) switchDay {
-//    NSInteger count = _tripDetail.itineraryList.count;
-//    NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:(count + 1)];
-//    int i = 0;
-//    while (i < count) {
-//        if (i < 9) {
-//            [array addObject:[NSString stringWithFormat:@"0%d.Day", ++i]];
-//        } else {
-//            [array addObject:[NSString stringWithFormat:@"%d.Day", ++i]];
-//        }
-//    }
-//    
-//    SelectionTableViewController *ctl = [[SelectionTableViewController alloc] init];
-//    ctl.contentItems = array;
-//    ctl.delegate = self;
-//    ctl.titleTxt = @"切换";
-//    ctl.selectItem = ((UIButton *)self.navigationItem.rightBarButtonItem.customView).titleLabel.text;
-//    TZNavigationViewController *nav = [[TZNavigationViewController alloc] initWithRootViewController:ctl];
-//    [self presentViewController:nav animated:YES completion:nil];
-
-    if (self.menuView == nil) {
-        NSInteger count = _tripDetail.itineraryList.count;
-        NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:(count + 1)];
-        int i = 0;
-        while (i < count) {
-            [array addObject:[NSNumber numberWithInteger:++i]];
+    NSInteger count = _tripDetail.itineraryList.count;
+    NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:(count + 1)];
+    int i = 0;
+    while (i < count) {
+        if (i < 9) {
+            [array addObject:[NSString stringWithFormat:@"0%d.Day", ++i]];
+        } else {
+            [array addObject:[NSString stringWithFormat:@"%d.Day", ++i]];
         }
-        MapMarkMenuVC* ctl = [[MapMarkMenuVC alloc] initWithArray:array];
-        ctl.delegate = self;
-        ctl.frame = self.view.bounds;
-        self.menuView = ctl;
     }
-   
-    [self.navigationController.view addSubview:self.menuView];
+    
+    SelectionTableViewController *ctl = [[SelectionTableViewController alloc] init];
+    ctl.contentItems = array;
+    ctl.delegate = self;
+    ctl.titleTxt = @"切换";
+    ctl.selectItem = ((UIButton *)self.navigationItem.rightBarButtonItem.customView).titleLabel.text;
+    TZNavigationViewController *nav = [[TZNavigationViewController alloc] initWithRootViewController:ctl];
+    [self presentViewController:nav animated:YES completion:nil];
+
+//    if (self.menuView == nil) {
+//        NSInteger count = _tripDetail.itineraryList.count;
+//        NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:(count + 1)];
+//        int i = 0;
+//        while (i < count) {
+//            [array addObject:[NSNumber numberWithInteger:++i]];
+//        }
+//        MapMarkMenuVC* ctl = [[MapMarkMenuVC alloc] initWithArray:array];
+//        ctl.delegate = self;
+//        ctl.frame = self.view.bounds;
+//        self.menuView = ctl;
+//    }
+//   
+//    [self.navigationController.view addSubview:self.menuView];
     
 
 }
@@ -341,6 +342,7 @@ calloutAccessoryControlTapped:(UIControl *)control{
     newAnnotationView.layer.anchorPoint = CGPointMake(0.7, 0.55);
     NSString *imageName = [NSString stringWithFormat:@"map_icon_%ld.png", index+1];
     newAnnotationView.image = [UIImage imageNamed:imageName];
+    NSLog(@"%@",newAnnotationView.image);
     return newAnnotationView;
 }
 

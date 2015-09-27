@@ -535,7 +535,8 @@
                     [self.inputTextView resignFirstResponder];
                 }
                 
-                [self willShowBottomView:self.faceView];
+//                [self willShowBottomView:self.faceView];
+                [self.inputTextView.internalTextView changeInputViewToEmoji];
                
             } else {
                 if (!self.styleChangeButton.selected) {
