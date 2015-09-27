@@ -6,13 +6,15 @@
 //  Copyright (c) 2014年 aizou. All rights reserved.
 //
 
+#import <MapKit/MapKit.h>
+
 #import "MyTripSpotsMapViewController.h"
 #import "SelectionTableViewController.h"
 #import "TZButton.h"
 #import "MapMarkMenuVC.h"
 #import "AppDelegate.h"
 #import "MapViewSetLocationBtn.h"
-#import <MapKit/MapKit.h>
+#import "CustomMKAnnotationView.h"
 
 @interface MyTripSpotsMapViewController () <MKMapViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, MapMarkMenuVCDelegate,CLLocationManagerDelegate,SelectDelegate>
 
@@ -105,9 +107,7 @@
     
     NSLog(@"latitude纬度: %f, longitude经度: %f",location.coordinate.latitude, location.coordinate.longitude);
     [self.locationManager stopUpdatingLocation];
-//    [self.mapView setCenterCoordinate:location.coordinate animated:YES];
-    MKCoordinateRegion regin = (MKCoordinateRegion){self.mapView.userLocation.coordinate,{0.05,0.05}};
-    [self.mapView setRegion:regin animated:YES];
+    [self.mapView setCenterCoordinate:location.coordinate animated:YES];
     
     self.mapView.showsUserLocation = YES;
 }
@@ -130,6 +130,7 @@
 
 #pragma mark - IBAction
 - (void) switchDay {
+<<<<<<< HEAD
     NSInteger count = _tripDetail.itineraryList.count;
     NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:(count + 1)];
     int i = 0;
@@ -138,6 +139,14 @@
             [array addObject:[NSString stringWithFormat:@"0%d.Day", ++i]];
         } else {
             [array addObject:[NSString stringWithFormat:@"%d.Day", ++i]];
+=======
+    if (self.menuView == nil) {
+        NSInteger count = _tripDetail.itineraryList.count;
+        NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:(count + 1)];
+        int i = 0;
+        while (i < count) {
+            [array addObject:[NSNumber numberWithInteger:++i]];
+>>>>>>> 69bbc4fb2b374eed9ce3b3f56de2e82c2bdc4595
         }
     }
     
@@ -325,24 +334,31 @@
 
 #pragma mark - MKMapViewDelegate
 
-- (void)mapView:(MKMapView *)sender annotationView:(MKAnnotationView *)aView
-calloutAccessoryControlTapped:(UIControl *)control{
+- (void)mapView:(MKMapView *)sender annotationView:(MKAnnotationView *)aView calloutAccessoryControlTapped:(UIControl *)control
+{
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)theMapView viewForAnnotation:(id<MKAnnotation>)annotation
 {
     NSInteger index = [_currentAnnotations indexOfObject:annotation];
-    
-    MKPinAnnotationView *newAnnotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:[annotation title]];
-    newAnnotationView.pinColor = MKPinAnnotationColorRed;
+    if (index > _currentAnnotations.count) {
+        return nil;
+    }
+    CustomMKAnnotationView *newAnnotationView = [[CustomMKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:[annotation title]];
 
     newAnnotationView.annotation = annotation;
     newAnnotationView.canShowCallout = YES;
     newAnnotationView.tag = index;
+<<<<<<< HEAD
     newAnnotationView.layer.anchorPoint = CGPointMake(0.7, 0.55);
     NSString *imageName = [NSString stringWithFormat:@"map_icon_%ld.png", index+1];
     newAnnotationView.image = [UIImage imageNamed:imageName];
     NSLog(@"%@",newAnnotationView.image);
+=======
+    NSString *imageName = [NSString stringWithFormat:@"map_icon_%ld.png", (long)index+1];
+    newAnnotationView.pinImageName = imageName;
+
+>>>>>>> 69bbc4fb2b374eed9ce3b3f56de2e82c2bdc4595
     return newAnnotationView;
 }
 

@@ -11,25 +11,28 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="210"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="209.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="210"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iR0-qb-Jtv">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="209.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="210"/>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="black_mask.png" translatesAutoresizingMaskIntoConstraints="NO" id="tiG-iP-uOY">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="210"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="北京" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eZ3-Zf-gPd">
                         <rect key="frame" x="8" y="86" width="304" height="37"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="37" id="sre-Is-8qv"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="热门目的地" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q7p-1a-a7e">
-                        <rect key="frame" x="8" y="120" width="304" height="21"/>
+                        <rect key="frame" x="8" y="122" width="304" height="21"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="21" id="eTC-vp-h00"/>
+                            <constraint firstAttribute="height" constant="21" id="blY-TE-zR3"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -38,18 +41,29 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="iR0-qb-Jtv" secondAttribute="trailing" id="0kt-YL-Io9"/>
-                    <constraint firstItem="Q7p-1a-a7e" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="120" id="50R-qm-5T5"/>
-                    <constraint firstItem="Q7p-1a-a7e" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="8S1-wa-LJI"/>
-                    <constraint firstAttribute="trailing" secondItem="Q7p-1a-a7e" secondAttribute="trailing" constant="8" id="Fb8-XB-83y"/>
+                    <constraint firstAttribute="trailing" secondItem="tiG-iP-uOY" secondAttribute="trailing" id="72p-9X-HOs"/>
+                    <constraint firstItem="Q7p-1a-a7e" firstAttribute="top" secondItem="eZ3-Zf-gPd" secondAttribute="bottom" constant="-1" id="A1d-GF-4sS"/>
                     <constraint firstItem="iR0-qb-Jtv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Hbq-tt-yuU"/>
+                    <constraint firstAttribute="trailing" secondItem="Q7p-1a-a7e" secondAttribute="trailing" constant="8" id="J5i-t8-Qn6"/>
+                    <constraint firstItem="tiG-iP-uOY" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="KUW-mQ-mR2"/>
                     <constraint firstAttribute="trailing" secondItem="eZ3-Zf-gPd" secondAttribute="trailing" constant="8" id="Nx1-3x-DRJ"/>
                     <constraint firstItem="eZ3-Zf-gPd" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Wnt-dw-ccx"/>
+                    <constraint firstItem="Q7p-1a-a7e" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="dkI-Me-TCJ"/>
                     <constraint firstItem="eZ3-Zf-gPd" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="fJf-eS-9V5"/>
+                    <constraint firstItem="tiG-iP-uOY" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="fmw-NP-L1h"/>
                     <constraint firstItem="iR0-qb-Jtv" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="isZ-OG-Rxq"/>
                     <constraint firstAttribute="bottom" secondItem="iR0-qb-Jtv" secondAttribute="bottom" id="jP3-th-qcD"/>
+                    <constraint firstAttribute="bottom" secondItem="tiG-iP-uOY" secondAttribute="bottom" id="qGy-lv-HHs"/>
                 </constraints>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="227" y="240"/>
+            <connections>
+                <outlet property="backGroundImageView" destination="iR0-qb-Jtv" id="y2M-56-5Bc"/>
+                <outlet property="titleLabel" destination="eZ3-Zf-gPd" id="uDT-88-1S2"/>
+            </connections>
+            <point key="canvasLocation" x="239" y="218"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="black_mask.png" width="18" height="233"/>
+    </resources>
 </document>

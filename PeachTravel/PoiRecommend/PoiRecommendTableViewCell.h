@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface PoiRecommendTableViewCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+
+@property (weak, nonatomic) IBOutlet UIImageView *backGroundImageView;
 
 @end
