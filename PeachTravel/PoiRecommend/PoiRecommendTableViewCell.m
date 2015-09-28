@@ -19,4 +19,12 @@
 
 }
 
+
+- (void)setPoi:(SuperPoi *)poi
+{
+    _poi = poi;
+    TaoziImage *image = [poi.images firstObject];
+    [_backGroundImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl]];
+    _titleLabel.text = poi.zhName;
+}
 @end
