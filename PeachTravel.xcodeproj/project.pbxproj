@@ -279,6 +279,7 @@
 		01C1ECC31BB53A690082217A /* TZEmojiToolBarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C1ECB61BB53A690082217A /* TZEmojiToolBarCell.m */; settings = {ASSET_TAGS = (); }; };
 		01C1ECC41BB53A690082217A /* TZEmojiToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C1ECB81BB53A690082217A /* TZEmojiToolBar.m */; settings = {ASSET_TAGS = (); }; };
 		01C1ECC51BB53A690082217A /* TZEmojiKeyBoardVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C1ECBA1BB53A690082217A /* TZEmojiKeyBoardVC.m */; settings = {ASSET_TAGS = (); }; };
+		01C1ECC91BB7D21A0082217A /* TZEmojiTextConvertor.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C1ECC81BB7D21A0082217A /* TZEmojiTextConvertor.m */; settings = {ASSET_TAGS = (); }; };
 		01F03DAC1BB400C7005DD792 /* MapMarkMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F03DA91BB400C7005DD792 /* MapMarkMenuCell.m */; settings = {ASSET_TAGS = (); }; };
 		01F03DAD1BB400C7005DD792 /* MapMarkMenuVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F03DAB1BB400C7005DD792 /* MapMarkMenuVC.m */; settings = {ASSET_TAGS = (); }; };
 		01F03DB01BB40B57005DD792 /* MapViewSetLocationBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F03DAF1BB40B57005DD792 /* MapViewSetLocationBtn.m */; settings = {ASSET_TAGS = (); }; };
@@ -2036,6 +2037,8 @@
 		01C1ECB81BB53A690082217A /* TZEmojiToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZEmojiToolBar.m; sourceTree = "<group>"; };
 		01C1ECB91BB53A690082217A /* TZEmojiKeyBoardVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZEmojiKeyBoardVC.h; sourceTree = "<group>"; };
 		01C1ECBA1BB53A690082217A /* TZEmojiKeyBoardVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZEmojiKeyBoardVC.m; sourceTree = "<group>"; };
+		01C1ECC71BB7D21A0082217A /* TZEmojiTextConvertor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZEmojiTextConvertor.h; sourceTree = "<group>"; };
+		01C1ECC81BB7D21A0082217A /* TZEmojiTextConvertor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZEmojiTextConvertor.m; sourceTree = "<group>"; };
 		01F03DA81BB400C7005DD792 /* MapMarkMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapMarkMenuCell.h; sourceTree = "<group>"; };
 		01F03DA91BB400C7005DD792 /* MapMarkMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapMarkMenuCell.m; sourceTree = "<group>"; };
 		01F03DAA1BB400C7005DD792 /* MapMarkMenuVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapMarkMenuVC.h; sourceTree = "<group>"; };
@@ -4444,6 +4447,15 @@
 			path = cell;
 			sourceTree = "<group>";
 		};
+		01C1ECC61BB7D21A0082217A /* TZEmojiTextConvertor */ = {
+			isa = PBXGroup;
+			children = (
+				01C1ECC71BB7D21A0082217A /* TZEmojiTextConvertor.h */,
+				01C1ECC81BB7D21A0082217A /* TZEmojiTextConvertor.m */,
+			);
+			path = TZEmojiTextConvertor;
+			sourceTree = "<group>";
+		};
 		01F03DA71BB400C7005DD792 /* mapMarkMenu */ = {
 			isa = PBXGroup;
 			children = (
@@ -6147,6 +6159,7 @@
 		D9A800BF1A80DD23005AD701 /* ChatCell */ = {
 			isa = PBXGroup;
 			children = (
+				01C1ECC61BB7D21A0082217A /* TZEmojiTextConvertor */,
 				D9A800C01A80DD23005AD701 /* ChatCellBubble */,
 				D9A800D21A80DD23005AD701 /* EMChatTimeCell.h */,
 				D9A800D31A80DD23005AD701 /* EMChatTimeCell.m */,
@@ -10051,6 +10064,7 @@
 				D992C9601B50FD0C000C7E2D /* TripFavoriteTableViewController.m in Sources */,
 				D9A8021F1A80E036005AD701 /* MJPhotoLoadingView.m in Sources */,
 				D92CA0FE1AD8BDF900F244FF /* PSTCollectionView.m in Sources */,
+				01C1ECC91BB7D21A0082217A /* TZEmojiTextConvertor.m in Sources */,
 				D9A8FFCF1A80D216005AD701 /* RecommendDataSource.m in Sources */,
 				D9F46DB91AC52D8600972AE8 /* SVWebViewController.m in Sources */,
 				D96EAA1E1BB4F16200360ED8 /* MoreForeignPoiRecommendViewController.m in Sources */,

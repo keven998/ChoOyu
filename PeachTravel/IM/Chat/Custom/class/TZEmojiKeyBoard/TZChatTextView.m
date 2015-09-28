@@ -176,7 +176,7 @@
         [self.TZdelegate sendMessageAction:tempString];
     }
     
-    NSLog(@"%@",tempString);
+    NSLog(@" send %@",tempString);
     self.attributedText = nil;
     
     self.placeholder = self.placeHolderStr;

@@ -12,6 +12,7 @@
 
 #import <CoreText/CoreText.h>
 #import "EMChatTextBubbleView.h"
+#import "TZEmojiTextConvertor.h"
 
 NSString *const kRouterEventTextURLTapEventName = @"kRouterEventTextURLTapEventName";
 
@@ -38,6 +39,24 @@ NSString *const kRouterEventTextURLTapEventName = @"kRouterEventTextURLTapEventN
         _textLabel.textAlignment = NSTextAlignmentLeft;
         [self addSubview:_textLabel];
         
+        /** #define BUBBLE_ARROW_WIDTH 5 // bubbleView中，箭头的宽度
+         #define BUBBLE_VIEW_PADDING 5 // bubbleView 与 在其中的控件内边距
+         #define BUBBLE_VIEW_TOP_PADDING 7 // bubbleView 与 在其中的控件上下边距
+         
+         #define BUBBLE_VIEW_WIDTH_PADDING  12   //bubbleView 与左右边距
+         
+         #define BUBBLE_RIGHT_LEFT_CAP_WIDTH 10 // 文字在右侧时,bubble用于拉伸点的X坐标
+         #define BUBBLE_RIGHT_TOP_CAP_HEIGHT 25 // 文字在右侧时,bubble用于拉伸点的Y坐标
+         
+         #define BUBBLE_LEFT_LEFT_CAP_WIDTH 15 // 文字在左侧时,bubble用于拉伸点的X坐标
+         #define BUBBLE_LEFT_TOP_CAP_HEIGHT 25 // 文字在左侧时,bubble用于拉伸点的Y坐标
+         
+         #define BUBBLE_PROGRESSVIEW_HEIGHT 10 // progressView 高度 */
+        
+//        NSDictionary* metrics = @{@"marginTop":@BUBBLE_VIEW_TOP_PADDING,@"marginSide":@BUBBLE_VIEW_WIDTH_PADDING,@"minHeight":    };
+        
+//        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H" options:<#(NSLayoutFormatOptions)#> metrics:<#(nullable NSDictionary<NSString *,id> *)#> views:<#(nonnull NSDictionary<NSString *,id> *)#>]];
+        
         _detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:nil];
     }
     
@@ -60,13 +79,26 @@ NSString *const kRouterEventTextURLTapEventName = @"kRouterEventTextURLTapEventN
     }
     
     frame.origin.y = BUBBLE_VIEW_TOP_PADDING;
+    
+//    CGSize textBlockMinSize = {TEXTLABEL_MAX_WIDTH, CGFLOAT_MAX};
+//    CGSize retSize = [[TZEmojiTextConvertor convertToEmojiTextWithText:self.model.content withFont:_textLabel.font] boundingRectWithSize:textBlockMinSize options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+    
+//    frame.size = retSize;
+    
     [self.textLabel setFrame:frame];
 }
 
 - (CGSize)sizeThatFits:(CGSize)size
 {
     CGSize textBlockMinSize = {TEXTLABEL_MAX_WIDTH, CGFLOAT_MAX};
-    CGSize retSize = [self.model.content boundingRectWithSize:textBlockMinSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[[self class] textLabelFont]} context:nil].size;
+//    CGSize retSize = [self.model.content boundingRectWithSize:textBlockMinSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[[self class] textLabelFont]} context:nil].size;
+    CGSize retSize = [[TZEmojiTextConvertor convertToEmojiTextWithText:self.model.content withFont:_textLabel.font] boundingRectWithSize:textBlockMinSize options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) context:nil].size;
+    
+//    CGSize retSize = [[TZEmojiTextConvertor convertToEmojiTextWithText:self.model.content withFont:_textLabel.font] sizewi];
+    
+    _textLabel.numberOfLines = 0;
+    NSLog(@" 对应的文字  -------- %@",self.model.content);
+    NSLog(@" boundingSize ------  %@",NSStringFromCGSize(retSize));
     
     CGFloat height = 42;
     if (2*BUBBLE_VIEW_TOP_PADDING + retSize.height > height) {
@@ -77,13 +109,16 @@ NSString *const kRouterEventTextURLTapEventName = @"kRouterEventTextURLTapEventN
 }
 
 #pragma mark - setter
-
 - (void)setModel:(MessageModel *)model
 {
     [super setModel:model];
     
     _urlMatches = [_detector matchesInString:self.model.content options:0 range:NSMakeRange(0, self.model.content.length)];
-    _textLabel.text = self.model.content;
+    NSAttributedString* attrStr = [TZEmojiTextConvertor convertToEmojiTextWithText:self.model.content withFont:_textLabel.font];
+    _textLabel.attributedText = attrStr;
+    
+    [_textLabel sizeToFit];
+    NSLog(@" recieve %@",self.model.content);
     [self highlightLinksWithIndex:NSNotFound];
 }
 

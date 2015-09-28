@@ -12,7 +12,7 @@
 
 #import "DXMessageToolBar.h"
 #import "PeachTravel-swift.h"
-
+#import "TZEmojiTextConvertor.h"
 
 
 @interface DXMessageToolBar()<HPGrowingTextViewDelegate, DXFaceDelegate, ChatManagerAudioRecordDelegate,TZChatTextViewDelegate>
@@ -203,7 +203,7 @@
 {
     if ([text isEqualToString:@"\n"]) {
         if ([self.delegate respondsToSelector:@selector(didSendText:)]) {
-            [self.delegate didSendText:growingTextView.text];
+            [self.delegate didSendText:[TZEmojiTextConvertor convertToTextWithAttrbuteString:growingTextView.internalTextView.attributedText]];
             self.inputTextView.text = @"";
         }
         
