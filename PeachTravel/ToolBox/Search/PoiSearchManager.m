@@ -132,11 +132,43 @@
 
 + (void)asyncGetDescriptionOfSearchText:(NSString *)searchText andPoiType:(TZPoiType)poiType completionBlock:(void (^)(BOOL, NSDictionary *))completion
 {
-    if ([searchText isEqualToString: @"北京"]) {
-        completion(YES, @{@"detailUrl": @"http://www.baidu.com", @"desc": @"北京是一个大城市。哈哈哈哈哈,北京是一个大城市。哈哈哈哈哈,北京是一个大城市。哈哈哈哈哈,北京是一个大城市。哈哈哈哈哈,北京是一个大城市。哈哈哈哈哈,北京是一个大城市。哈哈哈哈哈"});
-    } else {
-        completion(YES, nil);
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSNumber *imageWidth = [NSNumber numberWithInt:80];
+    [params setObject:imageWidth forKey:@"imgWidth"];
+    [params setObject:searchText forKeyedSubscript:@"query"];
+    
+    if (poiType == kShoppingPoi) {
+        [params setObject:@"shopping" forKey:@"scope"];
+        
+    } else if (poiType == kRestaurantPoi) {
+        [params setObject:@"restaurant" forKeyedSubscript:@"scope"];
     }
+    
+    NSString *url = [NSString stringWithFormat:@"%@/ancillary-info", API_SEARCH];
+    
+    [manager GET:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+            [dic safeSetObject:[[responseObject objectForKey:@"result"] objectForKey:@"desc"] forKey:@"desc"];
+            [dic safeSetObject:[[responseObject objectForKey:@"result"] objectForKey:@"detailUrl"] forKey:@"detailUrl"];
+            completion(YES, dic);
+        } else {
+            completion(NO, nil);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completion(NO, nil);
+    }];
+
 }
 
 
