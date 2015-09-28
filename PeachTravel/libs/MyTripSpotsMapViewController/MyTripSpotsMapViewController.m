@@ -112,7 +112,7 @@
     self.mapView.showsUserLocation = YES;
 }
 
-- (void) setupSelectPanel {
+- (void)setupSelectPanel {
     CGRect collectionViewFrame = CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49, CGRectGetWidth(self.view.bounds), 49);
     UICollectionViewFlowLayout *aFlowLayout = [[UICollectionViewFlowLayout alloc] init];
     [aFlowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
