@@ -149,7 +149,7 @@
     }
     
     [tempAttrStr appendAttributedString:[[NSAttributedString alloc] initWithString:tempString]];
-    
+    [tempAttrStr addAttribute:NSFontAttributeName value:font range:NSMakeRange(0, tempAttrStr.length)];
     return [tempAttrStr copy];
     
 }
