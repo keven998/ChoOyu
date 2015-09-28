@@ -244,6 +244,7 @@
     }
     return _descriptionLabel;
 }
+
 - (UILabel*)checkAllLabel{
     if (_checkAllLabel == nil) {
         _checkAllLabel = [[UILabel alloc] init];
