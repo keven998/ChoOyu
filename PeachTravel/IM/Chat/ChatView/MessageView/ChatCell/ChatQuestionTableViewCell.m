@@ -65,9 +65,24 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    CGRect frame = CGRectMake(20, 20, self.bounds.size.width-40, 44*_questionMessage.questionList.count);
+    CGRect frame = CGRectMake(20, 20, self.bounds.size.width-40, 44*_questionMessage.questionList.count+30);
     _tableView.frame = frame;
     [self.tableView reloadData];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 30;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 30)];
+    headerLabel.text = @"    点击问题，派派帮你来解决";
+    headerLabel.font = [UIFont systemFontOfSize:14.0];
+    headerLabel.textColor = [UIColor whiteColor];
+    headerLabel.backgroundColor = UIColorFromRGB(0x99ccff);
+    return headerLabel;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -87,6 +102,7 @@
     cell.textLabel.text = questionModel.title;
     cell.textLabel.font = [UIFont systemFontOfSize:15.0];
     cell.textLabel.textColor = COLOR_TEXT_I;
+    cell.imageView.image = [UIImage imageNamed:@"icon_dot.png"];
     return cell;
 }
 
@@ -99,7 +115,8 @@
 
 + (CGFloat)heightForBubbleWithObject:(MessageModel *)model
 {
-    return 40 + 44*((QuestionMessage *)model.baseMessage).questionList.count;
+    //间距+行高*行数+sectionheader高度
+    return 40 + 44*((QuestionMessage *)model.baseMessage).questionList.count+30;
 }
 
 
