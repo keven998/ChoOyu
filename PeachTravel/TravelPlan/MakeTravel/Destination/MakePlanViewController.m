@@ -24,7 +24,6 @@
 @interface MakePlanViewController () <UISearchBarDelegate, UISearchControllerDelegate, UISearchDisplayDelegate, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (nonatomic, strong) UISearchDisplayController *searchController;
-@property (nonatomic, strong) UISearchBar *searchBar;
 @property (nonatomic, strong) NSMutableArray *searchResultArray;
 
 @end
@@ -33,6 +32,7 @@
 
 - (void)viewDidLoad
 {
+    self.contentOffsetY = 49.0;
     [super viewDidLoad];
     if (self.shouldOnlyChangeDestinationWhenClickNextStep) {
         self.navigationItem.title = @"修改目的地";
@@ -79,7 +79,6 @@
     _selectPanel.dataSource = nil;
     _selectPanel.delegate = nil;
     _selectPanel = nil;
-    _searchBar = nil;
     _searchController = nil;
 }
 
@@ -127,12 +126,13 @@
     }else{
         [self showDestinationBar];
     }
+    [self setupSearchBar];
 }
 
 - (void)setupContentViewController
 {
     for (UIViewController *ctl in self.viewControllers) {
-        ctl.view.frame = CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-49-64);
+        ctl.view.frame = CGRectMake(0, 64+self.contentOffsetY, self.view.bounds.size.width, self.view.bounds.size.height-49-64-self.contentOffsetY);
     }
 }
 
@@ -144,8 +144,25 @@
 - (IBAction)beginSearch:(id)sender
 {
     [_searchController setActive:YES animated:YES];
-    _searchBar.hidden = NO;
 }
+
+#pragma mark - 添加searchBar
+- (void)setupSearchBar{
+    
+    UISearchBar * searchBar = [[UISearchBar alloc] init];
+    searchBar.frame = CGRectMake(0, 64, kWindowWidth, 44);
+    searchBar.delegate = self;
+    [searchBar setPlaceholder:@"城市/国家"];
+    searchBar.tintColor = COLOR_TEXT_II;
+    searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
+    [searchBar setSearchFieldBackgroundImage:[[UIImage imageNamed:@"icon_search_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)] forState:UIControlStateNormal];
+    [searchBar setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]]];
+    [searchBar setTranslucent:YES];
+    searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    
+    [self.view addSubview:searchBar];
+}
+
 
 /**
  *  开始制作攻略
@@ -351,29 +368,6 @@
     [_searchController setActive:NO animated:YES];
 }
 
-#pragma mark - searchBar
-
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
-{
-    [self.searchResultArray removeAllObjects];
-    _searchBar.hidden = YES;
-}
-
-- (void) searchDisplayControllerDidEndSearch:(UISearchDisplayController *)controller
-{
-    _searchBar.hidden = YES;
-    [self.searchResultArray removeAllObjects];
-}
-
-- (void) searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller {
-    [_searchController.searchBar becomeFirstResponder];
-}
-
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
-{
-    [self loadDataSourceWithKeyWord:searchBar.text];
-}
-
 #pragma mark - 实现searchBar的代理方法
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 {
@@ -384,8 +378,6 @@
     TZNavigationViewController *tznavc = [[TZNavigationViewController alloc] initWithRootViewController:searchCtl];
     [self presentViewController:tznavc animated:YES completion:nil];
 }
-
-
 
 #pragma mark - Collection view
 

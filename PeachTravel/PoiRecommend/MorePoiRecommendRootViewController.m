@@ -41,6 +41,7 @@
     _destinations = [[Destinations alloc] init];
     domesticCtl.destinations = _destinations;
     foreignCtl.destinations = _destinations;
+    foreignCtl.view.backgroundColor = APP_PAGE_COLOR;
     [super viewDidLoad];
 }
 

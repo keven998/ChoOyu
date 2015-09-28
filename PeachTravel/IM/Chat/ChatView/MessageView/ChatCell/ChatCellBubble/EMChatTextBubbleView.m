@@ -53,9 +53,11 @@ NSString *const kRouterEventTextURLTapEventName = @"kRouterEventTextURLTapEventN
          
          #define BUBBLE_PROGRESSVIEW_HEIGHT 10 // progressView 高度 */
         
-//        NSDictionary* metrics = @{@"marginTop":@BUBBLE_VIEW_TOP_PADDING,@"marginSide":@BUBBLE_VIEW_WIDTH_PADDING,@"minHeight":    };
+        /*
+        NSDictionary* metrics = @{@"marginTop":@BUBBLE_VIEW_TOP_PADDING,@"marginSide":@BUBBLE_VIEW_WIDTH_PADDING,@"minHeight":};
         
-//        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H" options:<#(NSLayoutFormatOptions)#> metrics:<#(nullable NSDictionary<NSString *,id> *)#> views:<#(nonnull NSDictionary<NSString *,id> *)#>]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H" options:<#(NSLayoutFormatOptions)#> metrics:<#(nullable NSDictionary<NSString *,id> *)#> views:<#(nonnull NSDictionary<NSString *,id> *)#>]];
+         */
         
         _detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:nil];
     }

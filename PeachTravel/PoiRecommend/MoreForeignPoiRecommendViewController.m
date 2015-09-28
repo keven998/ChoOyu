@@ -17,6 +17,7 @@
 
 @interface MoreForeignPoiRecommendViewController () <UICollectionViewDataSource, UICollectionViewDelegate,UITableViewDataSource,UITableViewDelegate>
 
+//当前显示第几个国家
 @property (nonatomic) NSInteger showCitiesIndex;
 
 @property (strong, nonatomic) UICollectionView *foreignCollectionView;
@@ -107,9 +108,16 @@ static NSString *reuseableCellIdentifier  = @"poiRecommendCollectionCell";
         if (object != nil) {
             if ([object isKindOfClass:[NSDictionary class]]) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    
+                   
                     [_destinations initForeignCountriesWithJson:[object objectForKey:@"result"]];
+                    // 默认选中第一组
+                    NSIndexPath *first = [NSIndexPath indexPathForRow:0 inSection:0];
+                    [self.foreignTableView selectRowAtIndexPath:first animated:YES scrollPosition:UITableViewScrollPositionTop];
+                    
+                    AreaDestination *country = _destinations.foreignCountries[0];
+                    self.citiesArray = country.cities;
                     [_foreignCollectionView reloadData];
+
                     [self loadForeignDataFromServerWithLastModified:[object objectForKey:@"lastModified"]];
                 });
             } else {
@@ -177,10 +185,11 @@ static NSString *reuseableCellIdentifier  = @"poiRecommendCollectionCell";
             
             [self.foreignTableView reloadData];
             
-            // 默认选中第一组
-            NSIndexPath *first = [NSIndexPath indexPathForRow:0 inSection:0];
-            [self.foreignTableView selectRowAtIndexPath:first animated:YES scrollPosition:UITableViewScrollPositionTop];
-            
+            if (_showCitiesIndex == 0) {
+                NSIndexPath *first = [NSIndexPath indexPathForRow:_showCitiesIndex inSection:0];
+                [self.foreignTableView selectRowAtIndexPath:first animated:YES scrollPosition:UITableViewScrollPositionTop];
+            }
+          
             dispatch_async(dispatch_get_global_queue(0, 0), ^{
                 NSMutableDictionary *dic = [responseObject mutableCopy];
                 if ([operation.response.allHeaderFields objectForKey:@"Date"]) {
@@ -189,7 +198,7 @@ static NSString *reuseableCellIdentifier  = @"poiRecommendCollectionCell";
                 }
             });
             
-            AreaDestination *country = _destinations.foreignCountries[0];
+            AreaDestination *country = _destinations.foreignCountries[_showCitiesIndex];
             self.citiesArray = country.cities;
             [_foreignCollectionView reloadData];
             
@@ -206,20 +215,6 @@ static NSString *reuseableCellIdentifier  = @"poiRecommendCollectionCell";
         }
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
-}
-
-#pragma mark - IBAction Methods
-
-- (IBAction)showCities:(UIButton *)sender
-{
-    if (_showCitiesIndex == sender.tag) {
-        _showCitiesIndex = -1;
-    } else {
-        _showCitiesIndex = sender.tag;
-    }
-    
-    [self.foreignCollectionView reloadData];
-    
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -307,7 +302,7 @@ static NSString *reuseableCellIdentifier  = @"poiRecommendCollectionCell";
     
     self.citiesArray = country.cities;
     [self.foreignCollectionView reloadData];
-    
+    _showCitiesIndex = indexPath.row;
     NSLog(@"%@",self.citiesArray);
 }
 
