@@ -138,7 +138,7 @@
                     attachment.chs = model.chs;
                     attachment.image = model.image;
                     CGFloat height = font.lineHeight;
-                    attachment.bounds = CGRectMake(0, -font.lineHeight * 0.23, height * 1.11, height * 1.11);
+                    attachment.bounds = CGRectMake(0, -font.lineHeight * 0.21, height * 1., height * 1);
                     NSMutableAttributedString* attrString = [[NSMutableAttributedString alloc] initWithAttributedString:[NSAttributedString attributedStringWithAttachment:attachment]];
                     [attrString addAttribute:NSFontAttributeName value:font range:NSMakeRange(0, 1)];
                     [tempAttrStr appendAttributedString:attrString];

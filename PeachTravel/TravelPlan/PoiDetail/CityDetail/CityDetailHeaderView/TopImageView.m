@@ -110,7 +110,7 @@
             imageView.contentMode = UIViewContentModeScaleAspectFill;
             imageView.layer.cornerRadius = 4;
             imageView.clipsToBounds = YES;
-            imageView.backgroundColor = RANDOMCOLOR;
+            imageView.backgroundColor = APP_THEME_COLOR;
             [tempArray addObject:imageView];
         }
         _imageViewArray = [tempArray copy];
