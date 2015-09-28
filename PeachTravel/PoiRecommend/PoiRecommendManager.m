@@ -48,7 +48,7 @@
         if (code == 0) {
             NSMutableArray *retArray = [[NSMutableArray alloc] init];
             for (NSDictionary *dic in [responseObject objectForKey:@"result"]) {
-                SuperPoi *poi = [[SuperPoi alloc] initWithJson:dic];
+                PoiRecommend *poi = [[PoiRecommend alloc] initWithJson:dic];
                 [retArray addObject:poi];
             }
             completion(YES, retArray);

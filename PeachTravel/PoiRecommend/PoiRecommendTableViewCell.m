@@ -20,7 +20,7 @@
 }
 
 
-- (void)setPoi:(SuperPoi *)poi
+- (void)setPoi:(PoiRecommend *)poi
 {
     _poi = poi;
     TaoziImage *image = [poi.images firstObject];

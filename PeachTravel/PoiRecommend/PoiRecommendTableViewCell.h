@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PoiRecommend.h"
 
 @interface PoiRecommendTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *backGroundImageView;
 
-@property (nonatomic, strong) SuperPoi *poi;
+@property (nonatomic, strong) PoiRecommend *poi;
 
 @end

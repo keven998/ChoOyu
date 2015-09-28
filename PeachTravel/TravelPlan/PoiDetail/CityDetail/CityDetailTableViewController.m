@@ -388,7 +388,6 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
         if (code == 0) {
             self.poi = [[CityPoi alloc] initWithJson:[responseObject objectForKey:@"result"]];
             [self updateView];
-//            [self loadTravelNoteOfCityData];
             [self loadFrendListOfCityData];
         } else {
             if (self.isShowing) {
@@ -413,9 +412,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
  */
 
 - (void)loadFrendListOfCityData{
-//    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     __weak typeof(CityDetailTableViewController *)weakSelf = self;
-//    [hud showHUDInViewController:weakSelf content:64];
     [ExpertManager asyncLoadExpertsWithAreaName:self.poi.zhName page:0 pageSize:3 completionBlock:^(BOOL success, NSArray * result) {
         if (success) {
             self.expertsArray = result;
@@ -423,10 +420,8 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
             [weakSelf.tableView reloadData];
             [_hud hideTZHUD];
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        }else {
-            if (self.isShowing) {
-                [SVProgressHUD showHint:HTTP_FAILED_HINT];
-            }
+        } else {
+            
             [_hud hideTZHUD];
             
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];

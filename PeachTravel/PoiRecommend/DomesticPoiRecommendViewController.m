@@ -9,6 +9,7 @@
 #import "DomesticPoiRecommendViewController.h"
 #import "PoiRecommendTableViewCell.h"
 #import "PoiRecommendManager.h"
+#import "CityDetailTableViewController.h"
 
 @interface DomesticPoiRecommendViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -70,6 +71,16 @@
     
     return cell;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    CityDetailTableViewController *ctl = [[CityDetailTableViewController alloc] init];
+    PoiRecommend *poi = [_dataSource objectAtIndex:indexPath.row];
+    ctl.cityId = poi.recommondId;
+    [self.navigationController pushViewController:ctl animated:YES];
+}
+
 
 @end
 
