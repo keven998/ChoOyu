@@ -56,8 +56,8 @@ NSString *const kRouterEventAudioBubbleTapEventName = @"kRouterEventAudioBubbleT
 {
     float time = (float)roundf(self.model.time);
     float audioLength = time/60 * (kWindowWidth/2);
-    if (audioLength > kWindowWidth/2) {
-        audioLength = kWindowWidth/2;
+    if (audioLength > kWindowWidth/2-60) {
+        audioLength = kWindowWidth/2-60;
     }
     audioLength += 60;
     return CGSizeMake(audioLength+40, 40);
