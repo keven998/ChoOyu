@@ -40,6 +40,14 @@
     NSLog(@"%@",[NSDate date]);
 }
 
+- (BOOL)resignFirstResponder{
+    
+    self.inputView = nil;
+    
+    return [super resignFirstResponder];
+    
+}
+
 - (void)insertText:(NSString *)text{
     [super insertText:text];
     if (self.placeHolderStr.length == 0) {
@@ -68,10 +76,7 @@
         [self insertText:model.emoji];
         return;
     }
-    
-    //    NSString* beginStr = self.selectedTextRange.start.description;
-    //    NSString* endStr = self.selectedTextRange.end.description;
-    
+
     NSNumber* beginNum = [self.selectedTextRange.start valueForKey:@"_offset"];
     NSNumber* endStr = [self.selectedTextRange.start valueForKey:@"_offset"];
     
@@ -88,7 +93,6 @@
         range = NSMakeRange(begin, end - begin);
     }
 
-    
     EmoticonAttachment* attachment = [[EmoticonAttachment alloc] init];
     //    attachment.image = model.image;
     attachment.chs = model.chs;
