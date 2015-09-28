@@ -185,6 +185,8 @@
     
     self.placeholder = self.placeHolderStr;
     
+    [self.delegate textViewDidChange:self];
+    
 }
 
 #pragma mark - lazyLoad

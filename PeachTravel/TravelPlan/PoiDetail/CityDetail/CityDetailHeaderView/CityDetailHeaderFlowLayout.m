@@ -19,7 +19,7 @@
     
     CGFloat itemWidth = attrFirst.frame.size.width;
     CGFloat startX = attrFirst.frame.origin.x;
-    CGFloat endX = self.collectionView.bounds.size.width - self.sectionInset.right;
+    CGFloat endX = rect.size.width - self.sectionInset.right;
     
     CGFloat margin = ((endX - startX) - attributes.count * itemWidth) / (attributes.count - 1);
     
