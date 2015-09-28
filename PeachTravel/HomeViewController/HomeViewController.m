@@ -391,7 +391,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)customizeTabBarForController
 {
-    NSArray *tabBarItemImages = @[@"ic_tabbar_chat", @"ic_tabbar_expert", @"ic_tabbar_search", @"ic_tabbar_mine"];
+    NSArray *tabBarItemImages = @[@"ic_tabbar_chat", @"ic_tabbar_destination", @"ic_tabbar_search", @"ic_tabbar_mine"];
     NSArray *tabbarItemNames = @[@"消息", @"目的地", @"搜索", @"我的"];
     NSInteger index = 0;
     
