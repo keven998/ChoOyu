@@ -8,7 +8,6 @@
 
 #import "HeaderCell.h"
 #import "TaoziCollectionLayout.h"
-#import "ScreenningViewCell.h"
 #import "DestinationCollectionHeaderView.h"
 @interface HeaderCell ()<UICollectionViewDelegateFlowLayout>
 
@@ -16,7 +15,8 @@
 @end
 
 @implementation HeaderCell
-- (void)awakeFromNib {
+- (void)awakeFromNib
+{
 //    [self createUI];
 //    _footPrint.font = [UIFont systemFontOfSize:14];
 //    _footPrint.numberOfLines = 0;

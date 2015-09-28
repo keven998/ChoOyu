@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Group.h"
+#import "PeachTravel-swift.h"
 
 @protocol CreateConversationDelegate <NSObject>
 
@@ -20,8 +20,10 @@
  *  @param isGroup 是否是群
  *  @param chatTitle 聊天界面显示的title
  */
-- (void)createConversationSuccessWithChatter:(NSString *)chatter isGroup:(BOOL)isGroup chatTitle:(NSString *)chatTitle;
+
+- (void)createConversationSuccessWithChatter:(NSInteger)chatterId chatType:(IMChatType)chatType chatTitle:(NSString *)chatTitle;
 -(void)reloadData;
+
 @end
 
 @interface CreateConversationViewController : TZViewController
@@ -29,15 +31,9 @@
 /**
  *  旅行派群组
  */
-@property (nonatomic, strong) Group *group;
-
-/**
- *  环信的群组
- */
-@property (nonatomic, strong) EMGroup *emGroup;
+@property (nonatomic, strong) IMDiscussionGroup *group;
 
 @property (nonatomic, weak) id <CreateConversationDelegate> delegate;
 
-@property (nonatomic) BOOL isPushed;
 
 @end

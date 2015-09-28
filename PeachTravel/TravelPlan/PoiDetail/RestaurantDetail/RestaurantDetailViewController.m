@@ -19,13 +19,11 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.navigationController.navigationBarHidden = NO;
-    [MobClick beginLogPageView:@"page_delicacy_detail"];
+      
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"page_delicacy_detail"];
 }
 
 

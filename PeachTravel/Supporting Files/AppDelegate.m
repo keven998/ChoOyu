@@ -15,12 +15,13 @@
 #import "WXApiObject.h"
 #import "WXApi.h"
 #import "iRate.h"
-#import "AppDelegate+EaseMob.h"
+#import "PeachTravel-swift.h"
 
 @interface AppDelegate ()
 
 @property (assign, nonatomic) int lastPayloadIndex;
 @property (retain, nonatomic) NSString *payloadId;
+@property (nonatomic, strong) HomeViewController *homeViewController;
 
 @end
 
@@ -29,29 +30,32 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    if (IS_IOS8) {
-        [[UINavigationBar appearance] setTranslucent:NO];
-    } else {
-        
-    }
-    [[UINavigationBar appearance] setTintColor:APP_THEME_COLOR];
-    [[UINavigationBar appearance] setBackIndicatorImage:[UIImage imageNamed:@"ic_navigation_back.png"]];
-    [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:[UIImage imageNamed:@"ic_navigation_back.png"]];
-    [[UINavigationBar appearance] setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]]
-                                       forBarMetrics:UIBarMetricsDefault];
-    [[UINavigationBar appearance] setShadowImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR]];
+    [self lvApplication:application didFinishLaunchingWithOptions:launchOptions];
+    
+    [[UINavigationBar appearance] setBackgroundImage:[[UIImage imageNamed:@"navi_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)] forBarMetrics:UIBarMetricsDefault];
+    
+    [[UINavigationBar appearance] setShadowImage:[UIImage imageNamed:@"bg_navigationbar_shadow.png"]];
+    [[UINavigationBar appearance] setTitleTextAttributes:
+        [NSDictionary dictionaryWithObject:COLOR_TEXT_I forKey:NSForegroundColorAttributeName]];
+    
+    // 设置阴影效果
+    [UINavigationBar appearance].layer.shadowColor = [UIColor redColor].CGColor; //shadowColor阴影颜色
+    [UINavigationBar appearance].layer.shadowOffset = CGSizeMake(20.0f , 20.0f); //shadowOffset阴影偏移x，y向(上/下)偏移(-/+)2
+    [UINavigationBar appearance].layer.shadowOpacity = 0.5f;//阴影透明度，默认0
+    [UINavigationBar appearance].layer.shadowRadius = 10.0f;//阴影半径
+    [UINavigationBar appearance].tintColor = COLOR_TEXT_I;
+    
+    [UIApplication sharedApplication].statusBarHidden = NO;
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.backgroundColor = [UIColor whiteColor];
+    self.window.backgroundColor = APP_PAGE_COLOR;
     
-    //目前只有环信的推送。因此暂时
-//    NSDictionary* message = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-//    if (message) {
-//        _homeViewController.shouldJumpToChatListWhenAppLaunch = YES;
-//    }
-    self.window.rootViewController = [[HomeViewController alloc] init];
+    _homeViewController = [[HomeViewController alloc] init];
+    self.window.rootViewController = _homeViewController;
+    
+    
+    
     [self.window makeKeyAndVisible];
-    
     
     /** 设置友盟分享**/
     [UMSocialData openLog:NO];
@@ -63,6 +67,9 @@
     
     /**设置友盟统计**/
     [MobClick startWithAppkey:UMENG_KEY reportPolicy:(ReportPolicy) REALTIME channelId:nil];
+    
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    [MobClick setAppVersion:version];
 
 #ifndef __OPTIMIZE__
     [MobClick setCrashReportEnabled:NO];
@@ -70,11 +77,20 @@
     [MobClick setCrashReportEnabled:YES];
 #endif
     
-    [self easemobApplication:application didFinishLaunchingWithOptions:launchOptions];
-    
     [iRate sharedInstance].promptAtLaunch = NO;
-
+    
     return YES;
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    // 注册远程推送的DeviceToken
+    [self lvApplication:application didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+{
+    [self lvApplication:application didFailToRegisterForRemoteNotificationsWithError:error];
 }
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
@@ -98,11 +114,22 @@
     return  result;
 }
 
-- (void)applicationWillTerminate:(UIApplication *)application
+- (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    [self saveContext];
+    [self lvApplicationDidBecomeActive:application];
+    [_homeViewController updateViewWithUnreadMessageCount];
 }
 
+- (void)applicationWillTerminate:(UIApplication *)application
+{
+}
+
+- (void)applicationWillEnterForeground:(UIApplication *)application
+{
+    
+}
+
+// WXApiDelegate的代理方法
 - (void)onResp:(BaseResp *)resp
 {
     SendAuthResp * result = (SendAuthResp *)resp;
@@ -115,81 +142,6 @@
     NSDictionary *userInfo = @{@"code" : code};
     [[NSNotificationCenter defaultCenter] postNotificationName:weixinDidLoginNoti object:nil userInfo:userInfo];
 }
-
-#pragma mark - Core Data stack
-
-@synthesize managedObjectContext = _managedObjectContext;
-@synthesize managedObjectModel = _managedObjectModel;
-@synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
-
-- (NSURL *)applicationDocumentsDirectory {
-    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
-}
-
-- (NSManagedObjectModel *)managedObjectModel {
-    if (_managedObjectModel != nil) {
-        return _managedObjectModel;
-    }
-    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"UserInfo" withExtension:@"momd"];
-    _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
-    return _managedObjectModel;
-}
-
-- (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
-    if (_persistentStoreCoordinator != nil) {
-        return _persistentStoreCoordinator;
-    }
-    
-    _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"UserInfoDB.sqlite"];
-    NSError *error = nil;
-    NSString *failureReason = @"There was an error creating or loading the application's saved data.";
-    NSDictionary *optionsDictionary = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES],
-                                       NSMigratePersistentStoresAutomaticallyOption, [NSNumber numberWithBool:YES],
-                                       NSInferMappingModelAutomaticallyOption, nil];
-
-    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:optionsDictionary error:&error]) {
-        NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-        dict[NSLocalizedDescriptionKey] = @"Failed to initialize the application's saved data";
-        dict[NSLocalizedFailureReasonErrorKey] = failureReason;
-        dict[NSUnderlyingErrorKey] = error;
-        error = [NSError errorWithDomain:@"YOUR_ERROR_DOMAIN" code:9999 userInfo:dict];
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
-    }
-    
-    return _persistentStoreCoordinator;
-}
-
-
-- (NSManagedObjectContext *)managedObjectContext {
-    // Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.)
-    if (_managedObjectContext != nil) {
-        return _managedObjectContext;
-    }
-    
-    NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
-    if (!coordinator) {
-        return nil;
-    }
-    _managedObjectContext = [[NSManagedObjectContext alloc] init];
-    [_managedObjectContext setPersistentStoreCoordinator:coordinator];
-    return _managedObjectContext;
-}
-
-#pragma mark - Core Data Saving support
-
-- (void)saveContext {
-    NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
-    if (managedObjectContext != nil) {
-        NSError *error = nil;
-        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-        }
-    }
-}
-
 
 @end
 

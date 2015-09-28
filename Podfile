@@ -7,3 +7,4 @@ pod 'SDWebImage', '~> 3.7.1'
 pod "Qiniu", "~> 7.0"
 pod 'TMCache', '~> 1.2'
 pod 'UMengAnalytics-NO-IDFA'
+pod 'MJRefresh'

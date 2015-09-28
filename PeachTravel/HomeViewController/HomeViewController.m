@@ -6,28 +6,34 @@
 //  Copyright (c) 2014年 com.aizou.www. All rights reserved.
 //
 
-#import "HomeViewController.h"
-#import "ToolHomeViewController.h"
-#import "MineTableViewController.h"
 #import <QuartzCore/QuartzCore.h>
+
+#import "HomeViewController.h"
+#import "SearchDestinationViewController.h"
+#import "MineViewContoller.h"
 #import "PageOne.h"
 #import "PageTwo.h"
 #import "PageThree.h"
 #import "EAIntroView.h"
-#import "TZCMDChatHelper.h"
 #import "ChatListViewController.h"
 #import "LoginViewController.h"
+#import "GuiderDistributeViewController.h"
 #import "ChatListViewController.h"
 #import "RegisterViewController.h"
 #import "PrepareViewController.h"
+#import "JDStatusBarNotification.h"
+#import "PoiRecommendRootViewController.h"
+#import "PeachTravel-swift.h"
 
 #define kBackGroundImage    @"backGroundImage"
 
 //两次提示的默认间隔
 static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
-@interface HomeViewController ()<UIGestureRecognizerDelegate, EAIntroDelegate, IChatManagerDelegate, UITabBarControllerDelegate>
-
+@interface HomeViewController ()<UIGestureRecognizerDelegate, EAIntroDelegate, UITabBarControllerDelegate, UnreadMessageCountChangeDelegate, MessageReceiveManagerDelegate>
+{
+    NSInteger badgeNum;
+}
 @property (nonatomic, strong) UIImageView *coverView;
 
 @property (strong, nonatomic) NSDate *lastPlaySoundDate;
@@ -37,9 +43,10 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
  */
 @property (nonatomic, strong) UILabel *unReadMsgLabel;
 
-@property (nonatomic, strong) ToolHomeViewController *toolBoxCtl;
-@property (nonatomic, strong) MineTableViewController *mineCtl;
+@property (nonatomic, strong) SearchDestinationViewController *searchPoiCtl;
+@property (nonatomic, strong) MineViewContoller *mineCtl;
 @property (nonatomic, strong) ChatListViewController *chatListCtl;
+@property (nonatomic, strong) PoiRecommendRootViewController *poiRecommendCtl;
 
 @property (nonatomic, strong) PageOne *pageView1;
 @property (nonatomic, strong) PageTwo *pageView2;
@@ -49,6 +56,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 @implementation HomeViewController
 
+#pragma mark - lifeCycle
+
 - (instancetype)init
 {
     self = [super init];
@@ -57,103 +66,64 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     return self;
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     
+    // 1.先设置tabBar,控制三个控制器
     [self setupViewControllers];
     
-    //获取未读消息数，此时并没有把self注册为SDK的delegate，读取出的未读数是上次退出程序时的
-    [self setupUnreadMessageCount];
-    [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setUnreadFrendRequestCount) name:frendRequestListNeedUpdateNoti object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogOut) name:userDidLogoutNoti object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupUnreadMessageCount) name:userDidLoginNoti object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupUnreadMessageCount) name:userDidRegistedNoti object:nil];
-    
+    // 2.判断是否登录,如果没有登录,跳转到登录界面
     if (![[AccountManager shareAccountManager] isLogin]) {
         [self setupLoginPage];
+    } else {    // 登录之后,就调用接收普通消息的方法注册消息
+        IMClientManager *imclientManager = [IMClientManager shareInstance];
+        [imclientManager.messageReceiveManager addMessageReceiveListener:self withRoutingKey:MessageReceiveDelegateRoutingKeynormal];
     }
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidRegister) name:userDidRegistedNoti object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogout) name:userDidLogoutNoti object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogin) name:userDidLoginNoti object:nil];
+    
+    [self setupConverView];
+    self.tabBar.backgroundColor = [UIColor whiteColor];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
 }
 
 - (void)dealloc
 {
-    [[EaseMob sharedInstance].chatManager removeDelegate:self];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void) setupLoginPage {
-//    _coverView = [[UIImageView alloc] initWithFrame:self.view.bounds];
-//    _coverView.userInteractionEnabled = YES;
-//    _coverView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-//    _coverView.image = [UIImage imageNamed:@"LaunchImage-800-Portrait-736h"]; //LaunchImage-568h, LaunchImage-700-568h, LaunchImage-800-667h, LaunchImage-800-Portrait-736h
-//    [self.view addSubview:_coverView];
-    
+- (void)setupLoginPage
+{
     PrepareViewController *prepareCtl = [[PrepareViewController alloc] init];
     prepareCtl.rootViewController = self;
     prepareCtl.view.frame = self.view.frame;
     [self addChildViewController:prepareCtl];
     [self.view addSubview:prepareCtl.view];
     [prepareCtl willMoveToParentViewController:self];
-    
-    /*
-     @"LaunchImage-568h@2x.png"  // ios 8 - iphone 5 - portrait
-     @"LaunchImage-568h@2x.png" // ios 8 - iphone 5 - landscape
-     @"LaunchImage-700-568h@2x.png" // ios 7 - iphone 5 - portrait
-     @"LaunchImage-700-568h@2x.png" // ios 7 - iphone 5 - landscape
-     @"LaunchImage-700-Landscape@2x~ipad.png" // ios 7 - ipad retina - landscape
-     @"LaunchImage-700-Landscape~ipad.png" // ios 7 - ipad regular - landscape
-     @"LaunchImage-700-Portrait@2x~ipad.png" // ios 7 - ipad retina - portrait
-     @"LaunchImage-700-Portrait~ipad.png" // ios 7 - ipad regular - portrait
-     @"LaunchImage-700@2x.png" // ios 7 - iphone 4/4s retina - portrait
-     @"LaunchImage-700@2x.png" // ios 7 - iphone 4/4s retina - landscape
-     @"LaunchImage-Landscape@2x~ipad.png" // ios 8 - ipad retina - landscape
-     @"LaunchImage-Landscape~ipad.png" // ios 8 - ipad regular - landscape
-     @"LaunchImage-Portrait@2x~ipad.png" // ios 8 - ipad retina - portrait
-     @"LaunchImage-Portrait~ipad.png" // ios 8 - ipad regular - portrait
-     @"LaunchImage.png" // ios 6 - iphone 3g/3gs - portrait
-     @"LaunchImage.png" // ios 6 - iphone 3g/3gs - landscape
-     @"LaunchImage@2x.png" // ios 6,7,8 - iphone 4/4s - portrait
-     @"LaunchImage@2x.png" // ios 6,7,8 - iphone 4/4s - landscape
-     @"LaunchImage-800-667h@2x.png" // ios 8 - iphone 6 - portrait
-     @"LaunchImage-800-667h@2x.png" // ios 8 - iphone 6 - landscape
-     @"LaunchImage-800-Portrait-736h@3x.png" // ios 8 - iphone 6 plus - portrait
-     @"LaunchImage-800-Landscape-736h@3x.png" // ios 8 - iphone 6 plus - landscape
-     */
-    [self setupConverView];
-//    [self beginIntroduce];
 }
 
-- (void) setupConverView {
-    if (!shouldSkipIntroduce && kShouldShowIntroduceWhenFirstLaunch) {
+- (void)setupConverView
+{
+    if ((!shouldSkipIntroduce && kShouldShowIntroduceWhenFirstLaunch) || !kIsNotFirstInstall) {
         [self beginIntroduce];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:[[AppUtils alloc] init].appVersion];
     } else {
         _coverView = [[UIImageView alloc] initWithFrame:self.view.bounds];
-        _coverView.userInteractionEnabled = YES;
-        _coverView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         [self.view addSubview:_coverView];
-        [self performSelector:@selector(dismiss:) withObject:nil afterDelay:1.5];
+        [self loadCoverData];
+        [self updateBackgroundData:[[NSUserDefaults standardUserDefaults] objectForKey:kBackGroundImage]];
     }
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
-}
-
-#pragma mark - setter & getter
-
-- (ChatListViewController *)chatListCtl
-{
-    if (!_chatListCtl) {
-        _chatListCtl = [[ChatListViewController alloc] init];
-    }
-    return _chatListCtl;
-}
-
-- (void)setIMState:(IM_CONNECT_STATE)IMState
-{
-    _IMState = IMState;
-    self.chatListCtl.IMState = _IMState;
 }
 
 #pragma mark - IBActions
@@ -171,7 +141,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 }
 
 //进入聊天功能
-- (IBAction)jumpIM:(UIButton *)sender {
+- (IBAction)jumpIM:(UIButton *)sender
+{
     AccountManager *accountManager = [AccountManager shareAccountManager];
     if ([accountManager isLogin]) {
         [self.navigationController pushViewController:self.chatListCtl animated:YES];
@@ -191,21 +162,24 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [self presentViewController:nctl animated:YES completion:nil];
 }
 
-- (IBAction)goRegist:(id)sender {
+- (IBAction)goRegist:(id)sender
+{
     RegisterViewController *loginCtl = [[RegisterViewController alloc] init];
     TZNavigationViewController *nctl = [[TZNavigationViewController alloc] initWithRootViewController:loginCtl];
     [self presentViewController:nctl animated:YES completion:nil];
 }
 
-- (IBAction)goPass:(id)sender {
+- (IBAction)goPass:(id)sender
+{
     [self setSelectedIndex:1];
     [_coverView removeFromSuperview];
     _coverView = nil;
 }
 
-- (void) userDidLogin {
-//    [_coverView removeFromSuperview];
-//    _coverView = nil;
+#pragma mark - private Methods
+
+- (void)userDidLogin
+{
     NSArray *controllers = [self childViewControllers];
     if (controllers != nil && controllers.count > 0) {
         UIViewController *ctl = [controllers lastObject];
@@ -215,6 +189,21 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
             [vc removeFromParentViewController];
         }
     }
+    [self updateViewWithUnreadMessageCount];
+}
+
+- (void)userDidRegister
+{
+     NSString *key = [NSString stringWithFormat:@"%@_%ld", kShouldShowFinishUserInfoNoti, [AccountManager shareAccountManager].account.userId];
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:key];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [self showSomeTabbarNoti];
+}
+
+- (void)userDidLogout
+{
+    [self updateViewWithUnreadMessageCount];
+    [self setSelectedIndex:1];
 }
 
 /**
@@ -226,7 +215,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 }
 
 #pragma mark - loadStroy
-- (void)loadData
+
+- (void)loadCoverData
 {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
@@ -255,14 +245,11 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
             if (!([[[responseObject objectForKey:@"result"] objectForKey:@"image"] isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:kBackGroundImage]])) {
                 [self updateBackgroundData:[[responseObject objectForKey:@"result"] objectForKey:@"image"]];
             }
-        } else {
-
         }
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
-    
 }
 
 - (void)updateBackgroundData:(NSString *)imageUrl
@@ -271,44 +258,77 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         [_coverView sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"Default-375w-667h@2x~iphone"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             if (image) {
                 if (_coverView != nil) {
-                    [NSObject cancelPreviousPerformRequestsWithTarget:self
-                                                             selector:@selector(dismiss:)
-                                                               object:nil];
-                    [self performSelector:@selector(dismiss:) withObject:nil afterDelay:3];
                 }
             }
         }];
     }
     
+    [self performSelector:@selector(dismiss:) withObject:nil afterDelay:3];
+
     [[NSUserDefaults standardUserDefaults] setObject:imageUrl forKey:kBackGroundImage];
 }
 
 #pragma mark - help
+
 - (void)beginIntroduce
 {
     _coverView.hidden = YES;
     EAIntroPage *page1 = [EAIntroPage page];
-    _pageView1 = [[PageOne alloc] initWithFrame:self.view.bounds];
-    page1.bgImage = _pageView1.backGroundImageView;
-    page1.titleIconView = _pageView1.titleView;
-    page1.titleIconPositionY = self.view.bounds.size.height/2-30;
-    
     EAIntroPage *page2 = [EAIntroPage page];
-    _pageView2 = [[PageTwo alloc] initWithFrame:self.view.bounds];
-    page2.bgImage = _pageView2.backGroundImageView;
-    page2.titleIconView = _pageView2.titleView;
-    page2.titleIconPositionY = self.view.bounds.size.height/2-30;
-    
-    
     EAIntroPage *page3 = [EAIntroPage page];
-    _pageView3 = [[PageThree alloc] initWithFrame:self.view.bounds];
-    page3.bgImage = _pageView3.backGroundImageView;
-    page3.titleIconView = _pageView3.titleView;
-    page3.titleIconPositionY = self.view.bounds.size.height/2-40;
+
+    {
+        NSString *imageName;
+        
+        NSLog(@"%lf", self.view.frame.size.height);
+        if (self.view.frame.size.height == 480) {
+            imageName =  @"introduce_4_1.png";
+        } else if (self.view.frame.size.height == 667) {
+            imageName = @"introduce_6_1.png";
+        }
+        else {
+            imageName = @"introduce_6p_1.png";
+        }
+        UIImageView *image = [[UIImageView alloc] initWithFrame:self.view.bounds];
+        image.image = [UIImage imageNamed:imageName];
+        page1.bgImage = image;
+    }
+  
+    {
+        NSString *imageName;
+        if (self.view.frame.size.height == 480) {
+            imageName =  @"introduce_4_2.png";
+        } else if (self.view.frame.size.height == 667) {
+            imageName = @"introduce_6_2.png";
+        }
+        else {
+            imageName = @"introduce_6p_2.png";
+        }
+        UIImageView *image = [[UIImageView alloc] initWithFrame:self.view.bounds];
+        image.image = [UIImage imageNamed:imageName];
+        page2.bgImage = image;
+    }
+    
+    {
+        NSString *imageName;
+        if (self.view.frame.size.height == 480) {
+            imageName =  @"introduce_4_3.png";
+        } else if (self.view.frame.size.height == 667) {
+            imageName = @"introduce_6_3.png";
+        }
+        else {
+            imageName = @"introduce_6p_3.png";
+        }
+        UIImageView *image = [[UIImageView alloc] initWithFrame:self.view.bounds];
+        image.image = [UIImage imageNamed:imageName];
+        page3.bgImage = image;
+    }
     
     EAIntroView *intro = [[EAIntroView alloc] initWithFrame:self.view.bounds andPages:@[page1,page2,page3]];
     [intro setDelegate:self];
-    
+    intro.hideOffscreenPages = YES;
+    intro.skipButton.hidden = YES;
+    intro.pageControl.hidden = YES;
     [intro showInView:self.view animateDuration:0];
 }
 
@@ -341,192 +361,156 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)setupViewControllers
 {
-    self.tabBar.translucent = NO;
     self.delegate = self;
-    self.tabBar.backgroundImage = [[UIImage imageNamed:@"tababr.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:5];
+    self.tabBar.selectedImageTintColor = APP_THEME_COLOR;
     
-    self.tabBar.selectedImageTintColor = UIColorFromRGB(0x21b67f);
-    
+    _chatListCtl = [[ChatListViewController alloc] init];
+    _chatListCtl.delegate = self;
     TZNavigationViewController *firstNavigationController = [[TZNavigationViewController alloc]
-                                                          initWithRootViewController:self.chatListCtl];
+                                                             initWithRootViewController:self.chatListCtl];
     
-    _toolBoxCtl = [[ToolHomeViewController alloc] init];
+    _poiRecommendCtl = [[PoiRecommendRootViewController alloc] init];
     TZNavigationViewController *secondNavigationController = [[TZNavigationViewController alloc]
-                                                         initWithRootViewController:_toolBoxCtl];
+                                                              initWithRootViewController:_poiRecommendCtl];
     
-    _mineCtl = [[MineTableViewController alloc] init];
-    TZNavigationViewController *FourthNavigationController = [[TZNavigationViewController alloc]
-                                                         initWithRootViewController:_mineCtl];
-
-
-    [self setViewControllers:@[firstNavigationController, secondNavigationController,
-                               FourthNavigationController]];
+    _searchPoiCtl = [[SearchDestinationViewController alloc] init];
+    _searchPoiCtl.isRootViewController = YES;
+    TZNavigationViewController *thirdNavigationController = [[TZNavigationViewController alloc]
+                                                              initWithRootViewController:_searchPoiCtl];
+    
+    _mineCtl = [[MineViewContoller alloc] init];
+    TZNavigationViewController *fourthNavigationController = [[TZNavigationViewController alloc]
+                                                              initWithRootViewController:_mineCtl];
+    
+    
+    [self setViewControllers:@[firstNavigationController, secondNavigationController, thirdNavigationController
+                               , fourthNavigationController]];
     [self customizeTabBarForController];
+
 }
 
 - (void)customizeTabBarForController
 {
-    
-    NSArray *tabBarItemImages = @[@"ic_home", @"ic_loc", @"ic_person"];
-//    NSArray *titles = @[@"旅行圈", @"旅行", @"我"];
+    NSArray *tabBarItemImages = @[@"ic_tabbar_chat", @"ic_tabbar_destination", @"ic_tabbar_search", @"ic_tabbar_mine"];
+    NSArray *tabbarItemNames = @[@"消息", @"目的地", @"搜索", @"我的"];
     NSInteger index = 0;
     
     for (UITabBarItem *item in self.tabBar.items) {
-//        item.title = titles[index];
         item.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@_normal", [tabBarItemImages objectAtIndex:index]]];
         item.selectedImage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_selected", [tabBarItemImages objectAtIndex:index]]];
-        item.imageInsets = UIEdgeInsetsMake(7, 0, -7, 0);
+        item.title = [tabbarItemNames objectAtIndex:index];
         index++;
     }
+    [self showSomeTabbarNoti];
 }
 
 /**
- *  用户退出登录
+ *  展示一些tabbar上的提醒
  */
-- (void)userDidLogOut
+- (void)showSomeTabbarNoti
 {
-    [self setupUnreadMessageCount];
-}
-
-/**
- *  统计未读消息数
- *
- *  @return 
- */
-
-- (void)setupUnreadMessageCount
-{
-    int unReadCount = self.chatListCtl.numberOfUnReadChatMsg;
-    UITabBarItem *item = [self.tabBar.items firstObject];
-
-    if (unReadCount == 0) {
-        [item setBadgeValue:nil];
-
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    NSString *key = [NSString stringWithFormat:@"%@_%ld", kShouldShowFinishUserInfoNoti, [AccountManager shareAccountManager].account.userId];
+    BOOL shouldShowNoti = [[defaults objectForKey:key] boolValue] && [[AccountManager shareAccountManager] isLogin];
+    
+    if (shouldShowNoti) {
+        UIView *dotView = [[UIView alloc] init];
+        dotView.tag = 101;
+        CGRect tabFrame = self.tabBar.frame;
+        dotView.backgroundColor = [UIColor redColor];
+        dotView.layer.cornerRadius = 3.0;
+        dotView.clipsToBounds = YES;
+        CGFloat x = ceilf(0.92 * tabFrame.size.width);
+        CGFloat y = ceilf(0.18 * tabFrame.size.height);
+        dotView.frame = CGRectMake(x, y, 6, 6);
+        [self.tabBar addSubview:dotView];
     } else {
-        [item setBadgeValue:[NSString stringWithFormat:@"%d", unReadCount]];
+        for (UIView *view in self.tabBar.subviews) {
+            if (view.tag == 101) {
+                [view removeFromSuperview];
+            }
+        }
     }
-    UIApplication *application = [UIApplication sharedApplication];
-    [application setApplicationIconBadgeNumber:unReadCount];
-    
-    [self userDidLogin];
 }
 
-/**
- *  统计好友请求的的未读消息
- */
-- (void)setUnreadFrendRequestCount
+- (void)updateViewWithUnreadMessageCount
 {
-   
-}
-
-#pragma mark - IChatManagerDelegate 消息变化
-
-- (void)networkChanged:(EMConnectionState)connectionState
-{
-    NSLog(@"networkChanged网络发生变化");
-}
-
-- (void)didUpdateConversationList:(NSArray *)conversationList
-{
-    NSLog(@"聊天的内容发生变化");
-}
-
-- (void)willReceiveOfflineMessages
-{
-    NSLog(@"*****将要收取消息");
-    self.chatListCtl.IMState = IM_RECEIVING;
-}
-
-- (void)didFinishedReceiveOfflineMessages:(NSArray *)offlineMessages{
-    self.chatListCtl.IMState = IM_RECEIVED;
-    [self setupUnreadMessageCount];
-}
-
-- (void)didFinishedReceiveOfflineCmdMessages:(NSArray *)offlineCmdMessages
-{
-    self.chatListCtl.IMState = IM_RECEIVED;
-    for (EMMessage *cmdMessage in offlineCmdMessages) {
-        [TZCMDChatHelper distributeCMDMsg:cmdMessage];
+    NSInteger unreadCount = [IMClientManager shareInstance].conversationManager.totalMessageUnreadCount;
+    UITabBarItem *item = [self.tabBar.items firstObject];
+    if (unreadCount == 0) {
+        item.badgeValue = nil;
+        badgeNum = 0;
+        UIApplication *application = [UIApplication sharedApplication];
+        application.applicationIconBadgeNumber = badgeNum;
+        
+    } else if (unreadCount > 0 && unreadCount < 100){
+        item.badgeValue = [NSString stringWithFormat:@"%ld", unreadCount];
+        badgeNum = unreadCount;
+        UIApplication *application = [UIApplication sharedApplication];
+        application.applicationIconBadgeNumber = badgeNum;
+    } else {
+        item.badgeValue = [NSString stringWithFormat:@"99+"];
+        badgeNum = unreadCount;
+        UIApplication *application = [UIApplication sharedApplication];
+        application.applicationIconBadgeNumber = badgeNum;
     }
-    [self setupUnreadMessageCount];
-    NSLog(@"我收到了很多透传消息");
 }
 
-// 收到消息回调
--(void)didReceiveMessage:(EMMessage *)message
+#pragma mark - UnreadMessageCountChangeDelegate
+
+- (void)unreadMessageCountHasChange
 {
-    NSLog(@"收到消息，消息为%@", message);
+    [self updateViewWithUnreadMessageCount];
+}
+
+
+#pragma mark - MessageReceiveManagerDelegate
+// 收到新消息
+- (void)receiveNewMessage:(BaseMessage * __nonnull)message
+{
+    BOOL needShowNotification;
+    IMClientManager *clientManager = [IMClientManager shareInstance];
     
-    BOOL needShowNotification = message.isGroup ? [self needShowNotification:message.conversationChatter] : YES;
+    ChatConversation *conversation = [clientManager.conversationManager getExistConversationInConversationList:message.chatterId];
+    
+    // isBlockMessage: 是否是免打扰消息 并且是由他人发送的消息
+    needShowNotification = ![conversation isBlockMessage] && (message.sendType == IMMessageSendTypeMessageSendSomeoneElse);
     if (needShowNotification) {
+        if (!conversation.isCurrentConversation) {
+            [self updateViewWithUnreadMessageCount];
+            if (self.selectedIndex != 0) {
+                [self showStatusMessageNoti:message];
+            }
+        }
 #if !TARGET_IPHONE_SIMULATOR
         [self playSoundAndVibration];
         
+        // 如果App不在前台,发送通知
         BOOL isAppActivity = [[UIApplication sharedApplication] applicationState] == UIApplicationStateActive;
         if (!isAppActivity) {
             [self showNotificationWithMessage:message];
+            if (conversation.isCurrentConversation) {
+                UIApplication *application = [UIApplication sharedApplication];
+                NSInteger value = application.applicationIconBadgeNumber;
+                application.applicationIconBadgeNumber = ++value;
+            }
         }
 #endif
     }
 }
 
 /**
- *  接收到透传消息的回调，当程序 activity 的时候
+ *  展现 statusbar 上的消息
  *
- *  @param cmdMessage
+ *  @param message
  */
-- (void)didReceiveCmdMessage:(EMMessage *)cmdMessage
+- (void)showStatusMessageNoti:(BaseMessage *) message
 {
-    [TZCMDChatHelper distributeCMDMsg:cmdMessage];
-    NSLog(@"接收到透传消息:  %@",cmdMessage);
+    [JDStatusBarNotification showWithStatus:message.abbrevMsg dismissAfter:2 styleName:JDStatusBarStyleDark];
 }
 
-/**
- *  是否需要显示推送通知
- *
- *  @param fromChatter
- *
- *  @return
- */
-- (BOOL)needShowNotification:(NSString *)fromChatter
+- (void)playSoundAndVibration
 {
-    BOOL ret = YES;
-    NSArray *igGroupIds = [[EaseMob sharedInstance].chatManager ignoredGroupIds];
-    for (NSString *str in igGroupIds) {
-        if ([str isEqualToString:fromChatter]) {
-            ret = NO;
-            break;
-        }
-    }
-    
-    if (ret) {
-        EMPushNotificationOptions *options = [[EaseMob sharedInstance].chatManager pushNotificationOptions];
-        
-        do {
-            if (options.noDisturbStatus == ePushNotificationNoDisturbStatusDay) {
-                NSDate *now = [NSDate date];
-                NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitHour | NSCalendarUnitMinute fromDate:now];
-                NSInteger hour = [components hour];
-                //        NSInteger minute= [components minute];
-                
-                NSUInteger startH = options.noDisturbingStartH;
-                NSUInteger endH = options.noDisturbingEndH;
-                if (startH>endH) {
-                    endH += 24;
-                }
-                
-                if (hour>=startH && hour<=endH) {
-                    ret = NO;
-                    break;
-                }
-            }
-        } while (0);
-    }
-    
-    return ret;
-}
-
-- (void)playSoundAndVibration{
     //如果距离上次响铃和震动时间太短, 则跳过响铃
     NSLog(@"%@, %@", [NSDate date], self.lastPlaySoundDate);
     
@@ -535,77 +519,29 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     if (timeInterval < kDefaultPlaySoundInterval) {
         return;
     }
+    
+//    AudioServicesPlaySystemSound (kSystemSoundID_Vibrate);
+    
     //保存最后一次响铃时间
     self.lastPlaySoundDate = [NSDate date];
-    
-    // 收到消息时，播放音频
-    [[EaseMob sharedInstance].deviceManager asyncPlayNewMessageSound];
-    // 收到消息时，震动
-    [[EaseMob sharedInstance].deviceManager asyncPlayVibration];
 }
 
-- (void)showNotificationWithMessage:(EMMessage *)message
+- (void)showNotificationWithMessage:(BaseMessage *)message
 {
-    EMPushNotificationOptions *options = [[EaseMob sharedInstance].chatManager pushNotificationOptions];
     //发送本地推送
     UILocalNotification *notification = [[UILocalNotification alloc] init];
     notification.fireDate = [NSDate date]; //触发通知的时间
-    
-    if (options.displayStyle == ePushNotificationDisplayStyle_messageSummary) {
-        id<IEMMessageBody> messageBody = [message.messageBodies firstObject];
-        NSString *messageStr = nil;
-        switch (messageBody.messageBodyType) {
-            case eMessageBodyType_Text:
-            {
-                messageStr = ((EMTextMessageBody *)messageBody).text;
-            }
-                break;
-            case eMessageBodyType_Image:
-            {
-                messageStr = @"[图片]";
-            }
-                break;
-            case eMessageBodyType_Location:
-            {
-                messageStr = @"[位置]";
-            }
-                break;
-            case eMessageBodyType_Voice:
-            {
-                messageStr = @"[音频]";
-            }
-                break;
-            case eMessageBodyType_Video:{
-                messageStr = @"[视频]";
-            }
-                break;
-            default:
-                break;
-        }
-        
-        NSString *title = message.from;
-        if (message.isGroup) {
-            NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
-            for (EMGroup *group in groupArray) {
-                if ([group.groupId isEqualToString:message.conversationChatter]) {
-                    title = [NSString stringWithFormat:@"%@(%@)", message.groupSenderName, group.groupSubject];
-                    break;
-                }
-            }
-        }
-        
-        notification.alertBody = [NSString stringWithFormat:@"%@:%@", title, messageStr];
-    }
-    else{
+    if ([message.abbrevMsg isBlankString]) {
         notification.alertBody = @"您有一条新消息";
+    } else {
+        notification.alertBody = message.abbrevMsg;
     }
-    
+    notification.soundName = UILocalNotificationDefaultSoundName;
     notification.alertAction = @"打开";
     notification.timeZone = [NSTimeZone defaultTimeZone];
+
     //发送通知
     [[UIApplication sharedApplication] scheduleLocalNotification:notification];
-    UIApplication *application = [UIApplication sharedApplication];
-    application.applicationIconBadgeNumber += 1;
 }
 
 #pragma mark - UITabbarViewControllerDelegate
@@ -613,273 +549,18 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
 {
     AccountManager *accountManager = [AccountManager shareAccountManager];
-    if ([viewController isEqual:_chatListCtl.navigationController] && !accountManager.isLogin) {
+    if (([viewController isEqual:_chatListCtl.navigationController] || [viewController isEqual:_mineCtl.navigationController]) && !accountManager.isLogin) {
         LoginViewController *loginCtl = [[LoginViewController alloc] init];
         TZNavigationViewController *navi = [[TZNavigationViewController alloc] initWithRootViewController:loginCtl];
-        _toolBoxCtl.hideNavigationBar = YES;
-        _mineCtl.hideNavigationBar = YES;
-        [self presentViewController:navi animated:YES completion:^{
-            _toolBoxCtl.hideNavigationBar = NO;
-            _mineCtl.hideNavigationBar = NO;
-        }];
+        [self presentViewController:navi animated:YES completion:nil];
         return NO;
     } else {
-        if ([viewController isEqual:_toolBoxCtl.navigationController]) {
-            _toolBoxCtl.navigationbarAnimated = NO;
-        } else if ([viewController isEqual:_mineCtl.navigationController]) {
-            _mineCtl.navigationbarAnimated = NO;
+        if ([viewController isEqual:_mineCtl.navigationController]) {
+            [self showSomeTabbarNoti];
         }
     }
     return YES;
 }
 
-#pragma mark - UITabbarDelegate
-- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
-{
-    NSLog(@"%@", item);
-}
-
-#pragma mark - IChatManagerDelegate 登陆回调（主要用于监听自动登录是否成功）
-
-- (void)didLoginWithInfo:(NSDictionary *)loginInfo error:(EMError *)error
-{
-    if (error) {
-        NSLog(@"自动登录失败");
-    } else {
-        NSLog(@"自动登录成功");
-    }
-}
-
-
-#pragma mark - IChatManagerDelegate 好友变化
-
-- (void)didReceiveBuddyRequest:(NSString *)username
-                       message:(NSString *)message
-{
-#if !TARGET_IPHONE_SIMULATOR
-    [self playSoundAndVibration];
-    
-    BOOL isAppActivity = [[UIApplication sharedApplication] applicationState] == UIApplicationStateActive;
-    if (!isAppActivity) {
-        //发送本地推送
-        UILocalNotification *notification = [[UILocalNotification alloc] init];
-        notification.fireDate = [NSDate date]; //触发通知的时间
-        notification.alertBody = [NSString stringWithFormat:@"%@ %@", username, @"添加你为好友"];
-        notification.alertAction = @"打开";
-        notification.timeZone = [NSTimeZone defaultTimeZone];
-    }
-#endif
-}
-
-- (void)didUpdateBuddyList:(NSArray *)buddyList
-            changedBuddies:(NSArray *)changedBuddies
-                     isAdd:(BOOL)isAdd
-{
-
-}
-
-- (void)didRemovedByBuddy:(NSString *)username
-{
-    NSLog(@"didRemovedByBuddy我要删除会话");
-    [[EaseMob sharedInstance].chatManager removeConversationByChatter:username deleteMessages:YES append2Chat:YES];
-}
-
-- (void)didAcceptedByBuddy:(NSString *)username
-{
-}
-
-- (void)didRejectedByBuddy:(NSString *)username
-{
-    NSLog(@"%@", [NSString stringWithFormat:@"你被'%@'无耻的拒绝了", username]);
-}
-
-- (void)didAcceptBuddySucceed:(NSString *)username{
-}
-
-#pragma mark - IChatManagerDelegate 群组变化
-
-- (void)didReceiveGroupInvitationFrom:(NSString *)groupId
-                              inviter:(NSString *)username
-                              message:(NSString *)message
-{
-    NSLog(@"didReceiveGroupInvitationFrom");
-    [self playSoundAndVibration];
-}
-
-- (void)groupDidUpdateInfo:(EMGroup *)group error:(EMError *)error
-{
-    NSLog(@"groupDidUpdateInfo");
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    [accountManager updateGroup:group.groupId withGroupOwner:group.owner groupSubject:group.groupSubject groupInfo:group.groupDescription];
-}
-
-- (void)didAcceptInvitationFromGroup:(EMGroup *)group
-                               error:(EMError *)error
-{
-    NSLog(@"didAcceptInvitationFromGroup");
-}
-
-- (void)didUpdateGroupList:(NSArray *)allGroups error:(EMError *)error
-{
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    NSArray *array = [[EaseMob sharedInstance].chatManager groupList];
-    for (EMGroup *group in array) {
-        [accountManager updateGroup:group.groupId withGroupOwner:group.owner groupSubject:group.groupSubject groupInfo:group.groupDescription];
-    }
-    
-    NSArray *conversations = [[EaseMob sharedInstance].chatManager conversations];
-    for (EMConversation *conversation in conversations) {
-        if (conversation.isGroup) {
-            BOOL find = NO;
-            for (EMGroup *group in allGroups) {
-                if ([group.groupId isEqualToString:conversation.chatter]) {
-                    find = YES;
-                    break;
-                }
-            }
-            if (!find) {
-                [[EaseMob sharedInstance].chatManager removeConversationByChatter:conversation.chatter deleteMessages:YES append2Chat:YES];
-            }
-        }
-        
-    }
-}
-
-// 未读消息数量变化回调
--(void)didUnreadMessagesCountChanged
-{
-    [self setupUnreadMessageCount];
-}
-
-
-//接收到入群申请
-- (void)didReceiveApplyToJoinGroup:(NSString *)groupId
-                         groupname:(NSString *)groupname
-                     applyUsername:(NSString *)username
-                            reason:(NSString *)reason
-                             error:(EMError *)error
-{
-    if (!error) {
-#if !TARGET_IPHONE_SIMULATOR
-        NSLog(@"didReceiveGroupInvitationFrom");
-        [self playSoundAndVibration];
-#endif
-        
-    }
-}
-
-/*!
- @method
- @brief 离开一个群组后的回调
- @param group  所要离开的群组对象
- @param reason 离开的原因
- @param error  错误信息
- @discussion
- 离开的原因包含主动退出, 被别人请出, 和销毁群组三种情况
- */
-
-- (void)group:(EMGroup *)group didLeave:(EMGroupLeaveReason)reason error:(EMError *)error
-{
-    NSLog(@"%@", group);
-}
-
-- (void)didReceiveGroupRejectFrom:(NSString *)groupId
-                          invitee:(NSString *)username
-                           reason:(NSString *)reason
-{
-    NSLog(@"%@", [NSString stringWithFormat:@"你被'%@'无耻的拒绝了", username]);
-}
-
-
-- (void)didReceiveAcceptApplyToJoinGroup:(NSString *)groupId
-                               groupname:(NSString *)groupname
-{
-    NSString *message = [NSString stringWithFormat:@"同意加入群组\'%@\'", groupname];
-    [self showHint:message];
-}
-
-#pragma mark - IChatManagerDelegate 登录状态变化
-
-// 开始自动登录回调
--(void)willAutoLoginWithInfo:(NSDictionary *)loginInfo error:(EMError *)error
-{
-    NSLog(@"willAutoLoginWithInfo  home");
-}
-
-// 结束自动登录回调
--(void)didAutoLoginWithInfo:(NSDictionary *)loginInfo error:(EMError *)error
-{
-    NSLog(@"didAutoLoginWithInfo  home");
-}
-
-- (void)didLoginFromOtherDevice
-{
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    [accountManager asyncLogout:^(BOOL isSuccess) {
-        
-    }];
-    __weak typeof (HomeViewController *)weakSelf = self;
-    [[EaseMob sharedInstance].chatManager asyncLogoffWithUnbindDeviceToken:YES completion:^(NSDictionary *info, EMError *error) {
-        AccountManager *accountManager = [AccountManager shareAccountManager];
-        [accountManager asyncLogout:^(BOOL isSuccess) {
-            if (isSuccess) {
-            } else {
-                [weakSelf showHint:@"退出失败"];
-            }
-        }];
-        
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示"
-                                                            message:@"你的账号已在其他地方登录"
-                                                           delegate:self
-                                                  cancelButtonTitle:@"确定"
-                                                  otherButtonTitles:nil,
-                                  nil];
-        alertView.tag = 100;
-        [alertView show];
-        
-    } onQueue:nil];
-}
-
-- (void)didRemovedFromServer {
-    [[EaseMob sharedInstance].chatManager asyncLogoffWithUnbindDeviceToken:YES completion:^(NSDictionary *info, EMError *error) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示"
-                                                            message:@"你的账号已被从服务器端移除"
-                                                           delegate:self
-                                                  cancelButtonTitle:@"确定"
-                                                  otherButtonTitles:nil,
-                                  nil];
-        alertView.tag = 101;
-        [alertView show];
-    } onQueue:nil];
-}
-
-- (void)didConnectionStateChanged:(EMConnectionState)connectionState
-{
-    if (connectionState == eEMConnectionDisconnected) {
-        self.chatListCtl.IMState = IM_DISCONNECTED;
-    }
-
-}
-
-#pragma mark -
-
-- (void)willAutoReconnect{
-    NSLog(@"正在重练中");
-
-    self.chatListCtl.IMState = IM_CONNECTING;
-}
-
-- (void)didAutoReconnectFinishedWithError:(NSError *)error{
-    if (error) {
-        [SVProgressHUD showHint:@"重连失败，稍候将继续重连"];
-
-        NSLog(@"重连失败，稍候将继续重连");
-    }else{
-        NSLog(@"重练成功");
-//        [SVProgressHUD showHint:@"重练成功"];
-
-        self.chatListCtl.IMState = IM_CONNECTED;
-    }
-}
 
 @end

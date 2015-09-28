@@ -270,6 +270,7 @@ static NSString * const kTableViewPanState = @"state";
 
         [self.rightUtilityButtonsView layoutIfNeeded];
         [self layoutIfNeeded];
+    } else {
     }
 }
 

@@ -11,8 +11,6 @@
 @interface HotelPoi : SuperPoi
 
 @property (nonatomic, copy) NSString *bookUrl;
-@property (nonatomic, copy) NSString *telephone;
-@property (nonatomic, copy) NSString *priceDesc;
 
 - (id)initWithJson:(id)json;
 

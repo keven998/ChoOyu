@@ -31,7 +31,9 @@
 - (void)re_displayController:(UIViewController *)controller frame:(CGRect)frame
 {
     [self addChildViewController:controller];
-    controller.view.frame = frame;
+    //+49 是为了修复 tabbar 引起的 bug
+    CGRect rect = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, frame.size.height + 49);
+    controller.view.frame = rect;
     [self.view addSubview:controller.view];
     [controller didMoveToParentViewController:self];
 }

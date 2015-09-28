@@ -16,6 +16,7 @@
 #import "HPGrowingTextView.h"
 
 #import "DXChatBarMoreView.h"
+#import "DXChatBarMoreViewAddBtn.h"
 #import "DXFaceView.h"
 #import "DXRecordView.h"
 
@@ -176,7 +177,7 @@
 /**
  *  松开手指完成录音
  */
-- (void)didFinishRecoingVoiceAction:(UIView *)recordView;
+- (void)didFinishRecoingVoiceAction:(NSString *)audioPath;
 /**
  *  当手指离开按钮的范围内时，主要为了通知外部的HUD
  */

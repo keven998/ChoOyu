@@ -50,13 +50,16 @@ NSString *const kRouterEventTaoziCityBubbleTapEventName = @"kRouterEventTaoziCit
         
         [_coverImageView setFrame:CGRectMake(0, 0, TaoziCityBubbleWidth-BUBBLE_ARROW_WIDTH, TaoziCityBubbleHeight)];
         _titleLabel.textAlignment = NSTextAlignmentRight;
-        _titleImageView.image = [[UIImage imageNamed:@"message_taozi_city_send.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:5];
+        
     } else {
         [_coverImageView setFrame:CGRectMake(BUBBLE_ARROW_WIDTH, 0, TaoziCityBubbleWidth-BUBBLE_ARROW_WIDTH, TaoziCityBubbleHeight)];
 
         _titleLabel.textAlignment = NSTextAlignmentLeft;
-        _titleImageView.image = [[UIImage imageNamed:@"message_taozi_city_receive.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:5];
     }
+    NSString *imageName = self.model.isSender ? @"messages_poi_bg_self.png" : @"messages_poi_bg_friend.png";
+
+    _titleImageView.image = [[UIImage imageNamed:imageName] resizableImageWithCapInsets:UIEdgeInsetsMake(28, 18, 18, 10)];
+
     
 }
 
@@ -74,9 +77,9 @@ NSString *const kRouterEventTaoziCityBubbleTapEventName = @"kRouterEventTaoziCit
 - (void)setModel:(MessageModel *)model
 {
     _model = model;
-    NSDictionary *content = [model.taoziMessage objectForKey:@"content"];
-    [_coverImageView sd_setImageWithURL:[NSURL URLWithString:[content objectForKey:@"image"]] placeholderImage:nil];
-    _titleLabel.text = [content objectForKey:@"name"];
+    IMPoiModel *poiModel = model.poiModel;
+    [_coverImageView sd_setImageWithURL:[NSURL URLWithString:poiModel.image] placeholderImage:nil];
+    _titleLabel.text = poiModel.poiName;
 }
 
 /**
@@ -88,7 +91,7 @@ NSString *const kRouterEventTaoziCityBubbleTapEventName = @"kRouterEventTaoziCit
  */
 + (CGFloat)heightForBubbleWithObject:(MessageModel *)object
 {
-    return TaoziCityBubbleHeight + 10;
+    return TaoziCityBubbleHeight;
 }
 
 @end

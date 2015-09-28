@@ -138,7 +138,7 @@ static UIColor *disabledColor;
     disabledColor   = [UIColor colorWithWhite:1 alpha:0.9];
 }
 
--(id)initWithFrame:(CGRect)frame{
+- (id)initWithFrame:(CGRect)frame{
     if (self=[super initWithFrame:frame]) {
         _selectView=[[UIImageView alloc] initWithFrame:CGRectMake(frame.size.width-checkedIcon.size.width, frame.size.height-checkedIcon.size.height, checkedIcon.size.width, checkedIcon.size.height)];
         [self addSubview:_selectView];
@@ -146,7 +146,7 @@ static UIColor *disabledColor;
     return self;
 }
 
--(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
     if (_disabled) {
         return;
     }
@@ -477,10 +477,29 @@ static UIColor *titleColor;
 - (void)setupButtons
 {
     self.navigationItem.rightBarButtonItem =
-    [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"完成 ", nil)
+    [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"发送 ", nil)
                                      style:UIBarButtonItemStylePlain
                                     target:self
                                     action:@selector(finishPickingAssets:)];
+    
+    
+    UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setImage:[UIImage imageNamed:@"common_icon_navigation_back_normal"] forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:@"common_icon_navigation_back_highlight"] forState:UIControlStateHighlighted];
+    [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
+    [button setFrame:CGRectMake(0, 0, 30, 30)];
+    button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
+    self.navigationItem.leftBarButtonItem = barButton;
+}
+
+- (void)goBack
+{
+    if (self.navigationController.childViewControllers.count > 1) {
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 - (void)setupAssets
@@ -776,7 +795,7 @@ static UIColor *titleColor;
     return YES;
 }
 
-- (NSUInteger)supportedInterfaceOrientations
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
     return UIInterfaceOrientationMaskAllButUpsideDown;
 }
@@ -1076,7 +1095,7 @@ static UIColor *titleColor;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-}
+} 
 
 - (void)didReceiveMemoryWarning
 {

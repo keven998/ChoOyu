@@ -13,10 +13,9 @@
 #import "AFgzipRequestSerializer.h"
 #import "AccountManager.h"
 #import "AddressBookTableViewCell.h"
-#import "ContactDetailViewController.h"
 #import "SearchUserInfoViewController.h"
 
-#import "OtherUserInfoViewController.h"
+#import "OtherProfileViewController.h"
 
 #define addressBookCell    @"addressBookCell"
 
@@ -33,16 +32,22 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"通讯录好友";
+    self.navigationItem.title = @"通讯录朋友";
     [self.tableView registerNib:[UINib nibWithNibName:@"AddressBookTableViewCell" bundle:nil] forCellReuseIdentifier:addressBookCell];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = APP_PAGE_COLOR;
-    if (ABAddressBookGetAuthorizationStatus() != kABAuthorizationStatusAuthorized) {
-        [SVProgressHUD showHint:@"需要你开启通讯录的访问权限"];
-//        [self performSelector:@selector(goBack) withObject:nil afterDelay:1];
-    } else {
-        [self loadContactsInAddrBook];
-    }
+    [self loadContactsInAddrBook];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -74,9 +79,6 @@
 //  展示所有联系人
 -(void)loadContactsInAddrBook
 {
-    _hud = [[TZProgressHUD alloc] init];
-    __weak typeof(AddressBookTableViewController *)weakSelf = self;
-    [_hud showHUDInViewController:weakSelf.navigationController];
 
     NSMutableArray *addressBookList = [[NSMutableArray alloc] init];
     CFErrorRef error = NULL;
@@ -85,8 +87,13 @@
     ABAddressBookRequestAccessWithCompletion(addressBook, ^(bool granted, CFErrorRef error) {
         if (granted) {
             if (ABAddressBookGetAuthorizationStatus() != kABAuthorizationStatusAuthorized) {
+                [SVProgressHUD showHint:@"需要你开启通讯录的访问权限"];
                 return ;
             }
+            _hud = [[TZProgressHUD alloc] init];
+            __weak typeof(AddressBookTableViewController *)weakSelf = self;
+            [_hud showHUDInViewController:weakSelf.navigationController];
+            
             CFErrorRef error = NULL;
             ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, &error);
             NSArray *array = CFBridgingRelease(ABAddressBookCopyArrayOfAllPeople(addressBook));
@@ -118,10 +125,15 @@
             [self uploadAddressBook:addressBookList];
             
         } else {
+            NSLog(@"需要你开启通讯录的访问权限");
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [SVProgressHUD showHint:@"需要你开启通讯录的访问权限"];
+            });
         }
     });
-    
-    CFRelease(addressBook);
+    if (addressBook) {
+        CFRelease(addressBook);
+    }
 }
 
 - (void)uploadAddressBook:(NSArray *)addressBookList
@@ -136,13 +148,18 @@
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     AccountManager *accountManager = [AccountManager shareAccountManager];
     if ([accountManager isLogin]) {
-        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     }
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:addressBookList forKey:@"contacts"];
+    [params setObject:@"addressbook" forKey:@"action"];
     
-    [manager POST:API_UPLOAD_ADDRESSBOOK parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSString * urlStr = [NSString stringWithFormat:@"%@%ld/match",API_USERS,accountManager.account.userId];
+    
+    NSLog(@"%@",urlStr);
+    
+    [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [_hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -153,7 +170,7 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [_hud hideTZHUD];
         if (self.isShowing) {
-            [SVProgressHUD showHint:@"呃～好像没找到网络"];
+            [SVProgressHUD showHint:HTTP_FAILED_HINT];
         }
     }];
 
@@ -217,25 +234,23 @@
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
-    NSString *urlStr = [NSString stringWithFormat:@"%@%@", API_USERINFO, userId];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+    NSString *urlStr = [NSString stringWithFormat:@"%@%@", API_USERS, userId];
     [manager GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-//            SearchUserInfoViewController *searchUserInfoCtl = [[SearchUserInfoViewController alloc] init];
-//            searchUserInfoCtl.userInfo = [responseObject objectForKey:@"result"];
-//            [self.navigationController pushViewController:searchUserInfoCtl animated:YES];
-            OtherUserInfoViewController *otherCtl = [[OtherUserInfoViewController alloc]init];
+            OtherProfileViewController *otherCtl = [[OtherProfileViewController alloc]init];
             NSDictionary *userInfo = [responseObject objectForKey:@"result"];
-            otherCtl.userId = [userInfo objectForKey:@"userId"];
+            otherCtl.userId = [[userInfo objectForKey:@"userId"] integerValue];
             [self.navigationController pushViewController:otherCtl animated:YES];
+
         } else {
             
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (self.isShowing) {
-            [SVProgressHUD showHint:@"呃～好像没找到网络"];
+            [SVProgressHUD showHint:HTTP_FAILED_HINT];
         }
     }];
 }
@@ -301,6 +316,7 @@
 }
 
 #pragma mark - MFMessageComposeViewControllerDelegate
+
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
 {
     switch (result) {

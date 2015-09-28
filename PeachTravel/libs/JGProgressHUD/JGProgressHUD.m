@@ -42,8 +42,6 @@ unavailable
 #define kCFCoreFoundationVersionNumber_iOS_7_0 838.00
 #endif
 
-#define iOS7 (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iOS_7_0)
-
 #define iOS8 ([UIVisualEffectView class] != Nil)
 
 @interface JGProgressHUD () {

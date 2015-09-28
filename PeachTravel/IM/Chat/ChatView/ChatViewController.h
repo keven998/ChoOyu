@@ -1,28 +1,26 @@
-/************************************************************
-  *  * EaseMob CONFIDENTIAL 
-  * __________________ 
-  * Copyright (C) 2013-2014 EaseMob Technologies. All rights reserved. 
-  *  
-  * NOTICE: All information contained herein is, and remains 
-  * the property of EaseMob Technologies.
-  * Dissemination of this information or reproduction of this material 
-  * is strictly forbidden unless prior written permission is obtained
-  * from EaseMob Technologies.
-  */
+//
+//  ChatViewController.h
+//  PeachTravel
+//
+//  Created by liangpengshuai on 5/25/15.
+//  Copyright (c) 2015 com.aizou.www. All rights reserved.
+//
 
 #import <UIKit/UIKit.h>
+#import "PeachTravel-swift.h"
 
 @interface ChatViewController : TZViewController
 
-- (instancetype)initWithChatter:(NSString *)chatter isGroup:(BOOL)isGroup;
+@property (nonatomic, copy) NSString *chatterName;
 
-@property (nonatomic, copy) NSString *chatterNickName;
-@property (nonatomic, copy) NSString *chatterAvatar;
+typedef void(^BackBlock)();
+
+- (instancetype)initWithChatter:(NSInteger)chatter chatType:(IMChatType)chatType;
+- (instancetype)initWithConversation:(ChatConversation *)conversation;
 
 /**
- *  发送旅行派消息
- *
- *  @param taoziMsg 旅行派
+ *  点击返回按钮需要执行的操作
  */
-- (void)sendTaoziMessage:(NSDictionary *)taoziMsg;
+@property (nonatomic, copy) BackBlock backBlock;
+
 @end

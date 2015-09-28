@@ -10,6 +10,6 @@
 
 @interface VerifyCaptchaViewController : TZViewController
 
-@property (nonatomic, assign) VerifyCaptchaType verifyCaptchaType;
+@property (nonatomic) VerifyCaptchaType verifyCaptchaType;
 
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "PoisOfCityViewController.h"
-#import "CommonPoiListTableViewCell.h"
+#import "TripPoiListTableViewCell.h"
 #import "TZFilterViewController.h"
 #import "CityDestinationPoi.h"
 #import "RecommendsOfCity.h"
@@ -22,25 +22,18 @@
 
 @property (nonatomic, strong) UIButton *rightItemBtn;
 @property (nonatomic, strong) RecommendsOfCity *dataSource;
-@property (strong, nonatomic) UISearchBar *searchBar;
-@property (strong, nonatomic) UISearchDisplayController *searchController;
 @property (nonatomic, strong) UIActivityIndicatorView *indicatroView;
 @property (nonatomic, strong) UIView *footerView;
-@property (nonatomic, strong) NSMutableArray *searchResultArray;
-@property (nonatomic, strong) TZFilterViewController *filterCtl;
+
+@property (nonatomic, strong) TripDetail *backTripDetail;
+//如果从攻略编辑界面进来，则代表的是美食列表/购物列表
+@property (nonatomic, strong) NSMutableArray *tripPoiList;
 
 //管理普通 tableview 的加载状态
 @property (nonatomic) NSUInteger currentPageNormal;
 @property (nonatomic, assign) BOOL isLoadingMoreNormal;
 @property (nonatomic, assign) BOOL didEndScrollNormal;
 @property (nonatomic, assign) BOOL enableLoadMoreNormal;
-
-//管理搜索 tableview 的加载状态
-@property (nonatomic) NSUInteger currentPageSearch;
-@property (nonatomic, assign) BOOL isLoadingMoreSearch;
-@property (nonatomic, assign) BOOL didEndScrollSearch;
-@property (nonatomic, assign) BOOL enableLoadMoreSearch;
-
 
 @property (nonatomic, copy) NSString *searchText;
 @property (nonatomic, strong) TZProgressHUD *hud;
@@ -49,14 +42,13 @@
 
 @property (nonatomic, strong) UICollectionView *selectPanel;
 
-@property (nonatomic, strong) NSMutableArray *seletedArray;
 
 @property (nonatomic) NSInteger currentCityIndex;
 @end
 
 @implementation PoisOfCityViewController
 
-static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
+static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -64,11 +56,12 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
     [self setExtendedLayoutIncludesOpaqueBars:YES];
     _currentCityIndex = 0;
     if (self.shouldEdit) {
-        UIBarButtonItem *lbtn = [[UIBarButtonItem alloc] initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(finishAdd:)];
+        UIBarButtonItem *lbtn = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(finishAdd:)];
         self.navigationItem.leftBarButtonItem = lbtn;
     } else {
         UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:@"common_icon_navigation_back_normal"] forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:@"common_icon_navigation_back_highlight"] forState:UIControlStateHighlighted];
         [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
         [button setFrame:CGRectMake(0, 0, 48, 30)];
         button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
@@ -79,10 +72,11 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
     NSMutableArray *rbItems = [[NSMutableArray alloc] init];
     
     if (self.tripDetail) {
-        CityDestinationPoi *destination = [self.tripDetail.destinations firstObject];
+        _backTripDetail = [self.tripDetail backUpTrip];
+        CityDestinationPoi * destination = self.backTripDetail.destinations[self.page];
         _zhName = destination.zhName;
         _cityId = destination.cityId;
-        if (self.tripDetail.destinations.count > 1) {
+        if (self.backTripDetail.destinations.count > 1) {
             TZButton *btn = [TZButton buttonWithType:UIButtonTypeCustom];
             btn.frame = CGRectMake(0, 0, 44, 44);
             [btn setTitle:@"城市" forState:UIControlStateNormal];
@@ -93,47 +87,35 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
             btn.imagePosition = IMAGE_AT_RIGHT;
             UIBarButtonItem *cbtn = [[UIBarButtonItem alloc] initWithCustomView:btn];
             [rbItems addObject:cbtn];
-
         }
     }
     
-    UIBarButtonItem *lbtn = [[UIBarButtonItem alloc] initWithTitle:@"搜索" style:UIBarButtonItemStylePlain target:self action:@selector(beginSearch:)];
+    UIBarButtonItem *lbtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_common_search.png"] style:UIBarButtonItemStylePlain target:self action:@selector(beginSearch:)];
     [rbItems addObject:lbtn];
-    self.navigationItem.rightBarButtonItems = rbItems;
+    self.navigationItem.rightBarButtonItem = lbtn;
     
-    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 44)];
-    if (_poiType == kRestaurantPoi) {
-        _searchBar.placeholder = @"搜索美食";
-    } else if (_poiType == kShoppingPoi) {
-        _searchBar.placeholder = @"搜索购物";
-    }
-    _searchBar.delegate = self;
-    
-    self.view.backgroundColor = APP_PAGE_COLOR;
-    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
+    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.backgroundColor = APP_PAGE_COLOR;
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.tableView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:poisOfCityCellIdentifier];
+    self.tableView.separatorColor = COLOR_LINE;
+    [self.tableView registerNib:[UINib nibWithNibName:@"TripPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:poisOfCityCellIdentifier];
     [self.view addSubview:self.tableView];
     
-//    self.tableView.tableHeaderView = _searchBar;
-//    self.tableView.tableFooterView = _footerView;
+    for (CityDestinationPoi *poi in _tripDetail.destinations) {
+        if ([poi.cityId isEqualToString:_cityId]) {
+            _zhName = poi.zhName;
+            break;
+        }
+    }
     
     if (_poiType == kRestaurantPoi) {
-        self.navigationItem.title = [NSString stringWithFormat:@"吃在%@", _zhName];
+        self.navigationItem.title = [NSString stringWithFormat:@"%@美食", _zhName];
     } else if (_poiType == kShoppingPoi) {
         self.navigationItem.title = [NSString stringWithFormat:@"%@购物", _zhName];
     }
     
-    NSString *searchPlaceHolder;
-    if (_poiType == kRestaurantPoi) {
-        searchPlaceHolder = @"输入美食";
-    } else if (_poiType == kShoppingPoi) {
-        searchPlaceHolder = @"输入购物";
-    }
     _currentPageNormal = 0;
     
     _hud = [[TZProgressHUD alloc] init];
@@ -141,46 +123,41 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
     [_hud showHUDInViewController:weakSelf];
     
     if (_poiType == kRestaurantPoi) {
-        _seletedArray = self.tripDetail.restaurantsList;
+        _tripPoiList = self.backTripDetail.restaurantsList;
     } else if (_poiType == kShoppingPoi) {
-        _seletedArray = self.tripDetail.shoppingList;
+        _tripPoiList = self.backTripDetail.shoppingList;
     }
-
+    
     if (!_shouldEdit) {
         [self loadIntroductionOfCity];
     } else {
         [self loadDataPoisOfCity:_currentPageNormal];
         [self setupSelectPanel];
-        [_tableView setContentOffset:CGPointMake(0, 49)];
+        _tableView.contentInset = UIEdgeInsetsMake(0, 0, 50, 0);
     }
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.navigationController.navigationBarHidden = NO;
-    if (_shouldEdit) {
-        [MobClick beginLogPageView:@"page_add_agenda"];
-    } else {
-        if (_poiType == kRestaurantPoi) {
-            [MobClick beginLogPageView:@"page_delicacy_lists"];
-        } else if (_poiType == kShoppingPoi) {
-            [MobClick beginLogPageView:@"page_shopping_lists"];
-        }
+      
+
+    if (_poiType == kRestaurantPoi) {
+        [MobClick beginLogPageView:@"page_poi_lists_type_delicy"];
+        
+    } else if (_poiType == kShoppingPoi) {
+        [MobClick beginLogPageView:@"page_poi_lists_type_shopping"];
     }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    if (_shouldEdit) {
-        [MobClick endLogPageView:@"page_add_agenda"];
-    } else {
-        if (_poiType == kRestaurantPoi) {
-            [MobClick endLogPageView:@"page_delicacy_lists"];
-        } else if (_poiType == kShoppingPoi) {
-            [MobClick endLogPageView:@"page_shopping_lists"];
-        }
+    if (_poiType == kRestaurantPoi) {
+        [MobClick endLogPageView:@"page_poi_lists_type_delicy"];
+        
+    } else if (_poiType == kShoppingPoi) {
+        [MobClick endLogPageView:@"page_poi_lists_type_shopping"];
     }
 }
 
@@ -194,13 +171,13 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
 }
 
 #pragma mark - private method
+
 - (void) setupSelectPanel {
     CGRect collectionViewFrame = CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49, CGRectGetWidth(self.view.bounds), 49);
     UICollectionViewFlowLayout *aFlowLayout = [[UICollectionViewFlowLayout alloc] init];
     [aFlowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
     self.selectPanel = [[UICollectionView alloc] initWithFrame:collectionViewFrame collectionViewLayout:aFlowLayout];
-    [self.selectPanel setBackgroundColor:[UIColor clearColor]];
-    self.selectPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    self.selectPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     self.selectPanel.showsHorizontalScrollIndicator = NO;
     self.selectPanel.showsVerticalScrollIndicator = NO;
     self.selectPanel.delegate = self;
@@ -208,30 +185,21 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
     self.selectPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     self.selectPanel.contentInset = UIEdgeInsetsMake(0, 15, 0, 15);
     [self.selectPanel registerClass:[SelectDestCell class] forCellWithReuseIdentifier:@"sdest_cell"];
-    UIImageView *backImg = [[UIImageView alloc]initWithFrame:self.selectPanel.frame];
-    backImg.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-    backImg.image = [UIImage imageNamed:@"collectionBack"];
-    [self.view addSubview:backImg];
-    
+    self.selectPanel.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_selectPanel];
+    
+    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49, self.selectPanel.frame.size.width, 0.6)];
+    spaceView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    spaceView.backgroundColor = COLOR_LINE;
+    spaceView.layer.shadowColor = COLOR_LINE.CGColor;
+    spaceView.layer.shadowOffset = CGSizeMake(0, -1.0);
+    spaceView.layer.shadowOpacity = 0.33;
+    spaceView.layer.shadowRadius = 1.0;
+    [self.view addSubview:spaceView];
+    
 }
 
 #pragma mark - setter & getter
-
-- (UISearchDisplayController *)searchController
-{
-    if (!_searchController) {
-        _searchController= [[UISearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
-        [_searchController.searchResultsTableView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:poisOfCityCellIdentifier];
-        _searchController.searchResultsTableView.backgroundColor = APP_PAGE_COLOR;
-        _searchController.searchResultsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _searchController.searchResultsTableView.backgroundColor = APP_PAGE_COLOR;
-        _searchController.searchResultsTableView.delegate = self;
-        _searchController.searchResultsTableView.dataSource = self;
-        _searchController.delegate = self;
-    }
-    return _searchController;
-}
 
 - (RecommendsOfCity *)dataSource
 {
@@ -239,14 +207,6 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
         _dataSource = [[RecommendsOfCity alloc] init];
     }
     return _dataSource;
-}
-
-- (NSMutableArray *)searchResultArray
-{
-    if (!_searchResultArray) {
-        _searchResultArray = [[NSMutableArray alloc] init];
-    }
-    return _searchResultArray;
 }
 
 - (UIView *)footerView {
@@ -262,21 +222,9 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
     return _footerView;
 }
 
-- (TZFilterViewController *)filterCtl
+- (void)setTripDetail:(TripDetail *)tripDetail
 {
-    if (!_filterCtl) {
-        _filterCtl = [[TZFilterViewController alloc] init];
-        NSMutableArray *titiles = [[NSMutableArray alloc] init];
-        for (CityDestinationPoi *poi in _tripDetail.destinations) {
-            [titiles addObject:poi.zhName];
-        }
-        _filterCtl.filterTitles = @[@"城市"];
-        _filterCtl.lineCountPerFilterType = @[@2];
-        _filterCtl.selectedItmesIndex = @[@0];
-        _filterCtl.filterItemsArray = @[titiles];
-        _filterCtl.delegate = self;
-    }
-    return _filterCtl;
+    _tripDetail = tripDetail;
 }
 
 #pragma mark - Private Methods
@@ -292,11 +240,9 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     NSString *requsetUrl;
-
+    
     if (_poiType == kRestaurantPoi) {
         requsetUrl = [NSString stringWithFormat:@"%@%@/restaurant", API_GET_GUIDE_CITY,_cityId];
-        
-//        requsetUrl = [NSString stringWithFormat:@"%@%@"]
     }
     if (_poiType == kShoppingPoi) {
         requsetUrl = [NSString stringWithFormat:@"%@%@/shopping", API_GET_GUIDE_CITY,_cityId];
@@ -315,7 +261,7 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
         }
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self showHint:@"呃～好像没找到网络"];
+        [self showHint:HTTP_FAILED_HINT];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
 }
@@ -334,12 +280,12 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-     NSString *requsetUrl;
+    NSString *requsetUrl;
     if (_poiType == kRestaurantPoi) {
-        requsetUrl = [NSString stringWithFormat:@"%@%@", API_GET_RESTAURANTSLIST_CITY,_cityId];
+        requsetUrl = API_GET_RESTAURANTSLIST_CITY;
         
     } else if (_poiType == kShoppingPoi) {
-        requsetUrl = [NSString stringWithFormat:@"%@%@", API_GET_SHOPPINGLIST_CITY,_cityId];
+        requsetUrl = API_GET_SHOPPINGLIST_CITY;
     }
     
     //加载之前备份一个城市的 id 与从网上取完数据后的 id 对比，如果不一致说明用户切换了城市
@@ -350,9 +296,11 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
     [params setObject:imageWidth forKey:@"imgWidth"];
     [params setObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];
     [params setObject:[NSNumber numberWithInteger:pageNO] forKey:@"page"];
+    [params setObject:_cityId forKey:@"locality"];
     
     //获取城市的美食.购物列表信息
     [manager GET:requsetUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@",responseObject);
         if (_hud) {
             [_hud hideTZHUD];
             _hud = nil;
@@ -381,9 +329,10 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
         }
         NSLog(@"%@", error);
         [self loadMoreCompletedNormal];
-        [self showHint:@"呃～好像没找到网络"];
+        [self showHint:HTTP_FAILED_HINT];
     }];
 }
+
 /**
  *  切换城市的poi列表
  *
@@ -400,13 +349,6 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-//    NSString *requsetUrl;
-//    if (_poiType == kRestaurantPoi) {
-//        requsetUrl = [NSString stringWithFormat:@"%@%@", API_GET_RESTAURANTSLIST_CITY,_cityId];
-//        
-//    } else if (_poiType == kShoppingPoi) {
-//        requsetUrl = [NSString stringWithFormat:@"%@%@", API_GET_SHOPPINGLIST_CITY,_cityId];
-//    }
     
     //加载之前备份一个城市的 id 与从网上取完数据后的 id 对比，如果不一致说明用户切换了城市
     NSString *backUpCityId = _cityId;
@@ -449,91 +391,7 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
         }
         NSLog(@"%@", error);
         [self loadMoreCompletedNormal];
-        [self showHint:@"呃～好像没找到网络"];
-    }];
-}
-
-/**
- *  加载搜索的数据
- *
- *  @param pageNo     第几页
- *  @param searchText 搜索关键字
- */
-- (void)loadSearchDataWithPageNo:(NSUInteger)pageNo
-{
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSNumber *imageWidth = [NSNumber numberWithInt:300];
-    [params setObject:imageWidth forKey:@"imgWidth"];
-    [params setObject:[NSNumber numberWithInteger:pageNo] forKey:@"page"];
-    [params setObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-
-    switch (_poiType) {
-        case kRestaurantPoi:
-            [params setObject:[NSNumber numberWithBool:YES] forKey:@"restaurant"];
-            break;
-        case kShoppingPoi:
-            [params setObject:[NSNumber numberWithBool:YES] forKey:@"shopping"];
-            break;
-        default:
-            break;
-    }
-    
-    [params setObject:_cityId forKey:@"locId"];
-    [params safeSetObject:_searchText forKey:@"keyword"];
-    
-    NSLog(@"searchController.searchResultsTableView frame :%@", NSStringFromCGRect(_searchController.searchResultsTableView.frame));
-    
-    //获取搜索列表信息
-    [manager GET:API_SEARCH parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        if (self.searchDisplayController.isActive) {
-            NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-            if (code == 0) {
-                NSString *key = nil;
-                switch (_poiType) {
-                    case kRestaurantPoi:
-                        key = @"restaurant";
-                        break;
-                    case kShoppingPoi:
-                        key = @"shopping";
-                        break;
-                        
-                    default:
-                        break;
-                }
-                NSArray *jsonDic = [[responseObject objectForKey:@"result"] objectForKey:key];
-                if (jsonDic.count == 15) {
-                    _enableLoadMoreSearch = YES;
-                }
-                for (id poiDic in jsonDic) {
-                    [self.searchResultArray addObject:[PoiFactory poiWithJson:poiDic]];
-                }
-                [self.searchController.searchResultsTableView reloadData];
-                _currentPageSearch = pageNo;
-            } else {
-//                if (self.isShowing) {
-//                    [SVProgressHUD showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
-//                }
-            }
-            [self loadMoreCompletedSearch];
-        }
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        [self loadMoreCompletedSearch];
-//        if (self.isShowing) {
-//            [SVProgressHUD showHint:@"呃～好像没找到网络"];
-//        }
+        [self showHint:HTTP_FAILED_HINT];
     }];
 }
 
@@ -544,21 +402,14 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
 
 - (void)filter:(id)sender
 {
-//    if (!self.filterCtl.filterViewIsShowing) {
-//        typeof(PoisOfCityViewController *)weakSelf = self;
-//        [self.filterCtl showFilterViewInViewController:weakSelf.navigationController];
-//    } else {
-//        [self.filterCtl hideFilterView];
-//    }
     NSMutableArray *array = [[NSMutableArray alloc] init];
     SelectionTableViewController *selectCtl = [[SelectionTableViewController alloc]init];
-    for (CityDestinationPoi *poi in _tripDetail.destinations) {
+    for (CityDestinationPoi *poi in _backTripDetail.destinations) {
         [array addObject:poi.zhName];
     }
     selectCtl.contentItems = [NSArray arrayWithArray:array];
     selectCtl.titleTxt = @"筛选";
     selectCtl.delegate = self;
-//    selectCtl.selectItemIndex = _currentCityIndex;
     selectCtl.selectItem = array[_currentCityIndex];
     TZNavigationViewController *nav = [[TZNavigationViewController alloc] initWithRootViewController:selectCtl];
     [self presentViewController:nav animated:YES completion:nil];
@@ -574,44 +425,39 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
  */
 - (IBAction)addPoi:(UIButton *)sender
 {
+    [MobClick event:@"button_item_pois_lxp_plan"];
+    sender.userInteractionEnabled = NO;
     CGPoint point;
     NSIndexPath *indexPath;
-    CommonPoiListTableViewCell *cell;
-    if (!self.searchController.isActive) {
-        point = [sender convertPoint:CGPointZero toView:_tableView];
-        indexPath = [_tableView indexPathForRowAtPoint:point];
-        cell = (CommonPoiListTableViewCell *)[_tableView cellForRowAtIndexPath:indexPath];
-    } else {
-        point = [sender convertPoint:CGPointZero toView:_searchController.searchResultsTableView];
-        indexPath = [_searchController.searchResultsTableView indexPathForRowAtPoint:point];
-        cell = (CommonPoiListTableViewCell *)[_searchController.searchResultsTableView cellForRowAtIndexPath:indexPath];
-    }
+    TripPoiListTableViewCell *cell;
+    point = [sender convertPoint:CGPointZero toView:_tableView];
+    indexPath = [_tableView indexPathForRowAtPoint:point];
+    cell = (TripPoiListTableViewCell *)[_tableView cellForRowAtIndexPath:indexPath];
     
-    SuperPoi *poi;
-    if (self.searchController.isActive) {
-        poi = [_searchResultArray objectAtIndex:sender.tag];
-    } else {
-        poi = [_dataSource.recommendList objectAtIndex:sender.tag];
-    }
-   
-    if (!cell.cellAction.isSelected) {
-        [_seletedArray addObject:poi];
+    
+    SuperPoi *poi = [_dataSource.recommendList objectAtIndex:sender.tag];
+    
+    if (!cell.actionBtn.isSelected) {
+        [_selectedArray addObject:poi];
+        [_tripPoiList addObject:poi];
         
-        NSIndexPath *lnp = [NSIndexPath indexPathForItem:_seletedArray.count - 1 inSection:0];
+        NSIndexPath *lnp = [NSIndexPath indexPathForItem:_selectedArray.count - 1 inSection:0];
         [self.selectPanel performBatchUpdates:^{
             [self.selectPanel insertItemsAtIndexPaths:[NSArray arrayWithObject:lnp]];
         } completion:^(BOOL finished) {
             [self.selectPanel scrollToItemAtIndexPath:lnp
                                      atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+            sender.userInteractionEnabled = YES;
         }];
         
     } else {
         int index = -1;
-        NSInteger count = _seletedArray.count;
+        NSInteger count = _selectedArray.count;
         for (int i = 0; i < count; ++i) {
-            SuperPoi *tripPoi = [_seletedArray objectAtIndex:i];
+            SuperPoi *tripPoi = [_selectedArray objectAtIndex:i];
             if ([tripPoi.poiId isEqualToString:poi.poiId]) {
-                [_seletedArray removeObjectAtIndex:i];
+                [_selectedArray removeObjectAtIndex:i];
+                [_tripPoiList removeObjectAtIndex:i];
                 index = i;
                 break;
             }
@@ -622,44 +468,93 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
             [self.selectPanel performBatchUpdates:^{
                 [self.selectPanel deleteItemsAtIndexPaths:[NSArray arrayWithObject:lnp]];
             } completion:^(BOOL finished) {
+                sender.userInteractionEnabled = YES;
                 [self.selectPanel reloadData];
             }];
         }
-        
     }
-    cell.cellAction.selected = !cell.cellAction.selected;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.15 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        cell.actionBtn.selected = !cell.actionBtn.selected;
+    });
+}
+
+- (void)deletePoi:(UIButton *)sender
+{
+    SuperPoi *poi = [_selectedArray objectAtIndex:sender.tag];
+    int index = -1;
+    NSInteger count = _selectedArray.count;
+    for (int i = 0; i < count; ++i) {
+        SuperPoi *tripPoi = [_selectedArray objectAtIndex:i];
+        if ([tripPoi.poiId isEqualToString:poi.poiId]) {
+            [_selectedArray removeObjectAtIndex:i];
+            index = i;
+            break;
+        }
+    }
+    
+    for (SuperPoi *oldPoi in _tripPoiList) {
+        if ([poi.poiId isEqualToString:oldPoi.poiId]) {
+            [_tripPoiList removeObject:oldPoi];
+
+            break;
+        }
+    }
+    
+    if (index != -1) {
+        NSIndexPath *lnp = [NSIndexPath indexPathForItem:index inSection:0];
+        [self.selectPanel performBatchUpdates:^{
+            [self.selectPanel deleteItemsAtIndexPaths:[NSArray arrayWithObject:lnp]];
+        } completion:^(BOOL finished) {
+            [self.selectPanel reloadData];
+        }];
+        [self.tableView reloadData];
+    }
 }
 
 - (IBAction)finishAdd:(id)sender
 {
-    [_delegate finishEdit];
-    [SVProgressHUD dismiss];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [_backTripDetail saveTrip:^(BOOL isSuccesss) {
+        NSLog(@"%d",isSuccesss);
+        if (isSuccesss) {
+            if (_poiType == kRestaurantPoi) {
+                _tripDetail.restaurantsList = _backTripDetail.restaurantsList;
+            } else if (_poiType == kShoppingPoi) {
+                _tripDetail.shoppingList = _backTripDetail.shoppingList;
+            }
+            NSLog(@"%@",_tripDetail.restaurantsList);
+            _tripDetail.backUpJson = _backTripDetail.backUpJson;
+            [_delegate finishEdit];
+            [self dismissViewControllerAnimated:YES completion:nil];
+        } else {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"保存失败，请检查你的网络设置" delegate:self cancelButtonTitle:@"直接返回" otherButtonTitles:@"确定", nil];
+            [alertView dismissWithClickedButtonIndex:1 animated:YES];
+            [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
+                if (buttonIndex == 0) {
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                }
+            }];
+        }
+    }];
 }
-
 
 /**
  *  点击搜索按钮开始搜索
  *
- *  @param sender 
+ *  @param sender
  */
 - (IBAction)beginSearch:(id)sender
 {
-//    [self.searchController setActive:YES animated:YES];
-//    [_searchBar becomeFirstResponder];
     PoisSearchViewController *poiSearchCtl = [[PoisSearchViewController alloc]init];
     poiSearchCtl.poiType = _poiType;
-    poiSearchCtl.tripDetail = _tripDetail;
+    poiSearchCtl.tripDetail = _backTripDetail;
     poiSearchCtl.cityId = _cityId;
     poiSearchCtl.zhName = _zhName;
     poiSearchCtl.delegate = self;
+    poiSearchCtl.shouldEdit = _shouldEdit;
     [poiSearchCtl setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
     TZNavigationViewController *tznavc = [[TZNavigationViewController alloc] initWithRootViewController:poiSearchCtl];
     
-    [self presentViewController:tznavc animated:YES completion:^{
-        
-    }];
-
+    [self presentViewController:tznavc animated:YES completion:nil];
 }
 
 - (IBAction)jumpToMapView:(UIButton *)sender
@@ -684,12 +579,10 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
     if (_poiType == kRestaurantPoi) {
         webCtl.titleStr = @"美食攻略";
-        [MobClick event:@"event_delicacy_strategy"];
         
     } else if (_poiType == kShoppingPoi) {
         webCtl.titleStr = @"购物攻略";
-        [MobClick event:@"event_shopping_strategy"];
-
+        
     }
     webCtl.urlStr = _dataSource.detailUrl;
     webCtl.hideToolBar = YES;
@@ -725,37 +618,11 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
     _didEndScrollNormal = YES;
 }
 
-/**
- *  搜索状态下上拉加载更多
- */
-- (void) beginLoadingSearch
-{
-    if (self.searchController.searchResultsTableView.tableFooterView == nil) {
-        self.searchController.searchResultsTableView.tableFooterView = self.footerView;
-    }
-    _isLoadingMoreSearch = YES;
-    [_indicatroView startAnimating];
-    [self loadSearchDataWithPageNo:(_currentPageSearch + 1)];
-    
-    NSLog(@"我要加载到第%lu",(long)_currentPageSearch+1);
-    
-}
-
-/**
- *  搜索状态下加载完成
- */
-- (void) loadMoreCompletedSearch
-{
-    if (!_isLoadingMoreSearch) return;
-    [_indicatroView stopAnimating];
-    _isLoadingMoreSearch = NO;
-    _didEndScrollSearch = YES;
-}
-
 #pragma mark - TZFilterViewDelegate
+
 -(void)didSelectedItems:(NSArray *)itemIndexPath
 {
-    CityDestinationPoi *destination = [self.tripDetail.destinations objectAtIndex:[[itemIndexPath firstObject] integerValue]];
+    CityDestinationPoi *destination = [self.backTripDetail.destinations objectAtIndex:[[itemIndexPath firstObject] integerValue]];
     _cityId = destination.cityId;
     _zhName = destination.zhName;
     
@@ -769,8 +636,6 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
     _currentPageNormal = 0;
     [self.tableView reloadData];
     [self loadDataPoisOfCity:_currentPageNormal];
-    
-//    [_filterBtn setTitle:_zhName forState:UIControlStateNormal];
 }
 
 
@@ -778,10 +643,6 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    //如果是搜索的情况
-    if (![tableView isEqual:self.tableView]) {
-        return self.searchResultArray.count;
-    }
     if (![_dataSource.desc isBlankString] && _dataSource.desc != nil) {
         if (section == 0) {
             return 0;
@@ -794,7 +655,7 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 90;
+    return 70;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -813,72 +674,49 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (![tableView isEqual:self.tableView]) {
-        return 0;
-    }
     if (![_dataSource.desc isBlankString] && _dataSource.desc != nil) {
         if (section == 0) {
-            return 160;
+            return 100;
         }
-        return 0;
+        return CGFLOAT_MIN;
     }
-    return 0;
+    return CGFLOAT_MIN;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return CGFLOAT_MIN;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    if (![_descDetail isBlankString] && _descDetail != nil) {
+    if (_dataSource.desc != nil && ![_dataSource.desc isBlankString]) {
         if (section == 0) {
-            UIView *sectionheaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 160)];
-            sectionheaderView.backgroundColor = APP_PAGE_COLOR;
+            UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 100)];
+            btn.titleLabel.font = [UIFont systemFontOfSize:13.0];
+            btn.titleEdgeInsets = UIEdgeInsetsMake(0, 24, 0, 24);
+            NSUInteger len = [_dataSource.desc length];
             
-            UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(11, 20, sectionheaderView.bounds.size.width-22, 4)];
-            spaceView.backgroundColor = APP_THEME_COLOR;
-            
-            UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(11, 20, sectionheaderView.bounds.size.width-22, sectionheaderView.bounds.size.height-30)];
-            btn.layer.cornerRadius = 3.0;
-            
-            UIImageView *tagBtn = [[UIImageView alloc] initWithFrame:CGRectMake(10, 18, 80, 80)];
-            tagBtn.contentMode = UIViewContentModeCenter;
-//            [tagBtn setBackgroundImage:[UIImage imageNamed:@"ic_city_border.png"] forState:UIControlStateNormal];
-            if (_poiType == kRestaurantPoi) {
-                [tagBtn setImage:[UIImage imageNamed:@"jingdian_food_eat"]];
-            } else if (_poiType == kShoppingPoi) {
-                [tagBtn setImage:[UIImage imageNamed:@"jingdian_shopping"]];
-            }
-            [btn addSubview:tagBtn];
-            
-            NSUInteger len = [_descDetail length];
-            NSMutableAttributedString *desc = [[NSMutableAttributedString alloc] initWithString:_descDetail];
-            [desc addAttribute:NSForegroundColorAttributeName value:TEXT_COLOR_TITLE_SUBTITLE  range:NSMakeRange(0, len)];
+            NSMutableAttributedString *desc = [[NSMutableAttributedString alloc] initWithString:_dataSource.desc];
+            [desc addAttribute:NSForegroundColorAttributeName value:COLOR_TEXT_II range:NSMakeRange(0, len)];
             NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
             style.lineBreakMode = NSLineBreakByTruncatingTail;
-            style.lineSpacing = 1;
+            style.lineSpacing = 5;
             [desc addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, len)];
             [btn setAttributedTitle:desc forState:UIControlStateNormal];
             
             desc = [[NSMutableAttributedString alloc] initWithAttributedString:desc];
-            [desc addAttribute:NSForegroundColorAttributeName value:TEXT_COLOR_TITLE  range:NSMakeRange(0, len)];
+            [desc addAttribute:NSForegroundColorAttributeName value:COLOR_DISABLE range:NSMakeRange(0, len)];
             [btn setAttributedTitle:desc forState:UIControlStateHighlighted];
-            btn.backgroundColor = [UIColor whiteColor];
             [btn addTarget:self action:@selector(showIntruductionOfCity) forControlEvents:UIControlEventTouchUpInside];
-            btn.titleLabel.font = [UIFont systemFontOfSize:12.0];
-            btn.titleLabel.numberOfLines = 4;
-            [btn setTitleEdgeInsets:UIEdgeInsetsMake(26, 100, 35, 10)];
+            btn.titleLabel.numberOfLines = 2;
             
-            UILabel *moreLabel = [[UILabel alloc] initWithFrame:CGRectMake(btn.bounds.size.width-49, btn.bounds.size.height-26, 30, 20)];
-            moreLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
-            moreLabel.font = [UIFont systemFontOfSize:11.0];
-            moreLabel.text = @"详情";
-            
-            UIImageView *moreImage = [[UIImageView alloc] initWithFrame:CGRectMake(btn.bounds.size.width-20, btn.bounds.size.height-22, 7, 11)];
-            moreImage.image = [UIImage imageNamed:@"more_btn.png"];
+            UILabel *moreLabel = [[UILabel alloc] initWithFrame:CGRectMake(btn.bounds.size.width-49, btn.bounds.size.height-31, 30, 20)];
+            moreLabel.textColor = APP_THEME_COLOR;
+            moreLabel.font = [UIFont systemFontOfSize:13.0];
+            moreLabel.text = @"全文";
             [btn addSubview:moreLabel];
-            [btn addSubview:moreImage];
             
-            [sectionheaderView addSubview:btn];
-            [sectionheaderView addSubview:spaceView];
-            return sectionheaderView;
+            return btn;
         }
         return nil;
     }
@@ -887,49 +725,36 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SuperPoi *poi ;
-    if (![tableView isEqual:self.tableView]) {
-        poi = [self.searchResultArray objectAtIndex:indexPath.row];
-    } else {
-        poi = [_dataSource.recommendList objectAtIndex:indexPath.row];
-    }
-    CommonPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:poisOfCityCellIdentifier forIndexPath:indexPath];
+    SuperPoi *poi = [_dataSource.recommendList objectAtIndex:indexPath.row];
+    NSLog(@"%@",poi);
+    TripPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:poisOfCityCellIdentifier forIndexPath:indexPath];
     cell.tripPoi = poi;
-    //如果从攻略列表进来想要添加美食或酒店
+    [cell.actionBtn setTitle:@"收集" forState:UIControlStateNormal];
+    [cell.actionBtn setTitle:@"已添加" forState:UIControlStateSelected];
+    //    如果从攻略列表进来想要添加美食或酒店
     if (_shouldEdit) {
-        cell.cellAction.tag = indexPath.row;
-        cell.cellAction.hidden = NO;
-        [cell.cellAction setTitle:@"收集" forState:UIControlStateNormal];
-        [cell.cellAction setTitle:@"已收集" forState:UIControlStateSelected];
-        [cell.cellAction setBackgroundImage:[ConvertMethods createImageWithColor:TEXT_COLOR_TITLE_DESC] forState:UIControlStateSelected];
+        cell.actionBtn.tag = indexPath.row;
+        cell.actionBtn.hidden = NO;
         BOOL isAdded = NO;
-        for (SuperPoi *tripPoi in _seletedArray) {
+        for (SuperPoi *tripPoi in _selectedArray) {
             if ([tripPoi.poiId isEqualToString:poi.poiId]) {
                 isAdded = YES;
                 break;
             }
         }
-        cell.cellAction.selected = isAdded;
-        [cell.cellAction removeTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
-        [cell.cellAction addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
+        
+        cell.actionBtn.selected = isAdded;
+        
+        [cell.actionBtn removeTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.actionBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
     }
-    else {
-        cell.labCons.constant = 8;
-        cell.valueCons.constant = 8;
-    }
-    
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    SuperPoi *poi;
-    if (self.searchController.isActive) {
-        poi = [_searchResultArray objectAtIndex:indexPath.row];
-    } else {
-        poi = [_dataSource.recommendList objectAtIndex:indexPath.row];
-    }
+    SuperPoi *poi = [_dataSource.recommendList objectAtIndex:indexPath.row];
     
     if (_poiType == kRestaurantPoi) {
         CommonPoiDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];
@@ -944,64 +769,6 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
     }
 }
 
-#pragma mark - SearchBarDelegate
-
-
-//
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
-{
-    [self.searchController setActive:YES animated:YES];
-}
-
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
-{
-    [self.searchResultArray removeAllObjects];
-    _searchText = nil;
-}
-
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
-{
-    [self.searchResultArray removeAllObjects];
-    [self.searchController.searchResultsTableView reloadData];
-    _currentPageSearch = 0;
-    _searchText = searchBar.text;
-    [self loadSearchDataWithPageNo:_currentPageSearch];
-}
-
-- (void)searchDisplayController:(UISearchDisplayController *)controller willShowSearchResultsTableView:(UITableView *)tableView
-{
-    _isLoadingMoreSearch = YES;
-    _didEndScrollSearch = YES;
-    _enableLoadMoreSearch = NO;
-}
-
-- (void) searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller
-{
-    
-}
-
--(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
-    
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.001);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        for (UIView* v in _searchController.searchResultsTableView.subviews) {
-            if ([v isKindOfClass: [UILabel class]] &&
-                ([[(UILabel*)v text] isEqualToString:@"No Results"] || [[(UILabel*)v text] isEqualToString:@"无结果"]) ) {
-                ((UILabel *)v).text = @"";
-                break;
-            }
-        }
-    });
-    return YES;
-}
-
-- (void)searchDisplayController:(UISearchDisplayController *)controller willHideSearchResultsTableView:(UITableView *)tableView
-{
-    [self.searchResultArray removeAllObjects];
-    [self.searchController.searchResultsTableView reloadData];
-    [self.tableView reloadData];
-}
-
 #pragma mark - UIScrollViewDelegate
 
 - (void) scrollViewDidScroll:(UIScrollView *)scrollView
@@ -1014,14 +781,6 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
                 [self beginLoadingMoreNormal];
             }
         }
-    } else if ([scrollView isEqual:self.searchController.searchResultsTableView]) {
-        if (!_isLoadingMoreSearch && _didEndScrollSearch && _enableLoadMoreSearch) {
-            CGFloat scrollPosition = scrollView.contentSize.height - scrollView.frame.size.height - scrollView.contentOffset.y;
-            if (scrollPosition < 44.0) {
-                _didEndScrollSearch = NO;
-                [self beginLoadingSearch];
-            }
-        }
     }
 }
 
@@ -1029,8 +788,6 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
 {
     if ([scrollView isEqual:self.tableView]) {
         _didEndScrollNormal = YES;
-    } else if ([scrollView isEqual:self.searchController.searchResultsTableView]) {
-        _didEndScrollSearch = YES;
     }
     
 }
@@ -1042,15 +799,7 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
     if (buttonIndex == actionSheet.cancelButtonIndex) {
         return;
     }
-    SuperPoi *poi;
-    if (_searchController.active)
-    {
-        poi = [self.searchResultArray objectAtIndex:actionSheet.tag];
-    }
-    else
-    {
-        poi = [_dataSource.recommendList objectAtIndex:actionSheet.tag];
-    }
+    SuperPoi *poi = [_dataSource.recommendList objectAtIndex:actionSheet.tag];
     NSArray *platformArray = [ConvertMethods mapPlatformInPhone];
     switch (buttonIndex) {
         case 0:
@@ -1129,25 +878,28 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return _seletedArray.count;
+    return _selectedArray.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     SelectDestCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"sdest_cell" forIndexPath:indexPath];
-    SuperPoi *tripPoi = [_seletedArray objectAtIndex:indexPath.row];
+    SuperPoi *tripPoi = [_selectedArray objectAtIndex:indexPath.row];
     
-    NSString *txt = [NSString stringWithFormat:@"%ld %@", (indexPath.row + 1), tripPoi.zhName];
-    cell.textView.text = txt;
-    CGSize size = [txt sizeWithAttributes:@{NSFontAttributeName : cell.textView.font}];
-    cell.textView.frame = CGRectMake(0, 0, size.width, 49);
-    cell.textView.textColor = [UIColor whiteColor];
+    NSString *txt = [NSString stringWithFormat:@" %ld.%@      ", (indexPath.row + 1), tripPoi.zhName];
+    cell.textLabel.text = txt;
+    CGSize size = [txt sizeWithAttributes:@{NSFontAttributeName : cell.textLabel.font}];
+    cell.textLabel.frame = CGRectMake(0, 12, size.width, 26);
+    cell.deleteBtn.frame = CGRectMake(size.width-11, 5, 20, 20);
+    cell.deleteBtn.tag = indexPath.row;
+    [cell.deleteBtn removeTarget:self action:@selector(deletePoi:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.deleteBtn addTarget:self action:@selector(deletePoi:) forControlEvents:UIControlEventTouchUpInside];
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     [collectionView deselectItemAtIndexPath:indexPath animated:YES];
-    SuperPoi *tripPoi = [_seletedArray objectAtIndex:indexPath.row];
+    SuperPoi *tripPoi = [_selectedArray objectAtIndex:indexPath.row];
     
     if (_poiType == kRestaurantPoi) {
         CommonPoiDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];
@@ -1160,20 +912,20 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
         shoppingDetailCtl.poiId = tripPoi.poiId;
         [self.navigationController pushViewController:shoppingDetailCtl animated:YES];
     }
-
+    
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    SuperPoi *tripPoi = [_seletedArray objectAtIndex:indexPath.row];
-    NSString *txt = [NSString stringWithFormat:@"%ld %@", (indexPath.row + 1), tripPoi.zhName];
-    CGSize size = [txt sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17]}];
-    return CGSizeMake(size.width, 49);
+    SuperPoi *tripPoi = [_selectedArray objectAtIndex:indexPath.row];
+    NSString *txt = [NSString stringWithFormat:@" %ld.%@      ", (long)(indexPath.row + 1), tripPoi.zhName];
+    CGSize size = [txt sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:13]}];
+    return CGSizeMake(size.width+5, 49);
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 {
-    return 15.0;
+    return 14.0;
 }
 
 #pragma mark - updateSelectedPlanDelegate
@@ -1181,29 +933,27 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
 {
     [self.tableView reloadData];
     [self.selectPanel reloadData];
+    
 }
 
 #pragma mark - SelectDelegate
-- (void) selectItem:(NSString *)str atIndex:(NSIndexPath *)indexPath {
 
-    
- 
+- (void) selectItem:(NSString *)str atIndex:(NSIndexPath *)indexPath {
     _currentCityIndex = indexPath.row;
     [self resetContents:indexPath.row];
 }
-
 
 - (void) resetContents:(NSInteger ) cityindex {
     _isLoadingMoreNormal = YES;
     _didEndScrollNormal = YES;
     _enableLoadMoreNormal = NO;
-    CityDestinationPoi *poi = [self.tripDetail.destinations objectAtIndex:cityindex];
+    CityDestinationPoi *poi = [self.backTripDetail.destinations objectAtIndex:cityindex];
     NSString *requsetUrl = [[NSString alloc]init];
     if (_poiType == kRestaurantPoi) {
-        requsetUrl = [NSString stringWithFormat:@"%@%@", API_GET_RESTAURANTSLIST_CITY,poi.cityId];
+        requsetUrl = API_GET_RESTAURANTSLIST_CITY;
         self.navigationItem.title = [NSString stringWithFormat:@"吃在%@",poi.zhName];
     } else if (_poiType == kShoppingPoi) {
-        requsetUrl = [NSString stringWithFormat:@"%@%@", API_GET_SHOPPINGLIST_CITY,poi.cityId];
+        requsetUrl = API_GET_SHOPPINGLIST_CITY;
         self.navigationItem.title = [NSString stringWithFormat:@"%@购物",poi.zhName];
     }
     
@@ -1217,16 +967,21 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
 
 @implementation SelectDestCell
 
-@synthesize textView;
-
 - (id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        textView = [[UILabel alloc] init];
-        textView.font = [UIFont systemFontOfSize:17];
-        textView.textColor = [UIColor blueColor];
-        textView.textAlignment = NSTextAlignmentCenter;
-        textView.numberOfLines = 1;
-        [self.contentView addSubview:textView];
+        _textLabel = [[UILabel alloc] init];
+        _textLabel.font = [UIFont systemFontOfSize:13];
+        _textLabel.textColor = COLOR_TEXT_III;
+        _textLabel.textAlignment = NSTextAlignmentCenter;
+        _textLabel.numberOfLines = 1;
+        _textLabel.layer.borderColor = COLOR_LINE.CGColor;
+        _textLabel.layer.borderWidth = 1.0;
+        _textLabel.layer.cornerRadius = 2.0;
+        _textLabel.clipsToBounds = YES;
+        [self.contentView addSubview:_textLabel];
+        _deleteBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+        [_deleteBtn setImage:[UIImage imageNamed:@"delete_album.png"] forState:UIControlStateNormal];
+        [self.contentView addSubview:_deleteBtn];
     }
     return self;
 }

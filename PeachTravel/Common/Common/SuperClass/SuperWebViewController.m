@@ -31,8 +31,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.webView.frame = CGRectMake(0, 64, kWindowWidth, kWindowHeight-64);
     UIButton *back = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
-    [back setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
+    [back setImage:[UIImage imageNamed:@"common_icon_navigation_back_normal"] forState:UIControlStateNormal];
+    [back setImage:[UIImage imageNamed:@"common_icon_navigation_back_highlight"] forState:UIControlStateHighlighted];
     [back addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
     [back setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:back];
@@ -54,8 +57,8 @@
     [super loadRequest:request];
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 25, self.view.bounds.size.width, 32)];
-    label.text = @"旅行派\n能和达人交流、朋友互动的旅行工具";
-    label.textColor = TEXT_COLOR_TITLE_HINT;
+    label.text = @"旅行派\n能向达人咨询、朋友协作的旅行工具";
+    label.textColor = COLOR_TEXT_II;
     label.font = [UIFont systemFontOfSize:11.0];
     label.textAlignment = NSTextAlignmentCenter;
     label.numberOfLines = 2;
@@ -65,6 +68,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+      
     [self.navigationController.navigationBar addSubview:_progressView];
 }
 

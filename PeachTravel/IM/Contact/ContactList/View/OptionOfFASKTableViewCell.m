@@ -11,8 +11,8 @@
 @implementation OptionOfFASKTableViewCell
 
 - (void)awakeFromNib {
-    _titleLabel.font = [UIFont systemFontOfSize:14.0];
-    _titleLabel.textColor = TEXT_COLOR_TITLE;
+    _titleLabel.font = [UIFont systemFontOfSize:15.0];
+    _titleLabel.textColor = COLOR_TEXT_I;
     _requestNoti.layer.cornerRadius = 7.5;
     _requestNoti.clipsToBounds = YES;
 //    self.selectionStyle = UITableViewCellSelectionStyleNone;

@@ -12,6 +12,14 @@
 
 #import <UIKit/UIKit.h>
 
+#define CHAT_PANEL_VIEW_HEIGHT 200 // moreview高度
+#define CHAT_PANEL_VIEW_MARGIN 5 // item间距
+#define CHAT_PANEL_VIEW_RANK 4 // 列数
+#define CHAT_BUTTON_SIZE (200 - 36)/2 // 
+#define CHAT_BUTTON_HEIGHT (CHAT_BUTTON_SIZE + 18) //panel height: 200
+#define CHAT_LABEL_HEIGHT 18
+#define INSETS 5
+
 typedef enum{
     ChatMoreTypeChat,
     ChatMoreTypeGroupChat,
@@ -22,13 +30,14 @@ typedef enum{
 
 @property (nonatomic,weak) id<DXChatBarMoreViewDelegate> delegate;
 
-@property (nonatomic, strong) TZButton *photoButton;
-@property (nonatomic, strong) TZButton *takePicButton;
-@property (nonatomic, strong) TZButton *locationButton;
-@property (nonatomic, strong) TZButton *myStrategyButton;
-@property (nonatomic, strong) TZButton *myFavoriteButton;
-@property (nonatomic, strong) TZButton *destinationButton;
-@property (nonatomic, strong) TZButton *travelNoteButton;
+@property (nonatomic, strong) UIButton *photoButton;
+@property (nonatomic, strong) UIButton *takePicButton;
+@property (nonatomic, strong) UIButton *locationButton;
+@property (nonatomic, strong) UIButton *myStrategyButton;
+@property (nonatomic, strong) UIButton *myFavoriteButton;
+@property (nonatomic, strong) UIButton *destinationButton;
+@property (nonatomic, strong) UIButton *travelNoteButton;
+
 
 /****暂时屏蔽及时语音和拍视频的功能******/
 /*
@@ -55,7 +64,7 @@ typedef enum{
 
 - (void)moreViewMyStrategyAction:(DXChatBarMoreView *)moreView;
 - (void)moreViewMyFavoriteAction:(DXChatBarMoreView *)moreView;
-- (void)moreViewDestinationAction:(DXChatBarMoreView *)moreView;
+- (void)moreViewDestinationAction:(DXChatBarMoreView *)moreView poiType:(TZPoiType)poiType;
 - (void)moreViewTravelNoteAction:(DXChatBarMoreView *)moreView;
 - (void)moreViewPhotoAction:(DXChatBarMoreView *)moreView;
 - (void)moreViewTakePicAction:(DXChatBarMoreView *)moreView;

@@ -25,12 +25,29 @@
         _enName = [json objectForKey:@"enName"];
         NSMutableArray *distinationsArray = [[NSMutableArray alloc] init];
         for (id distinationDic in [json objectForKey:@"destinations"]) {
-            [distinationsArray addObject:[[CityDestinationPoi alloc] initWithJson:distinationDic]];
+            CityDestinationPoi *poi = [[CityDestinationPoi alloc] initWithJson:distinationDic];
+            CountryModel *country = [[CountryModel alloc] init];
+            country.coutryId = _areaId;
+            country.zhName = _zhName;
+            country.enName = _enName;
+            poi.country = country;
+            [distinationsArray addObject:poi];
         }
         _cities = distinationsArray;
         _desc = [json objectForKey:@"desc"];
     }
     return self;
 }
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _cities = [[NSArray alloc] init];
+        _images = [[NSArray alloc] init];
+    }
+    return self;
+}
+
 
 @end

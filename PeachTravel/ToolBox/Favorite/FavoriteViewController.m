@@ -57,7 +57,10 @@
 
 @implementation FavoriteViewController
 
-- (id)init {
+#pragma mark - lifeCycle
+
+- (id)init
+{
     if (self = [super init]) {
         _urlArray = @[@"all", @"locality", @"vs", @"restaurant", @"shopping", @"hotel", @"travelNote"];
         _urlTitleArray = @[@"全部分类", @"城市", @"景点", @"美食", @"购物", @"酒店", @"游记"];
@@ -72,7 +75,8 @@
     return self;
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
 
     self.navigationItem.title = @"收藏夹";
@@ -99,7 +103,8 @@
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
     } else {
         UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:@"common_icon_navigation_back_normal"] forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:@"common_icon_navigation_back_highlight"] forState:UIControlStateHighlighted];
         [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
         [button setFrame:CGRectMake(0, 0, 48, 30)];
         button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
@@ -126,21 +131,31 @@
     [self performSelector:@selector(refreshLoadData) withObject:nil afterDelay:0.25];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"page_my_favorites"];
     _isVisible = YES;
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
+- (void)viewWillDisappear:(BOOL)animated
+{
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"page_my_favorites"];
     _isVisible = NO;
 }
 
-- (void) initDataFromCache {
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    [self.refreshControl endRefreshing];
+    self.refreshControl = nil;
+    self.tableView.delegate = nil;
+}
+
+- (void)initDataFromCache
+{
     AccountManager *accountManager = [AccountManager shareAccountManager];
-    [[TMCache sharedCache] objectForKey:[NSString stringWithFormat:@"%@_favorites", accountManager.account.userId] block:^(TMCache *cache, NSString *key, id object)  {
+    [[TMCache sharedCache] objectForKey:[NSString stringWithFormat:@"%ld_favorites", (long)accountManager.account.userId] block:^(TMCache *cache, NSString *key, id object)  {
         if (object != nil) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.dataSource addObjectsFromArray:object];
@@ -159,7 +174,10 @@
     }];
 }
 
-- (UIView *)footerView {
+#pragma mark - setter or getter
+
+- (UIView *)footerView
+{
     if (!_footerView) {
         _footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.bounds), 44.0)];
         _footerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -173,7 +191,11 @@
     return _footerView;
 }
 
-- (void)switchCate {
+
+#pragma mark - private Methods
+
+- (void)switchCate
+{
     SelectionTableViewController *ctl = [[SelectionTableViewController alloc] init];
     ctl.contentItems = _urlTitleArray;
     ctl.delegate = self;
@@ -183,17 +205,12 @@
     [self presentViewController:nav animated:YES completion:nil];
 }
 
-- (void)pullToRefreash:(id)sender {
+- (void)pullToRefreash:(id)sender
+{
     [self loadDataWithPageIndex:0 andFavoriteType:_currentFavoriteType];
 }
 
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-
-    [self.refreshControl endRefreshing];
-    self.refreshControl = nil;
-}
+#pragma mark - ActionEvent
 
 - (void)userDidLogout
 {
@@ -232,7 +249,7 @@
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     AccountManager *accountManager = [AccountManager shareAccountManager];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSNumber *imageWidth = [NSNumber numberWithInt:300];
@@ -245,7 +262,10 @@
     NSString *backupTypeForCheck = faType;
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    [manager GET:API_GET_FAVORITES parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    
+    // 获得用户的接口ID改变
+    NSString * urlStr = [NSString stringWithFormat:@"%@%ld/favorites",API_USERS,accountManager.account.userId];
+    [manager GET:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", operation);
         
         if ([_currentFavoriteType isEqualToString:backupTypeForCheck]) {
@@ -272,7 +292,7 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         [self loadMoreCompleted];
-        [self showHint:@"呃～好像没找到网络"];
+        [self showHint:HTTP_FAILED_HINT];
         [self.refreshControl endRefreshing];
     }];
 }
@@ -291,7 +311,7 @@
     
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     AccountManager *accountManager = [AccountManager shareAccountManager];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     
     NSString *urlStr = [NSString stringWithFormat:@"%@/%@", API_UNFAVORITE, favorite.itemId];
     
@@ -325,7 +345,7 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
         if (self.isVisible) {
-            [SVProgressHUD showHint:@"呃～好像没找到网络"];
+            [SVProgressHUD showHint:HTTP_FAILED_HINT];
         }
     }];
     
@@ -337,13 +357,14 @@
     NSInteger count = _dataSource.count;
     if (count > 0) {
         NSArray *cd = [_dataSource subarrayWithRange:NSMakeRange(0, count > PAGE_COUNT ? PAGE_COUNT : count)];
-        [[TMCache sharedCache] setObject:cd forKey:[NSString stringWithFormat:@"%@_favorites", accountManager.account.userId]];
+        [[TMCache sharedCache] setObject:cd forKey:[NSString stringWithFormat:@"%ld_favorites", (long)accountManager.account.userId]];
     } else {
-        [[TMCache sharedCache] removeObjectForKey:[NSString stringWithFormat:@"%@_favorites", accountManager.account.userId]];
+        [[TMCache sharedCache] removeObjectForKey:[NSString stringWithFormat:@"%ld_favorites", (long)accountManager.account.userId]];
     }
 }
 
-- (void) bindDataToView:(id)responseObject {
+- (void) bindDataToView:(id)responseObject
+{
     NSArray *datas = [responseObject objectForKey:@"result"];
     if (datas.count == 0) {
         if (_currentPage == 0) {
@@ -380,29 +401,29 @@
     taoziMessageCtl.messageImage = ((TaoziImage *)[item.images firstObject]).imageUrl;
     taoziMessageCtl.messageDesc = item.desc;
     taoziMessageCtl.messageName = item.zhName;
-    taoziMessageCtl.chatter = self.chatter;
-    taoziMessageCtl.isGroup = self.isChatGroup;
+    taoziMessageCtl.chatterId = self.chatterId;
+    taoziMessageCtl.chatType = self.chatType;
     //        taoziMessageCtl.messageTimeCost = item.timeCostStr;
     taoziMessageCtl.descLabel.text = item.desc;
     if (item.type == kSpotPoi) {
-        taoziMessageCtl.chatType = TZChatTypeSpot;
+        taoziMessageCtl.messageType = IMMessageTypeSpotMessageType;
         taoziMessageCtl.messageTimeCost = item.timeCostDesc;
     } else if (item.type == kHotelPoi) {
-        taoziMessageCtl.chatType = TZChatTypeHotel;
+        taoziMessageCtl.messageType = IMMessageTypeHotelMessageType;
         taoziMessageCtl.messageRating = item.rating;
         taoziMessageCtl.messagePrice = item.priceDesc;
     } else if (item.type == kRestaurantPoi) {
-        taoziMessageCtl.chatType = TZChatTypeFood;
+        taoziMessageCtl.messageType = IMMessageTypeRestaurantMessageType;
         taoziMessageCtl.messageRating = item.rating;
         taoziMessageCtl.messagePrice = item.priceDesc;
     } else if (item.type == kShoppingPoi) {
-        taoziMessageCtl.chatType = TZChatTypeShopping;
+        taoziMessageCtl.messageType = IMMessageTypeShoppingMessageType;
         taoziMessageCtl.messageRating = item.rating;
     } else if (item.type == kTravelNotePoi) {
-        taoziMessageCtl.chatType = TZChatTypeTravelNote;
+        taoziMessageCtl.messageType = IMMessageTypeTravelNoteMessageType;
         taoziMessageCtl.messageDetailUrl = item.detailUrl;
     } else {
-        taoziMessageCtl.chatType = TZChatTypeCity;
+        taoziMessageCtl.messageType = IMMessageTypeCityPoiMessageType;
         taoziMessageCtl.messageTimeCost = item.timeCostDesc;
     }
     
@@ -410,7 +431,8 @@
 }
 
 #pragma mark - SelectDelegate
-- (void) selectItem:(NSString *)str atIndex:(NSIndexPath *)indexPath {
+- (void) selectItem:(NSString *)str atIndex:(NSIndexPath *)indexPath
+{
     _currentFavoriteType = [_urlArray objectAtIndex:indexPath.row];
     _selectText = str;
     _enableLoadMore = NO;
@@ -419,7 +441,8 @@
     [self performSelector:@selector(refreshLoadData) withObject:nil afterDelay:0.25];
 }
 
-- (void) refreshLoadData {
+- (void) refreshLoadData
+{
     [self.tableView setContentOffset:CGPointMake(0, -self.refreshControl.frame.size.height) animated:YES];
     [self.refreshControl beginRefreshing];
     [self.refreshControl sendActionsForControlEvents:UIControlEventValueChanged];
@@ -427,21 +450,25 @@
 
 #pragma mark - UITableViewDataSource
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
     return _dataSource.count;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     return 1;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 10)];
     view.backgroundColor = [UIColor clearColor];
     return view;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     FavoriteTableViewCell *cell = [tv dequeueReusableCellWithIdentifier:@"favorite_cell" forIndexPath:indexPath];
     Favorite *item = [_dataSource objectAtIndex:indexPath.section];
     
@@ -480,12 +507,14 @@
     return 10;
 }
 
-- (CGFloat)tableView:(UITableView *)tv heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tv heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     
     return 135.0;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     Favorite *item = [_dataSource objectAtIndex:indexPath.section];
     if (item.type == kSpotPoi) {
@@ -518,11 +547,13 @@
     }
 }
 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
     return YES;
 }
 
-- (void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"确定从收藏夹中删除" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
@@ -530,18 +561,19 @@
                 if (buttonIndex == 1) {
                     Favorite *favorite = [self.dataSource objectAtIndex:indexPath.section];
                     [self deleteUserFavorite:favorite atIndexPath:indexPath];
-                    [MobClick event:@"deleteUserFavorite"];
                 }
             }
         }];
     }
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     return @"删除";
 }
 
-- (void) beginLoadingMore {
+- (void) beginLoadingMore
+{
     if (self.tableView.tableFooterView == nil) {
         self.tableView.tableFooterView = self.footerView;
     }
@@ -550,7 +582,8 @@
     [self loadDataWithPageIndex:(_currentPage + 1) andFavoriteType:_currentFavoriteType];
 }
 
-- (void) loadMoreCompleted {
+- (void) loadMoreCompleted
+{
     [_indicatroView stopAnimating];
     _isLoadingMore = NO;
     _didEndScroll = YES;
@@ -600,7 +633,8 @@
     }
 }
 
-- (void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+- (void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
     _didEndScroll = YES;
 }
 

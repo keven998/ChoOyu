@@ -11,8 +11,6 @@
 @interface ShoppingPoi : SuperPoi
 
 @property (nonatomic, strong) NSArray *recommends;
-@property (nonatomic, copy) NSString *telephone;
-@property (nonatomic, copy) NSString *priceDesc;
 
 - (id)initWithJson:(id)json;
 

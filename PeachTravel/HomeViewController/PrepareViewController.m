@@ -10,16 +10,20 @@
 #import "LoginViewController.h"
 #import "RegisterViewController.h"
 #import "HomeViewController.h"
-
+#import "EditUserInfoTableViewController.h"
 @interface PrepareViewController ()
 
 @end
 
 @implementation PrepareViewController
 
+#pragma mark - lifeCycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(skip:) name:userDidLoginNoti object:nil];
+    
+    // 增加监听用户选择注册和跳过通知对象
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidRegisted:) name:userDidRegistedNoti object:nil];
 
     UIImageView *backgroundImg = [[UIImageView alloc]initWithFrame:self.view.bounds];
     if (IS_IPHONE_4) {
@@ -33,52 +37,62 @@
     }
     [self.view addSubview:backgroundImg];
     
-    UIImageView *btnBg = [[UIImageView alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT-62, SCREEN_WIDTH, 62)];
-    btnBg.image = [UIImage imageNamed:@"ic_prepare_ImgBg"];
-    btnBg.userInteractionEnabled = YES;
-    [self.view addSubview:btnBg];
-    
-    UIButton *registerBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 60, 30)];
-    registerBtn.center = CGPointMake(SCREEN_WIDTH * 0.22, 31);
-    [registerBtn setTitle:@"注册" forState:UIControlStateNormal];
-    registerBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-    [registerBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    registerBtn.backgroundColor = UIColorFromRGB(0x656565);
-    registerBtn.layer.cornerRadius = 5;
-    registerBtn.clipsToBounds = YES;
-    [btnBg addSubview:registerBtn];
-    [registerBtn addTarget:self action:@selector(registerAction:) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIButton *loginBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 60, 30)];
-    loginBtn.center = CGPointMake(SCREEN_WIDTH/2, 31);
-    loginBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+    UIButton *loginBtn = [[UIButton alloc]initWithFrame:CGRectMake(13, self.view.bounds.size.height - 190, self.view.bounds.size.width-26, 50)];
+    loginBtn.titleLabel.font = [UIFont boldSystemFontOfSize:16];
     [loginBtn setTitle:@"登录" forState:UIControlStateNormal];
     [loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    loginBtn.backgroundColor = UIColorFromRGB(0x656565);
+    [loginBtn setTitleColor:COLOR_DISABLE forState:UIControlStateHighlighted];
     loginBtn.layer.cornerRadius = 5;
+    loginBtn.layer.borderColor = [UIColor whiteColor].CGColor;
+    loginBtn.layer.borderWidth = 1.0;
     loginBtn.clipsToBounds = YES;
-    [btnBg addSubview:loginBtn];
     [loginBtn addTarget:self action:@selector(login:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:loginBtn];
     
-    UIButton *skipBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 17, 12)];
-    skipBtn.center = CGPointMake(0.82 * SCREEN_WIDTH, 31);
-    [skipBtn setBackgroundImage:[UIImage imageNamed:@"ic_tiaoguo"] forState:UIControlStateNormal];
-    [btnBg addSubview:skipBtn];
+    UIButton *registerBtn = [[UIButton alloc]initWithFrame:CGRectMake(13, self.view.bounds.size.height - 124, self.view.bounds.size.width-26, 50)];
+    [registerBtn setTitle:@"注册" forState:UIControlStateNormal];
+    registerBtn.titleLabel.font = [UIFont boldSystemFontOfSize:16];
+    [registerBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [registerBtn setTitleColor:COLOR_DISABLE forState:UIControlStateHighlighted];
+    registerBtn.layer.cornerRadius = 5;
+    registerBtn.layer.borderColor = [UIColor whiteColor].CGColor;
+    registerBtn.layer.borderWidth = 1.0;
+    registerBtn.clipsToBounds = YES;
+    [registerBtn addTarget:self action:@selector(registerAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:registerBtn];
+
+    
+    UIButton *skipBtn = [[UIButton alloc]initWithFrame:CGRectMake(13, self.view.bounds.size.height - 50, self.view.bounds.size.width-26, 30)];
+    skipBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+    [skipBtn setTitle:@"跳过" forState:UIControlStateNormal];
+    [skipBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [skipBtn setTitleColor:COLOR_DISABLE forState:UIControlStateHighlighted];
     [skipBtn addTarget:self action:@selector(skip:) forControlEvents:UIControlEventTouchUpInside];
+
+    [self.view addSubview:skipBtn];
     
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    
 }
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    _rootViewController = nil;
 }
 
+#pragma mark - IBAction
+
 - (void)login:(id)sender {
-    LoginViewController *loginCtl = [[LoginViewController alloc] init];
+    LoginViewController *loginCtl = [[LoginViewController alloc] initWithCompletion:^(BOOL completed) {
+        HomeViewController *hvc = (HomeViewController *)_rootViewController;
+        [hvc setSelectedIndex:0];
+        [self willMoveToParentViewController:nil];
+        [self.view removeFromSuperview];
+        [self removeFromParentViewController];
+        _rootViewController = nil;
+    }];
     TZNavigationViewController *nctl = [[TZNavigationViewController alloc] initWithRootViewController:loginCtl];
     loginCtl.isPushed = NO;
     [_rootViewController presentViewController:nctl animated:YES completion:nil];
@@ -96,7 +110,19 @@
     [self willMoveToParentViewController:nil];
     [self.view removeFromSuperview];
     [self removeFromParentViewController];
+    _rootViewController = nil;
 }
 
+- (void)userDidRegisted:(NSNotification *)noti {
+    UIViewController *ctl = [noti.userInfo objectForKey:@"poster"];
+    [ctl.navigationController dismissViewControllerAnimated:YES completion:^{
+        HomeViewController *hvc = (HomeViewController *)_rootViewController;
+        [hvc setSelectedIndex:0];
+        [self willMoveToParentViewController:nil];
+        [self.view removeFromSuperview];
+        [self removeFromParentViewController];
+        _rootViewController = nil;
+    }];
+}
 
 @end

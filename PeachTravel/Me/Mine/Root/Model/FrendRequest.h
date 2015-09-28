@@ -2,26 +2,22 @@
 //  FrendRequest.h
 //  PeachTravel
 //
-//  Created by liangpengshuai on 2/3/15.
+//  Created by liangpengshuai on 6/16/15.
 //  Copyright (c) 2015 com.aizou.www. All rights reserved.
-//
+//  好友请求的模型
 
 #import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
 
-@class Account;
+@interface FrendRequest : NSObject
+@property (nonatomic, copy) NSString *requestId;
+@property (nonatomic, copy) NSString *attachMsg;
+@property (nonatomic, copy) NSString *avatar;
+@property (nonatomic) UserGender gender;
+@property (nonatomic, copy) NSString *nickName;
+@property (nonatomic) double requestDate;
+@property (nonatomic) TZFrendRequest status;
+@property (nonatomic) NSInteger userId;
 
-@interface FrendRequest : NSManagedObject
-
-@property (nonatomic, retain) NSString * attachMsg;
-@property (nonatomic, retain) NSString * avatar;
-@property (nonatomic, retain) NSString * easemobUser;
-@property (nonatomic, retain) NSString * gender;
-@property (nonatomic, retain) NSString * nickName;
-@property (nonatomic, retain) NSNumber * requestDate;
-@property (nonatomic, retain) NSNumber * status;
-@property (nonatomic, retain) NSNumber * userId;
-@property (nonatomic, retain) NSString * avatarSmall;
-@property (nonatomic, retain) Account *relationship;
+- (id)initWithJson:(id)json;
 
 @end

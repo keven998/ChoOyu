@@ -59,8 +59,8 @@ static CallViewController *shareController = nil;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.navigationController.navigationBarHidden = YES;
-    self.view.backgroundColor = [UIColor whiteColor];
+       
+    self.view.backgroundColor = APP_PAGE_COLOR;
     
     _bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, self.view.frame.size.height)];
     _bgImageView.contentMode = UIViewContentModeScaleToFill;
@@ -75,7 +75,7 @@ static CallViewController *shareController = nil;
     [self.view addSubview:_statusLabel];
     
     _headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.frame.size.width - 50) / 2, CGRectGetMaxY(_statusLabel.frame) + 20, 50, 50)];
-    _headerImageView.image = [UIImage imageNamed:@"person_disabled"];
+    _headerImageView.image = [UIImage imageNamed:@"avatar_default"];
     [self.view addSubview:_headerImageView];
     
     _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_headerImageView.frame) + 5, self.view.frame.size.width, 20)];

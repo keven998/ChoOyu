@@ -17,7 +17,8 @@
 @property (nonatomic) long long updateTime;
 @property (nonatomic, copy) NSString *updateTimeStr;
 @property (nonatomic) NSInteger dayCount;
-
+@property (nonatomic, copy) NSString *status;
 - (id)initWithJson:(id)json;
+
 
 @end

@@ -11,6 +11,14 @@
 @interface TZSegmentedViewController : UIViewController
 
 /**
+ *  设置导航栏的标题
+ */
+@property (nonatomic, copy)NSString *navBarTitle;
+
+//内容的偏移
+@property (nonatomic) CGFloat contentOffsetY;
+
+/**
  *  切换键的标题
  */
 @property (nonatomic, strong) NSArray *segmentedTitles;

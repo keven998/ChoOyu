@@ -12,14 +12,15 @@
 #import "MJPhoto.h"
 @interface OthersAlbumCell ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 
-
 @end
 
 @implementation OthersAlbumCell
 
-- (void)awakeFromNib {
+- (void)awakeFromNib
+{
     [self createUI];
 }
+
 -(void)createUI
 {
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
@@ -35,6 +36,7 @@
     
     [self.contentView addSubview:_collectionView];
 }
+
 - (void)setHeaderPicArray:(NSArray *)headerPicArray
 {
     _headerPicArray = headerPicArray;
@@ -56,9 +58,8 @@
 {
     static NSString * CellIdentifier = @"cell";
     PicCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
-    AlbumImage *albumImage = _headerPicArray[indexPath.row];
-    [cell.picImage sd_setImageWithURL:[NSURL URLWithString: albumImage.image.imageUrl]];
-    NSLog(@"%@",albumImage.image.imageUrl);
+    AlbumImageModel *albumImage = _headerPicArray[indexPath.row];
+    [cell.picImage sd_setImageWithURL:[NSURL URLWithString: albumImage.imageUrl]];
     return cell;
 }
 
@@ -79,9 +80,16 @@
     NSMutableArray *photos = [NSMutableArray arrayWithCapacity:count];
     for (NSInteger i = 0; i<count; i++) {
         // 替换为中等尺寸图片
-        AlbumImage *albumImage = _headerPicArray[i];
+        AlbumImageModel *albumImage = _headerPicArray[i];
         MJPhoto *photo = [[MJPhoto alloc] init];
-        photo.url = [NSURL URLWithString:albumImage.image.imageUrl]; // 图片路径
+        photo.url = albumImage.imageUrl; // 图片路径
+        
+        
+
+        NSIndexPath *picIndexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:0];
+        PicCell *picCell = (PicCell *)[_collectionView cellForItemAtIndexPath:picIndexPath];
+        photo.srcImageView = picCell.picImage;
+
         //        photo.srcImageView = (UIImageView *)[swipeView itemViewAtIndex:index]; // 来源于哪个UIImageView
         [photos addObject:photo];
     }

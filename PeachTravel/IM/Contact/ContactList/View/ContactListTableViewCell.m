@@ -10,9 +10,21 @@
 
 @implementation ContactListTableViewCell
 
++ (id)contactListCellWithTableView:(UITableView *)tableView
+{
+    static NSString * ID = @"contactCell";
+    
+    UINib * nib = [UINib nibWithNibName:NSStringFromClass([self class]) bundle:nil];
+    
+    [tableView registerNib:nib forCellReuseIdentifier:ID];
+    
+    return [tableView dequeueReusableCellWithIdentifier:ID];
+}
+
 - (void)awakeFromNib {
     _avatarImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
-    _avatarImageView.layer.cornerRadius = 8;
+    _avatarImageView.layer.cornerRadius = 20;
+    _avatarImageView.clipsToBounds = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

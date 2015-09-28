@@ -9,7 +9,6 @@
 #import "SignatureViewController.h"
 
 @interface SignatureViewController ()<UITextViewDelegate>
-
 {
     UITextView *_contentTextField;
 }
@@ -18,7 +17,8 @@
 
 @implementation SignatureViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     self.navigationItem.title = _navTitle;
     UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc]initWithTitle:@"保存 " style:UIBarButtonItemStylePlain target:self action:@selector(saveChange:)];
@@ -29,7 +29,7 @@
     UIBarButtonItem *leftBtn = [[UIBarButtonItem alloc]initWithTitle:@" 取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
     self.navigationItem.leftBarButtonItem = leftBtn;
     
-    _contentTextField = [[UITextView alloc]initWithFrame:CGRectMake(0, 20, SCREEN_WIDTH, 88)];
+    _contentTextField = [[UITextView alloc]initWithFrame:CGRectMake(0, 20, kWindowWidth, 88)];
     _contentTextField.layer.borderColor = UIColorFromRGB(0xdcdcdc).CGColor;
     _contentTextField.layer.borderWidth = 0.5;
     _contentTextField.delegate = self;
@@ -73,7 +73,8 @@
 
 
 
-- (void) textChanged:(UITextField *)textField {
+- (void) textChanged:(UITextField *)textField
+{
     self.navigationItem.rightBarButtonItem.enabled = ![textField.text isEqualToString:_content];
     if (!_acceptEmptyContent) {
         NSString *str = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -104,7 +105,8 @@
     
 }
 
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
     [self.view endEditing:YES];
     [super touchesEnded:touches withEvent:event];
 }

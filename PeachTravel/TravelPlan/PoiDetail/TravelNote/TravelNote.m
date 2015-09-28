@@ -38,12 +38,18 @@
             [tempArray addObject:image];
         }
         _images = tempArray;
-        _authorName = [json objectForKey:@"authorName"];
+        if ([json objectForKey:@"authorName"] != [NSNull null]) {
+            _authorName = [json objectForKey:@"authorName"];
+        } else {
+            _authorName = @"";
+        }
         _authorAvatar = [json objectForKey:@"authorAvatar"];
         _source = [json objectForKey:@"source"];
         _detailUrl = [json objectForKey:@"detailUrl"];
         if ([json objectForKey:@"publishTime"] != [NSNull null]) {
             _publishDateStr = [ConvertMethods timeIntervalToString:([[json objectForKey:@"publishTime"] longLongValue]/1000) withFormat:@"yyyy-MM-dd" withTimeZone:[NSTimeZone systemTimeZone]];
+        } else {
+            _publishDateStr = @"";
         }
     }
     return self;
@@ -57,7 +63,7 @@
     [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     
     if (isFavorite) {
         [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];

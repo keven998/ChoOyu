@@ -10,12 +10,12 @@
 #import "FrendRequestTableViewCell.h"
 #import "FrendRequest.h"
 #import "AccountManager.h"
-#import "ContactDetailViewController.h"
-#import "OtherUserInfoViewController.h"
+#import "OtherProfileViewController.h"
+#import "PeachTravel-swift.h"
 
 #define requestCell      @"requestCell"
 
-@interface FrendRequestTableViewController ()
+@interface FrendRequestTableViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong) AccountManager *accountManager;
@@ -30,24 +30,29 @@
     [super viewDidLoad];
     self.navigationItem.title = @"好友请求";
     [self.tableView registerNib:[UINib nibWithNibName:@"FrendRequestTableViewCell" bundle:nil] forCellReuseIdentifier:requestCell];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateDataSource) name:frendRequestListNeedUpdateNoti object:nil];
+    self.tableView.separatorColor = COLOR_LINE;
+    
+    // 加载这个页面后说明已经访问了这个页面,此时需要将联系人页面的新朋友提示移除
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    BOOL isShowUnreadCount = NO;
+    NSString *key = [NSString stringWithFormat:@"%@_%ld", kShouldShowUnreadFrendRequestNoti, [AccountManager shareAccountManager].account.userId];
+    [defaults setBool:isShowUnreadCount forKey:key];
+    [defaults synchronize];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"page_ask_for_friend"];
 }
 
+/**
+ *  页面消失的时候通知上一个界面将未读数清0
+ *
+ *  @param animated
+ */
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"page_ask_for_friend"];
-}
-
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - setter & getter
@@ -55,15 +60,16 @@
 - (NSMutableArray *)dataSource
 {
     if (!_dataSource) {
+        // 这是一个排序器
         NSComparator cmptr = ^(FrendRequest *obj1, FrendRequest *obj2) {
-            if ([obj1.requestDate doubleValue] < [obj2.requestDate doubleValue]) {
+            if (obj1.requestDate < obj2.requestDate) {
                 return NSOrderedDescending;
             } else {
                 return NSOrderedAscending;
             }
         };
         NSMutableArray *tempArray = [[NSMutableArray alloc] init];
-        for (id request in self.accountManager.account.frendrequestlist) {
+        for (id request in [IMClientManager shareInstance].frendRequestManager.frendRequestList) {
             [tempArray addObject:request];
         }
         _dataSource = [[tempArray sortedArrayUsingComparator:cmptr] mutableCopy];
@@ -81,47 +87,18 @@
 
 #pragma mark - Private Methods
 
-- (void)insertMsgToEasemobDB:(FrendRequest *)frendRequest
-{
-    id  chatManager = [[EaseMob sharedInstance] chatManager];
-    NSDictionary *loginInfo = [chatManager loginInfo];
-    NSString *account = [loginInfo objectForKey:kSDKUsername];
-    EMChatText *chatText = [[EMChatText alloc] initWithText:@""];
-    EMTextMessageBody *textBody = [[EMTextMessageBody alloc] initWithChatObject:chatText];
-    EMMessage *message = [[EMMessage alloc] initWithReceiver:frendRequest.easemobUser bodies:@[textBody]];
-    
-    NSString *str = [NSString stringWithFormat:@"你已添加%@为好友",frendRequest.nickName];
-    message.ext = @{
-                    @"tzType":[NSNumber numberWithInt:TZTipsMsg],
-                    @"content":str
-                    };
-    [message setIsGroup:NO];
-    [message setIsReadAcked:NO];
-    [message setTo:account];
-    [message setFrom:frendRequest.easemobUser];
-    [message setIsGroup:NO];
-    message.conversationChatter = frendRequest.easemobUser;
-    
-    NSTimeInterval interval = [[NSDate date] timeIntervalSince1970];
-    NSString *messageID = [NSString stringWithFormat:@"%.0f", interval];
-    [message setMessageId:messageID];
-    
-    [chatManager importMessage:message
-                   append2Chat:YES];
-}
-
 - (void)updateDataSource
 {
     [self.dataSource removeAllObjects];
     NSComparator cmptr = ^(FrendRequest *obj1, FrendRequest *obj2) {
-        if ([obj1.requestDate doubleValue] < [obj2.requestDate doubleValue]) {
+        if (obj1.requestDate < obj2.requestDate) {
             return NSOrderedDescending;
         } else {
             return NSOrderedAscending;
         }
     };
     NSMutableArray *tempArray = [[NSMutableArray alloc] init];
-    for (id request in self.accountManager.account.frendrequestlist) {
+    for (id request in self.accountManager.account.frendRequest) {
         [tempArray addObject:request];
     }
     _dataSource = [[tempArray sortedArrayUsingComparator:cmptr] mutableCopy];
@@ -129,52 +106,16 @@
 
 - (void)addContactWithFrendRequest:(FrendRequest *)frendRequest
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", self.accountManager.account.userId] forHTTPHeaderField:@"UserId"];
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-
-    [params setObject:frendRequest.userId forKey:@"userId"];
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    __weak FrendRequestTableViewController *weakSelf = self;
-    [hud showHUDInViewController:weakSelf.navigationController];
-    
-    //同意添加好友
-    [manager POST:API_ADD_CONTACT parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [hud showHUD];
+    [[IMClientManager shareInstance].frendManager asyncAgreeAddContactWithRequestId:frendRequest.requestId completion:^(BOOL isSuccess, NSInteger errorCode) {
         [hud hideTZHUD];
-        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-        if (code == 0) {
-            [self.accountManager agreeFrendRequest:frendRequest];
-            [self.accountManager addContact:frendRequest];
+        if (isSuccess) {
             [self.tableView reloadData];
-            [self insertMsgToEasemobDB:frendRequest];
-            
-//            [SVProgressHUD showHint:@"已添加"];
-            for (Contact *contact in self.accountManager.account.contacts) {
-                if ([((FrendRequest *)frendRequest).userId longValue] == [contact.userId longValue]) {
-//                    ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
-                    OtherUserInfoViewController *contactDetailCtl = [[OtherUserInfoViewController alloc]init];
-                    
-                    contactDetailCtl.userId = contact.userId;
-                    [self.navigationController pushViewController:contactDetailCtl animated:YES];
-                    break;
-                }
-            }
-           
+            [SVProgressHUD showHint:@"已添加"];
             
         } else {
             [SVProgressHUD showHint:@"添加失败"];
-
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [hud hideTZHUD];
-        if (self.isShowing) {
-            [SVProgressHUD showHint:@"呃～好像没找到网络"];
         }
     }];
 }
@@ -185,11 +126,19 @@
 {
     NSLog(@"我同意好友请求，好友信息为：%@", [_dataSource objectAtIndex: sender.tag]);
     [self addContactWithFrendRequest:[_dataSource objectAtIndex: sender.tag]];
-
 }
 
-
 #pragma mark - Table view data source & delegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return CGFLOAT_MIN;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return CGFLOAT_MIN;
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -197,7 +146,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 50.0;
+    return 58.0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -209,29 +158,41 @@
     FrendRequest *request = [_dataSource objectAtIndex:indexPath.row];
     cell.nickNameLabel.text = request.nickName;
     cell.attachMsgLabel.text = request.attachMsg;
-    [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:request.avatarSmall] placeholderImage:[UIImage imageNamed:@"person_disabled"]];
+    [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:request.avatar] placeholderImage:[UIImage imageNamed:@"avatar_default.png"]];
     cell.requestBtn.tag = indexPath.row;
-    if ([request.status integerValue] == TZFrendAgree) {
-        [cell.requestBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-        [cell.requestBtn setTitle:@"已添加" forState:UIControlStateNormal];
-        cell.requestBtn.userInteractionEnabled = NO;
-    } else if ([request.status integerValue] == TZFrendDefault) {
-        [cell.requestBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-        [cell.requestBtn setTitleColor:[APP_THEME_COLOR colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
-        [cell.requestBtn setTitle:@"同意" forState:UIControlStateNormal];
-        cell.requestBtn.userInteractionEnabled = YES;
+    if (request.status == TZFrendAgree) {
+        cell.requestBtn.enabled = NO;
+        cell.requestBtn.layer.borderWidth = 0;
+    } else if (request.status == TZFrendDefault) {
+        cell.requestBtn.enabled = YES;
+        [cell.requestBtn removeTarget:self action:@selector(agreeFrendRequest:) forControlEvents:UIControlEventTouchUpInside];
         [cell.requestBtn addTarget:self action:@selector(agreeFrendRequest:) forControlEvents:UIControlEventTouchUpInside];
+        
+        cell.requestBtn.layer.borderWidth = 0.8;
     }
         
     return cell;
 }
 
+#pragma mark - 点击cell跳转页面
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    FrendRequest *request = [_dataSource objectAtIndex:indexPath.row];
+    
+    OtherProfileViewController *contactDetailCtl = [[OtherProfileViewController alloc]init];
+    contactDetailCtl.userId = request.userId;
+    [self.navigationController pushViewController:contactDetailCtl animated:YES];
+
+    [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+}
+
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         FrendRequest *frendRequest = [self.dataSource objectAtIndex:indexPath.row];
-        [self.accountManager removeFrendRequest:frendRequest];
+        IMClientManager *clientManager = [IMClientManager shareInstance];
+        [clientManager.frendRequestManager removeFrendRequest:frendRequest.requestId];
         [self.dataSource removeObject:frendRequest];
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
 }
 

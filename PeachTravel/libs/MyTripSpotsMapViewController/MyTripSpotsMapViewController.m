@@ -6,19 +6,28 @@
 //  Copyright (c) 2014年 aizou. All rights reserved.
 //
 
+#import <MapKit/MapKit.h>
+
 #import "MyTripSpotsMapViewController.h"
 #import "SelectionTableViewController.h"
 #import "TZButton.h"
-#import <MapKit/MapKit.h>
+#import "MapMarkMenuVC.h"
+#import "AppDelegate.h"
+#import "MapViewSetLocationBtn.h"
+#import "CustomMKAnnotationView.h"
 
-@interface MyTripSpotsMapViewController () <MKMapViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, SelectDelegate>
+@interface MyTripSpotsMapViewController () <MKMapViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, MapMarkMenuVCDelegate,CLLocationManagerDelegate,SelectDelegate>
 
 @property (nonatomic, strong) MKMapView *mapView;
 @property (nonatomic, strong) UILabel *currentDayLabel;
 @property (nonatomic, strong) NSMutableArray *currentAnnotations;
 @property (nonatomic, assign) NSUInteger positionCount;      //记录是第几个
 @property (nonatomic, strong) MKPolyline *line;
+@property (nonatomic, strong) NSArray *pois;
+@property (nonatomic, strong) MapViewSetLocationBtn* locationBtn;
+@property (nonatomic, strong) CLLocationManager* locationManager;
 
+@property (nonatomic, strong) UIView* menuView;
 @property (nonatomic, strong) UICollectionView *selectPanel;
 
 @end
@@ -38,83 +47,113 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.backgroundColor = APP_PAGE_COLOR;
     self.navigationItem.title = _titleText;
-    UIBarButtonItem *lbtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_trip_list.png"] style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
+    UIBarButtonItem *lbtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"common_icon_navigation_back_normal.png"] style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
     self.navigationItem.leftBarButtonItem = lbtn;
     
-    TZButton *btn = [TZButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(0, 0, 64, 44);
-    [btn setTitle:@"第1天" forState:UIControlStateNormal];
-    [btn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-    [btn setImage:[UIImage imageNamed:@"ic_shaixuan_.png"] forState:UIControlStateNormal];
-    btn.titleLabel.font = [UIFont boldSystemFontOfSize:16];
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(0, 0, 64, 28);
+    [btn setTitle:@"01.Day" forState:UIControlStateNormal];
+    btn.layer.borderWidth = 1.0;
+    btn.layer.cornerRadius = 3.0;
+    btn.layer.borderColor = COLOR_TEXT_II.CGColor;
+    [btn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
+    [btn setTitleColor:COLOR_DISABLE forState:UIControlStateHighlighted];
+    btn.titleLabel.font = [UIFont systemFontOfSize:16];
     [btn addTarget:self action:@selector(switchDay) forControlEvents:UIControlEventTouchUpInside];
-    btn.imagePosition = IMAGE_AT_RIGHT;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
-    
 
-
+    _pois = _tripDetail.itineraryList[_currentDay];
     
     mapView = [[MKMapView alloc]initWithFrame:CGRectMake(0.0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds))];
     [self.view addSubview:mapView];
     mapView.mapType = MKMapTypeStandard;
     mapView.delegate = self;
     [self showMapPin];
-    
-    UIImageView *collectionBackImg = [[UIImageView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height - 49, self.view.bounds.size.width, 49)];
-        collectionBackImg.image = [UIImage imageNamed:@"collectionBack"];
-    collectionBackImg.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-    collectionBackImg.clipsToBounds = YES;
-    [self.view addSubview:collectionBackImg];
 
     [self setupSelectPanel];
+
+    [self.view addSubview:self.locationBtn];
+    self.locationBtn.frame = CGRectMake(-3, [UIScreen mainScreen].bounds.size.height / 3 * 2, 30, 50);
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [MobClick beginLogPageView:@"page_plan_map_view"];
     [super viewWillAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+    [MobClick endLogPageView:@"page_plan_map_view"];
     [super viewWillDisappear:animated];
 }
 
-- (void) setupSelectPanel {
+- (void)setLocationOfself{
+    if (self.locationManager == nil) {
+        self.locationManager = [CLLocationManager new];
+        self.locationManager.delegate = self;
+        if ([UIDevice currentDevice].systemVersion.floatValue >= 8.0) {
+            [self.locationManager requestWhenInUseAuthorization];
+//            self.locationManager.allowsBackgroundLocationUpdates = YES;
+        }
+    }
+    
+    [self.locationManager startUpdatingLocation];
+//    [self resetView];
+}
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    CLLocation *location = [locations lastObject];
+    
+    NSLog(@"latitude纬度: %f, longitude经度: %f",location.coordinate.latitude, location.coordinate.longitude);
+    [self.locationManager stopUpdatingLocation];
+    [self.mapView setCenterCoordinate:location.coordinate animated:YES];
+    
+    self.mapView.showsUserLocation = YES;
+}
+
+- (void)setupSelectPanel {
     CGRect collectionViewFrame = CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49, CGRectGetWidth(self.view.bounds), 49);
     UICollectionViewFlowLayout *aFlowLayout = [[UICollectionViewFlowLayout alloc] init];
     [aFlowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
     self.selectPanel = [[UICollectionView alloc] initWithFrame:collectionViewFrame collectionViewLayout:aFlowLayout];
-    self.selectPanel.backgroundColor = [UIColor clearColor];
     self.selectPanel.showsHorizontalScrollIndicator = NO;
     self.selectPanel.showsVerticalScrollIndicator = NO;
     self.selectPanel.delegate = self;
+    self.selectPanel.backgroundColor = [UIColor whiteColor];
     self.selectPanel.dataSource = self;
     self.selectPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     self.selectPanel.contentInset = UIEdgeInsetsMake(0, 15, 0, 15);
     [self.selectPanel registerClass:[SelectPoiCell class] forCellWithReuseIdentifier:@"spoi_cell"];
-    
     [self.view addSubview:_selectPanel];
 }
 
 #pragma mark - IBAction
 - (void) switchDay {
-    NSInteger count = _pois.count;
-    NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:(count + 1)];
-    int i = 0;
-    while (i < count) {
-        [array addObject:[NSString stringWithFormat:@"第%d天", ++i]];
+
+
+
+    if (self.menuView == nil) {
+        NSInteger count = _tripDetail.itineraryList.count;
+        NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:(count + 1)];
+        int i = 0;
+        while (i < count) {
+            [array addObject:[NSNumber numberWithInteger:++i]];
+        }
+        MapMarkMenuVC* ctl = [[MapMarkMenuVC alloc] initWithArray:array];
+        ctl.delegate = self;
+        ctl.frame = self.view.bounds;
+        self.menuView = ctl;
     }
+   
+    [self.navigationController.view addSubview:self.menuView];
     
-    SelectionTableViewController *ctl = [[SelectionTableViewController alloc] init];
-    ctl.contentItems = array;
-    ctl.delegate = self;
-    ctl.selectItem = ((UIButton *)self.navigationItem.rightBarButtonItem.customView).titleLabel.text;
-    TZNavigationViewController *nav = [[TZNavigationViewController alloc] initWithRootViewController:ctl];
-    [self presentViewController:nav animated:YES completion:nil];
+
 }
 
 - (void)goBack
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)dealloc
@@ -144,17 +183,14 @@
     [mapView removeAnnotations:_currentAnnotations];
     [_currentAnnotations removeAllObjects];
     
-    NSArray *currentDayPois = _pois[_currentDay];
-//    NSMutableArray *tempArray = [[NSMutableArray alloc] init];
-    NSInteger count = currentDayPois.count;
+    NSInteger count = _pois.count;
     CLLocationCoordinate2D pointsToUse[count];
     for (int i = 0; i < count; i++) {
-        SuperPoi *pb = [currentDayPois objectAtIndex:i];
+        SuperPoi *pb = [_pois objectAtIndex:i];
         CLLocationCoordinate2D location = CLLocationCoordinate2DMake(pb.lat, pb.lng);
         MKPointAnnotation* item = [[MKPointAnnotation alloc]init];
         item.coordinate = location;
         item.title = pb.zhName;
-//        [tempArray addObject:item];
         
         [_currentAnnotations addObject:item];
         [mapView addAnnotation:item];
@@ -164,9 +200,10 @@
             [mapView selectAnnotation:item animated:YES];
         }
     }
+    [mapView removeOverlay:_line];
     _line = [MKPolyline polylineWithCoordinates:pointsToUse count:count];
     [mapView addOverlay:_line level:MKOverlayLevelAboveLabels];
-    [self moveMapToCenteratMapView:mapView withArray:currentDayPois];
+    [self moveMapToCenteratMapView:mapView withArray:_pois];
 }
 
 //设置百度地图缩放级别
@@ -226,18 +263,15 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return [_pois[_currentDay] count];
+    return [_pois count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     SelectPoiCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"spoi_cell" forIndexPath:indexPath];
     
-//    PositionBean *pb = [_pois objectAtIndex:indexPath.row];
-    NSArray *currentDayPois = _pois[_currentDay];
-    SuperPoi *pb = [currentDayPois objectAtIndex:indexPath.row];
-    NSString *txt = [NSString stringWithFormat:@"%ld %@", (indexPath.row + 1), pb.zhName];
+    SuperPoi *pb = [_pois objectAtIndex:indexPath.row];
+    NSString *txt = [NSString stringWithFormat:@"%ld.%@", (indexPath.row + 1), pb.zhName];
     cell.textView.text = txt;
-    cell.textView.textColor = [UIColor whiteColor];
     CGSize size = [txt sizeWithAttributes:@{NSFontAttributeName : cell.textView.font}];
     cell.textView.frame = CGRectMake(0, 0, size.width, 49);
     return cell;
@@ -249,10 +283,8 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-//    PositionBean *pb = [_pois objectAtIndex:indexPath.row];
-    NSArray *currentDayPois = _pois[_currentDay];
-    SuperPoi *pb = [currentDayPois objectAtIndex:indexPath.row];
-    NSString *txt = [NSString stringWithFormat:@"%ld %@", (indexPath.row + 1), pb.zhName];
+    SuperPoi *pb = [_pois objectAtIndex:indexPath.row];
+    NSString *txt = [NSString stringWithFormat:@"%ld.%@", (indexPath.row + 1), pb.zhName];
     CGSize size = [txt sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17]}];
     return CGSizeMake(size.width, 49);
 }
@@ -263,9 +295,10 @@
 
 #pragma mark - SelectDelegate
 - (void) selectItem:(NSString *)str atIndex:(NSIndexPath *)indexPath {
-//    self.navigationItem.rightBarButtonItem.title = str;
     [((UIButton *)self.navigationItem.rightBarButtonItem.customView) setTitle:str forState:UIControlStateNormal];
     _currentDay = indexPath.row;
+    _pois = [self.tripDetail.itineraryList objectAtIndex:_currentDay];
+
     [self resetView];
 }
 
@@ -276,32 +309,45 @@
 
 #pragma mark - MKMapViewDelegate
 
-- (void)mapView:(MKMapView *)sender annotationView:(MKAnnotationView *)aView
-calloutAccessoryControlTapped:(UIControl *)control{
+- (void)mapView:(MKMapView *)sender annotationView:(MKAnnotationView *)aView calloutAccessoryControlTapped:(UIControl *)control
+{
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)theMapView viewForAnnotation:(id<MKAnnotation>)annotation
 {
     NSInteger index = [_currentAnnotations indexOfObject:annotation];
-    
-    MKPinAnnotationView *newAnnotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:[annotation title]];
-    newAnnotationView.pinColor = MKPinAnnotationColorRed;
+    if (index > _currentAnnotations.count) {
+        return nil;
+    }
+    CustomMKAnnotationView *newAnnotationView = [[CustomMKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:[annotation title]];
 
     newAnnotationView.annotation = annotation;
     newAnnotationView.canShowCallout = YES;
     newAnnotationView.tag = index;
 
-    
+    newAnnotationView.layer.anchorPoint = CGPointMake(0.7, 0.55);
+    NSString *imageName = [NSString stringWithFormat:@"map_icon_%ld.png", index+1];
+    newAnnotationView.image = [UIImage imageNamed:imageName];
+    NSLog(@"%@",newAnnotationView.image);
+
     return newAnnotationView;
 }
 
 - (MKOverlayRenderer*)mapView:(MKMapView*)mapView rendererForOverlay:(id <MKOverlay>)overlay
 {
     MKPolylineRenderer* lineView = [[MKPolylineRenderer alloc] initWithPolyline:_line];
-    lineView.strokeColor = APP_SUB_THEME_COLOR;
+    lineView.strokeColor = COLOR_CHECKED;
     lineView.lineWidth = 2;
     return lineView;
 }
+- (MapViewSetLocationBtn *)locationBtn{
+    if (_locationBtn == nil) {
+        _locationBtn = [[MapViewSetLocationBtn alloc] init];
+        [_locationBtn addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(setLocationOfself)]];
+    }
+    return _locationBtn;
+}
+
 @end
 
 @implementation SelectPoiCell
@@ -312,13 +358,14 @@ calloutAccessoryControlTapped:(UIControl *)control{
     if (self = [super initWithFrame:frame]) {
         textView = [[UILabel alloc] init];
         textView.font = [UIFont systemFontOfSize:17];
-        textView.textColor = [UIColor blueColor];
+        textView.textColor = COLOR_TEXT_II;
         textView.textAlignment = NSTextAlignmentCenter;
         textView.numberOfLines = 1;
         [self.contentView addSubview:textView];
     }
     return self;
 }
+
 
 @end
 

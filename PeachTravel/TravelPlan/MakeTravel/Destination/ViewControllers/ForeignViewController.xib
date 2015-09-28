@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ForeignViewController">
             <connections>
                 <outlet property="foreignCollectionView" destination="dp0-LM-i7c" id="c8C-zm-cf4"/>
+                <outlet property="foreignTableView" destination="JCY-14-yZM" id="xH1-xk-fUd"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -19,27 +20,45 @@
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="dp0-LM-i7c">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <collectionViewLayout key="collectionViewLayout" id="3vX-8h-Nif" customClass="TaoziCollectionLayout"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="2gV-nm-QtO">
+                        <size key="itemSize" width="50" height="50"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
                 </collectionView>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="JCY-14-yZM">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </tableView>
             </subviews>
             <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="dp0-LM-i7c" firstAttribute="leading" secondItem="JCY-14-yZM" secondAttribute="trailing" id="3kN-I4-JWx"/>
                 <constraint firstItem="dp0-LM-i7c" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Dum-9r-82Z"/>
+                <constraint firstItem="JCY-14-yZM" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="GNf-7a-BqC"/>
+                <constraint firstAttribute="bottom" secondItem="JCY-14-yZM" secondAttribute="bottom" id="dtI-zk-nU8"/>
+                <constraint firstItem="JCY-14-yZM" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="lur-qW-WLi"/>
                 <constraint firstAttribute="bottom" secondItem="dp0-LM-i7c" secondAttribute="bottom" id="n9r-ld-qIJ">
-                    <variation key="widthClass=compact" constant="10"/>
+                    <variation key="widthClass=compact" constant="0.0"/>
                 </constraint>
                 <constraint firstAttribute="trailing" secondItem="dp0-LM-i7c" secondAttribute="trailing" id="w2s-eu-847">
                     <variation key="widthClass=compact" constant="0.0"/>
                 </constraint>
                 <constraint firstItem="dp0-LM-i7c" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="yTw-Gt-3rK">
-                    <variation key="widthClass=compact" constant="0.0"/>
+                    <variation key="widthClass=compact" constant="75"/>
                 </constraint>
             </constraints>
             <variation key="default">
                 <mask key="subviews">
                     <exclude reference="dp0-LM-i7c"/>
+                    <exclude reference="JCY-14-yZM"/>
                 </mask>
                 <mask key="constraints">
+                    <exclude reference="GNf-7a-BqC"/>
+                    <exclude reference="dtI-zk-nU8"/>
+                    <exclude reference="lur-qW-WLi"/>
+                    <exclude reference="3kN-I4-JWx"/>
                     <exclude reference="Dum-9r-82Z"/>
                     <exclude reference="n9r-ld-qIJ"/>
                     <exclude reference="w2s-eu-847"/>
@@ -49,15 +68,20 @@
             <variation key="widthClass=compact">
                 <mask key="subviews">
                     <include reference="dp0-LM-i7c"/>
+                    <include reference="JCY-14-yZM"/>
                 </mask>
                 <mask key="constraints">
+                    <include reference="GNf-7a-BqC"/>
+                    <include reference="dtI-zk-nU8"/>
+                    <include reference="lur-qW-WLi"/>
+                    <include reference="3kN-I4-JWx"/>
                     <include reference="Dum-9r-82Z"/>
                     <include reference="n9r-ld-qIJ"/>
                     <include reference="w2s-eu-847"/>
                     <include reference="yTw-Gt-3rK"/>
                 </mask>
             </variation>
-            <point key="canvasLocation" x="295" y="275"/>
+            <point key="canvasLocation" x="102" y="256"/>
         </view>
     </objects>
 </document>

@@ -1,38 +1,40 @@
 PODS:
-  - AFNetworking (2.5.2):
-    - AFNetworking/NSURLConnection (= 2.5.2)
-    - AFNetworking/NSURLSession (= 2.5.2)
-    - AFNetworking/Reachability (= 2.5.2)
-    - AFNetworking/Security (= 2.5.2)
-    - AFNetworking/Serialization (= 2.5.2)
-    - AFNetworking/UIKit (= 2.5.2)
-  - AFNetworking/NSURLConnection (2.5.2):
+  - AFNetworking (2.5.4):
+    - AFNetworking/NSURLConnection (= 2.5.4)
+    - AFNetworking/NSURLSession (= 2.5.4)
+    - AFNetworking/Reachability (= 2.5.4)
+    - AFNetworking/Security (= 2.5.4)
+    - AFNetworking/Serialization (= 2.5.4)
+    - AFNetworking/UIKit (= 2.5.4)
+  - AFNetworking/NSURLConnection (2.5.4):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.5.2):
+  - AFNetworking/NSURLSession (2.5.4):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (2.5.2)
-  - AFNetworking/Security (2.5.2)
-  - AFNetworking/Serialization (2.5.2)
-  - AFNetworking/UIKit (2.5.2):
+  - AFNetworking/Reachability (2.5.4)
+  - AFNetworking/Security (2.5.4)
+  - AFNetworking/Serialization (2.5.4)
+  - AFNetworking/UIKit (2.5.4):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - iRate (1.11.3)
+  - iRate (1.11.4)
+  - MJRefresh (2.3.2)
   - OpenUDID (1.0.0)
-  - Qiniu (7.0.9.1):
+  - Qiniu (7.0.11.1):
     - AFNetworking (~> 2.0)
-  - SDWebImage (3.7.2):
-    - SDWebImage/Core (= 3.7.2)
-  - SDWebImage/Core (3.7.2)
+  - SDWebImage (3.7.3):
+    - SDWebImage/Core (= 3.7.3)
+  - SDWebImage/Core (3.7.3)
   - TMCache (1.2.4)
-  - UMengAnalytics-NO-IDFA (3.4.7)
+  - UMengAnalytics-NO-IDFA (3.5.11)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.5.2)
   - iRate (~> 1.11)
+  - MJRefresh
   - OpenUDID (~> 1.0.0)
   - Qiniu (~> 7.0)
   - SDWebImage (~> 3.7.1)
@@ -40,12 +42,13 @@ DEPENDENCIES:
   - UMengAnalytics-NO-IDFA
 
 SPEC CHECKSUMS:
-  AFNetworking: fefbce9660acb17f48ae0011292d4da0f457bf36
-  iRate: 09ef501c74ade02013348bc33225ea48f7aa4e55
+  AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
+  iRate: 599ed07c854e0695f3c605d1b2a64c67d912acb7
+  MJRefresh: 0f6f5e8387970607c26080b44058b229a23065d7
   OpenUDID: e7cb6984c7304906ad20f3a36bf087b025896b6b
-  Qiniu: cd281425298a3f30495135ab9a9442bf400dab28
-  SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
+  Qiniu: 080a6728b969f6b0e77c9de574ede37e78b0912b
+  SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   TMCache: a93984b045a5ee84bd8941bd5e0b54296059cc52
-  UMengAnalytics-NO-IDFA: 68a71671c10067315339fc3fd1283be416f02a8b
+  UMengAnalytics-NO-IDFA: e41024644de702e450093ef043af20b5fbe06cbc
 
-COCOAPODS: 0.35.0
+COCOAPODS: 0.38.2

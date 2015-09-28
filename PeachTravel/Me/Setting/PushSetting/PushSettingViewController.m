@@ -9,7 +9,7 @@
 #import "PushSettingViewController.h"
 #import "PushSettingTableViewCell.h"
 
-@interface PushSettingViewController ()<UITableViewDataSource, UITableViewDelegate>
+@interface PushSettingViewController ()
 
 @property (nonatomic) BOOL isNoDisturbing;
 
@@ -17,6 +17,7 @@
 
 @implementation PushSettingViewController
 
+/*
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"消息和提醒";
@@ -83,9 +84,7 @@
     [self savePushOptions];
 }
 
-/**
- *  保存推送设置
- */
+
 - (void)savePushOptions
 {
     EMPushNotificationOptions *options = [[EaseMob sharedInstance].chatManager pushNotificationOptions];
@@ -105,5 +104,6 @@
         }
     } onQueue:nil];
 }
+*/
 
 @end

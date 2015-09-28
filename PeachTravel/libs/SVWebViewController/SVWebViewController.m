@@ -121,7 +121,7 @@
 
 - (UIBarButtonItem *)backBarButtonItem {
     if (!_backBarButtonItem) {
-        _backBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"SVWebViewController.bundle/SVWebViewControllerBack"]
+        _backBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"h5_labar_left_default.png"]
                                                               style:UIBarButtonItemStylePlain
                                                              target:self
                                                              action:@selector(goBackTapped:)];
@@ -133,7 +133,7 @@
 
 - (UIBarButtonItem *)forwardBarButtonItem {
     if (!_forwardBarButtonItem) {
-        _forwardBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"SVWebViewController.bundle/SVWebViewControllerNext"]
+        _forwardBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"h5_labar_right_default.png"]
                                                                  style:UIBarButtonItemStylePlain
                                                                 target:self
                                                                 action:@selector(goForwardTapped:)];
@@ -145,7 +145,10 @@
 
 - (UIBarButtonItem *)refreshBarButtonItem {
     if (!_refreshBarButtonItem) {
-        _refreshBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(reloadTapped:)];
+        _refreshBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"h5_labar_brush_default.png"]
+                                                                                          style:UIBarButtonItemStylePlain
+                                                                                         target:self
+                                                                                         action:@selector(reloadTapped:)];
         _refreshBarButtonItem.tintColor = APP_THEME_COLOR;
     }
     return _refreshBarButtonItem;
@@ -153,7 +156,10 @@
 
 - (UIBarButtonItem *)stopBarButtonItem {
     if (!_stopBarButtonItem) {
-        _stopBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(stopTapped:)];
+        _stopBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"h5_labar_brush_stop.png"]
+                                                              style:UIBarButtonItemStylePlain
+                                                             target:self
+                                                             action:@selector(stopTapped:)];
         _stopBarButtonItem.tintColor = APP_THEME_COLOR;
     }
     return _stopBarButtonItem;
@@ -206,8 +212,6 @@
                           flexibleSpace,
                           refreshStopBarButtonItem,
                           flexibleSpace,
-//                          self.actionBarButtonItem,
-//                          fixedSpace,
                           nil];
         
         self.navigationController.toolbar.barStyle = self.navigationController.navigationBar.barStyle;

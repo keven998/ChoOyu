@@ -115,7 +115,7 @@ static MessageReadManager *detailInstance = nil;
 
 #pragma mark - public
 
-- (void)showBrowserWithImages:(NSArray *)imageArray andImageView:(UIImageView *)imageView
+- (void)showBrowserWithImages:(NSArray *)imageArray andImageView:(UIImageView *)imageView andCurrentPhotoIndex:(NSUInteger)index
 {
     NSInteger count = imageArray.count;
     // 1.封装图片数据
@@ -130,71 +130,9 @@ static MessageReadManager *detailInstance = nil;
     
     // 2.显示相册
     MJPhotoBrowser *browser = [[MJPhotoBrowser alloc] init];
-    browser.currentPhotoIndex = 0; // 弹出相册时显示的第一张图片是？
+    browser.currentPhotoIndex = index; // 弹出相册时显示的第一张图片是？
     browser.photos = photos; // 设置所有的图片
     [browser show];
 }
-
-- (BOOL)prepareMessageAudioModel:(MessageModel *)messageModel
-                      updateViewCompletion:(void (^)(MessageModel *prevAudioModel, MessageModel *currentAudioModel))updateCompletion
-{
-    BOOL isPrepare = NO;
-    
-    if(messageModel.type == eMessageBodyType_Voice)
-    {
-        MessageModel *prevAudioModel = self.audioMessageModel;
-        MessageModel *currentAudioModel = messageModel;
-        self.audioMessageModel = messageModel;
-        
-        BOOL isPlaying = messageModel.isPlaying;
-        if (isPlaying) {
-            messageModel.isPlaying = NO;
-            self.audioMessageModel = nil;
-//            prevAudioModel.isPlaying = NO;
-            currentAudioModel = nil;
-            
-            [[EaseMob sharedInstance].chatManager stopPlayingAudio];
-        }
-        else {
-            messageModel.isPlaying = YES;
-            prevAudioModel.isPlaying = NO;
-            isPrepare = YES;
-            
-            if (!messageModel.isPlayed) {
-                messageModel.isPlayed = YES;
-                EMMessage *chatMessage = messageModel.message;
-                if (chatMessage.ext) {
-                    NSMutableDictionary *dict = [chatMessage.ext mutableCopy];
-                    if (![[dict objectForKey:@"isPlayed"] boolValue]) {
-                        [dict setObject:@YES forKey:@"isPlayed"];
-                        chatMessage.ext = dict;
-                        [chatMessage updateMessageExtToDB];
-                    }
-                }
-            }
-        }
-        
-        if (updateCompletion) {
-            updateCompletion(prevAudioModel, currentAudioModel);
-        }
-    }
-    
-    return isPrepare;
-}
-
-- (MessageModel *)stopMessageAudioModel
-{
-    MessageModel *model = nil;
-    if (self.audioMessageModel.type == eMessageBodyType_Voice) {
-        if (self.audioMessageModel.isPlaying) {
-            model = self.audioMessageModel;
-        }
-        self.audioMessageModel.isPlaying = NO;
-        self.audioMessageModel = nil;
-    }
-    
-    return model;
-}
-
 
 @end

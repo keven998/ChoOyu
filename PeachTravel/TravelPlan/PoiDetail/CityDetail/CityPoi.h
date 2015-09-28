@@ -16,6 +16,9 @@
 @property (nonatomic, copy) NSString *travelMonth;
 @property (nonatomic, copy) NSString *diningTitles;
 @property (nonatomic, copy) NSString *shoppingTitles;
+// 喜欢和去过
+@property (nonatomic, assign) BOOL isVote;
+@property (nonatomic, assign) BOOL traveled;
 @property (nonatomic) NSUInteger imageCount;
 @property (nonatomic, strong) NSArray *travelNotes;
 @property (nonatomic, strong) RecommendsOfCity *restaurantsOfCity;

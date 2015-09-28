@@ -23,6 +23,7 @@
 
 @property (nonatomic, copy) NSString *cityId;
 @property (nonatomic, copy) NSString *cityName;
+@property (nonatomic) TZPoiType poiType;
 
 
 /**

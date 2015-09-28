@@ -7,7 +7,6 @@
 //
 
 #import "SearchUserInfoViewController.h"
-#import "TZCMDChatHelper.h"
 #import "AccountManager.h"
 #import "ConvertMethods.h"
 
@@ -47,6 +46,18 @@
     _addButton.layer.cornerRadius = 2.0;
     
     [self showUserInfo:_userInfo];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"page_search_user"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"page_search_user"];
 }
 
 - (void)goBack
@@ -105,7 +116,7 @@
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:[_userInfo objectForKey:@"userId"] forKey:@"userId"];
@@ -131,10 +142,19 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [hud hideTZHUD];
         if (self.isShowing) {
-            [SVProgressHUD showHint:@"呃～好像没找到网络"];
+            [SVProgressHUD showHint:HTTP_FAILED_HINT];
         }
     }];
+    
+    
 
 }
 
 @end
+
+
+
+
+
+
+

@@ -38,6 +38,8 @@ typedef NS_ENUM(NSInteger, REFrostedViewControllerLiveBackgroundStyle) {
     REFrostedViewControllerLiveBackgroundStyleDark
 };
 
+#define MENU_MAGIN 38.0f
+
 @protocol REFrostedViewControllerDelegate;
 
 @interface REFrostedViewController : UIViewController
@@ -62,7 +64,6 @@ typedef NS_ENUM(NSInteger, REFrostedViewControllerLiveBackgroundStyle) {
 @property (assign, readwrite, nonatomic) CGSize menuViewSize;
 @property (assign, readwrite, nonatomic) BOOL liveBlur; // iOS 7 only
 @property (assign, readwrite, nonatomic) REFrostedViewControllerLiveBackgroundStyle liveBlurBackgroundStyle; // iOS 7 only
-@property (nonatomic, assign) BOOL resumeNavigationBar;
 
 @property (weak, readwrite, nonatomic) id<REFrostedViewControllerDelegate> delegate;
 @property (strong, readwrite, nonatomic) UIViewController *contentViewController;

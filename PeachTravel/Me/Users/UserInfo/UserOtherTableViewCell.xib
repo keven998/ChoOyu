@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -14,35 +14,16 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="设置" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qRP-a6-LMu">
-                        <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="21" id="g5k-4n-TRt"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <nil key="highlightedColor"/>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="g5k-4n-TRt"/>
-                            </mask>
-                        </variation>
-                        <variation key="widthClass=compact">
-                            <mask key="constraints">
-                                <include reference="g5k-4n-TRt"/>
-                            </mask>
-                        </variation>
-                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lxA-5L-4T9">
                         <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="57" id="Bbq-fr-nwq">
-                                <variation key="widthClass=compact" constant="80"/>
+                                <variation key="widthClass=compact" constant="145"/>
                             </constraint>
                             <constraint firstAttribute="height" constant="21" id="GHA-4F-Xfq"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="textColor" red="0.39215686274509803" green="0.39215686274509803" blue="0.39215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                         <variation key="default">
                             <mask key="constraints">
@@ -57,12 +38,33 @@
                             </mask>
                         </variation>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="设置" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qRP-a6-LMu">
+                        <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="g5k-4n-TRt"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.19607843137254902" green="0.19607843137254902" blue="0.19607843137254902" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="g5k-4n-TRt"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="g5k-4n-TRt"/>
+                            </mask>
+                        </variation>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="qRP-a6-LMu" firstAttribute="leading" secondItem="lxA-5L-4T9" secondAttribute="trailing" constant="33" id="0ua-Y6-0o9">
-                        <variation key="widthClass=compact" constant="5"/>
+                        <variation key="widthClass=compact" constant="8"/>
                     </constraint>
-                    <constraint firstAttribute="trailing" secondItem="qRP-a6-LMu" secondAttribute="trailing" id="7zw-2U-w9D"/>
+                    <constraint firstAttribute="trailing" secondItem="qRP-a6-LMu" secondAttribute="trailing" id="7zw-2U-w9D">
+                        <variation key="widthClass=compact" constant="8"/>
+                    </constraint>
                     <constraint firstAttribute="centerY" secondItem="lxA-5L-4T9" secondAttribute="centerY" id="QJ4-LA-bYB"/>
                     <constraint firstItem="lxA-5L-4T9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="YdL-T9-cll">
                         <variation key="widthClass=compact" constant="15"/>
@@ -71,8 +73,8 @@
                 </constraints>
                 <variation key="default">
                     <mask key="subviews">
-                        <exclude reference="qRP-a6-LMu"/>
                         <exclude reference="lxA-5L-4T9"/>
+                        <exclude reference="qRP-a6-LMu"/>
                     </mask>
                     <mask key="constraints">
                         <exclude reference="QJ4-LA-bYB"/>
@@ -84,8 +86,8 @@
                 </variation>
                 <variation key="widthClass=compact">
                     <mask key="subviews">
-                        <include reference="qRP-a6-LMu"/>
                         <include reference="lxA-5L-4T9"/>
+                        <include reference="qRP-a6-LMu"/>
                     </mask>
                     <mask key="constraints">
                         <include reference="QJ4-LA-bYB"/>

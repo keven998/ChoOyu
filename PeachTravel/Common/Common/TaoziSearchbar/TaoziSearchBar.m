@@ -7,7 +7,6 @@
 //
 
 #import "TaoziSearchBar.h"
-#import "UIImage+resized.h"
 @implementation TaoziSearchBar
 
 + (instancetype)searchBar
@@ -20,8 +19,8 @@
     self = [super initWithFrame:frame];
     if (self) {
         // 背景
-        
-        self.background = [UIImage resizedImageWithName:@"ic_searchBar_background"];
+        UIImage *image = [UIImage imageNamed:@"ic_searchBar_background"];
+        self.background = [image resizableImageWithCapInsets:UIEdgeInsetsMake(5, 30, 5, 30)];
         
         // 左边的放大镜图标
         UIImageView *iconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_searchBar_leftView"]];

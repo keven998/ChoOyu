@@ -11,6 +11,7 @@
 @interface TaoziImage : NSObject<NSCoding>
 
 @property (nonatomic ,copy) NSString *imageUrl;
+@property (nonatomic, copy) NSString *imageDesc;
 
 
 - (id)initWithJson:(id)json;

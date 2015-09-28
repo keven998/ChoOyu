@@ -26,6 +26,7 @@
 //	THE SOFTWARE.
 
 #import <UIKit/UIKit.h>
+#import "TZChatTextView.h"
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED < 60000
 	// UITextAlignment is deprecated in iOS 6.0+, use NSTextAlignment instead.
@@ -53,10 +54,12 @@
 
 - (void)growingTextViewDidChangeSelection:(HPGrowingTextView *)growingTextView;
 - (BOOL)growingTextViewShouldReturn:(HPGrowingTextView *)growingTextView;
+
 @end
 
-@interface HPGrowingTextView : UIView <UITextViewDelegate> {
-	HPTextViewInternal *internalTextView;	
+@interface HPGrowingTextView : UIView <UITextViewDelegate>
+{
+	
 	
 	int minHeight;
 	int maxHeight;
@@ -80,6 +83,8 @@
     UIEdgeInsets contentInset;
 }
 
+@property (nonatomic, strong) TZChatTextView *internalTextView;
+
 //real class properties
 @property int maxNumberOfLines;
 @property int minNumberOfLines;
@@ -89,7 +94,7 @@
 @property NSTimeInterval animationDuration;
 @property (nonatomic, strong) NSString *placeholder;
 @property (nonatomic, strong) UIColor *placeholderColor;
-@property (nonatomic, strong) UITextView *internalTextView;	
+//@property (nonatomic, strong) UITextView *internalTextView;	
 
 
 //uitextview properties

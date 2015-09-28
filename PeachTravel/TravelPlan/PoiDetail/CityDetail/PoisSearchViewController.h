@@ -11,7 +11,7 @@
 
 @protocol updateSelectedPlanDelegate <NSObject>
 
--(void)updateSelectedPlan;
+- (void)updateSelectedPlan;
 
 @end
 
@@ -25,6 +25,10 @@
 
 @property (nonatomic) TZPoiType poiType;
 @property (nonatomic, strong) TripDetail *tripDetail;
+@property (nonatomic) BOOL shouldEdit;
+
+//进入此界面可能是行程编辑界面进来的，也可能是收藏界面进来的，两者显示的状态不一样
+@property (nonatomic) BOOL isAddPoi;
 
 @property (nonatomic, weak) id<updateSelectedPlanDelegate> delegate;
 
