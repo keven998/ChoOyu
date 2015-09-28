@@ -31,8 +31,6 @@
     if (self.inputView != nil) {
         [self resignFirstResponder];
         self.inputView = nil;
-//        self.emojiKeyBoard = nil;
-//        self.keyBoardVC = nil;
         [self becomeFirstResponder];
     }else{
         [self resignFirstResponder];
@@ -97,7 +95,7 @@
     attachment.image = model.image;
     CGFloat height = self.font.lineHeight;
 //    attachment.bounds = CGRectMake(0, -self.font.lineHeight * 0.13, height * 0.85, height * 0.85);
-    attachment.bounds = CGRectMake(0, -self.font.lineHeight * 0.23, height * 1.11, height * 1.11);
+    attachment.bounds = CGRectMake(0, -self.font.lineHeight * 0.21, height, height);
     
     
     NSMutableAttributedString* attrString = [[NSMutableAttributedString alloc] initWithAttributedString:[NSAttributedString attributedStringWithAttachment:attachment]];
@@ -118,6 +116,8 @@
         self.placeholder = @"";
     }
     
+    [self.delegate textViewDidChange:self];
+
 }
 
 - (void)sendBtnClickEvent{
