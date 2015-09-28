@@ -72,7 +72,6 @@
     [self.descriptionLabel addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[check]-0-|" options:0 metrics:nil views:dict]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[bottom]-0-|" options:0 metrics:nil views:dict]];
     
-    
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc]initWithString:self.descriptionLabel.text];;
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init];
     [paragraphStyle setLineSpacing:5];
