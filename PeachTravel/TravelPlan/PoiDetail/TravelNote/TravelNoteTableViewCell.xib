@@ -50,11 +50,15 @@
                                     </mask>
                                 </variation>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ad5-l0-J6L">
-                                <rect key="frame" x="238" y="32.5" width="44" height="25"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ad5-l0-J6L">
+                                <rect key="frame" x="238" y="3.5" width="44" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="ei6-k1-62w"/>
+                                    <constraint firstAttribute="width" constant="44" id="yCB-Cy-5PT"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <state key="normal" title="发送">
-                                    <color key="titleColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" red="0.59999999999999998" green="0.80000000000000004" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <variation key="widthClass=compact" fixedFrame="YES">
@@ -85,8 +89,10 @@
                             <constraint firstItem="XAJ-wE-WPv" firstAttribute="leading" secondItem="bWf-Al-nkD" secondAttribute="leading" constant="12" id="RMd-jb-wjr"/>
                             <constraint firstItem="XAJ-wE-WPv" firstAttribute="leading" secondItem="bWf-Al-nkD" secondAttribute="leading" constant="12" id="S7c-gc-weR"/>
                             <constraint firstItem="ZSi-BI-IQI" firstAttribute="leading" secondItem="bWf-Al-nkD" secondAttribute="leading" constant="60" id="TBh-Rr-BG5"/>
+                            <constraint firstAttribute="trailing" secondItem="ad5-l0-J6L" secondAttribute="trailing" constant="2" id="Tg7-FL-oQf"/>
                             <constraint firstItem="AxZ-ld-PWP" firstAttribute="top" secondItem="bWf-Al-nkD" secondAttribute="top" constant="7" id="V3i-Ek-1AV"/>
                             <constraint firstAttribute="trailing" secondItem="AxZ-ld-PWP" secondAttribute="trailing" constant="2" id="g3E-rm-ubL"/>
+                            <constraint firstItem="ad5-l0-J6L" firstAttribute="top" secondItem="bWf-Al-nkD" secondAttribute="top" constant="3.5" id="qeD-s2-swn"/>
                             <constraint firstAttribute="trailing" secondItem="XAJ-wE-WPv" secondAttribute="trailing" constant="12" id="w8B-PO-sdm"/>
                         </constraints>
                         <variation key="default">

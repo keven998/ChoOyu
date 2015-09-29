@@ -439,7 +439,8 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
  *  同时加载城市达人信息
  */
 
-- (void)loadFrendListOfCityData{
+- (void)loadFrendListOfCityData
+{
     __weak typeof(CityDetailTableViewController *)weakSelf = self;
     [ExpertManager asyncLoadExpertsWithAreaName:self.poi.zhName page:0 pageSize:3 completionBlock:^(BOOL success, NSArray * result) {
         if (success) {
@@ -712,7 +713,8 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 
 #pragma mark - IBAction
 
-- (void)makePlan {
+- (void)makePlan
+{
     [MobClick event:@"navigation_item_lxp_city_create_plan"];
     Destinations *destinations = [[Destinations alloc] init];
     MakePlanViewController *makePlanCtl = [[MakePlanViewController alloc] init];

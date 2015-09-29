@@ -116,8 +116,23 @@
     // 1.获取请求管理者
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
+    NSDictionary *params;
+    if (_poiType == kRestaurantPoi) {
+        params = @{@"scope": @"restaurant"};
+        
+    } else if (_poiType == kShoppingPoi) {
+        params = @{@"scope": @"shopping"};
+        
+    } else if (_poiType == kSpotPoi) {
+        params = @{@"scope": @"viewspot"};
+        
+    } else if (_poiType == kTravelNotePoi) {
+        params = @{@"scope": @"travelNote"};
+        
+    }
+    
     // 2.发送Get请求
-    [manager GET:API_GET_HOT_SEARCH parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:API_GET_HOT_SEARCH parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSMutableArray * searchNameArray = [NSMutableArray array];
         NSArray *resultArray = responseObject[@"result"];

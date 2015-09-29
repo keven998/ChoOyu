@@ -10,11 +10,13 @@
 
 @interface PoiRecommend : NSObject
 
-@property (nonatomic, strong) NSString *recommondId;
-@property (nonatomic, strong) NSString *zhName;
-@property (nonatomic, strong) NSString *desc;
-@property (nonatomic, strong) NSString *linkUrl;
-@property (nonatomic, strong) NSArray * images;
+@property (nonatomic, copy) NSString *recommondId;
+@property (nonatomic, copy) NSString *zhName;
+@property (nonatomic, copy) NSString *enName;
+
+@property (nonatomic, copy) NSString *desc;
+@property (nonatomic, copy) NSString *linkUrl;
+@property (nonatomic, copy) NSArray * images;
 @property (nonatomic) TZPoiType poiType;
 
 - (id) initWithJson:(id)data;

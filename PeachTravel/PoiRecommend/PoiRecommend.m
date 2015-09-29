@@ -15,6 +15,7 @@
     if (self = [super init]) {
         _recommondId = [data objectForKey:@"itemId"];
         _zhName = [data objectForKey:@"zhName"];
+        _enName = [data objectForKey:@"enName"];
         
         _desc = [data objectForKey:@"desc"];
         

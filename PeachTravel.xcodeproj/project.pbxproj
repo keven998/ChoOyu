@@ -473,6 +473,12 @@
 		D91061F81BA954BC00C4FBCB /* PhotoPreivewView.m in Sources */ = {isa = PBXBuildFile; fileRef = D91061F71BA954BC00C4FBCB /* PhotoPreivewView.m */; };
 		D91061FC1BA9832C00C4FBCB /* GuiderSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D91061FA1BA9832C00C4FBCB /* GuiderSearchViewController.m */; };
 		D91061FD1BA9832C00C4FBCB /* GuiderSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D91061FB1BA9832C00C4FBCB /* GuiderSearchViewController.xib */; };
+		D9121ECD1BBA364400C2E480 /* moreview_travelnote_normal@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9121EC91BBA364400C2E480 /* moreview_travelnote_normal@3x.png */; settings = {ASSET_TAGS = (); }; };
+		D9121ECE1BBA364400C2E480 /* moreview_travelnote_highlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9121ECA1BBA364400C2E480 /* moreview_travelnote_highlight@2x.png */; settings = {ASSET_TAGS = (); }; };
+		D9121ECF1BBA364400C2E480 /* moreview_travelnote_highlight@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9121ECB1BBA364400C2E480 /* moreview_travelnote_highlight@3x.png */; settings = {ASSET_TAGS = (); }; };
+		D9121ED11BBA368500C2E480 /* moreview_travelnote_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9121ED01BBA368500C2E480 /* moreview_travelnote_normal@2x.png */; settings = {ASSET_TAGS = (); }; };
+		D9121ED41BBA395900C2E480 /* SearchTravelNoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9121ED31BBA395900C2E480 /* SearchTravelNoteViewController.m */; settings = {ASSET_TAGS = (); }; };
+		D9121ED71BBA534F00C2E480 /* PoiRecommendSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9121ED61BBA534F00C2E480 /* PoiRecommendSearchViewController.m */; settings = {ASSET_TAGS = (); }; };
 		D915296D1BB24592002D1F51 /* PoiRecommendRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D915296C1BB24592002D1F51 /* PoiRecommendRootViewController.m */; settings = {ASSET_TAGS = (); }; };
 		D91529711BB245CF002D1F51 /* DomesticPoiRecommendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D91529701BB245CF002D1F51 /* DomesticPoiRecommendViewController.m */; settings = {ASSET_TAGS = (); }; };
 		D91529741BB245E5002D1F51 /* ForeignPoiRecommendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D91529731BB245E5002D1F51 /* ForeignPoiRecommendViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -2337,6 +2343,14 @@
 		D91061F91BA9832C00C4FBCB /* GuiderSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuiderSearchViewController.h; sourceTree = "<group>"; };
 		D91061FA1BA9832C00C4FBCB /* GuiderSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuiderSearchViewController.m; sourceTree = "<group>"; };
 		D91061FB1BA9832C00C4FBCB /* GuiderSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GuiderSearchViewController.xib; sourceTree = "<group>"; };
+		D9121EC91BBA364400C2E480 /* moreview_travelnote_normal@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "moreview_travelnote_normal@3x.png"; sourceTree = "<group>"; };
+		D9121ECA1BBA364400C2E480 /* moreview_travelnote_highlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "moreview_travelnote_highlight@2x.png"; sourceTree = "<group>"; };
+		D9121ECB1BBA364400C2E480 /* moreview_travelnote_highlight@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "moreview_travelnote_highlight@3x.png"; sourceTree = "<group>"; };
+		D9121ED01BBA368500C2E480 /* moreview_travelnote_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "moreview_travelnote_normal@2x.png"; sourceTree = "<group>"; };
+		D9121ED21BBA395900C2E480 /* SearchTravelNoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchTravelNoteViewController.h; sourceTree = "<group>"; };
+		D9121ED31BBA395900C2E480 /* SearchTravelNoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchTravelNoteViewController.m; sourceTree = "<group>"; };
+		D9121ED51BBA534F00C2E480 /* PoiRecommendSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoiRecommendSearchViewController.h; sourceTree = "<group>"; };
+		D9121ED61BBA534F00C2E480 /* PoiRecommendSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoiRecommendSearchViewController.m; sourceTree = "<group>"; };
 		D915296B1BB24592002D1F51 /* PoiRecommendRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoiRecommendRootViewController.h; sourceTree = "<group>"; };
 		D915296C1BB24592002D1F51 /* PoiRecommendRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoiRecommendRootViewController.m; sourceTree = "<group>"; };
 		D915296F1BB245CF002D1F51 /* DomesticPoiRecommendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DomesticPoiRecommendViewController.h; sourceTree = "<group>"; };
@@ -4080,6 +4094,10 @@
 		0115C8A21BB0EF2900631928 /* 聊天页搜搜拆分 */ = {
 			isa = PBXGroup;
 			children = (
+				D9121ED01BBA368500C2E480 /* moreview_travelnote_normal@2x.png */,
+				D9121EC91BBA364400C2E480 /* moreview_travelnote_normal@3x.png */,
+				D9121ECA1BBA364400C2E480 /* moreview_travelnote_highlight@2x.png */,
+				D9121ECB1BBA364400C2E480 /* moreview_travelnote_highlight@3x.png */,
 				0115C8A31BB0EF2900631928 /* moreview_camera_hilighted@2x.png */,
 				0115C8A41BB0EF2900631928 /* moreview_camera_hilighted@3x.png */,
 				0115C8A51BB0EF2900631928 /* moreview_camera_normal@2x.png */,
@@ -5323,6 +5341,8 @@
 				D96EAA1F1BB4F8CE00360ED8 /* PoiRecommendCollectionViewCell.h */,
 				D96EAA201BB4F8CE00360ED8 /* PoiRecommendCollectionViewCell.m */,
 				D96EAA211BB4F8CE00360ED8 /* PoiRecommendCollectionViewCell.xib */,
+				D9121ED51BBA534F00C2E480 /* PoiRecommendSearchViewController.h */,
+				D9121ED61BBA534F00C2E480 /* PoiRecommendSearchViewController.m */,
 			);
 			name = MorePoiRecommend;
 			sourceTree = "<group>";
@@ -5886,8 +5906,8 @@
 			children = (
 				C6261BB11B2B00B200DFADEF /* CommonViewUnit */,
 				D9A8FFD01A80D52F005AD701 /* MakeTravel */,
-				D9A8FFBF1A80D216005AD701 /* HotDestination--目的地 */,
-				D9A8FF611A80D1C3005AD701 /* PoiDetail--Poi详细 */,
+				D9A8FFBF1A80D216005AD701 /* HotDestination */,
+				D9A8FF611A80D1C3005AD701 /* PoiDetail */,
 			);
 			name = TravelPlan;
 			sourceTree = "<group>";
@@ -7157,7 +7177,7 @@
 			path = ToolBox/Search;
 			sourceTree = "<group>";
 		};
-		D9A8FF611A80D1C3005AD701 /* PoiDetail--Poi详细 */ = {
+		D9A8FF611A80D1C3005AD701 /* PoiDetail */ = {
 			isa = PBXGroup;
 			children = (
 				C6F5D4761B2AB183009163E3 /* TripPlanDetail */,
@@ -7172,7 +7192,7 @@
 				D9EE34601AB958D70076933B /* PoiDetailViewControllerFactory.h */,
 				D9EE34611AB958D70076933B /* PoiDetailViewControllerFactory.m */,
 			);
-			name = "PoiDetail--Poi详细";
+			name = PoiDetail;
 			path = TravelPlan/PoiDetail;
 			sourceTree = "<group>";
 		};
@@ -7257,6 +7277,8 @@
 		D9A8FF961A80D1C3005AD701 /* TravelNote */ = {
 			isa = PBXGroup;
 			children = (
+				D9121ED21BBA395900C2E480 /* SearchTravelNoteViewController.h */,
+				D9121ED31BBA395900C2E480 /* SearchTravelNoteViewController.m */,
 				D9A8FF971A80D1C3005AD701 /* TravelNote.h */,
 				D9A8FF981A80D1C3005AD701 /* TravelNote.m */,
 				D9A8FF991A80D1C3005AD701 /* TravelNoteDetailViewController.h */,
@@ -7270,7 +7292,7 @@
 			path = TravelNote;
 			sourceTree = "<group>";
 		};
-		D9A8FFBF1A80D216005AD701 /* HotDestination--目的地 */ = {
+		D9A8FFBF1A80D216005AD701 /* HotDestination */ = {
 			isa = PBXGroup;
 			children = (
 				D9A8FFC01A80D216005AD701 /* HotDestinationCollectionReusableView.h */,
@@ -7284,7 +7306,7 @@
 				D9A8FFC81A80D216005AD701 /* RecommendDataSource.h */,
 				D9A8FFC91A80D216005AD701 /* RecommendDataSource.m */,
 			);
-			name = "HotDestination--目的地";
+			name = HotDestination;
 			path = TravelPlan/HotDestination;
 			sourceTree = "<group>";
 		};
@@ -8772,6 +8794,7 @@
 				TargetAttributes = {
 					D99D8EC419C8600C0021C25B = {
 						CreatedOnToolsVersion = 6.0;
+						DevelopmentTeam = PE4BUR4VUP;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -8911,6 +8934,7 @@
 				E6F18ADD1B845F4900232EEB /* chat_drawer_add@2x.png in Resources */,
 				E6F18A5F1B845F4900232EEB /* ic_home_header_unlogin@3x.png in Resources */,
 				D942C13D1B9EB5C3005B81C5 /* boy@2x.png in Resources */,
+				D9121ECF1BBA364400C2E480 /* moreview_travelnote_highlight@3x.png in Resources */,
 				D9A380EF1B9C3CEC000B5B66 /* navi_bg@2x.png in Resources */,
 				01C1EC161BB4E4720082217A /* faxian@3x.png in Resources */,
 				E6F189911B845F4900232EEB /* poi_icon_phone@2x.png in Resources */,
@@ -9684,6 +9708,7 @@
 				E6F18AAF1B845F4900232EEB /* chat_wenwen@2x.png in Resources */,
 				E6F1898E1B845F4900232EEB /* poi_dot_selected@3x.png in Resources */,
 				E6F18A9F1B845F4900232EEB /* chat_receiver_audio_playing002@2x.png in Resources */,
+				D9121ECD1BBA364400C2E480 /* moreview_travelnote_normal@3x.png in Resources */,
 				D971E2A31B904F93007E5AFD /* ExpertRequestViewController.xib in Resources */,
 				E6F18A5D1B845F4900232EEB /* ic_home_header_girl@3x.png in Resources */,
 				D917DAD51A8B4B060039720A /* ic_guide_dot3@2x.png in Resources */,
@@ -9893,6 +9918,7 @@
 				D9A8006A1A80DD0C005AD701 /* ContactListTableViewCell.xib in Resources */,
 				E68CB29C1B9F128A00A5B38B /* plan_normal@2x.png in Resources */,
 				E6F1896B1B845F4900232EEB /* poi_bg_album@2x.png in Resources */,
+				D9121ED11BBA368500C2E480 /* moreview_travelnote_normal@2x.png in Resources */,
 				01C1EC281BB4E4720082217A /* jianhua@3x.png in Resources */,
 				E6F189E11B845F4900232EEB /* collect_shopping@2x.png in Resources */,
 				01C1EC1C1BB4E4720082217A /* guaiguai@3x.png in Resources */,
@@ -9901,6 +9927,7 @@
 				D90A9B3F1B5627C400E9F37C /* Loading_Animation_final20@3x.png in Resources */,
 				D90ED43D1BAC0AD4000C6033 /* icon_big_add_photo@3x.png in Resources */,
 				01A5CEE01BB3DDC200A59A8A /* mapMark_place_mine@3x.png in Resources */,
+				D9121ECE1BBA364400C2E480 /* moreview_travelnote_highlight@2x.png in Resources */,
 				E6F18A841B845F4900232EEB /* speaking-motion13@3x.png in Resources */,
 				D917DAD21A8B4A320039720A /* ic_guide3_talk3_1@2x.png in Resources */,
 				01A5CEE21BB3DDC200A59A8A /* mapMark_place_screen@3x.png in Resources */,
@@ -10385,6 +10412,7 @@
 				C6261BB61B2B00D400DFADEF /* POICell.m in Sources */,
 				D9A8015E1A80DD23005AD701 /* EMNavigationController.m in Sources */,
 				D92CA1121AD8BDF900F244FF /* SWCellScrollView.m in Sources */,
+				D9121ED41BBA395900C2E480 /* SearchTravelNoteViewController.m in Sources */,
 				D9A8FF151A80CC2B005AD701 /* ResetPasswordViewController.m in Sources */,
 				01C1ECBE1BB53A690082217A /* EmoticonPackageModel.m in Sources */,
 				D9A800201A80D52F005AD701 /* TaoziCollectionLayout.m in Sources */,
@@ -10495,6 +10523,7 @@
 				D993C24D1B12DF0C0088D568 /* FMResultSet.m in Sources */,
 				D9A801231A80DD23005AD701 /* CallViewController.m in Sources */,
 				01C1ECC41BB53A690082217A /* TZEmojiToolBar.m in Sources */,
+				D9121ED71BBA534F00C2E480 /* PoiRecommendSearchViewController.m in Sources */,
 				D993CB571AB6CB030075314E /* SpotPoi.m in Sources */,
 				D91061F81BA954BC00C4FBCB /* PhotoPreivewView.m in Sources */,
 				D9A800691A80DD0C005AD701 /* ContactListTableViewCell.m in Sources */,
@@ -10717,7 +10746,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-D DEBUG";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "71f5872d-1eb7-4eba-924e-7ff8bf146932";
 				SWIFT_OBJC_BRIDGING_HEADER = "PeachTravel/PeachTravel-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				VALID_ARCHS = "arm64 armv7 armv7s";
@@ -10755,7 +10784,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "52b22032-9381-4fc4-9a5b-c83abcf30616";
 				SWIFT_OBJC_BRIDGING_HEADER = "PeachTravel/PeachTravel-Bridging-Header.h";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};

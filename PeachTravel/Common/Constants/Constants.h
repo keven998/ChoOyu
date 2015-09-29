@@ -64,7 +64,7 @@
 #define API_GET_GUIDE_CITY                      (BASE_URL @"guides/locality/")    //城市的美食购物攻略介绍
 #define API_GET_EXPERT_DETAIL                   (BASE_URL @"geo/countries/")   //达人列表
 
-#define API_GET_HOT_SEARCH                      (BASE_URL @"misc/hot-searches")   // 热门搜索
+#define API_GET_HOT_SEARCH                      (BASE_URL @"search/hot-queries")   // 热门搜索
 #define API_UPDATE_GUIDE_PROPERTY               (BASE_URL @"guides")    //修改攻略属性
 #define API_SAVE_TRIP                           (BASE_URL @"guides")    //保存攻略
 #define API_GET_GUIDELIST                       (BASE_URL @"guides")    //获取攻略列表
