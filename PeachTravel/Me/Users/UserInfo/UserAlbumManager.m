@@ -105,8 +105,6 @@
                           completionBlock(NO, nil);
                       });
                   }
-                
-
               } option:opt];
     
 }
