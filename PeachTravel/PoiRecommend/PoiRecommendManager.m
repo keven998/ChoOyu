@@ -23,7 +23,6 @@
     [self asyncLoadRecommendPoiWithIsAbroad:YES completionBlcok:^(BOOL isSuccess, NSArray *poiList) {
         completion(isSuccess, poiList);
     }];
-
 }
 
 + (void)asyncLoadRecommendPoiWithIsAbroad:(BOOL)isAbroad completionBlcok:(void (^)(BOOL, NSArray *))completion
@@ -37,7 +36,7 @@
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
     NSNumber *imageWidth = [NSNumber numberWithInt:450];
-    NSDictionary *params = @{@"imgWidth": imageWidth, @"itemType": @"locality", @"isAbroad": [NSNumber numberWithBool:isAbroad]};
+    NSDictionary *params = @{@"imgWidth": imageWidth, @"itemType": @"locality", @"abroad": [NSNumber numberWithBool:isAbroad]};
     
     NSString *url = [NSString stringWithFormat:@"%@recommendations", API_GET_LOCALITIES];
     

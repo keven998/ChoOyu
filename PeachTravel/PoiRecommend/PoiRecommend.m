@@ -13,7 +13,7 @@
 
 - (id) initWithJson:(id)data {
     if (self = [super init]) {
-        _recommondId = [data objectForKey:@"itemId"];
+        _recommondId = [data objectForKey:@"id"];
         _zhName = [data objectForKey:@"zhName"];
         _enName = [data objectForKey:@"enName"];
         
