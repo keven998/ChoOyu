@@ -128,7 +128,6 @@
         
     } else if (_poiType == kTravelNotePoi) {
         params = @{@"scope": @"travelNote"};
-        
     }
     
     // 2.发送Get请求
@@ -200,7 +199,6 @@
     
     return nil;
 }
-
 
 // 选中某一个item
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
