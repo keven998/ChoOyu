@@ -81,6 +81,7 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     return self.btnPropertyList.count;
 }
+
 - (UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     DXChatBarMoreViewAddBtnCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:MOREVIEWCELL forIndexPath:indexPath];
     cell.data = self.btnPropertyList[indexPath.item];

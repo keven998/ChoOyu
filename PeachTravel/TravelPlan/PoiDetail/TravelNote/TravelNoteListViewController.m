@@ -11,14 +11,17 @@
 #import "TravelNoteTableViewCell.h"
 #import "TravelNoteDetailViewController.h"
 #import "TaoziChatMessageBaseViewController.h"
+#import "SearchDestinationRecommendViewController.h"
 
-@interface TravelNoteListViewController () <UISearchBarDelegate, TaoziMessageSendDelegate>
+
+@interface TravelNoteListViewController () <UISearchBarDelegate, TaoziMessageSendDelegate, SearchDestinationRecommendDelegate>
 
 @property (nonatomic, strong) UISearchBar *searchBar;
 
 @property (nonatomic, strong) NSMutableArray *dataSource;
 
 @property (nonatomic) NSUInteger currentPage;
+@property (nonatomic, strong) SearchDestinationRecommendViewController *searchRecommendViewController;
 
 @property (nonatomic, strong) TZProgressHUD *hud;
 @end
@@ -45,11 +48,14 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
             self.navigationItem.title = @"全部游记";
             [self loadDataWithPageNo:_currentPage andKeyWork:nil];
         } else {
-            self.tableView.tableHeaderView = self.searchBar;
-            self.navigationItem.title = @"发送游记";
-            self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
+            self.navigationItem.leftBarButtonItem = nil;
+            self.navigationItem.titleView = self.searchBar;
+            self.tableView.hidden = YES;
             
-            [self.tableView setContentOffset:CGPointMake(0, 40)];
+            [self addChildViewController:self.searchRecommendViewController];
+            [self.view addSubview:self.searchRecommendViewController.view];
+            self.searchRecommendViewController.view.frame = CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-64);
+            [self.searchRecommendViewController willMoveToParentViewController:self];
         }
     }
 
@@ -87,11 +93,26 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
         [_searchBar setPlaceholder:@"游记名、景点、城市名等"];
         _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
         _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
-        [_searchBar setSearchFieldBackgroundImage:[UIImage imageNamed:@"ic_notify_flag.png"] forState:UIControlStateNormal];
+        _searchBar.tintColor = COLOR_TEXT_II;
+        _searchBar.showsCancelButton = YES;
+        [_searchBar setSearchFieldBackgroundImage:[[UIImage imageNamed:@"icon_search_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)] forState:UIControlStateNormal];
+        [_searchBar setTranslucent:YES];
         [_searchBar becomeFirstResponder];
+        
     }
     return _searchBar;
 }
+
+- (SearchDestinationRecommendViewController *)searchRecommendViewController
+{
+    if (!_searchRecommendViewController) {
+        _searchRecommendViewController = [[SearchDestinationRecommendViewController alloc] init];
+        _searchRecommendViewController.delegate = self;
+        _searchRecommendViewController.poiType = kTravelNotePoi;
+    }
+    return _searchRecommendViewController;
+}
+
 
 #pragma mark - private methods
 /**
@@ -118,7 +139,10 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
     [params setObject:[NSNumber numberWithInteger:pageNo] forKey:@"page"];
     
     if (_isSearch) {
-        [params safeSetObject:keyWord forKey:@"keyword"];
+        [params safeSetObject:keyWord forKey:@"query"];
+        self.tableView.hidden = NO;
+        self.searchRecommendViewController.view.hidden = YES;
+        
     } else {
         [params safeSetObject:_cityId forKey:@"locality"];
     }
@@ -319,8 +343,13 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
 
 #pragma mark - searchBar Delegate
 
+#pragma mark - UISearchBar Delegate
+
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
+    [_searchBar endEditing:YES];
+    [self.searchRecommendViewController addSearchHistoryText:searchBar.text];
+    
     [self.dataSource removeAllObjects];
     [self.tableView reloadData];
     _currentPage = 0;
@@ -328,11 +357,44 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
     if ([[self.searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length] > 0) {
         [self loadDataWithPageNo:_currentPage + 1 andKeyWork:self.searchBar.text];
     }
-    [searchBar resignFirstResponder];
+    _hud = [[TZProgressHUD alloc] init];
+    typeof(self) weakSelf = self;
+    [_hud showHUDInViewController:weakSelf];
+
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    if (searchText.length == 0) {
+        [self.dataSource removeAllObjects];
+        [self.tableView reloadData];
+        self.tableView.hidden = YES;
+        _searchRecommendViewController.view.hidden = NO;
+    }
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark- SearchDestinationRecommendDelegate
+
+- (void)didSelectItemWithSearchText:(NSString *)searchText
+{
+    [_searchBar endEditing:YES];
+    _searchBar.text = searchText;
+    [self.dataSource removeAllObjects];
+    [self.tableView reloadData];
+    _currentPage = 0;
+    [self loadDataWithPageNo:_currentPage andKeyWork:_searchBar.text];
+    if ([[self.searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length] > 0) {
+        [self loadDataWithPageNo:_currentPage + 1 andKeyWork:self.searchBar.text];
+    }
     _hud = [[TZProgressHUD alloc] init];
     typeof(self) weakSelf = self;
     [_hud showHUDInViewController:weakSelf];
 }
+
 
 #pragma mark - TaoziMessageSendDelegate
 

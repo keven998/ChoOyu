@@ -477,6 +477,7 @@
 		D9121ECE1BBA364400C2E480 /* moreview_travelnote_highlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9121ECA1BBA364400C2E480 /* moreview_travelnote_highlight@2x.png */; settings = {ASSET_TAGS = (); }; };
 		D9121ECF1BBA364400C2E480 /* moreview_travelnote_highlight@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9121ECB1BBA364400C2E480 /* moreview_travelnote_highlight@3x.png */; settings = {ASSET_TAGS = (); }; };
 		D9121ED11BBA368500C2E480 /* moreview_travelnote_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9121ED01BBA368500C2E480 /* moreview_travelnote_normal@2x.png */; settings = {ASSET_TAGS = (); }; };
+		D9121ED41BBA395900C2E480 /* SearchTravelNoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9121ED31BBA395900C2E480 /* SearchTravelNoteViewController.m */; settings = {ASSET_TAGS = (); }; };
 		D915296D1BB24592002D1F51 /* PoiRecommendRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D915296C1BB24592002D1F51 /* PoiRecommendRootViewController.m */; settings = {ASSET_TAGS = (); }; };
 		D91529711BB245CF002D1F51 /* DomesticPoiRecommendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D91529701BB245CF002D1F51 /* DomesticPoiRecommendViewController.m */; settings = {ASSET_TAGS = (); }; };
 		D91529741BB245E5002D1F51 /* ForeignPoiRecommendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D91529731BB245E5002D1F51 /* ForeignPoiRecommendViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -2345,6 +2346,8 @@
 		D9121ECA1BBA364400C2E480 /* moreview_travelnote_highlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "moreview_travelnote_highlight@2x.png"; sourceTree = "<group>"; };
 		D9121ECB1BBA364400C2E480 /* moreview_travelnote_highlight@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "moreview_travelnote_highlight@3x.png"; sourceTree = "<group>"; };
 		D9121ED01BBA368500C2E480 /* moreview_travelnote_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "moreview_travelnote_normal@2x.png"; sourceTree = "<group>"; };
+		D9121ED21BBA395900C2E480 /* SearchTravelNoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchTravelNoteViewController.h; sourceTree = "<group>"; };
+		D9121ED31BBA395900C2E480 /* SearchTravelNoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchTravelNoteViewController.m; sourceTree = "<group>"; };
 		D915296B1BB24592002D1F51 /* PoiRecommendRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoiRecommendRootViewController.h; sourceTree = "<group>"; };
 		D915296C1BB24592002D1F51 /* PoiRecommendRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoiRecommendRootViewController.m; sourceTree = "<group>"; };
 		D915296F1BB245CF002D1F51 /* DomesticPoiRecommendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DomesticPoiRecommendViewController.h; sourceTree = "<group>"; };
@@ -5898,8 +5901,8 @@
 			children = (
 				C6261BB11B2B00B200DFADEF /* CommonViewUnit */,
 				D9A8FFD01A80D52F005AD701 /* MakeTravel */,
-				D9A8FFBF1A80D216005AD701 /* HotDestination--目的地 */,
-				D9A8FF611A80D1C3005AD701 /* PoiDetail--Poi详细 */,
+				D9A8FFBF1A80D216005AD701 /* HotDestination */,
+				D9A8FF611A80D1C3005AD701 /* PoiDetail */,
 			);
 			name = TravelPlan;
 			sourceTree = "<group>";
@@ -7169,7 +7172,7 @@
 			path = ToolBox/Search;
 			sourceTree = "<group>";
 		};
-		D9A8FF611A80D1C3005AD701 /* PoiDetail--Poi详细 */ = {
+		D9A8FF611A80D1C3005AD701 /* PoiDetail */ = {
 			isa = PBXGroup;
 			children = (
 				C6F5D4761B2AB183009163E3 /* TripPlanDetail */,
@@ -7184,7 +7187,7 @@
 				D9EE34601AB958D70076933B /* PoiDetailViewControllerFactory.h */,
 				D9EE34611AB958D70076933B /* PoiDetailViewControllerFactory.m */,
 			);
-			name = "PoiDetail--Poi详细";
+			name = PoiDetail;
 			path = TravelPlan/PoiDetail;
 			sourceTree = "<group>";
 		};
@@ -7269,6 +7272,8 @@
 		D9A8FF961A80D1C3005AD701 /* TravelNote */ = {
 			isa = PBXGroup;
 			children = (
+				D9121ED21BBA395900C2E480 /* SearchTravelNoteViewController.h */,
+				D9121ED31BBA395900C2E480 /* SearchTravelNoteViewController.m */,
 				D9A8FF971A80D1C3005AD701 /* TravelNote.h */,
 				D9A8FF981A80D1C3005AD701 /* TravelNote.m */,
 				D9A8FF991A80D1C3005AD701 /* TravelNoteDetailViewController.h */,
@@ -7282,7 +7287,7 @@
 			path = TravelNote;
 			sourceTree = "<group>";
 		};
-		D9A8FFBF1A80D216005AD701 /* HotDestination--目的地 */ = {
+		D9A8FFBF1A80D216005AD701 /* HotDestination */ = {
 			isa = PBXGroup;
 			children = (
 				D9A8FFC01A80D216005AD701 /* HotDestinationCollectionReusableView.h */,
@@ -7296,7 +7301,7 @@
 				D9A8FFC81A80D216005AD701 /* RecommendDataSource.h */,
 				D9A8FFC91A80D216005AD701 /* RecommendDataSource.m */,
 			);
-			name = "HotDestination--目的地";
+			name = HotDestination;
 			path = TravelPlan/HotDestination;
 			sourceTree = "<group>";
 		};
@@ -10402,6 +10407,7 @@
 				C6261BB61B2B00D400DFADEF /* POICell.m in Sources */,
 				D9A8015E1A80DD23005AD701 /* EMNavigationController.m in Sources */,
 				D92CA1121AD8BDF900F244FF /* SWCellScrollView.m in Sources */,
+				D9121ED41BBA395900C2E480 /* SearchTravelNoteViewController.m in Sources */,
 				D9A8FF151A80CC2B005AD701 /* ResetPasswordViewController.m in Sources */,
 				01C1ECBE1BB53A690082217A /* EmoticonPackageModel.m in Sources */,
 				D9A800201A80D52F005AD701 /* TaoziCollectionLayout.m in Sources */,
