@@ -14,6 +14,9 @@
 
 @property (nonatomic, strong) UIButton* imageBtn;
 @property (nonatomic, strong) UILabel* titleLabel;
+@property (nonatomic, strong) NSLayoutConstraint* imageWidth;
+@property (nonatomic, strong) NSLayoutConstraint* imageHeight;
+
 
 @end
 
@@ -26,6 +29,18 @@
     return self;
 }
 
+- (CGSize)sizeThatFits:(CGSize)size{
+    
+    [self.imageBtn sizeToFit];
+    [self.titleLabel sizeToFit];
+    
+    CGFloat width = CGRectGetMaxX(self.imageBtn.frame) > CGRectGetMaxX(self.titleLabel.frame) ? CGRectGetMaxX(self.imageBtn.frame): CGRectGetMaxX(self.titleLabel.frame);
+    CGFloat height = CGRectGetMaxY(self.titleLabel.frame);
+    
+    return CGSizeMake(width, height);
+    
+}
+
 - (void)setUpViews {
     
     [self.contentView addSubview:self.imageBtn];
@@ -35,12 +50,23 @@
     self.titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
     
     NSDictionary* dict = @{@"image":self.imageBtn,@"title":self.titleLabel};
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[image]-0-|" options:0 metrics:nil views:dict]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[title]-0-|" options:0 metrics:nil views:dict]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[image]" options:0 metrics:nil views:dict]];
+//    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[title]-0-|" options:0 metrics:nil views:dict]];
+//    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.titleLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
+//    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.imageBtn attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[image]-10-[title]-0-|" options:0 metrics:nil views:dict]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.titleLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.imageBtn attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
+    
+    self.imageWidth = [NSLayoutConstraint constraintWithItem:self.imageBtn attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:42];
+    self.imageHeight = [NSLayoutConstraint constraintWithItem:self.imageBtn attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:42];
+    [self.contentView addConstraint:self.imageWidth];
+    [self.contentView addConstraint:self.imageHeight];
+    
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[image]-10-[title]" options:0 metrics:nil views:dict]];
     
 }
+
+
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [super touchesBegan:touches withEvent:event];
@@ -63,6 +89,9 @@
 
 #pragma mark - setter & getter
 - (void)setPicH:(UIImage *)picH{
+    self.imageHeight.constant = picH.size.height;
+    self.imageWidth.constant = picH.size.width;
+    [self.contentView layoutIfNeeded];
     [self.imageBtn setImage:picH forState:UIControlStateHighlighted];
 }
 - (void)setPicN:(UIImage *)picN{

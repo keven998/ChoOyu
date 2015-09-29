@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "CityPoi.h"
 #import "CityHeaderView.h"
+@class CityDetailHeaderView;
 
 @protocol CityDetailHeaderViewDelegate <NSObject>
 @required
@@ -21,6 +22,9 @@
 - (void)imageListAction;
 - (void)travelMonthAction;
 - (void)descriptionAction;
+
+- (void)headerFrameDidChange:(CityDetailHeaderView*)headerView;
+
 @end
 
 @interface CityDetailHeaderView : CityHeaderView
@@ -28,6 +32,6 @@
 //@property (nonatomic, strong) CityPoi *cityPoi;
 @property (nonatomic, weak) id <CityDetailHeaderViewDelegate> delegate;
 
-+ (CGFloat)headerHeight;
+- (CGFloat)headerHeight;
 
 @end

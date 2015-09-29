@@ -30,24 +30,25 @@
 
 @implementation CityDetailHeaderView
 
-- (instancetype)init{
-    if (self = [super init]) {
-        [self setUpViews];
+- (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier{
+    if (self = [super initWithReuseIdentifier:reuseIdentifier]) {
+        
     }
     return self;
 }
 
-+ (CGFloat)headerHeight{
-    CityDetailHeaderView* head = [[CityDetailHeaderView alloc] init];
-    return CGRectGetMaxY(head.bottomView.frame);
+- (CGFloat)headerHeight{
+//    CityDetailHeaderView* head = [[CityDetailHeaderView alloc] init];
+    [self layoutIfNeeded];
+    return CGRectGetMaxY(self.bottomView.frame);
 }
 
 - (void)setUpViews{
-    [self addSubview:self.topView];
-    [self addSubview:self.bestTravelTimeLabel];
-    [self addSubview:self.descriptionLabel];
+    [self.contentView addSubview:self.topView];
+    [self.contentView addSubview:self.bestTravelTimeLabel];
+    [self.contentView addSubview:self.descriptionLabel];
     [self.descriptionLabel addSubview:self.checkAllLabel];
-    [self addSubview:self.bottomView];
+    [self.contentView addSubview:self.bottomView];
 //    UIButton* btn = [[UIButton alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
 //    [btn setBackgroundColor:[UIColor redColor]];
 //    [self addSubview:btn];
@@ -60,17 +61,23 @@
     self.checkAllLabel.translatesAutoresizingMaskIntoConstraints = NO;
     self.bottomView.translatesAutoresizingMaskIntoConstraints = NO;
     
-    NSDictionary* metrics = @{@"margins":[NSNumber numberWithInteger:MARGIN_S],@"marginm":[NSNumber numberWithInteger:MARGIN_M],@"titleSize":@TITLE_FONT_SIZE,@"detailSize":@DETAIL_FONT_SIZE};
-    NSDictionary* dict = @{@"top":self.topView,@"best":self.bestTravelTimeLabel,@"description":self.descriptionLabel,@"check":self.checkAllLabel,@"bottom":self.bottomView};
+    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
     
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(==margins)-[top]-(==margins)-|" options:0 metrics:metrics views:dict]];
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(==margins)-[top]-[best]-[description]-[bottom]-12-|" options:0 metrics:metrics views:dict]];
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(==margins)-[best]-(==margins)-|" options:0 metrics:metrics views:dict]];
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(==margins)-[description]-(==margins)-|" options:0 metrics:metrics views:dict]];
+    NSDictionary* metrics = @{@"margins":[NSNumber numberWithInteger:MARGIN_S],@"marginm":[NSNumber numberWithInteger:MARGIN_M],@"titleSize":@TITLE_FONT_SIZE,@"detailSize":@DETAIL_FONT_SIZE,@"minBestHeight":@DETAIL_FONT_SIZE,@"minDesHeight":@(DESCRIPTION_FONT_SIZE*3 + 3),@"topWidth":@(screenWidth - MARGIN_S * 2)};
+    NSDictionary* dict = @{@"top":self.topView,@"best":self.bestTravelTimeLabel,@"description":self.descriptionLabel,@"check":self.checkAllLabel,@"bottom":self.bottomView,};
+    
+//    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(==margins)-[top]-(==margins)-|" options:0 metrics:metrics views:dict]];
+    
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.topView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.topView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:screenWidth - MARGIN_S * 2]];
+    
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(==margins)-[top]-[best]-[description]-[bottom]" options:0 metrics:metrics views:dict]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(==margins)-[best]-(==margins)-|" options:0 metrics:metrics views:dict]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(==margins)-[description]-(==margins)-|" options:0 metrics:metrics views:dict]];
     
     [self.descriptionLabel addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[check]-0-|" options:0 metrics:nil views:dict]];
     [self.descriptionLabel addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[check]-0-|" options:0 metrics:nil views:dict]];
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[bottom]-0-|" options:0 metrics:nil views:dict]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[bottom]-0-|" options:0 metrics:nil views:dict]];
     
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc]initWithString:self.descriptionLabel.text];;
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init];
@@ -132,85 +139,6 @@
     }
 }
 
-//- (void)viewImage:(NSInteger)index
-//{
-//    [MobClick event:@"card_item_city_pictures"];
-//    
-//    MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] init];
-//    browser.titleStr = @"城市图集";
-//    for (UIView* next = [self superview]; next; next = next.superview)
-//    {
-//        UIResponder* nextResponder = [next nextResponder];
-//        
-//        if ([nextResponder isKindOfClass:[UIViewController class]])
-//        {
-//            UIViewController *ctl = (UIViewController*)nextResponder;
-//            [self loadAlbumDataWithAlbumCtl:browser];
-//            [browser setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
-//            UINavigationController *navc = [[UINavigationController alloc] initWithRootViewController:browser];
-//            [ctl presentViewController:navc animated:YES completion:nil];
-//            break;
-//        }
-//    }
-//}
-///**
-// *  获取城市的图集信息
-// */
-//- (void)loadAlbumDataWithAlbumCtl:(MWPhotoBrowser *)albumCtl
-//{
-//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-//    AppUtils *utils = [[AppUtils alloc] init];
-//    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-//    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-//    
-//    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-//    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-//    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-//    
-//    NSString *requsetUrl = [NSString stringWithFormat:@"%@%@/albums", API_GET_ALBUM, _cityPoi.poiId];
-//    
-//    UIViewController *ctl;
-//    for (UIView* next = [self superview]; next; next = next.superview)
-//    {
-//        UIResponder* nextResponder = [next nextResponder];
-//        
-//        if ([nextResponder isKindOfClass:[UIViewController class]])
-//        {
-//            ctl = (UIViewController*)nextResponder;
-//            break;
-//        }
-//    }
-//    
-//    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-//    [params setObject:@0 forKey:@"page"];
-//    [params setObject:@100 forKey:@"pageSize"];
-//    NSNumber *imageWidth = [NSNumber numberWithInt:400];
-//    [params setObject:imageWidth forKey:@"imgWidth"];
-//    
-//    [manager GET:requsetUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        NSLog(@"%@", responseObject);
-//        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-//        if (code == 0) {
-//            NSMutableArray *tempArray = [[NSMutableArray alloc] init];
-//            for (id imageDic in [[responseObject objectForKey:@"result"] objectForKey:@"album"]) {
-//                [tempArray addObject:imageDic];
-//                if (tempArray.count == 99) {
-//                    break;
-//                }
-//            }
-//            albumCtl.imageList = tempArray;
-//            
-//        } else {
-//            
-//        }
-//        
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        if (((CityDetailTableViewController *)ctl).isShowing) {
-//            [SVProgressHUD showHint:HTTP_FAILED_HINT];
-//        }
-//    }];
-//}
-
 
 #pragma mark - setter & getter
 - (TopImageView *)topView{
@@ -262,6 +190,16 @@
     return _bottomView;
 }
 
+- (void)setFrame:(CGRect)frame{
+    [super setFrame:frame];
+    
+    if ([self.delegate respondsToSelector:@selector(headerFrameDidChange:)]) {
+        [self.delegate headerFrameDidChange:self];
+    }
+    
+    NSLog(@"----  设置了 head 的frame  %@",NSStringFromCGRect(frame));
+}
+
 - (void)setCityPoi:(CityPoi *)cityPoi{
     _cityPoi = cityPoi;
     self.topView.cityPoi = cityPoi;
@@ -282,6 +220,7 @@
         NSMutableAttributedString *attrstr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"~最佳季节: %@... ", [tm substringToIndex:20]] attributes:nil];
         [attrstr appendAttributedString:more];
         self.bestTravelTimeLabel.attributedText = attrstr;
+        [self sizeToFit];
     } else {
         self.bestTravelTimeLabel.text = tm;
     }
@@ -309,12 +248,11 @@
 //        NSAttributedString *more1 = [[NSAttributedString alloc] initWithString:@"全文" attributes:@{NSForegroundColorAttributeName : APP_THEME_COLOR, NSFontAttributeName: [UIFont systemFontOfSize:13]}];
 //        [attrstr appendAttributedString:more1];
         self.descriptionLabel.attributedText = attrstr;
-
+        [self.descriptionLabel sizeToFit];
     } else {
         self.descriptionLabel.text = descStr;
     }
-    
-    
+    [self setUpViews];
 }
 
 @end

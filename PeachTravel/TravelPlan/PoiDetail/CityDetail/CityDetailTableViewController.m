@@ -72,11 +72,21 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     self.navigationItem.rightBarButtonItems = barItems;
     
 
+
+    
     
     [self loadCityData];
     
     
     self.automaticallyAdjustsScrollViewInsets = NO;
+}
+
+- (void)setHeaderView {
+    _cityHeaderView = [[CityDetailHeaderView alloc] init];
+    //        CityDetailHeaderView* header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"header"];
+    _cityHeaderView.cityPoi = (CityPoi *)self.poi;
+    _cityHeaderView.delegate = self;
+    self.tableView.tableHeaderView = _cityHeaderView;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -331,6 +341,11 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     }];
 }
 
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self.tableView reloadData];
+}
+
 - (UITableView *)tableView
 {
     if (!_tableView) {
@@ -344,10 +359,22 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
         [_tableView registerClass:[TZFrendListCell class] forCellReuseIdentifier:reuseIdentifier];
         [_tableView registerClass:[CityDetailLoadMoreCell class] forCellReuseIdentifier:CITY_DETAIL_LOAD_MORE_CELL];
         [_tableView registerClass:[CallForNewFrandCell class] forCellReuseIdentifier:@"callforcell"];
-
+//        _tableView.estimatedSectionHeaderHeight = 520;
+//        _tableView.sectionHeaderHeight = UITableViewAutomaticDimension;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        [_tableView registerClass:[CityDetailHeaderView class] forHeaderFooterViewReuseIdentifier:@"header"];
+
     }
     return _tableView;
+}
+
+- (void)headerFrameDidChange:(CityDetailHeaderView*)headerView{
+    
+    if (headerView.frame.size.height != 520 && headerView.frame.size.width == [UIScreen mainScreen].bounds.size.width && self.tableView.sectionHeaderHeight == 520) {
+            NSLog(@"可执行的frame %@",NSStringFromCGRect(headerView.frame));
+            self.tableView.tableHeaderView = headerView;
+    }
+    
 }
 
 
@@ -389,6 +416,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
             self.poi = [[CityPoi alloc] initWithJson:[responseObject objectForKey:@"result"]];
             [self updateView];
             [self loadFrendListOfCityData];
+//            [self setHeaderView];
         } else {
             if (self.isShowing) {
                 [SVProgressHUD showHint:HTTP_FAILED_HINT];
@@ -633,18 +661,24 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     //    cell.property = [NSString stringWithFormat:@"%@    %@", travelNote.authorName, travelNote.publishDateStr];
     //    cell.canSelect = NO;
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 483 + 12;
+    CityDetailHeaderView* header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"header"];
+//    [header.contentView layoutIfNeeded];
+    header.cityPoi = (CityPoi *)self.poi;
+    return [header headerHeight] + 25;
 }
-//- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-//    return 46;
+
+//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+//    return UITableViewAutomaticDimension;
 //}
 
 - (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    _cityHeaderView = [[CityDetailHeaderView alloc] init];
-    _cityHeaderView.cityPoi = (CityPoi *)self.poi;
-    _cityHeaderView.delegate = self;
-    return _cityHeaderView;
+//    _cityHeaderView = [[CityDetailHeaderView alloc] init];
+    CityDetailHeaderView* header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"header"];
+    header.cityPoi = (CityPoi *)self.poi;
+    header.delegate = self;
+    return header;
 }
 
 #pragma mark - TableViewDelegate

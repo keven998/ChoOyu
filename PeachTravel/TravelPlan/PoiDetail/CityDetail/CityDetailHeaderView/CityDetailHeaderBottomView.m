@@ -53,10 +53,16 @@
 
 - (instancetype)init{
     if (self = [super init]) {
-        [self setUpViews];
+        
         self.backgroundColor = [UIColor whiteColor];
     }
     return self;
+}
+
+- (void)didMoveToSuperview{
+    [super didMoveToSuperview];
+    NSLog(@"didmovetosuperview  ---  %@",NSStringFromCGRect(self.frame));
+    [self setUpViews];
 }
 
 - (void)setUpViews{
@@ -85,6 +91,8 @@
     [self addConstraint:[NSLayoutConstraint constraintWithItem:self.seperateVer attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[sh]-12-[sv]-12-|" options:0 metrics:nil views:dict]];
     [self addConstraint:[NSLayoutConstraint constraintWithItem:self.seperateVer attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:0.5]];
+    
+
 }
 
 #pragma mark - dataSource
@@ -101,14 +109,21 @@
     return cell;
 }
 
-
-
-
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     NSDictionary* selectorDict = self.cirvleBtnSettingArray[indexPath.item];
     NSString* selectorStr = selectorDict[@"selector"];
     NSLog(@"%ld",indexPath.item);
     [self performSelector:NSSelectorFromString(selectorStr) withObject:nil];
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+    CityDetailHeaderCircleBtnCell* cell = [[CityDetailHeaderCircleBtnCell alloc] init];
+    NSDictionary* dict = self.cirvleBtnSettingArray[indexPath.item];
+    [cell setPicH:[UIImage imageNamed:dict[@"picH"]]];
+    [cell setPicN:[UIImage imageNamed:dict[@"picN"]]];
+    [cell setTitle:dict[@"title"]];
+    [cell sizeToFit];
+    return cell.bounds.size;
 }
 
 #pragma mark - actions
@@ -182,10 +197,10 @@
 - (CityDetailHeaderFlowLayout *)flowLayout{
     if (_flowLayout == nil) {
         _flowLayout = [[CityDetailHeaderFlowLayout alloc] init];
-        _flowLayout.estimatedItemSize = CGSizeMake(42, 66.5);
-        _flowLayout.minimumLineSpacing = 0;
-        _flowLayout.minimumInteritemSpacing = 0;
-        _flowLayout.sectionInset = UIEdgeInsetsMake(12, 49, 12, 49);
+//        _flowLayout.minimumInteritemSpacing = 0;
+//        _flowLayout.minimumLineSpacing = 0;
+//        _flowLayout.itemSize = CGSizeZero;
+        _flowLayout.delegate = self;
     }
     return _flowLayout;
 }
