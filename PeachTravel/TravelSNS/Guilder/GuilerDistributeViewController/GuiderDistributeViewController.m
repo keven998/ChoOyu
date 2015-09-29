@@ -17,7 +17,7 @@
 #import "DropDownViewController.h"
 #import "GuiderSearchViewController.h"
 #import "GuiderProfileViewController.h"
-#import "TZFrendListVC.h"
+#import "ExpertListViewController.h"
 
 @interface GuiderDistributeViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,HWDropdownMenuDelegate,dropDownMenuProtocol>
 @property (nonatomic, strong) UITableView *tableView;
@@ -285,7 +285,7 @@
 {
 //    GuiderCollectionViewController *guiderCtl = [[GuiderCollectionViewController alloc] initWithNibName:@"GuiderCollectionViewController" bundle:nil];
     GuiderDistribute * guiderDistribute = _guiderArray[indexPath.row];
-    TZFrendListVC* guiderCtl = [[TZFrendListVC alloc] initWithCityName:nil orAreaId:guiderDistribute.ID];
+    ExpertListViewController* guiderCtl = [[ExpertListViewController alloc] initWithCityName:nil orAreaId:guiderDistribute.ID];
     guiderCtl.areaName = guiderDistribute.zhName;
     
     

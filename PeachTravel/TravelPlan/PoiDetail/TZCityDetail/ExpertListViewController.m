@@ -1,12 +1,12 @@
 //
-//  TZFrendListVC.m
+//  ExpertListViewController.m
 //  TZCityDetail
 //
 //  Created by 冯宁 on 15/9/19.
 //  Copyright © 2015年 PeachTravel. All rights reserved.
 //
 
-#import "TZFrendListVC.h"
+#import "ExpertListViewController.h"
 
 #import "TZFrendListCell.h"
 #import "ARGUMENTSFORTZFrendList.h"
@@ -20,7 +20,7 @@
 #define CITYDETAILCELLFORAREA @"CITYDETAILCELLFORAREA"
 
 
-@interface TZFrendListVC () <UITableViewDataSource,UITableViewDelegate>
+@interface ExpertListViewController () <UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong) UITableView* tableView;
 
 @property (nonatomic, strong) NSArray* expertArray;
@@ -29,7 +29,7 @@
 
 @end
 
-@implementation TZFrendListVC
+@implementation ExpertListViewController
 
 - (instancetype)initWithCityName:(NSString*)cityName orAreaId:(NSString*)areaId{
     if (self = [super init]) {
@@ -82,7 +82,7 @@
     _hud = [[TZProgressHUD alloc] init];
 
     [_hud showHUDInViewController:weakSelf content:64];
-    [ExpertManager asyncLoadExpertsWithAreaName:self.cityName page:0 pageSize:3 completionBlock:^(BOOL success, NSArray * result) {
+    [ExpertManager asyncLoadExpertsWithAreaName:self.cityName page:0 pageSize:15 completionBlock:^(BOOL success, NSArray * result) {
         if (success) {
             self.expertArray = result;
             
@@ -185,10 +185,7 @@
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.backgroundColor = APP_PAGE_COLOR;
-
-//        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-//        _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-//        _tableView.separatorEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark ];
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     return _tableView;
 }
