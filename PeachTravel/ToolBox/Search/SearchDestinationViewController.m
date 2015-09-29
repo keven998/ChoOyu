@@ -365,7 +365,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 58;
+    return 119;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -406,6 +406,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     return headerView;
 }
 
+// TODO:- 修改这的cell
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SuperPoi *poi = [[[self.dataSource objectAtIndex:indexPath.section] objectForKey:@"content"] objectAtIndex:indexPath.row];
@@ -419,6 +420,12 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
         cell.titleLabel.text = poi.zhName;
         cell.detailLabel.text = poi.address;
+        
+        cell.ratingView.rating = poi.rating;
+        
+        
+        NSLog(@"rating %f",poi.rating);
+        
     } else {
         TaoziImage *image = [poi.images firstObject];
         [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];

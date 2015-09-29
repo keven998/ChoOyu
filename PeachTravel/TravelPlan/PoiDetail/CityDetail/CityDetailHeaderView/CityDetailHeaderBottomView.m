@@ -33,9 +33,9 @@
 - (NSArray *)cirvleBtnSettingArray{
     if (_cirvleBtnSettingArray == nil) {
         _cirvleBtnSettingArray = @[
-                             @{@"picN":@"citydetail_food_normal",@"picH":@"citydetail_food_hilighted",@"title":@"美食",@"selector":@"restaurantAction"},
+                                   @{@"picN":@"citydetail_point_normal",@"picH":@"citydetail_point_hilighted",@"title":@"指南",@"selector":@"guideAction"},
                              @{@"picN":@"citydetail_jingdian_normal",@"picH":@"citydetail_jingdian_hilighted",@"title":@"景点",@"selector":@"spotAction"},
-                             @{@"picN":@"citydetail_point_normal",@"picH":@"citydetail_point_hilighted",@"title":@"指南",@"selector":@"guideAction"},
+                             @{@"picN":@"citydetail_food_normal",@"picH":@"citydetail_food_hilighted",@"title":@"美食",@"selector":@"restaurantAction"},
                              @{@"picN":@"citydetail_shopping_normal",@"picH":@"citydetail_shopping_hilighted",@"title":@"购物",@"selector":@"shoppingAction"}
                              ];
     }
