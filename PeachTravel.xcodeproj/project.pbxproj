@@ -478,6 +478,7 @@
 		D9121ECF1BBA364400C2E480 /* moreview_travelnote_highlight@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9121ECB1BBA364400C2E480 /* moreview_travelnote_highlight@3x.png */; settings = {ASSET_TAGS = (); }; };
 		D9121ED11BBA368500C2E480 /* moreview_travelnote_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9121ED01BBA368500C2E480 /* moreview_travelnote_normal@2x.png */; settings = {ASSET_TAGS = (); }; };
 		D9121ED41BBA395900C2E480 /* SearchTravelNoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9121ED31BBA395900C2E480 /* SearchTravelNoteViewController.m */; settings = {ASSET_TAGS = (); }; };
+		D9121ED71BBA534F00C2E480 /* PoiRecommendSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9121ED61BBA534F00C2E480 /* PoiRecommendSearchViewController.m */; settings = {ASSET_TAGS = (); }; };
 		D915296D1BB24592002D1F51 /* PoiRecommendRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D915296C1BB24592002D1F51 /* PoiRecommendRootViewController.m */; settings = {ASSET_TAGS = (); }; };
 		D91529711BB245CF002D1F51 /* DomesticPoiRecommendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D91529701BB245CF002D1F51 /* DomesticPoiRecommendViewController.m */; settings = {ASSET_TAGS = (); }; };
 		D91529741BB245E5002D1F51 /* ForeignPoiRecommendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D91529731BB245E5002D1F51 /* ForeignPoiRecommendViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -2348,6 +2349,8 @@
 		D9121ED01BBA368500C2E480 /* moreview_travelnote_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "moreview_travelnote_normal@2x.png"; sourceTree = "<group>"; };
 		D9121ED21BBA395900C2E480 /* SearchTravelNoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchTravelNoteViewController.h; sourceTree = "<group>"; };
 		D9121ED31BBA395900C2E480 /* SearchTravelNoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchTravelNoteViewController.m; sourceTree = "<group>"; };
+		D9121ED51BBA534F00C2E480 /* PoiRecommendSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoiRecommendSearchViewController.h; sourceTree = "<group>"; };
+		D9121ED61BBA534F00C2E480 /* PoiRecommendSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoiRecommendSearchViewController.m; sourceTree = "<group>"; };
 		D915296B1BB24592002D1F51 /* PoiRecommendRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoiRecommendRootViewController.h; sourceTree = "<group>"; };
 		D915296C1BB24592002D1F51 /* PoiRecommendRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoiRecommendRootViewController.m; sourceTree = "<group>"; };
 		D915296F1BB245CF002D1F51 /* DomesticPoiRecommendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DomesticPoiRecommendViewController.h; sourceTree = "<group>"; };
@@ -5338,6 +5341,8 @@
 				D96EAA1F1BB4F8CE00360ED8 /* PoiRecommendCollectionViewCell.h */,
 				D96EAA201BB4F8CE00360ED8 /* PoiRecommendCollectionViewCell.m */,
 				D96EAA211BB4F8CE00360ED8 /* PoiRecommendCollectionViewCell.xib */,
+				D9121ED51BBA534F00C2E480 /* PoiRecommendSearchViewController.h */,
+				D9121ED61BBA534F00C2E480 /* PoiRecommendSearchViewController.m */,
 			);
 			name = MorePoiRecommend;
 			sourceTree = "<group>";
@@ -10518,6 +10523,7 @@
 				D993C24D1B12DF0C0088D568 /* FMResultSet.m in Sources */,
 				D9A801231A80DD23005AD701 /* CallViewController.m in Sources */,
 				01C1ECC41BB53A690082217A /* TZEmojiToolBar.m in Sources */,
+				D9121ED71BBA534F00C2E480 /* PoiRecommendSearchViewController.m in Sources */,
 				D993CB571AB6CB030075314E /* SpotPoi.m in Sources */,
 				D91061F81BA954BC00C4FBCB /* PhotoPreivewView.m in Sources */,
 				D9A800691A80DD0C005AD701 /* ContactListTableViewCell.m in Sources */,

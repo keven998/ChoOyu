@@ -9,6 +9,7 @@
 #import "MorePoiRecommendRootViewController.h"
 #import "MoreDomesticPoiRecommendViewController.h"
 #import "MoreForeignPoiRecommendViewController.h"
+#import "PoiRecommendSearchViewController.h"
 
 @interface MorePoiRecommendRootViewController ()
 
@@ -42,6 +43,12 @@
     domesticCtl.destinations = _destinations;
     foreignCtl.destinations = _destinations;
     foreignCtl.view.backgroundColor = APP_PAGE_COLOR;
+    
+    UIButton *searchButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [searchButton setImage:[UIImage imageNamed:@"ic_common_search.png"] forState:UIControlStateNormal];
+    [searchButton addTarget:self action:@selector(searchDestination:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:searchButton];
+    
     [super viewDidLoad];
 }
 
@@ -57,6 +64,13 @@
     } else {
         [self dismissViewControllerAnimated:YES completion:nil];
     }
+}
+
+- (void)searchDestination:(id)sender
+{
+    PoiRecommendSearchViewController *ctl = [[PoiRecommendSearchViewController alloc] init];
+    ctl.destinations = self.destinations;
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:ctl] animated:YES completion:nil];
 }
 
 @end
