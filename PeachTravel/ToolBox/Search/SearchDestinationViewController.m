@@ -221,26 +221,26 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     if (_searchPoiType == kRestaurantPoi || _searchPoiType == kShoppingPoi) {
         _descriptionOfSerachText = nil;
         [PoiSearchManager asyncGetDescriptionOfSearchText:_keyWord andPoiType:_searchPoiType completionBlock:^(BOOL isSuccess, NSDictionary *descriptionDic) {
-            if (isSuccess && descriptionDic) {
+            if (isSuccess && descriptionDic.count) {
                 _descriptionOfSerachText = descriptionDic;
                 [self showTableViewHeader];
-                [PoiSearchManager searchPoiWithKeyword:_keyWord andSearchCount:searchCount andPoiType:_searchPoiType completionBlock:^(BOOL isSuccess, NSArray *searchResultList) {
-                    if (isSuccess) {
-                        [self.dataSource removeAllObjects];
-                        self.dataSource = [searchResultList mutableCopy];
-                        if (self.dataSource.count>0) {
-                            [self.tableView reloadData];
-                        } else {
-                            NSString *searchStr = [NSString stringWithFormat:@"没有找到“%@”的相关结果", _keyWord];
-                            [SVProgressHUD showHint:searchStr];
-                        }
-                    }
-                    [hud hideTZHUD];
-                }];
-                
             } else {
                 [self hideTableViewHeaderView];
             }
+            [PoiSearchManager searchPoiWithKeyword:_keyWord andSearchCount:searchCount andPoiType:_searchPoiType completionBlock:^(BOOL isSuccess, NSArray *searchResultList) {
+                if (isSuccess) {
+                    [self.dataSource removeAllObjects];
+                    self.dataSource = [searchResultList mutableCopy];
+                    if (self.dataSource.count>0) {
+                        [self.tableView reloadData];
+                    } else {
+                        NSString *searchStr = [NSString stringWithFormat:@"没有找到“%@”的相关结果", _keyWord];
+                        [SVProgressHUD showHint:searchStr];
+                    }
+                }
+                [hud hideTZHUD];
+            }];
+
         }];
     } else {
         [PoiSearchManager searchPoiWithKeyword:_keyWord andSearchCount:searchCount andPoiType:_searchPoiType completionBlock:^(BOOL isSuccess, NSArray *searchResultList) {
