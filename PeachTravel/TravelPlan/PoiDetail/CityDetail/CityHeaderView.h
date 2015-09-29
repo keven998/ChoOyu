@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "CityPoi.h"
 
-@interface CityHeaderView : UIView
+@interface CityHeaderView : UITableViewHeaderFooterView
 {
     CityPoi* _cityPoi;
 }

@@ -11,17 +11,20 @@
 @implementation CityDetailHeaderFlowLayout
 
 - (NSArray<UICollectionViewLayoutAttributes *> *)layoutAttributesForElementsInRect:(CGRect)rect{
+
     
     NSArray* attributes = [super layoutAttributesForElementsInRect:rect];
     
     UICollectionViewLayoutAttributes* attrFirst = [attributes firstObject];
-//    UICollectionViewLayoutAttributes* attrLast = [attributes lastObject];
+    
+    attrFirst.frame = CGRectMake(49, 12, attrFirst.frame.size.width, attrFirst.frame.size.height);
     
     CGFloat itemWidth = attrFirst.frame.size.width;
     CGFloat startX = attrFirst.frame.origin.x;
-    CGFloat endX = rect.size.width - self.sectionInset.right;
+    CGFloat endX = rect.size.width - 49;
     
     CGFloat margin = ((endX - startX) - attributes.count * itemWidth) / (attributes.count - 1);
+//    self.minimumInteritemSpacing = margin;
     
     for (int i = 1; i < attributes.count; i++) {
         UICollectionViewLayoutAttributes* attrCurrent = attributes[i];
@@ -30,8 +33,8 @@
         CGFloat startPoint = CGRectGetMaxX(attrPrevious.frame);
         CGFloat endPoint = startPoint + margin;
         
-        attrCurrent.frame = (CGRect){{endPoint,attrCurrent.frame.origin.y},attrCurrent.frame.size};
-        
+        attrCurrent.frame = (CGRect){{endPoint,12},attrCurrent.frame.size};
+
     }
     
     NSLog(@"%@",attributes);
