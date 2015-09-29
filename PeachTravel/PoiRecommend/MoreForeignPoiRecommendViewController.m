@@ -245,6 +245,7 @@ static NSString *reuseableCellIdentifier  = @"poiRecommendCollectionCell";
     CityDestinationPoi *city = self.citiesArray[indexPath.item];
 
     cell.titleLabel.text = city.zhName;
+    cell.subTitleLabel.text = city.enName;
     TaoziImage *image = [city.images firstObject];
     [cell.imageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl]];
     return  cell;

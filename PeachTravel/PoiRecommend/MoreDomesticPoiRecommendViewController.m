@@ -191,6 +191,7 @@ static NSString *cacheName = @"destination_demostic_group";
     AreaDestination *area = [self.destinations.domesticCities objectAtIndex:indexPath.section];
     CityDestinationPoi *city = [area.cities objectAtIndex:indexPath.row];
     cell.titleLabel.text = city.zhName;
+    cell.subTitleLabel.text = city.enName;
     TaoziImage *image = [city.images firstObject];
     [cell.imageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl]];
     return  cell;

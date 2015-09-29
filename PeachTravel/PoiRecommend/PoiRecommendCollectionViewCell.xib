@@ -28,7 +28,7 @@
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="热门目的地" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Faj-Wb-2XU">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Faj-Wb-2XU">
                         <rect key="frame" x="8" y="115" width="184" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="J5r-nU-ya4"/>
@@ -58,6 +58,7 @@
             </constraints>
             <connections>
                 <outlet property="imageView" destination="WHK-Si-ID9" id="1g1-xS-zIr"/>
+                <outlet property="subTitleLabel" destination="Faj-Wb-2XU" id="khx-hw-zbL"/>
                 <outlet property="titleLabel" destination="Efj-lA-cbG" id="ueY-FA-Ekx"/>
             </connections>
             <point key="canvasLocation" x="230" y="269"/>

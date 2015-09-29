@@ -26,5 +26,6 @@
     TaoziImage *image = [poi.images firstObject];
     [_backGroundImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl]];
     _titleLabel.text = poi.zhName;
+    _subtitleLabel.text = poi.enName;
 }
 @end

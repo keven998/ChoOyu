@@ -29,7 +29,7 @@
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="热门目的地" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q7p-1a-a7e">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q7p-1a-a7e">
                         <rect key="frame" x="8" y="122" width="304" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="blY-TE-zR3"/>
@@ -58,6 +58,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="backGroundImageView" destination="iR0-qb-Jtv" id="y2M-56-5Bc"/>
+                <outlet property="subtitleLabel" destination="Q7p-1a-a7e" id="ocV-Wh-l8M"/>
                 <outlet property="titleLabel" destination="eZ3-Zf-gPd" id="uDT-88-1S2"/>
             </connections>
             <point key="canvasLocation" x="239" y="218"/>
