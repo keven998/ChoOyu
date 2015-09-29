@@ -661,6 +661,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     //    cell.property = [NSString stringWithFormat:@"%@    %@", travelNote.authorName, travelNote.publishDateStr];
     //    cell.canSelect = NO;
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     CityDetailHeaderView* header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"header"];
 //    [header.contentView layoutIfNeeded];

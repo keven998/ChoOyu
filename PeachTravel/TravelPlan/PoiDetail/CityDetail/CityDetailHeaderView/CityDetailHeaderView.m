@@ -30,13 +30,6 @@
 
 @implementation CityDetailHeaderView
 
-//- (instancetype)init{
-//    if (self = [super init]) {
-//        [self setUpViews];
-//    }
-//    return self;
-//}
-
 - (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithReuseIdentifier:reuseIdentifier]) {
         

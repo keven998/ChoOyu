@@ -53,10 +53,16 @@
 
 - (instancetype)init{
     if (self = [super init]) {
-        [self setUpViews];
+        
         self.backgroundColor = [UIColor whiteColor];
     }
     return self;
+}
+
+- (void)didMoveToSuperview{
+    [super didMoveToSuperview];
+    NSLog(@"didmovetosuperview  ---  %@",NSStringFromCGRect(self.frame));
+    [self setUpViews];
 }
 
 - (void)setUpViews{
@@ -191,13 +197,16 @@
 - (CityDetailHeaderFlowLayout *)flowLayout{
     if (_flowLayout == nil) {
         _flowLayout = [[CityDetailHeaderFlowLayout alloc] init];
-
+//        _flowLayout.minimumInteritemSpacing = 0;
+//        _flowLayout.minimumLineSpacing = 0;
+//        _flowLayout.itemSize = CGSizeZero;
+        _flowLayout.delegate = self;
     }
     return _flowLayout;
 }
 - (UICollectionView *)circleBtnCollection{
     if (_circleBtnCollection == nil) {
-        _circleBtnCollection = [[UICollectionView alloc] initWithFrame:[UIScreen mainScreen].bounds collectionViewLayout:self.flowLayout];
+        _circleBtnCollection = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:self.flowLayout];
         _circleBtnCollection.dataSource = self;
         _circleBtnCollection.delegate = self;
         _circleBtnCollection.scrollEnabled = NO;
