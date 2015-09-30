@@ -247,6 +247,7 @@
         flowLayout.delegate = self;
         _tagCollectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:flowLayout];
         _tagCollectionView.scrollEnabled = NO;
+        _tagCollectionView.userInteractionEnabled = NO;
         [_tagCollectionView registerClass:[FrendListTagCell class] forCellWithReuseIdentifier:FREND_LIST_TAG_CELL];
         UIView* backView = [[UIView alloc] init];
         _tagCollectionView.backgroundView = backView;

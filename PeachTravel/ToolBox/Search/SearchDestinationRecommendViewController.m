@@ -15,6 +15,8 @@
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSMutableArray * collectionArray;
+@property (nonatomic, strong) UIColor *itemColor;
+@property (nonatomic, copy) NSString *searchHistoryImage;
 
 @end
 
@@ -29,6 +31,27 @@
         self.collectionArray[0] = recentResult;
     }
     [self.collectionView reloadData];
+    if (_poiType == 0) {
+        _itemColor = APP_THEME_COLOR;
+        _searchHistoryImage = @"icon_common_search.png";
+        
+    } else if (_poiType == kRestaurantPoi) {
+        _itemColor = UIColorFromRGB(0xFD8627);
+        _searchHistoryImage = @"icon_restaurant_search.png";
+
+        
+    } else if (_poiType == kShoppingPoi) {
+        _itemColor = UIColorFromRGB(0xF64760);
+        _searchHistoryImage = @"icon_shopping_search.png";
+
+    } else if (_poiType == kSpotPoi) {
+        _itemColor = UIColorFromRGB(0x57C0FF);
+        _searchHistoryImage = @"icon_spot_search.png";
+
+    } else if (_poiType == kTravelNotePoi) {
+        _itemColor = APP_THEME_COLOR;
+        _searchHistoryImage = @"icon_travelnote_search.png";
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -176,6 +199,7 @@
     DestinationSearchHistoryCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"searchHistoryCell" forIndexPath:indexPath];
     NSArray *array = [_collectionArray objectAtIndex:indexPath.section];
     cell.titleLabel.text = array[indexPath.row];
+    cell.itemColor = _itemColor;
     return cell;
 }
 
@@ -189,9 +213,11 @@
             headerView.actionButton.hidden = NO;
             [headerView.actionButton setTitle:@"清除" forState:UIControlStateNormal];
             [headerView.actionButton addTarget:self action:@selector(clearSearchHistory) forControlEvents:UIControlEventTouchUpInside];
+            headerView.dotImageView.image = [UIImage imageNamed:_searchHistoryImage];
             
         } else if (indexPath.section == 1 && [[self.collectionArray objectAtIndex:1] count]) {
             headerView.titleLabel.text = @"热门搜索";
+            headerView.dotImageView.image = [UIImage imageNamed:@"icon_hot_search.png"];
             headerView.actionButton.hidden = YES;
         }
         return headerView;

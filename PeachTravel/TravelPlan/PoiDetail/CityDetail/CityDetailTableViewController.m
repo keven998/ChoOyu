@@ -672,7 +672,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     }
     if (self.expertsArray.count > 0) {
         GuiderProfileViewController *guiderCtl = [[GuiderProfileViewController alloc] init];
-        FrendModel *model = self.expertsArray[indexPath.row];
+        FrendModel *model = self.expertsArray[indexPath.row-1];
         guiderCtl.userId = model.userId;
         guiderCtl.shouldShowExpertTipsView = YES;
         [self.navigationController pushViewController:guiderCtl animated:YES];

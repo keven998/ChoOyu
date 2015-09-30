@@ -11,4 +11,6 @@
 @interface DestinationSearchHistoryCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
+@property (nonatomic, strong) UIColor *itemColor;
+
 @end

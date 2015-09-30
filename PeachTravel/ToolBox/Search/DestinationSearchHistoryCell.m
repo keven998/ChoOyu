@@ -15,8 +15,15 @@
     _titleLabel.layer.cornerRadius = 5.0;
     _titleLabel.layer.borderColor = APP_THEME_COLOR.CGColor;
     _titleLabel.textColor = APP_THEME_COLOR;
-    _titleLabel.layer.borderWidth = 1.0;
+    _titleLabel.layer.borderWidth = 0.5;
     _titleLabel.clipsToBounds = YES;
+}
+
+- (void)setItemColor:(UIColor *)itemColor
+{
+    _itemColor = itemColor;
+    _titleLabel.layer.borderColor = _itemColor.CGColor;
+    _titleLabel.textColor = _itemColor;
 }
 
 @end
