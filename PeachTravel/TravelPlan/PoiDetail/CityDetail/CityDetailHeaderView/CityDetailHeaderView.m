@@ -226,12 +226,12 @@
     }
 
     NSString *descStr = _cityPoi.desc;
-    CGRect minRect = [descStr boundingRectWithSize:CGSizeMake(width-36, 12)
-                                           options:NSStringDrawingUsesLineFragmentOrigin
+    CGRect minRect = [descStr boundingRectWithSize:CGSizeMake(width-36, [UIFont systemFontOfSize:13].lineHeight * 1.2)
+                                           options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
                                         attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:13]}
                                            context:nil];
     CGRect maxRect = [descStr boundingRectWithSize:CGSizeMake(width-36, CGFLOAT_MAX)
-                                           options:NSStringDrawingUsesLineFragmentOrigin
+                                           options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
                                         attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:13]}
                                            context:nil];
     NSInteger totalLine = ceilf(maxRect.size.height / minRect.size.height);
@@ -239,7 +239,6 @@
     NSInteger count = ccount * 2/totalLine;
     if (count < ccount && count > 3) {
         NSString *truncateStr = [descStr substringWithRange:NSMakeRange(0, count - 3)];
-        
         NSMutableParagraphStyle *ps = [[NSMutableParagraphStyle alloc] init];
         ps.lineSpacing = 4.0;
         NSDictionary *attribs = @{NSFontAttributeName: [UIFont systemFontOfSize:13], NSParagraphStyleAttributeName:ps};

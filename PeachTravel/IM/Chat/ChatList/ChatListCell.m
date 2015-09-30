@@ -12,6 +12,7 @@
 
 
 #import "ChatListCell.h"
+#import "TZEmojiTextConvertor.h"
 
 @interface ChatListCell (){
     UILabel *_timeLabel;
@@ -104,7 +105,10 @@
     self.textLabel.frame = CGRectMake(contentOffsetX, 15, width - contentOffsetX - 85, 22);
     
     _timeLabel.frame = CGRectMake(width - 80.0, 15, 70.0, 22);
-    _detailLabel.text = _detailMsg;
+    
+    if (_detailMsg.length > 0) {
+        _detailLabel.attributedText = [TZEmojiTextConvertor convertToEmojiTextWithText:_detailMsg withFont:_detailLabel.font];
+    }
     
     CGFloat offsetX = 0;
     if (_sendStatus == MSGSending) {

@@ -131,6 +131,7 @@
         NSLog(@"%@",chs);
         NSArray* emoticonsPackages = [EmoticonPackageModel emoticonPackages];
         
+        BOOL isEmoticon = NO;
         for (EmoticonPackageModel* package in emoticonsPackages) {
             for (EmoticonModel* model in package.emoticons) {
                 if ([chs isEqualToString:model.chs]) {
@@ -142,10 +143,13 @@
                     NSMutableAttributedString* attrString = [[NSMutableAttributedString alloc] initWithAttributedString:[NSAttributedString attributedStringWithAttachment:attachment]];
                     [attrString addAttribute:NSFontAttributeName value:font range:NSMakeRange(0, 1)];
                     [tempAttrStr appendAttributedString:attrString];
+                    isEmoticon = YES;
                 }
             }
         }
-        
+        if (!isEmoticon) {
+            [tempAttrStr appendAttributedString:[[NSAttributedString alloc] initWithString:chs]];
+        }
     }
     
     [tempAttrStr appendAttributedString:[[NSAttributedString alloc] initWithString:tempString]];
