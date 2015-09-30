@@ -574,7 +574,7 @@
     PXAlertView *alertView = [PXAlertView showAlertWithTitle:nil
                                                      message:nil
                                                  cancelTitle:@"取消"
-                                                 otherTitles:@[ @"新建聊天(群)", @"添加朋友"]
+                                                 otherTitles:@[ @"新建聊天/群聊", @"添加朋友"]
                                                   completion:^(BOOL cancelled, NSInteger buttonIndex) {
                                                       if (buttonIndex == 1) {
                                                           [self addConversation:nil];
