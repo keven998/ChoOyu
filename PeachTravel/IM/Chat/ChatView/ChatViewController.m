@@ -553,10 +553,15 @@
     MessageModel *model = [[MessageModel alloc] initWithBaseMessage:message];
     [self fillMessageModel:model];
     [self.dataSource addObject:model];
-    
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.dataSource.count-1 inSection:0];
     [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    
+    NSLog(@"%lf %lf", self.tableView.contentSize.height, self.view.bounds.size.height);
+
+    NSLog(@"%lf %lf", self.tableView.contentOffset.y, self.tableView.contentSize.height-kWindowHeight-300);
+    if (self.tableView.contentOffset.y > (self.tableView.contentSize.height-self.view.bounds.size.height-200)) {
+        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    }
 }
 
 - (void)addChatMessageList2Top:(NSArray *)messageList

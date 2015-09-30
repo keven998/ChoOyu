@@ -61,7 +61,7 @@
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height) collectionViewLayout:layout];
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
-        _collectionView.backgroundColor = APP_PAGE_COLOR;
+        _collectionView.backgroundColor = [UIColor whiteColor];
         _collectionView.showsVerticalScrollIndicator = NO;
         [_collectionView registerNib:[UINib nibWithNibName:@"DestinationSearchHistoryCell" bundle:nil] forCellWithReuseIdentifier:@"searchHistoryCell"];
         [_collectionView registerNib:[UINib nibWithNibName:@"SearchDestinationHistoryCollectionReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"searchDestinationHeader"];
