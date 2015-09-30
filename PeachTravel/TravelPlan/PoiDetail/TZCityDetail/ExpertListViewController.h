@@ -1,5 +1,5 @@
 //
-//  TZFrendListVC.h
+//  ExpertListViewController.h
 //  TZCityDetail
 //
 //  Created by 冯宁 on 15/9/19.
@@ -11,7 +11,7 @@
 #import "TZTBViewController.h"
 #import "PeachTravel-swift.h"
 
-@interface TZFrendListVC : UIViewController
+@interface ExpertListViewController : UIViewController
 
 /**
  *  是搜索游记还是查看城市的游记

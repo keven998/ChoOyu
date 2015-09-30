@@ -21,7 +21,7 @@
 #import "DomesticViewController.h"
 #import "AddPoiViewController.h"
 #import "CityDescDetailViewController.h"
-#import "TZFrendListVC.h"
+#import "ExpertListViewController.h"
 #import "TZFrendListCell.h"
 #import "ExpertManager.h"
 #import "GuiderProfileViewController.h"
@@ -352,16 +352,12 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
         _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
         _tableView.backgroundColor = APP_PAGE_COLOR;
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-//        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.showsVerticalScrollIndicator = NO;
         [_tableView registerClass:[TZFrendListCell class] forCellReuseIdentifier:reuseIdentifier];
         [_tableView registerClass:[CityDetailLoadMoreCell class] forCellReuseIdentifier:CITY_DETAIL_LOAD_MORE_CELL];
         [_tableView registerClass:[CallForNewFrandCell class] forCellReuseIdentifier:@"callforcell"];
-//        _tableView.estimatedSectionHeaderHeight = 520;
-//        _tableView.sectionHeaderHeight = UITableViewAutomaticDimension;
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [_tableView registerClass:[CityDetailHeaderView class] forHeaderFooterViewReuseIdentifier:@"header"];
 
     }
@@ -649,29 +645,13 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
-    
-    //        ExpertModel* model = self.expertsArray[indexPath.row];
-    //        cell.model = model;
-    
-    //    TravelNote *travelNote = [((CityPoi *)self.poi).travelNotes objectAtIndex:indexPath.row];
-    //    cell.travelNoteImage = travelNote.authorAvatar;
-    //    cell.title = travelNote.title;
-    //    cell.desc = travelNote.summary;
-    //
-    //    cell.property = [NSString stringWithFormat:@"%@    %@", travelNote.authorName, travelNote.publishDateStr];
-    //    cell.canSelect = NO;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     CityDetailHeaderView* header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"header"];
-//    [header.contentView layoutIfNeeded];
     header.cityPoi = (CityPoi *)self.poi;
     return [header headerHeight] + 25;
 }
-
-//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-//    return UITableViewAutomaticDimension;
-//}
 
 - (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
 //    _cityHeaderView = [[CityDetailHeaderView alloc] init];
@@ -685,16 +665,8 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    TravelNote *travelNote = [((CityPoi *)self.poi).travelNotes objectAtIndex:indexPath.row];
-//    TravelNoteDetailViewController *travelNoteCtl = [[TravelNoteDetailViewController alloc] init];
-//    travelNoteCtl.titleStr = travelNote.title;
-//    travelNoteCtl.travelNote = travelNote;
-//    [self.navigationController pushViewController:travelNoteCtl animated:YES];
-//    
-//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
     if (indexPath.row == 0) {
-        TZFrendListVC* frendList = [[TZFrendListVC alloc] initWithCityName:self.poi.zhName orAreaId:nil];
+        ExpertListViewController* frendList = [[ExpertListViewController alloc] initWithCityName:self.poi.zhName orAreaId:nil];
         [self.navigationController pushViewController:frendList animated:YES];
         return;
     }

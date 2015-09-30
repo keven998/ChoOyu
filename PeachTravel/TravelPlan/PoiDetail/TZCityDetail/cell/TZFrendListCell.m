@@ -8,13 +8,13 @@
 
 #import "TZFrendListCell.h"
 #import "FrendListTagCell.h"
-
+#import "TaoziCollectionLayout.h"
 #import "ARGUMENTSFORTZFrendList.h"
 #import "Constants.h"
 
 
 
-@interface TZFrendListCell () <UICollectionViewDataSource,UICollectionViewDelegate>
+@interface TZFrendListCell () <UICollectionViewDataSource,UICollectionViewDelegate, TaoziLayoutDelegate>
 
 @property (nonatomic, strong) UIImageView* crownImageView;
 @property (nonatomic, strong) UIImageView* headerImageView;
@@ -149,6 +149,35 @@
     return cell;
 }
 
+#pragma mark - TaoziLayoutDelegate
+
+- (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *title = self.model.tags[indexPath.item];
+    CGSize size = [title sizeWithAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:10.0]}];
+    return CGSizeMake(size.width+10, 15);
+}
+
+- (CGSize)collectionview:(UICollectionView *)collectionView sizeForHeaderView:(NSIndexPath *)indexPath
+{
+    return CGSizeMake(kWindowWidth, 0);
+}
+
+- (NSInteger)numberOfSectionsInTZCollectionView:(UICollectionView *)collectionView
+{
+    return 1;
+}
+
+- (NSInteger)tzcollectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return self.model.tags.count;
+}
+
+- (CGFloat)tzcollectionLayoutWidth
+{
+    return self.bounds.size.width-20;
+}
+
 #pragma mark - setter & getter
 
 - (void)setModel:(ExpertModel *)model {
@@ -157,7 +186,6 @@
     [self.levelLabel setText:[NSString stringWithFormat:@"V%ld", self.model.level]];
     self.titleLabel.text = self.model.nickName;
     self.descriptionLabel.text = self.model.signature;
-//    _model.tags = @[@"我是标签1",@"标签2",@"我有可能是标签3",@"我是几",@"乱入"];
     [self.tagCollectionView reloadData];
 
 
@@ -214,12 +242,11 @@
 }
 - (UICollectionView *)tagCollectionView{
     if (_tagCollectionView == nil) {
-        UICollectionViewFlowLayout* flowLayout = [[UICollectionViewFlowLayout alloc] init];
+        TaoziCollectionLayout* flowLayout = [[TaoziCollectionLayout alloc] init];
+        flowLayout.spacePerItem = 7;
+        flowLayout.delegate = self;
         _tagCollectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:flowLayout];
-        flowLayout.estimatedItemSize = CGSizeMake(50, 14);
-        flowLayout.minimumInteritemSpacing = 4;
-        flowLayout.minimumLineSpacing = 0;
-        flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+        _tagCollectionView.scrollEnabled = NO;
         [_tagCollectionView registerClass:[FrendListTagCell class] forCellWithReuseIdentifier:FREND_LIST_TAG_CELL];
         UIView* backView = [[UIView alloc] init];
         _tagCollectionView.backgroundView = backView;
