@@ -436,6 +436,8 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         TaoziImage *image = [poi.images firstObject];
         [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
         cell.titleLabel.text = poi.zhName;
+        cell.tagsArray = @[];
+        cell.ratingView.rating = 0;
         cell.detailLabel.text = @"";
     }
     cell.isCanSend = _isCanSend;
