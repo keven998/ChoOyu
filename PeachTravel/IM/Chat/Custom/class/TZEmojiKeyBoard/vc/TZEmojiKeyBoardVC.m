@@ -31,16 +31,13 @@
 
 - (void)viewDidLoad{
     [super viewDidLoad];
+    [self prepareSubviews];
     self.view.backgroundColor = APP_PAGE_COLOR;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardHeight:) name:UIKeyboardWillShowNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
-    
-    
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -64,6 +61,26 @@
     [super didReceiveMemoryWarning];
 }
 
+- (void)prepareSubviews{
+    [self.view addSubview:self.collectionView];
+    [self.view addSubview:self.toolBar];
+    self.collectionView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.toolBar.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    NSDictionary* dict = @{@"collectionView":self.collectionView,@"toolBar":self.toolBar};
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[collectionView]-0-|" options:0 metrics:nil views:dict]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[toolBar]-0-|" options:0 metrics:nil views:dict]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|-0-[collectionView]-0-[toolBar(%f)]-0-|",44.0] options:0 metrics:nil views:dict]];
+    [self.view layoutIfNeeded];
+    
+    EmoticonPackageModel* package = [self.modelArray firstObject];
+    EmoticonModel* model = [package.emoticons firstObject];
+    if (model.png == nil && model.code == nil) {
+        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:1] atScrollPosition:UICollectionViewScrollPositionLeft animated:NO];
+    }
+
+}
+
 - (void)prepareViewsWithUserInfo:(NSDictionary*)userInfo{
     
     NSValue* rectValue = userInfo[@"UIKeyboardFrameEndUserInfoKey"];
@@ -80,23 +97,9 @@
     CGFloat itemWidth = width / EMOJI_RANK;
     CGSize itemSize = CGSizeMake(itemWidth, itemHeigth);
     
-    [self.view addSubview:self.collectionView];
-    [self.view addSubview:self.toolBar];
-    self.collectionView.translatesAutoresizingMaskIntoConstraints = NO;
-    self.toolBar.translatesAutoresizingMaskIntoConstraints = NO;
     
-    NSDictionary* dict = @{@"collectionView":self.collectionView,@"toolBar":self.toolBar};
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[collectionView]-0-|" options:0 metrics:nil views:dict]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[toolBar]-0-|" options:0 metrics:nil views:dict]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|-0-[collectionView]-0-[toolBar(%f)]-0-|",toolBarHeight] options:0 metrics:nil views:dict]];
-    [self.view layoutIfNeeded];
     [self prepareFlowLayoutWithItemSize:itemSize];
     
-    EmoticonPackageModel* package = [self.modelArray firstObject];
-    EmoticonModel* model = [package.emoticons firstObject];
-    if (model.png == nil && model.code == nil) {
-        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:1] atScrollPosition:UICollectionViewScrollPositionLeft animated:NO];
-    }
 }
 
 - (void)prepareFlowLayoutWithItemSize:(CGSize)itemSize{
@@ -104,6 +107,7 @@
     self.flowLayout.minimumInteritemSpacing = 0;
     self.flowLayout.minimumLineSpacing = 0;
     self.flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    [self.collectionView reloadData];
 }
 
 #pragma mark - toolBarDelegateMethod
