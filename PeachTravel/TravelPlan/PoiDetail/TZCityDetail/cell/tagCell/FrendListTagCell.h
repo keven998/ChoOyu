@@ -12,5 +12,5 @@
 
 @property (nonatomic, copy) NSString* tagString;
 @property (nonatomic, strong) UIColor* tintColor;
-
+@property (nonatomic, assign) CGFloat titleFontSize;
 @end

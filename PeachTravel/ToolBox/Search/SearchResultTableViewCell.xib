@@ -66,7 +66,7 @@
                         <constraints>
                             <constraint firstAttribute="height" constant="15" id="KPC-lj-oMQ"/>
                         </constraints>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="H8N-P6-EFd">
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="H8N-P6-EFd" customClass="TaoziCollectionLayout">
                             <size key="itemSize" width="50" height="50"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -110,6 +110,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="detailLabel" destination="c6G-4t-F3H" id="KFz-du-7B7"/>
+                <outlet property="flowLayout" destination="H8N-P6-EFd" id="jOj-a9-7J5"/>
                 <outlet property="headerImageView" destination="x6v-gF-WNE" id="j5A-u6-zYM"/>
                 <outlet property="ratingView" destination="xXk-X2-H4I" id="nd5-A1-S3h"/>
                 <outlet property="sendBtn" destination="8PJ-vL-Zwj" id="cWM-7y-UP7"/>

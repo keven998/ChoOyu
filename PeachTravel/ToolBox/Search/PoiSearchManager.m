@@ -22,7 +22,7 @@
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSNumber *imageWidth = [NSNumber numberWithInt:80];
+    NSNumber *imageWidth = [NSNumber numberWithInt:270];
     [params setObject:imageWidth forKey:@"imgWidth"];
     [params setObject:keyWord forKey:@"keyword"];
     
@@ -142,7 +142,7 @@
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSNumber *imageWidth = [NSNumber numberWithInt:80];
+    NSNumber *imageWidth = [NSNumber numberWithInt:270];
     [params setObject:imageWidth forKey:@"imgWidth"];
     [params setObject:searchText forKeyedSubscript:@"query"];
     

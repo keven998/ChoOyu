@@ -10,6 +10,10 @@
 #import "FrendListTagCell.h"
 #import "TaoziCollectionLayout.h"
 
+@interface SearchResultTableViewCell () <TaoziLayoutDelegate,UICollectionViewDataSource>
+
+@end
+
 @implementation SearchResultTableViewCell
 
 - (void)awakeFromNib
@@ -39,6 +43,15 @@
     _ratingView.horizontalMargin = 2;
     _ratingView.displayMode = EDStarRatingDisplayAccurate;
     
+    [self setUpFlowLayout];
+    
+    self.tagsCollectionView.dataSource = self;
+    [self.tagsCollectionView registerClass:[FrendListTagCell class] forCellWithReuseIdentifier:@"cell"];
+    UIView* view = [[UIView alloc] init];
+    self.tagsCollectionView.backgroundView = view;
+    self.tagsCollectionView.backgroundColor = [UIColor clearColor];
+    self.tagsCollectionView.scrollEnabled = NO;
+    
 }
 
 - (void)setIsCanSend:(BOOL)isCanSend
@@ -54,6 +67,59 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
+}
+
+#pragma mark - dataSource相关
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    return  self.tagsArray.count;
+}
+- (UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    FrendListTagCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+    cell.tagString = (NSString*)self.tagsArray[indexPath.item];
+    cell.titleFontSize = 12;
+    return cell;
+}
+
+- (void)setTagsArray:(NSArray *)tagsArray{
+    _tagsArray = tagsArray;
+    NSLog(@"------  tagsArray %@",tagsArray);
+    [self.tagsCollectionView reloadData];
+}
+
+#pragma mark - flowLayout相关
+- (void)setUpFlowLayout{
+    self.flowLayout.delegate = self;
+    self.flowLayout.showDecorationView = NO;
+    self.flowLayout.spacePerItem = 6;
+    self.flowLayout.spacePerLine = 0;
+    self.flowLayout.margin = 0;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *title = [self.tagsArray objectAtIndex:indexPath.row];
+    CGSize size = [title sizeWithAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:13.0]}];
+    return CGSizeMake(size.width + 15, 14);
+}
+
+- (CGSize)collectionview:(UICollectionView *)collectionView sizeForHeaderView:(NSIndexPath *)indexPath
+{
+    return CGSizeZero;
+}
+
+- (NSInteger)numberOfSectionsInTZCollectionView:(UICollectionView *)collectionView
+{
+    return 1;
+}
+
+- (NSInteger)tzcollectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return self.tagsArray.count;
+}
+
+- (CGFloat)tzcollectionLayoutWidth
+{
+    return self.bounds.size.width-20;
 }
 
 @end

@@ -66,6 +66,8 @@
     self.collectionView.frame = CGRectMake(10, 0, kWindowWidth-20, self.frame.size.height);
 }
 
+
+
 #pragma mark - 设置数据
 - (void)setUserInfo:(FrendModel *)userInfo
 {
@@ -84,6 +86,8 @@
     [self.collectionView reloadData];
     
 }
+
+
 
 #pragma mark - 实现UICollectionView的数据源以及代理方法
 
@@ -117,7 +121,13 @@
     return cell;
 }
 
-
+//- (void)setUpFlowLayout{
+//    self..delegate = self;
+//    layout.showDecorationView = NO;
+//    layout.spacePerItem = 6;
+//    layout.spacePerLine = 15;
+//    layout.margin = 10;
+//}
 #pragma mark - TaoziLayoutDelegate
 
 - (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath

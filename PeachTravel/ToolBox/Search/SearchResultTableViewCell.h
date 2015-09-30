@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "EDStarRating.h"
+#import "TaoziCollectionLayout.h"
 
 @interface SearchResultTableViewCell : UITableViewCell
 
@@ -17,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *sendBtn;
 @property (nonatomic, strong) IBOutlet EDStarRating* ratingView;
 @property (weak, nonatomic) IBOutlet UICollectionView *tagsCollectionView;
+@property (weak, nonatomic) IBOutlet TaoziCollectionLayout *flowLayout;
 
 @property (nonatomic, strong) NSArray* tagsArray;
 

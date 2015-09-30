@@ -20,6 +20,7 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         [self prepareSubviews];
+        [self defaultSetting];
     }
     return self;
 }
@@ -39,7 +40,16 @@
     
     
 }
+- (void)defaultSetting{
+    self.backView.layer.borderColor = APP_THEME_COLOR.CGColor;
+    self.tagLabel.textColor = [UIColor colorWithRed:132 / 255.0 green:132 / 255.0 blue:132 / 255.0 alpha:1.0];
+}
 
+- (void)setTitleFontSize:(CGFloat)titleFontSize{
+    _titleFontSize = titleFontSize;
+    
+    self.tagLabel.font = [UIFont systemFontOfSize:_titleFontSize];
+}
 
 #pragma mark - setter & getter
 - (void)setTintColor:(UIColor *)tintColor{
@@ -66,6 +76,7 @@
     if (_tagLabel == nil) {
         _tagLabel = [[UILabel alloc] init];
         _tagLabel.font = [UIFont systemFontOfSize:10];
+        _tagLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _tagLabel;
 }

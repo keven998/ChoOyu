@@ -422,7 +422,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         cell.detailLabel.text = poi.address;
         
         cell.ratingView.rating = poi.rating;
-        
+        cell.tagsArray = poi.style;
         
         NSLog(@"rating %f",poi.rating);
         
