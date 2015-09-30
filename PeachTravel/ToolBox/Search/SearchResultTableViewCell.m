@@ -78,7 +78,7 @@
 - (UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     FrendListTagCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     cell.tagString = (NSString*)self.tagsArray[indexPath.item];
-    cell.titleFontSize = 12;
+    cell.titleFontSize = 11;
     return cell;
 }
 
@@ -100,8 +100,8 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *title = [self.tagsArray objectAtIndex:indexPath.row];
-    CGSize size = [title sizeWithAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:13.0]}];
-    return CGSizeMake(size.width + 15, 14);
+    CGSize size = [title sizeWithAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:11.0]}];
+    return CGSizeMake(size.width + 8, 15);
 }
 
 - (CGSize)collectionview:(UICollectionView *)collectionView sizeForHeaderView:(NSIndexPath *)indexPath

@@ -35,7 +35,7 @@
     NSDictionary* dict = @{@"back":self.backView,@"tag":self.tagLabel};
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[back]-0-|" options:0 metrics:nil views:dict]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[back]-0-|" options:0 metrics:nil views:dict]];
-    [self.backView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-4-[tag]-4-|" options:0 metrics:nil views:dict]];
+    [self.backView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-2-[tag]-2-|" options:0 metrics:nil views:dict]];
     [self.backView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-1-[tag]-1-|" options:0 metrics:nil views:dict]];
     
     
