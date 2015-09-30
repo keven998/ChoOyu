@@ -231,6 +231,7 @@
 {
     NSArray *array = [self.collectionArray objectAtIndex:indexPath.section];
     NSString *text = array[indexPath.row];
+    [self addSearchHistoryText:text];
     [self.delegate didSelectItemWithSearchText:text];
 }
 
