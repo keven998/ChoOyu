@@ -31,6 +31,8 @@
 #import "CallForNewFrandCell.h"
 #import "ExpertRequestViewController.h"
 #import "TravelPlanListForCityDetailVC.h"
+#import "TripDetailRootViewController.h"
+#import "TripPlanSettingViewController.h"
 
 #define CITY_DETAIL_LOAD_MORE_CELL @"CITY_DETAIL_LOAD_MORE_CELL"
 
@@ -153,8 +155,21 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [self viewShopping:nil];
 }
 - (void)planBtnAction{
-    TravelPlanListForCityDetailVC* planList = [[TravelPlanListForCityDetailVC alloc] initWithCityId:self.cityId];
-    [self.navigationController pushViewController:planList animated:YES];
+    TripDetailRootViewController *tripDetailCtl = [[TripDetailRootViewController alloc] init];
+    tripDetailCtl.canEdit = NO;;
+    tripDetailCtl.cityId = _cityId;
+    tripDetailCtl.isCheckPlanFromCityDetail = YES;
+    
+    TripPlanSettingViewController *tpvc = [[TripPlanSettingViewController alloc] init];
+    
+    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:tripDetailCtl menuViewController:tpvc];
+    tpvc.rootViewController = tripDetailCtl;
+    frostedViewController.direction = REFrostedViewControllerDirectionRight;
+    frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
+    frostedViewController.liveBlur = YES;
+    frostedViewController.limitMenuViewSize = YES;
+    [self.navigationController pushViewController:frostedViewController animated:YES];
+
 }
 - (void)journeyBtnAction{
     [self showMoreTravelNote:nil];

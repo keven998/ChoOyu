@@ -82,21 +82,27 @@
     
     self.frostedViewController.delegate = self;
     
-    if (!_isMakeNewTrip) {
-        [[TMCache sharedCache] objectForKey:@"last_tripdetail" block:^(TMCache *cache, NSString *key, id object)  {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (object != nil) {
-                    TripDetail *td = [[TripDetail alloc] initWithJson:object];
-                    if ([td.tripId isEqualToString:_tripId]) {
-                        _tripDetail = td;
-                        [self reloadTripData];
-                    }
-                }
-                [self checkTripData];
-            });
-        }];
+    if (_isCheckPlanFromCityDetail) {
+        [self loadTravelListOfCity];
+        
     } else {
-        [self loadNewTripDataWithRecommendData:YES];
+        if (!_isMakeNewTrip) {
+            [[TMCache sharedCache] objectForKey:@"last_tripdetail" block:^(TMCache *cache, NSString *key, id object)  {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (object != nil) {
+                        TripDetail *td = [[TripDetail alloc] initWithJson:object];
+                        if ([td.tripId isEqualToString:_tripId]) {
+                            _tripDetail = td;
+                            [self reloadTripData];
+                        }
+                    }
+                    [self checkTripData];
+                });
+            }];
+        } else {
+            [self loadNewTripDataWithRecommendData:YES];
+        }
+
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogout) name:userDidLogoutNoti object:nil];
     
@@ -377,6 +383,47 @@
     _canEdit = canEdit;
 }
 
+//查看城市的推荐攻略
+- (void)loadTravelListOfCity {
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
+    NSString *url = [NSString stringWithFormat: @"%@geo/localities/%@/guides", BASE_URL, self.cityId];
+    
+    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            if ([[responseObject objectForKey:@"result"] count]) {
+                _tripDetail = [[TripDetail alloc] initWithJson:[[responseObject objectForKey:@"result"] firstObject]];
+                [self reloadTripData];
+
+            } else {
+                [SVProgressHUD showHint:@"该城市没有推荐攻略"];
+            }
+            
+        } else {
+            [self showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+        }
+        
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        [self showHint:HTTP_FAILED_HINT];
+    }];
+
+}
+
 /**
  *  查看已存在的攻略的详情，传入攻略 ID
  */
@@ -570,13 +617,70 @@
         [self userLogin];
         return;
     }
-    [MobClick event:@"navigation_item_copy_plan"];
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:[NSString stringWithFormat:@"复制\"%@\"到我的旅行计划", _tripDetail.tripTitle] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-    [alert showAlertViewWithBlock:^(NSInteger buttonIndex) {
-        if (buttonIndex == 1) {
-            [self forkTrip];
+    if (_isCheckPlanFromCityDetail) {
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        AppUtils *utils = [[AppUtils alloc] init];
+        [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+        [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+        
+        manager.requestSerializer = [AFJSONRequestSerializer serializer];
+        [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+        [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+        AccountManager *accountManager = [AccountManager shareAccountManager];
+        if ([accountManager isLogin]) {
+            [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
         }
-    }];
+        
+        NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+        NSNumber *imageWidth = [NSNumber numberWithInt:150];
+        [params setObject:imageWidth forKey:@"imgWidth"];
+        [params setObject:[NSNumber numberWithBool: YES] forKey:@"initViewSpots"];
+        [params setObject:@"create" forKey:@"action"];
+        
+        [params setObject:@[_cityId] forKey:@"locId"];
+        
+        __weak typeof(TripDetailRootViewController *)weakSelf = self;
+        TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+        [hud showHUDInViewController:weakSelf content:64];
+        
+        NSString *url = [NSString stringWithFormat:@"%@%ld/guides", API_USERS, [AccountManager shareAccountManager].account.userId];
+        //获取路线模板数据,新制作路线的情况下
+        [manager POST:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [hud hideTZHUD];
+            NSLog(@"%@", responseObject);
+            NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+            if (code == 0) {
+                accountManager.account.guideCnt += 1;
+                PlansListTableViewController *myGuidesCtl = [[PlansListTableViewController alloc] initWithUserId:accountManager.account.userId];
+                NSMutableArray *clts = [NSMutableArray arrayWithArray:[self.frostedViewController.navigationController childViewControllers]];
+                myGuidesCtl.userName = accountManager.account.nickName;
+                myGuidesCtl.copyPatch = YES;
+                [clts replaceObjectAtIndex:(clts.count-1) withObject:myGuidesCtl];
+                [self.frostedViewController.navigationController setViewControllers:clts animated:YES];
+
+            } else {
+                if (self.isShowing) {
+                    [SVProgressHUD showHint:@"请求也是失败了"];
+                }
+            }
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [hud hideTZHUD];
+            if (self.isShowing) {
+                [SVProgressHUD showHint:HTTP_FAILED_HINT];
+            }
+        }];
+
+        
+    } else {
+        [MobClick event:@"navigation_item_copy_plan"];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:[NSString stringWithFormat:@"复制\"%@\"到我的旅行计划", _tripDetail.tripTitle] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        [alert showAlertViewWithBlock:^(NSInteger buttonIndex) {
+            if (buttonIndex == 1) {
+                [self forkTrip];
+            }
+        }];
+    }
+   
 }
 
 - (void)userLogin

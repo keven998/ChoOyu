@@ -26,6 +26,11 @@
  */
 @property (nonatomic, assign) BOOL isMakeNewTrip;
 
+//从城市的攻略列表点击进入，查看城市的攻略详情
+@property (nonatomic) BOOL isCheckPlanFromCityDetail;
+//从城市列表进来，查看城市的推荐攻略的 cityid
+@property (nonatomic, copy) NSString *cityId;
+
 /**
  *  是否有资格更改路线，当从聊天界面点击别人发送的攻略进入此界面时，没有资格编辑路线
  */
