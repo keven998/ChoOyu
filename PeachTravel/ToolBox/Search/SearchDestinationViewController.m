@@ -169,10 +169,16 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [btn addTarget:self action:@selector(showIntruductionOfCity) forControlEvents:UIControlEventTouchUpInside];
     btn.titleLabel.numberOfLines = 2;
     
-    UILabel *moreLabel = [[UILabel alloc] initWithFrame:CGRectMake(btn.bounds.size.width-49, btn.bounds.size.height-31, 30, 20)];
+    UILabel *moreLabel = [[UILabel alloc] initWithFrame:CGRectMake(btn.bounds.size.width-109, btn.bounds.size.height-31, 100, 20)];
     moreLabel.textColor = APP_THEME_COLOR;
     moreLabel.font = [UIFont systemFontOfSize:13.0];
-    moreLabel.text = @"全文";
+    if (_searchPoiType == kRestaurantPoi) {
+        moreLabel.text = @"全部美食攻略>";
+    } else if (_searchPoiType == kShoppingPoi) {
+        moreLabel.text = @"全部购物攻略>";
+    } else {
+        moreLabel.text = @"全文>";
+    }
     [btn addSubview:moreLabel];
     self.tableView.tableHeaderView = btn;
 

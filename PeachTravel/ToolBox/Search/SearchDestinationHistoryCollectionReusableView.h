@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface SearchDestinationHistoryCollectionReusableView : UICollectionReusableView
+
 @property (weak, nonatomic) IBOutlet UIButton *actionButton;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *dotImageView;
 
 @end

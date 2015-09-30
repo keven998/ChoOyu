@@ -12,12 +12,12 @@
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kz2-wz-kFc">
-                    <rect key="frame" x="8" y="14" width="152" height="21"/>
+                    <rect key="frame" x="38" y="14" width="144" height="21"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="fOq-Jp-Tjm"/>
-                        <constraint firstAttribute="width" constant="152" id="xps-66-Jd2"/>
+                        <constraint firstAttribute="width" constant="144" id="xps-66-Jd2"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -39,18 +39,28 @@
                         <constraint firstAttribute="height" constant="1" id="FRu-bM-ypz"/>
                     </constraints>
                 </view>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yRb-v1-QSs">
+                    <rect key="frame" x="12" y="17" width="16" height="16"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="16" id="N3I-u3-kNn"/>
+                        <constraint firstAttribute="height" constant="16" id="nX2-A2-5W5"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <constraints>
                 <constraint firstItem="gx0-3d-9TA" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" id="N9S-Pw-qRE"/>
                 <constraint firstItem="kz2-wz-kFc" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" constant="14" id="RBb-li-Oqi"/>
-                <constraint firstItem="kz2-wz-kFc" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="8" id="SFD-m2-SY6"/>
+                <constraint firstItem="kz2-wz-kFc" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="38" id="SFD-m2-SY6"/>
+                <constraint firstItem="yRb-v1-QSs" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" constant="17" id="X9z-K6-eHI"/>
                 <constraint firstItem="WTc-Sn-Y4B" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" constant="10" id="Xpi-Nc-Ao5"/>
                 <constraint firstAttribute="trailing" secondItem="gx0-3d-9TA" secondAttribute="trailing" id="bkb-hC-aqQ"/>
                 <constraint firstAttribute="trailing" secondItem="WTc-Sn-Y4B" secondAttribute="trailing" constant="8" id="jEt-LV-OPt"/>
                 <constraint firstAttribute="bottom" secondItem="gx0-3d-9TA" secondAttribute="bottom" id="mT3-vv-cQg"/>
+                <constraint firstItem="yRb-v1-QSs" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="12" id="q94-hb-xXq"/>
             </constraints>
             <connections>
                 <outlet property="actionButton" destination="WTc-Sn-Y4B" id="sUD-gF-xAA"/>
+                <outlet property="dotImageView" destination="yRb-v1-QSs" id="8w7-Vx-AEY"/>
                 <outlet property="titleLabel" destination="kz2-wz-kFc" id="oDF-Qe-GkI"/>
             </connections>
             <point key="canvasLocation" x="173" y="161"/>

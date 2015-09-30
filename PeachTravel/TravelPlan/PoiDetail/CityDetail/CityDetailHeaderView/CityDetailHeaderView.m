@@ -79,13 +79,15 @@
     [self.descriptionLabel addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[check]-0-|" options:0 metrics:nil views:dict]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[bottom]-0-|" options:0 metrics:nil views:dict]];
     
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc]initWithString:self.descriptionLabel.text];;
-    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init];
-    [paragraphStyle setLineSpacing:5];
-    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, self.descriptionLabel.text.length)];
     
-    self.descriptionLabel.attributedText = attributedString;
-    
+    if (self.descriptionLabel.text) {
+        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc]initWithString:self.descriptionLabel.text];;
+        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init];
+        [paragraphStyle setLineSpacing:5];
+        [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, self.descriptionLabel.text.length)];
+        
+        self.descriptionLabel.attributedText = attributedString;
+    }
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
@@ -93,6 +95,7 @@
 }
 
 #pragma mark - delegate
+
 - (void)restaurantBtnAction{
     if ([self.delegate respondsToSelector:@selector(restaurantBtnAction)]) {
         [self.delegate restaurantBtnAction];
