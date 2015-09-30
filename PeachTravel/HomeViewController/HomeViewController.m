@@ -110,6 +110,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)setupConverView
 {
+    [self beginIntroduce];
+
     if ((!shouldSkipIntroduce && kShouldShowIntroduceWhenFirstLaunch) || !kIsNotFirstInstall) {
         [self beginIntroduce];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:[[AppUtils alloc] init].appVersion];
@@ -276,6 +278,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     EAIntroPage *page1 = [EAIntroPage page];
     EAIntroPage *page2 = [EAIntroPage page];
     EAIntroPage *page3 = [EAIntroPage page];
+    EAIntroPage *page4 = [EAIntroPage page];
+
 
     {
         NSString *imageName;
@@ -324,7 +328,22 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         page3.bgImage = image;
     }
     
-    EAIntroView *intro = [[EAIntroView alloc] initWithFrame:self.view.bounds andPages:@[page1,page2,page3]];
+    {
+        NSString *imageName;
+        if (self.view.frame.size.height == 480) {
+            imageName =  @"introduce_4_4.png";
+        } else if (self.view.frame.size.height == 667) {
+            imageName = @"introduce_6_4.png";
+        }
+        else {
+            imageName = @"introduce_6p_4.png";
+        }
+        UIImageView *image = [[UIImageView alloc] initWithFrame:self.view.bounds];
+        image.image = [UIImage imageNamed:imageName];
+        page4.bgImage = image;
+    }
+    
+    EAIntroView *intro = [[EAIntroView alloc] initWithFrame:self.view.bounds andPages:@[page1,page2,page3,page4]];
     [intro setDelegate:self];
     intro.hideOffscreenPages = YES;
     intro.skipButton.hidden = YES;
