@@ -42,6 +42,7 @@
     _ratingView.editable = NO;
     _ratingView.horizontalMargin = 2;
     _ratingView.displayMode = EDStarRatingDisplayAccurate;
+    _ratingView.userInteractionEnabled = NO;
     
     [self setUpFlowLayout];
     
@@ -51,6 +52,7 @@
     self.tagsCollectionView.backgroundView = view;
     self.tagsCollectionView.backgroundColor = [UIColor clearColor];
     self.tagsCollectionView.scrollEnabled = NO;
+    self.tagsCollectionView.userInteractionEnabled = NO;
     
 }
 

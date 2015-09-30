@@ -203,7 +203,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSNumber *imageWidth = [NSNumber numberWithInt:80];
+    NSNumber *imageWidth = [NSNumber numberWithInt:270];
     [params setObject:imageWidth forKey:@"imgWidth"];
     [params safeSetObject:_keyWord forKey:@"keyword"];
     [params setObject:[NSNumber numberWithBool:YES] forKey:_poiTypeDesc];
@@ -268,7 +268,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 58;
+    return 119;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -326,6 +326,8 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
     cell.titleLabel.text = poi.zhName;
     cell.detailLabel.text = poi.address;
+    cell.ratingView.rating = poi.rating;
+    cell.tagsArray = poi.style;
     if (_isCanSend) {
         [cell.sendBtn addTarget:self action:@selector(sendPoi:) forControlEvents:UIControlEventTouchUpInside];
     }
