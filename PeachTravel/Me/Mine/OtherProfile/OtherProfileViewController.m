@@ -175,6 +175,7 @@
 }
 
 #pragma mark - 设置tableView的一些属性
+
 - (void)setupTableView
 {
     self.tableView.showsVerticalScrollIndicator = NO;
@@ -185,6 +186,9 @@
     headerView.userInfo = self.userInfo;
     headerView.image = [UIImage imageNamed:@"bg_profile_master"];
     self.tableView.tableHeaderView = headerView;
+    
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 50)];
+    self.tableView.tableFooterView = footerView;
 }
 
 - (void)editMineProfile
