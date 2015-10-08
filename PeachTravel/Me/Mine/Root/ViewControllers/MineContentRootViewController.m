@@ -37,6 +37,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     _segmentTitles = @[@"旅行计划", @"联系人"];
     _segmentNormalImages = @[@"plan_normal",@"note_normal"];
     _segmentSelectedImages = @[@"plan_selected",@"note_selected"];
