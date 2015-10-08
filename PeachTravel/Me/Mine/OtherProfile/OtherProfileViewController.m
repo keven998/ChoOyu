@@ -175,6 +175,7 @@
 }
 
 #pragma mark - 设置tableView的一些属性
+
 - (void)setupTableView
 {
     self.tableView.showsVerticalScrollIndicator = NO;
