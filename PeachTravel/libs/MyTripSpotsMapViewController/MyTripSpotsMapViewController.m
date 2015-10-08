@@ -328,7 +328,6 @@
     newAnnotationView.layer.anchorPoint = CGPointMake(0.7, 0.55);
     NSString *imageName = [NSString stringWithFormat:@"map_icon_%ld.png", index+1];
     newAnnotationView.image = [UIImage imageNamed:imageName];
-    NSLog(@"%@",newAnnotationView.image);
 
     return newAnnotationView;
 }
@@ -340,6 +339,7 @@
     lineView.lineWidth = 2;
     return lineView;
 }
+
 - (MapViewSetLocationBtn *)locationBtn{
     if (_locationBtn == nil) {
         _locationBtn = [[MapViewSetLocationBtn alloc] init];
