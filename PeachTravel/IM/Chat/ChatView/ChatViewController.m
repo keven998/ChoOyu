@@ -243,7 +243,6 @@
         // 设置header
         self.tableView.header = header;
         
-        NSLog(@"chat tableview frame: %@", NSStringFromCGRect(self.tableView.frame));
     }
     
     return _tableView;
@@ -556,9 +555,6 @@
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.dataSource.count-1 inSection:0];
     [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     
-    NSLog(@"%lf %lf", self.tableView.contentSize.height, self.view.bounds.size.height);
-
-    NSLog(@"%lf %lf", self.tableView.contentOffset.y, self.tableView.contentSize.height-kWindowHeight-300);
     if (self.tableView.contentOffset.y > (self.tableView.contentSize.height-self.view.bounds.size.height-200)) {
         [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     }
@@ -991,7 +987,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"%@",self.dataSource);
     if (indexPath.row < [self.dataSource count]) {
         id obj = [self.dataSource objectAtIndex:indexPath.row];
         if ([obj isKindOfClass:[NSString class]]) {
@@ -1233,7 +1228,6 @@
         rect.size.height = kWindowHeight - toHeight - 64;
         self.tableView.frame = rect;
     }];
-    NSLog(@"chat tableview frame: %@", NSStringFromCGRect(self.tableView.frame));
     [self scrollViewToBottom:NO];
 }
 
@@ -1305,7 +1299,6 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    NSLog(@"imagePickerController: %@", info);
     UIImage *orgImage = info[UIImagePickerControllerOriginalImage];
     [picker dismissViewControllerAnimated:YES completion:nil];
     NSData *imageData = UIImageJPEGRepresentation(orgImage, 0.3);
@@ -1336,7 +1329,6 @@
         NSMutableArray *messages = [NSMutableArray arrayWithObjects:model, nil];
         [_conversation deleteMessageWithLocalId:model.baseMessage.localId];
         NSMutableArray *indexPaths = [NSMutableArray arrayWithObjects:_longPressIndexPath, nil];
-        NSLog(@"%@", _longPressIndexPath);
         
         if (_longPressIndexPath.row - 1 >= 0) {
             id nextMessage = nil;
@@ -1424,11 +1416,9 @@
 {
     //如果此时手机靠近面部放在耳朵旁，那么声音将通过听筒输出，并将屏幕变暗（省电啊）
     if ([[UIDevice currentDevice] proximityState] == YES) {
-        NSLog(@"Device is close to user");
         [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
         
     } else {
-        NSLog(@"Device is not close to user");
         [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
     }
 }

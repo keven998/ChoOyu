@@ -45,7 +45,7 @@
     if (![AccountManager shareAccountManager].isLogin) {
         [self userLogin];
     }
-    
+    self.automaticallyAdjustsScrollViewInsets = NO;
     TopViewH = kWindowWidth*200/414;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeContentFrame:) name:@"ChangePlanListFrame" object:nil];
@@ -169,7 +169,7 @@
 - (void)topViewScrollToTop
 {
     [UIView animateWithDuration:0.3 animations:^{
-        self.topView.frame = CGRectMake(0, -TopViewH+64, kWindowWidth, TopViewH-64);
+        self.topView.frame = CGRectMake(0, -TopViewH+64, kWindowWidth, TopViewH);
         _topView.contentView.alpha = 0;
         _contentViewCtl.view.frame = CGRectMake(0, 64, kWindowWidth, kWindowHeight - 64 - 49);
         self.navBgView.alpha = 1;

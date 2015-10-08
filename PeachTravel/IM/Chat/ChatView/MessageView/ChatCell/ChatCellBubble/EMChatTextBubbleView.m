@@ -99,8 +99,6 @@ NSString *const kRouterEventTextURLTapEventName = @"kRouterEventTextURLTapEventN
 //    CGSize retSize = [[TZEmojiTextConvertor convertToEmojiTextWithText:self.model.content withFont:_textLabel.font] sizewi];
     
     _textLabel.numberOfLines = 0;
-    NSLog(@" 对应的文字  -------- %@",self.model.content);
-    NSLog(@" boundingSize ------  %@",NSStringFromCGSize(retSize));
     
     CGFloat height = 42;
     if (2*BUBBLE_VIEW_TOP_PADDING + retSize.height > height) {
@@ -120,7 +118,6 @@ NSString *const kRouterEventTextURLTapEventName = @"kRouterEventTextURLTapEventN
     _textLabel.attributedText = attrStr;
     
     [_textLabel sizeToFit];
-    NSLog(@" recieve %@",self.model.content);
     [self highlightLinksWithIndex:NSNotFound];
 }
 
@@ -213,8 +210,6 @@ NSString *const kRouterEventTextURLTapEventName = @"kRouterEventTextURLTapEventN
     CFArrayRef lines = CTFrameGetLines(frame);
     
     NSInteger numberOfLines = self.textLabel.numberOfLines > 0 ? MIN(self.textLabel.numberOfLines, CFArrayGetCount(lines)) : CFArrayGetCount(lines);
-    
-    //NSLog(@"num lines: %d", numberOfLines);
     
     if (numberOfLines == 0) {
         CFRelease(frame);
