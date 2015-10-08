@@ -84,22 +84,7 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 }
 
 - (IBAction)makePlan:(UIButton *)sender {
-    Destinations *destinations = [[Destinations alloc] init];
     MakePlanViewController *makePlanCtl = [[MakePlanViewController alloc] init];
-    ForeignViewController *foreignCtl = [[ForeignViewController alloc] init];
-    DomesticViewController *domestic = [[DomesticViewController alloc] init];
-    domestic.destinations = destinations;
-    foreignCtl.destinations = destinations;
-    makePlanCtl.destinations = destinations;
-    makePlanCtl.viewControllers = @[domestic, foreignCtl];
-    domestic.makePlanCtl = makePlanCtl;
-    foreignCtl.makePlanCtl = makePlanCtl;
-    makePlanCtl.animationOptions = UIViewAnimationOptionTransitionNone;
-    makePlanCtl.duration = 0;
-    makePlanCtl.segmentedTitles = @[@"国内", @"国外"];
-    makePlanCtl.selectedColor = APP_THEME_COLOR;
-    makePlanCtl.segmentedTitleFont = [UIFont systemFontOfSize:18.0];
-    makePlanCtl.normalColor= [UIColor grayColor];
     makePlanCtl.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:makePlanCtl animated:YES];
 }

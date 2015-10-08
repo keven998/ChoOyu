@@ -95,23 +95,10 @@
     _shouldNotShowNavigationBarWhenDisappear = YES;
     Destinations *destinations = [[Destinations alloc] init];
     MakePlanViewController *makePlanCtl = [[MakePlanViewController alloc] init];
-    ForeignViewController *foreignCtl = [[ForeignViewController alloc] init];
-    DomesticViewController *domestic = [[DomesticViewController alloc] init];
     for (CityDestinationPoi *poi in _tripDetail.destinations) {
         [destinations.destinationsSelected addObject:poi];
     }
-    domestic.destinations = destinations;
-    foreignCtl.destinations = destinations;
     makePlanCtl.destinations = destinations;
-    makePlanCtl.viewControllers = @[domestic, foreignCtl];
-    domestic.makePlanCtl = makePlanCtl;
-    foreignCtl.makePlanCtl = makePlanCtl;
-    makePlanCtl.animationOptions = UIViewAnimationOptionTransitionNone;
-    makePlanCtl.duration = 0;
-    makePlanCtl.segmentedTitles = @[@"国内", @"国外"];
-    makePlanCtl.selectedColor = APP_THEME_COLOR;
-    makePlanCtl.segmentedTitleFont = [UIFont systemFontOfSize:18.0];
-    makePlanCtl.normalColor= [UIColor grayColor];
     makePlanCtl.shouldOnlyChangeDestinationWhenClickNextStep = YES;
     makePlanCtl.myDelegate = self;
     UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:makePlanCtl];

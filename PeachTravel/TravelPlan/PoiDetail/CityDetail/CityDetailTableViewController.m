@@ -59,12 +59,12 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     self.view.backgroundColor = APP_PAGE_COLOR;
     
     NSMutableArray *barItems = [[NSMutableArray alloc] init];
-    UIButton *planBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20, 44)];
+    UIButton *planBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 44)];
     [planBtn setImage:[UIImage imageNamed:@"city_navigationbar_add_default.png"] forState:UIControlStateNormal];
     [planBtn addTarget:self action:@selector(makePlan) forControlEvents:UIControlEventTouchUpInside];
     planBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 4, 0, 0);
     [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:planBtn]];
-    UIButton *talkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20, 44)];
+    UIButton *talkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 44)];
     [talkBtn setImage:[UIImage imageNamed:@"navigationbar_chat_default.png"] forState:UIControlStateNormal];
     [talkBtn setImage:[UIImage imageNamed:@"navigationbar_chat_hilighted.png"] forState:UIControlStateHighlighted];
     [talkBtn addTarget:self action:@selector(send2Frend) forControlEvents:UIControlEventTouchUpInside];
@@ -72,14 +72,8 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     talkBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:talkBtn]];
     self.navigationItem.rightBarButtonItems = barItems;
-    
 
-
-    
-    
     [self loadCityData];
-    
-    
     self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
@@ -706,27 +700,11 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [MobClick event:@"navigation_item_lxp_city_create_plan"];
     Destinations *destinations = [[Destinations alloc] init];
     MakePlanViewController *makePlanCtl = [[MakePlanViewController alloc] init];
-    ForeignViewController *foreignCtl = [[ForeignViewController alloc] init];
-    DomesticViewController *domestic = [[DomesticViewController alloc] init];
-    
+    makePlanCtl.destinations = destinations;
     CityDestinationPoi *poi = [[CityDestinationPoi alloc] init];
     poi.zhName = self.poi.zhName;
     poi.cityId = self.poi.poiId;
     [destinations.destinationsSelected addObject:poi];
-    
-    domestic.destinations = destinations;
-    foreignCtl.destinations = destinations;
-    makePlanCtl.destinations = destinations;
-    makePlanCtl.viewControllers = @[domestic, foreignCtl];
-    domestic.makePlanCtl = makePlanCtl;
-    foreignCtl.makePlanCtl = makePlanCtl;
-    makePlanCtl.animationOptions = UIViewAnimationOptionTransitionNone;
-    makePlanCtl.duration = 0;
-    makePlanCtl.segmentedTitles = @[@"国内", @"国外"];
-    makePlanCtl.selectedColor = APP_THEME_COLOR;
-    makePlanCtl.segmentedTitleFont = [UIFont systemFontOfSize:18.0];
-    makePlanCtl.normalColor= [UIColor grayColor];
-    
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:makePlanCtl] animated:YES completion:nil];
 }
 

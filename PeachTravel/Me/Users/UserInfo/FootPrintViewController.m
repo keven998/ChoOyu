@@ -156,28 +156,14 @@
 - (void)editFootPrint
 {
     MakePlanViewController *makePlanCtl = [[MakePlanViewController alloc] init];
-    ForeignViewController *foreignCtl = [[ForeignViewController alloc] init];
-    DomesticViewController *domestic = [[DomesticViewController alloc] init];
     Destinations *destinatios = [[Destinations alloc] init];
     for (CityDestinationPoi *poi in _destinations.destinationsSelected) {
         [destinatios.destinationsSelected addObject:poi];
     }
-    domestic.destinations = destinatios;
-    foreignCtl.destinations = destinatios;
     makePlanCtl.destinations = destinatios;
     
     makePlanCtl.shouldOnlyChangeDestinationWhenClickNextStep = YES;
-    makePlanCtl.myDelegate = self;
-    makePlanCtl.viewControllers = @[domestic, foreignCtl];
-    domestic.makePlanCtl = makePlanCtl;
-    foreignCtl.makePlanCtl = makePlanCtl;
-    makePlanCtl.animationOptions = UIViewAnimationOptionTransitionNone;
-    makePlanCtl.duration = 0;
-    makePlanCtl.segmentedTitles = @[@"国内", @"国外"];
-    makePlanCtl.selectedColor = APP_THEME_COLOR;
-    makePlanCtl.segmentedTitleFont = [UIFont systemFontOfSize:18.0];
-    makePlanCtl.normalColor= [UIColor grayColor];
-    
+    makePlanCtl.myDelegate = self;    
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:makePlanCtl] animated:YES completion:nil];
 
 }

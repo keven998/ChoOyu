@@ -214,26 +214,8 @@ static NSString *reusableCell = @"myGuidesCell";
 - (void)makePlan
 {
     [MobClick event:@"navigation_item_plan_create"];
-    
-    Destinations *destinations = [[Destinations alloc] init];
     MakePlanViewController *makePlanCtl = [[MakePlanViewController alloc] init];
-    ForeignViewController *foreignCtl = [[ForeignViewController alloc] init];
-    DomesticViewController *domestic = [[DomesticViewController alloc] init];
-    domestic.destinations = destinations;
-    foreignCtl.destinations = destinations;
-    makePlanCtl.destinations = destinations;
-    makePlanCtl.viewControllers = @[domestic, foreignCtl];
-    domestic.makePlanCtl = makePlanCtl;
-    foreignCtl.makePlanCtl = makePlanCtl;
-    makePlanCtl.animationOptions = UIViewAnimationOptionTransitionNone;
-    makePlanCtl.duration = 0;
-    makePlanCtl.segmentedTitles = @[@"国内", @"国外"];
-    makePlanCtl.navBarTitle = @"选择目的地";
-    
-    makePlanCtl.selectedColor = APP_THEME_COLOR;
-    makePlanCtl.segmentedTitleFont = [UIFont systemFontOfSize:18.0];
-    makePlanCtl.normalColor= [UIColor grayColor];
-    
+
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:makePlanCtl];
     [self presentViewController:nav animated:YES completion:nil];
 }

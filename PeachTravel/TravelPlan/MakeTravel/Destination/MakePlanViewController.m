@@ -32,6 +32,23 @@
 
 - (void)viewDidLoad
 {
+    if (!_destinations) {
+        _destinations = [[Destinations alloc] init];
+    }
+    ForeignViewController *foreignCtl = [[ForeignViewController alloc] init];
+    DomesticViewController *domestic = [[DomesticViewController alloc] init];    
+    domestic.destinations = _destinations;
+    foreignCtl.destinations = _destinations;
+    self.viewControllers = @[domestic, foreignCtl];
+    domestic.makePlanCtl = self;
+    foreignCtl.makePlanCtl = self;
+    self.animationOptions = UIViewAnimationOptionTransitionNone;
+    self.duration = 0;
+    self.segmentedTitles = @[@"国内", @"国外"];
+    self.selectedColor = APP_THEME_COLOR;
+    self.segmentedTitleFont = [UIFont systemFontOfSize:18.0];
+    self.normalColor= [UIColor grayColor];
+
     self.contentOffsetY = 49.0;
     [super viewDidLoad];
     if (self.shouldOnlyChangeDestinationWhenClickNextStep) {
