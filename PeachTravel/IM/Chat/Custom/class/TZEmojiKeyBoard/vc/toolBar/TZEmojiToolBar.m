@@ -51,7 +51,7 @@
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[collectionView]-0-|" options:0 metrics:nil views:dict]];
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|-%d-[sendBtn]-%d-|",EMOJI_SENDBTN_MARGIN,EMOJI_SENDBTN_MARGIN] options:0 metrics:nil views:dict]];
         
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-6-[collectionView]-0-[sendBtn(%d)]-9-|",EMOJI_SENDBTN_WIDTH] options:0 metrics:nil views:dict]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-0-[collectionView]-0-[sendBtn(%d)]-9-|",EMOJI_SENDBTN_WIDTH] options:0 metrics:nil views:dict]];
         return;
     }
     [self addSubview:self.collectionView];

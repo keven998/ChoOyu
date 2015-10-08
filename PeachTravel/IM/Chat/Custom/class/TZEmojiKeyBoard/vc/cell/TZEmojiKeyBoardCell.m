@@ -38,7 +38,7 @@
     if (_emoticonButton == nil) {
         _emoticonButton = [[UIButton alloc] init];
         _emoticonButton.titleLabel.font = [UIFont systemFontOfSize: EMOJI_EMOJI_FONTSIZE];
-
+        _emoticonButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
         [_emoticonButton addTarget:self action:@selector(emotionBtnClickEvent) forControlEvents:UIControlEventTouchUpInside];
     }
     return _emoticonButton;
