@@ -64,6 +64,7 @@
     [self.emoticonButton setImage:nil forState:UIControlStateHighlighted];
     [self.emoticonButton setTitle:model.emoji forState:UIControlStateNormal];
     [self.emoticonButton setImage:model.image forState:UIControlStateNormal];
+    self.emoticonButton.titleLabel.font =  [UIFont systemFontOfSize:(self.frame.size.width > self.frame.size.height ? self.frame.size.height : self.frame.size.width) * 0.6];
     
 }
 
