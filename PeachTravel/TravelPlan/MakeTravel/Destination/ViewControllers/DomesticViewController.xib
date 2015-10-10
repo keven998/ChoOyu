@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DomesticViewController">
             <connections>
-                <outlet property="domesticCollectionView" destination="zjg-xA-dWL" id="jZB-Wy-zfD"/>
+                <outlet property="domesticCollectionView" destination="2bT-mv-wKZ" id="76a-Ro-D1d"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -16,59 +16,24 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="zjg-xA-dWL">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="H3v-uk-d5S">
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="2bT-mv-wKZ">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="iGq-j5-53B">
                         <size key="itemSize" width="50" height="50"/>
                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                     </collectionViewFlowLayout>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                            <integer key="value" value="2"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
                 </collectionView>
             </subviews>
             <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="zjg-xA-dWL" secondAttribute="bottom" id="5LO-DH-iWt">
-                    <variation key="widthClass=compact" constant="0.0"/>
-                </constraint>
-                <constraint firstItem="zjg-xA-dWL" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="153" id="LOP-Eo-77Z">
-                    <variation key="widthClass=compact" constant="0.0"/>
-                </constraint>
-                <constraint firstItem="zjg-xA-dWL" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="tUr-m0-IPN">
-                    <variation key="widthClass=compact" constant="0.0"/>
-                </constraint>
-                <constraint firstAttribute="trailing" secondItem="zjg-xA-dWL" secondAttribute="trailing" id="ukb-Ev-iuY">
-                    <variation key="widthClass=compact" constant="0.0"/>
-                </constraint>
+                <constraint firstItem="2bT-mv-wKZ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="26d-CN-hwS"/>
+                <constraint firstAttribute="trailing" secondItem="2bT-mv-wKZ" secondAttribute="trailing" id="DSA-JH-3Cd"/>
+                <constraint firstItem="2bT-mv-wKZ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="fod-RQ-ITx"/>
+                <constraint firstAttribute="bottom" secondItem="2bT-mv-wKZ" secondAttribute="bottom" id="jGH-Qr-a1K"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
-            <variation key="default">
-                <mask key="subviews">
-                    <exclude reference="zjg-xA-dWL"/>
-                </mask>
-                <mask key="constraints">
-                    <exclude reference="5LO-DH-iWt"/>
-                    <exclude reference="LOP-Eo-77Z"/>
-                    <exclude reference="tUr-m0-IPN"/>
-                    <exclude reference="ukb-Ev-iuY"/>
-                </mask>
-            </variation>
-            <variation key="widthClass=compact">
-                <mask key="subviews">
-                    <include reference="zjg-xA-dWL"/>
-                </mask>
-                <mask key="constraints">
-                    <include reference="5LO-DH-iWt"/>
-                    <include reference="LOP-Eo-77Z"/>
-                    <include reference="tUr-m0-IPN"/>
-                    <include reference="ukb-Ev-iuY"/>
-                </mask>
-            </variation>
             <point key="canvasLocation" x="299" y="407"/>
         </view>
     </objects>

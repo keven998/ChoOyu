@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="domesticCell" id="gTV-IL-0wX" customClass="DomesticDestinationCollectionViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aHE-6v-rN0">
+                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plan_city_footprint.png" translatesAutoresizingMaskIntoConstraints="NO" id="RqF-59-aCt">
+                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iwA-sr-hl2">
+                        <rect key="frame" x="0.0" y="24" width="50" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="kjs-Ds-bF1"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="c3G-Wb-xEA">
+                        <rect key="frame" x="20" y="5" width="25" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="ex6-rn-5KR"/>
+                            <constraint firstAttribute="width" constant="25" id="gLF-NE-UJT"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <constraints>
+                <constraint firstItem="RqF-59-aCt" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="4aK-8h-C3b"/>
+                <constraint firstAttribute="bottom" secondItem="RqF-59-aCt" secondAttribute="bottom" id="814-cs-LNg"/>
+                <constraint firstAttribute="trailing" secondItem="iwA-sr-hl2" secondAttribute="trailing" id="8k7-Iv-9vl"/>
+                <constraint firstAttribute="trailing" secondItem="aHE-6v-rN0" secondAttribute="trailing" id="BnW-ql-QSy"/>
+                <constraint firstAttribute="bottom" secondItem="iwA-sr-hl2" secondAttribute="bottom" constant="5" id="EpL-vO-Fp8"/>
+                <constraint firstAttribute="trailing" secondItem="c3G-Wb-xEA" secondAttribute="trailing" constant="5" id="G9W-ia-Jph"/>
+                <constraint firstAttribute="trailing" secondItem="RqF-59-aCt" secondAttribute="trailing" id="H2f-Bl-XhK"/>
+                <constraint firstItem="RqF-59-aCt" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="OyK-Ut-dqh"/>
+                <constraint firstAttribute="bottom" secondItem="aHE-6v-rN0" secondAttribute="bottom" id="Xpg-u9-f3H"/>
+                <constraint firstItem="aHE-6v-rN0" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="YsH-Ip-0lH"/>
+                <constraint firstItem="c3G-Wb-xEA" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="egM-d3-eli"/>
+                <constraint firstItem="iwA-sr-hl2" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="g3e-na-wRx"/>
+                <constraint firstItem="aHE-6v-rN0" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="ryL-Nu-2ka"/>
+            </constraints>
+            <connections>
+                <outlet property="backGroundImageView" destination="aHE-6v-rN0" id="s34-DF-w9a"/>
+                <outlet property="status" destination="c3G-Wb-xEA" id="Tch-rY-dCF"/>
+                <outlet property="titleLabel" destination="iwA-sr-hl2" id="7Ko-sK-Z48"/>
+            </connections>
+            <point key="canvasLocation" x="-52" y="165"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="plan_city_footprint.png" width="13" height="68"/>
+    </resources>
+</document>

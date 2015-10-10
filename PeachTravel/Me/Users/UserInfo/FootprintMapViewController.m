@@ -9,6 +9,7 @@
 #import "FootprintMapViewController.h"
 #import "DomesticViewController.h"
 #import "ForeignViewController.h"
+#import "CustomMKAnnotationView.h"
 
 @interface FootprintMapViewController () <MKMapViewDelegate>
 {
@@ -74,10 +75,7 @@
 - (MKAnnotationView *)mapView:(MKMapView *)theMapView viewForAnnotation:(id<MKAnnotation>)annotation
 {
     NSInteger index = [_annotationsArray indexOfObject:annotation];
-    
-    MKPinAnnotationView *newAnnotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:[annotation title]];
-    newAnnotationView.pinColor = MKPinAnnotationColorRed;
-    
+    CustomMKAnnotationView *newAnnotationView = [[CustomMKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:[annotation title]];    
     newAnnotationView.annotation = annotation;
     newAnnotationView.canShowCallout = YES;
     newAnnotationView.tag = index;

@@ -14,6 +14,7 @@
 #import "MakePlanViewController.h"
 #import "TMCache.h"
 #import "AreaDestination.h"
+#import "DomesticDestinationCollectionViewCell.h"
 
 @interface DomesticViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
@@ -30,16 +31,20 @@ static NSString *cacheName = @"destination_demostic_group";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [_domesticCollectionView registerNib:[UINib nibWithNibName:@"DomesticCell" bundle:nil] forCellWithReuseIdentifier:@"domesticCell"];
+    
+    self.view.backgroundColor = [UIColor whiteColor];
+    
+    [_domesticCollectionView registerNib:[UINib nibWithNibName:@"DomesticDestinationCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"domesticCell"];
     [_domesticCollectionView registerNib:[UINib nibWithNibName:@"DestinationCollectionHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:reusableHeaderIdentifier];
     _domesticCollectionView.dataSource = self;
     _domesticCollectionView.delegate = self;
     _domesticCollectionView.showsVerticalScrollIndicator = NO;
-    _domesticCollectionView.contentInset = UIEdgeInsetsMake(-5, 0, 35, 0);
-    _domesticCollectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+//    _domesticCollectionView.contentInset = UIEdgeInsetsMake(-5, 0, 35, 0);
     _domesticCollectionView.backgroundColor = APP_PAGE_COLOR;
-    
-    self.view.backgroundColor = [UIColor whiteColor];
+    UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)_domesticCollectionView.collectionViewLayout;
+    layout.itemSize = CGSizeMake(125, 125);
+    layout.minimumInteritemSpacing = 0;
+    layout.minimumLineSpacing = 0;
     
     if (_destinations.destinationsSelected.count == 0) {
         [self.makePlanCtl hideDestinationBar];
@@ -150,7 +155,6 @@ static NSString *cacheName = @"destination_demostic_group";
                     [dic setObject:[operation.response.allHeaderFields objectForKey:@"Date"]  forKey:@"lastModified"];
                     [[TMCache sharedCache] setObject:dic forKey:cacheName];
                 }
-               
             });
         } else {
             if (_hud) {
@@ -196,23 +200,10 @@ static NSString *cacheName = @"destination_demostic_group";
 }
 
 #pragma mark - UICollectionView的代理方法
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath;
-{
-    return CGSizeMake(kWindowWidth/3, kWindowWidth/3);
-}
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section;
 {
     return CGSizeMake(self.domesticCollectionView.frame.size.width, 72);
-}
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section;
-{
-    return 0;
-}
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section;
-{
-    return 0;
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -243,10 +234,10 @@ static NSString *cacheName = @"destination_demostic_group";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    DomesticCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"domesticCell" forIndexPath:indexPath];
+    DomesticDestinationCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"domesticCell" forIndexPath:indexPath];
     AreaDestination *area = [self.destinations.domesticCities objectAtIndex:indexPath.section];
     CityDestinationPoi *city = [area.cities objectAtIndex:indexPath.row];
-    cell.tiltleLabel.text = city.zhName;
+    cell.titleLabel.text = city.zhName;
     BOOL find = NO;
     for (CityDestinationPoi *cityPoi in _destinations.destinationsSelected) {
         if ([cityPoi.cityId isEqualToString:city.cityId]) {
@@ -260,7 +251,7 @@ static NSString *cacheName = @"destination_demostic_group";
     
     TaoziImage *image = city.images.firstObject;
     
-    [cell.backGroundImage sd_setImageWithURL:[NSURL URLWithString:image.imageUrl]];
+    [cell.backGroundImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl]];
     
     return  cell;
 }
