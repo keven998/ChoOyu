@@ -53,8 +53,9 @@ extension AppDelegate {
     }
 
     func lvApplication(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
-        let token = deviceToken.description.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "<>"))
-        print("设备 token 为\(token)")
+        let tempStr = deviceToken.description.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "<>"))
+        let token = tempStr.stringByReplacingOccurrencesOfString(" ", withString: "")
+        NSLog("设备 token 为\(token)")
         let pushSDKManager = PushSDKManager.shareInstance()
         pushSDKManager.registerDeviceToken(token)
     }

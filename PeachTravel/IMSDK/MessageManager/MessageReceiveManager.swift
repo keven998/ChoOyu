@@ -371,7 +371,7 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
 //MARK: PushMessageDelegate
     
     func receivePushMessage(message: NSDictionary) {
-        NSLog("收到消息： 消息为：\(message)")
+
         if AccountManager.shareAccountManager().isLogin() {
             if let message = MessageManager.messageModelWithMessage(message) {
                 

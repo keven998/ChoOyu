@@ -42,7 +42,7 @@ static NSString *cacheName = @"destination_demostic_group";
 //    _domesticCollectionView.contentInset = UIEdgeInsetsMake(-5, 0, 35, 0);
     _domesticCollectionView.backgroundColor = APP_PAGE_COLOR;
     UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)_domesticCollectionView.collectionViewLayout;
-    layout.itemSize = CGSizeMake(125, 125);
+    layout.itemSize = CGSizeMake(kWindowWidth/3, kWindowWidth/3);
     layout.minimumInteritemSpacing = 0;
     layout.minimumLineSpacing = 0;
     

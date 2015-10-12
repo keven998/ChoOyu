@@ -127,9 +127,8 @@
 #pragma mark - 监听键盘的高度变化
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
-    NSLog(@"%s",__func__);
     [UIView animateWithDuration:0.25 animations:^{
-        self.view.transform = CGAffineTransformTranslate(self.view.transform, 0, -150);
+        self.view.transform = CGAffineTransformTranslate(self.view.transform, 0, -100);
     }];
     
     return YES;
@@ -138,7 +137,7 @@
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField
 {
     [UIView animateWithDuration:0.25 animations:^{
-            self.view.transform = CGAffineTransformIdentity;
+        self.view.transform = CGAffineTransformIdentity;
     }];
 
     return YES;

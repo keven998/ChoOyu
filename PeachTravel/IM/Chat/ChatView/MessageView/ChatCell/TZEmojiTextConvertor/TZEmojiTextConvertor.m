@@ -126,9 +126,13 @@
         
         [tempAttrStr appendAttributedString:textAttr];
         
+        if (range1.location > range2.location) {
+            [tempString deleteCharactersInRange:NSMakeRange(0, range1.location)];
+            continue;
+        }
+        
         NSString* chs = [tempString substringWithRange:NSMakeRange(range1.location, range2.location - range1.location + 1)];
         [tempString deleteCharactersInRange:NSMakeRange(0, range2.location + 1)];
-        NSLog(@"%@",chs);
         NSArray* emoticonsPackages = [EmoticonPackageModel emoticonPackages];
         
         BOOL isEmoticon = NO;

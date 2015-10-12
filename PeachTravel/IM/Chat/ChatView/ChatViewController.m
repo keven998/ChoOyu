@@ -144,7 +144,9 @@
     
     _conversation.isCurrentConversation = YES;
     _conversation.delegate = self;
+    NSLog(@"开始获取聊天记录");
     [_conversation getDefaultChatMessageInConversation:15];
+    NSLog(@"结束获取聊天记录");
     [self sortDataSource];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeAllMessages:) name:@"RemoveAllMessages" object:nil];

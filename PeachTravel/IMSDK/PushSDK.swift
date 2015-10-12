@@ -25,6 +25,7 @@ class PushSDKManager: NSObject, GeTuiSdkDelegate {
     
     var msgId:Int = 1100
 
+    var deviceToke:String?
     
     private var listenerQueue: NSMutableArray = NSMutableArray()
     
@@ -49,6 +50,7 @@ class PushSDKManager: NSObject, GeTuiSdkDelegate {
     }
     
     func registerDeviceToken(token: String) {
+        self.deviceToke = token
         GeTuiSdk.registerDeviceToken(token)
     }
     
@@ -179,6 +181,9 @@ class PushSDKManager: NSObject, GeTuiSdkDelegate {
     */
     func GeTuiSdkDidRegisterClient(clientId: String!) {
         debug_print("push 长链接建立成功")
+        if let token = self.deviceToke {
+            GeTuiSdk.registerDeviceToken(token)
+        }
         pushSdkIsConnected = true
         pushConnectionDelegate?.getuiDidConnection(clientId)
     }
