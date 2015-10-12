@@ -104,7 +104,6 @@
     self.imageView.frame = CGRectMake(12, 10, 56, 56);
     
     CGFloat contentOffsetX = CGRectGetMaxX(self.imageView.frame) + 10;
-    _nickNameLabel.backgroundColor = [UIColor blackColor];
     _nickNameLabel.text = _name;
     _nickNameLabel.frame = CGRectMake(contentOffsetX, 15, width - contentOffsetX - 85, 22);
     
