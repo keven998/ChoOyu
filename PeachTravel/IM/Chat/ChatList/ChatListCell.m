@@ -16,6 +16,7 @@
 
 @interface ChatListCell (){
     UILabel *_timeLabel;
+    UILabel *_nickNameLabel;
     UILabel *_unreadLabel;
     UILabel *_detailLabel;
     UIView *_lineView;
@@ -39,6 +40,12 @@
         self.imageView.contentMode = UIViewContentModeScaleAspectFill;
         self.imageView.clipsToBounds = YES;
         
+        _nickNameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _nickNameLabel.font = [UIFont systemFontOfSize:18];
+        _nickNameLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+        _nickNameLabel.textColor = COLOR_TEXT_I;
+        [self.contentView addSubview:_nickNameLabel];
+
         _timeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _timeLabel.font = [UIFont systemFontOfSize:14];
         _timeLabel.textColor = COLOR_TEXT_III;
@@ -66,7 +73,7 @@
         }
         _unreadLabel.textAlignment = NSTextAlignmentCenter;
         _unreadLabel.font = [UIFont systemFontOfSize:12];
-        _unreadLabel.adjustsFontSizeToFitWidth = NO;
+        _unreadLabel.adjustsFontSizeToFitWidth = YES;
         _unreadLabel.clipsToBounds = YES;
         _unreadLabel.textColor = [UIColor whiteColor];
         _unreadLabel.layer.cornerRadius = 10.5;
@@ -77,10 +84,7 @@
         spaceView.backgroundColor = COLOR_LINE;
         [self.contentView addSubview:spaceView];
         
-        self.textLabel.font = [UIFont systemFontOfSize:18];
-        self.textLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-        self.textLabel.textColor = COLOR_TEXT_I;
-    }
+           }
     return self;
 }
 
@@ -100,11 +104,13 @@
     self.imageView.frame = CGRectMake(12, 10, 56, 56);
     
     CGFloat contentOffsetX = CGRectGetMaxX(self.imageView.frame) + 10;
-    
-    self.textLabel.text = _name;
-    self.textLabel.frame = CGRectMake(contentOffsetX, 15, width - contentOffsetX - 85, 22);
+    _nickNameLabel.backgroundColor = [UIColor blackColor];
+    _nickNameLabel.text = _name;
+    _nickNameLabel.frame = CGRectMake(contentOffsetX, 15, width - contentOffsetX - 85, 22);
     
     _timeLabel.frame = CGRectMake(width - 80.0, 15, 70.0, 22);
+    _unreadLabel.frame = CGRectMake(0, 0, 21, 21);
+    _unreadLabel.center = CGPointMake(65, 12);
     
     if (_detailMsg.length > 0) {
         _detailLabel.attributedText = [TZEmojiTextConvertor convertToEmojiTextWithText:_detailMsg withFont:_detailLabel.font];
@@ -134,7 +140,6 @@
     _detailLabel.frame = CGRectMake(contentOffsetX+offsetX, 46, width - 85.0-contentOffsetX, 16);
     
     _timeLabel.text = _time;
-    
     if (_unreadCount > 0) {
         CGRect lf = _unreadLabel.frame;
         if (_unreadCount < 10) {
@@ -142,38 +147,25 @@
             _unreadLabel.text = [NSString stringWithFormat:@"%ld",(long)_unreadCount];
         } else if (_unreadCount > 9 && _unreadCount < 100){
             lf.size.width = 29;
+            lf.origin.x = lf.origin.x-3;
             _unreadLabel.text = [NSString stringWithFormat:@"%ld",(long)_unreadCount];
         } else {
+            lf.origin.x = lf.origin.x-5;
             lf.size.width = 33;
             _unreadLabel.text = [NSString stringWithFormat:@"99+"];
         }
+        _unreadLabel.frame = lf;
         [_unreadLabel setHidden:NO];
         [self.contentView bringSubviewToFront:_unreadLabel];
-        
-        
-        CGRect tf = self.textLabel.frame;
-        CGFloat maxw = tf.size.width - lf.size.width - 5;
-        CGSize labelSize = [_name boundingRectWithSize:CGSizeMake(maxw, tf.size.height)
-                                               options:NSStringDrawingUsesLineFragmentOrigin
-                                            attributes:@{
-                                                         NSFontAttributeName : [UIFont systemFontOfSize:16]
-                                                         }
-                                               context:nil].size;
-        
-        tf.size.width = labelSize.width+ 20;
-        self.textLabel.frame = tf;
-        lf.origin.x = tf.origin.x + tf.size.width + 5;
-        _unreadLabel.frame = lf;
     } else{
         [_unreadLabel setHidden:YES];
     }
-    _unreadLabel.center = CGPointMake(65, 12);
     spaceView.frame = CGRectMake(13.5, self.contentView.frame.size.height-0.7, width - 13, 0.7);
 }
 
 -(void)setName:(NSString *)name{
     _name = name;
-    self.textLabel.text = name;
+    _nickNameLabel.text = name;
 }
 
 - (void)setPlaceholderImageUrl:(NSURL *)placeholderImageUrl
