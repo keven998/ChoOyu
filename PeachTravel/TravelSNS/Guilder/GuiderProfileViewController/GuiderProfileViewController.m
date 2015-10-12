@@ -11,7 +11,9 @@
 #import "ExpertProfileTagViewCell.h"
 #import "BaseProfileHeaderView.h"
 #import "TravelNoteListViewController.h"
-@interface GuiderProfileViewController () <UITableViewDataSource, UITableViewDelegate,UIActionSheetDelegate>
+#import "UserAlbumReviewViewController.h"
+
+@interface GuiderProfileViewController () <UITableViewDataSource, UITableViewDelegate,UIActionSheetDelegate, GuiderProfileAlbumCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -261,6 +263,7 @@
         return cell;
     } else if (indexPath.section == 1) {
         GuiderProfileAlbumCell *albumCell = [[GuiderProfileAlbumCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+        albumCell.delegate = self;
         albumCell.albumArray = [self.userInfo.userAlbum mutableCopy];
         albumCell.selectionStyle = UITableViewCellSelectionStyleNone;
         return albumCell;
@@ -713,6 +716,17 @@
     tourCtl.userId = _userInfo.userId;
     [self.navigationController pushViewController:tourCtl animated:YES];
 
+}
+
+#pragma mark - GuiderProfileAlbumCellDelegate
+
+- (void)didSelectItemWitnIndexPath:(NSIndexPath *)indexPath
+{
+    UserAlbumReviewViewController *ctl = [[UserAlbumReviewViewController alloc] init];
+    ctl.dataSource = [self.userInfo.userAlbum mutableCopy];
+    ctl.canEidt = NO;
+    ctl.currentIndex = indexPath.row;
+    [self.navigationController pushViewController:ctl animated:YES];
 }
 
 
