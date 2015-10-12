@@ -115,8 +115,8 @@
 
     NSRange range1;
     NSRange range2;
-    
-    while ([tempString containsString:@"["] && [tempString containsString:@"]"]) {
+
+    while ([tempString rangeOfString:@"[" options:NSLiteralSearch].length != 0 && [tempString rangeOfString:@"]" options:NSLiteralSearch].length != 0) {
         range1 = [tempString rangeOfString:@"["];
         range2 = [tempString rangeOfString:@"]"];
         
