@@ -19,8 +19,8 @@
 
 + (void)loadForeignDestinationFromCache:(Destinations *)destinations completionBlock:(void (^)(BOOL isSuccess, Destinations *destination, NSString *saveTime)) completetion;
 
-+ (void)saveDomesticDestinations2Cache:(Destinations *)destinations lastModifiedTime:(NSString *)time;
++ (void)saveDomesticDestinations2Cache:(NSDictionary *)destinationDic lastModifiedTime:(NSString *)time;
 
-+ (void)saveForeignDestinations2Cache:(Destinations *)destinations lastModifiedTime:(NSString *)time;
++ (void)saveForeignDestinations2Cache:(NSDictionary *)destinationDic lastModifiedTime:(NSString *)time;
 
 @end

@@ -17,7 +17,6 @@ static NSString *foreignDestinationCacheName = @"destination_foreign";
 
 + (void)loadDomesticDestinationFromServer:(Destinations *)destinations lastModifiedTime:(NSString *)time completionBlock:(void (^)(BOOL isSuccess, Destinations *destination)) completetion
 {
-    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AppUtils *utils = [[AppUtils alloc] init];
     [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
@@ -44,6 +43,9 @@ static NSString *foreignDestinationCacheName = @"destination_foreign";
             id result = [responseObject objectForKey:@"result"];
             [destinations.domesticCities removeAllObjects];
             [destinations initDomesticCitiesWithJson:result];
+            if ([operation.response.allHeaderFields objectForKey:@"Date"]) {
+                [self saveDomesticDestinations2Cache:responseObject lastModifiedTime:[operation.response.allHeaderFields objectForKey:@"Date"]];
+            }
             completetion(YES, destinations);
         } else {
             completetion(NO, destinations);
@@ -53,7 +55,6 @@ static NSString *foreignDestinationCacheName = @"destination_foreign";
         completetion(NO, destinations);
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
-
 }
 
 + (void)loadForeignDestinationFromServer:(Destinations *)destinations lastModifiedTime:(NSString *)time completionBlock:(void (^)(BOOL isSuccess, Destinations *destination)) completetion
