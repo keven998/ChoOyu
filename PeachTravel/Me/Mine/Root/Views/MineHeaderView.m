@@ -68,6 +68,9 @@
     //计算实际frame大小，并将label的frame变成实际大小
     NSDictionary *dict = @{NSFontAttributeName: [UIFont boldSystemFontOfSize:16.0]};
     CGSize nickNameSize = [self.account.nickName boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
+    if (nickNameSize.width > self.frame.size.width-self.avatar.frame.size.width-100) {
+        nickNameSize.width = self.frame.size.width-self.avatar.frame.size.width-100;
+    }
     self.nickName.frame = CGRectMake(CGRectGetMaxX(self.avatar.frame)+5, contentH-16-46, nickNameSize.width+2, 16);
     
     self.userId.frame = CGRectMake(CGRectGetMaxX(self.nickName.frame)+10, contentH-12-46, 100, 12);
