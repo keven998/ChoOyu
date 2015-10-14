@@ -92,7 +92,7 @@
     
     CGFloat toolBarHeight = height * EMOJI_TOOLBAR_PERCENTAGE;
     self.toolBarHeight = toolBarHeight;
-    CGFloat collectionViewHeight = height - toolBarHeight - 1;
+    CGFloat collectionViewHeight = height - toolBarHeight - 10;
     CGFloat itemHeigth = collectionViewHeight / EMOJI_ROW;
     CGFloat itemWidth = width / EMOJI_RANK;
     CGSize itemSize = CGSizeMake(itemWidth, itemHeigth);
