@@ -66,8 +66,6 @@
     
 }
 
-
-
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [super touchesBegan:touches withEvent:event];
 //    [self.imageBtn touchesBegan:touches withEvent:event];
@@ -87,15 +85,20 @@
     return nil;
 }
 
+- (void)layoutSublayersOfLayer:(CALayer *)layer{
+    [super layoutSublayersOfLayer:layer];
+}
+
 #pragma mark - setter & getter
 - (void)setPicH:(UIImage *)picH{
-    self.imageHeight.constant = picH.size.height;
-    self.imageWidth.constant = picH.size.width;
-    [self.contentView layoutIfNeeded];
+    
     [self.imageBtn setImage:picH forState:UIControlStateHighlighted];
 }
 - (void)setPicN:(UIImage *)picN{
     [self.imageBtn setImage:picN forState:UIControlStateNormal];
+    self.imageHeight.constant = picN.size.height;
+    self.imageWidth.constant = picN.size.width;
+    [self.contentView layoutIfNeeded];
 }
 - (void)setTitle:(NSString *)title{
     self.titleLabel.text = title;
@@ -103,6 +106,7 @@
 - (UIButton *)imageBtn{
     if (_imageBtn == nil) {
         _imageBtn = [[UIButton alloc] init];
+        _imageBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
     }
     return _imageBtn;
 }

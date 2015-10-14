@@ -36,10 +36,16 @@
     }
     return self;
 }
+- (void)layoutSubviews{
+    [super layoutSubviews];
+}
+- (void)layoutSublayersOfLayer:(CALayer *)layer{
+    [super layoutSublayersOfLayer:layer];
+}
 
 - (CGFloat)headerHeight{
 //    CityDetailHeaderView* head = [[CityDetailHeaderView alloc] init];
-    [self layoutIfNeeded];
+    [super layoutIfNeeded];
     return CGRectGetMaxY(self.bottomView.frame);
 }
 
@@ -49,11 +55,6 @@
     [self.contentView addSubview:self.descriptionLabel];
     [self.descriptionLabel addSubview:self.checkAllLabel];
     [self.contentView addSubview:self.bottomView];
-//    UIButton* btn = [[UIButton alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
-//    [btn setBackgroundColor:[UIColor redColor]];
-//    [self addSubview:btn];
-//    [btn addTarget:self action:@selector(touchesBegan:withEvent:) forControlEvents:UIControlEventTouchUpInside];
-    
     
     self.bestTravelTimeLabel.translatesAutoresizingMaskIntoConstraints = NO;
     self.descriptionLabel.translatesAutoresizingMaskIntoConstraints = NO;
@@ -63,15 +64,20 @@
     
     CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
     
-    NSDictionary* metrics = @{@"margins":[NSNumber numberWithInteger:MARGIN_S],@"marginm":[NSNumber numberWithInteger:MARGIN_M],@"titleSize":@TITLE_FONT_SIZE,@"detailSize":@DETAIL_FONT_SIZE,@"minBestHeight":@DETAIL_FONT_SIZE,@"minDesHeight":@(DESCRIPTION_FONT_SIZE*3 + 3),@"topWidth":@(screenWidth - MARGIN_S * 2)};
+    NSDictionary* metrics = @{@"margins":[NSNumber numberWithInteger:MARGIN_S],@"marginm":[NSNumber numberWithInteger:MARGIN_M],@"titleSize":@TITLE_FONT_SIZE,@"detailSize":@DETAIL_FONT_SIZE,@"minBestHeight":@DETAIL_FONT_SIZE,@"minDesHeight":@(DESCRIPTION_FONT_SIZE*3 + 3),@"topWidth":@(screenWidth - MARGIN_S * 2),@"topHeight":@(self.topView.height)};
     NSDictionary* dict = @{@"top":self.topView,@"best":self.bestTravelTimeLabel,@"description":self.descriptionLabel,@"check":self.checkAllLabel,@"bottom":self.bottomView,};
     
-//    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(==margins)-[top]-(==margins)-|" options:0 metrics:metrics views:dict]];
+//    self.topView.frame = CGRectMake(0, 0, screenWidth, 200);
+//    self.bestTravelTimeLabel.frame = CGRectMake(0, 0, screenWidth, 200);
+//    self.descriptionLabel.frame = CGRectMake(0, 0, screenWidth, 200);
+//    self.checkAllLabel.frame =CGRectMake(0, 0, screenWidth, 200);
+//    self.bottomView.frame = CGRectMake(0, 0, screenWidth, 200);
     
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.topView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.topView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:screenWidth - MARGIN_S * 2]];
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(==margins)-[top]-[best]-[description]-[bottom]" options:0 metrics:metrics views:dict]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(==margins)-[top(==topHeight)]-[best]-[description]-[bottom]" options:0 metrics:metrics views:dict]];
+//    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(==margins)-[best]-[description]-[bottom]" options:0 metrics:metrics views:dict]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(==margins)-[best]-(==margins)-|" options:0 metrics:metrics views:dict]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(==margins)-[description]-(==margins)-|" options:0 metrics:metrics views:dict]];
     
@@ -88,10 +94,6 @@
         
         self.descriptionLabel.attributedText = attributedString;
     }
-}
-
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    
 }
 
 #pragma mark - delegate
@@ -196,6 +198,7 @@
 - (void)setFrame:(CGRect)frame{
     [super setFrame:frame];
     
+    
     if ([self.delegate respondsToSelector:@selector(headerFrameDidChange:)]) {
         [self.delegate headerFrameDidChange:self];
     }
@@ -223,7 +226,7 @@
         NSMutableAttributedString *attrstr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"~最佳季节: %@... ", [tm substringToIndex:20]] attributes:nil];
         [attrstr appendAttributedString:more];
         self.bestTravelTimeLabel.attributedText = attrstr;
-        [self sizeToFit];
+//        [self sizeToFit];
     } else {
         self.bestTravelTimeLabel.text = tm;
     }
@@ -247,8 +250,7 @@
         NSDictionary *attribs = @{NSFontAttributeName: [UIFont systemFontOfSize:13], NSParagraphStyleAttributeName:ps};
         truncateStr = [NSString stringWithFormat:@"%@... ", truncateStr];
         NSMutableAttributedString *attrstr = [[NSMutableAttributedString alloc] initWithString:truncateStr attributes:attribs];
-//        NSAttributedString *more1 = [[NSAttributedString alloc] initWithString:@"全文" attributes:@{NSForegroundColorAttributeName : APP_THEME_COLOR, NSFontAttributeName: [UIFont systemFontOfSize:13]}];
-//        [attrstr appendAttributedString:more1];
+
         self.descriptionLabel.attributedText = attrstr;
         [self.descriptionLabel sizeToFit];
     } else {

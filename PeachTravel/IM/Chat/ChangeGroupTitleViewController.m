@@ -35,7 +35,7 @@
     _titleLable.leftView = sv;
     _titleLable.leftViewMode = UITextFieldViewModeAlways;
     [_titleLable becomeFirstResponder];
-    
+
 }
 
 -(void)viewWillAppear:(BOOL)animated

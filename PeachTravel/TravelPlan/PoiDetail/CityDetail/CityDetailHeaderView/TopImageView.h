@@ -10,4 +10,7 @@
 
 @interface TopImageView : UIView
 @property (nonatomic, strong) CityPoi *cityPoi;
+
+@property (nonatomic, assign) CGFloat height;
+
 @end

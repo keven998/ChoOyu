@@ -7,6 +7,7 @@
 //
 
 #import "CityDetailHeaderBottomView.h"
+#import "TaoziCollectionView.h"
 
 #import "CityDetailHeaderBtnSqure.h"
 #import "ArgumentsOfCityDetailHeaderView.h"
@@ -18,7 +19,7 @@
 
 @property (nonatomic, strong) NSArray* cirvleBtnSettingArray;
 @property (nonatomic, strong) NSArray* squreBtnSettingArray;
-@property (nonatomic, strong) UICollectionView* circleBtnCollection;
+@property (nonatomic, strong) TaoziCollectionView* circleBtnCollection;
 @property (nonatomic, strong) CityDetailHeaderFlowLayout* flowLayout;
 @property (nonatomic, strong) NSArray* squreBtnArray;
 
@@ -92,7 +93,7 @@
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[sh]-12-[sv]-12-|" options:0 metrics:nil views:dict]];
     [self addConstraint:[NSLayoutConstraint constraintWithItem:self.seperateVer attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:0.5]];
     
-
+    [self.flowLayout prepareLayout];
 }
 
 #pragma mark - dataSource
@@ -112,7 +113,7 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     NSDictionary* selectorDict = self.cirvleBtnSettingArray[indexPath.item];
     NSString* selectorStr = selectorDict[@"selector"];
-    NSLog(@"%ld",indexPath.item);
+    NSLog(@"%ld",(long)indexPath.item);
     [self performSelector:NSSelectorFromString(selectorStr) withObject:nil];
 }
 
@@ -204,9 +205,9 @@
     }
     return _flowLayout;
 }
-- (UICollectionView *)circleBtnCollection{
+- (TaoziCollectionView *)circleBtnCollection{
     if (_circleBtnCollection == nil) {
-        _circleBtnCollection = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:self.flowLayout];
+        _circleBtnCollection = [[TaoziCollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:self.flowLayout];
         _circleBtnCollection.dataSource = self;
         _circleBtnCollection.delegate = self;
         _circleBtnCollection.scrollEnabled = NO;
