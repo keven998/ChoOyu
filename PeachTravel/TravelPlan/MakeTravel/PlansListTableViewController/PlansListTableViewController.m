@@ -130,6 +130,7 @@ static NSString *reusableCell = @"myGuidesCell";
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogout) name:userDidLogoutNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pullToRefreash:) name:updateGuideListNoti object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pullToRefreash:) name:userDidLoginNoti object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated

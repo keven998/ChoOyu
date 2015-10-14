@@ -15,6 +15,7 @@
 #import "TMCache.h"
 #import "AreaDestination.h"
 #import "DomesticDestinationCollectionViewCell.h"
+#import "DestinationManager.h"
 
 @interface DomesticViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
@@ -62,7 +63,25 @@ static NSString *cacheName = @"destination_demostic_group";
             if (object != nil) {
                 if ([object isKindOfClass:[NSDictionary class]]) {
                     [_destinations initDomesticCitiesWithJson:[object objectForKey:@"result"]];
-                    [self loadDomesticDataFromServerWithLastModified:[object objectForKey:@"lastModified"]];
+                    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+                    [DestinationManager loadDomesticDestinationFromServer:_destinations lastModifiedTime:[object objectForKey:@"lastModified"] completionBlock:^(BOOL isSuccess, Destinations *destination) {
+                        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+                        if (isSuccess) {
+                            _destinations = destination;
+                            [self reloadData];
+                            if (_hud) {
+                                [_hud hideTZHUD];
+                            }
+                            
+                        } else {
+                            if (_hud) {
+                                if (self.isShowing) {
+                                    [SVProgressHUD showHint:HTTP_FAILED_HINT];
+                                }
+                            }
+                        }
+                    }];
+//                    [self loadDomesticDataFromServerWithLastModified:[object objectForKey:@"lastModified"]];
                     [self reloadData];
                 } else {
                     [self loadDomesticDataFromServerWithLastModified:@""];
