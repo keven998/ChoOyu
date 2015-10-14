@@ -80,6 +80,7 @@
 		0115C9CE1BB103FC00631928 /* citydetail_write_journey_hilighted@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0115C9A61BB103FC00631928 /* citydetail_write_journey_hilighted@3x.png */; settings = {ASSET_TAGS = (); }; };
 		0115C9CF1BB103FC00631928 /* citydetail_write_journey_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0115C9A71BB103FC00631928 /* citydetail_write_journey_normal@2x.png */; settings = {ASSET_TAGS = (); }; };
 		0115C9D01BB103FC00631928 /* citydetail_write_journey_normal@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0115C9A81BB103FC00631928 /* citydetail_write_journey_normal@3x.png */; settings = {ASSET_TAGS = (); }; };
+		0138B3E61BCDF873003E6092 /* ChatConversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D993C22B1B12DF0C0088D568 /* ChatConversation.swift */; settings = {ASSET_TAGS = (); }; };
 		019BCF711BB27378007841E4 /* CityDetailHeaderBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 019BCF661BB27378007841E4 /* CityDetailHeaderBottomView.m */; settings = {ASSET_TAGS = (); }; };
 		019BCF721BB27378007841E4 /* CityDetailHeaderBtnSqure.m in Sources */ = {isa = PBXBuildFile; fileRef = 019BCF681BB27378007841E4 /* CityDetailHeaderBtnSqure.m */; settings = {ASSET_TAGS = (); }; };
 		019BCF731BB27378007841E4 /* CityDetailHeaderCircleBtnCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 019BCF6A1BB27378007841E4 /* CityDetailHeaderCircleBtnCell.m */; settings = {ASSET_TAGS = (); }; };
@@ -315,6 +316,7 @@
 		01C1ECC41BB53A690082217A /* TZEmojiToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C1ECB81BB53A690082217A /* TZEmojiToolBar.m */; settings = {ASSET_TAGS = (); }; };
 		01C1ECC51BB53A690082217A /* TZEmojiKeyBoardVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C1ECBA1BB53A690082217A /* TZEmojiKeyBoardVC.m */; settings = {ASSET_TAGS = (); }; };
 		01C1ECC91BB7D21A0082217A /* TZEmojiTextConvertor.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C1ECC81BB7D21A0082217A /* TZEmojiTextConvertor.m */; settings = {ASSET_TAGS = (); }; };
+		01E5D33C1BCBB33100189565 /* TaoziCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01E5D33B1BCBB33100189565 /* TaoziCollectionView.m */; settings = {ASSET_TAGS = (); }; };
 		01F03DAC1BB400C7005DD792 /* MapMarkMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F03DA91BB400C7005DD792 /* MapMarkMenuCell.m */; settings = {ASSET_TAGS = (); }; };
 		01F03DAD1BB400C7005DD792 /* MapMarkMenuVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F03DAB1BB400C7005DD792 /* MapMarkMenuVC.m */; settings = {ASSET_TAGS = (); }; };
 		01F03DB01BB40B57005DD792 /* MapViewSetLocationBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F03DAF1BB40B57005DD792 /* MapViewSetLocationBtn.m */; settings = {ASSET_TAGS = (); }; };
@@ -774,7 +776,6 @@
 		D993C2681B12DF0C0088D568 /* LocationMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D993C2261B12DF0C0088D568 /* LocationMessage.swift */; };
 		D993C2691B12DF0C0088D568 /* LocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D993C2271B12DF0C0088D568 /* LocationModel.swift */; };
 		D993C26A1B12DF0C0088D568 /* TextMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D993C2281B12DF0C0088D568 /* TextMessage.swift */; };
-		D993C26B1B12DF0C0088D568 /* ChatConversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D993C22B1B12DF0C0088D568 /* ChatConversation.swift */; };
 		D993C26C1B12DF0C0088D568 /* ChatConversationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D993C22C1B12DF0C0088D568 /* ChatConversationManager.swift */; };
 		D993C26D1B12DF0C0088D568 /* PushSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = D993C22D1B12DF0C0088D568 /* PushSDK.swift */; };
 		D993C26E1B12DF0C0088D568 /* FrendManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D993C2301B12DF0C0088D568 /* FrendManager.swift */; };
@@ -2132,6 +2133,8 @@
 		01C1ECBA1BB53A690082217A /* TZEmojiKeyBoardVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZEmojiKeyBoardVC.m; sourceTree = "<group>"; };
 		01C1ECC71BB7D21A0082217A /* TZEmojiTextConvertor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZEmojiTextConvertor.h; sourceTree = "<group>"; };
 		01C1ECC81BB7D21A0082217A /* TZEmojiTextConvertor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZEmojiTextConvertor.m; sourceTree = "<group>"; };
+		01E5D33A1BCBB33100189565 /* TaoziCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaoziCollectionView.h; sourceTree = "<group>"; };
+		01E5D33B1BCBB33100189565 /* TaoziCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaoziCollectionView.m; sourceTree = "<group>"; };
 		01F03DA81BB400C7005DD792 /* MapMarkMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapMarkMenuCell.h; sourceTree = "<group>"; };
 		01F03DA91BB400C7005DD792 /* MapMarkMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapMarkMenuCell.m; sourceTree = "<group>"; };
 		01F03DAA1BB400C7005DD792 /* MapMarkMenuVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapMarkMenuVC.h; sourceTree = "<group>"; };
@@ -4237,6 +4240,8 @@
 			isa = PBXGroup;
 			children = (
 				019BCF641BB27378007841E4 /* ArgumentsOfCityDetailHeaderView.h */,
+				01E5D33A1BCBB33100189565 /* TaoziCollectionView.h */,
+				01E5D33B1BCBB33100189565 /* TaoziCollectionView.m */,
 				019BCF651BB27378007841E4 /* CityDetailHeaderBottomView.h */,
 				019BCF661BB27378007841E4 /* CityDetailHeaderBottomView.m */,
 				019BCF671BB27378007841E4 /* CityDetailHeaderBtnSqure.h */,
@@ -10204,7 +10209,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D993C26B1B12DF0C0088D568 /* ChatConversation.swift in Sources */,
 				D9A802B91A80E3D3005AD701 /* UIViewController+HUD.m in Sources */,
 				D9A802F01A80E3D3005AD701 /* AppUtils.m in Sources */,
 				D9E0EF011B7D9036003872DF /* CMPopTipView.m in Sources */,
@@ -10293,6 +10297,7 @@
 				D9A802161A80E036005AD701 /* JGProgressHUDPieIndicatorView.m in Sources */,
 				D9A801411A80DD23005AD701 /* EMChatLocationBubbleView.m in Sources */,
 				D92CA1321AD8BEB400F244FF /* MWGridCell.m in Sources */,
+				0138B3E61BCDF873003E6092 /* ChatConversation.swift in Sources */,
 				E67795311B942152004CE21A /* MineProfileViewController.m in Sources */,
 				D993C2531B12DF0C0088D568 /* LvAppDelegate.swift in Sources */,
 				D993C25C1B12DF0C0088D568 /* AudioMessage.swift in Sources */,
@@ -10682,6 +10687,7 @@
 				D993C2451B12DF0C0088D568 /* MetaDataDaoHelper.swift in Sources */,
 				D971E2901B8C8F57007E5AFD /* JDStatusBarView.m in Sources */,
 				D971E2E41B94835D007E5AFD /* ExpertManager.m in Sources */,
+				01E5D33C1BCBB33100189565 /* TaoziCollectionView.m in Sources */,
 				D9A8015A1A80DD23005AD701 /* EMTextView.m in Sources */,
 				D9E7E58E1AC281400072D5B9 /* AreaDestination.m in Sources */,
 				D9A8FFA51A80D1C3005AD701 /* PoisOfCityViewController.m in Sources */,
@@ -10870,6 +10876,34 @@
 					"$(PROJECT_DIR)/PeachTravel/IMSDK/Core/Getui",
 				);
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-l\"MobClickLibrary\"",
+					"-l\"Pods-AFNetworking\"",
+					"-l\"Pods-MJRefresh\"",
+					"-l\"Pods-OpenUDID\"",
+					"-l\"Pods-Qiniu\"",
+					"-l\"Pods-SDWebImage\"",
+					"-l\"Pods-TMCache\"",
+					"-l\"Pods-UMengAnalytics-NO-IDFA\"",
+					"-l\"Pods-iRate\"",
+					"-l\"z\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"ImageIO\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-weak_framework",
+					"\"UIKit\"",
+					"-all_load",
+				);
 				OTHER_SWIFT_FLAGS = "-D DEBUG";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -10909,6 +10943,34 @@
 					"$(PROJECT_DIR)/PeachTravel/IMSDK/Core/Getui",
 				);
 				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-l\"MobClickLibrary\"",
+					"-l\"Pods-AFNetworking\"",
+					"-l\"Pods-MJRefresh\"",
+					"-l\"Pods-OpenUDID\"",
+					"-l\"Pods-Qiniu\"",
+					"-l\"Pods-SDWebImage\"",
+					"-l\"Pods-TMCache\"",
+					"-l\"Pods-UMengAnalytics-NO-IDFA\"",
+					"-l\"Pods-iRate\"",
+					"-l\"z\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"ImageIO\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-weak_framework",
+					"\"UIKit\"",
+					"-all_load",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "24f07084-7acc-4926-94f6-5e285588a774";
 				SWIFT_OBJC_BRIDGING_HEADER = "PeachTravel/PeachTravel-Bridging-Header.h";

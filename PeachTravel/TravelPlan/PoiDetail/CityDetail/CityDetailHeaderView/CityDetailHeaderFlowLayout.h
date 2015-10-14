@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CityDetailHeaderFlowLayout : UICollectionViewLayout
+@interface CityDetailHeaderFlowLayout : UICollectionViewFlowLayout
 
 @property (nonatomic, weak) id <UICollectionViewDelegateFlowLayout> delegate;
 
