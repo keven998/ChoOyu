@@ -84,6 +84,9 @@ static NSString *foreignDestinationCacheName = @"destination_foreign";
             id result = [responseObject objectForKey:@"result"];
             [destinations initForeignCountriesWithJson:result];
             completetion(YES, destinations);
+            if ([operation.response.allHeaderFields objectForKey:@"Date"]) {
+                [self saveForeignDestinations2Cache:responseObject lastModifiedTime:[operation.response.allHeaderFields objectForKey:@"Date"]];
+            }
             
         } else {
             completetion(NO, destinations);

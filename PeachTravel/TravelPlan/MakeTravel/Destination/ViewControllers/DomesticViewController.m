@@ -63,25 +63,7 @@ static NSString *cacheName = @"destination_demostic_group";
             if (object != nil) {
                 if ([object isKindOfClass:[NSDictionary class]]) {
                     [_destinations initDomesticCitiesWithJson:[object objectForKey:@"result"]];
-                    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-                    [DestinationManager loadDomesticDestinationFromServer:_destinations lastModifiedTime:[object objectForKey:@"lastModified"] completionBlock:^(BOOL isSuccess, Destinations *destination) {
-                        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-                        if (isSuccess) {
-                            _destinations = destination;
-                            [self reloadData];
-                            if (_hud) {
-                                [_hud hideTZHUD];
-                            }
-                            
-                        } else {
-                            if (_hud) {
-                                if (self.isShowing) {
-                                    [SVProgressHUD showHint:HTTP_FAILED_HINT];
-                                }
-                            }
-                        }
-                    }];
-//                    [self loadDomesticDataFromServerWithLastModified:[object objectForKey:@"lastModified"]];
+                    [self loadDomesticDataFromServerWithLastModified:[object objectForKey:@"lastModified"]];
                     [self reloadData];
                 } else {
                     [self loadDomesticDataFromServerWithLastModified:@""];
@@ -139,42 +121,16 @@ static NSString *cacheName = @"destination_demostic_group";
 
 - (void)loadDomesticDataFromServerWithLastModified:(NSString *)modifiedTime
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:@"Cache-Control" forHTTPHeaderField:@"private"];
-    [manager.requestSerializer setValue:modifiedTime forHTTPHeaderField:@"If-Modified-Since"];
-    
-    NSNumber *imageWidth = [NSNumber numberWithInt:450];
-    NSDictionary *params = @{@"groupBy" : [NSNumber numberWithBool:true], @"imgWidth": imageWidth};
-    
-    NSLog(@"%@",API_GET_DOMESTIC_DESTINATIONS);
-    
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    [manager GET:API_GET_DOMESTIC_DESTINATIONS parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        NSLog(@"%@",responseObject);
-        
-        if (_hud) {
-            [_hud hideTZHUD];
-        }
-        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-        if (code == 0) {
-            id result = [responseObject objectForKey:@"result"];
-            [_destinations.domesticCities removeAllObjects];
-            [_destinations initDomesticCitiesWithJson:result];
+    [DestinationManager loadDomesticDestinationFromServer:_destinations lastModifiedTime:modifiedTime completionBlock:^(BOOL isSuccess, Destinations *destination) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        if (isSuccess) {
+            _destinations = destination;
             [self reloadData];
-            dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                NSMutableDictionary *dic = [responseObject mutableCopy];
-                if ([operation.response.allHeaderFields objectForKey:@"Date"]) {
-                    [dic setObject:[operation.response.allHeaderFields objectForKey:@"Date"]  forKey:@"lastModified"];
-                    [[TMCache sharedCache] setObject:dic forKey:cacheName];
-                }
-            });
+            if (_hud) {
+                [_hud hideTZHUD];
+            }
+            
         } else {
             if (_hud) {
                 if (self.isShowing) {
@@ -182,16 +138,8 @@ static NSString *cacheName = @"destination_demostic_group";
                 }
             }
         }
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (_hud) {
-            [_hud hideTZHUD];
-            if (self.isShowing) {
-                [SVProgressHUD showHint:HTTP_FAILED_HINT];
-            }
-        }
-       [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
+
 }
 
 #pragma mark - TZScollViewDelegate

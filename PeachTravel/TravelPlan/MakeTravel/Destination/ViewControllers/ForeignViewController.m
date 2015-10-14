@@ -12,6 +12,8 @@
 #import "AreaDestination.h"
 #import "CityDestinationPoi.h"
 #import "DomesticCell.h"
+#import "DestinationManager.h"
+
 @interface ForeignViewController () <UICollectionViewDataSource, UICollectionViewDelegate,UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic) NSInteger showCitiesIndex;
@@ -60,7 +62,6 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
     _foreignCollectionView.delegate = self;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateDestinationsSelected:) name:updateDestinationsSelectedNoti object:nil];
     
-    
     self.foreignTableView.dataSource = self;
     self.foreignTableView.delegate = self;
     self.foreignTableView.showsVerticalScrollIndicator = NO;
@@ -87,6 +88,7 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
                     [self loadForeignDataFromServerWithLastModified:@""];
                 });
             }
+            [_foreignCollectionView reloadData];
         } else {
             dispatch_async(dispatch_get_main_queue(), ^{
                 _hud = [[TZProgressHUD alloc] init];
@@ -116,47 +118,15 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
  */
 - (void)loadForeignDataFromServerWithLastModified:(NSString *)modifiedTime
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:@"Cache-Control" forHTTPHeaderField:@"private"];
-    [manager.requestSerializer setValue:modifiedTime forHTTPHeaderField:@"If-Modified-Since"];
-    
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSNumber *imageWidth = [NSNumber numberWithInt:450];
-    [params setObject:imageWidth forKey:@"imgWidth"];
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    if (_hud) {
-        [_hud showHUD];
-    }
-    
-    [manager GET:API_GET_FOREIGN_DESTINATIONS parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if (_hud) {
-            [_hud hideTZHUD];
-        }
-        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-        if (code == 0) {
-            id result = [responseObject objectForKey:@"result"];
-            [_destinations initForeignCountriesWithJson:result];
-
+    [DestinationManager loadForeignDestinationFromServer:_destinations lastModifiedTime:modifiedTime completionBlock:^(BOOL isSuccess, Destinations *destination) {
+        if (isSuccess) {
+            _destinations = destination;
+            
             [self.foreignTableView reloadData];
             
             // 默认选中第一组
             NSIndexPath *first = [NSIndexPath indexPathForRow:0 inSection:0];
             [self.foreignTableView selectRowAtIndexPath:first animated:YES scrollPosition:UITableViewScrollPositionTop];
-            
-            dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                NSMutableDictionary *dic = [responseObject mutableCopy];
-                if ([operation.response.allHeaderFields objectForKey:@"Date"]) {
-                    [dic setObject:[operation.response.allHeaderFields objectForKey:@"Date"]  forKey:@"lastModified"];
-                    [[TMCache sharedCache] setObject:dic forKey:@"destination_foreign"];
-                }
-            });
             
             AreaDestination *country = _destinations.foreignCountries[0];
             self.citiesArray = country.cities;
@@ -167,14 +137,6 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
                 if (self.isShowing) {
                     [SVProgressHUD showHint:HTTP_FAILED_HINT];
                 }
-            }
-        }
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (_hud) {
-            [_hud hideTZHUD];
-            if (self.isShowing) {
-                [SVProgressHUD showHint:HTTP_FAILED_HINT];
             }
         }
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -197,7 +159,7 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
 
 #pragma mark - notification
 
-- (void) updateDestinationsSelected:(NSNotification *)noti
+- (void)updateDestinationsSelected:(NSNotification *)noti
 {
     CityDestinationPoi *city = [noti.userInfo objectForKey:@"city"];
     for (int i=0; i<[_destinations.foreignCountries count]; i++) {
@@ -345,22 +307,16 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
  */
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"选中了%ld行",indexPath.row);
-    
     AreaDestination *country = _destinations.foreignCountries[indexPath.row];
     
     self.citiesArray = country.cities;
     [self.foreignCollectionView reloadData];
-    
-    NSLog(@"%@",self.citiesArray);
 }
 
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    NSLog(@"%@",self.destinations);
     
     [_makePlanCtl.selectPanel reloadData];
     [self.foreignCollectionView reloadData];
