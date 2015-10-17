@@ -48,6 +48,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 @property (nonatomic, strong) ChatListViewController *chatListCtl;
 @property (nonatomic, strong) PoiRecommendRootViewController *poiRecommendCtl;
 
+@property (nonatomic, strong) GoodsListViewController *goodsListCtl;
+
 @property (nonatomic, strong) PageOne *pageView1;
 @property (nonatomic, strong) PageTwo *pageView2;
 @property (nonatomic, strong) PageThree *pageView3;
@@ -386,10 +388,16 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     TZNavigationViewController *firstNavigationController = [[TZNavigationViewController alloc]
                                                              initWithRootViewController:self.chatListCtl];
     
+    //TODO: test
+    /*
     _poiRecommendCtl = [[PoiRecommendRootViewController alloc] init];
     TZNavigationViewController *secondNavigationController = [[TZNavigationViewController alloc]
                                                               initWithRootViewController:_poiRecommendCtl];
-    
+     */
+    _goodsListCtl = [[GoodsListViewController alloc] init];
+    TZNavigationViewController *secondNavigationController = [[TZNavigationViewController alloc]
+                                                              initWithRootViewController:_goodsListCtl];
+
     _searchPoiCtl = [[SearchDestinationViewController alloc] init];
     _searchPoiCtl.isRootViewController = YES;
     TZNavigationViewController *thirdNavigationController = [[TZNavigationViewController alloc]
