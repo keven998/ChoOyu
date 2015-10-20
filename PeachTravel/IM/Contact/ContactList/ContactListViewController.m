@@ -64,6 +64,7 @@
     [self.view addSubview:self.contactTableView];
     [self.accountManager loadContactsFromServer];
     [[IMClientManager shareInstance].frendRequestManager addFrendRequestDelegate:self];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogin) name:userDidLoginNoti object:nil];
     
     [self setupSearchBar];
 }
@@ -92,6 +93,11 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     _contactTableView.delegate = nil;
     _emptyView = nil;
+}
+
+- (void)userDidLogin
+{
+    [self.accountManager loadContactsFromServer];
 }
 
 #pragma mark - 实现代理方法,这个方法会在同意添加一个好友的情况下调用
