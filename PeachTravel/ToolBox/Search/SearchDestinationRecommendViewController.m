@@ -237,7 +237,7 @@
 
 #pragma mark - TaoziLayoutDelegate
 
-- (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+- (CGSize)tzCollectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSArray *array = [_collectionArray objectAtIndex:indexPath.section];
     NSString *title = [array objectAtIndex:indexPath.row];
@@ -245,7 +245,7 @@
     return CGSizeMake(size.width+20, 30);
 }
 
-- (CGSize)collectionview:(UICollectionView *)collectionView sizeForHeaderView:(NSIndexPath *)indexPath
+- (CGSize)tzCollectionview:(UICollectionView *)collectionView sizeForHeaderView:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0 && [[self.collectionArray objectAtIndex:0] count]) {
         return CGSizeMake(kWindowWidth, 50);
@@ -255,17 +255,17 @@
     return CGSizeZero;
 }
 
-- (NSInteger)numberOfSectionsInTZCollectionView:(UICollectionView *)collectionView
+- (NSInteger)tzNumberOfSectionsInTZCollectionView:(UICollectionView *)collectionView
 {
     return _collectionArray.count;
 }
 
-- (NSInteger)tzcollectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+- (NSInteger)tzCollectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return [[_collectionArray objectAtIndex:section] count];
 }
 
-- (CGFloat)tzcollectionLayoutWidth
+- (CGFloat)tzCollectionLayoutWidth
 {
     return self.view.bounds.size.width-20;
 }

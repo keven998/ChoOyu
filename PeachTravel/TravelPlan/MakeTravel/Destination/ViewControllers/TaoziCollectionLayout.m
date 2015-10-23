@@ -25,19 +25,19 @@
 
 - (void)prepareLayout
 {
-    NSInteger sections = [_delegate numberOfSectionsInTZCollectionView:self.collectionView];
-    _width = [_delegate tzcollectionLayoutWidth];
+    NSInteger sections = [_delegate tzNumberOfSectionsInTZCollectionView:self.collectionView];
+    _width = [_delegate tzCollectionLayoutWidth];
     _itemsAttributes = [[NSMutableArray alloc] init];
     _headerViewAttributes = [[NSMutableArray alloc] init];
     _sectionAttributes = [NSMutableArray new];
     offsetY = 0;
     for (int i=0; i<sections; i++) {
         CGFloat offsetX = _margin;
-        NSInteger itemsCountPerSection = [_delegate tzcollectionView:self.collectionView numberOfItemsInSection:i];
+        NSInteger itemsCountPerSection = [_delegate tzCollectionView:self.collectionView numberOfItemsInSection:i];
        
         NSIndexPath *headerIndexPath = [NSIndexPath indexPathForRow:0 inSection:i];
 
-        CGSize headerSize = [_delegate collectionview:self.collectionView sizeForHeaderView:headerIndexPath];
+        CGSize headerSize = [_delegate tzCollectionview:self.collectionView sizeForHeaderView:headerIndexPath];
         
         UICollectionViewLayoutAttributes *headerAttributes = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader withIndexPath:headerIndexPath];
         headerAttributes.frame = CGRectMake(0, offsetY, _width, headerSize.height);
@@ -54,7 +54,7 @@
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:j inSection:i];
             UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
             
-            CGSize itemSize = [_delegate collectionView:self.collectionView sizeForItemAtIndexPath:indexPath];
+            CGSize itemSize = [_delegate tzCollectionView:self.collectionView sizeForItemAtIndexPath:indexPath];
             
             if (offsetX + itemSize.width > (_width-_margin*2)) {
                 offsetX = _margin;

@@ -24,6 +24,15 @@ class SuperGoodsModel: NSObject {
 
     override init() {
         super.init()
+        zhName = "泰国人妖展"
+        desc = "大家好，我是一段自我介绍，请忽略我，哈哈哈，我就是测试测试，请大家忽略我，哈哈哈哈哈说两句付款说两句"
+        let user = FrendModel()
+        user.nickName = "hehceo"
+        userInfo = user;
+        tags = ["免费体验", "免费体验","免费体验"]
+        rating = 0.9
+        minPrice = 1000
+        originalPrice = 1500
     }
     
     init(json: NSDictionary) {

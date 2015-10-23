@@ -151,29 +151,29 @@
 
 #pragma mark - TaoziLayoutDelegate
 
-- (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+- (CGSize)tzCollectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *title = self.model.tags[indexPath.item];
     CGSize size = [title sizeWithAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:10.0]}];
     return CGSizeMake(size.width+10, 15);
 }
 
-- (CGSize)collectionview:(UICollectionView *)collectionView sizeForHeaderView:(NSIndexPath *)indexPath
+- (CGSize)tzCollectionview:(UICollectionView *)collectionView sizeForHeaderView:(NSIndexPath *)indexPath
 {
     return CGSizeMake(kWindowWidth, 0);
 }
 
-- (NSInteger)numberOfSectionsInTZCollectionView:(UICollectionView *)collectionView
+- (NSInteger)tzNumberOfSectionsInTZCollectionView:(UICollectionView *)collectionView
 {
     return 1;
 }
 
-- (NSInteger)tzcollectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+- (NSInteger)tzCollectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return self.model.tags.count;
 }
 
-- (CGFloat)tzcollectionLayoutWidth
+- (CGFloat)tzCollectionLayoutWidth
 {
     return self.bounds.size.width-20;
 }

@@ -18,7 +18,7 @@
  *
  *  @return
  */
-- (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath;
+- (CGSize)tzCollectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath;
 
 /**
  *  每个分组 header 的尺寸
@@ -28,7 +28,7 @@
  *
  *  @return
  */
-- (CGSize)collectionview:(UICollectionView *)collectionView sizeForHeaderView:(NSIndexPath *)indexPath;
+- (CGSize)tzCollectionview:(UICollectionView *)collectionView sizeForHeaderView:(NSIndexPath *)indexPath;
 
 /**
  *  每个分组有多少个 cell
@@ -38,7 +38,7 @@
  *
  *  @return
  */
-- (NSInteger)tzcollectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section;
+- (NSInteger)tzCollectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section;
 
 /**
  *  共有多少个分组
@@ -47,14 +47,14 @@
  *
  *  @return
  */
-- (NSInteger)numberOfSectionsInTZCollectionView:(UICollectionView *)collectionView;
+- (NSInteger)tzNumberOfSectionsInTZCollectionView:(UICollectionView *)collectionView;
 
 /**
  *  整个 collection 的宽度
  *
  *  @return
  */
-- (CGFloat)tzcollectionLayoutWidth;
+- (CGFloat)tzCollectionLayoutWidth;
 
 @end
 

@@ -82,12 +82,8 @@
 - (void)setCollectionArray:(NSArray *)collectionArray
 {
     _collectionArray = collectionArray;
-    
     [self.collectionView reloadData];
-    
 }
-
-
 
 #pragma mark - 实现UICollectionView的数据源以及代理方法
 
@@ -130,29 +126,29 @@
 //}
 #pragma mark - TaoziLayoutDelegate
 
-- (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+- (CGSize)tzCollectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *title = [_collectionArray objectAtIndex:indexPath.row];
     CGSize size = [title sizeWithAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:17.0]}];
     return CGSizeMake(size.width, 23);
 }
 
-- (CGSize)collectionview:(UICollectionView *)collectionView sizeForHeaderView:(NSIndexPath *)indexPath
+- (CGSize)tzCollectionview:(UICollectionView *)collectionView sizeForHeaderView:(NSIndexPath *)indexPath
 {
     return CGSizeMake(kWindowWidth, 0);
 }
 
-- (NSInteger)numberOfSectionsInTZCollectionView:(UICollectionView *)collectionView
+- (NSInteger)tzNumberOfSectionsInTZCollectionView:(UICollectionView *)collectionView
 {
     return 1;
 }
 
-- (NSInteger)tzcollectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+- (NSInteger)tzCollectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return _collectionArray.count;
 }
 
-- (CGFloat)tzcollectionLayoutWidth
+- (CGFloat)tzCollectionLayoutWidth
 {
     return self.bounds.size.width-20;
 }

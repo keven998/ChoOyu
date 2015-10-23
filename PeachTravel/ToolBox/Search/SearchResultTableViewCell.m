@@ -97,29 +97,29 @@
     self.flowLayout.margin = 0;
 }
 
-- (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+- (CGSize)tzCollectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *title = [self.tagsArray objectAtIndex:indexPath.row];
     CGSize size = [title sizeWithAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:11.0]}];
     return CGSizeMake(size.width + 8, 15);
 }
 
-- (CGSize)collectionview:(UICollectionView *)collectionView sizeForHeaderView:(NSIndexPath *)indexPath
+- (CGSize)tzCollectionview:(UICollectionView *)collectionView sizeForHeaderView:(NSIndexPath *)indexPath
 {
     return CGSizeZero;
 }
 
-- (NSInteger)numberOfSectionsInTZCollectionView:(UICollectionView *)collectionView
+- (NSInteger)tzNumberOfSectionsInTZCollectionView:(UICollectionView *)collectionView
 {
     return 1;
 }
 
-- (NSInteger)tzcollectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+- (NSInteger)tzCollectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return self.tagsArray.count;
 }
 
-- (CGFloat)tzcollectionLayoutWidth
+- (CGFloat)tzCollectionLayoutWidth
 {
     return self.bounds.size.width-20;
 }

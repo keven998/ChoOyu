@@ -171,23 +171,23 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 
 #pragma mark TaoziLayouteDelegate
 
-- (NSInteger)numberOfSectionsInTZCollectionView:(UICollectionView *)collectionView
+- (NSInteger)tzNumberOfSectionsInTZCollectionView:(UICollectionView *)collectionView
 {
     return self.dataSource.count;
 }
 
-- (CGFloat)tzcollectionLayoutWidth
+- (CGFloat)tzCollectionLayoutWidth
 {
     return self.collectionView.frame.size.width;
 }
 
-- (NSInteger)tzcollectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+- (NSInteger)tzCollectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     RecommendDataSource *recommedDataSource = [self.dataSource objectAtIndex:section];
     return recommedDataSource.localities.count;
 }
 
-- (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+- (CGSize)tzCollectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     CGSize size;
     if (indexPath.section == 0) {
@@ -215,7 +215,7 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     return size;
 }
 
-- (CGSize)collectionview:(UICollectionView *)collectionView sizeForHeaderView:(NSIndexPath *)indexPath
+- (CGSize)tzCollectionview:(UICollectionView *)collectionView sizeForHeaderView:(NSIndexPath *)indexPath
 {
     CGSize size = CGSizeMake(self.collectionView.frame.size.width, 30);
     return size;

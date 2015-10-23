@@ -493,6 +493,8 @@
 		D91061F81BA954BC00C4FBCB /* PhotoPreivewView.m in Sources */ = {isa = PBXBuildFile; fileRef = D91061F71BA954BC00C4FBCB /* PhotoPreivewView.m */; };
 		D91061FC1BA9832C00C4FBCB /* GuiderSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D91061FA1BA9832C00C4FBCB /* GuiderSearchViewController.m */; };
 		D91061FD1BA9832C00C4FBCB /* GuiderSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D91061FB1BA9832C00C4FBCB /* GuiderSearchViewController.xib */; };
+		D91066B81BD246CD007E2DED /* goodsRating@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D91066B61BD246CD007E2DED /* goodsRating@2x.png */; settings = {ASSET_TAGS = (); }; };
+		D91066B91BD246CD007E2DED /* goodsRating@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D91066B71BD246CD007E2DED /* goodsRating@3x.png */; settings = {ASSET_TAGS = (); }; };
 		D9121ED41BBA395900C2E480 /* SearchTravelNoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9121ED31BBA395900C2E480 /* SearchTravelNoteViewController.m */; settings = {ASSET_TAGS = (); }; };
 		D9121ED71BBA534F00C2E480 /* PoiRecommendSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9121ED61BBA534F00C2E480 /* PoiRecommendSearchViewController.m */; settings = {ASSET_TAGS = (); }; };
 		D915296D1BB24592002D1F51 /* PoiRecommendRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D915296C1BB24592002D1F51 /* PoiRecommendRootViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -719,6 +721,10 @@
 		D971E2E41B94835D007E5AFD /* ExpertManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D971E2E31B94835D007E5AFD /* ExpertManager.m */; };
 		D971E2F01B957A9E007E5AFD /* FormatCheck.m in Sources */ = {isa = PBXBuildFile; fileRef = D971E2EF1B957A9E007E5AFD /* FormatCheck.m */; };
 		D971E2FB1B95C28E007E5AFD /* MineContentRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D971E2FA1B95C28E007E5AFD /* MineContentRootViewController.m */; };
+		D97422EF1BD21F52009EB4D9 /* SwiftConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97422EE1BD21F52009EB4D9 /* SwiftConstants.swift */; settings = {ASSET_TAGS = (); }; };
+		D97422F41BD22586009EB4D9 /* TZTagsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97422F31BD22586009EB4D9 /* TZTagsCollectionView.swift */; settings = {ASSET_TAGS = (); }; };
+		D97422F71BD22CC1009EB4D9 /* TZTagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97422F51BD22CC1009EB4D9 /* TZTagCollectionViewCell.swift */; settings = {ASSET_TAGS = (); }; };
+		D97422F81BD22CC1009EB4D9 /* TZTagCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D97422F61BD22CC1009EB4D9 /* TZTagCollectionViewCell.xib */; settings = {ASSET_TAGS = (); }; };
 		D97C8B4D1A526B9F00476C9C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D97C8B4C1A526B9F00476C9C /* Images.xcassets */; };
 		D9823E841B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9823E831B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m */; };
 		D9871DBA1B47D31E00BFDFAF /* ScheduleDayEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9871DB81B47D31E00BFDFAF /* ScheduleDayEditViewController.m */; };
@@ -2396,6 +2402,8 @@
 		D91061F91BA9832C00C4FBCB /* GuiderSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuiderSearchViewController.h; sourceTree = "<group>"; };
 		D91061FA1BA9832C00C4FBCB /* GuiderSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuiderSearchViewController.m; sourceTree = "<group>"; };
 		D91061FB1BA9832C00C4FBCB /* GuiderSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GuiderSearchViewController.xib; sourceTree = "<group>"; };
+		D91066B61BD246CD007E2DED /* goodsRating@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goodsRating@2x.png"; sourceTree = "<group>"; };
+		D91066B71BD246CD007E2DED /* goodsRating@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goodsRating@3x.png"; sourceTree = "<group>"; };
 		D9121ED21BBA395900C2E480 /* SearchTravelNoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchTravelNoteViewController.h; sourceTree = "<group>"; };
 		D9121ED31BBA395900C2E480 /* SearchTravelNoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchTravelNoteViewController.m; sourceTree = "<group>"; };
 		D9121ED51BBA534F00C2E480 /* PoiRecommendSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoiRecommendSearchViewController.h; sourceTree = "<group>"; };
@@ -2695,6 +2703,10 @@
 		D971E2EF1B957A9E007E5AFD /* FormatCheck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormatCheck.m; sourceTree = "<group>"; };
 		D971E2F91B95C28E007E5AFD /* MineContentRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineContentRootViewController.h; sourceTree = "<group>"; };
 		D971E2FA1B95C28E007E5AFD /* MineContentRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineContentRootViewController.m; sourceTree = "<group>"; };
+		D97422EE1BD21F52009EB4D9 /* SwiftConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftConstants.swift; sourceTree = "<group>"; };
+		D97422F31BD22586009EB4D9 /* TZTagsCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TZTagsCollectionView.swift; sourceTree = "<group>"; };
+		D97422F51BD22CC1009EB4D9 /* TZTagCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TZTagCollectionViewCell.swift; sourceTree = "<group>"; };
+		D97422F61BD22CC1009EB4D9 /* TZTagCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TZTagCollectionViewCell.xib; sourceTree = "<group>"; };
 		D97C8B4C1A526B9F00476C9C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
 		D9823E821B19AA0200A1AE35 /* SuggestionDestinationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuggestionDestinationTableViewController.h; sourceTree = "<group>"; };
 		D9823E831B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuggestionDestinationTableViewController.m; sourceTree = "<group>"; };
@@ -5104,6 +5116,23 @@
 			name = AddAlbum;
 			sourceTree = "<group>";
 		};
+		D91066B41BD24662007E2DED /* Goods */ = {
+			isa = PBXGroup;
+			children = (
+				D91066B51BD24662007E2DED /* GoodsList */,
+			);
+			path = Goods;
+			sourceTree = "<group>";
+		};
+		D91066B51BD24662007E2DED /* GoodsList */ = {
+			isa = PBXGroup;
+			children = (
+				D91066B61BD246CD007E2DED /* goodsRating@2x.png */,
+				D91066B71BD246CD007E2DED /* goodsRating@3x.png */,
+			);
+			path = GoodsList;
+			sourceTree = "<group>";
+		};
 		D915296A1BB24437002D1F51 /* PoiRecommend */ = {
 			isa = PBXGroup;
 			children = (
@@ -5619,6 +5648,16 @@
 				D90A9B2A1B5627C400E9F37C /* Loading_Animation_final59@3x.png */,
 			);
 			path = loading_animation;
+			sourceTree = "<group>";
+		};
+		D97422F01BD2251B009EB4D9 /* CommonView */ = {
+			isa = PBXGroup;
+			children = (
+				D97422F31BD22586009EB4D9 /* TZTagsCollectionView.swift */,
+				D97422F51BD22CC1009EB4D9 /* TZTagCollectionViewCell.swift */,
+				D97422F61BD22CC1009EB4D9 /* TZTagCollectionViewCell.xib */,
+			);
+			path = CommonView;
 			sourceTree = "<group>";
 		};
 		D9871DB61B47AC6800BFDFAF /* TripPoiListTableViewCell */ = {
@@ -6846,6 +6885,7 @@
 		D9A802541A80E3D3005AD701 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				D97422F01BD2251B009EB4D9 /* CommonView */,
 				D971E2ED1B957A90007E5AFD /* FormatCheck */,
 				E68F797C1B7890CC00DD08CF /* Tools */,
 				27F7EA6C1B0DB0A700148A66 /* TaoziSearchbar */,
@@ -7056,6 +7096,7 @@
 			isa = PBXGroup;
 			children = (
 				D9A802AD1A80E3D3005AD701 /* Constants.h */,
+				D97422EE1BD21F52009EB4D9 /* SwiftConstants.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -8069,6 +8110,7 @@
 		E6F186D81B845F4800232EEB /* 2x+3x */ = {
 			isa = PBXGroup;
 			children = (
+				D91066B41BD24662007E2DED /* Goods */,
 				019C379D1BBAAE0900602937 /* 星级样式 */,
 				D99EAD1E1BBB8840005A02D3 /* PoiSearch */,
 				01C1EB5A1BB4E4710082217A /* emoji */,
@@ -9822,6 +9864,7 @@
 				E6381BFE1B66269000CF73AA /* Loading_Animation_final40@2x.png in Resources */,
 				E6F189F41B845F4900232EEB /* Default-414w-736h@3x~iphone.png in Resources */,
 				D917DABC1A8B49AF0039720A /* ic_guide2_7_select@2x.png in Resources */,
+				D91066B91BD246CD007E2DED /* goodsRating@3x.png in Resources */,
 				01C1EC591BB4E4720082217A /* shayan@2x.png in Resources */,
 				D9A8FF541A80CF19005AD701 /* FavoriteTableViewCell.xib in Resources */,
 				01C1EC1A1BB4E4720082217A /* gongxi@3x.png in Resources */,
@@ -9904,6 +9947,7 @@
 				01C1EC4F1BB4E4720082217A /* outu@2x.png in Resources */,
 				01C1EC1B1BB4E4720082217A /* guaiguai@2x.png in Resources */,
 				276DF7AA1B4CBFBB001A98FB /* GuiderCell.xib in Resources */,
+				D91066B81BD246CD007E2DED /* goodsRating@2x.png in Resources */,
 				E68CB2E41BA1A52500A5B38B /* ExpertCollectionCell.xib in Resources */,
 				E6381BF01B66269000CF73AA /* Loading_Animation_final28@2x.png in Resources */,
 				E68CB2BD1BA0152600A5B38B /* ic_tabbar_expert_selected@3x.png in Resources */,
@@ -10066,6 +10110,7 @@
 				E6F189B71B845F4900232EEB /* city_button_spot_selected@2x.png in Resources */,
 				E6F18B1E1B845F4900232EEB /* master_icon_constellation6@3x.png in Resources */,
 				0115C9CE1BB103FC00631928 /* citydetail_write_journey_hilighted@3x.png in Resources */,
+				D97422F81BD22CC1009EB4D9 /* TZTagCollectionViewCell.xib in Resources */,
 				E6AD323B1B9DAA9600EE6A62 /* expert_search_hilighted@2x.png in Resources */,
 				E6381C0E1B66269000CF73AA /* Loading_Animation_final55@2x.png in Resources */,
 				E6F18A1F1B845F4900232EEB /* map_icon_9@2x.png in Resources */,
@@ -10346,6 +10391,7 @@
 				D92CA1011AD8BDF900F244FF /* PSTCollectionViewData.m in Sources */,
 				D9A8FFA21A80D1C3005AD701 /* CityPoi.m in Sources */,
 				E6E595591B9BDF7F00E29ED0 /* MineProfileTitleView.m in Sources */,
+				D97422F41BD22586009EB4D9 /* TZTagsCollectionView.swift in Sources */,
 				D9A8FFBC1A80D1C3005AD701 /* TravelNoteListViewController.m in Sources */,
 				D9A8002B1A80D52F005AD701 /* SearchDestinationTableViewCell.m in Sources */,
 				D993C26D1B12DF0C0088D568 /* PushSDK.swift in Sources */,
@@ -10610,6 +10656,7 @@
 				D9A802B81A80E3D3005AD701 /* UIViewController+DismissKeyboard.m in Sources */,
 				D971E2A91B906686007E5AFD /* NotificationViewController.m in Sources */,
 				01C1ECC51BB53A690082217A /* TZEmojiKeyBoardVC.m in Sources */,
+				D97422F71BD22CC1009EB4D9 /* TZTagCollectionViewCell.swift in Sources */,
 				E6E595551B9BDB5400E29ED0 /* MineProfileTourViewCell.m in Sources */,
 				27FF1A7E1B059F5900643D77 /* CityNameCell.m in Sources */,
 				D9A8FED31A80C818005AD701 /* OptionTableViewCell.m in Sources */,
@@ -10627,6 +10674,7 @@
 				D9A801471A80DD23005AD701 /* EMChatTimeCell.m in Sources */,
 				D971E2DF1B946B3E007E5AFD /* BusinessMoel.swift in Sources */,
 				D92CA0FF1AD8BDF900F244FF /* PSTCollectionViewCell.m in Sources */,
+				D97422EF1BD21F52009EB4D9 /* SwiftConstants.swift in Sources */,
 				D993C23B1B12DF0C0088D568 /* NetworkTransportAPI.swift in Sources */,
 				C65DB7B81AD37B8600F51443 /* SelectionTableViewController.m in Sources */,
 				D92CA1131AD8BDF900F244FF /* SWLongPressGestureRecognizer.m in Sources */,

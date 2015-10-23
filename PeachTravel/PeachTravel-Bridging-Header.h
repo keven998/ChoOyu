@@ -21,3 +21,6 @@
 #import "ConvertMethods.h"
 #import "AreaDestination.h"
 #import "Reachability.h"
+#import "UIImageView+WebCache.h"
+#import "UIButton+WebCache.h"
+#import "TaoziCollectionLayout.h"
