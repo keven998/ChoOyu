@@ -4,42 +4,17 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Pods-AFNetworking.xcscheme</key>
+		<key>AFNetworking.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-MJRefresh.xcscheme</key>
+		<key>MJRefresh.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-OpenUDID.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-Qiniu.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-SDWebImage.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-TMCache.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-UMengAnalytics-NO-IDFA.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-iRate.xcscheme</key>
+		<key>OpenUDID.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -49,50 +24,75 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Qiniu.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>React.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SDWebImage.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>TMCache.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>iRate.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>28A3858796576F94F61A2165</key>
+		<key>00E74CED770597EF76DEE6FE824D1B7A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>43558396404E5C895D8EF2D7</key>
+		<key>59ED6DE492A0B0D8E247EAA182FABA45</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>60E2775A0CD5B1062F818FB0</key>
+		<key>5BCFFB56D85303043C58C7EA4418A744</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>69ABDEA36817774D327B11AC</key>
+		<key>6847254D016329D4A531D34ED2B6DF81</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>AF65879AF3A7FAB1F9DE31DE</key>
+		<key>843D99F12856FFB4A111790007748FAD</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B4129A915978A5E0EA316435</key>
+		<key>8C46A41C632CE419DA73BFF0DEF4C8B8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BFE06865B44FE1AAD79AB940</key>
+		<key>C91A46012F8822DFDBAC8BC32FCC9001</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DB63A73912B371BEC8BA5522</key>
+		<key>EAF9F26D861EBAA983FF9C94FC5DB317</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F9A904C2229BDA62036A891B</key>
+		<key>F4E4CB43E1629AEE5E3DAA0144C738F6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
