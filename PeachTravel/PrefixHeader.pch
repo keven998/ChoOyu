@@ -45,6 +45,7 @@
 #import "TZNavigationViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import "UIColor+RandomColor.h"
+#import "RCTPicker.h"
 #endif
 
 

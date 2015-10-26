@@ -329,7 +329,7 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
         daoHelper.addConversation(conversation)
         self.conversationList.append(conversation)
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            delegate?.conversationsHaveAdded(conversationList)
+            self.delegate?.conversationsHaveAdded(self.conversationList)
         })
     }
     
@@ -440,7 +440,7 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
                 daoHelper.updateConversationIdInConversation(conversation.conversationId!, userId: conversation.chatterId)
             }
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                delegate?.conversationStatusHasChanged(conversation)
+                self.delegate?.conversationStatusHasChanged(conversation)
             })
             return
         }
@@ -506,7 +506,7 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
         if let conversation = self.getConversationWithMessage(message) {
             conversation.addSendingMessage(message)
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                delegate?.conversationStatusHasChanged(conversation)
+                self.delegate?.conversationStatusHasChanged(conversation)
             })
         }
     }
@@ -520,7 +520,7 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
             conversation.messageHaveSended(message)
             if conversation.lastLocalMessage?.localId == message.localId {
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    delegate?.conversationStatusHasChanged(conversation)
+                    self.delegate?.conversationStatusHasChanged(conversation)
                 })
             }
         }

@@ -152,7 +152,7 @@ class ChatConversation: NSObject {
     func addReceiveMessage(message: BaseMessage) {
         chatMessageList.append(message)
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            delegate?.receiverMessage?(message)
+            self.delegate?.receiverMessage?(message)
         })
         self.updateTimeStamp(Int(NSDate().timeIntervalSince1970))
     }

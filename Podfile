@@ -17,5 +17,3 @@ pod 'React/RCTAdSupport'
 pod 'React/RCTGeolocation'
 pod 'React/RCTPushNotification'
 pod 'React/RCTVibration'
-use_frameworks!
-
