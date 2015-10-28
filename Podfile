@@ -1,6 +1,7 @@
 source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '7.0'
-pod 'AFNetworking', '~> 2.5.2'
+
+pod 'AFNetworking'
 pod 'iRate', '~> 1.11'
 pod 'OpenUDID', '~> 1.0.0'
 pod 'SDWebImage', '~> 3.7.1'

@@ -417,6 +417,7 @@
 		C6F87A181ACD1C4400BB7D7F /* PXAlertView+Customization.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F87A131ACD1C4400BB7D7F /* PXAlertView+Customization.m */; };
 		C6F87A191ACD1C4400BB7D7F /* PXAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F87A151ACD1C4400BB7D7F /* PXAlertView.m */; };
 		C6F87A1A1ACD1C4400BB7D7F /* UIAlertView+PXAlertViewOverride.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F87A171ACD1C4400BB7D7F /* UIAlertView+PXAlertViewOverride.m */; };
+		C7437C850E71064CBD9F28B4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D974D15FF9C9736164AE5E1 /* libPods.a */; };
 		D90042C81B140F63006F6B63 /* NetworkReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = D90042C71B140F63006F6B63 /* NetworkReachability.m */; };
 		D90042CA1B144275006F6B63 /* FrendManager+ClassMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90042C91B144275006F6B63 /* FrendManager+ClassMethod.swift */; };
 		D904AB721BAFDD6300031AB4 /* UserAlbumReviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D904AB711BAFDD6300031AB4 /* UserAlbumReviewViewController.m */; };
@@ -1170,7 +1171,6 @@
 		D9F70CAD1B31523C00BDACA1 /* AccountDaoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F70CAC1B31523C00BDACA1 /* AccountDaoHelper.swift */; };
 		D9FCE7DE1B134B4B0039F896 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FCE7DD1B134B4B0039F896 /* ChatViewController.m */; };
 		D9FCE7E91B135C820039F896 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FCE7E81B135C820039F896 /* Reachability.m */; };
-		DBD428FD9EF206AB2685A3E6 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D974D15FF9C9736164AE5E1 /* libPods.a */; };
 		E608A0F11B8D8560003BA318 /* GuiderDistributeTools.m in Sources */ = {isa = PBXBuildFile; fileRef = E608A0F01B8D8560003BA318 /* GuiderDistributeTools.m */; };
 		E608A1121B8F26CF003BA318 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = E608A1111B8F26CF003BA318 /* UIView+Extension.m */; };
 		E608A1151B8F2755003BA318 /* CWTitleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E608A1141B8F2755003BA318 /* CWTitleButton.m */; };
@@ -1803,7 +1803,6 @@
 		E6F18B241B845F4900232EEB /* master_icon_constellation9@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E6F1890B1B845F4900232EEB /* master_icon_constellation9@3x.png */; };
 		E6F18B251B845F4900232EEB /* ic_remarks_edit@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E6F1890C1B845F4900232EEB /* ic_remarks_edit@2x.png */; };
 		E6F18B281B845F7800232EEB /* in.m4a in Resources */ = {isa = PBXBuildFile; fileRef = E6F18B271B845F7800232EEB /* in.m4a */; };
-		F91821709EA7926B137D2643 /* Pods_PeachTravel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89B6B57CCABCB570249B0B14 /* Pods_PeachTravel.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -4331,8 +4330,7 @@
 				D955E3E619E7A25800047F2B /* CoreGraphics.framework in Frameworks */,
 				D955E3E019E7A23800047F2B /* Security.framework in Frameworks */,
 				01578DF71BD224A600244D9D /* libssl.a in Frameworks */,
-				F91821709EA7926B137D2643 /* Pods_PeachTravel.framework in Frameworks */,
-				DBD428FD9EF206AB2685A3E6 /* libPods.a in Frameworks */,
+				C7437C850E71064CBD9F28B4 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -9414,12 +9412,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D99D8EE819C8600C0021C25B /* Build configuration list for PBXNativeTarget "PeachTravel" */;
 			buildPhases = (
-				67C6E478ABC873A445B65AD6 /* Check Pods Manifest.lock */,
+				804B29BF118A2CB4E7EC79D2 /* Check Pods Manifest.lock */,
 				D99D8EC119C8600C0021C25B /* Sources */,
 				D99D8EC219C8600C0021C25B /* Frameworks */,
 				D99D8EC319C8600C0021C25B /* Resources */,
-				CD2F9B2FDE45B24853E5BF2E /* Copy Pods Resources */,
 				C44867446F7C730350E452FE /* Embed Pods Frameworks */,
+				0ED48FF0F5E1154D0F65C6F2 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -10744,7 +10742,22 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		67C6E478ABC873A445B65AD6 /* Check Pods Manifest.lock */ = {
+		0ED48FF0F5E1154D0F65C6F2 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		804B29BF118A2CB4E7EC79D2 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -10772,21 +10785,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		CD2F9B2FDE45B24853E5BF2E /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
