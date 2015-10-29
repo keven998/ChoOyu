@@ -10,6 +10,7 @@
 #import "GoodsRecommendTableViewCell.h"
 #import "GoodsRecommendHeaderView.h"
 #import "GoodsRecommendSectionHeaderView.h"
+#import "GoodsDetailViewController.h"
 
 @interface GoodsRecommendViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -73,6 +74,12 @@
 {
     GoodsRecommendTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"goodsRecommendCell" forIndexPath:indexPath];
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    GoodsDetailViewController *ctl = [[GoodsDetailViewController alloc] init];
+    [self.navigationController pushViewController:ctl animated:YES];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView

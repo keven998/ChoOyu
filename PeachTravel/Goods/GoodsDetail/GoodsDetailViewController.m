@@ -24,7 +24,7 @@ RCT_EXPORT_MODULE();
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = [UIColor whiteColor];
-    NSURL *jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/src/goodsDetailContainer.bundle?platform=ios&dev=true"];
+    NSURL *jsCodeLocation = [NSURL URLWithString:@"http://192.168.1.34:8081/src/goodsDetailContainer.bundle?platform=ios&dev=true"];
 
     RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                         moduleName:@"GoodsDetailContainer"
