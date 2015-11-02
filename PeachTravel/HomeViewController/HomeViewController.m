@@ -25,6 +25,7 @@
 #import "PoiRecommendRootViewController.h"
 #import "PeachTravel-swift.h"
 #import "GoodsRecommendViewController.h"
+#import "CityListViewController.h"
 
 #define kBackGroundImage    @"backGroundImage"
 
@@ -49,6 +50,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 @property (nonatomic, strong) ChatListViewController *chatListCtl;
 @property (nonatomic, strong) PoiRecommendRootViewController *poiRecommendCtl;
 @property (nonatomic, strong) GoodsRecommendViewController *goodsRecommendCtl;
+@property (nonatomic, strong) CityListViewController *cityList;
 
 @property (nonatomic, strong) GoodsListViewController *goodsListCtl;
 
@@ -390,10 +392,10 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     TZNavigationViewController *firstNavigationController = [[TZNavigationViewController alloc]
                                                              initWithRootViewController:self.chatListCtl];
     
-    _goodsRecommendCtl = [[GoodsRecommendViewController alloc] init];
+    _cityList = [[CityListViewController alloc] init];
 
     TZNavigationViewController *testNavi = [[TZNavigationViewController alloc]
-                                                             initWithRootViewController:_goodsRecommendCtl];
+                                                             initWithRootViewController:_cityList];
     
     //TODO: test
     /*
@@ -401,7 +403,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     TZNavigationViewController *secondNavigationController = [[TZNavigationViewController alloc]
                                                               initWithRootViewController:_poiRecommendCtl];
      */
-    _goodsListCtl = [[GoodsListViewController alloc] init];
+    _goodsListCtl = [[GoodsListViewController alloc] initWithNibName:@"GoodsListViewController" bundle:nil];
     TZNavigationViewController *secondNavigationController = [[TZNavigationViewController alloc]
                                                               initWithRootViewController:_goodsListCtl];
 
