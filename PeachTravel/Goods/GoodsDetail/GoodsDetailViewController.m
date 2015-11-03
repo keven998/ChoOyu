@@ -24,8 +24,9 @@ RCT_EXPORT_MODULE();
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = [UIColor whiteColor];
-    NSURL *jsCodeLocation = [NSURL URLWithString:@"http://192.168.1.79:8081/src/index.ios.bundle?platform=ios&dev=true"];
+//    NSURL *jsCodeLocation = [NSURL URLWithString:@"http://192.168.1.79:8081/src/index.ios.bundle?platform=ios&dev=true"];
 
+    NSURL *jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
     RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                         moduleName:@"GoodsDetailClass"
                                                  initialProperties:nil
@@ -34,6 +35,9 @@ RCT_EXPORT_MODULE();
     [self.view addSubview:rootView];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(storeDetail) name:@"gotoStoreDetailNoti" object:nil];
 
+    UIBarButtonItem *favoriteItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_favorite"] style:UIBarButtonItemStylePlain target:self action:@selector(favorite:)];
+    UIBarButtonItem *shareItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_share"] style:UIBarButtonItemStylePlain target:self action:@selector(favorite:)];
+    self.navigationItem.rightBarButtonItems = @[favoriteItem, shareItem];
 }
 
 - (void)dealloc
@@ -65,12 +69,10 @@ RCT_EXPORT_METHOD(gotoStoreDetail:(NSString *)storeId){
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
 
 }
 

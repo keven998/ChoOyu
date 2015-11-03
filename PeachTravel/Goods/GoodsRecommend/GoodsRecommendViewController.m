@@ -32,7 +32,6 @@
     UIView *tempHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 210)];
     _tableView.tableHeaderView = tempHeaderView;
     [self.view addSubview:_headerView];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated

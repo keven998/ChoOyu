@@ -392,10 +392,10 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     TZNavigationViewController *firstNavigationController = [[TZNavigationViewController alloc]
                                                              initWithRootViewController:self.chatListCtl];
     
-    _cityList = [[CityListViewController alloc] init];
+    _goodsRecommendCtl = [[GoodsRecommendViewController alloc] init];
 
     TZNavigationViewController *testNavi = [[TZNavigationViewController alloc]
-                                                             initWithRootViewController:_cityList];
+                                                             initWithRootViewController:_goodsRecommendCtl];
     
     //TODO: test
     /*

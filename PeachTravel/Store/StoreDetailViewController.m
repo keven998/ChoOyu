@@ -21,7 +21,7 @@
     [super viewDidLoad];
     self.navigationItem.title = @"旅行派之家";
     self.automaticallyAdjustsScrollViewInsets = NO;
-    NSURL *jsCodeLocation = [NSURL URLWithString:@"http://192.168.1.79:8081/src/index.ios.bundle?platform=ios&dev=true"];
+    NSURL *jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
     
     RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                         moduleName:@"StoreDetailClass"
@@ -31,7 +31,6 @@
     
     [self.view addSubview:rootView];
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
