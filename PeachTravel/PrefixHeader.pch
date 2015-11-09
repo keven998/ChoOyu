@@ -46,6 +46,8 @@
 #import <AVFoundation/AVFoundation.h>
 #import "UIColor+RandomColor.h"
 #import "RCTPicker.h"
+#import "UINavigationController+FDFullscreenPopGesture.h"
+
 #endif
 
 

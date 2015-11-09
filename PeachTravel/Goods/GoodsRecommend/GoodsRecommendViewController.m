@@ -11,56 +11,69 @@
 #import "GoodsRecommendHeaderView.h"
 #import "GoodsRecommendSectionHeaderView.h"
 #import "GoodsDetailViewController.h"
+#import "CityDetailViewController.h"
+
 
 @interface GoodsRecommendViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIButton *scroll2TopBtn;
 @property (nonatomic, strong) GoodsRecommendHeaderView *headerView;
 @end
 
 @implementation GoodsRecommendViewController
 
-
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
+
+    NSLog(@"%@", self.navigationController);
+
     [_tableView registerNib:[UINib nibWithNibName:@"GoodsRecommendTableViewCell" bundle:nil] forCellReuseIdentifier:@"goodsRecommendCell"];
     _tableView.dataSource = self;
     _tableView.delegate = self;
-    _headerView = [GoodsRecommendHeaderView initViewFromNib];
-    UIView *tempHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 210)];
-    _tableView.tableHeaderView = tempHeaderView;
-    [self.view addSubview:_headerView];
+    _headerView = [[GoodsRecommendHeaderView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 320)];
+    _tableView.tableHeaderView = _headerView;
+    _scroll2TopBtn.hidden = YES;
+    [_scroll2TopBtn addTarget:self action:@selector(scroll2Top) forControlEvents:UIControlEventTouchUpInside];
+
+}
+
+- (BOOL)fd_prefersNavigationBarHidden {
+    return YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    _headerView.frame = CGRectMake(0, 0, self.view.bounds.size.width, 210);
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
+- (void)scroll2Top
+{
+    [self.tableView setContentOffset:CGPointZero animated:YES];
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 5;
+    return 15;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 173.0;
+    return 190.0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 34.0;
+    return 54.0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -77,17 +90,30 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    GoodsDetailViewController *ctl = [[GoodsDetailViewController alloc] init];
-    [self.navigationController pushViewController:ctl animated:YES];
+    if (indexPath.row == 0) {
+        GoodsDetailViewController *ctl = [[GoodsDetailViewController alloc] init];
+        ctl.hidesBottomBarWhenPushed = YES;
+        
+        [self.navigationController pushViewController:ctl animated:YES];
+    } else {
+        CityDetailViewController *ctl = [[CityDetailViewController alloc] init];
+        ctl.hidesBottomBarWhenPushed = YES;
+        
+        [self.navigationController pushViewController:ctl animated:YES];
+    }
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if ([scrollView isEqual:_tableView]) {
-        CGFloat contentOffsetY = scrollView.contentOffset.y;
-        CGRect frame = CGRectMake(0, 0-contentOffsetY, scrollView.bounds.size.width, 210);
-        _headerView.frame = frame;
+    if (scrollView.contentOffset.y < 0) {
+        scrollView.contentOffset = CGPointZero;
+    }
+    if (scrollView.contentOffset.y > scrollView.bounds.size.height) {
+        _scroll2TopBtn.hidden = NO;
+    } else {
+        _scroll2TopBtn.hidden = YES;
     }
 }
+
 
 @end

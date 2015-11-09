@@ -27,12 +27,13 @@
 - (void)awakeFromNib {
     [_contentImageView setImage:[[UIImage imageNamed: @"icon_goods_list_cell_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)]];
     [_bgImageView setImage:[[UIImage imageNamed:@"icon_goods_cell_mask"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)]];
+     [_goodImageView sd_setImageWithURL:[NSURL URLWithString:@"http://images.taozilvxing.com/28c2d1ef35c12100e99fecddb63c436a?imageView2/2/w/1200"] placeholderImage:nil];
+    _tagCollectionView.backgroundColor = [UIColor clearColor];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
-    // Configure the view for the selected state
 }
 
 @end

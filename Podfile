@@ -6,6 +6,7 @@ pod 'iRate', '~> 1.11'
 pod 'OpenUDID', '~> 1.0.0'
 pod 'SDWebImage', '~> 3.7.1'
 pod "Qiniu", "~> 7.0"
+pod 'FDFullscreenPopGesture', '~> 1.1'
 pod 'TMCache', '~> 1.2'
 pod 'UMengAnalytics-NO-IDFA'
 pod 'MJRefresh'

@@ -60,12 +60,13 @@
     [self setupMainView];
     [self setupNavBar];
     [self setupAddPlanBtn];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
     [self updateContent];
 }
 

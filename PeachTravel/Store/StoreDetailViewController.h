@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface StoreDetailViewController : UIViewController
+@interface StoreDetailViewController : TZViewController
 
 @end

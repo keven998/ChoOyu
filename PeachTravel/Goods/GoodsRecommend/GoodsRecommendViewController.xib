@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GoodsRecommendViewController">
             <connections>
+                <outlet property="scroll2TopBtn" destination="GdZ-sZ-vy3" id="dSS-1c-J4A"/>
                 <outlet property="tableView" destination="cZn-5x-Ytk" id="ZCP-Ds-fsT"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -21,15 +22,29 @@
                     <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </tableView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GdZ-sZ-vy3">
+                    <rect key="frame" x="555" y="494" width="35" height="35"/>
+                    <animations/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="35" id="Gkh-oD-p0I"/>
+                        <constraint firstAttribute="height" constant="35" id="TcQ-zH-0UC"/>
+                    </constraints>
+                    <state key="normal" image="icon_scroll_top"/>
+                </button>
             </subviews>
             <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="cZn-5x-Ytk" secondAttribute="bottom" id="Y8D-KJ-OEK"/>
+                <constraint firstAttribute="trailing" secondItem="GdZ-sZ-vy3" secondAttribute="trailing" constant="10" id="avq-ER-kLQ"/>
+                <constraint firstAttribute="bottom" secondItem="GdZ-sZ-vy3" secondAttribute="bottom" constant="71" id="fAB-hG-BAn"/>
                 <constraint firstItem="cZn-5x-Ytk" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="gar-FJ-2nY"/>
                 <constraint firstAttribute="trailing" secondItem="cZn-5x-Ytk" secondAttribute="trailing" id="lmx-GA-2tr"/>
                 <constraint firstItem="cZn-5x-Ytk" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="xMT-HK-9cu"/>
             </constraints>
         </view>
     </objects>
+    <resources>
+        <image name="icon_scroll_top" width="105" height="105"/>
+    </resources>
 </document>

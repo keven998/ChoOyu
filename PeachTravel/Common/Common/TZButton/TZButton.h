@@ -23,8 +23,14 @@ typedef enum {
 @property (nonatomic) CGFloat topSpaceHight;
 
 /**
- *  图片和文字的间距
+ *  图片和文字的间距 图文纵向的时候
  */
 @property (nonatomic) CGFloat spaceHight;
+
+/**
+ *  图片和文字的间距 图文横向的时候
+ */
+@property (nonatomic) CGFloat spaceWidth;
+
 
 @end

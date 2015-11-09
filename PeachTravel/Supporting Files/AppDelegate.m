@@ -32,29 +32,20 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     [self lvApplication:application didFinishLaunchingWithOptions:launchOptions];
-    
-    [[UINavigationBar appearance] setBackgroundImage:[[UIImage imageNamed:@"navi_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)] forBarMetrics:UIBarMetricsDefault];
-    
-    [[UINavigationBar appearance] setShadowImage:[UIImage imageNamed:@"bg_navigationbar_shadow.png"]];
+    [UINavigationBar appearance].translucent = YES;
+        
     [[UINavigationBar appearance] setTitleTextAttributes:
-        [NSDictionary dictionaryWithObject:COLOR_TEXT_I forKey:NSForegroundColorAttributeName]];
-    
-    // 设置阴影效果
-    [UINavigationBar appearance].layer.shadowColor = [UIColor redColor].CGColor; //shadowColor阴影颜色
-    [UINavigationBar appearance].layer.shadowOffset = CGSizeMake(20.0f , 20.0f); //shadowOffset阴影偏移x，y向(上/下)偏移(-/+)2
-    [UINavigationBar appearance].layer.shadowOpacity = 0.5f;//阴影透明度，默认0
-    [UINavigationBar appearance].layer.shadowRadius = 10.0f;//阴影半径
+     [NSDictionary dictionaryWithObject:COLOR_TEXT_I forKey:NSForegroundColorAttributeName]];
+
     [UINavigationBar appearance].tintColor = COLOR_TEXT_I;
     
     [UIApplication sharedApplication].statusBarHidden = NO;
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.backgroundColor = APP_PAGE_COLOR;
+    self.window.backgroundColor = [UIColor whiteColor];
     
     _homeViewController = [[HomeViewController alloc] init];
     self.window.rootViewController = _homeViewController;
-    
-    
     
     [self.window makeKeyAndVisible];
     

@@ -17,7 +17,21 @@
     return self;
 }
 
--(void)layoutSubviews {
+- (id)initWithFrame:(CGRect)frame andImageViewPosition: (IMAGE_ORIENTATION) position
+{
+    if (self = [super initWithFrame:frame]) {
+        _imagePosition = position;
+    }
+    return self;
+}
+
+-(void)setImagePosition:(IMAGE_ORIENTATION)imagePosition
+{
+    _imagePosition = imagePosition;
+    [self setNeedsLayout];
+}
+
+- (void)layoutSubviews {
     [super layoutSubviews];
 
     if (_imagePosition == IMAGE_AT_TOP) {
@@ -28,7 +42,8 @@
     
 }
 
-- (void) topImageView {
+- (void) topImageView
+{
     CGPoint center = self.imageView.center;
     center.x = self.frame.size.width/2;
     center.y = self.imageView.frame.size.height/2+_topSpaceHight;
@@ -43,18 +58,18 @@
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
 }
 
-- (void) rightImageView {
-    
+- (void)rightImageView
+{
     CGPoint center = self.imageView.center;
-    center.x = self.frame.size.width - self.imageView.frame.size.width/2.0;
+    center.x = self.titleLabel.frame.size.width + self.titleLabel.frame.origin.x + self.imageView.bounds.size.width/2.0;
     self.imageView.center = center;
     
     CGRect newFrame = [self titleLabel].frame;
-    newFrame.origin.x = 0;
-    newFrame.size.width = self.frame.size.width - CGRectGetWidth(self.imageView.frame)-1;
-    self.titleLabel.frame = newFrame;
+    newFrame.origin.x -= _spaceWidth;
     
-    self.titleLabel.textAlignment = NSTextAlignmentRight;
+    self.titleLabel.frame = newFrame;
+
+    
 }
 
 @end

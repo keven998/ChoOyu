@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GoodsDetailViewController : UIViewController
+@interface GoodsDetailViewController : TZViewController
 
 @end

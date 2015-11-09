@@ -58,24 +58,32 @@
                         </constraints>
                     </view>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_sellerCnt_mask" translatesAutoresizingMaskIntoConstraints="NO" id="F3r-Pv-ght">
-                        <rect key="frame" x="171" y="8" width="50" height="35"/>
+                        <rect key="frame" x="177" y="8" width="44" height="32"/>
                         <animations/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="35" id="Wet-Rh-6C1"/>
-                            <constraint firstAttribute="width" constant="50" id="y9R-IW-eOK"/>
+                            <constraint firstAttribute="height" constant="32" id="Wet-Rh-6C1"/>
+                            <constraint firstAttribute="width" constant="44" id="y9R-IW-eOK"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="26/n商家数量" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="skz-qj-rah">
-                        <rect key="frame" x="174" y="8" width="42" height="35"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="26" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="skz-qj-rah">
+                        <rect key="frame" x="179" y="23" width="42" height="15"/>
                         <animations/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="35" id="W29-Xa-FfF"/>
+                            <constraint firstAttribute="height" constant="15" id="W29-Xa-FfF"/>
                             <constraint firstAttribute="width" constant="42" id="edj-u2-nJ9"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_cityDetail_sellerCnt" translatesAutoresizingMaskIntoConstraints="NO" id="rhs-dU-0u6">
+                        <rect key="frame" x="194" y="13" width="11" height="10"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="10" id="Am5-nC-UsT"/>
+                            <constraint firstAttribute="width" constant="11" id="kFF-T8-kIe"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <animations/>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -86,32 +94,36 @@
                 <constraint firstAttribute="bottom" secondItem="73c-m4-c9C" secondAttribute="bottom" id="DOq-AH-05B"/>
                 <constraint firstItem="F3r-Pv-ght" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="J07-Go-1wB"/>
                 <constraint firstItem="KRz-8J-wAb" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="NBP-ri-pUJ"/>
-                <constraint firstItem="skz-qj-rah" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="SK0-ep-aE3"/>
+                <constraint firstItem="skz-qj-rah" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="23" id="SK0-ep-aE3"/>
                 <constraint firstItem="73c-m4-c9C" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Sio-Lb-SmV"/>
-                <constraint firstAttribute="trailing" secondItem="skz-qj-rah" secondAttribute="trailing" constant="13" id="TDV-SN-vpb"/>
+                <constraint firstAttribute="trailing" secondItem="skz-qj-rah" secondAttribute="trailing" constant="8" id="TDV-SN-vpb"/>
                 <constraint firstItem="w4d-1d-cxI" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="WaV-ka-zny"/>
                 <constraint firstAttribute="trailing" secondItem="KRz-8J-wAb" secondAttribute="trailing" id="Ymb-BN-n2t"/>
                 <constraint firstItem="w4d-1d-cxI" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="chq-86-LhQ"/>
                 <constraint firstAttribute="trailing" secondItem="73c-m4-c9C" secondAttribute="trailing" id="ckB-2x-4ji"/>
                 <constraint firstAttribute="trailing" secondItem="F3r-Pv-ght" secondAttribute="trailing" constant="8" id="dbv-wg-adA"/>
+                <constraint firstAttribute="trailing" secondItem="rhs-dU-0u6" secondAttribute="trailing" constant="24" id="kUA-U5-I5Z"/>
                 <constraint firstAttribute="trailing" secondItem="w4d-1d-cxI" secondAttribute="trailing" id="lk2-8g-3lq"/>
                 <constraint firstAttribute="bottom" secondItem="KRz-8J-wAb" secondAttribute="bottom" id="lm9-ii-n4U"/>
                 <constraint firstItem="KRz-8J-wAb" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="na6-Yt-xcJ"/>
                 <constraint firstItem="73c-m4-c9C" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="qzA-w6-Jo8"/>
+                <constraint firstItem="rhs-dU-0u6" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="13" id="zBe-ZB-bCC"/>
             </constraints>
             <size key="customSize" width="229" height="153"/>
             <connections>
                 <outlet property="backgroundMaskImageView" destination="KRz-8J-wAb" id="Qtx-WO-RKE"/>
                 <outlet property="countMaskImageView" destination="F3r-Pv-ght" id="oqd-9W-YUm"/>
                 <outlet property="enNameLabel" destination="TzS-ub-25S" id="hTT-MU-kCb"/>
+                <outlet property="headerImageView" destination="73c-m4-c9C" id="7IN-Wd-2MA"/>
                 <outlet property="sellerCountLabel" destination="skz-qj-rah" id="3Ru-mJ-27D"/>
                 <outlet property="zhNameLabel" destination="Fw7-CB-lxP" id="p3e-HJ-M5Y"/>
             </connections>
-            <point key="canvasLocation" x="246.5" y="243.5"/>
+            <point key="canvasLocation" x="379.5" y="385.5"/>
         </collectionViewCell>
     </objects>
     <resources>
         <image name="black_mask" width="18" height="233"/>
+        <image name="icon_cityDetail_sellerCnt" width="10" height="8"/>
         <image name="icon_sellerCnt_mask" width="49" height="34"/>
     </resources>
 </document>

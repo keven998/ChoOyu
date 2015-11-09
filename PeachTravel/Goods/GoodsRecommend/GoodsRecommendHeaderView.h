@@ -9,6 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface GoodsRecommendHeaderView : UIView
-+ (id)initViewFromNib;
 
 @end

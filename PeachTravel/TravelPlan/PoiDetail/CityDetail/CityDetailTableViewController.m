@@ -7,7 +7,6 @@
 //
 
 #import "CityDetailTableViewController.h"
-#import "CityHeaderView.h"
 #import "TravelNoteTableViewCell.h"
 #import "CityPoi.h"
 #import "TravelNote.h"
@@ -36,7 +35,7 @@
 
 #define CITY_DETAIL_LOAD_MORE_CELL @"CITY_DETAIL_LOAD_MORE_CELL"
 
-@interface CityDetailTableViewController () <UITableViewDataSource, UITableViewDelegate,CityDetailHeaderViewDelegate>
+@interface CityDetailTableViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) CityDetailHeaderView *cityHeaderView;
@@ -80,8 +79,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 - (void)setHeaderView {
     _cityHeaderView = [[CityDetailHeaderView alloc] init];
     //        CityDetailHeaderView* header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"header"];
-    _cityHeaderView.cityPoi = (CityPoi *)self.poi;
-    _cityHeaderView.delegate = self;
+  
     self.tableView.tableHeaderView = _cityHeaderView;
 }
 
@@ -658,15 +656,13 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     CityDetailHeaderView* header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"header"];
-    header.cityPoi = (CityPoi *)self.poi;
-    return [header headerHeight] + 25;
+    return 100;
 }
 
 - (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
 //    _cityHeaderView = [[CityDetailHeaderView alloc] init];
     CityDetailHeaderView* header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"header"];
-    header.cityPoi = (CityPoi *)self.poi;
-    header.delegate = self;
+
     return header;
 }
 

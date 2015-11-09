@@ -11,7 +11,7 @@
 @implementation CityListCollectionViewCell
 
 - (void)awakeFromNib {
-    // Initialization code
+     [_headerImageView sd_setImageWithURL:[NSURL URLWithString:@"http://images.taozilvxing.com/28c2d1ef35c12100e99fecddb63c436a?imageView2/2/w/1200"] placeholderImage:nil];
 }
 
 @end

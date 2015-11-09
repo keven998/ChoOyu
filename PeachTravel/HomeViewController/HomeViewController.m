@@ -26,6 +26,8 @@
 #import "PeachTravel-swift.h"
 #import "GoodsRecommendViewController.h"
 #import "CityListViewController.h"
+#import "CountryRecommendViewController.h"
+#import "GoodsListViewController.h"
 
 #define kBackGroundImage    @"backGroundImage"
 
@@ -407,10 +409,9 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     TZNavigationViewController *secondNavigationController = [[TZNavigationViewController alloc]
                                                               initWithRootViewController:_goodsListCtl];
 
-    _searchPoiCtl = [[SearchDestinationViewController alloc] init];
-    _searchPoiCtl.isRootViewController = YES;
+    CountryRecommendViewController *ctl = [[CountryRecommendViewController alloc] init];
     TZNavigationViewController *thirdNavigationController = [[TZNavigationViewController alloc]
-                                                              initWithRootViewController:_searchPoiCtl];
+                                                              initWithRootViewController:ctl];
     
     _mineCtl = [[MineViewContoller alloc] init];
     TZNavigationViewController *fourthNavigationController = [[TZNavigationViewController alloc]

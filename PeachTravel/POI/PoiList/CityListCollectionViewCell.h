@@ -14,5 +14,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *enNameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *countMaskImageView;
 @property (weak, nonatomic) IBOutlet UILabel *sellerCountLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *headerImageView;
 
 @end

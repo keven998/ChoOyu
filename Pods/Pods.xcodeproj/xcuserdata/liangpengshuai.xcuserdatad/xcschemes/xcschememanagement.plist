@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>FDFullscreenPopGesture.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>HappyDNS.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -57,22 +62,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>1AB47DB49A1377B9EB947BF5595825DA</key>
+		<key>11E21F8845ADEFC1C9B97D56E3F0887C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>19D26125010EF05F717D092E5F402ABE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>2C71DE0FB8A6E5BB6EAF9FB037D799CC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>410B25DF16EA5C5B3E2698F74F9625FB</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>4A8975726EBBED21BC2C6B350EA3A16A</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>64BBA23F78D6B88D70FFB4BE746819FA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -92,17 +97,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8E4FEC6273D641F8004F451A5CE141B3</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>8F74D9EA91F4C43190670066BAC37D44</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DEB23AC5D362FB5E1F6CA77899526161</key>
+		<key>A486A104F88A426A34B8B5EF0EC351A7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B9E220FD06481725C71924329BA6375C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FE6446784FAFB77755222F0541A28BD3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
