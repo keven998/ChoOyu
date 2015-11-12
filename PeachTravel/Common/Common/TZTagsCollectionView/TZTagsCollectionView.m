@@ -23,7 +23,6 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor clearColor];
-        _tagsList = @[@"货到付款", @"货到付款", @"货到付款"];
         self.delegate = self;
         self.dataSource = self;
         [self registerNib:[UINib nibWithNibName:@"TZTagsCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"tzTagsCollectionViewCell"];
@@ -38,7 +37,6 @@
 - (void)awakeFromNib
 {
     [super awakeFromNib];
-    _tagsList = @[@"货到付款", @"货到付款", @"货到付款"];
     self.delegate = self;
     self.dataSource = self;
     [self registerNib:[UINib nibWithNibName:@"TZTagsCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"tzTagsCollectionViewCell"];
@@ -46,6 +44,12 @@
     layout.spacePerItem = 10;
     layout.delegate = self;
     self.scrollEnabled = NO;
+}
+
+- (void)setTagsList:(NSArray *)tagsList
+{
+    _tagsList = tagsList;
+    [self reloadData];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section

@@ -13,4 +13,6 @@
 @property (weak, nonatomic) IBOutlet TZButton *categoryBtn;
 @property (weak, nonatomic) IBOutlet TZButton *sortBtn;
 
+@property (nonatomic, copy) NSString *cityId;
+
 @end

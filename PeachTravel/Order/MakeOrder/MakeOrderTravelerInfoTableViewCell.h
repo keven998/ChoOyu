@@ -1,0 +1,29 @@
+//
+//  MakeOrderTravelerInfoTableViewCell.h
+//  
+//
+//  Created by liangpengshuai on 11/9/15.
+//
+//
+
+#import <UIKit/UIKit.h>
+
+@protocol MakeOrderEditTravelerInfoDelegate <NSObject>
+
+- (void)finishEditTraveler;
+
+@end
+
+@interface MakeOrderTravelerInfoTableViewCell : UITableViewCell <UITableViewDataSource, UITableViewDelegate>
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+@property (nonatomic, strong) NSMutableArray *travelerList;
+@property (nonatomic, strong) UIButton *addTravelerBtn;
+
+
+@property (nonatomic, weak) id<MakeOrderEditTravelerInfoDelegate> delegate;
+
++ (CGFloat)heightWithTravelerCount:(NSInteger)count;
+
+@end

@@ -11,14 +11,20 @@
 @implementation GoodsListTableViewCell
 
 - (void)awakeFromNib {
+   
+}
+
+- (void)setGoodsDetail:(GoodsDetailModel *)goodsDetail
+{
+    _goodsDetail = goodsDetail;
     _storeNameLabel.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
-     [_headerImageView sd_setImageWithURL:[NSURL URLWithString:@"http://images.taozilvxing.com/28c2d1ef35c12100e99fecddb63c436a?imageView2/2/w/1200"] placeholderImage:nil];
-    _titleLabel.text = @"保价德家庭式酒店";
-    _subtitleLabel.text = @"我是一段¥自我介绍,我是一段¥自我介绍我是一段¥自我介绍我是一段¥自我介绍我是一段¥自我介绍.";
+    [_headerImageView sd_setImageWithURL:[NSURL URLWithString:_goodsDetail.image.imageUrl] placeholderImage:nil];
+    _titleLabel.text = _goodsDetail.goodsName;
+    _subtitleLabel.text = _goodsDetail.goodsDesc;
     _tagCollectionView.backgroundColor = [UIColor clearColor];
     
-    NSString *oldPrice = @"$2198";
-    NSString *nowPrice = @"$1198";
+    NSString *oldPrice = [NSString stringWithFormat:@"%d", (int)_goodsDetail.primePrice];
+    NSString *nowPrice = [NSString stringWithFormat:@"%d", (int)_goodsDetail.currentPrice];
     
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@", oldPrice, nowPrice]];
     [attrStr addAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:13],
@@ -31,6 +37,9 @@
                              NSForegroundColorAttributeName: APP_THEME_COLOR,
                              } range:NSMakeRange(oldPrice.length+1, nowPrice.length)];
     _priceLabel.attributedText = attrStr;
+    _tagCollectionView.tagsList = _goodsDetail.tags;
+    NSString *propertyStrig = [NSString stringWithFormat:@"%d%%满意  |  销量: %ld", (int)(_goodsDetail.rating*100), _goodsDetail.saleCount];
+    [_propertyBtn setTitle:propertyStrig forState:UIControlStateNormal];
 
 }
 

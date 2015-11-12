@@ -8,10 +8,14 @@
 
 #import "GoodsListViewController.h"
 #import "GoodsListTableViewCell.h"
+#import "GoodsManager.h"
 
 @interface GoodsListViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *scroll2TopBtn;
+
+@property (nonatomic, strong) NSArray *dataSource;
+
 @end
 
 @implementation GoodsListViewController
@@ -31,6 +35,10 @@
     _categoryBtn.imagePosition = IMAGE_AT_RIGHT;
     _scroll2TopBtn.hidden = YES;
     [_scroll2TopBtn addTarget:self action:@selector(scroll2Top) forControlEvents:UIControlEventTouchUpInside];
+    [GoodsManager asyncLoadGoodsOfCity:_cityId completionBlock:^(BOOL isSuccess, NSArray *goodsList) {
+        _dataSource = goodsList;
+        [self.tableView reloadData];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -48,7 +56,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 15;
+    return _dataSource.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -59,6 +67,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     GoodsListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"goodsListCell" forIndexPath:indexPath];
+    cell.goodsDetail = [_dataSource objectAtIndex:indexPath.row];
     return cell;
 }
 

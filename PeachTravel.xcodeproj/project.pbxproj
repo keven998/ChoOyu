@@ -424,10 +424,6 @@
 		D9027BB51BED99FC00C74220 /* TZTagsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9027BB31BED99FC00C74220 /* TZTagsCollectionViewCell.xib */; };
 		D9027BBD1BEDD39A00C74220 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = D9027BBC1BEDD39A00C74220 /* main.jsbundle */; };
 		D904AB721BAFDD6300031AB4 /* UserAlbumReviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D904AB711BAFDD6300031AB4 /* UserAlbumReviewViewController.m */; };
-		D90676271BF071610049AC04 /* MakeOrderSelectPackageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D90676251BF071610049AC04 /* MakeOrderSelectPackageTableViewCell.m */; };
-		D90676281BF071610049AC04 /* MakeOrderSelectPackageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D90676261BF071610049AC04 /* MakeOrderSelectPackageTableViewCell.xib */; };
-		D906762C1BF072460049AC04 /* MakeOrderSelectDateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D906762A1BF072460049AC04 /* MakeOrderSelectDateTableViewCell.m */; };
-		D906762D1BF072460049AC04 /* MakeOrderSelectDateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D906762B1BF072460049AC04 /* MakeOrderSelectDateTableViewCell.xib */; };
 		D907D2871BEB097E008A35F9 /* GoodsOfCityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D907D2851BEB097E008A35F9 /* GoodsOfCityTableViewCell.m */; };
 		D907D2881BEB097E008A35F9 /* GoodsOfCityTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D907D2861BEB097E008A35F9 /* GoodsOfCityTableViewCell.xib */; };
 		D90A9B2B1B5627C400E9F37C /* Loading_Animation_final0@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D90A9AEF1B5627C400E9F37C /* Loading_Animation_final0@3x.png */; };
@@ -490,6 +486,33 @@
 		D90A9B641B5627C400E9F37C /* Loading_Animation_final57@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D90A9B281B5627C400E9F37C /* Loading_Animation_final57@3x.png */; };
 		D90A9B651B5627C400E9F37C /* Loading_Animation_final58@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D90A9B291B5627C400E9F37C /* Loading_Animation_final58@3x.png */; };
 		D90A9B661B5627C400E9F37C /* Loading_Animation_final59@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D90A9B2A1B5627C400E9F37C /* Loading_Animation_final59@3x.png */; };
+		D90C75E61BF194F900C5897C /* OrderDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D90C75E51BF194F900C5897C /* OrderDetailModel.m */; };
+		D90C75F31BF1DB1A00C5897C /* PDTSimpleCalendarViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D90C75EA1BF1DB1A00C5897C /* PDTSimpleCalendarViewCell.m */; };
+		D90C75F41BF1DB1A00C5897C /* PDTSimpleCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D90C75EC1BF1DB1A00C5897C /* PDTSimpleCalendarViewController.m */; };
+		D90C75F51BF1DB1A00C5897C /* PDTSimpleCalendarViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D90C75EE1BF1DB1A00C5897C /* PDTSimpleCalendarViewFlowLayout.m */; };
+		D90C75F61BF1DB1A00C5897C /* PDTSimpleCalendarViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = D90C75F01BF1DB1A00C5897C /* PDTSimpleCalendarViewHeader.m */; };
+		D90C75F71BF1DB1A00C5897C /* PDTSimpleCalendarViewWeekdayHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = D90C75F21BF1DB1A00C5897C /* PDTSimpleCalendarViewWeekdayHeader.m */; };
+		D90C76131BF1DED600C5897C /* MakeOrderContactInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D90C75FA1BF1DED600C5897C /* MakeOrderContactInfoTableViewCell.m */; };
+		D90C76141BF1DED600C5897C /* MakeOrderContactInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D90C75FB1BF1DED600C5897C /* MakeOrderContactInfoTableViewCell.xib */; };
+		D90C76151BF1DED600C5897C /* MakeOrderPackageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D90C75FD1BF1DED600C5897C /* MakeOrderPackageTableViewCell.m */; };
+		D90C76161BF1DED600C5897C /* MakeOrderPackageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D90C75FE1BF1DED600C5897C /* MakeOrderPackageTableViewCell.xib */; };
+		D90C76171BF1DED600C5897C /* MakeOrderSelectCountTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D90C76001BF1DED600C5897C /* MakeOrderSelectCountTableViewCell.m */; };
+		D90C76181BF1DED600C5897C /* MakeOrderSelectCountTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D90C76011BF1DED600C5897C /* MakeOrderSelectCountTableViewCell.xib */; };
+		D90C76191BF1DED600C5897C /* MakeOrderSelectDateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D90C76031BF1DED600C5897C /* MakeOrderSelectDateTableViewCell.m */; };
+		D90C761A1BF1DED600C5897C /* MakeOrderSelectDateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D90C76041BF1DED600C5897C /* MakeOrderSelectDateTableViewCell.xib */; };
+		D90C761B1BF1DED600C5897C /* MakeOrderSelectPackageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D90C76061BF1DED600C5897C /* MakeOrderSelectPackageTableViewCell.m */; };
+		D90C761C1BF1DED600C5897C /* MakeOrderSelectPackageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D90C76071BF1DED600C5897C /* MakeOrderSelectPackageTableViewCell.xib */; };
+		D90C761D1BF1DED600C5897C /* MakeOrderTitleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D90C76091BF1DED600C5897C /* MakeOrderTitleTableViewCell.m */; };
+		D90C761E1BF1DED600C5897C /* MakeOrderTitleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D90C760A1BF1DED600C5897C /* MakeOrderTitleTableViewCell.xib */; };
+		D90C761F1BF1DED600C5897C /* MakeOrderTravelerInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D90C760C1BF1DED600C5897C /* MakeOrderTravelerInfoTableViewCell.m */; };
+		D90C76201BF1DED600C5897C /* MakeOrderTravelerInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D90C760D1BF1DED600C5897C /* MakeOrderTravelerInfoTableViewCell.xib */; };
+		D90C76211BF1DED600C5897C /* MakeOrderTravelerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D90C760F1BF1DED600C5897C /* MakeOrderTravelerTableViewCell.m */; };
+		D90C76221BF1DED600C5897C /* MakeOrderTravelerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D90C76101BF1DED600C5897C /* MakeOrderTravelerTableViewCell.xib */; };
+		D90C76231BF1DED600C5897C /* MakeOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D90C76121BF1DED600C5897C /* MakeOrderViewController.m */; };
+		D90C762E1BF1E02100C5897C /* TravelerInfoListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D90C762C1BF1E02100C5897C /* TravelerInfoListViewController.m */; };
+		D90C762F1BF1E02100C5897C /* TravelerInfoListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D90C762D1BF1E02100C5897C /* TravelerInfoListViewController.xib */; };
+		D90C76381BF2EB5E00C5897C /* TravelerInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D90C76361BF2EB5E00C5897C /* TravelerInfoTableViewCell.m */; };
+		D90C76391BF2EB5E00C5897C /* TravelerInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D90C76371BF2EB5E00C5897C /* TravelerInfoTableViewCell.xib */; };
 		D90ED4101BAAD2B8000C6033 /* UserAlbumSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D90ED40E1BAAD2B8000C6033 /* UserAlbumSelectViewController.m */; };
 		D90ED41B1BABACEC000C6033 /* icon_album_more@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D90ED4141BABACEC000C6033 /* icon_album_more@2x.png */; };
 		D90ED41C1BABACEC000C6033 /* icon_album_more@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D90ED4151BABACEC000C6033 /* icon_album_more@3x.png */; };
@@ -699,9 +722,6 @@
 		D95663A11BAFFB94006B2765 /* EditUserAlbumDescViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D956639F1BAFFB94006B2765 /* EditUserAlbumDescViewController.m */; };
 		D95663A21BAFFB94006B2765 /* EditUserAlbumDescViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D95663A01BAFFB94006B2765 /* EditUserAlbumDescViewController.xib */; };
 		D95663A51BB00B0F006B2765 /* SearchDestinationRecommendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D95663A41BB00B0F006B2765 /* SearchDestinationRecommendViewController.m */; };
-		D95B0A491BF0673B00F2D900 /* MakeOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D95B0A481BF0673B00F2D900 /* MakeOrderViewController.m */; };
-		D95B0A4E1BF0701300F2D900 /* MakeOrderTitleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D95B0A4C1BF0701300F2D900 /* MakeOrderTitleTableViewCell.m */; };
-		D95B0A4F1BF0701300F2D900 /* MakeOrderTitleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D95B0A4D1BF0701300F2D900 /* MakeOrderTitleTableViewCell.xib */; };
 		D95E6FFB1BDA31F70097BC76 /* GoodsRecommendSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D95E6FFA1BDA31F70097BC76 /* GoodsRecommendSectionHeaderView.m */; };
 		D95E6FFD1BDA32050097BC76 /* GoodsRecommendSectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D95E6FFC1BDA32050097BC76 /* GoodsRecommendSectionHeaderView.xib */; };
 		D963CB661B9FF751007480FA /* EditUserSignatureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D963CB651B9FF751007480FA /* EditUserSignatureViewController.m */; };
@@ -758,6 +778,8 @@
 		D971E2F01B957A9E007E5AFD /* FormatCheck.m in Sources */ = {isa = PBXBuildFile; fileRef = D971E2EF1B957A9E007E5AFD /* FormatCheck.m */; };
 		D971E2FB1B95C28E007E5AFD /* MineContentRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D971E2FA1B95C28E007E5AFD /* MineContentRootViewController.m */; };
 		D97422EF1BD21F52009EB4D9 /* SwiftConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97422EE1BD21F52009EB4D9 /* SwiftConstants.swift */; };
+		D97492AA1BF4360C00A5A70B /* GoodsDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D97492A91BF4360C00A5A70B /* GoodsDetailModel.m */; };
+		D97492AD1BF4391100A5A70B /* GoodsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D97492AC1BF4391100A5A70B /* GoodsManager.m */; };
 		D97C8B4D1A526B9F00476C9C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D97C8B4C1A526B9F00476C9C /* Images.xcassets */; };
 		D9823E841B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9823E831B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m */; };
 		D9871DBA1B47D31E00BFDFAF /* ScheduleDayEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9871DB81B47D31E00BFDFAF /* ScheduleDayEditViewController.m */; };
@@ -2526,12 +2548,6 @@
 		D902AD1F1A149FAB00E36A93 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		D904AB701BAFDD6300031AB4 /* UserAlbumReviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserAlbumReviewViewController.h; sourceTree = "<group>"; };
 		D904AB711BAFDD6300031AB4 /* UserAlbumReviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserAlbumReviewViewController.m; sourceTree = "<group>"; };
-		D90676241BF071610049AC04 /* MakeOrderSelectPackageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakeOrderSelectPackageTableViewCell.h; sourceTree = "<group>"; };
-		D90676251BF071610049AC04 /* MakeOrderSelectPackageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MakeOrderSelectPackageTableViewCell.m; sourceTree = "<group>"; };
-		D90676261BF071610049AC04 /* MakeOrderSelectPackageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MakeOrderSelectPackageTableViewCell.xib; sourceTree = "<group>"; };
-		D90676291BF072460049AC04 /* MakeOrderSelectDateTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakeOrderSelectDateTableViewCell.h; sourceTree = "<group>"; };
-		D906762A1BF072460049AC04 /* MakeOrderSelectDateTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MakeOrderSelectDateTableViewCell.m; sourceTree = "<group>"; };
-		D906762B1BF072460049AC04 /* MakeOrderSelectDateTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MakeOrderSelectDateTableViewCell.xib; sourceTree = "<group>"; };
 		D907D2841BEB097E008A35F9 /* GoodsOfCityTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsOfCityTableViewCell.h; sourceTree = "<group>"; };
 		D907D2851BEB097E008A35F9 /* GoodsOfCityTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsOfCityTableViewCell.m; sourceTree = "<group>"; };
 		D907D2861BEB097E008A35F9 /* GoodsOfCityTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoodsOfCityTableViewCell.xib; sourceTree = "<group>"; };
@@ -2596,6 +2612,51 @@
 		D90A9B281B5627C400E9F37C /* Loading_Animation_final57@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Loading_Animation_final57@3x.png"; sourceTree = "<group>"; };
 		D90A9B291B5627C400E9F37C /* Loading_Animation_final58@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Loading_Animation_final58@3x.png"; sourceTree = "<group>"; };
 		D90A9B2A1B5627C400E9F37C /* Loading_Animation_final59@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Loading_Animation_final59@3x.png"; sourceTree = "<group>"; };
+		D90C75E41BF194F900C5897C /* OrderDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailModel.h; sourceTree = "<group>"; };
+		D90C75E51BF194F900C5897C /* OrderDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailModel.m; sourceTree = "<group>"; };
+		D90C75E81BF1DB1A00C5897C /* PDTSimpleCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDTSimpleCalendar.h; sourceTree = "<group>"; };
+		D90C75E91BF1DB1A00C5897C /* PDTSimpleCalendarViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDTSimpleCalendarViewCell.h; sourceTree = "<group>"; };
+		D90C75EA1BF1DB1A00C5897C /* PDTSimpleCalendarViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDTSimpleCalendarViewCell.m; sourceTree = "<group>"; };
+		D90C75EB1BF1DB1A00C5897C /* PDTSimpleCalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDTSimpleCalendarViewController.h; sourceTree = "<group>"; };
+		D90C75EC1BF1DB1A00C5897C /* PDTSimpleCalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDTSimpleCalendarViewController.m; sourceTree = "<group>"; };
+		D90C75ED1BF1DB1A00C5897C /* PDTSimpleCalendarViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDTSimpleCalendarViewFlowLayout.h; sourceTree = "<group>"; };
+		D90C75EE1BF1DB1A00C5897C /* PDTSimpleCalendarViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDTSimpleCalendarViewFlowLayout.m; sourceTree = "<group>"; };
+		D90C75EF1BF1DB1A00C5897C /* PDTSimpleCalendarViewHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDTSimpleCalendarViewHeader.h; sourceTree = "<group>"; };
+		D90C75F01BF1DB1A00C5897C /* PDTSimpleCalendarViewHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDTSimpleCalendarViewHeader.m; sourceTree = "<group>"; };
+		D90C75F11BF1DB1A00C5897C /* PDTSimpleCalendarViewWeekdayHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDTSimpleCalendarViewWeekdayHeader.h; sourceTree = "<group>"; };
+		D90C75F21BF1DB1A00C5897C /* PDTSimpleCalendarViewWeekdayHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDTSimpleCalendarViewWeekdayHeader.m; sourceTree = "<group>"; };
+		D90C75F91BF1DED600C5897C /* MakeOrderContactInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakeOrderContactInfoTableViewCell.h; sourceTree = "<group>"; };
+		D90C75FA1BF1DED600C5897C /* MakeOrderContactInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MakeOrderContactInfoTableViewCell.m; sourceTree = "<group>"; };
+		D90C75FB1BF1DED600C5897C /* MakeOrderContactInfoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MakeOrderContactInfoTableViewCell.xib; sourceTree = "<group>"; };
+		D90C75FC1BF1DED600C5897C /* MakeOrderPackageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakeOrderPackageTableViewCell.h; sourceTree = "<group>"; };
+		D90C75FD1BF1DED600C5897C /* MakeOrderPackageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MakeOrderPackageTableViewCell.m; sourceTree = "<group>"; };
+		D90C75FE1BF1DED600C5897C /* MakeOrderPackageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MakeOrderPackageTableViewCell.xib; sourceTree = "<group>"; };
+		D90C75FF1BF1DED600C5897C /* MakeOrderSelectCountTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakeOrderSelectCountTableViewCell.h; sourceTree = "<group>"; };
+		D90C76001BF1DED600C5897C /* MakeOrderSelectCountTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MakeOrderSelectCountTableViewCell.m; sourceTree = "<group>"; };
+		D90C76011BF1DED600C5897C /* MakeOrderSelectCountTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MakeOrderSelectCountTableViewCell.xib; sourceTree = "<group>"; };
+		D90C76021BF1DED600C5897C /* MakeOrderSelectDateTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakeOrderSelectDateTableViewCell.h; sourceTree = "<group>"; };
+		D90C76031BF1DED600C5897C /* MakeOrderSelectDateTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MakeOrderSelectDateTableViewCell.m; sourceTree = "<group>"; };
+		D90C76041BF1DED600C5897C /* MakeOrderSelectDateTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MakeOrderSelectDateTableViewCell.xib; sourceTree = "<group>"; };
+		D90C76051BF1DED600C5897C /* MakeOrderSelectPackageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakeOrderSelectPackageTableViewCell.h; sourceTree = "<group>"; };
+		D90C76061BF1DED600C5897C /* MakeOrderSelectPackageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MakeOrderSelectPackageTableViewCell.m; sourceTree = "<group>"; };
+		D90C76071BF1DED600C5897C /* MakeOrderSelectPackageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MakeOrderSelectPackageTableViewCell.xib; sourceTree = "<group>"; };
+		D90C76081BF1DED600C5897C /* MakeOrderTitleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakeOrderTitleTableViewCell.h; sourceTree = "<group>"; };
+		D90C76091BF1DED600C5897C /* MakeOrderTitleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MakeOrderTitleTableViewCell.m; sourceTree = "<group>"; };
+		D90C760A1BF1DED600C5897C /* MakeOrderTitleTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MakeOrderTitleTableViewCell.xib; sourceTree = "<group>"; };
+		D90C760B1BF1DED600C5897C /* MakeOrderTravelerInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakeOrderTravelerInfoTableViewCell.h; sourceTree = "<group>"; };
+		D90C760C1BF1DED600C5897C /* MakeOrderTravelerInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MakeOrderTravelerInfoTableViewCell.m; sourceTree = "<group>"; };
+		D90C760D1BF1DED600C5897C /* MakeOrderTravelerInfoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MakeOrderTravelerInfoTableViewCell.xib; sourceTree = "<group>"; };
+		D90C760E1BF1DED600C5897C /* MakeOrderTravelerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakeOrderTravelerTableViewCell.h; sourceTree = "<group>"; };
+		D90C760F1BF1DED600C5897C /* MakeOrderTravelerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MakeOrderTravelerTableViewCell.m; sourceTree = "<group>"; };
+		D90C76101BF1DED600C5897C /* MakeOrderTravelerTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MakeOrderTravelerTableViewCell.xib; sourceTree = "<group>"; };
+		D90C76111BF1DED600C5897C /* MakeOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakeOrderViewController.h; sourceTree = "<group>"; };
+		D90C76121BF1DED600C5897C /* MakeOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MakeOrderViewController.m; sourceTree = "<group>"; };
+		D90C762B1BF1E02100C5897C /* TravelerInfoListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TravelerInfoListViewController.h; sourceTree = "<group>"; };
+		D90C762C1BF1E02100C5897C /* TravelerInfoListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TravelerInfoListViewController.m; sourceTree = "<group>"; };
+		D90C762D1BF1E02100C5897C /* TravelerInfoListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TravelerInfoListViewController.xib; sourceTree = "<group>"; };
+		D90C76351BF2EB5E00C5897C /* TravelerInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TravelerInfoTableViewCell.h; sourceTree = "<group>"; };
+		D90C76361BF2EB5E00C5897C /* TravelerInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TravelerInfoTableViewCell.m; sourceTree = "<group>"; };
+		D90C76371BF2EB5E00C5897C /* TravelerInfoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TravelerInfoTableViewCell.xib; sourceTree = "<group>"; };
 		D90ED40D1BAAD2B8000C6033 /* UserAlbumSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserAlbumSelectViewController.h; sourceTree = "<group>"; };
 		D90ED40E1BAAD2B8000C6033 /* UserAlbumSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserAlbumSelectViewController.m; sourceTree = "<group>"; };
 		D90ED4141BABACEC000C6033 /* icon_album_more@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_album_more@2x.png"; sourceTree = "<group>"; };
@@ -2876,11 +2937,6 @@
 		D95663A01BAFFB94006B2765 /* EditUserAlbumDescViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditUserAlbumDescViewController.xib; sourceTree = "<group>"; };
 		D95663A31BB00B0F006B2765 /* SearchDestinationRecommendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchDestinationRecommendViewController.h; sourceTree = "<group>"; };
 		D95663A41BB00B0F006B2765 /* SearchDestinationRecommendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchDestinationRecommendViewController.m; sourceTree = "<group>"; };
-		D95B0A471BF0673B00F2D900 /* MakeOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakeOrderViewController.h; sourceTree = "<group>"; };
-		D95B0A481BF0673B00F2D900 /* MakeOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MakeOrderViewController.m; sourceTree = "<group>"; };
-		D95B0A4B1BF0701300F2D900 /* MakeOrderTitleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakeOrderTitleTableViewCell.h; sourceTree = "<group>"; };
-		D95B0A4C1BF0701300F2D900 /* MakeOrderTitleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MakeOrderTitleTableViewCell.m; sourceTree = "<group>"; };
-		D95B0A4D1BF0701300F2D900 /* MakeOrderTitleTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MakeOrderTitleTableViewCell.xib; sourceTree = "<group>"; };
 		D95E6FF91BDA31F70097BC76 /* GoodsRecommendSectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsRecommendSectionHeaderView.h; sourceTree = "<group>"; };
 		D95E6FFA1BDA31F70097BC76 /* GoodsRecommendSectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsRecommendSectionHeaderView.m; sourceTree = "<group>"; };
 		D95E6FFC1BDA32050097BC76 /* GoodsRecommendSectionHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoodsRecommendSectionHeaderView.xib; sourceTree = "<group>"; };
@@ -2961,6 +3017,10 @@
 		D971E2F91B95C28E007E5AFD /* MineContentRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineContentRootViewController.h; sourceTree = "<group>"; };
 		D971E2FA1B95C28E007E5AFD /* MineContentRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineContentRootViewController.m; sourceTree = "<group>"; };
 		D97422EE1BD21F52009EB4D9 /* SwiftConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftConstants.swift; sourceTree = "<group>"; };
+		D97492A81BF4360C00A5A70B /* GoodsDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsDetailModel.h; sourceTree = "<group>"; };
+		D97492A91BF4360C00A5A70B /* GoodsDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsDetailModel.m; sourceTree = "<group>"; };
+		D97492AB1BF4391100A5A70B /* GoodsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsManager.h; sourceTree = "<group>"; };
+		D97492AC1BF4391100A5A70B /* GoodsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsManager.m; sourceTree = "<group>"; };
 		D97C8B4C1A526B9F00476C9C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
 		D9823E821B19AA0200A1AE35 /* SuggestionDestinationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuggestionDestinationTableViewController.h; sourceTree = "<group>"; };
 		D9823E831B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuggestionDestinationTableViewController.m; sourceTree = "<group>"; };
@@ -5561,6 +5621,87 @@
 			path = TZTagsCollectionView;
 			sourceTree = "<group>";
 		};
+		D90C75E31BF1949A00C5897C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D90C75E41BF194F900C5897C /* OrderDetailModel.h */,
+				D90C75E51BF194F900C5897C /* OrderDetailModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		D90C75E71BF1DB1A00C5897C /* PDTSimpleCalendar */ = {
+			isa = PBXGroup;
+			children = (
+				D90C75E81BF1DB1A00C5897C /* PDTSimpleCalendar.h */,
+				D90C75E91BF1DB1A00C5897C /* PDTSimpleCalendarViewCell.h */,
+				D90C75EA1BF1DB1A00C5897C /* PDTSimpleCalendarViewCell.m */,
+				D90C75EB1BF1DB1A00C5897C /* PDTSimpleCalendarViewController.h */,
+				D90C75EC1BF1DB1A00C5897C /* PDTSimpleCalendarViewController.m */,
+				D90C75ED1BF1DB1A00C5897C /* PDTSimpleCalendarViewFlowLayout.h */,
+				D90C75EE1BF1DB1A00C5897C /* PDTSimpleCalendarViewFlowLayout.m */,
+				D90C75EF1BF1DB1A00C5897C /* PDTSimpleCalendarViewHeader.h */,
+				D90C75F01BF1DB1A00C5897C /* PDTSimpleCalendarViewHeader.m */,
+				D90C75F11BF1DB1A00C5897C /* PDTSimpleCalendarViewWeekdayHeader.h */,
+				D90C75F21BF1DB1A00C5897C /* PDTSimpleCalendarViewWeekdayHeader.m */,
+			);
+			path = PDTSimpleCalendar;
+			sourceTree = "<group>";
+		};
+		D90C75F81BF1DED600C5897C /* MakeOrder */ = {
+			isa = PBXGroup;
+			children = (
+				D90C75F91BF1DED600C5897C /* MakeOrderContactInfoTableViewCell.h */,
+				D90C75FA1BF1DED600C5897C /* MakeOrderContactInfoTableViewCell.m */,
+				D90C75FB1BF1DED600C5897C /* MakeOrderContactInfoTableViewCell.xib */,
+				D90C75FC1BF1DED600C5897C /* MakeOrderPackageTableViewCell.h */,
+				D90C75FD1BF1DED600C5897C /* MakeOrderPackageTableViewCell.m */,
+				D90C75FE1BF1DED600C5897C /* MakeOrderPackageTableViewCell.xib */,
+				D90C75FF1BF1DED600C5897C /* MakeOrderSelectCountTableViewCell.h */,
+				D90C76001BF1DED600C5897C /* MakeOrderSelectCountTableViewCell.m */,
+				D90C76011BF1DED600C5897C /* MakeOrderSelectCountTableViewCell.xib */,
+				D90C76021BF1DED600C5897C /* MakeOrderSelectDateTableViewCell.h */,
+				D90C76031BF1DED600C5897C /* MakeOrderSelectDateTableViewCell.m */,
+				D90C76041BF1DED600C5897C /* MakeOrderSelectDateTableViewCell.xib */,
+				D90C76051BF1DED600C5897C /* MakeOrderSelectPackageTableViewCell.h */,
+				D90C76061BF1DED600C5897C /* MakeOrderSelectPackageTableViewCell.m */,
+				D90C76071BF1DED600C5897C /* MakeOrderSelectPackageTableViewCell.xib */,
+				D90C76081BF1DED600C5897C /* MakeOrderTitleTableViewCell.h */,
+				D90C76091BF1DED600C5897C /* MakeOrderTitleTableViewCell.m */,
+				D90C760A1BF1DED600C5897C /* MakeOrderTitleTableViewCell.xib */,
+				D90C760B1BF1DED600C5897C /* MakeOrderTravelerInfoTableViewCell.h */,
+				D90C760C1BF1DED600C5897C /* MakeOrderTravelerInfoTableViewCell.m */,
+				D90C760D1BF1DED600C5897C /* MakeOrderTravelerInfoTableViewCell.xib */,
+				D90C760E1BF1DED600C5897C /* MakeOrderTravelerTableViewCell.h */,
+				D90C760F1BF1DED600C5897C /* MakeOrderTravelerTableViewCell.m */,
+				D90C76101BF1DED600C5897C /* MakeOrderTravelerTableViewCell.xib */,
+				D90C76111BF1DED600C5897C /* MakeOrderViewController.h */,
+				D90C76121BF1DED600C5897C /* MakeOrderViewController.m */,
+			);
+			path = MakeOrder;
+			sourceTree = "<group>";
+		};
+		D90C76241BF1DF3100C5897C /* TravelerInfo */ = {
+			isa = PBXGroup;
+			children = (
+				D90C76251BF1DF5000C5897C /* TravelerInfoList */,
+			);
+			path = TravelerInfo;
+			sourceTree = "<group>";
+		};
+		D90C76251BF1DF5000C5897C /* TravelerInfoList */ = {
+			isa = PBXGroup;
+			children = (
+				D90C762B1BF1E02100C5897C /* TravelerInfoListViewController.h */,
+				D90C762C1BF1E02100C5897C /* TravelerInfoListViewController.m */,
+				D90C762D1BF1E02100C5897C /* TravelerInfoListViewController.xib */,
+				D90C76351BF2EB5E00C5897C /* TravelerInfoTableViewCell.h */,
+				D90C76361BF2EB5E00C5897C /* TravelerInfoTableViewCell.m */,
+				D90C76371BF2EB5E00C5897C /* TravelerInfoTableViewCell.xib */,
+			);
+			path = TravelerInfoList;
+			sourceTree = "<group>";
+		};
 		D90ED4121BABACEC000C6033 /* userAlbum */ = {
 			isa = PBXGroup;
 			children = (
@@ -5693,6 +5834,10 @@
 		D91CCB521BD1EB3B008425E4 /* GoodsModel */ = {
 			isa = PBXGroup;
 			children = (
+				D97492A81BF4360C00A5A70B /* GoodsDetailModel.h */,
+				D97492A91BF4360C00A5A70B /* GoodsDetailModel.m */,
+				D97492AB1BF4391100A5A70B /* GoodsManager.h */,
+				D97492AC1BF4391100A5A70B /* GoodsManager.m */,
 			);
 			path = GoodsModel;
 			sourceTree = "<group>";
@@ -5738,6 +5883,7 @@
 		D92109AE1BE204D700AEDB65 /* Store */ = {
 			isa = PBXGroup;
 			children = (
+				D9DD31471BF44409009BEDAB /* Model */,
 				D92109AF1BE204F100AEDB65 /* StoreDetailViewController.h */,
 				D92109B01BE204F100AEDB65 /* StoreDetailViewController.m */,
 			);
@@ -6042,27 +6188,11 @@
 		D95B0A461BF0671E00F2D900 /* Order */ = {
 			isa = PBXGroup;
 			children = (
-				D95B0A4A1BF06F2F00F2D900 /* MakeOrder */,
+				D90C76241BF1DF3100C5897C /* TravelerInfo */,
+				D90C75F81BF1DED600C5897C /* MakeOrder */,
+				D90C75E31BF1949A00C5897C /* Model */,
 			);
 			path = Order;
-			sourceTree = "<group>";
-		};
-		D95B0A4A1BF06F2F00F2D900 /* MakeOrder */ = {
-			isa = PBXGroup;
-			children = (
-				D95B0A471BF0673B00F2D900 /* MakeOrderViewController.h */,
-				D95B0A481BF0673B00F2D900 /* MakeOrderViewController.m */,
-				D90676241BF071610049AC04 /* MakeOrderSelectPackageTableViewCell.h */,
-				D90676251BF071610049AC04 /* MakeOrderSelectPackageTableViewCell.m */,
-				D90676261BF071610049AC04 /* MakeOrderSelectPackageTableViewCell.xib */,
-				D95B0A4B1BF0701300F2D900 /* MakeOrderTitleTableViewCell.h */,
-				D95B0A4C1BF0701300F2D900 /* MakeOrderTitleTableViewCell.m */,
-				D95B0A4D1BF0701300F2D900 /* MakeOrderTitleTableViewCell.xib */,
-				D90676291BF072460049AC04 /* MakeOrderSelectDateTableViewCell.h */,
-				D906762A1BF072460049AC04 /* MakeOrderSelectDateTableViewCell.m */,
-				D906762B1BF072460049AC04 /* MakeOrderSelectDateTableViewCell.xib */,
-			);
-			name = MakeOrder;
 			sourceTree = "<group>";
 		};
 		D964200E19EBC9AD00CC8057 /* Setting */ = {
@@ -7476,6 +7606,7 @@
 		D9A802541A80E3D3005AD701 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				D90C75E71BF1DB1A00C5897C /* PDTSimpleCalendar */,
 				D9027BAD1BED961800C74220 /* TZTagsCollectionView */,
 				D97422F01BD2251B009EB4D9 /* CommonView */,
 				D971E2ED1B957A90007E5AFD /* FormatCheck */,
@@ -8294,6 +8425,13 @@
 				D9D3AE751BE740EC00F398B8 /* CityListCollectionViewCell.xib */,
 			);
 			path = PoiList;
+			sourceTree = "<group>";
+		};
+		D9DD31471BF44409009BEDAB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		D9E0EEFE1B7D9036003872DF /* CMPopTipView */ = {
@@ -9716,6 +9854,7 @@
 				0115C9BB1BB103FC00631928 /* citydetail_joyney_plan_hilighted@2x.png in Resources */,
 				01A5CEE41BB3DDC200A59A8A /* mapMark_point_line_green@3x.png in Resources */,
 				01C1EC851BB4E4720082217A /* xinfeng@2x.png in Resources */,
+				D90C76391BF2EB5E00C5897C /* TravelerInfoTableViewCell.xib in Resources */,
 				E6F18A891B845F4900232EEB /* speaking-motion2@2x.png in Resources */,
 				E608A1371B8F414C003BA318 /* up@2x.png in Resources */,
 				E6381BF41B66269000CF73AA /* Loading_Animation_final31@2x.png in Resources */,
@@ -9775,7 +9914,6 @@
 				01A5CED91BB3DDC200A59A8A /* mapMark_GPS@2x.png in Resources */,
 				E6F18A711B845F4900232EEB /* login_textfield@3x.png in Resources */,
 				0115C8CD1BB0EF2900631928 /* moreview_plan_normal@2x.png in Resources */,
-				D95B0A4F1BF0701300F2D900 /* MakeOrderTitleTableViewCell.xib in Resources */,
 				01C1EC371BB4E4720082217A /* kuwei@2x.png in Resources */,
 				D971E2861B8AF27A007E5AFD /* plan_traveled@3x.png in Resources */,
 				01C1EC0C1BB4E4720082217A /* daku@3x.png in Resources */,
@@ -9791,6 +9929,7 @@
 				01C1EC091BB4E4720082217A /* cheer@2x.png in Resources */,
 				D992C9611B50FD0C000C7E2D /* TripFavoriteTableViewController.xib in Resources */,
 				E6381BEC1B66269000CF73AA /* Loading_Animation_final24@2x.png in Resources */,
+				D90C761E1BF1DED600C5897C /* MakeOrderTitleTableViewCell.xib in Resources */,
 				01C1EC461BB4E4720082217A /* moon@3x.png in Resources */,
 				E6381BF11B66269000CF73AA /* Loading_Animation_final29@2x.png in Resources */,
 				E6F18ACA1B845F4900232EEB /* messages_plus_picture_selected@3x.png in Resources */,
@@ -9865,7 +10004,6 @@
 				E6F189A61B845F4900232EEB /* city_button_food_selected@3x.png in Resources */,
 				E6F189481B845F4900232EEB /* common_icon_right@3x.png in Resources */,
 				E6F189291B845F4900232EEB /* dashboard_03_icon_constellation3@2x.png in Resources */,
-				D90676281BF071610049AC04 /* MakeOrderSelectPackageTableViewCell.xib in Resources */,
 				E6381C031B66269000CF73AA /* Loading_Animation_final45@2x.png in Resources */,
 				D9A8011C1A80DD23005AD701 /* call_out@2x.png in Resources */,
 				E6F18ABE1B845F4900232EEB /* messages_icon_keyboard_default@3x.png in Resources */,
@@ -9988,6 +10126,7 @@
 				01C1EC241BB4E4720082217A /* huaxin@3x.png in Resources */,
 				E6381BE81B66269000CF73AA /* Loading_Animation_final20@2x.png in Resources */,
 				D942C1321B9EB5C3005B81C5 /* notes@3x.png in Resources */,
+				D90C761A1BF1DED600C5897C /* MakeOrderSelectDateTableViewCell.xib in Resources */,
 				D91FED971B42D3B70073AD77 /* CityImageAlbum.xib in Resources */,
 				E6F189121B845F4900232EEB /* account_button_selected@3x.png in Resources */,
 				0115C9AF1BB103FC00631928 /* citydetail_gone_normal@2x.png in Resources */,
@@ -10049,6 +10188,7 @@
 				D9A8006E1A80DD0C005AD701 /* FrendRequestTableViewCell.xib in Resources */,
 				E6F18A251B845F4900232EEB /* lxp_expert_helper@2x.png in Resources */,
 				0115C8CE1BB0EF2900631928 /* moreview_plan_normal@3x.png in Resources */,
+				D90C76141BF1DED600C5897C /* MakeOrderContactInfoTableViewCell.xib in Resources */,
 				D90A9B491B5627C400E9F37C /* Loading_Animation_final30@3x.png in Resources */,
 				E6F189741B845F4900232EEB /* poi_bottom_star_selected@3x.png in Resources */,
 				E6F18A3B1B845F4900232EEB /* Artboard_Top_Bg@3x.png in Resources */,
@@ -10154,6 +10294,7 @@
 				E6F189E41B845F4900232EEB /* plan_02_bg_day@3x.png in Resources */,
 				E6F18AA91B845F4900232EEB /* chat_sender_audio_playing_002@2x.png in Resources */,
 				D90A9B321B5627C400E9F37C /* Loading_Animation_final7@3x.png in Resources */,
+				D90C76201BF1DED600C5897C /* MakeOrderTravelerInfoTableViewCell.xib in Resources */,
 				E6F18AA01B845F4900232EEB /* chat_receiver_audio_playing002@3x.png in Resources */,
 				E6F18A2B1B845F4900232EEB /* lxp_search_bg_normal@2x.png in Resources */,
 				E6AD323C1B9DAA9600EE6A62 /* expert_search_hilighted@3x.png in Resources */,
@@ -10195,6 +10336,7 @@
 				D9A800221A80D52F005AD701 /* DestinationCollectionHeaderView.xib in Resources */,
 				01A5CED71BB3DDC200A59A8A /* mapMark_arrow_lian@2x.png in Resources */,
 				E6381BFB1B66269000CF73AA /* Loading_Animation_final38@2x.png in Resources */,
+				D90C76181BF1DED600C5897C /* MakeOrderSelectCountTableViewCell.xib in Resources */,
 				E6F18A2A1B845F4900232EEB /* lxp_search_bg_highlight@3x.png in Resources */,
 				01C1EBFF1BB4E4720082217A /* bingzhong@2x.png in Resources */,
 				D9E9D2491BA2F6F800FB6C07 /* ic_msg_sending@2x.png in Resources */,
@@ -10258,6 +10400,7 @@
 				D96F535E1BC67DA70094070B /* DomesticDestinationCollectionViewCell.xib in Resources */,
 				D971E27B1B8AF27A007E5AFD /* plan_bg_page_default@3x.png in Resources */,
 				E6F1893F1B845F4900232EEB /* common_icon_navigation_back_hilighted@2x.png in Resources */,
+				D90C76221BF1DED600C5897C /* MakeOrderTravelerTableViewCell.xib in Resources */,
 				D90A9B481B5627C400E9F37C /* Loading_Animation_final29@3x.png in Resources */,
 				01A5CEE31BB3DDC200A59A8A /* mapMark_point_line_green@2x.png in Resources */,
 				D942C1401B9EB5C3005B81C5 /* girl@3x.png in Resources */,
@@ -10274,7 +10417,6 @@
 				0115C8C11BB0EF2900631928 /* moreview_camera_normal@2x.png in Resources */,
 				E6381BF61B66269000CF73AA /* Loading_Animation_final33@2x.png in Resources */,
 				E6F18A751B845F4900232EEB /* ic_avatar_lxp_search@3x.png in Resources */,
-				D906762D1BF072460049AC04 /* MakeOrderSelectDateTableViewCell.xib in Resources */,
 				D92B5C251BB92E4000E3AC93 /* ic_tabbar_destination_normal@3x.png in Resources */,
 				E6F18A4A1B845F4900232EEB /* search_total_place@2x.png in Resources */,
 				0115C9A91BB103FC00631928 /* citydetail_arrow@2x.png in Resources */,
@@ -10421,6 +10563,7 @@
 				01C1EC2E1BB4E4720082217A /* jingya@3x.png in Resources */,
 				D971E27E1B8AF27A007E5AFD /* plan_bg_page_qian@2x.png in Resources */,
 				D9E0EEFD1B7CB020003872DF /* SearchDestinationHistoryCollectionReusableView.xib in Resources */,
+				D90C761C1BF1DED600C5897C /* MakeOrderSelectPackageTableViewCell.xib in Resources */,
 				E6F18AAC1B845F4900232EEB /* chat_sender_audio_playing_003@3x.png in Resources */,
 				D9E9D2511BA3BE4300FB6C07 /* messages_poi_bg_friend@3x.png in Resources */,
 				E6F18A131B845F4900232EEB /* map_icon_3@2x.png in Resources */,
@@ -10465,6 +10608,7 @@
 				E6F1895A1B845F4900232EEB /* plan_10_dashboard_sift@3x.png in Resources */,
 				0115C9AD1BB103FC00631928 /* citydetail_food_normal@2x.png in Resources */,
 				C6261BB71B2B00D400DFADEF /* POICell.xib in Resources */,
+				D90C76161BF1DED600C5897C /* MakeOrderPackageTableViewCell.xib in Resources */,
 				E6F189AE1B845F4900232EEB /* city_button_shopping_default@3x.png in Resources */,
 				E6F18AFE1B845F4900232EEB /* master_girl@2x.png in Resources */,
 				E6F189FB1B845F4900232EEB /* map_icon_11@2x.png in Resources */,
@@ -10728,6 +10872,7 @@
 				01C1EC441BB4E4720082217A /* money@3x.png in Resources */,
 				D942C14C1B9EB5C3005B81C5 /* plan@3x.png in Resources */,
 				01AE464D1BBBCCB400338125 /* introduce_6_4@2x.png in Resources */,
+				D90C762F1BF1E02100C5897C /* TravelerInfoListViewController.xib in Resources */,
 				E6F18A051B845F4900232EEB /* map_icon_16@2x.png in Resources */,
 				D9A8011E1A80DD23005AD701 /* call_out_h@2x.png in Resources */,
 				E6F189161B845F4900232EEB /* account_labbar_icon_follow_default@3x.png in Resources */,
@@ -11055,6 +11200,7 @@
 				D9D197391BDA02CA0037C3B3 /* GoodsRecommendHeaderView.m in Sources */,
 				E6E595591B9BDF7F00E29ED0 /* MineProfileTitleView.m in Sources */,
 				01578E6C1BD228F200244D9D /* DataVerifier.m in Sources */,
+				D90C76211BF1DED600C5897C /* MakeOrderTravelerTableViewCell.m in Sources */,
 				D9A8FFBC1A80D1C3005AD701 /* TravelNoteListViewController.m in Sources */,
 				D9A8002B1A80D52F005AD701 /* SearchDestinationTableViewCell.m in Sources */,
 				D993C26D1B12DF0C0088D568 /* PushSDK.swift in Sources */,
@@ -11079,8 +11225,10 @@
 				D9A8001C1A80D52F005AD701 /* DomesticViewController.m in Sources */,
 				D904AB721BAFDD6300031AB4 /* UserAlbumReviewViewController.m in Sources */,
 				01C1ECC21BB53A690082217A /* TZEmojiKeyBoardCell.m in Sources */,
+				D90C75F41BF1DB1A00C5897C /* PDTSimpleCalendarViewController.m in Sources */,
 				D92CA0B61AD8BDD400F244FF /* DACircularProgressView.m in Sources */,
 				D907D2871BEB097E008A35F9 /* GoodsOfCityTableViewCell.m in Sources */,
+				D90C761D1BF1DED600C5897C /* MakeOrderTitleTableViewCell.m in Sources */,
 				D9A802B01A80E3D3005AD701 /* NSDate+Category.m in Sources */,
 				E66E6CDC1B5A26BF00CBF65F /* UIImage+Extension.m in Sources */,
 				01F03DB01BB40B57005DD792 /* MapViewSetLocationBtn.m in Sources */,
@@ -11102,6 +11250,7 @@
 				D9A802241A80E036005AD701 /* PositionBean.m in Sources */,
 				01C1ECC31BB53A690082217A /* TZEmojiToolBarCell.m in Sources */,
 				D9A8010F1A80DD23005AD701 /* ChangeGroupTitleViewController.m in Sources */,
+				D90C76191BF1DED600C5897C /* MakeOrderSelectDateTableViewCell.m in Sources */,
 				D971E28F1B8C8F57007E5AFD /* JDStatusBarStyle.m in Sources */,
 				D993C26F1B12DF0C0088D568 /* FrendModel.swift in Sources */,
 				E608A1151B8F2755003BA318 /* CWTitleButton.m in Sources */,
@@ -11127,12 +11276,12 @@
 				C679D3161ACD65EC007680D9 /* UIViewController+CWPopup.m in Sources */,
 				D95663A51BB00B0F006B2765 /* SearchDestinationRecommendViewController.m in Sources */,
 				D95663A11BAFFB94006B2765 /* EditUserAlbumDescViewController.m in Sources */,
+				D90C76131BF1DED600C5897C /* MakeOrderContactInfoTableViewCell.m in Sources */,
 				D9A8002F1A80D52F005AD701 /* RestaurantsListViewController.m in Sources */,
 				D96EA9EC1BB3E69C00360ED8 /* TripDetailManager.m in Sources */,
 				D993C2371B12DF0C0088D568 /* NSData+Base64.m in Sources */,
 				27FC91541AF205030083F052 /* HeaderCell.m in Sources */,
 				D9EE34651ABA6DD40076933B /* PoiFactory.m in Sources */,
-				D90676271BF071610049AC04 /* MakeOrderSelectPackageTableViewCell.m in Sources */,
 				01F3C79B1BAA7DC100CC58F4 /* UIColor+RandomColor.m in Sources */,
 				D9A8FFA61A80D1C3005AD701 /* RecommendsOfCity.m in Sources */,
 				D9823E841B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m in Sources */,
@@ -11153,7 +11302,6 @@
 				D993C2491B12DF0C0088D568 /* FMDatabase.m in Sources */,
 				0115C7DD1BAFACD300631928 /* FrendListTagCell.m in Sources */,
 				D9687CA21AC4095500B1C88E /* FootprintMapViewController.m in Sources */,
-				D95B0A491BF0673B00F2D900 /* MakeOrderViewController.m in Sources */,
 				C694C38D1AEA23E500F5C36E /* FilterViewController.m in Sources */,
 				D9A801561A80DD23005AD701 /* BaseTableViewCell.m in Sources */,
 				27FF1A721B04BE0E00643D77 /* SignatureViewController.m in Sources */,
@@ -11171,6 +11319,7 @@
 				E6AD32321B9D6EE800EE6A62 /* ExpertTourView.m in Sources */,
 				0115C7C61BAD53A100631928 /* ExpertListViewController.m in Sources */,
 				D9A3BCAB1BB0FF3C008C1038 /* PoiSearchManager.m in Sources */,
+				D90C75F51BF1DB1A00C5897C /* PDTSimpleCalendarViewFlowLayout.m in Sources */,
 				D91061D41BA93D6E00C4FBCB /* UserAlbumOverviewCell.m in Sources */,
 				01A5CE241BB39E3700A59A8A /* TravelPlanListForCityDetailVC.m in Sources */,
 				D944189B1BAFAA9F0091FC0B /* AlbumImageModel.m in Sources */,
@@ -11181,11 +11330,13 @@
 				D9A802EC1A80E3D3005AD701 /* TZFilterViewController.m in Sources */,
 				D9A802E31A80E3D3005AD701 /* ResizableView.m in Sources */,
 				D9A8FF201A80CC2B005AD701 /* UserOtherTableViewCell.m in Sources */,
+				D90C76151BF1DED600C5897C /* MakeOrderPackageTableViewCell.m in Sources */,
 				D9A802311A80E036005AD701 /* TBXML.m in Sources */,
 				D993C25B1B12DF0C0088D568 /* MetadataManager.swift in Sources */,
 				271C40C31B43D537007BF285 /* SpotDetailCell.m in Sources */,
 				D9A8002E1A80D52F005AD701 /* DestinationsView.m in Sources */,
 				D9A8015D1A80DD23005AD701 /* EMChooseViewController.m in Sources */,
+				D90C75E61BF194F900C5897C /* OrderDetailModel.m in Sources */,
 				D91061E61BA9479C00C4FBCB /* UserAlbumSelectCollectionViewCell.m in Sources */,
 				D963CB661B9FF751007480FA /* EditUserSignatureViewController.m in Sources */,
 				D93B97F41B4BACAF0054EF50 /* TipsMessage.swift in Sources */,
@@ -11225,12 +11376,12 @@
 				D9A8FF131A80CC2B005AD701 /* LoginViewController.m in Sources */,
 				D92CA1331AD8BEB400F244FF /* MWGridViewController.m in Sources */,
 				D9A8FECA1A80C818005AD701 /* MyGuideSummary.m in Sources */,
-				D95B0A4E1BF0701300F2D900 /* MakeOrderTitleTableViewCell.m in Sources */,
 				D96EA95E1BB3916300360ED8 /* PoiRecommendTableViewCell.m in Sources */,
 				D9A8FF0F1A80CC2B005AD701 /* ChangePasswordViewController.m in Sources */,
 				D993CB5D1AB6D64B0075314E /* ShoppingPoi.m in Sources */,
 				D993C23A1B12DF0C0088D568 /* AudioDeviceManager.swift in Sources */,
 				D9A8FFA81A80D1C3005AD701 /* CommentDetail.m in Sources */,
+				D90C76231BF1DED600C5897C /* MakeOrderViewController.m in Sources */,
 				D9A8FEDA1A80C8A4005AD701 /* PushMsgsViewController.m in Sources */,
 				D9A801461A80DD23005AD701 /* TaoziChatCityBubbleView.m in Sources */,
 				D92CA1371AD8BEB400F244FF /* MWTapDetectingView.m in Sources */,
@@ -11252,6 +11403,7 @@
 				D993837B1BE9EBA600151974 /* CityDetailViewController.m in Sources */,
 				D9A802251A80E036005AD701 /* NJKWebViewProgress.m in Sources */,
 				D9A8FF561A80CF19005AD701 /* OperationData.m in Sources */,
+				D90C761B1BF1DED600C5897C /* MakeOrderSelectPackageTableViewCell.m in Sources */,
 				D993C2581B12DF0C0088D568 /* MessageReceiveManager.swift in Sources */,
 				D9A8020F1A80E036005AD701 /* JGProgressHUD.m in Sources */,
 				D9A8FECC1A80C818005AD701 /* AccountManager.m in Sources */,
@@ -11262,6 +11414,7 @@
 				C608ED661A2C4D8E00B76934 /* HomeViewController.m in Sources */,
 				D9A8FF531A80CF19005AD701 /* FavoriteTableViewCell.m in Sources */,
 				D92B5C1C1BB9243B00E3AC93 /* PoiRecommendManager.m in Sources */,
+				D90C761F1BF1DED600C5897C /* MakeOrderTravelerInfoTableViewCell.m in Sources */,
 				D9A802131A80E036005AD701 /* JGProgressHUDFadeZoomAnimation.m in Sources */,
 				D9A8012F1A80DD23005AD701 /* DXRecordView.m in Sources */,
 				D9A8FFCA1A80D216005AD701 /* HotDestinationCollectionReusableView.m in Sources */,
@@ -11276,6 +11429,7 @@
 				D94E255B1BEC939500DB487D /* GoodsRecommendCollectionViewCell.m in Sources */,
 				D9A8FFB81A80D1C3005AD701 /* SpotDetailViewController.m in Sources */,
 				D9A801521A80DD23005AD701 /* CreateConversationTableViewCell.m in Sources */,
+				D90C76381BF2EB5E00C5897C /* TravelerInfoTableViewCell.m in Sources */,
 				E677952B1B941B1B004CE21A /* GuiderDetailCollectionCell.m in Sources */,
 				D9A802121A80E036005AD701 /* JGProgressHUDFadeAnimation.m in Sources */,
 				D9A802E51A80E3D3005AD701 /* TZTableViewController.m in Sources */,
@@ -11285,11 +11439,13 @@
 				C694C3901AEA274500F5C36E /* CategoryTableViewCell.m in Sources */,
 				D9A8012E1A80DD23005AD701 /* DXChatBarMoreView.m in Sources */,
 				D9A801511A80DD23005AD701 /* ZYQAssetPickerController.m in Sources */,
+				D90C75F61BF1DB1A00C5897C /* PDTSimpleCalendarViewHeader.m in Sources */,
 				C679D3121ACD64E3007680D9 /* UIViewController+REFrostedViewController.m in Sources */,
 				E608A1121B8F26CF003BA318 /* UIView+Extension.m in Sources */,
 				E608A1651B904E7B003BA318 /* GuiderProfileAbout.m in Sources */,
 				D9A802BA1A80E3D3005AD701 /* ConvertMethods.m in Sources */,
 				D91850E11B575450004B8363 /* ItemFooterCollectionViewController.m in Sources */,
+				D90C75F31BF1DB1A00C5897C /* PDTSimpleCalendarViewCell.m in Sources */,
 				D92CA1081AD8BDF900F244FF /* PSTGridLayoutRow.m in Sources */,
 				E608A1611B904B07003BA318 /* GuiderProfileTourViewCell.m in Sources */,
 				D993C24B1B12DF0C0088D568 /* FMDatabasePool.m in Sources */,
@@ -11384,6 +11540,7 @@
 				D92CA1361AD8BEB400F244FF /* MWTapDetectingImageView.m in Sources */,
 				D9A8FFA71A80D1C3005AD701 /* CommonPoiDetailViewController.m in Sources */,
 				D96EA96A1BB3C3E500360ED8 /* DestinationManager.m in Sources */,
+				D97492AD1BF4391100A5A70B /* GoodsManager.m in Sources */,
 				D9A802E21A80E3D3005AD701 /* PageTwo.m in Sources */,
 				D9A802341A80E036005AD701 /* TZSelectView.m in Sources */,
 				D91529741BB245E5002D1F51 /* ForeignPoiRecommendViewController.m in Sources */,
@@ -11391,7 +11548,6 @@
 				D9A801241A80DD23005AD701 /* ChatScrollView.m in Sources */,
 				C60C0D6F1A299389006033C9 /* PushSettingTableViewCell.m in Sources */,
 				D9A802E01A80E3D3005AD701 /* PageOne.m in Sources */,
-				D906762C1BF072460049AC04 /* MakeOrderSelectDateTableViewCell.m in Sources */,
 				01C1ECC11BB53A690082217A /* TZChatTextView.m in Sources */,
 				D92CA0FD1AD8BDF900F244FF /* NSIndexPath+PSTCollectionViewAdditions.m in Sources */,
 				D9A802DF1A80E3D3005AD701 /* EAIntroView.m in Sources */,
@@ -11416,11 +11572,14 @@
 				D9A8005E1A80DD0C005AD701 /* AddContactTableViewController.m in Sources */,
 				D92CA1031AD8BDF900F244FF /* PSTCollectionViewItemKey.m in Sources */,
 				D993C2461B12DF0C0088D568 /* ConversationDaoHelper.swift in Sources */,
+				D90C75F71BF1DB1A00C5897C /* PDTSimpleCalendarViewWeekdayHeader.m in Sources */,
 				D9A8001A1A80D52F005AD701 /* Destinations.m in Sources */,
 				D9A8021C1A80E036005AD701 /* MJPhoto.m in Sources */,
 				D9D197411BDA08570037C3B3 /* GoodsRecommendTableViewCell.m in Sources */,
+				D97492AA1BF4360C00A5A70B /* GoodsDetailModel.m in Sources */,
 				01578E081BD228BC00244D9D /* APViewController.m in Sources */,
 				E66E6CCA1B59F1E500CBF65F /* DropDownViewController.m in Sources */,
+				D90C76171BF1DED600C5897C /* MakeOrderSelectCountTableViewCell.m in Sources */,
 				D9A8014C1A80DD23005AD701 /* MessageModel.m in Sources */,
 				271C418A1B44D5CD007BF285 /* SpecialPoiCell.m in Sources */,
 				271C40BC1B3E93A3007BF285 /* UIImage+resized.m in Sources */,
@@ -11486,6 +11645,7 @@
 				D993C2621B12DF0C0088D568 /* IMHotelMessage.swift in Sources */,
 				E6A2EEE51B7A041300C66D8F /* PlansListTableHeaderView.m in Sources */,
 				D91529711BB245CF002D1F51 /* DomesticPoiRecommendViewController.m in Sources */,
+				D90C762E1BF1E02100C5897C /* TravelerInfoListViewController.m in Sources */,
 				01578E6F1BD228F200244D9D /* openssl_wrapper.m in Sources */,
 				D9A802AF1A80E3D3005AD701 /* ANBlurredImageView.m in Sources */,
 				D9A8023A1A80E036005AD701 /* YWeatherUtils.m in Sources */,

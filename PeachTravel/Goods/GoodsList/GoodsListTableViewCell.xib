@@ -61,7 +61,7 @@
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="9"/>
                         <inset key="titleEdgeInsets" minX="2" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        <state key="normal" title="100%满意  |  销量: 1234" image="icon_rating">
+                        <state key="normal" image="icon_rating">
                             <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                         </state>
                     </button>

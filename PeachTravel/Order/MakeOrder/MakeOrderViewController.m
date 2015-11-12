@@ -1,0 +1,267 @@
+//
+//  MakeOrderViewController.m
+//  PeachTravel
+//
+//  Created by liangpengshuai on 11/9/15.
+//  Copyright © 2015 com.aizou.www. All rights reserved.
+//
+
+#import "MakeOrderViewController.h"
+#import "MakeOrderTitleTableViewCell.h"
+#import "MakeOrderSelectDateTableViewCell.h"
+#import "MakeOrderSelectPackageTableViewCell.h"
+#import "MakeOrderSelectCountTableViewCell.h"
+#import "MakeOrderTravelerInfoTableViewCell.h"
+#import "MakeOrderContactInfoTableViewCell.h"
+#import "SuperWebViewController.h"
+#import "PDTSimpleCalendarViewController.h"
+#import "TravelerInfoListViewController.h"
+
+@interface MakeOrderViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UITextViewDelegate, MakeOrderEditTravelerInfoDelegate, PDTSimpleCalendarViewDelegate>
+
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) UILabel *totalPriceLabel;
+@property (nonatomic, strong) UIButton *commintOrderBtn;
+@property (nonatomic, strong) UIView *currentTextActivity;
+@property (nonatomic) CGPoint backupOffset;
+
+@property (nonatomic, strong) NSMutableArray *travelerList;
+
+@end
+
+@implementation MakeOrderViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    _travelerList = [@[@"", @"", @""] mutableCopy];
+
+    self.view.backgroundColor = [UIColor whiteColor];
+    _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+    _tableView.backgroundColor = [UIColor whiteColor];
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    _tableView.allowsSelection = NO;
+    _tableView.separatorColor = APP_BORDER_COLOR;
+    [_tableView registerNib:[UINib nibWithNibName:@"MakeOrderTitleTableViewCell" bundle:nil] forCellReuseIdentifier:@"makeOrderTitleTableViewCell"];
+    [_tableView registerNib:[UINib nibWithNibName:@"MakeOrderSelectPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"makeOrderSelectPackageCell"];
+    [_tableView registerNib:[UINib nibWithNibName:@"MakeOrderSelectDateTableViewCell" bundle:nil] forCellReuseIdentifier:@"makeOrderSelectDataCell"];
+    [_tableView registerNib:[UINib nibWithNibName:@"MakeOrderSelectCountTableViewCell" bundle:nil] forCellReuseIdentifier:@"makeOrderSelectCountCell"];
+    [_tableView registerNib:[UINib nibWithNibName:@"MakeOrderTravelerInfoTableViewCell" bundle:nil] forCellReuseIdentifier:@"makeOrderTravelerEditCell"];
+    [_tableView registerNib:[UINib nibWithNibName:@"MakeOrderContactInfoTableViewCell" bundle:nil] forCellReuseIdentifier:@"makeOrderContactInfoCell"];
+    
+    self.navigationItem.title = @"订单填写";
+    [self.view addSubview:_tableView];
+    [self setupToolbar];
+    [self setupTableViewFooterView];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWasShown:)
+                                                 name:UIKeyboardDidShowNotification object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillBeHidden:)
+                                                 name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)setupTableViewFooterView
+{
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.bounds.size.width, 56+50)];
+    footerView.backgroundColor = APP_PAGE_COLOR;
+    _tableView.tableFooterView = footerView;
+    
+    UIButton *checkBox = [[UIButton alloc] initWithFrame:CGRectMake(11, 18, 13, 13)];
+    [checkBox setImage:[UIImage imageNamed:@"icon_makeOrder_checkBox_normal"] forState:UIControlStateNormal];
+    [checkBox setImage:[UIImage imageNamed:@"icon_makeOrder_checkBox_selected"] forState:UIControlStateSelected];
+    checkBox.selected = YES;
+    [footerView addSubview:checkBox];
+    UITextView *agreementTextView = [[UITextView alloc] initWithFrame:CGRectMake(30, 10, 200, 30)];
+    agreementTextView.backgroundColor = [UIColor clearColor];
+    agreementTextView.delegate = self;
+    agreementTextView.editable = NO;
+    agreementTextView.scrollEnabled = NO;
+    agreementTextView.textColor = COLOR_TEXT_III;
+    agreementTextView.linkTextAttributes = @{NSForegroundColorAttributeName:APP_THEME_COLOR};
+
+    agreementTextView.font = [UIFont systemFontOfSize:14];
+    NSMutableAttributedString *agreementStr = [[NSMutableAttributedString alloc] initWithString:@"我已阅读并同意《旅行拍条款》"];
+    [agreementStr addAttributes:@{NSLinkAttributeName: [NSURL URLWithString:@"http://www.lvxingpai.cn"]} range:NSMakeRange(7, 7)];
+    agreementTextView.attributedText = agreementStr;
+    [footerView addSubview:agreementTextView];
+    
+}
+- (void)setupToolbar
+{
+    UIView *toolBar = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-56, self.view.bounds.size.width, 56)];
+    toolBar.backgroundColor = UIColorFromRGB(0xcccccc);
+    [self.view addSubview:toolBar];
+    
+    _totalPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(27, 16, 200, 25)];
+    _totalPriceLabel.textColor = [UIColor whiteColor];
+    _totalPriceLabel.font = [UIFont systemFontOfSize:17.0];
+    _totalPriceLabel.text = @"￥0.00";
+    [toolBar addSubview:_totalPriceLabel];
+    
+    _commintOrderBtn = [[UIButton alloc] initWithFrame:CGRectMake(toolBar.bounds.size.width-toolBar.bounds.size.width/5*2, 0, toolBar.bounds.size.width/5*2, 56)];
+    [_commintOrderBtn setBackgroundColor:UIColorFromRGB(0xff6633)];
+    [_commintOrderBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _commintOrderBtn.titleLabel.font = [UIFont systemFontOfSize:17.0];
+    [_commintOrderBtn setTitle:@"提交订单" forState:UIControlStateNormal];
+    [toolBar addSubview:_commintOrderBtn];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+}
+
+- (void)choseLeftDate:(UIButton *)sender
+{
+    PDTSimpleCalendarViewController *ctl = [[PDTSimpleCalendarViewController alloc] init];
+    [ctl setDelegate:self];
+    ctl.weekdayHeaderEnabled = YES;
+    ctl.weekdayTextType = PDTSimpleCalendarViewWeekdayTextTypeVeryShort;
+    [self.navigationController pushViewController:ctl animated:YES];
+}
+
+- (void)addTraveler:(UIButton *)sender
+{
+    TravelerInfoListViewController *ctl = [[TravelerInfoListViewController alloc] init];
+    [self.navigationController pushViewController:ctl animated:YES];
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 6;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 0.01;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 0.01;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == 0) {
+        return 72.5;
+    } else if (indexPath.row == 1) {
+        return [MakeOrderSelectPackageTableViewCell heightWithPackageCount:3];
+    } else if (indexPath.row == 4) {
+        return [MakeOrderTravelerInfoTableViewCell heightWithTravelerCount:_travelerList.count];
+    } else if (indexPath.row == 5) {
+        return 360;
+    }
+    return 50;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == 0) {
+        MakeOrderTitleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"makeOrderTitleTableViewCell" forIndexPath:indexPath];
+        return cell;
+    } else if (indexPath.row == 1) {
+        MakeOrderSelectPackageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"makeOrderSelectPackageCell" forIndexPath:indexPath];
+        cell.packageList = @[@"", @"", @""];
+        return cell;
+    } else if (indexPath.row == 2) {
+        MakeOrderSelectDateTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"makeOrderSelectDataCell" forIndexPath:indexPath];
+        [cell.choseDateBtn addTarget:self action:@selector(choseLeftDate:) forControlEvents:UIControlEventTouchUpInside];
+        return cell;
+    } else if (indexPath.row == 3) {
+        MakeOrderSelectCountTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"makeOrderSelectCountCell" forIndexPath:indexPath];
+        return cell;
+    } else if (indexPath.row == 4) {
+        MakeOrderTravelerInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"makeOrderTravelerEditCell" forIndexPath:indexPath];
+        cell.travelerList = _travelerList;
+        cell.delegate = self;
+        [cell.addTravelerBtn addTarget:self action:@selector(addTraveler:) forControlEvents:UIControlEventTouchUpInside];
+        return cell;
+    } else if (indexPath.row == 5) {
+        MakeOrderContactInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"makeOrderContactInfoCell" forIndexPath:indexPath];
+        cell.nickNameTextfield.delegate = self;
+        cell.telTextField.delegate = self;
+        cell.mailTextField.delegate = self;
+        cell.addressTextField.delegate = self;
+        cell.messageTextView.delegate = self;
+        return cell;
+    }
+    return nil;
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if ([string isEqualToString:@"\n"]) {
+        [self.tableView endEditing:YES];
+        return NO;
+    }
+    return YES;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    _currentTextActivity = textField;
+}
+
+- (void)textViewDidBeginEditing:(UITextView *)textView{
+    _currentTextActivity = textView;
+}
+
+- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange
+{
+    SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
+    webCtl.titleStr = @"旅行派条款";
+    webCtl.urlStr = URL.absoluteString;
+    [self.navigationController pushViewController:webCtl animated:YES];
+    return NO;
+}
+
+- (void)keyboardWasShown:(NSNotification*)aNotification
+{
+    _backupOffset = _tableView.contentOffset;
+    NSDictionary* info = [aNotification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    CGPoint textFieldPoint2View = [_currentTextActivity.superview convertPoint:_currentTextActivity.frame.origin toView:self.view];
+    CGPoint keyboardPoint = CGPointMake(0, self.view.bounds.size.height-kbSize.height);
+    CGPoint contentOffset = CGPointMake(0, _tableView.contentOffset.y+(textFieldPoint2View.y-keyboardPoint.y) + _currentTextActivity.bounds.size.height+10);
+    
+    [self.tableView setContentOffset:contentOffset animated:YES];
+}
+
+- (void)keyboardWillBeHidden:(NSNotification*)aNotification
+{
+    [self.tableView setContentOffset:_backupOffset animated:YES];
+}
+
+#pragma mark - MakeOrderEditTravelerInfoDelegate
+
+- (void)finishEditTraveler
+{
+    [self.tableView reloadData];
+}
+
+#pragma mark - PDTSimpleCalendarViewDelegate
+
+- (void)simpleCalendarViewController:(PDTSimpleCalendarViewController *)controller didSelectDate:(NSDate *)date
+{
+    NSLog(@"Date Selected : %@",date);
+    NSLog(@"Date Selected with Locale %@", [date descriptionWithLocale:[NSLocale systemLocale]]);
+}
+
+@end

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="makeOrderSelectCountCell" id="KGk-i7-Jjw" customClass="MakeOrderSelectCountTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="49.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="购买数量" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pY0-B9-KqL">
+                        <rect key="frame" x="11" y="14" width="68" height="21"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="3pO-vb-IC9"/>
+                            <constraint firstAttribute="width" constant="68" id="Btp-Tl-Kp0"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_makeOrder_selectCount" translatesAutoresizingMaskIntoConstraints="NO" id="NOp-TY-iOf">
+                        <rect key="frame" x="219" y="10" width="90" height="30"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="90" id="Id2-sB-lzN"/>
+                            <constraint firstAttribute="height" constant="30" id="XHX-I7-GbO"/>
+                        </constraints>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V8U-v0-IQk">
+                        <rect key="frame" x="219" y="10" width="29" height="30"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="29" id="fvV-Bs-R0n"/>
+                            <constraint firstAttribute="height" constant="30" id="jPp-O2-xzp"/>
+                        </constraints>
+                        <state key="normal" image="icon_makeOrder_delete"/>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z09-k6-kkM">
+                        <rect key="frame" x="280" y="10" width="29" height="30"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="29" id="629-Kf-kI5"/>
+                            <constraint firstAttribute="height" constant="30" id="pZ1-mq-bXi"/>
+                        </constraints>
+                        <state key="normal" image="icon_makeOrder_add"/>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="chg-uB-wgu">
+                        <rect key="frame" x="248" y="15" width="31" height="21"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="31" id="FLU-GI-Rbe"/>
+                            <constraint firstAttribute="height" constant="21" id="KQE-QX-r1h"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <animations/>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="z09-k6-kkM" secondAttribute="trailing" constant="11" id="0Ps-ov-cT9"/>
+                    <constraint firstItem="chg-uB-wgu" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="2HS-7l-oYO"/>
+                    <constraint firstItem="V8U-v0-IQk" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="BNd-LM-zID"/>
+                    <constraint firstAttribute="trailing" secondItem="V8U-v0-IQk" secondAttribute="trailing" constant="72" id="MI4-9e-iUd"/>
+                    <constraint firstItem="pY0-B9-KqL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="11" id="XNn-nH-O9u"/>
+                    <constraint firstItem="pY0-B9-KqL" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="XWx-1r-5km"/>
+                    <constraint firstItem="z09-k6-kkM" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="Xv2-F7-m4F"/>
+                    <constraint firstItem="NOp-TY-iOf" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Zfd-mf-Rl9"/>
+                    <constraint firstAttribute="trailing" secondItem="NOp-TY-iOf" secondAttribute="trailing" constant="11" id="n4c-if-Pjq"/>
+                    <constraint firstItem="z09-k6-kkM" firstAttribute="leading" secondItem="chg-uB-wgu" secondAttribute="trailing" constant="1" id="zG1-f6-EVg"/>
+                </constraints>
+            </tableViewCellContentView>
+            <animations/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="icon_makeOrder_add" width="9" height="9"/>
+        <image name="icon_makeOrder_delete" width="10" height="1"/>
+        <image name="icon_makeOrder_selectCount" width="93" height="26"/>
+    </resources>
+</document>

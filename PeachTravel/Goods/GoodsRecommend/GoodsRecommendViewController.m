@@ -12,7 +12,7 @@
 #import "GoodsRecommendSectionHeaderView.h"
 #import "GoodsDetailViewController.h"
 #import "CityDetailViewController.h"
-
+#import "MakeOrderViewController.h"
 
 @interface GoodsRecommendViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -95,11 +95,14 @@
         ctl.hidesBottomBarWhenPushed = YES;
         
         [self.navigationController pushViewController:ctl animated:YES];
-    } else {
+    } else if (indexPath.row == 1) {
         CityDetailViewController *ctl = [[CityDetailViewController alloc] init];
         ctl.hidesBottomBarWhenPushed = YES;
         
         [self.navigationController pushViewController:ctl animated:YES];
+    } else {
+        MakeOrderViewController *ctl = [[MakeOrderViewController alloc] init];
+        [self.navigationController pushViewController:ctl animated:YES]; 
     }
 }
 
