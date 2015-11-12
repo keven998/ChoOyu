@@ -1155,6 +1155,10 @@
 		D9D3AE771BE740EC00F398B8 /* CityListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9D3AE751BE740EC00F398B8 /* CityListCollectionViewCell.xib */; };
 		D9D9A50E1BAFD00E001001B8 /* UserAlbumOverViewTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D9A50C1BAFD00E001001B8 /* UserAlbumOverViewTableViewController.m */; };
 		D9D9A50F1BAFD00E001001B8 /* UserAlbumOverViewTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9D9A50D1BAFD00E001001B8 /* UserAlbumOverViewTableViewController.xib */; };
+		D9DD314A1BF4444A009BEDAB /* StoreDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DD31491BF4444A009BEDAB /* StoreDetailModel.m */; };
+		D9DD314D1BF46A68009BEDAB /* GoodsPackageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DD314C1BF46A68009BEDAB /* GoodsPackageModel.m */; };
+		D9DD31511BF46D3A009BEDAB /* OrderContactInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DD31501BF46D3A009BEDAB /* OrderContactInfoModel.m */; };
+		D9DD31541BF46D4A009BEDAB /* OrderTravelerInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DD31531BF46D4A009BEDAB /* OrderTravelerInfoModel.m */; };
 		D9E0EECD1B79A60D003872DF /* ChatAlbumCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E0EECB1B79A60D003872DF /* ChatAlbumCollectionViewController.m */; };
 		D9E0EECE1B79A60D003872DF /* ChatAlbumCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9E0EECC1B79A60D003872DF /* ChatAlbumCollectionViewController.xib */; };
 		D9E0EED21B79BDC2003872DF /* ChatAlbumCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E0EED01B79BDC2003872DF /* ChatAlbumCollectionViewCell.m */; };
@@ -3635,6 +3639,14 @@
 		D9D9A50B1BAFD00E001001B8 /* UserAlbumOverViewTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserAlbumOverViewTableViewController.h; sourceTree = "<group>"; };
 		D9D9A50C1BAFD00E001001B8 /* UserAlbumOverViewTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserAlbumOverViewTableViewController.m; sourceTree = "<group>"; };
 		D9D9A50D1BAFD00E001001B8 /* UserAlbumOverViewTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserAlbumOverViewTableViewController.xib; sourceTree = "<group>"; };
+		D9DD31481BF4444A009BEDAB /* StoreDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreDetailModel.h; sourceTree = "<group>"; };
+		D9DD31491BF4444A009BEDAB /* StoreDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreDetailModel.m; sourceTree = "<group>"; };
+		D9DD314B1BF46A68009BEDAB /* GoodsPackageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsPackageModel.h; sourceTree = "<group>"; };
+		D9DD314C1BF46A68009BEDAB /* GoodsPackageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsPackageModel.m; sourceTree = "<group>"; };
+		D9DD314F1BF46D3A009BEDAB /* OrderContactInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderContactInfoModel.h; sourceTree = "<group>"; };
+		D9DD31501BF46D3A009BEDAB /* OrderContactInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderContactInfoModel.m; sourceTree = "<group>"; };
+		D9DD31521BF46D4A009BEDAB /* OrderTravelerInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderTravelerInfoModel.h; sourceTree = "<group>"; };
+		D9DD31531BF46D4A009BEDAB /* OrderTravelerInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderTravelerInfoModel.m; sourceTree = "<group>"; };
 		D9E0EECA1B79A60D003872DF /* ChatAlbumCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatAlbumCollectionViewController.h; sourceTree = "<group>"; };
 		D9E0EECB1B79A60D003872DF /* ChatAlbumCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatAlbumCollectionViewController.m; sourceTree = "<group>"; };
 		D9E0EECC1B79A60D003872DF /* ChatAlbumCollectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatAlbumCollectionViewController.xib; sourceTree = "<group>"; };
@@ -5624,6 +5636,7 @@
 		D90C75E31BF1949A00C5897C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D9DD314E1BF46D24009BEDAB /* Traveler */,
 				D90C75E41BF194F900C5897C /* OrderDetailModel.h */,
 				D90C75E51BF194F900C5897C /* OrderDetailModel.m */,
 			);
@@ -5834,10 +5847,12 @@
 		D91CCB521BD1EB3B008425E4 /* GoodsModel */ = {
 			isa = PBXGroup;
 			children = (
-				D97492A81BF4360C00A5A70B /* GoodsDetailModel.h */,
-				D97492A91BF4360C00A5A70B /* GoodsDetailModel.m */,
 				D97492AB1BF4391100A5A70B /* GoodsManager.h */,
 				D97492AC1BF4391100A5A70B /* GoodsManager.m */,
+				D97492A81BF4360C00A5A70B /* GoodsDetailModel.h */,
+				D97492A91BF4360C00A5A70B /* GoodsDetailModel.m */,
+				D9DD314B1BF46A68009BEDAB /* GoodsPackageModel.h */,
+				D9DD314C1BF46A68009BEDAB /* GoodsPackageModel.m */,
 			);
 			path = GoodsModel;
 			sourceTree = "<group>";
@@ -8430,8 +8445,21 @@
 		D9DD31471BF44409009BEDAB /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D9DD31481BF4444A009BEDAB /* StoreDetailModel.h */,
+				D9DD31491BF4444A009BEDAB /* StoreDetailModel.m */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		D9DD314E1BF46D24009BEDAB /* Traveler */ = {
+			isa = PBXGroup;
+			children = (
+				D9DD314F1BF46D3A009BEDAB /* OrderContactInfoModel.h */,
+				D9DD31501BF46D3A009BEDAB /* OrderContactInfoModel.m */,
+				D9DD31521BF46D4A009BEDAB /* OrderTravelerInfoModel.h */,
+				D9DD31531BF46D4A009BEDAB /* OrderTravelerInfoModel.m */,
+			);
+			name = Traveler;
 			sourceTree = "<group>";
 		};
 		D9E0EEFE1B7D9036003872DF /* CMPopTipView */ = {
@@ -11454,6 +11482,7 @@
 				D993C23E1B12DF0C0088D568 /* wav.mm in Sources */,
 				D9A802391A80E036005AD701 /* WOEIDUtils.m in Sources */,
 				D9E0EEFC1B7CB020003872DF /* SearchDestinationHistoryCollectionReusableView.m in Sources */,
+				D9DD314A1BF4444A009BEDAB /* StoreDetailModel.m in Sources */,
 				D993C25D1B12DF0C0088D568 /* BaseMessage.swift in Sources */,
 				D9F46DD01AC92B9200972AE8 /* TZSideViewController.m in Sources */,
 				D9A8FF1D1A80CC2B005AD701 /* UserHeaderTableViewCell.m in Sources */,
@@ -11554,9 +11583,11 @@
 				D9A8012D1A80DD23005AD701 /* FacialView.m in Sources */,
 				D91061F41BA953D800C4FBCB /* UserAlbumPreviewCollectionViewCell.m in Sources */,
 				270C164D1B0059F60048C85D /* CityDescDetailViewController.m in Sources */,
+				D9DD31511BF46D3A009BEDAB /* OrderContactInfoModel.m in Sources */,
 				D9A802B11A80E3D3005AD701 /* NSDateFormatter+Category.m in Sources */,
 				D9EE34421AB93CF10076933B /* RestaurantDetailViewController.m in Sources */,
 				D9A801401A80DD23005AD701 /* EMChatImageBubbleView.m in Sources */,
+				D9DD31541BF46D4A009BEDAB /* OrderTravelerInfoModel.m in Sources */,
 				019BCF721BB27378007841E4 /* CityDetailHeaderBtnSqure.m in Sources */,
 				01C1ECBD1BB53A690082217A /* EmoticonModel.m in Sources */,
 				D9A800361A80D52F005AD701 /* TripDetailRootViewController.m in Sources */,
@@ -11603,6 +11634,7 @@
 				D993C2571B12DF0C0088D568 /* MessageProtocol.swift in Sources */,
 				D9A8FFA11A80D1C3005AD701 /* CityDetailHeaderView.m in Sources */,
 				01578E6B1BD228F200244D9D /* DataSigner.m in Sources */,
+				D9DD314D1BF46A68009BEDAB /* GoodsPackageModel.m in Sources */,
 				C65DB7C91AD6A44200F51443 /* TZNavigationViewController.m in Sources */,
 				D9F46DBC1AC52D8600972AE8 /* SVWebViewControllerActivityChrome.m in Sources */,
 				E6E725251B5603750007273A /* NSObject+MJKeyValue.m in Sources */,

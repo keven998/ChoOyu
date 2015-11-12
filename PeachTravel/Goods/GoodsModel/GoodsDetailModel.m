@@ -12,7 +12,7 @@
 
 - (id)initWithJson:(id)json {
     if (self = [super init]) {
-        
+    
     }
     return self;
 }

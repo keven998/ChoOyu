@@ -27,6 +27,8 @@
         goodsModel.saleCount = 100;
         goodsModel.primePrice = 12345;
         goodsModel.currentPrice = 1234;
+        goodsModel.store = [[StoreDetailModel alloc] init];
+        goodsModel.store.storeName = @"三亚大海哇";
         goodsModel.tags = @[@"货到付款", @"双十一"];
         [retArray addObject: goodsModel];
     }

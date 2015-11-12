@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "PeachTravel-swift.h"
+#import "StoreDetailModel.h"
+#import "GoodsPackageModel.h"
 
 @interface GoodsDetailModel : NSObject
 
@@ -19,9 +21,10 @@
 @property (nonatomic) float currentPrice;
 @property (nonatomic, strong) NSArray<NSString *> *tags;
 @property (nonatomic, strong) BusinessMoel *business;
+@property (nonatomic, strong) StoreDetailModel *store;
 @property (nonatomic) float rating;
 @property (nonatomic) NSInteger saleCount;
-
+@property (nonatomic, strong) NSArray<GoodsPackageModel *> *packages;
 - (id)initWithJson:(id)json;
 
 @end
