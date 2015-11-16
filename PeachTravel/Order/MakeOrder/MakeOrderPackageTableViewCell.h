@@ -12,5 +12,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *orderContentBtn;
 
 @property (nonatomic, strong) NSString *packageTitle;
+@property (weak, nonatomic) IBOutlet UILabel *priceLabel;
+@property (nonatomic) BOOL isSelected;
 
 @end

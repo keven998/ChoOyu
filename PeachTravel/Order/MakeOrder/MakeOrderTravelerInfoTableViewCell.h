@@ -10,7 +10,7 @@
 
 @protocol MakeOrderEditTravelerInfoDelegate <NSObject>
 
-- (void)finishEditTraveler;
+- (void)finishEditTravelerWithTravelerList:(NSArray *) travelerList;
 
 @end
 

@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GoodsDetailModel.h"
 
 @interface MakeOrderViewController : TZViewController
+
+@property (nonatomic, strong) GoodsDetailModel *goodsModel;   //制作订单所需要的商品
 
 @end

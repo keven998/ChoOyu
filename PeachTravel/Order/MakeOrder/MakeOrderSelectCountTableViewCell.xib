@@ -34,20 +34,20 @@
                         </constraints>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V8U-v0-IQk">
-                        <rect key="frame" x="219" y="10" width="29" height="30"/>
+                        <rect key="frame" x="215" y="0.0" width="36" height="49.5"/>
                         <animations/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="29" id="fvV-Bs-R0n"/>
-                            <constraint firstAttribute="height" constant="30" id="jPp-O2-xzp"/>
+                            <constraint firstAttribute="width" constant="36" id="fvV-Bs-R0n"/>
+                            <constraint firstAttribute="height" constant="49.5" id="jPp-O2-xzp"/>
                         </constraints>
                         <state key="normal" image="icon_makeOrder_delete"/>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z09-k6-kkM">
-                        <rect key="frame" x="280" y="10" width="29" height="30"/>
+                        <rect key="frame" x="278" y="0.0" width="32" height="49.5"/>
                         <animations/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="29" id="629-Kf-kI5"/>
-                            <constraint firstAttribute="height" constant="30" id="pZ1-mq-bXi"/>
+                            <constraint firstAttribute="width" constant="32" id="629-Kf-kI5"/>
+                            <constraint firstAttribute="height" constant="49.5" id="pZ1-mq-bXi"/>
                         </constraints>
                         <state key="normal" image="icon_makeOrder_add"/>
                     </button>
@@ -65,19 +65,25 @@
                 </subviews>
                 <animations/>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="z09-k6-kkM" secondAttribute="trailing" constant="11" id="0Ps-ov-cT9"/>
+                    <constraint firstAttribute="trailing" secondItem="z09-k6-kkM" secondAttribute="trailing" constant="10" id="0Ps-ov-cT9"/>
                     <constraint firstItem="chg-uB-wgu" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="2HS-7l-oYO"/>
-                    <constraint firstItem="V8U-v0-IQk" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="BNd-LM-zID"/>
-                    <constraint firstAttribute="trailing" secondItem="V8U-v0-IQk" secondAttribute="trailing" constant="72" id="MI4-9e-iUd"/>
+                    <constraint firstItem="V8U-v0-IQk" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="BNd-LM-zID"/>
+                    <constraint firstAttribute="trailing" secondItem="V8U-v0-IQk" secondAttribute="trailing" constant="69" id="MI4-9e-iUd"/>
                     <constraint firstItem="pY0-B9-KqL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="11" id="XNn-nH-O9u"/>
                     <constraint firstItem="pY0-B9-KqL" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="XWx-1r-5km"/>
-                    <constraint firstItem="z09-k6-kkM" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="Xv2-F7-m4F"/>
+                    <constraint firstItem="z09-k6-kkM" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Xv2-F7-m4F"/>
                     <constraint firstItem="NOp-TY-iOf" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Zfd-mf-Rl9"/>
                     <constraint firstAttribute="trailing" secondItem="NOp-TY-iOf" secondAttribute="trailing" constant="11" id="n4c-if-Pjq"/>
-                    <constraint firstItem="z09-k6-kkM" firstAttribute="leading" secondItem="chg-uB-wgu" secondAttribute="trailing" constant="1" id="zG1-f6-EVg"/>
+                    <constraint firstItem="z09-k6-kkM" firstAttribute="leading" secondItem="chg-uB-wgu" secondAttribute="trailing" constant="-1" id="zG1-f6-EVg"/>
                 </constraints>
             </tableViewCellContentView>
             <animations/>
+            <connections>
+                <outlet property="addBtn" destination="z09-k6-kkM" id="obl-nY-eYw"/>
+                <outlet property="countLabel" destination="chg-uB-wgu" id="0u7-mm-W0n"/>
+                <outlet property="deleteBtn" destination="V8U-v0-IQk" id="Rpt-Jv-WjR"/>
+            </connections>
+            <point key="canvasLocation" x="227" y="253"/>
         </tableViewCell>
     </objects>
     <resources>

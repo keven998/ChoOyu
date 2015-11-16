@@ -10,10 +10,11 @@
 
 @interface OrderTravelerInfoModel : NSObject
 
+@property (nonatomic, copy) NSString *uid;
 @property (nonatomic, copy) NSString *firstName;
-@property (nonatomic, copy) NSString *secondName;
+@property (nonatomic, copy) NSString *lastName;
 @property (nonatomic, copy) NSString *firstNamePY;
-@property (nonatomic, copy) NSString *secondNamePY;
+@property (nonatomic, copy) NSString *lastNamePY;
 @property (nonatomic, copy) NSString *birthday;
 @property (nonatomic, copy) NSString *tel;
 @property (nonatomic, copy) NSString *IDNumber;    //证件号码

@@ -8,6 +8,13 @@
 
 #import "MakeOrderSelectPackageTableViewCell.h"
 #import "MakeOrderPackageTableViewCell.h"
+#import "GoodsPackageModel.h"
+
+@interface MakeOrderSelectPackageTableViewCell ()
+
+@property (nonatomic) NSInteger selectedIndex;     //当前选中的位置
+
+@end
 
 @implementation MakeOrderSelectPackageTableViewCell
 
@@ -21,6 +28,8 @@
     _tableView.delegate = self;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [_tableView registerNib:[UINib nibWithNibName:@"MakeOrderPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"makeOrderPackageTableViewCell"];
+    _selectedIndex = 0;      //默认选中第一个套餐
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -50,12 +59,19 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     MakeOrderPackageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"makeOrderPackageTableViewCell" forIndexPath:indexPath];
-    cell.packageTitle = @"商品套餐";
+    GoodsPackageModel *package = [_packageList objectAtIndex:indexPath.row];
+    cell.packageTitle = package.packageName;
+    cell.priceLabel.text = [NSString stringWithFormat:@"￥%d", (int)package.currentPrice];
+    cell.isSelected = (indexPath.section == _selectedIndex);
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    _selectedIndex = indexPath.section;
+    if ([_deleagte respondsToSelector:@selector(didSelectedPackage:)]) {
+        [_deleagte didSelectedPackage:[_packageList objectAtIndex:indexPath.section]];
+    }
+    [_tableView reloadData];
 }
 
 

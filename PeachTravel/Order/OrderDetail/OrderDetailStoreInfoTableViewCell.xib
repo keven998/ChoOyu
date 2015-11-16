@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="orderDetailStoreCell" id="KGk-i7-Jjw" customClass="OrderDetailStoreInfoTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="49.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_orderDetail_store" translatesAutoresizingMaskIntoConstraints="NO" id="sMW-5y-Hzl">
+                        <rect key="frame" x="11" y="17" width="17" height="17"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="17" id="1Xo-XR-d57"/>
+                            <constraint firstAttribute="height" constant="17" id="t3o-IP-Wvz"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o1U-AO-cUp">
+                        <rect key="frame" x="37" y="14" width="214" height="21"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="CKu-Ug-FKT"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dev-up-5SI">
+                        <rect key="frame" x="262" y="12" width="50" height="25"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="1Zr-hY-Edc"/>
+                            <constraint firstAttribute="height" constant="25" id="a3l-mK-uia"/>
+                        </constraints>
+                        <state key="normal" title="聊天"/>
+                    </button>
+                </subviews>
+                <animations/>
+                <constraints>
+                    <constraint firstItem="sMW-5y-Hzl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="11" id="7xp-93-mGk"/>
+                    <constraint firstItem="sMW-5y-Hzl" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Bwu-8d-bu9"/>
+                    <constraint firstAttribute="trailing" secondItem="o1U-AO-cUp" secondAttribute="trailing" constant="69" id="KJ3-de-AA0"/>
+                    <constraint firstItem="dev-up-5SI" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="N76-TD-UYk"/>
+                    <constraint firstItem="o1U-AO-cUp" firstAttribute="leading" secondItem="sMW-5y-Hzl" secondAttribute="trailing" constant="9" id="Qk6-Sf-XWE"/>
+                    <constraint firstItem="o1U-AO-cUp" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="hWW-f7-zYh"/>
+                    <constraint firstAttribute="trailing" secondItem="dev-up-5SI" secondAttribute="trailing" constant="8" id="nyQ-7Z-ae2"/>
+                </constraints>
+            </tableViewCellContentView>
+            <animations/>
+            <connections>
+                <outlet property="chatBtn" destination="dev-up-5SI" id="geo-iK-DWW"/>
+                <outlet property="storeNameLabel" destination="o1U-AO-cUp" id="Rho-a6-ZDR"/>
+            </connections>
+            <point key="canvasLocation" x="246" y="193"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="icon_orderDetail_store" width="13" height="12"/>
+    </resources>
+</document>

@@ -30,6 +30,12 @@
         goodsModel.store = [[StoreDetailModel alloc] init];
         goodsModel.store.storeName = @"三亚大海哇";
         goodsModel.tags = @[@"货到付款", @"双十一"];
+        GoodsPackageModel *package = [[GoodsPackageModel alloc] init];
+        package.primePrice = 1234;
+        package.currentPrice = 2345;
+        package.packageName = @"我的名字是套餐一";
+        package.packageDesc = @"我是一个套餐，简简单单";
+        goodsModel.packages = @[package, package, package];
         [retArray addObject: goodsModel];
     }
     completion(YES, retArray);

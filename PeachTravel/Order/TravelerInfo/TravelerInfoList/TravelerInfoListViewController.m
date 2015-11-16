@@ -8,8 +8,12 @@
 
 #import "TravelerInfoListViewController.h"
 #import "TravelerInfoTableViewCell.h"
+#import "OrderUserInfoManager.h"
+#import "TravelerInfoViewController.h"
 
 @interface TravelerInfoListViewController ()<UITableViewDataSource, UITableViewDelegate>
+
+@property (nonatomic, strong) NSArray<OrderTravelerInfoModel *> *dataSource;   //所有的联系人
 
 @end
 
@@ -21,10 +25,54 @@
     _tableView.dataSource = self;
     _tableView.separatorColor = COLOR_LINE;
     [_tableView registerNib:[UINib nibWithNibName:@"TravelerInfoTableViewCell" bundle:nil] forCellReuseIdentifier:@"travelerInfoTableViewCell"];
+    
+    UIButton *confirmBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [confirmBtn setTitle:@"确定" forState:UIControlStateNormal];
+    confirmBtn.titleLabel.font = [UIFont systemFontOfSize:16.0];
+    [confirmBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+    [confirmBtn addTarget:self action:@selector(confirm:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:confirmBtn];
+    [OrderUserInfoManager asyncLoadTravelersFromServerOfUser:[AccountManager shareAccountManager].account.userId completionBlock:^(BOOL isSuccess, NSArray<OrderTravelerInfoModel *> *travelers) {
+        _dataSource = travelers;
+        [_tableView reloadData];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (void)confirm:(UIButton *)btn
+{
+    if ([_delegate respondsToSelector:@selector(finishSelectTraveler:)]) {
+        [_delegate finishSelectTraveler:_selectedTravelers];
+    }
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)selectTraveler:(UIButton *)btn
+{
+    if (btn.selected) {
+        for (OrderTravelerInfoModel *traveler in _selectedTravelers) {
+            if ([traveler.uid isEqualToString:[_dataSource objectAtIndex:btn.tag].uid]) {
+                [_selectedTravelers removeObject:traveler];
+                break;
+            }
+        }
+    } else {
+        [_selectedTravelers addObject:[_dataSource objectAtIndex:btn.tag]];
+    }
+    btn.selected = !btn.selected;
+}
+
+- (BOOL)travelerIsSelected:(OrderTravelerInfoModel *)traveler
+{
+    for (OrderTravelerInfoModel *tr in _selectedTravelers) {
+        if ([traveler.uid isEqualToString:tr.uid]) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -33,7 +81,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 6;
+    return _dataSource.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -53,10 +101,21 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    OrderTravelerInfoModel *travelerInfo = _dataSource[indexPath.row];
     TravelerInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"travelerInfoTableViewCell" forIndexPath:indexPath];
-    cell.titleLabel.text = @"小琴";
-    cell.subTitleLabel.text = @"身份证: 21312312312312";
+    cell.selectBtn.tag = indexPath.row;
+    cell.titleLabel.text = [NSString stringWithFormat:@"%@%@", travelerInfo.firstName, travelerInfo.lastName];
+    cell.subTitleLabel.text = [NSString stringWithFormat:@"%@:  %@", travelerInfo.IDCategory, travelerInfo.IDNumber];
+    [cell.selectBtn addTarget:self action:@selector(selectTraveler:) forControlEvents:UIControlEventTouchUpInside];
+    cell.selectBtn.selected = [self travelerIsSelected:travelerInfo];
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    TravelerInfoViewController *ctl = [[TravelerInfoViewController alloc] init];
+    [self.navigationController pushViewController:ctl animated:YES];
 }
 
 @end

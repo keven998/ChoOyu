@@ -14,19 +14,18 @@
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     [_orderContentBtn setBackgroundImage:[[UIImage imageNamed:@"icon_makeOrder_packageNormal"] resizableImageWithCapInsets:UIEdgeInsetsMake(2, 2, 2, 15)] forState:UIControlStateNormal];
     [_orderContentBtn setBackgroundImage:[[UIImage imageNamed:@"icon_makeOrder_packageSelected"] resizableImageWithCapInsets:UIEdgeInsetsMake(4, 4, 25, 25)] forState:UIControlStateSelected];
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-    _orderContentBtn.selected = selected;
-}
+  }
 
 - (void)setPackageTitle:(NSString *)packageTitle
 {
     _packageTitle = packageTitle;
     [_orderContentBtn setTitle:_packageTitle forState:UIControlStateNormal];
-//    [_orderContentBtn setTitle:_packageTitle forState:UIControlStateSelected];
+}
 
+- (void)setIsSelected:(BOOL)isSelected
+{
+    _isSelected = isSelected;
+    _orderContentBtn.selected = _isSelected;
 }
 
 @end

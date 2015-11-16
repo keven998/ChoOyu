@@ -11,13 +11,38 @@
 @implementation MakeOrderSelectCountTableViewCell
 
 - (void)awakeFromNib {
-    // Initialization code
+    [_deleteBtn addTarget:self action:@selector(deleteNumber:) forControlEvents:UIControlEventTouchUpInside];
+    [_addBtn addTarget:self action:@selector(addNumber:) forControlEvents:UIControlEventTouchUpInside];
+
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
-    // Configure the view for the selected state
+}
+
+- (void)setCount:(NSUInteger)count
+{
+    _count = count;
+    _countLabel.text = [NSString stringWithFormat:@"%ld", _count];
+}
+
+- (void)addNumber:(UIButton *)btn
+{
+    self.count++;
+    if ([_delegate respondsToSelector:@selector(updateSelectCount:)]) {
+        [_delegate updateSelectCount:_count];
+    }
+}
+
+- (void)deleteNumber:(UIButton *)btn
+{
+    if (_count > 1) {
+        self.count--;
+    }
+    if ([_delegate respondsToSelector:@selector(updateSelectCount:)]) {
+        [_delegate updateSelectCount:_count];
+    }
 }
 
 @end

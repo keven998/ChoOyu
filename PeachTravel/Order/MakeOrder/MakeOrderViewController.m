@@ -16,16 +16,18 @@
 #import "SuperWebViewController.h"
 #import "PDTSimpleCalendarViewController.h"
 #import "TravelerInfoListViewController.h"
+#import "OrderDetailModel.h"
+#import "OrderManager.h"
+#import "OrderDetailViewController.h"
 
-@interface MakeOrderViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UITextViewDelegate, MakeOrderEditTravelerInfoDelegate, PDTSimpleCalendarViewDelegate>
+@interface MakeOrderViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UITextViewDelegate, MakeOrderEditTravelerInfoDelegate, PDTSimpleCalendarViewDelegate, MakeOrderSelectPackageDelegate, MakeOrderSelectCountDelegate, TravelerInfoListDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UILabel *totalPriceLabel;
 @property (nonatomic, strong) UIButton *commintOrderBtn;
 @property (nonatomic, strong) UIView *currentTextActivity;
 @property (nonatomic) CGPoint backupOffset;
-
-@property (nonatomic, strong) NSMutableArray *travelerList;
+@property (nonatomic, strong) OrderDetailModel *orderDetail;
 
 @end
 
@@ -33,8 +35,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _travelerList = [@[@"", @"", @""] mutableCopy];
-
+    _orderDetail = [[OrderDetailModel alloc] init];
+    _orderDetail.goods = _goodsModel;
+    _orderDetail.count = 1;
+    _orderDetail.selectedPackage = [_goodsModel.packages firstObject];
+    _orderDetail.totalPrice = [OrderManager orderTotalPrice:_orderDetail];
+    _orderDetail.travelerList = [[NSArray alloc] init];
+    
     self.view.backgroundColor = [UIColor whiteColor];
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     _tableView.backgroundColor = [UIColor whiteColor];
@@ -53,7 +60,8 @@
     [self.view addSubview:_tableView];
     [self setupToolbar];
     [self setupTableViewFooterView];
-}
+    
+   }
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -61,7 +69,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWasShown:)
                                                  name:UIKeyboardDidShowNotification object:nil];
-
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillBeHidden:)
                                                  name:UIKeyboardWillHideNotification object:nil];
@@ -108,10 +116,11 @@
     _totalPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(27, 16, 200, 25)];
     _totalPriceLabel.textColor = [UIColor whiteColor];
     _totalPriceLabel.font = [UIFont systemFontOfSize:17.0];
-    _totalPriceLabel.text = @"￥0.00";
+    _totalPriceLabel.text = [NSString stringWithFormat:@"%d", (int)_orderDetail.totalPrice];
     [toolBar addSubview:_totalPriceLabel];
     
     _commintOrderBtn = [[UIButton alloc] initWithFrame:CGRectMake(toolBar.bounds.size.width-toolBar.bounds.size.width/5*2, 0, toolBar.bounds.size.width/5*2, 56)];
+    [_commintOrderBtn addTarget:self action:@selector(commintOrder:) forControlEvents:UIControlEventTouchUpInside];
     [_commintOrderBtn setBackgroundColor:UIColorFromRGB(0xff6633)];
     [_commintOrderBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     _commintOrderBtn.titleLabel.font = [UIFont systemFontOfSize:17.0];
@@ -135,8 +144,19 @@
 - (void)addTraveler:(UIButton *)sender
 {
     TravelerInfoListViewController *ctl = [[TravelerInfoListViewController alloc] init];
+    ctl.delegate = self;
+    ctl.selectedTravelers = [_orderDetail.travelerList mutableCopy];
     [self.navigationController pushViewController:ctl animated:YES];
 }
+
+- (void)commintOrder:(UIButton *)sender
+{
+    OrderDetailViewController *ctl = [[OrderDetailViewController alloc] init];
+    _orderDetail.orderStatus = kOrderCanceled;
+    ctl.orderDetail = _orderDetail;
+    [self.navigationController pushViewController:ctl animated:YES];
+}
+
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -164,7 +184,7 @@
     } else if (indexPath.row == 1) {
         return [MakeOrderSelectPackageTableViewCell heightWithPackageCount:3];
     } else if (indexPath.row == 4) {
-        return [MakeOrderTravelerInfoTableViewCell heightWithTravelerCount:_travelerList.count];
+        return [MakeOrderTravelerInfoTableViewCell heightWithTravelerCount:_orderDetail.travelerList.count];
     } else if (indexPath.row == 5) {
         return 360;
     }
@@ -175,24 +195,33 @@
 {
     if (indexPath.row == 0) {
         MakeOrderTitleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"makeOrderTitleTableViewCell" forIndexPath:indexPath];
+        cell.titleLabel.text = _goodsModel.goodsName;
         return cell;
+        
     } else if (indexPath.row == 1) {
         MakeOrderSelectPackageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"makeOrderSelectPackageCell" forIndexPath:indexPath];
-        cell.packageList = @[@"", @"", @""];
+        cell.packageList = _goodsModel.packages;
+        cell.deleagte = self;
         return cell;
+        
     } else if (indexPath.row == 2) {
         MakeOrderSelectDateTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"makeOrderSelectDataCell" forIndexPath:indexPath];
         [cell.choseDateBtn addTarget:self action:@selector(choseLeftDate:) forControlEvents:UIControlEventTouchUpInside];
         return cell;
+        
     } else if (indexPath.row == 3) {
         MakeOrderSelectCountTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"makeOrderSelectCountCell" forIndexPath:indexPath];
+        cell.count = _orderDetail.count;
+        cell.delegate = self;
         return cell;
+        
     } else if (indexPath.row == 4) {
         MakeOrderTravelerInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"makeOrderTravelerEditCell" forIndexPath:indexPath];
-        cell.travelerList = _travelerList;
+        cell.travelerList = [_orderDetail.travelerList mutableCopy];
         cell.delegate = self;
         [cell.addTravelerBtn addTarget:self action:@selector(addTraveler:) forControlEvents:UIControlEventTouchUpInside];
         return cell;
+        
     } else if (indexPath.row == 5) {
         MakeOrderContactInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"makeOrderContactInfoCell" forIndexPath:indexPath];
         cell.nickNameTextfield.delegate = self;
@@ -251,9 +280,34 @@
 
 #pragma mark - MakeOrderEditTravelerInfoDelegate
 
-- (void)finishEditTraveler
+- (void)finishEditTravelerWithTravelerList:(NSArray *)travelerList
 {
+    _orderDetail.travelerList = travelerList;
     [self.tableView reloadData];
+}
+
+#pragma mark - MakeOrderSelectPackageDelegate
+
+- (void)didSelectedPackage:(GoodsPackageModel *)package
+{
+    [OrderManager updateOrder:_orderDetail WithGoodsPackage:package];
+    _orderDetail.totalPrice = [OrderManager orderTotalPrice:_orderDetail];
+    _totalPriceLabel.text = [NSString stringWithFormat:@"%d", (int)_orderDetail.totalPrice];
+}
+
+- (void)finishSelectTraveler:(NSArray<OrderTravelerInfoModel *> *)travelerList
+{
+    _orderDetail.travelerList = travelerList;
+    [_tableView reloadData];
+}
+
+#pragma mark - MakeOrderSelectCountDelegate
+
+- (void)updateSelectCount:(NSInteger)count
+{
+    [OrderManager updateOrder:_orderDetail WithBuyCount:count];
+    _orderDetail.totalPrice = [OrderManager orderTotalPrice:_orderDetail];
+    _totalPriceLabel.text = [NSString stringWithFormat:@"%d", (int)_orderDetail.totalPrice];
 }
 
 #pragma mark - PDTSimpleCalendarViewDelegate

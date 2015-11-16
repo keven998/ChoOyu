@@ -46,6 +46,9 @@
                 </constraints>
             </tableViewCellContentView>
             <animations/>
+            <connections>
+                <outlet property="titleLabel" destination="8MR-c8-zMx" id="QwR-7w-yhh"/>
+            </connections>
             <point key="canvasLocation" x="259" y="236.5"/>
         </tableViewCell>
     </objects>

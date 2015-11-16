@@ -19,13 +19,26 @@
                         <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <inset key="titleEdgeInsets" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        <state key="normal" title="套餐1">
+                        <state key="normal">
                             <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </state>
                     </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZrP-QW-Z8s">
+                        <rect key="frame" x="212" y="12" width="65" height="21"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="BDz-dW-nI8"/>
+                            <constraint firstAttribute="width" constant="65" id="JTh-gF-D4i"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <animations/>
                 <constraints>
+                    <constraint firstAttribute="trailing" secondItem="ZrP-QW-Z8s" secondAttribute="trailing" constant="43" id="3CV-dQ-waj"/>
+                    <constraint firstItem="ZrP-QW-Z8s" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="6oC-qO-6AD"/>
                     <constraint firstItem="Q8E-Ff-5fY" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="EYi-vu-2bg"/>
                     <constraint firstAttribute="trailing" secondItem="Q8E-Ff-5fY" secondAttribute="trailing" constant="11" id="W84-m6-jUZ"/>
                     <constraint firstItem="Q8E-Ff-5fY" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="11" id="jNK-HM-FIG"/>
@@ -35,8 +48,9 @@
             <animations/>
             <connections>
                 <outlet property="orderContentBtn" destination="Q8E-Ff-5fY" id="V8h-TX-Dkr"/>
+                <outlet property="priceLabel" destination="ZrP-QW-Z8s" id="YSd-eT-eTQ"/>
             </connections>
-            <point key="canvasLocation" x="43" y="102"/>
+            <point key="canvasLocation" x="-132" y="97"/>
         </tableViewCell>
     </objects>
 </document>

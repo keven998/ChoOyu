@@ -8,6 +8,7 @@
 
 #import "MakeOrderTravelerInfoTableViewCell.h"
 #import "MakeOrderTravelerTableViewCell.h"
+#import "OrderTravelerInfoModel.h"
 
 @implementation MakeOrderTravelerInfoTableViewCell
 
@@ -21,7 +22,7 @@
     _tableView.delegate = self;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [_tableView registerNib:[UINib nibWithNibName:@"MakeOrderTravelerTableViewCell" bundle:nil] forCellReuseIdentifier:@"makeOrderTravelerCell"];
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.bounds.size.width, 75)];
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 75)];
     _addTravelerBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 160, 35)];
     _addTravelerBtn.center = CGPointMake(footerView.bounds.size.width/2, footerView.bounds.size.height/2-5);
     [_addTravelerBtn setImage:[UIImage imageNamed:@"icon_makeOrder_addTraveler"] forState:UIControlStateNormal];
@@ -62,9 +63,10 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    OrderTravelerInfoModel *travelerInfo = [_travelerList objectAtIndex:indexPath.row];
     MakeOrderTravelerTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"makeOrderTravelerCell" forIndexPath:indexPath];
     [cell.deleteBtn addTarget:self action:@selector(deleteTraveler:) forControlEvents:UIControlEventTouchUpInside];
-    cell.titleLabel.text = @"第一位旅行者";
+    cell.titleLabel.text = [NSString stringWithFormat:@"%@%@ %@:%@", travelerInfo.firstName, travelerInfo.lastName, travelerInfo.IDCategory, travelerInfo.IDNumber];
     cell.deleteBtn.tag = indexPath.section;
     return cell;
 }
@@ -81,7 +83,7 @@
             [_travelerList removeObjectAtIndex:sender.tag];
             NSIndexSet *set = [[NSIndexSet alloc] initWithIndex:sender.tag];
             [_tableView deleteSections:set withRowAnimation:UITableViewRowAnimationAutomatic];
-            [_delegate finishEditTraveler];
+            [_delegate finishEditTravelerWithTravelerList:_travelerList];
         }
     }];
 }
