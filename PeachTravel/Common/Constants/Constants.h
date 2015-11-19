@@ -34,8 +34,8 @@
 
 /***** API *****/
 
-//#define BASE_URL                                @ "http://api-dev.lvxingpai.com/app/"
-#define BASE_URL                                @ "http://api.lvxingpai.com/app/"
+#define BASE_URL                                @ "http://api-dev.lvxingpai.com/app/"
+//#define BASE_URL                                @ "http://api.lvxingpai.com/app/"
 
 //攻略相关接口
 #define API_GET_RECOMMEND                       (BASE_URL @"recommend")     //获取目的地首页推荐接口
@@ -63,6 +63,8 @@
 
 #define API_GET_GUIDE_CITY                      (BASE_URL @"guides/locality/")    //城市的美食购物攻略介绍
 #define API_GET_EXPERT_DETAIL                   (BASE_URL @"geo/countries/")   //达人列表
+#define API_GET_COUNTRIES                       (BASE_URL @"geo/countries")   //国家列表
+
 
 #define API_GET_HOT_SEARCH                      (BASE_URL @"search/hot-queries")   // 热门搜索
 #define API_UPDATE_GUIDE_PROPERTY               (BASE_URL @"guides")    //修改攻略属性

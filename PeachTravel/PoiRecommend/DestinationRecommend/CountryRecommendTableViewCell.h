@@ -13,4 +13,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *zhNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *enNameLabel;
+
+@property (nonatomic, strong) CountryModel *countryModel;
 @end

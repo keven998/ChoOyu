@@ -11,13 +11,18 @@
 @implementation CountryRecommendTableViewCell
 
 - (void)awakeFromNib {
-    [_headerImageView sd_setImageWithURL:[NSURL URLWithString:@"http://images.taozilvxing.com/28c2d1ef35c12100e99fecddb63c436a?imageView2/2/w/1200"] placeholderImage:nil];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
+}
 
-    // Configure the view for the selected state
+- (void)setCountryModel:(CountryModel *)countryModel
+{
+    _countryModel = countryModel;
+    [_headerImageView sd_setImageWithURL:[NSURL URLWithString:[_countryModel.images firstObject].imageUrl] placeholderImage:nil];
+    _zhNameLabel.text = _countryModel.zhName;
+    _enNameLabel.text = _countryModel.enName;
 }
 
 @end

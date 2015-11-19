@@ -15,7 +15,7 @@
 #import "MakeOrderContactInfoTableViewCell.h"
 #import "SuperWebViewController.h"
 #import "PDTSimpleCalendarViewController.h"
-#import "TravelerInfoListViewController.h"
+#import "SelectTravelerListViewController.h"
 #import "OrderDetailModel.h"
 #import "OrderManager.h"
 #import "OrderDetailViewController.h"
@@ -60,8 +60,7 @@
     [self.view addSubview:_tableView];
     [self setupToolbar];
     [self setupTableViewFooterView];
-    
-   }
+}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -143,7 +142,7 @@
 
 - (void)addTraveler:(UIButton *)sender
 {
-    TravelerInfoListViewController *ctl = [[TravelerInfoListViewController alloc] init];
+    SelectTravelerListViewController *ctl = [[SelectTravelerListViewController alloc] init];
     ctl.delegate = self;
     ctl.selectedTravelers = [_orderDetail.travelerList mutableCopy];
     [self.navigationController pushViewController:ctl animated:YES];
@@ -152,7 +151,7 @@
 - (void)commintOrder:(UIButton *)sender
 {
     OrderDetailViewController *ctl = [[OrderDetailViewController alloc] init];
-    _orderDetail.orderStatus = kOrderCanceled;
+    _orderDetail.orderStatus = kOrderInProgress;
     ctl.orderDetail = _orderDetail;
     [self.navigationController pushViewController:ctl animated:YES];
 }

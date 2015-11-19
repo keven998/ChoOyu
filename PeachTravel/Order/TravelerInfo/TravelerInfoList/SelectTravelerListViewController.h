@@ -12,11 +12,12 @@
 @protocol TravelerInfoListDelegate<NSObject>
 
 @optional
+
 - (void)finishSelectTraveler:(NSArray<OrderTravelerInfoModel *> *)travelerList;
 
 @end
 
-@interface TravelerInfoListViewController : TZViewController
+@interface SelectTravelerListViewController : TZViewController
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 

@@ -11,15 +11,19 @@
 #import "MenuButton.h"
 #import "CircleMenu.h"
 #import "CityListViewController.h"
+#import "PoiRecommendManager.h"
 
 @interface CountryRecommendViewController () <UITableViewDataSource, UITableViewDelegate, circleMenuDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (strong, nonatomic) UIButton *searchBtn;
 @property (strong, nonatomic) CircleMenu *circleMenu;
-@property (strong, nonatomic) UIButton *currentSelectedBtn;
+@property (strong, nonatomic) UIButton *currentSelectedBtn;  //三角按钮
 @property (strong, nonatomic) NSArray *menuTitles;
+@property (strong, nonatomic) NSArray *continentCodes;
 @property (weak, nonatomic) UITapGestureRecognizer *tapGesture;
+@property (nonatomic, strong) NSArray<NSMutableArray *> *dataSource;
+@property (nonatomic) NSInteger currentSelectIndex;   //当前选中的哪个州
 
 @end
 
@@ -27,7 +31,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _menuTitles = @[@"推荐", @"亚洲", @"美洲", @"欧洲", @"非洲", @"大洋洲", ];
+    _menuTitles = @[@"推荐", @"亚洲", @"美洲", @"欧洲", @"非洲", @"大洋洲"];
+    _continentCodes = @[[NSNumber numberWithInteger:kRECOM], [NSNumber numberWithInteger:kAS], [NSNumber numberWithInteger:kNA], [NSNumber numberWithInteger:kEU], [NSNumber numberWithInteger:kAF], [NSNumber numberWithInteger:kOC]];
+    
+    NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+    for (int i = 0; i<_menuTitles.count; i++) {
+        [tempArray addObject:[[NSMutableArray alloc] init]];
+    }
+    _dataSource = tempArray;
 
     self.view.backgroundColor = [UIColor whiteColor];
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -55,9 +66,9 @@
     _currentSelectedBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 9, 0, 0);
     _currentSelectedBtn.titleLabel.font = [UIFont systemFontOfSize:10.0];
     [_currentSelectedBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [_currentSelectedBtn setTitle:[_menuTitles objectAtIndex:0] forState:UIControlStateNormal];
     [_currentSelectedBtn addTarget:self action:@selector(showCircleMenu) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_currentSelectedBtn];
+    [self cilckAction: 0];
 }
 
 - (BOOL)fd_prefersNavigationBarHidden {
@@ -125,7 +136,8 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 5;
+    NSMutableArray *countriesList = [_dataSource objectAtIndex:_currentSelectIndex];
+    return countriesList.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -136,6 +148,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CountryRecommendTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"countryRecommendTableViewCell" forIndexPath:indexPath];
+    NSMutableArray *countriesList = [_dataSource objectAtIndex:_currentSelectIndex];
+    cell.countryModel = [countriesList objectAtIndex:indexPath.row];
     return cell;
 }
 
@@ -157,7 +171,20 @@
 
 - (void)cilckAction:(NSInteger)tag
 {
+    if (tag == _currentSelectIndex) {
+        return;
+    }
     [_currentSelectedBtn setTitle:[_menuTitles objectAtIndex:tag] forState:UIControlStateNormal];
+    NSMutableArray *countriesList = [_dataSource objectAtIndex:tag];
+    if (countriesList.count == 0) {
+        [PoiRecommendManager asyncLoadRecommendCountriesWithContinentCode:[[_continentCodes objectAtIndex:tag] integerValue] completionBlcok:^(BOOL isSuccess, NSArray *poiList) {
+            [countriesList removeAllObjects];
+            [countriesList addObjectsFromArray:poiList];
+            [_tableView reloadData];
+        }];
+    }
+    _currentSelectIndex = tag;
+    [_tableView reloadData];
 }
 
 

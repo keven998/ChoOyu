@@ -8,7 +8,7 @@
 
 #import "TravelerInfoViewController.h"
 
-@interface TravelerInfoViewController ()
+@interface TravelerInfoViewController () <UITextFieldDelegate, UIActionSheetDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UITextField *firstNameTextField;
@@ -18,7 +18,9 @@
 @property (nonatomic, strong) UIButton *maleButton;
 @property (nonatomic, strong) UIButton *femaleButton;
 @property (nonatomic, strong) UILabel *birthdayLabel;
+@property (nonatomic, strong) UIButton *changeBirthdayButton;
 @property (nonatomic, strong) UITextField *telTextField;
+@property (nonatomic, strong) UIButton *IDNumberCategoryButton;
 @property (nonatomic, strong) UITextField *IDNmuberTextField;
 
 @end
@@ -34,6 +36,7 @@
     }
     self.view.backgroundColor = [UIColor whiteColor];
     _scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
+    _scrollView.contentSize = CGSizeMake(_scrollView.bounds.size.width, _scrollView.bounds.size.height+1);
     [self.view addSubview:_scrollView];
     UIView *rowSpaceView = [[UIView alloc] initWithFrame:CGRectMake(106, 0, 0.5, 336)];
     rowSpaceView.backgroundColor = COLOR_LINE;
@@ -60,6 +63,8 @@
     _firstNameTextField.placeholder = @"姓";
     _firstNameTextField.font = [UIFont systemFontOfSize:15];
     _firstNameTextField.textColor = COLOR_TEXT_III;
+    _firstNameTextField.returnKeyType = UIReturnKeyDone;
+    _firstNameTextField.delegate = self;
     _firstNameTextField.textAlignment = NSTextAlignmentCenter;
     [_scrollView addSubview:_firstNameTextField];
     
@@ -69,20 +74,26 @@
     _firstNamePYTextField.font = [UIFont systemFontOfSize:15];
     _firstNamePYTextField.textColor = COLOR_TEXT_III;
     _firstNamePYTextField.textAlignment = NSTextAlignmentCenter;
+    _firstNamePYTextField.returnKeyType = UIReturnKeyDone;
+    _firstNamePYTextField.delegate = self;
     [_scrollView addSubview:_firstNamePYTextField];
     
-    _lastNameTextField = [[UITextField alloc] initWithFrame:CGRectMake(126, 10+49, (kWindowWidth-106)/2-40, 28)];
+    _lastNameTextField = [[UITextField alloc] initWithFrame:CGRectMake(126, 10+48, (kWindowWidth-106)/2-40, 28)];
     _lastNameTextField.placeholder = @"名";
     _lastNameTextField.font = [UIFont systemFontOfSize:15];
     _lastNameTextField.textColor = COLOR_TEXT_III;
     _lastNameTextField.textAlignment = NSTextAlignmentCenter;
+    _lastNameTextField.returnKeyType = UIReturnKeyDone;
+    _lastNameTextField.delegate = self;
     [_scrollView addSubview:_lastNameTextField];
     
-    _lastNamePYTextField = [[UITextField alloc] initWithFrame:CGRectMake((kWindowWidth-106)/2+106+20, 10+49, (kWindowWidth-106)/2-40, 28)];
+    _lastNamePYTextField = [[UITextField alloc] initWithFrame:CGRectMake((kWindowWidth-106)/2+106+20, 10+48, (kWindowWidth-106)/2-40, 28)];
     _lastNamePYTextField.placeholder = @"拼音";
     _lastNamePYTextField.font = [UIFont systemFontOfSize:15];
     _lastNamePYTextField.textColor = COLOR_TEXT_III;
     _lastNamePYTextField.textAlignment = NSTextAlignmentCenter;
+    _lastNamePYTextField.returnKeyType = UIReturnKeyDone;
+    _lastNamePYTextField.delegate = self;
     [_scrollView addSubview:_lastNamePYTextField];
     
     _maleButton = [[UIButton alloc] initWithFrame:CGRectMake(126, 48*2, 60, 48)];
@@ -108,6 +119,39 @@
     nameSpaceView.backgroundColor = COLOR_LINE;
     [_scrollView addSubview:nameSpaceView];
     
+    _birthdayLabel = [[UILabel alloc] initWithFrame:CGRectMake(126, 10+48*3, 110, 28)];
+    _birthdayLabel.font = [UIFont systemFontOfSize:15];
+    _birthdayLabel.textColor = COLOR_TEXT_III;
+    _birthdayLabel.text = @"1991-05-17";
+    [_scrollView addSubview:_birthdayLabel];
+    
+    if (_isEditTravelerInfo) {
+        _changeBirthdayButton = [[UIButton alloc] initWithFrame:CGRectMake(kWindowWidth-70, 48*3, 30, 48)];
+        [_changeBirthdayButton setImage:[UIImage imageNamed:@"icon_travelerInfo_changeBirthday"] forState:UIControlStateNormal];
+        [_scrollView addSubview:_changeBirthdayButton];
+    }
+    
+    _telTextField = [[UITextField alloc] initWithFrame:CGRectMake(126, 10+48*4, (kWindowWidth-106)-40, 28)];
+    _telTextField.placeholder = @"电话";
+    _telTextField.font = [UIFont systemFontOfSize:15];
+    _telTextField.textColor = COLOR_TEXT_III;
+    _telTextField.returnKeyType = UIReturnKeyDone;
+    _telTextField.delegate = self;
+    [_scrollView addSubview:_telTextField];
+    
+    _IDNumberCategoryButton = [[UIButton alloc] initWithFrame:CGRectMake(126, 10+48*5, (kWindowWidth-106)-60, 28)];
+    _IDNumberCategoryButton.layer.borderColor = COLOR_LINE.CGColor;
+    _IDNumberCategoryButton.layer.borderWidth = 0.5;
+    [_IDNumberCategoryButton addTarget:self action:@selector(choseIDCategory:) forControlEvents:UIControlEventTouchUpInside];
+    [_scrollView addSubview:_IDNumberCategoryButton];
+    
+    _IDNmuberTextField = [[UITextField alloc] initWithFrame:CGRectMake(126, 10+48*6, (kWindowWidth-106)-40, 28)];
+    _IDNmuberTextField.placeholder = @"证件号码";
+    _IDNmuberTextField.font = [UIFont systemFontOfSize:15];
+    _IDNmuberTextField.textColor = COLOR_TEXT_III;
+    _IDNmuberTextField.returnKeyType = UIReturnKeyDone;
+    _IDNmuberTextField.delegate = self;
+    [_scrollView addSubview:_IDNmuberTextField];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -119,5 +163,32 @@
     _maleButton.selected = !_maleButton.selected;
     _femaleButton.selected = !_femaleButton.selected;
 }
+
+- (void)choseIDCategory:(UIButton *)sender
+{
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"选择证件类型" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"身份证", @"护照", nil];
+    [actionSheet showInView:self.view];
+}
+
+#pragma mark - UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        
+    }
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if ([string isEqualToString:@"\n"]) {
+        [self.view endEditing:YES];
+        return NO;
+    }
+    return YES;
+}
+
 
 @end

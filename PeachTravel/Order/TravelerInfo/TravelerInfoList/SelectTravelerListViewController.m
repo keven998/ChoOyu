@@ -6,18 +6,18 @@
 //  Copyright © 2015 com.aizou.www. All rights reserved.
 //
 
-#import "TravelerInfoListViewController.h"
+#import "SelectTravelerListViewController.h"
 #import "TravelerInfoTableViewCell.h"
 #import "OrderUserInfoManager.h"
 #import "TravelerInfoViewController.h"
 
-@interface TravelerInfoListViewController ()<UITableViewDataSource, UITableViewDelegate>
+@interface SelectTravelerListViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) NSArray<OrderTravelerInfoModel *> *dataSource;   //所有的联系人
 
 @end
 
-@implementation TravelerInfoListViewController
+@implementation SelectTravelerListViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -48,6 +48,13 @@
         [_delegate finishSelectTraveler:_selectedTravelers];
     }
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)editTravelerInfo:(UIButton *)btn
+{
+    TravelerInfoViewController *ctl = [[TravelerInfoViewController alloc] init];
+    ctl.isEditTravelerInfo = YES;
+    [self.navigationController pushViewController:ctl animated:YES];
 }
 
 - (void)selectTraveler:(UIButton *)btn
@@ -108,6 +115,8 @@
     cell.subTitleLabel.text = [NSString stringWithFormat:@"%@:  %@", travelerInfo.IDCategory, travelerInfo.IDNumber];
     [cell.selectBtn addTarget:self action:@selector(selectTraveler:) forControlEvents:UIControlEventTouchUpInside];
     cell.selectBtn.selected = [self travelerIsSelected:travelerInfo];
+    cell.editBtn.tag = indexPath.row;
+    [cell.editBtn addTarget:self action:@selector(editTravelerInfo:) forControlEvents:UIControlEventTouchUpInside];
     return cell;
 }
 

@@ -31,7 +31,7 @@
 @property (nonatomic, copy) NSString *enName;
 @property (nonatomic, copy) NSString *coutryId;
 @property (nonatomic, copy) NSString *zhName;
-@property (nonatomic, strong) NSArray *images;
+@property (nonatomic, strong) NSArray<TaoziImage *> *images;
 
 - (id)initWithJson:(id)json;
 

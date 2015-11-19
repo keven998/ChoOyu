@@ -12,6 +12,9 @@
 #import "OrderDetailTravelerTableViewCell.h"
 #import "OrderDetailContactTableViewCell.h"
 #import "OrderDetailStatusTableViewCell.h"
+#import "TravelerListViewController.h"
+#import "SelectPayPlatformViewController.h"
+#import "AskRefundMoneyViewController.h"
 
 @interface OrderDetailViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -67,6 +70,7 @@
         [requestRefundMoneyBtn setTitle:@"申请退款" forState:UIControlStateNormal];
         [requestRefundMoneyBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
         requestRefundMoneyBtn.titleLabel.font = [UIFont systemFontOfSize:17];
+        [requestRefundMoneyBtn addTarget:self action:@selector(requestRefundMoney:) forControlEvents:UIControlEventTouchUpInside];
         [_toolBar addSubview:requestRefundMoneyBtn];
         
     } else if (_orderDetail.orderStatus == kOrderWaitPay) {
@@ -81,8 +85,21 @@
         [payOrderBtn setTitleColor: [UIColor whiteColor] forState:UIControlStateNormal];
         [payOrderBtn setBackgroundColor:UIColorFromRGB(0xFC4E27)];
         payOrderBtn.titleLabel.font = [UIFont systemFontOfSize:17];
+        [payOrderBtn addTarget:self action:@selector(payOrder:) forControlEvents:UIControlEventTouchUpInside];
         [_toolBar addSubview:payOrderBtn];
     }
+}
+
+- (void)payOrder:(UIButton *)sender
+{
+    SelectPayPlatformViewController *ctl = [[SelectPayPlatformViewController alloc] init];
+    [self.navigationController pushViewController:ctl animated:YES];
+}
+
+- (void)requestRefundMoney:(UIButton *)sender
+{
+    AskRefundMoneyViewController *ctl = [[AskRefundMoneyViewController alloc] init];
+    [self.navigationController pushViewController:ctl animated:YES];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -160,6 +177,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.section == 3 && indexPath.row == 0) {
+        TravelerListViewController *ctl = [[TravelerListViewController alloc] init];
+        ctl.travelerList = _orderDetail.travelerList;
+        [self.navigationController pushViewController:ctl animated:YES];
+    }
 }
 
 

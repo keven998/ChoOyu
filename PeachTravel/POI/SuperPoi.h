@@ -20,7 +20,7 @@
 @property (nonatomic) TZPoiType poiType;
 @property (nonatomic, copy) NSString *priceDesc;
 @property (nonatomic, copy) NSString *openTime;
-@property (nonatomic, strong) NSArray *images;
+@property (nonatomic, strong) NSArray<TaoziImage *> *images;
 @property (nonatomic, strong) NSArray *comments;
 @property (nonatomic, copy) NSString *moreCommentsUrl;
 @property (nonatomic, copy) NSString *poiTypeName;
