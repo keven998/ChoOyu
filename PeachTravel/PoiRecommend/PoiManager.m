@@ -77,7 +77,7 @@
     NSString *continentCodeStr;
     switch (continentCode) {
         case kRECOM:
-            continentCodeStr = @"RECOM";
+            continentCodeStr = @"RCOM";
             break;
             
         case kEU:
