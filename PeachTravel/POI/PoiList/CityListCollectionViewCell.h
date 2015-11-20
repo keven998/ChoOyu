@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface CityListCollectionViewCell : UICollectionViewCell
+@property (nonatomic, strong) CityPoi *cityPoi;
+
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundMaskImageView;
 @property (weak, nonatomic) IBOutlet UILabel *zhNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *enNameLabel;

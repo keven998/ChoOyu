@@ -610,7 +610,7 @@
 		D9221A351BFD718F0015A685 /* AskRefundMoneyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9221A331BFD718F0015A685 /* AskRefundMoneyViewController.xib */; };
 		D9221A391BFD7D530015A685 /* AskRefundMoneyLeaveMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9221A371BFD7D530015A685 /* AskRefundMoneyLeaveMessageTableViewCell.m */; };
 		D9221A3A1BFD7D530015A685 /* AskRefundMoneyLeaveMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9221A381BFD7D530015A685 /* AskRefundMoneyLeaveMessageTableViewCell.xib */; };
-		D92B5C1C1BB9243B00E3AC93 /* PoiRecommendManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D92B5C1B1BB9243B00E3AC93 /* PoiRecommendManager.m */; };
+		D92B5C1C1BB9243B00E3AC93 /* PoiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D92B5C1B1BB9243B00E3AC93 /* PoiManager.m */; };
 		D92B5C1F1BB92A5D00E3AC93 /* PoiRecommend.m in Sources */ = {isa = PBXBuildFile; fileRef = D92B5C1E1BB92A5D00E3AC93 /* PoiRecommend.m */; };
 		D92B5C241BB92E4000E3AC93 /* ic_tabbar_destination_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D92B5C201BB92E4000E3AC93 /* ic_tabbar_destination_normal@2x.png */; };
 		D92B5C251BB92E4000E3AC93 /* ic_tabbar_destination_normal@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D92B5C211BB92E4000E3AC93 /* ic_tabbar_destination_normal@3x.png */; };
@@ -2827,8 +2827,8 @@
 		D9221A361BFD7D530015A685 /* AskRefundMoneyLeaveMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AskRefundMoneyLeaveMessageTableViewCell.h; sourceTree = "<group>"; };
 		D9221A371BFD7D530015A685 /* AskRefundMoneyLeaveMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AskRefundMoneyLeaveMessageTableViewCell.m; sourceTree = "<group>"; };
 		D9221A381BFD7D530015A685 /* AskRefundMoneyLeaveMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AskRefundMoneyLeaveMessageTableViewCell.xib; sourceTree = "<group>"; };
-		D92B5C1A1BB9243B00E3AC93 /* PoiRecommendManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoiRecommendManager.h; sourceTree = "<group>"; };
-		D92B5C1B1BB9243B00E3AC93 /* PoiRecommendManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoiRecommendManager.m; sourceTree = "<group>"; };
+		D92B5C1A1BB9243B00E3AC93 /* PoiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PoiManager.h; path = ../PoiRecommend/PoiManager.h; sourceTree = "<group>"; };
+		D92B5C1B1BB9243B00E3AC93 /* PoiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PoiManager.m; path = ../PoiRecommend/PoiManager.m; sourceTree = "<group>"; };
 		D92B5C1D1BB92A5D00E3AC93 /* PoiRecommend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoiRecommend.h; sourceTree = "<group>"; };
 		D92B5C1E1BB92A5D00E3AC93 /* PoiRecommend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoiRecommend.m; sourceTree = "<group>"; };
 		D92B5C201BB92E4000E3AC93 /* ic_tabbar_destination_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_tabbar_destination_normal@2x.png"; sourceTree = "<group>"; };
@@ -5860,8 +5860,6 @@
 				D93FEEBA1BEB40AD0065D6ED /* CountryRecommend */,
 				D92B5C1D1BB92A5D00E3AC93 /* PoiRecommend.h */,
 				D92B5C1E1BB92A5D00E3AC93 /* PoiRecommend.m */,
-				D92B5C1A1BB9243B00E3AC93 /* PoiRecommendManager.h */,
-				D92B5C1B1BB9243B00E3AC93 /* PoiRecommendManager.m */,
 				D96EAA151BB4F0E300360ED8 /* MorePoiRecommend */,
 				D915296B1BB24592002D1F51 /* PoiRecommendRootViewController.h */,
 				D915296C1BB24592002D1F51 /* PoiRecommendRootViewController.m */,
@@ -6858,6 +6856,8 @@
 		D993CB511AB6C6E50075314E /* POI */ = {
 			isa = PBXGroup;
 			children = (
+				D92B5C1A1BB9243B00E3AC93 /* PoiManager.h */,
+				D92B5C1B1BB9243B00E3AC93 /* PoiManager.m */,
 				D9D3AE631BE73F1600F398B8 /* PoiList */,
 				D993CBE21AB704150075314E /* PoiDetail */,
 			);
@@ -11679,7 +11679,7 @@
 				D9A8FFCE1A80D216005AD701 /* HotDestinationCollectionViewController.m in Sources */,
 				C608ED661A2C4D8E00B76934 /* HomeViewController.m in Sources */,
 				D9A8FF531A80CF19005AD701 /* FavoriteTableViewCell.m in Sources */,
-				D92B5C1C1BB9243B00E3AC93 /* PoiRecommendManager.m in Sources */,
+				D92B5C1C1BB9243B00E3AC93 /* PoiManager.m in Sources */,
 				D90C761F1BF1DED600C5897C /* MakeOrderTravelerInfoTableViewCell.m in Sources */,
 				D9A802131A80E036005AD701 /* JGProgressHUDFadeZoomAnimation.m in Sources */,
 				D9A8012F1A80DD23005AD701 /* DXRecordView.m in Sources */,

@@ -71,13 +71,13 @@
         [self addSubview:btnBkgView];
         
         NSArray *buttonArray = @[
-                                 @{@"picN":@"icon_cityDetail_desc",@"title":@"简介",@"selector":@"myStrategyAction"},
-                                 @{@"picN":@"icon_cityDetail_guide",@"title":@"指南",@"selector":@"travelNoteAction"},
-                                 @{@"picN":@"icon_cityDetail_traffic",@"title":@"交通",@"selector":@"viewSpotAction"},
-                                 @{@"picN":@"icon_cityDetail_spot",@"title":@"景点",@"selector":@"restaurantAction"},
-                                 @{@"picN":@"icon_cityDetail_travel",@"title":@"行程",@"selector":@"locationAction"},
-                                 @{@"picN":@"icon_cityDetail_travelNote",@"title":@"游记",@"selector":@"photoAction"},
-                                 @{@"picN":@"icon_cityDetail_restaurant",@"title":@"美食",@"selector":@"takePicAction"},
+                                 @{@"picN":@"icon_cityDetail_desc",@"title":@"简介",@"selector":@"cityDescAction"},
+                                 @{@"picN":@"icon_cityDetail_guide",@"title":@"指南",@"selector":@"cityGuideAction"},
+                                 @{@"picN":@"icon_cityDetail_traffic",@"title":@"交通",@"selector":@"cityTrafficAction"},
+                                 @{@"picN":@"icon_cityDetail_spot",@"title":@"景点",@"selector":@"spotsOfCityAction"},
+                                 @{@"picN":@"icon_cityDetail_travel",@"title":@"行程",@"selector":@"guidesOfCityAction"},
+                                 @{@"picN":@"icon_cityDetail_travelNote",@"title":@"游记",@"selector":@"travelNoteOfCityAction"},
+                                 @{@"picN":@"icon_cityDetail_restaurant",@"title":@"美食",@"selector":@"foodsOfCityAction"},
                                  @{@"picN":@"icon_cityDetail_shopping",@"title":@"购物",@"selector":@"shoppingAction"},
                                  ];
 
@@ -96,6 +96,8 @@
             buttonButtom.spaceHight = 8;
             [buttonButtom setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
             buttonButtom.titleLabel.font = [UIFont systemFontOfSize:14];
+            NSString *buttomBtnSelector = [[buttonArray objectAtIndex:i] objectForKey:@"selector"];
+            [buttonButtom addTarget:self action:NSSelectorFromString(buttomBtnSelector) forControlEvents:UIControlEventTouchUpInside];
 
             [buttonTop setImage:[UIImage imageNamed:[[buttonArray objectAtIndex:i] objectForKey:@"picN"]] forState:UIControlStateNormal];
             [buttonTop setTitle:[[buttonArray objectAtIndex:i] objectForKey:@"title"] forState:UIControlStateNormal];
@@ -103,10 +105,51 @@
             [buttonButtom setTitle:[[buttonArray objectAtIndex:i+4] objectForKey:@"title"] forState:UIControlStateNormal];
             [btnBkgView addSubview:buttonTop];
             [btnBkgView addSubview:buttonButtom];
+            
         }
         
     }
     return self;
+}
+
+- (void)cityDescAction
+{
+    
+}
+
+- (void)cityGuideAction
+{
+    
+}
+
+- (void)cityTrafficAction
+{
+    
+}
+
+- (void)spotsOfCityAction
+{
+    
+}
+
+- (void)guidesOfCityAction
+{
+    
+}
+
+- (void)travelNoteOfCityAction
+{
+    
+}
+
+- (void)foodsOfCityAction
+{
+    
+}
+
+- (void)shoppingAction
+{
+    
 }
 
 @end

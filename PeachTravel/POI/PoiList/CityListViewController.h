@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CityListViewController : UIViewController
+@interface CityListViewController : TZViewController
+
+@property (nonatomic, copy) NSString *countryId;
+@property (nonatomic, copy) NSString *countryName;
 
 @end

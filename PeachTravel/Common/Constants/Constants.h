@@ -45,6 +45,7 @@
 #define API_GET_LOCALITIES                      (BASE_URL @"geo/localities/")
 
 
+
 // 是否为iOS7
 #define iOS7 ([[UIDevice currentDevice].systemVersion doubleValue] >= 7.0)
 
@@ -64,7 +65,7 @@
 #define API_GET_GUIDE_CITY                      (BASE_URL @"guides/locality/")    //城市的美食购物攻略介绍
 #define API_GET_EXPERT_DETAIL                   (BASE_URL @"geo/countries/")   //达人列表
 #define API_GET_COUNTRIES                       (BASE_URL @"geo/countries")   //国家列表
-
+#define API_GET_CITIES                          (BASE_URL @"geo/localities")
 
 #define API_GET_HOT_SEARCH                      (BASE_URL @"search/hot-queries")   // 热门搜索
 #define API_UPDATE_GUIDE_PROPERTY               (BASE_URL @"guides")    //修改攻略属性

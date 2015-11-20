@@ -8,7 +8,7 @@
 
 #import "DomesticPoiRecommendViewController.h"
 #import "PoiRecommendTableViewCell.h"
-#import "PoiRecommendManager.h"
+#import "PoiManager.h"
 #import "CityDetailTableViewController.h"
 
 @interface DomesticPoiRecommendViewController () <UITableViewDataSource, UITableViewDelegate>
@@ -25,7 +25,7 @@
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self.view addSubview:self.tableView];
-    [PoiRecommendManager asyncLoadDomescticRecommendPoiWithCompletionBlcok:^(BOOL isSuccess, NSArray *poiList) {
+    [PoiManager asyncLoadDomescticRecommendPoiWithCompletionBlcok:^(BOOL isSuccess, NSArray *poiList) {
         if (isSuccess) {
             _dataSource = poiList;
             [self.tableView reloadData];

@@ -8,7 +8,7 @@
 
 #import "ForeignPoiRecommendViewController.h"
 #import "PoiRecommendTableViewCell.h"
-#import "PoiRecommendManager.h"
+#import "PoiManager.h"
 #import "CityDetailTableViewController.h"
 
 @interface ForeignPoiRecommendViewController () <UITableViewDelegate, UITableViewDataSource>
@@ -26,7 +26,7 @@
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 0.1)];
     [self.view addSubview:view];
     [self.view addSubview:self.tableView];
-    [PoiRecommendManager asyncLoadForeignRecommendPoiWithCompletionBlcok:^(BOOL isSuccess, NSArray *poiList) {
+    [PoiManager asyncLoadForeignRecommendPoiWithCompletionBlcok:^(BOOL isSuccess, NSArray *poiList) {
         if (isSuccess) {
             _dataSource = poiList;
             [self.tableView reloadData];

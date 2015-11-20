@@ -1,14 +1,14 @@
 //
-//  PoiRecommendManager.m
+//  PoiManager.m
 //  PeachTravel
 //
 //  Created by liangpengshuai on 9/28/15.
 //  Copyright © 2015 com.aizou.www. All rights reserved.
 //
 
-#import "PoiRecommendManager.h"
+#import "PoiManager.h"
 
-@implementation PoiRecommendManager
+@implementation PoiManager
 
 + (void)asyncLoadDomescticRecommendPoiWithCompletionBlcok:(void (^)(BOOL isSuccess, NSArray *poiList))completion
 {
@@ -131,7 +131,43 @@
         completion(NO, nil);
         
     }];
-
 }
+
++ (void)asyncLoadCitiesOfCountry:(NSString *)countryId completionBlcok:(void (^)(BOOL isSuccess, NSArray *poiList))completion
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSDictionary *params = @{@"countryId": countryId};
+    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [manager GET:API_GET_CITIES parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            NSMutableArray *retArray = [[NSMutableArray alloc] init];
+            for (NSDictionary *dic in [responseObject objectForKey:@"result"]) {
+                CityPoi *poi = [[CityPoi alloc] initWithJson:dic];
+                [retArray addObject:poi];
+            }
+            completion(YES, retArray);
+            
+        } else {
+            [SVProgressHUD showHint:HTTP_FAILED_HINT];
+            completion(NO, nil);
+        }
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [SVProgressHUD showHint:HTTP_FAILED_HINT];
+        completion(NO, nil);
+        
+    }];
+}
+
 
 @end

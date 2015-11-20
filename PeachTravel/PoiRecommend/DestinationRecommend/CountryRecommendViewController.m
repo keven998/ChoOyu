@@ -11,7 +11,7 @@
 #import "MenuButton.h"
 #import "CircleMenu.h"
 #import "CityListViewController.h"
-#import "PoiRecommendManager.h"
+#import "PoiManager.h"
 
 @interface CountryRecommendViewController () <UITableViewDataSource, UITableViewDelegate, circleMenuDelegate>
 
@@ -31,6 +31,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _currentSelectIndex = -1;
     _menuTitles = @[@"推荐", @"亚洲", @"美洲", @"欧洲", @"非洲", @"大洋洲"];
     _continentCodes = @[[NSNumber numberWithInteger:kRECOM], [NSNumber numberWithInteger:kAS], [NSNumber numberWithInteger:kNA], [NSNumber numberWithInteger:kEU], [NSNumber numberWithInteger:kAF], [NSNumber numberWithInteger:kOC]];
     
@@ -47,6 +48,7 @@
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.delegate = self;
     _tableView.dataSource = self;
+    _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.bounds.size.width, 49)];
     [self.view addSubview:_tableView];
     
     _searchBtn = [[UIButton alloc] initWithFrame:CGRectMake(30, 25, self.view.frame.size.width-60, 27)];
@@ -136,6 +138,9 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    if (_currentSelectIndex == -1) {
+        return 0;
+    }
     NSMutableArray *countriesList = [_dataSource objectAtIndex:_currentSelectIndex];
     return countriesList.count;
 }
@@ -147,6 +152,9 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (_currentSelectIndex == -1) {
+        return nil;
+    }
     CountryRecommendTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"countryRecommendTableViewCell" forIndexPath:indexPath];
     NSMutableArray *countriesList = [_dataSource objectAtIndex:_currentSelectIndex];
     cell.countryModel = [countriesList objectAtIndex:indexPath.row];
@@ -157,6 +165,10 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     CityListViewController *ctl = [[CityListViewController alloc] init];
+    NSMutableArray *countriesList = [_dataSource objectAtIndex:_currentSelectIndex];
+    CountryModel *countryModel = [countriesList objectAtIndex:indexPath.row];
+    ctl.countryId = countryModel.coutryId;
+    ctl.countryName = countryModel.zhName;
     [self.navigationController pushViewController:ctl animated:YES];
 }
 
@@ -174,16 +186,17 @@
     if (tag == _currentSelectIndex) {
         return;
     }
+    _currentSelectIndex = tag;
+
     [_currentSelectedBtn setTitle:[_menuTitles objectAtIndex:tag] forState:UIControlStateNormal];
     NSMutableArray *countriesList = [_dataSource objectAtIndex:tag];
     if (countriesList.count == 0) {
-        [PoiRecommendManager asyncLoadRecommendCountriesWithContinentCode:[[_continentCodes objectAtIndex:tag] integerValue] completionBlcok:^(BOOL isSuccess, NSArray *poiList) {
+        [PoiManager asyncLoadRecommendCountriesWithContinentCode:[[_continentCodes objectAtIndex:tag] integerValue] completionBlcok:^(BOOL isSuccess, NSArray *poiList) {
             [countriesList removeAllObjects];
             [countriesList addObjectsFromArray:poiList];
             [_tableView reloadData];
         }];
     }
-    _currentSelectIndex = tag;
     [_tableView reloadData];
 }
 

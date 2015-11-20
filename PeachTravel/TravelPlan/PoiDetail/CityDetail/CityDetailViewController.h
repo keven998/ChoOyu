@@ -10,4 +10,6 @@
 
 @interface CityDetailViewController : TZViewController
 
+@property (nonatomic, copy) NSString *cityId;
+
 @end

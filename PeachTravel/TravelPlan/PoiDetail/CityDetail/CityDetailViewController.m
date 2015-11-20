@@ -10,12 +10,16 @@
 #import "CityDetailHeaderView.h"
 #import "GoodsOfCityTableViewCell.h"
 #import "GoodsDetailViewController.h"
+#import "AddPoiViewController.h"
+#import "SuperWebViewController.h"
+#import "PoisOfCityViewController.h"
+#import "TravelNoteListViewController.h"
 
 @interface CityDetailViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong)  CityDetailHeaderView *headerView;
-
+@property (nonatomic, strong) CityPoi *poi;
 @end
 
 @implementation CityDetailViewController
@@ -33,6 +37,85 @@
     self.navigationItem.title = @"北京";
     [self.view addSubview:_tableView];
 }
+
+#pragma mark - IBAction Methods
+
+- (IBAction)viewSpots:(id)sender
+{
+    [MobClick event:@"button_item_city_spots"];
+    
+    AddPoiViewController *addCtl = [[AddPoiViewController alloc] init];
+    addCtl.cityId = _cityId;
+    addCtl.cityName = self.poi.zhName;
+    addCtl.shouldEdit = NO;
+    addCtl.poiType = kSpotPoi;
+    [self.navigationController pushViewController:addCtl animated:YES];
+}
+
+/**
+ *  游玩攻略
+ *
+ *  @param sender
+ */
+- (IBAction)play:(id)sender {
+    [MobClick event:@"button_item_city_travel_tips"];
+    SuperWebViewController *funOfCityWebCtl = [[SuperWebViewController alloc] init];
+    funOfCityWebCtl.urlStr = ((CityPoi *)self.poi).playGuide;
+    funOfCityWebCtl.titleStr = @"旅游指南";;
+    [self.navigationController pushViewController:funOfCityWebCtl animated:YES];
+}
+
+/**
+ *  查看城市美食列表
+ *
+ *  @param sender
+ */
+- (IBAction)viewRestaurants:(id)sender
+{
+    [MobClick event:@"button_item_city_delicious"];
+    
+    PoisOfCityViewController *restaurantOfCityCtl = [[PoisOfCityViewController alloc] init];
+    restaurantOfCityCtl.shouldEdit = NO;
+    restaurantOfCityCtl.cityId = self.poi.poiId;
+    restaurantOfCityCtl.descDetail = ((CityPoi *)self.poi).diningTitles;
+    restaurantOfCityCtl.zhName = self.poi.zhName;
+    restaurantOfCityCtl.poiType = kRestaurantPoi;
+    [self.navigationController pushViewController:restaurantOfCityCtl animated:YES];
+}
+
+/**
+ *  城市购物详情
+ *
+ *  @param sender
+ */
+- (IBAction)viewShopping:(id)sender
+{
+    [MobClick event:@"button_item_city_shoppings"];
+    
+    PoisOfCityViewController *shoppingOfCityCtl = [[PoisOfCityViewController alloc] init];
+    shoppingOfCityCtl.shouldEdit = NO;
+    shoppingOfCityCtl.descDetail = ((CityPoi *)self.poi).shoppingTitles;
+    shoppingOfCityCtl.cityId = self.poi.poiId;
+    shoppingOfCityCtl.zhName = self.poi.zhName;
+    shoppingOfCityCtl.poiType = kShoppingPoi;
+    
+    [self.navigationController pushViewController:shoppingOfCityCtl animated:YES];
+}
+
+/**
+ *  更多游记
+ *
+ *  @param sender
+ */
+- (IBAction)showMoreTravelNote:(id)sender
+{
+    TravelNoteListViewController *travelListCtl = [[TravelNoteListViewController alloc] init];
+    travelListCtl.isSearch = NO;
+    travelListCtl.cityId = ((CityPoi *)self.poi).poiId;
+    travelListCtl.cityName = ((CityPoi *)self.poi).zhName;
+    [self.navigationController pushViewController:travelListCtl animated:YES];
+}
+
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -88,6 +171,8 @@
     
     [self.navigationController pushViewController:ctl animated:YES];
 }
+
+
 
 
 @end

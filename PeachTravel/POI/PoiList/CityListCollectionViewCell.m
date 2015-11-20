@@ -11,7 +11,14 @@
 @implementation CityListCollectionViewCell
 
 - (void)awakeFromNib {
-     [_headerImageView sd_setImageWithURL:[NSURL URLWithString:@"http://images.taozilvxing.com/28c2d1ef35c12100e99fecddb63c436a?imageView2/2/w/1200"] placeholderImage:nil];
 }
 
+- (void)setCityPoi:(CityPoi *)cityPoi
+{
+    _cityPoi = cityPoi;
+    [_headerImageView sd_setImageWithURL:[NSURL URLWithString:[_cityPoi.images firstObject].imageUrl] placeholderImage:nil];
+    _zhNameLabel.text = _cityPoi.zhName;
+    _enNameLabel.text = _cityPoi.enName;
+    
+}
 @end

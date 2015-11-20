@@ -377,9 +377,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
             NSLog(@"可执行的frame %@",NSStringFromCGRect(headerView.frame));
             self.tableView.tableHeaderView = headerView;
     }
-    
 }
-
 
 #pragma mark - 网络请求
 
@@ -501,8 +499,6 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
 }
-
-
 
 /**
  *  实现父类的发送 poi 到消息的值传递

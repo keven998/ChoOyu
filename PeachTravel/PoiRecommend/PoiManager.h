@@ -1,5 +1,5 @@
 //
-//  PoiRecommendManager.h
+//  PoiManager.h
 //  PeachTravel
 //
 //  Created by liangpengshuai on 9/28/15.
@@ -19,7 +19,7 @@ typedef enum : NSUInteger {
 #import <Foundation/Foundation.h>
 #import "PoiRecommend.h"
 
-@interface PoiRecommendManager : NSObject
+@interface PoiManager : NSObject
 
 + (void)asyncLoadDomescticRecommendPoiWithCompletionBlcok:(void (^)(BOOL isSuccess, NSArray *poiList))completion;
 
@@ -33,5 +33,12 @@ typedef enum : NSUInteger {
  */
 + (void)asyncLoadRecommendCountriesWithContinentCode:(kContinentCode)continentCode completionBlcok:(void (^)(BOOL isSuccess, NSArray *poiList))completion;
 
+/**
+ *  获取某个国家的城市
+ *
+ *  @param countryId  国家 ID
+ *  @param completion 
+ */
++ (void)asyncLoadCitiesOfCountry:(NSString *)countryId completionBlcok:(void (^)(BOOL isSuccess, NSArray *poiList))completion;
 
 @end
