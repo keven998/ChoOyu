@@ -9,10 +9,11 @@
 #import "CityListViewController.h"
 #import "CityListCollectionViewCell.h"
 #import "PoiManager.h"
+#import "CityDetailViewController.h"
 
 @interface CityListViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-@property (nonatomic, strong) NSArray *dataSource;
+@property (nonatomic, strong) NSArray<CityPoi *> *dataSource;
 @end
 
 @implementation CityListViewController
@@ -56,6 +57,13 @@
     return cell;
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    CityDetailViewController *ctl = [[CityDetailViewController alloc] init];
+    ctl.cityId = [_dataSource objectAtIndex:indexPath.row].poiId;
+    ctl.cityName = [_dataSource objectAtIndex:indexPath.row].zhName;
+    [self.navigationController pushViewController:ctl animated:YES];
+}
 @end
 
 

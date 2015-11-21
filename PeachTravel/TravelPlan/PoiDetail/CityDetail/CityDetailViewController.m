@@ -26,6 +26,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationItem.title = _cityName;
     self.view.backgroundColor = [UIColor whiteColor];
     self.automaticallyAdjustsScrollViewInsets = NO;
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, kWindowHeight)];
@@ -34,7 +35,6 @@
     _tableView.tableHeaderView = _headerView;
     _tableView.delegate = self;
     _tableView.dataSource = self;
-    self.navigationItem.title = @"北京";
     [self.view addSubview:_tableView];
 }
 

@@ -303,10 +303,10 @@
         oldBtn.selected = NO;
         oldBtn.titleLabel.font = [UIFont systemFontOfSize:13.0];
     }
-    UIButton *btn = [_arrButton objectAtIndex:(6-step)%6];
+    UIButton *btn = [_arrButton objectAtIndex:(7-step)%7];
     btn.titleLabel.font = [UIFont systemFontOfSize:15.0];
     btn.selected = YES;
-    [self selectedAction:(6-step)%6];
+    [self selectedAction:(7-step)%7];
 }
 
 -(void)selectedAction:(NSInteger)tag{
