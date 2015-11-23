@@ -703,7 +703,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 - (void)showCityDetail:(UITapGestureRecognizer *)tap
 {
     CityDescDetailViewController *cddVC = [[CityDescDetailViewController alloc]init];
-    cddVC.des = self.poi.desc;
+    cddVC.desc = self.poi.desc;
     cddVC.title = @"城市简介";
     [self.navigationController pushViewController:cddVC animated:YES];
 }
@@ -714,7 +714,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     
     CityPoi * poi = (CityPoi *)self.poi;
     NSLog(@"%@",self.poi.desc);
-    cddVC.des = poi.travelMonth;
+    cddVC.desc = poi.travelMonth;
     cddVC.title = @"最佳季节";
     [self.navigationController pushViewController:cddVC animated:YES];
 }
