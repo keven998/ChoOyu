@@ -8,6 +8,11 @@
 
 #import "CityDetailHeaderView.h"
 #import "AutoSlideScrollView.h"
+#import "CityDescDetailViewController.h"
+#import "SuperWebViewController.h"
+#import "AddPoiViewController.h"
+#import "TravelNoteListViewController.h"
+#import "PoisOfCityViewController.h"
 
 @interface CityDetailHeaderView ()
 
@@ -96,9 +101,10 @@
             buttonButtom.spaceHight = 8;
             [buttonButtom setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
             buttonButtom.titleLabel.font = [UIFont systemFontOfSize:14];
-            NSString *buttomBtnSelector = [[buttonArray objectAtIndex:i] objectForKey:@"selector"];
+            NSString *buttomBtnSelector = [[buttonArray objectAtIndex:i+4] objectForKey:@"selector"];
             [buttonButtom addTarget:self action:NSSelectorFromString(buttomBtnSelector) forControlEvents:UIControlEventTouchUpInside];
-
+            NSString *topBtnSelector = [[buttonArray objectAtIndex:i] objectForKey:@"selector"];
+            [buttonTop addTarget:self action:NSSelectorFromString(topBtnSelector) forControlEvents:UIControlEventTouchUpInside];
             [buttonTop setImage:[UIImage imageNamed:[[buttonArray objectAtIndex:i] objectForKey:@"picN"]] forState:UIControlStateNormal];
             [buttonTop setTitle:[[buttonArray objectAtIndex:i] objectForKey:@"title"] forState:UIControlStateNormal];
             [buttonButtom setImage:[UIImage imageNamed:[[buttonArray objectAtIndex:i+4] objectForKey:@"picN"]] forState:UIControlStateNormal];
@@ -114,21 +120,39 @@
 
 - (void)cityDescAction
 {
+    CityDescDetailViewController *ctl = [[CityDescDetailViewController alloc] init];
+    if (!_cityPoi.desc) {
+        _cityPoi.desc = @"";
+    }
+    ctl.desc = _cityPoi.desc;
+    [self.containerViewController.navigationController pushViewController:ctl animated:YES];
     
 }
 
 - (void)cityGuideAction
 {
-    
+    SuperWebViewController *funOfCityWebCtl = [[SuperWebViewController alloc] init];
+    funOfCityWebCtl.urlStr = _cityPoi.playGuide;
+    funOfCityWebCtl.titleStr = @"旅游指南";;
+    [self.containerViewController.navigationController pushViewController:funOfCityWebCtl animated:YES];
 }
 
 - (void)cityTrafficAction
 {
-    
+    SuperWebViewController *funOfCityWebCtl = [[SuperWebViewController alloc] init];
+    funOfCityWebCtl.urlStr = _cityPoi.playGuide;
+    funOfCityWebCtl.titleStr = @"旅游指南";
+    [self.containerViewController.navigationController pushViewController:funOfCityWebCtl animated:YES];
 }
 
 - (void)spotsOfCityAction
 {
+    AddPoiViewController *addCtl = [[AddPoiViewController alloc] init];
+    addCtl.cityId = _cityPoi.poiId;
+    addCtl.cityName = self.cityPoi.zhName;
+    addCtl.shouldEdit = NO;
+    addCtl.poiType = kSpotPoi;
+    [self.containerViewController.navigationController pushViewController:addCtl animated:YES];
     
 }
 
@@ -139,16 +163,33 @@
 
 - (void)travelNoteOfCityAction
 {
-    
+    TravelNoteListViewController *travelListCtl = [[TravelNoteListViewController alloc] init];
+    travelListCtl.isSearch = NO;
+    travelListCtl.cityId = _cityPoi.poiId;
+    travelListCtl.cityName = _cityPoi.zhName;
+    [self.containerViewController.navigationController pushViewController:travelListCtl animated:YES];
 }
 
 - (void)foodsOfCityAction
 {
-    
+    PoisOfCityViewController *restaurantOfCityCtl = [[PoisOfCityViewController alloc] init];
+    restaurantOfCityCtl.shouldEdit = NO;
+    restaurantOfCityCtl.cityId = _cityPoi.poiId;
+    restaurantOfCityCtl.descDetail = _cityPoi.diningTitles;
+    restaurantOfCityCtl.zhName = _cityPoi.zhName;
+    restaurantOfCityCtl.poiType = kRestaurantPoi;
+    [self.containerViewController.navigationController pushViewController:restaurantOfCityCtl animated:YES];
 }
 
 - (void)shoppingAction
 {
+    PoisOfCityViewController *shoppingOfCityCtl = [[PoisOfCityViewController alloc] init];
+    shoppingOfCityCtl.shouldEdit = NO;
+    shoppingOfCityCtl.descDetail = _cityPoi.shoppingTitles;
+    shoppingOfCityCtl.cityId = _cityPoi.poiId;
+    shoppingOfCityCtl.zhName = _cityPoi.zhName;
+    shoppingOfCityCtl.poiType = kShoppingPoi;
+    [self.containerViewController.navigationController pushViewController:shoppingOfCityCtl animated:YES];
     
 }
 

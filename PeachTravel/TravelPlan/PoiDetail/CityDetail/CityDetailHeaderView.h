@@ -12,4 +12,7 @@
 @interface CityDetailHeaderView : UITableViewHeaderFooterView
 
 @property (nonatomic, strong) CityPoi *cityPoi;
+
+@property (nonatomic, weak) UIViewController *containerViewController;
+
 @end

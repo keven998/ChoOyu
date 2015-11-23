@@ -10,6 +10,6 @@
 
 @interface CityDescDetailViewController : UIViewController
 
-@property (strong,nonatomic) NSString *des;
+@property (strong,nonatomic) NSString *desc;
 
 @end
