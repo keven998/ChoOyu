@@ -13,6 +13,15 @@
 @interface OrderManager : NSObject
 
 /**
+ *  检查订单所有的信息是否填写完整
+ *
+ *  @param order 需要检查的订单
+ *
+ *  @return 返回的错误信息
+ */
++ (NSString *)checkOrderIsCompleteWhenMakeOrder:(OrderDetailModel *)order;
+
+/**
  *  更新订单的套餐
  *
  *  @param orderDetail

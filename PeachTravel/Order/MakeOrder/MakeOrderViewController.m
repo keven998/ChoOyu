@@ -150,8 +150,13 @@
 
 - (void)commintOrder:(UIButton *)sender
 {
+    NSString *errorStr = [OrderManager checkOrderIsCompleteWhenMakeOrder:_orderDetail];
+    if (errorStr) {
+        [SVProgressHUD showHint:errorStr];
+        return;
+    }
     OrderDetailViewController *ctl = [[OrderDetailViewController alloc] init];
-    _orderDetail.orderStatus = kOrderInProgress;
+    _orderDetail.orderStatus = kOrderWaitPay;
     ctl.orderDetail = _orderDetail;
     [self.navigationController pushViewController:ctl animated:YES];
 }

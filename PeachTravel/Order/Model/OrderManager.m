@@ -10,6 +10,20 @@
 
 @implementation OrderManager
 
++ (NSString *)checkOrderIsCompleteWhenMakeOrder:(OrderDetailModel *)order
+{
+    if (!order.orderContact.lastName || [order.orderContact.lastName isBlankString]) {
+        return @"请填写联系人的姓";
+    }
+    if (!order.orderContact.firstName || [order.orderContact.firstName isBlankString]) {
+        return @"请填写联系人的名";
+    }
+    if (!order.orderContact.tel || [order.orderContact.tel isBlankString]) {
+        return @"请填写联系人的电话";
+    }
+    return nil;
+}
+
 + (void)updateOrder:(OrderDetailModel *)orderDetail WithGoodsPackage:(GoodsPackageModel *)selectPackage
 {
     orderDetail.selectedPackage = selectPackage;
