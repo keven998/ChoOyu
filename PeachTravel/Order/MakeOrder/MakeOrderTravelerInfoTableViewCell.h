@@ -19,8 +19,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (nonatomic, strong) NSMutableArray *travelerList;
-@property (nonatomic, strong) UIButton *addTravelerBtn;
-
+@property (weak, nonatomic) IBOutlet UIButton *editTravelerButton;
 
 @property (nonatomic, weak) id<MakeOrderEditTravelerInfoDelegate> delegate;
 

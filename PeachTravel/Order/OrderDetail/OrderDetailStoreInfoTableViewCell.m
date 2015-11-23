@@ -11,7 +11,11 @@
 @implementation OrderDetailStoreInfoTableViewCell
 
 - (void)awakeFromNib {
-    // Initialization code
+    [_chatBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_PAGE_COLOR] forState:UIControlStateNormal];
+    [_chatBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
+    _chatBtn.layer.borderColor = COLOR_LINE.CGColor;
+    _chatBtn.layer.borderWidth = 0.5;
+    _chatBtn.layer.cornerRadius = 2;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

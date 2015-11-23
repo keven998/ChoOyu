@@ -223,7 +223,7 @@
         MakeOrderTravelerInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"makeOrderTravelerEditCell" forIndexPath:indexPath];
         cell.travelerList = [_orderDetail.travelerList mutableCopy];
         cell.delegate = self;
-        [cell.addTravelerBtn addTarget:self action:@selector(addTraveler:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.editTravelerButton addTarget:self action:@selector(addTraveler:) forControlEvents:UIControlEventTouchUpInside];
         return cell;
         
     } else if (indexPath.row == 5) {
