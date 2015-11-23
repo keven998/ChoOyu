@@ -54,6 +54,7 @@
 {
     TravelerInfoViewController *ctl = [[TravelerInfoViewController alloc] init];
     ctl.isEditTravelerInfo = YES;
+    ctl.traveler = _dataSource[btn.tag];
     [self.navigationController pushViewController:ctl animated:YES];
 }
 
@@ -124,6 +125,7 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     TravelerInfoViewController *ctl = [[TravelerInfoViewController alloc] init];
+    ctl.traveler = _dataSource[indexPath.row];
     [self.navigationController pushViewController:ctl animated:YES];
 }
 

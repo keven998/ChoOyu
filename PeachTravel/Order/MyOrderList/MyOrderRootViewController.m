@@ -10,7 +10,9 @@
 #import "DKTabPageViewController.h"
 #import "MyOrderListViewController.h"
 
-@interface MyOrderRootViewController ()
+@interface MyOrderRootViewController () <DKTabPageViewControllerDelegate>
+
+@property (nonatomic, strong) NSMutableArray<MyOrderListViewController *> *orderListControllers;
 
 @end
 
@@ -22,13 +24,17 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = [UIColor whiteColor];
     NSArray *titleArray = @[@"全部", @"待付款", @"处理中", @"可使用", @"退款"];
+    NSArray *orderTypeList = @[[NSNumber numberWithInteger:0], [NSNumber numberWithInteger:kOrderWaitPay], [NSNumber numberWithInteger:kOrderInProgress], [NSNumber numberWithInteger:kOrderInUse], [NSNumber numberWithInteger:kOrderRefunded]];
+    _orderListControllers = [[NSMutableArray alloc] init];
+
     NSMutableArray *items = [NSMutableArray arrayWithCapacity:5];
     for (int i = 0; i < 5; i++) {
         MyOrderListViewController *vc = [MyOrderListViewController new];
-        
+        vc.orderType = [[orderTypeList objectAtIndex:i] integerValue];
         DKTabPageItem *item = [DKTabPageViewControllerItem tabPageItemWithTitle:titleArray[i]
                                                                  viewController:vc];
         [items addObject:item];
+        [_orderListControllers addObject:vc];
     }
     
     DKTabPageViewController *tabPageViewController = [[DKTabPageViewController alloc] initWithItems:items];
@@ -37,6 +43,7 @@
     tabPageViewController.tabPageBar.selectionIndicatorView.hidden = YES;
     tabPageViewController.tabPageBar.selectedTitleColor = UIColorFromRGB(0xFC4E27);
     tabPageViewController.tabPageBar.tabBarHeight = 48;
+    tabPageViewController.delegate = self;
     [self addChildViewController:tabPageViewController];
     [self.view addSubview:tabPageViewController.view];
     
@@ -73,12 +80,27 @@
         spaceView.backgroundColor = COLOR_LINE;
         [tabPageViewController.view addSubview:spaceView];
     }
+    
+    for (int i=0 ; i<orderTypeList.count; i++) {
+        if (_orderType == [[orderTypeList objectAtIndex:i] integerValue]) {
+            tabPageViewController.selectedIndex = i;
+            return;
+        }
+    }
 
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - DKTabPageViewControllerDelegate
+- (void)didSelectedAtIndex:(NSInteger)index
+{
+    MyOrderListViewController *ctl = [_orderListControllers objectAtIndex:index];
+    [OrderManager asyncLoadMyOrderFromServerWithOrderType:ctl.orderType completionBlock:^(BOOL isSuccess, NSArray<OrderDetailModel *> *orderList) {
+        ctl.dataSource = orderList;
+    }];
+
+}
 @end

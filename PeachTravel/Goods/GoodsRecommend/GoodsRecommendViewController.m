@@ -13,6 +13,7 @@
 #import "GoodsDetailViewController.h"
 #import "CityDetailViewController.h"
 #import "MakeOrderViewController.h"
+#import "GoodsManager.h"
 
 @interface GoodsRecommendViewController ()<UITableViewDataSource, UITableViewDelegate>
 

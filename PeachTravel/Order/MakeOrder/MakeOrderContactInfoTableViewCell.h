@@ -9,10 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface MakeOrderContactInfoTableViewCell : UITableViewCell 
-@property (weak, nonatomic) IBOutlet UITextField *nickNameTextfield;
+@property (weak, nonatomic) IBOutlet UITextField *lastNameTextField;
+@property (weak, nonatomic) IBOutlet UITextField *firstNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *telTextField;
-@property (weak, nonatomic) IBOutlet UITextField *mailTextField;
-@property (weak, nonatomic) IBOutlet UITextField *addressTextField;
 @property (weak, nonatomic) IBOutlet UITextView *messageTextView;
 
 

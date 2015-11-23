@@ -498,6 +498,9 @@ CGSize dktabpage_getTextSize(UIFont *font,NSString *text, CGFloat maxWidth){
             }
             
             weakSelf.selectedIndex = selectedIndex;
+            if ([weakSelf.delegate respondsToSelector:@selector(didSelectedAtIndex:)]) {
+                [weakSelf.delegate didSelectedAtIndex:weakSelf.selectedIndex];
+            }
         }];
         [self.view addSubview:self.tabPageBar];
         [self.tabPageBar setItems:self.items];
@@ -651,6 +654,7 @@ CGSize dktabpage_getTextSize(UIFont *font,NSString *text, CGFloat maxWidth){
         
         NSInteger previousSelectedIndex = _selectedIndex;
         _selectedIndex = newIndex;
+        [_delegate didSelectedAtIndex:_selectedIndex];
         if (self.pageChangedBlock && previousSelectedIndex != newIndex) {
             self.pageChangedBlock(newIndex);
         }

@@ -397,7 +397,7 @@ static const NSCalendarUnit kCalendarUnitYMD = NSCalendarUnitYear | NSCalendarUn
     if (![self isEnabledDate:cellDate] || isCustomDate) {
         [cell refreshCellColors];
     }
-
+    cell.price = @"1234";
     //We rasterize the cell for performances purposes.
     //The circle background is made using roundedCorner which is a super expensive operation, specially with a lot of items on the screen to display (like we do)
     cell.layer.shouldRasterize = YES;

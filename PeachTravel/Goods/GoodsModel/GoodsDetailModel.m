@@ -12,7 +12,12 @@
 
 - (id)initWithJson:(id)json {
     if (self = [super init]) {
-    
+        _primePrice = [[json objectForKey:@"marketPrice"] floatValue];
+        _currentPrice = [[json objectForKey:@"price"] floatValue];
+        _goodsName = [json objectForKey:@"title"];
+        _rating = [[json objectForKey:@"rating"] floatValue]*5;
+        _image = [[TaoziImage alloc] initWithJson:[[json objectForKey:@"images"] firstObject]];
+        _saleCount = [[json objectForKey:@"salesVolume"] integerValue];
     }
     return self;
 }

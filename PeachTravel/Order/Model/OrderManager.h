@@ -37,5 +37,13 @@
  */
 + (float)orderTotalPrice:(OrderDetailModel *)orderDetail;
 
+/**
+ *  异步从网上加载我的订单
+ *
+ *  @param orderType  订单类型  0：全部订单 其余类型按照指定累心
+ *  @param completion 
+ */
++ (void)asyncLoadMyOrderFromServerWithOrderType:(OrderStatus)orderType completionBlock:(void(^)(BOOL isSuccess, NSArray<OrderDetailModel *> *orderList))completion;
+
 
 @end

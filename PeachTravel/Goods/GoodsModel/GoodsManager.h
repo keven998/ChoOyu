@@ -18,4 +18,18 @@
  */
 + (void)asyncLoadGoodsOfCity:(NSString *)cityId completionBlock:(void (^)(BOOL isSuccess, NSArray *goodsList))completion;
 
+
+/*********** 商品推荐相关 **************/
+
+/**
+ *  获取推荐的商品列表
+ *  goodsList 的结构类型为:   {
+                                @"title" : @"小编推荐",
+                                @"goodsList": NSArray<GoodDetailModel *>
+                            }
+ *  @param completion 
+ */
++ (void)asyncLoadRecommendGoodsWithCompletionBlock:(void (^)(BOOL isSuccess, NSArray<NSDictionary *> *goodsList))completion;
+
+
 @end

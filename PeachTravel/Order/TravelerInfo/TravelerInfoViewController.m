@@ -13,15 +13,13 @@
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UITextField *firstNameTextField;
 @property (nonatomic, strong) UITextField *lastNameTextField;
-@property (nonatomic, strong) UITextField *firstNamePYTextField;
-@property (nonatomic, strong) UITextField *lastNamePYTextField;
 @property (nonatomic, strong) UIButton *maleButton;
 @property (nonatomic, strong) UIButton *femaleButton;
 @property (nonatomic, strong) UILabel *birthdayLabel;
 @property (nonatomic, strong) UIButton *changeBirthdayButton;
 @property (nonatomic, strong) UITextField *telTextField;
 @property (nonatomic, strong) UIButton *IDNumberCategoryButton;
-@property (nonatomic, strong) UITextField *IDNmuberTextField;
+@property (nonatomic, strong) UITextField *IDNumberTextField;
 
 @end
 
@@ -33,6 +31,7 @@
         self.navigationItem.title = @"编辑旅客信息";
     } else {
         self.navigationItem.title = @"旅客信息";
+        self.view.userInteractionEnabled = NO;
     }
     self.view.backgroundColor = [UIColor whiteColor];
     _scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
@@ -42,7 +41,7 @@
     rowSpaceView.backgroundColor = COLOR_LINE;
     [_scrollView addSubview:rowSpaceView];
     
-    NSArray *titleArray = @[@"姓", @"名", @"性别", @"出生日期", @"电话", @"证件类型", @"证件号码"];
+    NSArray *titleArray = @[@"姓(英文)", @"名(英文)", @"性别", @"出生日期", @"电话", @"证件类型", @"证件号码"];
     for (int i=0; i<titleArray.count; i++) {
         NSString *title = [titleArray objectAtIndex:i];
         UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, i*48-0.5, kWindowWidth, 0.5)];
@@ -59,42 +58,23 @@
     spaceView.backgroundColor = COLOR_LINE;
     [_scrollView addSubview:spaceView];
     
-    _firstNameTextField = [[UITextField alloc] initWithFrame:CGRectMake(126, 10, (kWindowWidth-106)/2-40, 28)];
-    _firstNameTextField.placeholder = @"姓";
+    _lastNameTextField = [[UITextField alloc] initWithFrame:CGRectMake(126, 10, (kWindowWidth-106)-40, 28)];
+    _lastNameTextField.placeholder = @"Last Name,如Zhang";
+    _lastNameTextField.font = [UIFont systemFontOfSize:15];
+    _lastNameTextField.textColor = COLOR_TEXT_III;
+    _lastNameTextField.returnKeyType = UIReturnKeyDone;
+    _lastNameTextField.delegate = self;
+    _lastNameTextField.text = _traveler.lastName;
+    [_scrollView addSubview:_lastNameTextField];
+    
+    _firstNameTextField = [[UITextField alloc] initWithFrame:CGRectMake(126, 10+48, (kWindowWidth-106)-40, 28)];
+    _firstNameTextField.placeholder = @"First Name,如Xiaoxiao";
     _firstNameTextField.font = [UIFont systemFontOfSize:15];
     _firstNameTextField.textColor = COLOR_TEXT_III;
     _firstNameTextField.returnKeyType = UIReturnKeyDone;
     _firstNameTextField.delegate = self;
-    _firstNameTextField.textAlignment = NSTextAlignmentCenter;
+    _firstNameTextField.text = _traveler.firstName;
     [_scrollView addSubview:_firstNameTextField];
-    
-    
-    _firstNamePYTextField = [[UITextField alloc] initWithFrame:CGRectMake((kWindowWidth-106)/2+106+20, 10, (kWindowWidth-106)/2-40, 28)];
-    _firstNamePYTextField.placeholder = @"拼音";
-    _firstNamePYTextField.font = [UIFont systemFontOfSize:15];
-    _firstNamePYTextField.textColor = COLOR_TEXT_III;
-    _firstNamePYTextField.textAlignment = NSTextAlignmentCenter;
-    _firstNamePYTextField.returnKeyType = UIReturnKeyDone;
-    _firstNamePYTextField.delegate = self;
-    [_scrollView addSubview:_firstNamePYTextField];
-    
-    _lastNameTextField = [[UITextField alloc] initWithFrame:CGRectMake(126, 10+48, (kWindowWidth-106)/2-40, 28)];
-    _lastNameTextField.placeholder = @"名";
-    _lastNameTextField.font = [UIFont systemFontOfSize:15];
-    _lastNameTextField.textColor = COLOR_TEXT_III;
-    _lastNameTextField.textAlignment = NSTextAlignmentCenter;
-    _lastNameTextField.returnKeyType = UIReturnKeyDone;
-    _lastNameTextField.delegate = self;
-    [_scrollView addSubview:_lastNameTextField];
-    
-    _lastNamePYTextField = [[UITextField alloc] initWithFrame:CGRectMake((kWindowWidth-106)/2+106+20, 10+48, (kWindowWidth-106)/2-40, 28)];
-    _lastNamePYTextField.placeholder = @"拼音";
-    _lastNamePYTextField.font = [UIFont systemFontOfSize:15];
-    _lastNamePYTextField.textColor = COLOR_TEXT_III;
-    _lastNamePYTextField.textAlignment = NSTextAlignmentCenter;
-    _lastNamePYTextField.returnKeyType = UIReturnKeyDone;
-    _lastNamePYTextField.delegate = self;
-    [_scrollView addSubview:_lastNamePYTextField];
     
     _maleButton = [[UIButton alloc] initWithFrame:CGRectMake(126, 48*2, 60, 48)];
     [_maleButton setImage:[UIImage imageNamed:@"icon_travelerInfo_sex_selected"] forState:UIControlStateSelected];
@@ -114,15 +94,11 @@
     _femaleButton.tag = 2;
     [_femaleButton addTarget:self action:@selector(changeSex:) forControlEvents:UIControlEventTouchUpInside];
     [_scrollView addSubview:_femaleButton];
-    
-    UIView *nameSpaceView = [[UIView alloc] initWithFrame:CGRectMake((kWindowWidth-106)/2+106, 0, 0.5, 96)];
-    nameSpaceView.backgroundColor = COLOR_LINE;
-    [_scrollView addSubview:nameSpaceView];
-    
+      
     _birthdayLabel = [[UILabel alloc] initWithFrame:CGRectMake(126, 10+48*3, 110, 28)];
     _birthdayLabel.font = [UIFont systemFontOfSize:15];
     _birthdayLabel.textColor = COLOR_TEXT_III;
-    _birthdayLabel.text = @"1991-05-17";
+    _birthdayLabel.text = _traveler.birthday;
     [_scrollView addSubview:_birthdayLabel];
     
     if (_isEditTravelerInfo) {
@@ -133,6 +109,7 @@
     
     _telTextField = [[UITextField alloc] initWithFrame:CGRectMake(126, 10+48*4, (kWindowWidth-106)-40, 28)];
     _telTextField.placeholder = @"电话";
+    _telTextField.text = _traveler.tel;
     _telTextField.font = [UIFont systemFontOfSize:15];
     _telTextField.textColor = COLOR_TEXT_III;
     _telTextField.returnKeyType = UIReturnKeyDone;
@@ -143,19 +120,30 @@
     _IDNumberCategoryButton.layer.borderColor = COLOR_LINE.CGColor;
     _IDNumberCategoryButton.layer.borderWidth = 0.5;
     [_IDNumberCategoryButton addTarget:self action:@selector(choseIDCategory:) forControlEvents:UIControlEventTouchUpInside];
+    _IDNumberCategoryButton.titleLabel.font = [UIFont systemFontOfSize:15];
+    _IDNumberCategoryButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [_IDNumberCategoryButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
+    [_IDNumberCategoryButton setTitleColor:COLOR_TEXT_III forState:UIControlStateNormal];
+    [_IDNumberCategoryButton setTitle:_traveler.IDCategory forState:UIControlStateNormal];
     [_scrollView addSubview:_IDNumberCategoryButton];
     
-    _IDNmuberTextField = [[UITextField alloc] initWithFrame:CGRectMake(126, 10+48*6, (kWindowWidth-106)-40, 28)];
-    _IDNmuberTextField.placeholder = @"证件号码";
-    _IDNmuberTextField.font = [UIFont systemFontOfSize:15];
-    _IDNmuberTextField.textColor = COLOR_TEXT_III;
-    _IDNmuberTextField.returnKeyType = UIReturnKeyDone;
-    _IDNmuberTextField.delegate = self;
-    [_scrollView addSubview:_IDNmuberTextField];
+    _IDNumberTextField = [[UITextField alloc] initWithFrame:CGRectMake(126, 10+48*6, (kWindowWidth-106)-40, 28)];
+    _IDNumberTextField.placeholder = @"证件号码";
+    _IDNumberTextField.font = [UIFont systemFontOfSize:15];
+    _IDNumberTextField.textColor = COLOR_TEXT_III;
+    _IDNumberTextField.returnKeyType = UIReturnKeyDone;
+    _IDNumberTextField.delegate = self;
+    _IDNumberTextField.text = _traveler.IDNumber;
+    [_scrollView addSubview:_IDNumberTextField];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (void)setTraveler:(OrderTravelerInfoModel *)traveler
+{
+    _traveler = traveler;
 }
 
 - (void)changeSex:(UIButton *)sender

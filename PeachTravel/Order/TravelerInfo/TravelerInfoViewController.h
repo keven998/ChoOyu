@@ -7,8 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "OrderTravelerInfoModel.h"
 
 @interface TravelerInfoViewController : TZViewController
 
 @property (nonatomic) BOOL isEditTravelerInfo;
+
+@property (nonatomic, strong) OrderTravelerInfoModel *traveler;
+
 @end

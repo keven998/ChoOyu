@@ -9,15 +9,14 @@
 #import <UIKit/UIKit.h>
 @class AccountModel;
 
-@interface MineHeaderView : UIImageView
+@interface MineHeaderView : UIView
 
-@property (nonatomic, weak) UIImageView *avatar;
-@property (nonatomic, weak) UILabel *nickName;
-@property (nonatomic, weak) UILabel *userId;
-@property (nonatomic, weak) UILabel *subtitleLabel;
+@property (nonatomic, weak) UIViewController *containerViewController;
+
+@property (nonatomic, strong) UIImageView *avatarImageView;
+@property (nonatomic, strong) UIImageView *avatarImageViewBG;
+@property (nonatomic, strong) UILabel *nickNameLabel;
 
 @property (nonatomic, strong) AccountModel *account;
-
-@property (nonatomic, strong) UIView *contentView;
 
 @end

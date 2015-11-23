@@ -82,6 +82,13 @@
 
 typedef void(^TabPageBarAnimationBlock)(DKTabPageViewController *weakTabPageViewController, UIButton *fromButton, UIButton *toButton, CGFloat progress);
 
+
+@protocol DKTabPageViewControllerDelegate <NSObject>
+
+@optional
+- (void)didSelectedAtIndex:(NSInteger)index;
+@end
+
 @interface DKTabPageViewController : UIViewController
 
 - (instancetype)initWithItems:(NSArray *)items;
@@ -89,6 +96,8 @@ typedef void(^TabPageBarAnimationBlock)(DKTabPageViewController *weakTabPageView
 @property (nonatomic, readonly) DKTabPageBar *tabPageBar;
 @property (nonatomic, copy, readonly) NSArray *items;
 @property (nonatomic, assign) NSInteger selectedIndex;
+@property (nonatomic, weak) id <DKTabPageViewControllerDelegate>delegate;
+
 @property (nonatomic, readonly) UIViewController *selectedViewController;
 
 /**

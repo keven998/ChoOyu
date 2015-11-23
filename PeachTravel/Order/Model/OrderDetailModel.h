@@ -13,7 +13,8 @@
 
 typedef enum : NSUInteger {
     kOrderWaitPay = 1,      //待支付
-    kOrderInProgress,       //处理中
+    kOrderInProgress,       //处理中,待卖家确认
+    kOrderInUse,            //可使用
     kOrderCanceled,         //已取消
     kOrderRefunded,         //已退款
     kOrderCompletion,       //已完成
@@ -26,7 +27,10 @@ typedef enum : NSUInteger {
 @property (nonatomic) float totalPrice;             //总价格
 @property (nonatomic) OrderStatus orderStatus;      // 订单状态
 @property (nonatomic, copy) NSString *orderStatusDesc;      // 订单状态描述
+@property (nonatomic) NSTimeInterval *useDate;      //时间
+@property (nonatomic, copy) NSString *useDateStr;      //时间
 @property (nonatomic, strong) GoodsDetailModel *goods;      //商品
+
 @property (nonatomic, strong) GoodsPackageModel *selectedPackage;     //选中的套餐
 @property (nonatomic) NSInteger count;          //订单数量
 @property (nonatomic, strong) NSArray<OrderTravelerInfoModel *> *travelerList;    //旅客信息列表

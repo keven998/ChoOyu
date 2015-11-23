@@ -8,6 +8,8 @@
 
 #import "MineHeaderView.h"
 #import "PeachTravel-swift.h"
+#import "MyOrderRootViewController.h"
+
 @implementation MineHeaderView
 
 #pragma mark - lifeCycle
@@ -15,100 +17,108 @@
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
-        self.userInteractionEnabled = YES;
-        [self setupMainView];
+        self.backgroundColor = APP_PAGE_COLOR;
+        UIImageView *bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 215)];
+        bgImageView.image = [UIImage imageNamed:@"icon_mine_header_bg"];
+        [self addSubview:bgImageView];
+        
+        _avatarImageViewBG = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 80, 80)];
+        _avatarImageViewBG.center = CGPointMake(frame.size.width/2, 120);
+        _avatarImageViewBG.layer.cornerRadius = 40;
+        _avatarImageViewBG.clipsToBounds = YES;
+        _avatarImageViewBG.image = [UIImage imageNamed:@"icon_mine_avatarbg"];
+        [self addSubview:_avatarImageViewBG];
+        
+        _avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 72, 72)];
+        _avatarImageView.center = CGPointMake(_avatarImageViewBG.bounds.size.width/2, _avatarImageViewBG.bounds.size.height/2);
+        _avatarImageView.layer.cornerRadius = 36;
+        _avatarImageView.clipsToBounds = YES;
+        _avatarImageView.image = [UIImage imageNamed:@"icon_mine_avatarbg"];
+        [_avatarImageViewBG addSubview:_avatarImageView];
+        
+        _nickNameLabel= [[UILabel alloc] initWithFrame:CGRectMake(21, _avatarImageViewBG.bounds.size.height+_avatarImageViewBG.frame.origin.y+5, frame.size.width-42, 44)];
+        _nickNameLabel.textColor = [UIColor whiteColor];
+        _nickNameLabel.font = [UIFont systemFontOfSize:15.0];
+        _nickNameLabel.textAlignment = NSTextAlignmentCenter;
+        [self addSubview:_nickNameLabel];
+        
+        UIView *orderButtonsBg = [[UIView alloc] initWithFrame:CGRectMake(0, bgImageView.bounds.size.height+15, frame.size.width, 75)];
+        orderButtonsBg.backgroundColor = [UIColor whiteColor];
+        [self addSubview:orderButtonsBg];
+        
+        NSArray *orderButtonDataSource = @[@{@"title": @"全部订单", @"image": @"icon_mine_order_all", @"action": @"allOrderAction"},
+                                          @{@"title": @"代付款", @"image": @"icon_mine_order_waitpay", @"action": @"waitPayOrderAction"},
+                                          @{@"title": @"处理中", @"image": @"icon_mine_order_inprogress", @"action": @"inProgressOrderAction"},
+                                          @{@"title": @"可使用", @"image": @"icon_mine_order_inuse", @"action": @"inUseOrderAction"},
+                                          @{@"title": @"退款", @"image": @"icon_mine_order_refundmoney", @"action": @"refundMoneyOrderAction"}
+                                          ];
+        
+        CGFloat itemWidth = frame.size.width/orderButtonDataSource.count;
+        CGFloat itemHeight = orderButtonsBg.bounds.size.height;
+        NSInteger index = 0;
+        for (NSDictionary *dic in orderButtonDataSource) {
+            TZButton *button = [[TZButton alloc] initWithFrame:CGRectMake(index*itemWidth, 0, itemWidth, itemHeight)];
+            NSString *title = [dic objectForKey:@"title"];
+            NSString *imageStr = [dic objectForKey:@"image"];
+            NSString *actionStr = [dic objectForKey:@"action"];
+            [button setTitle:title forState:UIControlStateNormal];
+            [button setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
+            button.topSpaceHight = 15;
+            button.spaceHight = 15;
+            button.titleLabel.font = [UIFont systemFontOfSize:14.0];
+            [button setImage:[UIImage imageNamed:imageStr] forState:UIControlStateNormal];
+            [button addTarget:self action:NSSelectorFromString(actionStr) forControlEvents:UIControlEventTouchUpInside];
+            [orderButtonsBg addSubview:button];
+            index++;
+        }
     }
     return self;
-}
-
-- (void)setupMainView
-{
-    _contentView = [[UIView alloc] initWithFrame:self.bounds];
-    [self addSubview:_contentView];
-    // 1.头像
-    UIImageView *avatar = [[UIImageView alloc] init];
-    avatar.layer.cornerRadius = 65*0.5;
-    avatar.layer.masksToBounds = YES;
-    self.avatar = avatar;
-    [_contentView addSubview:avatar];
-    
-    // 2.昵称
-    UILabel *nickName = [[UILabel alloc] init];
-    nickName.font = [UIFont boldSystemFontOfSize:16.0];
-    nickName.textColor = TZColor(50, 50, 50);
-    self.nickName = nickName;
-    [_contentView addSubview:nickName];
-    
-    // 3.用户Id
-    UILabel *userId = [[UILabel alloc] init];
-    userId.font = [UIFont boldSystemFontOfSize:12.0];
-    userId.textColor = TZColor(50, 50, 50);
-    self.userId = userId;
-    [_contentView addSubview:userId];
-    
-    // 4.性别
-    UILabel *tempLabel = [[UILabel alloc] init];
-    tempLabel.font = [UIFont boldSystemFontOfSize:12.0];
-    tempLabel.textColor = TZColor(100, 100, 100);
-    self.subtitleLabel = tempLabel;
-    [_contentView addSubview:self.subtitleLabel];
-
-    [self updateSubviewsFrame];
-
-}
-
-- (void)updateSubviewsFrame
-{
-    CGFloat contentH = self.frame.size.height;
-    
-    CGFloat avatarW = 65;
-    self.avatar.frame = CGRectMake(15, contentH-avatarW-13, avatarW, avatarW);
-    
-    CGSize size = CGSizeMake(kWindowWidth - 40,CGFLOAT_MAX);//LableWight标签宽度，固定的
-    //计算实际frame大小，并将label的frame变成实际大小
-    NSDictionary *dict = @{NSFontAttributeName: [UIFont boldSystemFontOfSize:16.0]};
-    CGSize nickNameSize = [self.account.nickName boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
-    if (nickNameSize.width > self.frame.size.width-self.avatar.frame.size.width-100) {
-        nickNameSize.width = self.frame.size.width-self.avatar.frame.size.width-100;
-    }
-    self.nickName.frame = CGRectMake(CGRectGetMaxX(self.avatar.frame)+5, contentH-16-46, nickNameSize.width+2, 16);
-    
-    self.userId.frame = CGRectMake(CGRectGetMaxX(self.nickName.frame)+10, contentH-12-46, 100, 12);
-    self.subtitleLabel.frame = CGRectMake(CGRectGetMaxX(self.avatar.frame)+5, CGRectGetMaxY(self.nickName.frame)+10, kWindowWidth-CGRectGetMaxX(self.avatar.frame)-10, 12);
-}
-
-- (void)updateContent
-{
-    NSURL *url = [NSURL URLWithString:self.account.avatar];
-    [self.avatar sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"avatar_default"]];
-
-    _nickName.text = self.account.nickName;
-    _userId.text = [NSString stringWithFormat:@"%ld",self.account.userId];
-
-    NSMutableString *subtitleStr = [[NSMutableString alloc] init];
-    
-    if (_account.gender == Male) {
-        [subtitleStr appendString:@"男  "];
-    } else if (_account.gender == Female) {
-        [subtitleStr appendString:@"女  "];
-    }
-    if (_account.birthday) {
-        NSString *str = [FrendModel costellationDescWithBirthday:_account.birthday];
-        [subtitleStr appendString:[NSString stringWithFormat:@"%@  ", str]];
-    }
-    if (_account.level) {
-        [subtitleStr appendString:[NSString stringWithFormat:@"LV%ld", _account.level]];
-    }
-    
-    self.subtitleLabel.text = subtitleStr;
-    
-    [self updateSubviewsFrame];
 }
 
 - (void)setAccount:(AccountModel *)account
 {
     _account = account;
-    [self updateContent];
+    _nickNameLabel.text = account.nickName;
+    [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:_account.avatarSmall] placeholderImage:nil];
 }
 
+- (void)allOrderAction
+{
+    MyOrderRootViewController *ctl = [[MyOrderRootViewController alloc] init];
+    ctl.orderType = 0;
+    ctl.hidesBottomBarWhenPushed = YES;
+    [_containerViewController.navigationController pushViewController:ctl animated:YES];
+}
+
+- (void)waitPayOrderAction
+{
+    MyOrderRootViewController *ctl = [[MyOrderRootViewController alloc] init];
+    ctl.orderType = kOrderWaitPay;
+    ctl.hidesBottomBarWhenPushed = YES;
+    [_containerViewController.navigationController pushViewController:ctl animated:YES];
+}
+
+- (void)inProgressOrderAction
+{
+    MyOrderRootViewController *ctl = [[MyOrderRootViewController alloc] init];
+    ctl.orderType = kOrderInProgress;
+    ctl.hidesBottomBarWhenPushed = YES;
+    [_containerViewController.navigationController pushViewController:ctl animated:YES];
+}
+
+- (void)inUseOrderAction
+{
+    MyOrderRootViewController *ctl = [[MyOrderRootViewController alloc] init];
+    ctl.orderType = kOrderInUse;
+    ctl.hidesBottomBarWhenPushed = YES;
+    [_containerViewController.navigationController pushViewController:ctl animated:YES];
+}
+
+- (void)refundMoneyOrderAction
+{
+    MyOrderRootViewController *ctl = [[MyOrderRootViewController alloc] init];
+    ctl.orderType = kOrderRefunded;
+    ctl.hidesBottomBarWhenPushed = YES;
+    [_containerViewController.navigationController pushViewController:ctl animated:YES];
+}
 @end

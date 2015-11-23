@@ -41,4 +41,46 @@
     completion(YES, retArray);
 }
 
++ (void)asyncLoadRecommendGoodsWithCompletionBlock:(void (^)(BOOL isSuccess, NSArray<NSDictionary *> *goodsList))completion
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [manager GET:API_GET_RECOMMEND parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            NSMutableArray *retArray = [[NSMutableArray alloc] init];
+            for (NSDictionary *dic in [responseObject objectForKey:@"result"]) {
+                NSMutableDictionary *retDic = [[NSMutableDictionary alloc] init];
+                [retDic setObject:[dic objectForKey:@"topicType"] forKey:@"title"];
+                NSMutableArray *goodsList = [[NSMutableArray alloc] init];
+                for (NSDictionary *goodsDic in [dic objectForKey:@"commodities"]) {
+                    GoodsDetailModel *goods = [[GoodsDetailModel alloc] initWithJson:goodsDic];
+                    [goodsList addObject:goods];
+                }
+                [retDic setObject:goodsList forKey:@"goodsList"];
+                [retArray addObject:retDic];
+            }
+            completion(YES, retArray);
+            
+        } else {
+            [SVProgressHUD showHint:HTTP_FAILED_HINT];
+            completion(NO, nil);
+        }
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [SVProgressHUD showHint:HTTP_FAILED_HINT];
+        completion(NO, nil);
+        
+    }];
+
+}
+
 @end

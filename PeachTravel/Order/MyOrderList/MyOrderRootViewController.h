@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "OrderManager.h"
 
 @interface MyOrderRootViewController : TZViewController
+
+@property (nonatomic) OrderStatus orderType;     //初次进来要进入哪个界面
 
 @end

@@ -26,6 +26,10 @@
             _orderStatusDesc = @"待付款";
             break;
             
+        case kOrderInUse:
+            _orderStatusDesc = @"可使用";
+            break;
+            
         case kOrderCompletion:
             _orderStatusDesc = @"已完成";
             break;

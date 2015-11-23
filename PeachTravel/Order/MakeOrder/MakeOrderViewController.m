@@ -185,7 +185,7 @@
     } else if (indexPath.row == 4) {
         return [MakeOrderTravelerInfoTableViewCell heightWithTravelerCount:_orderDetail.travelerList.count];
     } else if (indexPath.row == 5) {
-        return 360;
+        return 320;
     }
     return 50;
 }
@@ -223,10 +223,9 @@
         
     } else if (indexPath.row == 5) {
         MakeOrderContactInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"makeOrderContactInfoCell" forIndexPath:indexPath];
-        cell.nickNameTextfield.delegate = self;
+        cell.lastNameTextField.delegate = self;
         cell.telTextField.delegate = self;
-        cell.mailTextField.delegate = self;
-        cell.addressTextField.delegate = self;
+        cell.firstNameTextField.delegate = self;
         cell.messageTextView.delegate = self;
         return cell;
     }

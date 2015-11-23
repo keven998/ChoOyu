@@ -11,29 +11,25 @@
 @implementation MakeOrderContactInfoTableViewCell
 
 - (void)awakeFromNib {
-    _nickNameTextfield.layer.borderColor = APP_BORDER_COLOR.CGColor;
-    _nickNameTextfield.layer.borderWidth = 0.5;
+    _lastNameTextField.layer.borderColor = APP_BORDER_COLOR.CGColor;
+    _lastNameTextField.layer.borderWidth = 0.5;
+    _firstNameTextField.layer.borderColor = APP_BORDER_COLOR.CGColor;
+    _firstNameTextField.layer.borderWidth = 0.5;
     _telTextField.layer.borderColor = APP_BORDER_COLOR.CGColor;
     _telTextField.layer.borderWidth = 0.5;
-    _mailTextField.layer.borderColor = APP_BORDER_COLOR.CGColor;
-    _mailTextField.layer.borderWidth = 0.5;
-    _addressTextField.layer.borderColor = APP_BORDER_COLOR.CGColor;
-    _addressTextField.layer.borderWidth = 0.5;
+
     _messageTextView.layer.borderColor = APP_BORDER_COLOR.CGColor;
     _messageTextView.layer.borderWidth = 0.5;
 
-    _nickNameTextfield.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 8, _nickNameTextfield.frame.size.height)];
-    _nickNameTextfield.leftViewMode = UITextFieldViewModeAlways;
+    _firstNameTextField.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 8, _firstNameTextField.frame.size.height)];
+    _firstNameTextField.leftViewMode = UITextFieldViewModeAlways;
     
-    _telTextField.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 8, _nickNameTextfield.frame.size.height)];
+    _telTextField.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 8, _telTextField.frame.size.height)];
     _telTextField.leftViewMode = UITextFieldViewModeAlways;
     
-    _mailTextField.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 8, _nickNameTextfield.frame.size.height)];
-    _mailTextField.leftViewMode = UITextFieldViewModeAlways;
-    
-    _addressTextField.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 8, _nickNameTextfield.frame.size.height)];
-    _addressTextField.leftViewMode = UITextFieldViewModeAlways;
- }
+    _lastNameTextField.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 8, _lastNameTextField.frame.size.height)];
+    _lastNameTextField.leftViewMode = UITextFieldViewModeAlways;
+}
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

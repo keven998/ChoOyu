@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "OrderDetailModel.h"
 
 @interface MyOrderListViewController : UIViewController
+
+@property (nonatomic) OrderStatus orderType;
+
+@property (nonatomic, strong) NSArray *dataSource;
 
 @end

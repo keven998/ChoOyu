@@ -10,27 +10,17 @@
 #import "MineProfileViewController.h"
 #import "SettingHomeViewController.h"
 #import "MineHeaderView.h"
-#import "MineContentRootViewController.h"
-#import "REFrostedViewController.h"
-#import "MakePlanViewController.h"
-#import "ForeignViewController.h"
-#import "DomesticViewController.h"
+#import "FavoriteViewController.h"
+#import "PlansListTableViewController.h"
+#import "ContactListViewController.h"
+#import "TravelerListViewController.h"
 
-@interface MineViewContoller () <UIScrollViewDelegate, UINavigationControllerDelegate,UIGestureRecognizerDelegate>
-{
-    CGFloat contentOffsetY;
-    CGFloat oldContentOffsetY;
-    CGFloat newContentOffsetY;
-    CGFloat TopViewH;
-}
+@interface MineViewContoller () <UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, weak) UIScrollView *scrollView;
-@property (nonatomic, weak) MineHeaderView *topView;
-@property (nonatomic, weak) UIViewController *contentViewCtl;
+@property (nonatomic, strong) MineHeaderView *mineHeaderView;
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) NSArray *dataSource;
 
-@property (nonatomic, weak) UIButton *addPlan;
-
-@property (nonatomic, weak) UIView *navBgView;
 
 @end
 
@@ -41,208 +31,134 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    if (![AccountManager shareAccountManager].isLogin) {
-        [self userLogin];
-    }
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    TopViewH = kWindowWidth*200/414;
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeContentFrame:) name:@"ChangePlanListFrame" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAddPlanBtnFrame:) name:@"ChangeAddPlanFrame" object:nil];
-    
-    [[AccountManager shareAccountManager].account loadUserInfoFromServer:^(bool isSuccess) {
-        if (isSuccess) {
-            [self updateContent];
-        }
-    }];
-    
-    [self setupMainView];
-    [self setupNavBar];
-    [self setupAddPlanBtn];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    _dataSource = @[
+                    @[
+                        @{@"title": @"我的收藏", @"image": @"icon_mine_favorite"},
+                        @{@"title": @"我的旅行计划", @"image": @"icon_mine_guides"}
+                        ],
+                    @[
+                        @{@"title": @"通讯录", @"image": @"icon_mine_contact"},
+                        @{@"title": @"常用旅客信息", @"image": @"icon_mine_traveler"}
+                        ],
+                    ];
 
+    self.view.backgroundColor = APP_PAGE_COLOR;
+
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+    _tableView.backgroundColor = [UIColor clearColor];
+    _tableView.separatorColor = COLOR_LINE;
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    _tableView.rowHeight = 50;
+    _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 49)];
+
+    [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
+    [self.view addSubview:_tableView];
+    _mineHeaderView = [[MineHeaderView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 310)];
+    _mineHeaderView.containerViewController = self;
+    _mineHeaderView.account = [AccountManager shareAccountManager].account;
+    _tableView.tableHeaderView = _mineHeaderView;
+    
+    UIView *navigationBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 64)];
+    [self.view addSubview:navigationBar];
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
+    titleLabel.center = CGPointMake(navigationBar.bounds.size.width/2,42);
+    titleLabel.textColor = [UIColor whiteColor];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.text = @"我的";
+    [navigationBar addSubview:titleLabel];
+    UIButton *settingButton = [[UIButton alloc] initWithFrame:CGRectMake(navigationBar.bounds.size.width-40, 20, 40, 44)];
+    [settingButton setImage:[UIImage imageNamed:@"icon_mine_setting"] forState:UIControlStateNormal];
+    [settingButton addTarget:self action:@selector(settingAction) forControlEvents:UIControlEventTouchUpInside];
+    [navigationBar addSubview:settingButton];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self updateContent];
+}
+
+- (BOOL)fd_prefersNavigationBarHidden {
+    return YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    if (![[self.navigationController.viewControllers lastObject]isKindOfClass:[BaseProfileViewController class]] && ![self.navigationController.viewControllers.lastObject isKindOfClass:[MineViewContoller class]]) {
-        [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
+- (void)settingAction
+{
+    SettingHomeViewController *ctl = [[SettingHomeViewController alloc] init];
+    ctl.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:ctl animated:YES];
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return [_dataSource count];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [[_dataSource objectAtIndex:section] count];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 10;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 10;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    NSDictionary *dic = [[_dataSource objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    NSString *title = [dic objectForKey:@"title"];
+    NSString *imageStr = [dic objectForKey:@"image"];
+    cell.textLabel.text = title;
+    cell.imageView.image = [UIImage imageNamed:imageStr];
+    cell.textLabel.textColor = COLOR_TEXT_II;
+    cell.textLabel.font = [UIFont systemFontOfSize:15];
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            FavoriteViewController *ctl = [[FavoriteViewController alloc] init];
+            ctl.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:ctl animated:YES];
+        } else {
+            PlansListTableViewController *ctl = [[PlansListTableViewController alloc] init];
+            ctl.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:ctl animated:YES];
+        }
+    } else if (indexPath.section == 1) {
+        if (indexPath.row == 0) {
+            ContactListViewController *ctl = [[ContactListViewController alloc] init];
+            ctl.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:ctl animated:YES];
+        } else {
+            TravelerListViewController *ctl = [[TravelerListViewController alloc] init];
+            ctl.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:ctl animated:YES];
+        }
     }
 }
 
-- (void)userLogin
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if ([AccountManager shareAccountManager].isLogin) {
-        return;
-    }
-    LoginViewController *loginCtl = [[LoginViewController alloc] init];
-    TZNavigationViewController *nctl = [[TZNavigationViewController alloc] initWithRootViewController:loginCtl];
-    loginCtl.isPushed = NO;
-    [self.navigationController presentViewController:nctl animated:YES completion:nil];
-}
-
-- (void)setupAddPlanBtn
-{
-    UIButton *addPlan = [UIButton buttonWithType:UIButtonTypeCustom];
-    addPlan.frame = CGRectMake((kWindowWidth-50)*0.5, self.view.frame.size.height-110, 50, 50);
-    [addPlan addTarget:self action:@selector(addPlan:) forControlEvents:UIControlEventTouchUpInside];
-    [addPlan setImage:[UIImage imageNamed:@"plan_add"] forState:UIControlStateNormal];
-    addPlan.highlighted = NO;
-    self.addPlan = addPlan;
-    [self.view addSubview:addPlan];
-}
-
-- (void)updateContent
-{
-    _topView.account = [AccountManager shareAccountManager].account;
-}
-
-#pragma mark - UIGestureRecognizerDelegate 在根视图时不响应interactivePopGestureRecognizer手势
-
-- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
-{
-    if (self.navigationController.viewControllers.count == 1)
-        return NO;
-    else
-        return YES;
-}
-
-#pragma mark - 设置导航栏
-
-- (void)setupNavBar
-{
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth,64)];
-    bgView.alpha = 0;
-    self.navBgView = bgView;
-    bgView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_master"]];
-//    [self.view addSubview:bgView];
-    
-    UIButton *editButton = [[UIButton alloc] initWithFrame:CGRectMake(kWindowWidth - 56, 20, 40, 40)];
-    [editButton setTitle:@"设置" forState:UIControlStateNormal];
-    [editButton setTitleColor:TZColor(100, 100, 100) forState:UIControlStateNormal];
-    editButton.titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
-    [editButton addTarget:self action:@selector(showSettingCtl:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:editButton];
-
-    UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake((kWindowWidth-108)*0.5, 20, 108, 40)];
-    titleLab.text = @"我的·旅行派";
-    titleLab.textAlignment = NSTextAlignmentCenter;
-    titleLab.font = [UIFont boldSystemFontOfSize:18.0];
-    titleLab.textColor = TZColor(50, 50, 50);
-    [self.view addSubview:titleLab];
-}
-
-// 设置scrollView
-- (void)setupMainView
-{
-    MineHeaderView *topView = [[MineHeaderView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, TopViewH)];
-    topView.backgroundColor = TZColor(247, 250, 247);
-//    topView.image = [UIImage imageNamed:@"bg_myplan_master"];
-    topView.contentMode = UIViewContentModeScaleToFill;
-    self.topView = topView;
-    [self.view addSubview:topView];
-    topView.account = [AccountManager shareAccountManager].account;
-    
-    // 添加手势
-    UITapGestureRecognizer *tapHeaderView = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHeaderView:)];
-    [topView addGestureRecognizer:tapHeaderView];
-    
-    MineContentRootViewController *contentViewCtl = [[MineContentRootViewController alloc] init];
-    contentViewCtl.view.backgroundColor = APP_PAGE_COLOR;
-    self.contentViewCtl = contentViewCtl;
-    [self addChildViewController:contentViewCtl];
-    [self.view addSubview:contentViewCtl.view];
-    contentViewCtl.view.frame = CGRectMake(0, TopViewH, kWindowWidth, kWindowHeight-TopViewH-49);
-    [contentViewCtl willMoveToParentViewController:self];
-}
-
-#pragma mark - 实现头部View的滚动
-
-// 向上滚动
-- (void)topViewScrollToTop
-{
-    [UIView animateWithDuration:0.3 animations:^{
-        self.topView.frame = CGRectMake(0, -TopViewH+64, kWindowWidth, TopViewH);
-        _topView.contentView.alpha = 0;
-        _contentViewCtl.view.frame = CGRectMake(0, 64, kWindowWidth, kWindowHeight - 64 - 49);
-        self.navBgView.alpha = 1;
-    }];
-}
-
-// 向下滚动
-- (void)topViewScrollToBottom
-{
-    [UIView animateWithDuration:0.3 animations:^{
-        self.topView.frame = CGRectMake(0, 0, kWindowWidth, TopViewH);
-        _topView.contentView.alpha = 1;
-        _contentViewCtl.view.frame = CGRectMake(0, TopViewH, kWindowWidth, kWindowHeight-TopViewH-49);
-        self.navBgView.alpha = 0;
-    }];
-}
-
-#pragma mark - action
-/**
- *  进入设置界面
- *
- *  @param sender
- */
-- (void)showSettingCtl:(id)sender
-{
-    SettingHomeViewController *profileCtr = [[SettingHomeViewController alloc] init];
-    profileCtr.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:profileCtr animated:YES];
-}
-
-- (void)changeContentFrame:(NSNotification *)note
-{
-    NSString *scrollH = note.userInfo[@"scrollH"];
-    CGFloat scrollHeight = [scrollH floatValue];
-    
-    if (scrollHeight > 0) {
-        [self topViewScrollToTop];
-    } else if (scrollHeight < 0){
-        [self topViewScrollToBottom];
-        
+    if (scrollView.contentOffset.y < 0 && [scrollView isEqual:_tableView]) {
+        scrollView.contentOffset = CGPointZero;
     }
 }
-
-- (void)changeAddPlanBtnFrame:(NSNotification *)note
-{
-    NSString *scrollW = note.userInfo[@"scrollW"];
-    CGFloat scrollWidth = [scrollW floatValue];
-    
-    CGPoint center = CGPointMake(self.view.bounds.size.width/2, _addPlan.center.y);
-    center.x -= scrollWidth;
-    _addPlan.center = center;
-}
-
-// 点击头部进入个人Profile
-- (void)tapHeaderView:(UITapGestureRecognizer *)tap
-{
-    MineProfileViewController *profile = [[MineProfileViewController alloc] init];
-    [self.navigationController pushViewController:profile animated:YES];
-}
-
-// 添加计划
-- (void)addPlan:(UIButton *)btn
-{
-    [self makePlan];
-}
-
-- (void)makePlan
-{
-    [MobClick event:@"navigation_item_plan_create"];
-    MakePlanViewController *makePlanCtl = [[MakePlanViewController alloc] init];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:makePlanCtl];
-    [self presentViewController:nav animated:YES completion:nil];
-}
-
 @end
