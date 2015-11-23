@@ -10,6 +10,15 @@
 
 @implementation OrderDetailModel
 
+- (id)init
+{
+    if (self = [super init]) {
+        _orderContact = [[OrderContactInfoModel alloc] init];
+        
+    }
+    return self;
+}
+
 - (void)setOrderStatus:(OrderStatus)orderStatus
 {
     _orderStatus = orderStatus;

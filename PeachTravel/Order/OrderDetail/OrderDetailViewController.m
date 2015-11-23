@@ -141,7 +141,7 @@
     if (indexPath.section == 1) {
         return [OrderDetailContentTableViewCell heightOfCell];
     } else if (indexPath.section == 4) {
-        return [OrderDetailContactTableViewCell heightOfCell];
+        return [OrderDetailContactTableViewCell heightOfCellWithContactInfo:_orderDetail.orderContact];
     }
     return 50;
 }
@@ -182,8 +182,7 @@
         
     } else {
         OrderDetailContactTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"orderDetailContactCell" forIndexPath:indexPath];
-        cell.nameLabel.text = _orderDetail.orderContact.name;
-        cell.textLabel.text = _orderDetail.orderContact.tel;
+        cell.contact = _orderDetail.orderContact;   
         return cell;
     }
 }

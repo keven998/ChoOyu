@@ -246,6 +246,24 @@
     _currentTextActivity = textField;
 }
 
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    MakeOrderContactInfoTableViewCell *cell = [_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:5 inSection:0]];
+    if ([textField isEqual:cell.lastNameTextField]) {
+        _orderDetail.orderContact.lastName = textField.text;
+    } else  if ([textField isEqual:cell.firstNameTextField]) {
+        _orderDetail.orderContact.firstName = textField.text;
+    } else  if ([textField isEqual:cell.telTextField]) {
+        _orderDetail.orderContact.tel = textField.text;
+    }
+}
+
+- (void)textViewDidChange:(UITextView *)textView
+{
+    _orderDetail.orderContact.message = textView.text;
+
+}
+
 - (void)textViewDidBeginEditing:(UITextView *)textView{
     _currentTextActivity = textView;
 }
