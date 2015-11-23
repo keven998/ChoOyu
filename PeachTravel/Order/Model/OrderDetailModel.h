@@ -16,6 +16,7 @@ typedef enum : NSUInteger {
     kOrderInProgress,       //处理中,待卖家确认
     kOrderInUse,            //可使用
     kOrderCanceled,         //已取消
+    kOrderRefunding,        //申请退款中
     kOrderRefunded,         //已退款
     kOrderCompletion,       //已完成
 } OrderStatus;

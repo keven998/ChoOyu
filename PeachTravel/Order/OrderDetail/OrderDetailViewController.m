@@ -15,6 +15,7 @@
 #import "TravelerListViewController.h"
 #import "SelectPayPlatformViewController.h"
 #import "AskRefundMoneyViewController.h"
+#import "GoodsDetailViewController.h"
 
 @interface OrderDetailViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -28,6 +29,7 @@
     self.navigationItem.title = @"订单详情";
     _tableView.dataSource = self;
     _tableView.delegate = self;
+    _tableView.separatorColor = COLOR_LINE;
     [_tableView registerNib:[UINib nibWithNibName:@"OrderDetailStatusTableViewCell" bundle:nil] forCellReuseIdentifier:@"orderDetailStatusCell"];
 
     [_tableView registerNib:[UINib nibWithNibName:@"OrderDetailContentTableViewCell" bundle:nil] forCellReuseIdentifier:@"orderDetailContentCell"];
@@ -50,6 +52,9 @@
     if (_toolBar.superview) {
         [_toolBar removeFromSuperview];
     }
+    if (_orderDetail.orderStatus == kOrderRefunding) {
+        return;
+    }
     _toolBar = [[UIView alloc] initWithFrame:CGRectMake(0, kWindowHeight-55, kWindowWidth, 55)];
     _toolBar.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_toolBar];
@@ -61,14 +66,16 @@
     if (_orderDetail.orderStatus == kOrderCanceled || _orderDetail.orderStatus == kOrderRefunded || _orderDetail.orderStatus == kOrderCompletion) {
         UIButton *orderAgainBtn = [[UIButton alloc] initWithFrame:_toolBar.bounds];
         [orderAgainBtn setTitle:@"再次预订" forState:UIControlStateNormal];
-        [orderAgainBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
+        [orderAgainBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [orderAgainBtn setBackgroundImage:[ConvertMethods createImageWithColor:UIColorFromRGB(0xFC4E27)] forState:UIControlStateNormal];
         orderAgainBtn.titleLabel.font = [UIFont systemFontOfSize:17];
         [_toolBar addSubview:orderAgainBtn];
         
     } else if (_orderDetail.orderStatus == kOrderInProgress) {
         UIButton *requestRefundMoneyBtn = [[UIButton alloc] initWithFrame:_toolBar.bounds];
         [requestRefundMoneyBtn setTitle:@"申请退款" forState:UIControlStateNormal];
-        [requestRefundMoneyBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
+        [requestRefundMoneyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [requestRefundMoneyBtn setBackgroundImage:[ConvertMethods createImageWithColor:UIColorFromRGB(0xFC4E27)] forState:UIControlStateNormal];
         requestRefundMoneyBtn.titleLabel.font = [UIFont systemFontOfSize:17];
         [requestRefundMoneyBtn addTarget:self action:@selector(requestRefundMoney:) forControlEvents:UIControlEventTouchUpInside];
         [_toolBar addSubview:requestRefundMoneyBtn];
@@ -83,7 +90,7 @@
         UIButton *payOrderBtn = [[UIButton alloc] initWithFrame:CGRectMake(_toolBar.bounds.size.width/2, 0, _toolBar.bounds.size.width/2, _toolBar.bounds.size.height)];
         [payOrderBtn setTitle:@"立即支付" forState:UIControlStateNormal];
         [payOrderBtn setTitleColor: [UIColor whiteColor] forState:UIControlStateNormal];
-        [payOrderBtn setBackgroundColor:UIColorFromRGB(0xFC4E27)];
+        [payOrderBtn setBackgroundImage:[ConvertMethods createImageWithColor:UIColorFromRGB(0xFC4E27)] forState:UIControlStateNormal];
         payOrderBtn.titleLabel.font = [UIFont systemFontOfSize:17];
         [payOrderBtn addTarget:self action:@selector(payOrder:) forControlEvents:UIControlEventTouchUpInside];
         [_toolBar addSubview:payOrderBtn];
@@ -100,6 +107,13 @@
 {
     AskRefundMoneyViewController *ctl = [[AskRefundMoneyViewController alloc] init];
     [self.navigationController pushViewController:ctl animated:YES];
+}
+
+- (void)goodsDetailAction:(UIButton *)sender
+{
+    GoodsDetailViewController *ctl = [[GoodsDetailViewController alloc] init];
+    [self.navigationController pushViewController:ctl animated:YES];
+    
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -148,7 +162,7 @@
                                 } range:NSMakeRange(0, _orderDetail.goods.goodsName.length)];
         
         [cell.goodsNameBtn setAttributedTitle:string forState:UIControlStateNormal];
-        
+        [cell.goodsNameBtn addTarget:self action:@selector(goodsDetailAction:) forControlEvents:UIControlEventTouchUpInside];
         cell.orderNumberLabel.text = @"1234323423";
         cell.dateLabel.text = @"2015-11-25";
         cell.countLabel.text = [NSString stringWithFormat:@"%ld", _orderDetail.count];

@@ -8,6 +8,7 @@
 
 #import "MyOrderListViewController.h"
 #import "MyOrderTableViewCell.h"
+#import "OrderDetailViewController.h"
 
 @interface MyOrderListViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -67,6 +68,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    OrderDetailViewController *ctl = [[OrderDetailViewController alloc] init];
+    ctl.orderDetail = [_dataSource objectAtIndex:indexPath.section];
+    [self.navigationController pushViewController:ctl animated:YES];
 }
 
 @end

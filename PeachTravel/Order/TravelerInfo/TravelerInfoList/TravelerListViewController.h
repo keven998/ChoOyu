@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TravelerListViewController : UIViewController
+@interface TravelerListViewController : TZViewController
 
 @property (nonatomic, strong) NSArray *travelerList;
 

@@ -20,6 +20,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationItem.title = @"旅客信息";
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.rowHeight = 130.0;

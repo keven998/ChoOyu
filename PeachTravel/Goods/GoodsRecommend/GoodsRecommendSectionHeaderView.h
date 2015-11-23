@@ -10,6 +10,8 @@
 
 @interface GoodsRecommendSectionHeaderView : UIView
 
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+
 + (id)initViewFromNib;
 
 @end

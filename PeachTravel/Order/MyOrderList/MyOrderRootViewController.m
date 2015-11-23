@@ -24,7 +24,7 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = [UIColor whiteColor];
     NSArray *titleArray = @[@"全部", @"待付款", @"处理中", @"可使用", @"退款"];
-    NSArray *orderTypeList = @[[NSNumber numberWithInteger:0], [NSNumber numberWithInteger:kOrderWaitPay], [NSNumber numberWithInteger:kOrderInProgress], [NSNumber numberWithInteger:kOrderInUse], [NSNumber numberWithInteger:kOrderRefunded]];
+    NSArray *orderTypeList = @[[NSNumber numberWithInteger:0], [NSNumber numberWithInteger:kOrderWaitPay], [NSNumber numberWithInteger:kOrderInProgress], [NSNumber numberWithInteger:kOrderInUse], [NSNumber numberWithInteger:kOrderRefunding]];
     _orderListControllers = [[NSMutableArray alloc] init];
 
     NSMutableArray *items = [NSMutableArray arrayWithCapacity:5];

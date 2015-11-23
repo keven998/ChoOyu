@@ -34,6 +34,10 @@
             _orderStatusDesc = @"已完成";
             break;
             
+        case kOrderRefunding:
+            _orderStatusDesc = @"退款申请中";
+            break;
+
         case kOrderRefunded:
             _orderStatusDesc = @"已退款";
             break;

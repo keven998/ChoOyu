@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *scroll2TopBtn;
 @property (nonatomic, strong) GoodsRecommendHeaderView *headerView;
+@property (nonatomic, strong) NSArray *dataSource;
 @end
 
 @implementation GoodsRecommendViewController
@@ -37,6 +38,12 @@
     _tableView.tableHeaderView = _headerView;
     _scroll2TopBtn.hidden = YES;
     [_scroll2TopBtn addTarget:self action:@selector(scroll2Top) forControlEvents:UIControlEventTouchUpInside];
+    [GoodsManager asyncLoadRecommendGoodsWithCompletionBlock:^(BOOL isSuccess, NSArray<NSDictionary *> *goodsList) {
+        if (isSuccess) {
+            _dataSource = goodsList;
+            [self.tableView reloadData];
+        }
+    }];
 
 }
 
@@ -60,11 +67,12 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return _dataSource.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 15;
+    NSDictionary *dic = [_dataSource objectAtIndex:section];
+    return [[dic objectForKey:@"goodsList"] count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -79,7 +87,9 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
+    NSDictionary *dic = [_dataSource objectAtIndex:section];
     GoodsRecommendSectionHeaderView *view = [GoodsRecommendSectionHeaderView initViewFromNib];
+    view.titleLabel.text = [dic objectForKey:@"title"];
     return view;
 }
 
