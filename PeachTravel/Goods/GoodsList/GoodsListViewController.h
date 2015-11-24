@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GoodsListViewController : UIViewController
+@interface GoodsListViewController : TZViewController
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet TZButton *categoryBtn;
 @property (weak, nonatomic) IBOutlet TZButton *sortBtn;

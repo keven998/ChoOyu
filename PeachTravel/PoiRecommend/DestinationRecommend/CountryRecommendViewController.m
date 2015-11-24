@@ -12,6 +12,7 @@
 #import "CircleMenu.h"
 #import "CityListViewController.h"
 #import "PoiManager.h"
+#import "SearchDestinationViewController.h"
 
 @interface CountryRecommendViewController () <UITableViewDataSource, UITableViewDelegate, circleMenuDelegate>
 
@@ -53,7 +54,7 @@
     
     _searchBtn = [[UIButton alloc] initWithFrame:CGRectMake(30, 25, self.view.frame.size.width-60, 27)];
     [_searchBtn setBackgroundImage:[[UIImage imageNamed:@"icon_goods_search_bg"] resizableImageWithCapInsets:UIEdgeInsetsMake(2, 40, 2, 20)] forState:UIControlStateNormal];
-    
+    [_searchBtn addTarget:self action:@selector(searchAction) forControlEvents:UIControlEventTouchUpInside];
     UILabel *searchLabel = [[UILabel alloc] initWithFrame:CGRectMake(45, 0, _searchBtn.bounds.size.width-50, 27)];
     searchLabel.text = @"搜索目的地";
     searchLabel.textColor = [UIColor whiteColor];
@@ -140,6 +141,12 @@
     } completion:^(BOOL finished) {
         
     }];
+}
+
+- (void)searchAction
+{
+    SearchDestinationViewController *ctl = [[SearchDestinationViewController alloc] init];
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:ctl] animated:YES completion:nil];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
