@@ -88,7 +88,9 @@
 {
     [super viewWillDisappear:animated];
     if (self.navigationController.viewControllers.count > 1) {     //如果是 push 的情况下才显示 navibar ，没想到更好的解决办法
-        [self.navigationController setNavigationBarHidden:NO animated:YES];
+        if (![[self.navigationController.viewControllers lastObject]isKindOfClass:[BaseProfileViewController class]]) { //因为 profile 界面也不需要显示 navibar， 这个解决办法也不是很好
+            [self.navigationController setNavigationBarHidden:NO animated:YES];
+        }
     }
 }
 
