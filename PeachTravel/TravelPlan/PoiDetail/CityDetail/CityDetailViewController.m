@@ -15,12 +15,14 @@
 #import "PoisOfCityViewController.h"
 #import "TravelNoteListViewController.h"
 #import "PoiManager.h"
+#import "GoodsManager.h"
 #import "GoodsListViewController.h"
 
 @interface CityDetailViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong)  CityDetailHeaderView *headerView;
+@property (nonatomic, strong)  NSArray *dataSource;
 @property (nonatomic, strong) CityPoi *poi;
 @end
 
@@ -35,6 +37,7 @@
     [_tableView registerNib:[UINib nibWithNibName:@"GoodsOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:@"goodsOfCityTableViewCell"];
     _tableView.delegate = self;
     _tableView.dataSource = self;
+    _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.bounds.size.width, 49)];
     [self.view addSubview:_tableView];
     [PoiManager asyncLoadCityInfo:_cityId completionBlock:^(BOOL isSuccess, CityPoi *cityDetail) {
         if (isSuccess) {
@@ -47,6 +50,12 @@
             [SVProgressHUD showHint:@"加载失败"];
         }
         
+    }];
+    [GoodsManager asyncLoadGoodsOfCity:_cityId completionBlock:^(BOOL isSuccess, NSArray *goodsList) {
+        if (isSuccess) {
+            _dataSource = goodsList;
+            [_tableView reloadData];
+        }
     }];
     [self setupToolBar];
 }
@@ -73,11 +82,11 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 5;
+    return _dataSource.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -114,6 +123,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     GoodsOfCityTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"goodsOfCityTableViewCell" forIndexPath:indexPath];
+    cell.goodsDetail = [_dataSource objectAtIndex:indexPath.row];
     return cell;
 }
 

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "PeachTravel-Swift.h"
+#import "GoodsDetailModel.h"
 
 @interface GoodsOfCityTableViewCell : UITableViewCell
 
@@ -19,4 +20,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *sellCountLabel;
 @property (weak, nonatomic) IBOutlet UIButton *ratingBtn;
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
+
+@property (nonatomic, strong) GoodsDetailModel *goodsDetail;
+
 @end

@@ -17,8 +17,8 @@
 @property (nonatomic, copy) NSString *goodsName;
 @property (nonatomic, copy) NSString *goodsDesc;
 @property (nonatomic) float primePrice;
-@property (nonatomic, strong) TaoziImage *image;
 @property (nonatomic) float currentPrice;
+@property (nonatomic, strong) TaoziImage *image;
 @property (nonatomic, strong) NSArray<NSString *> *tags;
 @property (nonatomic, strong) BusinessMoel *business;
 @property (nonatomic, strong) StoreDetailModel *store;
