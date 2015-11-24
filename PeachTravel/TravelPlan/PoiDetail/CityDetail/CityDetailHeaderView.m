@@ -39,7 +39,7 @@
 - (void)setUpView
 {
     CGRect frame = self.frame;
-    _scrollView = [[AutoSlideScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 214)];
+    _scrollView = [[AutoSlideScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 214) animationDuration:5];
     _scrollView.backgroundColor = APP_THEME_COLOR;
     
     __weak CityDetailHeaderView *weakSelf = self;
@@ -58,20 +58,21 @@
     _zhNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 150, frame.size.width, 25)];
     _zhNameLabel.textColor = [UIColor whiteColor];
     _zhNameLabel.font = [UIFont boldSystemFontOfSize:23];
-    _zhNameLabel.text = @"韩国";
+    _zhNameLabel.text = _cityPoi.zhName;
     
     [self addSubview:_zhNameLabel];
     
     _enNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 180, _zhNameLabel.bounds.size.width, 20)];
     _enNameLabel.textColor = [UIColor whiteColor];
     _enNameLabel.font = [UIFont systemFontOfSize:16];
-    _enNameLabel.text = @"Korea";
+    _enNameLabel.text = _cityPoi.enName;
     [self addSubview:_enNameLabel];
     
     _pictureIndexBtn = [[UIButton alloc] initWithFrame:CGRectMake(frame.size.width-50, 190, 45, 15)];
     [_pictureIndexBtn setImage:[UIImage imageNamed:@"icon_cityDetail_imageCnt"] forState:UIControlStateNormal];
     _pictureIndexBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
-    [_pictureIndexBtn setTitle:@"1/2" forState:UIControlStateNormal];
+    NSString *countTitle = [NSString stringWithFormat:@"1/%ld", _cityPoi.images.count];
+    [_pictureIndexBtn setTitle:countTitle forState:UIControlStateNormal];
     _pictureIndexBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 0);
     [_pictureIndexBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self addSubview:_pictureIndexBtn];

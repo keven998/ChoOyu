@@ -20,7 +20,6 @@ PODS:
   - AFNetworking/UIKit (2.6.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - FDFullscreenPopGesture (1.1)
   - HappyDNS (0.2.2)
   - iRate (1.11.4)
   - MJRefresh (2.4.12)
@@ -58,7 +57,6 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking
-  - FDFullscreenPopGesture (~> 1.1)
   - iRate (~> 1.11)
   - MJRefresh
   - OpenUDID (~> 1.0.0)
@@ -78,7 +76,6 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: 8e4e60500beb8bec644cf575beee72990a76d399
-  FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
   HappyDNS: caca4a8aee8fa10e9aa42761bbe05664ac58b4ab
   iRate: 599ed07c854e0695f3c605d1b2a64c67d912acb7
   MJRefresh: ca8e9589895977df32d379d46e6b8a5450b3ff44

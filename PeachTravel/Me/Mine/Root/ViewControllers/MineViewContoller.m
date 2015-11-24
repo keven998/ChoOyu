@@ -45,7 +45,6 @@
     self.view.backgroundColor = APP_PAGE_COLOR;
 
     self.automaticallyAdjustsScrollViewInsets = NO;
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     _tableView.backgroundColor = [UIColor clearColor];
     _tableView.separatorColor = COLOR_LINE;
@@ -78,15 +77,15 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-}
-
-- (BOOL)fd_prefersNavigationBarHidden {
-    return YES;
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    if (self.navigationController.viewControllers.count > 1) {     //如果是 push 的情况下才显示 navibar ，没想到更好的解决办法
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
+    }
 }
 
 - (void)settingAction
