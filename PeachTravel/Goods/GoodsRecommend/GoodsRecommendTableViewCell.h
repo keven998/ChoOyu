@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GoodsDetailModel.h"
 
 @interface GoodsRecommendTableViewCell : UITableViewCell
+
+@property (nonatomic, strong) GoodsDetailModel *goodsModel;
 
 @end

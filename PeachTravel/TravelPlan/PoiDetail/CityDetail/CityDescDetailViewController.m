@@ -45,6 +45,15 @@
     
     scrollView.contentSize = CGSizeMake(0, rect.size.height + 24);
 }
+
+- (void)setDesc:(NSString *)desc
+{
+    if (!desc) {
+        _desc = @"";
+    } else {
+        _desc = desc;
+    }
+}
 - (void)goBack
 {
     [self.navigationController popViewControllerAnimated:YES];

@@ -31,6 +31,11 @@
     _tagCollectionView.backgroundColor = [UIColor clearColor];
 }
 
+- (void)setGoodsModel:(GoodsDetailModel *)goodsModel
+{
+    _goodsModel = goodsModel;
+}
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

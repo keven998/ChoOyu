@@ -36,11 +36,16 @@
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
     [PoiManager asyncLoadCityInfo:_cityId completionBlock:^(BOOL isSuccess, CityPoi *cityDetail) {
-        _poi = cityDetail;
-        _headerView = [[CityDetailHeaderView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 460)];
-        _headerView.cityPoi = _poi;
-        _tableView.tableHeaderView = _headerView;
-        _headerView.containerViewController = self;
+        if (isSuccess) {
+            _poi = cityDetail;
+            _headerView = [[CityDetailHeaderView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 460)];
+            _headerView.cityPoi = _poi;
+            _tableView.tableHeaderView = _headerView;
+            _headerView.containerViewController = self;
+        } else {
+            [SVProgressHUD showHint:@"加载失败"];
+        }
+        
     }];
 }
 

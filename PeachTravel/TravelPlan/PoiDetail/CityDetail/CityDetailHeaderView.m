@@ -145,9 +145,7 @@
 - (void)cityDescAction
 {
     CityDescDetailViewController *ctl = [[CityDescDetailViewController alloc] init];
-    if (!_cityPoi.desc) {
-        _cityPoi.desc = @"";
-    }
+
     ctl.desc = _cityPoi.desc;
     [self.containerViewController.navigationController pushViewController:ctl animated:YES];
     
