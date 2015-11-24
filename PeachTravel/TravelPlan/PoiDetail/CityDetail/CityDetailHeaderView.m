@@ -79,7 +79,7 @@
     
     _travelMonthLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 214, frame.size.width-90, 40)];
     _travelMonthLabel.textColor = COLOR_TEXT_II;
-    _travelMonthLabel.font = [UIFont systemFontOfSize:14];
+    _travelMonthLabel.font = [UIFont systemFontOfSize:13];
     _travelMonthLabel.text = [NSString stringWithFormat:@"推荐旅行时间: %@", _cityPoi.travelMonth];
     [self addSubview:_travelMonthLabel];
     

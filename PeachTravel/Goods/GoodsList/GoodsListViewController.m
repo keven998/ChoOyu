@@ -9,8 +9,7 @@
 #import "GoodsListViewController.h"
 #import "GoodsListTableViewCell.h"
 #import "GoodsManager.h"
-#import "MakeOrderViewController.h"
-#import "MyOrderRootViewController.h"
+#import "GoodsDetailViewController.h"
 
 @interface GoodsListViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -76,15 +75,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.row == 0) {
-        MakeOrderViewController *ctl = [[MakeOrderViewController alloc] init];
-        ctl.goodsModel = [_dataSource objectAtIndex:indexPath.row];
-        [self.navigationController pushViewController:ctl animated:YES];
-    } else {
-        MyOrderRootViewController *ctl = [[MyOrderRootViewController alloc] init];
-        [self.navigationController pushViewController:ctl animated:YES];
-    }
- 
+    GoodsDetailViewController *ctl = [[GoodsDetailViewController alloc] init];
+    [self.navigationController pushViewController:ctl animated:YES];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView

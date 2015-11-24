@@ -15,6 +15,7 @@
 #import "PoisOfCityViewController.h"
 #import "TravelNoteListViewController.h"
 #import "PoiManager.h"
+#import "GoodsListViewController.h"
 
 @interface CityDetailViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -47,6 +48,27 @@
         }
         
     }];
+    [self setupToolBar];
+}
+
+- (void)setupToolBar
+{
+    UIButton *showAllGoodsButton = [[UIButton alloc] initWithFrame:CGRectMake(0, kWindowHeight-49, kWindowWidth, 49)];
+    showAllGoodsButton.backgroundColor = [UIColor whiteColor];
+    [showAllGoodsButton setTitle:@"查看全部玩乐" forState:UIControlStateNormal];
+    [showAllGoodsButton setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+    [showAllGoodsButton addTarget:self action:@selector(showAllGoodsAction) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, showAllGoodsButton.bounds.size.width, 0.5)];
+    spaceView.backgroundColor = COLOR_LINE;
+    [showAllGoodsButton addSubview:spaceView];
+    [self.view addSubview:showAllGoodsButton];
+}
+
+- (void)showAllGoodsAction
+{
+    GoodsListViewController *ctl = [[GoodsListViewController alloc] init];
+    [self.navigationController pushViewController:ctl animated:YES];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
