@@ -200,7 +200,7 @@
 - (void)showPoiDesc
 {
     CityDescDetailViewController *cddVC = [[CityDescDetailViewController alloc]init];
-    cddVC.des = self.poi.desc;
+    cddVC.desc = self.poi.desc;
     cddVC.title = self.poi.zhName;
     [self.navigationController pushViewController:cddVC animated:YES];
 }

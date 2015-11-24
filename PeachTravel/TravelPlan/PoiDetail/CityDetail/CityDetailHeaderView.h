@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "CityPoi.h"
 
-@interface CityDetailHeaderView : UITableViewHeaderFooterView
+@interface CityDetailHeaderView : UIView
 
 @property (nonatomic, strong) CityPoi *cityPoi;
 

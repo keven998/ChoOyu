@@ -37,7 +37,7 @@
     ps.paragraphSpacing = 20.0;
     ps.firstLineHeadIndent = 32.0;
     NSDictionary *attribs = @{NSFontAttributeName: [UIFont systemFontOfSize:16], NSParagraphStyleAttributeName:ps};
-    NSAttributedString *attrstr = [[NSAttributedString alloc] initWithString:self.des attributes:attribs];
+    NSAttributedString *attrstr = [[NSAttributedString alloc] initWithString:self.desc attributes:attribs];
     CGRect rect = [attrstr boundingRectWithSize:(CGSize){CGRectGetWidth(frame), CGFLOAT_MAX} options:NSStringDrawingUsesLineFragmentOrigin context:nil];
     frame.size.height = ceilf(rect.size.height) + 1;
     desLabel.frame = frame;

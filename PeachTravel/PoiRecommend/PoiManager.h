@@ -41,4 +41,12 @@ typedef enum : NSUInteger {
  */
 + (void)asyncLoadCitiesOfCountry:(NSString *)countryId completionBlcok:(void (^)(BOOL isSuccess, NSArray *poiList))completion;
 
+/**
+ *  通过传入 cityid 加载城市信息
+ *
+ *  @param cityId
+ *  @param completion 
+ */
++ (void)asyncLoadCityInfo:(NSString *)cityId completionBlock:(void (^) (BOOL isSuccess, CityPoi *cityDetail))completion;
+
 @end

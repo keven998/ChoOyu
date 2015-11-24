@@ -14,6 +14,7 @@
 #import "SuperWebViewController.h"
 #import "PoisOfCityViewController.h"
 #import "TravelNoteListViewController.h"
+#import "PoiManager.h"
 
 @interface CityDetailViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -31,12 +32,16 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, kWindowHeight)];
     [_tableView registerNib:[UINib nibWithNibName:@"GoodsOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:@"goodsOfCityTableViewCell"];
-    _headerView = [[CityDetailHeaderView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 460)];
-    _tableView.tableHeaderView = _headerView;
-    _headerView.containerViewController = self;
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
+    [PoiManager asyncLoadCityInfo:_cityId completionBlock:^(BOOL isSuccess, CityPoi *cityDetail) {
+        _poi = cityDetail;
+        _headerView = [[CityDetailHeaderView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 460)];
+        _headerView.cityPoi = _poi;
+        _tableView.tableHeaderView = _headerView;
+        _headerView.containerViewController = self;
+    }];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
