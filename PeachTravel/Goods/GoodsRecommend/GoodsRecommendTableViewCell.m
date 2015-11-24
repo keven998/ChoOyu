@@ -9,14 +9,14 @@
 #import "GoodsRecommendTableViewCell.h"
 
 @interface GoodsRecommendTableViewCell()
-@property (weak, nonatomic) IBOutlet UIImageView *goodImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *goodsImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *bgImageView;
 @property (weak, nonatomic) IBOutlet UILabel *oldPriceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *nowPriceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *userNickName;
 @property (weak, nonatomic) IBOutlet UICollectionView *tagCollectionView;
-@property (weak, nonatomic) IBOutlet UILabel *cityName;
-@property (weak, nonatomic) IBOutlet UILabel *goodName;
+@property (weak, nonatomic) IBOutlet UILabel *cityNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *goodsNameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *contentImageView;
 
 
@@ -27,13 +27,19 @@
 - (void)awakeFromNib {
     [_contentImageView setImage:[[UIImage imageNamed: @"icon_goods_list_cell_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)]];
     [_bgImageView setImage:[[UIImage imageNamed:@"icon_goods_cell_mask"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)]];
-     [_goodImageView sd_setImageWithURL:[NSURL URLWithString:@"http://images.taozilvxing.com/28c2d1ef35c12100e99fecddb63c436a?imageView2/2/w/1200"] placeholderImage:nil];
     _tagCollectionView.backgroundColor = [UIColor clearColor];
 }
 
 - (void)setGoodsModel:(GoodsDetailModel *)goodsModel
 {
     _goodsModel = goodsModel;
+    [_goodsImageView sd_setImageWithURL:[NSURL URLWithString:_goodsModel.image.imageUrl] placeholderImage:nil];
+    _goodsNameLabel.text = _goodsModel.goodsName;
+    NSString *primePriceStr = [NSString stringWithFormat:@"%d", (int)goodsModel.primePrice];
+    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString: primePriceStr];
+    [attrStr addAttribute:NSStrikethroughStyleAttributeName value:[NSNumber numberWithInt:NSUnderlineStyleSingle] range:NSMakeRange(0, primePriceStr.length)];
+    _oldPriceLabel.attributedText = attrStr;
+
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

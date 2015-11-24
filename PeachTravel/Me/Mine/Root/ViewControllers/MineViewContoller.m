@@ -59,6 +59,10 @@
     _mineHeaderView.containerViewController = self;
     _mineHeaderView.account = [AccountManager shareAccountManager].account;
     _tableView.tableHeaderView = _mineHeaderView;
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mineProfileAction)];
+    tapGesture.numberOfTapsRequired = 1;
+    tapGesture.numberOfTouchesRequired = 1;
+    [_mineHeaderView addGestureRecognizer:tapGesture];
     
     UIView *navigationBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 64)];
     [self.view addSubview:navigationBar];
@@ -86,6 +90,12 @@
     if (self.navigationController.viewControllers.count > 1) {     //如果是 push 的情况下才显示 navibar ，没想到更好的解决办法
         [self.navigationController setNavigationBarHidden:NO animated:YES];
     }
+}
+
+- (void)mineProfileAction
+{
+    MineProfileViewController *ctl = [[MineProfileViewController alloc] init];
+    [self.navigationController pushViewController:ctl animated:YES];
 }
 
 - (void)settingAction

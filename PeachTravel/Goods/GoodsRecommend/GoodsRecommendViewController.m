@@ -36,6 +36,7 @@
     _tableView.delegate = self;
     _headerView = [[GoodsRecommendHeaderView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 320)];
     _tableView.tableHeaderView = _headerView;
+    _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.bounds.size.width, 49)];
     _scroll2TopBtn.hidden = YES;
     [_scroll2TopBtn addTarget:self action:@selector(scroll2Top) forControlEvents:UIControlEventTouchUpInside];
     [GoodsManager asyncLoadRecommendGoodsWithCompletionBlock:^(BOOL isSuccess, NSArray<NSDictionary *> *goodsList) {
@@ -100,6 +101,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     GoodsRecommendTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"goodsRecommendCell" forIndexPath:indexPath];
+    NSDictionary *dic = [_dataSource objectAtIndex:indexPath.section];
+    cell.goodsModel = [[dic objectForKey:@"goodsList"] objectAtIndex:indexPath.row];
     return cell;
 }
 
