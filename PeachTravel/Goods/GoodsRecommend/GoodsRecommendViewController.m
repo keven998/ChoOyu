@@ -108,20 +108,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 0) {
-        GoodsDetailViewController *ctl = [[GoodsDetailViewController alloc] init];
-        ctl.hidesBottomBarWhenPushed = YES;
-        
-        [self.navigationController pushViewController:ctl animated:YES];
-    } else if (indexPath.row == 1) {
-        CityDetailViewController *ctl = [[CityDetailViewController alloc] init];
-        ctl.hidesBottomBarWhenPushed = YES;
-        
-        [self.navigationController pushViewController:ctl animated:YES];
-    } else {
-        MakeOrderViewController *ctl = [[MakeOrderViewController alloc] init];
-        [self.navigationController pushViewController:ctl animated:YES]; 
-    }
+    GoodsDetailViewController *ctl = [[GoodsDetailViewController alloc] init];
+    ctl.goodsId = @"123456789";
+    ctl.hidesBottomBarWhenPushed = YES;
+    
+    [self.navigationController pushViewController:ctl animated:YES];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView

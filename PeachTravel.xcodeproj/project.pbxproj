@@ -422,7 +422,6 @@
 		D9027BB01BED964400C74220 /* TZTagsCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9027BAF1BED964400C74220 /* TZTagsCollectionView.m */; };
 		D9027BB41BED99FC00C74220 /* TZTagsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9027BB21BED99FC00C74220 /* TZTagsCollectionViewCell.m */; };
 		D9027BB51BED99FC00C74220 /* TZTagsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9027BB31BED99FC00C74220 /* TZTagsCollectionViewCell.xib */; };
-		D9027BBD1BEDD39A00C74220 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = D9027BBC1BEDD39A00C74220 /* main.jsbundle */; };
 		D903A6271BF99EED00F814F7 /* TravelerInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D903A6261BF99EED00F814F7 /* TravelerInfoViewController.m */; };
 		D904AB721BAFDD6300031AB4 /* UserAlbumReviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D904AB711BAFDD6300031AB4 /* UserAlbumReviewViewController.m */; };
 		D907D2871BEB097E008A35F9 /* GoodsOfCityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D907D2851BEB097E008A35F9 /* GoodsOfCityTableViewCell.m */; };
@@ -2582,7 +2581,6 @@
 		D9027BB11BED99FC00C74220 /* TZTagsCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZTagsCollectionViewCell.h; sourceTree = "<group>"; };
 		D9027BB21BED99FC00C74220 /* TZTagsCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZTagsCollectionViewCell.m; sourceTree = "<group>"; };
 		D9027BB31BED99FC00C74220 /* TZTagsCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TZTagsCollectionViewCell.xib; sourceTree = "<group>"; };
-		D9027BBC1BEDD39A00C74220 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		D902AD1F1A149FAB00E36A93 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		D903A6251BF99EED00F814F7 /* TravelerInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TravelerInfoViewController.h; sourceTree = "<group>"; };
 		D903A6261BF99EED00F814F7 /* TravelerInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TravelerInfoViewController.m; sourceTree = "<group>"; };
@@ -6906,7 +6904,6 @@
 		D99D8EC719C8600C0021C25B /* PeachTravel */ = {
 			isa = PBXGroup;
 			children = (
-				D9027BBC1BEDD39A00C74220 /* main.jsbundle */,
 				D95B0A461BF0671E00F2D900 /* Order */,
 				D92109AE1BE204D700AEDB65 /* Store */,
 				01578DFC1BD2285D00244D9D /* TZPay */,
@@ -10269,7 +10266,6 @@
 				E6F18A021B845F4900232EEB /* map_icon_14@3x.png in Resources */,
 				E6381BE71B66269000CF73AA /* Loading_Animation_final1@2x.png in Resources */,
 				D9A801101A80DD23005AD701 /* ChangeGroupTitleViewController.xib in Resources */,
-				D9027BBD1BEDD39A00C74220 /* main.jsbundle in Resources */,
 				D9A801501A80DD23005AD701 /* ZYQAssetPicker.Bundle in Resources */,
 				0115C9CA1BB103FC00631928 /* citydetail_shopping_hilighted@3x.png in Resources */,
 				271C418B1B44D5CD007BF285 /* SpecialPoiCell.xib in Resources */,

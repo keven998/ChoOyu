@@ -29,7 +29,9 @@ RCT_EXPORT_MODULE();
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.title = @"商品详情";
 
-    NSURL *jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+//    NSURL *jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+    NSURL *jsCodeLocation = [NSURL URLWithString:@"http://192.168.1.47:8081/index.ios.bundle?platform=ios&dev=true"];
+
     RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                         moduleName:@"GoodsDetailClass"
                                                  initialProperties:nil
@@ -47,7 +49,6 @@ RCT_EXPORT_MODULE();
     [favoriteBtn addTarget:self action:@selector(favorite) forControlEvents:UIControlEventTouchUpInside];
 
     self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithCustomView:favoriteBtn], [[UIBarButtonItem alloc] initWithCustomView:shareBtn]];
-
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -85,6 +86,11 @@ RCT_EXPORT_MODULE();
 - (void)favorite
 {
     
+}
+
+- (NSDictionary *)constantsToExport
+{
+    return @{@"goodsId": @"123456"};
 }
 
 RCT_EXPORT_METHOD(makePhone:(NSString *)tel){
