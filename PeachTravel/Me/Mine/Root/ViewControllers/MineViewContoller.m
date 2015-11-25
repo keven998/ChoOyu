@@ -149,7 +149,7 @@
             ctl.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:ctl animated:YES];
         } else {
-            PlansListTableViewController *ctl = [[PlansListTableViewController alloc] init];
+            PlansListTableViewController *ctl = [[PlansListTableViewController alloc] initWithUserId:[AccountManager shareAccountManager].account.userId];
             ctl.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:ctl animated:YES];
         }
