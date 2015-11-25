@@ -16,6 +16,7 @@
 #import "TravelNoteListViewController.h"
 #import "PoiManager.h"
 #import "GoodsManager.h"
+#import "MWPhotoBrowser.h"
 #import "GoodsListViewController.h"
 
 @interface CityDetailViewController () <UITableViewDataSource, UITableViewDelegate>
@@ -46,6 +47,10 @@
             _headerView.cityPoi = _poi;
             _tableView.tableHeaderView = _headerView;
             _headerView.containerViewController = self;
+            UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewCityAlbumAction)];
+            tapGesture.numberOfTapsRequired = 1;
+            tapGesture.numberOfTouchesRequired = 1;
+            [_headerView addGestureRecognizer:tapGesture];
         } else {
             [SVProgressHUD showHint:@"加载失败"];
         }
@@ -78,6 +83,67 @@
 {
     GoodsListViewController *ctl = [[GoodsListViewController alloc] init];
     [self.navigationController pushViewController:ctl animated:YES];
+}
+
+/**
+ *  查看城市图集
+ */
+- (void)viewCityAlbumAction
+{
+    [MobClick event:@"card_item_city_pictures"];
+    
+    MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] init];
+    browser.titleStr = @"城市图集";
+    [self loadAlbumDataWithAlbumCtl:browser];
+    [browser setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+    UINavigationController *navc = [[UINavigationController alloc] initWithRootViewController:browser];
+    [self presentViewController:navc animated:YES completion:nil];
+}
+/**
+ *  获取城市的图集信息
+ */
+- (void)loadAlbumDataWithAlbumCtl:(MWPhotoBrowser *)albumCtl
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSString *requsetUrl = [NSString stringWithFormat:@"%@%@/albums", API_GET_ALBUM, _cityId];
+    
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:@0 forKey:@"page"];
+    [params setObject:@100 forKey:@"pageSize"];
+    NSNumber *imageWidth = [NSNumber numberWithInt:400];
+    [params setObject:imageWidth forKey:@"imgWidth"];
+    
+    [manager GET:requsetUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+            for (id imageDic in [[responseObject objectForKey:@"result"] objectForKey:@"album"]) {
+                [tempArray addObject:imageDic];
+                if (tempArray.count == 99) {
+                    break;
+                }
+            }
+            albumCtl.imageList = tempArray;
+            
+        } else {
+            
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (self.isShowing) {
+            [SVProgressHUD showHint:HTTP_FAILED_HINT];
+        }
+    }];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

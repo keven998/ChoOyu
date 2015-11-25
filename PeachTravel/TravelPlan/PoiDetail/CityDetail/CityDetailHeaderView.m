@@ -7,7 +7,6 @@
 //
 
 #import "CityDetailHeaderView.h"
-#import "AutoSlideScrollView.h"
 #import "CityDescDetailViewController.h"
 #import "SuperWebViewController.h"
 #import "AddPoiViewController.h"
@@ -16,7 +15,7 @@
 
 @interface CityDetailHeaderView ()
 
-@property (nonatomic, strong) AutoSlideScrollView *scrollView;
+@property (nonatomic, strong) UIImageView *headerImageView;
 @property (nonatomic, strong) UILabel *travelMonthLabel;
 @property (nonatomic, strong) UILabel *zhNameLabel;
 @property (nonatomic, strong) UILabel *enNameLabel;
@@ -39,21 +38,12 @@
 - (void)setUpView
 {
     CGRect frame = self.frame;
-    _scrollView = [[AutoSlideScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 214) animationDuration:5];
-    _scrollView.backgroundColor = APP_THEME_COLOR;
-    
-    __weak CityDetailHeaderView *weakSelf = self;
-    self.scrollView.totalPagesCount = ^NSInteger() {
-        return weakSelf.cityPoi.images.count;
-    };
-    self.scrollView.fetchContentViewAtIndex = ^UIView*(NSInteger pageIndex) {
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, weakSelf.scrollView.frame.size.width, 210)];
-        TaoziImage *image = weakSelf.cityPoi.images[pageIndex];
-        [imageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
-        return imageView;
-    };
-    
-    [self addSubview:_scrollView];
+    _headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 214)];
+
+    TaoziImage *image = [self.cityPoi.images firstObject];
+    [_headerImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
+    _headerImageView.userInteractionEnabled = YES;
+    [self addSubview:_headerImageView];
     
     _zhNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 150, frame.size.width, 25)];
     _zhNameLabel.textColor = [UIColor whiteColor];
