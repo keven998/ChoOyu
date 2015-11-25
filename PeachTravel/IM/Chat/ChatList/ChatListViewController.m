@@ -664,7 +664,6 @@
     }
     cell.detailMsg = [self subTitleMessageByConversation:tzConversation];
     cell.time = [self lastMessageTimeByConversation:tzConversation];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.unreadCount = tzConversation.unReadMessageCount;
     return cell;
 }
@@ -693,7 +692,8 @@
     }
 }
 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
     ChatConversation *conversation = [self.dataSource objectAtIndex:indexPath.row];
     if (conversation.chatterId != WenwenUserId && conversation.chatterId != PaipaiUserId) {
         return YES;
