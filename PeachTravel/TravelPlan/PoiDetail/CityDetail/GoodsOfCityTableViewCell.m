@@ -27,7 +27,7 @@
     _sellCountLabel.text = [NSString stringWithFormat:@"%ld", _goodsDetail.saleCount];
     
     [_headerImageView sd_setImageWithURL:[NSURL URLWithString:_goodsDetail.image.imageUrl] placeholderImage:nil];
-    [_ratingBtn setTitle:[NSString stringWithFormat:@"%d%%", (int)_goodsDetail.rating*20] forState:UIControlStateNormal];
+    [_ratingBtn setTitle:[NSString stringWithFormat:@"%d%%", (int)_goodsDetail.rating] forState:UIControlStateNormal];
     NSString *oldPrice = [NSString stringWithFormat:@"￥%d", (int)_goodsDetail.primePrice];
     NSString *nowPrice = [NSString stringWithFormat:@"￥%d", (int)_goodsDetail.currentPrice];
     
