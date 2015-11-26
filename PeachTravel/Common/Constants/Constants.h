@@ -115,6 +115,10 @@
 #define API_FEEDBACK                            (BASE_URL @"misc/feedback")    //反馈接口
 #define API_EXPERTREQUEST                       (BASE_URL @"misc/expert-requests")    //达人申请接口
 
+/*****商品接口*******/
+
+#define API_GOODS_CATEGORY                      (BASE_URL @"marketplace/commodities/categories")  //商品分类
+#define API_GOODSLIST                           (BASE_URL @"marketplace/commodities")  //商品列表
 
 /**
  html 接口

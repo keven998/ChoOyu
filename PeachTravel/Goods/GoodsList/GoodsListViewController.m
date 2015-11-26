@@ -10,12 +10,21 @@
 #import "GoodsListTableViewCell.h"
 #import "GoodsManager.h"
 #import "GoodsDetailViewController.h"
+#import "DOPDropDownMenu.h"
+#import "MJRefresh.h"
 
-@interface GoodsListViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface GoodsListViewController () <UITableViewDataSource, UITableViewDelegate, DOPDropDownMenuDataSource, DOPDropDownMenuDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *scroll2TopBtn;
+@property (nonatomic, strong) DOPDropDownMenu *menu;
 
 @property (nonatomic, strong) NSArray *dataSource;
+@property (nonatomic, strong) NSArray *categoryDatasource;
+@property (nonatomic, strong) NSArray *sortDataSource;
+@property (nonatomic, copy) NSString *category;
+@property (nonatomic, copy) NSString *sortTitle;
+@property (nonatomic, copy) NSString *sortType;
+@property (nonatomic, copy) NSString *sortValue;
 
 @end
 
@@ -23,22 +32,44 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _cityId = @"55fbe42eb257b61c149e784a";
     self.navigationItem.title = @"商品列表";
     self.automaticallyAdjustsScrollViewInsets = NO;
+    _sortDataSource = @[@"推荐排序", @"销量最高", @"价格最低", @"价格最高"];
+    _categoryDatasource = @[@"全部"];
+    _tableView.contentInset = UIEdgeInsetsMake(0, 0, 49, 0);
     [_tableView registerNib:[UINib nibWithNibName:@"GoodsListTableViewCell" bundle:nil] forCellReuseIdentifier:@"goodsListCell"];
     _tableView.separatorColor = COLOR_LINE;
     _tableView.dataSource = self;
     _tableView.delegate = self;
-    _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.bounds.size.width, 49)];
-    _sortBtn.spaceWidth = 5;
-    _categoryBtn.spaceWidth = 5;
-    _sortBtn.imagePosition = IMAGE_AT_RIGHT;
-    _categoryBtn.imagePosition = IMAGE_AT_RIGHT;
     _scroll2TopBtn.hidden = YES;
     [_scroll2TopBtn addTarget:self action:@selector(scroll2Top) forControlEvents:UIControlEventTouchUpInside];
-    [GoodsManager asyncLoadGoodsOfCity:_cityId completionBlock:^(BOOL isSuccess, NSArray *goodsList) {
-        _dataSource = goodsList;
-        [self.tableView reloadData];
+    [GoodsManager asyncLoadGoodsOfCity:_cityId category:_category sortBy:_sortType sortValue:_sortValue startIndex:0 count:15 completionBlock:^(BOOL isSuccess, NSArray *goodsList) {
+        NSMutableArray *tempArray = [[NSMutableArray alloc] initWithArray:_dataSource];
+        [tempArray addObjectsFromArray:goodsList];
+        _dataSource = tempArray;
+        [_tableView reloadData];
+    }];
+    DOPDropDownMenu *menu = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:41];
+    [self.view addSubview:menu];
+    self.menu = menu;
+    menu.dataSource = self;
+    menu.delegate = self;
+    [GoodsManager asyncLoadGoodsCategoryOfLocality:_cityId completionBlock:^(BOOL isSuccess, NSArray<NSString *> *categoryList) {
+        _categoryDatasource = categoryList;
+    }];
+    
+    self.tableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        [GoodsManager asyncLoadGoodsOfCity:_cityId category:_category sortBy:_sortType sortValue:_sortValue startIndex:[_dataSource count]+1 count:15 completionBlock:^(BOOL isSuccess, NSArray *goodsList) {
+            NSMutableArray *tempArray = [[NSMutableArray alloc] initWithArray:_dataSource];
+            [tempArray addObjectsFromArray:goodsList];
+            _dataSource = tempArray;
+            [_tableView reloadData];
+            [_tableView.footer endRefreshing];
+            if (!goodsList.count) {
+                [_tableView.footer endRefreshingWithNoMoreData];
+            }
+        }];
     }];
 }
 
@@ -54,6 +85,16 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 0.01;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 0.01;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -79,6 +120,8 @@
     [self.navigationController pushViewController:ctl animated:YES];
 }
 
+#pragma mark - UISCrollViewDelegate
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if (scrollView.contentOffset.y > scrollView.bounds.size.height) {
@@ -87,4 +130,50 @@
         _scroll2TopBtn.hidden = YES;
     }
 }
+
+#pragma mark - DOPDropDownMenuDataSource
+
+- (NSInteger)numberOfColumnsInMenu:(DOPDropDownMenu *)menu {
+    return 2;
+}
+
+- (NSInteger)menu:(DOPDropDownMenu *)menu numberOfRowsInColumn:(NSInteger)column {
+    if (column == 0) {
+        return _categoryDatasource.count;
+    } else {
+        return _sortDataSource.count;
+    }
+}
+
+- (NSString *)menu:(DOPDropDownMenu *)menu titleForRowAtIndexPath:(DOPIndexPath *)indexPath {
+    if (indexPath.column == 0) {
+        return _categoryDatasource[indexPath.row];
+    } else {
+        return _sortDataSource[indexPath.row];
+    }
+}
+
+- (void)menu:(DOPDropDownMenu *)menu didSelectRowAtIndexPath:(DOPIndexPath *)indexPath {
+    if (indexPath.column == 0) {
+        if ([_category isEqualToString:[_categoryDatasource objectAtIndex:indexPath.row]]) {
+            return;
+        }
+        _category = [_categoryDatasource objectAtIndex:indexPath.row];
+
+    } else if (indexPath.column == 1) {
+        if ([_sortTitle isEqualToString:[_sortDataSource objectAtIndex:indexPath.row]]) {
+            return;
+        }
+        _sortTitle = [_sortDataSource objectAtIndex:indexPath.row];
+    }
+    _dataSource = @[];
+    [self.tableView reloadData];
+    [GoodsManager asyncLoadGoodsOfCity:_cityId category:_category sortBy:_sortType sortValue:_sortValue startIndex:[_dataSource count] count:15 completionBlock:^(BOOL isSuccess, NSArray *goodsList) {
+        _dataSource = goodsList;
+        [self.tableView reloadData];
+    }];
+
+}
+
 @end
+

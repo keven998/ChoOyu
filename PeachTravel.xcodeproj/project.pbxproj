@@ -742,6 +742,7 @@
 		D95663A11BAFFB94006B2765 /* EditUserAlbumDescViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D956639F1BAFFB94006B2765 /* EditUserAlbumDescViewController.m */; };
 		D95663A21BAFFB94006B2765 /* EditUserAlbumDescViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D95663A01BAFFB94006B2765 /* EditUserAlbumDescViewController.xib */; };
 		D95663A51BB00B0F006B2765 /* SearchDestinationRecommendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D95663A41BB00B0F006B2765 /* SearchDestinationRecommendViewController.m */; };
+		D959C5401C06D49F006D8DC0 /* DOPDropDownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = D959C53F1C06D49F006D8DC0 /* DOPDropDownMenu.m */; };
 		D95E6FFB1BDA31F70097BC76 /* GoodsRecommendSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D95E6FFA1BDA31F70097BC76 /* GoodsRecommendSectionHeaderView.m */; };
 		D95E6FFD1BDA32050097BC76 /* GoodsRecommendSectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D95E6FFC1BDA32050097BC76 /* GoodsRecommendSectionHeaderView.xib */; };
 		D963CB661B9FF751007480FA /* EditUserSignatureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D963CB651B9FF751007480FA /* EditUserSignatureViewController.m */; };
@@ -3006,6 +3007,8 @@
 		D95663A01BAFFB94006B2765 /* EditUserAlbumDescViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditUserAlbumDescViewController.xib; sourceTree = "<group>"; };
 		D95663A31BB00B0F006B2765 /* SearchDestinationRecommendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchDestinationRecommendViewController.h; sourceTree = "<group>"; };
 		D95663A41BB00B0F006B2765 /* SearchDestinationRecommendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchDestinationRecommendViewController.m; sourceTree = "<group>"; };
+		D959C53E1C06D49F006D8DC0 /* DOPDropDownMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DOPDropDownMenu.h; sourceTree = "<group>"; };
+		D959C53F1C06D49F006D8DC0 /* DOPDropDownMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DOPDropDownMenu.m; sourceTree = "<group>"; };
 		D95E6FF91BDA31F70097BC76 /* GoodsRecommendSectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsRecommendSectionHeaderView.h; sourceTree = "<group>"; };
 		D95E6FFA1BDA31F70097BC76 /* GoodsRecommendSectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsRecommendSectionHeaderView.m; sourceTree = "<group>"; };
 		D95E6FFC1BDA32050097BC76 /* GoodsRecommendSectionHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoodsRecommendSectionHeaderView.xib; sourceTree = "<group>"; };
@@ -6323,6 +6326,15 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
+		D959C53D1C06D49F006D8DC0 /* DOPDropDownMenu */ = {
+			isa = PBXGroup;
+			children = (
+				D959C53E1C06D49F006D8DC0 /* DOPDropDownMenu.h */,
+				D959C53F1C06D49F006D8DC0 /* DOPDropDownMenu.m */,
+			);
+			path = DOPDropDownMenu;
+			sourceTree = "<group>";
+		};
 		D95B0A461BF0671E00F2D900 /* Order */ = {
 			isa = PBXGroup;
 			children = (
@@ -7748,6 +7760,7 @@
 		D9A802541A80E3D3005AD701 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				D959C53D1C06D49F006D8DC0 /* DOPDropDownMenu */,
 				D9221A101BFC55C70015A685 /* DKTabPageViewController */,
 				D90C75E71BF1DB1A00C5897C /* PDTSimpleCalendar */,
 				D9027BAD1BED961800C74220 /* TZTagsCollectionView */,
@@ -11693,6 +11706,7 @@
 				E6E725211B5603750007273A /* MJMethod.m in Sources */,
 				C60C0D6A1A298DF8006033C9 /* PushSettingViewController.m in Sources */,
 				D93FEEC81BEB4A0B0065D6ED /* CircleMenu.m in Sources */,
+				D959C5401C06D49F006D8DC0 /* DOPDropDownMenu.m in Sources */,
 				D9DD31661BF5BC27009BEDAB /* OrderDetailContentTableViewCell.m in Sources */,
 				C694C3901AEA274500F5C36E /* CategoryTableViewCell.m in Sources */,
 				D9221A281BFC79840015A685 /* SelectPayPlatformTableViewCell.m in Sources */,
