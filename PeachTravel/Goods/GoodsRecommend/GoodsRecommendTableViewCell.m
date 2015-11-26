@@ -39,6 +39,7 @@
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString: primePriceStr];
     [attrStr addAttribute:NSStrikethroughStyleAttributeName value:[NSNumber numberWithInt:NSUnderlineStyleSingle] range:NSMakeRange(0, primePriceStr.length)];
     _oldPriceLabel.attributedText = attrStr;
+    _cityNameLabel.text = goodsModel.locality.zhName;
 
 }
 

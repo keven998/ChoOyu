@@ -13,6 +13,8 @@
 #import "DOPDropDownMenu.h"
 #import "MJRefresh.h"
 
+#define pageCount 15    //每页加载数量
+
 @interface GoodsListViewController () <UITableViewDataSource, UITableViewDelegate, DOPDropDownMenuDataSource, DOPDropDownMenuDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *scroll2TopBtn;
@@ -44,7 +46,7 @@
     _tableView.delegate = self;
     _scroll2TopBtn.hidden = YES;
     [_scroll2TopBtn addTarget:self action:@selector(scroll2Top) forControlEvents:UIControlEventTouchUpInside];
-    [GoodsManager asyncLoadGoodsOfCity:_cityId category:_category sortBy:_sortType sortValue:_sortValue startIndex:0 count:15 completionBlock:^(BOOL isSuccess, NSArray *goodsList) {
+    [GoodsManager asyncLoadGoodsOfCity:_cityId category:_category sortBy:_sortType sortValue:_sortValue startIndex:0 count:pageCount completionBlock:^(BOOL isSuccess, NSArray *goodsList) {
         NSMutableArray *tempArray = [[NSMutableArray alloc] initWithArray:_dataSource];
         [tempArray addObjectsFromArray:goodsList];
         _dataSource = tempArray;
@@ -60,13 +62,13 @@
     }];
     
     self.tableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-        [GoodsManager asyncLoadGoodsOfCity:_cityId category:_category sortBy:_sortType sortValue:_sortValue startIndex:[_dataSource count]+1 count:15 completionBlock:^(BOOL isSuccess, NSArray *goodsList) {
+        [GoodsManager asyncLoadGoodsOfCity:_cityId category:_category sortBy:_sortType sortValue:_sortValue startIndex:[_dataSource count]+1 count:pageCount completionBlock:^(BOOL isSuccess, NSArray *goodsList) {
             NSMutableArray *tempArray = [[NSMutableArray alloc] initWithArray:_dataSource];
             [tempArray addObjectsFromArray:goodsList];
             _dataSource = tempArray;
             [_tableView reloadData];
             [_tableView.footer endRefreshing];
-            if (!goodsList.count) {
+            if (goodsList.count < pageCount) {
                 [_tableView.footer endRefreshingWithNoMoreData];
             }
         }];
@@ -165,10 +167,23 @@
             return;
         }
         _sortTitle = [_sortDataSource objectAtIndex:indexPath.row];
+        if (indexPath.row == 0) {
+            _sortType = nil;
+            _sortValue = nil;
+        } else if (indexPath.row == 1) {
+            _sortType = @"salesVolume";
+            _sortValue = @"asc";
+        } else if (indexPath.row == 1) {
+            _sortType = @"price";
+            _sortValue = @"desc";
+        } else if (indexPath.row == 1) {
+            _sortType = @"price";
+            _sortValue = @"asc";
+        }
     }
     _dataSource = @[];
     [self.tableView reloadData];
-    [GoodsManager asyncLoadGoodsOfCity:_cityId category:_category sortBy:_sortType sortValue:_sortValue startIndex:[_dataSource count] count:15 completionBlock:^(BOOL isSuccess, NSArray *goodsList) {
+    [GoodsManager asyncLoadGoodsOfCity:_cityId category:_category sortBy:_sortType sortValue:_sortValue startIndex:[_dataSource count] count:pageCount completionBlock:^(BOOL isSuccess, NSArray *goodsList) {
         _dataSource = goodsList;
         [self.tableView reloadData];
     }];

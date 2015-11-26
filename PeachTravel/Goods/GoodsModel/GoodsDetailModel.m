@@ -12,12 +12,16 @@
 
 - (id)initWithJson:(id)json {
     if (self = [super init]) {
+        _goodsId = [[json objectForKey:@"commodityId"] integerValue];
         _primePrice = [[json objectForKey:@"marketPrice"] floatValue];
         _currentPrice = [[json objectForKey:@"price"] floatValue];
         _goodsName = [json objectForKey:@"title"];
-        _rating = [[json objectForKey:@"rating"] floatValue]*5;
+        _rating = [[json objectForKey:@"rating"] floatValue]*100;
         _image = [[TaoziImage alloc] initWithJson:[[json objectForKey:@"images"] firstObject]];
         _saleCount = [[json objectForKey:@"salesVolume"] integerValue];
+        if ([json objectForKey:@"locality"] != [NSNull null]) {
+            _locality = [[CityDestinationPoi alloc] initWithJson:[json objectForKey:@"locality"]];
+        }
     }
     return self;
 }
