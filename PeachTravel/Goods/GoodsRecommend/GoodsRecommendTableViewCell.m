@@ -42,7 +42,7 @@
     [attrStr addAttribute:NSStrikethroughStyleAttributeName value:[NSNumber numberWithInt:NSUnderlineStyleSingle] range:NSMakeRange(0, primePriceStr.length)];
     _oldPriceLabel.attributedText = attrStr;
     _cityNameLabel.text = goodsModel.locality.zhName;
-
+    _userNickName.text = goodsModel.store.storeName;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

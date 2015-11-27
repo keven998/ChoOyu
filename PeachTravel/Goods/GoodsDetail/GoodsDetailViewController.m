@@ -12,6 +12,7 @@
 #import "StoreDetailViewController.h"
 #import "ShareActivity.h"
 #import "UMSocial.h"
+#import "MakeOrderViewController.h"
 
 @interface GoodsDetailViewController ()<RCTBridgeModule, ActivityDelegate>
 
@@ -21,24 +22,41 @@
 
 RCT_EXPORT_MODULE();
 
-
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        
+    }
+    return self;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
 
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.title = @"商品详情";
+    _goodsId = @"22222";
 
 //      NSURL *jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
     NSURL *jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/src/index.ios.bundle?platform=ios&dev=true"];
+    
+    RCTBridge *bridge = [[RCTBridge alloc] initWithBundleURL:jsCodeLocation
+                                              moduleProvider:nil
+                                               launchOptions:nil];
 
-    RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
-                                                        moduleName:@"GoodsDetailClass"
-                                                 initialProperties:nil
-                                                     launchOptions:nil];
+    RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge moduleName:@"GoodsDetailClass" initialProperties:nil];
+    
+//    RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
+//                                                        moduleName:@"GoodsDetailClass"
+//                                                 initialProperties:@{@"goodsId": self.goodsId}
+//                                                     launchOptions:nil];
     rootView.frame = CGRectMake(0, 0, kWindowWidth, kWindowHeight);
     [self.view addSubview:rootView];
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(storeDetail) name:@"gotoStoreDetailNoti" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(makeOrderAction) name:@"makeOrderNoti" object:nil];
+
 
     UIButton *shareBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 40)];
     [shareBtn setImage:[UIImage imageNamed:@"icon_share_gray"] forState:UIControlStateNormal];
@@ -72,7 +90,14 @@ RCT_EXPORT_MODULE();
         StoreDetailViewController *ctl = [[StoreDetailViewController alloc] init];
         [self.navigationController pushViewController:ctl animated:YES];
     });
+}
 
+- (void)makeOrderAction
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        MakeOrderViewController *ctl = [[MakeOrderViewController alloc] init];
+        [self.navigationController pushViewController:ctl animated:YES];
+    });
 }
 
 - (void)share2Frend
@@ -88,10 +113,10 @@ RCT_EXPORT_MODULE();
     
 }
 
-- (NSDictionary *)constantsToExport
-{
-    return @{@"goodsId": @"123456"};
-}
+//- (NSDictionary *)constantsToExport
+//{
+//    return @{@"goodsId": self.goodsId};
+//}
 
 RCT_EXPORT_METHOD(makePhone:(NSString *)tel){
     NSString *number = tel;// 此处读入电话号码
@@ -104,6 +129,12 @@ RCT_EXPORT_METHOD(gotoStoreDetail:(NSString *)storeId){
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"gotoStoreDetailNoti" object:nil];
 }
+
+RCT_EXPORT_METHOD(makeOrder){
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"makeOrderNoti" object:nil];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

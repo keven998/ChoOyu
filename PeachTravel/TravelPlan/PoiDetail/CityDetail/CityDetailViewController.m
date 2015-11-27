@@ -115,7 +115,6 @@
     
     NSString *requsetUrl = [NSString stringWithFormat:@"%@%@/albums", API_GET_ALBUM, _cityId];
     
-    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:@0 forKey:@"page"];
     [params setObject:@100 forKey:@"pageSize"];
