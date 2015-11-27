@@ -14,10 +14,9 @@
 #import "SuperWebViewController.h"
 #import "iRate.h"
 #import "UMSocial.h"
-#import "APViewController.h"
 
 #define cellIdentifier   @"settingCell"
-#define SET_ITEMS       @[@[@"推荐应用给朋友", @"申请成为达人"], @[@"清理缓存", @"应用评分"],@[@"意见反馈", @"关于我们"]] //开启alipay，只需要加入  ,@[@"AliPay"]
+#define SET_ITEMS       @[@[@"推荐应用给朋友", @"申请成为达人"], @[@"清理缓存", @"应用评分"],@[@"意见反馈", @"关于我们"]]
 
 @interface SettingHomeViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -173,12 +172,6 @@
             aboutMeCtl.urlStr = APP_ABOUT;
             aboutMeCtl.hideToolBar = YES;
             [self.navigationController pushViewController:aboutMeCtl animated:YES];
-        }
-    }else if (indexPath.section == 3){
-        if (indexPath.row == 0) {
-            NSLog(@"alipay");
-            UIViewController* aliPay = [[APViewController alloc] init];
-            [self.navigationController pushViewController:aliPay animated:YES];
         }
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

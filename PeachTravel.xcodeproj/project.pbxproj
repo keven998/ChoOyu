@@ -85,9 +85,6 @@
 		01578DF71BD224A600244D9D /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 01578DF51BD224A600244D9D /* libssl.a */; };
 		01578DFA1BD224AD00244D9D /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 01578DF81BD224AD00244D9D /* AlipaySDK.bundle */; };
 		01578DFB1BD224AD00244D9D /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01578DF91BD224AD00244D9D /* AlipaySDK.framework */; };
-		01578E071BD228BC00244D9D /* APAuthV2Info.m in Sources */ = {isa = PBXBuildFile; fileRef = 01578E031BD228BC00244D9D /* APAuthV2Info.m */; };
-		01578E081BD228BC00244D9D /* APViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01578E051BD228BC00244D9D /* APViewController.m */; };
-		01578E0B1BD228C900244D9D /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 01578E0A1BD228C900244D9D /* Order.m */; };
 		01578E6A1BD228F200244D9D /* base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 01578E5A1BD228F200244D9D /* base64.m */; };
 		01578E6B1BD228F200244D9D /* DataSigner.m in Sources */ = {isa = PBXBuildFile; fileRef = 01578E5D1BD228F200244D9D /* DataSigner.m */; };
 		01578E6C1BD228F200244D9D /* DataVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 01578E5F1BD228F200244D9D /* DataVerifier.m */; };
@@ -1969,12 +1966,6 @@
 		01578DF51BD224A600244D9D /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
 		01578DF81BD224AD00244D9D /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
 		01578DF91BD224AD00244D9D /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
-		01578E021BD228BC00244D9D /* APAuthV2Info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APAuthV2Info.h; sourceTree = "<group>"; };
-		01578E031BD228BC00244D9D /* APAuthV2Info.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APAuthV2Info.m; sourceTree = "<group>"; };
-		01578E041BD228BC00244D9D /* APViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APViewController.h; sourceTree = "<group>"; };
-		01578E051BD228BC00244D9D /* APViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APViewController.m; sourceTree = "<group>"; };
-		01578E091BD228C900244D9D /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
-		01578E0A1BD228C900244D9D /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
 		01578E0D1BD228E700244D9D /* aes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aes.h; sourceTree = "<group>"; };
 		01578E0E1BD228E700244D9D /* asn1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = asn1.h; sourceTree = "<group>"; };
 		01578E0F1BD228E700244D9D /* asn1_mac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = asn1_mac.h; sourceTree = "<group>"; };
@@ -4693,12 +4684,6 @@
 		01578DFD1BD2287800244D9D /* ali */ = {
 			isa = PBXGroup;
 			children = (
-				01578E091BD228C900244D9D /* Order.h */,
-				01578E0A1BD228C900244D9D /* Order.m */,
-				01578E021BD228BC00244D9D /* APAuthV2Info.h */,
-				01578E031BD228BC00244D9D /* APAuthV2Info.m */,
-				01578E041BD228BC00244D9D /* APViewController.h */,
-				01578E051BD228BC00244D9D /* APViewController.m */,
 			);
 			path = ali;
 			sourceTree = "<group>";
@@ -11468,7 +11453,6 @@
 				D993C26F1B12DF0C0088D568 /* FrendModel.swift in Sources */,
 				E608A1151B8F2755003BA318 /* CWTitleButton.m in Sources */,
 				D993C2541B12DF0C0088D568 /* LvSDKManager.swift in Sources */,
-				01578E071BD228BC00244D9D /* APAuthV2Info.m in Sources */,
 				D9A801621A80DD23005AD701 /* SelectContactUnitView.m in Sources */,
 				C6C5C3CB1ADE65570047C058 /* NSTimer+Addition.m in Sources */,
 				D9A802B41A80E3D3005AD701 /* NSString+Valid.m in Sources */,
@@ -11792,7 +11776,6 @@
 				D9A800361A80D52F005AD701 /* TripDetailRootViewController.m in Sources */,
 				D9A8FFCC1A80D216005AD701 /* HotDestinationCollectionViewCell.m in Sources */,
 				D9A801451A80DD23005AD701 /* TaoziChatBaseBubbleView.m in Sources */,
-				01578E0B1BD228C900244D9D /* Order.m in Sources */,
 				D9E0EECD1B79A60D003872DF /* ChatAlbumCollectionViewController.m in Sources */,
 				D9A8FF5D1A80CF19005AD701 /* SearchDestinationViewController.m in Sources */,
 				C640640F1B42B9FF00613367 /* CityImageAlbum.m in Sources */,
@@ -11807,7 +11790,6 @@
 				D9A8021C1A80E036005AD701 /* MJPhoto.m in Sources */,
 				D9D197411BDA08570037C3B3 /* GoodsRecommendTableViewCell.m in Sources */,
 				D97492AA1BF4360C00A5A70B /* GoodsDetailModel.m in Sources */,
-				01578E081BD228BC00244D9D /* APViewController.m in Sources */,
 				E66E6CCA1B59F1E500CBF65F /* DropDownViewController.m in Sources */,
 				D90C76171BF1DED600C5897C /* MakeOrderSelectCountTableViewCell.m in Sources */,
 				D9A8014C1A80DD23005AD701 /* MessageModel.m in Sources */,
