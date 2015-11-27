@@ -794,7 +794,8 @@
         NSString *sr= [strchar substringToIndex:1];
         if(![sectionHeadsKeys containsObject:[sr uppercaseString]]) {
             [sectionHeadsKeys addObject:[sr uppercaseString]];
-            tempArrForGrouping = [[NSMutableArray alloc] initWithObjects:nil];
+//            tempArrForGrouping = [[NSMutableArray alloc] initWithObjects:nil];
+            tempArrForGrouping = [[NSMutableArray alloc] init];
             checkValueAtIndex = NO;
         }
         if([sectionHeadsKeys containsObject:[sr uppercaseString]])

@@ -74,7 +74,9 @@
         {
             [sectionHeadsKeys addObject:[sr uppercaseString]];
             checkValueAtIndex = NO;
-            tempArrForGrouping = [[NSMutableArray alloc] initWithObjects:nil];
+//            tempArrForGrouping = [[NSMutableArray alloc] initWithObjects:nil];
+            tempArrForGrouping = [[NSMutableArray alloc] init];
+
 
         }
         if([sectionHeadsKeys containsObject:[sr uppercaseString]])
