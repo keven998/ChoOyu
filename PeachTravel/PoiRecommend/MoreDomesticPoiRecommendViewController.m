@@ -10,7 +10,7 @@
 #import "AreaDestination.h"
 #import "DestinationCollectionHeaderView.h"
 #import "PoiRecommendCollectionViewCell.h"
-#import "CityDetailTableViewController.h"
+#import "CityDetailViewController.h"
 
 @interface MoreDomesticPoiRecommendViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
@@ -201,7 +201,7 @@ static NSString *cacheName = @"destination_demostic_group";
 {
     AreaDestination *area = [self.destinations.domesticCities objectAtIndex:indexPath.section];
     CityDestinationPoi *city = [area.cities objectAtIndex:indexPath.row];
-    CityDetailTableViewController *ctl = [[CityDetailTableViewController alloc] init];
+    CityDetailViewController *ctl = [[CityDetailViewController alloc] init];
     ctl.cityId = city.cityId;
     [self.navigationController pushViewController:ctl animated:YES];
 }

@@ -9,7 +9,7 @@
 #import "ForeignPoiRecommendViewController.h"
 #import "PoiRecommendTableViewCell.h"
 #import "PoiManager.h"
-#import "CityDetailTableViewController.h"
+#import "CityDetailViewController.h"
 
 @interface ForeignPoiRecommendViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -76,7 +76,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    CityDetailTableViewController *ctl = [[CityDetailTableViewController alloc] init];
+    CityDetailViewController *ctl = [[CityDetailViewController alloc] init];
     PoiRecommend *poi = [_dataSource objectAtIndex:indexPath.row];
     ctl.cityId = poi.recommondId;
     [self.navigationController pushViewController:ctl animated:YES];

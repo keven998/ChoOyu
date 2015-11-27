@@ -13,7 +13,7 @@
 #import "CityDestinationPoi.h"
 #import "DomesticCell.h"
 #import "PoiRecommendCollectionViewCell.h"
-#import "CityDetailTableViewController.h"
+#import "CityDetailViewController.h"
 
 @interface MoreForeignPoiRecommendViewController () <UICollectionViewDataSource, UICollectionViewDelegate,UITableViewDataSource,UITableViewDelegate>
 
@@ -254,7 +254,7 @@ static NSString *reuseableCellIdentifier  = @"poiRecommendCollectionCell";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     CityDestinationPoi *city = self.citiesArray[indexPath.item];
-    CityDetailTableViewController *ctl = [[CityDetailTableViewController alloc] init];
+    CityDetailViewController *ctl = [[CityDetailViewController alloc] init];
     ctl.cityId = city.cityId;
     [self.navigationController pushViewController:ctl animated:YES];
 }

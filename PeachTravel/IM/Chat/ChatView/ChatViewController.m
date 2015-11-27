@@ -33,7 +33,7 @@
 #import "SpotDetailViewController.h"
 #import "PlansListTableViewController.h"
 #import "FavoriteViewController.h"
-#import "CityDetailTableViewController.h"
+#import "CityDetailViewController.h"
 #import "SearchDestinationViewController.h"
 #import "TravelNoteListViewController.h"
 #import "TravelNoteDetailViewController.h"
@@ -896,7 +896,7 @@
             
         case IMMessageTypeCityPoiMessageType: {
             _isScrollToBottom = NO;
-            CityDetailTableViewController *cityCtl = [[CityDetailTableViewController alloc] init];
+            CityDetailViewController *cityCtl = [[CityDetailViewController alloc] init];
             cityCtl.title = model.poiModel.poiName;
             cityCtl.cityId = model.poiModel.poiId;
             [self.frostedViewController.navigationController pushViewController:cityCtl animated:YES];

@@ -18,7 +18,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="ora-Cq-5ER">
-                    <rect key="frame" x="0.0" y="105" width="600" height="495"/>
+                    <rect key="frame" x="0.0" y="41" width="600" height="559"/>
                     <animations/>
                     <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                 </tableView>
@@ -39,11 +39,11 @@
                 <constraint firstAttribute="trailing" secondItem="Lgk-NZ-XJr" secondAttribute="trailing" constant="10" id="CQ9-Fp-cFL"/>
                 <constraint firstAttribute="bottom" secondItem="ora-Cq-5ER" secondAttribute="bottom" id="Qwf-uJ-rbC"/>
                 <constraint firstAttribute="bottom" secondItem="Lgk-NZ-XJr" secondAttribute="bottom" constant="80" id="dce-xX-Dxl"/>
-                <constraint firstItem="ora-Cq-5ER" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="105" id="rVL-Sy-P9H"/>
+                <constraint firstItem="ora-Cq-5ER" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="41" id="rVL-Sy-P9H"/>
                 <constraint firstItem="ora-Cq-5ER" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="txG-nn-PPR"/>
             </constraints>
-            <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-            <point key="canvasLocation" x="208" y="355"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <point key="canvasLocation" x="211" y="294"/>
         </view>
     </objects>
     <resources>

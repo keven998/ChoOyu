@@ -36,10 +36,9 @@
     [super viewDidLoad];
     _cityId = @"55fbe42eb257b61c149e784a";
     self.navigationItem.title = @"商品列表";
-    self.automaticallyAdjustsScrollViewInsets = NO;
     _sortDataSource = @[@"推荐排序", @"销量最高", @"价格最低", @"价格最高"];
     _categoryDatasource = @[@"全部"];
-    _tableView.contentInset = UIEdgeInsetsMake(0, 0, 49, 0);
+//    _tableView.contentInset = UIEdgeInsetsMake(0, 0, 49, 0);
     [_tableView registerNib:[UINib nibWithNibName:@"GoodsListTableViewCell" bundle:nil] forCellReuseIdentifier:@"goodsListCell"];
     _tableView.separatorColor = COLOR_LINE;
     _tableView.dataSource = self;

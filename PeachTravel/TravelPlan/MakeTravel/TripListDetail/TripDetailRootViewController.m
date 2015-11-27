@@ -12,7 +12,7 @@
 #import "AccountManager.h"
 #import "DestinationsView.h"
 #import "DestinationUnit.h"
-#import "CityDetailTableViewController.h"
+#import "CityDetailViewController.h"
 #import "ShareActivity.h"
 #import "TaoziChatMessageBaseViewController.h"
 #import "UMSocialWechatHandler.h"
@@ -486,7 +486,7 @@
  */
 - (void)viewCityDetail:(NSString *)cityId
 {
-    CityDetailTableViewController *cityDetailCtl = [[CityDetailTableViewController alloc] init];
+    CityDetailViewController *cityDetailCtl = [[CityDetailViewController alloc] init];
     cityDetailCtl.cityId = cityId;
     [self.frostedViewController.navigationController pushViewController:cityDetailCtl animated:YES];
 }
@@ -896,7 +896,7 @@
 {
     [self hideDestinationView:nil];
     CityDestinationPoi *poi =  [_tripDetail.destinations objectAtIndex:selectedIndex];
-    CityDetailTableViewController *cityDetailCtl = [[CityDetailTableViewController alloc] init];
+    CityDetailViewController *cityDetailCtl = [[CityDetailViewController alloc] init];
     cityDetailCtl.cityId = poi.cityId;
     [self.frostedViewController.navigationController pushViewController:cityDetailCtl animated:YES];
 }

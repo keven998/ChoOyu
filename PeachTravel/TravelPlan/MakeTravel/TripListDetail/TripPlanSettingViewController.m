@@ -7,7 +7,7 @@
 //
 
 #import "TripPlanSettingViewController.h"
-#import "CityDetailTableViewController.h"
+#import "CityDetailViewController.h"
 #import "SuperPoi.h"
 #import "ShareActivity.h"
 #import "TaoziChatMessageBaseViewController.h"
@@ -250,7 +250,7 @@
         
     } else if (indexPath.section == 1) {
         [MobClick event:@"cell_item_plan_change_select_city"];
-        CityDetailTableViewController *cityCtl = [[CityDetailTableViewController alloc]init];
+        CityDetailViewController *cityCtl = [[CityDetailViewController alloc]init];
         CityDestinationPoi *model = _tripDetail.destinations[indexPath.row];
         cityCtl.cityId = model.cityId;
         [self.frostedViewController.navigationController pushViewController:cityCtl animated:YES];

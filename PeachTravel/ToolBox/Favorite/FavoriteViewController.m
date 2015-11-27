@@ -12,7 +12,7 @@
 #import "Favorite.h"
 #import "SpotDetailViewController.h"
 #import "CommonPoiDetailViewController.h"
-#import "CityDetailTableViewController.h"
+#import "CityDetailViewController.h"
 #import "TMCache.h"
 #import "TravelNoteDetailViewController.h"
 #import "PoiDetailViewControllerFactory.h"
@@ -541,7 +541,7 @@
         [self.navigationController pushViewController:ctl animated:YES];
         
     } else  if (item.type == kCityPoi){
-        CityDetailTableViewController *ctl = [[CityDetailTableViewController alloc] init];
+        CityDetailViewController *ctl = [[CityDetailViewController alloc] init];
         ctl.cityId = item.itemId;
         [self.navigationController pushViewController:ctl animated:YES];
     }

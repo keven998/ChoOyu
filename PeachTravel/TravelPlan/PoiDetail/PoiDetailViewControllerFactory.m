@@ -10,7 +10,7 @@
 #import "RestaurantDetailViewController.h"
 #import "ShoppingDetailViewController.h"
 #import "HotelDetailViewController.h"
-#import "CityDetailTableViewController.h"
+#import "CityDetailViewController.h"
 #import "SpotDetailViewController.h"
 
 @implementation PoiDetailViewControllerFactory

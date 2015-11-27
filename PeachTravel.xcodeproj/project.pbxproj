@@ -96,7 +96,6 @@
 		01578E6F1BD228F200244D9D /* openssl_wrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 01578E651BD228F200244D9D /* openssl_wrapper.m */; };
 		01578E701BD228F200244D9D /* RSADataSigner.m in Sources */ = {isa = PBXBuildFile; fileRef = 01578E671BD228F200244D9D /* RSADataSigner.m */; };
 		01578E711BD228F200244D9D /* RSADataVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 01578E691BD228F200244D9D /* RSADataVerifier.m */; };
-		019BCF711BB27378007841E4 /* CityDetailHeaderBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 019BCF661BB27378007841E4 /* CityDetailHeaderBottomView.m */; };
 		019BCF721BB27378007841E4 /* CityDetailHeaderBtnSqure.m in Sources */ = {isa = PBXBuildFile; fileRef = 019BCF681BB27378007841E4 /* CityDetailHeaderBtnSqure.m */; };
 		019BCF731BB27378007841E4 /* CityDetailHeaderCircleBtnCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 019BCF6A1BB27378007841E4 /* CityDetailHeaderCircleBtnCell.m */; };
 		019BCF741BB27378007841E4 /* CityDetailHeaderFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 019BCF6C1BB27378007841E4 /* CityDetailHeaderFlowLayout.m */; };
@@ -1123,7 +1122,6 @@
 		D9A8FF5E1A80CF19005AD701 /* SearchMoreDestinationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FF4E1A80CF19005AD701 /* SearchMoreDestinationViewController.m */; };
 		D9A8FF5F1A80CF19005AD701 /* SearchResultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FF501A80CF19005AD701 /* SearchResultTableViewCell.m */; };
 		D9A8FF601A80CF19005AD701 /* SearchResultTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A8FF511A80CF19005AD701 /* SearchResultTableViewCell.xib */; };
-		D9A8FFA01A80D1C3005AD701 /* CityDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FF641A80D1C3005AD701 /* CityDetailTableViewController.m */; };
 		D9A8FFA11A80D1C3005AD701 /* CityDetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FF661A80D1C3005AD701 /* CityDetailHeaderView.m */; };
 		D9A8FFA21A80D1C3005AD701 /* CityPoi.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FF681A80D1C3005AD701 /* CityPoi.m */; };
 		D9A8FFA51A80D1C3005AD701 /* PoisOfCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FF6D1A80D1C3005AD701 /* PoisOfCityViewController.m */; };
@@ -2153,8 +2151,6 @@
 		01578F221BD2341000244D9D /* x509_vfy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = x509_vfy.h; sourceTree = "<group>"; };
 		01578F231BD2341000244D9D /* x509v3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = x509v3.h; sourceTree = "<group>"; };
 		019BCF641BB27378007841E4 /* ArgumentsOfCityDetailHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArgumentsOfCityDetailHeaderView.h; sourceTree = "<group>"; };
-		019BCF651BB27378007841E4 /* CityDetailHeaderBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityDetailHeaderBottomView.h; sourceTree = "<group>"; };
-		019BCF661BB27378007841E4 /* CityDetailHeaderBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityDetailHeaderBottomView.m; sourceTree = "<group>"; };
 		019BCF671BB27378007841E4 /* CityDetailHeaderBtnSqure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityDetailHeaderBtnSqure.h; sourceTree = "<group>"; };
 		019BCF681BB27378007841E4 /* CityDetailHeaderBtnSqure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityDetailHeaderBtnSqure.m; sourceTree = "<group>"; };
 		019BCF691BB27378007841E4 /* CityDetailHeaderCircleBtnCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityDetailHeaderCircleBtnCell.h; sourceTree = "<group>"; };
@@ -3594,8 +3590,6 @@
 		D9A8FF4F1A80CF19005AD701 /* SearchResultTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultTableViewCell.h; sourceTree = "<group>"; };
 		D9A8FF501A80CF19005AD701 /* SearchResultTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultTableViewCell.m; sourceTree = "<group>"; };
 		D9A8FF511A80CF19005AD701 /* SearchResultTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchResultTableViewCell.xib; sourceTree = "<group>"; };
-		D9A8FF631A80D1C3005AD701 /* CityDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityDetailTableViewController.h; sourceTree = "<group>"; };
-		D9A8FF641A80D1C3005AD701 /* CityDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityDetailTableViewController.m; sourceTree = "<group>"; };
 		D9A8FF651A80D1C3005AD701 /* CityDetailHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityDetailHeaderView.h; sourceTree = "<group>"; };
 		D9A8FF661A80D1C3005AD701 /* CityDetailHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityDetailHeaderView.m; sourceTree = "<group>"; };
 		D9A8FF671A80D1C3005AD701 /* CityPoi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CityPoi.h; path = ../TravelPlan/PoiDetail/CityDetail/CityPoi.h; sourceTree = "<group>"; };
@@ -4919,8 +4913,6 @@
 				019BCF641BB27378007841E4 /* ArgumentsOfCityDetailHeaderView.h */,
 				01E5D33A1BCBB33100189565 /* TaoziCollectionView.h */,
 				01E5D33B1BCBB33100189565 /* TaoziCollectionView.m */,
-				019BCF651BB27378007841E4 /* CityDetailHeaderBottomView.h */,
-				019BCF661BB27378007841E4 /* CityDetailHeaderBottomView.m */,
 				019BCF671BB27378007841E4 /* CityDetailHeaderBtnSqure.h */,
 				019BCF681BB27378007841E4 /* CityDetailHeaderBtnSqure.m */,
 				019BCF691BB27378007841E4 /* CityDetailHeaderCircleBtnCell.h */,
@@ -8287,8 +8279,6 @@
 			children = (
 				01A5CE211BB399F100A59A8A /* TravelPlanListForCityDetail */,
 				0115C7DE1BAFC88D00631928 /* loadMoreCell */,
-				D9A8FF631A80D1C3005AD701 /* CityDetailTableViewController.h */,
-				D9A8FF641A80D1C3005AD701 /* CityDetailTableViewController.m */,
 				270C164B1B0059F60048C85D /* CityDescDetailViewController.h */,
 				270C164C1B0059F60048C85D /* CityDescDetailViewController.m */,
 				019BCF631BB27378007841E4 /* CityDetailHeaderView */,
@@ -11549,7 +11539,6 @@
 				01F3C79B1BAA7DC100CC58F4 /* UIColor+RandomColor.m in Sources */,
 				D9A8FFA61A80D1C3005AD701 /* RecommendsOfCity.m in Sources */,
 				D9823E841B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m in Sources */,
-				D9A8FFA01A80D1C3005AD701 /* CityDetailTableViewController.m in Sources */,
 				D9A800331A80D52F005AD701 /* TripPoiListTableViewCell.m in Sources */,
 				D9C78C3F1AD924D00087F52A /* PrepareViewController.m in Sources */,
 				D9A800211A80D52F005AD701 /* DestinationCollectionHeaderView.m in Sources */,
@@ -11795,7 +11784,6 @@
 				D9DD315B1BF4B340009BEDAB /* OrderUserInfoManager.m in Sources */,
 				E6E5956A1B9BECDB00E29ED0 /* ExpertProfileTagViewCell.m in Sources */,
 				D920A4151B15AB3800AD81B7 /* JSONConvertMethod.swift in Sources */,
-				019BCF711BB27378007841E4 /* CityDetailHeaderBottomView.m in Sources */,
 				D92CA1141AD8BDF900F244FF /* SWTableViewCell.m in Sources */,
 				D92CA1161AD8BDF900F244FF /* SWUtilityButtonView.m in Sources */,
 				D93FEEC11BEB413D0065D6ED /* CountryRecommendTableViewCell.m in Sources */,

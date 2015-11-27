@@ -13,7 +13,7 @@
 #import "TaoziChatMessageBaseViewController.h"
 #import "SpotDetailViewController.h"
 #import "CommonPoiDetailViewController.h"
-#import "CityDetailTableViewController.h"
+#import "CityDetailViewController.h"
 #import "PoiDetailViewControllerFactory.h"
 #import "TaoziCollectionLayout.h"
 #import "DestinationSearchHistoryCell.h"
@@ -457,7 +457,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         ctl.spotId = poi.poiId;
         [self.navigationController pushViewController:ctl animated:YES];
     } else if (poi.poiType == kCityPoi) {
-        CityDetailTableViewController *ctl = [[CityDetailTableViewController alloc] init];
+        CityDetailViewController *ctl = [[CityDetailViewController alloc] init];
         ctl.cityId = poi.poiId;
         [self.navigationController pushViewController:ctl animated:YES];
     } else {

@@ -10,7 +10,7 @@
 #import "HotDestinationCollectionViewCell.h"
 #import "HotDestinationCollectionReusableView.h"
 #import "RecommendDataSource.h"
-#import "CityDetailTableViewController.h"
+#import "CityDetailViewController.h"
 #import "Destinations.h"
 #import "TaoziCollectionLayout.h"
 #import "SuperWebViewController.h"
@@ -268,7 +268,7 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     if (recommend.linkType == LinkNative) {
         switch (recommend.poiType) {
             case kCityPoi: {
-                CityDetailTableViewController *ctl = [[CityDetailTableViewController alloc] init];
+                CityDetailViewController *ctl = [[CityDetailViewController alloc] init];
                 ctl.cityId = recommend.recommondId;
                 ctl.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:ctl animated:YES];

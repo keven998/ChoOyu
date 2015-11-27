@@ -520,7 +520,7 @@ static const CGFloat AlertViewVerticalEdgeMinMargin = 25;
 	return YES;
 }
 
-- (NSUInteger)supportedInterfaceOrientations
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
 	return UIInterfaceOrientationMaskAll;
 }

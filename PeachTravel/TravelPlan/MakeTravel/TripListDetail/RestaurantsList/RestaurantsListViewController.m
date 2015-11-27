@@ -11,7 +11,7 @@
 #import "DestinationsView.h"
 #import "CityDestinationPoi.h"
 #import "DestinationUnit.h"
-#import "CityDetailTableViewController.h"
+#import "CityDetailViewController.h"
 #import "CommonPoiDetailViewController.h"
 #import "PoisOfCityViewController.h"
 #import "RestaurantDetailViewController.h"
@@ -171,7 +171,7 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
 - (IBAction)viewCityDetail:(UIButton *)sender
 {
     CityDestinationPoi *poi = [_tripDetail.destinations objectAtIndex:sender.tag];
-    CityDetailTableViewController *cityDetailCtl = [[CityDetailTableViewController alloc] init];
+    CityDetailViewController *cityDetailCtl = [[CityDetailViewController alloc] init];
     cityDetailCtl.cityId = poi.cityId;
     [self.navigationController pushViewController:cityDetailCtl animated:YES];
 }
