@@ -121,7 +121,7 @@
         
         //tableView init
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(origin.x, self.frame.origin.y + self.frame.size.height, self.frame.size.width, 0) style:UITableViewStylePlain];
-        _tableView.rowHeight = 38;
+        _tableView.rowHeight = 44;
         _tableView.dataSource = self;
         _tableView.delegate = self;
         

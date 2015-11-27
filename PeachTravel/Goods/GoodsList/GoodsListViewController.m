@@ -52,7 +52,8 @@
         _dataSource = tempArray;
         [_tableView reloadData];
     }];
-    DOPDropDownMenu *menu = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:41];
+    DOPDropDownMenu *menu = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:4 ];
+    menu.separatorColor = COLOR_LINE;
     [self.view addSubview:menu];
     self.menu = menu;
     menu.dataSource = self;
@@ -60,6 +61,10 @@
     [GoodsManager asyncLoadGoodsCategoryOfLocality:_cityId completionBlock:^(BOOL isSuccess, NSArray<NSString *> *categoryList) {
         _categoryDatasource = categoryList;
     }];
+    
+    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(menu.bounds.size.width/2, 5, 0.5, 30)];
+    spaceView.backgroundColor = COLOR_LINE;
+    [menu addSubview:spaceView];
     
     self.tableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         [GoodsManager asyncLoadGoodsOfCity:_cityId category:_category sortBy:_sortType sortValue:_sortValue startIndex:[_dataSource count]+1 count:pageCount completionBlock:^(BOOL isSuccess, NSArray *goodsList) {

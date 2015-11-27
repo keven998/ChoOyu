@@ -27,6 +27,8 @@
 - (void)awakeFromNib {
     [_contentImageView setImage:[[UIImage imageNamed: @"icon_goods_list_cell_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)]];
     [_bgImageView setImage:[[UIImage imageNamed:@"icon_goods_cell_mask"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)]];
+    _bgImageView.clipsToBounds = YES;
+    _goodsImageView.clipsToBounds = YES;
     _tagCollectionView.backgroundColor = [UIColor clearColor];
 }
 

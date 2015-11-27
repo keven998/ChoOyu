@@ -21,6 +21,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *scroll2TopBtn;
 @property (nonatomic, strong) GoodsRecommendHeaderView *headerView;
 @property (nonatomic, strong) NSArray *dataSource;
+
+@property (nonatomic, strong) NSArray *recommendDataSource;   //顶部运营位
+
 @end
 
 @implementation GoodsRecommendViewController
