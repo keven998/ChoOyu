@@ -22,6 +22,7 @@
         if ([json objectForKey:@"locality"] != [NSNull null]) {
             _locality = [[CityDestinationPoi alloc] initWithJson:[json objectForKey:@"locality"]];
         }
+        _store = [[StoreDetailModel alloc] initWithJson:[json objectForKey:@"seller"] ];
     }
     return self;
 }

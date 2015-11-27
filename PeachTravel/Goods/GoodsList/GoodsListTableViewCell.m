@@ -37,11 +37,10 @@
                              NSForegroundColorAttributeName: APP_THEME_COLOR,
                              } range:NSMakeRange(oldPrice.length+1, nowPrice.length)];
     _priceLabel.attributedText = attrStr;
-    _tagCollectionView.tagsList = _goodsDetail.tags;
-    NSString *propertyStrig = [NSString stringWithFormat:@"%d%%满意  |  销量: %ld", (int)(_goodsDetail.rating*100), _goodsDetail.saleCount];
+    _tagCollectionView.tagsList = _goodsDetail.store.qualifications;
+    NSString *propertyStrig = [NSString stringWithFormat:@"%d%%满意  |  销量: %ld", (int)(_goodsDetail.rating), _goodsDetail.saleCount];
     [_propertyBtn setTitle:propertyStrig forState:UIControlStateNormal];
     _storeNameLabel.text = _goodsDetail.store.storeName;
-
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

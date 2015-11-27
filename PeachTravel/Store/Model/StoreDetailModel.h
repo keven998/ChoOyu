@@ -10,7 +10,10 @@
 
 @interface StoreDetailModel : NSObject
 
-@property (nonatomic, copy) NSString *storeId;
+@property (nonatomic) NSInteger storeId;
 @property (nonatomic, copy) NSString *storeName;
+@property (nonatomic, strong) NSArray *qualifications;
+
+- (id)initWithJson:(id)json;
 
 @end

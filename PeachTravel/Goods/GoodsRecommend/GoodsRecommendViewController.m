@@ -48,6 +48,7 @@
             [self.tableView reloadData];
         }
     }];
+    [self loadRecommendData];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -66,6 +67,33 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (void)loadRecommendData
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    NSString *url = [NSString stringWithFormat:@"%@columns", BASE_URL];
+    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            _headerView.recommendData = [responseObject objectForKey:@"result"];
+            
+        } else {
+            
+        }
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+    }];
 }
 
 - (void)scroll2Top

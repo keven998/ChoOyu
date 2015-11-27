@@ -15,10 +15,10 @@
 @property (strong, nonatomic) UIButton *searchBtn;
 @property (strong, nonatomic) AutoSlideScrollView *galleryView;
 @property (strong, nonatomic) UICollectionView *collectionView;
-
+@property (strong, nonatomic) NSArray *slideDataSource;
+@property (strong, nonatomic) NSArray *specialDataSource;
 
 @end
-
 
 @implementation GoodsRecommendHeaderView
 
@@ -30,14 +30,7 @@
         _galleryView.scrollView.showsHorizontalScrollIndicator = NO;
         
         _searchBtn = [[UIButton alloc] initWithFrame:CGRectMake(30, 30, frame.size.width-60, 27)];
-        self.galleryView.totalPagesCount = ^NSInteger() {
-            return 4;
-        };
-        self.galleryView.fetchContentViewAtIndex = ^UIView*(NSInteger pageIndex) {
-            UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 210)];
-             [imageView sd_setImageWithURL:[NSURL URLWithString:@"http://images.taozilvxing.com/28c2d1ef35c12100e99fecddb63c436a?imageView2/2/w/1200"] placeholderImage:nil];
-            return imageView;
-        };
+       
         [_searchBtn setBackgroundImage:[[UIImage imageNamed:@"icon_goods_search_bg"] resizableImageWithCapInsets:UIEdgeInsetsMake(2, 40, 2, 20)] forState:UIControlStateNormal];
         [self addSubview:_galleryView];
 //        [self addSubview:_searchBtn];
@@ -58,9 +51,39 @@
     return self;
 }
 
+- (void)setRecommendData:(NSArray *)recommendData
+{
+    _recommendData = recommendData;
+    self.slideDataSource = [[_recommendData firstObject] objectForKey:@"columns"];
+    self.specialDataSource = [[_recommendData lastObject] objectForKey:@"columns"];
+}
+
+- (void)setSlideDataSource:(NSArray *)slideDataSource
+{
+    _slideDataSource = slideDataSource;
+    __weak GoodsRecommendHeaderView *weakSelf = self;
+    self.galleryView.totalPagesCount = ^NSInteger() {
+        return weakSelf.slideDataSource.count;
+    };
+    self.galleryView.fetchContentViewAtIndex = ^UIView*(NSInteger pageIndex) {
+        
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, weakSelf.frame.size.width, 210)];
+        TaoziImage *image = [[TaoziImage alloc] initWithJson:[[[weakSelf.slideDataSource objectAtIndex:pageIndex] objectForKey:@"images"] firstObject]];
+
+        [imageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
+        return imageView;
+    };
+}
+
+- (void)setSpecialDataSource:(NSArray *)specialDataSource
+{
+    _specialDataSource = specialDataSource;
+    [_collectionView reloadData];
+}
+
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 10;
+    return [_specialDataSource count];
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -70,6 +93,8 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     GoodsRecommendCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"goodsRecommendCollectionViewCell" forIndexPath:indexPath];
+    TaoziImage *image = [[TaoziImage alloc] initWithJson:[[[_specialDataSource objectAtIndex:indexPath.row] objectForKey:@"images"] firstObject]];
+    [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
     return cell;
 }
 

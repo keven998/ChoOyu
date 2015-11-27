@@ -10,4 +10,14 @@
 
 @implementation StoreDetailModel
 
+- (id)initWithJson:(id)json
+{
+    if (self = [super init]) {
+        _storeId = [[json objectForKey:@"sellerId"] integerValue];
+        _storeName = [json objectForKey:@"name"];
+        _qualifications = [json objectForKey:@"qualifications"];
+    }
+    return self;
+}
+
 @end

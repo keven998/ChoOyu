@@ -10,4 +10,6 @@
 
 @interface GoodsRecommendHeaderView : UIView
 
+@property (nonatomic, strong) NSArray *recommendData;
+
 @end

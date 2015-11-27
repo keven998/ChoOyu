@@ -52,7 +52,7 @@
         _dataSource = tempArray;
         [_tableView reloadData];
     }];
-    DOPDropDownMenu *menu = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:4 ];
+    DOPDropDownMenu *menu = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:41];
     menu.separatorColor = COLOR_LINE;
     [self.view addSubview:menu];
     self.menu = menu;
