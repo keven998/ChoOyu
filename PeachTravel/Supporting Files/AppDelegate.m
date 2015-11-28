@@ -38,7 +38,7 @@
      [NSDictionary dictionaryWithObject:COLOR_TEXT_I forKey:NSForegroundColorAttributeName]];
 
     [UINavigationBar appearance].tintColor = COLOR_TEXT_I;
-    
+    [UINavigationBar appearance].barTintColor = [UIColor whiteColor];
     [UIApplication sharedApplication].statusBarHidden = NO;
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];

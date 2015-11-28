@@ -8,6 +8,8 @@
 
 #import "GoodsDetailViewController.h"
 #import "RCTRootView.h"
+#import "RCTBridge.h"
+#import "RCTEventDispatcher.h"
 #import "RCTBridgeModule.h"
 #import "StoreDetailViewController.h"
 #import "ShareActivity.h"
@@ -44,7 +46,7 @@ RCT_EXPORT_MODULE();
     RCTBridge *bridge = [[RCTBridge alloc] initWithBundleURL:jsCodeLocation
                                               moduleProvider:nil
                                                launchOptions:nil];
-
+    
     RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge moduleName:@"GoodsDetailClass" initialProperties:nil];
     
 //    RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
@@ -53,6 +55,9 @@ RCT_EXPORT_MODULE();
 //                                                     launchOptions:nil];
     rootView.frame = CGRectMake(0, 0, kWindowWidth, kWindowHeight);
     [self.view addSubview:rootView];
+    
+    [bridge.eventDispatcher sendAppEventWithName:@"EventReminder"
+                                            body:@{@"goodsId": _goodsId}];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(storeDetail) name:@"gotoStoreDetailNoti" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(makeOrderAction) name:@"makeOrderNoti" object:nil];
@@ -67,6 +72,7 @@ RCT_EXPORT_MODULE();
     [favoriteBtn addTarget:self action:@selector(favorite) forControlEvents:UIControlEventTouchUpInside];
 
     self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithCustomView:favoriteBtn], [[UIBarButtonItem alloc] initWithCustomView:shareBtn]];
+  
 }
 
 - (void)viewWillAppear:(BOOL)animated
