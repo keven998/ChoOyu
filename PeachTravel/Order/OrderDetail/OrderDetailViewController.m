@@ -116,6 +116,7 @@
 - (void)goodsDetailAction:(UIButton *)sender
 {
     GoodsDetailViewController *ctl = [[GoodsDetailViewController alloc] init];
+    ctl.goodsId = _orderDetail.goods.goodsId;
     [self.navigationController pushViewController:ctl animated:YES];
     
 }
@@ -170,8 +171,8 @@
         }
         
         [cell.goodsNameBtn addTarget:self action:@selector(goodsDetailAction:) forControlEvents:UIControlEventTouchUpInside];
-        cell.orderNumberLabel.text = @"1234323423";
-        cell.dateLabel.text = @"2015-11-25";
+        cell.orderNumberLabel.text = [NSString stringWithFormat:@"%ld", _orderDetail.orderId];
+        cell.dateLabel.text = _orderDetail.useDateStr;
         cell.countLabel.text = [NSString stringWithFormat:@"%ld", _orderDetail.count];
         cell.priceLabel.text = [NSString stringWithFormat:@"%d", (int)_orderDetail.totalPrice];
         return cell;
