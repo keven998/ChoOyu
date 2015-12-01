@@ -15,6 +15,7 @@
 @property (nonatomic, copy) NSString *tel;
 @property (nonatomic, copy) NSString *email;
 @property (nonatomic, copy) NSString *adress;
-@property (nonatomic, copy) NSString *message;
+
+- (id)initWithJson:(id)json;
 
 @end

@@ -10,11 +10,16 @@
 
 @implementation OrderDetailModel
 
-- (id)init
+- (id)initWithJson:(id)json
 {
     if (self = [super init]) {
-        _orderContact = [[OrderContactInfoModel alloc] init];
-        
+        _orderContact = [[OrderContactInfoModel alloc] initWithJson:[json objectForKey:@"contact"]];
+        _selectedPackage = [[GoodsPackageModel alloc] init];
+        _selectedPackage.packageId = [json objectForKey:@"planId"];
+        _goods = [[GoodsDetailModel alloc] initWithJson:[json objectForKey:@"commodity"]];
+        _totalPrice = [[json objectForKey:@"totalPrice"] floatValue];
+        _count = [[json objectForKey:@"quantity"] integerValue];
+        _leaveMessage = [json objectForKey:@"comment"];
     }
     return self;
 }

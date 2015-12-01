@@ -51,7 +51,7 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:[NSNumber numberWithInteger:goodsId] forKey:@"commodityId"];
     [params safeSetObject:packageId forKey:@"planId"];
-    [params safeSetObject:@"2015-11-28" forKey:@"rendezvousTime"];
+    [params safeSetObject:date forKey:@"rendezvousTime"];
     [params safeSetObject:travelers forKey:@"travellers"];
     [params safeSetObject:[NSNumber numberWithInteger:quantity] forKey:@"quantity"];
     [params safeSetObject:phone forKey:@"contactPhone"];
@@ -92,12 +92,16 @@
         NSLog(@"***获取订单详情接口: %@", operation);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
+            OrderDetailModel *orderDetail = [[OrderDetailModel alloc] initWithJson:[responseObject objectForKey:@"result"]];
+            completion(YES, orderDetail);
         } else {
-            
+            completion(NO, nil);
+
         }
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        completion(NO, nil);
         
     }];
 

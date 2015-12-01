@@ -16,7 +16,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *messageLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *messageLabelHeightConstraint;
 @property (nonatomic, strong) OrderContactInfoModel *contact;
+@property (nonatomic, copy) NSString *leaveMessage;      //留言
 
-+ (CGFloat)heightOfCellWithContactInfo:(OrderContactInfoModel *)contactInfo;
+
++ (CGFloat)heightOfCellWithContactInfo:(OrderContactInfoModel *)contactInfo andLeaveMessage:(NSString *)message;
 
 @end

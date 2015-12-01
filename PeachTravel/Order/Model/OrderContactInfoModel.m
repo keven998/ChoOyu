@@ -10,4 +10,14 @@
 
 @implementation OrderContactInfoModel
 
+- (id)initWithJson:(id)json
+{
+    if (self = [super init]) {
+        _firstName = [json objectForKey:@"givenName"];
+        _lastName = [json objectForKey:@"surname"];
+        _tel = [NSString stringWithFormat:@"+%@ %@", [[json objectForKey:@"tel"] objectForKey:@"dialCode"], [[json objectForKey:@"tel"] objectForKey:@"number"]];
+    }
+    return self;
+}
+
 @end

@@ -10,13 +10,13 @@
 
 @implementation OrderDetailContactTableViewCell
 
-+ (CGFloat)heightOfCellWithContactInfo:(OrderContactInfoModel *)contactInfo
++ (CGFloat)heightOfCellWithContactInfo:(OrderContactInfoModel *)contactInfo andLeaveMessage:(NSString *)message
 {
-    if (!contactInfo.message || [contactInfo.message isBlankString]) {
+    if (!message || [message isBlankString]) {
         return 44*2 + 50;
     } else {
         NSDictionary *attribs = @{NSFontAttributeName: [UIFont systemFontOfSize:13]};
-        NSAttributedString *attrstr = [[NSAttributedString alloc] initWithString:contactInfo.message attributes:attribs];
+        NSAttributedString *attrstr = [[NSAttributedString alloc] initWithString: message attributes:attribs];
         CGRect rect = [attrstr boundingRectWithSize:(CGSize){kWindowWidth-95, CGFLOAT_MAX} options:NSStringDrawingUsesLineFragmentOrigin context:nil];
         return 44*2+50+rect.size.height+30;
     }
@@ -31,10 +31,15 @@
     _contact = contact;
     _nameLabel.text = [NSString stringWithFormat:@"%@ %@", _contact.lastName, _contact.firstName];
     _telLabel.text = _contact.tel;
-    _messageLabel.text = _contact.message;
-    if (_contact.message && ![_contact.message isBlankString]) {
+}
+
+- (void)setLeaveMessage:(NSString *)leaveMessage
+{
+    _leaveMessage = leaveMessage;
+    _messageLabel.text = _leaveMessage;
+    if (_leaveMessage && ![_leaveMessage isBlankString]) {
         NSDictionary *attribs = @{NSFontAttributeName: [UIFont systemFontOfSize:13]};
-        NSAttributedString *attrstr = [[NSAttributedString alloc] initWithString:_contact.message attributes:attribs];
+        NSAttributedString *attrstr = [[NSAttributedString alloc] initWithString:_leaveMessage attributes:attribs];
         CGRect rect = [attrstr boundingRectWithSize:(CGSize){kWindowWidth-95, CGFLOAT_MAX} options:NSStringDrawingUsesLineFragmentOrigin context:nil];
         _messageLabelHeightConstraint.constant = 10+rect.size.height;
         

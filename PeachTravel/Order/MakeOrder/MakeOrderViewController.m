@@ -160,7 +160,7 @@
         [travelerIds addObject:traveler.uid];
     }
     
-    [OrderManager asyncMakeOrderWithGoodsId:_orderDetail.goods.goodsId travelers:travelerIds packageId:_orderDetail.selectedPackage.packageId playDate:_orderDetail.useDateStr quantity:_orderDetail.count contactPhone:_orderDetail.orderContact.tel contactFirstName:_orderDetail.orderContact.firstName contactLastName:_orderDetail.orderContact.lastName leaveMessage:_orderDetail.orderContact.message completionBlock:^(BOOL isSuccess, NSInteger orderId) {
+    [OrderManager asyncMakeOrderWithGoodsId:_orderDetail.goods.goodsId travelers:travelerIds packageId:_orderDetail.selectedPackage.packageId playDate:_orderDetail.useDateStr quantity:_orderDetail.count contactPhone:_orderDetail.orderContact.tel contactFirstName:_orderDetail.orderContact.firstName contactLastName:_orderDetail.orderContact.lastName leaveMessage:_orderDetail.leaveMessage completionBlock:^(BOOL isSuccess, NSInteger orderId) {
         if (isSuccess) {
             [SVProgressHUD showHint:@"订单创建成功"];
             OrderDetailViewController *ctl = [[OrderDetailViewController alloc] init];
@@ -279,7 +279,7 @@
 
 - (void)textViewDidChange:(UITextView *)textView
 {
-    _orderDetail.orderContact.message = textView.text;
+    _orderDetail.leaveMessage = textView.text;
 
 }
 

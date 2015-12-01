@@ -39,8 +39,9 @@
     [_tableView registerNib:[UINib nibWithNibName:@"OrderDetailContactTableViewCell" bundle:nil] forCellReuseIdentifier:@"orderDetailContactCell"];
     
     _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.bounds.size.width, 55)];
-    [OrderManager asyncLoadOrderDetailWithOrderId:78668897366 completionBlock:^(BOOL isSuccess, OrderDetailModel *orderDetail) {
+    [OrderManager asyncLoadOrderDetailWithOrderId:1448889797179 completionBlock:^(BOOL isSuccess, OrderDetailModel *orderDetail) {
         _orderDetail = orderDetail;
+        [self.tableView reloadData];
     }];
 
     [self setupToolBar];
@@ -144,7 +145,7 @@
     if (indexPath.section == 1) {
         return [OrderDetailContentTableViewCell heightOfCell];
     } else if (indexPath.section == 4) {
-        return [OrderDetailContactTableViewCell heightOfCellWithContactInfo:_orderDetail.orderContact];
+        return [OrderDetailContactTableViewCell heightOfCellWithContactInfo:_orderDetail.orderContact andLeaveMessage:_orderDetail.leaveMessage];
     }
     return 50;
 }
@@ -158,13 +159,16 @@
         
     } else if (indexPath.section == 1) {
         OrderDetailContentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"orderDetailContentCell" forIndexPath:indexPath];
-        NSMutableAttributedString *string= [[NSMutableAttributedString alloc] initWithString:_orderDetail.goods.goodsName];
-        [string addAttributes:@{
-                                NSForegroundColorAttributeName: APP_THEME_COLOR,
-                                NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
-                                } range:NSMakeRange(0, _orderDetail.goods.goodsName.length)];
+        if (_orderDetail.goods.goodsName) {
+            NSMutableAttributedString *string= [[NSMutableAttributedString alloc] initWithString:_orderDetail.goods.goodsName];
+            [string addAttributes:@{
+                                    NSForegroundColorAttributeName: APP_THEME_COLOR,
+                                    NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
+                                    } range:NSMakeRange(0, _orderDetail.goods.goodsName.length)];
+            
+            [cell.goodsNameBtn setAttributedTitle:string forState:UIControlStateNormal];
+        }
         
-        [cell.goodsNameBtn setAttributedTitle:string forState:UIControlStateNormal];
         [cell.goodsNameBtn addTarget:self action:@selector(goodsDetailAction:) forControlEvents:UIControlEventTouchUpInside];
         cell.orderNumberLabel.text = @"1234323423";
         cell.dateLabel.text = @"2015-11-25";
@@ -185,7 +189,8 @@
         
     } else {
         OrderDetailContactTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"orderDetailContactCell" forIndexPath:indexPath];
-        cell.contact = _orderDetail.orderContact;   
+        cell.contact = _orderDetail.orderContact;
+        cell.leaveMessage = _orderDetail.leaveMessage;
         return cell;
     }
 }

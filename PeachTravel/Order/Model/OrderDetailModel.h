@@ -30,11 +30,14 @@ typedef enum : NSUInteger {
 @property (nonatomic, copy) NSString *orderStatusDesc;      // 订单状态描述
 @property (nonatomic) NSTimeInterval useDate;      //时间
 @property (nonatomic, copy) NSString *useDateStr;      //时间
+@property (nonatomic, copy) NSString *leaveMessage;      //留言
 @property (nonatomic, strong) GoodsDetailModel *goods;      //商品
 
 @property (nonatomic, strong) GoodsPackageModel *selectedPackage;     //选中的套餐
 @property (nonatomic) NSInteger count;          //订单数量
 @property (nonatomic, strong) NSArray<OrderTravelerInfoModel *> *travelerList;    //旅客信息列表
 @property (nonatomic, strong) OrderContactInfoModel *orderContact;       //订单的联系人
+
+- (id)initWithJson:(id)json;
 
 @end
