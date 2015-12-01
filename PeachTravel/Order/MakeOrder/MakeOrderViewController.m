@@ -120,7 +120,7 @@
     
     _commintOrderBtn = [[UIButton alloc] initWithFrame:CGRectMake(toolBar.bounds.size.width-toolBar.bounds.size.width/5*2, 0, toolBar.bounds.size.width/5*2, 56)];
     [_commintOrderBtn addTarget:self action:@selector(commintOrder:) forControlEvents:UIControlEventTouchUpInside];
-    [_commintOrderBtn setBackgroundColor:UIColorFromRGB(0xff6633)];
+    [_commintOrderBtn setBackgroundImage:[ConvertMethods createImageWithColor:UIColorFromRGB(0xff6633)] forState:UIControlStateNormal];
     [_commintOrderBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     _commintOrderBtn.titleLabel.font = [UIFont systemFontOfSize:17.0];
     [_commintOrderBtn setTitle:@"提交订单" forState:UIControlStateNormal];

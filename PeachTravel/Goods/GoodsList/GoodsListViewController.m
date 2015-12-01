@@ -123,6 +123,8 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     GoodsDetailViewController *ctl = [[GoodsDetailViewController alloc] init];
+    GoodsDetailModel *goodsDetail = [_dataSource objectAtIndex:indexPath.row];
+    ctl.goodsId = goodsDetail.goodsId;
     [self.navigationController pushViewController:ctl animated:YES];
 }
 
