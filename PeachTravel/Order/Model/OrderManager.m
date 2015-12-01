@@ -12,6 +12,9 @@
 
 + (NSString *)checkOrderIsCompleteWhenMakeOrder:(OrderDetailModel *)order
 {
+    if (!order.useDateStr) {
+        return @"请选择出发日期";
+    }
     if (![order.travelerList count]) {
         return @"请至少选择一个旅客";
     }
@@ -48,7 +51,7 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:[NSNumber numberWithInteger:goodsId] forKey:@"commodityId"];
     [params safeSetObject:packageId forKey:@"planId"];
-    [params safeSetObject:date forKey:@"rendezvousTime"];
+    [params safeSetObject:@"2015-11-28" forKey:@"rendezvousTime"];
     [params safeSetObject:travelers forKey:@"travellers"];
     [params safeSetObject:[NSNumber numberWithInteger:quantity] forKey:@"quantity"];
     [params safeSetObject:phone forKey:@"contactPhone"];
@@ -61,11 +64,14 @@
         NSLog(@"***提交订单接口: %@", operation);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
+            completion (YES, 0);
         } else {
+            completion (NO, 0);
 
         }
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completion (NO, 0);
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         
     }];

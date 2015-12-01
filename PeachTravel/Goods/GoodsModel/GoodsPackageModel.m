@@ -10,4 +10,15 @@
 
 @implementation GoodsPackageModel
 
+- (id)initWithJson:(id)json {
+    if (self = [super init]) {
+        _packageDesc = [json objectForKey:@"desc"];
+        _packageName = [json objectForKey:@"title"];
+        _packageId = [json objectForKey:@"planId"];
+        _primePrice = [[json objectForKey:@"marketPrice"] floatValue];
+        _currentPrice = [[json objectForKey:@"price"] floatValue];
+    }
+    return self;
+}
+
 @end

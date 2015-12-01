@@ -16,4 +16,7 @@
 @property (nonatomic) float currentPrice;
 @property (nonatomic) float primePrice;
 
+- (id)initWithJson:(id)json;
+
 @end
+

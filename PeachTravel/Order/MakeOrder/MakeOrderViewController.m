@@ -223,6 +223,7 @@
         
     } else if (indexPath.row == 2) {
         MakeOrderSelectDateTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"makeOrderSelectDataCell" forIndexPath:indexPath];
+        cell.dateLabel.text = _orderDetail.useDateStr;
         [cell.choseDateBtn addTarget:self action:@selector(choseLeftDate:) forControlEvents:UIControlEventTouchUpInside];
         return cell;
         
@@ -348,8 +349,10 @@
 
 - (void)simpleCalendarViewController:(PDTSimpleCalendarViewController *)controller didSelectDate:(NSDate *)date
 {
-    NSLog(@"Date Selected : %@",date);
-    NSLog(@"Date Selected with Locale %@", [date descriptionWithLocale:[NSLocale systemLocale]]);
+    NSString *dateStr =   [ConvertMethods dateToString:date withFormat:@"yyyy-MM-dd" withTimeZone:[NSTimeZone systemTimeZone]];
+    _orderDetail.useDate = date.timeIntervalSince1970;
+    _orderDetail.useDateStr = dateStr;
+    [_tableView reloadData];
 }
 
 @end

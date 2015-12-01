@@ -22,6 +22,12 @@
         if ([json objectForKey:@"locality"] != [NSNull null]) {
             _locality = [[CityDestinationPoi alloc] initWithJson:[json objectForKey:@"locality"]];
         }
+        NSMutableArray *packageList = [[NSMutableArray alloc] init];
+        for (NSDictionary *packageDic in [json objectForKey:@"plans"]) {
+            GoodsPackageModel *package = [[GoodsPackageModel alloc] initWithJson:packageDic];
+            [packageList addObject:package];
+        }
+        _packages = packageList;
         _store = [[StoreDetailModel alloc] initWithJson:[json objectForKey:@"seller"] ];
     }
     return self;
