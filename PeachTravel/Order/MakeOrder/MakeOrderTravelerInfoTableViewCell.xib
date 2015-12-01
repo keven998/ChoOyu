@@ -30,13 +30,6 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </tableView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_dashline_themeColor" translatesAutoresizingMaskIntoConstraints="NO" id="kve-lr-6BF">
-                        <rect key="frame" x="11" y="49" width="309" height="0.5"/>
-                        <animations/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="0.5" id="kfS-hT-4VK"/>
-                        </constraints>
-                    </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qRu-SS-ZtB">
                         <rect key="frame" x="211" y="11" width="98" height="30"/>
                         <animations/>
@@ -52,11 +45,8 @@
                 </subviews>
                 <animations/>
                 <constraints>
-                    <constraint firstItem="kve-lr-6BF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="11" id="5Id-Sa-p4C"/>
-                    <constraint firstAttribute="trailing" secondItem="kve-lr-6BF" secondAttribute="trailing" id="5ql-OI-cRA"/>
                     <constraint firstAttribute="bottom" secondItem="sVK-6m-ecc" secondAttribute="bottom" id="7yK-CP-nhC"/>
                     <constraint firstItem="KYd-Om-DAp" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="D7z-pJ-Nkh"/>
-                    <constraint firstItem="kve-lr-6BF" firstAttribute="top" secondItem="KYd-Om-DAp" secondAttribute="bottom" constant="12" id="OgG-Bm-gEn"/>
                     <constraint firstItem="KYd-Om-DAp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="11" id="PZG-gp-3dG"/>
                     <constraint firstAttribute="trailing" secondItem="qRu-SS-ZtB" secondAttribute="trailing" constant="11" id="ZMH-Ur-MtK"/>
                     <constraint firstAttribute="trailing" secondItem="sVK-6m-ecc" secondAttribute="trailing" constant="11" id="b7A-B9-h6v"/>
@@ -73,7 +63,4 @@
             <point key="canvasLocation" x="240" y="279"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="icon_dashline_themeColor" width="1" height="1"/>
-    </resources>
 </document>

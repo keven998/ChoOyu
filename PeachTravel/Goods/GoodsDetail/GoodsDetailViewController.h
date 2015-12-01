@@ -10,6 +10,6 @@
 
 @interface GoodsDetailViewController : TZViewController
 
-@property (nonatomic, copy) NSString *goodsId;
+@property (nonatomic) NSInteger goodsId;
 
 @end

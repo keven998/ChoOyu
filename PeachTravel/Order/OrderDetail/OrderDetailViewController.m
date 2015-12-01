@@ -16,6 +16,7 @@
 #import "SelectPayPlatformViewController.h"
 #import "AskRefundMoneyViewController.h"
 #import "GoodsDetailViewController.h"
+#import "OrderManager.h"
 
 @interface OrderDetailViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -38,13 +39,15 @@
     [_tableView registerNib:[UINib nibWithNibName:@"OrderDetailContactTableViewCell" bundle:nil] forCellReuseIdentifier:@"orderDetailContactCell"];
     
     _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.bounds.size.width, 55)];
-    
+    [OrderManager asyncLoadOrderDetailWithOrderId:78668897366 completionBlock:^(BOOL isSuccess, OrderDetailModel *orderDetail) {
+        _orderDetail = orderDetail;
+    }];
+
     [self setupToolBar];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)setupToolBar

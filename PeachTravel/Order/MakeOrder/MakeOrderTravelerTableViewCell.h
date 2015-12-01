@@ -11,5 +11,6 @@
 @interface MakeOrderTravelerTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIButton *deleteBtn;
+@property (weak, nonatomic) IBOutlet UIImageView *spaceView;
 
 @end

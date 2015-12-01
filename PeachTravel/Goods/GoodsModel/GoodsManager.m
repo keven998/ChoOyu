@@ -11,7 +11,42 @@
 
 @implementation GoodsManager
 
-//TODO: 实现真正的网络加载数据
++ (void)asyncLoadGoodsDetailWithGoodsId:(NSInteger)goodsId completionBlock:(void (^)(BOOL, NSDictionary *, GoodsDetailModel *))completion
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@/%ld", API_GOODSLIST, goodsId];
+    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [manager GET:url parameters: nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"***开始加载商品详情: %@", operation);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            NSDictionary *goodsDic = [responseObject objectForKey:@"result"];
+            if ([goodsDic isKindOfClass:[NSDictionary class]]) {
+                GoodsDetailModel *goodsDetail = [[GoodsDetailModel alloc] initWithJson:goodsDic];
+                completion(YES, goodsDic, goodsDetail);
+            } else {
+                completion(NO, nil, nil);
+            }
+        } else {
+            completion(NO, nil, nil);
+        }
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        completion(NO, nil, nil);
+        
+    }];
+
+}
+
 + (void)asyncLoadGoodsOfCity:(NSString *)cityId completionBlock:(void (^)(BOOL, NSArray *))completion
 {
     [self asyncLoadGoodsOfCity:cityId category:nil sortBy:nil sortValue:nil startIndex:-1 count:01 completionBlock:completion];
@@ -67,12 +102,10 @@
             completion(YES, retArray);
             
         } else {
-            [SVProgressHUD showHint:HTTP_FAILED_HINT];
             completion(NO, nil);
         }
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [SVProgressHUD showHint:HTTP_FAILED_HINT];
         completion(NO, nil);
         
     }];

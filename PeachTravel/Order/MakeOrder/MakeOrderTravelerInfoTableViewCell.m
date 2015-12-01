@@ -14,7 +14,7 @@
 
 + (CGFloat)heightWithTravelerCount:(NSInteger)count
 {
-    return 44+44*count + 10;     //44: 标题高度  35:每个 cell 的高度，  10:footerView 的高度
+    return 50+44*count + 10;     //44: 标题高度  35:每个 cell 的高度，  10:footerView 的高度
 }
 
 - (void)awakeFromNib {
@@ -61,6 +61,7 @@
     [cell.deleteBtn addTarget:self action:@selector(deleteTraveler:) forControlEvents:UIControlEventTouchUpInside];
     cell.titleLabel.text = [NSString stringWithFormat:@"%@%@ %@:%@", travelerInfo.firstName, travelerInfo.lastName, travelerInfo.IDCategory, travelerInfo.IDNumber];
     cell.deleteBtn.tag = indexPath.section;
+    cell.spaceView.hidden = (indexPath.section == _travelerList.count-1);
     return cell;
 }
 

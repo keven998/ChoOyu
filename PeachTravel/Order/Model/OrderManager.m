@@ -12,6 +12,9 @@
 
 + (NSString *)checkOrderIsCompleteWhenMakeOrder:(OrderDetailModel *)order
 {
+    if (![order.travelerList count]) {
+        return @"请至少选择一个旅客";
+    }
     if (!order.orderContact.lastName || [order.orderContact.lastName isBlankString]) {
         return @"请填写联系人的姓";
     }
@@ -22,6 +25,76 @@
         return @"请填写联系人的电话";
     }
     return nil;
+}
+
++ (void)asyncMakeOrderWithGoodsId:(NSInteger)goodsId
+                        travelers:(NSArray<NSString *> *)travelers
+                        packageId:(NSString *)packageId
+                         playDate:(NSString *)date
+                         quantity:(NSInteger)quantity
+                     contactPhone:(NSString *)phone
+                 contactFirstName:(NSString *)firstName
+                  contactLastName:(NSString *)lastName
+                     leaveMessage:(NSString *)message
+                  completionBlock:(void (^)(BOOL, NSInteger))completion
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params safeSetObject:[NSNumber numberWithInteger:goodsId] forKey:@"commodityId"];
+    [params safeSetObject:packageId forKey:@"planId"];
+    [params safeSetObject:date forKey:@"rendezvousTime"];
+    [params safeSetObject:travelers forKey:@"travellers"];
+    [params safeSetObject:[NSNumber numberWithInteger:quantity] forKey:@"quantity"];
+    [params safeSetObject:phone forKey:@"contactPhone"];
+    [params safeSetObject:firstName forKey:@"contactGivenName"];
+    [params safeSetObject:lastName forKey:@"contactSurname"];
+    [params safeSetObject:message forKey:@"contactComment"];
+
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [manager POST:API_ORDERS parameters: params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"***提交订单接口: %@", operation);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+        } else {
+
+        }
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        
+    }];
+}
+
++ (void)asyncLoadOrderDetailWithOrderId:(NSInteger)orderId completionBlock:(void (^)(BOOL, OrderDetailModel *))completion
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    NSString *url = [NSString stringWithFormat:@"%@/%ld", API_ORDERS, orderId];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [manager GET:url parameters: nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"***获取订单详情接口: %@", operation);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+        } else {
+            
+        }
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        
+    }];
+
 }
 
 + (void)updateOrder:(OrderDetailModel *)orderDetail WithGoodsPackage:(GoodsPackageModel *)selectPackage

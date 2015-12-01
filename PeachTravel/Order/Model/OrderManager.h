@@ -22,6 +22,39 @@
 + (NSString *)checkOrderIsCompleteWhenMakeOrder:(OrderDetailModel *)order;
 
 /**
+ *  提交订单
+ *
+ *  @param goodsId    商品 ID
+ *  @param travelers  旅客信息（包含旅客 ID 的数组）
+ *  @param packageId  套餐 ID
+ *  @param date       使用日期
+ *  @param quantity   购买数量
+ *  @param phone      联系人电话
+ *  @param firstName  联系人名
+ *  @param lastName   联系人姓
+ *  @param message    留言
+ *  @param completion 完成回调
+ */
++ (void)asyncMakeOrderWithGoodsId:(NSInteger)goodsId
+                        travelers:(NSArray<NSString *> *)travelers
+                        packageId:(NSString *)packageId
+                         playDate:(NSString *)date
+                         quantity:(NSInteger)quantity
+                     contactPhone:(NSString *)phone
+                 contactFirstName:(NSString *)firstName
+                  contactLastName:(NSString *)lastName
+                     leaveMessage:(NSString *)message
+                  completionBlock:(void (^)(BOOL isSuccess, NSInteger orderId))completion;
+
+/**
+ *  获取订单详情
+ *
+ *  @param orderId    订单 ID
+ *  @param completion 
+ */
++ (void)asyncLoadOrderDetailWithOrderId:(NSInteger)orderId completionBlock:(void (^) (BOOL isSuccess, OrderDetailModel *orderDetail))completion;
+
+/**
  *  更新订单的套餐
  *
  *  @param orderDetail

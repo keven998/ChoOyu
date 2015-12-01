@@ -18,7 +18,7 @@
 
 @implementation MakeOrderSelectPackageTableViewCell
 
-+ (CGFloat)heightWithPackageCount:(int)count
++ (CGFloat)heightWithPackageCount:(NSUInteger)count
 {
     return 44+(35+12)*count;     //44: 标题高度  35:每个 cell 的高度，  12:每个 footerview 的高度
 }

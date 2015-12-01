@@ -15,8 +15,14 @@
 #import "ShareActivity.h"
 #import "UMSocial.h"
 #import "MakeOrderViewController.h"
+#import "GoodsManager.h"
 
-@interface GoodsDetailViewController ()<RCTBridgeModule, ActivityDelegate>
+@interface GoodsDetailViewController ()<RCTBridgeModule, ActivityDelegate> {
+    RCTBridge *bridge;
+    RCTRootView *rootView;
+}
+
+@property (nonatomic, strong) GoodsDetailModel *goodsDetail;
 
 @end
 
@@ -34,34 +40,30 @@ RCT_EXPORT_MODULE();
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.title = @"商品详情";
-    _goodsId = @"22222";
 
 //      NSURL *jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
-    NSURL *jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/src/index.ios.bundle?platform=ios&dev=true"];
+    NSURL *jsCodeLocation = [NSURL URLWithString:@"http://192.168.1.47:8081/src/index.ios.bundle?platform=ios&dev=true"];
     
-    RCTBridge *bridge = [[RCTBridge alloc] initWithBundleURL:jsCodeLocation
+    bridge = [[RCTBridge alloc] initWithBundleURL:jsCodeLocation
                                               moduleProvider:nil
                                                launchOptions:nil];
     
-    RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge moduleName:@"GoodsDetailClass" initialProperties:nil];
-    
-//    RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
+    NSLog(@"开始初始化");
+    rootView = [[RCTRootView alloc] initWithBridge:bridge moduleName:@"GoodsDetailClass" initialProperties:nil];
+    NSLog(@"结束初始化");
+
+//    rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
 //                                                        moduleName:@"GoodsDetailClass"
-//                                                 initialProperties:@{@"goodsId": self.goodsId}
-//                                                     launchOptions:nil];
-    rootView.frame = CGRectMake(0, 0, kWindowWidth, kWindowHeight);
-    [self.view addSubview:rootView];
+//                                                 initialProperties:@{@"goodsId": @"我是个商品 ID"}
+//                                                     launchOptions:@{@"goodsId": @"我是个商品 ID"}];
     
-    [bridge.eventDispatcher sendAppEventWithName:@"EventReminder"
-                                            body:@{@"goodsId": _goodsId}];
+    rootView.frame = CGRectMake(0, 0, kWindowWidth, kWindowHeight);
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(storeDetail) name:@"gotoStoreDetailNoti" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(makeOrderAction) name:@"makeOrderNoti" object:nil];
-
 
     UIButton *shareBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 40)];
     [shareBtn setImage:[UIImage imageNamed:@"icon_share_gray"] forState:UIControlStateNormal];
@@ -72,12 +74,26 @@ RCT_EXPORT_MODULE();
     [favoriteBtn addTarget:self action:@selector(favorite) forControlEvents:UIControlEventTouchUpInside];
 
     self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithCustomView:favoriteBtn], [[UIBarButtonItem alloc] initWithCustomView:shareBtn]];
-  
+
+    [GoodsManager asyncLoadGoodsDetailWithGoodsId:_goodsId completionBlock:^(BOOL isSuccess, NSDictionary *goodsDetailJson, GoodsDetailModel *goodsDetail) {
+        if (isSuccess) {
+            _goodsDetail = goodsDetail;
+            [self.view addSubview:rootView];
+            [bridge.eventDispatcher sendAppEventWithName:@"GoodsDetailLoadOverEvent" body:@{@"goodsDetailJson": goodsDetailJson}];
+        } else {
+            [SVProgressHUD showHint:HTTP_FAILED_HINT];
+        }
+        
+    }];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear: animated];
+    NSLog(@"viewWillAppera");
+
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -102,6 +118,7 @@ RCT_EXPORT_MODULE();
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         MakeOrderViewController *ctl = [[MakeOrderViewController alloc] init];
+        ctl.goodsModel = _goodsDetail;
         [self.navigationController pushViewController:ctl animated:YES];
     });
 }

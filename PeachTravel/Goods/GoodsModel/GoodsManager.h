@@ -7,8 +7,21 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "GoodsDetailModel.h"
 
 @interface GoodsManager : NSObject
+
+/* *******商品详情*********** */
+
+/**
+*  加商品详情
+*
+*  @param goodsId    商品 ID
+*  @param completion
+*/
++ (void)asyncLoadGoodsDetailWithGoodsId:(NSInteger)goodsId completionBlock:(void (^) (BOOL isSuccess, NSDictionary *goodsDetailJson, GoodsDetailModel *goodsDetail))completion;
+
+/********商品列表************/
 
 /**
  *  加载某个城市的商品列表

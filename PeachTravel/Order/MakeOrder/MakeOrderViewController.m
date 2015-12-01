@@ -155,10 +155,23 @@
         [SVProgressHUD showHint:errorStr];
         return;
     }
-    OrderDetailViewController *ctl = [[OrderDetailViewController alloc] init];
-    _orderDetail.orderStatus = kOrderWaitPay;
-    ctl.orderDetail = _orderDetail;
-    [self.navigationController pushViewController:ctl animated:YES];
+    NSMutableArray *travelerIds = [[NSMutableArray alloc] init];
+    for (OrderTravelerInfoModel *traveler in _orderDetail.travelerList) {
+        [travelerIds addObject:traveler.uid];
+    }
+    
+    [OrderManager asyncMakeOrderWithGoodsId:_orderDetail.goods.goodsId travelers:travelerIds packageId:_orderDetail.selectedPackage.packageId playDate:_orderDetail.useDateStr quantity:_orderDetail.count contactPhone:_orderDetail.orderContact.tel contactFirstName:_orderDetail.orderContact.firstName contactLastName:_orderDetail.orderContact.lastName leaveMessage:_orderDetail.orderContact.message completionBlock:^(BOOL isSuccess, NSInteger orderId) {
+        if (isSuccess) {
+            [SVProgressHUD showHint:@"订单创建成功"];
+            OrderDetailViewController *ctl = [[OrderDetailViewController alloc] init];
+            _orderDetail.orderStatus = kOrderWaitPay;
+            ctl.orderDetail = _orderDetail;
+            [self.navigationController pushViewController:ctl animated:YES];
+        } else {
+            [SVProgressHUD showHint:@"订单创建失败"];
+        }
+    }];
+   
 }
 
 
@@ -186,7 +199,7 @@
     if (indexPath.row == 0) {
         return 72.5;
     } else if (indexPath.row == 1) {
-        return [MakeOrderSelectPackageTableViewCell heightWithPackageCount:3];
+        return [MakeOrderSelectPackageTableViewCell heightWithPackageCount:_orderDetail.goods.packages.count];
     } else if (indexPath.row == 4) {
         return [MakeOrderTravelerInfoTableViewCell heightWithTravelerCount:_orderDetail.travelerList.count];
     } else if (indexPath.row == 5) {

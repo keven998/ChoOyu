@@ -30,6 +30,6 @@
 
 @property (nonatomic, weak) id<MakeOrderSelectPackageDelegate>deleagte;
 
-+ (CGFloat)heightWithPackageCount:(int)count;
++ (CGFloat)heightWithPackageCount:(NSUInteger)count;
 
 @end

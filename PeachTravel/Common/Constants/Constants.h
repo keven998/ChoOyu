@@ -120,6 +120,10 @@
 #define API_GOODS_CATEGORY                      (BASE_URL @"marketplace/commodities/categories")  //商品分类
 #define API_GOODSLIST                           (BASE_URL @"marketplace/commodities")  //商品列表
 
+/*****  订单接口 ******/
+
+#define API_ORDERS                              (BASE_URL @"marketplace/orders")    //订单
+
 /**
  html 接口
  */

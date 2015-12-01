@@ -140,9 +140,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     GoodsDetailViewController *ctl = [[GoodsDetailViewController alloc] init];
-    ctl.goodsId = @"123456789";
+    NSDictionary *dic = [_dataSource objectAtIndex:indexPath.section];
+    GoodsDetailModel *goodsModel = [[dic objectForKey:@"goodsList"] objectAtIndex:indexPath.row];
+    ctl.goodsId = goodsModel.goodsId;
     ctl.hidesBottomBarWhenPushed = YES;
-    
     [self.navigationController pushViewController:ctl animated:YES];
 }
 
