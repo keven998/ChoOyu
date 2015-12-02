@@ -20,45 +20,85 @@
         _totalPrice = [[json objectForKey:@"totalPrice"] floatValue];
         _count = [[json objectForKey:@"quantity"] integerValue];
         _leaveMessage = [json objectForKey:@"comment"];
+        _orderStatus = [self orderStatusWithStatusDescription:[json objectForKey:@"status"]];
     }
     return self;
 }
 
-- (void)setOrderStatus:(OrderStatus)orderStatus
+- (NSString *)orderStatusDesc
 {
-    _orderStatus = orderStatus;
+    NSString *orderStatusDesc = @"";
     switch (_orderStatus) {
         case kOrderInProgress:
-            _orderStatusDesc = @"处理中";
+            orderStatusDesc = @"处理中";
             break;
             
         case kOrderCanceled:
-            _orderStatusDesc = @"已取消";
+            orderStatusDesc = @"已取消";
             break;
             
         case kOrderWaitPay:
-            _orderStatusDesc = @"待付款";
+            orderStatusDesc = @"待付款";
             break;
             
         case kOrderInUse:
-            _orderStatusDesc = @"可使用";
+            orderStatusDesc = @"可使用";
             break;
             
         case kOrderCompletion:
-            _orderStatusDesc = @"已完成";
+            orderStatusDesc = @"已完成";
             break;
             
         case kOrderRefunding:
-            _orderStatusDesc = @"退款申请中";
+            orderStatusDesc = @"退款申请中";
             break;
-
+            
         case kOrderRefunded:
-            _orderStatusDesc = @"已退款";
+            orderStatusDesc = @"已退款";
+            break;
+            
+        case kOrderExpired:
+            orderStatusDesc = @"已过期";
             break;
             
         default:
             break;
     }
+    return orderStatusDesc;
 }
+
+- (OrderStatus)orderStatusWithStatusDescription:(NSString *)statusStr
+{
+    if ([statusStr isEqualToString:@"pending"]) {
+        return kOrderWaitPay;
+        
+    } else if ([statusStr isEqualToString:@"paid"]) {
+        return kOrderInProgress;
+        
+    } else if ([statusStr isEqualToString:@"paid"]) {
+        return kOrderInProgress;
+        
+    } else if ([statusStr isEqualToString:@"committed"]) {
+        return kOrderInUse;
+        
+    } else if ([statusStr isEqualToString:@"finished"]) {
+        return kOrderCompletion;
+        
+    } else if ([statusStr isEqualToString:@"canceled"]) {
+        return kOrderCanceled;
+        
+    } else if ([statusStr isEqualToString:@"expired"]) {
+        return kOrderExpired;
+        
+    } else if ([statusStr isEqualToString:@"refundApplied"]) {
+        return kOrderRefunding;
+        
+    } else if ([statusStr isEqualToString:@"refunded"]) {
+        return kOrderRefunded;
+    }
+    
+    return 0;
+}
+
 
 @end

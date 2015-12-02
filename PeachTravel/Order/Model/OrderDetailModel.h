@@ -19,6 +19,8 @@ typedef enum : NSUInteger {
     kOrderRefunding,        //申请退款中
     kOrderRefunded,         //已退款
     kOrderCompletion,       //已完成
+    kOrderExpired,          //订单已过期
+    
 } OrderStatus;
 
 @interface OrderDetailModel : NSObject

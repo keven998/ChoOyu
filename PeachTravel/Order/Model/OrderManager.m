@@ -67,7 +67,6 @@
             completion (YES, 0);
         } else {
             completion (NO, 0);
-
         }
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -151,7 +150,6 @@
         [orderList addObject:orderDetailModel];
     }
     completion(YES, orderList);
-    
 }
 
 @end

@@ -9,6 +9,7 @@
 #import "TravelerListViewController.h"
 #import "OrderTravelerInfoModel.h"
 #import "TravelerListTableViewCell.h"
+#import "OrderUserInfoManager.h"
 
 @interface TravelerListViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -26,6 +27,10 @@
     _tableView.rowHeight = 130.0;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [_tableView registerNib:[UINib nibWithNibName:@"TravelerListTableViewCell" bundle:nil] forCellReuseIdentifier:@"travelerListCell"];
+    [OrderUserInfoManager asyncLoadTravelersFromServerOfUser:[AccountManager shareAccountManager].account.userId completionBlock:^(BOOL isSuccess, NSArray<OrderTravelerInfoModel *> *travelers) {
+        _travelerList = travelers;
+        [_tableView reloadData];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
