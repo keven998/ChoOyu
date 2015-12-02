@@ -11,6 +11,24 @@
 
 @implementation OrderUserInfoManager
 
++ (NSString *)checkTravelerInfoIsComplete:(OrderTravelerInfoModel *)traveler
+{
+    if (!traveler.lastName || [traveler.lastName isBlankString]) {
+        return @"请填写旅客的姓";
+        
+    } else if (!traveler.firstName || [traveler.firstName isBlankString]) {
+        return @"请填写旅客的名";
+        
+    } else if (!traveler.tel || [traveler.tel isBlankString]) {
+        return @"请填写旅客的电话";
+        
+    } else if (!traveler.IDNumber || [traveler.IDNumber isBlankString]) {
+        return @"请填写旅客的证件号码";
+    }
+    return nil;
+        
+}
+
 + (void)asyncLoadTravelersFromServerOfUser:(NSInteger)userId completionBlock:(void (^)(BOOL, NSArray<OrderTravelerInfoModel *> *))completion
 {
     //TODO:  完善从服务器加载旅客信息
@@ -25,6 +43,11 @@
         [retArray addObject:traveler];
     }
     completion(YES, retArray);
+}
+
++ (void)asyncAddTraveler:(OrderTravelerInfoModel *)traveler completionBlock:(void (^)(BOOL, OrderTravelerInfoModel *))completion
+{
+    
 }
 
 @end

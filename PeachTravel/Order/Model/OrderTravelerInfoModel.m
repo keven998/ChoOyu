@@ -19,7 +19,6 @@
         _IDCategory = [[json objectForKey:@"identities"] objectForKey:@"idType"];
         _IDNumber = [[json objectForKey:@"idntities"] objectForKey:@"number"];
         _tel = [NSString stringWithFormat:@"+%@ %@", [[json objectForKey:@"tel"] objectForKey:@"dialCode"], [[json objectForKey:@"tel"] objectForKey:@"number"]];
-        _sex = [json objectForKey:@"gender"];
     }
     return self;
 }

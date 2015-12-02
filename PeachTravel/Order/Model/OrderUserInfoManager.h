@@ -11,6 +11,17 @@
 
 @interface OrderUserInfoManager : NSObject
 
+
+/**
+ *  检查旅客信息是否填写完整
+ *
+ *  @param traveler 待检查的旅客信息
+ *
+ *  @return 返回错误信息
+ */
++ (NSString *)checkTravelerInfoIsComplete:(OrderTravelerInfoModel *)traveler;
+
+
 /**
  *  从服务器上加载旅客信息
  *
@@ -18,5 +29,13 @@
  *  @param completion 
  */
 + (void)asyncLoadTravelersFromServerOfUser:(NSInteger)userId completionBlock:(void (^) (BOOL isSuccess, NSArray<OrderTravelerInfoModel *> *travelers))completion;
+
+/**
+ *  添加一个旅客信息
+ *
+ *  @param traveler   需要添加的旅客
+ *  @param completion 完成后的回调
+ */
++ (void)asyncAddTraveler:(OrderTravelerInfoModel *)traveler completionBlock:(void (^) (BOOL isSuccess, OrderTravelerInfoModel *traveler))completion;
 
 @end

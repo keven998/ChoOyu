@@ -11,7 +11,9 @@
 
 @interface TravelerInfoViewController : TZViewController
 
-@property (nonatomic) BOOL isEditTravelerInfo;
+@property (nonatomic) BOOL isEditTravelerInfo;   //是否是编辑旅客信息
+@property (nonatomic) BOOL isAddTravelerInfo;    //是否是添加旅客信息
+
 
 @property (nonatomic, strong) OrderTravelerInfoModel *traveler;
 

@@ -7,16 +7,13 @@
 //
 
 #import "TravelerInfoViewController.h"
+#import "OrderUserInfoManager.h"
 
 @interface TravelerInfoViewController () <UITextFieldDelegate, UIActionSheetDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UITextField *firstNameTextField;
 @property (nonatomic, strong) UITextField *lastNameTextField;
-@property (nonatomic, strong) UIButton *maleButton;
-@property (nonatomic, strong) UIButton *femaleButton;
-@property (nonatomic, strong) UILabel *birthdayLabel;
-@property (nonatomic, strong) UIButton *changeBirthdayButton;
 @property (nonatomic, strong) UITextField *telTextField;
 @property (nonatomic, strong) UIButton *IDNumberCategoryButton;
 @property (nonatomic, strong) UITextField *IDNumberTextField;
@@ -27,21 +24,42 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    UIButton *commintBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [commintBtn setTitle:@"完成" forState:UIControlStateNormal];
+    commintBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+    [commintBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
+    commintBtn.titleLabel.font = [UIFont systemFontOfSize:16.0];
+    [commintBtn addTarget:self action:@selector(finishEdit:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:commintBtn];
+
     if (_isEditTravelerInfo) {
         self.navigationItem.title = @"编辑旅客信息";
+        self.navigationItem.rightBarButtonItem = rightItem;
+        _traveler = [[OrderTravelerInfoModel alloc] init];
+        _traveler.IDCategory = @"chineseID";
+        
+    }  else if (_isAddTravelerInfo) {
+        self.navigationItem.title = @"添加旅客信息";
+        self.navigationItem.rightBarButtonItem = rightItem;
+        _traveler = [[OrderTravelerInfoModel alloc] init];
+        _traveler.IDCategory = @"chineseID";
+        
     } else {
         self.navigationItem.title = @"旅客信息";
         self.view.userInteractionEnabled = NO;
     }
+    
+    NSArray *titleArray = @[@"姓(英文)", @"名(英文)", @"电话", @"证件类型", @"证件号码"];
+
     self.view.backgroundColor = [UIColor whiteColor];
     _scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
     _scrollView.contentSize = CGSizeMake(_scrollView.bounds.size.width, _scrollView.bounds.size.height+1);
     [self.view addSubview:_scrollView];
-    UIView *rowSpaceView = [[UIView alloc] initWithFrame:CGRectMake(106, 0, 0.5, 336)];
+    UIView *rowSpaceView = [[UIView alloc] initWithFrame:CGRectMake(106, 0, 0.5, titleArray.count*48)];
     rowSpaceView.backgroundColor = COLOR_LINE;
     [_scrollView addSubview:rowSpaceView];
     
-    NSArray *titleArray = @[@"姓(英文)", @"名(英文)", @"性别", @"出生日期", @"电话", @"证件类型", @"证件号码"];
     for (int i=0; i<titleArray.count; i++) {
         NSString *title = [titleArray objectAtIndex:i];
         UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, i*48-0.5, kWindowWidth, 0.5)];
@@ -54,7 +72,7 @@
         [_scrollView addSubview:titleLabel];
     }
     
-    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 335.5, kWindowWidth, 0.5)];
+    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, rowSpaceView.bounds.size.height, kWindowWidth, 0.5)];
     spaceView.backgroundColor = COLOR_LINE;
     [_scrollView addSubview:spaceView];
     
@@ -76,38 +94,7 @@
     _firstNameTextField.text = _traveler.firstName;
     [_scrollView addSubview:_firstNameTextField];
     
-    _maleButton = [[UIButton alloc] initWithFrame:CGRectMake(126, 48*2, 60, 48)];
-    [_maleButton setImage:[UIImage imageNamed:@"icon_travelerInfo_sex_selected"] forState:UIControlStateSelected];
-    [_maleButton setTitle:@"男" forState:UIControlStateNormal];
-    _maleButton.titleLabel.font = [UIFont systemFontOfSize:15.0];
-    [_maleButton setTitleColor:COLOR_TEXT_III forState:UIControlStateNormal];
-    _maleButton.tag = 1;
-    _maleButton.selected = YES;
-    [_maleButton addTarget:self action:@selector(changeSex:) forControlEvents:UIControlEventTouchUpInside];
-    [_scrollView addSubview:_maleButton];
-    
-    _femaleButton = [[UIButton alloc] initWithFrame:CGRectMake(226, 48*2, 60, 48)];
-    [_femaleButton setImage:[UIImage imageNamed:@"icon_travelerInfo_sex_selected"] forState:UIControlStateSelected];
-    [_femaleButton setTitle:@"女" forState:UIControlStateNormal];
-    _femaleButton.titleLabel.font = [UIFont systemFontOfSize:15.0];
-    [_femaleButton setTitleColor:COLOR_TEXT_III forState:UIControlStateNormal];
-    _femaleButton.tag = 2;
-    [_femaleButton addTarget:self action:@selector(changeSex:) forControlEvents:UIControlEventTouchUpInside];
-    [_scrollView addSubview:_femaleButton];
-      
-    _birthdayLabel = [[UILabel alloc] initWithFrame:CGRectMake(126, 10+48*3, 110, 28)];
-    _birthdayLabel.font = [UIFont systemFontOfSize:15];
-    _birthdayLabel.textColor = COLOR_TEXT_III;
-    _birthdayLabel.text = _traveler.birthday;
-    [_scrollView addSubview:_birthdayLabel];
-    
-    if (_isEditTravelerInfo) {
-        _changeBirthdayButton = [[UIButton alloc] initWithFrame:CGRectMake(kWindowWidth-70, 48*3, 30, 48)];
-        [_changeBirthdayButton setImage:[UIImage imageNamed:@"icon_travelerInfo_changeBirthday"] forState:UIControlStateNormal];
-        [_scrollView addSubview:_changeBirthdayButton];
-    }
-    
-    _telTextField = [[UITextField alloc] initWithFrame:CGRectMake(126, 10+48*4, (kWindowWidth-106)-40, 28)];
+    _telTextField = [[UITextField alloc] initWithFrame:CGRectMake(126, 10+48*2, (kWindowWidth-106)-40, 28)];
     _telTextField.placeholder = @"电话";
     _telTextField.text = _traveler.tel;
     _telTextField.font = [UIFont systemFontOfSize:15];
@@ -116,18 +103,17 @@
     _telTextField.delegate = self;
     [_scrollView addSubview:_telTextField];
     
-    _IDNumberCategoryButton = [[UIButton alloc] initWithFrame:CGRectMake(126, 10+48*5, (kWindowWidth-106)-60, 28)];
-    _IDNumberCategoryButton.layer.borderColor = COLOR_LINE.CGColor;
-    _IDNumberCategoryButton.layer.borderWidth = 0.5;
+    _IDNumberCategoryButton = [[UIButton alloc] initWithFrame:CGRectMake(126, 10+48*3, (kWindowWidth-106)-60, 28)];
+    [_IDNumberCategoryButton setBackgroundImage:[[UIImage imageNamed:@"icon_travelerInfo_selectIDCategory"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 20)] forState:UIControlStateNormal];
     [_IDNumberCategoryButton addTarget:self action:@selector(choseIDCategory:) forControlEvents:UIControlEventTouchUpInside];
     _IDNumberCategoryButton.titleLabel.font = [UIFont systemFontOfSize:15];
     _IDNumberCategoryButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [_IDNumberCategoryButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
     [_IDNumberCategoryButton setTitleColor:COLOR_TEXT_III forState:UIControlStateNormal];
-    [_IDNumberCategoryButton setTitle:_traveler.IDCategory forState:UIControlStateNormal];
+    [_IDNumberCategoryButton setTitle:_traveler.IDCategoryDesc forState:UIControlStateNormal];
     [_scrollView addSubview:_IDNumberCategoryButton];
     
-    _IDNumberTextField = [[UITextField alloc] initWithFrame:CGRectMake(126, 10+48*6, (kWindowWidth-106)-40, 28)];
+    _IDNumberTextField = [[UITextField alloc] initWithFrame:CGRectMake(126, 10+48*4, (kWindowWidth-106)-40, 28)];
     _IDNumberTextField.placeholder = @"证件号码";
     _IDNumberTextField.font = [UIFont systemFontOfSize:15];
     _IDNumberTextField.textColor = COLOR_TEXT_III;
@@ -146,10 +132,21 @@
     _traveler = traveler;
 }
 
-- (void)changeSex:(UIButton *)sender
+- (IBAction)finishEdit:(id)sender
 {
-    _maleButton.selected = !_maleButton.selected;
-    _femaleButton.selected = !_femaleButton.selected;
+    _traveler.firstName = _firstNameTextField.text;
+    _traveler.lastName = _lastNameTextField.text;
+    _traveler.tel = _telTextField.text;
+    _traveler.IDNumber = _IDNumberTextField.text;
+    if ([OrderUserInfoManager checkTravelerInfoIsComplete:_traveler]) {
+        [SVProgressHUD showHint:[OrderUserInfoManager checkTravelerInfoIsComplete:_traveler]];
+        
+    } else {
+        [OrderUserInfoManager asyncAddTraveler:_traveler completionBlock:^(BOOL isSuccess, OrderTravelerInfoModel *traveler) {
+            
+        }];
+        
+    }
 }
 
 - (void)choseIDCategory:(UIButton *)sender
@@ -163,8 +160,11 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) {
-        
+        _traveler.IDCategory = @"chineseID";
+    } else if (buttonIndex == 1) {
+        _traveler.IDCategory = @"passport";
     }
+    [_IDNumberCategoryButton setTitle:_traveler.IDCategoryDesc forState:UIControlStateNormal];
 }
 
 #pragma mark - UITextFieldDelegate

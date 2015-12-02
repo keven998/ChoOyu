@@ -10,6 +10,7 @@
 #import "OrderTravelerInfoModel.h"
 #import "TravelerListTableViewCell.h"
 #import "OrderUserInfoManager.h"
+#import "TravelerInfoViewController.h"
 
 @interface TravelerListViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -31,12 +32,28 @@
         _travelerList = travelers;
         [_tableView reloadData];
     }];
+    
+    UIButton *addTravelerBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [addTravelerBtn setTitle:@"添加" forState:UIControlStateNormal];
+    addTravelerBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+    [addTravelerBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
+    addTravelerBtn.titleLabel.font = [UIFont systemFontOfSize:16.0];
+    [addTravelerBtn addTarget:self action:@selector(addTraveler:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:addTravelerBtn];
+    self.navigationItem.rightBarButtonItem = rightItem;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
+
+- (IBAction)addTraveler:(id)sender
+{
+    TravelerInfoViewController *ctl = [[TravelerInfoViewController alloc] init];
+    ctl.isAddTravelerInfo = YES;
+    [self.navigationController pushViewController:ctl animated:YES];
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;

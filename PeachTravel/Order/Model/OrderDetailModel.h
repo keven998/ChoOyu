@@ -29,7 +29,7 @@ typedef enum : NSUInteger {
 @property (nonatomic, copy) NSString *orderName;
 @property (nonatomic) float totalPrice;             //总价格
 @property (nonatomic) OrderStatus orderStatus;      // 订单状态
-@property (nonatomic, copy) NSString *orderStatusDesc;      // 订单状态描述
+@property (nonatomic, copy, readonly) NSString *orderStatusDesc;      // 订单状态描述
 @property (nonatomic) NSTimeInterval useDate;      //时间
 @property (nonatomic, copy) NSString *useDateStr;      //时间
 @property (nonatomic, copy) NSString *leaveMessage;      //留言

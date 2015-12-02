@@ -19,9 +19,7 @@
 @property (nonatomic, copy) NSString *tel;
 @property (nonatomic, copy) NSString *IDNumber;         //证件号码
 @property (nonatomic, copy) NSString *IDCategory;       //证件类型
-@property (nonatomic, copy) NSString *IDCategoryDesc;   //证件类型描述，中文
-@property (nonatomic, copy) NSString *sex;              //证件类型描述，中文
-
+@property (nonatomic, copy, readonly) NSString *IDCategoryDesc;   //证件类型描述，中文
 
 - (id)initWithJson:(id)json;
 
