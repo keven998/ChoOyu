@@ -21,6 +21,12 @@
         _count = [[json objectForKey:@"quantity"] integerValue];
         _leaveMessage = [json objectForKey:@"comment"];
         _orderStatus = [self orderStatusWithStatusDescription:[json objectForKey:@"status"]];
+        NSMutableArray *tempTravelerList = [[NSMutableArray alloc] init];
+        for (NSDictionary *dic in [json objectForKey:@"travellers"]) {
+            OrderTravelerInfoModel *traveler = [[OrderTravelerInfoModel alloc] initWithJson:dic];
+            [tempTravelerList addObject:traveler];
+        }
+        _travelerList = tempTravelerList;
     }
     return self;
 }
