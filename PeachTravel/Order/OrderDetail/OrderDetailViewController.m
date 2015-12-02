@@ -39,7 +39,7 @@
     [_tableView registerNib:[UINib nibWithNibName:@"OrderDetailContactTableViewCell" bundle:nil] forCellReuseIdentifier:@"orderDetailContactCell"];
     
     _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.bounds.size.width, 55)];
-    [OrderManager asyncLoadOrderDetailWithOrderId:1448889797179 completionBlock:^(BOOL isSuccess, OrderDetailModel *orderDetail) {
+    [OrderManager asyncLoadOrderDetailWithOrderId:1448694682614 completionBlock:^(BOOL isSuccess, OrderDetailModel *orderDetail) {
         _orderDetail = orderDetail;
         [self.tableView reloadData];
     }];
