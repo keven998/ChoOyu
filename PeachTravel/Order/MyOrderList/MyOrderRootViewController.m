@@ -13,6 +13,7 @@
 @interface MyOrderRootViewController () <DKTabPageViewControllerDelegate>
 
 @property (nonatomic, strong) NSMutableArray<MyOrderListViewController *> *orderListControllers;
+@property (nonatomic, strong) NSArray<OrderDetailModel *> *allOrderList;
 
 @end
 
@@ -84,9 +85,16 @@
     for (int i=0 ; i<orderTypeList.count; i++) {
         if (_orderType == [[orderTypeList objectAtIndex:i] integerValue]) {
             tabPageViewController.selectedIndex = i;
-            return;
+            break;
         }
     }
+    
+    [OrderManager asyncLoadOrdersFromServerOfUser:100003 completionBlock:^(BOOL isSuccess, NSArray<OrderDetailModel *> *orderList) {
+        _allOrderList = orderList;
+        for (MyOrderListViewController *ctl in _orderListControllers) {
+            ctl.dataSource = [OrderManager filterOrderListWithOrderType:ctl.orderType andOrderList:_allOrderList];
+        }
+    }];
 
 }
 
@@ -97,10 +105,6 @@
 #pragma mark - DKTabPageViewControllerDelegate
 - (void)didSelectedAtIndex:(NSInteger)index
 {
-    MyOrderListViewController *ctl = [_orderListControllers objectAtIndex:index];
-    [OrderManager asyncLoadMyOrderFromServerWithOrderType:ctl.orderType completionBlock:^(BOOL isSuccess, NSArray<OrderDetailModel *> *orderList) {
-        ctl.dataSource = orderList;
-    }];
 
 }
 @end

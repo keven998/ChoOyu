@@ -80,12 +80,21 @@
 + (float)orderTotalPrice:(OrderDetailModel *)orderDetail;
 
 /**
- *  异步从网上加载我的订单
- *
- *  @param orderType  订单类型  0：全部订单 其余类型按照指定累心
- *  @param completion 
+ *  加载我的全部订单列表
+ * 
+ *  @param userId 用户 ID
+ *  @param completion
  */
-+ (void)asyncLoadMyOrderFromServerWithOrderType:(OrderStatus)orderType completionBlock:(void(^)(BOOL isSuccess, NSArray<OrderDetailModel *> *orderList))completion;
++ (void)asyncLoadOrdersFromServerOfUser:(NSInteger)userId completionBlock:(void (^)(BOOL isSuccess, NSArray<OrderDetailModel *> * orderList))completion;
 
+/**
+ *  用指定的类型筛选订单列表
+ *
+ *  @param orderType 需要的订单类型
+ *  @param orderList 待筛选的订单列表 如果为0则不进行筛选
+ *
+ *  @return 筛选完的订单列表
+ */
++ (NSArray<OrderDetailModel *> *)filterOrderListWithOrderType:(OrderStatus)orderType andOrderList:(NSArray<OrderDetailModel *> *)orderList;
 
 @end

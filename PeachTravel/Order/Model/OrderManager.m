@@ -127,33 +127,59 @@
     return orderDetail.selectedPackage.currentPrice * orderDetail.count;
 }
 
-+ (void)asyncLoadMyOrderFromServerWithOrderType:(OrderStatus)orderType completionBlock:(void (^)(BOOL, NSArray<OrderDetailModel *> *))completion
++ (void)asyncLoadOrdersFromServerOfUser:(NSInteger)userId completionBlock:(void (^)(BOOL isSuccess, NSArray<OrderDetailModel *> * orderList))completion
 {
-    //TODO: 完成从服务器上加载
-
-    NSMutableArray *orderList = [[NSMutableArray alloc] init];
-    for (int i = 0; i<5; i++) {
-        OrderDetailModel *orderDetailModel = [[OrderDetailModel alloc] init];
-        if (orderType == 0) {
-            orderDetailModel.orderStatus = i+1;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    NSString *url = [NSString stringWithFormat:@"%@", API_ORDERS];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:[NSNumber numberWithInteger:userId] forKey:@"userId"];
+    
+    [manager GET:url parameters: params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"***获取订单列表接口: %@", operation);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            if ([[responseObject objectForKey:@"result"] isKindOfClass:[NSArray class]]) {
+                NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+                for (NSDictionary *dic in [responseObject objectForKey:@"result"]) {
+                    OrderDetailModel *orderDetail = [[OrderDetailModel alloc] initWithJson:dic];
+                    [tempArray addObject:orderDetail];
+                }
+                completion(YES, tempArray);
+            } else {
+                completion(NO, nil);
+            }
         } else {
-            orderDetailModel.orderStatus = orderType;
+            completion(NO, nil);
+            
         }
-        orderDetailModel.orderName = @"军都山滑雪全天";
-        GoodsDetailModel *goods = [[GoodsDetailModel alloc] init];
-        goods.goodsName = @"军都山滑雪全天";
-        goods.image = [[TaoziImage alloc] init];
-        goods.image.imageUrl = @"http://images.taozilvxing.com/c8915e680131f7e94358c52d50de9b70?imageView2/2/w/1200";
-        orderDetailModel.useDateStr = @"2015-12-25";
-        orderDetailModel.totalPrice = 245;
-        orderDetailModel.goods = goods;
-        GoodsPackageModel *package = [[GoodsPackageModel alloc] init];
-        package.packageName = @"单人全天滑雪套餐";
-        orderDetailModel.selectedPackage = package;
-        orderDetailModel.count = 4;
-        [orderList addObject:orderDetailModel];
-    }
-    completion(YES, orderList);
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        completion(NO, nil);
+        
+    }];
 }
+
++ (NSArray<OrderDetailModel *> *)filterOrderListWithOrderType:(OrderStatus)orderType andOrderList:(NSArray<OrderDetailModel *> *)orderList
+{
+    if (orderType == 0) {    //如果传的类型为0 则不进行筛选
+        return orderList;
+    }
+    NSMutableArray *retArray = [[NSMutableArray alloc] init];
+    for (OrderDetailModel *order in orderList) {
+        if (orderType == order.orderStatus) {
+            [retArray addObject:order];
+        }
+    }
+    return retArray;
+}
+
 
 @end
