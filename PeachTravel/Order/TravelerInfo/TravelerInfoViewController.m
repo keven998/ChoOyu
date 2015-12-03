@@ -36,8 +36,6 @@
     if (_isEditTravelerInfo) {
         self.navigationItem.title = @"编辑旅客信息";
         self.navigationItem.rightBarButtonItem = rightItem;
-        _traveler = [[OrderTravelerInfoModel alloc] init];
-        _traveler.IDCategory = @"chineseID";
         
     }  else if (_isAddTravelerInfo) {
         self.navigationItem.title = @"添加旅客信息";
@@ -142,10 +140,21 @@
         [SVProgressHUD showHint:[OrderUserInfoManager checkTravelerInfoIsComplete:_traveler]];
         
     } else {
-        [OrderUserInfoManager asyncAddTraveler:_traveler completionBlock:^(BOOL isSuccess, OrderTravelerInfoModel *traveler) {
-            
-        }];
-        
+        if (_isAddTravelerInfo) {
+            [OrderUserInfoManager asyncAddTraveler:_traveler completionBlock:^(BOOL isSuccess, OrderTravelerInfoModel *traveler) {
+                if (isSuccess) {
+                    [SVProgressHUD showHint:@"添加成功"];
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
+            }];
+        } else {
+            [OrderUserInfoManager asyncEditTraveler:_traveler completionBlock:^(BOOL isSuccess, OrderTravelerInfoModel *traveler) {
+                if (isSuccess) {
+                    [SVProgressHUD showHint:@"修改成功"];
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
+            }];
+        }
     }
 }
 

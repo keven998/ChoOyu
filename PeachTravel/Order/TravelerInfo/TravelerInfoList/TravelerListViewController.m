@@ -28,10 +28,6 @@
     _tableView.rowHeight = 130.0;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [_tableView registerNib:[UINib nibWithNibName:@"TravelerListTableViewCell" bundle:nil] forCellReuseIdentifier:@"travelerListCell"];
-    [OrderUserInfoManager asyncLoadTravelersFromServerOfUser:[AccountManager shareAccountManager].account.userId completionBlock:^(BOOL isSuccess, NSArray<OrderTravelerInfoModel *> *travelers) {
-        _travelerList = travelers;
-        [_tableView reloadData];
-    }];
     
     UIButton *addTravelerBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [addTravelerBtn setTitle:@"添加" forState:UIControlStateNormal];
@@ -41,6 +37,16 @@
     [addTravelerBtn addTarget:self action:@selector(addTraveler:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:addTravelerBtn];
     self.navigationItem.rightBarButtonItem = rightItem;
+}
+
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [OrderUserInfoManager asyncLoadTravelersFromServerOfUser:[AccountManager shareAccountManager].account.userId completionBlock:^(BOOL isSuccess, NSArray<OrderTravelerInfoModel *> *travelers) {
+        _travelerList = travelers;
+        [_tableView reloadData];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -86,6 +92,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    TravelerInfoViewController *ctl = [[TravelerInfoViewController alloc] init];
+    ctl.traveler = [_travelerList objectAtIndex:indexPath.row];
+    ctl.isEditTravelerInfo = YES;
+    [self.navigationController pushViewController:ctl animated:YES];
 }
 
 @end

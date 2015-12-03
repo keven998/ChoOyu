@@ -23,8 +23,8 @@
 - (void)setTravelerInfo:(OrderTravelerInfoModel *)travelerInfo
 {
     _travelerInfo = travelerInfo;
-    _nameLabel.text = [NSString stringWithFormat:@"%@%@", _travelerInfo.firstName, _travelerInfo.lastName];
+    _nameLabel.text = [NSString stringWithFormat:@"%@ %@", _travelerInfo.lastName, _travelerInfo.firstName];
     _telLabel.text = travelerInfo.tel;
-    _IDNumberLabel.text = [NSString stringWithFormat:@"%@ %@", _travelerInfo.IDCategory, _travelerInfo.IDNumber];
+    _IDNumberLabel.text = [NSString stringWithFormat:@"%@ %@", _travelerInfo.IDCategoryDesc, _travelerInfo.IDNumber];
 }
 @end

@@ -38,4 +38,12 @@
  */
 + (void)asyncAddTraveler:(OrderTravelerInfoModel *)traveler completionBlock:(void (^) (BOOL isSuccess, OrderTravelerInfoModel *traveler))completion;
 
+/**
+ *  修改旅客信息
+ *
+ *  @param traveler   需要修改的旅客
+ *  @param completion 完成后的回掉
+ */
++ (void)asyncEditTraveler:(OrderTravelerInfoModel *)traveler completionBlock:(void (^) (BOOL isSuccess, OrderTravelerInfoModel *traveler))completion;
+
 @end
