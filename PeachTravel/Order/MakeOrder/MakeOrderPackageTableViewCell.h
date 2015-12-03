@@ -13,6 +13,7 @@
 
 @property (nonatomic, strong) NSString *packageTitle;
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *contentLabel;
 @property (nonatomic) BOOL isSelected;
 
 @end

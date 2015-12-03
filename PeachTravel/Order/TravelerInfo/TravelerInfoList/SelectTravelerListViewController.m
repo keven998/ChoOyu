@@ -113,7 +113,7 @@
     TravelerInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"travelerInfoTableViewCell" forIndexPath:indexPath];
     cell.selectBtn.tag = indexPath.row;
     cell.titleLabel.text = [NSString stringWithFormat:@"%@%@", travelerInfo.firstName, travelerInfo.lastName];
-    cell.subTitleLabel.text = [NSString stringWithFormat:@"%@:  %@", travelerInfo.IDCategory, travelerInfo.IDNumber];
+    cell.subTitleLabel.text = [NSString stringWithFormat:@"%@:  %@", travelerInfo.IDCategoryDesc, travelerInfo.IDNumber];
     [cell.selectBtn addTarget:self action:@selector(selectTraveler:) forControlEvents:UIControlEventTouchUpInside];
     cell.selectBtn.selected = [self travelerIsSelected:travelerInfo];
     cell.editBtn.tag = indexPath.row;

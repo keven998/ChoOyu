@@ -45,6 +45,8 @@
     AppUtils *utils = [[AppUtils alloc] init];
     [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", [AccountManager shareAccountManager].account.userId] forHTTPHeaderField:@"UserId"];
+
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
@@ -58,6 +60,7 @@
     [params safeSetObject:firstName forKey:@"contactGivenName"];
     [params safeSetObject:lastName forKey:@"contactSurname"];
     [params safeSetObject:message forKey:@"contactComment"];
+    [params safeSetObject:@"" forKey:@"contactEmail"];
 
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [manager POST:API_ORDERS parameters: params success:^(AFHTTPRequestOperation *operation, id responseObject) {

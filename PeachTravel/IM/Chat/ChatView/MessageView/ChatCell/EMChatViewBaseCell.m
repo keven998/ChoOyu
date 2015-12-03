@@ -149,6 +149,11 @@ NSString *const kRouterEventChatHeadImageTapEventName = @"kRouterEventChatHeadIm
         }
             break;
             
+        case IMMessageTypeGoodsMessageType: {
+            identifier = [identifier stringByAppendingString:@"goods"];
+        }
+            break;
+            
             
         default: {
             model.content = @"升级新版本才可以查看这条神秘消息哦";

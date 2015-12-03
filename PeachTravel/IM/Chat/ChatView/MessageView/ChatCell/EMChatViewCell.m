@@ -205,6 +205,11 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
         }
             break;
             
+        case IMMessageTypeGoodsMessageType: {
+            
+        }
+            break;
+            
         default: {
             messageModel.content = @"升级新版本才可以查看这条神秘消息哦";
             return [[EMChatTextBubbleView alloc] init];

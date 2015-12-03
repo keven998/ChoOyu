@@ -297,6 +297,11 @@ class MessageManager: NSObject {
                 case .Html5MessageType:
                     messageModel = HtmlMessage()
                     
+                case .GoodsMessageType:
+                    break
+                    
+                case .GoodsLinkMessageType:
+                    break
                 }
                 
                 if let contents = messageDic.objectForKey("contents") as? String {

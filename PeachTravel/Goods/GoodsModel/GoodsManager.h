@@ -27,9 +27,11 @@
  *  加载某个城市的商品列表
  *
  *  @param cityId     城市 id
+ *  @param startIndex 从第几个开始加载
+ *  @param count   加载数量
  *  @param completion 返回数据
  */
-+ (void)asyncLoadGoodsOfCity:(NSString *)cityId completionBlock:(void (^)(BOOL isSuccess, NSArray *goodsList))completion;
++ (void)asyncLoadGoodsOfCity:(NSString *)cityId startIndex:(NSInteger)startIndex count:(NSUInteger)count completionBlock:(void (^)(BOOL isSuccess, NSArray *goodsList))completion;
 
 /**
  *  加载某个城市的商品列表，添加分类纬度

@@ -718,6 +718,8 @@
 		D94E25691BECADE100DB487D /* GoodsListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D94E25671BECADE100DB487D /* GoodsListViewController.xib */; };
 		D94E256D1BECAE2A00DB487D /* GoodsListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D94E256B1BECAE2A00DB487D /* GoodsListTableViewCell.m */; };
 		D94E256E1BECAE2A00DB487D /* GoodsListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D94E256C1BECAE2A00DB487D /* GoodsListTableViewCell.xib */; };
+		D95184171C1019170032C83F /* ChatGoodsLinkTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D95184151C1019170032C83F /* ChatGoodsLinkTableViewCell.m */; };
+		D95184181C1019170032C83F /* ChatGoodsLinkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D95184161C1019170032C83F /* ChatGoodsLinkTableViewCell.xib */; };
 		D955E3E019E7A23800047F2B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D955E3DF19E7A23800047F2B /* Security.framework */; };
 		D955E3E219E7A24500047F2B /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D955E3E119E7A24500047F2B /* libiconv.dylib */; };
 		D955E3E419E7A24E00047F2B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D955E3E319E7A24D00047F2B /* SystemConfiguration.framework */; };
@@ -2970,6 +2972,9 @@
 		D94E256A1BECAE2A00DB487D /* GoodsListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsListTableViewCell.h; sourceTree = "<group>"; };
 		D94E256B1BECAE2A00DB487D /* GoodsListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsListTableViewCell.m; sourceTree = "<group>"; };
 		D94E256C1BECAE2A00DB487D /* GoodsListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoodsListTableViewCell.xib; sourceTree = "<group>"; };
+		D95184141C1019170032C83F /* ChatGoodsLinkTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatGoodsLinkTableViewCell.h; sourceTree = "<group>"; };
+		D95184151C1019170032C83F /* ChatGoodsLinkTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatGoodsLinkTableViewCell.m; sourceTree = "<group>"; };
+		D95184161C1019170032C83F /* ChatGoodsLinkTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatGoodsLinkTableViewCell.xib; sourceTree = "<group>"; };
 		D955E3DF19E7A23800047F2B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		D955E3E119E7A24500047F2B /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		D955E3E319E7A24D00047F2B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -7295,6 +7300,9 @@
 				D9A800D51A80DD23005AD701 /* EMChatViewBaseCell.m */,
 				D94B890D1B5E104B00584DE5 /* ChatQuestionTableViewCell.h */,
 				D94B890E1B5E104B00584DE5 /* ChatQuestionTableViewCell.m */,
+				D95184141C1019170032C83F /* ChatGoodsLinkTableViewCell.h */,
+				D95184151C1019170032C83F /* ChatGoodsLinkTableViewCell.m */,
+				D95184161C1019170032C83F /* ChatGoodsLinkTableViewCell.xib */,
 				D9A800D61A80DD23005AD701 /* EMChatViewCell.h */,
 				D9A800D71A80DD23005AD701 /* EMChatViewCell.m */,
 				D9A800DA1A80DD23005AD701 /* TipsChatTableViewCell.h */,
@@ -10027,6 +10035,7 @@
 				01AE46511BBBCCB400338125 /* introduce_6p_4@2x.png in Resources */,
 				E6F18A651B845F4900232EEB /* ic_home_level_bg_unknown@3x.png in Resources */,
 				D971E2831B8AF27A007E5AFD /* plan_delete@2x.png in Resources */,
+				D95184181C1019170032C83F /* ChatGoodsLinkTableViewCell.xib in Resources */,
 				0115C9BE1BB103FC00631928 /* citydetail_king_head@3x.png in Resources */,
 				D94B891D1B5E4F4C00584DE5 /* h5_labar_right_disabled@3x.png in Resources */,
 				E6381C071B66269000CF73AA /* Loading_Animation_final49@2x.png in Resources */,
@@ -11803,6 +11812,7 @@
 				D9A8FFCC1A80D216005AD701 /* HotDestinationCollectionViewCell.m in Sources */,
 				D9A801451A80DD23005AD701 /* TaoziChatBaseBubbleView.m in Sources */,
 				D9E0EECD1B79A60D003872DF /* ChatAlbumCollectionViewController.m in Sources */,
+				D95184171C1019170032C83F /* ChatGoodsLinkTableViewCell.m in Sources */,
 				D9A8FF5D1A80CF19005AD701 /* SearchDestinationViewController.m in Sources */,
 				C640640F1B42B9FF00613367 /* CityImageAlbum.m in Sources */,
 				D9A800671A80DD0C005AD701 /* ContactListViewController.m in Sources */,

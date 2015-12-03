@@ -56,7 +56,7 @@
         }
         
     }];
-    [GoodsManager asyncLoadGoodsOfCity:_cityId completionBlock:^(BOOL isSuccess, NSArray *goodsList) {
+    [GoodsManager asyncLoadGoodsOfCity:_cityId startIndex:0 count:3 completionBlock:^(BOOL isSuccess, NSArray *goodsList) {
         if (isSuccess) {
             _dataSource = goodsList;
             [_tableView reloadData];

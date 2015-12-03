@@ -145,6 +145,8 @@
                 if (isSuccess) {
                     [SVProgressHUD showHint:@"添加成功"];
                     [self.navigationController popViewControllerAnimated:YES];
+                } else {
+                    [SVProgressHUD showHint:@"添加失败"];
                 }
             }];
         } else {
@@ -152,6 +154,8 @@
                 if (isSuccess) {
                     [SVProgressHUD showHint:@"修改成功"];
                     [self.navigationController popViewControllerAnimated:YES];
+                } else {
+                    [SVProgressHUD showHint:@"修改失败"];
                 }
             }];
         }

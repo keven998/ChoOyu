@@ -47,9 +47,9 @@
 
 }
 
-+ (void)asyncLoadGoodsOfCity:(NSString *)cityId completionBlock:(void (^)(BOOL, NSArray *))completion
++ (void)asyncLoadGoodsOfCity:(NSString *)cityId startIndex:(NSInteger)startIndex count:(NSUInteger)count completionBlock:(void (^)(BOOL isSuccess, NSArray *goodsList))completion
 {
-    [self asyncLoadGoodsOfCity:cityId category:nil sortBy:nil sortValue:nil startIndex:0 count:15 completionBlock:completion];
+    [self asyncLoadGoodsOfCity:cityId category:nil sortBy:nil sortValue:nil startIndex:startIndex count:count completionBlock:completion];
 }
 
 + (void)asyncLoadGoodsOfCity:(NSString *)cityId category:(NSString *)category completionBlock:(void (^)(BOOL, NSArray *))completion

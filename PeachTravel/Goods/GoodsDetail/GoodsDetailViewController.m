@@ -45,8 +45,8 @@ RCT_EXPORT_MODULE();
     self.navigationItem.title = @"商品详情";
 
 //      NSURL *jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
-//    NSURL *jsCodeLocation = [NSURL URLWithString:@"http://192.168.1.47:8081/src/index.ios.bundle?platform=ios&dev=true"];
-    NSURL *jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/src/index.ios.bundle?platform=ios&dev=true"];
+    NSURL *jsCodeLocation = [NSURL URLWithString:@"http://192.168.1.47:8081/src/index.ios.bundle?platform=ios&dev=true"];
+//    NSURL *jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/src/index.ios.bundle?platform=ios&dev=true"];
 
     
     bridge = [[RCTBridge alloc] initWithBundleURL:jsCodeLocation
@@ -56,11 +56,6 @@ RCT_EXPORT_MODULE();
     NSLog(@"开始初始化");
     rootView = [[RCTRootView alloc] initWithBridge:bridge moduleName:@"GoodsDetailClass" initialProperties:nil];
     NSLog(@"结束初始化");
-
-//    rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
-//                                                        moduleName:@"GoodsDetailClass"
-//                                                 initialProperties:@{@"goodsId": @"我是个商品 ID"}
-//                                                     launchOptions:@{@"goodsId": @"我是个商品 ID"}];
     
     rootView.frame = CGRectMake(0, 0, kWindowWidth, kWindowHeight);
 

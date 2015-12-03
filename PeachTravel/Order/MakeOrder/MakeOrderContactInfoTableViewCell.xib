@@ -107,6 +107,15 @@
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     </textView>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="+86" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9hQ-by-XH3">
+                        <rect key="frame" x="90" y="137" width="219" height="30"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="r3w-g3-ZJf"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next"/>
+                    </textField>
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Last Name,如Zhang" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uip-ma-BCi">
                         <rect key="frame" x="90" y="61" width="219" height="30"/>
                         <animations/>
@@ -114,7 +123,7 @@
                             <constraint firstAttribute="height" constant="30" id="JMT-ej-zbC"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                        <textInputTraits key="textInputTraits" returnKeyType="next"/>
                     </textField>
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="First Name,如Xiaoxiao" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="t8b-6f-pUU">
                         <rect key="frame" x="90" y="99" width="219" height="30"/>
@@ -123,16 +132,7 @@
                             <constraint firstAttribute="height" constant="30" id="Irt-8S-9Nr"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="done"/>
-                    </textField>
-                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="+86" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9hQ-by-XH3">
-                        <rect key="frame" x="90" y="137" width="219" height="30"/>
-                        <animations/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="30" id="r3w-g3-ZJf"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="done"/>
+                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="next"/>
                     </textField>
                 </subviews>
                 <animations/>

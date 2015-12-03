@@ -36,6 +36,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _orderDetail = [[OrderDetailModel alloc] init];
+    _orderDetail.orderContact = [[OrderContactInfoModel alloc] init];
     _orderDetail.goods = _goodsModel;
     _orderDetail.count = 1;
     _orderDetail.selectedPackage = [_goodsModel.packages firstObject];
@@ -254,7 +255,14 @@
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
     if ([string isEqualToString:@"\n"]) {
-        [self.tableView endEditing:YES];
+        MakeOrderContactInfoTableViewCell *cell = [_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:5 inSection:0]];
+        if ([textField isEqual:cell.lastNameTextField]) {
+            [cell.firstNameTextField becomeFirstResponder];
+        } else  if ([textField isEqual:cell.firstNameTextField]) {
+            [cell.telTextField becomeFirstResponder];
+        } else  if ([textField isEqual:cell.telTextField]) {
+            [cell.messageTextView becomeFirstResponder];
+        }
         return NO;
     }
     return YES;

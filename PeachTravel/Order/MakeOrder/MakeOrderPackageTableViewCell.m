@@ -19,7 +19,7 @@
 - (void)setPackageTitle:(NSString *)packageTitle
 {
     _packageTitle = packageTitle;
-    [_orderContentBtn setTitle:_packageTitle forState:UIControlStateNormal];
+    _contentLabel.text = _packageTitle;
 }
 
 - (void)setIsSelected:(BOOL)isSelected

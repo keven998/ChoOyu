@@ -45,10 +45,10 @@
 #import "REFrostedViewController.h"
 #import "TripPlanSettingViewController.h"
 #import "ChatQuestionTableViewCell.h"
+#import "ChatGoodsLinkTableViewCell.h"
 #import "SuperWebViewController.h"
 #import "OtherProfileViewController.h"
 #import "ConvertToCommonEmoticonsHelper.h"
-
 #import "TripDetailRootViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import "PeachTravel-swift.h"
@@ -152,7 +152,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeAllMessages:) name:@"RemoveAllMessages" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(exitGroup) name:@"ExitGroup" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground) name:@"applicationDidEnterBackground" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateChatView:) name:updateChateViewNoti object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(insertMessage2ChatView:) name:updateChateViewNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateChatTitle:) name:updateChateGroupTitleNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardHidden) name:UIKeyboardWillHideNotification object:nil];
     
@@ -381,7 +381,7 @@
  *
  *  @param noti 包含新消息内容的 noti
  */
-- (void)updateChatView:(NSNotification *)noti
+- (void)insertMessage2ChatView:(NSNotification *)noti
 {
     BaseMessage *message = [noti.userInfo objectForKey:@"message"];
     //如果是发送的消息是属于当前页面的
@@ -977,6 +977,25 @@
 
 #pragma mark - Table view data source
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSObject *obj = [self.dataSource objectAtIndex:indexPath.row];
+    if ([obj isKindOfClass:[NSString class]]) {
+        return 40;
+    } else if ([obj isKindOfClass:[MessageModel class]]) {
+        if (((MessageModel *)obj).type == IMMessageTypeQuestionMessageType) {
+            return [ChatQuestionTableViewCell heightForBubbleWithObject:(MessageModel *)obj];
+        } else if (((MessageModel *)obj).type == IMMessageTypeGoodsLinkMessageType) {
+            return [ChatGoodsLinkTableViewCell heightOfCellWithMessageModel:(MessageModel *)obj];
+            
+        } else {
+            return [EMChatViewCell tableView:tableView heightForRowAtIndexPath:indexPath withObject:(MessageModel *)obj];
+        }
+    }
+    return 0;
+}
+
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -1022,6 +1041,11 @@
                 cell.messageModel = model;
                 return cell;
                 
+            } else if (model.type == IMMessageTypeGoodsLinkMessageType) {
+                ChatGoodsLinkTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"chatGoodsLinkCell" forIndexPath:indexPath];
+                cell.messageModel = model;
+                return cell;
+                
             } else{
                 NSString *cellIdentifier = [EMChatViewCell cellIdentifierForMessageModel:model];
                 EMChatViewCell *cell = (EMChatViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
@@ -1037,23 +1061,6 @@
         }
     }
     return nil;
-}
-
-#pragma mark - Table view delegate
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSObject *obj = [self.dataSource objectAtIndex:indexPath.row];
-    if ([obj isKindOfClass:[NSString class]]) {
-        return 40;
-    } else if ([obj isKindOfClass:[MessageModel class]]) {
-        if (((MessageModel *)obj).type == IMMessageTypeQuestionMessageType) {
-            return [ChatQuestionTableViewCell heightForBubbleWithObject:(MessageModel *)obj];
-        } else {
-            return [EMChatViewCell tableView:tableView heightForRowAtIndexPath:indexPath withObject:(MessageModel *)obj];
-        }
-    }
-    return 0;
 }
 
 #pragma mark - scrollView delegate

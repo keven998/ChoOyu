@@ -382,6 +382,12 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
                 
             case .Html5MessageType:
                 retMessage = HtmlMessage()
+                
+            case .GoodsMessageType:
+                break
+                
+            case .GoodsLinkMessageType:
+                break
             
             }
             
