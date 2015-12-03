@@ -23,7 +23,7 @@
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong)  CityDetailHeaderView *headerView;
-@property (nonatomic, strong)  NSArray *dataSource;
+@property (nonatomic, strong)  NSArray<GoodsDetailModel *> *dataSource;
 @property (nonatomic, strong) CityPoi *poi;
 @end
 
@@ -197,7 +197,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     GoodsDetailViewController *ctl = [[GoodsDetailViewController alloc] init];
     ctl.hidesBottomBarWhenPushed = YES;
-    
+    ctl.goodsId = [_dataSource objectAtIndex:indexPath.row].goodsId;
     [self.navigationController pushViewController:ctl animated:YES];
 }
 
