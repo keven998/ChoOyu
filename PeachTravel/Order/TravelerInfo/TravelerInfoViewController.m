@@ -102,7 +102,7 @@
     [_scrollView addSubview:_telTextField];
     
     _IDNumberCategoryButton = [[UIButton alloc] initWithFrame:CGRectMake(126, 10+48*3, (kWindowWidth-106)-60, 28)];
-    [_IDNumberCategoryButton setBackgroundImage:[[UIImage imageNamed:@"icon_travelerInfo_selectIDCategory"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 20)] forState:UIControlStateNormal];
+    [_IDNumberCategoryButton setBackgroundImage:[[UIImage imageNamed:@"icon_travelerInfo_selectIDCategory"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 30)] forState:UIControlStateNormal];
     [_IDNumberCategoryButton addTarget:self action:@selector(choseIDCategory:) forControlEvents:UIControlEventTouchUpInside];
     _IDNumberCategoryButton.titleLabel.font = [UIFont systemFontOfSize:15];
     _IDNumberCategoryButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;

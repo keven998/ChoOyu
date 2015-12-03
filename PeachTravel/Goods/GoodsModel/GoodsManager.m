@@ -49,22 +49,22 @@
 
 + (void)asyncLoadGoodsOfCity:(NSString *)cityId completionBlock:(void (^)(BOOL, NSArray *))completion
 {
-    [self asyncLoadGoodsOfCity:cityId category:nil sortBy:nil sortValue:nil startIndex:-1 count:01 completionBlock:completion];
+    [self asyncLoadGoodsOfCity:cityId category:nil sortBy:nil sortValue:nil startIndex:0 count:15 completionBlock:completion];
 }
 
 + (void)asyncLoadGoodsOfCity:(NSString *)cityId category:(NSString *)category completionBlock:(void (^)(BOOL, NSArray *))completion
 {
-    [self asyncLoadGoodsOfCity:cityId category:category sortBy:nil sortValue:nil startIndex:-1 count:-1 completionBlock:completion];
+    [self asyncLoadGoodsOfCity:cityId category:category sortBy:nil sortValue:nil startIndex:0 count:15 completionBlock:completion];
 }
 
 + (void)asyncLoadGoodsOfCity:(NSString *)cityId category:(NSString *)category sortBy:(NSString *)sortType sort:(NSString *)sort completionBlock:(void (^)(BOOL, NSArray *))completion
 {
-    [self asyncLoadGoodsOfCity:cityId category:category sortBy:sortType sortValue:sort startIndex:-1 count:-1 completionBlock:completion];
+    [self asyncLoadGoodsOfCity:cityId category:category sortBy:sortType sortValue:sort startIndex:0 count:15 completionBlock:completion];
 }
 
 + (void)asyncLoadGoodsOfCity:(NSString *)cityId category:(NSString *)category sortBy:(NSString *)sortType sortValue:(NSString *)sortValue completionBlock:(void (^)(BOOL, NSArray *))completion
 {
-    [self asyncLoadGoodsOfCity:cityId category:category sortBy:sortType sortValue:sortType startIndex:-1 count:-1 completionBlock:completion];
+    [self asyncLoadGoodsOfCity:cityId category:category sortBy:sortType sortValue:sortType startIndex:0 count:15 completionBlock:completion];
 }
 
 + (void)asyncLoadGoodsOfCity:(NSString *)cityId category:(NSString *)category sortBy:(NSString *)sortType sortValue:(NSString *)sortValue startIndex:(NSInteger)startIndex count:(NSUInteger)count completionBlock:(void (^)(BOOL, NSArray *))completion;
