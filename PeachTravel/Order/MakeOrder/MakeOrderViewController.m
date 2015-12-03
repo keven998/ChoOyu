@@ -164,13 +164,16 @@
         [travelerIds addObject:traveler.uid];
     }
     
-    [OrderManager asyncMakeOrderWithGoodsId:_orderDetail.goods.goodsId travelers:travelerIds packageId:_orderDetail.selectedPackage.packageId playDate:_orderDetail.useDateStr quantity:_orderDetail.count contactPhone:_orderDetail.orderContact.tel contactFirstName:_orderDetail.orderContact.firstName contactLastName:_orderDetail.orderContact.lastName leaveMessage:_orderDetail.leaveMessage completionBlock:^(BOOL isSuccess, NSInteger orderId) {
+    [OrderManager asyncMakeOrderWithGoodsId:_orderDetail.goods.goodsId travelers:travelerIds packageId:_orderDetail.selectedPackage.packageId playDate:_orderDetail.useDateStr quantity:_orderDetail.count contactPhone:_orderDetail.orderContact.tel contactFirstName:_orderDetail.orderContact.firstName contactLastName:_orderDetail.orderContact.lastName leaveMessage:_orderDetail.leaveMessage completionBlock:^(BOOL isSuccess, OrderDetailModel *orderDetail) {
         if (isSuccess) {
             [SVProgressHUD showHint:@"订单创建成功"];
+            _orderDetail = orderDetail;
             OrderDetailViewController *ctl = [[OrderDetailViewController alloc] init];
-            _orderDetail.orderStatus = kOrderWaitPay;
             ctl.orderDetail = _orderDetail;
-            [self.navigationController pushViewController:ctl animated:YES];
+            ctl.orderId = _orderDetail.orderId;
+            NSMutableArray *controllers = [self.navigationController.viewControllers mutableCopy];
+            [controllers replaceObjectAtIndex:controllers.count-1 withObject:ctl];
+            [self.navigationController setViewControllers:controllers animated:YES];
         } else {
             [SVProgressHUD showHint:@"订单创建失败"];
         }
@@ -362,7 +365,6 @@
 {
     NSString *dateStr =   [ConvertMethods dateToString:date withFormat:@"yyyy-MM-dd" withTimeZone:[NSTimeZone systemTimeZone]];
     _orderDetail.useDate = date.timeIntervalSince1970;
-    _orderDetail.useDateStr = dateStr;
     [_tableView reloadData];
 }
 

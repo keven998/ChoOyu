@@ -14,5 +14,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (nonatomic, strong) OrderDetailModel *orderDetail;
+@property (nonatomic) NSInteger orderId;
+
 
 @end

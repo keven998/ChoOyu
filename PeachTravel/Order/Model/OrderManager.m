@@ -39,15 +39,19 @@
                  contactFirstName:(NSString *)firstName
                   contactLastName:(NSString *)lastName
                      leaveMessage:(NSString *)message
-                  completionBlock:(void (^)(BOOL, NSInteger))completion
+                  completionBlock:(void (^)(BOOL, OrderDetailModel *))completion
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AppUtils *utils = [[AppUtils alloc] init];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+
     [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", [AccountManager shareAccountManager].account.userId] forHTTPHeaderField:@"UserId"];
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    if ([accountManager isLogin]) {
+        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+    }
 
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
@@ -67,13 +71,14 @@
         NSLog(@"***提交订单接口: %@", operation);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            completion (YES, 0);
+            OrderDetailModel *orderDetail = [[OrderDetailModel alloc] initWithJson:[responseObject objectForKey:@"result"]];
+            completion (YES, orderDetail);
         } else {
-            completion (NO, 0);
+            completion (NO, nil);
         }
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        completion (NO, 0);
+        completion (NO, nil);
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         
     }];

@@ -13,15 +13,20 @@
 - (id)initWithJson:(id)json
 {
     if (self = [super init]) {
+        _orderId = [[json objectForKey:@"orderId"] integerValue];
         if ([json objectForKey:@"contact"] != [NSNull null]) {
             _orderContact = [[OrderContactInfoModel alloc] initWithJson:[json objectForKey:@"contact"]];
         }
-        _selectedPackage = [[GoodsPackageModel alloc] init];
         _selectedPackage.packageId = [json objectForKey:@"planId"];
         _goods = [[GoodsDetailModel alloc] initWithJson:[json objectForKey:@"commodity"]];
+        _selectedPackage = [_goods.packages firstObject];
         _totalPrice = [[json objectForKey:@"totalPrice"] floatValue];
         _count = [[json objectForKey:@"quantity"] integerValue];
         _leaveMessage = [json objectForKey:@"comment"];
+        _useDate = [[json objectForKey:@"rendezvousTime"] doubleValue]/1000;
+        _updateTime = [[json objectForKey:@"updateTime"] doubleValue]/1000;
+        _expireDate = [[json objectForKey:@"expireDate"] doubleValue]/1000;
+        _currentTime = [[json objectForKey:@"currentTime"] doubleValue]/1000;
         _orderStatus = [self orderStatusWithStatusDescription:[json objectForKey:@"status"]];
         NSMutableArray *tempTravelerList = [[NSMutableArray alloc] init];
         for (NSDictionary *dic in [json objectForKey:@"travellers"]) {
@@ -31,6 +36,16 @@
         _travelerList = tempTravelerList;
     }
     return self;
+}
+
+- (NSString *)useDateStr
+{
+    if (_useDate <= 0) {
+        return nil;
+    }
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:_useDate];
+    NSString *dateStr = [ConvertMethods dateToString:date withFormat:@"yyyy-MM-dd" withTimeZone:[NSTimeZone systemTimeZone]];
+    return dateStr;
 }
 
 - (NSString *)orderStatusDesc

@@ -44,7 +44,7 @@
                  contactFirstName:(NSString *)firstName
                   contactLastName:(NSString *)lastName
                      leaveMessage:(NSString *)message
-                  completionBlock:(void (^)(BOOL isSuccess, NSInteger orderId))completion;
+                  completionBlock:(void (^)(BOOL isSuccess, OrderDetailModel *orderDetail))completion;
 
 /**
  *  获取订单详情

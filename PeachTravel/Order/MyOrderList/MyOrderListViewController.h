@@ -13,6 +13,6 @@
 
 @property (nonatomic) OrderStatus orderType;
 
-@property (nonatomic, strong) NSArray *dataSource;
+@property (nonatomic, strong) NSArray<OrderDetailModel *> *dataSource;
 
 @end

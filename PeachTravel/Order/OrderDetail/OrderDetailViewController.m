@@ -18,9 +18,12 @@
 #import "GoodsDetailViewController.h"
 #import "OrderManager.h"
 
-@interface OrderDetailViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface OrderDetailViewController () <UITableViewDataSource, UITableViewDelegate> {
+    NSTimer *timer;
+}
 
 @property (nonatomic, strong) UIView *toolBar;
+@property (nonatomic) NSUInteger payCutdown;   //付款倒计时
 @end
 
 @implementation OrderDetailViewController
@@ -39,8 +42,8 @@
     [_tableView registerNib:[UINib nibWithNibName:@"OrderDetailContactTableViewCell" bundle:nil] forCellReuseIdentifier:@"orderDetailContactCell"];
     
     _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.bounds.size.width, 55)];
-    [OrderManager asyncLoadOrderDetailWithOrderId:1448694682614 completionBlock:^(BOOL isSuccess, OrderDetailModel *orderDetail) {
-        _orderDetail = orderDetail;
+    [OrderManager asyncLoadOrderDetailWithOrderId:_orderId completionBlock:^(BOOL isSuccess, OrderDetailModel *orderDetail) {
+        self.orderDetail = orderDetail;
         [self.tableView reloadData];
     }];
 
@@ -50,6 +53,46 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
+
+- (void)setOrderDetail:(OrderDetailModel *)orderDetail
+{
+    _orderDetail = orderDetail;
+    if (_orderDetail.orderStatus == kOrderWaitPay) {
+        _payCutdown = _orderDetail.expireDate - _orderDetail.currentTime;
+        if (timer) {
+            [timer invalidate];
+            timer = nil;
+        }
+        timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateLeftTime) userInfo:nil repeats:YES];
+
+    } else {
+        if (timer) {
+            [timer invalidate];
+            timer = nil;
+        }
+    }
+}
+
+- (void)setPayCutdown:(NSUInteger)payCutdown
+{
+    _payCutdown = payCutdown;
+    if (_orderDetail.orderStatus == kOrderWaitPay) {
+        OrderDetailStatusTableViewCell *cell = [_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+        cell.statusLabel.attributedText = [self orderStatusDescWhenWaitPay];
+    }
+}
+
+- (void)updateLeftTime
+{
+    if (_payCutdown == 0) {
+        if (timer) {
+            [timer invalidate];
+            timer = nil;
+        }
+    }
+    --self.payCutdown;
+}
+
 
 - (void)setupToolBar
 {
@@ -99,6 +142,35 @@
         [payOrderBtn addTarget:self action:@selector(payOrder:) forControlEvents:UIControlEventTouchUpInside];
         [_toolBar addSubview:payOrderBtn];
     }
+}
+
+- (NSAttributedString *)orderStatusDescWhenWaitPay
+{
+    NSInteger days = _payCutdown/24/60/60;
+    NSInteger hours = (_payCutdown - days*24*3600)/3600;
+    NSInteger minute = (_payCutdown - days*24*3600 - hours*3600)/60;
+    NSInteger second = (_payCutdown - days*24*3600 - hours*3600 - minute*60);
+    NSMutableString *str = [[NSMutableString alloc] initWithString:_orderDetail.orderStatusDesc];
+    [str appendFormat:@"  请在"];
+    if (days) {
+        [str appendFormat:@"%ld天", days];
+    }
+    if (hours) {
+        [str appendFormat:@"%ld小时", hours];
+    }
+    if (minute) {
+        [str appendFormat:@"%ld分钟", minute];
+    }
+    if (second) {
+        [str appendFormat:@"%ld秒 ", second];
+    }
+    [str appendString:@"完成支付"];
+    NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:str];
+    [attr addAttributes:@{
+                          NSFontAttributeName:[UIFont systemFontOfSize:14],
+                          NSForegroundColorAttributeName: COLOR_TEXT_II,
+                          } range:NSMakeRange(_orderDetail.orderStatusDesc.length, str.length - _orderDetail.orderStatusDesc.length)];
+    return attr;
 }
 
 - (void)payOrder:(UIButton *)sender
@@ -155,7 +227,11 @@
 {
     if (indexPath.section == 0) {
         OrderDetailStatusTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"orderDetailStatusCell" forIndexPath:indexPath];
-        cell.statusLabel.text = _orderDetail.orderStatusDesc;
+        if (_orderDetail.orderStatus == kOrderWaitPay) {
+            cell.statusLabel.attributedText = [self orderStatusDescWhenWaitPay];
+        } else {
+            cell.statusLabel.text = _orderDetail.orderStatusDesc;
+        }
         return cell;
         
     } else if (indexPath.section == 1) {
@@ -171,6 +247,8 @@
         }
         
         [cell.goodsNameBtn addTarget:self action:@selector(goodsDetailAction:) forControlEvents:UIControlEventTouchUpInside];
+        cell.packageNameLabel.text = _orderDetail.selectedPackage.packageName;
+        cell.dateLabel.text = _orderDetail.useDateStr;
         cell.orderNumberLabel.text = [NSString stringWithFormat:@"%ld", _orderDetail.orderId];
         cell.dateLabel.text = _orderDetail.useDateStr;
         cell.countLabel.text = [NSString stringWithFormat:@"%ld", _orderDetail.count];

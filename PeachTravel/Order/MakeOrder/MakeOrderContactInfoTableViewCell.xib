@@ -114,7 +114,7 @@
                             <constraint firstAttribute="height" constant="30" id="r3w-g3-ZJf"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next"/>
+                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="next"/>
                     </textField>
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Last Name,如Zhang" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uip-ma-BCi">
                         <rect key="frame" x="90" y="61" width="219" height="30"/>
@@ -132,7 +132,7 @@
                             <constraint firstAttribute="height" constant="30" id="Irt-8S-9Nr"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="next"/>
+                        <textInputTraits key="textInputTraits" returnKeyType="next"/>
                     </textField>
                 </subviews>
                 <animations/>

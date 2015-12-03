@@ -70,6 +70,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     OrderDetailViewController *ctl = [[OrderDetailViewController alloc] init];
     ctl.orderDetail = [_dataSource objectAtIndex:indexPath.section];
+    ctl.orderId = [_dataSource objectAtIndex:indexPath.section].orderId;
     [self.navigationController pushViewController:ctl animated:YES];
 }
 
