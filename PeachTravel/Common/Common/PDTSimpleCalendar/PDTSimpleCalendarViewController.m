@@ -362,7 +362,7 @@ static const NSCalendarUnit kCalendarUnitYMD = NSCalendarUnitYear | NSCalendarUn
     
     NSDate *firstOfMonth = [self firstOfMonthForSection:indexPath.section];
     NSDate *cellDate = [self dateForCellAtIndexPath:indexPath];
-
+   
     NSDateComponents *cellDateComponents = [self.calendar components:kCalendarUnitYMD fromDate:cellDate];
     NSDateComponents *firstOfMonthsComponents = [self.calendar components:kCalendarUnitYMD fromDate:firstOfMonth];
 
@@ -379,10 +379,12 @@ static const NSCalendarUnit kCalendarUnitYMD = NSCalendarUnitYear | NSCalendarUn
         if ([self.delegate respondsToSelector:@selector(simpleCalendarViewController:shouldUseCustomColorsForDate:)]) {
             isCustomDate = [self.delegate simpleCalendarViewController:self shouldUseCustomColorsForDate:cellDate];
         }
-
+        NSString *priceStr = [self priceDescOfDate:cellDate];
+        cell.price = priceStr;
 
     } else {
         [cell setDate:nil calendar:nil];
+        cell.price = nil;
     }
 
     if (isToday) {
@@ -397,7 +399,6 @@ static const NSCalendarUnit kCalendarUnitYMD = NSCalendarUnitYear | NSCalendarUn
     if (![self isEnabledDate:cellDate] || isCustomDate) {
         [cell refreshCellColors];
     }
-    cell.price = @"1234";
     //We rasterize the cell for performances purposes.
     //The circle background is made using roundedCorner which is a super expensive operation, specially with a lot of items on the screen to display (like we do)
     cell.layer.shouldRasterize = YES;
@@ -450,7 +451,7 @@ static const NSCalendarUnit kCalendarUnitYMD = NSCalendarUnitYear | NSCalendarUn
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGFloat itemWidth = floorf(CGRectGetWidth(self.collectionView.bounds) / self.daysPerWeek);
+    CGFloat itemWidth = floorf((CGRectGetWidth(self.collectionView.bounds)-PDTSimpleCalendarFlowLayoutMinInterItemSpacing*self.daysPerWeek-1 - PDTSimpleCalendarFlowLayoutInsetLeft - PDTSimpleCalendarFlowLayoutInsetRight) / self.daysPerWeek);
 
     return CGSizeMake(itemWidth, itemWidth+20);
 }
@@ -567,6 +568,19 @@ static const NSCalendarUnit kCalendarUnitYMD = NSCalendarUnitYear | NSCalendarUn
     return [self.calendar dateByAddingComponents:dateComponents toDate:firstOfMonth options:0];
 }
 
+//某天的价格
+- (NSString *)priceDescOfDate:(NSDate *)date
+{
+    NSTimeInterval timeInterval = [date timeIntervalSince1970];
+    for (NSDictionary *dic in _priceList) {
+        NSTimeInterval beginDate = [[[dic objectForKey:@"timeRange"] firstObject] floatValue]/1000;
+        NSTimeInterval endDate = [[[dic objectForKey:@"timeRange"] lastObject] floatValue]/1000;
+        if (timeInterval >= beginDate && timeInterval <= endDate) {
+            return [NSString stringWithFormat:@"￥%.1f" ,[[dic objectForKey:@"price"] floatValue]];
+        }
+    }
+    return nil;
+}
 
 static const NSInteger kFirstDay = 1;
 - (NSIndexPath *)indexPathForCellAtDate:(NSDate *)date

@@ -137,6 +137,9 @@
     PDTSimpleCalendarViewController *ctl = [[PDTSimpleCalendarViewController alloc] init];
     [ctl setDelegate:self];
     ctl.weekdayHeaderEnabled = YES;
+    ctl.priceList = _orderDetail.selectedPackage.priceList;
+    ctl.firstDate = _orderDetail.selectedPackage.startPriceDate;
+    ctl.lastDate = _orderDetail.selectedPackage.endPriceDate;
     ctl.weekdayTextType = PDTSimpleCalendarViewWeekdayTextTypeVeryShort;
     [self.navigationController pushViewController:ctl animated:YES];
 }

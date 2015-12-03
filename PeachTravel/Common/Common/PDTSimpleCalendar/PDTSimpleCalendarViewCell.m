@@ -74,19 +74,23 @@ const CGFloat PDTSimpleCalendarCircleSize = 32.0f;
     if (self) {
         _date = nil;
         _isToday = NO;
-        _dayLabel = [[UILabel alloc] initWithFrame:CGRectMake((frame.size.width-PDTSimpleCalendarCircleSize)/2, 0, PDTSimpleCalendarCircleSize, PDTSimpleCalendarCircleSize)];
+        _dayLabel = [[UILabel alloc] initWithFrame:CGRectMake((frame.size.width-PDTSimpleCalendarCircleSize)/2, 5, PDTSimpleCalendarCircleSize, PDTSimpleCalendarCircleSize)];
         [self.dayLabel setFont:[self textDefaultFont]];
         [self.dayLabel setTextAlignment:NSTextAlignmentCenter];
         [self.contentView addSubview:self.dayLabel];
         [self.dayLabel setBackgroundColor:[UIColor clearColor]];
         self.dayLabel.layer.cornerRadius = PDTSimpleCalendarCircleSize/2;
         self.dayLabel.layer.masksToBounds = YES;
-        _priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, PDTSimpleCalendarCircleSize, frame.size.width, 20)];
+        self.dayLabel.textColor = COLOR_TEXT_II;
+        _priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, PDTSimpleCalendarCircleSize + 10, frame.size.width, 20)];
         _priceLabel.textAlignment = NSTextAlignmentCenter;
         _priceLabel.textColor = [UIColor grayColor];
-        _priceLabel.font = [UIFont systemFontOfSize:12.0];
+        _priceLabel.font = [UIFont systemFontOfSize:10.0];
+        _priceLabel.adjustsFontSizeToFitWidth = YES;
         [self addSubview:_priceLabel];
         [self setCircleColor:NO selected:NO];
+        self.layer.borderWidth = 0.3;
+
     }
 
     return self;
@@ -100,6 +104,7 @@ const CGFloat PDTSimpleCalendarCircleSize = 32.0f;
         _date = date;
         day = [PDTSimpleCalendarViewCell formatDate:date withCalendar:calendar];
         accessibilityDay = [PDTSimpleCalendarViewCell formatAccessibilityDate:date withCalendar:calendar];
+
     }
     self.dayLabel.text = day;
     self.dayLabel.accessibilityLabel = accessibilityDay;
@@ -109,6 +114,16 @@ const CGFloat PDTSimpleCalendarCircleSize = 32.0f;
 {
     _price = price;
     _priceLabel.text = _price;
+    if (_price) {
+        if (self.selected) {
+            self.layer.borderColor = UIColorFromRGB(0xff6633).CGColor;
+        } else {
+            self.layer.borderColor = COLOR_LINE.CGColor;
+        }
+    } else {
+        self.layer.borderColor = [UIColor clearColor].CGColor;
+
+    }
 }
 
 - (void)setIsToday:(BOOL)isToday
@@ -120,7 +135,14 @@ const CGFloat PDTSimpleCalendarCircleSize = 32.0f;
 - (void)setSelected:(BOOL)selected
 {
     [super setSelected:selected];
-    [self setCircleColor:self.isToday selected:selected];
+//    [self setCircleColor:self.isToday selected:selected];
+    if (_price) {
+        if (selected) {
+            self.layer.borderColor = UIColorFromRGB(0xff6633).CGColor;
+        } else {
+            self.layer.borderColor = COLOR_LINE.CGColor;
+        }
+    }
 }
 
 - (void)setCircleColor:(BOOL)today selected:(BOOL)selected
@@ -277,7 +299,7 @@ const CGFloat PDTSimpleCalendarCircleSize = 32.0f;
     }
 
     // default system font
-    return [UIFont systemFontOfSize:17.0];
+    return [UIFont systemFontOfSize:15.0];
 }
 
 @end

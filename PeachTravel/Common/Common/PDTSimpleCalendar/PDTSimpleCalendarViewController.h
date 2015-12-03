@@ -26,6 +26,26 @@
  */
 @property (nonatomic, strong) NSCalendar *calendar;
 
+/******  套餐价格区间 具体格式为
+ [
+    {
+        price: 23,
+        timeRange: [
+            1449100800000,
+            1450396800000
+        ]
+    },
+ {
+    price: 32,
+    timeRange: [
+        1450483200000,
+        1450915200000
+        ]
+    }
+ ],
+ */
+@property (nonatomic, strong) NSArray *priceList;
+
 /**
  *  First date enabled in the calendar. If not set, the default value is the first day of the current month (based on `[NSDate date]`).
  *  You can pass every `NSDate`, if the firstDate is not the first day of its month, the previous days will be automatically disabled.

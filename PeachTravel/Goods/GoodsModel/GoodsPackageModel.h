@@ -16,6 +16,34 @@
 @property (nonatomic) float currentPrice;
 @property (nonatomic) float primePrice;
 
+//套餐开始时间
+@property (nonatomic) NSTimeInterval startPriceTimeInterval;
+@property (nonatomic, strong) NSDate *startPriceDate;
+
+//套餐终止时间
+@property (nonatomic) NSTimeInterval endPriceTimeInterval;
+@property (nonatomic, strong) NSDate *endPriceDate;
+
+
+/******  套餐价格区间 具体格式为
+ [
+    {
+        price: 23,
+        timeRange: [
+            1449100800000,
+            1450396800000
+            ]
+    },
+    {
+        price: 32,
+        timeRange: [
+            1450483200000,
+            1450915200000
+        ]
+    }
+ ],
+ */
+@property (nonatomic, strong) NSArray *priceList;
 - (id)initWithJson:(id)json;
 
 @end

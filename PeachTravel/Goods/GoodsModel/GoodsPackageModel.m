@@ -17,6 +17,11 @@
         _packageId = [json objectForKey:@"planId"];
         _primePrice = [[json objectForKey:@"marketPrice"] floatValue];
         _currentPrice = [[json objectForKey:@"price"] floatValue];
+        _priceList = [json objectForKey:@"pricing"];
+        _startPriceTimeInterval = [[[[_priceList firstObject] objectForKey:@"timeRange"] firstObject] doubleValue];
+        _startPriceDate = [NSDate dateWithTimeIntervalSince1970:_startPriceTimeInterval/1000];
+        _endPriceTimeInterval = [[[[_priceList lastObject] objectForKey:@"timeRange"] lastObject] doubleValue];
+        _endPriceDate = [NSDate dateWithTimeIntervalSince1970:_endPriceTimeInterval/1000];
     }
     return self;
 }
