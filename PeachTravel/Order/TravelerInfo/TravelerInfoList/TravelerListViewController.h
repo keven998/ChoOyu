@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "OrderTravelerInfoModel.h"
 
 @interface TravelerListViewController : TZViewController
 
-@property (nonatomic, strong) NSArray *travelerList;
+@property (nonatomic, strong) NSArray<OrderTravelerInfoModel *> *travelerList;
+
+//是否是查看我的旅客信息列表
+@property (nonatomic) BOOL isCheckMyTravelers;
 
 @end

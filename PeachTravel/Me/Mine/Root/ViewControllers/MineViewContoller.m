@@ -161,6 +161,7 @@
         } else {
             TravelerListViewController *ctl = [[TravelerListViewController alloc] init];
             ctl.hidesBottomBarWhenPushed = YES;
+            ctl.isCheckMyTravelers = YES;
             [self.navigationController pushViewController:ctl animated:YES];
         }
     }
