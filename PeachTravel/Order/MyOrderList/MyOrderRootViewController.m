@@ -89,7 +89,7 @@
         }
     }
     
-    [OrderManager asyncLoadOrdersFromServerOfUser:100003 completionBlock:^(BOOL isSuccess, NSArray<OrderDetailModel *> *orderList) {
+    [OrderManager asyncLoadOrdersFromServerOfUser:[AccountManager shareAccountManager].account.userId completionBlock:^(BOOL isSuccess, NSArray<OrderDetailModel *> *orderList) {
         _allOrderList = orderList;
         for (MyOrderListViewController *ctl in _orderListControllers) {
             ctl.dataSource = [OrderManager filterOrderListWithOrderType:ctl.orderType andOrderList:_allOrderList];

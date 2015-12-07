@@ -38,7 +38,7 @@
 + (void)asyncMakeOrderWithGoodsId:(NSInteger)goodsId
                         travelers:(NSArray<NSString *> *)travelers
                         packageId:(NSString *)packageId
-                         playDate:(NSString *)date
+                         playDate:(NSTimeInterval)date
                          quantity:(NSInteger)quantity
                      contactPhone:(NSString *)phone
                  contactFirstName:(NSString *)firstName

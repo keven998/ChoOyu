@@ -25,8 +25,8 @@
         _leaveMessage = [json objectForKey:@"comment"];
         _useDate = [[json objectForKey:@"rendezvousTime"] doubleValue]/1000;
         _updateTime = [[json objectForKey:@"updateTime"] doubleValue]/1000;
-        _expireDate = [[json objectForKey:@"expireDate"] doubleValue]/1000;
-        _currentTime = [[json objectForKey:@"currentTime"] doubleValue]/1000;
+        _expireTime = [[json objectForKey:@"expireTime"] doubleValue]/1000;
+        _currentTime = [[NSDate date] timeIntervalSince1970];
         _orderStatus = [self orderStatusWithStatusDescription:[json objectForKey:@"status"]];
         NSMutableArray *tempTravelerList = [[NSMutableArray alloc] init];
         for (NSDictionary *dic in [json objectForKey:@"travellers"]) {

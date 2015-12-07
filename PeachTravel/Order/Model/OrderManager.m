@@ -33,7 +33,7 @@
 + (void)asyncMakeOrderWithGoodsId:(NSInteger)goodsId
                         travelers:(NSArray<NSString *> *)travelers
                         packageId:(NSString *)packageId
-                         playDate:(NSString *)date
+                         playDate:(NSTimeInterval)date
                          quantity:(NSInteger)quantity
                      contactPhone:(NSString *)phone
                  contactFirstName:(NSString *)firstName
@@ -57,13 +57,16 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:[NSNumber numberWithInteger:goodsId] forKey:@"commodityId"];
     [params safeSetObject:packageId forKey:@"planId"];
-    [params safeSetObject:date forKey:@"rendezvousTime"];
+    [params safeSetObject:[NSNumber numberWithInteger:(NSInteger)(date*1000)] forKey:@"rendezvousTime"];  //传毫秒单位
     [params safeSetObject:travelers forKey:@"travellers"];
     [params safeSetObject:[NSNumber numberWithInteger:quantity] forKey:@"quantity"];
-    [params safeSetObject:phone forKey:@"contactPhone"];
+    NSMutableDictionary *telDic = [[NSMutableDictionary alloc] init];
+    [telDic safeSetObject:@"86" forKey:@"dialCode"];
+    [telDic safeSetObject:phone forKey:@"number"];
+    [params setObject:telDic forKey:@"contactPhone"];
     [params safeSetObject:firstName forKey:@"contactGivenName"];
     [params safeSetObject:lastName forKey:@"contactSurname"];
-    [params safeSetObject:message forKey:@"contactComment"];
+    [params safeSetObject:message forKey:@"comment"];
     [params safeSetObject:@"" forKey:@"contactEmail"];
 
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];

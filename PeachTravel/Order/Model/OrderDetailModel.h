@@ -32,7 +32,7 @@ typedef enum : NSUInteger {
 @property (nonatomic, copy, readonly) NSString *orderStatusDesc;      // 订单状态描述
 @property (nonatomic) NSTimeInterval useDate;      //使用时间
 @property (nonatomic, copy, readonly) NSString *useDateStr;      //使用时间描述
-@property (nonatomic) NSTimeInterval expireDate;
+@property (nonatomic) NSTimeInterval expireTime;
 @property (nonatomic) NSTimeInterval updateTime;
 @property (nonatomic) NSTimeInterval createTime;
 @property (nonatomic) NSTimeInterval currentTime;
