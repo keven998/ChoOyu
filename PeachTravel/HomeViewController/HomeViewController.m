@@ -454,6 +454,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         CGFloat y = ceilf(0.18 * tabFrame.size.height);
         dotView.frame = CGRectMake(x, y, 6, 6);
         [self.tabBar addSubview:dotView];
+        
     } else {
         for (UIView *view in self.tabBar.subviews) {
             if (view.tag == 101) {
