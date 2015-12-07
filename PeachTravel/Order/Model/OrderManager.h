@@ -40,7 +40,7 @@
                         packageId:(NSString *)packageId
                          playDate:(NSTimeInterval)date
                          quantity:(NSInteger)quantity
-                     contactPhone:(NSString *)phone
+                     contactPhone:(NSInteger)phone
                  contactFirstName:(NSString *)firstName
                   contactLastName:(NSString *)lastName
                      leaveMessage:(NSString *)message

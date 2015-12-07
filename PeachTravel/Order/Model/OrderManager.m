@@ -35,7 +35,7 @@
                         packageId:(NSString *)packageId
                          playDate:(NSTimeInterval)date
                          quantity:(NSInteger)quantity
-                     contactPhone:(NSString *)phone
+                     contactPhone:(NSInteger)phone
                  contactFirstName:(NSString *)firstName
                   contactLastName:(NSString *)lastName
                      leaveMessage:(NSString *)message
@@ -61,8 +61,8 @@
     [params safeSetObject:travelers forKey:@"travellers"];
     [params safeSetObject:[NSNumber numberWithInteger:quantity] forKey:@"quantity"];
     NSMutableDictionary *telDic = [[NSMutableDictionary alloc] init];
-    [telDic safeSetObject:@"86" forKey:@"dialCode"];
-    [telDic safeSetObject:phone forKey:@"number"];
+    [telDic safeSetObject:[NSNumber numberWithInt:86] forKey:@"dialCode"];
+    [telDic safeSetObject:[NSNumber numberWithInteger:phone] forKey:@"number"];
     [params setObject:telDic forKey:@"contactPhone"];
     [params safeSetObject:firstName forKey:@"contactGivenName"];
     [params safeSetObject:lastName forKey:@"contactSurname"];
