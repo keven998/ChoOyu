@@ -67,12 +67,12 @@
                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="q4L-zK-wkw">
-                                <rect key="frame" x="256" y="150" width="10" height="20"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_show_orderdetail.png" translatesAutoresizingMaskIntoConstraints="NO" id="q4L-zK-wkw">
+                                <rect key="frame" x="256" y="153" width="7" height="14"/>
                                 <animations/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="MsO-vt-5dD"/>
-                                    <constraint firstAttribute="width" constant="10" id="oV6-Mb-jn6"/>
+                                    <constraint firstAttribute="height" constant="14" id="MsO-vt-5dD"/>
+                                    <constraint firstAttribute="width" constant="7" id="oV6-Mb-jn6"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RLw-Zz-q9I">
@@ -108,9 +108,9 @@
                             <constraint firstAttribute="trailing" secondItem="557-ec-O0u" secondAttribute="trailing" constant="8" id="eUn-a4-A3A"/>
                             <constraint firstItem="9mo-Sk-gfT" firstAttribute="top" secondItem="JkT-Kz-Jgo" secondAttribute="top" constant="48" id="elj-pl-qpd"/>
                             <constraint firstItem="dgB-8z-D9t" firstAttribute="top" secondItem="Ntv-iB-AkL" secondAttribute="bottom" constant="3" id="fpn-vg-5b1"/>
-                            <constraint firstAttribute="bottom" secondItem="q4L-zK-wkw" secondAttribute="bottom" constant="10" id="fxf-fb-Tr6"/>
+                            <constraint firstAttribute="bottom" secondItem="q4L-zK-wkw" secondAttribute="bottom" constant="13" id="fxf-fb-Tr6"/>
                             <constraint firstAttribute="trailing" secondItem="uwO-0Q-ZMt" secondAttribute="trailing" constant="8" id="ksq-Tk-r5C"/>
-                            <constraint firstAttribute="trailing" secondItem="q4L-zK-wkw" secondAttribute="trailing" constant="14" id="o1J-jo-umu"/>
+                            <constraint firstAttribute="trailing" secondItem="q4L-zK-wkw" secondAttribute="trailing" constant="17" id="o1J-jo-umu"/>
                             <constraint firstItem="557-ec-O0u" firstAttribute="top" secondItem="JkT-Kz-Jgo" secondAttribute="top" constant="8" id="qqP-Qx-KcX"/>
                             <constraint firstItem="557-ec-O0u" firstAttribute="leading" secondItem="JkT-Kz-Jgo" secondAttribute="leading" constant="14" id="sIn-zM-oal"/>
                             <constraint firstAttribute="trailing" secondItem="9mo-Sk-gfT" secondAttribute="trailing" constant="8" id="smy-K5-yM3"/>
@@ -139,4 +139,7 @@
             <point key="canvasLocation" x="212" y="264"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="icon_show_orderdetail.png" width="6" height="11"/>
+    </resources>
 </document>

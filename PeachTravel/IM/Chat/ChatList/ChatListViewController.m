@@ -421,6 +421,10 @@
                 }
                     break;
                     
+                case IMMessageTypeOrderTipsMessageType:
+                    ret = @"[订单状态通知]";
+                    break;
+                    
                 default: {
                     ret = [NSString stringWithFormat:@"%@:升级新版本才可以查看这条神秘消息哦", nickName];
                     
@@ -492,6 +496,9 @@
                     ret = ((TipsMessage *) lastMessage).tipsContent;
                     break;
                     
+                case IMMessageTypeOrderTipsMessageType:
+                    ret = @"[订单状态通知]";
+                    break;
                     
                 default: {
                     ret = [NSString stringWithFormat:@"升级新版本才可以查看这条神秘消息哦"];

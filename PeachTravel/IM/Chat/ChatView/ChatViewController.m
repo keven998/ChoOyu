@@ -1005,6 +1005,9 @@
         } else if (((MessageModel *)obj).type == IMMessageTypeGoodsLinkMessageType) {
             return [ChatGoodsLinkTableViewCell heightOfCellWithMessageModel:(MessageModel *)obj];
             
+        } else if (((MessageModel *)obj).type == IMMessageTypeOrderTipsMessageType) {
+            return [ChatOrderTipsTableViewCell heightOfCellWithMessageModel:(MessageModel *)obj];
+            
         } else {
             return [EMChatViewCell tableView:tableView heightForRowAtIndexPath:indexPath withObject:(MessageModel *)obj];
         }

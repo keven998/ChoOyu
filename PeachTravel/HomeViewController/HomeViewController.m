@@ -54,8 +54,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 @property (nonatomic, strong) GoodsRecommendViewController *goodsRecommendCtl;
 @property (nonatomic, strong) CityListViewController *cityList;
 
-@property (nonatomic, strong) GoodsListViewController *goodsListCtl;
-
 @property (nonatomic, strong) PageOne *pageView1;
 @property (nonatomic, strong) PageTwo *pageView2;
 @property (nonatomic, strong) PageThree *pageView3;
@@ -405,9 +403,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     TZNavigationViewController *secondNavigationController = [[TZNavigationViewController alloc]
                                                               initWithRootViewController:_poiRecommendCtl];
      */
-    _goodsListCtl = [[GoodsListViewController alloc] initWithNibName:@"GoodsListViewController" bundle:nil];
-    TZNavigationViewController *secondNavigationController = [[TZNavigationViewController alloc]
-                                                              initWithRootViewController:_goodsListCtl];
 
     CountryRecommendViewController *ctl = [[CountryRecommendViewController alloc] init];
     TZNavigationViewController *thirdNavigationController = [[TZNavigationViewController alloc]
@@ -418,7 +413,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
                                                               initWithRootViewController:_mineCtl];
     
     
-    [self setViewControllers:@[testNavi, firstNavigationController, secondNavigationController, thirdNavigationController
+    [self setViewControllers:@[testNavi, firstNavigationController, thirdNavigationController
                                , fourthNavigationController]];
     [self customizeTabBarForController];
 
@@ -426,8 +421,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)customizeTabBarForController
 {
-    NSArray *tabBarItemImages = @[@"ic_tabbar_chat", @"ic_tabbar_chat", @"ic_tabbar_destination", @"ic_tabbar_search", @"ic_tabbar_mine"];
-    NSArray *tabbarItemNames = @[@"目的地", @"消息", @"目的地", @"搜索", @"我的"];
+    NSArray *tabBarItemImages = @[@"ic_tabbar_chat", @"ic_tabbar_destination", @"ic_tabbar_search", @"ic_tabbar_mine"];
+    NSArray *tabbarItemNames = @[@"目的地", @"消息", @"目的地", @"我的"];
     NSInteger index = 0;
     
     for (UITabBarItem *item in self.tabBar.items) {

@@ -643,6 +643,8 @@
 		D92CCF2E1C157C120018D54D /* OrderTipsMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92CCF2D1C157C120018D54D /* OrderTipsMessage.swift */; };
 		D92CCF351C15A21A0018D54D /* ChatOrderTipsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D92CCF331C15A21A0018D54D /* ChatOrderTipsTableViewCell.m */; };
 		D92CCF361C15A21A0018D54D /* ChatOrderTipsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D92CCF341C15A21A0018D54D /* ChatOrderTipsTableViewCell.xib */; };
+		D92CCF3B1C15B2310018D54D /* icon_show_orderdetail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D92CCF391C15B2310018D54D /* icon_show_orderdetail@2x.png */; };
+		D92CCF3C1C15B2310018D54D /* icon_show_orderdetail@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D92CCF3A1C15B2310018D54D /* icon_show_orderdetail@3x.png */; };
 		D937AE1E1BB95F0C0070F879 /* icon_dot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D937AE1C1BB95F0C0070F879 /* icon_dot@2x.png */; };
 		D937AE1F1BB95F0C0070F879 /* icon_dot@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D937AE1D1BB95F0C0070F879 /* icon_dot@3x.png */; };
 		D93B97F11B4B8C420054EF50 /* ChatGroupSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D93B97EF1B4B8C420054EF50 /* ChatGroupSettingCell.m */; };
@@ -2892,6 +2894,8 @@
 		D92CCF321C15A21A0018D54D /* ChatOrderTipsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatOrderTipsTableViewCell.h; sourceTree = "<group>"; };
 		D92CCF331C15A21A0018D54D /* ChatOrderTipsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatOrderTipsTableViewCell.m; sourceTree = "<group>"; };
 		D92CCF341C15A21A0018D54D /* ChatOrderTipsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatOrderTipsTableViewCell.xib; sourceTree = "<group>"; };
+		D92CCF391C15B2310018D54D /* icon_show_orderdetail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_show_orderdetail@2x.png"; sourceTree = "<group>"; };
+		D92CCF3A1C15B2310018D54D /* icon_show_orderdetail@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_show_orderdetail@3x.png"; sourceTree = "<group>"; };
 		D937AE1C1BB95F0C0070F879 /* icon_dot@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_dot@2x.png"; sourceTree = "<group>"; };
 		D937AE1D1BB95F0C0070F879 /* icon_dot@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_dot@3x.png"; sourceTree = "<group>"; };
 		D93B97EE1B4B8C420054EF50 /* ChatGroupSettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatGroupSettingCell.h; sourceTree = "<group>"; };
@@ -6178,6 +6182,27 @@
 			path = Classes;
 			sourceTree = "<group>";
 		};
+		D92CCF371C15B2010018D54D /* ChatRecoredListTableViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D9A800801A80DD23005AD701 /* ChatRecoredListTableViewController.h */,
+				D9A800811A80DD23005AD701 /* ChatRecoredListTableViewController.m */,
+			);
+			name = ChatRecoredListTableViewController;
+			sourceTree = "<group>";
+		};
+		D92CCF381C15B2270018D54D /* ChatOrderTipsTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				D92CCF391C15B2310018D54D /* icon_show_orderdetail@2x.png */,
+				D92CCF3A1C15B2310018D54D /* icon_show_orderdetail@3x.png */,
+				D92CCF321C15A21A0018D54D /* ChatOrderTipsTableViewCell.h */,
+				D92CCF331C15A21A0018D54D /* ChatOrderTipsTableViewCell.m */,
+				D92CCF341C15A21A0018D54D /* ChatOrderTipsTableViewCell.xib */,
+			);
+			name = ChatOrderTipsTableViewCell;
+			sourceTree = "<group>";
+		};
 		D93FEEBA1BEB40AD0065D6ED /* CountryRecommend */ = {
 			isa = PBXGroup;
 			children = (
@@ -7177,8 +7202,7 @@
 				D9A8007D1A80DD23005AD701 /* ChatRecordListTableViewCell.h */,
 				D9A8007E1A80DD23005AD701 /* ChatRecordListTableViewCell.m */,
 				D9A8007F1A80DD23005AD701 /* ChatRecordListTableViewCell.xib */,
-				D9A800801A80DD23005AD701 /* ChatRecoredListTableViewController.h */,
-				D9A800811A80DD23005AD701 /* ChatRecoredListTableViewController.m */,
+				D92CCF371C15B2010018D54D /* ChatRecoredListTableViewController */,
 			);
 			path = ChatList;
 			sourceTree = "<group>";
@@ -7314,9 +7338,7 @@
 				D95184141C1019170032C83F /* ChatGoodsLinkTableViewCell.h */,
 				D95184151C1019170032C83F /* ChatGoodsLinkTableViewCell.m */,
 				D95184161C1019170032C83F /* ChatGoodsLinkTableViewCell.xib */,
-				D92CCF321C15A21A0018D54D /* ChatOrderTipsTableViewCell.h */,
-				D92CCF331C15A21A0018D54D /* ChatOrderTipsTableViewCell.m */,
-				D92CCF341C15A21A0018D54D /* ChatOrderTipsTableViewCell.xib */,
+				D92CCF381C15B2270018D54D /* ChatOrderTipsTableViewCell */,
 				D9A800D61A80DD23005AD701 /* EMChatViewCell.h */,
 				D9A800D71A80DD23005AD701 /* EMChatViewCell.m */,
 				D9A800DA1A80DD23005AD701 /* TipsChatTableViewCell.h */,
@@ -10859,6 +10881,7 @@
 				E6F18A4E1B845F4900232EEB /* ic_home_app_setting@2x.png in Resources */,
 				E6F18B201B845F4900232EEB /* master_icon_constellation7@3x.png in Resources */,
 				01C1EC111BB4E4720082217A /* dianzan@2x.png in Resources */,
+				D92CCF3B1C15B2310018D54D /* icon_show_orderdetail@2x.png in Resources */,
 				01A5CED81BB3DDC200A59A8A /* mapMark_arrow_lian@3x.png in Resources */,
 				E6F18A081B845F4900232EEB /* map_icon_17@3x.png in Resources */,
 				E6F18A141B845F4900232EEB /* map_icon_3@3x.png in Resources */,
@@ -10888,6 +10911,7 @@
 				D971E2DB1B9468E1007E5AFD /* guider_cell_bg@2x.png in Resources */,
 				E6F189861B845F4900232EEB /* poi_button_traffic_selected@3x.png in Resources */,
 				0115C9B41BB103FC00631928 /* citydetail_head@3x.png in Resources */,
+				D92CCF3C1C15B2310018D54D /* icon_show_orderdetail@3x.png in Resources */,
 				E6381BFE1B66269000CF73AA /* Loading_Animation_final40@2x.png in Resources */,
 				E6F189F41B845F4900232EEB /* Default-414w-736h@3x~iphone.png in Resources */,
 				D917DABC1A8B49AF0039720A /* ic_guide2_7_select@2x.png in Resources */,
