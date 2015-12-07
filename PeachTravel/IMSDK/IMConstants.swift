@@ -40,7 +40,8 @@ let HedyLoginUrl = "\(HedyUserUrl)/login"
     case QuestionMessageType = 17
     case Html5MessageType = 18
     case GoodsMessageType = 19
-    case GoodsLinkMessageType = 20
+    case OrderTipsMessageType = 20
+    case GoodsLinkMessageType = 21
     case CMDMessageType = 100
     case TipsMessageType = 200
 }

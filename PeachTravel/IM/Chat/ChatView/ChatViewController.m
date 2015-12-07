@@ -45,11 +45,13 @@
 #import "REFrostedViewController.h"
 #import "TripPlanSettingViewController.h"
 #import "ChatQuestionTableViewCell.h"
+#import "ChatOrderTipsTableViewCell.h"
 #import "ChatGoodsLinkTableViewCell.h"
 #import "SuperWebViewController.h"
 #import "OtherProfileViewController.h"
 #import "ConvertToCommonEmoticonsHelper.h"
 #import "TripDetailRootViewController.h"
+#import "OrderDetailViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import "PeachTravel-swift.h"
 
@@ -231,6 +233,8 @@
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - [DXMessageToolBar defaultHeight]-64)];
         [_tableView registerNib:[UINib nibWithNibName:@"ChatGoodsLinkTableViewCell" bundle:nil] forCellReuseIdentifier:@"chatGoodsLinkCell"];
+        [_tableView registerNib:[UINib nibWithNibName:@"ChatOrderTipsTableViewCell" bundle:nil] forCellReuseIdentifier:@"chatOrderTipsTableViewCell"];
+
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.backgroundColor = APP_PAGE_COLOR;
@@ -699,6 +703,16 @@
     [self.frostedViewController presentMenuViewController];
 }
 
+//点击订单cell进入订单详情界面
+- (IBAction)showOrderDetail:(UIButton *)sender
+{
+    OrderDetailViewController *ctl = [[OrderDetailViewController alloc] init];
+    MessageModel *model = [_dataSource objectAtIndex:sender.tag];
+    OrderTipsMessage *message = (OrderTipsMessage *)model.baseMessage;
+    ctl.orderId = message.orderId;
+    [self.navigationController pushViewController:ctl animated:YES];
+}
+
 /**
  * 实现父类的后退按钮
  */
@@ -753,7 +767,7 @@
                 [self showQuestionWithLongPressPoint:model];
                 return;
             }
-            if (((MessageModel *)object).type == IMMessageTypeTipsMessageType || ((MessageModel *)object).type == IMMessageTypeGoodsLinkMessageType) {
+            if (((MessageModel *)object).type == IMMessageTypeTipsMessageType || ((MessageModel *)object).type == IMMessageTypeGoodsLinkMessageType  || ((MessageModel *)object).type == IMMessageTypeOrderTipsMessageType) {
                 return;
             }
             EMChatViewCell *cell = (EMChatViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
@@ -1047,6 +1061,13 @@
             } else if (model.type == IMMessageTypeGoodsLinkMessageType) {
                 ChatGoodsLinkTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"chatGoodsLinkCell" forIndexPath:indexPath];
                 cell.messageModel = model;
+                return cell;
+                
+            } else if (model.type == IMMessageTypeOrderTipsMessageType) {
+                ChatOrderTipsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"chatOrderTipsTableViewCell" forIndexPath:indexPath];
+                cell.messageModel = model;
+                cell.showOrderDetailBtn.tag = indexPath.row;
+                [cell.showOrderDetailBtn addTarget:self action:@selector(showOrderDetail:) forControlEvents:UIControlEventTouchUpInside];
                 return cell;
                 
             } else{

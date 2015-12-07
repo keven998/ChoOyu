@@ -302,6 +302,10 @@ class MessageManager: NSObject {
                     
                 case .GoodsLinkMessageType:
                     break
+                    
+                case .OrderTipsMessageType:
+                    messageModel = OrderTipsMessage()
+                    
                 }
                 
                 if let contents = messageDic.objectForKey("contents") as? String {
