@@ -45,10 +45,6 @@
 //旅行派自有的消息内容
 @property (nonatomic, strong) IMPoiModel *poiModel;
 
-//消息中包含的商品信息
-@property (nonatomic, strong) GoodsDetailModel *goodsModel;
-
-
 //image
 @property (nonatomic) CGSize size;
 @property (nonatomic) CGSize thumbnailSize;

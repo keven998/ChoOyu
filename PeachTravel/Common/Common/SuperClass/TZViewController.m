@@ -45,6 +45,7 @@
 {
     if (self.navigationController.childViewControllers.count > 1) {
         [self.navigationController popViewControllerAnimated:YES];
+        
     } else {
         [self dismissViewControllerAnimated:YES completion:nil];
     }

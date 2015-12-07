@@ -16,6 +16,11 @@
 #import "UMSocial.h"
 #import "MakeOrderViewController.h"
 #import "GoodsManager.h"
+#import "ChatViewController.h"
+#import "PeachTravel-swift.h"
+#import "ChatGroupSettingViewController.h"
+#import "ChatSettingViewController.h"
+#import "REFrostedViewController.h"
 
 @interface GoodsDetailViewController ()<RCTBridgeModule, ActivityDelegate> {
     RCTBridge *bridge;
@@ -53,13 +58,11 @@ RCT_EXPORT_MODULE();
                                               moduleProvider:nil
                                                launchOptions:nil];
     
-    NSLog(@"开始初始化");
     rootView = [[RCTRootView alloc] initWithBridge:bridge moduleName:@"GoodsDetailClass" initialProperties:nil];
-    NSLog(@"结束初始化");
     
     rootView.frame = CGRectMake(0, 0, kWindowWidth, kWindowHeight);
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(storeDetail) name:@"gotoStoreDetailNoti" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(chatWithBusiness) name:@"gotoStoreDetailNoti" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(makeOrderAction) name:@"makeOrderNoti" object:nil];
 
     UIButton *shareBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 40)];
@@ -80,17 +83,12 @@ RCT_EXPORT_MODULE();
         } else {
             [SVProgressHUD showHint:HTTP_FAILED_HINT];
         }
-        
     }];
-
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear: animated];
-    NSLog(@"viewWillAppera");
-
-    
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -108,6 +106,55 @@ RCT_EXPORT_MODULE();
     dispatch_async(dispatch_get_main_queue(), ^{
         StoreDetailViewController *ctl = [[StoreDetailViewController alloc] init];
         [self.navigationController pushViewController:ctl animated:YES];
+    });
+}
+
+- (void)chatWithBusiness
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        IMClientManager *clientManager = [IMClientManager shareInstance];
+        ChatConversation *conversation = [clientManager.conversationManager getExistConversationInConversationList:PaipaiUserId];
+        ChatViewController *chatController = [[ChatViewController alloc] initWithConversation:conversation];
+        GoodsLinkMessage *message = [[GoodsLinkMessage alloc] init];
+        message.senderId = [AccountManager shareAccountManager].account.userId;
+        message.senderName = [AccountManager shareAccountManager].account.nickName;
+        message.chatterId = conversation.chatterId;
+        message.chatType = conversation.chatType;
+        message.goodsName = _goodsDetail.goodsName;
+        message.goodsId = _goodsDetail.goodsId;
+        message.price = _goodsDetail.currentPrice;
+        message.imageUrl = _goodsDetail.image.imageUrl;
+        message.createTime = [[NSDate date] timeIntervalSince1970];
+        chatController.goodsLinkMessageSnapshot = message;
+        
+        chatController.chatterName = conversation.chatterName;
+        UIViewController *menuViewController = nil;
+        if (conversation.chatType == IMChatTypeIMChatGroupType || conversation.chatType == IMChatTypeIMChatDiscussionGroupType) {
+            menuViewController = [[ChatGroupSettingViewController alloc] init];
+            ((ChatGroupSettingViewController *)menuViewController).groupId = conversation.chatterId;
+            ((ChatGroupSettingViewController *)menuViewController).conversation = conversation;
+            
+        } else {
+            menuViewController = [[ChatSettingViewController alloc] init];
+            ((ChatSettingViewController *)menuViewController).currentConversation= conversation;
+            ((ChatSettingViewController *)menuViewController).chatterId = conversation.chatterId;
+        }
+        
+        REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:chatController menuViewController:menuViewController];
+        
+        if (conversation.chatType == IMChatTypeIMChatGroupType || conversation.chatType == IMChatTypeIMChatDiscussionGroupType) {
+            ((ChatGroupSettingViewController *)menuViewController).containerCtl = frostedViewController;
+        } else {
+            ((ChatSettingViewController *)menuViewController).containerCtl = frostedViewController;
+        }
+        frostedViewController.hidesBottomBarWhenPushed = YES;
+        frostedViewController.direction = REFrostedViewControllerDirectionRight;
+        frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
+        frostedViewController.liveBlur = YES;
+        frostedViewController.limitMenuViewSize = YES;
+        
+        [self.navigationController pushViewController:frostedViewController animated:YES];
+
     });
 }
 

@@ -24,9 +24,10 @@
 - (void)setMessageModel:(MessageModel *)messageModel
 {
     _messageModel = messageModel;
-    _goodsTitleLabel.text = _messageModel.goodsModel.goodsName;
-    _goodsPriceLabel.text = [NSString stringWithFormat:@"价格 :￥%d起", (int)_messageModel.goodsModel.currentPrice];
-    
+    GoodsLinkMessage *message = (GoodsLinkMessage *)_messageModel.baseMessage;
+    _goodsTitleLabel.text = message.goodsName;
+    _goodsPriceLabel.text = [NSString stringWithFormat:@"价格 :￥%d起", (int)message.price];
+    [_goodsImageView sd_setImageWithURL:[NSURL URLWithString:message.imageUrl] placeholderImage:nil];
 }
 
 @end

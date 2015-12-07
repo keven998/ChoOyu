@@ -144,9 +144,7 @@
     
     _conversation.isCurrentConversation = YES;
     _conversation.delegate = self;
-    NSLog(@"开始获取聊天记录");
     [_conversation getDefaultChatMessageInConversation:15];
-    NSLog(@"结束获取聊天记录");
     [self sortDataSource];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeAllMessages:) name:@"RemoveAllMessages" object:nil];
@@ -164,6 +162,10 @@
     _isScrollToBottom = YES;
     
     [self setupBarButtonItem];
+    if (_goodsLinkMessageSnapshot) {
+        [self addChatMessage2Buttom:_goodsLinkMessageSnapshot];
+    }
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -228,6 +230,7 @@
 {
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - [DXMessageToolBar defaultHeight]-64)];
+        [_tableView registerNib:[UINib nibWithNibName:@"ChatGoodsLinkTableViewCell" bundle:nil] forCellReuseIdentifier:@"chatGoodsLinkCell"];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.backgroundColor = APP_PAGE_COLOR;
@@ -750,7 +753,7 @@
                 [self showQuestionWithLongPressPoint:model];
                 return;
             }
-            if (((MessageModel *)object).type == IMMessageTypeTipsMessageType) {
+            if (((MessageModel *)object).type == IMMessageTypeTipsMessageType || ((MessageModel *)object).type == IMMessageTypeGoodsLinkMessageType) {
                 return;
             }
             EMChatViewCell *cell = (EMChatViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
