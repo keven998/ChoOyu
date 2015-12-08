@@ -39,7 +39,7 @@
 {
     CGRect frame = self.frame;
     _headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 214)];
-
+    _headerImageView.contentMode = UIViewContentModeScaleAspectFill;
     TaoziImage *image = [self.cityPoi.images firstObject];
     [_headerImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
     _headerImageView.userInteractionEnabled = YES;

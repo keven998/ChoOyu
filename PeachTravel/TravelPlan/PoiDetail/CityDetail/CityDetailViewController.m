@@ -82,6 +82,7 @@
 - (void)showAllGoodsAction
 {
     GoodsListViewController *ctl = [[GoodsListViewController alloc] init];
+    ctl.cityId = _cityId;
     [self.navigationController pushViewController:ctl animated:YES];
 }
 

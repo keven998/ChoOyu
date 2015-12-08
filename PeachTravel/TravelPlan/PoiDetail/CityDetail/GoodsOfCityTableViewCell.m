@@ -16,7 +16,7 @@
     _avatarBkgView.clipsToBounds = YES;
     _avatarImageView.clipsToBounds = YES;
     _avatarImageView.image = [UIImage imageNamed:@"avatar_default.png"];
-    
+    _headerImageView.clipsToBounds = YES;
     [_ratingBtn setImage:[UIImage imageNamed:@"icon_rating"] forState:UIControlStateNormal];
 
 }
