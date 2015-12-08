@@ -109,7 +109,6 @@
         completion(NO, nil);
         
     }];
-
 }
 
 + (void)asyncLoadRecommendGoodsWithCompletionBlock:(void (^)(BOOL isSuccess, NSArray<NSDictionary *> *goodsList))completion
@@ -132,9 +131,11 @@
                 NSMutableDictionary *retDic = [[NSMutableDictionary alloc] init];
                 [retDic setObject:[dic objectForKey:@"topicType"] forKey:@"title"];
                 NSMutableArray *goodsList = [[NSMutableArray alloc] init];
-                for (NSDictionary *goodsDic in [dic objectForKey:@"commodities"]) {
-                    GoodsDetailModel *goods = [[GoodsDetailModel alloc] initWithJson:goodsDic];
-                    [goodsList addObject:goods];
+                for (id goodsDic in [dic objectForKey:@"commodities"]) {
+                    if ([goodsDic isKindOfClass:[NSDictionary class]]) {
+                        GoodsDetailModel *goods = [[GoodsDetailModel alloc] initWithJson:goodsDic];
+                        [goodsList addObject:goods];
+                    }
                 }
                 [retDic setObject:goodsList forKey:@"goodsList"];
                 [retArray addObject:retDic];
@@ -142,12 +143,10 @@
             completion(YES, retArray);
             
         } else {
-            [SVProgressHUD showHint:HTTP_FAILED_HINT];
             completion(NO, nil);
         }
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [SVProgressHUD showHint:HTTP_FAILED_HINT];
         completion(NO, nil);
         
     }];
@@ -179,12 +178,10 @@
             completion(YES, retArray);
             
         } else {
-            [SVProgressHUD showHint:HTTP_FAILED_HINT];
             completion(NO, nil);
         }
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [SVProgressHUD showHint:HTTP_FAILED_HINT];
         completion(NO, nil);
         
     }];
