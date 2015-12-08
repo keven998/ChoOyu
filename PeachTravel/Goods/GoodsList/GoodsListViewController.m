@@ -34,11 +34,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _cityId = @"55fbe42eb257b61c149e784a";
     self.navigationItem.title = @"商品列表";
     _sortDataSource = @[@"推荐排序", @"销量最高", @"价格最低", @"价格最高"];
     _categoryDatasource = @[@"全部"];
-//    _tableView.contentInset = UIEdgeInsetsMake(0, 0, 49, 0);
     [_tableView registerNib:[UINib nibWithNibName:@"GoodsListTableViewCell" bundle:nil] forCellReuseIdentifier:@"goodsListCell"];
     _tableView.separatorColor = COLOR_LINE;
     _tableView.dataSource = self;
@@ -46,10 +44,12 @@
     _scroll2TopBtn.hidden = YES;
     [_scroll2TopBtn addTarget:self action:@selector(scroll2Top) forControlEvents:UIControlEventTouchUpInside];
     [GoodsManager asyncLoadGoodsOfCity:_cityId category:_category sortBy:_sortType sortValue:_sortValue startIndex:0 count:pageCount completionBlock:^(BOOL isSuccess, NSArray *goodsList) {
-        NSMutableArray *tempArray = [[NSMutableArray alloc] initWithArray:_dataSource];
-        [tempArray addObjectsFromArray:goodsList];
-        _dataSource = tempArray;
-        [_tableView reloadData];
+        if (isSuccess) {
+            NSMutableArray *tempArray = [[NSMutableArray alloc] initWithArray:_dataSource];
+            [tempArray addObjectsFromArray:goodsList];
+            _dataSource = tempArray;
+            [_tableView reloadData];
+        }
     }];
     DOPDropDownMenu *menu = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:41];
     menu.separatorColor = COLOR_LINE;
@@ -67,13 +67,15 @@
     
     self.tableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         [GoodsManager asyncLoadGoodsOfCity:_cityId category:_category sortBy:_sortType sortValue:_sortValue startIndex:[_dataSource count]+1 count:pageCount completionBlock:^(BOOL isSuccess, NSArray *goodsList) {
-            NSMutableArray *tempArray = [[NSMutableArray alloc] initWithArray:_dataSource];
-            [tempArray addObjectsFromArray:goodsList];
-            _dataSource = tempArray;
-            [_tableView reloadData];
-            [_tableView.footer endRefreshing];
-            if (goodsList.count < pageCount) {
-                [_tableView.footer endRefreshingWithNoMoreData];
+            if (isSuccess) {
+                NSMutableArray *tempArray = [[NSMutableArray alloc] initWithArray:_dataSource];
+                [tempArray addObjectsFromArray:goodsList];
+                _dataSource = tempArray;
+                [_tableView reloadData];
+                [_tableView.footer endRefreshing];
+                if (goodsList.count < pageCount) {
+                    [_tableView.footer endRefreshingWithNoMoreData];
+                }
             }
         }];
     }];
