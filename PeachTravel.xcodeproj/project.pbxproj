@@ -806,6 +806,8 @@
 		D98CC6431A1993BE00FA5A76 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D902AD1F1A149FAB00E36A93 /* CFNetwork.framework */; };
 		D98CEE0B1B4E17010019B902 /* GuiderCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D98CEE091B4E17010019B902 /* GuiderCollectionViewController.m */; };
 		D98CEE0C1B4E17010019B902 /* GuiderCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D98CEE0A1B4E17010019B902 /* GuiderCollectionViewController.xib */; };
+		D98EB39E1C16D88A0034B8D4 /* ChatGoodsBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = D98EB39D1C16D88A0034B8D4 /* ChatGoodsBubbleView.m */; };
+		D98EB3A01C16DAE20034B8D4 /* GoodsChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98EB39F1C16DAE20034B8D4 /* GoodsChatMessage.swift */; };
 		D992C9601B50FD0C000C7E2D /* TripFavoriteTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D992C95E1B50FD0C000C7E2D /* TripFavoriteTableViewController.m */; };
 		D992C9611B50FD0C000C7E2D /* TripFavoriteTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D992C95F1B50FD0C000C7E2D /* TripFavoriteTableViewController.xib */; };
 		D993837B1BE9EBA600151974 /* CityDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D99383791BE9EBA600151974 /* CityDetailViewController.m */; };
@@ -3098,6 +3100,9 @@
 		D98CEE081B4E17010019B902 /* GuiderCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuiderCollectionViewController.h; sourceTree = "<group>"; };
 		D98CEE091B4E17010019B902 /* GuiderCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuiderCollectionViewController.m; sourceTree = "<group>"; };
 		D98CEE0A1B4E17010019B902 /* GuiderCollectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GuiderCollectionViewController.xib; sourceTree = "<group>"; };
+		D98EB39C1C16D88A0034B8D4 /* ChatGoodsBubbleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatGoodsBubbleView.h; sourceTree = "<group>"; };
+		D98EB39D1C16D88A0034B8D4 /* ChatGoodsBubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatGoodsBubbleView.m; sourceTree = "<group>"; };
+		D98EB39F1C16DAE20034B8D4 /* GoodsChatMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoodsChatMessage.swift; sourceTree = "<group>"; };
 		D992C95D1B50FD0C000C7E2D /* TripFavoriteTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripFavoriteTableViewController.h; sourceTree = "<group>"; };
 		D992C95E1B50FD0C000C7E2D /* TripFavoriteTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripFavoriteTableViewController.m; sourceTree = "<group>"; };
 		D992C95F1B50FD0C000C7E2D /* TripFavoriteTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TripFavoriteTableViewController.xib; sourceTree = "<group>"; };
@@ -6821,6 +6826,7 @@
 				D993C2271B12DF0C0088D568 /* LocationModel.swift */,
 				D993C2281B12DF0C0088D568 /* TextMessage.swift */,
 				D93B97F31B4BACAF0054EF50 /* TipsMessage.swift */,
+				D98EB39F1C16DAE20034B8D4 /* GoodsChatMessage.swift */,
 				D9B408141B6B804C00795EB6 /* HtmlMessage.swift */,
 				D92CCF2B1C156BE20018D54D /* GoodsLinkMessage.swift */,
 				D92CCF2D1C157C120018D54D /* OrderTipsMessage.swift */,
@@ -7367,6 +7373,8 @@
 				D9A800CF1A80DD23005AD701 /* TaoziChatBaseBubbleView.m */,
 				D9A800D01A80DD23005AD701 /* TaoziChatCityBubbleView.h */,
 				D9A800D11A80DD23005AD701 /* TaoziChatCityBubbleView.m */,
+				D98EB39C1C16D88A0034B8D4 /* ChatGoodsBubbleView.h */,
+				D98EB39D1C16D88A0034B8D4 /* ChatGoodsBubbleView.m */,
 			);
 			path = ChatCellBubble;
 			sourceTree = "<group>";
@@ -11547,6 +11555,7 @@
 				C679D3161ACD65EC007680D9 /* UIViewController+CWPopup.m in Sources */,
 				D92CCF2C1C156BE20018D54D /* GoodsLinkMessage.swift in Sources */,
 				D95663A51BB00B0F006B2765 /* SearchDestinationRecommendViewController.m in Sources */,
+				D98EB3A01C16DAE20034B8D4 /* GoodsChatMessage.swift in Sources */,
 				D95663A11BAFFB94006B2765 /* EditUserAlbumDescViewController.m in Sources */,
 				D90C76131BF1DED600C5897C /* MakeOrderContactInfoTableViewCell.m in Sources */,
 				D9A8002F1A80D52F005AD701 /* RestaurantsListViewController.m in Sources */,
@@ -11798,6 +11807,7 @@
 				D993C23B1B12DF0C0088D568 /* NetworkTransportAPI.swift in Sources */,
 				D94E25681BECADE100DB487D /* GoodsListViewController.m in Sources */,
 				C65DB7B81AD37B8600F51443 /* SelectionTableViewController.m in Sources */,
+				D98EB39E1C16D88A0034B8D4 /* ChatGoodsBubbleView.m in Sources */,
 				D92CA1131AD8BDF900F244FF /* SWLongPressGestureRecognizer.m in Sources */,
 				C6C5C3B71ADE15BE0047C058 /* BaseTextSettingViewController.m in Sources */,
 				0115C7E41BAFD26E00631928 /* TZFrendListCellForArea.m in Sources */,

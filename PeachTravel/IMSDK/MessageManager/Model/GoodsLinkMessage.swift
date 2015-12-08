@@ -10,7 +10,7 @@ import UIKit
 
 class GoodsLinkMessage: BaseMessage {
     var goodsName: String?
-    var price: Double = 0.0
+    var price: Float = 0.0
     var goodsId: Int = 0
     var imageUrl: String?
     

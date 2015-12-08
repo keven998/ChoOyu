@@ -23,8 +23,8 @@
     _subtitleLabel.text = _goodsDetail.goodsDesc;
     _tagCollectionView.backgroundColor = [UIColor clearColor];
     
-    NSString *oldPrice = [NSString stringWithFormat:@"%d", (int)_goodsDetail.primePrice];
-    NSString *nowPrice = [NSString stringWithFormat:@"%d", (int)_goodsDetail.currentPrice];
+    NSString *oldPrice = [NSString stringWithFormat:@"￥%d", (int)_goodsDetail.primePrice];
+    NSString *nowPrice = [NSString stringWithFormat:@"￥%d", (int)_goodsDetail.currentPrice];
     
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@", oldPrice, nowPrice]];
     [attrStr addAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:13],
