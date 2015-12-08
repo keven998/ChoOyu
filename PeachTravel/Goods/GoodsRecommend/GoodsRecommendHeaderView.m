@@ -26,7 +26,6 @@
 {
     if (self = [super initWithFrame:frame]) {
         _galleryView = [[AutoSlideScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 210)];
-        _galleryView.backgroundColor = [UIColor redColor];
         _galleryView.scrollView.showsHorizontalScrollIndicator = NO;
         
         _searchBtn = [[UIButton alloc] initWithFrame:CGRectMake(30, 30, frame.size.width-60, 27)];
