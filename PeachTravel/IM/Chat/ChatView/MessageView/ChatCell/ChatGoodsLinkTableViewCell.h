@@ -10,6 +10,7 @@
 #import "MessageModel.h"
 
 @interface ChatGoodsLinkTableViewCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UIView *bgView;
 @property (weak, nonatomic) IBOutlet UILabel *goodsTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *goodsPriceLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *goodsImageView;

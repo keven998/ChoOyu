@@ -12,13 +12,17 @@
 
 + (CGFloat)heightOfCellWithMessageModel:(MessageModel *)messageModel
 {
-    return 120;
+    return 95;
 }
 
 - (void)awakeFromNib {
+    _bgView.layer.borderColor = COLOR_LINE.CGColor;
+    _bgView.layer.borderWidth = 0.5;
+    self.backgroundColor = APP_PAGE_COLOR;
     _sendGoodsLinkButton.layer.borderColor = COLOR_LINE.CGColor;
     _sendGoodsLinkButton.layer.borderWidth = 0.5;
-    _sendGoodsLinkButton.layer.cornerRadius = 5;
+    _sendGoodsLinkButton.layer.cornerRadius = 8;
+    [_sendGoodsLinkButton setBackgroundImage:[ConvertMethods createImageWithColor:APP_PAGE_COLOR] forState:UIControlStateNormal];
 }
 
 - (void)setMessageModel:(MessageModel *)messageModel
