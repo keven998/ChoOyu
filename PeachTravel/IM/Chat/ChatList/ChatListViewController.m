@@ -89,6 +89,7 @@
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:contactListBtn];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogin) name:userDidLoginNoti object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushNewChatViewController:) name:pushNewChatViewNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkChanged:) name:networkConnectionStatusChangeNoti object:nil];
     
     
@@ -224,6 +225,14 @@
     }
 }
 
+//进入新的聊天界面
+- (void)pushNewChatViewController:(NSNotification *)noti
+{
+    NSInteger chatterId = [[noti.userInfo objectForKey:@"chatterId"] integerValue];
+    NSInteger chatType = [[noti.userInfo objectForKey:@"chatType"] integerValue];
+    ChatConversation *conversation = [self.imClientManager.conversationManager getConversationWithChatterId:chatterId chatType:chatType];
+    [self pushChatViewControllerWithConversation:conversation];
+}
 
 /**
  *  通过连接状态更新navi的状态

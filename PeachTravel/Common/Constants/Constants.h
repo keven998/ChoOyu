@@ -149,6 +149,9 @@
 
 #define networkConnectionStatusChangeNoti       @"networkConnectionStatusChange"    //网络状态发生变化
 
+#define pushNewChatViewNoti                     @"networkConnectionStatusChange"    //进入新的聊天界面
+
+
 #define uploadUserAlbumNoti                     @"uploadUserAlbum"
 
 #pragma mark - ***********各种枚举信息*************

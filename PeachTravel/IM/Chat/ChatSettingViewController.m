@@ -14,7 +14,7 @@
 #import "REFrostedViewController.h"
 #import "ChatGroupCell.h"
 
-@interface ChatSettingViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface ChatSettingViewController ()<UITableViewDataSource,UITableViewDelegate, CreateConversationDelegate>
 {
     UITableView *_tableView;
     UIView *_headerView;
@@ -60,6 +60,8 @@
     frend.userId = _currentConversation.chatterId;
     frend.nickName = _currentConversation.chatterName;
     frend.avatar = _currentConversation.chatterAvatar;
+    createConversationCtl.haveSelectedFrend = frend;
+    createConversationCtl.delegate = self;
     [_containerCtl.navigationController pushViewController:createConversationCtl animated:YES];
 
 }
@@ -255,6 +257,18 @@
     return retMessages;
 }
 
+
+#pragma mark - CreateConversationDelegate
+
+- (void)createConversationSuccessWithChatter:(NSInteger)chatterId chatType:(IMChatType)chatType chatTitle:(NSString *)chatTitle
+{
+    [self.containerCtl.navigationController popToRootViewControllerAnimated:YES];
+    NSDictionary *notiDic = @{
+                              @"chatterId" :[NSNumber numberWithInteger:chatterId],
+                              @"chatType" :[NSNumber numberWithInteger:chatType]
+                              };
+    [[NSNotificationCenter defaultCenter] postNotificationName:pushNewChatViewNoti object:nil userInfo:notiDic];
+}
 
 
 @end

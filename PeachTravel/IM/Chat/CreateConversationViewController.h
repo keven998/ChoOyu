@@ -33,6 +33,9 @@
  */
 @property (nonatomic, strong) IMDiscussionGroup *group;
 
+//从单聊变为群聊，已经选中的联系人
+@property (nonatomic, strong) FrendModel *haveSelectedFrend;
+
 @property (nonatomic, weak) id <CreateConversationDelegate> delegate;
 
 

@@ -127,6 +127,33 @@
     if (_group) {         //如果是向已有的群组里添加新的成员
         [self didAddNumberToGroup];
         
+    } else if (_haveSelectedFrend) {    //从单聊变为群聊
+        [self showHudInView:self.view hint:@"创建群组..."];
+        
+        IMDiscussionGroupManager *discussionGroupManager = [IMDiscussionGroupManager shareInstance];
+        NSMutableString *subject = [[NSMutableString alloc] initWithString: [NSString stringWithFormat:@"%@, %@", [AccountManager shareAccountManager].account.nickName, _haveSelectedFrend.nickName]];
+        for (FrendModel *model in self.selectedContacts) {
+            [subject appendString:[NSString stringWithFormat:@", %@", model.nickName]];
+        }
+        NSMutableArray *groupNumbers = [[NSMutableArray alloc] init];
+        [groupNumbers addObject:_haveSelectedFrend];
+        for (FrendModel *model in _selectedContacts) {
+            [groupNumbers addObject:model];
+        }
+        [discussionGroupManager asyncCreateDiscussionGroup:subject invitees: groupNumbers completionBlock:^(BOOL isSuccess, NSInteger errCode, IMDiscussionGroup * __nullable discussionGroup) {
+            [self hideHud];
+            if (isSuccess) {
+                if (_delegate && [_delegate respondsToSelector:@selector(createConversationSuccessWithChatter:chatType:chatTitle:)]) {
+                    [_delegate createConversationSuccessWithChatter:discussionGroup.groupId chatType:IMChatTypeIMChatDiscussionGroupType chatTitle:discussionGroup.subject];
+                }
+            } else {
+                [self hideHud];
+                [SVProgressHUD showHint:@"创建失败"];
+            }
+            
+        }];
+
+        
     } else {
         if (self.selectedContacts.count == 0) {
             [SVProgressHUD showErrorWithStatus:@"请选择一个以上朋友"];
@@ -148,9 +175,6 @@
             [discussionGroupManager asyncCreateDiscussionGroup:subject invitees: self.selectedContacts completionBlock:^(BOOL isSuccess, NSInteger errCode, IMDiscussionGroup * __nullable discussionGroup) {
                 [self hideHud];
                 if (isSuccess) {
-                    FrendModel *model = self.selectedContacts.firstObject;
-                    NSString *groupSubjct = [NSString stringWithFormat:@"测试群组: %@", model.nickName];
-                    discussionGroup.subject = groupSubjct;
                     if (_delegate && [_delegate respondsToSelector:@selector(createConversationSuccessWithChatter:chatType:chatTitle:)]) {
                         [_delegate createConversationSuccessWithChatter:discussionGroup.groupId chatType:IMChatTypeIMChatDiscussionGroupType chatTitle:discussionGroup.subject];
                     }
