@@ -220,7 +220,6 @@
         }
         if ([tzConversation.chatterAvatar isBlankString]) {
             
-            
         }
     }
 }

@@ -104,6 +104,8 @@
     
     if (_detailMsg.length > 0) {
         _detailLabel.attributedText = [TZEmojiTextConvertor convertToEmojiTextWithText:_detailMsg withFont:_detailLabel.font];
+    } else {
+        _detailLabel.attributedText = nil;
     }
     
     CGFloat offsetX = 0;
