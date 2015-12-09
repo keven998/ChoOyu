@@ -10,6 +10,7 @@
 #import "ChatGroupSettingCell.h"
 #import "PeachTravel-swift.h"
 #import "ChatAlbumCollectionViewController.h"
+#import "CreateConversationViewController.h"
 #import "REFrostedViewController.h"
 #import "ChatGroupCell.h"
 
@@ -50,6 +51,17 @@
 
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:_tableView];
+}
+
+- (void)createGroupAction
+{
+    CreateConversationViewController *createConversationCtl = [[CreateConversationViewController alloc] init];
+    FrendModel *frend = [[FrendModel alloc] init];
+    frend.userId = _currentConversation.chatterId;
+    frend.nickName = _currentConversation.chatterName;
+    frend.avatar = _currentConversation.chatterAvatar;
+    [_containerCtl.navigationController pushViewController:createConversationCtl animated:YES];
+
 }
 
 #pragma mark - Table view data source
@@ -99,6 +111,7 @@
     UIButton *createGroupBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, 10, width-40, 35)];
     [createGroupBtn setTitle:@"创建群组" forState:UIControlStateNormal];
     [createGroupBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [createGroupBtn addTarget:self action:@selector(createGroupAction) forControlEvents:UIControlEventTouchUpInside];
     [sectionFooterView addSubview:createGroupBtn];
     return sectionFooterView;
 }

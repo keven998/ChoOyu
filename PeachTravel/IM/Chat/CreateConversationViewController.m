@@ -146,6 +146,7 @@
                 [subject appendString:[NSString stringWithFormat:@", %@", model.nickName]];
             }
             [discussionGroupManager asyncCreateDiscussionGroup:subject invitees: self.selectedContacts completionBlock:^(BOOL isSuccess, NSInteger errCode, IMDiscussionGroup * __nullable discussionGroup) {
+                [self hideHud];
                 if (isSuccess) {
                     FrendModel *model = self.selectedContacts.firstObject;
                     NSString *groupSubjct = [NSString stringWithFormat:@"测试群组: %@", model.nickName];
