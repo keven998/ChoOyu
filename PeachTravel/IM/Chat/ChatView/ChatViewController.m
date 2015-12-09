@@ -52,6 +52,7 @@
 #import "ConvertToCommonEmoticonsHelper.h"
 #import "TripDetailRootViewController.h"
 #import "OrderDetailViewController.h"
+#import "GoodsDetailViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import "PeachTravel-swift.h"
 
@@ -857,6 +858,14 @@
     [self.frostedViewController.navigationController pushViewController:locationController animated:YES];
 }
 
+//商品气泡被点击
+- (void)chatGoodsBubblePressed:(MessageModel *)model
+{
+    GoodsDetailViewController *ctl = [[GoodsDetailViewController alloc] init];
+    ctl.goodsId = ((GoodsChatMessage *)model.baseMessage).goodsId;
+    [self.frostedViewController.navigationController pushViewController:ctl animated:YES];
+}
+
 /**
  *  自定义旅行派消息的气泡被点击
  *
@@ -1004,6 +1013,9 @@
         
     } else if ([eventName isEqualToString:kRouterEventTaoziBubbleTapEventName]) {
         [self chatTaoziBubblePressed:model];
+        
+    } else if ([eventName isEqualToString:kRouterEventChatGoodsBubbleTapEventName]) {
+        [self chatGoodsBubblePressed:model];
         
     } else if([eventName isEqualToString:kResendButtonTapEventName]){
         EMChatViewCell *resendCell = [userInfo objectForKey:kShouldResendCell];

@@ -8,6 +8,8 @@
 
 #import "EMChatBaseBubbleView.h"
 
+extern NSString *const kRouterEventChatGoodsBubbleTapEventName;
+
 @interface ChatGoodsBubbleView : EMChatBaseBubbleView
 
 @end
