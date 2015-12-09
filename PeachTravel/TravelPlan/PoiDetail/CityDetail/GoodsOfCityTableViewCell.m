@@ -24,6 +24,7 @@
 - (void)setGoodsDetail:(GoodsDetailModel *)goodsDetail
 {
     _goodsDetail = goodsDetail;
+    _titleLabel.text = _goodsDetail.goodsName;
     _sellCountLabel.text = [NSString stringWithFormat:@"%ld", _goodsDetail.saleCount];
     
     [_headerImageView sd_setImageWithURL:[NSURL URLWithString:_goodsDetail.image.imageUrl] placeholderImage:nil];
