@@ -17,6 +17,9 @@
         _currentPrice = [[json objectForKey:@"price"] floatValue];
         _goodsName = [json objectForKey:@"title"];
         _rating = [[json objectForKey:@"rating"] floatValue]*100;
+        if ([json objectForKey:@"cover"] != [NSNull null]) {
+            _coverImage = [[TaoziImage alloc] initWithJson:[json objectForKey:@"cover"]];
+        }
         _image = [[TaoziImage alloc] initWithJson:[[json objectForKey:@"images"] firstObject]];
         _saleCount = [[json objectForKey:@"salesVolume"] integerValue];
         if ([json objectForKey:@"locality"] != [NSNull null]) {

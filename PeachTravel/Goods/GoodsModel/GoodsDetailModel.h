@@ -20,6 +20,7 @@
 @property (nonatomic) float primePrice;
 @property (nonatomic) float currentPrice;
 @property (nonatomic, strong) TaoziImage *image;
+@property (nonatomic, copy) TaoziImage *coverImage;
 @property (nonatomic, strong) NSArray<NSString *> *tags;
 @property (nonatomic, strong) BusinessMoel *business;
 @property (nonatomic, strong) StoreDetailModel *store;
