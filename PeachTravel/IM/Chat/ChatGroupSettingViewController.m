@@ -334,6 +334,8 @@
             cell.cellTitle.textColor = COLOR_TEXT_I;
             cell.cellDetail.text = nil;
             return cell;
+        } else {
+            return nil;
         }
     } else {
         ChatGroupCell *cell = [tableView dequeueReusableCellWithIdentifier:@"chatCell" forIndexPath:indexPath];
@@ -352,8 +354,6 @@
         [cell.headerImage sd_setImageWithURL:[NSURL URLWithString: avatarStr] placeholderImage:[UIImage imageNamed:@"avatar_default"]];
         return cell;
     }
-    ChatGroupCell *cell = [tableView dequeueReusableCellWithIdentifier:@"chatCell" forIndexPath:indexPath];
-    return cell;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath

@@ -11,6 +11,7 @@
 #import "PeachTravel-swift.h"
 #import "ChatAlbumCollectionViewController.h"
 #import "REFrostedViewController.h"
+#import "ChatGroupCell.h"
 
 @interface ChatSettingViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
@@ -45,6 +46,8 @@
     _tableView.delegate = self;
     [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     [_tableView registerNib:[UINib nibWithNibName:@"ChatGroupSettingCell" bundle:nil] forCellReuseIdentifier:@"chatGroupSettingCell"];
+    [_tableView registerNib:[UINib nibWithNibName:@"ChatGroupCell" bundle:nil] forCellReuseIdentifier:@"chatCell"];
+
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:_tableView];
 }
@@ -52,6 +55,13 @@
 #pragma mark - Table view data source
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 64.0;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    if (section == 0) {
+        return 0.01;
+    }
+    return 55.0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -70,16 +80,38 @@
     strLabel.font = [UIFont systemFontOfSize:13];
     strLabel.textColor = COLOR_TEXT_I;
     [sectionHeaderView addSubview:strLabel];
-    strLabel.text = @"聊天设置";
+    
+    if (section == 0) {
+        strLabel.text = @"聊天设置";
+    } else {
+        strLabel.text = @"聊天成员";
+    }
     return sectionHeaderView;
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    if (section == 0) {
+        return nil;
+    }
+    CGFloat width = CGRectGetWidth(self.view.bounds);
+    UIView *sectionFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, width, 55.0)];
+    UIButton *createGroupBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, 10, width-40, 35)];
+    [createGroupBtn setTitle:@"创建群组" forState:UIControlStateNormal];
+    [createGroupBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [sectionFooterView addSubview:createGroupBtn];
+    return sectionFooterView;
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
+    if (section == 0) {
+        return 3;
+    }
+    return 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -88,31 +120,41 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 0) {
-        ChatGroupSettingCell *cell = [tableView dequeueReusableCellWithIdentifier:@"chatGroupSettingCell" forIndexPath:indexPath];
-        cell.accessoryType = UITableViewCellAccessoryNone;
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.titleLabel.font = [UIFont systemFontOfSize:15.0];
-        IMClientManager *clientManager = [IMClientManager shareInstance];
-        ChatConversation *conversation = [clientManager.conversationManager getExistConversationInConversationList:_chatterId];
-        [cell.switchBtn removeTarget:self action:@selector(changeMsgStatus:) forControlEvents:UIControlEventValueChanged];
-        [cell.switchBtn addTarget:self action:@selector(changeMsgStatus:) forControlEvents:UIControlEventValueChanged];
-        cell.switchBtn.on = [conversation isBlockMessage];
-        cell.tag = 101;
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            ChatGroupSettingCell *cell = [tableView dequeueReusableCellWithIdentifier:@"chatGroupSettingCell" forIndexPath:indexPath];
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.titleLabel.font = [UIFont systemFontOfSize:15.0];
+            IMClientManager *clientManager = [IMClientManager shareInstance];
+            ChatConversation *conversation = [clientManager.conversationManager getExistConversationInConversationList:_chatterId];
+            [cell.switchBtn removeTarget:self action:@selector(changeMsgStatus:) forControlEvents:UIControlEventValueChanged];
+            [cell.switchBtn addTarget:self action:@selector(changeMsgStatus:) forControlEvents:UIControlEventValueChanged];
+            cell.switchBtn.on = [conversation isBlockMessage];
+            cell.tag = 101;
+            return cell;
+            
+        } else if (indexPath.row == 1) {
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+            cell.textLabel.font = [UIFont systemFontOfSize:15.0];
+            cell.textLabel.textColor = COLOR_TEXT_I;
+            cell.textLabel.text = @"清空聊天记录";
+            return cell;
+        } else if (indexPath.row == 2) {
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+            cell.textLabel.font = [UIFont systemFontOfSize:15.0];
+            cell.textLabel.textColor = COLOR_TEXT_I;
+            cell.textLabel.text = @"聊天图集";
+            return cell;
+        }
+        
+    } else {
+        ChatGroupCell *cell = [tableView dequeueReusableCellWithIdentifier:@"chatCell" forIndexPath:indexPath];
+        cell.nameLabel.text = _currentConversation.chatterName;
+        NSString *avatarStr = _currentConversation.chatterAvatar;
+        [cell.headerImage sd_setImageWithURL:[NSURL URLWithString: avatarStr] placeholderImage:[UIImage imageNamed:@"avatar_default"]];
         return cell;
 
-    } else if (indexPath.row == 1) {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-        cell.textLabel.font = [UIFont systemFontOfSize:15.0];
-        cell.textLabel.textColor = COLOR_TEXT_I;
-        cell.textLabel.text = @"清空聊天记录";
-        return cell;
-    } else if (indexPath.row == 2) {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-        cell.textLabel.font = [UIFont systemFontOfSize:15.0];
-        cell.textLabel.textColor = COLOR_TEXT_I;
-        cell.textLabel.text = @"聊天图集";
-        return cell;
     }
     return nil;
 }
