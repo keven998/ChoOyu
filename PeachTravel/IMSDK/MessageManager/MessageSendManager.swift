@@ -313,6 +313,43 @@ class MessageSendManager: NSObject {
     }
     
     /**
+     发送商品信息
+     
+     - parameter goodsMessage:
+     - parameter receiver:
+     - parameter chatType:
+     - parameter conversationId:
+     - parameter completionBlock:
+     - parameter error:
+     
+     - returns: 
+     */
+    func sendGoodsMessage(goodsMessage: GoodsChatMessage, receiver: Int, chatType:IMChatType, conversationId: String?, completionBlock:(isSuccess: Bool, error: String?) -> ()) -> BaseMessage {
+        goodsMessage.createTime = Int(NSDate().timeIntervalSince1970)
+        goodsMessage.chatterId = receiver
+        goodsMessage.status = .IMMessageSending
+        goodsMessage.sendType = .MessageSendMine
+        goodsMessage.conversationId = conversationId
+        goodsMessage.messageType = .GoodsMessageType
+        
+        let goodsDic = ["price": goodsMessage.price, "commodityName": goodsMessage.goodsName!, "commodityId": goodsMessage.goodsId, "image": goodsMessage.imageUrl!]
+        goodsMessage.message = JSONConvertMethod.contentsStrWithJsonObjc(goodsDic) as! String
+        
+        let daoHelper = DaoHelper.shareInstance()
+        daoHelper.insertChatMessage("chat_\(receiver)", message: goodsMessage)
+        for MessageManagerDelegate in self.sendDelegateList {
+            MessageManagerDelegate.sendNewMessage?(goodsMessage)
+        }
+        sendMessage(goodsMessage, receiver: receiver, chatType: chatType, conversationId: conversationId) { (isSuccess, error) -> () in
+            if (error != nil) {
+                debug_print("\(error)")
+            }
+            completionBlock(isSuccess: isSuccess, error: error)
+        }
+        return goodsMessage
+    }
+    
+    /**
     发送一条图片消息
     
     :param: chatterId

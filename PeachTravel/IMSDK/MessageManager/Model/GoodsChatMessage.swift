@@ -21,8 +21,8 @@ class GoodsChatMessage: BaseMessage {
     }
     
     override func fillContentWithContentDic(contentsDic: NSDictionary) {
-        goodsId = contentsDic.objectForKey("commondityId") as! Int
-        goodsName = contentsDic.objectForKey("commondityName") as? String
+        goodsId = contentsDic.objectForKey("commodityId") as! Int
+        goodsName = contentsDic.objectForKey("commodityName") as? String
         imageUrl = contentsDic.objectForKey("image") as? String
         price = (contentsDic.objectForKey("price") as? Float)!
 

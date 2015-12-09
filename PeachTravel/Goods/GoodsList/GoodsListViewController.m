@@ -66,7 +66,7 @@
     [menu addSubview:spaceView];
     
     self.tableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-        [GoodsManager asyncLoadGoodsOfCity:_cityId category:_category sortBy:_sortType sortValue:_sortValue startIndex:[_dataSource count]+1 count:pageCount completionBlock:^(BOOL isSuccess, NSArray *goodsList) {
+        [GoodsManager asyncLoadGoodsOfCity:_cityId category:_category sortBy:_sortType sortValue:_sortValue startIndex:[_dataSource count] count:pageCount completionBlock:^(BOOL isSuccess, NSArray *goodsList) {
             if (isSuccess) {
                 NSMutableArray *tempArray = [[NSMutableArray alloc] initWithArray:_dataSource];
                 [tempArray addObjectsFromArray:goodsList];

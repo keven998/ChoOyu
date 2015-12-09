@@ -12,6 +12,7 @@
 
 #import "EMChatViewCell.h"
 #import "EMChatVideoBubbleView.h"
+#import "ChatGoodsBubbleView.h"
 #import "UIResponder+Router.h"
 #import "TipsChatTableViewCell.h"
 
@@ -206,7 +207,7 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
             break;
             
         case IMMessageTypeGoodsMessageType: {
-            
+            return [[ChatGoodsBubbleView alloc] init];
         }
             break;
             
@@ -256,6 +257,10 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
             
         }
             break;
+            
+        case IMMessageTypeGoodsMessageType: {
+            return [ChatGoodsBubbleView heightForBubbleWithObject:messageModel] + nickNameHeight;
+        }
             
         case IMMessageTypeLocationMessageType:
             return [EMChatLocationBubbleView heightForBubbleWithObject:messageModel] + nickNameHeight;

@@ -9,13 +9,18 @@
 #import "ChatGoodsBubbleView.h"
 #import "PeachTravel-swift.h"
 
+#define  ChatGoodsBubbleHeight 80
+#define  ChatGoodsBubbleWidth 205
+#define  ChatGoodsTitleBubbleHeight    18
+
 NSString *const kRouterEventChatGoodsBubbleTapEventName = @"kRouterEventChatGoodsBubbleTapEventName";
 
 @interface ChatGoodsBubbleView ()
 
 @property (nonatomic, strong) UILabel *titleLabel;
-@property (nonatomic, strong) UIImageView *coverImageView;
-@property (nonatomic, strong) UIImageView *titleImageView;
+@property (nonatomic, strong) UILabel *priceLabel;
+
+@property (nonatomic, strong) UIImageView *pictureImageView;
 
 @end
 
@@ -25,17 +30,22 @@ NSString *const kRouterEventChatGoodsBubbleTapEventName = @"kRouterEventChatGood
 {
     self = [super initWithFrame:frame];
     if (self) {
-        _titleLabel = [[UILabel alloc] init];
-        _titleLabel.font = [UIFont systemFontOfSize:12.0];
-        _titleLabel.textColor = [UIColor whiteColor];
         
-        _titleImageView = [[UIImageView alloc] init];
-        _coverImageView = [[UIImageView alloc] init];
-        _coverImageView.layer.cornerRadius = 4.0;
-        _coverImageView.clipsToBounds = YES;
-        [self addSubview:_coverImageView];
-        [self addSubview:_titleImageView];
+        _titleLabel = [[UILabel alloc] init];
+        _titleLabel.font = [UIFont boldSystemFontOfSize:14.0];
+        _titleLabel.numberOfLines = 2;
+        _titleLabel.textColor = COLOR_TEXT_I;
+        
+        _priceLabel = [[UILabel alloc] init];
+        _priceLabel.font = [UIFont systemFontOfSize:12.0];
+        _priceLabel.textColor = COLOR_TEXT_II;
+        
+        _pictureImageView = [[UIImageView alloc] init];
+        _pictureImageView.layer.cornerRadius = 4.0;
+        _pictureImageView.clipsToBounds = YES;
+        [self addSubview:_pictureImageView];
         [self addSubview:_titleLabel];
+        [self addSubview:_priceLabel];
     }
     return self;
 }
@@ -44,24 +54,23 @@ NSString *const kRouterEventChatGoodsBubbleTapEventName = @"kRouterEventChatGood
 {
     [super layoutSubviews];
     
-    [_titleLabel setFrame:CGRectMake(BUBBLE_ARROW_WIDTH+8, 0, ChatGoodsBubbleWidth-16-2*BUBBLE_ARROW_WIDTH, ChatGoodsBubbleHeight)];
-    [_titleImageView setFrame:CGRectMake(0, 0, ChatGoodsBubbleWidth, ChatGoodsBubbleHeight)];
-    
-    if (self.model.isSender) {
-        
-        [_coverImageView setFrame:CGRectMake(0, 0, ChatGoodsBubbleWidth-BUBBLE_ARROW_WIDTH, ChatGoodsBubbleHeight)];
-        _titleLabel.textAlignment = NSTextAlignmentRight;
-        
+    CGFloat titleWidth;
+    if (_model.isSender) {
+        titleWidth = 100;
     } else {
-        [_coverImageView setFrame:CGRectMake(BUBBLE_ARROW_WIDTH, 0, ChatGoodsBubbleWidth-BUBBLE_ARROW_WIDTH, ChatGoodsBubbleHeight)];
-        
-        _titleLabel.textAlignment = NSTextAlignmentLeft;
+        titleWidth = 110;
     }
-    NSString *imageName = self.model.isSender ? @"messages_poi_bg_self.png" : @"messages_poi_bg_friend.png";
     
-    _titleImageView.image = [[UIImage imageNamed:imageName] resizableImageWithCapInsets:UIEdgeInsetsMake(28, 18, 18, 10)];
+    if (_model.isSender) {
+        [_pictureImageView setFrame:CGRectMake(12.5, 10, 60, 60)];
+    } else {
+        [_pictureImageView setFrame:CGRectMake(20, 10, 60, 60)];
+    }
+
+    [_titleLabel setFrame:CGRectMake(_pictureImageView.frame.origin.x + 70, 10, titleWidth, 40)];
     
-    
+    [_priceLabel setFrame:CGRectMake(_titleLabel.frame.origin.x, _titleLabel.frame.origin.y+42, titleWidth, 20)];
+
 }
 
 - (void)bubbleViewPressed:(id)sender
@@ -78,9 +87,13 @@ NSString *const kRouterEventChatGoodsBubbleTapEventName = @"kRouterEventChatGood
 - (void)setModel:(MessageModel *)model
 {
     _model = model;
+    BOOL isReceiver = !_model.isSender;
+    NSString *imageName = isReceiver ? @"messages_poi_bg_friend.png" : @"messages_poi_bg_self.png";
+    self.backImageView.image = [[UIImage imageNamed:imageName] resizableImageWithCapInsets:UIEdgeInsetsMake(28, 18, 18, 10)];
     GoodsChatMessage *message = (GoodsChatMessage *)model.baseMessage;
-    [_coverImageView sd_setImageWithURL:[NSURL URLWithString:message.imageUrl] placeholderImage:nil];
-    _titleLabel.text = message.goodsName;
+    [_pictureImageView sd_setImageWithURL:[NSURL URLWithString:message.imageUrl] placeholderImage:nil];
+    _titleLabel.text = [NSString stringWithFormat:@"商品 | %@", message.goodsName];
+    _priceLabel.text = [NSString stringWithFormat:@"￥%.1f", message.price];
 }
 
 /**

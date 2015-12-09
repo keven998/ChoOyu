@@ -415,6 +415,12 @@
                 }
                     break;
                     
+                case IMMessageTypeGoodsMessageType: {
+                    ret = [NSString stringWithFormat:@"%@:[链接] %@", nickName, ((GoodsChatMessage *)lastMessage).goodsName];
+                    
+                }
+                    break;
+                    
                 case IMMessageTypeTipsMessageType: {
                     ret = ((TipsMessage *) lastMessage).tipsContent;
                     
@@ -490,6 +496,11 @@
                     
                 case IMMessageTypeQuestionMessageType:
                     ret = [NSString stringWithFormat:@"[问问消息]"];
+                    break;
+                    
+                case IMMessageTypeGoodsMessageType: {
+                    ret = [NSString stringWithFormat:@"[链接] %@", ((GoodsChatMessage *)lastMessage).goodsName];
+                }
                     break;
                     
                 case IMMessageTypeTipsMessageType:

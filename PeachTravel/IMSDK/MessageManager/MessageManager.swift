@@ -298,6 +298,7 @@ class MessageManager: NSObject {
                     messageModel = HtmlMessage()
                     
                 case .GoodsMessageType:
+                    messageModel = GoodsChatMessage()
                     break
                     
                 case .GoodsLinkMessageType:

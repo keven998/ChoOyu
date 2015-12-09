@@ -713,6 +713,36 @@
     [self.navigationController pushViewController:ctl animated:YES];
 }
 
+//点击发送商品信息
+- (void)sendGoodsLinkAction
+{
+    if (_goodsLinkMessageSnapshot) {
+        GoodsChatMessage *message = [[GoodsChatMessage alloc] init];
+        message.goodsId = _goodsLinkMessageSnapshot.goodsId;
+        message.goodsName = _goodsLinkMessageSnapshot.goodsName;
+        message.imageUrl = _goodsLinkMessageSnapshot.imageUrl;
+        message.price = _goodsLinkMessageSnapshot.price;
+        IMClientManager *imClientManager = [IMClientManager shareInstance];
+        
+        BaseMessage *retMessage = [imClientManager.messageSendManager sendGoodsMessage:message receiver:_conversation.chatterId chatType:_conversation.chatType conversationId:_conversation.conversationId completionBlock:^(BOOL isSuccess, NSString * _Nullable error) {
+            if (!isSuccess) {
+                if (error) {
+                    TipsMessage *message = [[TipsMessage alloc] initWithContent:error tipsType:TipsMessageTypeCommon_Tips];
+                    message.chatterId = _conversation.chatterId;
+                    message.createTime = [[NSDate date] timeIntervalSince1970];
+                    [_conversation addReceiveMessage:message];
+                    [_conversation insertMessage2DB: message];
+                }
+            }
+
+            
+        }];
+      
+        [self addChatMessage2Buttom:retMessage];
+
+    }
+}
+
 /**
  * 实现父类的后退按钮
  */
@@ -1063,6 +1093,7 @@
                 
             } else if (model.type == IMMessageTypeGoodsLinkMessageType) {
                 ChatGoodsLinkTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"chatGoodsLinkCell" forIndexPath:indexPath];
+                [cell.sendGoodsLinkButton addTarget:self action:@selector(sendGoodsLinkAction) forControlEvents:UIControlEventTouchUpInside];
                 cell.messageModel = model;
                 return cell;
                 

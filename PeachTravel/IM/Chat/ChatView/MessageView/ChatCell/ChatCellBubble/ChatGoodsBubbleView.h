@@ -8,10 +8,6 @@
 
 #import "EMChatBaseBubbleView.h"
 
-#define  ChatGoodsBubbleHeight 90
-#define  ChatGoodsBubbleWidth 133
-#define  ChatGoodsTitleBubbleHeight    18
-
 @interface ChatGoodsBubbleView : EMChatBaseBubbleView
 
 @end

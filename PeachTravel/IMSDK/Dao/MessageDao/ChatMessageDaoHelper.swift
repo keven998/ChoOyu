@@ -384,6 +384,7 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
                 retMessage = HtmlMessage()
                 
             case .GoodsMessageType:
+                retMessage = GoodsChatMessage()
                 break
                 
             case .GoodsLinkMessageType:

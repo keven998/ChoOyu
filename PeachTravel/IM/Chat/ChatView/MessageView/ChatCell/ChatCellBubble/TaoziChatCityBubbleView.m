@@ -14,7 +14,7 @@ NSString *const kRouterEventTaoziCityBubbleTapEventName = @"kRouterEventTaoziCit
 
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UIImageView *coverImageView;
-@property (nonatomic, strong) UIImageView *titleImageView;
+@property (nonatomic, strong) UIImageView *headerImageView;
 
 @end
 
@@ -28,12 +28,11 @@ NSString *const kRouterEventTaoziCityBubbleTapEventName = @"kRouterEventTaoziCit
         _titleLabel.font = [UIFont systemFontOfSize:12.0];
         _titleLabel.textColor = [UIColor whiteColor];
         
-        _titleImageView = [[UIImageView alloc] init];
+        _headerImageView = [[UIImageView alloc] init];
         _coverImageView = [[UIImageView alloc] init];
-        _coverImageView.layer.cornerRadius = 4.0;
-        _coverImageView.clipsToBounds = YES;
+
         [self addSubview:_coverImageView];
-        [self addSubview:_titleImageView];
+        [self addSubview:_headerImageView];
         [self addSubview:_titleLabel];
     }
     return self;
@@ -44,7 +43,12 @@ NSString *const kRouterEventTaoziCityBubbleTapEventName = @"kRouterEventTaoziCit
     [super layoutSubviews];
     
     [_titleLabel setFrame:CGRectMake(BUBBLE_ARROW_WIDTH+8, 0, TaoziCityBubbleWidth-16-2*BUBBLE_ARROW_WIDTH, TaoziCityTitleBubbleHeight)];
-    [_titleImageView setFrame:CGRectMake(0, 0, TaoziCityBubbleWidth, TaoziCityTitleBubbleHeight)];
+    if (_model.isSender) {
+        [_headerImageView setFrame:CGRectMake(12.5, 10, 60, 60)];
+    } else {
+        [_headerImageView setFrame:CGRectMake(20, 10, 60, 60)];
+    }
+    [_coverImageView setFrame:CGRectMake(0, 0, TaoziCityBubbleWidth, TaoziCityTitleBubbleHeight)];
 
     if (self.model.isSender) {
         
@@ -58,7 +62,7 @@ NSString *const kRouterEventTaoziCityBubbleTapEventName = @"kRouterEventTaoziCit
     }
     NSString *imageName = self.model.isSender ? @"messages_poi_bg_self.png" : @"messages_poi_bg_friend.png";
 
-    _titleImageView.image = [[UIImage imageNamed:imageName] resizableImageWithCapInsets:UIEdgeInsetsMake(28, 18, 18, 10)];
+    _coverImageView.image = [[UIImage imageNamed:imageName] resizableImageWithCapInsets:UIEdgeInsetsMake(28, 18, 18, 10)];
 
     
 }
@@ -78,7 +82,7 @@ NSString *const kRouterEventTaoziCityBubbleTapEventName = @"kRouterEventTaoziCit
 {
     _model = model;
     IMPoiModel *poiModel = model.poiModel;
-    [_coverImageView sd_setImageWithURL:[NSURL URLWithString:poiModel.image] placeholderImage:nil];
+    [_headerImageView sd_setImageWithURL:[NSURL URLWithString:poiModel.image] placeholderImage:nil];
     _titleLabel.text = poiModel.poiName;
 }
 

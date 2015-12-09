@@ -363,7 +363,7 @@
 
 - (void)simpleCalendarViewController:(PDTSimpleCalendarViewController *)controller didSelectDate:(NSDate *)date
 {
-    NSString *dateStr =   [ConvertMethods dateToString:date withFormat:@"yyyy-MM-dd" withTimeZone:[NSTimeZone systemTimeZone]];
+//    NSString *dateStr =   [ConvertMethods dateToString:date withFormat:@"yyyy-MM-dd" withTimeZone:[NSTimeZone systemTimeZone]];
     _orderDetail.useDate = date.timeIntervalSince1970;
     [_tableView reloadData];
 }

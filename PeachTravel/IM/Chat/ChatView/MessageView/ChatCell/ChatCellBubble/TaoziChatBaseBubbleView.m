@@ -19,7 +19,7 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
 
 @interface TaoziChatBaseBubbleView ()
 
-@property (nonatomic, strong) UILabel *typeLabel;
+@property (nonatomic, copy) UILabel *typeLabel;
 @property (nonatomic, strong) UIImageView *pictureImageView;
 
 @property (nonatomic, strong) UIButton *titleBtn;
@@ -34,13 +34,11 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
     if (self = [super initWithFrame:frame]) {
         _typeLabel = [[UILabel alloc] init];
         _typeLabel.font = [UIFont boldSystemFontOfSize:16.0];
-        _typeLabel.textAlignment = NSTextAlignmentCenter;
         _typeLabel.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
-        _typeLabel.textColor = [UIColor whiteColor];
         _typeLabel.hidden = YES;
         
         _titleBtn = [[UIButton alloc] init];
-        _titleBtn.titleLabel.font = [UIFont boldSystemFontOfSize:15.0];
+        _titleBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14.0];
         [_titleBtn setTitleColor:COLOR_TEXT_I forState:UIControlStateNormal];
         _titleBtn.backgroundColor = [UIColor clearColor];
         _titleBtn.userInteractionEnabled = NO;
@@ -69,7 +67,7 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
         [self addSubview:_propertyBtn];
         [self addSubview:_pictureImageView];
         [self addSubview:_descLabel];
-        [_pictureImageView addSubview:_typeLabel];
+//        [_pictureImageView addSubview:_typeLabel];
     }
     return self;
 }
@@ -131,20 +129,18 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
 
     if (model.poiModel) {
         _titleBtn.titleLabel.numberOfLines = 1;
-        [_titleBtn setTitle:model.poiModel.poiName forState:UIControlStateNormal];
-        [_pictureImageView sd_setImageWithURL:[NSURL URLWithString:model.poiModel.image] placeholderImage:nil];
-    
+        NSString *typeDesc;
         switch (model.type) {
                 
             case IMMessageTypeSpotMessageType:
-                _typeLabel.text = @"景点";
+                typeDesc = @"景点";
                 [_propertyBtn setTitle:model.poiModel.timeCost forState:UIControlStateNormal];
                 [_propertyBtn setImage:nil forState:UIControlStateNormal];
                 _descLabel.text = model.poiModel.desc;
                 break;
                 
             case IMMessageTypeRestaurantMessageType: {
-                _typeLabel.text = @"美食";
+                typeDesc = @"美食";
                 NSString *protertyStr = [NSString stringWithFormat:@"%@  %@", model.poiModel.rating, model.poiModel.price];
                 if (_model.isSender) {
                     [_propertyBtn setImage:[UIImage imageNamed:@"ic_star_gray_small.png"] forState:UIControlStateNormal];
@@ -157,7 +153,7 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
                 break;
                 
             case IMMessageTypeHotelMessageType: {
-                _typeLabel.text = @"酒店";
+                typeDesc = @"酒店";
                 if (_model.isSender) {
                     [_propertyBtn setImage:[UIImage imageNamed:@"ic_star_gray_small.png"] forState:UIControlStateNormal];
                 } else {
@@ -170,7 +166,7 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
                 break;
                 
             case IMMessageTypeShoppingMessageType:
-                _typeLabel.text = @"购物";
+                typeDesc = @"购物";
                 if (_model.isSender) {
                     [_propertyBtn setImage:[UIImage imageNamed:@"ic_star_gray_small.png"] forState:UIControlStateNormal];
                 } else {
@@ -181,20 +177,20 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
                 break;
                 
             case IMMessageTypeGuideMessageType:
-                _typeLabel.text = @"计划";
+                typeDesc = @"计划";
                 [_propertyBtn setImage:nil forState:UIControlStateNormal];
                 [_propertyBtn setTitle:model.poiModel.timeCost forState:UIControlStateNormal];
                 _descLabel.text = model.poiModel.desc;
                 break;
                 
             case IMMessageTypeTravelNoteMessageType:
-                _typeLabel.text = @"游记";
+                typeDesc = @"游记";
                 _propertyBtn.hidden = YES;
                 _descLabel.text = model.poiModel.desc;
                 break;
                 
             case IMMessageTypeCityPoiMessageType:
-                _typeLabel.text = @"城市";
+                typeDesc = @"城市";
                 _propertyBtn.hidden = YES;
                 _descLabel.text = model.poiModel.desc;
                 break;
@@ -202,6 +198,9 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
             default:
                 break;
         }
+        [_titleBtn setTitle:[NSString stringWithFormat:@"%@ | %@", typeDesc, model.poiModel.poiName] forState:UIControlStateNormal];
+        [_pictureImageView sd_setImageWithURL:[NSURL URLWithString:model.poiModel.image] placeholderImage:nil];
+
         
     } else if (model.type == IMMessageTypeHtml5MessageType) {
         _titleBtn.titleLabel.numberOfLines = 2;
