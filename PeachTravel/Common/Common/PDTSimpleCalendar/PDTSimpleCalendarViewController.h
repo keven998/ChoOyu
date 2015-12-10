@@ -143,8 +143,9 @@
  *
  *  @param controller the calendarView Controller
  *  @param date       the date being selected (Midnight GMT).
+ *  @param price      价格
  */
-- (void)simpleCalendarViewController:(PDTSimpleCalendarViewController *)controller didSelectDate:(NSDate *)date;
+- (void)simpleCalendarViewController:(PDTSimpleCalendarViewController *)controller didSelectDate:(NSDate *)date price:(float)price;
 
 /** @name Color Customization */
 

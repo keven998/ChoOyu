@@ -107,7 +107,7 @@
  */
 @property (nonatomic, strong) UIFont *textDefaultFont UI_APPEARANCE_SELECTOR;
 
-@property (nonatomic, strong) NSString *price;
+@property (nonatomic) float price;
 
 
 /**

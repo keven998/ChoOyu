@@ -20,7 +20,6 @@
         _selectedPackage.packageId = [json objectForKey:@"planId"];
         _goods = [[GoodsDetailModel alloc] initWithJson:[json objectForKey:@"commodity"]];
         _selectedPackage = [_goods.packages firstObject];
-        _totalPrice = [[json objectForKey:@"totalPrice"] floatValue];
         _count = [[json objectForKey:@"quantity"] integerValue];
         _leaveMessage = [json objectForKey:@"comment"];
         _useDate = [[json objectForKey:@"rendezvousTime"] doubleValue]/1000;
@@ -36,6 +35,18 @@
         _travelerList = tempTravelerList;
     }
     return self;
+}
+
+- (void)setUnitPrice:(float)unitPrice
+{
+    _unitPrice = unitPrice;
+    _totalPrice = _unitPrice * _count;
+}
+
+- (void)setCount:(NSInteger)count
+{
+    _count = count;
+    _totalPrice = _unitPrice * _count;
 }
 
 - (NSString *)useDateStr

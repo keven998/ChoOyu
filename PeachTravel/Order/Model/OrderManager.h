@@ -79,14 +79,6 @@
  */
 + (void)updateOrder:(OrderDetailModel *)orderDetail WithBuyCount:(NSInteger)count;
 
-/**
- *  获得订单总价
- *
- *  @param orderDetail
- *
- *  @return    
- */
-+ (float)orderTotalPrice:(OrderDetailModel *)orderDetail;
 
 /**
  *  加载我的全部订单列表

@@ -189,6 +189,12 @@ static const NSCalendarUnit kCalendarUnitYMD = NSCalendarUnitYear | NSCalendarUn
     return _lastDateMonth;
 }
 
+- (void)setPriceList:(NSArray *)priceList
+{
+    _priceList = priceList;
+    [self.collectionView reloadData];
+}
+
 - (void)setSelectedDate:(NSDate *)newSelectedDate
 {
     //if newSelectedDate is nil, unselect the current selected cell
@@ -214,9 +220,11 @@ static const NSCalendarUnit kCalendarUnitYMD = NSCalendarUnitYear | NSCalendarUn
     NSIndexPath *indexPath = [self indexPathForCellAtDate:_selectedDate];
     [self.collectionView reloadItemsAtIndexPaths:@[ indexPath ]];
 
+    PDTSimpleCalendarViewCell *cell = [self cellForItemAtDate:_selectedDate];
+
     //Notify the delegate
-    if ([self.delegate respondsToSelector:@selector(simpleCalendarViewController:didSelectDate:)]) {
-        [self.delegate simpleCalendarViewController:self didSelectDate:self.selectedDate];
+    if ([self.delegate respondsToSelector:@selector(simpleCalendarViewController:didSelectDate:price:)]) {
+        [self.delegate simpleCalendarViewController:self didSelectDate:self.selectedDate price:cell.price];
     }
 }
 
@@ -379,12 +387,16 @@ static const NSCalendarUnit kCalendarUnitYMD = NSCalendarUnitYear | NSCalendarUn
         if ([self.delegate respondsToSelector:@selector(simpleCalendarViewController:shouldUseCustomColorsForDate:)]) {
             isCustomDate = [self.delegate simpleCalendarViewController:self shouldUseCustomColorsForDate:cellDate];
         }
-        NSString *priceStr = [self priceDescOfDate:cellDate];
-        cell.price = priceStr;
+        if (![self isBeforeToday:cellDate]) {
+            cell.price = [self priceDescOfDate:cellDate];;
+        } else {
+            [cell setDate:nil calendar:nil];
+            cell.price = -1;
+        }
 
     } else {
         [cell setDate:nil calendar:nil];
-        cell.price = nil;
+        cell.price = -1;
     }
 
     if (isToday) {
@@ -427,7 +439,10 @@ static const NSCalendarUnit kCalendarUnitYMD = NSCalendarUnitYear | NSCalendarUn
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    self.selectedDate = [self dateForCellAtIndexPath:indexPath];
+    PDTSimpleCalendarViewCell *cell = (PDTSimpleCalendarViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    if (cell.price >= 0) {
+        self.selectedDate = [self dateForCellAtIndexPath:indexPath];
+    }
 }
 
 
@@ -508,6 +523,13 @@ static const NSCalendarUnit kCalendarUnitYMD = NSCalendarUnitYear | NSCalendarUn
     return [self clampAndCompareDate:date withReferenceDate:[NSDate date]];
 }
 
+- (BOOL)isBeforeToday:(NSDate *)date
+{
+    NSDate *refDate = [self clampDate:[NSDate date] toComponents:kCalendarUnitYMD];
+    NSDate *clampedDate = [self clampDate:date toComponents:kCalendarUnitYMD];
+    return (clampedDate.timeIntervalSince1970 < refDate.timeIntervalSince1970);
+}
+
 - (BOOL)isSelectedDate:(NSDate *)date
 {
     if (!self.selectedDate) {
@@ -569,17 +591,17 @@ static const NSCalendarUnit kCalendarUnitYMD = NSCalendarUnitYear | NSCalendarUn
 }
 
 //某天的价格
-- (NSString *)priceDescOfDate:(NSDate *)date
+- (float)priceDescOfDate:(NSDate *)date
 {
     NSTimeInterval timeInterval = [date timeIntervalSince1970];
     for (NSDictionary *dic in _priceList) {
         NSTimeInterval beginDate = [[[dic objectForKey:@"timeRange"] firstObject] floatValue]/1000;
         NSTimeInterval endDate = [[[dic objectForKey:@"timeRange"] lastObject] floatValue]/1000;
         if (timeInterval >= beginDate && timeInterval <= endDate) {
-            return [NSString stringWithFormat:@"￥%.1f" ,[[dic objectForKey:@"price"] floatValue]];
+            return [[dic objectForKey:@"price"] floatValue];
         }
     }
-    return nil;
+    return -1;
 }
 
 static const NSInteger kFirstDay = 1;

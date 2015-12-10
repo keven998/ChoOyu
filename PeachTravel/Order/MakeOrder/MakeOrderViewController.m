@@ -40,7 +40,6 @@
     _orderDetail.goods = _goodsModel;
     _orderDetail.count = 1;
     _orderDetail.selectedPackage = [_goodsModel.packages firstObject];
-    _orderDetail.totalPrice = [OrderManager orderTotalPrice:_orderDetail];
     _orderDetail.travelerList = [[NSArray alloc] init];
     
     self.view.backgroundColor = [UIColor whiteColor];
@@ -141,6 +140,9 @@
     ctl.firstDate = _orderDetail.selectedPackage.startPriceDate;
     ctl.lastDate = _orderDetail.selectedPackage.endPriceDate;
     ctl.weekdayTextType = PDTSimpleCalendarViewWeekdayTextTypeVeryShort;
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:_orderDetail.useDate];
+    ctl.selectedDate = date;
+
     [self.navigationController pushViewController:ctl animated:YES];
 }
 
@@ -340,7 +342,6 @@
 - (void)didSelectedPackage:(GoodsPackageModel *)package
 {
     [OrderManager updateOrder:_orderDetail WithGoodsPackage:package];
-    _orderDetail.totalPrice = [OrderManager orderTotalPrice:_orderDetail];
     _totalPriceLabel.text = [NSString stringWithFormat:@"%d", (int)_orderDetail.totalPrice];
 }
 
@@ -355,16 +356,16 @@
 - (void)updateSelectCount:(NSInteger)count
 {
     [OrderManager updateOrder:_orderDetail WithBuyCount:count];
-    _orderDetail.totalPrice = [OrderManager orderTotalPrice:_orderDetail];
     _totalPriceLabel.text = [NSString stringWithFormat:@"%d", (int)_orderDetail.totalPrice];
 }
 
 #pragma mark - PDTSimpleCalendarViewDelegate
 
-- (void)simpleCalendarViewController:(PDTSimpleCalendarViewController *)controller didSelectDate:(NSDate *)date
+- (void)simpleCalendarViewController:(PDTSimpleCalendarViewController *)controller didSelectDate:(NSDate *)date price:(float)price
 {
-//    NSString *dateStr =   [ConvertMethods dateToString:date withFormat:@"yyyy-MM-dd" withTimeZone:[NSTimeZone systemTimeZone]];
+    _orderDetail.unitPrice = price;
     _orderDetail.useDate = date.timeIntervalSince1970;
+    _totalPriceLabel.text = [NSString stringWithFormat:@"%d", (int)_orderDetail.totalPrice];
     [_tableView reloadData];
 }
 
