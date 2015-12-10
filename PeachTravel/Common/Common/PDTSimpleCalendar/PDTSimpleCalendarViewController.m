@@ -390,7 +390,6 @@ static const NSCalendarUnit kCalendarUnitYMD = NSCalendarUnitYear | NSCalendarUn
         if (![self isBeforeToday:cellDate]) {
             cell.price = [self priceDescOfDate:cellDate];;
         } else {
-            [cell setDate:nil calendar:nil];
             cell.price = -1;
         }
 

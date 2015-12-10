@@ -137,7 +137,12 @@
     [ctl setDelegate:self];
     ctl.weekdayHeaderEnabled = YES;
     ctl.priceList = _orderDetail.selectedPackage.priceList;
-    ctl.firstDate = _orderDetail.selectedPackage.startPriceDate;
+    if ([NSDate date].timeIntervalSince1970 > _orderDetail.selectedPackage.startPriceDate.timeIntervalSince1970) {
+        ctl.firstDate = [NSDate date];
+    } else {
+        ctl.firstDate = _orderDetail.selectedPackage.startPriceDate;
+    }
+    
     ctl.lastDate = _orderDetail.selectedPackage.endPriceDate;
     ctl.weekdayTextType = PDTSimpleCalendarViewWeekdayTextTypeVeryShort;
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:_orderDetail.useDate];
