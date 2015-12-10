@@ -38,7 +38,7 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
         _typeLabel.hidden = YES;
         
         _titleBtn = [[UIButton alloc] init];
-        _titleBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14.0];
+        _titleBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
         [_titleBtn setTitleColor:COLOR_TEXT_I forState:UIControlStateNormal];
         _titleBtn.backgroundColor = [UIColor clearColor];
         _titleBtn.userInteractionEnabled = NO;

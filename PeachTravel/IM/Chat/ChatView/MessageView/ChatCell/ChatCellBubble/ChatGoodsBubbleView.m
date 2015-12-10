@@ -32,7 +32,7 @@ NSString *const kRouterEventChatGoodsBubbleTapEventName = @"kRouterEventChatGood
     if (self) {
         
         _titleLabel = [[UILabel alloc] init];
-        _titleLabel.font = [UIFont boldSystemFontOfSize:14.0];
+        _titleLabel.font = [UIFont systemFontOfSize:14.0];
         _titleLabel.numberOfLines = 2;
         _titleLabel.textColor = COLOR_TEXT_I;
         
