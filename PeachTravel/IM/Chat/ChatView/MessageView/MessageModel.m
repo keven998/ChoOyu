@@ -40,7 +40,6 @@
                                             convertToSystemEmoticons:message.message];
                 _content = didReceiveText;
             }
-
                 break;
             case IMMessageTypeAudioMessageType:
                 _localPath = ((AudioMessage *)message).localPath;
