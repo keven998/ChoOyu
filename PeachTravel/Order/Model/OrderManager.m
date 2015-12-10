@@ -87,6 +87,37 @@
     }];
 }
 
++ (void)asyncCancelOrderWithOrderId:(NSInteger)orderId completionBlock:(void (^)(BOOL, NSString *))completion
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    NSString *url = [NSString stringWithFormat:@"%@/%ld/actions", API_ORDERS, orderId];
+    NSDictionary *params = @{
+                             @"action": @"cancel"
+                             };
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [manager POST:url parameters: params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"***获取订单详情接口: %@", operation);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            completion(YES, nil);
+        } else {
+            completion(NO, nil);
+            
+        }
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        completion(NO, nil);
+        
+    }];
+}
+
 + (void)asyncLoadOrderDetailWithOrderId:(NSInteger)orderId completionBlock:(void (^)(BOOL, OrderDetailModel *))completion
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];

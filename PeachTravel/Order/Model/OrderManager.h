@@ -47,6 +47,15 @@
                   completionBlock:(void (^)(BOOL isSuccess, OrderDetailModel *orderDetail))completion;
 
 /**
+ *  取消订单
+ *
+ *  @param orerId     订单 ID
+ *  @param completion 完成回调
+ */
++ (void)asyncCancelOrderWithOrderId:(NSInteger)orderId completionBlock:(void (^) (BOOL isSuccess, NSString *error))completion;
+
+
+/**
  *  获取订单详情
  *
  *  @param orderId    订单 ID

@@ -132,6 +132,7 @@
         [cancelOrderBtn setTitle:@"取消订单" forState:UIControlStateNormal];
         [cancelOrderBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
         cancelOrderBtn.titleLabel.font = [UIFont systemFontOfSize:17];
+        [cancelOrderBtn addTarget:self action:@selector(cancelOrder:) forControlEvents:UIControlEventTouchUpInside];
         [_toolBar addSubview:cancelOrderBtn];
         
         UIButton *payOrderBtn = [[UIButton alloc] initWithFrame:CGRectMake(_toolBar.bounds.size.width/2, 0, _toolBar.bounds.size.width/2, _toolBar.bounds.size.height)];
@@ -177,6 +178,23 @@
 {
     SelectPayPlatformViewController *ctl = [[SelectPayPlatformViewController alloc] init];
     [self.navigationController pushViewController:ctl animated:YES];
+}
+
+- (void)cancelOrder:(UIButton *)sender
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"确定取消订单吗" message:nil delegate:self cancelButtonTitle:@"不取消" otherButtonTitles:@"确定", nil];
+    [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
+        if (buttonIndex == 1) {
+            [OrderManager asyncCancelOrderWithOrderId:_orderId completionBlock:^(BOOL isSuccess, NSString *error) {
+                if (isSuccess) {
+                    [SVProgressHUD showHint:@"取消成功"];
+                } else {
+                    [SVProgressHUD showHint:@"取消失败"];
+                }
+            }];
+        }
+    }];
+   
 }
 
 - (void)requestRefundMoney:(UIButton *)sender
