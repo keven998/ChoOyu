@@ -23,7 +23,7 @@
 }
 
 @property (nonatomic, strong) UIView *toolBar;
-@property (nonatomic) NSUInteger payCutdown;   //付款倒计时
+@property (nonatomic) NSInteger payCutdown;   //付款倒计时
 @end
 
 @implementation OrderDetailViewController
@@ -58,7 +58,7 @@
 {
     _orderDetail = orderDetail;
     if (_orderDetail.orderStatus == kOrderWaitPay) {
-        if (_orderDetail.expireTime - _orderDetail.currentTime) {
+        if (_orderDetail.expireTime - _orderDetail.currentTime > 0) {
             _payCutdown = _orderDetail.expireTime - _orderDetail.currentTime;
         } else {
             _payCutdown = 0;
@@ -77,7 +77,7 @@
     }
 }
 
-- (void)setPayCutdown:(NSUInteger)payCutdown
+- (void)setPayCutdown:(NSInteger)payCutdown
 {
     _payCutdown = payCutdown;
     if (_orderDetail.orderStatus == kOrderWaitPay) {
@@ -93,8 +93,14 @@
             [timer invalidate];
             timer = nil;
         }
+        return;
     }
     --self.payCutdown;
+    if (_orderDetail.expireTime - _orderDetail.currentTime > 0) {
+        _payCutdown = _orderDetail.expireTime - _orderDetail.currentTime;
+    } else {
+        _payCutdown = 0;
+    }
 }
 
 
