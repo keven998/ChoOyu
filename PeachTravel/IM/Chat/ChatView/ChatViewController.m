@@ -150,6 +150,11 @@
     [_conversation getDefaultChatMessageInConversation:15];
     [self sortDataSource];
     
+    if (_goodsLinkMessageSnapshot) {
+        MessageModel *model = [[MessageModel alloc] initWithBaseMessage:_goodsLinkMessageSnapshot];
+        [self.dataSource addObject:model];
+    }
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeAllMessages:) name:@"RemoveAllMessages" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(exitGroup) name:@"ExitGroup" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground) name:@"applicationDidEnterBackground" object:nil];
@@ -165,9 +170,7 @@
     _isScrollToBottom = YES;
     
     [self setupBarButtonItem];
-    if (_goodsLinkMessageSnapshot) {
-        [self addChatMessage2Buttom:_goodsLinkMessageSnapshot];
-    }
+   
 
 }
 
