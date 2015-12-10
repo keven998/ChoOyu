@@ -113,7 +113,7 @@
     [self.view addSubview:toolBar];
     
     _totalPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(27, 16, 200, 25)];
-    _totalPriceLabel.textColor = [UIColor whiteColor];
+    _totalPriceLabel.textColor = [UIColor redColor];
     _totalPriceLabel.font = [UIFont systemFontOfSize:17.0];
     _totalPriceLabel.text = [NSString stringWithFormat:@"%d", (int)_orderDetail.totalPrice];
     [toolBar addSubview:_totalPriceLabel];
@@ -357,7 +357,7 @@
                 break;
             }
         }
-        _totalPriceLabel.text = [NSString stringWithFormat:@"%d", (int)_orderDetail.totalPrice];
+        _totalPriceLabel.text = [NSString stringWithFormat:@"共￥%d", (int)_orderDetail.totalPrice];
     }
    
 }
@@ -373,7 +373,7 @@
 - (void)updateSelectCount:(NSInteger)count
 {
     [OrderManager updateOrder:_orderDetail WithBuyCount:count];
-    _totalPriceLabel.text = [NSString stringWithFormat:@"%d", (int)_orderDetail.totalPrice];
+    _totalPriceLabel.text = [NSString stringWithFormat:@"共￥%d", (int)_orderDetail.totalPrice];
 }
 
 #pragma mark - PDTSimpleCalendarViewDelegate
@@ -382,7 +382,7 @@
 {
     _orderDetail.unitPrice = price;
     _orderDetail.useDate = date.timeIntervalSince1970;
-    _totalPriceLabel.text = [NSString stringWithFormat:@"%d", (int)_orderDetail.totalPrice];
+    _totalPriceLabel.text = [NSString stringWithFormat:@"共￥%d", (int)_orderDetail.totalPrice];
     [_tableView reloadData];
 }
 
