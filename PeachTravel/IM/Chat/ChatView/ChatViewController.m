@@ -170,8 +170,6 @@
     _isScrollToBottom = YES;
     
     [self setupBarButtonItem];
-   
-
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -743,6 +741,19 @@
         }];
       
         [self addChatMessage2Buttom:retMessage];
+        
+        for (int i=(int)_dataSource.count-1; i>0; i--) {
+            id message = _dataSource[i];
+            if ([message isKindOfClass:[MessageModel class]]) {
+                if (((MessageModel *) message).type == IMMessageTypeGoodsLinkMessageType) {
+                    [self.dataSource removeObject:message];
+                    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
+                    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    break;
+                }
+               
+            }
+        }
 
     }
 }

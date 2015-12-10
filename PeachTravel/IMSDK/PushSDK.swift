@@ -23,7 +23,7 @@ class PushSDKManager: NSObject, GeTuiSdkDelegate {
     
     private var pushSdkIsConnected: Bool = false
     
-    var msgId:Int = 359
+    var msgId:Int = 400
 
     var deviceToke:String?
     
