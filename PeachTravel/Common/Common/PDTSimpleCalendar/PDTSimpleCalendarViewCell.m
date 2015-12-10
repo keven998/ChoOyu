@@ -113,7 +113,7 @@ const CGFloat PDTSimpleCalendarCircleSize = 32.0f;
 - (void)setPrice:(float)price
 {
     _price = price;
-    if (price >- 0) {
+    if (price >= 0) {
         _priceLabel.text = [NSString stringWithFormat:@"￥%.1f", _price];
 
         if (self.selected) {
@@ -123,7 +123,7 @@ const CGFloat PDTSimpleCalendarCircleSize = 32.0f;
         }
     } else {
         self.layer.borderColor = [UIColor clearColor].CGColor;
-
+        _priceLabel.text = nil;
     }
 }
 

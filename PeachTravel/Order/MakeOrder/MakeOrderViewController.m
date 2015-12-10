@@ -346,8 +346,20 @@
 
 - (void)didSelectedPackage:(GoodsPackageModel *)package
 {
-    [OrderManager updateOrder:_orderDetail WithGoodsPackage:package];
-    _totalPriceLabel.text = [NSString stringWithFormat:@"%d", (int)_orderDetail.totalPrice];
+    if (![package.packageId isEqualToString:_orderDetail.selectedPackage.packageId]) {
+        [OrderManager updateOrder:_orderDetail WithGoodsPackage:package];
+        _orderDetail.unitPrice = 0;
+        for (NSDictionary *priceDic in package.priceList) {
+            NSTimeInterval startDate = [[[priceDic objectForKey:@"timeRange"] firstObject] integerValue];
+            NSTimeInterval endDate = [[[priceDic objectForKey:@"timeRange"] lastObject] integerValue];
+            if (_orderDetail.useDate>startDate && _orderDetail.useDate<endDate) {
+                _orderDetail.unitPrice = [[priceDic objectForKey:@"price"] floatValue];
+                break;
+            }
+        }
+        _totalPriceLabel.text = [NSString stringWithFormat:@"%d", (int)_orderDetail.totalPrice];
+    }
+   
 }
 
 - (void)finishSelectTraveler:(NSArray<OrderTravelerInfoModel *> *)travelerList

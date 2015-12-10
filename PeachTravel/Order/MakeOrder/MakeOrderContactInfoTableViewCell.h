@@ -8,12 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MakeOrderContactInfoTableViewCell : UITableViewCell 
+@interface MakeOrderContactInfoTableViewCell : UITableViewCell
+
 @property (weak, nonatomic) IBOutlet UITextField *lastNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *firstNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *telTextField;
 @property (weak, nonatomic) IBOutlet UITextView *messageTextView;
-
-
 
 @end
