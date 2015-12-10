@@ -12,7 +12,7 @@
 
 + (CGFloat)heightOfCellWithMessageModel:(MessageModel *)messageModel
 {
-    return 95;
+    return 115;
 }
 
 - (void)awakeFromNib {
