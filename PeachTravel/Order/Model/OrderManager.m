@@ -93,6 +93,10 @@
     AppUtils *utils = [[AppUtils alloc] init];
     [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    if ([accountManager isLogin]) {
+        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+    }
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
@@ -102,7 +106,7 @@
                              };
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [manager POST:url parameters: params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"***获取订单详情接口: %@", operation);
+        NSLog(@"***订单详情接口: %@", operation);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             completion(YES, nil);

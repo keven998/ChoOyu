@@ -58,7 +58,11 @@
 {
     _orderDetail = orderDetail;
     if (_orderDetail.orderStatus == kOrderWaitPay) {
-        _payCutdown = _orderDetail.expireTime - _orderDetail.currentTime;
+        if (_orderDetail.expireTime - _orderDetail.currentTime) {
+            _payCutdown = _orderDetail.expireTime - _orderDetail.currentTime;
+        } else {
+            _payCutdown = 0;
+        }
         if (timer) {
             [timer invalidate];
             timer = nil;
