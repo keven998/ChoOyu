@@ -350,8 +350,8 @@
         [OrderManager updateOrder:_orderDetail WithGoodsPackage:package];
         _orderDetail.unitPrice = 0;
         for (NSDictionary *priceDic in package.priceList) {
-            NSTimeInterval startDate = [[[priceDic objectForKey:@"timeRange"] firstObject] integerValue];
-            NSTimeInterval endDate = [[[priceDic objectForKey:@"timeRange"] lastObject] integerValue];
+            NSTimeInterval startDate = [[[priceDic objectForKey:@"timeRange"] firstObject] integerValue]/1000;
+            NSTimeInterval endDate = [[[priceDic objectForKey:@"timeRange"] lastObject] integerValue]/1000;
             if (_orderDetail.useDate>startDate && _orderDetail.useDate<endDate) {
                 _orderDetail.unitPrice = [[priceDic objectForKey:@"price"] floatValue];
                 break;
