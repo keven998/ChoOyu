@@ -81,12 +81,7 @@
         [tabPageViewController.view addSubview:spaceView];
     }
     
-    for (int i=0 ; i<orderTypeList.count; i++) {
-        if (_orderType == [[orderTypeList objectAtIndex:i] integerValue]) {
-            tabPageViewController.selectedIndex = i;
-            break;
-        }
-    }
+    tabPageViewController.selectedIndex = _selectIndex;
 }
 
 - (void)didReceiveMemoryWarning {

@@ -85,7 +85,7 @@
 - (void)allOrderAction
 {
     MyOrderRootViewController *ctl = [[MyOrderRootViewController alloc] init];
-    ctl.orderType = 0;
+    ctl.selectIndex = 0;
     ctl.hidesBottomBarWhenPushed = YES;
     [_containerViewController.navigationController pushViewController:ctl animated:YES];
 }
@@ -93,7 +93,7 @@
 - (void)waitPayOrderAction
 {
     MyOrderRootViewController *ctl = [[MyOrderRootViewController alloc] init];
-    ctl.orderType = kOrderWaitPay;
+    ctl.selectIndex = 1;
     ctl.hidesBottomBarWhenPushed = YES;
     [_containerViewController.navigationController pushViewController:ctl animated:YES];
 }
@@ -101,7 +101,7 @@
 - (void)inProgressOrderAction
 {
     MyOrderRootViewController *ctl = [[MyOrderRootViewController alloc] init];
-    ctl.orderType = kOrderPaid;
+    ctl.selectIndex = 2;
     ctl.hidesBottomBarWhenPushed = YES;
     [_containerViewController.navigationController pushViewController:ctl animated:YES];
 }
@@ -109,7 +109,7 @@
 - (void)inUseOrderAction
 {
     MyOrderRootViewController *ctl = [[MyOrderRootViewController alloc] init];
-    ctl.orderType = kOrderInUse;
+    ctl.selectIndex = 3;
     ctl.hidesBottomBarWhenPushed = YES;
     [_containerViewController.navigationController pushViewController:ctl animated:YES];
 }
@@ -117,7 +117,7 @@
 - (void)refundMoneyOrderAction
 {
     MyOrderRootViewController *ctl = [[MyOrderRootViewController alloc] init];
-    ctl.orderType = kOrderRefunded;
+    ctl.selectIndex = 4;
     ctl.hidesBottomBarWhenPushed = YES;
     [_containerViewController.navigationController pushViewController:ctl animated:YES];
 }

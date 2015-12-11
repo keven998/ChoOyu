@@ -11,6 +11,6 @@
 
 @interface MyOrderRootViewController : TZViewController
 
-@property (nonatomic) OrderStatus orderType;     //初次进来要进入哪个界面
+@property (nonatomic) NSInteger selectIndex;     //初次进来要进入哪个界面
 
 @end
