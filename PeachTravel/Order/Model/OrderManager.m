@@ -207,7 +207,46 @@
 
 + (void)asyncLoadOrdersFromServerOfUser:(NSInteger)userId orderType:(NSArray<NSNumber *> *)orderTypes startIndex:(NSInteger)startIndex count:(NSInteger)count completionBlock:(void (^)(BOOL, NSArray<OrderDetailModel *> *))completion
 {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    NSString *url = [NSString stringWithFormat:@"%@", API_ORDERS];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:[NSNumber numberWithInteger:userId] forKey:@"userId"];
+    [params setObject:[NSNumber numberWithInteger:startIndex] forKey:@"start"];
+    [params setObject:[NSNumber numberWithInteger:count] forKey:@"count"];
+    [params safeSetObject:[orderTypes firstObject] forKey:@"status"];
     
+    [manager GET:url parameters: params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"***获取订单列表接口: %@", operation);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            if ([[responseObject objectForKey:@"result"] isKindOfClass:[NSArray class]]) {
+                NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+                for (NSDictionary *dic in [responseObject objectForKey:@"result"]) {
+                    OrderDetailModel *orderDetail = [[OrderDetailModel alloc] initWithJson:dic];
+                    [tempArray addObject:orderDetail];
+                }
+                completion(YES, tempArray);
+            } else {
+                completion(NO, nil);
+            }
+        } else {
+            completion(NO, nil);
+            
+        }
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        completion(NO, nil);
+        
+    }];
+
 }
 
 + (NSArray<OrderDetailModel *> *)filterOrderListWithOrderType:(OrderStatus)orderType andOrderList:(NSArray<OrderDetailModel *> *)orderList
@@ -223,6 +262,82 @@
     }
     return retArray;
 }
+
++ (OrderStatus)orderStatusWithServerOrderStatus:(NSString *)statusStr
+{
+    if ([statusStr isEqualToString:@"pending"]) {
+        return kOrderWaitPay;
+        
+    } else if ([statusStr isEqualToString:@"paid"]) {
+        return kOrderPaid;
+        
+    } else if ([statusStr isEqualToString:@"paid"]) {
+        return kOrderPaid;
+        
+    } else if ([statusStr isEqualToString:@"committed"]) {
+        return kOrderInUse;
+        
+    } else if ([statusStr isEqualToString:@"finished"]) {
+        return kOrderCompletion;
+        
+    } else if ([statusStr isEqualToString:@"canceled"]) {
+        return kOrderCanceled;
+        
+    } else if ([statusStr isEqualToString:@"expired"]) {
+        return kOrderExpired;
+        
+    } else if ([statusStr isEqualToString:@"refundApplied"]) {
+        return kOrderRefunding;
+        
+    } else if ([statusStr isEqualToString:@"refunded"]) {
+        return kOrderRefunded;
+    }
+    
+    return 0;
+}
+
++ (NSString *)orderServerStatusWithLocalStatus:(OrderStatus)orderStatus
+{
+    NSString *retStatus;
+    switch (orderStatus) {
+        case kOrderWaitPay:
+            retStatus = @"pending";
+            break;
+            
+        case kOrderPaid:
+            retStatus = @"paid";
+            break;
+            
+        case kOrderInUse:
+            retStatus = @"committed";
+            break;
+            
+        case kOrderCompletion:
+            retStatus = @"finished";
+            break;
+            
+        case kOrderRefunded:
+            retStatus = @"refunded";
+            break;
+            
+        case kOrderCanceled:
+            retStatus = @"canceled";
+            break;
+            
+        case kOrderExpired:
+            retStatus = @"expired";
+            break;
+            
+        case kOrderRefunding:
+            retStatus = @"refundApplied";
+            break;
+            
+        default:
+            break;
+    }
+    return retStatus;
+}
+
 
 
 @end

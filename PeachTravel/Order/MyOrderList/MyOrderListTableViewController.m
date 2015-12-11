@@ -1,43 +1,62 @@
 //
-//  MyOrderListViewController.m
+//  MyOrderListTableViewController.m
 //  PeachTravel
 //
 //  Created by liangpengshuai on 11/18/15.
 //  Copyright © 2015 com.aizou.www. All rights reserved.
 //
 
-#import "MyOrderListViewController.h"
+#import "MyOrderListTableViewController.h"
 #import "MyOrderTableViewCell.h"
 #import "OrderDetailViewController.h"
 #import "MJRefresh.h"
+#import "OrderManager.h"
 
-@interface MyOrderListViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface MyOrderListTableViewController ()
 
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSArray<OrderDetailModel *> *dataSource;
 
 @end
 
-@implementation MyOrderListViewController
+@implementation MyOrderListTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _tableView.delegate = self;
-    _tableView.dataSource = self;
-    _tableView.rowHeight = 150.0;
-    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [_tableView registerNib:[UINib nibWithNibName:@"MyOrderTableViewCell" bundle:nil] forCellReuseIdentifier:@"myOrderCell"];
+    self.tableView.rowHeight = 150.0;
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.tableView.backgroundColor = APP_PAGE_COLOR;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.tableView registerNib:[UINib nibWithNibName:@"MyOrderTableViewCell" bundle:nil] forCellReuseIdentifier:@"myOrderCell"];
+    NSMutableArray *statusArray = [[NSMutableArray alloc] init];
+    for (NSNumber *status in _orderTypes) {
+        NSString *orderServerStatus = [OrderManager orderServerStatusWithLocalStatus:[status integerValue]];
+        [statusArray addObject:orderServerStatus];
+    }
+    [OrderManager asyncLoadOrdersFromServerOfUser:[AccountManager shareAccountManager].account.userId orderType:statusArray startIndex:_dataSource.count count:15 completionBlock:^(BOOL isSuccess, NSArray<OrderDetailModel *> *orderList) {
+        if (isSuccess) {
+            _dataSource = orderList;
+            [self.tableView reloadData];
+        }
+    }];
+    self.tableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        
+    }];
+    self.tableView.tableHeaderView = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        
+    }];
+    
 }
 
 - (void)setDataSource:(NSArray *)dataSource
 {
     _dataSource = dataSource;
-    [_tableView reloadData];
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
+
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {

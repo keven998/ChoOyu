@@ -92,13 +92,4 @@
 
 + (void)asyncLoadGoodsCategoryOfLocality:(NSString *)localityId completionBlock:(void(^)(BOOL isSuccess, NSArray<NSString *>* categoryList))completion;
 
-/**
- *  本地的订单状态映射到服务器的状态
- *
- *  @param orderStatus 本地订单状态
- *
- *  @return 服务器订单状态
- */
-+ (NSString *)orderServerStatusWithLocalStatus:(OrderStatus)orderStatus;
-
 @end

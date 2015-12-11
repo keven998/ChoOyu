@@ -588,8 +588,6 @@
 		D9221A131BFC55C70015A685 /* DKTabPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9221A121BFC55C70015A685 /* DKTabPageViewController.m */; };
 		D9221A181BFC63760015A685 /* MyOrderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9221A161BFC63760015A685 /* MyOrderTableViewCell.m */; };
 		D9221A191BFC63760015A685 /* MyOrderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9221A171BFC63760015A685 /* MyOrderTableViewCell.xib */; };
-		D9221A1D1BFC6B950015A685 /* MyOrderListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9221A1B1BFC6B950015A685 /* MyOrderListViewController.m */; };
-		D9221A1E1BFC6B950015A685 /* MyOrderListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9221A1C1BFC6B950015A685 /* MyOrderListViewController.xib */; };
 		D9221A231BFC78360015A685 /* SelectPayPlatformViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9221A211BFC78360015A685 /* SelectPayPlatformViewController.m */; };
 		D9221A241BFC78360015A685 /* SelectPayPlatformViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9221A221BFC78360015A685 /* SelectPayPlatformViewController.xib */; };
 		D9221A281BFC79840015A685 /* SelectPayPlatformTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9221A261BFC79840015A685 /* SelectPayPlatformTableViewCell.m */; };
@@ -646,6 +644,8 @@
 		D92CCF3B1C15B2310018D54D /* icon_show_orderdetail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D92CCF391C15B2310018D54D /* icon_show_orderdetail@2x.png */; };
 		D92CCF3C1C15B2310018D54D /* icon_show_orderdetail@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D92CCF3A1C15B2310018D54D /* icon_show_orderdetail@3x.png */; };
 		D9334F391C1A71E100892F66 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = D9334F381C1A71E100892F66 /* main.jsbundle */; };
+		D9334F3D1C1A802A00892F66 /* MyOrderListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9334F3B1C1A802A00892F66 /* MyOrderListTableViewController.m */; };
+		D9334F3E1C1A802A00892F66 /* MyOrderListTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9334F3C1C1A802A00892F66 /* MyOrderListTableViewController.xib */; };
 		D937AE1E1BB95F0C0070F879 /* icon_dot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D937AE1C1BB95F0C0070F879 /* icon_dot@2x.png */; };
 		D937AE1F1BB95F0C0070F879 /* icon_dot@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D937AE1D1BB95F0C0070F879 /* icon_dot@3x.png */; };
 		D93B97F11B4B8C420054EF50 /* ChatGroupSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D93B97EF1B4B8C420054EF50 /* ChatGroupSettingCell.m */; };
@@ -2798,9 +2798,6 @@
 		D9221A151BFC63760015A685 /* MyOrderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyOrderTableViewCell.h; sourceTree = "<group>"; };
 		D9221A161BFC63760015A685 /* MyOrderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyOrderTableViewCell.m; sourceTree = "<group>"; };
 		D9221A171BFC63760015A685 /* MyOrderTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyOrderTableViewCell.xib; sourceTree = "<group>"; };
-		D9221A1A1BFC6B950015A685 /* MyOrderListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyOrderListViewController.h; sourceTree = "<group>"; };
-		D9221A1B1BFC6B950015A685 /* MyOrderListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyOrderListViewController.m; sourceTree = "<group>"; };
-		D9221A1C1BFC6B950015A685 /* MyOrderListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyOrderListViewController.xib; sourceTree = "<group>"; };
 		D9221A201BFC78360015A685 /* SelectPayPlatformViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectPayPlatformViewController.h; sourceTree = "<group>"; };
 		D9221A211BFC78360015A685 /* SelectPayPlatformViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectPayPlatformViewController.m; sourceTree = "<group>"; };
 		D9221A221BFC78360015A685 /* SelectPayPlatformViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectPayPlatformViewController.xib; sourceTree = "<group>"; };
@@ -2900,6 +2897,9 @@
 		D92CCF391C15B2310018D54D /* icon_show_orderdetail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_show_orderdetail@2x.png"; sourceTree = "<group>"; };
 		D92CCF3A1C15B2310018D54D /* icon_show_orderdetail@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_show_orderdetail@3x.png"; sourceTree = "<group>"; };
 		D9334F381C1A71E100892F66 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
+		D9334F3A1C1A802A00892F66 /* MyOrderListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyOrderListTableViewController.h; sourceTree = "<group>"; };
+		D9334F3B1C1A802A00892F66 /* MyOrderListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyOrderListTableViewController.m; sourceTree = "<group>"; };
+		D9334F3C1C1A802A00892F66 /* MyOrderListTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyOrderListTableViewController.xib; sourceTree = "<group>"; };
 		D937AE1C1BB95F0C0070F879 /* icon_dot@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_dot@2x.png"; sourceTree = "<group>"; };
 		D937AE1D1BB95F0C0070F879 /* icon_dot@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_dot@3x.png"; sourceTree = "<group>"; };
 		D93B97EE1B4B8C420054EF50 /* ChatGroupSettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatGroupSettingCell.h; sourceTree = "<group>"; };
@@ -5987,9 +5987,9 @@
 				D9221A151BFC63760015A685 /* MyOrderTableViewCell.h */,
 				D9221A161BFC63760015A685 /* MyOrderTableViewCell.m */,
 				D9221A171BFC63760015A685 /* MyOrderTableViewCell.xib */,
-				D9221A1A1BFC6B950015A685 /* MyOrderListViewController.h */,
-				D9221A1B1BFC6B950015A685 /* MyOrderListViewController.m */,
-				D9221A1C1BFC6B950015A685 /* MyOrderListViewController.xib */,
+				D9334F3A1C1A802A00892F66 /* MyOrderListTableViewController.h */,
+				D9334F3B1C1A802A00892F66 /* MyOrderListTableViewController.m */,
+				D9334F3C1C1A802A00892F66 /* MyOrderListTableViewController.xib */,
 			);
 			name = MyOrderList;
 			sourceTree = "<group>";
@@ -10162,7 +10162,6 @@
 				D9DD316C1BF5BC56009BEDAB /* OrderDetailStoreInfoTableViewCell.xib in Resources */,
 				01C1EC161BB4E4720082217A /* faxian@3x.png in Resources */,
 				E6F189911B845F4900232EEB /* poi_icon_phone@2x.png in Resources */,
-				D9221A1E1BFC6B950015A685 /* MyOrderListViewController.xib in Resources */,
 				27FF1AE61B09AFB100643D77 /* OtherUserBasicInfoCell.xib in Resources */,
 				E68CB2811B9EB74300A5B38B /* chat_friend@3x.png in Resources */,
 				D9E9D20C1BA2A7D300FB6C07 /* navigationbar_chat_default@2x.png in Resources */,
@@ -10366,6 +10365,7 @@
 				E6F18AAA1B845F4900232EEB /* chat_sender_audio_playing_002@3x.png in Resources */,
 				E6381BE41B66269000CF73AA /* Loading_Animation_final17@2x.png in Resources */,
 				E671E77D1B8AF85000D4A42F /* plan_10_dashboard_add@3x.png in Resources */,
+				D9334F3E1C1A802A00892F66 /* MyOrderListTableViewController.xib in Resources */,
 				D9A8FF2A1A80CCA5005AD701 /* AccountManagerTableViewCell.xib in Resources */,
 				E6F189771B845F4900232EEB /* poi_button_raid_disable@2x.png in Resources */,
 				E6F18A261B845F4900232EEB /* lxp_expert_helper@3x.png in Resources */,
@@ -11455,7 +11455,6 @@
 				E6381B9C1B660EB000CF73AA /* PricePoiDetailController.m in Sources */,
 				D993C2421B12DF0C0088D568 /* BaseDaoHelper.swift in Sources */,
 				D9EE344F1AB93D500076933B /* ShoppingDetailViewController.m in Sources */,
-				D9221A1D1BFC6B950015A685 /* MyOrderListViewController.m in Sources */,
 				D993C2671B12DF0C0088D568 /* IMTravelNoteMessage.swift in Sources */,
 				E6E725201B5603750007273A /* MJMember.m in Sources */,
 				D9A8FFBD1A80D1C3005AD701 /* TravelNoteTableViewCell.m in Sources */,
@@ -11865,6 +11864,7 @@
 				019BCF721BB27378007841E4 /* CityDetailHeaderBtnSqure.m in Sources */,
 				01C1ECBD1BB53A690082217A /* EmoticonModel.m in Sources */,
 				D9A800361A80D52F005AD701 /* TripDetailRootViewController.m in Sources */,
+				D9334F3D1C1A802A00892F66 /* MyOrderListTableViewController.m in Sources */,
 				D9A8FFCC1A80D216005AD701 /* HotDestinationCollectionViewCell.m in Sources */,
 				D9A801451A80DD23005AD701 /* TaoziChatBaseBubbleView.m in Sources */,
 				D9E0EECD1B79A60D003872DF /* ChatAlbumCollectionViewController.m in Sources */,

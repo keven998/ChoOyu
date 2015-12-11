@@ -7,6 +7,7 @@
 //
 
 #import "OrderDetailModel.h"
+#import "OrderManager.h"
 
 @implementation OrderDetailModel
 
@@ -26,7 +27,7 @@
         _updateTime = [[json objectForKey:@"updateTime"] doubleValue]/1000;
         _expireTime = [[json objectForKey:@"expireTime"] doubleValue]/1000;
         _currentTime = [[NSDate date] timeIntervalSince1970];
-        _orderStatus = [self orderStatusWithStatusDescription:[json objectForKey:@"status"]];
+        _orderStatus = [OrderManager orderStatusWithServerOrderStatus:[json objectForKey:@"status"]];
         NSMutableArray *tempTravelerList = [[NSMutableArray alloc] init];
         for (NSDictionary *dic in [json objectForKey:@"travellers"]) {
             OrderTravelerInfoModel *traveler = [[OrderTravelerInfoModel alloc] initWithJson:dic];
@@ -100,39 +101,5 @@
     }
     return orderStatusDesc;
 }
-
-- (OrderStatus)orderStatusWithStatusDescription:(NSString *)statusStr
-{
-    if ([statusStr isEqualToString:@"pending"]) {
-        return kOrderWaitPay;
-        
-    } else if ([statusStr isEqualToString:@"paid"]) {
-        return kOrderPaid;
-        
-    } else if ([statusStr isEqualToString:@"paid"]) {
-        return kOrderPaid;
-        
-    } else if ([statusStr isEqualToString:@"committed"]) {
-        return kOrderInUse;
-        
-    } else if ([statusStr isEqualToString:@"finished"]) {
-        return kOrderCompletion;
-        
-    } else if ([statusStr isEqualToString:@"canceled"]) {
-        return kOrderCanceled;
-        
-    } else if ([statusStr isEqualToString:@"expired"]) {
-        return kOrderExpired;
-        
-    } else if ([statusStr isEqualToString:@"refundApplied"]) {
-        return kOrderRefunding;
-        
-    } else if ([statusStr isEqualToString:@"refunded"]) {
-        return kOrderRefunded;
-    }
-    
-    return 0;
-}
-
 
 @end

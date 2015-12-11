@@ -109,4 +109,22 @@
  */
 + (NSArray<OrderDetailModel *> *)filterOrderListWithOrderType:(OrderStatus)orderType andOrderList:(NSArray<OrderDetailModel *> *)orderList;
 
+/**
+ *  服务器的订单状态映射到本地的枚举状态
+ *
+ *  @param statusStr
+ *
+ *  @return
+ */
++ (OrderStatus)orderStatusWithServerOrderStatus:(NSString *)statusStr;
+
+/**
+ *  本地的订单状态映射到服务器的状态
+ *
+ *  @param orderStatus 本地订单状态
+ *
+ *  @return 服务器订单状态
+ */
++ (NSString *)orderServerStatusWithLocalStatus:(OrderStatus)orderStatus;
+
 @end

@@ -8,11 +8,11 @@
 
 #import "MyOrderRootViewController.h"
 #import "DKTabPageViewController.h"
-#import "MyOrderListViewController.h"
+#import "MyOrderListTableViewController.h"
 
 @interface MyOrderRootViewController () <DKTabPageViewControllerDelegate>
 
-@property (nonatomic, strong) NSMutableArray<MyOrderListViewController *> *orderListControllers;
+@property (nonatomic, strong) NSMutableArray<MyOrderListTableViewController *> *orderListControllers;
 
 @end
 
@@ -29,7 +29,7 @@
 
     NSMutableArray *items = [NSMutableArray arrayWithCapacity:5];
     for (int i = 0; i < 5; i++) {
-        MyOrderListViewController *vc = [MyOrderListViewController new];
+        MyOrderListTableViewController *vc = [[MyOrderListTableViewController alloc] init];
         vc.orderTypes = [orderTypeList objectAtIndex:i];
         DKTabPageItem *item = [DKTabPageViewControllerItem tabPageItemWithTitle:titleArray[i]
                                                                  viewController:vc];
