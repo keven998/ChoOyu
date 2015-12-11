@@ -17,6 +17,11 @@
 #import "AskRefundMoneyViewController.h"
 #import "GoodsDetailViewController.h"
 #import "OrderManager.h"
+#import "ChatViewController.h"
+#import "ChatGroupSettingViewController.h"
+#import "ChatSettingViewController.h"
+#import "REFrostedViewController.h"
+
 
 @interface OrderDetailViewController () <UITableViewDataSource, UITableViewDelegate> {
     NSTimer *timer;
@@ -207,6 +212,36 @@
    
 }
 
+- (IBAction)contactBusiness:(UIButton *)sender
+{
+
+    IMClientManager *clientManager = [IMClientManager shareInstance];
+    ChatConversation *conversation = [clientManager.conversationManager getConversationWithChatterId:_orderDetail.goods.business.userId chatType:IMChatTypeIMChatSingleType];
+    ChatViewController *chatController = [[ChatViewController alloc] initWithConversation:conversation];
+    
+    chatController.chatterName = _orderDetail.goods.business.nickName;
+    
+    ChatSettingViewController *menuViewController = [[ChatSettingViewController alloc] init];
+    menuViewController.currentConversation= conversation;
+    menuViewController.chatterId = conversation.chatterId;
+    
+    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:chatController menuViewController:menuViewController];
+    menuViewController.containerCtl = frostedViewController;
+    
+    frostedViewController.hidesBottomBarWhenPushed = YES;
+    frostedViewController.direction = REFrostedViewControllerDirectionRight;
+    frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
+    frostedViewController.liveBlur = YES;
+    frostedViewController.limitMenuViewSize = YES;
+    chatController.backBlock = ^{
+        [frostedViewController.navigationController popViewControllerAnimated:YES];
+    };
+    
+    [self.navigationController pushViewController:frostedViewController animated:YES];
+    
+}
+
+
 - (void)requestRefundMoney:(UIButton *)sender
 {
     AskRefundMoneyViewController *ctl = [[AskRefundMoneyViewController alloc] init];
@@ -285,6 +320,7 @@
         
     } else if (indexPath.section == 2) {
         OrderDetailStoreInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"orderDetailStoreCell" forIndexPath:indexPath];
+        [cell.chatBtn addTarget:self action:@selector(contactBusiness:) forControlEvents:UIControlEventTouchUpInside];
         cell.storeNameLabel.text = _orderDetail.goods.store.storeName;
         return cell;
         
