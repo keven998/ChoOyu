@@ -185,7 +185,48 @@
         completion(NO, nil);
         
     }];
+}
 
++ (NSString *)orderServerStatusWithLocalStatus:(OrderStatus)orderStatus
+{
+    NSString *retStatus;
+    switch (orderStatus) {
+        case kOrderWaitPay:
+            retStatus = @"pending";
+            break;
+            
+        case kOrderPaid:
+            retStatus = @"paid";
+            break;
+            
+        case kOrderInUse:
+            retStatus = @"committed";
+            break;
+            
+        case kOrderCompletion:
+            retStatus = @"finished";
+            break;
+            
+        case kOrderRefunded:
+            retStatus = @"refunded";
+            break;
+            
+        case kOrderCanceled:
+            retStatus = @"canceled";
+            break;
+            
+        case kOrderExpired:
+            retStatus = @"expired";
+            break;
+            
+        case kOrderRefunding:
+            retStatus = @"refundApplied";
+            break;
+            
+        default:
+            break;
+    }
+    return retStatus;
 }
 
 @end

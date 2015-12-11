@@ -13,7 +13,6 @@
 @interface MyOrderRootViewController () <DKTabPageViewControllerDelegate>
 
 @property (nonatomic, strong) NSMutableArray<MyOrderListViewController *> *orderListControllers;
-@property (nonatomic, strong) NSArray<OrderDetailModel *> *allOrderList;
 
 @end
 
@@ -25,13 +24,13 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = [UIColor whiteColor];
     NSArray *titleArray = @[@"全部", @"待付款", @"处理中", @"可使用", @"退款"];
-    NSArray *orderTypeList = @[[NSNumber numberWithInteger:0], [NSNumber numberWithInteger:kOrderWaitPay], [NSNumber numberWithInteger:kOrderInProgress], [NSNumber numberWithInteger:kOrderInUse], [NSNumber numberWithInteger:kOrderRefunding]];
+    NSArray *orderTypeList = @[@[], @[[NSNumber numberWithInteger:kOrderWaitPay]], @[[NSNumber numberWithInteger:kOrderPaid]], @[[NSNumber numberWithInteger:kOrderInUse]], @[[NSNumber numberWithInteger:kOrderRefunding], [NSNumber numberWithInteger:kOrderRefunded]]];
     _orderListControllers = [[NSMutableArray alloc] init];
 
     NSMutableArray *items = [NSMutableArray arrayWithCapacity:5];
     for (int i = 0; i < 5; i++) {
         MyOrderListViewController *vc = [MyOrderListViewController new];
-        vc.orderType = [[orderTypeList objectAtIndex:i] integerValue];
+        vc.orderTypes = [orderTypeList objectAtIndex:i];
         DKTabPageItem *item = [DKTabPageViewControllerItem tabPageItemWithTitle:titleArray[i]
                                                                  viewController:vc];
         [items addObject:item];
@@ -88,14 +87,6 @@
             break;
         }
     }
-    
-    [OrderManager asyncLoadOrdersFromServerOfUser:[AccountManager shareAccountManager].account.userId completionBlock:^(BOOL isSuccess, NSArray<OrderDetailModel *> *orderList) {
-        _allOrderList = orderList;
-        for (MyOrderListViewController *ctl in _orderListControllers) {
-            ctl.dataSource = [OrderManager filterOrderListWithOrderType:ctl.orderType andOrderList:_allOrderList];
-        }
-    }];
-
 }
 
 - (void)didReceiveMemoryWarning {

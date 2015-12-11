@@ -54552,10 +54552,13 @@ return (
 React.createElement(View,{style:styles.outContainer},
 React.createElement(View,{style:{width:w,height:0.5,backgroundColor:'#e2e2e2'}}),
 React.createElement(View,{style:styles.container},
-React.createElement(ButtonItem,{imageName:'iconfont_lianxi@2x.png',buttonTitle:'联系商家'}),
+React.createElement(ButtonItem,{imageName:'iconfont_lianxi@2x.png',buttonTitle:'联系商家',
+commodityId:this.props.commodityId,
+userId:this.props.userId,title:this.props.title,
+price:this.props.price,images:this.props.images}),
 
 React.createElement(View,{style:styles.spaceView}),
-React.createElement(ButtonItem,{imageName:'iconfont_lianxi@2x.png',buttonTitle:'进入店铺'}),
+React.createElement(ButtonItem,{imageName:'iconfont_dianpu@2x.png',buttonTitle:'进入店铺'}),
 
 React.createElement(TouchableHighlight,{style:{backgroundColor:'#ff6633',flex:1,alignItems:'center',justifyContent:'center'},
 onPress:function(){return _this._makeOrder(_this.props.plans,_this.props.commodityId);},
@@ -54567,12 +54570,23 @@ React.createElement(Text,{style:{color:'white',fontSize:20}},' ','立即预订',
 
 
 _makeOrder:function(plans,commodityId){
+if(Platform.OS == 'android'){
 var data=JSON.stringify(plans);
-NativeAction.startActivity('Order',data,commodityId + '');}});
+NativeAction.startActivity('Order',data,commodityId + '');}else 
+{
+GoodsDetailCtl.makeOrder();}}});
+
+
 
 
 
 var ButtonItem=React.createClass({displayName:'ButtonItem',
+getDefaultProps:function(){
+return {
+shareBean:{image:{url:""}}};},
+
+
+
 propTypes:{
 imageName:String,
 buttonTitle:String},
@@ -54583,7 +54597,14 @@ _gotoStoreDetail:function(title,id){
 if(Platform.OS == 'android'){
 console.log('title ' + title);
 if(title == '进入店铺'){
-NativeAction.startActivity('Store');}}else 
+NativeAction.startActivity('Store',null,'');}else 
+if(title == '联系商家'){
+this.props.shareBean.commodityId = this.props.commodityId;
+this.props.shareBean.price = this.props.price;
+this.props.shareBean.title = this.props.title;
+this.props.shareBean.image.url = this.props.images[0].url;
+var data=JSON.stringify(this.props.shareBean);
+NativeAction.startActivity('Chat',data,this.props.userId + '');}}else 
 
 if(Platform.OS == 'ios'){
 GoodsDetailCtl.gotoStoreDetail('123456');}},

@@ -128,7 +128,7 @@
         orderAgainBtn.titleLabel.font = [UIFont systemFontOfSize:17];
         [_toolBar addSubview:orderAgainBtn];
         
-    } else if (_orderDetail.orderStatus == kOrderInProgress) {
+    } else if (_orderDetail.orderStatus == kOrderPaid) {
         UIButton *requestRefundMoneyBtn = [[UIButton alloc] initWithFrame:_toolBar.bounds];
         [requestRefundMoneyBtn setTitle:@"申请退款" forState:UIControlStateNormal];
         [requestRefundMoneyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];

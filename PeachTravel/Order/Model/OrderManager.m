@@ -153,7 +153,6 @@
         completion(NO, nil);
         
     }];
-
 }
 
 + (void)updateOrder:(OrderDetailModel *)orderDetail WithGoodsPackage:(GoodsPackageModel *)selectPackage
@@ -204,6 +203,11 @@
         completion(NO, nil);
         
     }];
+}
+
++ (void)asyncLoadOrdersFromServerOfUser:(NSInteger)userId orderType:(NSArray<NSNumber *> *)orderTypes startIndex:(NSInteger)startIndex count:(NSInteger)count completionBlock:(void (^)(BOOL, NSArray<OrderDetailModel *> *))completion
+{
+    
 }
 
 + (NSArray<OrderDetailModel *> *)filterOrderListWithOrderType:(OrderStatus)orderType andOrderList:(NSArray<OrderDetailModel *> *)orderList

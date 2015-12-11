@@ -63,7 +63,7 @@
 {
     NSString *orderStatusDesc = @"";
     switch (_orderStatus) {
-        case kOrderInProgress:
+        case kOrderPaid:
             orderStatusDesc = @"处理中";
             break;
             
@@ -107,10 +107,10 @@
         return kOrderWaitPay;
         
     } else if ([statusStr isEqualToString:@"paid"]) {
-        return kOrderInProgress;
+        return kOrderPaid;
         
     } else if ([statusStr isEqualToString:@"paid"]) {
-        return kOrderInProgress;
+        return kOrderPaid;
         
     } else if ([statusStr isEqualToString:@"committed"]) {
         return kOrderInUse;

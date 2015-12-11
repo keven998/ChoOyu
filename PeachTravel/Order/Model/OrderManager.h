@@ -89,6 +89,17 @@
 + (void)asyncLoadOrdersFromServerOfUser:(NSInteger)userId completionBlock:(void (^)(BOOL isSuccess, NSArray<OrderDetailModel *> * orderList))completion;
 
 /**
+ *  加载指定状态的订单列表 什么都不传加载全部订单列表
+ *
+ *  @param userId
+ *  @param orderTypes
+ *  @param startIndex
+ *  @param count
+ *  @param completion
+ */
++ (void)asyncLoadOrdersFromServerOfUser:(NSInteger)userId orderType:(NSArray<NSString *> *)orderTypes startIndex:(NSInteger)startIndex count:(NSInteger)count completionBlock:(void (^)(BOOL isSuccess, NSArray<OrderDetailModel *> * orderList))completion;;
+
+/**
  *  用指定的类型筛选订单列表
  *
  *  @param orderType 需要的订单类型

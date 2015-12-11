@@ -13,7 +13,7 @@
 
 typedef enum : NSUInteger {
     kOrderWaitPay = 1,      //待支付
-    kOrderInProgress,       //处理中,待卖家确认
+    kOrderPaid,             //已付款,待卖家确认
     kOrderInUse,            //可使用
     kOrderCanceled,         //已取消
     kOrderRefunding,        //申请退款中

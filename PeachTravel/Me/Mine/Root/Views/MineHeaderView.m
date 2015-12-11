@@ -101,7 +101,7 @@
 - (void)inProgressOrderAction
 {
     MyOrderRootViewController *ctl = [[MyOrderRootViewController alloc] init];
-    ctl.orderType = kOrderInProgress;
+    ctl.orderType = kOrderPaid;
     ctl.hidesBottomBarWhenPushed = YES;
     [_containerViewController.navigationController pushViewController:ctl animated:YES];
 }

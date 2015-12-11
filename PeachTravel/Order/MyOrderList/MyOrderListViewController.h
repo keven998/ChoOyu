@@ -11,8 +11,7 @@
 
 @interface MyOrderListViewController : UIViewController
 
-@property (nonatomic) OrderStatus orderType;
-
-@property (nonatomic, strong) NSArray<OrderDetailModel *> *dataSource;
+//订单状态列表 空数组代表全部类型
+@property (nonatomic, strong) NSArray *orderTypes;
 
 @end
