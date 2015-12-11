@@ -54,6 +54,13 @@
  */
 + (void)asyncCancelOrderWithOrderId:(NSInteger)orderId completionBlock:(void (^) (BOOL isSuccess, NSString *error))completion;
 
+/**
+ *  对订单提出退款申请
+ *
+ *  @param orderId    订单 ID
+ *  @param completion 完成回掉
+ */
++ (void)asyncRequestRefundMoneyWithOrderId:(NSInteger)orderId completionBlock:(void (^) (BOOL isSuccess, NSString *error))completion;
 
 /**
  *  获取订单详情
