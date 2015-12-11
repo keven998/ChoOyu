@@ -1,5 +1,5 @@
 //
-//  MyOrderListTableViewController.h
+//  MyOrderListViewController.h
 //  PeachTravel
 //
 //  Created by liangpengshuai on 12/11/15.
@@ -8,10 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MyOrderListTableViewController : UITableViewController
-
+@interface MyOrderListViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 //订单状态列表 空数组代表全部类型
 @property (nonatomic, strong) NSArray *orderTypes;
-
-
 @end
