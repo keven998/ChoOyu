@@ -732,7 +732,7 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         ChatConversation *conversation = [self.dataSource objectAtIndex:indexPath.row];
         if (conversation.chatterId != WenwenUserId && conversation.chatterId != PaipaiUserId) {
-            [self.imClientManager.conversationManager removeConversationWithChatterId: conversation.chatterId deleteMessage:NO];
+            [self.imClientManager.conversationManager removeConversationWithChatterId: conversation.chatterId deleteMessage:YES];
         }
     }
 }

@@ -25,6 +25,10 @@
         if ([json objectForKey:@"locality"] != [NSNull null]) {
             _locality = [[CityDestinationPoi alloc] initWithJson:[json objectForKey:@"locality"]];
         }
+        BusinessMoel *business = [[BusinessMoel alloc] init];
+        business.userId = [[[json objectForKey:@"seller"] objectForKey:@"sellerId"] integerValue];
+        business.nickName = [[json objectForKey:@"seller"] objectForKey:@"name"];
+        _business = business;
         NSMutableArray *packageList = [[NSMutableArray alloc] init];
         for (NSDictionary *packageDic in [json objectForKey:@"plans"]) {
             GoodsPackageModel *package = [[GoodsPackageModel alloc] initWithJson:packageDic];

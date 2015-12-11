@@ -151,6 +151,9 @@ RCT_EXPORT_MODULE();
         frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
         frostedViewController.liveBlur = YES;
         frostedViewController.limitMenuViewSize = YES;
+        chatController.backBlock = ^{
+            [frostedViewController.navigationController popViewControllerAnimated:YES];
+        };
         
         [self.navigationController pushViewController:frostedViewController animated:YES];
 

@@ -11,6 +11,10 @@
 #import "OrderDetailViewController.h"
 #import "MJRefresh.h"
 #import "OrderManager.h"
+#import "ChatViewController.h"
+#import "ChatGroupSettingViewController.h"
+#import "ChatSettingViewController.h"
+#import "REFrostedViewController.h"
 
 #define pageCount 15    //每页加载数量
 
@@ -89,6 +93,36 @@
 }
 
 
+- (IBAction)contactBusiness:(UIButton *)sender
+{
+    OrderDetailModel *order = _dataSource[sender.tag];
+    
+    IMClientManager *clientManager = [IMClientManager shareInstance];
+    ChatConversation *conversation = [clientManager.conversationManager getConversationWithChatterId:order.goods.business.userId chatType:IMChatTypeIMChatSingleType];
+    ChatViewController *chatController = [[ChatViewController alloc] initWithConversation:conversation];
+   
+    chatController.chatterName = order.goods.business.nickName;
+    
+    ChatSettingViewController *menuViewController = [[ChatSettingViewController alloc] init];
+    menuViewController.currentConversation= conversation;
+    menuViewController.chatterId = conversation.chatterId;
+    
+    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:chatController menuViewController:menuViewController];
+    menuViewController.containerCtl = frostedViewController;
+    
+    frostedViewController.hidesBottomBarWhenPushed = YES;
+    frostedViewController.direction = REFrostedViewControllerDirectionRight;
+    frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
+    frostedViewController.liveBlur = YES;
+    frostedViewController.limitMenuViewSize = YES;
+    chatController.backBlock = ^{
+        [frostedViewController.navigationController popViewControllerAnimated:YES];
+    };
+    
+    [self.navigationController pushViewController:frostedViewController animated:YES];
+
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -113,6 +147,8 @@
     OrderDetailModel *order = [_dataSource objectAtIndex:indexPath.section];
     MyOrderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"myOrderCell" forIndexPath:indexPath];
     cell.orderDetail = order;
+    cell.contactBusiness.tag = indexPath.row;
+    [cell.contactBusiness addTarget:self action:@selector(contactBusiness:) forControlEvents:UIControlEventTouchUpInside];
     return cell;
 }
 
