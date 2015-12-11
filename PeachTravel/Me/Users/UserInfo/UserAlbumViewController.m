@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 com.aizou.www. All rights reserved.
 //
 
-#import <QiniuSDK.h>
+#import "QiniuSDK.h"
 #import "UserAlbumViewController.h"
 #import "JGProgressHUDPieIndicatorView.h"
 #import "AlbumImageCell.h"

@@ -139,20 +139,20 @@ class PushSDKManager: NSObject, GeTuiSdkDelegate {
         
         // 收到消息后分发出去
         if let message = payloadMsg {
-//            dispatchPushMessage(message)
+            dispatchPushMessage(message)
 
-            let content = ["title":"卖家已取消订单", "text":"卖家已经取消订单，如有疑问请与卖家联系,我这没有票了，实在不要意思了" ,"commodityName":"军都山滑雪【全天】", "orderId":2015123412834123]
-            let str: NSString = JSONConvertMethod.contentsStrWithJsonObjc(content)!
+//            let content = ["title":"卖家已取消订单", "text":"卖家已经取消订单，如有疑问请与卖家联系,我这没有票了，实在不要意思了" ,"commodityName":"军都山滑雪【全天】", "orderId":2015123412834123]
+//            let str: NSString = JSONConvertMethod.contentsStrWithJsonObjc(content)!
+//            
+//            let messageDic =  [ "id" : "55addff01ae2400001cde012", "chatType" : "single","msgId" : msgId, "msgType" : 20,"conversation" : "55f8d952d11489000126adbd", "contents" : str,"senderId" : 201032,"abbrev" : "煎蛋小哈哈: 看到觉得基督教", "timestamp" : 1449142842951, "receiverId" : 202847 ]
+//            
+//            let dic: NSDictionary =
+//            [
+//                "routingKey" : "IM", "message" : messageDic
+//            ]
+//            let totalStr: NSString = JSONConvertMethod.contentsStrWithJsonObjc(dic)!
             
-            let messageDic =  [ "id" : "55addff01ae2400001cde012", "chatType" : "single","msgId" : msgId, "msgType" : 20,"conversation" : "55f8d952d11489000126adbd", "contents" : str,"senderId" : 201032,"abbrev" : "煎蛋小哈哈: 看到觉得基督教", "timestamp" : 1449142842951, "receiverId" : 202847 ]
-            
-            let dic: NSDictionary =
-            [
-                "routingKey" : "IM", "message" : messageDic
-            ]
-            let totalStr: NSString = JSONConvertMethod.contentsStrWithJsonObjc(dic)!
-            
-            dispatchPushMessage(totalStr)
+//            dispatchPushMessage(totalStr)
             msgId++
             
         }

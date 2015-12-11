@@ -24,9 +24,6 @@ PODS:
   - iRate (1.11.4)
   - MJRefresh (2.4.12)
   - OpenUDID (1.0.0)
-  - Qiniu (7.0.12):
-    - AFNetworking (~> 2.0)
-    - HappyDNS (~> 0.1)
   - React (0.13.0-rc):
     - React/Core (= 0.13.0-rc)
   - React/Core (0.13.0-rc)
@@ -57,10 +54,10 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking
+  - HappyDNS (>= 0.2)
   - iRate (~> 1.11)
   - MJRefresh
   - OpenUDID (~> 1.0.0)
-  - Qiniu (~> 7.0)
   - React (= 0.13.0-rc)
   - React/RCTActionSheet
   - React/RCTAdSupport
@@ -80,7 +77,6 @@ SPEC CHECKSUMS:
   iRate: 599ed07c854e0695f3c605d1b2a64c67d912acb7
   MJRefresh: ca8e9589895977df32d379d46e6b8a5450b3ff44
   OpenUDID: e7cb6984c7304906ad20f3a36bf087b025896b6b
-  Qiniu: 1fb5191b3bc1edb65b2da3d905b8281e15bd1d5c
   React: f89fc8cb43f6cf89ba4e8ce4f27371a65236bf25
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   TMCache: a93984b045a5ee84bd8941bd5e0b54296059cc52

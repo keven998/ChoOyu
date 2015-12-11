@@ -144,7 +144,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    OrderDetailModel *order = [_dataSource objectAtIndex:indexPath.section];
+    OrderDetailModel *order = [_dataSource objectAtIndex:indexPath.row];
     MyOrderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"myOrderCell" forIndexPath:indexPath];
     cell.orderDetail = order;
     cell.contactBusiness.tag = indexPath.row;
@@ -157,7 +157,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     OrderDetailViewController *ctl = [[OrderDetailViewController alloc] init];
     ctl.orderDetail = [_dataSource objectAtIndex:indexPath.row];
-    ctl.orderId = [_dataSource objectAtIndex:indexPath.section].orderId;
+    ctl.orderId = [_dataSource objectAtIndex:indexPath.row].orderId;
     [self.navigationController pushViewController:ctl animated:YES];
 }
 

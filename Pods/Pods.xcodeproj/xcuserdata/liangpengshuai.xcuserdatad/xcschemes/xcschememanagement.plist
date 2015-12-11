@@ -29,11 +29,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Qiniu.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>React.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -57,22 +52,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>1AB47DB49A1377B9EB947BF5595825DA</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>410B25DF16EA5C5B3E2698F74F9625FB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4A8975726EBBED21BC2C6B350EA3A16A</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>64BBA23F78D6B88D70FFB4BE746819FA</key>
+		<key>4290BC6BB0439180C45ED3766D3AB4E2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -92,17 +77,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8E4FEC6273D641F8004F451A5CE141B3</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>8F74D9EA91F4C43190670066BAC37D44</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DEB23AC5D362FB5E1F6CA77899526161</key>
+		<key>9CF56D1C67A25065E79B9AE908DED734</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>AD9B5B9C776D9B37DCB95488C5EAB217</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BA3EB290B4FBA9C8524D22E205DBFD02</key>
 		<dict>
 			<key>primary</key>
 			<true/>

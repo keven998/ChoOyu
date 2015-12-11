@@ -6,7 +6,7 @@
 //  Copyright (c) 2014年 com.aizou.www. All rights reserved.
 //
 
-#import <QiniuSDK.h>
+#import "QiniuSDK.h"
 #import "EditUserInfoTableViewController.h"
 #import "UserHeaderTableViewCell.h"
 #import "ChangePasswordViewController.h"

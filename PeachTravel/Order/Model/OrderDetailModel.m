@@ -22,6 +22,7 @@
         _goods = [[GoodsDetailModel alloc] initWithJson:[json objectForKey:@"commodity"]];
         _selectedPackage = [_goods.packages firstObject];
         _count = [[json objectForKey:@"quantity"] integerValue];
+        _totalPrice = [[json objectForKey:@"totalPrice"] floatValue];
         _leaveMessage = [json objectForKey:@"comment"];
         _useDate = [[json objectForKey:@"rendezvousTime"] doubleValue]/1000;
         _updateTime = [[json objectForKey:@"updateTime"] doubleValue]/1000;
