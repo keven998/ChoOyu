@@ -722,7 +722,7 @@
 		D94E25691BECADE100DB487D /* GoodsListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D94E25671BECADE100DB487D /* GoodsListViewController.xib */; };
 		D94E256D1BECAE2A00DB487D /* GoodsListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D94E256B1BECAE2A00DB487D /* GoodsListTableViewCell.m */; };
 		D94E256E1BECAE2A00DB487D /* GoodsListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D94E256C1BECAE2A00DB487D /* GoodsListTableViewCell.xib */; };
-		D950C5E81C1BF10000E433A1 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = D950C5E71C1BF10000E433A1 /* main.jsbundle */; };
+		D950C5EA1C1BF49B00E433A1 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = D950C5E91C1BF49B00E433A1 /* main.jsbundle */; };
 		D95184171C1019170032C83F /* ChatGoodsLinkTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D95184151C1019170032C83F /* ChatGoodsLinkTableViewCell.m */; };
 		D95184181C1019170032C83F /* ChatGoodsLinkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D95184161C1019170032C83F /* ChatGoodsLinkTableViewCell.xib */; };
 		D955E3E019E7A23800047F2B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D955E3DF19E7A23800047F2B /* Security.framework */; };
@@ -3008,7 +3008,7 @@
 		D94E256A1BECAE2A00DB487D /* GoodsListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsListTableViewCell.h; sourceTree = "<group>"; };
 		D94E256B1BECAE2A00DB487D /* GoodsListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsListTableViewCell.m; sourceTree = "<group>"; };
 		D94E256C1BECAE2A00DB487D /* GoodsListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoodsListTableViewCell.xib; sourceTree = "<group>"; };
-		D950C5E71C1BF10000E433A1 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
+		D950C5E91C1BF49B00E433A1 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		D95184141C1019170032C83F /* ChatGoodsLinkTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatGoodsLinkTableViewCell.h; sourceTree = "<group>"; };
 		D95184151C1019170032C83F /* ChatGoodsLinkTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatGoodsLinkTableViewCell.m; sourceTree = "<group>"; };
 		D95184161C1019170032C83F /* ChatGoodsLinkTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatGoodsLinkTableViewCell.xib; sourceTree = "<group>"; };
@@ -7106,7 +7106,7 @@
 		D99D8EC719C8600C0021C25B /* PeachTravel */ = {
 			isa = PBXGroup;
 			children = (
-				D950C5E71C1BF10000E433A1 /* main.jsbundle */,
+				D950C5E91C1BF49B00E433A1 /* main.jsbundle */,
 				D95B0A461BF0671E00F2D900 /* Order */,
 				D92109AE1BE204D700AEDB65 /* Store */,
 				01578DFC1BD2285D00244D9D /* TZPay */,
@@ -11088,7 +11088,7 @@
 				E6F189891B845F4900232EEB /* poi_comment_start_highlight@2x.png in Resources */,
 				E6F18A151B845F4900232EEB /* map_icon_4@2x.png in Resources */,
 				E608A12E1B8F413E003BA318 /* point@3x.png in Resources */,
-				D950C5E81C1BF10000E433A1 /* main.jsbundle in Resources */,
+				D950C5EA1C1BF49B00E433A1 /* main.jsbundle in Resources */,
 				01C1EC2F1BB4E4720082217A /* jiong@2x.png in Resources */,
 				D942C27B1B9EBDF0005B81C5 /* ic_navigationbar_menu_add@2x.png in Resources */,
 				D9A8FFB41A80D1C3005AD701 /* RecommendCollectionViewCell.xib in Resources */,

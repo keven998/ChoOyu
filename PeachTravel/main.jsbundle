@@ -5141,7 +5141,7 @@ NodeHandle.injection.injectImplementation(UniversalWorkerNodeHandle);}
 module.exports = {
 inject:inject};
 });
-__d('InitializeJavaScriptAppEngine',["RCTDebugComponentOwnership","RCTDeviceEventEmitter","PerformanceLogger","ExceptionsManager","ErrorUtils","ExceptionsManager","Platform","checkFlowAtRuntime","JSTimers","NativeModules","Promise","XMLHttpRequest","FormData","fetch","Geolocation","WebSocket","BridgeProfiling","regenerator/runtime.js"],function(global, require, module, exports) {  var _extends=Object.assign || function(target){for(var i=1;i < arguments.length;i++) {var source=arguments[i];for(var key in source) {if(Object.prototype.hasOwnProperty.call(source,key)){target[key] = source[key];}}}return target;};
+__d('InitializeJavaScriptAppEngine',["RCTDebugComponentOwnership","RCTDeviceEventEmitter","PerformanceLogger","regenerator/runtime.js","ExceptionsManager","ErrorUtils","ExceptionsManager","Platform","checkFlowAtRuntime","JSTimers","NativeModules","Promise","XMLHttpRequest","FormData","fetch","Geolocation","WebSocket","BridgeProfiling"],function(global, require, module, exports) {  var _extends=Object.assign || function(target){for(var i=1;i < arguments.length;i++) {var source=arguments[i];for(var key in source) {if(Object.prototype.hasOwnProperty.call(source,key)){target[key] = source[key];}}}return target;};
 
 
 
@@ -29928,7 +29928,7 @@ this.emit(arg.eventType,arg.data,arg.didEmitCallback);}}}]);return NavigationEve
 
 module.exports = NavigationEventEmitter;
 });
-__d('NavigatorBreadcrumbNavigationBar',["NavigatorBreadcrumbNavigationBarStyles","NavigatorNavigationBarStylesAndroid","NavigatorNavigationBarStylesIOS","Platform","React","StyleSheet","View","invariant","immutable/dist/immutable.js"],function(global, require, module, exports) {  'use strict';
+__d('NavigatorBreadcrumbNavigationBar',["NavigatorBreadcrumbNavigationBarStyles","NavigatorNavigationBarStylesAndroid","NavigatorNavigationBarStylesIOS","Platform","React","StyleSheet","View","immutable/dist/immutable.js","invariant"],function(global, require, module, exports) {  'use strict';
 
 
 
@@ -53952,7 +53952,7 @@ Object.keys(componentOrElement));}
 
 module.exports = findDOMNode;
 });
-__d('trident/src/goodsDetailContainer.js',["react-native/Libraries/react-native/react-native.js","Dimensions","react-native/Libraries/react-native/react-native.js","trident/src/goodsComponents/GoodsDetailViewPager.ios.js","react-native/Libraries/react-native/react-native.js","trident/src/goodsComponents/GoodsDetailUserInfo.js","trident/src/goodsComponents/GoodsDetailInfo.js","trident/src/goodsComponents/GoodsDetailToolBar.js","trident/src/goodsComponents/GoodsDetailSectionItem.js","trident/src/goodsComponents/GoodsDetailDescComponent.js","trident/src/goodsComponents/GoodsDetailBookComponent.js","trident/src/goodsComponents/GoodsTrafficComponent.js","trident/src/goodsComponents/GoodsBookQuitComponent.js","trident/src/Config.js"],function(global, require, module, exports) {  'use strict';
+__d('trident/src/goodsDetailContainer.js',["react-native/Libraries/react-native/react-native.js","Dimensions","react-native/Libraries/react-native/react-native.js","trident/src/goodsComponents/GoodsDetailViewPager.ios.js","trident/src/goodsComponents/GoodsDetailUserInfo.js","trident/src/goodsComponents/GoodsDetailInfo.js","trident/src/goodsComponents/GoodsDetailToolBar.js","trident/src/goodsComponents/GoodsDetailSectionItem.js","trident/src/goodsComponents/GoodsTrafficComponent.js","trident/src/goodsComponents/GoodsBookQuitComponent.js","trident/src/Config.js","react-native/Libraries/react-native/react-native.js","trident/src/goodsComponents/GoodsDetailDescComponent.js","trident/src/goodsComponents/GoodsDetailBookComponent.js"],function(global, require, module, exports) {  'use strict';
 
 
 
@@ -54817,7 +54817,7 @@ var ButtonShowAll=React.createClass({displayName:'ButtonShowAll',
 render:function(){
 if(this.props.isShow){
 return (
-React.createElement(View,{style:{marginBottom:7,marginTop:7,width:w / 5,padding:3,paddingLeft:5,paddingRight:5,marginLeft:15,alignSelf:'center',justifyContent:'center',borderWidth:0.5,borderColor:'#99cc66',borderRadius:3}},
+React.createElement(View,{style:{marginBottom:7,marginTop:7,width:80,padding:3,paddingLeft:5,paddingRight:5,marginLeft:15,alignSelf:'center',justifyContent:'center',borderWidth:0.5,borderColor:'#99cc66',borderRadius:3}},
 React.createElement(Text,{style:{fontSize:12,alignSelf:'center',color:'#99cc66',margin:5}},'查看全部')));}else 
 
 
@@ -54994,7 +54994,7 @@ var ButtonShowAll=React.createClass({displayName:'ButtonShowAll',
 render:function(){
 if(this.props.isShow){
 return (
-React.createElement(View,{style:{marginBottom:7,marginTop:7,width:w / 5,padding:3,paddingLeft:5,paddingRight:5,marginLeft:15,alignSelf:'center',justifyContent:'center',borderWidth:0.5,borderColor:'#99cc66',borderRadius:3}},
+React.createElement(View,{style:{marginBottom:7,marginTop:7,width:80,padding:3,paddingLeft:5,paddingRight:5,marginLeft:15,alignSelf:'center',justifyContent:'center',borderWidth:0.5,borderColor:'#99cc66',borderRadius:3}},
 React.createElement(Text,{style:{fontSize:12,alignSelf:'center',color:'#99cc66',margin:5}},'查看全部')));}else 
 
 

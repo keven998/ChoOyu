@@ -59,7 +59,7 @@ RCT_EXPORT_MODULE();
     
     rootView = [[RCTRootView alloc] initWithBridge:bridge moduleName:@"GoodsDetailClass" initialProperties:nil];
     
-    rootView.frame = CGRectMake(0, 0, kWindowWidth, kWindowHeight);
+    rootView.frame = CGRectMake(0, 64, kWindowWidth, kWindowHeight-64);
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(chatWithBusiness) name:@"gotoStoreDetailNoti" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(makeOrderAction) name:@"makeOrderNoti" object:nil];
