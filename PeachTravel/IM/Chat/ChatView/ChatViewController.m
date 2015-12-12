@@ -746,7 +746,7 @@
                 if (((MessageModel *) message).type == IMMessageTypeGoodsLinkMessageType) {
                     [self.dataSource removeObject:message];
                     NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
-                    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
                     break;
                 }
                

@@ -50,9 +50,10 @@
     [OrderManager asyncLoadOrderDetailWithOrderId:_orderId completionBlock:^(BOOL isSuccess, OrderDetailModel *orderDetail) {
         self.orderDetail = orderDetail;
         [self.tableView reloadData];
+        [self setupToolBar];
     }];
-
     [self setupToolBar];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -202,6 +203,11 @@
             [OrderManager asyncCancelOrderWithOrderId:_orderId completionBlock:^(BOOL isSuccess, NSString *error) {
                 if (isSuccess) {
                     [SVProgressHUD showHint:@"取消成功"];
+                    [OrderManager asyncLoadOrderDetailWithOrderId:_orderId completionBlock:^(BOOL isSuccess, OrderDetailModel *orderDetail) {
+                        self.orderDetail = orderDetail;
+                        [self.tableView reloadData];
+                        [self setupToolBar];
+                    }];
                 } else {
                     [SVProgressHUD showHint:@"取消失败"];
                 }
