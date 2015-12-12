@@ -5141,7 +5141,7 @@ NodeHandle.injection.injectImplementation(UniversalWorkerNodeHandle);}
 module.exports = {
 inject:inject};
 });
-__d('InitializeJavaScriptAppEngine',["RCTDebugComponentOwnership","RCTDeviceEventEmitter","PerformanceLogger","regenerator/runtime.js","ExceptionsManager","ErrorUtils","ExceptionsManager","Platform","checkFlowAtRuntime","JSTimers","NativeModules","Promise","XMLHttpRequest","FormData","fetch","Geolocation","WebSocket","BridgeProfiling"],function(global, require, module, exports) {  var _extends=Object.assign || function(target){for(var i=1;i < arguments.length;i++) {var source=arguments[i];for(var key in source) {if(Object.prototype.hasOwnProperty.call(source,key)){target[key] = source[key];}}}return target;};
+__d('InitializeJavaScriptAppEngine',["RCTDebugComponentOwnership","RCTDeviceEventEmitter","PerformanceLogger","ExceptionsManager","ErrorUtils","ExceptionsManager","Platform","checkFlowAtRuntime","JSTimers","NativeModules","Promise","XMLHttpRequest","FormData","fetch","Geolocation","WebSocket","BridgeProfiling","regenerator/runtime.js"],function(global, require, module, exports) {  var _extends=Object.assign || function(target){for(var i=1;i < arguments.length;i++) {var source=arguments[i];for(var key in source) {if(Object.prototype.hasOwnProperty.call(source,key)){target[key] = source[key];}}}return target;};
 
 
 
@@ -29928,7 +29928,7 @@ this.emit(arg.eventType,arg.data,arg.didEmitCallback);}}}]);return NavigationEve
 
 module.exports = NavigationEventEmitter;
 });
-__d('NavigatorBreadcrumbNavigationBar',["NavigatorBreadcrumbNavigationBarStyles","NavigatorNavigationBarStylesAndroid","NavigatorNavigationBarStylesIOS","Platform","React","StyleSheet","View","immutable/dist/immutable.js","invariant"],function(global, require, module, exports) {  'use strict';
+__d('NavigatorBreadcrumbNavigationBar',["NavigatorBreadcrumbNavigationBarStyles","NavigatorNavigationBarStylesAndroid","NavigatorNavigationBarStylesIOS","Platform","React","StyleSheet","View","invariant","immutable/dist/immutable.js"],function(global, require, module, exports) {  'use strict';
 
 
 
@@ -53952,7 +53952,7 @@ Object.keys(componentOrElement));}
 
 module.exports = findDOMNode;
 });
-__d('trident/src/goodsDetailContainer.js',["react-native/Libraries/react-native/react-native.js","Dimensions","react-native/Libraries/react-native/react-native.js","trident/src/goodsComponents/GoodsDetailViewPager.ios.js","trident/src/goodsComponents/GoodsDetailUserInfo.js","trident/src/goodsComponents/GoodsDetailInfo.js","trident/src/goodsComponents/GoodsDetailToolBar.js","trident/src/goodsComponents/GoodsDetailSectionItem.js","trident/src/goodsComponents/GoodsDetailDescComponent.js","trident/src/goodsComponents/GoodsDetailBookComponent.js","trident/src/goodsComponents/GoodsTrafficComponent.js","trident/src/goodsComponents/GoodsBookQuitComponent.js","trident/src/Config.js","react-native/Libraries/react-native/react-native.js"],function(global, require, module, exports) {  'use strict';
+__d('trident/src/goodsDetailContainer.js',["react-native/Libraries/react-native/react-native.js","Dimensions","react-native/Libraries/react-native/react-native.js","trident/src/goodsComponents/GoodsDetailViewPager.ios.js","react-native/Libraries/react-native/react-native.js","trident/src/goodsComponents/GoodsDetailUserInfo.js","trident/src/goodsComponents/GoodsDetailInfo.js","trident/src/goodsComponents/GoodsDetailToolBar.js","trident/src/goodsComponents/GoodsDetailSectionItem.js","trident/src/goodsComponents/GoodsDetailDescComponent.js","trident/src/goodsComponents/GoodsDetailBookComponent.js","trident/src/goodsComponents/GoodsTrafficComponent.js","trident/src/goodsComponents/GoodsBookQuitComponent.js","trident/src/Config.js"],function(global, require, module, exports) {  'use strict';
 
 
 
@@ -54000,6 +54000,10 @@ tel:'',
 location:'',
 travelTime:'',
 goodsDesc:'',
+country:'',
+locality:'',
+address:'',
+timeCost:'',
 trafficInfo:{},
 refundPolicy:[{'summary':''},{'summary':''}],
 notice:[{'summary':''}],
@@ -54036,6 +54040,10 @@ nickName:result.seller.user.nickName,
 avatar:result.seller.user.avatar,
 tel:result.seller.tel,
 goodsDesc:result.desc.summary,
+country:result.country.zhName,
+locality:result.locality.zhName,
+address:result.address,
+timeCost:result.timeCost,
 plans:result.plans,
 trafficInfo:result.trafficInfo[0],
 refundPolicy:result.refundPolicy,
@@ -54054,7 +54062,7 @@ React.createElement(GoodsDetailInfo,{goodsName:this.state.goodsName,recommend:th
 price:this.state.oldPrice,categoryDesc:this.state.categoryDesc}),
 React.createElement(GoodsUserInfo,{storeName:this.state.storeName,language:this.state.language,service:this.state.service,tel:this.state.tel,nickName:this.state.nickName,avatar:this.state.avatar}),
 React.createElement(GoodsSection,{title:'商品详情',icon:'icon_shop_intro.png',showArrow:false}),
-React.createElement(GoodsDetailDescComponent,{location:'中国北京知春路豪景大厦',travelTime:'12月-11月',desc:this.state.goodsDesc,showMore:true}),
+React.createElement(GoodsDetailDescComponent,{location:this.state.country + this.state.locality + this.state.address,travelTime:this.state.timeCost + '天',desc:this.state.goodsDesc,showMore:true}),
 
 React.createElement(GoodsSection,{title:'购买须知',icon:'iconfont_jingmaixuzhi@3x.png',showArrow:false}),
 React.createElement(GoodsDetailBookComponent,{showTitle:true,showMore:true,content:this.state.notice}),
