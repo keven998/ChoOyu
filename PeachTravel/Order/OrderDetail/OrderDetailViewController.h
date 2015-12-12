@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "OrderDetailModel.h"
 
+//更新订单状态
+extern NSString *const kUpdateOrderdetailNoti;
+
 @interface OrderDetailViewController : TZViewController
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;

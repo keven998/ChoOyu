@@ -22,6 +22,8 @@
 #import "ChatSettingViewController.h"
 #import "REFrostedViewController.h"
 
+NSString *const kUpdateOrderdetailNoti = @"kUpdateOrderdetailNoti";
+
 
 @interface OrderDetailViewController () <UITableViewDataSource, UITableViewDelegate> {
     NSTimer *timer;
@@ -45,6 +47,7 @@
     [_tableView registerNib:[UINib nibWithNibName:@"OrderDetailStoreInfoTableViewCell" bundle:nil] forCellReuseIdentifier:@"orderDetailStoreCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"OrderDetailTravelerTableViewCell" bundle:nil] forCellReuseIdentifier:@"orderDetailTravelerCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"OrderDetailContactTableViewCell" bundle:nil] forCellReuseIdentifier:@"orderDetailContactCell"];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateOrderDetail) name:kUpdateOrderdetailNoti object:nil];
     
     _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.bounds.size.width, 55)];
     [OrderManager asyncLoadOrderDetailWithOrderId:_orderId completionBlock:^(BOOL isSuccess, OrderDetailModel *orderDetail) {
@@ -53,7 +56,6 @@
         [self setupToolBar];
     }];
     [self setupToolBar];
-
 }
 
 - (void)didReceiveMemoryWarning {
@@ -108,6 +110,14 @@
     [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
 }
 
+- (void)updateOrderDetail
+{
+    [OrderManager asyncLoadOrderDetailWithOrderId:_orderId completionBlock:^(BOOL isSuccess, OrderDetailModel *orderDetail) {
+        self.orderDetail = orderDetail;
+        [self.tableView reloadData];
+        [self setupToolBar];
+    }];
+}
 
 - (void)setupToolBar
 {
@@ -203,11 +213,8 @@
             [OrderManager asyncCancelOrderWithOrderId:_orderId completionBlock:^(BOOL isSuccess, NSString *error) {
                 if (isSuccess) {
                     [SVProgressHUD showHint:@"取消成功"];
-                    [OrderManager asyncLoadOrderDetailWithOrderId:_orderId completionBlock:^(BOOL isSuccess, OrderDetailModel *orderDetail) {
-                        self.orderDetail = orderDetail;
-                        [self.tableView reloadData];
-                        [self setupToolBar];
-                    }];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kUpdateOrderdetailNoti object:nil];
+                    
                 } else {
                     [SVProgressHUD showHint:@"取消失败"];
                 }
