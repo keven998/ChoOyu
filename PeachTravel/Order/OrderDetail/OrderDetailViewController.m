@@ -101,11 +101,10 @@
         return;
     }
     --self.payCutdown;
-    if (_orderDetail.expireTime - _orderDetail.currentTime > 0) {
-        _payCutdown = _orderDetail.expireTime - _orderDetail.currentTime;
-    } else {
+    if (_orderDetail.expireTime - _orderDetail.currentTime < 0) {
         _payCutdown = 0;
-    }
+    } 
+    [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 

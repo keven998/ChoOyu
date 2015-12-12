@@ -47,8 +47,9 @@
     spaceView.backgroundColor = COLOR_LINE;
     [toolBar addSubview:spaceView];
     UIButton *payButton = [[UIButton alloc] initWithFrame:CGRectMake(toolBar.bounds.size.width-100, 6, 90, 37)];
-    payButton.backgroundColor = UIColorFromRGB(0xFC4E27);
+    [payButton setBackgroundImage:[ConvertMethods createImageWithColor:UIColorFromRGB(0xFC4E27)] forState:UIControlStateNormal];
     payButton.layer.cornerRadius = 4.0;
+    payButton.clipsToBounds = YES;
     payButton.titleLabel.font = [UIFont systemFontOfSize:14.0];
     [payButton setTitle:@"立即支付" forState:UIControlStateNormal];
     [toolBar addSubview:payButton];

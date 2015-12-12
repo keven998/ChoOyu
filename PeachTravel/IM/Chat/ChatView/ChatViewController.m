@@ -736,13 +736,11 @@
                     [_conversation insertMessage2DB: message];
                 }
             }
-
-            
         }];
       
         [self addChatMessage2Buttom:retMessage];
-        
-        for (int i=(int)_dataSource.count-1; i>0; i--) {
+        int count = (int)_dataSource.count-1;
+        for (int i=count; i>=0; --i) {
             id message = _dataSource[i];
             if ([message isKindOfClass:[MessageModel class]]) {
                 if (((MessageModel *) message).type == IMMessageTypeGoodsLinkMessageType) {
