@@ -42,19 +42,24 @@
     _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.bounds.size.width, 49)];
     _scroll2TopBtn.hidden = YES;
     [_scroll2TopBtn addTarget:self action:@selector(scroll2Top) forControlEvents:UIControlEventTouchUpInside];
-    [GoodsManager asyncLoadRecommendGoodsWithCompletionBlock:^(BOOL isSuccess, NSArray<NSDictionary *> *goodsList) {
-        if (isSuccess) {
-            _dataSource = goodsList;
-            [self.tableView reloadData];
-        }
-    }];
-    [self loadRecommendData];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
+    if (!_dataSource.count) {
+        [GoodsManager asyncLoadRecommendGoodsWithCompletionBlock:^(BOOL isSuccess, NSArray<NSDictionary *> *goodsList) {
+            if (isSuccess) {
+                _dataSource = goodsList;
+                [self.tableView reloadData];
+            }
+        }];
+    }
+    if (!_headerView.recommendData) {
+        [self loadRecommendData];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated

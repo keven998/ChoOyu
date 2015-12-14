@@ -604,6 +604,9 @@
 		D92B5C251BB92E4000E3AC93 /* ic_tabbar_destination_normal@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D92B5C211BB92E4000E3AC93 /* ic_tabbar_destination_normal@3x.png */; };
 		D92B5C261BB92E4000E3AC93 /* ic_tabbar_destination_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D92B5C221BB92E4000E3AC93 /* ic_tabbar_destination_selected@2x.png */; };
 		D92B5C271BB92E4000E3AC93 /* ic_tabbar_destination_selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D92B5C231BB92E4000E3AC93 /* ic_tabbar_destination_selected@3x.png */; };
+		D92C50B31C1EA14A00AD7965 /* TZSchemeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D92C50B21C1EA14A00AD7965 /* TZSchemeManager.m */; };
+		D92C50B91C1EA1A900AD7965 /* JLRoutes.m in Sources */ = {isa = PBXBuildFile; fileRef = D92C50B61C1EA1A900AD7965 /* JLRoutes.m */; };
+		D92C50BA1C1EA1A900AD7965 /* SchemeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D92C50B81C1EA1A900AD7965 /* SchemeManager.m */; };
 		D92CA0B61AD8BDD400F244FF /* DACircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = D92CA0B31AD8BDD400F244FF /* DACircularProgressView.m */; };
 		D92CA0FA1AD8BDF900F244FF /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = D92CA0BC1AD8BDF900F244FF /* MBProgressHUD.m */; };
 		D92CA0FD1AD8BDF900F244FF /* NSIndexPath+PSTCollectionViewAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D92CA0C51AD8BDF900F244FF /* NSIndexPath+PSTCollectionViewAdditions.m */; };
@@ -2844,6 +2847,12 @@
 		D92B5C211BB92E4000E3AC93 /* ic_tabbar_destination_normal@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_tabbar_destination_normal@3x.png"; sourceTree = "<group>"; };
 		D92B5C221BB92E4000E3AC93 /* ic_tabbar_destination_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_tabbar_destination_selected@2x.png"; sourceTree = "<group>"; };
 		D92B5C231BB92E4000E3AC93 /* ic_tabbar_destination_selected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_tabbar_destination_selected@3x.png"; sourceTree = "<group>"; };
+		D92C50B11C1EA14A00AD7965 /* TZSchemeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZSchemeManager.h; sourceTree = "<group>"; };
+		D92C50B21C1EA14A00AD7965 /* TZSchemeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZSchemeManager.m; sourceTree = "<group>"; };
+		D92C50B51C1EA1A900AD7965 /* JLRoutes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JLRoutes.h; sourceTree = "<group>"; };
+		D92C50B61C1EA1A900AD7965 /* JLRoutes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JLRoutes.m; sourceTree = "<group>"; };
+		D92C50B71C1EA1A900AD7965 /* SchemeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SchemeManager.h; sourceTree = "<group>"; };
+		D92C50B81C1EA1A900AD7965 /* SchemeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SchemeManager.m; sourceTree = "<group>"; };
 		D92CA0B21AD8BDD400F244FF /* DACircularProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DACircularProgressView.h; sourceTree = "<group>"; };
 		D92CA0B31AD8BDD400F244FF /* DACircularProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DACircularProgressView.m; sourceTree = "<group>"; };
 		D92CA0BB1AD8BDF900F244FF /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
@@ -6098,6 +6107,27 @@
 			path = RefundMoney;
 			sourceTree = "<group>";
 		};
+		D92C50B01C1EA14A00AD7965 /* TZSchemeManager */ = {
+			isa = PBXGroup;
+			children = (
+				D92C50B41C1EA1A900AD7965 /* JLRoutes */,
+				D92C50B11C1EA14A00AD7965 /* TZSchemeManager.h */,
+				D92C50B21C1EA14A00AD7965 /* TZSchemeManager.m */,
+			);
+			path = TZSchemeManager;
+			sourceTree = "<group>";
+		};
+		D92C50B41C1EA1A900AD7965 /* JLRoutes */ = {
+			isa = PBXGroup;
+			children = (
+				D92C50B51C1EA1A900AD7965 /* JLRoutes.h */,
+				D92C50B61C1EA1A900AD7965 /* JLRoutes.m */,
+				D92C50B71C1EA1A900AD7965 /* SchemeManager.h */,
+				D92C50B81C1EA1A900AD7965 /* SchemeManager.m */,
+			);
+			path = JLRoutes;
+			sourceTree = "<group>";
+		};
 		D92CA0B01AD8BDD400F244FF /* DACircularProgress */ = {
 			isa = PBXGroup;
 			children = (
@@ -7957,6 +7987,7 @@
 		D9A802541A80E3D3005AD701 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				D92C50B01C1EA14A00AD7965 /* TZSchemeManager */,
 				D90EACA71C09552900634829 /* DownSheet */,
 				D959C53D1C06D49F006D8DC0 /* DOPDropDownMenu */,
 				D9221A101BFC55C70015A685 /* DKTabPageViewController */,
@@ -11901,6 +11932,7 @@
 				D993C2551B12DF0C0088D568 /* CMDMessageManager.swift in Sources */,
 				D9A8FFB01A80D1C3005AD701 /* LocationTableViewCell.m in Sources */,
 				D9A802B51A80E3D3005AD701 /* UIAlertView+Block.m in Sources */,
+				D92C50B91C1EA1A900AD7965 /* JLRoutes.m in Sources */,
 				C679D30D1ACD64E3007680D9 /* RECommonFunctions.m in Sources */,
 				D9A801111A80DD23005AD701 /* ChatGroupSettingViewController.m in Sources */,
 				D9E7E5911AC281B00072D5B9 /* CityDestinationPoi.m in Sources */,
@@ -11926,6 +11958,7 @@
 				E608A1121B8F26CF003BA318 /* UIView+Extension.m in Sources */,
 				E608A1651B904E7B003BA318 /* GuiderProfileAbout.m in Sources */,
 				D9A802BA1A80E3D3005AD701 /* ConvertMethods.m in Sources */,
+				D92C50B31C1EA14A00AD7965 /* TZSchemeManager.m in Sources */,
 				D91850E11B575450004B8363 /* ItemFooterCollectionViewController.m in Sources */,
 				D90C75F31BF1DB1A00C5897C /* PDTSimpleCalendarViewCell.m in Sources */,
 				D92CA1081AD8BDF900F244FF /* PSTGridLayoutRow.m in Sources */,
@@ -12076,6 +12109,7 @@
 				D9A8001A1A80D52F005AD701 /* Destinations.m in Sources */,
 				D9A8021C1A80E036005AD701 /* MJPhoto.m in Sources */,
 				D9D197411BDA08570037C3B3 /* GoodsRecommendTableViewCell.m in Sources */,
+				D92C50BA1C1EA1A900AD7965 /* SchemeManager.m in Sources */,
 				D97492AA1BF4360C00A5A70B /* GoodsDetailModel.m in Sources */,
 				E66E6CCA1B59F1E500CBF65F /* DropDownViewController.m in Sources */,
 				D90C76171BF1DED600C5897C /* MakeOrderSelectCountTableViewCell.m in Sources */,
@@ -12283,7 +12317,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "d77b08bb-6e7f-4c4f-a396-685e0d404a32";
+				PROVISIONING_PROFILE = "f20df0ba-3a63-4adb-94a5-d1af0dbdc363";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -12397,7 +12431,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d77b08bb-6e7f-4c4f-a396-685e0d404a32";
+				PROVISIONING_PROFILE = "f20df0ba-3a63-4adb-94a5-d1af0dbdc363";
 				SWIFT_OBJC_BRIDGING_HEADER = "PeachTravel/PeachTravel-Bridging-Header.h";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};

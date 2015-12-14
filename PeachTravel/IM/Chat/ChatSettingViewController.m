@@ -205,7 +205,6 @@
         OtherProfileViewController *contactDetailCtl = [[OtherProfileViewController alloc]init];
         contactDetailCtl.userId = _chatterId;
         [_containerCtl.navigationController pushViewController:contactDetailCtl animated:YES];
-
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
