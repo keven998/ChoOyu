@@ -13,6 +13,7 @@
 #import "CreateConversationViewController.h"
 #import "REFrostedViewController.h"
 #import "ChatGroupCell.h"
+#import "OtherProfileViewController.h"
 
 @interface ChatSettingViewController ()<UITableViewDataSource,UITableViewDelegate, CreateConversationDelegate>
 {
@@ -176,27 +177,35 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 0) {
-        
-    } else if (indexPath.row == 1) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"确认清空全部聊天记录" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-        [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
-            if (buttonIndex == 1) {
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"RemoveAllMessages" object:[NSNumber numberWithInteger:_chatterId]];
-            }
-        }];
-        
-    } else if (indexPath.row == 2) {
-        ChatAlbumCollectionViewController *ctl = [[ChatAlbumCollectionViewController alloc] initWithNibName:@"ChatAlbumCollectionViewController" bundle:nil];
-        [self.frostedViewController.navigationController pushViewController:ctl animated:YES];
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            NSArray *albumImages = [self getAllChatAlbumImageInConversation];
-            NSArray *images = [self getAllImagePathList];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                ctl.imageList = images;
-                ctl.albumList = albumImages;
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            
+        } else if (indexPath.row == 1) {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"确认清空全部聊天记录" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
+                if (buttonIndex == 1) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"RemoveAllMessages" object:[NSNumber numberWithInteger:_chatterId]];
+                }
+            }];
+            
+        } else if (indexPath.row == 2) {
+            ChatAlbumCollectionViewController *ctl = [[ChatAlbumCollectionViewController alloc] initWithNibName:@"ChatAlbumCollectionViewController" bundle:nil];
+            [self.frostedViewController.navigationController pushViewController:ctl animated:YES];
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                NSArray *albumImages = [self getAllChatAlbumImageInConversation];
+                NSArray *images = [self getAllImagePathList];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    ctl.imageList = images;
+                    ctl.albumList = albumImages;
+                });
             });
-        });
+        }
+
+    } else {
+        OtherProfileViewController *contactDetailCtl = [[OtherProfileViewController alloc]init];
+        contactDetailCtl.userId = _chatterId;
+        [_containerCtl.navigationController pushViewController:contactDetailCtl animated:YES];
+
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
