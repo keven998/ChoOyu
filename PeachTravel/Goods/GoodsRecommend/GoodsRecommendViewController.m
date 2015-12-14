@@ -22,7 +22,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *scroll2TopBtn;
 @property (nonatomic, strong) GoodsRecommendHeaderView *headerView;
 @property (nonatomic, strong) NSArray *dataSource;
-
 @property (nonatomic, strong) NSArray *recommendDataSource;   //顶部运营位
 
 @end
@@ -38,13 +37,13 @@
     [_tableView registerNib:[UINib nibWithNibName:@"GoodsRecommendTableViewCell" bundle:nil] forCellReuseIdentifier:@"goodsRecommendCell"];
     _tableView.dataSource = self;
     _tableView.delegate = self;
+    _tableView.backgroundColor = APP_PAGE_COLOR;
     _headerView = [[GoodsRecommendHeaderView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 320)];
     _tableView.tableHeaderView = _headerView;
     _headerView.delegate = self;
     _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.bounds.size.width, 49)];
     _scroll2TopBtn.hidden = YES;
     [_scroll2TopBtn addTarget:self action:@selector(scroll2Top) forControlEvents:UIControlEventTouchUpInside];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated
