@@ -140,6 +140,7 @@ NSString *const kUpdateOrderdetailNoti = @"kUpdateOrderdetailNoti";
         [orderAgainBtn setTitle:@"再次预订" forState:UIControlStateNormal];
         [orderAgainBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [orderAgainBtn setBackgroundImage:[ConvertMethods createImageWithColor:UIColorFromRGB(0xFC4E27)] forState:UIControlStateNormal];
+        [orderAgainBtn addTarget:self action:@selector(orderAgainAction:) forControlEvents:UIControlEventTouchUpInside];
         orderAgainBtn.titleLabel.font = [UIFont systemFontOfSize:17];
         [_toolBar addSubview:orderAgainBtn];
         
@@ -253,6 +254,12 @@ NSString *const kUpdateOrderdetailNoti = @"kUpdateOrderdetailNoti";
     
 }
 
+- (void)orderAgainAction:(UIButton *)sender
+{
+    GoodsDetailViewController *ctl = [[GoodsDetailViewController alloc] init];
+    ctl.goodsId = _orderDetail.goods.goodsId;
+    [self.navigationController pushViewController:ctl animated:YES];
+}
 
 - (void)requestRefundMoney:(UIButton *)sender
 {
