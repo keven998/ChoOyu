@@ -97,5 +97,12 @@
     return cell;
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([self.delegate respondsToSelector:@selector(didSelectItem:)]) {
+        NSString *url = @"lvxingpai://marketplace/commodities/100375";
+        [self.delegate didSelectItem:url];
+    }
+}
 
 @end

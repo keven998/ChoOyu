@@ -8,6 +8,7 @@
 
 #import "TZSchemeManager.h"
 #import "JLRoutes.h"
+#import "GoodsDetailViewController.h"
 
 @interface TZSchemeManager ()
 
@@ -21,10 +22,12 @@
 {
     self = [super init];
     if (self) {
-        [JLRoutes addRoute:@"/user/view/:userID" handler:^BOOL(NSDictionary *parameters) {
-            NSString *userID = parameters[@"userID"];
+        [JLRoutes addRoute:@"/marketplace/commodities/:commoditeId" handler:^BOOL(NSDictionary *parameters) {
+            NSInteger commoditeId = [parameters[@"commoditeId"] integerValue];
             if (_handleCompletionBlock) {
-                _handleCompletionBlock([[UIViewController alloc] init], userID);
+                GoodsDetailViewController *goodsDetailCtl = [[GoodsDetailViewController alloc] init];
+                goodsDetailCtl.goodsId = commoditeId;
+                _handleCompletionBlock(goodsDetailCtl, nil);
             }
             return YES;
         }];

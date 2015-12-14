@@ -8,8 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol GoodsRecommendHeaderViewDelegate <NSObject>
+
+- (void)didSelectItem:(NSString *)itemUri;
+
+@end
+
 @interface GoodsRecommendHeaderView : UIView
 
 @property (nonatomic, strong) NSArray *recommendData;
+@property (nonatomic, weak) id <GoodsRecommendHeaderViewDelegate> delegate;
 
 @end

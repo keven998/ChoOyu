@@ -11,5 +11,4 @@
 @interface GoodsRecommendViewController : UIViewController
 
 
-
 @end

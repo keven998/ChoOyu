@@ -14,8 +14,9 @@
 #import "CityDetailViewController.h"
 #import "MakeOrderViewController.h"
 #import "GoodsManager.h"
+#import "TZSchemeManager.h"
 
-@interface GoodsRecommendViewController ()<UITableViewDataSource, UITableViewDelegate>
+@interface GoodsRecommendViewController ()<UITableViewDataSource, UITableViewDelegate, GoodsRecommendHeaderViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *scroll2TopBtn;
@@ -39,6 +40,7 @@
     _tableView.delegate = self;
     _headerView = [[GoodsRecommendHeaderView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 320)];
     _tableView.tableHeaderView = _headerView;
+    _headerView.delegate = self;
     _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.bounds.size.width, 49)];
     _scroll2TopBtn.hidden = YES;
     [_scroll2TopBtn addTarget:self action:@selector(scroll2Top) forControlEvents:UIControlEventTouchUpInside];
@@ -165,5 +167,14 @@
     }
 }
 
+#pragma mark - GoodsRecommendHeaderViewDelegate
+
+- (void)didSelectItem:(NSString *)itemUri
+{
+    TZSchemeManager *schemeManager = [[TZSchemeManager alloc] init];
+    [schemeManager handleUri:itemUri handleUriCompletionBlock:^(UIViewController *controller, NSString *uri) {
+        [self.navigationController pushViewController:controller animated:YES];
+    }];
+}
 
 @end

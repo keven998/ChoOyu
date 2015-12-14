@@ -75,7 +75,7 @@
 			<string>com.xuejian.client.lxp</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>Lvxingpai</string>
+				<string>lvxingpai</string>
 			</array>
 		</dict>
 	</array>
