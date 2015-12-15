@@ -27,6 +27,13 @@
     if (self = [super initWithFrame:frame]) {
         _galleryView = [[AutoSlideScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 210)];
         _galleryView.scrollView.showsHorizontalScrollIndicator = NO;
+        __weak GoodsRecommendHeaderView *weakSelf = self;
+        _galleryView.TapActionBlock = ^(NSInteger index) {
+            if ([weakSelf.delegate respondsToSelector:@selector(didSelectItem:)]) {
+                NSString *url = @"lvxingpai://marketplace/commodities/100375";
+                [weakSelf.delegate didSelectItem:url];
+            }
+        };
         
         _searchBtn = [[UIButton alloc] initWithFrame:CGRectMake(30, 30, frame.size.width-60, 27)];
        
