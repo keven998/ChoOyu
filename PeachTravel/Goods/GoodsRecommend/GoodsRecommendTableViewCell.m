@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *cityNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *goodsNameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *contentImageView;
+@property (weak, nonatomic) IBOutlet UIView *bgView;
 
 
 @end
@@ -30,6 +31,8 @@
     _bgImageView.clipsToBounds = YES;
     _goodsImageView.clipsToBounds = YES;
     _tagCollectionView.backgroundColor = [UIColor clearColor];
+    _bgView.layer.cornerRadius = 2.0;
+    _bgView.clipsToBounds = YES;
 }
 
 - (void)setGoodsModel:(GoodsDetailModel *)goodsModel
