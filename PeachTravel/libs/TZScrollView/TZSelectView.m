@@ -158,8 +158,11 @@
 
 - (void)removeUnitAtIndex:(NSInteger)index
 {
-    UIView *unitCell = [_unitList objectAtIndex:index];
-    [self unitCellTouched:unitCell];
+    if (index>=0 && index<_unitList.count) {
+        UIView *unitCell = [_unitList objectAtIndex:index];
+        [self unitCellTouched:unitCell];
+    }
+   
 }
 
 /*

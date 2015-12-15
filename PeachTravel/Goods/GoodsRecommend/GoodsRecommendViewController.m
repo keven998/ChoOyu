@@ -147,6 +147,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     GoodsDetailViewController *ctl = [[GoodsDetailViewController alloc] init];
     NSDictionary *dic = [_dataSource objectAtIndex:indexPath.section];
     GoodsDetailModel *goodsModel = [[dic objectForKey:@"goodsList"] objectAtIndex:indexPath.row];

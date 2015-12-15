@@ -200,6 +200,11 @@
 
 - (BOOL)isSelected:(NSInteger)userId
 {
+    if (_haveSelectedFrend) {
+        if (userId == _haveSelectedFrend.userId) {
+            return YES;
+        }
+    }
     for (FrendModel *contact in self.selectedContacts) {
         if (userId == contact.userId) {
             return YES;
