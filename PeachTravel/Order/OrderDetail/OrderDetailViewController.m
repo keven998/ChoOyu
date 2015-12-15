@@ -21,6 +21,7 @@
 #import "ChatGroupSettingViewController.h"
 #import "ChatSettingViewController.h"
 #import "REFrostedViewController.h"
+#import "TZPayManager.h"
 
 NSString *const kUpdateOrderdetailNoti = @"kUpdateOrderdetailNoti";
 
@@ -203,6 +204,7 @@ NSString *const kUpdateOrderdetailNoti = @"kUpdateOrderdetailNoti";
 - (void)payOrder:(UIButton *)sender
 {
     SelectPayPlatformViewController *ctl = [[SelectPayPlatformViewController alloc] init];
+    ctl.orderDetail = _orderDetail;
     [self.navigationController pushViewController:ctl animated:YES];
 }
 

@@ -62,6 +62,8 @@
     
     NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     [MobClick setAppVersion:version];
+    
+    [WXApi registerApp:SHARE_WEIXIN_APPID withDescription:@"lvxingpai"];
 
 #ifndef __OPTIMIZE__
     [MobClick setCrashReportEnabled:NO];
@@ -137,15 +139,19 @@
 // WXApiDelegate的代理方法
 - (void)onResp:(BaseResp *)resp
 {
-    SendAuthResp * result = (SendAuthResp *)resp;
-    NSString * code = result.code;
-    
-    //微信授权失败,取消登录
-    if (!code) {
-        return;
+    if ([resp isKindOfClass:[PayResp class]]) {
+        
+    } else {
+        SendAuthResp * result = (SendAuthResp *)resp;
+        NSString * code = result.code;
+        
+        //微信授权失败,取消登录
+        if (!code) {
+            return;
+        }
+        NSDictionary *userInfo = @{@"code" : code};
+        [[NSNotificationCenter defaultCenter] postNotificationName:weixinDidLoginNoti object:nil userInfo:userInfo];
     }
-    NSDictionary *userInfo = @{@"code" : code};
-    [[NSNotificationCenter defaultCenter] postNotificationName:weixinDidLoginNoti object:nil userInfo:userInfo];
 }
 
 @end

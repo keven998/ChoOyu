@@ -15,6 +15,7 @@
 #import "ChatGroupSettingViewController.h"
 #import "ChatSettingViewController.h"
 #import "REFrostedViewController.h"
+#import "SelectPayPlatformViewController.h"
 
 #define pageCount 15    //每页加载数量
 
@@ -123,6 +124,14 @@
 
 }
 
+- (void)payOrder:(UIButton *)sender
+{
+    SelectPayPlatformViewController *ctl = [[SelectPayPlatformViewController alloc] init];
+    OrderDetailModel *orderDetail = _dataSource[sender.tag];
+    ctl.orderDetail = orderDetail;
+    [self.navigationController pushViewController:ctl animated:YES];
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -148,6 +157,8 @@
     MyOrderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"myOrderCell" forIndexPath:indexPath];
     cell.orderDetail = order;
     cell.contactBusiness.tag = indexPath.row;
+    cell.payOrderBtn.tag = indexPath.row;
+    [cell.payOrderBtn addTarget:self action:@selector(payOrder:) forControlEvents:UIControlEventTouchUpInside];
     [cell.contactBusiness addTarget:self action:@selector(contactBusiness:) forControlEvents:UIControlEventTouchUpInside];
     return cell;
 }

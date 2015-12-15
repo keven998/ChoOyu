@@ -38,7 +38,6 @@
         [addTravelerBtn addTarget:self action:@selector(addTraveler:) forControlEvents:UIControlEventTouchUpInside];
         UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:addTravelerBtn];
         self.navigationItem.rightBarButtonItem = rightItem;
-
     }
 }
 

@@ -8,6 +8,7 @@
 
 #import "SelectPayPlatformViewController.h"
 #import "SelectPayPlatformTableViewCell.h"
+#import "TZPayManager.h"
 
 @interface SelectPayPlatformViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -52,6 +53,7 @@
     payButton.clipsToBounds = YES;
     payButton.titleLabel.font = [UIFont systemFontOfSize:14.0];
     [payButton setTitle:@"立即支付" forState:UIControlStateNormal];
+    [payButton addTarget:self action:@selector(payOrderAction:) forControlEvents:UIControlEventTouchUpInside];
     [toolBar addSubview:payButton];
     
     UILabel *priceTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(11, 0, 40, toolBar.bounds.size.height)];
@@ -73,6 +75,14 @@
 {
     _selectIndex = sender.tag;
     [_tableView reloadData];
+}
+
+- (IBAction)payOrderAction:(id)sender
+{
+    TZPayManager *payManager = [[TZPayManager alloc] init];
+    [payManager asyncPayOrder:_orderDetail.orderId payPlatform:kWeichat completionBlock:^(BOOL isSuccess, NSString *errorStr) {
+        
+    }];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

@@ -736,6 +736,7 @@
 		D955E3EC19E7A27700047F2B /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D955E3EB19E7A27700047F2B /* libstdc++.dylib */; };
 		D955E3EE19E7A28500047F2B /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D955E3ED19E7A28500047F2B /* libz.dylib */; };
 		D95659381C1FAEA000746B17 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = D95659371C1FAEA000746B17 /* main.jsbundle */; };
+		D956593B1C2012B300746B17 /* TZPayManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D956593A1C2012B300746B17 /* TZPayManager.m */; };
 		D95663981BAFE58F006B2765 /* common_icon_navigaiton_back_white_style@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D95663961BAFE58F006B2765 /* common_icon_navigaiton_back_white_style@2x.png */; };
 		D95663991BAFE58F006B2765 /* common_icon_navigaiton_back_white_style@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D95663971BAFE58F006B2765 /* common_icon_navigaiton_back_white_style@3x.png */; };
 		D956639C1BAFEAF0006B2765 /* icon_navi_white_more@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D956639A1BAFEAF0006B2765 /* icon_navi_white_more@2x.png */; };
@@ -3029,6 +3030,8 @@
 		D955E3EB19E7A27700047F2B /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
 		D955E3ED19E7A28500047F2B /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		D95659371C1FAEA000746B17 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
+		D95659391C2012B300746B17 /* TZPayManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZPayManager.h; sourceTree = "<group>"; };
+		D956593A1C2012B300746B17 /* TZPayManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZPayManager.m; sourceTree = "<group>"; };
 		D95663961BAFE58F006B2765 /* common_icon_navigaiton_back_white_style@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "common_icon_navigaiton_back_white_style@2x.png"; sourceTree = "<group>"; };
 		D95663971BAFE58F006B2765 /* common_icon_navigaiton_back_white_style@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "common_icon_navigaiton_back_white_style@3x.png"; sourceTree = "<group>"; };
 		D956639A1BAFEAF0006B2765 /* icon_navi_white_more@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_navi_white_more@2x.png"; sourceTree = "<group>"; };
@@ -4794,15 +4797,18 @@
 			isa = PBXGroup;
 			children = (
 				D9221A1F1BFC78080015A685 /* PayView */,
-				01578DFD1BD2287800244D9D /* ali */,
+				01578DFD1BD2287800244D9D /* PayManager */,
 			);
 			path = TZPay;
 			sourceTree = "<group>";
 		};
-		01578DFD1BD2287800244D9D /* ali */ = {
+		01578DFD1BD2287800244D9D /* PayManager */ = {
 			isa = PBXGroup;
 			children = (
+				D95659391C2012B300746B17 /* TZPayManager.h */,
+				D956593A1C2012B300746B17 /* TZPayManager.m */,
 			);
+			name = PayManager;
 			path = ali;
 			sourceTree = "<group>";
 		};
@@ -11893,6 +11899,7 @@
 				D92109AD1BE1C9F200AEDB65 /* GoodsDetailViewController.m in Sources */,
 				D9027BB01BED964400C74220 /* TZTagsCollectionView.m in Sources */,
 				D9A802181A80E036005AD701 /* JGProgressHUDSuccessIndicatorView.m in Sources */,
+				D956593B1C2012B300746B17 /* TZPayManager.m in Sources */,
 				D9A802F91A80E566005AD701 /* AppDelegate.m in Sources */,
 				E6E6B4081B7AF3BD001A78F4 /* ContactSearchViewController.m in Sources */,
 				27F4043C1AF0C73100CEA095 /* JobListViewController.m in Sources */,

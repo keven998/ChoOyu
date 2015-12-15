@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "OrderDetailModel.h"
 
 @interface SelectPayPlatformViewController : TZViewController
 
+@property (nonatomic, strong) OrderDetailModel *orderDetail;
 @end

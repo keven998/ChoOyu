@@ -68,7 +68,7 @@
     [params safeSetObject:lastName forKey:@"contactSurname"];
     [params safeSetObject:message forKey:@"comment"];
     [params safeSetObject:@"" forKey:@"contactEmail"];
-    
+
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [manager POST:API_ORDERS parameters: params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"***提交订单接口: %@", operation);
@@ -168,6 +168,10 @@
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
     [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    if ([accountManager isLogin]) {
+        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+    }
     NSString *url = [NSString stringWithFormat:@"%@/%ld", API_ORDERS, orderId];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [manager GET:url parameters: nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -211,6 +215,10 @@
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
     [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    if ([accountManager isLogin]) {
+        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+    }
     NSString *url = [NSString stringWithFormat:@"%@", API_ORDERS];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
@@ -251,6 +259,10 @@
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
     [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    if ([accountManager isLogin]) {
+        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+    }
     NSString *url = [NSString stringWithFormat:@"%@", API_ORDERS];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
