@@ -45,7 +45,6 @@ RCT_EXPORT_MODULE();
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.title = @"商品详情";
 
@@ -59,7 +58,7 @@ RCT_EXPORT_MODULE();
     
     rootView = [[RCTRootView alloc] initWithBridge:bridge moduleName:@"GoodsDetailClass" initialProperties:nil];
     
-    rootView.frame = CGRectMake(0, 64, kWindowWidth, kWindowHeight-64);
+    rootView.frame = CGRectMake(0, 0, kWindowWidth, kWindowHeight);
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(chatWithBusiness) name:@"gotoStoreDetailNoti" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(makeOrderAction) name:@"makeOrderNoti" object:nil];
