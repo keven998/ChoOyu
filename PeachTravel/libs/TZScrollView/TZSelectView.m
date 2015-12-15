@@ -155,14 +155,12 @@
     offsetX += defaultPace + unit.frame.size.width;
 }
 
-
 - (void)removeUnitAtIndex:(NSInteger)index
 {
     if (index>=0 && index<_unitList.count) {
         UIView *unitCell = [_unitList objectAtIndex:index];
         [self unitCellTouched:unitCell];
     }
-   
 }
 
 /*
