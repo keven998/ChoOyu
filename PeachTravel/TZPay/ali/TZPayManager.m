@@ -35,7 +35,7 @@
 
     NSDictionary *params = @{
                              @"tradeType": @"APP",
-                             @"vendor": @"wechat"
+                             @"vendor": platFormDesc
 
                              };
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
@@ -67,11 +67,12 @@
 - (void)sendWechatPayRequest:(NSDictionary *)payInfo
 {
     PayReq *request = [[PayReq alloc] init];
-    request.partnerId = [payInfo objectForKey:@"mch_id"];
-    request.prepayId= [payInfo objectForKey:@"prepay_id"];
-    request.package = @"Sign=WXPay";
-    request.nonceStr= [payInfo objectForKey:@"nonce_str"];
-    request.timeStamp= [NSDate date].timeIntervalSince1970;
+    request.openID = [payInfo objectForKey:@"appid"];
+    request.partnerId = [payInfo objectForKey:@"partnerid"];
+    request.prepayId= [payInfo objectForKey:@"prepayid"];
+    request.package = [payInfo objectForKey:@"package"];
+    request.nonceStr= [payInfo objectForKey:@"noncestr"];
+    request.timeStamp= (UInt32)[[payInfo objectForKey:@"timestamp"] longValue];
     request.sign= [payInfo objectForKey:@"sign"];
     [WXApi sendReq: request];
     
