@@ -735,7 +735,6 @@
 		D955E3EA19E7A26D00047F2B /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D955E3E919E7A26D00047F2B /* CoreTelephony.framework */; };
 		D955E3EC19E7A27700047F2B /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D955E3EB19E7A27700047F2B /* libstdc++.dylib */; };
 		D955E3EE19E7A28500047F2B /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D955E3ED19E7A28500047F2B /* libz.dylib */; };
-		D95659381C1FAEA000746B17 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = D95659371C1FAEA000746B17 /* main.jsbundle */; };
 		D956593B1C2012B300746B17 /* TZPayManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D956593A1C2012B300746B17 /* TZPayManager.m */; };
 		D95663981BAFE58F006B2765 /* common_icon_navigaiton_back_white_style@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D95663961BAFE58F006B2765 /* common_icon_navigaiton_back_white_style@2x.png */; };
 		D95663991BAFE58F006B2765 /* common_icon_navigaiton_back_white_style@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D95663971BAFE58F006B2765 /* common_icon_navigaiton_back_white_style@3x.png */; };
@@ -827,6 +826,7 @@
 		D97492AD1BF4391100A5A70B /* GoodsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D97492AC1BF4391100A5A70B /* GoodsManager.m */; };
 		D97C8B4D1A526B9F00476C9C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D97C8B4C1A526B9F00476C9C /* Images.xcassets */; };
 		D9823E841B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9823E831B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m */; };
+		D98277F21C21610700EE05EC /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = D98277F11C21610700EE05EC /* main.jsbundle */; };
 		D9871DBA1B47D31E00BFDFAF /* ScheduleDayEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9871DB81B47D31E00BFDFAF /* ScheduleDayEditViewController.m */; };
 		D9871DBB1B47D31E00BFDFAF /* ScheduleDayEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9871DB91B47D31E00BFDFAF /* ScheduleDayEditViewController.xib */; };
 		D98CC6431A1993BE00FA5A76 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D902AD1F1A149FAB00E36A93 /* CFNetwork.framework */; };
@@ -3029,7 +3029,6 @@
 		D955E3E919E7A26D00047F2B /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		D955E3EB19E7A27700047F2B /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
 		D955E3ED19E7A28500047F2B /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
-		D95659371C1FAEA000746B17 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		D95659391C2012B300746B17 /* TZPayManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZPayManager.h; sourceTree = "<group>"; };
 		D956593A1C2012B300746B17 /* TZPayManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZPayManager.m; sourceTree = "<group>"; };
 		D95663961BAFE58F006B2765 /* common_icon_navigaiton_back_white_style@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "common_icon_navigaiton_back_white_style@2x.png"; sourceTree = "<group>"; };
@@ -3180,6 +3179,7 @@
 		D97C8B4C1A526B9F00476C9C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
 		D9823E821B19AA0200A1AE35 /* SuggestionDestinationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuggestionDestinationTableViewController.h; sourceTree = "<group>"; };
 		D9823E831B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuggestionDestinationTableViewController.m; sourceTree = "<group>"; };
+		D98277F11C21610700EE05EC /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		D9871DB71B47D31E00BFDFAF /* ScheduleDayEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleDayEditViewController.h; sourceTree = "<group>"; };
 		D9871DB81B47D31E00BFDFAF /* ScheduleDayEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleDayEditViewController.m; sourceTree = "<group>"; };
 		D9871DB91B47D31E00BFDFAF /* ScheduleDayEditViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScheduleDayEditViewController.xib; sourceTree = "<group>"; };
@@ -7142,7 +7142,7 @@
 		D99D8EC719C8600C0021C25B /* PeachTravel */ = {
 			isa = PBXGroup;
 			children = (
-				D95659371C1FAEA000746B17 /* main.jsbundle */,
+				D98277F11C21610700EE05EC /* main.jsbundle */,
 				D95B0A461BF0671E00F2D900 /* Order */,
 				D92109AE1BE204D700AEDB65 /* Store */,
 				01578DFC1BD2285D00244D9D /* TZPay */,
@@ -11125,7 +11125,7 @@
 				E6F189891B845F4900232EEB /* poi_comment_start_highlight@2x.png in Resources */,
 				E6F18A151B845F4900232EEB /* map_icon_4@2x.png in Resources */,
 				E608A12E1B8F413E003BA318 /* point@3x.png in Resources */,
-				D95659381C1FAEA000746B17 /* main.jsbundle in Resources */,
+				D98277F21C21610700EE05EC /* main.jsbundle in Resources */,
 				01C1EC2F1BB4E4720082217A /* jiong@2x.png in Resources */,
 				D942C27B1B9EBDF0005B81C5 /* ic_navigationbar_menu_add@2x.png in Resources */,
 				D9A8FFB41A80D1C3005AD701 /* RecommendCollectionViewCell.xib in Resources */,

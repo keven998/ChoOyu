@@ -53952,7 +53952,7 @@ Object.keys(componentOrElement));}
 
 module.exports = findDOMNode;
 });
-__d('trident/src/goodsDetailContainer.js',["react-native/Libraries/react-native/react-native.js","Dimensions","react-native/Libraries/react-native/react-native.js","trident/src/goodsComponents/GoodsDetailViewPager.ios.js","trident/src/goodsComponents/GoodsDetailUserInfo.js","trident/src/goodsComponents/GoodsDetailInfo.js","trident/src/goodsComponents/GoodsDetailToolBar.js","trident/src/goodsComponents/GoodsDetailSectionItem.js","trident/src/goodsComponents/GoodsDetailDescComponent.js","trident/src/goodsComponents/GoodsDetailBookComponent.js","trident/src/goodsComponents/GoodsTrafficComponent.js","trident/src/goodsComponents/GoodsBookQuitComponent.js","trident/src/Config.js","react-native/Libraries/react-native/react-native.js"],function(global, require, module, exports) {  'use strict';
+__d('trident/src/goodsDetailContainer.js',["react-native/Libraries/react-native/react-native.js","Dimensions","react-native/Libraries/react-native/react-native.js","trident/src/goodsComponents/GoodsDetailViewPager.ios.js","trident/src/goodsComponents/GoodsDetailUserInfo.js","trident/src/goodsComponents/GoodsDetailInfo.js","trident/src/goodsComponents/GoodsDetailToolBar.js","trident/src/goodsComponents/GoodsDetailSectionItem.js","trident/src/goodsComponents/GoodsDetailDescComponent.js","trident/src/goodsComponents/GoodsDetailBookComponent.js","trident/src/goodsComponents/GoodsTrafficComponent.js","trident/src/Config.js","react-native/Libraries/react-native/react-native.js","trident/src/goodsComponents/GoodsBookQuitComponent.js"],function(global, require, module, exports) {  'use strict';
 
 
 
@@ -54092,7 +54092,7 @@ flexDirection:'column',
 position:'absolute',
 backgroundColor:'#f7faf7',
 width:Dimensions.get('window').width,
-height:Dimensions.get('window').height - 58}});
+height:Dimensions.get('window').height - 58 - 64}});
 
 
 
@@ -54428,7 +54428,6 @@ __d('trident/src/goodsComponents/GoodsDetailInfo.js',["react-native/Libraries/re
 var sourcePath='http://7xiktj.com1.z0.glb.clouddn.com/';
 var React=require('react-native/Libraries/react-native/react-native.js');var 
 Image=React.Image;var StyleSheet=React.StyleSheet;var Text=React.Text;var TouchableWithoutFeedback=React.TouchableWithoutFeedback;var TouchableOpacity=React.TouchableOpacity;var View=React.View;var ViewPagerAndroid=React.ViewPagerAndroid;var ToastAndroid=React.ToastAndroid;var Dimensions=React.Dimensions;var Platform=React.Platform;
-var h=Dimensions.get('window').height;
 var w=Dimensions.get('window').width;
 var GoodsInfo=React.createClass({displayName:'GoodsInfo',
 propTypes:{
@@ -54546,7 +54545,9 @@ var Platform=require('Platform');
 var h=Dimensions.get('window').height;
 var w=Dimensions.get('window').width;
 if(Platform.OS == 'android'){
-h = Dimensions.get('window').height - 25 - 52;}
+h = Dimensions.get('window').height - 25 - 52;}else 
+{
+var h=Dimensions.get('window').height - 64;}
 
 
 var sourcePath='http://7xiktj.com1.z0.glb.clouddn.com/';
@@ -54791,7 +54792,6 @@ __d('trident/src/goodsComponents/GoodsDetailDescComponent.js',["react-native/Lib
 sourcePath='http://7xiktj.com1.z0.glb.clouddn.com/';
 var React=require('react-native/Libraries/react-native/react-native.js');var 
 Image=React.Image;var StyleSheet=React.StyleSheet;var Text=React.Text;var TouchableWithoutFeedback=React.TouchableWithoutFeedback;var TouchableOpacity=React.TouchableOpacity;var View=React.View;var ViewPagerAndroid=React.ViewPagerAndroid;var ToastAndroid=React.ToastAndroid;var Dimensions=React.Dimensions;
-var h=Dimensions.get('window').height;
 var w=Dimensions.get('window').width;
 
 var GoodsDetailDescComponent=React.createClass({displayName:'GoodsDetailDescComponent',
@@ -54954,7 +54954,6 @@ __d('trident/src/goodsComponents/GoodsDetailBookComponent.js',["react-native/Lib
 sourcePath='http://7xiktj.com1.z0.glb.clouddn.com/';
 var React=require('react-native/Libraries/react-native/react-native.js');var 
 Image=React.Image;var StyleSheet=React.StyleSheet;var Text=React.Text;var TouchableWithoutFeedback=React.TouchableWithoutFeedback;var TouchableOpacity=React.TouchableOpacity;var View=React.View;var ViewPagerAndroid=React.ViewPagerAndroid;var ToastAndroid=React.ToastAndroid;var Dimensions=React.Dimensions;
-var h=Dimensions.get('window').height;
 var w=Dimensions.get('window').width;
 var GoodsDetailBookComponent=React.createClass({displayName:'GoodsDetailBookComponent',
 propTypes:{
@@ -55408,7 +55407,6 @@ __d('trident/src/goodsComponents/GoodsBookQuitComponent.js',["react-native/Libra
 sourcePath='http://7xiktj.com1.z0.glb.clouddn.com/';
 var React=require('react-native/Libraries/react-native/react-native.js');var 
 Image=React.Image;var Text=React.Text;var View=React.View;var Dimensions=React.Dimensions;
-var h=Dimensions.get('window').height;
 var w=Dimensions.get('window').width;
 var GoodsCommonInfoList=React.createClass({displayName:'GoodsCommonInfoList',
 propTypes:{

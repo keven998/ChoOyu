@@ -47,6 +47,7 @@ RCT_EXPORT_MODULE();
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.title = @"商品详情";
+    self.automaticallyAdjustsScrollViewInsets = NO;
 
     NSURL *jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 //    NSURL *jsCodeLocation = [NSURL URLWithString:@"http://192.168.1.47:8081/src/index.ios.bundle?platform=ios&dev=true"];
@@ -58,7 +59,7 @@ RCT_EXPORT_MODULE();
     
     rootView = [[RCTRootView alloc] initWithBridge:bridge moduleName:@"GoodsDetailClass" initialProperties:nil];
     
-    rootView.frame = CGRectMake(0, 0, kWindowWidth, kWindowHeight);
+    rootView.frame = CGRectMake(0, 64, kWindowWidth, kWindowHeight-64);
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(chatWithBusiness) name:@"gotoStoreDetailNoti" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(makeOrderAction) name:@"makeOrderNoti" object:nil];
