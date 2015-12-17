@@ -56,7 +56,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    OrderTravelerInfoModel *travelerInfo = [_travelerList objectAtIndex:indexPath.row];
+    OrderTravelerInfoModel *travelerInfo = [_travelerList objectAtIndex:indexPath.section];
     MakeOrderTravelerTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"makeOrderTravelerCell" forIndexPath:indexPath];
     [cell.deleteBtn addTarget:self action:@selector(deleteTraveler:) forControlEvents:UIControlEventTouchUpInside];
     cell.titleLabel.text = [NSString stringWithFormat:@"%@%@ %@:%@", travelerInfo.firstName, travelerInfo.lastName, travelerInfo.IDCategoryDesc, travelerInfo.IDNumber];
