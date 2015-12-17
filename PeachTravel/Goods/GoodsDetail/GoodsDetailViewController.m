@@ -21,6 +21,7 @@
 #import "ChatGroupSettingViewController.h"
 #import "ChatSettingViewController.h"
 #import "REFrostedViewController.h"
+#import "LoginViewController.h"
 
 @interface GoodsDetailViewController ()<RCTBridgeModule, ActivityDelegate> {
     RCTBridge *bridge;
@@ -160,12 +161,26 @@ RCT_EXPORT_MODULE();
     });
 }
 
+
+- (void)login
+{
+    LoginViewController *loginViewController = [[LoginViewController alloc] init];
+    TZNavigationViewController *nctl = [[TZNavigationViewController alloc] initWithRootViewController:loginViewController];
+    loginViewController.isPushed = NO;
+    [self presentViewController:nctl animated:YES completion:nil];
+}
+
 - (void)makeOrderAction
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        MakeOrderViewController *ctl = [[MakeOrderViewController alloc] init];
-        ctl.goodsModel = _goodsDetail;
-        [self.navigationController pushViewController:ctl animated:YES];
+        if (![[AccountManager shareAccountManager] isLogin]) {
+            [SVProgressHUD showHint:@"请先登录"];
+            [self performSelector:@selector(login) withObject:nil afterDelay:0.3];
+        } else {
+            MakeOrderViewController *ctl = [[MakeOrderViewController alloc] init];
+            ctl.goodsModel = _goodsDetail;
+            [self.navigationController pushViewController:ctl animated:YES];
+        }
     });
 }
 
