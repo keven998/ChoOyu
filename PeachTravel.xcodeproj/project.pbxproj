@@ -827,6 +827,8 @@
 		D97C8B4D1A526B9F00476C9C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D97C8B4C1A526B9F00476C9C /* Images.xcassets */; };
 		D9823E841B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9823E831B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m */; };
 		D98277F21C21610700EE05EC /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = D98277F11C21610700EE05EC /* main.jsbundle */; };
+		D982879E1C22823A0000D47A /* GoodsClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D982879C1C22823A0000D47A /* GoodsClassViewController.m */; };
+		D982879F1C22823A0000D47A /* GoodsClassViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D982879D1C22823A0000D47A /* GoodsClassViewController.xib */; };
 		D9871DBA1B47D31E00BFDFAF /* ScheduleDayEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9871DB81B47D31E00BFDFAF /* ScheduleDayEditViewController.m */; };
 		D9871DBB1B47D31E00BFDFAF /* ScheduleDayEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9871DB91B47D31E00BFDFAF /* ScheduleDayEditViewController.xib */; };
 		D98CC6431A1993BE00FA5A76 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D902AD1F1A149FAB00E36A93 /* CFNetwork.framework */; };
@@ -3179,6 +3181,9 @@
 		D9823E821B19AA0200A1AE35 /* SuggestionDestinationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuggestionDestinationTableViewController.h; sourceTree = "<group>"; };
 		D9823E831B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuggestionDestinationTableViewController.m; sourceTree = "<group>"; };
 		D98277F11C21610700EE05EC /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
+		D982879B1C22823A0000D47A /* GoodsClassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsClassViewController.h; sourceTree = "<group>"; };
+		D982879C1C22823A0000D47A /* GoodsClassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsClassViewController.m; sourceTree = "<group>"; };
+		D982879D1C22823A0000D47A /* GoodsClassViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoodsClassViewController.xib; sourceTree = "<group>"; };
 		D9871DB71B47D31E00BFDFAF /* ScheduleDayEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleDayEditViewController.h; sourceTree = "<group>"; };
 		D9871DB81B47D31E00BFDFAF /* ScheduleDayEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleDayEditViewController.m; sourceTree = "<group>"; };
 		D9871DB91B47D31E00BFDFAF /* ScheduleDayEditViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScheduleDayEditViewController.xib; sourceTree = "<group>"; };
@@ -5954,6 +5959,7 @@
 		D91CCB481BD1EA35008425E4 /* Goods */ = {
 			isa = PBXGroup;
 			children = (
+				D98287971C2281E90000D47A /* GoodsClass */,
 				D92109AA1BE1C9F200AEDB65 /* GoodsDetail */,
 				D9D197311BDA016C0037C3B3 /* GoodsRecommend */,
 				D91CCB521BD1EB3B008425E4 /* GoodsModel */,
@@ -6742,6 +6748,16 @@
 			children = (
 			);
 			path = CommonView;
+			sourceTree = "<group>";
+		};
+		D98287971C2281E90000D47A /* GoodsClass */ = {
+			isa = PBXGroup;
+			children = (
+				D982879B1C22823A0000D47A /* GoodsClassViewController.h */,
+				D982879C1C22823A0000D47A /* GoodsClassViewController.m */,
+				D982879D1C22823A0000D47A /* GoodsClassViewController.xib */,
+			);
+			path = GoodsClass;
 			sourceTree = "<group>";
 		};
 		D9871DB61B47AC6800BFDFAF /* TripPoiListTableViewCell */ = {
@@ -11276,6 +11292,7 @@
 				D99EAD371BBB8840005A02D3 /* icon_shopping_search@2x.png in Resources */,
 				E6F1892F1B845F4900232EEB /* dashboard_03_icon_constellation6@2x.png in Resources */,
 				E6F189A91B845F4900232EEB /* city_button_guide_disable@2x.png in Resources */,
+				D982879F1C22823A0000D47A /* GoodsClassViewController.xib in Resources */,
 				E6F18A591B845F4900232EEB /* ic_home_feedback@3x.png in Resources */,
 				E6F18A211B845F4900232EEB /* map_icon_empty@2x.png in Resources */,
 				E6F18A001B845F4900232EEB /* map_icon_13@3x.png in Resources */,
@@ -11914,6 +11931,7 @@
 				D9A8FF561A80CF19005AD701 /* OperationData.m in Sources */,
 				D90C761B1BF1DED600C5897C /* MakeOrderSelectPackageTableViewCell.m in Sources */,
 				D9DD31581BF48F11009BEDAB /* OrderManager.m in Sources */,
+				D982879E1C22823A0000D47A /* GoodsClassViewController.m in Sources */,
 				D993C2581B12DF0C0088D568 /* MessageReceiveManager.swift in Sources */,
 				D90EACAF1C09552900634829 /* DownSheetCell.m in Sources */,
 				D96BAFF31C1AEAA000CDB7C7 /* QNEtag.m in Sources */,

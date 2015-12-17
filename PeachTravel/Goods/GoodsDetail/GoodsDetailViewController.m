@@ -197,11 +197,6 @@ RCT_EXPORT_MODULE();
     
 }
 
-//- (NSDictionary *)constantsToExport
-//{
-//    return @{@"goodsId": self.goodsId};
-//}
-
 RCT_EXPORT_METHOD(makePhone:(NSString *)tel){
     NSString *number = tel;// 此处读入电话号码
     NSString *num = [[NSString alloc] initWithFormat:@"tel://%@",number];
@@ -222,7 +217,6 @@ RCT_EXPORT_METHOD(makeOrder){
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - AvtivityDelegate
