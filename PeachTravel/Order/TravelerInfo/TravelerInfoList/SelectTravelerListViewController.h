@@ -13,13 +13,17 @@
 
 @optional
 
-- (void)finishSelectTraveler:(NSArray<OrderTravelerInfoModel *> *)travelerList;
+- (void)finishSelectTravelers:(NSArray<OrderTravelerInfoModel *> *)travelerList;
+
+- (void)finishSelectTraveler:(OrderTravelerInfoModel *)selectTraveler;
 
 @end
 
 @interface SelectTravelerListViewController : TZViewController
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+//是否可以多选
+@property (nonatomic) BOOL canMultipleSelect;
 
 @property (nonatomic, weak) id<TravelerInfoListDelegate>delegate;
 

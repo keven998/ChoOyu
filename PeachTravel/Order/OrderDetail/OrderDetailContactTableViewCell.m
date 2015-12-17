@@ -10,7 +10,7 @@
 
 @implementation OrderDetailContactTableViewCell
 
-+ (CGFloat)heightOfCellWithContactInfo:(OrderContactInfoModel *)contactInfo andLeaveMessage:(NSString *)message
++ (CGFloat)heightOfCellWithContactInfo:(OrderTravelerInfoModel *)contactInfo andLeaveMessage:(NSString *)message
 {
     if (!message || [message isBlankString]) {
         return 44*2 + 50;
@@ -26,7 +26,7 @@
     self.clipsToBounds = YES;
 }
 
-- (void)setContact:(OrderContactInfoModel *)contact
+- (void)setContact:(OrderTravelerInfoModel *)contact
 {
     _contact = contact;
     _nameLabel.text = [NSString stringWithFormat:@"%@ %@", _contact.lastName, _contact.firstName];

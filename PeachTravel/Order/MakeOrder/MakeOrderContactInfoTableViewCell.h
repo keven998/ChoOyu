@@ -10,6 +10,7 @@
 
 @interface MakeOrderContactInfoTableViewCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UIButton *selectTravelerBtn;
 @property (weak, nonatomic) IBOutlet UITextField *lastNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *firstNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *telTextField;

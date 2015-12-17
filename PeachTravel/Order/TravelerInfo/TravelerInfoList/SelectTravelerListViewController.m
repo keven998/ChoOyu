@@ -44,9 +44,16 @@
 
 - (void)confirm:(UIButton *)btn
 {
-    if ([_delegate respondsToSelector:@selector(finishSelectTraveler:)]) {
-        [_delegate finishSelectTraveler:_selectedTravelers];
+    if (_canMultipleSelect) {
+        if ([_delegate respondsToSelector:@selector(finishSelectTraveler:)]) {
+            [_delegate finishSelectTravelers:_selectedTravelers];
+        }
+    } else {
+        if ([_delegate respondsToSelector:@selector(finishSelectTraveler:)]) {
+            [_delegate finishSelectTraveler:[_selectedTravelers firstObject]];
+        }
     }
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -68,6 +75,10 @@
             }
         }
     } else {
+        if (!_canMultipleSelect) {
+            [_selectedTravelers removeAllObjects];
+            [_tableView reloadData];
+        }
         [_selectedTravelers addObject:[_dataSource objectAtIndex:btn.tag]];
     }
     btn.selected = !btn.selected;

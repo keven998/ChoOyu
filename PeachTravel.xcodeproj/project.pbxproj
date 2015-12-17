@@ -1203,7 +1203,6 @@
 		D9D9A50F1BAFD00E001001B8 /* UserAlbumOverViewTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9D9A50D1BAFD00E001001B8 /* UserAlbumOverViewTableViewController.xib */; };
 		D9DD314A1BF4444A009BEDAB /* StoreDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DD31491BF4444A009BEDAB /* StoreDetailModel.m */; };
 		D9DD314D1BF46A68009BEDAB /* GoodsPackageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DD314C1BF46A68009BEDAB /* GoodsPackageModel.m */; };
-		D9DD31511BF46D3A009BEDAB /* OrderContactInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DD31501BF46D3A009BEDAB /* OrderContactInfoModel.m */; };
 		D9DD31541BF46D4A009BEDAB /* OrderTravelerInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DD31531BF46D4A009BEDAB /* OrderTravelerInfoModel.m */; };
 		D9DD31581BF48F11009BEDAB /* OrderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DD31571BF48F11009BEDAB /* OrderManager.m */; };
 		D9DD315B1BF4B340009BEDAB /* OrderUserInfoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DD315A1BF4B340009BEDAB /* OrderUserInfoManager.m */; };
@@ -3796,8 +3795,6 @@
 		D9DD31491BF4444A009BEDAB /* StoreDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreDetailModel.m; sourceTree = "<group>"; };
 		D9DD314B1BF46A68009BEDAB /* GoodsPackageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsPackageModel.h; sourceTree = "<group>"; };
 		D9DD314C1BF46A68009BEDAB /* GoodsPackageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsPackageModel.m; sourceTree = "<group>"; };
-		D9DD314F1BF46D3A009BEDAB /* OrderContactInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderContactInfoModel.h; sourceTree = "<group>"; };
-		D9DD31501BF46D3A009BEDAB /* OrderContactInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderContactInfoModel.m; sourceTree = "<group>"; };
 		D9DD31521BF46D4A009BEDAB /* OrderTravelerInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderTravelerInfoModel.h; sourceTree = "<group>"; };
 		D9DD31531BF46D4A009BEDAB /* OrderTravelerInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderTravelerInfoModel.m; sourceTree = "<group>"; };
 		D9DD31561BF48F11009BEDAB /* OrderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderManager.h; sourceTree = "<group>"; };
@@ -8826,8 +8823,6 @@
 		D9DD314E1BF46D24009BEDAB /* Traveler */ = {
 			isa = PBXGroup;
 			children = (
-				D9DD314F1BF46D3A009BEDAB /* OrderContactInfoModel.h */,
-				D9DD31501BF46D3A009BEDAB /* OrderContactInfoModel.m */,
 				D9DD31521BF46D4A009BEDAB /* OrderTravelerInfoModel.h */,
 				D9DD31531BF46D4A009BEDAB /* OrderTravelerInfoModel.m */,
 				D9DD31591BF4B340009BEDAB /* OrderUserInfoManager.h */,
@@ -12091,7 +12086,6 @@
 				D9DD316B1BF5BC56009BEDAB /* OrderDetailStoreInfoTableViewCell.m in Sources */,
 				D91061F41BA953D800C4FBCB /* UserAlbumPreviewCollectionViewCell.m in Sources */,
 				270C164D1B0059F60048C85D /* CityDescDetailViewController.m in Sources */,
-				D9DD31511BF46D3A009BEDAB /* OrderContactInfoModel.m in Sources */,
 				D9A802B11A80E3D3005AD701 /* NSDateFormatter+Category.m in Sources */,
 				D9EE34421AB93CF10076933B /* RestaurantDetailViewController.m in Sources */,
 				D9A801401A80DD23005AD701 /* EMChatImageBubbleView.m in Sources */,

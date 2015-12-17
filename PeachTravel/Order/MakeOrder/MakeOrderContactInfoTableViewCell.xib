@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -16,7 +16,6 @@
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="联系人信息" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PMr-3E-fLB">
                         <rect key="frame" x="11" y="15" width="92" height="21"/>
-                        <animations/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="dXq-57-XHC"/>
                             <constraint firstAttribute="width" constant="92" id="i2f-Fy-bf3"/>
@@ -27,14 +26,12 @@
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_dashline_themeColor" translatesAutoresizingMaskIntoConstraints="NO" id="KPN-aX-cxl">
                         <rect key="frame" x="8" y="49" width="304" height="0.5"/>
-                        <animations/>
                         <constraints>
                             <constraint firstAttribute="height" constant="0.5" id="b20-XE-u5U"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="姓(英文)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mRO-so-qx1">
                         <rect key="frame" x="21" y="65" width="53" height="21"/>
-                        <animations/>
                         <constraints>
                             <constraint firstAttribute="width" constant="53" id="KOf-52-m9K"/>
                             <constraint firstAttribute="height" constant="21" id="p6z-63-KXx"/>
@@ -45,7 +42,6 @@
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_makeOrder_must_imput" translatesAutoresizingMaskIntoConstraints="NO" id="blT-UE-gpv">
                         <rect key="frame" x="76" y="70" width="7" height="7"/>
-                        <animations/>
                         <constraints>
                             <constraint firstAttribute="height" constant="7" id="1Oc-gC-YZk"/>
                             <constraint firstAttribute="width" constant="7" id="Hon-nV-Qcd"/>
@@ -53,7 +49,6 @@
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="名(英文)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gZB-zf-hVi">
                         <rect key="frame" x="21" y="103" width="53" height="21"/>
-                        <animations/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="gMO-kK-4et"/>
                             <constraint firstAttribute="width" constant="53" id="wmK-yq-Myk"/>
@@ -64,7 +59,6 @@
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_makeOrder_must_imput" translatesAutoresizingMaskIntoConstraints="NO" id="EEX-mK-KSF">
                         <rect key="frame" x="76" y="110" width="7" height="7"/>
-                        <animations/>
                         <constraints>
                             <constraint firstAttribute="height" constant="7" id="Lov-WO-fC9"/>
                             <constraint firstAttribute="width" constant="7" id="O9M-GU-dBY"/>
@@ -72,7 +66,6 @@
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="电话" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pkt-O7-5KZ">
                         <rect key="frame" x="21" y="141" width="53" height="21"/>
-                        <animations/>
                         <constraints>
                             <constraint firstAttribute="width" constant="53" id="4JE-vC-Ha9"/>
                             <constraint firstAttribute="height" constant="21" id="e49-eU-dUT"/>
@@ -83,7 +76,6 @@
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_makeOrder_must_imput" translatesAutoresizingMaskIntoConstraints="NO" id="pSd-Zf-Hp9">
                         <rect key="frame" x="76" y="146" width="7" height="7"/>
-                        <animations/>
                         <constraints>
                             <constraint firstAttribute="width" constant="7" id="0gs-jE-O5N"/>
                             <constraint firstAttribute="height" constant="7" id="VcK-JD-HOX"/>
@@ -91,7 +83,6 @@
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="留言" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DC1-YT-vdO">
                         <rect key="frame" x="21" y="181" width="30" height="21"/>
-                        <animations/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="KM8-hn-tSw"/>
                             <constraint firstAttribute="width" constant="30" id="eRf-Zb-kKg"/>
@@ -102,14 +93,12 @@
                     </label>
                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="frp-UL-tpN">
                         <rect key="frame" x="90" y="181" width="219" height="124.5"/>
-                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     </textView>
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="+86" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9hQ-by-XH3">
                         <rect key="frame" x="90" y="137" width="219" height="30"/>
-                        <animations/>
                         <constraints>
                             <constraint firstAttribute="height" constant="30" id="r3w-g3-ZJf"/>
                         </constraints>
@@ -118,7 +107,6 @@
                     </textField>
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Last Name,如Zhang" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uip-ma-BCi">
                         <rect key="frame" x="90" y="61" width="219" height="30"/>
-                        <animations/>
                         <constraints>
                             <constraint firstAttribute="height" constant="30" id="JMT-ej-zbC"/>
                         </constraints>
@@ -127,15 +115,24 @@
                     </textField>
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="First Name,如Xiaoxiao" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="t8b-6f-pUU">
                         <rect key="frame" x="90" y="99" width="219" height="30"/>
-                        <animations/>
                         <constraints>
                             <constraint firstAttribute="height" constant="30" id="Irt-8S-9Nr"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <textInputTraits key="textInputTraits" returnKeyType="next"/>
                     </textField>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vVf-LE-WMn">
+                        <rect key="frame" x="194" y="13" width="115" height="26"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="26" id="ar8-ZD-sWh"/>
+                            <constraint firstAttribute="width" constant="115" id="mkY-X1-90S"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <state key="normal" title="选择旅客作为联系人">
+                            <color key="titleColor" red="0.59999999999999998" green="0.80000000000000004" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                    </button>
                 </subviews>
-                <animations/>
                 <constraints>
                     <constraint firstItem="KPN-aX-cxl" firstAttribute="top" secondItem="PMr-3E-fLB" secondAttribute="bottom" constant="13" id="16d-qe-38f"/>
                     <constraint firstAttribute="bottom" secondItem="frp-UL-tpN" secondAttribute="bottom" constant="14" id="1v2-Sd-5uS"/>
@@ -144,8 +141,10 @@
                     <constraint firstItem="KPN-aX-cxl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="4xV-oq-t7Y"/>
                     <constraint firstAttribute="trailing" secondItem="t8b-6f-pUU" secondAttribute="trailing" constant="11" id="5oS-vc-PLv"/>
                     <constraint firstItem="Pkt-O7-5KZ" firstAttribute="top" secondItem="pSd-Zf-Hp9" secondAttribute="bottom" constant="-12" id="7Md-xn-L4g"/>
+                    <constraint firstAttribute="trailing" secondItem="vVf-LE-WMn" secondAttribute="trailing" constant="11" id="8Tj-Yd-K2T"/>
                     <constraint firstItem="gZB-zf-hVi" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="21" id="Fp1-pX-gOC"/>
                     <constraint firstItem="blT-UE-gpv" firstAttribute="leading" secondItem="mRO-so-qx1" secondAttribute="trailing" constant="2" id="GaY-LR-ZiO"/>
+                    <constraint firstItem="vVf-LE-WMn" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="13" id="Hix-ij-uN0"/>
                     <constraint firstItem="mRO-so-qx1" firstAttribute="centerY" secondItem="uip-ma-BCi" secondAttribute="centerY" id="JMv-08-mEW"/>
                     <constraint firstItem="Pkt-O7-5KZ" firstAttribute="top" secondItem="gZB-zf-hVi" secondAttribute="bottom" constant="17" id="O2w-xQ-Cs8"/>
                     <constraint firstItem="Pkt-O7-5KZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="21" id="OYe-Q2-nP6"/>
@@ -171,14 +170,14 @@
                     <constraint firstItem="PMr-3E-fLB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="ziH-EH-fnx"/>
                 </constraints>
             </tableViewCellContentView>
-            <animations/>
             <connections>
                 <outlet property="firstNameTextField" destination="t8b-6f-pUU" id="2oL-q4-Zfq"/>
                 <outlet property="lastNameTextField" destination="uip-ma-BCi" id="fSr-jA-Z0E"/>
                 <outlet property="messageTextView" destination="frp-UL-tpN" id="cxX-Qc-4Us"/>
+                <outlet property="selectTravelerBtn" destination="vVf-LE-WMn" id="SQh-fT-8x4"/>
                 <outlet property="telTextField" destination="9hQ-by-XH3" id="4WU-he-eW9"/>
             </connections>
-            <point key="canvasLocation" x="295" y="313.5"/>
+            <point key="canvasLocation" x="295" y="313"/>
         </tableViewCell>
     </objects>
     <resources>

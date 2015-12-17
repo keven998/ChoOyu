@@ -61,6 +61,7 @@
 {
     TravelerInfoViewController *ctl = [[TravelerInfoViewController alloc] init];
     ctl.isAddTravelerInfo = YES;
+
     [self.navigationController pushViewController:ctl animated:YES];
 }
 

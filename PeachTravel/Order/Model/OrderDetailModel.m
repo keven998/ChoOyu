@@ -16,7 +16,7 @@
     if (self = [super init]) {
         _orderId = [[json objectForKey:@"orderId"] integerValue];
         if ([json objectForKey:@"contact"] != [NSNull null]) {
-            _orderContact = [[OrderContactInfoModel alloc] initWithJson:[json objectForKey:@"contact"]];
+            _orderContact = [[OrderTravelerInfoModel alloc] initWithJson:[json objectForKey:@"contact"]];
         }
         _selectedPackage.packageId = [json objectForKey:@"planId"];
         _goods = [[GoodsDetailModel alloc] initWithJson:[json objectForKey:@"commodity"]];

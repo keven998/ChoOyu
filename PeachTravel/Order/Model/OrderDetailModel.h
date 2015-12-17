@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "OrderTravelerInfoModel.h"
-#import "OrderContactInfoModel.h"
 #import "GoodsDetailModel.h"
 
 typedef enum : NSUInteger {
@@ -44,7 +43,7 @@ typedef enum : NSUInteger {
 @property (nonatomic, strong) GoodsPackageModel *selectedPackage;     //选中的套餐
 @property (nonatomic) NSInteger count;          //订单数量
 @property (nonatomic, strong) NSArray<OrderTravelerInfoModel *> *travelerList;    //旅客信息列表
-@property (nonatomic, strong) OrderContactInfoModel *orderContact;       //订单的联系人
+@property (nonatomic, strong) OrderTravelerInfoModel *orderContact;       //订单的联系人
 
 - (id)initWithJson:(id)json;
 

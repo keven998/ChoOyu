@@ -36,7 +36,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _orderDetail = [[OrderDetailModel alloc] init];
-    _orderDetail.orderContact = [[OrderContactInfoModel alloc] init];
+    _orderDetail.orderContact = [[OrderTravelerInfoModel    alloc] init];
     _orderDetail.goods = _goodsModel;
     _orderDetail.count = 1;
     _orderDetail.selectedPackage = [_goodsModel.packages firstObject];
@@ -155,7 +155,21 @@
 {
     SelectTravelerListViewController *ctl = [[SelectTravelerListViewController alloc] init];
     ctl.delegate = self;
+    ctl.canMultipleSelect = YES;
     ctl.selectedTravelers = [_orderDetail.travelerList mutableCopy];
+    [self.navigationController pushViewController:ctl animated:YES];
+}
+
+- (void)selectTravelerAsContactAction:(UIButton *)sender
+{
+    SelectTravelerListViewController *ctl = [[SelectTravelerListViewController alloc] init];
+    ctl.delegate = self;
+    ctl.canMultipleSelect = NO;
+    NSMutableArray *selectTraveler = [[NSMutableArray alloc] init];
+    if (_orderDetail.orderContact) {
+        [selectTraveler addObject:_orderDetail.orderContact];
+    }
+    ctl.selectedTravelers = selectTraveler;
     [self.navigationController pushViewController:ctl animated:YES];
 }
 
@@ -256,6 +270,7 @@
         
     } else if (indexPath.row == 5) {
         MakeOrderContactInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"makeOrderContactInfoCell" forIndexPath:indexPath];
+        [cell.selectTravelerBtn addTarget:self action:@selector(selectTravelerAsContactAction:) forControlEvents:UIControlEventTouchUpInside];
         cell.lastNameTextField.delegate = self;
         cell.telTextField.delegate = self;
         cell.firstNameTextField.delegate = self;
@@ -288,6 +303,9 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
+    if (!_orderDetail.orderContact) {
+        _orderDetail.orderContact = [[OrderTravelerInfoModel alloc] init];
+    }
     MakeOrderContactInfoTableViewCell *cell = [_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:5 inSection:0]];
     if ([textField isEqual:cell.lastNameTextField]) {
         _orderDetail.orderContact.lastName = textField.text;
@@ -301,7 +319,6 @@
 - (void)textViewDidChange:(UITextView *)textView
 {
     _orderDetail.leaveMessage = textView.text;
-
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView{
@@ -359,13 +376,21 @@
         }
         _totalPriceLabel.text = [NSString stringWithFormat:@"共￥%d", (int)_orderDetail.totalPrice];
     }
-   
 }
 
-- (void)finishSelectTraveler:(NSArray<OrderTravelerInfoModel *> *)travelerList
+- (void)finishSelectTravelers:(NSArray<OrderTravelerInfoModel *> *)travelerList
 {
     _orderDetail.travelerList = travelerList;
     [_tableView reloadData];
+}
+
+- (void)finishSelectTraveler:(OrderTravelerInfoModel *)selectTraveler
+{
+    MakeOrderContactInfoTableViewCell *cell = [_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:5 inSection:0]];
+    _orderDetail.orderContact = selectTraveler;
+    cell.firstNameTextField.text = selectTraveler.firstName;
+    cell.lastNameTextField.text = selectTraveler.lastName;
+    cell.telTextField.text = selectTraveler.tel;
 }
 
 #pragma mark - MakeOrderSelectCountDelegate
