@@ -7,7 +7,7 @@
 //
 
 typedef enum : NSUInteger {
-    kWeichat = 1,
+    kWeichatPay = 1,
     kAlipay,
     
 } TZPayPlatform;

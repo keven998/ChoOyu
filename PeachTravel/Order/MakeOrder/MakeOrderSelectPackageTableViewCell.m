@@ -59,7 +59,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     MakeOrderPackageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"makeOrderPackageTableViewCell" forIndexPath:indexPath];
-    GoodsPackageModel *package = [_packageList objectAtIndex:indexPath.row];
+    GoodsPackageModel *package = [_packageList objectAtIndex:indexPath.section];
     cell.packageTitle = package.packageName;
     cell.priceLabel.text = [NSString stringWithFormat:@"￥%d", (int)package.currentPrice];
     cell.isSelected = (indexPath.section == _selectedIndex);

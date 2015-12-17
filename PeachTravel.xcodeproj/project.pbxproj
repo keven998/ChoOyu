@@ -826,9 +826,9 @@
 		D97492AD1BF4391100A5A70B /* GoodsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D97492AC1BF4391100A5A70B /* GoodsManager.m */; };
 		D97C8B4D1A526B9F00476C9C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D97C8B4C1A526B9F00476C9C /* Images.xcassets */; };
 		D9823E841B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9823E831B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m */; };
-		D98277F21C21610700EE05EC /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = D98277F11C21610700EE05EC /* main.jsbundle */; };
 		D982879E1C22823A0000D47A /* GoodsClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D982879C1C22823A0000D47A /* GoodsClassViewController.m */; };
 		D982879F1C22823A0000D47A /* GoodsClassViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D982879D1C22823A0000D47A /* GoodsClassViewController.xib */; };
+		D98287A11C2295360000D47A /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = D98287A01C2295360000D47A /* main.jsbundle */; };
 		D9871DBA1B47D31E00BFDFAF /* ScheduleDayEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9871DB81B47D31E00BFDFAF /* ScheduleDayEditViewController.m */; };
 		D9871DBB1B47D31E00BFDFAF /* ScheduleDayEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9871DB91B47D31E00BFDFAF /* ScheduleDayEditViewController.xib */; };
 		D98CC6431A1993BE00FA5A76 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D902AD1F1A149FAB00E36A93 /* CFNetwork.framework */; };
@@ -3180,10 +3180,10 @@
 		D97C8B4C1A526B9F00476C9C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
 		D9823E821B19AA0200A1AE35 /* SuggestionDestinationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuggestionDestinationTableViewController.h; sourceTree = "<group>"; };
 		D9823E831B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuggestionDestinationTableViewController.m; sourceTree = "<group>"; };
-		D98277F11C21610700EE05EC /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		D982879B1C22823A0000D47A /* GoodsClassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsClassViewController.h; sourceTree = "<group>"; };
 		D982879C1C22823A0000D47A /* GoodsClassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsClassViewController.m; sourceTree = "<group>"; };
 		D982879D1C22823A0000D47A /* GoodsClassViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoodsClassViewController.xib; sourceTree = "<group>"; };
+		D98287A01C2295360000D47A /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		D9871DB71B47D31E00BFDFAF /* ScheduleDayEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleDayEditViewController.h; sourceTree = "<group>"; };
 		D9871DB81B47D31E00BFDFAF /* ScheduleDayEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleDayEditViewController.m; sourceTree = "<group>"; };
 		D9871DB91B47D31E00BFDFAF /* ScheduleDayEditViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScheduleDayEditViewController.xib; sourceTree = "<group>"; };
@@ -7155,7 +7155,7 @@
 		D99D8EC719C8600C0021C25B /* PeachTravel */ = {
 			isa = PBXGroup;
 			children = (
-				D98277F11C21610700EE05EC /* main.jsbundle */,
+				D98287A01C2295360000D47A /* main.jsbundle */,
 				D95B0A461BF0671E00F2D900 /* Order */,
 				D92109AE1BE204D700AEDB65 /* Store */,
 				01578DFC1BD2285D00244D9D /* TZPay */,
@@ -11136,7 +11136,6 @@
 				E6F189891B845F4900232EEB /* poi_comment_start_highlight@2x.png in Resources */,
 				E6F18A151B845F4900232EEB /* map_icon_4@2x.png in Resources */,
 				E608A12E1B8F413E003BA318 /* point@3x.png in Resources */,
-				D98277F21C21610700EE05EC /* main.jsbundle in Resources */,
 				01C1EC2F1BB4E4720082217A /* jiong@2x.png in Resources */,
 				D942C27B1B9EBDF0005B81C5 /* ic_navigationbar_menu_add@2x.png in Resources */,
 				D9A8FFB41A80D1C3005AD701 /* RecommendCollectionViewCell.xib in Resources */,
@@ -11174,6 +11173,7 @@
 				E6381BFF1B66269000CF73AA /* Loading_Animation_final41@2x.png in Resources */,
 				01C1EC6A1BB4E4720082217A /* think@3x.png in Resources */,
 				01C1EC571BB4E4720082217A /* shaxiao@2x.png in Resources */,
+				D98287A11C2295360000D47A /* main.jsbundle in Resources */,
 				01C1EC381BB4E4720082217A /* kuwei@3x.png in Resources */,
 				D9F46DBA1AC52D8600972AE8 /* SVWebViewControllerActivityChrome-iPad.png in Resources */,
 				01C1EC621BB4E4720082217A /* shuai@3x.png in Resources */,

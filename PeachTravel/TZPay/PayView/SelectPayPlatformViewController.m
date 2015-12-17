@@ -16,6 +16,7 @@
 
 @property (nonatomic, strong) NSArray *imageList;
 @property (nonatomic, strong) NSArray *titleList;
+
 @property (nonatomic) NSInteger selectIndex;
 
 
@@ -65,7 +66,7 @@
     UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(51, 0, 90, toolBar.bounds.size.height)];
     priceLabel.textColor = UIColorFromRGB(0xFC4E27);;
     priceLabel.font = [UIFont systemFontOfSize:17.0];
-    priceLabel.text = @"100";
+    priceLabel.text = [NSString stringWithFormat:@"%.1f", _orderDetail.totalPrice];
     [toolBar addSubview:priceLabel];
     
     [self.view addSubview:toolBar];
@@ -80,7 +81,13 @@
 - (IBAction)payOrderAction:(id)sender
 {
     TZPayManager *payManager = [[TZPayManager alloc] init];
-    [payManager asyncPayOrder:_orderDetail.orderId payPlatform:kWeichat completionBlock:^(BOOL isSuccess, NSString *errorStr) {
+    TZPayPlatform platform;
+    if (_selectIndex == 0) {
+        platform = kAlipay;
+    } else {
+        platform = kWeichatPay;
+    }
+    [payManager asyncPayOrder:_orderDetail.orderId payPlatform:platform completionBlock:^(BOOL isSuccess, NSString *errorStr) {
         
     }];
 }

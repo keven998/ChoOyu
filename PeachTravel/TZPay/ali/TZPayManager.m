@@ -26,7 +26,7 @@
     [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     NSString *platFormDesc = @"";
-    if (payPlatform == kWeichat) {
+    if (payPlatform == kWeichatPay) {
         platFormDesc = @"wechat";
     }
     
@@ -43,7 +43,7 @@
         NSLog(@"***对订单进行支付接口: %@", operation);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            if (payPlatform == kWeichat) {
+            if (payPlatform == kWeichatPay) {
                 if ([[[responseObject objectForKey:@"result"] objectForKey:@"result"] isEqualToString:@"SUCCESS"]) {
                     [self sendWechatPayRequest:[responseObject objectForKey:@"result"]];
                 } else {
