@@ -15,6 +15,7 @@
 #import "WXApiObject.h"
 #import "WXApi.h"
 #import "iRate.h"
+#import "TZPayManager.h"
 #import "PeachTravel-swift.h"
 #import <AlipaySDK/AlipaySDK.h>
 
@@ -101,18 +102,39 @@
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation
 {
-    BOOL result = [UMSocialSnsService handleOpenURL:url];
-    if (!result) {
-        result = [WXApi handleOpenURL:url delegate:self];
-    }
+    //支付宝返回
     if ([url.host isEqualToString:@"safepay"]) {
         [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
             if ([[resultDic objectForKey:@"resultStatus"] intValue] == 9000) {
-            }else{
+                [[NSNotificationCenter defaultCenter] postNotificationName:kOrderPayResultNoti
+                                                                    object:nil
+                                                                  userInfo:@{
+                                                                             @"result":@{
+                                                                                     @"code" : [NSNumber numberWithInt:0],
+                                                                                     }
+                                                                             }];
+
+                
+            } else {
+                [[NSNotificationCenter defaultCenter] postNotificationName:kOrderPayResultNoti
+                                                                    object:nil
+                                                                  userInfo:@{
+                                                                             @"result":@{
+                                                                                     @"code" : [NSNumber numberWithInt:-1],
+                                                                                     }
+                                                                             }];
+
             }
         }];
+        return YES;
+    } else {
+        BOOL result = [UMSocialSnsService handleOpenURL:url];
+        if (!result) {
+            result = [WXApi handleOpenURL:url delegate:self];
+        }
+        
+        return  result;
     }
-    return  result;
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -134,6 +156,15 @@
 - (void)onResp:(BaseResp *)resp
 {
     if ([resp isKindOfClass:[PayResp class]]) {
+        PayResp *payResp = (PayResp *)resp;
+        [[NSNotificationCenter defaultCenter] postNotificationName:kOrderPayResultNoti
+                                                            object:nil
+                                                          userInfo:@{
+                                                                     @"result":@{
+                                                                             @"code" : [NSNumber numberWithInt:payResp.errCode],
+                                                                             }
+                                                                     }];
+      
         
     } else {
         SendAuthResp * result = (SendAuthResp *)resp;

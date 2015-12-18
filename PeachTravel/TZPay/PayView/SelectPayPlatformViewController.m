@@ -9,6 +9,7 @@
 #import "SelectPayPlatformViewController.h"
 #import "SelectPayPlatformTableViewCell.h"
 #import "TZPayManager.h"
+#import "OrderDetailViewController.h"
 
 @interface SelectPayPlatformViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -16,6 +17,7 @@
 
 @property (nonatomic, strong) NSArray *imageList;
 @property (nonatomic, strong) NSArray *titleList;
+@property (nonatomic, strong) TZPayManager *payManager;
 
 @property (nonatomic) NSInteger selectIndex;
 
@@ -80,15 +82,21 @@
 
 - (IBAction)payOrderAction:(id)sender
 {
-    TZPayManager *payManager = [[TZPayManager alloc] init];
+    _payManager = [[TZPayManager alloc] init];
     TZPayPlatform platform;
     if (_selectIndex == 0) {
         platform = kAlipay;
     } else {
         platform = kWeichatPay;
     }
-    [payManager asyncPayOrder:_orderDetail.orderId payPlatform:platform completionBlock:^(BOOL isSuccess, NSString *errorStr) {
-        
+    [_payManager asyncPayOrder:_orderDetail.orderId payPlatform:platform completionBlock:^(BOOL isSuccess, NSString *errorStr) {
+        if (isSuccess) {
+            [SVProgressHUD showHint:@"支付成功"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kUpdateOrderdetailNoti object:nil];
+            [self.navigationController popViewControllerAnimated:YES];
+        } else {
+            [SVProgressHUD showHint:errorStr];
+        }
     }];
 }
 

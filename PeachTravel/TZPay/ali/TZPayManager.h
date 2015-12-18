@@ -14,7 +14,7 @@ typedef enum : NSUInteger {
 
 #import <Foundation/Foundation.h>
 
-
+extern NSString *const kOrderPayResultNoti;
 
 @interface TZPayManager : NSObject
 
