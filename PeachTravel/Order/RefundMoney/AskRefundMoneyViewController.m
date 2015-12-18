@@ -7,6 +7,7 @@
 //
 
 #import "AskRefundMoneyViewController.h"
+#import "OrderManager.h"
 #import "AskRefundMoneyTableViewCell.h"
 #import "AskRefundMoneyLeaveMessageTableViewCell.h"
 
@@ -15,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSArray *refundExcuseList;
 @property (nonatomic) NSInteger selectIndex;
+@property (nonatomic, copy) NSString *leaveMessage;
 
 @end
 
@@ -36,12 +38,20 @@
     UIButton *confirmRequestBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, kWindowHeight-49, kWindowWidth, 49)];
     [confirmRequestBtn setTitle:@"提交申请" forState:UIControlStateNormal];
     [confirmRequestBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [confirmRequestBtn addTarget:self action:@selector(confirmRequest:) forControlEvents:UIControlEventTouchUpInside];
     [confirmRequestBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
     [self.view addSubview:confirmRequestBtn];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (void)confirmRequest:(UIButton *)btn
+{
+    [OrderManager asyncRequestRefundMoneyWithOrderId:_orderDetail.orderId reason:[_refundExcuseList objectAtIndex:_selectIndex] leaveMessage:_leaveMessage completionBlock:^(BOOL isSuccess, NSString *error) {
+        
+    }];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -146,10 +156,15 @@
     [_tableView setContentOffset:CGPointMake(0, point.y-64-50) animated:YES];
 }
 
-#pragma mark = UIScrollViewDelegate
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
-    [self.tableView endEditing:YES];
+    if ([text isEqualToString:@"\n"]) {
+        [textView resignFirstResponder];
+        _leaveMessage = textView.text;
+        [_tableView setContentOffset:CGPointZero];
+        return NO;
+    }
+    return YES;
 }
+
 @end

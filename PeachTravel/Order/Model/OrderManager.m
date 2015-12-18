@@ -123,7 +123,7 @@
     }];
 }
 
-+ (void)asyncRequestRefundMoneyWithOrderId:(NSInteger)orderId completionBlock:(void (^)(BOOL, NSString *))completion
++ (void)asyncRequestRefundMoneyWithOrderId:(NSInteger)orderId reason:(NSString *)reason leaveMessage:(NSString *)message completionBlock:(void (^) (BOOL isSuccess, NSString *error))completion
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
@@ -138,9 +138,9 @@
     [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     NSString *url = [NSString stringWithFormat:@"%@/%ld/actions", API_ORDERS, orderId];
-    NSDictionary *params = @{
-                             @"action": @"refund"
-                             };
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params safeSetObject:@"refund" forKey:@"action"];
+    [params safeSetObject:reason forKey:@"memo"];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [manager POST:url parameters: params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"***对订单提出退款申请接口: %@", operation);

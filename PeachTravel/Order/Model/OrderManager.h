@@ -58,9 +58,11 @@
  *  对订单提出退款申请
  *
  *  @param orderId    订单 ID
+ *  @param reason     退款原因
+ *  @param message    退款留言
  *  @param completion 完成回掉
  */
-+ (void)asyncRequestRefundMoneyWithOrderId:(NSInteger)orderId completionBlock:(void (^) (BOOL isSuccess, NSString *error))completion;
++ (void)asyncRequestRefundMoneyWithOrderId:(NSInteger)orderId reason:(NSString *)reason leaveMessage:(NSString *)message completionBlock:(void (^) (BOOL isSuccess, NSString *error))completion;
 
 /**
  *  获取订单详情
