@@ -36,10 +36,10 @@
     [UINavigationBar appearance].translucent = YES;
         
     [[UINavigationBar appearance] setTitleTextAttributes:
-     [NSDictionary dictionaryWithObject:COLOR_TEXT_I forKey:NSForegroundColorAttributeName]];
+     [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName]];
 
-    [UINavigationBar appearance].tintColor = COLOR_TEXT_I;
-    [UINavigationBar appearance].barTintColor = [UIColor whiteColor];
+    [UINavigationBar appearance].tintColor = [UIColor whiteColor];
+    [UINavigationBar appearance].barTintColor = UIColorFromRGB(0x171820);
     [UIApplication sharedApplication].statusBarHidden = NO;
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];

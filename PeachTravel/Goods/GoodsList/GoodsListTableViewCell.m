@@ -11,7 +11,7 @@
 @implementation GoodsListTableViewCell
 
 - (void)awakeFromNib {
-   
+    _headerImageView.clipsToBounds = YES;
 }
 
 - (void)setGoodsDetail:(GoodsDetailModel *)goodsDetail
@@ -26,16 +26,16 @@
     NSString *oldPrice = [NSString stringWithFormat:@"￥%d", (int)_goodsDetail.primePrice];
     NSString *nowPrice = [NSString stringWithFormat:@"￥%d", (int)_goodsDetail.currentPrice];
     
-    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@", oldPrice, nowPrice]];
-    [attrStr addAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:13],
+    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@", oldPrice, nowPrice]];
+    [attrStr addAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:12],
                              NSForegroundColorAttributeName: COLOR_TEXT_III,
                              } range:NSMakeRange(0, oldPrice.length)];
     
     [attrStr addAttribute:NSStrikethroughStyleAttributeName value:[NSNumber numberWithInt:NSUnderlineStyleSingle] range:NSMakeRange(0, oldPrice.length)];
     
-    [attrStr addAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:15],
+    [attrStr addAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14],
                              NSForegroundColorAttributeName: APP_THEME_COLOR,
-                             } range:NSMakeRange(oldPrice.length+1, nowPrice.length)];
+                             } range:NSMakeRange(oldPrice.length, nowPrice.length)];
     _priceLabel.attributedText = attrStr;
     _tagCollectionView.tagsList = _goodsDetail.store.qualifications;
     NSString *propertyStrig = [NSString stringWithFormat:@"%d%%满意  |  销量: %ld", (int)(_goodsDetail.rating), _goodsDetail.saleCount];

@@ -49,13 +49,13 @@ static NSString * const reuseIdentifier = @"uploadPhotoCell";
     
     _backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [_backBtn setTitle:@"取消" forState:UIControlStateNormal];
-    [_backBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
+    [_backBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_backBtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_backBtn];
     
     UIButton *uploadBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [uploadBtn setTitle:@"上传" forState:UIControlStateNormal];
-    [uploadBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
+    [uploadBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [uploadBtn addTarget:self action:@selector(uploadUserAlbum) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:uploadBtn];
     

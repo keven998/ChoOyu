@@ -83,7 +83,7 @@
     TZButton *btn = [TZButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(0, 0, 44, 44);
     [btn setTitle:@"筛选" forState:UIControlStateNormal];
-    [btn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+    [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [btn setImage:[UIImage imageNamed:@"ic_shaixuan_.png"] forState:UIControlStateNormal];
     btn.titleLabel.font = [UIFont boldSystemFontOfSize:16];
     [btn addTarget:self action:@selector(switchCate) forControlEvents:UIControlEventTouchUpInside];

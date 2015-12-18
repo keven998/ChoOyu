@@ -91,7 +91,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogin) name:userDidLoginNoti object:nil];
     
     [self setupConverView];
-    self.tabBar.backgroundColor = [UIColor whiteColor];
+//    self.tabBar.backgroundColor = UIColorFromRGB(0x171820);
+    self.tabBar.backgroundImage = [ConvertMethods createImageWithColor:UIColorFromRGB(0x171820)];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -422,8 +423,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)customizeTabBarForController
 {
-    NSArray *tabBarItemImages = @[@"ic_tabbar_chat", @"ic_tabbar_destination", @"ic_tabbar_search", @"ic_tabbar_mine"];
-    NSArray *tabbarItemNames = @[@"目的地", @"消息", @"目的地", @"我的"];
+    NSArray *tabBarItemImages = @[@"ic_tabbar_goods", @"ic_tabbar_chat", @"ic_tabbar_destination", @"ic_tabbar_mine"];
+    NSArray *tabbarItemNames = @[@"首页", @"消息", @"目的地", @"我的"];
     NSInteger index = 0;
     
     for (UITabBarItem *item in self.tabBar.items) {

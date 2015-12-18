@@ -156,7 +156,7 @@
         _editBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
         [_editBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
         [_editBtn setTitle:@"确定" forState:UIControlStateNormal];
-        [_editBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+        [_editBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_editBtn addTarget:self action:@selector(editTrip:) forControlEvents:UIControlEventTouchUpInside];
         _editBtn.selected = YES;
         self.frostedViewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_editBtn];

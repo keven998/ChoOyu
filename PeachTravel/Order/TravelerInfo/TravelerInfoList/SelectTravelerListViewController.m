@@ -29,7 +29,7 @@
     UIButton *confirmBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [confirmBtn setTitle:@"确定" forState:UIControlStateNormal];
     confirmBtn.titleLabel.font = [UIFont systemFontOfSize:16.0];
-    [confirmBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+    [confirmBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [confirmBtn addTarget:self action:@selector(confirm:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:confirmBtn];
     [OrderUserInfoManager asyncLoadTravelersFromServerOfUser:[AccountManager shareAccountManager].account.userId completionBlock:^(BOOL isSuccess, NSArray<OrderTravelerInfoModel *> *travelers) {

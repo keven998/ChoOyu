@@ -28,7 +28,7 @@
     UIButton *commintBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [commintBtn setTitle:@"完成" forState:UIControlStateNormal];
     commintBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-    [commintBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
+    [commintBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     commintBtn.titleLabel.font = [UIFont systemFontOfSize:16.0];
     [commintBtn addTarget:self action:@selector(finishEdit:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:commintBtn];

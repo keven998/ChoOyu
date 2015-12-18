@@ -48,7 +48,7 @@
     [backBtn addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
     [backBtn setFrame:CGRectMake(0, 0, 40, 30)];
     backBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    [backBtn setTitleColor:COLOR_TEXT_I forState:UIControlStateNormal];
+    [backBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [backBtn setTitle:@"取消" forState:UIControlStateNormal];
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
     self.navigationItem.leftBarButtonItem = barButton;

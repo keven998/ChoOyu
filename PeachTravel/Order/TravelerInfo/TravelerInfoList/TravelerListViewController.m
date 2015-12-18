@@ -33,7 +33,7 @@
         UIButton *addTravelerBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
         [addTravelerBtn setTitle:@"添加" forState:UIControlStateNormal];
         addTravelerBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-        [addTravelerBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
+        [addTravelerBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         addTravelerBtn.titleLabel.font = [UIFont systemFontOfSize:16.0];
         [addTravelerBtn addTarget:self action:@selector(addTraveler:) forControlEvents:UIControlEventTouchUpInside];
         UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:addTravelerBtn];

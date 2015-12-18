@@ -56,7 +56,7 @@
         [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:chooseButton]];
     } else {
         UIBarButtonItem *doneButton = [[UIBarButtonItem alloc]initWithTitle:@"完成 " style:UIBarButtonItemStylePlain target:self action:@selector(doneAction:)];
-        doneButton.tintColor = APP_THEME_COLOR;
+        doneButton.tintColor = [UIColor whiteColor];
         self.navigationItem.rightBarButtonItem = doneButton;
     }
     

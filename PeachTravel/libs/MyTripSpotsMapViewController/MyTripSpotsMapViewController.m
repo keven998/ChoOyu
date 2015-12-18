@@ -57,8 +57,8 @@
     [btn setTitle:@"01.Day" forState:UIControlStateNormal];
     btn.layer.borderWidth = 1.0;
     btn.layer.cornerRadius = 3.0;
-    btn.layer.borderColor = COLOR_TEXT_II.CGColor;
-    [btn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
+    btn.layer.borderColor = [UIColor whiteColor].CGColor;
+    [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [btn setTitleColor:COLOR_DISABLE forState:UIControlStateHighlighted];
     btn.titleLabel.font = [UIFont systemFontOfSize:16];
     [btn addTarget:self action:@selector(switchDay) forControlEvents:UIControlEventTouchUpInside];

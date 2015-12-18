@@ -58,8 +58,6 @@
     [self setupHeaderView];
     [self createFooterBar];
     
-    self.tags = @[@"哈哈",@"嘿嘿和",@"呵呵呵呵",@"额额",@"哈哈",@"嘿嘿和",@"呵呵呵呵",@"哈哈",@"嘿嘿和",@"呵呵呵呵",@"额额",@"哈哈",@"嘿嘿和",@"呵呵呵呵",@"哈哈",@"嘿嘿和",@"呵呵呵呵",@"额额",@"哈哈",@"嘿嘿和"];
-    
     self.tableView.hidden = YES;
     
     [self setupNavBar];

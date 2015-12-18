@@ -25,13 +25,13 @@
     self.view.backgroundColor = APP_PAGE_COLOR;
     UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [backBtn setTitle:@"取消" forState:UIControlStateNormal];
-    [backBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
+    [backBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [backBtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
     
     _saveBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [_saveBtn setTitle:@"保存" forState:UIControlStateNormal];
-    [_saveBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
+    [_saveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_saveBtn setTitleColor:COLOR_TEXT_III forState:UIControlStateDisabled];
     [_saveBtn addTarget:self action:@selector(saveChange) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_saveBtn];

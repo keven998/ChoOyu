@@ -27,7 +27,7 @@
     
     _commitBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [_commitBtn setTitle:@"提交" forState:UIControlStateNormal];
-    [_commitBtn setTitleColor:COLOR_TEXT_I forState:UIControlStateNormal];
+    [_commitBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_commitBtn setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
     [_commitBtn addTarget:self action:@selector(commitRequest:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_commitBtn];
@@ -35,7 +35,7 @@
 
     UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [backBtn setTitle:@"取消" forState:UIControlStateNormal];
-    [backBtn setTitleColor:COLOR_TEXT_I forState:UIControlStateNormal];
+    [backBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 
     [backBtn addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];

@@ -10,11 +10,9 @@
 
 @interface GoodsRecommendTableViewCell()
 @property (weak, nonatomic) IBOutlet UIImageView *goodsImageView;
-@property (weak, nonatomic) IBOutlet UIImageView *bgImageView;
 @property (weak, nonatomic) IBOutlet UILabel *oldPriceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *nowPriceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *userNickName;
-@property (weak, nonatomic) IBOutlet UICollectionView *tagCollectionView;
 @property (weak, nonatomic) IBOutlet UILabel *cityNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *goodsNameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *contentImageView;
@@ -27,10 +25,7 @@
 
 - (void)awakeFromNib {
     [_contentImageView setImage:[[UIImage imageNamed: @"icon_goods_list_cell_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)]];
-    [_bgImageView setImage:[[UIImage imageNamed:@"icon_goods_cell_mask"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)]];
-    _bgImageView.clipsToBounds = YES;
     _goodsImageView.clipsToBounds = YES;
-    _tagCollectionView.backgroundColor = [UIColor clearColor];
     _bgView.layer.cornerRadius = 2.0;
     _bgView.clipsToBounds = YES;
 }
