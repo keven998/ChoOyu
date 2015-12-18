@@ -30,7 +30,7 @@
 {
     _contact = contact;
     _nameLabel.text = [NSString stringWithFormat:@"%@ %@", _contact.lastName, _contact.firstName];
-    _telLabel.text = _contact.tel;
+    _telLabel.text = _contact.telDesc;
 }
 
 - (void)setLeaveMessage:(NSString *)leaveMessage

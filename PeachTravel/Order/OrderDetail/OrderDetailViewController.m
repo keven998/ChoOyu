@@ -192,7 +192,7 @@ NSString *const kUpdateOrderdetailNoti = @"kUpdateOrderdetailNoti";
     if (second) {
         [str appendFormat:@"%ld秒 ", second];
     }
-    [str appendString:@"完成支付"];
+    [str appendString:@"内完成支付"];
     NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:str];
     [attr addAttributes:@{
                           NSFontAttributeName:[UIFont systemFontOfSize:14],

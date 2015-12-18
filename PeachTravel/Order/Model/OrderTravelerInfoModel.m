@@ -17,9 +17,14 @@
         _lastName = [json objectForKey:@"surname"];
         _IDCategory = [[[json objectForKey:@"identities"] firstObject] objectForKey:@"idType"];
         _IDNumber = [[[json objectForKey:@"identities"] firstObject] objectForKey:@"number"];
-        _tel = [NSString stringWithFormat:@"+%@ %@", [[json objectForKey:@"tel"] objectForKey:@"dialCode"], [[json objectForKey:@"tel"] objectForKey:@"number"]];
+        _dialCode = [NSString stringWithFormat:@"%@", [[json objectForKey:@"tel"] objectForKey:@"dialCode"]];
+        _telNumber = [NSString stringWithFormat:@"%@",  [[json objectForKey:@"tel"] objectForKey:@"number"]];
     }
     return self;
+}
+
+- (NSString *)telDesc{
+    return [NSString stringWithFormat:@"+%@ %@", _dialCode, _telNumber];
 }
 
 - (NSString *)IDCategoryDesc

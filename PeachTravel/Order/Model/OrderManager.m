@@ -24,7 +24,7 @@
     if (!order.orderContact.firstName || [order.orderContact.firstName isBlankString]) {
         return @"请填写联系人的名";
     }
-    if (!order.orderContact.tel || [order.orderContact.tel isBlankString]) {
+    if (!order.orderContact.telNumber || [order.orderContact.telNumber isBlankString]) {
         return @"请填写联系人的电话";
     }
     return nil;

@@ -94,7 +94,7 @@
     
     _telTextField = [[UITextField alloc] initWithFrame:CGRectMake(126, 10+48*2, (kWindowWidth-106)-40, 28)];
     _telTextField.placeholder = @"电话";
-    _telTextField.text = _traveler.tel;
+    _telTextField.text = _traveler.telDesc;
     _telTextField.font = [UIFont systemFontOfSize:15];
     _telTextField.textColor = COLOR_TEXT_III;
     _telTextField.returnKeyType = UIReturnKeyDone;
@@ -134,7 +134,7 @@
 {
     _traveler.firstName = _firstNameTextField.text;
     _traveler.lastName = _lastNameTextField.text;
-    _traveler.tel = _telTextField.text;
+    _traveler.telNumber = _telTextField.text;
     _traveler.IDNumber = _IDNumberTextField.text;
     if ([OrderUserInfoManager checkTravelerInfoIsComplete:_traveler]) {
         [SVProgressHUD showHint:[OrderUserInfoManager checkTravelerInfoIsComplete:_traveler]];

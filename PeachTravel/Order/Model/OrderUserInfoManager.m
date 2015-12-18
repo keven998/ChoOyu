@@ -19,7 +19,7 @@
     } else if (!traveler.firstName || [traveler.firstName isBlankString]) {
         return @"请填写旅客的名";
         
-    } else if (!traveler.tel || [traveler.tel isBlankString]) {
+    } else if (!traveler.telNumber || [traveler.telNumber isBlankString]) {
         return @"请填写旅客的电话";
         
     } else if (!traveler.IDNumber || [traveler.IDNumber isBlankString]) {
@@ -91,7 +91,7 @@
     [params setObject:@"" forKey:@"email"];
     NSMutableDictionary *tel = [[NSMutableDictionary alloc] init];
     [tel setObject:@"86" forKey:@"dialCode"];
-    [tel setObject:traveler.tel forKey:@"number"];
+    [tel setObject:traveler.telNumber forKey:@"number"];
     [params safeSetObject:tel forKey:@"tel"];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [manager POST:url parameters: params success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -140,7 +140,7 @@
     [params setObject:@"" forKey:@"email"];
     NSMutableDictionary *tel = [[NSMutableDictionary alloc] init];
     [tel setObject:@"86" forKey:@"dialCode"];
-    [tel setObject:traveler.tel forKey:@"number"];
+    [tel setObject:traveler.telNumber forKey:@"number"];
     [params safeSetObject:tel forKey:@"tel"];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [manager PUT:url parameters: params success:^(AFHTTPRequestOperation *operation, id responseObject) {

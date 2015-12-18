@@ -24,7 +24,7 @@
 {
     _travelerInfo = travelerInfo;
     _nameLabel.text = [NSString stringWithFormat:@"%@ %@", _travelerInfo.lastName, _travelerInfo.firstName];
-    _telLabel.text = travelerInfo.tel;
+    _telLabel.text = travelerInfo.telDesc;
     _IDNumberLabel.text = [NSString stringWithFormat:@"%@ %@", _travelerInfo.IDCategoryDesc, _travelerInfo.IDNumber];
 }
 @end

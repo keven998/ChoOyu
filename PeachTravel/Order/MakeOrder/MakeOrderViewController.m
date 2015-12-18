@@ -187,7 +187,7 @@
         [travelerIds addObject:traveler.uid];
     }
     
-    [OrderManager asyncMakeOrderWithGoodsId:_orderDetail.goods.goodsId travelers:travelerIds packageId:_orderDetail.selectedPackage.packageId playDate:_orderDetail.useDate quantity:_orderDetail.count contactPhone:_orderDetail.orderContact.tel.integerValue contactFirstName:_orderDetail.orderContact.firstName contactLastName:_orderDetail.orderContact.lastName leaveMessage:_orderDetail.leaveMessage completionBlock:^(BOOL isSuccess, OrderDetailModel *orderDetail) {
+    [OrderManager asyncMakeOrderWithGoodsId:_orderDetail.goods.goodsId travelers:travelerIds packageId:_orderDetail.selectedPackage.packageId playDate:_orderDetail.useDate quantity:_orderDetail.count contactPhone:_orderDetail.orderContact.telNumber.integerValue contactFirstName:_orderDetail.orderContact.firstName contactLastName:_orderDetail.orderContact.lastName leaveMessage:_orderDetail.leaveMessage completionBlock:^(BOOL isSuccess, OrderDetailModel *orderDetail) {
         if (isSuccess) {
             [SVProgressHUD showHint:@"订单创建成功"];
             _orderDetail = orderDetail;
@@ -314,7 +314,7 @@
     } else  if ([textField isEqual:cell.firstNameTextField]) {
         _orderDetail.orderContact.firstName = textField.text;
     } else  if ([textField isEqual:cell.telTextField]) {
-        _orderDetail.orderContact.tel = textField.text;
+        _orderDetail.orderContact.telNumber = textField.text;
     }
 }
 
@@ -392,7 +392,7 @@
     _orderDetail.orderContact = selectTraveler;
     cell.firstNameTextField.text = selectTraveler.firstName;
     cell.lastNameTextField.text = selectTraveler.lastName;
-    cell.telTextField.text = selectTraveler.tel;
+    cell.telTextField.text = selectTraveler.telDesc;
 }
 
 #pragma mark - MakeOrderSelectCountDelegate
