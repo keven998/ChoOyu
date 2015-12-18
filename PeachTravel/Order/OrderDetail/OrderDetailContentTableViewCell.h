@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "OrderDetailModel.h"
 
 @interface OrderDetailContentTableViewCell : UITableViewCell
+
+@property (nonatomic, strong) OrderDetailModel *orderDetail;
 
 @property (weak, nonatomic) IBOutlet UIButton *goodsNameBtn;
 @property (weak, nonatomic) IBOutlet UILabel *orderNumberLabel;
@@ -17,7 +20,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *countLabel;
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *goodsNameHeightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *packageNameHeightConstarint;
 
-+ (CGFloat)heightOfCell;
++ (CGFloat)heightOfCellWithOrderDetail:(OrderDetailModel *)orderDetail;
 
 @end

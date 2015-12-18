@@ -100,7 +100,7 @@
     agreementTextView.linkTextAttributes = @{NSForegroundColorAttributeName:APP_THEME_COLOR};
 
     agreementTextView.font = [UIFont systemFontOfSize:14];
-    NSMutableAttributedString *agreementStr = [[NSMutableAttributedString alloc] initWithString:@"我已阅读并同意《旅行拍条款》"];
+    NSMutableAttributedString *agreementStr = [[NSMutableAttributedString alloc] initWithString:@"我已阅读并同意《旅行派条款》"];
     [agreementStr addAttributes:@{NSLinkAttributeName: [NSURL URLWithString:@"http://www.lvxingpai.cn"]} range:NSMakeRange(7, 7)];
     agreementTextView.attributedText = agreementStr;
     [footerView addSubview:agreementTextView];
@@ -156,6 +156,7 @@
     SelectTravelerListViewController *ctl = [[SelectTravelerListViewController alloc] init];
     ctl.delegate = self;
     ctl.canMultipleSelect = YES;
+    ctl.canEditInfo = YES;
     ctl.selectedTravelers = [_orderDetail.travelerList mutableCopy];
     [self.navigationController pushViewController:ctl animated:YES];
 }
@@ -165,6 +166,7 @@
     SelectTravelerListViewController *ctl = [[SelectTravelerListViewController alloc] init];
     ctl.delegate = self;
     ctl.canMultipleSelect = NO;
+    ctl.canEditInfo = NO;
     NSMutableArray *selectTraveler = [[NSMutableArray alloc] init];
     if (_orderDetail.orderContact) {
         [selectTraveler addObject:_orderDetail.orderContact];

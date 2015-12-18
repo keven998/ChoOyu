@@ -125,19 +125,12 @@
     cell.selectBtn.tag = indexPath.row;
     cell.titleLabel.text = [NSString stringWithFormat:@"%@%@", travelerInfo.firstName, travelerInfo.lastName];
     cell.subTitleLabel.text = [NSString stringWithFormat:@"%@:  %@", travelerInfo.IDCategoryDesc, travelerInfo.IDNumber];
+    cell.editBtn.hidden = !_canEditInfo;
     [cell.selectBtn addTarget:self action:@selector(selectTraveler:) forControlEvents:UIControlEventTouchUpInside];
     cell.selectBtn.selected = [self travelerIsSelected:travelerInfo];
     cell.editBtn.tag = indexPath.row;
     [cell.editBtn addTarget:self action:@selector(editTravelerInfo:) forControlEvents:UIControlEventTouchUpInside];
     return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    TravelerInfoViewController *ctl = [[TravelerInfoViewController alloc] init];
-    ctl.traveler = _dataSource[indexPath.row];
-    [self.navigationController pushViewController:ctl animated:YES];
 }
 
 @end

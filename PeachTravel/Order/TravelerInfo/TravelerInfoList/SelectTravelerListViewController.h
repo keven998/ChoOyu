@@ -25,6 +25,9 @@
 //是否可以多选
 @property (nonatomic) BOOL canMultipleSelect;
 
+//是否可以编辑
+@property (nonatomic) BOOL canEditInfo;
+
 @property (nonatomic, weak) id<TravelerInfoListDelegate>delegate;
 
 @property (nonatomic, strong) NSMutableArray<OrderTravelerInfoModel *> *selectedTravelers;   //选中的联系人

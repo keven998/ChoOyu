@@ -300,7 +300,7 @@ NSString *const kUpdateOrderdetailNoti = @"kUpdateOrderdetailNoti";
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 1) {
-        return [OrderDetailContentTableViewCell heightOfCell];
+        return [OrderDetailContentTableViewCell heightOfCellWithOrderDetail:_orderDetail];
     } else if (indexPath.section == 4) {
         return [OrderDetailContactTableViewCell heightOfCellWithContactInfo:_orderDetail.orderContact andLeaveMessage:_orderDetail.leaveMessage];
     }
@@ -320,23 +320,8 @@ NSString *const kUpdateOrderdetailNoti = @"kUpdateOrderdetailNoti";
         
     } else if (indexPath.section == 1) {
         OrderDetailContentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"orderDetailContentCell" forIndexPath:indexPath];
-        if (_orderDetail.goods.goodsName) {
-            NSMutableAttributedString *string= [[NSMutableAttributedString alloc] initWithString:_orderDetail.goods.goodsName];
-            [string addAttributes:@{
-                                    NSForegroundColorAttributeName: APP_THEME_COLOR,
-                                    NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
-                                    } range:NSMakeRange(0, _orderDetail.goods.goodsName.length)];
-            
-            [cell.goodsNameBtn setAttributedTitle:string forState:UIControlStateNormal];
-        }
-        
+        cell.orderDetail = _orderDetail;
         [cell.goodsNameBtn addTarget:self action:@selector(goodsDetailAction:) forControlEvents:UIControlEventTouchUpInside];
-        cell.packageNameLabel.text = _orderDetail.selectedPackage.packageName;
-        cell.dateLabel.text = _orderDetail.useDateStr;
-        cell.orderNumberLabel.text = [NSString stringWithFormat:@"%ld", _orderDetail.orderId];
-        cell.dateLabel.text = _orderDetail.useDateStr;
-        cell.countLabel.text = [NSString stringWithFormat:@"%ld", _orderDetail.count];
-        cell.priceLabel.text = [NSString stringWithFormat:@"%d", (int)_orderDetail.totalPrice];
         return cell;
         
     } else if (indexPath.section == 2) {

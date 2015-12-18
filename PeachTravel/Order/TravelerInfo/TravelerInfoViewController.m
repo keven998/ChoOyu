@@ -164,6 +164,7 @@
 
 - (void)choseIDCategory:(UIButton *)sender
 {
+    [self.view endEditing:YES];
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"选择证件类型" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"身份证", @"护照", nil];
     [actionSheet showInView:self.view];
 }
