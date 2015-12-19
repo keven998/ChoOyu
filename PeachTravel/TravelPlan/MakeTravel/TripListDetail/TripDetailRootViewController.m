@@ -143,7 +143,6 @@
         UIButton *bbtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
         [bbtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
         [bbtn setImage:[UIImage imageNamed:@"common_icon_navigation_back_normal"] forState:UIControlStateNormal];
-        [bbtn setImage:[UIImage imageNamed:@"common_icon_navigation_back_highlight"] forState:UIControlStateHighlighted];
         [bbtn addTarget:self action:@selector(dismissCtl) forControlEvents:UIControlEventTouchUpInside];
         self.frostedViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:bbtn];
     }
@@ -181,7 +180,6 @@
         UIButton *bbtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
         [bbtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
         [bbtn setImage:[UIImage imageNamed:@"common_icon_navigation_back_normal"] forState:UIControlStateNormal];
-        [bbtn setImage:[UIImage imageNamed:@"common_icon_navigation_back_highlight"] forState:UIControlStateHighlighted];
         [bbtn addTarget:self action:@selector(dismissCtl) forControlEvents:UIControlEventTouchUpInside];
         self.frostedViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:bbtn];
         BOOL isNotShouldShowNaviTipsView = [[[NSUserDefaults standardUserDefaults] objectForKey:@"kTripDetailRootCtlNaviTipsView"] boolValue];
