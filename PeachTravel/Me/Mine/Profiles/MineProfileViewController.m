@@ -109,7 +109,7 @@
     UIButton *editButton = [[UIButton alloc] initWithFrame:CGRectMake(kWindowWidth - 56, 20, 40, 40)];
     [editButton setTitle:@"编辑" forState:UIControlStateNormal];
     [editButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    editButton.titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
+    editButton.titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
     
     [editButton addTarget:self action:@selector(editMineProfile) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:editButton];
@@ -118,14 +118,14 @@
     UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake((kWindowWidth-108)*0.5, 20, 108, 40)];
     titleLab.text = @"我的·旅行派";
     titleLab.textAlignment = NSTextAlignmentCenter;
-    titleLab.font = [UIFont boldSystemFontOfSize:18.0];
+    titleLab.font = [UIFont boldSystemFontOfSize:16.0];
     titleLab.textColor = [UIColor whiteColor];
     [self.view addSubview:titleLab];
     
     UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 20, 40, 40)];
     [backButton setTitle:@"返回" forState:UIControlStateNormal];
     [backButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    backButton.titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
+    backButton.titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
     [backButton addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:backButton];
 }

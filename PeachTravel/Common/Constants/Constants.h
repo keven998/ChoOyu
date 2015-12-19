@@ -256,7 +256,10 @@ typedef NS_ENUM(NSUInteger, TZCMDChatType) {
 #define APP_PAGE_COLOR                  UIColorFromRGB(0xf7faf7)
 
 #define APP_THEME_COLOR                 UIColorFromRGB(0x99cc66)
-#define APP_THEME_COLOR_HIGHLIGHT       UIColorFromRGB(0xb9dc96)
+#define APP_NAVIGATIONBAR_COLOR         UIColorFromRGB(0x131317)
+#define APP_NAVIGATIONBAR_NOALPHA       UIColorFromRGB(0x191921)
+
+#define APP_THEME_COLOR_HIGHLIGHT       UIColorFromRGB(0X2A2B31)
 
 #define COLOR_CHECKED                   UIColorFromRGB(0xfa5064)
 #define COLOR_ALERT                     UIColorFromRGB(0xff9600)

@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *scroll2TopBtn;
 @property (nonatomic, strong) GoodsRecommendHeaderView *headerView;
+@property (nonatomic, strong) UIView *navigationBar;
 @property (nonatomic, strong) NSArray *dataSource;
 @property (nonatomic, strong) NSArray *recommendDataSource;   //顶部运营位
 
@@ -45,6 +46,7 @@
     _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.bounds.size.width, 49)];
     _scroll2TopBtn.hidden = YES;
     [_scroll2TopBtn addTarget:self action:@selector(scroll2Top) forControlEvents:UIControlEventTouchUpInside];
+    [self setNavigationBar];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -74,6 +76,20 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (void)setNavigationBar
+{
+    _navigationBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 64)];
+    _navigationBar.backgroundColor = APP_NAVIGATIONBAR_NOALPHA;
+    _navigationBar.alpha = 0;
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, kWindowWidth, 44)];
+    titleLabel.text = @"旅行派";
+    titleLabel.textColor = [UIColor whiteColor];
+    titleLabel.font = [UIFont boldSystemFontOfSize:16.0];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    [_navigationBar addSubview:titleLabel];
+    [self.view addSubview:_navigationBar];
 }
 
 - (void)loadRecommendData
@@ -166,6 +182,14 @@
     } else {
         _scroll2TopBtn.hidden = YES;
     }
+    CGFloat alpha = scrollView.contentOffset.y/150;
+    if (alpha > 0.8) {
+        alpha = 1;
+    }
+    if (alpha < 0.2) {
+        alpha = 0;
+    }
+    _navigationBar.alpha = alpha;
 }
 
 #pragma mark - GoodsRecommendHeaderViewDelegate

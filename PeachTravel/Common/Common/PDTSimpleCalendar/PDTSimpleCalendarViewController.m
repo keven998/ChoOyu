@@ -464,6 +464,7 @@ static const NSCalendarUnit kCalendarUnitYMD = NSCalendarUnitYear | NSCalendarUn
     PDTSimpleCalendarViewCell *cell = (PDTSimpleCalendarViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     if (cell.price >= 0) {
         self.selectedDate = [self dateForCellAtIndexPath:indexPath];
+        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 

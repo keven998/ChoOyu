@@ -39,8 +39,9 @@
      [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName]];
 
     [UINavigationBar appearance].tintColor = [UIColor whiteColor];
-    [UINavigationBar appearance].barTintColor = UIColorFromRGB(0x171820);
+    [UINavigationBar appearance].barTintColor = APP_NAVIGATIONBAR_COLOR;
     [UIApplication sharedApplication].statusBarHidden = NO;
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
