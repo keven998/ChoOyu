@@ -15,7 +15,7 @@
     if (self = [super init]) {
         _storeId = [[json objectForKey:@"sellerId"] integerValue];
         _storeName = [json objectForKey:@"name"];
-        _qualifications = [json objectForKey:@"qualifications"];
+        _serviceTags = [json objectForKey:@"qualifications"];
     }
     return self;
 }

@@ -37,7 +37,7 @@
                              NSForegroundColorAttributeName: APP_THEME_COLOR,
                              } range:NSMakeRange(oldPrice.length, nowPrice.length)];
     _priceLabel.attributedText = attrStr;
-    _tagCollectionView.tagsList = _goodsDetail.store.qualifications;
+    _tagCollectionView.tagsList = _goodsDetail.store.tags;
     NSString *propertyStrig = [NSString stringWithFormat:@"%d%%满意  |  销量: %ld", (int)(_goodsDetail.rating), _goodsDetail.saleCount];
     [_propertyBtn setTitle:propertyStrig forState:UIControlStateNormal];
     _storeNameLabel.text = _goodsDetail.store.storeName;

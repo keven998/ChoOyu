@@ -7,12 +7,18 @@
 //
 
 #import "StoreDetailViewController.h"
-#import "RCTRootView.h"
-#import "RCTBridgeModule.h"
 #import "ShareActivity.h"
 #import "UMSocial.h"
+#import "StoreDetailModel.h"
+#import "StoreDetailHeaderView.h"
 
 @interface StoreDetailViewController () <ActivityDelegate>
+
+@property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic, strong) StoreDetailModel *storeDetail;
+@property (nonatomic, strong) StoreDetailHeaderView *storeHeaderView;
+@property (nonatomic, strong) NSArray *dataSource;
 
 @end
 
@@ -21,31 +27,31 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"店铺详情";
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    UIButton *shareBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 40)];
-    [shareBtn setImage:[UIImage imageNamed:@"icon_share_gray"] forState:UIControlStateNormal];
-    [shareBtn addTarget:self action:@selector(share2Frend) forControlEvents:UIControlEventTouchUpInside];
+    self.view.backgroundColor = APP_PAGE_COLOR;
+    _scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
+    _scrollView.backgroundColor = APP_PAGE_COLOR;
+    [self.view addSubview:_scrollView];
     
-    UIButton *favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 40)];
-    [favoriteBtn setImage:[UIImage imageNamed:@"icon_favorite_gray"] forState:UIControlStateNormal];
-    [favoriteBtn addTarget:self action:@selector(favorite) forControlEvents:UIControlEventTouchUpInside];
+    _storeHeaderView = [[StoreDetailHeaderView alloc] initWithFrame:CGRectMake(0, 0, _scrollView.bounds.size.width, 115)];
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     
-    self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithCustomView:favoriteBtn], [[UIBarButtonItem alloc] initWithCustomView:shareBtn]];
-
-//    NSURL *jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
-    NSURL *jsCodeLocation = [NSURL URLWithString:@"http://192.168.1.47:8081/src/index.ios.bundle?platform=ios&dev=true"];
-    
-    RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
-                                                        moduleName:@"StoreDetailClass"
-                                                 initialProperties:nil
-                                                     launchOptions:nil];
-    rootView.frame = CGRectMake(0, 0, kWindowWidth, kWindowHeight);
-    [self.view addSubview:rootView];
+    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 125, kWindowWidth, kWindowHeight-15) collectionViewLayout:layout];
+    _collectionView.backgroundColor = APP_PAGE_COLOR;
+    [_scrollView addSubview:_collectionView];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+}
+
+- (void)setDataSource:(NSArray *)dataSource
+{
+    _dataSource = dataSource;
+}
+
+- (void)setStoreDetail:(StoreDetailModel *)storeDetail
+{
+    _storeDetail = storeDetail;
 }
 
 - (void)share2Frend
