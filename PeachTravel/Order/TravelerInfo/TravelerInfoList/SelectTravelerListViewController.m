@@ -21,6 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationItem.title = @"旅客列表";
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.separatorColor = COLOR_LINE;

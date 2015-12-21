@@ -15,7 +15,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *userNickName;
 @property (weak, nonatomic) IBOutlet UILabel *cityNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *goodsNameLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *contentImageView;
 @property (weak, nonatomic) IBOutlet UIView *bgView;
 
 
@@ -24,7 +23,6 @@
 @implementation GoodsRecommendTableViewCell
 
 - (void)awakeFromNib {
-    [_contentImageView setImage:[[UIImage imageNamed: @"icon_goods_list_cell_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)]];
     _goodsImageView.clipsToBounds = YES;
     _bgView.layer.cornerRadius = 2.0;
     _bgView.clipsToBounds = YES;
