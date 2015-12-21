@@ -36,7 +36,7 @@
 - (void)setUpView
 {
     CGRect frame = self.frame;
-    _headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 214)];
+    _headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 174)];
     _headerImageView.contentMode = UIViewContentModeScaleAspectFill;
     _headerImageView.clipsToBounds = YES;
     TaoziImage *image = [self.cityPoi.images firstObject];
@@ -44,20 +44,20 @@
     _headerImageView.userInteractionEnabled = YES;
     [self addSubview:_headerImageView];
     
-    _zhNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 150, frame.size.width, 25)];
+    _zhNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 110, frame.size.width, 25)];
     _zhNameLabel.textColor = [UIColor whiteColor];
     _zhNameLabel.font = [UIFont boldSystemFontOfSize:23];
     _zhNameLabel.text = _cityPoi.zhName;
     
     [self addSubview:_zhNameLabel];
     
-    _enNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 180, _zhNameLabel.bounds.size.width, 20)];
+    _enNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 140, _zhNameLabel.bounds.size.width, 20)];
     _enNameLabel.textColor = [UIColor whiteColor];
     _enNameLabel.font = [UIFont systemFontOfSize:16];
     _enNameLabel.text = _cityPoi.enName;
     [self addSubview:_enNameLabel];
     
-    _pictureIndexBtn = [[UIButton alloc] initWithFrame:CGRectMake(frame.size.width-50, 190, 45, 15)];
+    _pictureIndexBtn = [[UIButton alloc] initWithFrame:CGRectMake(frame.size.width-50, 150, 45, 15)];
     [_pictureIndexBtn setImage:[UIImage imageNamed:@"icon_cityDetail_imageCnt"] forState:UIControlStateNormal];
     _pictureIndexBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
     NSString *countTitle = [NSString stringWithFormat:@"1/%ld", _cityPoi.images.count];
@@ -66,7 +66,7 @@
     [_pictureIndexBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self addSubview:_pictureIndexBtn];
     
-    UIView *btnBkgView = [[UIView alloc] initWithFrame:CGRectMake(0, 214, frame.size.width, 196)];
+    UIView *btnBkgView = [[UIView alloc] initWithFrame:CGRectMake(0, 174, frame.size.width, 196)];
     btnBkgView.backgroundColor = [UIColor whiteColor];
     [self addSubview:btnBkgView];
     

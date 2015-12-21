@@ -34,7 +34,6 @@
     [super viewDidLoad];
     self.navigationItem.title = _cityName;
     self.view.backgroundColor = [UIColor whiteColor];
-    self.automaticallyAdjustsScrollViewInsets = NO;
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, kWindowHeight)];
     [_tableView registerNib:[UINib nibWithNibName:@"GoodsListTableViewCell" bundle:nil] forCellReuseIdentifier:@"goodsListCell"];
     _tableView.delegate = self;
@@ -44,7 +43,7 @@
     [PoiManager asyncLoadCityInfo:_cityId completionBlock:^(BOOL isSuccess, CityPoi *cityDetail) {
         if (isSuccess) {
             _poi = cityDetail;
-            _headerView = [[CityDetailHeaderView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 420)];
+            _headerView = [[CityDetailHeaderView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 380)];
             _headerView.cityPoi = _poi;
             _tableView.tableHeaderView = _headerView;
             _headerView.containerViewController = self;
