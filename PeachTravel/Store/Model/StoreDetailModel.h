@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CityDestinationPoi.h"
 
 @interface StoreDetailModel : NSObject
 
@@ -15,7 +16,7 @@
 @property (nonatomic, strong) NSArray<NSString *> *languages;      //语言
 @property (nonatomic, strong) NSArray<NSString *> *serviceTags;    //服务标签
 @property (nonatomic, strong) NSArray<NSString *> *qualifications;           //商家资质 (认证商家等)
-
+@property (nonatomic, strong) CityDestinationPoi *city;
 
 - (id)initWithJson:(id)json;
 

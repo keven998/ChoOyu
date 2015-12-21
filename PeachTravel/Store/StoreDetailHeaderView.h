@@ -13,4 +13,7 @@
 
 @property (nonatomic, strong) StoreDetailModel *storeDetail;
 
+
++ (CGFloat)storeHeaderHeightWithStoreDetail:(StoreDetailModel *)storeDetail;
+
 @end

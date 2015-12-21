@@ -42,15 +42,12 @@
     _scrollView.backgroundColor = APP_PAGE_COLOR;
     [self.view addSubview:_scrollView];
     
-    _storeHeaderView = [[StoreDetailHeaderView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 115)];
-    [self.scrollView addSubview:_storeHeaderView];
-    
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.itemSize = CGSizeMake(kWindowWidth/2, kWindowWidth/2);
     layout.minimumInteritemSpacing = 0;
     layout.minimumLineSpacing = 0;
     
-    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 125, kWindowWidth, 0) collectionViewLayout:layout];
+    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 145, kWindowWidth, 0) collectionViewLayout:layout];
     _collectionView.scrollEnabled = NO;
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
@@ -75,9 +72,9 @@
     
     [StoreManager asyncLoadStoreInfoWithStoreId:_storeId completionBlock:^(BOOL isSuccess, StoreDetailModel *storeDetail) {
         self.storeDetail = storeDetail;
-    }];
-    [GoodsManager asyncLoadGoodsOfStore:_storeId startIndex:-1 count:-1 completionBlock:^(BOOL isSuccess, NSArray *goodsList) {
-        self.dataSource = goodsList;
+        [GoodsManager asyncLoadGoodsOfStore:_storeId startIndex:-1 count:-1 completionBlock:^(BOOL isSuccess, NSArray *goodsList) {
+            self.dataSource = goodsList;
+        }];
     }];
 }
 
@@ -99,7 +96,18 @@
 - (void)setStoreDetail:(StoreDetailModel *)storeDetail
 {
     _storeDetail = storeDetail;
+    [self setupHeaderView];
     _storeHeaderView.storeDetail = _storeDetail;
+}
+
+- (void)setupHeaderView
+{
+    CGFloat height = [StoreDetailHeaderView storeHeaderHeightWithStoreDetail:_storeDetail];
+    _storeHeaderView = [[StoreDetailHeaderView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, height)];
+    CGRect frame = self.collectionView.frame;
+    frame.origin.y = height + 10;
+    self.collectionView.frame = frame;
+    [self.scrollView addSubview:_storeHeaderView];
 }
 
 - (void)chatWithBusiness
