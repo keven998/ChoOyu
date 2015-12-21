@@ -25,6 +25,7 @@
 @property (weak, nonatomic) UITapGestureRecognizer *tapGesture;
 @property (nonatomic, strong) NSArray<NSMutableArray *> *dataSource;
 @property (nonatomic) NSInteger currentSelectIndex;   //当前选中的哪个州
+@property (nonatomic, strong) UIView *navigationBar;
 
 @end
 
@@ -52,10 +53,12 @@
     _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.bounds.size.width, 49)];
     [self.view addSubview:_tableView];
     
-    _searchBtn = [[UIButton alloc] initWithFrame:CGRectMake(30, 25, self.view.frame.size.width-60, 27)];
+    [self setNavigationBar];
+    
+    _searchBtn = [[UIButton alloc] initWithFrame:CGRectMake(30, 27, self.view.frame.size.width-60, 25)];
     [_searchBtn setBackgroundImage:[[UIImage imageNamed:@"icon_goods_search_bg"] resizableImageWithCapInsets:UIEdgeInsetsMake(2, 40, 2, 20)] forState:UIControlStateNormal];
     [_searchBtn addTarget:self action:@selector(searchAction) forControlEvents:UIControlEventTouchUpInside];
-    UILabel *searchLabel = [[UILabel alloc] initWithFrame:CGRectMake(45, 0, _searchBtn.bounds.size.width-50, 27)];
+    UILabel *searchLabel = [[UILabel alloc] initWithFrame:CGRectMake(45, 0, _searchBtn.bounds.size.width-50, 25)];
     searchLabel.text = @"搜索目的地";
     searchLabel.textColor = [UIColor whiteColor];
     searchLabel.font = [UIFont systemFontOfSize:14.0];
@@ -86,6 +89,14 @@
     if (self.navigationController.viewControllers.count > 1) {     //如果是 push 的情况下才显示 navibar ，没想到更好的解决办法
         [self.navigationController setNavigationBarHidden:NO animated:YES];
     }
+}
+
+- (void)setNavigationBar
+{
+    _navigationBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 64)];
+    _navigationBar.backgroundColor = APP_NAVIGATIONBAR_NOALPHA;
+    _navigationBar.alpha = 0;
+    [self.view addSubview:_navigationBar];
 }
 
 - (void)setupCircleMenu {
@@ -194,6 +205,14 @@
     if (scrollView.contentOffset.y < 0) {
         scrollView.contentOffset = CGPointZero;
     }
+    CGFloat alpha = scrollView.contentOffset.y/150;
+    if (alpha > 0.8) {
+        alpha = 1;
+    }
+    if (alpha < 0.2) {
+        alpha = 0;
+    }
+    _navigationBar.alpha = alpha;
 }
 
 #pragma mark - circleMenuDelegate

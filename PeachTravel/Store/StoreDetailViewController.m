@@ -18,7 +18,8 @@
 #import "REFrostedViewController.h"
 #import "ChatViewController.h"
 #import "LoginViewController.h"
-#import "GoodsDetailViewController.h";
+#import "GoodsDetailViewController.h"
+#import "StoreDetailCollectionReusableView.h"
 
 @interface StoreDetailViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 
@@ -34,7 +35,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"店铺详情";
+    self.navigationItem.title = _storeName;
 //    self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = APP_PAGE_COLOR;
     _scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
@@ -55,6 +56,9 @@
     _collectionView.dataSource = self;
     _collectionView.backgroundColor = APP_PAGE_COLOR;
     [_collectionView registerNib:[UINib nibWithNibName:@"StoreDetailCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"storeDetailCollectionViewCell"];
+ 
+    [_collectionView registerNib:[UINib nibWithNibName:@"StoreDetailCollectionReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"storeDetailCollectionReusableView"];
+
     [_scrollView addSubview:_collectionView];
     
     UIButton *chatBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, kWindowHeight-49, kWindowWidth, 49)];
@@ -84,7 +88,7 @@
 - (void)setDataSource:(NSArray *)dataSource
 {
     _dataSource = dataSource;
-    CGFloat height = ((int)(_dataSource.count/2) + _dataSource.count%2) * kWindowWidth/2;
+    CGFloat height = ((int)(_dataSource.count/2) + _dataSource.count%2) * kWindowWidth/2 + 40;
     CGRect frame = self.collectionView.frame;
     frame.size.height = height;
     self.collectionView.frame = frame;
@@ -145,7 +149,6 @@
     
 }
 
-
 - (void)login
 {
     LoginViewController *loginViewController = [[LoginViewController alloc] init];
@@ -156,6 +159,11 @@
 
 #pragma mark - UICollectionViewDataSource
 
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section;
+{
+    return CGSizeMake(collectionView.frame.size.width, 40);
+}
+
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return _dataSource.count;
@@ -165,6 +173,18 @@
 {
     return 1;
 }
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
+{
+    if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
+        StoreDetailCollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"storeDetailCollectionReusableView" forIndexPath:indexPath];
+        headerView.headerView.image = [UIImage imageNamed:@"icon_store_cagtegory"];
+        headerView.titleLabel.text = @"在售商品";
+        return headerView;
+    }
+    return nil;
+}
+
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {

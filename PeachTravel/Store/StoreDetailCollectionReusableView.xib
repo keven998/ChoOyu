@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="storeDetailCollectionReusableView" id="U6b-Vx-4bR" customClass="StoreDetailCollectionReusableView">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pu3-gg-Kt3">
+                    <rect key="frame" x="12" y="9" width="22" height="22"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="22" id="9Hr-c4-yf9"/>
+                        <constraint firstAttribute="height" constant="22" id="uq9-ux-nll"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q6b-v1-8zr">
+                    <rect key="frame" x="42" y="11" width="182" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="q6b-v1-8zr" secondAttribute="trailing" constant="96" id="Jvt-8M-BSC"/>
+                <constraint firstItem="q6b-v1-8zr" firstAttribute="leading" secondItem="pu3-gg-Kt3" secondAttribute="trailing" constant="8" id="QA5-1H-nVj"/>
+                <constraint firstAttribute="bottom" secondItem="q6b-v1-8zr" secondAttribute="bottom" constant="8" id="Tvv-RA-PoA"/>
+                <constraint firstItem="q6b-v1-8zr" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" constant="11" id="ZjP-Wt-blL"/>
+                <constraint firstItem="pu3-gg-Kt3" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="12" id="dPj-tP-8rk"/>
+                <constraint firstItem="pu3-gg-Kt3" firstAttribute="centerY" secondItem="U6b-Vx-4bR" secondAttribute="centerY" id="yv5-zf-EQt"/>
+            </constraints>
+            <connections>
+                <outlet property="headerView" destination="pu3-gg-Kt3" id="VET-Q4-RoC"/>
+                <outlet property="titleLabel" destination="q6b-v1-8zr" id="ZtV-kP-I3p"/>
+            </connections>
+            <point key="canvasLocation" x="75" y="225"/>
+        </collectionReusableView>
+    </objects>
+</document>

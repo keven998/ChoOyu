@@ -11,5 +11,7 @@
 @interface StoreDetailViewController : TZViewController
 
 @property (nonatomic) NSInteger storeId;
+@property (nonatomic, copy) NSString *storeName;
+
 
 @end
