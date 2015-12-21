@@ -93,7 +93,7 @@
     [_scrollView addSubview:_firstNameTextField];
     
     _telTextField = [[UITextField alloc] initWithFrame:CGRectMake(126, 10+48*2, (kWindowWidth-106)-40, 28)];
-    _telTextField.placeholder = @"电话";
+    _telTextField.placeholder = @"+86";
     _telTextField.text = _traveler.telDesc;
     _telTextField.font = [UIFont systemFontOfSize:15];
     _telTextField.textColor = COLOR_TEXT_III;

@@ -24,7 +24,10 @@
 }
 
 - (NSString *)telDesc{
-    return [NSString stringWithFormat:@"+%@ %@", _dialCode, _telNumber];
+    if (_telNumber) {
+        return [NSString stringWithFormat:@"+%@ %@", _dialCode, _telNumber];
+    }
+    return nil;
 }
 
 - (NSString *)IDCategoryDesc

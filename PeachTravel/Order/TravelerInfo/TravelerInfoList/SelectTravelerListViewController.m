@@ -24,6 +24,7 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.separatorColor = COLOR_LINE;
+    _tableView.backgroundColor = APP_PAGE_COLOR;
     [_tableView registerNib:[UINib nibWithNibName:@"TravelerInfoTableViewCell" bundle:nil] forCellReuseIdentifier:@"travelerInfoTableViewCell"];
     
     UIButton *confirmBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
@@ -32,14 +33,37 @@
     [confirmBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [confirmBtn addTarget:self action:@selector(confirm:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:confirmBtn];
+    [self setupFooterView];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     [OrderUserInfoManager asyncLoadTravelersFromServerOfUser:[AccountManager shareAccountManager].account.userId completionBlock:^(BOOL isSuccess, NSArray<OrderTravelerInfoModel *> *travelers) {
         _dataSource = travelers;
         [_tableView reloadData];
     }];
+
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (void)setupFooterView
+{
+    UIButton *addTravelerBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, kWindowHeight-49, kWindowWidth, 49)];
+    addTravelerBtn.backgroundColor = [UIColor whiteColor];
+    addTravelerBtn.layer.borderWidth = 0.5;
+    addTravelerBtn.layer.borderColor = COLOR_LINE.CGColor;
+    addTravelerBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 10);
+    addTravelerBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
+    addTravelerBtn.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    [addTravelerBtn setTitle:@"添加旅客" forState:UIControlStateNormal];
+    [addTravelerBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+    [addTravelerBtn setImage:[UIImage imageNamed:@"icon_travlerInfo_add"] forState:UIControlStateNormal];
+    [addTravelerBtn addTarget:self action:@selector(addTraveler:) forControlEvents:UIControlEventTouchUpInside];
+    _tableView.tableFooterView = addTravelerBtn;
 }
 
 - (void)confirm:(UIButton *)btn
@@ -55,6 +79,14 @@
     }
     
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction)addTraveler:(id)sender
+{
+    TravelerInfoViewController *ctl = [[TravelerInfoViewController alloc] init];
+    ctl.isAddTravelerInfo = YES;
+    
+    [self.navigationController pushViewController:ctl animated:YES];
 }
 
 - (void)editTravelerInfo:(UIButton *)btn

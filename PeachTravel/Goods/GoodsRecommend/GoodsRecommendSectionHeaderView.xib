@@ -17,19 +17,19 @@
                         <constraint firstAttribute="height" constant="21" id="xhe-9i-utr"/>
                         <constraint firstAttribute="width" constant="66" id="zJq-hC-ATA"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                     <color key="textColor" red="0.59999999999999998" green="0.80000000000000004" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5es-SB-527">
-                    <rect key="frame" x="34" y="19.5" width="210" height="0.5"/>
+                    <rect key="frame" x="20" y="19.5" width="230" height="0.5"/>
                     <color key="backgroundColor" red="0.88627450980392153" green="0.88627450980392153" blue="0.88627450980392153" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="0.5" id="Men-yI-eTL"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hXG-Si-oFq">
-                    <rect key="frame" x="356" y="19.5" width="210" height="0.5"/>
+                    <rect key="frame" x="356" y="19.5" width="230" height="0.5"/>
                     <color key="backgroundColor" red="0.88627450980392153" green="0.88627450980392153" blue="0.88627450980392153" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="0.5" id="wuF-NV-FXg"/>
@@ -43,9 +43,9 @@
                 <constraint firstAttribute="bottom" secondItem="72A-OU-C6h" secondAttribute="bottom" constant="8" id="6l3-rZ-63d"/>
                 <constraint firstItem="72A-OU-C6h" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="CQC-hf-jzo"/>
                 <constraint firstItem="5es-SB-527" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="19.5" id="DAR-R8-pS4"/>
-                <constraint firstAttribute="trailing" secondItem="hXG-Si-oFq" secondAttribute="trailing" constant="34" id="Fga-CY-989"/>
-                <constraint firstItem="5es-SB-527" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="34" id="cv4-ax-EWk"/>
-                <constraint firstItem="72A-OU-C6h" firstAttribute="leading" secondItem="5es-SB-527" secondAttribute="trailing" constant="23" id="sz2-Rt-3hI"/>
+                <constraint firstAttribute="trailing" secondItem="hXG-Si-oFq" secondAttribute="trailing" constant="14" id="Fga-CY-989"/>
+                <constraint firstItem="5es-SB-527" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="cv4-ax-EWk"/>
+                <constraint firstItem="72A-OU-C6h" firstAttribute="leading" secondItem="5es-SB-527" secondAttribute="trailing" constant="17" id="sz2-Rt-3hI"/>
                 <constraint firstItem="hXG-Si-oFq" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="19.5" id="v7A-5B-h5u"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
