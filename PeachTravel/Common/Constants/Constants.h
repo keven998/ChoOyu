@@ -115,10 +115,12 @@
 #define API_FEEDBACK                            (BASE_URL @"misc/feedback")    //反馈接口
 #define API_EXPERTREQUEST                       (BASE_URL @"misc/expert-requests")    //达人申请接口
 
-/*****商品接口*******/
+/*****商品/商户接口*******/
 
 #define API_GOODS_CATEGORY                      (BASE_URL @"marketplace/commodities/categories")  //商品分类
 #define API_GOODSLIST                           (BASE_URL @"marketplace/commodities")  //商品列表
+
+#define API_STORE                               (BASE_URL @"marketplace/sellers")  //店铺接口
 
 /*****  订单接口 ******/
 
@@ -273,6 +275,8 @@ typedef NS_ENUM(NSUInteger, TZCMDChatType) {
 #define COLOR_TEXT_III                  UIColorFromRGB(0x969696)
 #define COLOR_TEXT_IV                   UIColorFromRGB(0xc8c8c8)
 #define COLOR_TEXT_V                    UIColorFromRGB(0xcdcdcd)
+
+#define COLOR_PRICE_RED                 UIColorFromRGB(0xFB1908)
 
 //pre-design
 #pragma mark - unuse

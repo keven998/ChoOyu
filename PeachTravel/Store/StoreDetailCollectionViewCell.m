@@ -1,27 +1,27 @@
 //
-//  GoodsListTableViewCell.m
+//  StoreDetailCollectionViewCell.m
 //  PeachTravel
 //
-//  Created by liangpengshuai on 11/6/15.
+//  Created by liangpengshuai on 12/21/15.
 //  Copyright © 2015 com.aizou.www. All rights reserved.
 //
 
-#import "GoodsListTableViewCell.h"
+#import "StoreDetailCollectionViewCell.h"
 
-@implementation GoodsListTableViewCell
+@implementation StoreDetailCollectionViewCell
 
 - (void)awakeFromNib {
-    _headerImageView.clipsToBounds = YES;
+    self.layer.borderColor = COLOR_LINE.CGColor;
+    self.layer.borderWidth = 0.25;
+    _saleCountLabel.adjustsFontSizeToFitWidth = YES;
 }
 
 - (void)setGoodsDetail:(GoodsDetailModel *)goodsDetail
 {
     _goodsDetail = goodsDetail;
-    _storeNameLabel.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
-    [_headerImageView sd_setImageWithURL:[NSURL URLWithString:_goodsDetail.image.imageUrl] placeholderImage:nil];
-    _titleLabel.text = _goodsDetail.goodsName;
-    _subtitleLabel.text = _goodsDetail.goodsDesc;
-    _tagCollectionView.backgroundColor = [UIColor clearColor];
+    _goodsNameLabel.text = _goodsDetail.goodsName;
+    [_goodsImageView sd_setImageWithURL:[NSURL URLWithString:_goodsDetail.coverImage.imageUrl] placeholderImage:nil];
+    _saleCountLabel.text = [NSString stringWithFormat:@"%ld已售", _goodsDetail.saleCount];
     
     NSString *oldPrice = [NSString stringWithFormat:@"￥%d", (int)_goodsDetail.primePrice];
     NSString *nowPrice = [NSString stringWithFormat:@"￥%d", (int)_goodsDetail.currentPrice];
@@ -34,17 +34,10 @@
     [attrStr addAttribute:NSStrikethroughStyleAttributeName value:[NSNumber numberWithInt:NSUnderlineStyleSingle] range:NSMakeRange(0, oldPrice.length)];
     
     [attrStr addAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14],
-                             NSForegroundColorAttributeName: APP_THEME_COLOR,
+                             NSForegroundColorAttributeName: COLOR_PRICE_RED,
                              } range:NSMakeRange(oldPrice.length, nowPrice.length)];
     _priceLabel.attributedText = attrStr;
-    _tagCollectionView.tagsList = _goodsDetail.store.qualifications;
-    NSString *propertyStrig = [NSString stringWithFormat:@"%d%%满意  |  销量: %ld", (int)(_goodsDetail.rating), _goodsDetail.saleCount];
-    [_propertyBtn setTitle:propertyStrig forState:UIControlStateNormal];
-    _storeNameLabel.text = _goodsDetail.store.storeName;
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
+    
 }
 
 @end

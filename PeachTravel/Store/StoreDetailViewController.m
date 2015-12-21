@@ -7,12 +7,20 @@
 //
 
 #import "StoreDetailViewController.h"
-#import "ShareActivity.h"
 #import "UMSocial.h"
 #import "StoreDetailModel.h"
+#import "StoreManager.h"
 #import "StoreDetailHeaderView.h"
+#import "GoodsManager.h"
+#import "StoreDetailCollectionViewCell.h"
+#import "ChatGroupSettingViewController.h"
+#import "ChatSettingViewController.h"
+#import "REFrostedViewController.h"
+#import "ChatViewController.h"
+#import "LoginViewController.h"
+#import "GoodsDetailViewController.h";
 
-@interface StoreDetailViewController () <ActivityDelegate>
+@interface StoreDetailViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UICollectionView *collectionView;
@@ -27,17 +35,46 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"店铺详情";
+//    self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = APP_PAGE_COLOR;
     _scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
     _scrollView.backgroundColor = APP_PAGE_COLOR;
     [self.view addSubview:_scrollView];
     
-    _storeHeaderView = [[StoreDetailHeaderView alloc] initWithFrame:CGRectMake(0, 0, _scrollView.bounds.size.width, 115)];
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    _storeHeaderView = [[StoreDetailHeaderView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 115)];
+    [self.scrollView addSubview:_storeHeaderView];
     
-    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 125, kWindowWidth, kWindowHeight-15) collectionViewLayout:layout];
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    layout.itemSize = CGSizeMake(kWindowWidth/2, kWindowWidth/2);
+    layout.minimumInteritemSpacing = 0;
+    layout.minimumLineSpacing = 0;
+    
+    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 125, kWindowWidth, 0) collectionViewLayout:layout];
+    _collectionView.scrollEnabled = NO;
+    _collectionView.delegate = self;
+    _collectionView.dataSource = self;
     _collectionView.backgroundColor = APP_PAGE_COLOR;
+    [_collectionView registerNib:[UINib nibWithNibName:@"StoreDetailCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"storeDetailCollectionViewCell"];
     [_scrollView addSubview:_collectionView];
+    
+    UIButton *chatBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, kWindowHeight-49, kWindowWidth, 49)];
+    chatBtn.backgroundColor = [UIColor whiteColor];
+    chatBtn.layer.borderWidth = 0.5;
+    chatBtn.layer.borderColor = COLOR_LINE.CGColor;
+    chatBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 10);
+    chatBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
+    [chatBtn setTitle:@"联系商家" forState:UIControlStateNormal];
+    [chatBtn setTitleColor:COLOR_TEXT_I forState:UIControlStateNormal];
+    [chatBtn setImage:[UIImage imageNamed:@"icon_store_chat"] forState:UIControlStateNormal];
+    [chatBtn addTarget:self action:@selector(chatWithBusiness) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:chatBtn];
+    
+    [StoreManager asyncLoadStoreInfoWithStoreId:_storeId completionBlock:^(BOOL isSuccess, StoreDetailModel *storeDetail) {
+        self.storeDetail = storeDetail;
+    }];
+    [GoodsManager asyncLoadGoodsOfStore:_storeId startIndex:-1 count:-1 completionBlock:^(BOOL isSuccess, NSArray *goodsList) {
+        self.dataSource = goodsList;
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -47,99 +84,101 @@
 - (void)setDataSource:(NSArray *)dataSource
 {
     _dataSource = dataSource;
+    CGFloat height = ((int)(_dataSource.count/2) + _dataSource.count%2) * kWindowWidth/2;
+    CGRect frame = self.collectionView.frame;
+    frame.size.height = height;
+    self.collectionView.frame = frame;
+    self.scrollView.contentSize = CGSizeMake(0, frame.size.height + frame.origin.y + 50);
+    [self.collectionView reloadData];
 }
 
 - (void)setStoreDetail:(StoreDetailModel *)storeDetail
 {
     _storeDetail = storeDetail;
+    _storeHeaderView.storeDetail = _storeDetail;
 }
 
-- (void)share2Frend
+- (void)chatWithBusiness
 {
-    NSArray *shareButtonimageArray = @[@"ic_sns_pengyouquan.png",  @"ic_sns_weixin.png", @"ic_sns_qq.png", @"ic_sns_qzone.png", @"ic_sns_sina.png", @"ic_sns_douban.png"];
-    NSArray *shareButtonTitleArray = @[@"朋友圈", @"微信朋友", @"QQ", @"QQ空间", @"新浪微博", @"豆瓣"];
-    ShareActivity *shareActivity = [[ShareActivity alloc] initWithTitle:@"转发至" delegate:self cancelButtonTitle:@"取消" ShareButtonTitles:shareButtonTitleArray withShareButtonImagesName:shareButtonimageArray];
-    [shareActivity showInView:self.navigationController.view];
-}
-
-- (void)favorite
-{
-    
-}
-
-#pragma mark - AvtivityDelegate
-
-- (void)didClickOnImageIndex:(NSInteger)imageIndex
-{
-    NSString *url = @"http://7af4ik.com1.z0.glb.clouddn.com/react/index.html";
-    NSString *shareContentWithoutUrl = [NSString stringWithFormat:@"这个商品来自旅行派～"];
-    NSString *shareContentWithUrl = [NSString stringWithFormat:@"这个商品来自旅行派 %@", url];
-    NSString *imageUrl = @"http://images.taozilvxing.com/28c2d1ef35c12100e99fecddb63c436a?imageView2/2/w/300";
-    UMSocialUrlResource *resource = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeImage url:imageUrl];
-    
-    [UMSocialConfig setFinishToastIsHidden:NO position:UMSocialiToastPositionCenter];
-    switch (imageIndex) {
-            
-        case 0: {
-            [UMSocialData defaultData].extConfig.wechatTimelineData.url = url;
-            [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatTimeline] content:shareContentWithoutUrl image:nil location:nil urlResource:resource presentedController:self completion:^(UMSocialResponseEntity *response){
-                if (response.responseCode == UMSResponseCodeSuccess) {
-                    NSLog(@"分享成功！");
-                }
-            }];
-            
-        }
-            break;
-            
-        case 1: {
-            [UMSocialData defaultData].extConfig.wechatSessionData.url = url;
-            [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:shareContentWithoutUrl image:nil location:nil urlResource:resource presentedController:nil completion:^(UMSocialResponseEntity *response){
-                if (response.responseCode == UMSResponseCodeSuccess) {
-                    NSLog(@"分享成功！");
-                }
-            }];
-        }
-            break;
-            
-        case 2: {
-            [UMSocialData defaultData].extConfig.qqData.url = url;
-            [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToQQ] content:shareContentWithoutUrl image:nil location:nil urlResource:resource presentedController:self completion:^(UMSocialResponseEntity *response){
-                if (response.responseCode == UMSResponseCodeSuccess) {
-                    NSLog(@"分享成功！");
-                }
-            }];
-        }
-            break;
-            
-        case 3: {
-            [UMSocialData defaultData].extConfig.qzoneData.url = url;
-            [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToQzone] content:shareContentWithoutUrl image:[UIImage imageNamed:@"app_icon.png"] location:nil urlResource:nil presentedController:self completion:^(UMSocialResponseEntity *response){
-                if (response.responseCode == UMSResponseCodeSuccess) {
-                    NSLog(@"分享成功！");
-                }
-            }];
-            
-        }
-            break;
-            
-        case 4:
-            [[UMSocialControllerService defaultControllerService] setShareText:shareContentWithUrl shareImage:nil socialUIDelegate:nil];
-            
-            [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
-            
-            break;
-            
-        case 5:
-            [[UMSocialControllerService defaultControllerService] setShareText:shareContentWithUrl shareImage:nil  socialUIDelegate:nil];
-            
-            [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToDouban].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
-            
-            break;
-            
-        default:
-            break;
+    if (![[AccountManager shareAccountManager] isLogin]) {
+        [SVProgressHUD showHint:@"请先登录"];
+        [self performSelector:@selector(login) withObject:nil afterDelay:0.3];
+        return;
     }
+    IMClientManager *clientManager = [IMClientManager shareInstance];
+    ChatConversation *conversation = [clientManager.conversationManager getConversationWithChatterId:_storeId chatType:IMChatTypeIMChatSingleType];
+    ChatViewController *chatController = [[ChatViewController alloc] initWithConversation:conversation];
+    if (conversation.chatterName) {
+        chatController.chatterName = conversation.chatterName;
+    } else {
+        chatController.chatterName = _storeDetail.storeName;
+    }
+    UIViewController *menuViewController = nil;
+    if (conversation.chatType == IMChatTypeIMChatGroupType || conversation.chatType == IMChatTypeIMChatDiscussionGroupType) {
+        menuViewController = [[ChatGroupSettingViewController alloc] init];
+        ((ChatGroupSettingViewController *)menuViewController).groupId = conversation.chatterId;
+        ((ChatGroupSettingViewController *)menuViewController).conversation = conversation;
+        
+    } else {
+        menuViewController = [[ChatSettingViewController alloc] init];
+        ((ChatSettingViewController *)menuViewController).currentConversation= conversation;
+        ((ChatSettingViewController *)menuViewController).chatterId = conversation.chatterId;
+    }
+    
+    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:chatController menuViewController:menuViewController];
+    
+    if (conversation.chatType == IMChatTypeIMChatGroupType || conversation.chatType == IMChatTypeIMChatDiscussionGroupType) {
+        ((ChatGroupSettingViewController *)menuViewController).containerCtl = frostedViewController;
+    } else {
+        ((ChatSettingViewController *)menuViewController).containerCtl = frostedViewController;
+    }
+    frostedViewController.hidesBottomBarWhenPushed = YES;
+    frostedViewController.direction = REFrostedViewControllerDirectionRight;
+    frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
+    frostedViewController.liveBlur = YES;
+    frostedViewController.limitMenuViewSize = YES;
+    chatController.backBlock = ^{
+        [frostedViewController.navigationController popViewControllerAnimated:YES];
+    };
+    
+    [self.navigationController pushViewController:frostedViewController animated:YES];
+    
 }
 
+
+- (void)login
+{
+    LoginViewController *loginViewController = [[LoginViewController alloc] init];
+    TZNavigationViewController *nctl = [[TZNavigationViewController alloc] initWithRootViewController:loginViewController];
+    loginViewController.isPushed = NO;
+    [self presentViewController:nctl animated:YES completion:nil];
+}
+
+#pragma mark - UICollectionViewDataSource
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return _dataSource.count;
+}
+
+- (NSInteger)numberOfItemsInSection:(NSInteger)section
+{
+    return 1;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    StoreDetailCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"storeDetailCollectionViewCell" forIndexPath:indexPath];
+    cell.goodsDetail = _dataSource[indexPath.row];
+    return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    GoodsDetailModel *goodsDetail = _dataSource[indexPath.row];
+    GoodsDetailViewController *ctl = [[GoodsDetailViewController alloc] init];
+    ctl.goodsId = goodsDetail.goodsId;
+    [self.navigationController pushViewController:ctl animated:YES];
+}
 
 @end

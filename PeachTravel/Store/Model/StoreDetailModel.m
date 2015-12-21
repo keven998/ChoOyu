@@ -16,7 +16,16 @@
         _storeId = [[json objectForKey:@"sellerId"] integerValue];
         _storeName = [json objectForKey:@"name"];
         _serviceTags = [json objectForKey:@"qualifications"];
-    }
+        _languages = [json objectForKey:@"lang"];
+        _serviceTags = [json objectForKey:@"services"];
+        _qualifications = [json objectForKey:@"qualifications"];
+        
+#warning test
+        _languages = @[@"中文", @"英文", @"当地语"];
+        _serviceTags = @[@"行程规划", @"做攻略", @"语言服务"];
+        _qualifications = @[@"认证商家", @"如实描述", @"24小时响应"];
+
+     }
     return self;
 }
 

@@ -10,4 +10,6 @@
 
 @interface StoreDetailViewController : TZViewController
 
+@property (nonatomic) NSInteger storeId;
+
 @end

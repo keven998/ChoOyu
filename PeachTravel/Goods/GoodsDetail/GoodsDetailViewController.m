@@ -105,6 +105,7 @@ RCT_EXPORT_MODULE();
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         StoreDetailViewController *ctl = [[StoreDetailViewController alloc] init];
+        ctl.storeId = _goodsDetail.store.storeId;
         [self.navigationController pushViewController:ctl animated:YES];
     });
 }

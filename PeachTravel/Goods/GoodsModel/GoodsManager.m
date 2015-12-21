@@ -113,6 +113,48 @@
     }];
 }
 
++ (void)asyncLoadGoodsOfStore:(NSInteger)storeId startIndex:(NSInteger)startIndex count:(NSUInteger)count completionBlock:(void (^)(BOOL, NSArray *))completion
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params safeSetObject:[NSNumber numberWithInteger:storeId] forKey:@"seller"];
+    if (startIndex >= 0) {
+        [params safeSetObject:[NSNumber numberWithInteger:startIndex] forKey:@"start"];
+    }
+    if (count > 0) {
+        [params safeSetObject:[NSNumber numberWithInteger:count] forKey:@"count"];
+    }
+    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [manager GET:API_GOODSLIST parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"***开始加载城市的商品列表: %@", operation);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            NSMutableArray *retArray = [[NSMutableArray alloc] init];
+            for (NSDictionary *dic in [responseObject objectForKey:@"result"]) {
+                GoodsDetailModel *goods = [[GoodsDetailModel alloc] initWithJson:dic];
+                [retArray addObject:goods];
+            }
+            completion(YES, retArray);
+            
+        } else {
+            completion(NO, nil);
+        }
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completion(NO, nil);
+        
+    }];
+}
+
 + (void)asyncLoadRecommendGoodsWithCompletionBlock:(void (^)(BOOL isSuccess, NSArray<NSDictionary *> *goodsList))completion
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
