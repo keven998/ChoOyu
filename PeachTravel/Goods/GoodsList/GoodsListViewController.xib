@@ -21,11 +21,11 @@
                     <rect key="frame" x="0.0" y="41" width="600" height="559"/>
                     <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                 </tableView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lgk-NZ-XJr">
-                    <rect key="frame" x="555" y="485" width="35" height="35"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lgk-NZ-XJr">
+                    <rect key="frame" x="532" y="495" width="60" height="46"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="35" id="is3-yM-DoF"/>
-                        <constraint firstAttribute="height" constant="35" id="tgp-Xd-cCm"/>
+                        <constraint firstAttribute="width" constant="60" id="is3-yM-DoF"/>
+                        <constraint firstAttribute="height" constant="46" id="tgp-Xd-cCm"/>
                     </constraints>
                     <state key="normal" image="icon_scroll_top"/>
                 </button>
@@ -33,9 +33,9 @@
             <color key="backgroundColor" red="0.96862745098039216" green="0.98039215686274506" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="ora-Cq-5ER" secondAttribute="trailing" id="9bs-ER-sqV"/>
-                <constraint firstAttribute="trailing" secondItem="Lgk-NZ-XJr" secondAttribute="trailing" constant="10" id="CQ9-Fp-cFL"/>
+                <constraint firstAttribute="trailing" secondItem="Lgk-NZ-XJr" secondAttribute="trailing" constant="8" id="CQ9-Fp-cFL"/>
                 <constraint firstAttribute="bottom" secondItem="ora-Cq-5ER" secondAttribute="bottom" id="Qwf-uJ-rbC"/>
-                <constraint firstAttribute="bottom" secondItem="Lgk-NZ-XJr" secondAttribute="bottom" constant="80" id="dce-xX-Dxl"/>
+                <constraint firstAttribute="bottom" secondItem="Lgk-NZ-XJr" secondAttribute="bottom" constant="59" id="dce-xX-Dxl"/>
                 <constraint firstItem="ora-Cq-5ER" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="41" id="rVL-Sy-P9H"/>
                 <constraint firstItem="ora-Cq-5ER" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="txG-nn-PPR"/>
             </constraints>
@@ -44,6 +44,6 @@
         </view>
     </objects>
     <resources>
-        <image name="icon_scroll_top" width="105" height="105"/>
+        <image name="icon_scroll_top" width="35" height="35"/>
     </resources>
 </document>
