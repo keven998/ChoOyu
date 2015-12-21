@@ -13,6 +13,7 @@
 - (void)awakeFromNib {
     self.layer.borderColor = COLOR_LINE.CGColor;
     self.layer.borderWidth = 0.25;
+    _goodsImageView.clipsToBounds = YES;
     _saleCountLabel.adjustsFontSizeToFitWidth = YES;
 }
 

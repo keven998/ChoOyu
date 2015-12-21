@@ -16,11 +16,9 @@
 @interface CityDetailHeaderView ()
 
 @property (nonatomic, strong) UIImageView *headerImageView;
-@property (nonatomic, strong) UILabel *travelMonthLabel;
 @property (nonatomic, strong) UILabel *zhNameLabel;
 @property (nonatomic, strong) UILabel *enNameLabel;
 @property (nonatomic, strong) UIButton *pictureIndexBtn;
-@property (nonatomic, strong) UIButton *goodsCountBtn;
 
 @end
 
@@ -68,22 +66,7 @@
     [_pictureIndexBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self addSubview:_pictureIndexBtn];
     
-    _travelMonthLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 214, frame.size.width-90, 40)];
-    _travelMonthLabel.textColor = COLOR_TEXT_II;
-    _travelMonthLabel.font = [UIFont systemFontOfSize:13];
-    _travelMonthLabel.text = [NSString stringWithFormat:@"推荐旅行时间: %@", _cityPoi.travelMonth];
-    [self addSubview:_travelMonthLabel];
-    
-    _goodsCountBtn = [[UIButton alloc] initWithFrame:CGRectMake(frame.size.width-80, 214, 50, 40)];
-    [_goodsCountBtn setImage:[UIImage imageNamed:@"icon_cityDetail_goodsCnt"] forState:UIControlStateNormal];
-    [_goodsCountBtn setTitle:[NSString stringWithFormat:@"%ld", _cityPoi.goodsCount] forState:UIControlStateNormal];
-    _goodsCountBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 0);
-    [_goodsCountBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
-    _goodsCountBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-    _goodsCountBtn.userInteractionEnabled = NO;
-    [self addSubview:_goodsCountBtn];
-    
-    UIView *btnBkgView = [[UIView alloc] initWithFrame:CGRectMake(0, 254, frame.size.width, 196)];
+    UIView *btnBkgView = [[UIView alloc] initWithFrame:CGRectMake(0, 214, frame.size.width, 196)];
     btnBkgView.backgroundColor = [UIColor whiteColor];
     [self addSubview:btnBkgView];
     
