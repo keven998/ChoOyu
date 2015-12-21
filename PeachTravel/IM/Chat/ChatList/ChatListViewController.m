@@ -659,10 +659,10 @@
 
         } else {
             [cell.imageView sd_setImageWithURL:[NSURL URLWithString:tzConversation.chatterAvatar] placeholderImage:[UIImage imageNamed:@"avatar_default"]];
-            cell.imageView.layer.cornerRadius = 28;
+            cell.imageView.layer.cornerRadius = 22.5;
         }
     } else {
-        cell.imageView.layer.cornerRadius = 28;
+        cell.imageView.layer.cornerRadius = 22.5;
         cell.imageView.image = [UIImage imageNamed:@"icon_chat_group.png"];
         if (tzConversation.chatterName && ![tzConversation.chatterName isBlankString]) {
             cell.name = tzConversation.chatterName;
@@ -699,7 +699,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 76;
+    return 64;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

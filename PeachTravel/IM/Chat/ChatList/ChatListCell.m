@@ -41,19 +41,19 @@
         self.imageView.clipsToBounds = YES;
         
         _nickNameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _nickNameLabel.font = [UIFont systemFontOfSize:18];
+        _nickNameLabel.font = [UIFont systemFontOfSize:17];
         _nickNameLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         _nickNameLabel.textColor = COLOR_TEXT_I;
         [self.contentView addSubview:_nickNameLabel];
 
         _timeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _timeLabel.font = [UIFont systemFontOfSize:14];
+        _timeLabel.font = [UIFont systemFontOfSize:13];
         _timeLabel.textColor = COLOR_TEXT_III;
         _timeLabel.textAlignment = NSTextAlignmentRight;
         [self.contentView addSubview:_timeLabel];
         
         _detailLabel = [[UILabel alloc] init];
-        _detailLabel.font = [UIFont systemFontOfSize:14];
+        _detailLabel.font = [UIFont systemFontOfSize:13];
         _detailLabel.textColor = COLOR_TEXT_III;
         _detailLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         _detailLabel.lineBreakMode = NSLineBreakByTruncatingTail;
@@ -92,13 +92,13 @@
     [super layoutSubviews];
     
     CGFloat width = CGRectGetWidth(self.bounds);
-    self.imageView.frame = CGRectMake(12, 10, 56, 56);
+    self.imageView.frame = CGRectMake(12, 10, 45, 45);
     
     CGFloat contentOffsetX = CGRectGetMaxX(self.imageView.frame) + 10;
     _nickNameLabel.text = _name;
-    _nickNameLabel.frame = CGRectMake(contentOffsetX, 15, width - contentOffsetX - 85, 22);
+    _nickNameLabel.frame = CGRectMake(contentOffsetX, 10, width - contentOffsetX - 85, 22);
     
-    _timeLabel.frame = CGRectMake(width - 80.0, 15, 70.0, 22);
+    _timeLabel.frame = CGRectMake(width - 80.0, 10, 70.0, 22);
     _unreadLabel.frame = CGRectMake(0, 0, 21, 21);
     _unreadLabel.center = CGPointMake(65, 12);
     
@@ -127,9 +127,9 @@
         activityView.hidden = YES;
     }
     
-    sendFailedImageView.frame = CGRectMake(contentOffsetX, 48.5, 12, 12);
-    activityView.frame = CGRectMake(contentOffsetX, 48.5, 13, 12);
-    _detailLabel.frame = CGRectMake(contentOffsetX+offsetX, 46, width - 85.0-contentOffsetX, 16);
+    sendFailedImageView.frame = CGRectMake(contentOffsetX, 40, 12, 12);
+    activityView.frame = CGRectMake(contentOffsetX, 42, 13, 12);
+    _detailLabel.frame = CGRectMake(contentOffsetX+offsetX, 38, width - 85.0-contentOffsetX, 16);
     
     _timeLabel.text = _time;
     if (_unreadCount > 0) {
@@ -152,10 +152,10 @@
     } else{
         [_unreadLabel setHidden:YES];
     }
-    spaceView.frame = CGRectMake(13.5, self.contentView.frame.size.height-0.7, width - 13, 0.7);
+    spaceView.frame = CGRectMake(13.5, self.contentView.frame.size.height-0.5, width - 13, 0.5);
 }
 
--(void)setName:(NSString *)name{
+- (void)setName:(NSString *)name {
     _name = name;
     _nickNameLabel.text = name;
 }
