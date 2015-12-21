@@ -87,7 +87,7 @@
 
 - (void)scroll2Top
 {
-    [self.tableView setContentOffset:CGPointZero animated:YES];
+    [self.tableView setContentOffset:CGPointMake(0, -64) animated:YES];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

@@ -12,21 +12,20 @@
 
 - (void)awakeFromNib {
     _headerImageView.clipsToBounds = YES;
+    _titleBtn.titleLabel.numberOfLines = 2;
 }
 
 - (void)setGoodsDetail:(GoodsDetailModel *)goodsDetail
 {
     _goodsDetail = goodsDetail;
-    _storeNameLabel.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
     [_headerImageView sd_setImageWithURL:[NSURL URLWithString:_goodsDetail.image.imageUrl] placeholderImage:nil];
-    _titleLabel.text = _goodsDetail.goodsName;
-    _subtitleLabel.text = _goodsDetail.goodsDesc;
-    _tagCollectionView.backgroundColor = [UIColor clearColor];
+    _titleBtn.titleLabel.numberOfLines = 2;
+    [_titleBtn setTitle:_goodsDetail.goodsName forState:UIControlStateNormal];
     
     NSString *oldPrice = [NSString stringWithFormat:@"￥%d", (int)_goodsDetail.primePrice];
     NSString *nowPrice = [NSString stringWithFormat:@"￥%d", (int)_goodsDetail.currentPrice];
     
-    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@", oldPrice, nowPrice]];
+    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@起", oldPrice, nowPrice]];
     [attrStr addAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:12],
                              NSForegroundColorAttributeName: COLOR_TEXT_III,
                              } range:NSMakeRange(0, oldPrice.length)];
@@ -34,13 +33,12 @@
     [attrStr addAttribute:NSStrikethroughStyleAttributeName value:[NSNumber numberWithInt:NSUnderlineStyleSingle] range:NSMakeRange(0, oldPrice.length)];
     
     [attrStr addAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14],
-                             NSForegroundColorAttributeName: APP_THEME_COLOR,
+                             NSForegroundColorAttributeName: COLOR_PRICE_RED,
                              } range:NSMakeRange(oldPrice.length, nowPrice.length)];
     _priceLabel.attributedText = attrStr;
-    _tagCollectionView.tagsList = _goodsDetail.store.qualifications;
-    NSString *propertyStrig = [NSString stringWithFormat:@"%d%%满意  |  销量: %ld", (int)(_goodsDetail.rating), _goodsDetail.saleCount];
+    NSString *propertyStrig = [NSString stringWithFormat:@"10%d%%满意  销量: 10%ld", (int)(_goodsDetail.rating), _goodsDetail.saleCount];
     [_propertyBtn setTitle:propertyStrig forState:UIControlStateNormal];
-    _storeNameLabel.text = _goodsDetail.store.storeName;
+    [_storeNameBtn setTitle:_goodsDetail.store.storeName forState:UIControlStateNormal];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

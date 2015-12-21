@@ -11,13 +11,11 @@
 #import "GoodsDetailModel.h"
 
 @interface GoodsListTableViewCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UILabel *subtitleLabel;
-@property (weak, nonatomic) IBOutlet TZTagsCollectionView *tagCollectionView;
+@property (weak, nonatomic) IBOutlet UIButton *titleBtn;
 @property (weak, nonatomic) IBOutlet UIImageView *headerImageView;
 @property (weak, nonatomic) IBOutlet UIButton *propertyBtn;
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
-@property (weak, nonatomic) IBOutlet UILabel *storeNameLabel;
+@property (weak, nonatomic) IBOutlet UIButton *storeNameBtn;
 
 @property (nonatomic, strong) GoodsDetailModel *goodsDetail;
 
