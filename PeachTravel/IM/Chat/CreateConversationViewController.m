@@ -36,13 +36,11 @@
     [self.view addSubview:self.contactTableView];
     
     UIBarButtonItem *confirm = [[UIBarButtonItem alloc]initWithTitle:@"确定 " style:UIBarButtonItemStylePlain target:self action:@selector(createConversation:)];
-    confirm.tintColor = COLOR_TEXT_II;
     self.navigationItem.rightBarButtonItem = confirm;
     self.navigationItem.rightBarButtonItem.enabled = NO;
     
     if (self.navigationController.viewControllers.count == 1) {
         UIBarButtonItem *backBtn = [[UIBarButtonItem alloc]initWithTitle:@" 取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismissCtl:)];
-        backBtn.tintColor = COLOR_TEXT_II;
         self.navigationItem.leftBarButtonItem = backBtn;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismissCtl:) name:userDidLogoutNoti object:nil];
     }

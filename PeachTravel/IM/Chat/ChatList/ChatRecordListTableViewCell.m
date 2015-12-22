@@ -11,13 +11,8 @@
 @implementation ChatRecordListTableViewCell
 
 - (void)awakeFromNib {
-    _headerImageView.layer.cornerRadius = 20;
+    _headerImageView.layer.cornerRadius = 19;
     _headerImageView.clipsToBounds = YES;
-    
-    UIView *divider = [[UIView alloc] initWithFrame:CGRectMake(15, 63.4, CGRectGetWidth(self.bounds), 0.6)];
-    divider.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    divider.backgroundColor = COLOR_LINE;
-    [self.contentView addSubview:divider];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

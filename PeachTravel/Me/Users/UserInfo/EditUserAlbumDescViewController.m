@@ -32,7 +32,7 @@
     _saveBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [_saveBtn setTitle:@"保存" forState:UIControlStateNormal];
     [_saveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [_saveBtn setTitleColor:COLOR_TEXT_III forState:UIControlStateDisabled];
+    [_saveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateDisabled];
     [_saveBtn addTarget:self action:@selector(saveChange) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_saveBtn];
     

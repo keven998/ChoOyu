@@ -75,7 +75,7 @@ static LocationViewController *defaultLocation = nil;
         _mapView.showsUserLocation = YES;//显示当前位置
         
         UIBarButtonItem * sendButton = [[UIBarButtonItem alloc]initWithTitle:@"发送 " style:UIBarButtonItemStylePlain target:self action:@selector(sendLocation)];
-        sendButton.tintColor = COLOR_TEXT_II;
+        sendButton.tintColor = [UIColor whiteColor];
         self.navigationItem.rightBarButtonItem = sendButton;
         self.navigationItem.rightBarButtonItem.enabled = NO;
         

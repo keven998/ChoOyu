@@ -22,13 +22,16 @@
 #import "ChatSettingViewController.h"
 #import "REFrostedViewController.h"
 #import "LoginViewController.h"
+#import "ChatRecoredListTableViewController.h"
+#import "TaoziChatMessageBaseViewController.h"
 
-@interface GoodsDetailViewController ()<RCTBridgeModule, ActivityDelegate> {
+@interface GoodsDetailViewController ()<RCTBridgeModule, ActivityDelegate, CreateConversationDelegate, TaoziMessageSendDelegate> {
     RCTBridge *bridge;
     RCTRootView *rootView;
 }
 
 @property (nonatomic, strong) GoodsDetailModel *goodsDetail;
+@property (nonatomic, strong) ChatRecoredListTableViewController *chatRecordListCtl;
 
 @end
 
@@ -190,8 +193,8 @@ RCT_EXPORT_MODULE();
 
 - (void)share2Frend
 {
-    NSArray *shareButtonimageArray = @[@"ic_sns_pengyouquan.png",  @"ic_sns_weixin.png", @"ic_sns_qq.png", @"ic_sns_qzone.png", @"ic_sns_sina.png", @"ic_sns_douban.png"];
-    NSArray *shareButtonTitleArray = @[@"朋友圈", @"微信朋友", @"QQ", @"QQ空间", @"新浪微博", @"豆瓣"];
+    NSArray *shareButtonimageArray = @[@"ic_sns_qzone.png", @"ic_sns_pengyouquan.png",  @"ic_sns_weixin.png", @"ic_sns_qq.png", @"ic_sns_sina.png", @"ic_sns_douban.png"];
+    NSArray *shareButtonTitleArray = @[@"旺旺", @"微信朋友", @"QQ", @"QQ空间", @"新浪微博", @"豆瓣"];
     ShareActivity *shareActivity = [[ShareActivity alloc] initWithTitle:@"转发至" delegate:self cancelButtonTitle:@"取消" ShareButtonTitles:shareButtonTitleArray withShareButtonImagesName:shareButtonimageArray];
     [shareActivity showInView:self.navigationController.view];
 }
@@ -242,6 +245,12 @@ RCT_EXPORT_METHOD(chatWithBusiness){
     switch (imageIndex) {
             
         case 0: {
+            [self shareToTalk];
+            
+        }
+            break;
+            
+        case 1: {
             [UMSocialData defaultData].extConfig.wechatTimelineData.url = url;
             [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatTimeline] content:shareContentWithoutUrl image:nil location:nil urlResource:resource presentedController:self completion:^(UMSocialResponseEntity *response){
                 if (response.responseCode == UMSResponseCodeSuccess) {
@@ -252,7 +261,7 @@ RCT_EXPORT_METHOD(chatWithBusiness){
         }
             break;
             
-        case 1: {
+        case 2: {
             [UMSocialData defaultData].extConfig.wechatSessionData.url = url;
             [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:shareContentWithoutUrl image:nil location:nil urlResource:resource presentedController:nil completion:^(UMSocialResponseEntity *response){
                 if (response.responseCode == UMSResponseCodeSuccess) {
@@ -262,24 +271,13 @@ RCT_EXPORT_METHOD(chatWithBusiness){
         }
             break;
             
-        case 2: {
+        case 3: {
             [UMSocialData defaultData].extConfig.qqData.url = url;
             [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToQQ] content:shareContentWithoutUrl image:nil location:nil urlResource:resource presentedController:self completion:^(UMSocialResponseEntity *response){
                 if (response.responseCode == UMSResponseCodeSuccess) {
                     NSLog(@"分享成功！");
                 }
             }];
-        }
-            break;
-            
-        case 3: {
-            [UMSocialData defaultData].extConfig.qzoneData.url = url;
-            [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToQzone] content:shareContentWithoutUrl image:[UIImage imageNamed:@"app_icon.png"] location:nil urlResource:nil presentedController:self completion:^(UMSocialResponseEntity *response){
-                if (response.responseCode == UMSResponseCodeSuccess) {
-                    NSLog(@"分享成功！");
-                }
-            }];
-            
         }
             break;
             
@@ -300,6 +298,69 @@ RCT_EXPORT_METHOD(chatWithBusiness){
         default:
             break;
     }
+}
+
+- (void)shareToTalk {
+    if (![[AccountManager shareAccountManager] isLogin]) {
+        LoginViewController *loginViewController = [[LoginViewController alloc] initWithCompletion:^(BOOL completed) {
+            _chatRecordListCtl = [[ChatRecoredListTableViewController alloc] init];
+            _chatRecordListCtl.delegate = self;
+            UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:_chatRecordListCtl];
+            [self presentViewController:nCtl animated:YES completion:nil];
+        }];
+        UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:loginViewController];
+        loginViewController.isPushed = NO;
+        [self presentViewController:nctl animated:YES completion:nil];
+    } else {
+        _chatRecordListCtl = [[ChatRecoredListTableViewController alloc] init];
+        _chatRecordListCtl.delegate = self;
+        UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:_chatRecordListCtl];
+        [self presentViewController:nCtl animated:YES completion:nil];
+    }
+}
+
+#pragma mark - CreateConversationDelegate
+
+- (void)createConversationSuccessWithChatter:(NSInteger)chatterId chatType:(IMChatType)chatType chatTitle:(NSString *)chatTitle
+{
+    TaoziChatMessageBaseViewController *taoziMessageCtl = [[TaoziChatMessageBaseViewController alloc] init];
+    [self setChatMessageModel:taoziMessageCtl];
+    taoziMessageCtl.delegate = self;
+    taoziMessageCtl.chatTitle = chatTitle;
+    taoziMessageCtl.chatterId = chatterId;
+    taoziMessageCtl.chatType = chatType;
+    
+    [self.chatRecordListCtl dismissViewControllerAnimated:YES completion:^{
+        [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:nil];
+    }];
+}
+
+- (void)setChatMessageModel:(TaoziChatMessageBaseViewController *)taoziMessageCtl
+{
+//    taoziMessageCtl.messageId = self.poi.poiId;
+//    taoziMessageCtl.messageImage = ((TaoziImage *)[self.poi.images firstObject]).imageUrl;
+//    taoziMessageCtl.messageDesc = self.poi.desc;
+//    taoziMessageCtl.messageName = self.poi.zhName;
+//    taoziMessageCtl.messageRating = self.poi.rating;
+//    if (_poiType == kHotelPoi) {
+//        taoziMessageCtl.messageType = IMMessageTypeHotelMessageType;
+//        taoziMessageCtl.messagePrice = ((HotelPoi *)self.poi).priceDesc;
+//        taoziMessageCtl.messageRating = self.poi.rating;
+//        self.title = @"酒店详情";
+//        
+//    } else if (_poiType == kRestaurantPoi) {
+//        taoziMessageCtl.messageType = IMMessageTypeRestaurantMessageType;
+//        taoziMessageCtl.messageRating = self.poi.rating;
+//        taoziMessageCtl.messagePrice = ((RestaurantPoi *)self.poi).priceDesc;
+//        self.title = @"美食详情";
+//        
+//    } else if (_poiType == kShoppingPoi) {
+//        taoziMessageCtl.messageType = IMMessageTypeShoppingMessageType;
+//        taoziMessageCtl.messageRating = self.poi.rating;
+//        self.title = @"购物详情";
+//    }
+//    
+//    taoziMessageCtl.messageAddress = self.poi.address;
 }
 
 

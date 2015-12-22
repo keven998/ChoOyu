@@ -32,9 +32,10 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
 
 - (instancetype)init
 {
-    self = [super init];
+    self = [super initWithStyle:UITableViewStyleGrouped];
     if (self) {
-           }
+        
+    }
     return self;
 }
 
@@ -47,12 +48,11 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
     UIBarButtonItem *backBtn = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismissCtl:)];
     self.navigationItem.leftBarButtonItem = backBtn;
     _dataSource = [[self.imClientManager.conversationManager getConversationList] mutableCopy];
-    
+    self.tableView.separatorColor = COLOR_LINE;
     [self.tableView registerNib:[UINib nibWithNibName:@"ChatRecordListTableViewCell" bundle:nil] forCellReuseIdentifier:reusableChatRecordCell];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:reusableCreateConversationCell];
     
     self.tableView.backgroundColor = APP_PAGE_COLOR;
-    self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
     self.tableView.contentInset = UIEdgeInsetsMake(5, 0, 0, 0);
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismissCtl:) name:userDidLogoutNoti object:nil];
@@ -119,15 +119,17 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
     if (section == 1) {
         return 40;
     }
-    return 0;
+    return 10;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return CGFLOAT_MIN;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0) {
-        return 54.0;
-    }
-    return 64.0;
+    return 54.0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -169,7 +171,7 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
 {
     if (section == 1) {
         UIView *sectionView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15, 7, self.view.frame.size.width, 33)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15, 15, self.view.frame.size.width, 20)];
         label.text = @"最近聊天";
         label.font = [UIFont systemFontOfSize:13.0];
         sectionView.backgroundColor = APP_PAGE_COLOR;
