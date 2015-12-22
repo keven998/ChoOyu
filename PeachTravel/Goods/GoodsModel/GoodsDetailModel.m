@@ -20,7 +20,12 @@
         if ([json objectForKey:@"cover"] != [NSNull null]) {
             _coverImage = [[TaoziImage alloc] initWithJson:[json objectForKey:@"cover"]];
         }
-        _image = [[TaoziImage alloc] initWithJson:[[json objectForKey:@"images"] firstObject]];
+        NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+        for (id imageDic in [json objectForKey:@"images"]) {
+            TaoziImage *image = [[TaoziImage alloc] initWithJson:imageDic];
+            [tempArray addObject:image];
+        }
+        _images = tempArray;
         _saleCount = [[json objectForKey:@"salesVolume"] integerValue];
         if ([json objectForKey:@"locality"] != [NSNull null]) {
             _locality = [[CityDestinationPoi alloc] initWithJson:[json objectForKey:@"locality"]];

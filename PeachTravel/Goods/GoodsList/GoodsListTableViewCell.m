@@ -18,7 +18,7 @@
 - (void)setGoodsDetail:(GoodsDetailModel *)goodsDetail
 {
     _goodsDetail = goodsDetail;
-    [_headerImageView sd_setImageWithURL:[NSURL URLWithString:_goodsDetail.image.imageUrl] placeholderImage:nil];
+    [_headerImageView sd_setImageWithURL:[NSURL URLWithString:_goodsDetail.coverImage.imageUrl] placeholderImage:nil];
     _titleBtn.titleLabel.numberOfLines = 2;
     [_titleBtn setTitle:_goodsDetail.goodsName forState:UIControlStateNormal];
     

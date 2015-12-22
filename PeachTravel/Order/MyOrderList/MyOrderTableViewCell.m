@@ -22,7 +22,7 @@
 - (void)setOrderDetail:(OrderDetailModel *)orderDetail
 {
     _orderDetail = orderDetail;
-    [_goodsImageView sd_setImageWithURL:[NSURL URLWithString:_orderDetail.goods.image.imageUrl] placeholderImage:nil];
+    [_goodsImageView sd_setImageWithURL:[NSURL URLWithString:_orderDetail.goods.coverImage.imageUrl] placeholderImage:nil];
     _goodsNameLabel.text = _orderDetail.goods.goodsName;
     _packageNameLabel.text = [NSString stringWithFormat:@"%@ *%ld", _orderDetail.selectedPackage.packageName, _orderDetail.count];
     

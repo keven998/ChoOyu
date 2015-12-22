@@ -31,7 +31,7 @@
 - (void)setGoodsModel:(GoodsDetailModel *)goodsModel
 {
     _goodsModel = goodsModel;
-    [_goodsImageView sd_setImageWithURL:[NSURL URLWithString:_goodsModel.image.imageUrl] placeholderImage:nil];
+    [_goodsImageView sd_setImageWithURL:[NSURL URLWithString:_goodsModel.coverImage.imageUrl] placeholderImage:nil];
     _goodsNameLabel.text = _goodsModel.goodsName;
     NSString *primePriceStr = [NSString stringWithFormat:@"￥%d", (int)goodsModel.primePrice];
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString: primePriceStr];

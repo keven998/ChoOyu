@@ -19,7 +19,7 @@
 @property (nonatomic, copy) NSString *goodsDesc;
 @property (nonatomic) float primePrice;
 @property (nonatomic) float currentPrice;
-@property (nonatomic, strong) TaoziImage *image;
+@property (nonatomic, strong) NSArray<TaoziImage *> *images;
 @property (nonatomic, copy) TaoziImage *coverImage;
 @property (nonatomic, strong) NSArray<NSString *> *tags;
 @property (nonatomic, strong) BusinessMoel *business;

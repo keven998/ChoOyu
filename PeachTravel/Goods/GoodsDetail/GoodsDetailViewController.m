@@ -130,7 +130,7 @@ RCT_EXPORT_MODULE();
         message.goodsName = _goodsDetail.goodsName;
         message.goodsId = _goodsDetail.goodsId;
         message.price = _goodsDetail.currentPrice;
-        message.imageUrl = _goodsDetail.image.imageUrl;
+        message.imageUrl = _goodsDetail.coverImage.imageUrl;
         message.createTime = [[NSDate date] timeIntervalSince1970];
         chatController.goodsLinkMessageSnapshot = message;
         
@@ -338,7 +338,7 @@ RCT_EXPORT_METHOD(chatWithBusiness){
 - (void)setChatMessageModel:(TaoziChatMessageBaseViewController *)taoziMessageCtl
 {
     taoziMessageCtl.messageId = [NSString stringWithFormat:@"%ld", self.goodsDetail.goodsId];
-    taoziMessageCtl.messageImage = self.goodsDetail.image.imageUrl;
+    taoziMessageCtl.messageImage = self.goodsDetail.coverImage.imageUrl;
     taoziMessageCtl.messageName = self.goodsDetail.goodsName;
     taoziMessageCtl.messagePrice = [NSString stringWithFormat:@"%lf", self.goodsDetail.currentPrice];
     taoziMessageCtl.messageType = IMMessageTypeGoodsMessageType;
