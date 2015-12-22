@@ -151,7 +151,7 @@
 
 #define networkConnectionStatusChangeNoti       @"networkConnectionStatusChange"    //网络状态发生变化
 
-#define pushNewChatViewNoti                     @"networkConnectionStatusChange"    //进入新的聊天界面
+#define pushNewChatViewNoti                     @"pushNewChatViewNoti"    //进入新的聊天界面
 
 
 #define uploadUserAlbumNoti                     @"uploadUserAlbum"

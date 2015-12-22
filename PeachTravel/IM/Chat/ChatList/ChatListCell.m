@@ -47,7 +47,7 @@
         [self.contentView addSubview:_nickNameLabel];
 
         _timeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _timeLabel.font = [UIFont systemFontOfSize:13];
+        _timeLabel.font = [UIFont systemFontOfSize:12];
         _timeLabel.textColor = COLOR_TEXT_III;
         _timeLabel.textAlignment = NSTextAlignmentRight;
         [self.contentView addSubview:_timeLabel];
@@ -96,7 +96,7 @@
     
     CGFloat contentOffsetX = CGRectGetMaxX(self.imageView.frame) + 10;
     _nickNameLabel.text = _name;
-    _nickNameLabel.frame = CGRectMake(contentOffsetX, 10, width - contentOffsetX - 85, 22);
+    _nickNameLabel.frame = CGRectMake(contentOffsetX, 12, width - contentOffsetX - 85, 22);
     
     _timeLabel.frame = CGRectMake(width - 80.0, 10, 70.0, 22);
     _unreadLabel.frame = CGRectMake(0, 0, 21, 21);
@@ -128,8 +128,8 @@
     }
     
     sendFailedImageView.frame = CGRectMake(contentOffsetX, 40, 12, 12);
-    activityView.frame = CGRectMake(contentOffsetX, 42, 13, 12);
-    _detailLabel.frame = CGRectMake(contentOffsetX+offsetX, 38, width - 85.0-contentOffsetX, 16);
+    activityView.frame = CGRectMake(contentOffsetX, 40.5, 13, 12);
+    _detailLabel.frame = CGRectMake(contentOffsetX+offsetX, 38, width - 40.0-contentOffsetX, 16);
     
     _timeLabel.text = _time;
     if (_unreadCount > 0) {
