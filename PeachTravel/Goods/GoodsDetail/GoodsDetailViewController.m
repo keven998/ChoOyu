@@ -337,30 +337,38 @@ RCT_EXPORT_METHOD(chatWithBusiness){
 
 - (void)setChatMessageModel:(TaoziChatMessageBaseViewController *)taoziMessageCtl
 {
-//    taoziMessageCtl.messageId = self.poi.poiId;
-//    taoziMessageCtl.messageImage = ((TaoziImage *)[self.poi.images firstObject]).imageUrl;
-//    taoziMessageCtl.messageDesc = self.poi.desc;
-//    taoziMessageCtl.messageName = self.poi.zhName;
-//    taoziMessageCtl.messageRating = self.poi.rating;
-//    if (_poiType == kHotelPoi) {
-//        taoziMessageCtl.messageType = IMMessageTypeHotelMessageType;
-//        taoziMessageCtl.messagePrice = ((HotelPoi *)self.poi).priceDesc;
-//        taoziMessageCtl.messageRating = self.poi.rating;
-//        self.title = @"酒店详情";
-//        
-//    } else if (_poiType == kRestaurantPoi) {
-//        taoziMessageCtl.messageType = IMMessageTypeRestaurantMessageType;
-//        taoziMessageCtl.messageRating = self.poi.rating;
-//        taoziMessageCtl.messagePrice = ((RestaurantPoi *)self.poi).priceDesc;
-//        self.title = @"美食详情";
-//        
-//    } else if (_poiType == kShoppingPoi) {
-//        taoziMessageCtl.messageType = IMMessageTypeShoppingMessageType;
-//        taoziMessageCtl.messageRating = self.poi.rating;
-//        self.title = @"购物详情";
-//    }
-//    
-//    taoziMessageCtl.messageAddress = self.poi.address;
+    taoziMessageCtl.messageId = [NSString stringWithFormat:@"%ld", self.goodsDetail.goodsId];
+    taoziMessageCtl.messageImage = self.goodsDetail.image.imageUrl;
+    taoziMessageCtl.messageName = self.goodsDetail.goodsName;
+    taoziMessageCtl.messagePrice = [NSString stringWithFormat:@"%lf", self.goodsDetail.currentPrice];
+    taoziMessageCtl.messageType = IMMessageTypeGoodsMessageType;
+}
+
+#pragma mark - TaoziMessageSendDelegate
+
+//用户确定发送景点给朋友
+- (void)sendSuccess:(ChatViewController *)chatCtl
+{
+    [self dismissPopup];
+    [SVProgressHUD showSuccessWithStatus:@"已发送~"];
+    
+}
+
+- (void)sendCancel
+{
+    [self dismissPopup];
+}
+
+
+/**
+ *  消除发送 poi 对话框
+ *  @param sender
+ */
+- (void)dismissPopup
+{
+    if (self.popupViewController != nil) {
+        [self dismissPopupViewControllerAnimated:YES completion:nil];
+    }
 }
 
 

@@ -113,6 +113,9 @@
             _descLabel.text = _messageDesc;
             break;
             
+        case IMMessageTypeGoodsMessageType:
+            _headerLabel.text = @"   商品";
+            _descLabel.text = _messageDesc;
             
         default:
             break;
@@ -193,36 +196,71 @@
 
 - (IBAction)confirmSend:(UIButton *)sender {
     IMClientManager *imclientManager = [IMClientManager shareInstance];
-    
-    // 发送Poi消息
-    BaseMessage *message = [imclientManager.messageSendManager sendPoiMessage:[self dataToSend] receiver:_chatterId chatType:_chatType conversationId:nil completionBlock:^(BOOL isSuccess, NSString * __nullable error) {
-        if (!isSuccess) {
-            if (error) {
-                TipsMessage *message = [[TipsMessage alloc] initWithContent:error tipsType:TipsMessageTypeCommon_Tips];
-                message.chatterId = _chatterId;
-                message.createTime = [[NSDate date] timeIntervalSince1970];
-                ChatConversation *conversation = [imclientManager.conversationManager getConversationWithChatterId:_chatterId chatType:_chatType];
-                [conversation addReceiveMessage:message];
-                [conversation insertMessage2DB:message];
+    BaseMessage *message;
+    if (_messageType == IMMessageTypeGoodsMessageType) {
+        
+        GoodsChatMessage *goodsMessage = [[GoodsChatMessage alloc] init];
+        goodsMessage.goodsId = _messageId.integerValue;
+        goodsMessage.goodsName = _messageName;
+        goodsMessage.imageUrl = _messageImage;
+        goodsMessage.price = _messagePrice.floatValue;
+        
+        message = [imclientManager.messageSendManager sendGoodsMessage:goodsMessage receiver:_chatterId chatType:_chatType conversationId:nil completionBlock:^(BOOL isSuccess, NSString * _Nullable error) {
+            if (!isSuccess) {
+                if (error) {
+                    TipsMessage *message = [[TipsMessage alloc] initWithContent:error tipsType:TipsMessageTypeCommon_Tips];
+                    message.chatterId = _chatterId;
+                    message.createTime = [[NSDate date] timeIntervalSince1970];
+                    ChatConversation *conversation = [imclientManager.conversationManager getConversationWithChatterId:_chatterId chatType:_chatType];
+                    [conversation addReceiveMessage:message];
+                    [conversation insertMessage2DB:message];
+                }
+            } else {
+                // 发送文本消息
+                if (!self.messageText.text.length == 0) {
+                    BaseMessage * textMessage = [imclientManager.messageSendManager sendTextMessage:self.messageText.text receiver:_chatterId chatType:_chatType conversationId:nil completionBlock:^(BOOL isSuccess, NSString * __nullable errors) {
+                        
+                    }];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:updateChateViewNoti object:nil userInfo:@{@"message":textMessage}];
+                }
             }
-        } else {
-            // 发送文本消息
-            if (!self.messageText.text.length == 0) {
-                BaseMessage * textMessage = [imclientManager.messageSendManager sendTextMessage:self.messageText.text receiver:_chatterId chatType:_chatType conversationId:nil completionBlock:^(BOOL isSuccess, NSString * __nullable errors) {
-                    
-                }];
-                [[NSNotificationCenter defaultCenter] postNotificationName:updateChateViewNoti object:nil userInfo:@{@"message":textMessage}];
+        }];
+        
+    } else {
+        // 发送Poi消息
+        message = [imclientManager.messageSendManager sendPoiMessage:[self dataToSend] receiver:_chatterId chatType:_chatType conversationId:nil completionBlock:^(BOOL isSuccess, NSString * __nullable error) {
+            if (!isSuccess) {
+                if (error) {
+                    TipsMessage *message = [[TipsMessage alloc] initWithContent:error tipsType:TipsMessageTypeCommon_Tips];
+                    message.chatterId = _chatterId;
+                    message.createTime = [[NSDate date] timeIntervalSince1970];
+                    ChatConversation *conversation = [imclientManager.conversationManager getConversationWithChatterId:_chatterId chatType:_chatType];
+                    [conversation addReceiveMessage:message];
+                    [conversation insertMessage2DB:message];
+                }
+            } else {
+                // 发送文本消息
+                if (!self.messageText.text.length == 0) {
+                    BaseMessage * textMessage = [imclientManager.messageSendManager sendTextMessage:self.messageText.text receiver:_chatterId chatType:_chatType conversationId:nil completionBlock:^(BOOL isSuccess, NSString * __nullable errors) {
+                        
+                    }];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:updateChateViewNoti object:nil userInfo:@{@"message":textMessage}];
+                }
             }
-        }
-    }];
+        }];
+        [[NSNotificationCenter defaultCenter] postNotificationName:updateChateViewNoti object:nil userInfo:@{@"message":message}];
+
+    }
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:updateChateViewNoti object:nil userInfo:@{@"message":message}];
-    
-    [_delegate sendSuccess:nil];
+    if ([_delegate respondsToSelector:@selector(sendSuccess:)]) {
+        [_delegate sendSuccess:nil];
+    }
 }
 
 - (IBAction)cancel:(UIButton *)sender {
-    [_delegate sendCancel];
+    if ([_delegate respondsToSelector:@selector(cancel:)]) {
+        [_delegate sendCancel];
+    }
 }
 
 /**
