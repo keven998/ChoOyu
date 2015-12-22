@@ -64,6 +64,8 @@ RCT_EXPORT_MODULE();
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(storeDetail) name:@"gotoStoreDetailNoti" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(makeOrderAction) name:@"makeOrderNoti" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(chatWithBusinessAction) name:@"chatWithBusinessNoti" object:nil];
+
 
     UIButton *shareBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 40)];
     [shareBtn setImage:[UIImage imageNamed:@"icon_share_white"] forState:UIControlStateNormal];
@@ -111,11 +113,11 @@ RCT_EXPORT_MODULE();
     });
 }
 
-- (void)chatWithBusiness
+- (void)chatWithBusinessAction
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         IMClientManager *clientManager = [IMClientManager shareInstance];
-        ChatConversation *conversation = [clientManager.conversationManager getExistConversationInConversationList:PaipaiUserId];
+        ChatConversation *conversation = [clientManager.conversationManager getExistConversationInConversationList:_goodsDetail.store.storeId];
         ChatViewController *chatController = [[ChatViewController alloc] initWithConversation:conversation];
         GoodsLinkMessage *message = [[GoodsLinkMessage alloc] init];
         message.senderId = [AccountManager shareAccountManager].account.userId;
@@ -206,7 +208,7 @@ RCT_EXPORT_METHOD(makePhone:(NSString *)tel){
 
 }
 
-RCT_EXPORT_METHOD(gotoStoreDetail:(NSString *)storeId){
+RCT_EXPORT_METHOD(gotoStoreDetail){
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"gotoStoreDetailNoti" object:nil];
 }
@@ -214,6 +216,11 @@ RCT_EXPORT_METHOD(gotoStoreDetail:(NSString *)storeId){
 RCT_EXPORT_METHOD(makeOrder){
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"makeOrderNoti" object:nil];
+}
+
+RCT_EXPORT_METHOD(chatWithBusiness){
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"chatWithBusinessNoti" object:nil];
 }
 
 

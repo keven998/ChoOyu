@@ -1375,7 +1375,7 @@ throw new TypeError(
 
 var index=findIndex.call(this,predicate,context);
 return index === -1?undefined:this[index];}});}})();
-__d('trident/index.ios.js',["react-native/Libraries/react-native/react-native.js","trident/src/StoreContainer.js","trident/src/goodsDetailContainer.js"],function(global, require, module, exports) {  'use strict';
+__d('trident/index.ios.js',["react-native/Libraries/react-native/react-native.js","trident/src/goodsDetailContainer.js","trident/src/StoreContainer.js"],function(global, require, module, exports) {  'use strict';
 
 var React=require('react-native/Libraries/react-native/react-native.js');var 
 AppRegistry=React.AppRegistry;var StyleSheet=React.StyleSheet;var Text=React.Text;var View=React.View;
@@ -5141,7 +5141,7 @@ NodeHandle.injection.injectImplementation(UniversalWorkerNodeHandle);}
 module.exports = {
 inject:inject};
 });
-__d('InitializeJavaScriptAppEngine',["RCTDebugComponentOwnership","RCTDeviceEventEmitter","PerformanceLogger","regenerator/runtime.js","ExceptionsManager","ErrorUtils","ExceptionsManager","Platform","checkFlowAtRuntime","JSTimers","NativeModules","Promise","XMLHttpRequest","FormData","fetch","Geolocation","WebSocket","BridgeProfiling"],function(global, require, module, exports) {  var _extends=Object.assign || function(target){for(var i=1;i < arguments.length;i++) {var source=arguments[i];for(var key in source) {if(Object.prototype.hasOwnProperty.call(source,key)){target[key] = source[key];}}}return target;};
+__d('InitializeJavaScriptAppEngine',["RCTDebugComponentOwnership","RCTDeviceEventEmitter","PerformanceLogger","ExceptionsManager","ErrorUtils","ExceptionsManager","Platform","checkFlowAtRuntime","JSTimers","NativeModules","Promise","XMLHttpRequest","FormData","fetch","Geolocation","WebSocket","BridgeProfiling","regenerator/runtime.js"],function(global, require, module, exports) {  var _extends=Object.assign || function(target){for(var i=1;i < arguments.length;i++) {var source=arguments[i];for(var key in source) {if(Object.prototype.hasOwnProperty.call(source,key)){target[key] = source[key];}}}return target;};
 
 
 
@@ -29928,7 +29928,7 @@ this.emit(arg.eventType,arg.data,arg.didEmitCallback);}}}]);return NavigationEve
 
 module.exports = NavigationEventEmitter;
 });
-__d('NavigatorBreadcrumbNavigationBar',["NavigatorBreadcrumbNavigationBarStyles","NavigatorNavigationBarStylesAndroid","NavigatorNavigationBarStylesIOS","Platform","React","StyleSheet","View","immutable/dist/immutable.js","invariant"],function(global, require, module, exports) {  'use strict';
+__d('NavigatorBreadcrumbNavigationBar',["NavigatorBreadcrumbNavigationBarStyles","NavigatorNavigationBarStylesAndroid","NavigatorNavigationBarStylesIOS","Platform","React","StyleSheet","View","invariant","immutable/dist/immutable.js"],function(global, require, module, exports) {  'use strict';
 
 
 
@@ -53952,7 +53952,7 @@ Object.keys(componentOrElement));}
 
 module.exports = findDOMNode;
 });
-__d('trident/src/goodsDetailContainer.js',["react-native/Libraries/react-native/react-native.js","Dimensions","react-native/Libraries/react-native/react-native.js","trident/src/goodsComponents/GoodsDetailViewPager.ios.js","trident/src/goodsComponents/GoodsDetailUserInfo.js","trident/src/goodsComponents/GoodsDetailInfo.js","trident/src/goodsComponents/GoodsDetailToolBar.js","trident/src/goodsComponents/GoodsDetailSectionItem.js","trident/src/goodsComponents/GoodsDetailDescComponent.js","trident/src/goodsComponents/GoodsDetailBookComponent.js","trident/src/goodsComponents/GoodsTrafficComponent.js","trident/src/goodsComponents/GoodsBookQuitComponent.js","trident/src/Config.js","react-native/Libraries/react-native/react-native.js"],function(global, require, module, exports) {  'use strict';
+__d('trident/src/goodsDetailContainer.js',["react-native/Libraries/react-native/react-native.js","Dimensions","react-native/Libraries/react-native/react-native.js","trident/src/goodsComponents/GoodsDetailViewPager.ios.js","react-native/Libraries/react-native/react-native.js","trident/src/goodsComponents/GoodsDetailUserInfo.js","trident/src/goodsComponents/GoodsDetailInfo.js","trident/src/goodsComponents/GoodsDetailToolBar.js","trident/src/goodsComponents/GoodsDetailSectionItem.js","trident/src/goodsComponents/GoodsDetailDescComponent.js","trident/src/goodsComponents/GoodsDetailBookComponent.js","trident/src/goodsComponents/GoodsTrafficComponent.js","trident/src/goodsComponents/GoodsBookQuitComponent.js","trident/src/Config.js"],function(global, require, module, exports) {  'use strict';
 
 
 
@@ -54249,8 +54249,7 @@ storeName:String,
 nickName:String,
 language:Array,
 service:Array,
-tel:String,
-avatar:String},
+tel:String},
 
 
 componentWillMount:function(){
@@ -54262,7 +54261,7 @@ return (
 React.createElement(View,{style:{marginTop:10}},
 React.createElement(View,{style:styles.greyLine}),
 React.createElement(View,{style:styles.contentContainer},
-React.createElement(AvatarComponent,{avatarUrl:this.props.avatar.url}),
+React.createElement(AvatarComponent,{avatarUrl:''}),
 React.createElement(RightContentComponent,{storeName:this.props.storeName,language:this.props.language,serverTypes:this.props.service,tel:this.props.tel})),
 
 React.createElement(View,{style:styles.greyLine})));}});
@@ -54280,7 +54279,7 @@ nickName:String},
 render:function(){
 return (
 React.createElement(View,{style:styles.avatarContainer},
-React.createElement(Image,{style:styles.avatar,source:{uri:this.props.avatarUrl}}),
+React.createElement(Image,{style:styles.avatar,source:{uri:''}}),
 React.createElement(Text,{style:styles.nickName},
 this.props.nickName)));}});
 
@@ -54570,7 +54569,7 @@ React.createElement(View,{style:styles.spaceView}),
 React.createElement(ButtonItem,{imageName:'iconfont_dianpu@2x.png',buttonTitle:'进入店铺'}),
 
 React.createElement(TouchableHighlight,{style:{backgroundColor:'#ff6633',flex:1,alignItems:'center',justifyContent:'center'},
-onPress:function(){return _this._makeOrder(_this.props.plans,_this.props.commodityId);},
+onPress:function(){return _this._makeOrder(_this.props.plans,_this.props.commodityId,_this.props.commodityName);},
 underlayColor:'#ff6633'},
 React.createElement(Text,{style:{color:'white',fontSize:20}},' ','立即预订',' ')))));},
 
@@ -54578,13 +54577,12 @@ React.createElement(Text,{style:{color:'white',fontSize:20}},' ','立即预订',
 
 
 
-_makeOrder:function(plans,commodityId){
+_makeOrder:function(plans,commodityId,commodityName){
 if(Platform.OS == 'android'){
 var data=JSON.stringify(plans);
-NativeAction.startActivity('Order',data,commodityId + '');}else 
+NativeAction.startActivity('Order',data,commodityId + '',commodityName);}else 
 {
 GoodsDetailCtl.makeOrder();}}});
-
 
 
 
@@ -54602,27 +54600,31 @@ buttonTitle:String},
 
 
 
-_gotoStoreDetail:function(title,id){
+_buttonAction:function(title,id){
 if(Platform.OS == 'android'){
 console.log('title ' + title);
 if(title == '进入店铺'){
-NativeAction.startActivity('Store',null,'');}else 
+NativeAction.startActivity('Store',null,'','');}else 
 if(title == '联系商家'){
 this.props.shareBean.commodityId = this.props.commodityId;
 this.props.shareBean.price = this.props.price;
 this.props.shareBean.title = this.props.title;
 this.props.shareBean.image.url = this.props.images[0].url;
 var data=JSON.stringify(this.props.shareBean);
-NativeAction.startActivity('Chat',data,this.props.userId + '');}}else 
+NativeAction.startActivity('Chat',data,this.props.userId + '','');}}else 
 
 if(Platform.OS == 'ios'){
-GoodsDetailCtl.gotoStoreDetail('123456');}},
+if(title == '进入店铺'){
+GoodsDetailCtl.gotoStoreDetail();}else 
+{
+GoodsDetailCtl.chatWithBusiness();}}},
+
 
 
 
 render:function(){var _this2=this;
 return (
-React.createElement(TouchableHighlight,{style:styles.buttonItem,onPress:function(){return _this2._gotoStoreDetail(_this2.props.buttonTitle);},underlayColor:'white'},
+React.createElement(TouchableHighlight,{style:styles.buttonItem,onPress:function(){return _this2._buttonAction(_this2.props.buttonTitle);},underlayColor:'white'},
 React.createElement(View,{style:{flexDirection:'row'}},
 React.createElement(Image,{style:styles.buttonImage,source:{uri:sourcePath + this.props.imageName}}),
 
