@@ -31,11 +31,7 @@
         self.collectionArray[0] = recentResult;
     }
     [self.collectionView reloadData];
-    if (_poiType == 0) {
-        _itemColor = APP_THEME_COLOR;
-        _searchHistoryImage = @"icon_common_search.png";
-        
-    } else if (_poiType == kRestaurantPoi) {
+    if (_poiType == kRestaurantPoi) {
         _itemColor = UIColorFromRGB(0xFD8627);
         _searchHistoryImage = @"icon_restaurant_search.png";
 
@@ -51,6 +47,10 @@
     } else if (_poiType == kTravelNotePoi) {
         _itemColor = APP_THEME_COLOR;
         _searchHistoryImage = @"icon_travelnote_search.png";
+        
+    } else {
+        _itemColor = APP_THEME_COLOR;
+        _searchHistoryImage = @"icon_common_search.png";
     }
 }
 
@@ -136,7 +136,6 @@
 #pragma mark - 加载网络数据
 - (void)loadHotSearchWithPoiType:(TZPoiType)poiType
 {
-    // 1.获取请求管理者
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     NSDictionary *params;
@@ -153,7 +152,6 @@
         params = @{@"scope": @"travelNote"};
     }
     
-    // 2.发送Get请求
     [manager GET:API_GET_HOT_SEARCH parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSMutableArray * searchNameArray = [NSMutableArray array];
@@ -168,7 +166,6 @@
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
-        // 打印失败信息
         NSLog(@"%@",error);
     }];
 }
@@ -232,7 +229,9 @@
     NSArray *array = [self.collectionArray objectAtIndex:indexPath.section];
     NSString *text = array[indexPath.row];
     [self addSearchHistoryText:text];
-    [self.delegate didSelectItemWithSearchText:text];
+    if ([self.delegate respondsToSelector:@selector(didSelectItemWithSearchText:)]) {
+        [self.delegate didSelectItemWithSearchText:text];
+    }
 }
 
 #pragma mark - TaoziLayoutDelegate

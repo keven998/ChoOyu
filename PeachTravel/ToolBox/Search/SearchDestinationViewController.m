@@ -57,11 +57,14 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         placeholderText = @"搜索美食";
     } else if (_searchPoiType == kShoppingPoi) {
         placeholderText = @"搜索购物";
+    } else if (_searchPoiType == kCityPoi) {
+        placeholderText = @"搜索城市";
+
     } else {
         placeholderText = @"城市/景点/美食/购物";
     }
     [_searchBar setPlaceholder:placeholderText];
-    _searchBar.tintColor = COLOR_TEXT_II;
+    _searchBar.tintColor = [UIColor whiteColor];
     _searchBar.showsCancelButton = YES;
     _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
     [_searchBar setSearchFieldBackgroundImage:[[UIImage imageNamed:@"icon_search_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)] forState:UIControlStateNormal];

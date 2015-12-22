@@ -53,8 +53,8 @@ RCT_EXPORT_MODULE();
     self.navigationItem.title = @"商品详情";
     self.automaticallyAdjustsScrollViewInsets = NO;
 
-    NSURL *jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
-//    NSURL *jsCodeLocation = [NSURL URLWithString:@"http://192.168.1.47:8081/src/index.ios.bundle?platform=ios&dev=true"];
+//    NSURL *jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+    NSURL *jsCodeLocation = [NSURL URLWithString:@"http://192.168.1.47:8081/index.ios.bundle?platform=ios&dev=true"];
 //    NSURL *jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"];
 
     bridge = [[RCTBridge alloc] initWithBundleURL:jsCodeLocation
@@ -351,14 +351,12 @@ RCT_EXPORT_METHOD(chatWithBusiness){
 {
     [self dismissPopup];
     [SVProgressHUD showSuccessWithStatus:@"已发送~"];
-    
 }
 
 - (void)sendCancel
 {
     [self dismissPopup];
 }
-
 
 /**
  *  消除发送 poi 对话框

@@ -13,6 +13,7 @@
 #import "CityListViewController.h"
 #import "PoiManager.h"
 #import "SearchDestinationViewController.h"
+#import "CitySearchViewController.h"
 
 @interface CountryRecommendViewController () <UITableViewDataSource, UITableViewDelegate, circleMenuDelegate>
 
@@ -156,7 +157,7 @@
 
 - (void)searchAction
 {
-    SearchDestinationViewController *ctl = [[SearchDestinationViewController alloc] init];
+    CitySearchViewController *ctl = [[CitySearchViewController alloc] init];
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:ctl] animated:YES completion:nil];
 }
 

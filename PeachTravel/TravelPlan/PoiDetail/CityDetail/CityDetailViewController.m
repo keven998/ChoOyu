@@ -52,16 +52,16 @@
             tapGesture.numberOfTouchesRequired = 1;
             [_headerView addGestureRecognizer:tapGesture];
         } else {
-            [SVProgressHUD showHint:@"加载失败"];
         }
+        [GoodsManager asyncLoadGoodsOfCity:_cityId startIndex:0 count:3 completionBlock:^(BOOL isSuccess, NSArray *goodsList) {
+            if (isSuccess) {
+                _dataSource = goodsList;
+                [_tableView reloadData];
+            }
+        }];
         
     }];
-    [GoodsManager asyncLoadGoodsOfCity:_cityId startIndex:0 count:3 completionBlock:^(BOOL isSuccess, NSArray *goodsList) {
-        if (isSuccess) {
-            _dataSource = goodsList;
-            [_tableView reloadData];
-        }
-    }];
+    
     [self setupToolBar];
 }
 

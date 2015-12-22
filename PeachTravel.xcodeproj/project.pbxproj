@@ -10,7 +10,6 @@
 		0115C7C51BAD53A100631928 /* TZFrendListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0115C7C21BAD53A100631928 /* TZFrendListCell.m */; };
 		0115C7C61BAD53A100631928 /* ExpertListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0115C7C41BAD53A100631928 /* ExpertListViewController.m */; };
 		0115C7DD1BAFACD300631928 /* FrendListTagCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0115C7DC1BAFACD300631928 /* FrendListTagCell.m */; };
-		0115C7E11BAFC8B000631928 /* CityDetailLoadMoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0115C7E01BAFC8B000631928 /* CityDetailLoadMoreCell.m */; };
 		0115C7E41BAFD26E00631928 /* TZFrendListCellForArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 0115C7E31BAFD26E00631928 /* TZFrendListCellForArea.m */; };
 		0115C8BF1BB0EF2900631928 /* moreview_camera_hilighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0115C8A31BB0EF2900631928 /* moreview_camera_hilighted@2x.png */; };
 		0115C8C01BB0EF2900631928 /* moreview_camera_hilighted@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0115C8A41BB0EF2900631928 /* moreview_camera_hilighted@3x.png */; };
@@ -744,6 +743,8 @@
 		D95E6FFD1BDA32050097BC76 /* GoodsRecommendSectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D95E6FFC1BDA32050097BC76 /* GoodsRecommendSectionHeaderView.xib */; };
 		D963CB661B9FF751007480FA /* EditUserSignatureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D963CB651B9FF751007480FA /* EditUserSignatureViewController.m */; };
 		D964CD591C28F4B60043BE6A /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = D964CD581C28F4B60043BE6A /* main.jsbundle */; };
+		D964CD5F1C29343D0043BE6A /* CitySearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D964CD5D1C29343D0043BE6A /* CitySearchViewController.m */; };
+		D964CD601C29343D0043BE6A /* CitySearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D964CD5E1C29343D0043BE6A /* CitySearchViewController.xib */; };
 		D9687CA21AC4095500B1C88E /* FootprintMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9687CA01AC4095500B1C88E /* FootprintMapViewController.m */; };
 		D9687CA31AC4095500B1C88E /* FootprintMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9687CA11AC4095500B1C88E /* FootprintMapViewController.xib */; };
 		D9687CA61AC409AB00B1C88E /* FootPrintViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9687CA51AC409AB00B1C88E /* FootPrintViewController.m */; };
@@ -1914,8 +1915,6 @@
 		0115C7C71BAD53C800631928 /* ARGUMENTSFORTZFrendList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARGUMENTSFORTZFrendList.h; sourceTree = "<group>"; };
 		0115C7DB1BAFACD300631928 /* FrendListTagCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrendListTagCell.h; sourceTree = "<group>"; };
 		0115C7DC1BAFACD300631928 /* FrendListTagCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FrendListTagCell.m; sourceTree = "<group>"; };
-		0115C7DF1BAFC8B000631928 /* CityDetailLoadMoreCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityDetailLoadMoreCell.h; sourceTree = "<group>"; };
-		0115C7E01BAFC8B000631928 /* CityDetailLoadMoreCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityDetailLoadMoreCell.m; sourceTree = "<group>"; };
 		0115C7E21BAFD26E00631928 /* TZFrendListCellForArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZFrendListCellForArea.h; sourceTree = "<group>"; };
 		0115C7E31BAFD26E00631928 /* TZFrendListCellForArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZFrendListCellForArea.m; sourceTree = "<group>"; };
 		0115C8A31BB0EF2900631928 /* moreview_camera_hilighted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "moreview_camera_hilighted@2x.png"; sourceTree = "<group>"; };
@@ -3027,6 +3026,9 @@
 		D963CB641B9FF751007480FA /* EditUserSignatureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditUserSignatureViewController.h; sourceTree = "<group>"; };
 		D963CB651B9FF751007480FA /* EditUserSignatureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditUserSignatureViewController.m; sourceTree = "<group>"; };
 		D964CD581C28F4B60043BE6A /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
+		D964CD5C1C29343D0043BE6A /* CitySearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CitySearchViewController.h; sourceTree = "<group>"; };
+		D964CD5D1C29343D0043BE6A /* CitySearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CitySearchViewController.m; sourceTree = "<group>"; };
+		D964CD5E1C29343D0043BE6A /* CitySearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CitySearchViewController.xib; sourceTree = "<group>"; };
 		D9687C9F1AC4095500B1C88E /* FootprintMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FootprintMapViewController.h; path = ../UserInfo/FootprintMapViewController.h; sourceTree = "<group>"; };
 		D9687CA01AC4095500B1C88E /* FootprintMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FootprintMapViewController.m; path = ../UserInfo/FootprintMapViewController.m; sourceTree = "<group>"; };
 		D9687CA11AC4095500B1C88E /* FootprintMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FootprintMapViewController.xib; path = ../UserInfo/FootprintMapViewController.xib; sourceTree = "<group>"; };
@@ -4654,15 +4656,6 @@
 				01A5CDCF1BB2A5E400A59A8A /* CallForNewFrandCell.m */,
 			);
 			path = tagCell;
-			sourceTree = "<group>";
-		};
-		0115C7DE1BAFC88D00631928 /* loadMoreCell */ = {
-			isa = PBXGroup;
-			children = (
-				0115C7DF1BAFC8B000631928 /* CityDetailLoadMoreCell.h */,
-				0115C7E01BAFC8B000631928 /* CityDetailLoadMoreCell.m */,
-			);
-			path = loadMoreCell;
 			sourceTree = "<group>";
 		};
 		0115C8A21BB0EF2900631928 /* 聊天页搜搜拆分 */ = {
@@ -6465,6 +6458,29 @@
 			name = FeedBack;
 			sourceTree = "<group>";
 		};
+		D964CD5A1C2933E40043BE6A /* CityList */ = {
+			isa = PBXGroup;
+			children = (
+				D9D3AE6E1BE740CE00F398B8 /* CityListViewController.h */,
+				D9D3AE6F1BE740CE00F398B8 /* CityListViewController.m */,
+				D9D3AE701BE740CE00F398B8 /* CityListViewController.xib */,
+				D9D3AE731BE740EC00F398B8 /* CityListCollectionViewCell.h */,
+				D9D3AE741BE740EC00F398B8 /* CityListCollectionViewCell.m */,
+				D9D3AE751BE740EC00F398B8 /* CityListCollectionViewCell.xib */,
+			);
+			name = CityList;
+			sourceTree = "<group>";
+		};
+		D964CD5B1C2934210043BE6A /* PoiSearch */ = {
+			isa = PBXGroup;
+			children = (
+				D964CD5C1C29343D0043BE6A /* CitySearchViewController.h */,
+				D964CD5D1C29343D0043BE6A /* CitySearchViewController.m */,
+				D964CD5E1C29343D0043BE6A /* CitySearchViewController.xib */,
+			);
+			path = PoiSearch;
+			sourceTree = "<group>";
+		};
 		D96BAFB51C1AEAA000CDB7C7 /* QiniuSDK */ = {
 			isa = PBXGroup;
 			children = (
@@ -7068,14 +7084,16 @@
 			path = FrendModel;
 			sourceTree = "<group>";
 		};
-		D993CB511AB6C6E50075314E /* POI */ = {
+		D993CB511AB6C6E50075314E /* Poi */ = {
 			isa = PBXGroup;
 			children = (
+				D964CD5B1C2934210043BE6A /* PoiSearch */,
 				D92B5C1A1BB9243B00E3AC93 /* PoiManager.h */,
 				D92B5C1B1BB9243B00E3AC93 /* PoiManager.m */,
 				D9D3AE631BE73F1600F398B8 /* PoiList */,
 				D993CBE21AB704150075314E /* PoiDetail */,
 			);
+			name = Poi;
 			path = POI;
 			sourceTree = "<group>";
 		};
@@ -7130,7 +7148,7 @@
 				01578DFC1BD2285D00244D9D /* TZPay */,
 				D91CCB481BD1EA35008425E4 /* Goods */,
 				E6F186CF1B845F4800232EEB /* resource */,
-				D993CB511AB6C6E50075314E /* POI */,
+				D993CB511AB6C6E50075314E /* Poi */,
 				D9A8023C1A80E3D3005AD701 /* Common */,
 				D9A8016B1A80E036005AD701 /* libs */,
 				D90F356819F6321B00E26FA9 /* IM */,
@@ -8518,7 +8536,6 @@
 			isa = PBXGroup;
 			children = (
 				01A5CE211BB399F100A59A8A /* TravelPlanListForCityDetail */,
-				0115C7DE1BAFC88D00631928 /* loadMoreCell */,
 				270C164B1B0059F60048C85D /* CityDescDetailViewController.h */,
 				270C164C1B0059F60048C85D /* CityDescDetailViewController.m */,
 				019BCF631BB27378007841E4 /* CityDetailHeaderView */,
@@ -8801,12 +8818,7 @@
 		D9D3AE631BE73F1600F398B8 /* PoiList */ = {
 			isa = PBXGroup;
 			children = (
-				D9D3AE6E1BE740CE00F398B8 /* CityListViewController.h */,
-				D9D3AE6F1BE740CE00F398B8 /* CityListViewController.m */,
-				D9D3AE701BE740CE00F398B8 /* CityListViewController.xib */,
-				D9D3AE731BE740EC00F398B8 /* CityListCollectionViewCell.h */,
-				D9D3AE741BE740EC00F398B8 /* CityListCollectionViewCell.m */,
-				D9D3AE751BE740EC00F398B8 /* CityListCollectionViewCell.xib */,
+				D964CD5A1C2933E40043BE6A /* CityList */,
 			);
 			path = PoiList;
 			sourceTree = "<group>";
@@ -11076,6 +11088,7 @@
 				D90A9B541B5627C400E9F37C /* Loading_Animation_final41@3x.png in Resources */,
 				D90A9B461B5627C400E9F37C /* Loading_Animation_final27@3x.png in Resources */,
 				E6F189891B845F4900232EEB /* poi_comment_start_highlight@2x.png in Resources */,
+				D964CD601C29343D0043BE6A /* CitySearchViewController.xib in Resources */,
 				E6F18A151B845F4900232EEB /* map_icon_4@2x.png in Resources */,
 				E608A12E1B8F413E003BA318 /* point@3x.png in Resources */,
 				01C1EC2F1BB4E4720082217A /* jiong@2x.png in Resources */,
@@ -11833,6 +11846,7 @@
 				D92CA1331AD8BEB400F244FF /* MWGridViewController.m in Sources */,
 				D9A8FECA1A80C818005AD701 /* MyGuideSummary.m in Sources */,
 				D96EA95E1BB3916300360ED8 /* PoiRecommendTableViewCell.m in Sources */,
+				D964CD5F1C29343D0043BE6A /* CitySearchViewController.m in Sources */,
 				D9A8FF0F1A80CC2B005AD701 /* ChangePasswordViewController.m in Sources */,
 				D993CB5D1AB6D64B0075314E /* ShoppingPoi.m in Sources */,
 				D993C23A1B12DF0C0088D568 /* AudioDeviceManager.swift in Sources */,
@@ -11961,7 +11975,6 @@
 				D9F1248A1C1AB1FA00B6B7BB /* MyOrderListViewController.m in Sources */,
 				D96BAFF41C1AEAA000CDB7C7 /* QNFile.m in Sources */,
 				D9A800641A80DD0C005AD701 /* SearchUserInfoViewController.m in Sources */,
-				0115C7E11BAFC8B000631928 /* CityDetailLoadMoreCell.m in Sources */,
 				C673B5591ADCEC7100D40262 /* TripPlanSettingViewController.m in Sources */,
 				D9A8001B1A80D52F005AD701 /* CityCardReusableView.m in Sources */,
 				D9A802B81A80E3D3005AD701 /* UIViewController+DismissKeyboard.m in Sources */,
