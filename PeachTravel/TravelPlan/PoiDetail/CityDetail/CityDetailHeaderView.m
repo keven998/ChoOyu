@@ -18,7 +18,7 @@
 @property (nonatomic, strong) UIImageView *headerImageView;
 @property (nonatomic, strong) UILabel *zhNameLabel;
 @property (nonatomic, strong) UILabel *enNameLabel;
-@property (nonatomic, strong) UIButton *pictureIndexBtn;
+@property (nonatomic, strong) UIButton *allPictureBtn;
 
 @end
 
@@ -57,14 +57,15 @@
     _enNameLabel.text = _cityPoi.enName;
     [self addSubview:_enNameLabel];
     
-    _pictureIndexBtn = [[UIButton alloc] initWithFrame:CGRectMake(frame.size.width-50, 150, 45, 15)];
-    [_pictureIndexBtn setImage:[UIImage imageNamed:@"icon_cityDetail_imageCnt"] forState:UIControlStateNormal];
-    _pictureIndexBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
-    NSString *countTitle = [NSString stringWithFormat:@"1/%ld", _cityPoi.images.count];
-    [_pictureIndexBtn setTitle:countTitle forState:UIControlStateNormal];
-    _pictureIndexBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 0);
-    [_pictureIndexBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [self addSubview:_pictureIndexBtn];
+    _allPictureBtn = [[UIButton alloc] initWithFrame:CGRectMake(frame.size.width-50, 135, 40, 20)];
+    _allPictureBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
+    [_allPictureBtn setTitle:@"图集" forState:UIControlStateNormal];
+    [_allPictureBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _allPictureBtn.layer.borderColor = [UIColor whiteColor].CGColor;
+    _allPictureBtn.layer.borderWidth = 0.5;
+    _allPictureBtn.layer.cornerRadius = 3.0;
+    _allPictureBtn.userInteractionEnabled = NO;
+    [self addSubview:_allPictureBtn];
     
     UIView *btnBkgView = [[UIView alloc] initWithFrame:CGRectMake(0, 174, frame.size.width, 170)];
     btnBkgView.backgroundColor = [UIColor whiteColor];
