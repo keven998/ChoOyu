@@ -48,6 +48,8 @@
                                 } range:NSMakeRange(0, _orderDetail.goods.goodsName.length)];
         
         [self.goodsNameBtn setAttributedTitle:string forState:UIControlStateNormal];
+    } else {
+        [self.goodsNameBtn setAttributedTitle:nil forState:UIControlStateNormal];
     }
     
     self.packageNameLabel.text = _orderDetail.selectedPackage.packageName;
@@ -64,7 +66,11 @@
         CGRect rect = [attrstr boundingRectWithSize:(CGSize){kWindowWidth-100, CGFLOAT_MAX} options:NSStringDrawingUsesLineFragmentOrigin context:nil];
         if (rect.size.height > 21) {
             _goodsNameHeightConstraint.constant = rect.size.height + 6;
+        } else {
+            _goodsNameHeightConstraint.constant = 21;
         }
+    } else {
+        _goodsNameHeightConstraint.constant = 21;
     }
     
     if (orderDetail.selectedPackage.packageName) {
@@ -72,7 +78,11 @@
         CGRect rect1 = [attrstr1 boundingRectWithSize:(CGSize){kWindowWidth-100, CGFLOAT_MAX} options:NSStringDrawingUsesLineFragmentOrigin context:nil];
         if (rect1.size.height > 21) {
             _packageNameHeightConstarint.constant = rect1.size.height + 6;
+        } else {
+            _packageNameHeightConstarint.constant = 21;
         }
+    } else {
+        _packageNameHeightConstarint.constant = 21;
     }
 }
 
