@@ -14,6 +14,9 @@
 @property (nonatomic, strong) NSString *packageTitle;
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *contentLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentLabelHeightConstraint;
 @property (nonatomic) BOOL isSelected;
+
++ (CGFloat)heightWithPackageTitle:(NSString *)title;
 
 @end

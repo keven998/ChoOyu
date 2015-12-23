@@ -30,6 +30,6 @@
 
 @property (nonatomic, weak) id<MakeOrderSelectPackageDelegate>deleagte;
 
-+ (CGFloat)heightWithPackageCount:(NSUInteger)count;
++ (CGFloat)heightWithPackageList:(NSArray<GoodsPackageModel *> *)packageList;
 
 @end

@@ -18,9 +18,13 @@
 
 @implementation MakeOrderSelectPackageTableViewCell
 
-+ (CGFloat)heightWithPackageCount:(NSUInteger)count
++ (CGFloat)heightWithPackageList:(NSArray<GoodsPackageModel *> *)packageList
 {
-    return 44+(35+12)*count;     //44: 标题高度  35:每个 cell 的高度，  12:每个 footerview 的高度
+    CGFloat height = 44+12;
+    for (GoodsPackageModel *packageModel in packageList) {
+        height += [MakeOrderPackageTableViewCell heightWithPackageTitle:packageModel.packageName];
+    }
+    return height;     //44: 标题高度  35:每个 cell 的高度，  12:每个 footerview 的高度
 }
 
 - (void)awakeFromNib {
@@ -29,7 +33,6 @@
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [_tableView registerNib:[UINib nibWithNibName:@"MakeOrderPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"makeOrderPackageTableViewCell"];
     _selectedIndex = 0;      //默认选中第一个套餐
-    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -53,7 +56,8 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 44;
+    GoodsPackageModel *package = [_packageList objectAtIndex:indexPath.section];
+    return [MakeOrderPackageTableViewCell heightWithPackageTitle:package.packageName];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

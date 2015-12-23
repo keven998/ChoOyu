@@ -229,7 +229,7 @@
     if (indexPath.row == 0) {
         return 72.5;
     } else if (indexPath.row == 1) {
-        return [MakeOrderSelectPackageTableViewCell heightWithPackageCount:_orderDetail.goods.packages.count];
+        return [MakeOrderSelectPackageTableViewCell heightWithPackageList:_orderDetail.goods.packages];
     } else if (indexPath.row == 4) {
         return [MakeOrderTravelerInfoTableViewCell heightWithTravelerCount:_orderDetail.travelerList.count];
     } else if (indexPath.row == 5) {
