@@ -66,7 +66,7 @@
     [_pictureIndexBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self addSubview:_pictureIndexBtn];
     
-    UIView *btnBkgView = [[UIView alloc] initWithFrame:CGRectMake(0, 174, frame.size.width, 196)];
+    UIView *btnBkgView = [[UIView alloc] initWithFrame:CGRectMake(0, 174, frame.size.width, 170)];
     btnBkgView.backgroundColor = [UIColor whiteColor];
     [self addSubview:btnBkgView];
     
@@ -92,7 +92,7 @@
         buttonTop.spaceHight = 8;
         [buttonTop setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
         buttonTop.titleLabel.font = [UIFont systemFontOfSize:14];
-        TZButton *buttonButtom = [[TZButton alloc] initWithFrame:CGRectMake(itemMargin+itemSpace*(i+1)+itemWidth*i, 15 + 20+ itemHeight, itemWidth, itemHeight)];
+        TZButton *buttonButtom = [[TZButton alloc] initWithFrame:CGRectMake(itemMargin+itemSpace*(i+1)+itemWidth*i, 20+ itemHeight, itemWidth, itemHeight)];
         buttonButtom.spaceHight = 8;
         [buttonButtom setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
         buttonButtom.titleLabel.font = [UIFont systemFontOfSize:14];

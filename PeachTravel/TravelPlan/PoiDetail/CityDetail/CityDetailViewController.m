@@ -43,7 +43,7 @@
     [PoiManager asyncLoadCityInfo:_cityId completionBlock:^(BOOL isSuccess, CityPoi *cityDetail) {
         if (isSuccess) {
             _poi = cityDetail;
-            _headerView = [[CityDetailHeaderView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 380)];
+            _headerView = [[CityDetailHeaderView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 355)];
             _headerView.cityPoi = _poi;
             _tableView.tableHeaderView = _headerView;
             _headerView.containerViewController = self;
