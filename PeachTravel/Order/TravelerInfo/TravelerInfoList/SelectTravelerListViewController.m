@@ -156,7 +156,7 @@
     OrderTravelerInfoModel *travelerInfo = _dataSource[indexPath.row];
     TravelerInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"travelerInfoTableViewCell" forIndexPath:indexPath];
     cell.selectBtn.tag = indexPath.row;
-    cell.titleLabel.text = [NSString stringWithFormat:@"%@%@", travelerInfo.firstName, travelerInfo.lastName];
+    cell.titleLabel.text = [NSString stringWithFormat:@"%@ %@", travelerInfo.lastName, travelerInfo.firstName];
     cell.subTitleLabel.text = [NSString stringWithFormat:@"%@:  %@", travelerInfo.IDCategoryDesc, travelerInfo.IDNumber];
     cell.editBtn.hidden = !_canEditInfo;
     [cell.selectBtn addTarget:self action:@selector(selectTraveler:) forControlEvents:UIControlEventTouchUpInside];

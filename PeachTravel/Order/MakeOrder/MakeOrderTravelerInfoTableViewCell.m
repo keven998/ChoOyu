@@ -59,7 +59,7 @@
     OrderTravelerInfoModel *travelerInfo = [_travelerList objectAtIndex:indexPath.section];
     MakeOrderTravelerTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"makeOrderTravelerCell" forIndexPath:indexPath];
     [cell.deleteBtn addTarget:self action:@selector(deleteTraveler:) forControlEvents:UIControlEventTouchUpInside];
-    cell.titleLabel.text = [NSString stringWithFormat:@"%@%@", travelerInfo.firstName, travelerInfo.lastName];
+    cell.titleLabel.text = [NSString stringWithFormat:@"%@ %@", travelerInfo.lastName, travelerInfo.firstName];
     cell.deleteBtn.tag = indexPath.section;
     cell.deleteBtn.hidden = YES;
     cell.spaceView.hidden = (indexPath.section == _travelerList.count-1);

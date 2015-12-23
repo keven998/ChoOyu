@@ -742,9 +742,9 @@
 		D95E6FFB1BDA31F70097BC76 /* GoodsRecommendSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D95E6FFA1BDA31F70097BC76 /* GoodsRecommendSectionHeaderView.m */; };
 		D95E6FFD1BDA32050097BC76 /* GoodsRecommendSectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D95E6FFC1BDA32050097BC76 /* GoodsRecommendSectionHeaderView.xib */; };
 		D963CB661B9FF751007480FA /* EditUserSignatureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D963CB651B9FF751007480FA /* EditUserSignatureViewController.m */; };
-		D964CD591C28F4B60043BE6A /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = D964CD581C28F4B60043BE6A /* main.jsbundle */; };
 		D964CD5F1C29343D0043BE6A /* CitySearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D964CD5D1C29343D0043BE6A /* CitySearchViewController.m */; };
 		D964CD601C29343D0043BE6A /* CitySearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D964CD5E1C29343D0043BE6A /* CitySearchViewController.xib */; };
+		D964CD621C297D720043BE6A /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = D964CD611C297D720043BE6A /* main.jsbundle */; };
 		D9687CA21AC4095500B1C88E /* FootprintMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9687CA01AC4095500B1C88E /* FootprintMapViewController.m */; };
 		D9687CA31AC4095500B1C88E /* FootprintMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9687CA11AC4095500B1C88E /* FootprintMapViewController.xib */; };
 		D9687CA61AC409AB00B1C88E /* FootPrintViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9687CA51AC409AB00B1C88E /* FootPrintViewController.m */; };
@@ -3025,10 +3025,10 @@
 		D95E6FFC1BDA32050097BC76 /* GoodsRecommendSectionHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoodsRecommendSectionHeaderView.xib; sourceTree = "<group>"; };
 		D963CB641B9FF751007480FA /* EditUserSignatureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditUserSignatureViewController.h; sourceTree = "<group>"; };
 		D963CB651B9FF751007480FA /* EditUserSignatureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditUserSignatureViewController.m; sourceTree = "<group>"; };
-		D964CD581C28F4B60043BE6A /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		D964CD5C1C29343D0043BE6A /* CitySearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CitySearchViewController.h; sourceTree = "<group>"; };
 		D964CD5D1C29343D0043BE6A /* CitySearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CitySearchViewController.m; sourceTree = "<group>"; };
 		D964CD5E1C29343D0043BE6A /* CitySearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CitySearchViewController.xib; sourceTree = "<group>"; };
+		D964CD611C297D720043BE6A /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		D9687C9F1AC4095500B1C88E /* FootprintMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FootprintMapViewController.h; path = ../UserInfo/FootprintMapViewController.h; sourceTree = "<group>"; };
 		D9687CA01AC4095500B1C88E /* FootprintMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FootprintMapViewController.m; path = ../UserInfo/FootprintMapViewController.m; sourceTree = "<group>"; };
 		D9687CA11AC4095500B1C88E /* FootprintMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FootprintMapViewController.xib; path = ../UserInfo/FootprintMapViewController.xib; sourceTree = "<group>"; };
@@ -7142,7 +7142,7 @@
 		D99D8EC719C8600C0021C25B /* PeachTravel */ = {
 			isa = PBXGroup;
 			children = (
-				D964CD581C28F4B60043BE6A /* main.jsbundle */,
+				D964CD611C297D720043BE6A /* main.jsbundle */,
 				D95B0A461BF0671E00F2D900 /* Order */,
 				D92109AE1BE204D700AEDB65 /* Store */,
 				01578DFC1BD2285D00244D9D /* TZPay */,
@@ -10288,6 +10288,7 @@
 				D90A9B431B5627C400E9F37C /* Loading_Animation_final24@3x.png in Resources */,
 				E6F18B141B845F4900232EEB /* master_icon_constellation1@3x.png in Resources */,
 				E6381C0F1B66269000CF73AA /* Loading_Animation_final56@2x.png in Resources */,
+				D964CD621C297D720043BE6A /* main.jsbundle in Resources */,
 				0115C9D01BB103FC00631928 /* citydetail_write_journey_normal@3x.png in Resources */,
 				D90A9B611B5627C400E9F37C /* Loading_Animation_final54@3x.png in Resources */,
 				01C1EC361BB4E4720082217A /* kulou@3x.png in Resources */,
@@ -10484,7 +10485,6 @@
 				D9A801501A80DD23005AD701 /* ZYQAssetPicker.Bundle in Resources */,
 				0115C9CA1BB103FC00631928 /* citydetail_shopping_hilighted@3x.png in Resources */,
 				271C418B1B44D5CD007BF285 /* SpecialPoiCell.xib in Resources */,
-				D964CD591C28F4B60043BE6A /* main.jsbundle in Resources */,
 				E6381C051B66269000CF73AA /* Loading_Animation_final47@2x.png in Resources */,
 				01C1EC4A1BB4E4720082217A /* nu@3x.png in Resources */,
 				D942C2701B9EBCB3005B81C5 /* common_icon_navigaiton_menu@3x.png in Resources */,
