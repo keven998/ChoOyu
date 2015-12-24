@@ -94,14 +94,16 @@
                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="frp-UL-tpN">
                         <rect key="frame" x="90" y="181" width="219" height="124.5"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
                     </textView>
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="+86" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9hQ-by-XH3">
-                        <rect key="frame" x="90" y="137" width="219" height="30"/>
+                        <rect key="frame" x="138" y="137" width="171" height="30"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="30" id="r3w-g3-ZJf"/>
                         </constraints>
+                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="next"/>
                     </textField>
@@ -110,6 +112,7 @@
                         <constraints>
                             <constraint firstAttribute="height" constant="30" id="JMT-ej-zbC"/>
                         </constraints>
+                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <textInputTraits key="textInputTraits" returnKeyType="next"/>
                     </textField>
@@ -118,6 +121,7 @@
                         <constraints>
                             <constraint firstAttribute="height" constant="30" id="Irt-8S-9Nr"/>
                         </constraints>
+                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <textInputTraits key="textInputTraits" returnKeyType="next"/>
                     </textField>
@@ -130,6 +134,16 @@
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <state key="normal" title="选择旅客作为联系人">
                             <color key="titleColor" red="0.59999999999999998" green="0.80000000000000004" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rVN-3c-FLq">
+                        <rect key="frame" x="90" y="137" width="40" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="6fq-oR-Rzi"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <state key="normal" title="+86">
+                            <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                         </state>
                     </button>
                 </subviews>
@@ -158,6 +172,7 @@
                     <constraint firstItem="uip-ma-BCi" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="90" id="cno-bb-0vV"/>
                     <constraint firstItem="PMr-3E-fLB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="11" id="dNV-Id-TIe"/>
                     <constraint firstItem="mRO-so-qx1" firstAttribute="top" secondItem="blT-UE-gpv" secondAttribute="bottom" constant="-12" id="f0N-cB-z41"/>
+                    <constraint firstItem="rVN-3c-FLq" firstAttribute="leading" secondItem="pSd-Zf-Hp9" secondAttribute="trailing" constant="7" id="f4n-nW-oGY"/>
                     <constraint firstItem="mRO-so-qx1" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="21" id="fVF-fW-ocN"/>
                     <constraint firstItem="DC1-YT-vdO" firstAttribute="top" secondItem="Pkt-O7-5KZ" secondAttribute="bottom" constant="19" id="fZ4-ui-chb"/>
                     <constraint firstItem="frp-UL-tpN" firstAttribute="top" secondItem="9hQ-by-XH3" secondAttribute="bottom" constant="14" id="faj-9A-eGf"/>
@@ -165,12 +180,15 @@
                     <constraint firstAttribute="trailing" secondItem="frp-UL-tpN" secondAttribute="trailing" constant="11" id="nv1-IF-LH8"/>
                     <constraint firstAttribute="trailing" secondItem="9hQ-by-XH3" secondAttribute="trailing" constant="11" id="tBH-kO-tId"/>
                     <constraint firstItem="t8b-6f-pUU" firstAttribute="top" secondItem="uip-ma-BCi" secondAttribute="bottom" constant="8" id="tTQ-0S-cwv"/>
+                    <constraint firstItem="9hQ-by-XH3" firstAttribute="leading" secondItem="rVN-3c-FLq" secondAttribute="trailing" constant="8" id="v56-bi-e6t"/>
                     <constraint firstItem="EEX-mK-KSF" firstAttribute="top" secondItem="gZB-zf-hVi" secondAttribute="bottom" constant="-14" id="vka-JJ-hZw"/>
-                    <constraint firstItem="9hQ-by-XH3" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="90" id="xIg-p5-VoD"/>
+                    <constraint firstItem="9hQ-by-XH3" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="138" id="xIg-p5-VoD"/>
+                    <constraint firstItem="rVN-3c-FLq" firstAttribute="top" secondItem="t8b-6f-pUU" secondAttribute="bottom" constant="8" id="zOO-c3-RWO"/>
                     <constraint firstItem="PMr-3E-fLB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="ziH-EH-fnx"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="dialCodeButton" destination="rVN-3c-FLq" id="2yj-kb-0Le"/>
                 <outlet property="firstNameTextField" destination="t8b-6f-pUU" id="2oL-q4-Zfq"/>
                 <outlet property="lastNameTextField" destination="uip-ma-BCi" id="fSr-jA-Z0E"/>
                 <outlet property="messageTextView" destination="frp-UL-tpN" id="cxX-Qc-4Us"/>

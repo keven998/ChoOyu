@@ -11,6 +11,9 @@
 @implementation MakeOrderContactInfoTableViewCell
 
 - (void)awakeFromNib {
+    _dialCodeButton.layer.borderColor = APP_BORDER_COLOR.CGColor;
+    _dialCodeButton.layer.borderWidth = 0.5;
+    
     _lastNameTextField.layer.borderColor = APP_BORDER_COLOR.CGColor;
     _lastNameTextField.layer.borderWidth = 0.5;
     _firstNameTextField.layer.borderColor = APP_BORDER_COLOR.CGColor;

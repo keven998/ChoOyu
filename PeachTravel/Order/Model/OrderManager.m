@@ -35,9 +35,7 @@
                         packageId:(NSString *)packageId
                          playDate:(NSTimeInterval)date
                          quantity:(NSInteger)quantity
-                     contactPhone:(NSInteger)phone
-                 contactFirstName:(NSString *)firstName
-                  contactLastName:(NSString *)lastName
+                     contactModel:(OrderTravelerInfoModel *)contactInfo
                      leaveMessage:(NSString *)message
                   completionBlock:(void (^)(BOOL, OrderDetailModel *))completion
 {
@@ -61,11 +59,11 @@
     [params safeSetObject:travelers forKey:@"travellers"];
     [params safeSetObject:[NSNumber numberWithInteger:quantity] forKey:@"quantity"];
     NSMutableDictionary *telDic = [[NSMutableDictionary alloc] init];
-    [telDic safeSetObject:[NSNumber numberWithInt:86] forKey:@"dialCode"];
-    [telDic safeSetObject:[NSNumber numberWithInteger:phone] forKey:@"number"];
+    [telDic safeSetObject:[NSNumber numberWithInteger:contactInfo.dialCode.integerValue] forKey:@"dialCode"];
+    [telDic safeSetObject:[NSNumber numberWithInteger:contactInfo.telNumber.integerValue] forKey:@"number"];
     [params setObject:telDic forKey:@"contactPhone"];
-    [params safeSetObject:firstName forKey:@"contactGivenName"];
-    [params safeSetObject:lastName forKey:@"contactSurname"];
+    [params safeSetObject:contactInfo.firstName forKey:@"contactGivenName"];
+    [params safeSetObject:contactInfo.lastName forKey:@"contactSurname"];
     [params safeSetObject:message forKey:@"comment"];
     [params safeSetObject:@"" forKey:@"contactEmail"];
 

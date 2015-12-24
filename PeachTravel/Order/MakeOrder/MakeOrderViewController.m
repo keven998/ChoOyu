@@ -19,8 +19,9 @@
 #import "OrderDetailModel.h"
 #import "OrderManager.h"
 #import "OrderDetailViewController.h"
+#import "DialCodeTableViewController.h"
 
-@interface MakeOrderViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UITextViewDelegate, MakeOrderEditTravelerInfoDelegate, PDTSimpleCalendarViewDelegate, MakeOrderSelectPackageDelegate, MakeOrderSelectCountDelegate, TravelerInfoListDelegate>
+@interface MakeOrderViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UITextViewDelegate, MakeOrderEditTravelerInfoDelegate, PDTSimpleCalendarViewDelegate, MakeOrderSelectPackageDelegate, MakeOrderSelectCountDelegate, TravelerInfoListDelegate, DialCodeTableViewControllerDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UILabel *totalPriceLabel;
@@ -161,6 +162,14 @@
     [self.navigationController pushViewController:ctl animated:YES];
 }
 
+- (IBAction)choseDialCode:(id)sender
+{
+    DialCodeTableViewController *ctl = [[DialCodeTableViewController alloc] init];
+    ctl.delegate = self;
+    UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:ctl];
+    [self presentViewController:navi animated:YES completion:nil];
+}
+
 - (void)selectTravelerAsContactAction:(UIButton *)sender
 {
     SelectTravelerListViewController *ctl = [[SelectTravelerListViewController alloc] init];
@@ -187,7 +196,7 @@
         [travelerIds addObject:traveler.uid];
     }
     
-    [OrderManager asyncMakeOrderWithGoodsId:_orderDetail.goods.goodsId travelers:travelerIds packageId:_orderDetail.selectedPackage.packageId playDate:_orderDetail.useDate quantity:_orderDetail.count contactPhone:_orderDetail.orderContact.telNumber.integerValue contactFirstName:_orderDetail.orderContact.firstName contactLastName:_orderDetail.orderContact.lastName leaveMessage:_orderDetail.leaveMessage completionBlock:^(BOOL isSuccess, OrderDetailModel *orderDetail) {
+    [OrderManager asyncMakeOrderWithGoodsId:_orderDetail.goods.goodsId travelers:travelerIds packageId:_orderDetail.selectedPackage.packageId playDate:_orderDetail.useDate quantity:_orderDetail.count contactModel:_orderDetail.orderContact leaveMessage:_orderDetail.leaveMessage completionBlock:^(BOOL isSuccess, OrderDetailModel *orderDetail) {
         if (isSuccess) {
             [SVProgressHUD showHint:@"订单创建成功"];
             _orderDetail = orderDetail;
@@ -273,6 +282,7 @@
     } else if (indexPath.row == 5) {
         MakeOrderContactInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"makeOrderContactInfoCell" forIndexPath:indexPath];
         [cell.selectTravelerBtn addTarget:self action:@selector(selectTravelerAsContactAction:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.dialCodeButton addTarget:self action:@selector(choseDialCode:) forControlEvents:UIControlEventTouchUpInside];
         cell.lastNameTextField.delegate = self;
         cell.telTextField.delegate = self;
         cell.firstNameTextField.delegate = self;
@@ -307,6 +317,7 @@
 {
     if (!_orderDetail.orderContact) {
         _orderDetail.orderContact = [[OrderTravelerInfoModel alloc] init];
+        _orderDetail.orderContact.dialCode = @"86";
     }
     MakeOrderContactInfoTableViewCell *cell = [_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:5 inSection:0]];
     if ([textField isEqual:cell.lastNameTextField]) {
@@ -392,7 +403,8 @@
     _orderDetail.orderContact = selectTraveler;
     cell.firstNameTextField.text = selectTraveler.firstName;
     cell.lastNameTextField.text = selectTraveler.lastName;
-    cell.telTextField.text = selectTraveler.telDesc;
+    cell.telTextField.text = selectTraveler.telNumber;
+    [cell.dialCodeButton setTitle:[NSString stringWithFormat:@"+%@", selectTraveler.dialCode] forState:UIControlStateNormal];
 }
 
 #pragma mark - MakeOrderSelectCountDelegate
@@ -412,5 +424,24 @@
     _totalPriceLabel.text = [NSString stringWithFormat:@"共￥%d", (int)_orderDetail.totalPrice];
     [_tableView reloadData];
 }
+
+
+#pragma mark - DialCodeTableViewControllerDelegate
+
+- (void)didSelectDialCode:(NSDictionary *)dialCode
+{
+    if (dialCode) {
+        MakeOrderContactInfoTableViewCell *cell = [_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:5 inSection:0]];
+
+        [cell.dialCodeButton setTitle:[NSString stringWithFormat:@"+%@", [dialCode objectForKey:@"dialCode"]] forState:UIControlStateNormal];
+        
+        if (!_orderDetail.orderContact) {
+            _orderDetail.orderContact = [[OrderTravelerInfoModel alloc] init];
+        }
+
+        _orderDetail.orderContact.dialCode = [dialCode objectForKey:@"dialCode"];
+    }
+}
+
 
 @end
