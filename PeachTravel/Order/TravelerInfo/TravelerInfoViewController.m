@@ -8,12 +8,14 @@
 
 #import "TravelerInfoViewController.h"
 #import "OrderUserInfoManager.h"
+#import "DialCodeTableViewController.h"
 
-@interface TravelerInfoViewController () <UITextFieldDelegate, UIActionSheetDelegate>
+@interface TravelerInfoViewController () <UITextFieldDelegate, UIActionSheetDelegate, DialCodeTableViewControllerDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UITextField *firstNameTextField;
 @property (nonatomic, strong) UITextField *lastNameTextField;
+@property (nonatomic, strong) UIButton *dialCodeButton;
 @property (nonatomic, strong) UITextField *telTextField;
 @property (nonatomic, strong) UIButton *IDNumberCategoryButton;
 @property (nonatomic, strong) UITextField *IDNumberTextField;
@@ -92,9 +94,19 @@
     _firstNameTextField.text = _traveler.firstName;
     [_scrollView addSubview:_firstNameTextField];
     
-    _telTextField = [[UITextField alloc] initWithFrame:CGRectMake(126, 10+48*2, (kWindowWidth-106)-40, 28)];
-    _telTextField.placeholder = @"+86";
+    _dialCodeButton = [[UIButton alloc] initWithFrame:CGRectMake(126, 10+48*2, 40, 28)];
+    [_dialCodeButton addTarget:self action:@selector(choseDialCode:) forControlEvents:UIControlEventTouchUpInside];
+    _dialCodeButton.layer.borderColor = COLOR_LINE.CGColor;
+    _dialCodeButton.layer.borderWidth = 0.5;
+    _dialCodeButton.titleLabel.font = [UIFont systemFontOfSize:14];
+    [_dialCodeButton setTitle:@"+86" forState:UIControlStateNormal];
+    [_dialCodeButton setTitleColor:COLOR_TEXT_III forState:UIControlStateNormal];
+    _dialCodeButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    [_scrollView addSubview:_dialCodeButton];
+    
+    _telTextField = [[UITextField alloc] initWithFrame:CGRectMake(170, 10+48*2, (kWindowWidth-106)-85, 28)];
     _telTextField.text = _traveler.telDesc;
+    _telTextField.placeholder = @"电话";
     _telTextField.font = [UIFont systemFontOfSize:15];
     _telTextField.textColor = COLOR_TEXT_III;
     _telTextField.returnKeyType = UIReturnKeyDone;
@@ -130,12 +142,22 @@
     _traveler = traveler;
 }
 
+- (IBAction)choseDialCode:(id)sender
+{
+    DialCodeTableViewController *ctl = [[DialCodeTableViewController alloc] init];
+    ctl.delegate = self;
+    UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:ctl];
+    [self presentViewController:navi animated:YES completion:nil];
+}
+
 - (IBAction)finishEdit:(id)sender
 {
     _traveler.firstName = _firstNameTextField.text;
     _traveler.lastName = _lastNameTextField.text;
     _traveler.telNumber = _telTextField.text;
     _traveler.IDNumber = _IDNumberTextField.text;
+    NSString *dialCode = [_dialCodeButton.titleLabel.text stringByReplacingOccurrencesOfString:@"+" withString:@""];
+    _traveler.dialCode = dialCode;
     if ([OrderUserInfoManager checkTravelerInfoIsComplete:_traveler]) {
         [SVProgressHUD showHint:[OrderUserInfoManager checkTravelerInfoIsComplete:_traveler]];
         
@@ -192,5 +214,14 @@
     return YES;
 }
 
+#pragma mark - DialCodeTableViewControllerDelegate
+
+- (void)didSelectDialCode:(NSDictionary *)dialCode
+{
+    if (dialCode) {
+        [_dialCodeButton setTitle:[NSString stringWithFormat:@"+%@", [dialCode objectForKey:@"dialCode"]] forState:UIControlStateNormal];
+        
+    }
+}
 
 @end

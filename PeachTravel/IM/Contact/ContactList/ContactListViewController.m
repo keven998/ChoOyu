@@ -297,6 +297,11 @@
     }
 }
 
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
+{
+    return [self.dataSource objectForKey:@"headerKeys"];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // 第一组是新朋友,如果未读数不为0的话,就需要显示有多少条未读数
@@ -356,10 +361,7 @@
     return rightUtilityButtons;
 }
 
-- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
-{
-    return [self.dataSource objectForKey:@"headerKeys"];
-}
+
 
 #pragma mark - Table view delegate
 

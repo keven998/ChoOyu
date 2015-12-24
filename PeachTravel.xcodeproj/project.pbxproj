@@ -748,6 +748,11 @@
 		D9687CA21AC4095500B1C88E /* FootprintMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9687CA01AC4095500B1C88E /* FootprintMapViewController.m */; };
 		D9687CA31AC4095500B1C88E /* FootprintMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9687CA11AC4095500B1C88E /* FootprintMapViewController.xib */; };
 		D9687CA61AC409AB00B1C88E /* FootPrintViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9687CA51AC409AB00B1C88E /* FootPrintViewController.m */; };
+		D969AD2D1C2BC56F007413CA /* DialCodeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D969AD2B1C2BC56F007413CA /* DialCodeTableViewController.m */; };
+		D969AD2E1C2BC56F007413CA /* DialCodeTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D969AD2C1C2BC56F007413CA /* DialCodeTableViewController.xib */; };
+		D969AD341C2BCF16007413CA /* DialCodeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D969AD321C2BCF16007413CA /* DialCodeTableViewCell.m */; };
+		D969AD351C2BCF16007413CA /* DialCodeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D969AD331C2BCF16007413CA /* DialCodeTableViewCell.xib */; };
+		D969AD371C2BDAE9007413CA /* DialCode.plist in Resources */ = {isa = PBXBuildFile; fileRef = D969AD361C2BDAE9007413CA /* DialCode.plist */; };
 		D96BAFEF1C1AEAA000CDB7C7 /* GTM_Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = D96BAFB81C1AEAA000CDB7C7 /* GTM_Base64.m */; };
 		D96BAFF01C1AEAA000CDB7C7 /* QNALAssetFile.m in Sources */ = {isa = PBXBuildFile; fileRef = D96BAFBA1C1AEAA000CDB7C7 /* QNALAssetFile.m */; };
 		D96BAFF11C1AEAA000CDB7C7 /* QNAsyncRun.m in Sources */ = {isa = PBXBuildFile; fileRef = D96BAFBC1C1AEAA000CDB7C7 /* QNAsyncRun.m */; };
@@ -3034,6 +3039,13 @@
 		D9687CA11AC4095500B1C88E /* FootprintMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FootprintMapViewController.xib; path = ../UserInfo/FootprintMapViewController.xib; sourceTree = "<group>"; };
 		D9687CA41AC409AB00B1C88E /* FootPrintViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FootPrintViewController.h; path = ../UserInfo/FootPrintViewController.h; sourceTree = "<group>"; };
 		D9687CA51AC409AB00B1C88E /* FootPrintViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FootPrintViewController.m; path = ../UserInfo/FootPrintViewController.m; sourceTree = "<group>"; };
+		D969AD2A1C2BC56F007413CA /* DialCodeTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DialCodeTableViewController.h; sourceTree = "<group>"; };
+		D969AD2B1C2BC56F007413CA /* DialCodeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DialCodeTableViewController.m; sourceTree = "<group>"; };
+		D969AD2C1C2BC56F007413CA /* DialCodeTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DialCodeTableViewController.xib; sourceTree = "<group>"; };
+		D969AD311C2BCF16007413CA /* DialCodeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DialCodeTableViewCell.h; sourceTree = "<group>"; };
+		D969AD321C2BCF16007413CA /* DialCodeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DialCodeTableViewCell.m; sourceTree = "<group>"; };
+		D969AD331C2BCF16007413CA /* DialCodeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DialCodeTableViewCell.xib; sourceTree = "<group>"; };
+		D969AD361C2BDAE9007413CA /* DialCode.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DialCode.plist; sourceTree = "<group>"; };
 		D96BAFB71C1AEAA000CDB7C7 /* GTM_Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTM_Base64.h; sourceTree = "<group>"; };
 		D96BAFB81C1AEAA000CDB7C7 /* GTM_Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTM_Base64.m; sourceTree = "<group>"; };
 		D96BAFB91C1AEAA000CDB7C7 /* QNALAssetFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QNALAssetFile.h; sourceTree = "<group>"; };
@@ -6409,6 +6421,7 @@
 		D955E3F819E7A86800047F2B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D969AD361C2BDAE9007413CA /* DialCode.plist */,
 				D9F46DC61AC8E96300972AE8 /* DomesticCityDataSource.plist */,
 				D97C8B4C1A526B9F00476C9C /* Images.xcassets */,
 			);
@@ -6479,6 +6492,19 @@
 				D964CD5E1C29343D0043BE6A /* CitySearchViewController.xib */,
 			);
 			path = PoiSearch;
+			sourceTree = "<group>";
+		};
+		D969AD291C2BC56F007413CA /* DialCodeTableViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D969AD2A1C2BC56F007413CA /* DialCodeTableViewController.h */,
+				D969AD2B1C2BC56F007413CA /* DialCodeTableViewController.m */,
+				D969AD2C1C2BC56F007413CA /* DialCodeTableViewController.xib */,
+				D969AD311C2BCF16007413CA /* DialCodeTableViewCell.h */,
+				D969AD321C2BCF16007413CA /* DialCodeTableViewCell.m */,
+				D969AD331C2BCF16007413CA /* DialCodeTableViewCell.xib */,
+			);
+			path = DialCodeTableViewController;
 			sourceTree = "<group>";
 		};
 		D96BAFB51C1AEAA000CDB7C7 /* QiniuSDK */ = {
@@ -8008,6 +8034,7 @@
 		D9A802541A80E3D3005AD701 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				D969AD291C2BC56F007413CA /* DialCodeTableViewController */,
 				D92C50B01C1EA14A00AD7965 /* TZSchemeManager */,
 				D90EACA71C09552900634829 /* DownSheet */,
 				D959C53D1C06D49F006D8DC0 /* DOPDropDownMenu */,
@@ -10503,6 +10530,7 @@
 				0115C8C51BB0EF2900631928 /* moreview_food-normal@2x.png in Resources */,
 				27329DB51B0E030700F0A4FA /* ChatGroupCell.xib in Resources */,
 				E6F18A8B1B845F4900232EEB /* speaking-motion3@2x.png in Resources */,
+				D969AD2E1C2BC56F007413CA /* DialCodeTableViewController.xib in Resources */,
 				01C1EC881BB4E4720082217A /* xinsui@3x.png in Resources */,
 				D96EAA261BB5172700360ED8 /* footprint_change_default@2x.png in Resources */,
 				E6381C0D1B66269000CF73AA /* Loading_Animation_final54@2x.png in Resources */,
@@ -10569,6 +10597,7 @@
 				D9A8FF211A80CC2B005AD701 /* UserOtherTableViewCell.xib in Resources */,
 				E6F18A231B845F4900232EEB /* ic_lxp_search_homo@2x.png in Resources */,
 				D92CA10D1AD8BDF900F244FF /* SVProgressHUD.bundle in Resources */,
+				D969AD371C2BDAE9007413CA /* DialCode.plist in Resources */,
 				01C1EC271BB4E4720082217A /* jianhua@2x.png in Resources */,
 				D9F059F61B63360700DD683F /* PlanScheduleTableViewCell.xib in Resources */,
 				01C1EC241BB4E4720082217A /* huaxin@3x.png in Resources */,
@@ -10962,6 +10991,7 @@
 				D956639C1BAFEAF0006B2765 /* icon_navi_white_more@2x.png in Resources */,
 				E6F189B01B845F4900232EEB /* city_button_shopping_disable@3X.png in Resources */,
 				E6381C041B66269000CF73AA /* Loading_Animation_final46@2x.png in Resources */,
+				D969AD351C2BCF16007413CA /* DialCodeTableViewCell.xib in Resources */,
 				D90A9B631B5627C400E9F37C /* Loading_Animation_final56@3x.png in Resources */,
 				0115C9B51BB103FC00631928 /* citydetail_jingdian_hilighted@2x.png in Resources */,
 				E6F18B251B845F4900232EEB /* ic_remarks_edit@2x.png in Resources */,
@@ -11937,6 +11967,7 @@
 				D9A801151A80DD23005AD701 /* ChatRecordListTableViewCell.m in Sources */,
 				D993C23E1B12DF0C0088D568 /* wav.mm in Sources */,
 				D9A802391A80E036005AD701 /* WOEIDUtils.m in Sources */,
+				D969AD2D1C2BC56F007413CA /* DialCodeTableViewController.m in Sources */,
 				D9E0EEFC1B7CB020003872DF /* SearchDestinationHistoryCollectionReusableView.m in Sources */,
 				D9DD314A1BF4444A009BEDAB /* StoreDetailModel.m in Sources */,
 				D993C25D1B12DF0C0088D568 /* BaseMessage.swift in Sources */,
@@ -12123,6 +12154,7 @@
 				C6261BB01B2AFDA400DFADEF /* DayAgendaViewController.m in Sources */,
 				D9EE34621AB958D70076933B /* PoiDetailViewControllerFactory.m in Sources */,
 				D9A8020C1A80E036005AD701 /* NSData+Godzippa.m in Sources */,
+				D969AD341C2BCF16007413CA /* DialCodeTableViewCell.m in Sources */,
 				D993C2451B12DF0C0088D568 /* MetaDataDaoHelper.swift in Sources */,
 				D971E2901B8C8F57007E5AFD /* JDStatusBarView.m in Sources */,
 				D971E2E41B94835D007E5AFD /* ExpertManager.m in Sources */,
