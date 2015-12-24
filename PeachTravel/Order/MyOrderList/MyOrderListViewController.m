@@ -99,10 +99,10 @@
     OrderDetailModel *order = _dataSource[sender.tag];
     
     IMClientManager *clientManager = [IMClientManager shareInstance];
-    ChatConversation *conversation = [clientManager.conversationManager getConversationWithChatterId:order.goods.business.userId chatType:IMChatTypeIMChatSingleType];
+    ChatConversation *conversation = [clientManager.conversationManager getConversationWithChatterId:order.goods.store.business.userId chatType:IMChatTypeIMChatSingleType];
     ChatViewController *chatController = [[ChatViewController alloc] initWithConversation:conversation];
    
-    chatController.chatterName = order.goods.business.nickName;
+    chatController.chatterName = order.goods.store.business.nickName;
     
     ChatSettingViewController *menuViewController = [[ChatSettingViewController alloc] init];
     menuViewController.currentConversation= conversation;

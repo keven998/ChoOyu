@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "CityDestinationPoi.h"
+#import "PeachTravel-swift.h"
 
 @interface StoreDetailModel : NSObject
 
@@ -17,6 +18,8 @@
 @property (nonatomic, strong) NSArray<NSString *> *serviceTags;    //服务标签
 @property (nonatomic, strong) NSArray<NSString *> *qualifications;           //商家资质 (认证商家等)
 @property (nonatomic, strong) CityDestinationPoi *city;
+
+@property (nonatomic, strong) BusinessMoel *business;
 
 - (id)initWithJson:(id)json;
 

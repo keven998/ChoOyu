@@ -231,10 +231,10 @@ NSString *const kUpdateOrderdetailNoti = @"kUpdateOrderdetailNoti";
 {
 
     IMClientManager *clientManager = [IMClientManager shareInstance];
-    ChatConversation *conversation = [clientManager.conversationManager getConversationWithChatterId:_orderDetail.goods.business.userId chatType:IMChatTypeIMChatSingleType];
+    ChatConversation *conversation = [clientManager.conversationManager getConversationWithChatterId:_orderDetail.goods.store.business.userId chatType:IMChatTypeIMChatSingleType];
     ChatViewController *chatController = [[ChatViewController alloc] initWithConversation:conversation];
     
-    chatController.chatterName = _orderDetail.goods.business.nickName;
+    chatController.chatterName = _orderDetail.goods.store.business.nickName;
     
     ChatSettingViewController *menuViewController = [[ChatSettingViewController alloc] init];
     menuViewController.currentConversation= conversation;

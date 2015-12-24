@@ -22,8 +22,8 @@
     _titleBtn.titleLabel.numberOfLines = 2;
     [_titleBtn setTitle:_goodsDetail.goodsName forState:UIControlStateNormal];
     
-    NSString *oldPrice = [NSString stringWithFormat:@"￥%d", (int)_goodsDetail.primePrice];
-    NSString *nowPrice = [NSString stringWithFormat:@"￥%d", (int)_goodsDetail.currentPrice];
+    NSString *oldPrice = [NSString stringWithFormat:@"￥%@", _goodsDetail.formatPrimePrice];
+    NSString *nowPrice = [NSString stringWithFormat:@"￥%@", _goodsDetail.formatCurrentPrice];
     
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@起", oldPrice, nowPrice]];
     [attrStr addAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:12],

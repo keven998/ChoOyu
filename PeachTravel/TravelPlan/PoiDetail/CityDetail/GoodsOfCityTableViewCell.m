@@ -28,8 +28,8 @@
     
     [_headerImageView sd_setImageWithURL:[NSURL URLWithString:_goodsDetail.coverImage.imageUrl] placeholderImage:nil];
     [_ratingBtn setTitle:[NSString stringWithFormat:@"%d%%", (int)_goodsDetail.rating] forState:UIControlStateNormal];
-    NSString *oldPrice = [NSString stringWithFormat:@"￥%d", (int)_goodsDetail.primePrice];
-    NSString *nowPrice = [NSString stringWithFormat:@"￥%d", (int)_goodsDetail.currentPrice];
+    NSString *oldPrice = [NSString stringWithFormat:@"￥%@", _goodsDetail.formatPrimePrice];
+    NSString *nowPrice = [NSString stringWithFormat:@"￥%@", _goodsDetail.formatCurrentPrice];
     
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@  %@", oldPrice, nowPrice]];
     [attrStr addAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:13],

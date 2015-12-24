@@ -33,11 +33,11 @@
     _goodsModel = goodsModel;
     [_goodsImageView sd_setImageWithURL:[NSURL URLWithString:_goodsModel.coverImage.imageUrl] placeholderImage:nil];
     _goodsNameLabel.text = _goodsModel.goodsName;
-    NSString *primePriceStr = [NSString stringWithFormat:@"￥%d", (int)goodsModel.primePrice];
+    NSString *primePriceStr = [NSString stringWithFormat:@"￥%@", goodsModel.formatPrimePrice];
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString: primePriceStr];
     [attrStr addAttribute:NSStrikethroughStyleAttributeName value:[NSNumber numberWithInt:NSUnderlineStyleSingle] range:NSMakeRange(0, primePriceStr.length)];
     _oldPriceLabel.attributedText = attrStr;
-    _nowPriceLabel.text = [NSString stringWithFormat:@"￥%d", (int)goodsModel.currentPrice];
+    _nowPriceLabel.text = [NSString stringWithFormat:@"￥%@", goodsModel.formatCurrentPrice];
 
     _cityNameLabel.text = goodsModel.locality.zhName;
     _userNickName.text = goodsModel.store.storeName;

@@ -30,10 +30,7 @@
         if ([json objectForKey:@"locality"] != [NSNull null]) {
             _locality = [[CityDestinationPoi alloc] initWithJson:[json objectForKey:@"locality"]];
         }
-        BusinessMoel *business = [[BusinessMoel alloc] init];
-        business.userId = [[[json objectForKey:@"seller"] objectForKey:@"sellerId"] integerValue];
-        business.nickName = [[json objectForKey:@"seller"] objectForKey:@"name"];
-        _business = business;
+       
         NSMutableArray *packageList = [[NSMutableArray alloc] init];
         for (NSDictionary *packageDic in [json objectForKey:@"plans"]) {
             GoodsPackageModel *package = [[GoodsPackageModel alloc] initWithJson:packageDic];
@@ -43,6 +40,42 @@
         _store = [[StoreDetailModel alloc] initWithJson:[json objectForKey:@"seller"] ];
     }
     return self;
+}
+
+- (NSString *)formatCurrentPrice
+{
+    NSString *priceStr;
+    float currentPrice = round(_currentPrice*100)/100;
+    if (!(currentPrice - (int)currentPrice)) {
+        priceStr = [NSString stringWithFormat:@"%d", (int)currentPrice];
+    } else {
+        NSString *tempPrice = [NSString stringWithFormat:@"%.1f", currentPrice];
+        if (!(_currentPrice - tempPrice.floatValue)) {
+            priceStr = [NSString stringWithFormat:@"%.1f", currentPrice];
+        } else {
+            priceStr = [NSString stringWithFormat:@"%.2f", currentPrice];
+        }
+
+    }
+    return priceStr;
+}
+
+- (NSString *)formatPrimePrice
+{
+    NSString *priceStr;
+    float primePrice = round(_currentPrice*100)/100;
+    if (!(primePrice - (int)primePrice)) {
+        priceStr = [NSString stringWithFormat:@"%d", (int)primePrice];
+    } else {
+        NSString *tempPrice = [NSString stringWithFormat:@"%.1f", primePrice];
+        if (!(primePrice - tempPrice.floatValue)) {
+            priceStr = [NSString stringWithFormat:@"%.1f", primePrice];
+        } else {
+            priceStr = [NSString stringWithFormat:@"%.2f", primePrice];
+        }
+    }
+    return priceStr;
+
 }
 
 @end

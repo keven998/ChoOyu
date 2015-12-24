@@ -20,6 +20,11 @@
         _serviceTags = [json objectForKey:@"services"];
         _qualifications = [json objectForKey:@"qualifications"];
         
+        BusinessMoel *business = [[BusinessMoel alloc] init];
+        business.userId = [[json objectForKey:@"sellerId"] integerValue];
+        business.nickName = [json objectForKey:@"name"];
+        _business = business;
+        
 #warning test
         _languages = @[@"中文", @"英文", @"当地语"];
         _serviceTags = @[@"行程规划", @"做攻略", @"语言服务"];
