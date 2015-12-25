@@ -65,7 +65,7 @@
     MakeOrderPackageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"makeOrderPackageTableViewCell" forIndexPath:indexPath];
     GoodsPackageModel *package = [_packageList objectAtIndex:indexPath.section];
     cell.packageTitle = package.packageName;
-    cell.priceLabel.text = [NSString stringWithFormat:@"￥%@", package.formatCurrentPrice];
+    cell.priceLabel.text = [NSString stringWithFormat:@"￥%@起", package.formatCurrentPrice];
     cell.isSelected = (indexPath.section == _selectedIndex);
     return cell;
 }

@@ -145,7 +145,7 @@ NSString *const kUpdateOrderdetailNoti = @"kUpdateOrderdetailNoti";
         orderAgainBtn.titleLabel.font = [UIFont systemFontOfSize:17];
         [_toolBar addSubview:orderAgainBtn];
         
-    } else if (_orderDetail.orderStatus == kOrderPaid) {
+    } else if (_orderDetail.orderStatus == kOrderInUse || _orderDetail.orderStatus == kOrderPaid) {
         UIButton *requestRefundMoneyBtn = [[UIButton alloc] initWithFrame:_toolBar.bounds];
         [requestRefundMoneyBtn setTitle:@"申请退款" forState:UIControlStateNormal];
         [requestRefundMoneyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -169,6 +169,10 @@ NSString *const kUpdateOrderdetailNoti = @"kUpdateOrderdetailNoti";
         payOrderBtn.titleLabel.font = [UIFont systemFontOfSize:17];
         [payOrderBtn addTarget:self action:@selector(payOrder:) forControlEvents:UIControlEventTouchUpInside];
         [_toolBar addSubview:payOrderBtn];
+        
+    } else {
+        [_toolBar removeFromSuperview];
+        _toolBar = nil;
     }
 }
 
