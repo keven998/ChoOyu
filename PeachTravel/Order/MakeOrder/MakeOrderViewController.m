@@ -125,7 +125,7 @@
     [_commintOrderBtn setBackgroundImage:[ConvertMethods createImageWithColor:UIColorFromRGB(0xff6633)] forState:UIControlStateNormal];
     [_commintOrderBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     _commintOrderBtn.titleLabel.font = [UIFont systemFontOfSize:17.0];
-    [_commintOrderBtn setTitle:@"提交订单" forState:UIControlStateNormal];
+    [_commintOrderBtn setTitle:@"下一步" forState:UIControlStateNormal];
     [toolBar addSubview:_commintOrderBtn];
 }
 
@@ -197,21 +197,11 @@
         [travelerIds addObject:traveler.uid];
     }
     
-    [OrderManager asyncMakeOrderWithGoodsId:_orderDetail.goods.goodsId travelers:travelerIds packageId:_orderDetail.selectedPackage.packageId playDate:_orderDetail.useDate quantity:_orderDetail.count contactModel:_orderDetail.orderContact leaveMessage:_orderDetail.leaveMessage completionBlock:^(BOOL isSuccess, OrderDetailModel *orderDetail) {
-        if (isSuccess) {
-            [SVProgressHUD showHint:@"订单创建成功"];
-            _orderDetail = orderDetail;
-            OrderDetailPreviewViewController *ctl = [[OrderDetailPreviewViewController alloc] init];
-            ctl.orderDetail = _orderDetail;
-            ctl.orderId = _orderDetail.orderId;
-            NSMutableArray *controllers = [self.navigationController.viewControllers mutableCopy];
-            [controllers replaceObjectAtIndex:controllers.count-1 withObject:ctl];
-            [self.navigationController setViewControllers:controllers animated:YES];
-        } else {
-            [SVProgressHUD showHint:@"订单创建失败"];
-        }
-    }];
-   
+    OrderDetailPreviewViewController *ctl = [[OrderDetailPreviewViewController alloc] init];
+    ctl.orderDetail = _orderDetail;
+    ctl.orderId = _orderDetail.orderId;
+    ctl.travelerIdList = travelerIds;
+    [self.navigationController pushViewController:ctl animated:YES];
 }
 
 
@@ -330,9 +320,21 @@
     }
 }
 
+#pragma mark = UITextViewDelegate
+
 - (void)textViewDidChange:(UITextView *)textView
 {
     _orderDetail.leaveMessage = textView.text;
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    if ([text isEqualToString:@"\n"]) {
+        [textView resignFirstResponder];
+        return NO;
+    }
+    
+    return YES;
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView{

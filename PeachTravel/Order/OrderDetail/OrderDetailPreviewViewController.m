@@ -23,13 +23,16 @@
 #import "REFrostedViewController.h"
 #import "TZPayManager.h"
 #import "OrderDetailTravelerPreviewTableViewCell.h"
+#import "DownSheet.h"
+#import "TZPayManager.h"
 
-@interface OrderDetailPreviewViewController () <UITableViewDataSource, UITableViewDelegate> {
-    NSTimer *timer;
-}
+@interface OrderDetailPreviewViewController () <UITableViewDataSource, UITableViewDelegate, DownSheetDelegate>
 
 @property (nonatomic, strong) UIView *toolBar;
-@property (nonatomic) NSInteger payCutdown;   //付款倒计时
+@property (nonatomic, strong) DownSheet *payDownSheet;
+@property (nonatomic, strong) TZPayManager *payManager;
+@property (nonatomic) BOOL isHasCreateNewOrder;  //是否已经创建了订单
+
 @end
 
 @implementation OrderDetailPreviewViewController
@@ -40,7 +43,6 @@
     _tableView.dataSource = self;
     _tableView.delegate = self;
     _tableView.separatorColor = COLOR_LINE;
-    [_tableView registerNib:[UINib nibWithNibName:@"OrderDetailStatusTableViewCell" bundle:nil] forCellReuseIdentifier:@"orderDetailStatusCell"];
     
     [_tableView registerNib:[UINib nibWithNibName:@"OrderDetailContentTableViewCell" bundle:nil] forCellReuseIdentifier:@"orderDetailContentCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"OrderDetailStoreInfoTableViewCell" bundle:nil] forCellReuseIdentifier:@"orderDetailStoreCell"];
@@ -48,11 +50,7 @@
     [_tableView registerNib:[UINib nibWithNibName:@"OrderDetailContactTableViewCell" bundle:nil] forCellReuseIdentifier:@"orderDetailContactCell"];
     
     _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.bounds.size.width, 55)];
-    [OrderManager asyncLoadOrderDetailWithOrderId:_orderId completionBlock:^(BOOL isSuccess, OrderDetailModel *orderDetail) {
-        self.orderDetail = orderDetail;
-        [self.tableView reloadData];
-        [self setupToolBar];
-    }];
+    
     [self setupToolBar];
 }
 
@@ -63,49 +61,15 @@
 - (void)setOrderDetail:(OrderDetailModel *)orderDetail
 {
     _orderDetail = orderDetail;
-    if (_orderDetail.orderStatus == kOrderWaitPay) {
-        if (_orderDetail.expireTime - _orderDetail.currentTime > 0) {
-            _payCutdown = _orderDetail.expireTime - _orderDetail.currentTime;
-        } else {
-            _payCutdown = 0;
-        }
-        if (timer) {
-            [timer invalidate];
-            timer = nil;
-        }
-        timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateLeftTime) userInfo:nil repeats:YES];
-        
-    } else {
-        if (timer) {
-            [timer invalidate];
-            timer = nil;
-        }
-    }
+    [self.tableView reloadData];
 }
 
-- (void)setPayCutdown:(NSInteger)payCutdown
+- (TZPayManager *)payManager
 {
-    _payCutdown = payCutdown;
-    if (_orderDetail.orderStatus == kOrderWaitPay) {
-        OrderDetailStatusTableViewCell *cell = [_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
-        cell.statusLabel.attributedText = [self orderStatusDescWhenWaitPay];
+    if (!_payManager) {
+        _payManager = [[TZPayManager alloc] init];
     }
-}
-
-- (void)updateLeftTime
-{
-    if (_payCutdown == 0) {
-        if (timer) {
-            [timer invalidate];
-            timer = nil;
-        }
-        return;
-    }
-    --self.payCutdown;
-    if (_orderDetail.expireTime - _orderDetail.currentTime < 0) {
-        _payCutdown = 0;
-    }
-    [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+    return _payManager;
 }
 
 - (void)setupToolBar
@@ -133,95 +97,68 @@
     [_toolBar addSubview:payOrderBtn];
 }
 
-- (NSAttributedString *)orderStatusDescWhenWaitPay
-{
-    NSInteger days = _payCutdown/24/60/60;
-    NSInteger hours = (_payCutdown - days*24*3600)/3600;
-    NSInteger minute = (_payCutdown - days*24*3600 - hours*3600)/60;
-    NSInteger second = (_payCutdown - days*24*3600 - hours*3600 - minute*60);
-    NSMutableString *str = [[NSMutableString alloc] initWithString:_orderDetail.orderStatusDesc];
-    [str appendFormat:@"  请在"];
-    if (days) {
-        [str appendFormat:@"%ld天", days];
-    }
-    if (hours) {
-        [str appendFormat:@"%ld小时", hours];
-    }
-    if (minute) {
-        [str appendFormat:@"%ld分钟", minute];
-    }
-    if (second) {
-        [str appendFormat:@"%ld秒 ", second];
-    }
-    [str appendString:@"内完成支付"];
-    NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:str];
-    [attr addAttributes:@{
-                          NSFontAttributeName:[UIFont systemFontOfSize:14],
-                          NSForegroundColorAttributeName: COLOR_TEXT_II,
-                          } range:NSMakeRange(_orderDetail.orderStatusDesc.length, str.length - _orderDetail.orderStatusDesc.length)];
-    return attr;
-}
-
 - (void)payOrder:(UIButton *)sender
 {
-    SelectPayPlatformViewController *ctl = [[SelectPayPlatformViewController alloc] init];
-    ctl.orderDetail = _orderDetail;
-    [self.navigationController pushViewController:ctl animated:YES];
+    if (_isHasCreateNewOrder) {
+        [self showPayActionSheet];
+
+
+    } else {
+        [OrderManager asyncMakeOrderWithGoodsId:_orderDetail.goods.goodsId travelers:_travelerIdList packageId:_orderDetail.selectedPackage.packageId playDate:_orderDetail.useDate quantity:_orderDetail.count contactModel:_orderDetail.orderContact leaveMessage:_orderDetail.leaveMessage completionBlock:^(BOOL isSuccess, OrderDetailModel *orderDetail) {
+            if (isSuccess) {
+                _isHasCreateNewOrder = YES;
+                _orderDetail = orderDetail;
+                
+                [self showPayActionSheet];
+            } else {
+                [SVProgressHUD showHint:@"订单创建失败"];
+            }
+        }];
+
+    }
 }
 
-- (IBAction)contactBusiness:(UIButton *)sender
+- (void)showPayActionSheet
 {
+    DownSheetModel *modelOne = [[DownSheetModel alloc] init];
+    modelOne.title = @"支付宝";
+    modelOne.icon= @"icon_pay_alipay";
     
-    IMClientManager *clientManager = [IMClientManager shareInstance];
-    ChatConversation *conversation = [clientManager.conversationManager getConversationWithChatterId:_orderDetail.goods.store.business.userId chatType:IMChatTypeIMChatSingleType];
-    ChatViewController *chatController = [[ChatViewController alloc] initWithConversation:conversation];
+    DownSheetModel *modelTwo = [[DownSheetModel alloc] init];
+    modelTwo.title = @"微信";
+    modelTwo.icon = @"icon_pay_wechat";
     
-    chatController.chatterName = _orderDetail.goods.store.business.nickName;
-    
-    ChatSettingViewController *menuViewController = [[ChatSettingViewController alloc] init];
-    menuViewController.currentConversation= conversation;
-    menuViewController.chatterId = conversation.chatterId;
-    
-    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:chatController menuViewController:menuViewController];
-    menuViewController.containerCtl = frostedViewController;
-    
-    frostedViewController.hidesBottomBarWhenPushed = YES;
-    frostedViewController.direction = REFrostedViewControllerDirectionRight;
-    frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
-    frostedViewController.liveBlur = YES;
-    frostedViewController.limitMenuViewSize = YES;
-    chatController.backBlock = ^{
-        [frostedViewController.navigationController popViewControllerAnimated:YES];
-    };
-    
-    [self.navigationController pushViewController:frostedViewController animated:YES];
-    
+    _payDownSheet = [[DownSheet alloc] initWithlist:@[modelOne, modelTwo] height:40 andTitle:@"选择支付方式"];
+    _payDownSheet.delegate = self;
+    [_payDownSheet showInView:self];
 }
 
-- (void)orderAgainAction:(UIButton *)sender
+#pragma mark - DownSheetDelegate
+
+- (void)didSelectIndex:(NSInteger)index
 {
-    GoodsDetailViewController *ctl = [[GoodsDetailViewController alloc] init];
-    ctl.goodsId = _orderDetail.goods.goodsId;
-    [self.navigationController pushViewController:ctl animated:YES];
+    _payManager = [[TZPayManager alloc] init];
+    TZPayPlatform platform;
+    if (index == 0) {
+        platform = kAlipay;
+    } else {
+        platform = kWeichatPay;
+    }
+    [_payManager asyncPayOrder:_orderDetail.orderId payPlatform:platform completionBlock:^(BOOL isSuccess, NSString *errorStr) {
+        if (isSuccess) {
+            [SVProgressHUD showHint:@"支付成功"];
+            [_payDownSheet tappedCancel];
+            
+        } else {
+            [SVProgressHUD showHint:errorStr];
+        }
+    }];
 }
 
-- (void)requestRefundMoney:(UIButton *)sender
-{
-    AskRefundMoneyViewController *ctl = [[AskRefundMoneyViewController alloc] init];
-    [self.navigationController pushViewController:ctl animated:YES];
-}
-
-- (void)goodsDetailAction:(UIButton *)sender
-{
-    GoodsDetailViewController *ctl = [[GoodsDetailViewController alloc] init];
-    ctl.goodsId = _orderDetail.goods.goodsId;
-    [self.navigationController pushViewController:ctl animated:YES];
-    
-}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 5;
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -241,12 +178,13 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 1) {
+    if (indexPath.section == 0) {
         return [OrderDetailContentTableViewCell heightOfCellWithOrderDetail:_orderDetail];
-    } else if (indexPath.section == 3) {
+        
+    } else if (indexPath.section == 2) {
         return [OrderDetailTravelerPreviewTableViewCell heightOfCellWithTravelerList:_orderDetail.travelerList];
         
-    } else if (indexPath.section == 4) {
+    } else if (indexPath.section == 3) {
         return [OrderDetailContactTableViewCell heightOfCellWithContactInfo:_orderDetail.orderContact andLeaveMessage:_orderDetail.leaveMessage];
     }
     return 50;
@@ -255,27 +193,18 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        OrderDetailStatusTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"orderDetailStatusCell" forIndexPath:indexPath];
-        if (_orderDetail.orderStatus == kOrderWaitPay) {
-            cell.statusLabel.attributedText = [self orderStatusDescWhenWaitPay];
-        } else {
-            cell.statusLabel.text = _orderDetail.orderStatusDesc;
-        }
-        return cell;
-        
-    } else if (indexPath.section == 1) {
         OrderDetailContentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"orderDetailContentCell" forIndexPath:indexPath];
         cell.orderDetail = _orderDetail;
         cell.goodsNameBtn.userInteractionEnabled = NO;
         return cell;
         
-    } else if (indexPath.section == 2) {
+    } else if (indexPath.section == 1) {
         OrderDetailStoreInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"orderDetailStoreCell" forIndexPath:indexPath];
         cell.chatBtn.hidden = YES;
         cell.storeNameLabel.text = _orderDetail.goods.store.storeName;
         return cell;
         
-    } else if (indexPath.section == 3) {
+    } else if (indexPath.section == 2) {
         OrderDetailTravelerPreviewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"orderDetailTravelerPreviewCell" forIndexPath:indexPath];
         cell.travelerList = _orderDetail.travelerList;
         return cell;
@@ -291,11 +220,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.section == 3 && indexPath.row == 0) {
-        TravelerListViewController *ctl = [[TravelerListViewController alloc] init];
-        ctl.travelerList = _orderDetail.travelerList;
-        [self.navigationController pushViewController:ctl animated:YES];
-    }
 }
 
 

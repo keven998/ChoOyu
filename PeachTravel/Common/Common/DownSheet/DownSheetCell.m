@@ -20,7 +20,8 @@
         InfoLabel.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:leftView];
         [self.contentView addSubview:InfoLabel];
-        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        InfoLabel.textColor = COLOR_TEXT_II;
+        InfoLabel.font = [UIFont systemFontOfSize:14.0];
     }
     return self;
 }
@@ -37,23 +38,4 @@
     InfoLabel.text = dicdata.title;
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
-    if(selected){
-        self.backgroundColor = RGBCOLOR(12, 102, 188);
-        leftView.image = [UIImage imageNamed:cellData.icon_on];
-        InfoLabel.textColor = [UIColor whiteColor];
-    }else{
-        self.backgroundColor = [UIColor whiteColor];
-        leftView.image = [UIImage imageNamed:cellData.icon];
-        InfoLabel.textColor = [UIColor blackColor];
-    }
-    // Configure the view for the selected state
-}
-
 @end
-
-// 版权属于原作者
-// http://code4app.com (cn) http://code4app.net (en)
-// 发布代码于最专业的源码分享网站: Code4App.com 

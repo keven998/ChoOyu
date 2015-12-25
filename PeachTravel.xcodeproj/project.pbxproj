@@ -6634,6 +6634,26 @@
 			name = MorePoiRecommend;
 			sourceTree = "<group>";
 		};
+		D971A77B1C2D484500D364C6 /* OrderDetailViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D9DD315D1BF5BABE009BEDAB /* OrderDetailViewController.h */,
+				D9DD315E1BF5BABE009BEDAB /* OrderDetailViewController.m */,
+				D9DD315F1BF5BABE009BEDAB /* OrderDetailViewController.xib */,
+			);
+			name = OrderDetailViewController;
+			sourceTree = "<group>";
+		};
+		D971A77C1C2D484F00D364C6 /* OrderDetailPreviewViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D969AD381C2C1759007413CA /* OrderDetailPreviewViewController.h */,
+				D969AD391C2C1759007413CA /* OrderDetailPreviewViewController.m */,
+				D969AD3A1C2C1759007413CA /* OrderDetailPreviewViewController.xib */,
+			);
+			name = OrderDetailPreviewViewController;
+			sourceTree = "<group>";
+		};
 		D971E2871B8C8F57007E5AFD /* JDStatusBarNotification */ = {
 			isa = PBXGroup;
 			children = (
@@ -8917,12 +8937,8 @@
 			isa = PBXGroup;
 			children = (
 				D9DD31621BF5BB0E009BEDAB /* ViewComponents */,
-				D9DD315D1BF5BABE009BEDAB /* OrderDetailViewController.h */,
-				D9DD315E1BF5BABE009BEDAB /* OrderDetailViewController.m */,
-				D9DD315F1BF5BABE009BEDAB /* OrderDetailViewController.xib */,
-				D969AD381C2C1759007413CA /* OrderDetailPreviewViewController.h */,
-				D969AD391C2C1759007413CA /* OrderDetailPreviewViewController.m */,
-				D969AD3A1C2C1759007413CA /* OrderDetailPreviewViewController.xib */,
+				D971A77B1C2D484500D364C6 /* OrderDetailViewController */,
+				D971A77C1C2D484F00D364C6 /* OrderDetailPreviewViewController */,
 			);
 			path = OrderDetail;
 			sourceTree = "<group>";
@@ -10240,7 +10256,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0710;
+				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = com.aizou.www;
 				TargetAttributes = {
 					D99D8EC419C8600C0021C25B = {

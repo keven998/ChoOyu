@@ -17,12 +17,16 @@
     UITableView *view;
     NSArray *listData;
 }
--(id)initWithlist:(NSArray *)list height:(CGFloat)height andTitle:(NSString *)title;
+- (id)initWithlist:(NSArray *)list height:(CGFloat)height andTitle:(NSString *)title;
 
 - (void)showInView:(UIViewController *)Sview;
+
+- (void)tappedCancel;
+
 @property(nonatomic,assign) id <DownSheetDelegate> delegate;
 
 @property (nonatomic, copy) NSString *title;
+
 @end
 
 // 版权属于原作者

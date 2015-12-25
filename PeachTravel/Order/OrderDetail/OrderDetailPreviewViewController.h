@@ -15,5 +15,6 @@
 
 @property (nonatomic, strong) OrderDetailModel *orderDetail;
 @property (nonatomic) NSInteger orderId;
+@property (nonatomic, strong) NSArray *travelerIdList;
 
 @end

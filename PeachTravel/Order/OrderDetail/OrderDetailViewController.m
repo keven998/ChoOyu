@@ -189,9 +189,9 @@ NSString *const kUpdateOrderdetailNoti = @"kUpdateOrderdetailNoti";
     if (minute) {
         [str appendFormat:@"%ld分钟", minute];
     }
-    if (second) {
+    if (second >= 0) {
         [str appendFormat:@"%ld秒 ", second];
-    }
+    } 
     [str appendString:@"内完成支付"];
     NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:str];
     [attr addAttributes:@{

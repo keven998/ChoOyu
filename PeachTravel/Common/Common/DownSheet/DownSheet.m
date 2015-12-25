@@ -27,13 +27,15 @@
         _title = title;
         CGFloat height = 0;
         if (title) {
-            height = 44*[list count]+44;
+            height = 50*[list count]+50;
+           
         } else {
-            height = 44*[list count];
+            height = 50*[list count];
         }
         view = [[UITableView alloc]initWithFrame:CGRectMake(0, ScreenHeight, ScreenWidth,height) style:UITableViewStylePlain];
         view.dataSource = self;
         view.delegate = self;
+        view.separatorColor = COLOR_LINE;
         listData = list;
         view.scrollEnabled = NO;
         [self addSubview:view];
@@ -100,19 +102,27 @@
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if (_title) {
-        return 44;
+        return 50;
     }
     return 0;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 50;
+}
+
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UIView *sectionHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 44)];
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(11, 0, tableView.bounds.size.width-22, 44)];
-    titleLabel.textColor = [UIColor blackColor];
+    UIView *sectionHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 50)];
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(11, 0, tableView.bounds.size.width-22, 50)];
+    titleLabel.textColor = COLOR_TEXT_I;
     titleLabel.font = [UIFont systemFontOfSize:15];
     titleLabel.text = _title;
     [sectionHeader addSubview:titleLabel];
+    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 49.5, sectionHeader.bounds.size.width, 0.5)];
+    spaceView.backgroundColor = COLOR_LINE;
+    [sectionHeader addSubview:spaceView];
     return sectionHeader;
 }
 
@@ -124,29 +134,17 @@
         cell = [[DownSheetCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     [cell setData:[listData objectAtIndex:indexPath.row]];
-    // Configure the cell...
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [self tappedCancel];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if(_delegate!=nil && [_delegate respondsToSelector:@selector(didSelectIndex:)]){
         [_delegate didSelectIndex:indexPath.row];
         return;
     }
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
-
 @end
 
-// 版权属于原作者
-// http://code4app.com (cn) http://code4app.net (en)
-// 发布代码于最专业的源码分享网站: Code4App.com 
+
