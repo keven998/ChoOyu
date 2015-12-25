@@ -15,6 +15,8 @@
 @property (nonatomic, copy) NSString *packageDesc;
 @property (nonatomic) float currentPrice;
 @property (nonatomic) float primePrice;
+@property (nonatomic, copy, readonly) NSString *formatPrimePrice;
+@property (nonatomic, copy, readonly) NSString *formatCurrentPrice;
 
 //套餐开始时间
 @property (nonatomic) NSTimeInterval startPriceTimeInterval;

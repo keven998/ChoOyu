@@ -68,7 +68,7 @@
     UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(51, 0, 90, toolBar.bounds.size.height)];
     priceLabel.textColor = UIColorFromRGB(0xFC4E27);;
     priceLabel.font = [UIFont systemFontOfSize:17.0];
-    priceLabel.text = [NSString stringWithFormat:@"%.1f", _orderDetail.totalPrice];
+    priceLabel.text = [NSString stringWithFormat:@"共￥%@", _orderDetail.formatTotalPrice];
     [toolBar addSubview:priceLabel];
     
     [self.view addSubview:toolBar];

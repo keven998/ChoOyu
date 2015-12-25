@@ -266,12 +266,12 @@
     } else if (indexPath.section == 1) {
         OrderDetailContentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"orderDetailContentCell" forIndexPath:indexPath];
         cell.orderDetail = _orderDetail;
-        [cell.goodsNameBtn addTarget:self action:@selector(goodsDetailAction:) forControlEvents:UIControlEventTouchUpInside];
+        cell.goodsNameBtn.userInteractionEnabled = NO;
         return cell;
         
     } else if (indexPath.section == 2) {
         OrderDetailStoreInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"orderDetailStoreCell" forIndexPath:indexPath];
-        [cell.chatBtn addTarget:self action:@selector(contactBusiness:) forControlEvents:UIControlEventTouchUpInside];
+        cell.chatBtn.hidden = YES;
         cell.storeNameLabel.text = _orderDetail.goods.store.storeName;
         return cell;
         

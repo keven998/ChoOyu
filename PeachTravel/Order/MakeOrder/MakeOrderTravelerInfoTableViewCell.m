@@ -23,6 +23,7 @@
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [_tableView registerNib:[UINib nibWithNibName:@"MakeOrderTravelerTableViewCell" bundle:nil] forCellReuseIdentifier:@"makeOrderTravelerCell"];
     _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.bounds.size.width, 10)];
+    [_editTravelerButton setTitle:@"选择旅客" forState:UIControlStateNormal];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -32,11 +33,6 @@
 - (void)setTravelerList:(NSMutableArray *)travelerList
 {
     _travelerList = travelerList;
-    if (_travelerList.count) {
-        [_editTravelerButton setTitle:@"编辑" forState:UIControlStateNormal];
-    } else {
-        [_editTravelerButton setTitle:@"添加旅客信息" forState:UIControlStateNormal];
-    }
     [self.tableView reloadData];
 }
 

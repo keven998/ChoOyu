@@ -57,7 +57,7 @@
     self.orderNumberLabel.text = [NSString stringWithFormat:@"%ld", _orderDetail.orderId];
     self.dateLabel.text = _orderDetail.useDateStr;
     self.countLabel.text = [NSString stringWithFormat:@"%ld", _orderDetail.count];
-    self.priceLabel.text = [NSString stringWithFormat:@"%d", (int)_orderDetail.totalPrice];
+    self.priceLabel.text = [NSString stringWithFormat:@"￥%@", _orderDetail.formatTotalPrice];
 
     NSDictionary *attribs = @{NSFontAttributeName: [UIFont systemFontOfSize:13]};
 

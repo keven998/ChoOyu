@@ -117,7 +117,7 @@
     _totalPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(27, 16, 200, 25)];
     _totalPriceLabel.textColor = [UIColor redColor];
     _totalPriceLabel.font = [UIFont systemFontOfSize:17.0];
-    _totalPriceLabel.text = [NSString stringWithFormat:@"%d", (int)_orderDetail.totalPrice];
+    _totalPriceLabel.text = [NSString stringWithFormat:@"￥%@", _orderDetail.formatTotalPrice];
     [toolBar addSubview:_totalPriceLabel];
     
     _commintOrderBtn = [[UIButton alloc] initWithFrame:CGRectMake(toolBar.bounds.size.width-toolBar.bounds.size.width/5*2, 0, toolBar.bounds.size.width/5*2, 56)];
@@ -380,15 +380,21 @@
     if (![package.packageId isEqualToString:_orderDetail.selectedPackage.packageId]) {
         [OrderManager updateOrder:_orderDetail WithGoodsPackage:package];
         _orderDetail.unitPrice = 0;
+        BOOL find = NO;
         for (NSDictionary *priceDic in package.priceList) {
             NSTimeInterval startDate = [[[priceDic objectForKey:@"timeRange"] firstObject] integerValue]/1000;
             NSTimeInterval endDate = [[[priceDic objectForKey:@"timeRange"] lastObject] integerValue]/1000;
             if (_orderDetail.useDate>startDate && _orderDetail.useDate<endDate) {
                 _orderDetail.unitPrice = [[priceDic objectForKey:@"price"] floatValue];
+                find = YES;
                 break;
             }
         }
-        _totalPriceLabel.text = [NSString stringWithFormat:@"共￥%d", (int)_orderDetail.totalPrice];
+        if (!find) {
+            _orderDetail.useDate = 0;
+            [self.tableView reloadData];
+        }
+        _totalPriceLabel.text = [NSString stringWithFormat:@"￥%@", _orderDetail.formatTotalPrice];
     }
 }
 
@@ -413,7 +419,7 @@
 - (void)updateSelectCount:(NSInteger)count
 {
     [OrderManager updateOrder:_orderDetail WithBuyCount:count];
-    _totalPriceLabel.text = [NSString stringWithFormat:@"共￥%d", (int)_orderDetail.totalPrice];
+    _totalPriceLabel.text = [NSString stringWithFormat:@"￥%@", _orderDetail.formatTotalPrice];
 }
 
 #pragma mark - PDTSimpleCalendarViewDelegate
@@ -422,7 +428,7 @@
 {
     _orderDetail.unitPrice = price;
     _orderDetail.useDate = date.timeIntervalSince1970;
-    _totalPriceLabel.text = [NSString stringWithFormat:@"共￥%d", (int)_orderDetail.totalPrice];
+    _totalPriceLabel.text = [NSString stringWithFormat:@"￥%@", _orderDetail.formatTotalPrice];
     [_tableView reloadData];
 }
 
