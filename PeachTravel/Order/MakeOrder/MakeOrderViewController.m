@@ -18,8 +18,9 @@
 #import "SelectTravelerListViewController.h"
 #import "OrderDetailModel.h"
 #import "OrderManager.h"
-#import "OrderDetailViewController.h"
+#import "OrderDetailPreviewViewController.h"
 #import "DialCodeTableViewController.h"
+
 
 @interface MakeOrderViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UITextViewDelegate, MakeOrderEditTravelerInfoDelegate, PDTSimpleCalendarViewDelegate, MakeOrderSelectPackageDelegate, MakeOrderSelectCountDelegate, TravelerInfoListDelegate, DialCodeTableViewControllerDelegate>
 
@@ -200,7 +201,7 @@
         if (isSuccess) {
             [SVProgressHUD showHint:@"订单创建成功"];
             _orderDetail = orderDetail;
-            OrderDetailViewController *ctl = [[OrderDetailViewController alloc] init];
+            OrderDetailPreviewViewController *ctl = [[OrderDetailPreviewViewController alloc] init];
             ctl.orderDetail = _orderDetail;
             ctl.orderId = _orderDetail.orderId;
             NSMutableArray *controllers = [self.navigationController.viewControllers mutableCopy];

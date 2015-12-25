@@ -125,7 +125,7 @@
         }
         offsetY += 29.5;
     }
-    UIView *buttomSpaceView = [[UIView alloc] initWithFrame:CGRectMake(0, offsetY, self.bounds.size.width, 0.5)];
+    UIView *buttomSpaceView = [[UIView alloc] initWithFrame:CGRectMake(0, self.bounds.size.height-0.5, self.bounds.size.width, 0.5)];
     buttomSpaceView.backgroundColor = COLOR_LINE;
     [self addSubview:buttomSpaceView];
 }

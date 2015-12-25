@@ -5,9 +5,9 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OrderDetailViewController">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OrderDetailPreviewViewController">
             <connections>
-                <outlet property="tableView" destination="ZSm-7l-2ri" id="XB5-95-D8R"/>
+                <outlet property="tableView" destination="Ev7-4K-zF5" id="ikO-Tz-vqd"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -16,19 +16,18 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="ZSm-7l-2ri">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ev7-4K-zF5">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                    <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </tableView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="ZSm-7l-2ri" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="DFh-HX-d22"/>
-                <constraint firstItem="ZSm-7l-2ri" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="NvC-eJ-aJg"/>
-                <constraint firstAttribute="bottom" secondItem="ZSm-7l-2ri" secondAttribute="bottom" id="fuw-Ez-m8E"/>
-                <constraint firstAttribute="trailing" secondItem="ZSm-7l-2ri" secondAttribute="trailing" id="m5d-Pd-b41"/>
+                <constraint firstAttribute="trailing" secondItem="Ev7-4K-zF5" secondAttribute="trailing" id="DxC-LH-7oZ"/>
+                <constraint firstItem="Ev7-4K-zF5" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="ELf-b5-D8t"/>
+                <constraint firstAttribute="bottom" secondItem="Ev7-4K-zF5" secondAttribute="bottom" id="qEC-b9-6kw"/>
+                <constraint firstItem="Ev7-4K-zF5" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="qe7-Qj-CJk"/>
             </constraints>
-            <point key="canvasLocation" x="371" y="200"/>
         </view>
     </objects>
 </document>

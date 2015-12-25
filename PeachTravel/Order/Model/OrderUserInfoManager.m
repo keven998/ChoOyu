@@ -139,7 +139,7 @@
     [params setObject:@"male" forKey:@"gender"];
     [params setObject:@"" forKey:@"email"];
     NSMutableDictionary *tel = [[NSMutableDictionary alloc] init];
-    [tel setObject:@"86" forKey:@"dialCode"];
+    [tel setObject:traveler.dialCode forKey:@"dialCode"];
     [tel setObject:traveler.telNumber forKey:@"number"];
     [params safeSetObject:tel forKey:@"tel"];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];

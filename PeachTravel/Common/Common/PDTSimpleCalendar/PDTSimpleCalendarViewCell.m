@@ -110,11 +110,11 @@ const CGFloat PDTSimpleCalendarCircleSize = 32.0f;
     self.dayLabel.accessibilityLabel = accessibilityDay;
 }
 
-- (void)setPrice:(float)price
+- (void)setPriceStr:(NSString *)priceStr
 {
-    _price = price;
-    if (price >= 0) {
-        _priceLabel.text = [NSString stringWithFormat:@"￥%.1f", _price];
+    _priceStr = priceStr;
+    if (_priceStr) {
+        _priceLabel.text = [NSString stringWithFormat:@"￥%@", _priceStr];
 
         if (self.selected) {
             self.layer.borderColor = UIColorFromRGB(0xff6633).CGColor;
@@ -137,7 +137,7 @@ const CGFloat PDTSimpleCalendarCircleSize = 32.0f;
 {
     [super setSelected:selected];
 //    [self setCircleColor:self.isToday selected:selected];
-    if (_price >= 0) {
+    if (_priceStr) {
         if (selected) {
             self.layer.borderColor = UIColorFromRGB(0xff6633).CGColor;
         } else {

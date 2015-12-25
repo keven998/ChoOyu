@@ -389,33 +389,27 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     self.delegate = self;
     self.tabBar.selectedImageTintColor = APP_THEME_COLOR;
     
-    _chatListCtl = [[ChatListViewController alloc] init];
-    _chatListCtl.delegate = self;
-    TZNavigationViewController *firstNavigationController = [[TZNavigationViewController alloc]
-                                                             initWithRootViewController:self.chatListCtl];
-    
     _goodsRecommendCtl = [[GoodsRecommendViewController alloc] init];
 
-    TZNavigationViewController *testNavi = [[TZNavigationViewController alloc]
+    TZNavigationViewController *firstNavigationController = [[TZNavigationViewController alloc]
                                                              initWithRootViewController:_goodsRecommendCtl];
     
-    //TODO: test
-    /*
-    _poiRecommendCtl = [[PoiRecommendRootViewController alloc] init];
-    TZNavigationViewController *secondNavigationController = [[TZNavigationViewController alloc]
-                                                              initWithRootViewController:_poiRecommendCtl];
-     */
-
     CountryRecommendViewController *ctl = [[CountryRecommendViewController alloc] init];
-    TZNavigationViewController *thirdNavigationController = [[TZNavigationViewController alloc]
+    TZNavigationViewController *secondNavigationController = [[TZNavigationViewController alloc]
                                                               initWithRootViewController:ctl];
+    
+    _chatListCtl = [[ChatListViewController alloc] init];
+    _chatListCtl.delegate = self;
+    TZNavigationViewController *thirdNavigationController = [[TZNavigationViewController alloc]
+                                                              initWithRootViewController:self.chatListCtl];
+    
     
     _mineCtl = [[MineViewContoller alloc] init];
     TZNavigationViewController *fourthNavigationController = [[TZNavigationViewController alloc]
                                                               initWithRootViewController:_mineCtl];
     
     
-    [self setViewControllers:@[testNavi, firstNavigationController, thirdNavigationController
+    [self setViewControllers:@[firstNavigationController, secondNavigationController, thirdNavigationController
                                , fourthNavigationController]];
     [self customizeTabBarForController];
 
@@ -423,8 +417,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)customizeTabBarForController
 {
-    NSArray *tabBarItemImages = @[@"ic_tabbar_goods", @"ic_tabbar_chat", @"ic_tabbar_destination", @"ic_tabbar_mine"];
-    NSArray *tabbarItemNames = @[@"首页", @"消息", @"目的地", @"我的"];
+    NSArray *tabBarItemImages = @[@"ic_tabbar_goods", @"ic_tabbar_destination", @"ic_tabbar_chat", @"ic_tabbar_mine"];
+    NSArray *tabbarItemNames = @[@"首页", @"目的地", @"消息", @"我的"];
     NSInteger index = 0;
     
     for (UITabBarItem *item in self.tabBar.items) {

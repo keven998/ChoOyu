@@ -18,6 +18,7 @@
 - (void)awakeFromNib {
     _bgView.layer.borderColor = COLOR_LINE.CGColor;
     _bgView.layer.borderWidth = 0.5;
+    _goodsImageView.clipsToBounds = YES;
     _goodsPriceLabel.adjustsFontSizeToFitWidth = YES;
     self.backgroundColor = APP_PAGE_COLOR;
     _sendGoodsLinkButton.layer.borderColor = COLOR_LINE.CGColor;

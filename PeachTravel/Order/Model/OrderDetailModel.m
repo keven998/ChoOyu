@@ -66,7 +66,7 @@
     NSString *orderStatusDesc = @"";
     switch (_orderStatus) {
         case kOrderPaid:
-            orderStatusDesc = @"处理中";
+            orderStatusDesc = @"待卖家确认";
             break;
             
         case kOrderCanceled:

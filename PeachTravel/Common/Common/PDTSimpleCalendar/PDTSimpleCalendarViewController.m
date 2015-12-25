@@ -236,7 +236,7 @@ static const NSCalendarUnit kCalendarUnitYMD = NSCalendarUnitYear | NSCalendarUn
 
     //Notify the delegate
     if ([self.delegate respondsToSelector:@selector(simpleCalendarViewController:didSelectDate:price:)]) {
-        [self.delegate simpleCalendarViewController:self didSelectDate:self.selectedDate price:cell.price];
+        [self.delegate simpleCalendarViewController:self didSelectDate:self.selectedDate price:cell.priceStr.floatValue];
     }
 }
 
@@ -410,14 +410,14 @@ static const NSCalendarUnit kCalendarUnitYMD = NSCalendarUnitYear | NSCalendarUn
             isCustomDate = [self.delegate simpleCalendarViewController:self shouldUseCustomColorsForDate:cellDate];
         }
         if (![self isBeforeToday:cellDate]) {
-            cell.price = [self priceDescOfDate:cellDate];;
+            cell.priceStr = [self priceDescOfDate:cellDate];;
         } else {
-            cell.price = -1;
+            cell.priceStr = nil;
         }
 
     } else {
         [cell setDate:nil calendar:nil];
-        cell.price = -1;
+        cell.priceStr = nil;
     }
 
     if (isToday) {
@@ -461,7 +461,7 @@ static const NSCalendarUnit kCalendarUnitYMD = NSCalendarUnitYear | NSCalendarUn
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     PDTSimpleCalendarViewCell *cell = (PDTSimpleCalendarViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    if (cell.price >= 0) {
+    if (cell.priceStr) {
         self.selectedDate = [self dateForCellAtIndexPath:indexPath];
         [self.navigationController popViewControllerAnimated:YES];
     }
@@ -613,17 +613,30 @@ static const NSCalendarUnit kCalendarUnitYMD = NSCalendarUnitYear | NSCalendarUn
 }
 
 //某天的价格
-- (float)priceDescOfDate:(NSDate *)date
+- (NSString *)priceDescOfDate:(NSDate *)date
 {
     NSTimeInterval timeInterval = [date timeIntervalSince1970];
     for (NSDictionary *dic in _priceList) {
         NSTimeInterval beginDate = [[[dic objectForKey:@"timeRange"] firstObject] floatValue]/1000;
         NSTimeInterval endDate = [[[dic objectForKey:@"timeRange"] lastObject] floatValue]/1000;
         if (timeInterval >= beginDate && timeInterval <= endDate) {
-            return [[dic objectForKey:@"price"] floatValue];
+            float price = [[dic objectForKey:@"price"] floatValue];
+            NSString *priceStr;
+            float currentPrice = round(price*100)/100;
+            if (!(currentPrice - (int)currentPrice)) {
+                priceStr = [NSString stringWithFormat:@"%d", (int)currentPrice];
+            } else {
+                NSString *tempPrice = [NSString stringWithFormat:@"%.1f", currentPrice];
+                if (!(price - tempPrice.floatValue)) {
+                    priceStr = [NSString stringWithFormat:@"%.1f", currentPrice];
+                } else {
+                    priceStr = [NSString stringWithFormat:@"%.2f", currentPrice];
+                }
+            }
+            return priceStr;
         }
     }
-    return -1;
+    return nil;
 }
 
 static const NSInteger kFirstDay = 1;
