@@ -7,6 +7,7 @@
 //
 
 #import "OrderPaySuccessViewController.h"
+#import "OrderDetailViewController.h"
 
 @interface OrderPaySuccessViewController ()
 
@@ -24,4 +25,14 @@
 }
 
 
+- (IBAction)checkOrderDetail:(id)sender {
+    NSMutableArray *viewControllers = [self.navigationController.viewControllers mutableCopy];
+    if ([[viewControllers objectAtIndex:viewControllers.count-2] isKindOfClass:[OrderDetailViewController class]]) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
+- (IBAction)backHomeViewController:(id)sender {
+    [self.navigationController popToRootViewControllerAnimated:NO];
+}
 @end

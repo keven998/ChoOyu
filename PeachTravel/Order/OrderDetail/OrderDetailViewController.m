@@ -69,14 +69,18 @@ NSString *const kUpdateOrderdetailNoti = @"kUpdateOrderdetailNoti";
     if (_orderDetail.orderStatus == kOrderWaitPay) {
         if (_orderDetail.expireTime - _orderDetail.currentTime > 0) {
             _payCutdown = _orderDetail.expireTime - _orderDetail.currentTime;
+            if (timer) {
+                [timer invalidate];
+                timer = nil;
+            }
+            timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateLeftTime) userInfo:nil repeats:YES];
         } else {
             _payCutdown = 0;
+            if (timer) {
+                [timer invalidate];
+                timer = nil;
+            }
         }
-        if (timer) {
-            [timer invalidate];
-            timer = nil;
-        }
-        timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateLeftTime) userInfo:nil repeats:YES];
 
     } else {
         if (timer) {
@@ -101,13 +105,11 @@ NSString *const kUpdateOrderdetailNoti = @"kUpdateOrderdetailNoti";
         if (timer) {
             [timer invalidate];
             timer = nil;
+            [self updateOrderDetail];
         }
         return;
     }
     --self.payCutdown;
-    if (_orderDetail.expireTime - _orderDetail.currentTime < 0) {
-        _payCutdown = 0;
-    } 
     [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
 }
 

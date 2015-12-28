@@ -33,6 +33,9 @@
                         <constraint firstAttribute="height" constant="30" id="ANA-Fz-ysH"/>
                     </constraints>
                     <state key="normal" title="查看订单"/>
+                    <connections>
+                        <action selector="checkOrderDetail:" destination="-1" eventType="touchUpInside" id="BUK-Rk-9RR"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RgL-A9-q6s">
                     <rect key="frame" x="325" y="206" width="202" height="30"/>
@@ -40,6 +43,9 @@
                         <constraint firstAttribute="height" constant="30" id="Mpp-cU-MgD"/>
                     </constraints>
                     <state key="normal" title="返回首页"/>
+                    <connections>
+                        <action selector="backHomeViewController:" destination="-1" eventType="touchUpInside" id="Sna-bS-L9A"/>
+                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
