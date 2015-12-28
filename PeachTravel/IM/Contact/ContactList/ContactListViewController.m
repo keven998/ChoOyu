@@ -47,6 +47,7 @@
     UIButton *backBtn =  [UIButton buttonWithType:UIButtonTypeCustom];
     [backBtn addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
     [backBtn setFrame:CGRectMake(0, 0, 40, 30)];
+    backBtn.titleLabel.font = [UIFont systemFontOfSize:16.0];
     backBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [backBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [backBtn setTitle:@"取消" forState:UIControlStateNormal];
