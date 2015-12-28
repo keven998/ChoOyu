@@ -39,7 +39,7 @@ typedef enum : NSUInteger {
 @property (nonatomic) NSTimeInterval createTime;
 @property (nonatomic) NSTimeInterval currentTime;
 @property (nonatomic, copy) NSString *leaveMessage;      //留言
-@property (nonatomic, strong) GoodsDetailModel *goods;      //产品
+@property (nonatomic, strong) GoodsDetailModel *goods;      //商品
 
 @property (nonatomic, strong) GoodsPackageModel *selectedPackage;     //选中的套餐
 @property (nonatomic) NSInteger count;          //订单数量

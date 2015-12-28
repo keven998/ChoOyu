@@ -62,7 +62,11 @@
         if (isSuccess) {
             _dataSource = orderList;
             [self.tableView reloadData];
-            [_tableView.footer resetNoMoreData];
+            if (orderList.count < pageCount) {
+                [_tableView.footer endRefreshingWithNoMoreData];
+            } else {
+                [_tableView.footer resetNoMoreData];
+            }
         }
         [self.tableView.header endRefreshing];
     }];
@@ -92,7 +96,6 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
-
 
 - (IBAction)contactBusiness:(UIButton *)sender
 {

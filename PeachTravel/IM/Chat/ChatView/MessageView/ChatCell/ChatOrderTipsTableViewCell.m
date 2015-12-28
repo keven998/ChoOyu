@@ -31,7 +31,7 @@
     OrderTipsMessage *message = (OrderTipsMessage *)messageModel.baseMessage;
     _orderContentLabel.text = message.content;
     _orderStatusLabel.text = message.title;
-    _orderNameLabel.text = [NSString stringWithFormat:@"产品名称:  %@", message.goodsName];
+    _orderNameLabel.text = [NSString stringWithFormat:@"商品名称:  %@", message.goodsName];
     _orderIdLabel.text = [NSString stringWithFormat:@"订单编号:  %ld", message.orderId];
 }
 

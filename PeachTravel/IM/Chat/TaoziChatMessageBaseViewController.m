@@ -114,7 +114,7 @@
             break;
             
         case IMMessageTypeGoodsMessageType:
-            _headerLabel.text = @"   产品";
+            _headerLabel.text = @"   商品";
             _descLabel.text = _messageDesc;
             
         default:

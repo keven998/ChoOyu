@@ -92,7 +92,7 @@ NSString *const kRouterEventChatGoodsBubbleTapEventName = @"kRouterEventChatGood
     self.backImageView.image = [[UIImage imageNamed:imageName] resizableImageWithCapInsets:UIEdgeInsetsMake(28, 18, 18, 10)];
     GoodsChatMessage *message = (GoodsChatMessage *)model.baseMessage;
     [_pictureImageView sd_setImageWithURL:[NSURL URLWithString:message.imageUrl] placeholderImage:nil];
-    _titleLabel.text = [NSString stringWithFormat:@"产品 | %@", message.goodsName];
+    _titleLabel.text = [NSString stringWithFormat:@"商品 | %@", message.goodsName];
     _priceLabel.text = [NSString stringWithFormat:@"￥%.1f", message.price];
 }
 

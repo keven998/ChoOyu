@@ -24,7 +24,7 @@
 /**
  *  提交订单
  *
- *  @param goodsId          产品 ID
+ *  @param goodsId          商品 ID
  *  @param travelers        旅客信息（包含旅客 ID 的数组）
  *  @param packageId        套餐 ID
  *  @param date             使用日期

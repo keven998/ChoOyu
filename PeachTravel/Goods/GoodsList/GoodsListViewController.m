@@ -34,7 +34,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"产品列表";
+    self.navigationItem.title = @"商品列表";
     _sortDataSource = @[@"推荐排序", @"销量最高", @"价格最低", @"价格最高"];
     _categoryDatasource = @[@"全部"];
     [_tableView registerNib:[UINib nibWithNibName:@"GoodsListTableViewCell" bundle:nil] forCellReuseIdentifier:@"goodsListCell"];

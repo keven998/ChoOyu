@@ -23,6 +23,6 @@ typedef void(^BackBlock)();
  */
 @property (nonatomic, copy) BackBlock backBlock;
 
-@property (nonatomic, strong) GoodsLinkMessage *goodsLinkMessageSnapshot;  //当从产品详情进入聊天咨询卖家时，带上产品快照
+@property (nonatomic, strong) GoodsLinkMessage *goodsLinkMessageSnapshot;  //当从商品详情进入聊天咨询卖家时，带上商品快照
 
 @end
