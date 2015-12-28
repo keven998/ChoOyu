@@ -150,7 +150,11 @@
             [SVProgressHUD showHint:@"支付成功"];
             [_payDownSheet tappedCancel];
             OrderPaySuccessViewController *ctl = [[OrderPaySuccessViewController alloc] init];
-            [self.navigationController pushViewController:ctl animated:YES];
+            ctl.orderId = _orderDetail.orderId;
+            NSMutableArray *viewControllers = [self.navigationController.viewControllers mutableCopy];
+            [viewControllers removeObjectAtIndex:viewControllers.count-1];
+            [viewControllers replaceObjectAtIndex:viewControllers.count-1 withObject:ctl];
+            [self.navigationController setViewControllers:viewControllers animated:YES];
             
         } else {
             [SVProgressHUD showHint:errorStr];

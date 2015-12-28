@@ -24,18 +24,24 @@
     [super didReceiveMemoryWarning];
 }
 
-
 - (IBAction)checkOrderDetail:(id)sender {
     NSMutableArray *viewControllers = [self.navigationController.viewControllers mutableCopy];
     if ([[viewControllers objectAtIndex:viewControllers.count-2] isKindOfClass:[OrderDetailViewController class]]) {
         [self.navigationController popViewControllerAnimated:YES];
+        return;
     }
+    OrderDetailViewController *ctl = [[OrderDetailViewController alloc] init];
+    ctl.orderId = _orderId;
+    [viewControllers replaceObjectAtIndex:viewControllers.count-1 withObject:ctl];
+    [self.navigationController setViewControllers:viewControllers animated:YES];
 }
 
 - (IBAction)backHomeViewController:(id)sender {
-    [self.navigationController popToRootViewControllerAnimated:NO];
     HomeViewController *homeViewController = ((AppDelegate *)[[UIApplication sharedApplication] delegate]).homeViewController;
-    homeViewController.selectedIndex = 0;
+    if (homeViewController.selectedIndex) {
+        homeViewController.selectedIndex = 0;
+    }
+    [self.navigationController popToRootViewControllerAnimated:NO];
 }
 
 @end

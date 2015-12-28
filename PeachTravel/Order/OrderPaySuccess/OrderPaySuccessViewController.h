@@ -13,4 +13,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *backHomeBtn;
 @property (weak, nonatomic) IBOutlet UIButton *checkOrderDetailBtn;
 
+@property (nonatomic) NSInteger orderId;
+
 @end
