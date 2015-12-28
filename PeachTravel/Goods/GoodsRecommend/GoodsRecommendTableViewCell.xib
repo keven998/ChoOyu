@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
@@ -17,6 +18,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="255"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Pi1-aJ-Y7h">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9N8-rW-TOv">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_goods_price_bg" translatesAutoresizingMaskIntoConstraints="NO" id="Zma-kj-JiL">
@@ -110,12 +114,15 @@
                             <constraint firstItem="hBZ-T1-U1a" firstAttribute="leading" secondItem="AYC-Zs-CNh" secondAttribute="leading" constant="10" id="E08-Jp-mq4"/>
                             <constraint firstItem="8ZG-D2-6zE" firstAttribute="leading" secondItem="hBZ-T1-U1a" secondAttribute="trailing" constant="8" id="GAd-82-oFI"/>
                             <constraint firstAttribute="bottom" secondItem="Pi1-aJ-Y7h" secondAttribute="bottom" constant="55" id="HXZ-Ec-263"/>
+                            <constraint firstItem="9N8-rW-TOv" firstAttribute="height" secondItem="Pi1-aJ-Y7h" secondAttribute="height" id="HZB-dy-lQT"/>
                             <constraint firstItem="sDF-6z-MJl" firstAttribute="leading" secondItem="AYC-Zs-CNh" secondAttribute="leading" constant="10" id="Nua-Gf-E6a"/>
                             <constraint firstItem="ItV-ZN-tJh" firstAttribute="top" secondItem="sDF-6z-MJl" secondAttribute="bottom" constant="3" id="PaH-82-Wzo"/>
                             <constraint firstAttribute="trailing" secondItem="Aou-D7-gla" secondAttribute="trailing" constant="21" id="R0s-Iq-iyB"/>
                             <constraint firstItem="zu6-ci-cB8" firstAttribute="leading" secondItem="AYC-Zs-CNh" secondAttribute="leading" id="Uw4-hu-jJY"/>
+                            <constraint firstItem="9N8-rW-TOv" firstAttribute="leading" secondItem="AYC-Zs-CNh" secondAttribute="leading" id="Vzc-on-Pvd"/>
                             <constraint firstAttribute="trailing" secondItem="Pi1-aJ-Y7h" secondAttribute="trailing" id="Wnd-cd-DP8"/>
                             <constraint firstAttribute="bottom" secondItem="ItV-ZN-tJh" secondAttribute="bottom" constant="8" id="bwW-HN-pf4"/>
+                            <constraint firstItem="9N8-rW-TOv" firstAttribute="width" secondItem="Pi1-aJ-Y7h" secondAttribute="width" id="c9E-z5-3X5"/>
                             <constraint firstAttribute="bottom" secondItem="1ad-MG-y7I" secondAttribute="bottom" constant="37" id="fnH-qh-Kyj"/>
                             <constraint firstAttribute="trailing" secondItem="Zma-kj-JiL" secondAttribute="trailing" constant="14" id="fr3-gP-NqS"/>
                             <constraint firstAttribute="bottom" secondItem="fZL-ga-emk" secondAttribute="bottom" constant="11" id="ltG-MP-Ywy"/>
@@ -123,6 +130,7 @@
                             <constraint firstItem="Zma-kj-JiL" firstAttribute="leading" secondItem="8ZG-D2-6zE" secondAttribute="trailing" constant="7" id="uKR-H9-A1D"/>
                             <constraint firstAttribute="trailing" secondItem="1ad-MG-y7I" secondAttribute="trailing" constant="16" id="vyQ-Zy-cmY"/>
                             <constraint firstAttribute="bottom" secondItem="Zma-kj-JiL" secondAttribute="bottom" constant="23" id="wap-QN-gUX"/>
+                            <constraint firstItem="9N8-rW-TOv" firstAttribute="top" secondItem="AYC-Zs-CNh" secondAttribute="top" id="yc6-aI-dum"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -139,6 +147,7 @@
                 <outlet property="cityNameLabel" destination="8ZG-D2-6zE" id="h01-hW-357"/>
                 <outlet property="goodsImageView" destination="Pi1-aJ-Y7h" id="igL-LR-fka"/>
                 <outlet property="goodsNameLabel" destination="sDF-6z-MJl" id="klL-Ba-ACv"/>
+                <outlet property="maskImageView" destination="9N8-rW-TOv" id="mM8-u5-dmF"/>
                 <outlet property="nowPriceLabel" destination="1ad-MG-y7I" id="D6R-OR-OEF"/>
                 <outlet property="oldPriceLabel" destination="Aou-D7-gla" id="yb3-LN-52V"/>
                 <outlet property="userNickName" destination="ItV-ZN-tJh" id="J7h-xY-23N"/>

@@ -10,6 +10,7 @@
 
 @interface GoodsRecommendTableViewCell()
 @property (weak, nonatomic) IBOutlet UIImageView *goodsImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *maskImageView;
 @property (weak, nonatomic) IBOutlet UILabel *oldPriceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *nowPriceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *userNickName;
@@ -26,6 +27,7 @@
     _goodsImageView.clipsToBounds = YES;
     _bgView.layer.cornerRadius = 2.0;
     _bgView.clipsToBounds = YES;
+    [_maskImageView setImage:[[UIImage imageNamed:@"icon_image_mask"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 5, 0, 5)]];
 }
 
 - (void)setGoodsModel:(GoodsDetailModel *)goodsModel
