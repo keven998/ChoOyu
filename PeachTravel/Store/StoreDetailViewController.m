@@ -64,7 +64,7 @@
     chatBtn.layer.borderColor = COLOR_LINE.CGColor;
     chatBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 10);
     chatBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
-    [chatBtn setTitle:@"联系商家" forState:UIControlStateNormal];
+    [chatBtn setTitle:@"联系卖家" forState:UIControlStateNormal];
     [chatBtn setTitleColor:COLOR_TEXT_I forState:UIControlStateNormal];
     [chatBtn setImage:[UIImage imageNamed:@"icon_store_chat"] forState:UIControlStateNormal];
     [chatBtn addTarget:self action:@selector(chatWithBusiness) forControlEvents:UIControlEventTouchUpInside];

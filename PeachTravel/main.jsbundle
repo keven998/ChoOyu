@@ -54560,7 +54560,7 @@ return (
 React.createElement(View,{style:styles.outContainer},
 React.createElement(View,{style:{width:w,height:0.5,backgroundColor:'#e2e2e2'}}),
 React.createElement(View,{style:styles.container},
-React.createElement(ButtonItem,{imageName:'iconfont_lianxi@2x.png',buttonTitle:'联系商家',
+React.createElement(ButtonItem,{imageName:'iconfont_lianxi@2x.png',buttonTitle:'联系卖家',
 commodityId:this.props.commodityId,
 userId:this.props.userId,title:this.props.title,
 price:this.props.price,images:this.props.images}),
@@ -54605,7 +54605,7 @@ if(Platform.OS == 'android'){
 console.log('title ' + title);
 if(title == '进入店铺'){
 NativeAction.startActivity('Store',null,'','');}else 
-if(title == '联系商家'){
+if(title == '联系卖家'){
 this.props.shareBean.commodityId = this.props.commodityId;
 this.props.shareBean.price = this.props.price;
 this.props.shareBean.title = this.props.title;
@@ -56483,7 +56483,7 @@ React.createElement(View,{style:styles.container},
 React.createElement(ButtonItem,{imageName:'iconfont_ttpodicon@2x.png',buttonTitle:'添加好友'}),
 
 React.createElement(View,{style:styles.spaceView}),
-React.createElement(ButtonItem,{imageName:'iconfont_lianxifangshi@2x.png',buttonTitle:'联系商家'}))));}});
+React.createElement(ButtonItem,{imageName:'iconfont_lianxifangshi@2x.png',buttonTitle:'联系卖家'}))));}});
 
 
 
