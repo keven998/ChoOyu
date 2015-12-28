@@ -8,6 +8,7 @@
 
 #import "CitySearchViewController.h"
 #import "SearchDestinationRecommendViewController.h"
+#import "PoiManager.h"
 
 @interface CitySearchViewController () <SearchDestinationRecommendDelegate, UITableViewDataSource, UITableViewDelegate,UISearchBarDelegate>
 
@@ -85,6 +86,31 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 
 - (void)loadDataSourceWithKeyWord:(NSString *)keyWord
 {
+    [PoiManager searchPoiWithKeyword:keyWord andSearchCount:20 andPoiType:kCityPoi completionBlock:^(BOOL isSuccess, NSArray *searchResultList) {
+        
+    }];
+}
+
+#pragma mark - UITableViewDataSource 
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 50;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return _dataSource.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return nil;
 }
 
 #pragma mark - UISearchBar Delegate

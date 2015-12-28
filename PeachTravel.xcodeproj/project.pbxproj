@@ -650,6 +650,8 @@
 		D93C50BD1A47ED8E00FFE2FA /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D93C50BC1A47ED8E00FFE2FA /* libxml2.dylib */; };
 		D93C50BF1A47EE0100FFE2FA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D93C50BE1A47EE0100FFE2FA /* UIKit.framework */; };
 		D93C50C11A47EEFA00FFE2FA /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D93C50C01A47EEFA00FFE2FA /* libresolv.dylib */; };
+		D93D38871C311F41005C0450 /* MakeOrderUnitPriceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D93D38851C311F41005C0450 /* MakeOrderUnitPriceTableViewCell.m */; };
+		D93D38881C311F41005C0450 /* MakeOrderUnitPriceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D93D38861C311F41005C0450 /* MakeOrderUnitPriceTableViewCell.xib */; };
 		D93FEEBD1BEB40EF0065D6ED /* CountryRecommendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D93FEEBC1BEB40EF0065D6ED /* CountryRecommendViewController.m */; };
 		D93FEEC11BEB413D0065D6ED /* CountryRecommendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D93FEEBF1BEB413D0065D6ED /* CountryRecommendTableViewCell.m */; };
 		D93FEEC21BEB413D0065D6ED /* CountryRecommendTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D93FEEC01BEB413D0065D6ED /* CountryRecommendTableViewCell.xib */; };
@@ -940,7 +942,6 @@
 		D9A15EE21C27DD5A008CE530 /* StoreDetailCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A15EE01C27DD5A008CE530 /* StoreDetailCollectionReusableView.xib */; };
 		D9A380EF1B9C3CEC000B5B66 /* navi_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A380EE1B9C3CEC000B5B66 /* navi_bg@2x.png */; };
 		D9A380F11B9C405E000B5B66 /* icon_search_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A380F01B9C405E000B5B66 /* icon_search_bg@2x.png */; };
-		D9A3BCAB1BB0FF3C008C1038 /* PoiSearchManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A3BCAA1BB0FF3C008C1038 /* PoiSearchManager.m */; };
 		D9A8001A1A80D52F005AD701 /* Destinations.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FFDA1A80D52F005AD701 /* Destinations.m */; };
 		D9A8001B1A80D52F005AD701 /* CityCardReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FFDD1A80D52F005AD701 /* CityCardReusableView.m */; };
 		D9A8001C1A80D52F005AD701 /* DomesticViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FFDF1A80D52F005AD701 /* DomesticViewController.m */; };
@@ -2928,6 +2929,9 @@
 		D93C50BC1A47ED8E00FFE2FA /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		D93C50BE1A47EE0100FFE2FA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D93C50C01A47EEFA00FFE2FA /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
+		D93D38841C311F41005C0450 /* MakeOrderUnitPriceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakeOrderUnitPriceTableViewCell.h; sourceTree = "<group>"; };
+		D93D38851C311F41005C0450 /* MakeOrderUnitPriceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MakeOrderUnitPriceTableViewCell.m; sourceTree = "<group>"; };
+		D93D38861C311F41005C0450 /* MakeOrderUnitPriceTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MakeOrderUnitPriceTableViewCell.xib; sourceTree = "<group>"; };
 		D93FEEBB1BEB40EF0065D6ED /* CountryRecommendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CountryRecommendViewController.h; sourceTree = "<group>"; };
 		D93FEEBC1BEB40EF0065D6ED /* CountryRecommendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CountryRecommendViewController.m; sourceTree = "<group>"; };
 		D93FEEBE1BEB413D0065D6ED /* CountryRecommendTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CountryRecommendTableViewCell.h; sourceTree = "<group>"; };
@@ -3328,8 +3332,6 @@
 		D9A15EE01C27DD5A008CE530 /* StoreDetailCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StoreDetailCollectionReusableView.xib; sourceTree = "<group>"; };
 		D9A380EE1B9C3CEC000B5B66 /* navi_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navi_bg@2x.png"; sourceTree = "<group>"; };
 		D9A380F01B9C405E000B5B66 /* icon_search_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_search_bg@2x.png"; sourceTree = "<group>"; };
-		D9A3BCA91BB0FF3C008C1038 /* PoiSearchManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoiSearchManager.h; sourceTree = "<group>"; };
-		D9A3BCAA1BB0FF3C008C1038 /* PoiSearchManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoiSearchManager.m; sourceTree = "<group>"; };
 		D9A800011A80D52F005AD701 /* RestaurantsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantsListViewController.h; sourceTree = "<group>"; };
 		D9A800021A80D52F005AD701 /* RestaurantsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantsListViewController.m; sourceTree = "<group>"; };
 		D9A800041A80D52F005AD701 /* ShareActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareActivity.h; sourceTree = "<group>"; };
@@ -8562,8 +8564,6 @@
 		D9A8FF4A1A80CF19005AD701 /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				D9A3BCA91BB0FF3C008C1038 /* PoiSearchManager.h */,
-				D9A3BCAA1BB0FF3C008C1038 /* PoiSearchManager.m */,
 				D9E0EEF91B7CB020003872DF /* SearchDestinationHistoryCollectionReusableView.h */,
 				D9E0EEFA1B7CB020003872DF /* SearchDestinationHistoryCollectionReusableView.m */,
 				D9E0EEFB1B7CB020003872DF /* SearchDestinationHistoryCollectionReusableView.xib */,
@@ -8945,6 +8945,9 @@
 				D90C760E1BF1DED600C5897C /* MakeOrderTravelerTableViewCell.h */,
 				D90C760F1BF1DED600C5897C /* MakeOrderTravelerTableViewCell.m */,
 				D90C76101BF1DED600C5897C /* MakeOrderTravelerTableViewCell.xib */,
+				D93D38841C311F41005C0450 /* MakeOrderUnitPriceTableViewCell.h */,
+				D93D38851C311F41005C0450 /* MakeOrderUnitPriceTableViewCell.m */,
+				D93D38861C311F41005C0450 /* MakeOrderUnitPriceTableViewCell.xib */,
 			);
 			name = ViewComponent;
 			sourceTree = "<group>";
@@ -11453,6 +11456,7 @@
 				D9221A241BFC78360015A685 /* SelectPayPlatformViewController.xib in Resources */,
 				E6F1896B1B845F4900232EEB /* poi_bg_album@2x.png in Resources */,
 				01C1EC281BB4E4720082217A /* jianhua@3x.png in Resources */,
+				D93D38881C311F41005C0450 /* MakeOrderUnitPriceTableViewCell.xib in Resources */,
 				E6F189E11B845F4900232EEB /* collect_shopping@2x.png in Resources */,
 				019C37AA1BBAAE0900602937 /* poisearch_star_grey@3x.png in Resources */,
 				01C1EC1C1BB4E4720082217A /* guaiguai@3x.png in Resources */,
@@ -11864,7 +11868,6 @@
 				D9FCE7DE1B134B4B0039F896 /* ChatViewController.m in Sources */,
 				E6AD32321B9D6EE800EE6A62 /* ExpertTourView.m in Sources */,
 				0115C7C61BAD53A100631928 /* ExpertListViewController.m in Sources */,
-				D9A3BCAB1BB0FF3C008C1038 /* PoiSearchManager.m in Sources */,
 				D90C75F51BF1DB1A00C5897C /* PDTSimpleCalendarViewFlowLayout.m in Sources */,
 				D91061D41BA93D6E00C4FBCB /* UserAlbumOverviewCell.m in Sources */,
 				01A5CE241BB39E3700A59A8A /* TravelPlanListForCityDetailVC.m in Sources */,
@@ -12171,6 +12174,7 @@
 				D9A8013F1A80DD23005AD701 /* EMChatBaseBubbleView.m in Sources */,
 				E67795811B95C60F004CE21A /* MineViewContoller.m in Sources */,
 				D92109B11BE204F100AEDB65 /* StoreDetailViewController.m in Sources */,
+				D93D38871C311F41005C0450 /* MakeOrderUnitPriceTableViewCell.m in Sources */,
 				D94B890A1B5DE70000584DE5 /* QuestionMessage.swift in Sources */,
 				D993C24D1B12DF0C0088D568 /* FMResultSet.m in Sources */,
 				D96BAFF91C1AEAA000CDB7C7 /* QNHttpManager.m in Sources */,

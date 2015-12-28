@@ -49,4 +49,11 @@ typedef enum : NSUInteger {
  */
 + (void)asyncLoadCityInfo:(NSString *)cityId completionBlock:(void (^) (BOOL isSuccess, CityPoi *cityDetail))completion;
 
+/**** Poi Search *****/
+
++ (void)searchPoiWithKeyword:(NSString *)keyWord andSearchCount:(NSInteger)count andPoiType:(TZPoiType)poiType completionBlock:(void (^)(BOOL isSuccess, NSArray *searchResultList))completion;
+
++ (void)asyncGetDescriptionOfSearchText:(NSString *)searchText andPoiType:(TZPoiType)poiType completionBlock:(void (^)(BOOL isSuccess, NSDictionary *descriptionDic))completion;
+
+
 @end

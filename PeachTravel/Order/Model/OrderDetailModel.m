@@ -61,6 +61,25 @@
     return dateStr;
 }
 
+- (NSString *)formatUnitPrice
+{
+    NSString *priceStr;
+    float currentPrice = round(_unitPrice*100)/100;
+    if (!(currentPrice - (int)currentPrice)) {
+        priceStr = [NSString stringWithFormat:@"%d", (int)currentPrice];
+    } else {
+        NSString *tempPrice = [NSString stringWithFormat:@"%.1f", currentPrice];
+        if (!(_unitPrice - tempPrice.floatValue)) {
+            priceStr = [NSString stringWithFormat:@"%.1f", currentPrice];
+        } else {
+            priceStr = [NSString stringWithFormat:@"%.2f", currentPrice];
+        }
+        
+    }
+    return priceStr;
+
+}
+
 - (NSString *)formatTotalPrice
 {
     NSString *priceStr;

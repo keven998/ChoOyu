@@ -169,6 +169,9 @@
             return;
         }
         _category = [_categoryDatasource objectAtIndex:indexPath.row];
+        if ([_category isEqualToString:@"全部"]) {
+            _category = nil;
+        }
 
     } else if (indexPath.column == 1) {
         if ([_sortTitle isEqualToString:[_sortDataSource objectAtIndex:indexPath.row]]) {
@@ -195,7 +198,6 @@
         _dataSource = goodsList;
         [self.tableView reloadData];
     }];
-
 }
 
 @end

@@ -19,7 +19,7 @@
 #import "DestinationSearchHistoryCell.h"
 #import "SearchDestinationHistoryCollectionReusableView.h"
 #import "SearchDestinationRecommendViewController.h"
-#import "PoiSearchManager.h"
+#import "PoiManager.h"
 #import "SuperWebViewController.h"
 
 @interface SearchDestinationViewController () <UISearchBarDelegate, UISearchControllerDelegate, UITableViewDataSource, UITableViewDelegate, TaoziMessageSendDelegate, SearchDestinationRecommendDelegate>
@@ -229,14 +229,14 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     
     if (_searchPoiType == kRestaurantPoi || _searchPoiType == kShoppingPoi) {
         _descriptionOfSerachText = nil;
-        [PoiSearchManager asyncGetDescriptionOfSearchText:_keyWord andPoiType:_searchPoiType completionBlock:^(BOOL isSuccess, NSDictionary *descriptionDic) {
+        [PoiManager asyncGetDescriptionOfSearchText:_keyWord andPoiType:_searchPoiType completionBlock:^(BOOL isSuccess, NSDictionary *descriptionDic) {
             if (isSuccess && descriptionDic.count) {
                 _descriptionOfSerachText = descriptionDic;
                 [self showTableViewHeader];
             } else {
                 [self hideTableViewHeaderView];
             }
-            [PoiSearchManager searchPoiWithKeyword:_keyWord andSearchCount:searchCount andPoiType:_searchPoiType completionBlock:^(BOOL isSuccess, NSArray *searchResultList) {
+            [PoiManager searchPoiWithKeyword:_keyWord andSearchCount:searchCount andPoiType:_searchPoiType completionBlock:^(BOOL isSuccess, NSArray *searchResultList) {
                 if (isSuccess) {
                     [self.dataSource removeAllObjects];
                     self.dataSource = [searchResultList mutableCopy];
@@ -252,7 +252,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 
         }];
     } else {
-        [PoiSearchManager searchPoiWithKeyword:_keyWord andSearchCount:searchCount andPoiType:_searchPoiType completionBlock:^(BOOL isSuccess, NSArray *searchResultList) {
+        [PoiManager searchPoiWithKeyword:_keyWord andSearchCount:searchCount andPoiType:_searchPoiType completionBlock:^(BOOL isSuccess, NSArray *searchResultList) {
             if (isSuccess) {
                 [self.dataSource removeAllObjects];
                 self.dataSource = [searchResultList mutableCopy];

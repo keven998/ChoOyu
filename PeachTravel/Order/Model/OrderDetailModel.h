@@ -27,6 +27,7 @@ typedef enum : NSUInteger {
 @property (nonatomic) NSInteger orderId;
 @property (nonatomic, copy) NSString *orderName;
 @property (nonatomic) float unitPrice;              //单价
+@property (nonatomic, copy, readonly) NSString *formatUnitPrice;  //单价格式化
 @property (nonatomic) float totalPrice;             //总价格
 @property (nonatomic, copy, readonly) NSString *formatTotalPrice;
 

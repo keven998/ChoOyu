@@ -20,6 +20,7 @@
 #import "OrderManager.h"
 #import "OrderDetailPreviewViewController.h"
 #import "DialCodeTableViewController.h"
+#import "MakeOrderUnitPriceTableViewCell.h"
 
 
 @interface MakeOrderViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UITextViewDelegate, MakeOrderEditTravelerInfoDelegate, PDTSimpleCalendarViewDelegate, MakeOrderSelectPackageDelegate, MakeOrderSelectCountDelegate, TravelerInfoListDelegate, DialCodeTableViewControllerDelegate>
@@ -57,6 +58,7 @@
     [_tableView registerNib:[UINib nibWithNibName:@"MakeOrderSelectCountTableViewCell" bundle:nil] forCellReuseIdentifier:@"makeOrderSelectCountCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"MakeOrderTravelerInfoTableViewCell" bundle:nil] forCellReuseIdentifier:@"makeOrderTravelerEditCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"MakeOrderContactInfoTableViewCell" bundle:nil] forCellReuseIdentifier:@"makeOrderContactInfoCell"];
+    [_tableView registerNib:[UINib nibWithNibName:@"MakeOrderUnitPriceTableViewCell" bundle:nil] forCellReuseIdentifier:@"makeOrderUnitPriceTableViewCell"];
     
     self.navigationItem.title = @"订单填写";
     [self.view addSubview:_tableView];
@@ -211,7 +213,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 6;
+    return 7;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -230,9 +232,9 @@
         return 72.5;
     } else if (indexPath.row == 1) {
         return [MakeOrderSelectPackageTableViewCell heightWithPackageList:_orderDetail.goods.packages];
-    } else if (indexPath.row == 4) {
-        return [MakeOrderTravelerInfoTableViewCell heightWithTravelerCount:_orderDetail.travelerList.count];
     } else if (indexPath.row == 5) {
+        return [MakeOrderTravelerInfoTableViewCell heightWithTravelerCount:_orderDetail.travelerList.count];
+    } else if (indexPath.row == 6) {
         return 320;
     }
     return 50;
@@ -264,13 +266,18 @@
         return cell;
         
     } else if (indexPath.row == 4) {
+        MakeOrderUnitPriceTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"makeOrderUnitPriceTableViewCell" forIndexPath:indexPath];
+        cell.priceLabel.text = [NSString stringWithFormat:@"￥%@", _orderDetail.formatUnitPrice];
+        return cell;
+        
+    } else if (indexPath.row == 5) {
         MakeOrderTravelerInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"makeOrderTravelerEditCell" forIndexPath:indexPath];
         cell.travelerList = [_orderDetail.travelerList mutableCopy];
         cell.delegate = self;
         [cell.editTravelerButton addTarget:self action:@selector(addTraveler:) forControlEvents:UIControlEventTouchUpInside];
         return cell;
         
-    } else if (indexPath.row == 5) {
+    } else if (indexPath.row == 6) {
         MakeOrderContactInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"makeOrderContactInfoCell" forIndexPath:indexPath];
         [cell.selectTravelerBtn addTarget:self action:@selector(selectTravelerAsContactAction:) forControlEvents:UIControlEventTouchUpInside];
         [cell.dialCodeButton addTarget:self action:@selector(choseDialCode:) forControlEvents:UIControlEventTouchUpInside];
@@ -286,7 +293,7 @@
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
     if ([string isEqualToString:@"\n"]) {
-        MakeOrderContactInfoTableViewCell *cell = [_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:5 inSection:0]];
+        MakeOrderContactInfoTableViewCell *cell = [_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:6 inSection:0]];
         if ([textField isEqual:cell.lastNameTextField]) {
             [cell.firstNameTextField becomeFirstResponder];
         } else  if ([textField isEqual:cell.firstNameTextField]) {
@@ -310,7 +317,7 @@
         _orderDetail.orderContact = [[OrderTravelerInfoModel alloc] init];
         _orderDetail.orderContact.dialCode = @"86";
     }
-    MakeOrderContactInfoTableViewCell *cell = [_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:5 inSection:0]];
+    MakeOrderContactInfoTableViewCell *cell = [_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:6 inSection:0]];
     if ([textField isEqual:cell.lastNameTextField]) {
         _orderDetail.orderContact.lastName = textField.text;
     } else  if ([textField isEqual:cell.firstNameTextField]) {
@@ -394,9 +401,9 @@
         }
         if (!find) {
             _orderDetail.useDate = 0;
-            [self.tableView reloadData];
         }
         _totalPriceLabel.text = [NSString stringWithFormat:@"￥%@", _orderDetail.formatTotalPrice];
+        [self.tableView reloadData];
     }
 }
 
@@ -408,7 +415,7 @@
 
 - (void)finishSelectTraveler:(OrderTravelerInfoModel *)selectTraveler
 {
-    MakeOrderContactInfoTableViewCell *cell = [_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:5 inSection:0]];
+    MakeOrderContactInfoTableViewCell *cell = [_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:6 inSection:0]];
     _orderDetail.orderContact = selectTraveler;
     cell.firstNameTextField.text = selectTraveler.firstName;
     cell.lastNameTextField.text = selectTraveler.lastName;
@@ -440,7 +447,7 @@
 - (void)didSelectDialCode:(NSDictionary *)dialCode
 {
     if (dialCode) {
-        MakeOrderContactInfoTableViewCell *cell = [_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:5 inSection:0]];
+        MakeOrderContactInfoTableViewCell *cell = [_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:6 inSection:0]];
 
         [cell.dialCodeButton setTitle:[NSString stringWithFormat:@"+%@", [dialCode objectForKey:@"dialCode"]] forState:UIControlStateNormal];
         

@@ -40,9 +40,14 @@
     MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshData)];
     self.tableView.header = header;
     header.lastUpdatedTimeLabel.hidden = YES;
-    [header beginRefreshing];
     
     self.tableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.tableView.header beginRefreshing];
 }
 
 - (void)setDataSource:(NSArray *)dataSource
