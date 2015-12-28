@@ -23,7 +23,6 @@
 
 @property (assign, nonatomic) int lastPayloadIndex;
 @property (retain, nonatomic) NSString *payloadId;
-@property (nonatomic, strong) HomeViewController *homeViewController;
 
 @end
 

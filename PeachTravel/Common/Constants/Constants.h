@@ -153,7 +153,6 @@
 
 #define pushNewChatViewNoti                     @"pushNewChatViewNoti"    //进入新的聊天界面
 
-
 #define uploadUserAlbumNoti                     @"uploadUserAlbum"
 
 #pragma mark - ***********各种枚举信息*************

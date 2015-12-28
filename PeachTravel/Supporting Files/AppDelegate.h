@@ -15,6 +15,8 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate, WXApiDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (nonatomic, strong) HomeViewController *homeViewController;
+
 
 
 @end

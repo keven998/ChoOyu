@@ -34,5 +34,8 @@
 
 - (IBAction)backHomeViewController:(id)sender {
     [self.navigationController popToRootViewControllerAnimated:NO];
+    HomeViewController *homeViewController = ((AppDelegate *)[[UIApplication sharedApplication] delegate]).homeViewController;
+    homeViewController.selectedIndex = 0;
 }
+
 @end
