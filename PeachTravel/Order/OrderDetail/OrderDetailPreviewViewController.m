@@ -25,6 +25,7 @@
 #import "OrderDetailTravelerPreviewTableViewCell.h"
 #import "DownSheet.h"
 #import "TZPayManager.h"
+#import "OrderPaySuccessViewController.h"
 
 @interface OrderDetailPreviewViewController () <UITableViewDataSource, UITableViewDelegate, DownSheetDelegate>
 
@@ -148,6 +149,8 @@
         if (isSuccess) {
             [SVProgressHUD showHint:@"支付成功"];
             [_payDownSheet tappedCancel];
+            OrderPaySuccessViewController *ctl = [[OrderPaySuccessViewController alloc] init];
+            [self.navigationController pushViewController:ctl animated:YES];
             
         } else {
             [SVProgressHUD showHint:errorStr];

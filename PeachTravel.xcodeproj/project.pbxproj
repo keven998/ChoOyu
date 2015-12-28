@@ -796,6 +796,8 @@
 		D96F535E1BC67DA70094070B /* DomesticDestinationCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D96F535C1BC67DA70094070B /* DomesticDestinationCollectionViewCell.xib */; };
 		D971A7791C2C1F6800D364C6 /* OrderDetailTravelerPreviewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D971A7771C2C1F6800D364C6 /* OrderDetailTravelerPreviewTableViewCell.m */; };
 		D971A77A1C2C1F6800D364C6 /* OrderDetailTravelerPreviewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D971A7781C2C1F6800D364C6 /* OrderDetailTravelerPreviewTableViewCell.xib */; };
+		D971A7871C30CF2300D364C6 /* OrderPaySuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D971A7851C30CF2300D364C6 /* OrderPaySuccessViewController.m */; };
+		D971A7881C30CF2300D364C6 /* OrderPaySuccessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D971A7861C30CF2300D364C6 /* OrderPaySuccessViewController.xib */; };
 		D971E26B1B8AF034007E5AFD /* MyGuidesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D971E2691B8AF034007E5AFD /* MyGuidesTableViewCell.m */; };
 		D971E26C1B8AF034007E5AFD /* MyGuidesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D971E26A1B8AF034007E5AFD /* MyGuidesTableViewCell.xib */; };
 		D971E27A1B8AF27A007E5AFD /* plan_bg_page_default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D971E26D1B8AF27A007E5AFD /* plan_bg_page_default@2x.png */; };
@@ -3133,6 +3135,9 @@
 		D971A7761C2C1F6800D364C6 /* OrderDetailTravelerPreviewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailTravelerPreviewTableViewCell.h; sourceTree = "<group>"; };
 		D971A7771C2C1F6800D364C6 /* OrderDetailTravelerPreviewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailTravelerPreviewTableViewCell.m; sourceTree = "<group>"; };
 		D971A7781C2C1F6800D364C6 /* OrderDetailTravelerPreviewTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderDetailTravelerPreviewTableViewCell.xib; sourceTree = "<group>"; };
+		D971A7841C30CF2300D364C6 /* OrderPaySuccessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderPaySuccessViewController.h; sourceTree = "<group>"; };
+		D971A7851C30CF2300D364C6 /* OrderPaySuccessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderPaySuccessViewController.m; sourceTree = "<group>"; };
+		D971A7861C30CF2300D364C6 /* OrderPaySuccessViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderPaySuccessViewController.xib; sourceTree = "<group>"; };
 		D971E2681B8AF034007E5AFD /* MyGuidesTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGuidesTableViewCell.h; sourceTree = "<group>"; };
 		D971E2691B8AF034007E5AFD /* MyGuidesTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGuidesTableViewCell.m; sourceTree = "<group>"; };
 		D971E26A1B8AF034007E5AFD /* MyGuidesTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyGuidesTableViewCell.xib; sourceTree = "<group>"; };
@@ -6450,6 +6455,7 @@
 		D95B0A461BF0671E00F2D900 /* Order */ = {
 			isa = PBXGroup;
 			children = (
+				D971A7831C30CF0700D364C6 /* OrderPaySuccess */,
 				D9221A2B1BFD71380015A685 /* RefundMoney */,
 				D9221A091BFC55410015A685 /* MyOrderList */,
 				D9DD315C1BF5BAA1009BEDAB /* OrderDetail */,
@@ -6652,6 +6658,16 @@
 				D969AD3A1C2C1759007413CA /* OrderDetailPreviewViewController.xib */,
 			);
 			name = OrderDetailPreviewViewController;
+			sourceTree = "<group>";
+		};
+		D971A7831C30CF0700D364C6 /* OrderPaySuccess */ = {
+			isa = PBXGroup;
+			children = (
+				D971A7841C30CF2300D364C6 /* OrderPaySuccessViewController.h */,
+				D971A7851C30CF2300D364C6 /* OrderPaySuccessViewController.m */,
+				D971A7861C30CF2300D364C6 /* OrderPaySuccessViewController.xib */,
+			);
+			path = OrderPaySuccess;
 			sourceTree = "<group>";
 		};
 		D971E2871B8C8F57007E5AFD /* JDStatusBarNotification */ = {
@@ -10650,6 +10666,7 @@
 				0115C9C21BB103FC00631928 /* citydetail_like_selected@3x.png in Resources */,
 				D90A9B3A1B5627C400E9F37C /* Loading_Animation_final15@3x.png in Resources */,
 				01C1EC471BB4E4720082217A /* naughty@2x.png in Resources */,
+				D971A7881C30CF2300D364C6 /* OrderPaySuccessViewController.xib in Resources */,
 				E608A13E1B8F6987003BA318 /* GuiderProfileViewController.xib in Resources */,
 				E608A12D1B8F413E003BA318 /* point@2x.png in Resources */,
 				0115C9BC1BB103FC00631928 /* citydetail_joyney_plan_hilighted@3x.png in Resources */,
@@ -12116,6 +12133,7 @@
 				D9A802DF1A80E3D3005AD701 /* EAIntroView.m in Sources */,
 				D9A8012D1A80DD23005AD701 /* FacialView.m in Sources */,
 				D9221A021BFC441C0015A685 /* TravelerListViewController.m in Sources */,
+				D971A7871C30CF2300D364C6 /* OrderPaySuccessViewController.m in Sources */,
 				D9DD316B1BF5BC56009BEDAB /* OrderDetailStoreInfoTableViewCell.m in Sources */,
 				D91061F41BA953D800C4FBCB /* UserAlbumPreviewCollectionViewCell.m in Sources */,
 				270C164D1B0059F60048C85D /* CityDescDetailViewController.m in Sources */,

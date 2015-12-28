@@ -10,6 +10,7 @@
 #import "SelectPayPlatformTableViewCell.h"
 #import "TZPayManager.h"
 #import "OrderDetailViewController.h"
+#import "OrderPaySuccessViewController.h"
 
 @interface SelectPayPlatformViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -18,9 +19,7 @@
 @property (nonatomic, strong) NSArray *imageList;
 @property (nonatomic, strong) NSArray *titleList;
 @property (nonatomic, strong) TZPayManager *payManager;
-
 @property (nonatomic) NSInteger selectIndex;
-
 
 @end
 
@@ -93,7 +92,10 @@
         if (isSuccess) {
             [SVProgressHUD showHint:@"支付成功"];
             [[NSNotificationCenter defaultCenter] postNotificationName:kUpdateOrderdetailNoti object:nil];
-            [self.navigationController popViewControllerAnimated:YES];
+            NSMutableArray *viewControllers = [self.navigationController.viewControllers mutableCopy];
+            OrderPaySuccessViewController *ctl = [[OrderPaySuccessViewController alloc] init];
+            [viewControllers replaceObjectAtIndex:viewControllers.count-1 withObject:ctl];
+            [self.navigationController setViewControllers:viewControllers animated:YES];
         } else {
             [SVProgressHUD showHint:errorStr];
         }

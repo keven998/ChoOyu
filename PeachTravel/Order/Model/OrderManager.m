@@ -101,7 +101,10 @@
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     NSString *url = [NSString stringWithFormat:@"%@/%ld/actions", API_ORDERS, orderId];
     NSDictionary *params = @{
-                             @"action": @"cancel"
+                             @"action": @"cancel",
+                             @"data": @{
+                                     @"userId": [NSNumber numberWithInteger: accountManager.account.userId]
+                                     }
                              };
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [manager POST:url parameters: params success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -138,7 +141,11 @@
     NSString *url = [NSString stringWithFormat:@"%@/%ld/actions", API_ORDERS, orderId];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:@"refund" forKey:@"action"];
-    [params safeSetObject:reason forKey:@"memo"];
+    NSMutableDictionary *refundData = [[NSMutableDictionary alloc] init];
+    [refundData safeSetObject:[NSNumber numberWithInteger:accountManager.account.userId] forKey:@"userId"];
+    [refundData safeSetObject:reason forKey:@"reason"];
+    [refundData safeSetObject:message forKey:@"memo"];
+    [params safeSetObject:refundData forKey:@"data"];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [manager POST:url parameters: params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"***对订单提出退款申请接口: %@", operation);

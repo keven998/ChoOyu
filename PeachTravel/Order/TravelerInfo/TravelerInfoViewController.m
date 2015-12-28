@@ -110,6 +110,7 @@
     _telTextField.font = [UIFont systemFontOfSize:15];
     _telTextField.textColor = COLOR_TEXT_III;
     _telTextField.returnKeyType = UIReturnKeyDone;
+    _telTextField.keyboardType = UIKeyboardTypeNumberPad;
     _telTextField.delegate = self;
     [_scrollView addSubview:_telTextField];
     
@@ -187,7 +188,7 @@
 - (void)choseIDCategory:(UIButton *)sender
 {
     [self.view endEditing:YES];
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"选择证件类型" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"身份证", @"护照", nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"选择证件类型" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles: @"护照", @"身份证", @"港澳通行证", @"大陆居民往来台湾通行证 ", nil];
     [actionSheet showInView:self.view];
 }
 
@@ -196,9 +197,11 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) {
-        _traveler.IDCategory = @"chineseID";
-    } else if (buttonIndex == 1) {
         _traveler.IDCategory = @"passport";
+        
+    } else if (buttonIndex == 1) {
+        _traveler.IDCategory = @"chineseID";
+
     }
     [_IDNumberCategoryButton setTitle:_traveler.IDCategoryDesc forState:UIControlStateNormal];
 }
