@@ -54061,7 +54061,7 @@ React.createElement(GoodsDetailViewPager,{images:this.state.images}),
 React.createElement(GoodsDetailInfo,{goodsName:this.state.goodsName,recommend:this.state.rating * 100 + '%满意',sales:this.state.saleCount,currentPrice:this.state.currentPrice,
 price:this.state.oldPrice,categoryDesc:this.state.categoryDesc}),
 React.createElement(GoodsUserInfo,{storeName:this.state.storeName,language:this.state.language,service:this.state.service,tel:this.state.tel,nickName:this.state.nickName,avatar:this.state.avatar}),
-React.createElement(GoodsSection,{title:'商品详情',icon:'icon_shop_intro.png',showArrow:false}),
+React.createElement(GoodsSection,{title:'产品详情',icon:'icon_shop_intro.png',showArrow:false}),
 React.createElement(GoodsDetailDescComponent,{location:this.state.country + this.state.locality + this.state.address,travelTime:this.state.timeCost + '天',desc:this.state.goodsDesc,showMore:true}),
 
 React.createElement(GoodsSection,{title:'购买须知',icon:'iconfont_jingmaixuzhi@3x.png',showArrow:false}),
@@ -55690,13 +55690,13 @@ React.createElement(ScrollView,{style:styles.scrollView},
 React.createElement(StoreDetailUserInfo,null),
 
 React.createElement(StoreInfo,{storeName:'家庭旅馆',follow:1002,recommend:'100%',openTime:'2015年4月',address:'海淀区知春路'}),
-React.createElement(StoreSectionItem,{title:'热销商品',icon:'hot_icon@3x.png',showArrow:false}),
+React.createElement(StoreSectionItem,{title:'热销产品',icon:'hot_icon@3x.png',showArrow:false}),
 React.createElement(StoreHotSales,null),
-React.createElement(StoreSectionItem,{title:'在售商品',icon:'iconfont_shangjiashangpin@3x.png',showArrow:false}),
+React.createElement(StoreSectionItem,{title:'在售产品',icon:'iconfont_shangjiashangpin@3x.png',showArrow:false}),
 React.createElement(StoreDetailOnSell,{dataSource:dataSource}),
 React.createElement(TouchableHighlight,{underlayColor:'white',style:{borderBottomColor:"#e2e2e2",borderBottomWidth:1,justifyContent:'center',alignItems:'center',height:40},
 onPress:this._showAllSales},
-React.createElement(Text,{style:{color:'#99cc66',fontSize:16,textAlign:'center'}},'查看全部商品'))),
+React.createElement(Text,{style:{color:'#99cc66',fontSize:16,textAlign:'center'}},'查看全部产品'))),
 
 
 
@@ -55713,9 +55713,9 @@ React.createElement(StoreDetailUserInfo,null),
 
 React.createElement(StoreInfo,{storeName:'家庭旅馆',follow:1002,recommend:'100%',openTime:'2015年4月',
 address:'海淀区知春路'}),
-React.createElement(StoreSectionItem,{title:'热销商品',icon:'hot_icon@3x.png',showArrow:false}),
+React.createElement(StoreSectionItem,{title:'热销产品',icon:'hot_icon@3x.png',showArrow:false}),
 React.createElement(StoreHotSales,null),
-React.createElement(StoreSectionItem,{title:'在售商品',icon:'iconfont_shangjiashangpin@3x.png',showArrow:false}),
+React.createElement(StoreSectionItem,{title:'在售产品',icon:'iconfont_shangjiashangpin@3x.png',showArrow:false}),
 React.createElement(StoreDetailOnSell,{dataSource:dataSource})),
 
 React.createElement(StorelToolBar,null)));}},
@@ -55992,7 +55992,7 @@ return (
 React.createElement(Image,{style:{width:imageWidth,height:imageHeight,justifyContent:'flex-end',margin:3},
 source:{uri:this.props.image}},
 React.createElement(View,{style:{width:imageWidth,height:39,paddingTop:5,justifyContent:'space-between',paddingLeft:5,paddingBottom:5,paddingRight:5,backgroundColor:'rgba(0, 0, 0, 0.4)'}},
-React.createElement(Text,{style:{fontSize:9,color:'white'}},'商品名称'),
+React.createElement(Text,{style:{fontSize:9,color:'white'}},'产品名称'),
 
 
 

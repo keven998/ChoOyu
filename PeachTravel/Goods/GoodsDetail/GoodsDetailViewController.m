@@ -50,7 +50,7 @@ RCT_EXPORT_MODULE();
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationItem.title = @"商品详情";
+    self.navigationItem.title = @"产品详情";
     self.automaticallyAdjustsScrollViewInsets = NO;
 
     NSURL *jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
@@ -236,8 +236,8 @@ RCT_EXPORT_METHOD(chatWithBusiness){
 - (void)didClickOnImageIndex:(NSInteger)imageIndex
 {
     NSString *url = @"http://7af4ik.com1.z0.glb.clouddn.com/react/index.html";
-    NSString *shareContentWithoutUrl = [NSString stringWithFormat:@"这个商品来自旅行派～"];
-    NSString *shareContentWithUrl = [NSString stringWithFormat:@"这个商品来自旅行派 %@", url];
+    NSString *shareContentWithoutUrl = [NSString stringWithFormat:@"这个产品来自旅行派～"];
+    NSString *shareContentWithUrl = [NSString stringWithFormat:@"这个产品来自旅行派 %@", url];
     NSString *imageUrl = @"http://images.taozilvxing.com/28c2d1ef35c12100e99fecddb63c436a?imageView2/2/w/300";
     UMSocialUrlResource *resource = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeImage url:imageUrl];
     

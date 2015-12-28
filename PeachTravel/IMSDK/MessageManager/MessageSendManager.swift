@@ -313,7 +313,7 @@ class MessageSendManager: NSObject {
     }
     
     /**
-     发送商品信息
+     发送产品信息
      
      - parameter goodsMessage:
      - parameter receiver:

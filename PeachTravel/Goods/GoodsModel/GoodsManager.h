@@ -12,20 +12,20 @@
 
 @interface GoodsManager : NSObject
 
-/* *******商品详情*********** */
+/* *******产品详情*********** */
 
 /**
-*  加商品详情
+*  加产品详情
 *
-*  @param goodsId    商品 ID
+*  @param goodsId    产品 ID
 *  @param completion
 */
 + (void)asyncLoadGoodsDetailWithGoodsId:(NSInteger)goodsId completionBlock:(void (^) (BOOL isSuccess, NSDictionary *goodsDetailJson, GoodsDetailModel *goodsDetail))completion;
 
-/********商品列表************/
+/********产品列表************/
 
 /**
- *  加载某个城市的商品列表
+ *  加载某个城市的产品列表
  *
  *  @param cityId     城市 id
  *  @param startIndex 从第几个开始加载
@@ -35,7 +35,7 @@
 + (void)asyncLoadGoodsOfCity:(NSString *)cityId startIndex:(NSInteger)startIndex count:(NSUInteger)count completionBlock:(void (^)(BOOL isSuccess, NSArray *goodsList))completion;
 
 /**
- *  加载某个城市的商品列表，添加分类纬度
+ *  加载某个城市的产品列表，添加分类纬度
  *
  *  @param cityId     城市 id
  *  @param category   分类
@@ -44,7 +44,7 @@
 + (void)asyncLoadGoodsOfCity:(NSString *)cityId category:(NSString *)category completionBlock:(void (^)(BOOL isSuccess, NSArray *goodsList))completion;
 
 /**
- *  加载某个城市的商品列表，添加分类纬度，添加排序纬度
+ *  加载某个城市的产品列表，添加分类纬度，添加排序纬度
  *
  *  @param cityId     城市 ID
  *  @param category   分类
@@ -55,7 +55,7 @@
 + (void)asyncLoadGoodsOfCity:(NSString *)cityId category:(NSString *)category sortBy:(NSString *)sortType sortValue:(NSString *)sortValue completionBlock:(void (^)(BOOL isSuccess, NSArray *goodsList))completion;
 
 /**
- *  加载某个城市商品列表，添加分类维度， 添加排序维度，添加分页机制
+ *  加载某个城市产品列表，添加分类维度， 添加排序维度，添加分页机制
  *
  *  @param cityId     城市 ID
  *  @param category   分类
@@ -68,7 +68,7 @@
 + (void)asyncLoadGoodsOfCity:(NSString *)cityId category:(NSString *)category sortBy:(NSString *)sortType sortValue:(NSString *)sortValue startIndex:(NSInteger)startIndex count:(NSUInteger)count completionBlock:(void (^)(BOOL, NSArray *))completion;
 
 /**
- *  加载某个店铺的商品列表
+ *  加载某个店铺的产品列表
  *
  *  @param storeId    店铺 ID
  *  @param startIndex
@@ -78,10 +78,10 @@
 + (void)asyncLoadGoodsOfStore:(NSInteger)storeId startIndex:(NSInteger)startIndex count:(NSUInteger)count completionBlock:(void (^)(BOOL isSuccess, NSArray *goodsList))completion;
 
 
-/*********** 商品推荐相关 **************/
+/*********** 产品推荐相关 **************/
 
 /**
- *  获取推荐的商品列表
+ *  获取推荐的产品列表
  *  goodsList 的结构类型为:   {
                                 @"title" : @"小编推荐",
                                 @"goodsList": NSArray<GoodDetailModel *>
@@ -91,7 +91,7 @@
 + (void)asyncLoadRecommendGoodsWithCompletionBlock:(void (^)(BOOL isSuccess, NSArray<NSDictionary *> *goodsList))completion;
 
 /**
- *  收藏商品接口
+ *  收藏产品接口
  *
  *  @param goodsId
  *  @param isFavorite

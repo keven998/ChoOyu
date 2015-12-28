@@ -714,7 +714,7 @@
     [self.navigationController pushViewController:ctl animated:YES];
 }
 
-//点击发送商品信息
+//点击发送产品信息
 - (void)sendGoodsLinkAction
 {
     if (_goodsLinkMessageSnapshot) {
@@ -869,7 +869,7 @@
     [self.frostedViewController.navigationController pushViewController:locationController animated:YES];
 }
 
-//商品气泡被点击
+//产品气泡被点击
 - (void)chatGoodsBubblePressed:(MessageModel *)model
 {
     GoodsDetailViewController *ctl = [[GoodsDetailViewController alloc] init];

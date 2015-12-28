@@ -187,7 +187,7 @@
     if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
         StoreDetailCollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"storeDetailCollectionReusableView" forIndexPath:indexPath];
         headerView.headerView.image = [UIImage imageNamed:@"icon_store_cagtegory"];
-        headerView.titleLabel.text = @"在售商品";
+        headerView.titleLabel.text = @"在售产品";
         return headerView;
     }
     return nil;
