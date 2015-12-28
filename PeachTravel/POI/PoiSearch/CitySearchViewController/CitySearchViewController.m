@@ -8,7 +8,9 @@
 
 #import "CitySearchViewController.h"
 #import "SearchDestinationRecommendViewController.h"
+#import "CitySearchTableViewCell.h"
 #import "PoiManager.h"
+#import "CityDetailViewController.h"
 
 @interface CitySearchViewController () <SearchDestinationRecommendDelegate, UITableViewDataSource, UITableViewDelegate,UISearchBarDelegate>
 
@@ -21,7 +23,7 @@
 
 @implementation CitySearchViewController
 
-static NSString *reusableCellIdentifier = @"searchResultCell";
+static NSString *reusableCellIdentifier = @"citySearchTableViewCell";
 
 
 - (void)viewDidLoad {
@@ -31,6 +33,8 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     self.searchRecommendViewController.view.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
     [self.searchRecommendViewController willMoveToParentViewController:self];
     [self setSearchBar];
+    [self.view addSubview:self.tableView];
+    _tableView.hidden = YES;
 }
 
 - (void)setSearchBar
@@ -65,10 +69,10 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height)];
         _tableView.backgroundColor = APP_PAGE_COLOR;
         
-        [_tableView registerNib:[UINib nibWithNibName:@"SearchResultTableViewCell" bundle:nil]forCellReuseIdentifier:reusableCellIdentifier];
+        [_tableView registerNib:[UINib nibWithNibName:@"CitySearchTableViewCell" bundle:nil] forCellReuseIdentifier:reusableCellIdentifier];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.dataSource = self;
         _tableView.delegate = self;
@@ -86,8 +90,15 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 
 - (void)loadDataSourceWithKeyWord:(NSString *)keyWord
 {
+    _tableView.hidden = NO;
     [PoiManager searchPoiWithKeyword:keyWord andSearchCount:20 andPoiType:kCityPoi completionBlock:^(BOOL isSuccess, NSArray *searchResultList) {
-        
+        for (NSDictionary *searchDic in searchResultList) {
+            if ([[searchDic objectForKey:@"type"] integerValue] == kCityPoi) {
+                self.dataSource = [searchDic objectForKey:@"content"];
+                [self.tableView reloadData];
+                return;
+            }
+        }
     }];
 }
 
@@ -110,7 +121,21 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return nil;
+    CityPoi *poi = [_dataSource objectAtIndex:indexPath.row];
+    CitySearchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reusableCellIdentifier forIndexPath:indexPath];
+    [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:[poi.images firstObject].imageUrl] placeholderImage:nil];
+    cell.titleLabel.text = poi.zhName;
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    CityPoi *poi = [_dataSource objectAtIndex:indexPath.row];
+    CityDetailViewController *ctl = [[CityDetailViewController alloc] init];
+    ctl.cityId = poi.poiId;
+    ctl.cityName = poi.zhName;
+    [self.navigationController pushViewController:ctl animated:YES];
 }
 
 #pragma mark - UISearchBar Delegate
