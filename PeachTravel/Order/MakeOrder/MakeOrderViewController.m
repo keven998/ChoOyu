@@ -141,7 +141,7 @@
     [ctl setDelegate:self];
     ctl.weekdayHeaderEnabled = YES;
     ctl.priceList = _orderDetail.selectedPackage.priceList;
-    if ([NSDate date].timeIntervalSince1970 > _orderDetail.selectedPackage.startPriceDate.timeIntervalSince1970) {
+    if ([NSDate date].timeIntervalSince1970 >= _orderDetail.selectedPackage.startPriceDate.timeIntervalSince1970) {
         ctl.firstDate = [NSDate date];
     } else {
         ctl.firstDate = _orderDetail.selectedPackage.startPriceDate;

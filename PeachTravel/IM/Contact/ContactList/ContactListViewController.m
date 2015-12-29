@@ -44,16 +44,17 @@
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContactList) name:contactListNeedUpdateNoti object:nil];
     
-    UIButton *backBtn =  [UIButton buttonWithType:UIButtonTypeCustom];
-    [backBtn addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
-    [backBtn setFrame:CGRectMake(0, 0, 40, 30)];
-    backBtn.titleLabel.font = [UIFont systemFontOfSize:16.0];
-    backBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    [backBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [backBtn setTitle:@"取消" forState:UIControlStateNormal];
-    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
-    self.navigationItem.leftBarButtonItem = barButton;
-
+    if (self.navigationController.viewControllers.count == 1) {
+        UIButton *backBtn =  [UIButton buttonWithType:UIButtonTypeCustom];
+        [backBtn addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
+        [backBtn setFrame:CGRectMake(0, 0, 40, 30)];
+        backBtn.titleLabel.font = [UIFont systemFontOfSize:16.0];
+        backBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        [backBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [backBtn setTitle:@"取消" forState:UIControlStateNormal];
+        UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
+        self.navigationItem.leftBarButtonItem = barButton;
+    }
     UIButton *itemBtn =  [UIButton buttonWithType:UIButtonTypeCustom];
     [itemBtn addTarget:self action:@selector(addContact)forControlEvents:UIControlEventTouchUpInside];
     [itemBtn setFrame:CGRectMake(0, 0, 40, 30)];

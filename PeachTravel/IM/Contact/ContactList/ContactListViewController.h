@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ContactListViewController : UIViewController
+@interface ContactListViewController : TZViewController
 
 @property (strong, nonatomic) UITableView *contactTableView;
 
