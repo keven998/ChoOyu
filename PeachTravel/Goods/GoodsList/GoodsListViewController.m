@@ -49,6 +49,9 @@
             [tempArray addObjectsFromArray:goodsList];
             _dataSource = tempArray;
             [_tableView reloadData];
+            if (goodsList.count < pageCount) {
+                [_tableView.footer endRefreshingWithNoMoreData];
+            }
         }
     }];
     DOPDropDownMenu *menu = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:41];
@@ -197,6 +200,9 @@
     [GoodsManager asyncLoadGoodsOfCity:_cityId category:_category sortBy:_sortType sortValue:_sortValue startIndex:[_dataSource count] count:pageCount completionBlock:^(BOOL isSuccess, NSArray *goodsList) {
         _dataSource = goodsList;
         [self.tableView reloadData];
+        if (goodsList.count < pageCount) {
+            [_tableView.footer endRefreshingWithNoMoreData];
+        }
     }];
 }
 

@@ -202,6 +202,8 @@
     if (indexPath.section == 0) {
         OrderDetailContentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"orderDetailContentCell" forIndexPath:indexPath];
         cell.orderDetail = _orderDetail;
+        [cell.goodsNameBtn setAttributedTitle:nil forState:UIControlStateNormal];
+        [cell.goodsNameBtn setTitle:_orderDetail.goods.goodsName forState:UIControlStateNormal];     
         cell.goodsNameBtn.userInteractionEnabled = NO;
         return cell;
         

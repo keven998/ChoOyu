@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -16,7 +16,6 @@
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_orderDetail_store" translatesAutoresizingMaskIntoConstraints="NO" id="sMW-5y-Hzl">
                         <rect key="frame" x="11" y="17" width="17" height="17"/>
-                        <animations/>
                         <constraints>
                             <constraint firstAttribute="width" constant="17" id="1Xo-XR-d57"/>
                             <constraint firstAttribute="height" constant="17" id="t3o-IP-Wvz"/>
@@ -24,7 +23,6 @@
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o1U-AO-cUp">
                         <rect key="frame" x="37" y="14" width="214" height="21"/>
-                        <animations/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="CKu-Ug-FKT"/>
                         </constraints>
@@ -34,7 +32,6 @@
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dev-up-5SI">
                         <rect key="frame" x="262" y="12" width="50" height="25"/>
-                        <animations/>
                         <constraints>
                             <constraint firstAttribute="width" constant="50" id="1Zr-hY-Edc"/>
                             <constraint firstAttribute="height" constant="25" id="a3l-mK-uia"/>
@@ -43,7 +40,6 @@
                         <state key="normal" title="聊天"/>
                     </button>
                 </subviews>
-                <animations/>
                 <constraints>
                     <constraint firstItem="sMW-5y-Hzl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="11" id="7xp-93-mGk"/>
                     <constraint firstItem="sMW-5y-Hzl" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Bwu-8d-bu9"/>
@@ -54,7 +50,6 @@
                     <constraint firstAttribute="trailing" secondItem="dev-up-5SI" secondAttribute="trailing" constant="8" id="nyQ-7Z-ae2"/>
                 </constraints>
             </tableViewCellContentView>
-            <animations/>
             <connections>
                 <outlet property="chatBtn" destination="dev-up-5SI" id="geo-iK-DWW"/>
                 <outlet property="storeNameLabel" destination="o1U-AO-cUp" id="Rho-a6-ZDR"/>
