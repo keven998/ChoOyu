@@ -42,9 +42,9 @@
 //        [self addSubview:_searchBtn];
         UICollectionViewFlowLayout*layout = [[UICollectionViewFlowLayout alloc] init];
         layout.minimumInteritemSpacing = 15;
-        layout.itemSize = CGSizeMake(85, 85);
+        layout.itemSize = CGSizeMake(100, 100);
         layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 210, frame.size.width, 110) collectionViewLayout:layout];
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 210, frame.size.width, 125) collectionViewLayout:layout];
         [self addSubview:_collectionView];
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
