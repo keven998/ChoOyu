@@ -42,10 +42,8 @@
 
 @interface EditUserInfoTableViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource, SelectDelegate, ChangJobDelegate>
 
-@property (strong, nonatomic) UIView *footerView;
 @property (strong, nonatomic) AccountManager *accountManager;
 @property (strong, nonatomic) Destinations *destinations;
-
 
 // 我的足迹的描述
 @property (nonatomic, copy) NSString *tracksDesc;
@@ -82,7 +80,6 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"UserOtherTableViewCell" bundle:nil] forCellReuseIdentifier:otherUserInfoCell];
     [self.tableView registerNib:[UINib nibWithNibName:@"HeaderCell" bundle:nil] forCellReuseIdentifier:@"zuji"];
     [self.tableView registerNib:[UINib nibWithNibName:@"HeaderPictureCell" bundle:nil] forCellReuseIdentifier:@"header"];
-    self.tableView.tableFooterView = self.footerView;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userAccountHasChage) name:updateUserInfoNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(goBack) name:userDidLogoutNoti object:nil];
@@ -124,29 +121,6 @@
     AccountManager *amgr = self.accountManager;
     _destinations.destinationsSelected = amgr.account.footprints;
     return _destinations;
-}
-
-- (UIView *)footerView
-{
-    if (!_footerView) {
-        _footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 72)];
-        
-        UIButton *logoutBtn = [[UIButton alloc] initWithFrame:CGRectMake(12.0, 20.0, self.view.bounds.size.width - 24.0, 52.0)];
-        logoutBtn.center = _footerView.center;
-        logoutBtn.layer.cornerRadius = 4.0;
-        logoutBtn.clipsToBounds = YES;
-        [logoutBtn setBackgroundImage:[[UIImage imageNamed:@"chat_drawer_leave.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(8, 8, 8, 8)] forState:UIControlStateNormal];
-        
-        logoutBtn.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        [logoutBtn setTitle:@"退出登录" forState:UIControlStateNormal];
-        logoutBtn.titleLabel.font = [UIFont systemFontOfSize:15.0];
-        [logoutBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        logoutBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
-        [logoutBtn addTarget:self action:@selector(logout:) forControlEvents:UIControlEventTouchUpInside];
-        [_footerView addSubview:logoutBtn];
-        
-    }
-    return _footerView;
 }
 
 - (AccountManager *)accountManager
@@ -422,23 +396,6 @@
             }
         }
     }];
-}
-
-#pragma mark - IBAction Methods
-
-/**
- *  退出登录
- *
- *  @param sender
- */
--(IBAction)logout:(id)sender
-{
-    UIAlertView*alert = [[UIAlertView alloc]initWithTitle:@"提示"
-                                                  message:@"确定退出旅行派登录"
-                                                 delegate:self
-                                        cancelButtonTitle:@"取消"
-                                        otherButtonTitles:@"确定", nil];
-    [alert show];
 }
 
 #pragma mark - Table view data source
@@ -760,25 +717,6 @@
     [self uploadPhotoImage:headerImage];
 }
 
-#pragma mark - UIAlertViewDelegate
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 1) {
-        AccountManager *accountManager = [AccountManager shareAccountManager];
-        [SVProgressHUD show];
-        [accountManager asyncLogout:^(BOOL isSuccess) {
-            if (isSuccess) {
-                [self showHint:@"退出成功"];
-                [self.navigationController popViewControllerAnimated:YES];
-                
-                [self.tabBarController setSelectedIndex:1];
-            } else {
-                [self showHint:@"退出失败"];
-            }
-        }];
-    }
-}
 
 @end
 

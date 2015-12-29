@@ -21,6 +21,7 @@
 @interface SettingHomeViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) UIView *footerView;
 
 @end
 
@@ -30,7 +31,6 @@
 {
     [super viewDidLoad];
     self.navigationItem.title = @"设置";
-    
 
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     self.tableView.backgroundColor = APP_PAGE_COLOR;
@@ -39,6 +39,7 @@
     _tableView.dataSource = self;
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.tableView registerNib:[UINib nibWithNibName:@"OptionTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:cellIdentifier];
+    _tableView.tableFooterView = self.footerView;
     [self.view addSubview:_tableView];
 }
 
@@ -61,6 +62,29 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (UIView *)footerView
+{
+    if (!_footerView) {
+        _footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 72)];
+        
+        UIButton *logoutBtn = [[UIButton alloc] initWithFrame:CGRectMake(12.0, 20.0, self.view.bounds.size.width - 24.0, 52.0)];
+        logoutBtn.center = _footerView.center;
+        logoutBtn.layer.cornerRadius = 4.0;
+        logoutBtn.clipsToBounds = YES;
+        [logoutBtn setBackgroundImage:[[UIImage imageNamed:@"chat_drawer_leave.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(8, 8, 8, 8)] forState:UIControlStateNormal];
+        
+        logoutBtn.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        [logoutBtn setTitle:@"退出登录" forState:UIControlStateNormal];
+        logoutBtn.titleLabel.font = [UIFont systemFontOfSize:15.0];
+        [logoutBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        logoutBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+        [logoutBtn addTarget:self action:@selector(logout:) forControlEvents:UIControlEventTouchUpInside];
+        [_footerView addSubview:logoutBtn];
+        
+    }
+    return _footerView;
 }
 
 #pragma mark - private methods
@@ -98,6 +122,23 @@
     
     [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:@"能向达人咨询、朋友协作的旅行工具" image:shareImage location:nil urlResource:nil presentedController:self completion:^(UMSocialResponseEntity *response) {
     }];
+}
+
+#pragma mark - IBAction Methods
+
+/**
+ *  退出登录
+ *
+ *  @param sender
+ */
+-(IBAction)logout:(id)sender
+{
+    UIAlertView*alert = [[UIAlertView alloc]initWithTitle:@"提示"
+                                                  message:@"确定退出旅行派登录"
+                                                 delegate:self
+                                        cancelButtonTitle:@"取消"
+                                        otherButtonTitles:@"确定", nil];
+    [alert show];
 }
 
 #pragma mark - Table view data source
@@ -175,6 +216,26 @@
         }
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        AccountManager *accountManager = [AccountManager shareAccountManager];
+        [SVProgressHUD show];
+        [accountManager asyncLogout:^(BOOL isSuccess) {
+            if (isSuccess) {
+                [self showHint:@"退出成功"];
+                [self.navigationController popViewControllerAnimated:YES];
+                [self.tabBarController setSelectedIndex:0];
+            } else {
+                [self showHint:@"退出失败"];
+            }
+        }];
+    }
 }
 
 
