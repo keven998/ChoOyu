@@ -31,7 +31,7 @@
     self.titlelLbel.translatesAutoresizingMaskIntoConstraints = NO;
     
     NSDictionary* dict = @{@"btn":self.imageBtn,@"label":self.titlelLbel};
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[btn]-0-[label(18)]-0-|" options:0 metrics:nil views:dict]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-12-[btn]-0-[label(18)]-0-|" options:0 metrics:nil views:dict]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[label]-0-|" options:0 metrics:nil views:dict]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.imageBtn attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.imageBtn attribute:NSLayoutAttributeHeight multiplier:1.0 constant:0]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.imageBtn attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];

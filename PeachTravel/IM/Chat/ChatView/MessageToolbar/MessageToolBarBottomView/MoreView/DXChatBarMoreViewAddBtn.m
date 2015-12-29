@@ -60,6 +60,7 @@
         _collectionView.dataSource = self;
         [_collectionView registerClass:[DXChatBarMoreViewAddBtnCell class] forCellWithReuseIdentifier:MOREVIEWCELL];
         _collectionView.backgroundColor = [UIColor clearColor];
+        _collectionView.contentInset = UIEdgeInsetsMake(0, 5, 0, 5);
         _collectionView.scrollEnabled = NO;
     }
     return _collectionView;

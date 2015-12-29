@@ -8,7 +8,6 @@
 
 #import "QiniuSDK.h"
 #import "UserAlbumViewController.h"
-#import "JGProgressHUDPieIndicatorView.h"
 #import "AlbumImageCell.h"
 #import "UserAlbumReviewViewController.h"
 #import "UserAlbumOverViewTableViewController.h"
@@ -18,7 +17,7 @@
 
 @property (nonatomic, strong) AccountManager *manager;
 @property (nonatomic, strong) NSMutableArray *dataSource;
-@property (nonatomic, strong) JGProgressHUD *HUD;
+
 
 @end
 

@@ -3,6 +3,7 @@ platform :ios, '7.0'
 
 pod 'AFNetworking'
 pod 'iRate', '~> 1.11'
+pod 'JGProgressHUD'
 pod 'OpenUDID', '~> 1.0.0'
 pod 'SDWebImage', '~> 3.7.1'
 pod 'HappyDNS', '>= 0.2'
