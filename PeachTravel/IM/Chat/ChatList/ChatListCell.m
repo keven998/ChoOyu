@@ -66,7 +66,7 @@
         sendFailedImageView.hidden = YES;
         [self.contentView addSubview:sendFailedImageView];
         
-        _unreadLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 14, 21, 21)];
+        _unreadLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 14, 18, 18)];
         _unreadLabel.backgroundColor = COLOR_CHECKED;
         if (_unreadLabel.isHighlighted) {
             _unreadLabel.backgroundColor = [UIColor redColor];
@@ -76,7 +76,7 @@
         _unreadLabel.adjustsFontSizeToFitWidth = YES;
         _unreadLabel.clipsToBounds = YES;
         _unreadLabel.textColor = [UIColor whiteColor];
-        _unreadLabel.layer.cornerRadius = 10.5;
+        _unreadLabel.layer.cornerRadius = 9;
         _unreadLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         [self.contentView insertSubview:_unreadLabel aboveSubview:self.imageView];
         
@@ -84,7 +84,7 @@
         spaceView.backgroundColor = COLOR_LINE;
         [self.contentView addSubview:spaceView];
         
-           }
+        }
     return self;
 }
 
@@ -99,8 +99,8 @@
     _nickNameLabel.frame = CGRectMake(contentOffsetX, 12, width - contentOffsetX - 85, 22);
     
     _timeLabel.frame = CGRectMake(width - 80.0, 10, 70.0, 22);
-    _unreadLabel.frame = CGRectMake(0, 0, 21, 21);
-    _unreadLabel.center = CGPointMake(65, 12);
+    _unreadLabel.frame = CGRectMake(0, 0, 18, 18);
+    _unreadLabel.center = CGPointMake(55, 13);
     
     if (_detailMsg.length > 0) {
         _detailLabel.attributedText = [TZEmojiTextConvertor convertToEmojiTextWithText:_detailMsg withFont:_detailLabel.font];
@@ -135,15 +135,15 @@
     if (_unreadCount > 0) {
         CGRect lf = _unreadLabel.frame;
         if (_unreadCount < 10) {
-            lf.size.width = 21;
+            lf.size.width = 18;
             _unreadLabel.text = [NSString stringWithFormat:@"%ld",(long)_unreadCount];
         } else if (_unreadCount > 9 && _unreadCount < 100){
-            lf.size.width = 29;
+            lf.size.width = 27;
             lf.origin.x = lf.origin.x-3;
             _unreadLabel.text = [NSString stringWithFormat:@"%ld",(long)_unreadCount];
         } else {
             lf.origin.x = lf.origin.x-5;
-            lf.size.width = 33;
+            lf.size.width = 31;
             _unreadLabel.text = [NSString stringWithFormat:@"99+"];
         }
         _unreadLabel.frame = lf;

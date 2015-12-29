@@ -463,7 +463,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (void)updateViewWithUnreadMessageCount
 {
     NSInteger unreadCount = [IMClientManager shareInstance].conversationManager.totalMessageUnreadCount;
-    UITabBarItem *item = [self.tabBar.items firstObject];
+    NSInteger index = [self.viewControllers indexOfObject:_chatListCtl.navigationController];
+    UITabBarItem *item = [self.tabBar.items objectAtIndex:index];
     if (unreadCount == 0) {
         item.badgeValue = nil;
         badgeNum = 0;
