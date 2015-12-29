@@ -42,12 +42,16 @@
     header.lastUpdatedTimeLabel.hidden = YES;
     
     self.tableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
+    [self.tableView.header beginRefreshing];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.tableView.header beginRefreshing];
+    if (![self.tableView.header isRefreshing]) {
+        [self refreshData];
+    }
 }
 
 - (void)setDataSource:(NSArray *)dataSource

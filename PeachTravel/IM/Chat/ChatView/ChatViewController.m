@@ -558,6 +558,7 @@
         self.chatTagDate = createDate;
         [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.dataSource.count-1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
     }
+    
     message.chatType = _chatType;
     MessageModel *model = [[MessageModel alloc] initWithBaseMessage:message];
     [self fillMessageModel:model];

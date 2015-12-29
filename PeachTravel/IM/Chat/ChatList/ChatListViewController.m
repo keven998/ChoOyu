@@ -239,7 +239,7 @@
 - (void)updateNavigationTitleViewStatus
 {
     UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 150, 44)];
-    UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     activityView.center = CGPointMake(35, 22);
     [titleView addSubview:activityView];
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(55, 0, 105, 44)];

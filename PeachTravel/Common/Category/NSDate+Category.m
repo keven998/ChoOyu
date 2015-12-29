@@ -63,16 +63,14 @@
 
 
 /*标准时间日期描述*/
--(NSString *)formattedTime{
-    
-    
-    
+- (NSString *)formattedTime
+{
     NSDateFormatter* formatter = [[NSDateFormatter alloc]init];
-    [formatter setDateFormat:@"YYYYMMdd"];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
     NSString * dateNow = [formatter stringFromDate:[NSDate date]];
     NSDateComponents *components = [[NSDateComponents alloc] init];
-    [components setDay:[[dateNow substringWithRange:NSMakeRange(6,2)] intValue]];
-    [components setMonth:[[dateNow substringWithRange:NSMakeRange(4,2)] intValue]];
+    [components setDay:[[dateNow substringWithRange:NSMakeRange(8,2)] intValue]];
+    [components setMonth:[[dateNow substringWithRange:NSMakeRange(5,2)] intValue]];
     [components setYear:[[dateNow substringWithRange:NSMakeRange(0,4)] intValue]];
     NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSDate *date = [gregorian dateFromComponents:components]; //今天 0点时间
