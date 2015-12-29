@@ -17,7 +17,7 @@
 
 + (CGFloat)heightOfCellWithTravelerList:(NSArray *)travelerList
 {
-    return 45 + travelerList.count*130;
+    return 50 + travelerList.count*130;
 }
 
 - (void)awakeFromNib {
