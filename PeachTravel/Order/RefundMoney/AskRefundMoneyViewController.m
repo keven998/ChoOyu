@@ -50,7 +50,7 @@
 
 - (void)confirmRequest:(UIButton *)btn
 {
-    [OrderManager asyncRequestRefundMoneyWithOrderId:_orderDetail.orderId reason:[_refundExcuseList objectAtIndex:_selectIndex] leaveMessage:_leaveMessage completionBlock:^(BOOL isSuccess, NSString *error) {
+    [OrderManager asyncRequestRefundMoneyWithOrderId:_orderId reason:[_refundExcuseList objectAtIndex:_selectIndex] leaveMessage:_leaveMessage completionBlock:^(BOOL isSuccess, NSString *error) {
         if (isSuccess) {
             [SVProgressHUD showHint:@"申请退款成功"];
             [[NSNotificationCenter defaultCenter] postNotificationName:kUpdateOrderdetailNoti object:nil];

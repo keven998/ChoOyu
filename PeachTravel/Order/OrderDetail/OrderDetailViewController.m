@@ -272,6 +272,7 @@ NSString *const kUpdateOrderdetailNoti = @"kUpdateOrderdetailNoti";
 - (void)requestRefundMoney:(UIButton *)sender
 {
     AskRefundMoneyViewController *ctl = [[AskRefundMoneyViewController alloc] init];
+    ctl.orderId = _orderId;
     [self.navigationController pushViewController:ctl animated:YES];
 }
 

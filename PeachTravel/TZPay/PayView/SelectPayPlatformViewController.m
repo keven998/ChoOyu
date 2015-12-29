@@ -94,6 +94,7 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:kUpdateOrderdetailNoti object:nil];
             NSMutableArray *viewControllers = [self.navigationController.viewControllers mutableCopy];
             OrderPaySuccessViewController *ctl = [[OrderPaySuccessViewController alloc] init];
+            ctl.orderId = _orderDetail.orderId;
             [viewControllers replaceObjectAtIndex:viewControllers.count-1 withObject:ctl];
             [self.navigationController setViewControllers:viewControllers animated:YES];
         } else {
