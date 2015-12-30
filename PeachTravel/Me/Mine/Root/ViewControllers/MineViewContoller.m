@@ -37,7 +37,6 @@
                         @{@"title": @"我的旅行计划", @"image": @"icon_mine_guides"}
                         ],
                     @[
-                        @{@"title": @"通讯录", @"image": @"icon_mine_contact"},
                         @{@"title": @"常用旅客信息", @"image": @"icon_mine_traveler"}
                         ],
                     ];
@@ -155,10 +154,6 @@
         }
     } else if (indexPath.section == 1) {
         if (indexPath.row == 0) {
-            ContactListViewController *ctl = [[ContactListViewController alloc] init];
-            ctl.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:ctl animated:YES];
-        } else {
             TravelerListViewController *ctl = [[TravelerListViewController alloc] init];
             ctl.hidesBottomBarWhenPushed = YES;
             ctl.isCheckMyTravelers = YES;
