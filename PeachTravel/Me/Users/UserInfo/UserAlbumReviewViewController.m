@@ -63,17 +63,11 @@
     [self.collectionView reloadData];
     AlbumImageModel *image = [_dataSource objectAtIndex:_currentIndex];
     _descLabel.text = image.imageDesc;
-    [self.navigationController.navigationBar setTitleTextAttributes:
-     [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName]];
-    [self.navigationController.navigationBar setBackgroundImage:[ConvertMethods createImageWithColor:[[UIColor blackColor] colorWithAlphaComponent:0.3]] forBarMetrics:UIBarMetricsDefault];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self.navigationController.navigationBar setTitleTextAttributes:
-     [NSDictionary dictionaryWithObject:COLOR_TEXT_I forKey:NSForegroundColorAttributeName]];
-    [self.navigationController.navigationBar setBackgroundImage:[[UIImage imageNamed:@"navi_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)] forBarMetrics:UIBarMetricsDefault];
 }
 
 - (void)goBack
