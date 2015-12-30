@@ -210,7 +210,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (void)userDidLogout
 {
     [self updateViewWithUnreadMessageCount];
-    [self setSelectedIndex:1];
+    [self setSelectedIndex:0];
 }
 
 /**
@@ -578,7 +578,10 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 {
     AccountManager *accountManager = [AccountManager shareAccountManager];
     if (([viewController isEqual:_chatListCtl.navigationController] || [viewController isEqual:_mineCtl.navigationController]) && !accountManager.isLogin) {
-        LoginViewController *loginCtl = [[LoginViewController alloc] init];
+        LoginViewController *loginCtl = [[LoginViewController alloc] initWithCompletion:^(BOOL completed) {
+            [self setSelectedViewController:viewController];
+            
+        }];
         TZNavigationViewController *navi = [[TZNavigationViewController alloc] initWithRootViewController:loginCtl];
         [self presentViewController:navi animated:YES completion:nil];
         return NO;

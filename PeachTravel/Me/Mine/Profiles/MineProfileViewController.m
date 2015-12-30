@@ -103,7 +103,7 @@
     UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth,64)];
     bgView.alpha = 0;
     self.navBgView = bgView;
-    bgView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_master"]];
+    bgView.backgroundColor = APP_NAVIGATIONBAR_NOALPHA;
     [self.view addSubview:bgView];
     
     UIButton *editButton = [[UIButton alloc] initWithFrame:CGRectMake(kWindowWidth - 56, 20, 40, 40)];
@@ -243,7 +243,6 @@
     return 50;
 }
 
-
 // 头部和尾部
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
@@ -289,9 +288,19 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if (scrollView.contentOffset.y>140) return;
-    self.navBgView.alpha = (scrollView.contentOffset.y+20)/160;
+    if (scrollView.contentOffset.y < 0) {
+        scrollView.contentOffset = CGPointZero;
+    }
+    CGFloat alpha = scrollView.contentOffset.y/150;
+    if (alpha > 0.8) {
+        alpha = 1;
+    }
+    if (alpha < 0.2) {
+        alpha = 0;
+    }
+    _navBgView.alpha = alpha;
 }
+
 
 #pragma mark - GuiderProfileAlbumCellDelegate
 

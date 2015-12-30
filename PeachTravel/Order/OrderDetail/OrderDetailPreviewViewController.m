@@ -8,7 +8,7 @@
 
 #import "OrderDetailPreviewViewController.h"
 #import "OrderDetailStoreInfoTableViewCell.h"
-#import "OrderDetailContentTableViewCell.h"
+#import "OrderDetailPreviewContentTableViewCell.h"
 #import "OrderDetailTravelerTableViewCell.h"
 #import "OrderDetailContactTableViewCell.h"
 #import "OrderDetailStatusTableViewCell.h"
@@ -45,7 +45,7 @@
     _tableView.delegate = self;
     _tableView.separatorColor = COLOR_LINE;
     
-    [_tableView registerNib:[UINib nibWithNibName:@"OrderDetailContentTableViewCell" bundle:nil] forCellReuseIdentifier:@"orderDetailContentCell"];
+    [_tableView registerNib:[UINib nibWithNibName:@"OrderDetailPreviewContentTableViewCell" bundle:nil] forCellReuseIdentifier:@"orderDetailContentCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"OrderDetailStoreInfoTableViewCell" bundle:nil] forCellReuseIdentifier:@"orderDetailStoreCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"OrderDetailTravelerPreviewTableViewCell" bundle:nil] forCellReuseIdentifier:@"orderDetailTravelerPreviewCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"OrderDetailContactTableViewCell" bundle:nil] forCellReuseIdentifier:@"orderDetailContactCell"];
@@ -186,7 +186,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        return [OrderDetailContentTableViewCell heightOfCellWithOrderDetail:_orderDetail];
+        return [OrderDetailPreviewContentTableViewCell heightOfCellWithOrderDetail:_orderDetail];
         
     } else if (indexPath.section == 2) {
         return [OrderDetailTravelerPreviewTableViewCell heightOfCellWithTravelerList:_orderDetail.travelerList];
@@ -200,11 +200,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        OrderDetailContentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"orderDetailContentCell" forIndexPath:indexPath];
+        OrderDetailPreviewContentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"orderDetailContentCell" forIndexPath:indexPath];
         cell.orderDetail = _orderDetail;
-        [cell.goodsNameBtn setAttributedTitle:nil forState:UIControlStateNormal];
-        [cell.goodsNameBtn setTitle:_orderDetail.goods.goodsName forState:UIControlStateNormal];     
-        cell.goodsNameBtn.userInteractionEnabled = NO;
         return cell;
         
     } else if (indexPath.section == 1) {

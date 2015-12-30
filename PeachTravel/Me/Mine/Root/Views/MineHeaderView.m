@@ -48,7 +48,7 @@
         
         NSArray *orderButtonDataSource = @[@{@"title": @"全部订单", @"image": @"icon_mine_order_all", @"action": @"allOrderAction"},
                                           @{@"title": @"待付款", @"image": @"icon_mine_order_waitpay", @"action": @"waitPayOrderAction"},
-                                          @{@"title": @"待处理", @"image": @"icon_mine_order_inprogress", @"action": @"inProgressOrderAction"},
+                                          @{@"title": @"处理中", @"image": @"icon_mine_order_inprogress", @"action": @"inProgressOrderAction"},
                                           @{@"title": @"可使用", @"image": @"icon_mine_order_inuse", @"action": @"inUseOrderAction"},
                                           @{@"title": @"退款", @"image": @"icon_mine_order_refundmoney", @"action": @"refundMoneyOrderAction"}
                                           ];

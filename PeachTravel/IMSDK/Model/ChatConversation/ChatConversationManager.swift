@@ -424,7 +424,7 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
     
     /**
     处理收到的消息，将收到的消息对应的插入 conversation 里，更新最后一条本地消息，和最后一条服务器消息
-    :param: message 待处理的消息
+    :param: message 处理中的消息
     */
     private func handleReceiveMessage(message: BaseMessage) {
         if let conversation = self.getConversationWithMessage(message) {

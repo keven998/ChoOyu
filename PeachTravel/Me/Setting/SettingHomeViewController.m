@@ -230,7 +230,7 @@
             if (isSuccess) {
                 [self showHint:@"退出成功"];
                 [self.navigationController popViewControllerAnimated:YES];
-                [self.tabBarController setSelectedIndex:0];
+
             } else {
                 [self showHint:@"退出失败"];
             }

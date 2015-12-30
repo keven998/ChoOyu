@@ -12,7 +12,7 @@
 
 - (void)awakeFromNib
 {
-    _userPhoto.layer.cornerRadius = 16;
+    _userPhoto.layer.cornerRadius = 10;
     _userPhoto.clipsToBounds = YES;
     self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 }

@@ -63,7 +63,7 @@
 - (NSString *)formatPrimePrice
 {
     NSString *priceStr;
-    float primePrice = round(_currentPrice*100)/100;
+    float primePrice = round(_primePrice*100)/100;
     if (!(primePrice - (int)primePrice)) {
         priceStr = [NSString stringWithFormat:@"%d", (int)primePrice];
     } else {
