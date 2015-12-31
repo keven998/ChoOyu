@@ -1213,6 +1213,7 @@
 		D9D3AE771BE740EC00F398B8 /* CityListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9D3AE751BE740EC00F398B8 /* CityListCollectionViewCell.xib */; };
 		D9D9A50E1BAFD00E001001B8 /* UserAlbumOverViewTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D9A50C1BAFD00E001001B8 /* UserAlbumOverViewTableViewController.m */; };
 		D9D9A50F1BAFD00E001001B8 /* UserAlbumOverViewTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9D9A50D1BAFD00E001001B8 /* UserAlbumOverViewTableViewController.xib */; };
+		D9DB6EDC1C3549BF00077E49 /* GoodsDetailSoldOutView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DB6EDB1C3549BF00077E49 /* GoodsDetailSoldOutView.m */; };
 		D9DD314A1BF4444A009BEDAB /* StoreDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DD31491BF4444A009BEDAB /* StoreDetailModel.m */; };
 		D9DD314D1BF46A68009BEDAB /* GoodsPackageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DD314C1BF46A68009BEDAB /* GoodsPackageModel.m */; };
 		D9DD31541BF46D4A009BEDAB /* OrderTravelerInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DD31531BF46D4A009BEDAB /* OrderTravelerInfoModel.m */; };
@@ -3798,6 +3799,8 @@
 		D9D9A50B1BAFD00E001001B8 /* UserAlbumOverViewTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserAlbumOverViewTableViewController.h; sourceTree = "<group>"; };
 		D9D9A50C1BAFD00E001001B8 /* UserAlbumOverViewTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserAlbumOverViewTableViewController.m; sourceTree = "<group>"; };
 		D9D9A50D1BAFD00E001001B8 /* UserAlbumOverViewTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserAlbumOverViewTableViewController.xib; sourceTree = "<group>"; };
+		D9DB6EDA1C3549BF00077E49 /* GoodsDetailSoldOutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsDetailSoldOutView.h; sourceTree = "<group>"; };
+		D9DB6EDB1C3549BF00077E49 /* GoodsDetailSoldOutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsDetailSoldOutView.m; sourceTree = "<group>"; };
 		D9DD31481BF4444A009BEDAB /* StoreDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreDetailModel.h; sourceTree = "<group>"; };
 		D9DD31491BF4444A009BEDAB /* StoreDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreDetailModel.m; sourceTree = "<group>"; };
 		D9DD314B1BF46A68009BEDAB /* GoodsPackageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsPackageModel.h; sourceTree = "<group>"; };
@@ -5999,6 +6002,7 @@
 		D92109AA1BE1C9F200AEDB65 /* GoodsDetail */ = {
 			isa = PBXGroup;
 			children = (
+				D9DB6ED91C3549A000077E49 /* GoodsSoldOutView */,
 				D92109AB1BE1C9F200AEDB65 /* GoodsDetailViewController.h */,
 				D92109AC1BE1C9F200AEDB65 /* GoodsDetailViewController.m */,
 			);
@@ -8859,6 +8863,15 @@
 				D964CD5A1C2933E40043BE6A /* CityList */,
 			);
 			path = PoiList;
+			sourceTree = "<group>";
+		};
+		D9DB6ED91C3549A000077E49 /* GoodsSoldOutView */ = {
+			isa = PBXGroup;
+			children = (
+				D9DB6EDA1C3549BF00077E49 /* GoodsDetailSoldOutView.h */,
+				D9DB6EDB1C3549BF00077E49 /* GoodsDetailSoldOutView.m */,
+			);
+			path = GoodsSoldOutView;
 			sourceTree = "<group>";
 		};
 		D9DD31471BF44409009BEDAB /* Model */ = {
@@ -12193,6 +12206,7 @@
 				D9A801131A80DD23005AD701 /* ChatListCell.m in Sources */,
 				D9A802B31A80E3D3005AD701 /* NSString+TaoziString.m in Sources */,
 				D9A8020D1A80E036005AD701 /* JGActionSheet.m in Sources */,
+				D9DB6EDC1C3549BF00077E49 /* GoodsDetailSoldOutView.m in Sources */,
 				D96BAFFC1C1AEAA000CDB7C7 /* QNStats.m in Sources */,
 				D93B97F11B4B8C420054EF50 /* ChatGroupSettingCell.m in Sources */,
 				D9E0EED21B79BDC2003872DF /* ChatAlbumCollectionViewCell.m in Sources */,

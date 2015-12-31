@@ -24,6 +24,7 @@
 #import "LoginViewController.h"
 #import "ChatRecoredListTableViewController.h"
 #import "TaoziChatMessageBaseViewController.h"
+#import "GoodsDetailSoldOutView.h"
 
 @interface GoodsDetailViewController ()<RCTBridgeModule, ActivityDelegate, CreateConversationDelegate, TaoziMessageSendDelegate> {
     RCTBridge *bridge;
@@ -65,23 +66,26 @@ RCT_EXPORT_MODULE();
     
     rootView.frame = CGRectMake(0, 64, kWindowWidth, kWindowHeight-64);
 
-    UIButton *shareBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 40)];
-    [shareBtn setImage:[UIImage imageNamed:@"icon_share_white"] forState:UIControlStateNormal];
-    [shareBtn addTarget:self action:@selector(share2Frend) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIButton *favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 40)];
-    [favoriteBtn setImage:[UIImage imageNamed:@"icon_favorite_white"] forState:UIControlStateNormal];
-    [favoriteBtn addTarget:self action:@selector(favorite) forControlEvents:UIControlEventTouchUpInside];
-
-    self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithCustomView:favoriteBtn], [[UIBarButtonItem alloc] initWithCustomView:shareBtn]];
-
     [GoodsManager asyncLoadGoodsDetailWithGoodsId:_goodsId completionBlock:^(BOOL isSuccess, NSDictionary *goodsDetailJson, GoodsDetailModel *goodsDetail) {
         if (isSuccess) {
             _goodsDetail = goodsDetail;
             [self.view addSubview:rootView];
             [bridge.eventDispatcher sendAppEventWithName:@"GoodsDetailLoadOverEvent" body:@{@"goodsDetailJson": goodsDetailJson}];
+            
+            UIButton *shareBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 40)];
+            [shareBtn setImage:[UIImage imageNamed:@"icon_share_white"] forState:UIControlStateNormal];
+            [shareBtn addTarget:self action:@selector(share2Frend) forControlEvents:UIControlEventTouchUpInside];
+            
+            UIButton *favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 40)];
+            [favoriteBtn setImage:[UIImage imageNamed:@"icon_favorite_white"] forState:UIControlStateNormal];
+            [favoriteBtn addTarget:self action:@selector(favorite) forControlEvents:UIControlEventTouchUpInside];
+            
+            self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithCustomView:favoriteBtn], [[UIBarButtonItem alloc] initWithCustomView:shareBtn]];
+
+            
         } else {
             [SVProgressHUD showHint:HTTP_FAILED_HINT];
+            
         }
     }];
 }
