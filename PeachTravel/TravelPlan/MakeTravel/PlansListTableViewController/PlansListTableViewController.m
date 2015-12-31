@@ -89,12 +89,12 @@ static NSString *reusableCell = @"myGuidesCell";
     
     UIButton *categoryBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 20, 30)];
     [categoryBtn addTarget:self action:@selector(filtTrip) forControlEvents:UIControlEventTouchUpInside];
-    [categoryBtn setImage:[UIImage imageNamed:@"plan_10_dashboard_sift"] forState:UIControlStateNormal];
+    [categoryBtn setImage:[UIImage imageNamed:@"icon_navi_white_sort"] forState:UIControlStateNormal];
     categoryBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 2);
     
     if (_isOwner) {
         UIButton *editBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 20, 30)];
-        [editBtn setImage:[UIImage imageNamed:@"plan_10_dashboard_add"] forState:UIControlStateNormal];
+        [editBtn setImage:[UIImage imageNamed:@"icon_navi_white_add"] forState:UIControlStateNormal];
         [editBtn addTarget:self action:@selector(makePlan) forControlEvents:UIControlEventTouchUpInside];
         editBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 4, 0, 0);
         UIBarButtonItem *cbtn = [[UIBarButtonItem alloc] initWithCustomView:editBtn];

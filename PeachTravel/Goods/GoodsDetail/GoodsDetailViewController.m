@@ -82,7 +82,6 @@ RCT_EXPORT_MODULE();
             
             self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithCustomView:favoriteBtn], [[UIBarButtonItem alloc] initWithCustomView:shareBtn]];
 
-            
         } else {
             [SVProgressHUD showHint:HTTP_FAILED_HINT];
             

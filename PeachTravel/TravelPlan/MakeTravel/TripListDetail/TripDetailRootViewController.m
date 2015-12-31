@@ -163,7 +163,7 @@
     } else {
         NSMutableArray *barItems = [[NSMutableArray alloc] init];
         _moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 44)];
-        [_moreBtn setImage:[UIImage imageNamed:@"common_icon_navigaiton_menu.png"] forState:UIControlStateNormal];
+        [_moreBtn setImage:[UIImage imageNamed:@"icon_navi_white_menu.png"] forState:UIControlStateNormal];
         _moreBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 4, 0, 0);
         [_moreBtn addTarget:self action:@selector(showMoreAction:) forControlEvents:UIControlEventTouchUpInside];
         UIBarButtonItem *barItem = [[UIBarButtonItem alloc]initWithCustomView:_moreBtn];

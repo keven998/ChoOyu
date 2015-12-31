@@ -61,13 +61,13 @@
     _dataSource = [[self.imClientManager.conversationManager getConversationList] mutableCopy];
     
     UIButton *addBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    [addBtn setImage:[UIImage imageNamed:@"ic_navigationbar_menu_add.png"] forState:UIControlStateNormal];
+    [addBtn setImage:[UIImage imageNamed:@"icon_navi_white_add.png"] forState:UIControlStateNormal];
     [addBtn addTarget:self action:@selector(addAction:) forControlEvents:UIControlEventTouchUpInside];
     addBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:addBtn];
     
     UIButton *contactListBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    [contactListBtn setImage:[UIImage imageNamed:@"ic_navigationbar_menu_friendlist.png"] forState:UIControlStateNormal];
+    [contactListBtn setImage:[UIImage imageNamed:@"icon_navi_white_frend.png"] forState:UIControlStateNormal];
     [contactListBtn addTarget:self action:@selector(showContactList:) forControlEvents:UIControlEventTouchUpInside];
     contactListBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     _frendRequestUnreadCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(12, 7, 8, 8)];

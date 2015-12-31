@@ -369,7 +369,7 @@
 - (void)setupBarButtonItem
 {
     UIButton *menu = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
-    [menu setImage:[UIImage imageNamed:@"common_icon_navigaiton_menu"] forState:UIControlStateNormal];
+    [menu setImage:[UIImage imageNamed:@"icon_navi_white_menu"] forState:UIControlStateNormal];
     [menu addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
     [menu setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
     self.frostedViewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:menu];
