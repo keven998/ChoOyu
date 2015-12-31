@@ -30,7 +30,7 @@
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     [_orderContentBtn setBackgroundImage:[[UIImage imageNamed:@"icon_makeOrder_packageNormal"] resizableImageWithCapInsets:UIEdgeInsetsMake(2, 2, 2, 15)] forState:UIControlStateNormal];
     [_orderContentBtn setBackgroundImage:[[UIImage imageNamed:@"icon_makeOrder_packageSelected"] resizableImageWithCapInsets:UIEdgeInsetsMake(4, 4, 25, 25)] forState:UIControlStateSelected];
-    
+    _priceLabel.adjustsFontSizeToFitWidth = YES;
 }
 
 - (void)setPackageTitle:(NSString *)packageTitle

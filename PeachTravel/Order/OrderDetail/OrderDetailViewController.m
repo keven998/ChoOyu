@@ -300,7 +300,7 @@ NSString *const kUpdateOrderdetailNoti = @"kUpdateOrderdetailNoti";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 10;
+    return CGFLOAT_MIN;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -359,6 +359,7 @@ NSString *const kUpdateOrderdetailNoti = @"kUpdateOrderdetailNoti";
         
     } else {
         OrderDetailStatusListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"orderDetailStatusListTableViewCell" forIndexPath:indexPath];
+        cell.statusList = _orderDetail.orderActivityList;
         return cell;
     }
 }

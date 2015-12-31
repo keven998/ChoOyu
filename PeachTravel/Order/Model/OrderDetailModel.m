@@ -37,7 +37,7 @@
         _travelerList = tempTravelerList;
         
 #warning Test  订单状态列表测试数据
-        _orderActivityList = @[@{@"time": [NSNumber numberWithLong:1451520000], @"status": @"买家提交订单"}, @{@"time": [NSNumber numberWithLong:1451520000], @"status": @"买家提交订单"}, @{@"time": [NSNumber numberWithLong:1451520000], @"status": @"买家提交订单"}, @{@"time": [NSNumber numberWithLong:1451520000], @"status": @"买家提交订单"}];
+        _orderActivityList = @[@{@"time": @"2006-01-01 12:00:00", @"status": @"买家提交订单"}, @{@"time": @"2006-01-01 12:00:00", @"status": @"买家提交订单"}, @{@"time": @"2006-01-01 12:00:00", @"status": @"买家提交订单"}, @{@"time": @"2006-01-01 12:00:00", @"status": @"买家提交订单"}];
         
         
     }

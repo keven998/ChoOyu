@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface OrderDetailStatusListTableViewCell : UITableViewCell
+@interface OrderDetailStatusListTableViewCell : UITableViewCell <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 

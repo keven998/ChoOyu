@@ -278,8 +278,10 @@
     [params setObject:[NSNumber numberWithInteger:startIndex] forKey:@"start"];
     [params setObject:[NSNumber numberWithInteger:count] forKey:@"count"];
     
-    NSMutableString *types = [[NSMutableString alloc] initWithString:[orderTypes firstObject]];
-    if (orderTypes.count > 1) {
+    NSMutableString *types;
+    if (orderTypes.count == 1) {
+        types = [[NSMutableString alloc] initWithString:[orderTypes firstObject]];
+    } else if (orderTypes.count > 1) {
         for (int i=1; i<orderTypes.count; i++) {
             [types appendString:[NSString stringWithFormat:@",%@", [orderTypes objectAtIndex:i]]];
         }
