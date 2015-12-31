@@ -65,11 +65,6 @@ RCT_EXPORT_MODULE();
     
     rootView.frame = CGRectMake(0, 64, kWindowWidth, kWindowHeight-64);
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(storeDetail) name:@"gotoStoreDetailNoti" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(makeOrderAction) name:@"makeOrderNoti" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(chatWithBusinessAction) name:@"chatWithBusinessNoti" object:nil];
-
-
     UIButton *shareBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 40)];
     [shareBtn setImage:[UIImage imageNamed:@"icon_share_white"] forState:UIControlStateNormal];
     [shareBtn addTarget:self action:@selector(share2Frend) forControlEvents:UIControlEventTouchUpInside];
@@ -94,11 +89,15 @@ RCT_EXPORT_MODULE();
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear: animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(storeDetail) name:@"gotoStoreDetailNoti" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(makeOrderAction) name:@"makeOrderNoti" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(chatWithBusinessAction) name:@"chatWithBusinessNoti" object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)dealloc
