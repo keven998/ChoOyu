@@ -258,7 +258,7 @@
     }];
 }
 
-+ (void)asyncLoadOrdersFromServerOfUser:(NSInteger)userId orderType:(NSArray<NSNumber *> *)orderTypes startIndex:(NSInteger)startIndex count:(NSInteger)count completionBlock:(void (^)(BOOL, NSArray<OrderDetailModel *> *))completion
++ (void)asyncLoadOrdersFromServerOfUser:(NSInteger)userId orderType:(NSArray<NSString *> *)orderTypes startIndex:(NSInteger)startIndex count:(NSInteger)count completionBlock:(void (^)(BOOL, NSArray<OrderDetailModel *> *))completion
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
@@ -277,7 +277,14 @@
     [params setObject:[NSNumber numberWithInteger:userId] forKey:@"userId"];
     [params setObject:[NSNumber numberWithInteger:startIndex] forKey:@"start"];
     [params setObject:[NSNumber numberWithInteger:count] forKey:@"count"];
-    [params safeSetObject:[orderTypes firstObject] forKey:@"status"];
+    
+    NSMutableString *types = [[NSMutableString alloc] initWithString:[orderTypes firstObject]];
+    if (orderTypes.count > 1) {
+        for (int i=1; i<orderTypes.count; i++) {
+            [types appendString:[NSString stringWithFormat:@",%@", [orderTypes objectAtIndex:i]]];
+        }
+    }
+    [params safeSetObject:types forKey:@"status"];
     
     [manager GET:url parameters: params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"***获取订单列表接口: %@", operation);

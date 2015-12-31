@@ -117,9 +117,9 @@
 
 /*****商品/商户接口*******/
 
+#define API_GOODS                               (BASE_URL @"marketplace/commodities")  //商品
 #define API_GOODS_CATEGORY                      (BASE_URL @"marketplace/commodities/categories")  //商品分类
 #define API_GOODSLIST                           (BASE_URL @"marketplace/commodities")  //商品列表
-
 #define API_STORE                               (BASE_URL @"marketplace/sellers")  //店铺接口
 
 /*****  订单接口 ******/
