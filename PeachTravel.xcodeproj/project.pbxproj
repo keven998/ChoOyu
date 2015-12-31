@@ -917,6 +917,8 @@
 		D9980C7C1B66157900FAA28B /* chatbar_text_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9980C7B1B66157900FAA28B /* chatbar_text_background@2x.png */; };
 		D998F6BD1C33A2F800AB9F76 /* OrderDetailPreviewContentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D998F6BB1C33A2F800AB9F76 /* OrderDetailPreviewContentTableViewCell.m */; };
 		D998F6BE1C33A2F800AB9F76 /* OrderDetailPreviewContentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D998F6BC1C33A2F800AB9F76 /* OrderDetailPreviewContentTableViewCell.xib */; };
+		D999758D1C34CB33009D04E3 /* OrderDetailStatusListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D999758B1C34CB33009D04E3 /* OrderDetailStatusListTableViewCell.m */; };
+		D999758E1C34CB33009D04E3 /* OrderDetailStatusListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D999758C1C34CB33009D04E3 /* OrderDetailStatusListTableViewCell.xib */; };
 		D99D8EE519C8600C0021C25B /* PeachTravelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D99D8EE419C8600C0021C25B /* PeachTravelTests.m */; };
 		D99EAD181BBAAB0C005A02D3 /* moreview_travelnote_highlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D99EAD141BBAAB0C005A02D3 /* moreview_travelnote_highlight@2x.png */; };
 		D99EAD191BBAAB0C005A02D3 /* moreview_travelnote_highlight@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D99EAD151BBAAB0C005A02D3 /* moreview_travelnote_highlight@3x.png */; };
@@ -3295,6 +3297,9 @@
 		D998F6BA1C33A2F800AB9F76 /* OrderDetailPreviewContentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailPreviewContentTableViewCell.h; sourceTree = "<group>"; };
 		D998F6BB1C33A2F800AB9F76 /* OrderDetailPreviewContentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailPreviewContentTableViewCell.m; sourceTree = "<group>"; };
 		D998F6BC1C33A2F800AB9F76 /* OrderDetailPreviewContentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderDetailPreviewContentTableViewCell.xib; sourceTree = "<group>"; };
+		D999758A1C34CB33009D04E3 /* OrderDetailStatusListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailStatusListTableViewCell.h; sourceTree = "<group>"; };
+		D999758B1C34CB33009D04E3 /* OrderDetailStatusListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailStatusListTableViewCell.m; sourceTree = "<group>"; };
+		D999758C1C34CB33009D04E3 /* OrderDetailStatusListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderDetailStatusListTableViewCell.xib; sourceTree = "<group>"; };
 		D99D8EC519C8600C0021C25B /* PeachTravel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PeachTravel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D99D8EDE19C8600C0021C25B /* PeachTravelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PeachTravelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D99D8EE319C8600C0021C25B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -8946,6 +8951,9 @@
 				D971A7761C2C1F6800D364C6 /* OrderDetailTravelerPreviewTableViewCell.h */,
 				D971A7771C2C1F6800D364C6 /* OrderDetailTravelerPreviewTableViewCell.m */,
 				D971A7781C2C1F6800D364C6 /* OrderDetailTravelerPreviewTableViewCell.xib */,
+				D999758A1C34CB33009D04E3 /* OrderDetailStatusListTableViewCell.h */,
+				D999758B1C34CB33009D04E3 /* OrderDetailStatusListTableViewCell.m */,
+				D999758C1C34CB33009D04E3 /* OrderDetailStatusListTableViewCell.xib */,
 			);
 			name = ViewComponents;
 			sourceTree = "<group>";
@@ -10413,6 +10421,7 @@
 				0115C8CD1BB0EF2900631928 /* moreview_plan_normal@2x.png in Resources */,
 				01C1EC371BB4E4720082217A /* kuwei@2x.png in Resources */,
 				D971E2861B8AF27A007E5AFD /* plan_traveled@3x.png in Resources */,
+				D999758E1C34CB33009D04E3 /* OrderDetailStatusListTableViewCell.xib in Resources */,
 				01C1EC0C1BB4E4720082217A /* daku@3x.png in Resources */,
 				E6F18A0A1B845F4900232EEB /* map_icon_18@3x.png in Resources */,
 				E6F189A01B845F4900232EEB /* city_bg_photo_default@3x.png in Resources */,
@@ -11832,6 +11841,7 @@
 				D90C75F51BF1DB1A00C5897C /* PDTSimpleCalendarViewFlowLayout.m in Sources */,
 				D91061D41BA93D6E00C4FBCB /* UserAlbumOverviewCell.m in Sources */,
 				01A5CE241BB39E3700A59A8A /* TravelPlanListForCityDetailVC.m in Sources */,
+				D999758D1C34CB33009D04E3 /* OrderDetailStatusListTableViewCell.m in Sources */,
 				D944189B1BAFAA9F0091FC0B /* AlbumImageModel.m in Sources */,
 				D9A802E81A80E3D3005AD701 /* TZSegmentedViewController.m in Sources */,
 				D96EAA221BB4F8CE00360ED8 /* PoiRecommendCollectionViewCell.m in Sources */,

@@ -47,6 +47,9 @@ typedef enum : NSUInteger {
 @property (nonatomic, strong) NSArray<OrderTravelerInfoModel *> *travelerList;    //旅客信息列表
 @property (nonatomic, strong) OrderTravelerInfoModel *orderContact;       //订单的联系人
 
+@property (nonatomic, strong) NSArray<NSDictionary *> *orderActivityList;       //订单状态变化
+
+
 - (id)initWithJson:(id)json;
 
 @end

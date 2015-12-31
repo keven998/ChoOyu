@@ -35,6 +35,11 @@
             [tempTravelerList addObject:traveler];
         }
         _travelerList = tempTravelerList;
+        
+#warning Test  订单状态列表测试数据
+        _orderActivityList = @[@{@"time": [NSNumber numberWithLong:1451520000], @"status": @"买家提交订单"}, @{@"time": [NSNumber numberWithLong:1451520000], @"status": @"买家提交订单"}, @{@"time": [NSNumber numberWithLong:1451520000], @"status": @"买家提交订单"}, @{@"time": [NSNumber numberWithLong:1451520000], @"status": @"买家提交订单"}];
+        
+        
     }
     return self;
 }
@@ -74,7 +79,6 @@
         } else {
             priceStr = [NSString stringWithFormat:@"%.2f", currentPrice];
         }
-        
     }
     return priceStr;
 

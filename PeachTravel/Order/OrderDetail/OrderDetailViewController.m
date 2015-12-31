@@ -12,6 +12,7 @@
 #import "OrderDetailTravelerTableViewCell.h"
 #import "OrderDetailContactTableViewCell.h"
 #import "OrderDetailStatusTableViewCell.h"
+#import "OrderDetailStatusListTableViewCell.h"
 #import "TravelerListViewController.h"
 #import "SelectPayPlatformViewController.h"
 #import "AskRefundMoneyViewController.h"
@@ -48,6 +49,9 @@ NSString *const kUpdateOrderdetailNoti = @"kUpdateOrderdetailNoti";
     [_tableView registerNib:[UINib nibWithNibName:@"OrderDetailStoreInfoTableViewCell" bundle:nil] forCellReuseIdentifier:@"orderDetailStoreCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"OrderDetailTravelerTableViewCell" bundle:nil] forCellReuseIdentifier:@"orderDetailTravelerCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"OrderDetailContactTableViewCell" bundle:nil] forCellReuseIdentifier:@"orderDetailContactCell"];
+    [_tableView registerNib:[UINib nibWithNibName:@"OrderDetailStatusListTableViewCell" bundle:nil] forCellReuseIdentifier:@"orderDetailStatusListTableViewCell"];
+
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateOrderDetail) name:kUpdateOrderdetailNoti object:nil];
     
     _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.bounds.size.width, 55)];
@@ -286,7 +290,7 @@ NSString *const kUpdateOrderdetailNoti = @"kUpdateOrderdetailNoti";
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 5;
+    return 6;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -308,8 +312,12 @@ NSString *const kUpdateOrderdetailNoti = @"kUpdateOrderdetailNoti";
 {
     if (indexPath.section == 1) {
         return [OrderDetailContentTableViewCell heightOfCellWithOrderDetail:_orderDetail];
-    } else if (indexPath.section == 4) {
+    }
+    if (indexPath.section == 4) {
         return [OrderDetailContactTableViewCell heightOfCellWithContactInfo:_orderDetail.orderContact andLeaveMessage:_orderDetail.leaveMessage];
+    }
+    if (indexPath.section == 5) {
+        return [OrderDetailStatusListTableViewCell heightOfCellWithStatusList:_orderDetail.orderActivityList];
     }
     return 50;
 }
@@ -343,10 +351,14 @@ NSString *const kUpdateOrderdetailNoti = @"kUpdateOrderdetailNoti";
         cell.travelerCountLabel.text = [NSString stringWithFormat:@"(%ld)", _orderDetail.travelerList.count];
         return cell;
         
-    } else {
+    } else if (indexPath.section == 4) {
         OrderDetailContactTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"orderDetailContactCell" forIndexPath:indexPath];
         cell.contact = _orderDetail.orderContact;
         cell.leaveMessage = _orderDetail.leaveMessage;
+        return cell;
+        
+    } else {
+        OrderDetailStatusListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"orderDetailStatusListTableViewCell" forIndexPath:indexPath];
         return cell;
     }
 }

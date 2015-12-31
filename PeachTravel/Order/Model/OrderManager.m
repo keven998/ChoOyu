@@ -58,15 +58,18 @@
     [params safeSetObject:[NSNumber numberWithInteger:(NSInteger)(date*1000)] forKey:@"rendezvousTime"];  //传毫秒单位
     [params safeSetObject:travelers forKey:@"travellers"];
     [params safeSetObject:[NSNumber numberWithInteger:quantity] forKey:@"quantity"];
+    
+    NSMutableDictionary *contactDic = [[NSMutableDictionary alloc] init];
     NSMutableDictionary *telDic = [[NSMutableDictionary alloc] init];
     [telDic safeSetObject:[NSNumber numberWithInteger:contactInfo.dialCode.integerValue] forKey:@"dialCode"];
     [telDic safeSetObject:[NSNumber numberWithInteger:contactInfo.telNumber.integerValue] forKey:@"number"];
-    [params setObject:telDic forKey:@"contactPhone"];
-    [params safeSetObject:contactInfo.firstName forKey:@"contactGivenName"];
-    [params safeSetObject:contactInfo.lastName forKey:@"contactSurname"];
+    [contactDic setObject:telDic forKey:@"tel"];
+    [contactDic safeSetObject:contactInfo.firstName forKey:@"givenName"];
+    [contactDic safeSetObject:contactInfo.lastName forKey:@"surname"];
+    [contactDic safeSetObject:@"" forKey:@"email"];
+    [params setObject:contactDic forKey:@"contact"];
+    
     [params safeSetObject:message forKey:@"comment"];
-    [params safeSetObject:@"" forKey:@"contactEmail"];
-
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [manager POST:API_ORDERS parameters: params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"***提交订单接口: %@", operation);

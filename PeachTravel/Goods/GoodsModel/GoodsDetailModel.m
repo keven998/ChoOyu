@@ -37,7 +37,10 @@
             [packageList addObject:package];
         }
         _packages = packageList;
-        _store = [[StoreDetailModel alloc] initWithJson:[json objectForKey:@"seller"] ];
+        if ([json objectForKey:@"seller"] != [NSNull null]) {
+            _store = [[StoreDetailModel alloc] initWithJson:[json objectForKey:@"seller"] ];
+
+        }
     }
     return self;
 }
