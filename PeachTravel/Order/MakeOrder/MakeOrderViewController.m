@@ -84,6 +84,16 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+- (void)goBack
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"离开页面将清除填写内容,确定离开吗?" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"离开", nil];
+    [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
+        if (buttonIndex == 1) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }];
+}
+
 - (void)setupTableViewFooterView
 {
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.bounds.size.width, 56+50)];
