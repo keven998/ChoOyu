@@ -7,15 +7,15 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="travelerInfoTableViewCell" id="MHu-Br-0FI" customClass="TravelerInfoTableViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="67"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="travelerInfoTableViewCell" rowHeight="88" id="MHu-Br-0FI" customClass="TravelerInfoTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="90"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MHu-Br-0FI" id="xhP-Fi-YrH">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="66.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="89.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Le7-tW-GxU">
-                        <rect key="frame" x="0.0" y="7" width="40" height="51.5"/>
+                        <rect key="frame" x="0.0" y="19" width="40" height="51.5"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="51.5" id="0rR-fu-xeB"/>
                             <constraint firstAttribute="width" constant="40" id="BL3-qT-QZY"/>
@@ -32,6 +32,19 @@
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dr1-Q2-Jz3">
+                        <rect key="frame" x="274" y="8" width="38" height="73.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="38" id="s7d-6m-IIa"/>
+                        </constraints>
+                        <state key="normal" image="icon_travelerInfo_edit"/>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qTY-xS-ei2">
+                        <rect key="frame" x="48" y="58" width="228" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vCn-4z-Jfl">
                         <rect key="frame" x="48" y="36" width="228" height="20"/>
                         <constraints>
@@ -41,15 +54,10 @@
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dr1-Q2-Jz3">
-                        <rect key="frame" x="274" y="8" width="38" height="50.5"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="38" id="s7d-6m-IIa"/>
-                        </constraints>
-                        <state key="normal" image="icon_travelerInfo_edit"/>
-                    </button>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="bottom" secondItem="qTY-xS-ei2" secondAttribute="bottom" constant="10.5" id="2CC-uG-HUK"/>
+                    <constraint firstAttribute="trailing" secondItem="qTY-xS-ei2" secondAttribute="trailing" constant="44" id="7pZ-9v-GCP"/>
                     <constraint firstItem="Le7-tW-GxU" firstAttribute="leading" secondItem="xhP-Fi-YrH" secondAttribute="leading" id="Al9-qO-rV8"/>
                     <constraint firstItem="vCn-4z-Jfl" firstAttribute="top" secondItem="1IJ-0G-jca" secondAttribute="bottom" constant="2" id="JPl-PX-LJ3"/>
                     <constraint firstAttribute="trailing" secondItem="Dr1-Q2-Jz3" secondAttribute="trailing" constant="8" id="LfL-in-CUb"/>
@@ -58,18 +66,21 @@
                     <constraint firstItem="Le7-tW-GxU" firstAttribute="centerY" secondItem="xhP-Fi-YrH" secondAttribute="centerY" id="TQe-kB-0dH"/>
                     <constraint firstAttribute="trailing" secondItem="vCn-4z-Jfl" secondAttribute="trailing" constant="44" id="VkN-uK-kfZ"/>
                     <constraint firstItem="Dr1-Q2-Jz3" firstAttribute="top" secondItem="xhP-Fi-YrH" secondAttribute="top" constant="8" id="XdO-kc-973"/>
+                    <constraint firstItem="qTY-xS-ei2" firstAttribute="leading" secondItem="xhP-Fi-YrH" secondAttribute="leading" constant="48" id="bQ1-dU-5Kd"/>
                     <constraint firstItem="1IJ-0G-jca" firstAttribute="top" secondItem="xhP-Fi-YrH" secondAttribute="top" constant="14" id="f2A-wZ-RaI"/>
                     <constraint firstAttribute="bottom" secondItem="Dr1-Q2-Jz3" secondAttribute="bottom" constant="8" id="nuk-pW-hhp"/>
                     <constraint firstAttribute="trailing" secondItem="1IJ-0G-jca" secondAttribute="trailing" constant="44" id="qSD-SZ-Ie8"/>
+                    <constraint firstItem="qTY-xS-ei2" firstAttribute="top" secondItem="vCn-4z-Jfl" secondAttribute="bottom" constant="2" id="u88-Jl-Q6x"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="editBtn" destination="Dr1-Q2-Jz3" id="x7d-91-aov"/>
                 <outlet property="selectBtn" destination="Le7-tW-GxU" id="Jlw-Lw-N9b"/>
                 <outlet property="subTitleLabel" destination="vCn-4z-Jfl" id="qmh-Fq-4U0"/>
+                <outlet property="telLabel" destination="qTY-xS-ei2" id="fNp-82-qsp"/>
                 <outlet property="titleLabel" destination="1IJ-0G-jca" id="no6-DB-i6c"/>
             </connections>
-            <point key="canvasLocation" x="250" y="167.5"/>
+            <point key="canvasLocation" x="250" y="178"/>
         </tableViewCell>
     </objects>
     <resources>

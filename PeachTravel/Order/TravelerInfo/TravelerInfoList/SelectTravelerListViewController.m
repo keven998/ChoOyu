@@ -148,7 +148,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 67;
+    return 90;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -158,6 +158,7 @@
     cell.selectBtn.tag = indexPath.row;
     cell.titleLabel.text = [NSString stringWithFormat:@"%@ %@", travelerInfo.lastName, travelerInfo.firstName];
     cell.subTitleLabel.text = [NSString stringWithFormat:@"%@:  %@", travelerInfo.IDCategoryDesc, travelerInfo.IDNumber];
+    cell.telLabel.text = travelerInfo.telDesc;
     cell.editBtn.hidden = !_canEditInfo;
     [cell.selectBtn addTarget:self action:@selector(selectTraveler:) forControlEvents:UIControlEventTouchUpInside];
     cell.selectBtn.selected = [self travelerIsSelected:travelerInfo];

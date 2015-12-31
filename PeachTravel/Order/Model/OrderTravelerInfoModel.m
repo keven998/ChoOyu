@@ -10,6 +10,15 @@
 
 @implementation OrderTravelerInfoModel
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _dialCode = @"86";
+    }
+    return self;
+}
+
 - (id)initWithJson:(id)json
 {
     if (self = [super init]) {

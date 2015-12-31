@@ -50,7 +50,7 @@
         self.view.userInteractionEnabled = NO;
     }
     
-    NSArray *titleArray = @[@"姓(英文)", @"名(英文)", @"电话", @"证件类型", @"证件号码"];
+    NSArray *titleArray = @[@"姓(英文)", @"名(英文)", @"证件类型", @"证件号码", @"电话"];
 
     self.view.backgroundColor = [UIColor whiteColor];
     _scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
@@ -94,27 +94,7 @@
     _firstNameTextField.text = _traveler.firstName;
     [_scrollView addSubview:_firstNameTextField];
     
-    _dialCodeButton = [[UIButton alloc] initWithFrame:CGRectMake(126, 10+48*2, 40, 28)];
-    [_dialCodeButton addTarget:self action:@selector(choseDialCode:) forControlEvents:UIControlEventTouchUpInside];
-    _dialCodeButton.layer.borderColor = COLOR_LINE.CGColor;
-    _dialCodeButton.layer.borderWidth = 0.5;
-    _dialCodeButton.titleLabel.font = [UIFont systemFontOfSize:14];
-    [_dialCodeButton setTitle:@"+86" forState:UIControlStateNormal];
-    [_dialCodeButton setTitleColor:COLOR_TEXT_III forState:UIControlStateNormal];
-    _dialCodeButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    [_scrollView addSubview:_dialCodeButton];
-    
-    _telTextField = [[UITextField alloc] initWithFrame:CGRectMake(170, 10+48*2, (kWindowWidth-106)-85, 28)];
-    _telTextField.text = _traveler.telDesc;
-    _telTextField.placeholder = @"电话";
-    _telTextField.font = [UIFont systemFontOfSize:15];
-    _telTextField.textColor = COLOR_TEXT_III;
-    _telTextField.returnKeyType = UIReturnKeyDone;
-    _telTextField.keyboardType = UIKeyboardTypeNumberPad;
-    _telTextField.delegate = self;
-    [_scrollView addSubview:_telTextField];
-    
-    _IDNumberCategoryButton = [[UIButton alloc] initWithFrame:CGRectMake(126, 10+48*3, (kWindowWidth-106)-60, 28)];
+    _IDNumberCategoryButton = [[UIButton alloc] initWithFrame:CGRectMake(126, 10+48*2, (kWindowWidth-106)-60, 28)];
     [_IDNumberCategoryButton setBackgroundImage:[[UIImage imageNamed:@"icon_travelerInfo_selectIDCategory"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 30)] forState:UIControlStateNormal];
     [_IDNumberCategoryButton addTarget:self action:@selector(choseIDCategory:) forControlEvents:UIControlEventTouchUpInside];
     _IDNumberCategoryButton.titleLabel.font = [UIFont systemFontOfSize:15];
@@ -124,7 +104,7 @@
     [_IDNumberCategoryButton setTitle:_traveler.IDCategoryDesc forState:UIControlStateNormal];
     [_scrollView addSubview:_IDNumberCategoryButton];
     
-    _IDNumberTextField = [[UITextField alloc] initWithFrame:CGRectMake(126, 10+48*4, (kWindowWidth-106)-40, 28)];
+    _IDNumberTextField = [[UITextField alloc] initWithFrame:CGRectMake(126, 10+48*3, (kWindowWidth-106)-40, 28)];
     _IDNumberTextField.placeholder = @"证件号码";
     _IDNumberTextField.font = [UIFont systemFontOfSize:15];
     _IDNumberTextField.textColor = COLOR_TEXT_III;
@@ -132,6 +112,27 @@
     _IDNumberTextField.delegate = self;
     _IDNumberTextField.text = _traveler.IDNumber;
     [_scrollView addSubview:_IDNumberTextField];
+    
+    _dialCodeButton = [[UIButton alloc] initWithFrame:CGRectMake(126, 10+48*4, 40, 28)];
+    [_dialCodeButton addTarget:self action:@selector(choseDialCode:) forControlEvents:UIControlEventTouchUpInside];
+    _dialCodeButton.layer.borderColor = COLOR_LINE.CGColor;
+    _dialCodeButton.layer.borderWidth = 0.5;
+    _dialCodeButton.titleLabel.font = [UIFont systemFontOfSize:14];
+    [_dialCodeButton setTitle:[NSString stringWithFormat:@"+%@", _traveler.dialCode] forState:UIControlStateNormal];
+    [_dialCodeButton setTitleColor:COLOR_TEXT_III forState:UIControlStateNormal];
+    _dialCodeButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    [_scrollView addSubview:_dialCodeButton];
+    
+    _telTextField = [[UITextField alloc] initWithFrame:CGRectMake(170, 10+48*4, (kWindowWidth-106)-85, 28)];
+    _telTextField.text = _traveler.telNumber;
+    _telTextField.placeholder = @"电话";
+    _telTextField.font = [UIFont systemFontOfSize:15];
+    _telTextField.textColor = COLOR_TEXT_III;
+    _telTextField.returnKeyType = UIReturnKeyDone;
+    _telTextField.keyboardType = UIKeyboardTypeNumberPad;
+    _telTextField.delegate = self;
+    [_scrollView addSubview:_telTextField];
+    
 }
 
 - (void)didReceiveMemoryWarning {

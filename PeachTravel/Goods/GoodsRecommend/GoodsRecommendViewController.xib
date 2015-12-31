@@ -23,7 +23,7 @@
                     <color key="sectionIndexColor" red="0.090196078431372548" green="0.098039215686274508" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
                 </tableView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GdZ-sZ-vy3">
-                    <rect key="frame" x="555" y="494" width="35" height="35"/>
+                    <rect key="frame" x="557" y="530" width="35" height="35"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="35" id="Gkh-oD-p0I"/>
                         <constraint firstAttribute="height" constant="35" id="TcQ-zH-0UC"/>
@@ -34,8 +34,8 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="cZn-5x-Ytk" secondAttribute="bottom" id="Y8D-KJ-OEK"/>
-                <constraint firstAttribute="trailing" secondItem="GdZ-sZ-vy3" secondAttribute="trailing" constant="10" id="avq-ER-kLQ"/>
-                <constraint firstAttribute="bottom" secondItem="GdZ-sZ-vy3" secondAttribute="bottom" constant="71" id="fAB-hG-BAn"/>
+                <constraint firstAttribute="trailing" secondItem="GdZ-sZ-vy3" secondAttribute="trailing" constant="8" id="avq-ER-kLQ"/>
+                <constraint firstAttribute="bottom" secondItem="GdZ-sZ-vy3" secondAttribute="bottom" constant="35" id="fAB-hG-BAn"/>
                 <constraint firstItem="cZn-5x-Ytk" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="gar-FJ-2nY"/>
                 <constraint firstAttribute="trailing" secondItem="cZn-5x-Ytk" secondAttribute="trailing" id="lmx-GA-2tr"/>
                 <constraint firstItem="cZn-5x-Ytk" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="xMT-HK-9cu"/>
@@ -43,6 +43,6 @@
         </view>
     </objects>
     <resources>
-        <image name="icon_scroll_top" width="105" height="105"/>
+        <image name="icon_scroll_top" width="35" height="35"/>
     </resources>
 </document>
