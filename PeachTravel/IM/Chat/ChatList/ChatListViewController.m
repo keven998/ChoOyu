@@ -640,13 +640,7 @@
     
     if (tzConversation.chatType == IMChatTypeIMChatSingleType) {
         if ([tzConversation.chatterName isBlankString]) {
-            if (tzConversation.chatterId == WenwenUserId) {
-                cell.name = @"旅行问问";
-            } else if (tzConversation.chatterId == PaipaiUserId) {
-                cell.name = @"旅行派";
-            } else {
-                cell.name = [NSString stringWithFormat:@"%ld", (long)tzConversation.chatterId];
-            }
+            cell.name = [NSString stringWithFormat:@"%ld", (long)tzConversation.chatterId];
         } else {
             cell.name = tzConversation.chatterName;
         }

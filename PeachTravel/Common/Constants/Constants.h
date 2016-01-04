@@ -307,9 +307,10 @@ typedef NS_ENUM(NSUInteger, TZCMDChatType) {
 #define NoticationDropdownMenu @"NoticationDropdownMenuSend"
 
 // 定义派派和问问ID
-#define PaipaiUserId 10000
-#define WenwenUserId 10001
-
+#define PaipaiUserId                10000
+#define WenwenUserId                10001
+#define TransactionMessageUserId    10002  //交易消息
+#define ActivityMessageUserId       10003  //运营活动消息
 
 /*****应用启动时是否应该启动引导页******/
 #define shouldSkipIntroduce [[NSUserDefaults standardUserDefaults] boolForKey:[[AppUtils alloc] init].appVersion]
