@@ -167,13 +167,14 @@
     //交易消息不现实底部输入框
     if (_chatter != TransactionMessageUserId) {
         [self.view addSubview:self.chatToolBar];
+        [self setupBarButtonItem];
+
     }
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyBoardHidden)];
     [self.view addGestureRecognizer:tap];
     _isScrollToBottom = YES;
     
-    [self setupBarButtonItem];
 }
 
 - (void)viewWillAppear:(BOOL)animated

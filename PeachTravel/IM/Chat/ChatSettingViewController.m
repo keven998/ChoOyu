@@ -120,6 +120,9 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    if (_chatterId == ActivityMessageUserId) {
+        return 1;
+    }
     return 2;
 }
 
