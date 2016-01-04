@@ -715,17 +715,13 @@
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ChatConversation *conversation = [self.dataSource objectAtIndex:indexPath.row];
-    if (conversation.chatterId != WenwenUserId && conversation.chatterId != PaipaiUserId) {
-        return YES;
-    } else {
-        return NO;
-    }
+    return (conversation.chatterId != WenwenUserId && conversation.chatterId != PaipaiUserId && conversation.chatterId != TransactionMessageUserId && conversation.chatterId != ActivityMessageUserId);
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         ChatConversation *conversation = [self.dataSource objectAtIndex:indexPath.row];
-        if (conversation.chatterId != WenwenUserId && conversation.chatterId != PaipaiUserId) {
+        if (conversation.chatterId != WenwenUserId && conversation.chatterId != PaipaiUserId && conversation.chatterId != TransactionMessageUserId && conversation.chatterId != ActivityMessageUserId) {
             [self.imClientManager.conversationManager removeConversationWithChatterId: conversation.chatterId deleteMessage:YES];
         }
     }

@@ -84,7 +84,6 @@ RCT_EXPORT_MODULE();
 
         } else {
             [SVProgressHUD showHint:HTTP_FAILED_HINT];
-            
         }
     }];
 }

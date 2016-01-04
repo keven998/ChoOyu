@@ -41,6 +41,7 @@
             _store = [[StoreDetailModel alloc] initWithJson:[json objectForKey:@"seller"] ];
 
         }
+    
     }
     return self;
 }

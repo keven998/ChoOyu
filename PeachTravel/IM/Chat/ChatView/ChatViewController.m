@@ -163,7 +163,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardHidden) name:UIKeyboardWillHideNotification object:nil];
     
     [self.view addSubview:self.tableView];
-    [self.view addSubview:self.chatToolBar];
+    
+    //交易消息不现实底部输入框
+    if (_chatter != TransactionMessageUserId) {
+        [self.view addSubview:self.chatToolBar];
+    }
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyBoardHidden)];
     [self.view addGestureRecognizer:tap];

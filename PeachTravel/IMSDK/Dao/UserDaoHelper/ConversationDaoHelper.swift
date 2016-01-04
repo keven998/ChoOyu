@@ -95,6 +95,7 @@ class ConversationDaoHelper: BaseDaoHelper, ConversationDaoProtocol {
                     }
                     let conversation = ChatConversation()
                     conversation.chatterId = Int(rs.intForColumn("ChatterId"))
+                    
                     conversation.lastUpdateTime = Int(rs.longForColumn("LastUpdateTime"))
                     conversation.isBlockMessage = Bool(rs.boolForColumn("isBlockMessage"))
                     conversation.isTopConversation = Bool(rs.boolForColumn("isTopConversation"))
@@ -125,6 +126,16 @@ class ConversationDaoHelper: BaseDaoHelper, ConversationDaoProtocol {
                         }
                     } else {
                         conversation.chatterAvatar = rs.stringForColumn("Avatar")
+                    }
+                    
+                    if Int(rs.intForColumn("ChatterId")) == Int(PaipaiUserId) {
+                        conversation.chatterName = "派派客服"
+                    }
+                    if Int(rs.intForColumn("ChatterId")) == Int(TransactionMessageUserId) {
+                        conversation.chatterName = "交易消息"
+                    }
+                    if Int(rs.intForColumn("ChatterId")) == Int(ActivityMessageUserId) {
+                        conversation.chatterName = "活动消息"
                     }
 
                     let typeValue  = rs.intForColumn("Type")
