@@ -383,13 +383,13 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
         let paiConversation = ChatConversation()
         paiConversation.chatterId = Int(PaipaiUserId)
         paiConversation.chatterName = "派派客服";
-        paiConversation.lastUpdateTime = Int(NSDate().timeIntervalSince1970)
+        paiConversation.lastUpdateTime = Int(NSDate().timeIntervalSince1970)+2
         self.addConversation(paiConversation)
         
         let tradeConversation = ChatConversation()
         tradeConversation.chatterId = Int(TransactionMessageUserId)
         tradeConversation.chatterName = "支付消息";
-        tradeConversation.lastUpdateTime = Int(NSDate().timeIntervalSince1970)
+        tradeConversation.lastUpdateTime = Int(NSDate().timeIntervalSince1970)+1
         self.addConversation(tradeConversation)
         
         let activityConversation = ChatConversation()
