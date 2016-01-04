@@ -167,10 +167,10 @@
     //交易消息不现实底部输入框
     if (_chatter != TransactionMessageUserId) {
         [self.view addSubview:self.chatToolBar];
-        [self setupBarButtonItem];
 
     }
-    
+    [self setupBarButtonItem];
+
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyBoardHidden)];
     [self.view addGestureRecognizer:tap];
     _isScrollToBottom = YES;
@@ -373,11 +373,13 @@
 
 - (void)setupBarButtonItem
 {
-    UIButton *menu = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
-    [menu setImage:[UIImage imageNamed:@"icon_navi_white_menu"] forState:UIControlStateNormal];
-    [menu addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
-    [menu setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-    self.frostedViewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:menu];
+    if (_chatter == TransactionMessageUserId) {
+        UIButton *menu = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
+        [menu setImage:[UIImage imageNamed:@"icon_navi_white_menu"] forState:UIControlStateNormal];
+        [menu addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
+        [menu setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+        self.frostedViewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:menu];
+    }
     
     UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
     [button setImage:[UIImage imageNamed:@"common_icon_navigation_back_normal.png"] forState:UIControlStateNormal];
