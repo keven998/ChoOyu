@@ -36,12 +36,57 @@
         }
         _travelerList = tempTravelerList;
         
-#warning Test  订单状态列表测试数据
-        _orderActivityList = @[@{@"time": @"2006-01-01 12:00:00", @"status": @"买家提交订单"}, @{@"time": @"2006-01-01 12:00:00", @"status": @"买家提交订单"}, @{@"time": @"2006-01-01 12:00:00", @"status": @"买家提交订单"}, @{@"time": @"2006-01-01 12:00:00", @"status": @"买家提交订单"}];
-        
-        
+        NSMutableArray *activities = [[NSMutableArray alloc] init];
+        for (NSDictionary *activityDic in [json objectForKey:@"activities"]) {
+            NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+            NSDate *createDate = [NSDate dateWithTimeIntervalSince1970:[[activityDic objectForKey:@"timestamp"] longLongValue]/1000];
+            NSString *dateStr = [ConvertMethods dateToString:createDate withFormat:@"yyyy-MM-dd HH:mm:ss" withTimeZone:[NSTimeZone systemTimeZone]];
+            [dic safeSetObject:dateStr forKey:@"time"];
+            [dic safeSetObject:[self activityDescWithStatus:activityDic] forKey:@"status"];
+            [activities addObject:dic];
+
+        }
+        _orderActivityList = activities;
+
     }
     return self;
+}
+
+//通过订单的状态的变化得到状态变化的描述
+- (NSString *)activityDescWithStatus:(NSDictionary *)statusDic
+{
+    NSString *retStr;
+    NSString *status = [statusDic objectForKey:@"action"];
+    if ([status isEqualToString:@"create"]) {
+        retStr = @"买家提交订单";
+        
+    } else if ([status isEqualToString:@"cancel"]) {
+        retStr = @"买家取消订单";
+        
+    } else if ([status isEqualToString:@"pay"]) {
+        retStr = @"买家支付订单";
+        
+    } else if ([status isEqualToString:@"commit"]) {
+        retStr = @"卖家已经发货";
+        
+    } else if ([status isEqualToString:@"expire"]) {
+        if ([[statusDic objectForKey:@"prevStatus"] isEqualToString:@"pending"]) {
+            retStr = @"买家未支付,订单过期";
+        }
+        
+    } else if ([status isEqualToString:@"finish"]) {
+        retStr = @"订单已完成";
+        
+    }  else if ([status isEqualToString:@"refundApply"]) {
+        retStr = @"买家申请退款";
+        
+    } else if ([status isEqualToString:@"refundApprove"]) {
+        retStr = @"卖家同意退款";
+        
+    } else if ([status isEqualToString:@"refundDeny"]) {
+        retStr = @"卖家拒绝退款申请";
+    }
+    return retStr;
 }
 
 - (void)setUnitPrice:(float)unitPrice

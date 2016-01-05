@@ -12,12 +12,12 @@
 
 - (void)awakeFromNib {
     _payOrderBtn.layer.cornerRadius = 4.0;
+    _goodsImageView.clipsToBounds = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 }
-
 
 - (void)setOrderDetail:(OrderDetailModel *)orderDetail
 {
