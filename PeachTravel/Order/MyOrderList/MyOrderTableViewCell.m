@@ -33,6 +33,6 @@
     } else {
         _payOrderBtnWidthConstraint.constant = 0;
         _statusLabel.text = _orderDetail.orderStatusDesc;
-    }
+    } 
 }
 @end
