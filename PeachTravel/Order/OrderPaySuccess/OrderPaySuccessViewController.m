@@ -24,7 +24,7 @@
     
     _backHomeBtn.layer.borderColor = COLOR_LINE.CGColor;
     _backHomeBtn.layer.borderWidth = 0.5;
-    _backHomeBtn.layer.cornerRadius = 3.0;
+    _backHomeBtn.layer.cornerRadius = 3.0;  
 
 }
 
