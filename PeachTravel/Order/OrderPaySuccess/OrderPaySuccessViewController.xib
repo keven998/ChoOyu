@@ -18,50 +18,80 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="575" translatesAutoresizingMaskIntoConstraints="NO" id="SFc-ie-qC5">
-                    <rect key="frame" x="8" y="71" width="575" height="116"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请等待卖家确认" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="575" translatesAutoresizingMaskIntoConstraints="NO" id="SFc-ie-qC5">
+                    <rect key="frame" x="13" y="228" width="575" height="35"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="116" id="ITX-Fq-pkh"/>
+                        <constraint firstAttribute="height" constant="35" id="ITX-Fq-pkh"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lGK-fM-Jb9">
-                    <rect key="frame" x="74" y="206" width="202" height="30"/>
+                    <rect key="frame" x="79" y="282" width="202" height="30"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="ANA-Fz-ysH"/>
                     </constraints>
-                    <state key="normal" title="查看订单"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <state key="normal" title="查看订单">
+                        <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
                     <connections>
                         <action selector="checkOrderDetail:" destination="-1" eventType="touchUpInside" id="BUK-Rk-9RR"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RgL-A9-q6s">
-                    <rect key="frame" x="325" y="206" width="202" height="30"/>
+                    <rect key="frame" x="330" y="282" width="202" height="30"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="Mpp-cU-MgD"/>
                     </constraints>
-                    <state key="normal" title="返回首页"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <state key="normal" title="返回首页">
+                        <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
                     <connections>
                         <action selector="backHomeViewController:" destination="-1" eventType="touchUpInside" id="Sna-bS-L9A"/>
                     </connections>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="订单已支付" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oyo-7R-GaX">
+                    <rect key="frame" x="8" y="205" width="584" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="xUF-MU-vqI"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="0.9882352941176471" green="0.32156862745098042" blue="0.16862745098039217" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_makeOrder_paySuccess" translatesAutoresizingMaskIntoConstraints="NO" id="mr5-EX-Qha">
+                    <rect key="frame" x="268" y="127" width="65" height="60"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="ZV2-jN-rIJ"/>
+                        <constraint firstAttribute="width" constant="65" id="sIt-cb-znT"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="lGK-fM-Jb9" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="74" id="2XR-dx-o8E"/>
+                <constraint firstItem="lGK-fM-Jb9" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="79" id="2XR-dx-o8E"/>
                 <constraint firstItem="RgL-A9-q6s" firstAttribute="leading" secondItem="lGK-fM-Jb9" secondAttribute="trailing" constant="49" id="35p-ke-SYB"/>
+                <constraint firstItem="Oyo-7R-GaX" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="6Kt-Mo-Mch"/>
                 <constraint firstItem="RgL-A9-q6s" firstAttribute="top" secondItem="SFc-ie-qC5" secondAttribute="bottom" constant="19" id="7wx-Pi-Tfh"/>
-                <constraint firstAttribute="trailing" secondItem="RgL-A9-q6s" secondAttribute="trailing" constant="73" id="B8a-zh-fCp"/>
-                <constraint firstItem="SFc-ie-qC5" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="Dhz-bc-Q8i"/>
-                <constraint firstItem="SFc-ie-qC5" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="71" id="GAp-uZ-Co1"/>
+                <constraint firstAttribute="trailing" secondItem="RgL-A9-q6s" secondAttribute="trailing" constant="68" id="B8a-zh-fCp"/>
+                <constraint firstItem="SFc-ie-qC5" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="13" id="Dhz-bc-Q8i"/>
+                <constraint firstItem="SFc-ie-qC5" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="228" id="GAp-uZ-Co1"/>
+                <constraint firstItem="Oyo-7R-GaX" firstAttribute="top" secondItem="mr5-EX-Qha" secondAttribute="bottom" constant="18" id="Sxx-DW-DlC"/>
                 <constraint firstItem="RgL-A9-q6s" firstAttribute="height" secondItem="lGK-fM-Jb9" secondAttribute="height" id="T02-Oj-ea2"/>
                 <constraint firstItem="lGK-fM-Jb9" firstAttribute="top" secondItem="SFc-ie-qC5" secondAttribute="bottom" constant="19" id="XMg-Ec-W3T"/>
-                <constraint firstAttribute="trailing" secondItem="SFc-ie-qC5" secondAttribute="trailing" constant="17" id="efW-4x-9g4"/>
+                <constraint firstItem="SFc-ie-qC5" firstAttribute="top" secondItem="Oyo-7R-GaX" secondAttribute="bottom" constant="2" id="Z7N-Fy-5yP"/>
+                <constraint firstAttribute="trailing" secondItem="SFc-ie-qC5" secondAttribute="trailing" constant="12" id="efW-4x-9g4"/>
+                <constraint firstItem="mr5-EX-Qha" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="hYh-7d-z6K"/>
                 <constraint firstItem="RgL-A9-q6s" firstAttribute="width" secondItem="lGK-fM-Jb9" secondAttribute="width" id="iNR-20-81Q"/>
+                <constraint firstAttribute="trailing" secondItem="Oyo-7R-GaX" secondAttribute="trailing" constant="8" id="ljX-qQ-8RO"/>
             </constraints>
-            <point key="canvasLocation" x="410" y="328"/>
+            <point key="canvasLocation" x="255" y="297"/>
         </view>
     </objects>
+    <resources>
+        <image name="icon_makeOrder_paySuccess" width="65" height="60"/>
+    </resources>
 </document>

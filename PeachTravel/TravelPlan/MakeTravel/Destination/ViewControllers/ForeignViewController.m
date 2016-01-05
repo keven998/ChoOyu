@@ -158,7 +158,6 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
     }
     
     [self.foreignCollectionView reloadData];
-
 }
 
 #pragma mark - notification
