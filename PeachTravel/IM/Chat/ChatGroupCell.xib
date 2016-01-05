@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
@@ -26,17 +26,17 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qNE-SF-THI">
-                        <rect key="frame" x="8" y="54" width="40" height="40"/>
+                        <rect key="frame" x="8" y="57" width="35" height="35"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="40" id="SuL-pj-y5m"/>
-                            <constraint firstAttribute="height" constant="40" id="t83-rG-tOx"/>
+                            <constraint firstAttribute="width" constant="35" id="SuL-pj-y5m"/>
+                            <constraint firstAttribute="height" constant="35" id="t83-rG-tOx"/>
                         </constraints>
                     </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="qNE-SF-THI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="20" id="Vfc-zk-Jwg"/>
                     <constraint firstAttribute="centerY" secondItem="vxM-B4-sYl" secondAttribute="centerY" id="YOI-Kc-TML"/>
-                    <constraint firstItem="vxM-B4-sYl" firstAttribute="leading" secondItem="qNE-SF-THI" secondAttribute="trailing" constant="11" id="YrC-gf-Hfc"/>
+                    <constraint firstItem="vxM-B4-sYl" firstAttribute="leading" secondItem="qNE-SF-THI" secondAttribute="trailing" constant="16" id="YrC-gf-Hfc"/>
                     <constraint firstAttribute="centerY" secondItem="qNE-SF-THI" secondAttribute="centerY" id="bpB-vV-XM1"/>
                     <constraint firstItem="qNE-SF-THI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="hdo-DY-slR"/>
                     <constraint firstItem="qNE-SF-THI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="uaw-5N-4Hy"/>

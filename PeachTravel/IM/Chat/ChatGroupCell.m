@@ -11,7 +11,7 @@
 @implementation ChatGroupCell
 
 - (void)awakeFromNib {
-    _headerImage.layer.cornerRadius = 20;
+    _headerImage.layer.cornerRadius = 17.5;
     _headerImage.contentMode = UIViewContentModeScaleAspectFill;
     _headerImage.clipsToBounds = YES;
     _nameLabel.textColor = COLOR_TEXT_I;
