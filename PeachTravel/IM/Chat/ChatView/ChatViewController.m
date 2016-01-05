@@ -373,7 +373,7 @@
 
 - (void)setupBarButtonItem
 {
-    if (_chatter != TransactionMessageUserId) {
+    if (_chatter != TransactionMessageUserId) {   //交易信息没有右上角的设置按钮
         UIButton *menu = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
         [menu setImage:[UIImage imageNamed:@"icon_navi_white_menu"] forState:UIControlStateNormal];
         [menu addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];

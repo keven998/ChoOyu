@@ -133,6 +133,7 @@ static NSString *cacheName = @"destination_demostic_group";
             
         } else {
             if (_hud) {
+                [_hud hideTZHUD];
                 if (self.isShowing) {
                     [SVProgressHUD showHint:HTTP_FAILED_HINT];
                 }

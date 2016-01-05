@@ -131,9 +131,13 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
             AreaDestination *country = _destinations.foreignCountries[0];
             self.citiesArray = country.cities;
             [_foreignCollectionView reloadData];
+            if (_hud) {
+                [_hud hideTZHUD];
+            }
             
         } else {
             if (_hud) {
+                [_hud hideTZHUD];
                 if (self.isShowing) {
                     [SVProgressHUD showHint:HTTP_FAILED_HINT];
                 }
