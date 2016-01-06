@@ -71,11 +71,19 @@ NSString *const kRouterEventChatHeadImageTapEventName = @"kRouterEventChatHeadIm
     _nameLabel.hidden = !(messageModel.chatType != IMChatTypeIMChatSingleType);
     if (messageModel.senderId == WenwenUserId) {
         [self.headImageView sd_setImageWithURL:nil];
-        self.headImageView.image = [UIImage imageNamed:@"chat_wenwen.png"];
+        self.headImageView.image = [UIImage imageNamed:@"icon_chat_wenwen_avatar.png"];
         
     } else if (messageModel.senderId == PaipaiUserId) {
         [self.headImageView sd_setImageWithURL:nil];
-        self.headImageView.image = [UIImage imageNamed:@"chat_paipai.png"];
+        self.headImageView.image = [UIImage imageNamed:@"icon_chat_paipai_avatar.png"];
+        
+    } else if (messageModel.senderId == TransactionMessageUserId) {
+        [self.headImageView sd_setImageWithURL:nil];
+        self.headImageView.image = [UIImage imageNamed:@"icon_chat_transaction_avatar.png"];
+        
+    } else if (messageModel.senderId == ActivityMessageUserId) {
+        [self.headImageView sd_setImageWithURL:nil];
+        self.headImageView.image = [UIImage imageNamed:@"icon_chat_activity_avatar.png"];
         
     } else {
         self.headImageView.image = nil;
