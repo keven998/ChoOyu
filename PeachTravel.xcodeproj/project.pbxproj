@@ -705,8 +705,6 @@
 		D942C2781B9EBDCF005B81C5 /* ic_navigationbar_menu_friendlist@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D942C2761B9EBDCF005B81C5 /* ic_navigationbar_menu_friendlist@3x.png */; };
 		D942C27B1B9EBDF0005B81C5 /* ic_navigationbar_menu_add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D942C2791B9EBDF0005B81C5 /* ic_navigationbar_menu_add@2x.png */; };
 		D942C27C1B9EBDF0005B81C5 /* ic_navigationbar_menu_add@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D942C27A1B9EBDF0005B81C5 /* ic_navigationbar_menu_add@3x.png */; };
-		D942C27F1B9EC17A005B81C5 /* ic_add_friend@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D942C27D1B9EC17A005B81C5 /* ic_add_friend@2x.png */; };
-		D942C2801B9EC17A005B81C5 /* ic_add_friend@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D942C27E1B9EC17A005B81C5 /* ic_add_friend@3x.png */; };
 		D944189B1BAFAA9F0091FC0B /* AlbumImageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D944189A1BAFAA9F0091FC0B /* AlbumImageModel.m */; };
 		D9455C181B3A4DB800684080 /* ChatConversationManager+UpdateConversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9455C171B3A4DB800684080 /* ChatConversationManager+UpdateConversation.swift */; };
 		D94B890A1B5DE70000584DE5 /* QuestionMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94B89091B5DE70000584DE5 /* QuestionMessage.swift */; };
@@ -2981,8 +2979,6 @@
 		D942C2761B9EBDCF005B81C5 /* ic_navigationbar_menu_friendlist@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_navigationbar_menu_friendlist@3x.png"; sourceTree = "<group>"; };
 		D942C2791B9EBDF0005B81C5 /* ic_navigationbar_menu_add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_navigationbar_menu_add@2x.png"; sourceTree = "<group>"; };
 		D942C27A1B9EBDF0005B81C5 /* ic_navigationbar_menu_add@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_navigationbar_menu_add@3x.png"; sourceTree = "<group>"; };
-		D942C27D1B9EC17A005B81C5 /* ic_add_friend@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_add_friend@2x.png"; sourceTree = "<group>"; };
-		D942C27E1B9EC17A005B81C5 /* ic_add_friend@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_add_friend@3x.png"; sourceTree = "<group>"; };
 		D94418991BAFAA9F0091FC0B /* AlbumImageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlbumImageModel.h; sourceTree = "<group>"; };
 		D944189A1BAFAA9F0091FC0B /* AlbumImageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlbumImageModel.m; sourceTree = "<group>"; };
 		D9455C171B3A4DB800684080 /* ChatConversationManager+UpdateConversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChatConversationManager+UpdateConversation.swift"; sourceTree = "<group>"; };
@@ -10082,8 +10078,6 @@
 				E6F188CD1B845F4900232EEB /* dx_checkbox_on@3x.png */,
 				E6F188CE1B845F4900232EEB /* dx_checkbox_selected@2x.png */,
 				E6F188CF1B845F4900232EEB /* dx_checkbox_selected@3x.png */,
-				D942C27D1B9EC17A005B81C5 /* ic_add_friend@2x.png */,
-				D942C27E1B9EC17A005B81C5 /* ic_add_friend@3x.png */,
 			);
 			path = "联系人列表";
 			sourceTree = "<group>";
@@ -10627,7 +10621,6 @@
 				01C1EC521BB4E4720082217A /* question@3x.png in Resources */,
 				D9A15ECE1C27AD0F008CE530 /* StoreDetailCollectionViewCell.xib in Resources */,
 				E6F18AD21B845F4900232EEB /* messages_plus_plan_selected@3x.png in Resources */,
-				D942C2801B9EC17A005B81C5 /* ic_add_friend@3x.png in Resources */,
 				D9A8FF1E1A80CC2B005AD701 /* UserHeaderTableViewCell.xib in Resources */,
 				0115C9C41BB103FC00631928 /* citydetail_lv_bg@3x.png in Resources */,
 				0115C9C21BB103FC00631928 /* citydetail_like_selected@3x.png in Resources */,
@@ -11016,7 +11009,6 @@
 				E6F18A6D1B845F4900232EEB /* login_button_jion@3x.png in Resources */,
 				E6F18ABD1B845F4900232EEB /* messages_icon_keyboard_default@2x.png in Resources */,
 				E68CB2A41B9FCD4500A5B38B /* plan_mark@2x.png in Resources */,
-				D942C27F1B9EC17A005B81C5 /* ic_add_friend@2x.png in Resources */,
 				E6F189971B845F4900232EEB /* poi_line_default@2x.png in Resources */,
 				01C1EC311BB4E4720082217A /* keai@2x.png in Resources */,
 				E6F18A4D1B845F4900232EEB /* ic_home_aboutus@3x.png in Resources */,

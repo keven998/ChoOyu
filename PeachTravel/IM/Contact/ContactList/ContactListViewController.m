@@ -59,7 +59,7 @@
     [itemBtn addTarget:self action:@selector(addContact)forControlEvents:UIControlEventTouchUpInside];
     [itemBtn setFrame:CGRectMake(0, 0, 40, 30)];
     itemBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-    [itemBtn setImage:[UIImage imageNamed:@"ic_add_friend.png"] forState:UIControlStateNormal];
+    [itemBtn setImage:[UIImage imageNamed:@"icon_navi_addFriend.png"] forState:UIControlStateNormal];
     UIBarButtonItem *rightBarItem = [[UIBarButtonItem alloc] initWithCustomView:itemBtn];
     self.navigationItem.rightBarButtonItem = rightBarItem;
     
