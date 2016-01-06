@@ -645,10 +645,10 @@
             cell.name = tzConversation.chatterName;
         }
         if (tzConversation.chatterId == WenwenUserId) {
-            cell.imageView.image = [UIImage imageNamed:@"lvxingwenwen.png"];
+            cell.imageView.image = [UIImage imageNamed:@"icon_chat_wenwen_avatar.png"];
             cell.imageView.layer.cornerRadius = 9;
         } else if (tzConversation.chatterId == PaipaiUserId) {
-            cell.imageView.image = [UIImage imageNamed:@"lvxingpaipai.png"];
+            cell.imageView.image = [UIImage imageNamed:@"icon_chat_paipai_avatar.png"];
             cell.imageView.layer.cornerRadius = 9;
 
         } else {
