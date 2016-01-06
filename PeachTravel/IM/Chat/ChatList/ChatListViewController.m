@@ -646,11 +646,19 @@
         }
         if (tzConversation.chatterId == WenwenUserId) {
             cell.imageView.image = [UIImage imageNamed:@"icon_chat_wenwen_avatar.png"];
-            cell.imageView.layer.cornerRadius = 9;
+            cell.imageView.layer.cornerRadius = 6;
         } else if (tzConversation.chatterId == PaipaiUserId) {
             cell.imageView.image = [UIImage imageNamed:@"icon_chat_paipai_avatar.png"];
-            cell.imageView.layer.cornerRadius = 9;
+            cell.imageView.layer.cornerRadius = 6;
 
+        } else if (tzConversation.chatterId == TransactionMessageUserId) {
+            cell.imageView.image = [UIImage imageNamed:@"icon_chat_transaction_avatar.png"];
+            cell.imageView.layer.cornerRadius = 6;
+            
+        } else if (tzConversation.chatterId == ActivityMessageUserId) {
+            cell.imageView.image = [UIImage imageNamed:@"icon_chat_activity_avatar.png"];
+            cell.imageView.layer.cornerRadius = 6;
+            
         } else {
             [cell.imageView sd_setImageWithURL:[NSURL URLWithString:tzConversation.chatterAvatar] placeholderImage:[UIImage imageNamed:@"avatar_default"]];
             cell.imageView.layer.cornerRadius = 22.5;

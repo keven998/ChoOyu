@@ -149,11 +149,20 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
             cell.titleLabel.text = tzConversation.chatterName;
             if (tzConversation.chatterId == WenwenUserId) {
                 cell.headerImageView.image = [UIImage imageNamed:@"icon_chat_wenwen_avatar.png"];
-                cell.headerImageView.layer.cornerRadius = 9;
+                cell.headerImageView.layer.cornerRadius = 6;
             } else if (tzConversation.chatterId == PaipaiUserId) {
-                cell.headerImageView.layer.cornerRadius = 9;
+                cell.headerImageView.layer.cornerRadius = 6;
                 cell.headerImageView.image = [UIImage imageNamed:@"icon_chat_paipai_avatar.png"];
-            } else {
+            } else if (tzConversation.chatterId == TransactionMessageUserId) {
+                
+                cell.imageView.image = [UIImage imageNamed:@"icon_chat_transaction_tran.png"];
+                cell.imageView.layer.cornerRadius = 6;
+                
+            } else if (tzConversation.chatterId == ActivityMessageUserId) {
+                cell.imageView.image = [UIImage imageNamed:@"icon_chat_activity_avatar.png"];
+                cell.imageView.layer.cornerRadius = 6;
+                
+            }  else {
                 [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:tzConversation.chatterAvatar] placeholderImage:[UIImage imageNamed:@"avatar_default"]];
                 cell.imageView.layer.cornerRadius = 20;
             }
