@@ -208,15 +208,6 @@ typedef void(^loginCompletion)(BOOL completed);
  */
 - (void)getCaptcha
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:_phoneLabel.text forKey:@"tel"];
     [params setObject:[NSNumber numberWithInt:1] forKey:@"action"];
@@ -227,7 +218,7 @@ typedef void(^loginCompletion)(BOOL completed);
     [hud showHUDInViewController:weakSelf];
     
     //获取注册码
-    [manager POST:API_GET_CAPTCHA parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking POST:API_GET_CAPTCHA parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         _registerBtn.userInteractionEnabled = YES;

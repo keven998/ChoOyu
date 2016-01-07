@@ -302,23 +302,13 @@ static NSString *reusableCell = @"myGuidesCell";
  */
 - (void)deleteUserGuide:(MyGuideSummary *)guideSummary
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
-    
     NSString *urlStr = [NSString stringWithFormat:@"%@%@", API_DELETE_GUIDE, guideSummary.guideId];
     
     __weak typeof(PlansListTableViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf content:64];
     
-    [manager DELETE:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking DELETE:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         [hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
@@ -352,17 +342,6 @@ static NSString *reusableCell = @"myGuidesCell";
 
 - (void)loadData:(int)status WithPageIndex:(NSInteger)pageIndex
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)_userId] forHTTPHeaderField:@"UserId"];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSNumber *imageWidth = [NSNumber numberWithInt:(kWindowWidth-22)*2];
     [params setObject:imageWidth forKey:@"imgWidth"];
@@ -377,7 +356,7 @@ static NSString *reusableCell = @"myGuidesCell";
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
     NSString *url = [NSString stringWithFormat: @"%@%ld/guides", API_USERS, (long)_userId];
-    [manager GET:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking GET:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             if (pageIndex == 0) {
@@ -695,32 +674,19 @@ static NSString *reusableCell = @"myGuidesCell";
 
 - (void) mark:(MyGuideSummary *)guideSummary as:(NSString *)status
 {
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
     __weak typeof(PlansListTableViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf content:64];
-    
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
-    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:status forKey:@"status"];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
     // 修改接口
-    NSString * urlStr = [NSString stringWithFormat:@"%@%ld/guides/%@",API_USERS, (long)accountManager.account.userId, guideSummary.guideId];
+    NSString * urlStr = [NSString stringWithFormat:@"%@%ld/guides/%@",API_USERS, (long)[AccountManager shareAccountManager].account.userId, guideSummary.guideId];
     
     NSLog(@"%@,%@",urlStr,params);
     
-    [manager PATCH:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking PATCH:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         [hud hideTZHUD];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -765,20 +731,10 @@ static NSString *reusableCell = @"myGuidesCell";
 {
     AccountManager *accountManager = [AccountManager shareAccountManager];
     
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+  
     __weak typeof(self)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf content:64];
-    
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
-    
     NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
     MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:cellIndexPath.row];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
@@ -788,7 +744,7 @@ static NSString *reusableCell = @"myGuidesCell";
     
     // 修改接口
     NSString * urlStr = [NSString stringWithFormat:@"%@%ld/guides",API_SIGN_GUIDE, (long)accountManager.account.userId];
-    [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         [hud hideTZHUD];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];

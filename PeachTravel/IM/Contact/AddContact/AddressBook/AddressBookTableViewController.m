@@ -138,18 +138,7 @@
 
 - (void)uploadAddressBook:(NSArray *)addressBookList
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-     manager.requestSerializer = [AFgzipRequestSerializer serializerWithSerializer:[AFJSONRequestSerializer serializer]];
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     AccountManager *accountManager = [AccountManager shareAccountManager];
-    if ([accountManager isLogin]) {
-        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
-    }
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:addressBookList forKey:@"contacts"];
@@ -159,7 +148,7 @@
     
     NSLog(@"%@",urlStr);
     
-    [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [_hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -222,20 +211,8 @@
 
 - (void)addContactWithUserId:(NSString *)userId
 {
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     NSString *urlStr = [NSString stringWithFormat:@"%@%@", API_USERS, userId];
-    [manager GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             OtherProfileViewController *otherCtl = [[OtherProfileViewController alloc]init];

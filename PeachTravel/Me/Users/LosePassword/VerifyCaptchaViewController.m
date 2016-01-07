@@ -150,15 +150,6 @@
  */
 - (void)getCaptcha
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:_phoneLabel.text forKey:@"tel"];
     if (_verifyCaptchaType == UserLosePassword) {
@@ -177,9 +168,8 @@
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf content:64];
 
-    NSLog(@"%@,%@",API_GET_CAPTCHA,params);
     //获取注册码
-    [manager POST:API_GET_CAPTCHA parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking POST:API_GET_CAPTCHA parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         [hud hideTZHUD];
         if (code == 0) {
@@ -211,18 +201,6 @@
 
 - (void)virifyCaptcha
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    ;
-
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:_phoneLabel.text forKey:@"tel"];
     if (_verifyCaptchaType == UserBindTel) {
@@ -242,7 +220,7 @@
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf content:64];
     //验证注册码
-    [manager POST:API_VERIFY_CAPTCHA parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking POST:API_VERIFY_CAPTCHA parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             if (_verifyCaptchaType == UserBindTel) {

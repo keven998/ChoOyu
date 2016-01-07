@@ -14,9 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface LXPNetworking : NSObject
 
 + (AFHTTPRequestOperation *)GET:(NSString *)URLString
-                     parameters:(id)parameters
-                        tsuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
-                        tfailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+                     parameters:(nullable id)parameters
+                        success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                        failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 
 + (nullable AFHTTPRequestOperation *)DELETE:(NSString *)URLString

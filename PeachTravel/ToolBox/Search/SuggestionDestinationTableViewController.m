@@ -83,16 +83,6 @@
  */
 - (void)loadSuggestionData
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:_searchBar.text forKey:@"keyword"];
     [params setObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];
@@ -100,7 +90,7 @@
     [params setObject:[NSNumber numberWithBool:YES] forKey:@"loc"];
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    [manager GET:API_SUGGESTION parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking GET:API_SUGGESTION parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [self analysisSearchData:[responseObject objectForKey:@"result"]];

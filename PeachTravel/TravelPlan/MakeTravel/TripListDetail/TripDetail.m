@@ -151,21 +151,9 @@
 - (void)uploadTripData:(NSDictionary *)uploadDic andUpdateDicToUpdateBackUpTrip:(NSDictionary *)updateBackUpTripDic completionBlock:(void(^)(BOOL))completion
 {
     AccountManager *accountManager = [AccountManager shareAccountManager];
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
-    
     NSString *url = [NSString stringWithFormat:@"%@%ld/guides/%@", API_USERS, (long)accountManager.account.userId, _tripId];
 
-    [manager PUT:url parameters:uploadDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking PUT:url parameters:uploadDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -188,24 +176,12 @@
 - (void)updateGuideTitle:(NSString *)title completed:(void (^)(BOOL isSuccess))completed
 {
     AccountManager *accountManager = [AccountManager shareAccountManager];
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
-    
     NSString *url = [NSString stringWithFormat:@"%@%ld/guides/%@", API_USERS, (long)accountManager.account.userId, _tripId];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:title forKey:@"title"];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    [manager PUT:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking PUT:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         _tripTitle = title;
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -226,17 +202,6 @@
 {
     AccountManager *accountManager = [AccountManager shareAccountManager];
     
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
-    
     NSMutableArray *destinationsArray = [[NSMutableArray alloc] init];
     for (CityDestinationPoi *poi in destinations) {
         NSMutableDictionary *poiDic = [[NSMutableDictionary alloc] init];
@@ -251,7 +216,7 @@
     [uploadDic safeSetObject:destinationsArray forKey:@"localities"];
     NSString *url = [NSString stringWithFormat:@"%@%ld/guides/%@", API_USERS, (long)accountManager.account.userId, _tripId];
 
-    [manager PATCH:url parameters:uploadDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking PATCH:url parameters:uploadDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {

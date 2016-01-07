@@ -31,23 +31,12 @@
 {
     
     progressBlock(0.0);
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)[AccountManager shareAccountManager].account.userId] forHTTPHeaderField:@"UserId"];
-    
     NSDictionary *params;
     if (desc) {
         params = @{@"caption": desc};
     }
     
-    [manager GET:API_POST_PHOTOALBUM parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking GET:API_POST_PHOTOALBUM parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [self uploadPhotoToQINIUServer:image withToken:[[responseObject objectForKey:@"result"] objectForKey:@"uploadToken"] andKey:[[responseObject objectForKey:@"result"] objectForKey:@"key"] progress:^(CGFloat progress) {
@@ -113,18 +102,9 @@
 
 + (void)asyncDelegateUserAlbumImage:(AlbumImageModel *)albumImage userId:(NSInteger)userId completion:(void (^)(BOOL, NSString *))completion
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", [AccountManager shareAccountManager].account.userId] forHTTPHeaderField:@"UserId"];
-    
     NSString *urlStr = [NSString stringWithFormat:@"%@%ld/albums/%@", API_USERS, (long)userId, albumImage.imageId];
     
-    [manager DELETE:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking DELETE:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             completion(YES, nil);
@@ -185,25 +165,12 @@
 
 + (void)asyncUpdateUserAlbumCaption:(NSString *)caption withImageId:(NSString *)imageId completion:(void (^)(BOOL))completion
 {
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
-    
-    NSString *url = [NSString stringWithFormat:@"%@%ld/albums/%@", API_USERS, accountManager.account.userId, imageId];
+    NSString *url = [NSString stringWithFormat:@"%@%ld/albums/%@", API_USERS, [AccountManager shareAccountManager].account.userId, imageId];
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic safeSetObject:caption forKey:@"caption"];
     
-    [manager PUT:url parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking PUT:url parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {

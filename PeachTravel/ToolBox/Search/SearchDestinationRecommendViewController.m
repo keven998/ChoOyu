@@ -136,7 +136,6 @@
 #pragma mark - 加载网络数据
 - (void)loadHotSearchWithPoiType:(TZPoiType)poiType
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     NSDictionary *params;
     if (_poiType == kRestaurantPoi) {
@@ -152,7 +151,7 @@
         params = @{@"scope": @"travelNote"};
     }
     
-    [manager GET:API_GET_HOT_SEARCH parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking GET:API_GET_HOT_SEARCH parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSMutableArray * searchNameArray = [NSMutableArray array];
         NSArray *resultArray = responseObject[@"result"];

@@ -105,16 +105,6 @@
  */
 - (void)loadAlbumDataWithAlbumCtl:(MWPhotoBrowser *)albumCtl
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
     NSString *requsetUrl = [NSString stringWithFormat:@"%@%@/albums", API_GET_ALBUM, _cityId];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
@@ -123,7 +113,7 @@
     NSNumber *imageWidth = [NSNumber numberWithInt:400];
     [params setObject:imageWidth forKey:@"imgWidth"];
     
-    [manager GET:requsetUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking GET:requsetUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {

@@ -107,18 +107,6 @@
 - (void)requestAddContactWithHello:(NSString *)helloStr
 {
     AccountManager *accountManager = [AccountManager shareAccountManager];
-
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
-    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:[_userInfo objectForKey:@"userId"] forKey:@"userId"];
     if ([helloStr stringByReplacingOccurrencesOfString:@" " withString:@""].length == 0) {
@@ -130,7 +118,7 @@
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf content:64];
 
-    [manager POST:API_REQUEST_ADD_CONTACT parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking POST:API_REQUEST_ADD_CONTACT parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {

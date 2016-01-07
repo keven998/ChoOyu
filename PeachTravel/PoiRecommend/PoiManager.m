@@ -27,22 +27,13 @@
 
 + (void)asyncLoadRecommendPoiWithIsAbroad:(BOOL)isAbroad completionBlcok:(void (^)(BOOL, NSArray *))completion
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
     NSNumber *imageWidth = [NSNumber numberWithInt:450];
     NSDictionary *params = @{@"imgWidth": imageWidth, @"itemType": @"locality", @"abroad": [NSNumber numberWithBool:isAbroad]};
     
     NSString *url = [NSString stringWithFormat:@"%@recommendations", API_GET_LOCALITIES];
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    [manager GET:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking GET:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -67,15 +58,6 @@
 
 + (void)asyncLoadRecommendCountriesWithContinentCode:(kContinentCode)continentCode completionBlcok:(void (^)(BOOL, NSArray *))completion
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
     NSString *continentCodeStr;
     switch (continentCode) {
         case kRECOM:
@@ -112,7 +94,7 @@
     NSDictionary *params = @{@"continentCode": continentCodeStr};
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    [manager GET:API_GET_COUNTRIES parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking GET:API_GET_COUNTRIES parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -137,19 +119,10 @@
 
 + (void)asyncLoadCitiesOfCountry:(NSString *)countryId completionBlcok:(void (^)(BOOL isSuccess, NSArray *poiList))completion
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
     NSDictionary *params = @{@"countryId": countryId};
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    [manager GET:API_GET_CITIES parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking GET:API_GET_CITIES parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -174,21 +147,6 @@
 
 + (void)asyncLoadCityInfo:(NSString *)cityId completionBlock:(void (^)(BOOL, CityPoi *))completion
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    if (accountManager.isLogin) {
-        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
-    }
-    
     NSString *requsetUrl = [NSString stringWithFormat:@"%@%@", API_GET_CITYDETAIL, cityId];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
@@ -196,7 +154,7 @@
     [params setObject:imageWidth forKey:@"imgWidth"];
     
     //获取城市信息
-    [manager GET:requsetUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking GET:requsetUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSLog(@"加载城市详情%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
@@ -218,16 +176,6 @@
 
 + (void)searchPoiWithKeyword:(NSString *)keyWord andSearchCount:(NSInteger)count andPoiType:(TZPoiType)poiType completionBlock:(void (^)(BOOL isSuccess, NSArray *searchResultList))completion
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSNumber *imageWidth = [NSNumber numberWithInt:270];
     [params setObject:imageWidth forKey:@"imgWidth"];
@@ -246,7 +194,7 @@
     [params setObject:[NSNumber numberWithBool:searchShopping] forKey:@"shopping"];
     [params setObject:[NSNumber numberWithInteger:count] forKey:@"pageSize"];
     
-    [manager GET:API_SEARCH parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking GET:API_SEARCH parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             NSArray *retArray = [self analysisSearchResultData:[responseObject objectForKey:@"result"]];
@@ -339,16 +287,6 @@
 
 + (void)asyncGetDescriptionOfSearchText:(NSString *)searchText andPoiType:(TZPoiType)poiType completionBlock:(void (^)(BOOL, NSDictionary *))completion
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSNumber *imageWidth = [NSNumber numberWithInt:270];
     [params setObject:imageWidth forKey:@"imgWidth"];
@@ -363,7 +301,7 @@
     
     NSString *url = [NSString stringWithFormat:@"%@/ancillary-info", API_SEARCH];
     
-    [manager GET:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking GET:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];

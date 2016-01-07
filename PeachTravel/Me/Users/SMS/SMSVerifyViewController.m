@@ -177,17 +177,6 @@
         [SVProgressHUD showSuccessWithStatus:@"请输入验证码"];
         return;
     }
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:_phoneNumber forKey:@"tel"];
     [params setObject:_password forKey:@"pwd"];
@@ -199,7 +188,7 @@
     [hud showHUDInViewController:weakSelf withStatus:@"正在注册..."];
     
     //确定注册
-    [manager POST:API_SIGNUP parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking POST:API_SIGNUP parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         [hud hideTZHUD];
         if (code == 0) {
@@ -231,16 +220,6 @@
  */
 - (void)getCaptcha
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:_phoneNumber forKey:@"tel"];
     [params setObject:kUserRegister forKey:@"action"];
@@ -249,7 +228,7 @@
     [hud showHUDInViewController:weakSelf content:64];
     
     //获取注册码
-    [manager POST:API_GET_CAPTCHA parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking POST:API_GET_CAPTCHA parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {

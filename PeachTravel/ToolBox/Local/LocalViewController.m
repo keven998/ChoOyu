@@ -226,16 +226,6 @@
     if (!_location) {
         return;
     }
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
     NSInteger realPageIndex = _swipeView.currentItemView.tag;
 
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
@@ -267,7 +257,7 @@
     [params setObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];
     [params setObject:[NSNumber numberWithInteger:pageIndex] forKey:@"page"];
     
-    [manager GET:API_NEARBY parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking GET:API_NEARBY parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             //防止切换的时候重复加载

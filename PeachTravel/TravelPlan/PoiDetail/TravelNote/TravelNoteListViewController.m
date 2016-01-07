@@ -123,16 +123,6 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
  */
 - (void)loadDataWithPageNo:(NSInteger)pageNo andKeyWork:(NSString *)keyWord
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSNumber *imageWidth = [NSNumber numberWithInt:200];
     [params setObject:imageWidth forKey:@"imgWidth"];
@@ -149,7 +139,7 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
     }
     
     //获取游记列表信息
-    [manager GET:API_SEARCH_TRAVELNOTE parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking GET:API_SEARCH_TRAVELNOTE parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (_hud) {
             [_hud hideTZHUD];
             _hud = nil;
@@ -188,16 +178,6 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
 
 - (void)loadDataWithPageNo:(NSInteger)pageNo andUserId:(NSInteger)userId
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSNumber *imageWidth = [NSNumber numberWithInt:200];
     [params setObject:imageWidth forKey:@"imgWidth"];
@@ -209,7 +189,7 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
     NSLog(@"%@",urlStr);
     
     //获取游记列表信息
-    [manager GET:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking GET:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (_hud) {
             [_hud hideTZHUD];
             _hud = nil;

@@ -30,17 +30,8 @@
 
 + (void)asyncLoadTravelersFromServerOfUser:(NSInteger)userId completionBlock:(void (^)(BOOL, NSArray<OrderTravelerInfoModel *> *))completion
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     NSString *url = [NSString stringWithFormat:@"%@%ld/travellers", API_USERS, [AccountManager shareAccountManager].account.userId];
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    [manager GET:url parameters: nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking GET:url parameters: nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"***正在添加新的旅客: %@", operation);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -59,9 +50,7 @@
             completion(NO, nil);
             
         }
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         completion(NO, nil);
         
     }];
@@ -69,14 +58,6 @@
 
 + (void)asyncAddTraveler:(OrderTravelerInfoModel *)traveler completionBlock:(void (^)(BOOL, OrderTravelerInfoModel *))completion
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     NSString *url = [NSString stringWithFormat:@"%@%ld/travellers", API_USERS, [AccountManager shareAccountManager].account.userId];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:[NSNumber numberWithInteger:[AccountManager shareAccountManager].account.userId] forKey:@"userId"];
@@ -93,8 +74,7 @@
     [tel setObject:traveler.dialCode forKey:@"dialCode"];
     [tel setObject:traveler.telNumber forKey:@"number"];
     [params safeSetObject:tel forKey:@"tel"];
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    [manager POST:url parameters: params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking POST:url parameters: params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"***正在添加新的旅客: %@", operation);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -118,14 +98,6 @@
 
 + (void)asyncEditTraveler:(OrderTravelerInfoModel *)traveler completionBlock:(void (^)(BOOL, OrderTravelerInfoModel *))completion
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     NSString *url = [NSString stringWithFormat:@"%@%ld/travellers/%@", API_USERS, [AccountManager shareAccountManager].account.userId, traveler.uid];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:[NSNumber numberWithInteger:[AccountManager shareAccountManager].account.userId] forKey:@"userId"];
@@ -142,8 +114,7 @@
     [tel setObject:traveler.dialCode forKey:@"dialCode"];
     [tel setObject:traveler.telNumber forKey:@"number"];
     [params safeSetObject:tel forKey:@"tel"];
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    [manager PUT:url parameters: params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking PUT:url parameters: params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"***正在添加新的旅客: %@", operation);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -157,9 +128,7 @@
             completion(NO, nil);
             
         }
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         completion(NO, nil);
         
     }];

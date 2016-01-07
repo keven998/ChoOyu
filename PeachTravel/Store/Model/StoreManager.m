@@ -12,19 +12,10 @@
 
 + (void)asyncLoadStoreInfoWithStoreId:(NSInteger)storeId completionBlock:(void (^)(BOOL, StoreDetailModel *))completion
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
     NSString *url = [NSString stringWithFormat:@"%@/%ld", API_STORE, storeId];
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    [manager GET:url parameters: nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking GET:url parameters: nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"***开始加载店铺详情: %@", operation);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {

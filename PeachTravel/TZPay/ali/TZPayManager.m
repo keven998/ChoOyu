@@ -62,18 +62,7 @@ NSString *const kOrderPayResultNoti = @"kOrderPayResultNoti";
 - (void)asyncPayOrder:(NSInteger)orderId payPlatform:(TZPayPlatform)payPlatform completionBlock:(void (^)(BOOL, NSString *))completion
 {
     _payCompletionBlock = completion;
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    AppUtils *utils = [[AppUtils alloc] init];
-    
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    if ([accountManager isLogin]) {
-        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
-    }
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+
     NSString *platFormDesc = @"";
     if (payPlatform == kWeichatPay) {
         platFormDesc = @"wechat";
@@ -87,7 +76,7 @@ NSString *const kOrderPayResultNoti = @"kOrderPayResultNoti";
                              @"provider": platFormDesc
                              };
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    [manager POST:url parameters: params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking POST:url parameters: params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"***对订单进行支付接口: %@", operation);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {

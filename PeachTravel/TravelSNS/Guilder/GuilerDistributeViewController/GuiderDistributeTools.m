@@ -44,11 +44,9 @@
 
 + (void)guiderStatusWithParam:(NSDictionary *)param success:(void (^)(NSArray *))success failure:(void (^)(NSError *))failure
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSString * url = API_GET_TOUR_GULIDER;
-    
-    NSLog(@"%@",url);
-    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+
+    [LXPNetworking GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSLog(@"%@",responseObject);
         NSArray * resultArray = responseObject[@"result"];

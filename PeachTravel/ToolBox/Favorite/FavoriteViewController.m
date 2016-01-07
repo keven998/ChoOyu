@@ -239,17 +239,7 @@
 
 - (void)loadDataWithPageIndex:(NSInteger)pageIndex andFavoriteType:(NSString *)faType
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     AccountManager *accountManager = [AccountManager shareAccountManager];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
-    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSNumber *imageWidth = [NSNumber numberWithInt:300];
     [params setObject:imageWidth forKey:@"imgWidth"];
@@ -264,7 +254,7 @@
     
     // 获得用户的接口ID改变
     NSString * urlStr = [NSString stringWithFormat:@"%@%ld/favorites",API_USERS,accountManager.account.userId];
-    [manager GET:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking GET:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", operation);
         
         if ([_currentFavoriteType isEqualToString:backupTypeForCheck]) {
@@ -303,22 +293,13 @@
  */
 - (void)deleteUserFavorite:(Favorite *)favorite atIndexPath:(NSIndexPath *)indexpath
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
-    
     NSString *urlStr = [NSString stringWithFormat:@"%@/%@", API_UNFAVORITE, favorite.itemId];
     
     __weak typeof(FavoriteViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf];
     
-    [manager DELETE:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking DELETE:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [hud hideTZHUD];
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];

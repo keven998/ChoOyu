@@ -98,21 +98,9 @@
 
 - (void)loadTravelList {
     
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    NSString *url = [NSString stringWithFormat: @"%@geo/localities/%@/guides", BASE_URL, self.cityId];
 
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    
-    NSString *url = [NSString stringWithFormat: @"http://api-dev.lvxingpai.com/app/geo/localities/%@/guides", self.cityId];
-
-    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             NSLog(@"%@",url);

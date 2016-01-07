@@ -90,16 +90,6 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
  */
 - (void)loadSearchDataWithPageNo:(NSUInteger)pageNo
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSNumber *imageWidth = [NSNumber numberWithInt:300];
     [params setObject:imageWidth forKey:@"imgWidth"];
@@ -123,7 +113,7 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
     [params setObject:_cityId forKey:@"locId"];
     [params safeSetObject:_searchText forKey:@"keyword"];
     //获取搜索列表信息
-    [manager GET:API_SEARCH parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking GET:API_SEARCH parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         NSString *key = nil;
         switch (_poiType) {

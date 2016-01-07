@@ -12,8 +12,8 @@
 
 + (AFHTTPRequestOperation *)GET:(NSString *)URLString
                      parameters:(id)parameters
-                        tsuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))tsuccess
-                        tfailure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))tfailure
+                        success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))tsuccess
+                        failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))tfailure
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
@@ -33,7 +33,7 @@
     return [manager GET:URLString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         tsuccess(operation, responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        tsuccess(operation, error);
+        tfailure(operation, error);
     }];
 
     
@@ -60,7 +60,7 @@
     return [manager PATCH:URLString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         tsuccess(operation, responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        tsuccess(operation, error);
+        tfailure(operation, error);
     }];
 }
 
@@ -87,7 +87,7 @@
     return [manager PATCH:URLString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         tsuccess(operation, responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        tsuccess(operation, error);
+        tfailure(operation, error);
     }];
 }
 
@@ -115,7 +115,7 @@
     return [manager PUT:URLString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         tsuccess(operation, responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        tsuccess(operation, error);
+        tfailure(operation, error);
     }];
     
 }
@@ -144,7 +144,7 @@
     return [manager POST:URLString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         tsuccess(operation, responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        tsuccess(operation, error);
+        tfailure(operation, error);
     }];
 }
 

@@ -13,15 +13,6 @@
 
 + (void)asyncLoadExpertsWithAreaId:(NSString *)areaId page:(NSInteger)page pageSize:(NSInteger)pageSize completionBlock:(void(^)(BOOL isSuccess, NSArray *expertsArray))completionBlock
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSNumber *imageWidth = [NSNumber numberWithInt:60];
     [params setObject:imageWidth forKey:@"imgWidth"];
@@ -35,7 +26,7 @@
     
     NSLog(@"%@",urlStr);
     
-    [manager GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@",responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -52,8 +43,6 @@
 
 + (void)asyncLoadExpertsWithAreaName:(NSString *)areaName page:(NSInteger)page pageSize:(NSInteger)pageSize completionBlock:(void (^)(BOOL, NSArray *))completionBlock
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:areaName forKey:@"zone"];
     [params setObject:[NSNumber numberWithInteger:pageSize] forKey:@"pageSize"];
@@ -63,7 +52,7 @@
     
     NSLog(@"%@",urlStr);
     
-    [manager GET:urlStr parameters:params
+    [LXPNetworking GET:urlStr parameters:params
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@",responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
@@ -99,21 +88,13 @@
 
 + (void)asyncRequest2BeAnExpert:(NSString *)phoneNumber completionBlock:(void (^)(BOOL isSuccess))completionBlock
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     if ([[AccountManager shareAccountManager] isLogin]) {
         [params safeSetObject:[NSNumber numberWithInteger: [AccountManager shareAccountManager].account.userId] forKey:@"userId"];
     }
     [params safeSetObject:phoneNumber forKey:@"tel"];
     
-    [manager POST:API_EXPERTREQUEST parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking POST:API_EXPERTREQUEST parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@",responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {

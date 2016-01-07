@@ -39,19 +39,6 @@
                      leaveMessage:(NSString *)message
                   completionBlock:(void (^)(BOOL, OrderDetailModel *))completion
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AppUtils *utils = [[AppUtils alloc] init];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    if ([accountManager isLogin]) {
-        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
-    }
-
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:[NSNumber numberWithInteger:goodsId] forKey:@"commodityId"];
     [params safeSetObject:packageId forKey:@"planId"];
@@ -71,7 +58,7 @@
     
     [params safeSetObject:message forKey:@"comment"];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    [manager POST:API_ORDERS parameters: params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking POST:API_ORDERS parameters: params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"***提交订单接口: %@", operation);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -90,27 +77,15 @@
 
 + (void)asyncCancelOrderWithOrderId:(NSInteger)orderId completionBlock:(void (^)(BOOL, NSString *))completion
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    if ([accountManager isLogin]) {
-        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
-    }
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     NSString *url = [NSString stringWithFormat:@"%@/%ld/actions", API_ORDERS, orderId];
     NSDictionary *params = @{
                              @"action": @"cancel",
                              @"data": @{
-                                     @"userId": [NSNumber numberWithInteger: accountManager.account.userId]
+                                     @"userId": [NSNumber numberWithInteger: [AccountManager shareAccountManager].account.userId]
                                      }
                              };
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    [manager POST:url parameters: params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking POST:url parameters: params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"***取消订单接口: %@", operation);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -129,28 +104,16 @@
 
 + (void)asyncRequestRefundMoneyWithOrderId:(NSInteger)orderId reason:(NSString *)reason leaveMessage:(NSString *)message completionBlock:(void (^) (BOOL isSuccess, NSString *error))completion
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    AppUtils *utils = [[AppUtils alloc] init];
-    
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    if ([accountManager isLogin]) {
-        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
-    }
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     NSString *url = [NSString stringWithFormat:@"%@/%ld/actions", API_ORDERS, orderId];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:@"refund" forKey:@"action"];
     NSMutableDictionary *refundData = [[NSMutableDictionary alloc] init];
-    [refundData safeSetObject:[NSNumber numberWithInteger:accountManager.account.userId] forKey:@"userId"];
+    [refundData safeSetObject:[NSNumber numberWithInteger:[AccountManager shareAccountManager].account.userId] forKey:@"userId"];
     [refundData safeSetObject:reason forKey:@"reason"];
     [refundData safeSetObject:message forKey:@"memo"];
     [params safeSetObject:refundData forKey:@"data"];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    [manager POST:url parameters: params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking POST:url parameters: params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"***对订单提出退款申请接口: %@", operation);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -169,20 +132,9 @@
 
 + (void)asyncLoadOrderDetailWithOrderId:(NSInteger)orderId completionBlock:(void (^)(BOOL, OrderDetailModel *))completion
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    if ([accountManager isLogin]) {
-        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
-    }
     NSString *url = [NSString stringWithFormat:@"%@/%ld", API_ORDERS, orderId];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    [manager GET:url parameters: nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking GET:url parameters: nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"***获取订单详情接口: %@", operation);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -216,23 +168,12 @@
 
 + (void)asyncLoadOrdersFromServerOfUser:(NSInteger)userId completionBlock:(void (^)(BOOL isSuccess, NSArray<OrderDetailModel *> * orderList))completion
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    if ([accountManager isLogin]) {
-        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
-    }
     NSString *url = [NSString stringWithFormat:@"%@", API_ORDERS];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:[NSNumber numberWithInteger:userId] forKey:@"userId"];
     
-    [manager GET:url parameters: params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking GET:url parameters: params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"***获取订单列表接口: %@", operation);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -260,17 +201,6 @@
 
 + (void)asyncLoadOrdersFromServerOfUser:(NSInteger)userId orderType:(NSArray<NSString *> *)orderTypes startIndex:(NSInteger)startIndex count:(NSInteger)count completionBlock:(void (^)(BOOL, NSArray<OrderDetailModel *> *))completion
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    if ([accountManager isLogin]) {
-        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
-    }
     NSString *url = [NSString stringWithFormat:@"%@", API_ORDERS];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
@@ -289,7 +219,7 @@
     }
     [params safeSetObject:types forKey:@"status"];
     
-    [manager GET:url parameters: params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking GET:url parameters: params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"***获取订单列表接口: %@", operation);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {

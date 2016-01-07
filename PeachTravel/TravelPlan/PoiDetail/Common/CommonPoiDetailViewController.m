@@ -255,16 +255,6 @@
 
 - (void)loadDataWithUrl:(NSString *)url
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    if ([accountManager isLogin]) {
-        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
-    }
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSNumber *imageWidth = [NSNumber numberWithInt:(kWindowWidth-22)*2];
     [params setObject:imageWidth forKey:@"imgWidth"];
@@ -273,7 +263,7 @@
     __weak typeof(self)weakSelf = self;
     [hud showHUDInViewController:weakSelf content:64];
     
-    [manager GET:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking GET:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [hud hideTZHUD];
         NSLog(@"%@",responseObject);
         NSInteger result = [[responseObject objectForKey:@"code"] integerValue];

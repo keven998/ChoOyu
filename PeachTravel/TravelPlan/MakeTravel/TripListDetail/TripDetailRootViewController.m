@@ -310,20 +310,6 @@
  */
 - (void)loadNewTripDataWithRecommendData:(BOOL)isNeedRecommend
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    if ([accountManager isLogin]) {
-        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
-    }
-    
     NSMutableArray *cityIds = [[NSMutableArray alloc] init];
     for (CityDestinationPoi *poi in _destinations) {
         [cityIds addObject:poi.cityId];
@@ -342,13 +328,13 @@
     
     NSString *url = [NSString stringWithFormat:@"%@%ld/guides", API_USERS, [AccountManager shareAccountManager].account.userId];
     //获取路线模板数据,新制作路线的情况下
-    [manager POST:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking POST:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [hud hideTZHUD];
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             _tripDetail = [[TripDetail alloc] initWithJson:[responseObject objectForKey:@"result"]];
-            accountManager.account.guideCnt += 1;
+            [AccountManager shareAccountManager].account.guideCnt += 1;
             [self reloadTripData];
             [[NSNotificationCenter defaultCenter] postNotificationName:updateGuideListNoti object:nil];
             if (isNeedRecommend) {
@@ -385,21 +371,9 @@
 //查看城市的推荐攻略
 - (void)loadTravelListOfCity {
     
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    
     NSString *url = [NSString stringWithFormat: @"%@geo/localities/%@/guides", BASE_URL, self.cityId];
     
-    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             if ([[responseObject objectForKey:@"result"] count]) {
@@ -429,19 +403,6 @@
  */
 - (void)checkTripData
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    if ([accountManager isLogin]) {
-        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
-    }
-    
     NSString *urlStr = [NSString stringWithFormat:@"%@%ld/guides/%@", API_USERS, (long)_userId, _tripId];
     TZProgressHUD *hud;
     if (_tripDetail == nil) {
@@ -453,7 +414,7 @@
     NSNumber *imageWidth = [NSNumber numberWithInt:200];
     [params setObject:imageWidth forKey:@"imgWidth"];
     
-    [manager GET:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking GET:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (hud) [hud hideTZHUD];
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
@@ -618,20 +579,6 @@
         return;
     }
     if (_isCheckPlanFromCityDetail) {
-        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-        manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-        AppUtils *utils = [[AppUtils alloc] init];
-        [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-        [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-        
-        [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-        [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-        AccountManager *accountManager = [AccountManager shareAccountManager];
-        if ([accountManager isLogin]) {
-            [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
-        }
-        
         NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
         NSNumber *imageWidth = [NSNumber numberWithInt:150];
         [params setObject:imageWidth forKey:@"imgWidth"];
@@ -646,15 +593,15 @@
         
         NSString *url = [NSString stringWithFormat:@"%@%ld/guides", API_USERS, [AccountManager shareAccountManager].account.userId];
         //获取路线模板数据,新制作路线的情况下
-        [manager POST:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [LXPNetworking POST:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
             [hud hideTZHUD];
             NSLog(@"%@", responseObject);
             NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
             if (code == 0) {
-                accountManager.account.guideCnt += 1;
-                PlansListTableViewController *myGuidesCtl = [[PlansListTableViewController alloc] initWithUserId:accountManager.account.userId];
+                [AccountManager shareAccountManager].account.guideCnt += 1;
+                PlansListTableViewController *myGuidesCtl = [[PlansListTableViewController alloc] initWithUserId:[AccountManager shareAccountManager].account.userId];
                 NSMutableArray *clts = [NSMutableArray arrayWithArray:[self.frostedViewController.navigationController childViewControllers]];
-                myGuidesCtl.userName = accountManager.account.nickName;
+                myGuidesCtl.userName = [AccountManager shareAccountManager].account.nickName;
                 myGuidesCtl.copyPatch = YES;
                 [clts replaceObjectAtIndex:(clts.count-1) withObject:myGuidesCtl];
                 [self.frostedViewController.navigationController setViewControllers:clts animated:YES];
@@ -694,20 +641,6 @@
 
 - (void)forkTrip
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    if ([accountManager isLogin]) {
-        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
-    }
-    
     NSString *urlStr = [NSString stringWithFormat:@"%@%ld/guides", API_USERS, (long)[AccountManager shareAccountManager].account.userId];
     __weak typeof(TripDetailRootViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
@@ -719,15 +652,15 @@
     [params setObject:_tripDetail.tripId forKeyedSubscript:@"guideId"];
     [params setObject:@"fork" forKey:@"action"];
     
-    [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         [hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            accountManager.account.guideCnt += 1;
-            PlansListTableViewController *myGuidesCtl = [[PlansListTableViewController alloc] initWithUserId:accountManager.account.userId];
+            [AccountManager shareAccountManager].account.guideCnt += 1;
+            PlansListTableViewController *myGuidesCtl = [[PlansListTableViewController alloc] initWithUserId:[AccountManager shareAccountManager].account.userId];
             NSMutableArray *clts = [NSMutableArray arrayWithArray:[self.frostedViewController.navigationController childViewControllers]];
-            myGuidesCtl.userName = accountManager.account.nickName;
+            myGuidesCtl.userName = [AccountManager shareAccountManager].account.nickName;
             myGuidesCtl.copyPatch = YES;
             [clts replaceObjectAtIndex:(clts.count-1) withObject:myGuidesCtl];
             [self.frostedViewController.navigationController setViewControllers:clts animated:YES];

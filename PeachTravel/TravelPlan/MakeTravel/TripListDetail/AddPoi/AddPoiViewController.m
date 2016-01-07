@@ -388,16 +388,6 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
 
 - (void)loadDataWithPageNo:(NSUInteger)pageNo
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSNumber *imageWidth = [NSNumber numberWithInt:300];
     [params setObject:imageWidth forKey:@"imgWidth"];
@@ -414,7 +404,7 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
         [hud showHUDInViewController:weakSelf content:64];
     }
     //获取列表信息
-    [manager GET:_requestUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking GET:_requestUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         if (hud) {
             [hud hideTZHUD];

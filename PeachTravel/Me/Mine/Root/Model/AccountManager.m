@@ -53,22 +53,12 @@
 
 - (void)asyncLoginWithWeChat:(NSString *)code completion:(void(^)(BOOL isSuccess, NSString *errorStr))completion
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:code forKey:@"authCode"];
     [params setObject:@"weixin" forKey:@"provider"];
     
     //微信登录
-    [manager POST:API_SIGNIN parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking POST:API_SIGNIN parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -87,24 +77,12 @@
 
 - (void)asyncLogin:(NSString *)userId password:(NSString *)password completion:(void(^)(BOOL isSuccess, NSString *errorStr))completion
 {
-    // 1.初始化网络管理对象
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
-    // 2.初始化参数
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:userId forKey:@"loginName"];
     [params setObject:password forKey:@"password"];
     
     //普通登录
-    [manager POST:API_SIGNIN parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking POST:API_SIGNIN parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -130,21 +108,10 @@
 //用户退出登录
 - (void)asyncLogout:(void (^)(BOOL))completion
 {
-    // 退出登录
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:[NSNumber numberWithInteger:_account.userId] forKey:@"userId"];
     
-    [manager POST:API_LOGOUT parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking POST:API_LOGOUT parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -281,24 +248,13 @@
  */
 - (void)asyncUpdateUserInfoToServer:(NSString *)userInfo andUserInfoType:(UserInfoChangeType)userInfoType andKeyWord:(NSString *)keyWord completion:(void (^) (BOOL isSuccess, NSString *errStr)) completion
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)self.account.userId] forHTTPHeaderField:@"UserId"];
-    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     
     [params setObject:userInfo forKey:keyWord];
     
     NSString *urlStr = [NSString stringWithFormat:@"%@%ld", API_USERS, (long)self.account.userId];
     
-    [manager PATCH:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking PATCH:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [SVProgressHUD showHint:@"修改成功"];
@@ -316,17 +272,6 @@
 
 - (void)asyncChangeGender:(NSString *)newGender completion:(void (^)(BOOL, NSString *))completion
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)self.account.userId] forHTTPHeaderField:@"UserId"];
-    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:newGender forKey:@"gender"];
     
@@ -334,7 +279,7 @@
     
     NSLog(@"%@,%@",urlStr,params);
     
-    [manager PATCH:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking PATCH:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
 
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -351,16 +296,6 @@
 
 - (void)asyncBindTelephone:(NSString *)tel token:(NSString *)token completion:(void (^)(BOOL, NSString *))completion
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:tel forKey:@"tel"];
     [params setObject:token forKey:@"token"];
@@ -369,7 +304,7 @@
     
     NSString *urlStr = [NSString stringWithFormat:@"%@%ld/tel", API_USERS, accountManager.account.userId];
     //修改手机号
-    [manager PUT:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking PUT:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -389,16 +324,6 @@
 
 - (void)asyncResetPassword:(NSString *)newPassword tel:(NSString *)tel toke:(NSString *)token completion:(void (^)(BOOL, NSString *))completion
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:newPassword forKey:@"newPassword"];
     [params safeSetObject:token forKey:@"token"];
@@ -407,7 +332,7 @@
     NSString *urlStr = [NSString stringWithFormat:@"%@_/password", API_USERS];
 
     //完成修改
-    [manager PUT:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking PUT:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             completion(YES, nil);
@@ -425,24 +350,13 @@
 
 - (void)asyncChangePassword:(NSString *)newPassword oldPassword:(NSString *)oldPassword completion:(void (^)(BOOL, NSString *))completion
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)self.account.userId] forHTTPHeaderField:@"UserId"];
-    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:newPassword forKey:@"newPassword"];
     [params safeSetObject:oldPassword forKey:@"oldPassword"];
     
     NSString *urlStr = [NSString stringWithFormat:@"%@%ld/password", API_USERS, (long)self.account.userId];
     
-    [manager PUT:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking PUT:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -458,22 +372,11 @@
 
 - (void)asyncChangeStatus:(NSString *)newStatus completion:(void (^)(BOOL, NSString *))completion
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)self.account.userId] forHTTPHeaderField:@"UserId"];
-    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:newStatus forKey:@"travelStatus"];
     NSString *urlStr = [NSString stringWithFormat:@"%@%ld", API_USERS, (long)self.account.userId];
     
-    [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -542,23 +445,12 @@
  */
 - (void)asyncChangeUserServerTracks:(NSString *)action withTracks:(NSArray *)poiIdArray completion:(void (^)(BOOL, NSString *))completion
 {
-    AccountManager *account = [AccountManager shareAccountManager];
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)account.account.userId] forHTTPHeaderField:@"UserId"];
-
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:action forKey:@"action"];
     [params safeSetObject:poiIdArray forKey:@"tracks"];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@users/%ld/footprints", BASE_URL, (long)account.account.userId];
-    [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSString *urlStr = [NSString stringWithFormat:@"%@users/%ld/footprints", BASE_URL, (long)[AccountManager shareAccountManager].account.userId];
+    [LXPNetworking POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             completion(YES, nil);
@@ -630,20 +522,9 @@
 //从服务器上获取好友列表
 - (void)loadContactsFromServer
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)self.account.userId] forHTTPHeaderField:@"UserId"];
-    
     NSString *url = [NSString stringWithFormat:@"%@%ld/contacts", API_USERS, self.account.userId];
     NSLog(@"%@",url);
-    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             NSLog(@"已经完成从服务器上加载好友列表");
@@ -714,16 +595,6 @@
 
 - (void)asyncChangeRemark:(NSString *)remark withUserId:(NSInteger)userId completion:(void (^)(BOOL))completion
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)self.account.userId] forHTTPHeaderField:@"UserId"];
-    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:remark forKey:@"memo"];
 
@@ -733,7 +604,7 @@
     NSString *urlStr = [NSString stringWithFormat:@"%@%ld/contacts/%ld/memo", API_USERS, accountManager.account.userId,userId];
     NSLog(@"%@",urlStr);
     
-    [manager PUT:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking PUT:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"result = %@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
