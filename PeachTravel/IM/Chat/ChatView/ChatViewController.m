@@ -787,7 +787,7 @@
  */
 - (void)showUserInfoWithModel:(MessageModel *)model
 {
-    if (model.isSender) {
+    if (model.isSender || model.senderId == TransactionMessageUserId || model.senderId == ActivityMessageUserId) {
         return;
     }
     OtherProfileViewController *OtherUser = [[OtherProfileViewController alloc]init];
