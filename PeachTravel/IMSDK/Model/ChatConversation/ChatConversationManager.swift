@@ -388,7 +388,7 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
         
         let tradeConversation = ChatConversation()
         tradeConversation.chatterId = Int(TransactionMessageUserId)
-        tradeConversation.chatterName = "支付消息";
+        tradeConversation.chatterName = "交易消息";
         tradeConversation.lastUpdateTime = Int(NSDate().timeIntervalSince1970)+1
         self.addConversation(tradeConversation)
         

@@ -663,6 +663,7 @@
 		D93FEEC91BEB4A0B0065D6ED /* MenuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D93FEEC71BEB4A0B0065D6ED /* MenuButton.m */; };
 		D940ECF31C3D187700DF608E /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = D940ECF21C3D187700DF608E /* main.jsbundle */; };
 		D940ECF71C3E4EEF00DF608E /* TZSideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D940ECF61C3E4EEF00DF608E /* TZSideViewController.m */; };
+		D940ECFB1C3E4F9800DF608E /* LXPNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = D940ECFA1C3E4F9800DF608E /* LXPNetworking.m */; };
 		D942C1271B9EB5C3005B81C5 /* back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D942C0F81B9EB5C3005B81C5 /* back@2x.png */; };
 		D942C1281B9EB5C3005B81C5 /* back@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D942C0F91B9EB5C3005B81C5 /* back@3x.png */; };
 		D942C12B1B9EB5C3005B81C5 /* foot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D942C0FC1B9EB5C3005B81C5 /* foot@2x.png */; };
@@ -2930,6 +2931,8 @@
 		D940ECF21C3D187700DF608E /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		D940ECF51C3E4EEF00DF608E /* TZSideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZSideViewController.h; sourceTree = "<group>"; };
 		D940ECF61C3E4EEF00DF608E /* TZSideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZSideViewController.m; sourceTree = "<group>"; };
+		D940ECF91C3E4F9800DF608E /* LXPNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXPNetworking.h; sourceTree = "<group>"; };
+		D940ECFA1C3E4F9800DF608E /* LXPNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXPNetworking.m; sourceTree = "<group>"; };
 		D942C0F81B9EB5C3005B81C5 /* back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@2x.png"; sourceTree = "<group>"; };
 		D942C0F91B9EB5C3005B81C5 /* back@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@3x.png"; sourceTree = "<group>"; };
 		D942C0FC1B9EB5C3005B81C5 /* foot@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "foot@2x.png"; sourceTree = "<group>"; };
@@ -6316,6 +6319,15 @@
 			path = TZSideViewController;
 			sourceTree = "<group>";
 		};
+		D940ECF81C3E4F7600DF608E /* LXPNetworking */ = {
+			isa = PBXGroup;
+			children = (
+				D940ECF91C3E4F9800DF608E /* LXPNetworking.h */,
+				D940ECFA1C3E4F9800DF608E /* LXPNetworking.m */,
+			);
+			path = LXPNetworking;
+			sourceTree = "<group>";
+		};
 		D942C0F51B9EB5C3005B81C5 /* profile_icon */ = {
 			isa = PBXGroup;
 			children = (
@@ -8028,6 +8040,7 @@
 		D9A802541A80E3D3005AD701 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				D940ECF81C3E4F7600DF608E /* LXPNetworking */,
 				D940ECF41C3E4EEF00DF608E /* TZSideViewController */,
 				D969AD291C2BC56F007413CA /* DialCodeTableViewController */,
 				D92C50B01C1EA14A00AD7965 /* TZSchemeManager */,
@@ -11929,6 +11942,7 @@
 				D9DD31661BF5BC27009BEDAB /* OrderDetailContentTableViewCell.m in Sources */,
 				C694C3901AEA274500F5C36E /* CategoryTableViewCell.m in Sources */,
 				D9221A281BFC79840015A685 /* SelectPayPlatformTableViewCell.m in Sources */,
+				D940ECFB1C3E4F9800DF608E /* LXPNetworking.m in Sources */,
 				D9A8012E1A80DD23005AD701 /* DXChatBarMoreView.m in Sources */,
 				D9A801511A80DD23005AD701 /* ZYQAssetPickerController.m in Sources */,
 				D90C75F61BF1DB1A00C5897C /* PDTSimpleCalendarViewHeader.m in Sources */,
