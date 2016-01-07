@@ -198,7 +198,7 @@
     //获取城市信息
     [manager GET:requsetUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        NSLog(@"%@", responseObject);
+        NSLog(@"加载城市详情%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             CityPoi *poi = [[CityPoi alloc] initWithJson:[responseObject objectForKey:@"result"]];

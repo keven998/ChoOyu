@@ -61,7 +61,9 @@
     menu.dataSource = self;
     menu.delegate = self;
     [GoodsManager asyncLoadGoodsCategoryOfLocality:_cityId completionBlock:^(BOOL isSuccess, NSArray<NSString *> *categoryList) {
-        _categoryDatasource = categoryList;
+        NSMutableArray *tempArray = [categoryList mutableCopy];
+        [tempArray insertObject:@"全部" atIndex:0];
+        _categoryDatasource = tempArray;
     }];
     
     UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(menu.bounds.size.width/2, 5, 0.5, 30)];

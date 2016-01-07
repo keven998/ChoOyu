@@ -25,6 +25,7 @@
 #import "ChatRecoredListTableViewController.h"
 #import "TaoziChatMessageBaseViewController.h"
 #import "GoodsDetailSoldOutView.h"
+#import "SuperWebViewController.h"
 
 @interface GoodsDetailViewController ()<RCTBridgeModule, ActivityDelegate, CreateConversationDelegate, TaoziMessageSendDelegate> {
     RCTBridge *bridge;
@@ -91,9 +92,14 @@ RCT_EXPORT_MODULE();
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear: animated];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(storeDetail) name:@"gotoStoreDetailNoti" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(makeOrderAction) name:@"makeOrderNoti" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(chatWithBusinessAction) name:@"chatWithBusinessNoti" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(storeDetail) name:@"RNGotoStoreDetailNoti" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(makeOrderAction) name:@"RNMakeOrderNoti" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(chatWithBusinessAction) name:@"RNChatWithBusinessNoti" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moreTrafficInfoAction:) name:@"RNMoreTrafficInfoNoti" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moreGoodsInfoAction:) name:@"RNMoreGoodsInfoNoti" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moreBuyInfoAction:) name:@"RNMoreBuyInfoNoti" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moreBookQuitInfoAction:) name:@"RNMoreBookQuitInfoNoti" object:nil];
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -113,6 +119,49 @@ RCT_EXPORT_MODULE();
         StoreDetailViewController *ctl = [[StoreDetailViewController alloc] init];
         ctl.storeId = _goodsDetail.store.storeId;
         ctl.storeName = _goodsDetail.store.storeName;
+        [self.navigationController pushViewController:ctl animated:YES];
+    });
+}
+
+- (void)moreTrafficInfoAction:(NSNotification *)noti
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        SuperWebViewController *ctl = [[SuperWebViewController alloc] init];
+        ctl.urlStr = [noti.userInfo objectForKey:@"url"];
+        ctl.titleStr = @"交通提示";
+        [self.navigationController pushViewController:ctl animated:YES];
+    });
+}
+
+- (void)moreGoodsInfoAction:(NSNotification *)noti
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+
+        SuperWebViewController *ctl = [[SuperWebViewController alloc] init];
+        ctl.urlStr = [noti.userInfo objectForKey:@"url"];
+        ctl.titleStr = @"商品详情";
+        [self.navigationController pushViewController:ctl animated:YES];
+    });
+}
+
+- (void)moreBuyInfoAction:(NSNotification *)noti
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+
+        SuperWebViewController *ctl = [[SuperWebViewController alloc] init];
+        ctl.urlStr = [noti.userInfo objectForKey:@"url"];
+        ctl.titleStr = @"购买须知";
+        [self.navigationController pushViewController:ctl animated:YES];
+    });
+}
+
+- (void)moreBookQuitInfoAction:(NSNotification *)noti
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+
+        SuperWebViewController *ctl = [[SuperWebViewController alloc] init];
+        ctl.urlStr = [noti.userInfo objectForKey:@"url"];
+        ctl.titleStr = @"预订及退订";
         [self.navigationController pushViewController:ctl animated:YES];
     });
 }
@@ -214,17 +263,44 @@ RCT_EXPORT_METHOD(makePhone:(NSString *)tel){
 
 RCT_EXPORT_METHOD(gotoStoreDetail){
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"gotoStoreDetailNoti" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"RNGotoStoreDetailNoti" object:nil];
 }
 
 RCT_EXPORT_METHOD(makeOrder){
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"makeOrderNoti" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"RNMakeOrderNoti" object:nil];
 }
 
 RCT_EXPORT_METHOD(chatWithBusiness){
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"chatWithBusinessNoti" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"RNChatWithBusinessNoti" object:nil];
+}
+
+RCT_EXPORT_METHOD(moreTrafficInfo:(NSString *)webUrl){
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic safeSetObject:webUrl forKey:@"url"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"RNMoreTrafficInfoNoti" object:nil userInfo:dic];
+}
+
+RCT_EXPORT_METHOD(moreGoodsInfo:(NSString *)webUrl){
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic safeSetObject:webUrl forKey:@"url"];
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"RNMoreGoodsInfoNoti" object:nil userInfo:dic];
+}
+
+RCT_EXPORT_METHOD(moreBuyInfo:(NSString *)webUrl){
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic safeSetObject:webUrl forKey:@"url"];
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"RNMoreBuyInfoNoti" object:nil userInfo:dic];
+}
+
+RCT_EXPORT_METHOD(moreBookQuitInfo:(NSString *)webUrl){
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic safeSetObject:webUrl forKey:@"url"];
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"RNMoreBookQuitInfoNoti" object:nil userInfo:dic];
 }
 
 

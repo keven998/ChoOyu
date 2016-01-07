@@ -661,6 +661,8 @@
 		D93FEEC21BEB413D0065D6ED /* CountryRecommendTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D93FEEC01BEB413D0065D6ED /* CountryRecommendTableViewCell.xib */; };
 		D93FEEC81BEB4A0B0065D6ED /* CircleMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = D93FEEC51BEB4A0B0065D6ED /* CircleMenu.m */; };
 		D93FEEC91BEB4A0B0065D6ED /* MenuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D93FEEC71BEB4A0B0065D6ED /* MenuButton.m */; };
+		D940ECF31C3D187700DF608E /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = D940ECF21C3D187700DF608E /* main.jsbundle */; };
+		D940ECF71C3E4EEF00DF608E /* TZSideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D940ECF61C3E4EEF00DF608E /* TZSideViewController.m */; };
 		D942C1271B9EB5C3005B81C5 /* back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D942C0F81B9EB5C3005B81C5 /* back@2x.png */; };
 		D942C1281B9EB5C3005B81C5 /* back@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D942C0F91B9EB5C3005B81C5 /* back@3x.png */; };
 		D942C12B1B9EB5C3005B81C5 /* foot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D942C0FC1B9EB5C3005B81C5 /* foot@2x.png */; };
@@ -744,7 +746,6 @@
 		D95E6FFB1BDA31F70097BC76 /* GoodsRecommendSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D95E6FFA1BDA31F70097BC76 /* GoodsRecommendSectionHeaderView.m */; };
 		D95E6FFD1BDA32050097BC76 /* GoodsRecommendSectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D95E6FFC1BDA32050097BC76 /* GoodsRecommendSectionHeaderView.xib */; };
 		D963CB661B9FF751007480FA /* EditUserSignatureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D963CB651B9FF751007480FA /* EditUserSignatureViewController.m */; };
-		D964CD621C297D720043BE6A /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = D964CD611C297D720043BE6A /* main.jsbundle */; };
 		D9687CA21AC4095500B1C88E /* FootprintMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9687CA01AC4095500B1C88E /* FootprintMapViewController.m */; };
 		D9687CA31AC4095500B1C88E /* FootprintMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9687CA11AC4095500B1C88E /* FootprintMapViewController.xib */; };
 		D9687CA61AC409AB00B1C88E /* FootPrintViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9687CA51AC409AB00B1C88E /* FootPrintViewController.m */; };
@@ -1282,7 +1283,6 @@
 		D9F46DC21AC52D8600972AE8 /* SVWebViewControllerActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F46DB31AC52D8600972AE8 /* SVWebViewControllerActivity.m */; };
 		D9F46DC71AC8E96300972AE8 /* DomesticCityDataSource.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9F46DC61AC8E96300972AE8 /* DomesticCityDataSource.plist */; };
 		D9F46DCB1AC8EB0800972AE8 /* CityListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F46DC91AC8EB0800972AE8 /* CityListTableViewController.m */; };
-		D9F46DD01AC92B9200972AE8 /* TZSideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F46DCF1AC92B9200972AE8 /* TZSideViewController.m */; };
 		D9F70CA91B304E1800BDACA1 /* FrendRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F70CA81B304E1800BDACA1 /* FrendRequest.m */; };
 		D9F70CAD1B31523C00BDACA1 /* AccountDaoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F70CAC1B31523C00BDACA1 /* AccountDaoHelper.swift */; };
 		D9FCE7DE1B134B4B0039F896 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FCE7DD1B134B4B0039F896 /* ChatViewController.m */; };
@@ -2927,6 +2927,9 @@
 		D93FEEC51BEB4A0B0065D6ED /* CircleMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleMenu.m; sourceTree = "<group>"; };
 		D93FEEC61BEB4A0B0065D6ED /* MenuButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuButton.h; sourceTree = "<group>"; };
 		D93FEEC71BEB4A0B0065D6ED /* MenuButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuButton.m; sourceTree = "<group>"; };
+		D940ECF21C3D187700DF608E /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
+		D940ECF51C3E4EEF00DF608E /* TZSideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZSideViewController.h; sourceTree = "<group>"; };
+		D940ECF61C3E4EEF00DF608E /* TZSideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZSideViewController.m; sourceTree = "<group>"; };
 		D942C0F81B9EB5C3005B81C5 /* back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@2x.png"; sourceTree = "<group>"; };
 		D942C0F91B9EB5C3005B81C5 /* back@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@3x.png"; sourceTree = "<group>"; };
 		D942C0FC1B9EB5C3005B81C5 /* foot@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "foot@2x.png"; sourceTree = "<group>"; };
@@ -3022,7 +3025,6 @@
 		D95E6FFC1BDA32050097BC76 /* GoodsRecommendSectionHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoodsRecommendSectionHeaderView.xib; sourceTree = "<group>"; };
 		D963CB641B9FF751007480FA /* EditUserSignatureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditUserSignatureViewController.h; sourceTree = "<group>"; };
 		D963CB651B9FF751007480FA /* EditUserSignatureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditUserSignatureViewController.m; sourceTree = "<group>"; };
-		D964CD611C297D720043BE6A /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		D9687C9F1AC4095500B1C88E /* FootprintMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FootprintMapViewController.h; path = ../UserInfo/FootprintMapViewController.h; sourceTree = "<group>"; };
 		D9687CA01AC4095500B1C88E /* FootprintMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FootprintMapViewController.m; path = ../UserInfo/FootprintMapViewController.m; sourceTree = "<group>"; };
 		D9687CA11AC4095500B1C88E /* FootprintMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FootprintMapViewController.xib; path = ../UserInfo/FootprintMapViewController.xib; sourceTree = "<group>"; };
@@ -3895,8 +3897,6 @@
 		D9F46DC61AC8E96300972AE8 /* DomesticCityDataSource.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DomesticCityDataSource.plist; sourceTree = "<group>"; };
 		D9F46DC81AC8EB0800972AE8 /* CityListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityListTableViewController.h; sourceTree = "<group>"; };
 		D9F46DC91AC8EB0800972AE8 /* CityListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityListTableViewController.m; sourceTree = "<group>"; };
-		D9F46DCE1AC92B9200972AE8 /* TZSideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZSideViewController.h; sourceTree = "<group>"; };
-		D9F46DCF1AC92B9200972AE8 /* TZSideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZSideViewController.m; sourceTree = "<group>"; };
 		D9F70CA71B304E1800BDACA1 /* FrendRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FrendRequest.h; path = ../../Me/Mine/Root/Model/FrendRequest.h; sourceTree = "<group>"; };
 		D9F70CA81B304E1800BDACA1 /* FrendRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FrendRequest.m; path = ../../Me/Mine/Root/Model/FrendRequest.m; sourceTree = "<group>"; };
 		D9F70CAC1B31523C00BDACA1 /* AccountDaoHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountDaoHelper.swift; sourceTree = "<group>"; };
@@ -6307,6 +6307,15 @@
 			path = CircleMenu;
 			sourceTree = "<group>";
 		};
+		D940ECF41C3E4EEF00DF608E /* TZSideViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D940ECF51C3E4EEF00DF608E /* TZSideViewController.h */,
+				D940ECF61C3E4EEF00DF608E /* TZSideViewController.m */,
+			);
+			path = TZSideViewController;
+			sourceTree = "<group>";
+		};
 		D942C0F51B9EB5C3005B81C5 /* profile_icon */ = {
 			isa = PBXGroup;
 			children = (
@@ -7182,7 +7191,7 @@
 		D99D8EC719C8600C0021C25B /* PeachTravel */ = {
 			isa = PBXGroup;
 			children = (
-				D964CD611C297D720043BE6A /* main.jsbundle */,
+				D940ECF21C3D187700DF608E /* main.jsbundle */,
 				D95B0A461BF0671E00F2D900 /* Order */,
 				D92109AE1BE204D700AEDB65 /* Store */,
 				01578DFC1BD2285D00244D9D /* TZPay */,
@@ -8019,6 +8028,7 @@
 		D9A802541A80E3D3005AD701 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				D940ECF41C3E4EEF00DF608E /* TZSideViewController */,
 				D969AD291C2BC56F007413CA /* DialCodeTableViewController */,
 				D92C50B01C1EA14A00AD7965 /* TZSchemeManager */,
 				D90EACA71C09552900634829 /* DownSheet */,
@@ -8040,8 +8050,6 @@
 				D9A8029B1A80E3D3005AD701 /* TZButton */,
 				D9A8029E1A80E3D3005AD701 /* TZFilter */,
 				D9A802A41A80E3D3005AD701 /* TZProgressHUD */,
-				D9F46DCE1AC92B9200972AE8 /* TZSideViewController.h */,
-				D9F46DCF1AC92B9200972AE8 /* TZSideViewController.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -10302,7 +10310,6 @@
 				D90A9B431B5627C400E9F37C /* Loading_Animation_final24@3x.png in Resources */,
 				E6F18B141B845F4900232EEB /* master_icon_constellation1@3x.png in Resources */,
 				E6381C0F1B66269000CF73AA /* Loading_Animation_final56@2x.png in Resources */,
-				D964CD621C297D720043BE6A /* main.jsbundle in Resources */,
 				0115C9D01BB103FC00631928 /* citydetail_write_journey_normal@3x.png in Resources */,
 				D90A9B611B5627C400E9F37C /* Loading_Animation_final54@3x.png in Resources */,
 				01C1EC361BB4E4720082217A /* kulou@3x.png in Resources */,
@@ -10634,6 +10641,7 @@
 				E6F18ADC1B845F4900232EEB /* SenderImageNodeBorder_black@3x.png in Resources */,
 				D9DD317B1BF5CDF6009BEDAB /* OrderDetailStatusTableViewCell.xib in Resources */,
 				E6F1898A1B845F4900232EEB /* poi_comment_start_highlight@3x.png in Resources */,
+				D940ECF31C3D187700DF608E /* main.jsbundle in Resources */,
 				D942C1451B9EB5C3005B81C5 /* paipai@2x.png in Resources */,
 				E6F18AFB1B845F4900232EEB /* master_busy@3x.png in Resources */,
 				E6F18A981B845F4900232EEB /* speaking-motion9@3x.png in Resources */,
@@ -11777,6 +11785,7 @@
 				D9A8015B1A80DD23005AD701 /* EMRemarkImageView.m in Sources */,
 				01578E701BD228F200244D9D /* RSADataSigner.m in Sources */,
 				D9A802321A80E036005AD701 /* THProgressView.m in Sources */,
+				D940ECF71C3E4EEF00DF608E /* TZSideViewController.m in Sources */,
 				D998F6BD1C33A2F800AB9F76 /* OrderDetailPreviewContentTableViewCell.m in Sources */,
 				E6E725231B5603750007273A /* MJTypeEncoding.m in Sources */,
 				D9A8FF171A80CC2B005AD701 /* VerifyCaptchaViewController.m in Sources */,
@@ -11941,7 +11950,6 @@
 				D9E0EEFC1B7CB020003872DF /* SearchDestinationHistoryCollectionReusableView.m in Sources */,
 				D9DD314A1BF4444A009BEDAB /* StoreDetailModel.m in Sources */,
 				D993C25D1B12DF0C0088D568 /* BaseMessage.swift in Sources */,
-				D9F46DD01AC92B9200972AE8 /* TZSideViewController.m in Sources */,
 				D9221A181BFC63760015A685 /* MyOrderTableViewCell.m in Sources */,
 				D9A8FF1D1A80CC2B005AD701 /* UserHeaderTableViewCell.m in Sources */,
 				D9A8014F1A80DD23005AD701 /* UIImage+Utils.m in Sources */,
@@ -12348,7 +12356,7 @@
 				);
 				OTHER_SWIFT_FLAGS = "-D DEBUG";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "2ee4bb52-98b4-4266-9b18-79f23601cac1";
 				SWIFT_OBJC_BRIDGING_HEADER = "PeachTravel/PeachTravel-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				VALID_ARCHS = "arm64 armv7 armv7s";
@@ -12405,7 +12413,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "f20df0ba-3a63-4adb-94a5-d1af0dbdc363";
 				SWIFT_OBJC_BRIDGING_HEADER = "PeachTravel/PeachTravel-Bridging-Header.h";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};

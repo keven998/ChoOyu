@@ -33,9 +33,10 @@ static NSString * const reuseIdentifier = @"albumImageCell";
     self.navigationItem.leftBarButtonItem = barButton;
     
     UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionViewLayout;
-    layout.itemSize = CGSizeMake(self.view.bounds.size.width/4, (self.view.bounds.size.width/4));
-    layout.minimumLineSpacing = 0;
-    layout.minimumInteritemSpacing = 0;
+    layout.itemSize = CGSizeMake((self.view.bounds.size.width-2*8)/4, ((self.view.bounds.size.width-2*8)/4));
+    layout.minimumLineSpacing = 4;
+    layout.minimumInteritemSpacing = 2;
+    self.collectionView.contentInset = UIEdgeInsetsMake(3, 3, 0, 3);
     [self.collectionView registerNib:[UINib nibWithNibName:@"AlbumImageCell" bundle:nil]forCellWithReuseIdentifier:@"albumImageCell"];
 }
 

@@ -1375,7 +1375,7 @@ throw new TypeError(
 
 var index=findIndex.call(this,predicate,context);
 return index === -1?undefined:this[index];}});}})();
-__d('trident/index.ios.js',["react-native/Libraries/react-native/react-native.js","trident/src/goodsDetailContainer.js","trident/src/StoreContainer.js"],function(global, require, module, exports) {  'use strict';
+__d('trident/index.ios.js',["react-native/Libraries/react-native/react-native.js","trident/src/StoreContainer.js","trident/src/goodsDetailContainer.js"],function(global, require, module, exports) {  'use strict';
 
 var React=require('react-native/Libraries/react-native/react-native.js');var 
 AppRegistry=React.AppRegistry;var StyleSheet=React.StyleSheet;var Text=React.Text;var View=React.View;
@@ -53952,7 +53952,7 @@ Object.keys(componentOrElement));}
 
 module.exports = findDOMNode;
 });
-__d('trident/src/goodsDetailContainer.js',["react-native/Libraries/react-native/react-native.js","Dimensions","react-native/Libraries/react-native/react-native.js","trident/src/goodsComponents/GoodsDetailViewPager.ios.js","trident/src/goodsComponents/GoodsDetailToolBar.js","trident/src/goodsComponents/GoodsDetailSectionItem.js","trident/src/goodsComponents/GoodsDetailDescComponent.js","trident/src/goodsComponents/GoodsDetailBookComponent.js","trident/src/goodsComponents/GoodsTrafficComponent.js","trident/src/goodsComponents/GoodsBookQuitComponent.js","trident/src/Config.js","react-native/Libraries/react-native/react-native.js","trident/src/goodsComponents/GoodsDetailUserInfo.js","trident/src/goodsComponents/GoodsDetailInfo.js"],function(global, require, module, exports) {  'use strict';
+__d('trident/src/goodsDetailContainer.js',["react-native/Libraries/react-native/react-native.js","Dimensions","react-native/Libraries/react-native/react-native.js","trident/src/goodsComponents/GoodsDetailViewPager.ios.js","trident/src/goodsComponents/GoodsDetailUserInfo.js","trident/src/goodsComponents/GoodsDetailInfo.js","trident/src/goodsComponents/GoodsDetailUserQualifications.js","trident/src/goodsComponents/GoodsDetailToolBar.js","trident/src/goodsComponents/GoodsDetailSectionItem.js","trident/src/goodsComponents/GoodsDetailDescComponent.js","trident/src/goodsComponents/GoodsDetailBookComponent.js","trident/src/goodsComponents/GoodsTrafficComponent.js","trident/src/goodsComponents/GoodsBookQuitComponent.js","trident/src/Config.js","react-native/Libraries/react-native/react-native.js"],function(global, require, module, exports) {  'use strict';
 
 
 
@@ -53964,6 +53964,7 @@ var GoodsDetailCtl=require('react-native/Libraries/react-native/react-native.js'
 var GoodsDetailViewPager=require('trident/src/goodsComponents/GoodsDetailViewPager.ios.js');
 var GoodsUserInfo=require('trident/src/goodsComponents/GoodsDetailUserInfo.js');
 var GoodsDetailInfo=require('trident/src/goodsComponents/GoodsDetailInfo.js');
+var GoodsDetailUserQualifications=require('trident/src/goodsComponents/GoodsDetailUserQualifications.js');
 var GoodsDetailToolbar=require('trident/src/goodsComponents/GoodsDetailToolBar.js');
 var GoodsSection=require('trident/src/goodsComponents/GoodsDetailSectionItem.js');
 var GoodsDetailDescComponent=require('trident/src/goodsComponents/GoodsDetailDescComponent.js');
@@ -53994,6 +53995,7 @@ categoryDesc:'',
 storeName:'',
 language:[],
 service:[],
+qualifications:[],
 nickName:'',
 avatar:'',
 tel:'',
@@ -54030,12 +54032,13 @@ console.log('goodsDetail_title: ' + result.desc.summary);
 this.setState({
 goodsName:result.title,
 rating:result.rating,
-oldPrice:result.marketPrice.toFixed(1),
-currentPrice:result.price.toFixed(1),
+oldPrice:result.marketPrice,
+currentPrice:result.price,
 saleCount:result.salesVolume,
 categoryDesc:result.category[0],
 storeName:result.seller.name,
-service:result.seller.qualifications,
+service:result.seller.services,
+qualifications:result.seller.qualifications,
 nickName:result.seller.user.nickName,
 avatar:result.seller.user.avatar,
 tel:result.seller.tel,
@@ -54048,7 +54051,11 @@ plans:result.plans,
 trafficInfo:result.trafficInfo[0],
 refundPolicy:result.refundPolicy,
 notice:result.notice,
-images:result.images});},
+images:result.images,
+descUrl:result.descUrl,
+noticeUrl:result.noticeUrl,
+refundPolicyUrl:result.refundPolicyUrl,
+trafficInfoUrl:result.trafficInfoUrl});},
 
 
 
@@ -54060,18 +54067,32 @@ React.createElement(GoodsDetailViewPager,{images:this.state.images}),
 
 React.createElement(GoodsDetailInfo,{goodsName:this.state.goodsName,recommend:this.state.rating * 100 + '%满意',sales:this.state.saleCount,currentPrice:this.state.currentPrice,
 price:this.state.oldPrice,categoryDesc:this.state.categoryDesc}),
-React.createElement(GoodsUserInfo,{storeName:this.state.storeName,language:this.state.language,service:this.state.service,tel:this.state.tel,nickName:this.state.nickName,avatar:this.state.avatar}),
+
+React.createElement(GoodsDetailUserQualifications,{qualifications:this.state.qualifications}),
+
 React.createElement(GoodsSection,{title:'商品详情',icon:'icon_shop_intro.png',showArrow:false}),
-React.createElement(GoodsDetailDescComponent,{location:this.state.country + this.state.locality + this.state.address,travelTime:this.state.timeCost + '天',desc:this.state.goodsDesc,showMore:true}),
+React.createElement(GoodsDetailDescComponent,{location:this.state.country + this.state.locality + this.state.address,
+travelTime:this.state.timeCost + '小时',desc:this.state.goodsDesc,
+url:this.state.descUrl,
+showMore:true}),
+
 
 React.createElement(GoodsSection,{title:'购买须知',icon:'iconfont_jingmaixuzhi@3x.png',showArrow:false}),
-React.createElement(GoodsDetailBookComponent,{showTitle:true,showMore:true,content:this.state.notice}),
+React.createElement(GoodsDetailBookComponent,{showTitle:true,showMore:true,content:this.state.notice,
+url:this.state.noticeUrl}),
+
 
 React.createElement(GoodsSection,{title:'预定及退订',icon:'iconfont_yiyuding@3x.png',showArrow:false}),
-React.createElement(GoodsBookQuitComponent,{showTitle:true,showMore:true,content:this.state.refundPolicy}),
+React.createElement(GoodsBookQuitComponent,{showTitle:true,showMore:true,content:this.state.refundPolicy,
+url:this.state.refundPolicyUrl}),
+
 
 React.createElement(GoodsSection,{title:'交通提示',icon:'iconfont_icon8@3x.png',showArrow:false}),
-React.createElement(GoodsTrafficComponent,{showTitle:false,showMore:true,content:this.state.trafficInfo.summary})),
+React.createElement(GoodsTrafficComponent,{showTitle:false,showMore:true,content:this.state.trafficInfo.summary,
+url:this.state.trafficInfoUrl}),
+
+React.createElement(GoodsUserInfo,{storeName:this.state.storeName,locality:this.state.locality,language:this.state.language,service:this.state.service,tel:this.state.tel,nickName:this.state.nickName,avatar:this.state.avatar})),
+
 
 
 React.createElement(GoodsDetailToolbar,null)));}});
@@ -54249,7 +54270,8 @@ storeName:String,
 nickName:String,
 language:Array,
 service:Array,
-tel:String},
+tel:String,
+locality:String},
 
 
 componentWillMount:function(){
@@ -54261,27 +54283,12 @@ return (
 React.createElement(View,{style:{marginTop:10}},
 React.createElement(View,{style:styles.greyLine}),
 React.createElement(View,{style:styles.contentContainer},
-React.createElement(AvatarComponent,{avatarUrl:''}),
-React.createElement(RightContentComponent,{storeName:this.props.storeName,language:this.props.language,serverTypes:this.props.service,tel:this.props.tel})),
+React.createElement(View,{style:{width:30}},
+React.createElement(Image,{style:{width:13,height:13,marginTop:17,marginLeft:8},source:{uri:sourcePath + 'iconfont_store@2x.png'}})),
+
+React.createElement(RightContentComponent,{storeName:this.props.storeName,locality:this.props.locality,language:this.props.language,serverTypes:this.props.service,tel:this.props.tel})),
 
 React.createElement(View,{style:styles.greyLine})));}});
-
-
-
-
-
-
-var AvatarComponent=React.createClass({displayName:'AvatarComponent',
-propsTypes:{
-avatarUrl:String,
-nickName:String},
-
-render:function(){
-return (
-React.createElement(View,{style:styles.avatarContainer},
-React.createElement(Image,{style:styles.avatar,source:{uri:''}}),
-React.createElement(Text,{style:styles.nickName},
-this.props.nickName)));}});
 
 
 
@@ -54294,7 +54301,8 @@ propTypes:{
 language:Array,
 storeName:String,
 serverTypes:Array,
-tel:String},
+tel:String,
+locality:String},
 
 render:function(){
 return (
@@ -54303,27 +54311,21 @@ React.createElement(Text,{style:styles.storeName},
 this.props.storeName),
 
 
+React.createElement(Text,{style:styles.locality},
+this.props.locality),
+
 React.createElement(View,{style:{flexDirection:'row',marginTop:7}},
-React.createElement(Image,{style:styles.iconImage,source:{uri:sourcePath + 'iconfont_fuwu@2x.png'}}),
 this.props.language.map(function(name,i){return (
 React.createElement(View,{style:{justifyContent:'center',backgroundColor:languageColorDic[name],
 paddingRight:10,paddingLeft:10,paddingTop:2,paddingBottom:2,borderRadius:5,height:15,
-marginRight:5,marginLeft:5}},
+marginRight:10}},
 React.createElement(Text,{style:styles.language},' ',name)));})),
 
 
 
 React.createElement(View,{style:{flexDirection:'row',marginTop:7}},
-React.createElement(Image,{style:styles.iconImage,source:{uri:sourcePath + 'iconfont_shenghuofuwu@2x.png'}}),
-this.props.serverTypes.map(function(name,i){return React.createElement(Text,{style:styles.server},' ',name);})),
-
-React.createElement(View,{style:{flexDirection:'row',marginTop:7}},
-React.createElement(Image,{style:styles.iconImage,source:{uri:sourcePath + 'iconfont_dianhua@2x.png'},resizeMode:Image.resizeMode.contain}),
-React.createElement(TouchableHighlight,{underlayColor:'white',onPress:this._makePhone},
-React.createElement(Text,{style:styles.tel},
-this.props.tel)))));},
-
-
+React.createElement(Image,{style:styles.iconImage,source:{uri:sourcePath + 'iconfont_jichufuwu-拷贝@2x.png'}}),
+this.props.serverTypes.map(function(name,i){return React.createElement(Text,{style:styles.server},' ',name);}))));},
 
 
 
@@ -54350,24 +54352,9 @@ flexDirection:'row',
 height:110,
 backgroundColor:'white'},
 
-avatarContainer:{
-marginTop:15,
-marginBottom:15,
-height:110,
-width:50,
-marginLeft:5,
-alignItems:'center',
-flexDirection:'column'},
-
-avatar:{
-height:30,
-width:30,
-marginRight:10,
-borderRadius:15},
 
 nickName:{
 marginTop:10,
-
 width:45,
 height:40,
 fontSize:12,
@@ -54375,7 +54362,7 @@ color:'#666666'},
 
 
 rightContainer:{
-height:110,
+height:80,
 marginTop:15,
 marginBottom:15,
 width:Dimensions.get('window').width - 60,
@@ -54387,11 +54374,15 @@ storeName:{
 fontSize:15,
 color:'#333333'},
 
+locality:{
+marginTop:7,
+fontSize:12,
+color:'#666666'},
 
 iconImage:{
 resizeMode:'stretch',
-width:10,
-height:11,
+width:15,
+height:15,
 marginRight:5,
 marginTop:2},
 
@@ -54405,7 +54396,8 @@ textAlign:'center'},
 server:{
 color:'#666666',
 fontSize:11,
-marginRight:5},
+marginRight:5,
+marginTop:4},
 
 tel:{
 fontSize:12,
@@ -54462,7 +54454,7 @@ style:{fontSize:12,alignSelf:'center',marginLeft:10,justifyContent:'center',colo
 this.props.sales,'已售')),
 
 
-React.createElement(DeleteText,{price:this.props.price,currentPrice:this.props.currentPrice})),
+React.createElement(DeleteText,{price:this.props.price.toString(),currentPrice:this.props.currentPrice.toString()})),
 
 React.createElement(View,{style:styles.greyLine})));}});
 
@@ -54536,6 +54528,80 @@ deleteLine:{}});
 
 module.exports = GoodsInfo;
 });
+__d('trident/src/goodsComponents/GoodsDetailUserQualifications.js',["react-native/Libraries/react-native/react-native.js","Platform","Dimensions"],function(global, require, module, exports) {  var 
+
+
+
+React=require('react-native/Libraries/react-native/react-native.js');var 
+StyleSheet=React.StyleSheet;var View=React.View;var Image=React.Image;var Text=React.Text;var TouchableHighlight=React.TouchableHighlight;
+var Platform=require('Platform');
+var Dimensions=require('Dimensions');
+var w=Dimensions.get('window').width;
+var sourcePath='http://7xiktj.com1.z0.glb.clouddn.com/';
+
+var iconHeight=16;
+var GoodsDetailUserQualifications=React.createClass({displayName:'GoodsDetailUserQualifications',
+propsTypes:{
+qualifications:Array},
+
+getInitialState:function(){
+if(Platform.OS == 'android'){
+iconHeight = 25;}
+
+return {};},
+
+render:function(){
+if(this.props.qualifications.length > 0){
+return (
+React.createElement(View,{style:{height:45,width:w}},
+
+React.createElement(View,{style:{marginTop:9.5,height:0.5,width:w,backgroundColor:'#e2e2e2'}}),
+React.createElement(View,{style:{height:35,width:w,backgroundColor:'white',flexDirection:'row'}},
+React.createElement(View,{style:{flex:1,flexDirection:'row',justifyContent:'center',alignItems:'center'}},
+React.createElement(Image,{style:styles.iconImage,source:{uri:sourcePath + 'iconfont_shangjiayunxiurenzheng@2x.png'}}),
+React.createElement(Text,{style:{fontSize:12,color:'#666666'}},
+"认证商家")),
+
+
+React.createElement(View,{style:{flex:1,flexDirection:'row',justifyContent:'center',alignItems:'center'}},
+React.createElement(Image,{style:styles.iconImage,source:{uri:sourcePath + 'iconfont_rushimiaoshu@2x.png'}}),
+React.createElement(Text,{style:{fontSize:12,color:'#666666'}},
+"如实描述")),
+
+
+React.createElement(View,{style:{flex:1,flexDirection:'row',justifyContent:'center',alignItems:'center'}},
+React.createElement(Image,{style:styles.iconImage,source:{uri:sourcePath + 'iconfont_24xiaoshituikuanbaozheng@2x.png'}}),
+React.createElement(Text,{style:{fontSize:12,color:'#666666'}},
+"24小时内响应"))),
+
+
+
+React.createElement(View,{style:{height:0.5,width:w,backgroundColor:'#e2e2e2'}})));}else 
+
+
+
+
+{
+return (
+React.createElement(View,null));}}});
+
+
+
+
+
+
+var styles=StyleSheet.create({
+iconImage:{
+width:iconHeight,
+height:iconHeight,
+marginRight:5,
+resizeMode:'contain'}});
+
+
+
+
+module.exports = GoodsDetailUserQualifications;
+});
 __d('trident/src/goodsComponents/GoodsDetailToolBar.js',["react-native/Libraries/react-native/react-native.js","Dimensions","Platform","react-native/Libraries/react-native/react-native.js"],function(global, require, module, exports) {  'use strict';
 
 var React=require('react-native/Libraries/react-native/react-native.js');
@@ -54560,13 +54626,13 @@ return (
 React.createElement(View,{style:styles.outContainer},
 React.createElement(View,{style:{width:w,height:0.5,backgroundColor:'#e2e2e2'}}),
 React.createElement(View,{style:styles.container},
-React.createElement(ButtonItem,{imageName:'iconfont_lianxi@2x.png',buttonTitle:'联系卖家',
+React.createElement(ButtonItem,{imageName:'iconfont_lianxi@2x.png',buttonTitle:'联系商家',
 commodityId:this.props.commodityId,
 userId:this.props.userId,title:this.props.title,
 price:this.props.price,images:this.props.images}),
 
 React.createElement(View,{style:styles.spaceView}),
-React.createElement(ButtonItem,{imageName:'iconfont_dianpu@2x.png',buttonTitle:'进入店铺'}),
+React.createElement(ButtonItem,{imageName:'iconfont_dianpu@2x.png',buttonTitle:'进入店铺',sellerId:this.props.sellerId}),
 
 React.createElement(TouchableHighlight,{style:{backgroundColor:'#ff6633',flex:1,alignItems:'center',justifyContent:'center'},
 onPress:function(){return _this._makeOrder(_this.props.plans,_this.props.commodityId,_this.props.commodityName);},
@@ -54604,12 +54670,12 @@ _buttonAction:function(title,id){
 if(Platform.OS == 'android'){
 console.log('title ' + title);
 if(title == '进入店铺'){
-NativeAction.startActivity('Store',null,'','');}else 
-if(title == '联系卖家'){
+NativeAction.startActivity('Store',null,this.props.sellerId + '','');}else 
+if(title == '联系商家'){
 this.props.shareBean.commodityId = this.props.commodityId;
 this.props.shareBean.price = this.props.price;
 this.props.shareBean.title = this.props.title;
-this.props.shareBean.image.url = this.props.images[0].url;
+this.props.shareBean.image.url = this.props.images.url;
 var data=JSON.stringify(this.props.shareBean);
 NativeAction.startActivity('Chat',data,this.props.userId + '','');}}else 
 
@@ -54788,14 +54854,15 @@ backgroundColor:'#e2e2e2'}});
 
 module.exports = GoodsSection;
 });
-__d('trident/src/goodsComponents/GoodsDetailDescComponent.js',["react-native/Libraries/react-native/react-native.js"],function(global, require, module, exports) {  var 
+__d('trident/src/goodsComponents/GoodsDetailDescComponent.js',["react-native/Libraries/react-native/react-native.js","react-native/Libraries/react-native/react-native.js"],function(global, require, module, exports) {  var 
 
 
 sourcePath='http://7xiktj.com1.z0.glb.clouddn.com/';
 var React=require('react-native/Libraries/react-native/react-native.js');var 
-Image=React.Image;var StyleSheet=React.StyleSheet;var Text=React.Text;var TouchableWithoutFeedback=React.TouchableWithoutFeedback;var TouchableOpacity=React.TouchableOpacity;var View=React.View;var ViewPagerAndroid=React.ViewPagerAndroid;var ToastAndroid=React.ToastAndroid;var Dimensions=React.Dimensions;
+Image=React.Image;var StyleSheet=React.StyleSheet;var Text=React.Text;var TouchableHighlight=React.TouchableHighlight;var TouchableOpacity=React.TouchableOpacity;var View=React.View;var Platform=React.Platform;var Dimensions=React.Dimensions;
 var w=Dimensions.get('window').width;
-
+var GoodsDetailCtl=require('react-native/Libraries/react-native/react-native.js').NativeModules.GoodsDetailViewController;
+var NativeAction=React.NativeModules.NativeActions;
 var GoodsDetailDescComponent=React.createClass({displayName:'GoodsDetailDescComponent',
 propTypes:{
 desc:String,
@@ -54809,26 +54876,38 @@ React.createElement(Info,{title:'详细地址',content:this.props.location}),
 React.createElement(Info,{title:'游玩时长',content:this.props.travelTime}),
 React.createElement(Text,{style:styles.textItem},' ',this.props.desc),
 React.createElement(View,{style:styles.greyLine}),
-React.createElement(ButtonShowAll,{isShow:this.props.showMore})));}});
+React.createElement(ButtonShowAll,{isShow:this.props.showMore,url:this.props.url})));}});
 
 
 
 
 
 var ButtonShowAll=React.createClass({displayName:'ButtonShowAll',
-render:function(){
+render:function(){var _this=this;
 if(this.props.isShow){
 return (
-React.createElement(View,{style:{marginBottom:7,marginTop:7,width:80,padding:3,paddingLeft:5,paddingRight:5,marginLeft:15,alignSelf:'center',justifyContent:'center',borderWidth:0.5,borderColor:'#99cc66',borderRadius:3}},
-React.createElement(Text,{style:{fontSize:12,alignSelf:'center',color:'#99cc66',margin:5}},'查看全部')));}else 
+React.createElement(TouchableHighlight,{underlayColor:'#ffffff',onPress:function(){return _this.showAll();}},
+React.createElement(View,{
+style:{marginBottom:7,marginTop:7,width:80,padding:3,paddingLeft:5,paddingRight:5,marginLeft:15,alignSelf:'center',justifyContent:'center',borderWidth:0.5,borderColor:'#99cc66',borderRadius:3}},
+React.createElement(Text,{style:{fontSize:12,alignSelf:'center',color:'#99cc66',margin:5}},'查看全部'))));}else 
+
 
 
 
 
 {
 return (
-React.createElement(View,null));}}});
+React.createElement(View,null));}},
 
+
+
+
+showAll:function(){
+console.log("touch");
+if(Platform.OS == 'android'){
+NativeAction.startActivity('WebView',this.props.url,'','');}else 
+{
+GoodsDetailCtl.moreGoodsInfo(this.props.url);}}});
 
 
 
@@ -54949,14 +55028,16 @@ marginTop:20}});
 
 module.exports = GoodsDetailDescComponent;
 });
-__d('trident/src/goodsComponents/GoodsDetailBookComponent.js',["react-native/Libraries/react-native/react-native.js"],function(global, require, module, exports) {  var 
+__d('trident/src/goodsComponents/GoodsDetailBookComponent.js',["react-native/Libraries/react-native/react-native.js","react-native/Libraries/react-native/react-native.js"],function(global, require, module, exports) {  var 
 
 
 
 sourcePath='http://7xiktj.com1.z0.glb.clouddn.com/';
 var React=require('react-native/Libraries/react-native/react-native.js');var 
-Image=React.Image;var StyleSheet=React.StyleSheet;var Text=React.Text;var TouchableWithoutFeedback=React.TouchableWithoutFeedback;var TouchableOpacity=React.TouchableOpacity;var View=React.View;var ViewPagerAndroid=React.ViewPagerAndroid;var ToastAndroid=React.ToastAndroid;var Dimensions=React.Dimensions;
+Image=React.Image;var StyleSheet=React.StyleSheet;var Text=React.Text;var TouchableHighlight=React.TouchableHighlight;var Platform=React.Platform;var View=React.View;var ViewPagerAndroid=React.ViewPagerAndroid;var ToastAndroid=React.ToastAndroid;var Dimensions=React.Dimensions;
 var w=Dimensions.get('window').width;
+var GoodsDetailCtl=require('react-native/Libraries/react-native/react-native.js').NativeModules.GoodsDetailViewController;
+var NativeAction=React.NativeModules.NativeActions;
 var GoodsDetailBookComponent=React.createClass({displayName:'GoodsDetailBookComponent',
 propTypes:{
 feeContainDesc:String},
@@ -54964,12 +55045,13 @@ feeContainDesc:String},
 render:function(){
 return (
 React.createElement(View,{style:styles.container},
-React.createElement(CommonContent,{isShow:true,title:'费用包含',icon:'iconfont_feiyongbaohanbubaoban@3x.png',content:this.props.content[0].summary,showTitle:this.props.showTitle}),
+React.createElement(CommonContent,{isShow:true,title:'费用包含',icon:'iconfont_feiyongbaohanbubaoban@3x.png',
+content:this.props.content[0].summary,showTitle:this.props.showTitle}),
 React.createElement(HorizontalContent,{infoList:[{'title':'费用不包含','iconName':'iconfont_cost@3x.png'},
 {'title':'使用方法','iconName':'iconfont_fankui@3x.png'},
 {'title':'注意事项','iconName':'iconfont_zhuyi@3x.png'}]}),
 React.createElement(View,{style:styles.greyLine}),
-React.createElement(ButtonShowAll,{isShow:this.props.showMore})));}});
+React.createElement(ButtonShowAll,{isShow:this.props.showMore,url:this.props.url})));}});
 
 
 
@@ -54991,20 +55073,34 @@ React.createElement(View,null));}}});
 
 
 
+
 var ButtonShowAll=React.createClass({displayName:'ButtonShowAll',
-render:function(){
+render:function(){var _this=this;
 if(this.props.isShow){
 return (
-React.createElement(View,{style:{marginBottom:7,marginTop:7,width:80,padding:3,paddingLeft:5,paddingRight:5,marginLeft:15,alignSelf:'center',justifyContent:'center',borderWidth:0.5,borderColor:'#99cc66',borderRadius:3}},
-React.createElement(Text,{style:{fontSize:12,alignSelf:'center',color:'#99cc66',margin:5}},'查看全部')));}else 
+React.createElement(TouchableHighlight,{underlayColor:'#ffffff',onPress:function(){return _this.showAll();}},
+React.createElement(View,{
+style:{marginBottom:7,marginTop:7,width:80,padding:3,paddingLeft:5,paddingRight:5,marginLeft:15,alignSelf:'center',justifyContent:'center',borderWidth:0.5,borderColor:'#99cc66',borderRadius:3}},
+React.createElement(Text,{style:{fontSize:12,alignSelf:'center',color:'#99cc66',margin:5}},'查看全部'))));}else 
+
 
 
 
 
 {
 return (
-React.createElement(View,null));}}});
+React.createElement(View,null));}},
 
+
+
+
+
+showAll:function(){
+
+if(Platform.OS == 'android'){
+NativeAction.startActivity('WebView',this.props.url,'','');}else 
+{
+GoodsDetailCtl.moreBuyInfo(this.props.url);}}});
 
 
 
@@ -55162,58 +55258,65 @@ marginRight:35}});
 
 module.exports = GoodsDetailBookComponent;
 });
-__d('trident/src/goodsComponents/GoodsTrafficComponent.js',["react-native/Libraries/react-native/react-native.js"],function(global, require, module, exports) {  var 
+__d('trident/src/goodsComponents/GoodsTrafficComponent.js',["react-native/Libraries/react-native/react-native.js","react-native/Libraries/react-native/react-native.js"],function(global, require, module, exports) {  var 
 
 
 sourcePath='http://7xiktj.com1.z0.glb.clouddn.com/';
 var React=require('react-native/Libraries/react-native/react-native.js');var 
-Image=React.Image;var StyleSheet=React.StyleSheet;var Text=React.Text;var TouchableWithoutFeedback=React.TouchableWithoutFeedback;var TouchableOpacity=React.TouchableOpacity;var View=React.View;var ViewPagerAndroid=React.ViewPagerAndroid;var ToastAndroid=React.ToastAndroid;var Dimensions=React.Dimensions;
+Image=React.Image;var StyleSheet=React.StyleSheet;var Text=React.Text;var TouchableHighlight=React.TouchableHighlight;var Platform=React.Platform;var View=React.View;var ViewPagerAndroid=React.ViewPagerAndroid;var ToastAndroid=React.ToastAndroid;var Dimensions=React.Dimensions;
 var h=Dimensions.get('window').height;
 var w=Dimensions.get('window').width;
+var NativeAction=React.NativeModules.NativeActions;
+var GoodsDetailCtl=require('react-native/Libraries/react-native/react-native.js').NativeModules.GoodsDetailViewController;
+
 var GoodsCommonInfoList=React.createClass({displayName:'GoodsCommonInfoList',
-propTypes:{
-infoList:Array.isRequired,
-title:String.isRequired},
+
+getInitialState:function(){
+if(!this.props.content){
+return {
+contents:'相关内容请咨询卖家'};}else 
+
+return {
+contents:this.props.content};},
+
+
 
 render:function(){
-var iconPath;
-switch(this.props.title){
-case '退改规定':
-iconPath = 'iconfont_tuidan@3x.png';
-break;
-case '预定流程':
-iconPath = 'iconfont_weibiaoti204@3x.png';
-break;
-default:
-iconPath = 'iconfont_weibiaoti204@3x.png';
-break;}
-
-
 return (
 React.createElement(View,{style:styles.container},
-React.createElement(CommonContent,{isShow:true,title:'退改规定',icon:'iconfont_weibiaoti204@3x.png',content:this.props.content,showTitle:this.props.showTitle}),
+React.createElement(CommonContent,{isShow:true,title:'退改规定',icon:'iconfont_weibiaoti204@3x.png',content:this.state.contents,showTitle:this.props.showTitle}),
 React.createElement(View,{style:styles.greyLine}),
-React.createElement(ButtonShowAll,{isShow:this.props.showMore})));}});
+React.createElement(ButtonShowAll,{isShow:this.props.showMore,url:this.props.url})));}});
 
 
 
 
 
 var ButtonShowAll=React.createClass({displayName:'ButtonShowAll',
-render:function(){
+render:function(){var _this=this;
 if(this.props.isShow){
 return (
+React.createElement(TouchableHighlight,{underlayColor:'#ffffff',onPress:function(){return _this.showAll();}},
 React.createElement(View,{style:{marginBottom:7,marginTop:7,width:80,padding:3,paddingLeft:5,paddingRight:5,marginLeft:15,alignSelf:'center',justifyContent:'center',borderWidth:0.5,borderColor:'#99cc66',borderRadius:3}},
-React.createElement(Text,{style:{fontSize:12,alignSelf:'center',color:'#99cc66',margin:5}},'查看全部')));}else 
+React.createElement(Text,{style:{fontSize:12,alignSelf:'center',color:'#99cc66',margin:5}},'查看全部'))));}else 
+
 
 
 
 
 {
 return (
-React.createElement(View,null));}}});
+React.createElement(View,null));}},
 
 
+
+
+showAll:function(){
+console.log("touch");
+if(Platform.OS == 'android'){
+NativeAction.startActivity('WebView',this.props.url,'','');}else 
+{
+GoodsDetailCtl.moreTrafficInfo(this.props.url);}}});
 
 
 
@@ -55403,13 +55506,16 @@ React.createElement(Text,{style:styles.textItem},' ',this.props.content)));}else
 return (
 React.createElement(View,null));}}});
 });
-__d('trident/src/goodsComponents/GoodsBookQuitComponent.js',["react-native/Libraries/react-native/react-native.js"],function(global, require, module, exports) {  var 
+__d('trident/src/goodsComponents/GoodsBookQuitComponent.js',["react-native/Libraries/react-native/react-native.js","react-native/Libraries/react-native/react-native.js"],function(global, require, module, exports) {  var 
 
 
 sourcePath='http://7xiktj.com1.z0.glb.clouddn.com/';
 var React=require('react-native/Libraries/react-native/react-native.js');var 
-Image=React.Image;var Text=React.Text;var View=React.View;var Dimensions=React.Dimensions;
+Image=React.Image;var Text=React.Text;var View=React.View;var Dimensions=React.Dimensions;var TouchableHighlight=React.TouchableHighlight;var Platform=React.Platform;
 var w=Dimensions.get('window').width;
+var NativeAction=React.NativeModules.NativeActions;
+var GoodsDetailCtl=require('react-native/Libraries/react-native/react-native.js').NativeModules.GoodsDetailViewController;
+
 var GoodsCommonInfoList=React.createClass({displayName:'GoodsCommonInfoList',
 propTypes:{
 infoList:Array.isRequired,
@@ -55421,26 +55527,37 @@ React.createElement(View,{style:styles.container},
 React.createElement(CommonContent,{isShow:true,title:'预定流程',icon:'iconfont_weibiaoti204@3x.png',content:this.props.content[0].summary,showTitle:this.props.showTitle}),
 React.createElement(CommonContent,{isShow:true,title:'退改规定',icon:'iconfont_tuidan@3x.png',content:this.props.content[1].summary,showTitle:this.props.showTitle}),
 React.createElement(View,{style:styles.greyLine}),
-React.createElement(ButtonShowAll,{isShow:this.props.showMore})));}});
+React.createElement(ButtonShowAll,{isShow:this.props.showMore,url:this.props.url})));}});
 
 
 
 
 
 var ButtonShowAll=React.createClass({displayName:'ButtonShowAll',
-render:function(){
+render:function(){var _this=this;
 if(this.props.isShow){
 return (
+React.createElement(TouchableHighlight,{underlayColor:'#ffffff',onPress:function(){return _this.showAll();}},
 React.createElement(View,{style:{marginBottom:7,marginTop:7,width:80,padding:3,paddingLeft:5,paddingRight:5,marginLeft:15,alignSelf:'center',justifyContent:'center',borderWidth:0.5,borderColor:'#99cc66',borderRadius:3}},
-React.createElement(Text,{style:{fontSize:12,alignSelf:'center',color:'#99cc66',margin:5}},'查看全部')));}else 
+React.createElement(Text,{style:{fontSize:12,alignSelf:'center',color:'#99cc66',margin:5}},'查看全部'))));}else 
+
 
 
 
 
 {
 return (
-React.createElement(View,null));}}});
+React.createElement(View,null));}},
 
+
+
+
+showAll:function(){
+console.log("touch");
+if(Platform.OS == 'android'){
+NativeAction.startActivity('WebView',this.props.url,'','');}else 
+{
+GoodsDetailCtl.moreBookQuitInfo(this.props.url);}}});
 
 
 
@@ -55891,8 +56008,8 @@ color:'#666666'},
 
 iconImage:{
 resizeMode:'stretch',
-width:10,
-height:11,
+width:13,
+height:13,
 marginRight:5,
 marginTop:2},
 
@@ -56483,7 +56600,7 @@ React.createElement(View,{style:styles.container},
 React.createElement(ButtonItem,{imageName:'iconfont_ttpodicon@2x.png',buttonTitle:'添加好友'}),
 
 React.createElement(View,{style:styles.spaceView}),
-React.createElement(ButtonItem,{imageName:'iconfont_lianxifangshi@2x.png',buttonTitle:'联系卖家'}))));}});
+React.createElement(ButtonItem,{imageName:'iconfont_lianxifangshi@2x.png',buttonTitle:'联系商家'}))));}});
 
 
 
