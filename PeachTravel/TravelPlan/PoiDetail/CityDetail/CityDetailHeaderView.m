@@ -12,6 +12,8 @@
 #import "AddPoiViewController.h"
 #import "TravelNoteListViewController.h"
 #import "PoisOfCityViewController.h"
+#import "TripDetailRootViewController.h"
+#import "TripPlanSettingViewController.h"
 
 @interface CityDetailHeaderView ()
 
@@ -155,7 +157,21 @@
 
 - (void)guidesOfCityAction
 {
+    TripDetailRootViewController *tripDetailCtl = [[TripDetailRootViewController alloc] init];
+    tripDetailCtl.canEdit = NO;;
+    tripDetailCtl.cityId = _cityPoi.poiId;
+    tripDetailCtl.isCheckPlanFromCityDetail = YES;
     
+    TripPlanSettingViewController *tpvc = [[TripPlanSettingViewController alloc] init];
+    
+    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:tripDetailCtl menuViewController:tpvc];
+    tpvc.rootViewController = tripDetailCtl;
+    frostedViewController.direction = REFrostedViewControllerDirectionRight;
+    frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
+    frostedViewController.liveBlur = YES;
+    frostedViewController.limitMenuViewSize = YES;
+    [self.containerViewController.navigationController pushViewController:frostedViewController animated:YES];
+
 }
 
 - (void)travelNoteOfCityAction
