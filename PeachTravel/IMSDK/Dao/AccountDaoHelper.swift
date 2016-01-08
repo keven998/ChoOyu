@@ -134,7 +134,4 @@ class AccountDaoHelper: NSObject {
         account.gender = UserGender(rawValue: Int(rs.intForColumn("Sex")))!
         return account
     }
-
-    
-   
 }

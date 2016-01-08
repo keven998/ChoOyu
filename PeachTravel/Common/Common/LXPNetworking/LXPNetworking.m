@@ -33,8 +33,10 @@
     if (accountManager.isLogin) {
         [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
         [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"X-Lvxingpai-Id"];
+        
+        accountManager.account.secToken = @"123456";
         NSURL *url = [NSURL URLWithString:URLString];
-        NSString *signature = [LXPHTTPAuthorization signatureMessageWithURI:url.path Date:rfc822Date LxpId:accountManager.account.userId Query:parameters Body:nil];
+        NSString *signature = [LXPHTTPAuthorization signatureMessageWithURI:url.path Date:@"Fri, 08 Jan 2016 09:27:52 GMT" LxpId:accountManager.account.userId Query:parameters Body:nil];
         NSString *token = [LXPHTTPAuthorization authorizationSignatureWithToken:accountManager.account.secToken signatureMessage:signature];
         [manager.requestSerializer setValue:[NSString stringWithFormat:@"LVXINGPAI-v1-HMAC-SHA256 %@", token] forHTTPHeaderField:@"Authorization"];
 
