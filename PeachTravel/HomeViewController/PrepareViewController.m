@@ -106,7 +106,7 @@
 
 - (void)skip:(id)sender {
     HomeViewController *hvc = (HomeViewController *)_rootViewController;
-    [hvc setSelectedIndex:1];
+    [hvc setSelectedIndex:0];
     [self willMoveToParentViewController:nil];
     [self.view removeFromSuperview];
     [self removeFromParentViewController];
