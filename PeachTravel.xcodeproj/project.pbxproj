@@ -664,6 +664,7 @@
 		D940ECF31C3D187700DF608E /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = D940ECF21C3D187700DF608E /* main.jsbundle */; };
 		D940ECF71C3E4EEF00DF608E /* TZSideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D940ECF61C3E4EEF00DF608E /* TZSideViewController.m */; };
 		D940ECFB1C3E4F9800DF608E /* LXPNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = D940ECFA1C3E4F9800DF608E /* LXPNetworking.m */; };
+		D940ECFE1C3E887200DF608E /* LXPHTTPAuthorization.m in Sources */ = {isa = PBXBuildFile; fileRef = D940ECFD1C3E887200DF608E /* LXPHTTPAuthorization.m */; };
 		D942C1271B9EB5C3005B81C5 /* back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D942C0F81B9EB5C3005B81C5 /* back@2x.png */; };
 		D942C1281B9EB5C3005B81C5 /* back@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D942C0F91B9EB5C3005B81C5 /* back@3x.png */; };
 		D942C12B1B9EB5C3005B81C5 /* foot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D942C0FC1B9EB5C3005B81C5 /* foot@2x.png */; };
@@ -2933,6 +2934,8 @@
 		D940ECF61C3E4EEF00DF608E /* TZSideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZSideViewController.m; sourceTree = "<group>"; };
 		D940ECF91C3E4F9800DF608E /* LXPNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXPNetworking.h; sourceTree = "<group>"; };
 		D940ECFA1C3E4F9800DF608E /* LXPNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXPNetworking.m; sourceTree = "<group>"; };
+		D940ECFC1C3E887200DF608E /* LXPHTTPAuthorization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXPHTTPAuthorization.h; sourceTree = "<group>"; };
+		D940ECFD1C3E887200DF608E /* LXPHTTPAuthorization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXPHTTPAuthorization.m; sourceTree = "<group>"; };
 		D942C0F81B9EB5C3005B81C5 /* back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@2x.png"; sourceTree = "<group>"; };
 		D942C0F91B9EB5C3005B81C5 /* back@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@3x.png"; sourceTree = "<group>"; };
 		D942C0FC1B9EB5C3005B81C5 /* foot@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "foot@2x.png"; sourceTree = "<group>"; };
@@ -6324,6 +6327,8 @@
 			children = (
 				D940ECF91C3E4F9800DF608E /* LXPNetworking.h */,
 				D940ECFA1C3E4F9800DF608E /* LXPNetworking.m */,
+				D940ECFC1C3E887200DF608E /* LXPHTTPAuthorization.h */,
+				D940ECFD1C3E887200DF608E /* LXPHTTPAuthorization.m */,
 			);
 			path = LXPNetworking;
 			sourceTree = "<group>";
@@ -11991,6 +11996,7 @@
 				D9A8FFBA1A80D1C3005AD701 /* TravelNote.m in Sources */,
 				D92CA1041AD8BDF900F244FF /* PSTCollectionViewLayout.m in Sources */,
 				D96BAFF51C1AEAA000CDB7C7 /* QNPHAssetFile.m in Sources */,
+				D940ECFE1C3E887200DF608E /* LXPHTTPAuthorization.m in Sources */,
 				D993C26C1B12DF0C0088D568 /* ChatConversationManager.swift in Sources */,
 				D993CB601AB6D6590075314E /* HotelPoi.m in Sources */,
 				D92B5C1F1BB92A5D00E3AC93 /* PoiRecommend.m in Sources */,
