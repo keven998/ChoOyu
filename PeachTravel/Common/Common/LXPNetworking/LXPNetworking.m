@@ -34,6 +34,7 @@
         [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
         [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"X-Lvxingpai-Id"];
         
+#warning test
         accountManager.account.secToken = @"123456";
         NSURL *url = [NSURL URLWithString:URLString];
         NSString *signature = [LXPHTTPAuthorization signatureMessageWithURI:url.path Date:rfc822Date LxpId:accountManager.account.userId Query:parameters Body:nil];
