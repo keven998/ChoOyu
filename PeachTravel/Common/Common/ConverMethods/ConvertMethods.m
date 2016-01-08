@@ -56,7 +56,17 @@
     return [dateFormatter stringFromDate:date];
 }
 
-+ (UIImage*) createImageWithColor: (UIColor*)color
++ (NSString *)RFC822DateWithDate:(NSDate *)date
+{
+    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    df.locale = [NSLocale localeWithLocaleIdentifier:@"en-us"];
+    df.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+    df.dateFormat = @"EEE',' dd MMM yyyy HH':'mm':'ss 'GMT'";
+    
+    return [df stringFromDate:date];
+}
+
++ (UIImage*)createImageWithColor: (UIColor*)color
 {
     CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
     UIGraphicsBeginImageContext(rect.size);

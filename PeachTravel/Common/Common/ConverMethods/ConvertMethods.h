@@ -28,6 +28,15 @@ typedef enum {
 + (NSString *)dateToString:(NSDate *)date withFormat:(NSString *)format withTimeZone:(NSTimeZone *)zone;
 + (NSString *)timeIntervalToString:(long long)interval withFormat:(NSString *)format withTimeZone:(NSTimeZone *)zone;
 
+/**
+ *  将 date 转成 RFC822格式的字符串 如Sun, 06 Nov 1994 08:49:37 GMT
+ *
+ *  @param date
+ *
+ *  @return 
+ */
++ (NSString *)RFC822DateWithDate:(NSDate *)date;
+
 + (UIImage*) createImageWithColor: (UIColor*)color;
 + (UIColor *)RGBColor:(int)rgb withAlpha:(CGFloat)alpha;
 
