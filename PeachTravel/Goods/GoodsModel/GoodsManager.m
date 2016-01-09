@@ -24,7 +24,7 @@
                 GoodsDetailModel *goodsDetail = [[GoodsDetailModel alloc] initWithJson:goodsDic];
                 completion(YES, goodsDic, goodsDetail);
             } else {
-                completion(NO, nil, nil);
+                completion(YES, nil, nil);
             }
         } else {
             completion(NO, nil, nil);
