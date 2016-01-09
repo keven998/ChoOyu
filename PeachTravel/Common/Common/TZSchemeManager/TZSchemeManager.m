@@ -11,6 +11,7 @@
 #import "GoodsDetailViewController.h"
 #import "NSString+UrlEncodeing.h"
 #import "SuperWebViewController.h"
+#import "NSURL+TZURL.h"
 
 @interface TZSchemeManager ()
 
@@ -41,14 +42,16 @@
 {
     self.handleCompletionBlock = completionBlock;
     NSString *safeUrl = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSURL *url = [NSURL URLWithString:safeUrl];
+    NSURL *URL = [NSURL URLWithString:safeUrl];
 
-    if ([url.scheme isEqualToString:@"http"]) {
+    if ([URL.scheme isEqualToString:@"http"]) {
         SuperWebViewController *webView = [[SuperWebViewController alloc] init];
-        webView.urlStr = url.absoluteString;
-        _handleCompletionBlock(webView, url.absoluteString);
+        webView.urlStr = URL.absoluteString;
+        NSString *title = [URL parameterForKey:@"title"];
+        webView.titleStr = [title stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        _handleCompletionBlock(webView, URL.absoluteString);
     } else {
-        [JLRoutes routeURL:url];
+        [JLRoutes routeURL:URL];
     }
 }
 

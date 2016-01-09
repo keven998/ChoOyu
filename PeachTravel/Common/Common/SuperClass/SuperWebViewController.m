@@ -9,12 +9,16 @@
 #import "SuperWebViewController.h"
 #import "NJKWebViewProgress.h"
 #import "NJKWebViewProgressView.h"
+#import "TZSchemeManager.h"
+#import "GoodsDetailViewController.h"
 
 @interface SuperWebViewController () <UIWebViewDelegate, NJKWebViewProgressDelegate> {
     
     NJKWebViewProgressView *_progressView;
     NJKWebViewProgress *_progressProxy;
 }
+
+@property (nonatomic, strong) UIWebView *webView;
 
 @end
 
@@ -31,14 +35,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.webView.frame = CGRectMake(0, 64, kWindowWidth, kWindowHeight-64);
-    UIButton *back = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
-    [back setImage:[UIImage imageNamed:@"common_icon_navigation_back_normal"] forState:UIControlStateNormal];
-    [back addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
-    [back setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:back];
-    
+
+    self.webView = [[UIWebView alloc] initWithFrame: CGRectMake(0, 64, kWindowWidth, kWindowHeight-64)];
+    [self.view addSubview:self.webView];
     self.navigationItem.title = _titleStr;
     
     self.view.backgroundColor = APP_PAGE_COLOR;
@@ -53,10 +52,10 @@
     _progressView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:_urlStr]];
-    [super loadRequest:request];
+    [self.webView loadRequest:request];
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 25, self.view.bounds.size.width, 32)];
-    label.text = @"旅行派\n能向达人咨询、朋友协作的旅行工具";
+    label.text = @"旅行派\n给旅行N+1种可能";
     label.textColor = COLOR_TEXT_II;
     label.font = [UIFont systemFontOfSize:11.0];
     label.textAlignment = NSTextAlignmentCenter;
@@ -88,13 +87,36 @@
     _progressView = nil;
 }
 
-/**
- *  重写父类的返回事件
- */
-- (void)goBack
+- (void)didStartLoadURLRequest:(NSURLRequest *)request
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    if (![request.URL.scheme isEqualToString:@"http"]) {
+        TZSchemeManager *schemeManager = [[TZSchemeManager alloc] init];
+        [schemeManager handleUri:request.URL.absoluteString handleUriCompletionBlock:^(UIViewController *controller, NSString *uri) {
+            [self.navigationController pushViewController:controller animated:YES];
+        }];
+    }
 }
+
+#pragma mark - UIWebViewDelegate
+
+- (void)webViewDidStartLoad:(UIWebView *)webView {
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+}
+
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+  }
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    [self didStartLoadURLRequest:request];
+    return YES;
+}
+
 
 #pragma mark - NJKWebViewProgressDelegate
 -(void)webViewProgress:(NJKWebViewProgress *)webViewProgress updateProgress:(float)progress

@@ -15,7 +15,6 @@
 #import "MakeOrderViewController.h"
 #import "GoodsManager.h"
 #import "TZSchemeManager.h"
-#import "SuperWebViewController.h"
 #import "NSURL+TZURL.h"
 
 @interface GoodsRecommendViewController ()<UITableViewDataSource, UITableViewDelegate, GoodsRecommendHeaderViewDelegate>
@@ -190,11 +189,6 @@
 {
     TZSchemeManager *schemeManager = [[TZSchemeManager alloc] init];
     [schemeManager handleUri:itemUri handleUriCompletionBlock:^(UIViewController *controller, NSString *uri) {
-        if ([controller isKindOfClass:[SuperWebViewController class]]) {
-            NSURL *URL = [NSURL URLWithString:uri];
-            NSString *title = [URL parameterForKey:@"title"];
-            ((SuperWebViewController *)controller).titleStr = [title stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        }
         [self.navigationController pushViewController:controller animated:YES];
     }];
 }

@@ -9,10 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "SVWebViewController.h"
 
-@interface SuperWebViewController : SVWebViewController <UIWebViewDelegate>
+@interface SuperWebViewController : TZViewController <UIWebViewDelegate>
 
 @property (nonatomic, copy) NSString *urlStr;
 @property (nonatomic, copy) NSString *titleStr;
 
+//开始加载URL Request
+- (void)didStartLoadURLRequest:(NSURLRequest *)request;
 @end
 

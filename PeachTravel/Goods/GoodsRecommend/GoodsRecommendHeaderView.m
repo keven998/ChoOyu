@@ -30,8 +30,7 @@
         __weak GoodsRecommendHeaderView *weakSelf = self;
         _galleryView.TapActionBlock = ^(NSInteger index) {
             if ([weakSelf.delegate respondsToSelector:@selector(didSelectItem:)]) {
-                NSString *url = @"lvxingpai://marketplace/commodities/100375";
-                [weakSelf.delegate didSelectItem:url];
+                [weakSelf.delegate didSelectItem:[[weakSelf.slideDataSource objectAtIndex:index] objectForKey:@"link"]];
             }
         };
         
