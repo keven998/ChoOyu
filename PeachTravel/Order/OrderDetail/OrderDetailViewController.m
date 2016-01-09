@@ -284,6 +284,7 @@ NSString *const kUpdateOrderdetailNoti = @"kUpdateOrderdetailNoti";
 {
     GoodsDetailViewController *ctl = [[GoodsDetailViewController alloc] init];
     ctl.goodsId = _orderDetail.goods.goodsId;
+    ctl.isSnapshot = YES;
     [self.navigationController pushViewController:ctl animated:YES];
     
 }
