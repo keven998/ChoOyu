@@ -248,7 +248,6 @@
         }
     }
     
-    webCtl.hideToolBar = YES;
     [self.navigationController pushViewController:webCtl animated:YES];
     
 }

@@ -211,7 +211,6 @@
             SuperWebViewController *aboutMeCtl = [[SuperWebViewController alloc] init];
             aboutMeCtl.titleStr = @"关于我们";
             aboutMeCtl.urlStr = APP_ABOUT;
-            aboutMeCtl.hideToolBar = YES;
             [self.navigationController pushViewController:aboutMeCtl animated:YES];
         }
     }

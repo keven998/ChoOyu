@@ -556,10 +556,8 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
         
     }
     webCtl.urlStr = _dataSource.detailUrl;
-    webCtl.hideToolBar = YES;
     [self.navigationController pushViewController:webCtl animated:YES];
 }
-
 
 /**
  *  非搜索状态下上拉加载更多

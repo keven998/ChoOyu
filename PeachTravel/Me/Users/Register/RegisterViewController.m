@@ -257,7 +257,6 @@ typedef void(^loginCompletion)(BOOL completed);
     SuperWebViewController *webViewCtl = [[SuperWebViewController alloc] init];
     webViewCtl.urlStr = APP_AGREEMENT;
     webViewCtl.titleStr = @"用户注册协议";
-    webViewCtl.hideToolBar = YES;
     [self.navigationController pushViewController:webViewCtl animated:YES];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }

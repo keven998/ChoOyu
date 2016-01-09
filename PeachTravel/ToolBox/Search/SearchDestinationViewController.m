@@ -203,7 +203,6 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         
     }
     webCtl.urlStr = [_descriptionOfSerachText objectForKey:@"detailUrl"];
-    webCtl.hideToolBar = YES;
     [self.navigationController pushViewController:webCtl animated:YES];
 }
 /**

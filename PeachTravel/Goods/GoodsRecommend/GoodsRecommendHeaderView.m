@@ -107,8 +107,8 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([self.delegate respondsToSelector:@selector(didSelectItem:)]) {
-        NSString *url = @"lvxingpai://marketplace/commodities/100375";
-        [self.delegate didSelectItem:url];
+        NSDictionary *dic = [_specialDataSource objectAtIndex:indexPath.row];
+        [self.delegate didSelectItem:[dic objectForKey:@"link"]];
     }
 }
 

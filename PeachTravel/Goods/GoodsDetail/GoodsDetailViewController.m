@@ -61,7 +61,6 @@ RCT_EXPORT_MODULE();
 
     NSURL *jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 //    NSURL *jsCodeLocation = [NSURL URLWithString:@"http://192.168.1.47:8081/index.ios.bundle?platform=ios&dev=true"];
-//    NSURL *jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"];
 
     bridge = [[RCTBridge alloc] initWithBundleURL:jsCodeLocation
                                               moduleProvider:nil
@@ -102,6 +101,8 @@ RCT_EXPORT_MODULE();
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moreGoodsInfoAction:) name:@"RNMoreGoodsInfoNoti" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moreBuyInfoAction:) name:@"RNMoreBuyInfoNoti" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moreBookQuitInfoAction:) name:@"RNMoreBookQuitInfoNoti" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkLatestGoodsDetailAction) name:@"RNCheckLatestGoodsNoti" object:nil];
+
 
 }
 
@@ -177,6 +178,16 @@ RCT_EXPORT_MODULE();
         SuperWebViewController *ctl = [[SuperWebViewController alloc] init];
         ctl.urlStr = [noti.userInfo objectForKey:@"url"];
         ctl.titleStr = @"预订及退订";
+        [self.navigationController pushViewController:ctl animated:YES];
+    });
+}
+
+
+- (void)checkLatestGoodsDetailAction
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        GoodsDetailViewController *ctl = [[GoodsDetailViewController alloc] init];
+        ctl.goodsId = _goodsId;
         [self.navigationController pushViewController:ctl animated:YES];
     });
 }
@@ -316,6 +327,10 @@ RCT_EXPORT_METHOD(moreBookQuitInfo:(NSString *)webUrl){
     [dic safeSetObject:webUrl forKey:@"url"];
 
     [[NSNotificationCenter defaultCenter] postNotificationName:@"RNMoreBookQuitInfoNoti" object:nil userInfo:dic];
+}
+
+RCT_EXPORT_METHOD(checkLatestGoodsDetail){
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"RNCheckLatestGoodsNoti" object:nil userInfo:nil];
 }
 
 

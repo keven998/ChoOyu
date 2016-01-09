@@ -9,6 +9,8 @@
 #import "TZSchemeManager.h"
 #import "JLRoutes.h"
 #import "GoodsDetailViewController.h"
+#import "NSString+UrlEncodeing.h"
+#import "SuperWebViewController.h"
 
 @interface TZSchemeManager ()
 
@@ -38,8 +40,16 @@
 - (void)handleUri:(NSString *)urlStr handleUriCompletionBlock:(void (^)(UIViewController *, NSString *))completionBlock
 {
     self.handleCompletionBlock = completionBlock;
-    NSURL *url = [NSURL URLWithString:urlStr];
-    [JLRoutes routeURL:url];
+    NSString *safeUrl = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSURL *url = [NSURL URLWithString:safeUrl];
+
+    if ([url.scheme isEqualToString:@"http"]) {
+        SuperWebViewController *webView = [[SuperWebViewController alloc] init];
+        webView.urlStr = url.absoluteString;
+        _handleCompletionBlock(webView, url.absoluteString);
+    } else {
+        [JLRoutes routeURL:url];
+    }
 }
 
 

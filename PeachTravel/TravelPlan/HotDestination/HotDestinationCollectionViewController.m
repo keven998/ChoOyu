@@ -253,7 +253,6 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
         webCtl.title = recommend.title;
         webCtl.urlStr = recommend.linkUrl;
         webCtl.hidesBottomBarWhenPushed = YES;
-        webCtl.hideToolBar = YES;
         [self.navigationController pushViewController:webCtl animated:YES];
     }
     if (recommend.linkType == LinkNative) {

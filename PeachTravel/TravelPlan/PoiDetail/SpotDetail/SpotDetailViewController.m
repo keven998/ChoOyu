@@ -180,10 +180,9 @@
  */
 - (void)openTime
 {
-    SuperWebViewController *webCtl = [[SuperWebViewController alloc] initWithURL:[NSURL URLWithString:self.poi.descUrl]];
+    SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
     webCtl.titleStr = @"在线预订";
     webCtl.urlStr = self.poi.descUrl;
-    webCtl.hideToolBar = YES;
     [self.navigationController pushViewController:webCtl animated:YES];
 }
 
@@ -203,10 +202,9 @@
             [self.navigationController pushViewController:pricePoi animated:YES];
         }
     }else{
-        SuperWebViewController *webCtl = [[SuperWebViewController alloc] initWithURL:[NSURL URLWithString:((SpotPoi *)self.poi).bookUrl]];
+        SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
         webCtl.titleStr = @"在线预订";
         webCtl.urlStr = ((SpotPoi *)self.poi).bookUrl;
-        webCtl.hideToolBar = YES;
         [self.navigationController pushViewController:webCtl animated:YES];
     }
 }
