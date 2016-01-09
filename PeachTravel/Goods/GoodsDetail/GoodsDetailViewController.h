@@ -12,4 +12,7 @@
 
 @property (nonatomic) NSInteger goodsId;
 
+//是不是商品快照
+@property (nonatomic) BOOL isSnapshot;
+
 @end

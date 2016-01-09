@@ -52,7 +52,11 @@ RCT_EXPORT_MODULE();
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationItem.title = @"商品详情";
+    if (_isSnapshot) {
+        self.navigationItem.title = @"交易快照";
+    } else {
+        self.navigationItem.title = @"商品详情";
+    }
     self.automaticallyAdjustsScrollViewInsets = NO;
 
     NSURL *jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
@@ -72,7 +76,7 @@ RCT_EXPORT_MODULE();
             _goodsDetail = goodsDetail;
             if (_goodsDetail) {
                 [self.view addSubview:rootView];
-                [bridge.eventDispatcher sendAppEventWithName:@"GoodsDetailLoadOverEvent" body:@{@"goodsDetailJson": goodsDetailJson}];
+                [bridge.eventDispatcher sendAppEventWithName:@"GoodsDetailLoadOverEvent" body:@{@"goodsDetailJson": goodsDetailJson, @"isSnapshot": [NSNumber numberWithBool:_isSnapshot]}];
                 
                 UIButton *shareBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 40)];
                 [shareBtn setImage:[UIImage imageNamed:@"icon_share_white"] forState:UIControlStateNormal];
