@@ -353,7 +353,7 @@ RCT_EXPORT_METHOD(checkLatestGoodsDetail){
     NSString *url = @"http://7af4ik.com1.z0.glb.clouddn.com/react/index.html";
     NSString *shareContentWithoutUrl = [NSString stringWithFormat:@"这个商品来自旅行派～"];
     NSString *shareContentWithUrl = [NSString stringWithFormat:@"这个商品来自旅行派 %@", url];
-    NSString *imageUrl = @"http://images.taozilvxing.com/28c2d1ef35c12100e99fecddb63c436a?imageView2/2/w/300";
+    NSString *imageUrl = _goodsDetail.coverImage.imageUrl;
     UMSocialUrlResource *resource = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeImage url:imageUrl];
     
     [UMSocialConfig setFinishToastIsHidden:NO position:UMSocialiToastPositionCenter];
