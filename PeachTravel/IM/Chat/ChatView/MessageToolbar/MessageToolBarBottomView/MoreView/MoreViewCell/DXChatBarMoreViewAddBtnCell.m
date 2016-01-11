@@ -44,11 +44,10 @@
 }
 
 #pragma mark - setter & getter
-// @{@"picN":@"messages_plus_plan_default",@"picH":@"messages_plus_plan_selected",@"title":@"计划",@"selector":@"myStrategyAction"
+
 - (void)setData:(NSDictionary *)data{
     _data = data;
     [self.imageBtn setImage:[UIImage imageNamed:_data[@"picN"]] forState:UIControlStateNormal];
-    [self.imageBtn setImage:[UIImage imageNamed:_data[@"picH"]] forState:UIControlStateHighlighted];
     self.titlelLbel.text = _data[@"title"];
 }
 
@@ -65,8 +64,8 @@
     if (_titlelLbel == nil) {
         _titlelLbel = [[UILabel alloc] init];
         _titlelLbel.textAlignment = NSTextAlignmentCenter;
-        _titlelLbel.font = [UIFont systemFontOfSize:11];
-        _titlelLbel.textColor = COLOR_TEXT_II;
+        _titlelLbel.font = [UIFont systemFontOfSize:12];
+        _titlelLbel.textColor = COLOR_TEXT_I;
     }
     return _titlelLbel;
 }

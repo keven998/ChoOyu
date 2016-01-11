@@ -38,7 +38,7 @@
 
 //width = 320, left/right-margin: 40, 240
 //top-margin: 10
-- (void)setupSubviewsForType:(ChatMoreType)type
+- (void)setupSdubviewsForType:(ChatMoreType)type
 {
     CGFloat screentWidth = CGRectGetWidth(self.frame);
     CGFloat caculateItemWidth = screentWidth/4.0; //left+righmargin = 10;

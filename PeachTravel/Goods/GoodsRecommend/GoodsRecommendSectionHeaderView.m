@@ -12,7 +12,6 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *titleBtn;
 
-
 @end
 
 @implementation GoodsRecommendSectionHeaderView
@@ -29,6 +28,7 @@
     if ([title isEqualToString:@"特价折扣"]) {
         [_titleBtn setImage:[UIImage imageNamed:@"icon_goods_discount"] forState:UIControlStateNormal];
         [_titleBtn setTitleColor:UIColorFromRGB(0xFB4D53) forState:UIControlStateNormal];
+        
     } else if ([title isEqualToString:@"热门玩乐"]) {
         [_titleBtn setImage:[UIImage imageNamed:@"icon_goods_hot"] forState:UIControlStateNormal];
         [_titleBtn setTitleColor:UIColorFromRGB(0xFB4D53) forState:UIControlStateNormal];

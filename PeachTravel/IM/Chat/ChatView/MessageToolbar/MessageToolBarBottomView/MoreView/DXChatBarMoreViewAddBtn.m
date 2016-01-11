@@ -40,14 +40,14 @@
 - (NSArray *)btnPropertyList{
     if (_btnPropertyList == nil) {
         _btnPropertyList = @[
-            @{@"picN":@"moreview_plan_normal",@"picH":@"moreview_plan_hilighted",@"title":@"计划",@"selector":@"myStrategyAction"},
-            @{@"picN":@"moreview_travelnote_normal",@"picH":@"moreview_travelnote_highlight",@"title":@"游记",@"selector":@"travelNoteAction"},
-            @{@"picN":@"moreview_screen_normal",@"picH":@"moreview_screen_hilighted",@"title":@"景点",@"selector":@"viewSpotAction"},
-            @{@"picN":@"moreview_food-normal",@"picH":@"moreview_food-hilighted",@"title":@"美食",@"selector":@"restaurantAction"},
-            @{@"picN":@"moreview_weizhi_normal",@"picH":@"moreview_weizhi_hilighted",@"title":@"位置",@"selector":@"locationAction"},
-            @{@"picN":@"moreview_photo_normal",@"picH":@"moreview_photo_hilighted",@"title":@"图册",@"selector":@"photoAction"},
-            @{@"picN":@"moreview_camera_normal",@"picH":@"moreview_camera_hilighted",@"title":@"拍照",@"selector":@"takePicAction"},
-             @{@"picN":@"moreview_shopping_normal",@"picH":@"moreview_shopping_hilighted",@"title":@"购物",@"selector":@"shoppingAction"},
+  @{@"picN":@"icon_chat_moreView_plan",@"picH":@"icon_chat_moreView_plan",@"title":@"计划",@"selector":@"myStrategyAction"},
+            @{@"picN":@"icon_chat_moreView_travelnote",@"picH":@"icon_chat_moreView_travelnote",@"title":@"游记",@"selector":@"travelNoteAction"},
+            @{@"picN":@"icon_chat_moreView_spot",@"picH":@"icon_chat_moreView_spot",@"title":@"景点",@"selector":@"viewSpotAction"},
+            @{@"picN":@"icon_chat_moreView_food",@"picH":@"icon_chat_moreView_food",@"title":@"美食",@"selector":@"restaurantAction"},
+        @{@"picN":@"icon_chat_moreView_location",@"picH":@"icon_chat_moreView_location",@"title":@"位置",@"selector":@"locationAction"},
+            @{@"picN":@"icon_chat_moreView_album",@"picH":@"icon_chat_moreView_album",@"title":@"图册",@"selector":@"photoAction"},
+            @{@"picN":@"icon_chat_moreView_camera",@"picH":@"icon_chat_moreView_camera",@"title":@"拍照",@"selector":@"takePicAction"},
+        @{@"picN":@"icon_chat_moreView_shopping",@"picH":@"icon_chat_moreView_shopping",@"title":@"购物",@"selector":@"shoppingAction"},
             ];
              
     }
