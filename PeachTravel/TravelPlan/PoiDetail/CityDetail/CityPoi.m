@@ -27,7 +27,7 @@
         _diningTitles = [json objectForKey:@"diningTitles"];
         _isVote = [[json objectForKey:@"isVote"] boolValue];
         _traveled = [[json objectForKey:@"traveled"] boolValue];
-        _goodsCount = [[json objectForKey:@"commodityCnt"] integerValue];
+        _goodsCount = [[json objectForKey:@"commoditiesCnt"] integerValue];
         _imageCount = [[json objectForKey:@"imageCnt"] integerValue]>100 ? 100:[[json objectForKey:@"imageCnt"] integerValue];
     }
     return self;
