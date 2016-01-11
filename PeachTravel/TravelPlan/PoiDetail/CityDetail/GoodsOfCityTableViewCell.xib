@@ -45,7 +45,7 @@
                             <constraint firstAttribute="width" constant="54" id="k0b-MB-AZF"/>
                         </constraints>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="销量:1234" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="de6-al-5eP">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已售:1234" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="de6-al-5eP">
                         <rect key="frame" x="8" y="190" width="71" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="5QF-CD-eDv"/>

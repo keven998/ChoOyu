@@ -601,6 +601,8 @@
 		D9221A3A1BFD7D530015A685 /* AskRefundMoneyLeaveMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9221A381BFD7D530015A685 /* AskRefundMoneyLeaveMessageTableViewCell.xib */; };
 		D925B1DA1C437E41000F7E10 /* GoodsFavoriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D925B1D81C437E41000F7E10 /* GoodsFavoriteViewController.m */; };
 		D925B1DB1C437E41000F7E10 /* GoodsFavoriteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D925B1D91C437E41000F7E10 /* GoodsFavoriteViewController.xib */; };
+		D925B1DE1C4391DD000F7E10 /* icon_downSheet_cancel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D925B1DC1C4391DD000F7E10 /* icon_downSheet_cancel@2x.png */; };
+		D925B1DF1C4391DD000F7E10 /* icon_downSheet_cancel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D925B1DD1C4391DD000F7E10 /* icon_downSheet_cancel@3x.png */; };
 		D92B5C1C1BB9243B00E3AC93 /* PoiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D92B5C1B1BB9243B00E3AC93 /* PoiManager.m */; };
 		D92B5C1F1BB92A5D00E3AC93 /* PoiRecommend.m in Sources */ = {isa = PBXBuildFile; fileRef = D92B5C1E1BB92A5D00E3AC93 /* PoiRecommend.m */; };
 		D92C50B31C1EA14A00AD7965 /* TZSchemeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D92C50B21C1EA14A00AD7965 /* TZSchemeManager.m */; };
@@ -2826,6 +2828,8 @@
 		D925B1D71C437E41000F7E10 /* GoodsFavoriteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsFavoriteViewController.h; sourceTree = "<group>"; };
 		D925B1D81C437E41000F7E10 /* GoodsFavoriteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsFavoriteViewController.m; sourceTree = "<group>"; };
 		D925B1D91C437E41000F7E10 /* GoodsFavoriteViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoodsFavoriteViewController.xib; sourceTree = "<group>"; };
+		D925B1DC1C4391DD000F7E10 /* icon_downSheet_cancel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_downSheet_cancel@2x.png"; sourceTree = "<group>"; };
+		D925B1DD1C4391DD000F7E10 /* icon_downSheet_cancel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_downSheet_cancel@3x.png"; sourceTree = "<group>"; };
 		D92B5C1A1BB9243B00E3AC93 /* PoiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PoiManager.h; path = ../PoiRecommend/PoiManager.h; sourceTree = "<group>"; };
 		D92B5C1B1BB9243B00E3AC93 /* PoiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PoiManager.m; path = ../PoiRecommend/PoiManager.m; sourceTree = "<group>"; };
 		D92B5C1D1BB92A5D00E3AC93 /* PoiRecommend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoiRecommend.h; sourceTree = "<group>"; };
@@ -5804,6 +5808,8 @@
 		D90EACA71C09552900634829 /* DownSheet */ = {
 			isa = PBXGroup;
 			children = (
+				D925B1DC1C4391DD000F7E10 /* icon_downSheet_cancel@2x.png */,
+				D925B1DD1C4391DD000F7E10 /* icon_downSheet_cancel@3x.png */,
 				D90EACA81C09552900634829 /* DownSheet.h */,
 				D90EACA91C09552900634829 /* DownSheet.m */,
 				D90EACAA1C09552900634829 /* DownSheetCell.h */,
@@ -10439,6 +10445,7 @@
 				D971E2861B8AF27A007E5AFD /* plan_traveled@3x.png in Resources */,
 				D999758E1C34CB33009D04E3 /* OrderDetailStatusListTableViewCell.xib in Resources */,
 				01C1EC0C1BB4E4720082217A /* daku@3x.png in Resources */,
+				D925B1DF1C4391DD000F7E10 /* icon_downSheet_cancel@3x.png in Resources */,
 				E6F18A0A1B845F4900232EEB /* map_icon_18@3x.png in Resources */,
 				D925B1DB1C437E41000F7E10 /* GoodsFavoriteViewController.xib in Resources */,
 				E6F189A01B845F4900232EEB /* city_bg_photo_default@3x.png in Resources */,
@@ -11314,6 +11321,7 @@
 				E6F18A181B845F4900232EEB /* map_icon_5@3x.png in Resources */,
 				01C1EC871BB4E4720082217A /* xinsui@2x.png in Resources */,
 				E6F18B181B845F4900232EEB /* master_icon_constellation3@3x.png in Resources */,
+				D925B1DE1C4391DD000F7E10 /* icon_downSheet_cancel@2x.png in Resources */,
 				D971E2981B8F3843007E5AFD /* share_icon@3x.png in Resources */,
 				D94B891C1B5E4F4C00584DE5 /* h5_labar_right_default@3x.png in Resources */,
 				D9A800611A80DD0C005AD701 /* AddressBookTableViewCell.xib in Resources */,

@@ -26,6 +26,7 @@
 #import "DownSheet.h"
 #import "TZPayManager.h"
 #import "OrderPaySuccessViewController.h"
+#import "OrderDetailViewController.h"
 
 @interface OrderDetailPreviewViewController () <UITableViewDataSource, UITableViewDelegate, DownSheetDelegate>
 
@@ -148,7 +149,7 @@
     [_payManager asyncPayOrder:_orderDetail.orderId payPlatform:platform completionBlock:^(BOOL isSuccess, NSString *errorStr) {
         if (isSuccess) {
             [SVProgressHUD showHint:@"支付成功"];
-            [_payDownSheet tappedCancel];
+            [_payDownSheet dismissSheet];
             OrderPaySuccessViewController *ctl = [[OrderPaySuccessViewController alloc] init];
             ctl.orderId = _orderDetail.orderId;
             NSMutableArray *viewControllers = [self.navigationController.viewControllers mutableCopy];
@@ -162,6 +163,24 @@
     }];
 }
 
+- (void)shouldDismissSheet
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"确定取消支付吗" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
+        if (buttonIndex == 1) {
+            [_payDownSheet dismissSheet];
+            OrderDetailViewController *ctl = [[OrderDetailViewController alloc] init];
+            ctl.orderId = _orderDetail.orderId;
+            NSMutableArray *viewControllers = [self.navigationController.viewControllers mutableCopy];
+            [viewControllers removeObjectAtIndex:viewControllers.count-1];
+            [viewControllers replaceObjectAtIndex:viewControllers.count-1 withObject:ctl];
+            [self.navigationController setViewControllers:viewControllers animated:YES];
+
+        }
+    }];
+}
+
+#pragma mark - UITableViewDatasource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {

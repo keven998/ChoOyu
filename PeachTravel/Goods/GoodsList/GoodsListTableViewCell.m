@@ -36,7 +36,7 @@
                              NSForegroundColorAttributeName: COLOR_PRICE_RED,
                              } range:NSMakeRange(oldPrice.length, nowPrice.length)];
     _priceLabel.attributedText = attrStr;
-    NSString *propertyStrig = [NSString stringWithFormat:@"%d%%满意  销量: %ld", (int)(_goodsDetail.rating), _goodsDetail.saleCount];
+    NSString *propertyStrig = [NSString stringWithFormat:@"%d%%满意  已售: %ld", (int)(_goodsDetail.rating), _goodsDetail.saleCount];
     [_propertyBtn setTitle:propertyStrig forState:UIControlStateNormal];
     [_storeNameBtn setTitle:_goodsDetail.store.storeName forState:UIControlStateNormal];
 }

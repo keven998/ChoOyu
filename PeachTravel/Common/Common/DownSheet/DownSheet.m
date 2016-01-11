@@ -39,20 +39,27 @@
         listData = list;
         view.scrollEnabled = NO;
         [self addSubview:view];
+        
+        dismissBtn = [[UIButton alloc] initWithFrame:CGRectMake(ScreenWidth-60, ScreenHeight-20, 40, 40)];
+        [dismissBtn setImage:[UIImage imageNamed:@"icon_downSheet_cancel.png"] forState:UIControlStateNormal];
+        [dismissBtn addTarget:self action:@selector(willDismissSheet) forControlEvents:UIControlEventTouchUpInside];
+        [dismissBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+        [self addSubview:dismissBtn];
+        
         [self animeData];
+
     }
     return self;
 }
 
 -(void)animeData{
-    //self.userInteractionEnabled = YES;
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedCancel)];
-    [self addGestureRecognizer:tapGesture];
-    tapGesture.delegate = self;
+   
     [UIView animateWithDuration:.25 animations:^{
         self.backgroundColor = RGBACOLOR(160, 160, 160, .4);
         [UIView animateWithDuration:.25 animations:^{
             [view setFrame:CGRectMake(view.frame.origin.x, ScreenHeight-view.frame.size.height, view.frame.size.width, view.frame.size.height)];
+            [dismissBtn setFrame:CGRectMake(dismissBtn.frame.origin.x, ScreenHeight-view.frame.size.height-20, dismissBtn.frame.size.width, dismissBtn.frame.size.height)];
+
         }];
     } completion:^(BOOL finished) {
     }];
@@ -65,9 +72,18 @@
     return NO;
 }
 
--(void)tappedCancel{
+- (void)willDismissSheet
+{
+    if ([self.delegate respondsToSelector:@selector(shouldDismissSheet)]) {
+        [self.delegate shouldDismissSheet];
+    }
+}
+
+-(void)dismissSheet
+{
     [UIView animateWithDuration:.25 animations:^{
         [view setFrame:CGRectMake(0, ScreenHeight,ScreenWidth, 0)];
+        dismissBtn.frame = CGRectMake(ScreenWidth-60, ScreenHeight-20, 40, 40);
         self.alpha = 0;
     } completion:^(BOOL finished) {
         if (finished) {
