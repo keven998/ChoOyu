@@ -106,7 +106,7 @@
 {
     NSString *url = [NSString stringWithFormat:@"%@/%ld/actions", API_ORDERS, orderId];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params safeSetObject:@"refund" forKey:@"action"];
+    [params safeSetObject:@"refundApply" forKey:@"action"];
     NSMutableDictionary *refundData = [[NSMutableDictionary alloc] init];
     [refundData safeSetObject:[NSNumber numberWithInteger:[AccountManager shareAccountManager].account.userId] forKey:@"userId"];
     [refundData safeSetObject:reason forKey:@"reason"];
