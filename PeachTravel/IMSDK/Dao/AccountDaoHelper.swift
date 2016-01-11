@@ -89,7 +89,7 @@ class AccountDaoHelper: NSObject {
     */
     func createAccountDB() {
         if db.open() {
-            let sql = "create table '\(AccountTableName)' (UserId INTEGER PRIMARY KEY NOT NULL, NickName TEXT, Avatar Text, AvatarSmall Text, Signature Text, Sex Text, tel Text, secToke Text, ExtData Text)"
+            let sql = "create table '\(AccountTableName)' (UserId INTEGER PRIMARY KEY NOT NULL, NickName TEXT, Avatar Text, AvatarSmall Text, Signature Text, Sex Text, tel Text, secToken Text, ExtData Text)"
             if (db.executeUpdate(sql, withArgumentsInArray: nil)) {
                 debug_print("执行 sql 语句：\(sql)")
             }
@@ -104,7 +104,7 @@ class AccountDaoHelper: NSObject {
     */
     func addAccount2DB(account: AccountModel) {
         dbQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
-            let sql = "insert or replace into \(AccountTableName) (UserId, NickName, Avatar, AvatarSmall, Signature, Sex, tel, secToke) values (?,?,?,?,?,?,?,?)"
+            let sql = "insert or replace into \(AccountTableName) (UserId, NickName, Avatar, AvatarSmall, Signature, Sex, tel, secToken) values (?,?,?,?,?,?,?,?)"
             debug_print("执行 sql 语句：\(sql)")
             let array = [account.userId, account.nickName, account.avatar, account.avatarSmall, account.signature, account.gender.rawValue, account.tel, account.secToken]
             dataBase.executeUpdate(sql, withArgumentsInArray: array as [AnyObject])
@@ -131,6 +131,7 @@ class AccountDaoHelper: NSObject {
         account.avatar = rs.stringForColumn("Avatar")
         account.avatarSmall = rs.stringForColumn("AvatarSmall")
         account.signature = rs.stringForColumn("Signature")
+        account.secToken = rs.stringForColumn("secToken")
         account.gender = UserGender(rawValue: Int(rs.intForColumn("Sex")))!
         return account
     }

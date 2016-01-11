@@ -148,6 +148,7 @@
     } else if ([genderStr isEqualToString:@"B"]) {
         _gender = Unknown;
     }
+    _secToken = [[json objectForKey:@"secretKey"] objectForKey:@"key"];
     [[AccountDaoHelper shareInstance] addAccount2DB:self];
 }
 
