@@ -189,12 +189,12 @@
         } else if (indexPath.row == 1) {
             _sortType = @"salesVolume";
             _sortValue = @"asc";
-        } else if (indexPath.row == 1) {
-            _sortType = @"price";
-            _sortValue = @"desc";
-        } else if (indexPath.row == 1) {
+        } else if (indexPath.row == 2) {
             _sortType = @"price";
             _sortValue = @"asc";
+        } else if (indexPath.row == 3) {
+            _sortType = @"price";
+            _sortValue = @"desc";
         }
     }
     _dataSource = @[];

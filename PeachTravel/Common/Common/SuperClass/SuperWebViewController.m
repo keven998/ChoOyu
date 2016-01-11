@@ -73,6 +73,7 @@
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [_progressView removeFromSuperview];
+    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -85,6 +86,10 @@
     _progressProxy.webViewProxyDelegate = nil;
     _progressProxy = nil;
     _progressView = nil;
+    [self.webView stopLoading];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    self.webView.delegate = nil;
+    self.webView = nil;
 }
 
 - (void)didStartLoadURLRequest:(NSURLRequest *)request

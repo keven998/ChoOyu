@@ -188,8 +188,9 @@
 - (void)didSelectItem:(NSString *)itemUri
 {
     TZSchemeManager *schemeManager = [[TZSchemeManager alloc] init];
+    __weak typeof(GoodsRecommendViewController *)weakSelf = self;
     [schemeManager handleUri:itemUri handleUriCompletionBlock:^(UIViewController *controller, NSString *uri) {
-        [self.navigationController pushViewController:controller animated:YES];
+        [weakSelf.navigationController pushViewController:controller animated:YES];
     }];
 }
 
