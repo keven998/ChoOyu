@@ -293,7 +293,6 @@
 		01F03DAC1BB400C7005DD792 /* MapMarkMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F03DA91BB400C7005DD792 /* MapMarkMenuCell.m */; };
 		01F03DAD1BB400C7005DD792 /* MapMarkMenuVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F03DAB1BB400C7005DD792 /* MapMarkMenuVC.m */; };
 		01F03DB01BB40B57005DD792 /* MapViewSetLocationBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F03DAF1BB40B57005DD792 /* MapViewSetLocationBtn.m */; };
-		01F3C7981BAA6E2300CC58F4 /* DXChatBarMoreViewAddBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F3C7971BAA6E2300CC58F4 /* DXChatBarMoreViewAddBtn.m */; };
 		01F3C79B1BAA7DC100CC58F4 /* UIColor+RandomColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F3C79A1BAA7DC100CC58F4 /* UIColor+RandomColor.m */; };
 		01F3C79F1BAA831A00CC58F4 /* DXChatBarMoreViewAddBtnCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F3C79E1BAA831A00CC58F4 /* DXChatBarMoreViewAddBtnCell.m */; };
 		27089ABE1AE9178F000FAD56 /* UIBarButtonItem+MJ.m in Sources */ = {isa = PBXBuildFile; fileRef = 27089ABC1AE9178F000FAD56 /* UIBarButtonItem+MJ.m */; };
@@ -2344,8 +2343,6 @@
 		01F03DAB1BB400C7005DD792 /* MapMarkMenuVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapMarkMenuVC.m; sourceTree = "<group>"; };
 		01F03DAE1BB40B57005DD792 /* MapViewSetLocationBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewSetLocationBtn.h; sourceTree = "<group>"; };
 		01F03DAF1BB40B57005DD792 /* MapViewSetLocationBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewSetLocationBtn.m; sourceTree = "<group>"; };
-		01F3C7961BAA6E2300CC58F4 /* DXChatBarMoreViewAddBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DXChatBarMoreViewAddBtn.h; sourceTree = "<group>"; };
-		01F3C7971BAA6E2300CC58F4 /* DXChatBarMoreViewAddBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DXChatBarMoreViewAddBtn.m; sourceTree = "<group>"; };
 		01F3C7991BAA7DC100CC58F4 /* UIColor+RandomColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+RandomColor.h"; sourceTree = "<group>"; };
 		01F3C79A1BAA7DC100CC58F4 /* UIColor+RandomColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+RandomColor.m"; sourceTree = "<group>"; };
 		01F3C79D1BAA831A00CC58F4 /* DXChatBarMoreViewAddBtnCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DXChatBarMoreViewAddBtnCell.h; sourceTree = "<group>"; };
@@ -7469,8 +7466,6 @@
 				01F3C79C1BAA82F500CC58F4 /* MoreViewCell */,
 				D9A800A91A80DD23005AD701 /* DXChatBarMoreView.h */,
 				D9A800AA1A80DD23005AD701 /* DXChatBarMoreView.m */,
-				01F3C7961BAA6E2300CC58F4 /* DXChatBarMoreViewAddBtn.h */,
-				01F3C7971BAA6E2300CC58F4 /* DXChatBarMoreViewAddBtn.m */,
 			);
 			path = MoreView;
 			sourceTree = "<group>";
@@ -11691,7 +11686,6 @@
 				D90042CA1B144275006F6B63 /* FrendManager+ClassMethod.swift in Sources */,
 				D92CA1151AD8BDF900F244FF /* SWUtilityButtonTapGestureRecognizer.m in Sources */,
 				E690D8CF1B7C8F9F00BFDF1B /* MakePlanSearchCell.m in Sources */,
-				01F3C7981BAA6E2300CC58F4 /* DXChatBarMoreViewAddBtn.m in Sources */,
 				E6E725241B5603750007273A /* NSObject+MJCoding.m in Sources */,
 				D92CA1311AD8BEB400F244FF /* MWCaptionView.m in Sources */,
 				D90ED4401BAD0CA6000C6033 /* UserAlbumManager.m in Sources */,

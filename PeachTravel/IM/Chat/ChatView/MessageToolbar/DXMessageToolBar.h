@@ -16,7 +16,7 @@
 #import "HPGrowingTextView.h"
 
 #import "DXChatBarMoreView.h"
-#import "DXChatBarMoreViewAddBtn.h"
+
 #import "DXFaceView.h"
 #import "DXRecordView.h"
 

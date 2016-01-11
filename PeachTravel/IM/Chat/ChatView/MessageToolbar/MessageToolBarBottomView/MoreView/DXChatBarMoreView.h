@@ -28,15 +28,12 @@ typedef enum{
 @protocol DXChatBarMoreViewDelegate;
 @interface DXChatBarMoreView : UIView
 
-@property (nonatomic,weak) id<DXChatBarMoreViewDelegate> delegate;
+@property (nonatomic, strong) NSArray* btnPropertyList;
 
-@property (nonatomic, strong) UIButton *photoButton;
-@property (nonatomic, strong) UIButton *takePicButton;
-@property (nonatomic, strong) UIButton *locationButton;
-@property (nonatomic, strong) UIButton *myStrategyButton;
-@property (nonatomic, strong) UIButton *myFavoriteButton;
-@property (nonatomic, strong) UIButton *destinationButton;
-@property (nonatomic, strong) UIButton *travelNoteButton;
+@property (nonatomic, strong) UICollectionView* collectionView;
+@property (nonatomic, strong) UICollectionViewFlowLayout* flowLayout;
+
+@property (nonatomic,weak) id<DXChatBarMoreViewDelegate> delegate;
 
 
 /****暂时屏蔽及时语音和拍视频的功能******/
