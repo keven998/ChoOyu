@@ -90,6 +90,9 @@
  */
 + (void)asyncLoadRecommendGoodsWithCompletionBlock:(void (^)(BOOL isSuccess, NSArray<NSDictionary *> *goodsList))completion;
 
++ (void)asyncLoadGoodsCategoryOfLocality:(NSString *)localityId completionBlock:(void(^)(BOOL isSuccess, NSArray<NSString *>* categoryList))completion;
+
+
 /**
  *  收藏商品接口
  *
@@ -97,9 +100,14 @@
  *  @param isFavorite
  *  @param completion
  */
-+ (void)asyncFavoriteGoodsWithGoodsId:(NSString *)objectId isFavorite:(BOOL)isFavorite completionBlock:(void (^)(BOOL))completion;
++ (void)asyncFavoriteGoodsWithGoodsObjectId:(NSString *)objectId isFavorite:(BOOL)isFavorite completionBlock:(void (^)(BOOL isSuccess))completion;
 
-
-+ (void)asyncLoadGoodsCategoryOfLocality:(NSString *)localityId completionBlock:(void(^)(BOOL isSuccess, NSArray<NSString *>* categoryList))completion;
+/**
+ *  获取用户的收藏列表
+ *
+ *  @param userId     用户 userId
+ *  @param completion
+ */
++ (void)asyncLoadFavoriteGoodsOfUser:(NSInteger)userId  completionBlock:(void (^)(BOOL isSuccess, NSArray *goodsList))completion;
 
 @end

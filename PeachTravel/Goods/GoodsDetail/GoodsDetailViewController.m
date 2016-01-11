@@ -280,7 +280,7 @@ RCT_EXPORT_MODULE();
 
 - (void)favorite:(UIButton *)button
 {
-    [GoodsManager asyncFavoriteGoodsWithGoodsId:_goodsDetail.objectId isFavorite:!_goodsDetail.isFavorite completionBlock:^(BOOL isSuccess) {
+    [GoodsManager asyncFavoriteGoodsWithGoodsObjectId:_goodsDetail.objectId isFavorite:!_goodsDetail.isFavorite completionBlock:^(BOOL isSuccess) {
         if (isSuccess) {
             _goodsDetail.isFavorite = !_goodsDetail.isFavorite;
             button.selected = _goodsDetail.isFavorite;

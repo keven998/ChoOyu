@@ -599,6 +599,8 @@
 		D9221A351BFD718F0015A685 /* AskRefundMoneyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9221A331BFD718F0015A685 /* AskRefundMoneyViewController.xib */; };
 		D9221A391BFD7D530015A685 /* AskRefundMoneyLeaveMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9221A371BFD7D530015A685 /* AskRefundMoneyLeaveMessageTableViewCell.m */; };
 		D9221A3A1BFD7D530015A685 /* AskRefundMoneyLeaveMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9221A381BFD7D530015A685 /* AskRefundMoneyLeaveMessageTableViewCell.xib */; };
+		D925B1DA1C437E41000F7E10 /* GoodsFavoriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D925B1D81C437E41000F7E10 /* GoodsFavoriteViewController.m */; };
+		D925B1DB1C437E41000F7E10 /* GoodsFavoriteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D925B1D91C437E41000F7E10 /* GoodsFavoriteViewController.xib */; };
 		D92B5C1C1BB9243B00E3AC93 /* PoiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D92B5C1B1BB9243B00E3AC93 /* PoiManager.m */; };
 		D92B5C1F1BB92A5D00E3AC93 /* PoiRecommend.m in Sources */ = {isa = PBXBuildFile; fileRef = D92B5C1E1BB92A5D00E3AC93 /* PoiRecommend.m */; };
 		D92C50B31C1EA14A00AD7965 /* TZSchemeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D92C50B21C1EA14A00AD7965 /* TZSchemeManager.m */; };
@@ -2821,6 +2823,9 @@
 		D9221A361BFD7D530015A685 /* AskRefundMoneyLeaveMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AskRefundMoneyLeaveMessageTableViewCell.h; sourceTree = "<group>"; };
 		D9221A371BFD7D530015A685 /* AskRefundMoneyLeaveMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AskRefundMoneyLeaveMessageTableViewCell.m; sourceTree = "<group>"; };
 		D9221A381BFD7D530015A685 /* AskRefundMoneyLeaveMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AskRefundMoneyLeaveMessageTableViewCell.xib; sourceTree = "<group>"; };
+		D925B1D71C437E41000F7E10 /* GoodsFavoriteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsFavoriteViewController.h; sourceTree = "<group>"; };
+		D925B1D81C437E41000F7E10 /* GoodsFavoriteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsFavoriteViewController.m; sourceTree = "<group>"; };
+		D925B1D91C437E41000F7E10 /* GoodsFavoriteViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoodsFavoriteViewController.xib; sourceTree = "<group>"; };
 		D92B5C1A1BB9243B00E3AC93 /* PoiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PoiManager.h; path = ../PoiRecommend/PoiManager.h; sourceTree = "<group>"; };
 		D92B5C1B1BB9243B00E3AC93 /* PoiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PoiManager.m; path = ../PoiRecommend/PoiManager.m; sourceTree = "<group>"; };
 		D92B5C1D1BB92A5D00E3AC93 /* PoiRecommend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoiRecommend.h; sourceTree = "<group>"; };
@@ -5927,6 +5932,7 @@
 		D91CCB491BD1EA59008425E4 /* GoodsList */ = {
 			isa = PBXGroup;
 			children = (
+				D925B1D61C437E2D000F7E10 /* GoodsFavorite */,
 				D94E256A1BECAE2A00DB487D /* GoodsListTableViewCell.h */,
 				D94E256B1BECAE2A00DB487D /* GoodsListTableViewCell.m */,
 				D94E256C1BECAE2A00DB487D /* GoodsListTableViewCell.xib */,
@@ -6072,6 +6078,16 @@
 				D9221A381BFD7D530015A685 /* AskRefundMoneyLeaveMessageTableViewCell.xib */,
 			);
 			path = RefundMoney;
+			sourceTree = "<group>";
+		};
+		D925B1D61C437E2D000F7E10 /* GoodsFavorite */ = {
+			isa = PBXGroup;
+			children = (
+				D925B1D71C437E41000F7E10 /* GoodsFavoriteViewController.h */,
+				D925B1D81C437E41000F7E10 /* GoodsFavoriteViewController.m */,
+				D925B1D91C437E41000F7E10 /* GoodsFavoriteViewController.xib */,
+			);
+			path = GoodsFavorite;
 			sourceTree = "<group>";
 		};
 		D92C50B01C1EA14A00AD7965 /* TZSchemeManager */ = {
@@ -10424,6 +10440,7 @@
 				D999758E1C34CB33009D04E3 /* OrderDetailStatusListTableViewCell.xib in Resources */,
 				01C1EC0C1BB4E4720082217A /* daku@3x.png in Resources */,
 				E6F18A0A1B845F4900232EEB /* map_icon_18@3x.png in Resources */,
+				D925B1DB1C437E41000F7E10 /* GoodsFavoriteViewController.xib in Resources */,
 				E6F189A01B845F4900232EEB /* city_bg_photo_default@3x.png in Resources */,
 				E6F18AEE1B845F4900232EEB /* ic_setting_apprise@2x.png in Resources */,
 				E6F189751B845F4900232EEB /* poi_button_raid_default@2x.png in Resources */,
@@ -11684,6 +11701,7 @@
 				D91FED6F1B4232AD0073AD77 /* FrendRequestManager.swift in Sources */,
 				01F03DAC1BB400C7005DD792 /* MapMarkMenuCell.m in Sources */,
 				27329DB41B0E030700F0A4FA /* ChatGroupCell.m in Sources */,
+				D925B1DA1C437E41000F7E10 /* GoodsFavoriteViewController.m in Sources */,
 				D9E7EC0C1ACB932800D30A5A /* AccountModel.m in Sources */,
 				D993C2441B12DF0C0088D568 /* ChatMessageDaoHelper.swift in Sources */,
 				D9A801411A80DD23005AD701 /* EMChatLocationBubbleView.m in Sources */,

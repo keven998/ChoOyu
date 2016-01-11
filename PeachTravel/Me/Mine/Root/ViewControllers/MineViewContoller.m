@@ -10,10 +10,11 @@
 #import "MineProfileViewController.h"
 #import "SettingHomeViewController.h"
 #import "MineHeaderView.h"
-#import "FavoriteViewController.h"
+#import "GoodsFavoriteViewController.h"
 #import "PlansListTableViewController.h"
 #import "ContactListViewController.h"
 #import "TravelerListViewController.h"
+
 
 @interface MineViewContoller () <UITableViewDataSource, UITableViewDelegate>
 
@@ -144,7 +145,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            FavoriteViewController *ctl = [[FavoriteViewController alloc] init];
+            GoodsFavoriteViewController *ctl = [[GoodsFavoriteViewController alloc] init];
             ctl.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:ctl animated:YES];
         } else {

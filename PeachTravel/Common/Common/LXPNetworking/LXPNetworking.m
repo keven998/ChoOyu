@@ -76,7 +76,7 @@
     }
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
-    return [manager PATCH:URLString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    return [manager DELETE:URLString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         tsuccess(operation, responseObject);
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 

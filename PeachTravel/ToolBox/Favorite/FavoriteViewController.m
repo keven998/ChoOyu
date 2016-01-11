@@ -286,11 +286,6 @@
     }];
 }
 
-/**
- *  删除我的攻略
- *
- *  @param guideSummary
- */
 - (void)deleteUserFavorite:(Favorite *)favorite atIndexPath:(NSIndexPath *)indexpath
 {
     NSString *urlStr = [NSString stringWithFormat:@"%@/%@", API_UNFAVORITE, favorite.itemId];
