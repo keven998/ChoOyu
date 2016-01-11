@@ -140,7 +140,7 @@
 {
     NSDictionary *dic = [_dataSource objectAtIndex:section];
     GoodsRecommendSectionHeaderView *view = [GoodsRecommendSectionHeaderView initViewFromNib];
-    view.titleLabel.text = [dic objectForKey:@"title"];
+    view.title = [dic objectForKey:@"title"];
     return view;
 }
 
