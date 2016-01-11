@@ -543,7 +543,6 @@
 		D91850E71B575541004B8363 /* ItemFooterCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D91850E51B575541004B8363 /* ItemFooterCollectionViewCell.xib */; };
 		D91851261B5914CF004B8363 /* SearchFrendTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D91851241B5914CF004B8363 /* SearchFrendTableViewController.m */; };
 		D91851271B5914CF004B8363 /* SearchFrendTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D91851251B5914CF004B8363 /* SearchFrendTableViewController.xib */; };
-		D91E59431C40F6E100AA51CE /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = D91E59421C40F6E100AA51CE /* main.jsbundle */; };
 		D91E59461C40FD7E00AA51CE /* NSURL+TZURL.m in Sources */ = {isa = PBXBuildFile; fileRef = D91E59451C40FD7E00AA51CE /* NSURL+TZURL.m */; };
 		D91FED6F1B4232AD0073AD77 /* FrendRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91FED6E1B4232AD0073AD77 /* FrendRequestManager.swift */; };
 		D91FED711B4259AF0073AD77 /* FrendRequestDaoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91FED701B4259AF0073AD77 /* FrendRequestDaoHelper.swift */; };
@@ -574,6 +573,7 @@
 		D925B1DB1C437E41000F7E10 /* GoodsFavoriteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D925B1D91C437E41000F7E10 /* GoodsFavoriteViewController.xib */; };
 		D925B1DE1C4391DD000F7E10 /* icon_downSheet_cancel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D925B1DC1C4391DD000F7E10 /* icon_downSheet_cancel@2x.png */; };
 		D925B1DF1C4391DD000F7E10 /* icon_downSheet_cancel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D925B1DD1C4391DD000F7E10 /* icon_downSheet_cancel@3x.png */; };
+		D925B1E11C43DEAE000F7E10 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = D925B1E01C43DEAE000F7E10 /* main.jsbundle */; };
 		D92B5C1C1BB9243B00E3AC93 /* PoiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D92B5C1B1BB9243B00E3AC93 /* PoiManager.m */; };
 		D92B5C1F1BB92A5D00E3AC93 /* PoiRecommend.m in Sources */ = {isa = PBXBuildFile; fileRef = D92B5C1E1BB92A5D00E3AC93 /* PoiRecommend.m */; };
 		D92C50B31C1EA14A00AD7965 /* TZSchemeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D92C50B21C1EA14A00AD7965 /* TZSchemeManager.m */; };
@@ -2702,7 +2702,6 @@
 		D91851231B5914CF004B8363 /* SearchFrendTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchFrendTableViewController.h; sourceTree = "<group>"; };
 		D91851241B5914CF004B8363 /* SearchFrendTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchFrendTableViewController.m; sourceTree = "<group>"; };
 		D91851251B5914CF004B8363 /* SearchFrendTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchFrendTableViewController.xib; sourceTree = "<group>"; };
-		D91E59421C40F6E100AA51CE /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		D91E59441C40FD7E00AA51CE /* NSURL+TZURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+TZURL.h"; sourceTree = "<group>"; };
 		D91E59451C40FD7E00AA51CE /* NSURL+TZURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+TZURL.m"; sourceTree = "<group>"; };
 		D91FED6E1B4232AD0073AD77 /* FrendRequestManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrendRequestManager.swift; sourceTree = "<group>"; };
@@ -2747,6 +2746,7 @@
 		D925B1D91C437E41000F7E10 /* GoodsFavoriteViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoodsFavoriteViewController.xib; sourceTree = "<group>"; };
 		D925B1DC1C4391DD000F7E10 /* icon_downSheet_cancel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_downSheet_cancel@2x.png"; sourceTree = "<group>"; };
 		D925B1DD1C4391DD000F7E10 /* icon_downSheet_cancel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_downSheet_cancel@3x.png"; sourceTree = "<group>"; };
+		D925B1E01C43DEAE000F7E10 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		D92B5C1A1BB9243B00E3AC93 /* PoiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PoiManager.h; path = ../PoiRecommend/PoiManager.h; sourceTree = "<group>"; };
 		D92B5C1B1BB9243B00E3AC93 /* PoiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PoiManager.m; path = ../PoiRecommend/PoiManager.m; sourceTree = "<group>"; };
 		D92B5C1D1BB92A5D00E3AC93 /* PoiRecommend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoiRecommend.h; sourceTree = "<group>"; };
@@ -7090,7 +7090,7 @@
 		D99D8EC719C8600C0021C25B /* PeachTravel */ = {
 			isa = PBXGroup;
 			children = (
-				D91E59421C40F6E100AA51CE /* main.jsbundle */,
+				D925B1E01C43DEAE000F7E10 /* main.jsbundle */,
 				D95B0A461BF0671E00F2D900 /* Order */,
 				D92109AE1BE204D700AEDB65 /* Store */,
 				01578DFC1BD2285D00244D9D /* TZPay */,
@@ -10503,7 +10503,6 @@
 				E6F18ADC1B845F4900232EEB /* SenderImageNodeBorder_black@3x.png in Resources */,
 				D9DD317B1BF5CDF6009BEDAB /* OrderDetailStatusTableViewCell.xib in Resources */,
 				E6F1898A1B845F4900232EEB /* poi_comment_start_highlight@3x.png in Resources */,
-				D91E59431C40F6E100AA51CE /* main.jsbundle in Resources */,
 				D942C1451B9EB5C3005B81C5 /* paipai@2x.png in Resources */,
 				E6F18AFB1B845F4900232EEB /* master_busy@3x.png in Resources */,
 				E6F18A981B845F4900232EEB /* speaking-motion9@3x.png in Resources */,
@@ -10968,6 +10967,7 @@
 				01C1EC591BB4E4720082217A /* shayan@2x.png in Resources */,
 				D9A8FF541A80CF19005AD701 /* FavoriteTableViewCell.xib in Resources */,
 				01C1EC1A1BB4E4720082217A /* gongxi@3x.png in Resources */,
+				D925B1E11C43DEAE000F7E10 /* main.jsbundle in Resources */,
 				0115C9B11BB103FC00631928 /* citydetail_gone_selected@2x.png in Resources */,
 				E6F18B1C1B845F4900232EEB /* master_icon_constellation5@3x.png in Resources */,
 				E6F18A811B845F4900232EEB /* speaking-motion12@2x.png in Resources */,

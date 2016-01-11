@@ -97,7 +97,6 @@
 {
     NSString *url = [NSString stringWithFormat:@"%@columns", BASE_URL];
     [LXPNetworking GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             _headerView.recommendData = [responseObject objectForKey:@"result"];

@@ -25,7 +25,7 @@
 - (id)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
-        _galleryView = [[AutoSlideScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 210)];
+        _galleryView = [[AutoSlideScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 210) animationDuration:5];
         _galleryView.scrollView.showsHorizontalScrollIndicator = NO;
         __weak GoodsRecommendHeaderView *weakSelf = self;
         _galleryView.TapActionBlock = ^(NSInteger index) {
