@@ -35,6 +35,7 @@
 @property (nonatomic, strong) GoodsDetailModel *goodsDetail;
 @property (nonatomic, strong) ChatRecoredListTableViewController *chatRecordListCtl;
 
+
 @end
 
 @implementation GoodsDetailViewController
@@ -124,8 +125,10 @@ RCT_EXPORT_MODULE();
     
     UIButton *favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 40)];
     [favoriteBtn setImage:[UIImage imageNamed:@"icon_favorite_white"] forState:UIControlStateNormal];
-    [favoriteBtn addTarget:self action:@selector(favorite) forControlEvents:UIControlEventTouchUpInside];
-    
+    [favoriteBtn setImage:[UIImage imageNamed:@"icon_favorite_selected"] forState:UIControlStateSelected];
+
+    [favoriteBtn addTarget:self action:@selector(favorite:) forControlEvents:UIControlEventTouchUpInside];
+    favoriteBtn.selected = _goodsDetail.isFavorite;
     self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithCustomView:favoriteBtn], [[UIBarButtonItem alloc] initWithCustomView:shareBtn]];
 }
 
@@ -275,9 +278,14 @@ RCT_EXPORT_MODULE();
     [shareActivity showInView:self.navigationController.view];
 }
 
-- (void)favorite
+- (void)favorite:(UIButton *)button
 {
-    
+    [GoodsManager asyncFavoriteGoodsWithGoodsId:_goodsDetail.objectId isFavorite:!_goodsDetail.isFavorite completionBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            _goodsDetail.isFavorite = !_goodsDetail.isFavorite;
+            button.selected = _goodsDetail.isFavorite;
+        }
+    }];
 }
 
 RCT_EXPORT_METHOD(makePhone:(NSString *)tel){

@@ -93,11 +93,11 @@
 /**
  *  收藏商品接口
  *
- *  @param goodsId
+ *  @param objectId
  *  @param isFavorite
  *  @param completion
  */
-+ (void)asyncFavoriteGoodsWithGoodsId:(NSString *)goodsId isFavorite:(BOOL)isFavorite completionBlock:(void (^)(BOOL isSuccess))completion;
++ (void)asyncFavoriteGoodsWithGoodsId:(NSString *)objectId isFavorite:(BOOL)isFavorite completionBlock:(void (^)(BOOL))completion;
 
 
 + (void)asyncLoadGoodsCategoryOfLocality:(NSString *)localityId completionBlock:(void(^)(BOOL isSuccess, NSArray<NSString *>* categoryList))completion;

@@ -15,8 +15,10 @@
 @interface GoodsDetailModel : NSObject
 
 @property (nonatomic) NSInteger goodsId;
+@property (nonatomic, copy) NSString *objectId;  
 @property (nonatomic, copy) NSString *goodsName;
 @property (nonatomic, copy) NSString *goodsDesc;
+@property (nonatomic) BOOL isFavorite;
 @property (nonatomic) float primePrice;
 @property (nonatomic) float currentPrice;
 @property (nonatomic, copy, readonly) NSString *formatPrimePrice;

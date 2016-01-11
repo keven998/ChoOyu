@@ -153,11 +153,6 @@
     }];
 }
 
-+ (void)asyncFavoriteGoodsWithGoodsId:(NSString *)goodsId isFavorite:(BOOL)isFavorite completionBlock:(void (^)(BOOL))completion
-{
-    completion(YES);
-}
-
 + (void)asyncLoadGoodsCategoryOfLocality:(NSString *)localityId completionBlock:(void (^)(BOOL, NSArray<NSString *> *))completion
 {
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
@@ -178,6 +173,46 @@
         
     }];
 }
+
+
++ (void)asyncFavoriteGoodsWithGoodsId:(NSString *)objectId isFavorite:(BOOL)isFavorite completionBlock:(void (^)(BOOL))completion
+{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:objectId forKey:@"itemId"];
+    [params setObject:@"commodity" forKey:@"itemType"];
+    NSString *url = [NSString stringWithFormat:@"%@%ld/favorites", API_USERS, [AccountManager shareAccountManager].account.userId];
+    [LXPNetworking POST:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0 || code == 401) {
+            completion(YES);
+        } else {
+            completion(NO);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completion(NO);
+        
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    }];
+    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/%@", API_UNFAVORITE, objectId];
+    [LXPNetworking DELETE:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            completion(YES);
+        } else {
+            completion(NO);
+        }
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completion(NO);
+    }];
+    
+}
+
 
 
 @end

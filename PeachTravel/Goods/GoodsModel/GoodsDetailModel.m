@@ -13,6 +13,7 @@
 - (id)initWithJson:(id)json {
     if (self = [super init]) {
         _goodsId = [[json objectForKey:@"commodityId"] integerValue];
+        _objectId = [json objectForKey:@"id"];
         _primePrice = [[json objectForKey:@"marketPrice"] floatValue];
         _currentPrice = [[json objectForKey:@"price"] floatValue];
         _goodsName = [json objectForKey:@"title"];

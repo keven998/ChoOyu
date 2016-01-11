@@ -28,7 +28,8 @@
     
     NSString *rfc822Date = [ConvertMethods RFC822DateWithDate:[NSDate date]];
     [manager.requestSerializer setValue:rfc822Date forHTTPHeaderField:@"Date"];
-    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+
     AccountManager *accountManager = [AccountManager shareAccountManager];
     if (accountManager.isLogin) {
         [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
@@ -45,8 +46,12 @@
     
     return [manager GET:URLString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         tsuccess(operation, responseObject);
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         tfailure(operation, error);
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
     }];
 
     
@@ -69,11 +74,16 @@
     if (accountManager.isLogin) {
         [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     }
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
     return [manager PATCH:URLString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         tsuccess(operation, responseObject);
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         tfailure(operation, error);
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
     }];
 }
 
@@ -96,11 +106,16 @@
     if (accountManager.isLogin) {
         [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     }
-    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+
     return [manager PATCH:URLString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         tsuccess(operation, responseObject);
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         tfailure(operation, error);
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
     }];
 }
 
@@ -119,7 +134,7 @@
     
     [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     AccountManager *accountManager = [AccountManager shareAccountManager];
     if (accountManager.isLogin) {
         [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
@@ -127,8 +142,10 @@
     
     return [manager PUT:URLString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         tsuccess(operation, responseObject);
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         tfailure(operation, error);
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
     
 }
@@ -154,12 +171,18 @@
         [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     }
     
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
     [LXPHTTPAuthorization signatureMessageWithURI:@"/app/cities" Date:@"Thu, 07 Jan 2016 08:52:01 GMT" LxpId:accountManager.account.userId Query:nil Body:parameters];
 
     return [manager POST:URLString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         tsuccess(operation, responseObject);
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         tfailure(operation, error);
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
     }];
 }
 
