@@ -74,7 +74,8 @@
         
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, weakSelf.frame.size.width, 210)];
         TaoziImage *image = [[TaoziImage alloc] initWithJson:[[[weakSelf.slideDataSource objectAtIndex:pageIndex] objectForKey:@"images"] firstObject]];
-
+        imageView.contentMode = UIViewContentModeScaleAspectFill;
+        imageView.clipsToBounds = YES;
         [imageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
         return imageView;
     };
