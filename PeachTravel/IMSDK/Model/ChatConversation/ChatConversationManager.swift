@@ -382,7 +382,7 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
     private func setUpDefaultConversation() {
         let paiConversation = ChatConversation()
         paiConversation.chatterId = Int(PaipaiUserId)
-        paiConversation.chatterName = "派派客服";
+        paiConversation.chatterName = "客服派派";
         paiConversation.lastUpdateTime = Int(NSDate().timeIntervalSince1970)+2
         self.addConversation(paiConversation)
         

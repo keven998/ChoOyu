@@ -42,8 +42,6 @@
     [headerString appendFormat:@"&x-lvxingpai-id=%ld", lxpId];
     [retString appendFormat:@",Headers=%@", headerString];
     
-    NSLog(@"headerString: %@", headerString);
-    
     if (qureyDic) {
         NSMutableString *queryString = [[NSMutableString alloc] init];
         for (NSString *key in qureyDic.allKeys) {
@@ -62,13 +60,13 @@
                 }
             }
         }
-        [retString appendFormat:@",QueryString=%@", headerString];
+        [retString appendFormat:@",QueryString=%@", queryString];
     }
     
     if (bodyDic) {
         NSString *jsonString = [self convertJsonObject2Json:bodyDic];
         NSString *bodyString = [QNUrlSafeBase64 encodeString:jsonString];
-        [retString appendFormat:@",QueryString=%@", bodyString];
+        [retString appendFormat:@",Body=%@", bodyString];
 
     }
     

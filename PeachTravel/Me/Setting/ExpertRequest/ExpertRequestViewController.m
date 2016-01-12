@@ -61,7 +61,7 @@
 - (void)commitRequest:(id)sender
 {
    [ExpertManager asyncRequest2BeAnExpert:_contentTextField.text completionBlock:^(BOOL isSuccess) {
-       NotificationViewController *ctl = [[NotificationViewController alloc] initWithTitle:@"您的申请已收到" subtitle:@"派派客服会尽快与您联系，\n请保持手机畅通" andActionTitle:@"知道了"];
+       NotificationViewController *ctl = [[NotificationViewController alloc] initWithTitle:@"您的申请已收到" subtitle:@"客服派派会尽快与您联系，\n请保持手机畅通" andActionTitle:@"知道了"];
        __weak ExpertRequestViewController *weakSelf = self;
        [ctl showNotiViewInController:self.navigationController dismissBlock:^{
            [weakSelf performSelector:@selector(goBack:) withObject:nil afterDelay:0.3];

@@ -38,7 +38,8 @@
         NSURL *url = [NSURL URLWithString:URLString];
         NSString *signature = [LXPHTTPAuthorization signatureMessageWithURI:url.path Date:rfc822Date LxpId:accountManager.account.userId Query:parameters Body:nil];
         NSString *token = [LXPHTTPAuthorization authorizationSignatureWithToken:accountManager.account.secToken signatureMessage:signature];
-        [manager.requestSerializer setValue:[NSString stringWithFormat:@"LVXINGPAI-v1-HMAC-SHA256 %@", token] forHTTPHeaderField:@"Authorization"];
+        NSLog(@"%@", token);
+        [manager.requestSerializer setValue:[NSString stringWithFormat:@"LVXINGPAI-v1-HMAC-SHA256 Signature=%@", token] forHTTPHeaderField:@"Authorization"];
 
     }
     
@@ -163,15 +164,26 @@
     
     [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
     AccountManager *accountManager = [AccountManager shareAccountManager];
+
+    NSString *rfc822Date = [ConvertMethods RFC822DateWithDate:[NSDate date]];
+    [manager.requestSerializer setValue:rfc822Date forHTTPHeaderField:@"Date"];
+
     if (accountManager.isLogin) {
         [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+        
+        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"X-Lvxingpai-Id"];
+        
+        NSURL *url = [NSURL URLWithString:URLString];
+        NSString *signature = [LXPHTTPAuthorization signatureMessageWithURI:url.path Date:rfc822Date LxpId:accountManager.account.userId Query:nil Body:parameters];
+        NSString *token = [LXPHTTPAuthorization authorizationSignatureWithToken:accountManager.account.secToken signatureMessage:signature];
+        NSLog(@"%@", token);
+        [manager.requestSerializer setValue:[NSString stringWithFormat:@"LVXINGPAI-v1-HMAC-SHA256 Signature=%@", token] forHTTPHeaderField:@"Authorization"];
+
     }
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
-    [LXPHTTPAuthorization signatureMessageWithURI:@"/app/cities" Date:@"Thu, 07 Jan 2016 08:52:01 GMT" LxpId:accountManager.account.userId Query:nil Body:parameters];
 
     return [manager POST:URLString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         tsuccess(operation, responseObject);

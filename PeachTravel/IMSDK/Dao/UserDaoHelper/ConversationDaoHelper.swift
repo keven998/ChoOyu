@@ -129,7 +129,7 @@ class ConversationDaoHelper: BaseDaoHelper, ConversationDaoProtocol {
                     }
                     
                     if Int(rs.intForColumn("ChatterId")) == Int(PaipaiUserId) {
-                        conversation.chatterName = "派派客服"
+                        conversation.chatterName = "客服派派"
                     }
                     if Int(rs.intForColumn("ChatterId")) == Int(TransactionMessageUserId) {
                         conversation.chatterName = "交易消息"
