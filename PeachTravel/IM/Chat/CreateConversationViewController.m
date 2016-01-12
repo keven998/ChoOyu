@@ -31,7 +31,8 @@
     [super viewDidLoad];
     self.navigationItem.title = @"选择联系人";
     self.view.backgroundColor = APP_PAGE_COLOR;
-    
+    [[AccountManager shareAccountManager] loadContactsFromServer];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContactList) name:contactListNeedUpdateNoti object:nil];
     [self.view addSubview:self.selectContactView];
     [self.view addSubview:self.contactTableView];
     
@@ -111,6 +112,12 @@
         _dataSource = [accountManager contactsByPinyin];
     }
     return _dataSource;
+}
+
+- (void)updateContactList
+{
+    self.dataSource = [[AccountManager shareAccountManager] contactsByPinyin];
+    [self.contactTableView reloadData];
 }
 
 #pragma mark - IBAction Methods

@@ -17,15 +17,9 @@ class NetworkTransportAPI: NSObject {
     :param: completionBlock 完成后的回掉
     */
     class func asyncSendMessage(message: NSDictionary, completionBlock: (isSuccess: Bool, errorCode: Int, retMessage: NSDictionary?) -> ()) {
-        let manager = AFHTTPRequestOperationManager()
-        let requestSerializer = AFJSONRequestSerializer()
-        manager.requestSerializer = requestSerializer
-        manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept")
-        manager.requestSerializer.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-        
         debug_print("发送消息接口\(message)")
         debug_print("链接\(sendMessageURL)")
-        manager.POST(sendMessageURL, parameters: message, success:
+        LXPNetworking.POST(sendMessageURL, parameters: message, success:
             {
                 (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
                 if let code = responseObject.objectForKey("code") as? Int {
@@ -51,15 +45,7 @@ class NetworkTransportAPI: NSObject {
     :param: completionBlock 请求的回掉
     */
     class func asyncPOST(requstUrl requstUrl: String, parameters: NSDictionary, completionBlock: (isSuccess: Bool, errorCode: Int, retMessage: NSDictionary?) -> ()) {
-        let manager = AFHTTPRequestOperationManager()
-        let requestSerializer = AFJSONRequestSerializer()
-        manager.requestSerializer = requestSerializer
-        let accountManager = AccountManager.shareAccountManager()
-        manager.requestSerializer.setValue("\(accountManager.account.userId)", forHTTPHeaderField: "UserId")
-        manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept")
-        manager.requestSerializer.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-        
-        manager.POST(requstUrl, parameters: parameters, success:
+        LXPNetworking.POST(requstUrl, parameters: parameters, success:
             {
                 (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
                 
@@ -87,13 +73,8 @@ class NetworkTransportAPI: NSObject {
     :param: completionBlock 请求的回掉
     */
     class func asyncDELETE(requstUrl requstUrl: String, parameters: NSDictionary, completionBlock: (isSuccess: Bool, errorCode: Int, retMessage: NSDictionary?) -> ()){
-        let manager = AFHTTPRequestOperationManager()
-        let requestSerializer = AFJSONRequestSerializer()
-        manager.requestSerializer = requestSerializer
-        let accountManager = AccountManager.shareAccountManager()
-        manager.requestSerializer.setValue("\(accountManager.account.userId)", forHTTPHeaderField: "UserId")
         
-        manager.DELETE(requstUrl, parameters: parameters, success: { (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
+        LXPNetworking.DELETE(requstUrl, parameters: parameters, success: { (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
             if let code = responseObject.objectForKey("code") as? Int {
                 if code == 0 {
                     completionBlock(isSuccess: true, errorCode: 0, retMessage: responseObject.objectForKey("result") as? NSDictionary)
@@ -108,15 +89,8 @@ class NetworkTransportAPI: NSObject {
     }
     
     class func asyncPATCH(requstUrl requstUrl: String, parameters: NSDictionary, completionBlock: (isSuccess: Bool, errorCode: Int, retMessage: NSDictionary?) -> ()) {
-        let manager = AFHTTPRequestOperationManager()
-        let requestSerializer = AFJSONRequestSerializer()
-        manager.requestSerializer = requestSerializer
-        let accountManager = AccountManager.shareAccountManager()
-        manager.requestSerializer.setValue("\(accountManager.account.userId)", forHTTPHeaderField: "UserId")
-        manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept")
-        manager.requestSerializer.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         
-        manager.PATCH(requstUrl, parameters: parameters, success:
+        LXPNetworking.PATCH(requstUrl, parameters: parameters, success:
             {
                 (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
                 
@@ -144,17 +118,8 @@ class NetworkTransportAPI: NSObject {
     :param: completionBlock 请求的回掉
     */
     class func asyncGET(requestUrl requestUrl: String, parameters: NSDictionary?, completionBlock: (isSuccess: Bool, errorCode: Int, retMessage: AnyObject?) -> ()) {
-        let manager = AFHTTPRequestOperationManager()
-        let requestSerializer = AFJSONRequestSerializer()
-        manager.requestSerializer = requestSerializer
-        let accountManager = AccountManager.shareAccountManager()
-        manager.requestSerializer.setValue("\(accountManager.account.userId)", forHTTPHeaderField: "UserId")
-        manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept")
-        manager.requestSerializer.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-        
-        debug_print("开始网络请求: \(requestUrl)")
-        
-        manager.GET(requestUrl, parameters: parameters, success:
+
+        LXPNetworking.GET(requestUrl, parameters: parameters, success:
             {
                 (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
                 
@@ -181,15 +146,8 @@ class NetworkTransportAPI: NSObject {
     :param: completionBlock 请求的回掉
     */
     class func asyncPUT(requestUrl requestUrl: String, parameters: NSDictionary, completionBlock: (isSuccess: Bool, errorCode: Int, retMessage: NSDictionary?) -> ()) {
-        let manager = AFHTTPRequestOperationManager()
-        let requestSerializer = AFJSONRequestSerializer()
-        manager.requestSerializer = requestSerializer
-        let accountManager = AccountManager.shareAccountManager()
-        manager.requestSerializer.setValue("\(accountManager.account.userId)", forHTTPHeaderField: "UserId")
-        manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept")
-        manager.requestSerializer.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         
-        manager.PUT(requestUrl, parameters: parameters, success:
+        LXPNetworking.PUT(requestUrl, parameters: parameters, success:
             {
                 (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
                 
@@ -216,21 +174,13 @@ class NetworkTransportAPI: NSObject {
     :param: completionBlock fetch 后的回掉
     */
     class func asyncACKMessage(userId: Int, lastFetchTime: Int?, completionBlock: (isSuccess: Bool, errorCode: Int, timestamp: Int?, retMessage: NSArray?) -> ()) {
-        let manager = AFHTTPRequestOperationManager()
-        debug_print("开始执行 ACK 接口")
-        let requestSerializer = AFJSONRequestSerializer()
-        manager.requestSerializer = requestSerializer
-        manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept")
-        manager.requestSerializer.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-        
         let params = ["purgeBefore": lastFetchTime ?? 0]
         
         debug_print("ACK接口,收取用户\(userId) 的未读消息")
         
         let url = HedyUserUrl+"/\(userId)"+"/messages"
-        manager.requestSerializer.timeoutInterval = 20;
         
-        manager.POST(url, parameters: params, success:
+        LXPNetworking.POST(url, parameters: params, success:
         {
         (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
             if let reslutDic = responseObject.objectForKey("result") as? NSArray {

@@ -43,7 +43,7 @@
         self.navigationItem.title = @"添加旅客信息";
         self.navigationItem.rightBarButtonItem = rightItem;
         _traveler = [[OrderTravelerInfoModel alloc] init];
-        _traveler.IDCategory = @"chineseID";
+        _traveler.IDCategory = @"passport";
         
     } else {
         self.navigationItem.title = @"旅客信息";
@@ -105,7 +105,7 @@
     [_scrollView addSubview:_IDNumberCategoryButton];
     
     _IDNumberTextField = [[UITextField alloc] initWithFrame:CGRectMake(126, 10+48*3, (kWindowWidth-106)-40, 28)];
-    _IDNumberTextField.placeholder = @"证件号码";
+    _IDNumberTextField.placeholder = @"护照";
     _IDNumberTextField.font = [UIFont systemFontOfSize:15];
     _IDNumberTextField.textColor = COLOR_TEXT_III;
     _IDNumberTextField.returnKeyType = UIReturnKeyDone;
