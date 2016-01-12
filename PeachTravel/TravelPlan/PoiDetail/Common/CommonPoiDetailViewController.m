@@ -144,10 +144,9 @@
     self.tableView.tableHeaderView = _spotDetailView;
     [_spotDetailView.poiSummary addTarget:self action:@selector(showPoiDesc) forControlEvents:UIControlEventTouchUpInside];
     if (self.poi.comments.count > 0) {
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(_tableView.frame), 64)];
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(_tableView.frame), 58)];
         view.backgroundColor = [UIColor clearColor];
-        view.userInteractionEnabled = YES;
-        UIButton *footerView = [[UIButton alloc] initWithFrame:CGRectMake(0, -2, CGRectGetWidth(_tableView.frame), 38)];
+        UIButton *footerView = [[UIButton alloc] initWithFrame:CGRectMake(0, 20, CGRectGetWidth(_tableView.frame), 38)];
         [footerView setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
         [footerView setBackgroundImage:[ConvertMethods createImageWithColor:COLOR_DISABLE] forState:UIControlStateHighlighted];
         [footerView setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
