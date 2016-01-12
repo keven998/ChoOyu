@@ -43,8 +43,13 @@
     [retString appendFormat:@",Headers=%@", headerString];
     
     if (qureyDic) {
+        
+        NSArray *allKeys = [qureyDic.allKeys sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            return [obj1 compare:obj2];
+        }];
+        
         NSMutableString *queryString = [[NSMutableString alloc] init];
-        for (NSString *key in qureyDic.allKeys) {
+        for (NSString *key in allKeys) {
             NSString *value = [qureyDic objectForKey:key];
             if (![key isEqualToString:[qureyDic.allKeys lastObject]]) {
                 if ([value isKindOfClass:[NSString class]]) {
@@ -75,7 +80,7 @@
 
 + (NSString *)convertJsonObject2Json:(id)object
 {
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:object options:NSJSONWritingPrettyPrinted error:nil];
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:object options:0 error:nil];
     return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
 }
 @end

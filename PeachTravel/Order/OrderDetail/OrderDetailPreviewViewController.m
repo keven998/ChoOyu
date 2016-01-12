@@ -104,7 +104,6 @@
     if (_isHasCreateNewOrder) {
         [self showPayActionSheet];
 
-
     } else {
         [OrderManager asyncMakeOrderWithGoodsId:_orderDetail.goods.goodsId travelers:_travelerIdList packageId:_orderDetail.selectedPackage.packageId playDate:_orderDetail.useDate quantity:_orderDetail.count contactModel:_orderDetail.orderContact leaveMessage:_orderDetail.leaveMessage completionBlock:^(BOOL isSuccess, OrderDetailModel *orderDetail) {
             if (isSuccess) {

@@ -18,44 +18,18 @@
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
-    NSString *rfc822Date = [ConvertMethods RFC822DateWithDate:[NSDate date]];
-    [manager.requestSerializer setValue:rfc822Date forHTTPHeaderField:@"Date"];
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    if (accountManager.isLogin) {
-        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
-        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"X-Lvxingpai-Id"];
-        
-        NSURL *url = [NSURL URLWithString:URLString];
-        NSString *signature = [LXPHTTPAuthorization signatureMessageWithURI:url.path Date:rfc822Date LxpId:accountManager.account.userId Query:parameters Body:nil];
-        NSString *token = [LXPHTTPAuthorization authorizationSignatureWithToken:accountManager.account.secToken signatureMessage:signature];
-        NSLog(@"%@", token);
-        [manager.requestSerializer setValue:[NSString stringWithFormat:@"LVXINGPAI-v1-HMAC-SHA256 Signature=%@", token] forHTTPHeaderField:@"Authorization"];
-
-    }
-    
+    [self setOtherHeaderValue:manager andUrl:URLString parameters:parameters];
     return [manager GET:URLString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         tsuccess(operation, responseObject);
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         tfailure(operation, error);
+        [self handleHttpError:error andOperation:operation];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 
     }];
-
-    
 }
-
 
 + (nullable AFHTTPRequestOperation *)DELETE:(NSString *)URLString
                                  parameters:(nullable id)parameters
@@ -65,14 +39,8 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    if (accountManager.isLogin) {
-        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
-    }
+    [self setOtherHeaderValue:manager andUrl:URLString parameters:parameters];
+    
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
     return [manager DELETE:URLString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -113,11 +81,11 @@
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         tfailure(operation, error);
+        [self handleHttpError:error andOperation:operation];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 
     }];
 }
-
 
 + (nullable AFHTTPRequestOperation *)PUT:(NSString *)URLString
                               parameters:(nullable id)parameters
@@ -133,17 +101,30 @@
     
     [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     AccountManager *accountManager = [AccountManager shareAccountManager];
+    
+    NSString *rfc822Date = [ConvertMethods RFC822DateWithDate:[NSDate date]];
+    [manager.requestSerializer setValue:rfc822Date forHTTPHeaderField:@"Date"];
+    
     if (accountManager.isLogin) {
         [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+        
+        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"X-Lvxingpai-Id"];
+        
+        NSURL *url = [NSURL URLWithString:URLString];
+        NSString *signature = [LXPHTTPAuthorization signatureMessageWithURI:url.path Date:rfc822Date LxpId:accountManager.account.userId Query:nil Body:parameters];
+        NSString *token = [LXPHTTPAuthorization authorizationSignatureWithToken:accountManager.account.secToken signatureMessage:signature];
+        NSLog(@"%@", token);
+        [manager.requestSerializer setValue:[NSString stringWithFormat:@"LVXINGPAI-v1-HMAC-SHA256 Signature=%@", token] forHTTPHeaderField:@"Authorization"];
     }
     
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     return [manager PUT:URLString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         tsuccess(operation, responseObject);
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         tfailure(operation, error);
+        [self handleHttpError:error andOperation:operation];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
     
@@ -158,6 +139,24 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [self setHeaderValueForPXMethods:manager andUrl:URLString parameters:parameters];
+
+    return [manager POST:URLString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        tsuccess(operation, responseObject);
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        tfailure(operation, error);
+        [self handleHttpError:error andOperation:operation];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
+    }];
+}
+
+//POST PUT PATCH
++ (void)setHeaderValueForPXMethods:(AFHTTPRequestOperationManager *)manager andUrl:(NSString *)URLString parameters:parameters
+{
     AppUtils *utils = [[AppUtils alloc] init];
     [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
@@ -165,10 +164,10 @@
     [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     AccountManager *accountManager = [AccountManager shareAccountManager];
-
+    
     NSString *rfc822Date = [ConvertMethods RFC822DateWithDate:[NSDate date]];
     [manager.requestSerializer setValue:rfc822Date forHTTPHeaderField:@"Date"];
-
+    
     if (accountManager.isLogin) {
         [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
         
@@ -179,21 +178,47 @@
         NSString *token = [LXPHTTPAuthorization authorizationSignatureWithToken:accountManager.account.secToken signatureMessage:signature];
         NSLog(@"%@", token);
         [manager.requestSerializer setValue:[NSString stringWithFormat:@"LVXINGPAI-v1-HMAC-SHA256 Signature=%@", token] forHTTPHeaderField:@"Authorization"];
-
     }
+}
+
++ (void)setOtherHeaderValue:(AFHTTPRequestOperationManager *)manager andUrl:(NSString *)URLString parameters:parameters
+{
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
     
+    [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
+    
+    NSString *rfc822Date = [ConvertMethods RFC822DateWithDate:[NSDate date]];
+    [manager.requestSerializer setValue:rfc822Date forHTTPHeaderField:@"Date"];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
-
-    return [manager POST:URLString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        tsuccess(operation, responseObject);
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        tfailure(operation, error);
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-
-    }];
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    if (accountManager.isLogin) {
+        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"X-Lvxingpai-Id"];
+        
+        NSURL *url = [NSURL URLWithString:URLString];
+        NSString *signature = [LXPHTTPAuthorization signatureMessageWithURI:url.path Date:rfc822Date LxpId:accountManager.account.userId Query:parameters Body:nil];
+        NSString *token = [LXPHTTPAuthorization authorizationSignatureWithToken:accountManager.account.secToken signatureMessage:signature];
+        NSLog(@"%@", token);
+        [manager.requestSerializer setValue:[NSString stringWithFormat:@"LVXINGPAI-v1-HMAC-SHA256 Signature=%@", token] forHTTPHeaderField:@"Authorization"];
+        
+    }
 }
+
++ (void)handleHttpError:(NSError *)error andOperation:(AFHTTPRequestOperation *)operation
+{
+    NSInteger errorCode = operation.response.statusCode;
+    if (errorCode == 401) {     //用户鉴权失败，提示用户退出登录
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"请重新登录" message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+        [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
+            [[AccountManager shareAccountManager] asyncLogout:^(BOOL isSuccess) {
+                
+            }];
+        }];
+    }
+}
+
 
 @end
