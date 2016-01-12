@@ -38,6 +38,7 @@
     [_tableView registerNib:[UINib nibWithNibName:@"GoodsListTableViewCell" bundle:nil] forCellReuseIdentifier:@"goodsListCell"];
     _tableView.delegate = self;
     _tableView.dataSource = self;
+    _tableView.separatorColor = COLOR_LINE;
     _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.bounds.size.width, 49)];
     [self.view addSubview:_tableView];
     [PoiManager asyncLoadCityInfo:_cityId completionBlock:^(BOOL isSuccess, CityPoi *cityDetail) {
@@ -171,8 +172,7 @@
     [sectionHeaderViedw addSubview:topSpaceView];
     
     UIButton *headerBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, 0, 200, 40)];
-    [headerBtn setImage:[UIImage imageNamed:@"icon_cityDetail_goodsSection"] forState:UIControlStateNormal];
-    headerBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 15, 0, 0);
+//    [headerBtn setImage:[UIImage imageNamed:@"icon_cityDetail_goodsSection"] forState:UIControlStateNormal];
     headerBtn.titleLabel.font = [UIFont systemFontOfSize:16.0];
     [headerBtn setTitle:@"当地玩乐" forState:UIControlStateNormal];
     [headerBtn setTitleColor:COLOR_TEXT_I forState:UIControlStateNormal];

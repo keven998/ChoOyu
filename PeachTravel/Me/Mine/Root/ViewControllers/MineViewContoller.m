@@ -57,7 +57,6 @@
     [self.view addSubview:_tableView];
     _mineHeaderView = [[MineHeaderView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 310)];
     _mineHeaderView.containerViewController = self;
-    _mineHeaderView.account = [AccountManager shareAccountManager].account;
     _tableView.tableHeaderView = _mineHeaderView;
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mineProfileAction)];
     tapGesture.numberOfTapsRequired = 1;
@@ -81,6 +80,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    _mineHeaderView.account = [AccountManager shareAccountManager].account;
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
