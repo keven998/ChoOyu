@@ -12,6 +12,7 @@
 @interface CityPoi : SuperPoi<NSCoding>
 
 @property (nonatomic, copy) NSString *playGuide;
+@property (nonatomic, copy) NSString *trafficInfoUrl;
 @property (nonatomic, copy) NSString *timeCostDesc;
 @property (nonatomic, copy) NSString *travelMonth;
 @property (nonatomic, copy) NSString *diningTitles;

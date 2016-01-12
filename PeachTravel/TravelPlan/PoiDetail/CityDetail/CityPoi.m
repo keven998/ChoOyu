@@ -21,6 +21,7 @@
         self.typeDesc = @"locality";
         self.poiTypeName = @"城市";
         _playGuide = [json objectForKey:@"playGuide"];
+        _trafficInfoUrl = [json objectForKey:@"trafficInfoUrl"];
         _timeCostDesc = [json objectForKey:@"timeCostDesc"];
         _travelMonth = [json objectForKey:@"travelMonth"];
         _shoppingTitles = [json objectForKey:@"shoppingTitles"];

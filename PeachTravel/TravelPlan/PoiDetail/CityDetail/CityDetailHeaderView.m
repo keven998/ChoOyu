@@ -139,8 +139,8 @@
 - (void)cityTrafficAction
 {
     SuperWebViewController *funOfCityWebCtl = [[SuperWebViewController alloc] init];
-    funOfCityWebCtl.urlStr = _cityPoi.playGuide;
-    funOfCityWebCtl.titleStr = @"旅游指南";
+    funOfCityWebCtl.urlStr = _cityPoi.trafficInfoUrl;
+    funOfCityWebCtl.titleStr = @"交通指南";
     [self.containerViewController.navigationController pushViewController:funOfCityWebCtl animated:YES];
 }
 
