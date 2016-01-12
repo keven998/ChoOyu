@@ -12,5 +12,6 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (nonatomic, copy) NSString *cityId;
+@property (nonatomic, copy) NSString *cityName;
 
 @end

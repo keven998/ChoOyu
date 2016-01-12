@@ -27,7 +27,6 @@
 #import "GoodsRecommendViewController.h"
 #import "CityListViewController.h"
 #import "CountryRecommendViewController.h"
-#import "GoodsListViewController.h"
 
 #define kBackGroundImage    @"backGroundImage"
 
