@@ -126,10 +126,10 @@ RCT_EXPORT_MODULE();
     UIButton *favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 40)];
     [favoriteBtn setImage:[UIImage imageNamed:@"icon_favorite_white"] forState:UIControlStateNormal];
     [favoriteBtn setImage:[UIImage imageNamed:@"icon_favorite_selected"] forState:UIControlStateSelected];
-
     [favoriteBtn addTarget:self action:@selector(favorite:) forControlEvents:UIControlEventTouchUpInside];
     favoriteBtn.selected = _goodsDetail.isFavorite;
-    self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithCustomView:favoriteBtn], [[UIBarButtonItem alloc] initWithCustomView:shareBtn]];
+    
+    self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithCustomView:shareBtn], [[UIBarButtonItem alloc] initWithCustomView:favoriteBtn]];
 }
 
 - (void)storeDetail

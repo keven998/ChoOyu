@@ -21,11 +21,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     _titleLable.text = _oldTitle;
     self.navigationItem.title = @"修改群名称";
     
     UIBarButtonItem * addBtn = [[UIBarButtonItem alloc]initWithTitle:@"确定 " style:UIBarButtonItemStylePlain target:self action:@selector(confirm:)];
-    addBtn.tintColor = COLOR_TEXT_I;
+    addBtn.tintColor = [UIColor whiteColor];
     self.navigationItem.rightBarButtonItem = addBtn;
     
     _titleLable.layer.borderColor = UIColorFromRGB(0xdcdcdc).CGColor;
@@ -36,11 +37,6 @@
     _titleLable.leftViewMode = UITextFieldViewModeAlways;
     [_titleLable becomeFirstResponder];
 
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
 }
 
 #pragma mark - action methods
