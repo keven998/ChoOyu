@@ -8,11 +8,13 @@
 
 #import "CountryRecommendViewController.h"
 #import "CountryRecommendTableViewCell.h"
+#import "CityRecommendTableViewCell.h"
 #import "MenuButton.h"
 #import "CircleMenu.h"
 #import "CityListViewController.h"
 #import "PoiManager.h"
 #import "SearchDestinationViewController.h"
+#import "CityDetailViewController.h"
 #import "CitySearchViewController.h"
 
 @interface CountryRecommendViewController () <UITableViewDataSource, UITableViewDelegate, circleMenuDelegate>
@@ -48,6 +50,8 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, kWindowHeight)];
     [_tableView registerNib:[UINib nibWithNibName:@"CountryRecommendTableViewCell" bundle:nil] forCellReuseIdentifier:@"countryRecommendTableViewCell"];
+    [_tableView registerNib:[UINib nibWithNibName:@"CityRecommendTableViewCell" bundle:nil] forCellReuseIdentifier:@"cityRecommendTableViewCell"];
+
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.delegate = self;
     _tableView.dataSource = self;
@@ -184,21 +188,38 @@
     if (_currentSelectIndex == -1) {
         return nil;
     }
-    CountryRecommendTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"countryRecommendTableViewCell" forIndexPath:indexPath];
     NSMutableArray *countriesList = [_dataSource objectAtIndex:_currentSelectIndex];
-    cell.countryModel = [countriesList objectAtIndex:indexPath.row];
-    return cell;
+    if ([[countriesList objectAtIndex:indexPath.row] isKindOfClass:[CountryModel class]]) {
+        CountryRecommendTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"countryRecommendTableViewCell" forIndexPath:indexPath];
+        cell.countryModel = [countriesList objectAtIndex:indexPath.row];
+        return cell;
+
+    } else {
+        CityRecommendTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cityRecommendTableViewCell" forIndexPath:indexPath];
+        cell.cityPoi = [countriesList objectAtIndex:indexPath.row];
+        return cell;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    CityListViewController *ctl = [[CityListViewController alloc] init];
     NSMutableArray *countriesList = [_dataSource objectAtIndex:_currentSelectIndex];
-    CountryModel *countryModel = [countriesList objectAtIndex:indexPath.row];
-    ctl.countryId = countryModel.coutryId;
-    ctl.countryName = countryModel.zhName;
-    [self.navigationController pushViewController:ctl animated:YES];
+    id poiModel = [countriesList objectAtIndex:indexPath.row];
+    if ([[countriesList objectAtIndex:indexPath.row] isKindOfClass:[CountryModel class]]) {
+        CountryModel *countryModel = (CountryModel *)poiModel;
+        CityListViewController *ctl = [[CityListViewController alloc] init];
+        ctl.countryId = countryModel.coutryId;
+        ctl.countryName = countryModel.zhName;
+        [self.navigationController pushViewController:ctl animated:YES];
+        
+    } else {
+        CityPoi *cityPoi = (CityPoi *)poiModel;
+        CityDetailViewController *ctl = [[CityDetailViewController alloc] init];
+        ctl.cityId = cityPoi.poiId;
+        ctl.cityName = cityPoi.zhName;
+        [self.navigationController pushViewController:ctl animated:YES];
+    }
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -228,11 +249,19 @@
     [_currentSelectedBtn setTitle:[_menuTitles objectAtIndex:tag] forState:UIControlStateNormal];
     NSMutableArray *countriesList = [_dataSource objectAtIndex:tag];
     if (countriesList.count == 0) {
-        [PoiManager asyncLoadRecommendCountriesWithContinentCode:[[_continentCodes objectAtIndex:tag] integerValue] completionBlcok:^(BOOL isSuccess, NSArray *poiList) {
-            [countriesList removeAllObjects];
-            [countriesList addObjectsFromArray:poiList];
-            [_tableView reloadData];
-        }];
+        if (_currentSelectIndex == 0) {
+           [PoiManager asyncLoadRecommendCitiesWithCompletionBlcok:^(BOOL isSuccess, NSArray *cityList) {
+               [countriesList removeAllObjects];
+               [countriesList addObjectsFromArray:cityList];
+               [_tableView reloadData];
+           }];
+        } else {
+            [PoiManager asyncLoadRecommendCountriesWithContinentCode:[[_continentCodes objectAtIndex:tag] integerValue] completionBlcok:^(BOOL isSuccess, NSArray *poiList) {
+                [countriesList removeAllObjects];
+                [countriesList addObjectsFromArray:poiList];
+                [_tableView reloadData];
+            }];
+        }
     }
     [_tableView reloadData];
 }

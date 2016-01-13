@@ -56,6 +56,33 @@
     }];
 }
 
++ (void)asyncLoadRecommendCitiesWithCompletionBlcok:(void (^)(BOOL isSuccess, NSArray *cityList))completion
+{
+    NSString *url = [NSString stringWithFormat:@"%@/recommendations", API_GET_CITIES];
+    [LXPNetworking GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            NSMutableArray *retArray = [[NSMutableArray alloc] init];
+            for (NSDictionary *dic in [responseObject objectForKey:@"result"]) {
+                CityPoi *poi = [[CityPoi alloc] initWithJson:dic];
+                [retArray addObject:poi];
+            }
+            completion(YES, retArray);
+            
+        } else {
+            [SVProgressHUD showHint:HTTP_FAILED_HINT];
+            completion(NO, nil);
+        }
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [SVProgressHUD showHint:HTTP_FAILED_HINT];
+        completion(NO, nil);
+        
+    }];
+
+}
+
 + (void)asyncLoadRecommendCountriesWithContinentCode:(kContinentCode)continentCode completionBlcok:(void (^)(BOOL, NSArray *))completion
 {
     NSString *continentCodeStr;
@@ -93,7 +120,6 @@
     }
     NSDictionary *params = @{@"continentCode": continentCodeStr};
     
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [LXPNetworking GET:API_GET_COUNTRIES parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];

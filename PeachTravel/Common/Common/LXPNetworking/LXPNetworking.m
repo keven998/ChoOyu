@@ -177,7 +177,6 @@
             [manager.requestSerializer setValue:[NSString stringWithFormat:@"LVXINGPAI-v1-HMAC-SHA256 Signature=%@", token] forHTTPHeaderField:@"Authorization"];
             NSLog(@"%@", token);
         }
-        
     }
 }
 

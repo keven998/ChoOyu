@@ -152,7 +152,6 @@
     [self.avatar sd_setImageWithURL:url];
     
     self.nickName.text = userInfo.nickName;
-    NSLog(@"%@",userInfo.residence);
     self.age.text = [NSString stringWithFormat:@"%ld岁 现居住在 %@",userInfo.age,userInfo.residence];
     
     if ([userInfo.sex isEqualToString:@"M"]) {

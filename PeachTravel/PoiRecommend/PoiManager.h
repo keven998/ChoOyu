@@ -26,6 +26,13 @@ typedef enum : NSUInteger {
 + (void)asyncLoadForeignRecommendPoiWithCompletionBlcok:(void (^)(BOOL isSuccess, NSArray *poiList))completion;
 
 /**
+ *  获取推荐的城市列表
+ *
+ *  @param completion
+ */
++ (void)asyncLoadRecommendCitiesWithCompletionBlcok:(void (^)(BOOL isSuccess, NSArray *cityList))completion;
+
+/**
  *  从服务器上获取国家列表
  *
  *  @param continentCode 洲 code

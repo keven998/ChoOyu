@@ -79,7 +79,7 @@
 {
     _account = account;
     _nickNameLabel.text = account.nickName;
-    [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:_account.avatarSmall] placeholderImage:nil];
+    [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:_account.avatarSmall] placeholderImage:[UIImage imageNamed:@"avatar_default"]];
 }
 
 - (void)allOrderAction

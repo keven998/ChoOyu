@@ -574,6 +574,8 @@
 		D925B1DE1C4391DD000F7E10 /* icon_downSheet_cancel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D925B1DC1C4391DD000F7E10 /* icon_downSheet_cancel@2x.png */; };
 		D925B1DF1C4391DD000F7E10 /* icon_downSheet_cancel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D925B1DD1C4391DD000F7E10 /* icon_downSheet_cancel@3x.png */; };
 		D925B1E11C43DEAE000F7E10 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = D925B1E01C43DEAE000F7E10 /* main.jsbundle */; };
+		D925B22E1C463AA4000F7E10 /* CityRecommendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D925B22C1C463AA4000F7E10 /* CityRecommendTableViewCell.m */; };
+		D925B22F1C463AA4000F7E10 /* CityRecommendTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D925B22D1C463AA4000F7E10 /* CityRecommendTableViewCell.xib */; };
 		D92B5C1C1BB9243B00E3AC93 /* PoiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D92B5C1B1BB9243B00E3AC93 /* PoiManager.m */; };
 		D92B5C1F1BB92A5D00E3AC93 /* PoiRecommend.m in Sources */ = {isa = PBXBuildFile; fileRef = D92B5C1E1BB92A5D00E3AC93 /* PoiRecommend.m */; };
 		D92C50B31C1EA14A00AD7965 /* TZSchemeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D92C50B21C1EA14A00AD7965 /* TZSchemeManager.m */; };
@@ -2747,6 +2749,9 @@
 		D925B1DC1C4391DD000F7E10 /* icon_downSheet_cancel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_downSheet_cancel@2x.png"; sourceTree = "<group>"; };
 		D925B1DD1C4391DD000F7E10 /* icon_downSheet_cancel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_downSheet_cancel@3x.png"; sourceTree = "<group>"; };
 		D925B1E01C43DEAE000F7E10 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
+		D925B22B1C463AA4000F7E10 /* CityRecommendTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityRecommendTableViewCell.h; sourceTree = "<group>"; };
+		D925B22C1C463AA4000F7E10 /* CityRecommendTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityRecommendTableViewCell.m; sourceTree = "<group>"; };
+		D925B22D1C463AA4000F7E10 /* CityRecommendTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CityRecommendTableViewCell.xib; sourceTree = "<group>"; };
 		D92B5C1A1BB9243B00E3AC93 /* PoiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PoiManager.h; path = ../PoiRecommend/PoiManager.h; sourceTree = "<group>"; };
 		D92B5C1B1BB9243B00E3AC93 /* PoiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PoiManager.m; path = ../PoiRecommend/PoiManager.m; sourceTree = "<group>"; };
 		D92B5C1D1BB92A5D00E3AC93 /* PoiRecommend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoiRecommend.h; sourceTree = "<group>"; };
@@ -6174,6 +6179,9 @@
 		D93FEEBA1BEB40AD0065D6ED /* CountryRecommend */ = {
 			isa = PBXGroup;
 			children = (
+				D925B22B1C463AA4000F7E10 /* CityRecommendTableViewCell.h */,
+				D925B22C1C463AA4000F7E10 /* CityRecommendTableViewCell.m */,
+				D925B22D1C463AA4000F7E10 /* CityRecommendTableViewCell.xib */,
 				D93FEEBB1BEB40EF0065D6ED /* CountryRecommendViewController.h */,
 				D93FEEBC1BEB40EF0065D6ED /* CountryRecommendViewController.m */,
 				D93FEEBE1BEB413D0065D6ED /* CountryRecommendTableViewCell.h */,
@@ -10871,6 +10879,7 @@
 				01C1EC011BB4E4720082217A /* bishi@2x.png in Resources */,
 				E6F18ADE1B845F4900232EEB /* chat_drawer_add@3x.png in Resources */,
 				E6F18A3D1B845F4900232EEB /* ArtboardBg@3x.png in Resources */,
+				D925B22F1C463AA4000F7E10 /* CityRecommendTableViewCell.xib in Resources */,
 				01A5CEDC1BB3DDC200A59A8A /* mapMark_icon_bottom@3x.png in Resources */,
 				D942C14D1B9EB5C3005B81C5 /* travel@2x.png in Resources */,
 				01C1EC601BB4E4720082217A /* shoushang@3x.png in Resources */,
@@ -11954,6 +11963,7 @@
 				01578E6B1BD228F200244D9D /* DataSigner.m in Sources */,
 				D9DD314D1BF46A68009BEDAB /* GoodsPackageModel.m in Sources */,
 				C65DB7C91AD6A44200F51443 /* TZNavigationViewController.m in Sources */,
+				D925B22E1C463AA4000F7E10 /* CityRecommendTableViewCell.m in Sources */,
 				D9F46DBC1AC52D8600972AE8 /* SVWebViewControllerActivityChrome.m in Sources */,
 				E6E725251B5603750007273A /* NSObject+MJKeyValue.m in Sources */,
 				D993CB5A1AB6D6400075314E /* RestaurantPoi.m in Sources */,
