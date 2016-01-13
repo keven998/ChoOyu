@@ -53952,7 +53952,7 @@ Object.keys(componentOrElement));}
 
 module.exports = findDOMNode;
 });
-__d('trident/src/goodsDetailContainer.js',["react-native/Libraries/react-native/react-native.js","Dimensions","react-native/Libraries/react-native/react-native.js","trident/src/goodsComponents/GoodsDetailViewPager.ios.js","trident/src/goodsComponents/GoodsDetailUserInfo.js","trident/src/goodsComponents/GoodsDetailUserQualifications.js","trident/src/goodsComponents/GoodsDetailSectionItem.js","trident/src/goodsComponents/GoodsDetailSnapshot.js","trident/src/Config.js","react-native/Libraries/react-native/react-native.js","trident/src/goodsComponents/GoodsDetailInfo.js","trident/src/goodsComponents/GoodsDetailToolBar.js","trident/src/goodsComponents/GoodsDetailDescComponent.js","trident/src/goodsComponents/GoodsDetailBookComponent.js","trident/src/goodsComponents/GoodsTrafficComponent.js","trident/src/goodsComponents/GoodsBookQuitComponent.js"],function(global, require, module, exports) {  'use strict';
+__d('trident/src/goodsDetailContainer.js',["react-native/Libraries/react-native/react-native.js","Dimensions","react-native/Libraries/react-native/react-native.js","trident/src/goodsComponents/GoodsDetailViewPager.ios.js","trident/src/goodsComponents/GoodsDetailUserInfo.js","trident/src/goodsComponents/GoodsDetailInfo.js","trident/src/goodsComponents/GoodsDetailUserQualifications.js","trident/src/goodsComponents/GoodsDetailToolBar.js","trident/src/goodsComponents/GoodsDetailSectionItem.js","trident/src/goodsComponents/GoodsDetailDescComponent.js","trident/src/goodsComponents/GoodsDetailBookComponent.js","trident/src/goodsComponents/GoodsTrafficComponent.js","trident/src/goodsComponents/GoodsBookQuitComponent.js","trident/src/goodsComponents/GoodsDetailSnapshot.js","trident/src/Config.js","react-native/Libraries/react-native/react-native.js"],function(global, require, module, exports) {  'use strict';
 
 
 
@@ -54281,6 +54281,7 @@ console.log('componentWillMount' + this.props.storeName);},
 
 
 render:function(){
+
 return (
 React.createElement(View,{style:{marginTop:10}},
 React.createElement(View,{style:styles.greyLine}),
@@ -54307,6 +54308,11 @@ tel:String,
 locality:String},
 
 render:function(){
+
+var serviceIcon;
+if(this.props.serverTypes.length > 0){
+serviceIcon = sourcePath + 'iconfont_jichufuwu-拷贝@2x.png';}
+
 return (
 React.createElement(View,{style:styles.rightContainer},
 React.createElement(Text,{style:styles.storeName},
@@ -54326,7 +54332,7 @@ React.createElement(Text,{style:styles.language},' ',name)));})),
 
 
 React.createElement(View,{style:{flexDirection:'row',marginTop:7}},
-React.createElement(Image,{style:styles.iconImage,source:{uri:sourcePath + 'iconfont_jichufuwu-拷贝@2x.png'}}),
+React.createElement(Image,{style:styles.iconImage,source:{uri:serviceIcon}}),
 this.props.serverTypes.map(function(name,i){return React.createElement(Text,{style:styles.server},' ',name);}))));},
 
 

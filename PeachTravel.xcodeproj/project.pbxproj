@@ -575,7 +575,7 @@
 		D925B1DF1C4391DD000F7E10 /* icon_downSheet_cancel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D925B1DD1C4391DD000F7E10 /* icon_downSheet_cancel@3x.png */; };
 		D925B22E1C463AA4000F7E10 /* CityRecommendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D925B22C1C463AA4000F7E10 /* CityRecommendTableViewCell.m */; };
 		D925B22F1C463AA4000F7E10 /* CityRecommendTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D925B22D1C463AA4000F7E10 /* CityRecommendTableViewCell.xib */; };
-		D925B2311C46505D000F7E10 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = D925B2301C46505D000F7E10 /* main.jsbundle */; };
+		D925B2331C465B0E000F7E10 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = D925B2321C465B0E000F7E10 /* main.jsbundle */; };
 		D92B5C1C1BB9243B00E3AC93 /* PoiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D92B5C1B1BB9243B00E3AC93 /* PoiManager.m */; };
 		D92B5C1F1BB92A5D00E3AC93 /* PoiRecommend.m in Sources */ = {isa = PBXBuildFile; fileRef = D92B5C1E1BB92A5D00E3AC93 /* PoiRecommend.m */; };
 		D92C50B31C1EA14A00AD7965 /* TZSchemeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D92C50B21C1EA14A00AD7965 /* TZSchemeManager.m */; };
@@ -2751,7 +2751,7 @@
 		D925B22B1C463AA4000F7E10 /* CityRecommendTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityRecommendTableViewCell.h; sourceTree = "<group>"; };
 		D925B22C1C463AA4000F7E10 /* CityRecommendTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityRecommendTableViewCell.m; sourceTree = "<group>"; };
 		D925B22D1C463AA4000F7E10 /* CityRecommendTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CityRecommendTableViewCell.xib; sourceTree = "<group>"; };
-		D925B2301C46505D000F7E10 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
+		D925B2321C465B0E000F7E10 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		D92B5C1A1BB9243B00E3AC93 /* PoiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PoiManager.h; path = ../PoiRecommend/PoiManager.h; sourceTree = "<group>"; };
 		D92B5C1B1BB9243B00E3AC93 /* PoiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PoiManager.m; path = ../PoiRecommend/PoiManager.m; sourceTree = "<group>"; };
 		D92B5C1D1BB92A5D00E3AC93 /* PoiRecommend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoiRecommend.h; sourceTree = "<group>"; };
@@ -7098,7 +7098,7 @@
 		D99D8EC719C8600C0021C25B /* PeachTravel */ = {
 			isa = PBXGroup;
 			children = (
-				D925B2301C46505D000F7E10 /* main.jsbundle */,
+				D925B2321C465B0E000F7E10 /* main.jsbundle */,
 				D95B0A461BF0671E00F2D900 /* Order */,
 				D92109AE1BE204D700AEDB65 /* Store */,
 				01578DFC1BD2285D00244D9D /* TZPay */,
@@ -10467,7 +10467,7 @@
 				D9F059F61B63360700DD683F /* PlanScheduleTableViewCell.xib in Resources */,
 				01C1EC241BB4E4720082217A /* huaxin@3x.png in Resources */,
 				E6381BE81B66269000CF73AA /* Loading_Animation_final20@2x.png in Resources */,
-				D925B2311C46505D000F7E10 /* main.jsbundle in Resources */,
+				D925B2331C465B0E000F7E10 /* main.jsbundle in Resources */,
 				D942C1321B9EB5C3005B81C5 /* notes@3x.png in Resources */,
 				D90C761A1BF1DED600C5897C /* MakeOrderSelectDateTableViewCell.xib in Resources */,
 				D91FED971B42D3B70073AD77 /* CityImageAlbum.xib in Resources */,

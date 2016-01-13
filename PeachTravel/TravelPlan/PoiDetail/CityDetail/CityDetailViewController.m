@@ -51,7 +51,7 @@
             UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewCityAlbumAction)];
             tapGesture.numberOfTapsRequired = 1;
             tapGesture.numberOfTouchesRequired = 1;
-            [_headerView addGestureRecognizer:tapGesture];
+            [_headerView.headerImageView addGestureRecognizer:tapGesture];
         } else {
         }
         [GoodsManager asyncLoadGoodsOfCity:_cityId startIndex:0 count:3 completionBlock:^(BOOL isSuccess, NSArray *goodsList) {

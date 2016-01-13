@@ -17,7 +17,6 @@
 
 @interface CityDetailHeaderView ()
 
-@property (nonatomic, strong) UIImageView *headerImageView;
 @property (nonatomic, strong) UILabel *zhNameLabel;
 @property (nonatomic, strong) UILabel *enNameLabel;
 @property (nonatomic, strong) UIButton *allPictureBtn;
