@@ -5141,7 +5141,7 @@ NodeHandle.injection.injectImplementation(UniversalWorkerNodeHandle);}
 module.exports = {
 inject:inject};
 });
-__d('InitializeJavaScriptAppEngine',["RCTDebugComponentOwnership","RCTDeviceEventEmitter","PerformanceLogger","ExceptionsManager","ErrorUtils","ExceptionsManager","Platform","checkFlowAtRuntime","JSTimers","NativeModules","Promise","XMLHttpRequest","FormData","fetch","Geolocation","WebSocket","BridgeProfiling","regenerator/runtime.js"],function(global, require, module, exports) {  var _extends=Object.assign || function(target){for(var i=1;i < arguments.length;i++) {var source=arguments[i];for(var key in source) {if(Object.prototype.hasOwnProperty.call(source,key)){target[key] = source[key];}}}return target;};
+__d('InitializeJavaScriptAppEngine',["RCTDebugComponentOwnership","RCTDeviceEventEmitter","PerformanceLogger","regenerator/runtime.js","ExceptionsManager","ErrorUtils","ExceptionsManager","Platform","checkFlowAtRuntime","JSTimers","NativeModules","Promise","XMLHttpRequest","FormData","fetch","Geolocation","WebSocket","BridgeProfiling"],function(global, require, module, exports) {  var _extends=Object.assign || function(target){for(var i=1;i < arguments.length;i++) {var source=arguments[i];for(var key in source) {if(Object.prototype.hasOwnProperty.call(source,key)){target[key] = source[key];}}}return target;};
 
 
 
@@ -29928,7 +29928,7 @@ this.emit(arg.eventType,arg.data,arg.didEmitCallback);}}}]);return NavigationEve
 
 module.exports = NavigationEventEmitter;
 });
-__d('NavigatorBreadcrumbNavigationBar',["NavigatorBreadcrumbNavigationBarStyles","NavigatorNavigationBarStylesAndroid","NavigatorNavigationBarStylesIOS","Platform","React","StyleSheet","View","invariant","immutable/dist/immutable.js"],function(global, require, module, exports) {  'use strict';
+__d('NavigatorBreadcrumbNavigationBar',["NavigatorBreadcrumbNavigationBarStyles","NavigatorNavigationBarStylesAndroid","NavigatorNavigationBarStylesIOS","Platform","React","StyleSheet","View","immutable/dist/immutable.js","invariant"],function(global, require, module, exports) {  'use strict';
 
 
 
@@ -53952,7 +53952,7 @@ Object.keys(componentOrElement));}
 
 module.exports = findDOMNode;
 });
-__d('trident/src/goodsDetailContainer.js',["react-native/Libraries/react-native/react-native.js","Dimensions","react-native/Libraries/react-native/react-native.js","trident/src/goodsComponents/GoodsDetailViewPager.ios.js","trident/src/goodsComponents/GoodsDetailUserQualifications.js","react-native/Libraries/react-native/react-native.js","trident/src/goodsComponents/GoodsDetailUserInfo.js","trident/src/goodsComponents/GoodsDetailInfo.js","trident/src/goodsComponents/GoodsDetailToolBar.js","trident/src/goodsComponents/GoodsDetailSectionItem.js","trident/src/goodsComponents/GoodsDetailDescComponent.js","trident/src/goodsComponents/GoodsDetailBookComponent.js","trident/src/goodsComponents/GoodsTrafficComponent.js","trident/src/goodsComponents/GoodsBookQuitComponent.js","trident/src/goodsComponents/GoodsDetailSnapshot.js","trident/src/Config.js"],function(global, require, module, exports) {  'use strict';
+__d('trident/src/goodsDetailContainer.js',["react-native/Libraries/react-native/react-native.js","Dimensions","react-native/Libraries/react-native/react-native.js","trident/src/goodsComponents/GoodsDetailViewPager.ios.js","trident/src/goodsComponents/GoodsDetailUserInfo.js","trident/src/goodsComponents/GoodsDetailUserQualifications.js","trident/src/goodsComponents/GoodsDetailSectionItem.js","trident/src/goodsComponents/GoodsDetailSnapshot.js","trident/src/Config.js","react-native/Libraries/react-native/react-native.js","trident/src/goodsComponents/GoodsDetailInfo.js","trident/src/goodsComponents/GoodsDetailToolBar.js","trident/src/goodsComponents/GoodsDetailDescComponent.js","trident/src/goodsComponents/GoodsDetailBookComponent.js","trident/src/goodsComponents/GoodsTrafficComponent.js","trident/src/goodsComponents/GoodsBookQuitComponent.js"],function(global, require, module, exports) {  'use strict';
 
 
 
@@ -54436,11 +54436,11 @@ return (
 React.createElement(View,{style:styles.container},
 React.createElement(View,{style:{flexDirection:'row',alignItems:'center',marginTop:15,justifyContent:'center'}},
 
-React.createElement(Text,{style:{fontSize:15,color:'#333333',marginLeft:10,flex:3}},
-React.createElement(Text,{style:{fontSize:14,alignSelf:'center',color:'#99cc66',fontWeight:'bold'}},
+React.createElement(Text,{style:{fontSize:15,color:'#333333',marginLeft:10,marginRight:5,flex:1}},
+React.createElement(Text,{style:{fontSize:14,alignSelf:'center',color:'#99cc66',fontWeight:'bold',lineHeight:20}},
 "[" + this.props.categoryDesc + "]  "),
 
-this.props.goodsName)),
+this.props.goodsName + '水电费水电费离开教室蝶恋蜂狂手机丢了看风景收到了开放时间都浪费')),
 
 
 React.createElement(View,{style:{flexDirection:'row',justifyContent:'space-between',marginTop:5,marginBottom:15}},
@@ -54642,13 +54642,13 @@ return (
 React.createElement(View,{style:styles.outContainer},
 React.createElement(View,{style:{width:w,height:0.5,backgroundColor:'#e2e2e2'}}),
 React.createElement(View,{style:styles.container},
-React.createElement(ButtonItem,{imageName:'iconfont_fuwuguanli-@2x.png',buttonTitle:'联系商家',
+React.createElement(ButtonItem,{imageName:'iconfont_fuwuguanli-@2x.png',buttonTitle:'联系卖家',
 commodityId:this.props.commodityId,
 userId:this.props.userId,title:this.props.title,
 price:this.props.price,images:this.props.images}),
 
 React.createElement(View,{style:styles.spaceView}),
-React.createElement(ButtonItem,{imageName:'iconfont_dianpu@2x.png',buttonTitle:'进入店铺',
+React.createElement(ButtonItem,{imageName:'iconfont_store@2x.png',buttonTitle:'进入店铺',
 sellerId:this.props.sellerId}),
 
 React.createElement(TouchableHighlight,{
@@ -54690,7 +54690,7 @@ if(Platform.OS == 'android'){
 console.log('title ' + title);
 if(title == '进入店铺'){
 NativeAction.startActivity('Store',null,this.props.sellerId + '','');}else 
-if(title == '联系商家'){
+if(title == '联系卖家'){
 this.props.shareBean.commodityId = this.props.commodityId;
 this.props.shareBean.price = this.props.price;
 this.props.shareBean.title = this.props.title;
@@ -54894,7 +54894,12 @@ return (
 React.createElement(View,{style:styles.container},
 React.createElement(Info,{title:'详细地址',content:this.props.location}),
 React.createElement(Info,{title:'游玩时长',content:this.props.travelTime}),
-React.createElement(Text,{style:styles.textItem},' ',this.props.desc),
+
+React.createElement(View,{style:styles.InfoContainer},
+React.createElement(Text,{style:styles.infoContent},
+this.props.desc)),
+
+
 React.createElement(View,{style:styles.greyLine}),
 React.createElement(ButtonShowAll,{isShow:this.props.showMore,url:this.props.url})));}});
 
@@ -54908,7 +54913,7 @@ if(this.props.isShow){
 return (
 React.createElement(TouchableHighlight,{underlayColor:'#ffffff',onPress:function(){return _this.showAll();}},
 React.createElement(View,{
-style:{marginBottom:7,marginTop:7,width:80,padding:3,paddingLeft:5,paddingRight:5,marginLeft:15,alignSelf:'center',justifyContent:'center',borderWidth:0.5,borderColor:'#99cc66',borderRadius:3}},
+style:{marginBottom:7,marginTop:7,width:80,padding:3,paddingLeft:5,paddingRight:5,alignSelf:'center',justifyContent:'center',borderWidth:0.5,borderColor:'#99cc66',borderRadius:3}},
 React.createElement(Text,{style:{fontSize:12,alignSelf:'center',color:'#99cc66',margin:5}},'查看全部'))));}else 
 
 
@@ -54966,8 +54971,7 @@ var Line=React.createClass({displayName:'Line',
 render:function(){
 if(this.props.isShow){
 return (
-React.createElement(View,{style:{flexDirection:'column',
-backgroundColor:'white'}},
+React.createElement(View,{style:{flexDirection:'column',backgroundColor:'white'}},
 React.createElement(Image,{style:{width:75,height:1},
 source:{uri:sourcePath + 'iconfont_weibiaoti204@3x.png'},
 resizeMode:Image.resizeMode.contain})));}else 
@@ -55013,24 +55017,13 @@ color:'#666666',
 alignSelf:'center',textAlign:'right'},
 
 infoContent:{
-marginLeft:15,
-marginRight:15,
+marginLeft:10,
+marginRight:5,
 fontSize:13,
 color:'#666666',
 textAlign:'left',
 margin:1,
-lineHeight:22,
-letterSpacing:1,
-width:w - 20},
-
-textItem:{
-marginLeft:15,
-marginRight:15,
-marginTop:15,
-fontSize:13,
-color:'#666666',
-textAlign:'left',
-margin:1,
+flex:1,
 lineHeight:22,
 letterSpacing:1},
 
@@ -55075,7 +55068,7 @@ return (
 React.createElement(View,{style:styles.container},
 React.createElement(CommonContent,{isShow:true,title:'费用包含',icon:'iconfont_feiyongbaohanbubaoban@3x.png',
 content:summary,showTitle:this.props.showTitle}),
-React.createElement(HorizontalContent,{infoList:[{'title':'费用不包含','iconName':'iconfont_cost@3x.png'},
+React.createElement(HorizontalContent,{infoList:[{'title':'费用不含','iconName':'iconfont_cost@3x.png'},
 {'title':'使用方法','iconName':'iconfont_fankui@3x.png'},
 {'title':'注意事项','iconName':'iconfont_zhuyi@3x.png'}]}),
 React.createElement(View,{style:styles.greyLine}),
@@ -55108,7 +55101,7 @@ if(this.props.isShow){
 return (
 React.createElement(TouchableHighlight,{underlayColor:'#ffffff',onPress:function(){return _this.showAll();}},
 React.createElement(View,{
-style:{marginBottom:7,marginTop:7,width:80,padding:3,paddingLeft:5,paddingRight:5,marginLeft:15,alignSelf:'center',justifyContent:'center',borderWidth:0.5,borderColor:'#99cc66',borderRadius:3}},
+style:{marginBottom:7,marginTop:7,width:80,padding:3,paddingLeft:5,paddingRight:5,alignSelf:'center',justifyContent:'center',borderWidth:0.5,borderColor:'#99cc66',borderRadius:3}},
 React.createElement(Text,{style:{fontSize:12,alignSelf:'center',color:'#99cc66',margin:5}},'查看全部'))));}else 
 
 
@@ -55200,7 +55193,7 @@ this.props.infoList.map(function(name,i){return React.createElement(Text,{style:
 var HorizontalContent=React.createClass({displayName:'HorizontalContent',
 render:function(){
 return (
-React.createElement(View,{style:styles.container2},
+React.createElement(View,{style:{flexDirection:'row',marginLeft:10}},
 this.props.infoList.map(function(infoDic,i){return (
 React.createElement(View,{style:styles.container2},
 React.createElement(Image,{style:{width:15,height:15,alignSelf:'center'},
@@ -55222,8 +55215,7 @@ backgroundColor:'white'},
 
 container1:{
 flexDirection:'row',
-flex:1,
-padding:5},
+flex:1},
 
 container3:{
 flexDirection:'row',
@@ -55232,8 +55224,7 @@ flex:1},
 
 container2:{
 flexDirection:'row',
-flex:1,
-paddingLeft:10},
+flex:1},
 
 icon:{
 width:15,
@@ -55322,7 +55313,8 @@ render:function(){var _this=this;
 if(this.props.isShow){
 return (
 React.createElement(TouchableHighlight,{underlayColor:'#ffffff',onPress:function(){return _this.showAll();}},
-React.createElement(View,{style:{marginBottom:7,marginTop:7,width:80,padding:3,paddingLeft:5,paddingRight:5,marginLeft:15,alignSelf:'center',justifyContent:'center',borderWidth:0.5,borderColor:'#99cc66',borderRadius:3}},
+React.createElement(View,{
+style:{marginBottom:7,marginTop:7,width:80,padding:3,paddingLeft:5,paddingRight:5,alignSelf:'center',justifyContent:'center',borderWidth:0.5,borderColor:'#99cc66',borderRadius:3}},
 React.createElement(Text,{style:{fontSize:12,alignSelf:'center',color:'#99cc66',margin:5}},'查看全部'))));}else 
 
 
@@ -55494,7 +55486,7 @@ letterSpacing:1,
 width:w - 20},
 
 textItem:{
-marginLeft:25,
+marginLeft:10,
 fontSize:13,
 color:'#666666',
 textAlign:'left',
@@ -55575,7 +55567,8 @@ render:function(){var _this=this;
 if(this.props.isShow){
 return (
 React.createElement(TouchableHighlight,{underlayColor:'#ffffff',onPress:function(){return _this.showAll();}},
-React.createElement(View,{style:{marginBottom:7,marginTop:7,width:80,padding:3,paddingLeft:5,paddingRight:5,marginLeft:15,alignSelf:'center',justifyContent:'center',borderWidth:0.5,borderColor:'#99cc66',borderRadius:3}},
+React.createElement(View,{
+style:{marginBottom:7,marginTop:7,width:80,padding:3,paddingLeft:5,paddingRight:5,alignSelf:'center',justifyContent:'center',borderWidth:0.5,borderColor:'#99cc66',borderRadius:3}},
 React.createElement(Text,{style:{fontSize:12,alignSelf:'center',color:'#99cc66',margin:5}},'查看全部'))));}else 
 
 
@@ -55707,8 +55700,7 @@ backgroundColor:'white'},
 
 container1:{
 flexDirection:'row',
-flex:1,
-padding:5},
+flex:1},
 
 container3:{
 flexDirection:'row',
@@ -55748,7 +55740,7 @@ letterSpacing:1,
 width:w - 20},
 
 textItem:{
-marginLeft:25,
+marginLeft:20,
 fontSize:13,
 color:'#666666',
 textAlign:'left',
@@ -55874,7 +55866,7 @@ height:h,
 goodsDetailUrl:goodsDetailUrl,
 storeDetailUrl:storeDetailUrl};module.exports = exports.default;
 });
-__d('trident/src/StoreContainer.js',["react-native/Libraries/react-native/react-native.js","Dimensions","trident/src/storeComponents/StoreHotSales.js","trident/src/storeComponents/StorelToolBar.js","trident/src/storeComponents/StoreDetailUserInfo.js","trident/src/storeComponents/StoreDetailOnSell.js","trident/src/storeComponents/StoreInfo.js","trident/src/storeComponents/StoreSectionItem.js"],function(global, require, module, exports) {  var React=require('react-native/Libraries/react-native/react-native.js');
+__d('trident/src/StoreContainer.js',["react-native/Libraries/react-native/react-native.js","Dimensions","trident/src/storeComponents/StoreDetailUserInfo.js","trident/src/storeComponents/StoreHotSales.js","trident/src/storeComponents/StoreDetailOnSell.js","trident/src/storeComponents/StoreInfo.js","trident/src/storeComponents/StoreSectionItem.js","trident/src/storeComponents/StorelToolBar.js"],function(global, require, module, exports) {  var React=require('react-native/Libraries/react-native/react-native.js');
 var Dimensions=require('Dimensions');
 var StoreDetailUserInfo=require('trident/src/storeComponents/StoreDetailUserInfo.js');
 var StoreHotSales=require('trident/src/storeComponents/StoreHotSales.js');

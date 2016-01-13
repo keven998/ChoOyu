@@ -60,8 +60,8 @@ RCT_EXPORT_MODULE();
     }
     self.automaticallyAdjustsScrollViewInsets = NO;
 
-//    NSURL *jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
-    NSURL *jsCodeLocation = [NSURL URLWithString:@"http://192.168.1.47:8081/index.ios.bundle?platform=ios&dev=true"];
+    NSURL *jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+//    NSURL *jsCodeLocation = [NSURL URLWithString:@"http://192.168.1.47:8081/index.ios.bundle?platform=ios&dev=true"];
 
     bridge = [[RCTBridge alloc] initWithBundleURL:jsCodeLocation
                                               moduleProvider:nil
@@ -273,19 +273,24 @@ RCT_EXPORT_MODULE();
 - (void)share2Frend
 {
     NSArray *shareButtonimageArray = @[@"ic_sns_lxp.png", @"ic_sns_pengyouquan.png",  @"ic_sns_weixin.png", @"ic_sns_qq.png", @"ic_sns_sina.png", @"ic_sns_douban.png"];
-    NSArray *shareButtonTitleArray = @[@"旺旺", @"朋友圈", @"微信朋友", @"QQ", @"新浪微博", @"豆瓣"];
+    NSArray *shareButtonTitleArray = @[@"旅行派好友", @"朋友圈", @"微信朋友", @"QQ", @"新浪微博", @"豆瓣"];
     ShareActivity *shareActivity = [[ShareActivity alloc] initWithTitle:@"转发至" delegate:self cancelButtonTitle:@"取消" ShareButtonTitles:shareButtonTitleArray withShareButtonImagesName:shareButtonimageArray];
     [shareActivity showInView:self.navigationController.view];
 }
 
 - (void)favorite:(UIButton *)button
 {
-    [GoodsManager asyncFavoriteGoodsWithGoodsObjectId:_goodsDetail.objectId isFavorite:!_goodsDetail.isFavorite completionBlock:^(BOOL isSuccess) {
-        if (isSuccess) {
-            _goodsDetail.isFavorite = !_goodsDetail.isFavorite;
-            button.selected = _goodsDetail.isFavorite;
-        }
-    }];
+    if (![[AccountManager shareAccountManager] isLogin]) {
+        [SVProgressHUD showHint:@"请先登录"];
+        [self performSelector:@selector(login) withObject:nil afterDelay:0.3];
+    } else {
+        [GoodsManager asyncFavoriteGoodsWithGoodsObjectId:_goodsDetail.objectId isFavorite:!_goodsDetail.isFavorite completionBlock:^(BOOL isSuccess) {
+            if (isSuccess) {
+                _goodsDetail.isFavorite = !_goodsDetail.isFavorite;
+                button.selected = _goodsDetail.isFavorite;
+            }
+        }];
+    }
 }
 
 RCT_EXPORT_METHOD(makePhone:(NSString *)tel){
