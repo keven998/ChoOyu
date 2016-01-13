@@ -143,9 +143,12 @@
         
         NSURL *url = [NSURL URLWithString:URLString];
         NSString *signature = [LXPHTTPAuthorization signatureMessageWithURI:url.path Date:rfc822Date LxpId:accountManager.account.userId Query:nil Body:parameters];
-        NSString *token = [LXPHTTPAuthorization authorizationSignatureWithToken:accountManager.account.secToken signatureMessage:signature];
-        NSLog(@"%@", token);
-        [manager.requestSerializer setValue:[NSString stringWithFormat:@"LVXINGPAI-v1-HMAC-SHA256 Signature=%@", token] forHTTPHeaderField:@"Authorization"];
+        if (accountManager.account.secToken) {
+            NSString *token = [LXPHTTPAuthorization authorizationSignatureWithToken:accountManager.account.secToken signatureMessage:signature];
+            NSLog(@"%@", token);
+            [manager.requestSerializer setValue:[NSString stringWithFormat:@"LVXINGPAI-v1-HMAC-SHA256 Signature=%@", token] forHTTPHeaderField:@"Authorization"];
+
+        }
     }
 }
 
@@ -169,9 +172,11 @@
         
         NSURL *url = [NSURL URLWithString:URLString];
         NSString *signature = [LXPHTTPAuthorization signatureMessageWithURI:url.path Date:rfc822Date LxpId:accountManager.account.userId Query:parameters Body:nil];
-        NSString *token = [LXPHTTPAuthorization authorizationSignatureWithToken:accountManager.account.secToken signatureMessage:signature];
-        NSLog(@"%@", token);
-        [manager.requestSerializer setValue:[NSString stringWithFormat:@"LVXINGPAI-v1-HMAC-SHA256 Signature=%@", token] forHTTPHeaderField:@"Authorization"];
+        if (accountManager.account.secToken) {
+            NSString *token = [LXPHTTPAuthorization authorizationSignatureWithToken:accountManager.account.secToken signatureMessage:signature];
+            [manager.requestSerializer setValue:[NSString stringWithFormat:@"LVXINGPAI-v1-HMAC-SHA256 Signature=%@", token] forHTTPHeaderField:@"Authorization"];
+            NSLog(@"%@", token);
+        }
         
     }
 }
@@ -180,7 +185,7 @@
 + (void)handleHttpError:(NSError *)error andOperation:(AFHTTPRequestOperation *)operation
 {
     NSInteger errorCode = operation.response.statusCode;
-    if (errorCode == 401) {     //用户鉴权失败，提示用户退出登录
+    if (errorCode == 401 && [[AccountManager shareAccountManager] isLogin]) {     //用户鉴权失败，提示用户退出登录
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"请重新登录" message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
         [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
             [[AccountManager shareAccountManager] asyncLogout:^(BOOL isSuccess) {

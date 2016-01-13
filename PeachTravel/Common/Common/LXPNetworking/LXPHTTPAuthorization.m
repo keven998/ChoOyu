@@ -51,7 +51,7 @@
         NSMutableString *queryString = [[NSMutableString alloc] init];
         for (NSString *key in allKeys) {
             NSString *value = [qureyDic objectForKey:key];
-            if (![key isEqualToString:[qureyDic.allKeys lastObject]]) {
+            if (![key isEqualToString:[allKeys lastObject]]) {
                 if ([value isKindOfClass:[NSString class]]) {
                     [queryString appendFormat:@"%@=%@&", key, [[value urlEncodeUsingEncoding:NSUTF8StringEncoding] stringByReplacingOccurrencesOfString:@"%20" withString:@"+"]];
                 } else {
