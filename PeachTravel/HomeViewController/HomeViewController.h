@@ -19,6 +19,5 @@
 
 - (void)updateViewWithUnreadMessageCount;
 
-- (void)showSomeTabbarNoti;
 
 @end

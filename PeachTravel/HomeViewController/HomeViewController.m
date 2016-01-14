@@ -203,7 +203,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
      NSString *key = [NSString stringWithFormat:@"%@_%ld", kShouldShowFinishUserInfoNoti, [AccountManager shareAccountManager].account.userId];
     [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:key];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    [self showSomeTabbarNoti];
 }
 
 - (void)userDidLogout
@@ -416,37 +415,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         item.title = [tabbarItemNames objectAtIndex:index];
         index++;
     }
-    [self showSomeTabbarNoti];
-}
-
-/**
- *  展示一些tabbar上的提醒
- */
-- (void)showSomeTabbarNoti
-{
-    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
-    NSString *key = [NSString stringWithFormat:@"%@_%ld", kShouldShowFinishUserInfoNoti, [AccountManager shareAccountManager].account.userId];
-    BOOL shouldShowNoti = [[defaults objectForKey:key] boolValue] && [[AccountManager shareAccountManager] isLogin];
-    
-    if (shouldShowNoti) {
-        UIView *dotView = [[UIView alloc] init];
-        dotView.tag = 101;
-        CGRect tabFrame = self.tabBar.frame;
-        dotView.backgroundColor = [UIColor redColor];
-        dotView.layer.cornerRadius = 3.0;
-        dotView.clipsToBounds = YES;
-        CGFloat x = ceilf(0.92 * tabFrame.size.width);
-        CGFloat y = ceilf(0.18 * tabFrame.size.height);
-        dotView.frame = CGRectMake(x, y, 6, 6);
-        [self.tabBar addSubview:dotView];
-        
-    } else {
-        for (UIView *view in self.tabBar.subviews) {
-            if (view.tag == 101) {
-                [view removeFromSuperview];
-            }
-        }
-    }
 }
 
 - (void)updateViewWithUnreadMessageCount
@@ -574,11 +542,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         TZNavigationViewController *navi = [[TZNavigationViewController alloc] initWithRootViewController:loginCtl];
         [self presentViewController:navi animated:YES completion:nil];
         return NO;
-    } else {
-        if ([viewController isEqual:_mineCtl.navigationController]) {
-            [self showSomeTabbarNoti];
-        }
-    }
+    } 
     return YES;
 }
 

@@ -5432,12 +5432,11 @@
 			path = PlansListTableViewController;
 			sourceTree = "<group>";
 		};
-		C659E9F21AE0FBA200A28095 /* SnsModel--达人指路--右上角详情 */ = {
+		C659E9F21AE0FBA200A28095 /* SnsModel */ = {
 			isa = PBXGroup;
 			children = (
 				C659E9F61AE0FF2100A28095 /* SNSDefine.h */,
 			);
-			name = "SnsModel--达人指路--右上角详情";
 			path = SnsModel;
 			sourceTree = "<group>";
 		};
@@ -5446,7 +5445,7 @@
 			children = (
 				D9A5939319E3DAB3004A6072 /* Me */,
 				C651F3EC1B394C3400B80690 /* Guider */,
-				C659E9F21AE0FBA200A28095 /* SnsModel--达人指路--右上角详情 */,
+				C659E9F21AE0FBA200A28095 /* SnsModel */,
 			);
 			path = TravelSNS;
 			sourceTree = "<group>";
