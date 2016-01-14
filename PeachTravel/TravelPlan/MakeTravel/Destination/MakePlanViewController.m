@@ -75,7 +75,6 @@
     
     [self setupSelectPanel];
     [self setupContentViewController];
-    [self beginSearch:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -156,11 +155,6 @@
 - (void)goBack
 {
     [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (IBAction)beginSearch:(id)sender
-{
-    [_searchController setActive:YES animated:YES];
 }
 
 #pragma mark - 添加searchBar

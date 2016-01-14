@@ -150,6 +150,21 @@
     // 设置cell的文字
     CityDestinationPoi * cityPoi = self.dataSource[indexPath.row];
     
+    BOOL find = NO;
+    for (int i = 0; i < self.destinations.destinationsSelected.count; i++) {
+        CityDestinationPoi * addedCityPoi = self.destinations.destinationsSelected[i];
+        
+        if ([cityPoi.cityId isEqualToString:addedCityPoi.cityId]) {
+            cell.addPlan.selected = YES;
+            find = YES;
+        }
+    }
+    if (!find) {
+        cell.addPlan.selected = NO;
+
+    }
+
+    
     NSString * countryName = self.allCountriesName[indexPath.row];
     
     cell.titleLabel.text = [NSString stringWithFormat:@"%@,%@",cityPoi.zhName,countryName];
