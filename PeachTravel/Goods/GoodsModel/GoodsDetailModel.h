@@ -32,6 +32,8 @@
 @property (nonatomic) long goodsVersion;
 @property (nonatomic, strong) NSArray<GoodsPackageModel *> *packages;
 @property (nonatomic, strong) CityDestinationPoi *locality;
+@property (nonatomic, copy) NSString *shareUrl;
+
 
 - (id)initWithJson:(id)json;
 

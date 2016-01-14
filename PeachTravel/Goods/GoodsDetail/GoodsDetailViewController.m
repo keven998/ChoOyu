@@ -368,7 +368,6 @@ RCT_EXPORT_METHOD(checkLatestGoodsDetail){
     [[NSNotificationCenter defaultCenter] postNotificationName:@"RNCheckLatestGoodsNoti" object:nil userInfo:nil];
 }
 
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
@@ -377,9 +376,10 @@ RCT_EXPORT_METHOD(checkLatestGoodsDetail){
 
 - (void)didClickOnImageIndex:(NSInteger)imageIndex
 {
-    NSString *url = @"http://7af4ik.com1.z0.glb.clouddn.com/react/index.html";
-    NSString *shareContentWithoutUrl = [NSString stringWithFormat:@"这个商品来自旅行派～"];
-    NSString *shareContentWithUrl = [NSString stringWithFormat:@"这个商品来自旅行派 %@", url];
+    NSString *url = _goodsDetail.shareUrl;
+    NSString *shareTitle = @"旅行派特色体验";
+    NSString *shareContentWithoutUrl = [NSString stringWithFormat:@"%@元起 | %@", _goodsDetail.formatCurrentPrice, _goodsDetail.goodsName];
+    NSString *shareContentWithUrl = [NSString stringWithFormat:@"%@元起 | %@ %@", _goodsDetail.formatCurrentPrice, _goodsDetail.goodsName, url];
     NSString *imageUrl = _goodsDetail.coverImage.imageUrl;
     UMSocialUrlResource *resource = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeImage url:imageUrl];
     
@@ -405,6 +405,7 @@ RCT_EXPORT_METHOD(checkLatestGoodsDetail){
             
         case 2: {
             [UMSocialData defaultData].extConfig.wechatSessionData.url = url;
+            [UMSocialData defaultData].extConfig.wechatSessionData.title = shareTitle;
             [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:shareContentWithoutUrl image:nil location:nil urlResource:resource presentedController:nil completion:^(UMSocialResponseEntity *response){
                 if (response.responseCode == UMSResponseCodeSuccess) {
                     NSLog(@"分享成功！");

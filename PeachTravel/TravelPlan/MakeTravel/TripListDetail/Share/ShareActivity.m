@@ -21,7 +21,7 @@
 #define SHAREBUTTON_INTERVAL_WIDTH              14
 #define SHAREBUTTON_INTERVAL_HEIGHT             35
 
-#define SHARETITLE_WIDTH                        50
+#define SHARETITLE_WIDTH                        60
 #define SHARETITLE_HEIGHT                       20
 #define SHARETITLE_INTERVAL_WIDTH               14
 #define SHARETITLE_INTERVAL_HEIGHT              SHAREBUTTON_WIDTH+SHAREBUTTON_INTERVAL_HEIGHT
@@ -201,7 +201,8 @@
 //        taoziLabel.textAlignment = NSTextAlignmentCenter;
 //        taoziLabel.font = [UIFont systemFontOfSize:10.];
 //        taoziLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
-        
+        float title_interval = (CGRectGetWidth(self.backGroundView.bounds)-52-3*SHARETITLE_WIDTH)/2;
+
         if (shareButtonTitlesArray.count > 0 && shareButtonImagesNameArray.count > 0) {
             for (int j = 0; j < shareButtonTitlesArray.count; j++) {
                 //计算出行数，与列数
@@ -212,7 +213,7 @@
                 shareLabel.text = [shareButtonTitlesArray objectAtIndex:j];
                 //有Title的时候
                 if (self.isHadTitle == YES) {
-                    [shareLabel setFrame:CGRectMake(31+((line)*(button_interval+SHARETITLE_WIDTH)), self.LXActivityHeight+SHAREBUTTON_HEIGHT+((column)*(SHARETITLE_INTERVAL_HEIGHT)), SHARETITLE_WIDTH, SHARETITLE_HEIGHT)];
+                    [shareLabel setFrame:CGRectMake(26+((line)*(title_interval+SHARETITLE_WIDTH)), self.LXActivityHeight+SHAREBUTTON_HEIGHT+((column)*(SHARETITLE_INTERVAL_HEIGHT)), SHARETITLE_WIDTH, SHARETITLE_HEIGHT)];
                 }
                 [self.backGroundView addSubview:shareLabel];
             }

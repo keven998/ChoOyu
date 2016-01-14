@@ -44,6 +44,7 @@
 
         }
         _goodsVersion = [[json objectForKey:@"version"] longValue];
+        _shareUrl = [json objectForKey:@"shareUrl"];
     }
     return self;
 }
