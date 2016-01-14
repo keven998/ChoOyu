@@ -30,10 +30,11 @@ static NSString *foreignDestinationCacheName = @"destination_foreign";
         [manager.requestSerializer setValue:time forHTTPHeaderField:@"If-Modified-Since"];
     }
     
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSNumber *imageWidth = [NSNumber numberWithInt:450];
-    NSDictionary *params = @{@"groupBy" : [NSNumber numberWithBool:true], @"imgWidth": imageWidth};
-    
-    NSLog(@"%@",API_GET_DOMESTIC_DESTINATIONS);
+    [params setObject:imageWidth forKey:@"imgWidth"];
+    [params setObject:[NSNumber numberWithBool:NO] forKey:@"abroad"];
+    [params setObject:[NSNumber numberWithBool:YES] forKey:@"groupBy"];
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [manager GET:API_GET_DOMESTIC_DESTINATIONS parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -77,6 +78,9 @@ static NSString *foreignDestinationCacheName = @"destination_foreign";
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSNumber *imageWidth = [NSNumber numberWithInt:450];
     [params setObject:imageWidth forKey:@"imgWidth"];
+    [params setObject:[NSNumber numberWithBool:YES] forKey:@"abroad"];
+    [params setObject:[NSNumber numberWithBool:YES] forKey:@"groupBy"];
+
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
    
     [manager GET:API_GET_FOREIGN_DESTINATIONS parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {

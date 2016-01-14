@@ -421,7 +421,7 @@ static const NSCalendarUnit kCalendarUnitYMD = NSCalendarUnitYear | NSCalendarUn
     }
 
     if (isToday) {
-        [cell setIsToday:isToday];
+//        [cell setIsToday:isToday];
     }
 
     if (isSelected) {

@@ -40,8 +40,8 @@
 //攻略相关接口
 #define API_GET_RECOMMEND                       (BASE_URL @"recommend")     //获取目的地首页推荐接口
 #define API_GET_SCREENING                       (BASE_URL @"users/expert/tracks")  //    达人足迹接口
-#define API_GET_DOMESTIC_DESTINATIONS           (BASE_URL @"geo/localities/domestic")     //获取国内目的地接口
-#define API_GET_FOREIGN_DESTINATIONS            (BASE_URL @"geo/localities/abroad")       //获取国外目的地接口
+#define API_GET_DOMESTIC_DESTINATIONS           (BASE_URL @"guide/localities")     //获取国内目的地接口
+#define API_GET_FOREIGN_DESTINATIONS            (BASE_URL @"guide/localities")       //获取国外目的地接口
 #define API_GET_LOCALITIES                      (BASE_URL @"geo/localities/")
 
 

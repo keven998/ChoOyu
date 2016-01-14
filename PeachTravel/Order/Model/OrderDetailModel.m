@@ -47,9 +47,21 @@
 
         }
         _orderActivityList = activities;
+        [self canRefundApplyWithStatusDic:[json objectForKey:@"activities"]];
 
     }
     return self;
+}
+
+- (void)canRefundApplyWithStatusDic:(NSArray *)orderActivities
+{
+    for (NSDictionary *statusDic in orderActivities) {
+        if ([[statusDic objectForKey:@"action"] isEqualToString:@"refundDeny"]) {
+            _isRefundDenyBySeller = YES;
+            return;
+        }
+    }
+    _isRefundDenyBySeller = NO;
 }
 
 //通过订单的状态的变化得到状态变化的描述
