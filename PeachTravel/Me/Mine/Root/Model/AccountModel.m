@@ -10,21 +10,6 @@
 #import "AppDelegate.h"
 #import "PeachTravel-swift.h"
 
-//@implementation AlbumImage
-//
-//- (id)initWithJson: (id)json
-//{
-//    if (self = [super init]) {
-//       
-//        _imageId = [json objectForKey:@"id"];
-//        _image = [[TaoziImage alloc] initWithJson:[[json objectForKey:@"image"] firstObject]];
-//        _createTime = [[json objectForKey:@"cTime"] longValue];
-//    }
-//    return self;
-//}
-//
-//@end
-
 @implementation AccountModel
 
 - (id)initWithJson: (id)json
@@ -77,11 +62,6 @@
         _tel = @"";
     }
     
-    if ([json objectForKey:@"secToken"]) {
-        _secToken = [json objectForKey:@"secToken"];
-    } else {
-        _secToken = @"";
-    }
     if ([json objectForKey:@"signature"]) {
         _signature = [json objectForKey:@"signature"];
     } else {
@@ -150,9 +130,7 @@
     }
     if ([[json objectForKey:@"secretKey"] objectForKey:@"key"]) {
         _secToken = [[json objectForKey:@"secretKey"] objectForKey:@"key"];
-    } else {
-        _secToken = @"";
-    }
+    } 
     [[AccountDaoHelper shareInstance] addAccount2DB:self];
 }
 

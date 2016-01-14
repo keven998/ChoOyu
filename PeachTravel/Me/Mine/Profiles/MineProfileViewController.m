@@ -39,7 +39,9 @@
     self.view.backgroundColor = APP_PAGE_COLOR;
     self.userInfo = [AccountManager shareAccountManager].account;
     [self loadUserAlbum];
-    
+    [[AccountManager shareAccountManager].account loadUserInfoFromServer:^(bool isSuccess) {
+        [self.tableView reloadData];
+    }];
     [self setupTableView];
     
     [self setupNavBar];

@@ -37,7 +37,7 @@
     self.navigationItem.leftBarButtonItem = leftBtn;
 
     UIBarButtonItem *nextBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStylePlain target:self action:@selector(nextStep:)];
-    nextBtn.tintColor = COLOR_TEXT_II;
+    nextBtn.tintColor = [UIColor whiteColor];
     self.navigationItem.rightBarButtonItem = nextBtn;
     AccountManager *accountManager = [AccountManager shareAccountManager];
     _shouldSetPasswordWhenBindTel = !accountManager.accountIsBindTel;    //如果之前账户已经有手机号了那么不需要进入下一页面设置密码了

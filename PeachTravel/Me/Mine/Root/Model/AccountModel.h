@@ -61,6 +61,7 @@
 
 - (id)initWithJson: (id)json;
 
+- (void)loadUserInfoFromServer:(void (^)(bool isSuccess))completion;
 
 
 @end
