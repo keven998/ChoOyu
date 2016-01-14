@@ -94,18 +94,19 @@
     _firstNameTextField.text = _traveler.firstName;
     [_scrollView addSubview:_firstNameTextField];
     
-    _IDNumberCategoryButton = [[UIButton alloc] initWithFrame:CGRectMake(126, 10+48*2, (kWindowWidth-106)-60, 28)];
+    _IDNumberCategoryButton = [[UIButton alloc] initWithFrame:CGRectMake(126, 10+48*2, (kWindowWidth-106)-30, 28)];
     [_IDNumberCategoryButton setBackgroundImage:[[UIImage imageNamed:@"icon_travelerInfo_selectIDCategory"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 30)] forState:UIControlStateNormal];
     [_IDNumberCategoryButton addTarget:self action:@selector(choseIDCategory:) forControlEvents:UIControlEventTouchUpInside];
+    _IDNumberCategoryButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     _IDNumberCategoryButton.titleLabel.font = [UIFont systemFontOfSize:15];
     _IDNumberCategoryButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    [_IDNumberCategoryButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
+    [_IDNumberCategoryButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 25)];
     [_IDNumberCategoryButton setTitleColor:COLOR_TEXT_III forState:UIControlStateNormal];
     [_IDNumberCategoryButton setTitle:_traveler.IDCategoryDesc forState:UIControlStateNormal];
     [_scrollView addSubview:_IDNumberCategoryButton];
     
     _IDNumberTextField = [[UITextField alloc] initWithFrame:CGRectMake(126, 10+48*3, (kWindowWidth-106)-40, 28)];
-    _IDNumberTextField.placeholder = @"护照";
+    _IDNumberTextField.placeholder = @"证件号码";
     _IDNumberTextField.font = [UIFont systemFontOfSize:15];
     _IDNumberTextField.textColor = COLOR_TEXT_III;
     _IDNumberTextField.returnKeyType = UIReturnKeyDone;
@@ -203,6 +204,12 @@
     } else if (buttonIndex == 1) {
         _traveler.IDCategory = @"chineseID";
 
+    } else if (buttonIndex == 2) {
+        _traveler.IDCategory = @"HMPermit";
+        
+    } else if (buttonIndex == 3) {
+        _traveler.IDCategory = @"TWPermit";
+        
     }
     [_IDNumberCategoryButton setTitle:_traveler.IDCategoryDesc forState:UIControlStateNormal];
 }

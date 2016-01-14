@@ -44,7 +44,6 @@
             [dic safeSetObject:dateStr forKey:@"time"];
             [dic safeSetObject:[self activityDescWithStatus:activityDic] forKey:@"status"];
             [activities addObject:dic];
-
         }
         _orderActivityList = activities;
         [self canRefundApplyWithStatusDic:[json objectForKey:@"activities"]];

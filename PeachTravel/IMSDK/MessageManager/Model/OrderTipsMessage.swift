@@ -22,8 +22,8 @@ class OrderTipsMessage: BaseMessage {
     override func fillContentWithContentDic(contentsDic: NSDictionary) {
         title = contentsDic.objectForKey("title") as? String
         content = contentsDic.objectForKey("text") as? String
-        orderId = contentsDic.objectForKey("orderId") as! Int
-        goodsName = contentsDic.objectForKey("title") as? String
+        orderId = contentsDic.objectForKey("orderId") as? Int ?? 0
+        goodsName = contentsDic.objectForKey("commodityName") as? String
     }
     
     override func fillContentWithContent(contents: String) {

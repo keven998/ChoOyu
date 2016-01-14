@@ -1355,8 +1355,6 @@
 		E68CB2811B9EB74300A5B38B /* chat_friend@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E68CB27D1B9EB74300A5B38B /* chat_friend@3x.png */; };
 		E68CB2841B9EBAC200A5B38B /* plan_kuang_photo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E68CB2821B9EBAC200A5B38B /* plan_kuang_photo@2x.png */; };
 		E68CB2851B9EBAC200A5B38B /* plan_kuang_photo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E68CB2831B9EBAC200A5B38B /* plan_kuang_photo@3x.png */; };
-		E68CB2881B9ED53B00A5B38B /* avatar_default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E68CB2861B9ED53B00A5B38B /* avatar_default@2x.png */; };
-		E68CB2891B9ED53B00A5B38B /* avatar_default@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E68CB2871B9ED53B00A5B38B /* avatar_default@3x.png */; };
 		E68CB2961B9F128A00A5B38B /* note_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E68CB28A1B9F128A00A5B38B /* note_normal@2x.png */; };
 		E68CB2971B9F128A00A5B38B /* note_normal@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E68CB28B1B9F128A00A5B38B /* note_normal@3x.png */; };
 		E68CB2981B9F128A00A5B38B /* note_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E68CB28C1B9F128A00A5B38B /* note_selected@2x.png */; };
@@ -3948,8 +3946,6 @@
 		E68CB27D1B9EB74300A5B38B /* chat_friend@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_friend@3x.png"; sourceTree = "<group>"; };
 		E68CB2821B9EBAC200A5B38B /* plan_kuang_photo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plan_kuang_photo@2x.png"; sourceTree = "<group>"; };
 		E68CB2831B9EBAC200A5B38B /* plan_kuang_photo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plan_kuang_photo@3x.png"; sourceTree = "<group>"; };
-		E68CB2861B9ED53B00A5B38B /* avatar_default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "avatar_default@2x.png"; sourceTree = "<group>"; };
-		E68CB2871B9ED53B00A5B38B /* avatar_default@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "avatar_default@3x.png"; sourceTree = "<group>"; };
 		E68CB28A1B9F128A00A5B38B /* note_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "note_normal@2x.png"; sourceTree = "<group>"; };
 		E68CB28B1B9F128A00A5B38B /* note_normal@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "note_normal@3x.png"; sourceTree = "<group>"; };
 		E68CB28C1B9F128A00A5B38B /* note_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "note_selected@2x.png"; sourceTree = "<group>"; };
@@ -9346,8 +9342,6 @@
 				E6F186E51B845F4800232EEB /* account_line_default@3x.png */,
 				E6F186E61B845F4800232EEB /* delete_album@2x.png */,
 				E6F186E71B845F4800232EEB /* delete_album@3x.png */,
-				E68CB2861B9ED53B00A5B38B /* avatar_default@2x.png */,
-				E68CB2871B9ED53B00A5B38B /* avatar_default@3x.png */,
 				E6F186E81B845F4800232EEB /* 星座 */,
 			);
 			path = account;
@@ -10507,7 +10501,6 @@
 				D90A9B2B1B5627C400E9F37C /* Loading_Animation_final0@3x.png in Resources */,
 				D99EAD311BBB8840005A02D3 /* Artboard 200@2x.png in Resources */,
 				01C1EC261BB4E4720082217A /* idear@3x.png in Resources */,
-				E68CB2891B9ED53B00A5B38B /* avatar_default@3x.png in Resources */,
 				D9A8006E1A80DD0C005AD701 /* FrendRequestTableViewCell.xib in Resources */,
 				E6F18A251B845F4900232EEB /* lxp_expert_helper@2x.png in Resources */,
 				D90C76141BF1DED600C5897C /* MakeOrderContactInfoTableViewCell.xib in Resources */,
@@ -11096,7 +11089,6 @@
 				D94B891C1B5E4F4C00584DE5 /* h5_labar_right_default@3x.png in Resources */,
 				D9A800611A80DD0C005AD701 /* AddressBookTableViewCell.xib in Resources */,
 				01C1EC391BB4E4720082217A /* leaf@2x.png in Resources */,
-				E68CB2881B9ED53B00A5B38B /* avatar_default@2x.png in Resources */,
 				01C1EC1D1BB4E4720082217A /* guzhang@2x.png in Resources */,
 				D942C2741B9EBD4E005B81C5 /* ic_common_search@3x.png in Resources */,
 				E6F189241B845F4900232EEB /* dashboard_03_icon_constellation12@3x.png in Resources */,

@@ -47,6 +47,12 @@
     if ([_IDCategory isEqualToString:@"chineseID"]) {
         return @"身份证";
     }
+    if ([_IDCategory isEqualToString:@"TWPermit"]) {
+        return @"大陆居民往来台湾通行证";
+    }
+    if ([_IDCategory isEqualToString:@"HMPermit"]) {
+        return @"港澳通行证";
+    }
     return @"";
 }
 
