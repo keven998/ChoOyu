@@ -163,13 +163,13 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UIView *sectionHeaderViedw = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 40)];
+    UIView *sectionHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 40)];
     UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 39.5, tableView.bounds.size.width, 0.5)];
     spaceView.backgroundColor = APP_THEME_COLOR;
-    [sectionHeaderViedw addSubview:spaceView];
+    [sectionHeaderView addSubview:spaceView];
     UIView *topSpaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 0.5)];
     topSpaceView.backgroundColor = COLOR_LINE;
-    [sectionHeaderViedw addSubview:topSpaceView];
+    [sectionHeaderView addSubview:topSpaceView];
     
     UIButton *headerBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, 0, 200, 40)];
 //    [headerBtn setImage:[UIImage imageNamed:@"icon_cityDetail_goodsSection"] forState:UIControlStateNormal];
@@ -177,8 +177,19 @@
     [headerBtn setTitle:@"当地玩乐" forState:UIControlStateNormal];
     [headerBtn setTitleColor:COLOR_TEXT_I forState:UIControlStateNormal];
     headerBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    [sectionHeaderViedw addSubview:headerBtn];
-    return sectionHeaderViedw;
+    headerBtn.userInteractionEnabled = NO;
+    [sectionHeaderView addSubview:headerBtn];
+    
+    UIButton *goodsCountBtn = [[UIButton alloc] initWithFrame:CGRectMake(sectionHeaderView.bounds.size.width-60, 0, 48, 40)];
+    goodsCountBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
+    [goodsCountBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+    [goodsCountBtn setTitle:[NSString stringWithFormat:@"%ld", _poi.goodsCount] forState:UIControlStateNormal];
+    [goodsCountBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
+    goodsCountBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+    goodsCountBtn.userInteractionEnabled = NO;
+
+    [sectionHeaderView addSubview:goodsCountBtn];
+    return sectionHeaderView;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

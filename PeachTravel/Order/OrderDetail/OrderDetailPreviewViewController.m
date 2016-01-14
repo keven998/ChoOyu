@@ -91,7 +91,7 @@
     [_toolBar addSubview:spaceView];
     
     UIButton *payOrderBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, _toolBar.bounds.size.width, _toolBar.bounds.size.height)];
-    [payOrderBtn setTitle:@"立即支付" forState:UIControlStateNormal];
+    [payOrderBtn setTitle:@"确认订单" forState:UIControlStateNormal];
     [payOrderBtn setTitleColor: [UIColor whiteColor] forState:UIControlStateNormal];
     [payOrderBtn setBackgroundImage:[ConvertMethods createImageWithColor:UIColorFromRGB(0xFC4E27)] forState:UIControlStateNormal];
     payOrderBtn.titleLabel.font = [UIFont systemFontOfSize:17];

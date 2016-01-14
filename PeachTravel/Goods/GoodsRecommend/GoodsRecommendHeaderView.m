@@ -44,13 +44,17 @@
         layout.itemSize = CGSizeMake(100, 100);
         layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 210, frame.size.width, 125) collectionViewLayout:layout];
+        _collectionView.backgroundColor = [UIColor whiteColor];
         [self addSubview:_collectionView];
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
         _collectionView.contentInset = UIEdgeInsetsMake(0, 12, 0, 12);
         _collectionView.showsHorizontalScrollIndicator = NO;
-        _collectionView.backgroundColor = APP_PAGE_COLOR;
         [_collectionView registerNib:[UINib nibWithNibName:@"GoodsRecommendCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"goodsRecommendCollectionViewCell"];
+        
+        UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, _collectionView.frame.origin.y + _collectionView.bounds.size.height-0.5, _collectionView.bounds.size.width, 0.5)];
+        spaceView.backgroundColor = COLOR_LINE;
+        [self addSubview:spaceView];
        
     }
     return self;
