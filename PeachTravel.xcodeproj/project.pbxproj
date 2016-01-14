@@ -576,6 +576,9 @@
 		D925B22E1C463AA4000F7E10 /* CityRecommendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D925B22C1C463AA4000F7E10 /* CityRecommendTableViewCell.m */; };
 		D925B22F1C463AA4000F7E10 /* CityRecommendTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D925B22D1C463AA4000F7E10 /* CityRecommendTableViewCell.xib */; };
 		D925B2331C465B0E000F7E10 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = D925B2321C465B0E000F7E10 /* main.jsbundle */; };
+		D925B2371C475397000F7E10 /* ErrorEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = D925B2361C475397000F7E10 /* ErrorEmptyView.m */; };
+		D925B23A1C475422000F7E10 /* icon_errorEmpty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D925B2381C475422000F7E10 /* icon_errorEmpty@2x.png */; };
+		D925B23B1C475422000F7E10 /* icon_errorEmpty@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D925B2391C475422000F7E10 /* icon_errorEmpty@3x.png */; };
 		D92B5C1C1BB9243B00E3AC93 /* PoiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D92B5C1B1BB9243B00E3AC93 /* PoiManager.m */; };
 		D92B5C1F1BB92A5D00E3AC93 /* PoiRecommend.m in Sources */ = {isa = PBXBuildFile; fileRef = D92B5C1E1BB92A5D00E3AC93 /* PoiRecommend.m */; };
 		D92C50B31C1EA14A00AD7965 /* TZSchemeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D92C50B21C1EA14A00AD7965 /* TZSchemeManager.m */; };
@@ -2752,6 +2755,10 @@
 		D925B22C1C463AA4000F7E10 /* CityRecommendTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityRecommendTableViewCell.m; sourceTree = "<group>"; };
 		D925B22D1C463AA4000F7E10 /* CityRecommendTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CityRecommendTableViewCell.xib; sourceTree = "<group>"; };
 		D925B2321C465B0E000F7E10 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
+		D925B2351C475397000F7E10 /* ErrorEmptyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorEmptyView.h; sourceTree = "<group>"; };
+		D925B2361C475397000F7E10 /* ErrorEmptyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorEmptyView.m; sourceTree = "<group>"; };
+		D925B2381C475422000F7E10 /* icon_errorEmpty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_errorEmpty@2x.png"; sourceTree = "<group>"; };
+		D925B2391C475422000F7E10 /* icon_errorEmpty@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_errorEmpty@3x.png"; sourceTree = "<group>"; };
 		D92B5C1A1BB9243B00E3AC93 /* PoiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PoiManager.h; path = ../PoiRecommend/PoiManager.h; sourceTree = "<group>"; };
 		D92B5C1B1BB9243B00E3AC93 /* PoiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PoiManager.m; path = ../PoiRecommend/PoiManager.m; sourceTree = "<group>"; };
 		D92B5C1D1BB92A5D00E3AC93 /* PoiRecommend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoiRecommend.h; sourceTree = "<group>"; };
@@ -5955,6 +5962,17 @@
 			path = GoodsFavorite;
 			sourceTree = "<group>";
 		};
+		D925B2341C475381000F7E10 /* ErrorEmptyView */ = {
+			isa = PBXGroup;
+			children = (
+				D925B2351C475397000F7E10 /* ErrorEmptyView.h */,
+				D925B2361C475397000F7E10 /* ErrorEmptyView.m */,
+				D925B2381C475422000F7E10 /* icon_errorEmpty@2x.png */,
+				D925B2391C475422000F7E10 /* icon_errorEmpty@3x.png */,
+			);
+			path = ErrorEmptyView;
+			sourceTree = "<group>";
+		};
 		D92C50B01C1EA14A00AD7965 /* TZSchemeManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -7937,6 +7955,7 @@
 		D9A802541A80E3D3005AD701 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				D925B2341C475381000F7E10 /* ErrorEmptyView */,
 				D940ECF81C3E4F7600DF608E /* LXPNetworking */,
 				D940ECF41C3E4EEF00DF608E /* TZSideViewController */,
 				D969AD291C2BC56F007413CA /* DialCodeTableViewController */,
@@ -10456,6 +10475,7 @@
 				E6F189151B845F4900232EEB /* account_labbar_icon_follow_default@2x.png in Resources */,
 				E6381C141B66269000CF73AA /* Loading_Animation_final6@2x.png in Resources */,
 				D937AE1F1BB95F0C0070F879 /* icon_dot@3x.png in Resources */,
+				D925B23B1C475422000F7E10 /* icon_errorEmpty@3x.png in Resources */,
 				E6F18AD91B845F4900232EEB /* ReceiverImageNodeBorder_black@2x.png in Resources */,
 				D9E9D2101BA2A87300FB6C07 /* icon_navigation_map@2x.png in Resources */,
 				01C1EC7A1BB4E4720082217A /* xiangrufeifei@3x.png in Resources */,
@@ -10767,6 +10787,7 @@
 				D971E2821B8AF27A007E5AFD /* plan_bg_page_spot_zhedang@3x.png in Resources */,
 				D9A8FF181A80CC2B005AD701 /* VerifyCaptchaViewController.xib in Resources */,
 				01A5CEE51BB3DDC200A59A8A /* mapMark_point_line_half@2x.png in Resources */,
+				D925B23A1C475422000F7E10 /* icon_errorEmpty@2x.png in Resources */,
 				D942C12F1B9EB5C3005B81C5 /* massage@2x.png in Resources */,
 				01C1EC891BB4E4720082217A /* yaoya@2x.png in Resources */,
 				E6F18ABF1B845F4900232EEB /* messages_icon_plus_default@2x.png in Resources */,
@@ -11629,6 +11650,7 @@
 				D9A8015B1A80DD23005AD701 /* EMRemarkImageView.m in Sources */,
 				01578E701BD228F200244D9D /* RSADataSigner.m in Sources */,
 				D9A802321A80E036005AD701 /* THProgressView.m in Sources */,
+				D925B2371C475397000F7E10 /* ErrorEmptyView.m in Sources */,
 				D940ECF71C3E4EEF00DF608E /* TZSideViewController.m in Sources */,
 				D998F6BD1C33A2F800AB9F76 /* OrderDetailPreviewContentTableViewCell.m in Sources */,
 				E6E725231B5603750007273A /* MJTypeEncoding.m in Sources */,

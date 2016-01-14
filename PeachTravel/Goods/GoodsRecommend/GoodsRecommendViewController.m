@@ -16,13 +16,16 @@
 #import "GoodsManager.h"
 #import "TZSchemeManager.h"
 #import "NSURL+TZURL.h"
+#import "ErrorEmptyView.h"
 
-@interface GoodsRecommendViewController ()<UITableViewDataSource, UITableViewDelegate, GoodsRecommendHeaderViewDelegate>
+@interface GoodsRecommendViewController ()<UITableViewDataSource, UITableViewDelegate, GoodsRecommendHeaderViewDelegate, ErrorEmptyViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *scroll2TopBtn;
 @property (nonatomic, strong) GoodsRecommendHeaderView *headerView;
 @property (nonatomic, strong) UIView *navigationBar;
+@property (nonatomic, strong) ErrorEmptyView *errorView;
+
 @property (nonatomic, strong) NSArray *dataSource;
 @property (nonatomic, strong) NSArray *recommendDataSource;   //顶部运营位
 
@@ -48,23 +51,13 @@
     _scroll2TopBtn.hidden = YES;
     [_scroll2TopBtn addTarget:self action:@selector(scroll2Top) forControlEvents:UIControlEventTouchUpInside];
     [self setNavigationBar];
+    [self loadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
-    if (!_dataSource.count) {
-        [GoodsManager asyncLoadRecommendGoodsWithCompletionBlock:^(BOOL isSuccess, NSArray<NSDictionary *> *goodsList) {
-            if (isSuccess) {
-                _dataSource = goodsList;
-                [self.tableView reloadData];
-            }
-        }];
-    }
-    if (!_headerView.recommendData) {
-        [self loadRecommendData];
-    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -79,6 +72,49 @@
     [super didReceiveMemoryWarning];
 }
 
+- (void)loadData
+{
+    if (_errorView) {
+        [_errorView removeFromSuperview];
+        _errorView = nil;
+    }
+    [GoodsManager asyncLoadRecommendGoodsWithCompletionBlock:^(BOOL isSuccess, NSArray<NSDictionary *> *goodsList) {
+        if (isSuccess) {
+            
+            NSString *url = [NSString stringWithFormat:@"%@columns", BASE_URL];
+            [LXPNetworking GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+                if (code == 0) {
+                    _headerView.recommendData = [responseObject objectForKey:@"result"];
+                    _dataSource = goodsList;
+                    [self.tableView reloadData];
+                    _navigationBar.alpha = 0;
+                    
+                } else {
+                    [self setupErrorEmptyView];
+                }
+                [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                
+            }];
+        } else {
+            [self setupErrorEmptyView];
+        }
+    }];
+}
+
+- (void)setupErrorEmptyView
+{
+    if (_errorView) {
+        [_errorView removeFromSuperview];
+        _errorView = nil;
+    }
+    _errorView = [[ErrorEmptyView alloc] initWithFrame:CGRectMake(0, 84, kWindowWidth, 300)];
+    _errorView.delegate = self;
+    [self.view addSubview:_errorView];
+    _navigationBar.alpha = 1;
+}
+
 - (void)setNavigationBar
 {
     _navigationBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 64)];
@@ -91,23 +127,6 @@
     titleLabel.textAlignment = NSTextAlignmentCenter;
     [_navigationBar addSubview:titleLabel];
     [self.view addSubview:_navigationBar];
-}
-
-- (void)loadRecommendData
-{
-    NSString *url = [NSString stringWithFormat:@"%@columns", BASE_URL];
-    [LXPNetworking GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-        if (code == 0) {
-            _headerView.recommendData = [responseObject objectForKey:@"result"];
-            
-        } else {
-            
-        }
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-    }];
 }
 
 - (void)scroll2Top
@@ -191,6 +210,13 @@
     [schemeManager handleUri:itemUri handleUriCompletionBlock:^(UIViewController *controller, NSString *uri) {
         [weakSelf.navigationController pushViewController:controller animated:YES];
     }];
+}
+
+#pragma mark - ErrorEmptyViewDelegate
+
+- (void)reloadPageAction
+{
+    [self loadData];
 }
 
 @end
