@@ -10,6 +10,7 @@
 #import "QiniuSDK.h"
 #include <CommonCrypto/CommonCrypto.h>
 #import "NSString+UrlEncodeing.h"
+#import "NSString+Base64.h"
 
 @implementation LXPHTTPAuthorization
 
@@ -70,10 +71,16 @@
     
     if (bodyDic) {
         NSString *jsonString = [self convertJsonObject2Json:bodyDic];
-        NSString *bodyString = [QNUrlSafeBase64 encodeString:jsonString];
-        [retString appendFormat:@",Body=%@", bodyString];
+        
+        NSData *data = [NSData dataWithBytes:[jsonString UTF8String] length:[jsonString lengthOfBytesUsingEncoding:NSUTF8StringEncoding]];
+        
+        NSString *bodyString = [NSString base64StringFromData:data length:[jsonString lengthOfBytesUsingEncoding:NSUTF8StringEncoding]];
 
+//        NSString *bodyString = [QNUrlSafeBase64 encodeString:jsonString];
+        [retString appendFormat:@",Body=%@", bodyString];
     }
+    
+    NSLog(@"signature%@", retString);
     
     return retString;
 }

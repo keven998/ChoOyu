@@ -29,7 +29,7 @@
 - (void)setTravelerList:(NSArray *)travelerList
 {
     _travelerList = travelerList;
-    _titleLabel.text = [NSString stringWithFormat:@"旅客信息 (%ld)", _travelerList.count];
+    _titleLabel.text = [NSString stringWithFormat:@"旅客信息"];
     [self.tableView reloadData];
 }
 

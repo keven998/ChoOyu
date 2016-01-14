@@ -285,8 +285,8 @@ NSString *const kUpdateOrderdetailNoti = @"kUpdateOrderdetailNoti";
     GoodsDetailViewController *ctl = [[GoodsDetailViewController alloc] init];
     ctl.goodsId = _orderDetail.goods.goodsId;
     ctl.isSnapshot = YES;
+    ctl.goodsVersion = _orderDetail.goods.goodsVersion;
     [self.navigationController pushViewController:ctl animated:YES];
-    
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

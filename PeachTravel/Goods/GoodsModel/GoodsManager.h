@@ -22,6 +22,15 @@
 */
 + (void)asyncLoadGoodsDetailWithGoodsId:(NSInteger)goodsId completionBlock:(void (^) (BOOL isSuccess, NSDictionary *goodsDetailJson, GoodsDetailModel *goodsDetail))completion;
 
+/**
+ *  加载指定版本的商品详情
+ *
+ *  @param goodsId
+ *  @param version
+ *  @param completion 
+ */
++ (void)asyncLoadGoodsDetailWithGoodsId:(NSInteger)goodsId version:(long)version completionBlock:(void (^)(BOOL isSuccess, NSDictionary *goodsDetailJson, GoodsDetailModel *goodsDetail))completion;
+
 /********商品列表************/
 
 /**

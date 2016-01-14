@@ -37,7 +37,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _currentSelectIndex = -1;
-    _menuTitles = @[@"推荐", @"亚洲", @"北美", @"南美", @"欧洲", @"非洲", @"大洋洲"];
+    _menuTitles = @[@"热门", @"亚洲", @"北美", @"南美", @"欧洲", @"非洲", @"大洋洲"];
     _continentCodes = @[[NSNumber numberWithInteger:kRECOM], [NSNumber numberWithInteger:kAS], [NSNumber numberWithInteger:kNA], [NSNumber numberWithInteger:kSA], [NSNumber numberWithInteger:kEU], [NSNumber numberWithInteger:kAF], [NSNumber numberWithInteger:kOC]];
     
     NSMutableArray *tempArray = [[NSMutableArray alloc] init];

@@ -135,7 +135,6 @@
     NSString *url = [NSString stringWithFormat:@"%@/%ld", API_ORDERS, orderId];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [LXPNetworking GET:url parameters: nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"***获取订单详情接口: %@", operation);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             if ([[responseObject objectForKey:@"result"] isKindOfClass:[NSDictionary class]]) {

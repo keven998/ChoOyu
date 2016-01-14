@@ -66,7 +66,8 @@
                     <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nuR-2F-lYe">
                         <rect key="frame" x="137" y="143" width="46" height="20"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="20" id="Vnv-o2-rck"/>
+                            <constraint firstAttribute="height" constant="20" id="uUV-L2-Rjr"/>
+                            <constraint firstAttribute="width" constant="46" id="xr4-KU-6cV"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -78,18 +79,16 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="Pqd-7A-Cyg" firstAttribute="leading" secondItem="SxC-TD-h2Z" secondAttribute="trailing" constant="-155" id="0kX-Od-kXY"/>
-                    <constraint firstItem="nuR-2F-lYe" firstAttribute="top" secondItem="SxC-TD-h2Z" secondAttribute="bottom" constant="8" id="4o1-iN-lyI"/>
+                    <constraint firstItem="nuR-2F-lYe" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="4w3-JT-Wsq"/>
                     <constraint firstItem="SxC-TD-h2Z" firstAttribute="top" secondItem="S2U-yH-wml" secondAttribute="bottom" constant="-13.5" id="5j6-Sg-cR1"/>
                     <constraint firstItem="cum-ws-NB2" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="9KB-GE-YVA"/>
                     <constraint firstItem="SxC-TD-h2Z" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="Bbb-ds-7yf"/>
                     <constraint firstItem="SxC-TD-h2Z" firstAttribute="top" secondItem="S2U-yH-wml" secondAttribute="bottom" constant="-13.5" id="CCv-vl-QJL"/>
-                    <constraint firstItem="nuR-2F-lYe" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="137" id="DW8-cM-XVf"/>
                     <constraint firstItem="Pqd-7A-Cyg" firstAttribute="top" secondItem="SxC-TD-h2Z" secondAttribute="bottom" constant="-28" id="EUR-PT-nX3"/>
                     <constraint firstItem="SxC-TD-h2Z" firstAttribute="top" secondItem="4wQ-Ss-GCQ" secondAttribute="bottom" constant="-39" id="JHs-RP-bqJ"/>
                     <constraint firstItem="mPc-wU-4zt" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="JKy-xW-a7a"/>
                     <constraint firstItem="cum-ws-NB2" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="KP3-qd-t7G"/>
                     <constraint firstAttribute="trailing" secondItem="cum-ws-NB2" secondAttribute="trailing" id="SzP-CQ-FCD"/>
-                    <constraint firstAttribute="trailing" secondItem="nuR-2F-lYe" secondAttribute="trailing" constant="137" id="Vbo-jz-4DV"/>
                     <constraint firstItem="SxC-TD-h2Z" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="aCt-ao-wnY"/>
                     <constraint firstItem="ZKr-aP-pdv" firstAttribute="top" secondItem="Pqd-7A-Cyg" secondAttribute="bottom" constant="3.5" id="akr-mp-Ffw"/>
                     <constraint firstAttribute="bottom" secondItem="cum-ws-NB2" secondAttribute="bottom" id="b3h-cq-8R6"/>
@@ -98,6 +97,7 @@
                     <constraint firstItem="SxC-TD-h2Z" firstAttribute="leading" secondItem="4wQ-Ss-GCQ" secondAttribute="trailing" constant="-175" id="lea-XS-2cM"/>
                     <constraint firstAttribute="bottom" secondItem="mPc-wU-4zt" secondAttribute="bottom" id="m20-ea-i74"/>
                     <constraint firstItem="mPc-wU-4zt" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="mfC-uU-whz"/>
+                    <constraint firstItem="nuR-2F-lYe" firstAttribute="top" secondItem="SxC-TD-h2Z" secondAttribute="bottom" constant="8" id="nJv-ww-pwf"/>
                     <constraint firstItem="ZKr-aP-pdv" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="qz5-iD-Fgg"/>
                 </constraints>
             </tableViewCellContentView>

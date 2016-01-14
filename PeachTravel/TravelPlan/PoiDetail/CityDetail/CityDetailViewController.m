@@ -96,7 +96,7 @@
     [MobClick event:@"card_item_city_pictures"];
     
     MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] init];
-    browser.titleStr = @"城市图集";
+    browser.titleStr = [NSString stringWithFormat:@"%@图集", _cityName];
     [self loadAlbumDataWithAlbumCtl:browser];
     [browser setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
     UINavigationController *navc = [[UINavigationController alloc] initWithRootViewController:browser];

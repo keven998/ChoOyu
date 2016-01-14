@@ -43,7 +43,7 @@
             _store = [[StoreDetailModel alloc] initWithJson:[json objectForKey:@"seller"] ];
 
         }
-    
+        _goodsVersion = [[json objectForKey:@"version"] longValue];
     }
     return self;
 }

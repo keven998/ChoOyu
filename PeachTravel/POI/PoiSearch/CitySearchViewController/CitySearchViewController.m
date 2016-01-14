@@ -92,8 +92,13 @@ static NSString *reusableCellIdentifier = @"citySearchTableViewCell";
 {
     _tableView.hidden = NO;
     [PoiManager searchPoiWithKeyword:keyWord andSearchCount:20 andPoiType:kCityPoi completionBlock:^(BOOL isSuccess, NSArray *searchResultList) {
+        if ([searchResultList count] == 0) {
+            NSString *searchStr = [NSString stringWithFormat:@"没有找到“%@”的相关结果", _searchBar.text];
+            [SVProgressHUD showHint:searchStr];
+        }
         for (NSDictionary *searchDic in searchResultList) {
             if ([[searchDic objectForKey:@"type"] integerValue] == kCityPoi) {
+               
                 self.dataSource = [searchDic objectForKey:@"content"];
                 [self.tableView reloadData];
                 return;

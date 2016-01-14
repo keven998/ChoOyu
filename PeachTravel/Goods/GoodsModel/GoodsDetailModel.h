@@ -29,6 +29,7 @@
 @property (nonatomic, strong) StoreDetailModel *store;
 @property (nonatomic) float rating;
 @property (nonatomic) NSInteger saleCount;
+@property (nonatomic) long goodsVersion;
 @property (nonatomic, strong) NSArray<GoodsPackageModel *> *packages;
 @property (nonatomic, strong) CityDestinationPoi *locality;
 

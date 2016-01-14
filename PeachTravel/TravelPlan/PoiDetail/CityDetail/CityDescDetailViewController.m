@@ -19,6 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
+    self.navigationItem.title = @"城市简介";
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"common_icon_navigation_back_normal.png"] style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
     

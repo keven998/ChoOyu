@@ -71,25 +71,47 @@ RCT_EXPORT_MODULE();
     
     rootView.frame = CGRectMake(0, 64, kWindowWidth, kWindowHeight-64);
 
-    [GoodsManager asyncLoadGoodsDetailWithGoodsId:_goodsId completionBlock:^(BOOL isSuccess, NSDictionary *goodsDetailJson, GoodsDetailModel *goodsDetail) {
-        if (isSuccess) {
-            _goodsDetail = goodsDetail;
-            if (_goodsDetail) {
-                [self.view addSubview:rootView];
-                [bridge.eventDispatcher sendAppEventWithName:@"GoodsDetailLoadOverEvent" body:@{@"goodsDetailJson": goodsDetailJson, @"isSnapshot": [NSNumber numberWithBool:_isSnapshot]}];
-                if (!_isSnapshot) {
-                    [self setupNaviBar];
+    if (_isSnapshot) {
+        [GoodsManager asyncLoadGoodsDetailWithGoodsId:_goodsId version:_goodsVersion completionBlock:^(BOOL isSuccess, NSDictionary *goodsDetailJson, GoodsDetailModel *goodsDetail) {
+            if (isSuccess) {
+                _goodsDetail = goodsDetail;
+                if (_goodsDetail) {
+                    [self.view addSubview:rootView];
+                    [bridge.eventDispatcher sendAppEventWithName:@"GoodsDetailLoadOverEvent" body:@{@"goodsDetailJson": goodsDetailJson, @"isSnapshot": [NSNumber numberWithBool:_isSnapshot]}];
+                    if (!_isSnapshot) {
+                        [self setupNaviBar];
+                    }
+                } else {
+                    rootView = nil;
+                    GoodsDetailSoldOutView *view = [[GoodsDetailSoldOutView alloc] initWithFrame:CGRectMake(0, 100, kWindowWidth, kWindowHeight-100)];
+                    [self.view addSubview:view];
                 }
+                
             } else {
-                rootView = nil;
-                GoodsDetailSoldOutView *view = [[GoodsDetailSoldOutView alloc] initWithFrame:CGRectMake(0, 100, kWindowWidth, kWindowHeight-100)];
-                [self.view addSubview:view];
+                [SVProgressHUD showHint:HTTP_FAILED_HINT];
             }
-            
-        } else {
-            [SVProgressHUD showHint:HTTP_FAILED_HINT];
-        }
-    }];
+        }];
+    } else {
+        [GoodsManager asyncLoadGoodsDetailWithGoodsId:_goodsId completionBlock:^(BOOL isSuccess, NSDictionary *goodsDetailJson, GoodsDetailModel *goodsDetail) {
+            if (isSuccess) {
+                _goodsDetail = goodsDetail;
+                if (_goodsDetail) {
+                    [self.view addSubview:rootView];
+                    [bridge.eventDispatcher sendAppEventWithName:@"GoodsDetailLoadOverEvent" body:@{@"goodsDetailJson": goodsDetailJson, @"isSnapshot": [NSNumber numberWithBool:_isSnapshot]}];
+                    if (!_isSnapshot) {
+                        [self setupNaviBar];
+                    }
+                } else {
+                    rootView = nil;
+                    GoodsDetailSoldOutView *view = [[GoodsDetailSoldOutView alloc] initWithFrame:CGRectMake(0, 100, kWindowWidth, kWindowHeight-100)];
+                    [self.view addSubview:view];
+                }
+                
+            } else {
+                [SVProgressHUD showHint:HTTP_FAILED_HINT];
+            }
+        }];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated

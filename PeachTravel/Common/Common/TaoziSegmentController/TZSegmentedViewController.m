@@ -47,7 +47,8 @@
     segControl.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     segControl.selectedSegmentIndex = 0;
     segControl.tintColor = APP_THEME_COLOR;
-    segControl.backgroundColor = APP_PAGE_COLOR;
+//    segControl.backgroundColor = APP_PAGE_COLOR;
+    segControl.clipsToBounds = YES;
     [bgView addSubview:segControl];
     self.view.backgroundColor = [UIColor whiteColor];
     [segControl addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];

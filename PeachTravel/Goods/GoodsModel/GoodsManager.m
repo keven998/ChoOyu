@@ -30,10 +30,40 @@
             completion(NO, nil, nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        completion(NO, nil, nil);
+        if (operation.response.statusCode == 404) {  //商品已经下架
+            completion(YES, nil, nil);
+        } else {
+            completion(NO, nil, nil);
+        }
         
     }];
+}
 
++ (void)asyncLoadGoodsDetailWithGoodsId:(NSInteger)goodsId version:(long)version completionBlock:(void (^)(BOOL, NSDictionary *, GoodsDetailModel *))completion
+{
+    NSString *url = [NSString stringWithFormat:@"%@/%ld", API_GOODSLIST, goodsId];
+    NSDictionary *param = @{@"version": [NSNumber numberWithLong:version]};
+    [LXPNetworking GET:url parameters: param success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"***开始加载商品详情: %@", operation);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            NSDictionary *goodsDic = [responseObject objectForKey:@"result"];
+            if ([goodsDic isKindOfClass:[NSDictionary class]]) {
+                GoodsDetailModel *goodsDetail = [[GoodsDetailModel alloc] initWithJson:goodsDic];
+                completion(YES, goodsDic, goodsDetail);
+            } else {
+                completion(YES, nil, nil);
+            }
+        } else {
+            completion(NO, nil, nil);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (operation.response.statusCode == 404) {  //商品已经下架
+            completion(YES, nil, nil);
+        } else {
+            completion(NO, nil, nil);
+        }
+    }];
 }
 
 + (void)asyncLoadGoodsOfCity:(NSString *)cityId startIndex:(NSInteger)startIndex count:(NSUInteger)count completionBlock:(void (^)(BOOL isSuccess, NSArray *goodsList))completion

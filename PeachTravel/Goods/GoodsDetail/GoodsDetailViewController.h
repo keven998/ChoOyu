@@ -15,4 +15,8 @@
 //是不是商品快照
 @property (nonatomic) BOOL isSnapshot;
 
+//如果是查看商品快照的话，带上商品的 version
+@property (nonatomic) long goodsVersion;
+
+
 @end
