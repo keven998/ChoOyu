@@ -61,7 +61,13 @@
         retStr = @"买家提交订单";
         
     } else if ([status isEqualToString:@"cancel"]) {
-        retStr = @"买家取消订单";
+        
+        //取消订单分为卖家取消和买家取消，通过 userId 来判断
+        if ([[[statusDic objectForKey:@"data"] objectForKey:@"userId"] integerValue] == [AccountManager shareAccountManager].account.userId) {
+            retStr = @"买家取消订单";
+        } else {
+            retStr = @"卖家取消订单";
+        }
         
     } else if ([status isEqualToString:@"pay"]) {
         retStr = @"买家支付订单";

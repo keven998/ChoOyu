@@ -473,7 +473,7 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
 {
     // 1.创建头部视图
     UIView * header = [[UIView alloc] init];
-    header.frame = CGRectMake(0, 0, kWindowWidth, 50);
+    header.frame = CGRectMake(0, 64, kWindowWidth, 50);
     header.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:header];
     

@@ -148,6 +148,8 @@
         [discussionGroupManager asyncCreateDiscussionGroup:subject invitees: groupNumbers completionBlock:^(BOOL isSuccess, NSInteger errCode, IMDiscussionGroup * __nullable discussionGroup) {
             [self hideHud];
             if (isSuccess) {
+                [[IMClientManager shareInstance].conversationManager createNewConversationWithChatterId:discussionGroup.groupId chatType:IMChatTypeIMChatSingleType];
+
                 if (_delegate && [_delegate respondsToSelector:@selector(createConversationSuccessWithChatter:chatType:chatTitle:)]) {
                     [_delegate createConversationSuccessWithChatter:discussionGroup.groupId chatType:IMChatTypeIMChatDiscussionGroupType chatTitle:discussionGroup.subject];
                 }
@@ -161,10 +163,12 @@
         
     } else {
         if (self.selectedContacts.count == 0) {
-            [SVProgressHUD showErrorWithStatus:@"请选择一个以上朋友"];
+            [SVProgressHUD showErrorWithStatus:@"请至少选择一个好友"];
             
         } else if (self.selectedContacts.count == 1) {    //只选择一个视为单聊
             FrendModel *contact = [self.selectedContacts firstObject];
+            [[IMClientManager shareInstance].conversationManager createNewConversationWithChatterId:contact.userId chatType:IMChatTypeIMChatSingleType];
+
             if (_delegate && [_delegate respondsToSelector:@selector(createConversationSuccessWithChatter:chatType:chatTitle:)]) {
                 [_delegate createConversationSuccessWithChatter:contact.userId chatType:IMChatTypeIMChatSingleType chatTitle:contact.nickName];
             }
@@ -180,6 +184,8 @@
             [discussionGroupManager asyncCreateDiscussionGroup:subject invitees: self.selectedContacts completionBlock:^(BOOL isSuccess, NSInteger errCode, IMDiscussionGroup * __nullable discussionGroup) {
                 [self hideHud];
                 if (isSuccess) {
+                    [[IMClientManager shareInstance].conversationManager createNewConversationWithChatterId:discussionGroup.groupId chatType:IMChatTypeIMChatDiscussionGroupType];
+
                     if (_delegate && [_delegate respondsToSelector:@selector(createConversationSuccessWithChatter:chatType:chatTitle:)]) {
                         [_delegate createConversationSuccessWithChatter:discussionGroup.groupId chatType:IMChatTypeIMChatDiscussionGroupType chatTitle:discussionGroup.subject];
                     }

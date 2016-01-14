@@ -64,7 +64,7 @@
 {
     _commentDetail = commentDetail;
     _descLabel.text = _commentDetail.commentDetails;
-    [_headerImageView sd_setImageWithURL:[NSURL URLWithString:_commentDetail.avatar] placeholderImage:nil];
+    [_headerImageView sd_setImageWithURL:[NSURL URLWithString:_commentDetail.avatar] placeholderImage:[UIImage imageNamed:@"avatar_default.png"]];
     _titleLabel.text = [NSString stringWithFormat:@"%@ | %@", commentDetail.nickName, commentDetail.commentTime];
     [self setNeedsLayout];
 }

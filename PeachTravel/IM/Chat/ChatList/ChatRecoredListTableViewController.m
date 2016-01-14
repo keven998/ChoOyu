@@ -43,7 +43,7 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.title = @"选择";
+    self.navigationItem.title = @"选择聊天";
     
     UIBarButtonItem *backBtn = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismissCtl:)];
     self.navigationItem.leftBarButtonItem = backBtn;
@@ -147,24 +147,21 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
 
         if (tzConversation.chatType == IMChatTypeIMChatSingleType) {
             cell.titleLabel.text = tzConversation.chatterName;
-            if (tzConversation.chatterId == WenwenUserId) {
-                cell.headerImageView.image = [UIImage imageNamed:@"icon_chat_wenwen_avatar.png"];
-                cell.headerImageView.layer.cornerRadius = 6;
-            } else if (tzConversation.chatterId == PaipaiUserId) {
+            if (tzConversation.chatterId == PaipaiUserId) {
                 cell.headerImageView.layer.cornerRadius = 6;
                 cell.headerImageView.image = [UIImage imageNamed:@"icon_chat_paipai_avatar.png"];
             } else if (tzConversation.chatterId == TransactionMessageUserId) {
                 
-                cell.imageView.image = [UIImage imageNamed:@"icon_chat_transaction_tran.png"];
-                cell.imageView.layer.cornerRadius = 6;
+                cell.headerImageView.image = [UIImage imageNamed:@"icon_chat_transaction_avatar.png"];
+                cell.headerImageView.layer.cornerRadius = 6;
                 
             } else if (tzConversation.chatterId == ActivityMessageUserId) {
-                cell.imageView.image = [UIImage imageNamed:@"icon_chat_activity_avatar.png"];
-                cell.imageView.layer.cornerRadius = 6;
+                cell.headerImageView.image = [UIImage imageNamed:@"icon_chat_activity_avatar.png"];
+                cell.headerImageView.layer.cornerRadius = 6;
                 
             }  else {
                 [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:tzConversation.chatterAvatar] placeholderImage:[UIImage imageNamed:@"avatar_default"]];
-                cell.imageView.layer.cornerRadius = 20;
+                cell.headerImageView.layer.cornerRadius = 20;
             }
         } else{
             [cell.headerImageView setImage:[UIImage imageNamed:@"icon_chat_group.png"]];

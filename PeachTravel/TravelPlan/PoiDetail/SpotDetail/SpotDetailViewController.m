@@ -62,7 +62,8 @@
     } else if (indexPath.row == 4) {
         return  372/3;
     } else {
-        return 100;
+        CommentDetail *commonDetail = [self.poi.comments objectAtIndex:indexPath.row-5];
+        return [CommentTableViewCell heightForCommentCellWithComment:commonDetail.commentDetails];
     }
 }
 

@@ -200,7 +200,7 @@ static NSString *reusableCell = @"myGuidesCell";
     [MobClick event:@"navigation_item_plans_status_filter"];
     
     SelectionTableViewController *ctl = [[SelectionTableViewController alloc] init];
-    ctl.contentItems = @[@"全部", @"只看计划", @"只看去过"];
+    ctl.contentItems = @[@"全部", @"只看计划", @"只看已签到"];
     ctl.titleTxt = @"筛选";
     ctl.delegate = self;
     TZNavigationViewController *nav = [[TZNavigationViewController alloc] initWithRootViewController:ctl];

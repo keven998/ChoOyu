@@ -61,17 +61,13 @@
     _searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _searchBar.delegate = self;
     [_searchBar setPlaceholder:@"输入城市名"];
-    _searchBar.tintColor = COLOR_TEXT_II;
+    _searchBar.tintColor = [UIColor whiteColor];
     _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
     [_searchBar setSearchFieldBackgroundImage:[[UIImage imageNamed:@"icon_search_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)] forState:UIControlStateNormal];
-    [_searchBar setBackgroundColor:[UIColor whiteColor]];
+    [_searchBar setTranslucent:YES];
     _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.navigationItem.titleView = _searchBar;
-    
-    UIImageView *imageBg = [[UIImageView alloc]initWithFrame:CGRectMake((kWindowWidth - 210)/2, 68, 210, 130)];
-    
-    imageBg.image = [UIImage imageNamed:@"search_default_background"];
-//    [self.view addSubview:imageBg];
+
     
     [self.view addSubview:self.tableView];
     self.tableView.hidden = YES;

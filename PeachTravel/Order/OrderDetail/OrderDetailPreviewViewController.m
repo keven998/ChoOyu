@@ -47,7 +47,6 @@
     _tableView.separatorColor = COLOR_LINE;
     
     [_tableView registerNib:[UINib nibWithNibName:@"OrderDetailPreviewContentTableViewCell" bundle:nil] forCellReuseIdentifier:@"orderDetailContentCell"];
-    [_tableView registerNib:[UINib nibWithNibName:@"OrderDetailStoreInfoTableViewCell" bundle:nil] forCellReuseIdentifier:@"orderDetailStoreCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"OrderDetailTravelerPreviewTableViewCell" bundle:nil] forCellReuseIdentifier:@"orderDetailTravelerPreviewCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"OrderDetailContactTableViewCell" bundle:nil] forCellReuseIdentifier:@"orderDetailContactCell"];
     
@@ -183,7 +182,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 4;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -206,10 +205,10 @@
     if (indexPath.section == 0) {
         return [OrderDetailPreviewContentTableViewCell heightOfCellWithOrderDetail:_orderDetail];
         
-    } else if (indexPath.section == 2) {
+    } else if (indexPath.section == 1) {
         return [OrderDetailTravelerPreviewTableViewCell heightOfCellWithTravelerList:_orderDetail.travelerList];
         
-    } else if (indexPath.section == 3) {
+    } else if (indexPath.section == 2) {
         return [OrderDetailContactTableViewCell heightOfCellWithContactInfo:_orderDetail.orderContact andLeaveMessage:_orderDetail.leaveMessage];
     }
     return 50;
@@ -223,12 +222,6 @@
         return cell;
         
     } else if (indexPath.section == 1) {
-        OrderDetailStoreInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"orderDetailStoreCell" forIndexPath:indexPath];
-        cell.chatBtn.hidden = YES;
-        cell.storeNameLabel.text = _orderDetail.goods.store.storeName;
-        return cell;
-        
-    } else if (indexPath.section == 2) {
         OrderDetailTravelerPreviewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"orderDetailTravelerPreviewCell" forIndexPath:indexPath];
         cell.travelerList = _orderDetail.travelerList;
         return cell;

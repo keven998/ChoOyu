@@ -128,6 +128,7 @@ class ChatManagerAudio: NSObject, ChatManagerAudioProtocol, AudioManagerDelegate
     func beginRecordAudio(prepareBlock: ((canRecord: Bool) ->())) {
         audioRecordDeviceManager.audioManagerDelegate = self
         audioPath = documentPath.stringByAppendingString("/temp.wav")
+        
         let audioUrl = NSURL(string: audioPath)
         audioRecordDeviceManager.beginRecordAudio(audioUrl!, prepareBlock: { (canRecord) -> () in
             if canRecord {
