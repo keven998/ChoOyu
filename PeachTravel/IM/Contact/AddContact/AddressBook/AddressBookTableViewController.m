@@ -237,7 +237,7 @@
     MFMessageComposeViewController *picker = [[MFMessageComposeViewController alloc] init];
     picker.messageComposeDelegate = self;
     picker.recipients = @[[self.dataSource[sender.tag] objectForKey:@"tel"]];
-    picker.body = @"给你推荐个旅行好工具:旅行派";
+    picker.body = [NSString stringWithFormat:@"我正在使用旅行派,汇聚全球特色旅游体验项目的应用 搜索 \"%@\" 加我  下载地址: http://www.lvxingpai.com/app/download/", [AccountManager shareAccountManager].account.nickName];
     [self presentViewController:picker animated:YES completion:nil];
 }
 

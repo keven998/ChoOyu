@@ -88,6 +88,7 @@
 
 - (void)shareToWeChat
 {
+    [UMSocialData defaultData].extConfig.wechatSessionData.url = @"http://www.lvxingpai.com/app/download/";
     [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:[NSString stringWithFormat:@"我正在用旅行派，搜索: %@ 加我", [AccountManager shareAccountManager].account.nickName] image:nil location:nil urlResource:nil presentedController:self completion:^(UMSocialResponseEntity *response){
         if (response.responseCode == UMSResponseCodeSuccess) {
             NSLog(@"分享成功！");

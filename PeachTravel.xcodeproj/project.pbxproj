@@ -693,6 +693,8 @@
 		D942C27C1B9EBDF0005B81C5 /* ic_navigationbar_menu_add@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D942C27A1B9EBDF0005B81C5 /* ic_navigationbar_menu_add@3x.png */; };
 		D944189B1BAFAA9F0091FC0B /* AlbumImageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D944189A1BAFAA9F0091FC0B /* AlbumImageModel.m */; };
 		D9455C181B3A4DB800684080 /* ChatConversationManager+UpdateConversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9455C171B3A4DB800684080 /* ChatConversationManager+UpdateConversation.swift */; };
+		D945EBA71C47729F00DE202C /* ChatGroupSettingTitleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D945EBA51C47729F00DE202C /* ChatGroupSettingTitleTableViewCell.m */; };
+		D945EBA81C47729F00DE202C /* ChatGroupSettingTitleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D945EBA61C47729F00DE202C /* ChatGroupSettingTitleTableViewCell.xib */; };
 		D94B890A1B5DE70000584DE5 /* QuestionMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94B89091B5DE70000584DE5 /* QuestionMessage.swift */; };
 		D94B890C1B5DE72E00584DE5 /* QuestionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94B890B1B5DE72E00584DE5 /* QuestionModel.swift */; };
 		D94B890F1B5E104B00584DE5 /* ChatQuestionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D94B890E1B5E104B00584DE5 /* ChatQuestionTableViewCell.m */; };
@@ -2927,6 +2929,9 @@
 		D94418991BAFAA9F0091FC0B /* AlbumImageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlbumImageModel.h; sourceTree = "<group>"; };
 		D944189A1BAFAA9F0091FC0B /* AlbumImageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlbumImageModel.m; sourceTree = "<group>"; };
 		D9455C171B3A4DB800684080 /* ChatConversationManager+UpdateConversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChatConversationManager+UpdateConversation.swift"; sourceTree = "<group>"; };
+		D945EBA41C47729F00DE202C /* ChatGroupSettingTitleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatGroupSettingTitleTableViewCell.h; sourceTree = "<group>"; };
+		D945EBA51C47729F00DE202C /* ChatGroupSettingTitleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatGroupSettingTitleTableViewCell.m; sourceTree = "<group>"; };
+		D945EBA61C47729F00DE202C /* ChatGroupSettingTitleTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatGroupSettingTitleTableViewCell.xib; sourceTree = "<group>"; };
 		D94B89091B5DE70000584DE5 /* QuestionMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionMessage.swift; sourceTree = "<group>"; };
 		D94B890B1B5DE72E00584DE5 /* QuestionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionModel.swift; sourceTree = "<group>"; };
 		D94B890D1B5E104B00584DE5 /* ChatQuestionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatQuestionTableViewCell.h; sourceTree = "<group>"; };
@@ -7360,6 +7365,9 @@
 				D9A800751A80DD23005AD701 /* ChatGroupSettingViewController.h */,
 				D9A800761A80DD23005AD701 /* ChatGroupSettingViewController.m */,
 				D9A800771A80DD23005AD701 /* ChatGroupSettingViewController.xib */,
+				D945EBA41C47729F00DE202C /* ChatGroupSettingTitleTableViewCell.h */,
+				D945EBA51C47729F00DE202C /* ChatGroupSettingTitleTableViewCell.m */,
+				D945EBA61C47729F00DE202C /* ChatGroupSettingTitleTableViewCell.xib */,
 				27329DB81B0E0B9600F0A4FA /* AddMemberCell.h */,
 				27329DB91B0E0B9600F0A4FA /* AddMemberCell.m */,
 				27329DBA1B0E0B9600F0A4FA /* AddMemberCell.xib */,
@@ -10530,6 +10538,7 @@
 				E6F189BD1B845F4900232EEB /* ic_city_favorite_normal@2x.png in Resources */,
 				01C1EC7C1BB4E4720082217A /* xianhua@3x.png in Resources */,
 				E6F18ADC1B845F4900232EEB /* SenderImageNodeBorder_black@3x.png in Resources */,
+				D945EBA81C47729F00DE202C /* ChatGroupSettingTitleTableViewCell.xib in Resources */,
 				D9DD317B1BF5CDF6009BEDAB /* OrderDetailStatusTableViewCell.xib in Resources */,
 				E6F1898A1B845F4900232EEB /* poi_comment_start_highlight@3x.png in Resources */,
 				D942C1451B9EB5C3005B81C5 /* paipai@2x.png in Resources */,
@@ -11754,6 +11763,7 @@
 				D9A802251A80E036005AD701 /* NJKWebViewProgress.m in Sources */,
 				D9A8FF561A80CF19005AD701 /* OperationData.m in Sources */,
 				D90C761B1BF1DED600C5897C /* MakeOrderSelectPackageTableViewCell.m in Sources */,
+				D945EBA71C47729F00DE202C /* ChatGroupSettingTitleTableViewCell.m in Sources */,
 				D9DD31581BF48F11009BEDAB /* OrderManager.m in Sources */,
 				D982879E1C22823A0000D47A /* GoodsClassViewController.m in Sources */,
 				D993C2581B12DF0C0088D568 /* MessageReceiveManager.swift in Sources */,

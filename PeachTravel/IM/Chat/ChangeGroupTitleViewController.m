@@ -9,7 +9,7 @@
 #import "ChangeGroupTitleViewController.h"
 #import "PeachTravel-swift.h"
 
-@interface ChangeGroupTitleViewController ()
+@interface ChangeGroupTitleViewController () <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *titleLable;
 
@@ -35,6 +35,7 @@
     sv.backgroundColor = [UIColor whiteColor];
     _titleLable.leftView = sv;
     _titleLable.leftViewMode = UITextFieldViewModeAlways;
+    _titleLable.delegate = self;
     [_titleLable becomeFirstResponder];
 
 }
@@ -71,8 +72,17 @@
             }
         }];
     }
-    
-  
 }
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if ([string isEqualToString:@"\n"]) {
+        [_titleLable resignFirstResponder];
+        
+        return NO;
+    }
+    return YES;
+}
+
 
 @end

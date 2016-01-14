@@ -19,6 +19,7 @@
 #import "REFrostedViewController.h"
 #import "ChatAlbumCollectionViewController.h"
 #import "OtherProfileViewController.h"
+#import "ChatGroupSettingTitleTableViewCell.h"
 
 @interface ChatGroupSettingViewController () <UITableViewDataSource, UITableViewDelegate, CreateConversationDelegate, SWTableViewCellDelegate, ChangeGroupTitleDelegate>
 
@@ -110,6 +111,7 @@
     [_tableView registerNib:[UINib nibWithNibName:@"AddMemberCell" bundle:nil] forCellReuseIdentifier:@"addCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"ChatGroupSettingCell" bundle:nil] forCellReuseIdentifier:@"chatGroupSettingCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"UserOtherTableViewCell" bundle:nil] forCellReuseIdentifier:@"otherCell"];
+    [_tableView registerNib:[UINib nibWithNibName:@"ChatGroupSettingTitleTableViewCell" bundle:nil] forCellReuseIdentifier:@"chatGroupSettingTitleCell"];
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _tableView.tableFooterView = [self createFooterView];
     
@@ -294,12 +296,8 @@
 {
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            UserOtherTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"otherCell" forIndexPath:indexPath];
-            cell.cellTitle.text = @"群名称";
-            cell.cellTitle.textColor = COLOR_TEXT_I;
-            cell.cellTitle.font = [UIFont systemFontOfSize:15.0f];
-            cell.cellDetail.text = _groupModel.subject;
-            cell.cellDetail.font = [UIFont systemFontOfSize:16.0f];
+            ChatGroupSettingTitleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"chatGroupSettingTitleCell" forIndexPath:indexPath];
+            cell.groupTitleLabel.text = _groupModel.subject;
             return cell;
         } else if (indexPath.row == 1) {
             ChatGroupSettingCell *cell = [tableView dequeueReusableCellWithIdentifier:@"chatGroupSettingCell" forIndexPath:indexPath];
