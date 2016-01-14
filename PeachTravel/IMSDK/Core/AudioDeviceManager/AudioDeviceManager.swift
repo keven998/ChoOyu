@@ -58,7 +58,6 @@ class AudioRecordDeviceManager: NSObject, AVAudioRecorderDelegate {
         }
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"updateRecordState:" , name:
             AVAudioSessionInterruptionNotification, object: nil)
-        
         do {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord)
             try AVAudioSession.sharedInstance().setActive(true)
@@ -73,6 +72,7 @@ class AudioRecordDeviceManager: NSObject, AVAudioRecorderDelegate {
                         self.recorder.record()
                         prepareBlock(canRecord: true);
                     } catch {
+                        debug_print("exception")
                         
                     }
                 } else {
@@ -82,7 +82,8 @@ class AudioRecordDeviceManager: NSObject, AVAudioRecorderDelegate {
                 }
             }
         } catch {
-            
+            debug_print("exception")
+
         }
     }
 
