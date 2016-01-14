@@ -575,7 +575,6 @@
 		D925B1DF1C4391DD000F7E10 /* icon_downSheet_cancel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D925B1DD1C4391DD000F7E10 /* icon_downSheet_cancel@3x.png */; };
 		D925B22E1C463AA4000F7E10 /* CityRecommendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D925B22C1C463AA4000F7E10 /* CityRecommendTableViewCell.m */; };
 		D925B22F1C463AA4000F7E10 /* CityRecommendTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D925B22D1C463AA4000F7E10 /* CityRecommendTableViewCell.xib */; };
-		D925B2331C465B0E000F7E10 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = D925B2321C465B0E000F7E10 /* main.jsbundle */; };
 		D925B2371C475397000F7E10 /* ErrorEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = D925B2361C475397000F7E10 /* ErrorEmptyView.m */; };
 		D925B23A1C475422000F7E10 /* icon_errorEmpty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D925B2381C475422000F7E10 /* icon_errorEmpty@2x.png */; };
 		D925B23B1C475422000F7E10 /* icon_errorEmpty@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D925B2391C475422000F7E10 /* icon_errorEmpty@3x.png */; };
@@ -695,6 +694,7 @@
 		D9455C181B3A4DB800684080 /* ChatConversationManager+UpdateConversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9455C171B3A4DB800684080 /* ChatConversationManager+UpdateConversation.swift */; };
 		D945EBA71C47729F00DE202C /* ChatGroupSettingTitleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D945EBA51C47729F00DE202C /* ChatGroupSettingTitleTableViewCell.m */; };
 		D945EBA81C47729F00DE202C /* ChatGroupSettingTitleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D945EBA61C47729F00DE202C /* ChatGroupSettingTitleTableViewCell.xib */; };
+		D945EBE91C47C77D00DE202C /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = D945EBE81C47C77D00DE202C /* main.jsbundle */; };
 		D94B890A1B5DE70000584DE5 /* QuestionMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94B89091B5DE70000584DE5 /* QuestionMessage.swift */; };
 		D94B890C1B5DE72E00584DE5 /* QuestionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94B890B1B5DE72E00584DE5 /* QuestionModel.swift */; };
 		D94B890F1B5E104B00584DE5 /* ChatQuestionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D94B890E1B5E104B00584DE5 /* ChatQuestionTableViewCell.m */; };
@@ -2754,7 +2754,6 @@
 		D925B22B1C463AA4000F7E10 /* CityRecommendTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityRecommendTableViewCell.h; sourceTree = "<group>"; };
 		D925B22C1C463AA4000F7E10 /* CityRecommendTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityRecommendTableViewCell.m; sourceTree = "<group>"; };
 		D925B22D1C463AA4000F7E10 /* CityRecommendTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CityRecommendTableViewCell.xib; sourceTree = "<group>"; };
-		D925B2321C465B0E000F7E10 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		D925B2351C475397000F7E10 /* ErrorEmptyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorEmptyView.h; sourceTree = "<group>"; };
 		D925B2361C475397000F7E10 /* ErrorEmptyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorEmptyView.m; sourceTree = "<group>"; };
 		D925B2381C475422000F7E10 /* icon_errorEmpty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_errorEmpty@2x.png"; sourceTree = "<group>"; };
@@ -2930,6 +2929,7 @@
 		D945EBA41C47729F00DE202C /* ChatGroupSettingTitleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatGroupSettingTitleTableViewCell.h; sourceTree = "<group>"; };
 		D945EBA51C47729F00DE202C /* ChatGroupSettingTitleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatGroupSettingTitleTableViewCell.m; sourceTree = "<group>"; };
 		D945EBA61C47729F00DE202C /* ChatGroupSettingTitleTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatGroupSettingTitleTableViewCell.xib; sourceTree = "<group>"; };
+		D945EBE81C47C77D00DE202C /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		D94B89091B5DE70000584DE5 /* QuestionMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionMessage.swift; sourceTree = "<group>"; };
 		D94B890B1B5DE72E00584DE5 /* QuestionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionModel.swift; sourceTree = "<group>"; };
 		D94B890D1B5E104B00584DE5 /* ChatQuestionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatQuestionTableViewCell.h; sourceTree = "<group>"; };
@@ -7117,7 +7117,7 @@
 		D99D8EC719C8600C0021C25B /* PeachTravel */ = {
 			isa = PBXGroup;
 			children = (
-				D925B2321C465B0E000F7E10 /* main.jsbundle */,
+				D945EBE81C47C77D00DE202C /* main.jsbundle */,
 				D95B0A461BF0671E00F2D900 /* Order */,
 				D92109AE1BE204D700AEDB65 /* Store */,
 				01578DFC1BD2285D00244D9D /* TZPay */,
@@ -10487,7 +10487,6 @@
 				D9F059F61B63360700DD683F /* PlanScheduleTableViewCell.xib in Resources */,
 				01C1EC241BB4E4720082217A /* huaxin@3x.png in Resources */,
 				E6381BE81B66269000CF73AA /* Loading_Animation_final20@2x.png in Resources */,
-				D925B2331C465B0E000F7E10 /* main.jsbundle in Resources */,
 				D942C1321B9EB5C3005B81C5 /* notes@3x.png in Resources */,
 				D90C761A1BF1DED600C5897C /* MakeOrderSelectDateTableViewCell.xib in Resources */,
 				D91FED971B42D3B70073AD77 /* CityImageAlbum.xib in Resources */,
@@ -10947,6 +10946,7 @@
 				E68CB2851B9EBAC200A5B38B /* plan_kuang_photo@3x.png in Resources */,
 				E6F189D91B845F4900232EEB /* add_poi@2x.png in Resources */,
 				E6F18B211B845F4900232EEB /* master_icon_constellation8@2x.png in Resources */,
+				D945EBE91C47C77D00DE202C /* main.jsbundle in Resources */,
 				0115C9AC1BB103FC00631928 /* citydetail_food_hilighted@3x.png in Resources */,
 				E6F1891A1B845F4900232EEB /* account_line_default@3x.png in Resources */,
 				E6F18B001B845F4900232EEB /* master_layer.png in Resources */,

@@ -268,7 +268,7 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
                           atScrollPosition:UITableViewScrollPositionNone animated:YES];
 }
 
-- (NSMutableArray *)revertRestaurantListToGroup:(NSArray *)shoppingList
+- (NSMutableArray *)revertRestaurantListToGroup:(NSArray *)restaurantList
 {
     // 1.创建一个分组数组,里面存放了多少组数据
     NSMutableArray *dataSource = [[NSMutableArray alloc] init];
@@ -279,7 +279,7 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
     }
     
     // 2.遍历数组
-    for (RestaurantPoi * poi in shoppingList) {
+    for (RestaurantPoi * poi in restaurantList) {
         CityDestinationPoi * cityPoi = poi.locality;
         int i = 0;
         for (CityDestinationPoi * destpoi in _tripDetail.destinations)

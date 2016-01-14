@@ -53952,7 +53952,7 @@ Object.keys(componentOrElement));}
 
 module.exports = findDOMNode;
 });
-__d('trident/src/goodsDetailContainer.js',["react-native/Libraries/react-native/react-native.js","Dimensions","react-native/Libraries/react-native/react-native.js","trident/src/goodsComponents/GoodsDetailViewPager.ios.js","trident/src/goodsComponents/GoodsDetailUserInfo.js","trident/src/goodsComponents/GoodsDetailInfo.js","trident/src/goodsComponents/GoodsDetailUserQualifications.js","trident/src/goodsComponents/GoodsDetailToolBar.js","trident/src/goodsComponents/GoodsDetailSectionItem.js","trident/src/goodsComponents/GoodsDetailDescComponent.js","trident/src/goodsComponents/GoodsDetailBookComponent.js","trident/src/goodsComponents/GoodsTrafficComponent.js","trident/src/goodsComponents/GoodsBookQuitComponent.js","trident/src/goodsComponents/GoodsDetailSnapshot.js","trident/src/Config.js","react-native/Libraries/react-native/react-native.js"],function(global, require, module, exports) {  'use strict';
+__d('trident/src/goodsDetailContainer.js',["react-native/Libraries/react-native/react-native.js","Dimensions","react-native/Libraries/react-native/react-native.js","trident/src/goodsComponents/GoodsDetailViewPager.ios.js","trident/src/goodsComponents/GoodsDetailUserInfo.js","trident/src/goodsComponents/GoodsDetailUserQualifications.js","trident/src/goodsComponents/GoodsDetailToolBar.js","trident/src/goodsComponents/GoodsDetailSectionItem.js","trident/src/goodsComponents/GoodsDetailSnapshot.js","trident/src/Config.js","react-native/Libraries/react-native/react-native.js","trident/src/goodsComponents/GoodsDetailInfo.js","trident/src/goodsComponents/GoodsDetailDescComponent.js","trident/src/goodsComponents/GoodsDetailBookComponent.js","trident/src/goodsComponents/GoodsTrafficComponent.js","trident/src/goodsComponents/GoodsBookQuitComponent.js"],function(global, require, module, exports) {  'use strict';
 
 
 
@@ -54480,7 +54480,7 @@ React.createElement(View,{style:{flexDirection:'row',alignSelf:'flex-end',margin
 React.createElement(Image,{source:{uri:sourcePath + 'delete_line.png'},
 style:{width:55,height:25,justifyContent:'center',marginRight:3},
 resizeMode:Image.resizeMode.stretch},
-React.createElement(Text,{style:{fontSize:12,alignSelf:'flex-end',textAlign:'right',marginRight:5,textDecorationLine:'line-through',color:'#666666'}},'¥',
+React.createElement(Text,{style:{fontSize:12,alignSelf:'center',textAlign:'right',marginRight:5,textDecorationLine:'line-through',color:'#666666'}},'¥',
 this.props.price)),
 
 
@@ -54936,7 +54936,7 @@ React.createElement(View,null));}},
 showAll:function(){
 console.log("touch");
 if(Platform.OS == 'android'){
-NativeAction.startActivity('WebView',this.props.url,'','');}else 
+NativeAction.startActivity('WebView',this.props.url,'商品详情','');}else 
 {
 GoodsDetailCtl.moreGoodsInfo(this.props.url);}}});
 
@@ -55125,7 +55125,7 @@ React.createElement(View,null));}},
 showAll:function(){
 
 if(Platform.OS == 'android'){
-NativeAction.startActivity('WebView',this.props.url,'','');}else 
+NativeAction.startActivity('WebView',this.props.url,'购买须知','');}else 
 {
 GoodsDetailCtl.moreBuyInfo(this.props.url);}}});
 
@@ -55337,7 +55337,7 @@ React.createElement(View,null));}},
 showAll:function(){
 console.log("touch");
 if(Platform.OS == 'android'){
-NativeAction.startActivity('WebView',this.props.url,'','');}else 
+NativeAction.startActivity('WebView',this.props.url,'交通提示','');}else 
 {
 GoodsDetailCtl.moreTrafficInfo(this.props.url);}}});
 
@@ -55591,7 +55591,7 @@ React.createElement(View,null));}},
 showAll:function(){
 console.log("touch");
 if(Platform.OS == 'android'){
-NativeAction.startActivity('WebView',this.props.url,'','');}else 
+NativeAction.startActivity('WebView',this.props.url,'预定及退订','');}else 
 {
 GoodsDetailCtl.moreBookQuitInfo(this.props.url);}}});
 
