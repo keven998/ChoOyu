@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AutoSlideScrollView.h"
 
 @protocol GoodsRecommendHeaderViewDelegate <NSObject>
 
@@ -18,5 +19,6 @@
 
 @property (nonatomic, strong) NSArray *recommendData;
 @property (nonatomic, weak) id <GoodsRecommendHeaderViewDelegate> delegate;
+@property (strong, nonatomic) AutoSlideScrollView *galleryView;
 
 @end

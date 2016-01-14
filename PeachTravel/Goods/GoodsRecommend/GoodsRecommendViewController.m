@@ -57,6 +57,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [_headerView.galleryView.scrollView setContentOffset:CGPointZero animated:NO];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 

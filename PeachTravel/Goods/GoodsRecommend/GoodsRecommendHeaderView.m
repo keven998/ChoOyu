@@ -7,13 +7,11 @@
 //
 
 #import "GoodsRecommendHeaderView.h"
-#import "AutoSlideScrollView.h"
 #import "GoodsRecommendCollectionViewCell.h"
 
 @interface GoodsRecommendHeaderView()<UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (strong, nonatomic) UIButton *searchBtn;
-@property (strong, nonatomic) AutoSlideScrollView *galleryView;
 @property (strong, nonatomic) UICollectionView *collectionView;
 @property (strong, nonatomic) NSArray *slideDataSource;
 @property (strong, nonatomic) NSArray *specialDataSource;

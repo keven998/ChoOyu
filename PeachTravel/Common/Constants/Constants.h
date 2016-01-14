@@ -129,7 +129,7 @@
 /**
  html 接口
  */
-#define APP_ABOUT                               @ "http://api.lvxingpai.com/app/about"             //关于页面
+#define APP_ABOUT                               @ "http://h5.lvxingpai.com/about.htm"             //关于页面
 #define APP_AGREEMENT                           @ "http://api.lvxingpai.com/app/eula"       //用户协议
 
 /***** Notification name *******/

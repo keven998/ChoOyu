@@ -23,7 +23,7 @@ class OrderTipsMessage: BaseMessage {
         title = contentsDic.objectForKey("title") as? String
         content = contentsDic.objectForKey("text") as? String
         orderId = contentsDic.objectForKey("orderId") as! Int
-        goodsName = contentsDic.objectForKey("commodityName") as? String
+        goodsName = contentsDic.objectForKey("title") as? String
     }
     
     override func fillContentWithContent(contents: String) {

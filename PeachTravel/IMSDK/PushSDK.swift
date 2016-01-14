@@ -141,6 +141,7 @@ class PushSDKManager: NSObject, GeTuiSdkDelegate {
         if let message = payloadMsg {
             dispatchPushMessage(message)
 
+            
 //            let content = ["title":"卖家已取消订单", "text":"卖家已经取消订单，如有疑问请与卖家联系,我这没有票了，实在不要意思了" ,"commodityName":"军都山滑雪【全天】", "orderId":2015123412834123]
 //            let str: NSString = JSONConvertMethod.contentsStrWithJsonObjc(content)!
 //            

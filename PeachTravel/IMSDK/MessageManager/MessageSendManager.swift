@@ -332,7 +332,7 @@ class MessageSendManager: NSObject {
         goodsMessage.conversationId = conversationId
         goodsMessage.messageType = .GoodsMessageType
         
-        let goodsDic = ["price": goodsMessage.price, "commodityName": goodsMessage.goodsName!, "commodityId": goodsMessage.goodsId, "image": goodsMessage.imageUrl!]
+        let goodsDic = ["price": goodsMessage.price, "title": goodsMessage.goodsName!, "commodityId": goodsMessage.goodsId, "image": goodsMessage.imageUrl!]
         goodsMessage.message = JSONConvertMethod.contentsStrWithJsonObjc(goodsDic) as! String
         
         let daoHelper = DaoHelper.shareInstance()

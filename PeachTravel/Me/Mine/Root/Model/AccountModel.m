@@ -112,7 +112,6 @@
         _cityCount = [[json objectForKey:@"trackCnt"] intValue];;
     }
 
-    
     int countryCount = [[json objectForKey:@"countryCnt"] intValue];
     int cityCount = [[json objectForKey:@"trackCnt"] intValue];
     
