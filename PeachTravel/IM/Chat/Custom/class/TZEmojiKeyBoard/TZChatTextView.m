@@ -27,7 +27,6 @@
 
 #pragma mark - 启动emoji与收起emoji
 - (void)changeInputViewToEmoji{
-    NSLog(@"%@",[NSDate date]);
     if (self.inputView != nil) {
         [self resignFirstResponder];
         self.inputView = nil;
@@ -37,7 +36,6 @@
         self.inputView = self.emojiKeyBoard;
         [self becomeFirstResponder];
     }
-    NSLog(@"%@",[NSDate date]);
 }
 
 - (BOOL)resignFirstResponder{

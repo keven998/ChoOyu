@@ -25,6 +25,11 @@
         business.userId = [[json objectForKey:@"sellerId"] integerValue];
         business.nickName = [json objectForKey:@"name"];
         _business = business;
+        NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+        for (NSDictionary *dic in [json objectForKey:@"serviceZones"]) {
+            [tempArray addObject:[[CityDestinationPoi alloc] initWithJson:dic]];
+        }
+        _serviceZone = tempArray;
      }
     return self;
 }

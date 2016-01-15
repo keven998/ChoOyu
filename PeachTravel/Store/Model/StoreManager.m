@@ -12,7 +12,7 @@
 
 + (void)asyncLoadStoreInfoWithStoreId:(NSInteger)storeId completionBlock:(void (^)(BOOL, StoreDetailModel *))completion
 {
-    NSString *url = [NSString stringWithFormat:@"%@/%ld", API_STORE, 210067];
+    NSString *url = [NSString stringWithFormat:@"%@/%ld", API_STORE, storeId];
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [LXPNetworking GET:url parameters: nil success:^(AFHTTPRequestOperation *operation, id responseObject) {

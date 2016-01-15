@@ -56,10 +56,14 @@
     CGFloat offsetX = 35;
     CGFloat offsetY = 35;
 
-    UILabel *addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(offsetX, offsetY, 100, 20)];
+    UILabel *addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(offsetX, offsetY, self.bounds.size.width-offsetX-20, 20)];
     addressLabel.font = [UIFont systemFontOfSize:13.0];
     addressLabel.textColor = COLOR_TEXT_II;
-    addressLabel.text = storeDetail.city.zhName;
+    NSMutableString *cityString = [[NSMutableString alloc] init];
+    for (CityDestinationPoi *poi in _storeDetail.serviceZone) {
+        [cityString appendFormat:@"%@  ", poi.zhName];
+    }
+    addressLabel.text = cityString;
     [self addSubview:addressLabel];
     
     offsetY += 20;

@@ -328,16 +328,6 @@
     self.styleChangeButton.tag = 0;
     allButtonWidth += CGRectGetWidth(self.styleChangeButton.frame);
     
-    //更多
-    self.moreButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.bounds) - 40, 0, 40, th)];
-    self.moreButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    [self.moreButton setImage:[UIImage imageNamed:@"messages_icon_plus_default.png"] forState:UIControlStateNormal];
-    [self.moreButton setImage:[UIImage imageNamed:@"messages_icon_keyboard_default.png"] forState:UIControlStateSelected];
-    [self.moreButton addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
-    self.moreButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0.5*kHorizontalPadding);
-    self.moreButton.tag = 2;
-    allButtonWidth += CGRectGetWidth(self.moreButton.frame);
-    
     //表情
     self.faceButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.bounds) - 80, 0, 40, th)];
     self.faceButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin;
@@ -348,7 +338,17 @@
     self.faceButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 4);
     self.faceButton.tag = 1;
     allButtonWidth += CGRectGetWidth(self.faceButton.frame);
+
     
+    //更多
+    self.moreButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.bounds) - 40, 0, 40, th)];
+    self.moreButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+    [self.moreButton setImage:[UIImage imageNamed:@"messages_icon_plus_default.png"] forState:UIControlStateNormal];
+    [self.moreButton setImage:[UIImage imageNamed:@"messages_icon_keyboard_default.png"] forState:UIControlStateSelected];
+    [self.moreButton addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
+    self.moreButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0.5*kHorizontalPadding);
+    self.moreButton.tag = 2;
+    allButtonWidth += CGRectGetWidth(self.moreButton.frame);
     
     // 输入框的高度和宽度
     CGFloat width = CGRectGetWidth(self.bounds) - allButtonWidth;
@@ -501,7 +501,7 @@
 {
     UIButton *button = (UIButton *)sender;
     button.selected = !button.selected;
-    NSInteger tag = button.tag;
+    NSInteger tag = button.tag;   //0:语音文字切换   1 ：表情文字切换  2：更多按钮
     
     switch (tag) {
         case 0://切换状态
@@ -533,6 +533,7 @@
             }
         }
             break;
+            
         case 1://表情
         {
             if (button.selected) {
@@ -546,17 +547,19 @@
                 } else{//如果处于文字输入状态，使文字输入框失去焦点
                     [self.inputTextView resignFirstResponder];
                 }
-                
-//                [self willShowBottomView:self.faceView];
                 [self.inputTextView.internalTextView changeInputViewToEmoji];
+                button.selected = YES;
                
             } else {
                 if (!self.styleChangeButton.selected) {
+                    self.inputTextView.internalTextView.inputView = nil;
+                    [self.inputTextView resignFirstResponder];
                     [self.inputTextView becomeFirstResponder];
                 }
                 else{
                     [self willShowBottomView:nil];
                 }
+                button.selected = NO;
             }
         }
             break;

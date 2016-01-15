@@ -11,9 +11,6 @@
 #import "HomeViewController.h"
 #import "SearchDestinationViewController.h"
 #import "MineViewContoller.h"
-#import "PageOne.h"
-#import "PageTwo.h"
-#import "PageThree.h"
 #import "EAIntroView.h"
 #import "ChatListViewController.h"
 #import "LoginViewController.h"
@@ -39,6 +36,9 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 }
 @property (nonatomic, strong) UIImageView *coverView;
 
+@property (nonatomic, strong)  EAIntroView *introView;  //引导页
+
+
 @property (strong, nonatomic) NSDate *lastPlaySoundDate;
 
 /**
@@ -52,10 +52,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 @property (nonatomic, strong) PoiRecommendRootViewController *poiRecommendCtl;
 @property (nonatomic, strong) GoodsRecommendViewController *goodsRecommendCtl;
 @property (nonatomic, strong) CityListViewController *cityList;
-
-@property (nonatomic, strong) PageOne *pageView1;
-@property (nonatomic, strong) PageTwo *pageView2;
-@property (nonatomic, strong) PageThree *pageView3;
 
 @end
 
@@ -274,7 +270,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     EAIntroPage *page3 = [EAIntroPage page];
     EAIntroPage *page4 = [EAIntroPage page];
 
-
     {
         NSString *imageName;
         
@@ -337,34 +332,19 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         page4.bgImage = image;
     }
     
-    EAIntroView *intro = [[EAIntroView alloc] initWithFrame:self.view.bounds andPages:@[page1,page2,page3,page4]];
-    [intro setDelegate:self];
-    intro.hideOffscreenPages = YES;
-    intro.skipButton.hidden = YES;
-    intro.pageControl.hidden = YES;
-    [intro showInView:self.view animateDuration:0];
+    _introView = [[EAIntroView alloc] initWithFrame:self.view.bounds andPages:@[page1,page2,page3,page4]];
+    [_introView setDelegate:self];
+    _introView.hideOffscreenPages = YES;
+    _introView.skipButton.hidden = YES;
+    _introView.pageControl.hidden = YES;
+    [_introView showInView:self.view animateDuration:0];
 }
 
 #pragma mark - EAIntroDelegate
 
 - (void)intro:(EAIntroView *)introView pageAppeared:(EAIntroPage *)page withIndex:(NSInteger)pageIndex
 {
-    if (pageIndex == 0) {
-        [_pageView1 startAnimation];
-    }
-    else if (pageIndex == 1) {
-        [_pageView2 startAnimation];
-    }
-    else if (pageIndex == 2) {
-        [_pageView3 startAnimation];
-    }
-}
-
-- (void)intro:(EAIntroView *)introView pageStartScrolling:(EAIntroPage *)page withIndex:(NSInteger)pageIndex
-{
-    if (pageIndex == 0) {
-        [_pageView1 stopAnimation];
-    }
+    
 }
 
 - (void)introDidFinish:(EAIntroView *)introView

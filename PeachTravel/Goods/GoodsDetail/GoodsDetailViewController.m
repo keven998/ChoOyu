@@ -221,7 +221,7 @@ RCT_EXPORT_MODULE();
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         IMClientManager *clientManager = [IMClientManager shareInstance];
-        ChatConversation *conversation = [clientManager.conversationManager getExistConversationInConversationList:_goodsDetail.store.storeId];
+        ChatConversation *conversation = [clientManager.conversationManager getConversationWithChatterId:_goodsDetail.store.storeId chatType:IMChatTypeIMChatSingleType];
         ChatViewController *chatController = [[ChatViewController alloc] initWithConversation:conversation];
         GoodsLinkMessage *message = [[GoodsLinkMessage alloc] init];
         message.senderId = [AccountManager shareAccountManager].account.userId;

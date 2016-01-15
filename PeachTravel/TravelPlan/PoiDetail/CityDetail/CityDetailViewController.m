@@ -181,10 +181,13 @@
     [sectionHeaderView addSubview:headerBtn];
     
     UIButton *goodsCountBtn = [[UIButton alloc] initWithFrame:CGRectMake(sectionHeaderView.bounds.size.width-60, 0, 48, 40)];
-    goodsCountBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
+    goodsCountBtn.titleLabel.font = [UIFont systemFontOfSize:13.0];
     [goodsCountBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+    [goodsCountBtn setImage:[UIImage imageNamed:@"icon_goodsCount_green"] forState:UIControlStateNormal];
     [goodsCountBtn setTitle:[NSString stringWithFormat:@"%ld", _poi.goodsCount] forState:UIControlStateNormal];
     [goodsCountBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
+    [goodsCountBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
+    [goodsCountBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 5)];
     goodsCountBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     goodsCountBtn.userInteractionEnabled = NO;
 
