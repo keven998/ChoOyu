@@ -248,7 +248,8 @@ typedef NS_ENUM(NSUInteger, TZCMDChatType) {
 #define IS_IPHONE_6  (fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )667 ) < DBL_EPSILON)
 #define IS_IPHONE_6P (IS_IPHONE && SCREEN_MAX_LENGTH == 736.0)
 
-#define IS_IOS8 ([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0)
+#define IS_IOS8_AFTER ([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0)  //大于等于8.0
+#define IS_IOS9_AFTER ([[[UIDevice currentDevice] systemVersion] floatValue]>=9.0)  //大于等于9.0
 
 #define RGBACOLOR(r,g,b,a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:(a)]
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]

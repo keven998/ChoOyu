@@ -30,6 +30,14 @@
 
 @implementation HPTextViewInternal
 
+- (instancetype)initWithFrame:(CGRect)frame textContainer:(nullable NSTextContainer *)textContainer
+{
+    if (self = [super initWithFrame:frame textContainer:textContainer]) {
+        _isFirstShow = YES;
+    }
+    return self;
+}
+
 -(void)setText:(NSString *)text
 {
     BOOL originalValue = self.scrollEnabled;
@@ -107,9 +115,24 @@
     {
         if ([self respondsToSelector:@selector(snapshotViewAfterScreenUpdates:)])
         {
+            [super setContentOffset:CGPointZero];
+        
+
             NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
             paragraphStyle.alignment = self.textAlignment;
-            [self.placeholder drawInRect:CGRectMake(5, 8 + self.contentInset.top, self.frame.size.width-self.contentInset.left, self.frame.size.height- self.contentInset.top) withAttributes:@{NSFontAttributeName:self.font, NSForegroundColorAttributeName:self.placeholderColor, NSParagraphStyleAttributeName:paragraphStyle}];
+            NSLog(@"react = %@", NSStringFromCGRect(CGRectMake(5, 8 + self.contentInset.top, self.frame.size.width-self.contentInset.left, self.frame.size.height- self.contentInset.top)));
+            
+            CGFloat contentOffsetY = 8;
+            
+            if (!IS_IOS9_AFTER) {     //解决 ios8第一次 placeholder 自动偏移8个像素的问题
+                if (self.isFirstShow) {
+                    contentOffsetY = 0;
+                    self.isFirstShow = NO;
+                } else {
+                    contentOffsetY = 8;
+                }
+            }
+            [self.placeholder drawInRect:CGRectMake(5, contentOffsetY+self.contentInset.top, self.frame.size.width-self.contentInset.left, self.frame.size.height- self.contentInset.top) withAttributes:@{NSFontAttributeName:self.font, NSForegroundColorAttributeName:self.placeholderColor, NSParagraphStyleAttributeName:paragraphStyle}];
         }
         else {
             [self.placeholderColor set];
@@ -121,7 +144,7 @@
 -(void)setPlaceholder:(NSString *)placeholder
 {
 	_placeholder = placeholder;
-	
+   
 	[self setNeedsDisplay];
 }
 

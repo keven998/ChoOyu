@@ -31,6 +31,8 @@
 @interface HPTextViewInternal : UITextView
 
 @property (nonatomic, strong) NSString *placeholder;
+@property (nonatomic) BOOL isFirstShow;  //为了解决 ios8初始化偏移的问题
+
 @property (nonatomic, strong) UIColor *placeholderColor;
 @property (nonatomic) BOOL displayPlaceHolder;
 

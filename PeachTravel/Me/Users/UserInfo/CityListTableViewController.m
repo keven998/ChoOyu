@@ -49,7 +49,7 @@
     if (_needUserLocation) {
         _locationManager = [[CLLocationManager alloc] init];
         _locationManager.delegate = self;
-        if (IS_IOS8) {
+        if (IS_IOS8_AFTER) {
             [_locationManager requestWhenInUseAuthorization];
         }
         [_locationManager startUpdatingLocation];

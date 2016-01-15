@@ -82,7 +82,7 @@ static LocationViewController *defaultLocation = nil;
         [self startLocation];
         location = [[CLLocationManager alloc] init];
         location.delegate= self;
-        if (IS_IOS8) {
+        if (IS_IOS8_AFTER) {
             [location requestWhenInUseAuthorization];
         }
     } else {

@@ -167,7 +167,7 @@
     
     _locLabel.text = @"正在定位...";
     
-    if (IS_IOS8) {
+    if (IS_IOS8_AFTER) {
         [self.locationManager requestWhenInUseAuthorization];
     }
     [self.locationManager startUpdatingLocation];
