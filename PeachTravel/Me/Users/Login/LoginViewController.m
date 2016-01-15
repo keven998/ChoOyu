@@ -55,7 +55,7 @@
     imageView.userInteractionEnabled = YES;
     [self.view addSubview:imageView];
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backBtn.frame = CGRectMake(0, 20, 70, 64);
+    backBtn.frame = CGRectMake(0, 20, 70, 44);
     [backBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [backBtn setTitle:@"取消" forState:UIControlStateNormal];
     backBtn.titleLabel.font = [UIFont systemFontOfSize:16.0];
@@ -113,7 +113,7 @@
     [self.view addSubview:_iconImageView];
     
     UIView *leftViewOne = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
-    _userNameTextField = [[UITextField alloc]initWithFrame:CGRectMake(12, CGRectGetMaxY(_iconImageView.frame) + 40, Width-25, 55 * Height / 736)];
+    _userNameTextField = [[UITextField alloc]initWithFrame:CGRectMake(12, CGRectGetMaxY(_iconImageView.frame) + 30, Width-25, 55 * Height / 736)];
     _userNameTextField.leftView = leftViewOne;
     _userNameTextField.placeholder = @"手机/名字/ID";
     _userNameTextField.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.65];
@@ -127,7 +127,7 @@
     [self.view addSubview:_userNameTextField];
     
     UIView *leftViewTwo = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
-    _passwordTextField = [[UITextField alloc]initWithFrame:CGRectMake(12, CGRectGetMaxY(_userNameTextField.frame)+10, Width-25, 60 * Height / 736)];
+    _passwordTextField = [[UITextField alloc]initWithFrame:CGRectMake(12, CGRectGetMaxY(_userNameTextField.frame)+8, Width-25, 55 * Height / 736)];
     _passwordTextField.leftView = leftViewTwo;
 
     _passwordTextField.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.65];
@@ -173,21 +173,20 @@
     [self.view addSubview:_registerBtn];
   
     // 下面代码是微信登陆
-    _weiChatBtn = [[TZButton alloc] init];
-    _weiChatBtn.frame = CGRectMake(0, 0, 100, 40);
-    _weiChatBtn.center = CGPointMake(Width/2, CGRectGetMaxY(_registerBtn.frame) + 40);
+    _weiChatBtn = [[TZButton alloc] initWithFrame:CGRectMake((kWindowWidth-80)/2, CGRectGetMaxY(_loginBtn.frame)+30, 80, 80)];
     [_weiChatBtn setImage:[UIImage imageNamed:@"icon_wechat_login"] forState:UIControlStateNormal];
     [_weiChatBtn setTitle:@"微信登录" forState:UIControlStateNormal];
     [_weiChatBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_weiChatBtn setTitleColor:COLOR_DISABLE forState:UIControlStateHighlighted];
     ((TZButton *)_weiChatBtn).spaceHight = 15;
-    [self.view addSubview:_weiChatBtn];
     [_weiChatBtn addTarget:self action:@selector(weixinLogin:) forControlEvents:UIControlEventTouchUpInside];
     _weiChatBtn.titleLabel.font = [UIFont systemFontOfSize:17];
+    [self.view addSubview:_weiChatBtn];
+
     
     // 没有安装微信,则隐藏
     if (![WXApi isWXAppInstalled]) {
-        _weiChatBtn.hidden = YES;
+//        _weiChatBtn.hidden = YES;
     }
 }
 
