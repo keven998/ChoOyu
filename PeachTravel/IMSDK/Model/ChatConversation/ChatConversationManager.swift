@@ -383,21 +383,8 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
         let paiConversation = ChatConversation()
         paiConversation.chatterId = Int(PaipaiUserId)
         paiConversation.chatterName = "客服派派";
-        paiConversation.lastUpdateTime = Int(NSDate().timeIntervalSince1970)+2
+        paiConversation.lastUpdateTime = Int(NSDate().timeIntervalSince1970)
         self.addConversation(paiConversation)
-        
-        let tradeConversation = ChatConversation()
-        tradeConversation.chatterId = Int(TransactionMessageUserId)
-        tradeConversation.chatterName = "交易消息";
-        tradeConversation.lastUpdateTime = Int(NSDate().timeIntervalSince1970)+1
-        self.addConversation(tradeConversation)
-        
-        let activityConversation = ChatConversation()
-        activityConversation.chatterId = Int(ActivityMessageUserId)
-        activityConversation.chatterName = "活动消息";
-        activityConversation.lastUpdateTime = Int(NSDate().timeIntervalSince1970)
-        self.addConversation(activityConversation);
-
     }
     
     private func conversationIsExit(conversation: ChatConversation) -> Bool {
