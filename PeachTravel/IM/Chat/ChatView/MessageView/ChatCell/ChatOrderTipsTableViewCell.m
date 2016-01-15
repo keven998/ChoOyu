@@ -13,7 +13,15 @@
 
 + (CGFloat)heightOfCellWithMessageModel:(MessageModel *)messageModel
 {
-    return 200;
+    CGFloat retHeight = 160;
+    OrderTipsMessage *message = (OrderTipsMessage *)messageModel;
+    NSDictionary *attribs = @{NSFontAttributeName: [UIFont systemFontOfSize:14]};
+   
+    NSAttributedString *attrstr = [[NSAttributedString alloc] initWithString: message.content attributes:attribs];
+    CGRect rect = [attrstr boundingRectWithSize:(CGSize){kWindowWidth-62, CGFLOAT_MAX} options:NSStringDrawingUsesLineFragmentOrigin context:nil];
+    retHeight += rect.size.height;
+    
+    return retHeight;
 }
 
 - (void)awakeFromNib {

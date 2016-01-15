@@ -210,7 +210,9 @@
         } else if (indexPath.row == 1) {
             SuperWebViewController *aboutMeCtl = [[SuperWebViewController alloc] init];
             aboutMeCtl.titleStr = @"关于我们";
-            aboutMeCtl.urlStr = APP_ABOUT;
+            NSDictionary *infoDict =[[NSBundle mainBundle] infoDictionary];
+            NSString *versionNum =[infoDict objectForKey:@"CFBundleShortVersionString"];
+            aboutMeCtl.urlStr = [NSString stringWithFormat:@"%@?version=%@", APP_ABOUT, versionNum];
             [self.navigationController pushViewController:aboutMeCtl animated:YES];
         }
     }

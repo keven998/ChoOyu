@@ -13,6 +13,7 @@
 - (void)awakeFromNib {
     _goodsCountBtn.layer.borderColor = [UIColor whiteColor].CGColor;
     _goodsCountBtn.layer.borderWidth = 0.5;
+    _headerImageView.clipsToBounds = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

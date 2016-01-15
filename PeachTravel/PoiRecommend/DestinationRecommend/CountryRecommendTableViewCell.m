@@ -11,6 +11,7 @@
 @implementation CountryRecommendTableViewCell
 
 - (void)awakeFromNib {
+    _headerImageView.clipsToBounds = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
