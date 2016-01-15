@@ -120,7 +120,7 @@
     
     UIImage *shareImage = [UIImage imageNamed:@"share_icon.png"];
     
-    [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:@"能向达人咨询、朋友协作的旅行工具" image:shareImage location:nil urlResource:nil presentedController:self completion:^(UMSocialResponseEntity *response) {
+    [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:@"汇聚全球特色旅游体验项目的应用" image:shareImage location:nil urlResource:nil presentedController:self completion:^(UMSocialResponseEntity *response) {
     }];
 }
 

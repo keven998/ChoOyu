@@ -394,6 +394,8 @@ RCT_EXPORT_METHOD(checkLatestGoodsDetail){
             
         case 1: {
             [UMSocialData defaultData].extConfig.wechatTimelineData.url = url;
+            [UMSocialData defaultData].extConfig.wechatTimelineData.title = shareTitle;
+
             [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatTimeline] content:shareContentWithoutUrl image:nil location:nil urlResource:resource presentedController:self completion:^(UMSocialResponseEntity *response){
                 if (response.responseCode == UMSResponseCodeSuccess) {
                     NSLog(@"分享成功！");
@@ -416,6 +418,8 @@ RCT_EXPORT_METHOD(checkLatestGoodsDetail){
             
         case 3: {
             [UMSocialData defaultData].extConfig.qqData.url = url;
+            [UMSocialData defaultData].extConfig.qqData.title = shareTitle;
+
             [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToQQ] content:shareContentWithoutUrl image:nil location:nil urlResource:resource presentedController:self completion:^(UMSocialResponseEntity *response){
                 if (response.responseCode == UMSResponseCodeSuccess) {
                     NSLog(@"分享成功！");

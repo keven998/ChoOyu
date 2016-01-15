@@ -83,6 +83,8 @@
 	<string>1</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
+		<string>mqqapi</string>
+		<string>mqq</string>
 		<string>weixin</string>
 		<string>wechat</string>
 	</array>
