@@ -68,10 +68,10 @@
     
     offsetY += 20;
     for (NSString *language in _storeDetail.languages) {
-        UILabel *lable = [[UILabel alloc] initWithFrame:CGRectMake(offsetX, 55, 45, 15)];
+        UILabel *lable = [[UILabel alloc] initWithFrame:CGRectMake(offsetX, 55, 50, 15)];
         lable.textColor = [UIColor whiteColor];
         lable.font = [UIFont systemFontOfSize:10.0];
-        lable.layer.cornerRadius = 5.0;
+        lable.layer.cornerRadius = 4.0;
         lable.clipsToBounds = YES;
         lable.textAlignment = NSTextAlignmentCenter;
         lable.text = language;
@@ -79,9 +79,9 @@
         if ([language isEqualToString:@"中文"]) {
             lable.backgroundColor = APP_THEME_COLOR;
         } else if ([language isEqualToString:@"英文"]) {
-            lable.backgroundColor = UIColorFromRGB(0x89BFFF);
+            lable.backgroundColor = UIColorFromRGB(0x99ccff);
         } else {
-            lable.backgroundColor = UIColorFromRGB(0xF57F24);
+            lable.backgroundColor = UIColorFromRGB(0xf9932e);
         }
         offsetX += 60;
     }

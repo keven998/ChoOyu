@@ -110,6 +110,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)setupConverView
 {
+    [self beginIntroduce];
+
     if ((!shouldSkipIntroduce && kShouldShowIntroduceWhenFirstLaunch) || !kIsNotFirstInstall) {
         [self beginIntroduce];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:[[AppUtils alloc] init].appVersion];
@@ -342,7 +344,11 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)intro:(EAIntroView *)introView pageAppeared:(EAIntroPage *)page withIndex:(NSInteger)pageIndex
 {
-    
+    if (pageIndex == 3) {
+        _introView.skipButton.hidden = NO;
+    } else {
+        _introView.skipButton.hidden = YES;
+    }
 }
 
 - (void)introDidFinish:(EAIntroView *)introView

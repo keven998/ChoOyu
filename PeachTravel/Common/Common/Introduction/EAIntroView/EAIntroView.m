@@ -363,24 +363,10 @@
     self.pageControl.numberOfPages = _pages.count;
     [self addSubview:self.pageControl];
     
-    self.skipButton = [[UIButton alloc] initWithFrame:CGRectMake(self.scrollView.frame.size.width - 80, self.pageControl.frame.origin.y - ((30 - self.pageControl.frame.size.height)/2), 80, 30)];
-    [self.skipButton setTitle:NSLocalizedString(@"Skip", nil) forState:UIControlStateNormal];
+    self.skipButton = [[UIButton alloc] initWithFrame:CGRectMake(40, self.frame.size.height-120, self.frame.size.width-80, 80)];
+//    [self.skipButton setTitle:NSLocalizedString(@"Skip", nil) forState:UIControlStateNormal];
     [self.skipButton addTarget:self action:@selector(skipIntroduction) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.skipButton];
-    
-    if ([self respondsToSelector:@selector(addConstraint:)]) {
-        self.pageControl.translatesAutoresizingMaskIntoConstraints = NO;
-        [self addConstraint:[NSLayoutConstraint constraintWithItem:self.pageControl attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
-        
-        //store Y constraint
-        //at launch - page control centered with skip button by Y. If Y is set manually, Y constraint turns to bottom constraint
-        self.pageControlYConstraint = [NSLayoutConstraint constraintWithItem:self.pageControl attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.skipButton attribute:NSLayoutAttributeCenterY multiplier:1 constant:0];
-        [self addConstraint:self.pageControlYConstraint];
-        
-        self.skipButton.translatesAutoresizingMaskIntoConstraints = NO;
-        [self addConstraint:[NSLayoutConstraint constraintWithItem:self.skipButton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeRight multiplier:1 constant:-30]];
-        [self addConstraint:[NSLayoutConstraint constraintWithItem:self.skipButton attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1 constant:-20]];
-    }
 }
 
 #pragma mark - UIScrollView Delegate

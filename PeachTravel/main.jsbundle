@@ -5141,7 +5141,7 @@ NodeHandle.injection.injectImplementation(UniversalWorkerNodeHandle);}
 module.exports = {
 inject:inject};
 });
-__d('InitializeJavaScriptAppEngine',["RCTDebugComponentOwnership","RCTDeviceEventEmitter","PerformanceLogger","regenerator/runtime.js","ExceptionsManager","ErrorUtils","ExceptionsManager","Platform","checkFlowAtRuntime","JSTimers","NativeModules","Promise","XMLHttpRequest","FormData","fetch","Geolocation","WebSocket","BridgeProfiling"],function(global, require, module, exports) {  var _extends=Object.assign || function(target){for(var i=1;i < arguments.length;i++) {var source=arguments[i];for(var key in source) {if(Object.prototype.hasOwnProperty.call(source,key)){target[key] = source[key];}}}return target;};
+__d('InitializeJavaScriptAppEngine',["RCTDebugComponentOwnership","RCTDeviceEventEmitter","PerformanceLogger","ExceptionsManager","ErrorUtils","ExceptionsManager","Platform","checkFlowAtRuntime","JSTimers","NativeModules","Promise","XMLHttpRequest","FormData","fetch","Geolocation","WebSocket","BridgeProfiling","regenerator/runtime.js"],function(global, require, module, exports) {  var _extends=Object.assign || function(target){for(var i=1;i < arguments.length;i++) {var source=arguments[i];for(var key in source) {if(Object.prototype.hasOwnProperty.call(source,key)){target[key] = source[key];}}}return target;};
 
 
 
@@ -29928,7 +29928,7 @@ this.emit(arg.eventType,arg.data,arg.didEmitCallback);}}}]);return NavigationEve
 
 module.exports = NavigationEventEmitter;
 });
-__d('NavigatorBreadcrumbNavigationBar',["NavigatorBreadcrumbNavigationBarStyles","NavigatorNavigationBarStylesAndroid","NavigatorNavigationBarStylesIOS","Platform","React","StyleSheet","View","immutable/dist/immutable.js","invariant"],function(global, require, module, exports) {  'use strict';
+__d('NavigatorBreadcrumbNavigationBar',["NavigatorBreadcrumbNavigationBarStyles","NavigatorNavigationBarStylesAndroid","NavigatorNavigationBarStylesIOS","Platform","React","StyleSheet","View","invariant","immutable/dist/immutable.js"],function(global, require, module, exports) {  'use strict';
 
 
 
@@ -53952,7 +53952,7 @@ Object.keys(componentOrElement));}
 
 module.exports = findDOMNode;
 });
-__d('trident/src/goodsDetailContainer.js',["react-native/Libraries/react-native/react-native.js","Dimensions","react-native/Libraries/react-native/react-native.js","trident/src/goodsComponents/GoodsDetailViewPager.ios.js","trident/src/goodsComponents/GoodsDetailUserInfo.js","trident/src/goodsComponents/GoodsDetailUserQualifications.js","trident/src/goodsComponents/GoodsDetailToolBar.js","trident/src/goodsComponents/GoodsDetailSectionItem.js","trident/src/goodsComponents/GoodsDetailSnapshot.js","trident/src/Config.js","react-native/Libraries/react-native/react-native.js","trident/src/goodsComponents/GoodsDetailInfo.js","trident/src/goodsComponents/GoodsDetailDescComponent.js","trident/src/goodsComponents/GoodsDetailBookComponent.js","trident/src/goodsComponents/GoodsTrafficComponent.js","trident/src/goodsComponents/GoodsBookQuitComponent.js"],function(global, require, module, exports) {  'use strict';
+__d('trident/src/goodsDetailContainer.js',["react-native/Libraries/react-native/react-native.js","Dimensions","react-native/Libraries/react-native/react-native.js","trident/src/goodsComponents/GoodsDetailViewPager.ios.js","react-native/Libraries/react-native/react-native.js","trident/src/goodsComponents/GoodsDetailUserInfo.js","trident/src/goodsComponents/GoodsDetailInfo.js","trident/src/goodsComponents/GoodsDetailUserQualifications.js","trident/src/goodsComponents/GoodsDetailToolBar.js","trident/src/goodsComponents/GoodsDetailSectionItem.js","trident/src/goodsComponents/GoodsDetailDescComponent.js","trident/src/goodsComponents/GoodsDetailBookComponent.js","trident/src/goodsComponents/GoodsTrafficComponent.js","trident/src/goodsComponents/GoodsBookQuitComponent.js","trident/src/goodsComponents/GoodsDetailSnapshot.js","trident/src/Config.js"],function(global, require, module, exports) {  'use strict';
 
 
 
@@ -54446,7 +54446,7 @@ React.createElement(Text,{style:{fontSize:15,color:'#333333',marginLeft:10,margi
 React.createElement(Text,{style:{fontSize:14,alignSelf:'center',color:'#99cc66',fontWeight:'bold',lineHeight:20}},
 "[" + this.props.categoryDesc + "]  "),
 
-this.props.goodsName + '水电费水电费离开教室蝶恋蜂狂手机丢了看风景收到了开放时间都浪费')),
+this.props.goodsName)),
 
 
 React.createElement(View,{style:{flexDirection:'row',justifyContent:'space-between',marginTop:5,marginBottom:15}},
@@ -54681,7 +54681,7 @@ GoodsDetailCtl.makeOrder();}}});
 var ButtonItem=React.createClass({displayName:'ButtonItem',
 getDefaultProps:function(){
 return {
-shareBean:{image:{url:""}}};},
+shareBean:{}};},
 
 
 
@@ -54700,7 +54700,7 @@ if(title == '联系卖家'){
 this.props.shareBean.commodityId = this.props.commodityId;
 this.props.shareBean.price = this.props.price;
 this.props.shareBean.title = this.props.title;
-this.props.shareBean.image.url = this.props.images.url;
+this.props.shareBean.image = this.props.images.url;
 var data=JSON.stringify(this.props.shareBean);
 NativeAction.startActivity('Chat',data,this.props.userId + '','');}}else 
 
@@ -55555,7 +55555,7 @@ var quitSummary='';
 if(!this.props.content[1].summary || this.props.content[1].summary.length == 0){
 quitSummary = '相关内容请咨询卖家';}else 
 {
-quitSummary = this.props.content[0].summary;}
+quitSummary = this.props.content[1].summary;}
 
 return (
 React.createElement(View,{style:styles.container},
@@ -55872,7 +55872,7 @@ height:h,
 goodsDetailUrl:goodsDetailUrl,
 storeDetailUrl:storeDetailUrl};module.exports = exports.default;
 });
-__d('trident/src/StoreContainer.js',["react-native/Libraries/react-native/react-native.js","Dimensions","trident/src/storeComponents/StoreDetailUserInfo.js","trident/src/storeComponents/StoreHotSales.js","trident/src/storeComponents/StoreDetailOnSell.js","trident/src/storeComponents/StoreInfo.js","trident/src/storeComponents/StoreSectionItem.js","trident/src/storeComponents/StorelToolBar.js"],function(global, require, module, exports) {  var React=require('react-native/Libraries/react-native/react-native.js');
+__d('trident/src/StoreContainer.js',["react-native/Libraries/react-native/react-native.js","Dimensions","trident/src/storeComponents/StoreHotSales.js","trident/src/storeComponents/StoreDetailUserInfo.js","trident/src/storeComponents/StoreDetailOnSell.js","trident/src/storeComponents/StoreInfo.js","trident/src/storeComponents/StoreSectionItem.js","trident/src/storeComponents/StorelToolBar.js"],function(global, require, module, exports) {  var React=require('react-native/Libraries/react-native/react-native.js');
 var Dimensions=require('Dimensions');
 var StoreDetailUserInfo=require('trident/src/storeComponents/StoreDetailUserInfo.js');
 var StoreHotSales=require('trident/src/storeComponents/StoreHotSales.js');

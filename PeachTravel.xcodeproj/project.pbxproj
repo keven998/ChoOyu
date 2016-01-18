@@ -651,7 +651,6 @@
 		D9455C181B3A4DB800684080 /* ChatConversationManager+UpdateConversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9455C171B3A4DB800684080 /* ChatConversationManager+UpdateConversation.swift */; };
 		D945EBA71C47729F00DE202C /* ChatGroupSettingTitleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D945EBA51C47729F00DE202C /* ChatGroupSettingTitleTableViewCell.m */; };
 		D945EBA81C47729F00DE202C /* ChatGroupSettingTitleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D945EBA61C47729F00DE202C /* ChatGroupSettingTitleTableViewCell.xib */; };
-		D945EBE91C47C77D00DE202C /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = D945EBE81C47C77D00DE202C /* main.jsbundle */; };
 		D94B890A1B5DE70000584DE5 /* QuestionMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94B89091B5DE70000584DE5 /* QuestionMessage.swift */; };
 		D94B890C1B5DE72E00584DE5 /* QuestionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94B890B1B5DE72E00584DE5 /* QuestionModel.swift */; };
 		D94B890F1B5E104B00584DE5 /* ChatQuestionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D94B890E1B5E104B00584DE5 /* ChatQuestionTableViewCell.m */; };
@@ -777,6 +776,7 @@
 		D97422EF1BD21F52009EB4D9 /* SwiftConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97422EE1BD21F52009EB4D9 /* SwiftConstants.swift */; };
 		D97492AA1BF4360C00A5A70B /* GoodsDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D97492A91BF4360C00A5A70B /* GoodsDetailModel.m */; };
 		D97492AD1BF4391100A5A70B /* GoodsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D97492AC1BF4391100A5A70B /* GoodsManager.m */; };
+		D97A7A3A1C4C85BD0042175C /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = D97A7A391C4C85BD0042175C /* main.jsbundle */; };
 		D97C8B4D1A526B9F00476C9C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D97C8B4C1A526B9F00476C9C /* Images.xcassets */; };
 		D9823E841B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9823E831B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m */; };
 		D982879E1C22823A0000D47A /* GoodsClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D982879C1C22823A0000D47A /* GoodsClassViewController.m */; };
@@ -2836,7 +2836,6 @@
 		D945EBA41C47729F00DE202C /* ChatGroupSettingTitleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatGroupSettingTitleTableViewCell.h; sourceTree = "<group>"; };
 		D945EBA51C47729F00DE202C /* ChatGroupSettingTitleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatGroupSettingTitleTableViewCell.m; sourceTree = "<group>"; };
 		D945EBA61C47729F00DE202C /* ChatGroupSettingTitleTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatGroupSettingTitleTableViewCell.xib; sourceTree = "<group>"; };
-		D945EBE81C47C77D00DE202C /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		D94B89091B5DE70000584DE5 /* QuestionMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionMessage.swift; sourceTree = "<group>"; };
 		D94B890B1B5DE72E00584DE5 /* QuestionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionModel.swift; sourceTree = "<group>"; };
 		D94B890D1B5E104B00584DE5 /* ChatQuestionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatQuestionTableViewCell.h; sourceTree = "<group>"; };
@@ -3030,6 +3029,7 @@
 		D97492A91BF4360C00A5A70B /* GoodsDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsDetailModel.m; sourceTree = "<group>"; };
 		D97492AB1BF4391100A5A70B /* GoodsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsManager.h; sourceTree = "<group>"; };
 		D97492AC1BF4391100A5A70B /* GoodsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsManager.m; sourceTree = "<group>"; };
+		D97A7A391C4C85BD0042175C /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		D97C8B4C1A526B9F00476C9C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
 		D9823E821B19AA0200A1AE35 /* SuggestionDestinationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuggestionDestinationTableViewController.h; sourceTree = "<group>"; };
 		D9823E831B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuggestionDestinationTableViewController.m; sourceTree = "<group>"; };
@@ -6980,7 +6980,7 @@
 		D99D8EC719C8600C0021C25B /* PeachTravel */ = {
 			isa = PBXGroup;
 			children = (
-				D945EBE81C47C77D00DE202C /* main.jsbundle */,
+				D97A7A391C4C85BD0042175C /* main.jsbundle */,
 				D95B0A461BF0671E00F2D900 /* Order */,
 				D92109AE1BE204D700AEDB65 /* Store */,
 				01578DFC1BD2285D00244D9D /* TZPay */,
@@ -10678,6 +10678,7 @@
 				D9221A291BFC79840015A685 /* SelectPayPlatformTableViewCell.xib in Resources */,
 				0115C9AB1BB103FC00631928 /* citydetail_food_hilighted@2x.png in Resources */,
 				E6F18B1F1B845F4900232EEB /* master_icon_constellation7@2x.png in Resources */,
+				D97A7A3A1C4C85BD0042175C /* main.jsbundle in Resources */,
 				E6F18AF51B845F4900232EEB /* black_mask@3x.png in Resources */,
 				E6F189AD1B845F4900232EEB /* city_button_shopping_default@2x.png in Resources */,
 				01C1EC171BB4E4720082217A /* fendou@2x.png in Resources */,
@@ -10703,7 +10704,6 @@
 				E68CB2851B9EBAC200A5B38B /* plan_kuang_photo@3x.png in Resources */,
 				E6F189D91B845F4900232EEB /* add_poi@2x.png in Resources */,
 				E6F18B211B845F4900232EEB /* master_icon_constellation8@2x.png in Resources */,
-				D945EBE91C47C77D00DE202C /* main.jsbundle in Resources */,
 				0115C9AC1BB103FC00631928 /* citydetail_food_hilighted@3x.png in Resources */,
 				E6F1891A1B845F4900232EEB /* account_line_default@3x.png in Resources */,
 				E6F18B001B845F4900232EEB /* master_layer.png in Resources */,
