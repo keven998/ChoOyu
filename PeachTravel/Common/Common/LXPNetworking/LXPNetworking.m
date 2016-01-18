@@ -189,6 +189,7 @@
         [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
             [[AccountManager shareAccountManager] asyncLogout:^(BOOL isSuccess) {
                 
+                
             }];
         }];
     }

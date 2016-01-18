@@ -16,4 +16,5 @@
 @property (weak, nonatomic) IBOutlet UIButton *goodsCountBtn;
 
 @property (nonatomic, strong) CityPoi *cityPoi;
+
 @end
