@@ -39,7 +39,7 @@
     [self.frostedViewController.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
--(void)createTableView
+- (void)createTableView
 {
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     _tableView.dataSource = self;
@@ -64,10 +64,10 @@
     createConversationCtl.haveSelectedFrend = frend;
     createConversationCtl.delegate = self;
     [_containerCtl.navigationController pushViewController:createConversationCtl animated:YES];
-
 }
 
 #pragma mark - Table view data source
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 64.0;
 }
@@ -128,6 +128,9 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
+        if (_chatterId == TransactionMessageUserId) {
+            return 1;
+        }
         return 3;
     }
     return 1;

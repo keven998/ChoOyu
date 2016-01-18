@@ -492,7 +492,7 @@
         NSLog(@"发送了: %lf", progressValue);
     }];
     [self addChatMessage2Buttom:imageMessage];
-    
+    [self.chatToolBar endEditing:YES];
 }
 
 - (BOOL)canRecord

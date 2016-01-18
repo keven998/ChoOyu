@@ -130,7 +130,7 @@
  *  @param albumImage
  *  @param completion 
  */
-- (void)asyncChangeUserAvatar:(AlbumImageModel *)albumImage completion:(void (^)(BOOL, NSString *))completion;
+- (void)asyncChangeUserAvatar:(AlbumImageModel *)albumImage completion:(void (^)(BOOL isSuccess, NSString *errStr))completion;
 
 /**
  *  删除用户相册里的某一张图片

@@ -219,7 +219,6 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-
 #pragma mark - UIAlertViewDelegate
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -230,7 +229,7 @@
         [accountManager asyncLogout:^(BOOL isSuccess) {
             if (isSuccess) {
                 [self showHint:@"退出成功"];
-                [self.navigationController popViewControllerAnimated:YES];
+                [self.navigationController popToRootViewControllerAnimated:YES];
 
             } else {
                 [self showHint:@"退出失败"];

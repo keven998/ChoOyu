@@ -18,13 +18,7 @@
 @property (nonatomic, copy, readonly) NSString *formatPrimePrice;
 @property (nonatomic, copy, readonly) NSString *formatCurrentPrice;
 
-//套餐开始时间
-@property (nonatomic) NSTimeInterval startPriceTimeInterval;
-@property (nonatomic, strong) NSDate *startPriceDate;
-
-//套餐终止时间
-@property (nonatomic) NSTimeInterval endPriceTimeInterval;
-@property (nonatomic, strong) NSDate *endPriceDate;
+@property (nonatomic, strong) NSDate *endPriceDate;  //套餐结束时间
 
 
 /******  套餐价格区间 具体格式为

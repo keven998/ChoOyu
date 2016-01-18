@@ -220,52 +220,61 @@ RCT_EXPORT_MODULE();
 - (void)chatWithBusinessAction
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        IMClientManager *clientManager = [IMClientManager shareInstance];
-        ChatConversation *conversation = [clientManager.conversationManager getConversationWithChatterId:_goodsDetail.store.storeId chatType:IMChatTypeIMChatSingleType];
-        ChatViewController *chatController = [[ChatViewController alloc] initWithConversation:conversation];
-        GoodsLinkMessage *message = [[GoodsLinkMessage alloc] init];
-        message.senderId = [AccountManager shareAccountManager].account.userId;
-        message.senderName = [AccountManager shareAccountManager].account.nickName;
-        message.chatterId = conversation.chatterId;
-        message.chatType = conversation.chatType;
-        message.goodsName = _goodsDetail.goodsName;
-        message.goodsId = _goodsDetail.goodsId;
-        message.price = _goodsDetail.currentPrice;
-        message.imageUrl = _goodsDetail.coverImage.imageUrl;
-        message.createTime = [[NSDate date] timeIntervalSince1970];
-        chatController.goodsLinkMessageSnapshot = message;
         
-        chatController.chatterName = conversation.chatterName;
-        UIViewController *menuViewController = nil;
-        if (conversation.chatType == IMChatTypeIMChatGroupType || conversation.chatType == IMChatTypeIMChatDiscussionGroupType) {
-            menuViewController = [[ChatGroupSettingViewController alloc] init];
-            ((ChatGroupSettingViewController *)menuViewController).groupId = conversation.chatterId;
-            ((ChatGroupSettingViewController *)menuViewController).conversation = conversation;
+        if (![[AccountManager shareAccountManager] isLogin]) {
+            [SVProgressHUD showHint:@"请先登录"];
+            [self performSelector:@selector(login) withObject:nil afterDelay:0.3];
             
         } else {
-            menuViewController = [[ChatSettingViewController alloc] init];
-            ((ChatSettingViewController *)menuViewController).currentConversation= conversation;
-            ((ChatSettingViewController *)menuViewController).chatterId = conversation.chatterId;
+            IMClientManager *clientManager = [IMClientManager shareInstance];
+            ChatConversation *conversation = [clientManager.conversationManager getConversationWithChatterId:_goodsDetail.store.storeId chatType:IMChatTypeIMChatSingleType];
+            ChatViewController *chatController = [[ChatViewController alloc] initWithConversation:conversation];
+            if (conversation.chatterName) {
+                conversation.chatterName = _goodsDetail.store.business.nickName;
+            }
+            GoodsLinkMessage *message = [[GoodsLinkMessage alloc] init];
+            message.senderId = [AccountManager shareAccountManager].account.userId;
+            message.senderName = [AccountManager shareAccountManager].account.nickName;
+            message.chatterId = conversation.chatterId;
+            message.chatType = conversation.chatType;
+            message.goodsName = _goodsDetail.goodsName;
+            message.goodsId = _goodsDetail.goodsId;
+            message.price = _goodsDetail.currentPrice;
+            message.imageUrl = _goodsDetail.coverImage.imageUrl;
+            message.createTime = [[NSDate date] timeIntervalSince1970];
+            chatController.goodsLinkMessageSnapshot = message;
+            
+            chatController.chatterName = conversation.chatterName;
+            UIViewController *menuViewController = nil;
+            if (conversation.chatType == IMChatTypeIMChatGroupType || conversation.chatType == IMChatTypeIMChatDiscussionGroupType) {
+                menuViewController = [[ChatGroupSettingViewController alloc] init];
+                ((ChatGroupSettingViewController *)menuViewController).groupId = conversation.chatterId;
+                ((ChatGroupSettingViewController *)menuViewController).conversation = conversation;
+                
+            } else {
+                menuViewController = [[ChatSettingViewController alloc] init];
+                ((ChatSettingViewController *)menuViewController).currentConversation= conversation;
+                ((ChatSettingViewController *)menuViewController).chatterId = conversation.chatterId;
+            }
+            
+            REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:chatController menuViewController:menuViewController];
+            
+            if (conversation.chatType == IMChatTypeIMChatGroupType || conversation.chatType == IMChatTypeIMChatDiscussionGroupType) {
+                ((ChatGroupSettingViewController *)menuViewController).containerCtl = frostedViewController;
+            } else {
+                ((ChatSettingViewController *)menuViewController).containerCtl = frostedViewController;
+            }
+            frostedViewController.hidesBottomBarWhenPushed = YES;
+            frostedViewController.direction = REFrostedViewControllerDirectionRight;
+            frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
+            frostedViewController.liveBlur = YES;
+            frostedViewController.limitMenuViewSize = YES;
+            chatController.backBlock = ^{
+                [frostedViewController.navigationController popViewControllerAnimated:YES];
+            };
+            
+            [self.navigationController pushViewController:frostedViewController animated:YES];
         }
-        
-        REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:chatController menuViewController:menuViewController];
-        
-        if (conversation.chatType == IMChatTypeIMChatGroupType || conversation.chatType == IMChatTypeIMChatDiscussionGroupType) {
-            ((ChatGroupSettingViewController *)menuViewController).containerCtl = frostedViewController;
-        } else {
-            ((ChatSettingViewController *)menuViewController).containerCtl = frostedViewController;
-        }
-        frostedViewController.hidesBottomBarWhenPushed = YES;
-        frostedViewController.direction = REFrostedViewControllerDirectionRight;
-        frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
-        frostedViewController.liveBlur = YES;
-        frostedViewController.limitMenuViewSize = YES;
-        chatController.backBlock = ^{
-            [frostedViewController.navigationController popViewControllerAnimated:YES];
-        };
-        
-        [self.navigationController pushViewController:frostedViewController animated:YES];
-
     });
 }
 
@@ -294,8 +303,10 @@ RCT_EXPORT_MODULE();
 
 - (void)share2Frend
 {
-    NSArray *shareButtonimageArray = @[@"ic_sns_lxp.png", @"ic_sns_pengyouquan.png",  @"ic_sns_weixin.png", @"ic_sns_qq.png", @"ic_sns_sina.png", @"ic_sns_douban.png"];
-    NSArray *shareButtonTitleArray = @[@"旅行派好友", @"朋友圈", @"微信朋友", @"QQ", @"新浪微博", @"豆瓣"];
+//    NSArray *shareButtonimageArray = @[@"ic_sns_lxp.png", @"ic_sns_pengyouquan.png",  @"ic_sns_weixin.png", @"ic_sns_qq.png", @"ic_sns_sina.png", @"ic_sns_douban.png"];
+    NSArray *shareButtonimageArray = @[@"ic_sns_lxp.png", @"ic_sns_pengyouquan.png",  @"ic_sns_weixin.png", @"ic_sns_qq.png"];
+
+    NSArray *shareButtonTitleArray = @[@"旅行派好友", @"朋友圈", @"微信朋友", @"QQ"];
     ShareActivity *shareActivity = [[ShareActivity alloc] initWithTitle:@"转发至" delegate:self cancelButtonTitle:@"取消" ShareButtonTitles:shareButtonTitleArray withShareButtonImagesName:shareButtonimageArray];
     [shareActivity showInView:self.navigationController.view];
 }

@@ -102,12 +102,10 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)setupLoginPage
 {
-    PrepareViewController *prepareCtl = [[PrepareViewController alloc] init];
-    prepareCtl.rootViewController = self;
-    prepareCtl.view.frame = self.view.frame;
-    [self addChildViewController:prepareCtl];
-    [self.view addSubview:prepareCtl.view];
-    [prepareCtl willMoveToParentViewController:self];
+    LoginViewController *ctl = [[LoginViewController alloc] init];
+    [self presentViewController:ctl animated:YES completion:^{
+        
+    }];
 }
 
 - (void)setupConverView

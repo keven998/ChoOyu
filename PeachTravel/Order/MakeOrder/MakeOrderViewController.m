@@ -97,9 +97,10 @@
 - (void)setupTableViewFooterView
 {
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.bounds.size.width, 56+50)];
-    footerView.backgroundColor = APP_PAGE_COLOR;
+    footerView.backgroundColor = [UIColor whiteColor];
     _tableView.tableFooterView = footerView;
     
+    /*  暂时不启用 服务条款
     UIButton *checkBox = [[UIButton alloc] initWithFrame:CGRectMake(11, 18, 13, 13)];
     [checkBox setImage:[UIImage imageNamed:@"icon_makeOrder_checkBox_normal"] forState:UIControlStateNormal];
     [checkBox setImage:[UIImage imageNamed:@"icon_makeOrder_checkBox_selected"] forState:UIControlStateSelected];
@@ -118,6 +119,7 @@
     [agreementStr addAttributes:@{NSLinkAttributeName: [NSURL URLWithString:@"http://www.lvxingpai.cn"]} range:NSMakeRange(7, 7)];
     agreementTextView.attributedText = agreementStr;
     [footerView addSubview:agreementTextView];
+     */
     
 }
 - (void)setupToolbar
@@ -151,15 +153,10 @@
     [ctl setDelegate:self];
     ctl.weekdayHeaderEnabled = YES;
     ctl.priceList = _orderDetail.selectedPackage.priceList;
-    if ([NSDate date].timeIntervalSince1970 >= _orderDetail.selectedPackage.startPriceDate.timeIntervalSince1970) {
-        ctl.firstDate = [NSDate date];
-    } else {
-        ctl.firstDate = _orderDetail.selectedPackage.startPriceDate;
-    }
-    
+    ctl.firstDate = [NSDate date];    
     ctl.lastDate = _orderDetail.selectedPackage.endPriceDate;
     ctl.weekdayTextType = PDTSimpleCalendarViewWeekdayTextTypeVeryShort;
-    NSDate *date = [NSDate dateWithTimeIntervalSince1970:_orderDetail.useDate];
+    NSDate *date = [ConvertMethods stringToDate:_orderDetail.useDate withFormat:@"yyyy-MM-dd" withTimeZone:[NSTimeZone systemTimeZone]];
     ctl.selectedDate = date;
 
     [self.navigationController pushViewController:ctl animated:YES];
@@ -265,7 +262,7 @@
         
     } else if (indexPath.row == 2) {
         MakeOrderSelectDateTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"makeOrderSelectDataCell" forIndexPath:indexPath];
-        cell.dateLabel.text = _orderDetail.useDateStr;
+        cell.dateLabel.text = _orderDetail.useDate;
         [cell.choseDateBtn addTarget:self action:@selector(choseLeftDate:) forControlEvents:UIControlEventTouchUpInside];
         return cell;
         
@@ -401,10 +398,8 @@
         _orderDetail.unitPrice = 0;
         BOOL find = NO;
         for (NSDictionary *priceDic in package.priceList) {
-            NSTimeInterval startDate = [[[priceDic objectForKey:@"timeRange"] firstObject] integerValue]/1000;
-            NSTimeInterval endDate = [[[priceDic objectForKey:@"timeRange"] lastObject] integerValue]/1000;
-            if (_orderDetail.useDate>startDate && _orderDetail.useDate<endDate) {
-                _orderDetail.unitPrice = [[priceDic objectForKey:@"price"] floatValue];
+            NSDate *date = [ConvertMethods stringToDate:_orderDetail.useDate withFormat:@"yyyy-MM-dd" withTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
+            if ([date isEqualToDate: [priceDic objectForKey:@"date"]]) {
                 find = YES;
                 break;
             }
@@ -443,10 +438,10 @@
 
 #pragma mark - PDTSimpleCalendarViewDelegate
 
-- (void)simpleCalendarViewController:(PDTSimpleCalendarViewController *)controller didSelectDate:(NSDate *)date price:(float)price
+- (void)simpleCalendarViewController:(PDTSimpleCalendarViewController *)controller didSelectDate:(NSDate *)date andDateStr:(NSString *)dateStr price:(float)price
 {
     _orderDetail.unitPrice = price;
-    _orderDetail.useDate = date.timeIntervalSince1970;
+    _orderDetail.useDate = dateStr;
     _totalPriceLabel.text = [NSString stringWithFormat:@"￥%@", _orderDetail.formatTotalPrice];
     [_tableView reloadData];
 }

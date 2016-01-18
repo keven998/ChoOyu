@@ -93,7 +93,25 @@ NSString *const kRouterEventChatGoodsBubbleTapEventName = @"kRouterEventChatGood
     GoodsChatMessage *message = (GoodsChatMessage *)model.baseMessage;
     [_pictureImageView sd_setImageWithURL:[NSURL URLWithString:message.imageUrl] placeholderImage:nil];
     _titleLabel.text = [NSString stringWithFormat:@"商品 | %@", message.goodsName];
-    _priceLabel.text = [NSString stringWithFormat:@"￥%.1f", message.price];
+    _priceLabel.text = [NSString stringWithFormat:@"￥%@", [self formatCurrentPriceWithPrice: message.price]];
+}
+
+- (NSString *)formatCurrentPriceWithPrice:(float)price
+{
+    NSString *priceStr;
+    float currentPrice = round(price*100)/100;
+    if (!(currentPrice - (int)currentPrice)) {
+        priceStr = [NSString stringWithFormat:@"%d", (int)currentPrice];
+    } else {
+        NSString *tempPrice = [NSString stringWithFormat:@"%.1f", currentPrice];
+        if (!(price - tempPrice.floatValue)) {
+            priceStr = [NSString stringWithFormat:@"%.1f", currentPrice];
+        } else {
+            priceStr = [NSString stringWithFormat:@"%.2f", currentPrice];
+        }
+        
+    }
+    return priceStr;
 }
 
 /**

@@ -43,8 +43,8 @@
     _orderDetail = orderDetail;
     [self.goodsNameBtn setTitle:_orderDetail.goods.goodsName forState:UIControlStateNormal];
     self.packageNameLabel.text = _orderDetail.selectedPackage.packageName;
-    self.dateLabel.text = _orderDetail.useDateStr;
-    self.dateLabel.text = _orderDetail.useDateStr;
+    self.dateLabel.text = _orderDetail.useDate;
+    self.dateLabel.text = _orderDetail.useDate;
     self.countLabel.text = [NSString stringWithFormat:@"%ld", _orderDetail.count];
     self.priceLabel.text = [NSString stringWithFormat:@"￥%@", _orderDetail.formatTotalPrice];
 

@@ -27,23 +27,7 @@
 @property (nonatomic, strong) NSCalendar *calendar;
 
 /******  套餐价格区间 具体格式为
- [
-    {
-        price: 23,
-        timeRange: [
-            1449100800000,
-            1450396800000
-        ]
-    },
- {
-    price: 32,
-    timeRange: [
-        1450483200000,
-        1450915200000
-        ]
-    }
- ],
- */
+  */
 @property (nonatomic, strong) NSArray *priceList;
 
 /**
@@ -145,7 +129,7 @@
  *  @param date       the date being selected (Midnight GMT).
  *  @param price      价格
  */
-- (void)simpleCalendarViewController:(PDTSimpleCalendarViewController *)controller didSelectDate:(NSDate *)date price:(float)price;
+- (void)simpleCalendarViewController:(PDTSimpleCalendarViewController *)controller didSelectDate:(NSDate *)date andDateStr:(NSString *)dateStr price:(float)price;
 
 /** @name Color Customization */
 

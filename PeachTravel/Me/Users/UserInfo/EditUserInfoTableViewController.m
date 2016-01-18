@@ -313,9 +313,20 @@
               complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
                   NSString *url = [resp objectForKey:@"url"];
                   NSString *urlSmall = [resp objectForKey:@"urlSmall"];
-                  _accountManager.account.avatar = url;
-                  _accountManager.account.avatarSmall = urlSmall;
-                  [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
+                  AlbumImageModel *image = [[AlbumImageModel alloc] init];
+                  image.imageUrl = url;
+                  image.smallImageUrl = urlSmall;
+                  [_accountManager asyncChangeUserAvatar:image completion:^(BOOL isSuccess, NSString *error) {
+                      [_HUD dismiss];
+                      _HUD = nil;
+                      if (isSuccess) {
+                          [SVProgressHUD showHint:@"修改成功"];
+                          [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
+                      } else {
+                          [SVProgressHUD showHint:@"修改失败"];
+
+                      }
+                  }];
                   
               } option:opt];
     
@@ -340,9 +351,7 @@
     
     if (progress == 1.0) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [_HUD dismiss];
-            _HUD = nil;
-            [SVProgressHUD showHint:@"修改成功"];
+           
         });
     }
 }

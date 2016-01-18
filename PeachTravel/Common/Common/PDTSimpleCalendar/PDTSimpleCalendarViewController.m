@@ -235,8 +235,15 @@ static const NSCalendarUnit kCalendarUnitYMD = NSCalendarUnitYear | NSCalendarUn
     PDTSimpleCalendarViewCell *cell = [self cellForItemAtDate:_selectedDate];
 
     //Notify the delegate
-    if ([self.delegate respondsToSelector:@selector(simpleCalendarViewController:didSelectDate:price:)]) {
-        [self.delegate simpleCalendarViewController:self didSelectDate:self.selectedDate price:cell.priceStr.floatValue];
+    if ([self.delegate respondsToSelector:@selector(simpleCalendarViewController:didSelectDate:andDateStr: price:)]) {
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        dateFormatter.dateFormat = @"yyyy-MM-dd";
+        dateFormatter.calendar = _calendar;
+        NSString *dateStr = [dateFormatter stringFromDate:self.selectedDate];
+
+        [self.delegate simpleCalendarViewController:self didSelectDate:self.selectedDate andDateStr:dateStr price:cell.priceStr.floatValue];
+        
     }
 }
 
@@ -460,6 +467,7 @@ static const NSCalendarUnit kCalendarUnitYMD = NSCalendarUnitYear | NSCalendarUn
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+
     PDTSimpleCalendarViewCell *cell = (PDTSimpleCalendarViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     if (cell.priceStr) {
         self.selectedDate = [self dateForCellAtIndexPath:indexPath];
@@ -615,11 +623,16 @@ static const NSCalendarUnit kCalendarUnitYMD = NSCalendarUnitYear | NSCalendarUn
 //某天的价格
 - (NSString *)priceDescOfDate:(NSDate *)date
 {
-    NSTimeInterval timeInterval = [date timeIntervalSince1970];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"yyyy-MM-dd";
+    dateFormatter.calendar = _calendar;
+    NSString *dateStr = [dateFormatter stringFromDate:date];
+    
+    NSDate *tempDate = [ConvertMethods stringToDate:dateStr withFormat:@"yyyy-MM-dd" withTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
+
     for (NSDictionary *dic in _priceList) {
-        NSTimeInterval beginDate = [[[dic objectForKey:@"timeRange"] firstObject] floatValue]/1000;
-        NSTimeInterval endDate = [[[dic objectForKey:@"timeRange"] lastObject] floatValue]/1000;
-        if (timeInterval >= beginDate && timeInterval <= endDate) {
+        
+        if ([tempDate isEqualToDate:[dic objectForKey:@"date"]]) {
             float price = [[dic objectForKey:@"price"] floatValue];
             NSString *priceStr;
             float currentPrice = round(price*100)/100;

@@ -24,7 +24,7 @@
         _count = [[json objectForKey:@"quantity"] integerValue];
         _totalPrice = [[json objectForKey:@"totalPrice"] floatValue];
         _leaveMessage = [json objectForKey:@"comment"];
-        _useDate = [[json objectForKey:@"rendezvousTime"] doubleValue]/1000;
+        _useDate = [json objectForKey:@"rendezvousTime"];
         _updateTime = [[json objectForKey:@"updateTime"] doubleValue]/1000;
         _expireTime = [[json objectForKey:@"expireTime"] doubleValue]/1000;
         _currentTime = [[NSDate date] timeIntervalSince1970];
@@ -116,16 +116,6 @@
 {
     _count = count;
     _totalPrice = _unitPrice * _count;
-}
-
-- (NSString *)useDateStr
-{
-    if (_useDate <= 0) {
-        return nil;
-    }
-    NSDate *date = [NSDate dateWithTimeIntervalSince1970:_useDate];
-    NSString *dateStr = [ConvertMethods dateToString:date withFormat:@"yyyy-MM-dd" withTimeZone:[NSTimeZone systemTimeZone]];
-    return dateStr;
 }
 
 - (NSString *)formatUnitPrice

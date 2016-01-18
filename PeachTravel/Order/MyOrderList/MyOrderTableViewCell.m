@@ -26,7 +26,7 @@
     _goodsNameLabel.text = _orderDetail.goods.goodsName;
     _packageNameLabel.text = [NSString stringWithFormat:@"%@ *%ld", _orderDetail.selectedPackage.packageName, _orderDetail.count];
     
-    _dateLabel.text = [NSString stringWithFormat:@"出行日期: %@", _orderDetail.useDateStr];
+    _dateLabel.text = [NSString stringWithFormat:@"出行日期: %@", _orderDetail.useDate];
     if (_orderDetail.orderStatus == kOrderWaitPay) {
         _payOrderBtnWidthConstraint.constant = 80;
         _statusLabel.text = [NSString stringWithFormat:@"%@: ￥%@", _orderDetail.orderStatusDesc, orderDetail.formatTotalPrice];

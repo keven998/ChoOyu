@@ -53,9 +53,9 @@
     }
     
     self.packageNameLabel.text = _orderDetail.selectedPackage.packageName;
-    self.dateLabel.text = _orderDetail.useDateStr;
+    self.dateLabel.text = _orderDetail.useDate;
     self.orderNumberLabel.text = [NSString stringWithFormat:@"%ld", _orderDetail.orderId];
-    self.dateLabel.text = _orderDetail.useDateStr;
+    self.dateLabel.text = _orderDetail.useDate;
     self.countLabel.text = [NSString stringWithFormat:@"%ld", _orderDetail.count];
     self.priceLabel.text = [NSString stringWithFormat:@"￥%@", _orderDetail.formatTotalPrice];
 

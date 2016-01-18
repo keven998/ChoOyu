@@ -32,8 +32,27 @@
     _messageModel = messageModel;
     GoodsLinkMessage *message = (GoodsLinkMessage *)_messageModel.baseMessage;
     _goodsTitleLabel.text = message.goodsName;
-    _goodsPriceLabel.text = [NSString stringWithFormat:@"价格 :￥%d起", (int)message.price];
+    
+    _goodsPriceLabel.text = [NSString stringWithFormat:@"价格 :￥%@起", [self formatCurrentPriceWithPrice:message.price]];
     [_goodsImageView sd_setImageWithURL:[NSURL URLWithString:message.imageUrl] placeholderImage:nil];
+}
+
+- (NSString *)formatCurrentPriceWithPrice:(float)price
+{
+    NSString *priceStr;
+    float currentPrice = round(price*100)/100;
+    if (!(currentPrice - (int)currentPrice)) {
+        priceStr = [NSString stringWithFormat:@"%d", (int)currentPrice];
+    } else {
+        NSString *tempPrice = [NSString stringWithFormat:@"%.1f", currentPrice];
+        if (!(price - tempPrice.floatValue)) {
+            priceStr = [NSString stringWithFormat:@"%.1f", currentPrice];
+        } else {
+            priceStr = [NSString stringWithFormat:@"%.2f", currentPrice];
+        }
+        
+    }
+    return priceStr;
 }
 
 @end

@@ -56,14 +56,31 @@
         }
         [GoodsManager asyncLoadGoodsOfCity:_cityId startIndex:0 count:3 completionBlock:^(BOOL isSuccess, NSArray *goodsList) {
             if (isSuccess) {
-                _dataSource = goodsList;
+                self.dataSource = goodsList;
                 [_tableView reloadData];
+            } else {
+                self.dataSource = nil;
             }
         }];
         
     }];
     
     [self setupToolBar];
+}
+
+- (void)setDataSource:(NSArray<GoodsDetailModel *> *)dataSource
+{
+    _dataSource = dataSource;
+    if (!_dataSource.count) {
+        UIButton *request2Business = [[UIButton alloc] initWithFrame:CGRectMake((kWindowWidth-305)/2, 30, 305, 217)];
+        [request2Business setImage:[UIImage imageNamed:@"icon_cityDetail_RequestBusiness"] forState:UIControlStateNormal];
+        [request2Business setImage:[UIImage imageNamed:@"icon_cityDetail_RequestBusiness"] forState:UIControlStateHighlighted];
+        [request2Business addTarget:self action:@selector(request2Business) forControlEvents:UIControlEventTouchUpInside];
+
+        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 300)];
+        [footerView addSubview:request2Business];
+        self.tableView.tableFooterView = footerView;
+    }
 }
 
 - (void)setupToolBar
@@ -78,6 +95,15 @@
     spaceView.backgroundColor = COLOR_LINE;
     [showAllGoodsButton addSubview:spaceView];
     [self.view addSubview:showAllGoodsButton];
+}
+
+//申请成为商家
+- (void)request2Business
+{
+    SuperWebViewController *webView = [[SuperWebViewController alloc] init];
+    webView.titleStr = @"旅行派各国商户招募计划";
+    webView.urlStr = @"http://nluloh.epub360.com/v2/manage/book/pe3rs2/?from=singlemessage&isappinstalled=0#page/page_8941c15c634a1afe";
+    [self.navigationController pushViewController:webView animated:YES];
 }
 
 - (void)showAllGoodsAction

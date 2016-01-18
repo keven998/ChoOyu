@@ -17,16 +17,28 @@
         _packageId = [json objectForKey:@"planId"];
         _primePrice = [[json objectForKey:@"marketPrice"] floatValue];
         _currentPrice = [[json objectForKey:@"price"] floatValue];
-        _priceList = [json objectForKey:@"pricing"];
-        if ([[[_priceList firstObject] objectForKey:@"timeRange"] firstObject] != [NSNull null]) {
-            _startPriceTimeInterval = [[[[_priceList firstObject] objectForKey:@"timeRange"] firstObject] doubleValue];
-
+        
+        NSMutableArray *priceList = [[NSMutableArray alloc] init];
+        for (NSDictionary *pairceDic in [json objectForKey:@"pricing"]) {
+            NSString *firstPriceStr = [[pairceDic objectForKey:@"timeRange"] firstObject];
+            NSString *lastPriceStr = [[pairceDic objectForKey:@"timeRange"] lastObject];
+            
+            NSTimeInterval firstDateTimeInterval = [[ConvertMethods stringToDate:[firstPriceStr substringWithRange:NSMakeRange(0, 10)] withFormat:@"yyyy-MM-dd" withTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]] timeIntervalSince1970];
+            
+            NSTimeInterval lastDateTimeInterval = [[ConvertMethods stringToDate:[lastPriceStr substringWithRange:NSMakeRange(0, 10)] withFormat:@"yyyy-MM-dd" withTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]] timeIntervalSince1970];
+            
+            while (firstDateTimeInterval <= lastDateTimeInterval) {
+                NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+                [dic safeSetObject: [pairceDic objectForKey:@"price"] forKey:@"price"];
+                NSDate *date = [NSDate dateWithTimeIntervalSince1970:firstDateTimeInterval];
+                [dic setObject:date forKey:@"date"];
+                firstDateTimeInterval += 60*60*24;
+                [priceList addObject:dic];
+            }
         }
-        if ([[[_priceList lastObject] objectForKey:@"timeRange"] lastObject] != [NSNull null]) {
-            _endPriceTimeInterval = [[[[_priceList lastObject] objectForKey:@"timeRange"] lastObject] doubleValue];
-        }
-        _startPriceDate = [NSDate dateWithTimeIntervalSince1970:_startPriceTimeInterval/1000];
-        _endPriceDate = [NSDate dateWithTimeIntervalSince1970:_endPriceTimeInterval/1000];
+        _priceList = priceList;
+       
+        _endPriceDate = [[_priceList lastObject] objectForKey:@"date"];
     }
     return self;
 }
