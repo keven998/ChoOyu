@@ -42,8 +42,11 @@
             NSDate *createDate = [NSDate dateWithTimeIntervalSince1970:[[activityDic objectForKey:@"timestamp"] longLongValue]/1000];
             NSString *dateStr = [ConvertMethods dateToString:createDate withFormat:@"yyyy-MM-dd HH:mm:ss" withTimeZone:[NSTimeZone systemTimeZone]];
             [dic safeSetObject:dateStr forKey:@"time"];
-            [dic safeSetObject:[self activityDescWithStatus:activityDic] forKey:@"status"];
-            [activities addObject:dic];
+            if ([self activityDescWithStatus:activityDic]) {
+                [dic setObject:[self activityDescWithStatus:activityDic] forKey:@"status"];
+                [activities addObject:dic];
+            }
+            
         }
         _orderActivityList = activities;
         [self canRefundApplyWithStatusDic:[json objectForKey:@"activities"]];
@@ -89,6 +92,10 @@
     } else if ([status isEqualToString:@"expire"]) {
         if ([[statusDic objectForKey:@"prevStatus"] isEqualToString:@"pending"]) {
             retStr = @"买家未支付,订单过期";
+        } else if ([[statusDic objectForKey:@"prevStatus"] isEqualToString:@"paid"]) {
+            retStr = @"卖家未确认订单，系统自动退款";
+        }  else if ([[statusDic objectForKey:@"prevStatus"] isEqualToString:@"refundApplied"]) {
+            retStr = @"超时未确认，系统自动退款";
         }
         
     } else if ([status isEqualToString:@"finish"]) {
@@ -102,6 +109,8 @@
         
     } else if ([status isEqualToString:@"refundDeny"]) {
         retStr = @"卖家拒绝退款申请";
+    } else if ([status isEqualToString:@"refundAuto"]) {
+        retStr = @"系统自动退款";
     }
     return retStr;
 }

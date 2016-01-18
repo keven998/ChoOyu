@@ -445,7 +445,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     if (needShowNotification) {
         if (!conversation.isCurrentConversation) {
             [self updateViewWithUnreadMessageCount];
-            if (self.selectedIndex != 0) {
+            NSInteger index = [self.viewControllers indexOfObject:_chatListCtl];
+            if (self.selectedIndex != index) {   //如果不是在聊天界面，那么弹出statusbar 上聊天的提醒
                 [self showStatusMessageNoti:message];
             }
         }

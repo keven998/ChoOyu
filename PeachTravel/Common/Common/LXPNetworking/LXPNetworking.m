@@ -185,7 +185,7 @@
 {
     NSInteger errorCode = operation.response.statusCode;
     if (errorCode == 401 && [[AccountManager shareAccountManager] isLogin]) {     //用户鉴权失败，提示用户退出登录
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"请重新登录" message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"帐号验证失败，请重新登录" message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
         [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
             [[AccountManager shareAccountManager] asyncLogout:^(BOOL isSuccess) {
                 

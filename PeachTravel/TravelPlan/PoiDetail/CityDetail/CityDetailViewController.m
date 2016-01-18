@@ -65,7 +65,6 @@
         
     }];
     
-    [self setupToolBar];
 }
 
 - (void)setDataSource:(NSArray<GoodsDetailModel *> *)dataSource
@@ -80,6 +79,9 @@
         UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 300)];
         [footerView addSubview:request2Business];
         self.tableView.tableFooterView = footerView;
+    } else {
+        [self setupToolBar];
+
     }
 }
 

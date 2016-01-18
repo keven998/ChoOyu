@@ -13,8 +13,8 @@
 
 + (CGFloat)heightOfCellWithMessageModel:(MessageModel *)messageModel
 {
-    CGFloat retHeight = 160;
-    OrderTipsMessage *message = (OrderTipsMessage *)messageModel;
+    CGFloat retHeight = 170;
+    OrderTipsMessage *message = (OrderTipsMessage *)messageModel.baseMessage;
     NSDictionary *attribs = @{NSFontAttributeName: [UIFont systemFontOfSize:14]};
    
     NSAttributedString *attrstr = [[NSAttributedString alloc] initWithString: message.content attributes:attribs];
