@@ -26,7 +26,13 @@
     [_headerImageView sd_setImageWithURL:[NSURL URLWithString:[_cityPoi.images firstObject].imageUrl] placeholderImage:nil];
     _zhNameLabel.text = _cityPoi.zhName;
     _enNameLabel.text = _cityPoi.enName;
-    [_goodsCountBtn setTitle:[NSString stringWithFormat:@"%ld", _cityPoi.goodsCount] forState: UIControlStateNormal];
+    
+    if (_cityPoi.goodsCount) {
+        _goodsCountBtn.hidden = NO;
+        [_goodsCountBtn setTitle:[NSString stringWithFormat:@"%ld", _cityPoi.goodsCount] forState: UIControlStateNormal];
+    } else {
+        _goodsCountBtn.hidden = YES;
+    }
 }
 
 @end

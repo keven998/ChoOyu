@@ -115,7 +115,7 @@
     UIView *leftViewOne = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
     _userNameTextField = [[UITextField alloc]initWithFrame:CGRectMake(12, CGRectGetMaxY(_iconImageView.frame) + 30, Width-25, 55 * Height / 736)];
     _userNameTextField.leftView = leftViewOne;
-    _userNameTextField.placeholder = @"手机/名字/ID";
+    _userNameTextField.placeholder = @"手机号";
     _userNameTextField.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.65];
     _userNameTextField.textColor = [UIColor blackColor];
     [_userNameTextField setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
@@ -217,19 +217,23 @@
 - (IBAction)login:(UIButton *)sender
 {
     [self.view endEditing:YES];
-    if (!(([_userNameTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""].length!=0) && ([_passwordTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""].length != 0)) ) {
-        //        [self showHint:@"不输帐号或密码，是没法登录滴"];
-        [SVProgressHUD showHint:@"请输入账号和密码"];
-        return;
+    if ([_userNameTextField.text isEqualToString:@"123456"] && [_passwordTextField.text isEqualToString:@"123456"]) { //苹果测试帐号
+        
+    } else {
+        if (!(([_userNameTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""].length!=0) && ([_passwordTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""].length != 0)) ) {
+            //        [self showHint:@"不输帐号或密码，是没法登录滴"];
+            [SVProgressHUD showHint:@"请输入账号和密码"];
+            return;
+        }
+        // 正则表达式判断用户输入是否合法
+        NSString * regex0 = @"^1\\d{10}$";
+        NSPredicate *pred0 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex0];
+        if (![pred0 evaluateWithObject:_userNameTextField.text]) {
+            [self showHint:@"手机号输错了"];
+            return;
+        }
     }
     
-    // 正则表达式判断用户输入是否合法
-    NSString * regex0 = @"^1\\d{10}$";
-    NSPredicate *pred0 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex0];
-    if (![pred0 evaluateWithObject:_userNameTextField.text]) {
-        [self showHint:@"手机号输错了"];
-        return;
-    }
     __weak typeof(LoginViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf content:64];

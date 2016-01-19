@@ -102,18 +102,20 @@
             <size key="customSize" width="229" height="153"/>
             <connections>
                 <outlet property="backgroundMaskImageView" destination="KRz-8J-wAb" id="Qtx-WO-RKE"/>
+                <outlet property="countBgView" destination="F3r-Pv-ght" id="dvA-nh-vgV"/>
+                <outlet property="countImageView" destination="rhs-dU-0u6" id="EMA-fI-uk0"/>
                 <outlet property="countMaskImageView" destination="F3r-Pv-ght" id="oqd-9W-YUm"/>
                 <outlet property="enNameLabel" destination="TzS-ub-25S" id="hTT-MU-kCb"/>
                 <outlet property="headerImageView" destination="73c-m4-c9C" id="7IN-Wd-2MA"/>
                 <outlet property="sellerCountLabel" destination="skz-qj-rah" id="3Ru-mJ-27D"/>
                 <outlet property="zhNameLabel" destination="Fw7-CB-lxP" id="p3e-HJ-M5Y"/>
             </connections>
-            <point key="canvasLocation" x="379.5" y="385.5"/>
+            <point key="canvasLocation" x="251.5" y="380.5"/>
         </collectionViewCell>
     </objects>
     <resources>
         <image name="black_mask" width="18" height="233"/>
-        <image name="icon_cityDetail_sellerCnt" width="10" height="8"/>
+        <image name="icon_cityDetail_sellerCnt" width="11" height="11"/>
         <image name="icon_sellerCnt_mask" width="49" height="34"/>
     </resources>
 </document>

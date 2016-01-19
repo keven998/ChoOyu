@@ -19,7 +19,17 @@
     [_headerImageView sd_setImageWithURL:[NSURL URLWithString:[_cityPoi.images firstObject].imageUrl] placeholderImage:nil];
     _zhNameLabel.text = _cityPoi.zhName;
     _enNameLabel.text = _cityPoi.enName;
-    _sellerCountLabel.text = [NSString stringWithFormat:@"%ld", _cityPoi.goodsCount];
-    
+    if (_cityPoi.goodsCount) {
+        _sellerCountLabel.text = [NSString stringWithFormat:@"%ld", _cityPoi.goodsCount];
+        _sellerCountLabel.hidden = NO;
+        _countBgView.hidden = NO;
+        _countImageView.hidden = NO;
+        
+    } else {
+        _sellerCountLabel.hidden = YES;
+        _countBgView.hidden = YES;
+        _countImageView.hidden = YES;
+    }
 }
+
 @end

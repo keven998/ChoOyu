@@ -66,6 +66,12 @@
     [self.webView bringSubviewToFront:self.webView.scrollView];
 }
 
+- (void)goBack
+{
+    [super goBack];
+    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
       
@@ -75,7 +81,6 @@
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [_progressView removeFromSuperview];
-    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
 }
 
 - (void)didReceiveMemoryWarning

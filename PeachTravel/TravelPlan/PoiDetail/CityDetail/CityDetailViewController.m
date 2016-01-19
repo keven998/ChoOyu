@@ -71,14 +71,15 @@
 {
     _dataSource = dataSource;
     if (!_dataSource.count) {
-        UIButton *request2Business = [[UIButton alloc] initWithFrame:CGRectMake((kWindowWidth-305)/2, 30, 305, 217)];
-        [request2Business setImage:[UIImage imageNamed:@"icon_cityDetail_RequestBusiness"] forState:UIControlStateNormal];
-        [request2Business setImage:[UIImage imageNamed:@"icon_cityDetail_RequestBusiness"] forState:UIControlStateHighlighted];
-        [request2Business addTarget:self action:@selector(request2Business) forControlEvents:UIControlEventTouchUpInside];
-
         UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 300)];
-        [footerView addSubview:request2Business];
         self.tableView.tableFooterView = footerView;
+        
+        UIButton *request2Business = [[UIButton alloc] initWithFrame:footerView.bounds];
+        [request2Business setImage:[UIImage imageNamed:@"icon_cityDetail_RequestBusiness"] forState:UIControlStateNormal];
+        [request2Business addTarget:self action:@selector(request2Business) forControlEvents:UIControlEventTouchUpInside];
+        [footerView addSubview:request2Business];
+
+
     } else {
         [self setupToolBar];
 
