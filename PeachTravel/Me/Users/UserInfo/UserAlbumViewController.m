@@ -43,7 +43,7 @@ static NSString * const reuseIdentifier = @"albumImageCell";
     if (_isMyself){
         UIButton *addPhoto = [UIButton buttonWithType:UIButtonTypeCustom];
         addPhoto.frame = CGRectMake(0, 0, 40, 40);
-        [addPhoto setImage:[UIImage imageNamed:@"icon_add_photo.png"] forState:UIControlStateNormal];
+        [addPhoto setImage:[UIImage imageNamed:@"icon_navi_white_add"] forState:UIControlStateNormal];
         [addPhoto addTarget:self action:@selector(addPhoto:) forControlEvents:UIControlEventTouchUpInside];
         addPhoto.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
         [addPhoto setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];

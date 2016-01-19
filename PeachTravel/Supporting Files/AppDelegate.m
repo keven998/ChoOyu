@@ -169,7 +169,7 @@
     } else {
         SendAuthResp * result = (SendAuthResp *)resp;
         NSString * code = result.code;
-        
+        NSLog(@"获取微信登录 token%@", code);
         //微信授权失败,取消登录
         if (!code) {
             return;

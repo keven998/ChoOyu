@@ -65,6 +65,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidRegisted) name:userDidRegistedNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidRegisted) name:userDidResetPWDNoti object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(weixinDidLogin:) name:weixinDidLoginNoti object:nil];
+
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismissCtl)];
     
     [self createUI];
@@ -79,7 +81,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(weixinDidLogin:) name:weixinDidLoginNoti object:nil];
     
     if (![WXApi isWXAppInstalled]) {
         _wechatLabel.hidden = YES;
@@ -93,7 +94,6 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:weixinDidLoginNoti object:nil];
     
     if (!_shouldNotShowNavigationBarWhenDisappear) {
         [self.navigationController setNavigationBarHidden:NO animated:YES];
@@ -217,21 +217,9 @@
 - (IBAction)login:(UIButton *)sender
 {
     [self.view endEditing:YES];
-    if ([_userNameTextField.text isEqualToString:@"123456"] && [_passwordTextField.text isEqualToString:@"123456"]) { //苹果测试帐号
-        
-    } else {
-        if (!(([_userNameTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""].length!=0) && ([_passwordTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""].length != 0)) ) {
-            //        [self showHint:@"不输帐号或密码，是没法登录滴"];
-            [SVProgressHUD showHint:@"请输入账号和密码"];
-            return;
-        }
-        // 正则表达式判断用户输入是否合法
-        NSString * regex0 = @"^1\\d{10}$";
-        NSPredicate *pred0 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex0];
-        if (![pred0 evaluateWithObject:_userNameTextField.text]) {
-            [self showHint:@"手机号输错了"];
-            return;
-        }
+    if (!(([_userNameTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""].length!=0) && ([_passwordTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""].length != 0)) ) {
+        [SVProgressHUD showHint:@"请输入账号和密码"];
+        return;
     }
     
     __weak typeof(LoginViewController *)weakSelf = self;
@@ -283,7 +271,6 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    
     if (textField == _userNameTextField) {
         [_passwordTextField becomeFirstResponder];
     } else if (textField == _passwordTextField) {

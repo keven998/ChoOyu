@@ -11,6 +11,7 @@
 @implementation CityListCollectionViewCell
 
 - (void)awakeFromNib {
+    _headerImageView.clipsToBounds = YES;
 }
 
 - (void)setCityPoi:(CityPoi *)cityPoi

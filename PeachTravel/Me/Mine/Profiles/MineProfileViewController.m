@@ -165,8 +165,10 @@
 
     _headerView = [[BaseProfileHeaderView alloc] init];
     _headerView.frame = CGRectMake(0, 0, kWindowWidth, 310);
+    _headerView.contentMode = UIViewContentModeScaleAspectFill;
+    _headerView.clipsToBounds = YES;
     _headerView.accountModel = self.userInfo;
-    _headerView.image = [UIImage imageNamed:@"bg_profile_master"];
+    _headerView.image = [UIImage imageNamed:@"icon_profile_bg"];
     self.tableView.tableHeaderView = _headerView;
 }
 

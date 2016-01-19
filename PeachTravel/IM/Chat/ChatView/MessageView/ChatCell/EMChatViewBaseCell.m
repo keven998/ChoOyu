@@ -49,6 +49,13 @@ NSString *const kRouterEventChatHeadImageTapEventName = @"kRouterEventChatHeadIm
 - (void)layoutSubviews
 {
     [super layoutSubviews];
+    CGRect frame = _headImageView.frame;
+    frame.origin.x = _messageModel.isSender ? (self.bounds.size.width - _headImageView.frame.size.width - HEAD_PADDING) : HEAD_PADDING;
+    _headImageView.frame = frame;
+    
+    CGRect nameFrame = CGRectMake(0, _headImageView.frame.origin.y, NAME_LABEL_WIDTH, NAME_LABEL_HEIGHT);
+    nameFrame.origin.x = _messageModel.isSender ? 0 : (_headImageView.frame.size.width + _headImageView.frame.origin.x + NAME_LABEL_PADDING);
+    _nameLabel.frame = nameFrame;
     
 }
 
@@ -63,13 +70,6 @@ NSString *const kRouterEventChatHeadImageTapEventName = @"kRouterEventChatHeadIm
 {
     _messageModel = messageModel;
     _nameLabel.hidden = !(messageModel.chatType != IMChatTypeIMChatSingleType);
-    CGRect frame = _headImageView.frame;
-    frame.origin.x = _messageModel.isSender ? (self.bounds.size.width - _headImageView.frame.size.width - HEAD_PADDING) : HEAD_PADDING;
-    _headImageView.frame = frame;
-    
-    CGRect nameFrame = CGRectMake(0, _headImageView.frame.origin.y, NAME_LABEL_WIDTH, NAME_LABEL_HEIGHT);
-    nameFrame.origin.x = _messageModel.isSender ? 0 : (_headImageView.frame.size.width + _headImageView.frame.origin.x + NAME_LABEL_PADDING);
-    _nameLabel.frame = nameFrame;
     
     if (messageModel.senderId == WenwenUserId) {
         [self.headImageView sd_setImageWithURL:nil];
