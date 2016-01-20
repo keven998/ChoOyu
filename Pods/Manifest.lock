@@ -30,8 +30,6 @@ PODS:
   - React/Core (0.13.0-rc)
   - React/RCTActionSheet (0.13.0-rc):
     - React/Core
-  - React/RCTAdSupport (0.13.0-rc):
-    - React/Core
   - React/RCTGeolocation (0.13.0-rc):
     - React/Core
   - React/RCTImage (0.13.0-rc):
@@ -62,7 +60,6 @@ DEPENDENCIES:
   - OpenUDID (~> 1.0.0)
   - React (= 0.13.0-rc)
   - React/RCTActionSheet
-  - React/RCTAdSupport
   - React/RCTGeolocation
   - React/RCTImage
   - React/RCTPushNotification
