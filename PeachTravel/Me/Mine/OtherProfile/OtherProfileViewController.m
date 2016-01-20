@@ -184,7 +184,7 @@
     BaseProfileHeaderView *headerView = [[BaseProfileHeaderView alloc] init];
     headerView.frame = CGRectMake(0, 0, kWindowWidth, 310);
     headerView.userInfo = self.userInfo;
-    headerView.image = [UIImage imageNamed:@"bg_profile_master"];
+    headerView.image = [UIImage imageNamed:@"icon_profile_bg"];
     self.tableView.tableHeaderView = headerView;
     
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 50)];
