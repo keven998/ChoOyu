@@ -15,6 +15,7 @@
 @property (strong, nonatomic) UILabel *titleLabel;
 @property (strong, nonatomic) UIButton *ratingBtn;
 @property (strong, nonatomic) UILabel *priceLabel;
+@property (strong, nonatomic) UILabel *pageIndexLabel;
 
 @end
 
@@ -51,7 +52,21 @@
      _galleryView = [[AutoSlideScrollView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.width/2)];
     _galleryView.shouldHidePageControl = YES;
     _galleryView.scrollView.showsHorizontalScrollIndicator = NO;
+    __weak GoodsDetailHeaderView *weakSelf = self;
+    _galleryView.didChange2Page = ^(NSInteger pageIndex) {
+        weakSelf.pageIndexLabel.text = [NSString stringWithFormat:@"%ld/%ld", pageIndex+1, weakSelf.goodsDetail.images.count];
+
+    };
     [self addSubview:_galleryView];
+    
+    _pageIndexLabel = [[UILabel alloc] initWithFrame:CGRectMake(_galleryView.bounds.size.width-60, _galleryView.bounds.size.height-35, 50, 25)];
+    _pageIndexLabel.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
+    _pageIndexLabel.textColor = [UIColor whiteColor];
+    _pageIndexLabel.font = [UIFont systemFontOfSize:15];
+    _pageIndexLabel.textAlignment = NSTextAlignmentCenter;
+    _pageIndexLabel.layer.cornerRadius = 6.0;
+    _pageIndexLabel.clipsToBounds = YES;
+    [_galleryView addSubview:_pageIndexLabel];
     
     _titleLabel = [[UILabel alloc] init];
     _titleLabel.textColor = COLOR_TEXT_I;
@@ -70,11 +85,13 @@
     _priceLabel = [[UILabel alloc] init];
     _priceLabel.textAlignment = NSTextAlignmentRight;
     [self addSubview:_priceLabel];
+
 }
 
 - (void)setGoodsDetail:(GoodsDetailModel *)goodsDetail
 {
     _goodsDetail = goodsDetail;
+    _pageIndexLabel.text = [NSString stringWithFormat:@"1/%ld", _goodsDetail.images.count];
     __weak GoodsDetailHeaderView *weakSelf = self;
     self.galleryView.totalPagesCount = ^NSInteger() {
         return weakSelf.goodsDetail.images.count;

@@ -39,7 +39,6 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
     return self;
 }
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -48,6 +47,12 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
     UIBarButtonItem *backBtn = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismissCtl:)];
     self.navigationItem.leftBarButtonItem = backBtn;
     _dataSource = [[self.imClientManager.conversationManager getConversationList] mutableCopy];
+    for (ChatConversation *conversation in _dataSource) {
+        if (conversation.chatterId == TransactionMessageUserId) {
+            [_dataSource removeObject:conversation];
+            break;
+        }
+    }
     self.tableView.separatorColor = COLOR_LINE;
     [self.tableView registerNib:[UINib nibWithNibName:@"ChatRecordListTableViewCell" bundle:nil] forCellReuseIdentifier:reusableChatRecordCell];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:reusableCreateConversationCell];

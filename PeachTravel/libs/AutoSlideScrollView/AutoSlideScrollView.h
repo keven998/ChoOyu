@@ -41,5 +41,11 @@
  **/
 @property (nonatomic , copy) void (^TapActionBlock)(NSInteger pageIndex);
 
+/**
+ *  页面进行切换时候进入的 block
+ */
+@property (nonatomic , copy) void (^didChange2Page)(NSInteger pageIndex);
+
+
 
 @end

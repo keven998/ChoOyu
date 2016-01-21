@@ -78,6 +78,9 @@
 - (void)setCurrentPageIndex:(NSInteger)currentPageIndex
 {
     _currentPageIndex = currentPageIndex;
+    if (_didChange2Page) {
+        _didChange2Page(_currentPageIndex);
+    }
     [self.pageControl setCurrentPage:_currentPageIndex];
 }
 

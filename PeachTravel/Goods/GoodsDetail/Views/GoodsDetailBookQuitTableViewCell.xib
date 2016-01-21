@@ -43,7 +43,7 @@
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        <state key="normal" title="退改流程" image="icon_goodsDetail_quit">
+                        <state key="normal" title="退改规定" image="icon_goodsDetail_quit">
                             <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                         </state>
                     </button>
