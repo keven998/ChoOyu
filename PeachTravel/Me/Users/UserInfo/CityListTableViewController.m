@@ -42,7 +42,7 @@
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _tableView.delegate = self;
     _tableView.dataSource = self;
-    _tableView.rowHeight = 60;
+    _tableView.rowHeight = 50;
     [self.view addSubview:_tableView];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cityCell"];
     

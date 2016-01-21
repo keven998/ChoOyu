@@ -408,7 +408,7 @@
     if (indexPath.section == 0) {
         return 70;
     }
-    return 55;
+    return 50;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

@@ -14,9 +14,10 @@
 {
     self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     self.cellTitle.font = [UIFont systemFontOfSize:16];
-    self.cellTitle.textColor = COLOR_TEXT_II;
-    self.cellDetail.font = [UIFont systemFontOfSize:17];
-    self.cellDetail.textColor = COLOR_TEXT_I;
+    self.cellTitle.textColor = COLOR_TEXT_I;
+    
+    self.cellDetail.font = [UIFont systemFontOfSize:15];
+    self.cellDetail.textColor = COLOR_TEXT_II;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

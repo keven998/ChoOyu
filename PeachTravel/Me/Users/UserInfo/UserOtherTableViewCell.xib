@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="57" id="Bbq-fr-nwq">
-                                <variation key="widthClass=compact" constant="145"/>
+                                <variation key="widthClass=compact" constant="90"/>
                             </constraint>
                             <constraint firstAttribute="height" constant="21" id="GHA-4F-Xfq"/>
                         </constraints>
