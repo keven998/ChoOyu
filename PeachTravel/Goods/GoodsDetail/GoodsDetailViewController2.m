@@ -6,6 +6,7 @@
 //  Copyright © 2015 com.aizou.www. All rights reserved.
 //
 
+#import "GoodsDetailViewController2.h"
 #import "GoodsDetailViewController.h"
 #import "RCTRootView.h"
 #import "RCTBridge.h"
@@ -27,7 +28,7 @@
 #import "GoodsDetailSoldOutView.h"
 #import "SuperWebViewController.h"
 
-@interface GoodsDetailViewController ()<RCTBridgeModule, ActivityDelegate, CreateConversationDelegate, TaoziMessageSendDelegate> {
+@interface GoodsDetailViewController2 ()<RCTBridgeModule, ActivityDelegate, CreateConversationDelegate, TaoziMessageSendDelegate> {
     RCTBridge *bridge;
     RCTRootView *rootView;
 }
@@ -38,7 +39,7 @@
 
 @end
 
-@implementation GoodsDetailViewController
+@implementation GoodsDetailViewController2
 
 RCT_EXPORT_MODULE();
 
@@ -78,9 +79,7 @@ RCT_EXPORT_MODULE();
                 if (_goodsDetail) {
                     [self.view addSubview:rootView];
                     [bridge.eventDispatcher sendAppEventWithName:@"GoodsDetailLoadOverEvent" body:@{@"goodsDetailJson": goodsDetailJson, @"isSnapshot": [NSNumber numberWithBool:_isSnapshot]}];
-                    if (!_isSnapshot) {
-                        [self setupNaviBar];
-                    }
+                    
                 } else {
                     rootView = nil;
                     GoodsDetailSoldOutView *view = [[GoodsDetailSoldOutView alloc] initWithFrame:CGRectMake(0, 100, kWindowWidth, kWindowHeight-100)];

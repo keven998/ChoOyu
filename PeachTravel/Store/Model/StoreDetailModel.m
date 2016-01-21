@@ -30,6 +30,15 @@
             [tempArray addObject:[[CityDestinationPoi alloc] initWithJson:dic]];
         }
         _serviceZone = tempArray;
+        
+#warning test
+        
+        _qualifications = @[@"认证卖家", @"如实描述", @"24小时内相应"];
+        _languages = @[@"中文", @"英文", @"当地语"];
+        _serviceTags = @[@"当地咨询", @"行程规划"];
+        CityDestinationPoi *poi = [[CityDestinationPoi alloc] init];
+        poi.zhName = @"北京";
+        _serviceZone = @[poi];
      }
     return self;
 }

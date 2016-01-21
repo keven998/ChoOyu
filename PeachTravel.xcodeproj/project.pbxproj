@@ -504,7 +504,7 @@
 		D91FED971B42D3B70073AD77 /* CityImageAlbum.xib in Resources */ = {isa = PBXBuildFile; fileRef = D91FED961B42D3B70073AD77 /* CityImageAlbum.xib */; };
 		D920A4131B15A40E00AD81B7 /* IMDiscussionGroupManager+GroupInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D920A4121B15A40E00AD81B7 /* IMDiscussionGroupManager+GroupInfo.swift */; };
 		D920A4151B15AB3800AD81B7 /* JSONConvertMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = D920A4141B15AB3800AD81B7 /* JSONConvertMethod.swift */; };
-		D92109AD1BE1C9F200AEDB65 /* GoodsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D92109AC1BE1C9F200AEDB65 /* GoodsDetailViewController.m */; };
+		D92109AD1BE1C9F200AEDB65 /* GoodsDetailViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = D92109AC1BE1C9F200AEDB65 /* GoodsDetailViewController2.m */; };
 		D92109B11BE204F100AEDB65 /* StoreDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D92109B01BE204F100AEDB65 /* StoreDetailViewController.m */; };
 		D9221A021BFC441C0015A685 /* TravelerListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9221A001BFC441C0015A685 /* TravelerListViewController.m */; };
 		D9221A031BFC441C0015A685 /* TravelerListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9221A011BFC441C0015A685 /* TravelerListViewController.xib */; };
@@ -781,6 +781,14 @@
 		D982879F1C22823A0000D47A /* GoodsClassViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D982879D1C22823A0000D47A /* GoodsClassViewController.xib */; };
 		D9871DBA1B47D31E00BFDFAF /* ScheduleDayEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9871DB81B47D31E00BFDFAF /* ScheduleDayEditViewController.m */; };
 		D9871DBB1B47D31E00BFDFAF /* ScheduleDayEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9871DB91B47D31E00BFDFAF /* ScheduleDayEditViewController.xib */; };
+		D98AE11C1C5075D100FDAC2F /* GoodsDetailBookQuitTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D98AE11A1C5075D100FDAC2F /* GoodsDetailBookQuitTableViewCell.m */; };
+		D98AE11D1C5075D100FDAC2F /* GoodsDetailBookQuitTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D98AE11B1C5075D100FDAC2F /* GoodsDetailBookQuitTableViewCell.xib */; };
+		D98AE1211C507B3E00FDAC2F /* GoodsDetailTrafficTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D98AE11F1C507B3E00FDAC2F /* GoodsDetailTrafficTableViewCell.m */; };
+		D98AE1221C507B3E00FDAC2F /* GoodsDetailTrafficTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D98AE1201C507B3E00FDAC2F /* GoodsDetailTrafficTableViewCell.xib */; };
+		D98AE1261C507DA900FDAC2F /* GoodsDetailStoreInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D98AE1241C507DA900FDAC2F /* GoodsDetailStoreInfoTableViewCell.m */; };
+		D98AE1271C507DA900FDAC2F /* GoodsDetailStoreInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D98AE1251C507DA900FDAC2F /* GoodsDetailStoreInfoTableViewCell.xib */; };
+		D98AE12B1C50BADD00FDAC2F /* GoodsDetailSnapshotTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D98AE1291C50BADD00FDAC2F /* GoodsDetailSnapshotTableViewCell.m */; };
+		D98AE12C1C50BADD00FDAC2F /* GoodsDetailSnapshotTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D98AE12A1C50BADD00FDAC2F /* GoodsDetailSnapshotTableViewCell.xib */; };
 		D98CC6431A1993BE00FA5A76 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D902AD1F1A149FAB00E36A93 /* CFNetwork.framework */; };
 		D98CEE0B1B4E17010019B902 /* GuiderCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D98CEE091B4E17010019B902 /* GuiderCollectionViewController.m */; };
 		D98CEE0C1B4E17010019B902 /* GuiderCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D98CEE0A1B4E17010019B902 /* GuiderCollectionViewController.xib */; };
@@ -1169,6 +1177,17 @@
 		D9E0EEFC1B7CB020003872DF /* SearchDestinationHistoryCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E0EEFA1B7CB020003872DF /* SearchDestinationHistoryCollectionReusableView.m */; };
 		D9E0EEFD1B7CB020003872DF /* SearchDestinationHistoryCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9E0EEFB1B7CB020003872DF /* SearchDestinationHistoryCollectionReusableView.xib */; };
 		D9E0EF011B7D9036003872DF /* CMPopTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E0EF001B7D9036003872DF /* CMPopTipView.m */; };
+		D9E5F8C11C4F2A1C00C387EC /* GoodsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E5F8BF1C4F2A1C00C387EC /* GoodsDetailViewController.m */; };
+		D9E5F8C21C4F2A1C00C387EC /* GoodsDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9E5F8C01C4F2A1C00C387EC /* GoodsDetailViewController.xib */; };
+		D9E5F8C61C4F300F00C387EC /* GoodsDetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E5F8C51C4F300F00C387EC /* GoodsDetailHeaderView.m */; };
+		D9E5F8CA1C4F683A00C387EC /* GoodsDetailSellerQualificationsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E5F8C81C4F683A00C387EC /* GoodsDetailSellerQualificationsTableViewCell.m */; };
+		D9E5F8CB1C4F683A00C387EC /* GoodsDetailSellerQualificationsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9E5F8C91C4F683A00C387EC /* GoodsDetailSellerQualificationsTableViewCell.xib */; };
+		D9E5F8CF1C4F6E7900C387EC /* GoodsDetailDescTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E5F8CD1C4F6E7900C387EC /* GoodsDetailDescTableViewCell.m */; };
+		D9E5F8D01C4F6E7900C387EC /* GoodsDetailDescTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9E5F8CE1C4F6E7900C387EC /* GoodsDetailDescTableViewCell.xib */; };
+		D9E5F8D61C4F792400C387EC /* GoodsDetailCommonSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E5F8D51C4F792400C387EC /* GoodsDetailCommonSectionHeaderView.m */; };
+		D9E5F8D91C4F836E00C387EC /* GoodsDetailCommonSectionFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E5F8D81C4F836E00C387EC /* GoodsDetailCommonSectionFooterView.m */; };
+		D9E5F8DD1C4F875500C387EC /* GoodsDetailBookTipsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E5F8DB1C4F875500C387EC /* GoodsDetailBookTipsTableViewCell.m */; };
+		D9E5F8DE1C4F875500C387EC /* GoodsDetailBookTipsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9E5F8DC1C4F875500C387EC /* GoodsDetailBookTipsTableViewCell.xib */; };
 		D9E7E58E1AC281400072D5B9 /* AreaDestination.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E7E58D1AC281400072D5B9 /* AreaDestination.m */; };
 		D9E7E5911AC281B00072D5B9 /* CityDestinationPoi.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E7E5901AC281B00072D5B9 /* CityDestinationPoi.m */; };
 		D9E7EC0C1ACB932800D30A5A /* AccountModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E7EC0B1ACB932800D30A5A /* AccountModel.m */; };
@@ -2615,8 +2634,8 @@
 		D91FED961B42D3B70073AD77 /* CityImageAlbum.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CityImageAlbum.xib; sourceTree = "<group>"; };
 		D920A4121B15A40E00AD81B7 /* IMDiscussionGroupManager+GroupInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IMDiscussionGroupManager+GroupInfo.swift"; sourceTree = "<group>"; };
 		D920A4141B15AB3800AD81B7 /* JSONConvertMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONConvertMethod.swift; sourceTree = "<group>"; };
-		D92109AB1BE1C9F200AEDB65 /* GoodsDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsDetailViewController.h; sourceTree = "<group>"; };
-		D92109AC1BE1C9F200AEDB65 /* GoodsDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsDetailViewController.m; sourceTree = "<group>"; };
+		D92109AB1BE1C9F200AEDB65 /* GoodsDetailViewController2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsDetailViewController2.h; sourceTree = "<group>"; };
+		D92109AC1BE1C9F200AEDB65 /* GoodsDetailViewController2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsDetailViewController2.m; sourceTree = "<group>"; };
 		D92109AF1BE204F100AEDB65 /* StoreDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreDetailViewController.h; sourceTree = "<group>"; };
 		D92109B01BE204F100AEDB65 /* StoreDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreDetailViewController.m; sourceTree = "<group>"; };
 		D92219FF1BFC441C0015A685 /* TravelerListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TravelerListViewController.h; sourceTree = "<group>"; };
@@ -3033,6 +3052,18 @@
 		D9871DB71B47D31E00BFDFAF /* ScheduleDayEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleDayEditViewController.h; sourceTree = "<group>"; };
 		D9871DB81B47D31E00BFDFAF /* ScheduleDayEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleDayEditViewController.m; sourceTree = "<group>"; };
 		D9871DB91B47D31E00BFDFAF /* ScheduleDayEditViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScheduleDayEditViewController.xib; sourceTree = "<group>"; };
+		D98AE1191C5075D100FDAC2F /* GoodsDetailBookQuitTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsDetailBookQuitTableViewCell.h; sourceTree = "<group>"; };
+		D98AE11A1C5075D100FDAC2F /* GoodsDetailBookQuitTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsDetailBookQuitTableViewCell.m; sourceTree = "<group>"; };
+		D98AE11B1C5075D100FDAC2F /* GoodsDetailBookQuitTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoodsDetailBookQuitTableViewCell.xib; sourceTree = "<group>"; };
+		D98AE11E1C507B3E00FDAC2F /* GoodsDetailTrafficTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsDetailTrafficTableViewCell.h; sourceTree = "<group>"; };
+		D98AE11F1C507B3E00FDAC2F /* GoodsDetailTrafficTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsDetailTrafficTableViewCell.m; sourceTree = "<group>"; };
+		D98AE1201C507B3E00FDAC2F /* GoodsDetailTrafficTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoodsDetailTrafficTableViewCell.xib; sourceTree = "<group>"; };
+		D98AE1231C507DA900FDAC2F /* GoodsDetailStoreInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsDetailStoreInfoTableViewCell.h; sourceTree = "<group>"; };
+		D98AE1241C507DA900FDAC2F /* GoodsDetailStoreInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsDetailStoreInfoTableViewCell.m; sourceTree = "<group>"; };
+		D98AE1251C507DA900FDAC2F /* GoodsDetailStoreInfoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoodsDetailStoreInfoTableViewCell.xib; sourceTree = "<group>"; };
+		D98AE1281C50BADD00FDAC2F /* GoodsDetailSnapshotTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsDetailSnapshotTableViewCell.h; sourceTree = "<group>"; };
+		D98AE1291C50BADD00FDAC2F /* GoodsDetailSnapshotTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsDetailSnapshotTableViewCell.m; sourceTree = "<group>"; };
+		D98AE12A1C50BADD00FDAC2F /* GoodsDetailSnapshotTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoodsDetailSnapshotTableViewCell.xib; sourceTree = "<group>"; };
 		D98CEE081B4E17010019B902 /* GuiderCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuiderCollectionViewController.h; sourceTree = "<group>"; };
 		D98CEE091B4E17010019B902 /* GuiderCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuiderCollectionViewController.m; sourceTree = "<group>"; };
 		D98CEE0A1B4E17010019B902 /* GuiderCollectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GuiderCollectionViewController.xib; sourceTree = "<group>"; };
@@ -3667,6 +3698,24 @@
 		D9E0EEFB1B7CB020003872DF /* SearchDestinationHistoryCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchDestinationHistoryCollectionReusableView.xib; sourceTree = "<group>"; };
 		D9E0EEFF1B7D9036003872DF /* CMPopTipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPopTipView.h; sourceTree = "<group>"; };
 		D9E0EF001B7D9036003872DF /* CMPopTipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPopTipView.m; sourceTree = "<group>"; };
+		D9E5F8BE1C4F2A1C00C387EC /* GoodsDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GoodsDetailViewController.h; path = GoodsSoldOutView/GoodsDetailViewController.h; sourceTree = "<group>"; };
+		D9E5F8BF1C4F2A1C00C387EC /* GoodsDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GoodsDetailViewController.m; path = GoodsSoldOutView/GoodsDetailViewController.m; sourceTree = "<group>"; };
+		D9E5F8C01C4F2A1C00C387EC /* GoodsDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GoodsDetailViewController.xib; path = GoodsSoldOutView/GoodsDetailViewController.xib; sourceTree = "<group>"; };
+		D9E5F8C41C4F300F00C387EC /* GoodsDetailHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsDetailHeaderView.h; sourceTree = "<group>"; };
+		D9E5F8C51C4F300F00C387EC /* GoodsDetailHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsDetailHeaderView.m; sourceTree = "<group>"; };
+		D9E5F8C71C4F683A00C387EC /* GoodsDetailSellerQualificationsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsDetailSellerQualificationsTableViewCell.h; sourceTree = "<group>"; };
+		D9E5F8C81C4F683A00C387EC /* GoodsDetailSellerQualificationsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsDetailSellerQualificationsTableViewCell.m; sourceTree = "<group>"; };
+		D9E5F8C91C4F683A00C387EC /* GoodsDetailSellerQualificationsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoodsDetailSellerQualificationsTableViewCell.xib; sourceTree = "<group>"; };
+		D9E5F8CC1C4F6E7900C387EC /* GoodsDetailDescTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsDetailDescTableViewCell.h; sourceTree = "<group>"; };
+		D9E5F8CD1C4F6E7900C387EC /* GoodsDetailDescTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsDetailDescTableViewCell.m; sourceTree = "<group>"; };
+		D9E5F8CE1C4F6E7900C387EC /* GoodsDetailDescTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoodsDetailDescTableViewCell.xib; sourceTree = "<group>"; };
+		D9E5F8D41C4F792400C387EC /* GoodsDetailCommonSectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsDetailCommonSectionHeaderView.h; sourceTree = "<group>"; };
+		D9E5F8D51C4F792400C387EC /* GoodsDetailCommonSectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsDetailCommonSectionHeaderView.m; sourceTree = "<group>"; };
+		D9E5F8D71C4F836E00C387EC /* GoodsDetailCommonSectionFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsDetailCommonSectionFooterView.h; sourceTree = "<group>"; };
+		D9E5F8D81C4F836E00C387EC /* GoodsDetailCommonSectionFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsDetailCommonSectionFooterView.m; sourceTree = "<group>"; };
+		D9E5F8DA1C4F875500C387EC /* GoodsDetailBookTipsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsDetailBookTipsTableViewCell.h; sourceTree = "<group>"; };
+		D9E5F8DB1C4F875500C387EC /* GoodsDetailBookTipsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsDetailBookTipsTableViewCell.m; sourceTree = "<group>"; };
+		D9E5F8DC1C4F875500C387EC /* GoodsDetailBookTipsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoodsDetailBookTipsTableViewCell.xib; sourceTree = "<group>"; };
 		D9E7E58C1AC281400072D5B9 /* AreaDestination.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AreaDestination.h; sourceTree = "<group>"; };
 		D9E7E58D1AC281400072D5B9 /* AreaDestination.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AreaDestination.m; sourceTree = "<group>"; };
 		D9E7E58F1AC281B00072D5B9 /* CityDestinationPoi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityDestinationPoi.h; sourceTree = "<group>"; };
@@ -5714,9 +5763,13 @@
 		D92109AA1BE1C9F200AEDB65 /* GoodsDetail */ = {
 			isa = PBXGroup;
 			children = (
+				D9E5F8C31C4F2FAD00C387EC /* GoodsDetailViews */,
 				D9DB6ED91C3549A000077E49 /* GoodsSoldOutView */,
-				D92109AB1BE1C9F200AEDB65 /* GoodsDetailViewController.h */,
-				D92109AC1BE1C9F200AEDB65 /* GoodsDetailViewController.m */,
+				D92109AB1BE1C9F200AEDB65 /* GoodsDetailViewController2.h */,
+				D92109AC1BE1C9F200AEDB65 /* GoodsDetailViewController2.m */,
+				D9E5F8BE1C4F2A1C00C387EC /* GoodsDetailViewController.h */,
+				D9E5F8BF1C4F2A1C00C387EC /* GoodsDetailViewController.m */,
+				D9E5F8C01C4F2A1C00C387EC /* GoodsDetailViewController.xib */,
 			);
 			path = GoodsDetail;
 			sourceTree = "<group>";
@@ -8701,6 +8754,41 @@
 			name = Guide;
 			sourceTree = "<group>";
 		};
+		D9E5F8C31C4F2FAD00C387EC /* GoodsDetailViews */ = {
+			isa = PBXGroup;
+			children = (
+				D9E5F8C41C4F300F00C387EC /* GoodsDetailHeaderView.h */,
+				D9E5F8C51C4F300F00C387EC /* GoodsDetailHeaderView.m */,
+				D9E5F8C71C4F683A00C387EC /* GoodsDetailSellerQualificationsTableViewCell.h */,
+				D9E5F8C81C4F683A00C387EC /* GoodsDetailSellerQualificationsTableViewCell.m */,
+				D9E5F8C91C4F683A00C387EC /* GoodsDetailSellerQualificationsTableViewCell.xib */,
+				D9E5F8CC1C4F6E7900C387EC /* GoodsDetailDescTableViewCell.h */,
+				D9E5F8CD1C4F6E7900C387EC /* GoodsDetailDescTableViewCell.m */,
+				D9E5F8CE1C4F6E7900C387EC /* GoodsDetailDescTableViewCell.xib */,
+				D98AE1281C50BADD00FDAC2F /* GoodsDetailSnapshotTableViewCell.h */,
+				D98AE1291C50BADD00FDAC2F /* GoodsDetailSnapshotTableViewCell.m */,
+				D98AE12A1C50BADD00FDAC2F /* GoodsDetailSnapshotTableViewCell.xib */,
+				D9E5F8D41C4F792400C387EC /* GoodsDetailCommonSectionHeaderView.h */,
+				D9E5F8D51C4F792400C387EC /* GoodsDetailCommonSectionHeaderView.m */,
+				D9E5F8D71C4F836E00C387EC /* GoodsDetailCommonSectionFooterView.h */,
+				D9E5F8D81C4F836E00C387EC /* GoodsDetailCommonSectionFooterView.m */,
+				D9E5F8DA1C4F875500C387EC /* GoodsDetailBookTipsTableViewCell.h */,
+				D9E5F8DB1C4F875500C387EC /* GoodsDetailBookTipsTableViewCell.m */,
+				D9E5F8DC1C4F875500C387EC /* GoodsDetailBookTipsTableViewCell.xib */,
+				D98AE1191C5075D100FDAC2F /* GoodsDetailBookQuitTableViewCell.h */,
+				D98AE11A1C5075D100FDAC2F /* GoodsDetailBookQuitTableViewCell.m */,
+				D98AE11B1C5075D100FDAC2F /* GoodsDetailBookQuitTableViewCell.xib */,
+				D98AE11E1C507B3E00FDAC2F /* GoodsDetailTrafficTableViewCell.h */,
+				D98AE11F1C507B3E00FDAC2F /* GoodsDetailTrafficTableViewCell.m */,
+				D98AE1201C507B3E00FDAC2F /* GoodsDetailTrafficTableViewCell.xib */,
+				D98AE1231C507DA900FDAC2F /* GoodsDetailStoreInfoTableViewCell.h */,
+				D98AE1241C507DA900FDAC2F /* GoodsDetailStoreInfoTableViewCell.m */,
+				D98AE1251C507DA900FDAC2F /* GoodsDetailStoreInfoTableViewCell.xib */,
+			);
+			name = GoodsDetailViews;
+			path = Views;
+			sourceTree = "<group>";
+		};
 		D9EE343C1AB93CF10076933B /* RestaurantDetail */ = {
 			isa = PBXGroup;
 			children = (
@@ -10014,6 +10102,7 @@
 				E608A1371B8F414C003BA318 /* up@2x.png in Resources */,
 				E6381BF41B66269000CF73AA /* Loading_Animation_final31@2x.png in Resources */,
 				E6381BF81B66269000CF73AA /* Loading_Animation_final35@2x.png in Resources */,
+				D9E5F8CB1C4F683A00C387EC /* GoodsDetailSellerQualificationsTableViewCell.xib in Resources */,
 				D99EAD3C1BBB8840005A02D3 /* Artboard 205@3x.png in Resources */,
 				D969AD3C1C2C1759007413CA /* OrderDetailPreviewViewController.xib in Resources */,
 				E6F189491B845F4900232EEB /* icon@2x.png in Resources */,
@@ -10050,6 +10139,7 @@
 				27FF1AE61B09AFB100643D77 /* OtherUserBasicInfoCell.xib in Resources */,
 				E68CB2811B9EB74300A5B38B /* chat_friend@3x.png in Resources */,
 				D9E9D20C1BA2A7D300FB6C07 /* navigationbar_chat_default@2x.png in Resources */,
+				D98AE1271C507DA900FDAC2F /* GoodsDetailStoreInfoTableViewCell.xib in Resources */,
 				E6F189EE1B845F4900232EEB /* plan_bottom_hotel@3x.png in Resources */,
 				D90A9B5B1B5627C400E9F37C /* Loading_Animation_final48@3x.png in Resources */,
 				01A5CEE61BB3DDC200A59A8A /* mapMark_point_line_half@3x.png in Resources */,
@@ -10445,6 +10535,7 @@
 				01C1EC0F1BB4E4720082217A /* daxiao@2x.png in Resources */,
 				01578DFA1BD224AD00244D9D /* AlipaySDK.bundle in Resources */,
 				E6F189791B845F4900232EEB /* poi_button_raid_selected@2x.png in Resources */,
+				D9E5F8D01C4F6E7900C387EC /* GoodsDetailDescTableViewCell.xib in Resources */,
 				E6F189EF1B845F4900232EEB /* trip_add_day@2x.png in Resources */,
 				D9A800221A80D52F005AD701 /* DestinationCollectionHeaderView.xib in Resources */,
 				01A5CED71BB3DDC200A59A8A /* mapMark_arrow_lian@2x.png in Resources */,
@@ -10565,6 +10656,7 @@
 				E6F18A511B845F4900232EEB /* ic_home_avatar_border_boy@3x.png in Resources */,
 				01C1EC731BB4E4720082217A /* why@2x.png in Resources */,
 				E6F18A851B845F4900232EEB /* speaking-motion14@2x.png in Resources */,
+				D98AE1221C507B3E00FDAC2F /* GoodsDetailTrafficTableViewCell.xib in Resources */,
 				E6F1891D1B845F4900232EEB /* dashboard_03_icon_constellation0@2x.png in Resources */,
 				E6F18B221B845F4900232EEB /* master_icon_constellation8@3x.png in Resources */,
 				D9A8FFAD1A80D1C3005AD701 /* CommentTableViewCell.xib in Resources */,
@@ -10660,6 +10752,7 @@
 				E6F18A131B845F4900232EEB /* map_icon_3@2x.png in Resources */,
 				01C1EC071BB4E4720082217A /* buli@2x.png in Resources */,
 				E6F189F91B845F4900232EEB /* map_icon_10@2x.png in Resources */,
+				D9E5F8C21C4F2A1C00C387EC /* GoodsDetailViewController.xib in Resources */,
 				01C1EC8C1BB4E4720082217A /* ye@3x.png in Resources */,
 				D9221A291BFC79840015A685 /* SelectPayPlatformTableViewCell.xib in Resources */,
 				0115C9AB1BB103FC00631928 /* citydetail_food_hilighted@2x.png in Resources */,
@@ -10728,6 +10821,7 @@
 				E608A12E1B8F413E003BA318 /* point@3x.png in Resources */,
 				01C1EC2F1BB4E4720082217A /* jiong@2x.png in Resources */,
 				D942C27B1B9EBDF0005B81C5 /* ic_navigationbar_menu_add@2x.png in Resources */,
+				D98AE11D1C5075D100FDAC2F /* GoodsDetailBookQuitTableViewCell.xib in Resources */,
 				D9A8FFB41A80D1C3005AD701 /* RecommendCollectionViewCell.xib in Resources */,
 				01C1EC6F1BB4E4720082217A /* weiqu@2x.png in Resources */,
 				D90A9B331B5627C400E9F37C /* Loading_Animation_final8@3x.png in Resources */,
@@ -10877,6 +10971,7 @@
 				D94B891C1B5E4F4C00584DE5 /* h5_labar_right_default@3x.png in Resources */,
 				D9A800611A80DD0C005AD701 /* AddressBookTableViewCell.xib in Resources */,
 				01C1EC391BB4E4720082217A /* leaf@2x.png in Resources */,
+				D98AE12C1C50BADD00FDAC2F /* GoodsDetailSnapshotTableViewCell.xib in Resources */,
 				01C1EC1D1BB4E4720082217A /* guzhang@2x.png in Resources */,
 				D942C2741B9EBD4E005B81C5 /* ic_common_search@3x.png in Resources */,
 				E6F189241B845F4900232EEB /* dashboard_03_icon_constellation12@3x.png in Resources */,
@@ -10916,6 +11011,7 @@
 				D92CCF361C15A21A0018D54D /* ChatOrderTipsTableViewCell.xib in Resources */,
 				E6F18B0B1B845F4900232EEB /* master_icon_constellation0@2x.png in Resources */,
 				D90ED4341BABF196000C6033 /* UploadUserPhotoOperationView.xib in Resources */,
+				D9E5F8DE1C4F875500C387EC /* GoodsDetailBookTipsTableViewCell.xib in Resources */,
 				D9A8FEC61A80C818005AD701 /* ConfirmRouteViewController.xib in Resources */,
 				E6F189AB1B845F4900232EEB /* city_button_guide_selected@2x.png in Resources */,
 				D9027BB51BED99FC00C74220 /* TZTagsCollectionViewCell.xib in Resources */,
@@ -11170,8 +11266,10 @@
 				D993C2471B12DF0C0088D568 /* FrendDaoHelper.swift in Sources */,
 				D96EAA1B1BB4F14E00360ED8 /* MoreDomesticPoiRecommendViewController.m in Sources */,
 				D969AD3B1C2C1759007413CA /* OrderDetailPreviewViewController.m in Sources */,
+				D9E5F8C61C4F300F00C387EC /* GoodsDetailHeaderView.m in Sources */,
 				D9D9A50E1BAFD00E001001B8 /* UserAlbumOverViewTableViewController.m in Sources */,
 				D9A802E41A80E3D3005AD701 /* SuperWebViewController.m in Sources */,
+				D9E5F8C11C4F2A1C00C387EC /* GoodsDetailViewController.m in Sources */,
 				E66E6CD41B5A16A100CBF65F /* HWDropdownMenu.m in Sources */,
 				D94B890F1B5E104B00584DE5 /* ChatQuestionTableViewCell.m in Sources */,
 				D92CA10E1AD8BDF900F244FF /* SVProgressHUD.m in Sources */,
@@ -11244,6 +11342,7 @@
 				01F03DAC1BB400C7005DD792 /* MapMarkMenuCell.m in Sources */,
 				27329DB41B0E030700F0A4FA /* ChatGroupCell.m in Sources */,
 				D925B1DA1C437E41000F7E10 /* GoodsFavoriteViewController.m in Sources */,
+				D9E5F8DD1C4F875500C387EC /* GoodsDetailBookTipsTableViewCell.m in Sources */,
 				D9E7EC0C1ACB932800D30A5A /* AccountModel.m in Sources */,
 				D993C2441B12DF0C0088D568 /* ChatMessageDaoHelper.swift in Sources */,
 				D9A801411A80DD23005AD701 /* EMChatLocationBubbleView.m in Sources */,
@@ -11258,6 +11357,7 @@
 				E6E595591B9BDF7F00E29ED0 /* MineProfileTitleView.m in Sources */,
 				01578E6C1BD228F200244D9D /* DataVerifier.m in Sources */,
 				D90C76211BF1DED600C5897C /* MakeOrderTravelerTableViewCell.m in Sources */,
+				D9E5F8D91C4F836E00C387EC /* GoodsDetailCommonSectionFooterView.m in Sources */,
 				D96BAFFB1C1AEAA000CDB7C7 /* QNSessionManager.m in Sources */,
 				D9A8FFBC1A80D1C3005AD701 /* TravelNoteListViewController.m in Sources */,
 				D9A8002B1A80D52F005AD701 /* SearchDestinationTableViewCell.m in Sources */,
@@ -11458,7 +11558,7 @@
 				D9A8FEDA1A80C8A4005AD701 /* PushMsgsViewController.m in Sources */,
 				D9A801461A80DD23005AD701 /* TaoziChatCityBubbleView.m in Sources */,
 				D92CA1371AD8BEB400F244FF /* MWTapDetectingView.m in Sources */,
-				D92109AD1BE1C9F200AEDB65 /* GoodsDetailViewController.m in Sources */,
+				D92109AD1BE1C9F200AEDB65 /* GoodsDetailViewController2.m in Sources */,
 				D9027BB01BED964400C74220 /* TZTagsCollectionView.m in Sources */,
 				D956593B1C2012B300746B17 /* TZPayManager.m in Sources */,
 				D9A802F91A80E566005AD701 /* AppDelegate.m in Sources */,
@@ -11547,6 +11647,7 @@
 				D9687CA61AC409AB00B1C88E /* FootPrintViewController.m in Sources */,
 				276DF7671B4A49F4001A98FB /* DomesticCell.m in Sources */,
 				D993C25E1B12DF0C0088D568 /* ImageMessage.swift in Sources */,
+				D98AE1261C507DA900FDAC2F /* GoodsDetailStoreInfoTableViewCell.m in Sources */,
 				C6261BB61B2B00D400DFADEF /* POICell.m in Sources */,
 				D9A8015E1A80DD23005AD701 /* EMNavigationController.m in Sources */,
 				D92CA1121AD8BDF900F244FF /* SWCellScrollView.m in Sources */,
@@ -11560,6 +11661,7 @@
 				E6BFE5FD1B5E732F00A9FDCA /* DestinationCollectionViewCell.m in Sources */,
 				D9F059F51B63360700DD683F /* PlanScheduleTableViewCell.m in Sources */,
 				D96BAFF61C1AEAA000CDB7C7 /* QNSystem.m in Sources */,
+				D9E5F8CA1C4F683A00C387EC /* GoodsDetailSellerQualificationsTableViewCell.m in Sources */,
 				01578E6D1BD228F200244D9D /* MD5DataSigner.m in Sources */,
 				D94E256D1BECAE2A00DB487D /* GoodsListTableViewCell.m in Sources */,
 				E676B8D41B5CD20C0042B539 /* GuiderDistributeContinent.m in Sources */,
@@ -11576,6 +11678,7 @@
 				D9F1248A1C1AB1FA00B6B7BB /* MyOrderListViewController.m in Sources */,
 				D96BAFF41C1AEAA000CDB7C7 /* QNFile.m in Sources */,
 				D9A800641A80DD0C005AD701 /* SearchUserInfoViewController.m in Sources */,
+				D98AE1211C507B3E00FDAC2F /* GoodsDetailTrafficTableViewCell.m in Sources */,
 				C673B5591ADCEC7100D40262 /* TripPlanSettingViewController.m in Sources */,
 				D9A8001B1A80D52F005AD701 /* CityCardReusableView.m in Sources */,
 				D9A802B81A80E3D3005AD701 /* UIViewController+DismissKeyboard.m in Sources */,
@@ -11611,6 +11714,7 @@
 				0115C7E41BAFD26E00631928 /* TZFrendListCellForArea.m in Sources */,
 				D9A801141A80DD23005AD701 /* ChatListViewController.m in Sources */,
 				D9DD315B1BF4B340009BEDAB /* OrderUserInfoManager.m in Sources */,
+				D98AE11C1C5075D100FDAC2F /* GoodsDetailBookQuitTableViewCell.m in Sources */,
 				E6E5956A1B9BECDB00E29ED0 /* ExpertProfileTagViewCell.m in Sources */,
 				D920A4151B15AB3800AD81B7 /* JSONConvertMethod.swift in Sources */,
 				D92CA1141AD8BDF900F244FF /* SWTableViewCell.m in Sources */,
@@ -11623,6 +11727,7 @@
 				D93D38921C315C74005C0450 /* CitySearchTableViewCell.m in Sources */,
 				01578E6A1BD228F200244D9D /* base64.m in Sources */,
 				D92CA1051AD8BDF900F244FF /* PSTCollectionViewUpdateItem.m in Sources */,
+				D98AE12B1C50BADD00FDAC2F /* GoodsDetailSnapshotTableViewCell.m in Sources */,
 				E6E725261B5603750007273A /* NSObject+MJMember.m in Sources */,
 				01C1ECBB1BB53A690082217A /* EmoticonAttachment.m in Sources */,
 				01F3C79F1BAA831A00CC58F4 /* DXChatBarMoreViewAddBtnCell.m in Sources */,
@@ -11653,6 +11758,7 @@
 				D9DD316B1BF5BC56009BEDAB /* OrderDetailStoreInfoTableViewCell.m in Sources */,
 				D91061F41BA953D800C4FBCB /* UserAlbumPreviewCollectionViewCell.m in Sources */,
 				270C164D1B0059F60048C85D /* CityDescDetailViewController.m in Sources */,
+				D9E5F8D61C4F792400C387EC /* GoodsDetailCommonSectionHeaderView.m in Sources */,
 				D9A802B11A80E3D3005AD701 /* NSDateFormatter+Category.m in Sources */,
 				D9EE34421AB93CF10076933B /* RestaurantDetailViewController.m in Sources */,
 				D9A801401A80DD23005AD701 /* EMChatImageBubbleView.m in Sources */,
@@ -11685,6 +11791,7 @@
 				271C418A1B44D5CD007BF285 /* SpecialPoiCell.m in Sources */,
 				271C40BC1B3E93A3007BF285 /* UIImage+resized.m in Sources */,
 				D9A8013F1A80DD23005AD701 /* EMChatBaseBubbleView.m in Sources */,
+				D9E5F8CF1C4F6E7900C387EC /* GoodsDetailDescTableViewCell.m in Sources */,
 				E67795811B95C60F004CE21A /* MineViewContoller.m in Sources */,
 				D92109B11BE204F100AEDB65 /* StoreDetailViewController.m in Sources */,
 				D93D38871C311F41005C0450 /* MakeOrderUnitPriceTableViewCell.m in Sources */,
@@ -11947,7 +12054,7 @@
 				);
 				OTHER_SWIFT_FLAGS = "-D DEBUG";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2ee4bb52-98b4-4266-9b18-79f23601cac1";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "PeachTravel/PeachTravel-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				VALID_ARCHS = "arm64 armv7 armv7s";
@@ -12004,7 +12111,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c18eb20a-22fa-4a04-9151-36b111b5ed82";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "PeachTravel/PeachTravel-Bridging-Header.h";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};

@@ -45,7 +45,8 @@
                                                     normalImage:normalDotImage
                                                highlightedImage:highlightDotImage
                                                      dotsNumber:totalPageCounts sideLength:dotGapWidth dotsGap:dotGapWidth];
-            _pageControl.hidden = NO;
+            _pageControl.hidden = _shouldHidePageControl;
+            
         }
     }
     return _pageControl;

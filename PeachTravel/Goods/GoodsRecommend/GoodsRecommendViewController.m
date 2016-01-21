@@ -17,6 +17,7 @@
 #import "TZSchemeManager.h"
 #import "NSURL+TZURL.h"
 #import "ErrorEmptyView.h"
+#import "GoodsDetailViewController2.h"
 
 @interface GoodsRecommendViewController ()<UITableViewDataSource, UITableViewDelegate, GoodsRecommendHeaderViewDelegate, ErrorEmptyViewDelegate>
 
@@ -42,6 +43,7 @@
     [_tableView registerNib:[UINib nibWithNibName:@"GoodsRecommendTableViewCell" bundle:nil] forCellReuseIdentifier:@"goodsRecommendCell"];
     _tableView.dataSource = self;
     _tableView.delegate = self;
+    
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.backgroundColor = APP_PAGE_COLOR;
     _headerView = [[GoodsRecommendHeaderView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 335)];
@@ -174,6 +176,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
     GoodsDetailViewController *ctl = [[GoodsDetailViewController alloc] init];
     NSDictionary *dic = [_dataSource objectAtIndex:indexPath.section];
     GoodsDetailModel *goodsModel = [[dic objectForKey:@"goodsList"] objectAtIndex:indexPath.row];

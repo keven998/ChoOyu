@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GoodsDetailViewController : TZViewController
+@interface GoodsDetailViewController2 : TZViewController
 
 @property (nonatomic) NSInteger goodsId;
 

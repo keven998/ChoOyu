@@ -21,7 +21,7 @@
 
 - (void)renderContentView
 {
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_orderDetail_soldout"]];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_goodsDetail_soldout"]];
     imageView.center = CGPointMake(self.frame.size.width/2, 10+imageView.bounds.size.height/2);
     [self addSubview:imageView];
     

@@ -17,7 +17,33 @@
         _primePrice = [[json objectForKey:@"marketPrice"] floatValue];
         _currentPrice = [[json objectForKey:@"price"] floatValue];
         _goodsName = [json objectForKey:@"title"];
+        _category = [json objectForKey:@"category"];
+        _address = [json objectForKey:@"address"];
+        _timecost = [json objectForKey:@"timeCost"];
         _rating = [[json objectForKey:@"rating"] floatValue]*100;
+        _goodsDescSummary = [[json objectForKey:@"desc"] objectForKey:@"summary"];
+        _goodsDescBody = [[json objectForKey:@"desc"] objectForKey:@"body"];
+        
+        if ([[[[json objectForKey:@"notice"] firstObject] objectForKey:@"summary"] length]) {
+            _goodsFeeDescSummary = [[[json objectForKey:@"notice"] firstObject] objectForKey:@"summary"];
+        } else {
+            _goodsFeeDescSummary = @"相关内容请咨询卖家";
+        }
+        if ([[[json objectForKey:@"refundPolicy"] firstObject] objectForKey:@"summary"]) {
+            _goodsBookDescSummary = [[[json objectForKey:@"refundPolicy"] firstObject] objectForKey:@"summary"];
+        } else {
+            _goodsBookDescSummary = @"相关内容请咨询卖家";
+        }
+        if ([[[json objectForKey:@"refundPolicy"] lastObject] objectForKey:@"summary"]) {
+            _goodsQuitDescSummary = [[[json objectForKey:@"refundPolicy"] lastObject] objectForKey:@"summary"];
+        } else {
+            _goodsQuitDescSummary = @"相关内容请咨询卖家";
+        }
+        if ([[[[json objectForKey:@"trafficInfo"] firstObject] objectForKey:@"summary"] length]) {
+            _goodsTrafficDescSummary = [[[json objectForKey:@"trafficInfo"] firstObject] objectForKey:@"summary"];
+        } else {
+            _goodsTrafficDescSummary = @"相关内容请咨询卖家";
+        }
         _isFavorite = [[json objectForKey:@"isFavorite"] boolValue];
         if ([json objectForKey:@"cover"] != [NSNull null]) {
             _coverImage = [[TaoziImage alloc] initWithJson:[json objectForKey:@"cover"]];
@@ -32,6 +58,9 @@
         if ([json objectForKey:@"locality"] != [NSNull null]) {
             _locality = [[CityDestinationPoi alloc] initWithJson:[json objectForKey:@"locality"]];
         }
+        if ([json objectForKey:@"country"] != [NSNull null]) {
+            _country = [[CountryModel alloc] initWithJson:[json objectForKey:@"country"]];
+        }
        
         NSMutableArray *packageList = [[NSMutableArray alloc] init];
         for (NSDictionary *packageDic in [json objectForKey:@"plans"]) {
@@ -45,6 +74,10 @@
         }
         _goodsVersion = [[json objectForKey:@"version"] longValue];
         _shareUrl = [json objectForKey:@"shareUrl"];
+        _allDescUrl = [json objectForKey:@"descUrl"];
+        _allBookTipsUrl = [json objectForKey:@"noticeUrl"];
+        _allBookQuitUrl = [json objectForKey:@"refundPolicyUrl"];
+        _allTrafficUrl = [json objectForKey:@"trafficInfoUrl"];
     }
     return self;
 }
@@ -62,7 +95,6 @@
         } else {
             priceStr = [NSString stringWithFormat:@"%.2f", currentPrice];
         }
-
     }
     return priceStr;
 }

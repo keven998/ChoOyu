@@ -13,6 +13,7 @@
 - (void)awakeFromNib {
     _headerImageView.clipsToBounds = YES;
     _titleBtn.titleLabel.numberOfLines = 2;
+    _priceLabel.adjustsFontSizeToFitWidth = YES;
 }
 
 - (void)setGoodsDetail:(GoodsDetailModel *)goodsDetail

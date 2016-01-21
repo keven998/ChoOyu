@@ -14,6 +14,8 @@
 
 @property (nonatomic , strong) NSTimer *animationTimer;
 
+@property (nonatomic) BOOL shouldHidePageControl;  //是否改隐藏 pagecontrol
+
 /**
  *  初始化
  *
