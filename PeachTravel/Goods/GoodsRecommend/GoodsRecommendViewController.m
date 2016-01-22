@@ -17,7 +17,6 @@
 #import "TZSchemeManager.h"
 #import "NSURL+TZURL.h"
 #import "ErrorEmptyView.h"
-#import "GoodsDetailViewController2.h"
 
 @interface GoodsRecommendViewController ()<UITableViewDataSource, UITableViewDelegate, GoodsRecommendHeaderViewDelegate, ErrorEmptyViewDelegate>
 

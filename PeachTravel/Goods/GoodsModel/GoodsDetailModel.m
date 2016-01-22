@@ -29,12 +29,12 @@
         } else {
             _goodsFeeDescSummary = @"相关内容请咨询卖家";
         }
-        if ([[[json objectForKey:@"refundPolicy"] firstObject] objectForKey:@"summary"]) {
+        if ([[[[json objectForKey:@"refundPolicy"] firstObject] objectForKey:@"summary"] length]) {
             _goodsBookDescSummary = [[[json objectForKey:@"refundPolicy"] firstObject] objectForKey:@"summary"];
         } else {
             _goodsBookDescSummary = @"相关内容请咨询卖家";
         }
-        if ([[[json objectForKey:@"refundPolicy"] lastObject] objectForKey:@"summary"]) {
+        if ([[[[json objectForKey:@"refundPolicy"] lastObject] objectForKey:@"summary"] length]) {
             _goodsQuitDescSummary = [[[json objectForKey:@"refundPolicy"] lastObject] objectForKey:@"summary"];
         } else {
             _goodsQuitDescSummary = @"相关内容请咨询卖家";

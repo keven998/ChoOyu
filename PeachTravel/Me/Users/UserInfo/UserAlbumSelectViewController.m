@@ -120,7 +120,7 @@ static NSString * const reuseIdentifier = @"userAlbumSelectCell";
     ALAssetsGroupEnumerationResultsBlock resultsBlock = ^(ALAsset *asset, NSUInteger index, BOOL *stop) {
         
         if (asset) {
-            [self.dataSource addObject:asset];
+            [self.dataSource insertObject:asset atIndex:0];
             
         } else if (self.dataSource.count > 0) {
             [self.collectionView reloadData];

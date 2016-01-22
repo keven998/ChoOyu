@@ -34,11 +34,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>React.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>SDWebImage.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -57,17 +52,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>1F6230E4F8A69946D8F20ED14E1318DD</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>3116F685117B044E8E119EA475203BA9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>3FCF9E9EA06CE675B2F19DC7781211E2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>410B25DF16EA5C5B3E2698F74F9625FB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>625C0317826DB1185A1C5BFD50C9A873</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -92,17 +92,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>AE83815B9C39883C4F609649D511C51B</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>CD1DE1FF33421EF0C53EDE41F10DE6D8</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>DDAEA45E7689ECCA32EE07AA8AAA22B5</key>
+		<key>91AAC5BF2D5F021634D193A9C6ED448D</key>
 		<dict>
 			<key>primary</key>
 			<true/>

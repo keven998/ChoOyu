@@ -1,1 +1,0 @@
-../../../React/Libraries/Image/RCTVirtualImageManager.h

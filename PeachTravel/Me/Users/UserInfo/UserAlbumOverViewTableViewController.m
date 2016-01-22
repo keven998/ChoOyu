@@ -24,19 +24,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 40)];
     [backBtn setTitle:@"取消" forState:UIControlStateNormal];
+    backBtn.titleLabel.font = [UIFont systemFontOfSize:16.0];
     [backBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [backBtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
     
+    self.navigationItem.title = @"相册";
     [self.tableView registerNib:[UINib nibWithNibName:@"UserAlbumOverviewCell" bundle:nil] forCellReuseIdentifier:@"userAlbumCell"];
     [self loadDataSource];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (NSMutableArray *)dataSource
@@ -64,7 +65,6 @@
     
     
     ALAssetsLibraryGroupsEnumerationResultsBlock resultsBlock = ^(ALAssetsGroup *group, BOOL *stop) {
-        
         if (group) {
             if (group.numberOfAssets > 0) {
                 [self.dataSource addObject:group];
@@ -85,13 +85,12 @@
                                     failureBlock:failureBlock];
     
     // Then all other groups
-    NSUInteger type =
-    ALAssetsGroupLibrary | ALAssetsGroupAlbum | ALAssetsGroupEvent |
-    ALAssetsGroupFaces | ALAssetsGroupPhotoStream;
+    NSUInteger type = ALAssetsGroupAll;
     
     [self.assetsLibrary enumerateGroupsWithTypes:type
                                       usingBlock:resultsBlock
                                     failureBlock:failureBlock];
+    
 }
 
 - (void)goBack
@@ -128,7 +127,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UserAlbumOverviewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"userAlbumCell" forIndexPath:indexPath];
     cell.assetsGroup = _dataSource[indexPath.row];
-    
     return cell;
 }
 
