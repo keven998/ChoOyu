@@ -130,11 +130,11 @@
     } else {
         _forkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 24)];
         _forkBtn.layer.cornerRadius = 2.0;
-        _forkBtn.layer.borderColor = COLOR_TEXT_II.CGColor;
+        _forkBtn.layer.borderColor = [UIColor whiteColor].CGColor;
         _forkBtn.layer.borderWidth = 1.0;
         [_forkBtn setTitle:@"复制" forState:UIControlStateNormal];
         _forkBtn.titleLabel.font = [UIFont boldSystemFontOfSize:11.0];
-        [_forkBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
+        [_forkBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_forkBtn setTitleColor:COLOR_DISABLE forState:UIControlStateHighlighted];
         [_forkBtn addTarget:self action:@selector(forkTrip:) forControlEvents:UIControlEventTouchUpInside];
         UIBarButtonItem * addBtn = [[UIBarButtonItem alloc]initWithCustomView:_forkBtn];

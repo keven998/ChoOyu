@@ -69,6 +69,8 @@
             if (group.numberOfAssets > 0) {
                 [self.dataSource addObject:group];
             }
+        } else {
+            NSLog(@"has load all");
         }
         [self.tableView reloadData];
     };
@@ -84,8 +86,7 @@
                                       usingBlock:resultsBlock
                                     failureBlock:failureBlock];
     
-    // Then all other groups
-    NSUInteger type = ALAssetsGroupAll;
+    NSUInteger type = ALAssetsGroupLibrary | ALAssetsGroupAlbum | ALAssetsGroupEvent | ALAssetsGroupFaces | ALAssetsGroupSavedPhotos;
     
     [self.assetsLibrary enumerateGroupsWithTypes:type
                                       usingBlock:resultsBlock

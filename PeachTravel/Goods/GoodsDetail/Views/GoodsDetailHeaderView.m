@@ -54,7 +54,9 @@
     _galleryView.scrollView.showsHorizontalScrollIndicator = NO;
     __weak GoodsDetailHeaderView *weakSelf = self;
     _galleryView.didChange2Page = ^(NSInteger pageIndex) {
-        weakSelf.pageIndexLabel.text = [NSString stringWithFormat:@"%ld/%ld", pageIndex+1, weakSelf.goodsDetail.images.count];
+        if (pageIndex >= 0 && pageIndex < weakSelf.goodsDetail.images.count) {
+            weakSelf.pageIndexLabel.text = [NSString stringWithFormat:@"%ld/%ld", pageIndex+1, weakSelf.goodsDetail.images.count];
+        }
 
     };
     [self addSubview:_galleryView];
