@@ -99,7 +99,6 @@
     
 }
 
-
 + (void)asyncDelegateUserAlbumImage:(AlbumImageModel *)albumImage userId:(NSInteger)userId completion:(void (^)(BOOL, NSString *))completion
 {
     NSString *urlStr = [NSString stringWithFormat:@"%@%ld/albums/%@", API_USERS, (long)userId, albumImage.imageId];
