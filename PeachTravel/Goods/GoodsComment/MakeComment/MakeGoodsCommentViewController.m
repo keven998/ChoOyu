@@ -11,6 +11,7 @@
 #import "UserAlbumOverViewTableViewController.h"
 #import "UserAlbumPreviewViewController.h"
 #import "UploadUserPhotoStatus.h"
+#import "UserAlbumManager.h"
 
 @interface MakeGoodsCommentViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate>
 
@@ -70,7 +71,7 @@ static NSString * const reuseIdentifier = @"uploadPhotoCell";
 
 - (void)viewWillAppear:(BOOL)animated
 {
-  1  [super viewWillAppear:animated];
+    [super viewWillAppear:animated];
     [self.containterView.collectionView reloadData];
 }
 
@@ -120,12 +121,12 @@ static NSString * const reuseIdentifier = @"uploadPhotoCell";
         ALAssetRepresentation* representation = [asset defaultRepresentation];
         CGImageRef ref = [representation fullScreenImage];
         UIImage *uploadImage = [UIImage imageWithCGImage:ref];
-//        [UserAlbumManager uploadUserAlbumPhoto:uploadImage withPhotoDesc:_containterView.textView.text progress:^(CGFloat progressValue) {
-//            [self uploadIncrementWithProgress:progressValue itemIndex:i];
-//            
-//        } completion:^(BOOL isSuccess, AlbumImageModel *image) {
-//            [self uploadCompletion:isSuccess  albumImage:image itemIndex:i];
-//        }];
+        [UserAlbumManager uploadUserAlbumPhoto:uploadImage withPhotoDesc:_containterView.textView.text progress:^(CGFloat progressValue) {
+            [self uploadIncrementWithProgress:progressValue itemIndex:i];
+            
+        } completion:^(BOOL isSuccess, AlbumImageModel *image) {
+            [self uploadCompletion:isSuccess  albumImage:image itemIndex:i];
+        }];
     }
 }
 
@@ -155,9 +156,7 @@ static NSString * const reuseIdentifier = @"uploadPhotoCell";
         }
     }
     [SVProgressHUD showHint:@"上传完成"];
-    [_backBtn setTitle:@"完成" forState:UIControlStateNormal];
-    [_backBtn removeTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
-    [_backBtn addTarget:self action:@selector(dismissCtl) forControlEvents:UIControlEventTouchUpInside];
+    [self dismissCtl];
 }
 
 - (void)choseMorePhotos

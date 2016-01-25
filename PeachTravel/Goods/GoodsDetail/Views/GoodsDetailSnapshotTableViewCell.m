@@ -13,7 +13,7 @@
 - (void)awakeFromNib {
     self.backgroundColor = APP_PAGE_COLOR;
     
-    _contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 35)];
+    _contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 35)];
     _contentLabel.backgroundColor = [UIColor whiteColor];
     _contentLabel.textColor = COLOR_TEXT_II;
     _contentLabel.font = [UIFont systemFontOfSize:13.0];

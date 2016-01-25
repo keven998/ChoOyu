@@ -31,7 +31,7 @@
         }
         _serviceZone = tempArray;
         
-#warning test
+//#warning test
         
 //        _qualifications = @[@"认证卖家", @"如实描述", @"24小时内相应"];
 //        _languages = @[@"中文", @"英文", @"当地语"];

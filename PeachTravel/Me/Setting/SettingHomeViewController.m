@@ -16,7 +16,7 @@
 #import "UMSocial.h"
 
 #define cellIdentifier   @"settingCell"
-#define SET_ITEMS       @[@[@"推荐应用给朋友", @"申请成为商家"], @[@"清理缓存", @"应用评分"],@[@"意见反馈", @"关于我们"]]
+#define SET_ITEMS       @[@[@"推荐应用给朋友", @"申请成为商家"], @[@"清理缓存", @"应用评分"],@[@"意见反馈", @"关于我们"], @[@"BetaTest"]]
 
 @interface SettingHomeViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -215,6 +215,31 @@
             aboutMeCtl.urlStr = [NSString stringWithFormat:@"%@?version=%@", APP_ABOUT, versionNum];
             [self.navigationController pushViewController:aboutMeCtl animated:YES];
         }
+        
+    } else {
+        NSString *title;
+        if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"LXPBetaTest"] isEqualToString:@"Dev"]) {
+            title = @"当前接口环境是Dev环境";
+            
+        } else if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"LXPBetaTest"] isEqualToString:@"Beta"]) {
+            title = @"当前接口环境是Beta环境";
+            
+        } else {
+            title = @"当前接口环境是正式环境";
+        }
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:nil delegate:self cancelButtonTitle:@"切换到正式环境" otherButtonTitles:@"切换到Dev环境", @"切换到Beta环境", nil];
+        [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
+            if (buttonIndex == 1) {
+                [[NSUserDefaults standardUserDefaults] setValue:@"Dev" forKey:@"LXPBetaTest"];
+                
+            } else if (buttonIndex == 2) {
+                [[NSUserDefaults standardUserDefaults] setValue:@"Beta" forKey:@"LXPBetaTest"];
+                
+            } else {
+                [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"LXPBetaTest"];
+
+            }
+        }];
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
