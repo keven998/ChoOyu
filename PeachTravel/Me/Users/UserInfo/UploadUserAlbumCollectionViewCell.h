@@ -11,7 +11,7 @@
 
 #import "UCZProgressView.h"
 
-@class UploadUserAlbumStatus;
+@class UploadUserPhotoStatus;
 
 @interface UploadUserAlbumCollectionViewCell : UICollectionViewCell
 
@@ -20,7 +20,7 @@
 
 @property (weak, nonatomic) IBOutlet UCZProgressView *progressView;
 
-@property (nonatomic, strong) UploadUserAlbumStatus *uploadStatus;
+@property (nonatomic, strong) UploadUserPhotoStatus *uploadStatus;
 
 @property (weak, nonatomic) IBOutlet UILabel *failureTextLabel;
 @end

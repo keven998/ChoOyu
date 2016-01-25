@@ -665,9 +665,11 @@
 		D94E256E1BECAE2A00DB487D /* GoodsListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D94E256C1BECAE2A00DB487D /* GoodsListTableViewCell.xib */; };
 		D95184171C1019170032C83F /* ChatGoodsLinkTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D95184151C1019170032C83F /* ChatGoodsLinkTableViewCell.m */; };
 		D95184181C1019170032C83F /* ChatGoodsLinkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D95184161C1019170032C83F /* ChatGoodsLinkTableViewCell.xib */; };
-		D95520721C51FB310086D9E0 /* GoodsCommentDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = D95520711C51FB310086D9E0 /* GoodsCommentDetail.m */; };
 		D95520741C5211430086D9E0 /* footprint_change_default@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D95520731C5211430086D9E0 /* footprint_change_default@3x.png */; };
 		D95520761C52116F0086D9E0 /* footprint_change_default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D95520751C52116F0086D9E0 /* footprint_change_default@2x.png */; };
+		D955207E1C52132E0086D9E0 /* GoodsCommentDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = D955207D1C52132E0086D9E0 /* GoodsCommentDetail.m */; };
+		D95520821C5214D50086D9E0 /* MakeGoodsCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D95520811C5214D50086D9E0 /* MakeGoodsCommentViewController.m */; };
+		D95520851C521E3F0086D9E0 /* UploadUserPhotoStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = D95520841C521E3F0086D9E0 /* UploadUserPhotoStatus.m */; };
 		D955E3E019E7A23800047F2B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D955E3DF19E7A23800047F2B /* Security.framework */; };
 		D955E3E219E7A24500047F2B /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D955E3E119E7A24500047F2B /* libiconv.dylib */; };
 		D955E3E419E7A24E00047F2B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D955E3E319E7A24D00047F2B /* SystemConfiguration.framework */; };
@@ -2868,10 +2870,14 @@
 		D95184141C1019170032C83F /* ChatGoodsLinkTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatGoodsLinkTableViewCell.h; sourceTree = "<group>"; };
 		D95184151C1019170032C83F /* ChatGoodsLinkTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatGoodsLinkTableViewCell.m; sourceTree = "<group>"; };
 		D95184161C1019170032C83F /* ChatGoodsLinkTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatGoodsLinkTableViewCell.xib; sourceTree = "<group>"; };
-		D95520701C51FB310086D9E0 /* GoodsCommentDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsCommentDetail.h; sourceTree = "<group>"; };
-		D95520711C51FB310086D9E0 /* GoodsCommentDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsCommentDetail.m; sourceTree = "<group>"; };
 		D95520731C5211430086D9E0 /* footprint_change_default@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "footprint_change_default@3x.png"; sourceTree = "<group>"; };
 		D95520751C52116F0086D9E0 /* footprint_change_default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "footprint_change_default@2x.png"; sourceTree = "<group>"; };
+		D955207C1C52132E0086D9E0 /* GoodsCommentDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsCommentDetail.h; sourceTree = "<group>"; };
+		D955207D1C52132E0086D9E0 /* GoodsCommentDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsCommentDetail.m; sourceTree = "<group>"; };
+		D95520801C5214D50086D9E0 /* MakeGoodsCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakeGoodsCommentViewController.h; sourceTree = "<group>"; };
+		D95520811C5214D50086D9E0 /* MakeGoodsCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MakeGoodsCommentViewController.m; sourceTree = "<group>"; };
+		D95520831C521E3F0086D9E0 /* UploadUserPhotoStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadUserPhotoStatus.h; sourceTree = "<group>"; };
+		D95520841C521E3F0086D9E0 /* UploadUserPhotoStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadUserPhotoStatus.m; sourceTree = "<group>"; };
 		D955E3DF19E7A23800047F2B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		D955E3E119E7A24500047F2B /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		D955E3E319E7A24D00047F2B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -5346,7 +5352,6 @@
 		C65DB7BD1AD4DD3500F51443 /* TravelSNS */ = {
 			isa = PBXGroup;
 			children = (
-				D9A5939319E3DAB3004A6072 /* Me */,
 				C651F3EC1B394C3400B80690 /* Guider */,
 				C659E9F21AE0FBA200A28095 /* SnsModel */,
 			);
@@ -5631,6 +5636,8 @@
 		D91061C81BA93B5A00C4FBCB /* AddAlbum */ = {
 			isa = PBXGroup;
 			children = (
+				D95520831C521E3F0086D9E0 /* UploadUserPhotoStatus.h */,
+				D95520841C521E3F0086D9E0 /* UploadUserPhotoStatus.m */,
 				D91061D11BA93D6E00C4FBCB /* UserAlbumOverviewCell.h */,
 				D91061D21BA93D6E00C4FBCB /* UserAlbumOverviewCell.m */,
 				D91061D31BA93D6E00C4FBCB /* UserAlbumOverviewCell.xib */,
@@ -5693,7 +5700,7 @@
 		D91CCB481BD1EA35008425E4 /* Goods */ = {
 			isa = PBXGroup;
 			children = (
-				D98AE12D1C50D1D400FDAC2F /* GoodsComment */,
+				D955207B1C52132E0086D9E0 /* GoodsComment */,
 				D98287971C2281E90000D47A /* GoodsClass */,
 				D92109AA1BE1C9F200AEDB65 /* GoodsDetail */,
 				D9D197311BDA016C0037C3B3 /* GoodsRecommend */,
@@ -6204,6 +6211,25 @@
 			path = slices;
 			sourceTree = "<group>";
 		};
+		D955207B1C52132E0086D9E0 /* GoodsComment */ = {
+			isa = PBXGroup;
+			children = (
+				D955207F1C52145C0086D9E0 /* MakeComment */,
+				D955207C1C52132E0086D9E0 /* GoodsCommentDetail.h */,
+				D955207D1C52132E0086D9E0 /* GoodsCommentDetail.m */,
+			);
+			path = GoodsComment;
+			sourceTree = "<group>";
+		};
+		D955207F1C52145C0086D9E0 /* MakeComment */ = {
+			isa = PBXGroup;
+			children = (
+				D95520801C5214D50086D9E0 /* MakeGoodsCommentViewController.h */,
+				D95520811C5214D50086D9E0 /* MakeGoodsCommentViewController.m */,
+			);
+			path = MakeComment;
+			sourceTree = "<group>";
+		};
 		D955E3F719E7A84A00047F2B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -6643,16 +6669,6 @@
 			name = ScheduleDayEditViewController;
 			sourceTree = "<group>";
 		};
-		D98AE12D1C50D1D400FDAC2F /* GoodsComment */ = {
-			isa = PBXGroup;
-			children = (
-				D95520701C51FB310086D9E0 /* GoodsCommentDetail.h */,
-				D95520711C51FB310086D9E0 /* GoodsCommentDetail.m */,
-			);
-			name = GoodsComment;
-			path = ../Evaluate;
-			sourceTree = "<group>";
-		};
 		D98CEE031B4D281C0019B902 /* FrendManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -7042,6 +7058,7 @@
 				D915296A1BB24437002D1F51 /* PoiRecommend */,
 				D9A5939119E3DA8E004A6072 /* TravelPlan */,
 				D9A5939219E3DA9D004A6072 /* ToolBox */,
+				D9A5939319E3DAB3004A6072 /* Me */,
 				C65DB7BD1AD4DD3500F51443 /* TravelSNS */,
 				D955E3F819E7A86800047F2B /* Resources */,
 				D9A802F21A80E566005AD701 /* Supporting Files */,
@@ -7135,7 +7152,6 @@
 				D964200E19EBC9AD00CC8057 /* Setting */,
 			);
 			name = Me;
-			path = ..;
 			sourceTree = "<group>";
 		};
 		D9A800001A80D52F005AD701 /* RestaurantsList */ = {
@@ -11235,6 +11251,7 @@
 				D993C24C1B12DF0C0088D568 /* FMDatabaseQueue.m in Sources */,
 				E608A0F11B8D8560003BA318 /* GuiderDistributeTools.m in Sources */,
 				D92CCF2E1C157C120018D54D /* OrderTipsMessage.swift in Sources */,
+				D95520821C5214D50086D9E0 /* MakeGoodsCommentViewController.m in Sources */,
 				D9A802011A80E036005AD701 /* AFgzipRequestSerializer.m in Sources */,
 				D993C24F1B12DF0C0088D568 /* IMDiscussionGroupManager.swift in Sources */,
 				D96EAA141BB4E55E00360ED8 /* CustomMKAnnotationView.m in Sources */,
@@ -11409,7 +11426,7 @@
 				D9A802E61A80E3D3005AD701 /* TZViewController.m in Sources */,
 				D903A6271BF99EED00F814F7 /* TravelerInfoViewController.m in Sources */,
 				D971E2F01B957A9E007E5AFD /* FormatCheck.m in Sources */,
-				D95520721C51FB310086D9E0 /* GoodsCommentDetail.m in Sources */,
+				D955207E1C52132E0086D9E0 /* GoodsCommentDetail.m in Sources */,
 				D993C2681B12DF0C0088D568 /* LocationMessage.swift in Sources */,
 				01F03DAD1BB400C7005DD792 /* MapMarkMenuVC.m in Sources */,
 				01C1ECC01BB53A690082217A /* SQLiteManager.m in Sources */,
@@ -11803,6 +11820,7 @@
 				D9F46DBC1AC52D8600972AE8 /* SVWebViewControllerActivityChrome.m in Sources */,
 				E6E725251B5603750007273A /* NSObject+MJKeyValue.m in Sources */,
 				D993CB5A1AB6D6400075314E /* RestaurantPoi.m in Sources */,
+				D95520851C521E3F0086D9E0 /* UploadUserPhotoStatus.m in Sources */,
 				D9A801601A80DD23005AD701 /* RealtimeSearchUtil.m in Sources */,
 				C679D3101ACD64E3007680D9 /* UIImage+REFrostedViewController.m in Sources */,
 				D9A8014E1A80DD23005AD701 /* MessageReadManager.m in Sources */,

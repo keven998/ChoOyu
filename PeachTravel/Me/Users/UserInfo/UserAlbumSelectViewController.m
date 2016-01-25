@@ -9,10 +9,8 @@
 #import "UserAlbumSelectViewController.h"
 #import "UserAlbumSelectCollectionViewCell.h"
 #import "UserAlbumPreviewViewController.h"
-#import "UploadUserAlbumViewController.h"
 #import "UserAlbumOverViewTableViewController.h"
 #import "UserAlbumViewController.h"
-#import "UploadUserAlbumViewController.h"
 
 @interface UserAlbumSelectViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 

@@ -16,6 +16,17 @@
 
 @implementation UploadUserPhotoOperationView
 
++ (CGFloat)heigthWithPhotoCount:(NSUInteger)count
+{
+    CGFloat retHeight = 0.0;
+    retHeight += 100;
+    
+    NSUInteger line = ceilf(count/4.0);
+    CGFloat itemWidth = (kWindowWidth-20 - 3*8)/4;
+    retHeight += (20 + (line-1)*8 + itemWidth * line);
+    return retHeight;
+}
+
 - (void)awakeFromNib
 {
     self.backgroundColor = [UIColor whiteColor];
@@ -46,18 +57,6 @@
 {
     return [[[NSBundle mainBundle] loadNibNamed:@"UploadUserPhotoOperationView" owner:nil options:nil] lastObject];
 }
-
-+ (CGFloat)heigthWithPhotoCount:(NSUInteger)count
-{
-    CGFloat retHeight = 0.0;
-    retHeight += 100;
-    
-    NSUInteger line = ceilf(count/4.0);
-    CGFloat itemWidth = (kWindowWidth-20 - 3*8)/4;
-    retHeight += (20 + (line-1)*8 + itemWidth * line);
-    return retHeight;
-}
-
 
 #pragma mark - UITextViewDelegate
 

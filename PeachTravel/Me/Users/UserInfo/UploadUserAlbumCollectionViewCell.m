@@ -8,6 +8,7 @@
 
 #import "UploadUserAlbumCollectionViewCell.h"
 #import "UploadUserAlbumViewController.h"
+#import "UploadUserPhotoStatus.h"
 
 @implementation UploadUserAlbumCollectionViewCell
 
@@ -31,7 +32,7 @@
     _imageView.image = _image;
 }
 
-- (void)setUploadStatus:(UploadUserAlbumStatus *)uploadStatus
+- (void)setUploadStatus:(UploadUserPhotoStatus *)uploadStatus
 {
     _uploadStatus = uploadStatus;
     if (_uploadStatus.isBegin) {

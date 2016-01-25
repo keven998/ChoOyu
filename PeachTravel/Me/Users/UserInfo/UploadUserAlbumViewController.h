@@ -15,13 +15,3 @@
 @end
 
 
-
-@interface UploadUserAlbumStatus : NSObject
-
-@property (nonatomic) BOOL isBegin;
-@property (nonatomic) BOOL isFinish;
-@property (nonatomic) BOOL isFailure;
-@property (nonatomic) BOOL isSuccess;
-@property (nonatomic) CGFloat uploadProgressValue;
-
-@end

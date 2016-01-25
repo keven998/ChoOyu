@@ -1,36 +1,39 @@
 //
-//  UploadUserAlbumViewController.m
+//  MakeGoodsCommentViewController.m
 //  PeachTravel
 //
-//  Created by liangpengshuai on 9/18/15.
-//  Copyright © 2015 com.aizou.www. All rights reserved.
+//  Created by liangpengshuai on 1/22/16.
+//  Copyright © 2016 com.aizou.www. All rights reserved.
 //
-
-#import "UploadUserAlbumViewController.h"
+#import "MakeGoodsCommentViewController.h"
 #import "UploadUserPhotoOperationView.h"
 #import "UploadUserAlbumCollectionViewCell.h"
 #import "UserAlbumOverViewTableViewController.h"
-#import "UserAlbumManager.h"
 #import "UserAlbumPreviewViewController.h"
 #import "UploadUserPhotoStatus.h"
 
-@interface UploadUserAlbumViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate>
+@interface MakeGoodsCommentViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate>
 
-@property (nonatomic, strong) UploadUserPhotoOperationView *containterView;
 @property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, strong) UploadUserPhotoOperationView *containterView;
 @property (nonatomic, strong) UIButton *backBtn;
 
 @property (nonatomic, strong) NSMutableArray *userAlbumUploadStatusList;
 
 @end
 
-@implementation UploadUserAlbumViewController
+@implementation MakeGoodsCommentViewController
 
 static NSString * const reuseIdentifier = @"uploadPhotoCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = APP_PAGE_COLOR;
+    self.view.backgroundColor = [UIColor whiteColor];
+    self.navigationItem.title = @"发表评价";
+    
+    _scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
+    _scrollView.delegate = self;
+    
     _scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
     _scrollView.delegate = self;
     _containterView = [UploadUserPhotoOperationView uploadUserPhotoView];
@@ -39,7 +42,7 @@ static NSString * const reuseIdentifier = @"uploadPhotoCell";
     CGFloat scrollViewHeight = height > _scrollView.bounds.size.height ? height : _scrollView.bounds.size.height+1;
     
     _scrollView.contentSize = CGSizeMake(_scrollView.bounds.size.width, scrollViewHeight+1);
-
+    
     _containterView.frame = CGRectMake(0, 0, self.view.bounds.size.width, height);
     _containterView.collectionView.dataSource = self;
     _containterView.collectionView.delegate = self;
@@ -50,6 +53,7 @@ static NSString * const reuseIdentifier = @"uploadPhotoCell";
     
     _backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [_backBtn setTitle:@"取消" forState:UIControlStateNormal];
+    _backBtn.titleLabel.font = [UIFont systemFontOfSize:16.0];
     [_backBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_backBtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_backBtn];
@@ -57,6 +61,7 @@ static NSString * const reuseIdentifier = @"uploadPhotoCell";
     UIButton *uploadBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [uploadBtn setTitle:@"上传" forState:UIControlStateNormal];
     [uploadBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    uploadBtn.titleLabel.font = [UIFont systemFontOfSize:16.0];
     [uploadBtn addTarget:self action:@selector(uploadUserAlbum) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:uploadBtn];
     
@@ -65,17 +70,12 @@ static NSString * const reuseIdentifier = @"uploadPhotoCell";
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
+  1  [super viewWillAppear:animated];
     [self.containterView.collectionView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-}
-
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)goBack
@@ -95,6 +95,7 @@ static NSString * const reuseIdentifier = @"uploadPhotoCell";
     [self.navigationController popViewControllerAnimated:YES];
     
 }
+
 
 - (NSMutableArray *)userAlbumUploadStatusList
 {
@@ -119,12 +120,12 @@ static NSString * const reuseIdentifier = @"uploadPhotoCell";
         ALAssetRepresentation* representation = [asset defaultRepresentation];
         CGImageRef ref = [representation fullScreenImage];
         UIImage *uploadImage = [UIImage imageWithCGImage:ref];
-        [UserAlbumManager uploadUserAlbumPhoto:uploadImage withPhotoDesc:_containterView.textView.text progress:^(CGFloat progressValue) {
-            [self uploadIncrementWithProgress:progressValue itemIndex:i];
-            
-        } completion:^(BOOL isSuccess, AlbumImageModel *image) {
-            [self uploadCompletion:isSuccess  albumImage:image itemIndex:i];
-        }];
+//        [UserAlbumManager uploadUserAlbumPhoto:uploadImage withPhotoDesc:_containterView.textView.text progress:^(CGFloat progressValue) {
+//            [self uploadIncrementWithProgress:progressValue itemIndex:i];
+//            
+//        } completion:^(BOOL isSuccess, AlbumImageModel *image) {
+//            [self uploadCompletion:isSuccess  albumImage:image itemIndex:i];
+//        }];
     }
 }
 
