@@ -81,7 +81,7 @@ static NSString * const reuseIdentifier = @"uploadPhotoCell";
 
 - (void)goBack
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"确定放弃编辑？" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"亲,评价还未完成,您确定要离开在？" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     [alert showAlertViewWithBlock:^(NSInteger buttonIndex) {
         if (buttonIndex == 1) {
             [self dismissCtl];
@@ -96,7 +96,6 @@ static NSString * const reuseIdentifier = @"uploadPhotoCell";
     [self.navigationController popViewControllerAnimated:YES];
     
 }
-
 
 - (NSMutableArray *)userAlbumUploadStatusList
 {
