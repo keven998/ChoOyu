@@ -23,7 +23,6 @@
 @property (strong, nonatomic) UIButton *losePassworkBtn;
 @property (strong, nonatomic) UIButton *weiChatBtn;
 @property (strong, nonatomic) UIView *backView;
-@property (strong, nonatomic) UILabel *wechatLabel;
 @property (strong, nonatomic) UIButton *registerBtn;
 @property (strong, nonatomic) UIImageView *iconImageView;
 
@@ -83,9 +82,9 @@
     [super viewWillAppear:animated];
     
     if (![WXApi isWXAppInstalled]) {
-        _wechatLabel.hidden = YES;
+        _weiChatBtn.hidden = YES;
     } else {
-        _wechatLabel.hidden = NO;
+        _weiChatBtn.hidden = NO;
     }
     
     [self.navigationController setNavigationBarHidden:YES animated:YES];
