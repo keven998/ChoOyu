@@ -20,7 +20,7 @@
         _category = [json objectForKey:@"category"];
         _address = [json objectForKey:@"address"];
         _timecost = [json objectForKey:@"timeCost"];
-        _rating = [[json objectForKey:@"rating"] floatValue]*100;
+        _rating = [[json objectForKey:@"rating"] floatValue];
         _goodsDescSummary = [[json objectForKey:@"desc"] objectForKey:@"summary"];
         _goodsDescBody = [[json objectForKey:@"desc"] objectForKey:@"body"];
         

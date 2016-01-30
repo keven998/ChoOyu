@@ -9,13 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "TZTagsCollectionView.h"
 #import "GoodsDetailModel.h"
+#import "EDStarRating.h"
 
 @interface GoodsListTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIButton *titleBtn;
 @property (weak, nonatomic) IBOutlet UIImageView *headerImageView;
-@property (weak, nonatomic) IBOutlet UIButton *propertyBtn;
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 @property (weak, nonatomic) IBOutlet UIButton *storeNameBtn;
+@property (weak, nonatomic) IBOutlet EDStarRating *ratingView;
+@property (weak, nonatomic) IBOutlet UILabel *saleCountLabel;
 
 @property (nonatomic, strong) GoodsDetailModel *goodsDetail;
 

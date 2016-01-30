@@ -14,6 +14,13 @@
     _headerImageView.clipsToBounds = YES;
     _titleBtn.titleLabel.numberOfLines = 2;
     _priceLabel.adjustsFontSizeToFitWidth = YES;
+    _ratingView.starImage = [UIImage imageNamed:@"icon_rating_gray.png"];
+    _ratingView.starHighlightedImage = [UIImage imageNamed:@"icon_rating_yellow.png"];
+    _ratingView.maxRating = 5.0;
+    _ratingView.editable = NO;
+    _ratingView.horizontalMargin = 1;
+    _ratingView.displayMode = EDStarRatingDisplayAccurate;
+    _ratingView.userInteractionEnabled = NO;
 }
 
 - (void)setGoodsDetail:(GoodsDetailModel *)goodsDetail
@@ -37,9 +44,11 @@
                              NSForegroundColorAttributeName: COLOR_PRICE_RED,
                              } range:NSMakeRange(oldPrice.length, nowPrice.length)];
     _priceLabel.attributedText = attrStr;
-    NSString *propertyStrig = [NSString stringWithFormat:@"%d%%满意  已售: %ld", (int)(_goodsDetail.rating), _goodsDetail.saleCount];
-    [_propertyBtn setTitle:propertyStrig forState:UIControlStateNormal];
+    _saleCountLabel.text = [NSString stringWithFormat:@"%ld已售", _goodsDetail.saleCount];
+    _saleCountLabel.adjustsFontSizeToFitWidth = YES;
     [_storeNameBtn setTitle:_goodsDetail.store.storeName forState:UIControlStateNormal];
+    
+    [_ratingView setRating:_goodsDetail.rating*5];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

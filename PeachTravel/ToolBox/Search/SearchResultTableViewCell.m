@@ -30,10 +30,6 @@
     divider.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     [self.contentView addSubview:divider];
     
-    /** @property (nonatomic,strong) EDImage *starHighlightedImage;
-     @property (nonatomic,strong) EDImage *starImage;
-     @property (nonatomic) NSInteger maxRating;
-     @property (nonatomic) float rating; */
     _ratingView.starImage = [UIImage imageNamed:@"poi_bottom_star_default"];
     
     // 设置评分的图片
