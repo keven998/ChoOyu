@@ -8,12 +8,14 @@
 
 #import "GoodsDetailHeaderView.h"
 #import "AutoSlideScrollView.h"
+#import "EDStarRating.h"
 
 @interface GoodsDetailHeaderView ()
 
 @property (strong, nonatomic) AutoSlideScrollView *galleryView;
 @property (strong, nonatomic) UILabel *titleLabel;
-@property (strong, nonatomic) UIButton *ratingBtn;
+@property (strong, nonatomic) UILabel *saleCountLabel;
+@property (strong, nonatomic) EDStarRating *ratingView;
 @property (strong, nonatomic) UILabel *priceLabel;
 @property (strong, nonatomic) UILabel *pageIndexLabel;
 
@@ -76,13 +78,20 @@
     _titleLabel.font = [UIFont systemFontOfSize:14.0];
     [self addSubview:_titleLabel];
     
-    _ratingBtn = [[UIButton alloc] init];
-    _ratingBtn.userInteractionEnabled = NO;
-    [_ratingBtn setImage:[UIImage imageNamed:@"icon_goodsDetail_rating"] forState:UIControlStateNormal];
-    [_ratingBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
-    _ratingBtn.titleLabel.font = [UIFont systemFontOfSize:13.0];
-    [_ratingBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-    [self addSubview:_ratingBtn];
+    _saleCountLabel = [[UILabel alloc] init];
+    _saleCountLabel.textColor = COLOR_TEXT_II;
+    _saleCountLabel.font = [UIFont systemFontOfSize:13.0];
+    [self addSubview:_saleCountLabel];
+    
+    _ratingView = [[EDStarRating alloc] init];
+    _ratingView.starImage = [UIImage imageNamed:@"icon_rating_gray.png"];
+    _ratingView.starHighlightedImage = [UIImage imageNamed:@"icon_rating_yellow.png"];
+    _ratingView.maxRating = 5.0;
+    _ratingView.editable = NO;
+    _ratingView.horizontalMargin = 1;
+    _ratingView.displayMode = EDStarRatingDisplayAccurate;
+    _ratingView.userInteractionEnabled = NO;
+    [self addSubview:_ratingView];
     
     _priceLabel = [[UILabel alloc] init];
     _priceLabel.textAlignment = NSTextAlignmentRight;
@@ -120,13 +129,14 @@
     _titleLabel.frame = CGRectMake(12, CGRectGetMaxY(_galleryView.frame)+10, self.frame.size.width-24, rect.size.height+2);
     _titleLabel.attributedText = attrstr;
     
-    NSString *ratingTitle = [[NSString alloc] initWithFormat:@"%d%%满意  %ld已售", (int)_goodsDetail.rating, _goodsDetail.saleCount];
-    _ratingBtn.frame = CGRectMake(12, CGRectGetMaxY(_titleLabel.frame)+10, 150, 20);
-    [_ratingBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
-    [_ratingBtn setTitle:ratingTitle forState:UIControlStateNormal];
+    _ratingView.frame = CGRectMake(12, CGRectGetMaxY(_titleLabel.frame)+9, 60, 20);
+    [_ratingView setRating:_goodsDetail.rating*5];
+    
+    _saleCountLabel.text = [[NSString alloc] initWithFormat:@"%ld已售", _goodsDetail.saleCount];
+    _saleCountLabel.frame = CGRectMake(CGRectGetMaxX(_ratingView.frame)+5, CGRectGetMaxY(_titleLabel.frame)+10, 60, 20);
     
     NSString *price = [NSString stringWithFormat:@"￥%@ ￥%@起", _goodsDetail.formatPrimePrice, _goodsDetail.formatCurrentPrice];
-    _priceLabel.frame =  CGRectMake(CGRectGetMaxX(_ratingBtn.frame)+10, CGRectGetMaxY(_titleLabel.frame)+10, self.bounds.size.width-12-10-CGRectGetMaxX(_ratingBtn.frame), 20);
+    _priceLabel.frame =  CGRectMake(CGRectGetMaxX(_saleCountLabel.frame)+10, CGRectGetMaxY(_titleLabel.frame)+10, self.bounds.size.width-10-12-CGRectGetMaxX(_saleCountLabel.frame), 20);
     
     NSMutableAttributedString *priceAttr = [[NSMutableAttributedString alloc] initWithString:price];
     [priceAttr addAttributes:@{NSForegroundColorAttributeName: COLOR_TEXT_III,
