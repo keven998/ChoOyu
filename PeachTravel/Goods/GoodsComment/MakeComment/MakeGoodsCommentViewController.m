@@ -6,18 +6,20 @@
 //  Copyright © 2016 com.aizou.www. All rights reserved.
 //
 #import "MakeGoodsCommentViewController.h"
-#import "UploadUserPhotoOperationView.h"
+#import "UploadPhotoOperationView.h"
 #import "UploadUserAlbumCollectionViewCell.h"
 #import "UserAlbumOverViewTableViewController.h"
 #import "UserAlbumPreviewViewController.h"
 #import "UploadUserPhotoStatus.h"
 #import "UserAlbumManager.h"
+#import "EDStarRating.h"
 
-@interface MakeGoodsCommentViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate>
+@interface MakeGoodsCommentViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate, EDStarRatingProtocol>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
-@property (nonatomic, strong) UploadUserPhotoOperationView *containterView;
+@property (nonatomic, strong) UploadPhotoOperationView *containterView;
 @property (nonatomic, strong) UIButton *backBtn;
+@property (nonatomic, strong) UIButton *anonymousBtn;
 
 @property (nonatomic, strong) NSMutableArray *userAlbumUploadStatusList;
 
@@ -34,23 +36,42 @@ static NSString * const reuseIdentifier = @"uploadPhotoCell";
     
     _scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
     _scrollView.delegate = self;
+    _scrollView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:_scrollView];
     
-    _scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
-    _scrollView.delegate = self;
-    _containterView = [UploadUserPhotoOperationView uploadUserPhotoView];
-    CGFloat height = [UploadUserPhotoOperationView heigthWithPhotoCount:_selectedPhotos.count + 1];
-    _containterView.frame = CGRectMake(0, 0, self.view.bounds.size.width, height);
-    CGFloat scrollViewHeight = height > _scrollView.bounds.size.height ? height : _scrollView.bounds.size.height+1;
+    _containterView = [UploadPhotoOperationView uploadUserPhotoView];
     
-    _scrollView.contentSize = CGSizeMake(_scrollView.bounds.size.width, scrollViewHeight+1);
-    
-    _containterView.frame = CGRectMake(0, 0, self.view.bounds.size.width, height);
+    _containterView.frame = CGRectMake(0, 0, self.view.bounds.size.width, _containterView.bounds.size.height);
     _containterView.collectionView.dataSource = self;
     _containterView.collectionView.delegate = self;
     [_containterView.collectionView registerNib:[UINib nibWithNibName:@"UploadUserAlbumCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:reuseIdentifier];
     [_scrollView addSubview:_containterView];
-    [self.view addSubview:_scrollView];
     
+    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_containterView.frame), kWindowWidth, 15)];
+    spaceView.backgroundColor = APP_PAGE_COLOR;
+    [_scrollView addSubview:spaceView];
+    
+    UILabel *ratingLabel = [[UILabel alloc] initWithFrame:CGRectMake(13, CGRectGetMaxY(spaceView.frame)+15, kWindowWidth-20, 20)];
+    ratingLabel.text = @"评个分吧~";
+    ratingLabel.textColor = COLOR_TEXT_II;
+    ratingLabel.font = [UIFont systemFontOfSize:15.0];
+    [_scrollView addSubview:ratingLabel];
+    
+    EDStarRating *ratingView = [[EDStarRating alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(ratingLabel.frame)+5, 100, 30)];
+    ratingView.starImage = [UIImage imageNamed:@"icon_rating_gray.png"];
+    ratingView.starHighlightedImage = [UIImage imageNamed:@"icon_rating_yellow.png"];
+    ratingView.maxRating = 5.0;
+    ratingView.editable = YES;
+    ratingView.horizontalMargin = 5;
+    ratingView.displayMode = EDStarRatingDisplayAccurate;
+    ratingView.delegate = self;
+    [_scrollView addSubview:ratingView];
+    
+    UIView *buttomView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(ratingView.frame)+10, kWindowWidth, 0.5)];
+    buttomView.backgroundColor = COLOR_LINE;
+    [_scrollView addSubview:buttomView];
+    
+    [self setupToolBar];
     
     _backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [_backBtn setTitle:@"取消" forState:UIControlStateNormal];
@@ -58,13 +79,6 @@ static NSString * const reuseIdentifier = @"uploadPhotoCell";
     [_backBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_backBtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_backBtn];
-    
-    UIButton *uploadBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    [uploadBtn setTitle:@"上传" forState:UIControlStateNormal];
-    [uploadBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    uploadBtn.titleLabel.font = [UIFont systemFontOfSize:16.0];
-    [uploadBtn addTarget:self action:@selector(uploadUserAlbum) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:uploadBtn];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(photoHasSelected:) name:uploadUserAlbumNoti object:nil];
 }
@@ -77,6 +91,39 @@ static NSString * const reuseIdentifier = @"uploadPhotoCell";
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)setupToolBar
+{
+    UIView *toolBarView = [[UIView alloc] initWithFrame:CGRectMake(0, kWindowHeight-49, kWindowWidth, 49)];
+    [self.view addSubview:toolBarView];
+    _anonymousBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, 0, 100, 49)];
+    [_anonymousBtn setTitle:@"匿名评价" forState:UIControlStateNormal];
+    [_anonymousBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
+    _anonymousBtn.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    _anonymousBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    _anonymousBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
+    [_anonymousBtn addTarget:self action:@selector(anonymousAction:) forControlEvents:UIControlEventTouchUpInside];
+    [_anonymousBtn setImage:[UIImage imageNamed:@"icon_makeOrder_checkBox_normal"] forState:UIControlStateNormal];
+    [_anonymousBtn setImage:[UIImage imageNamed:@"icon_makeOrder_checkBox_selected"] forState:UIControlStateSelected];
+    [toolBarView addSubview:_anonymousBtn];
+    
+    UIButton *submitBtn = [[UIButton alloc] initWithFrame:CGRectMake(kWindowWidth-100, 0, 100, 49)];
+    [submitBtn setBackgroundImage:[ConvertMethods createImageWithColor:UIColorFromRGB(0xFB4F28)] forState:UIControlStateNormal];
+    [submitBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [submitBtn setTitle:@"发表评价" forState:UIControlStateNormal];
+    submitBtn.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    [submitBtn addTarget:self action:@selector(uploadUserAlbum) forControlEvents:UIControlEventTouchUpInside];
+    [toolBarView addSubview:submitBtn];
+    
+    UIView *buttomView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 0.5)];
+    buttomView.backgroundColor = COLOR_LINE;
+    [toolBarView addSubview:buttomView];
 }
 
 - (void)goBack
@@ -129,6 +176,11 @@ static NSString * const reuseIdentifier = @"uploadPhotoCell";
     }
 }
 
+- (void)anonymousAction:(UIButton *)sender
+{
+    sender.selected = !sender.selected;
+}
+
 - (void)uploadIncrementWithProgress:(float)progress itemIndex:(NSInteger)index
 {
     UploadUserAlbumCollectionViewCell *cell = (UploadUserAlbumCollectionViewCell *)[_containterView.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0]];
@@ -170,13 +222,19 @@ static NSString * const reuseIdentifier = @"uploadPhotoCell";
 {
     NSMutableArray *selectedPhotos = [noti.userInfo objectForKey:@"images"];
     self.selectedPhotos = [[NSMutableArray alloc] initWithArray:selectedPhotos];
-    CGFloat height = [UploadUserPhotoOperationView heigthWithPhotoCount:_selectedPhotos.count + 1];
-    _containterView.frame = CGRectMake(0, 0, self.view.bounds.size.width, height);
-    CGFloat scrollViewHeight = height > _scrollView.bounds.size.height ? height : _scrollView.bounds.size.height+1;
-    [_scrollView setContentSize:CGSizeMake(_scrollView.bounds.size.width, scrollViewHeight)];
+//    CGFloat height = [UploadPhotoOperationView heigthWithPhotoCount:_selectedPhotos.count + 1];
+//    _containterView.frame = CGRectMake(0, 0, self.view.bounds.size.width, height);
+//    CGFloat scrollViewHeight = height > _scrollView.bounds.size.height ? height : _scrollView.bounds.size.height+1;
+//    [_scrollView setContentSize:CGSizeMake(_scrollView.bounds.size.width, scrollViewHeight)];
     [_containterView.collectionView reloadData];
 }
 
+#pragma mark - EDStarRatingProtocol
+
+- (void)starsSelectionChanged:(EDStarRating*)control rating:(float)rating;
+{
+    
+}
 
 #pragma mark <UICollectionViewDataSource>
 

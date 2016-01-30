@@ -576,6 +576,8 @@
 		D92CCF361C15A21A0018D54D /* ChatOrderTipsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D92CCF341C15A21A0018D54D /* ChatOrderTipsTableViewCell.xib */; };
 		D92CCF3B1C15B2310018D54D /* icon_show_orderdetail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D92CCF391C15B2310018D54D /* icon_show_orderdetail@2x.png */; };
 		D92CCF3C1C15B2310018D54D /* icon_show_orderdetail@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D92CCF3A1C15B2310018D54D /* icon_show_orderdetail@3x.png */; };
+		D93386CF1C5C8C0400328DAF /* UploadPhotoOperationView.m in Sources */ = {isa = PBXBuildFile; fileRef = D93386CD1C5C8C0400328DAF /* UploadPhotoOperationView.m */; };
+		D93386D01C5C8C0400328DAF /* UploadPhotoOperationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D93386CE1C5C8C0400328DAF /* UploadPhotoOperationView.xib */; };
 		D937AE1E1BB95F0C0070F879 /* icon_dot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D937AE1C1BB95F0C0070F879 /* icon_dot@2x.png */; };
 		D937AE1F1BB95F0C0070F879 /* icon_dot@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D937AE1D1BB95F0C0070F879 /* icon_dot@3x.png */; };
 		D93B97F11B4B8C420054EF50 /* ChatGroupSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D93B97EF1B4B8C420054EF50 /* ChatGroupSettingCell.m */; };
@@ -2762,6 +2764,9 @@
 		D92CCF341C15A21A0018D54D /* ChatOrderTipsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatOrderTipsTableViewCell.xib; sourceTree = "<group>"; };
 		D92CCF391C15B2310018D54D /* icon_show_orderdetail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_show_orderdetail@2x.png"; sourceTree = "<group>"; };
 		D92CCF3A1C15B2310018D54D /* icon_show_orderdetail@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_show_orderdetail@3x.png"; sourceTree = "<group>"; };
+		D93386CC1C5C8C0400328DAF /* UploadPhotoOperationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadPhotoOperationView.h; sourceTree = "<group>"; };
+		D93386CD1C5C8C0400328DAF /* UploadPhotoOperationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadPhotoOperationView.m; sourceTree = "<group>"; };
+		D93386CE1C5C8C0400328DAF /* UploadPhotoOperationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UploadPhotoOperationView.xib; sourceTree = "<group>"; };
 		D937AE1C1BB95F0C0070F879 /* icon_dot@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_dot@2x.png"; sourceTree = "<group>"; };
 		D937AE1D1BB95F0C0070F879 /* icon_dot@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_dot@3x.png"; sourceTree = "<group>"; };
 		D93B97EE1B4B8C420054EF50 /* ChatGroupSettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatGroupSettingCell.h; sourceTree = "<group>"; };
@@ -6092,6 +6097,16 @@
 			name = ChatOrderTipsTableViewCell;
 			sourceTree = "<group>";
 		};
+		D93386CB1C5C8C0400328DAF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D93386CC1C5C8C0400328DAF /* UploadPhotoOperationView.h */,
+				D93386CD1C5C8C0400328DAF /* UploadPhotoOperationView.m */,
+				D93386CE1C5C8C0400328DAF /* UploadPhotoOperationView.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		D93D38891C315C63005C0450 /* CitySearchViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -6224,6 +6239,7 @@
 		D955207F1C52145C0086D9E0 /* MakeComment */ = {
 			isa = PBXGroup;
 			children = (
+				D93386CB1C5C8C0400328DAF /* Views */,
 				D95520801C5214D50086D9E0 /* MakeGoodsCommentViewController.h */,
 				D95520811C5214D50086D9E0 /* MakeGoodsCommentViewController.m */,
 			);
@@ -10756,6 +10772,7 @@
 				D9E5F8C21C4F2A1C00C387EC /* GoodsDetailViewController.xib in Resources */,
 				01C1EC8C1BB4E4720082217A /* ye@3x.png in Resources */,
 				D9221A291BFC79840015A685 /* SelectPayPlatformTableViewCell.xib in Resources */,
+				D93386D01C5C8C0400328DAF /* UploadPhotoOperationView.xib in Resources */,
 				0115C9AB1BB103FC00631928 /* citydetail_food_hilighted@2x.png in Resources */,
 				E6F18B1F1B845F4900232EEB /* master_icon_constellation7@2x.png in Resources */,
 				E6F18AF51B845F4900232EEB /* black_mask@3x.png in Resources */,
@@ -11722,6 +11739,7 @@
 				D92CA1161AD8BDF900F244FF /* SWUtilityButtonView.m in Sources */,
 				D93FEEC11BEB413D0065D6ED /* CountryRecommendTableViewCell.m in Sources */,
 				C679D30F1ACD64E3007680D9 /* REFrostedViewController.m in Sources */,
+				D93386CF1C5C8C0400328DAF /* UploadPhotoOperationView.m in Sources */,
 				D9A8FFB31A80D1C3005AD701 /* RecommendCollectionViewCell.m in Sources */,
 				D993C2501B12DF0C0088D568 /* IMGroupManager.swift in Sources */,
 				D993C2331B12DF0C0088D568 /* ChatManagerAudio.swift in Sources */,
