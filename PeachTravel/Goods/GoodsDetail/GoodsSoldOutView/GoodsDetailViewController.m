@@ -34,6 +34,7 @@
 #import "TaoziChatMessageBaseViewController.h"
 #import "GoodsDetailSoldOutView.h"
 #import "SuperWebViewController.h"
+#import "GoodsCommentsListViewController.h"
 
 @interface GoodsDetailViewController () <UITableViewDataSource, UITableViewDelegate, ActivityDelegate, CreateConversationDelegate, TaoziMessageSendDelegate>
 
@@ -294,6 +295,8 @@
 
 - (void)showMoreContrent:(UIButton *)sender
 {
+    [self showMoreCommentAction];
+    return;
     SuperWebViewController *ctl = [[SuperWebViewController alloc] init];
     if (sender.tag == 2) {
         ctl.urlStr = _goodsDetail.allDescUrl;
@@ -312,6 +315,13 @@
         ctl.titleStr = @"交通提示";
     }
 
+    [self.navigationController pushViewController:ctl animated:YES];
+}
+
+- (void)showMoreCommentAction
+{
+    GoodsCommentsListViewController *ctl = [[GoodsCommentsListViewController alloc] init];
+    ctl.goodsId = _goodsId;
     [self.navigationController pushViewController:ctl animated:YES];
 }
 
@@ -536,7 +546,8 @@
     }
 }
 
-- (void)shareToTalk {
+- (void)shareToTalk
+{
     if (![[AccountManager shareAccountManager] isLogin]) {
         LoginViewController *loginViewController = [[LoginViewController alloc] initWithCompletion:^(BOOL completed) {
             _chatRecordListCtl = [[ChatRecoredListTableViewController alloc] init];

@@ -13,6 +13,7 @@
 #import "UploadUserPhotoStatus.h"
 #import "UserAlbumManager.h"
 #import "EDStarRating.h"
+#import "UserCommentManager.h"
 
 @interface MakeGoodsCommentViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate, EDStarRatingProtocol>
 
@@ -20,6 +21,7 @@
 @property (nonatomic, strong) UploadPhotoOperationView *containterView;
 @property (nonatomic, strong) UIButton *backBtn;
 @property (nonatomic, strong) UIButton *anonymousBtn;
+@property (nonatomic, strong) EDStarRating *ratingView;
 
 @property (nonatomic, strong) NSMutableArray *userAlbumUploadStatusList;
 
@@ -58,17 +60,18 @@ static NSString * const reuseIdentifier = @"uploadPhotoCell";
     ratingLabel.font = [UIFont systemFontOfSize:15.0];
     [_scrollView addSubview:ratingLabel];
     
-    EDStarRating *ratingView = [[EDStarRating alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(ratingLabel.frame)+5, 100, 30)];
-    ratingView.starImage = [UIImage imageNamed:@"icon_rating_gray.png"];
-    ratingView.starHighlightedImage = [UIImage imageNamed:@"icon_rating_yellow.png"];
-    ratingView.maxRating = 5.0;
-    ratingView.editable = YES;
-    ratingView.horizontalMargin = 5;
-    ratingView.displayMode = EDStarRatingDisplayAccurate;
-    ratingView.delegate = self;
-    [_scrollView addSubview:ratingView];
+    _ratingView = [[EDStarRating alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(ratingLabel.frame)+5, 100, 30)];
+    _ratingView.starImage = [UIImage imageNamed:@"icon_rating_gray.png"];
+    _ratingView.starHighlightedImage = [UIImage imageNamed:@"icon_rating_yellow.png"];
+    _ratingView.maxRating = 5.0;
+    _ratingView.editable = YES;
+    _ratingView.horizontalMargin = 5;
+    _ratingView.displayMode = EDStarRatingDisplayAccurate;
+    _ratingView.delegate = self;
+    _ratingView.rating = 5;
+    [_scrollView addSubview:_ratingView];
     
-    UIView *buttomView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(ratingView.frame)+10, kWindowWidth, 0.5)];
+    UIView *buttomView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_ratingView.frame)+10, kWindowWidth, 0.5)];
     buttomView.backgroundColor = COLOR_LINE;
     [_scrollView addSubview:buttomView];
     
@@ -119,7 +122,7 @@ static NSString * const reuseIdentifier = @"uploadPhotoCell";
     [submitBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [submitBtn setTitle:@"发表评价" forState:UIControlStateNormal];
     submitBtn.titleLabel.font = [UIFont systemFontOfSize:15.0];
-    [submitBtn addTarget:self action:@selector(uploadUserAlbum) forControlEvents:UIControlEventTouchUpInside];
+    [submitBtn addTarget:self action:@selector(submitUserComment) forControlEvents:UIControlEventTouchUpInside];
     [toolBarView addSubview:submitBtn];
     
     UIView *buttomView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 0.5)];
@@ -151,6 +154,18 @@ static NSString * const reuseIdentifier = @"uploadPhotoCell";
         _userAlbumUploadStatusList = [[NSMutableArray alloc] init];
     }
     return _userAlbumUploadStatusList;
+}
+
+- (void)submitUserComment
+{
+    [UserCommentManager asyncMakeCommentWithGoodsId:_goodsId ratingValue:_ratingView.rating/5 andContent:_containterView.textView.text isAnonymous:_anonymousBtn.selected completionBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            [SVProgressHUD showHint:@"评价成功"];
+            [self dismissCtl];
+        } else {
+            [SVProgressHUD showHint:@"评价失败"];
+        }
+    }];
 }
 
 - (void)uploadUserAlbum

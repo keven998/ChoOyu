@@ -11,6 +11,6 @@
 @interface MakeGoodsCommentViewController : UIViewController
 
 @property (nonatomic, strong) NSMutableArray *selectedPhotos;
-
+@property (nonatomic) NSInteger goodsId;
 
 @end

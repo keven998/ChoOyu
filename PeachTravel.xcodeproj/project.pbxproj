@@ -580,6 +580,11 @@
 		D93386D01C5C8C0400328DAF /* UploadPhotoOperationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D93386CE1C5C8C0400328DAF /* UploadPhotoOperationView.xib */; };
 		D933895D1C5F077D00328DAF /* GoodsSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D933895B1C5F077D00328DAF /* GoodsSearchViewController.m */; };
 		D933895E1C5F077D00328DAF /* GoodsSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D933895C1C5F077D00328DAF /* GoodsSearchViewController.xib */; };
+		D933896B1C5F4BE200328DAF /* GoodsCommentsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D93389691C5F4BE200328DAF /* GoodsCommentsListViewController.m */; };
+		D933896C1C5F4BE200328DAF /* GoodsCommentsListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D933896A1C5F4BE200328DAF /* GoodsCommentsListViewController.xib */; };
+		D933896F1C5F4BEB00328DAF /* UserCommentManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D933896E1C5F4BEB00328DAF /* UserCommentManager.m */; };
+		D93389731C5F4C6700328DAF /* GoodsCommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D93389711C5F4C6700328DAF /* GoodsCommentTableViewCell.m */; };
+		D93389741C5F4C6700328DAF /* GoodsCommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D93389721C5F4C6700328DAF /* GoodsCommentTableViewCell.xib */; };
 		D937AE1E1BB95F0C0070F879 /* icon_dot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D937AE1C1BB95F0C0070F879 /* icon_dot@2x.png */; };
 		D937AE1F1BB95F0C0070F879 /* icon_dot@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D937AE1D1BB95F0C0070F879 /* icon_dot@3x.png */; };
 		D93B97F11B4B8C420054EF50 /* ChatGroupSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D93B97EF1B4B8C420054EF50 /* ChatGroupSettingCell.m */; };
@@ -2772,6 +2777,14 @@
 		D933895A1C5F077D00328DAF /* GoodsSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsSearchViewController.h; sourceTree = "<group>"; };
 		D933895B1C5F077D00328DAF /* GoodsSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsSearchViewController.m; sourceTree = "<group>"; };
 		D933895C1C5F077D00328DAF /* GoodsSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoodsSearchViewController.xib; sourceTree = "<group>"; };
+		D93389681C5F4BE200328DAF /* GoodsCommentsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsCommentsListViewController.h; sourceTree = "<group>"; };
+		D93389691C5F4BE200328DAF /* GoodsCommentsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsCommentsListViewController.m; sourceTree = "<group>"; };
+		D933896A1C5F4BE200328DAF /* GoodsCommentsListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoodsCommentsListViewController.xib; sourceTree = "<group>"; };
+		D933896D1C5F4BEB00328DAF /* UserCommentManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserCommentManager.h; sourceTree = "<group>"; };
+		D933896E1C5F4BEB00328DAF /* UserCommentManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserCommentManager.m; sourceTree = "<group>"; };
+		D93389701C5F4C6700328DAF /* GoodsCommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsCommentTableViewCell.h; sourceTree = "<group>"; };
+		D93389711C5F4C6700328DAF /* GoodsCommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsCommentTableViewCell.m; sourceTree = "<group>"; };
+		D93389721C5F4C6700328DAF /* GoodsCommentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoodsCommentTableViewCell.xib; sourceTree = "<group>"; };
 		D937AE1C1BB95F0C0070F879 /* icon_dot@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_dot@2x.png"; sourceTree = "<group>"; };
 		D937AE1D1BB95F0C0070F879 /* icon_dot@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_dot@3x.png"; sourceTree = "<group>"; };
 		D93B97EE1B4B8C420054EF50 /* ChatGroupSettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatGroupSettingCell.h; sourceTree = "<group>"; };
@@ -6123,6 +6136,19 @@
 			path = GoodsSearch;
 			sourceTree = "<group>";
 		};
+		D93389671C5F4BB800328DAF /* GoodsCommentsList */ = {
+			isa = PBXGroup;
+			children = (
+				D93389681C5F4BE200328DAF /* GoodsCommentsListViewController.h */,
+				D93389691C5F4BE200328DAF /* GoodsCommentsListViewController.m */,
+				D933896A1C5F4BE200328DAF /* GoodsCommentsListViewController.xib */,
+				D93389701C5F4C6700328DAF /* GoodsCommentTableViewCell.h */,
+				D93389711C5F4C6700328DAF /* GoodsCommentTableViewCell.m */,
+				D93389721C5F4C6700328DAF /* GoodsCommentTableViewCell.xib */,
+			);
+			path = GoodsCommentsList;
+			sourceTree = "<group>";
+		};
 		D93D38891C315C63005C0450 /* CitySearchViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -6245,6 +6271,9 @@
 		D955207B1C52132E0086D9E0 /* GoodsComment */ = {
 			isa = PBXGroup;
 			children = (
+				D933896D1C5F4BEB00328DAF /* UserCommentManager.h */,
+				D933896E1C5F4BEB00328DAF /* UserCommentManager.m */,
+				D93389671C5F4BB800328DAF /* GoodsCommentsList */,
 				D955207F1C52145C0086D9E0 /* MakeComment */,
 				D955207C1C52132E0086D9E0 /* GoodsCommentDetail.h */,
 				D955207D1C52132E0086D9E0 /* GoodsCommentDetail.m */,
@@ -10289,6 +10318,7 @@
 				D9A8FF601A80CF19005AD701 /* SearchResultTableViewCell.xib in Resources */,
 				E68CB2841B9EBAC200A5B38B /* plan_kuang_photo@2x.png in Resources */,
 				E6F18A021B845F4900232EEB /* map_icon_14@3x.png in Resources */,
+				D933896C1C5F4BE200328DAF /* GoodsCommentsListViewController.xib in Resources */,
 				E6381BE71B66269000CF73AA /* Loading_Animation_final1@2x.png in Resources */,
 				D9A801101A80DD23005AD701 /* ChangeGroupTitleViewController.xib in Resources */,
 				D9A801501A80DD23005AD701 /* ZYQAssetPicker.Bundle in Resources */,
@@ -11182,6 +11212,7 @@
 				E6F18AB71B845F4900232EEB /* messages_bg_friend@2x.png in Resources */,
 				E6F1894A1B845F4900232EEB /* icon@3x.png in Resources */,
 				E6BFE5FE1B5E732F00A9FDCA /* DestinationCollectionViewCell.xib in Resources */,
+				D93389741C5F4C6700328DAF /* GoodsCommentTableViewCell.xib in Resources */,
 				E6F18A731B845F4900232EEB /* frend_request_icon@3x.png in Resources */,
 				E6F18A741B845F4900232EEB /* ic_avatar_lxp_search@2x.png in Resources */,
 				C60C0D6B1A298DF8006033C9 /* PushSettingViewController.xib in Resources */,
@@ -11324,6 +11355,7 @@
 				D9A802091A80E036005AD701 /* EmojiEmoticons.m in Sources */,
 				D9A800241A80D52F005AD701 /* DestinationUnit.m in Sources */,
 				D9A8FEC51A80C818005AD701 /* ConfirmRouteViewController.m in Sources */,
+				D933896B1C5F4BE200328DAF /* GoodsCommentsListViewController.m in Sources */,
 				D9A801481A80DD23005AD701 /* EMChatViewBaseCell.m in Sources */,
 				D9A8FF521A80CF19005AD701 /* Favorite.m in Sources */,
 				D9A802231A80E036005AD701 /* MyTripSpotsMapViewController.m in Sources */,
@@ -11404,6 +11436,7 @@
 				D993C2611B12DF0C0088D568 /* IMGuideMessage.swift in Sources */,
 				01578E6E1BD228F200244D9D /* NSDataEx.m in Sources */,
 				D971E2A21B904F93007E5AFD /* ExpertRequestViewController.m in Sources */,
+				D93389731C5F4C6700328DAF /* GoodsCommentTableViewCell.m in Sources */,
 				D9A801571A80DD23005AD701 /* HPGrowingTextView.m in Sources */,
 				27FF1A3C1B04B91F00643D77 /* AIDatePickerController.m in Sources */,
 				D9F46DC21AC52D8600972AE8 /* SVWebViewControllerActivity.m in Sources */,
@@ -11421,6 +11454,7 @@
 				D907D2871BEB097E008A35F9 /* GoodsOfCityTableViewCell.m in Sources */,
 				D90C761D1BF1DED600C5897C /* MakeOrderTitleTableViewCell.m in Sources */,
 				D9A802B01A80E3D3005AD701 /* NSDate+Category.m in Sources */,
+				D933896F1C5F4BEB00328DAF /* UserCommentManager.m in Sources */,
 				E66E6CDC1B5A26BF00CBF65F /* UIImage+Extension.m in Sources */,
 				01F03DB01BB40B57005DD792 /* MapViewSetLocationBtn.m in Sources */,
 				D9A802221A80E036005AD701 /* MJPhotoView.m in Sources */,

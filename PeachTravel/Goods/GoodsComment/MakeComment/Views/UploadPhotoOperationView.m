@@ -35,7 +35,7 @@
     _placeHolder = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, 200, 40)];
     _placeHolder.textColor = COLOR_TEXT_II;
     _placeHolder.font = [UIFont systemFontOfSize:16.0];
-    _placeHolder.text = @"给照片写点什么把...";
+    _placeHolder.text = @"输入点评...";
     [_textView addSubview:_placeHolder];
 }
 

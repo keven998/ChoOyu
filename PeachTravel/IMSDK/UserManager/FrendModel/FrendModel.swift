@@ -104,10 +104,17 @@ class FrendModel: NSObject {
         if let str =  json.objectForKey("nickName") as? String {
             nickName = str
             fullPY = ConvertMethods.chineseToPinyin(str)
+            
+        } else  if let str =  json.objectForKey("nickname") as? String {
+            nickName = str
+            fullPY = ConvertMethods.chineseToPinyin(str)
         }
         
         if let str =  json.objectForKey("avatar") as? String {
             avatar = str
+            
+        } else if let avatarDic =  json.objectForKey("avatar") as? NSDictionary {
+            avatar = avatarDic.objectForKey("url") as! String
         }
         
         if let avatarSmallStr =  json.objectForKey("avatarSmall") as? String {
