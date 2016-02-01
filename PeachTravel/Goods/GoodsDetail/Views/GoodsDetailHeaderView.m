@@ -129,7 +129,7 @@
     _titleLabel.frame = CGRectMake(12, CGRectGetMaxY(_galleryView.frame)+10, self.frame.size.width-24, rect.size.height+2);
     _titleLabel.attributedText = attrstr;
     
-    _ratingView.frame = CGRectMake(12, CGRectGetMaxY(_titleLabel.frame)+9, 60, 20);
+    _ratingView.frame = CGRectMake(12, CGRectGetMaxY(_titleLabel.frame)+9, 65, 20);
     [_ratingView setRating:_goodsDetail.rating*5];
     
     _saleCountLabel.text = [[NSString alloc] initWithFormat:@"%ld已售", _goodsDetail.saleCount];

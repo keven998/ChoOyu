@@ -86,6 +86,13 @@
  */
 + (void)asyncLoadGoodsOfStore:(NSInteger)storeId startIndex:(NSInteger)startIndex count:(NSUInteger)count completionBlock:(void (^)(BOOL isSuccess, NSArray *goodsList))completion;
 
+/**
+ *  搜索商品
+ *
+ *  @param searchKey  关键词
+ *  @param completion 
+ */
++ (void)asyncSearchGoodsWithSearchKey:(NSString *)searchKey completionBlock:(void (^)(BOOL isSuccess, NSArray *goodsList))completion;
 
 /*********** 商品推荐相关 **************/
 

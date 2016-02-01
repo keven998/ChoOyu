@@ -151,6 +151,32 @@
     }];
 }
 
++ (void)asyncSearchGoodsWithSearchKey:(NSString *)searchKey completionBlock:(void (^)(BOOL, NSArray *))completion
+{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params safeSetObject:searchKey forKey:@"query"];
+    
+    [LXPNetworking GET:API_GOODSLIST parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"***开始加载搜索的商品列表: %@", operation);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            NSMutableArray *retArray = [[NSMutableArray alloc] init];
+            for (NSDictionary *dic in [responseObject objectForKey:@"result"]) {
+                GoodsDetailModel *goods = [[GoodsDetailModel alloc] initWithJson:dic];
+                [retArray addObject:goods];
+            }
+            completion(YES, retArray);
+            
+        } else {
+            completion(NO, nil);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completion(NO, nil);
+        
+    }];
+
+}
+
 + (void)asyncLoadRecommendGoodsWithCompletionBlock:(void (^)(BOOL isSuccess, NSArray<NSDictionary *> *goodsList))completion
 {
     NSString *url = [NSString stringWithFormat:@"%@/recommendations", API_GOODS];

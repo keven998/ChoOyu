@@ -41,13 +41,14 @@ static NSString * const reuseIdentifier = @"uploadPhotoCell";
     
     _containterView = [UploadPhotoOperationView uploadUserPhotoView];
     
-    _containterView.frame = CGRectMake(0, 0, self.view.bounds.size.width, _containterView.bounds.size.height);
+    _containterView.frame = CGRectMake(0, 0, self.view.bounds.size.width, 150);
+    _containterView.collectionView.hidden = YES;   //暂时屏蔽掉发送图片的功能
     _containterView.collectionView.dataSource = self;
     _containterView.collectionView.delegate = self;
     [_containterView.collectionView registerNib:[UINib nibWithNibName:@"UploadUserAlbumCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:reuseIdentifier];
     [_scrollView addSubview:_containterView];
     
-    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_containterView.frame), kWindowWidth, 15)];
+    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_containterView.frame), kWindowWidth, 10)];
     spaceView.backgroundColor = APP_PAGE_COLOR;
     [_scrollView addSubview:spaceView];
     

@@ -1,18 +1,18 @@
 //
-//  CitySearchViewController.m
+//  GoodsSearchViewController.m
 //  PeachTravel
 //
 //  Created by liangpengshuai on 12/22/15.
 //  Copyright © 2015 com.aizou.www. All rights reserved.
 //
 
-#import "CitySearchViewController.h"
+#import "GoodsSearchViewController.h"
 #import "SearchDestinationRecommendViewController.h"
-#import "CitySearchTableViewCell.h"
-#import "PoiManager.h"
-#import "CityDetailViewController.h"
+#import "GoodsListTableViewCell.h"
+#import "GoodsManager.h"
+#import "GoodsDetailViewController.h"
 
-@interface CitySearchViewController () <SearchDestinationRecommendDelegate, UITableViewDataSource, UITableViewDelegate,UISearchBarDelegate>
+@interface GoodsSearchViewController () <SearchDestinationRecommendDelegate, UITableViewDataSource, UITableViewDelegate,UISearchBarDelegate>
 
 @property (nonatomic, strong) SearchDestinationRecommendViewController *searchRecommendViewController;
 @property (nonatomic, strong) UISearchBar *searchBar;
@@ -21,9 +21,9 @@
 
 @end
 
-@implementation CitySearchViewController
+@implementation GoodsSearchViewController
 
-static NSString *reusableCellIdentifier = @"citySearchTableViewCell";
+static NSString *reusableCellIdentifier = @"goodsListCell";
 
 
 - (void)viewDidLoad {
@@ -42,7 +42,7 @@ static NSString *reusableCellIdentifier = @"citySearchTableViewCell";
     _searchBar = [[UISearchBar alloc]init];
     _searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _searchBar.delegate = self;
-    [_searchBar setPlaceholder:@"搜索城市"];
+    [_searchBar setPlaceholder:@"搜索商品"];
     _searchBar.tintColor = [UIColor whiteColor];
     _searchBar.showsCancelButton = YES;
     _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
@@ -72,7 +72,7 @@ static NSString *reusableCellIdentifier = @"citySearchTableViewCell";
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kWindowWidth, kWindowHeight-64)];
         _tableView.backgroundColor = APP_PAGE_COLOR;
         
-        [_tableView registerNib:[UINib nibWithNibName:@"CitySearchTableViewCell" bundle:nil] forCellReuseIdentifier:reusableCellIdentifier];
+        [_tableView registerNib:[UINib nibWithNibName:@"GoodsListTableViewCell" bundle:nil] forCellReuseIdentifier:reusableCellIdentifier];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.dataSource = self;
         _tableView.delegate = self;
@@ -91,55 +91,45 @@ static NSString *reusableCellIdentifier = @"citySearchTableViewCell";
 - (void)loadDataSourceWithKeyWord:(NSString *)keyWord
 {
     _tableView.hidden = NO;
-    [PoiManager searchPoiWithKeyword:keyWord andSearchCount:20 andPoiType:kCityPoi completionBlock:^(BOOL isSuccess, NSArray *searchResultList) {
-        if ([searchResultList count] == 0) {
+    [GoodsManager asyncSearchGoodsWithSearchKey:keyWord completionBlock:^(BOOL isSuccess, NSArray *goodsList) {
+        if ([goodsList count] == 0) {
             NSString *searchStr = [NSString stringWithFormat:@"没有找到“%@”的相关结果", _searchBar.text];
             [SVProgressHUD showHint:searchStr];
         }
-        for (NSDictionary *searchDic in searchResultList) {
-            if ([[searchDic objectForKey:@"type"] integerValue] == kCityPoi) {
-               
-                self.dataSource = [searchDic objectForKey:@"content"];
-                [self.tableView reloadData];
-                return;
-            }
-        }
+        _dataSource = [goodsList mutableCopy];
+        [self.tableView reloadData];
     }];
 }
 
 #pragma mark - UITableViewDataSource 
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 50;
-}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return _dataSource.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 108;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CityPoi *poi = [_dataSource objectAtIndex:indexPath.row];
-    CitySearchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reusableCellIdentifier forIndexPath:indexPath];
-    [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:[poi.images firstObject].imageUrl] placeholderImage:nil];
-    cell.titleLabel.text = poi.zhName;
+    GoodsListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"goodsListCell" forIndexPath:indexPath];
+    cell.goodsDetail = [_dataSource objectAtIndex:indexPath.row];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    CityPoi *poi = [_dataSource objectAtIndex:indexPath.row];
-    CityDetailViewController *ctl = [[CityDetailViewController alloc] init];
-    ctl.cityId = poi.poiId;
-    ctl.cityName = poi.zhName;
+    GoodsDetailViewController *ctl = [[GoodsDetailViewController alloc] init];
+    GoodsDetailModel *goodsDetail = [_dataSource objectAtIndex:indexPath.row];
+    ctl.goodsId = goodsDetail.goodsId;
     [self.navigationController pushViewController:ctl animated:YES];
 }
 

@@ -16,6 +16,7 @@
 #import "GoodsManager.h"
 #import "TZSchemeManager.h"
 #import "NSURL+TZURL.h"
+#import "GoodsSearchViewController.h"
 #import "ErrorEmptyView.h"
 
 #import "MakeGoodsCommentViewController.h"
@@ -27,6 +28,7 @@
 @property (nonatomic, strong) GoodsRecommendHeaderView *headerView;
 @property (nonatomic, strong) UIView *navigationBar;
 @property (nonatomic, strong) ErrorEmptyView *errorView;
+@property (nonatomic, strong) UIButton *searchBtn;
 
 @property (nonatomic, strong) NSArray *dataSource;
 @property (nonatomic, strong) NSArray *recommendDataSource;   //顶部运营位
@@ -54,6 +56,17 @@
     _scroll2TopBtn.hidden = YES;
     [_scroll2TopBtn addTarget:self action:@selector(scroll2Top) forControlEvents:UIControlEventTouchUpInside];
     [self setNavigationBar];
+    
+    _searchBtn = [[UIButton alloc] initWithFrame:CGRectMake(30, 27, kWindowWidth-60, 25)];
+    [_searchBtn setBackgroundImage:[[UIImage imageNamed:@"icon_goods_search_bg"] resizableImageWithCapInsets:UIEdgeInsetsMake(2, 40, 2, 20)] forState:UIControlStateNormal];
+    [_searchBtn addTarget:self action:@selector(searchAction) forControlEvents:UIControlEventTouchUpInside];
+    UILabel *searchLabel = [[UILabel alloc] initWithFrame:CGRectMake(45, 0, _searchBtn.bounds.size.width-50, 25)];
+    searchLabel.text = @"搜索商品";
+    searchLabel.textColor = [UIColor whiteColor];
+    searchLabel.font = [UIFont systemFontOfSize:14.0];
+    [_searchBtn addSubview:searchLabel];
+    [self.view addSubview:_searchBtn];
+
     [self loadData];
 }
 
@@ -124,18 +137,18 @@
     _navigationBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 64)];
     _navigationBar.backgroundColor = APP_NAVIGATIONBAR_NOALPHA;
     _navigationBar.alpha = 0;
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, kWindowWidth, 44)];
-    titleLabel.text = @"旅行派";
-    titleLabel.textColor = [UIColor whiteColor];
-    titleLabel.font = [UIFont boldSystemFontOfSize:16.0];
-    titleLabel.textAlignment = NSTextAlignmentCenter;
-    [_navigationBar addSubview:titleLabel];
     [self.view addSubview:_navigationBar];
 }
 
 - (void)scroll2Top
 {
     [self.tableView setContentOffset:CGPointZero animated:YES];
+}
+
+- (void)searchAction
+{
+    GoodsSearchViewController *ctl = [[GoodsSearchViewController alloc] init];
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:ctl] animated:YES completion:nil];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
