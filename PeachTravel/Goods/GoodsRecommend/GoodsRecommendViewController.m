@@ -19,8 +19,6 @@
 #import "GoodsSearchViewController.h"
 #import "ErrorEmptyView.h"
 
-#import "MakeGoodsCommentViewController.h"
-
 @interface GoodsRecommendViewController ()<UITableViewDataSource, UITableViewDelegate, GoodsRecommendHeaderViewDelegate, ErrorEmptyViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -190,17 +188,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    if (indexPath.row == 0) {
-        MakeGoodsCommentViewController *ctl  =[[MakeGoodsCommentViewController alloc] init];
-        NSDictionary *dic = [_dataSource objectAtIndex:indexPath.section];
-        GoodsDetailModel *goodsModel = [[dic objectForKey:@"goodsList"] objectAtIndex:indexPath.row];
-        ctl.goodsId = goodsModel.goodsId;
-        [self.navigationController pushViewController:ctl animated:YES];
-        ctl.hidesBottomBarWhenPushed = YES;
-        return;
-    }
-
     GoodsDetailViewController *ctl = [[GoodsDetailViewController alloc] init];
     NSDictionary *dic = [_dataSource objectAtIndex:indexPath.section];
     GoodsDetailModel *goodsModel = [[dic objectForKey:@"goodsList"] objectAtIndex:indexPath.row];

@@ -23,7 +23,11 @@
         _rating = [[json objectForKey:@"rating"] floatValue];
         _goodsDescSummary = [[json objectForKey:@"desc"] objectForKey:@"summary"];
         _goodsDescBody = [[json objectForKey:@"desc"] objectForKey:@"body"];
-        
+        NSMutableArray *commentArray = [[NSMutableArray alloc] init];
+        for (NSDictionary *commentDic in [json objectForKey:@"comments"]) {
+            [commentArray addObject:[[GoodsCommentDetail alloc] initWithJson:commentDic]];
+        }
+        _commentList = commentArray;
         if ([[[[json objectForKey:@"notice"] firstObject] objectForKey:@"summary"] length]) {
             _goodsFeeDescSummary = [[[json objectForKey:@"notice"] firstObject] objectForKey:@"summary"];
         } else {

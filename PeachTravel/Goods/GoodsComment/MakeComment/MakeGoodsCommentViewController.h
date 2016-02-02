@@ -12,5 +12,6 @@
 
 @property (nonatomic, strong) NSMutableArray *selectedPhotos;
 @property (nonatomic) NSInteger goodsId;
+@property (nonatomic) NSInteger orderId;
 
 @end

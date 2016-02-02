@@ -287,6 +287,9 @@
         
     } else if ([statusStr isEqualToString:@"refunded"]) {
         return kOrderRefunded;
+        
+    } else if ([statusStr isEqualToString:@"toReview"]) {
+        return kOrderToReview;
     }
     
     return 0;
@@ -326,6 +329,10 @@
             
         case kOrderRefunding:
             retStatus = @"refundApplied";
+            break;
+            
+        case kOrderToReview:
+            retStatus = @"toReview";
             break;
             
         default:

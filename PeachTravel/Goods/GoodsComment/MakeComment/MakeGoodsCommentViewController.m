@@ -158,7 +158,7 @@ static NSString * const reuseIdentifier = @"uploadPhotoCell";
 
 - (void)submitUserComment
 {
-    [UserCommentManager asyncMakeCommentWithGoodsId:_goodsId ratingValue:_ratingView.rating/5 andContent:_containterView.textView.text isAnonymous:_anonymousBtn.selected completionBlock:^(BOOL isSuccess) {
+    [UserCommentManager asyncMakeCommentWithGoodsId:_goodsId orderId:_orderId ratingValue:_ratingView.rating/5 andContent:_containterView.textView.text isAnonymous:_anonymousBtn.selected completionBlock:^(BOOL isSuccess) {
         if (isSuccess) {
             [SVProgressHUD showHint:@"评价成功"];
             [self dismissCtl];

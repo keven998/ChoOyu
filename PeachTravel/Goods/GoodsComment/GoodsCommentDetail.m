@@ -7,6 +7,7 @@
 //
 
 #import "GoodsCommentDetail.h"
+#import "PeachTravel-swift.h"
 
 @implementation GoodsCommentDetail
 
@@ -19,8 +20,6 @@
         NSTimeInterval pTime = [[json objectForKey:@"createTime"] longLongValue]/1000;
         _publishTime = [ConvertMethods timeIntervalToString:pTime withFormat:@"yyyy-MM-dd" withTimeZone:[NSTimeZone systemTimeZone]];
         _rating = [[json objectForKey:@"rating"] floatValue];
-        
-        _contents = @"第一次迟到这么好吃的火锅，下次还回来的第一次迟到这么好吃的火锅，下次还回来的第一次迟到这么好吃的火锅，下次还回来的第一次迟到这么好吃的火锅，下次还回来的";
     }
     return self;
 }

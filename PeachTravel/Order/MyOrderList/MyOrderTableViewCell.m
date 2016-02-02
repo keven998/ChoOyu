@@ -30,9 +30,20 @@
     if (_orderDetail.orderStatus == kOrderWaitPay) {
         _payOrderBtnWidthConstraint.constant = 80;
         _statusLabel.text = [NSString stringWithFormat:@"%@: ￥%@", _orderDetail.orderStatusDesc, orderDetail.formatTotalPrice];
+        
+    } else if (_orderDetail.orderStatus == kOrderToReview) {
+        _payOrderBtnWidthConstraint.constant = 80;
+        _statusLabel.text = _orderDetail.orderStatusDesc;
+        
     } else {
         _payOrderBtnWidthConstraint.constant = 0;
         _statusLabel.text = _orderDetail.orderStatusDesc;
-    } 
+    }
+    
+    if (_orderDetail.orderStatus == kOrderToReview) {
+        [_payOrderBtn setTitle:@"点评" forState:UIControlStateNormal];
+    } else {
+        [_payOrderBtn setTitle:@"立即支付" forState:UIControlStateNormal];
+    }
 }
 @end

@@ -35,6 +35,7 @@
 #import "GoodsDetailSoldOutView.h"
 #import "SuperWebViewController.h"
 #import "GoodsCommentsListViewController.h"
+#import "GoodsCommentTableViewCell.h"
 
 @interface GoodsDetailViewController () <UITableViewDataSource, UITableViewDelegate, ActivityDelegate, CreateConversationDelegate, TaoziMessageSendDelegate>
 
@@ -64,6 +65,7 @@
     [_tableView registerNib:[UINib nibWithNibName:@"GoodsDetailTrafficTableViewCell" bundle:nil] forCellReuseIdentifier:@"goodsDetailTrafficTableViewCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"GoodsDetailStoreInfoTableViewCell" bundle:nil] forCellReuseIdentifier:@"goodsDetailStoreInfoTableViewCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"GoodsDetailSnapshotTableViewCell" bundle:nil] forCellReuseIdentifier:@"goodsDetailSnapshotTableViewCell"];
+    [_tableView registerNib:[UINib nibWithNibName:@"GoodsCommentTableViewCell" bundle:nil] forCellReuseIdentifier:@"goodsCommentTableViewCell"];
 
     _tableView.backgroundColor = APP_PAGE_COLOR;
     if (_isSnapshot) {
@@ -295,8 +297,10 @@
 
 - (void)showMoreContrent:(UIButton *)sender
 {
-    [self showMoreCommentAction];
-    return;
+    if (sender.tag == 6) {
+        [self showMoreCommentAction];
+        return;
+    }
     SuperWebViewController *ctl = [[SuperWebViewController alloc] init];
     if (sender.tag == 2) {
         ctl.urlStr = _goodsDetail.allDescUrl;
@@ -329,11 +333,14 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 7;
+    return 8;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if (section == 6 && !_goodsDetail.commentList.count) {
+        return 0;
+    }
     return 1;
 }
 
@@ -365,6 +372,9 @@
         return [GoodsDetailTrafficTableViewCell heightWithGoodsDetail:_goodsDetail];
         
     } else if (indexPath.section == 6) {
+        return [GoodsCommentTableViewCell heightWithCommentDetail:[_goodsDetail.commentList firstObject]];
+        
+    } else if (indexPath.section == 7) {
         return [GoodsDetailStoreInfoTableViewCell storeHeaderHeightWithStoreDetail:_goodsDetail.store];
     }
     
@@ -373,7 +383,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (section == 0 || section == 1 || section == 6) {
+    if (section == 0 || section == 1 || section == 7) {
         return 0;
     } else {
         return 40;
@@ -382,7 +392,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    if (section == 0 || section == 1 || section == 6) {
+    if (section == 0 || section == 1 || section == 7) {
         return 0;
     } else {
         return 60;
@@ -414,14 +424,29 @@
         view.headerImageView.image = [UIImage imageNamed:@"icon_goodsDetail_traffic.png"];
         view.titleLabel.text = @"交通提示";
         return view;
-    } 
+        
+    } else if (section == 6) {
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 40)];
+        view.backgroundColor = [UIColor whiteColor];
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(12, 0, kWindowWidth-24, 40)];
+        titleLabel.textColor = COLOR_TEXT_I;
+        titleLabel.font = [UIFont systemFontOfSize:15.0];
+        if (_goodsDetail.commentList.count) {
+            titleLabel.text = [NSString stringWithFormat:@"用户评价 (%ld人, %.1f分)", _goodsDetail.commentList.count, _goodsDetail.rating*5];
+        } else {
+            titleLabel.text = @"用户评价";
+        }
+        [view addSubview:titleLabel];
+        return view;
+    }
     return nil;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    if (section == 0 || section == 1 || section == 6) {
+    if (section == 0 || section == 1 || section == 7) {
         return nil;
+        
     } else {
         GoodsDetailCommonSectionFooterView *view = [[GoodsDetailCommonSectionFooterView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 60)];
         [view.showAllButton addTarget:self action:@selector(showMoreContrent:) forControlEvents:UIControlEventTouchUpInside];
@@ -463,9 +488,15 @@
         return cell;
         
     } else if (indexPath.section == 6) {
+        GoodsCommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"goodsCommentTableViewCell" forIndexPath:indexPath];
+        cell.goodsComment = [_goodsDetail.commentList firstObject];
+        return cell;
+        
+    } else if (indexPath.section == 7) {
         GoodsDetailStoreInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"goodsDetailStoreInfoTableViewCell" forIndexPath:indexPath];
         cell.storeDetail = _goodsDetail.store;
         return cell;
+        
     }
     
     return nil;

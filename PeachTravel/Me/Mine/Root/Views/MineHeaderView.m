@@ -9,6 +9,8 @@
 #import "MineHeaderView.h"
 #import "PeachTravel-swift.h"
 #import "MyOrderRootViewController.h"
+#import "MyOrderListViewController.h"
+#import "OrderDetailModel.h"
 
 @implementation MineHeaderView
 
@@ -42,14 +44,31 @@
         _nickNameLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:_nickNameLabel];
         
-        UIView *orderButtonsBg = [[UIView alloc] initWithFrame:CGRectMake(0, bgImageView.bounds.size.height+15, frame.size.width, 75)];
+        UIView *orderButtonsBg = [[UIView alloc] initWithFrame:CGRectMake(0, bgImageView.bounds.size.height, frame.size.width, 120)];
         orderButtonsBg.backgroundColor = [UIColor whiteColor];
         [self addSubview:orderButtonsBg];
         
-        NSArray *orderButtonDataSource = @[@{@"title": @"全部订单", @"image": @"icon_mine_order_all", @"action": @"allOrderAction"},
-                                          @{@"title": @"待付款", @"image": @"icon_mine_order_waitpay", @"action": @"waitPayOrderAction"},
+        UILabel *myOrderLabel = [[UILabel alloc] initWithFrame:CGRectMake(12, 0, 100, 45)];
+        myOrderLabel.text = @"我的订单";
+        myOrderLabel.textColor = COLOR_TEXT_II;
+        myOrderLabel.font = [UIFont systemFontOfSize:15.0];
+        [orderButtonsBg addSubview:myOrderLabel];
+        
+        UIButton *showAllOrder = [[UIButton alloc] initWithFrame:CGRectMake(kWindowWidth-112, 0, 100, 45)];
+        [showAllOrder setTitle:@"查看全部订单 >" forState:UIControlStateNormal];
+        showAllOrder.titleLabel.font = [UIFont systemFontOfSize:14.0];
+        [showAllOrder setTitleColor:COLOR_PRICE_RED forState:UIControlStateNormal];
+        [showAllOrder addTarget:self action:@selector(allOrderAction) forControlEvents:UIControlEventTouchUpInside];
+        [orderButtonsBg addSubview:showAllOrder];
+        
+        UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(12, 43, kWindowWidth-24, 0.5)];
+        spaceView.backgroundColor = COLOR_LINE;
+        [orderButtonsBg addSubview:spaceView];
+        
+        NSArray *orderButtonDataSource = @[@{@"title": @"待付款", @"image": @"icon_mine_order_waitpay", @"action": @"waitPayOrderAction"},
                                           @{@"title": @"处理中", @"image": @"icon_mine_order_inprogress", @"action": @"inProgressOrderAction"},
                                           @{@"title": @"可使用", @"image": @"icon_mine_order_inuse", @"action": @"inUseOrderAction"},
+                                           @{@"title": @"待评价", @"image": @"icon_mine_order_review", @"action": @"toReviewOrderAction"},
                                           @{@"title": @"退款", @"image": @"icon_mine_order_refundmoney", @"action": @"refundMoneyOrderAction"}
                                           ];
         
@@ -57,7 +76,7 @@
         CGFloat itemHeight = orderButtonsBg.bounds.size.height;
         NSInteger index = 0;
         for (NSDictionary *dic in orderButtonDataSource) {
-            TZButton *button = [[TZButton alloc] initWithFrame:CGRectMake(index*itemWidth, 0, itemWidth, itemHeight)];
+            TZButton *button = [[TZButton alloc] initWithFrame:CGRectMake(index*itemWidth, 40, itemWidth, itemHeight)];
             NSString *title = [dic objectForKey:@"title"];
             NSString *imageStr = [dic objectForKey:@"image"];
             NSString *actionStr = [dic objectForKey:@"action"];
@@ -114,11 +133,18 @@
     [_containerViewController.navigationController pushViewController:ctl animated:YES];
 }
 
-- (void)refundMoneyOrderAction
+- (void)toReviewOrderAction
 {
     MyOrderRootViewController *ctl = [[MyOrderRootViewController alloc] init];
     ctl.selectIndex = 4;
     ctl.hidesBottomBarWhenPushed = YES;
+    [_containerViewController.navigationController pushViewController:ctl animated:YES];
+}
+
+- (void)refundMoneyOrderAction
+{
+    MyOrderListViewController *ctl = [[MyOrderListViewController alloc] init];
+    ctl.orderTypes = @[[NSNumber numberWithInt:kOrderRefunded], [NSNumber numberWithInt:kOrderRefunding]];
     [_containerViewController.navigationController pushViewController:ctl animated:YES];
 }
 @end

@@ -193,6 +193,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *sectionHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 40)];
+    sectionHeaderView.backgroundColor = [UIColor whiteColor];
     UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 39.5, tableView.bounds.size.width, 0.5)];
     spaceView.backgroundColor = APP_THEME_COLOR;
     [sectionHeaderView addSubview:spaceView];

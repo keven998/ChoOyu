@@ -23,8 +23,8 @@
     self.navigationItem.title = @"我的订单";
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = [UIColor whiteColor];
-    NSArray *titleArray = @[@"全部", @"待付款", @"处理中", @"可使用", @"退款"];
-    NSArray *orderTypeList = @[@[], @[[NSNumber numberWithInteger:kOrderWaitPay]], @[[NSNumber numberWithInteger:kOrderPaid]], @[[NSNumber numberWithInteger:kOrderInUse]], @[[NSNumber numberWithInteger:kOrderRefunding], [NSNumber numberWithInteger:kOrderRefunded]]];
+    NSArray *titleArray = @[@"全部", @"待付款", @"处理中", @"可使用", @"待评价"];
+    NSArray *orderTypeList = @[@[], @[[NSNumber numberWithInteger:kOrderWaitPay]], @[[NSNumber numberWithInteger:kOrderPaid]], @[[NSNumber numberWithInteger:kOrderInUse]], @[[NSNumber numberWithInteger:kOrderToReview]]];
     _orderListControllers = [[NSMutableArray alloc] init];
 
     NSMutableArray *items = [NSMutableArray arrayWithCapacity:5];

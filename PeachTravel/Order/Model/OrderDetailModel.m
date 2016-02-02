@@ -199,6 +199,10 @@
             orderStatusDesc = @"已过期";
             break;
             
+        case kOrderToReview:
+            orderStatusDesc = @"已完成";
+            break;
+            
         default:
             break;
     }

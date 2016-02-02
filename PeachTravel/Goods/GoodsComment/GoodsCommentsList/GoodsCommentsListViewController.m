@@ -26,7 +26,7 @@
     _tableView.delegate = self;
     _tableView.separatorColor = COLOR_LINE;
     [_tableView registerNib:[UINib nibWithNibName:@"GoodsCommentTableViewCell" bundle:nil] forCellReuseIdentifier:@"goodsCommentTableViewCell"];
-    [UserCommentManager asyncLoadGoodsCommentsWithGoodsId:100544 completionBlock:^(BOOL isSuccess, NSArray<GoodsCommentDetail *> *commentsList) {
+    [UserCommentManager asyncLoadGoodsCommentsWithGoodsId:_goodsId completionBlock:^(BOOL isSuccess, NSArray<GoodsCommentDetail *> *commentsList) {
         _dataSource = commentsList;
         [self.tableView reloadData];
     }];

@@ -99,7 +99,9 @@ class FrendModel: NSObject {
             isBlacked = blacked
         }
         
-        userId = json.objectForKey("userId") as! Int
+        if let id = json.objectForKey("userId") as? Int {
+            userId = id
+        }
         
         if let str =  json.objectForKey("nickName") as? String {
             nickName = str

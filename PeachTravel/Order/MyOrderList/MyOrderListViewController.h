@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MyOrderListViewController : UIViewController
+@interface MyOrderListViewController : TZViewController
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 //订单状态列表 空数组代表全部类型
 @property (nonatomic, strong) NSArray *orderTypes;

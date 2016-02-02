@@ -17,6 +17,7 @@ typedef enum : NSUInteger {
     kOrderCanceled,         //已取消
     kOrderRefunding,        //申请退款中
     kOrderRefunded,         //已退款
+    kOrderToReview,         //待评价
     kOrderCompletion,       //已完成
     kOrderExpired,          //订单已过期
     

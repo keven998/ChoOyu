@@ -7,7 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "GoodsDetailModel.h"
+
+@class GoodsDetailModel;
+@class GoodsPackageModel;
 
 @interface GoodsCommentDetail : NSObject
 

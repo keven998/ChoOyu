@@ -51,7 +51,7 @@
                         </state>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W15-7V-bKH">
-                        <rect key="frame" x="166" y="77" width="42" height="21"/>
+                        <rect key="frame" x="168" y="77" width="42" height="21"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="42" id="Rku-Yl-b99"/>
                             <constraint firstAttribute="height" constant="21" id="dNN-Ou-8dz"/>
@@ -61,7 +61,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jJa-kD-bzb" customClass="EDStarRating">
-                        <rect key="frame" x="101" y="80" width="65" height="15"/>
+                        <rect key="frame" x="100" y="80" width="65" height="15"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="15" id="TCw-jp-4ZZ"/>
@@ -73,19 +73,19 @@
                     <constraint firstAttribute="bottom" secondItem="ISJ-3p-Kfw" secondAttribute="bottom" constant="12.5" id="6hd-73-ae6"/>
                     <constraint firstItem="ISJ-3p-Kfw" firstAttribute="leading" secondItem="JaU-Sy-teQ" secondAttribute="leading" constant="10" id="8fy-TS-dnh"/>
                     <constraint firstAttribute="trailing" secondItem="lXM-t6-wo4" secondAttribute="trailing" constant="8" id="9iY-ob-z3d"/>
-                    <constraint firstItem="J1P-u3-lyh" firstAttribute="leading" secondItem="W15-7V-bKH" secondAttribute="trailing" constant="5" id="Gne-QY-t8h"/>
+                    <constraint firstItem="J1P-u3-lyh" firstAttribute="leading" secondItem="W15-7V-bKH" secondAttribute="trailing" constant="3" id="Gne-QY-t8h"/>
                     <constraint firstItem="lXM-t6-wo4" firstAttribute="top" secondItem="JaU-Sy-teQ" secondAttribute="top" constant="9" id="I8D-LY-xci"/>
                     <constraint firstItem="5cv-D6-ZvS" firstAttribute="leading" secondItem="ISJ-3p-Kfw" secondAttribute="trailing" constant="8" id="LCE-t1-H9V"/>
                     <constraint firstItem="W15-7V-bKH" firstAttribute="top" secondItem="5cv-D6-ZvS" secondAttribute="bottom" constant="5" id="NA5-Y4-X3h"/>
                     <constraint firstItem="lXM-t6-wo4" firstAttribute="leading" secondItem="ISJ-3p-Kfw" secondAttribute="trailing" constant="8" id="ODc-AY-DUM"/>
                     <constraint firstItem="ISJ-3p-Kfw" firstAttribute="top" secondItem="JaU-Sy-teQ" secondAttribute="top" constant="12" id="TKr-nJ-iyW"/>
-                    <constraint firstItem="W15-7V-bKH" firstAttribute="leading" secondItem="jJa-kD-bzb" secondAttribute="trailing" id="Uf4-p0-xSt"/>
+                    <constraint firstItem="W15-7V-bKH" firstAttribute="leading" secondItem="jJa-kD-bzb" secondAttribute="trailing" constant="3" id="Uf4-p0-xSt"/>
                     <constraint firstItem="jJa-kD-bzb" firstAttribute="top" secondItem="5cv-D6-ZvS" secondAttribute="bottom" constant="8" id="a1r-FQ-4En"/>
                     <constraint firstItem="5cv-D6-ZvS" firstAttribute="top" secondItem="lXM-t6-wo4" secondAttribute="bottom" constant="11" id="bIN-HG-vyh"/>
                     <constraint firstAttribute="trailing" secondItem="5cv-D6-ZvS" secondAttribute="trailing" constant="8" id="e03-ZK-tyO"/>
                     <constraint firstAttribute="trailing" secondItem="J1P-u3-lyh" secondAttribute="trailing" constant="8" id="gpd-7X-cYl"/>
                     <constraint firstItem="J1P-u3-lyh" firstAttribute="top" secondItem="5cv-D6-ZvS" secondAttribute="bottom" constant="5" id="mPC-mb-n8k"/>
-                    <constraint firstItem="jJa-kD-bzb" firstAttribute="leading" secondItem="ISJ-3p-Kfw" secondAttribute="trailing" constant="8" id="yLF-OH-VHM"/>
+                    <constraint firstItem="jJa-kD-bzb" firstAttribute="leading" secondItem="ISJ-3p-Kfw" secondAttribute="trailing" constant="7" id="yLF-OH-VHM"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

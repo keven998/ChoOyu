@@ -10,12 +10,13 @@
 
 @implementation UserCommentManager
 
-+ (void)asyncMakeCommentWithGoodsId:(NSInteger)goodsId ratingValue:(float)value andContent:(NSString *)contents isAnonymous:(BOOL)anonymous completionBlock:(void (^)(BOOL isSuccess))completion
++ (void)asyncMakeCommentWithGoodsId:(NSInteger)goodsId orderId:(NSInteger)orderId ratingValue:(float)value andContent:(NSString *)contents isAnonymous:(BOOL)anonymous completionBlock:(void (^)(BOOL isSuccess))completion
 {
     NSString *url = [NSString stringWithFormat:@"%@/%ld/comments", API_GOODS, goodsId];
     NSMutableDictionary *param = [[NSMutableDictionary alloc] init];
     [param safeSetObject:contents forKey:@"contents"];
     [param safeSetObject:[NSNumber numberWithFloat:value] forKey:@"rating"];
+    [param safeSetObject:[NSNumber numberWithInteger:orderId] forKey:@"orderId"];
     [param safeSetObject:[NSNumber numberWithBool:anonymous] forKey:@"anonymous"];
 
     [LXPNetworking POST:url parameters:param success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {

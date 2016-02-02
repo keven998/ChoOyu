@@ -55,7 +55,7 @@
 
     [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     [self.view addSubview:_tableView];
-    _mineHeaderView = [[MineHeaderView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 310)];
+    _mineHeaderView = [[MineHeaderView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 340)];
     _mineHeaderView.containerViewController = self;
     _tableView.tableHeaderView = _mineHeaderView;
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mineProfileAction)];

@@ -16,11 +16,12 @@
  *  对商品发表一个评价
  *
  *  @param goodsId    商品 id
+ *  @param orderId    订单 id
  *  @param value      分值 0~1之间
  *  @param contents    评价内容
  *  @param completion
  */
-+ (void)asyncMakeCommentWithGoodsId:(NSInteger)goodsId ratingValue:(float)value andContent:(NSString *)contents isAnonymous:(BOOL)anonymous completionBlock:(void (^)(BOOL isSuccess))completion;
++ (void)asyncMakeCommentWithGoodsId:(NSInteger)goodsId orderId:(NSInteger)orderId ratingValue:(float)value andContent:(NSString *)contents isAnonymous:(BOOL)anonymous completionBlock:(void (^)(BOOL isSuccess))completion;
 
 /**
  *  加载一个商品的评论列表

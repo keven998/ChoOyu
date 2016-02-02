@@ -16,6 +16,7 @@
 #import "ChatSettingViewController.h"
 #import "REFrostedViewController.h"
 #import "SelectPayPlatformViewController.h"
+#import "MakeGoodsCommentViewController.h"
 
 #define pageCount 15    //每页加载数量
 
@@ -30,6 +31,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationItem.title = @"订单列表";
     self.tableView.rowHeight = 160.0;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -144,6 +146,15 @@
     [self.navigationController pushViewController:ctl animated:YES];
 }
 
+- (void)makeComment:(UIButton *)sender
+{
+    MakeGoodsCommentViewController *ctl = [[MakeGoodsCommentViewController alloc] init];
+    OrderDetailModel *orderDetail = _dataSource[sender.tag];
+    ctl.goodsId = orderDetail.goods.goodsId;
+    ctl.orderId = orderDetail.orderId;
+    [self.navigationController pushViewController:ctl animated:YES];
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -170,7 +181,14 @@
     cell.orderDetail = order;
     cell.contactBusiness.tag = indexPath.row;
     cell.payOrderBtn.tag = indexPath.row;
-    [cell.payOrderBtn addTarget:self action:@selector(payOrder:) forControlEvents:UIControlEventTouchUpInside];
+    if (order.orderStatus == kOrderToReview) {
+        [cell.payOrderBtn removeTarget:self action:@selector(payOrder:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.payOrderBtn addTarget:self action:@selector(makeComment:) forControlEvents:UIControlEventTouchUpInside];
+
+    } else {
+        [cell.payOrderBtn removeTarget:self action:@selector(makeComment:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.payOrderBtn addTarget:self action:@selector(payOrder:) forControlEvents:UIControlEventTouchUpInside];
+    }
     [cell.contactBusiness addTarget:self action:@selector(contactBusiness:) forControlEvents:UIControlEventTouchUpInside];
     return cell;
 }

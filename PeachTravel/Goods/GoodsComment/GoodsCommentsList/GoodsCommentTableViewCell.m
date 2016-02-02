@@ -7,6 +7,8 @@
 //
 
 #import "GoodsCommentTableViewCell.h"
+#import "PeachTravel-swift.h"
+#import "GoodsDetailModel.h"
 
 @implementation GoodsCommentTableViewCell
 
@@ -44,6 +46,8 @@
     _ratingView.horizontalMargin = 1;
     _ratingView.displayMode = EDStarRatingDisplayAccurate;
     _ratingView.userInteractionEnabled = NO;
+    
+    _timeLabel.adjustsFontSizeToFitWidth = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
