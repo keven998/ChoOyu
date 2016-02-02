@@ -55,10 +55,12 @@
     [_scroll2TopBtn addTarget:self action:@selector(scroll2Top) forControlEvents:UIControlEventTouchUpInside];
     [self setNavigationBar];
     
-    _searchBtn = [[UIButton alloc] initWithFrame:CGRectMake(30, 27, kWindowWidth-60, 25)];
+    _searchBtn = [[UIButton alloc] initWithFrame:CGRectMake(30, 27, kWindowWidth-60, 27)];
     [_searchBtn setBackgroundImage:[[UIImage imageNamed:@"icon_goods_search_bg"] resizableImageWithCapInsets:UIEdgeInsetsMake(2, 40, 2, 20)] forState:UIControlStateNormal];
+    _searchBtn.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.2];
+    _searchBtn.layer.cornerRadius = 5.5;
     [_searchBtn addTarget:self action:@selector(searchAction) forControlEvents:UIControlEventTouchUpInside];
-    UILabel *searchLabel = [[UILabel alloc] initWithFrame:CGRectMake(45, 0, _searchBtn.bounds.size.width-50, 25)];
+    UILabel *searchLabel = [[UILabel alloc] initWithFrame:CGRectMake(45, 0, _searchBtn.bounds.size.width-50, 27)];
     searchLabel.text = @"搜索商品";
     searchLabel.textColor = [UIColor whiteColor];
     searchLabel.font = [UIFont systemFontOfSize:14.0];
