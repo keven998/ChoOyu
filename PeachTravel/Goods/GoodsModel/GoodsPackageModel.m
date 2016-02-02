@@ -22,10 +22,15 @@
         for (NSDictionary *pairceDic in [json objectForKey:@"pricing"]) {
             NSString *firstPriceStr = [[pairceDic objectForKey:@"timeRange"] firstObject];
             NSString *lastPriceStr = [[pairceDic objectForKey:@"timeRange"] lastObject];
-            
-            NSTimeInterval firstDateTimeInterval = [[ConvertMethods stringToDate:[firstPriceStr substringWithRange:NSMakeRange(0, 10)] withFormat:@"yyyy-MM-dd" withTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]] timeIntervalSince1970];
-            
-            NSTimeInterval lastDateTimeInterval = [[ConvertMethods stringToDate:[lastPriceStr substringWithRange:NSMakeRange(0, 10)] withFormat:@"yyyy-MM-dd" withTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]] timeIntervalSince1970];
+            NSTimeInterval firstDateTimeInterval;
+            if ([firstPriceStr isKindOfClass:[NSString class]]) {
+                 firstDateTimeInterval = [[ConvertMethods stringToDate:[firstPriceStr substringWithRange:NSMakeRange(0, 10)] withFormat:@"yyyy-MM-dd" withTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]] timeIntervalSince1970];
+            }
+         
+            NSTimeInterval lastDateTimeInterval;
+            if ([lastPriceStr isKindOfClass:[NSString class]]) {
+                lastDateTimeInterval = [[ConvertMethods stringToDate:[lastPriceStr substringWithRange:NSMakeRange(0, 10)] withFormat:@"yyyy-MM-dd" withTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]] timeIntervalSince1970];
+            }
             
             while (firstDateTimeInterval <= lastDateTimeInterval) {
                 NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];

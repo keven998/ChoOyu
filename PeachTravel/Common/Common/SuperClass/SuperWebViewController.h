@@ -11,10 +11,12 @@
 
 @interface SuperWebViewController : TZViewController <UIWebViewDelegate>
 
+@property (nonatomic, strong) UIWebView *webView;
 @property (nonatomic, copy) NSString *urlStr;
 @property (nonatomic, copy) NSString *titleStr;
 
 //开始加载URL Request
 - (void)didStartLoadURLRequest:(NSURLRequest *)request;
+
 @end
 

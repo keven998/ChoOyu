@@ -8,6 +8,7 @@
 
 #import "GoodsCommentDetail.h"
 #import "PeachTravel-swift.h"
+#import "OrderDetailModel.h"
 
 @implementation GoodsCommentDetail
 
@@ -20,6 +21,7 @@
         NSTimeInterval pTime = [[json objectForKey:@"createTime"] longLongValue]/1000;
         _publishTime = [ConvertMethods timeIntervalToString:pTime withFormat:@"yyyy-MM-dd" withTimeZone:[NSTimeZone systemTimeZone]];
         _rating = [[json objectForKey:@"rating"] floatValue];
+        _orderDetail = [[OrderDetailModel alloc] initWithJson:[json objectForKey:@"order"]];
     }
     return self;
 }

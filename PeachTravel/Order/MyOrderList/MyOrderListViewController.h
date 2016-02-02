@@ -12,4 +12,6 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 //订单状态列表 空数组代表全部类型
 @property (nonatomic, strong) NSArray *orderTypes;
+
+@property (nonatomic, copy) NSString *titleStr;
 @end

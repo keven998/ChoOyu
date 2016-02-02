@@ -144,6 +144,7 @@
 - (void)refundMoneyOrderAction
 {
     MyOrderListViewController *ctl = [[MyOrderListViewController alloc] init];
+    ctl.titleStr = @"退款";
     ctl.orderTypes = @[[NSNumber numberWithInt:kOrderRefunded], [NSNumber numberWithInt:kOrderRefunding]];
     [_containerViewController.navigationController pushViewController:ctl animated:YES];
 }

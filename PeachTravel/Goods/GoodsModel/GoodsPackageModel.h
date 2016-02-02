@@ -20,25 +20,6 @@
 
 @property (nonatomic, strong) NSDate *endPriceDate;  //套餐结束时间
 
-
-/******  套餐价格区间 具体格式为
- [
-    {
-        price: 23,
-        timeRange: [
-            1449100800000,
-            1450396800000
-            ]
-    },
-    {
-        price: 32,
-        timeRange: [
-            1450483200000,
-            1450915200000
-        ]
-    }
- ],
- */
 @property (nonatomic, strong) NSArray *priceList;
 - (id)initWithJson:(id)json;
 

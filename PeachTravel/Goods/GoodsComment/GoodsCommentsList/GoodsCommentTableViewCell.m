@@ -8,7 +8,7 @@
 
 #import "GoodsCommentTableViewCell.h"
 #import "PeachTravel-swift.h"
-#import "GoodsDetailModel.h"
+#import "OrderDetailModel.h"
 
 @implementation GoodsCommentTableViewCell
 
@@ -28,8 +28,20 @@
         CGRect rect = [attrstr boundingRectWithSize:(CGSize){kWindowWidth-65, CGFLOAT_MAX} options:NSStringDrawingUsesLineFragmentOrigin context:nil];
         retHeight += rect.size.height;
     }
+    if (comment.orderDetail.selectedPackage.packageName) {
+        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+        paragraphStyle.lineSpacing = 5.0;
+        
+        NSDictionary *attribs = @{NSFontAttributeName: [UIFont systemFontOfSize:13],
+                                  NSParagraphStyleAttributeName:paragraphStyle,
+                                  };
+        NSAttributedString *attrstr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"套餐类型: %@", comment.orderDetail.selectedPackage.packageName] attributes:attribs];
+        
+        CGRect rect = [attrstr boundingRectWithSize:(CGSize){kWindowWidth-65, CGFLOAT_MAX} options:NSStringDrawingUsesLineFragmentOrigin context:nil];
+        retHeight += rect.size.height;
+    }
     
-    retHeight += 38;
+    retHeight += 18;
     
     return retHeight;
     
@@ -61,7 +73,22 @@
     _nickNameLabel.text = _goodsComment.commentUser.nickName;
     _timeLabel.text = _goodsComment.publishTime;
     _ratingView.rating = _goodsComment.rating*5;
-    _goodsPackageLabel.text = _goodsComment.selectedPackage.packageName;
+    
+    if (_goodsComment.orderDetail.selectedPackage.packageName) {
+        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+        paragraphStyle.lineSpacing = 5.0;
+        
+        NSDictionary *attribs = @{NSFontAttributeName: [UIFont systemFontOfSize:13],
+                                  NSParagraphStyleAttributeName:paragraphStyle,
+                                  };
+        NSAttributedString *attrstr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"套餐类型: %@", _goodsComment.orderDetail.selectedPackage.packageName] attributes:attribs];
+        _goodsPackageLabel.attributedText = attrstr;
+        
+        CGRect rect = [attrstr boundingRectWithSize:(CGSize){kWindowWidth-65, CGFLOAT_MAX} options:NSStringDrawingUsesLineFragmentOrigin context:nil];
+
+        _packageLabelHeightConstraint.constant = rect.size.height+2;
+    }
+    
     if (_goodsComment.contents) {
         NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
         paragraphStyle.lineSpacing = 5.0;

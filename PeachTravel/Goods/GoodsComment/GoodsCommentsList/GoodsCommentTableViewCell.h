@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 
 @property (nonatomic, strong) GoodsCommentDetail *goodsComment;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *packageLabelHeightConstraint;
 
 + (CGFloat)heightWithCommentDetail:(GoodsCommentDetail *)comment;
 

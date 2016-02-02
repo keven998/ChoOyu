@@ -18,8 +18,6 @@
     NJKWebViewProgress *_progressProxy;
 }
 
-@property (nonatomic, strong) UIWebView *webView;
-
 @end
 
 @implementation SuperWebViewController

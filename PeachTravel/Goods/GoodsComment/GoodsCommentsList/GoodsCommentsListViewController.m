@@ -24,6 +24,7 @@
     self.navigationItem.title = @"全部评价";
     _tableView.dataSource = self;
     _tableView.delegate = self;
+    _tableView.backgroundColor = [UIColor whiteColor];
     _tableView.separatorColor = COLOR_LINE;
     [_tableView registerNib:[UINib nibWithNibName:@"GoodsCommentTableViewCell" bundle:nil] forCellReuseIdentifier:@"goodsCommentTableViewCell"];
     [UserCommentManager asyncLoadGoodsCommentsWithGoodsId:_goodsId completionBlock:^(BOOL isSuccess, NSArray<GoodsCommentDetail *> *commentsList) {

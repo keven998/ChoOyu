@@ -8,13 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-@class GoodsDetailModel;
-@class GoodsPackageModel;
+@class OrderDetailModel;
 
 @interface GoodsCommentDetail : NSObject
 
-@property (nonatomic, strong) GoodsDetailModel *goodsDetail;  //评价的商品
-@property (nonatomic, strong) GoodsPackageModel *selectedPackage;  //选中的套餐
+@property (nonatomic, strong) OrderDetailModel *orderDetail;  //与此条评价相关的订单信息
 
 @property (nonatomic, strong) NSArray <TaoziImage *>* images;
 @property (nonatomic, copy) NSString *commentId;

@@ -33,7 +33,7 @@
 #import "ChatRecoredListTableViewController.h"
 #import "TaoziChatMessageBaseViewController.h"
 #import "GoodsDetailSoldOutView.h"
-#import "SuperWebViewController.h"
+#import "GoodsDetailWebViewController.h"
 #import "GoodsCommentsListViewController.h"
 #import "GoodsCommentTableViewCell.h"
 
@@ -301,7 +301,7 @@
         [self showMoreCommentAction];
         return;
     }
-    SuperWebViewController *ctl = [[SuperWebViewController alloc] init];
+    GoodsDetailWebViewController *ctl = [[GoodsDetailWebViewController alloc] init];
     if (sender.tag == 2) {
         ctl.urlStr = _goodsDetail.allDescUrl;
         ctl.titleStr = @"商品介绍";
@@ -318,8 +318,9 @@
         ctl.urlStr = _goodsDetail.allTrafficUrl;
         ctl.titleStr = @"交通提示";
     }
-
-    [self.navigationController pushViewController:ctl animated:YES];
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:ctl] animated:YES completion:^{
+        
+    }];
 }
 
 - (void)showMoreCommentAction

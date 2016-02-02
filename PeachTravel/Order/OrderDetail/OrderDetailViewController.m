@@ -179,7 +179,7 @@ NSString *const kUpdateOrderdetailNoti = @"kUpdateOrderdetailNoti";
     } else if (_orderDetail.orderStatus == kOrderToReview) {
         UIButton *orderAgainBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, _toolBar.bounds.size.width/2, _toolBar.bounds.size.height)];
         [orderAgainBtn setTitle:@"再次预订" forState:UIControlStateNormal];
-        [orderAgainBtn setTitleColor:UIColorFromRGB(0xFC4E27) forState:UIControlStateNormal];
+        [orderAgainBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
         [orderAgainBtn setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
         [orderAgainBtn addTarget:self action:@selector(orderAgainAction:) forControlEvents:UIControlEventTouchUpInside];
         orderAgainBtn.titleLabel.font = [UIFont systemFontOfSize:17];

@@ -44,7 +44,7 @@
                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kge-ae-Mvb">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="255" translatesAutoresizingMaskIntoConstraints="NO" id="kge-ae-Mvb">
                         <rect key="frame" x="53" y="152" width="255" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="UOj-Km-kMX"/>
@@ -88,6 +88,7 @@
                 <outlet property="contentsLabel" destination="rCq-LI-UlG" id="JFY-SD-tNe"/>
                 <outlet property="goodsPackageLabel" destination="kge-ae-Mvb" id="Sc1-KG-K0i"/>
                 <outlet property="nickNameLabel" destination="ZFP-VF-5rW" id="iLh-iE-E0x"/>
+                <outlet property="packageLabelHeightConstraint" destination="UOj-Km-kMX" id="pzB-BK-VTr"/>
                 <outlet property="ratingView" destination="y1i-19-mgm" id="GEV-q0-mLJ"/>
                 <outlet property="timeLabel" destination="U6f-R6-YDp" id="nbo-QF-1Fp"/>
             </connections>

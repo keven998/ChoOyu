@@ -31,7 +31,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"订单列表";
+    if (_titleStr) {
+        self.navigationItem.title = _titleStr;
+    } else {
+        self.navigationItem.title = @"订单列表";
+    }
     self.tableView.rowHeight = 160.0;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
