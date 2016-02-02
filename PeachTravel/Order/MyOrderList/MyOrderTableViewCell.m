@@ -41,7 +41,7 @@
     }
     
     if (_orderDetail.orderStatus == kOrderToReview) {
-        [_payOrderBtn setTitle:@"点评" forState:UIControlStateNormal];
+        [_payOrderBtn setTitle:@"评价" forState:UIControlStateNormal];
     } else {
         [_payOrderBtn setTitle:@"立即支付" forState:UIControlStateNormal];
     }

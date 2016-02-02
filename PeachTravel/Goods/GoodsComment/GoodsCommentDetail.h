@@ -18,6 +18,7 @@
 @property (nonatomic, copy) NSString *commentId;
 @property (nonatomic, copy) NSString *contents;
 @property (nonatomic) float rating;
+@property (nonatomic) BOOL isAnonymous;
 @property (nonatomic, copy) NSString *publishTime;
 @property (nonatomic, strong) FrendModel *commentUser;   //评价人
 

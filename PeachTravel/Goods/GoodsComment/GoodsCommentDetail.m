@@ -17,6 +17,7 @@
     if (self = [super init]) {
         _commentId = [json objectForKey:@"id"];
         _contents = [json objectForKey:@"contents"];
+        _isAnonymous = [json objectForKey:@"anonymous"];
         _commentUser = [[FrendModel alloc] initWithJson:[json objectForKey:@"user"]];
         NSTimeInterval pTime = [[json objectForKey:@"createTime"] longLongValue]/1000;
         _publishTime = [ConvertMethods timeIntervalToString:pTime withFormat:@"yyyy-MM-dd" withTimeZone:[NSTimeZone systemTimeZone]];

@@ -70,7 +70,11 @@
 {
     _goodsComment = goodsComment;
     [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:_goodsComment.commentUser.avatar] placeholderImage:[UIImage imageNamed:@"avatar_default"]];
-    _nickNameLabel.text = _goodsComment.commentUser.nickName;
+    if (_goodsComment.isAnonymous) {
+        _nickNameLabel.text = @"*****";
+    } else {
+        _nickNameLabel.text = _goodsComment.commentUser.nickName;
+    }
     _timeLabel.text = _goodsComment.publishTime;
     _ratingView.rating = _goodsComment.rating*5;
     

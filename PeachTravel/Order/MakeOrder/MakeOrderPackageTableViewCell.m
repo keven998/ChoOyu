@@ -16,7 +16,7 @@
     
     NSDictionary *attribs = @{NSFontAttributeName: [UIFont systemFontOfSize:13]};
     NSAttributedString *attrstr = [[NSAttributedString alloc] initWithString: title attributes:attribs];
-    CGRect rect = [attrstr boundingRectWithSize:(CGSize){kWindowWidth-110, CGFLOAT_MAX} options:NSStringDrawingUsesLineFragmentOrigin context:nil];
+    CGRect rect = [attrstr boundingRectWithSize:(CGSize){kWindowWidth-125, CGFLOAT_MAX} options:NSStringDrawingUsesLineFragmentOrigin context:nil];
     if (rect.size.height > 21) {
         retHeight = rect.size.height + 10;
     } else {
@@ -39,7 +39,7 @@
     _contentLabel.text = _packageTitle;
     NSDictionary *attribs = @{NSFontAttributeName: [UIFont systemFontOfSize:13]};
     NSAttributedString *attrstr = [[NSAttributedString alloc] initWithString: _packageTitle attributes:attribs];
-    CGRect rect = [attrstr boundingRectWithSize:(CGSize){kWindowWidth-110, CGFLOAT_MAX} options:NSStringDrawingUsesLineFragmentOrigin context:nil];
+    CGRect rect = [attrstr boundingRectWithSize:(CGSize){kWindowWidth-125, CGFLOAT_MAX} options:NSStringDrawingUsesLineFragmentOrigin context:nil];
     if (rect.size.height > 21) {
         _contentLabelHeightConstraint.constant = rect.size.height + 10;
     } else {

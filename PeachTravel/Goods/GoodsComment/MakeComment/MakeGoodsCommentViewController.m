@@ -14,6 +14,7 @@
 #import "UserAlbumManager.h"
 #import "EDStarRating.h"
 #import "UserCommentManager.h"
+#import "OrderDetailViewController.h"
 
 @interface MakeGoodsCommentViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate, EDStarRatingProtocol>
 
@@ -34,7 +35,7 @@ static NSString * const reuseIdentifier = @"uploadPhotoCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationItem.title = @"发表评价";
+    self.navigationItem.title = @"发表评价,内容15个字以上";
     
     _scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
     _scrollView.delegate = self;
@@ -158,8 +159,14 @@ static NSString * const reuseIdentifier = @"uploadPhotoCell";
 
 - (void)submitUserComment
 {
-    [UserCommentManager asyncMakeCommentWithGoodsId:_goodsId orderId:_orderId ratingValue:_ratingView.rating/5 andContent:_containterView.textView.text isAnonymous:_anonymousBtn.selected completionBlock:^(BOOL isSuccess) {
+    NSString *contents = [_containterView.textView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    if (contents.length < 15) {
+        [SVProgressHUD showHint:@"评价内容需要大于15个字哦"];
+    }
+
+    [UserCommentManager asyncMakeCommentWithGoodsId:_goodsId orderId:_orderId ratingValue:_ratingView.rating/5 andContent:contents isAnonymous:_anonymousBtn.selected completionBlock:^(BOOL isSuccess) {
         if (isSuccess) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kUpdateOrderdetailNoti object:nil];
             [SVProgressHUD showHint:@"评价成功"];
             [self dismissCtl];
         } else {

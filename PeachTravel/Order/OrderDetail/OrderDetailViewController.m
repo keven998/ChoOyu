@@ -63,6 +63,11 @@ NSString *const kUpdateOrderdetailNoti = @"kUpdateOrderdetailNoti";
     [self setupToolBar];
 }
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
@@ -142,7 +147,7 @@ NSString *const kUpdateOrderdetailNoti = @"kUpdateOrderdetailNoti";
     spaceView.backgroundColor = COLOR_LINE;
     [_toolBar addSubview:spaceView];
 
-    if (_orderDetail.orderStatus == kOrderCanceled || _orderDetail.orderStatus == kOrderRefunded || _orderDetail.orderStatus == kOrderCompletion) {
+    if (_orderDetail.orderStatus == kOrderCanceled || _orderDetail.orderStatus == kOrderRefunded || _orderDetail.orderStatus == kOrderCompletion || _orderDetail.orderStatus == kOrderReviewed) {
         UIButton *orderAgainBtn = [[UIButton alloc] initWithFrame:_toolBar.bounds];
         [orderAgainBtn setTitle:@"再次预订" forState:UIControlStateNormal];
         [orderAgainBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];

@@ -19,6 +19,8 @@
 @property (nonatomic, weak) id<SearchDestinationRecommendDelegate> delegate;
 
 @property (nonatomic) TZPoiType poiType;
+@property (nonatomic) BOOL isSearchGoods; //是否是搜索商品
+
 
 - (void)addSearchHistoryText:(NSString *)searchText;
 

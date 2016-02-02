@@ -203,6 +203,10 @@
             orderStatusDesc = @"已完成";
             break;
             
+        case kOrderReviewed:
+            orderStatusDesc = @"已完成";
+            break;
+            
         default:
             break;
     }

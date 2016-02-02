@@ -290,6 +290,9 @@
         
     } else if ([statusStr isEqualToString:@"toReview"]) {
         return kOrderToReview;
+        
+    } else if ([statusStr isEqualToString:@"reviewed"]) {
+        return kOrderReviewed;
     }
     
     return 0;

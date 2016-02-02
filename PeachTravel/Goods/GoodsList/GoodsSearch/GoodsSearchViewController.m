@@ -61,7 +61,7 @@ static NSString *reusableCellIdentifier = @"goodsListCell";
     if (!_searchRecommendViewController) {
         _searchRecommendViewController = [[SearchDestinationRecommendViewController alloc] init];
         _searchRecommendViewController.delegate = self;
-        _searchRecommendViewController.poiType = kCityPoi;
+        _searchRecommendViewController.isSearchGoods = YES;
     }
     return _searchRecommendViewController;
 }

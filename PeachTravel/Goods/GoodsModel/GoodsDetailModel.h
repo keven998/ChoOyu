@@ -50,6 +50,7 @@
 @property (nonatomic, copy) NSString *allBookQuitUrl;
 @property (nonatomic, copy) NSString *allTrafficUrl;
 
+@property (nonatomic) NSInteger commentCnt;
 @property (nonatomic, strong) NSArray<GoodsCommentDetail *> *commentList;
 
 - (id)initWithJson:(id)json;

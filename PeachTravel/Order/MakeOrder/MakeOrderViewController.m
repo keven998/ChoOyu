@@ -396,17 +396,7 @@
     if (![package.packageId isEqualToString:_orderDetail.selectedPackage.packageId]) {
         [OrderManager updateOrder:_orderDetail WithGoodsPackage:package];
         _orderDetail.unitPrice = 0;
-        BOOL find = NO;
-        for (NSDictionary *priceDic in package.priceList) {
-            NSDate *date = [ConvertMethods stringToDate:_orderDetail.useDate withFormat:@"yyyy-MM-dd" withTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
-            if ([date isEqualToDate: [priceDic objectForKey:@"date"]]) {
-                find = YES;
-                break;
-            }
-        }
-        if (!find) {
-            _orderDetail.useDate = 0;
-        }
+        _orderDetail.useDate = 0;
         _totalPriceLabel.text = [NSString stringWithFormat:@"￥%@", _orderDetail.formatTotalPrice];
         [self.tableView reloadData];
     }

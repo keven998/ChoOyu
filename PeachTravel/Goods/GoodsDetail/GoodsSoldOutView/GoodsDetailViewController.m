@@ -433,7 +433,7 @@
         titleLabel.textColor = COLOR_TEXT_I;
         titleLabel.font = [UIFont systemFontOfSize:15.0];
         if (_goodsDetail.commentList.count) {
-            titleLabel.text = [NSString stringWithFormat:@"用户评价 (%ld人, %.1f分)", _goodsDetail.commentList.count, _goodsDetail.rating*5];
+            titleLabel.text = [NSString stringWithFormat:@"用户评价 (%ld人, %.1f分)", _goodsDetail.commentCnt, _goodsDetail.rating*5];
         } else {
             titleLabel.text = @"用户评价";
         }

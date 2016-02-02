@@ -102,8 +102,12 @@
 - (NSString *)destinationCacheKey
 {
     NSString *commomKey = kSearchDestinationCacheKey;
-    if (_poiType != 0) {
-        return [NSString stringWithFormat:@"%@_%ld", commomKey, _poiType];
+    if (_isSearchGoods) {
+        return [NSString stringWithFormat:@"%@_goods", commomKey];
+    } else {
+        if (_poiType != 0) {
+            return [NSString stringWithFormat:@"%@_%ld", commomKey, _poiType];
+        }
     }
     return commomKey;
 }
@@ -139,17 +143,21 @@
 {
     
     NSDictionary *params;
-    if (_poiType == kRestaurantPoi) {
-        params = @{@"scope": @"restaurant"};
-        
-    } else if (_poiType == kShoppingPoi) {
-        params = @{@"scope": @"shopping"};
-        
-    } else if (_poiType == kSpotPoi) {
-        params = @{@"scope": @"viewspot"};
-        
-    } else if (_poiType == kTravelNotePoi) {
-        params = @{@"scope": @"travelNote"};
+    if (_isSearchGoods) {
+        params = @{@"scope": @"commodity"};
+    } else {
+        if (_poiType == kRestaurantPoi) {
+            params = @{@"scope": @"restaurant"};
+            
+        } else if (_poiType == kShoppingPoi) {
+            params = @{@"scope": @"shopping"};
+            
+        } else if (_poiType == kSpotPoi) {
+            params = @{@"scope": @"viewspot"};
+            
+        } else if (_poiType == kTravelNotePoi) {
+            params = @{@"scope": @"travelNote"};
+        }
     }
     
     [LXPNetworking GET:API_GET_HOT_SEARCH parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {

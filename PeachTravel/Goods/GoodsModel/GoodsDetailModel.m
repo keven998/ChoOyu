@@ -17,7 +17,7 @@
         _primePrice = [[json objectForKey:@"marketPrice"] floatValue];
         _currentPrice = [[json objectForKey:@"price"] floatValue];
         _goodsName = [json objectForKey:@"title"];
-        _category = [json objectForKey:@"category"];
+        _category    = [json objectForKey:@"category"];
         _address = [json objectForKey:@"address"];
         _timecost = [json objectForKey:@"timeCost"];
         _rating = [[json objectForKey:@"rating"] floatValue];
@@ -28,6 +28,7 @@
             [commentArray addObject:[[GoodsCommentDetail alloc] initWithJson:commentDic]];
         }
         _commentList = commentArray;
+        _commentCnt = [[json objectForKey:@"commentCnt"] integerValue];
         if ([[[[json objectForKey:@"notice"] firstObject] objectForKey:@"summary"] length]) {
             _goodsFeeDescSummary = [[[json objectForKey:@"notice"] firstObject] objectForKey:@"summary"];
         } else {
