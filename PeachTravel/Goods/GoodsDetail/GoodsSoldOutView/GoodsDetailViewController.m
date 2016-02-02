@@ -448,6 +448,21 @@
         return nil;
         
     } else {
+        if (section == 6 && !_goodsDetail.commentList.count) {
+            UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 60)];
+            footerView.backgroundColor = APP_PAGE_COLOR;
+            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, footerView.bounds.size.width, 40)];
+            label.backgroundColor = [UIColor whiteColor];
+            label.text = @"   暂无评论";
+            label.textColor = COLOR_TEXT_II;
+            label.font = [UIFont systemFontOfSize:14.0];
+            [footerView addSubview:label];
+            
+            UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 40, kWindowWidth, 0.5)];
+            spaceView.backgroundColor = COLOR_LINE;
+            [footerView addSubview:spaceView];
+            return footerView;
+        }
         GoodsDetailCommonSectionFooterView *view = [[GoodsDetailCommonSectionFooterView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 60)];
         [view.showAllButton addTarget:self action:@selector(showMoreContrent:) forControlEvents:UIControlEventTouchUpInside];
         view.showAllButton.tag = section;

@@ -23,6 +23,7 @@
 #import "ChatSettingViewController.h"
 #import "REFrostedViewController.h"
 #import "TZPayManager.h"
+#import "MakeGoodsCommentViewController.h"
 
 NSString *const kUpdateOrderdetailNoti = @"kUpdateOrderdetailNoti";
 
@@ -51,7 +52,6 @@ NSString *const kUpdateOrderdetailNoti = @"kUpdateOrderdetailNoti";
     [_tableView registerNib:[UINib nibWithNibName:@"OrderDetailContactTableViewCell" bundle:nil] forCellReuseIdentifier:@"orderDetailContactCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"OrderDetailStatusListTableViewCell" bundle:nil] forCellReuseIdentifier:@"orderDetailStatusListTableViewCell"];
 
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateOrderDetail) name:kUpdateOrderdetailNoti object:nil];
     
     _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.bounds.size.width, 55)];
@@ -176,6 +176,24 @@ NSString *const kUpdateOrderdetailNoti = @"kUpdateOrderdetailNoti";
         [payOrderBtn addTarget:self action:@selector(payOrder:) forControlEvents:UIControlEventTouchUpInside];
         [_toolBar addSubview:payOrderBtn];
         
+    } else if (_orderDetail.orderStatus == kOrderToReview) {
+        UIButton *orderAgainBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, _toolBar.bounds.size.width/2, _toolBar.bounds.size.height)];
+        [orderAgainBtn setTitle:@"再次预订" forState:UIControlStateNormal];
+        [orderAgainBtn setTitleColor:UIColorFromRGB(0xFC4E27) forState:UIControlStateNormal];
+        [orderAgainBtn setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+        [orderAgainBtn addTarget:self action:@selector(orderAgainAction:) forControlEvents:UIControlEventTouchUpInside];
+        orderAgainBtn.titleLabel.font = [UIFont systemFontOfSize:17];
+        [_toolBar addSubview:orderAgainBtn];
+        
+        UIButton *makeCommentBtn = [[UIButton alloc] initWithFrame:CGRectMake(_toolBar.bounds.size.width/2, 0, _toolBar.bounds.size.width/2, _toolBar.bounds.size.height)];
+        [makeCommentBtn setTitle:@"评价" forState:UIControlStateNormal];
+        [makeCommentBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [makeCommentBtn setBackgroundImage:[ConvertMethods createImageWithColor:UIColorFromRGB(0xFC4E27)] forState:UIControlStateNormal];
+        [makeCommentBtn addTarget:self action:@selector(makeCommentAction:) forControlEvents:UIControlEventTouchUpInside];
+        makeCommentBtn.titleLabel.font = [UIFont systemFontOfSize:17];
+        [_toolBar addSubview:makeCommentBtn];
+
+        
     } else {
         [_toolBar removeFromSuperview];
         _toolBar = nil;
@@ -264,6 +282,14 @@ NSString *const kUpdateOrderdetailNoti = @"kUpdateOrderdetailNoti";
     
     [self.navigationController pushViewController:frostedViewController animated:YES];
     
+}
+
+- (void)makeCommentAction:(UIButton *)sender
+{
+    MakeGoodsCommentViewController *ctl = [[MakeGoodsCommentViewController alloc] init];
+    ctl.goodsId = _orderDetail.goods.goodsId;
+    ctl.orderId = _orderDetail.orderId;
+    [self.navigationController pushViewController:ctl animated:YES];
 }
 
 - (void)orderAgainAction:(UIButton *)sender
