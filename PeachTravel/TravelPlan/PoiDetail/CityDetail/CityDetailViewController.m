@@ -105,7 +105,7 @@
 {
     SuperWebViewController *webView = [[SuperWebViewController alloc] init];
     webView.titleStr = @"旅行派各国商户招募计划";
-    webView.urlStr = @"http://nluloh.epub360.com/v2/manage/book/pe3rs2/?from=singlemessage&isappinstalled=0#page/page_8941c15c634a1afe";
+    webView.urlStr = @"http://h5.lvxingpai.com/xiaop.html";
     [self.navigationController pushViewController:webView animated:YES];
 }
 
