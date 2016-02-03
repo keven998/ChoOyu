@@ -112,9 +112,8 @@
     return commomKey;
 }
 
-- (void)addSearchHistoryText:(NSString *)text
+- (void)addSearchHistoryText:(NSString *)searchText
 {
-    NSString *searchText = [text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     // 将搜索结果存入到数据库中
     NSArray * recentSearch = [[TMCache sharedCache] objectForKey:[self destinationCacheKey]];
     NSMutableArray * mutableArray;

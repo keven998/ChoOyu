@@ -159,9 +159,12 @@ static NSString *reusableCellIdentifier = @"citySearchTableViewCell";
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
+    NSString *searchText = [searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     [_searchBar endEditing:YES];
-    [self.searchRecommendViewController addSearchHistoryText:searchBar.text];
-    [self loadDataSourceWithKeyWord:searchBar.text];
+    if (searchText.length) {
+        [self.searchRecommendViewController addSearchHistoryText:searchText];
+        [self loadDataSourceWithKeyWord:searchBar.text];
+    }
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
