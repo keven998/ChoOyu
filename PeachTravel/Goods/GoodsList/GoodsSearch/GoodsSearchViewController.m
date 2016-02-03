@@ -35,6 +35,13 @@ static NSString *reusableCellIdentifier = @"goodsListCell";
     [self setSearchBar];
     [self.view addSubview:self.tableView];
     _tableView.hidden = YES;
+    
+    UIButton *cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [cancelButton setTitle:@"取消" forState:UIControlStateNormal];
+    [cancelButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [cancelButton addTarget:self action:@selector(dismissCtl) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:cancelButton];
+    
 }
 
 - (void)setSearchBar
@@ -43,8 +50,7 @@ static NSString *reusableCellIdentifier = @"goodsListCell";
     _searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _searchBar.delegate = self;
     [_searchBar setPlaceholder:@"搜索商品"];
-    _searchBar.tintColor = [UIColor whiteColor];
-    _searchBar.showsCancelButton = YES;
+    _searchBar.tintColor = COLOR_TEXT_I;
     _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
     [_searchBar setSearchFieldBackgroundImage:[[UIImage imageNamed:@"icon_search_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)] forState:UIControlStateNormal];
     [_searchBar setTranslucent:YES];
@@ -101,6 +107,12 @@ static NSString *reusableCellIdentifier = @"goodsListCell";
     }];
 }
 
+- (void)dismissCtl
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+
+}
+
 #pragma mark - UITableViewDataSource 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -148,12 +160,8 @@ static NSString *reusableCellIdentifier = @"goodsListCell";
         [_tableView reloadData];
         _tableView.hidden = YES;
         _searchRecommendViewController.view.hidden = NO;
+        [_searchBar endEditing:YES];
     }
-}
-
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark- SearchDestinationRecommendDelegate

@@ -35,6 +35,12 @@ static NSString *reusableCellIdentifier = @"citySearchTableViewCell";
     [self setSearchBar];
     [self.view addSubview:self.tableView];
     _tableView.hidden = YES;
+    
+    UIButton *cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [cancelButton setTitle:@"取消" forState:UIControlStateNormal];
+    [cancelButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [cancelButton addTarget:self action:@selector(dismissCtl) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:cancelButton];
 }
 
 - (void)setSearchBar
@@ -43,7 +49,7 @@ static NSString *reusableCellIdentifier = @"citySearchTableViewCell";
     _searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _searchBar.delegate = self;
     [_searchBar setPlaceholder:@"搜索城市"];
-    _searchBar.tintColor = [UIColor whiteColor];
+    _searchBar.tintColor = COLOR_TEXT_I;
     _searchBar.showsCancelButton = YES;
     _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
     [_searchBar setSearchFieldBackgroundImage:[[UIImage imageNamed:@"icon_search_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)] forState:UIControlStateNormal];
@@ -107,6 +113,12 @@ static NSString *reusableCellIdentifier = @"citySearchTableViewCell";
     }];
 }
 
+- (void)dismissCtl
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+}
+
 #pragma mark - UITableViewDataSource 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -158,6 +170,7 @@ static NSString *reusableCellIdentifier = @"citySearchTableViewCell";
         [_tableView reloadData];
         _tableView.hidden = YES;
         _searchRecommendViewController.view.hidden = NO;
+        [searchBar endEditing:YES];
     }
 }
 

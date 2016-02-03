@@ -162,6 +162,7 @@ static NSString * const reuseIdentifier = @"uploadPhotoCell";
     NSString *contents = [_containterView.textView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     if (contents.length < 15) {
         [SVProgressHUD showHint:@"评价内容需要大于15个字哦"];
+        return;
     }
 
     [UserCommentManager asyncMakeCommentWithGoodsId:_goodsId orderId:_orderId ratingValue:_ratingView.rating/5 andContent:contents isAnonymous:_anonymousBtn.selected completionBlock:^(BOOL isSuccess) {
@@ -256,7 +257,9 @@ static NSString * const reuseIdentifier = @"uploadPhotoCell";
 
 - (void)starsSelectionChanged:(EDStarRating*)control rating:(float)rating;
 {
-    
+    if (rating == 0) {
+        control.rating = 1;
+    }
 }
 
 #pragma mark <UICollectionViewDataSource>
