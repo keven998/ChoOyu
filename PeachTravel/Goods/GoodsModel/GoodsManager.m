@@ -42,7 +42,10 @@
 + (void)asyncLoadGoodsDetailWithGoodsId:(NSInteger)goodsId version:(long)version completionBlock:(void (^)(BOOL, NSDictionary *, GoodsDetailModel *))completion
 {
     NSString *url = [NSString stringWithFormat:@"%@/%ld", API_GOODSLIST, goodsId];
-    NSDictionary *param = @{@"version": [NSNumber numberWithLong:version]};
+    NSDictionary *param;
+    if (version > 0) {
+        param = @{@"version": [NSNumber numberWithLong:version]};
+    }
     [LXPNetworking GET:url parameters: param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"***开始加载商品详情: %@", operation);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
