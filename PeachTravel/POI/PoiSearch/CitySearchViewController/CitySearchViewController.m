@@ -50,7 +50,6 @@ static NSString *reusableCellIdentifier = @"citySearchTableViewCell";
     _searchBar.delegate = self;
     [_searchBar setPlaceholder:@"搜索城市"];
     _searchBar.tintColor = COLOR_TEXT_I;
-    _searchBar.showsCancelButton = YES;
     _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
     [_searchBar setSearchFieldBackgroundImage:[[UIImage imageNamed:@"icon_search_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)] forState:UIControlStateNormal];
     [_searchBar setTranslucent:YES];
