@@ -282,6 +282,10 @@
 
 - (void)weixinDidLogin:(NSNotification *)noti
 {
+    if (!noti.userInfo) {
+        [SVProgressHUD showHint:HTTP_FAILED_HINT];
+        return;
+    }
     NSString *code = [noti.userInfo objectForKey:@"code"];
     __weak typeof(LoginViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];

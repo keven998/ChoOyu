@@ -155,6 +155,7 @@
 // WXApiDelegate的代理方法
 - (void)onResp:(BaseResp *)resp
 {
+    //微信支付信息
     if ([resp isKindOfClass:[PayResp class]]) {
         PayResp *payResp = (PayResp *)resp;
         [[NSNotificationCenter defaultCenter] postNotificationName:kOrderPayResultNoti
@@ -166,15 +167,15 @@
                                                                      }];
       
         
-    } else {
+    } else {  //微信登录信息
         SendAuthResp * result = (SendAuthResp *)resp;
         NSString * code = result.code;
         NSLog(@"获取微信登录 token%@", code);
+        NSDictionary *userInfo;
         //微信授权失败,取消登录
-        if (!code) {
-            return;
+        if (code) {
+            userInfo = @{@"code" : code};
         }
-        NSDictionary *userInfo = @{@"code" : code};
         [[NSNotificationCenter defaultCenter] postNotificationName:weixinDidLoginNoti object:nil userInfo:userInfo];
     }
 }
