@@ -188,7 +188,7 @@
             _sortValue = nil;
         } else if (indexPath.row == 1) {
             _sortType = @"salesVolume";
-            _sortValue = @"asc";
+            _sortValue = @"desc";
         } else if (indexPath.row == 2) {
             _sortType = @"price";
             _sortValue = @"asc";

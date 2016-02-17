@@ -110,8 +110,10 @@ class IMClientManager: NSObject {
     //  当登出的时候设置初始化的sdk
     private func setUpSDKWhenLogout() {
         
-        let pushSDKManager = PushSDKManager.shareInstance()
-        pushSDKManager.removePushMessageListener(messageReceiveManager, withRoutingKey: "IM")
+        if let manager = messageReceiveManager {
+            let pushSDKManager = PushSDKManager.shareInstance()
+            pushSDKManager.removePushMessageListener(manager, withRoutingKey: "IM")
+        }
         messageReceiveManager = nil
         messageSendManager = nil
         conversationManager = nil

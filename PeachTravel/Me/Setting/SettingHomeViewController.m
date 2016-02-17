@@ -17,11 +17,11 @@
 
 #define cellIdentifier   @"settingCell"
 
-//#warning betatest
-//
-//#define SET_ITEMS       @[@[@"推荐应用给朋友", @"申请成为商家"], @[@"清理缓存", @"应用评分"],@[@"意见反馈", @"关于我们"], @[@"BetaTest"]]
+#warning betatest
 
-#define SET_ITEMS       @[@[@"推荐应用给朋友", @"申请成为商家"], @[@"清理缓存", @"应用评分"],@[@"意见反馈", @"关于我们"]]
+#define SET_ITEMS       @[@[@"推荐应用给朋友", @"申请成为商家"], @[@"清理缓存", @"应用评分"],@[@"意见反馈", @"关于我们"], @[@"BetaTest"]]
+
+//#define SET_ITEMS       @[@[@"推荐应用给朋友", @"申请成为商家"], @[@"清理缓存", @"应用评分"],@[@"意见反馈", @"关于我们"]]
 
 
 @interface SettingHomeViewController () <UITableViewDataSource, UITableViewDelegate>
