@@ -56,7 +56,8 @@
     [self.view addSubview:imageView];
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(imageView.frame) + 40, kWindowWidth, 30)];
-    label.textColor = COLOR_TEXT_II;
+    label.textAlignment = NSTextAlignmentCenter;
+    label.textColor = COLOR_TEXT_III;
     label.font = [UIFont systemFontOfSize:15.0];
     label.text = @"您目前没有优惠券~";
     [self.view addSubview:label];
