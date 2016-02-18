@@ -21,7 +21,7 @@
 #import "OrderDetailPreviewViewController.h"
 #import "DialCodeTableViewController.h"
 #import "MakeOrderUnitPriceTableViewCell.h"
-
+#import "MakeOrderReduceTableViewCell.h"
 
 @interface MakeOrderViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UITextViewDelegate, MakeOrderEditTravelerInfoDelegate, PDTSimpleCalendarViewDelegate, MakeOrderSelectPackageDelegate, MakeOrderSelectCountDelegate, TravelerInfoListDelegate, DialCodeTableViewControllerDelegate>
 
@@ -59,6 +59,8 @@
     [_tableView registerNib:[UINib nibWithNibName:@"MakeOrderTravelerInfoTableViewCell" bundle:nil] forCellReuseIdentifier:@"makeOrderTravelerEditCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"MakeOrderContactInfoTableViewCell" bundle:nil] forCellReuseIdentifier:@"makeOrderContactInfoCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"MakeOrderUnitPriceTableViewCell" bundle:nil] forCellReuseIdentifier:@"makeOrderUnitPriceTableViewCell"];
+    [_tableView registerNib:[UINib nibWithNibName:@"MakeOrderReduceTableViewCell" bundle:nil] forCellReuseIdentifier:@"makeOrderReduceTableViewCell"];
+
     
     self.navigationItem.title = @"订单填写";
     [self.view addSubview:_tableView];
@@ -220,7 +222,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 7;
+    return 8;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -293,7 +295,12 @@
         cell.firstNameTextField.delegate = self;
         cell.messageTextView.delegate = self;
         return cell;
+        
+    } else if (indexPath.row == 7) {
+        MakeOrderReduceTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"makeOrderReduceTableViewCell" forIndexPath:indexPath];
+        return cell;
     }
+    
     return nil;
 }
 

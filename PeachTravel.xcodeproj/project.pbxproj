@@ -790,6 +790,12 @@
 		D97422EF1BD21F52009EB4D9 /* SwiftConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97422EE1BD21F52009EB4D9 /* SwiftConstants.swift */; };
 		D97492AA1BF4360C00A5A70B /* GoodsDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D97492A91BF4360C00A5A70B /* GoodsDetailModel.m */; };
 		D97492AD1BF4391100A5A70B /* GoodsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D97492AC1BF4391100A5A70B /* GoodsManager.m */; };
+		D979B9CA1C7566B100867E92 /* UserCouponsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D979B9C81C7566B100867E92 /* UserCouponsListViewController.m */; };
+		D979B9CB1C7566B100867E92 /* UserCouponsListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D979B9C91C7566B100867E92 /* UserCouponsListViewController.xib */; };
+		D979B9CF1C756BE700867E92 /* UserCouponsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D979B9CE1C756BE700867E92 /* UserCouponsManager.m */; };
+		D979B9D21C756C0700867E92 /* UserCouponDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = D979B9D11C756C0700867E92 /* UserCouponDetail.m */; };
+		D979B9D71C75741900867E92 /* UserCouponTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D979B9D51C75741900867E92 /* UserCouponTableViewCell.m */; };
+		D979B9D81C75741900867E92 /* UserCouponTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D979B9D61C75741900867E92 /* UserCouponTableViewCell.xib */; };
 		D97C8B4D1A526B9F00476C9C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D97C8B4C1A526B9F00476C9C /* Images.xcassets */; };
 		D9823E841B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9823E831B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m */; };
 		D982879E1C22823A0000D47A /* GoodsClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D982879C1C22823A0000D47A /* GoodsClassViewController.m */; };
@@ -1249,6 +1255,8 @@
 		D9F46DCB1AC8EB0800972AE8 /* CityListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F46DC91AC8EB0800972AE8 /* CityListTableViewController.m */; };
 		D9F70CA91B304E1800BDACA1 /* FrendRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F70CA81B304E1800BDACA1 /* FrendRequest.m */; };
 		D9F70CAD1B31523C00BDACA1 /* AccountDaoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F70CAC1B31523C00BDACA1 /* AccountDaoHelper.swift */; };
+		D9F721D61C7454EE004E28E8 /* MakeOrderReduceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F721D41C7454EE004E28E8 /* MakeOrderReduceTableViewCell.m */; };
+		D9F721D71C7454EE004E28E8 /* MakeOrderReduceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9F721D51C7454EE004E28E8 /* MakeOrderReduceTableViewCell.xib */; };
 		D9FCE7DE1B134B4B0039F896 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FCE7DD1B134B4B0039F896 /* ChatViewController.m */; };
 		D9FCE7E91B135C820039F896 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FCE7E81B135C820039F896 /* Reachability.m */; };
 		E608A0F11B8D8560003BA318 /* GuiderDistributeTools.m in Sources */ = {isa = PBXBuildFile; fileRef = E608A0F01B8D8560003BA318 /* GuiderDistributeTools.m */; };
@@ -3077,6 +3085,16 @@
 		D97492A91BF4360C00A5A70B /* GoodsDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsDetailModel.m; sourceTree = "<group>"; };
 		D97492AB1BF4391100A5A70B /* GoodsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsManager.h; sourceTree = "<group>"; };
 		D97492AC1BF4391100A5A70B /* GoodsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsManager.m; sourceTree = "<group>"; };
+		D979B9C71C7566B100867E92 /* UserCouponsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserCouponsListViewController.h; sourceTree = "<group>"; };
+		D979B9C81C7566B100867E92 /* UserCouponsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserCouponsListViewController.m; sourceTree = "<group>"; };
+		D979B9C91C7566B100867E92 /* UserCouponsListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserCouponsListViewController.xib; sourceTree = "<group>"; };
+		D979B9CD1C756BE700867E92 /* UserCouponsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserCouponsManager.h; sourceTree = "<group>"; };
+		D979B9CE1C756BE700867E92 /* UserCouponsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserCouponsManager.m; sourceTree = "<group>"; };
+		D979B9D01C756C0700867E92 /* UserCouponDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserCouponDetail.h; sourceTree = "<group>"; };
+		D979B9D11C756C0700867E92 /* UserCouponDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserCouponDetail.m; sourceTree = "<group>"; };
+		D979B9D41C75741900867E92 /* UserCouponTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserCouponTableViewCell.h; sourceTree = "<group>"; };
+		D979B9D51C75741900867E92 /* UserCouponTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserCouponTableViewCell.m; sourceTree = "<group>"; };
+		D979B9D61C75741900867E92 /* UserCouponTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserCouponTableViewCell.xib; sourceTree = "<group>"; };
 		D97C8B4C1A526B9F00476C9C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
 		D9823E821B19AA0200A1AE35 /* SuggestionDestinationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuggestionDestinationTableViewController.h; sourceTree = "<group>"; };
 		D9823E831B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuggestionDestinationTableViewController.m; sourceTree = "<group>"; };
@@ -3823,6 +3841,9 @@
 		D9F70CA71B304E1800BDACA1 /* FrendRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FrendRequest.h; path = ../../Me/Mine/Root/Model/FrendRequest.h; sourceTree = "<group>"; };
 		D9F70CA81B304E1800BDACA1 /* FrendRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FrendRequest.m; path = ../../Me/Mine/Root/Model/FrendRequest.m; sourceTree = "<group>"; };
 		D9F70CAC1B31523C00BDACA1 /* AccountDaoHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountDaoHelper.swift; sourceTree = "<group>"; };
+		D9F721D31C7454EE004E28E8 /* MakeOrderReduceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakeOrderReduceTableViewCell.h; sourceTree = "<group>"; };
+		D9F721D41C7454EE004E28E8 /* MakeOrderReduceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MakeOrderReduceTableViewCell.m; sourceTree = "<group>"; };
+		D9F721D51C7454EE004E28E8 /* MakeOrderReduceTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MakeOrderReduceTableViewCell.xib; sourceTree = "<group>"; };
 		D9FCE7DC1B134B4B0039F896 /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
 		D9FCE7DD1B134B4B0039F896 /* ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
 		D9FCE7E71B135C820039F896 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
@@ -6713,6 +6734,39 @@
 			path = CommonView;
 			sourceTree = "<group>";
 		};
+		D979B9C61C75668F00867E92 /* Coupons */ = {
+			isa = PBXGroup;
+			children = (
+				D979B9D31C75740300867E92 /* Views */,
+				D979B9CC1C756BB100867E92 /* Model */,
+				D979B9C71C7566B100867E92 /* UserCouponsListViewController.h */,
+				D979B9C81C7566B100867E92 /* UserCouponsListViewController.m */,
+				D979B9C91C7566B100867E92 /* UserCouponsListViewController.xib */,
+			);
+			path = Coupons;
+			sourceTree = "<group>";
+		};
+		D979B9CC1C756BB100867E92 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D979B9CD1C756BE700867E92 /* UserCouponsManager.h */,
+				D979B9CE1C756BE700867E92 /* UserCouponsManager.m */,
+				D979B9D01C756C0700867E92 /* UserCouponDetail.h */,
+				D979B9D11C756C0700867E92 /* UserCouponDetail.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		D979B9D31C75740300867E92 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D979B9D41C75741900867E92 /* UserCouponTableViewCell.h */,
+				D979B9D51C75741900867E92 /* UserCouponTableViewCell.m */,
+				D979B9D61C75741900867E92 /* UserCouponTableViewCell.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		D98287971C2281E90000D47A /* GoodsClass */ = {
 			isa = PBXGroup;
 			children = (
@@ -8227,6 +8281,7 @@
 		D9A8FEE41A80CC2B005AD701 /* Users */ = {
 			isa = PBXGroup;
 			children = (
+				D979B9C61C75668F00867E92 /* Coupons */,
 				C6C5AFCE1B0ED786005D6A0F /* Footprint  */,
 				27FF1AC71B0716F800643D77 /* OthersUserInfo */,
 				D9A8FEE51A80CC2B005AD701 /* BindPhone */,
@@ -8773,6 +8828,9 @@
 				D93D38841C311F41005C0450 /* MakeOrderUnitPriceTableViewCell.h */,
 				D93D38851C311F41005C0450 /* MakeOrderUnitPriceTableViewCell.m */,
 				D93D38861C311F41005C0450 /* MakeOrderUnitPriceTableViewCell.xib */,
+				D9F721D31C7454EE004E28E8 /* MakeOrderReduceTableViewCell.h */,
+				D9F721D41C7454EE004E28E8 /* MakeOrderReduceTableViewCell.m */,
+				D9F721D51C7454EE004E28E8 /* MakeOrderReduceTableViewCell.xib */,
 			);
 			name = ViewComponent;
 			sourceTree = "<group>";
@@ -10138,6 +10196,7 @@
 				E6381BE51B66269000CF73AA /* Loading_Animation_final18@2x.png in Resources */,
 				D99EAD421BBB8840005A02D3 /* icon_travelnote_search@3x.png in Resources */,
 				E6F18A651B845F4900232EEB /* ic_home_level_bg_unknown@3x.png in Resources */,
+				D9F721D71C7454EE004E28E8 /* MakeOrderReduceTableViewCell.xib in Resources */,
 				D971E2831B8AF27A007E5AFD /* plan_delete@2x.png in Resources */,
 				D95184181C1019170032C83F /* ChatGoodsLinkTableViewCell.xib in Resources */,
 				0115C9BE1BB103FC00631928 /* citydetail_king_head@3x.png in Resources */,
@@ -10219,6 +10278,7 @@
 				E6F189EE1B845F4900232EEB /* plan_bottom_hotel@3x.png in Resources */,
 				D90A9B5B1B5627C400E9F37C /* Loading_Animation_final48@3x.png in Resources */,
 				01A5CEE61BB3DDC200A59A8A /* mapMark_point_line_half@3x.png in Resources */,
+				D979B9D81C75741900867E92 /* UserCouponTableViewCell.xib in Resources */,
 				D942C2781B9EBDCF005B81C5 /* ic_navigationbar_menu_friendlist@3x.png in Resources */,
 				D90A9B4E1B5627C400E9F37C /* Loading_Animation_final35@3x.png in Resources */,
 				E6F189AC1B845F4900232EEB /* city_button_guide_selected@3x.png in Resources */,
@@ -10933,6 +10993,7 @@
 				D9F46DBA1AC52D8600972AE8 /* SVWebViewControllerActivityChrome-iPad.png in Resources */,
 				01C1EC621BB4E4720082217A /* shuai@3x.png in Resources */,
 				D942C1511B9EB5C3005B81C5 /* youji@2x.png in Resources */,
+				D979B9CB1C7566B100867E92 /* UserCouponsListViewController.xib in Resources */,
 				019C378C1BB9450D00602937 /* UMSocialLocalizable.strings in Resources */,
 				E6F18A3F1B845F4900232EEB /* ArtboardBottom@3x.png in Resources */,
 				E6F189A31B845F4900232EEB /* city_button_food_disable@2x.png in Resources */,
@@ -11394,6 +11455,7 @@
 				D9DD31601BF5BABE009BEDAB /* OrderDetailViewController.m in Sources */,
 				C6F87A191ACD1C4400BB7D7F /* PXAlertView.m in Sources */,
 				0115C7C51BAD53A100631928 /* TZFrendListCell.m in Sources */,
+				D9F721D61C7454EE004E28E8 /* MakeOrderReduceTableViewCell.m in Sources */,
 				D993C2521B12DF0C0088D568 /* IMConstants.swift in Sources */,
 				D9A8FF5F1A80CF19005AD701 /* SearchResultTableViewCell.m in Sources */,
 				D9FCE7E91B135C820039F896 /* Reachability.m in Sources */,
@@ -11712,12 +11774,14 @@
 				D92C50B31C1EA14A00AD7965 /* TZSchemeManager.m in Sources */,
 				D91850E11B575450004B8363 /* ItemFooterCollectionViewController.m in Sources */,
 				D90C75F31BF1DB1A00C5897C /* PDTSimpleCalendarViewCell.m in Sources */,
+				D979B9D21C756C0700867E92 /* UserCouponDetail.m in Sources */,
 				D92CA1081AD8BDF900F244FF /* PSTGridLayoutRow.m in Sources */,
 				E608A1611B904B07003BA318 /* GuiderProfileTourViewCell.m in Sources */,
 				D993C24B1B12DF0C0088D568 /* FMDatabasePool.m in Sources */,
 				D9A802021A80E036005AD701 /* ALDBlurImageProcessor.m in Sources */,
 				D9A801151A80DD23005AD701 /* ChatRecordListTableViewCell.m in Sources */,
 				D993C23E1B12DF0C0088D568 /* wav.mm in Sources */,
+				D979B9CA1C7566B100867E92 /* UserCouponsListViewController.m in Sources */,
 				D9A802391A80E036005AD701 /* WOEIDUtils.m in Sources */,
 				D969AD2D1C2BC56F007413CA /* DialCodeTableViewController.m in Sources */,
 				D9E0EEFC1B7CB020003872DF /* SearchDestinationHistoryCollectionReusableView.m in Sources */,
@@ -11783,6 +11847,7 @@
 				D9A802211A80E036005AD701 /* MJPhotoToolbar.m in Sources */,
 				D96BAFFA1C1AEAA000CDB7C7 /* QNResponseInfo.m in Sources */,
 				D9A801471A80DD23005AD701 /* EMChatTimeCell.m in Sources */,
+				D979B9D71C75741900867E92 /* UserCouponTableViewCell.m in Sources */,
 				D971E2DF1B946B3E007E5AFD /* BusinessMoel.swift in Sources */,
 				D92CA0FF1AD8BDF900F244FF /* PSTCollectionViewCell.m in Sources */,
 				D97422EF1BD21F52009EB4D9 /* SwiftConstants.swift in Sources */,
@@ -11855,6 +11920,7 @@
 				D9A801451A80DD23005AD701 /* TaoziChatBaseBubbleView.m in Sources */,
 				D9E0EECD1B79A60D003872DF /* ChatAlbumCollectionViewController.m in Sources */,
 				D95184171C1019170032C83F /* ChatGoodsLinkTableViewCell.m in Sources */,
+				D979B9CF1C756BE700867E92 /* UserCouponsManager.m in Sources */,
 				D9A8FF5D1A80CF19005AD701 /* SearchDestinationViewController.m in Sources */,
 				C640640F1B42B9FF00613367 /* CityImageAlbum.m in Sources */,
 				D9A800671A80DD0C005AD701 /* ContactListViewController.m in Sources */,

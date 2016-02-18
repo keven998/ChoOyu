@@ -14,6 +14,7 @@
 #import "PlansListTableViewController.h"
 #import "ContactListViewController.h"
 #import "TravelerListViewController.h"
+#import "UserCouponsListViewController.h"
 
 
 @interface MineViewContoller () <UITableViewDataSource, UITableViewDelegate>
@@ -38,7 +39,8 @@
                         @{@"title": @"我的旅行计划", @"image": @"icon_mine_guides"}
                         ],
                     @[
-                        @{@"title": @"常用旅客信息", @"image": @"icon_mine_traveler"}
+                        @{@"title": @"常用旅客信息", @"image": @"icon_mine_traveler"},
+                        @{@"title": @"我的优惠券", @"image": @"icon_mine_traveler"}
                         ],
                     ];
 
@@ -158,6 +160,12 @@
             TravelerListViewController *ctl = [[TravelerListViewController alloc] init];
             ctl.hidesBottomBarWhenPushed = YES;
             ctl.isCheckMyTravelers = YES;
+            [self.navigationController pushViewController:ctl animated:YES];
+            
+        } else if (indexPath.row == 1) {
+            UserCouponsListViewController *ctl = [[UserCouponsListViewController alloc] init];
+            ctl.hidesBottomBarWhenPushed = YES;
+            ctl.userId = [AccountManager shareAccountManager].account.userId;
             [self.navigationController pushViewController:ctl animated:YES];
         }
     }
