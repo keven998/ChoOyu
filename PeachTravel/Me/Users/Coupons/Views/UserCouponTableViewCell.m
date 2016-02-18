@@ -12,6 +12,8 @@
 
 - (void)awakeFromNib {
     _headerImageView.image = [[UIImage imageNamed:@"icon_coupons_red"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
+    [_selectButton setImage:[UIImage imageNamed:@"icon_coupons_normal"] forState:UIControlStateNormal];
+    [_selectButton setImage:[UIImage imageNamed:@"icon_coupons_selected"] forState:UIControlStateSelected];
 }
 
 - (void)setUserCouponDetail:(UserCouponDetail *)userCouponDetail

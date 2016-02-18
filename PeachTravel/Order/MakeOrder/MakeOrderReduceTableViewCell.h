@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface MakeOrderReduceTableViewCell : UITableViewCell
+
 @property (weak, nonatomic) IBOutlet UILabel *reducePriceLabel;
 
 @end

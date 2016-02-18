@@ -24,8 +24,8 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QXS-10-Vpl">
-                        <rect key="frame" x="121" y="11" width="158" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <rect key="frame" x="129" y="11" width="158" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -34,8 +34,8 @@
                     <constraint firstAttribute="bottom" secondItem="QXS-10-Vpl" secondAttribute="bottom" constant="11.5" id="2PU-Hb-xhh"/>
                     <constraint firstItem="Dr5-E1-dIN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="11" id="7di-27-R4R"/>
                     <constraint firstItem="Dr5-E1-dIN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="11" id="7lt-AA-blH"/>
-                    <constraint firstItem="QXS-10-Vpl" firstAttribute="leading" secondItem="Dr5-E1-dIN" secondAttribute="trailing" constant="80" id="nda-ib-0BP"/>
-                    <constraint firstAttribute="trailing" secondItem="QXS-10-Vpl" secondAttribute="trailing" constant="8" id="o7i-Ya-Uqo"/>
+                    <constraint firstItem="QXS-10-Vpl" firstAttribute="leading" secondItem="Dr5-E1-dIN" secondAttribute="trailing" constant="88" id="nda-ib-0BP"/>
+                    <constraint firstAttribute="trailing" secondItem="QXS-10-Vpl" secondAttribute="trailing" id="o7i-Ya-Uqo"/>
                     <constraint firstItem="QXS-10-Vpl" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="11" id="sQ8-Ff-3K8"/>
                     <constraint firstAttribute="bottom" secondItem="Dr5-E1-dIN" secondAttribute="bottom" constant="11.5" id="wIf-bZ-6x2"/>
                 </constraints>

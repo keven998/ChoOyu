@@ -22,8 +22,9 @@
 #import "DialCodeTableViewController.h"
 #import "MakeOrderUnitPriceTableViewCell.h"
 #import "MakeOrderReduceTableViewCell.h"
+#import "UserCouponsListViewController.h"
 
-@interface MakeOrderViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UITextViewDelegate, MakeOrderEditTravelerInfoDelegate, PDTSimpleCalendarViewDelegate, MakeOrderSelectPackageDelegate, MakeOrderSelectCountDelegate, TravelerInfoListDelegate, DialCodeTableViewControllerDelegate>
+@interface MakeOrderViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UITextViewDelegate, MakeOrderEditTravelerInfoDelegate, PDTSimpleCalendarViewDelegate, MakeOrderSelectPackageDelegate, MakeOrderSelectCountDelegate, TravelerInfoListDelegate, DialCodeTableViewControllerDelegate, UserCouponsListViewControllerDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UILabel *totalPriceLabel;
@@ -50,7 +51,6 @@
     _tableView.backgroundColor = [UIColor whiteColor];
     _tableView.delegate = self;
     _tableView.dataSource = self;
-    _tableView.allowsSelection = NO;
     _tableView.separatorColor = APP_BORDER_COLOR;
     [_tableView registerNib:[UINib nibWithNibName:@"MakeOrderTitleTableViewCell" bundle:nil] forCellReuseIdentifier:@"makeOrderTitleTableViewCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"MakeOrderSelectPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"makeOrderSelectPackageCell"];
@@ -298,11 +298,26 @@
         
     } else if (indexPath.row == 7) {
         MakeOrderReduceTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"makeOrderReduceTableViewCell" forIndexPath:indexPath];
+        cell.reducePriceLabel.text = [NSString stringWithFormat:@"-￥%d", (int)_orderDetail.discount];
         return cell;
     }
     
     return nil;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.row == 7) {
+        UserCouponsListViewController *ctl = [[UserCouponsListViewController alloc] init];
+        ctl.canSelect = YES;
+        ctl.delegate = self;
+        ctl.selectedCoupon = _orderDetail.selectedCoupon;
+        [self.navigationController pushViewController:ctl animated:YES];
+    }
+}
+
+#pragma mark - UITextFieldDelegate
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
@@ -341,7 +356,7 @@
     }
 }
 
-#pragma mark = UITextViewDelegate
+#pragma mark - UITextViewDelegate
 
 - (void)textViewDidChange:(UITextView *)textView
 {
@@ -443,7 +458,6 @@
     [_tableView reloadData];
 }
 
-
 #pragma mark - DialCodeTableViewControllerDelegate
 
 - (void)didSelectDialCode:(NSDictionary *)dialCode
@@ -459,6 +473,15 @@
 
         _orderDetail.orderContact.dialCode = [dialCode objectForKey:@"dialCode"];
     }
+}
+
+#pragma mark - UserCouponsListViewControllerDelegate
+
+- (void)didSelectedCoupon:(UserCouponDetail *)coupon
+{
+    _orderDetail.selectedCoupon = coupon;
+    _orderDetail.discount = coupon.discount;
+    [self.tableView reloadData];
 }
 
 

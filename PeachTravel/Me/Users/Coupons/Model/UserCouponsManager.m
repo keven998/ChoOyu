@@ -14,9 +14,12 @@
 + (void)asyncLoadUserCouponsWithUserId:(NSInteger)userId completionBlock:(void (^)(BOOL, NSArray<UserCouponDetail *> *))completion
 {
     
+#warning 优惠券测试数据
     NSMutableArray *couponList = [[NSMutableArray alloc] init];
     for (int i=0; i<5; i++) {
         UserCouponDetail *model = [[UserCouponDetail alloc] initWithJson:nil];
+        model.couponId = [NSString stringWithFormat:@"a%d", i];
+        model.discount = model.discount + i;
         [couponList addObject:model];
         completion(YES, couponList);
     }

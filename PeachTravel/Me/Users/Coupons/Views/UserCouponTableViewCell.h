@@ -18,8 +18,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *descLabel;
 @property (weak, nonatomic) IBOutlet UILabel *limitMoneyLabel;
 @property (weak, nonatomic) IBOutlet UILabel *useDateLabel;
+@property (weak, nonatomic) IBOutlet UIButton *selectButton;
 
 @property (nonatomic, strong) UserCouponDetail *userCouponDetail;
+
 
 
 @end

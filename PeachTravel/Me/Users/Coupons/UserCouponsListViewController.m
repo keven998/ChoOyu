@@ -14,7 +14,7 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
-@property (nonatomic, strong) NSArray *dataSource;
+@property (nonatomic, strong) NSArray<UserCouponDetail *> *dataSource;
 
 @end
 
@@ -63,6 +63,29 @@
     [self.view addSubview:label];
 }
 
+- (void)setSelectedCoupon:(UserCouponDetail *)selectedCoupon
+{
+    _selectedCoupon = selectedCoupon;
+    [_tableView reloadData];
+}
+
+- (void)didSelectedCoupon:(UIButton *)sender
+{
+    UserCouponDetail *coupon = _dataSource[sender.tag];
+    if ([coupon.couponId isEqualToString:_selectedCoupon.couponId]) {
+        _selectedCoupon = nil;
+        
+    } else {
+        _selectedCoupon = coupon;
+    }
+    [_tableView reloadData];
+    
+    if ([_delegate respondsToSelector:@selector(didSelectedCoupon:)]) {
+        [_delegate didSelectedCoupon:_selectedCoupon];
+    }
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 
 #pragma mark - Table view data source
 
@@ -90,6 +113,9 @@
 {
     UserCouponTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"userCouponTableViewCell" forIndexPath:indexPath];
     cell.userCouponDetail = _dataSource[indexPath.section];
+    cell.selectButton.tag = indexPath.section;
+    cell.selectButton.selected = [_selectedCoupon.couponId isEqualToString:_dataSource[indexPath.section].couponId];
+    [cell.selectButton addTarget:self action:@selector(didSelectedCoupon:) forControlEvents:UIControlEventTouchUpInside];
     return cell;
 }
 

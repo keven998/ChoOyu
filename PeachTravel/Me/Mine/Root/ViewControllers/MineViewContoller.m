@@ -40,7 +40,7 @@
                         ],
                     @[
                         @{@"title": @"常用旅客信息", @"image": @"icon_mine_traveler"},
-                        @{@"title": @"我的优惠券", @"image": @"icon_mine_traveler"}
+                        @{@"title": @"优惠券", @"image": @"icon_mine_coupon"}
                         ],
                     ];
 

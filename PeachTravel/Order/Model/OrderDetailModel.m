@@ -55,6 +55,11 @@
     return self;
 }
 
+- (float)payPrice
+{
+    return _totalPrice-_discount;
+}
+
 - (void)canRefundApplyWithStatusDic:(NSArray *)orderActivities
 {
     for (NSDictionary *statusDic in orderActivities) {

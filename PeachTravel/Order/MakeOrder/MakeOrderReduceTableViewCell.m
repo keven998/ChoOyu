@@ -11,7 +11,7 @@
 @implementation MakeOrderReduceTableViewCell
 
 - (void)awakeFromNib {
-    // Initialization code
+    _reducePriceLabel.textColor = COLOR_PRICE_RED;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

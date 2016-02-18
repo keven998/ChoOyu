@@ -7,9 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UserCouponDetail.h"
 
-@interface UserCouponsListViewController : UIViewController
+@protocol UserCouponsListViewControllerDelegate <NSObject>
+
+@optional
+- (void)didSelectedCoupon:(UserCouponDetail *)coupon;
+
+@end
+
+@interface UserCouponsListViewController : TZViewController
 
 @property (nonatomic) NSInteger userId;
+@property (nonatomic) BOOL canSelect;  //是否可以选择
+
+@property (nonatomic, weak) id<UserCouponsListViewControllerDelegate>delegate;
+
+@property (nonatomic, strong) UserCouponDetail *selectedCoupon;  //已选中的优惠券
 
 @end
