@@ -7,11 +7,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="orderDetailContentCell" rowHeight="208" id="KGk-i7-Jjw" customClass="OrderDetailPreviewContentTableViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="208"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="orderDetailContentCell" rowHeight="238" id="KGk-i7-Jjw" customClass="OrderDetailPreviewContentTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="240"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="207.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="239.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4pC-77-Sqv">
@@ -127,12 +127,33 @@
                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zNY-Ni-T2g">
+                        <rect key="frame" x="109" y="203" width="203" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="tTP-oP-qr7"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已优惠金额：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UNp-bO-exs">
+                        <rect key="frame" x="28" y="203" width="78" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="CuH-ft-EIC"/>
+                            <constraint firstAttribute="width" constant="78" id="lzb-Ou-STR"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="nw3-ZN-6xR" firstAttribute="top" secondItem="Cls-qD-ugG" secondAttribute="bottom" constant="8" id="2jZ-cZ-ECc"/>
                     <constraint firstItem="VZX-os-hdZ" firstAttribute="leading" secondItem="t53-iT-CiR" secondAttribute="trailing" constant="3" id="8Uc-P4-ped"/>
                     <constraint firstAttribute="trailing" secondItem="nw3-ZN-6xR" secondAttribute="trailing" constant="8" id="8nA-WB-Wqc"/>
+                    <constraint firstItem="zNY-Ni-T2g" firstAttribute="top" secondItem="VZX-os-hdZ" secondAttribute="bottom" constant="8" id="9Ng-t7-pXV"/>
                     <constraint firstItem="RjJ-rp-FmC" firstAttribute="top" secondItem="5pG-Ne-PgF" secondAttribute="bottom" constant="8" id="AMr-Qk-Iss"/>
+                    <constraint firstAttribute="trailing" secondItem="zNY-Ni-T2g" secondAttribute="trailing" constant="8" id="B53-LT-qsD"/>
                     <constraint firstItem="LyE-BN-6Ed" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="28" id="EL6-hb-Egn"/>
                     <constraint firstItem="KIe-q6-Xwp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="28" id="GRh-7f-03K"/>
                     <constraint firstAttribute="trailing" secondItem="Cls-qD-ugG" secondAttribute="trailing" constant="8" id="HF4-xb-fAN"/>
@@ -143,6 +164,7 @@
                     <constraint firstItem="JF7-j1-Trf" firstAttribute="leading" secondItem="KIe-q6-Xwp" secondAttribute="trailing" constant="3" id="O6M-n1-xyC"/>
                     <constraint firstItem="LyE-BN-6Ed" firstAttribute="top" secondItem="nw3-ZN-6xR" secondAttribute="top" id="RNI-qC-0b4"/>
                     <constraint firstAttribute="trailing" secondItem="VZX-os-hdZ" secondAttribute="trailing" constant="8" id="TzI-BR-9w6"/>
+                    <constraint firstItem="UNp-bO-exs" firstAttribute="top" secondItem="VZX-os-hdZ" secondAttribute="bottom" constant="8" id="UpJ-1R-gnd"/>
                     <constraint firstAttribute="trailing" secondItem="JF7-j1-Trf" secondAttribute="trailing" constant="8" id="ZNL-IG-jlB"/>
                     <constraint firstItem="RjJ-rp-FmC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="28" id="Zuc-rm-Jc7"/>
                     <constraint firstItem="VZX-os-hdZ" firstAttribute="top" secondItem="JF7-j1-Trf" secondAttribute="bottom" constant="8" id="aXa-LF-0cE"/>
@@ -155,22 +177,25 @@
                     <constraint firstItem="4pC-77-Sqv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="frU-GS-O7Z"/>
                     <constraint firstItem="5pG-Ne-PgF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="28" id="giL-1A-PrX"/>
                     <constraint firstItem="aAh-Hj-Zwh" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="mUp-3J-jCd"/>
+                    <constraint firstItem="zNY-Ni-T2g" firstAttribute="leading" secondItem="UNp-bO-exs" secondAttribute="trailing" constant="3" id="pCd-uA-pAX"/>
                     <constraint firstItem="JF7-j1-Trf" firstAttribute="top" secondItem="nw3-ZN-6xR" secondAttribute="bottom" constant="8" id="pgk-fy-ApD"/>
                     <constraint firstAttribute="trailing" secondItem="4pC-77-Sqv" secondAttribute="trailing" id="uiR-8z-S1Y"/>
                     <constraint firstItem="zYL-eb-vIa" firstAttribute="leading" secondItem="5pG-Ne-PgF" secondAttribute="trailing" constant="3" id="vSe-Kw-CX6"/>
+                    <constraint firstItem="UNp-bO-exs" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="28" id="yvO-CW-dmV"/>
                     <constraint firstItem="aAh-Hj-Zwh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="11" id="z5S-ch-ljV"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="countLabel" destination="JF7-j1-Trf" id="22y-dP-4MJ"/>
                 <outlet property="dateLabel" destination="nw3-ZN-6xR" id="J7V-dV-0Ob"/>
+                <outlet property="discountLabel" destination="zNY-Ni-T2g" id="7Gt-lP-c4g"/>
                 <outlet property="goodsNameBtn" destination="zYL-eb-vIa" id="h4E-Op-5s0"/>
                 <outlet property="goodsNameHeightConstraint" destination="MqR-0y-JX9" id="Nbg-CU-F7r"/>
                 <outlet property="packageNameHeightConstarint" destination="3FP-nw-qn5" id="Tln-yE-tkr"/>
                 <outlet property="packageNameLabel" destination="Cls-qD-ugG" id="XON-YS-x0y"/>
                 <outlet property="priceLabel" destination="VZX-os-hdZ" id="FVv-pN-Po7"/>
             </connections>
-            <point key="canvasLocation" x="207" y="203"/>
+            <point key="canvasLocation" x="18" y="204.5"/>
         </tableViewCell>
     </objects>
 </document>

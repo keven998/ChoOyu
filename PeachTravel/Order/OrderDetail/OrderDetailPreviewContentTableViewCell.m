@@ -12,7 +12,7 @@
 
 + (CGFloat)heightOfCellWithOrderDetail:(OrderDetailModel *)orderDetail;
 {
-    CGFloat retHeight = 208;
+    CGFloat retHeight = 238;
     NSDictionary *attribs = @{NSFontAttributeName: [UIFont systemFontOfSize:13]};
     if (orderDetail.goods.goodsName) {
         NSAttributedString *attrstr = [[NSAttributedString alloc] initWithString: orderDetail.goods.goodsName attributes:attribs];
@@ -47,7 +47,8 @@
     self.dateLabel.text = _orderDetail.useDate;
     self.countLabel.text = [NSString stringWithFormat:@"%ld", _orderDetail.count];
     self.priceLabel.text = [NSString stringWithFormat:@"￥%@", _orderDetail.formatTotalPrice];
-
+    self.discountLabel.text = [NSString stringWithFormat:@"￥%@", _orderDetail.formatDiscountPrice];
+    
     NSDictionary *attribs = @{NSFontAttributeName: [UIFont systemFontOfSize:13]};
 
     if (orderDetail.goods.goodsName) {

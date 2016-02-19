@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *countLabel;
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *discountLabel;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *goodsNameHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *packageNameHeightConstarint;

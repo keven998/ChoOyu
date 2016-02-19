@@ -7,11 +7,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="orderDetailContentCell" rowHeight="238" id="KGk-i7-Jjw" customClass="OrderDetailContentTableViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="238"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="orderDetailContentCell" rowHeight="267" id="KGk-i7-Jjw" customClass="OrderDetailContentTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="267"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="237.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="266.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4pC-77-Sqv">
@@ -146,25 +146,49 @@
                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rGN-op-hpP">
+                        <rect key="frame" x="101" y="232" width="211" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="4BW-7y-GS6"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已优惠金额:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oL0-46-ZDV">
+                        <rect key="frame" x="28" y="232" width="69" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="69" id="ijO-BY-3Pn"/>
+                            <constraint firstAttribute="height" constant="21" id="wEp-NS-nWE"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="nw3-ZN-6xR" firstAttribute="top" secondItem="Cls-qD-ugG" secondAttribute="bottom" constant="8" id="2jZ-cZ-ECc"/>
                     <constraint firstItem="VZX-os-hdZ" firstAttribute="leading" secondItem="t53-iT-CiR" secondAttribute="trailing" constant="3" id="8Uc-P4-ped"/>
                     <constraint firstAttribute="trailing" secondItem="nw3-ZN-6xR" secondAttribute="trailing" constant="8" id="8nA-WB-Wqc"/>
+                    <constraint firstItem="rGN-op-hpP" firstAttribute="top" secondItem="VZX-os-hdZ" secondAttribute="bottom" constant="8" id="CUY-bM-KlE"/>
                     <constraint firstItem="LyE-BN-6Ed" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="28" id="EL6-hb-Egn"/>
+                    <constraint firstItem="rGN-op-hpP" firstAttribute="leading" secondItem="oL0-46-ZDV" secondAttribute="trailing" constant="4" id="G6e-Ey-LTW"/>
                     <constraint firstItem="KIe-q6-Xwp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="28" id="GRh-7f-03K"/>
                     <constraint firstAttribute="trailing" secondItem="Cls-qD-ugG" secondAttribute="trailing" constant="8" id="HF4-xb-fAN"/>
                     <constraint firstItem="Cls-qD-ugG" firstAttribute="leading" secondItem="RjJ-rp-FmC" secondAttribute="trailing" constant="3" id="Hks-6H-TDg"/>
                     <constraint firstItem="6gc-HV-2bw" firstAttribute="top" secondItem="zYL-eb-vIa" secondAttribute="bottom" constant="8" id="IKe-fN-0xn"/>
                     <constraint firstItem="5pG-Ne-PgF" firstAttribute="top" secondItem="4pC-77-Sqv" secondAttribute="bottom" constant="7.5" id="JeZ-Ub-WX9"/>
+                    <constraint firstAttribute="trailing" secondItem="rGN-op-hpP" secondAttribute="trailing" constant="8" id="JlU-qn-KI3"/>
                     <constraint firstItem="wkb-VB-m1Y" firstAttribute="top" secondItem="6gc-HV-2bw" secondAttribute="top" id="KdG-d9-guc"/>
                     <constraint firstItem="t53-iT-CiR" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="28" id="My8-ew-Z6d"/>
                     <constraint firstItem="t53-iT-CiR" firstAttribute="top" secondItem="VZX-os-hdZ" secondAttribute="top" id="NPR-ZG-Nml"/>
                     <constraint firstItem="JF7-j1-Trf" firstAttribute="leading" secondItem="KIe-q6-Xwp" secondAttribute="trailing" constant="3" id="O6M-n1-xyC"/>
                     <constraint firstItem="Cls-qD-ugG" firstAttribute="top" secondItem="6gc-HV-2bw" secondAttribute="bottom" constant="8" id="QwX-CT-PLH"/>
                     <constraint firstAttribute="trailing" secondItem="6gc-HV-2bw" secondAttribute="trailing" constant="8" id="R7n-Eg-2i0"/>
+                    <constraint firstItem="oL0-46-ZDV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="28" id="RMb-bA-7Ht"/>
                     <constraint firstItem="LyE-BN-6Ed" firstAttribute="top" secondItem="nw3-ZN-6xR" secondAttribute="top" id="RNI-qC-0b4"/>
                     <constraint firstAttribute="trailing" secondItem="VZX-os-hdZ" secondAttribute="trailing" constant="8" id="TzI-BR-9w6"/>
+                    <constraint firstItem="oL0-46-ZDV" firstAttribute="top" secondItem="VZX-os-hdZ" secondAttribute="bottom" constant="8" id="WAA-Tj-H2I"/>
                     <constraint firstItem="6gc-HV-2bw" firstAttribute="leading" secondItem="wkb-VB-m1Y" secondAttribute="trailing" constant="3" id="WAr-8Q-Fz8"/>
                     <constraint firstAttribute="trailing" secondItem="JF7-j1-Trf" secondAttribute="trailing" constant="8" id="ZNL-IG-jlB"/>
                     <constraint firstItem="RjJ-rp-FmC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="28" id="Zuc-rm-Jc7"/>
@@ -188,6 +212,7 @@
             <connections>
                 <outlet property="countLabel" destination="JF7-j1-Trf" id="YCC-0O-rCQ"/>
                 <outlet property="dateLabel" destination="nw3-ZN-6xR" id="Rtq-Xg-8tz"/>
+                <outlet property="discountLabel" destination="rGN-op-hpP" id="V2Q-kf-0OG"/>
                 <outlet property="goodsNameBtn" destination="zYL-eb-vIa" id="mZD-zN-U3B"/>
                 <outlet property="goodsNameHeightConstraint" destination="MqR-0y-JX9" id="oJS-X2-ke4"/>
                 <outlet property="orderNumberLabel" destination="6gc-HV-2bw" id="9KT-4w-z0q"/>
@@ -195,7 +220,7 @@
                 <outlet property="packageNameLabel" destination="Cls-qD-ugG" id="wEa-8F-Gy4"/>
                 <outlet property="priceLabel" destination="VZX-os-hdZ" id="4dq-1J-Dr6"/>
             </connections>
-            <point key="canvasLocation" x="110" y="215"/>
+            <point key="canvasLocation" x="110" y="229.5"/>
         </tableViewCell>
     </objects>
 </document>
