@@ -20,6 +20,7 @@
 
 @property (nonatomic) NSInteger userId;
 @property (nonatomic) BOOL canSelect;  //是否可以选择
+@property (nonatomic) float orderTotalPrice;  //订单总价格
 
 @property (nonatomic, weak) id<UserCouponsListViewControllerDelegate>delegate;
 

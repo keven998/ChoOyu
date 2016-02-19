@@ -21,7 +21,7 @@
     _userCouponDetail = userCouponDetail;
     _titleLabel.text = _userCouponDetail.title;
     _descLabel.text = _userCouponDetail.desc;
-    _descLabel.text = [NSString stringWithFormat:@"满%d元可用", (int)_userCouponDetail.limitMoney];
+    _limitMoneyLabel.text = _userCouponDetail.limitMoneyDesc;
     _useDateLabel.text = _userCouponDetail.useDateDesc;
     
     NSMutableAttributedString *discountString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"￥%d", (int)_userCouponDetail.discount]];

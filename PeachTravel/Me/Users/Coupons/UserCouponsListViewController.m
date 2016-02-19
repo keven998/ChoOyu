@@ -28,19 +28,37 @@
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     [self.tableView registerNib:[UINib nibWithNibName:@"UserCouponTableViewCell" bundle:nil] forCellReuseIdentifier:@"userCouponTableViewCell"];
-    [UserCouponsManager asyncLoadUserCouponsWithUserId:_userId completionBlock:^(BOOL isSuccess, NSArray<UserCouponDetail *> *couponsList) {
-        if (isSuccess) {
-            if (couponsList.count) {
-                _dataSource = couponsList;
-                [self.tableView reloadData];
-                
+    
+    if (_canSelect) {    //如果可是选择，说明从订单填写页面进来选择优惠券，所以需要通过订单总金额对优惠券进行筛选
+        [UserCouponsManager asyncLoadUserCouponsWithUserId:_userId limitMoney:_orderTotalPrice completionBlock:^(BOOL isSuccess, NSArray<UserCouponDetail *> *couponsList) {
+            if (isSuccess) {
+                if (couponsList.count) {
+                    _dataSource = couponsList;
+                    [self.tableView reloadData];
+                    
+                } else {
+                    [self setupEmptyView];
+                }
             } else {
-                [self setupEmptyView];
+                [SVProgressHUD showHint:HTTP_FAILED_HINT];
             }
-        } else {
-            [SVProgressHUD showHint:HTTP_FAILED_HINT];
-        }
-    }];
+
+        }];
+    } else {
+        [UserCouponsManager asyncLoadUserCouponsWithUserId:_userId completionBlock:^(BOOL isSuccess, NSArray<UserCouponDetail *> *couponsList) {
+            if (isSuccess) {
+                if (couponsList.count) {
+                    _dataSource = couponsList;
+                    [self.tableView reloadData];
+                    
+                } else {
+                    [self setupEmptyView];
+                }
+            } else {
+                [SVProgressHUD showHint:HTTP_FAILED_HINT];
+            }
+        }];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -114,6 +132,7 @@
     UserCouponTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"userCouponTableViewCell" forIndexPath:indexPath];
     cell.userCouponDetail = _dataSource[indexPath.section];
     cell.selectButton.tag = indexPath.section;
+    cell.selectButton.hidden = _canSelect;
     cell.selectButton.selected = [_selectedCoupon.couponId isEqualToString:_dataSource[indexPath.section].couponId];
     [cell.selectButton addTarget:self action:@selector(didSelectedCoupon:) forControlEvents:UIControlEventTouchUpInside];
     return cell;

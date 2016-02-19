@@ -22,4 +22,12 @@
     return self;
 }
 
+- (NSString *)limitMoneyDesc
+{
+    if (_limitMoney == 0) {
+        return @"无条件使用";
+    } else {
+        return [NSString stringWithFormat:@"满%d元可用", (int)_limitMoney];
+    }
+}
 @end

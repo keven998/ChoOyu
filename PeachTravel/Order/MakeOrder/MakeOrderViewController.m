@@ -312,6 +312,7 @@
         UserCouponsListViewController *ctl = [[UserCouponsListViewController alloc] init];
         ctl.canSelect = YES;
         ctl.delegate = self;
+        ctl.orderTotalPrice = _orderDetail.totalPrice;
         ctl.selectedCoupon = _orderDetail.selectedCoupon;
         [self.navigationController pushViewController:ctl animated:YES];
     }

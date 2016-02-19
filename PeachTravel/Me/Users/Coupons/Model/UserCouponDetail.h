@@ -16,6 +16,7 @@
 @property (nonatomic, copy) NSString *useDateDesc;
 @property (nonatomic) float discount;
 @property (nonatomic) float limitMoney;
+@property (nonatomic, copy, readonly) NSString *limitMoneyDesc;
 
 - (id)initWithJson:(id)json;
 
