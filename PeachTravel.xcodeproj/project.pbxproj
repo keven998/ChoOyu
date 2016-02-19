@@ -532,6 +532,9 @@
 		D925B2371C475397000F7E10 /* ErrorEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = D925B2361C475397000F7E10 /* ErrorEmptyView.m */; };
 		D925B23A1C475422000F7E10 /* icon_errorEmpty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D925B2381C475422000F7E10 /* icon_errorEmpty@2x.png */; };
 		D925B23B1C475422000F7E10 /* icon_errorEmpty@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D925B2391C475422000F7E10 /* icon_errorEmpty@3x.png */; };
+		D92719FB1C76C48900FA63C6 /* OrderPriceDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = D92719FA1C76C48900FA63C6 /* OrderPriceDetailView.m */; };
+		D92719FF1C76EB1C00FA63C6 /* OrderPriceDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D92719FD1C76EB1C00FA63C6 /* OrderPriceDetailTableViewCell.m */; };
+		D9271A001C76EB1C00FA63C6 /* OrderPriceDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D92719FE1C76EB1C00FA63C6 /* OrderPriceDetailTableViewCell.xib */; };
 		D92B5C1C1BB9243B00E3AC93 /* PoiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D92B5C1B1BB9243B00E3AC93 /* PoiManager.m */; };
 		D92B5C1F1BB92A5D00E3AC93 /* PoiRecommend.m in Sources */ = {isa = PBXBuildFile; fileRef = D92B5C1E1BB92A5D00E3AC93 /* PoiRecommend.m */; };
 		D92C50B31C1EA14A00AD7965 /* TZSchemeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D92C50B21C1EA14A00AD7965 /* TZSchemeManager.m */; };
@@ -2695,6 +2698,11 @@
 		D925B2361C475397000F7E10 /* ErrorEmptyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorEmptyView.m; sourceTree = "<group>"; };
 		D925B2381C475422000F7E10 /* icon_errorEmpty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_errorEmpty@2x.png"; sourceTree = "<group>"; };
 		D925B2391C475422000F7E10 /* icon_errorEmpty@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_errorEmpty@3x.png"; sourceTree = "<group>"; };
+		D92719F91C76C48900FA63C6 /* OrderPriceDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderPriceDetailView.h; sourceTree = "<group>"; };
+		D92719FA1C76C48900FA63C6 /* OrderPriceDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderPriceDetailView.m; sourceTree = "<group>"; };
+		D92719FC1C76EB1C00FA63C6 /* OrderPriceDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderPriceDetailTableViewCell.h; sourceTree = "<group>"; };
+		D92719FD1C76EB1C00FA63C6 /* OrderPriceDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderPriceDetailTableViewCell.m; sourceTree = "<group>"; };
+		D92719FE1C76EB1C00FA63C6 /* OrderPriceDetailTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderPriceDetailTableViewCell.xib; sourceTree = "<group>"; };
 		D92B5C1A1BB9243B00E3AC93 /* PoiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PoiManager.h; path = ../PoiRecommend/PoiManager.h; sourceTree = "<group>"; };
 		D92B5C1B1BB9243B00E3AC93 /* PoiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PoiManager.m; path = ../PoiRecommend/PoiManager.m; sourceTree = "<group>"; };
 		D92B5C1D1BB92A5D00E3AC93 /* PoiRecommend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoiRecommend.h; sourceTree = "<group>"; };
@@ -5933,6 +5941,18 @@
 			path = ErrorEmptyView;
 			sourceTree = "<group>";
 		};
+		D92719F81C76C48900FA63C6 /* OrderPriceDetail */ = {
+			isa = PBXGroup;
+			children = (
+				D92719F91C76C48900FA63C6 /* OrderPriceDetailView.h */,
+				D92719FA1C76C48900FA63C6 /* OrderPriceDetailView.m */,
+				D92719FC1C76EB1C00FA63C6 /* OrderPriceDetailTableViewCell.h */,
+				D92719FD1C76EB1C00FA63C6 /* OrderPriceDetailTableViewCell.m */,
+				D92719FE1C76EB1C00FA63C6 /* OrderPriceDetailTableViewCell.xib */,
+			);
+			path = OrderPriceDetail;
+			sourceTree = "<group>";
+		};
 		D92C50B01C1EA14A00AD7965 /* TZSchemeManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -8831,6 +8851,7 @@
 				D9F721D31C7454EE004E28E8 /* MakeOrderReduceTableViewCell.h */,
 				D9F721D41C7454EE004E28E8 /* MakeOrderReduceTableViewCell.m */,
 				D9F721D51C7454EE004E28E8 /* MakeOrderReduceTableViewCell.xib */,
+				D92719F81C76C48900FA63C6 /* OrderPriceDetail */,
 			);
 			name = ViewComponent;
 			sourceTree = "<group>";
@@ -10772,6 +10793,7 @@
 				D9A15EE21C27DD5A008CE530 /* StoreDetailCollectionReusableView.xib in Resources */,
 				D94E255C1BEC939500DB487D /* GoodsRecommendCollectionViewCell.xib in Resources */,
 				E6F18A9C1B845F4900232EEB /* chat_receiver_audio_playing000@3x.png in Resources */,
+				D9271A001C76EB1C00FA63C6 /* OrderPriceDetailTableViewCell.xib in Resources */,
 				D9A8002C1A80D52F005AD701 /* SearchDestinationTableViewCell.xib in Resources */,
 				E6F189AA1B845F4900232EEB /* city_button_guide_disable@3X.png in Resources */,
 				E6F18B1A1B845F4900232EEB /* master_icon_constellation4@3x.png in Resources */,
@@ -11607,6 +11629,7 @@
 				E6E7251F1B5603750007273A /* MJIvar.m in Sources */,
 				D9DD317A1BF5CDF6009BEDAB /* OrderDetailStatusTableViewCell.m in Sources */,
 				D90ED4441BAD33CD000C6033 /* UCZProgressView.m in Sources */,
+				D92719FF1C76EB1C00FA63C6 /* OrderPriceDetailTableViewCell.m in Sources */,
 				D993C2491B12DF0C0088D568 /* FMDatabase.m in Sources */,
 				0115C7DD1BAFACD300631928 /* FrendListTagCell.m in Sources */,
 				D9687CA21AC4095500B1C88E /* FootprintMapViewController.m in Sources */,
@@ -11861,6 +11884,7 @@
 				0115C7E41BAFD26E00631928 /* TZFrendListCellForArea.m in Sources */,
 				D9A801141A80DD23005AD701 /* ChatListViewController.m in Sources */,
 				D9DD315B1BF4B340009BEDAB /* OrderUserInfoManager.m in Sources */,
+				D92719FB1C76C48900FA63C6 /* OrderPriceDetailView.m in Sources */,
 				D98AE11C1C5075D100FDAC2F /* GoodsDetailBookQuitTableViewCell.m in Sources */,
 				E6E5956A1B9BECDB00E29ED0 /* ExpertProfileTagViewCell.m in Sources */,
 				D920A4151B15AB3800AD81B7 /* JSONConvertMethod.swift in Sources */,

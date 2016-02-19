@@ -166,6 +166,24 @@
         } else {
             priceStr = [NSString stringWithFormat:@"%.2f", currentPrice];
         }
+    }
+    return priceStr;
+    
+}
+
+- (NSString *)formatDiscountPrice
+{
+    NSString *priceStr;
+    float currentPrice = round(_discount*100)/100;
+    if (!(currentPrice - (int)currentPrice)) {
+        priceStr = [NSString stringWithFormat:@"%d", (int)currentPrice];
+    } else {
+        NSString *tempPrice = [NSString stringWithFormat:@"%.1f", currentPrice];
+        if (!(_discount - tempPrice.floatValue)) {
+            priceStr = [NSString stringWithFormat:@"%.1f", currentPrice];
+        } else {
+            priceStr = [NSString stringWithFormat:@"%.2f", currentPrice];
+        }
         
     }
     return priceStr;

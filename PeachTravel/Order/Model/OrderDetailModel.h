@@ -35,6 +35,7 @@ typedef enum : NSUInteger {
 @property (nonatomic) float totalPrice;                                         //总价格
 @property (nonatomic, copy, readonly) NSString *formatTotalPrice;               //总价格格式化描述
 @property (nonatomic) float discount;                                           //优惠价格
+@property (nonatomic, copy, readonly) NSString *formatDiscountPrice;            //优惠价格格式化描述
 @property (nonatomic, readonly) float payPrice;                                 //应付价格
 @property (nonatomic, copy, readonly) NSString *formatPayPrice;                 //应付价格格式化描述
 

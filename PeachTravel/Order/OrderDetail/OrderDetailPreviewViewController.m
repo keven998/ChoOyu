@@ -45,7 +45,7 @@
     _tableView.dataSource = self;
     _tableView.delegate = self;
     _tableView.separatorColor = COLOR_LINE;
-    
+    _tableView.backgroundColor = APP_PAGE_COLOR;
     [_tableView registerNib:[UINib nibWithNibName:@"OrderDetailPreviewContentTableViewCell" bundle:nil] forCellReuseIdentifier:@"orderDetailContentCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"OrderDetailTravelerPreviewTableViewCell" bundle:nil] forCellReuseIdentifier:@"orderDetailTravelerPreviewCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"OrderDetailContactTableViewCell" bundle:nil] forCellReuseIdentifier:@"orderDetailContactCell"];

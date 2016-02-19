@@ -23,6 +23,7 @@
 #import "MakeOrderUnitPriceTableViewCell.h"
 #import "MakeOrderReduceTableViewCell.h"
 #import "UserCouponsListViewController.h"
+#import "OrderPriceDetailView.h"
 
 @interface MakeOrderViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UITextViewDelegate, MakeOrderEditTravelerInfoDelegate, PDTSimpleCalendarViewDelegate, MakeOrderSelectPackageDelegate, MakeOrderSelectCountDelegate, TravelerInfoListDelegate, DialCodeTableViewControllerDelegate, UserCouponsListViewControllerDelegate>
 
@@ -30,6 +31,8 @@
 @property (nonatomic, strong) UILabel *totalPriceLabel;
 @property (nonatomic, strong) UIButton *commintOrderBtn;
 @property (nonatomic, strong) UIView *currentTextActivity;
+@property (nonatomic, weak) OrderPriceDetailView *orderPriceDetailView;
+
 @property (nonatomic) CGPoint backupOffset;
 @property (nonatomic, strong) OrderDetailModel *orderDetail;
 
@@ -136,6 +139,9 @@
     _totalPriceLabel.text = [NSString stringWithFormat:@"应付总额￥%@", _orderDetail.formatPayPrice];
     [toolBar addSubview:_totalPriceLabel];
     
+    UIButton *showPriceDetailButton = [[UIButton alloc] initWithFrame:CGRectMake(toolBar.bounds.size.width*3/5-40, 0, 40, 56)];
+    [showPriceDetailButton addTarget:self action:@selector(showPriceDetailAction:) forControlEvents:UIControlEventTouchUpInside];
+    [toolBar addSubview:showPriceDetailButton];
     
     _commintOrderBtn = [[UIButton alloc] initWithFrame:CGRectMake(toolBar.bounds.size.width*3/5, 0, toolBar.bounds.size.width/5*2, 56)];
     [_commintOrderBtn addTarget:self action:@selector(commintOrder:) forControlEvents:UIControlEventTouchUpInside];
@@ -183,6 +189,21 @@
     [self presentViewController:navi animated:YES completion:nil];
 }
 
+//显示支付金额详情
+- (IBAction)showPriceDetailAction:(id)sender
+{
+    if (_orderPriceDetailView) {
+        [_orderPriceDetailView hidePriceDetailViewWithAnimated:YES];
+
+    } else {
+        OrderPriceDetailView *view = [[OrderPriceDetailView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, kWindowHeight-56)];
+        view.orderDetail = _orderDetail;
+        _orderPriceDetailView = view;
+        [self.navigationController.view addSubview:_orderPriceDetailView];
+        [_orderPriceDetailView showPriceDetailView];
+    }
+}
+
 - (void)selectTravelerAsContactAction:(UIButton *)sender
 {
     SelectTravelerListViewController *ctl = [[SelectTravelerListViewController alloc] init];
@@ -199,6 +220,9 @@
 
 - (void)commintOrder:(UIButton *)sender
 {
+    if (_orderPriceDetailView) {
+        [_orderPriceDetailView hidePriceDetailViewWithAnimated:NO];
+    }
     NSString *errorStr = [OrderManager checkOrderIsCompleteWhenMakeOrder:_orderDetail];
     if (errorStr) {
         [SVProgressHUD showHint:errorStr];
