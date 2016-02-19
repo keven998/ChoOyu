@@ -29,32 +29,34 @@ typedef enum : NSUInteger {
 
 @property (nonatomic) NSInteger orderId;
 @property (nonatomic, copy) NSString *orderName;
-@property (nonatomic) float unitPrice;              //单价
-@property (nonatomic, copy, readonly) NSString *formatUnitPrice;  //单价格式化
-@property (nonatomic) float totalPrice;             //总价格
-@property (nonatomic) float discount;               //优惠价格
-@property (nonatomic, readonly) float payPrice;               //应付价格价格
 
-@property (nonatomic, copy, readonly) NSString *formatTotalPrice;
-@property (nonatomic) BOOL isRefundDenyBySeller;             //卖家是不是已经拒绝了退款
-@property (nonatomic) OrderStatus orderStatus;      // 订单状态
-@property (nonatomic, copy, readonly) NSString *orderStatusDesc;      // 订单状态描述
-@property (nonatomic, copy) NSString *useDate;      //使用时间
+@property (nonatomic) float unitPrice;                                          //单价
+@property (nonatomic, copy, readonly) NSString *formatUnitPrice;                //单价格式化描述
+@property (nonatomic) float totalPrice;                                         //总价格
+@property (nonatomic, copy, readonly) NSString *formatTotalPrice;               //总价格格式化描述
+@property (nonatomic) float discount;                                           //优惠价格
+@property (nonatomic, readonly) float payPrice;                                 //应付价格
+@property (nonatomic, copy, readonly) NSString *formatPayPrice;                 //应付价格格式化描述
+
+@property (nonatomic) BOOL isRefundDenyBySeller;                                //卖家是不是已经拒绝了退款
+@property (nonatomic) OrderStatus orderStatus;                                  // 订单状态
+@property (nonatomic, copy, readonly) NSString *orderStatusDesc;                // 订单状态描述
+@property (nonatomic, copy) NSString *useDate;                                  //使用时间
 @property (nonatomic) NSTimeInterval expireTime;
 @property (nonatomic) NSTimeInterval updateTime;
 @property (nonatomic) NSTimeInterval createTime;
 @property (nonatomic) NSTimeInterval currentTime;
-@property (nonatomic, copy) NSString *leaveMessage;      //留言
-@property (nonatomic, strong) GoodsDetailModel *goods;      //商品
+@property (nonatomic, copy) NSString *leaveMessage;                             //留言
+@property (nonatomic, strong) GoodsDetailModel *goods;                          //商品
 
-@property (nonatomic, strong) GoodsPackageModel *selectedPackage;     //选中的套餐
-@property (nonatomic) NSInteger count;          //订单数量
-@property (nonatomic, strong) NSArray<OrderTravelerInfoModel *> *travelerList;    //旅客信息列表
-@property (nonatomic, strong) OrderTravelerInfoModel *orderContact;       //订单的联系人
+@property (nonatomic, strong) GoodsPackageModel *selectedPackage;               //选中的套餐
+@property (nonatomic) NSInteger count;                                          //订单数量
+@property (nonatomic, strong) NSArray<OrderTravelerInfoModel *> *travelerList;  //旅客信息列表
+@property (nonatomic, strong) OrderTravelerInfoModel *orderContact;             //订单的联系人
 
 @property (nonatomic, strong) NSArray<NSDictionary *> *orderActivityList;       //订单状态变化
 
-@property (nonatomic, strong) UserCouponDetail *selectedCoupon;     //选中的优惠券
+@property (nonatomic, strong) UserCouponDetail *selectedCoupon;                 //选中的优惠券
 
 
 - (id)initWithJson:(id)json;

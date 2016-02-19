@@ -130,13 +130,14 @@
     toolBar.backgroundColor = UIColorFromRGB(0xcccccc);
     [self.view addSubview:toolBar];
     
-    _totalPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(27, 16, 200, 25)];
+    _totalPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(12, 16, toolBar.bounds.size.width*3/5-24, 25)];
     _totalPriceLabel.textColor = [UIColor redColor];
     _totalPriceLabel.font = [UIFont systemFontOfSize:17.0];
-    _totalPriceLabel.text = [NSString stringWithFormat:@"￥%@", _orderDetail.formatTotalPrice];
+    _totalPriceLabel.text = [NSString stringWithFormat:@"应付总额￥%@", _orderDetail.formatPayPrice];
     [toolBar addSubview:_totalPriceLabel];
     
-    _commintOrderBtn = [[UIButton alloc] initWithFrame:CGRectMake(toolBar.bounds.size.width-toolBar.bounds.size.width/5*2, 0, toolBar.bounds.size.width/5*2, 56)];
+    
+    _commintOrderBtn = [[UIButton alloc] initWithFrame:CGRectMake(toolBar.bounds.size.width*3/5, 0, toolBar.bounds.size.width/5*2, 56)];
     [_commintOrderBtn addTarget:self action:@selector(commintOrder:) forControlEvents:UIControlEventTouchUpInside];
     [_commintOrderBtn setBackgroundImage:[ConvertMethods createImageWithColor:UIColorFromRGB(0xff6633)] forState:UIControlStateNormal];
     [_commintOrderBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -417,10 +418,10 @@
 - (void)didSelectedPackage:(GoodsPackageModel *)package
 {
     if (![package.packageId isEqualToString:_orderDetail.selectedPackage.packageId]) {
-        [OrderManager updateOrder:_orderDetail WithGoodsPackage:package];
         _orderDetail.unitPrice = 0;
         _orderDetail.useDate = 0;
-        _totalPriceLabel.text = [NSString stringWithFormat:@"￥%@", _orderDetail.formatTotalPrice];
+        [OrderManager updateOrder:_orderDetail WithGoodsPackage:package];
+        _totalPriceLabel.text = [NSString stringWithFormat:@"应付总额￥%@", _orderDetail.formatPayPrice];
         [self.tableView reloadData];
     }
 }
@@ -446,7 +447,7 @@
 - (void)updateSelectCount:(NSInteger)count
 {
     [OrderManager updateOrder:_orderDetail WithBuyCount:count];
-    _totalPriceLabel.text = [NSString stringWithFormat:@"￥%@", _orderDetail.formatTotalPrice];
+    _totalPriceLabel.text = [NSString stringWithFormat:@"应付总额￥%@", _orderDetail.formatPayPrice];
 }
 
 #pragma mark - PDTSimpleCalendarViewDelegate
@@ -455,7 +456,7 @@
 {
     _orderDetail.unitPrice = price;
     _orderDetail.useDate = dateStr;
-    _totalPriceLabel.text = [NSString stringWithFormat:@"￥%@", _orderDetail.formatTotalPrice];
+    _totalPriceLabel.text = [NSString stringWithFormat:@"应付总额￥%@", _orderDetail.formatPayPrice];
     [_tableView reloadData];
 }
 
@@ -482,6 +483,7 @@
 {
     _orderDetail.selectedCoupon = coupon;
     _orderDetail.discount = coupon.discount;
+    _totalPriceLabel.text = [NSString stringWithFormat:@"应付总额￥%@", _orderDetail.formatPayPrice];
     [self.tableView reloadData];
 }
 

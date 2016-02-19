@@ -23,6 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"我的优惠券";
+    self.tableView.backgroundColor = APP_PAGE_COLOR;
     _tableView.dataSource = self;
     _tableView.delegate = self;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -132,7 +133,7 @@
     UserCouponTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"userCouponTableViewCell" forIndexPath:indexPath];
     cell.userCouponDetail = _dataSource[indexPath.section];
     cell.selectButton.tag = indexPath.section;
-    cell.selectButton.hidden = _canSelect;
+    cell.selectButton.hidden = !_canSelect;
     cell.selectButton.selected = [_selectedCoupon.couponId isEqualToString:_dataSource[indexPath.section].couponId];
     [cell.selectButton addTarget:self action:@selector(didSelectedCoupon:) forControlEvents:UIControlEventTouchUpInside];
     return cell;

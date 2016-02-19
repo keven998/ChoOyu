@@ -57,6 +57,9 @@
 
 - (float)payPrice
 {
+    if (_totalPrice-_discount < 0) {
+        return 0;
+    }
     return _totalPrice-_discount;
 }
 
@@ -159,6 +162,24 @@
     } else {
         NSString *tempPrice = [NSString stringWithFormat:@"%.1f", currentPrice];
         if (!(_totalPrice - tempPrice.floatValue)) {
+            priceStr = [NSString stringWithFormat:@"%.1f", currentPrice];
+        } else {
+            priceStr = [NSString stringWithFormat:@"%.2f", currentPrice];
+        }
+        
+    }
+    return priceStr;
+}
+
+- (NSString *)formatPayPrice
+{
+    NSString *priceStr;
+    float currentPrice = round(self.payPrice*100)/100;
+    if (!(currentPrice - (int)currentPrice)) {
+        priceStr = [NSString stringWithFormat:@"%d", (int)currentPrice];
+    } else {
+        NSString *tempPrice = [NSString stringWithFormat:@"%.1f", currentPrice];
+        if (!(self.payPrice - tempPrice.floatValue)) {
             priceStr = [NSString stringWithFormat:@"%.1f", currentPrice];
         } else {
             priceStr = [NSString stringWithFormat:@"%.2f", currentPrice];

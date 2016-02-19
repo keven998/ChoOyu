@@ -158,11 +158,19 @@
 + (void)updateOrder:(OrderDetailModel *)orderDetail WithGoodsPackage:(GoodsPackageModel *)selectPackage
 {
     orderDetail.selectedPackage = selectPackage;
+    if (orderDetail.selectedCoupon.limitMoney > orderDetail.totalPrice) {
+        orderDetail.discount = 0;
+        orderDetail.selectedCoupon = nil;
+    }
 }
 
 + (void)updateOrder:(OrderDetailModel *)orderDetail WithBuyCount:(NSInteger)count
 {
     orderDetail.count = count;
+    if (orderDetail.selectedCoupon.limitMoney > orderDetail.totalPrice) {
+        orderDetail.discount = 0;
+        orderDetail.selectedCoupon = nil;
+    }
 }
 
 + (void)asyncLoadOrdersFromServerOfUser:(NSInteger)userId completionBlock:(void (^)(BOOL isSuccess, NSArray<OrderDetailModel *> * orderList))completion
