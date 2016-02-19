@@ -10,6 +10,7 @@
 #import "UMSocial.h"
 #import "UMSocialSinaHandler.h"
 #import "UMSocialWechatHandler.h"
+#import "UMSocialSinaSSOHandler.h"
 #import "UMSocialQQHandler.h"
 #import "AccountManager.h"
 #import "WXApiObject.h"
@@ -53,10 +54,11 @@
     /** 设置友盟分享**/
     [UMSocialData openLog:NO];
     [UMSocialData setAppKey:UMENG_KEY];
-    [UMSocialSinaHandler openSSOWithRedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
     [UMSocialQQHandler setQQWithAppId:SHARE_QQ_APPID appKey:SHARE_QQ_KEY url:@"http://www.umeng.com/social"];
     //设置微信AppId、appSecret，分享url
     [UMSocialWechatHandler setWXAppId:SHARE_WEIXIN_APPID appSecret:SHARE_WEIXIN_SECRET url:@"http://www.lvxingpai.com"];
+    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:SHARE_SINA_APPKEY secret:SHARE_SINA_SECRET
+                                         RedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
     
     /**设置友盟统计**/
     [MobClick startWithAppkey:UMENG_KEY reportPolicy:(ReportPolicy) REALTIME channelId:nil];
