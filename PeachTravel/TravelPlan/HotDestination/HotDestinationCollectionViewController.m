@@ -260,6 +260,7 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
             case kCityPoi: {
                 CityDetailViewController *ctl = [[CityDetailViewController alloc] init];
                 ctl.cityId = recommend.recommondId;
+                ctl.cityName = recommend.title;
                 ctl.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:ctl animated:YES];
             }

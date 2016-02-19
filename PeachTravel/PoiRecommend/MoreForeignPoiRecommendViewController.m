@@ -257,6 +257,7 @@ static NSString *reuseableCellIdentifier  = @"poiRecommendCollectionCell";
     CityDestinationPoi *city = self.citiesArray[indexPath.item];
     CityDetailViewController *ctl = [[CityDetailViewController alloc] init];
     ctl.cityId = city.cityId;
+    ctl.cityName = city.zhName;
     [self.navigationController pushViewController:ctl animated:YES];
 }
 

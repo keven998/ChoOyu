@@ -78,6 +78,7 @@
     CityDetailViewController *ctl = [[CityDetailViewController alloc] init];
     PoiRecommend *poi = [_dataSource objectAtIndex:indexPath.row];
     ctl.cityId = poi.recommondId;
+    ctl.cityName = poi.zhName;
     [self.navigationController pushViewController:ctl animated:YES];
 }
 

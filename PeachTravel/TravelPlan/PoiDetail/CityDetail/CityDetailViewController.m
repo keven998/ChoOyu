@@ -44,6 +44,8 @@
     [PoiManager asyncLoadCityInfo:_cityId completionBlock:^(BOOL isSuccess, CityPoi *cityDetail) {
         if (isSuccess) {
             _poi = cityDetail;
+            self.navigationItem.title = _poi.zhName;
+
             _headerView = [[CityDetailHeaderView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 355)];
             _headerView.cityPoi = _poi;
             _tableView.tableHeaderView = _headerView;
@@ -113,7 +115,11 @@
 {
     GoodsListViewController *ctl = [[GoodsListViewController alloc] init];
     ctl.cityId = _cityId;
-    ctl.cityName = _cityName;
+    if (_poi.zhName) {
+        ctl.cityName = _poi.zhName;
+    } else {
+        ctl.cityName = _cityName;
+    }
     [self.navigationController pushViewController:ctl animated:YES];
 }
 

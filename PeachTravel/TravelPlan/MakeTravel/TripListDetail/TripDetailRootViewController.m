@@ -449,6 +449,7 @@
 {
     CityDetailViewController *cityDetailCtl = [[CityDetailViewController alloc] init];
     cityDetailCtl.cityId = cityId;
+
     [self.frostedViewController.navigationController pushViewController:cityDetailCtl animated:YES];
 }
 
@@ -832,6 +833,7 @@
     [self hideDestinationView:nil];
     CityDestinationPoi *poi =  [_tripDetail.destinations objectAtIndex:selectedIndex];
     CityDetailViewController *cityDetailCtl = [[CityDetailViewController alloc] init];
+    cityDetailCtl.cityName = poi.zhName;
     cityDetailCtl.cityId = poi.cityId;
     [self.frostedViewController.navigationController pushViewController:cityDetailCtl animated:YES];
 }

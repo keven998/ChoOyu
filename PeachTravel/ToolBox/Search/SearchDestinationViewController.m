@@ -461,6 +461,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     } else if (poi.poiType == kCityPoi) {
         CityDetailViewController *ctl = [[CityDetailViewController alloc] init];
         ctl.cityId = poi.poiId;
+        ctl.cityName = poi.zhName;
         [self.navigationController pushViewController:ctl animated:YES];
     } else {
         CommonPoiDetailViewController *ctl = [PoiDetailViewControllerFactory poiDetailViewControllerWithPoiType:poi.poiType];

@@ -204,6 +204,7 @@ static NSString *cacheName = @"destination_demostic_group";
     CityDestinationPoi *city = [area.cities objectAtIndex:indexPath.row];
     CityDetailViewController *ctl = [[CityDetailViewController alloc] init];
     ctl.cityId = city.cityId;
+    ctl.cityName = city.zhName;
     [self.navigationController pushViewController:ctl animated:YES];
 }
 

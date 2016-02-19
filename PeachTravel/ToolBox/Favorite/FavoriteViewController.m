@@ -518,6 +518,7 @@
     } else  if (item.type == kCityPoi){
         CityDetailViewController *ctl = [[CityDetailViewController alloc] init];
         ctl.cityId = item.itemId;
+        ctl.cityName = item.zhName;
         [self.navigationController pushViewController:ctl animated:YES];
     }
 }

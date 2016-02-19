@@ -173,6 +173,7 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
     CityDestinationPoi *poi = [_tripDetail.destinations objectAtIndex:sender.tag];
     CityDetailViewController *cityDetailCtl = [[CityDetailViewController alloc] init];
     cityDetailCtl.cityId = poi.cityId;
+    cityDetailCtl.cityName = poi.zhName;
     [self.navigationController pushViewController:cityDetailCtl animated:YES];
 }
 
