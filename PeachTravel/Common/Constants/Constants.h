@@ -19,7 +19,7 @@
 #define SHARE_QQ_KEY            @ "vxQPBWbxs7otYkTf"
 
 #define SHARE_RENREN_KEY        @ "5746d38353ed4bbb9bb4018bfb035a89"
-#define SHARE_DOUBAN_KEY        @ "07402b7af9b58b7115c08270ed20a253"
+#define SHARE_DOUBAN_KEY        @ "0b21925c5011fa842164b714f035ef8c"
 #define SHARE_WEIXIN_APPID      @ "wx86048e56adaf7486"
 #define SHARE_WEIXIN_SECRET     @ "d5408e689b82c0335a728cc8bd1b3c2e"
 

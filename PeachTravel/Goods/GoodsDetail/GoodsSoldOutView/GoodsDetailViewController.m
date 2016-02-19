@@ -580,9 +580,17 @@
             break;
             
         case 4:
-            [[UMSocialControllerService defaultControllerService] setShareText:shareContentWithUrl shareImage:nil socialUIDelegate:nil];
+
+            [UMSocialData defaultData].extConfig.sinaData.urlResource = resource;
             
-            [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);        
+            [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToSina] content:shareContentWithUrl image:nil location:nil urlResource:resource presentedController:self completion:^(UMSocialResponseEntity *response){
+                if (response.responseCode == UMSResponseCodeSuccess) {
+                    NSLog(@"分享成功！");
+                }
+            }];
+//            [[UMSocialControllerService defaultControllerService] setShareText:shareContentWithUrl shareImage:nil socialUIDelegate:nil];
+//            
+//            [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
             
             break;
             
