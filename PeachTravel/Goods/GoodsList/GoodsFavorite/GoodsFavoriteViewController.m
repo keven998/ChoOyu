@@ -28,16 +28,18 @@
     _tableView.separatorColor = COLOR_LINE;
     _tableView.dataSource = self;
     _tableView.delegate = self;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
     [GoodsManager asyncLoadFavoriteGoodsOfUser:[AccountManager shareAccountManager].account.userId completionBlock:^(BOOL isSuccess, NSArray *goodsList) {
         _dataSource = goodsList;
         [self.tableView reloadData];
     }];
-
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

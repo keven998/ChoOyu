@@ -23,7 +23,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
     _titleBkgImageView.image = [[UIImage imageNamed:@"textfield_bgk.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 3, 5, 3)];
-    self.navigationItem.title = @"达人∙申请";
+    self.navigationItem.title = @"商家∙申请";
     
     _commitBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [_commitBtn setTitle:@"提交" forState:UIControlStateNormal];

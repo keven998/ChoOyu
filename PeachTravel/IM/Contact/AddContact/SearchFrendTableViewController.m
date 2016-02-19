@@ -21,14 +21,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
     
     _searchBar = [[UISearchBar alloc]init];
     _searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    _searchBar.delegate = self;
     [_searchBar setPlaceholder:@"昵称/手机号"];
-    _searchBar.tintColor = [UIColor whiteColor];
-       _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
+    _searchBar.tintColor = COLOR_TEXT_II;
+    _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
     [_searchBar setSearchFieldBackgroundImage:[[UIImage imageNamed:@"icon_search_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)] forState:UIControlStateNormal];
-    _searchBar.showsCancelButton = YES;
     _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.navigationItem.titleView = _searchBar;
     _searchBar.delegate = self;
@@ -39,6 +40,9 @@
     [super didReceiveMemoryWarning];
 }
 
+- (void)goBack {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 - (void)searchUsersWithSearchText:(NSString *)searchText
 {
