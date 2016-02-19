@@ -140,6 +140,7 @@
     [toolBar addSubview:_totalPriceLabel];
     
     UIButton *showPriceDetailButton = [[UIButton alloc] initWithFrame:CGRectMake(toolBar.bounds.size.width*3/5-40, 0, 40, 56)];
+    [showPriceDetailButton setImage:[UIImage imageNamed:@"icon_makeOrder_showPriceDetail"] forState:UIControlStateNormal];
     [showPriceDetailButton addTarget:self action:@selector(showPriceDetailAction:) forControlEvents:UIControlEventTouchUpInside];
     [toolBar addSubview:showPriceDetailButton];
     
