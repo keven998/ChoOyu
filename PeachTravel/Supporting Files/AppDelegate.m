@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import "UMSocial.h"
-#import "UMSocialSinaHandler.h"
 #import "UMSocialWechatHandler.h"
 #import "UMSocialSinaSSOHandler.h"
 #import "UMSocialQQHandler.h"
