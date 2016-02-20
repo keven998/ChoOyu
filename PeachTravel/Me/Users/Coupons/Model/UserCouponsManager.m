@@ -13,47 +13,52 @@
 
 + (void)asyncLoadUserCouponsWithUserId:(NSInteger)userId completionBlock:(void (^)(BOOL, NSArray<UserCouponDetail *> *))completion
 {
-    
-#warning 优惠券测试数据
     NSMutableArray *couponList = [[NSMutableArray alloc] init];
-    for (int i=0; i<5; i++) {
-        UserCouponDetail *model = [[UserCouponDetail alloc] initWithJson:nil];
-        model.couponId = [NSString stringWithFormat:@"a%d", i];
-        model.limitMoney = 100*i;
-        model.discount = model.discount + i;
-        [couponList addObject:model];
-        completion(YES, couponList);
-    }
     
-    NSString *url = @"";
-    [LXPNetworking GET:url parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    [LXPNetworking GET:API_USERCOUPON parameters:@{@"userId": [NSNumber numberWithInteger:userId]} success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            for (NSDictionary *couponDic in [responseObject objectForKey:@"result"]) {
+                UserCouponDetail *model = [[UserCouponDetail alloc] initWithJson:couponDic];
+                [couponList addObject:model];
+            }
+            completion(YES, couponList);              
+        } else {
+            completion(NO, nil);
+        }
         
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
-        
+        completion(NO, nil);
+
     }];
 }
 
 + (void)asyncLoadUserCouponsWithUserId:(NSInteger)userId limitMoney:(float)lessMoney completionBlock:(void (^)(BOOL, NSArray<UserCouponDetail *> *))completion
 {
-#warning 优惠券测试数据
     NSMutableArray *couponList = [[NSMutableArray alloc] init];
-    for (int i=0; i<5; i++) {
-        UserCouponDetail *model = [[UserCouponDetail alloc] initWithJson:nil];
-        model.couponId = [NSString stringWithFormat:@"a%d", i];
-        model.discount = model.discount + i;
-        model.limitMoney = 100*i;
-        if (model.limitMoney <= lessMoney) {
-            [couponList addObject:model];
+    [LXPNetworking GET:API_USERCOUPON parameters:@{@"userId": [NSNumber numberWithInteger:userId]} success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            for (NSDictionary *couponDic in [responseObject objectForKey:@"result"]) {
+                UserCouponDetail *model = [[UserCouponDetail alloc] initWithJson:couponDic];
+                if (model.limitMoney <= lessMoney) {
+                    [couponList addObject:model];
+                }
+            }
+            completion(YES, couponList);
+        } else {
+            completion(NO, nil);
         }
-        completion(YES, couponList);
-    }
-    
-    NSString *url = @"";
-    [LXPNetworking GET:url parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        completion(NO, nil);
         
     }];
+    
+    
+    
 }
 
 @end

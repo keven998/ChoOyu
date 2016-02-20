@@ -13,11 +13,11 @@
 - (id)initWithJson:(id)json
 {
     if (self = [super init]) {
-        _title = @"新用户福利现金券";
+        _title = [json objectForKey:@"desc"];
         _desc = @"全场通用";
-        _limitMoney = 400;
-        _useDateDesc = @"2016.01.01-2016.02.02";
-        _discount = 100;
+        _limitMoney = [[json objectForKey:@"threshold"] floatValue];
+        _useDateDesc = [json objectForKey:@"rendezvousTime"];
+        _discount = [[json objectForKey:@"discount"] floatValue];
     }
     return self;
 }

@@ -38,8 +38,8 @@
 
 /***** API *****/
 
-//#define BASE_URL                                @ "http://api-dev.lvxingpai.com/app/"
-#define BASE_URL                                @ "http://api.lvxingpai.com/app/"
+#define BASE_URL                                @ "http://api-dev.lvxingpai.com/app/"
+//#define BASE_URL                                @ "http://api.lvxingpai.com/app/"
 
 //攻略相关接口
 #define API_GET_RECOMMEND                       (BASE_URL @"recommend")     //获取目的地首页推荐接口
@@ -127,6 +127,7 @@
 #define API_STORE                               (BASE_URL @"marketplace/sellers")  //店铺接口
 
 /*****  订单接口 ******/
+#define API_USERCOUPON                          (BASE_URL @"marketplace/coupons")  //用户优惠券
 
 #define API_ORDERS                              (BASE_URL @"marketplace/orders")    //订单
 

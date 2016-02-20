@@ -31,7 +31,7 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"UserCouponTableViewCell" bundle:nil] forCellReuseIdentifier:@"userCouponTableViewCell"];
     
     if (_canSelect) {    //如果可是选择，说明从订单填写页面进来选择优惠券，所以需要通过订单总金额对优惠券进行筛选
-        [UserCouponsManager asyncLoadUserCouponsWithUserId:_userId limitMoney:_orderTotalPrice completionBlock:^(BOOL isSuccess, NSArray<UserCouponDetail *> *couponsList) {
+        [UserCouponsManager asyncLoadUserCouponsWithUserId:100003 limitMoney:_orderTotalPrice completionBlock:^(BOOL isSuccess, NSArray<UserCouponDetail *> *couponsList) {
             if (isSuccess) {
                 if (couponsList.count) {
                     _dataSource = couponsList;
@@ -46,7 +46,7 @@
 
         }];
     } else {
-        [UserCouponsManager asyncLoadUserCouponsWithUserId:_userId completionBlock:^(BOOL isSuccess, NSArray<UserCouponDetail *> *couponsList) {
+        [UserCouponsManager asyncLoadUserCouponsWithUserId:100003 completionBlock:^(BOOL isSuccess, NSArray<UserCouponDetail *> *couponsList) {
             if (isSuccess) {
                 if (couponsList.count) {
                     _dataSource = couponsList;
