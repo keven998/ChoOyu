@@ -164,6 +164,7 @@
             
         } else if (indexPath.row == 1) {
             UserCouponsListViewController *ctl = [[UserCouponsListViewController alloc] init];
+            ctl.userId = [AccountManager shareAccountManager].account.userId;
             ctl.hidesBottomBarWhenPushed = YES;
             ctl.userId = [AccountManager shareAccountManager].account.userId;
             [self.navigationController pushViewController:ctl animated:YES];

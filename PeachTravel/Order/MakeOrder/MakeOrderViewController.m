@@ -135,7 +135,8 @@
     
     _totalPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(12, 16, toolBar.bounds.size.width*3/5-24, 25)];
     _totalPriceLabel.textColor = [UIColor redColor];
-    _totalPriceLabel.font = [UIFont systemFontOfSize:17.0];
+    _totalPriceLabel.font = [UIFont systemFontOfSize:16.0];
+    _totalPriceLabel.adjustsFontSizeToFitWidth = YES;
     _totalPriceLabel.text = [NSString stringWithFormat:@"应付总额￥%@", _orderDetail.formatPayPrice];
     [toolBar addSubview:_totalPriceLabel];
     
@@ -338,6 +339,7 @@
         UserCouponsListViewController *ctl = [[UserCouponsListViewController alloc] init];
         ctl.canSelect = YES;
         ctl.delegate = self;
+        ctl.userId = [AccountManager shareAccountManager].account.userId;
         ctl.orderTotalPrice = _orderDetail.totalPrice;
         ctl.selectedCoupon = _orderDetail.selectedCoupon;
         [self.navigationController pushViewController:ctl animated:YES];

@@ -64,10 +64,11 @@
     priceTitleLabel.text = @"总价:";
     [toolBar addSubview:priceTitleLabel];
     
-    UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(51, 0, 90, toolBar.bounds.size.height)];
+    UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(51, 0, 130, toolBar.bounds.size.height)];
     priceLabel.textColor = UIColorFromRGB(0xFC4E27);;
     priceLabel.font = [UIFont systemFontOfSize:17.0];
-    priceLabel.text = [NSString stringWithFormat:@"共￥%@", _orderDetail.formatTotalPrice];
+    priceLabel.adjustsFontSizeToFitWidth = YES;
+    priceLabel.text = [NSString stringWithFormat:@"共￥%@", _orderDetail.formatPayPrice];
     [toolBar addSubview:priceLabel];
     
     [self.view addSubview:toolBar];

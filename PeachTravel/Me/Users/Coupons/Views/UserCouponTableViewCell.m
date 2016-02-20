@@ -20,7 +20,11 @@
 {
     _userCouponDetail = userCouponDetail;
     _titleLabel.text = _userCouponDetail.title;
-    _descLabel.text = _userCouponDetail.desc;
+    if (_userCouponDetail.desc) {
+        _descLabel.text = _userCouponDetail.desc;
+    } else {
+        _descLabel.text = @"全场通用";
+    }
     _limitMoneyLabel.text = _userCouponDetail.limitMoneyDesc;
     _useDateLabel.text = _userCouponDetail.useDateDesc;
     

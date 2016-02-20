@@ -23,6 +23,7 @@
         _selectedPackage = [_goods.packages firstObject];
         _count = [[json objectForKey:@"quantity"] integerValue];
         _totalPrice = [[json objectForKey:@"totalPrice"] floatValue];
+        _discount = [[json objectForKey:@"discount"] floatValue];
         _leaveMessage = [json objectForKey:@"comment"];
         _useDate = [json objectForKey:@"rendezvousTime"];
         _updateTime = [[json objectForKey:@"updateTime"] doubleValue]/1000;

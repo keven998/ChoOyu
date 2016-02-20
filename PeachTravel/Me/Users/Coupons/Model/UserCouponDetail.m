@@ -13,8 +13,8 @@
 - (id)initWithJson:(id)json
 {
     if (self = [super init]) {
+        _couponId = [json objectForKey:@"id"];
         _title = [json objectForKey:@"desc"];
-        _desc = @"全场通用";
         _limitMoney = [[json objectForKey:@"threshold"] floatValue];
         _useDateDesc = [json objectForKey:@"rendezvousTime"];
         _discount = [[json objectForKey:@"discount"] floatValue];

@@ -105,7 +105,11 @@
         [self showPayActionSheet];
 
     } else {
-        [OrderManager asyncMakeOrderWithGoodsId:_orderDetail.goods.goodsId travelers:_travelerIdList packageId:_orderDetail.selectedPackage.packageId playDate:_orderDetail.useDate quantity:_orderDetail.count contactModel:_orderDetail.orderContact leaveMessage:_orderDetail.leaveMessage completionBlock:^(BOOL isSuccess, OrderDetailModel *orderDetail) {
+        NSMutableArray *couponList = [[NSMutableArray alloc] init];
+        if (_orderDetail.selectedCoupon.couponId) {
+            [couponList addObject:_orderDetail.selectedCoupon.couponId];
+        }
+        [OrderManager asyncMakeOrderWithGoodsId:_orderDetail.goods.goodsId travelers:_travelerIdList packageId:_orderDetail.selectedPackage.packageId playDate:_orderDetail.useDate quantity:_orderDetail.count coupons:couponList contactModel:_orderDetail.orderContact leaveMessage:_orderDetail.leaveMessage completionBlock:^(BOOL isSuccess, OrderDetailModel *orderDetail) {
             sender.userInteractionEnabled = YES;
             if (isSuccess) {
                 _isHasCreateNewOrder = YES;

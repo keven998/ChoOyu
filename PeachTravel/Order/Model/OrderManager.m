@@ -39,13 +39,19 @@
                      leaveMessage:(NSString *)message
                   completionBlock:(void (^)(BOOL, OrderDetailModel *))completion
 {
+    [self asyncMakeOrderWithGoodsId:goodsId travelers:travelers packageId:packageId playDate:date quantity:quantity coupons:@[] contactModel:contactInfo leaveMessage:message completionBlock:completion];
+}
+
++ (void)asyncMakeOrderWithGoodsId:(NSInteger)goodsId travelers:(NSArray<NSString *> *)travelers packageId:(NSString *)packageId playDate:(NSString *)date quantity:(NSInteger)quantity coupons:(NSArray<NSString *> *)coupons contactModel:(OrderTravelerInfoModel *)contactInfo leaveMessage:(NSString *)message completionBlock:(void (^)(BOOL, OrderDetailModel *))completion
+{
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:[NSNumber numberWithInteger:goodsId] forKey:@"commodityId"];
     [params safeSetObject:packageId forKey:@"planId"];
     [params safeSetObject:date forKey:@"rendezvousTime"];  //传毫秒单位
     [params safeSetObject:travelers forKey:@"travellers"];
     [params safeSetObject:[NSNumber numberWithInteger:quantity] forKey:@"quantity"];
-    
+    [params safeSetObject:coupons forKey:@"coupons"];
+
     NSMutableDictionary *contactDic = [[NSMutableDictionary alloc] init];
     NSMutableDictionary *telDic = [[NSMutableDictionary alloc] init];
     [telDic safeSetObject:[NSNumber numberWithInteger:contactInfo.dialCode.integerValue] forKey:@"dialCode"];
