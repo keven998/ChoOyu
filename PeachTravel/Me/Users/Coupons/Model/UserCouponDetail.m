@@ -30,4 +30,5 @@
         return [NSString stringWithFormat:@"满%d元可用", (int)_limitMoney];
     }
 }
+
 @end
