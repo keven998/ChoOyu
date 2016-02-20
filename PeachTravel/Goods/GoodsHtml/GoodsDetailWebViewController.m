@@ -16,7 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.webView = [[UIWebView alloc] initWithFrame: CGRectMake(0, 64, kWindowWidth, kWindowHeight-64-49)];
+    self.webView.frame = CGRectMake(0, 64, kWindowWidth, kWindowHeight-64-49);
     self.webView.backgroundColor = APP_PAGE_COLOR;
     UIButton *closeBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, kWindowHeight-49, kWindowWidth, 49)];
     [closeBtn setBackgroundColor:[UIColor whiteColor]];
