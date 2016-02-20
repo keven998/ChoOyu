@@ -38,14 +38,14 @@
 
 /***** API *****/
 
-#define BASE_URL                                @ "http://api-dev.lvxingpai.com/app/"
-//#define BASE_URL                                @ "http://api.lvxingpai.com/app/"
+//#define BASE_URL                                @ "http://api-dev.lvxingpai.com/app/"
+#define BASE_URL                                @ "http://api.lvxingpai.com/app/"
 
 //攻略相关接口
-#define API_GET_RECOMMEND                       (BASE_URL @"recommend")     //获取目的地首页推荐接口
-#define API_GET_SCREENING                       (BASE_URL @"users/expert/tracks")  //    达人足迹接口
-#define API_GET_DOMESTIC_DESTINATIONS           (BASE_URL @"guide/localities")     //获取国内目的地接口
-#define API_GET_FOREIGN_DESTINATIONS            (BASE_URL @"guide/localities")       //获取国外目的地接口
+#define API_GET_RECOMMEND                       (BASE_URL @"recommend")                 //获取目的地首页推荐接口
+#define API_GET_SCREENING                       (BASE_URL @"users/expert/tracks")       //达人足迹接口
+#define API_GET_DOMESTIC_DESTINATIONS           (BASE_URL @"guide/localities")          //获取国内目的地接口
+#define API_GET_FOREIGN_DESTINATIONS            (BASE_URL @"guide/localities")          //获取国外目的地接口
 #define API_GET_LOCALITIES                      (BASE_URL @"geo/localities/")
 
 
@@ -60,103 +60,102 @@
 #define API_GET_SHOPPING_DETAIL                 (BASE_URL @"poi/shopping/")
 #define API_GET_HOTEL_DETAIL                    (BASE_URL @"poi/hotel/")
 
-#define API_GET_RESTAURANTSLIST_CITY            (BASE_URL @"poi/restaurants")//城市的美食列表
-#define API_GET_SHOPPINGLIST_CITY               (BASE_URL @"poi/shopping")//城市的购物列表
-#define API_GET_SPOTLIST_CITY                   (BASE_URL @"poi/viewspots") //城市的景点列表
-#define API_GET_HOTELLIST_CITY                  (BASE_URL @"poi/hotel") //城市的酒店列表
-#define API_GET_TOUR_GULIDER                    (BASE_URL @"geo/countries") //旅游指南
+#define API_GET_RESTAURANTSLIST_CITY            (BASE_URL @"poi/restaurants")           //城市的美食列表
+#define API_GET_SHOPPINGLIST_CITY               (BASE_URL @"poi/shopping")              //城市的购物列表
+#define API_GET_SPOTLIST_CITY                   (BASE_URL @"poi/viewspots")             //城市的景点列表
+#define API_GET_HOTELLIST_CITY                  (BASE_URL @"poi/hotel")                 //城市的酒店列表
+#define API_GET_TOUR_GULIDER                    (BASE_URL @"geo/countries")             //旅游指南
 
-#define API_GET_GUIDE_CITY                      (BASE_URL @"guides/locality/")    //城市的美食购物攻略介绍
-#define API_GET_EXPERT_DETAIL                   (BASE_URL @"geo/countries/")   //达人列表
-#define API_GET_COUNTRIES                       (BASE_URL @"geo/countries")   //国家列表
+#define API_GET_GUIDE_CITY                      (BASE_URL @"guides/locality/")          //城市的美食购物攻略介绍
+#define API_GET_EXPERT_DETAIL                   (BASE_URL @"geo/countries/")            //达人列表
+#define API_GET_COUNTRIES                       (BASE_URL @"geo/countries")             //国家列表
 #define API_GET_CITIES                          (BASE_URL @"geo/localities")
 
-#define API_GET_HOT_SEARCH                      (BASE_URL @"search/hot-queries")   // 热门搜索
-#define API_UPDATE_GUIDE_PROPERTY               (BASE_URL @"guides")    //修改攻略属性
-#define API_SAVE_TRIP                           (BASE_URL @"guides")    //保存攻略
-#define API_GET_GUIDELIST                       (BASE_URL @"guides")    //获取攻略列表
-#define API_GET_GUIDELIST_EXPERT                (BASE_URL @"guides/")    //获取达人攻略列表
-#define API_GET_GUIDE                           (BASE_URL @"guides/")    //获取攻略列表
-#define API_DELETE_GUIDE                        (BASE_URL @"guides/")    //删除攻略列表
-#define API_SIGN_GUIDE                          (BASE_URL @"users/")    // 我的计划签到
-#define API_SAVE_TRIPINFO                       (BASE_URL @"guides/info/")    //保存攻略信息
+#define API_GET_HOT_SEARCH                      (BASE_URL @"search/hot-queries")        // 热门搜索
+#define API_UPDATE_GUIDE_PROPERTY               (BASE_URL @"guides")                    //修改攻略属性
+#define API_SAVE_TRIP                           (BASE_URL @"guides")                    //保存攻略
+#define API_GET_GUIDELIST                       (BASE_URL @"guides")                    //获取攻略列表
+#define API_GET_GUIDELIST_EXPERT                (BASE_URL @"guides/")                   //获取达人攻略列表
+#define API_GET_GUIDE                           (BASE_URL @"guides/")                   //获取攻略列表
+#define API_DELETE_GUIDE                        (BASE_URL @"guides/")                   //删除攻略列表
+#define API_SIGN_GUIDE                          (BASE_URL @"users/")                    // 我的计划签到
+#define API_SAVE_TRIPINFO                       (BASE_URL @"guides/info/")              //保存攻略信息
 
-#define API_GET_FAVORITES                       (BASE_URL @"misc/favorites")    //获取我的收藏列表
+#define API_GET_FAVORITES                       (BASE_URL @"misc/favorites")            //获取我的收藏列表
 
-#define API_FAVORITE                            (BASE_URL @"misc/favorites")       //收藏
-#define API_UNFAVORITE                          (BASE_URL @"misc/favorites")      //取消收藏
+#define API_FAVORITE                            (BASE_URL @"misc/favorites")            //收藏
+#define API_UNFAVORITE                          (BASE_URL @"misc/favorites")            //取消收藏
 
-#define API_SEARCH_TRAVELNOTE                   (BASE_URL @"travelnotes")      //搜索游记
+#define API_SEARCH_TRAVELNOTE                   (BASE_URL @"travelnotes")               //搜索游记
 
-#define API_NEARBY                              (BASE_URL @"poi/nearby")      //我身边
+#define API_NEARBY                              (BASE_URL @"poi/nearby")                //我身边
 
-#define API_SUGGESTION                          (BASE_URL @"suggestions")   //搜索联想
+#define API_SUGGESTION                          (BASE_URL @"suggestions")               //搜索联想
 
 //用户相关接口
 #define API_USERS                               (BASE_URL @"users/")
 #define API_GET_CAPTCHA                         (BASE_URL @"users/validation-codes")    //接收验证码
-#define API_VERIFY_CAPTCHA                      (BASE_URL @"users/tokens")   //验证验证码
-#define API_SIGNUP                              (BASE_URL @"users")        //用户注册
+#define API_VERIFY_CAPTCHA                      (BASE_URL @"users/tokens")              //验证验证码
+#define API_SIGNUP                              (BASE_URL @"users")                     //用户注册
 #define API_SIGNIN                              (BASE_URL @"users/signin")
-#define API_SEARCH_USER                         (BASE_URL @"users")      //搜索好友
-#define API_SCREENING_EXPERT                    (BASE_URL @"users/expert/tracks/users")//筛选达人
-#define API_ADD_CONTACT                         (BASE_URL @"users/contacts")   //添加好友
-#define API_REQUEST_ADD_CONTACT                 (BASE_URL @"users/request-contacts")   //请求添加好友
-#define API_DELETE_CONTACTS                     (BASE_URL @"users/contacts")   //删除好友
-#define API_GET_USERINFO_WITHEASEMOB            (BASE_URL @"users/easemob")   //传一个环信 id 数组，得到一个FM用户信息数组
-#define API_UPLOAD_ADDRESSBOOK                  (BASE_URL @"users/match")  //上传通讯录接口
+#define API_SEARCH_USER                         (BASE_URL @"users")                     //搜索好友
+#define API_SCREENING_EXPERT                    (BASE_URL @"users/expert/tracks/users") //筛选达人
+#define API_ADD_CONTACT                         (BASE_URL @"users/contacts")            //添加好友
+#define API_REQUEST_ADD_CONTACT                 (BASE_URL @"users/request-contacts")    //请求添加好友
+#define API_DELETE_CONTACTS                     (BASE_URL @"users/contacts")            //删除好友
+#define API_GET_USERINFO_WITHEASEMOB            (BASE_URL @"users/easemob")             //传一个环信 id 数组，得到一个FM用户信息数组
+#define API_UPLOAD_ADDRESSBOOK                  (BASE_URL @"users/match")               //上传通讯录接口
 
-#define API_LOGOUT                              (BASE_URL @"users/logout") // 退出登录
+#define API_LOGOUT                              (BASE_URL @"users/logout")              //退出登录
 
-//其他一些乱七八糟的接口
-#define API_GET_COVER_STORIES                   (BASE_URL @"misc/cover-stories")  //获得封面故事接口
+#define API_GET_COVER_STORIES                   (BASE_URL @"misc/cover-stories")        //获得封面故事接口
 #define API_POST_PHOTOIMAGE                     (BASE_URL @"misc/upload-tokens/portrait")  //上传头像接口
 #define API_POST_PHOTOALBUM                     (BASE_URL @"misc/upload-tokens/album")  //上传相册接口
 
-#define API_SEARCH                              (BASE_URL @"search")  //联合搜索
-#define API_GET_ALBUM                           (BASE_URL @"geo/localities/")      //获取城市图集
-#define API_GET_COLUMNS                         (BASE_URL @"columns")     //获取首页运营位置推荐
-#define API_FEEDBACK                            (BASE_URL @"misc/feedback")    //反馈接口
-#define API_EXPERTREQUEST                       (BASE_URL @"misc/expert-requests")    //达人申请接口
+#define API_SEARCH                              (BASE_URL @"search")                    //联合搜索
+#define API_GET_ALBUM                           (BASE_URL @"geo/localities/")           //获取城市图集
+#define API_GET_COLUMNS                         (BASE_URL @"columns")                   //获取首页运营位置推荐
+#define API_FEEDBACK                            (BASE_URL @"misc/feedback")             //反馈接口
+#define API_EXPERTREQUEST                       (BASE_URL @"misc/expert-requests")      //达人申请接口
 
 /*****商品/商户接口*******/
 
-#define API_GOODS                               (BASE_URL @"marketplace/commodities")  //商品
+#define API_GOODS                               (BASE_URL @"marketplace/commodities")   //商品
 #define API_GOODS_CATEGORY                      (BASE_URL @"marketplace/commodities/categories")  //商品分类
-#define API_GOODSLIST                           (BASE_URL @"marketplace/commodities")  //商品列表
-#define API_STORE                               (BASE_URL @"marketplace/sellers")  //店铺接口
+#define API_GOODSLIST                           (BASE_URL @"marketplace/commodities")   //商品列表
+#define API_STORE                               (BASE_URL @"marketplace/sellers")       //店铺接口
 
 /*****  订单接口 ******/
-#define API_USERCOUPON                          (BASE_URL @"marketplace/coupons")  //用户优惠券
+#define API_USERCOUPON                          (BASE_URL @"marketplace/coupons")       //用户优惠券
 
-#define API_ORDERS                              (BASE_URL @"marketplace/orders")    //订单
+#define API_ORDERS                              (BASE_URL @"marketplace/orders")        //订单
 
 /**
  html 接口
  */
-#define APP_ABOUT                               @ "http://h5.lvxingpai.com/about.htm"             //关于页面
-#define APP_AGREEMENT                           @ "http://api.lvxingpai.com/app/eula"       //用户协议
+#define APP_ABOUT                               @ "http://h5.lvxingpai.com/about.htm"   //关于页面
+#define APP_AGREEMENT                           @ "http://api.lvxingpai.com/app/eula"   //用户协议
 
 /***** Notification name *******/
-#define weixinDidLoginNoti                      @ "weixinDidLogin"              //微信登录完发送通知，传递 code 给服务器
-#define userDidLoginNoti                        @ "userDidLogin"                //用户完成所有登录工作。
-#define userDidResetPWDNoti                     @ "userDidResetPWD"                //用户成功完成重设忘记密码的工作。
+#define weixinDidLoginNoti                      @ "weixinDidLogin"                      //微信登录完发送通知，传递 code 给服务器
+#define userDidLoginNoti                        @ "userDidLogin"                        //用户完成所有登录工作。
+#define userDidResetPWDNoti                     @ "userDidResetPWD"                     //用户成功完成重设忘记密码的工作。
 
-#define userDidRegistedNoti                     @ "userDidRegisted"                //用户完成所有注册登录工作。
-#define userDidLogoutNoti                       @ "userDidLogout"               //用户完成所有退出登录工作。
-#define updateUserInfoNoti                      @ "updateUserInfo"              //用户信息有更改。
+#define userDidRegistedNoti                     @ "userDidRegisted"                     //用户完成所有注册登录工作。
+#define userDidLogoutNoti                       @ "userDidLogout"                       //用户完成所有退出登录工作。
+#define updateUserInfoNoti                      @ "updateUserInfo"                      //用户信息有更改。
 
-#define contactListNeedUpdateNoti               @ "updatecontactList"           //更新好友列表
-#define updateDestinationsSelectedNoti          @ "updateDestinationsSelected"           //更新目的地列表
-#define updateChateViewNoti                     @ "updateChatView"               //更新聊天界面
+#define contactListNeedUpdateNoti               @ "updatecontactList"                   //更新好友列表
+#define updateDestinationsSelectedNoti          @ "updateDestinationsSelected"          //更新目的地列表
+#define updateChateViewNoti                     @ "updateChatView"                      //更新聊天界面
 #define updateChateGroupTitleNoti               @ "updateChateGroupTitle"               //更新聊天界面title
 
-#define updateFavoriteListNoti                  @"updateFavoriteListView"    //更新收藏列表
-#define updateGuideListNoti                     @"updateFavoriteListView"    //更新我的攻略列表
+#define updateFavoriteListNoti                  @"updateFavoriteListView"               //更新收藏列表
+#define updateGuideListNoti                     @"updateFavoriteListView"               //更新我的攻略列表
 
-#define networkConnectionStatusChangeNoti       @"networkConnectionStatusChange"    //网络状态发生变化
+#define networkConnectionStatusChangeNoti       @"networkConnectionStatusChange"        //网络状态发生变化
 
-#define pushNewChatViewNoti                     @"pushNewChatViewNoti"    //进入新的聊天界面
+#define pushNewChatViewNoti                     @"pushNewChatViewNoti"                  //进入新的聊天界面
 
 #define uploadUserAlbumNoti                     @"uploadUserAlbum"
 
@@ -194,8 +193,8 @@ typedef NS_ENUM(NSUInteger, UserInfoInputError) {
 
 /***** 用户验证验证码时候的原因 *****/
 typedef NS_ENUM(NSUInteger, VerifyCaptchaType) {
-    UserLosePassword = 1,       //忘记密码
-    UserBindTel,                 //绑定手机号的时候
+    UserLosePassword = 1,           //忘记密码
+    UserBindTel,                    //绑定手机号的时候
     UserRegister
 };
 
@@ -210,7 +209,7 @@ typedef NS_ENUM(NSInteger, UserGender) {
 /***** 请求验证码和验证验证码时候向服务器发送的指令类型 *****/
 #define    kUserRegister         [NSNumber numberWithInt:1]        //用户注册时候进入时天下短信验证码
 #define    kUserLosePassword     [NSNumber numberWithInt:2]        //用户忘记密码
-#define    kUserBindTel          [NSNumber numberWithInt:3]         //用户绑定手机
+#define    kUserBindTel          [NSNumber numberWithInt:3]        //用户绑定手机
 
 /**
  修改个人信息的类型
@@ -227,9 +226,9 @@ typedef NS_ENUM(NSUInteger, UserInfoChangeType) {
 
 /***** 旅行派好友请求枚举信息****/
 typedef NS_ENUM(NSInteger, TZFrendRequest) {
-    TZFrendDefault = 0,      //未处理
-    TZFrendAgree,            //同意
-    TZFrendReject,          //拒绝
+    TZFrendDefault = 0,         //未处理
+    TZFrendAgree,               //同意
+    TZFrendReject,              //拒绝
 };
 
 /***** 旅行派自定义透传枚举信息 ****/
@@ -437,10 +436,7 @@ typedef NS_ENUM(NSUInteger, TZCMDChatType) {
                             @"水深火热"\
                             ]
 
-
-
 #define HTTP_FAILED_HINT    @"网络请求失败"
-
 
 /**
  *  判断设备类型
