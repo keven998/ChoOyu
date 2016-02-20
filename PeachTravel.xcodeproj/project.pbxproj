@@ -612,6 +612,8 @@
 		D93CACC61C77211800123D3B /* UMSnsAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D93CACBA1C77211800123D3B /* UMSnsAccountViewController.xib */; };
 		D93CACC71C77211800123D3B /* UMSShareListController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D93CACBB1C77211800123D3B /* UMSShareListController.xib */; };
 		D93CACC81C77211800123D3B /* UMSocialSDKResourcesNew.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D93CACBC1C77211800123D3B /* UMSocialSDKResourcesNew.bundle */; };
+		D93CACCA1C78083300123D3B /* UserCouponMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93CACC91C78083300123D3B /* UserCouponMessage.swift */; };
+		D93CACCF1C780C3A00123D3B /* ChatUserCouponBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = D93CACCE1C780C3A00123D3B /* ChatUserCouponBubbleView.m */; };
 		D93D38871C311F41005C0450 /* MakeOrderUnitPriceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D93D38851C311F41005C0450 /* MakeOrderUnitPriceTableViewCell.m */; };
 		D93D38881C311F41005C0450 /* MakeOrderUnitPriceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D93D38861C311F41005C0450 /* MakeOrderUnitPriceTableViewCell.xib */; };
 		D93D388D1C315C63005C0450 /* CitySearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D93D388B1C315C63005C0450 /* CitySearchViewController.m */; };
@@ -2849,6 +2851,9 @@
 		D93CACBB1C77211800123D3B /* UMSShareListController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UMSShareListController.xib; sourceTree = "<group>"; };
 		D93CACBC1C77211800123D3B /* UMSocialSDKResourcesNew.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = UMSocialSDKResourcesNew.bundle; sourceTree = "<group>"; };
 		D93CACBD1C77211800123D3B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/UMSocialLocalizable.strings"; sourceTree = "<group>"; };
+		D93CACC91C78083300123D3B /* UserCouponMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCouponMessage.swift; sourceTree = "<group>"; };
+		D93CACCD1C780C3A00123D3B /* ChatUserCouponBubbleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatUserCouponBubbleView.h; sourceTree = "<group>"; };
+		D93CACCE1C780C3A00123D3B /* ChatUserCouponBubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatUserCouponBubbleView.m; sourceTree = "<group>"; };
 		D93D38841C311F41005C0450 /* MakeOrderUnitPriceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakeOrderUnitPriceTableViewCell.h; sourceTree = "<group>"; };
 		D93D38851C311F41005C0450 /* MakeOrderUnitPriceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MakeOrderUnitPriceTableViewCell.m; sourceTree = "<group>"; };
 		D93D38861C311F41005C0450 /* MakeOrderUnitPriceTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MakeOrderUnitPriceTableViewCell.xib; sourceTree = "<group>"; };
@@ -7153,6 +7158,7 @@
 				D9B408141B6B804C00795EB6 /* HtmlMessage.swift */,
 				D92CCF2B1C156BE20018D54D /* GoodsLinkMessage.swift */,
 				D92CCF2D1C157C120018D54D /* OrderTipsMessage.swift */,
+				D93CACC91C78083300123D3B /* UserCouponMessage.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -7714,6 +7720,8 @@
 				D9A800D11A80DD23005AD701 /* TaoziChatCityBubbleView.m */,
 				D98EB39C1C16D88A0034B8D4 /* ChatGoodsBubbleView.h */,
 				D98EB39D1C16D88A0034B8D4 /* ChatGoodsBubbleView.m */,
+				D93CACCD1C780C3A00123D3B /* ChatUserCouponBubbleView.h */,
+				D93CACCE1C780C3A00123D3B /* ChatUserCouponBubbleView.m */,
 			);
 			path = ChatCellBubble;
 			sourceTree = "<group>";
@@ -11617,6 +11625,7 @@
 				D904AB721BAFDD6300031AB4 /* UserAlbumReviewViewController.m in Sources */,
 				01C1ECC21BB53A690082217A /* TZEmojiKeyBoardCell.m in Sources */,
 				D90C75F41BF1DB1A00C5897C /* PDTSimpleCalendarViewController.m in Sources */,
+				D93CACCA1C78083300123D3B /* UserCouponMessage.swift in Sources */,
 				D92CA0B61AD8BDD400F244FF /* DACircularProgressView.m in Sources */,
 				D907D2871BEB097E008A35F9 /* GoodsOfCityTableViewCell.m in Sources */,
 				D90C761D1BF1DED600C5897C /* MakeOrderTitleTableViewCell.m in Sources */,
@@ -12097,6 +12106,7 @@
 				D9DB6EDC1C3549BF00077E49 /* GoodsDetailSoldOutView.m in Sources */,
 				D96BAFFC1C1AEAA000CDB7C7 /* QNStats.m in Sources */,
 				D93B97F11B4B8C420054EF50 /* ChatGroupSettingCell.m in Sources */,
+				D93CACCF1C780C3A00123D3B /* ChatUserCouponBubbleView.m in Sources */,
 				D9E0EED21B79BDC2003872DF /* ChatAlbumCollectionViewCell.m in Sources */,
 				D93D388D1C315C63005C0450 /* CitySearchViewController.m in Sources */,
 				D9A8FF1B1A80CC2B005AD701 /* SMSVerifyViewController.m in Sources */,

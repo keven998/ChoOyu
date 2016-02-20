@@ -53,6 +53,7 @@
 #import "TripDetailRootViewController.h"
 #import "OrderDetailViewController.h"
 #import "GoodsDetailViewController.h"
+#import "UserCouponsListViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import "PeachTravel-swift.h"
 
@@ -885,6 +886,14 @@
     [self.frostedViewController.navigationController pushViewController:ctl animated:YES];
 }
 
+//用户优惠券气泡被点击，进入用户优惠券列表界面
+- (void)chatUserCouponBubblePressed:(MessageModel *)model
+{
+    UserCouponsListViewController *ctl = [[UserCouponsListViewController alloc] init];
+    ctl.userId = [AccountManager shareAccountManager].account.userId;
+    [self.frostedViewController.navigationController pushViewController:ctl animated:YES];
+}
+
 /**
  *  自定义旅行派消息的气泡被点击
  *
@@ -1035,6 +1044,9 @@
         
     } else if ([eventName isEqualToString:kRouterEventChatGoodsBubbleTapEventName]) {
         [self chatGoodsBubblePressed:model];
+        
+    } else if ([eventName isEqualToString:kRouterEventChatUserCouponBubbleTapEventName]) {
+        [self chatUserCouponBubblePressed:model];
         
     } else if([eventName isEqualToString:kResendButtonTapEventName]){
         EMChatViewCell *resendCell = [userInfo objectForKey:kShouldResendCell];

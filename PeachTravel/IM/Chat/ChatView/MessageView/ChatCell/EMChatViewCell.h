@@ -19,6 +19,7 @@
 #import "EMChatLocationBubbleView.h"
 #import "TaoziChatBaseBubbleView.h"
 #import "ChatGoodsBubbleView.h"
+#import "ChatUserCouponBubbleView.h"
 #import "TaoziChatCityBubbleView.h"
 
 #define SEND_STATUS_SIZE 18 // 发送状态View的Size

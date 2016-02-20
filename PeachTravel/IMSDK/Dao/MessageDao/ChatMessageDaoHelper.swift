@@ -385,13 +385,16 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
                 
             case .GoodsMessageType:
                 retMessage = GoodsChatMessage()
-                break
                 
             case .GoodsLinkMessageType:
                 break
                 
             case .OrderTipsMessageType:
                 retMessage = OrderTipsMessage()
+                
+            case .UserCouponMessageType:
+                retMessage = UserCouponMessage()
+                
             }
             
             //attention: 因为表明的结构为 chat_100。所以从第五位取可以取到 chatterid

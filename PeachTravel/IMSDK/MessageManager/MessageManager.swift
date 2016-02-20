@@ -307,6 +307,8 @@ class MessageManager: NSObject {
                 case .OrderTipsMessageType:
                     messageModel = OrderTipsMessage()
                     
+                case .UserCouponMessageType:
+                    messageModel = UserCouponMessage()
                 }
                 
                 if let contents = messageDic.objectForKey("contents") as? String {

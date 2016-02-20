@@ -429,6 +429,12 @@
                 }
                     break;
                     
+                case IMMessageTypeUserCouponMessageType: {
+                    ret = [NSString stringWithFormat:@"%@:[优惠券] %@", nickName, ((UserCouponMessage *)lastMessage).title];
+                    
+                }
+                    break;
+                    
                 case IMMessageTypeTipsMessageType: {
                     ret = ((TipsMessage *) lastMessage).tipsContent;
                     
@@ -508,6 +514,12 @@
                     
                 case IMMessageTypeGoodsMessageType: {
                     ret = [NSString stringWithFormat:@"[链接] %@", ((GoodsChatMessage *)lastMessage).goodsName];
+                }
+                    break;
+                    
+                case IMMessageTypeUserCouponMessageType: {
+                    ret = [NSString stringWithFormat:@"[优惠券] %@", ((UserCouponMessage *)lastMessage).title];
+                    
                 }
                     break;
                     

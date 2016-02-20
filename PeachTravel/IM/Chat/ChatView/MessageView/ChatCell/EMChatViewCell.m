@@ -15,6 +15,7 @@
 #import "ChatGoodsBubbleView.h"
 #import "UIResponder+Router.h"
 #import "TipsChatTableViewCell.h"
+#import "ChatUserCouponBubbleView.h"
 
 NSString *const kResendButtonTapEventName = @"kResendButtonTapEventName";
 NSString *const kShouldResendCell = @"kShouldResendCell";
@@ -211,6 +212,12 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
         }
             break;
             
+        case IMMessageTypeUserCouponMessageType: {
+            return [[ChatUserCouponBubbleView alloc] init];
+        }
+            break;
+
+            
         default: {
             messageModel.content = @"升级新版本才可以查看这条神秘消息哦";
             return [[EMChatTextBubbleView alloc] init];
@@ -261,6 +268,12 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
         case IMMessageTypeGoodsMessageType: {
             return [ChatGoodsBubbleView heightForBubbleWithObject:messageModel] + nickNameHeight;
         }
+            break;
+            
+        case IMMessageTypeUserCouponMessageType: {
+            return [ChatUserCouponBubbleView heightForBubbleWithObject:messageModel] + nickNameHeight;
+        }
+            break;
             
         case IMMessageTypeLocationMessageType:
             return [EMChatLocationBubbleView heightForBubbleWithObject:messageModel] + nickNameHeight;
