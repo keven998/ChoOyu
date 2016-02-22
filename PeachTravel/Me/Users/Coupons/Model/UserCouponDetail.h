@@ -13,7 +13,7 @@
 @property (nonatomic, copy) NSString *couponId;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *desc;
-@property (nonatomic, copy) NSString *useDateDesc;
+@property (nonatomic, copy) NSString *useDate;
 @property (nonatomic) float discount;
 @property (nonatomic) float limitMoney;
 @property (nonatomic, copy, readonly) NSString *limitMoneyDesc;

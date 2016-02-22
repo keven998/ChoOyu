@@ -16,7 +16,7 @@
         _couponId = [json objectForKey:@"id"];
         _title = [json objectForKey:@"desc"];
         _limitMoney = [[json objectForKey:@"threshold"] floatValue];
-        _useDateDesc = [json objectForKey:@"rendezvousTime"];
+        _useDate = [json objectForKey:@"expire"];
         _discount = [[json objectForKey:@"discount"] floatValue];
     }
     return self;

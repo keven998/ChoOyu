@@ -26,7 +26,7 @@
         _descLabel.text = @"全场通用";
     }
     _limitMoneyLabel.text = _userCouponDetail.limitMoneyDesc;
-    _useDateLabel.text = _userCouponDetail.useDateDesc;
+    _useDateLabel.text = [NSString stringWithFormat:@"有效期至: %@", _userCouponDetail.useDate];
     
     NSMutableAttributedString *discountString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"￥%d", (int)_userCouponDetail.discount]];
     [discountString addAttributes:@{
