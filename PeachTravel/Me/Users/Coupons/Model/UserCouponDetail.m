@@ -18,6 +18,9 @@
         _limitMoney = [[json objectForKey:@"threshold"] floatValue];
         _useDate = [json objectForKey:@"expire"];
         _discount = [[json objectForKey:@"discount"] floatValue];
+        
+        NSDate *expirDate = [ConvertMethods stringToDate:_useDate withFormat:@"yyyy-MM-dd" withTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
+        _isExpire = ([[NSDate date] compare: [NSDate dateWithTimeIntervalSince1970:([expirDate timeIntervalSince1970] + 24*60*60-1)]] == NSOrderedDescending);
     }
     return self;
 }

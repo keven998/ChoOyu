@@ -34,7 +34,13 @@
         [UserCouponsManager asyncLoadUserCouponsWithUserId:_userId limitMoney:_orderTotalPrice completionBlock:^(BOOL isSuccess, NSArray<UserCouponDetail *> *couponsList) {
             if (isSuccess) {
                 if (couponsList.count) {
-                    _dataSource = couponsList;
+                    NSMutableArray *items = [[NSMutableArray alloc] init];
+                    for (UserCouponDetail *detail in couponsList) {
+                        if (!detail.isExpire) {
+                            [items addObject:detail];
+                        }
+                    }
+                    _dataSource = items;
                     [self.tableView reloadData];
                     
                 } else {
@@ -49,7 +55,13 @@
         [UserCouponsManager asyncLoadUserCouponsWithUserId:_userId completionBlock:^(BOOL isSuccess, NSArray<UserCouponDetail *> *couponsList) {
             if (isSuccess) {
                 if (couponsList.count) {
-                    _dataSource = couponsList;
+                    NSMutableArray *items = [[NSMutableArray alloc] init];
+                    for (UserCouponDetail *detail in couponsList) {
+                        if (!detail.isExpire) {
+                            [items addObject:detail];
+                        }
+                    }
+                    _dataSource = items;
                     [self.tableView reloadData];
                     
                 } else {
