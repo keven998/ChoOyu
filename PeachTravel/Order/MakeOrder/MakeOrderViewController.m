@@ -242,6 +242,7 @@
     [self.navigationController pushViewController:ctl animated:YES];
 }
 
+#pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -336,6 +337,10 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.row == 7) {
+        if (!_orderDetail.useDate) {
+            [SVProgressHUD showHint:@"请先选择出发日期"];
+            return;
+        }
         UserCouponsListViewController *ctl = [[UserCouponsListViewController alloc] init];
         ctl.canSelect = YES;
         ctl.delegate = self;

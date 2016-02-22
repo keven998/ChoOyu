@@ -28,7 +28,7 @@
     _limitMoneyLabel.text = _userCouponDetail.limitMoneyDesc;
     _useDateLabel.text = [NSString stringWithFormat:@"有效期至: %@", _userCouponDetail.useDate];
     
-    NSMutableAttributedString *discountString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"￥%d", (int)_userCouponDetail.discount]];
+    NSMutableAttributedString *discountString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"￥%@", _userCouponDetail.formatDiscount]];
     [discountString addAttributes:@{
                                     NSFontAttributeName:[UIFont boldSystemFontOfSize:22],
                                     } range:NSMakeRange(0, 1)];

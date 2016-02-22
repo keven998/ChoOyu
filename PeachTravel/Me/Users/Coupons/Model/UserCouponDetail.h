@@ -15,6 +15,7 @@
 @property (nonatomic, copy) NSString *desc;
 @property (nonatomic, copy) NSString *useDate;
 @property (nonatomic) float discount;
+@property (nonatomic, copy, readonly) NSString *formatDiscount;
 @property (nonatomic) BOOL isExpire;
 @property (nonatomic) float limitMoney;
 @property (nonatomic, copy, readonly) NSString *limitMoneyDesc;
