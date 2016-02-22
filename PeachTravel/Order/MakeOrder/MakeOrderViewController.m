@@ -314,6 +314,7 @@
         [cell.editTravelerButton addTarget:self action:@selector(addTraveler:) forControlEvents:UIControlEventTouchUpInside];
         return cell;
         
+        
     } else if (indexPath.row == 6) {
         MakeOrderContactInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"makeOrderContactInfoCell" forIndexPath:indexPath];
         [cell.selectTravelerBtn addTarget:self action:@selector(selectTravelerAsContactAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -326,7 +327,7 @@
         
     } else if (indexPath.row == 7) {
         MakeOrderReduceTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"makeOrderReduceTableViewCell" forIndexPath:indexPath];
-        cell.reducePriceLabel.text = [NSString stringWithFormat:@"-￥%d", (int)_orderDetail.discount];
+        cell.reducePriceLabel.text = [NSString stringWithFormat:@"-￥%@", _orderDetail.formatDiscountPrice];
         return cell;
     }
     

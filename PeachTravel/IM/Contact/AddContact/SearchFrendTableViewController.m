@@ -8,10 +8,11 @@
 
 #import "SearchFrendTableViewController.h"
 #import "OtherProfileViewController.h"
+#import "ContactListTableViewCell.h"
 
 @interface SearchFrendTableViewController () <UISearchBarDelegate>
 
-@property (nonatomic, strong) NSArray *dataSource;
+@property (nonatomic, strong) NSMutableArray *dataSource;
 @property (strong, nonatomic) UISearchBar *searchBar;
 @property (strong, nonatomic) UIViewController *nextViewController;
 @end
@@ -20,7 +21,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.separatorColor = COLOR_LINE;
+    [self.tableView registerNib:[UINib nibWithNibName:@"ContactListTableViewCell" bundle:nil] forCellReuseIdentifier:@"contactCell"];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
     
     _searchBar = [[UISearchBar alloc]init];
@@ -77,27 +79,14 @@
 
 - (void)parseSearchResult:(id)searchResult
 {
-    AccountManager *accountManager = [AccountManager shareAccountManager];
+    _dataSource = [[NSMutableArray alloc] init];
     if ([searchResult count] > 0) {
-        NSInteger userId = [[[searchResult firstObject] objectForKey:@"userId"] integerValue];
-        if (userId == accountManager.account.userId) {
-            [SVProgressHUD showHint:@"不能添加自己到通讯录"];
-        } else {
-            [_searchBar resignFirstResponder];
-            
-            //如果已经是好友了，进入好友详情界面
-            if ([accountManager frendIsMyContact:userId]) {
-                OtherProfileViewController *contactDetailCtl = [[OtherProfileViewController alloc]init];
-                contactDetailCtl.userId = userId;
-                _nextViewController = contactDetailCtl;
-                [self performSelector:@selector(jumpToNextCtl) withObject:nil afterDelay:0.3];
-                return;
-            }
-            OtherProfileViewController *otherCtl = [[OtherProfileViewController alloc]init];
-            otherCtl.userId = userId;
-            _nextViewController = otherCtl;
-            [self performSelector:@selector(jumpToNextCtl) withObject:nil afterDelay:0.3];
+        for (NSDictionary *dic in searchResult) {
+            FrendModel *frend = [[FrendModel alloc] initWithJson:dic];
+            [_dataSource addObject:frend];
         }
+        [self.tableView reloadData];
+        [_searchBar resignFirstResponder];
     } else {
         [SVProgressHUD showHint:@"没有找到他~"];
     }
@@ -115,17 +104,67 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 48.0;
+    return 55.0;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return CGFLOAT_MIN;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return CGFLOAT_MIN;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 0;
+    return [_dataSource count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-        cell.textLabel.text = @"cell";
-        return cell;
+    ContactListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"contactCell" forIndexPath:indexPath];
+    FrendModel *contact = [_dataSource objectAtIndex:indexPath.row];
+    
+    if (![contact.avatarSmall isBlankString]) {
+        [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:contact.avatarSmall] placeholderImage:[UIImage imageNamed:@"avatar_default"]];
+    } else {
+        [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:contact.avatar] placeholderImage:[UIImage imageNamed:@"avatar_default"]];
+    }
+    
+    if (contact.memo.length > 0) {
+        cell.nickNameLabel.text = contact.memo;
+    } else {
+        cell.nickNameLabel.text = contact.nickName;
+    }
+    return cell;
+
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    FrendModel *contact = [_dataSource objectAtIndex:indexPath.row];
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    NSInteger userId = contact.userId;
+    if (userId == accountManager.account.userId) {
+        [SVProgressHUD showHint:@"不能添加自己到通讯录"];
+    } else {
+        //如果已经是好友了，进入好友详情界面
+        if ([accountManager frendIsMyContact:userId]) {
+            OtherProfileViewController *contactDetailCtl = [[OtherProfileViewController alloc]init];
+            contactDetailCtl.userId = userId;
+            _nextViewController = contactDetailCtl;
+            [self performSelector:@selector(jumpToNextCtl) withObject:nil afterDelay:0.3];
+            
+        } else {
+            OtherProfileViewController *otherCtl = [[OtherProfileViewController alloc]init];
+            otherCtl.userId = userId;
+            _nextViewController = otherCtl;
+            [self performSelector:@selector(jumpToNextCtl) withObject:nil afterDelay:0.3];
+        }
+    }
+
 }
 
 #pragma mark - UISearchBarDelegate

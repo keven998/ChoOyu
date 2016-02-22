@@ -30,10 +30,27 @@
     if (_limitMoney == 0) {
         return @"无条件使用";
     } else {
-        return [NSString stringWithFormat:@"满%d元可用", (int)_limitMoney];
+        return [NSString stringWithFormat:@"满%@元可用", [self formatLimitMoney]];
     }
 }
 
+
+- (NSString *)formatLimitMoney
+{
+    NSString *priceStr;
+    float currentPrice = round(_limitMoney*100)/100;
+    if (!(currentPrice - (int)currentPrice)) {
+        priceStr = [NSString stringWithFormat:@"%d", (int)currentPrice];
+    } else {
+        NSString *tempPrice = [NSString stringWithFormat:@"%.1f", currentPrice];
+        if (!(_limitMoney - tempPrice.floatValue)) {
+            priceStr = [NSString stringWithFormat:@"%.1f", currentPrice];
+        } else {
+            priceStr = [NSString stringWithFormat:@"%.2f", currentPrice];
+        }
+    }
+    return priceStr;
+}
 
 - (NSString *)formatDiscount
 {
