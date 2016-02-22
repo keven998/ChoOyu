@@ -52,12 +52,12 @@ NSString *const kRouterEventChatUserCouponBubbleTapEventName = @"kRouterEventCha
     }
     
     if (_model.isSender) {
-        [_pictureImageView setFrame:CGRectMake(12.5, 10, 50, 60)];
+        [_pictureImageView setFrame:CGRectMake(12.5, 15, 45, 50)];
     } else {
-        [_pictureImageView setFrame:CGRectMake(20, 10, 55, 60)];
+        [_pictureImageView setFrame:CGRectMake(20, 15, 45, 50)];
     }
     
-    [_titleLabel setFrame:CGRectMake(_pictureImageView.frame.origin.x + 65, 10, titleWidth, 60)];
+    [_titleLabel setFrame:CGRectMake(_pictureImageView.frame.origin.x + 60, 10, titleWidth, 60)];
     
 }
 
