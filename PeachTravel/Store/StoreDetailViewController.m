@@ -96,6 +96,8 @@
 - (void)setStoreDetail:(StoreDetailModel *)storeDetail
 {
     _storeDetail = storeDetail;
+    _storeName = _storeDetail.storeName;
+    self.navigationItem.title = _storeName;
     [self setupHeaderView];
     _storeHeaderView.storeDetail = _storeDetail;
 }

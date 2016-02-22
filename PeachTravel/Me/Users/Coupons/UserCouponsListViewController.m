@@ -78,7 +78,11 @@
     label.textAlignment = NSTextAlignmentCenter;
     label.textColor = COLOR_TEXT_III;
     label.font = [UIFont systemFontOfSize:15.0];
-    label.text = @"您目前没有优惠券~";
+    if (_canSelect) {
+        label.text = @"暂无可用优惠券~";
+    } else {
+        label.text = @"您目前没有优惠券~";
+    }
     [self.view addSubview:label];
 }
 

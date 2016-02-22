@@ -10,6 +10,7 @@
 
 #import <MediaPlayer/MediaPlayer.h>
 #import <MobileCoreServices/MobileCoreServices.h>
+#import <AVFoundation/AVFoundation.h>
 
 #import "DXChatBarMoreView.h"
 #import "DXRecordView.h"
@@ -54,11 +55,11 @@
 #import "OrderDetailViewController.h"
 #import "GoodsDetailViewController.h"
 #import "UserCouponsListViewController.h"
-#import <AVFoundation/AVFoundation.h>
-#import "PeachTravel-swift.h"
-
+#import "StoreDetailViewController.h"
 #import "MJRefresh.h"
 #import "RefreshHeader.h"
+#import "StoreManager.h"
+#import "PeachTravel-swift.h"
 
 #define KPageCount 20
 
@@ -176,6 +177,18 @@
     [self.view addGestureRecognizer:tap];
     _isScrollToBottom = YES;
     
+    [StoreManager asyncLoadStoreInfoWithStoreId:_chatter completionBlock:^(BOOL isSuccess, StoreDetailModel *storeDetail) {
+        if (storeDetail) {  //设置导航栏内容
+            NSMutableArray *items = [self.frostedViewController.navigationItem.rightBarButtonItems mutableCopy];
+            UIButton *menu = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
+            [menu setImage:[UIImage imageNamed:@"icon_navi_white_storeInfo"] forState:UIControlStateNormal];
+            [menu addTarget:self action:@selector(showStoreDetail) forControlEvents:UIControlEventTouchUpInside];
+            [menu setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+            [items addObject:[[UIBarButtonItem alloc] initWithCustomView:menu]];
+            
+            self.frostedViewController.navigationItem.rightBarButtonItems = items;
+        }
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -214,6 +227,26 @@
     _conversation.isCurrentConversation = NO;
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)setupBarButtonItem
+{
+    if (_chatter != TransactionMessageUserId) {   //交易信息没有右上角的设置按钮
+        UIButton *menu = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
+        [menu setImage:[UIImage imageNamed:@"icon_navi_white_menu"] forState:UIControlStateNormal];
+        [menu addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
+        [menu setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+        self.frostedViewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:menu];
+    }
+    
+    UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setImage:[UIImage imageNamed:@"common_icon_navigation_back_normal.png"] forState:UIControlStateNormal];
+    
+    [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
+    [button setFrame:CGRectMake(0, 0, 30, 30)];
+    button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
+    self.frostedViewController.navigationItem.leftBarButtonItem = barButton;
 }
 
 #pragma mark - setter & getter
@@ -370,26 +403,6 @@
         [self fillMessageModel:model];
         [self.dataSource addObject: model];
     }
-}
-
-- (void)setupBarButtonItem
-{
-    if (_chatter != TransactionMessageUserId) {   //交易信息没有右上角的设置按钮
-        UIButton *menu = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
-        [menu setImage:[UIImage imageNamed:@"icon_navi_white_menu"] forState:UIControlStateNormal];
-        [menu addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
-        [menu setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-        self.frostedViewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:menu];
-    }
-    
-    UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setImage:[UIImage imageNamed:@"common_icon_navigation_back_normal.png"] forState:UIControlStateNormal];
-    
-    [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
-    [button setFrame:CGRectMake(0, 0, 30, 30)];
-    button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
-    self.frostedViewController.navigationItem.leftBarButtonItem = barButton;
 }
 
 /**
@@ -711,6 +724,13 @@
     [self.view endEditing:YES];
     [self.frostedViewController.view endEditing:YES];
     [self.frostedViewController presentMenuViewController];
+}
+
+- (void)showStoreDetail
+{
+    StoreDetailViewController *ctl = [[StoreDetailViewController alloc] init];
+    ctl.storeId = _chatter;
+    [self.navigationController pushViewController:ctl animated:YES];
 }
 
 //点击订单cell进入订单详情界面
