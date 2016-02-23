@@ -522,7 +522,7 @@
 //从服务器上获取好友列表
 - (void)loadContactsFromServer
 {
-    NSString *url = [NSString stringWithFormat:@"%@%ld/contacts", API_USERS, self.account.userId];
+    NSString *url = [NSString stringWithFormat:@"%@%ld/contacts", API_USERS, _account.userId];
     NSLog(@"%@",url);
     [LXPNetworking GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
@@ -581,7 +581,12 @@
         newContact.avatar = [contactDic objectForKey:@"avatar"];
         newContact.avatarSmall = [contactDic objectForKey:@"avatarSmall"];
         newContact.signature = [contactDic objectForKey:@"signature"];
-        newContact.fullPY = [ConvertMethods chineseToPinyin:[contactDic objectForKey:@"nickName"]];
+        if (newContact.memo.length) {
+            newContact.fullPY = [ConvertMethods chineseToPinyin:[contactDic objectForKey:@"memo"]];
+
+        } else {
+            newContact.fullPY = [ConvertMethods chineseToPinyin:[contactDic objectForKey:@"nickName"]];
+        }
         newContact.type = IMFrendTypeFrend;
         [frendManager insertOrUpdateFrendInfoInDB:newContact];
         NSLog(@"往数据库里添加好友 %@", newContact.nickName);

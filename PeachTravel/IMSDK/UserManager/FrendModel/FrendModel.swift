@@ -105,11 +105,9 @@ class FrendModel: NSObject {
         
         if let str =  json.objectForKey("nickName") as? String {
             nickName = str
-            fullPY = ConvertMethods.chineseToPinyin(str)
             
         } else  if let str =  json.objectForKey("nickname") as? String {
             nickName = str
-            fullPY = ConvertMethods.chineseToPinyin(str)
         }
         
         if let str =  json.objectForKey("avatar") as? String {
@@ -128,6 +126,12 @@ class FrendModel: NSObject {
         }
         if let memoStr =  json.objectForKey("memo") as? String {
             memo = memoStr
+        }
+        if memo.isEmpty {
+            fullPY = ConvertMethods.chineseToPinyin(nickName)
+
+        } else {
+            fullPY = ConvertMethods.chineseToPinyin(memo)
         }
         
         if let str =  json.objectForKey("gender") as? String {
