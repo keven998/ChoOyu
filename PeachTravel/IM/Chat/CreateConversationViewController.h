@@ -38,5 +38,6 @@
 
 @property (nonatomic, weak) id <CreateConversationDelegate> delegate;
 
+- (void)didSelectContact:(FrendModel *)contact;
 
 @end

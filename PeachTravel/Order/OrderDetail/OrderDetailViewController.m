@@ -182,6 +182,7 @@ NSString *const kUpdateOrderdetailNoti = @"kUpdateOrderdetailNoti";
         [_toolBar addSubview:payOrderBtn];
         
     } else if (_orderDetail.orderStatus == kOrderToReview) {
+        
         UIButton *orderAgainBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, _toolBar.bounds.size.width/2, _toolBar.bounds.size.height)];
         [orderAgainBtn setTitle:@"再次预订" forState:UIControlStateNormal];
         [orderAgainBtn setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];

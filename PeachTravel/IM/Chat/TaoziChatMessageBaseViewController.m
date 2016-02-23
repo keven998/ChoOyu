@@ -258,7 +258,7 @@
 }
 
 - (IBAction)cancel:(UIButton *)sender {
-    if ([_delegate respondsToSelector:@selector(cancel:)]) {
+    if ([_delegate respondsToSelector:@selector(sendCancel)]) {
         [_delegate sendCancel];
     }
 }

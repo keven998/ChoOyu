@@ -813,6 +813,8 @@
 		D979B9D81C75741900867E92 /* UserCouponTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D979B9D61C75741900867E92 /* UserCouponTableViewCell.xib */; };
 		D97C8B4D1A526B9F00476C9C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D97C8B4C1A526B9F00476C9C /* Images.xcassets */; };
 		D9823E841B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9823E831B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m */; };
+		D98261F81C7C5E4C00226C28 /* SearchInviteUser2GroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D98261F61C7C5E4C00226C28 /* SearchInviteUser2GroupViewController.m */; };
+		D98261F91C7C5E4C00226C28 /* SearchInviteUser2GroupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D98261F71C7C5E4C00226C28 /* SearchInviteUser2GroupViewController.xib */; };
 		D982879E1C22823A0000D47A /* GoodsClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D982879C1C22823A0000D47A /* GoodsClassViewController.m */; };
 		D982879F1C22823A0000D47A /* GoodsClassViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D982879D1C22823A0000D47A /* GoodsClassViewController.xib */; };
 		D9871DBA1B47D31E00BFDFAF /* ScheduleDayEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9871DB81B47D31E00BFDFAF /* ScheduleDayEditViewController.m */; };
@@ -3142,6 +3144,9 @@
 		D97C8B4C1A526B9F00476C9C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
 		D9823E821B19AA0200A1AE35 /* SuggestionDestinationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuggestionDestinationTableViewController.h; sourceTree = "<group>"; };
 		D9823E831B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuggestionDestinationTableViewController.m; sourceTree = "<group>"; };
+		D98261F51C7C5E4C00226C28 /* SearchInviteUser2GroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchInviteUser2GroupViewController.h; sourceTree = "<group>"; };
+		D98261F61C7C5E4C00226C28 /* SearchInviteUser2GroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchInviteUser2GroupViewController.m; sourceTree = "<group>"; };
+		D98261F71C7C5E4C00226C28 /* SearchInviteUser2GroupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchInviteUser2GroupViewController.xib; sourceTree = "<group>"; };
 		D982879B1C22823A0000D47A /* GoodsClassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsClassViewController.h; sourceTree = "<group>"; };
 		D982879C1C22823A0000D47A /* GoodsClassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsClassViewController.m; sourceTree = "<group>"; };
 		D982879D1C22823A0000D47A /* GoodsClassViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoodsClassViewController.xib; sourceTree = "<group>"; };
@@ -6853,6 +6858,22 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		D98261F11C7C5BDF00226C28 /* CreateConversation */ = {
+			isa = PBXGroup;
+			children = (
+				D98261F51C7C5E4C00226C28 /* SearchInviteUser2GroupViewController.h */,
+				D98261F61C7C5E4C00226C28 /* SearchInviteUser2GroupViewController.m */,
+				D98261F71C7C5E4C00226C28 /* SearchInviteUser2GroupViewController.xib */,
+				D9A800E81A80DD23005AD701 /* CreateConversationTableViewCell.h */,
+				D9A800E91A80DD23005AD701 /* CreateConversationTableViewCell.m */,
+				D9A800EA1A80DD23005AD701 /* CreateConversationTableViewCell.xib */,
+				D9A800EB1A80DD23005AD701 /* CreateConversationViewController.h */,
+				D9A800EC1A80DD23005AD701 /* CreateConversationViewController.m */,
+				D9A800ED1A80DD23005AD701 /* CreateConversationViewController.xib */,
+			);
+			name = CreateConversation;
+			sourceTree = "<group>";
+		};
 		D98287971C2281E90000D47A /* GoodsClass */ = {
 			isa = PBXGroup;
 			children = (
@@ -7515,12 +7536,7 @@
 				D9A800841A80DD23005AD701 /* ChatSettingViewController.h */,
 				D9A800851A80DD23005AD701 /* ChatSettingViewController.m */,
 				D9A800871A80DD23005AD701 /* ChatView */,
-				D9A800E81A80DD23005AD701 /* CreateConversationTableViewCell.h */,
-				D9A800E91A80DD23005AD701 /* CreateConversationTableViewCell.m */,
-				D9A800EA1A80DD23005AD701 /* CreateConversationTableViewCell.xib */,
-				D9A800EB1A80DD23005AD701 /* CreateConversationViewController.h */,
-				D9A800EC1A80DD23005AD701 /* CreateConversationViewController.m */,
-				D9A800ED1A80DD23005AD701 /* CreateConversationViewController.xib */,
+				D98261F11C7C5BDF00226C28 /* CreateConversation */,
 				D9A800EE1A80DD23005AD701 /* Custom */,
 				D9A801061A80DD23005AD701 /* RealtimeSearchUtil.h */,
 				D9A801071A80DD23005AD701 /* RealtimeSearchUtil.m */,
@@ -11228,6 +11244,7 @@
 				E6F1891F1B845F4900232EEB /* dashboard_03_icon_constellation10@2x.png in Resources */,
 				0115C9C61BB103FC00631928 /* citydetail_point_hilighted@3x.png in Resources */,
 				D90A9B381B5627C400E9F37C /* Loading_Animation_final13@3x.png in Resources */,
+				D98261F91C7C5E4C00226C28 /* SearchInviteUser2GroupViewController.xib in Resources */,
 				0115C9B71BB103FC00631928 /* citydetail_jingdian_normal@2x.png in Resources */,
 				E6F18A271B845F4900232EEB /* lxp_plan_helper@2x.png in Resources */,
 				E6F18AF31B845F4900232EEB /* ic_userInfo_add_avatar@3x.png in Resources */,
@@ -11786,6 +11803,7 @@
 				D993C26E1B12DF0C0088D568 /* FrendManager.swift in Sources */,
 				D91851261B5914CF004B8363 /* SearchFrendTableViewController.m in Sources */,
 				D90042CA1B144275006F6B63 /* FrendManager+ClassMethod.swift in Sources */,
+				D98261F81C7C5E4C00226C28 /* SearchInviteUser2GroupViewController.m in Sources */,
 				D92CA1151AD8BDF900F244FF /* SWUtilityButtonTapGestureRecognizer.m in Sources */,
 				E690D8CF1B7C8F9F00BFDF1B /* MakePlanSearchCell.m in Sources */,
 				E6E725241B5603750007273A /* NSObject+MJCoding.m in Sources */,

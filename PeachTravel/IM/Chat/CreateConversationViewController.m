@@ -12,6 +12,7 @@
 #import "CreateConversationTableViewCell.h"
 #import "SelectContactScrollView.h"
 #import "SelectContactUnitView.h"
+#import "SearchInviteUser2GroupViewController.h"
 #import "PeachTravel-swift.h"
 
 #define contactCell      @"createConversationCell"
@@ -36,9 +37,17 @@
     [self.view addSubview:self.selectContactView];
     [self.view addSubview:self.contactTableView];
     
-    UIBarButtonItem *confirm = [[UIBarButtonItem alloc]initWithTitle:@"确定 " style:UIBarButtonItemStylePlain target:self action:@selector(createConversation:)];
-    self.navigationItem.rightBarButtonItem = confirm;
-    self.navigationItem.rightBarButtonItem.enabled = NO;
+    if ([AccountManager shareAccountManager].account.userId == PaipaiUserId) {
+        UIBarButtonItem *searchUser = [[UIBarButtonItem alloc]initWithTitle:@"搜索" style:UIBarButtonItemStylePlain target:self action:@selector(searchUser)];
+        
+        UIBarButtonItem *confirm = [[UIBarButtonItem alloc]initWithTitle:@"确定 " style:UIBarButtonItemStylePlain target:self action:@selector(createConversation:)];
+        self.navigationItem.rightBarButtonItems = @[confirm, searchUser];
+        
+    } else {
+        UIBarButtonItem *confirm = [[UIBarButtonItem alloc]initWithTitle:@"确定 " style:UIBarButtonItemStylePlain target:self action:@selector(createConversation:)];
+        self.navigationItem.rightBarButtonItem = confirm;
+        
+    }
     
     if (self.navigationController.viewControllers.count == 1) {
         UIBarButtonItem *backBtn = [[UIBarButtonItem alloc]initWithTitle:@" 取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismissCtl:)];
@@ -51,8 +60,6 @@
 {
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_create_new_talk"];
-      
-
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -120,11 +127,52 @@
     [self.contactTableView reloadData];
 }
 
+- (void)didSelectContact:(FrendModel *)contact
+{
+    if ([self isNumberInGroup:contact.userId]) {
+        return;
+    }
+    if ([self isSelected:contact.userId]) {
+        NSInteger index = [self.selectedContacts indexOfObject:contact];
+        [self.selectContactView removeUnitAtIndex:index];
+        
+    } else {
+        if (self.selectedContacts.count == 0) {
+            
+            [UIView animateWithDuration:0.3 animations:^{
+                self.selectContactView.alpha = 0.8;
+                CGRect frame = CGRectMake(self.contactTableView.frame.origin.x, self.contactTableView.frame.origin.y+self.selectContactView.frame.size.height, self.contactTableView.frame.size.width, self.contactTableView.frame.size.height - self.selectContactView.frame.size.height);
+                [self.contactTableView setFrame:frame];
+            } completion:^(BOOL finished) {
+                self.selectContactView.alpha = 1.0;
+            }];
+            
+        }
+        [self.selectedContacts addObject:contact];
+        SelectContactUnitView *unitView = [[SelectContactUnitView alloc] initWithFrame:CGRectMake(0, 0, 40, 80)];
+        [unitView.avatarBtn sd_setImageWithURL:[NSURL URLWithString:contact.avatarSmall] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"avatar_default.png"]];
+        unitView.nickNameLabel.text = contact.nickName;
+        [self.selectContactView addSelectUnit:unitView];
+        self.navigationItem.rightBarButtonItem.title = [NSString stringWithFormat:@"确定(%ld)", (unsigned long)self.selectedContacts.count];
+    }
+
+}
+
 #pragma mark - IBAction Methods
 
 - (IBAction)dismissCtl:(id)sender
 {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)searchUser
+{
+    SearchInviteUser2GroupViewController *ctl = [[SearchInviteUser2GroupViewController alloc] init];
+    ctl.selectedContacts = self.selectedContacts;
+    ctl.rootViewController = self;
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:ctl] animated:YES completion:^{
+        
+    }];
 }
 
 - (IBAction)createConversation:(id)sender
@@ -249,10 +297,14 @@
             if (isSuccess) {
                 [SVProgressHUD showHint:@"添加成功"];
                 [self.delegate reloadData];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.navigationController popViewControllerAnimated:YES];
+                    
+                });
             } else {
                 [SVProgressHUD showHint:@"添加失败"];
             }
-            [self.navigationController popViewControllerAnimated:YES];
+            
         }];
     });
 }
@@ -280,10 +332,8 @@
             self.selectContactView.alpha = 0;
         }];
         self.navigationItem.rightBarButtonItem.title = @"确定 ";
-        self.navigationItem.rightBarButtonItem.enabled = NO;
     } else {
         self.navigationItem.rightBarButtonItem.title = [NSString stringWithFormat:@"确定(%lu)", (unsigned long)self.selectedContacts.count];
-        self.navigationItem.rightBarButtonItem.enabled = YES;
     }
     [self.contactTableView reloadData];
 }
@@ -349,34 +399,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     FrendModel *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    if ([self isNumberInGroup:contact.userId]) {
-        return;
-    }
-    if ([self isSelected:contact.userId]) {
-        NSInteger index = [self.selectedContacts indexOfObject:contact];
-        [self.selectContactView removeUnitAtIndex:index];
-        
-    } else {
-        if (self.selectedContacts.count == 0) {
-            
-            [UIView animateWithDuration:0.3 animations:^{
-                self.selectContactView.alpha = 0.8;
-                CGRect frame = CGRectMake(self.contactTableView.frame.origin.x, self.contactTableView.frame.origin.y+self.selectContactView.frame.size.height, self.contactTableView.frame.size.width, self.contactTableView.frame.size.height - self.selectContactView.frame.size.height);
-                [self.contactTableView setFrame:frame];
-            } completion:^(BOOL finished) {
-                self.selectContactView.alpha = 1.0;
-            }];
-            
-            self.navigationItem.rightBarButtonItem.enabled = YES;
-        }
-        [self.selectedContacts addObject:contact];
-        SelectContactUnitView *unitView = [[SelectContactUnitView alloc] initWithFrame:CGRectMake(0, 0, 40, 80)];
-        [unitView.avatarBtn sd_setImageWithURL:[NSURL URLWithString:contact.avatarSmall] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"avatar_default.png"]];
-        unitView.nickNameLabel.text = contact.nickName;
-        [self.selectContactView addSelectUnit:unitView];
-        self.navigationItem.rightBarButtonItem.title = [NSString stringWithFormat:@"确定(%ld)", (unsigned long)self.selectedContacts.count];
-    }
+    
+    [self didSelectContact:contact];
     [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
