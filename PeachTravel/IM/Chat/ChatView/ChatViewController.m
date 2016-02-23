@@ -134,12 +134,13 @@
     [super viewDidLoad];
 
     self.automaticallyAdjustsScrollViewInsets = NO;
+   
     self.frostedViewController.navigationItem.title = _chatterName;
     self.view.backgroundColor = APP_PAGE_COLOR;
     
     // 聊天类型为讨论组
     if (_chatType == IMChatTypeIMChatDiscussionGroupType) {
-        _groupNumbers = [[IMDiscussionGroupManager shareInstance] getFullDiscussionGroupInfoFromDBWithGroupId: _conversation.chatterId].members;
+        self.groupNumbers = [[IMDiscussionGroupManager shareInstance] getFullDiscussionGroupInfoFromDBWithGroupId: _conversation.chatterId].members;
         if (!_groupNumbers || _groupNumbers.count == 0) {
             [self getMembersInGroupFromServer];
         } else {
@@ -269,6 +270,20 @@
     return _dataSource;
 }
 
+- (void)setGroupNumbers:(NSArray *)groupNumbers
+{
+    _groupNumbers = groupNumbers;
+    if (_groupNumbers.count) {
+        _chatterName = [NSString stringWithFormat:@"%@(%ld)", _chatterName, _groupNumbers.count];
+        UILabel *title  = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 40)];
+        title.textAlignment = NSTextAlignmentCenter;
+        title.textColor = [UIColor whiteColor];
+        title.text = _chatterName;
+        title.lineBreakMode = NSLineBreakByTruncatingMiddle;
+        self.frostedViewController.navigationItem.titleView = title;
+    }
+}
+
 - (UITableView *)tableView
 {
     if (!_tableView) {
@@ -361,7 +376,7 @@
         if (isSuccess) {
             [groupManager asyncGetMembersInDiscussionGroupInfoFromServer:group completion:^(BOOL isSuccess, NSInteger errorCode, IMDiscussionGroup * fullgroup) {
                 if (isSuccess) {
-                     _groupNumbers = [[IMDiscussionGroupManager shareInstance] getFullDiscussionGroupInfoFromDBWithGroupId: _conversation.chatterId].members;
+                     self.groupNumbers = [[IMDiscussionGroupManager shareInstance] getFullDiscussionGroupInfoFromDBWithGroupId: _conversation.chatterId].members;
                     [self fillGroupMemberInfo];
                     [self.tableView reloadData];
                 } else {
