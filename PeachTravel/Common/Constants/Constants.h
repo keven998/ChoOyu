@@ -38,8 +38,8 @@
 
 /***** API *****/
 
-#define BASE_URL                                @ "http://api-dev.lvxingpai.com/app/"
-//#define BASE_URL                                @ "http://api.lvxingpai.com/app/"
+//#define BASE_URL                                @ "http://api-dev.lvxingpai.com/app/"
+#define BASE_URL                                @ "http://api.lvxingpai.com/app/"
 
 //攻略相关接口
 #define API_GET_RECOMMEND                       (BASE_URL @"recommend")                 //获取目的地首页推荐接口
@@ -47,8 +47,6 @@
 #define API_GET_DOMESTIC_DESTINATIONS           (BASE_URL @"guide/localities")          //获取国内目的地接口
 #define API_GET_FOREIGN_DESTINATIONS            (BASE_URL @"guide/localities")          //获取国外目的地接口
 #define API_GET_LOCALITIES                      (BASE_URL @"geo/localities/")
-
-
 
 // 是否为iOS7
 #define iOS7 ([[UIDevice currentDevice].systemVersion doubleValue] >= 7.0)
