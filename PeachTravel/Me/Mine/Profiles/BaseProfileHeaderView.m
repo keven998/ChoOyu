@@ -149,7 +149,7 @@
     
     // 设置数据
     NSURL *url = [NSURL URLWithString:userInfo.avatar];
-    [self.avatar sd_setImageWithURL:url];
+    [self.avatar sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"avatar_default"]];
     
     self.nickName.text = userInfo.nickName;
     self.age.text = [NSString stringWithFormat:@"%ld岁 现居住在 %@",userInfo.age,userInfo.residence];
