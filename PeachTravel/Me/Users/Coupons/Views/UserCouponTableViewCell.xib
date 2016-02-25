@@ -50,16 +50,6 @@
                                 <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="优惠券" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fHG-fv-Cns">
-                                <rect key="frame" x="0.0" y="8" width="100" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="8Ij-rS-Ocv"/>
-                                    <constraint firstAttribute="height" constant="21" id="EAQ-XD-u9k"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" red="0.96862745100000003" green="0.98039215690000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vQx-iE-bgS">
                                 <rect key="frame" x="0.0" y="32" width="100" height="52"/>
                                 <constraints>
@@ -83,6 +73,16 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="优惠券" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fHG-fv-Cns">
+                                <rect key="frame" x="0.0" y="8" width="100" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="8Ij-rS-Ocv"/>
+                                    <constraint firstAttribute="height" constant="21" id="EAQ-XD-u9k"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="0.96862745100000003" green="0.98039215690000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -127,6 +127,7 @@
                 <outlet property="descLabel" destination="C4E-lw-MhK" id="Gj8-Kz-BM7"/>
                 <outlet property="discountLabel" destination="vQx-iE-bgS" id="Mij-3g-hb1"/>
                 <outlet property="headerImageView" destination="Nn6-rA-OCJ" id="z7B-1J-rnE"/>
+                <outlet property="headerTitleLabel" destination="fHG-fv-Cns" id="9ox-b8-nnl"/>
                 <outlet property="limitMoneyLabel" destination="if4-db-4Zv" id="EfE-gK-9TR"/>
                 <outlet property="selectButton" destination="O2q-tF-dSa" id="hj7-9p-4fa"/>
                 <outlet property="titleLabel" destination="fE3-2W-UPu" id="rOB-7c-DXd"/>

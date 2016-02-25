@@ -150,13 +150,17 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
-    
+}
+
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
+    NSLog(@"local notification:%@", notification);
 }
 
 // WXApiDelegate的代理方法
 - (void)onResp:(BaseResp *)resp
 {
-    //微信支付信息
+    //微信支付信息，，
     if ([resp isKindOfClass:[PayResp class]]) {
         PayResp *payResp = (PayResp *)resp;
         [[NSNotificationCenter defaultCenter] postNotificationName:kOrderPayResultNoti

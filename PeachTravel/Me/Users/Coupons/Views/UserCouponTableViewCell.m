@@ -11,9 +11,9 @@
 @implementation UserCouponTableViewCell
 
 - (void)awakeFromNib {
-    _headerImageView.image = [[UIImage imageNamed:@"icon_coupons_red"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
     [_selectButton setImage:[UIImage imageNamed:@"icon_coupons_normal"] forState:UIControlStateNormal];
     [_selectButton setImage:[UIImage imageNamed:@"icon_coupons_selected"] forState:UIControlStateSelected];
+    _headerTitleLabel.textColor = [[UIColor whiteColor] colorWithAlphaComponent:0.6];
 }
 
 - (void)setUserCouponDetail:(UserCouponDetail *)userCouponDetail
@@ -24,6 +24,13 @@
         _descLabel.text = _userCouponDetail.desc;
     } else {
         _descLabel.text = @"全场通用";
+    }
+    if (_userCouponDetail.limitMoney == 0) {
+        _headerTitleLabel.text = @"现金券";
+        _headerImageView.image = [[UIImage imageNamed:@"icon_coupons_yellow"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
+    } else {
+        _headerTitleLabel.text = @"代金券";
+        _headerImageView.image = [[UIImage imageNamed:@"icon_coupons_red"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
     }
     _limitMoneyLabel.text = _userCouponDetail.limitMoneyDesc;
     _useDateLabel.text = [NSString stringWithFormat:@"有效期至: %@", _userCouponDetail.useDate];

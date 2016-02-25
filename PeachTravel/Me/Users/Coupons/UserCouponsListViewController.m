@@ -41,7 +41,11 @@
                         }
                     }
                     _dataSource = items;
-                    [self.tableView reloadData];
+                    if (_dataSource.count == 0) {
+                        [self setupEmptyView];
+                    } else {
+                        [self.tableView reloadData];
+                    }
                     
                 } else {
                     [self setupEmptyView];
@@ -62,8 +66,12 @@
                         }
                     }
                     _dataSource = items;
-                    [self.tableView reloadData];
-                    
+                    if (_dataSource.count == 0) {
+                        [self setupEmptyView];
+                    } else {
+                        [self.tableView reloadData];
+                    }
+                
                 } else {
                     [self setupEmptyView];
                 }
