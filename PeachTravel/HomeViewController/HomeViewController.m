@@ -467,6 +467,13 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     }
 }
 
+- (void)sendPaipaiMessage:(BaseMessage *)message
+{
+    IMClientManager *imClientManager = [IMClientManager shareInstance];
+    BaseMessage *tempMessage = [imClientManager.messageSendManager sendTextMessage:@"亲，你来得太晚辣，领赏时间都过辣！去APP里逛逛，看上哪个，来跟派派说，派派给你个感动折扣价！" receiver:message.senderId chatType:IMChatTypeIMChatSingleType conversationId:nil completionBlock:^(BOOL isSuccess, NSString * __nullable error) {
+    }];
+}
+
 /**
  *  展现 statusbar 上的消息
  *

@@ -14,7 +14,8 @@
 {
     if (self = [super init]) {
         _couponId = [json objectForKey:@"id"];
-        _title = [json objectForKey:@"desc"];
+        _title = [json objectForKey:@"title"];
+        _desc = [json objectForKey:@"desc"];
         _limitMoney = [[json objectForKey:@"threshold"] floatValue];
         _useDate = [json objectForKey:@"expire"];
         _discount = [[json objectForKey:@"discount"] floatValue];

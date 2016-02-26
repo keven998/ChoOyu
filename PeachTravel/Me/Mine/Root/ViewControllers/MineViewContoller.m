@@ -36,8 +36,8 @@
     _dataSource = @[
                     @[
                         @{@"title": @"我的收藏", @"image": @"icon_mine_favorite"},
+                        @{@"title": @"优惠券", @"image": @"icon_mine_coupon"},
                         @{@"title": @"我的旅行计划", @"image": @"icon_mine_guides"},
-                        @{@"title": @"优惠券", @"image": @"icon_mine_coupon"}
                         ],
                     @[
                         @{@"title": @"常用旅客信息", @"image": @"icon_mine_traveler"},
@@ -150,17 +150,19 @@
             GoodsFavoriteViewController *ctl = [[GoodsFavoriteViewController alloc] init];
             ctl.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:ctl animated:YES];
-        } else if(indexPath.row == 1) {
-            PlansListTableViewController *ctl = [[PlansListTableViewController alloc] initWithUserId:[AccountManager shareAccountManager].account.userId];
-            ctl.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:ctl animated:YES];
             
-        } else if (indexPath.row == 2) {
+        } else if(indexPath.row == 1) {
             UserCouponsListViewController *ctl = [[UserCouponsListViewController alloc] init];
             ctl.userId = [AccountManager shareAccountManager].account.userId;
             ctl.hidesBottomBarWhenPushed = YES;
             ctl.userId = [AccountManager shareAccountManager].account.userId;
             [self.navigationController pushViewController:ctl animated:YES];
+            
+        } else if (indexPath.row == 2) {
+            PlansListTableViewController *ctl = [[PlansListTableViewController alloc] initWithUserId:[AccountManager shareAccountManager].account.userId];
+            ctl.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:ctl animated:YES];
+            
         }
     } else if (indexPath.section == 1) {
         if (indexPath.row == 0) {

@@ -30,6 +30,7 @@ NSString *const kRouterEventChatUserCouponBubbleTapEventName = @"kRouterEventCha
         _titleLabel = [[UILabel alloc] init];
         _titleLabel.font = [UIFont systemFontOfSize:14.0];
         _titleLabel.numberOfLines = 0;
+        _titleLabel.adjustsFontSizeToFitWidth = YES;
         _titleLabel.textColor = COLOR_PRICE_RED;
         
         _pictureImageView = [[UIImageView alloc] init];
@@ -46,9 +47,9 @@ NSString *const kRouterEventChatUserCouponBubbleTapEventName = @"kRouterEventCha
     
     CGFloat titleWidth;
     if (_model.isSender) {
-        titleWidth = 120;
+        titleWidth = 125;
     } else {
-        titleWidth = 130;
+        titleWidth = 135;
     }
     
     if (_model.isSender) {
@@ -57,7 +58,7 @@ NSString *const kRouterEventChatUserCouponBubbleTapEventName = @"kRouterEventCha
         [_pictureImageView setFrame:CGRectMake(20, 15, 45, 50)];
     }
     
-    [_titleLabel setFrame:CGRectMake(_pictureImageView.frame.origin.x + 60, 10, titleWidth, 60)];
+    [_titleLabel setFrame:CGRectMake(_pictureImageView.frame.origin.x + 55, 10, titleWidth, 60)];
     
 }
 

@@ -155,10 +155,10 @@ class PushSDKManager: NSObject, GeTuiSdkDelegate {
 //            
 //            dispatchPushMessage(totalStr)
             
-//            let content = ["title":"恭喜你获得1000元优惠券"]
+//            let content = ["title":"嘘寒问暖，不如送你笔巨款！310元现金已到账~点击去查看"]
 //            let str: NSString = JSONConvertMethod.contentsStrWithJsonObjc(content)!
 //            
-//            let messageDic =  [ "id" : "55addff01ae2400001cde012", "chatType" : "single","msgId" : 200, "msgType" : 21,"conversation" : "55f8d952d11489000126adbd", "contents" : str,"senderId" : 100044,"abbrev" : "煎蛋小哈哈: 看到觉得基督教", "timestamp" : 1449142842951, "receiverId" : 201032 ]
+//            let messageDic =  [ "id" : "55addff01ae2400001cde012", "chatType" : "single","msgId" : 320, "msgType" : 21,"conversation" : "55f8d952d11489000126adbd", "contents" : str,"senderId" : 100044,"abbrev" : "煎蛋小哈哈: 看到觉得基督教", "timestamp" : 1449142842951, "receiverId" : 202847 ]
 //            
 //            let dic: NSDictionary =
 //            [
