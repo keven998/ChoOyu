@@ -40,7 +40,8 @@
     self.userInfo = [AccountManager shareAccountManager].account;
     [self loadUserAlbum];
     [[AccountManager shareAccountManager].account loadUserInfoFromServer:^(bool isSuccess) {
-        [self.tableView reloadData];
+        self.userInfo = [AccountManager shareAccountManager].account;
+
     }];
     [self setupTableView];
     
@@ -96,6 +97,7 @@
 {
     _userInfo = userInfo;
     _headerView.accountModel = _userInfo;
+    [self.tableView reloadData];
 }
 
 #pragma mark - 设置导航栏
