@@ -14,6 +14,7 @@
 #import "MineViewContoller.h"
 #import "REFrostedViewController.h"
 #import "UserAlbumReviewViewController.h"
+#import "StoreManager.h"    
 
 @interface OtherProfileViewController () <UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate, GuiderProfileAlbumCellDelegate>
 
@@ -22,6 +23,7 @@
 @property (nonatomic, strong) NSMutableArray *albumArray;
 
 @property (nonatomic, assign) BOOL isMyFriend;
+@property (nonatomic, assign) BOOL isSeller;
 
 @property (nonatomic, strong) UIButton *addFriendBtn;
 @property (nonatomic, strong) UIButton *beginTalk;
@@ -50,6 +52,13 @@
     
     self.tableView.hidden = YES;
     [self setupNavBar];
+    
+    [StoreManager asyncLoadStoreInfoWithStoreId:[AccountManager shareAccountManager].account.userId completionBlock:^(BOOL isSuccess, StoreDetailModel *storeDetail) {
+        if (storeDetail) {
+            _isSeller = YES;
+            [self.tableView reloadData];
+        }
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -206,6 +215,9 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    if (_isSeller) {
+        return 4;
+    }
     return 3;
 }
 
@@ -216,27 +228,60 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    if (indexPath.section == 0) {
-        GuiderProfileAlbumCell *albumCell = [[GuiderProfileAlbumCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-        albumCell.delegate = self;
-        albumCell.albumArray = [self.userInfo.userAlbum mutableCopy];
-        albumCell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return albumCell;
-    } else if (indexPath.section == 1) {
-        MineProfileTourViewCell *profileTourCell = [[MineProfileTourViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-        profileTourCell.otherUserinfo = self.userInfo;
-        // 添加事件
-        [profileTourCell.footprintBtn addTarget:self action:@selector(visitTracks) forControlEvents:UIControlEventTouchUpInside];
-        [profileTourCell.planBtn addTarget:self action:@selector(seeOthersPlan) forControlEvents:UIControlEventTouchUpInside];
-        [profileTourCell.tourBtn addTarget:self action:@selector(seeOtherTour) forControlEvents:UIControlEventTouchUpInside];
-        profileTourCell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return profileTourCell;
+    if (_isSeller) {
+        if (indexPath.section == 0) {
+            UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+            cell.textLabel.text = @"他的店铺";
+            return cell;
+            
+        } else if (indexPath.section == 1) {
+            GuiderProfileAlbumCell *albumCell = [[GuiderProfileAlbumCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+            albumCell.delegate = self;
+            albumCell.albumArray = [self.userInfo.userAlbum mutableCopy];
+            albumCell.selectionStyle = UITableViewCellSelectionStyleNone;
+            return albumCell;
+            
+        } else if (indexPath.section == 2) {
+            MineProfileTourViewCell *profileTourCell = [[MineProfileTourViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+            profileTourCell.otherUserinfo = self.userInfo;
+            // 添加事件
+            [profileTourCell.footprintBtn addTarget:self action:@selector(visitTracks) forControlEvents:UIControlEventTouchUpInside];
+            [profileTourCell.planBtn addTarget:self action:@selector(seeOthersPlan) forControlEvents:UIControlEventTouchUpInside];
+            [profileTourCell.tourBtn addTarget:self action:@selector(seeOtherTour) forControlEvents:UIControlEventTouchUpInside];
+            profileTourCell.selectionStyle = UITableViewCellSelectionStyleNone;
+            return profileTourCell;
+            
+        } else {
+            GuiderProfileAbout *cell = [[GuiderProfileAbout alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+            cell.content = self.userInfo.signature;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            return cell;
+        }
+        
     } else {
-        GuiderProfileAbout *cell = [[GuiderProfileAbout alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-        cell.content = self.userInfo.signature;
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return cell;
+        if (indexPath.section == 0) {
+            GuiderProfileAlbumCell *albumCell = [[GuiderProfileAlbumCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+            albumCell.delegate = self;
+            albumCell.albumArray = [self.userInfo.userAlbum mutableCopy];
+            albumCell.selectionStyle = UITableViewCellSelectionStyleNone;
+            return albumCell;
+            
+        } else if (indexPath.section == 1) {
+            MineProfileTourViewCell *profileTourCell = [[MineProfileTourViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+            profileTourCell.otherUserinfo = self.userInfo;
+            // 添加事件
+            [profileTourCell.footprintBtn addTarget:self action:@selector(visitTracks) forControlEvents:UIControlEventTouchUpInside];
+            [profileTourCell.planBtn addTarget:self action:@selector(seeOthersPlan) forControlEvents:UIControlEventTouchUpInside];
+            [profileTourCell.tourBtn addTarget:self action:@selector(seeOtherTour) forControlEvents:UIControlEventTouchUpInside];
+            profileTourCell.selectionStyle = UITableViewCellSelectionStyleNone;
+            return profileTourCell;
+            
+        } else {
+            GuiderProfileAbout *cell = [[GuiderProfileAbout alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+            cell.content = self.userInfo.signature;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            return cell;
+        }
     }
 }
 
