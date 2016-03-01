@@ -58,6 +58,8 @@
             _isSeller = YES;
             [self.tableView reloadData];
         }
+        _isSeller = YES;
+        [self.tableView reloadData];
     }];
 }
 
@@ -317,6 +319,9 @@
 // 头部和尾部
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
+    if (_isSeller && section == 0) {
+        return nil;
+    }
     MineProfileTitleView *titleView = [[MineProfileTitleView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 50)];
     if (section == 0) {
         NSString *title = [NSString stringWithFormat:@"%@的相册",_userInfo.nickName];
@@ -376,7 +381,6 @@
 
 - (void)talkToFriend
 {
-    
     if ([AccountManager shareAccountManager].isLogin) {
         [self pushChatViewController];
     } else {

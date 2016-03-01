@@ -13,6 +13,7 @@
 - (void)awakeFromNib
 {
     _headerImageView.backgroundColor = APP_PAGE_COLOR;
+    _headerImageView.clipsToBounds = YES;
     [_actionBtn setTitleColor: APP_THEME_COLOR forState:UIControlStateNormal];
     [_actionBtn setTitleColor:COLOR_TEXT_III forState:UIControlStateSelected];
     _actionBtn.titleLabel.font = [UIFont systemFontOfSize:13];
@@ -21,33 +22,26 @@
     _actionBtn.layer.cornerRadius = 3;
     _actionBtn.clipsToBounds = YES;
     _actionBtn.hidden = YES;
+    
+    _ratingView.starImage = [UIImage imageNamed:@"icon_rating_gray.png"];
+    _ratingView.starHighlightedImage = [UIImage imageNamed:@"icon_rating_yellow.png"];
+    _ratingView.maxRating = 5.0;
+    _ratingView.editable = NO;
+    _ratingView.horizontalMargin = 1;
+    _ratingView.displayMode = EDStarRatingDisplayAccurate;
+    _ratingView.userInteractionEnabled = NO;
 }
 
 - (void)setTripPoi:(SuperPoi *)tripPoi
 {
     _tripPoi = tripPoi;
     
-    NSLog(@"%@",tripPoi);
-    
     TaoziImage *image = [_tripPoi.images firstObject];
     [_headerImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
     _titleLabel.text = tripPoi.zhName;
     
-    NSLog(@"%@",_tripPoi.style);
-    
     NSString *property = nil;
-    NSString *rankStr = nil;
-    if (_tripPoi.rank <= 200 && _tripPoi.rank > 0) {
-        rankStr = [NSString stringWithFormat:@"%d", _tripPoi.rank];
-    } else if (_tripPoi.rank > 200) {
-        rankStr = @"N";
-    } else {
-        rankStr = @"N";
-    }
 
-    _imageTitle.text = rankStr;
-    [_imageTitle setTextColor:APP_THEME_COLOR];
-    
     if (_tripPoi.poiType == kSpotPoi) {
         if ([((SpotPoi *)tripPoi).timeCostStr isBlankString]) {
             
@@ -58,14 +52,9 @@
     } else {
         property = [_tripPoi.style firstObject];
     }
-    self.foodNumber.text = property;
+    _propertyLabel.text = property;
     
-    if (self.actionBtn.hidden) {
-        self.rightLengthContraint.constant = 30;
-    }else{
-        self.rightLengthContraint.constant = 100;
-    }
-
+    _ratingView.rating = _tripPoi.rating;
 }
 
 @end

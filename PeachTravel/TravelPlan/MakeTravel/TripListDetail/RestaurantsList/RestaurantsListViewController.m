@@ -299,7 +299,7 @@ static NSString *restaurantListReusableIdentifier = @"tripPoiListCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (![_showDic objectForKey:[NSString stringWithFormat:@"%ld",indexPath.section]]) {
-        return 72;
+        return 90;
     }
     return 0;
 }
