@@ -14,6 +14,8 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *headerImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *hotImageView;
+@property (weak, nonatomic) IBOutlet UILabel *hotLabel;
 @property (weak, nonatomic) IBOutlet EDStarRating *ratingView;
 @property (weak, nonatomic) IBOutlet UIButton *actionBtn;
 @property (weak, nonatomic) IBOutlet UILabel *propertyLabel;

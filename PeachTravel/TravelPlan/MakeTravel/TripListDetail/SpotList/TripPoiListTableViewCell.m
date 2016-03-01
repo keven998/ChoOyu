@@ -30,6 +30,8 @@
     _ratingView.horizontalMargin = 1;
     _ratingView.displayMode = EDStarRatingDisplayAccurate;
     _ratingView.userInteractionEnabled = NO;
+    
+    [_hotImageView setImage:[UIImage imageNamed:@"icon_poiList_hot"]];
 }
 
 - (void)setTripPoi:(SuperPoi *)tripPoi
@@ -55,6 +57,9 @@
     _propertyLabel.text = property;
     
     _ratingView.rating = _tripPoi.rating;
+    
+    _hotImageView.hidden = _tripPoi.rank > 2;
+    _hotLabel.hidden = _hotImageView.hidden;
 }
 
 @end
