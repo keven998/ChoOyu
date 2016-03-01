@@ -80,7 +80,6 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    NSLog(@"%@",self.poi.style);
     return self.poi.comments.count + 3;
 }
 

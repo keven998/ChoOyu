@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PoiDetailSuperViewController.h"
 #import "CommonPoiDetailViewController.h"
 
 @interface SpotDetailViewController : CommonPoiDetailViewController

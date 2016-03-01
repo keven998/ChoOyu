@@ -36,7 +36,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = APP_PAGE_COLOR;
+        self.backgroundColor = [UIColor whiteColor];
     }
     return self;
 }
@@ -51,7 +51,7 @@
     CGFloat offsetY = 0;
     CGFloat width = CGRectGetWidth(self.bounds);
     
-    CGFloat galleryHeight = width * 1038/1242;
+    CGFloat galleryHeight = width/2;
     SwipeView *swipeView = [[SwipeView alloc] initWithFrame:CGRectMake(0, offsetY, width, galleryHeight)];
     swipeView.dataSource = self;
     swipeView.delegate = self;
@@ -72,122 +72,62 @@
     
     offsetY += galleryHeight;
     
-    _ratingView = [[EDStarRating alloc] initWithFrame:CGRectMake(14, offsetY+18, 115, 21)];
-    _ratingView.starImage = [UIImage imageNamed:@"poi_bottom_star_default"];
-    
-    // 设置评分的图片
-    _ratingView.starHighlightedImage = [UIImage imageNamed:@"poi_bottom_star_selected"];
+    _ratingView = [[EDStarRating alloc] initWithFrame:CGRectMake(12, offsetY+12, 90, 25)];
+    _ratingView.starImage = [UIImage imageNamed:@"icon_rating_gray.png"];
+    _ratingView.starHighlightedImage = [UIImage imageNamed:@"icon_rating_yellow.png"];
     _ratingView.maxRating = 5.0;
     _ratingView.editable = NO;
-    _ratingView.horizontalMargin = 2;
+    _ratingView.horizontalMargin = 1;
     _ratingView.displayMode = EDStarRatingDisplayAccurate;
+    _ratingView.userInteractionEnabled = NO;
     _ratingView.rating = _spot.rating;
     [self addSubview:_ratingView];
-    
-    UIButton *tagBtn = [[UIButton alloc] initWithFrame:CGRectMake(width-131, offsetY + 8.5, 116, 40)];
-    
-    NSString * tagTitle = nil;
-    if (self.spot.style.count == 0)
-    {
-        switch (self.spot.poiType) {
-            case kSpotPoi:
-                tagTitle = @"景点";
-                break;
-            case kHotelPoi:
-                tagTitle = @"宾馆";
-                break;
-            case kRestaurantPoi:
-                tagTitle = @"餐厅";
-                break;
-            case kShoppingPoi:
-                tagTitle = @"购物";
-                break;
-            default:
-                break;
-        }
-    }else{
-        NSLog(@"%@",[_spot.style firstObject]);
-        tagTitle = [_spot.style firstObject];
-    }
 
-    [tagBtn setTitle:tagTitle forState:UIControlStateNormal];
-    [tagBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    tagBtn.titleLabel.font = [UIFont systemFontOfSize:13];
-    // 让tagBtn的文字和图片不要靠在一起
-    [tagBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 20, 0, 0)];
-    [tagBtn setBackgroundImage:[[UIImage imageNamed:@"poi_bg_sort"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)] forState:UIControlStateNormal];
-    tagBtn.userInteractionEnabled = NO;
-    [self addSubview:tagBtn];
+    NSString *tagTitle = [_spot.style firstObject];
     
-    UIButton *rankBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, 6, 22, 28)];
-    rankBtn.userInteractionEnabled = NO;
-    [rankBtn setBackgroundImage:[UIImage imageNamed:@"poi_bg_sort_flower.png"] forState:UIControlStateNormal];
-    rankBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
-    [rankBtn setTitleEdgeInsets:UIEdgeInsetsMake(-2, 1, 2, 0)];
-    [rankBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    if (_spot.rank == 0 || _spot.rank > 200) {
-        [rankBtn setTitle:@"N" forState:UIControlStateNormal];
-        rankBtn.titleLabel.font = [UIFont systemFontOfSize:9.0];
-    } else  {
-        [rankBtn setTitle:[NSString stringWithFormat:@"%d", _spot.rank] forState:UIControlStateNormal];
-        if (_spot.rank < 10) {
-            rankBtn.titleLabel.font = [UIFont systemFontOfSize:9.0];
-        } else if (_spot.rank >= 10 && _spot.rank < 100) {
-            rankBtn.titleLabel.font = [UIFont systemFontOfSize:8.0];
-        } else {
-            rankBtn.titleLabel.font = [UIFont systemFontOfSize:6.0];
-        }
-    }
-    [tagBtn addSubview:rankBtn];
-    
-    offsetY += 57;
-    
-    NSString *descStr = _spot.desc;
-    if (descStr != nil && ([descStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length > 0)) {
-        _poiSummary = [[UIButton alloc]initWithFrame:CGRectMake(0, offsetY, width, 114)];
-        [_poiSummary setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
-        [_poiSummary setBackgroundImage:[ConvertMethods createImageWithColor:APP_PAGE_COLOR] forState:UIControlStateHighlighted];
-        [self addSubview:_poiSummary];
-        _poisDesc = _poiSummary;
-        [_poiSummary setTitleColor:COLOR_TEXT_I forState:UIControlStateNormal];
-        _poiSummary.titleLabel.numberOfLines = 3;
-        _poiSummary.titleLabel.font = [UIFont systemFontOfSize:16];
-        [_poiSummary setTitleEdgeInsets:UIEdgeInsetsMake(10, 18, 10, 18)];
-        CGRect minRect = [descStr boundingRectWithSize:CGSizeMake(width-36, 22)
-                                               options:NSStringDrawingUsesLineFragmentOrigin
-                                            attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:16]}
-                                               context:nil];
-        CGRect maxRect = [descStr boundingRectWithSize:CGSizeMake(width-36, CGFLOAT_MAX)
-                                               options:NSStringDrawingUsesLineFragmentOrigin
-                                            attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:16]}
-                                               context:nil];
-        NSInteger totalLine = ceilf(maxRect.size.height / minRect.size.height);
-        NSInteger ccount = descStr.length;
-        NSInteger count = ccount * 3/totalLine;
-        if (count < ccount) {
-            NSString *truncateStr = [descStr substringWithRange:NSMakeRange(0, count - 3)];
-            NSMutableParagraphStyle *ps = [[NSMutableParagraphStyle alloc] init];
-            ps.lineSpacing = 4.0;
-            NSDictionary *attribs = @{NSFontAttributeName: [UIFont systemFontOfSize:16], NSParagraphStyleAttributeName:ps};
-            truncateStr = [NSString stringWithFormat:@"%@... ", truncateStr];
-            NSMutableAttributedString *attrstr = [[NSMutableAttributedString alloc] initWithString:truncateStr attributes:attribs];
-            NSAttributedString *more1 = [[NSAttributedString alloc] initWithString:@"全文" attributes:@{NSForegroundColorAttributeName : APP_THEME_COLOR, NSFontAttributeName: [UIFont systemFontOfSize:16]}];
-            [attrstr appendAttributedString:more1];
-            [_poiSummary setAttributedTitle:attrstr forState:UIControlStateNormal];
-        } else {
-            NSMutableParagraphStyle *ps = [[NSMutableParagraphStyle alloc] init];
-            ps.lineSpacing = 4.0;
-            NSDictionary *attribs = @{NSFontAttributeName: [UIFont systemFontOfSize:16], NSParagraphStyleAttributeName:ps};
-            NSMutableAttributedString *attrstr = [[NSMutableAttributedString alloc] initWithString:descStr attributes:attribs];
-            [_poiSummary setAttributedTitle:attrstr forState:UIControlStateNormal];
-        }
+    if (tagTitle) {
+        NSDictionary *attribs = @{NSFontAttributeName: [UIFont systemFontOfSize:12],
+                                  };
+        NSAttributedString *attrstr = [[NSAttributedString alloc] initWithString:tagTitle attributes:attribs];
+        CGRect rect = [attrstr boundingRectWithSize:(CGSize){kWindowWidth-32, CGFLOAT_MAX} options:NSStringDrawingUsesLineFragmentOrigin context:nil];
         
-        offsetY = CGRectGetMaxY(_poiSummary.frame);
-        
-        UIView *spaceView5 = [[UIView alloc] initWithFrame:CGRectMake(18, offsetY-0.5, self.bounds.size.width - 18, 0.5)];
-        spaceView5.backgroundColor = COLOR_LINE;
-        [self addSubview:spaceView5];
+        UILabel *tagLabel = [[UILabel alloc] initWithFrame:CGRectMake(width-rect.size.width-45, offsetY + 14, rect.size.width+30, 20)];
+        tagLabel.backgroundColor = APP_THEME_COLOR;
+        tagLabel.layer.cornerRadius = 4.0;
+        tagLabel.clipsToBounds = YES;
+        tagLabel.textColor = [UIColor whiteColor];
+        tagLabel.font = [UIFont systemFontOfSize:12];
+        tagLabel.textAlignment = NSTextAlignmentCenter;
+        tagLabel.text = tagTitle;
+        [self addSubview:tagLabel];
     }
+    
+    offsetY += 45;
+    
+    UILabel *moneyCostLabel = [[UILabel alloc] initWithFrame:CGRectMake(12, offsetY, width-24, 20)];
+    moneyCostLabel.textColor = COLOR_TEXT_II;
+    moneyCostLabel.font = [UIFont systemFontOfSize:14.0];
+    
+    NSString *moneyCost = [NSString stringWithFormat:@"费用:  %@", _spot.priceDesc];
+    NSMutableAttributedString *attrMoneyCost = [[NSMutableAttributedString alloc] initWithString:moneyCost];
+    [attrMoneyCost addAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:15.0], NSForegroundColorAttributeName: COLOR_TEXT_I} range:NSMakeRange(0, 3)];
+    
+    moneyCostLabel.attributedText = attrMoneyCost;
+    [self addSubview:moneyCostLabel];
+    
+    offsetY += 30;
+    
+    UILabel *openTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(12, offsetY, width-24, 20)];
+    openTimeLabel.textColor = COLOR_TEXT_II;
+    openTimeLabel.font = [UIFont systemFontOfSize:14.0];
+    
+    NSString *openTime = [NSString stringWithFormat:@"开放时间:  %@", _spot.openTime];
+    NSMutableAttributedString *attrOpenTime = [[NSMutableAttributedString alloc] initWithString:openTime];
+    [attrOpenTime addAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:15.0], NSForegroundColorAttributeName: COLOR_TEXT_I} range:NSMakeRange(0, 5)];
+    openTimeLabel.attributedText = attrOpenTime;
+    [self addSubview:openTimeLabel];
+    
+    offsetY += 30;
     
     self.frame = CGRectMake(0, 0, width, offsetY + 10);
 }

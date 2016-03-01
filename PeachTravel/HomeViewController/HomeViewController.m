@@ -466,7 +466,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 #endif
     }
     
-//    if ([message.message isEqualToString:@"旅行派日本樱花节活动红包"]) {
+//    if ([[message.message stringByReplacingOccurrencesOfString:@" " withString:@""] isEqualToString:@"小李子都获奖了我也要有奖"]) {
 //        [self sendPaipaiMessage:message];
 //    }
 }
@@ -474,7 +474,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (void)sendPaipaiMessage:(BaseMessage *)message
 {
     IMClientManager *imClientManager = [IMClientManager shareInstance];
-    BaseMessage *tempMessage = [imClientManager.messageSendManager sendTextMessage:@"哎呀你也来辣~派派已准备好支付宝口令红包，等大家都到齐了，派派就把大家加进【日本樱花节活动红包群】，统一在群里发红包口令。切记：随时关注派派消息，及时获取红包口令，拿到口令马上去抢！！" receiver:message.senderId chatType:IMChatTypeIMChatSingleType conversationId:nil completionBlock:^(BOOL isSuccess, NSString * __nullable error) {
+    BaseMessage *tempMessage = [imClientManager.messageSendManager sendTextMessage:@"哎呀小李子都获奖了，你怎么能没有奖呢！别捉急，派派这就把你丢进领奖群，群里不定时发支付宝口令红包，来得越早红包越大！" receiver:message.senderId chatType:IMChatTypeIMChatSingleType conversationId:nil completionBlock:^(BOOL isSuccess, NSString * __nullable error) {
     }];
 }
 
