@@ -27,8 +27,8 @@
         
         NSMutableString *tipsStr = [[NSMutableString alloc] init];
         for (NSDictionary *tipsDic in [json objectForKey:@"tips"]) {
-            [tipsStr appendString:[tipsDic objectForKey:@"title"]];
-            [tipsStr appendString:[tipsDic objectForKey:@"desc"]];
+            [tipsStr appendString:[NSString stringWithFormat:@"%@\n", [tipsDic objectForKey:@"title"]]];
+            [tipsStr appendString:[NSString stringWithFormat:@"%@\n", [tipsDic objectForKey:@"desc"]]];
         }
         _tipsInfo = tipsStr;
         

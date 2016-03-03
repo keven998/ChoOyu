@@ -89,23 +89,26 @@
     }
     if (self.poi.poiType == kSpotPoi) {
         SpotPoi *spot = (SpotPoi *)self.poi;
-        if (![spot.trafficInfo isBlankString]) {
+        if ((![spot.trafficInfo isBlankString] && spot.trafficInfo) || self.poi.address.length) {
             NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
             [dic setObject:@"交通" forKey:@"title"];
             
             NSMutableString *content = [[NSMutableString alloc] init];
             [content appendString:[NSString stringWithFormat:@"地址:  %@\n", self.poi.address]];
-            [content appendString:[NSString stringWithFormat:@"乘车方案:  %@", spot.trafficInfo]];
+            
+            if (![spot.trafficInfo isBlankString] && spot.trafficInfo) {
+                [content appendString:[NSString stringWithFormat:@"乘车方案:  %@", spot.trafficInfo]];
+            }
             [dic safeSetObject:content forKey:@"content"];
             [_dataSource addObject:dic];
         }
-        if (![spot.guideInfo isBlankString]) {
+        if (![spot.guideInfo isBlankString] && spot.guideInfo) {
             NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
             [dic setObject:@"攻略" forKey:@"title"];
             [dic safeSetObject:spot.guideInfo forKey:@"content"];
             [_dataSource addObject:dic];
         }
-        if (![spot.tipsInfo isBlankString]) {
+        if (![spot.tipsInfo isBlankString] && spot.tipsInfo) {
             NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
             [dic setObject:@"贴士" forKey:@"title"];
             [dic safeSetObject:spot.tipsInfo forKey:@"content"];

@@ -101,7 +101,9 @@
 		<string>mqq</string>
 		<string>weixin</string>
 		<string>wechat</string>
+		<string>iosamap</string>
 		<string>weibosdk</string>
+		<string>baidumap</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>

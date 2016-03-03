@@ -22,7 +22,7 @@
                                   };
         NSAttributedString *attrstr = [[NSAttributedString alloc] initWithString:content attributes:attribs];
         
-        CGRect rect = [attrstr boundingRectWithSize:(CGSize){kWindowWidth-25, 60} options:NSStringDrawingUsesLineFragmentOrigin context:nil];
+        CGRect rect = [attrstr boundingRectWithSize:(CGSize){kWindowWidth-28, 60} options:NSStringDrawingUsesLineFragmentOrigin context:nil];
         retHeight += rect.size.height;
     }
     return retHeight;

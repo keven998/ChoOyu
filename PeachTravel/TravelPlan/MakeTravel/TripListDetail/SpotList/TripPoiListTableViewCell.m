@@ -58,7 +58,7 @@
     
     _ratingView.rating = _tripPoi.rating;
     
-    _hotImageView.hidden = (_tripPoi.rank > 2 || !_tripPoi.rank);
+    _hotImageView.hidden = (_tripPoi.rank > 3 || !_tripPoi.rank);
     _hotLabel.hidden = _hotImageView.hidden;
 }
 

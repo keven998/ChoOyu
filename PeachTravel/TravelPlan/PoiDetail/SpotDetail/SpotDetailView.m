@@ -108,7 +108,13 @@
     moneyCostLabel.textColor = COLOR_TEXT_II;
     moneyCostLabel.font = [UIFont systemFontOfSize:14.0];
     
-    NSString *moneyCost = [NSString stringWithFormat:@"费用:  %@", _spot.priceDesc];
+    NSString *priceDesc;
+    if (!_spot.priceDesc || [_spot.priceDesc isEqual:[NSNull null]]) {
+        priceDesc = @"未知";
+    } else {
+        priceDesc = _spot.priceDesc;
+    }
+    NSString *moneyCost = [NSString stringWithFormat:@"费用:  %@", priceDesc];
     NSMutableAttributedString *attrMoneyCost = [[NSMutableAttributedString alloc] initWithString:moneyCost];
     [attrMoneyCost addAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:15.0], NSForegroundColorAttributeName: COLOR_TEXT_I} range:NSMakeRange(0, 3)];
     
@@ -121,7 +127,13 @@
     openTimeLabel.textColor = COLOR_TEXT_II;
     openTimeLabel.font = [UIFont systemFontOfSize:14.0];
     
-    NSString *openTime = [NSString stringWithFormat:@"开放时间:  %@", _spot.openTime];
+    NSString *tempOpenTime;
+    if (!_spot.openTime || [_spot.openTime isEqual:[NSNull null]]) {
+        tempOpenTime = @"全天";
+    } else {
+        tempOpenTime = _spot.openTime;
+    }
+    NSString *openTime = [NSString stringWithFormat:@"开放时间:  %@", tempOpenTime];
     NSMutableAttributedString *attrOpenTime = [[NSMutableAttributedString alloc] initWithString:openTime];
     [attrOpenTime addAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:15.0], NSForegroundColorAttributeName: COLOR_TEXT_I} range:NSMakeRange(0, 5)];
     openTimeLabel.attributedText = attrOpenTime;
