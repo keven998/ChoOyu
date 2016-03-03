@@ -15,6 +15,7 @@
 #import "REFrostedViewController.h"
 #import "UserAlbumReviewViewController.h"
 #import "StoreManager.h"    
+#import "StoreDetailViewController.h"
 
 @interface OtherProfileViewController () <UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate, GuiderProfileAlbumCellDelegate>
 
@@ -58,8 +59,6 @@
             _isSeller = YES;
             [self.tableView reloadData];
         }
-        _isSeller = YES;
-        [self.tableView reloadData];
     }];
 }
 
@@ -233,6 +232,9 @@
     if (_isSeller) {
         if (indexPath.section == 0) {
             UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+            cell.textLabel.font = [UIFont systemFontOfSize:15.0];
+            cell.textLabel.textColor = COLOR_TEXT_I;
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.textLabel.text = @"他的店铺";
             return cell;
             
@@ -290,28 +292,55 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    if (_isSeller && indexPath.section == 0) {
+        StoreDetailViewController *ctl = [[StoreDetailViewController alloc] init];
+        ctl.storeId = _userId;
+        [self.navigationController pushViewController:ctl animated:YES];
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0) {
-        return 140;
-    } else if (indexPath.section == 1) {
-        return 130;
-    } else {
-        if (self.userInfo.signature.length == 0) return 50 + 40;
-        CGSize size = CGSizeMake(kWindowWidth - 40,CGFLOAT_MAX);//LableWight标签宽度，固定的
+    if (_isSeller) {
+        if (indexPath.section == 0) {
+            return 49;
+        } else if (indexPath.section == 1) {
+            return 140;
+        } else if (indexPath.section == 2) {
+            return 130;
+        } else {
+            if (self.userInfo.signature.length == 0) return 50 + 40;
+            CGSize size = CGSizeMake(kWindowWidth - 40,CGFLOAT_MAX);//LableWight标签宽度，固定的
+            
+            //计算实际frame大小，并将label的frame变成实际大小
+            NSDictionary *dict = @{NSFontAttributeName: [UIFont systemFontOfSize:14.0]};
+            CGSize contentSize = [self.userInfo.signature boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
+            return 50 + contentSize.height + 20;
+        }
         
-        //计算实际frame大小，并将label的frame变成实际大小
-        NSDictionary *dict = @{NSFontAttributeName: [UIFont systemFontOfSize:14.0]};
-        CGSize contentSize = [self.userInfo.signature boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
-        return 50 + contentSize.height + 20;
+    } else {
+        if (indexPath.section == 0) {
+            return 140;
+        } else if (indexPath.section == 1) {
+            return 130;
+        } else {
+            if (self.userInfo.signature.length == 0) return 50 + 40;
+            CGSize size = CGSizeMake(kWindowWidth - 40,CGFLOAT_MAX);//LableWight标签宽度，固定的
+            
+            //计算实际frame大小，并将label的frame变成实际大小
+            NSDictionary *dict = @{NSFontAttributeName: [UIFont systemFontOfSize:14.0]};
+            CGSize contentSize = [self.userInfo.signature boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
+            return 50 + contentSize.height + 20;
+        }
     }
     return 150;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
+    if (_isSeller && section == 0) {
+        return 10;
+    }
     return 50;
 }
 
