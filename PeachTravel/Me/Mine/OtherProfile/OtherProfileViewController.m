@@ -54,7 +54,7 @@
     self.tableView.hidden = YES;
     [self setupNavBar];
     
-    [StoreManager asyncLoadStoreInfoWithStoreId:[AccountManager shareAccountManager].account.userId completionBlock:^(BOOL isSuccess, StoreDetailModel *storeDetail) {
+    [StoreManager asyncLoadStoreInfoWithStoreId:_userId completionBlock:^(BOOL isSuccess, StoreDetailModel *storeDetail) {
         if (storeDetail) {
             _isSeller = YES;
             [self.tableView reloadData];
