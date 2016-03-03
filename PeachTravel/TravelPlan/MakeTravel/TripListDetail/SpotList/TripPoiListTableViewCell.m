@@ -45,9 +45,7 @@
     NSString *property = nil;
 
     if (_tripPoi.poiType == kSpotPoi) {
-        if ([((SpotPoi *)tripPoi).timeCostStr isBlankString]) {
-            
-        } else {
+        if (![((SpotPoi *)tripPoi).timeCostStr isBlankString]) {
             NSString *timeStr = [NSString stringWithFormat:@"建议游玩%@", ((SpotPoi *)tripPoi).timeCostStr];
             property = timeStr;
         }

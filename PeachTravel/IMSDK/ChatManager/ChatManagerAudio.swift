@@ -163,7 +163,7 @@ class ChatManagerAudio: NSObject, ChatManagerAudioProtocol, AudioManagerDelegate
         if let audioData = NSData.dataWithContentsOfMappedFile(audioPath) as? NSData {
             do {
                 self.audioPlayer = try AVAudioPlayer(data: audioData)
-                audioPlayer.volume = 0.8;
+                audioPlayer.volume = 1.0;
                 audioPlayer.currentTime = 0;
                 audioPlayer.prepareToPlay()
                 audioPlayer.delegate = self;

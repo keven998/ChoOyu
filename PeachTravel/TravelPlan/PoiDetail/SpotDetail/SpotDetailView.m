@@ -82,25 +82,36 @@
     _ratingView.userInteractionEnabled = NO;
     _ratingView.rating = _spot.rating;
     [self addSubview:_ratingView];
-
-    NSString *tagTitle = [_spot.style firstObject];
     
-    if (tagTitle) {
-        NSDictionary *attribs = @{NSFontAttributeName: [UIFont systemFontOfSize:12],
-                                  };
-        NSAttributedString *attrstr = [[NSAttributedString alloc] initWithString:tagTitle attributes:attribs];
-        CGRect rect = [attrstr boundingRectWithSize:(CGSize){kWindowWidth-32, CGFLOAT_MAX} options:NSStringDrawingUsesLineFragmentOrigin context:nil];
-        
-        UILabel *tagLabel = [[UILabel alloc] initWithFrame:CGRectMake(width-rect.size.width-45, offsetY + 14, rect.size.width+30, 20)];
-        tagLabel.backgroundColor = APP_THEME_COLOR;
-        tagLabel.layer.cornerRadius = 4.0;
-        tagLabel.clipsToBounds = YES;
-        tagLabel.textColor = [UIColor whiteColor];
-        tagLabel.font = [UIFont systemFontOfSize:12];
-        tagLabel.textAlignment = NSTextAlignmentCenter;
-        tagLabel.text = tagTitle;
-        [self addSubview:tagLabel];
-    }
+    if (_spot.poiType != kSpotPoi) {
+        NSString *tagTitle = [_spot.style firstObject];
+        if (tagTitle) {
+            NSDictionary *attribs = @{NSFontAttributeName: [UIFont systemFontOfSize:12],
+                                      };
+            NSAttributedString *attrstr = [[NSAttributedString alloc] initWithString:tagTitle attributes:attribs];
+            CGRect rect = [attrstr boundingRectWithSize:(CGSize){kWindowWidth-32, CGFLOAT_MAX} options:NSStringDrawingUsesLineFragmentOrigin context:nil];
+            
+            UILabel *tagLabel = [[UILabel alloc] initWithFrame:CGRectMake(width-rect.size.width-45, offsetY + 14, rect.size.width+30, 20)];
+            tagLabel.backgroundColor = APP_THEME_COLOR;
+            tagLabel.layer.cornerRadius = 4.0;
+            tagLabel.clipsToBounds = YES;
+            tagLabel.textColor = [UIColor whiteColor];
+            tagLabel.font = [UIFont systemFontOfSize:12];
+            tagLabel.textAlignment = NSTextAlignmentCenter;
+            tagLabel.text = tagTitle;
+            [self addSubview:tagLabel];
+        }
+    } else {
+        if (![((SpotPoi *)_spot).timeCostStr isBlankString] && ((SpotPoi *)_spot).timeCostStr) {
+            NSString *timeStr = [NSString stringWithFormat:@"建议游玩%@", ((SpotPoi *)_spot).timeCostStr];
+            UILabel *timeCostLabel = [[UILabel alloc] initWithFrame:CGRectMake(width-158, offsetY + 18, 150, 20)];
+            timeCostLabel.textColor = COLOR_TEXT_II;
+            timeCostLabel.font = [UIFont systemFontOfSize:12];
+            timeCostLabel.textAlignment = NSTextAlignmentRight;
+            timeCostLabel.text = timeStr;
+            [self addSubview:timeCostLabel];
+        }
+    } 
     
     offsetY += 45;
     
