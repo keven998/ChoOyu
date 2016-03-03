@@ -117,7 +117,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 //        _coverView = [[UIImageView alloc] initWithFrame:self.view.bounds];
 //        [self.view addSubview:_coverView];
 //        [self loadCoverData];
-        [self updateBackgroundData:[[NSUserDefaults standardUserDefaults] objectForKey:kBackGroundImage]];
+//        [self updateBackgroundData:[[NSUserDefaults standardUserDefaults] objectForKey:kBackGroundImage]];
     }
 }
 
