@@ -20,11 +20,14 @@
 #import "PricePoiDetailController.h"
 #import "CityDescDetailViewController.h"
 #import "UIActionSheet+Blocks.h"
+#import "CommonPoiDetailTableViewCell.h"
 
-@interface CommonPoiDetailViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface CommonPoiDetailViewController () <UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate>
 @property (nonatomic, strong) UIImageView *backGroundImageView;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) SpotDetailView *spotDetailView;
+@property (nonatomic, strong) NSMutableArray *dataSource;
+
 
 @end
 
@@ -32,16 +35,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    
     UIButton *talkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 44)];
-    [talkBtn setImage:[UIImage imageNamed:@"navigationbar_chat_default.png"] forState:UIControlStateNormal];
-    [talkBtn setImage:[UIImage imageNamed:@"navigationbar_chat_hilighted.png"] forState:UIControlStateHighlighted];
+    [talkBtn setImage:[UIImage imageNamed:@"icon_share_white.png"] forState:UIControlStateNormal];
     talkBtn.imageEdgeInsets = UIEdgeInsetsMake(2, 0, 0, 0);
     [talkBtn addTarget:self action:@selector(send2Frend) forControlEvents:UIControlEventTouchUpInside];
     talkBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:talkBtn];
     
+    _dataSource = [[NSMutableArray alloc] init];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -64,74 +65,210 @@
         _tableView.delegate = self;
         _tableView.backgroundColor = APP_PAGE_COLOR;
         _tableView.separatorColor = COLOR_LINE;
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _tableView.tableHeaderView = self.spotDetailView;
-        [self.tableView registerNib:[UINib nibWithNibName:@"SpotDetailCell" bundle:nil] forCellReuseIdentifier:@"detailCell"];
-        [self.tableView registerNib:[UINib nibWithNibName:@"SpecialPoiCell" bundle:nil] forCellReuseIdentifier:@"specialCell"];
+        [self.tableView registerNib:[UINib nibWithNibName:@"CommonPoiDetailTableViewCell" bundle:nil] forCellReuseIdentifier:@"commonPoiDetailTableViewCell"];
+        
         [self.tableView registerNib:[UINib nibWithNibName:@"CommentTableViewCell" bundle:nil] forCellReuseIdentifier:@"commentCell"];
     }
     return _tableView;
 }
 
+- (void)setPoi:(SuperPoi *)poi
+{
+    [super setPoi:poi];
+    [self setupDataSource];
+}
+
+- (void)setupDataSource
+{
+    if (![self.poi.desc isBlankString]) {
+        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+        [dic setObject:@"简介" forKey:@"title"];
+        [dic safeSetObject:self.poi.desc forKey:@"content"];
+        [_dataSource addObject:dic];
+    }
+    if (self.poi.poiType == kSpotPoi) {
+        SpotPoi *spot = (SpotPoi *)self.poi;
+        if (![spot.trafficInfo isBlankString]) {
+            NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+            [dic setObject:@"交通" forKey:@"title"];
+            
+            NSMutableString *content = [[NSMutableString alloc] init];
+            [content appendString:[NSString stringWithFormat:@"地址:  %@\n", self.poi.address]];
+            [content appendString:[NSString stringWithFormat:@"乘车方案:  %@", spot.trafficInfo]];
+            [dic safeSetObject:content forKey:@"content"];
+            [_dataSource addObject:dic];
+        }
+        if (![spot.guideInfo isBlankString]) {
+            NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+            [dic setObject:@"攻略" forKey:@"title"];
+            [dic safeSetObject:spot.guideInfo forKey:@"content"];
+            [_dataSource addObject:dic];
+        }
+        if (![spot.tipsInfo isBlankString]) {
+            NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+            [dic setObject:@"贴士" forKey:@"title"];
+            [dic safeSetObject:spot.tipsInfo forKey:@"content"];
+            [_dataSource addObject:dic];
+        }
+    }
+    if ([self.poi.comments count]) {
+        [_dataSource addObject:self.poi.comments];
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if ([[_dataSource objectAtIndex:section] isKindOfClass:[NSArray class]]) {
+        return 10 + 40;
+    }
+    return 10.0;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    if ([[_dataSource objectAtIndex:section] isKindOfClass:[NSArray class]]) {
+        UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 50)];
+        
+        UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 10, kWindowWidth, 40)];
+        bgView.backgroundColor = [UIColor whiteColor];
+        [headerView addSubview:bgView];
+        
+        UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 10, kWindowWidth, 0.5)];
+        spaceView.backgroundColor = COLOR_LINE;
+        [headerView addSubview:spaceView];
+        
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(12, 10, 100, 40)];
+        titleLabel.textColor = COLOR_TEXT_I;
+        titleLabel.font = [UIFont systemFontOfSize:15.0];
+        titleLabel.text = @"点评";
+        [headerView addSubview:titleLabel];
+        
+        UIButton *showMoreCommentBtn = [[UIButton alloc] initWithFrame:CGRectMake(kWindowWidth-100, 10, 88, 40)];
+        [showMoreCommentBtn setImage:[UIImage imageNamed:@"icon_poiDetail_moreContent"] forState:UIControlStateNormal];
+        [showMoreCommentBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+        [showMoreCommentBtn addTarget:self action:@selector(showMoreComments) forControlEvents:UIControlEventTouchUpInside];
+        [headerView addSubview:showMoreCommentBtn];
+        
+        UIView *spaceButtomView = [[UIView alloc] initWithFrame:CGRectMake(0, 49.5, kWindowWidth, 0.5)];
+        spaceButtomView.backgroundColor = COLOR_LINE;
+        [headerView addSubview:spaceButtomView];
+        
+        return headerView;
+    }
+    return nil;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return CGFLOAT_MIN;
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return self.dataSource.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    return self.poi.comments.count + 3;
+    if ([[_dataSource objectAtIndex:section] isKindOfClass:[NSArray class]]) {
+        return [[_dataSource objectAtIndex:section] count];
+    }
+    return 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row < 3) {
-        return 66 * kWindowHeight/736;
-    } else {
-        CommentDetail *commonDetail = [self.poi.comments objectAtIndex:indexPath.row-3];
-        return [CommentTableViewCell heightForCommentCellWithComment:commonDetail.commentDetails];
+    id object = [_dataSource objectAtIndex:indexPath.section];
+    if ([object isKindOfClass:[NSDictionary class]]) {
+        return [CommonPoiDetailTableViewCell heightWithContent:[object objectForKey:@"content"]];
+    } else if ([object isKindOfClass:[NSArray class]]){
+        CommentDetail *comment = [object objectAtIndex:indexPath.row];
+        return [CommentTableViewCell heightForCommentCellWithComment:comment.commentDetails];
     }
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row < 3) {
-        SpotDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"detailCell" forIndexPath:indexPath];
-        cell.accessoryType = UITableViewCellAccessoryNone;
-        if (indexPath.row == 0) {
-            cell.categoryLabel.text = @"地址";
-            cell.infomationLabel.text = self.poi.address;
-            cell.image.image = [UIImage imageNamed:@"poi_icon_add"];
-        } else if(indexPath.row == 1) {
-            cell.categoryLabel.text = @"费用";
-            cell.infomationLabel.text = self.poi.priceDesc;
-            cell.image.image = [UIImage imageNamed:@"poi_icon_ticket_default"];
-        }  else {
-            cell.categoryLabel.text = @"电话";
-            cell.infomationLabel.text = ((SpotPoi *)self.poi).telephone;
-            cell.image.image = [UIImage imageNamed:@"poi_icon_phone"];
+    id object = [_dataSource objectAtIndex:indexPath.section];
+    if ([object isKindOfClass:[NSDictionary class]]) {
+        CommonPoiDetailTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"commonPoiDetailTableViewCell" forIndexPath:indexPath];
+        cell.titleLabel.text = [object objectForKey:@"title"];
+        
+        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+        paragraphStyle.lineSpacing = 5.0;
+        
+        NSDictionary *attribs = @{NSFontAttributeName: [UIFont systemFontOfSize:13],
+                                  NSParagraphStyleAttributeName:paragraphStyle,
+                                  };
+        NSAttributedString *attrstr = [[NSAttributedString alloc] initWithString:[object objectForKey:@"content"] attributes:attribs];
+        cell.contentLabel.attributedText = attrstr;
+        
+        if ([[object objectForKey:@"title"] isEqualToString:@"简介"]) {
+            [cell.showMoreButton addTarget:self action:@selector(showPoidetail:) forControlEvents:UIControlEventTouchUpInside];
+            cell.addressButton.hidden = YES;
+            
+        } else if ([[object objectForKey:@"title"] isEqualToString:@"交通"]) {
+            [cell.showMoreButton addTarget:self action:@selector(trafficGuide:) forControlEvents:UIControlEventTouchUpInside];
+            [cell.addressButton addTarget:self action:@selector(jumpToMapview:) forControlEvents:UIControlEventTouchUpInside];
+            cell.addressButton.hidden = NO;
+            
+        } else if ([[object objectForKey:@"title"] isEqualToString:@"攻略"]) {
+            [cell.showMoreButton addTarget:self action:@selector(travelGuide:) forControlEvents:UIControlEventTouchUpInside];
+            cell.addressButton.hidden = YES;
+            
+        } else if ([[object objectForKey:@"title"] isEqualToString:@"贴士"]) {
+            [cell.showMoreButton addTarget:self action:@selector(kengdie:) forControlEvents:UIControlEventTouchUpInside];
+            cell.addressButton.hidden = YES;
         }
+
         return cell;
         
     } else {
+        CommentDetail *comment = [object objectAtIndex:indexPath.row];
         CommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"commentCell" forIndexPath:indexPath];
-        cell.commentDetail = [self.poi.comments objectAtIndex:indexPath.row-3];
+        cell.commentDetail = comment;
         return cell;
     }
 }
 
-#pragma mark - Table view delegate
+/**
+ *  游玩指南
+ *
+ *  @param sender
+ */
+- (IBAction)travelGuide:(id)sender
+{
+    [MobClick event:@"button_item_poi_travel_notes"];
+    SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
+    webCtl.titleStr = @"景点体验";
+    webCtl.urlStr = ((SpotPoi *)self.poi).guideUrl;
+    [self.navigationController pushViewController:webCtl animated:YES];
+}
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    if (indexPath.row < 3) {
-        if (indexPath.row == 0) {
-            [self jumpToMap];
-        } else if (indexPath.row == 1) {
-            [self showPoidetail:nil];
-        } else if (indexPath.row == 2) {
-            [self makePhone];
-        }
-    }
+/**
+ *  坑爹攻略
+ *
+ *  @param sender
+ */
+- (IBAction)kengdie:(id)sender
+{
+    [MobClick event:@"button_item_poi_travel_tips"];
+    SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
+    webCtl.titleStr = @"游玩小贴士";
+    webCtl.urlStr = ((SpotPoi *)self.poi).tipsUrl;
+    [self.navigationController pushViewController:webCtl animated:YES];
+}
+
+/**
+ *  交通指南
+ *
+ *  @param sender
+ */
+- (IBAction)trafficGuide:(id)sender
+{
+    [MobClick event:@"button_item_poi_travel_traffic"];
+    SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
+    webCtl.titleStr = @"景点交通";
+    webCtl.urlStr = ((SpotPoi *)self.poi).trafficInfoUrl;
+    [self.navigationController pushViewController:webCtl animated:YES];
 }
 
 - (void)updateView
@@ -142,20 +279,6 @@
     _spotDetailView.spot = self.poi;
     self.tableView.tableHeaderView = _spotDetailView;
     [_spotDetailView.poiSummary addTarget:self action:@selector(showPoiDesc) forControlEvents:UIControlEventTouchUpInside];
-    if (self.poi.comments.count > 0) {
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(_tableView.frame), 58)];
-        view.backgroundColor = [UIColor clearColor];
-        UIButton *footerView = [[UIButton alloc] initWithFrame:CGRectMake(0, 20, CGRectGetWidth(_tableView.frame), 38)];
-        [footerView setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
-        [footerView setBackgroundImage:[ConvertMethods createImageWithColor:COLOR_DISABLE] forState:UIControlStateHighlighted];
-        [footerView setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-        [footerView setTitle:@"~ 更多点评 ~" forState:UIControlStateNormal];
-        footerView.titleLabel.font = [UIFont systemFontOfSize:12];
-        [footerView addTarget:self action:@selector(showMoreComments) forControlEvents:UIControlEventTouchUpInside];
-        [view addSubview:footerView];
-        _tableView.tableFooterView = view;
-
-    }
 }
 
 - (void)send2Frend
@@ -231,16 +354,16 @@
         if (poi.bookUrl.length != 0) {
             webCtl.urlStr = poi.bookUrl;
         }
-    }else{
+    } else {
         if (self.poi.descUrl) {
             webCtl.urlStr = self.poi.descUrl;
-        }else{
-            if (![self.poi.priceDesc isEqualToString:@""]) {
+         
+        }else {
+            if (![self.poi.desc isEqualToString:@""]) {
                 PricePoiDetailController * pricePoi = [[PricePoiDetailController alloc] init];
-                pricePoi.desc = self.poi.priceDesc;
+                pricePoi.desc = self.poi.desc;
                 pricePoi.view.backgroundColor = [UIColor whiteColor];
                 [self.navigationController pushViewController:pricePoi animated:YES];
-                
             }
             return;
         }
@@ -276,6 +399,28 @@
     }];
 }
 
+
+/**
+ *  进入地图导航
+ *
+ *  @param sender
+ */
+- (IBAction)jumpToMapview:(id)sender
+{
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"其他软件导航"
+                                                       delegate:self
+                                              cancelButtonTitle:nil
+                                         destructiveButtonTitle:nil
+                                              otherButtonTitles:nil];
+    NSArray *platformArray = [ConvertMethods mapPlatformInPhone];
+    for (NSDictionary *dic in platformArray) {
+        [sheet addButtonWithTitle:[dic objectForKey:@"platform"]];
+    }
+    [sheet addButtonWithTitle:@"取消"];
+    sheet.cancelButtonIndex = sheet.numberOfButtons-1;
+    [sheet showInView:self.view];
+}
+
 - (void)setChatMessageModel:(TaoziChatMessageBaseViewController *)taoziMessageCtl
 {
     taoziMessageCtl.messageId = self.poi.poiId;
@@ -302,6 +447,90 @@
     }
     
     taoziMessageCtl.messageAddress = self.poi.address;
+}
+
+#pragma mark - UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == actionSheet.cancelButtonIndex) {
+        
+        return;
+        
+    }
+    if (actionSheet.tag != kASShare) {
+        NSArray *platformArray = [ConvertMethods mapPlatformInPhone];
+        switch (buttonIndex) {
+            case 0:
+                switch ([[[platformArray objectAtIndex:0] objectForKey:@"type"] intValue]) {
+                    case kAMap:
+                        [ConvertMethods jumpGaodeMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
+                        break;
+                        
+                    case kBaiduMap: {
+                        [ConvertMethods jumpBaiduMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
+                    }
+                        break;
+                        
+                    case kAppleMap: {
+                        [ConvertMethods jumpAppleMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
+                    }
+                        
+                    default:
+                        break;
+                }
+                break;
+                
+            case 1:
+                switch ([[[platformArray objectAtIndex:1] objectForKey:@"type"] intValue]) {
+                    case kAMap:
+                        [ConvertMethods jumpGaodeMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
+                        break;
+                        
+                    case kBaiduMap: {
+                        [ConvertMethods jumpBaiduMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
+                    }
+                        break;
+                        
+                    case kAppleMap: {
+                        [ConvertMethods jumpAppleMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
+                    }
+                        break;
+                        
+                    default:
+                        break;
+                }
+                break;
+                
+            case 2:
+                switch ([[[platformArray objectAtIndex:2] objectForKey:@"type"] intValue]) {
+                    case kAMap:
+                        [ConvertMethods jumpGaodeMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
+                        break;
+                        
+                    case kBaiduMap: {
+                        [ConvertMethods jumpBaiduMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
+                    }
+                        break;
+                        
+                    case kAppleMap: {
+                        [ConvertMethods jumpAppleMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
+                    }
+                        break;
+                        
+                    default:
+                        break;
+                }
+                break;
+                
+            default:
+                break;
+        }
+        
+    } else {
+        
+        [self shareToTalk];
+    }
 }
 
 @end

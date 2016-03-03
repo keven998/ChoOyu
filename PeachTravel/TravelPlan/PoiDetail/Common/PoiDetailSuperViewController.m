@@ -22,6 +22,11 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
+- (void)setPoi:(SuperPoi *)poi
+{
+    _poi = poi;
+}
+
 #pragma mark - IBAction Methods
 
 - (IBAction)chat:(id)sender

@@ -13,51 +13,24 @@
 
 @property (weak, nonatomic) IBOutlet EDStarRating *ratingView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (strong, nonatomic) UIImageView *bubbleView;
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *headerImageView;
-@property (nonatomic, strong) UILabel *descLabel;
+@property (weak, nonatomic) IBOutlet UILabel *descLabel;
 
 @end
 
 @implementation CommentTableViewCell
 
 - (void)awakeFromNib {
-    _bubbleView = [[UIImageView alloc] init];
-    [self addSubview:_bubbleView];
-    _descLabel = [[UILabel alloc] init];
-    _descLabel.numberOfLines = 0;
-    _descLabel.font = [UIFont systemFontOfSize:14.0];
-    _descLabel.textColor = COLOR_TEXT_I;
-    [_bubbleView addSubview:_descLabel];
     _headerImageView.layer.cornerRadius = CGRectGetWidth(_headerImageView.frame)/2.0;
     
-    _titleLabel.textColor = COLOR_TEXT_III;
-    
-    _ratingView.starImage = [UIImage imageNamed:@"poi_comment_start_default.png"];
-    _ratingView.starHighlightedImage = [UIImage imageNamed:@"poi_comment_start_highlight.png"];
+    _ratingView.starImage = [UIImage imageNamed:@"icon_rating_gray.png"];
+    _ratingView.starHighlightedImage = [UIImage imageNamed:@"icon_rating_yellow.png"];
     _ratingView.maxRating = 5.0;
     _ratingView.editable = NO;
-    _ratingView.horizontalMargin = 2;
+    _ratingView.horizontalMargin = 1;
     _ratingView.displayMode = EDStarRatingDisplayAccurate;
-}
-
-- (void)layoutSubviews
-{
-    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
-    style.lineSpacing = 2.0;
-    CGSize labelSize = [_commentDetail.commentDetails boundingRectWithSize:CGSizeMake(self.bounds.size.width-100-24, MAXFLOAT)
-                                                                   options:NSStringDrawingUsesLineFragmentOrigin
-                                                                attributes:@{
-                                                                             NSFontAttributeName : [UIFont systemFontOfSize:14.0],
-                                                                             NSParagraphStyleAttributeName : style
-                                                                             }
-                                                                   context:nil].size;
-    _descLabel.frame = CGRectMake(15, 13, labelSize.width, labelSize.height);
-    
-    [_bubbleView setFrame:CGRectMake(84, 38, labelSize.width+25, labelSize.height+26)];
-    _bubbleView.image = [[UIImage imageNamed:@"messages_bg_friend.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(28, 15, 10, 10)];
-    
-    [_ratingView setRating:_commentDetail.rating];
+    _ratingView.userInteractionEnabled = NO;
 }
 
 - (void)setCommentDetail:(CommentDetail *)commentDetail
@@ -65,7 +38,9 @@
     _commentDetail = commentDetail;
     _descLabel.text = _commentDetail.commentDetails;
     [_headerImageView sd_setImageWithURL:[NSURL URLWithString:_commentDetail.avatar] placeholderImage:[UIImage imageNamed:@"avatar_default.png"]];
-    _titleLabel.text = [NSString stringWithFormat:@"%@ | %@", commentDetail.nickName, commentDetail.commentTime];
+    _titleLabel.text = [NSString stringWithFormat:@"%@", commentDetail.nickName];
+    _timeLabel.text = commentDetail.commentTime;
+    [_ratingView setRating:_commentDetail.rating];
     [self setNeedsLayout];
 }
 
@@ -75,16 +50,13 @@
 
 + (CGFloat)heightForCommentCellWithComment:(NSString *)commentDetail
 {
-    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
-    style.lineSpacing = 2.0;
-    CGSize labelSize = [commentDetail boundingRectWithSize:CGSizeMake(kWindowWidth-100-24, MAXFLOAT)
+    CGSize labelSize = [commentDetail boundingRectWithSize:CGSizeMake(kWindowWidth-64, MAXFLOAT)
                                                    options:NSStringDrawingUsesLineFragmentOrigin
                                                 attributes:@{
-                                                             NSFontAttributeName : [UIFont systemFontOfSize:14.0],
-                                                             NSParagraphStyleAttributeName : style
+                                                             NSFontAttributeName : [UIFont systemFontOfSize:13.0],
                                                              }
                                                    context:nil].size;
-    return labelSize.height+38+30+10;
+    return labelSize.height+94;
 }
 
 @end

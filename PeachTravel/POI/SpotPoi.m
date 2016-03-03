@@ -18,8 +18,20 @@
         self.poiTypeName = @"景点";
         _bookUrl = [json objectForKey:@"lyPoiUrl"];
         _timeCostStr = [json objectForKey:@"timeCostDesc"];
+        
+        _trafficInfo = [json objectForKey:@"trafficInfo"];
         _trafficInfoUrl = [json objectForKey:@"trafficInfoUrl"];
+        
+        _guideInfo = [json objectForKey:@"visitGuide"];
         _guideUrl = [json objectForKey:@"visitGuideUrl"];
+        
+        NSMutableString *tipsStr = [[NSMutableString alloc] init];
+        for (NSDictionary *tipsDic in [json objectForKey:@"tips"]) {
+            [tipsStr appendString:[tipsDic objectForKey:@"title"]];
+            [tipsStr appendString:[tipsDic objectForKey:@"desc"]];
+        }
+        _tipsInfo = tipsStr;
+        
         _tipsUrl = [json objectForKey:@"tipsUrl"];
         _travelMonth = [json objectForKey:@"travelMonth"];
     }

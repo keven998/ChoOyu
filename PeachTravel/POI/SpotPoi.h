@@ -13,8 +13,14 @@
 @property (nonatomic, copy) NSString *timeCostStr;
 @property (nonatomic, copy) NSString *bookUrl;
 @property (nonatomic, copy) NSString *travelMonth;
+
+@property (nonatomic, copy) NSString *trafficInfo;
 @property (nonatomic, copy) NSString *trafficInfoUrl;
+
+@property (nonatomic, copy) NSString *guideInfo;
 @property (nonatomic, copy) NSString *guideUrl;
+
+@property (nonatomic, copy) NSString *tipsInfo;
 @property (nonatomic, copy) NSString *tipsUrl;
 - (id)initWithJson:(id)json;
 

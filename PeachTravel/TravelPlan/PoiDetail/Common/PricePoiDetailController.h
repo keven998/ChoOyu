@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PricePoiDetailController : UIViewController
+@interface PricePoiDetailController : TZViewController
 
 @property (nonatomic, copy)NSString * desc;
 
