@@ -17,9 +17,9 @@
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UITextField *phoneLabel;
 @property (weak, nonatomic) IBOutlet UITextField *captchaLabel;
 @property (weak, nonatomic) IBOutlet UILabel *tipsLabel;
+@property (weak, nonatomic) IBOutlet UITextField *phoneLabel;
 @property (weak, nonatomic) IBOutlet UIButton *captchaBtn;
 @property (nonatomic) BOOL shouldSetPasswordWhenBindTel;   //标记当验证成功手机号后是否需要跳转到下一个页面设置密码
 @property (nonatomic, strong) UIButton *registerBtn;
@@ -86,6 +86,10 @@
     [_captchaBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR_HIGHLIGHT] forState:UIControlStateHighlighted];
     [_captchaBtn setBackgroundImage:[ConvertMethods createImageWithColor:COLOR_DISABLE] forState:UIControlStateDisabled];
     _captchaBtn.enabled = YES;
+    
+    if (_telephoneFormPreCtl) {
+        _phoneLabel.text = _telephoneFormPreCtl;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -219,8 +223,16 @@
      __weak typeof(VerifyCaptchaViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf content:64];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
+    [LXPNetworking setHeaderValueForPXMethods:manager andUrl:API_VERIFY_CAPTCHA parameters:params];
+    
     //验证注册码
-    [LXPNetworking POST:API_VERIFY_CAPTCHA parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager POST:API_VERIFY_CAPTCHA parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             if (_verifyCaptchaType == UserBindTel) {

@@ -40,6 +40,10 @@ NS_ASSUME_NONNULL_BEGIN
                                   success:(nullable void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                                   failure:(nullable void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
++ (void)setHeaderValueForPXMethods:(AFHTTPRequestOperationManager *)manager andUrl:(NSString *)URLString parameters:parameters;
++ (void)setOtherHeaderValue:(AFHTTPRequestOperationManager *)manager andUrl:(NSString *)URLString parameters:parameters;
+
+
 NS_ASSUME_NONNULL_END
 
 @end

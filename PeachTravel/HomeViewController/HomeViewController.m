@@ -466,15 +466,19 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 #endif
     }
     
-//    if ([[message.message stringByReplacingOccurrencesOfString:@" " withString:@""] isEqualToString:@"小李子都获奖了我也要有奖"]) {
+//    NSString *str = @"红包";
+//    if ([message.message containsString:str]) {
 //        [self sendPaipaiMessage:message];
+//
+//    }
+//    if ([[message.message stringByReplacingOccurrencesOfString:@" " withString:@""] isEqualToString:@"小李子都获奖了我也要有奖"]) {
 //    }
 }
 
 - (void)sendPaipaiMessage:(BaseMessage *)message
 {
     IMClientManager *imClientManager = [IMClientManager shareInstance];
-    BaseMessage *tempMessage = [imClientManager.messageSendManager sendTextMessage:@"哎呀小李子都获奖了，你怎么能没有奖呢！别捉急，派派这就把你丢进领奖群，群里不定时发支付宝口令红包，来得越早红包越大！" receiver:message.senderId chatType:IMChatTypeIMChatSingleType conversationId:nil completionBlock:^(BOOL isSuccess, NSString * __nullable error) {
+    BaseMessage *tempMessage = [imClientManager.messageSendManager sendTextMessage:@"感谢亲使用旅行派APP，支付宝红包稍后统一发！一定会发到的亲不要捉急！这会儿亲可以去我们的APP逛逛哦^_^有你想体验的旅行产品，来跟派派说，派派可以给你炒鸡感动的折扣哦[示爱][示爱]" receiver:message.senderId chatType:IMChatTypeIMChatSingleType conversationId:nil completionBlock:^(BOOL isSuccess, NSString * __nullable error) {
     }];
 }
 

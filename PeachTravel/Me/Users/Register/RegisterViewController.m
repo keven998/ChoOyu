@@ -16,6 +16,7 @@ typedef void(^loginCompletion)(BOOL completed);
 
 @property (strong, nonatomic)  UITextField *phoneLabel;
 @property (strong, nonatomic)  UITextField *passwordLabel;
+@property (strong, nonatomic)  UITextField *inviteCodeTextField;
 @property (strong, nonatomic)  UIButton *registerBtn;
 
 @end
@@ -27,16 +28,9 @@ typedef void(^loginCompletion)(BOOL completed);
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = APP_PAGE_COLOR;
+    self.view.backgroundColor = [UIColor whiteColor];
     
-    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backBtn.frame = CGRectMake(0, 0, 64, 64);
-    [backBtn setImage:[UIImage imageNamed:@"login_back_defaut"] forState:UIControlStateNormal];
-    [backBtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
-    backBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
-    backBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    [backBtn setImageEdgeInsets:UIEdgeInsetsMake(34, 14, 0, 0)];
-    [self.view addSubview:backBtn];
+    self.navigationItem.title = @"用户注册";
     
     [self createUI];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidRegisted) name:userDidRegistedNoti object:nil];
@@ -45,7 +39,6 @@ typedef void(^loginCompletion)(BOOL completed);
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -56,18 +49,13 @@ typedef void(^loginCompletion)(BOOL completed);
 
 - (void)createUI
 {
-    UIImageView *iconImage = [[UIImageView alloc]initWithFrame:CGRectMake(489/3 * kWindowWidth/414, 216/3 *kWindowHeight/736, 87*kWindowHeight/736, 87*kWindowHeight/736)];
-    iconImage.image = [UIImage imageNamed:@"icon_little"];
-    [self.view addSubview:iconImage];
-    
-    
-    UIView *textFieldBg = [[UIView alloc]initWithFrame:CGRectMake(13, CGRectGetMaxY(iconImage.frame) + 40, kWindowWidth - 26, 121 * kWindowHeight/736)];
+    UIView *textFieldBg = [[UIView alloc]initWithFrame:CGRectMake(13, 90, kWindowWidth - 26, 182 * kWindowHeight/736)];
     textFieldBg.layer.borderColor = APP_THEME_COLOR.CGColor;
     textFieldBg.layer.borderWidth = 1;
     textFieldBg.layer.cornerRadius = 5;
     [self.view addSubview:textFieldBg];
     
-    UIView *devide = [[UIView alloc]initWithFrame:CGRectMake(0, 60 *kWindowHeight/736 , kWindowWidth - 26, 1)];
+    UIView *devide = [[UIView alloc]initWithFrame:CGRectMake(0, 60 *kWindowHeight/736 , kWindowWidth - 26, 0.5)];
     devide.backgroundColor = APP_THEME_COLOR;
     [textFieldBg addSubview:devide];
     
@@ -104,8 +92,27 @@ typedef void(^loginCompletion)(BOOL completed);
     _passwordLabel.secureTextEntry = YES;
     [textFieldBg addSubview:_passwordLabel];
     
+    UIView *devideTwo = [[UIView alloc]initWithFrame:CGRectMake(0, 120 *kWindowHeight/736 , kWindowWidth - 26, 0.5)];
+    devideTwo.backgroundColor = APP_THEME_COLOR;
+    [textFieldBg addSubview:devideTwo];
+    
+    _inviteCodeTextField = [[UITextField alloc]initWithFrame:CGRectMake(10, 120 * kWindowHeight / 736, kWindowWidth - 50, 60 * kWindowHeight / 736)];
+
+    UILabel *cl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _passwordLabel.bounds.size.height - 16.0)];
+    cl.text = @"邀请码:";
+    cl.textColor = COLOR_TEXT_I;
+    cl.font = [UIFont systemFontOfSize:13.0];
+    cl.textAlignment = NSTextAlignmentCenter;
+    _inviteCodeTextField.leftView = cl;
+    _inviteCodeTextField.placeholder = @"可不填";
+    _inviteCodeTextField.leftViewMode = UITextFieldViewModeAlways;
+    _inviteCodeTextField.font = [UIFont systemFontOfSize:15.0];
+    _inviteCodeTextField.delegate = self;
+    _inviteCodeTextField.textColor = COLOR_TEXT_I;
+    [textFieldBg addSubview:_inviteCodeTextField];
+
     _registerBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    _registerBtn.frame = CGRectMake(13, CGRectGetMaxY(textFieldBg.frame) + 5, kWindowWidth - 26, 56 * kWindowHeight/736);
+    _registerBtn.frame = CGRectMake(13, CGRectGetMaxY(textFieldBg.frame) + 20, kWindowWidth - 26, 56 * kWindowHeight/736);
     [_registerBtn setTitle:@"下一步" forState:UIControlStateNormal];
     _registerBtn.layer.cornerRadius = 5.0;
     _registerBtn.clipsToBounds = YES;
@@ -226,9 +233,9 @@ typedef void(^loginCompletion)(BOOL completed);
             SMSVerifyViewController *smsVerifyCtl = [[SMSVerifyViewController alloc] init];
             smsVerifyCtl.phoneNumber = self.phoneLabel.text;
             smsVerifyCtl.password = self.passwordLabel.text;
+            smsVerifyCtl.inviteCode = self.inviteCodeTextField.text;
             smsVerifyCtl.coolDown = [[[responseObject objectForKey:@"result"] objectForKey:@"coolDown"] integerValue];
             [self.navigationController pushViewController:smsVerifyCtl animated:YES];
-            [self.navigationController setNavigationBarHidden:NO animated:YES];
         } else {
             if ([[responseObject objectForKey:@"err"] objectForKey:@"message"]) {
                 [SVProgressHUD showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
@@ -258,7 +265,6 @@ typedef void(^loginCompletion)(BOOL completed);
     webViewCtl.urlStr = APP_AGREEMENT;
     webViewCtl.titleStr = @"用户注册协议";
     [self.navigationController pushViewController:webViewCtl animated:YES];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 @end

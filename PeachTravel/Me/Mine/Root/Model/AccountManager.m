@@ -56,7 +56,6 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:code forKey:@"authCode"];
     [params setObject:@"weixin" forKey:@"provider"];
-    
     //微信登录
     [LXPNetworking POST:API_SIGNIN parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
@@ -74,13 +73,11 @@
     }];
 }
 
-
 - (void)asyncLogin:(NSString *)userId password:(NSString *)password completion:(void(^)(BOOL isSuccess, NSString *errorStr))completion
 {
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:userId forKey:@"loginName"];
     [params setObject:password forKey:@"password"];
-    
     //普通登录
     [LXPNetworking POST:API_SIGNIN parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
@@ -356,7 +353,14 @@
     
     NSString *urlStr = [NSString stringWithFormat:@"%@%ld/password", API_USERS, (long)self.account.userId];
     
-    [LXPNetworking PUT:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
+    [LXPNetworking setHeaderValueForPXMethods:manager andUrl:urlStr parameters:params];
+
+    [manager PUT:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -366,7 +370,14 @@
             completion(NO, [responseObject objectForKey:errorStr]);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        completion(NO, nil);
+        
+        if (operation.response.statusCode == 401) {
+            completion(NO, @"原密码输入错误");
+            
+        } else {
+            completion(NO, nil);
+        }
+
     }];
 }
 

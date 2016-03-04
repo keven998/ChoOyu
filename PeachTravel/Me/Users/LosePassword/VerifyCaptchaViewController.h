@@ -12,4 +12,6 @@
 
 @property (nonatomic) VerifyCaptchaType verifyCaptchaType;
 
+@property (nonatomic, copy) NSString *telephoneFormPreCtl;
+
 @end

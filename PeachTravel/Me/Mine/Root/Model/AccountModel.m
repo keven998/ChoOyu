@@ -67,6 +67,13 @@
     } else {
         _signature = @"";
     }
+    
+    if ([json objectForKey:@"promotionCode"] == [NSNull null]) {
+        _inviteCode = @"";
+    } else {
+        _inviteCode = [json objectForKey:@"promotionCode"];
+    }
+    
     if ([json objectForKey:@"residence"] == [NSNull null]) {
         _residence = @"";
     } else {

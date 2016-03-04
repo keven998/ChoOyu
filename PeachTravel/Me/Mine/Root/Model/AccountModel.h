@@ -27,6 +27,7 @@
 @property (nonatomic) UserGender  gender;
 @property (nonatomic, strong) NSString * nickName;
 @property (nonatomic, strong) NSString * secToken;
+@property (nonatomic, strong) NSString * inviteCode; //邀请码
 @property (nonatomic, strong) NSString * signature;
 @property (nonatomic, strong) NSString * tel;
 @property (nonatomic) NSInteger level;

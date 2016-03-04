@@ -15,7 +15,7 @@
 #import "ContactListViewController.h"
 #import "TravelerListViewController.h"
 #import "UserCouponsListViewController.h"
-
+#import "UserInviteCodeViewController.h"
 
 @interface MineViewContoller () <UITableViewDataSource, UITableViewDelegate>
 
@@ -37,6 +37,7 @@
                     @[
                         @{@"title": @"我的收藏", @"image": @"icon_mine_favorite"},
                         @{@"title": @"优惠券", @"image": @"icon_mine_coupon"},
+                        @{@"title": @"我的邀请码", @"image": @"icon_mine_inviteCode"},
                         @{@"title": @"我的旅行计划", @"image": @"icon_mine_guides"},
                         ],
                     @[
@@ -77,6 +78,9 @@
     [settingButton setImage:[UIImage imageNamed:@"icon_mine_setting"] forState:UIControlStateNormal];
     [settingButton addTarget:self action:@selector(settingAction) forControlEvents:UIControlEventTouchUpInside];
     [navigationBar addSubview:settingButton];
+    
+    [[AccountManager shareAccountManager].account loadUserInfoFromServer:^(bool isSuccess) {
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -159,6 +163,11 @@
             [self.navigationController pushViewController:ctl animated:YES];
             
         } else if (indexPath.row == 2) {
+            UserInviteCodeViewController *ctl = [[UserInviteCodeViewController alloc] init];
+            ctl.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:ctl animated:YES];
+            
+        } else if (indexPath.row == 3) {
             PlansListTableViewController *ctl = [[PlansListTableViewController alloc] initWithUserId:[AccountManager shareAccountManager].account.userId];
             ctl.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:ctl animated:YES];

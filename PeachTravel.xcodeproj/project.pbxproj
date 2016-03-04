@@ -683,6 +683,8 @@
 		D94B891B1B5E4F4C00584DE5 /* h5_labar_left_disabled@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94B89151B5E4F4C00584DE5 /* h5_labar_left_disabled@3x.png */; };
 		D94B891C1B5E4F4C00584DE5 /* h5_labar_right_default@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94B89161B5E4F4C00584DE5 /* h5_labar_right_default@3x.png */; };
 		D94B891D1B5E4F4C00584DE5 /* h5_labar_right_disabled@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94B89171B5E4F4C00584DE5 /* h5_labar_right_disabled@3x.png */; };
+		D94CAC951C895E9000078DC9 /* UserInviteCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D94CAC931C895E9000078DC9 /* UserInviteCodeViewController.m */; };
+		D94CAC961C895E9000078DC9 /* UserInviteCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D94CAC941C895E9000078DC9 /* UserInviteCodeViewController.xib */; };
 		D94E255B1BEC939500DB487D /* GoodsRecommendCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D94E25591BEC939500DB487D /* GoodsRecommendCollectionViewCell.m */; };
 		D94E255C1BEC939500DB487D /* GoodsRecommendCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D94E255A1BEC939500DB487D /* GoodsRecommendCollectionViewCell.xib */; };
 		D94E25681BECADE100DB487D /* GoodsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D94E25661BECADE100DB487D /* GoodsListViewController.m */; };
@@ -2937,6 +2939,9 @@
 		D94B89151B5E4F4C00584DE5 /* h5_labar_left_disabled@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "h5_labar_left_disabled@3x.png"; sourceTree = "<group>"; };
 		D94B89161B5E4F4C00584DE5 /* h5_labar_right_default@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "h5_labar_right_default@3x.png"; sourceTree = "<group>"; };
 		D94B89171B5E4F4C00584DE5 /* h5_labar_right_disabled@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "h5_labar_right_disabled@3x.png"; sourceTree = "<group>"; };
+		D94CAC921C895E9000078DC9 /* UserInviteCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInviteCodeViewController.h; sourceTree = "<group>"; };
+		D94CAC931C895E9000078DC9 /* UserInviteCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInviteCodeViewController.m; sourceTree = "<group>"; };
+		D94CAC941C895E9000078DC9 /* UserInviteCodeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserInviteCodeViewController.xib; sourceTree = "<group>"; };
 		D94E25581BEC939500DB487D /* GoodsRecommendCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsRecommendCollectionViewCell.h; sourceTree = "<group>"; };
 		D94E25591BEC939500DB487D /* GoodsRecommendCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsRecommendCollectionViewCell.m; sourceTree = "<group>"; };
 		D94E255A1BEC939500DB487D /* GoodsRecommendCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoodsRecommendCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -6390,6 +6395,16 @@
 			path = slices;
 			sourceTree = "<group>";
 		};
+		D94CAC911C895E5D00078DC9 /* UserInviteCode */ = {
+			isa = PBXGroup;
+			children = (
+				D94CAC921C895E9000078DC9 /* UserInviteCodeViewController.h */,
+				D94CAC931C895E9000078DC9 /* UserInviteCodeViewController.m */,
+				D94CAC941C895E9000078DC9 /* UserInviteCodeViewController.xib */,
+			);
+			path = UserInviteCode;
+			sourceTree = "<group>";
+		};
 		D955207B1C52132E0086D9E0 /* GoodsComment */ = {
 			isa = PBXGroup;
 			children = (
@@ -8293,6 +8308,7 @@
 		D9A8FE9E1A80C818005AD701 /* Mine */ = {
 			isa = PBXGroup;
 			children = (
+				D94CAC911C895E5D00078DC9 /* UserInviteCode */,
 				E68CB1D81B9E79D900A5B38B /* OtherProfile */,
 				E677952D1B942132004CE21A /* Profiles */,
 				D9A8FE9F1A80C818005AD701 /* MyGuides */,
@@ -10455,6 +10471,7 @@
 				E6381BE01B66269000CF73AA /* Loading_Animation_final13@2x.png in Resources */,
 				D94E25691BECADE100DB487D /* GoodsListViewController.xib in Resources */,
 				E6F189441B845F4900232EEB /* common_icon_navigaiton_back_theme_style@3x.png in Resources */,
+				D94CAC961C895E9000078DC9 /* UserInviteCodeViewController.xib in Resources */,
 				D93CACC71C77211800123D3B /* UMSShareListController.xib in Resources */,
 				E6F18A5A1B845F4900232EEB /* ic_home_header_boy@2x.png in Resources */,
 				E6F18AA31B845F4900232EEB /* chat_receiver_audio_playing_full@2x.png in Resources */,
@@ -11702,6 +11719,7 @@
 				01F3C79B1BAA7DC100CC58F4 /* UIColor+RandomColor.m in Sources */,
 				D9A8FFA61A80D1C3005AD701 /* RecommendsOfCity.m in Sources */,
 				D9823E841B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m in Sources */,
+				D94CAC951C895E9000078DC9 /* UserInviteCodeViewController.m in Sources */,
 				D9A800331A80D52F005AD701 /* TripPoiListTableViewCell.m in Sources */,
 				D9C78C3F1AD924D00087F52A /* PrepareViewController.m in Sources */,
 				D9A15ECD1C27AD0F008CE530 /* StoreDetailCollectionViewCell.m in Sources */,

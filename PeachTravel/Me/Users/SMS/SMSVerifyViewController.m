@@ -180,8 +180,8 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:_phoneNumber forKey:@"tel"];
     [params setObject:_password forKey:@"pwd"];
-    
     [params setObject:_verifyCodeTextField.text forKey:@"captcha"];
+    [params safeSetObject:_inviteCode forKey:@"promotionCode"];
     
     __weak typeof(SMSVerifyViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
@@ -204,7 +204,6 @@
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [hud hideTZHUD];
-        NSLog(@"注册失败");
         if (self.isShowing) {
             if (operation.response.statusCode == 401) {
                 [SVProgressHUD showHint:@"验证码输入错误"];

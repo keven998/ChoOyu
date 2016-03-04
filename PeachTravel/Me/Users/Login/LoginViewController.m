@@ -26,9 +26,6 @@
 @property (strong, nonatomic) UIButton *registerBtn;
 @property (strong, nonatomic) UIImageView *iconImageView;
 
-//disappear 的时候是不是应该显示出 navigationbar
-@property (nonatomic) BOOL shouldNotShowNavigationBarWhenDisappear;
-
 @property (nonatomic, copy) void (^loginCompletion)(BOOL completed);
 
 @end
@@ -93,11 +90,8 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
-    if (!_shouldNotShowNavigationBarWhenDisappear) {
-        [self.navigationController setNavigationBarHidden:NO animated:YES];
-    }
-    _shouldNotShowNavigationBarWhenDisappear = NO;
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+
 }
 
 - (void)dealloc
@@ -193,7 +187,6 @@
 
 - (IBAction)userRegister:(id)sender
 {
-    _shouldNotShowNavigationBarWhenDisappear = YES;
     RegisterViewController *registerCtl = [[RegisterViewController alloc] init];
     registerCtl.defaultPhone = _userNameTextField.text;
     registerCtl.defaultPassword = _passwordTextField.text;
@@ -210,6 +203,10 @@
     VerifyCaptchaViewController *losePasswordCtl = [[VerifyCaptchaViewController alloc] init];
     losePasswordCtl.verifyCaptchaType = UserLosePassword;
     [self.navigationController pushViewController:losePasswordCtl animated:YES];
+
+    if (_userNameTextField.text && _userNameTextField.text.length == 11) {
+        losePasswordCtl.telephoneFormPreCtl = _userNameTextField.text;
+    }
 }
 
 //帐号密码登录
@@ -278,7 +275,6 @@
     return YES;
 }
 
-
 - (void)weixinDidLogin:(NSNotification *)noti
 {
     if (!noti.userInfo) {
@@ -319,7 +315,6 @@
 
 - (void)dismissCtl
 {
-    _shouldNotShowNavigationBarWhenDisappear = YES;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

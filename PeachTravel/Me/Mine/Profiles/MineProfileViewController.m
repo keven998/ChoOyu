@@ -42,7 +42,6 @@
     [self loadUserAlbum];
     [[AccountManager shareAccountManager].account loadUserInfoFromServer:^(bool isSuccess) {
         self.userInfo = [AccountManager shareAccountManager].account;
-
     }];
     [self setupTableView];
     

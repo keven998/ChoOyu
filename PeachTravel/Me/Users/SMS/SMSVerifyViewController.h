@@ -11,6 +11,7 @@
 @interface SMSVerifyViewController : TZViewController
 
 @property (copy, nonatomic) NSString *phoneNumber;
+@property (copy, nonatomic) NSString *inviteCode;
 @property (copy, nonatomic) NSString *password;
 @property (nonatomic) NSInteger coolDown;
 

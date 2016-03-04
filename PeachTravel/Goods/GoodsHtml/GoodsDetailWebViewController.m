@@ -20,7 +20,7 @@
     self.webView.backgroundColor = APP_PAGE_COLOR;
     UIButton *closeBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, kWindowHeight-49, kWindowWidth, 49)];
     [closeBtn setBackgroundColor:[UIColor whiteColor]];
-    [closeBtn setTitle:@"关闭" forState:UIControlStateNormal];
+    [closeBtn setImage:[UIImage imageNamed:@"icon_close_page"] forState:UIControlStateNormal];
     [closeBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
     [closeBtn addTarget:self action:@selector(dismissCtl) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:closeBtn];
