@@ -346,17 +346,14 @@
  */
 - (void)showPoidetail:(id)sender
 {
-    SpotPoi * poi = (SpotPoi *)self.poi;
-    
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
     webCtl.titleStr = self.poi.zhName;
     
     NSLog(@"%@",self.poi.descUrl);
     
     if (self.poiType == kSpotPoi) {
-        if (poi.bookUrl.length != 0) {
-            webCtl.urlStr = poi.bookUrl;
-        }
+        webCtl.urlStr = self.poi.descUrl;
+        
     } else {
         if (self.poi.descUrl) {
             webCtl.urlStr = self.poi.descUrl;

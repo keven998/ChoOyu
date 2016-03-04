@@ -122,7 +122,7 @@
     IMClientManager *clientManager = [IMClientManager shareInstance];
     ChatConversation *conversation = [clientManager.conversationManager getConversationWithChatterId:_storeId chatType:IMChatTypeIMChatSingleType];
     ChatViewController *chatController = [[ChatViewController alloc] initWithConversation:conversation];
-    if (conversation.chatterName) {
+    if (conversation.chatterName && conversation.chatterName.length) {
         chatController.chatterName = conversation.chatterName;
     } else {
         chatController.chatterName = _storeDetail.storeName;
