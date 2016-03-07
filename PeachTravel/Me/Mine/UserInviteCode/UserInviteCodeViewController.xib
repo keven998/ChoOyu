@@ -17,7 +17,7 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sms-hG-qG7">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="584" translatesAutoresizingMaskIntoConstraints="NO" id="sms-hG-qG7">
                     <rect key="frame" x="8" y="94" width="584" height="72"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="72" id="8aY-GW-rBB"/>
@@ -39,7 +39,7 @@
                         <action selector="inviteFrendAction:" destination="-1" eventType="touchUpInside" id="Ffy-NB-CfI"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Ad-16-YHV">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="584" translatesAutoresizingMaskIntoConstraints="NO" id="8Ad-16-YHV">
                     <rect key="frame" x="8" y="177" width="584" height="49"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="49" id="oDF-or-JHQ"/>
@@ -60,6 +60,7 @@
                 <constraint firstItem="aCW-tD-gjE" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="s9R-vL-NBj"/>
                 <constraint firstItem="8Ad-16-YHV" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="t04-pX-yiz"/>
             </constraints>
+            <point key="canvasLocation" x="106" y="241"/>
         </view>
     </objects>
 </document>
