@@ -19,7 +19,7 @@
         NSLog(@"***开始加载店铺详情: %@", operation);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         
-        if (storeId == 201032) {
+        if (storeId == 202847) {
             completion(YES, [[StoreDetailModel alloc] init]);
             return;
 
@@ -39,7 +39,7 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         
-        if (storeId == 201032) {
+        if (storeId == 202847) {
             completion(YES, [[StoreDetailModel alloc] init]);
             return;
             

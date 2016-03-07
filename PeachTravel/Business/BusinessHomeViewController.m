@@ -1,18 +1,18 @@
 //
-//  StoreHomeViewController.m
+//  BusinessHomeViewController.m
 //  PeachTravel
 //
 //  Created by liangpengshuai on 3/7/16.
 //  Copyright © 2016 com.aizou.www. All rights reserved.
 //
 
-#import "StoreHomeViewController.h"
+#import "BusinessHomeViewController.h"
 
-@interface StoreHomeViewController ()
+@interface BusinessHomeViewController ()
 
 @end
 
-@implementation StoreHomeViewController
+@implementation BusinessHomeViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -21,6 +21,12 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (IBAction)myOrdersAction:(id)sender {
+}
+
+- (IBAction)myGoodsAction:(id)sender {
 }
 
 /*

@@ -1,13 +1,13 @@
 //
-//  StoreHomeViewController.h
+//  BNGoodsDetailModel.m
 //  PeachTravel
 //
 //  Created by liangpengshuai on 3/7/16.
 //  Copyright © 2016 com.aizou.www. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "BNGoodsDetailModel.h"
 
-@interface StoreHomeViewController : UIViewController
+@implementation BNGoodsDetailModel
 
 @end
