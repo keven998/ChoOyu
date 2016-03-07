@@ -24,6 +24,8 @@
 #import "GoodsRecommendViewController.h"
 #import "CityListViewController.h"
 #import "CountryRecommendViewController.h"
+#import "StoreManager.h"
+#import "StoreHomeViewController.h"
 
 #define kBackGroundImage    @"backGroundImage"
 
@@ -52,6 +54,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 @property (nonatomic, strong) PoiRecommendRootViewController *poiRecommendCtl;
 @property (nonatomic, strong) GoodsRecommendViewController *goodsRecommendCtl;
 @property (nonatomic, strong) CityListViewController *cityList;
+@property (nonatomic, strong) StoreHomeViewController *storeHomeCtl;
 
 @end
 
@@ -190,6 +193,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         }
     }
     [self updateViewWithUnreadMessageCount];
+    [self updateViewController];
 }
 
 - (void)userDidRegister
@@ -203,6 +207,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 {
     [self updateViewWithUnreadMessageCount];
     [self setSelectedIndex:0];
+    [self updateViewController];
 }
 
 /**
@@ -382,13 +387,56 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [self setViewControllers:@[firstNavigationController, secondNavigationController, thirdNavigationController
                                , fourthNavigationController]];
     [self customizeTabBarForController];
+    [self updateViewController];
+    
+}
 
+//更新 tabbar 的 viewcontroller，因为可能动态的增加和删除数量
+- (void)updateViewController
+{
+    [StoreManager asyncLoadStoreInfoWithStoreId:[AccountManager shareAccountManager].account.userId completionBlock:^(BOOL isSuccess, StoreDetailModel *storeDetail) {
+        if (isSuccess && storeDetail) {
+            BOOL find =  NO;
+            for (UIViewController *ctl in self.viewControllers) {
+                if ([ctl isKindOfClass:[UINavigationController class]]) {
+                    if ([[((UINavigationController *)ctl).viewControllers firstObject] isEqual:_storeHomeCtl]) {
+                        find = YES;
+                    }
+                }
+            }
+            if (!find) {
+                _storeHomeCtl = [[StoreHomeViewController alloc] init];
+                NSMutableArray *viewControllers = [[NSMutableArray alloc] init];
+                [viewControllers addObjectsFromArray:self.viewControllers];
+                [viewControllers addObject:[[UINavigationController alloc] initWithRootViewController:_storeHomeCtl]];
+                [self setViewControllers: viewControllers];
+                
+            }
+            
+        } else {
+            NSMutableArray *viewControllers = [[NSMutableArray alloc] init];
+            [viewControllers addObjectsFromArray:self.viewControllers];
+            
+            for (UIViewController *ctl in viewControllers) {
+                if ([ctl isKindOfClass:[UINavigationController class]]) {
+                    if ([[((UINavigationController *)ctl).viewControllers firstObject] isEqual:_storeHomeCtl]) {
+                        [viewControllers removeObject:ctl];
+                        break;
+                    }
+                }
+            }
+            [self setViewControllers: viewControllers];
+            
+        }
+        [self customizeTabBarForController];
+
+    }];
 }
 
 - (void)customizeTabBarForController
 {
-    NSArray *tabBarItemImages = @[@"ic_tabbar_goods", @"ic_tabbar_destination", @"ic_tabbar_chat", @"ic_tabbar_mine"];
-    NSArray *tabbarItemNames = @[@"首页", @"目的地", @"消息", @"我的"];
+    NSArray *tabBarItemImages = @[@"ic_tabbar_goods", @"ic_tabbar_destination", @"ic_tabbar_chat", @"ic_tabbar_mine",  @"ic_tabbar_mine"];
+    NSArray *tabbarItemNames = @[@"首页", @"目的地", @"消息", @"我的", @"商家"];
     NSInteger index = 0;
     
     for (UITabBarItem *item in self.tabBar.items) {
