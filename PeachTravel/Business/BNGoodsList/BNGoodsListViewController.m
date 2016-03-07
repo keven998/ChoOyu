@@ -1,36 +1,27 @@
 //
-//  BusinessHomeViewController.m
+//  BNGoodsListViewController.m
 //  PeachTravel
 //
 //  Created by liangpengshuai on 3/7/16.
 //  Copyright © 2016 com.aizou.www. All rights reserved.
 //
 
-#import "BusinessHomeViewController.h"
-#import "BNGoodsListRootViewController.h"
+#import "BNGoodsListViewController.h"
 
-@interface BusinessHomeViewController ()
+@interface BNGoodsListViewController ()
 
 @end
 
-@implementation BusinessHomeViewController
+@implementation BNGoodsListViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"我的店铺";
+    // Do any additional setup after loading the view from its nib.
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-}
-
-- (IBAction)myOrdersAction:(id)sender {
-}
-
-- (IBAction)myGoodsAction:(id)sender {
-    BusinessHomeViewController *ctl = [[BusinessHomeViewController alloc] init];
-    ctl.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:ctl animated:YES];
+    // Dispose of any resources that can be recreated.
 }
 
 /*

@@ -78,6 +78,7 @@
     UIButton *arrowBtn = [[UIButton alloc] init];
 //    arrowBtn.backgroundColor = [UIColor redColor];
     [arrowBtn setImage:[UIImage imageNamed:@"album_arrow"] forState:UIControlStateNormal];
+    arrowBtn.userInteractionEnabled = NO;
     self.arrowBtn = arrowBtn;
     [self addSubview:arrowBtn];
 }

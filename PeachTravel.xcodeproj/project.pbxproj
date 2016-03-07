@@ -634,6 +634,10 @@
 		D9424E1A1C8D639500DEA26F /* BusinessHomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9424E181C8D639500DEA26F /* BusinessHomeViewController.xib */; };
 		D9424E1E1C8D63E000DEA26F /* BNOrderDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D9424E1D1C8D63E000DEA26F /* BNOrderDetailModel.m */; };
 		D9424E211C8D669400DEA26F /* BNGoodsDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D9424E201C8D669400DEA26F /* BNGoodsDetailModel.m */; };
+		D9424E261C8D6C4400DEA26F /* BNGoodsListRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9424E241C8D6C4400DEA26F /* BNGoodsListRootViewController.m */; };
+		D9424E271C8D6C4400DEA26F /* BNGoodsListRootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9424E251C8D6C4400DEA26F /* BNGoodsListRootViewController.xib */; };
+		D9424E2B1C8D6E4600DEA26F /* BNGoodsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9424E291C8D6E4600DEA26F /* BNGoodsListViewController.m */; };
+		D9424E2C1C8D6E4600DEA26F /* BNGoodsListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9424E2A1C8D6E4600DEA26F /* BNGoodsListViewController.xib */; };
 		D942C1271B9EB5C3005B81C5 /* back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D942C0F81B9EB5C3005B81C5 /* back@2x.png */; };
 		D942C1281B9EB5C3005B81C5 /* back@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D942C0F91B9EB5C3005B81C5 /* back@3x.png */; };
 		D942C12B1B9EB5C3005B81C5 /* foot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D942C0FC1B9EB5C3005B81C5 /* foot@2x.png */; };
@@ -2897,6 +2901,12 @@
 		D9424E1D1C8D63E000DEA26F /* BNOrderDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNOrderDetailModel.m; sourceTree = "<group>"; };
 		D9424E1F1C8D669400DEA26F /* BNGoodsDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNGoodsDetailModel.h; sourceTree = "<group>"; };
 		D9424E201C8D669400DEA26F /* BNGoodsDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNGoodsDetailModel.m; sourceTree = "<group>"; };
+		D9424E231C8D6C4400DEA26F /* BNGoodsListRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNGoodsListRootViewController.h; sourceTree = "<group>"; };
+		D9424E241C8D6C4400DEA26F /* BNGoodsListRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNGoodsListRootViewController.m; sourceTree = "<group>"; };
+		D9424E251C8D6C4400DEA26F /* BNGoodsListRootViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BNGoodsListRootViewController.xib; sourceTree = "<group>"; };
+		D9424E281C8D6E4600DEA26F /* BNGoodsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNGoodsListViewController.h; sourceTree = "<group>"; };
+		D9424E291C8D6E4600DEA26F /* BNGoodsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNGoodsListViewController.m; sourceTree = "<group>"; };
+		D9424E2A1C8D6E4600DEA26F /* BNGoodsListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BNGoodsListViewController.xib; sourceTree = "<group>"; };
 		D942C0F81B9EB5C3005B81C5 /* back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@2x.png"; sourceTree = "<group>"; };
 		D942C0F91B9EB5C3005B81C5 /* back@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@3x.png"; sourceTree = "<group>"; };
 		D942C0FC1B9EB5C3005B81C5 /* foot@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "foot@2x.png"; sourceTree = "<group>"; };
@@ -6365,6 +6375,7 @@
 		D9424E151C8D5E6700DEA26F /* Business */ = {
 			isa = PBXGroup;
 			children = (
+				D9424E221C8D6C2600DEA26F /* BNGoodsList */,
 				D9424E1B1C8D63AB00DEA26F /* Model */,
 				D9424E161C8D639500DEA26F /* BusinessHomeViewController.h */,
 				D9424E171C8D639500DEA26F /* BusinessHomeViewController.m */,
@@ -6383,6 +6394,19 @@
 			);
 			name = Model;
 			path = model;
+			sourceTree = "<group>";
+		};
+		D9424E221C8D6C2600DEA26F /* BNGoodsList */ = {
+			isa = PBXGroup;
+			children = (
+				D9424E231C8D6C4400DEA26F /* BNGoodsListRootViewController.h */,
+				D9424E241C8D6C4400DEA26F /* BNGoodsListRootViewController.m */,
+				D9424E251C8D6C4400DEA26F /* BNGoodsListRootViewController.xib */,
+				D9424E281C8D6E4600DEA26F /* BNGoodsListViewController.h */,
+				D9424E291C8D6E4600DEA26F /* BNGoodsListViewController.m */,
+				D9424E2A1C8D6E4600DEA26F /* BNGoodsListViewController.xib */,
+			);
+			path = BNGoodsList;
 			sourceTree = "<group>";
 		};
 		D942C0F51B9EB5C3005B81C5 /* profile_icon */ = {
@@ -10949,6 +10973,7 @@
 				E6F18B121B845F4900232EEB /* master_icon_constellation12@3x.png in Resources */,
 				E6F18A661B845F4900232EEB /* ic_home_shareapp2friend@2x.png in Resources */,
 				D9871DBB1B47D31E00BFDFAF /* ScheduleDayEditViewController.xib in Resources */,
+				D9424E2C1C8D6E4600DEA26F /* BNGoodsListViewController.xib in Resources */,
 				E6F18A511B845F4900232EEB /* ic_home_avatar_border_boy@3x.png in Resources */,
 				01C1EC731BB4E4720082217A /* why@2x.png in Resources */,
 				E6F18A851B845F4900232EEB /* speaking-motion14@2x.png in Resources */,
@@ -11277,6 +11302,7 @@
 				D93CACC51C77211800123D3B /* UMSLoginViewController.xib in Resources */,
 				E68CB2981B9F128A00A5B38B /* note_selected@2x.png in Resources */,
 				019C37A81BBAAE0900602937 /* poisearch_star_green@3x.png in Resources */,
+				D9424E271C8D6C4400DEA26F /* BNGoodsListRootViewController.xib in Resources */,
 				E690D8D01B7C8F9F00BFDF1B /* MakePlanSearchCell.xib in Resources */,
 				D971E2811B8AF27A007E5AFD /* plan_bg_page_spot_zhedang@2x.png in Resources */,
 				E6381C091B66269000CF73AA /* Loading_Animation_final50@2x.png in Resources */,
@@ -11562,6 +11588,7 @@
 				D9A8FFB71A80D1C3005AD701 /* SpotDetailView.m in Sources */,
 				D9A801491A80DD23005AD701 /* EMChatViewCell.m in Sources */,
 				D9F46DCB1AC8EB0800972AE8 /* CityListTableViewController.m in Sources */,
+				D9424E2B1C8D6E4600DEA26F /* BNGoodsListViewController.m in Sources */,
 				D93FEEBD1BEB40EF0065D6ED /* CountryRecommendViewController.m in Sources */,
 				D9A801171A80DD23005AD701 /* ChatRecoredListTableViewController.m in Sources */,
 				D96BB0001C1AEAA000CDB7C7 /* QNConfiguration.m in Sources */,
@@ -11687,6 +11714,7 @@
 				D9A8001C1A80D52F005AD701 /* DomesticViewController.m in Sources */,
 				D904AB721BAFDD6300031AB4 /* UserAlbumReviewViewController.m in Sources */,
 				01C1ECC21BB53A690082217A /* TZEmojiKeyBoardCell.m in Sources */,
+				D9424E261C8D6C4400DEA26F /* BNGoodsListRootViewController.m in Sources */,
 				D90C75F41BF1DB1A00C5897C /* PDTSimpleCalendarViewController.m in Sources */,
 				D93CACCA1C78083300123D3B /* UserCouponMessage.swift in Sources */,
 				D92CA0B61AD8BDD400F244FF /* DACircularProgressView.m in Sources */,

@@ -25,7 +25,6 @@
 @property (nonatomic, weak) UIButton *settingBtn;
 
 @property (nonatomic, strong) AccountManager *accountManager;
-@property (nonatomic) BOOL isSeller;
 
 @end
 
@@ -181,9 +180,6 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    if (_isSeller) {
-        return 4;
-    }
     return 3;
 }
 
@@ -194,158 +190,82 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (!_isSeller) {
-        if (indexPath.section == 0) {
-            GuiderProfileAlbumCell *albumCell = [[GuiderProfileAlbumCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-            albumCell.delegate = self;
-            albumCell.albumArray = self.userInfo.userAlbum;
-            albumCell.selectionStyle = UITableViewCellSelectionStyleNone;
-            return albumCell;
-        } else if (indexPath.section == 1) {
-            MineProfileTourViewCell *profileTourCell = [[MineProfileTourViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-            profileTourCell.userInfo = self.userInfo;
-            // 添加事件
-            [profileTourCell.footprintBtn addTarget:self action:@selector(myTrack:) forControlEvents:UIControlEventTouchUpInside];
-            [profileTourCell.planBtn addTarget:self action:@selector(myPlan:) forControlEvents:UIControlEventTouchUpInside];
-            profileTourCell.selectionStyle = UITableViewCellSelectionStyleNone;
-            return profileTourCell;
-        } else {
-            GuiderProfileAbout *cell = [[GuiderProfileAbout alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-            cell.content = self.userInfo.signature;
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            return cell;
-        }
-        
+    if (indexPath.section == 0) {
+        GuiderProfileAlbumCell *albumCell = [[GuiderProfileAlbumCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+        albumCell.delegate = self;
+        albumCell.albumArray = self.userInfo.userAlbum;
+        albumCell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return albumCell;
+    } else if (indexPath.section == 1) {
+        MineProfileTourViewCell *profileTourCell = [[MineProfileTourViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+        profileTourCell.userInfo = self.userInfo;
+        // 添加事件
+        [profileTourCell.footprintBtn addTarget:self action:@selector(myTrack:) forControlEvents:UIControlEventTouchUpInside];
+        [profileTourCell.planBtn addTarget:self action:@selector(myPlan:) forControlEvents:UIControlEventTouchUpInside];
+        profileTourCell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return profileTourCell;
     } else {
-        if (indexPath.section == 0) {
-            UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-            cell.textLabel.text = @"我的店铺";
-            return cell;
-            
-        } else if (indexPath.section == 1) {
-            GuiderProfileAlbumCell *albumCell = [[GuiderProfileAlbumCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-            albumCell.delegate = self;
-            albumCell.albumArray = self.userInfo.userAlbum;
-            albumCell.selectionStyle = UITableViewCellSelectionStyleNone;
-            return albumCell;
-            
-        } else if (indexPath.section == 2) {
-            MineProfileTourViewCell *profileTourCell = [[MineProfileTourViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-            profileTourCell.userInfo = self.userInfo;
-            // 添加事件
-            [profileTourCell.footprintBtn addTarget:self action:@selector(myTrack:) forControlEvents:UIControlEventTouchUpInside];
-            [profileTourCell.planBtn addTarget:self action:@selector(myPlan:) forControlEvents:UIControlEventTouchUpInside];
-            profileTourCell.selectionStyle = UITableViewCellSelectionStyleNone;
-            return profileTourCell;
-            
-        } else {
-            GuiderProfileAbout *cell = [[GuiderProfileAbout alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-            cell.content = self.userInfo.signature;
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            return cell;
-        }
+        GuiderProfileAbout *cell = [[GuiderProfileAbout alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+        cell.content = self.userInfo.signature;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell;
     }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    if (_isSeller && indexPath.section == 0) {
-        StoreDetailViewController *ctl = [[StoreDetailViewController alloc] init];
-        ctl.storeId = [AccountManager shareAccountManager].account.userId;
+   
+    if ([[tableView cellForRowAtIndexPath:indexPath] isKindOfClass:[GuiderProfileAlbumCell class]]) {
+        UserAlbumViewController *ctl = [[UserAlbumViewController alloc] initWithNibName:@"UserAlbumViewController" bundle:nil];
+        ctl.albumArray = self.accountManager.account.userAlbum;
+        ctl.isMyself = YES;
+        ctl.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:ctl animated:YES];
     }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (_isSeller) {
-        if (indexPath.section == 0) {
-            return 50;
-            
-        } else if (indexPath.section == 1) {
-            return 140;
-            
-        } else if (indexPath.section == 2) {
-            return 130;
-            
-        } else {
-            if (self.userInfo.signature.length == 0) return 50 + 40;
-            CGSize size = CGSizeMake(kWindowWidth - 40,CGFLOAT_MAX);//LableWight标签宽度，固定的
-            
-            //计算实际frame大小，并将label的frame变成实际大小
-            NSDictionary *dict = @{NSFontAttributeName: [UIFont systemFontOfSize:14.0]};
-            CGSize contentSize = [self.userInfo.signature boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
-            return 50 + contentSize.height + 20;
-        }
+    if (indexPath.section == 0) {
+        return 140;
+        
+    } else if (indexPath.section == 1) {
+        return 130;
         
     } else {
-        if (indexPath.section == 0) {
-            return 140;
-            
-        } else if (indexPath.section == 1) {
-            return 130;
-            
-        } else {
-            if (self.userInfo.signature.length == 0) return 50 + 40;
-            CGSize size = CGSizeMake(kWindowWidth - 40,CGFLOAT_MAX);//LableWight标签宽度，固定的
-            
-            //计算实际frame大小，并将label的frame变成实际大小
-            NSDictionary *dict = @{NSFontAttributeName: [UIFont systemFontOfSize:14.0]};
-            CGSize contentSize = [self.userInfo.signature boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
-            return 50 + contentSize.height + 20;
-        }
+        if (self.userInfo.signature.length == 0) return 50 + 40;
+        CGSize size = CGSizeMake(kWindowWidth - 40,CGFLOAT_MAX);//LableWight标签宽度，固定的
+        
+        //计算实际frame大小，并将label的frame变成实际大小
+        NSDictionary *dict = @{NSFontAttributeName: [UIFont systemFontOfSize:14.0]};
+        CGSize contentSize = [self.userInfo.signature boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
+        return 50 + contentSize.height + 20;
     }
-    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (_isSeller && section == 0) {
-        return 0;
-    }
     return 50;
 }
 
 // 头部和尾部
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    if (_isSeller) {
-        if (section == 0) {
-            return nil;
-        }
-        MineProfileTitleView *titleView = [[MineProfileTitleView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 50)];
-        if (section == 1) {
-            [titleView.titleBtn setTitle:@"我的相册" forState:UIControlStateNormal];
-            NSString *albumCount = [NSString stringWithFormat:@"%ld图",self.userInfo.userAlbum.count];
-            titleView.countLab.text = albumCount;
-            titleView.iconImage.image = [UIImage imageNamed:@"picture_biaoti"];
-        } else if (section == 2) {
-            [titleView.titleBtn setTitle:@"我的旅历" forState:UIControlStateNormal];
-            titleView.iconImage.image = [UIImage imageNamed:@"travel_biaoti"];
-        } else {
-            [titleView.titleBtn setTitle:@"关于自己" forState:UIControlStateNormal];
-            titleView.iconImage.image = [UIImage imageNamed:@"about"];
-        }
-        return titleView;
-
+    MineProfileTitleView *titleView = [[MineProfileTitleView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 50)];
+    if (section == 0) {
+        [titleView.titleBtn setTitle:@"我的相册" forState:UIControlStateNormal];
+        NSString *albumCount = [NSString stringWithFormat:@"%ld图",self.userInfo.userAlbum.count];
+        titleView.countLab.text = albumCount;
+        titleView.iconImage.image = [UIImage imageNamed:@"picture_biaoti"];
+    } else if (section == 1) {
+        [titleView.titleBtn setTitle:@"我的旅历" forState:UIControlStateNormal];
+        titleView.iconImage.image = [UIImage imageNamed:@"travel_biaoti"];
     } else {
-        MineProfileTitleView *titleView = [[MineProfileTitleView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 50)];
-        if (section == 0) {
-            [titleView.titleBtn setTitle:@"我的相册" forState:UIControlStateNormal];
-            NSString *albumCount = [NSString stringWithFormat:@"%ld图",self.userInfo.userAlbum.count];
-            titleView.countLab.text = albumCount;
-            titleView.iconImage.image = [UIImage imageNamed:@"picture_biaoti"];
-        } else if (section == 1) {
-            [titleView.titleBtn setTitle:@"我的旅历" forState:UIControlStateNormal];
-            titleView.iconImage.image = [UIImage imageNamed:@"travel_biaoti"];
-        } else {
-            [titleView.titleBtn setTitle:@"关于自己" forState:UIControlStateNormal];
-            titleView.iconImage.image = [UIImage imageNamed:@"about"];
-        }
-        return titleView;
-
+        [titleView.titleBtn setTitle:@"关于自己" forState:UIControlStateNormal];
+        titleView.iconImage.image = [UIImage imageNamed:@"about"];
     }
+    return titleView;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
