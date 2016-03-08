@@ -1,5 +1,5 @@
 //
-//  BNGoodsListViewController.h
+//  BNOrderListViewController.h
 //  PeachTravel
 //
 //  Created by liangpengshuai on 3/7/16.
@@ -8,11 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-#import "BNGoodsDetailModel.h"
+#import "BNOrderDetailModel.h"
 
-@interface BNGoodsListViewController : UIViewController
+@interface BNOrderListViewController : UIViewController
 
 @property (nonatomic) NSInteger storeId;
-@property (nonatomic) BNGoodsStatus goodsStatus;
 
 @end

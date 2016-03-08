@@ -1,20 +1,20 @@
 //
-//  BNGoodsListRootViewController.m
+//  BNOrderListRootViewController.m
 //  PeachTravel
 //
 //  Created by liangpengshuai on 3/7/16.
 //  Copyright © 2016 com.aizou.www. All rights reserved.
 //
 
-#import "BNGoodsListRootViewController.h"
+#import "BNOrderListRootViewController.h"
 #import "DKTabPageViewController.h"
-#import "BNGoodsListViewController.h"
+#import "BNOrderListViewController.h"
 
-@interface BNGoodsListRootViewController () <DKTabPageViewControllerDelegate>
+@interface BNOrderListRootViewController () <DKTabPageViewControllerDelegate>
 
 @end
 
-@implementation BNGoodsListRootViewController
+@implementation BNOrderListRootViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -26,7 +26,7 @@
    
     NSMutableArray *items = [NSMutableArray arrayWithCapacity:4];
     for (int i = 0; i < titleArray.count; i++) {
-        BNGoodsListViewController *vc = [[BNGoodsListViewController alloc] init];
+        BNOrderListViewController *vc = [[BNOrderListViewController alloc] init];
         DKTabPageItem *item = [DKTabPageViewControllerItem tabPageItemWithTitle:titleArray[i]
                                                                  viewController:vc];
         [items addObject:item];

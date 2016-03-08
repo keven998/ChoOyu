@@ -169,7 +169,6 @@ class PushSDKManager: NSObject, GeTuiSdkDelegate {
 //            dispatchPushMessage(totalStr)
 //
 //            msgId++
-            
         }
     }
     
