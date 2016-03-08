@@ -88,9 +88,4 @@
     [super didReceiveMemoryWarning];
 }
 
-#pragma mark - DKTabPageViewControllerDelegate
-- (void)didSelectedAtIndex:(NSInteger)index
-{
-
-}
 @end

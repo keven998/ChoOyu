@@ -638,6 +638,8 @@
 		D9424E271C8D6C4400DEA26F /* BNGoodsListRootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9424E251C8D6C4400DEA26F /* BNGoodsListRootViewController.xib */; };
 		D9424E2B1C8D6E4600DEA26F /* BNGoodsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9424E291C8D6E4600DEA26F /* BNGoodsListViewController.m */; };
 		D9424E2C1C8D6E4600DEA26F /* BNGoodsListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9424E2A1C8D6E4600DEA26F /* BNGoodsListViewController.xib */; };
+		D9424E301C8D78B700DEA26F /* BNGoodsListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9424E2E1C8D78B700DEA26F /* BNGoodsListTableViewCell.m */; };
+		D9424E311C8D78B700DEA26F /* BNGoodsListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9424E2F1C8D78B700DEA26F /* BNGoodsListTableViewCell.xib */; };
 		D942C1271B9EB5C3005B81C5 /* back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D942C0F81B9EB5C3005B81C5 /* back@2x.png */; };
 		D942C1281B9EB5C3005B81C5 /* back@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D942C0F91B9EB5C3005B81C5 /* back@3x.png */; };
 		D942C12B1B9EB5C3005B81C5 /* foot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D942C0FC1B9EB5C3005B81C5 /* foot@2x.png */; };
@@ -2907,6 +2909,9 @@
 		D9424E281C8D6E4600DEA26F /* BNGoodsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNGoodsListViewController.h; sourceTree = "<group>"; };
 		D9424E291C8D6E4600DEA26F /* BNGoodsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNGoodsListViewController.m; sourceTree = "<group>"; };
 		D9424E2A1C8D6E4600DEA26F /* BNGoodsListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BNGoodsListViewController.xib; sourceTree = "<group>"; };
+		D9424E2D1C8D78B700DEA26F /* BNGoodsListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNGoodsListTableViewCell.h; sourceTree = "<group>"; };
+		D9424E2E1C8D78B700DEA26F /* BNGoodsListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNGoodsListTableViewCell.m; sourceTree = "<group>"; };
+		D9424E2F1C8D78B700DEA26F /* BNGoodsListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BNGoodsListTableViewCell.xib; sourceTree = "<group>"; };
 		D942C0F81B9EB5C3005B81C5 /* back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@2x.png"; sourceTree = "<group>"; };
 		D942C0F91B9EB5C3005B81C5 /* back@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@3x.png"; sourceTree = "<group>"; };
 		D942C0FC1B9EB5C3005B81C5 /* foot@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "foot@2x.png"; sourceTree = "<group>"; };
@@ -6405,6 +6410,9 @@
 				D9424E281C8D6E4600DEA26F /* BNGoodsListViewController.h */,
 				D9424E291C8D6E4600DEA26F /* BNGoodsListViewController.m */,
 				D9424E2A1C8D6E4600DEA26F /* BNGoodsListViewController.xib */,
+				D9424E2D1C8D78B700DEA26F /* BNGoodsListTableViewCell.h */,
+				D9424E2E1C8D78B700DEA26F /* BNGoodsListTableViewCell.m */,
+				D9424E2F1C8D78B700DEA26F /* BNGoodsListTableViewCell.xib */,
 			);
 			path = BNGoodsList;
 			sourceTree = "<group>";
@@ -11044,6 +11052,7 @@
 				E6F18A071B845F4900232EEB /* map_icon_17@2x.png in Resources */,
 				D9C7BB8E1BAFD47800471866 /* icon_photo_bar_selected@3x.png in Resources */,
 				01C1EC4B1BB4E4720082217A /* numa@2x.png in Resources */,
+				D9424E311C8D78B700DEA26F /* BNGoodsListTableViewCell.xib in Resources */,
 				E6F18A4B1B845F4900232EEB /* search_total_place@3x.png in Resources */,
 				D942C1391B9EB5C3005B81C5 /* album_arrow@2x.png in Resources */,
 				E6F18A9E1B845F4900232EEB /* chat_receiver_audio_playing001@3x.png in Resources */,
@@ -11586,6 +11595,7 @@
 				D92CA0FA1AD8BDF900F244FF /* MBProgressHUD.m in Sources */,
 				D96BAFEF1C1AEAA000CDB7C7 /* GTM_Base64.m in Sources */,
 				D9A8FFB71A80D1C3005AD701 /* SpotDetailView.m in Sources */,
+				D9424E301C8D78B700DEA26F /* BNGoodsListTableViewCell.m in Sources */,
 				D9A801491A80DD23005AD701 /* EMChatViewCell.m in Sources */,
 				D9F46DCB1AC8EB0800972AE8 /* CityListTableViewController.m in Sources */,
 				D9424E2B1C8D6E4600DEA26F /* BNGoodsListViewController.m in Sources */,

@@ -7,8 +7,13 @@
 //
 
 #import "BNGoodsListViewController.h"
+#import "BNGoodsListTableViewCell.h"
 
-@interface BNGoodsListViewController ()
+@interface BNGoodsListViewController () <UITableViewDataSource, UITableViewDelegate>
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+@property (nonatomic, strong) NSMutableArray *dataSource;
 
 @end
 
@@ -16,22 +21,48 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    _tableView.separatorColor = COLOR_LINE;
+    [_tableView registerNib:[UINib nibWithNibName:@"BNGoodsListTableViewCell" bundle:nil] forCellReuseIdentifier:@"BNGoodsListTableViewCell"];
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return CGFLOAT_MIN;
 }
-*/
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return CGFLOAT_MIN;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 10;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 150;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    BNGoodsListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BNGoodsListTableViewCell" forIndexPath:indexPath];
+    cell.goodsDetail = [_dataSource objectAtIndex:indexPath.row];
+    
+    return cell;
+}
 
 @end

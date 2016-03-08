@@ -654,7 +654,9 @@ CGSize dktabpage_getTextSize(UIFont *font,NSString *text, CGFloat maxWidth){
         
         NSInteger previousSelectedIndex = _selectedIndex;
         _selectedIndex = newIndex;
-        [_delegate didSelectedAtIndex:_selectedIndex];
+        if ([_delegate respondsToSelector:@selector(didSelectedAtIndex:)]) {
+            [_delegate didSelectedAtIndex:_selectedIndex];
+        }
         if (self.pageChangedBlock && previousSelectedIndex != newIndex) {
             self.pageChangedBlock(newIndex);
         }

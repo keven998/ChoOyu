@@ -25,8 +25,8 @@
     NSArray *titleArray = @[@"已发布", @"审核中", @"已下架"];
    
     
-    NSMutableArray *items = [NSMutableArray arrayWithCapacity:5];
-    for (int i = 0; i < 5; i++) {
+    NSMutableArray *items = [NSMutableArray arrayWithCapacity:4];
+    for (int i = 0; i < titleArray.count; i++) {
         BNGoodsListViewController *vc = [[BNGoodsListViewController alloc] init];
         DKTabPageItem *item = [DKTabPageViewControllerItem tabPageItemWithTitle:titleArray[i]
                                                                  viewController:vc];

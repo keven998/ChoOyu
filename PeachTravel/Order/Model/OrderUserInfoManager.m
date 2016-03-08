@@ -19,11 +19,12 @@
     } else if (!traveler.firstName || [traveler.firstName isBlankString]) {
         return @"请填写旅客的名";
         
+    }  else if (!traveler.IDNumber || [traveler.IDNumber isBlankString]) {
+        return @"请填写旅客的证件号码";
+        
     } else if (!traveler.telNumber || [traveler.telNumber isBlankString]) {
         return @"请填写旅客的电话";
         
-    } else if (!traveler.IDNumber || [traveler.IDNumber isBlankString]) {
-        return @"请填写旅客的证件号码";
     }
     return nil;
 }

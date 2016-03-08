@@ -28,7 +28,7 @@
 }
 
 - (IBAction)myGoodsAction:(id)sender {
-    BusinessHomeViewController *ctl = [[BusinessHomeViewController alloc] init];
+    BNGoodsListRootViewController *ctl = [[BNGoodsListRootViewController alloc] init];
     ctl.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:ctl animated:YES];
 }

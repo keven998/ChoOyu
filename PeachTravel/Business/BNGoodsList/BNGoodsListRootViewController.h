@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BNGoodsListRootViewController : UIViewController
+@interface BNGoodsListRootViewController : TZViewController
 
 @end
