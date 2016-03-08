@@ -131,7 +131,7 @@
                     <constraint firstItem="j92-qG-Ztp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="tKp-j3-dz6"/>
                 </constraints>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="221" y="253.5"/>
+            <point key="canvasLocation" x="92" y="219.5"/>
         </tableViewCell>
     </objects>
 </document>
