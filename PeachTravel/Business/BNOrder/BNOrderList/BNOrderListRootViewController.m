@@ -19,10 +19,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.navigationItem.title = @"我的商品";
+    self.navigationItem.title = @"我的订单";
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = [UIColor whiteColor];
-    NSArray *titleArray = @[@"已发布", @"审核中", @"已下架"];
+    NSArray *titleArray = @[@"待发货", @"待退款", @"全部"];
    
     NSMutableArray *items = [NSMutableArray arrayWithCapacity:4];
     for (int i = 0; i < titleArray.count; i++) {

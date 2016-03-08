@@ -592,6 +592,8 @@
 		D9338D6B1C8E849B0073EAD9 /* BNOrderListRootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9338D661C8E849B0073EAD9 /* BNOrderListRootViewController.xib */; };
 		D9338D6C1C8E849B0073EAD9 /* BNOrderListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9338D681C8E849B0073EAD9 /* BNOrderListViewController.m */; };
 		D9338D6D1C8E849B0073EAD9 /* BNOrderListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9338D691C8E849B0073EAD9 /* BNOrderListViewController.xib */; };
+		D9338D711C8EB4780073EAD9 /* BNOrderListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9338D6F1C8EB4780073EAD9 /* BNOrderListTableViewCell.m */; };
+		D9338D721C8EB4780073EAD9 /* BNOrderListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9338D701C8EB4780073EAD9 /* BNOrderListTableViewCell.xib */; };
 		D937AE1E1BB95F0C0070F879 /* icon_dot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D937AE1C1BB95F0C0070F879 /* icon_dot@2x.png */; };
 		D937AE1F1BB95F0C0070F879 /* icon_dot@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D937AE1D1BB95F0C0070F879 /* icon_dot@3x.png */; };
 		D93B97F11B4B8C420054EF50 /* ChatGroupSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D93B97EF1B4B8C420054EF50 /* ChatGroupSettingCell.m */; };
@@ -2837,6 +2839,9 @@
 		D9338D671C8E849B0073EAD9 /* BNOrderListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNOrderListViewController.h; sourceTree = "<group>"; };
 		D9338D681C8E849B0073EAD9 /* BNOrderListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNOrderListViewController.m; sourceTree = "<group>"; };
 		D9338D691C8E849B0073EAD9 /* BNOrderListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BNOrderListViewController.xib; sourceTree = "<group>"; };
+		D9338D6E1C8EB4780073EAD9 /* BNOrderListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNOrderListTableViewCell.h; sourceTree = "<group>"; };
+		D9338D6F1C8EB4780073EAD9 /* BNOrderListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNOrderListTableViewCell.m; sourceTree = "<group>"; };
+		D9338D701C8EB4780073EAD9 /* BNOrderListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BNOrderListTableViewCell.xib; sourceTree = "<group>"; };
 		D937AE1C1BB95F0C0070F879 /* icon_dot@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_dot@2x.png"; sourceTree = "<group>"; };
 		D937AE1D1BB95F0C0070F879 /* icon_dot@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_dot@3x.png"; sourceTree = "<group>"; };
 		D93B97EE1B4B8C420054EF50 /* ChatGroupSettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatGroupSettingCell.h; sourceTree = "<group>"; };
@@ -6294,6 +6299,9 @@
 				D9338D671C8E849B0073EAD9 /* BNOrderListViewController.h */,
 				D9338D681C8E849B0073EAD9 /* BNOrderListViewController.m */,
 				D9338D691C8E849B0073EAD9 /* BNOrderListViewController.xib */,
+				D9338D6E1C8EB4780073EAD9 /* BNOrderListTableViewCell.h */,
+				D9338D6F1C8EB4780073EAD9 /* BNOrderListTableViewCell.m */,
+				D9338D701C8EB4780073EAD9 /* BNOrderListTableViewCell.xib */,
 			);
 			path = BNOrderList;
 			sourceTree = "<group>";
@@ -10949,6 +10957,7 @@
 				01C1EC301BB4E4720082217A /* jiong@3x.png in Resources */,
 				01C1EC4E1BB4E4720082217A /* ok@3x.png in Resources */,
 				D90A9B411B5627C400E9F37C /* Loading_Animation_final22@3x.png in Resources */,
+				D9338D721C8EB4780073EAD9 /* BNOrderListTableViewCell.xib in Resources */,
 				E6F18A1E1B845F4900232EEB /* map_icon_8@3x.png in Resources */,
 				E6F18A2E1B845F4900232EEB /* tools_home_card_bg_highlight@3x.png in Resources */,
 				D93FEEC21BEB413D0065D6ED /* CountryRecommendTableViewCell.xib in Resources */,
@@ -11944,6 +11953,7 @@
 				D9221A071BFC44DC0015A685 /* TravelerListTableViewCell.m in Sources */,
 				D9A8FF131A80CC2B005AD701 /* LoginViewController.m in Sources */,
 				D92CA1331AD8BEB400F244FF /* MWGridViewController.m in Sources */,
+				D9338D711C8EB4780073EAD9 /* BNOrderListTableViewCell.m in Sources */,
 				D9A8FECA1A80C818005AD701 /* MyGuideSummary.m in Sources */,
 				D96EA95E1BB3916300360ED8 /* PoiRecommendTableViewCell.m in Sources */,
 				D9A8FF0F1A80CC2B005AD701 /* ChangePasswordViewController.m in Sources */,
