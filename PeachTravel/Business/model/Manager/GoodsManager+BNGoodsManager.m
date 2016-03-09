@@ -14,6 +14,8 @@
 {
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:[NSNumber numberWithInteger:storeId] forKey:@"seller"];
+    [params safeSetObject:@"updateTime" forKey:@"sort"];
+
     if (startIndex >= 0) {
         [params safeSetObject:[NSNumber numberWithInteger:startIndex] forKey:@"start"];
     }
@@ -39,6 +41,47 @@
                 [retArray addObject:goods];
             }
             completion(YES, retArray);
+            
+        } else {
+            completion(NO, nil);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completion(NO, nil);
+        
+    }];
+}
+
++ (void)asyncDisableGoods:(NSInteger)goodsId completionBlock:(void (^)(BOOL, NSString *))completion
+{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params safeSetObject:@"disabled" forKey:@"status"];
+    NSString *url = [NSString stringWithFormat:@"%@/%ld", API_GOODS, goodsId];
+    
+    [LXPNetworking POST:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            completion (YES, nil);
+            
+        } else {
+            completion(NO, nil);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completion(NO, nil);
+        
+    }];
+
+}
+
++ (void)asyncOnsaleGoods:(NSInteger)goodsId completionBlock:(void (^)(BOOL, NSString *))completion
+{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params safeSetObject:@"pub" forKey:@"status"];
+    NSString *url = [NSString stringWithFormat:@"%@/%ld", API_GOODS, goodsId];
+    
+    [LXPNetworking POST:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            completion (YES, nil);
             
         } else {
             completion(NO, nil);

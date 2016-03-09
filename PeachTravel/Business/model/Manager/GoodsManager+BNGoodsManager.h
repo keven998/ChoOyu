@@ -21,4 +21,21 @@
  */
 + (void)asyncLoadGoodsOfStore:(NSInteger)storeId goodsStatus:(BNGoodsStatus)status startIndex:(NSInteger)startIndex count:(NSUInteger)count completionBlock:(void (^)(BOOL isSuccess, NSArray *goodsList))completion;
 
+
+/**
+ *  下架商品
+ *
+ *  @param goodsId    商品 ID
+ *  @param completion
+ */
++ (void)asyncDisableGoods:(NSInteger)goodsId completionBlock:(void(^)(BOOL isSuccess, NSString *errDesc))completion;
+
+/**
+ *  上架商品
+ *
+ *  @param goodsId    商品 ID
+ *  @param completion 
+ */
++ (void)asyncOnsaleGoods:(NSInteger)goodsId completionBlock:(void(^)(BOOL isSuccess, NSString *errDesc))completion;
+
 @end

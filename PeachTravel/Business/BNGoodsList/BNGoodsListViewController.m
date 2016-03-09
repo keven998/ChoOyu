@@ -14,7 +14,7 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
-@property (nonatomic, strong) NSMutableArray *dataSource;
+@property (nonatomic, strong) NSMutableArray<BNGoodsDetailModel *> *dataSource;
 
 @end
 
@@ -26,17 +26,44 @@
     _tableView.dataSource = self;
     _tableView.separatorColor = COLOR_LINE;
     [_tableView registerNib:[UINib nibWithNibName:@"BNGoodsListTableViewCell" bundle:nil] forCellReuseIdentifier:@"BNGoodsListTableViewCell"];
-    
-    _storeId = 100012;
-    [GoodsManager asyncLoadGoodsOfStore:_storeId goodsStatus:_goodsStatus startIndex:0 count:15 completionBlock:^(BOOL isSuccess, NSArray *goodsList) {
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [GoodsManager asyncLoadGoodsOfStore:_storeId goodsStatus:_goodsStatus startIndex:-1 count:0 completionBlock:^(BOOL isSuccess, NSArray *goodsList) {
         _dataSource = [goodsList mutableCopy];
         [self.tableView reloadData];
     }];
-    
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
+//商品下架
+- (void)disableGoodsAction:(UIButton *)sender
+{
+    [GoodsManager asyncDisableGoods:[_dataSource objectAtIndex:sender.tag].goodsId completionBlock:^(BOOL isSuccess, NSString *errDesc) {
+        if (isSuccess) {
+            [SVProgressHUD showHint:@"商品下架成功"];
+            [_dataSource removeObjectAtIndex:sender.tag];
+            [self.tableView reloadData];
+        } else {
+            [SVProgressHUD showHint:@"商品下架失败"];
+        }
+    }];
+}
+
+//商品上架
+- (void)onSaleGoodsAction:(UIButton *)sender
+{
+    [GoodsManager asyncOnsaleGoods:[_dataSource objectAtIndex:sender.tag].goodsId completionBlock:^(BOOL isSuccess, NSString *errDesc) {
+        if (isSuccess) {
+            [SVProgressHUD showHint:@"商品上架成功"];
+            [_dataSource removeObjectAtIndex:sender.tag];
+            [self.tableView reloadData];
+
+        } else {
+            [SVProgressHUD showHint:@"商品上架失败"];
+        }
+    }];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -67,8 +94,14 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     BNGoodsListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BNGoodsListTableViewCell" forIndexPath:indexPath];
+    cell.actionButton.tag = indexPath.row;
     cell.goodsDetail = [_dataSource objectAtIndex:indexPath.row];
-    
+    if (cell.goodsDetail.goodsStatus == kOnSale) {
+        [cell.actionButton addTarget:self action:@selector(disableGoodsAction:) forControlEvents:UIControlEventTouchUpInside];
+        
+    } else if (cell.goodsDetail.goodsStatus == kOffSale) {
+        [cell.actionButton addTarget:self action:@selector(onSaleGoodsAction:) forControlEvents:UIControlEventTouchUpInside];
+    }
     return cell;
 }
 
