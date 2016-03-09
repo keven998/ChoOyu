@@ -13,8 +13,9 @@
 - (void)awakeFromNib {
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
+- (void)setOrderDetail:(BNOrderDetailModel *)orderDetail
+{
+    _orderDetail = orderDetail;
 }
 
 @end

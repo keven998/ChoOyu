@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BNOrderDetailModel.h"
 
 @interface BNOrderListTableViewCell : UITableViewCell
+
+@property (nonatomic, strong)BNOrderDetailModel *orderDetail;
 
 @end

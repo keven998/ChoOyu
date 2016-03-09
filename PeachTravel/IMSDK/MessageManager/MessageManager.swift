@@ -234,10 +234,13 @@ class MessageManager: NSObject {
     }
     
     func stopTimer() {
-        if timer.valid {
-            timer.invalidate()
-            timer = nil
+        if timer != nil {
+            if timer.valid {
+                timer.invalidate()
+                timer = nil
+            }
         }
+        
     }
     
     //MARK: private methods

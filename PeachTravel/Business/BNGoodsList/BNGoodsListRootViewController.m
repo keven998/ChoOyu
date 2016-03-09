@@ -23,10 +23,12 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = [UIColor whiteColor];
     NSArray *titleArray = @[@"已发布", @"审核中", @"已下架"];
-   
-    NSMutableArray *items = [NSMutableArray arrayWithCapacity:4];
+    NSArray *statusArray = @[[NSNumber numberWithInteger:kOnSale], [NSNumber numberWithInteger:kReviewing], [NSNumber numberWithInteger:kOffSale]];
+
+    NSMutableArray *items = [NSMutableArray arrayWithCapacity:titleArray.count];
     for (int i = 0; i < titleArray.count; i++) {
         BNGoodsListViewController *vc = [[BNGoodsListViewController alloc] init];
+        vc.goodsStatus = [[statusArray objectAtIndex:i] integerValue];
         DKTabPageItem *item = [DKTabPageViewControllerItem tabPageItemWithTitle:titleArray[i]
                                                                  viewController:vc];
         [items addObject:item];

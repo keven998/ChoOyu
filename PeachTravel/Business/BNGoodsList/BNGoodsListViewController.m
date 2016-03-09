@@ -26,8 +26,11 @@
     _tableView.dataSource = self;
     _tableView.separatorColor = COLOR_LINE;
     [_tableView registerNib:[UINib nibWithNibName:@"BNGoodsListTableViewCell" bundle:nil] forCellReuseIdentifier:@"BNGoodsListTableViewCell"];
+    
+    _storeId = 100012;
     [GoodsManager asyncLoadGoodsOfStore:_storeId goodsStatus:_goodsStatus startIndex:0 count:15 completionBlock:^(BOOL isSuccess, NSArray *goodsList) {
-        
+        _dataSource = [goodsList mutableCopy];
+        [self.tableView reloadData];
     }];
     
 }
@@ -53,7 +56,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return _dataSource.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

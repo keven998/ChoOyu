@@ -135,7 +135,6 @@
     }
     
     [LXPNetworking GET:API_GOODSLIST parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"***开始加载城市的商品列表: %@", operation);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             NSMutableArray *retArray = [[NSMutableArray alloc] init];

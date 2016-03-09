@@ -10,4 +10,13 @@
 
 @implementation BNGoodsDetailModel
 
+
+- (id)initWithJson:(id)json
+{
+    if (self = [super initWithJson:json]) {
+        
+    }
+    return self;
+}
+
 @end

@@ -24,7 +24,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     NSArray *titleArray = @[@"待发货", @"待退款", @"全部"];
    
-    NSMutableArray *items = [NSMutableArray arrayWithCapacity:4];
+    NSMutableArray *items = [NSMutableArray arrayWithCapacity:titleArray.count];
     for (int i = 0; i < titleArray.count; i++) {
         BNOrderListViewController *vc = [[BNOrderListViewController alloc] init];
         DKTabPageItem *item = [DKTabPageViewControllerItem tabPageItemWithTitle:titleArray[i]
