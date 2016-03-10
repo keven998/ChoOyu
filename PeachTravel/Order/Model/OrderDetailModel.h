@@ -39,9 +39,9 @@ typedef enum : NSUInteger {
 @property (nonatomic, readonly) float payPrice;                                 //应付价格
 @property (nonatomic, copy, readonly) NSString *formatPayPrice;                 //应付价格格式化描述
 
-@property (nonatomic) BOOL isRefundDenyBySeller;                                //卖家是不是已经拒绝了退款
-@property (nonatomic) OrderStatus orderStatus;                                  // 订单状态
-@property (nonatomic, copy, readonly) NSString *orderStatusDesc;                // 订单状态描述
+@property (nonatomic, readonly) BOOL isRefundDenyBySeller;                      //卖家是不是已经拒绝了退款
+@property (nonatomic) OrderStatus orderStatus;                                  //订单状态
+@property (nonatomic, copy, readonly) NSString *orderStatusDesc;                //订单状态描述
 @property (nonatomic, copy) NSString *useDate;                                  //使用时间
 @property (nonatomic) NSTimeInterval expireTime;
 @property (nonatomic) NSTimeInterval updateTime;
@@ -58,7 +58,6 @@ typedef enum : NSUInteger {
 @property (nonatomic, strong) NSArray<NSDictionary *> *orderActivityList;       //订单状态变化
 
 @property (nonatomic, strong) UserCouponDetail *selectedCoupon;                 //选中的优惠券
-
 
 - (id)initWithJson:(id)json;
 

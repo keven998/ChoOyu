@@ -14,7 +14,7 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
-@property (nonatomic, strong) NSMutableArray *dataSource;
+@property (nonatomic, strong) NSMutableArray<BNOrderDetailModel *> *dataSource;
 
 @end
 

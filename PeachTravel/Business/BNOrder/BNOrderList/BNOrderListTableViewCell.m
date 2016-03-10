@@ -29,4 +29,10 @@
     _statusLabel.text = _orderDetail.BNOrderStatusDesc;
 }
 
+//不同的状态设置不同的操作按钮
+- (void)setupActionButtons
+{
+    
+}
+
 @end
