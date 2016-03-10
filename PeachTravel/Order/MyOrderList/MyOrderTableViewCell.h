@@ -16,7 +16,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *goodsImageView;
 @property (weak, nonatomic) IBOutlet UILabel *goodsNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *packageNameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 @property (weak, nonatomic) IBOutlet UIButton *contactBusiness;

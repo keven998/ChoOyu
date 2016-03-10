@@ -58,7 +58,25 @@
     [self.view addSubview:self.tableView];
     // 初始化对话管理对象
     self.imClientManager.conversationManager.delegate = self;
+    
+    NSLog(@"开始获取聊天记录");
     _dataSource = [[self.imClientManager.conversationManager getConversationList] mutableCopy];
+    NSLog(@"结束获取聊天记录");
+    
+//    NSDate *date = [ConvertMethods stringToDate:@"2016-03-07" withFormat:@"yyyy-MM-dd" withTimeZone:[NSTimeZone systemTimeZone]];
+//    
+//    for (ChatConversation *conversation in _dataSource) {
+//        if (conversation.lastUpdateTime < [date timeIntervalSince1970] && conversation.chatType == IMChatTypeIMChatSingleType) {
+//            NSLog(@"%@", [NSDate dateWithTimeIntervalSince1970:conversation.lastUpdateTime]);
+//            NSLog(@"%@", conversation.chatterName);
+//            
+//            [self.imClientManager.conversationManager removeConversationWithChatterId: conversation.chatterId deleteMessage:NO];
+//            
+//
+//
+//        }
+//    }
+//    return
     
     UIButton *addBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [addBtn setImage:[UIImage imageNamed:@"icon_navi_white_add.png"] forState:UIControlStateNormal];

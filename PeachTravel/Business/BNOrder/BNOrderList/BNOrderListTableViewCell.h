@@ -7,10 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BNOrderDetailModel.h"
+#import "OrderDetailModel.h"
 
 @interface BNOrderListTableViewCell : UITableViewCell
 
-@property (nonatomic, strong)BNOrderDetailModel *orderDetail;
+@property (weak, nonatomic) IBOutlet UIImageView *headerImageView;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *numberLabel;
+@property (weak, nonatomic) IBOutlet UILabel *priceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *orderNumberLabel;
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *contactLabel;
+@property (weak, nonatomic) IBOutlet UILabel *statusLabel;
+
+@property (nonatomic, strong)OrderDetailModel *orderDetail;
 
 @end

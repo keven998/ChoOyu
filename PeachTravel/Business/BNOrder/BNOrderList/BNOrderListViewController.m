@@ -8,6 +8,7 @@
 
 #import "BNOrderListViewController.h"
 #import "BNOrderListTableViewCell.h"
+#import "OrderManager+BNOrderManager.h"
 
 @interface BNOrderListViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -24,16 +25,21 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [_tableView registerNib:[UINib nibWithNibName:@"BNOrderListTableViewCell" bundle:nil] forCellReuseIdentifier:@"BNOrderListTableViewCell"];
+    [OrderManager asyncLoadOrdersFromServerOfStore:[AccountManager shareAccountManager].account.userId orderType:@[] startIndex:0 count:15 completionBlock:^(BOOL isSuccess, NSArray<OrderDetailModel *> *orderList) {
+        if (isSuccess) {
+            _dataSource = [orderList mutableCopy];
+            [_tableView reloadData];
+        }
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return CGFLOAT_MIN;
+    return 10;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -43,23 +49,23 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return _dataSource.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 197;
+    return 180;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     BNOrderListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BNOrderListTableViewCell" forIndexPath:indexPath];
-    
+    cell.orderDetail = [_dataSource objectAtIndex:indexPath.section];
     return cell;
 }
 

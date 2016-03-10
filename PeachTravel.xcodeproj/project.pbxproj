@@ -481,6 +481,7 @@
 		D91061FD1BA9832C00C4FBCB /* GuiderSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D91061FB1BA9832C00C4FBCB /* GuiderSearchViewController.xib */; };
 		D91087101C8FC3D2000D46B4 /* BNOrderListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D910870E1C8FC3D2000D46B4 /* BNOrderListViewController.m */; };
 		D91087111C8FC3D2000D46B4 /* BNOrderListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D910870F1C8FC3D2000D46B4 /* BNOrderListViewController.xib */; };
+		D91087141C911F42000D46B4 /* OrderManager+BNOrderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D91087131C911F42000D46B4 /* OrderManager+BNOrderManager.m */; };
 		D9121ED41BBA395900C2E480 /* SearchTravelNoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9121ED31BBA395900C2E480 /* SearchTravelNoteViewController.m */; };
 		D9121ED71BBA534F00C2E480 /* PoiRecommendSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9121ED61BBA534F00C2E480 /* PoiRecommendSearchViewController.m */; };
 		D915296D1BB24592002D1F51 /* PoiRecommendRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D915296C1BB24592002D1F51 /* PoiRecommendRootViewController.m */; };
@@ -639,7 +640,6 @@
 		D9424E141C8D220600DEA26F /* StoreDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9424E0E1C8D220600DEA26F /* StoreDetailViewController.m */; };
 		D9424E191C8D639500DEA26F /* BusinessHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9424E171C8D639500DEA26F /* BusinessHomeViewController.m */; };
 		D9424E1A1C8D639500DEA26F /* BusinessHomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9424E181C8D639500DEA26F /* BusinessHomeViewController.xib */; };
-		D9424E1E1C8D63E000DEA26F /* BNOrderDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D9424E1D1C8D63E000DEA26F /* BNOrderDetailModel.m */; };
 		D9424E211C8D669400DEA26F /* BNGoodsDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D9424E201C8D669400DEA26F /* BNGoodsDetailModel.m */; };
 		D9424E261C8D6C4400DEA26F /* BNGoodsListRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9424E241C8D6C4400DEA26F /* BNGoodsListRootViewController.m */; };
 		D9424E271C8D6C4400DEA26F /* BNGoodsListRootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9424E251C8D6C4400DEA26F /* BNGoodsListRootViewController.xib */; };
@@ -2639,6 +2639,8 @@
 		D910870D1C8FC3D2000D46B4 /* BNOrderListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNOrderListViewController.h; sourceTree = "<group>"; };
 		D910870E1C8FC3D2000D46B4 /* BNOrderListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNOrderListViewController.m; sourceTree = "<group>"; };
 		D910870F1C8FC3D2000D46B4 /* BNOrderListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BNOrderListViewController.xib; sourceTree = "<group>"; };
+		D91087121C911F42000D46B4 /* OrderManager+BNOrderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OrderManager+BNOrderManager.h"; sourceTree = "<group>"; };
+		D91087131C911F42000D46B4 /* OrderManager+BNOrderManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "OrderManager+BNOrderManager.m"; sourceTree = "<group>"; };
 		D9121ED21BBA395900C2E480 /* SearchTravelNoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchTravelNoteViewController.h; sourceTree = "<group>"; };
 		D9121ED31BBA395900C2E480 /* SearchTravelNoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchTravelNoteViewController.m; sourceTree = "<group>"; };
 		D9121ED51BBA534F00C2E480 /* PoiRecommendSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoiRecommendSearchViewController.h; sourceTree = "<group>"; };
@@ -2917,8 +2919,6 @@
 		D9424E161C8D639500DEA26F /* BusinessHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusinessHomeViewController.h; sourceTree = "<group>"; };
 		D9424E171C8D639500DEA26F /* BusinessHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusinessHomeViewController.m; sourceTree = "<group>"; };
 		D9424E181C8D639500DEA26F /* BusinessHomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BusinessHomeViewController.xib; sourceTree = "<group>"; };
-		D9424E1C1C8D63E000DEA26F /* BNOrderDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNOrderDetailModel.h; sourceTree = "<group>"; };
-		D9424E1D1C8D63E000DEA26F /* BNOrderDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNOrderDetailModel.m; sourceTree = "<group>"; };
 		D9424E1F1C8D669400DEA26F /* BNGoodsDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNGoodsDetailModel.h; sourceTree = "<group>"; };
 		D9424E201C8D669400DEA26F /* BNGoodsDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNGoodsDetailModel.m; sourceTree = "<group>"; };
 		D9424E231C8D6C4400DEA26F /* BNGoodsListRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNGoodsListRootViewController.h; sourceTree = "<group>"; };
@@ -6278,6 +6278,8 @@
 			children = (
 				D9338D5F1C8E7A5A0073EAD9 /* GoodsManager+BNGoodsManager.h */,
 				D9338D601C8E7A5A0073EAD9 /* GoodsManager+BNGoodsManager.m */,
+				D91087121C911F42000D46B4 /* OrderManager+BNOrderManager.h */,
+				D91087131C911F42000D46B4 /* OrderManager+BNOrderManager.m */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -6445,8 +6447,6 @@
 			isa = PBXGroup;
 			children = (
 				D9338D5E1C8E7A2B0073EAD9 /* Manager */,
-				D9424E1C1C8D63E000DEA26F /* BNOrderDetailModel.h */,
-				D9424E1D1C8D63E000DEA26F /* BNOrderDetailModel.m */,
 				D9424E1F1C8D669400DEA26F /* BNGoodsDetailModel.h */,
 				D9424E201C8D669400DEA26F /* BNGoodsDetailModel.m */,
 			);
@@ -11939,7 +11939,6 @@
 				01578E711BD228F200244D9D /* RSADataVerifier.m in Sources */,
 				D9A8FF2B1A80CCA5005AD701 /* AccountManagerViewController.m in Sources */,
 				D9A801611A80DD23005AD701 /* SelectContactScrollView.m in Sources */,
-				D9424E1E1C8D63E000DEA26F /* BNOrderDetailModel.m in Sources */,
 				D993C26E1B12DF0C0088D568 /* FrendManager.swift in Sources */,
 				D91851261B5914CF004B8363 /* SearchFrendTableViewController.m in Sources */,
 				D90042CA1B144275006F6B63 /* FrendManager+ClassMethod.swift in Sources */,
@@ -12227,6 +12226,7 @@
 				E690D8CB1B7C7F5300BFDF1B /* MakePlanSearchController.m in Sources */,
 				C6F87A181ACD1C4400BB7D7F /* PXAlertView+Customization.m in Sources */,
 				D9A8014B1A80DD23005AD701 /* TipsChatTableViewCell.m in Sources */,
+				D91087141C911F42000D46B4 /* OrderManager+BNOrderManager.m in Sources */,
 				D993C2661B12DF0C0088D568 /* IMSpotMessage.swift in Sources */,
 				D993C2511B12DF0C0088D568 /* IMGroupModel.swift in Sources */,
 				D993C2571B12DF0C0088D568 /* MessageProtocol.swift in Sources */,
