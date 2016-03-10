@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "OrderDetailModel.h"
+#import "BNOrderDetailModel.h"
 
 @interface BNOrderListTableViewCell : UITableViewCell
 
@@ -20,6 +20,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *contactLabel;
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 
-@property (nonatomic, strong)OrderDetailModel *orderDetail;
+@property (nonatomic, strong)BNOrderDetailModel *orderDetail;
 
 @end

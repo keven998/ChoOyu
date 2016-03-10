@@ -7,6 +7,7 @@
 //
 
 #import "OrderManager+BNOrderManager.h"
+#import "BNOrderDetailModel.h"
 
 @implementation OrderManager (BNOrderManager)
 
@@ -38,7 +39,7 @@
             if ([[responseObject objectForKey:@"result"] isKindOfClass:[NSArray class]]) {
                 NSMutableArray *tempArray = [[NSMutableArray alloc] init];
                 for (NSDictionary *dic in [responseObject objectForKey:@"result"]) {
-                    OrderDetailModel *orderDetail = [[OrderDetailModel alloc] initWithJson:dic];
+                    BNOrderDetailModel *orderDetail = [[BNOrderDetailModel alloc] initWithJson:dic];
                     [tempArray addObject:orderDetail];
                 }
                 completion(YES, tempArray);

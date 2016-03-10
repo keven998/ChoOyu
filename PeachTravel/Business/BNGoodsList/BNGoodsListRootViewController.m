@@ -72,7 +72,7 @@
                                                 alpha:1] forState:UIControlStateNormal];
     }];
     
-    CGFloat widthPerItem = self.view.bounds.size.width/items.count;
+    CGFloat widthPerItem = kWindowWidth/items.count;
     for (int i=0; i<items.count-1; i++) {
         UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(widthPerItem*(i+1), 9, 0.5, 30)];
         spaceView.backgroundColor = COLOR_LINE;

@@ -81,12 +81,12 @@
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GGG-Qg-gk3">
-                        <rect key="frame" x="8" y="149" width="84" height="21"/>
+                        <rect key="frame" x="8" y="149" width="90" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="WlK-J5-Mpx"/>
-                            <constraint firstAttribute="width" constant="84" id="nqk-7H-aMe"/>
+                            <constraint firstAttribute="width" constant="90" id="nqk-7H-aMe"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -141,7 +141,7 @@
                 <outlet property="timeLabel" destination="5Ob-7k-RzD" id="31T-uI-Nv1"/>
                 <outlet property="titleLabel" destination="3XS-nh-eRg" id="Gt8-xg-707"/>
             </connections>
-            <point key="canvasLocation" x="-9" y="287"/>
+            <point key="canvasLocation" x="-68" y="287"/>
         </tableViewCell>
     </objects>
 </document>

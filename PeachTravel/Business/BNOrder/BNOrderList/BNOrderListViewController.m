@@ -25,7 +25,14 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [_tableView registerNib:[UINib nibWithNibName:@"BNOrderListTableViewCell" bundle:nil] forCellReuseIdentifier:@"BNOrderListTableViewCell"];
-    [OrderManager asyncLoadOrdersFromServerOfStore:[AccountManager shareAccountManager].account.userId orderType:@[] startIndex:0 count:15 completionBlock:^(BOOL isSuccess, NSArray<OrderDetailModel *> *orderList) {
+    
+    NSMutableArray *statusArray = [[NSMutableArray alloc] init];
+    for (NSNumber *status in _orderTypes) {
+        NSString *orderServerStatus = [OrderManager orderServerStatusWithLocalStatus:[status integerValue]];
+        [statusArray addObject:orderServerStatus];
+    }
+
+    [OrderManager asyncLoadOrdersFromServerOfStore:[AccountManager shareAccountManager].account.userId orderType:statusArray startIndex:0 count:15 completionBlock:^(BOOL isSuccess, NSArray<OrderDetailModel *> *orderList) {
         if (isSuccess) {
             _dataSource = [orderList mutableCopy];
             [_tableView reloadData];

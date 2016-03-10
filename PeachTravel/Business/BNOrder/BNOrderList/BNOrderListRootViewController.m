@@ -9,6 +9,7 @@
 #import "BNOrderListRootViewController.h"
 #import "DKTabPageViewController.h"
 #import "BNOrderListViewController.h"
+#import "OrderDetailModel.h"
 
 @interface BNOrderListRootViewController () <DKTabPageViewControllerDelegate>
 
@@ -23,10 +24,15 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = [UIColor whiteColor];
     NSArray *titleArray = @[@"待发货", @"待退款", @"全部"];
-   
+    NSArray *orderTypes = @[@[[NSNumber numberWithInteger:kOrderPaid]],
+                            @[[NSNumber numberWithInteger:kOrderRefunding]],
+                            @[],
+                            ];
+
     NSMutableArray *items = [NSMutableArray arrayWithCapacity:titleArray.count];
     for (int i = 0; i < titleArray.count; i++) {
         BNOrderListViewController *vc = [[BNOrderListViewController alloc] init];
+        vc.orderTypes = [orderTypes objectAtIndex:i];
         DKTabPageItem *item = [DKTabPageViewControllerItem tabPageItemWithTitle:titleArray[i]
                                                                  viewController:vc];
         [items addObject:item];
@@ -69,7 +75,7 @@
                                                 alpha:1] forState:UIControlStateNormal];
     }];
     
-    CGFloat widthPerItem = self.view.bounds.size.width/items.count;
+    CGFloat widthPerItem = kWindowWidth/items.count;
     for (int i=0; i<items.count-1; i++) {
         UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(widthPerItem*(i+1), 9, 0.5, 30)];
         spaceView.backgroundColor = COLOR_LINE;

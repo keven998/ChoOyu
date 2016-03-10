@@ -13,7 +13,7 @@
 - (void)awakeFromNib {
 }
 
-- (void)setOrderDetail:(OrderDetailModel *)orderDetail
+- (void)setOrderDetail:(BNOrderDetailModel *)orderDetail
 {
     _orderDetail = orderDetail;
     [_headerImageView sd_setImageWithURL:[NSURL URLWithString:_orderDetail.goods.coverImage.imageUrl] placeholderImage:nil];
@@ -26,7 +26,7 @@
     NSString *telStr = _orderDetail.orderContact.telDesc;
     NSString *contactName = [NSString stringWithFormat:@"%@ %@", _orderDetail.orderContact.lastName, _orderDetail.orderContact.firstName];
     _contactLabel.text = [NSString stringWithFormat:@"联系人: %@  %@", contactName, telStr];
-    _statusLabel.text = _orderDetail.orderStatusDesc;
+    _statusLabel.text = _orderDetail.BNOrderStatusDesc;
 }
 
 @end
