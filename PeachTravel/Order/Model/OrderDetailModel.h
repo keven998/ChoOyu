@@ -52,6 +52,8 @@ typedef enum : NSUInteger {
 
 @property (nonatomic, strong) GoodsPackageModel *selectedPackage;               //选中的套餐
 @property (nonatomic) NSInteger count;                                          //订单数量
+
+@property (nonatomic) NSInteger consumerId;                                     //下订单的用户
 @property (nonatomic, strong) NSArray<OrderTravelerInfoModel *> *travelerList;  //旅客信息列表
 @property (nonatomic, strong) OrderTravelerInfoModel *orderContact;             //订单的联系人
 

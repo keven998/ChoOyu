@@ -134,8 +134,16 @@
     [super viewDidLoad];
 
     self.automaticallyAdjustsScrollViewInsets = NO;
-   
-    self.frostedViewController.navigationItem.title = _chatterName;
+    if (_chatterName) {
+        self.frostedViewController.navigationItem.title = _chatterName;
+    } else {
+        if (_chatType == IMChatTypeIMChatSingleType) {
+            [[IMClientManager shareInstance].frendManager asyncGetFrendInfoFromServer:_chatter completion:^(BOOL isSuccess, NSInteger errorCode, FrendModel * _Nullable frendModel) {
+                _chatterName = frendModel.nickName;
+                self.frostedViewController.navigationItem.title = _chatterName;
+            }];
+        }
+    }
     self.view.backgroundColor = APP_PAGE_COLOR;
     
     // 聊天类型为讨论组
@@ -178,6 +186,7 @@
     [self.view addGestureRecognizer:tap];
     _isScrollToBottom = YES;
     
+    //如果能获取到店铺信息，说明是在和商家聊天，右上角显示商家入口
     [StoreManager asyncLoadStoreInfoWithStoreId:_chatter completionBlock:^(BOOL isSuccess, StoreDetailModel *storeDetail) {
         if (storeDetail) {  //设置导航栏内容
             NSMutableArray *items = [self.frostedViewController.navigationItem.rightBarButtonItems mutableCopy];
@@ -190,6 +199,7 @@
             self.frostedViewController.navigationItem.rightBarButtonItems = items;
         }
     }];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated

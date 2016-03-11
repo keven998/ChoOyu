@@ -30,6 +30,7 @@
         _expireTime = [[json objectForKey:@"expireTime"] doubleValue]/1000;
         _currentTime = [[NSDate date] timeIntervalSince1970];
         _orderStatus = [OrderManager orderStatusWithServerOrderStatus:[json objectForKey:@"status"]];
+        _consumerId = [[json objectForKey:@"consumerId"] integerValue];
         NSMutableArray *tempTravelerList = [[NSMutableArray alloc] init];
         for (NSDictionary *dic in [json objectForKey:@"travellers"]) {
             OrderTravelerInfoModel *traveler = [[OrderTravelerInfoModel alloc] initWithJson:dic];

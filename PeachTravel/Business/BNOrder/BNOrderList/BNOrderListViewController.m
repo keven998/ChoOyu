@@ -9,8 +9,12 @@
 #import "BNOrderListViewController.h"
 #import "BNOrderListTableViewCell.h"
 #import "OrderManager+BNOrderManager.h"
+#import "PeachTravel-swift.h"
+#import "ChatViewController.h"
+#import "ChatSettingViewController.h"
+#import "REFrostedViewController.h"
 
-@interface BNOrderListViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface BNOrderListViewController () <UITableViewDataSource, UITableViewDelegate, BNOrderListTableViewCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -73,12 +77,40 @@
 {
     BNOrderListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BNOrderListTableViewCell" forIndexPath:indexPath];
     cell.orderDetail = [_dataSource objectAtIndex:indexPath.section];
+    cell.delegate = self;
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+#pragma mark - BNOrderListTableViewCellDelegate
+
+- (void)chatWithUser:(NSInteger)userId
+{
+    IMClientManager *clientManager = [IMClientManager shareInstance];
+    ChatConversation *conversation = [clientManager.conversationManager getConversationWithChatterId:userId chatType:IMChatTypeIMChatSingleType];
+    ChatViewController *chatController = [[ChatViewController alloc] initWithConversation:conversation];
+    
+    ChatSettingViewController *menuViewController = [[ChatSettingViewController alloc] init];
+    menuViewController.currentConversation= conversation;
+    menuViewController.chatterId = conversation.chatterId;
+    
+    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:chatController menuViewController:menuViewController];
+    menuViewController.containerCtl = frostedViewController;
+    
+    frostedViewController.hidesBottomBarWhenPushed = YES;
+    frostedViewController.direction = REFrostedViewControllerDirectionRight;
+    frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
+    frostedViewController.liveBlur = YES;
+    frostedViewController.limitMenuViewSize = YES;
+    chatController.backBlock = ^{
+        [frostedViewController.navigationController popViewControllerAnimated:YES];
+    };
+    
+    [self.navigationController pushViewController:frostedViewController animated:YES];
 }
 
 @end
