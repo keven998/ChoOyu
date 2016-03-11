@@ -15,6 +15,22 @@
 //和某人聊天
 - (void)chatWithUser:(NSInteger)userId;
 
+//同意退款
+- (void)agreeRefundMoney:(OrderDetailModel *)orderDetail;
+
+//拒绝退款
+- (void)refuseRefundMoney:(OrderDetailModel *)orderDetail;
+
+//发货
+- (void)deliveryGoods:(OrderDetailModel *)orderDetail;
+
+//关闭交易
+- (void)closeOrder:(OrderDetailModel *)orderDetail;
+
+//缺货退款
+- (void)refundMoneyWithSoldOut:(OrderDetailModel *)orderDetail;
+
+
 @end
 
 @interface BNOrderListTableViewCell : UITableViewCell

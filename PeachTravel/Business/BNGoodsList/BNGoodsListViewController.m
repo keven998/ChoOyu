@@ -68,7 +68,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return CGFLOAT_MIN;
+    return 5;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -78,12 +78,12 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return _dataSource.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _dataSource.count;
+    return 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -94,8 +94,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     BNGoodsListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BNGoodsListTableViewCell" forIndexPath:indexPath];
-    cell.actionButton.tag = indexPath.row;
-    cell.goodsDetail = [_dataSource objectAtIndex:indexPath.row];
+    cell.actionButton.tag = indexPath.section;
+    cell.goodsDetail = [_dataSource objectAtIndex:indexPath.section];
     if (cell.goodsDetail.goodsStatus == kOnSale) {
         [cell.actionButton addTarget:self action:@selector(disableGoodsAction:) forControlEvents:UIControlEventTouchUpInside];
         

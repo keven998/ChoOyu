@@ -16,6 +16,8 @@
 #import "TravelerListViewController.h"
 #import "UserCouponsListViewController.h"
 #import "UserInviteCodeViewController.h"
+#import "StoreManager.h"
+#import "BusinessHomeViewController.h"
 
 @interface MineViewContoller () <UITableViewDataSource, UITableViewDelegate>
 
@@ -80,6 +82,7 @@
     [navigationBar addSubview:settingButton];
     
     [[AccountManager shareAccountManager].account loadUserInfoFromServer:^(bool isSuccess) {
+        
     }];
 }
 
@@ -88,6 +91,37 @@
     [super viewWillAppear:animated];
     _mineHeaderView.account = [AccountManager shareAccountManager].account;
     [self.navigationController setNavigationBarHidden:YES animated:YES];
+    
+    [StoreManager asyncLoadStoreInfoWithStoreId:[AccountManager shareAccountManager].account.userId completionBlock:^(BOOL isSuccess, StoreDetailModel *storeDetail) {
+        if (isSuccess && storeDetail) {
+            _dataSource = @[
+                            @[
+                                @{@"title": @"我的店铺", @"image": @"icon_mine_favorite"},
+                                @{@"title": @"我的收藏", @"image": @"icon_mine_favorite"},
+                                @{@"title": @"优惠券", @"image": @"icon_mine_coupon"},
+                                @{@"title": @"我的邀请码", @"image": @"icon_mine_inviteCode"},
+                                @{@"title": @"我的旅行计划", @"image": @"icon_mine_guides"},
+                                ],
+                            @[
+                                @{@"title": @"常用旅客信息", @"image": @"icon_mine_traveler"},
+                                ],
+                            ];
+            [_tableView reloadData];
+        } else {
+            _dataSource = @[
+                            @[
+                                @{@"title": @"我的收藏", @"image": @"icon_mine_favorite"},
+                                @{@"title": @"优惠券", @"image": @"icon_mine_coupon"},
+                                @{@"title": @"我的邀请码", @"image": @"icon_mine_inviteCode"},
+                                @{@"title": @"我的旅行计划", @"image": @"icon_mine_guides"},
+                                ],
+                            @[
+                                @{@"title": @"常用旅客信息", @"image": @"icon_mine_traveler"},
+                                ],
+                            ];
+            [_tableView reloadData];
+        }
+    }];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -150,28 +184,61 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 0) {
-        if (indexPath.row == 0) {
-            GoodsFavoriteViewController *ctl = [[GoodsFavoriteViewController alloc] init];
-            ctl.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:ctl animated:YES];
+        if ([[_dataSource objectAtIndex:indexPath.section] count] == 5) {
+            if (indexPath.row == 0) {
+                BusinessHomeViewController *ctl = [[BusinessHomeViewController alloc] init];
+                ctl.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:ctl animated:YES];
+                
+            } else if (indexPath.row == 1) {
+                GoodsFavoriteViewController *ctl = [[GoodsFavoriteViewController alloc] init];
+                ctl.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:ctl animated:YES];
+                
+            } else if(indexPath.row == 2) {
+                UserCouponsListViewController *ctl = [[UserCouponsListViewController alloc] init];
+                ctl.userId = [AccountManager shareAccountManager].account.userId;
+                ctl.hidesBottomBarWhenPushed = YES;
+                ctl.userId = [AccountManager shareAccountManager].account.userId;
+                [self.navigationController pushViewController:ctl animated:YES];
+                
+            } else if (indexPath.row == 3) {
+                UserInviteCodeViewController *ctl = [[UserInviteCodeViewController alloc] init];
+                ctl.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:ctl animated:YES];
+                
+            } else if (indexPath.row == 4) {
+                PlansListTableViewController *ctl = [[PlansListTableViewController alloc] initWithUserId:[AccountManager shareAccountManager].account.userId];
+                ctl.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:ctl animated:YES];
+                
+            }
+
             
-        } else if(indexPath.row == 1) {
-            UserCouponsListViewController *ctl = [[UserCouponsListViewController alloc] init];
-            ctl.userId = [AccountManager shareAccountManager].account.userId;
-            ctl.hidesBottomBarWhenPushed = YES;
-            ctl.userId = [AccountManager shareAccountManager].account.userId;
-            [self.navigationController pushViewController:ctl animated:YES];
-            
-        } else if (indexPath.row == 2) {
-            UserInviteCodeViewController *ctl = [[UserInviteCodeViewController alloc] init];
-            ctl.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:ctl animated:YES];
-            
-        } else if (indexPath.row == 3) {
-            PlansListTableViewController *ctl = [[PlansListTableViewController alloc] initWithUserId:[AccountManager shareAccountManager].account.userId];
-            ctl.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:ctl animated:YES];
-            
+        } else {
+            if (indexPath.row == 0) {
+                GoodsFavoriteViewController *ctl = [[GoodsFavoriteViewController alloc] init];
+                ctl.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:ctl animated:YES];
+                
+            } else if(indexPath.row == 1) {
+                UserCouponsListViewController *ctl = [[UserCouponsListViewController alloc] init];
+                ctl.userId = [AccountManager shareAccountManager].account.userId;
+                ctl.hidesBottomBarWhenPushed = YES;
+                ctl.userId = [AccountManager shareAccountManager].account.userId;
+                [self.navigationController pushViewController:ctl animated:YES];
+                
+            } else if (indexPath.row == 2) {
+                UserInviteCodeViewController *ctl = [[UserInviteCodeViewController alloc] init];
+                ctl.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:ctl animated:YES];
+                
+            } else if (indexPath.row == 3) {
+                PlansListTableViewController *ctl = [[PlansListTableViewController alloc] initWithUserId:[AccountManager shareAccountManager].account.userId];
+                ctl.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:ctl animated:YES];
+                
+            }
         }
     } else if (indexPath.section == 1) {
         if (indexPath.row == 0) {

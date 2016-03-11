@@ -50,7 +50,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 10;
+    return 5;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -111,6 +111,36 @@
     };
     
     [self.navigationController pushViewController:frostedViewController animated:YES];
+}
+
+
+//同意退款
+- (void)agreeRefundMoney:(OrderDetailModel *)orderDetail
+{
+}
+
+//拒绝退款
+- (void)refuseRefundMoney:(OrderDetailModel *)orderDetail
+{
+    
+}
+
+//发货
+- (void)deliveryGoods:(OrderDetailModel *)orderDetail
+{
+    
+}
+
+//关闭交易
+- (void)closeOrder:(OrderDetailModel *)orderDetail
+{
+    
+}
+
+//缺货退款
+- (void)refundMoneyWithSoldOut:(OrderDetailModel *)orderDetail
+{
+    
 }
 
 @end

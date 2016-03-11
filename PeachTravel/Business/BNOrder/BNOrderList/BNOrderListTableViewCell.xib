@@ -15,7 +15,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="j92-qG-Ztp">
-                        <rect key="frame" x="8" y="8" width="60" height="60"/>
+                        <rect key="frame" x="8" y="10" width="60" height="60"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="60" id="2kG-Ai-3VU"/>
                             <constraint firstAttribute="width" constant="60" id="Izk-Fq-mVC"/>
@@ -103,7 +103,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="XMv-x2-Aot" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="1Lk-ex-BSw"/>
-                    <constraint firstItem="j92-qG-Ztp" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="1WS-L2-Dre"/>
+                    <constraint firstItem="j92-qG-Ztp" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="1WS-L2-Dre"/>
                     <constraint firstItem="LZi-nO-8zv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="4FJ-Yi-Nne"/>
                     <constraint firstItem="3XS-nh-eRg" firstAttribute="leading" secondItem="j92-qG-Ztp" secondAttribute="trailing" constant="8" id="6hk-Q5-l71"/>
                     <constraint firstItem="W2y-sb-7MC" firstAttribute="top" secondItem="3XS-nh-eRg" secondAttribute="bottom" id="95s-7J-Ome"/>
