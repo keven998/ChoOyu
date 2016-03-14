@@ -30,10 +30,11 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UILabel *totalPriceLabel;
 @property (nonatomic, strong) UIButton *commintOrderBtn;
-@property (nonatomic, strong) UIView *currentTextActivity;
 @property (nonatomic, weak) OrderPriceDetailView *orderPriceDetailView;
 
+@property (nonatomic, strong) UIView *currentTextActivity;
 @property (nonatomic) CGPoint backupOffset;
+
 @property (nonatomic, strong) OrderDetailModel *orderDetail;
 
 @end

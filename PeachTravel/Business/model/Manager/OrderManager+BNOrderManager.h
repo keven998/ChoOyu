@@ -7,6 +7,7 @@
 //
 
 #import "OrderManager.h"
+#import "BNOrderDetailModel.h"
 
 @interface OrderManager (BNOrderManager)
 
@@ -20,5 +21,13 @@
  *  @param completion
  */
 + (void)asyncLoadOrdersFromServerOfStore:(NSInteger)storeId orderType:(NSArray<NSString *> *)orderTypes startIndex:(NSInteger)startIndex count:(NSInteger)count completionBlock:(void (^)(BOOL isSuccess, NSArray<OrderDetailModel *> * orderList))completion;
+
+/**
+ *  加载商家版本的订单详情
+ *
+ *  @param orderId    订单 ID
+ *  @param completion 
+ */
++ (void)asyncLoadBNOrderDetailWithOrderId:(NSInteger)orderId completionBlock:(void (^)(BOOL, BNOrderDetailModel *))completion;
 
 @end

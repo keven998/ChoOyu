@@ -470,7 +470,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 //    NSString *str = @"红包";
 //    if ([message.message containsString:str]) {
 //        [self sendPaipaiMessage:message];
-//
 //    }
 //    if ([[message.message stringByReplacingOccurrencesOfString:@" " withString:@""] isEqualToString:@"小李子都获奖了我也要有奖"]) {
 //    }

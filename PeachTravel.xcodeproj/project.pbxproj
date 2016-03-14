@@ -483,6 +483,12 @@
 		D91087111C8FC3D2000D46B4 /* BNOrderListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D910870F1C8FC3D2000D46B4 /* BNOrderListViewController.xib */; };
 		D91087141C911F42000D46B4 /* OrderManager+BNOrderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D91087131C911F42000D46B4 /* OrderManager+BNOrderManager.m */; };
 		D91087171C915964000D46B4 /* BNOrderDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D91087161C915964000D46B4 /* BNOrderDetailModel.m */; };
+		D910876C1C92C9D7000D46B4 /* BNRefundMoneyRemarkTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D910876A1C92C9D7000D46B4 /* BNRefundMoneyRemarkTableViewCell.m */; };
+		D910876D1C92C9D7000D46B4 /* BNRefundMoneyRemarkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D910876B1C92C9D7000D46B4 /* BNRefundMoneyRemarkTableViewCell.xib */; };
+		D91087721C966662000D46B4 /* BNRefundMoneyWithSoldOutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D91087701C966662000D46B4 /* BNRefundMoneyWithSoldOutViewController.m */; };
+		D91087731C966662000D46B4 /* BNRefundMoneyWithSoldOutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D91087711C966662000D46B4 /* BNRefundMoneyWithSoldOutViewController.xib */; };
+		D91087781C9666B6000D46B4 /* BNDeliverGoodsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D91087761C9666B6000D46B4 /* BNDeliverGoodsDetailViewController.m */; };
+		D91087791C9666B6000D46B4 /* BNDeliverGoodsDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D91087771C9666B6000D46B4 /* BNDeliverGoodsDetailViewController.xib */; };
 		D9121ED41BBA395900C2E480 /* SearchTravelNoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9121ED31BBA395900C2E480 /* SearchTravelNoteViewController.m */; };
 		D9121ED71BBA534F00C2E480 /* PoiRecommendSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9121ED61BBA534F00C2E480 /* PoiRecommendSearchViewController.m */; };
 		D915296D1BB24592002D1F51 /* PoiRecommendRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D915296C1BB24592002D1F51 /* PoiRecommendRootViewController.m */; };
@@ -2644,6 +2650,15 @@
 		D91087131C911F42000D46B4 /* OrderManager+BNOrderManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "OrderManager+BNOrderManager.m"; sourceTree = "<group>"; };
 		D91087151C915964000D46B4 /* BNOrderDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNOrderDetailModel.h; sourceTree = "<group>"; };
 		D91087161C915964000D46B4 /* BNOrderDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNOrderDetailModel.m; sourceTree = "<group>"; };
+		D91087691C92C9D7000D46B4 /* BNRefundMoneyRemarkTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNRefundMoneyRemarkTableViewCell.h; sourceTree = "<group>"; };
+		D910876A1C92C9D7000D46B4 /* BNRefundMoneyRemarkTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNRefundMoneyRemarkTableViewCell.m; sourceTree = "<group>"; };
+		D910876B1C92C9D7000D46B4 /* BNRefundMoneyRemarkTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BNRefundMoneyRemarkTableViewCell.xib; sourceTree = "<group>"; };
+		D910876F1C966662000D46B4 /* BNRefundMoneyWithSoldOutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNRefundMoneyWithSoldOutViewController.h; sourceTree = "<group>"; };
+		D91087701C966662000D46B4 /* BNRefundMoneyWithSoldOutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNRefundMoneyWithSoldOutViewController.m; sourceTree = "<group>"; };
+		D91087711C966662000D46B4 /* BNRefundMoneyWithSoldOutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BNRefundMoneyWithSoldOutViewController.xib; sourceTree = "<group>"; };
+		D91087751C9666B6000D46B4 /* BNDeliverGoodsDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNDeliverGoodsDetailViewController.h; sourceTree = "<group>"; };
+		D91087761C9666B6000D46B4 /* BNDeliverGoodsDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNDeliverGoodsDetailViewController.m; sourceTree = "<group>"; };
+		D91087771C9666B6000D46B4 /* BNDeliverGoodsDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BNDeliverGoodsDetailViewController.xib; sourceTree = "<group>"; };
 		D9121ED21BBA395900C2E480 /* SearchTravelNoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchTravelNoteViewController.h; sourceTree = "<group>"; };
 		D9121ED31BBA395900C2E480 /* SearchTravelNoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchTravelNoteViewController.m; sourceTree = "<group>"; };
 		D9121ED51BBA534F00C2E480 /* PoiRecommendSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoiRecommendSearchViewController.h; sourceTree = "<group>"; };
@@ -5752,6 +5767,46 @@
 			path = Goods;
 			sourceTree = "<group>";
 		};
+		D91087621C92A4C3000D46B4 /* BNOrderOperation */ = {
+			isa = PBXGroup;
+			children = (
+				D91087741C96669D000D46B4 /* BNDeliverGoodsDetailViewController */,
+				D910876E1C966662000D46B4 /* BNRefundMoneyWithSoldOutViewController */,
+				D91087681C92C9A3000D46B4 /* Views */,
+			);
+			path = BNOrderOperation;
+			sourceTree = "<group>";
+		};
+		D91087681C92C9A3000D46B4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D91087691C92C9D7000D46B4 /* BNRefundMoneyRemarkTableViewCell.h */,
+				D910876A1C92C9D7000D46B4 /* BNRefundMoneyRemarkTableViewCell.m */,
+				D910876B1C92C9D7000D46B4 /* BNRefundMoneyRemarkTableViewCell.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D910876E1C966662000D46B4 /* BNRefundMoneyWithSoldOutViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D910876F1C966662000D46B4 /* BNRefundMoneyWithSoldOutViewController.h */,
+				D91087701C966662000D46B4 /* BNRefundMoneyWithSoldOutViewController.m */,
+				D91087711C966662000D46B4 /* BNRefundMoneyWithSoldOutViewController.xib */,
+			);
+			path = BNRefundMoneyWithSoldOutViewController;
+			sourceTree = "<group>";
+		};
+		D91087741C96669D000D46B4 /* BNDeliverGoodsDetailViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D91087751C9666B6000D46B4 /* BNDeliverGoodsDetailViewController.h */,
+				D91087761C9666B6000D46B4 /* BNDeliverGoodsDetailViewController.m */,
+				D91087771C9666B6000D46B4 /* BNDeliverGoodsDetailViewController.xib */,
+			);
+			path = BNDeliverGoodsDetailViewController;
+			sourceTree = "<group>";
+		};
 		D915296A1BB24437002D1F51 /* PoiRecommend */ = {
 			isa = PBXGroup;
 			children = (
@@ -6290,6 +6345,7 @@
 		D9338D621C8E84660073EAD9 /* BNOrder */ = {
 			isa = PBXGroup;
 			children = (
+				D91087621C92A4C3000D46B4 /* BNOrderOperation */,
 				D9338D631C8E84660073EAD9 /* BNOrderList */,
 			);
 			path = BNOrder;
@@ -10710,6 +10766,7 @@
 				01C1EC5F1BB4E4720082217A /* shoushang@2x.png in Resources */,
 				E6F189151B845F4900232EEB /* account_labbar_icon_follow_default@2x.png in Resources */,
 				E6381C141B66269000CF73AA /* Loading_Animation_final6@2x.png in Resources */,
+				D91087731C966662000D46B4 /* BNRefundMoneyWithSoldOutViewController.xib in Resources */,
 				D937AE1F1BB95F0C0070F879 /* icon_dot@3x.png in Resources */,
 				D925B23B1C475422000F7E10 /* icon_errorEmpty@3x.png in Resources */,
 				E6F18AD91B845F4900232EEB /* ReceiverImageNodeBorder_black@2x.png in Resources */,
@@ -11315,6 +11372,7 @@
 				E68CB27F1B9EB74300A5B38B /* add_friend@3x.png in Resources */,
 				E608A1381B8F414C003BA318 /* up@3x.png in Resources */,
 				D971E2A51B90574B007E5AFD /* textfield_bgk@2x.png in Resources */,
+				D91087791C9666B6000D46B4 /* BNDeliverGoodsDetailViewController.xib in Resources */,
 				D90A9B301B5627C400E9F37C /* Loading_Animation_final5@3x.png in Resources */,
 				01C1EC061BB4E4720082217A /* bomb@3x.png in Resources */,
 				E6F1892E1B845F4900232EEB /* dashboard_03_icon_constellation5@3x.png in Resources */,
@@ -11468,6 +11526,7 @@
 				D971E2D61B94650A007E5AFD /* master_level_bg@2x.png in Resources */,
 				D9A8006A1A80DD0C005AD701 /* ContactListTableViewCell.xib in Resources */,
 				E68CB29C1B9F128A00A5B38B /* plan_normal@2x.png in Resources */,
+				D910876D1C92C9D7000D46B4 /* BNRefundMoneyRemarkTableViewCell.xib in Resources */,
 				D9221A241BFC78360015A685 /* SelectPayPlatformViewController.xib in Resources */,
 				E6F1896B1B845F4900232EEB /* poi_bg_album@2x.png in Resources */,
 				01C1EC281BB4E4720082217A /* jianhua@3x.png in Resources */,
@@ -11666,6 +11725,7 @@
 				D9221A391BFD7D530015A685 /* AskRefundMoneyLeaveMessageTableViewCell.m in Sources */,
 				D993C2471B12DF0C0088D568 /* FrendDaoHelper.swift in Sources */,
 				D96EAA1B1BB4F14E00360ED8 /* MoreDomesticPoiRecommendViewController.m in Sources */,
+				D91087781C9666B6000D46B4 /* BNDeliverGoodsDetailViewController.m in Sources */,
 				D969AD3B1C2C1759007413CA /* OrderDetailPreviewViewController.m in Sources */,
 				D9E5F8C61C4F300F00C387EC /* GoodsDetailHeaderView.m in Sources */,
 				D9D9A50E1BAFD00E001001B8 /* UserAlbumOverViewTableViewController.m in Sources */,
@@ -11841,6 +11901,7 @@
 				D993C2431B12DF0C0088D568 /* DaoHelper.swift in Sources */,
 				C679D3161ACD65EC007680D9 /* UIViewController+CWPopup.m in Sources */,
 				D92CCF2C1C156BE20018D54D /* GoodsLinkMessage.swift in Sources */,
+				D910876C1C92C9D7000D46B4 /* BNRefundMoneyRemarkTableViewCell.m in Sources */,
 				D95663A51BB00B0F006B2765 /* SearchDestinationRecommendViewController.m in Sources */,
 				D98EB3A01C16DAE20034B8D4 /* GoodsChatMessage.swift in Sources */,
 				D96BAFF21C1AEAA000CDB7C7 /* QNCrc32.m in Sources */,
@@ -12076,6 +12137,7 @@
 				D91087171C915964000D46B4 /* BNOrderDetailModel.m in Sources */,
 				E6BFE5FD1B5E732F00A9FDCA /* DestinationCollectionViewCell.m in Sources */,
 				D9338D611C8E7A5A0073EAD9 /* GoodsManager+BNGoodsManager.m in Sources */,
+				D91087721C966662000D46B4 /* BNRefundMoneyWithSoldOutViewController.m in Sources */,
 				D9F059F51B63360700DD683F /* PlanScheduleTableViewCell.m in Sources */,
 				D96BAFF61C1AEAA000CDB7C7 /* QNSystem.m in Sources */,
 				D9E5F8CA1C4F683A00C387EC /* GoodsDetailSellerQualificationsTableViewCell.m in Sources */,

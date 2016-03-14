@@ -13,6 +13,8 @@
 #import "ChatViewController.h"
 #import "ChatSettingViewController.h"
 #import "REFrostedViewController.h"
+#import "BNRefundMoneyWithSoldOutViewController.h"
+#import "BNDeliverGoodsDetailViewController.h"
 
 @interface BNOrderListViewController () <UITableViewDataSource, UITableViewDelegate, BNOrderListTableViewCellDelegate>
 
@@ -113,7 +115,6 @@
     [self.navigationController pushViewController:frostedViewController animated:YES];
 }
 
-
 //同意退款
 - (void)agreeRefundMoney:(OrderDetailModel *)orderDetail
 {
@@ -128,7 +129,9 @@
 //发货
 - (void)deliveryGoods:(OrderDetailModel *)orderDetail
 {
-    
+    BNDeliverGoodsDetailViewController *ctl = [[BNDeliverGoodsDetailViewController alloc] init];
+    ctl.orderId = orderDetail.orderId;
+    [self.navigationController pushViewController:ctl animated:YES];
 }
 
 //关闭交易
@@ -140,7 +143,9 @@
 //缺货退款
 - (void)refundMoneyWithSoldOut:(OrderDetailModel *)orderDetail
 {
-    
+    BNRefundMoneyWithSoldOutViewController *ctl = [[BNRefundMoneyWithSoldOutViewController alloc] init];
+    ctl.orderId = orderDetail.orderId;
+    [self.navigationController pushViewController:ctl animated:YES];
 }
 
 @end

@@ -7,7 +7,6 @@
 //
 
 #import "OrderManager+BNOrderManager.h"
-#import "BNOrderDetailModel.h"
 
 @implementation OrderManager (BNOrderManager)
 
@@ -16,8 +15,7 @@
     NSString *url = [NSString stringWithFormat:@"%@", API_ORDERS];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params setObject:[NSNumber numberWithInteger:storeId] forKey:@"seller"];
-    [params setObject:[NSNumber numberWithInteger:storeId] forKey:@"userId"];
+    [params setObject:[NSNumber numberWithInteger:storeId] forKey:@"sellerId"];
     [params setObject:[NSNumber numberWithInteger:startIndex] forKey:@"start"];
     [params setObject:[NSNumber numberWithInteger:count] forKey:@"count"];
     
@@ -56,7 +54,31 @@
         completion(NO, nil);
         
     }];
+}
 
++ (void)asyncLoadBNOrderDetailWithOrderId:(NSInteger)orderId completionBlock:(void (^)(BOOL, BNOrderDetailModel *))completion
+{
+    NSString *url = [NSString stringWithFormat:@"%@/%ld", API_ORDERS, orderId];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [LXPNetworking GET:url parameters: nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            if ([[responseObject objectForKey:@"result"] isKindOfClass:[NSDictionary class]]) {
+                BNOrderDetailModel *orderDetail = [[BNOrderDetailModel alloc] initWithJson:[responseObject objectForKey:@"result"]];
+                completion(YES, orderDetail);
+            } else {
+                completion(NO, nil);
+            }
+        } else {
+            completion(NO, nil);
+            
+        }
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        completion(NO, nil);
+        
+    }];
 }
 
 @end
