@@ -125,7 +125,7 @@
         _closeOrderButton.layer.borderColor = COLOR_LINE.CGColor;
         _closeOrderButton.layer.borderWidth = 1;
         _closeOrderButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
-        [_closeOrderButton addTarget:self action:@selector(closeOrder:) forControlEvents:UIControlEventTouchUpInside];
+        [_closeOrderButton addTarget:self action:@selector(closeOrderAction:) forControlEvents:UIControlEventTouchUpInside];
         _closeOrderButton.layer.cornerRadius = 3.0;
         [self.contentView addSubview:_closeOrderButton];
     }

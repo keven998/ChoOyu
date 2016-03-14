@@ -9,6 +9,7 @@
 #import "BNGoodsListViewController.h"
 #import "BNGoodsListTableViewCell.h"
 #import "GoodsManager+BNGoodsManager.h"
+#import "BNGoodsDetailViewController.h"
 
 @interface BNGoodsListViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -100,7 +101,7 @@
         [cell.actionButton addTarget:self action:@selector(disableGoodsAction:) forControlEvents:UIControlEventTouchUpInside];
         
     } else if (cell.goodsDetail.goodsStatus == kOffSale) {
-        [cell.actionButton addTarget:self action:@selector(onSaleGoodsAction:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.actionButton addTarget:self action:@selector(disableGoodsAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     return cell;
 }
@@ -108,6 +109,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    BNGoodsDetailViewController *ctl = [[BNGoodsDetailViewController alloc] init];
+    ctl.goodsId = [_dataSource objectAtIndex:indexPath.section].goodsId;
+    [_containerCtl.navigationController pushViewController:ctl animated:YES];
 }
 
 @end

@@ -19,4 +19,6 @@
 @property (nonatomic) long goodsVersion;
 
 
+
+
 @end

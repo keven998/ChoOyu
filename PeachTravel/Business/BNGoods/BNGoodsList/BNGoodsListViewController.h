@@ -15,4 +15,6 @@
 @property (nonatomic) NSInteger storeId;
 @property (nonatomic) BNGoodsStatus goodsStatus;
 
+@property (nonatomic, weak) UIViewController *containerCtl;
+
 @end

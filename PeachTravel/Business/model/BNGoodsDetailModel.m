@@ -27,5 +27,19 @@
     return self;
 }
 
-
+- (NSString *)goodsStatusDesc
+{
+    if (_goodsStatus == kOnSale) {
+        return @"已发布";
+        
+    } else if (_goodsStatus == kOffSale) {
+        return @"已下架";
+        
+    } else if (_goodsStatus == kReviewing) {
+        return @"审核中";
+        
+    } else {
+        return @"";
+    }
+}
 @end

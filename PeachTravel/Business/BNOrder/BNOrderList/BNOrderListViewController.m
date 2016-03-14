@@ -18,7 +18,7 @@
 #import "BNAgreeRefundMoneyViewController.h"
 #import "BNRefuseRefundMoneyViewController.h"
 
-@interface BNOrderListViewController () <UITableViewDataSource, UITableViewDelegate, BNOrderListTableViewCellDelegate>
+@interface BNOrderListViewController () <UITableViewDataSource, UITableViewDelegate, BNOrderListTableViewCellDelegate, UIActionSheetDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -145,7 +145,8 @@
 //关闭交易
 - (void)closeOrder:(OrderDetailModel *)orderDetail
 {
-    
+    UIActionSheet *acctionSheet = [[UIActionSheet alloc] initWithTitle:@"选择关闭交易理由" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"未及时付款", @"买家不想买", @"买家信息填写有误，重拍", @"恶意买家/同行捣乱", @"缺货", @"买家拍错了", @"其它原因", nil];
+    [acctionSheet showInView:self.view];
 }
 
 //缺货退款

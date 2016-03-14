@@ -51,6 +51,32 @@
     }];
 }
 
++ (void)asyncLoadBNGoodsDetailWithGoodsId:(NSInteger)goodsId completionBlock:(void (^)(BOOL, NSDictionary *, BNGoodsDetailModel *))completion
+{
+    NSString *url = [NSString stringWithFormat:@"%@/%ld", API_GOODSLIST, goodsId];
+    [LXPNetworking GET:url parameters: nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"***开始加载商品详情: %@", operation);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            NSDictionary *goodsDic = [responseObject objectForKey:@"result"];
+            if ([goodsDic isKindOfClass:[NSDictionary class]]) {
+                BNGoodsDetailModel *goodsDetail = [[BNGoodsDetailModel alloc] initWithJson:goodsDic];
+                completion(YES, goodsDic, goodsDetail);
+            } else {
+                completion(YES, nil, nil);
+            }
+        } else {
+            completion(NO, nil, nil);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (operation.response.statusCode == 404) {  //商品已经下架
+            completion(YES, nil, nil);
+        } else {
+            completion(NO, nil, nil);
+        }
+    }];
+}
+
 + (void)asyncDisableGoods:(NSInteger)goodsId completionBlock:(void (^)(BOOL, NSString *))completion
 {
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];

@@ -28,6 +28,7 @@
     NSMutableArray *items = [NSMutableArray arrayWithCapacity:titleArray.count];
     for (int i = 0; i < titleArray.count; i++) {
         BNGoodsListViewController *vc = [[BNGoodsListViewController alloc] init];
+        vc.containerCtl = self;
         vc.storeId = [AccountManager shareAccountManager].account.userId;
         vc.goodsStatus = [[statusArray objectAtIndex:i] integerValue];
         DKTabPageItem *item = [DKTabPageViewControllerItem tabPageItemWithTitle:titleArray[i]

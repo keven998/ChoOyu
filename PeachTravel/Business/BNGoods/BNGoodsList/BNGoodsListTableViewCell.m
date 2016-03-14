@@ -22,6 +22,11 @@
     _priceLabel.text = [NSString stringWithFormat:@"价格: %@起", _goodsDetail.formatCurrentPrice];
     _timeLabel.text = [NSString stringWithFormat:@"创建时间: 2016-02-03"];
     
+    [_actionButton setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+    _actionButton.layer.borderColor = APP_THEME_COLOR.CGColor;
+    _actionButton.layer.borderWidth = 0.5;
+    _actionButton.layer.cornerRadius = 4.0;
+    
     if (_goodsDetail.goodsStatus == kOnSale) {
         [_actionButton setTitle:@"下架" forState:UIControlStateNormal];
     } else if (_goodsDetail.goodsStatus == kOffSale) {

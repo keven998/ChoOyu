@@ -18,12 +18,7 @@
     [LXPNetworking GET:url parameters: nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"***开始加载店铺详情: %@", operation);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-        
-        if (storeId == 202847) {
-            completion(YES, [[StoreDetailModel alloc] init]);
-            return;
-
-        }
+    
         if (code == 0) {
             NSDictionary *goodsDic = [responseObject objectForKey:@"result"];
             if ([goodsDic isKindOfClass:[NSDictionary class]]) {

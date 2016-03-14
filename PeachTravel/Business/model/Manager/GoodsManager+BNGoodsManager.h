@@ -21,6 +21,13 @@
  */
 + (void)asyncLoadGoodsOfStore:(NSInteger)storeId goodsStatus:(BNGoodsStatus)status startIndex:(NSInteger)startIndex count:(NSUInteger)count completionBlock:(void (^)(BOOL isSuccess, NSArray *goodsList))completion;
 
+/**
+ *  加载商家版本的商品详情
+ *
+ *  @param goodsId
+ *  @param completion   
+ */
++ (void)asyncLoadBNGoodsDetailWithGoodsId:(NSInteger)goodsId completionBlock:(void (^)(BOOL isSuccess, NSDictionary *goodsDic, BNGoodsDetailModel *goodsDetail))completion;
 
 /**
  *  下架商品

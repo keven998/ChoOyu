@@ -17,5 +17,6 @@ typedef enum : NSUInteger {
 @interface BNGoodsDetailModel : GoodsDetailModel
 
 @property (nonatomic) BNGoodsStatus goodsStatus;
+@property (nonatomic, copy, readonly) NSString *goodsStatusDesc;
 
 @end
