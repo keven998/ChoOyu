@@ -13,6 +13,24 @@
 - (id)initWithJson:(id)json
 {
     if (self = [super initWithJson:json]) {
+        if (self.orderStatus == kOrderRefunding) {
+            for (NSDictionary *dic in [json objectForKey:@"activities"]) {
+                if ([[dic objectForKey:@"action"] isEqualToString:@"refundApply"]) {
+                    _requestRefundtExcuse = [[dic objectForKey:@"data"] objectForKey:@"reason"];
+                    _requestRefundtMessage = [[dic objectForKey:@"data"] objectForKey:@"memo"];
+                    _refundLastTimeInterval = [[dic objectForKey:@"timestamp"] longLongValue]/1000 + 72*3600;
+                    NSDate *date = [NSDate dateWithTimeIntervalSince1970:[[dic objectForKey:@"timestamp"] longLongValue]/1000];
+                    _requestRefundtDate = [ConvertMethods dateToString:date withFormat:@"yyyy-MM-dd HH:mm" withTimeZone:[NSTimeZone systemTimeZone]];
+                    break;
+                }
+            }
+            for (NSDictionary *dic in [json objectForKey:@"activities"]) {
+                if ([[dic objectForKey:@"action"] isEqualToString:@"commit"]) {
+                    _hasDeliverGoods = YES;
+                    break;
+                }
+            }
+        }
     }
     return self;
 }

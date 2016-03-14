@@ -5,9 +5,9 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BNDeliverGoodsDetailViewController">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BNRefuseRefundMoneyViewController">
             <connections>
-                <outlet property="tableView" destination="3Yz-qZ-3HE" id="nz1-rz-Ub8"/>
+                <outlet property="tableView" destination="EKp-Xa-1zn" id="bQS-4a-naK"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -16,17 +16,17 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="3Yz-qZ-3HE">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="EKp-Xa-1zn">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                     <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                 </tableView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="3Yz-qZ-3HE" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="192-wD-d1o"/>
-                <constraint firstAttribute="trailing" secondItem="3Yz-qZ-3HE" secondAttribute="trailing" id="2R3-bS-OaV"/>
-                <constraint firstAttribute="bottom" secondItem="3Yz-qZ-3HE" secondAttribute="bottom" id="5RC-9k-cpz"/>
-                <constraint firstItem="3Yz-qZ-3HE" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="gNl-RA-HYX"/>
+                <constraint firstAttribute="bottom" secondItem="EKp-Xa-1zn" secondAttribute="bottom" id="6YQ-Mu-puN"/>
+                <constraint firstItem="EKp-Xa-1zn" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="JSU-Tw-c3f"/>
+                <constraint firstItem="EKp-Xa-1zn" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ceu-fv-0pp"/>
+                <constraint firstAttribute="trailing" secondItem="EKp-Xa-1zn" secondAttribute="trailing" id="ycx-Cn-jfm"/>
             </constraints>
         </view>
     </objects>

@@ -15,6 +15,8 @@
 #import "REFrostedViewController.h"
 #import "BNRefundMoneyWithSoldOutViewController.h"
 #import "BNDeliverGoodsDetailViewController.h"
+#import "BNAgreeRefundMoneyViewController.h"
+#import "BNRefuseRefundMoneyViewController.h"
 
 @interface BNOrderListViewController () <UITableViewDataSource, UITableViewDelegate, BNOrderListTableViewCellDelegate>
 
@@ -118,12 +120,18 @@
 //同意退款
 - (void)agreeRefundMoney:(OrderDetailModel *)orderDetail
 {
+    BNAgreeRefundMoneyViewController *ctl = [[BNAgreeRefundMoneyViewController alloc] init];
+    ctl.orderId = orderDetail.orderId;
+    [self.navigationController pushViewController:ctl animated:YES];
 }
 
 //拒绝退款
 - (void)refuseRefundMoney:(OrderDetailModel *)orderDetail
 {
-    
+    BNRefuseRefundMoneyViewController *ctl = [[BNRefuseRefundMoneyViewController alloc] init];
+    ctl.orderId = orderDetail.orderId;
+    [self.navigationController pushViewController:ctl animated:YES];
+
 }
 
 //发货

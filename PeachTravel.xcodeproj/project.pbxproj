@@ -489,6 +489,12 @@
 		D91087731C966662000D46B4 /* BNRefundMoneyWithSoldOutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D91087711C966662000D46B4 /* BNRefundMoneyWithSoldOutViewController.xib */; };
 		D91087781C9666B6000D46B4 /* BNDeliverGoodsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D91087761C9666B6000D46B4 /* BNDeliverGoodsDetailViewController.m */; };
 		D91087791C9666B6000D46B4 /* BNDeliverGoodsDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D91087771C9666B6000D46B4 /* BNDeliverGoodsDetailViewController.xib */; };
+		D91087861C966DDD000D46B4 /* BNAgreeRefundMoneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D91087841C966DDD000D46B4 /* BNAgreeRefundMoneyViewController.m */; };
+		D91087871C966DDD000D46B4 /* BNAgreeRefundMoneyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D91087851C966DDD000D46B4 /* BNAgreeRefundMoneyViewController.xib */; };
+		D91087931C96A50B000D46B4 /* BNRefuseRefundMoneyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D91087901C96A50B000D46B4 /* BNRefuseRefundMoneyViewController.xib */; };
+		D91087941C96A50B000D46B4 /* BNRefuseRefundMoneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D91087921C96A50B000D46B4 /* BNRefuseRefundMoneyViewController.m */; };
+		D91087981C96A656000D46B4 /* BNAgreeRefundMoneyRemarkTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D91087961C96A656000D46B4 /* BNAgreeRefundMoneyRemarkTableViewCell.m */; };
+		D91087991C96A656000D46B4 /* BNAgreeRefundMoneyRemarkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D91087971C96A656000D46B4 /* BNAgreeRefundMoneyRemarkTableViewCell.xib */; };
 		D9121ED41BBA395900C2E480 /* SearchTravelNoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9121ED31BBA395900C2E480 /* SearchTravelNoteViewController.m */; };
 		D9121ED71BBA534F00C2E480 /* PoiRecommendSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9121ED61BBA534F00C2E480 /* PoiRecommendSearchViewController.m */; };
 		D915296D1BB24592002D1F51 /* PoiRecommendRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D915296C1BB24592002D1F51 /* PoiRecommendRootViewController.m */; };
@@ -2659,6 +2665,15 @@
 		D91087751C9666B6000D46B4 /* BNDeliverGoodsDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNDeliverGoodsDetailViewController.h; sourceTree = "<group>"; };
 		D91087761C9666B6000D46B4 /* BNDeliverGoodsDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNDeliverGoodsDetailViewController.m; sourceTree = "<group>"; };
 		D91087771C9666B6000D46B4 /* BNDeliverGoodsDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BNDeliverGoodsDetailViewController.xib; sourceTree = "<group>"; };
+		D91087831C966DDD000D46B4 /* BNAgreeRefundMoneyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNAgreeRefundMoneyViewController.h; sourceTree = "<group>"; };
+		D91087841C966DDD000D46B4 /* BNAgreeRefundMoneyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNAgreeRefundMoneyViewController.m; sourceTree = "<group>"; };
+		D91087851C966DDD000D46B4 /* BNAgreeRefundMoneyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BNAgreeRefundMoneyViewController.xib; sourceTree = "<group>"; };
+		D91087901C96A50B000D46B4 /* BNRefuseRefundMoneyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BNRefuseRefundMoneyViewController.xib; sourceTree = "<group>"; };
+		D91087911C96A50B000D46B4 /* BNRefuseRefundMoneyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNRefuseRefundMoneyViewController.h; sourceTree = "<group>"; };
+		D91087921C96A50B000D46B4 /* BNRefuseRefundMoneyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNRefuseRefundMoneyViewController.m; sourceTree = "<group>"; };
+		D91087951C96A656000D46B4 /* BNAgreeRefundMoneyRemarkTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNAgreeRefundMoneyRemarkTableViewCell.h; sourceTree = "<group>"; };
+		D91087961C96A656000D46B4 /* BNAgreeRefundMoneyRemarkTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNAgreeRefundMoneyRemarkTableViewCell.m; sourceTree = "<group>"; };
+		D91087971C96A656000D46B4 /* BNAgreeRefundMoneyRemarkTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BNAgreeRefundMoneyRemarkTableViewCell.xib; sourceTree = "<group>"; };
 		D9121ED21BBA395900C2E480 /* SearchTravelNoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchTravelNoteViewController.h; sourceTree = "<group>"; };
 		D9121ED31BBA395900C2E480 /* SearchTravelNoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchTravelNoteViewController.m; sourceTree = "<group>"; };
 		D9121ED51BBA534F00C2E480 /* PoiRecommendSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoiRecommendSearchViewController.h; sourceTree = "<group>"; };
@@ -5770,6 +5785,8 @@
 		D91087621C92A4C3000D46B4 /* BNOrderOperation */ = {
 			isa = PBXGroup;
 			children = (
+				D91087881C96A4C3000D46B4 /* BNRefuseRefundMoney */,
+				D910877A1C966D65000D46B4 /* BNAgreeRefundMoney */,
 				D91087741C96669D000D46B4 /* BNDeliverGoodsDetailViewController */,
 				D910876E1C966662000D46B4 /* BNRefundMoneyWithSoldOutViewController */,
 				D91087681C92C9A3000D46B4 /* Views */,
@@ -5780,6 +5797,9 @@
 		D91087681C92C9A3000D46B4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D91087951C96A656000D46B4 /* BNAgreeRefundMoneyRemarkTableViewCell.h */,
+				D91087961C96A656000D46B4 /* BNAgreeRefundMoneyRemarkTableViewCell.m */,
+				D91087971C96A656000D46B4 /* BNAgreeRefundMoneyRemarkTableViewCell.xib */,
 				D91087691C92C9D7000D46B4 /* BNRefundMoneyRemarkTableViewCell.h */,
 				D910876A1C92C9D7000D46B4 /* BNRefundMoneyRemarkTableViewCell.m */,
 				D910876B1C92C9D7000D46B4 /* BNRefundMoneyRemarkTableViewCell.xib */,
@@ -5805,6 +5825,26 @@
 				D91087771C9666B6000D46B4 /* BNDeliverGoodsDetailViewController.xib */,
 			);
 			path = BNDeliverGoodsDetailViewController;
+			sourceTree = "<group>";
+		};
+		D910877A1C966D65000D46B4 /* BNAgreeRefundMoney */ = {
+			isa = PBXGroup;
+			children = (
+				D91087831C966DDD000D46B4 /* BNAgreeRefundMoneyViewController.h */,
+				D91087841C966DDD000D46B4 /* BNAgreeRefundMoneyViewController.m */,
+				D91087851C966DDD000D46B4 /* BNAgreeRefundMoneyViewController.xib */,
+			);
+			path = BNAgreeRefundMoney;
+			sourceTree = "<group>";
+		};
+		D91087881C96A4C3000D46B4 /* BNRefuseRefundMoney */ = {
+			isa = PBXGroup;
+			children = (
+				D91087901C96A50B000D46B4 /* BNRefuseRefundMoneyViewController.xib */,
+				D91087911C96A50B000D46B4 /* BNRefuseRefundMoneyViewController.h */,
+				D91087921C96A50B000D46B4 /* BNRefuseRefundMoneyViewController.m */,
+			);
+			path = BNRefuseRefundMoney;
 			sourceTree = "<group>";
 		};
 		D915296A1BB24437002D1F51 /* PoiRecommend */ = {
@@ -10475,6 +10515,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E6F18B0A1B845F4900232EEB /* master_search@3x.png in Resources */,
+				D91087871C966DDD000D46B4 /* BNAgreeRefundMoneyViewController.xib in Resources */,
 				D9E9D24C1BA3BE1200FB6C07 /* messages_poi_bg_self@2x.png in Resources */,
 				01C1EC511BB4E4720082217A /* question@2x.png in Resources */,
 				01C1EC581BB4E4720082217A /* shaxiao@3x.png in Resources */,
@@ -10937,6 +10978,7 @@
 				01C1EC201BB4E4720082217A /* hello@3x.png in Resources */,
 				D99EAD3F1BBB8840005A02D3 /* icon_common_search@2x.png in Resources */,
 				E6F189E41B845F4900232EEB /* plan_02_bg_day@3x.png in Resources */,
+				D91087931C96A50B000D46B4 /* BNRefuseRefundMoneyViewController.xib in Resources */,
 				E6F18AA91B845F4900232EEB /* chat_sender_audio_playing_002@2x.png in Resources */,
 				D90A9B321B5627C400E9F37C /* Loading_Animation_final7@3x.png in Resources */,
 				D90C76201BF1DED600C5897C /* MakeOrderTravelerInfoTableViewCell.xib in Resources */,
@@ -11269,6 +11311,7 @@
 				E608A12E1B8F413E003BA318 /* point@3x.png in Resources */,
 				01C1EC2F1BB4E4720082217A /* jiong@2x.png in Resources */,
 				D942C27B1B9EBDF0005B81C5 /* ic_navigationbar_menu_add@2x.png in Resources */,
+				D91087991C96A656000D46B4 /* BNAgreeRefundMoneyRemarkTableViewCell.xib in Resources */,
 				D98AE11D1C5075D100FDAC2F /* GoodsDetailBookQuitTableViewCell.xib in Resources */,
 				D9A8FFB41A80D1C3005AD701 /* RecommendCollectionViewCell.xib in Resources */,
 				01C1EC6F1BB4E4720082217A /* weiqu@2x.png in Resources */,
@@ -11950,6 +11993,7 @@
 				E6E725231B5603750007273A /* MJTypeEncoding.m in Sources */,
 				D9A8FF171A80CC2B005AD701 /* VerifyCaptchaViewController.m in Sources */,
 				D92CA1021AD8BDF900F244FF /* PSTCollectionViewFlowLayout.m in Sources */,
+				D91087861C966DDD000D46B4 /* BNAgreeRefundMoneyViewController.m in Sources */,
 				D9A8021E1A80E036005AD701 /* MJPhotoBrowser.m in Sources */,
 				D90EACAE1C09552900634829 /* DownSheet.m in Sources */,
 				D9A8021B1A80E036005AD701 /* MJNIndexView.m in Sources */,
@@ -11959,6 +12003,7 @@
 				D90C75F51BF1DB1A00C5897C /* PDTSimpleCalendarViewFlowLayout.m in Sources */,
 				D91061D41BA93D6E00C4FBCB /* UserAlbumOverviewCell.m in Sources */,
 				01A5CE241BB39E3700A59A8A /* TravelPlanListForCityDetailVC.m in Sources */,
+				D91087941C96A50B000D46B4 /* BNRefuseRefundMoneyViewController.m in Sources */,
 				D999758D1C34CB33009D04E3 /* OrderDetailStatusListTableViewCell.m in Sources */,
 				D944189B1BAFAA9F0091FC0B /* AlbumImageModel.m in Sources */,
 				D9A802E81A80E3D3005AD701 /* TZSegmentedViewController.m in Sources */,
@@ -12360,6 +12405,7 @@
 				D9A8FF5E1A80CF19005AD701 /* SearchMoreDestinationViewController.m in Sources */,
 				D90ED42B1BABBC7E000C6033 /* UploadUserAlbumViewController.m in Sources */,
 				D9A801191A80DD23005AD701 /* ChatSettingViewController.m in Sources */,
+				D91087981C96A656000D46B4 /* BNAgreeRefundMoneyRemarkTableViewCell.m in Sources */,
 				D91061F01BA9519D00C4FBCB /* UserAlbumPreviewViewController.m in Sources */,
 				D91850E61B575541004B8363 /* ItemFooterCollectionViewCell.m in Sources */,
 				2755298C1B04A52400A10506 /* HMSegmentedControl.m in Sources */,
