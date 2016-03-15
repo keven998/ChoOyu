@@ -23,9 +23,6 @@
 
 @property (nonatomic) NSInteger refundCutdown;  //退款倒计时
 
-@property (nonatomic) CGFloat refundMoney;  //退款金额
-@property (nonatomic, copy, readonly) NSString *refundMoneyDesc;  //退款金额描述
-
 @end
 
 @implementation BNRefuseRefundMoneyViewController
@@ -97,13 +94,26 @@
 
 - (void)confirmRefuseRefundMoney:(UIButton *)sender
 {
-    
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"确认拒绝退款？" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+    [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
+        if (buttonIndex == 1) {
+            BNRefundMoneyRemarkTableViewCell *cell = [_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:3]];
+            [OrderManager asyncBNRefuseRefundMoneyOrderWithOrderId:_orderId reason:nil leaveMessage:cell.remarkTextView.text completionBlock:^(BOOL isSuccess, NSString *errorStr) {
+                if (isSuccess) {
+                    [SVProgressHUD showHint:@"您已拒绝买家的退款申请"];
+                    [self.navigationController popViewControllerAnimated:YES];
+                    
+                } else {
+                    [SVProgressHUD showHint:@"拒绝退款失败，请重试"];
+                }
+            }];
+        }
+    }];
 }
 
 - (void)setOrderDetail:(BNOrderDetailModel *)orderDetail
 {
     _orderDetail = orderDetail;
-    _refundMoney = _orderDetail.payPrice;
     if (_orderDetail.orderStatus == kOrderRefunding) {
         if (_orderDetail.expireTime - _orderDetail.currentTime > 0) {
             _refundCutdown = _orderDetail.refundLastTimeInterval - [[NSDate date] timeIntervalSince1970];
@@ -144,23 +154,6 @@
     cell.textLabel.text = [self refundMoneyCutdownDesc];
 }
 
-- (NSString *)refundMoneyDesc
-{
-    NSString *priceStr;
-    float currentPrice = round(_refundMoney*100)/100;
-    if (!(currentPrice - (int)currentPrice)) {
-        priceStr = [NSString stringWithFormat:@"%d", (int)currentPrice];
-    } else {
-        NSString *tempPrice = [NSString stringWithFormat:@"%.1f", currentPrice];
-        if (!(_refundMoney - tempPrice.floatValue)) {
-            priceStr = [NSString stringWithFormat:@"%.1f", currentPrice];
-        } else {
-            priceStr = [NSString stringWithFormat:@"%.2f", currentPrice];
-        }
-    }
-    return priceStr;
-}
-
 - (NSString *)refundMoneyCutdownDesc
 {
     NSInteger days = _refundCutdown/24/60/60;
@@ -184,23 +177,6 @@
     [str appendString:@""];
 
     return str;
-}
-
-//修改退款金额
-- (void)changeRefundMoneyAction:(UIButton *)sender
-{
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"请输入您要退的金额" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-    alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
-    UITextField *tf = [alertView textFieldAtIndex:0];
-    tf.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
-    [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
-        if (buttonIndex == 1) {
-           
-            _refundMoney = [tf.text floatValue];
-            BNRefundMoneyRemarkTableViewCell *cell = [_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:3]];
-            cell.priceLabel.text = [NSString stringWithFormat:@"退款金额: ￥%@", self.refundMoneyDesc];
-        }
-    }];
 }
 
 #pragma mark - UITextViewDelegate
@@ -356,22 +332,8 @@
         
     } else {
         BNRefundMoneyRemarkTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BNRefundMoneyRemarkTableViewCell" forIndexPath:indexPath];
-        cell.priceLabel.text = [NSString stringWithFormat:@"退款金额: ￥%@", self.refundMoneyDesc];
+        cell.priceLabel.text = @"*拒绝原因";
         cell.remarkTextView.delegate = self;
-        for (UIView *view in cell.contentView.subviews) {
-            if (view.tag == 101) {
-                [view removeFromSuperview];
-            }
-        }
-        if (_orderDetail.hasDeliverGoods) {
-            UIButton *changeRefundMoney = [[UIButton alloc] initWithFrame:CGRectMake(kWindowWidth-90, 5, 82, 25)];
-            [changeRefundMoney setTitle:@"修改退款金额" forState:UIControlStateNormal];
-            changeRefundMoney.titleLabel.font = [UIFont systemFontOfSize:13.0];
-            [changeRefundMoney setTitleColor:COLOR_PRICE_RED forState:UIControlStateNormal];
-            changeRefundMoney.tag = 101;
-            [cell.contentView addSubview:changeRefundMoney];
-            [changeRefundMoney addTarget:self action:@selector(changeRefundMoneyAction:) forControlEvents:UIControlEventTouchUpInside];
-        }
         return cell;
     }
 }

@@ -81,4 +81,128 @@
     }];
 }
 
++ (void)asyncBNDeliverOrderWithOrderId:(NSInteger)orderId completionBlock:(void (^)(BOOL, NSString *))completion
+{
+    NSString *url = [NSString stringWithFormat:@"%@/%ld/actions", API_ORDERS, orderId];
+    NSMutableDictionary *dataDic = [[NSMutableDictionary alloc] init];
+    [dataDic safeSetObject:[NSNumber numberWithInteger: [AccountManager shareAccountManager].account.userId] forKey:@"userId"];
+    
+    NSDictionary *params = @{
+                             @"action": @"commmit",
+                             @"data": dataDic
+                             };
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [LXPNetworking POST:url parameters: params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"***卖家发货接口: %@", operation);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            completion(YES, nil);
+        } else {
+            completion(NO, nil);
+            
+        }
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        completion(NO, nil);
+        
+    }];
+
+}
+
++ (void)asyncBNCancelOrderWithOrderId:(NSInteger)orderId reason:(NSString *)reason leaveMessage:(NSString *)message completionBlock:(void (^)(BOOL, NSString *))completion
+{
+    NSString *url = [NSString stringWithFormat:@"%@/%ld/actions", API_ORDERS, orderId];
+    NSMutableDictionary *dataDic = [[NSMutableDictionary alloc] init];
+    [dataDic safeSetObject:[NSNumber numberWithInteger: [AccountManager shareAccountManager].account.userId] forKey:@"userId"];
+    [dataDic safeSetObject:reason forKey:@"reason"];
+    [dataDic safeSetObject:message forKey:@"memo"];
+
+    NSDictionary *params = @{
+                             @"action": @"cancel",
+                             @"data": dataDic
+                             };
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [LXPNetworking POST:url parameters: params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"***取消订单接口: %@", operation);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            completion(YES, nil);
+        } else {
+            completion(NO, nil);
+            
+        }
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        completion(NO, nil);
+        
+    }];
+}
+
++ (void)asyncBNAgreeRefundMoneyOrderWithOrderId:(NSInteger)orderId refundMoney:(float)money leaveMessage:(NSString *)message  completionBlock:(void (^)(BOOL, NSString *))completion
+{
+    NSString *url = [NSString stringWithFormat:@"%@/%ld/actions", API_ORDERS, orderId];
+    NSMutableDictionary *dataDic = [[NSMutableDictionary alloc] init];
+    [dataDic safeSetObject:[NSNumber numberWithInteger: [AccountManager shareAccountManager].account.userId] forKey:@"userId"];
+    [dataDic safeSetObject:message forKey:@"memo"];
+    if (money > 0) {
+        [dataDic setObject:[NSNumber numberWithFloat:money] forKey:@"amount"];
+    }
+    NSDictionary *params = @{
+                             @"action": @"refundApprove",
+                             @"data": dataDic
+                             };
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [LXPNetworking POST:url parameters: params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"***取消订单接口: %@", operation);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            completion(YES, nil);
+        } else {
+            completion(NO, nil);
+        }
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        completion(NO, nil);
+        
+    }];
+}
+
++ (void)asyncBNRefuseRefundMoneyOrderWithOrderId:(NSInteger)orderId reason:(NSString *)reason leaveMessage:(NSString *)message completionBlock:(void (^)(BOOL isSuccess, NSString *errorStr))completion
+{
+    NSString *url = [NSString stringWithFormat:@"%@/%ld/actions", API_ORDERS, orderId];
+    NSMutableDictionary *dataDic = [[NSMutableDictionary alloc] init];
+    [dataDic safeSetObject:[NSNumber numberWithInteger: [AccountManager shareAccountManager].account.userId] forKey:@"userId"];
+    [dataDic safeSetObject:@"reason" forKey:@"reason"];
+    [dataDic safeSetObject:message forKey:@"memo"];
+    
+    NSDictionary *params = @{
+                             @"action": @"refundDeny",
+                             @"data": dataDic
+                             };
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [LXPNetworking POST:url parameters: params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"***卖家拒绝退款接口: %@", operation);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            completion(YES, nil);
+        } else {
+            completion(NO, nil);
+            
+        }
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        completion(NO, nil);
+        
+    }];
+}
+
++ (void)asyncVerifySellerPassword:(NSString *)password completionBlock:(void (^)(BOOL isSuccess, NSString *errorStr))completion
+{
+    completion(YES, nil);
+
+}
 @end

@@ -28,6 +28,51 @@
  *  @param orderId    订单 ID
  *  @param completion 
  */
-+ (void)asyncLoadBNOrderDetailWithOrderId:(NSInteger)orderId completionBlock:(void (^)(BOOL, BNOrderDetailModel *))completion;
++ (void)asyncLoadBNOrderDetailWithOrderId:(NSInteger)orderId completionBlock:(void (^)(BOOL isSuccess, BNOrderDetailModel *orderDetail))completion;
+
+/**
+ *  卖家发货
+ *
+ *  @param orderId
+ *  @param completion
+ */
++ (void)asyncBNDeliverOrderWithOrderId:(NSInteger)orderId ccompletionBlock:(void (^)(BOOL isSuccess, NSString *errorStr))completion;
+
+/**
+ *  卖家取消订单
+ *
+ *  @param orderId
+ *  @param reason
+ *  @param message
+ *  @param completion
+ */
++ (void)asyncBNCancelOrderWithOrderId:(NSInteger)orderId reason:(NSString *)reason leaveMessage:(NSString *)message completionBlock:(void (^)(BOOL isSuccess, NSString *errorStr))completion;
+
+/**
+ *  卖家同意退款
+ *
+ *  @param orderId
+ *  @param completion
+ */
++ (void)asyncBNAgreeRefundMoneyOrderWithOrderId:(NSInteger)orderId refundMoney:(float)money leaveMessage:(NSString *)message  completionBlock:(void (^)(BOOL isSuccess, NSString *errorStr))completion;
+
+/**
+ *  卖家拒绝退款
+ *
+ *  @param orderId
+ *  @param message
+ *  @param completion
+ *  @param completion
+ */
++ (void)asyncBNRefuseRefundMoneyOrderWithOrderId:(NSInteger)orderId reason:(NSString *)reason leaveMessage:(NSString *)message completionBlock:(void (^)(BOOL isSuccess, NSString *errorStr))completion;
+
+
+/**
+ *  验证卖家的密码
+ *
+ *  @param password
+ *  @param completion
+ */
++ (void)asyncVerifySellerPassword:(NSString *)password completionBlock:(void (^)(BOOL isSuccess, NSString *errorStr))completion;
 
 @end

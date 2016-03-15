@@ -24,6 +24,8 @@
 
 @property (nonatomic, strong) NSMutableArray<BNOrderDetailModel *> *dataSource;
 
+@property (nonatomic, strong) NSArray *cancelOrderReason;
+
 @end
 
 @implementation BNOrderListViewController
@@ -33,6 +35,8 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [_tableView registerNib:[UINib nibWithNibName:@"BNOrderListTableViewCell" bundle:nil] forCellReuseIdentifier:@"BNOrderListTableViewCell"];
+    
+    _cancelOrderReason = @[@"未及时付款", @"买家不想买", @"买家信息填写有误，重拍", @"恶意买家/同行捣乱", @"缺货", @"买家拍错了", @"其它原因"];
     
     NSMutableArray *statusArray = [[NSMutableArray alloc] init];
     for (NSNumber *status in _orderTypes) {
@@ -145,7 +149,9 @@
 //关闭交易
 - (void)closeOrder:(OrderDetailModel *)orderDetail
 {
+    NSInteger index = [_dataSource indexOfObject:(BNOrderDetailModel *)orderDetail];
     UIActionSheet *acctionSheet = [[UIActionSheet alloc] initWithTitle:@"选择关闭交易理由" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"未及时付款", @"买家不想买", @"买家信息填写有误，重拍", @"恶意买家/同行捣乱", @"缺货", @"买家拍错了", @"其它原因", nil];
+    acctionSheet.tag = index;
     [acctionSheet showInView:self.view];
 }
 
@@ -155,6 +161,26 @@
     BNRefundMoneyWithSoldOutViewController *ctl = [[BNRefundMoneyWithSoldOutViewController alloc] init];
     ctl.orderId = orderDetail.orderId;
     [self.navigationController pushViewController:ctl animated:YES];
+}
+
+#pragma mark - UIActionSheetDeleage
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex >= _cancelOrderReason.count) {
+        return;
+    }
+    NSString *content = [_cancelOrderReason objectAtIndex:buttonIndex];
+    OrderDetailModel *detail = [_dataSource objectAtIndex:actionSheet.tag];
+    [OrderManager asyncBNCancelOrderWithOrderId:[_dataSource objectAtIndex:actionSheet.tag].orderId reason:content leaveMessage:nil completionBlock:^(BOOL isSuccess, NSString *errorStr) {
+        if (isSuccess) {
+            [SVProgressHUD showHint:@"订单关闭成功"];
+            detail.orderStatus = kOrderCanceled;
+            [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:actionSheet.tag]] withRowAnimation:UITableViewRowAnimationNone];
+        } else {
+            [SVProgressHUD showHint:@"订单关闭失败"];
+        }
+    }];
 }
 
 @end

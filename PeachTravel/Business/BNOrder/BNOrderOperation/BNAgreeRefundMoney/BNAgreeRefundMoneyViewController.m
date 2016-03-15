@@ -99,8 +99,23 @@
 {
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"请输入登录密码，完成退款" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+    UITextField *tf = [alertView textFieldAtIndex:0];
     [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
-        
+        [OrderManager asyncVerifySellerPassword:tf.text completionBlock:^(BOOL isSuccess, NSString *errorStr) {
+            if (isSuccess) {
+                BNAgreeRefundMoneyRemarkTableViewCell *cell = [_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:3]];
+                [OrderManager asyncBNAgreeRefundMoneyOrderWithOrderId:_orderId refundMoney:_refundMoney leaveMessage:cell.remarkTextView.text completionBlock:^(BOOL isSuccess, NSString *errorStr) {
+                    if (isSuccess) {
+                        [SVProgressHUD showHint:@"退款成功"];
+                        [self.navigationController popViewControllerAnimated:YES];
+                    } else {
+                        [SVProgressHUD showHint:@"退款失败，请重试"];
+                    }
+                }];
+            } else {
+                [SVProgressHUD showHint:@"密码输入错误,请重试"];
+            }
+        }];
     }];
 }
 
@@ -190,6 +205,22 @@
     return str;
 }
 
+//修改退款金额
+- (void)changeRefundMoneyAction:(UIButton *)sender
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"请输入您要退的金额" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+    UITextField *tf = [alertView textFieldAtIndex:0];
+    tf.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+    [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
+        if (buttonIndex == 1) {
+            
+            _refundMoney = [tf.text floatValue];
+            BNAgreeRefundMoneyRemarkTableViewCell *cell = [_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:3]];
+            cell.titleLabel.text = [NSString stringWithFormat:@"退款金额: ￥%@", self.refundMoneyDesc];
+        }
+    }];
+}
 
 #pragma mark - UITextViewDelegate
 
@@ -344,8 +375,24 @@
         
     } else {
         BNAgreeRefundMoneyRemarkTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BNAgreeRefundMoneyRemarkTableViewCell" forIndexPath:indexPath];
-        cell.titleLabel.text = [NSString stringWithFormat:@"*退款说明"];
+        cell.titleLabel.text = [NSString stringWithFormat:@"退款金额: ￥%@", self.refundMoneyDesc];
         cell.remarkTextView.delegate = self;
+        
+        for (UIView *view in cell.contentView.subviews) {
+            if (view.tag == 101) {
+                [view removeFromSuperview];
+            }
+        }
+        if (_orderDetail.hasDeliverGoods) {
+            UIButton *changeRefundMoney = [[UIButton alloc] initWithFrame:CGRectMake(kWindowWidth-90, 5, 82, 25)];
+            [changeRefundMoney setTitle:@"修改退款金额" forState:UIControlStateNormal];
+            changeRefundMoney.titleLabel.font = [UIFont systemFontOfSize:13.0];
+            [changeRefundMoney setTitleColor:COLOR_PRICE_RED forState:UIControlStateNormal];
+            changeRefundMoney.tag = 101;
+            [cell.contentView addSubview:changeRefundMoney];
+            [changeRefundMoney addTarget:self action:@selector(changeRefundMoneyAction:) forControlEvents:UIControlEventTouchUpInside];
+            [cell.contentView addSubview:changeRefundMoney];
+        }
         return cell;
     }
 }

@@ -5850,9 +5850,9 @@
 		D91087881C96A4C3000D46B4 /* BNRefuseRefundMoney */ = {
 			isa = PBXGroup;
 			children = (
-				D91087901C96A50B000D46B4 /* BNRefuseRefundMoneyViewController.xib */,
 				D91087911C96A50B000D46B4 /* BNRefuseRefundMoneyViewController.h */,
 				D91087921C96A50B000D46B4 /* BNRefuseRefundMoneyViewController.m */,
+				D91087901C96A50B000D46B4 /* BNRefuseRefundMoneyViewController.xib */,
 			);
 			path = BNRefuseRefundMoney;
 			sourceTree = "<group>";
