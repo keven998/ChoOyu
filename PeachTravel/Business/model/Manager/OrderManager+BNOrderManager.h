@@ -36,7 +36,7 @@
  *  @param orderId
  *  @param completion
  */
-+ (void)asyncBNDeliverOrderWithOrderId:(NSInteger)orderId ccompletionBlock:(void (^)(BOOL isSuccess, NSString *errorStr))completion;
++ (void)asyncBNDeliverOrderWithOrderId:(NSInteger)orderId completionBlock:(void (^)(BOOL isSuccess, NSString *errorStr))completion;
 
 /**
  *  卖家取消订单

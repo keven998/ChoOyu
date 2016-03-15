@@ -57,15 +57,6 @@
     [toolBar addSubview:confirmDeliverButton];
 }
 
-- (void)confirmRefundMoney:(UIButton *)sender
-{
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"请输入登录密码，完成退款" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-    alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
-    [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
-        
-    }];
-}
-
 - (void)setOrderDetail:(BNOrderDetailModel *)orderDetail
 {
     _orderDetail = orderDetail;
@@ -74,7 +65,37 @@
 
 - (void)confirmDeliverAction:(UIButton *)sender
 {
-    
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"确认发货？" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
+        if (buttonIndex == 1) {
+            if (_orderDetail.hasDeliverGoods) {
+                [OrderManager asyncBNRefuseRefundMoneyOrderWithOrderId:_orderId reason:nil leaveMessage:nil completionBlock:^(BOOL isSuccess, NSString *errorStr) {
+                    if (isSuccess) {
+                        [OrderManager asyncBNDeliverOrderWithOrderId:_orderId completionBlock:^(BOOL isSuccess, NSString *errorStr) {
+                            if (isSuccess) {
+                                [SVProgressHUD showHint:@"发货成功"];
+                                [self.navigationController popViewControllerAnimated:YES];
+                            } else {
+                                [SVProgressHUD showHint:@"发货失败，请重试"];
+                            }
+                        }];
+                    } else {
+                        [SVProgressHUD showHint:@"发货失败，请重试"];
+                    }
+                }];
+            } else {
+                [OrderManager asyncBNDeliverOrderWithOrderId:_orderId completionBlock:^(BOOL isSuccess, NSString *errorStr) {
+                    if (isSuccess) {
+                        [SVProgressHUD showHint:@"发货成功"];
+                        [self.navigationController popViewControllerAnimated:YES];
+                    } else {
+                        [SVProgressHUD showHint:@"发货失败，请重试"];
+                    }
+                }];
+            }
+            
+        }
+    }];
 }
 
 #pragma mark - UITableViewDataSource

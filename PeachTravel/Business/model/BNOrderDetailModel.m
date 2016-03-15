@@ -24,13 +24,8 @@
                     break;
                 }
             }
-            for (NSDictionary *dic in [json objectForKey:@"activities"]) {
-                if ([[dic objectForKey:@"action"] isEqualToString:@"commit"]) {
-                    _hasDeliverGoods = YES;
-                    break;
-                }
-            }
         }
+        _hasDeliverGoods = [[json objectForKey:@"committed"] boolValue];
     }
     return self;
 }

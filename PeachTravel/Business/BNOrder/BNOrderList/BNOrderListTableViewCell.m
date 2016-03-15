@@ -95,28 +95,48 @@
         [self.contentView addSubview:_deliveryGoodsButton];
         
     } else if (_orderDetail.orderStatus == kOrderRefunding) {
-        
-        //TODO: 根据状态连继续判断
-        
-        _refundAgreeButton = [[UIButton alloc] initWithFrame:CGRectMake(kWindowWidth-136, 147, 60, 28)];
-        [_refundAgreeButton setTitle:@"同意退款" forState:UIControlStateNormal];
-        [_refundAgreeButton setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
-        _refundAgreeButton.layer.borderColor = COLOR_LINE.CGColor;
-        _refundAgreeButton.layer.borderWidth = 1;
-        _refundAgreeButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
-        [_refundAgreeButton addTarget:self action:@selector(agreeRefundMoneyAction:) forControlEvents:UIControlEventTouchUpInside];
-        _refundAgreeButton.layer.cornerRadius = 3.0;
-        [self.contentView addSubview:_refundAgreeButton];
-        
-        _refundRefuseButton = [[UIButton alloc] initWithFrame:CGRectMake(kWindowWidth-202, 147, 60, 28)];
-        [_refundRefuseButton setTitle:@"拒绝退款" forState:UIControlStateNormal];
-        [_refundRefuseButton setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
-        _refundRefuseButton.layer.borderColor = COLOR_LINE.CGColor;
-        _refundRefuseButton.layer.borderWidth = 1;
-        _refundRefuseButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
-        [_refundRefuseButton addTarget:self action:@selector(refuseRefundMoneyAction:) forControlEvents:UIControlEventTouchUpInside];
-        _refundRefuseButton.layer.cornerRadius = 3.0;
-        [self.contentView addSubview:_refundRefuseButton];
+        if (_orderDetail.hasDeliverGoods) {
+            _refundAgreeButton = [[UIButton alloc] initWithFrame:CGRectMake(kWindowWidth-136, 147, 60, 28)];
+            [_refundAgreeButton setTitle:@"同意退款" forState:UIControlStateNormal];
+            [_refundAgreeButton setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
+            _refundAgreeButton.layer.borderColor = COLOR_LINE.CGColor;
+            _refundAgreeButton.layer.borderWidth = 1;
+            _refundAgreeButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
+            [_refundAgreeButton addTarget:self action:@selector(agreeRefundMoneyAction:) forControlEvents:UIControlEventTouchUpInside];
+            _refundAgreeButton.layer.cornerRadius = 3.0;
+            [self.contentView addSubview:_refundAgreeButton];
+            
+            _refundRefuseButton = [[UIButton alloc] initWithFrame:CGRectMake(kWindowWidth-202, 147, 60, 28)];
+            [_refundRefuseButton setTitle:@"拒绝退款" forState:UIControlStateNormal];
+            [_refundRefuseButton setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
+            _refundRefuseButton.layer.borderColor = COLOR_LINE.CGColor;
+            _refundRefuseButton.layer.borderWidth = 1;
+            _refundRefuseButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
+            [_refundRefuseButton addTarget:self action:@selector(refuseRefundMoneyAction:) forControlEvents:UIControlEventTouchUpInside];
+            _refundRefuseButton.layer.cornerRadius = 3.0;
+            [self.contentView addSubview:_refundRefuseButton];
+
+        } else {
+            _refundAgreeButton = [[UIButton alloc] initWithFrame:CGRectMake(kWindowWidth-136, 147, 60, 28)];
+            [_refundAgreeButton setTitle:@"同意退款" forState:UIControlStateNormal];
+            [_refundAgreeButton setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
+            _refundAgreeButton.layer.borderColor = COLOR_LINE.CGColor;
+            _refundAgreeButton.layer.borderWidth = 1;
+            _refundAgreeButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
+            [_refundAgreeButton addTarget:self action:@selector(agreeRefundMoneyAction:) forControlEvents:UIControlEventTouchUpInside];
+            _refundAgreeButton.layer.cornerRadius = 3.0;
+            [self.contentView addSubview:_refundAgreeButton];
+            
+            _deliveryGoodsButton = [[UIButton alloc] initWithFrame:CGRectMake(kWindowWidth-202, 147, 60, 28)];
+            [_deliveryGoodsButton setTitle:@"发货" forState:UIControlStateNormal];
+            [_deliveryGoodsButton setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
+            _deliveryGoodsButton.layer.borderColor = COLOR_LINE.CGColor;
+            _deliveryGoodsButton.layer.borderWidth = 1;
+            _deliveryGoodsButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
+            [_deliveryGoodsButton addTarget:self action:@selector(deliveryGoodsAction:) forControlEvents:UIControlEventTouchUpInside];
+            _deliveryGoodsButton.layer.cornerRadius = 3.0;
+            [self.contentView addSubview:_deliveryGoodsButton];
+        }
         
     } else if (_orderDetail.orderStatus == kOrderWaitPay) {
         _closeOrderButton = [[UIButton alloc] initWithFrame:CGRectMake(kWindowWidth-136, 147, 60, 28)];

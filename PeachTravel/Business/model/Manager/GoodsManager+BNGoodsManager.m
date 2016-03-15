@@ -83,7 +83,7 @@
     [params safeSetObject:@"disabled" forKey:@"status"];
     NSString *url = [NSString stringWithFormat:@"%@/%ld", API_GOODS, goodsId];
     
-    [LXPNetworking POST:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking PATCH:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             completion (YES, nil);
@@ -95,7 +95,6 @@
         completion(NO, nil);
         
     }];
-
 }
 
 + (void)asyncOnsaleGoods:(NSInteger)goodsId completionBlock:(void (^)(BOOL, NSString *))completion
@@ -104,7 +103,7 @@
     [params safeSetObject:@"pub" forKey:@"status"];
     NSString *url = [NSString stringWithFormat:@"%@/%ld", API_GOODS, goodsId];
     
-    [LXPNetworking POST:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LXPNetworking PATCH:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             completion (YES, nil);
