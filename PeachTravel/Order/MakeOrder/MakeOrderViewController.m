@@ -223,6 +223,7 @@
 
 - (void)commintOrder:(UIButton *)sender
 {
+    [MobClick event:@"event_confirmOrder"];
     if (_orderPriceDetailView) {
         [_orderPriceDetailView hidePriceDetailViewWithAnimated:NO];
     }

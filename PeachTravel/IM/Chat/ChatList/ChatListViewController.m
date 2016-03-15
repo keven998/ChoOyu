@@ -138,12 +138,13 @@
     } else {
         _frendRequestUnreadCountLabel.hidden = YES;
     }
-    
+    [MobClick beginLogPageView:@"page_chatList"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"page_chatList"];
 }
 
 - (void)dealloc

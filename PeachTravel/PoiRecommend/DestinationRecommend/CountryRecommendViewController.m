@@ -86,6 +86,7 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
+    [MobClick beginLogPageView:@"page_countryList"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -94,6 +95,7 @@
     if (self.navigationController.viewControllers.count > 1) {     //如果是 push 的情况下才显示 navibar ，没想到更好的解决办法
         [self.navigationController setNavigationBarHidden:NO animated:YES];
     }
+    [MobClick endLogPageView:@"page_countryList"];
 }
 
 - (void)setNavigationBar
@@ -129,6 +131,7 @@
 - (void)showCircleMenu
 {
     if (!_currentSelectedBtn.hidden) {
+        [MobClick event:@"event_changeContinent"];
         [UIView animateWithDuration:0.3 animations:^{
             _circleMenu.center = CGPointMake(kWindowWidth, kWindowHeight/2);
         } completion:^(BOOL finished) {

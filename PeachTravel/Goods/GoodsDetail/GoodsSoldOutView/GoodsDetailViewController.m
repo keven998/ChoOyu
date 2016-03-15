@@ -103,6 +103,18 @@
     _tableView.hidden = YES;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"page_goodsDetail"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"page_goodsDetail"];
+}
+
 - (void)renderTableView
 {
     _tableView.hidden = NO;
@@ -211,6 +223,7 @@
 
 - (void)chatWithBusinessAction
 {
+    [MobClick event:@"event_chatWithSeller"];
     if (![[AccountManager shareAccountManager] isLogin]) {
         [SVProgressHUD showHint:@"请先登录"];
         [self performSelector:@selector(login) withObject:nil afterDelay:0.3];
@@ -269,6 +282,7 @@
 
 - (void)storeDetailAction
 {
+    [MobClick event:@"event_gotoStoreDetail"];
     StoreDetailViewController *ctl = [[StoreDetailViewController alloc] init];
     ctl.storeId = _goodsDetail.store.storeId;
     ctl.storeName = _goodsDetail.store.storeName;
@@ -283,6 +297,7 @@
     } else {
         MakeOrderViewController *ctl = [[MakeOrderViewController alloc] init];
         ctl.goodsModel = _goodsDetail;
+        [MobClick event:@"event_buyGoods"];
         [self.navigationController pushViewController:ctl animated:YES];
     }
 }

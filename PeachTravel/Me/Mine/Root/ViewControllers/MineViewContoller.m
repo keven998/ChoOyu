@@ -122,6 +122,7 @@
             [_tableView reloadData];
         }
     }];
+    [MobClick beginLogPageView:@"page_mine"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -132,6 +133,8 @@
             [self.navigationController setNavigationBarHidden:NO animated:YES];
         }
     }
+    [MobClick endLogPageView:@"page_mine"];
+
 }
 
 - (void)mineProfileAction

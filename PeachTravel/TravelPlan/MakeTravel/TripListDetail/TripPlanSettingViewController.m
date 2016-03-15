@@ -252,10 +252,9 @@
         [self.frostedViewController.navigationController pushViewController:cityCtl animated:YES];
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES ];
-    
 }
 
--(void)sendToFriends
+- (void)sendToFriends
 {
     _chatRecordListCtl = [[ChatRecoredListTableViewController alloc] init];
     _chatRecordListCtl.delegate = self;

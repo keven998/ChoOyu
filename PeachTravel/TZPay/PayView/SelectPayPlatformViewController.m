@@ -89,6 +89,7 @@
     } else {
         platform = kWeichatPay;
     }
+    [MobClick event:@"event_payForOrder"];
     [_payManager asyncPayOrder:_orderDetail.orderId payPlatform:platform completionBlock:^(BOOL isSuccess, NSString *errorStr) {
         if (isSuccess) {
             [SVProgressHUD showHint:@"支付成功"];

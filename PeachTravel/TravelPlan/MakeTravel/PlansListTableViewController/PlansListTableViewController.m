@@ -140,6 +140,7 @@ static NSString *reusableCell = @"myGuidesCell";
     _isShowing = YES;
     
     [self pullToRefreash:nil];
+    [MobClick beginLogPageView:@"page_myPlanList"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -151,6 +152,7 @@ static NSString *reusableCell = @"myGuidesCell";
         _swipCell = nil;
     }
     _copyPatch = NO;
+    [MobClick endLogPageView:@"page_myPlanList"];
 }
 
 - (void)dealloc
