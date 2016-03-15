@@ -51,14 +51,12 @@ static NSString * const reuseIdentifierHeader = @"expertCellHeader";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"page_lxp_guide_lists"];
     
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"page_lxp_guide_lists"];
     
 }
 

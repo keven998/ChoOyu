@@ -111,13 +111,11 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"page_lxp_plan_agenda"];
     _isShowing = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"page_lxp_plan_agenda"];
     _isShowing = NO;
 }
 
@@ -281,8 +279,6 @@
 }
 
 - (void)mapView {
-    
-    [MobClick event:@"navigation_item_lxp_plan_mapview"];
     MyTripSpotsMapViewController *mapViewCtl = [[MyTripSpotsMapViewController alloc] init];
     mapViewCtl.tripDetail = _tripDetail;
     mapViewCtl.titleText = self.frostedViewController.navigationItem.title;
@@ -472,7 +468,6 @@
  */
 - (IBAction)showMoreAction:(id)sender
 {
-    [MobClick event:@"navigiation_item_lxp_plan_setting"];
     if (!_tripDetail) {
         return;
     }
@@ -621,7 +616,6 @@
 
         
     } else {
-        [MobClick event:@"navigation_item_copy_plan"];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:[NSString stringWithFormat:@"复制\"%@\"到我的旅行计划", _tripDetail.tripTitle] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [alert showAlertViewWithBlock:^(NSInteger buttonIndex) {
             if (buttonIndex == 1) {

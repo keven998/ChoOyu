@@ -81,14 +81,13 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar addSubview:_progressView];
-      
-    [MobClick beginLogPageView:@"page_tavel_notes_detail"];
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [_progressView removeFromSuperview];
-    [MobClick endLogPageView:@"page_tavel_notes_detail"];
+
 }
 
 - (void) dealloc {
@@ -102,8 +101,6 @@
 }
 
 - (void)chat {
-    [MobClick event:@"navigation_item_travel_notes_lxp_share"];
-    
     if (![[AccountManager shareAccountManager] isLogin]) {
         [SVProgressHUD showHint:@"请先登录"];
         [self performSelector:@selector(login) withObject:nil afterDelay:0.3];

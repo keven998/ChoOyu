@@ -123,7 +123,6 @@
 {
     [super viewWillAppear:animated];
     
-    [MobClick beginLogPageView:@"page_home_talk_lists"];
     [self refreshDataSource];
     [_delegate unreadMessageCountHasChange];
       
@@ -145,7 +144,6 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"page_home_talk_lists"];
 }
 
 - (void)dealloc
@@ -741,13 +739,6 @@
     tzConversation.unReadMessageCount = 0;
     [tzConversation resetConvsersationUnreadMessageCount];
     [_delegate unreadMessageCountHasChange];
-    
-    if (tzConversation.chatterId == WenwenUserId) {
-        [MobClick event:@"cell_item_wenwen"];
-    }
-    if (tzConversation.chatterId == PaipaiUserId) {
-        [MobClick event:@"cell_item_paipai"];
-    }
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath

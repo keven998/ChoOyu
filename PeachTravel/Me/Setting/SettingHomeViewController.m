@@ -56,13 +56,11 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [MobClick beginLogPageView:@"page_app_setting"];
     [super viewWillAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    [MobClick endLogPageView:@"page_app_setting"];
     [super viewWillDisappear:animated];
 }
 

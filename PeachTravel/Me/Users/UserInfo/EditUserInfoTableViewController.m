@@ -92,14 +92,12 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [MobClick beginLogPageView:@"page_edit_my_profile"];
     [super viewWillAppear:animated];
     [self.tableView reloadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    [MobClick endLogPageView:@"page_edit_my_profile"];
     [super viewWillDisappear:animated];
 }
 

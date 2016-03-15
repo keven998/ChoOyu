@@ -95,13 +95,11 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear: animated];
-    [MobClick beginLogPageView:@"page_profile_tracks"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"page_profile_tracks"];
 }
 
 #pragma mark - setter or getter

@@ -64,14 +64,12 @@ static NSString * const reuseIdentifier = @"albumImageCell";
 {
     [super viewWillAppear:animated];
     [self.collectionView reloadData];
-    [MobClick beginLogPageView:@"page_profile_album"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(photoHasSelected:) name:uploadUserAlbumNoti object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"page_profile_album"];
 }
 
 - (void)didReceiveMemoryWarning

@@ -48,13 +48,11 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"page_poi_detai"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"page_poi_detai"];
 }
 
 - (UITableView *)tableView
@@ -239,7 +237,6 @@
  */
 - (IBAction)travelGuide:(id)sender
 {
-    [MobClick event:@"button_item_poi_travel_notes"];
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
     webCtl.titleStr = @"景点体验";
     webCtl.urlStr = ((SpotPoi *)self.poi).guideUrl;
@@ -253,7 +250,6 @@
  */
 - (IBAction)kengdie:(id)sender
 {
-    [MobClick event:@"button_item_poi_travel_tips"];
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
     webCtl.titleStr = @"游玩小贴士";
     webCtl.urlStr = ((SpotPoi *)self.poi).tipsUrl;
@@ -267,7 +263,6 @@
  */
 - (IBAction)trafficGuide:(id)sender
 {
-    [MobClick event:@"button_item_poi_travel_traffic"];
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
     webCtl.titleStr = @"景点交通";
     webCtl.urlStr = ((SpotPoi *)self.poi).trafficInfoUrl;
@@ -286,7 +281,6 @@
 
 - (void)send2Frend
 {
-    [MobClick event:@"navigation_item_poi_lxp_share"];
     [self shareToTalk];
 }
 
@@ -331,7 +325,6 @@
 
 - (void)showMoreComments
 {
-    [MobClick event:@"cell_item_poi_all_comments"];
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
     webCtl.urlStr = self.poi.moreCommentsUrl;
     webCtl.titleStr = [NSString stringWithFormat:@"\"%@\" 点评", self.poi.zhName];

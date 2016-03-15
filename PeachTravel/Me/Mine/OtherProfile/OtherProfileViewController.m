@@ -690,7 +690,6 @@
 // 浏览足迹
 - (void)visitTracks
 {
-    [MobClick event:@"button_item_tracks"];
     FootPrintViewController *footPrintCtl = [[FootPrintViewController alloc] init];
     footPrintCtl.userId = self.userId;
     [self.navigationController pushViewController:footPrintCtl animated:YES];
@@ -699,7 +698,6 @@
 // 查看他人计划
 - (void)seeOthersPlan
 {
-    [MobClick event:@"button_item_plan"];
     PlansListTableViewController *listCtl = [[PlansListTableViewController alloc]initWithUserId:_userInfo.userId];
     listCtl.userName = _userInfo.nickName;
     [self.navigationController pushViewController:listCtl animated:YES];

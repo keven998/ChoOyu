@@ -64,13 +64,11 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"page_travel_notes_lists"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [_searchBar endEditing:YES];
-    [MobClick endLogPageView:@"page_travel_notes_lists"];
     
 }
 

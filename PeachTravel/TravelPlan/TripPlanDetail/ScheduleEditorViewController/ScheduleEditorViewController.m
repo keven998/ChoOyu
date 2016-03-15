@@ -90,7 +90,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"page_edit_lxp_plan"];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -108,7 +107,6 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"page_edit_lxp_plan"];
 }
 
 - (void)setTripDetail:(TripDetail *)tripDetail
@@ -125,7 +123,6 @@
 
 - (void)addOneDay:(id)sender
 {
-    [MobClick event:@"button_item_add_day"];
     [_backupTrip.itineraryList addObject:[[NSMutableArray alloc] init]];
     NSIndexSet *set = [NSIndexSet indexSetWithIndex:_backupTrip.itineraryList.count-1];
     [self.tableView insertSections:set withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -136,14 +133,12 @@
 
 - (void)editDay:(id)sender
 {
-    [MobClick event:@"button_item_edit_day_schedule"];
     ((ScheduleDayEditViewController *)self.frostedViewController.menuViewController).tripDetail = _backupTrip;
     [self.frostedViewController presentMenuViewController];
 }
 
 - (void)addPoi:(UIButton *)sender
 {
-    [MobClick event:@"button_item_add_poi"];
     AddPoiViewController *ctl = [[AddPoiViewController alloc] init];
     ctl.currentDayIndex = sender.tag;
     ctl.poiType = kSpotPoi;

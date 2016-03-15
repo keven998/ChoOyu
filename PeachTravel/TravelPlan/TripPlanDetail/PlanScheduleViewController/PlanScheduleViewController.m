@@ -154,8 +154,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [MobClick event:@"tab_item_trip_detail"];
-    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSArray *ds = _tripDetail.itineraryList[indexPath.row];
     NSMutableString *title = [[NSMutableString alloc] init];

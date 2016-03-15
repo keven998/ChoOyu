@@ -57,7 +57,6 @@
     [super viewWillAppear:animated];
     [self.frostedViewController.navigationController setNavigationBarHidden:YES animated:YES];
 
-    [MobClick beginLogPageView:@"page_plan_setting"];
     [_tableView reloadData];
 }
 
@@ -67,7 +66,6 @@
         [self.frostedViewController.navigationController setNavigationBarHidden:NO animated:YES];
     }
     _shouldNotShowNavigationBarWhenDisappear = NO;
-    [MobClick endLogPageView:@"page_plan_setting"];
 }
 
 - (void)setTripDetail:(TripDetail *)tripDetail {
@@ -230,10 +228,9 @@
 {
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            [MobClick event:@"cell_item_plan_change_name"];
             [self changeTitle:nil];
+            
         } else if (indexPath.row == 1) {
-            [MobClick event:@"cell_item_plan_edit_plan"];
             ScheduleEditorViewController *sevc = [[ScheduleEditorViewController alloc] init];
             ScheduleDayEditViewController *menuCtl = [[ScheduleDayEditViewController alloc] init];
             sevc.tripDetail = _tripDetail;
@@ -243,13 +240,12 @@
             frostedViewController.liveBlur = YES;
             frostedViewController.limitMenuViewSize = YES;
             [self.frostedViewController.navigationController pushViewController:frostedViewController animated:YES];
+            
         } else if (indexPath.row == 2){
-            [MobClick event:@"cell_item_plan_lxp_share"];
             [self sendToFriends];
         }
         
     } else if (indexPath.section == 1) {
-        [MobClick event:@"cell_item_plan_change_select_city"];
         CityDetailViewController *cityCtl = [[CityDetailViewController alloc]init];
         CityDestinationPoi *model = _tripDetail.destinations[indexPath.row];
         cityCtl.cityId = model.cityId;

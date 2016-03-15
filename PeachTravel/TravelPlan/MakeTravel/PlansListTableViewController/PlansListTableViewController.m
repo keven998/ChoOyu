@@ -136,7 +136,6 @@ static NSString *reusableCell = @"myGuidesCell";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"page_lxp_plan_lists"];
     
     _isShowing = YES;
     
@@ -146,7 +145,6 @@ static NSString *reusableCell = @"myGuidesCell";
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"page_lxp_plan_lists"];
     _isShowing = NO;
     if (_swipCell != nil) {
         [_swipCell hideUtilityButtonsAnimated:YES];
@@ -197,8 +195,6 @@ static NSString *reusableCell = @"myGuidesCell";
 
 - (void)filtTrip
 {
-    [MobClick event:@"navigation_item_plans_status_filter"];
-    
     SelectionTableViewController *ctl = [[SelectionTableViewController alloc] init];
     ctl.contentItems = @[@"全部", @"只看计划", @"只看已签到"];
     ctl.titleTxt = @"筛选";
@@ -214,7 +210,6 @@ static NSString *reusableCell = @"myGuidesCell";
 
 - (void)makePlan
 {
-    [MobClick event:@"navigation_item_plan_create"];
     MakePlanViewController *makePlanCtl = [[MakePlanViewController alloc] init];
 
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:makePlanCtl];
@@ -254,8 +249,6 @@ static NSString *reusableCell = @"myGuidesCell";
  */
 - (void)deleteGuide:(NSIndexPath *)indexPath
 {
-    [MobClick event:@"cell_item_plans_delete"];
-    
     MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:indexPath.row];
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:[NSString stringWithFormat:@"删除\"%@\"", guideSummary.title] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
     [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
@@ -269,7 +262,6 @@ static NSString *reusableCell = @"myGuidesCell";
 
 - (void)played:(UIButton *)sender
 {
-    [MobClick event:@"cell_item_plans_change_status"];
     CGPoint point = [sender convertPoint:CGPointMake(1, 1) toView:self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
     MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:indexPath.row];
@@ -282,8 +274,6 @@ static NSString *reusableCell = @"myGuidesCell";
 
 - (void)sign:(NSIndexPath *)indexPath
 {
-    [MobClick event:@"cell_item_plans_change_status"];
-    
     MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:indexPath.row];
     if ([guideSummary.status isEqualToString:@"traveled"]) {
         [self mark:guideSummary as:@"planned"];

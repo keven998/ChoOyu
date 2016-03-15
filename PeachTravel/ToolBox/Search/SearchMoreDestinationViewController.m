@@ -93,8 +93,6 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 
 - (IBAction)sendPoi:(UIButton *)sender
 {
-    [MobClick event:@"button_item_lxp_send_search_result"];
-    
     CGPoint point = [sender convertPoint:CGPointZero toView:_tableView];
     NSIndexPath *indexPath = [_tableView indexPathForRowAtPoint:point];
     SuperPoi *poi = [self.dataSource objectAtIndex:indexPath.row];

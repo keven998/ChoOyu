@@ -66,14 +66,12 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"page_user_profile"];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"page_user_profile"];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
@@ -691,7 +689,6 @@
 // 浏览足迹
 - (void)visitTracks
 {
-    [MobClick event:@"button_item_tracks"];
     FootPrintViewController *footPrintCtl = [[FootPrintViewController alloc] init];
     footPrintCtl.userId = self.userId;
     [self.navigationController pushViewController:footPrintCtl animated:YES];
@@ -700,7 +697,6 @@
 // 查看他人计划
 - (void)seeOthersPlan
 {
-    [MobClick event:@"button_item_plan"];
     PlansListTableViewController *listCtl = [[PlansListTableViewController alloc]initWithUserId:_userInfo.userId];
     listCtl.userName = _userInfo.nickName;
     [self.navigationController pushViewController:listCtl animated:YES];
@@ -708,7 +704,6 @@
 // 查看他人游记
 - (void)seeOtherTour
 {
-    [MobClick event:@"button_item_tours"];
     TravelNoteListViewController *tourCtl = [[TravelNoteListViewController alloc]init];
     tourCtl.title = [NSString stringWithFormat:@"%@的游记",_userInfo.nickName];
     tourCtl.userId = _userInfo.userId;

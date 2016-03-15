@@ -128,8 +128,6 @@
  */
 - (void)viewCityAlbumAction
 {
-    [MobClick event:@"card_item_city_pictures"];
-    
     MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] init];
     browser.titleStr = [NSString stringWithFormat:@"%@图集", _cityName];
     [self loadAlbumDataWithAlbumCtl:browser];

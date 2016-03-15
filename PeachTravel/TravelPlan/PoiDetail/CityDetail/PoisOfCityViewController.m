@@ -139,25 +139,11 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-      
-
-    if (_poiType == kRestaurantPoi) {
-        [MobClick beginLogPageView:@"page_poi_lists_type_delicy"];
-        
-    } else if (_poiType == kShoppingPoi) {
-        [MobClick beginLogPageView:@"page_poi_lists_type_shopping"];
-    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    if (_poiType == kRestaurantPoi) {
-        [MobClick endLogPageView:@"page_poi_lists_type_delicy"];
-        
-    } else if (_poiType == kShoppingPoi) {
-        [MobClick endLogPageView:@"page_poi_lists_type_shopping"];
-    }
 }
 
 - (void)goBack
@@ -396,7 +382,6 @@ static NSString *poisOfCityCellIdentifier = @"tripPoiListCell";
  */
 - (IBAction)addPoi:(UIButton *)sender
 {
-    [MobClick event:@"button_item_pois_lxp_plan"];
     sender.userInteractionEnabled = NO;
     CGPoint point;
     NSIndexPath *indexPath;

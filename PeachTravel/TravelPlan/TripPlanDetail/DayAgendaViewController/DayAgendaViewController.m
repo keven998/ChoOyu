@@ -134,7 +134,6 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [MobClick beginLogPageView:@"page_lxp_day_schedule_detail"];
     [super viewWillAppear:animated];
       
     if (_dataSource) {
@@ -146,7 +145,6 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
 {
     [super viewWillDisappear:animated];
     
-    [MobClick endLogPageView:@"page_lxp_day_schedule_detail"];
 }
 
 - (void)dealloc
