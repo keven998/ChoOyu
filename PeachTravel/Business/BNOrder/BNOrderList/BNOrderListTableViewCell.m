@@ -22,6 +22,7 @@
 @implementation BNOrderListTableViewCell
 
 - (void)awakeFromNib {
+    _timeLabel.adjustsFontSizeToFitWidth = YES;
 }
 
 - (void)setOrderDetail:(BNOrderDetailModel *)orderDetail

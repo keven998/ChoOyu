@@ -88,7 +88,7 @@
     [dataDic safeSetObject:[NSNumber numberWithInteger: [AccountManager shareAccountManager].account.userId] forKey:@"userId"];
     
     NSDictionary *params = @{
-                             @"action": @"commmit",
+                             @"action": @"commit",
                              @"data": dataDic
                              };
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];

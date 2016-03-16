@@ -28,6 +28,8 @@
         _useDate = [json objectForKey:@"rendezvousTime"];
         _updateTime = [[json objectForKey:@"updateTime"] doubleValue]/1000;
         _expireTime = [[json objectForKey:@"expireTime"] doubleValue]/1000;
+        _createTime = [[json objectForKey:@"createTime"] doubleValue]/1000;
+
         _currentTime = [[NSDate date] timeIntervalSince1970];
         _orderStatus = [OrderManager orderStatusWithServerOrderStatus:[json objectForKey:@"status"]];
         _consumerId = [[json objectForKey:@"consumerId"] integerValue];

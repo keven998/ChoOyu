@@ -83,7 +83,17 @@
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"请输入登录密码，完成退款" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
     [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
-        
+        if (buttonIndex == 1) {
+            BNRefundMoneyRemarkTableViewCell *cell = [_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:2]];
+            [OrderManager asyncBNRefuseRefundMoneyOrderWithOrderId:_orderId reason:nil leaveMessage:cell.remarkTextView.text completionBlock:^(BOOL isSuccess, NSString *errorStr) {
+                if (isSuccess) {
+                    [SVProgressHUD showHint:@"退款成功"];
+                    [self.navigationController popViewControllerAnimated:YES];
+                } else {
+                    [SVProgressHUD showHint:@"退款失败，请重试"];
+                }
+            }];
+        }
     }];
 }
 
@@ -95,8 +105,14 @@
 
 #pragma mark - UITextViewDelegate
 
-- (void)textViewDidBeginEditing:(UITextView *)textView{
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
     _currentTextActivity = textView;
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+    _currentTextActivity = nil;
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
@@ -111,6 +127,9 @@
 
 - (void)keyboardWasShown:(NSNotification*)aNotification
 {
+    if (!_currentTextActivity) {
+        return;
+    }
     _backupOffset = _tableView.contentOffset;
     NSDictionary* info = [aNotification userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
@@ -123,6 +142,9 @@
 
 - (void)keyboardWillBeHidden:(NSNotification*)aNotification
 {
+    if (!_currentTextActivity) {
+        return;
+    }
     [self.tableView setContentOffset:_backupOffset animated:YES];
 }
 
