@@ -169,7 +169,7 @@
     if ([text isEqualToString:@"\n"]) {
         [textView resignFirstResponder];
         _leaveMessage = textView.text;
-        [_tableView setContentOffset:CGPointZero];
+        [_tableView setContentOffset:CGPointMake(0, -64)];
         return NO;
     }
     return YES;
