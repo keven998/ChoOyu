@@ -11,6 +11,7 @@
 @implementation BNGoodsListTableViewCell
 
 - (void)awakeFromNib {
+    _headerImageView.clipsToBounds = YES;
 }
 
 - (void)setGoodsDetail:(BNGoodsDetailModel *)goodsDetail
