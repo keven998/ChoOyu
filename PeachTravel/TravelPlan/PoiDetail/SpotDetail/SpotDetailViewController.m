@@ -12,7 +12,6 @@
 #import "AccountManager.h"
 #import "SuperWebViewController.h"
 #import "SpotDetailCell.h"
-#import "SpecialPoiCell.h"
 #import "CommentTableViewCell.h"
 #import "UIImage+BoxBlur.h"
 #import "CityDescDetailViewController.h"

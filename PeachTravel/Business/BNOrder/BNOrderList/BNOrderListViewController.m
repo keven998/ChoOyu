@@ -17,6 +17,7 @@
 #import "BNDeliverGoodsDetailViewController.h"
 #import "BNAgreeRefundMoneyViewController.h"
 #import "BNRefuseRefundMoneyViewController.h"
+#import "BNOrderDetailViewController.h"
 
 @interface BNOrderListViewController () <UITableViewDataSource, UITableViewDelegate, BNOrderListTableViewCellDelegate, UIActionSheetDelegate>
 
@@ -37,13 +38,17 @@
     [_tableView registerNib:[UINib nibWithNibName:@"BNOrderListTableViewCell" bundle:nil] forCellReuseIdentifier:@"BNOrderListTableViewCell"];
     
     _cancelOrderReason = @[@"未及时付款", @"买家不想买", @"买家信息填写有误，重拍", @"恶意买家/同行捣乱", @"缺货", @"买家拍错了", @"其它原因"];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     
     NSMutableArray *statusArray = [[NSMutableArray alloc] init];
     for (NSNumber *status in _orderTypes) {
         NSString *orderServerStatus = [OrderManager orderServerStatusWithLocalStatus:[status integerValue]];
         [statusArray addObject:orderServerStatus];
     }
-
     [OrderManager asyncLoadOrdersFromServerOfStore:[AccountManager shareAccountManager].account.userId orderType:statusArray startIndex:0 count:15 completionBlock:^(BOOL isSuccess, NSArray<OrderDetailModel *> *orderList) {
         if (isSuccess) {
             _dataSource = [orderList mutableCopy];
@@ -92,6 +97,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    BNOrderDetailViewController *ctl = [[BNOrderDetailViewController alloc] init];
+    ctl.orderId = [_dataSource objectAtIndex:indexPath.section].orderId;
+    [self.navigationController pushViewController:ctl animated:YES];
 }
 
 #pragma mark - BNOrderListTableViewCellDelegate
@@ -135,7 +143,6 @@
     BNRefuseRefundMoneyViewController *ctl = [[BNRefuseRefundMoneyViewController alloc] init];
     ctl.orderId = orderDetail.orderId;
     [self.navigationController pushViewController:ctl animated:YES];
-
 }
 
 //发货
