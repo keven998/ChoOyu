@@ -10,7 +10,6 @@
 #import <AddressBook/AddressBook.h>
 #import <MessageUI/MessageUI.h>
 
-#import "AFgzipRequestSerializer.h"
 #import "AccountManager.h"
 #import "AddressBookTableViewCell.h"
 #import "SearchUserInfoViewController.h"
