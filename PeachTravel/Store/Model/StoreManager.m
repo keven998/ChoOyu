@@ -34,11 +34,6 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         
-        if (storeId == 202847) {
-            completion(YES, [[StoreDetailModel alloc] init]);
-            return;
-            
-        }
         completion(NO, nil);
         
     }];

@@ -33,6 +33,7 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
     
     self.enableLoadingMore = NO;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -85,18 +86,15 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
 - (UISearchBar *)searchBar
 {
     if (!_searchBar) {
-        _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 64, kWindowWidth, 40)];
-        _searchBar.searchBarStyle = UISearchBarStyleProminent;
-        _searchBar.delegate = self;
-        [_searchBar setPlaceholder:@"游记名、景点、城市名等"];
-        _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
-        _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
-        _searchBar.tintColor = COLOR_TEXT_II;
-        _searchBar.showsCancelButton = YES;
-        [_searchBar setSearchFieldBackgroundImage:[[UIImage imageNamed:@"icon_search_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)] forState:UIControlStateNormal];
-        [_searchBar setTranslucent:YES];
-        [_searchBar becomeFirstResponder];
-        
+         _searchBar = [[UISearchBar alloc]init];
+         _searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+         _searchBar.delegate = self;
+         [_searchBar setPlaceholder:@"游记名、景点、城市名等"];
+         _searchBar.tintColor = COLOR_TEXT_II;
+         _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
+         [_searchBar setSearchFieldBackgroundImage:[[UIImage imageNamed:@"icon_search_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)] forState:UIControlStateNormal];
+         _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
+         self.navigationItem.titleView = _searchBar;
     }
     return _searchBar;
 }
@@ -383,6 +381,7 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
 {
     [self dismissPopup];
     [SVProgressHUD showSuccessWithStatus:@"已发送~"];
+    [self goBack];
 }
 
 - (void)sendCancel
