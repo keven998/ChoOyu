@@ -1072,6 +1072,7 @@
 		D9F059F61B63360700DD683F /* PlanScheduleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9F059F41B63360700DD683F /* PlanScheduleTableViewCell.xib */; };
 		D9F1248A1C1AB1FA00B6B7BB /* MyOrderListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F124881C1AB1FA00B6B7BB /* MyOrderListViewController.m */; };
 		D9F1248B1C1AB1FA00B6B7BB /* MyOrderListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9F124891C1AB1FA00B6B7BB /* MyOrderListViewController.xib */; };
+		D9F19FC41C995C1100083848 /* UIViewController+CWPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F19FC31C995C1100083848 /* UIViewController+CWPopup.m */; };
 		D9F46DB61AC52D8600972AE8 /* SVWebViewController.strings in Resources */ = {isa = PBXBuildFile; fileRef = D9F46D971AC52D8600972AE8 /* SVWebViewController.strings */; };
 		D9F46DB71AC52D8600972AE8 /* SVModalWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F46DA11AC52D8600972AE8 /* SVModalWebViewController.m */; };
 		D9F46DB81AC52D8600972AE8 /* SVWebViewController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D9F46DA21AC52D8600972AE8 /* SVWebViewController.bundle */; };
@@ -3368,6 +3369,8 @@
 		D9F124871C1AB1FA00B6B7BB /* MyOrderListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyOrderListViewController.h; sourceTree = "<group>"; };
 		D9F124881C1AB1FA00B6B7BB /* MyOrderListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyOrderListViewController.m; sourceTree = "<group>"; };
 		D9F124891C1AB1FA00B6B7BB /* MyOrderListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyOrderListViewController.xib; sourceTree = "<group>"; };
+		D9F19FC21C995C1100083848 /* UIViewController+CWPopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+CWPopup.h"; sourceTree = "<group>"; };
+		D9F19FC31C995C1100083848 /* UIViewController+CWPopup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+CWPopup.m"; sourceTree = "<group>"; };
 		D9F46D981AC52D8600972AE8 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/SVWebViewController.strings; sourceTree = "<group>"; };
 		D9F46D991AC52D8600972AE8 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/SVWebViewController.strings; sourceTree = "<group>"; };
 		D9F46D9A1AC52D8600972AE8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/SVWebViewController.strings; sourceTree = "<group>"; };
@@ -7121,6 +7124,7 @@
 		D9A8016B1A80E036005AD701 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				D9F19FC11C995C1100083848 /* CWPopup */,
 				D93CACA31C77211800123D3B /* UMSocial_Sdk_5.0 */,
 				D9271A2E1C77185000FA63C6 /* UMSocial_Sdk_Extra_Frameworks */,
 				D96BAFB51C1AEAA000CDB7C7 /* QiniuSDK */,
@@ -8335,6 +8339,15 @@
 				D9EE345D1AB93E3F0076933B /* HotelDetailViewController.m */,
 			);
 			path = HotelDetail;
+			sourceTree = "<group>";
+		};
+		D9F19FC11C995C1100083848 /* CWPopup */ = {
+			isa = PBXGroup;
+			children = (
+				D9F19FC21C995C1100083848 /* UIViewController+CWPopup.h */,
+				D9F19FC31C995C1100083848 /* UIViewController+CWPopup.m */,
+			);
+			path = CWPopup;
 			sourceTree = "<group>";
 		};
 		D9F46D961AC52D8600972AE8 /* SVWebViewController */ = {
@@ -10425,6 +10438,7 @@
 				D9A8FEE31A80CA50005AD701 /* FeedbackViewController.m in Sources */,
 				D9A802301A80E036005AD701 /* SwipeView.m in Sources */,
 				C6F5D47B1B2AB199009163E3 /* PlanScheduleViewController.m in Sources */,
+				D9F19FC41C995C1100083848 /* UIViewController+CWPopup.m in Sources */,
 				E6E725221B5603750007273A /* MJType.m in Sources */,
 				D9A802FC1A80E566005AD701 /* main.m in Sources */,
 				D993C2561B12DF0C0088D568 /* MessageManager.swift in Sources */,
