@@ -30,17 +30,28 @@
             [tempArray addObject:[[CityDestinationPoi alloc] initWithJson:dic]];
         }
         _serviceZone = tempArray;
-        
-//#warning test
-        
-//        _qualifications = @[@"认证卖家", @"如实描述", @"24小时内相应"];
-//        _languages = @[@"中文", @"英文", @"当地语"];
-//        _serviceTags = @[@"当地咨询", @"行程规划"];
-//        CityDestinationPoi *poi = [[CityDestinationPoi alloc] init];
-//        poi.zhName = @"北京";
-//        _serviceZone = @[poi];
-     }
+
+        _totalOrderCnt = [[json objectForKey:@"totalOrderCnt"] integerValue];
+        _totalSales = [[json objectForKey:@"totalSales"] floatValue];
+        _pendingOrderCnt = [[json objectForKey:@"pendingOrderCnt"] floatValue];
+    }
     return self;
 }
 
+- (NSString *)formatTotalSales
+{
+    NSString *priceStr;
+    float primePrice = round(_totalSales*100)/100;
+    if (!(primePrice - (int)primePrice)) {
+        priceStr = [NSString stringWithFormat:@"%d", (int)primePrice];
+    } else {
+        NSString *tempPrice = [NSString stringWithFormat:@"%.1f", primePrice];
+        if (!(primePrice - tempPrice.floatValue)) {
+            priceStr = [NSString stringWithFormat:@"%.1f", primePrice];
+        } else {
+            priceStr = [NSString stringWithFormat:@"%.2f", primePrice];
+        }
+    }
+    return priceStr;
+}
 @end

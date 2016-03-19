@@ -66,8 +66,8 @@
 
 - (void)goBack
 {
-    [super goBack];
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
+    [super goBack];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

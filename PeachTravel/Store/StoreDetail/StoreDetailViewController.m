@@ -125,7 +125,7 @@
     if (conversation.chatterName && conversation.chatterName.length) {
         chatController.chatterName = conversation.chatterName;
     } else {
-        chatController.chatterName = _storeDetail.storeName;
+//        chatController.chatterName = _storeDetail.business.nickName;
     }
     UIViewController *menuViewController = nil;
     if (conversation.chatType == IMChatTypeIMChatGroupType || conversation.chatType == IMChatTypeIMChatDiscussionGroupType) {

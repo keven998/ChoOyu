@@ -7,6 +7,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BusinessHomeViewController">
             <connections>
+                <outlet property="myGoodsButton" destination="Pt9-xT-YWT" id="92r-fB-YhG"/>
+                <outlet property="myOrderButton" destination="Naj-yJ-hAu" id="Hw0-jo-Dna"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -16,24 +18,24 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Naj-yJ-hAu">
-                    <rect key="frame" x="8" y="438" width="584" height="30"/>
+                    <rect key="frame" x="8" y="438" width="584" height="40"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="30" id="egI-h6-i9D"/>
+                        <constraint firstAttribute="height" constant="40" id="egI-h6-i9D"/>
                     </constraints>
                     <state key="normal" title="我的订单">
-                        <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <connections>
                         <action selector="myOrdersAction:" destination="-1" eventType="touchUpInside" id="i19-Qg-ZmY"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pt9-xT-YWT">
-                    <rect key="frame" x="8" y="476" width="584" height="30"/>
+                    <rect key="frame" x="8" y="486" width="584" height="40"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="30" id="VRx-W9-SG8"/>
+                        <constraint firstAttribute="height" constant="40" id="VRx-W9-SG8"/>
                     </constraints>
                     <state key="normal" title="我的商品">
-                        <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <connections>
                         <action selector="myGoodsAction:" destination="-1" eventType="touchUpInside" id="Bxx-3M-Xsy"/>
@@ -46,7 +48,7 @@
                 <constraint firstAttribute="trailing" secondItem="Naj-yJ-hAu" secondAttribute="trailing" constant="8" id="MPc-xI-oOV"/>
                 <constraint firstItem="Pt9-xT-YWT" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="R9Y-HM-ffh"/>
                 <constraint firstItem="Pt9-xT-YWT" firstAttribute="top" secondItem="Naj-yJ-hAu" secondAttribute="bottom" constant="8" id="WE0-RL-vsC"/>
-                <constraint firstAttribute="bottom" secondItem="Pt9-xT-YWT" secondAttribute="bottom" constant="94" id="h4Y-V5-8IP"/>
+                <constraint firstAttribute="bottom" secondItem="Pt9-xT-YWT" secondAttribute="bottom" constant="74" id="h4Y-V5-8IP"/>
                 <constraint firstItem="Naj-yJ-hAu" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="y59-oD-Ofz"/>
             </constraints>
         </view>

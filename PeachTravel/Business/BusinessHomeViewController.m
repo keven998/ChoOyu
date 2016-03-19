@@ -13,7 +13,9 @@
 #import "StoreManager.h"
 
 @interface BusinessHomeViewController ()
+@property (weak, nonatomic) IBOutlet UIButton *myGoodsButton;
 
+@property (weak, nonatomic) IBOutlet UIButton *myOrderButton;
 @end
 
 @implementation BusinessHomeViewController
@@ -22,8 +24,16 @@
     [super viewDidLoad];
     self.navigationItem.title = @"我的店铺";
     
+    _myGoodsButton.layer.borderColor = COLOR_LINE.CGColor;
+    _myGoodsButton.layer.borderWidth = 1;
+    _myGoodsButton.layer.cornerRadius = 3.0;
+    
+    _myOrderButton.layer.borderColor = COLOR_LINE.CGColor;
+    _myOrderButton.layer.borderWidth = 1;
+    _myOrderButton.layer.cornerRadius = 3.0;
+    
     CGFloat spaceWidth = (kWindowWidth-160)/3;
-    TZButton *totalPriceButton = [[TZButton alloc] initWithFrame:CGRectMake(spaceWidth, 120, 80, 150)];
+    TZButton *totalPriceButton = [[TZButton alloc] initWithFrame:CGRectMake(spaceWidth, 120, 80, 200)];
     totalPriceButton.userInteractionEnabled = NO;
     totalPriceButton.spaceHight = 20;
     totalPriceButton.titleLabel.numberOfLines = 0;
@@ -32,7 +42,7 @@
     [totalPriceButton setImage:[UIImage imageNamed:@"icon_business_order_totalPrice.png"] forState:UIControlStateNormal];
     [self.view addSubview:totalPriceButton];
     
-    TZButton *orderCountButton = [[TZButton alloc] initWithFrame:CGRectMake(spaceWidth*2+80, 120, 80, 150)];
+    TZButton *orderCountButton = [[TZButton alloc] initWithFrame:CGRectMake(spaceWidth*2+80, 120, 80, 200)];
     orderCountButton.userInteractionEnabled = NO;
     orderCountButton.spaceHight = 20;
     orderCountButton.titleLabel.numberOfLines = 0;
@@ -42,13 +52,18 @@
     [self.view addSubview:orderCountButton];
     
     [StoreManager asyncLoadStoreInfoWithStoreId:[AccountManager shareAccountManager].account.userId completionBlock:^(BOOL isSuccess, StoreDetailModel *storeDetail) {
-        NSMutableAttributedString *totalPrice = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"总销售额\n%@元", @"10000"]];
-        [totalPrice addAttributes:@{NSForegroundColorAttributeName: COLOR_PRICE_RED} range:NSMakeRange(5, totalPrice.length-5)];
+        NSMutableAttributedString *totalPrice = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"总销售额\n\n%@元", storeDetail.formatTotalSales]];
+        [totalPrice addAttributes:@{NSForegroundColorAttributeName: COLOR_PRICE_RED} range:NSMakeRange(6, totalPrice.length-6)];
         [totalPriceButton setAttributedTitle:totalPrice forState:UIControlStateNormal];
         
-        NSMutableAttributedString *orderCount = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"总订单量\n%@单", @"10000"]];
-        [orderCount addAttributes:@{NSForegroundColorAttributeName: COLOR_PRICE_RED} range:NSMakeRange(5, totalPrice.length-5)];
+        NSMutableAttributedString *orderCount = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"总订单量\n\n%ld单", storeDetail.totalOrderCnt]];
+       
+        [orderCount addAttributes:@{NSForegroundColorAttributeName: COLOR_PRICE_RED} range:NSMakeRange(6, orderCount.length-6)];
         [orderCountButton setAttributedTitle:orderCount forState:UIControlStateNormal];
+        
+        if (storeDetail.pendingOrderCnt) {
+            [_myOrderButton setTitle:[NSString stringWithFormat:@"我的订单 (%ld单待处理)", storeDetail.pendingOrderCnt] forState:UIControlStateNormal];
+        }
 
     }];
 }

@@ -38,8 +38,8 @@
 
 /***** API *****/
 
-//#define BASE_URL                                @ "http://api-dev.lvxingpai.com/app/"
-#define BASE_URL                                @ "http://api.lvxingpai.com/app/"
+#define BASE_URL                                @ "http://api-dev.lvxingpai.com/app/"
+//#define BASE_URL                                @ "http://api.lvxingpai.com/app/"
 
 //攻略相关接口
 #define API_GET_RECOMMEND                       (BASE_URL @"recommend")                 //获取目的地首页推荐接口
@@ -94,6 +94,8 @@
 #define API_USERS                               (BASE_URL @"users/")
 #define API_GET_CAPTCHA                         (BASE_URL @"users/validation-codes")    //接收验证码
 #define API_VERIFY_CAPTCHA                      (BASE_URL @"users/tokens")              //验证验证码
+#define API_VERIFY_PASSWORD                     (BASE_URL @"users/password")            //验证用户密码
+
 #define API_SIGNUP                              (BASE_URL @"users")                     //用户注册
 #define API_SIGNIN                              (BASE_URL @"users/signin")
 #define API_SEARCH_USER                         (BASE_URL @"users")                     //搜索好友

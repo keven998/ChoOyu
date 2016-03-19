@@ -202,7 +202,26 @@
 
 + (void)asyncVerifySellerPassword:(NSString *)password completionBlock:(void (^)(BOOL isSuccess, NSString *errorStr))completion
 {
-    completion(YES, nil);
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params safeSetObject:password forKey:@"password"];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [LXPNetworking setHeaderValueForPXMethods:manager andUrl:API_VERIFY_CAPTCHA parameters:params];
+    
+    [manager POST:API_VERIFY_PASSWORD parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            completion(YES, nil);
+            
+        } else {
+            completion(NO, nil);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completion(NO, nil);
+    }];
 
 }
 @end

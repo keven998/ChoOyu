@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "StoreDetailModel.h"
 
 @interface BusinessHomeViewController : TZViewController
+
+@property (nonatomic, strong) StoreDetailModel *storeDetail;
 
 @end

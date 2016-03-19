@@ -26,7 +26,6 @@
             }
         }
         _hasDeliverGoods = [[json objectForKey:@"committed"] boolValue];
-        _hasDeliverGoods = YES;
     }
     return self;
 }

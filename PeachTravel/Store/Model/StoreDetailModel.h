@@ -19,6 +19,12 @@
 @property (nonatomic, strong) NSArray<NSString *> *qualifications;           //卖家资质 (认证卖家等)
 @property (nonatomic, strong) NSArray<CityDestinationPoi *> *serviceZone;  //服务城市
 
+@property (nonatomic) NSInteger totalOrderCnt;
+@property (nonatomic) float totalSales;
+@property (nonatomic, copy, readonly) NSString *formatTotalSales;
+
+@property (nonatomic) NSInteger pendingOrderCnt;
+
 @property (nonatomic, strong) BusinessMoel *business;
 
 - (id)initWithJson:(id)json;

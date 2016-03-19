@@ -232,9 +232,7 @@
         IMClientManager *clientManager = [IMClientManager shareInstance];
         ChatConversation *conversation = [clientManager.conversationManager getConversationWithChatterId:_goodsDetail.store.storeId chatType:IMChatTypeIMChatSingleType];
         ChatViewController *chatController = [[ChatViewController alloc] initWithConversation:conversation];
-        if (conversation.chatterName) {
-            conversation.chatterName = _goodsDetail.store.business.nickName;
-        }
+        
         GoodsLinkMessage *message = [[GoodsLinkMessage alloc] init];
         message.senderId = [AccountManager shareAccountManager].account.userId;
         message.senderName = [AccountManager shareAccountManager].account.nickName;
