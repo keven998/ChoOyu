@@ -63,7 +63,7 @@
         [totalPrice addAttributes:@{NSFontAttributeName: [UIFont boldSystemFontOfSize:15.0]} range:NSMakeRange(5, totalPrice.length-5)];
         totalPriceLabel.attributedText = totalPrice;
         
-        NSMutableAttributedString *orderCount = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"总订单量\n%@单", storeDetail.formatTotalSales]];
+        NSMutableAttributedString *orderCount = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"总订单量\n%ld单", storeDetail.totalOrderCnt]];
         [orderCount addAttributes:@{NSFontAttributeName: [UIFont boldSystemFontOfSize:15.0]} range:NSMakeRange(5, orderCount.length-5)];
         orderCountLabel.attributedText = orderCount;
         

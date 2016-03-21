@@ -101,7 +101,7 @@
         [cell.actionButton addTarget:self action:@selector(disableGoodsAction:) forControlEvents:UIControlEventTouchUpInside];
         
     } else if (cell.goodsDetail.goodsStatus == kOffSale) {
-        [cell.actionButton addTarget:self action:@selector(disableGoodsAction:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.actionButton addTarget:self action:@selector(onSaleGoodsAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     return cell;
 }
