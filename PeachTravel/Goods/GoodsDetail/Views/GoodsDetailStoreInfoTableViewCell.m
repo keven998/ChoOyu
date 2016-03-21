@@ -30,9 +30,10 @@
     [super setSelected:selected animated:animated];
 }
 
-- (void)setStoreDetail:(StoreDetailModel *)storeDetail
+- (void)setGoodsDetail:(GoodsDetailModel *)goodsDetail
 {
-    _storeDetail = storeDetail;
+    _goodsDetail = goodsDetail;
+    StoreDetailModel *storeDetail = _goodsDetail.store;
     
     for (UIView *view in self.subviews) {
         [view removeFromSuperview];
@@ -45,7 +46,7 @@
     _storeNameLabel.textColor = COLOR_TEXT_I;
     _storeNameLabel.font = [UIFont systemFontOfSize:15.0];
     [self addSubview:_storeNameLabel];
-    _storeNameLabel.text = _storeDetail.storeName;
+    _storeNameLabel.text = storeDetail.storeName;
     
     CGFloat offsetX = 38;
     CGFloat offsetY = 40;
@@ -53,15 +54,11 @@
     UILabel *addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(offsetX, offsetY, self.bounds.size.width-offsetX-20, 20)];
     addressLabel.font = [UIFont systemFontOfSize:13.0];
     addressLabel.textColor = COLOR_TEXT_II;
-    NSMutableString *cityString = [[NSMutableString alloc] init];
-    for (CityDestinationPoi *poi in _storeDetail.serviceZone) {
-        [cityString appendFormat:@"%@  ", poi.zhName];
-    }
-    addressLabel.text = cityString;
+    addressLabel.text = [NSString stringWithFormat:@"%@ %@  %@", _goodsDetail.country.zhName, _goodsDetail.locality.zhName, _goodsDetail.address];;
     [self addSubview:addressLabel];
     
     offsetY += 25;
-    for (NSString *language in _storeDetail.languages) {
+    for (NSString *language in storeDetail.languages) {
         UILabel *lable = [[UILabel alloc] initWithFrame:CGRectMake(offsetX, offsetY, 50, 15)];
         lable.textColor = [UIColor whiteColor];
         lable.font = [UIFont systemFontOfSize:10.0];
@@ -80,13 +77,13 @@
         offsetX += 60;
     }
     offsetY += 20;
-    if (_storeDetail.serviceTags.count) {
+    if (storeDetail.serviceTags.count) {
         offsetX = 38;
         UIImageView *serverImageView = [[UIImageView alloc] initWithFrame:CGRectMake(offsetX, offsetY+1.5, 17, 17)];
         serverImageView.image = [UIImage imageNamed:@"icon_store_free"];
         [self addSubview:serverImageView];
         offsetX += 20;
-        for (NSString *serverName in _storeDetail.serviceTags) {
+        for (NSString *serverName in storeDetail.serviceTags) {
             UIButton *serverBtn = [[UIButton alloc] initWithFrame:CGRectMake(offsetX, offsetY, 60, 20)];
             serverBtn.userInteractionEnabled = NO;
             [serverBtn setTitle:serverName forState:UIControlStateNormal];
@@ -106,5 +103,6 @@
     buttomSpaceView.backgroundColor = COLOR_LINE;
     [self addSubview:buttomSpaceView];
 }
+
 
 @end

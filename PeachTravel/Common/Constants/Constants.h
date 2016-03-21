@@ -436,7 +436,7 @@ typedef NS_ENUM(NSUInteger, TZCMDChatType) {
                             @"水深火热"\
                             ]
 
-#define HTTP_FAILED_HINT    @"网络请求失败"
+#define HTTP_FAILED_HINT    @"小主，您的网络好像有问题哦~"
 
 /**
  *  判断设备类型

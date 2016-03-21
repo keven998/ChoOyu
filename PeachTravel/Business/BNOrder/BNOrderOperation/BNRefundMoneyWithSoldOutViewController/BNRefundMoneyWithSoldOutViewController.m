@@ -88,7 +88,7 @@
             [OrderManager asyncVerifySellerPassword:tf.text completionBlock:^(BOOL isSuccess, NSString *errorStr) {
                 if (isSuccess) {
                     BNRefundMoneyRemarkTableViewCell *cell = [_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:2]];
-                    [OrderManager asyncBNRefuseRefundMoneyOrderWithOrderId:_orderId reason:nil leaveMessage:cell.remarkTextView.text completionBlock:^(BOOL isSuccess, NSString *errorStr) {
+                    [OrderManager asyncBNAgreeRefundMoneyOrderWithOrderId:_orderId refundMoney:_orderDetail.payPrice leaveMessage:cell.remarkTextView.text completionBlock:^(BOOL isSuccess, NSString *errorStr) {
                         if (isSuccess) {
                             [SVProgressHUD showHint:@"退款成功"];
                             [self.navigationController popViewControllerAnimated:YES];
@@ -96,6 +96,7 @@
                             [SVProgressHUD showHint:@"退款失败，请重试"];
                         }
                     }];
+                    
                 } else {
                     [SVProgressHUD showHint:@"密码输入错误,请重试"];
                 }

@@ -16,6 +16,7 @@
         if (self.orderStatus == kOrderRefunding) {
             for (NSDictionary *dic in [json objectForKey:@"activities"]) {
                 if ([[dic objectForKey:@"action"] isEqualToString:@"refundApply"]) {
+                    _hasRequest2RefundMoney = YES;
                     _requestRefundtExcuse = [[dic objectForKey:@"data"] objectForKey:@"reason"];
                     _requestRefundtMessage = [[dic objectForKey:@"data"] objectForKey:@"memo"];
                     _refundLastTimeInterval = [[dic objectForKey:@"timestamp"] longLongValue]/1000 + 72*3600;

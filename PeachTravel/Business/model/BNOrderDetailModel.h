@@ -17,6 +17,7 @@
 
 @property (nonatomic) NSTimeInterval refundLastTimeInterval;                //同意退款的截至日期
 
+@property (nonatomic) BOOL hasRequest2RefundMoney;                          //是否已经申请退款
 @property (nonatomic, copy, readonly) NSString *requestRefundtDate;         //申请退款时间
 @property (nonatomic, copy, readonly) NSString *requestRefundtExcuse;       //申请退款原因
 @property (nonatomic, copy, readonly) NSString *requestRefundtMessage;      //申请退款留言

@@ -532,7 +532,7 @@
         
     } else if (indexPath.section == 7) {
         GoodsDetailStoreInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"goodsDetailStoreInfoTableViewCell" forIndexPath:indexPath];
-        cell.storeDetail = _goodsDetail.store;
+        cell.goodsDetail = _goodsDetail;
         return cell;
         
     }

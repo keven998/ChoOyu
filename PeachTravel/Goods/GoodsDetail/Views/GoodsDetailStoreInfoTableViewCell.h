@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "StoreDetailModel.h"
+#import "GoodsDetailModel.h"
 
 @interface GoodsDetailStoreInfoTableViewCell : UITableViewCell
 
-@property (nonatomic, strong) StoreDetailModel *storeDetail;
+@property (nonatomic, strong) GoodsDetailModel *goodsDetail;
 
 @property (nonatomic, strong) UILabel *storeNameLabel;
 

@@ -14,7 +14,8 @@
 {
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:[NSNumber numberWithInteger:storeId] forKey:@"seller"];
-    [params safeSetObject:@"updateTime" forKey:@"sort"];
+    [params safeSetObject:@"createTime" forKey:@"sortBy"];
+    [params safeSetObject:@"desc" forKey:@"sort"];
 
     if (startIndex >= 0) {
         [params safeSetObject:[NSNumber numberWithInteger:startIndex] forKey:@"start"];
