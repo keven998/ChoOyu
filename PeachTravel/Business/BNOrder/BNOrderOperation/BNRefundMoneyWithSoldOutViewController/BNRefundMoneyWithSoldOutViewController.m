@@ -209,7 +209,7 @@
         cell.textLabel.numberOfLines = 0;
         
         NSMutableString *content = [[NSMutableString alloc] init];
-        [content appendFormat:@"买家: %ld\n", _orderDetail.consumerId];
+        [content appendFormat:@"买家: %@ %@\n", _orderDetail.orderContact.lastName,  _orderDetail.orderContact.firstName];
         [content appendFormat:@"实付金额: %@", _orderDetail.formatPayPrice];
         
         NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:content];
