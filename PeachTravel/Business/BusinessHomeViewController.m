@@ -57,7 +57,6 @@
     orderCountLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:orderCountLabel];
 
-    
     [StoreManager asyncLoadStoreInfoWithStoreId:[AccountManager shareAccountManager].account.userId completionBlock:^(BOOL isSuccess, StoreDetailModel *storeDetail) {
         NSMutableAttributedString *totalPrice = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"总销售额\n%@元", storeDetail.formatTotalSales]];
         [totalPrice addAttributes:@{NSFontAttributeName: [UIFont boldSystemFontOfSize:15.0]} range:NSMakeRange(5, totalPrice.length-5)];

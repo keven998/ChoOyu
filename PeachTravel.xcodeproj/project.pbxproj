@@ -986,6 +986,7 @@
 		D9A8FFCE1A80D216005AD701 /* HotDestinationCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FFC71A80D216005AD701 /* HotDestinationCollectionViewController.m */; };
 		D9A8FFCF1A80D216005AD701 /* RecommendDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FFC91A80D216005AD701 /* RecommendDataSource.m */; };
 		D9A981B019EFB99A00210A1B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9A981AF19EFB99A00210A1B /* CoreData.framework */; };
+		D9AA5B611CA0237C00E75129 /* textfield_bgk@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9AA5B601CA0237C00E75129 /* textfield_bgk@2x.png */; };
 		D9B3AB651B450F3D0067B686 /* UserAlbumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B3AB631B450F3D0067B686 /* UserAlbumViewController.m */; };
 		D9B3AB661B450F3D0067B686 /* UserAlbumViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9B3AB641B450F3D0067B686 /* UserAlbumViewController.xib */; };
 		D9B3AB6B1B4510AC0067B686 /* AlbumImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B3AB691B4510AC0067B686 /* AlbumImageCell.m */; };
@@ -3239,6 +3240,7 @@
 		D9A8FFFE1A80D52F005AD701 /* DestinationsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationsView.h; sourceTree = "<group>"; };
 		D9A8FFFF1A80D52F005AD701 /* DestinationsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationsView.m; sourceTree = "<group>"; };
 		D9A981AF19EFB99A00210A1B /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		D9AA5B601CA0237C00E75129 /* textfield_bgk@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "textfield_bgk@2x.png"; sourceTree = "<group>"; };
 		D9B3AB621B450F3D0067B686 /* UserAlbumViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserAlbumViewController.h; sourceTree = "<group>"; };
 		D9B3AB631B450F3D0067B686 /* UserAlbumViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserAlbumViewController.m; sourceTree = "<group>"; };
 		D9B3AB641B450F3D0067B686 /* UserAlbumViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserAlbumViewController.xib; sourceTree = "<group>"; };
@@ -8815,6 +8817,7 @@
 		E6F187031B845F4800232EEB /* CommonImages */ = {
 			isa = PBXGroup;
 			children = (
+				D9AA5B601CA0237C00E75129 /* textfield_bgk@2x.png */,
 				D937AE1C1BB95F0C0070F879 /* icon_dot@2x.png */,
 				D937AE1D1BB95F0C0070F879 /* icon_dot@3x.png */,
 				D9A380F01B9C405E000B5B66 /* icon_search_bg@2x.png */,
@@ -9867,6 +9870,7 @@
 				D91087AA1C96B230000D46B4 /* BNGoodsListViewController.xib in Resources */,
 				E68CB2A41B9FCD4500A5B38B /* plan_mark@2x.png in Resources */,
 				D90A9B371B5627C400E9F37C /* Loading_Animation_final12@3x.png in Resources */,
+				D9AA5B611CA0237C00E75129 /* textfield_bgk@2x.png in Resources */,
 				D90A9B5F1B5627C400E9F37C /* Loading_Animation_final52@3x.png in Resources */,
 				E6F18B101B845F4900232EEB /* master_icon_constellation11@3x.png in Resources */,
 				E6F18AEB1B845F4900232EEB /* dx_checkbox_selected@3x.png in Resources */,
