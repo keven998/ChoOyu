@@ -96,7 +96,7 @@
         if (isSuccess && storeDetail) {
             _dataSource = @[
                             @[
-                                @{@"title": @"我的店铺", @"image": @"icon_mine_favorite"},
+                                @{@"title": @"我的店铺", @"image": @"icon_mine_stroe"},
                                 @{@"title": @"我的收藏", @"image": @"icon_mine_favorite"},
                                 @{@"title": @"优惠券", @"image": @"icon_mine_coupon"},
                                 @{@"title": @"我的邀请码", @"image": @"icon_mine_inviteCode"},

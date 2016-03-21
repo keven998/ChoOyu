@@ -101,21 +101,24 @@
     alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
     UITextField *tf = [alertView textFieldAtIndex:0];
     [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
-        [OrderManager asyncVerifySellerPassword:tf.text completionBlock:^(BOOL isSuccess, NSString *errorStr) {
-            if (isSuccess) {
-                BNAgreeRefundMoneyRemarkTableViewCell *cell = [_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:3]];
-                [OrderManager asyncBNAgreeRefundMoneyOrderWithOrderId:_orderId refundMoney:_refundMoney leaveMessage:cell.remarkTextView.text completionBlock:^(BOOL isSuccess, NSString *errorStr) {
-                    if (isSuccess) {
-                        [SVProgressHUD showHint:@"退款成功"];
-                        [self.navigationController popViewControllerAnimated:YES];
-                    } else {
-                        [SVProgressHUD showHint:@"退款失败，请重试"];
-                    }
-                }];
-            } else {
-                [SVProgressHUD showHint:@"密码输入错误,请重试"];
-            }
-        }];
+        if (buttonIndex == 1) {
+            [OrderManager asyncVerifySellerPassword:tf.text completionBlock:^(BOOL isSuccess, NSString *errorStr) {
+                if (isSuccess) {
+                    BNAgreeRefundMoneyRemarkTableViewCell *cell = [_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:3]];
+                    [OrderManager asyncBNAgreeRefundMoneyOrderWithOrderId:_orderId refundMoney:_refundMoney leaveMessage:cell.remarkTextView.text completionBlock:^(BOOL isSuccess, NSString *errorStr) {
+                        if (isSuccess) {
+                            [SVProgressHUD showHint:@"退款成功"];
+                            [self.navigationController popViewControllerAnimated:YES];
+                        } else {
+                            [SVProgressHUD showHint:@"退款失败，请重试"];
+                        }
+                    }];
+                } else {
+                    [SVProgressHUD showHint:@"密码输入错误,请重试"];
+                }
+            }];
+        }
+        
     }];
 }
 
@@ -214,10 +217,14 @@
     tf.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
         if (buttonIndex == 1) {
-            
-            _refundMoney = [tf.text floatValue];
-            BNAgreeRefundMoneyRemarkTableViewCell *cell = [_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:3]];
-            cell.titleLabel.text = [NSString stringWithFormat:@"退款金额: ￥%@", self.refundMoneyDesc];
+            if ([tf.text floatValue] > _orderDetail.payPrice) {
+                [SVProgressHUD showHint:@"退款金额不能大于支付金额"];
+            } else {
+                _refundMoney = [tf.text floatValue];
+                BNAgreeRefundMoneyRemarkTableViewCell *cell = [_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:3]];
+                cell.titleLabel.text = [NSString stringWithFormat:@"退款金额: ￥%@", self.refundMoneyDesc];
+
+            }
         }
     }];
 }

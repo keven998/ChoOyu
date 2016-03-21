@@ -49,7 +49,8 @@
         NSString *orderServerStatus = [OrderManager orderServerStatusWithLocalStatus:[status integerValue]];
         [statusArray addObject:orderServerStatus];
     }
-    [OrderManager asyncLoadOrdersFromServerOfStore:[AccountManager shareAccountManager].account.userId orderType:statusArray startIndex:0 count:15 completionBlock:^(BOOL isSuccess, NSArray<OrderDetailModel *> *orderList) {
+    NSInteger orderCount = _dataSource.count ? _dataSource.count : 15;
+    [OrderManager asyncLoadOrdersFromServerOfStore:[AccountManager shareAccountManager].account.userId orderType:statusArray startIndex:0 count:orderCount completionBlock:^(BOOL isSuccess, NSArray<OrderDetailModel *> *orderList) {
         if (isSuccess) {
             _dataSource = [orderList mutableCopy];
             [_tableView reloadData];

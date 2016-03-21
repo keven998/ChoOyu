@@ -36,7 +36,7 @@
 - (void)setGoodsDetail:(GoodsDetailModel *)goodsDetail
 {
     _goodsDetail = goodsDetail;
-    _addressLabel.text = [NSString stringWithFormat:@"地址: %@  %@", _goodsDetail.locality.zhName, _goodsDetail.address];
+    _addressLabel.text = [NSString stringWithFormat:@"地址: %@ %@  %@", _goodsDetail.country.zhName, _goodsDetail.locality.zhName, _goodsDetail.address];
     _timecostLabel.text = [NSString stringWithFormat:@"游玩时长: %@小时", _goodsDetail.timecost];
     
     if (goodsDetail.goodsDescSummary.length) {

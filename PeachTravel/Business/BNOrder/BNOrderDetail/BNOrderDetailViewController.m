@@ -164,7 +164,7 @@
         refundWithSoldOutButton.layer.borderColor = COLOR_PRICE_RED.CGColor;
         refundWithSoldOutButton.layer.borderWidth = 1;
         refundWithSoldOutButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
-        [refundWithSoldOutButton addTarget:self action:@selector(agreeRefundMoney:) forControlEvents:UIControlEventTouchUpInside];
+        [refundWithSoldOutButton addTarget:self action:@selector(refundMoneyWithSoldOut:) forControlEvents:UIControlEventTouchUpInside];
         refundWithSoldOutButton.layer.cornerRadius = 3.0;
         [_toolBar addSubview:refundWithSoldOutButton];
         
@@ -266,12 +266,9 @@
 
 - (void)contactUser:(UIButton *)sender
 {
-    
     IMClientManager *clientManager = [IMClientManager shareInstance];
-    ChatConversation *conversation = [clientManager.conversationManager getConversationWithChatterId:_orderDetail.goods.store.business.userId chatType:IMChatTypeIMChatSingleType];
+    ChatConversation *conversation = [clientManager.conversationManager getConversationWithChatterId:_orderDetail.consumerId chatType:IMChatTypeIMChatSingleType];
     ChatViewController *chatController = [[ChatViewController alloc] initWithConversation:conversation];
-    
-    chatController.chatterName = _orderDetail.goods.store.business.nickName;
     
     ChatSettingViewController *menuViewController = [[ChatSettingViewController alloc] init];
     menuViewController.currentConversation= conversation;

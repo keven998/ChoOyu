@@ -24,42 +24,48 @@
     [super viewDidLoad];
     self.navigationItem.title = @"我的店铺";
     
-    _myGoodsButton.layer.borderColor = COLOR_LINE.CGColor;
+    _myGoodsButton.layer.borderColor = [UIColor whiteColor].CGColor;
     _myGoodsButton.layer.borderWidth = 1;
     _myGoodsButton.layer.cornerRadius = 3.0;
     
-    _myOrderButton.layer.borderColor = COLOR_LINE.CGColor;
+    _myOrderButton.layer.borderColor = [UIColor whiteColor].CGColor;
     _myOrderButton.layer.borderWidth = 1;
     _myOrderButton.layer.cornerRadius = 3.0;
     
-    CGFloat spaceWidth = (kWindowWidth-160)/3;
-    TZButton *totalPriceButton = [[TZButton alloc] initWithFrame:CGRectMake(spaceWidth, 120, 80, 200)];
-    totalPriceButton.userInteractionEnabled = NO;
-    totalPriceButton.spaceHight = 20;
-    totalPriceButton.titleLabel.numberOfLines = 0;
-    totalPriceButton.titleLabel.font = [UIFont systemFontOfSize:15];
-    [totalPriceButton setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
-    [totalPriceButton setImage:[UIImage imageNamed:@"icon_business_order_totalPrice.png"] forState:UIControlStateNormal];
-    [self.view addSubview:totalPriceButton];
+    CGFloat spaceWidth = (kWindowWidth-200)/3;
+    UIImageView *totalPriceImageView = [[UIImageView alloc] initWithFrame:CGRectMake(spaceWidth, 120, 100, 80)];
+    totalPriceImageView.image = [UIImage imageNamed:@"icon_business_order_totalPrice.png"];
+    totalPriceImageView.contentMode = UIViewContentModeScaleAspectFit;
+    [self.view addSubview:totalPriceImageView];
     
-    TZButton *orderCountButton = [[TZButton alloc] initWithFrame:CGRectMake(spaceWidth*2+80, 120, 80, 200)];
-    orderCountButton.userInteractionEnabled = NO;
-    orderCountButton.spaceHight = 20;
-    orderCountButton.titleLabel.numberOfLines = 0;
-    orderCountButton.titleLabel.font = [UIFont systemFontOfSize:15];
-    [orderCountButton setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
-    [orderCountButton setImage:[UIImage imageNamed:@"icon_business_order_number.png"] forState:UIControlStateNormal];
-    [self.view addSubview:orderCountButton];
+    UILabel *totalPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(spaceWidth, 220, 100, 40)];
+    totalPriceLabel.textColor = [UIColor whiteColor];
+    totalPriceLabel.font = [UIFont systemFontOfSize:15.0];
+    totalPriceLabel.numberOfLines = 0;
+    totalPriceLabel.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:totalPriceLabel];
+
+    UIImageView *orderCountImageView = [[UIImageView alloc] initWithFrame:CGRectMake(spaceWidth*2+100, 120, 100, 80)];
+    orderCountImageView.image = [UIImage imageNamed:@"icon_business_order_number.png"];
+    orderCountImageView.contentMode = UIViewContentModeScaleAspectFit;
+    [self.view addSubview:orderCountImageView];
+    
+    UILabel *orderCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(spaceWidth*2+100, 220, 100, 40)];
+    orderCountLabel.textColor = [UIColor whiteColor];
+    orderCountLabel.font = [UIFont systemFontOfSize:15.0];
+    orderCountLabel.numberOfLines = 0;
+    orderCountLabel.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:orderCountLabel];
+
     
     [StoreManager asyncLoadStoreInfoWithStoreId:[AccountManager shareAccountManager].account.userId completionBlock:^(BOOL isSuccess, StoreDetailModel *storeDetail) {
-        NSMutableAttributedString *totalPrice = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"总销售额\n\n%@元", storeDetail.formatTotalSales]];
-        [totalPrice addAttributes:@{NSForegroundColorAttributeName: COLOR_PRICE_RED} range:NSMakeRange(6, totalPrice.length-6)];
-        [totalPriceButton setAttributedTitle:totalPrice forState:UIControlStateNormal];
+        NSMutableAttributedString *totalPrice = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"总销售额\n%@元", storeDetail.formatTotalSales]];
+        [totalPrice addAttributes:@{NSFontAttributeName: [UIFont boldSystemFontOfSize:15.0]} range:NSMakeRange(5, totalPrice.length-5)];
+        totalPriceLabel.attributedText = totalPrice;
         
-        NSMutableAttributedString *orderCount = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"总订单量\n\n%ld单", storeDetail.totalOrderCnt]];
-       
-        [orderCount addAttributes:@{NSForegroundColorAttributeName: COLOR_PRICE_RED} range:NSMakeRange(6, orderCount.length-6)];
-        [orderCountButton setAttributedTitle:orderCount forState:UIControlStateNormal];
+        NSMutableAttributedString *orderCount = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"总订单量\n%@单", storeDetail.formatTotalSales]];
+        [orderCount addAttributes:@{NSFontAttributeName: [UIFont boldSystemFontOfSize:15.0]} range:NSMakeRange(5, orderCount.length-5)];
+        orderCountLabel.attributedText = orderCount;
         
         if (storeDetail.pendingOrderCnt) {
             [_myOrderButton setTitle:[NSString stringWithFormat:@"我的订单 (%ld单待处理)", storeDetail.pendingOrderCnt] forState:UIControlStateNormal];

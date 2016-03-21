@@ -210,23 +210,8 @@
         
         NSMutableString *content = [[NSMutableString alloc] init];
         [content appendFormat:@"买家: %ld\n", _orderDetail.consumerId];
-        [content appendFormat:@"实付金额: %@\n", _orderDetail.formatPayPrice];
-        if (_orderDetail.requestRefundtDate) {
-            [content appendFormat:@"申请退款时间: %@\n", _orderDetail.requestRefundtDate];
-        } else {
-            [content appendFormat:@"申请退款时间: -\n"];
-        }
-        if (_orderDetail.requestRefundtExcuse) {
-            [content appendFormat:@"申请退款原因: %@\n", _orderDetail.requestRefundtExcuse];
-        } else {
-            [content appendFormat:@"申请退款原因: -\n"];
-        }
-        if (_orderDetail.requestRefundtMessage) {
-            [content appendFormat:@"申请退款留言: %@", _orderDetail.requestRefundtMessage];
-        } else {
-            [content appendFormat:@"申请退款留言: -"];
-        }
-
+        [content appendFormat:@"实付金额: %@", _orderDetail.formatPayPrice];
+        
         NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:content];
         NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
         paragraphStyle.lineSpacing = 10;

@@ -17,13 +17,16 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_business_cover" translatesAutoresizingMaskIntoConstraints="NO" id="sQh-as-hRT">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Naj-yJ-hAu">
                     <rect key="frame" x="8" y="438" width="584" height="40"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="egI-h6-i9D"/>
                     </constraints>
                     <state key="normal" title="我的订单">
-                        <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <connections>
                         <action selector="myOrdersAction:" destination="-1" eventType="touchUpInside" id="i19-Qg-ZmY"/>
@@ -35,7 +38,7 @@
                         <constraint firstAttribute="height" constant="40" id="VRx-W9-SG8"/>
                     </constraints>
                     <state key="normal" title="我的商品">
-                        <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <connections>
                         <action selector="myGoodsAction:" destination="-1" eventType="touchUpInside" id="Bxx-3M-Xsy"/>
@@ -44,13 +47,20 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="sQh-as-hRT" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="7l3-i0-bp5"/>
+                <constraint firstItem="sQh-as-hRT" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="8T3-NI-a3U"/>
                 <constraint firstAttribute="trailing" secondItem="Pt9-xT-YWT" secondAttribute="trailing" constant="8" id="8rS-lD-mfT"/>
                 <constraint firstAttribute="trailing" secondItem="Naj-yJ-hAu" secondAttribute="trailing" constant="8" id="MPc-xI-oOV"/>
+                <constraint firstAttribute="bottom" secondItem="sQh-as-hRT" secondAttribute="bottom" id="PW0-tK-paM"/>
                 <constraint firstItem="Pt9-xT-YWT" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="R9Y-HM-ffh"/>
                 <constraint firstItem="Pt9-xT-YWT" firstAttribute="top" secondItem="Naj-yJ-hAu" secondAttribute="bottom" constant="8" id="WE0-RL-vsC"/>
                 <constraint firstAttribute="bottom" secondItem="Pt9-xT-YWT" secondAttribute="bottom" constant="74" id="h4Y-V5-8IP"/>
                 <constraint firstItem="Naj-yJ-hAu" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="y59-oD-Ofz"/>
+                <constraint firstAttribute="trailing" secondItem="sQh-as-hRT" secondAttribute="trailing" id="z6g-M9-FTe"/>
             </constraints>
         </view>
     </objects>
+    <resources>
+        <image name="icon_business_cover" width="375" height="626"/>
+    </resources>
 </document>

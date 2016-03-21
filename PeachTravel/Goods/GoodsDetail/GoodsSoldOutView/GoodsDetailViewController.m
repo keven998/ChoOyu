@@ -42,6 +42,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) GoodsDetailModel *goodsDetail;
 @property (nonatomic, strong) ChatRecoredListTableViewController *chatRecordListCtl;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableButtomConstraint;
 
 @end
 
@@ -89,7 +90,8 @@
                 if (_goodsDetail) {
                     [self renderTableView];
                     [self setupNaviBar];
-
+                    [self setupToolbar];
+                    
                 } else {
                     GoodsDetailSoldOutView *view = [[GoodsDetailSoldOutView alloc] initWithFrame:CGRectMake(0, 100, kWindowWidth, kWindowHeight-100)];
                     [self.view addSubview:view];
@@ -119,12 +121,14 @@
 {
     _tableView.hidden = NO;
     [_tableView reloadData];
+    if (_isSnapshot) {
+        _tableButtomConstraint.constant = -60;
+    }
     GoodsDetailHeaderView *headerView = [[GoodsDetailHeaderView alloc] initWithFrame:CGRectMake(0, 64, kWindowWidth, [GoodsDetailHeaderView heightWithGoodsmodel:_goodsDetail])];
     headerView.goodsDetail = _goodsDetail;
     UIView *tempView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, [GoodsDetailHeaderView heightWithGoodsmodel:_goodsDetail]+64)];
     [tempView addSubview:headerView];
     self.tableView.tableHeaderView = tempView;
-    [self setupToolbar];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.bounds.size.width, 60)];
 }
 
