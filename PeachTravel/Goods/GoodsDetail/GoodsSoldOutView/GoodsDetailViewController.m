@@ -129,6 +129,7 @@
     UIView *tempView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, [GoodsDetailHeaderView heightWithGoodsmodel:_goodsDetail]+64)];
     [tempView addSubview:headerView];
     self.tableView.tableHeaderView = tempView;
+    
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.bounds.size.width, 60)];
 }
 
@@ -143,6 +144,7 @@
     [favoriteBtn setImage:[UIImage imageNamed:@"icon_favorite_selected"] forState:UIControlStateSelected];
     [favoriteBtn addTarget:self action:@selector(favorite:) forControlEvents:UIControlEventTouchUpInside];
     favoriteBtn.selected = _goodsDetail.isFavorite;
+
     
     self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithCustomView:shareBtn], [[UIBarButtonItem alloc] initWithCustomView:favoriteBtn]];
 }
