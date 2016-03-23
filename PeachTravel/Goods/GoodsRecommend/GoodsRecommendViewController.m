@@ -66,6 +66,9 @@
     searchLabel.font = [UIFont systemFontOfSize:14.0];
     [_searchBtn addSubview:searchLabel];
     [self.view addSubview:_searchBtn];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogin) name:userDidLoginNoti object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogout) name:userDidLogoutNoti object:nil];
 
     [self loadData];
 }
@@ -85,8 +88,23 @@
     }
 }
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (void)userDidLogin
+{
+    [self loadData];
+}
+
+- (void)userDidLogout
+{
+    [self loadData];
 }
 
 - (void)loadData
@@ -109,8 +127,10 @@
                     _dataSource = goodsList;
                     [self.tableView reloadData];
                     _navigationBar.alpha = 0;
+                    _tableView.hidden = NO;
                     
                 } else {
+                   
                     [self setupErrorEmptyView];
                 }
                 [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -130,6 +150,10 @@
         [_errorView removeFromSuperview];
         _errorView = nil;
     }
+    _headerView.recommendData = nil;
+    _tableView.hidden = YES;
+    _dataSource = [[NSArray alloc] init];
+    [self.tableView reloadData];
     _errorView = [[ErrorEmptyView alloc] initWithFrame:CGRectMake(0, 84, kWindowWidth, 300)];
     _errorView.delegate = self;
     [self.view addSubview:_errorView];
