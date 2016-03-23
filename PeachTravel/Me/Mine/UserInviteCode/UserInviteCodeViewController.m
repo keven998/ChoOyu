@@ -12,6 +12,7 @@
 @interface UserInviteCodeViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *contentLabel;
 @property (weak, nonatomic) IBOutlet UILabel *inviteCodeLabel;
+@property (weak, nonatomic) IBOutlet UIButton *inviteCodeBtn;
 
 @end
 
@@ -29,6 +30,8 @@
             _inviteCodeLabel.text = [AccountManager shareAccountManager].account.inviteCode;
         }];
     }
+    
+    [_inviteCodeBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
 }
 
 - (void)viewWillAppear:(BOOL)animated

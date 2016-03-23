@@ -17,7 +17,7 @@
 #import "TaoziChatMessageBaseViewController.h"
 #import "ShareActivity.h"
 
-@interface SuperWebViewController () <UIWebViewDelegate, NJKWebViewProgressDelegate, ActivityDelegate, CreateConversationDelegate, TaoziMessageSendDelegate> {
+@interface SuperWebViewController () <UIWebViewDelegate, NJKWebViewProgressDelegate, ActivityDelegate> {
     
     NJKWebViewProgressView *_progressView;
     NJKWebViewProgress *_progressProxy;
@@ -167,9 +167,14 @@
 
 - (void)didClickOnImageIndex:(NSInteger)imageIndex
 {
-    NSString *url = [NSString stringWithFormat:@"%@&share=1", _urlStr];
-    NSString *shareTitle = @"旅行派特色体验";
-    NSString *shareContentWithoutUrl = @"邀请好友注册，领支付宝现金红包，1000元等你来抢！";
+    NSString *url;
+    if ([_urlStr containsString:@"?"]) {
+       url = [NSString stringWithFormat:@"%@&share=1", _urlStr];
+    } else {
+        url = [NSString stringWithFormat:@"%@?share=1", _urlStr];
+    }
+    NSString *shareTitle = @"邀请好友注册，领支付宝现金红包";
+    NSString *shareContentWithoutUrl = @"邀请好友注册，领支付宝现金红包，10000元等你来抢！";
     NSString *shareContentWithUrl = [NSString stringWithFormat:@"邀请好友注册，领支付宝现金红包，1000元等你来抢！ %@", _urlStr];
     
     UMSocialUrlResource *resource = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeImage url:nil];
