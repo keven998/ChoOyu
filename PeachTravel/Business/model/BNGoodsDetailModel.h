@@ -17,6 +17,7 @@ typedef enum : NSUInteger {
 @interface BNGoodsDetailModel : GoodsDetailModel
 
 @property (nonatomic) BNGoodsStatus goodsStatus;
+@property (nonatomic) BOOL isPackageExpire;   //套餐信息是否过期
 @property (nonatomic, copy, readonly) NSString *goodsStatusDesc;
 
 @end

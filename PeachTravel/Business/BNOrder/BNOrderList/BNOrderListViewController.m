@@ -18,6 +18,9 @@
 #import "BNAgreeRefundMoneyViewController.h"
 #import "BNRefuseRefundMoneyViewController.h"
 #import "BNOrderDetailViewController.h"
+#import "MJRefresh.h"
+
+#define pageCount 15    //每页加载数量
 
 @interface BNOrderListViewController () <UITableViewDataSource, UITableViewDelegate, BNOrderListTableViewCellDelegate, UIActionSheetDelegate>
 
@@ -38,6 +41,8 @@
     [_tableView registerNib:[UINib nibWithNibName:@"BNOrderListTableViewCell" bundle:nil] forCellReuseIdentifier:@"BNOrderListTableViewCell"];
     
     _cancelOrderReason = @[@"未及时付款", @"买家不想买", @"买家信息填写有误，重拍", @"恶意买家/同行捣乱", @"缺货", @"买家拍错了", @"其它原因"];
+    self.tableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
+    [self.tableView.header beginRefreshing];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -49,11 +54,53 @@
         NSString *orderServerStatus = [OrderManager orderServerStatusWithLocalStatus:[status integerValue]];
         [statusArray addObject:orderServerStatus];
     }
-    NSInteger orderCount = _dataSource.count ? _dataSource.count : 15;
+    
+    if (![self.tableView.header isRefreshing]) {
+        [self refreshData];
+    }
+}
+
+- (void)refreshData
+{
+    NSMutableArray *statusArray = [[NSMutableArray alloc] init];
+    for (NSNumber *status in _orderTypes) {
+        NSString *orderServerStatus = [OrderManager orderServerStatusWithLocalStatus:[status integerValue]];
+        [statusArray addObject:orderServerStatus];
+    }
+    NSInteger orderCount = _dataSource.count ? _dataSource.count : pageCount;
     [OrderManager asyncLoadOrdersFromServerOfStore:[AccountManager shareAccountManager].account.userId orderType:statusArray startIndex:0 count:orderCount completionBlock:^(BOOL isSuccess, NSArray<OrderDetailModel *> *orderList) {
         if (isSuccess) {
             _dataSource = [orderList mutableCopy];
             [_tableView reloadData];
+            if (orderList.count < pageCount) {
+                [_tableView.footer endRefreshingWithNoMoreData];
+            } else {
+                [_tableView.footer resetNoMoreData];
+            }
+        }
+        [self.tableView.header endRefreshing];
+
+    }];
+}
+
+- (void)loadMoreData
+{
+    NSMutableArray *statusArray = [[NSMutableArray alloc] init];
+    for (NSNumber *status in _orderTypes) {
+        NSString *orderServerStatus = [OrderManager orderServerStatusWithLocalStatus:[status integerValue]];
+        [statusArray addObject:orderServerStatus];
+    }
+    [OrderManager asyncLoadOrdersFromServerOfStore:[AccountManager shareAccountManager].account.userId orderType:statusArray startIndex:_dataSource.count count:pageCount completionBlock:^(BOOL isSuccess, NSArray<OrderDetailModel *> *orderList) {
+        [self.tableView.footer endRefreshing];
+
+        if (isSuccess) {
+            NSMutableArray *array = [[NSMutableArray alloc] initWithArray:_dataSource];
+            [array addObjectsFromArray:orderList];
+            _dataSource = array;
+            [self.tableView reloadData];
+            if (orderList.count < pageCount) {
+                [_tableView.footer endRefreshingWithNoMoreData];
+            }
         }
     }];
 }

@@ -164,6 +164,11 @@
 //商品上架
 - (void)onSaleGoodsAction:(UIButton *)sender
 {
+    if (_goodsDetail.isPackageExpire) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"商品套餐信息已过期，请到后台网站更改套餐信息" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alertView show];
+        return;
+    }
     [GoodsManager asyncOnsaleGoods:_goodsId completionBlock:^(BOOL isSuccess, NSString *errDesc) {
         if (isSuccess) {
             [SVProgressHUD showHint:@"商品上架成功"];

@@ -97,9 +97,12 @@
     }
     [GoodsManager asyncLoadRecommendGoodsWithCompletionBlock:^(BOOL isSuccess, NSArray<NSDictionary *> *goodsList) {
         if (isSuccess) {
-            
+            NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+            if ([AccountManager shareAccountManager].isLogin) {
+                [params safeSetObject:[NSNumber numberWithInteger:[AccountManager shareAccountManager].account.userId] forKey:@"userId"];
+            }
             NSString *url = [NSString stringWithFormat:@"%@columns", BASE_URL];
-            [LXPNetworking GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [LXPNetworking GET:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
                 if (code == 0) {
                     _headerView.recommendData = [responseObject objectForKey:@"result"];
@@ -112,7 +115,8 @@
                 }
                 [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                
+                [self setupErrorEmptyView];
+
             }];
         } else {
             [self setupErrorEmptyView];

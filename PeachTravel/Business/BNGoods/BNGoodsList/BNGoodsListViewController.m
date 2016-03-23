@@ -32,7 +32,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [GoodsManager asyncLoadGoodsOfStore:_storeId goodsStatus:_goodsStatus startIndex:-1 count:0 completionBlock:^(BOOL isSuccess, NSArray *goodsList) {
+    [GoodsManager asyncLoadGoodsOfStore:_storeId goodsStatus:_goodsStatus startIndex:0 count:200 completionBlock:^(BOOL isSuccess, NSArray *goodsList) {
         _dataSource = [goodsList mutableCopy];
         [self.tableView reloadData];
     }];
@@ -55,6 +55,11 @@
 //商品上架
 - (void)onSaleGoodsAction:(UIButton *)sender
 {
+    if ([_dataSource objectAtIndex:sender.tag].isPackageExpire) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"商品套餐信息已过期，请到后台网站更改套餐信息" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alertView show];
+        return;
+    }
     [GoodsManager asyncOnsaleGoods:[_dataSource objectAtIndex:sender.tag].goodsId completionBlock:^(BOOL isSuccess, NSString *errDesc) {
         if (isSuccess) {
             [SVProgressHUD showHint:@"商品上架成功"];

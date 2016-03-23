@@ -23,6 +23,7 @@
         } else if ([status isEqualToString:@"disabled"]) {
             _goodsStatus = kOffSale;
         }
+        _isPackageExpire = [[json objectForKey:@"expire"] boolValue];
     }
     return self;
 }
