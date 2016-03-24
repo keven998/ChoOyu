@@ -220,6 +220,8 @@
         if (buttonIndex == 1) {
             if ([tf.text floatValue] > _orderDetail.payPrice) {
                 [SVProgressHUD showHint:@"退款金额不能大于支付金额"];
+            } else if ([tf.text floatValue] < 0.01) {
+                [SVProgressHUD showHint:@"退款金额必须大于等于0.01"];
             } else {
                 _refundMoney = [tf.text floatValue];
                 BNAgreeRefundMoneyRemarkTableViewCell *cell = [_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:3]];
