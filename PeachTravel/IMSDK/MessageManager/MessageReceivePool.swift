@@ -31,7 +31,7 @@ class MessageReceivePool: NSObject {
     
     private func startTimer() {
         debug_print("启动定时器")
-        timer = NSTimer.scheduledTimerWithTimeInterval(reorderTime, target: self, selector: Selector("distrubuteMessage"), userInfo: nil, repeats: false)
+        timer = NSTimer.scheduledTimerWithTimeInterval(reorderTime, target: self, selector: #selector(MessageReceivePool.distrubuteMessage), userInfo: nil, repeats: false)
     }
     
     /**

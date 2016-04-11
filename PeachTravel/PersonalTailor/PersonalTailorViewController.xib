@@ -5,9 +5,9 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SelectPayPlatformViewController">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PersonalTailorViewController">
             <connections>
-                <outlet property="tableView" destination="Qyg-Mi-PBU" id="lr6-Ku-tcj"/>
+                <outlet property="tableView" destination="7kG-WD-hG4" id="4f7-Co-qAO"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -16,17 +16,17 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Qyg-Mi-PBU">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="7kG-WD-hG4">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                 </tableView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="Qyg-Mi-PBU" secondAttribute="bottom" id="TRA-JS-lKC"/>
-                <constraint firstItem="Qyg-Mi-PBU" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ezJ-2u-fn0"/>
-                <constraint firstItem="Qyg-Mi-PBU" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="uKQ-cE-tTs"/>
-                <constraint firstAttribute="trailing" secondItem="Qyg-Mi-PBU" secondAttribute="trailing" id="zmI-c4-aMg"/>
+                <constraint firstAttribute="bottom" secondItem="7kG-WD-hG4" secondAttribute="bottom" id="7LO-kU-NLv"/>
+                <constraint firstItem="7kG-WD-hG4" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="7eI-Fy-v4d"/>
+                <constraint firstItem="7kG-WD-hG4" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="YVR-Kc-avV"/>
+                <constraint firstAttribute="trailing" secondItem="7kG-WD-hG4" secondAttribute="trailing" id="eFz-D9-7vJ"/>
             </constraints>
         </view>
     </objects>

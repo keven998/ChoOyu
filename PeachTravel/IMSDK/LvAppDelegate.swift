@@ -21,16 +21,11 @@ extension AppDelegate {
             let connectionManager = ConnectionManager.shareInstance()
             connectionManager.bindUserIdWithRegistionId(AccountManager.shareAccountManager().account.userId)
         }
-        
-        if #available(iOS 8.0, *) {
-            let setting = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
-            application.registerForRemoteNotifications()
-            application.registerUserNotificationSettings(setting)
+    
+        let setting = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
+        application.registerForRemoteNotifications()
+        application.registerUserNotificationSettings(setting)
             
-        } else {
-           application.registerForRemoteNotificationTypes([.Badge, .Alert, .Sound])
-        }
-        
         ConnectionManager.shareInstance().createPushConnection()
         return true
     }

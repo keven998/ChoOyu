@@ -195,10 +195,17 @@
             if ([[city objectForKey:@"childCities"] count] > 0) {
                 CityListTableViewController *cityListCtl = [[CityListTableViewController alloc] init];
                 cityListCtl.cityDataSource = [city objectForKey:@"childCities"];
+                cityListCtl.delegate = _delegate;
+                cityListCtl.isSelectCity = _isSelectCity;
                 [self.navigationController pushViewController:cityListCtl animated:YES];
             } else {
                 _locationStr = [city objectForKey:@"name"];
-                [self updateUserResidence];
+                if (_isSelectCity) {
+                    [_delegate didSelectCity:_locationStr];
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                } else {
+                    [self updateUserResidence];
+                }
             }
         }
         
@@ -207,10 +214,17 @@
         if ([[city objectForKey:@"childCities"] count] > 0) {
             CityListTableViewController *cityListCtl = [[CityListTableViewController alloc] init];
             cityListCtl.cityDataSource = [city objectForKey:@"childCities"];
+            cityListCtl.delegate = _delegate;
+            cityListCtl.isSelectCity = _isSelectCity;
             [self.navigationController pushViewController:cityListCtl animated:YES];
         } else {
             _locationStr = [city objectForKey:@"name"];
-            [self updateUserResidence];
+            if (_isSelectCity) {
+                [_delegate didSelectCity:_locationStr];
+                [self dismissViewControllerAnimated:YES completion:nil];
+            } else {
+                [self updateUserResidence];
+            }
         }
     }
 }

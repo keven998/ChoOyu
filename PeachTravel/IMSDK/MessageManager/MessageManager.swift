@@ -229,7 +229,7 @@ class MessageManager: NSObject {
         if timer != nil {
             return
         }
-        timer = NSTimer.scheduledTimerWithTimeInterval(ACKTime, target: self, selector: Selector("ackMessageWhenTimeout"), userInfo: nil, repeats: true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(ACKTime, target: self, selector: #selector(MessageManager.ackMessageWhenTimeout), userInfo: nil, repeats: true)
         debug_print("********ACK 的定时器开始启动了*******")
     }
     

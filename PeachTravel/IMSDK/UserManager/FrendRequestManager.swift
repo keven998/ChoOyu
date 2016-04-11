@@ -79,7 +79,7 @@ class FrendRequestManager: NSObject {
                     return
                 }
             }
-            index++
+            index += 1
         }
         self.frendRequestDaoHelper.addFrendRequestion2DB(frendRequest)
         self.frendRequestList.append(frendRequest)

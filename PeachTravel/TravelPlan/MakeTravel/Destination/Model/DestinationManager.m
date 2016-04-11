@@ -103,7 +103,6 @@ static NSString *foreignDestinationCacheName = @"destination_foreign";
         completetion(NO, destinations);
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
-
 }
 
 + (void)loadDomesticDestinationFromCache:(Destinations *)destinations completionBlock:(void (^)(BOOL isSuccess, Destinations *destination, NSString *saveTime)) completetion

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PTMakeContentTableViewCell" id="KGk-i7-Jjw" customClass="PTMakeContentTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="*姓:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wFQ-Sy-f5S">
+                        <rect key="frame" x="15" y="11" width="70" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="8bP-s8-G78"/>
+                            <constraint firstAttribute="width" constant="70" id="izM-Te-g0z"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="英文或拼音" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cJI-Go-izq">
+                        <rect key="frame" x="87" y="7" width="225" height="30"/>
+                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                    </textField>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="cJI-Go-izq" firstAttribute="leading" secondItem="wFQ-Sy-f5S" secondAttribute="trailing" constant="2" id="65k-qZ-Y5e"/>
+                    <constraint firstItem="wFQ-Sy-f5S" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="11" id="B9O-bd-AUo"/>
+                    <constraint firstAttribute="trailing" secondItem="cJI-Go-izq" secondAttribute="trailing" constant="8" id="P2R-LL-Thi"/>
+                    <constraint firstItem="cJI-Go-izq" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="7" id="Q8l-pU-jJj"/>
+                    <constraint firstAttribute="bottom" secondItem="cJI-Go-izq" secondAttribute="bottom" constant="6.5" id="suT-bP-hMo"/>
+                    <constraint firstItem="wFQ-Sy-f5S" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="t5B-jE-ps0"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="contentTextfield" destination="cJI-Go-izq" id="uws-LT-aSj"/>
+                <outlet property="typeLabel" destination="wFQ-Sy-f5S" id="IS1-la-62Z"/>
+            </connections>
+            <point key="canvasLocation" x="67" y="214"/>
+        </tableViewCell>
+    </objects>
+</document>

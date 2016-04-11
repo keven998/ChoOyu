@@ -49,6 +49,9 @@
  */
 @property (nonatomic, strong) NSDate *selectedDate;
 
+@property (nonatomic) BOOL canSelect;
+
+
 /** @name Customizing Appearance */
 
 /**

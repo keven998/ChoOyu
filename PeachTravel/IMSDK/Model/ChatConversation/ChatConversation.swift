@@ -106,7 +106,7 @@ class ChatConversation: NSObject {
     */
     var lastServerMessage: BaseMessage? {
         get {
-            for var i = chatMessageList.count-1; i>0; i-- {
+            for var i = chatMessageList.count-1; i>0; i -= 1 {
                 let message = chatMessageList[i]
                 if message.serverId >= 0 {
                     return message
@@ -193,7 +193,7 @@ class ChatConversation: NSObject {
         }
         let moreMessages = daoHelper.selectChatMessageList(chatterId, untilLocalId: localId, messageCount: messageCount)
         
-        for var i = moreMessages.count-1; i>=0; i-- {
+        for var i = moreMessages.count-1; i>=0; i -= 1 {
             let message = moreMessages[i]
             chatMessageList.insert(message, atIndex: 0)
         }

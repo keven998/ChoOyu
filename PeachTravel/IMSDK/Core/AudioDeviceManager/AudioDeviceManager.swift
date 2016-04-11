@@ -56,7 +56,7 @@ class AudioRecordDeviceManager: NSObject, AVAudioRecorderDelegate {
             prepareBlock(canRecord: false);
             return
         }
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:"updateRecordState:" , name:
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(AudioRecordDeviceManager.updateRecordState(_:)) , name:
             AVAudioSessionInterruptionNotification, object: nil)
         do {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord)

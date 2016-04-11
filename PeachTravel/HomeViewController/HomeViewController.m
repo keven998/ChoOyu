@@ -24,6 +24,7 @@
 #import "GoodsRecommendViewController.h"
 #import "CityListViewController.h"
 #import "CountryRecommendViewController.h"
+#import "PTHomeViewController.h"
 #import "StoreManager.h"
 
 #define kBackGroundImage    @"backGroundImage"
@@ -53,6 +54,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 @property (nonatomic, strong) PoiRecommendRootViewController *poiRecommendCtl;
 @property (nonatomic, strong) GoodsRecommendViewController *goodsRecommendCtl;
 @property (nonatomic, strong) CityListViewController *cityList;
+@property (nonatomic, strong) PTHomeViewController *ptHomeCtl;
 
 @end
 
@@ -358,38 +360,42 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (void)setupViewControllers
 {
     self.delegate = self;
-    self.tabBar.selectedImageTintColor = APP_THEME_COLOR;
+    self.tabBar.tintColor = APP_THEME_COLOR;
     
     _goodsRecommendCtl = [[GoodsRecommendViewController alloc] init];
-
     TZNavigationViewController *firstNavigationController = [[TZNavigationViewController alloc]
                                                              initWithRootViewController:_goodsRecommendCtl];
     
-    CountryRecommendViewController *ctl = [[CountryRecommendViewController alloc] init];
+    _ptHomeCtl = [[PTHomeViewController alloc] init];
     TZNavigationViewController *secondNavigationController = [[TZNavigationViewController alloc]
+                                                             initWithRootViewController:_ptHomeCtl];
+
+    
+    CountryRecommendViewController *ctl = [[CountryRecommendViewController alloc] init];
+    TZNavigationViewController *thirdNavigationController = [[TZNavigationViewController alloc]
                                                               initWithRootViewController:ctl];
     
     _chatListCtl = [[ChatListViewController alloc] init];
     _chatListCtl.delegate = self;
-    TZNavigationViewController *thirdNavigationController = [[TZNavigationViewController alloc]
+    TZNavigationViewController *fourthNavigationController = [[TZNavigationViewController alloc]
                                                               initWithRootViewController:self.chatListCtl];
     
     
     _mineCtl = [[MineViewContoller alloc] init];
-    TZNavigationViewController *fourthNavigationController = [[TZNavigationViewController alloc]
+    TZNavigationViewController *fifthhNavigationController = [[TZNavigationViewController alloc]
                                                               initWithRootViewController:_mineCtl];
     
     
     [self setViewControllers:@[firstNavigationController, secondNavigationController, thirdNavigationController
-                               , fourthNavigationController]];
+                               , fourthNavigationController, fifthhNavigationController]];
     [self customizeTabBarForController];
     
 }
 
 - (void)customizeTabBarForController
 {
-    NSArray *tabBarItemImages = @[@"ic_tabbar_goods", @"ic_tabbar_destination", @"ic_tabbar_chat", @"ic_tabbar_mine"];
-    NSArray *tabbarItemNames = @[@"首页", @"目的地", @"消息", @"我的"];
+    NSArray *tabBarItemImages = @[@"ic_tabbar_goods", @"ic_tabbar_goods", @"ic_tabbar_destination", @"ic_tabbar_chat", @"ic_tabbar_mine"];
+    NSArray *tabbarItemNames = @[@"首页", @"定制", @"目的地", @"消息", @"我的"];
     NSInteger index = 0;
     
     for (UITabBarItem *item in self.tabBar.items) {
