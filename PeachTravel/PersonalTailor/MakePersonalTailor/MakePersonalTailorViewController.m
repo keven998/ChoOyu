@@ -17,6 +17,7 @@
 #import "PTMakeSelectContentTableViewController.h"
 #import "PTDetailModel.h"
 #import "PTMakeSelectCityViewController.h"
+#import "PTSelectChildAndOldManTableViewCell.h"
 
 @interface MakePersonalTailorViewController ()<DialCodeTableViewControllerDelegate, CityListTableViewControllerDelegate, PDTSimpleCalendarViewDelegate, PTMakeSelectContentTableViewControllerDelegate, PTMakeSelectCityViewControllerDelegate>
 
@@ -48,7 +49,8 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"PTMakeContentTableViewCell" bundle:nil] forCellReuseIdentifier:@"PTMakeContentTableViewCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"PTMakeTelContentTableViewCell" bundle:nil] forCellReuseIdentifier:@"PTMakeTelContentTableViewCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"PTMakeOtherContentTableViewCell" bundle:nil] forCellReuseIdentifier:@"PTMakeOtherContentTableViewCell"];
-    
+    [self.tableView registerNib:[UINib nibWithNibName:@"PTSelectChildAndOldManTableViewCell" bundle:nil] forCellReuseIdentifier:@"PTSelectChildAndOldManTableViewCell"];
+
     [self renderFooterView];
 }
 
@@ -131,6 +133,9 @@
 {
     if (indexPath.section == 3) {
         return 130;
+    }
+    if (indexPath.section == 1 && indexPath.row == 4) {
+        return 40;
     }
     return 49;
 }
@@ -215,6 +220,10 @@
             return cell;
             
         } else if (indexPath.row == 4) {
+            PTSelectChildAndOldManTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PTSelectChildAndOldManTableViewCell" forIndexPath:indexPath];
+            return cell;
+            
+        } else if (indexPath.row == 5) {
             PTMakeContentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PTMakeContentTableViewCell" forIndexPath:indexPath];
             cell.contentPlaceHolder = @"元/人左右";
             cell.contentTextfield.textAlignment = NSTextAlignmentRight;

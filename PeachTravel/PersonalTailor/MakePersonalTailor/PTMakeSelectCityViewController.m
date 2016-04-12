@@ -54,6 +54,7 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
     }
     
     self.automaticallyAdjustsScrollViewInsets = NO;
+    self.navigationItem.title = @"选择目的地";
     
     if (self.navigationController.childViewControllers.count == 1) {
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
@@ -71,7 +72,7 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
      *  定义CollectionView的内容
      */
     _showCitiesIndex = 0;
-    _foreignCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(75, 64, kWindowWidth-75, kWindowHeight-64) collectionViewLayout:[[UICollectionViewFlowLayout alloc] init]];
+    _foreignCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(75, 64, kWindowWidth-75, kWindowHeight-64-49) collectionViewLayout:[[UICollectionViewFlowLayout alloc] init]];
     
     _foreignCollectionView.backgroundColor = APP_PAGE_COLOR;
     [self.view addSubview:_foreignCollectionView];
@@ -85,7 +86,7 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
     _foreignCollectionView.delegate = self;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateDestinationsSelected:) name:updateDestinationsSelectedNoti object:nil];
     
-    _foreignTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, 75, kWindowHeight-64)];
+    _foreignTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, 75, kWindowHeight-64-49)];
     [self.view addSubview:_foreignTableView];
     self.foreignTableView.dataSource = self;
     self.foreignTableView.delegate = self;
@@ -134,7 +135,11 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
     hintText.font = [UIFont systemFontOfSize:14];
     hintText.tag = 1;
     [toolBar addSubview:hintText];
-    [self showDestinationBar];
+    if (_destinations.destinationsSelected.count) {
+        [self showDestinationBar];
+    } else {
+        [self hideDestinationBar];
+    }
 }
 
 - (void)hideDestinationBar

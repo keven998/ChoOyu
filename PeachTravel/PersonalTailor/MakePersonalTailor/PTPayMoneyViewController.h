@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PTPayMoneyViewController : UIViewController
+@interface PTPayMoneyViewController : TZViewController
 
 @end
