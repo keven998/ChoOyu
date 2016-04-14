@@ -98,4 +98,29 @@
     }];
 }
 
+
+ + (void)asyncMakePlanForPTWithPtId:(NSString *)ptId content:(NSString *)content totalPrice:(NSInteger)price guideList:(NSArray *)guideList completionBlock:(void (^)(BOOL))completion
+{
+    NSString *url = [NSString stringWithFormat:@"%@marketplace/bounties/%@/schedules", BASE_URL, ptId];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params safeSetObject:content forKey:@"desc"];
+    [params safeSetObject:[NSNumber numberWithInteger:price] forKey:@"price"];
+    [params safeSetObject:@"" forKey:@"guideId"];
+
+    [LXPNetworking POST:url parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSInteger result = [[responseObject objectForKey:@"code"] integerValue];
+        if (result == 0) {
+        
+            completion(YES);
+        } else {
+            completion(NO);
+        }
+        
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        completion(NO);
+        
+    }];
+}
+
+
 @end

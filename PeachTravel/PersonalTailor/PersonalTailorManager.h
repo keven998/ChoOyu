@@ -15,5 +15,7 @@
 
 + (void)asyncMakePersonalTailorWithPTModel:(PTDetailModel *)ptDetailModel completionBlock:(void (^) (BOOL isSuccess, PTDetailModel *ptDetailModel))completion;
 
++ (void)asyncMakePlanForPTWithPtId:(NSString  *)ptId content:(NSString *)content totalPrice:(NSInteger)price guideList:(NSArray *)guideList completionBlock:(void (^) (BOOL isSuccess))completion;
+
 
 @end

@@ -68,6 +68,7 @@
 - (void)makePTPlanAction:(UIButton *)sender
 {
     PTMakePlanViewController *ctl = [[PTMakePlanViewController alloc] init];
+    ctl.ptId = _ptDetailModel.itemId;
     [self.navigationController pushViewController:ctl animated:YES];
 }
 

@@ -10,11 +10,14 @@
 #import "PTMakePlanContenTableViewCell.h"
 #import "MyGuidesTableViewCell.h"
 #import "PlansListTableViewController.h"
+#import "PersonalTailorManager.h"
 
-@interface PTMakePlanViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, SWTableViewCellDelegate>
+@interface PTMakePlanViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, SWTableViewCellDelegate, UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray<MyGuideSummary *>* guideDataSource;
+@property (nonatomic, copy) NSString *planContent;
+@property (nonatomic) NSInteger totalPrice;
 
 @end
 
@@ -29,6 +32,17 @@
     [_tableView registerNib:[UINib nibWithNibName:@"PTMakePlanContenTableViewCell" bundle:nil] forCellReuseIdentifier:@"PTMakePlanContenTableViewCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"MyGuidesTableViewCell" bundle:nil] forCellReuseIdentifier:@"myGuidesCell"];
     _guideDataSource = [[NSMutableArray alloc] init];
+    
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 80)];
+    UIButton *commitButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 30, kWindowWidth-40, 40)];
+    commitButton.layer.cornerRadius = 5.0;
+    commitButton.clipsToBounds = YES;
+    [commitButton setBackgroundImage:[ConvertMethods createImageWithColor:COLOR_PRICE_RED] forState:UIControlStateNormal];
+    [commitButton setTitle:@"提交方案" forState:UIControlStateNormal];
+    [commitButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [commitButton addTarget:self action:@selector(commitPlane:) forControlEvents:UIControlEventTouchUpInside];
+    [footerView addSubview:commitButton];
+    _tableView.tableFooterView = footerView;
 
 }
 
@@ -40,6 +54,26 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (void)commitPlane:(UIButton *)sender
+{
+    if (!_planContent.length) {
+        [SVProgressHUD showHint:@"请输入方案内容"];
+        return;
+    }
+    if (!_totalPrice) {
+        [SVProgressHUD showHint:@"请输入方案金额"];
+        return;
+    }
+    NSMutableArray *guidesId = [[NSMutableArray alloc] init];
+    for (MyGuideSummary *guide in _guideDataSource) {
+        [guidesId addObject:guide.guideId];
+    }
+    [PersonalTailorManager asyncMakePlanForPTWithPtId:_ptId content:_planContent totalPrice:_totalPrice guideList:guidesId completionBlock:^(BOOL isSuccess) {
+        
+    }];
+    
 }
 
 - (void)addPlan:(UIButton *)sender
@@ -130,6 +164,7 @@
 {
     if (indexPath.section == 0) {
         PTMakePlanContenTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PTMakePlanContenTableViewCell" forIndexPath:indexPath];
+        cell.contentTextView.delegate = self;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     } else if (indexPath.section == 1) {
@@ -196,6 +231,24 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
+    _totalPrice = [textField.text integerValue];
+}
+
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    if ([text isEqualToString:@"\n"]) {
+        [textView resignFirstResponder];
+        
+        return NO;
+    }
+    
+    return YES;
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+    _planContent = textView.text;
 }
 
 - (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index

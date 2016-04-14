@@ -10,4 +10,7 @@
 
 @interface PTMakePlanViewController : TZViewController
 
+
+@property (nonatomic, copy) NSString *ptId;
+
 @end

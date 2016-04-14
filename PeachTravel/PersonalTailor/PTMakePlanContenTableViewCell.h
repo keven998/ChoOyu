@@ -12,6 +12,5 @@
 
 @property (weak, nonatomic) IBOutlet UITextView *contentTextView;
 
-@property (nonatomic, copy) void (^endEditBlock)(NSString *content);
 
 @end
