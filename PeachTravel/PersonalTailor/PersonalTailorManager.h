@@ -13,4 +13,7 @@
 
 + (void)asyncLoadRecommendPersonalTailorData:(void (^) (BOOL isSuccess, NSArray<PTDetailModel *> *resultList))completion;
 
++ (void)asyncMakePersonalTailorWithPTModel:(PTDetailModel *)ptDetailModel completionBlock:(void (^) (BOOL isSuccess, PTDetailModel *ptDetailModel))completion;
+
+
 @end

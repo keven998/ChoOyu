@@ -30,7 +30,7 @@
 
 @property (nonatomic) NSInteger timeCost;
 @property (nonatomic) NSInteger grabCount;
-@property (nonatomic) NSInteger numberCount;
+@property (nonatomic) NSInteger memberCount;
 
 @property (nonatomic) float budget;
 @property (nonatomic) BOOL paied;

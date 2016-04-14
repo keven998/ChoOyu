@@ -15,4 +15,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *dailCodeButton;
 @property (weak, nonatomic) IBOutlet UILabel *typeLabel;
 
+@property (nonatomic, copy) void (^endEditBlock)(NSString *dailCode, NSString *number);
+
 @end

@@ -27,4 +27,8 @@
 
 @property (nonatomic, strong) UITableView *tableView;
 
+@property (nonatomic, strong) NSMutableArray *selectGuides;
+@property (nonatomic) BOOL canSelect;
+
+
 @end

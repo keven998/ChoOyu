@@ -40,9 +40,16 @@
 {
     if ([string isEqualToString:@"\n"]) {
         [_contentTextfield resignFirstResponder];
+        
         return NO;
     }
     return YES;
 }
 
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    if (_endEditBlock) {
+        _endEditBlock(textField.text);
+    }
+}
 @end

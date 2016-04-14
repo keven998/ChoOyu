@@ -31,6 +31,7 @@
     _tableView.dataSource = self;
     _tableView.delegate = self;
     [_tableView registerNib:[UINib nibWithNibName:@"PTListTableViewCell" bundle:nil] forCellReuseIdentifier:@"PTListTableViewCell"];
+    _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 49)];
     [self.view addSubview:_tableView];
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 250)];
@@ -48,7 +49,7 @@
     [headerView addSubview:titleLabel];
     
     UIButton *makePTButton = [[UIButton alloc] initWithFrame:CGRectMake(30, 160, kWindowWidth-60, 40)];
-    makePTButton.layer.cornerRadius = 3.0;
+    makePTButton.layer.cornerRadius = 6;
     makePTButton.clipsToBounds = YES;
     makePTButton.titleLabel.font = [UIFont systemFontOfSize:16.0];
     [makePTButton setBackgroundImage:[ConvertMethods createImageWithColor: APP_THEME_COLOR] forState:UIControlStateNormal];

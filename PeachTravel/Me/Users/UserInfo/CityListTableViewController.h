@@ -10,7 +10,8 @@
 
 @protocol CityListTableViewControllerDelegate <NSObject>
 
-- (void)didSelectCity:(NSString *)cityName;
+- (void)didSelectCity:(NSString *)cityId cityName:(NSString *)cityName;
+
 
 @end
 

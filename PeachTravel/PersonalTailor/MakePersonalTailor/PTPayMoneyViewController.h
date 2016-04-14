@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PTDetailModel.h"
 
 @interface PTPayMoneyViewController : TZViewController
+
+@property (nonatomic, strong) PTDetailModel *ptDetailModel;
 
 @end

@@ -451,6 +451,22 @@ static NSString *reusableCell = @"myGuidesCell";
     }];
 }
 
+- (void)selectGuide:(UIButton *)sender
+{
+    if (sender.selected) {
+        MyGuideSummary *guide = [_dataSource objectAtIndex:sender.tag];
+        for (MyGuideSummary *summary in _selectGuides) {
+            if ([guide.guideId isEqualToString:summary.guideId]) {
+                [_selectGuides removeObject:summary];
+                break;
+            }
+        }
+    } else {
+        [_selectGuides addObject:[_dataSource objectAtIndex:sender.tag]];
+    }
+    sender.selected = !sender.selected;
+}
+
 #pragma mark - TaoziMessageSendDelegate
 
 //用户确定发送poi给朋友
@@ -548,6 +564,19 @@ static NSString *reusableCell = @"myGuidesCell";
         cell.deleteBtn.hidden = YES;
         [cell.sendBtn addTarget:self action:@selector(sendPoi:) forControlEvents:UIControlEventTouchUpInside];
     }
+    cell.isCanSelected = _canSelect;
+    if (_canSelect) {
+        cell.sendBtn.tag = indexPath.row;
+        [cell.sendBtn addTarget:self action:@selector(selectGuide:) forControlEvents:UIControlEventTouchUpInside];
+        for (MyGuideSummary *guide in _selectGuides) {
+            if ([summary.guideId isEqualToString:guide.guideId]) {
+                cell.sendBtn.selected = YES;
+                return cell;
+            }
+        }
+        cell.sendBtn.selected = NO;
+    }
+   
     
     return cell;
 }

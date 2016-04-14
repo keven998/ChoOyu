@@ -12,6 +12,8 @@
 
 @interface MyGuidesTableViewCell : SWTableViewCell
 
+@property (nonatomic) BOOL isCanSelected;
+
 @property (nonatomic, strong) MyGuideSummary *guideSummary;
 
 @property (weak, nonatomic) IBOutlet UILabel *titleBtn;
@@ -19,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *descLabel;
 @property (weak, nonatomic) IBOutlet UIButton *sendBtn;
 @property (nonatomic) BOOL isCanSend;
+
 @property (weak, nonatomic) IBOutlet UIButton *deleteBtn;
 @property (weak, nonatomic) IBOutlet UIButton *playedBtn;
 //@property (weak, nonatomic) IBOutlet UIButton *changBtn;

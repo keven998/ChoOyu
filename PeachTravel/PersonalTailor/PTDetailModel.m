@@ -25,7 +25,7 @@
         _budget = [[json objectForKey:@"budget"] floatValue];
         _paied = [[json objectForKey:@"paied"] boolValue];
         _memo = [json objectForKey:@"memo"];
-        _contact = [[OrderTravelerInfoModel alloc] initWithJson:[json objectForKey:@"contact"]];
+        _contact = [[OrderTravelerInfoModel alloc] initWithJson:[[json objectForKey:@"contact"] firstObject]];
         NSMutableArray *array = [[NSMutableArray alloc] init];
         for (NSDictionary *dic in [json objectForKey:@"destination"]) {
             [array addObject:[[CityDestinationPoi alloc] initWithJson:dic]];
@@ -34,6 +34,45 @@
     }
     return self;
 }
+
+- (NSString *)topic
+{
+    if (!_topic) {
+        if (_topicList) {
+            NSMutableString *content = [[NSMutableString alloc] init];
+            for (NSString *str in _topicList) {
+                if ([str isEqualToString:[_topicList lastObject]]) {
+                    [content appendString:str];
+                } else {
+                    [content appendFormat:@"%@,", str];
+                }
+                
+            }
+            _topic = content;
+        }
+    }
+    return _topic;
+}
+
+- (NSString *)service
+{
+    if (!_service) {
+        if (_serviceList) {
+            NSMutableString *content = [[NSMutableString alloc] init];
+            for (NSString *str in _serviceList) {
+                if ([str isEqualToString:[_serviceList lastObject]]) {
+                    [content appendString:str];
+                } else {
+                    [content appendFormat:@"%@,", str];
+                }
+                
+            }
+            _service = content;
+        }
+    }
+    return _service;
+}
+
 
 - (NSString *)createTimeStr
 {

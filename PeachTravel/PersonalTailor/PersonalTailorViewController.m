@@ -8,10 +8,12 @@
 
 #import "PersonalTailorViewController.h"
 #import "PTListTableViewCell.h"
+#import "PTMakePlanViewController.h"
 
 @interface PersonalTailorViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) UIView *toolBar;
 
 @end
 
@@ -22,19 +24,51 @@
     self.navigationItem.title = @"需求详情";
     _tableView.dataSource = self;
     _tableView.delegate = self;
+    _tableView.separatorColor = COLOR_LINE;
     [_tableView registerNib:[UINib nibWithNibName:@"PTListTableViewCell" bundle:nil] forCellReuseIdentifier:@"PTListTableViewCell"];
     [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
-    
+    _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 49)];
+    [self renderToolBar];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
+- (void)renderToolBar
+{
+    if (_toolBar) {
+        [_toolBar removeFromSuperview];
+        _toolBar = nil;
+    }
+    _toolBar = [[UIView alloc] initWithFrame:CGRectMake(0, kWindowHeight-49, kWindowWidth, 49)];
+    _toolBar.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:_toolBar];
+    
+    UIButton *makePTPlanButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth/2, 49)];
+    [makePTPlanButton setTitle:@"制作方案" forState:UIControlStateNormal];
+    [makePTPlanButton setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+    [makePTPlanButton addTarget:self action:@selector(makePTPlanAction:) forControlEvents:UIControlEventTouchUpInside];
+    [_toolBar addSubview:makePTPlanButton];
+    
+    UIButton *chatWithUser = [[UIButton alloc] initWithFrame:CGRectMake(kWindowWidth/2, 0, kWindowWidth/2, 49)];
+    [chatWithUser setTitle:@"联系买家" forState:UIControlStateNormal];
+    [chatWithUser setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+    [chatWithUser addTarget:self action:@selector(makePTPlanAction:) forControlEvents:UIControlEventTouchUpInside];
+    [_toolBar addSubview:makePTPlanButton];
+
+}
+
 - (void)setPtDetailModel:(PTDetailModel *)ptDetailModel
 {
     _ptDetailModel = ptDetailModel;
     [_tableView reloadData];
+}
+
+- (void)makePTPlanAction:(UIButton *)sender
+{
+    PTMakePlanViewController *ctl = [[PTMakePlanViewController alloc] init];
+    [self.navigationController pushViewController:ctl animated:YES];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -93,7 +127,7 @@
             [content appendFormat:@"  出发城市: %@\n", _ptDetailModel.fromCity.zhName];
             [content appendFormat:@"  出发日期: %@\n", _ptDetailModel.departureDate];
             [content appendFormat:@"  出发天数: %ld\n", _ptDetailModel.timeCost];
-            [content appendFormat:@"  出游人数: %ld", _ptDetailModel.numberCount];
+            [content appendFormat:@"  出游人数: %ld", _ptDetailModel.memberCount];
             if (_ptDetailModel.hasChild) {
                 [content appendFormat:@"含儿童"];
             }

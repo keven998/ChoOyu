@@ -24,6 +24,7 @@
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"error: %@", error);
         tfailure(operation, error);
         [self handleHttpError:error andOperation:operation];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -116,6 +117,7 @@
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         tfailure(operation, error);
+        NSLog(@"error: %@", error);
         [self handleHttpError:error andOperation:operation];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 
@@ -129,13 +131,17 @@
     [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
     
-    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"LXPBetaTest"] isEqualToString:@"Dev"]) {
-        [manager.requestSerializer setValue:@"Dev" forHTTPHeaderField:@"X-Lvxingpai-API-Control"];
-        
-    } else if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"LXPBetaTest"] isEqualToString:@"Beta"]) {
-        [manager.requestSerializer setValue:@"Beta" forHTTPHeaderField:@"X-Lvxingpai-API-Control"];
-        
-    }
+#warning 测试数据
+    [manager.requestSerializer setValue:@"Dev" forHTTPHeaderField:@"X-Lvxingpai-API-Control"];
+
+    
+//    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"LXPBetaTest"] isEqualToString:@"Dev"]) {
+//        [manager.requestSerializer setValue:@"Dev" forHTTPHeaderField:@"X-Lvxingpai-API-Control"];
+//        
+//    } else if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"LXPBetaTest"] isEqualToString:@"Beta"]) {
+//        [manager.requestSerializer setValue:@"Beta" forHTTPHeaderField:@"X-Lvxingpai-API-Control"];
+//        
+//    }
     
     [manager.requestSerializer setValue:@"application/vnd.lvxingpai.v1+json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
@@ -173,13 +179,15 @@
     [manager.requestSerializer setValue:rfc822Date forHTTPHeaderField:@"Date"];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
-    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"LXPBetaTest"] isEqualToString:@"Dev"]) {
-        [manager.requestSerializer setValue:@"Dev" forHTTPHeaderField:@"X-Lvxingpai-API-Control"];
-        
-    } else if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"LXPBetaTest"] isEqualToString:@"Beta"]) {
-        [manager.requestSerializer setValue:@"Beta" forHTTPHeaderField:@"X-Lvxingpai-API-Control"];
-        
-    }
+    [manager.requestSerializer setValue:@"Dev" forHTTPHeaderField:@"X-Lvxingpai-API-Control"];
+
+//    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"LXPBetaTest"] isEqualToString:@"Dev"]) {
+//        [manager.requestSerializer setValue:@"Dev" forHTTPHeaderField:@"X-Lvxingpai-API-Control"];
+//        
+//    } else if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"LXPBetaTest"] isEqualToString:@"Beta"]) {
+//        [manager.requestSerializer setValue:@"Beta" forHTTPHeaderField:@"X-Lvxingpai-API-Control"];
+//        
+//    }
     AccountManager *accountManager = [AccountManager shareAccountManager];
     if (accountManager.isLogin) {
         [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)accountManager.account.userId] forHTTPHeaderField:@"UserId"];

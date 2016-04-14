@@ -83,6 +83,9 @@
                             <include reference="UWC-4r-PLT"/>
                         </mask>
                     </variation>
+                    <connections>
+                        <action selector="commintOrderAction:" destination="-1" eventType="touchUpInside" id="18L-CE-wgr"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5RO-HV-alu">
                     <rect key="frame" x="-23" y="-15" width="46" height="30"/>
@@ -314,6 +317,16 @@
                     <exclude reference="hYv-zT-SiF"/>
                 </mask>
                 <mask key="constraints">
+                    <exclude reference="RLv-q9-g3H"/>
+                    <exclude reference="XVe-Wp-Ag9"/>
+                    <exclude reference="pGQ-52-6ZH"/>
+                    <exclude reference="Ilo-hc-Tjt"/>
+                    <exclude reference="SA6-GV-CBF"/>
+                    <exclude reference="zl2-gI-gAh"/>
+                    <exclude reference="juh-kK-bCj"/>
+                    <exclude reference="wdn-cc-zOv"/>
+                    <exclude reference="0VC-zw-XDq"/>
+                    <exclude reference="WY4-D7-n74"/>
                     <exclude reference="FNr-Pl-dZM"/>
                     <exclude reference="olb-ww-60q"/>
                     <exclude reference="pTo-7L-okf"/>
@@ -326,16 +339,6 @@
                     <exclude reference="gIo-yE-b3v"/>
                     <exclude reference="s75-6c-fa1"/>
                     <exclude reference="tQo-5h-vqJ"/>
-                    <exclude reference="Ilo-hc-Tjt"/>
-                    <exclude reference="SA6-GV-CBF"/>
-                    <exclude reference="zl2-gI-gAh"/>
-                    <exclude reference="RLv-q9-g3H"/>
-                    <exclude reference="XVe-Wp-Ag9"/>
-                    <exclude reference="pGQ-52-6ZH"/>
-                    <exclude reference="0VC-zw-XDq"/>
-                    <exclude reference="WY4-D7-n74"/>
-                    <exclude reference="juh-kK-bCj"/>
-                    <exclude reference="wdn-cc-zOv"/>
                 </mask>
             </variation>
             <variation key="widthClass=compact">
@@ -350,6 +353,16 @@
                     <include reference="hYv-zT-SiF"/>
                 </mask>
                 <mask key="constraints">
+                    <include reference="RLv-q9-g3H"/>
+                    <include reference="XVe-Wp-Ag9"/>
+                    <include reference="pGQ-52-6ZH"/>
+                    <include reference="Ilo-hc-Tjt"/>
+                    <include reference="SA6-GV-CBF"/>
+                    <include reference="zl2-gI-gAh"/>
+                    <include reference="juh-kK-bCj"/>
+                    <include reference="wdn-cc-zOv"/>
+                    <include reference="0VC-zw-XDq"/>
+                    <include reference="WY4-D7-n74"/>
                     <include reference="FNr-Pl-dZM"/>
                     <include reference="olb-ww-60q"/>
                     <include reference="pTo-7L-okf"/>
@@ -362,16 +375,6 @@
                     <include reference="gIo-yE-b3v"/>
                     <include reference="s75-6c-fa1"/>
                     <include reference="tQo-5h-vqJ"/>
-                    <include reference="Ilo-hc-Tjt"/>
-                    <include reference="SA6-GV-CBF"/>
-                    <include reference="zl2-gI-gAh"/>
-                    <include reference="RLv-q9-g3H"/>
-                    <include reference="XVe-Wp-Ag9"/>
-                    <include reference="pGQ-52-6ZH"/>
-                    <include reference="0VC-zw-XDq"/>
-                    <include reference="WY4-D7-n74"/>
-                    <include reference="juh-kK-bCj"/>
-                    <include reference="wdn-cc-zOv"/>
                 </mask>
             </variation>
             <point key="canvasLocation" x="120" y="259"/>

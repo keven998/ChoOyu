@@ -21,12 +21,14 @@
     NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:content];
     [attr addAttribute:NSForegroundColorAttributeName value:COLOR_PRICE_RED range:NSMakeRange(0, 1)];
     _typeLabel.attributedText = attr;
-
 }
 
 - (void)setDailCode:(NSString *)dailCode
 {
     [_dailCodeButton setTitle:[NSString stringWithFormat:@"+%@", dailCode] forState:UIControlStateNormal];
+    if (_endEditBlock) {
+        _endEditBlock(_dailCode, _telConentTextfield.text);
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -39,9 +41,19 @@
 {
     if ([string isEqualToString:@"\n"]) {
         [_telConentTextfield resignFirstResponder];
+        
         return NO;
     }
     return YES;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    if (_endEditBlock) {
+        if (_endEditBlock) {
+            _endEditBlock(_dailCode, textField.text);
+        }
+    }
 }
 
 

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "OrderTravelerInfoModel.h"
 
 @interface PTMakeContentTableViewCell : UITableViewCell <UITextFieldDelegate>
 
@@ -15,5 +16,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *typeLabel;
 @property (weak, nonatomic) IBOutlet UITextField *contentTextfield;
+
+@property (nonatomic, copy) void (^endEditBlock)(NSString *content);
 
 @end

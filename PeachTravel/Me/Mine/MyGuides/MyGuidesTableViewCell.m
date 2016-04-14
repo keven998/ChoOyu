@@ -64,4 +64,20 @@
     }
 }
 
+- (void)setIsCanSelected:(BOOL)isCanSelected
+{
+    _isCanSelected = isCanSelected;
+    if (_isCanSelected) {
+        [_sendBtn setTitle:@"选择" forState:UIControlStateNormal];
+        [_sendBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+        [_sendBtn setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+
+        [_sendBtn setTitle:@"已选" forState:UIControlStateSelected];
+        [_sendBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+        [_sendBtn setBackgroundImage:[ConvertMethods createImageWithColor:COLOR_DISABLE] forState:UIControlStateSelected];
+
+        _sendBtn.hidden = NO;
+    }
+}
+
 @end

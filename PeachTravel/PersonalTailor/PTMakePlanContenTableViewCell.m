@@ -1,14 +1,14 @@
 //
-//  PTMakeOtherContentTableViewCell.m
+//  PTMakePlanContenTableViewCell.m
 //  PeachTravel
 //
-//  Created by liangpengshuai on 4/6/16.
+//  Created by liangpengshuai on 4/12/16.
 //  Copyright © 2016 com.aizou.www. All rights reserved.
 //
 
-#import "PTMakeOtherContentTableViewCell.h"
+#import "PTMakePlanContenTableViewCell.h"
 
-@implementation PTMakeOtherContentTableViewCell
+@implementation PTMakePlanContenTableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -19,15 +19,14 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+    
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
     if ([text isEqualToString:@"\n"]) {
         [textView resignFirstResponder];
-       
+        
         return NO;
     }
     
@@ -40,5 +39,6 @@
         _endEditBlock(textView.text);
     }
 }
+
 
 @end

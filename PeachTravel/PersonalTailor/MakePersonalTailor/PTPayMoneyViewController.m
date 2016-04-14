@@ -7,8 +7,11 @@
 //
 
 #import "PTPayMoneyViewController.h"
+#import "DownSheet.h"
+#import "TZPayManager.h"
+#import "PersonalTailorManager.h"
 
-@interface PTPayMoneyViewController () <UITextFieldDelegate>
+@interface PTPayMoneyViewController () <UITextFieldDelegate, DownSheetDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *noMoneyLabel;
 @property (weak, nonatomic) IBOutlet UILabel *moneyLabel;
 @property (weak, nonatomic) IBOutlet UIView *inputMoneyView;
@@ -16,6 +19,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *commitPTButton;
 @property (weak, nonatomic) IBOutlet UIButton *freeSelectButton;
 @property (weak, nonatomic) IBOutlet UIButton *paySelectButton;
+@property (strong, nonatomic) DownSheet *payDownSheet;
+@property (strong, nonatomic) TZPayManager *payManager;
 
 @end
 
@@ -35,11 +40,63 @@
     _commitPTButton.layer.cornerRadius = 5.0;
     _commitPTButton.clipsToBounds = YES;
     _inputMoneyTextfield.delegate = self;
+    [_freeSelectButton sendActionsForControlEvents:UIControlEventTouchUpInside];
 
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (IBAction)commintOrderAction:(id)sender {
+    if (_freeSelectButton.selected) {
+        [PersonalTailorManager asyncMakePersonalTailorWithPTModel:_ptDetailModel completionBlock:^(BOOL isSuccess, PTDetailModel *ptDetailModel) {
+            if (isSuccess) {
+                _ptDetailModel = ptDetailModel;
+            } else {
+                [SVProgressHUD showHint:@"需求发布失败"];
+            }
+        }];
+        
+    } else {
+        DownSheetModel *modelOne = [[DownSheetModel alloc] init];
+        modelOne.title = @"支付宝";
+        modelOne.icon= @"icon_pay_alipay";
+        
+        DownSheetModel *modelTwo = [[DownSheetModel alloc] init];
+        modelTwo.title = @"微信";
+        modelTwo.icon = @"icon_pay_wechat";
+        
+        _payDownSheet = [[DownSheet alloc] initWithlist:@[modelOne, modelTwo] height:40 andTitle:@"选择支付方式"];
+        _payDownSheet.delegate = self;
+        [_payDownSheet showInView:self];
+    }
+}
+
+#pragma mark - DownSheetDelegate
+
+- (void)didSelectIndex:(NSInteger)index
+{
+    _payManager = [[TZPayManager alloc] init];
+    TZPayPlatform platform;
+    if (index == 0) {
+        platform = kAlipay;
+    } else {
+        platform = kWeichatPay;
+    }
+    
+    [MobClick event:@"event_payForOrder"];
+}
+
+- (void)shouldDismissSheet
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"取消支付定金,发布的需求将失效,确认取消支付?" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
+        if (buttonIndex == 1) {
+            [_payDownSheet dismissSheet];
+            
+        }
+    }];
 }
 
 - (IBAction)freeSelectButtonAction:(UIButton *)sender {

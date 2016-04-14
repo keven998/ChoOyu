@@ -201,7 +201,7 @@
             } else {
                 _locationStr = [city objectForKey:@"name"];
                 if (_isSelectCity) {
-                    [_delegate didSelectCity:_locationStr];
+                    [_delegate didSelectCity:[city objectForKey:@"id"] cityName:_locationStr];
                     [self dismissViewControllerAnimated:YES completion:nil];
                 } else {
                     [self updateUserResidence];
@@ -220,7 +220,7 @@
         } else {
             _locationStr = [city objectForKey:@"name"];
             if (_isSelectCity) {
-                [_delegate didSelectCity:_locationStr];
+                [_delegate didSelectCity:[city objectForKey:@"id"] cityName:_locationStr];
                 [self dismissViewControllerAnimated:YES completion:nil];
             } else {
                 [self updateUserResidence];

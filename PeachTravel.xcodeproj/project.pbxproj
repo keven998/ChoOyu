@@ -1054,6 +1054,8 @@
 		D9E0EEFC1B7CB020003872DF /* SearchDestinationHistoryCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E0EEFA1B7CB020003872DF /* SearchDestinationHistoryCollectionReusableView.m */; };
 		D9E0EEFD1B7CB020003872DF /* SearchDestinationHistoryCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9E0EEFB1B7CB020003872DF /* SearchDestinationHistoryCollectionReusableView.xib */; };
 		D9E0EF011B7D9036003872DF /* CMPopTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E0EF001B7D9036003872DF /* CMPopTipView.m */; };
+		D9E5E2B01CBD014200C62D14 /* PTMakePlanContenTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E5E2AE1CBD014200C62D14 /* PTMakePlanContenTableViewCell.m */; };
+		D9E5E2B11CBD014200C62D14 /* PTMakePlanContenTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9E5E2AF1CBD014200C62D14 /* PTMakePlanContenTableViewCell.xib */; };
 		D9E5F8C11C4F2A1C00C387EC /* GoodsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E5F8BF1C4F2A1C00C387EC /* GoodsDetailViewController.m */; };
 		D9E5F8C21C4F2A1C00C387EC /* GoodsDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9E5F8C01C4F2A1C00C387EC /* GoodsDetailViewController.xib */; };
 		D9E5F8C61C4F300F00C387EC /* GoodsDetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E5F8C51C4F300F00C387EC /* GoodsDetailHeaderView.m */; };
@@ -1114,6 +1116,8 @@
 		D9F721D71C7454EE004E28E8 /* MakeOrderReduceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9F721D51C7454EE004E28E8 /* MakeOrderReduceTableViewCell.xib */; };
 		D9FC2C451CBC924900CBF91A /* PTSelectChildAndOldManTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FC2C431CBC924900CBF91A /* PTSelectChildAndOldManTableViewCell.m */; };
 		D9FC2C461CBC924900CBF91A /* PTSelectChildAndOldManTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9FC2C441CBC924900CBF91A /* PTSelectChildAndOldManTableViewCell.xib */; };
+		D9FC2C4B1CBCA10100CBF91A /* PTMakePlanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FC2C491CBCA10100CBF91A /* PTMakePlanViewController.m */; };
+		D9FC2C4C1CBCA10100CBF91A /* PTMakePlanViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9FC2C4A1CBCA10100CBF91A /* PTMakePlanViewController.xib */; };
 		D9FCE7DE1B134B4B0039F896 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FCE7DD1B134B4B0039F896 /* ChatViewController.m */; };
 		D9FCE7E91B135C820039F896 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FCE7E81B135C820039F896 /* Reachability.m */; };
 		E608A0F11B8D8560003BA318 /* GuiderDistributeTools.m in Sources */ = {isa = PBXBuildFile; fileRef = E608A0F01B8D8560003BA318 /* GuiderDistributeTools.m */; };
@@ -3367,6 +3371,9 @@
 		D9E0EEFB1B7CB020003872DF /* SearchDestinationHistoryCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchDestinationHistoryCollectionReusableView.xib; sourceTree = "<group>"; };
 		D9E0EEFF1B7D9036003872DF /* CMPopTipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPopTipView.h; sourceTree = "<group>"; };
 		D9E0EF001B7D9036003872DF /* CMPopTipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPopTipView.m; sourceTree = "<group>"; };
+		D9E5E2AD1CBD014200C62D14 /* PTMakePlanContenTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTMakePlanContenTableViewCell.h; sourceTree = "<group>"; };
+		D9E5E2AE1CBD014200C62D14 /* PTMakePlanContenTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTMakePlanContenTableViewCell.m; sourceTree = "<group>"; };
+		D9E5E2AF1CBD014200C62D14 /* PTMakePlanContenTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PTMakePlanContenTableViewCell.xib; sourceTree = "<group>"; };
 		D9E5F8BE1C4F2A1C00C387EC /* GoodsDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GoodsDetailViewController.h; path = GoodsSoldOutView/GoodsDetailViewController.h; sourceTree = "<group>"; };
 		D9E5F8BF1C4F2A1C00C387EC /* GoodsDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GoodsDetailViewController.m; path = GoodsSoldOutView/GoodsDetailViewController.m; sourceTree = "<group>"; };
 		D9E5F8C01C4F2A1C00C387EC /* GoodsDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GoodsDetailViewController.xib; path = GoodsSoldOutView/GoodsDetailViewController.xib; sourceTree = "<group>"; };
@@ -3464,6 +3471,9 @@
 		D9FC2C421CBC924900CBF91A /* PTSelectChildAndOldManTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTSelectChildAndOldManTableViewCell.h; sourceTree = "<group>"; };
 		D9FC2C431CBC924900CBF91A /* PTSelectChildAndOldManTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTSelectChildAndOldManTableViewCell.m; sourceTree = "<group>"; };
 		D9FC2C441CBC924900CBF91A /* PTSelectChildAndOldManTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PTSelectChildAndOldManTableViewCell.xib; sourceTree = "<group>"; };
+		D9FC2C481CBCA10100CBF91A /* PTMakePlanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTMakePlanViewController.h; sourceTree = "<group>"; };
+		D9FC2C491CBCA10100CBF91A /* PTMakePlanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTMakePlanViewController.m; sourceTree = "<group>"; };
+		D9FC2C4A1CBCA10100CBF91A /* PTMakePlanViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PTMakePlanViewController.xib; sourceTree = "<group>"; };
 		D9FCE7DC1B134B4B0039F896 /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
 		D9FCE7DD1B134B4B0039F896 /* ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
 		D9FCE7E71B135C820039F896 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
@@ -8234,6 +8244,7 @@
 		D9C35F971CA8D40A009A92BA /* PersonalTailor */ = {
 			isa = PBXGroup;
 			children = (
+				D9FC2C471CBCA0D300CBF91A /* PTMakePlan */,
 				D9ADFA661CB361E20010296F /* MakePersonalTailor */,
 				D9C35F9A1CA8D699009A92BA /* PTHomeViewController.h */,
 				D9C35F9B1CA8D699009A92BA /* PTHomeViewController.m */,
@@ -8544,6 +8555,19 @@
 			);
 			name = AccountDaoHelper;
 			path = ../../../../IMSDK/Dao;
+			sourceTree = "<group>";
+		};
+		D9FC2C471CBCA0D300CBF91A /* PTMakePlan */ = {
+			isa = PBXGroup;
+			children = (
+				D9E5E2AD1CBD014200C62D14 /* PTMakePlanContenTableViewCell.h */,
+				D9E5E2AE1CBD014200C62D14 /* PTMakePlanContenTableViewCell.m */,
+				D9E5E2AF1CBD014200C62D14 /* PTMakePlanContenTableViewCell.xib */,
+				D9FC2C481CBCA10100CBF91A /* PTMakePlanViewController.h */,
+				D9FC2C491CBCA10100CBF91A /* PTMakePlanViewController.m */,
+				D9FC2C4A1CBCA10100CBF91A /* PTMakePlanViewController.xib */,
+			);
+			name = PTMakePlan;
 			sourceTree = "<group>";
 		};
 		D9FCE7E61B135C820039F896 /* Reachability */ = {
@@ -9945,6 +9969,7 @@
 				D907D2881BEB097E008A35F9 /* GoodsOfCityTableViewCell.xib in Resources */,
 				D9687CA31AC4095500B1C88E /* FootprintMapViewController.xib in Resources */,
 				D9ADFA801CB4DBE60010296F /* PTPayMoneyViewController.xib in Resources */,
+				D9E5E2B11CBD014200C62D14 /* PTMakePlanContenTableViewCell.xib in Resources */,
 				D9A502691C868F5100958624 /* CommonPoiDetailTableViewCell.xib in Resources */,
 				D9A8021D1A80E036005AD701 /* MJPhotoBrowser.bundle in Resources */,
 				01A5CEDB1BB3DDC200A59A8A /* mapMark_icon_bottom@2x.png in Resources */,
@@ -10168,6 +10193,7 @@
 				D9F46DBF1AC52D8600972AE8 /* SVWebViewControllerActivitySafari-iPad@2x.png in Resources */,
 				E6F18AE91B845F4900232EEB /* dx_checkbox_on@3x.png in Resources */,
 				E6F18A901B845F4900232EEB /* speaking-motion5@3x.png in Resources */,
+				D9FC2C4C1CBCA10100CBF91A /* PTMakePlanViewController.xib in Resources */,
 				E6F18B131B845F4900232EEB /* master_icon_constellation1@2x.png in Resources */,
 				D9DD31761BF5BC8B009BEDAB /* OrderDetailContactTableViewCell.xib in Resources */,
 				D9A8FFBE1A80D1C3005AD701 /* TravelNoteTableViewCell.xib in Resources */,
@@ -10414,6 +10440,7 @@
 				D92CCF2E1C157C120018D54D /* OrderTipsMessage.swift in Sources */,
 				D95520821C5214D50086D9E0 /* MakeGoodsCommentViewController.m in Sources */,
 				D993C24F1B12DF0C0088D568 /* IMDiscussionGroupManager.swift in Sources */,
+				D9FC2C4B1CBCA10100CBF91A /* PTMakePlanViewController.m in Sources */,
 				D96EAA141BB4E55E00360ED8 /* CustomMKAnnotationView.m in Sources */,
 				D92CA0FA1AD8BDF900F244FF /* MBProgressHUD.m in Sources */,
 				D96BAFEF1C1AEAA000CDB7C7 /* GTM_Base64.m in Sources */,
@@ -10737,6 +10764,7 @@
 				D90C76231BF1DED600C5897C /* MakeOrderViewController.m in Sources */,
 				D96BB0051C1AEAA000CDB7C7 /* QNUpToken.m in Sources */,
 				D9A8FEDA1A80C8A4005AD701 /* PushMsgsViewController.m in Sources */,
+				D9E5E2B01CBD014200C62D14 /* PTMakePlanContenTableViewCell.m in Sources */,
 				D9A801461A80DD23005AD701 /* TaoziChatCityBubbleView.m in Sources */,
 				D92CA1371AD8BEB400F244FF /* MWTapDetectingView.m in Sources */,
 				D9027BB01BED964400C74220 /* TZTagsCollectionView.m in Sources */,
