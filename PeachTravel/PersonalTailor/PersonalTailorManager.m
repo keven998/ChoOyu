@@ -27,7 +27,6 @@
         
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         completion(NO, nil);
-
     }];
 }
 
@@ -68,6 +67,7 @@
     
     [params safeSetObject:[NSNumber numberWithInteger:ptDetailModel.timeCost] forKey:@"timeCost"];
     [params safeSetObject:[NSNumber numberWithInteger:ptDetailModel.memberCount] forKey:@"participantCnt"];
+    [params safeSetObject:[NSNumber numberWithFloat:ptDetailModel.earnestMoney] forKey:@"bountyPrice"];
     [params safeSetObject:[NSNumber numberWithFloat:ptDetailModel.totalPrice] forKey:@"totalPrice"];
     [params safeSetObject:[NSNumber numberWithFloat:ptDetailModel.totalPrice] forKey:@"budget"];
     [params safeSetObject:ptDetailModel.demand forKey:@"memo"];

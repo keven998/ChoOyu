@@ -13,6 +13,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    _statusLabel.hidden = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

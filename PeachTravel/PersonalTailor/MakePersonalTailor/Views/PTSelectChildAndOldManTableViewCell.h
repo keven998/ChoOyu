@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PTDetailModel.h"
 
 @interface PTSelectChildAndOldManTableViewCell : UITableViewCell
+
+@property (nonatomic, strong) PTDetailModel *ptDetailModel;
 @property (weak, nonatomic) IBOutlet UIButton *hasChildButton;
 @property (weak, nonatomic) IBOutlet UIButton *hasOldManButton;
 

@@ -9,11 +9,13 @@
 #import "PersonalTailorViewController.h"
 #import "PTListTableViewCell.h"
 #import "PTMakePlanViewController.h"
+#import "PTPlanDetailViewController.h"
 
 @interface PersonalTailorViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) UIView *toolBar;
+@property (strong, nonatomic) NSArray<PTPlanDetailModel *> *planDataSource;
 
 @end
 
@@ -55,7 +57,7 @@
     [chatWithUser setTitle:@"联系买家" forState:UIControlStateNormal];
     [chatWithUser setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
     [chatWithUser addTarget:self action:@selector(makePTPlanAction:) forControlEvents:UIControlEventTouchUpInside];
-    [_toolBar addSubview:makePTPlanButton];
+    [_toolBar addSubview:chatWithUser];
 
 }
 
@@ -74,12 +76,16 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if (section == 5) {
+        return 2;
+        return _planDataSource.count;
+    }
     return 1;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 5;
+    return 6;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -102,9 +108,10 @@
     if (indexPath.section == 0) {
         PTListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PTListTableViewCell" forIndexPath:indexPath];
         cell.ptDetailModel = _ptDetailModel;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
         
-    } else {
+    } else if (indexPath.section != 5){
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
         cell.textLabel.numberOfLines = 0;
         cell.textLabel.font = [UIFont systemFontOfSize:15.0];
@@ -184,7 +191,37 @@
 
             
         }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
+        
+    } else {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"planCell"];
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"planeCell"];
+        }
+        PTPlanDetailModel *plan = [_planDataSource objectAtIndex:indexPath.row];
+        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:plan.seller.avatar] placeholderImage:[UIImage imageNamed:@"avatar_default"]];
+        cell.imageView.clipsToBounds = YES;
+        cell.textLabel.textColor = COLOR_TEXT_II;
+        cell.textLabel.font = [UIFont systemFontOfSize:15.0];
+        cell.detailTextLabel.textColor = COLOR_TEXT_III;
+        cell.detailTextLabel.font = [UIFont systemFontOfSize:13.0];
+        cell.textLabel.numberOfLines = 2;
+        cell.textLabel.text = @"卖家昵称\n";
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ 已经提交方案", plan.commitTimeStr];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        return cell;
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.section == 5) {
+        PTPlanDetailModel *plan = [_planDataSource objectAtIndex:indexPath.row];
+        PTPlanDetailViewController *ctl = [[PTPlanDetailViewController alloc] init];
+        ctl.ptPlanId = plan.planId;
+        [self.navigationController pushViewController:ctl animated:YES];
     }
 }
 

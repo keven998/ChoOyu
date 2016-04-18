@@ -388,7 +388,6 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
         CGSize size = [txt sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17]}];
         NSLog(@"%@", NSStringFromCGSize(size));
         return CGSizeMake(size.width, 28);
-
     }
 }
 

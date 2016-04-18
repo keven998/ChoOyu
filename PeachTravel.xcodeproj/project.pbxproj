@@ -525,6 +525,12 @@
 		D94E256E1BECAE2A00DB487D /* GoodsListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D94E256C1BECAE2A00DB487D /* GoodsListTableViewCell.xib */; };
 		D95184171C1019170032C83F /* ChatGoodsLinkTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D95184151C1019170032C83F /* ChatGoodsLinkTableViewCell.m */; };
 		D95184181C1019170032C83F /* ChatGoodsLinkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D95184161C1019170032C83F /* ChatGoodsLinkTableViewCell.xib */; };
+		D95388431CC47C63004BD51F /* PTPlanDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D95388421CC47C63004BD51F /* PTPlanDetailModel.m */; };
+		D95388471CC47C7B004BD51F /* PTPlanDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D95388451CC47C7B004BD51F /* PTPlanDetailViewController.m */; };
+		D95388481CC47C7B004BD51F /* PTPlanDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D95388461CC47C7B004BD51F /* PTPlanDetailViewController.xib */; };
+		D953884D1CC4831E004BD51F /* PTListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D953884B1CC4831E004BD51F /* PTListTableViewCell.m */; };
+		D953884E1CC4831E004BD51F /* PTListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D953884C1CC4831E004BD51F /* PTListTableViewCell.xib */; };
+		D95388511CC48357004BD51F /* PTListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D95388501CC48357004BD51F /* PTListViewController.m */; };
 		D95520741C5211430086D9E0 /* footprint_change_default@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D95520731C5211430086D9E0 /* footprint_change_default@3x.png */; };
 		D95520761C52116F0086D9E0 /* footprint_change_default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D95520751C52116F0086D9E0 /* footprint_change_default@2x.png */; };
 		D955207E1C52132E0086D9E0 /* GoodsCommentDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = D955207D1C52132E0086D9E0 /* GoodsCommentDetail.m */; };
@@ -998,8 +1004,6 @@
 		D9ADFA7B1CB4ACC50010296F /* PTMakeOtherContentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9ADFA791CB4ACC50010296F /* PTMakeOtherContentTableViewCell.xib */; };
 		D9ADFA7F1CB4DBE60010296F /* PTPayMoneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9ADFA7D1CB4DBE60010296F /* PTPayMoneyViewController.m */; };
 		D9ADFA801CB4DBE60010296F /* PTPayMoneyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9ADFA7E1CB4DBE60010296F /* PTPayMoneyViewController.xib */; };
-		D9ADFA941CBB52550010296F /* PTListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9ADFA921CBB52550010296F /* PTListTableViewCell.m */; };
-		D9ADFA951CBB52550010296F /* PTListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9ADFA931CBB52550010296F /* PTListTableViewCell.xib */; };
 		D9ADFA9A1CBB77CA0010296F /* PersonalTailorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9ADFA981CBB77CA0010296F /* PersonalTailorViewController.m */; };
 		D9ADFA9B1CBB77CA0010296F /* PersonalTailorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9ADFA991CBB77CA0010296F /* PersonalTailorViewController.xib */; };
 		D9ADFA9E1CBB7CB50010296F /* PTDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D9ADFA9D1CBB7CB50010296F /* PTDetailModel.m */; };
@@ -2513,6 +2517,16 @@
 		D95184141C1019170032C83F /* ChatGoodsLinkTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatGoodsLinkTableViewCell.h; sourceTree = "<group>"; };
 		D95184151C1019170032C83F /* ChatGoodsLinkTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatGoodsLinkTableViewCell.m; sourceTree = "<group>"; };
 		D95184161C1019170032C83F /* ChatGoodsLinkTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatGoodsLinkTableViewCell.xib; sourceTree = "<group>"; };
+		D95388411CC47C63004BD51F /* PTPlanDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTPlanDetailModel.h; sourceTree = "<group>"; };
+		D95388421CC47C63004BD51F /* PTPlanDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTPlanDetailModel.m; sourceTree = "<group>"; };
+		D95388441CC47C7B004BD51F /* PTPlanDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTPlanDetailViewController.h; sourceTree = "<group>"; };
+		D95388451CC47C7B004BD51F /* PTPlanDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTPlanDetailViewController.m; sourceTree = "<group>"; };
+		D95388461CC47C7B004BD51F /* PTPlanDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PTPlanDetailViewController.xib; sourceTree = "<group>"; };
+		D953884A1CC4831E004BD51F /* PTListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTListTableViewCell.h; sourceTree = "<group>"; };
+		D953884B1CC4831E004BD51F /* PTListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTListTableViewCell.m; sourceTree = "<group>"; };
+		D953884C1CC4831E004BD51F /* PTListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PTListTableViewCell.xib; sourceTree = "<group>"; };
+		D953884F1CC48357004BD51F /* PTListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTListViewController.h; sourceTree = "<group>"; };
+		D95388501CC48357004BD51F /* PTListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTListViewController.m; sourceTree = "<group>"; };
 		D95520731C5211430086D9E0 /* footprint_change_default@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "footprint_change_default@3x.png"; sourceTree = "<group>"; };
 		D95520751C52116F0086D9E0 /* footprint_change_default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "footprint_change_default@2x.png"; sourceTree = "<group>"; };
 		D955207C1C52132E0086D9E0 /* GoodsCommentDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsCommentDetail.h; sourceTree = "<group>"; };
@@ -3283,9 +3297,6 @@
 		D9ADFA7C1CB4DBE60010296F /* PTPayMoneyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTPayMoneyViewController.h; sourceTree = "<group>"; };
 		D9ADFA7D1CB4DBE60010296F /* PTPayMoneyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTPayMoneyViewController.m; sourceTree = "<group>"; };
 		D9ADFA7E1CB4DBE60010296F /* PTPayMoneyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PTPayMoneyViewController.xib; sourceTree = "<group>"; };
-		D9ADFA911CBB52550010296F /* PTListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTListTableViewCell.h; sourceTree = "<group>"; };
-		D9ADFA921CBB52550010296F /* PTListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTListTableViewCell.m; sourceTree = "<group>"; };
-		D9ADFA931CBB52550010296F /* PTListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PTListTableViewCell.xib; sourceTree = "<group>"; };
 		D9ADFA971CBB77CA0010296F /* PersonalTailorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalTailorViewController.h; sourceTree = "<group>"; };
 		D9ADFA981CBB77CA0010296F /* PersonalTailorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalTailorViewController.m; sourceTree = "<group>"; };
 		D9ADFA991CBB77CA0010296F /* PersonalTailorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PersonalTailorViewController.xib; sourceTree = "<group>"; };
@@ -5793,6 +5804,30 @@
 			path = UserInviteCode;
 			sourceTree = "<group>";
 		};
+		D95388371CC47C05004BD51F /* PTPlanDetail */ = {
+			isa = PBXGroup;
+			children = (
+				D95388411CC47C63004BD51F /* PTPlanDetailModel.h */,
+				D95388421CC47C63004BD51F /* PTPlanDetailModel.m */,
+				D95388441CC47C7B004BD51F /* PTPlanDetailViewController.h */,
+				D95388451CC47C7B004BD51F /* PTPlanDetailViewController.m */,
+				D95388461CC47C7B004BD51F /* PTPlanDetailViewController.xib */,
+			);
+			path = PTPlanDetail;
+			sourceTree = "<group>";
+		};
+		D95388491CC4831E004BD51F /* PTPlanList */ = {
+			isa = PBXGroup;
+			children = (
+				D953884F1CC48357004BD51F /* PTListViewController.h */,
+				D95388501CC48357004BD51F /* PTListViewController.m */,
+				D953884A1CC4831E004BD51F /* PTListTableViewCell.h */,
+				D953884B1CC4831E004BD51F /* PTListTableViewCell.m */,
+				D953884C1CC4831E004BD51F /* PTListTableViewCell.xib */,
+			);
+			path = PTPlanList;
+			sourceTree = "<group>";
+		};
 		D955207B1C52132E0086D9E0 /* GoodsComment */ = {
 			isa = PBXGroup;
 			children = (
@@ -8244,13 +8279,12 @@
 		D9C35F971CA8D40A009A92BA /* PersonalTailor */ = {
 			isa = PBXGroup;
 			children = (
+				D95388491CC4831E004BD51F /* PTPlanList */,
+				D95388371CC47C05004BD51F /* PTPlanDetail */,
 				D9FC2C471CBCA0D300CBF91A /* PTMakePlan */,
 				D9ADFA661CB361E20010296F /* MakePersonalTailor */,
 				D9C35F9A1CA8D699009A92BA /* PTHomeViewController.h */,
 				D9C35F9B1CA8D699009A92BA /* PTHomeViewController.m */,
-				D9ADFA911CBB52550010296F /* PTListTableViewCell.h */,
-				D9ADFA921CBB52550010296F /* PTListTableViewCell.m */,
-				D9ADFA931CBB52550010296F /* PTListTableViewCell.xib */,
 				D9ADFA961CBB779A0010296F /* PTDetail */,
 			);
 			path = PersonalTailor;
@@ -9738,11 +9772,13 @@
 				E6F189401B845F4900232EEB /* common_icon_navigation_back_hilighted@3x.png in Resources */,
 				E6F1894D1B845F4900232EEB /* icon_little@2x.png in Resources */,
 				E6F18A871B845F4900232EEB /* speaking-motion1@2x.png in Resources */,
+				D953884E1CC4831E004BD51F /* PTListTableViewCell.xib in Resources */,
 				E6F18A8F1B845F4900232EEB /* speaking-motion5@2x.png in Resources */,
 				E6381C141B66269000CF73AA /* Loading_Animation_final6@2x.png in Resources */,
 				D91087731C966662000D46B4 /* BNRefundMoneyWithSoldOutViewController.xib in Resources */,
 				D937AE1F1BB95F0C0070F879 /* icon_dot@3x.png in Resources */,
 				D925B23B1C475422000F7E10 /* icon_errorEmpty@3x.png in Resources */,
+				D95388481CC47C7B004BD51F /* PTPlanDetailViewController.xib in Resources */,
 				E6F18AD91B845F4900232EEB /* ReceiverImageNodeBorder_black@2x.png in Resources */,
 				D9A8FF211A80CC2B005AD701 /* UserOtherTableViewCell.xib in Resources */,
 				D92CA10D1AD8BDF900F244FF /* SVProgressHUD.bundle in Resources */,
@@ -10053,7 +10089,6 @@
 				D9E0EEFD1B7CB020003872DF /* SearchDestinationHistoryCollectionReusableView.xib in Resources */,
 				D90C761C1BF1DED600C5897C /* MakeOrderSelectPackageTableViewCell.xib in Resources */,
 				E6F18AAC1B845F4900232EEB /* chat_sender_audio_playing_003@3x.png in Resources */,
-				D9ADFA951CBB52550010296F /* PTListTableViewCell.xib in Resources */,
 				D9E9D2511BA3BE4300FB6C07 /* messages_poi_bg_friend@3x.png in Resources */,
 				E6F18A131B845F4900232EEB /* map_icon_3@2x.png in Resources */,
 				E6F189F91B845F4900232EEB /* map_icon_10@2x.png in Resources */,
@@ -10435,6 +10470,7 @@
 				D9A802F01A80E3D3005AD701 /* AppUtils.m in Sources */,
 				D9E0EF011B7D9036003872DF /* CMPopTipView.m in Sources */,
 				D96F535D1BC67DA70094070B /* DomesticDestinationCollectionViewCell.m in Sources */,
+				D95388471CC47C7B004BD51F /* PTPlanDetailViewController.m in Sources */,
 				D993C24C1B12DF0C0088D568 /* FMDatabaseQueue.m in Sources */,
 				E608A0F11B8D8560003BA318 /* GuiderDistributeTools.m in Sources */,
 				D92CCF2E1C157C120018D54D /* OrderTipsMessage.swift in Sources */,
@@ -10594,6 +10630,7 @@
 				D993C25A1B12DF0C0088D568 /* MessageSendManager.swift in Sources */,
 				D92CA1061AD8BDF900F244FF /* PSTGridLayoutInfo.m in Sources */,
 				D9A801281A80DD23005AD701 /* LocationViewController.m in Sources */,
+				D95388511CC48357004BD51F /* PTListViewController.m in Sources */,
 				27329DBB1B0E0B9600F0A4FA /* AddMemberCell.m in Sources */,
 				D993C2601B12DF0C0088D568 /* IMCMDMessage.swift in Sources */,
 				D96BAFF71C1AEAA000CDB7C7 /* QNUrlSafeBase64.m in Sources */,
@@ -10959,6 +10996,7 @@
 				27951B711AF86C46004D69BE /* PicCell.m in Sources */,
 				D93389801C60936000328DAF /* GoodsDetailWebViewController.m in Sources */,
 				D9A802EB1A80E3D3005AD701 /* TZFilterView.m in Sources */,
+				D953884D1CC4831E004BD51F /* PTListTableViewCell.m in Sources */,
 				D9EE345F1AB93E3F0076933B /* HotelDetailViewController.m in Sources */,
 				D9A802B61A80E3D3005AD701 /* UIImage+BoxBlur.m in Sources */,
 				D9ADFA6B1CB362060010296F /* MakePersonalTailorViewController.m in Sources */,
@@ -11015,6 +11053,7 @@
 				D92C50BA1C1EA1A900AD7965 /* SchemeManager.m in Sources */,
 				D97492AA1BF4360C00A5A70B /* GoodsDetailModel.m in Sources */,
 				E66E6CCA1B59F1E500CBF65F /* DropDownViewController.m in Sources */,
+				D95388431CC47C63004BD51F /* PTPlanDetailModel.m in Sources */,
 				D90C76171BF1DED600C5897C /* MakeOrderSelectCountTableViewCell.m in Sources */,
 				D9A8014C1A80DD23005AD701 /* MessageModel.m in Sources */,
 				271C40BC1B3E93A3007BF285 /* UIImage+resized.m in Sources */,
@@ -11094,7 +11133,6 @@
 				E6A2EEE51B7A041300C66D8F /* PlansListTableHeaderView.m in Sources */,
 				D91529711BB245CF002D1F51 /* DomesticPoiRecommendViewController.m in Sources */,
 				D90C762E1BF1E02100C5897C /* SelectTravelerListViewController.m in Sources */,
-				D9ADFA941CBB52550010296F /* PTListTableViewCell.m in Sources */,
 				01578E6F1BD228F200244D9D /* openssl_wrapper.m in Sources */,
 				D9424E131C8D220600DEA26F /* StoreDetailHeaderView.m in Sources */,
 				D9A802AF1A80E3D3005AD701 /* ANBlurredImageView.m in Sources */,

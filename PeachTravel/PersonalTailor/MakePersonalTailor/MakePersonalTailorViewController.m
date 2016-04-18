@@ -329,7 +329,7 @@
         } else if (indexPath.row == 4) {
             PTSelectChildAndOldManTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PTSelectChildAndOldManTableViewCell" forIndexPath:indexPath];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
+            cell.ptDetailModel = _ptDetailModel;
             return cell;
             
         } else if (indexPath.row == 5) {

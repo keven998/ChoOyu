@@ -18,6 +18,7 @@
 #import "UserInviteCodeViewController.h"
 #import "StoreManager.h"
 #import "BusinessHomeViewController.h"
+#import "PTListViewController.h"
 
 @interface MineViewContoller () <UITableViewDataSource, UITableViewDelegate>
 
@@ -40,6 +41,7 @@
                         @{@"title": @"我的收藏", @"image": @"icon_mine_favorite"},
                         @{@"title": @"优惠券", @"image": @"icon_mine_coupon"},
                         @{@"title": @"我的邀请码", @"image": @"icon_mine_inviteCode"},
+                        @{@"title": @"我发布的需求", @"image": @"icon_mine_inviteCode"},
                         @{@"title": @"我的旅行计划", @"image": @"icon_mine_guides"},
                         ],
                     @[
@@ -100,6 +102,7 @@
                                 @{@"title": @"我的收藏", @"image": @"icon_mine_favorite"},
                                 @{@"title": @"优惠券", @"image": @"icon_mine_coupon"},
                                 @{@"title": @"我的邀请码", @"image": @"icon_mine_inviteCode"},
+                                @{@"title": @"我发布的需求", @"image": @"icon_mine_inviteCode"},
                                 @{@"title": @"我的旅行计划", @"image": @"icon_mine_guides"},
                                 ],
                             @[
@@ -113,6 +116,7 @@
                                 @{@"title": @"我的收藏", @"image": @"icon_mine_favorite"},
                                 @{@"title": @"优惠券", @"image": @"icon_mine_coupon"},
                                 @{@"title": @"我的邀请码", @"image": @"icon_mine_inviteCode"},
+                                @{@"title": @"我发布的需求", @"image": @"icon_mine_inviteCode"},
                                 @{@"title": @"我的旅行计划", @"image": @"icon_mine_guides"},
                                 ],
                             @[
@@ -187,7 +191,7 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 0) {
-        if ([[_dataSource objectAtIndex:indexPath.section] count] == 5) {
+        if ([[_dataSource objectAtIndex:indexPath.section] count] == 6) {
             if (indexPath.row == 0) {
                 BusinessHomeViewController *ctl = [[BusinessHomeViewController alloc] init];
                 ctl.hidesBottomBarWhenPushed = YES;
@@ -211,6 +215,12 @@
                 [self.navigationController pushViewController:ctl animated:YES];
                 
             } else if (indexPath.row == 4) {
+                PTListViewController *ctl = [[PTListViewController alloc] init];
+                ctl.userId = [AccountManager shareAccountManager].account.userId;
+                ctl.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:ctl animated:YES];
+                
+            } else if (indexPath.row == 5) {
                 PlansListTableViewController *ctl = [[PlansListTableViewController alloc] initWithUserId:[AccountManager shareAccountManager].account.userId];
                 ctl.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:ctl animated:YES];
@@ -237,6 +247,12 @@
                 [self.navigationController pushViewController:ctl animated:YES];
                 
             } else if (indexPath.row == 3) {
+                PTListViewController *ctl = [[PTListViewController alloc] init];
+                ctl.userId = [AccountManager shareAccountManager].account.userId;
+                ctl.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:ctl animated:YES];
+                
+            } else if (indexPath.row == 4) {
                 PlansListTableViewController *ctl = [[PlansListTableViewController alloc] initWithUserId:[AccountManager shareAccountManager].account.userId];
                 ctl.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:ctl animated:YES];

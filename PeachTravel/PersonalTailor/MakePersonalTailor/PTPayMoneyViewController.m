@@ -49,6 +49,7 @@
 }
 
 - (IBAction)commintOrderAction:(id)sender {
+    [self.view endEditing:YES];
     if (_freeSelectButton.selected) {
         [PersonalTailorManager asyncMakePersonalTailorWithPTModel:_ptDetailModel completionBlock:^(BOOL isSuccess, PTDetailModel *ptDetailModel) {
             if (isSuccess) {
@@ -84,8 +85,30 @@
     } else {
         platform = kWeichatPay;
     }
-    
-    [MobClick event:@"event_payForOrder"];
+    if (_ptDetailModel.itemId) {
+        [_payManager asyncPayPersonalTailor:_ptDetailModel.itemId payPlatform:platform completionBlock:^(BOOL isSuccess, NSString *errorStr) {
+            if (isSuccess) {
+                [SVProgressHUD showHint:@"支付成功"];
+            } else {
+                [SVProgressHUD showHint:@"支付失败"];
+            }
+        }];
+    } else {
+        [PersonalTailorManager asyncMakePersonalTailorWithPTModel:_ptDetailModel completionBlock:^(BOOL isSuccess, PTDetailModel *ptDetailModel) {
+            if (isSuccess) {
+                _ptDetailModel = ptDetailModel;
+                [_payManager asyncPayPersonalTailor:_ptDetailModel.itemId payPlatform:platform completionBlock:^(BOOL isSuccess, NSString *errorStr) {
+                    if (isSuccess) {
+                        [SVProgressHUD showHint:@"支付成功"];
+                    } else {
+                        [SVProgressHUD showHint:@"支付失败"];
+                    }
+                }];
+            } else {
+                [SVProgressHUD showHint:@"需求发布失败"];
+            }
+        }];
+    }
 }
 
 - (void)shouldDismissSheet
@@ -154,4 +177,8 @@
     return YES;
 }
 
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    _ptDetailModel.earnestMoney = textField.text.floatValue;
+}
 @end

@@ -100,6 +100,47 @@ NSString *const kOrderPayResultNoti = @"kOrderPayResultNoti";
     }];
 }
 
+- (void)asyncPayPersonalTailor:(NSString *)ptOrderId payPlatform:(TZPayPlatform)payPlatform completionBlock:(void (^) (BOOL isSuccess, NSString *errorStr))completion
+{
+    _payCompletionBlock = completion;
+    
+    NSString *platFormDesc = @"";
+    if (payPlatform == kWeichatPay) {
+        platFormDesc = @"wechat";
+    } else if (payPlatform == kAlipay) {
+        platFormDesc = @"alipay";
+    }
+    
+    NSString *url = [NSString stringWithFormat:@"%@marketplace/bounties/%@/payments", BASE_URL, ptOrderId];
+    
+    NSDictionary *params = @{
+                             @"provider": platFormDesc
+                             };
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [LXPNetworking POST:url parameters: params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"***对订单进行支付接口: %@", operation);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            if (payPlatform == kWeichatPay) {
+                [self sendWechatPayRequest:[responseObject objectForKey:@"result"]];
+            } else {
+                [self sendAliPayRequest:[[responseObject objectForKey:@"result"] objectForKey:@"requestString"]];
+            }
+            
+        } else {
+            completion(NO, @"支付失败");
+            _payCompletionBlock = nil;
+            
+        }
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        completion(NO, @"支付失败");
+        _payCompletionBlock = nil;
+        
+    }];
+}
+
 - (void)sendWechatPayRequest:(NSDictionary *)payInfo
 {
     PayReq *request = [[PayReq alloc] init];

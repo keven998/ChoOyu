@@ -21,6 +21,7 @@
         return;
     }
     sender.selected = !sender.selected;
+    _ptDetailModel.hasChild = sender.selected;
 }
 
 - (IBAction)selectOldManAction:(UIButton *)sender {
@@ -28,6 +29,7 @@
         return;
     }
     sender.selected = !sender.selected;
+    _ptDetailModel.hasOldMan = sender.selected;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
