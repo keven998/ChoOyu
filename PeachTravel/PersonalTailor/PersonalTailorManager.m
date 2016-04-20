@@ -10,10 +10,14 @@
 
 @implementation PersonalTailorManager
 
-+ (void)asyncLoadRecommendPersonalTailorData:(void (^) (BOOL isSuccess, NSArray<PTDetailModel *> *resultList))completion
++ (void)asyncLoadRecommendPersonalTailorDataWithStartIndex:(NSInteger)index pageCount:(NSInteger)count completionBlock:(void (^) (BOOL isSuccess, NSArray<PTDetailModel *> *resultList))completion;
 {
     NSString *url = [NSString stringWithFormat:@"%@marketplace/bounties", BASE_URL];
-    [LXPNetworking GET:url parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic safeSetObject:[NSNumber numberWithInteger:index] forKey:@"start"];
+    [dic safeSetObject:[NSNumber numberWithInteger:count] forKey:@"count"];
+
+    [LXPNetworking GET:url parameters:dic success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         NSInteger result = [[responseObject objectForKey:@"code"] integerValue];
         if (result == 0) {
             NSMutableArray *retArray = [[NSMutableArray alloc] init];
@@ -98,7 +102,6 @@
     }];
 }
 
-
  + (void)asyncMakePlanForPTWithPtId:(NSString *)ptId content:(NSString *)content totalPrice:(NSInteger)price guideList:(NSArray *)guideList completionBlock:(void (^)(BOOL))completion
 {
     NSString *url = [NSString stringWithFormat:@"%@marketplace/bounties/%@/schedules", BASE_URL, ptId];
@@ -122,5 +125,61 @@
     }];
 }
 
++ (void)asyncLoadUsrePTDataWithUserId:(NSInteger)userId completionBlock:(void (^) (BOOL isSuccess, NSArray<PTDetailModel *> *resultList))completion
+{
+    NSString *url = [NSString stringWithFormat:@"%@marketplace/users/%ld/bounties", BASE_URL, userId];
+    [LXPNetworking GET:url parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSInteger result = [[responseObject objectForKey:@"code"] integerValue];
+        if (result == 0) {
+            NSMutableArray *retArray = [[NSMutableArray alloc] init];
+            for (NSDictionary *dic in [responseObject objectForKey:@"result"]) {
+                [retArray addObject:[[PTDetailModel alloc] initWithJson:dic]];
+            }
+            completion(YES, retArray);
+        } else {
+            completion(NO, nil);
+        }
+        
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        completion(NO, nil);
+    }];
+}
+
++ (void)asyncLoadPTDetailDataWithItemId:(NSString *)itemId completionBlock:(void (^) (BOOL isSuccess, PTDetailModel *ptDetail))completion
+{
+    NSString *url = [NSString stringWithFormat:@"%@marketplace/bounties/%@", BASE_URL, itemId];
+    [LXPNetworking GET:url parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSInteger result = [[responseObject objectForKey:@"code"] integerValue];
+        if (result == 0) {
+            PTDetailModel *ptDetail = [[PTDetailModel alloc] initWithJson:[responseObject objectForKey:@"result"]];
+            completion(YES, ptDetail);
+            
+        } else {
+            completion(NO, nil);
+        }
+        
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        completion(NO, nil);
+    }];
+}
+
++ (void)asyncTakePersonalTailor:(NSString *)itemId completionBlock:(void (^)(BOOL))completion
+{
+    NSString *url = [NSString stringWithFormat:@"%@marketplace/bounties/%@/bounty-takers", BASE_URL, itemId];
+    [LXPNetworking POST:url parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSInteger result = [[responseObject objectForKey:@"code"] integerValue];
+        if (result == 0) {
+           
+            completion(YES);
+            
+        } else {
+            completion(NO);
+        }
+        
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        completion(NO);
+    }];
+
+}
 
 @end

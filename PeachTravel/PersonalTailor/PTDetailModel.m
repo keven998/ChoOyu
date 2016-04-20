@@ -17,20 +17,36 @@
         _service = [json objectForKey:@"service"];
         _topic = [json objectForKey:@"topic"];
         _topicList = [_topic componentsSeparatedByString:@","];
+        _fromCity = [[CityDestinationPoi alloc] initWithJson:[[json objectForKey:@"departure"] firstObject]];
         _serviceList = [_service componentsSeparatedByString:@","];
         _departureDate = [json objectForKey:@"departureDate"];
         _createTime = [[json objectForKey:@"createTime"] longValue]/1000;
         _totalPrice = [[json objectForKey:@"totalPrice"] floatValue];
-        _timeCost = [[json objectForKey:@"totalPrice"] integerValue];
+        _timeCost = [[json objectForKey:@"timeCost"] integerValue];
         _budget = [[json objectForKey:@"budget"] floatValue];
-        _paied = [[json objectForKey:@"paied"] boolValue];
+        _bountyPaid = [[json objectForKey:@"bountyPaid"] boolValue];
         _memo = [json objectForKey:@"memo"];
+        _memberCount = [[json objectForKey:@"participantCnt"] integerValue];
+        _earnestMoney = [[json objectForKey:@"bountyPrice"] floatValue];
         _contact = [[OrderTravelerInfoModel alloc] initWithJson:[[json objectForKey:@"contact"] firstObject]];
         NSMutableArray *array = [[NSMutableArray alloc] init];
         for (NSDictionary *dic in [json objectForKey:@"destination"]) {
             [array addObject:[[CityDestinationPoi alloc] initWithJson:dic]];
         }
         _destinations = array;
+        
+        NSMutableArray *temp = [[NSMutableArray alloc] init];
+        for (NSDictionary *dic in [json objectForKey:@"schedules"]) {
+            [temp addObject:[[PTPlanDetailModel alloc] initWithJson:dic]];
+        }
+        _plans = temp;
+        
+        NSMutableArray *takers = [[NSMutableArray alloc] init];
+        for (NSDictionary *dic in [json objectForKey:@"takers"]) {
+            [takers addObject:[[FrendModel alloc] initWithJson:dic]];
+        }
+        _takers = takers;
+        _consumer = [[FrendModel alloc] initWithJson:[json objectForKey:@"consumer"]];
     }
     return self;
 }

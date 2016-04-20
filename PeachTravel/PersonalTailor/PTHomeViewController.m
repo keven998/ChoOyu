@@ -11,6 +11,7 @@
 #import "PTListTableViewCell.h"
 #import "PersonalTailorViewController.h"
 #import "PersonalTailorManager.h"
+#import "MJRefresh.h"
 
 @interface PTHomeViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -24,14 +25,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = APP_THEME_COLOR;
+    self.view.backgroundColor = [UIColor whiteColor];
     
     self.automaticallyAdjustsScrollViewInsets = NO;
-    _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, kWindowHeight-49) style:UITableViewStyleGrouped];
     _tableView.dataSource = self;
     _tableView.delegate = self;
+    _tableView.backgroundColor = [UIColor whiteColor];
     [_tableView registerNib:[UINib nibWithNibName:@"PTListTableViewCell" bundle:nil] forCellReuseIdentifier:@"PTListTableViewCell"];
-    _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 49)];
     [self.view addSubview:_tableView];
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 250)];
@@ -63,8 +64,20 @@
     ptNumberLabel.font = [UIFont systemFontOfSize:15.0];
     ptNumberLabel.textAlignment = NSTextAlignmentCenter;
     [headerView addSubview:ptNumberLabel];
+    _tableView.tableHeaderView = headerView;
     
-    self.tableView.tableHeaderView = headerView;
+    MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshData)];
+    self.tableView.header = header;
+    header.lastUpdatedTimeLabel.hidden = YES;
+    
+    [PersonalTailorManager asyncLoadRecommendPersonalTailorDataWithStartIndex:_dataSource.count pageCount:15 completionBlock:^(BOOL isSuccess, NSArray<PTDetailModel *> *resultList) {
+        if (isSuccess) {
+            _dataSource = resultList;
+            [self.tableView reloadData];
+        }
+    }];
+    
+    self.tableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -75,14 +88,6 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
-    if (!_dataSource.count) {
-        [PersonalTailorManager asyncLoadRecommendPersonalTailorData:^(BOOL isSuccess, NSArray<PTDetailModel *> *resultList) {
-            if (isSuccess) {
-                _dataSource = resultList;
-                [self.tableView reloadData];
-            }
-        }];
-    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -92,6 +97,34 @@
         [self.navigationController setNavigationBarHidden:NO animated:YES];
     }
 }
+
+- (void)refreshData
+{
+    [PersonalTailorManager asyncLoadRecommendPersonalTailorDataWithStartIndex:0 pageCount:15 completionBlock:^(BOOL isSuccess, NSArray<PTDetailModel *> *resultList) {
+        if (isSuccess) {
+            _dataSource = resultList;
+            [self.tableView reloadData];
+        }
+    }];
+  
+    [_tableView.header endRefreshing];
+}
+
+- (void)loadMoreData
+{
+    [_tableView.footer endRefreshing];
+    [PersonalTailorManager asyncLoadRecommendPersonalTailorDataWithStartIndex:_dataSource.count pageCount:15 completionBlock:^(BOOL isSuccess, NSArray<PTDetailModel *> *resultList) {
+        if (isSuccess) {
+            
+            NSMutableArray *temp = [[NSMutableArray alloc] initWithArray:_dataSource];
+            [temp addObjectsFromArray:resultList];
+            _dataSource = temp;
+            [self.tableView reloadData];
+        }
+    }];
+
+}
+
 - (void)makePT
 {
     MakePersonalTailorViewController *ctl = [[MakePersonalTailorViewController alloc] init];
@@ -132,7 +165,7 @@
 {
     if ([scrollView isEqual:_tableView]) {
         if (scrollView.contentOffset.y < 0) {
-            scrollView.contentOffset = CGPointZero;
+//            scrollView.contentOffset = CGPointZero;
         }
     }
 }

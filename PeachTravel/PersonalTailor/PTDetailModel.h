@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "CityDestinationPoi.h"
 #import "OrderTravelerInfoModel.h"
+#import "PTPlanDetailModel.h"
+#import "PeachTravel-swift.h"
 
 @interface PTDetailModel : NSObject
 
@@ -25,15 +27,20 @@
 @property (nonatomic, strong) NSArray<CityDestinationPoi *> *destinations;
 @property (nonatomic, strong) CityDestinationPoi *fromCity;
 
+@property (nonatomic, strong) NSArray<PTPlanDetailModel *> *plans;
+@property (nonatomic, strong) NSArray<FrendModel *> *takers;  //抢单人
+@property (nonatomic, strong) FrendModel *consumer;   //发单人
+
 @property (nonatomic) float totalPrice;
+@property (nonatomic) BOOL planPaid;  //方案是否支付
+
 @property (nonatomic) float earnestMoney;
+@property (nonatomic) BOOL bountyPaid;  //定金是否支付
 
 @property (nonatomic) NSInteger timeCost;
-@property (nonatomic) NSInteger grabCount;
 @property (nonatomic) NSInteger memberCount;
 
 @property (nonatomic) float budget;
-@property (nonatomic) BOOL paied;
 @property (nonatomic, strong) OrderTravelerInfoModel *contact;
 @property (nonatomic, copy) NSString *memo;
 @property (nonatomic) BOOL hasChild;

@@ -9,8 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "PTPlanDetailModel.h"
 
-@interface PTPlanDetailViewController : UIViewController
+@interface PTPlanDetailViewController : TZViewController
 
-@property (nonatomic, copy) NSString *ptPlanId;
+@property (nonatomic, strong) PTPlanDetailModel *ptPlanDetail;
 
 @end

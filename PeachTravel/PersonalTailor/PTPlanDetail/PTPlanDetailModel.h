@@ -14,9 +14,12 @@
 
 @property (nonatomic, copy) NSString *planId;
 @property (nonatomic, copy) NSString *desc;
-@property (nonatomic, copy) NSString *commitTimeStr;
+@property (nonatomic) long commitTime;
+@property (nonatomic, copy, readonly) NSString *commitTimeStr;
 @property (nonatomic) float totalPrice;
 @property (nonatomic, strong) FrendModel *seller;
 @property (nonatomic, strong) NSArray<MyGuideSummary *> *dataSource;
+
+- (id)initWithJson:(id)json;
 
 @end

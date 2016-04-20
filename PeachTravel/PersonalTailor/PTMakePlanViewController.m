@@ -71,9 +71,14 @@
         [guidesId addObject:guide.guideId];
     }
     [PersonalTailorManager asyncMakePlanForPTWithPtId:_ptId content:_planContent totalPrice:_totalPrice guideList:guidesId completionBlock:^(BOOL isSuccess) {
-        
+        if (isSuccess) {
+            [SVProgressHUD showHint:@"方案制作成功"];
+            [self.navigationController popViewControllerAnimated:YES];
+        } else {
+            [SVProgressHUD showHint:@"方案提交失败,请重试"];
+
+        }
     }];
-    
 }
 
 - (void)addPlan:(UIButton *)sender

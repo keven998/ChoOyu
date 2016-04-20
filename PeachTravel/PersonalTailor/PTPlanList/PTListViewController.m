@@ -26,14 +26,19 @@
     [super viewDidLoad];
     self.view.backgroundColor = APP_THEME_COLOR;
     
-    self.automaticallyAdjustsScrollViewInsets = NO;
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     _tableView.dataSource = self;
     _tableView.delegate = self;
     self.navigationItem.title = @"需求列表";
     [_tableView registerNib:[UINib nibWithNibName:@"PTListTableViewCell" bundle:nil] forCellReuseIdentifier:@"PTListTableViewCell"];
-    _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 49)];
     [self.view addSubview:_tableView];
+    
+    [PersonalTailorManager asyncLoadUsrePTDataWithUserId:_userId completionBlock:^(BOOL isSuccess, NSArray<PTDetailModel *> *resultList) {
+        if (isSuccess) {
+            _dataSource = resultList;
+            [self.tableView reloadData];
+        }
+    }];
     
 }
 
@@ -44,14 +49,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    if (!_dataSource.count) {
-        [PersonalTailorManager asyncLoadRecommendPersonalTailorData:^(BOOL isSuccess, NSArray<PTDetailModel *> *resultList) {
-            if (isSuccess) {
-                _dataSource = resultList;
-                [self.tableView reloadData];
-            }
-        }];
-    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -62,6 +59,11 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 0.01;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -84,12 +86,4 @@
     [self.navigationController pushViewController:ctl animated:true];
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    if ([scrollView isEqual:_tableView]) {
-        if (scrollView.contentOffset.y < 0) {
-            scrollView.contentOffset = CGPointZero;
-        }
-    }
-}
 @end

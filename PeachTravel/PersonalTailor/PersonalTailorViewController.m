@@ -9,12 +9,20 @@
 #import "PersonalTailorViewController.h"
 #import "PTListTableViewCell.h"
 #import "PTMakePlanViewController.h"
+#import "PersonalTailorManager.h"
 #import "PTPlanDetailViewController.h"
+#import "StoreManager.h"
+#import "ChatViewController.h"
+#import "PeachTravel-swift.h"
+#import "ChatSettingViewController.h"
+#import "REFrostedViewController.h"
 
 @interface PersonalTailorViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) UIView *toolBar;
+@property (nonatomic) BOOL isSeller;
+
 @property (strong, nonatomic) NSArray<PTPlanDetailModel *> *planDataSource;
 
 @end
@@ -30,7 +38,28 @@
     [_tableView registerNib:[UINib nibWithNibName:@"PTListTableViewCell" bundle:nil] forCellReuseIdentifier:@"PTListTableViewCell"];
     [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 49)];
-    [self renderToolBar];
+    [StoreManager asyncLoadStoreInfoWithStoreId:[AccountManager shareAccountManager].account.userId completionBlock:^(BOOL isSuccess, StoreDetailModel *storeDetail) {
+        if (isSuccess && storeDetail) {
+            _isSeller = YES;
+            
+        } else {
+            _isSeller = NO;
+        }
+        [self refreshPTData];
+
+    }];
+
+}
+
+- (void)refreshPTData
+{
+    [PersonalTailorManager asyncLoadPTDetailDataWithItemId:_ptDetailModel.itemId completionBlock:^(BOOL isSuccess, PTDetailModel *ptDetail) {
+        _ptDetailModel = ptDetail;
+        _planDataSource = _ptDetailModel.plans;
+        [self renderToolBar];
+        [_tableView reloadData];
+    }];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -47,18 +76,81 @@
     _toolBar.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_toolBar];
     
-    UIButton *makePTPlanButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth/2, 49)];
-    [makePTPlanButton setTitle:@"制作方案" forState:UIControlStateNormal];
-    [makePTPlanButton setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-    [makePTPlanButton addTarget:self action:@selector(makePTPlanAction:) forControlEvents:UIControlEventTouchUpInside];
-    [_toolBar addSubview:makePTPlanButton];
-    
-    UIButton *chatWithUser = [[UIButton alloc] initWithFrame:CGRectMake(kWindowWidth/2, 0, kWindowWidth/2, 49)];
-    [chatWithUser setTitle:@"联系买家" forState:UIControlStateNormal];
-    [chatWithUser setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-    [chatWithUser addTarget:self action:@selector(makePTPlanAction:) forControlEvents:UIControlEventTouchUpInside];
-    [_toolBar addSubview:chatWithUser];
+    if (_ptDetailModel.consumer.userId == [AccountManager shareAccountManager].account.userId) {
+        if (_ptDetailModel.bountyPaid) {
+            UIButton *makePTPlanButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 49)];
+            [makePTPlanButton setTitle:@"申请退款" forState:UIControlStateNormal];
+            [makePTPlanButton setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+            [makePTPlanButton addTarget:self action:@selector(requestRefundMoney:) forControlEvents:UIControlEventTouchUpInside];
+            [_toolBar addSubview:makePTPlanButton];
+        } else {
+            _toolBar.hidden = YES;
+        }
+        
+    } else {
+        if (_isSeller) {
+            BOOL isHasTake = NO;
+            for (FrendModel *taker in _ptDetailModel.takers) {
+                if ([AccountManager shareAccountManager].account.userId == taker.userId) {
+                    isHasTake = YES;
+                }
 
+            }
+            
+            if (isHasTake) {
+                UIButton *makePTPlanButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth/2, 49)];
+                [makePTPlanButton setTitle:@"制作方案" forState:UIControlStateNormal];
+                [makePTPlanButton setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+                [makePTPlanButton addTarget:self action:@selector(makePTPlanAction:) forControlEvents:UIControlEventTouchUpInside];
+                [_toolBar addSubview:makePTPlanButton];
+                
+                UIButton *chatWithUser = [[UIButton alloc] initWithFrame:CGRectMake(kWindowWidth/2, 0, kWindowWidth/2, 49)];
+                [chatWithUser setTitle:@"联系买家" forState:UIControlStateNormal];
+                [chatWithUser setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+                [chatWithUser addTarget:self action:@selector(contactUser:) forControlEvents:UIControlEventTouchUpInside];
+                [_toolBar addSubview:chatWithUser];
+                
+            } else {
+                UIButton *makePTPlanButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 49)];
+                [makePTPlanButton setTitle:@"接单" forState:UIControlStateNormal];
+                [makePTPlanButton setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+                [makePTPlanButton addTarget:self action:@selector(takePTAction:) forControlEvents:UIControlEventTouchUpInside];
+                [_toolBar addSubview:makePTPlanButton];
+            }
+        } else {
+            _toolBar.hidden = YES;
+        }
+    }
+}
+
+
+- (IBAction)contactUser:(UIButton *)sender
+{
+    
+    IMClientManager *clientManager = [IMClientManager shareInstance];
+    ChatConversation *conversation = [clientManager.conversationManager getConversationWithChatterId:_ptDetailModel.consumer.userId chatType:IMChatTypeIMChatSingleType];
+    ChatViewController *chatController = [[ChatViewController alloc] initWithConversation:conversation];
+    
+    chatController.chatterName = _ptDetailModel.consumer.nickName;
+    
+    ChatSettingViewController *menuViewController = [[ChatSettingViewController alloc] init];
+    menuViewController.currentConversation= conversation;
+    menuViewController.chatterId = conversation.chatterId;
+    
+    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:chatController menuViewController:menuViewController];
+    menuViewController.containerCtl = frostedViewController;
+    
+    frostedViewController.hidesBottomBarWhenPushed = YES;
+    frostedViewController.direction = REFrostedViewControllerDirectionRight;
+    frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
+    frostedViewController.liveBlur = YES;
+    frostedViewController.limitMenuViewSize = YES;
+    chatController.backBlock = ^{
+        [frostedViewController.navigationController popViewControllerAnimated:YES];
+    };
+    
+    [self.navigationController pushViewController:frostedViewController animated:YES];
+    
 }
 
 - (void)setPtDetailModel:(PTDetailModel *)ptDetailModel
@@ -74,10 +166,39 @@
     [self.navigationController pushViewController:ctl animated:YES];
 }
 
+- (void)requestRefundMoney:(UIButton *)sender
+{
+    NSMutableString *content = [[NSMutableString alloc] initWithString:@"退款明细: "];
+    if (_ptDetailModel.earnestMoney > 0) {
+        [content appendFormat:@"定金: %ld", (NSInteger)_ptDetailModel.earnestMoney];
+    }
+    if (_ptDetailModel.planPaid) {
+        [content appendFormat:@"方案金额: %ld", (NSInteger)_ptDetailModel.earnestMoney];
+
+    }
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"确定取消退款?" message:content delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
+        
+    }];
+}
+
+- (void)takePTAction:(UIButton *)sender
+{
+    [PersonalTailorManager asyncTakePersonalTailor:_ptDetailModel.itemId completionBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            [SVProgressHUD showHint:@"接单成功，请尽快提交方案"];
+            [self refreshPTData];
+
+        } else {
+            [SVProgressHUD showHint:@"接单失败，请重试"];
+
+        }
+    }];
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 5) {
-        return 2;
         return _planDataSource.count;
     }
     return 1;
@@ -180,7 +301,7 @@
         } else if (indexPath.section == 4) {
             NSMutableString *content = [[NSMutableString alloc] init];
             [content appendFormat:@"其他需求\n"];
-            [content appendFormat:@"%@", _ptDetailModel.demand];
+            [content appendFormat:@"%@", _ptDetailModel.memo];
             NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:content];
             [attr addAttribute:NSForegroundColorAttributeName value:COLOR_TEXT_II range:NSMakeRange(0, 5)];
             NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
@@ -220,7 +341,7 @@
     if (indexPath.section == 5) {
         PTPlanDetailModel *plan = [_planDataSource objectAtIndex:indexPath.row];
         PTPlanDetailViewController *ctl = [[PTPlanDetailViewController alloc] init];
-        ctl.ptPlanId = plan.planId;
+        ctl.ptPlanDetail = plan;
         [self.navigationController pushViewController:ctl animated:YES];
     }
 }
