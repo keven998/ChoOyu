@@ -193,8 +193,8 @@
     contentLabel.textColor = [UIColor whiteColor];
     contentLabel.font = [UIFont systemFontOfSize:15.0];
     contentLabel.numberOfLines = 0;
-    contentLabel.textAlignment = NSTextAlignmentCenter;
-    contentLabel.text = @"悬赏金说明";
+    contentLabel.textAlignment = NSTextAlignmentLeft;
+    contentLabel.text = @"1 悬赏定金能得到哪些服务？\n用户支付的定金越高，商家抢单几率越大；\n支付定金不得低于50元，支付定金的用户平台保证在5个工作日内，至少有3个商家提供优质方案；\n\n2 悬赏定金是否可退？\n定金支付后，若商家提供的方案中用户都不满意，可申请退款；\n平台会收取定金的5%作为违约费用；\n\n3 未设置悬赏定金和设置悬赏定金的区别？\n免费体验发布的需求，商家接单几率相对于支付定金的用户要少；\n若用户慎重考虑后，建议发布支付定金的需求，以便于能得到更优质的服务";
     [aboutMoneyBg addSubview:contentLabel];
     
     UIButton *aboutMoneyButton = [[UIButton alloc] initWithFrame:CGRectMake((kWindowWidth-100)/2, kWindowHeight-100, 100, 100)];

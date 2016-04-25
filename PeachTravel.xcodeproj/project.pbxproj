@@ -1129,6 +1129,7 @@
 		D9FC2C4C1CBCA10100CBF91A /* PTMakePlanViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9FC2C4A1CBCA10100CBF91A /* PTMakePlanViewController.xib */; };
 		D9FCE7DE1B134B4B0039F896 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FCE7DD1B134B4B0039F896 /* ChatViewController.m */; };
 		D9FCE7E91B135C820039F896 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FCE7E81B135C820039F896 /* Reachability.m */; };
+		D9FDE0991CCDE70A00AA016B /* icon_pt_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9FDE0981CCDE70A00AA016B /* icon_pt_bg@2x.png */; };
 		E608A0F11B8D8560003BA318 /* GuiderDistributeTools.m in Sources */ = {isa = PBXBuildFile; fileRef = E608A0F01B8D8560003BA318 /* GuiderDistributeTools.m */; };
 		E608A1121B8F26CF003BA318 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = E608A1111B8F26CF003BA318 /* UIView+Extension.m */; };
 		E608A1151B8F2755003BA318 /* CWTitleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E608A1141B8F2755003BA318 /* CWTitleButton.m */; };
@@ -3502,6 +3503,7 @@
 		D9FCE7DD1B134B4B0039F896 /* ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
 		D9FCE7E71B135C820039F896 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		D9FCE7E81B135C820039F896 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		D9FDE0981CCDE70A00AA016B /* icon_pt_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_pt_bg@2x.png"; sourceTree = "<group>"; };
 		E36073AEEC32FD100F0D0A9B /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		E608A0EF1B8D8560003BA318 /* GuiderDistributeTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuiderDistributeTools.h; sourceTree = "<group>"; };
 		E608A0F01B8D8560003BA318 /* GuiderDistributeTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuiderDistributeTools.m; sourceTree = "<group>"; };
@@ -8308,6 +8310,7 @@
 		D9C35F971CA8D40A009A92BA /* PersonalTailor */ = {
 			isa = PBXGroup;
 			children = (
+				D9FDE0981CCDE70A00AA016B /* icon_pt_bg@2x.png */,
 				D95388491CC4831E004BD51F /* PTPlanList */,
 				D95388371CC47C05004BD51F /* PTPlanDetail */,
 				D9FC2C471CBCA0D300CBF91A /* PTMakePlan */,
@@ -10169,6 +10172,7 @@
 				E6F18B111B845F4900232EEB /* master_icon_constellation12@2x.png in Resources */,
 				E6F18A7F1B845F4900232EEB /* speaking-motion11@2x.png in Resources */,
 				D90A9B541B5627C400E9F37C /* Loading_Animation_final41@3x.png in Resources */,
+				D9FDE0991CCDE70A00AA016B /* icon_pt_bg@2x.png in Resources */,
 				D90A9B461B5627C400E9F37C /* Loading_Animation_final27@3x.png in Resources */,
 				E6F189891B845F4900232EEB /* poi_comment_start_highlight@2x.png in Resources */,
 				E6F18A151B845F4900232EEB /* map_icon_4@2x.png in Resources */,

@@ -13,6 +13,7 @@
 #import "PersonalTailorManager.h"
 #import "MJRefresh.h"
 #import "LoginViewController.h"
+#import <AlipaySDK/AlipaySDK.h>
 
 @interface PTHomeViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -42,13 +43,16 @@
     contentBg.backgroundColor = [UIColor whiteColor];
     [headerView addSubview:contentBg];
     
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 150)];
+    imageView.image = [UIImage imageNamed:@"icon_pt_bg.png"];
+    [headerView addSubview:imageView];
+    
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 150)];
-    titleLabel.backgroundColor = APP_THEME_COLOR;
     titleLabel.textColor = [UIColor whiteColor];
     titleLabel.text = @"私人定制";
     titleLabel.textAlignment = NSTextAlignmentCenter;
     titleLabel.font = [UIFont boldSystemFontOfSize:40];
-    [headerView addSubview:titleLabel];
+//    [headerView addSubview:titleLabel];
     
     UIButton *makePTButton = [[UIButton alloc] initWithFrame:CGRectMake(30, 160, kWindowWidth-60, 40)];
     makePTButton.layer.cornerRadius = 6;
@@ -128,6 +132,14 @@
 
 - (void)makePT
 {
+//    NSString *payInfo = @"";
+//    [[AlipaySDK defaultService] payOrder:payInfo fromScheme:@"lvxingpai" callback:^(NSDictionary *resultDic) {
+//        NSString *status=[NSString stringWithFormat:@"%@",resultDic[@"resultStatus"]];
+//        if ([status isEqualToString:@"9000"]) {
+//        } else{
+//        }
+//    }];
+    
     if (![[AccountManager shareAccountManager] isLogin]) {
         [SVProgressHUD showHint:@"请先登录"];
         [self performSelector:@selector(login) withObject:nil afterDelay:0.3];
