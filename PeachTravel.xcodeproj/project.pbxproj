@@ -531,6 +531,11 @@
 		D953884D1CC4831E004BD51F /* PTListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D953884B1CC4831E004BD51F /* PTListTableViewCell.m */; };
 		D953884E1CC4831E004BD51F /* PTListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D953884C1CC4831E004BD51F /* PTListTableViewCell.xib */; };
 		D95388511CC48357004BD51F /* PTListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D95388501CC48357004BD51F /* PTListViewController.m */; };
+		D953895B1CC773E9004BD51F /* BNSelectServerCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D95389591CC773E9004BD51F /* BNSelectServerCityViewController.m */; };
+		D953895C1CC773E9004BD51F /* BNSelectServerCityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D953895A1CC773E9004BD51F /* BNSelectServerCityViewController.xib */; };
+		D953897B1CC9C230004BD51F /* BNServerCityHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D953897A1CC9C230004BD51F /* BNServerCityHomeViewController.m */; };
+		D95389821CC9FBF3004BD51F /* PTTakerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D95389801CC9FBF3004BD51F /* PTTakerTableViewCell.m */; };
+		D95389831CC9FBF3004BD51F /* PTTakerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D95389811CC9FBF3004BD51F /* PTTakerTableViewCell.xib */; };
 		D95520741C5211430086D9E0 /* footprint_change_default@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D95520731C5211430086D9E0 /* footprint_change_default@3x.png */; };
 		D95520761C52116F0086D9E0 /* footprint_change_default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D95520751C52116F0086D9E0 /* footprint_change_default@2x.png */; };
 		D955207E1C52132E0086D9E0 /* GoodsCommentDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = D955207D1C52132E0086D9E0 /* GoodsCommentDetail.m */; };
@@ -2527,6 +2532,14 @@
 		D953884C1CC4831E004BD51F /* PTListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PTListTableViewCell.xib; sourceTree = "<group>"; };
 		D953884F1CC48357004BD51F /* PTListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTListViewController.h; sourceTree = "<group>"; };
 		D95388501CC48357004BD51F /* PTListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTListViewController.m; sourceTree = "<group>"; };
+		D95389581CC773E9004BD51F /* BNSelectServerCityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNSelectServerCityViewController.h; sourceTree = "<group>"; };
+		D95389591CC773E9004BD51F /* BNSelectServerCityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNSelectServerCityViewController.m; sourceTree = "<group>"; };
+		D953895A1CC773E9004BD51F /* BNSelectServerCityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BNSelectServerCityViewController.xib; sourceTree = "<group>"; };
+		D95389791CC9C230004BD51F /* BNServerCityHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNServerCityHomeViewController.h; sourceTree = "<group>"; };
+		D953897A1CC9C230004BD51F /* BNServerCityHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNServerCityHomeViewController.m; sourceTree = "<group>"; };
+		D953897F1CC9FBF3004BD51F /* PTTakerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTTakerTableViewCell.h; sourceTree = "<group>"; };
+		D95389801CC9FBF3004BD51F /* PTTakerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTTakerTableViewCell.m; sourceTree = "<group>"; };
+		D95389811CC9FBF3004BD51F /* PTTakerTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PTTakerTableViewCell.xib; sourceTree = "<group>"; };
 		D95520731C5211430086D9E0 /* footprint_change_default@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "footprint_change_default@3x.png"; sourceTree = "<group>"; };
 		D95520751C52116F0086D9E0 /* footprint_change_default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "footprint_change_default@2x.png"; sourceTree = "<group>"; };
 		D955207C1C52132E0086D9E0 /* GoodsCommentDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsCommentDetail.h; sourceTree = "<group>"; };
@@ -5714,6 +5727,7 @@
 		D9424E151C8D5E6700DEA26F /* Business */ = {
 			isa = PBXGroup;
 			children = (
+				D95389571CC773E9004BD51F /* BNSelectServerCity */,
 				D910879A1C96B230000D46B4 /* BNGoods */,
 				D9338D621C8E84660073EAD9 /* BNOrder */,
 				D9424E1B1C8D63AB00DEA26F /* Model */,
@@ -5826,6 +5840,18 @@
 				D953884C1CC4831E004BD51F /* PTListTableViewCell.xib */,
 			);
 			path = PTPlanList;
+			sourceTree = "<group>";
+		};
+		D95389571CC773E9004BD51F /* BNSelectServerCity */ = {
+			isa = PBXGroup;
+			children = (
+				D95389581CC773E9004BD51F /* BNSelectServerCityViewController.h */,
+				D95389591CC773E9004BD51F /* BNSelectServerCityViewController.m */,
+				D953895A1CC773E9004BD51F /* BNSelectServerCityViewController.xib */,
+				D95389791CC9C230004BD51F /* BNServerCityHomeViewController.h */,
+				D953897A1CC9C230004BD51F /* BNServerCityHomeViewController.m */,
+			);
+			path = BNSelectServerCity;
 			sourceTree = "<group>";
 		};
 		D955207B1C52132E0086D9E0 /* GoodsComment */ = {
@@ -8218,6 +8244,9 @@
 				D92033C41CBBC1B2004704C0 /* PTMakeSelectCityViewController.h */,
 				D92033C51CBBC1B2004704C0 /* PTMakeSelectCityViewController.m */,
 				D92033C61CBBC1B2004704C0 /* PTMakeSelectCityViewController.xib */,
+				D953897F1CC9FBF3004BD51F /* PTTakerTableViewCell.h */,
+				D95389801CC9FBF3004BD51F /* PTTakerTableViewCell.m */,
+				D95389811CC9FBF3004BD51F /* PTTakerTableViewCell.xib */,
 			);
 			path = MakePersonalTailor;
 			sourceTree = "<group>";
@@ -9832,6 +9861,7 @@
 				D9A8011F1A80DD23005AD701 /* call_silence.png in Resources */,
 				D942C1421B9EB5C3005B81C5 /* level@3x.png in Resources */,
 				D9221A191BFC63760015A685 /* MyOrderTableViewCell.xib in Resources */,
+				D95389831CC9FBF3004BD51F /* PTTakerTableViewCell.xib in Resources */,
 				E6F18AF81B845F4900232EEB /* master_boy@2x.png in Resources */,
 				E6F18A221B845F4900232EEB /* map_icon_empty@3x.png in Resources */,
 				E6F18A401B845F4900232EEB /* ArtboardCheck@2x.png in Resources */,
@@ -9958,6 +9988,7 @@
 				D93CACC21C77211800123D3B /* UMSCommentInputControlleriPad.xib in Resources */,
 				E6F1891E1B845F4900232EEB /* dashboard_03_icon_constellation0@3x.png in Resources */,
 				E6381BEE1B66269000CF73AA /* Loading_Animation_final26@2x.png in Resources */,
+				D953895C1CC773E9004BD51F /* BNSelectServerCityViewController.xib in Resources */,
 				E6F18B011B845F4900232EEB /* master_level@2x.png in Resources */,
 				E6F18A3A1B845F4900232EEB /* Artboard_Top_Bg@2x.png in Resources */,
 				E6F18A011B845F4900232EEB /* map_icon_14@2x.png in Resources */,
@@ -10604,6 +10635,7 @@
 				D971E2A21B904F93007E5AFD /* ExpertRequestViewController.m in Sources */,
 				D93389731C5F4C6700328DAF /* GoodsCommentTableViewCell.m in Sources */,
 				D9A801571A80DD23005AD701 /* HPGrowingTextView.m in Sources */,
+				D953897B1CC9C230004BD51F /* BNServerCityHomeViewController.m in Sources */,
 				27FF1A3C1B04B91F00643D77 /* AIDatePickerController.m in Sources */,
 				D9F46DC21AC52D8600972AE8 /* SVWebViewControllerActivity.m in Sources */,
 				E6744F731B708AA6001BE989 /* UIActionSheet+Blocks.m in Sources */,
@@ -10644,6 +10676,7 @@
 				D9A802FC1A80E566005AD701 /* main.m in Sources */,
 				D993C2561B12DF0C0088D568 /* MessageManager.swift in Sources */,
 				D9A802241A80E036005AD701 /* PositionBean.m in Sources */,
+				D95389821CC9FBF3004BD51F /* PTTakerTableViewCell.m in Sources */,
 				01C1ECC31BB53A690082217A /* TZEmojiToolBarCell.m in Sources */,
 				D9221A341BFD718F0015A685 /* AskRefundMoneyViewController.m in Sources */,
 				D9A8010F1A80DD23005AD701 /* ChangeGroupTitleViewController.m in Sources */,
@@ -10854,6 +10887,7 @@
 				D9A800621A80DD0C005AD701 /* AddressBookTableViewController.m in Sources */,
 				D971A7791C2C1F6800D364C6 /* OrderDetailTravelerPreviewTableViewCell.m in Sources */,
 				D94E255B1BEC939500DB487D /* GoodsRecommendCollectionViewCell.m in Sources */,
+				D953895B1CC773E9004BD51F /* BNSelectServerCityViewController.m in Sources */,
 				D9A8FFB81A80D1C3005AD701 /* SpotDetailViewController.m in Sources */,
 				D9A801521A80DD23005AD701 /* CreateConversationTableViewCell.m in Sources */,
 				D90C76381BF2EB5E00C5897C /* TravelerInfoTableViewCell.m in Sources */,

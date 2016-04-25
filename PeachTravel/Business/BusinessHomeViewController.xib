@@ -9,6 +9,8 @@
             <connections>
                 <outlet property="myGoodsButton" destination="Pt9-xT-YWT" id="92r-fB-YhG"/>
                 <outlet property="myOrderButton" destination="Naj-yJ-hAu" id="Hw0-jo-Dna"/>
+                <outlet property="myPTServerButton" destination="WJV-av-qLx" id="JSc-gr-gea"/>
+                <outlet property="myPTServerCitiesButton" destination="AB6-Z3-yG6" id="zPN-VC-ubm"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -21,9 +23,9 @@
                     <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Naj-yJ-hAu">
-                    <rect key="frame" x="8" y="438" width="584" height="40"/>
+                    <rect key="frame" x="8" y="408" width="584" height="40"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="40" id="egI-h6-i9D"/>
+                        <constraint firstAttribute="height" constant="40" id="Ayl-8i-rAA"/>
                     </constraints>
                     <state key="normal" title="我的订单">
                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -33,9 +35,9 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pt9-xT-YWT">
-                    <rect key="frame" x="8" y="486" width="584" height="40"/>
+                    <rect key="frame" x="8" y="456" width="584" height="40"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="40" id="VRx-W9-SG8"/>
+                        <constraint firstAttribute="height" constant="40" id="7Zx-tY-5bh"/>
                     </constraints>
                     <state key="normal" title="我的商品">
                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -44,18 +46,48 @@
                         <action selector="myGoodsAction:" destination="-1" eventType="touchUpInside" id="Bxx-3M-Xsy"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WJV-av-qLx">
+                    <rect key="frame" x="8" y="504" width="584" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="vJI-nW-sEn"/>
+                    </constraints>
+                    <state key="normal" title="我的服务">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="myPTServerAction:" destination="-1" eventType="touchUpInside" id="nGc-7L-4Ev"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AB6-Z3-yG6">
+                    <rect key="frame" x="8" y="552" width="584" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="gv9-gs-fMp"/>
+                    </constraints>
+                    <state key="normal" title="订阅服务城市">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="myPTServerCitiesAction:" destination="-1" eventType="touchUpInside" id="d8K-JA-s6J"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstAttribute="trailing" secondItem="Naj-yJ-hAu" secondAttribute="trailing" constant="8" id="0sk-nP-d61"/>
+                <constraint firstAttribute="bottom" secondItem="AB6-Z3-yG6" secondAttribute="bottom" constant="8" id="2Dj-0W-XaV"/>
+                <constraint firstItem="AB6-Z3-yG6" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="5XY-dD-Fr3"/>
+                <constraint firstItem="WJV-av-qLx" firstAttribute="top" secondItem="Pt9-xT-YWT" secondAttribute="bottom" constant="8" id="6A6-aY-gQF"/>
                 <constraint firstItem="sQh-as-hRT" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="7l3-i0-bp5"/>
                 <constraint firstItem="sQh-as-hRT" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="8T3-NI-a3U"/>
-                <constraint firstAttribute="trailing" secondItem="Pt9-xT-YWT" secondAttribute="trailing" constant="8" id="8rS-lD-mfT"/>
-                <constraint firstAttribute="trailing" secondItem="Naj-yJ-hAu" secondAttribute="trailing" constant="8" id="MPc-xI-oOV"/>
+                <constraint firstItem="WJV-av-qLx" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="CyS-om-ax6"/>
+                <constraint firstAttribute="trailing" secondItem="WJV-av-qLx" secondAttribute="trailing" constant="8" id="Gux-eD-uuJ"/>
                 <constraint firstAttribute="bottom" secondItem="sQh-as-hRT" secondAttribute="bottom" id="PW0-tK-paM"/>
-                <constraint firstItem="Pt9-xT-YWT" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="R9Y-HM-ffh"/>
-                <constraint firstItem="Pt9-xT-YWT" firstAttribute="top" secondItem="Naj-yJ-hAu" secondAttribute="bottom" constant="8" id="WE0-RL-vsC"/>
-                <constraint firstAttribute="bottom" secondItem="Pt9-xT-YWT" secondAttribute="bottom" constant="74" id="h4Y-V5-8IP"/>
-                <constraint firstItem="Naj-yJ-hAu" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="y59-oD-Ofz"/>
+                <constraint firstItem="Pt9-xT-YWT" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="Pzb-9q-fGx"/>
+                <constraint firstItem="Pt9-xT-YWT" firstAttribute="top" secondItem="Naj-yJ-hAu" secondAttribute="bottom" constant="8" id="RgS-sv-yNc"/>
+                <constraint firstItem="AB6-Z3-yG6" firstAttribute="top" secondItem="WJV-av-qLx" secondAttribute="bottom" constant="8" id="VhN-9l-15B"/>
+                <constraint firstAttribute="trailing" secondItem="AB6-Z3-yG6" secondAttribute="trailing" constant="8" id="dUu-qc-JOa"/>
+                <constraint firstItem="Naj-yJ-hAu" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="e9b-wY-G4z"/>
+                <constraint firstAttribute="trailing" secondItem="Pt9-xT-YWT" secondAttribute="trailing" constant="8" id="yvB-Be-mKq"/>
                 <constraint firstAttribute="trailing" secondItem="sQh-as-hRT" secondAttribute="trailing" id="z6g-M9-FTe"/>
             </constraints>
         </view>

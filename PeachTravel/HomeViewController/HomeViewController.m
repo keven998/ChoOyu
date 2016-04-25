@@ -366,14 +366,13 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     TZNavigationViewController *firstNavigationController = [[TZNavigationViewController alloc]
                                                              initWithRootViewController:_goodsRecommendCtl];
     
-    _ptHomeCtl = [[PTHomeViewController alloc] init];
-    TZNavigationViewController *secondNavigationController = [[TZNavigationViewController alloc]
-                                                             initWithRootViewController:_ptHomeCtl];
-
-    
     CountryRecommendViewController *ctl = [[CountryRecommendViewController alloc] init];
-    TZNavigationViewController *thirdNavigationController = [[TZNavigationViewController alloc]
+    TZNavigationViewController *secondNavigationController = [[TZNavigationViewController alloc]
                                                               initWithRootViewController:ctl];
+    
+    _ptHomeCtl = [[PTHomeViewController alloc] init];
+    TZNavigationViewController *thirdNavigationController = [[TZNavigationViewController alloc]
+                                                             initWithRootViewController:_ptHomeCtl];
     
     _chatListCtl = [[ChatListViewController alloc] init];
     _chatListCtl.delegate = self;
@@ -394,8 +393,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)customizeTabBarForController
 {
-    NSArray *tabBarItemImages = @[@"ic_tabbar_goods", @"ic_tabbar_goods", @"ic_tabbar_destination", @"ic_tabbar_chat", @"ic_tabbar_mine"];
-    NSArray *tabbarItemNames = @[@"首页", @"定制", @"目的地", @"消息", @"我的"];
+    NSArray *tabBarItemImages = @[@"ic_tabbar_goods", @"ic_tabbar_destination", @"ic_tabbar_pt", @"ic_tabbar_chat", @"ic_tabbar_mine"];
+    NSArray *tabbarItemNames = @[@"首页", @"目的地", @"定制", @"消息", @"我的"];
     NSInteger index = 0;
     
     for (UITabBarItem *item in self.tabBar.items) {

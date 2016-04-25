@@ -1,12 +1,12 @@
 
-//  PTMakeSelectCityViewController.m
+//  BNSelectServerCityViewController.m
 //  PeachTravel
 //
 //  Created by liangpengshuai on 11/19/14.
 //  Copyright (c) 2014 com.aizou.www. All rights reserved.
 //
 
-#import "PTMakeSelectCityViewController.h"
+#import "BNSelectServerCityViewController.h"
 #import "TaoziCollectionLayout.h"
 #import "DestinationCollectionHeaderView.h"
 #import "AreaDestination.h"
@@ -15,7 +15,7 @@
 #import "DestinationManager.h"
 #import "DestinationCollectionViewCell.h"
 
-@interface PTMakeSelectCityViewController () <UICollectionViewDataSource, UICollectionViewDelegate,UITableViewDataSource,UITableViewDelegate>
+@interface BNSelectServerCityViewController () <UICollectionViewDataSource, UICollectionViewDelegate,UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic) NSInteger showCitiesIndex;
 
@@ -31,7 +31,7 @@
 
 @end
 
-@implementation PTMakeSelectCityViewController
+@implementation BNSelectServerCityViewController
 
 static NSString *reuseableHeaderIdentifier  = @"domesticHeader";
 static NSString *reuseableCellIdentifier  = @"domesticCell";
@@ -54,11 +54,11 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
     }
     
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.navigationItem.title = @"选择目的地";
+    self.navigationItem.title = @"选择服务的城市";
     
     if (self.navigationController.childViewControllers.count == 1) {
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(commitSelect)];;
+        
     } else {
         UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
         [button setImage:[UIImage imageNamed:@"common_icon_navigation_back_normal"] forState:UIControlStateNormal];
@@ -67,6 +67,7 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
         button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     }
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(commitSelect)];
     
     /**
      *  定义CollectionView的内容
@@ -130,7 +131,7 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
     
     UILabel *hintText = [[UILabel alloc] initWithFrame:toolBar.bounds];
     hintText.textColor = TEXT_COLOR_TITLE_HINT;
-    hintText.text = @"选择想去的城市";
+    hintText.text = @"选择服务的城市";
     hintText.textAlignment = NSTextAlignmentCenter;
     hintText.font = [UIFont systemFontOfSize:14];
     hintText.tag = 1;
@@ -301,7 +302,7 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
     } else {
         DestinationCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
         CityDestinationPoi *city = [self.destinations.destinationsSelected objectAtIndex:indexPath.row];
-        cell.titleLabel.text = [NSString stringWithFormat:@"%@", city.zhName];
+        cell.titleLabel.text = [NSString stringWithFormat:@"%ld.%@", (long)(indexPath.row + 1), city.zhName];
         return cell;
     }
     
@@ -384,7 +385,7 @@ static NSString *reuseableCellIdentifier  = @"domesticCell";
         return CGSizeMake((kWindowWidth - 75)/3, (kWindowWidth - 75)/3);
     } else {
         CityDestinationPoi *city = [self.destinations.destinationsSelected objectAtIndex:indexPath.row];
-        NSString *txt = [NSString stringWithFormat:@"%@", city.zhName];
+        NSString *txt = [NSString stringWithFormat:@"%ld.%@", (long)(indexPath.row + 1), city.zhName];
         CGSize size = [txt sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17]}];
         NSLog(@"%@", NSStringFromCGSize(size));
         return CGSizeMake(size.width, 28);

@@ -74,7 +74,11 @@
     [params safeSetObject:[NSNumber numberWithFloat:ptDetailModel.earnestMoney] forKey:@"bountyPrice"];
     [params safeSetObject:[NSNumber numberWithFloat:ptDetailModel.totalPrice] forKey:@"totalPrice"];
     [params safeSetObject:[NSNumber numberWithFloat:ptDetailModel.totalPrice] forKey:@"budget"];
-    [params safeSetObject:ptDetailModel.demand forKey:@"memo"];
+    if (ptDetailModel.memo.length) {
+        [params safeSetObject:ptDetailModel.demand forKey:@"memo"];
+    } else {
+        [params safeSetObject:@"" forKey:@"memo"];
+    }
     [params safeSetObject:ptDetailModel.topic forKey:@"topic"];
     [params safeSetObject:ptDetailModel.service forKey:@"service"];
     
@@ -108,7 +112,7 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:content forKey:@"desc"];
     [params safeSetObject:[NSNumber numberWithInteger:price] forKey:@"price"];
-    [params safeSetObject:@"" forKey:@"guideId"];
+    [params safeSetObject:[guideList firstObject] forKey:@"guideId"];
 
     [LXPNetworking POST:url parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         NSInteger result = [[responseObject objectForKey:@"code"] integerValue];
@@ -166,7 +170,8 @@
 + (void)asyncTakePersonalTailor:(NSString *)itemId completionBlock:(void (^)(BOOL))completion
 {
     NSString *url = [NSString stringWithFormat:@"%@marketplace/bounties/%@/bounty-takers", BASE_URL, itemId];
-    [LXPNetworking POST:url parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    NSDictionary *params = @{};
+    [LXPNetworking POST:url parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         NSInteger result = [[responseObject objectForKey:@"code"] integerValue];
         if (result == 0) {
            
@@ -179,7 +184,62 @@
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         completion(NO);
     }];
-
 }
 
++ (void)asyncLoadSellerServerPTDataWithUserId:(NSInteger)userId completionBlock:(void (^) (BOOL isSuccess, NSArray<PTDetailModel *> *resultList))completion
+{
+    NSString *url = [NSString stringWithFormat:@"%@marketplace/sellers/%ld/schedules", BASE_URL, userId];
+    [LXPNetworking GET:url parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSInteger result = [[responseObject objectForKey:@"code"] integerValue];
+        if (result == 0) {
+            NSMutableArray *retArray = [[NSMutableArray alloc] init];
+            for (NSDictionary *dic in [responseObject objectForKey:@"result"]) {
+                [retArray addObject:[[PTDetailModel alloc] initWithJson:dic]];
+            }
+            completion(YES, retArray);
+        } else {
+            completion(NO, nil);
+            
+        }
+        
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        completion(NO, nil);
+    }];
+}
+
+
++ (void)asyncSelectPlan:(NSInteger)planId withPtId:(NSString *)ptId completionBlock:(void (^) (BOOL isSuccess))completion
+
+{
+    NSString *url = [NSString stringWithFormat:@"%@marketplace/bounties/%@/prepay", BASE_URL, ptId];
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic setObject:[NSNumber numberWithInteger:planId] forKey:@"scheduleId"];
+    [LXPNetworking POST:url parameters:dic success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSInteger result = [[responseObject objectForKey:@"code"] integerValue];
+        if (result == 0) {
+            completion(YES);
+            
+        } else {
+            completion(NO);
+            
+        }
+        
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        completion(NO);
+    }];
+}
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+

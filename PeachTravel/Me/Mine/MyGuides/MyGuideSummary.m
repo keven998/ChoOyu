@@ -16,7 +16,12 @@
         _guideId = [json objectForKey:@"id"];
         _title = [json objectForKey:@"title"];
         _updateTime = [[json objectForKey:@"updateTime"] longLongValue]/1000;
-        _summary = [json objectForKey:@"summary"];
+        if ([json objectForKey:@"summary"] == [NSNull null]) {
+            _summary = @"";
+        } else {
+            _summary = [json objectForKey:@"summary"];
+
+        }
         NSMutableArray *imagesArray = [[NSMutableArray alloc] init];
         _updateTimeStr = [ConvertMethods timeIntervalToString:_updateTime withFormat:@"yyyy-MM-dd" withTimeZone:[NSTimeZone systemTimeZone]];
         for (id imageDic in [json objectForKey:@"images"]) {

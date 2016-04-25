@@ -24,7 +24,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.tableView.allowsSelection = NO;
     if (self.navigationController.childViewControllers.count == 1) {
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
         self.navigationItem.rightBarButtonItem = nil;
@@ -132,6 +131,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    UIButton *button = (UIButton *)cell.accessoryView;
+    [button sendActionsForControlEvents:UIControlEventTouchUpInside];
 }
 
 @end

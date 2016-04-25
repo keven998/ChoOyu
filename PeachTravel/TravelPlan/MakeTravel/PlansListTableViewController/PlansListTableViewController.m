@@ -465,6 +465,7 @@ static NSString *reusableCell = @"myGuidesCell";
         [_selectGuides addObject:[_dataSource objectAtIndex:sender.tag]];
     }
     sender.selected = !sender.selected;
+    [self goBack];
 }
 
 #pragma mark - TaoziMessageSendDelegate

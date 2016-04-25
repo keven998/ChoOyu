@@ -12,11 +12,12 @@
 
 @interface PTPlanDetailModel : NSObject
 
-@property (nonatomic, copy) NSString *planId;
+@property (nonatomic) NSInteger planId;
 @property (nonatomic, copy) NSString *desc;
 @property (nonatomic) long commitTime;
 @property (nonatomic, copy, readonly) NSString *commitTimeStr;
 @property (nonatomic) float totalPrice;
+@property (nonatomic) BOOL hasBuy;  //是否已经购买此方案
 @property (nonatomic, strong) FrendModel *seller;
 @property (nonatomic, strong) NSArray<MyGuideSummary *> *dataSource;
 

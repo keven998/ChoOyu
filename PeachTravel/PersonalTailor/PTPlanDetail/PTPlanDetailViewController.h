@@ -12,5 +12,9 @@
 @interface PTPlanDetailViewController : TZViewController
 
 @property (nonatomic, strong) PTPlanDetailModel *ptPlanDetail;
+@property (nonatomic) NSInteger publishUserId;
+@property (nonatomic, copy) NSString *ptId;
+
+@property (nonatomic) BOOL hasBuy;
 
 @end

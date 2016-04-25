@@ -31,6 +31,10 @@
 @property (nonatomic, strong) NSArray<FrendModel *> *takers;  //抢单人
 @property (nonatomic, strong) FrendModel *consumer;   //发单人
 
+@property (nonatomic, strong) PTPlanDetailModel *selectPlan;  //已选择的方案
+
+@property (nonatomic) BOOL hasRequestRefundMoney;  //是否申请退款
+
 @property (nonatomic) float totalPrice;
 @property (nonatomic) BOOL planPaid;  //方案是否支付
 

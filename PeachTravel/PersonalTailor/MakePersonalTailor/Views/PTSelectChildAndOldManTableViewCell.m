@@ -17,17 +17,12 @@
 
 }
 - (IBAction)selectChildAction:(UIButton *)sender {
-    if (sender.selected) {
-        return;
-    }
     sender.selected = !sender.selected;
     _ptDetailModel.hasChild = sender.selected;
 }
 
 - (IBAction)selectOldManAction:(UIButton *)sender {
-    if (sender.selected) {
-        return;
-    }
+    
     sender.selected = !sender.selected;
     _ptDetailModel.hasOldMan = sender.selected;
 }

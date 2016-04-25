@@ -11,11 +11,17 @@
 #import "BNOrderListRootViewController.h"
 #import "TZButton.h"
 #import "StoreManager.h"
+#import "PTListViewController.h"
+#import "BNServerCityHomeViewController.h"
 
 @interface BusinessHomeViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *myGoodsButton;
 
 @property (weak, nonatomic) IBOutlet UIButton *myOrderButton;
+@property (weak, nonatomic) IBOutlet UIButton *myPTServerButton;
+@property (weak, nonatomic) IBOutlet UIButton *myPTServerCitiesButton;
+
+@property (nonatomic, strong) NSArray *serverCityList;
 @end
 
 @implementation BusinessHomeViewController
@@ -23,6 +29,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"我的店铺";
+    _serverCityList = [[NSMutableArray alloc] init];
     
     _myGoodsButton.layer.borderColor = [UIColor whiteColor].CGColor;
     _myGoodsButton.layer.borderWidth = 1;
@@ -31,6 +38,14 @@
     _myOrderButton.layer.borderColor = [UIColor whiteColor].CGColor;
     _myOrderButton.layer.borderWidth = 1;
     _myOrderButton.layer.cornerRadius = 3.0;
+    
+    _myPTServerButton.layer.borderColor = [UIColor whiteColor].CGColor;
+    _myPTServerButton.layer.borderWidth = 1;
+    _myPTServerButton.layer.cornerRadius = 3.0;
+    
+    _myPTServerCitiesButton.layer.borderColor = [UIColor whiteColor].CGColor;
+    _myPTServerCitiesButton.layer.borderWidth = 1;
+    _myPTServerCitiesButton.layer.cornerRadius = 3.0;
     
     CGFloat spaceWidth = (kWindowWidth-200)/3;
     UIImageView *totalPriceImageView = [[UIImageView alloc] initWithFrame:CGRectMake(spaceWidth, 120, 100, 80)];
@@ -69,7 +84,12 @@
         if (storeDetail.pendingOrderCnt) {
             [_myOrderButton setTitle:[NSString stringWithFormat:@"我的订单 (%ld单待处理)", storeDetail.pendingOrderCnt] forState:UIControlStateNormal];
         }
-
+    }];
+    
+    [StoreManager asyncLoadStoreServerCitiesWithStoreId:[AccountManager shareAccountManager].account.userId completionBlock:^(BOOL isSuccess, NSArray<CityDestinationPoi *> *cityList) {
+        if (isSuccess) {
+            _serverCityList = cityList;
+        }
     }];
 }
 
@@ -86,6 +106,18 @@
 - (IBAction)myGoodsAction:(id)sender {
     BNGoodsListRootViewController *ctl = [[BNGoodsListRootViewController alloc] init];
     ctl.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:ctl animated:YES];
+}
+
+- (IBAction)myPTServerAction:(UIButton *)sender {
+    PTListViewController *ctl = [[PTListViewController alloc] init];
+    ctl.isLoadSellerPTData = YES;
+    [self.navigationController pushViewController:ctl animated:YES];
+}
+
+- (IBAction)myPTServerCitiesAction:(id)sender {
+    BNServerCityHomeViewController *ctl = [[BNServerCityHomeViewController alloc] init];
+    ctl.selectCitys = _serverCityList;
     [self.navigationController pushViewController:ctl animated:YES];
 }
 

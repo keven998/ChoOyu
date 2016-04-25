@@ -12,4 +12,6 @@
 
 @property (nonatomic) NSInteger userId;
 
+@property (nonatomic) BOOL isLoadSellerPTData;  //是否是加载商家服务的需求
+
 @end

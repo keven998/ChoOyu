@@ -22,5 +22,5 @@ extern NSString *const kOrderPayResultNoti;
 
 - (void)asyncPayPersonalTailor:(NSString *)ptOrderId payPlatform:(TZPayPlatform)payPlatform completionBlock:(void (^) (BOOL isSuccess, NSString *errorStr))completion;
 
-
+- (void)asyncPayPersonalTailorPlan:(NSString *)ptOrderId payPlatform:(TZPayPlatform)payPlatform completionBlock:(void (^) (BOOL isSuccess, NSString *errorStr))completion;
 @end

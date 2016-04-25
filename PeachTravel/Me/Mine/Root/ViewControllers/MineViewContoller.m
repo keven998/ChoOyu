@@ -41,7 +41,7 @@
                         @{@"title": @"我的收藏", @"image": @"icon_mine_favorite"},
                         @{@"title": @"优惠券", @"image": @"icon_mine_coupon"},
                         @{@"title": @"我的邀请码", @"image": @"icon_mine_inviteCode"},
-                        @{@"title": @"我发布的需求", @"image": @"icon_mine_inviteCode"},
+                        @{@"title": @"我发布的需求", @"image": @"icon_mine_pt"},
                         @{@"title": @"我的旅行计划", @"image": @"icon_mine_guides"},
                         ],
                     @[
@@ -102,7 +102,7 @@
                                 @{@"title": @"我的收藏", @"image": @"icon_mine_favorite"},
                                 @{@"title": @"优惠券", @"image": @"icon_mine_coupon"},
                                 @{@"title": @"我的邀请码", @"image": @"icon_mine_inviteCode"},
-                                @{@"title": @"我发布的需求", @"image": @"icon_mine_inviteCode"},
+                                @{@"title": @"我发布的需求", @"image": @"icon_mine_pt"},
                                 @{@"title": @"我的旅行计划", @"image": @"icon_mine_guides"},
                                 ],
                             @[
@@ -116,7 +116,7 @@
                                 @{@"title": @"我的收藏", @"image": @"icon_mine_favorite"},
                                 @{@"title": @"优惠券", @"image": @"icon_mine_coupon"},
                                 @{@"title": @"我的邀请码", @"image": @"icon_mine_inviteCode"},
-                                @{@"title": @"我发布的需求", @"image": @"icon_mine_inviteCode"},
+                                @{@"title": @"我发布的需求", @"image": @"icon_mine_pt"},
                                 @{@"title": @"我的旅行计划", @"image": @"icon_mine_guides"},
                                 ],
                             @[

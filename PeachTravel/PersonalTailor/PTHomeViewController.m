@@ -12,11 +12,12 @@
 #import "PersonalTailorViewController.h"
 #import "PersonalTailorManager.h"
 #import "MJRefresh.h"
+#import "LoginViewController.h"
 
 @interface PTHomeViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSArray *dataSource;
+@property (nonatomic, strong) NSArray<PTDetailModel *> *dataSource;
 @property (nonatomic, strong) UILabel *ptNumberLabel;
 
 @end
@@ -127,8 +128,22 @@
 
 - (void)makePT
 {
-    MakePersonalTailorViewController *ctl = [[MakePersonalTailorViewController alloc] init];
-    [self.navigationController pushViewController:ctl animated:YES];
+    if (![[AccountManager shareAccountManager] isLogin]) {
+        [SVProgressHUD showHint:@"请先登录"];
+        [self performSelector:@selector(login) withObject:nil afterDelay:0.3];
+    } else {
+        MakePersonalTailorViewController *ctl = [[MakePersonalTailorViewController alloc] init];
+        [self.navigationController pushViewController:ctl animated:YES];
+
+    }
+}
+
+- (void)login
+{
+    LoginViewController *loginViewController = [[LoginViewController alloc] init];
+    TZNavigationViewController *nctl = [[TZNavigationViewController alloc] initWithRootViewController:loginViewController];
+    loginViewController.isPushed = NO;
+    [self presentViewController:nctl animated:YES completion:nil];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -157,7 +172,7 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     PersonalTailorViewController *ctl = [[PersonalTailorViewController alloc] init];
-    ctl.ptDetailModel = [_dataSource objectAtIndex:indexPath.row];
+    ctl.ptId = [_dataSource objectAtIndex:indexPath.row].itemId;
     [self.navigationController pushViewController:ctl animated:true];
 }
 

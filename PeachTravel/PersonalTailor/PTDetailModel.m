@@ -35,9 +35,14 @@
         }
         _destinations = array;
         
+        _selectPlan = [[PTPlanDetailModel alloc] initWithJson:[json objectForKey:@"schedule"]];
         NSMutableArray *temp = [[NSMutableArray alloc] init];
         for (NSDictionary *dic in [json objectForKey:@"schedules"]) {
-            [temp addObject:[[PTPlanDetailModel alloc] initWithJson:dic]];
+            PTPlanDetailModel *model = [[PTPlanDetailModel alloc] initWithJson:dic];
+            if (model.planId == _selectPlan.planId) {
+                model.hasBuy = YES;
+            }
+            [temp addObject: model];
         }
         _plans = temp;
         

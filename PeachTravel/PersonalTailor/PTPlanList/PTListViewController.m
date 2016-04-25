@@ -15,7 +15,7 @@
 @interface PTListViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSArray *dataSource;
+@property (nonatomic, strong) NSArray<PTDetailModel *> *dataSource;
 @property (nonatomic, strong) UILabel *ptNumberLabel;
 
 @end
@@ -29,17 +29,28 @@
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     _tableView.dataSource = self;
     _tableView.delegate = self;
-    self.navigationItem.title = @"需求列表";
     [_tableView registerNib:[UINib nibWithNibName:@"PTListTableViewCell" bundle:nil] forCellReuseIdentifier:@"PTListTableViewCell"];
     [self.view addSubview:_tableView];
     
-    [PersonalTailorManager asyncLoadUsrePTDataWithUserId:_userId completionBlock:^(BOOL isSuccess, NSArray<PTDetailModel *> *resultList) {
-        if (isSuccess) {
-            _dataSource = resultList;
-            [self.tableView reloadData];
-        }
-    }];
-    
+    if (_isLoadSellerPTData) {
+        self.navigationItem.title = @"服务列表";
+
+        [PersonalTailorManager asyncLoadSellerServerPTDataWithUserId:_userId completionBlock:^(BOOL isSuccess, NSArray<PTDetailModel *> *resultList) {
+            if (isSuccess) {
+                _dataSource = resultList;
+                [self.tableView reloadData];
+            }
+        }];
+    } else {
+        self.navigationItem.title = @"需求列表";
+
+        [PersonalTailorManager asyncLoadUsrePTDataWithUserId:_userId completionBlock:^(BOOL isSuccess, NSArray<PTDetailModel *> *resultList) {
+            if (isSuccess) {
+                _dataSource = resultList;
+                [self.tableView reloadData];
+            }
+        }];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -82,7 +93,7 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     PersonalTailorViewController *ctl = [[PersonalTailorViewController alloc] init];
-    ctl.ptDetailModel = [_dataSource objectAtIndex:indexPath.row];
+    ctl.ptId = [_dataSource objectAtIndex:indexPath.row].itemId;
     [self.navigationController pushViewController:ctl animated:true];
 }
 

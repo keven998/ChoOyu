@@ -22,8 +22,7 @@
                                   };
         NSAttributedString *attrstr = [[NSAttributedString alloc] initWithString:goodsDetail.goodsBookDescSummary attributes:attribs];
         
-        CGRect
-        rect = [attrstr boundingRectWithSize:(CGSize){kWindowWidth-32, CGFLOAT_MAX} options:NSStringDrawingUsesLineFragmentOrigin context:nil];
+        CGRect rect = [attrstr boundingRectWithSize:(CGSize){kWindowWidth-32, CGFLOAT_MAX} options:NSStringDrawingUsesLineFragmentOrigin context:nil];
         retHeight += rect.size.height;
     }
     if (goodsDetail.goodsQuitDescSummary.length) {

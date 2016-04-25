@@ -334,7 +334,7 @@
             
         } else if (indexPath.row == 5) {
             PTMakeContentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PTMakeContentTableViewCell" forIndexPath:indexPath];
-            cell.contentPlaceHolder = @"元/人左右";
+            cell.contentPlaceHolder = @"元左右";
             cell.contentTextfield.textAlignment = NSTextAlignmentRight;
             cell.typeDesc = @"总预算";
             cell.contentTextfield.keyboardType = UIKeyboardTypeDefault;
@@ -345,7 +345,7 @@
 
             cell.contentTextfield.userInteractionEnabled = YES;
             if (_ptDetailModel.totalPrice) {
-                cell.contentTextfield.text = [[NSString alloc] initWithFormat:@"%f", _ptDetailModel.totalPrice];
+                cell.contentTextfield.text = [[NSString alloc] initWithFormat:@"%ld", (NSInteger)_ptDetailModel.totalPrice];
             } else {
                 cell.contentTextfield.text = nil;
             }
@@ -357,35 +357,54 @@
         
     } else if (indexPath.section == 2) {
         if (indexPath.row == 0) {
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+            
+            PTMakeContentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PTMakeContentTableViewCell" forIndexPath:indexPath];
             cell.textLabel.font = [UIFont systemFontOfSize:15.0];
             cell.textLabel.textColor = COLOR_TEXT_I;
-            NSString *content = [NSString stringWithFormat:@"*旅行城市"];
-            NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:content];
-            [attr addAttribute:NSForegroundColorAttributeName value:COLOR_PRICE_RED range:NSMakeRange(0, 1)];
-            cell.textLabel.attributedText = attr;
+            cell.typeDesc = @"旅行城市";
+            cell.contentPlaceHolder = nil;
+            cell.contentTextfield.userInteractionEnabled = NO;
+            cell.contentTextfield.textAlignment = NSTextAlignmentRight;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell.contentTextfield.keyboardType = UIKeyboardTypeDefault;
+            cell.endEditBlock = nil;
+            cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+            NSMutableString *content = [[NSMutableString alloc] init];
+            for (CityDestinationPoi *poi in _ptDetailModel.destinations) {
+                [content appendFormat:@"%@ ", poi.zhName];
+            }
+            cell.contentTextfield.text = content;
             return cell;
         } else if (indexPath.row == 1) {
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+            PTMakeContentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PTMakeContentTableViewCell" forIndexPath:indexPath];
             cell.textLabel.font = [UIFont systemFontOfSize:15.0];
             cell.textLabel.textColor = COLOR_TEXT_I;
-            NSString *content = [NSString stringWithFormat:@"*服务包含"];
-            NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:content];
-            [attr addAttribute:NSForegroundColorAttributeName value:COLOR_PRICE_RED range:NSMakeRange(0, 1)];
-            cell.textLabel.attributedText = attr;
+            cell.typeDesc = @"服务包含";
+            cell.contentPlaceHolder = nil;
+            cell.contentTextfield.userInteractionEnabled = NO;
+            cell.contentTextfield.textAlignment = NSTextAlignmentRight;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell.contentTextfield.keyboardType = UIKeyboardTypeDefault;
+            cell.endEditBlock = nil;
+            cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+            
+            cell.contentTextfield.text = _ptDetailModel.service;
             return cell;
+            
         } else if (indexPath.row == 2) {
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+            
+            PTMakeContentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PTMakeContentTableViewCell" forIndexPath:indexPath];
             cell.textLabel.font = [UIFont systemFontOfSize:15.0];
             cell.textLabel.textColor = COLOR_TEXT_I;
-            NSString *content = [NSString stringWithFormat:@"*主题偏向"];
-            NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:content];
-            [attr addAttribute:NSForegroundColorAttributeName value:COLOR_PRICE_RED range:NSMakeRange(0, 1)];
-            cell.textLabel.attributedText = attr;
-
+            cell.typeDesc = @"主题偏向";
+            cell.contentPlaceHolder = nil;
+            cell.contentTextfield.userInteractionEnabled = NO;
+            cell.contentTextfield.textAlignment = NSTextAlignmentRight;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell.contentTextfield.keyboardType = UIKeyboardTypeDefault;
+            cell.endEditBlock = nil;
+            cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+            cell.contentTextfield.text = _ptDetailModel.topic;
             return cell;
         }
     } else {
@@ -448,7 +467,6 @@
             [self presentViewController:[[UINavigationController alloc] initWithRootViewController:ctl] animated:YES completion:nil];
         }
     }
-
 }
 
 - (void)didSelectCity:(NSString *)cityId cityName:(NSString *)cityName
@@ -471,16 +489,19 @@
 - (void)didSelectTopicContent:(NSArray *)contentList
 {
     _ptDetailModel.topicList = contentList;
+    [self.tableView reloadData];
 }
 
 - (void)didSelectServiceContent:(NSArray *)contentList
 {
     _ptDetailModel.serviceList = contentList;
+    [self.tableView reloadData];
 }
 
 - (void)didSelectCitys:(NSArray *)cityList
 {
     _ptDetailModel.destinations = cityList;
+    [self.tableView reloadData];
 }
 
 @end

@@ -49,6 +49,9 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    if (_guideDataSource.count>1) {
+        [_guideDataSource removeObjectAtIndex:0];
+    }
     [self.tableView reloadData];
 }
 

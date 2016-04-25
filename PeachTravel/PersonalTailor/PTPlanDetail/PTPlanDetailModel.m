@@ -13,16 +13,17 @@
 - (id)initWithJson:(id)json
 {
     if (self = [super init]) {
-        _planId = [json objectForKey:@"bountyId"];
+        _planId = [[json objectForKey:@"itemId"] integerValue];
         _desc = [json objectForKey:@"desc"];
-        _totalPrice = [[json objectForKey:@"totalPrice"] floatValue];
-        _seller = [[FrendModel alloc] initWithJson:[json objectForKey:@"seller"]];
+        _totalPrice = [[json objectForKey:@"price"] floatValue];
+        _seller = [[FrendModel alloc] initWithJson:[[json objectForKey:@"seller"] objectForKey:@"user"]];
         _commitTime = [[json objectForKey:@"createTime"] longLongValue]/1000;
         
         NSMutableArray *temp = [[NSMutableArray alloc] init];
-        for (NSDictionary *dic in [json objectForKey:@"plans"]) {
-            [temp addObject:[[MyGuideSummary alloc] initWithJson:dic]];
+        if ([json objectForKey:@"guide"]) {
+            [temp addObject:[[MyGuideSummary alloc] initWithJson:[json objectForKey:@"guide"]]];
         }
+
         _dataSource = temp;
     }
     return self;

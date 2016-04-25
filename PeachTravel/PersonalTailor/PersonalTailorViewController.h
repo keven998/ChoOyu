@@ -11,5 +11,5 @@
 
 @interface PersonalTailorViewController : TZViewController
 
-@property (nonatomic, strong) PTDetailModel *ptDetailModel;
+@property (nonatomic, copy) NSString *ptId;
 @end

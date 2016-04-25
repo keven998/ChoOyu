@@ -19,5 +19,10 @@
  */
 + (void)asyncLoadStoreInfoWithStoreId:(NSInteger)storeId completionBlock:(void (^) (BOOL isSuccess, StoreDetailModel *storeDetail))completion;
 
+//获取商家服务城市
++ (void)asyncLoadStoreServerCitiesWithStoreId:(NSInteger)storeId completionBlock:(void (^)(BOOL isSuccess, NSArray<CityDestinationPoi *> *cityList))completion;
+
+//更新商家服务城市
++ (void)asyncUpdateSellerServerCities:(NSArray<CityDestinationPoi *> *)cities completionBlock:(void (^)(BOOL isSuccess))completion;
 
 @end

@@ -23,5 +23,7 @@
 
 + (void)asyncTakePersonalTailor:(NSString *)itemId completionBlock:(void (^) (BOOL isSuccess))completion;
 
++ (void)asyncLoadSellerServerPTDataWithUserId:(NSInteger)userId completionBlock:(void (^) (BOOL isSuccess, NSArray<PTDetailModel *> *resultList))completion;
 
++ (void)asyncSelectPlan:(NSInteger)planId withPtId:(NSString *)ptId completionBlock:(void (^) (BOOL isSuccess))completion;
 @end

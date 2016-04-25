@@ -10,6 +10,7 @@
 #import "DownSheet.h"
 #import "TZPayManager.h"
 #import "PersonalTailorManager.h"
+#import "PersonalTailorViewController.h"
 
 @interface PTPayMoneyViewController () <UITextFieldDelegate, DownSheetDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *noMoneyLabel;
@@ -54,6 +55,20 @@
         [PersonalTailorManager asyncMakePersonalTailorWithPTModel:_ptDetailModel completionBlock:^(BOOL isSuccess, PTDetailModel *ptDetailModel) {
             if (isSuccess) {
                 _ptDetailModel = ptDetailModel;
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"您的需求已经成功提交" message:nil delegate:self cancelButtonTitle:@"返回定制首页" otherButtonTitles:@"查看发布需求", nil];
+                [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
+                    if (buttonIndex == 0) {
+                        [self.navigationController popToRootViewControllerAnimated:YES];
+                    } else {
+                        PersonalTailorViewController *ctl = [[PersonalTailorViewController alloc] init];
+                        ctl.ptId = _ptDetailModel.itemId;
+                        NSMutableArray *ctls = [[NSMutableArray alloc] init];
+                        [ctls addObject:[self.navigationController.viewControllers firstObject]];
+                        [ctls addObject:ctl];
+                        [self.navigationController setViewControllers:ctls animated:YES];
+                    }
+                }];
+
             } else {
                 [SVProgressHUD showHint:@"需求发布失败"];
             }
@@ -89,6 +104,20 @@
         [_payManager asyncPayPersonalTailor:_ptDetailModel.itemId payPlatform:platform completionBlock:^(BOOL isSuccess, NSString *errorStr) {
             if (isSuccess) {
                 [SVProgressHUD showHint:@"支付成功"];
+                
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"您的需求已经成功提交" message:nil delegate:self cancelButtonTitle:@"返回定制首页" otherButtonTitles:@"查看发布需求", nil];
+                [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
+                    if (buttonIndex == 0) {
+                        [self.navigationController popToRootViewControllerAnimated:YES];
+                    } else {
+                        PersonalTailorViewController *ctl = [[PersonalTailorViewController alloc] init];
+                        ctl.ptId = _ptDetailModel.itemId;
+                        NSMutableArray *ctls = [[NSMutableArray alloc] init];
+                        [ctls addObject:[self.navigationController.viewControllers firstObject]];
+                        [ctls addObject:ctl];
+                        [self.navigationController setViewControllers:ctls animated:YES];
+                    }
+                }];
             } else {
                 [SVProgressHUD showHint:@"支付失败"];
             }
@@ -100,6 +129,21 @@
                 [_payManager asyncPayPersonalTailor:_ptDetailModel.itemId payPlatform:platform completionBlock:^(BOOL isSuccess, NSString *errorStr) {
                     if (isSuccess) {
                         [SVProgressHUD showHint:@"支付成功"];
+        
+                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"您的需求已经成功提交" message:nil delegate:self cancelButtonTitle:@"返回定制首页" otherButtonTitles:@"查看发布需求", nil];
+                        [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
+                            if (buttonIndex == 0) {
+                                [self.navigationController popToRootViewControllerAnimated:YES];
+                            } else {
+                                PersonalTailorViewController *ctl = [[PersonalTailorViewController alloc] init];
+                                ctl.ptId = _ptDetailModel.itemId;
+                                NSMutableArray *ctls = [[NSMutableArray alloc] init];
+                                [ctls addObject:[self.navigationController.viewControllers firstObject]];
+                                [ctls addObject:ctl];
+                                [self.navigationController setViewControllers:ctls animated:YES];
+                            }
+                        }];
+                        
                     } else {
                         [SVProgressHUD showHint:@"支付失败"];
                     }

@@ -7,6 +7,7 @@
 //
 
 #import "StoreManager.h"
+#import "CityDestinationPoi.h"
 
 @implementation StoreManager
 
@@ -37,7 +38,66 @@
         completion(NO, nil);
         
     }];
+}
+
++ (void)asyncLoadStoreServerCitiesWithStoreId:(NSInteger)storeId completionBlock:(void (^)(BOOL isSuccess, NSArray<CityDestinationPoi *> *cityList))completion
+{
+    NSString *url = [NSString stringWithFormat:@"%@/%ld/subLocalities", API_STORE, storeId];
+    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [LXPNetworking GET:url parameters: nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        
+        if (code == 0) {
+            NSMutableArray *cities = [[NSMutableArray alloc] init];
+            for (NSDictionary *json in [responseObject objectForKey:@"result"]) {
+                CityDestinationPoi *poi = [[CityDestinationPoi alloc] initWithJson:json];
+                [cities addObject:poi];
+            }
+            completion(YES, cities);
+        } else {
+            completion(NO, nil);
+        }
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        
+        completion(NO, nil);
+        
+    }];
+}
+
++ (void)asyncUpdateSellerServerCities:(NSArray<CityDestinationPoi *> *)cities completionBlock:(void (^)(BOOL isSuccess))completion
+{
+    NSString *url = [NSString stringWithFormat:@"%@/subLocalities", API_STORE];
+    NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+    for (CityDestinationPoi *poi in cities) {
+        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+        [dic safeSetObject:poi.cityId forKey:@"id"];
+        [dic safeSetObject:poi.zhName forKey:@"zhName"];
+        [tempArray addObject:dic];
+    }
+    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [LXPNetworking POST:url parameters: @{@"localities": tempArray} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        
+        if (code == 0) {
+            completion(YES);
+        } else {
+            completion(NO);
+        }
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        
+        completion(NO);
+    }];
 
 }
+
+
 
 @end
