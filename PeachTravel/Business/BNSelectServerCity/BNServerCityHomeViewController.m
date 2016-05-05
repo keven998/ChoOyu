@@ -10,6 +10,7 @@
 #import "DestinationCollectionViewCell.h"
 #import "BNSelectServerCityViewController.h"
 #import "StoreManager.h"
+#import "PersonalTailorManager.h"
 
 @interface BNServerCityHomeViewController () <UICollectionViewDataSource, UICollectionViewDelegate, BNSelectServerCityViewControllerDelegate>
 
@@ -49,6 +50,14 @@
     [self.view addSubview:addButton];
     
     [self setupSelectPanel];
+    
+    [PersonalTailorManager asyncLoadSellerServerCitysWithUserId:[AccountManager shareAccountManager].account.userId completionBlock:^(BOOL isSuccess, NSArray<CityDestinationPoi *> *resultList) {
+        if (isSuccess) {
+            _selectCitys = resultList;
+            [self.selectPanel reloadData];
+        }
+        
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated

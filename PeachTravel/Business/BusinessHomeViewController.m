@@ -21,7 +21,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *myPTServerButton;
 @property (weak, nonatomic) IBOutlet UIButton *myPTServerCitiesButton;
 
-@property (nonatomic, strong) NSArray *serverCityList;
 @end
 
 @implementation BusinessHomeViewController
@@ -29,7 +28,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"我的店铺";
-    _serverCityList = [[NSMutableArray alloc] init];
     
     _myGoodsButton.layer.borderColor = [UIColor whiteColor].CGColor;
     _myGoodsButton.layer.borderWidth = 1;
@@ -85,12 +83,6 @@
             [_myOrderButton setTitle:[NSString stringWithFormat:@"我的订单 (%ld单待处理)", storeDetail.pendingOrderCnt] forState:UIControlStateNormal];
         }
     }];
-    
-    [StoreManager asyncLoadStoreServerCitiesWithStoreId:[AccountManager shareAccountManager].account.userId completionBlock:^(BOOL isSuccess, NSArray<CityDestinationPoi *> *cityList) {
-        if (isSuccess) {
-            _serverCityList = cityList;
-        }
-    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -112,12 +104,12 @@
 - (IBAction)myPTServerAction:(UIButton *)sender {
     PTListViewController *ctl = [[PTListViewController alloc] init];
     ctl.isLoadSellerPTData = YES;
+    ctl.userId = [AccountManager shareAccountManager].account.userId;
     [self.navigationController pushViewController:ctl animated:YES];
 }
 
 - (IBAction)myPTServerCitiesAction:(id)sender {
     BNServerCityHomeViewController *ctl = [[BNServerCityHomeViewController alloc] init];
-    ctl.selectCitys = _serverCityList;
     [self.navigationController pushViewController:ctl animated:YES];
 }
 

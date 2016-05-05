@@ -20,8 +20,10 @@
         _commitTime = [[json objectForKey:@"createTime"] longLongValue]/1000;
         
         NSMutableArray *temp = [[NSMutableArray alloc] init];
-        if ([json objectForKey:@"guide"]) {
-            [temp addObject:[[MyGuideSummary alloc] initWithJson:[json objectForKey:@"guide"]]];
+        if ([json objectForKey:@"guide"] != [NSNull null]) {
+            if ([[json objectForKey:@"guide"] objectForKey:@"id"]) {
+                [temp addObject:[[MyGuideSummary alloc] initWithJson:[json objectForKey:@"guide"]]];
+            }
         }
 
         _dataSource = temp;

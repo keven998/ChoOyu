@@ -2,7 +2,7 @@
 //  PTListViewController.m
 //  PeachTravel
 //
-//  Created by liangpengshuai on 3/28/16.
+//  Created by liangpengshuai on kPageCount/28/16.
 //  Copyright © 2016 com.aizou.www. All rights reserved.
 //
 
@@ -11,11 +11,15 @@
 #import "PTListTableViewCell.h"
 #import "PersonalTailorViewController.h"
 #import "PersonalTailorManager.h"
+#import "MJRefresh.h"
+
+
+#define kPageCount 10
 
 @interface PTListViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSArray<PTDetailModel *> *dataSource;
+@property (nonatomic, strong) NSMutableArray<PTDetailModel *> *dataSource;
 @property (nonatomic, strong) UILabel *ptNumberLabel;
 
 @end
@@ -25,28 +29,56 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = APP_THEME_COLOR;
+    _dataSource = [[NSMutableArray alloc] init];
     
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     _tableView.dataSource = self;
     _tableView.delegate = self;
     [_tableView registerNib:[UINib nibWithNibName:@"PTListTableViewCell" bundle:nil] forCellReuseIdentifier:@"PTListTableViewCell"];
+    self.tableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
+
     [self.view addSubview:_tableView];
     
     if (_isLoadSellerPTData) {
         self.navigationItem.title = @"服务列表";
-
-        [PersonalTailorManager asyncLoadSellerServerPTDataWithUserId:_userId completionBlock:^(BOOL isSuccess, NSArray<PTDetailModel *> *resultList) {
+        [PersonalTailorManager asyncLoadSellerServerPTDataWithUserId:_userId index:0 pageCount:kPageCount completionBlock:^(BOOL isSuccess, NSArray<PTDetailModel *> *resultList) {
             if (isSuccess) {
-                _dataSource = resultList;
+                [_dataSource addObjectsFromArray:resultList];
                 [self.tableView reloadData];
             }
         }];
     } else {
         self.navigationItem.title = @"需求列表";
 
-        [PersonalTailorManager asyncLoadUsrePTDataWithUserId:_userId completionBlock:^(BOOL isSuccess, NSArray<PTDetailModel *> *resultList) {
+        [PersonalTailorManager asyncLoadUsrePTDataWithUserId:_userId index:0 pageCount:kPageCount completionBlock:^(BOOL isSuccess, NSArray<PTDetailModel *> *resultList) {
             if (isSuccess) {
-                _dataSource = resultList;
+                [_dataSource addObjectsFromArray:resultList];
+                [self.tableView reloadData];
+            }
+        }];
+        
+    }
+}
+
+- (void)loadMoreData
+{
+    if (_isLoadSellerPTData) {
+        self.navigationItem.title = @"服务列表";
+        
+        [PersonalTailorManager asyncLoadSellerServerPTDataWithUserId:_userId index:[_dataSource count] pageCount:kPageCount completionBlock:^(BOOL isSuccess, NSArray<PTDetailModel *> *resultList) {
+            [_tableView.footer endRefreshing];
+            if (isSuccess) {
+                [_dataSource addObjectsFromArray:resultList];
+                [self.tableView reloadData];
+            }
+        }];
+    } else {
+        self.navigationItem.title = @"需求列表";
+        
+        [PersonalTailorManager asyncLoadUsrePTDataWithUserId:_userId index:[_dataSource count] pageCount:kPageCount completionBlock:^(BOOL isSuccess, NSArray<PTDetailModel *> *resultList) {
+            [_tableView.footer endRefreshing];
+            if (isSuccess) {
+                [_dataSource addObjectsFromArray:resultList];
                 [self.tableView reloadData];
             }
         }];

@@ -64,11 +64,11 @@
     [makePTButton addTarget:self action:@selector(makePT) forControlEvents:UIControlEventTouchUpInside];
     [headerView addSubview:makePTButton];
     
-    UILabel *ptNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(12, 210, kWindowWidth-24, 20)];
-    ptNumberLabel.textColor = APP_THEME_COLOR;
-    ptNumberLabel.font = [UIFont systemFontOfSize:15.0];
-    ptNumberLabel.textAlignment = NSTextAlignmentCenter;
-    [headerView addSubview:ptNumberLabel];
+    _ptNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(12, 210, kWindowWidth-24, 20)];
+    _ptNumberLabel.textColor = APP_THEME_COLOR;
+    _ptNumberLabel.font = [UIFont systemFontOfSize:15.0];
+    _ptNumberLabel.textAlignment = NSTextAlignmentCenter;
+    [headerView addSubview:_ptNumberLabel];
     _tableView.tableHeaderView = headerView;
     
     MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshData)];
@@ -79,6 +79,11 @@
         if (isSuccess) {
             _dataSource = resultList;
             [self.tableView reloadData];
+        }
+    }];
+    [PersonalTailorManager asyncLoadPTServerCountWithCompletionBlock:^(BOOL isSuccess, NSInteger count) {
+        if (count > 0) {
+            _ptNumberLabel.text = [NSString stringWithFormat:@"已为%ld位旅行者提供了定制服务", count];
         }
     }];
     
@@ -111,7 +116,11 @@
             [self.tableView reloadData];
         }
     }];
-  
+    [PersonalTailorManager asyncLoadPTServerCountWithCompletionBlock:^(BOOL isSuccess, NSInteger count) {
+        if (count > 0) {
+            _ptNumberLabel.text = [NSString stringWithFormat:@"已为%ld位旅行者提供了定制服务", count];
+        }
+    }];
     [_tableView.header endRefreshing];
 }
 
@@ -132,13 +141,14 @@
 
 - (void)makePT
 {
-//    NSString *payInfo = @"";
+//    NSString *payInfo = @"body=\"14615649066421\"&subject=\"0\"&out_trade_no=\"1461564906642\"&_input_charset=\"utf-8\"&partner=\"2088021950613142\"&service=\"mobile.securitypay.pay\"&seller_id=\"xjpay@xuejianinc.com\"&payment_type=\"1\"&notify_url=\"http://api-dev.lvxingpai.com/app/marketplace/bounties/payment-webhook/alipay\"&total_fee=\"0.01\"&sign=\"r1H9XuUU4HRbz0iU0vS142carP3OpoB4kVjBb18Q4mN7pmQ6wWn%2FbTEbPVgmrOVvrhvihdmXPwwvDFbPt1voKvFKJpzZ6u1c9JGmodd4fN4%2FFC9fuhfv%2F1YReWQU%2BshWs0bz0HJ2cGYmJZB16S%2Bmi7BhRLdueuph5jK85z4E8Y4%3D\"&sign_type=\"RSA\"";
 //    [[AlipaySDK defaultService] payOrder:payInfo fromScheme:@"lvxingpai" callback:^(NSDictionary *resultDic) {
 //        NSString *status=[NSString stringWithFormat:@"%@",resultDic[@"resultStatus"]];
 //        if ([status isEqualToString:@"9000"]) {
 //        } else{
 //        }
 //    }];
+//    return;
     
     if (![[AccountManager shareAccountManager] isLogin]) {
         [SVProgressHUD showHint:@"请先登录"];

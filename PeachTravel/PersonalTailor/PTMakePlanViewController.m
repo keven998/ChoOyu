@@ -17,7 +17,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray<MyGuideSummary *>* guideDataSource;
 @property (nonatomic, copy) NSString *planContent;
-@property (nonatomic) NSInteger totalPrice;
+@property (nonatomic) float totalPrice;
 
 @end
 
@@ -61,6 +61,7 @@
 
 - (void)commitPlane:(UIButton *)sender
 {
+    [self.view endEditing:YES];
     if (!_planContent.length) {
         [SVProgressHUD showHint:@"请输入方案内容"];
         return;
@@ -239,7 +240,7 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    _totalPrice = [textField.text integerValue];
+    _totalPrice = [textField.text floatValue];
 }
 
 

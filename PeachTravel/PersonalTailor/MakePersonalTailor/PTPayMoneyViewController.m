@@ -42,7 +42,6 @@
     _commitPTButton.clipsToBounds = YES;
     _inputMoneyTextfield.delegate = self;
     [_freeSelectButton sendActionsForControlEvents:UIControlEventTouchUpInside];
-
 }
 
 - (void)didReceiveMemoryWarning {

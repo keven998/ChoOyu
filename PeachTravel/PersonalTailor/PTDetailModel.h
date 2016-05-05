@@ -24,11 +24,16 @@
 @property (nonatomic) NSTimeInterval createTime;
 @property (nonatomic, copy, readonly) NSString *createTimeStr;
 
+@property (nonatomic, copy) NSString *status;
+
+
 @property (nonatomic, strong) NSArray<CityDestinationPoi *> *destinations;
 @property (nonatomic, strong) CityDestinationPoi *fromCity;
 
 @property (nonatomic, strong) NSArray<PTPlanDetailModel *> *plans;
 @property (nonatomic, strong) NSArray<FrendModel *> *takers;  //抢单人
+@property (nonatomic) NSInteger takersCnt;  //抢单人数量
+
 @property (nonatomic, strong) FrendModel *consumer;   //发单人
 
 @property (nonatomic, strong) PTPlanDetailModel *selectPlan;  //已选择的方案

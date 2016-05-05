@@ -34,7 +34,7 @@
     }
     _contentLabel.text = [NSString stringWithFormat:@"[%@] %ld日游 %@", destinationStr, _ptDetailModel.timeCost, ptDetailModel.service];
     _subtitleLabel.text = [NSString stringWithFormat:@"在 %@ 号发布了需求", _ptDetailModel.createTimeStr];
-    _grabNumberLabel.text = [NSString stringWithFormat:@"已有%ld位商家抢单", _ptDetailModel.takers.count];
+    _grabNumberLabel.text = [NSString stringWithFormat:@"已有%ld位商家抢单", _ptDetailModel.takersCnt];
     if (_ptDetailModel.earnestMoney > 0) {
         NSMutableAttributedString *content = [[NSMutableAttributedString alloc] initWithString:[[NSString alloc] initWithFormat:@"定金%ld元 总预算%ld元", (NSInteger)_ptDetailModel.earnestMoney, (NSInteger)_ptDetailModel.budget]];
         [content addAttribute:NSForegroundColorAttributeName value:COLOR_PRICE_RED range:NSMakeRange(2, [[[NSString alloc] initWithFormat:@"%ld", (NSInteger)_ptDetailModel.earnestMoney] length])];

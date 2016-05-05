@@ -16,6 +16,11 @@
         _itemId = [json objectForKey:@"itemId"];
         _service = [json objectForKey:@"service"];
         _topic = [json objectForKey:@"topic"];
+        _status = [json objectForKey:@"status"];
+        if ([_status isEqualToString:@"refundApplied"]) {
+            _hasRequestRefundMoney = YES;
+        }
+        _planPaid = [[json objectForKey:@"schedulePaid"] boolValue];
         _topicList = [_topic componentsSeparatedByString:@","];
         _fromCity = [[CityDestinationPoi alloc] initWithJson:[[json objectForKey:@"departure"] firstObject]];
         _serviceList = [_service componentsSeparatedByString:@","];
@@ -34,12 +39,13 @@
             [array addObject:[[CityDestinationPoi alloc] initWithJson:dic]];
         }
         _destinations = array;
-        
-        _selectPlan = [[PTPlanDetailModel alloc] initWithJson:[json objectForKey:@"schedule"]];
+    
+        id planDic = [json objectForKey:@"scheduled"];
+        _selectPlan = [[PTPlanDetailModel alloc] initWithJson: planDic];
         NSMutableArray *temp = [[NSMutableArray alloc] init];
         for (NSDictionary *dic in [json objectForKey:@"schedules"]) {
             PTPlanDetailModel *model = [[PTPlanDetailModel alloc] initWithJson:dic];
-            if (model.planId == _selectPlan.planId) {
+            if (model.planId == _selectPlan.planId && _planPaid) {
                 model.hasBuy = YES;
             }
             [temp addObject: model];
@@ -51,6 +57,7 @@
             [takers addObject:[[FrendModel alloc] initWithJson:dic]];
         }
         _takers = takers;
+        _takersCnt = [[json objectForKey:@"takersCnt"] integerValue];
         _consumer = [[FrendModel alloc] initWithJson:[json objectForKey:@"consumer"]];
     }
     return self;

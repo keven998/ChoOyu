@@ -69,7 +69,7 @@
     commitButton.layer.cornerRadius = 5.0;
     commitButton.clipsToBounds = YES;
     [commitButton addTarget:self action:@selector(commitPT) forControlEvents:UIControlEventTouchUpInside];
-    [commitButton setTitle:@"提交定制" forState:UIControlStateNormal];
+    [commitButton setTitle:@"下一步" forState:UIControlStateNormal];
     [commitButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [footerView addSubview:commitButton];
     self.tableView.tableFooterView = footerView;

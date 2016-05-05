@@ -84,7 +84,7 @@
     _toolBar.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_toolBar];
     
-    if (_publishUserId == [AccountManager shareAccountManager].account.userId && !_hasBuy) {
+    if (_publishUserId == [AccountManager shareAccountManager].account.userId && !_ptPlanDetail.hasBuy) {
         UIButton *makePTPlanButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 49)];
         [makePTPlanButton setTitle:@"立即支付" forState:UIControlStateNormal];
         [makePTPlanButton setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
@@ -119,6 +119,7 @@
     } else {
         platform = kWeichatPay;
     }
+    [_payDownSheet dismissSheet];
     
     [PersonalTailorManager asyncSelectPlan:_ptPlanDetail.planId withPtId:_ptId completionBlock:^(BOOL isSuccess) {
         if (isSuccess) {
@@ -127,6 +128,7 @@
                     [SVProgressHUD showHint:@"支付成功"];
                     _ptPlanDetail.hasBuy = YES;
                     [self.tableView reloadData];
+                    [self renderToolBar];
                 } else {
                     [SVProgressHUD showHint:@"支付失败"];
                 }
@@ -206,7 +208,7 @@
         contentLabel.text = @"接单人";
     }
     if (section == 1) {
-        if (_hasBuy) {
+        if (_ptPlanDetail.hasBuy) {
             contentLabel.text = @"方案详情  (已支付)";
         } else {
             contentLabel.text = @"方案详情";
