@@ -25,9 +25,16 @@
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) UIView *storeInfoView;
+
 @property (nonatomic, strong) StoreDetailModel *storeDetail;
 @property (nonatomic, strong) StoreDetailHeaderView *storeHeaderView;
 @property (nonatomic, strong) NSArray *dataSource;
+@property (nonatomic, strong) UIButton *switchGoodsButton;
+@property (nonatomic, strong) UIButton *switchPlanButton;
+@property (nonatomic, strong) UIButton *switchStoreInfo;
+@property (nonatomic) NSInteger currentSelectedIndex;
 
 @end
 
@@ -76,6 +83,11 @@
             self.dataSource = goodsList;
         }];
     }];
+    
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 145, kWindowWidth, 0) style:UITableViewStyleGrouped];
+    [_tableView registerNib:[UINib nibWithNibName:@"StorePlanTableViewCell" bundle:nil] forCellReuseIdentifier:@"cell"];
+    _tableView.hidden = YES;
+    [self.scrollView addSubview:_tableView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -106,10 +118,67 @@
 {
     CGFloat height = [StoreDetailHeaderView storeHeaderHeightWithStoreDetail:_storeDetail];
     _storeHeaderView = [[StoreDetailHeaderView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, height)];
-    CGRect frame = self.collectionView.frame;
-    frame.origin.y = height + 10;
-    self.collectionView.frame = frame;
+    
+    UIButton *storeIntroduceButton = [[UIButton alloc] initWithFrame:CGRectMake(0, height+10, kWindowWidth, 40)];
+    [storeIntroduceButton setBackgroundColor:[UIColor whiteColor]];
+    [storeIntroduceButton setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
+    [storeIntroduceButton setTitle:@"店主介绍" forState:UIControlStateNormal];
+    storeIntroduceButton.titleLabel.font = [UIFont systemFontOfSize:16.0];
+    [storeIntroduceButton setContentEdgeInsets:UIEdgeInsetsMake(0, 20, 0, 0)];
+    [storeIntroduceButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+    [self.scrollView addSubview:storeIntroduceButton];
+    
+    height += 60;
+    
+    CGFloat buttonWidth = kWindowWidth/3;
+    _switchGoodsButton = [[UIButton alloc] initWithFrame:CGRectMake(0, height, buttonWidth, 49)];
+    [_switchGoodsButton setTitle:@"在售商品" forState:UIControlStateNormal];
+    [_switchGoodsButton setTitleColor:COLOR_TEXT_I forState:UIControlStateNormal];
+    [_switchGoodsButton setTitleColor:APP_THEME_COLOR forState:UIControlStateSelected];
+    _switchGoodsButton.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    _switchGoodsButton.tag = 0;
+    _switchGoodsButton.selected = YES;
+    [_switchGoodsButton setBackgroundColor:[UIColor whiteColor]];
+    [_switchGoodsButton addTarget:self action:@selector(swithchStoreInfo:) forControlEvents:UIControlEventTouchUpInside];
+    [self.scrollView addSubview:_switchGoodsButton];
+    
+    _switchPlanButton = [[UIButton alloc] initWithFrame:CGRectMake(buttonWidth, height, buttonWidth, 49)];
+    [_switchPlanButton setTitle:@"行程方案" forState:UIControlStateNormal];
+    [_switchPlanButton setTitleColor:COLOR_TEXT_I forState:UIControlStateNormal];
+    [_switchPlanButton setTitleColor:APP_THEME_COLOR forState:UIControlStateSelected];
+    _switchPlanButton.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    _switchPlanButton.tag = 1;
+    [_switchPlanButton setBackgroundColor:[UIColor whiteColor]];
+    [_switchPlanButton addTarget:self action:@selector(swithchStoreInfo:) forControlEvents:UIControlEventTouchUpInside];
+    [self.scrollView addSubview:_switchPlanButton];
+    
+    _switchStoreInfo = [[UIButton alloc] initWithFrame:CGRectMake(buttonWidth *2, height, buttonWidth, 49)];
+    [_switchStoreInfo setTitle:@"店铺详情" forState:UIControlStateNormal];
+    [_switchStoreInfo setTitleColor:COLOR_TEXT_I forState:UIControlStateNormal];
+    [_switchStoreInfo setTitleColor:APP_THEME_COLOR forState:UIControlStateSelected];
+    _switchStoreInfo.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    _switchStoreInfo.tag = 1;
+    [_switchStoreInfo setBackgroundColor:[UIColor whiteColor]];
+    [_switchStoreInfo addTarget:self action:@selector(swithchStoreInfo:) forControlEvents:UIControlEventTouchUpInside];
+    [self.scrollView addSubview:_switchStoreInfo];
+    
     [self.scrollView addSubview:_storeHeaderView];
+    
+    CGRect frame = self.collectionView.frame;
+    frame.origin.y = height + 49;
+    self.collectionView.frame = frame;
+
+}
+
+- (void)swithchStoreInfo:(UIButton *)sender
+{
+    if (sender.tag == _currentSelectedIndex) {
+        return;
+    }
+    _currentSelectedIndex = sender.selected;
+    _collectionView.hidden = _currentSelectedIndex != 0;
+    _tableView.hidden = _currentSelectedIndex != 1;
+    _storeInfoView.hidden = _currentSelectedIndex != 2;
 }
 
 - (void)chatWithBusiness
