@@ -11,6 +11,9 @@
 
 @interface CityPoi : SuperPoi<NSCoding>
 
+@property (nonatomic, copy) NSString *countryId;
+@property (nonatomic, copy) NSString *countryName;
+
 @property (nonatomic, copy) NSString *playGuide;
 @property (nonatomic, copy) NSString *trafficInfoUrl;
 @property (nonatomic, copy) NSString *timeCostDesc;
@@ -24,6 +27,7 @@
 @property (nonatomic, assign) BOOL traveled;
 @property (nonatomic) NSUInteger imageCount;
 @property (nonatomic, strong) NSArray *travelNotes;
+@property (nonatomic, strong) NSArray<NSDictionary *> *remarks;
 @property (nonatomic, strong) RecommendsOfCity *restaurantsOfCity;
 @property (nonatomic, strong) RecommendsOfCity *shoppingOfCity;
 

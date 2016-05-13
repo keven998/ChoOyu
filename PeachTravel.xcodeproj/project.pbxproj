@@ -998,6 +998,7 @@
 		D9A8FFCD1A80D216005AD701 /* HotDestinationCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A8FFC51A80D216005AD701 /* HotDestinationCollectionViewCell.xib */; };
 		D9A8FFCE1A80D216005AD701 /* HotDestinationCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FFC71A80D216005AD701 /* HotDestinationCollectionViewController.m */; };
 		D9A8FFCF1A80D216005AD701 /* RecommendDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FFC91A80D216005AD701 /* RecommendDataSource.m */; };
+		D9A9581C1CE5EF9F00745C99 /* SellerOfCityTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A9581B1CE5EF9F00745C99 /* SellerOfCityTableViewController.m */; };
 		D9A981B019EFB99A00210A1B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9A981AF19EFB99A00210A1B /* CoreData.framework */; };
 		D9AA5B611CA0237C00E75129 /* textfield_bgk@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9AA5B601CA0237C00E75129 /* textfield_bgk@2x.png */; };
 		D9ADFA6B1CB362060010296F /* MakePersonalTailorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9ADFA6A1CB362060010296F /* MakePersonalTailorViewController.m */; };
@@ -3295,6 +3296,8 @@
 		D9A8FFFD1A80D52F005AD701 /* AddPoiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPoiViewController.m; sourceTree = "<group>"; };
 		D9A8FFFE1A80D52F005AD701 /* DestinationsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationsView.h; sourceTree = "<group>"; };
 		D9A8FFFF1A80D52F005AD701 /* DestinationsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationsView.m; sourceTree = "<group>"; };
+		D9A9581A1CE5EF9F00745C99 /* SellerOfCityTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SellerOfCityTableViewController.h; sourceTree = "<group>"; };
+		D9A9581B1CE5EF9F00745C99 /* SellerOfCityTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SellerOfCityTableViewController.m; sourceTree = "<group>"; };
 		D9A981AF19EFB99A00210A1B /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		D9AA5B601CA0237C00E75129 /* textfield_bgk@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "textfield_bgk@2x.png"; sourceTree = "<group>"; };
 		D9ADFA691CB362060010296F /* MakePersonalTailorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakePersonalTailorViewController.h; sourceTree = "<group>"; };
@@ -8013,6 +8016,8 @@
 				D99383781BE9EBA600151974 /* CityDetailViewController.h */,
 				D99383791BE9EBA600151974 /* CityDetailViewController.m */,
 				D993837A1BE9EBA600151974 /* CityDetailViewController.xib */,
+				D9A9581A1CE5EF9F00745C99 /* SellerOfCityTableViewController.h */,
+				D9A9581B1CE5EF9F00745C99 /* SellerOfCityTableViewController.m */,
 			);
 			path = CityDetail;
 			sourceTree = "<group>";
@@ -10811,6 +10816,7 @@
 				D92CA1381AD8BEB400F244FF /* MWZoomingScrollView.m in Sources */,
 				D993C2691B12DF0C0088D568 /* LocationModel.swift in Sources */,
 				C651F3F11B394C8B00B80690 /* GuiderDistributeViewController.m in Sources */,
+				D9A9581C1CE5EF9F00745C99 /* SellerOfCityTableViewController.m in Sources */,
 				E608A1411B8F6F84003BA318 /* CWContainView.m in Sources */,
 				01578E711BD228F200244D9D /* RSADataVerifier.m in Sources */,
 				D9A8FF2B1A80CCA5005AD701 /* AccountManagerViewController.m in Sources */,

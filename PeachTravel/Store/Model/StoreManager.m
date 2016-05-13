@@ -98,6 +98,56 @@
 
 }
 
++ (void)asyncLoadStoreListInCity:(NSString *)cityId completionBlock:(void (^) (BOOL isSuccess, NSArray<StoreDetailModel *>*storeList))completion
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@/sellers", API_GET_CITYDETAIL, cityId];
 
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [LXPNetworking GET:url parameters: nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+    
+        if (code == 0) {
+            NSMutableArray *retList = [[NSMutableArray alloc] init];
+            for (NSDictionary *dic in [[responseObject objectForKey:@"result"] objectForKey:@"sellers"]) {
+                [retList addObject:[[StoreDetailModel alloc] initWithJson:dic]];
+            }
+            completion(YES, retList);
+        } else {
+            completion(NO, nil);
+        }
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        
+        completion(NO, nil);
+    }];
+}
+
++ (void)asyncLoadStoreListInCounrty:(NSString *)countryId completionBlock:(void (^) (BOOL isSuccess, NSArray<StoreDetailModel *>*storeList))completion
+{
+    NSString *url = [NSString stringWithFormat:@"%@app/marketplace/geo/countries/%@/sellers", BASE_URL, countryId];
+    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [LXPNetworking GET:url parameters: nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        
+        if (code == 0) {
+            NSMutableArray *retList = [[NSMutableArray alloc] init];
+            for (NSDictionary *dic in [responseObject objectForKey:@"sellers"]) {
+                [retList addObject:[[StoreDetailModel alloc] initWithJson:dic]];
+            }
+            completion(YES, retList);
+        } else {
+            completion(NO, nil);
+        }
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        
+        completion(NO, nil);
+    }];
+}
 
 @end

@@ -24,6 +24,9 @@
         BusinessMoel *business = [[BusinessMoel alloc] init];
         business.userId = [[json objectForKey:@"sellerId"] integerValue];
         business.nickName = [json objectForKey:@"name"];
+        if ([[json objectForKey:@"user"] objectForKey:@"avatar"] != [NSNull null]) {
+            business.avatar = [[[json objectForKey:@"user"] objectForKey:@"avatar"] objectForKey:@"url"];
+        }
         _business = business;
         NSMutableArray *tempArray = [[NSMutableArray alloc] init];
         for (NSDictionary *dic in [json objectForKey:@"serviceZones"]) {

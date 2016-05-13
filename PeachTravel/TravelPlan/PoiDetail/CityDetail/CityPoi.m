@@ -30,6 +30,7 @@
         _traveled = [[json objectForKey:@"traveled"] boolValue];
         _goodsCount = [[json objectForKey:@"commoditiesCnt"] integerValue];
         _imageCount = [[json objectForKey:@"imageCnt"] integerValue]>100 ? 100:[[json objectForKey:@"imageCnt"] integerValue];
+        _remarks = [json objectForKey:@"remarks"];
     }
     return self;
 }

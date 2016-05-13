@@ -145,7 +145,8 @@
 
 + (void)asyncLoadCitiesOfCountry:(NSString *)countryId completionBlcok:(void (^)(BOOL isSuccess, NSArray *poiList))completion
 {
-    NSDictionary *params = @{@"countryId": countryId};
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params safeSetObject:countryId forKey:@"countryId"];
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [LXPNetworking GET:API_GET_CITIES parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -160,14 +161,11 @@
             completion(YES, retArray);
             
         } else {
-            [SVProgressHUD showHint:HTTP_FAILED_HINT];
             completion(NO, nil);
         }
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [SVProgressHUD showHint:HTTP_FAILED_HINT];
         completion(NO, nil);
-        
     }];
 }
 
@@ -210,7 +208,6 @@
     //获取城市信息
     [LXPNetworking GET:requsetUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        NSLog(@"加载城市详情%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             CityPoi *poi = [[CityPoi alloc] initWithJson:[responseObject objectForKey:@"result"]];

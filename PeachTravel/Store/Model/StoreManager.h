@@ -25,4 +25,21 @@
 //更新商家服务城市
 + (void)asyncUpdateSellerServerCities:(NSArray<CityDestinationPoi *> *)cities completionBlock:(void (^)(BOOL isSuccess))completion;
 
+/**
+ *  获取某个城市的服务商
+ *
+ *  @param cityId
+ *  @param completion
+ */
++ (void)asyncLoadStoreListInCity:(NSString *)cityId completionBlock:(void (^) (BOOL isSuccess, NSArray<StoreDetailModel *>*storeList))completion;
+
+/**
+ *  获取某个国家的服务商
+ *
+ *  @param countryId
+ *  @param completion
+ */
++ (void)asyncLoadStoreListInCounrty:(NSString *)countryId completionBlock:(void (^) (BOOL isSuccess, NSArray<StoreDetailModel *>*storeList))completion;
+
+
 @end
