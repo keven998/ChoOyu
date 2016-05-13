@@ -211,9 +211,10 @@
     id poiModel = [countriesList objectAtIndex:indexPath.row];
     if ([[countriesList objectAtIndex:indexPath.row] isKindOfClass:[CountryModel class]]) {
         CountryModel *countryModel = (CountryModel *)poiModel;
-        CityListViewController *ctl = [[CityListViewController alloc] init];
-        ctl.countryId = countryModel.coutryId;
-        ctl.countryName = countryModel.zhName;
+        CityDetailViewController *ctl = [[CityDetailViewController alloc] init];
+        ctl.cityId = countryModel.coutryId;
+        ctl.cityName = countryModel.zhName;
+        ctl.isCountry = YES;
         [self.navigationController pushViewController:ctl animated:YES];
         
     } else {

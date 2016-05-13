@@ -199,6 +199,35 @@
     }];
 }
 
++ (void)asyncLoadCountryInfo:(NSString *)counrtyId completionBlock:(void (^)(BOOL, CityPoi *))completion
+{
+    NSString *requsetUrl = [NSString stringWithFormat:@"%@/%@", API_GET_COUNTRIES, counrtyId];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSNumber *imageWidth = [NSNumber numberWithInt:kWindowWidth*2];
+    [params setObject:imageWidth forKey:@"imgWidth"];
+    
+    //获取城市信息
+    [LXPNetworking GET:requsetUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSLog(@"加载城市详情%@", responseObject);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            CityPoi *poi = [[CityPoi alloc] initWithJson:[responseObject objectForKey:@"result"]];
+            completion(YES, poi);
+            
+        } else {
+            completion(NO, nil);
+            
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completion(NO, nil);
+        
+    }];
+}
+
+
 
 + (void)searchPoiWithKeyword:(NSString *)keyWord andSearchCount:(NSInteger)count andPoiType:(TZPoiType)poiType completionBlock:(void (^)(BOOL isSuccess, NSArray *searchResultList))completion
 {

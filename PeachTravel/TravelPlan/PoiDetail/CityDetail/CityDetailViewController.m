@@ -41,31 +41,61 @@
     _tableView.separatorColor = COLOR_LINE;
     _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.bounds.size.width, 49)];
     [self.view addSubview:_tableView];
-    [PoiManager asyncLoadCityInfo:_cityId completionBlock:^(BOOL isSuccess, CityPoi *cityDetail) {
-        if (isSuccess) {
-            _poi = cityDetail;
-            self.navigationItem.title = _poi.zhName;
-
-            _headerView = [[CityDetailHeaderView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 355)];
-            _headerView.cityPoi = _poi;
-            _tableView.tableHeaderView = _headerView;
-            _headerView.containerViewController = self;
-            UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewCityAlbumAction)];
-            tapGesture.numberOfTapsRequired = 1;
-            tapGesture.numberOfTouchesRequired = 1;
-            [_headerView.headerImageView addGestureRecognizer:tapGesture];
-        } else {
-        }
-        [GoodsManager asyncLoadGoodsOfCity:_cityId startIndex:0 count:3 completionBlock:^(BOOL isSuccess, NSArray *goodsList) {
+    if (_isCountry) {
+        [PoiManager asyncLoadCountryInfo:_cityId completionBlock:^(BOOL isSuccess, CityPoi *cityDetail) {
             if (isSuccess) {
-                self.dataSource = goodsList;
-                [_tableView reloadData];
+                _poi = cityDetail;
+                self.navigationItem.title = _poi.zhName;
+                
+                _headerView = [[CityDetailHeaderView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 355)];
+                _headerView.cityPoi = _poi;
+                _tableView.tableHeaderView = _headerView;
+                _headerView.containerViewController = self;
+                UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewCityAlbumAction)];
+                tapGesture.numberOfTapsRequired = 1;
+                tapGesture.numberOfTouchesRequired = 1;
+                [_headerView.headerImageView addGestureRecognizer:tapGesture];
             } else {
-                self.dataSource = nil;
             }
+            [GoodsManager asyncLoadGoodsOfCity:_cityId startIndex:0 count:3 completionBlock:^(BOOL isSuccess, NSArray *goodsList) {
+                if (isSuccess) {
+                    self.dataSource = goodsList;
+                    [_tableView reloadData];
+                } else {
+                    self.dataSource = nil;
+                }
+            }];
+            
         }];
-        
-    }];
+
+    } else {
+        [PoiManager asyncLoadCityInfo:_cityId completionBlock:^(BOOL isSuccess, CityPoi *cityDetail) {
+            if (isSuccess) {
+                _poi = cityDetail;
+                self.navigationItem.title = _poi.zhName;
+                
+                _headerView = [[CityDetailHeaderView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 355)];
+                _headerView.cityPoi = _poi;
+                _tableView.tableHeaderView = _headerView;
+                _headerView.containerViewController = self;
+                UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewCityAlbumAction)];
+                tapGesture.numberOfTapsRequired = 1;
+                tapGesture.numberOfTouchesRequired = 1;
+                [_headerView.headerImageView addGestureRecognizer:tapGesture];
+            } else {
+            }
+            [GoodsManager asyncLoadGoodsOfCity:_cityId startIndex:0 count:3 completionBlock:^(BOOL isSuccess, NSArray *goodsList) {
+                if (isSuccess) {
+                    self.dataSource = goodsList;
+                    [_tableView reloadData];
+                } else {
+                    self.dataSource = nil;
+                }
+            }];
+            
+        }];
+
+    }
     
 }
 

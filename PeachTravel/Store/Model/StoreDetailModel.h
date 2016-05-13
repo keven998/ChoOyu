@@ -14,10 +14,14 @@
 
 @property (nonatomic) NSInteger storeId;
 @property (nonatomic, copy) NSString *storeName;
+@property (nonatomic, copy) NSString *storeInfo;
+
 @property (nonatomic, strong) NSArray<NSString *> *languages;      //语言
 @property (nonatomic, strong) NSArray<NSString *> *serviceTags;    //服务标签
 @property (nonatomic, strong) NSArray<NSString *> *qualifications;           //卖家资质 (认证卖家等)
 @property (nonatomic, strong) NSArray<CityDestinationPoi *> *serviceZone;  //服务城市
+
+@property (nonatomic, strong) NSArray<CityDestinationPoi *> *planServiceCities;  //定制服务城市
 
 @property (nonatomic) NSInteger totalOrderCnt;
 @property (nonatomic) float totalSales;

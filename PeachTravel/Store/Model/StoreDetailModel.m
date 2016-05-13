@@ -30,6 +30,13 @@
             [tempArray addObject:[[CityDestinationPoi alloc] initWithJson:dic]];
         }
         _serviceZone = tempArray;
+        
+        NSMutableArray *tempArray2 = [[NSMutableArray alloc] init];
+        for (NSDictionary *dic in [json objectForKey:@"subLocalities"]) {
+            [tempArray2 addObject:[[CityDestinationPoi alloc] initWithJson:dic]];
+        }
+        _planServiceCities = tempArray2;
+
 
         _totalOrderCnt = [[json objectForKey:@"totalOrderCnt"] integerValue];
         _totalSales = [[json objectForKey:@"totalSales"] floatValue];
