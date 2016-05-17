@@ -999,6 +999,8 @@
 		D9A8FFCE1A80D216005AD701 /* HotDestinationCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FFC71A80D216005AD701 /* HotDestinationCollectionViewController.m */; };
 		D9A8FFCF1A80D216005AD701 /* RecommendDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FFC91A80D216005AD701 /* RecommendDataSource.m */; };
 		D9A9581C1CE5EF9F00745C99 /* SellerOfCityTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A9581B1CE5EF9F00745C99 /* SellerOfCityTableViewController.m */; };
+		D9A958201CE9B28900745C99 /* MakePlanSelectDayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A9581E1CE9B28900745C99 /* MakePlanSelectDayViewController.m */; };
+		D9A958211CE9B28900745C99 /* MakePlanSelectDayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A9581F1CE9B28900745C99 /* MakePlanSelectDayViewController.xib */; };
 		D9A981B019EFB99A00210A1B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9A981AF19EFB99A00210A1B /* CoreData.framework */; };
 		D9AA5B611CA0237C00E75129 /* textfield_bgk@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9AA5B601CA0237C00E75129 /* textfield_bgk@2x.png */; };
 		D9ADFA6B1CB362060010296F /* MakePersonalTailorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9ADFA6A1CB362060010296F /* MakePersonalTailorViewController.m */; };
@@ -3298,6 +3300,9 @@
 		D9A8FFFF1A80D52F005AD701 /* DestinationsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationsView.m; sourceTree = "<group>"; };
 		D9A9581A1CE5EF9F00745C99 /* SellerOfCityTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SellerOfCityTableViewController.h; sourceTree = "<group>"; };
 		D9A9581B1CE5EF9F00745C99 /* SellerOfCityTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SellerOfCityTableViewController.m; sourceTree = "<group>"; };
+		D9A9581D1CE9B28900745C99 /* MakePlanSelectDayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakePlanSelectDayViewController.h; sourceTree = "<group>"; };
+		D9A9581E1CE9B28900745C99 /* MakePlanSelectDayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MakePlanSelectDayViewController.m; sourceTree = "<group>"; };
+		D9A9581F1CE9B28900745C99 /* MakePlanSelectDayViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MakePlanSelectDayViewController.xib; sourceTree = "<group>"; };
 		D9A981AF19EFB99A00210A1B /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		D9AA5B601CA0237C00E75129 /* textfield_bgk@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "textfield_bgk@2x.png"; sourceTree = "<group>"; };
 		D9ADFA691CB362060010296F /* MakePersonalTailorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakePersonalTailorViewController.h; sourceTree = "<group>"; };
@@ -8134,6 +8139,9 @@
 				D9A8FFD41A80D52F005AD701 /* Model */,
 				D9A8FFDB1A80D52F005AD701 /* ViewControllers */,
 				D9A8FFE61A80D52F005AD701 /* Views */,
+				D9A9581D1CE9B28900745C99 /* MakePlanSelectDayViewController.h */,
+				D9A9581E1CE9B28900745C99 /* MakePlanSelectDayViewController.m */,
+				D9A9581F1CE9B28900745C99 /* MakePlanSelectDayViewController.xib */,
 			);
 			path = Destination;
 			sourceTree = "<group>";
@@ -10192,6 +10200,7 @@
 				D9A8FF541A80CF19005AD701 /* FavoriteTableViewCell.xib in Resources */,
 				E6F18B1C1B845F4900232EEB /* master_icon_constellation5@3x.png in Resources */,
 				E6F18A811B845F4900232EEB /* speaking-motion12@2x.png in Resources */,
+				D9A958211CE9B28900745C99 /* MakePlanSelectDayViewController.xib in Resources */,
 				E6F18ADB1B845F4900232EEB /* SenderImageNodeBorder_black@2x.png in Resources */,
 				E6F1899C1B845F4900232EEB /* plan_city_footprint@3x.png in Resources */,
 				D9A8011D1A80DD23005AD701 /* call_out_h.png in Resources */,
@@ -10808,6 +10817,7 @@
 				276DF7A91B4CBFBB001A98FB /* GuiderCell.m in Sources */,
 				D9D3AE761BE740EC00F398B8 /* CityListCollectionViewCell.m in Sources */,
 				D9A8013E1A80DD23005AD701 /* EMChatAudioBubbleView.m in Sources */,
+				D9A958201CE9B28900745C99 /* MakePlanSelectDayViewController.m in Sources */,
 				E6E7251E1B5603750007273A /* MJArgument.m in Sources */,
 				D9B408151B6B804C00795EB6 /* HtmlMessage.swift in Sources */,
 				D96BAFF81C1AEAA000CDB7C7 /* QNDns.m in Sources */,

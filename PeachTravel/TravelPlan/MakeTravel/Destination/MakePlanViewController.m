@@ -20,8 +20,9 @@
 #import "AreaDestination.h"
 #import "MakePlanSearchController.h"
 #import "CMPopTipView.h"
+#import "MakePlanSelectDayViewController.h"
 
-@interface MakePlanViewController () <UISearchBarDelegate, UISearchControllerDelegate, UISearchDisplayDelegate, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
+@interface MakePlanViewController () <UISearchBarDelegate, UISearchControllerDelegate, UISearchDisplayDelegate, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UIActionSheetDelegate>
 
 @property (nonatomic, strong) UISearchDisplayController *searchController;
 @property (nonatomic, strong) NSMutableArray *searchResultArray;
@@ -196,6 +197,12 @@
 
 - (void)doMakePlan
 {
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"选择制定方式" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"智能规划行程", @"手动安排行程", nil];
+    [sheet showInView:self.view];
+}
+
+- (void)makeNewPlanAutomic
+{
     TripDetailRootViewController *tripDetailCtl = [[TripDetailRootViewController alloc] init];
     tripDetailCtl.canEdit = YES;
     tripDetailCtl.destinations = self.destinations.destinationsSelected;
@@ -204,15 +211,24 @@
     TripPlanSettingViewController *tpvc = [[TripPlanSettingViewController alloc] init];
     
     
-     REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:tripDetailCtl menuViewController:tpvc];
-     tpvc.rootViewController = tripDetailCtl;
-     frostedViewController.direction = REFrostedViewControllerDirectionRight;
-     frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
-     frostedViewController.liveBlur = YES;
-     frostedViewController.limitMenuViewSize = YES;
+    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:tripDetailCtl menuViewController:tpvc];
+    tpvc.rootViewController = tripDetailCtl;
+    frostedViewController.direction = REFrostedViewControllerDirectionRight;
+    frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
+    frostedViewController.liveBlur = YES;
+    frostedViewController.limitMenuViewSize = YES;
     
     NSMutableArray *ctls = [NSMutableArray arrayWithArray:self.navigationController.childViewControllers];
     [ctls replaceObjectAtIndex:(ctls.count - 1) withObject:frostedViewController];
+    [self.navigationController setViewControllers:ctls animated:YES];
+}
+
+- (void)makeNewPlanByMyself
+{
+    MakePlanSelectDayViewController *ctl = [[MakePlanSelectDayViewController alloc] init];
+    ctl.selectDestinations = _destinations.destinationsSelected;
+    NSMutableArray *ctls = [NSMutableArray arrayWithArray:self.navigationController.childViewControllers];
+    [ctls replaceObjectAtIndex:(ctls.count - 1) withObject:ctl];
     [self.navigationController setViewControllers:ctls animated:YES];
 }
 
@@ -424,6 +440,17 @@
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
     return 14;
+}
+
+#pragma mark - UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        [self makeNewPlanAutomic];
+    } else if (buttonIndex == 1) {
+        [self makeNewPlanByMyself];
+    }
 }
 
 @end

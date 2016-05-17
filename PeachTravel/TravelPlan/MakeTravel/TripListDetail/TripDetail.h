@@ -23,6 +23,8 @@
 @property (nonatomic, strong) NSMutableArray *itineraryList;
 @property (nonatomic, strong) NSMutableArray *shoppingList;
 @property (nonatomic, strong) NSMutableArray *restaurantsList;
+@property (nonatomic, strong) NSMutableArray *localityItems;
+
 @property (nonatomic, strong) NSArray *images;
 @property (nonatomic) NSInteger dayCount;         //行程单一共有几天
 @property (nonatomic, copy) NSString *tripDetailUrl;   //分享用的 url
