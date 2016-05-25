@@ -192,10 +192,9 @@
     tap.numberOfTouchesRequired = 1;
     [_moreView addGestureRecognizer:tap];
     
-    _moreView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
+    _moreView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.7];
     
     UIView *btnBkgView = [[UIView alloc] initWithFrame:CGRectMake(0, -170, frame.size.width, 170)];
-    btnBkgView.backgroundColor = [UIColor whiteColor];
     [_moreView addSubview:btnBkgView];
     [UIView animateWithDuration:0.2 animations:^{
         btnBkgView.frame = CGRectMake(0, 0, frame.size.width, 170);
@@ -223,11 +222,11 @@
     for (int i=0; i<3; i++) {
         TZButton *buttonTop = [[TZButton alloc] initWithFrame:CGRectMake(itemMargin+itemSpace*(i+1)+itemWidth*i, 15, itemWidth, itemHeight)];
         buttonTop.spaceHight = 8;
-        [buttonTop setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
+        [buttonTop setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         buttonTop.titleLabel.font = [UIFont systemFontOfSize:14];
         TZButton *buttonButtom = [[TZButton alloc] initWithFrame:CGRectMake(itemMargin+itemSpace*(i+1)+itemWidth*i, 20+ itemHeight, itemWidth, itemHeight)];
         buttonButtom.spaceHight = 8;
-        [buttonButtom setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
+        [buttonButtom setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         buttonButtom.titleLabel.font = [UIFont systemFontOfSize:14];
         NSString *buttomBtnSelector = [[buttonArray objectAtIndex:i+3] objectForKey:@"selector"];
         [buttonButtom addTarget:self action:NSSelectorFromString(buttomBtnSelector) forControlEvents:UIControlEventTouchUpInside];
@@ -442,7 +441,10 @@
         return _descList.count;
     }
     if (section == 1) {
-        return 1;
+        if (_sellerList.count) {
+            return 1;
+        }
+        return 0;
     }
     if (section == 2) {
         return _dataSource.count;
@@ -616,26 +618,15 @@
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"descCell"];
         if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"descCell"];
-            UIImageView *headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(12, 7.5, 35, 35)];
-            headerImageView.tag = 1000;
-            headerImageView.clipsToBounds = YES;
-            headerImageView.layer.cornerRadius = 17.5;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            [cell addSubview:headerImageView];
-            UILabel *contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 0, kWindowWidth-80, 50)];
+            UILabel *contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(12, 0, kWindowWidth-24, 50)];
             contentLabel.textColor = COLOR_TEXT_I;
             contentLabel.font = [UIFont systemFontOfSize:16.0];
             contentLabel.tag = 1001;
             [cell addSubview:contentLabel];
         }
         UILabel *label;
-        UIImageView *imageView;
-        for (UIView *view in cell.subviews) {
-            if (view.tag == 1000) {
-                imageView = (UIImageView *)view;
-                break;
-            }
-        }
+       
         for (UIView *view in cell.subviews) {
             if (view.tag == 1001) {
                 label = (UILabel *)view;
@@ -644,7 +635,7 @@
         }
         NSDictionary *dic = [_descList objectAtIndex:indexPath.row];
         label.text = [dic objectForKey:@"title"];
-        [imageView sd_setImageWithURL:[NSURL URLWithString:[[dic objectForKey:@"cover"] objectForKey:@"url"]] placeholderImage:nil];
+
         
         return cell;
         
@@ -681,16 +672,29 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 0) {
-        
-    } else if (indexPath.section == 1) {
-        
-    } else {
+        NSDictionary *dic = [_descList objectAtIndex:indexPath.row];
+
+        SuperWebViewController *ctl = [[SuperWebViewController alloc] init];
+        ctl.urlStr = [dic objectForKey:@"url"];
+        ctl.titleStr = [dic objectForKey:@"title"];
+        [self.navigationController pushViewController:ctl animated:YES];
+
+    } else if (indexPath.section == 2) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         GoodsDetailViewController *ctl = [[GoodsDetailViewController alloc] init];
         ctl.hidesBottomBarWhenPushed = YES;
         ctl.goodsId = [_dataSource objectAtIndex:indexPath.row].goodsId;
         [self.navigationController pushViewController:ctl animated:YES];
+        
+    } else if (indexPath.section == 3) {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        CityDetailViewController *ctl = [[CityDetailViewController alloc] init];
+        ctl.cityId = ((CityPoi *)[_cityList objectAtIndex:indexPath.row]).poiId;
+        [self.navigationController pushViewController:ctl animated:YES];
+
+        
     }
     
 }

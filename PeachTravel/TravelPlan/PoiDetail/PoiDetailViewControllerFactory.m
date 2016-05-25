@@ -25,7 +25,7 @@
         retCtl = [[RestaurantDetailViewController alloc] init];
     } else if (poiType == kShoppingPoi) {
         retCtl = [[ShoppingDetailViewController alloc] init];
-    }
+    } 
     
     return retCtl;
 }

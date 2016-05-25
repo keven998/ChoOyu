@@ -72,13 +72,19 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
         _isLoadingMoreNormal = YES;
         _didEndScrollNormal = YES;
         _enableLoadMoreNormal = NO;
-        _currentCategory = @"景点";
     }
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if (_poiType == kHotelPoi) {
+        _currentCategory = @"酒店";
+        _currentListTypeIndex = 3;
+    } else {
+        _currentCategory = @"景点";
+
+    }
     
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height) style:UITableViewStyleGrouped];
     _tableView.delegate  = self;
@@ -117,9 +123,11 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     }
     
     _urlArray = @[API_GET_SPOTLIST_CITY, API_GET_RESTAURANTSLIST_CITY, API_GET_SHOPPINGLIST_CITY, API_GET_HOTELLIST_CITY];
-    
-    _requestUrl =  API_GET_SPOTLIST_CITY;
-    _requestUrl = API_GET_SPOTLIST_CITY;
+    if (_poiType == kHotelPoi) {
+        _requestUrl = API_GET_HOTELLIST_CITY;
+    } else {
+        _requestUrl = API_GET_SPOTLIST_CITY;
+    }
     
     if (_shouldEdit) {
         [self addHeaderView];
@@ -474,7 +482,7 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     [header addSubview:scene];
     
     // 设置分类界面的一些基本属性
-    NSArray * typeArray = @[@"景点",@"美食",@"购物"];
+    NSArray * typeArray = @[@"景点",@"美食",@"购物", @"酒店"];
     UIButton * type = [UIButton buttonWithType:UIButtonTypeCustom];
     type.titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
     self.categoryButton = type;
@@ -553,7 +561,7 @@ static NSString *addPoiCellIndentifier = @"tripPoiListCell";
     self.dropDownMenu = menu;
     
     // 2.设置传入数组
-    NSArray * siteArray = @[@"景点",@"美食",@"购物"];
+    NSArray * siteArray = @[@"景点",@"美食",@"购物", @"酒店"];
     
     // 3.设置内容
     DropDownViewController *vc = [[DropDownViewController alloc] init];

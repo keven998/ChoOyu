@@ -51,14 +51,13 @@
     TZPoiType poiType = 0;
     if ([poiTypeDesc isEqualToString:@"locality"]) {
         poiType = kCityPoi;
-    }
-    if ([poiTypeDesc isEqualToString:@"vs"]) {
+    } else if ([poiTypeDesc isEqualToString:@"vs"]) {
         poiType = kSpotPoi;
-    }if ([poiTypeDesc isEqualToString:@"restaurant"]) {
+    } else if ([poiTypeDesc isEqualToString:@"restaurant"]) {
         poiType = kRestaurantPoi;
-    }if ([poiTypeDesc isEqualToString:@"shopping"]) {
+    } else if ([poiTypeDesc isEqualToString:@"shopping"]) {
         poiType = kShoppingPoi;
-    }if ([poiTypeDesc isEqualToString:@"hotel"]) {
+    }else if ([poiTypeDesc isEqualToString:@"hotel"]) {
         poiType = kHotelPoi;
     }
     return [PoiFactory poiWithPoiType:poiType andJson:json];

@@ -33,6 +33,9 @@
     if ([_delegate respondsToSelector:@selector(updateSelectCount:)]) {
         [_delegate updateSelectCount:_count];
     }
+    if ([_delegate respondsToSelector:@selector(updateSelectCount: andIndex:)]) {
+        [_delegate updateSelectCount:_count andIndex:_countLabel.tag];
+    }
 }
 
 - (void)deleteNumber:(UIButton *)btn
@@ -42,6 +45,9 @@
     }
     if ([_delegate respondsToSelector:@selector(updateSelectCount:)]) {
         [_delegate updateSelectCount:_count];
+    }
+    if ([_delegate respondsToSelector:@selector(updateSelectCount: andIndex:)]) {
+        [_delegate updateSelectCount:_count andIndex:_countLabel.tag];
     }
 }
 

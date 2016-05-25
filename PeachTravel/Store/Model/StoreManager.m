@@ -109,10 +109,16 @@
     
         if (code == 0) {
             NSMutableArray *retList = [[NSMutableArray alloc] init];
-            for (NSDictionary *dic in [[responseObject objectForKey:@"result"] objectForKey:@"sellers"]) {
-                [retList addObject:[[StoreDetailModel alloc] initWithJson:dic]];
+            if ([responseObject objectForKey:@"result"] != [NSNull null]) {
+                for (NSDictionary *dic in [[responseObject objectForKey:@"result"] objectForKey:@"sellers"]) {
+                    [retList addObject:[[StoreDetailModel alloc] initWithJson:dic]];
+                }
+                completion(YES, retList);
+            } else {
+                completion(NO, nil);
+
             }
-            completion(YES, retList);
+           
         } else {
             completion(NO, nil);
         }

@@ -32,6 +32,8 @@
 #import "CMPopTipView.h"
 #import "MapMarkMenuVC.h"
 #import "REFrostedViewController.h"
+#import "ScheduleEditorViewController.h"
+#import "ScheduleDayEditViewController.h"
 
 @interface TripDetailRootViewController () <ActivityDelegate, TaoziMessageSendDelegate, ChatRecordListDelegate, CreateConversationDelegate, UIActionSheetDelegate, REFrostedViewControllerDelegate>
 
@@ -75,7 +77,6 @@
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
     self.automaticallyAdjustsScrollViewInsets = NO;
-    [self.view addSubview:self.segmentedControl];
     
     [self setupViewControllers];
     [self setNavigationItems];
@@ -100,7 +101,7 @@
                 });
             }];
         } else {
-            [self loadNewTripDataWithRecommendData:YES];
+            [self loadNewTripDataWithRecommendData:_isNeedRecommend];
         }
 
     }
@@ -158,8 +159,16 @@
         _editBtn.selected = YES;
         self.frostedViewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_editBtn];
         self.frostedViewController.navigationItem.leftBarButtonItems = nil;
+        
     } else {
         NSMutableArray *barItems = [[NSMutableArray alloc] init];
+        
+        UIButton *editButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+        [editButton setImage:[UIImage imageNamed:@"iconfont_qiehuan_2.png"] forState:UIControlStateNormal];
+        editButton.imageEdgeInsets = UIEdgeInsetsMake(0, 4, 0, 0);
+        [editButton addTarget:self action:@selector(editTripDetail:) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem *editButtonItem = [[UIBarButtonItem alloc]initWithCustomView:editButton];
+        
         _moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 44)];
         [_moreBtn setImage:[UIImage imageNamed:@"icon_navi_white_menu.png"] forState:UIControlStateNormal];
         _moreBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 4, 0, 0);
@@ -167,11 +176,8 @@
         UIBarButtonItem *barItem = [[UIBarButtonItem alloc]initWithCustomView:_moreBtn];
         [barItems addObject: barItem];
         
-        UIButton *mapBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 44)];
-        [mapBtn setImage:[UIImage imageNamed:@"icon_navigation_map.png"] forState:UIControlStateNormal];
-        [mapBtn addTarget:self action:@selector(mapView) forControlEvents:UIControlEventTouchUpInside];
-        mapBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 2);
-        [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:mapBtn]];
+        [barItems addObject:editButtonItem];
+
         
         self.frostedViewController.navigationItem.rightBarButtonItems = barItems;
         
@@ -278,15 +284,6 @@
     }];
 }
 
-- (void)mapView {
-    MyTripSpotsMapViewController *mapViewCtl = [[MyTripSpotsMapViewController alloc] init];
-    mapViewCtl.tripDetail = _tripDetail;
-    mapViewCtl.titleText = self.frostedViewController.navigationItem.title;
-
-    [self.frostedViewController.navigationController pushViewController:mapViewCtl animated:YES];
-    
-}
-
 - (void)dismissCtl
 {
     if (self.frostedViewController.navigationController.childViewControllers.count > 1) {
@@ -316,6 +313,22 @@
     [params setObject:[NSNumber numberWithBool: isNeedRecommend] forKey:@"initViewSpots"];
     [params setObject:@"create" forKey:@"action"];
     
+    if (!isNeedRecommend) {
+        NSMutableArray *items = [[NSMutableArray alloc] init];
+        for (CityDestinationPoi *poi in _localityItems) {
+            NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+            NSInteger index = [_localityItems indexOfObject:poi];
+            [dic setObject:[NSNumber numberWithInteger:index] forKey:@"dayIndex"];
+            NSMutableDictionary *poiDic = [[NSMutableDictionary alloc] init];
+            [poiDic safeSetObject:poi.cityId forKey:@"id"];
+            [poiDic safeSetObject:poi.zhName forKey:@"zhName"];
+            [poiDic safeSetObject:poi.enName forKey:@"enName"];
+            [dic setObject:poiDic forKey:@"locality"];
+            [items addObject:dic];
+        }
+        [params setObject:items forKey:@"localityItems"];
+
+    }
     [params setObject:cityIds forKey:@"locId"];
     
     __weak typeof(TripDetailRootViewController *)weakSelf = self;
@@ -476,6 +489,20 @@
     
     [self.frostedViewController.view endEditing:YES];
     [self.frostedViewController presentMenuViewController];
+}
+
+- (void)editTripDetail:(id)sender
+{
+    ScheduleEditorViewController *sevc = [[ScheduleEditorViewController alloc] init];
+    ScheduleDayEditViewController *menuCtl = [[ScheduleDayEditViewController alloc] init];
+    sevc.tripDetail = _tripDetail;
+    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:sevc menuViewController:menuCtl];
+    frostedViewController.direction = REFrostedViewControllerDirectionLeft;
+    frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
+    frostedViewController.liveBlur = YES;
+    frostedViewController.limitMenuViewSize = YES;
+    [self.frostedViewController.navigationController pushViewController:frostedViewController animated:YES];
+    
 }
 
 /**
@@ -693,13 +720,11 @@
     _spotsListCtl = [[PlanScheduleViewController alloc] init];
     _tripFavoriteCtl = [[TripFavoriteTableViewController alloc] init];
     _tripFavoriteCtl.canEdit = _canEdit;
-    [_spotsListCtl.view setFrame:CGRectMake(0, 44+64, CGRectGetWidth(self.frostedViewController.view.bounds), CGRectGetHeight(self.frostedViewController.view.bounds)-44-64-49)];
-    [_tripFavoriteCtl.view setFrame:CGRectMake(0, 44+64, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds)-44-64)];
+    [_spotsListCtl.view setFrame:CGRectMake(0, 0, CGRectGetWidth(self.frostedViewController.view.bounds), CGRectGetHeight(self.frostedViewController.view.bounds))];
     [self addChildViewController:_spotsListCtl];
     [self.view addSubview:_spotsListCtl.view];
     
     [array addObject:_spotsListCtl];
-    [array addObject:_tripFavoriteCtl];
     _tabbarPageControllerArray = array;
 
     _currentViewController = _spotsListCtl;

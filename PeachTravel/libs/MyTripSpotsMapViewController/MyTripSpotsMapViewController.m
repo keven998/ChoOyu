@@ -54,7 +54,11 @@
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(0, 0, 64, 28);
-    [btn setTitle:@"01.Day" forState:UIControlStateNormal];
+    if (_currentDay > 9) {
+        [btn setTitle:[NSString stringWithFormat:@"%ld.Day",_currentDay + 1]  forState:UIControlStateNormal];
+    }else{
+        [btn setTitle:[NSString stringWithFormat:@"0%ld.Day",_currentDay + 1]  forState:UIControlStateNormal];
+    }
     btn.layer.borderWidth = 1.0;
     btn.layer.cornerRadius = 3.0;
     btn.layer.borderColor = [UIColor whiteColor].CGColor;

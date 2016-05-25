@@ -207,7 +207,7 @@
     tripDetailCtl.canEdit = YES;
     tripDetailCtl.destinations = self.destinations.destinationsSelected;
     tripDetailCtl.isMakeNewTrip = YES;
-    
+    tripDetailCtl.isNeedRecommend = YES;
     TripPlanSettingViewController *tpvc = [[TripPlanSettingViewController alloc] init];
     
     

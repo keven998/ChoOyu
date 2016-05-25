@@ -51,7 +51,7 @@
     _progressProxy.progressDelegate = self;
     self.webView.delegate = _progressProxy;
     CGFloat progressBarHeight = 3.0f;
-    
+    NSLog(@"urlStr %@", _urlStr);
     self.webView.dataDetectorTypes = UIDataDetectorTypeNone;
     CGRect navigaitonBarBounds = self.navigationController.navigationBar.bounds;
     CGRect barFrame = CGRectMake(0, navigaitonBarBounds.size.height - progressBarHeight, navigaitonBarBounds.size.width, progressBarHeight);

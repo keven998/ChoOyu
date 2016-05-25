@@ -109,6 +109,7 @@
     [super viewWillDisappear:animated];
 }
 
+
 - (void)setTripDetail:(TripDetail *)tripDetail
 {
     _tripDetail = tripDetail;
@@ -118,17 +119,18 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)addOneDay:(id)sender
 {
     [_backupTrip.itineraryList addObject:[[NSMutableArray alloc] init]];
+    [_backupTrip.travelNoteItems addObject:[[NSMutableArray alloc] init]];
+    [_backupTrip.trafficItems addObject:[[NSMutableArray alloc] init]];
+
     NSIndexSet *set = [NSIndexSet indexSetWithIndex:_backupTrip.itineraryList.count-1];
     [self.tableView insertSections:set withRowAnimation:UITableViewRowAnimationAutomatic];
     CGPoint offset = CGPointMake(0, self.tableView.contentSize.height - self.tableView.frame.size.height);
     [self.tableView setContentOffset:offset animated:YES];
-
 }
 
 - (void)editDay:(id)sender
@@ -366,7 +368,11 @@
     [_tripDetail saveTrip:^(BOOL isSuccesss) {
         if (isSuccesss) {
             _backupTrip = [_tripDetail backUpTrip];
-            [self.frostedViewController.navigationController popViewControllerAnimated:YES];
+            if (self.navigationController.viewControllers.count == 1) {
+                [self dismissViewControllerAnimated:YES completion:nil];
+            } else {
+                [self.frostedViewController.navigationController popViewControllerAnimated:YES];
+            }
         } else {
             _tripDetail.itineraryList = backItineraryList;
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"保存失败，请检查你的网络设置" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
@@ -381,11 +387,19 @@
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"是否放弃修改直接返回" delegate:self cancelButtonTitle:@"直接返回" otherButtonTitles:@"取消", nil];
         [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
             if (buttonIndex == 0) {
-                [self.frostedViewController.navigationController popViewControllerAnimated:YES];
+                if (self.navigationController.viewControllers.count == 1) {
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                } else {
+                    [self.frostedViewController.navigationController popViewControllerAnimated:YES];
+                }
             }
         }];
     } else {
-        [self.frostedViewController.navigationController popViewControllerAnimated:YES];
+        if (self.navigationController.viewControllers.count == 1) {
+            [self dismissViewControllerAnimated:YES completion:nil];
+        } else {
+            [self.frostedViewController.navigationController popViewControllerAnimated:YES];
+        }
     }
 }
 

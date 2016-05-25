@@ -37,8 +37,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _currentSelectIndex = -1;
-    _menuTitles = @[@"热门", @"亚洲", @"北美", @"南美", @"欧洲", @"非洲", @"大洋洲"];
-    _continentCodes = @[[NSNumber numberWithInteger:kRECOM], [NSNumber numberWithInteger:kAS], [NSNumber numberWithInteger:kNA], [NSNumber numberWithInteger:kSA], [NSNumber numberWithInteger:kEU], [NSNumber numberWithInteger:kAF], [NSNumber numberWithInteger:kOC]];
+    _menuTitles = @[@"亚洲", @"北美", @"南美", @"欧洲", @"非洲", @"大洋洲"];
+    _continentCodes = @[[NSNumber numberWithInteger:kAS], [NSNumber numberWithInteger:kNA], [NSNumber numberWithInteger:kSA], [NSNumber numberWithInteger:kEU], [NSNumber numberWithInteger:kAF], [NSNumber numberWithInteger:kOC]];
     
     NSMutableArray *tempArray = [[NSMutableArray alloc] init];
     for (int i = 0; i<_menuTitles.count; i++) {
@@ -253,19 +253,11 @@
     [_currentSelectedBtn setTitle:[_menuTitles objectAtIndex:tag] forState:UIControlStateNormal];
     NSMutableArray *countriesList = [_dataSource objectAtIndex:tag];
     if (countriesList.count == 0) {
-        if (_currentSelectIndex == 0) {
-           [PoiManager asyncLoadRecommendCitiesWithCompletionBlcok:^(BOOL isSuccess, NSArray *cityList) {
-               [countriesList removeAllObjects];
-               [countriesList addObjectsFromArray:cityList];
-               [_tableView reloadData];
-           }];
-        } else {
-            [PoiManager asyncLoadRecommendCountriesWithContinentCode:[[_continentCodes objectAtIndex:tag] integerValue] completionBlcok:^(BOOL isSuccess, NSArray *poiList) {
-                [countriesList removeAllObjects];
-                [countriesList addObjectsFromArray:poiList];
-                [_tableView reloadData];
-            }];
-        }
+        [PoiManager asyncLoadRecommendCountriesWithContinentCode:[[_continentCodes objectAtIndex:tag] integerValue] completionBlcok:^(BOOL isSuccess, NSArray *poiList) {
+            [countriesList removeAllObjects];
+            [countriesList addObjectsFromArray:poiList];
+            [_tableView reloadData];
+        }];
     }
     [_tableView reloadData];
 }

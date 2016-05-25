@@ -15,6 +15,9 @@
 @interface MakePlanSelectDayViewController () <UITableViewDelegate, UITableViewDataSource, MakeOrderSelectCountDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+@property (strong, nonatomic) NSMutableArray *destinationDayCount;
+
 @end
 
 @implementation MakePlanSelectDayViewController
@@ -34,6 +37,10 @@
     
     UIBarButtonItem *rbi = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(makePlan)];
     self.navigationItem.rightBarButtonItem = rbi;
+    _destinationDayCount = [[NSMutableArray alloc] init];
+    for (int i=0; i<_selectDestinations.count; i++) {
+        [_destinationDayCount addObject:[NSNumber numberWithInteger:1]];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -46,9 +53,27 @@
     tripDetailCtl.canEdit = YES;
     tripDetailCtl.destinations = self.selectDestinations;
     tripDetailCtl.isMakeNewTrip = YES;
+    tripDetailCtl.isNeedRecommend = NO;
     
+    
+    NSMutableArray *locatlityItems = [[NSMutableArray alloc] init];
+    int index = 0;
+    for (NSNumber *number in _destinationDayCount) {
+        
+        CityDestinationPoi *poi = [_selectDestinations objectAtIndex:index];
+        for (int i=0; i<[number integerValue]; i++) {
+            CityDestinationPoi *newPoi = [[CityDestinationPoi alloc] init];
+            newPoi.cityId = poi.cityId;
+            newPoi.zhName = poi.zhName;
+            newPoi.enName = poi.enName;
+            [locatlityItems addObject:newPoi];
+        }
+        index++;
+    }
+    
+    tripDetailCtl.localityItems = locatlityItems;
+
     TripPlanSettingViewController *tpvc = [[TripPlanSettingViewController alloc] init];
-    
     
     REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:tripDetailCtl menuViewController:tpvc];
     tpvc.rootViewController = tripDetailCtl;
@@ -88,12 +113,13 @@
     cell.delegate = self;
     CityDestinationPoi *poi = [_selectDestinations objectAtIndex:indexPath.row];
     cell.titleLabel.text = poi.zhName;
+    cell.countLabel.tag = indexPath.row;
     return cell;
 }
 
-- (void)updateSelectCount:(NSInteger)count
+- (void)updateSelectCount:(NSInteger)count andIndex:(NSInteger)index
 {
-    
+    [_destinationDayCount replaceObjectAtIndex:index withObject:[NSNumber numberWithInteger:count]];
 }
 
 @end

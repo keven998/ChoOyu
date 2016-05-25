@@ -309,6 +309,7 @@
     taoziMessageCtl.messageImage = image.imageUrl;
     taoziMessageCtl.messageTimeCost = [NSString stringWithFormat:@"%ld天", (long)self.tripDetail.dayCount];
 }
+
 #pragma mark - TaoziMessageSendDelegate
 
 //用户确定发送景点给朋友

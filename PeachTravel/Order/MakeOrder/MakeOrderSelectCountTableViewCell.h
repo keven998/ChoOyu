@@ -13,6 +13,8 @@
 @optional
 - (void)updateSelectCount:(NSInteger)count;
 
+- (void)updateSelectCount:(NSInteger)count andIndex:(NSInteger)index;
+
 @end
 
 @interface MakeOrderSelectCountTableViewCell : UITableViewCell

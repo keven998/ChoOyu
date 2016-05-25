@@ -24,6 +24,8 @@
 @property (nonatomic, strong) NSMutableArray *shoppingList;
 @property (nonatomic, strong) NSMutableArray *restaurantsList;
 @property (nonatomic, strong) NSMutableArray *localityItems;
+@property (nonatomic, strong) NSMutableArray *trafficItems;
+@property (nonatomic, strong) NSMutableArray *travelNoteItems;
 
 @property (nonatomic, strong) NSArray *images;
 @property (nonatomic) NSInteger dayCount;         //行程单一共有几天

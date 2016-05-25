@@ -16,6 +16,9 @@
 @property (nonatomic, strong) TripDetail *tripDetail;
 @property (nonatomic, strong) NSArray *destinations;
 
+@property (nonatomic, strong) NSArray *localityItems;
+
+
 @property (nonatomic, weak) id<TripUpdateDelegate> contentMgrDelegate;
 
 //编辑按钮
@@ -25,6 +28,8 @@
  *  进入三账单会有两种情况，一种是传目的地列表新制作攻略，另一种是传攻略 id 来查看攻略
  */
 @property (nonatomic, assign) BOOL isMakeNewTrip;
+
+@property (nonatomic) BOOL isNeedRecommend;   //是否需要推荐攻略
 
 //从城市的攻略列表点击进入，查看城市的攻略详情
 @property (nonatomic) BOOL isCheckPlanFromCityDetail;

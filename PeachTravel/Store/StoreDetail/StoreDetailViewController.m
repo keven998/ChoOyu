@@ -269,7 +269,7 @@
     offsetY += 25;
     
     UILabel *itemLabel4 = [[UILabel alloc] initWithFrame:CGRectMake(12, offsetY, 60, 20)];
-    itemLabel4.text = @"纠纷数";
+    itemLabel4.text = @"处罚数";
     itemLabel4.textColor = COLOR_TEXT_II;
     itemLabel4.font = [UIFont systemFontOfSize:15.0];
     [_storeInfoView addSubview:itemLabel4];

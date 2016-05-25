@@ -27,6 +27,7 @@
  */
 @property (nonatomic) BOOL shouldOnlyChangeDestinationWhenClickNextStep;
 
+
 - (void)hideDestinationBar;
 - (void)showDestinationBar;
 

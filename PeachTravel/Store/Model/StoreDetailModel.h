@@ -24,6 +24,12 @@
 @property (nonatomic, strong) NSArray<CityDestinationPoi *> *planServiceCities;  //定制服务城市
 
 @property (nonatomic) NSInteger totalOrderCnt;
+
+@property (nonatomic) NSInteger refundCnt;
+@property (nonatomic) float disputeRate;
+@property (nonatomic) NSInteger lastRefundCnt;
+@property (nonatomic) float lastDisputeCnt;
+
 @property (nonatomic) float totalSales;
 @property (nonatomic, copy, readonly) NSString *formatTotalSales;
 

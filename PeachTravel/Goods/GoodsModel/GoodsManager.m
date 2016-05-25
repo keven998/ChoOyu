@@ -89,7 +89,7 @@
     [self asyncLoadGoodsOfCity:cityId category:category sortBy:sortType sortValue:sortType startIndex:0 count:15 completionBlock:completion];
 }
 
-+ (void)asyncLoadGoodsOfCity:(NSString *)cityId category:(NSString *)category sortBy:(NSString *)sortType sortValue:(NSString *)sortValue startIndex:(NSInteger)startIndex count:(NSUInteger)count completionBlock:(void (^)(BOOL, NSArray *))completion;
++ (void)asyncLoadGoodsOfCity:(NSString *)cityId category:(NSString *)category sortBy:(NSString *)sortType sortValue:(NSString *)sortValue startIndex:(NSInteger)startIndex count:(NSInteger)count completionBlock:(void (^)(BOOL, NSArray *))completion;
 {
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:cityId forKey:@"locality"];
@@ -123,7 +123,7 @@
     }];
 }
 
-+ (void)asyncLoadGoodsOfStore:(NSInteger)storeId startIndex:(NSInteger)startIndex count:(NSUInteger)count completionBlock:(void (^)(BOOL, NSArray *))completion
++ (void)asyncLoadGoodsOfStore:(NSInteger)storeId startIndex:(NSInteger)startIndex count:(NSInteger)count completionBlock:(void (^)(BOOL, NSArray *))completion
 {
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:[NSNumber numberWithInteger:storeId] forKey:@"seller"];
