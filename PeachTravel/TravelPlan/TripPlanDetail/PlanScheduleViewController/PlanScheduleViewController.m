@@ -88,6 +88,21 @@
     [self.tripDetail.travelNoteItems addObject:[[NSMutableArray alloc] init]];
     [self.tripDetail.trafficItems addObject:[[NSMutableArray alloc] init]];
     [self.tripDetail.localityItems addObject:destinations];
+    NSMutableArray *tempArray = [[NSMutableArray alloc] initWithArray:self.tripDetail.destinations];
+    for (CityDestinationPoi *poi in destinations) {
+        BOOL find = NO;
+        for (CityDestinationPoi *poi1 in _tripDetail.destinations) {
+            if ([poi.cityId isEqualToString:poi1.cityId]) {
+                find = YES;
+                break;
+            }
+        }
+        if (!find) {
+            [tempArray addObject:poi];
+        }
+    }
+    
+    self.tripDetail.destinations = tempArray;
     [_tripDetail saveTrip:^(BOOL isSuccesss) {
         if (!isSuccesss) {
             

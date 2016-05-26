@@ -88,7 +88,13 @@
 - (void)selectAction:(UIButton *)sender
 {
     if (sender.selected) {
-        [self.selectContentList removeObjectAtIndex:sender.tag];
+        for (NSString *str in self.selectContentList) {
+            NSString *content = [_dataSource objectAtIndex:sender.tag];
+            if ([content isEqualToString:str]) {
+                [self.selectContentList removeObject:str];
+                break;
+            }
+        }
     } else {
         [self.selectContentList addObject:[_dataSource objectAtIndex:sender.tag]];
     }

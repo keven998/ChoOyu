@@ -12,7 +12,7 @@
 
 @interface PersonalTailorManager : NSObject
 
-+ (void)asyncLoadPTServerCountWithCompletionBlock:(void (^) (BOOL isSuccess, NSInteger count))completion;
++ (void)asyncLoadPTServerCountWithCompletionBlock:(void (^) (BOOL isSuccess, NSDictionary *retData))completion;
 
 + (void)asyncLoadRecommendPersonalTailorDataWithStartIndex:(NSInteger)index pageCount:(NSInteger)count completionBlock:(void (^) (BOOL isSuccess, NSArray<PTDetailModel *> *resultList))completion;
 

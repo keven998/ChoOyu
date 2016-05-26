@@ -18,6 +18,8 @@
 @interface PTHomeViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) UIImageView *headerImageView;
+
 @property (nonatomic, strong) NSArray<PTDetailModel *> *dataSource;
 @property (nonatomic, strong) UILabel *ptNumberLabel;
 
@@ -43,9 +45,8 @@
     contentBg.backgroundColor = [UIColor whiteColor];
     [headerView addSubview:contentBg];
     
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 150)];
-    imageView.image = [UIImage imageNamed:@"icon_pt_bg.png"];
-    [headerView addSubview:imageView];
+    _headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 150)];
+    [headerView addSubview:_headerImageView];
     
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 150)];
     titleLabel.textColor = [UIColor whiteColor];
@@ -81,10 +82,13 @@
             [self.tableView reloadData];
         }
     }];
-    [PersonalTailorManager asyncLoadPTServerCountWithCompletionBlock:^(BOOL isSuccess, NSInteger count) {
+    [PersonalTailorManager asyncLoadPTServerCountWithCompletionBlock:^(BOOL isSuccess, NSDictionary *retData) {
+        NSInteger count = [[retData objectForKey:@"serviceCnt"] integerValue];
+        NSString *cover = [retData objectForKey:@"cover"];
         if (count > 0) {
             _ptNumberLabel.text = [NSString stringWithFormat:@"已为%ld位旅行者提供了定制服务", count];
         }
+        [_headerImageView sd_setImageWithURL:[NSURL URLWithString:cover] placeholderImage:[UIImage imageNamed:@"icon_pt_bg.png"]];
     }];
     
     self.tableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
@@ -116,10 +120,13 @@
             [self.tableView reloadData];
         }
     }];
-    [PersonalTailorManager asyncLoadPTServerCountWithCompletionBlock:^(BOOL isSuccess, NSInteger count) {
+    [PersonalTailorManager asyncLoadPTServerCountWithCompletionBlock:^(BOOL isSuccess, NSDictionary *retData) {
+        NSInteger count = [[retData objectForKey:@"serviceCnt"] integerValue];
+        NSString *cover = [retData objectForKey:@"cover"];
         if (count > 0) {
             _ptNumberLabel.text = [NSString stringWithFormat:@"已为%ld位旅行者提供了定制服务", count];
         }
+        [_headerImageView sd_setImageWithURL:[NSURL URLWithString:cover] placeholderImage:[UIImage imageNamed:@"icon_pt_bg.png"]];
     }];
     [_tableView.header endRefreshing];
 }

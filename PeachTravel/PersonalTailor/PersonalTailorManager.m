@@ -10,21 +10,20 @@
 
 @implementation PersonalTailorManager
 
-+ (void)asyncLoadPTServerCountWithCompletionBlock:(void (^) (BOOL isSuccess, NSInteger count))completion
++ (void)asyncLoadPTServerCountWithCompletionBlock:(void (^) (BOOL isSuccess, NSDictionary *retData))completion
 {
     NSString *url = [NSString stringWithFormat:@"%@marketplace/bounties/cnt", BASE_URL];
     
     [LXPNetworking GET:url parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         NSInteger result = [[responseObject objectForKey:@"code"] integerValue];
         if (result == 0) {
-            
-            completion(YES, [[[responseObject objectForKey:@"result"] objectForKey:@"serviceCnt"] integerValue]);
+            completion(YES, [responseObject objectForKey:@"result"]);
         } else {
-            completion(NO, 0);
+            completion(NO, nil);
         }
         
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
-        completion(NO, 0);
+        completion(NO, nil);
     }];
 }
 
